@@ -1,0 +1,1222 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots Components/Task Duration Table Default 1`] = `
+<div
+  className="css-us4ua-TableWrapper e1k6n0sw2"
+>
+  <div
+    className="leafygreen-ui-nqkcdc"
+  >
+    <div
+      className="leafygreen-ui-17brm59"
+    />
+    <div
+      className="leafygreen-ui-11dcrjd"
+    />
+    <div
+      className="leafygreen-ui-phzgpi"
+      onScroll={[Function]}
+    >
+      <table
+        cellPadding="0"
+        cellSpacing="0"
+        className="leafygreen-ui-7u661v"
+      >
+        <thead>
+          <tr
+            data-testid="leafygreen-ui-header-row"
+          >
+            <th
+              aria-sort="none"
+              className="css-175ua20-StyledTableHeader e1k6n0sw1 leafygreen-ui-mxd9tl"
+              role="columnheader"
+              scope="col"
+            >
+              <div
+                className="leafygreen-ui-1mwn02k"
+              >
+                <span
+                  className="leafygreen-ui-nem3xz"
+                >
+                  <div
+                    className="css-558dsl-TableHeaderLabel e1k6n0sw0"
+                  >
+                    Task Name
+                    <div
+                      className="css-1g8yf9b-Wrapper e1umzslw0"
+                    >
+                      <button
+                        aria-disabled={false}
+                        aria-label="Table Search Popover Icon"
+                        className="leafygreen-ui-6obv0c"
+                        data-cy="task-name-filter-popover"
+                        onClick={[Function]}
+                        tabIndex={0}
+                      >
+                        <div
+                          className="leafygreen-ui-xhlipt"
+                        >
+                          <svg
+                            aria-label="Magnifying Glass Icon"
+                            className=""
+                            color="#3D4F58"
+                            fill="none"
+                            height={16}
+                            role="img"
+                            small="xsmall"
+                            viewBox="0 0 16 16"
+                            width={16}
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clipRule="evenodd"
+                              d="M2.323 9.819a5.302 5.302 0 006.463.805l4.144 4.144a1.3 1.3 0 101.838-1.838l-4.144-4.144a5.302 5.302 0 00-8.3-6.463 5.3 5.3 0 000 7.496zM7.98 4.162A2.7 2.7 0 114.162 7.98 2.7 2.7 0 017.98 4.162z"
+                              fill="currentColor"
+                              fillRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </th>
+            <th
+              aria-sort="none"
+              className="css-175ua20-StyledTableHeader e1k6n0sw1 leafygreen-ui-mxd9tl"
+              role="columnheader"
+              scope="col"
+            >
+              <div
+                className="leafygreen-ui-1mwn02k"
+              >
+                <span
+                  className="leafygreen-ui-nem3xz"
+                >
+                  <div
+                    className="css-558dsl-TableHeaderLabel e1k6n0sw0"
+                  >
+                    Status
+                    <div
+                      className="css-1g8yf9b-Wrapper e4jpuf00"
+                    >
+                      <button
+                        aria-disabled={false}
+                        aria-label="Table Filter Popover Icon"
+                        className="leafygreen-ui-6obv0c"
+                        data-cy="status-filter-popover"
+                        onClick={[Function]}
+                        tabIndex={0}
+                      >
+                        <div
+                          className="leafygreen-ui-xhlipt"
+                        >
+                          <svg
+                            aria-label="Filter Icon"
+                            className=""
+                            color="#3D4F58"
+                            fill="none"
+                            height={16}
+                            role="img"
+                            small="xsmall"
+                            viewBox="0 0 16 16"
+                            width={16}
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clipRule="evenodd"
+                              d="M6 6.148l-3.8-3.94C1.797 1.79 2.044 1 2.576 1h10.848c.532 0 .779.79.377 1.208L10 6.148v5.625a.5.5 0 01-.17.376l-3 2.625a.5.5 0 01-.83-.376v-8.25z"
+                              fill="currentColor"
+                              fillRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </th>
+            <th
+              aria-sort="none"
+              className="css-175ua20-StyledTableHeader e1k6n0sw1 leafygreen-ui-mxd9tl"
+              role="columnheader"
+              scope="col"
+            >
+              <div
+                className="leafygreen-ui-1mwn02k"
+              >
+                <span
+                  className="leafygreen-ui-nem3xz"
+                >
+                  <div
+                    className="css-558dsl-TableHeaderLabel e1k6n0sw0"
+                  >
+                    Build Variant
+                    <div
+                      className="css-1g8yf9b-Wrapper e1umzslw0"
+                    >
+                      <button
+                        aria-disabled={false}
+                        aria-label="Table Search Popover Icon"
+                        className="leafygreen-ui-6obv0c"
+                        data-cy="build-variant-filter-popover"
+                        onClick={[Function]}
+                        tabIndex={0}
+                      >
+                        <div
+                          className="leafygreen-ui-xhlipt"
+                        >
+                          <svg
+                            aria-label="Magnifying Glass Icon"
+                            className=""
+                            color="#3D4F58"
+                            fill="none"
+                            height={16}
+                            role="img"
+                            small="xsmall"
+                            viewBox="0 0 16 16"
+                            width={16}
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clipRule="evenodd"
+                              d="M2.323 9.819a5.302 5.302 0 006.463.805l4.144 4.144a1.3 1.3 0 101.838-1.838l-4.144-4.144a5.302 5.302 0 00-8.3-6.463 5.3 5.3 0 000 7.496zM7.98 4.162A2.7 2.7 0 114.162 7.98 2.7 2.7 0 017.98 4.162z"
+                              fill="currentColor"
+                              fillRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </th>
+            <th
+              aria-sort="none"
+              className="leafygreen-ui-mxd9tl"
+              role="columnheader"
+              scope="col"
+            >
+              <div
+                className="leafygreen-ui-1mwn02k"
+              >
+                <span
+                  className="leafygreen-ui-nem3xz"
+                >
+                  <div
+                    className="css-558dsl-TableHeaderLabel e1k6n0sw0"
+                  >
+                    Task Duration
+                  </div>
+                </span>
+                <button
+                  aria-disabled={false}
+                  aria-label="sort"
+                  className="leafygreen-ui-1l0eekp"
+                  onClick={[Function]}
+                  tabIndex={0}
+                >
+                  <div
+                    className="leafygreen-ui-xhlipt"
+                  >
+                    <svg
+                      className="leafygreen-ui-13p6dfv"
+                      height={14}
+                      role="img"
+                      title="unsorted-3"
+                      viewBox="0 0 16 16"
+                      width={14}
+                    >
+                      <path
+                        d="M3.68466 1.14265C3.90429 0.952449 4.23028 0.95245 4.44991 1.14265L6.93156 3.29182C7.34063 3.64609 7.09009 4.31811 6.54893 4.31811H5.23624L5.23624 11.6819H6.54894C7.09009 11.6819 7.34064 12.3539 6.93157 12.7082L4.44992 14.8573C4.23029 15.0476 3.9043 15.0476 3.68467 14.8573L1.20303 12.7082C0.793953 12.3539 1.0445 11.6819 1.58565 11.6819H2.89836V11.6742L2.89835 11.6696L2.89835 4.31811H1.58564C1.04449 4.31811 0.793944 3.64609 1.20302 3.29182L3.68466 1.14265Z"
+                        fill="currentColor"
+                      />
+                      <path
+                        d="M8 8C8 7.44772 8.44772 7 9 7H14C14.5523 7 15 7.44772 15 8C15 8.55228 14.5523 9 14 9H9C8.44772 9 8 8.55228 8 8Z"
+                        fill="currentColor"
+                      />
+                      <path
+                        d="M9 4C8.44772 4 8 4.44772 8 5C8 5.55228 8.44772 6 9 6H14C14.5523 6 15 5.55228 15 5C15 4.44772 14.5523 4 14 4H9Z"
+                        fill="currentColor"
+                      />
+                      <path
+                        d="M8 11C8 10.4477 8.44772 10 9 10H14C14.5523 10 15 10.4477 15 11C15 11.5523 14.5523 12 14 12H9C8.44772 12 8 11.5523 8 11Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            aria-disabled={false}
+            className="leafygreen-ui-1o2km4s"
+            data-cy="task-duration-table-row"
+            role="row"
+          >
+            <td
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <a
+                    className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                    href="/task/evg_ubuntu1604_container_test_rest_data_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="leafygreen-ui-1ewnca3"
+                    >
+                      <span
+                        className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                      >
+                        test-rest-data
+                      </span>
+                      <p
+                        className="leafygreen-ui-1yli3c0"
+                      >
+                        Execution 
+                        1
+                      </p>
+                    </span>
+                  </a>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    border="#2D0B59"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    data-cy="task-status-badge"
+                    fill="#5E0C9E"
+                    text="#F9EBFF"
+                  >
+                    System Failed
+                  </div>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  Ubuntu 16.04 (Container)
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    className="css-oglm9h-DurationBar e1gfyhbu1"
+                    color="#5E0C9E"
+                    width="100%"
+                  />
+                  <p
+                    className="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-10bthx5"
+                  >
+                    1h 20m
+                  </p>
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled={false}
+            className="leafygreen-ui-1o2km4s"
+            data-cy="task-duration-table-row"
+            role="row"
+          >
+            <td
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <a
+                    className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                    href="/task/evg_ubuntu1604_container_test_model_distro_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="leafygreen-ui-1ewnca3"
+                    >
+                      <span
+                        className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                      >
+                        test-model-distro
+                      </span>
+                      <p
+                        className="leafygreen-ui-1yli3c0"
+                      >
+                        Execution 
+                        1
+                      </p>
+                    </span>
+                  </a>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    border="#2D0B59"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    data-cy="task-status-badge"
+                    fill="#5E0C9E"
+                    text="#F9EBFF"
+                  >
+                    System Failed
+                  </div>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  Ubuntu 16.04 (Container)
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    className="css-1y0xyto-DurationBar e1gfyhbu1"
+                    color="#5E0C9E"
+                    width="99.99987604722023%"
+                  />
+                  <p
+                    className="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-10bthx5"
+                  >
+                    1h 20m
+                  </p>
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled={false}
+            className="leafygreen-ui-1o2km4s"
+            data-cy="task-duration-table-row"
+            role="row"
+          >
+            <td
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <a
+                    className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                    href="/task/evg_ubuntu1604_container_test_agent_internal_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="leafygreen-ui-1ewnca3"
+                    >
+                      <span
+                        className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                      >
+                        test-agent-internal
+                      </span>
+                      <p
+                        className="leafygreen-ui-1yli3c0"
+                      >
+                        Execution 
+                        1
+                      </p>
+                    </span>
+                  </a>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    border="#2D0B59"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    data-cy="task-status-badge"
+                    fill="#5E0C9E"
+                    text="#F9EBFF"
+                  >
+                    System Failed
+                  </div>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  Ubuntu 16.04 (Container)
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    className="css-gg2znz-DurationBar e1gfyhbu1"
+                    color="#5E0C9E"
+                    width="99.999442212491%"
+                  />
+                  <p
+                    className="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-10bthx5"
+                  >
+                    1h 20m
+                  </p>
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled={false}
+            className="leafygreen-ui-1o2km4s"
+            data-cy="task-duration-table-row"
+            role="row"
+          >
+            <td
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <a
+                    className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                    href="/task/evg_ubuntu1604_container_test_evergreen_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="leafygreen-ui-1ewnca3"
+                    >
+                      <span
+                        className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                      >
+                        test-evergreen
+                      </span>
+                      <p
+                        className="leafygreen-ui-1yli3c0"
+                      >
+                        Execution 
+                        1
+                      </p>
+                    </span>
+                  </a>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    border="#2D0B59"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    data-cy="task-status-badge"
+                    fill="#5E0C9E"
+                    text="#F9EBFF"
+                  >
+                    System Failed
+                  </div>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  Ubuntu 16.04 (Container)
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    className="css-efjrkv-DurationBar e1gfyhbu1"
+                    color="#5E0C9E"
+                    width="99.9991529893382%"
+                  />
+                  <p
+                    className="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-10bthx5"
+                  >
+                    1h 20m
+                  </p>
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled={false}
+            className="leafygreen-ui-1o2km4s"
+            data-cy="task-duration-table-row"
+            role="row"
+          >
+            <td
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <a
+                    className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                    href="/task/evg_ubuntu1604_container_test_model_artifact_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="leafygreen-ui-1ewnca3"
+                    >
+                      <span
+                        className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                      >
+                        test-model-artifact
+                      </span>
+                      <p
+                        className="leafygreen-ui-1yli3c0"
+                      >
+                        Execution 
+                        1
+                      </p>
+                    </span>
+                  </a>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    border="#2D0B59"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    data-cy="task-status-badge"
+                    fill="#5E0C9E"
+                    text="#F9EBFF"
+                  >
+                    System Failed
+                  </div>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  Ubuntu 16.04 (Container)
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    className="css-1oei1ok-DurationBar e1gfyhbu1"
+                    color="#5E0C9E"
+                    width="99.9968185453191%"
+                  />
+                  <p
+                    className="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-10bthx5"
+                  >
+                    1h 20m
+                  </p>
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled={false}
+            className="leafygreen-ui-1o2km4s"
+            data-cy="task-duration-table-row"
+            role="row"
+          >
+            <td
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <a
+                    className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                    href="/task/evg_ubuntu1604_container_test_thirdparty_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="leafygreen-ui-1ewnca3"
+                    >
+                      <span
+                        className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                      >
+                        test-thirdparty
+                      </span>
+                      <p
+                        className="leafygreen-ui-1yli3c0"
+                      >
+                        Execution 
+                        1
+                      </p>
+                    </span>
+                  </a>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    border="#2D0B59"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    data-cy="task-status-badge"
+                    fill="#5E0C9E"
+                    text="#F9EBFF"
+                  >
+                    System Failed
+                  </div>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  Ubuntu 16.04 (Container)
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    className="css-11f9ihw-DurationBar e1gfyhbu1"
+                    color="#5E0C9E"
+                    width="99.99632273419999%"
+                  />
+                  <p
+                    className="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-10bthx5"
+                  >
+                    1h 20m
+                  </p>
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled={false}
+            className="leafygreen-ui-1o2km4s"
+            data-cy="task-duration-table-row"
+            role="row"
+          >
+            <td
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <a
+                    className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                    href="/task/evg_ubuntu1604_container_test_model_event_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="leafygreen-ui-1ewnca3"
+                    >
+                      <span
+                        className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                      >
+                        test-model-event
+                      </span>
+                      <p
+                        className="leafygreen-ui-1yli3c0"
+                      >
+                        Execution 
+                        1
+                      </p>
+                    </span>
+                  </a>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    border="#2D0B59"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    data-cy="task-status-badge"
+                    fill="#5E0C9E"
+                    text="#F9EBFF"
+                  >
+                    System Failed
+                  </div>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  Ubuntu 16.04 (Container)
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    className="css-1l18uxx-DurationBar e1gfyhbu1"
+                    color="#5E0C9E"
+                    width="99.99574428789438%"
+                  />
+                  <p
+                    className="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-10bthx5"
+                  >
+                    1h 20m
+                  </p>
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled={false}
+            className="leafygreen-ui-1o2km4s"
+            data-cy="task-duration-table-row"
+            role="row"
+          >
+            <td
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <a
+                    className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                    href="/task/evg_ubuntu1604_container_test_model_testresult_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="leafygreen-ui-1ewnca3"
+                    >
+                      <span
+                        className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                      >
+                        test-model-testresult
+                      </span>
+                      <p
+                        className="leafygreen-ui-1yli3c0"
+                      >
+                        Execution 
+                        1
+                      </p>
+                    </span>
+                  </a>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    border="#2D0B59"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    data-cy="task-status-badge"
+                    fill="#5E0C9E"
+                    text="#F9EBFF"
+                  >
+                    System Failed
+                  </div>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  Ubuntu 16.04 (Container)
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    className="css-ewoe5o-DurationBar e1gfyhbu1"
+                    color="#5E0C9E"
+                    width="99.99516584158876%"
+                  />
+                  <p
+                    className="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-10bthx5"
+                  >
+                    1h 20m
+                  </p>
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled={false}
+            className="leafygreen-ui-1o2km4s"
+            data-cy="task-duration-table-row"
+            role="row"
+          >
+            <td
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <a
+                    className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                    href="/task/evg_ubuntu1604_container_test_model_alertrecord_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="leafygreen-ui-1ewnca3"
+                    >
+                      <span
+                        className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                      >
+                        test-model-alertrecord
+                      </span>
+                      <p
+                        className="leafygreen-ui-1yli3c0"
+                      >
+                        Execution 
+                        1
+                      </p>
+                    </span>
+                  </a>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    border="#2D0B59"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    data-cy="task-status-badge"
+                    fill="#5E0C9E"
+                    text="#F9EBFF"
+                  >
+                    System Failed
+                  </div>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  Ubuntu 16.04 (Container)
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    className="css-12vlb2d-DurationBar e1gfyhbu1"
+                    color="#5E0C9E"
+                    width="99.9948353008427%"
+                  />
+                  <p
+                    className="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-10bthx5"
+                  >
+                    1h 20m
+                  </p>
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-disabled={false}
+            className="leafygreen-ui-1o2km4s"
+            data-cy="task-duration-table-row"
+            role="row"
+          >
+            <td
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <a
+                    className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                    href="/task/evg_ubuntu1604_container_test_model_patch_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="leafygreen-ui-1ewnca3"
+                    >
+                      <span
+                        className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                      >
+                        test-model-patch
+                      </span>
+                      <p
+                        className="leafygreen-ui-1yli3c0"
+                      >
+                        Execution 
+                        1
+                      </p>
+                    </span>
+                  </a>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    border="#2D0B59"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    data-cy="task-status-badge"
+                    fill="#5E0C9E"
+                    text="#F9EBFF"
+                  >
+                    System Failed
+                  </div>
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  Ubuntu 16.04 (Container)
+                </span>
+              </div>
+            </td>
+            <td
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+            >
+              <div
+                className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+              >
+                <span
+                  className="leafygreen-ui-1auv844"
+                >
+                  <div
+                    className="css-1kphhoq-DurationBar e1gfyhbu1"
+                    color="#5E0C9E"
+                    width="99.99429817213034%"
+                  />
+                  <p
+                    className="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-10bthx5"
+                  >
+                    1h 20m
+                  </p>
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
