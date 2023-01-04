@@ -5764,6 +5764,7 @@ export type GetTaskQuery = {
     isPerfPluginEnabled: boolean;
     minQueuePosition: number;
     expectedDuration?: Maybe<number>;
+    resetWhenFinished: boolean;
     canModifyAnnotation: boolean;
     id: string;
     execution: number;
