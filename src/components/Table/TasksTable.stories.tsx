@@ -13,6 +13,7 @@ const tasks = [
     baseTask: {
       status: "unscheduled",
     },
+    execution: 5,
   },
   {
     id: "some_id_2",
@@ -26,6 +27,7 @@ const tasks = [
     baseTask: {
       status: "failed",
     },
+    execution: 4,
   },
   {
     id: "some_id_3",
@@ -39,6 +41,7 @@ const tasks = [
     baseTask: {
       status: "failed",
     },
+    execution: 0,
   },
 ];
 

@@ -132,8 +132,13 @@ const getColumnDefs = ({
     },
     width: "40%",
     className: "cy-task-table-col-NAME",
-    render: (name: string, { id }: Task): JSX.Element => (
-      <TaskLink onClick={onClickTaskLink} taskName={name} taskId={id} />
+    render: (name: string, { id, execution }: Task): JSX.Element => (
+      <TaskLink
+        onClick={onClickTaskLink}
+        taskName={name}
+        taskId={id}
+        execution={execution}
+      />
     ),
     ...(taskNameInputProps &&
       getColumnSearchFilterProps({
