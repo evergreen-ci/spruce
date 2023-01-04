@@ -1,4 +1,4 @@
-import { TaskDurationTable as Table } from "./TaskDurationTable";
+import { TaskDurationTable } from "./TaskDurationTable";
 
 const props = {
   tasks: [
@@ -106,10 +106,10 @@ const props = {
   loading: false,
 };
 
-export const TaskDurationTable = () => (
-  <Table tasks={props.tasks} loading={false} />
+export const Default = () => (
+  <TaskDurationTable tasks={props.tasks} loading={false} />
 );
 export default {
   title: "Components/Task Duration Table",
-  component: Table,
+  component: TaskDurationTable,
 };
