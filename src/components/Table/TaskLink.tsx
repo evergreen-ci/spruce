@@ -4,16 +4,16 @@ import { getTaskRoute } from "constants/routes";
 import { executionAsDisplay } from "pages/task/util/execution";
 
 interface TaskLinkProps {
-  taskId: string;
-  execution?: number;
-  taskName: string;
+  execution: number;
   onClick?: (taskId: string) => void;
+  taskId: string;
+  taskName: string;
 }
 export const TaskLink: React.VFC<TaskLinkProps> = ({
+  execution,
+  onClick = () => {},
   taskId,
   taskName,
-  onClick = () => {},
-  execution,
 }) => (
   <StyledRouterLink onClick={() => onClick(taskId)} to={getTaskRoute(taskId)}>
     <WordBreak>{taskName}</WordBreak>
