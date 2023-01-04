@@ -5,7 +5,7 @@ exports[`storybook Storyshots Components/Searchable Dropdown Custom Option 1`] =
   className="css-1ry038z-Container e17dnzmx0"
 >
   <label
-    className="leafygreen-ui-ly82bp"
+    className="leafygreen-ui-1k5mcru"
     htmlFor="searchable-dropdown-Custom option select"
   >
     Custom option select
@@ -19,54 +19,50 @@ exports[`storybook Storyshots Components/Searchable Dropdown Custom Option 1`] =
     >
       <button
         aria-disabled={false}
-        className="leafygreen-ui-26sqyb css-mbqq81-StyledButton e1yw4j302"
+        className="lg-ui-button-0000 leafygreen-ui-n2d19n css-129de3f-StyledButton-menuButtonStyleOverrides e1yw4j302"
         data-cy="searchable-dropdown"
         disabled={false}
         onClick={[Function]}
         type="button"
       >
         <div
-          className="leafygreen-ui-1ktj4tm"
+          className="leafygreen-ui-v038xi"
         />
         <div
-          className="leafygreen-ui-sl5lf4"
+          className="leafygreen-ui-1qmzz4y"
         >
           <div
-            className="css-czkpcu-ButtonContent e1yw4j301"
+            className="css-19l4y8w-ButtonContent e1yw4j301"
           >
             <div
               className="css-soeq2u-LabelWrapper e1yw4j303"
             >
-              <div
-                className="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1mngpnd"
+              <p
+                className="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1yli3c0"
                 data-cy="dropdown-value"
               >
                 Select an element
-              </div>
+              </p>
             </div>
           </div>
-          <span
-            className="leafygreen-ui-18n6mp2"
+          <svg
+            alt=""
+            aria-hidden={true}
+            className="leafygreen-ui-1t9qnhm"
+            fill="none"
+            height={16}
+            role="presentation"
+            viewBox="0 0 16 16"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              alt=""
-              aria-hidden={true}
-              className="leafygreen-ui-rcvx4k"
-              fill="none"
-              height={16}
-              role="presentation"
-              viewBox="0 0 16 16"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                clipRule="evenodd"
-                d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
-                fill="currentColor"
-                fillRule="evenodd"
-              />
-            </svg>
-          </span>
+            <path
+              clipRule="evenodd"
+              d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
+              fill="currentColor"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
       </button>
     </div>
@@ -79,7 +75,7 @@ exports[`storybook Storyshots Components/Searchable Dropdown Default 1`] = `
   className="css-1ry038z-Container e17dnzmx0"
 >
   <label
-    className="leafygreen-ui-ly82bp"
+    className="leafygreen-ui-1k5mcru"
     htmlFor="searchable-dropdown-standard select"
   >
     standard select
@@ -93,54 +89,50 @@ exports[`storybook Storyshots Components/Searchable Dropdown Default 1`] = `
     >
       <button
         aria-disabled={false}
-        className="leafygreen-ui-26sqyb css-mbqq81-StyledButton e1yw4j302"
+        className="lg-ui-button-0000 leafygreen-ui-n2d19n css-129de3f-StyledButton-menuButtonStyleOverrides e1yw4j302"
         data-cy="searchable-dropdown"
         disabled={false}
         onClick={[Function]}
         type="button"
       >
         <div
-          className="leafygreen-ui-1ktj4tm"
+          className="leafygreen-ui-v038xi"
         />
         <div
-          className="leafygreen-ui-sl5lf4"
+          className="leafygreen-ui-1qmzz4y"
         >
           <div
-            className="css-czkpcu-ButtonContent e1yw4j301"
+            className="css-19l4y8w-ButtonContent e1yw4j301"
           >
             <div
               className="css-soeq2u-LabelWrapper e1yw4j303"
             >
-              <div
-                className="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1mngpnd"
+              <p
+                className="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1yli3c0"
                 data-cy="dropdown-value"
               >
                 Select an element
-              </div>
+              </p>
             </div>
           </div>
-          <span
-            className="leafygreen-ui-18n6mp2"
+          <svg
+            alt=""
+            aria-hidden={true}
+            className="leafygreen-ui-1t9qnhm"
+            fill="none"
+            height={16}
+            role="presentation"
+            viewBox="0 0 16 16"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              alt=""
-              aria-hidden={true}
-              className="leafygreen-ui-rcvx4k"
-              fill="none"
-              height={16}
-              role="presentation"
-              viewBox="0 0 16 16"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                clipRule="evenodd"
-                d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
-                fill="currentColor"
-                fillRule="evenodd"
-              />
-            </svg>
-          </span>
+            <path
+              clipRule="evenodd"
+              d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
+              fill="currentColor"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
       </button>
     </div>
@@ -153,7 +145,7 @@ exports[`storybook Storyshots Components/Searchable Dropdown Multiselect 1`] = `
   className="css-1ry038z-Container e17dnzmx0"
 >
   <label
-    className="leafygreen-ui-ly82bp"
+    className="leafygreen-ui-1k5mcru"
     htmlFor="searchable-dropdown-multi select"
   >
     multi select
@@ -167,54 +159,50 @@ exports[`storybook Storyshots Components/Searchable Dropdown Multiselect 1`] = `
     >
       <button
         aria-disabled={false}
-        className="leafygreen-ui-26sqyb css-mbqq81-StyledButton e1yw4j302"
+        className="lg-ui-button-0000 leafygreen-ui-n2d19n css-129de3f-StyledButton-menuButtonStyleOverrides e1yw4j302"
         data-cy="searchable-dropdown"
         disabled={false}
         onClick={[Function]}
         type="button"
       >
         <div
-          className="leafygreen-ui-1ktj4tm"
+          className="leafygreen-ui-v038xi"
         />
         <div
-          className="leafygreen-ui-sl5lf4"
+          className="leafygreen-ui-1qmzz4y"
         >
           <div
-            className="css-czkpcu-ButtonContent e1yw4j301"
+            className="css-19l4y8w-ButtonContent e1yw4j301"
           >
             <div
               className="css-soeq2u-LabelWrapper e1yw4j303"
             >
-              <div
-                className="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1mngpnd"
+              <p
+                className="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1yli3c0"
                 data-cy="dropdown-value"
               >
                 Select an element
-              </div>
+              </p>
             </div>
           </div>
-          <span
-            className="leafygreen-ui-18n6mp2"
+          <svg
+            alt=""
+            aria-hidden={true}
+            className="leafygreen-ui-1t9qnhm"
+            fill="none"
+            height={16}
+            role="presentation"
+            viewBox="0 0 16 16"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              alt=""
-              aria-hidden={true}
-              className="leafygreen-ui-rcvx4k"
-              fill="none"
-              height={16}
-              role="presentation"
-              viewBox="0 0 16 16"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                clipRule="evenodd"
-                d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
-                fill="currentColor"
-                fillRule="evenodd"
-              />
-            </svg>
-          </span>
+            <path
+              clipRule="evenodd"
+              d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
+              fill="currentColor"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
       </button>
     </div>

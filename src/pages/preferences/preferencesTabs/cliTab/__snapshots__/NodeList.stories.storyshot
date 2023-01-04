@@ -8,16 +8,16 @@ exports[`storybook Storyshots Pages/Preferences/Node List Node Element 1`] = `
     className="css-noe96r-NodeHeader e1k5prvz1"
   >
     <div
-      className="css-vwe0b-Circle e1k5prvz5"
+      className="css-1ivxpad-Circle e1k5prvz5"
     >
       <h6
-        className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-11wdjex"
+        className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-41zalo"
       >
         1
       </h6>
     </div>
     <h6
-      className="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-11wdjex"
+      className="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-41zalo"
     >
       Download the Command-Line Client.
     </h6>
@@ -49,7 +49,7 @@ exports[`storybook Storyshots Pages/Preferences/Node List Node List Full 1`] = `
   }
 >
   <div
-    className="css-g6qfa2-NodeContainer eb6wkmd0"
+    className="css-1oynna9-NodeContainer eb6wkmd0"
   >
     <div
       className="css-paub65-NodeContainer e1k5prvz2"
@@ -58,16 +58,16 @@ exports[`storybook Storyshots Pages/Preferences/Node List Node List Full 1`] = `
         className="css-noe96r-NodeHeader e1k5prvz1"
       >
         <div
-          className="css-vwe0b-Circle e1k5prvz5"
+          className="css-1ivxpad-Circle e1k5prvz5"
         >
           <h6
-            className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-11wdjex"
+            className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-41zalo"
           >
             1
           </h6>
         </div>
         <h6
-          className="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-11wdjex"
+          className="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-41zalo"
         >
           Download the Command-Line Client.
         </h6>
@@ -95,16 +95,16 @@ exports[`storybook Storyshots Pages/Preferences/Node List Node List Full 1`] = `
         className="css-noe96r-NodeHeader e1k5prvz1"
       >
         <div
-          className="css-vwe0b-Circle e1k5prvz5"
+          className="css-1ivxpad-Circle e1k5prvz5"
         >
           <h6
-            className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-11wdjex"
+            className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-41zalo"
           >
             2
           </h6>
         </div>
         <h6
-          className="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-11wdjex"
+          className="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-41zalo"
         >
           Move the command-line client to somewhere in your PATH. On many systems this will be /usr/local/bin.
         </h6>

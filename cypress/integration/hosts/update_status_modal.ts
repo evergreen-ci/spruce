@@ -20,8 +20,11 @@ describe("Update Status Modal", () => {
 
     cy.dataCy("host-status-notes").type("notes");
 
-    cy.dataCy("modal-update-button").click();
-
+    cy.dataCy("update-host-status-modal").should("be.visible");
+    cy.dataCy("update-host-status-modal").within(() => {
+      cy.contains("button", "Update").click({ force: true });
+    });
+    cy.dataCy("update-host-status-modal").should("not.exist");
     cy.validateToast("success");
 
     // MODAL FORM VALUES SHOULD BE CLEARED AFTER MUTATION

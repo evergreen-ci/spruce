@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import {
@@ -20,7 +20,7 @@ import ElementWrapper from "../ElementWrapper";
 import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
 import { isNullish, processErrors } from "./utils";
 
-const { yellow } = uiColors;
+const { yellow } = palette;
 
 export const LeafyGreenTextInput: React.VFC<
   { options: { optional?: boolean } } & SpruceWidgetProps
@@ -190,12 +190,13 @@ export const LeafyGreenSelect: React.VFC<
           name={dataCy}
           data-cy={dataCy}
           state={hasError && !disabled ? "error" : "none"}
-          errorMessage="Selection is required."
+          errorMessage={hasError ? rawErrors?.join(", ") : ""}
           popoverZIndex={zIndex.dropdown}
         >
           {enumOptions.map((o) => {
-            const optionDisabled = enumDisabled?.includes(o.value) ?? false;
-
+            // LG Select doesn't handle disabled options well. So we need to ensure the selected option is not disabled
+            const optionDisabled =
+              (value !== o.value && enumDisabled?.includes(o.value)) ?? false;
             // Handle deselect value without errors
             if (o.value === null) {
               return;
@@ -404,6 +405,7 @@ export const LeafyGreenSegmentedControl: React.VFC<EnumSpruceWidgetProps> = ({
 };
 
 const StyledSegmentedControl = styled(SegmentedControl)`
+  box-sizing: border-box;
   margin-bottom: ${size.s};
 `;
 

@@ -41,7 +41,6 @@ export const msToDuration = (ms: number): string => {
   const minutes = Math.floor(hoursMilli / (60 * 1000));
   const minutesMilli = ms % (60 * 1000);
   const seconds = Math.floor(minutesMilli / 1000);
-  const milliseconds = ms % 1000;
   if (days > 1) {
     return `${Math.trunc(days)}d ${hours}h ${minutes}m ${seconds}s`;
   }
@@ -52,9 +51,8 @@ export const msToDuration = (ms: number): string => {
     return `${minutes}m ${seconds}s`;
   }
   if (seconds > 0) {
-    return `${seconds}s ${milliseconds}ms`;
+    return `${seconds}s`;
   }
-  return `${milliseconds}ms`;
 };
 
 export const stringifyNanoseconds = (

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import Icon from "components/Icon";
 import IconTooltip from "components/IconTooltip";
 import TextInput from "components/TextInputWithGlyph";
@@ -10,7 +10,7 @@ import { TestStatus } from "types/history";
 import { validators } from "utils";
 
 const { validateRegexp } = validators;
-const { yellow } = uiColors;
+const { yellow } = palette;
 
 interface HistoryTableTestSearchProps {
   onSubmit?: () => void;

@@ -92,6 +92,7 @@ query GetTask($taskId: String!, $execution: Int) {
     isPerfPluginEnabled
     minQueuePosition
     expectedDuration
+    resetWhenFinished
     details {
       status
       type

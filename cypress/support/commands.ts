@@ -7,6 +7,11 @@ const user = {
 
 type cyGetOptions = Parameters<typeof cy.get>[1];
 
+/* closeBanner */
+Cypress.Commands.add("closeBanner", (dataCy: string) => {
+  cy.dataCy(dataCy).within(() => cy.get("[aria-label='X Icon']").click());
+});
+
 /* dataCy */
 Cypress.Commands.add("dataCy", (value: string, options: cyGetOptions = {}) => {
   cy.get(`[data-cy=${value}]`, options);
@@ -85,3 +90,10 @@ Cypress.Commands.add(
     }
   }
 );
+
+/* selectLGOption */
+Cypress.Commands.add("selectLGOption", (label: string, option: string) => {
+  // open select
+  cy.getInputByLabel(label).click({ force: true });
+  return cy.contains(option).click();
+});

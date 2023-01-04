@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { Link } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { getTaskHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { TestResult, GetTaskQuery } from "gql/generated/types";
 import { TestStatus } from "types/test";
 import { string } from "utils";
+import { TaskHistoryTestsButton } from "./logsColumn/TaskHistoryTestsButton";
 
 const { escapeRegex } = string;
 interface Props {
@@ -103,11 +103,7 @@ export const LogsColumn: React.VFC<Props> = ({ testResult, task }) => {
         </Button>
       )}
       {filters && !isExecutionTask && (
-        <Button
-          size="xsmall"
-          as={Link}
-          data-cy="task-history-tests-btn"
-          key="task-history"
+        <TaskHistoryTestsButton
           onClick={() => {
             sendEvent({ name: "Click See History Button" });
           }}
@@ -115,9 +111,7 @@ export const LogsColumn: React.VFC<Props> = ({ testResult, task }) => {
             filters,
             selectedCommit: order,
           })}
-        >
-          History
-        </Button>
+        />
       )}
     </ButtonWrapper>
   );

@@ -34,7 +34,6 @@ const ColumnPaginationButtons: React.VFC<ColumnPaginationButtonProps> = ({
     <Container>
       <StyledButton
         disabled={!hasPreviousPage}
-        /* @ts-expect-error */
         onClick={handleOnClickPrev}
         data-cy="prev-page-button"
         leftGlyph={<Icon glyph="ChevronLeft" />}
@@ -44,7 +43,6 @@ const ColumnPaginationButtons: React.VFC<ColumnPaginationButtonProps> = ({
       </Disclaimer>
       <StyledButton
         disabled={!hasNextPage}
-        /* @ts-expect-error */
         onClick={handleOnClickNext}
         data-cy="next-page-button"
         leftGlyph={<Icon glyph="ChevronRight" />}
@@ -53,7 +51,6 @@ const ColumnPaginationButtons: React.VFC<ColumnPaginationButtonProps> = ({
   );
 };
 
-// @ts-expect-error
 const StyledButton = styled(Button)`
   margin-right: ${size.xxs};
   margin-left: ${size.xxs};

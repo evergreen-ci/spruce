@@ -2,14 +2,14 @@ import { useState, useRef } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import Popover from "@leafygreen-ui/popover";
 import { PopoverContainer } from "components/styles/Popover";
 import { size } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
 import { TreeDataEntry, TreeSelect } from "../TreeSelect";
 
-const { gray, focus } = uiColors;
+const { blue, gray } = palette;
 
 interface TableFilterPopoverProps {
   value: string[];
@@ -25,7 +25,7 @@ export const TableFilterPopover: React.VFC<TableFilterPopoverProps> = ({
   "data-cy": dataCy,
 }) => {
   const [active, setActive] = useState(false);
-  const iconColor = value.length ? focus : gray.dark2;
+  const iconColor = value.length ? blue.light1 : gray.dark2;
 
   const buttonRef = useRef(null);
   const popoverRef = useRef(null);

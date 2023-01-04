@@ -1,13 +1,15 @@
 import { useRef, Component } from "react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
 import { size, zIndex } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
+import { ButtonType } from "types/leafygreen";
 
-const { gray, white } = uiColors;
+const { gray, white } = palette;
 
 interface DropdownProps {
   ["data-cy"]?: string;
@@ -132,16 +134,31 @@ const LabelWrapper = styled.div`
   text-overflow: ellipsis;
 `;
 
-/* @ts-expect-error */
-const StyledButton = styled(Button)`
+// Borrow LeafyGreen's styling to un-center button text
+// https://github.com/mongodb/leafygreen-ui/blob/a593238ff5801f82a648c20e3595cfc6de6ec6a8/packages/select/src/MenuButton.tsx#L20-L33
+const menuButtonStyleOverrides = css`
+  // Override button defaults
+  > *:last-child {
+    grid-template-columns: 1fr 16px;
+    justify-content: flex-start;
+    > svg {
+      justify-self: right;
+      width: 16px;
+      height: 16px;
+    }
+  }
+`;
+
+const StyledButton = styled<ButtonType>(Button)`
+  ${menuButtonStyleOverrides}
   width: 100%;
-` as typeof Button;
+`;
 
 const ButtonContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 90%;
+  overflow: hidden;
 `;
 
 const OverflowBody = styled(Body)`

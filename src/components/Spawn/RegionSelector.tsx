@@ -1,8 +1,6 @@
-import { Select } from "antd";
+import { Select, Option } from "@leafygreen-ui/select";
 import { InputLabel } from "components/styles";
 import { ModalContent } from "./Layout";
-
-const { Option } = Select;
 
 interface Props {
   onChange: (value: string) => void;
@@ -21,7 +19,6 @@ export const RegionSelector: React.VFC<Props> = ({
       id="awsSelectDropown"
       aria-labelledby="region-select"
       data-cy="regionSelector"
-      showSearch
       style={{ width: 200 }}
       placeholder="Select a region"
       onChange={onChange}

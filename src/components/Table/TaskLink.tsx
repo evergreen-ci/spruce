@@ -1,5 +1,4 @@
-import { StyledRouterLink } from "components/styles";
-import { WordBreak } from "components/Typography";
+import { StyledRouterLink, WordBreak } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 
 interface TaskLinkProps {

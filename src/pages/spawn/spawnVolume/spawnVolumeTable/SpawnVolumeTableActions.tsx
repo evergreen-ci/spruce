@@ -42,7 +42,5 @@ const FlexRow = styled.div`
   display: flex;
   align-items: center;
   line-height: 1;
-  button {
-    margin-right: ${size.xs};
-  }
+  gap: ${size.xs};
 `;

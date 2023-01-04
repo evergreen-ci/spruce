@@ -1,5 +1,4 @@
 import { useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useHostsTableAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
@@ -62,14 +61,14 @@ export const Reprovision: React.VFC<Props> = ({
     <ConditionalWrapper
       condition={!canReprovision}
       wrapper={(children) => (
-        <StyledTooltip
+        <Tooltip
           align="top"
           justify="middle"
           triggerEvent="hover"
           trigger={children}
         >
           {reprovisionTooltipMessage}
-        </StyledTooltip>
+        </Tooltip>
       )}
     >
       {/* This div is necessary, or else the tooltip will not show. */}
@@ -86,10 +85,3 @@ export const Reprovision: React.VFC<Props> = ({
     </ConditionalWrapper>
   );
 };
-
-// @ts-expect-error
-// For leafygreen Tooltip, there is a bug where you have to set the width to prevent misalignment when
-// the trigger element is near the right side of a page. Ticket: https://jira.mongodb.org/browse/PD-1542
-const StyledTooltip = styled(Tooltip)`
-  width: 300px;
-`;

@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { StyledLink, StyledRouterLink } from "components/styles";
@@ -34,7 +34,7 @@ interface Props {
   commitQueueId: string;
   activated: boolean;
 }
-const { blue, gray } = uiColors;
+const { gray } = palette;
 
 export const CommitQueueCard: React.VFC<Props> = ({
   issue,
@@ -152,12 +152,10 @@ const CardTitle = styled.span`
 `;
 
 const CardTitleLink = styled(StyledRouterLink)`
-  color: ${blue.base};
   ${cardTitleStyles}
 `;
 
 const PRCardTitle = styled(StyledLink)`
-  color: ${blue.base};
   ${cardTitleStyles}
 `;
 
