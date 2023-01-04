@@ -10,18 +10,14 @@ import { Pagination } from "components/Pagination";
 import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
 import { size } from "constants/tokens";
 import { PatchesPagePatchesFragment, PatchesInput } from "gql/generated/types";
-import {
-  useFilterInputChangeHandler,
-  usePageTitle,
-  useUpdateURLQueryParams,
-} from "hooks";
+import { useFilterInputChangeHandler, usePageTitle } from "hooks";
+import { useQueryParam } from "hooks/useQueryParam";
 import { PatchPageQueryParams, ALL_PATCH_STATUS } from "types/patch";
-import { queryString, url } from "utils";
+import { url } from "utils";
 import { ListArea } from "./ListArea";
 import { StatusSelector } from "./StatusSelector";
 
 const { getPageFromSearch, getLimitFromSearch } = url;
-const { parseQueryString } = queryString;
 
 interface Props {
   analyticsObject: Analytics<
@@ -49,23 +45,20 @@ export const PatchesPage: React.VFC<Props> = ({
 }) => {
   const { search } = useLocation();
   const setPageSize = usePageSizeSelector();
-  const parsed = parseQueryString(search);
-  const isCommitQueueCheckboxChecked =
-    parsed[PatchPageQueryParams.CommitQueue] === "true";
-  const { limit, page } = getPatchesInputFromURLSearch(search);
+
+  const [isCommitQueueCheckboxChecked, setIsCommitQueueCheckboxChecked] =
+    useQueryParam(PatchPageQueryParams.CommitQueue, true);
+  const { limit, page } = usePatchesInputFromSearch(search);
   const { inputValue, setAndSubmitInputValue } = useFilterInputChangeHandler({
     urlParam: PatchPageQueryParams.PatchName,
     resetPage: true,
     sendAnalyticsEvent: (filterBy: string) =>
       analyticsObject.sendEvent({ name: "Filter Patches", filterBy }),
   });
-  const updateQueryParams = useUpdateURLQueryParams();
   usePageTitle(pageTitle);
 
   const onCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    updateQueryParams({
-      [PatchPageQueryParams.CommitQueue]: `${e.target.checked}`,
-    });
+    setIsCommitQueueCheckboxChecked(e.target.checked);
     // eslint-disable-next-line no-unused-expressions
     analyticsObject.sendEvent({ name: "Filter Commit Queue" });
   };
@@ -123,13 +116,13 @@ export const PatchesPage: React.VFC<Props> = ({
   );
 };
 
-export const getPatchesInputFromURLSearch = (search: string): PatchesInput => {
-  const parsed = parseQueryString(search);
-  const patchName = (parsed[PatchPageQueryParams.PatchName] || "").toString();
-  const rawStatuses = parsed[PatchPageQueryParams.Statuses];
-  const statuses = (
-    Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses]
-  ).filter((v) => v && v !== ALL_PATCH_STATUS);
+export const usePatchesInputFromSearch = (search: string): PatchesInput => {
+  const [patchName] = useQueryParam<string>(PatchPageQueryParams.PatchName, "");
+  const [rawStatuses] = useQueryParam<string[]>(
+    PatchPageQueryParams.Statuses,
+    []
+  );
+  const statuses = rawStatuses.filter((v) => v && v !== ALL_PATCH_STATUS);
   return {
     patchName,
     statuses,

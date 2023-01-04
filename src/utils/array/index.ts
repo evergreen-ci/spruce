@@ -187,3 +187,14 @@ export const range = (start: number, stop: number, step?: number): number[] => {
   const arrLength = (stop - start) / stepValue + 1;
   return Array.from({ length: arrLength }, (_, i) => start + i * stepValue);
 };
+
+/**
+ * `conditionalToArray` takes in a generic value and transforms it into an array if shouldBeArray is true.
+ * The value remains unchanged if it is already an array, or if shouldBeArray is false.
+ * */
+export const conditionalToArray = <T>(value: T, shouldBeArray: boolean) => {
+  if (shouldBeArray) {
+    return Array.isArray(value) ? value : [value];
+  }
+  return value;
+};
