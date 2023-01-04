@@ -1,7 +1,5 @@
-import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useLocation } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import SearchableDropdown, {
   SearchableDropdownOption,
@@ -12,12 +10,9 @@ import {
   BuildVariantTuple,
 } from "gql/generated/types";
 import { GET_BUILD_VARIANTS_FOR_TASK_NAME } from "gql/queries";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { useQueryParam } from "hooks/useQueryParam";
 import { HistoryQueryParams } from "types/history";
-import { queryString, array } from "utils";
 
-const { toArray } = array;
-const { parseQueryString } = queryString;
 interface BuildVariantSelectorProps {
   projectId: string;
   taskName: string;
@@ -28,14 +23,10 @@ const BuildVariantSelector: React.VFC<BuildVariantSelectorProps> = ({
   taskName,
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
-  const updateQueryParams = useUpdateURLQueryParams();
-  const { search } = useLocation();
-  const queryParams = parseQueryString(search);
-
-  const value = useMemo(
-    () => toArray(queryParams[HistoryQueryParams.VisibleColumns]) as unknown[],
-    [queryParams]
-  ); // This component will be replaced by the ComboBox in the future.
+  const [visibleColumns, setVisibleColumns] = useQueryParam(
+    HistoryQueryParams.VisibleColumns,
+    []
+  );
 
   const { data, loading } = useQuery<
     GetBuildVariantsForTaskNameQuery,
@@ -51,9 +42,8 @@ const BuildVariantSelector: React.VFC<BuildVariantSelectorProps> = ({
     sendEvent({
       name: "Filter by build variant",
     });
-    updateQueryParams({
-      [HistoryQueryParams.VisibleColumns]: selectedBuildVariants,
-    });
+
+    setVisibleColumns(selectedBuildVariants);
   };
 
   const { buildVariantsForTaskName } = data || {};
@@ -71,7 +61,7 @@ const BuildVariantSelector: React.VFC<BuildVariantSelectorProps> = ({
         data-cy="build-variant-selector"
         label="Build Variant"
         valuePlaceholder="Select build variant to view"
-        value={value}
+        value={visibleColumns}
         onChange={onChange}
         options={buildVariantsForTaskName}
         disabled={loading}
