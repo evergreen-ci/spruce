@@ -1,4 +1,4 @@
-import Bugsnag, { Event, NotifiableError, BreadcrumbType } from "@bugsnag/js";
+import Bugsnag, { Event, BreadcrumbType } from "@bugsnag/js";
 import { isProductionBuild } from "utils/environmentalVariables";
 
 interface reportErrorResult {
@@ -6,7 +6,7 @@ interface reportErrorResult {
   warning: () => void;
 }
 
-type CustomBugsnagError = NotifiableError & {
+type CustomBugsnagError = Error & {
   metadata?: any;
 };
 
