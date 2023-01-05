@@ -93,6 +93,7 @@
     "@leafygreen-ui/text-input": "12.1.0",
     "@leafygreen-ui/toast": "4.0.1",
     "@leafygreen-ui/toggle": "10.0.1",
+    "@leafygreen-ui/tokens": "1.4.1",
     "@leafygreen-ui/tooltip": "9.0.1",
     "@leafygreen-ui/typography": "15.1.0",
     "@rjsf/core": "4.2.0",

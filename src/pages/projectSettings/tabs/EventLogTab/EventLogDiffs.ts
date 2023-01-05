@@ -38,12 +38,14 @@ export const getEventDiffLines = (
   before: Subset<ProjectEventSettings>,
   after: Subset<ProjectEventSettings>
 ): EventDiffLine[] => {
-  const eventDiff: EventDiffLine[] = omitTypename(diff(before, after));
+  const beforeNoTypename = omitTypename(before);
+  const afterNoTypename = omitTypename(after);
+  const eventDiff = diff(beforeNoTypename, afterNoTypename);
   const pathKeys: string[] = getDiffProperties(eventDiff);
 
   const eventDiffLines = pathKeys.map((key) => {
     const pathsArray = key.split(".");
-    const previousValue = getNestedObject(before, pathsArray);
+    const previousValue = getNestedObject(beforeNoTypename, pathsArray);
     const changedValue = getNestedObject(eventDiff, pathsArray);
 
     const formattedKey = formatArrayElements(key);

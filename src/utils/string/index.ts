@@ -94,11 +94,8 @@ export const stringifyNanoseconds = (
 };
 
 export const omitTypename = (object) =>
-  JSON.parse(
-    JSON.stringify(object, (key, value) =>
-      typeof value === "undefined" ? null : value
-    ),
-    (key, value) => (key === "__typename" ? undefined : value)
+  JSON.parse(JSON.stringify(object), (key, value) =>
+    key === "__typename" ? undefined : value
   );
 
 export type DateCopyOptions = {

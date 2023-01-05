@@ -226,17 +226,6 @@ describe("omitTypename", () => {
       },
     });
   });
-  it("preserves undefined fields as null", () => {
-    const obj = {
-      one: "hello",
-      two: undefined,
-      __typename: "undefined",
-    };
-    expect(omitTypename(obj)).toStrictEqual({
-      one: "hello",
-      two: null,
-    });
-  });
 });
 
 describe("getDateCopy", () => {
