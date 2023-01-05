@@ -1,4 +1,13 @@
-import queryString from "query-string";
+import { stringify } from "query-string";
 
 export const stringifyQuery = (object: { [key: string]: any }) =>
-  queryString.stringify(object, { arrayFormat: "comma" });
+  stringify(object, {
+    arrayFormat: "comma",
+  });
+
+export const stringifyQueryAsValue = (object: { [key: string]: any }) =>
+  stringify(object, {
+    arrayFormat: "comma",
+    skipNull: true,
+    skipEmptyString: true,
+  });

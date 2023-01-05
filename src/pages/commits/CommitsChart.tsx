@@ -1,13 +1,11 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
 import Cookies from "js-cookie";
-import { useLocation } from "react-router-dom";
 import { Accordion } from "components/Accordion";
 import { COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION } from "constants/cookies";
 import { size } from "constants/tokens";
-import { useUpdateURLQueryParams } from "hooks";
+import { useQueryParam } from "hooks/useQueryParam";
 import { ChartTypes, Commits, ChartToggleQueryParams } from "types/commits";
-import { queryString } from "utils";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
 import { Grid, SolidLine } from "./ActiveCommits/Grid";
 import { GridLabel } from "./ActiveCommits/GridLabel";
@@ -21,8 +19,6 @@ import {
   RenderCommitsChart,
 } from "./RenderCommit";
 import { FlexRowContainer, CommitWrapper } from "./styles";
-
-const { parseQueryString, getString } = queryString;
 
 const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
 const DEFAULT_OPEN_STATE = true;
@@ -38,29 +34,22 @@ export const CommitsChart: React.VFC<Props> = ({
   hasTaskFilter,
   hasError = false,
 }) => {
-  const { search } = useLocation();
-  const updateQueryParams = useUpdateURLQueryParams();
-  const parsed = parseQueryString(search);
+  const [chartOpen, setChartOpen] = useQueryParam(
+    ChartToggleQueryParams.chartOpen,
+    DEFAULT_OPEN_STATE
+  );
+  const [chartType, setChartType] = useQueryParam(
+    ChartToggleQueryParams.chartType,
+    DEFAULT_CHART_TYPE
+  );
 
-  const onChangeChartType = (chartType: ChartTypes): void => {
-    updateQueryParams({
-      [ChartToggleQueryParams.chartType]: chartType,
-    });
+  const onChangeChartType = (type: ChartTypes): void => {
+    setChartType(type);
   };
-
-  const chartType =
-    (getString(parsed[ChartToggleQueryParams.chartType]) as ChartTypes) ||
-    DEFAULT_CHART_TYPE;
 
   const onChangeChartOpen = (open: boolean): void => {
-    updateQueryParams({
-      [ChartToggleQueryParams.chartOpen]: open.toString(),
-    });
+    setChartOpen(open);
   };
-
-  const chartOpen = parsed[ChartToggleQueryParams.chartOpen]
-    ? parsed[ChartToggleQueryParams.chartOpen] === "true"
-    : DEFAULT_OPEN_STATE;
 
   const versionToGroupedTaskStatsMap = useMemo(() => {
     if (versions) {
