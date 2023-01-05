@@ -127,7 +127,7 @@ describe("should transform event diffs to key, before and after", () => {
       {
         key: "vars.vars.newVariable",
         before: "so new",
-        after: null,
+        after: undefined,
       },
     ]);
   });

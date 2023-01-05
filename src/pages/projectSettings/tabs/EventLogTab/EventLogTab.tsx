@@ -100,10 +100,10 @@ export const EventLogTab: React.VFC<TabProps> = ({ projectType }) => {
                   <CellText>{getEventValue(datum.before)}</CellText>
                 </Cell>
                 <Cell>
-                  {getEventValue(datum.after) ? (
-                    <CellText>{getEventValue(datum.after)}</CellText>
-                  ) : (
+                  {getEventValue(datum.after) === null ? (
                     <Badge variant={Variant.Red}>Deleted</Badge>
+                  ) : (
+                    <CellText>{getEventValue(datum.after)}</CellText>
                   )}
                 </Cell>
               </Row>
@@ -149,7 +149,7 @@ const StyledHeader = styled.div`
 
 const getEventValue = (value: EventValue): string => {
   if (value === null || value === undefined) {
-    return "";
+    return null;
   }
   if (typeof value === "boolean") {
     return String(value);
