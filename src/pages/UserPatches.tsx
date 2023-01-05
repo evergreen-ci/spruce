@@ -1,11 +1,7 @@
-import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { useLocation, useParams } from "react-router-dom";
 import { useUserPatchesAnalytics } from "analytics";
-import {
-  PatchesPage,
-  getPatchesInputFromURLSearch,
-} from "components/PatchesPage";
+import { PatchesPage, usePatchesInputFromSearch } from "components/PatchesPage";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
 import {
@@ -13,36 +9,22 @@ import {
   UserPatchesQueryVariables,
 } from "gql/generated/types";
 import { GET_USER_PATCHES } from "gql/queries";
-import {
-  usePolling,
-  useGetUserPatchesPageTitleAndLink,
-  useUpdateURLQueryParams,
-} from "hooks";
+import { usePolling, useGetUserPatchesPageTitleAndLink } from "hooks";
+import { useQueryParam } from "hooks/useQueryParam";
 import { PatchPageQueryParams } from "types/patch";
-import { queryString } from "utils";
-
-const { parseQueryString } = queryString;
 
 export const UserPatches = () => {
   const dispatchToast = useToastContext();
   const { id: userId } = useParams<{ id: string }>();
   const { search } = useLocation();
   const analyticsObject = useUserPatchesAnalytics();
-  const updateQueryParams = useUpdateURLQueryParams();
-  const parsed = parseQueryString(search);
-  const isCommitQueueCheckboxChecked =
-    parsed[PatchPageQueryParams.CommitQueue] === "true";
 
-  const patchesInput = getPatchesInputFromURLSearch(search);
+  const [isCommitQueueCheckboxChecked] = useQueryParam(
+    PatchPageQueryParams.CommitQueue,
+    true
+  );
 
-  useEffect(() => {
-    if (parsed[PatchPageQueryParams.CommitQueue] === undefined) {
-      updateQueryParams({
-        [PatchPageQueryParams.CommitQueue]: `${true}`,
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [parsed]);
+  const patchesInput = usePatchesInputFromSearch(search);
 
   const { data, refetch, startPolling, stopPolling, loading } = useQuery<
     UserPatchesQuery,
