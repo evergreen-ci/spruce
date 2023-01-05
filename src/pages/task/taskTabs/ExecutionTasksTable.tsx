@@ -45,6 +45,7 @@ export const ExecutionTasksTable: React.VFC<Props> = ({
 
   return (
     <TasksTable
+      showTaskExecutionLabel={true}
       sorts={sorts}
       tableChangeHandler={tableChangeHandler}
       tasks={executionTasksFull}

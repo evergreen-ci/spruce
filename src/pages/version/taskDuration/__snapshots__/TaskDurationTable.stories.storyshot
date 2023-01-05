@@ -282,12 +282,6 @@ exports[`storybook Storyshots Components/Task Duration Table Default 1`] = `
                       >
                         test-rest-data
                       </span>
-                      <p
-                        className="leafygreen-ui-1yli3c0"
-                      >
-                        Execution 
-                        1
-                      </p>
                     </span>
                   </a>
                 </span>
@@ -378,12 +372,6 @@ exports[`storybook Storyshots Components/Task Duration Table Default 1`] = `
                       >
                         test-model-distro
                       </span>
-                      <p
-                        className="leafygreen-ui-1yli3c0"
-                      >
-                        Execution 
-                        1
-                      </p>
                     </span>
                   </a>
                 </span>
@@ -474,12 +462,6 @@ exports[`storybook Storyshots Components/Task Duration Table Default 1`] = `
                       >
                         test-agent-internal
                       </span>
-                      <p
-                        className="leafygreen-ui-1yli3c0"
-                      >
-                        Execution 
-                        1
-                      </p>
                     </span>
                   </a>
                 </span>
@@ -570,12 +552,6 @@ exports[`storybook Storyshots Components/Task Duration Table Default 1`] = `
                       >
                         test-evergreen
                       </span>
-                      <p
-                        className="leafygreen-ui-1yli3c0"
-                      >
-                        Execution 
-                        1
-                      </p>
                     </span>
                   </a>
                 </span>
@@ -666,12 +642,6 @@ exports[`storybook Storyshots Components/Task Duration Table Default 1`] = `
                       >
                         test-model-artifact
                       </span>
-                      <p
-                        className="leafygreen-ui-1yli3c0"
-                      >
-                        Execution 
-                        1
-                      </p>
                     </span>
                   </a>
                 </span>
@@ -762,12 +732,6 @@ exports[`storybook Storyshots Components/Task Duration Table Default 1`] = `
                       >
                         test-thirdparty
                       </span>
-                      <p
-                        className="leafygreen-ui-1yli3c0"
-                      >
-                        Execution 
-                        1
-                      </p>
                     </span>
                   </a>
                 </span>
@@ -858,12 +822,6 @@ exports[`storybook Storyshots Components/Task Duration Table Default 1`] = `
                       >
                         test-model-event
                       </span>
-                      <p
-                        className="leafygreen-ui-1yli3c0"
-                      >
-                        Execution 
-                        1
-                      </p>
                     </span>
                   </a>
                 </span>
@@ -954,12 +912,6 @@ exports[`storybook Storyshots Components/Task Duration Table Default 1`] = `
                       >
                         test-model-testresult
                       </span>
-                      <p
-                        className="leafygreen-ui-1yli3c0"
-                      >
-                        Execution 
-                        1
-                      </p>
                     </span>
                   </a>
                 </span>
@@ -1050,12 +1002,6 @@ exports[`storybook Storyshots Components/Task Duration Table Default 1`] = `
                       >
                         test-model-alertrecord
                       </span>
-                      <p
-                        className="leafygreen-ui-1yli3c0"
-                      >
-                        Execution 
-                        1
-                      </p>
                     </span>
                   </a>
                 </span>
@@ -1146,12 +1092,6 @@ exports[`storybook Storyshots Components/Task Duration Table Default 1`] = `
                       >
                         test-model-patch
                       </span>
-                      <p
-                        className="leafygreen-ui-1yli3c0"
-                      >
-                        Execution 
-                        1
-                      </p>
                     </span>
                   </a>
                 </span>

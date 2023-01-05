@@ -90,7 +90,9 @@ const nestedTasks = [
   },
 ];
 export const BaseTaskTable = () => <TasksTable tasks={tasks} />;
-export const ExecutionTasksTable = () => <TasksTable tasks={nestedTasks} />;
+export const ExecutionTasksTable = () => (
+  <TasksTable tasks={nestedTasks} showTaskExecutionLabel={true} />
+);
 export default {
   title: "Components/Tasks Table",
   component: TasksTable,
