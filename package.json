@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.1",
+  "version": "3.0.3",
   "private": true,
   "scripts": {
     "build-storybook": "build-storybook",
@@ -15,9 +15,9 @@
     "cy:run": "cypress run",
     "cy:test": "cypress run --spec",
     "deploy-prod:do-not-use-directly": "yarn build:prod && BUCKET=evergreen.spruce yarn deploy; yarn upload-source-maps;",
-    "deploy:beta": ". ./appVersion.sh && yarn build:beta && BUCKET=evergreen-beta.spruce yarn deploy",
+    "deploy:beta": ". ./scripts/app-version.sh && yarn build:beta && BUCKET=evergreen-beta.spruce yarn deploy",
     "deploy:prod": "node cli-scripts/deploy-prod.js",
-    "deploy:staging": ". ./appVersion.sh && yarn build:staging && BUCKET=evergreen-staging.spruce yarn deploy",
+    "deploy:staging": ". ./scripts/app-version.sh && yarn build:staging && BUCKET=evergreen-staging.spruce yarn deploy",
     "deploy": "aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude env/.cmdrc.json",
     "dev": "env-cmd -e devLocal -r env/.cmdrc.json yarn start",
     "eslint-fix": "STRICT=1 eslint -c src/.eslintrc.js --fix 'src/**/*.ts?(x)' && eslint -c cypress/.eslintrc.js 'cypress/**/*.ts'",
@@ -37,7 +37,7 @@
     "storybook": "start-storybook -p 6006",
     "test:watch": "node scripts/test.js  --verbose",
     "test": "node scripts/test.js  --watchAll=false",
-    "upload-source-maps": "env-cmd -e prod -r env/.cmdrc.json node ./upload-bugsnag-sourcemaps"
+    "upload-source-maps": "env-cmd -e prod -r env/.cmdrc.json node ./scripts/upload-bugsnag-sourcemaps"
   },
   "browserslist": {
     "production": [
@@ -56,8 +56,8 @@
   },
   "dependencies": {
     "@apollo/client": "3.6.9",
-    "@bugsnag/js": "7.17.0",
-    "@bugsnag/plugin-react": "7.16.0",
+    "@bugsnag/js": "7.18.0",
+    "@bugsnag/plugin-react": "7.18.0",
     "@emotion/css": "^11.9.0",
     "@emotion/eslint-plugin": "11.0.0",
     "@emotion/react": "11.1.4",
