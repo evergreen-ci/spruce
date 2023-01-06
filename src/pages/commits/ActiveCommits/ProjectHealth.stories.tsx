@@ -1,5 +1,6 @@
-import { CommitVersion, Commit } from "types/commits";
+import { Commit, Commits } from "types/commits";
 import { TaskStatus } from "types/task";
+import { isFailedTaskStatus } from "utils/statuses";
 import { CommitsWrapper } from "../CommitsWrapper";
 
 export default {
@@ -7,10 +8,28 @@ export default {
   component: CommitsWrapper,
   args: {
     buildVariantCount: 3,
-    taskCount: 1,
+    taskCount: 2,
     isLoading: false,
     hasTaskFilter: false,
     hasFilters: false,
+  },
+  argTypes: {
+    buildVariantCount: {
+      control: {
+        type: "range",
+        min: 1,
+        max: 50,
+        step: 1,
+      },
+    },
+    taskCount: {
+      control: {
+        type: "range",
+        min: 1,
+        max: 500,
+        step: 1,
+      },
+    },
   },
 };
 
@@ -22,80 +41,141 @@ export const ActualWaterfallPage = ({
   hasFilters,
 }) => {
   const updatedVersions = versions.map((version) =>
-    formatVersion(version, buildVariantCount, taskCount)
+    populateVersion(version, buildVariantCount, taskCount, hasTaskFilter)
   );
   return (
-    <CommitsWrapper
-      versions={updatedVersions}
-      error={null}
-      isLoading={isLoading}
-      hasTaskFilter={hasTaskFilter}
-      hasFilters={hasFilters}
-    />
+    <div style={{ height: "500px" }}>
+      <CommitsWrapper
+        versions={updatedVersions}
+        error={null}
+        isLoading={isLoading}
+        hasTaskFilter={hasTaskFilter}
+        hasFilters={hasFilters}
+      />
+    </div>
   );
 };
 
-const buildVariantUpdateLength = (
-  buildVariant: CommitVersion["buildVariants"],
-  buildVariantCount: number
-) => {
-  if (buildVariant.length === buildVariantCount) {
-    return buildVariant;
-  }
-  if (buildVariant.length < buildVariantCount) {
-    const newBuildVariant = buildVariant.concat(
-      buildVariant.slice(buildVariant.length - buildVariantCount)
-    );
-    return newBuildVariant;
-  }
-  if (buildVariant.length > buildVariantCount) {
-    const newBuildVariant = buildVariant.slice(0, buildVariantCount);
-    return newBuildVariant;
-  }
-};
+/**
+ * `generateBuildVariants` generates an array of build variants
+ * @param count number of build variants to generate
+ * @returns
+ */
+const generateBuildVariants = (buildVariantCount: number, taskCount: number) =>
+  new Array(buildVariantCount).fill(undefined).map((_, index) => ({
+    displayName: `Build Variant ${index}`,
+    variant: `bv_${index.toString().padStart(3, "0")}`,
+    tasks: generateTasks(taskCount),
+  }));
 
-const taskUpdateLength = (
-  tasks: CommitVersion["buildVariants"][0]["tasks"],
-  taskCount: number
-) => {
-  if (tasks.length === taskCount) {
-    return tasks;
-  }
-  if (tasks.length < taskCount) {
-    const newTasks = tasks.concat(tasks.slice(tasks.length - taskCount));
-    return newTasks;
-  }
-  if (tasks.length > taskCount) {
-    const newTasks = tasks.slice(0, taskCount);
-    return newTasks;
-  }
+/**
+ * `generateTasks` generates an array of tasks with random statuses
+ * @param count number of tasks to generate
+ * @returns
+ */
+const generateTasks = (count: number) =>
+  Array(count)
+    .fill(undefined)
+    .map((_, index) => ({
+      displayName: `Task ${index}`,
+      id: `task_${index}`,
+      status: randomStatus(index),
+      execution: 0,
+    }));
+
+/**
+ * randomStatus returns a random status from the TaskStatus enum in a round robin fashion
+ * @param index
+ * @returns
+ */
+const randomStatus = (index: number) => {
+  const TaskStatusWithoutUmbrella = Object.values(TaskStatus).filter(
+    (status) => status.includes("umbrella") === false
+  );
+  const taskStatuses = Object.values(TaskStatusWithoutUmbrella);
+  return taskStatuses[index % taskStatuses.length];
 };
 
 const isRolledUpCommit = (commit: Commit) => commit.rolledUpVersions !== null;
 
-const formatVersion = (
+const populateVersion = (
   version: Commit,
   buildVariantCount: number,
-  taskCount: number
+  taskCount: number,
+  hasTaskFilter: boolean
 ) => {
   if (isRolledUpCommit(version)) {
     return version;
   }
   const newVersion = { ...version };
-  newVersion.version.buildVariants = buildVariantUpdateLength(
-    version.version.buildVariants,
-    buildVariantCount
-  );
-  newVersion.version.buildVariants = newVersion.version.buildVariants.map(
-    (buildVariant) => {
-      const newBuildVariant = { ...buildVariant };
-      newBuildVariant.tasks = taskUpdateLength(buildVariant.tasks, taskCount);
-      return newBuildVariant;
-    }
-  );
+  const buildVariants = generateBuildVariants(buildVariantCount, taskCount);
+
+  // This is used to populate the barcharts on the waterfall page
+  // iterate through the buildVariants and aggregate the task statuses for each buildVariant into this format [ { status: "success", count: 1 }, { status: "failed", count: 1 }
+  const taskStatusCounts = buildVariants.reduce((acc, buildVariant) => {
+    buildVariant.tasks.forEach((task) => {
+      const taskStatus = task.status;
+      const taskStatusIndex = acc.findIndex(
+        (status) => status.status === taskStatus
+      );
+      if (taskStatusIndex === -1) {
+        acc.push({ status: taskStatus, count: 1 });
+      } else {
+        acc[taskStatusIndex].count += 1;
+      }
+    });
+    return acc;
+  }, [] as { status: string; count: number }[]);
+  newVersion.version.taskStatusStats = { eta: null, counts: taskStatusCounts };
+
+  // Calculate the buildVariantStats
+  newVersion.version.buildVariantStats = hasTaskFilter
+    ? []
+    : buildVariants.map((buildVariant) => ({
+        displayName: buildVariant.displayName,
+        variant: buildVariant.variant,
+        statusCounts: groupTasksByStatus(
+          buildVariant.tasks.filter((t) => !isFailedTaskStatus(t.status))
+        ),
+      }));
+
+  // filter out tasks that are not failed if there is no task filter
+  newVersion.version.buildVariants = buildVariants.map((buildVariant) => {
+    const newBuildVariant = { ...buildVariant };
+    newBuildVariant.tasks = hasTaskFilter
+      ? buildVariant.tasks
+      : buildVariant.tasks.filter((t) => isFailedTaskStatus(t.status));
+    return newBuildVariant;
+  });
+
+  // iterate through the buildVariants and aggregate the task statuses for each buildVariant into this format [ { status: "success", count: 1 }, { status: "failed", count: 1 } ]
+
   return newVersion;
 };
-const versions = [
+
+/**
+ * `groupTasksByStatus` groups tasks by status and returns an array of objects with the status and count
+ * @param tasks
+ * @returns
+ *
+ */
+const groupTasksByStatus = (tasks: { status: string }[]) => {
+  const taskStatusCounts = tasks.reduce((acc, task) => {
+    const taskStatus = task.status;
+    const taskStatusIndex = acc.findIndex(
+      (status) => status.status === taskStatus
+    );
+    if (taskStatusIndex === -1) {
+      acc.push({ status: taskStatus, count: 1 });
+    } else {
+      acc[taskStatusIndex].count += 1;
+    }
+    return acc;
+  }, [] as { status: string; count: number }[]);
+  return taskStatusCounts;
+};
+
+const versions: Commits = [
   {
     version: {
       id: "spruce_987bf57eb679c6361322c3961b30a10724a9b001",
@@ -107,51 +187,9 @@ const versions = [
       projectIdentifier: "spruce",
       taskStatusStats: {
         eta: null,
-        counts: [
-          { status: "system-timed-out", count: 4 },
-          { status: "system-unresponsive", count: 3 },
-          { status: "setup-failed", count: 5 },
-          { status: "unscheduled", count: 2 },
-        ],
+        counts: [],
       },
-      buildVariants: [
-        {
-          displayName: "01. Code Health [code_health]",
-          variant: "code_health",
-          tasks: [
-            {
-              status: TaskStatus.Pending,
-              id: "code_health",
-              execution: 0,
-              displayName: "Code Health",
-            },
-          ],
-        },
-        {
-          displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
-          variant: "package_rpm",
-          tasks: [
-            {
-              status: TaskStatus.WillRun,
-              id: "code_health",
-              execution: 0,
-              displayName: "Code Health",
-            },
-          ],
-        },
-        {
-          displayName: "03b. JavaScript Tests [js]",
-          variant: "js",
-          tasks: [
-            {
-              status: TaskStatus.WillRun,
-              id: "js",
-              execution: 0,
-              displayName: "JavaScript Test",
-            },
-          ],
-        },
-      ],
+      buildVariants: [],
       buildVariantStats: [],
     },
     rolledUpVersions: null,
@@ -167,52 +205,9 @@ const versions = [
       projectIdentifier: "spruce",
       taskStatusStats: {
         eta: null,
-        counts: [
-          { status: "system-failed", count: 6 },
-          { status: "pending", count: 2 },
-          { status: "known-issue", count: 4 },
-          { status: "unscheduled", count: 12 },
-          { status: "task-timed-out", count: 2 },
-        ],
+        counts: [],
       },
-      buildVariants: [
-        {
-          displayName: "01. Code Health [code_health]",
-          variant: "code_health",
-          tasks: [
-            {
-              status: TaskStatus.Pending,
-              id: "code_health",
-              execution: 0,
-              displayName: "Code Health",
-            },
-          ],
-        },
-        {
-          displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
-          variant: "package_rpm",
-          tasks: [
-            {
-              status: TaskStatus.Pending,
-              id: "code_health",
-              execution: 0,
-              displayName: "Code Health",
-            },
-          ],
-        },
-        {
-          displayName: "03a. Unit Tests Java [unit_java]",
-          variant: "unit_java",
-          tasks: [
-            {
-              status: TaskStatus.Failed,
-              id: "unit_java",
-              execution: 0,
-              displayName: "Unit Tests",
-            },
-          ],
-        },
-      ],
+      buildVariants: [],
       buildVariantStats: [],
     },
     rolledUpVersions: null,
@@ -226,7 +221,6 @@ const versions = [
         author: "Mohamed Khelif",
         order: 927,
         message: "v2.11.1",
-        projectIdentifier: "spruce",
         revision: "a77bd39ccf515b63327dc2355a8444955043c66a",
       },
     ],
@@ -243,39 +237,9 @@ const versions = [
       projectIdentifier: "spruce",
       taskStatusStats: {
         eta: null,
-        counts: [
-          { status: "setup-failed", count: 4 },
-          { status: "inactive", count: 3 },
-          { status: "pending", count: 5 },
-          { status: "unstarted", count: 2 },
-        ],
+        counts: [],
       },
-      buildVariants: [
-        {
-          displayName: "01. Code Health [code_health]",
-          variant: "code_health",
-          tasks: [
-            {
-              status: TaskStatus.WillRun,
-              id: "code_health",
-              execution: 0,
-              displayName: "Code Health",
-            },
-          ],
-        },
-        {
-          displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
-          variant: "package_rpm",
-          tasks: [
-            {
-              status: TaskStatus.Pending,
-              id: "code_health",
-              execution: 0,
-              displayName: "Code Health",
-            },
-          ],
-        },
-      ],
+      buildVariants: [],
       buildVariantStats: [],
     },
     rolledUpVersions: null,
@@ -291,39 +255,9 @@ const versions = [
       order: 925,
       taskStatusStats: {
         eta: null,
-        counts: [
-          { status: "blocked", count: 4 },
-          { status: "aborted", count: 3 },
-          { status: "undispatched", count: 5 },
-          { status: "test-timed-out", count: 2 },
-        ],
+        counts: [],
       },
-      buildVariants: [
-        {
-          displayName: "01. Code Health [code_health]",
-          variant: "code_health",
-          tasks: [
-            {
-              status: TaskStatus.WillRun,
-              id: "code_health",
-              execution: 0,
-              displayName: "Code Health",
-            },
-          ],
-        },
-        {
-          displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
-          variant: "package_rpm",
-          tasks: [
-            {
-              status: TaskStatus.Succeeded,
-              id: "code_health",
-              execution: 0,
-              displayName: "Code Health",
-            },
-          ],
-        },
-      ],
+      buildVariants: [],
       buildVariantStats: [],
     },
     rolledUpVersions: null,
@@ -339,52 +273,9 @@ const versions = [
       order: 924,
       taskStatusStats: {
         eta: null,
-        counts: [
-          { status: "success", count: 6 },
-          { status: "failed", count: 2 },
-          { status: "dispatched", count: 4 },
-          { status: "started", count: 5 },
-          { status: "will-run", count: 2 },
-        ],
+        counts: [],
       },
-      buildVariants: [
-        {
-          displayName: "01. Code Health [code_health]",
-          variant: "code_health",
-          tasks: [
-            {
-              status: TaskStatus.Failed,
-              id: "code_health",
-              execution: 0,
-              displayName: "Code Health",
-            },
-          ],
-        },
-        {
-          displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
-          variant: "package_rpm",
-          tasks: [
-            {
-              status: TaskStatus.Failed,
-              id: "code_health",
-              execution: 0,
-              displayName: "Code Health",
-            },
-          ],
-        },
-        {
-          displayName: "03a. Unit Tests Java [unit_java]",
-          variant: "unit_java",
-          tasks: [
-            {
-              status: TaskStatus.Failed,
-              id: "unit_java",
-              execution: 0,
-              displayName: "Unit Tests",
-            },
-          ],
-        },
-      ],
+      buildVariants: [],
       buildVariantStats: [],
     },
     rolledUpVersions: null,

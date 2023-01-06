@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { StyledRouterLink } from "components/styles";
 import { VariantGroupedTaskStatusBadges } from "components/VariantGroupedTaskStatusBadges";
+import VisibilityContainer from "components/VisibilityContainer";
 import { getVariantHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { StatusCount } from "gql/generated/types";
@@ -71,7 +72,9 @@ export const BuildVariantCard: React.VFC<Props> = ({
       >
         {buildVariantDisplayName}
       </Label>
-      <Content height={`${height}px`}>{render}</Content>
+      <Content height={`${height}px`}>
+        <VisibilityContainer>{render}</VisibilityContainer>
+      </Content>
     </Container>
   );
 };

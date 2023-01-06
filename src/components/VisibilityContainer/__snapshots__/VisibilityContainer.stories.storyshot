@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots Components/VisibilityContainer Default 1`] = `
+Array [
+  "Scroll the below container out of view and observe the component mounting and unmounting",
+  <div
+    className="css-hd1nxa-ScrollableContainer ek5umk1"
+  >
+    <div
+      className="css-149tahu-InnerContainer ek5umk0"
+    >
+      <div />
+    </div>
+  </div>,
+]
+`;
