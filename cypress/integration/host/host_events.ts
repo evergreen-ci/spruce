@@ -106,6 +106,7 @@ describe("Host events", () => {
   });
 
   it("host events with logs display the correct text and the logs get displayed when available", () => {
+    cy.visit(pathWithEvents);
     const hostTypes = [
       {
         hostType: "host-script-executed",
