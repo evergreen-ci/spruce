@@ -121,7 +121,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
       )}
       {!isPatch && (
         <MetadataItem>
-          Github commit:{" "}
+          GitHub commit:{" "}
           <InlineCode
             data-cy="version-github-commit"
             href={getGithubCommitUrl(owner, repo, revision)}
@@ -137,7 +137,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
             data-cy="commit-queue-position"
             to={getCommitQueueRoute(project)}
           >
-            Commit Queue Position: {commitQueuePosition}
+            Commit queue position: {commitQueuePosition}
           </StyledRouterLink>
         </MetadataItem>
       )}
