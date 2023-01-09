@@ -209,10 +209,9 @@ const useRenderBody: React.VFC<{
 };
 
 const StyledPre = styled.pre`
-  padding: ${size.xs};
-  word-break: break-all;
-  word-wrap: break-word;
   border: 1px solid ${gray.light2};
   border-radius: ${size.xxs};
   font-size: ${fontSize.m};
+  overflow-x: scroll;
+  padding: ${size.xs};
 `;
