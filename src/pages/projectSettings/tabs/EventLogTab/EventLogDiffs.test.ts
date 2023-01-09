@@ -69,6 +69,32 @@ const afterUpdate = {
   },
 };
 
+const beforeDeletion = {
+  __typename: "ProjectEventSettings",
+  projectRef: {
+    __typename: "Project",
+    identifier: "viewTest",
+    patchTriggerAliases: [],
+  },
+  vars: {
+    __typename: "ProjectVars",
+    vars: { newVariable: "so new" },
+  },
+};
+
+const afterDeletion = {
+  __typename: "ProjectEventSettings",
+  projectRef: {
+    __typename: "Project",
+    identifier: "viewTest",
+    patchTriggerAliases: [],
+  },
+  vars: {
+    __typename: "ProjectVars",
+    vars: {},
+  },
+};
+
 describe("should transform event diffs to key, before and after", () => {
   it("should transform updates", () => {
     const diffLines = getEventDiffLines(beforeUpdate, afterUpdate);
@@ -92,6 +118,16 @@ describe("should transform event diffs to key, before and after", () => {
         key: "projectRef.patchTriggerAliases[0].childProjectIdentifier",
         before: undefined,
         after: "evg",
+      },
+    ]);
+  });
+  it("should transform deletions", () => {
+    const diffLines = getEventDiffLines(beforeDeletion, afterDeletion);
+    expect(diffLines).toStrictEqual([
+      {
+        key: "vars.vars.newVariable",
+        before: "so new",
+        after: undefined,
       },
     ]);
   });

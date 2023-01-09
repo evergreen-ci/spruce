@@ -1,15 +1,16 @@
 import {
-  toggleArray,
-  deduplicatedAppend,
+  arrayIntersection,
+  arraySetDifference,
+  arraySymmetricDifference,
+  arrayUnion,
+  conditionalToArray,
   convertArrayToObject,
   convertObjectToArray,
+  deduplicatedAppend,
   mapStringArrayToObject,
-  toArray,
-  arrayIntersection,
-  arraySymmetricDifference,
-  arraySetDifference,
-  arrayUnion,
   range,
+  toArray,
+  toggleArray,
 } from ".";
 
 describe("toggleArray", () => {
@@ -319,5 +320,17 @@ describe("range", () => {
       expect(range(1, 10, 2)).toStrictEqual([1, 3, 5, 7, 9]);
       expect(range(1, 10, 4)).toStrictEqual([1, 5, 9]);
     });
+  });
+});
+
+describe("conditionalToArray", () => {
+  it("should convert a value to an array if shouldBeArray is true", () => {
+    expect(conditionalToArray("parsley", true)).toStrictEqual(["parsley"]);
+  });
+  it("should not convert a value to an array if shouldBeArray is false", () => {
+    expect(conditionalToArray("parsley", false)).toBe("parsley");
+  });
+  it("should properly handles value if it is already an array", () => {
+    expect(conditionalToArray(["parsley"], true)).toStrictEqual(["parsley"]);
   });
 });

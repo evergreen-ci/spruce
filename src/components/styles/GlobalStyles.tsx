@@ -1,4 +1,5 @@
 import { Global, css } from "@emotion/react";
+import { fontFamilies } from "@leafygreen-ui/tokens";
 import fontStyles from "components/styles/fonts";
 
 const resetStyles = css`
@@ -23,7 +24,7 @@ const resetStyles = css`
   }
 
   pre {
-    font-family: "Source Code Pro", Menlo, monospace;
+    font-family: ${fontFamilies.code};
     line-height: 1.5;
     margin: 0;
   }
@@ -36,7 +37,7 @@ const globalStyles = css`
   background-color: white;
 
   body {
-    font-family: "Euclid Circular A", "Helvetica Neue", sans-serif;
+    font-family: ${fontFamilies.default};
     font-size: 13px;
     margin: 0;
   }

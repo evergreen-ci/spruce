@@ -1,7 +1,9 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Badge, { Variant } from "@leafygreen-ui/badge";
 import Card from "@leafygreen-ui/card";
 import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
+import { fontFamilies } from "@leafygreen-ui/tokens";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { size } from "constants/tokens";
@@ -92,13 +94,17 @@ export const EventLogTab: React.VFC<TabProps> = ({ projectType }) => {
             {({ datum }) => (
               <Row key={datum.key} data-cy="event-log-table-row">
                 <Cell>
-                  <StyledCell>{datum.key}</StyledCell>
+                  <CellText>{datum.key}</CellText>
                 </Cell>
                 <Cell>
-                  <StyledCell>{getEventValue(datum.before)}</StyledCell>
+                  <CellText>{getEventValue(datum.before)}</CellText>
                 </Cell>
                 <Cell>
-                  <StyledCell>{getEventValue(datum.after)}</StyledCell>
+                  {getEventValue(datum.after) === null ? (
+                    <Badge variant={Variant.Red}>Deleted</Badge>
+                  ) : (
+                    <CellText>{getEventValue(datum.after)}</CellText>
+                  )}
                 </Cell>
               </Row>
             )}
@@ -130,19 +136,20 @@ const EventLogCard = styled(Card)`
   width: 150%;
 `;
 
-const StyledCell = styled.pre`
-  word-break: break-all;
+const CellText = styled.span`
+  font-family: ${fontFamilies.code};
   font-size: 12px;
+  line-height: 16px;
+  word-break: break-all;
 `;
 
 const StyledHeader = styled.div`
-  padding-bottom: ${size.l};
-  padding-left: ${size.xxs};
+  padding-bottom: ${size.s};
 `;
 
 const getEventValue = (value: EventValue): string => {
   if (value === null || value === undefined) {
-    return "";
+    return null;
   }
   if (typeof value === "boolean") {
     return String(value);
@@ -159,4 +166,6 @@ const getEventValue = (value: EventValue): string => {
   if (Array.isArray(value)) {
     return JSON.stringify(value).replaceAll(",", ",\n");
   }
+
+  return JSON.stringify(value);
 };

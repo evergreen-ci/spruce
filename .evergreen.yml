@@ -343,8 +343,8 @@ functions:
       working_dir: spruce
       script: |
         export PATH=${node_path}
-        chmod +x appVersion.sh
-        . ./appVersion.sh
+        chmod +x scripts/app-version.sh
+        . ./scripts/app-version.sh
         echo "Building Production version: $REACT_APP_VERSION"
         yarn build:prod
   
