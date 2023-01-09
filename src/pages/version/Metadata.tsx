@@ -92,9 +92,9 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
       <MetadataItem>
         Started: {startTime && getDateCopy(startTime)}
       </MetadataItem>
-      <MetadataItem>
-        Finished: {finishTime && getDateCopy(finishTime)}
-      </MetadataItem>
+      {finishTime && (
+        <MetadataItem>Finished: {getDateCopy(finishTime)}</MetadataItem>
+      )}
       <MetadataItem>{`Submitted by: ${author}`}</MetadataItem>
       {isPatch ? (
         <MetadataItem>
