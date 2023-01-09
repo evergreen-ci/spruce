@@ -4,7 +4,7 @@ import { getTaskRoute } from "constants/routes";
 import { executionAsDisplay } from "pages/task/util/execution";
 
 interface TaskLinkProps {
-  execution: number;
+  execution?: number;
   onClick?: (taskId: string) => void;
   taskId: string;
   taskName: string;
@@ -17,6 +17,8 @@ export const TaskLink: React.VFC<TaskLinkProps> = ({
 }) => (
   <StyledRouterLink onClick={() => onClick(taskId)} to={getTaskRoute(taskId)}>
     <WordBreak>{taskName}</WordBreak>
-    <Body>Execution {executionAsDisplay(execution)}</Body>
+    {Number.isInteger(execution) && (
+      <Body>Execution {executionAsDisplay(execution)}</Body>
+    )}
   </StyledRouterLink>
 );

@@ -45,52 +45,8 @@ const tasks = [
   },
 ];
 
-const nestedTasks = [
-  ...tasks,
-  {
-    id: "some_id_4",
-    aborted: false,
-    displayName: "Some Fancy Display Task",
-    version: "234",
-    status: "success",
-    buildVariant: "Windows",
-    buildVariantDisplayName: "Windows 97",
-    blocked: false,
-    baseTask: {
-      status: "failed",
-    },
-    executionTasksFull: [
-      {
-        id: "some_id_5",
-        aborted: false,
-        displayName: "Some fancy execution task",
-        version: "234",
-        status: "success",
-        buildVariant: "Windows",
-        buildVariantDisplayName: "Windows 97",
-        blocked: false,
-        baseTask: {
-          status: "aborted",
-        },
-      },
-      {
-        id: "some_id_6",
-        aborted: false,
-        displayName: "Another execution task",
-        version: "234",
-        status: "success",
-        buildVariant: "Windows",
-        buildVariantDisplayName: "Windows 97",
-        blocked: false,
-        baseTask: {
-          status: "system-failed",
-        },
-      },
-    ],
-  },
-];
 export const BaseTaskTable = () => <TasksTable tasks={tasks} />;
-export const ExecutionTasksTable = () => <TasksTable tasks={nestedTasks} />;
+
 export default {
   title: "Components/Tasks Table",
   component: TasksTable,

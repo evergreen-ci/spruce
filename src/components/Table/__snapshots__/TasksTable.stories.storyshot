@@ -343,12 +343,6 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                         >
                           Some Fancy ID
                         </span>
-                        <p
-                          className="leafygreen-ui-1yli3c0"
-                        >
-                          Execution 
-                          6
-                        </p>
                       </span>
                     </a>
                   </td>
@@ -430,12 +424,6 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                         >
                           Some other Fancy ID
                         </span>
-                        <p
-                          className="leafygreen-ui-1yli3c0"
-                        >
-                          Execution 
-                          5
-                        </p>
                       </span>
                     </a>
                   </td>
@@ -517,12 +505,6 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                         >
                           Some different Fancy ID
                         </span>
-                        <p
-                          className="leafygreen-ui-1yli3c0"
-                        >
-                          Execution 
-                          1
-                        </p>
                       </span>
                     </a>
                   </td>
@@ -944,12 +926,6 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                         >
                           Some Fancy ID
                         </span>
-                        <p
-                          className="leafygreen-ui-1yli3c0"
-                        >
-                          Execution 
-                          6
-                        </p>
                       </span>
                     </a>
                   </td>
@@ -1045,12 +1021,6 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                         >
                           Some other Fancy ID
                         </span>
-                        <p
-                          className="leafygreen-ui-1yli3c0"
-                        >
-                          Execution 
-                          5
-                        </p>
                       </span>
                     </a>
                   </td>
@@ -1146,12 +1116,6 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                         >
                           Some different Fancy ID
                         </span>
-                        <p
-                          className="leafygreen-ui-1yli3c0"
-                        >
-                          Execution 
-                          1
-                        </p>
                       </span>
                     </a>
                   </td>
@@ -1247,12 +1211,6 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                         >
                           Some Fancy Display Task
                         </span>
-                        <p
-                          className="leafygreen-ui-1yli3c0"
-                        >
-                          Execution 
-                          NaN
-                        </p>
                       </span>
                     </a>
                   </td>

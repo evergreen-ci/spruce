@@ -33,7 +33,6 @@ export const TaskDurationRow: React.VFC<RowProps> = forwardRef(
       buildVariantDisplayName,
       displayName,
       executionTasksFull,
-      execution,
       id,
       startTime,
       status,
@@ -49,7 +48,7 @@ export const TaskDurationRow: React.VFC<RowProps> = forwardRef(
     return (
       <Row ref={ref} key={id} data-cy={dataCy} {...rest}>
         <TaskNameCell>
-          <TaskLink taskId={id} execution={execution} taskName={displayName} />
+          <TaskLink taskId={id} taskName={displayName} />
         </TaskNameCell>
         <StatusCell>
           <TaskStatusBadge status={status} />
@@ -76,11 +75,7 @@ export const TaskDurationRow: React.VFC<RowProps> = forwardRef(
         {executionTasksFull?.map((t) => (
           <Row key={t.id} data-cy="execution-task-row">
             <TaskNameCell>
-              <TaskLink
-                taskId={t.id}
-                execution={t.execution}
-                taskName={t.displayName}
-              />
+              <TaskLink taskId={t.id} taskName={t.displayName} />
             </TaskNameCell>
             <StatusCell>
               <TaskStatusBadge status={t.status} />
