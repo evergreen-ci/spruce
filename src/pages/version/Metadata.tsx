@@ -121,7 +121,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
       )}
       {!isPatch && (
         <MetadataItem>
-          Github Commit:{" "}
+          Github commit:{" "}
           <InlineCode
             data-cy="version-github-commit"
             href={getGithubCommitUrl(owner, repo, revision)}
