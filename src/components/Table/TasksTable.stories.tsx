@@ -46,7 +46,6 @@ const tasks = [
 ];
 
 export const BaseTaskTable = () => <TasksTable tasks={tasks} />;
-
 export default {
   title: "Components/Tasks Table",
   component: TasksTable,
