@@ -139,10 +139,11 @@ const getColumnDefs = ({
     className: "cy-task-table-col-NAME",
     render: (name: string, { id, execution }: Task): JSX.Element => (
       <TaskLink
+        execution={execution}
         onClick={onClickTaskLink}
-        taskName={name}
+        showTaskExecutionLabel={showTaskExecutionLabel}
         taskId={id}
-        execution={showTaskExecutionLabel ? execution : null}
+        taskName={name}
       />
     ),
     ...(taskNameInputProps &&

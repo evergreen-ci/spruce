@@ -6,18 +6,20 @@ import { executionAsDisplay } from "utils/task";
 interface TaskLinkProps {
   execution?: number;
   onClick?: (taskId: string) => void;
+  showTaskExecutionLabel?: boolean;
   taskId: string;
   taskName: string;
 }
 export const TaskLink: React.VFC<TaskLinkProps> = ({
   execution,
   onClick = () => {},
+  showTaskExecutionLabel,
   taskId,
   taskName,
 }) => (
   <StyledRouterLink onClick={() => onClick(taskId)} to={getTaskRoute(taskId)}>
     <WordBreak>{taskName}</WordBreak>
-    {Number.isInteger(execution) && (
+    {showTaskExecutionLabel && (
       <Body>Execution {executionAsDisplay(execution)}</Body>
     )}
   </StyledRouterLink>
