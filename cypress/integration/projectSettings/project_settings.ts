@@ -290,9 +290,7 @@ describe("Repo Settings", () => {
 
     it("Successfully saves a complete alias", () => {
       cy.dataCy("variant-tags-input").first().type("alias variant tag");
-
       cy.dataCy("task-tags-input").first().type("alias task tag");
-
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated repo");
     });
@@ -316,7 +314,23 @@ describe("Repo Settings", () => {
 
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated repo");
+      cy.dataCy("save-settings-button").should("be.disabled");
+    });
 
+    it("Should be possible to return to a deselected state for Wait On", () => {
+      cy.selectLGOption("Wait on", "Success");
+      cy.getInputByLabel("Wait on").should(
+        "have.attr",
+        "aria-invalid",
+        "false"
+      );
+      cy.dataCy("save-settings-button").should("be.enabled");
+      cy.selectLGOption("Wait on", "Select event...");
+      cy.getInputByLabel("Wait on").should(
+        "have.attr",
+        "aria-invalid",
+        "false"
+      );
       cy.dataCy("save-settings-button").should("be.disabled");
     });
   });
