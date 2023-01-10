@@ -92,9 +92,9 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
       <MetadataItem>
         Started: {startTime && getDateCopy(startTime)}
       </MetadataItem>
-      <MetadataItem>
-        Finished: {finishTime && getDateCopy(finishTime)}
-      </MetadataItem>
+      {finishTime && (
+        <MetadataItem>Finished: {getDateCopy(finishTime)}</MetadataItem>
+      )}
       <MetadataItem>{`Submitted by: ${author}`}</MetadataItem>
       {isPatch ? (
         <MetadataItem>
@@ -121,7 +121,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
       )}
       {!isPatch && (
         <MetadataItem>
-          Github Commit:{" "}
+          GitHub commit:{" "}
           <InlineCode
             data-cy="version-github-commit"
             href={getGithubCommitUrl(owner, repo, revision)}
@@ -137,7 +137,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
             data-cy="commit-queue-position"
             to={getCommitQueueRoute(project)}
           >
-            Commit Queue Position: {commitQueuePosition}
+            Commit queue position: {commitQueuePosition}
           </StyledRouterLink>
         </MetadataItem>
       )}
