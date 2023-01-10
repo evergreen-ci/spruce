@@ -40,7 +40,7 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
   repoData,
   versionControlEnabled,
 }) => {
-  const { identifier } = useParams<{ identifier: string }>();
+  const { projectId: identifier } = useParams<{ projectId: string }>();
   const { getTab, updateForm } = useProjectSettingsContext();
   const { formData } = getTab(tab);
 

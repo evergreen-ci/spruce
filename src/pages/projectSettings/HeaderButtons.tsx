@@ -45,7 +45,7 @@ export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
   const { getTab, saveTab } = useProjectSettingsContext();
   const { formData, hasChanges, hasError } = getTab(tab);
   const navigate = useNavigate();
-  const { identifier } = useParams<{ identifier: string }>();
+  const { projectId: identifier } = useParams<{ projectId: string }>();
 
   const [defaultModalOpen, setDefaultModalOpen] = useState(false);
 

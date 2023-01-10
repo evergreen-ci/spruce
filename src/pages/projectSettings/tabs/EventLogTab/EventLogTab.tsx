@@ -33,7 +33,7 @@ type TabProps = {
 };
 
 export const EventLogTab: React.VFC<TabProps> = ({ projectType }) => {
-  const { identifier } = useParams<{ identifier: string }>();
+  const { projectId: identifier } = useParams<{ projectId: string }>();
   const isRepo = projectType === ProjectType.Repo;
 
   const dispatchToast = useToastContext();
