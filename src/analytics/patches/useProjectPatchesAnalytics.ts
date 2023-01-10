@@ -17,7 +17,7 @@ interface P extends Properties {}
 interface Analytics extends A<Action> {}
 
 export const useProjectPatchesAnalytics = (): Analytics => {
-  const { id: projectId } = useParams<{ id: string }>();
+  const { projectId } = useParams<{ projectId: string }>();
   const userId = useGetUserQuery();
   const sendEvent: Analytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {

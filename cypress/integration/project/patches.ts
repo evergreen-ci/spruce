@@ -1,6 +1,7 @@
-const route = "/project/evergreen/patches";
-
 describe("Project Patches Page", () => {
+  const route = "/project/evergreen/patches";
+  const projectCookie = "mci-project-cookie";
+
   before(() => {
     cy.login();
     cy.preserveCookies();
@@ -18,5 +19,19 @@ describe("Project Patches Page", () => {
     cy.dataCy("user-patches-link").first().click();
     cy.location("pathname").should("eq", "/user/admin/patches");
     cy.dataCy("patch-card").should("exist");
+  });
+
+  it("Should update the project cookie when visiting a specific project", () => {
+    cy.clearCookie(projectCookie);
+    cy.visit("/project/evergreen/patches");
+    cy.dataCy("patch-card").should("exist");
+
+    cy.dataCy("auxiliary-dropdown-link").click();
+    cy.dataCy("auxiliary-dropdown-project-settings").should(
+      "have.attr",
+      "href",
+      "/project/evergreen/settings"
+    );
+    cy.getCookie(projectCookie).should("have.property", "value", "evergreen");
   });
 });

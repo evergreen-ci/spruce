@@ -57,9 +57,8 @@ export const Commits = () => {
   const { hasUsedMainlineCommitsBefore = true } = useSpruceOptions ?? {};
 
   const parsed = parseQueryString(search);
+  const { projectId } = useParams<{ projectId: string }>();
 
-  // get query params from url
-  const { id: projectId } = useParams<{ id: string }>();
   usePageTitle(`Project Health | ${projectId}`);
   const recentlySelectedProject = Cookies.get(CURRENT_PROJECT);
   // Push default project to URL if there isn't a project in
@@ -70,6 +69,7 @@ export const Commits = () => {
   >(GET_SPRUCE_CONFIG, {
     skip: !!projectId || !!recentlySelectedProject,
   });
+
   useEffect(() => {
     if (!projectId) {
       if (recentlySelectedProject) {

@@ -1,17 +1,20 @@
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { Link, useParams } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
 import ChristmasTree from "components/Icon/icons/ChristmasTree.svg";
+import { CURRENT_PROJECT } from "constants/cookies";
 import { wikiUrl } from "constants/externalResources";
 import { getCommitsRoute, getUserPatchesRoute, routes } from "constants/routes";
 import { size } from "constants/tokens";
 import { useAuthStateContext } from "context/auth";
-import { GetUserQuery } from "gql/generated/types";
-import { GET_USER } from "gql/queries";
+import { GetUserQuery, GetSpruceConfigQuery } from "gql/generated/types";
+import { GET_USER, GET_SPRUCE_CONFIG } from "gql/queries";
 import { useLegacyUIURL } from "hooks";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
 import { UserDropdown } from "./UserDropdown";
@@ -23,9 +26,29 @@ export const Navbar: React.VFC = () => {
   const legacyURL = useLegacyUIURL();
   const { sendEvent } = useNavbarAnalytics();
 
-  const { data } = useQuery<GetUserQuery>(GET_USER);
-  const { user } = data || {};
+  const { data: userData } = useQuery<GetUserQuery>(GET_USER);
+  const { user } = userData || {};
   const { userId } = user || {};
+
+  const { projectId } = useParams<{ projectId: string }>();
+  const project = projectId ?? Cookies.get(CURRENT_PROJECT);
+
+  // Update recent project cookie if the projectId in the URL does not equal the cookie value.
+  // This will inform future navigations to the /commits page.
+  useEffect(() => {
+    if (project && project !== Cookies.get(CURRENT_PROJECT)) {
+      Cookies.set(CURRENT_PROJECT, project);
+    }
+  }, [project]);
+
+  const { data: configData } = useQuery<GetSpruceConfigQuery>(
+    GET_SPRUCE_CONFIG,
+    {
+      skip: project !== undefined,
+    }
+  );
+
+  const projectRoute = project || configData?.spruceConfig?.ui?.defaultProject;
 
   if (!isAuthenticated) {
     return null;
@@ -40,7 +63,7 @@ export const Navbar: React.VFC = () => {
           <ChristmasTreeIcon src={ChristmasTree} alt="Evergreen Logo" />
         </LogoLink>
         <PrimaryLink
-          to={getCommitsRoute()}
+          to={getCommitsRoute(projectRoute)}
           onClick={() => sendEvent({ name: "Click Waterfall Link" })}
         >
           Project Health
@@ -58,7 +81,7 @@ export const Navbar: React.VFC = () => {
         >
           My Hosts
         </PrimaryLink>
-        <AuxiliaryDropdown />
+        <AuxiliaryDropdown projectRoute={projectRoute} />
       </NavActionContainer>
       <NavActionContainer>
         {legacyURL && (

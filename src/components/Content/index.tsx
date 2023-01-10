@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
 import { Header } from "components/Header";
@@ -37,6 +37,13 @@ import { UserPatches } from "pages/UserPatches";
 import { VariantHistory } from "pages/VariantHistory";
 import { VersionPage } from "pages/Version";
 
+const Layout = () => (
+  <>
+    <Header />
+    <Outlet />
+  </>
+);
+
 export const Content: React.VFC = () => {
   const { isAuthenticated } = useAuthStateContext();
 
@@ -60,56 +67,57 @@ export const Content: React.VFC = () => {
 
   return (
     <PageGrid>
-      <Header />
       <Routes>
-        <Route path="*" element={<PageDoesNotExist />} />
-        <Route path="/" element={<MyPatches />} />
-        <Route path={routes.commits} element={<Commits />}>
-          <Route path=":id" element={null} />
-        </Route>
-        <Route path={routes.configurePatch} element={<ConfigurePatch />}>
-          <Route path={tab} element={null} />
-        </Route>
-        <Route path={routes.host} element={<Host />} />
-        <Route path={routes.hosts} element={<Hosts />} />
-        <Route path={routes.jobLogs} element={<JobLogs />}>
-          <Route path=":groupId" element={null} />
-        </Route>
-        <Route path={routes.myPatches} element={<MyPatches />} />
-        <Route path={routes.patch} element={<VersionPage />}>
-          <Route path={tab} element={null} />
-        </Route>
-        <Route path={routes.preferences} element={<Preferences />}>
-          <Route path={tab} element={null} />
-        </Route>
-        <Route path={routes.projectPatches} element={<ProjectPatches />} />
-        <Route path={routes.projectSettings} element={<ProjectSettings />}>
-          <Route path={tab} element={null} />
-        </Route>
-        <Route
-          path={routes.projectSettingsRedirect}
-          element={<ProjectSettingsRedirect />}
-        />
-        <Route path={`${routes.spawn}/*`} element={<Spawn />}>
-          <Route path={tab} element={null} />
-        </Route>
-        <Route path={routes.commitQueue} element={<CommitQueue />} />
-        <Route path={routes.task} element={<Task />}>
-          <Route path={tab} element={null} />
-        </Route>
-        <Route path={routes.taskHistory} element={<TaskHistory />} />
-        <Route path={routes.taskQueue} element={<TaskQueue />}>
-          <Route path=":distro" element={null} />
-          <Route path=":distro/:taskId" element={null} />
-        </Route>
-        <Route path={routes.userPatches} element={<UserPatches />} />
-        <Route
-          path={routes.userPatchesRedirect}
-          element={<UserPatchesRedirect />}
-        />
-        <Route path={routes.variantHistory} element={<VariantHistory />} />
-        <Route path={routes.version} element={<VersionPage />}>
-          <Route path={tab} element={null} />
+        <Route element={<Layout />}>
+          <Route path="*" element={<PageDoesNotExist />} />
+          <Route path="/" element={<MyPatches />} />
+          <Route path={routes.commits} element={<Commits />}>
+            <Route path=":projectId" element={null} />
+          </Route>
+          <Route path={routes.configurePatch} element={<ConfigurePatch />}>
+            <Route path={tab} element={null} />
+          </Route>
+          <Route path={routes.host} element={<Host />} />
+          <Route path={routes.hosts} element={<Hosts />} />
+          <Route path={routes.jobLogs} element={<JobLogs />}>
+            <Route path=":groupId" element={null} />
+          </Route>
+          <Route path={routes.myPatches} element={<MyPatches />} />
+          <Route path={routes.patch} element={<VersionPage />}>
+            <Route path={tab} element={null} />
+          </Route>
+          <Route path={routes.preferences} element={<Preferences />}>
+            <Route path={tab} element={null} />
+          </Route>
+          <Route path={routes.projectPatches} element={<ProjectPatches />} />
+          <Route path={routes.projectSettings} element={<ProjectSettings />}>
+            <Route path={tab} element={null} />
+          </Route>
+          <Route
+            path={routes.projectSettingsRedirect}
+            element={<ProjectSettingsRedirect />}
+          />
+          <Route path={`${routes.spawn}/*`} element={<Spawn />}>
+            <Route path={tab} element={null} />
+          </Route>
+          <Route path={routes.commitQueue} element={<CommitQueue />} />
+          <Route path={routes.task} element={<Task />}>
+            <Route path={tab} element={null} />
+          </Route>
+          <Route path={routes.taskHistory} element={<TaskHistory />} />
+          <Route path={routes.taskQueue} element={<TaskQueue />}>
+            <Route path=":distro" element={null} />
+            <Route path=":distro/:taskId" element={null} />
+          </Route>
+          <Route path={routes.userPatches} element={<UserPatches />} />
+          <Route
+            path={routes.userPatchesRedirect}
+            element={<UserPatchesRedirect />}
+          />
+          <Route path={routes.variantHistory} element={<VariantHistory />} />
+          <Route path={routes.version} element={<VersionPage />}>
+            <Route path={tab} element={null} />
+          </Route>
         </Route>
       </Routes>
       {!hasUsedSpruceBefore && (
