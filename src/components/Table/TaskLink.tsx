@@ -1,7 +1,7 @@
 import { Body } from "@leafygreen-ui/typography";
 import { StyledRouterLink, WordBreak } from "components/styles";
 import { getTaskRoute } from "constants/routes";
-import { executionAsDisplay } from "pages/task/util/execution";
+import { executionAsDisplay } from "utils/task";
 
 interface TaskLinkProps {
   execution?: number;

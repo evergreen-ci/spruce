@@ -10,7 +10,7 @@ import {
 } from "gql/generated/types";
 import { GET_TASK_ALL_EXECUTIONS } from "gql/queries";
 import { useDateFormat } from "hooks";
-import { executionAsDisplay } from "pages/task/util/execution";
+import { executionAsDisplay } from "utils/task";
 
 interface ExecutionSelectProps {
   id: string;
