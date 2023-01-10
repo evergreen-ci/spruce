@@ -171,7 +171,7 @@
     "camelcase": "^6.1.0",
     "colors": "1.4.0",
     "css-loader": "4.3.0",
-    "cypress": "12.1.0",
+    "cypress": "12.3.0",
     "eslint": "8.19.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "8.5.0",
