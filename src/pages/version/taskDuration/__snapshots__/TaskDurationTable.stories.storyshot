@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/Task Duration Table Default 1`] = `
+exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] = `
 <div
   className="css-us4ua-TableWrapper e1k6n0sw2"
 >

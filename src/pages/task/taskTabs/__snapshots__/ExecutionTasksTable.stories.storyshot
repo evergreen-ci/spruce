@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/Execution Tasks Table Multiple Executions 1`] = `
+exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Executions 1`] = `
 <div
   className="ant-table-wrapper"
 >
@@ -486,7 +486,7 @@ exports[`storybook Storyshots Components/Execution Tasks Table Multiple Executio
 </div>
 `;
 
-exports[`storybook Storyshots Components/Execution Tasks Table Single Execution 1`] = `
+exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Execution 1`] = `
 <div
   className="ant-table-wrapper"
 >
