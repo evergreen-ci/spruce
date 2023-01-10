@@ -147,7 +147,6 @@ describe("Host events", () => {
         logsTitle: "Additional details",
       },
     ];
-    cy.visit(pathWithEvents);
     clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCy);
 
     hostTypes.forEach(({ hostType, text, logsTitle }) => {
