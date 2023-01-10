@@ -109,7 +109,6 @@ describe("Host events", () => {
   });
 
   it("host events with logs display the correct text and the logs get displayed when available", () => {
-    cy.visit(pathWithEvents);
     const hostTypes = [
       {
         hostType: "host-script-executed",
@@ -147,6 +146,7 @@ describe("Host events", () => {
         logsTitle: "Additional details",
       },
     ];
+    cy.visit(pathWithEvents);
     clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCy);
 
     hostTypes.forEach(({ hostType, text, logsTitle }) => {
