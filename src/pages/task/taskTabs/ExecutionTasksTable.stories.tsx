@@ -48,6 +48,6 @@ export const MultipleExecutions = () => (
   <ExecutionTasksTable executionTasksFull={multipleExecutions} execution={14} />
 );
 export default {
-  title: "Components/Execution Tasks Table",
+  title: "Pages/Task/Table/Execution Tasks Table",
   component: ExecutionTasksTable,
 };
