@@ -110,6 +110,6 @@ export const Default = () => (
   <TaskDurationTable tasks={props.tasks} loading={false} />
 );
 export default {
-  title: "Components/Task Duration Table",
+  title: "Pages/Task/Table/Task Duration Table",
   component: TaskDurationTable,
 };
