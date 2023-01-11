@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { ScheduleTasksModal } from "components/ScheduleTasksModal";
-import { RenderFakeToastContext } from "context/__mocks__/toast";
+import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { SCHEDULE_TASKS } from "gql/mutations";
 import { GET_UNSCHEDULED_TASKS } from "gql/queries";
 import {

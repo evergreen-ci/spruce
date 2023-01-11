@@ -1,5 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
-import { RenderFakeToastContext } from "context/__mocks__/toast";
+import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { SPAWN_VOLUME } from "gql/mutations";
 import {

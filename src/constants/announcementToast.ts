@@ -1,11 +1,9 @@
-import { ToastTypeKeys } from "context/toast";
-
 interface AnnouncementToast {
   closable: boolean;
   expires?: number;
   message: string;
   title?: string;
-  variant: ToastTypeKeys;
+  variant: "success" | "warning" | "error" | "info";
 }
 
 // Hardcode the toastData value to display a sitewide announcement toast
