@@ -17,7 +17,7 @@ export const ProjectPatches = () => {
   const dispatchToast = useToastContext();
   const analyticsObject = useProjectPatchesAnalytics();
 
-  const { projectId } = useParams<{ projectId: string }>();
+  const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
   const { search } = useLocation();
   const [isCommitQueueCheckboxChecked] = useQueryParam(
     PatchPageQueryParams.CommitQueue,
@@ -31,7 +31,7 @@ export const ProjectPatches = () => {
     ProjectPatchesQueryVariables
   >(GET_PROJECT_PATCHES, {
     variables: {
-      projectId,
+      projectId: projectIdentifier,
       patchesInput: {
         ...patchesInput,
         onlyCommitQueue: isCommitQueueCheckboxChecked,

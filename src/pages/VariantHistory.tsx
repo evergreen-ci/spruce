@@ -34,12 +34,12 @@ const { useTestFilters, useJumpToCommit } = hooks;
 const { applyStrictRegex } = string;
 
 const VariantHistoryContents: React.VFC = () => {
-  const { projectId, variantName } = useParams<{
-    projectId: string;
+  const { projectIdentifier, variantName } = useParams<{
+    projectIdentifier: string;
     variantName: string;
   }>();
   const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
-  usePageTitle(`Variant History | ${projectId} | ${variantName}`);
+  usePageTitle(`Variant History | ${projectIdentifier} | ${variantName}`);
   const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
   useJumpToCommit();
   useTestFilters();
@@ -52,7 +52,7 @@ const VariantHistoryContents: React.VFC = () => {
   >(GET_MAINLINE_COMMITS_FOR_HISTORY, {
     variables: {
       mainlineCommitsOptions: {
-        projectID: projectId,
+        projectID: projectIdentifier,
         limit: 10,
         skipOrderNumber: nextPageOrderNumber,
         shouldCollapse: true,
@@ -79,7 +79,10 @@ const VariantHistoryContents: React.VFC = () => {
                 });
               }}
             />
-            <TaskSelector projectId={projectId} buildVariant={variantName} />
+            <TaskSelector
+              projectId={projectIdentifier}
+              buildVariant={variantName}
+            />
           </PageHeaderContent>
         </PageHeader>
         <PaginationFilterWrapper>
@@ -106,7 +109,10 @@ const VariantHistoryContents: React.VFC = () => {
           />
         </PaginationFilterWrapper>
         <div>
-          <ColumnHeaders projectId={projectId} variantName={variantName} />
+          <ColumnHeaders
+            projectId={projectIdentifier}
+            variantName={variantName}
+          />
           <TableWrapper>
             {error && <div>Failed to retrieve mainline commit history.</div>}
             {!error && (

@@ -17,13 +17,13 @@ interface P extends Properties {}
 interface Analytics extends A<Action> {}
 
 export const useProjectPatchesAnalytics = (): Analytics => {
-  const { projectId } = useParams<{ projectId: string }>();
+  const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
   const userId = useGetUserQuery();
   const sendEvent: Analytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
       object: "ProjectPatches",
       userId,
-      projectId,
+      projectId: projectIdentifier,
     });
   };
 

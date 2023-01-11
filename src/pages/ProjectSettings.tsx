@@ -35,8 +35,8 @@ const { validateObjectId } = validators;
 export const ProjectSettings: React.VFC = () => {
   usePageTitle(`Project Settings`);
   const dispatchToast = useToastContext();
-  const { projectId: identifier, tab } = useParams<{
-    projectId: string;
+  const { projectIdentifier: identifier, tab } = useParams<{
+    projectIdentifier: string;
     tab: ProjectSettingsTabRoutes;
   }>();
 

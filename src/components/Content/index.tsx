@@ -72,7 +72,7 @@ export const Content: React.VFC = () => {
           <Route path="*" element={<PageDoesNotExist />} />
           <Route path="/" element={<MyPatches />} />
           <Route path={routes.commits} element={<Commits />}>
-            <Route path=":projectId" element={null} />
+            <Route path=":projectIdentifier" element={null} />
           </Route>
           <Route path={routes.configurePatch} element={<ConfigurePatch />}>
             <Route path={tab} element={null} />

@@ -16,18 +16,18 @@ type Action =
   | { name: "Duplicate project"; projectIdToCopy: string };
 
 interface P extends Properties {
-  projectId: string;
+  identifier: string;
 }
 
 export interface Analytics extends A<Action> {}
 
 export const useProjectSettingsAnalytics = (): Analytics => {
-  const { projectId } = useParams<{ projectId: string }>();
+  const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
 
   const sendEvent: Analytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
       object: "ProjectSettings",
-      projectId,
+      identifier: projectIdentifier,
     });
   };
 

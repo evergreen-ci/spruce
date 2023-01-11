@@ -30,8 +30,8 @@ export const Navbar: React.VFC = () => {
   const { user } = userData || {};
   const { userId } = user || {};
 
-  const { projectId } = useParams<{ projectId: string }>();
-  const project = projectId ?? Cookies.get(CURRENT_PROJECT);
+  const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
+  const project = projectIdentifier ?? Cookies.get(CURRENT_PROJECT);
 
   // Update recent project cookie if the projectId in the URL does not equal the cookie value.
   // This will inform future navigations to the /commits page.

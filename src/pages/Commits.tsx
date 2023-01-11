@@ -57,9 +57,11 @@ export const Commits = () => {
   const { hasUsedMainlineCommitsBefore = true } = useSpruceOptions ?? {};
 
   const parsed = parseQueryString(search);
-  const { projectId } = useParams<{ projectId: string }>();
+  const { projectIdentifier } = useParams<{
+    projectIdentifier: string;
+  }>();
 
-  usePageTitle(`Project Health | ${projectId}`);
+  usePageTitle(`Project Health | ${projectIdentifier}`);
   const recentlySelectedProject = Cookies.get(CURRENT_PROJECT);
   // Push default project to URL if there isn't a project in
   // the URL already and an mci-project-cookie does not exist.
@@ -67,11 +69,11 @@ export const Commits = () => {
     GetSpruceConfigQuery,
     GetSpruceConfigQueryVariables
   >(GET_SPRUCE_CONFIG, {
-    skip: !!projectId || !!recentlySelectedProject,
+    skip: !!projectIdentifier || !!recentlySelectedProject,
   });
 
   useEffect(() => {
-    if (!projectId) {
+    if (!projectIdentifier) {
       if (recentlySelectedProject) {
         navigate(getCommitsRoute(recentlySelectedProject), { replace: true });
       } else if (spruceData) {
@@ -81,7 +83,7 @@ export const Commits = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [projectId, spruceData]);
+  }, [projectIdentifier, spruceData]);
 
   const statusFilters = toArray(parsed[ProjectFilterOptions.Status]);
   const variantFilters = toArray(parsed[ProjectFilterOptions.BuildVariant]);
@@ -101,7 +103,7 @@ export const Commits = () => {
   };
   const variables = getMainlineCommitsQueryVariables({
     mainlineCommitOptions: {
-      projectID: projectId,
+      projectID: projectIdentifier,
       skipOrderNumber,
       limit: 5,
     },
@@ -114,7 +116,7 @@ export const Commits = () => {
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
   >(GET_MAINLINE_COMMITS, {
-    skip: !projectId,
+    skip: !projectIdentifier,
     variables,
     pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (e) =>
@@ -168,7 +170,7 @@ export const Commits = () => {
           </ElementWrapper>
           <ElementWrapper width="25">
             <ProjectSelect
-              selectedProjectIdentifier={projectId}
+              selectedProjectIdentifier={projectIdentifier}
               getRoute={getCommitsRoute}
               onSubmit={() => {
                 sendEvent({
@@ -201,7 +203,7 @@ export const Commits = () => {
         <CommitsWrapper
           versions={versions}
           error={error}
-          isLoading={loading || !projectId}
+          isLoading={loading || !projectIdentifier}
           hasTaskFilter={hasTasks}
           hasFilters={hasFilters}
         />
