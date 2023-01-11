@@ -325,7 +325,7 @@ describe("Repo Settings", () => {
         "false"
       );
       cy.dataCy("save-settings-button").should("be.enabled");
-      cy.selectLGOption("Wait on", "Select event...");
+      cy.selectLGOption("Wait on", "Select event…");
       cy.getInputByLabel("Wait on").should(
         "have.attr",
         "aria-invalid",
