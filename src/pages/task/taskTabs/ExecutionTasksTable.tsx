@@ -42,9 +42,13 @@ export const ExecutionTasksTable: React.VFC<Props> = ({
       [RequiredQueryParams.Execution]: `${execution}`,
     });
   };
-
+  const uniqueExecutions = new Set([
+    execution,
+    ...executionTasksFull.map((t) => t.execution),
+  ]);
   return (
     <TasksTable
+      showTaskExecutionLabel={uniqueExecutions.size > 1}
       sorts={sorts}
       tableChangeHandler={tableChangeHandler}
       tasks={executionTasksFull}

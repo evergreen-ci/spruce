@@ -155,11 +155,13 @@ describe("Hosts page sorting", () => {
 
   it("Status sorter is selected by default if no sort params in url", () => {
     cy.visit(hostsRoute);
-    cy.get(".cy-task-table-col-STATUS").within(() => {
-      cy.get("[data-icon=caret-up]")
-        .should("have.attr", "fill")
-        .and("eq", "currentColor");
-    });
+    cy.get(".cy-task-table-col-STATUS")
+      .first()
+      .within(() => {
+        cy.get("[data-icon=caret-up]")
+          .should("have.attr", "fill")
+          .and("eq", "currentColor");
+      });
   });
 
   it("Status sorter has initial value of sort param from url", () => {

@@ -1,8 +1,13 @@
 import { clickOnPageSizeBtnAndAssertURLandTableSize } from "../../utils";
 
-const pathWithEvents = `/host/i-0f81a2d39744003dd`;
+const pathWithEvents = "/host/i-0f81a2d39744003dd";
 
 describe("Host events", () => {
+  beforeEach(() => {
+     cy.window().then((win) => {
+         win.localStorage.setItem("recentPageSize", "20");
+    });
+  });
   it("host events display the correct text", () => {
     cy.visit(pathWithEvents);
     clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCy);
@@ -159,6 +164,7 @@ describe("Host events", () => {
   it("host events logs do not display when not available", () => {
     cy.dataCy("host-status-changed")
       .contains("Status changed from running to stopping")
+      .first()
       .within(() => {
         cy.dataCy("host-event-logs").should("not.exist");
       });
