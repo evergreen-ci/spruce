@@ -22,45 +22,46 @@ import { TableOnChange } from "types/task";
 import { sortTasks } from "utils/statuses";
 import { TaskLink } from "./TaskLink";
 
-// Type needed to render the task table
 type TaskTableInfo = {
-  id: string;
-  displayName: string;
-  status: string;
   baseTask?: {
     status: string;
   };
   buildVariantDisplayName?: string;
+  displayName: string;
   executionTasksFull?: TaskTableInfo[];
+  id: string;
   projectIdentifier?: string;
+  status: string;
 };
 
 interface TasksTableProps {
   baseStatusSelectorProps?: TreeSelectProps;
+  loading?: boolean;
   onClickTaskLink?: (taskId: string) => void;
+  onColumnHeaderClick?: (sortField) => void;
   onExpand?: (expanded: boolean) => void;
+  showTaskExecutionLabel?: boolean;
   sorts?: SortOrder[];
   statusSelectorProps?: TreeSelectProps;
-  onColumnHeaderClick?: (sortField) => void;
   tableChangeHandler?: TableOnChange<TaskTableInfo>;
-  tasks: TaskTableInfo[];
   taskNameInputProps?: InputFilterProps;
+  tasks: TaskTableInfo[];
   variantInputProps?: InputFilterProps;
-  loading?: boolean;
 }
 
 export const TasksTable: React.VFC<TasksTableProps> = ({
   baseStatusSelectorProps,
-  taskNameInputProps,
+  loading = false,
   onClickTaskLink = () => {},
+  onColumnHeaderClick,
   onExpand = () => {},
+  showTaskExecutionLabel,
   sorts,
   statusSelectorProps,
-  onColumnHeaderClick,
   tableChangeHandler,
+  taskNameInputProps,
   tasks,
   variantInputProps,
-  loading = false,
 }) => (
   <Table
     data-cy="tasks-table"
@@ -78,6 +79,7 @@ export const TasksTable: React.VFC<TasksTableProps> = ({
             statusSelectorProps,
             taskNameInputProps,
             variantInputProps,
+            showTaskExecutionLabel,
           })
         : getColumnDefs({
             onClickTaskLink,
@@ -85,6 +87,7 @@ export const TasksTable: React.VFC<TasksTableProps> = ({
             baseStatusSelectorProps,
             statusSelectorProps,
             taskNameInputProps,
+            showTaskExecutionLabel,
             variantInputProps,
           })
     }
@@ -101,21 +104,23 @@ export const TasksTable: React.VFC<TasksTableProps> = ({
 );
 
 interface GetColumnDefsParams {
+  baseStatusSelectorProps?: TreeSelectProps;
   onClickTaskLink: (s: string) => void;
   onColumnHeaderClick?: (sortField) => void;
-  baseStatusSelectorProps?: TreeSelectProps;
+  showTaskExecutionLabel?: boolean;
   statusSelectorProps?: TreeSelectProps;
   taskNameInputProps?: InputFilterProps;
   variantInputProps?: InputFilterProps;
 }
 
 const getColumnDefs = ({
+  baseStatusSelectorProps,
   onClickTaskLink,
   onColumnHeaderClick = () => undefined,
-  baseStatusSelectorProps,
+  showTaskExecutionLabel,
   statusSelectorProps,
-  variantInputProps,
   taskNameInputProps,
+  variantInputProps,
 }: GetColumnDefsParams): ColumnProps<Task>[] => [
   {
     title: "Name",
@@ -132,8 +137,14 @@ const getColumnDefs = ({
     },
     width: "40%",
     className: "cy-task-table-col-NAME",
-    render: (name: string, { id }: Task): JSX.Element => (
-      <TaskLink onClick={onClickTaskLink} taskName={name} taskId={id} />
+    render: (name: string, { id, execution }: Task): JSX.Element => (
+      <TaskLink
+        execution={execution}
+        onClick={onClickTaskLink}
+        showTaskExecutionLabel={showTaskExecutionLabel}
+        taskId={id}
+        taskName={name}
+      />
     ),
     ...(taskNameInputProps &&
       getColumnSearchFilterProps({
@@ -237,10 +248,11 @@ interface GetColumnDefsWithSort extends GetColumnDefsParams {
 }
 
 const getColumnDefsWithSort = ({
-  sorts,
+  baseStatusSelectorProps,
   onClickTaskLink,
   onColumnHeaderClick,
-  baseStatusSelectorProps,
+  showTaskExecutionLabel,
+  sorts,
   statusSelectorProps,
   taskNameInputProps,
   variantInputProps,
@@ -261,9 +273,10 @@ const getColumnDefsWithSort = ({
   };
 
   return getColumnDefs({
+    baseStatusSelectorProps,
     onClickTaskLink,
     onColumnHeaderClick,
-    baseStatusSelectorProps,
+    showTaskExecutionLabel,
     statusSelectorProps,
     taskNameInputProps,
     variantInputProps,
