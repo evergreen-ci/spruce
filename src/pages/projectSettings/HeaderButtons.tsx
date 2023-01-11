@@ -59,7 +59,7 @@ export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
       },
     }) {
       saveTab(tab);
-      dispatchToast.progress("Successfully updated project", 0.9);
+      dispatchToast.success("Successfully updated project");
 
       if (identifier !== newIdentifier) {
         navigate(getProjectSettingsRoute(newIdentifier, tab), {
