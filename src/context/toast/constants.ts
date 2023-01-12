@@ -1,9 +1,9 @@
 import { Variant } from "@leafygreen-ui/toast";
 import { InvertedObject } from "types/utils";
-import { ToastVariants } from "./types";
+import { ToastVariant } from "./types";
 
 const mapToastToLeafyGreenVariant: {
-  [key in ToastVariants]: Variant;
+  [key in ToastVariant]: Variant;
 } = {
   success: Variant.Success,
   warning: Variant.Important,

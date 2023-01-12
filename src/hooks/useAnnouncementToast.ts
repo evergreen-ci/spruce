@@ -16,13 +16,21 @@ export const useAnnouncementToast = () => {
       return;
     }
 
-    const { closable, expires, message, title, variant } = toastData;
+    const { closable, expires, message, progress, title, variant } = toastData;
     if (message !== "" && Cookies.get(ANNOUNCEMENT_TOAST) !== message) {
-      dispatchToast[variant](message, closable, {
-        onClose: () => setClosedCookie(message, expires),
-        shouldTimeout: false,
-        title,
-      });
+      if (variant === "progress") {
+        dispatchToast[variant](message, progress, closable, {
+          onClose: () => setClosedCookie(message, expires),
+          shouldTimeout: false,
+          title,
+        });
+      } else {
+        dispatchToast[variant](message, closable, {
+          onClose: () => setClosedCookie(message, expires),
+          shouldTimeout: false,
+          title,
+        });
+      }
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 };
