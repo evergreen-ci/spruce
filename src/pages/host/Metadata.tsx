@@ -53,16 +53,18 @@ export const Metadata: React.VFC<{
           {distroId}
         </StyledLink>
       </MetadataItem>
-      <MetadataItem data-cy="current-running-task">
-        Current Task:{" "}
-        {runningTaskName ? (
-          <StyledLink data-cy="running-task-link" href={taskLink}>
-            {runningTaskName}
-          </StyledLink>
-        ) : (
-          <Italic>none</Italic>
-        )}
-      </MetadataItem>
+      {host?.startedBy === MCI_USER && (
+        <MetadataItem data-cy="current-running-task">
+          Current Task:{" "}
+          {runningTaskName ? (
+            <StyledLink data-cy="running-task-link" href={taskLink}>
+              {runningTaskName}
+            </StyledLink>
+          ) : (
+            <Italic>none</Italic>
+          )}
+        </MetadataItem>
+      )}
     </MetadataCard>
   );
 };
@@ -70,3 +72,5 @@ export const Metadata: React.VFC<{
 const Italic = styled.i`
   color: silver;
 `;
+
+const MCI_USER = "mci";
