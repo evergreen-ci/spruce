@@ -273,7 +273,7 @@ export const baseProps = {
       "ui:placeholder": "Golang Regex",
       "ui:sectionId": "variant-regex-field",
       "ui:elementWrapperCSS": textAreaCSS,
-      "ui:widget": LeafyGreenTextArea,
+      "ui:widget": "textarea",
     },
   },
   variantTags: {
