@@ -81,21 +81,21 @@ describe("Nav Bar", () => {
     );
     cy.getCookie(projectCookie).should("have.property", "value", "evergreen");
   });
-  it("Should update the links in the nav bar when visiting a specific project health page", () => {
+  it("Should update the links in the nav bar when visiting a specific project settings page", () => {
     cy.clearCookie(projectCookie);
-    cy.visit("/commits/spruce");
-    cy.dataCy("commit-chart-container").should("be.visible");
+    cy.visit("/project/spruce/settings");
+    cy.dataCy("project-settings-tab-title").should("be.visible");
 
+    cy.dataCy("project-health-link").should(
+      "have.attr",
+      "href",
+      "/commits/spruce"
+    );
     cy.dataCy("auxiliary-dropdown-link").click();
     cy.dataCy("auxiliary-dropdown-project-patches").should(
       "have.attr",
       "href",
       "/project/spruce/patches"
-    );
-    cy.dataCy("auxiliary-dropdown-project-settings").should(
-      "have.attr",
-      "href",
-      "/project/spruce/settings"
     );
     cy.getCookie(projectCookie).should("have.property", "value", "spruce");
   });
