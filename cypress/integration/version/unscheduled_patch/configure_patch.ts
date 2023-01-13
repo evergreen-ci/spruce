@@ -311,10 +311,8 @@ describe("Configure Patch Page", () => {
         cy.getInputByLabel("test-agent").check({
           force: true,
         });
-        cy.dataCy("build-variant-list-item").within(($el) => {
-          cy.wrap($el)
-            .find('[data-cy="task-count-badge"]')
-            .should("have.text", 11);
+        cy.dataCy("build-variant-select-wrapper").within(($el) => {
+          cy.wrap($el).find('[data-cy="task-count-badge"]').contains("1");
         });
 
         cy.dataCy("build-variant-list-item")

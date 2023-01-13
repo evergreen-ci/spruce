@@ -2,7 +2,6 @@ describe("variant history", () => {
   beforeEach(() => {
     // Column header length assertions depend on the set dimensions
     cy.viewport(1000, 600);
-    cy.preserveCookies();
   });
 
   it("shows an error message if mainline commit history could not be retrieved", () => {
