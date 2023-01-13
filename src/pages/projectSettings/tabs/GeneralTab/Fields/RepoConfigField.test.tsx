@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { FieldProps } from "@rjsf/core";
-import { RenderFakeToastContext } from "context/__mocks__/toast";
+import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   ATTACH_PROJECT_TO_REPO,
   ATTACH_PROJECT_TO_NEW_REPO,

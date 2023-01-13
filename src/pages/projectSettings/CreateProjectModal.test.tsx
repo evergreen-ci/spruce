@@ -1,6 +1,6 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
-import { RenderFakeToastContext } from "context/__mocks__/toast";
+import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { CREATE_PROJECT } from "gql/mutations";
 import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import { CreateProjectModal } from "./CreateProjectModal";

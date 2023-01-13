@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { getCommitsRoute, getProjectSettingsRoute } from "constants/routes";
-import { RenderFakeToastContext } from "context/__mocks__/toast";
+import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { GET_PROJECTS, GET_VIEWABLE_PROJECTS } from "gql/queries";
 import { renderWithRouterMatch, screen, waitFor } from "test_utils";
 
