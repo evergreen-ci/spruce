@@ -52,7 +52,7 @@ const ToastProvider: React.VFC<{ children: React.ReactNode }> = ({
     onClose: () => {},
     shouldTimeout: true,
     title: "",
-    progress: undefined,
+    progress: null,
   });
 
   useEffect(() => {
@@ -81,7 +81,7 @@ const ToastProvider: React.VFC<{ children: React.ReactNode }> = ({
     const defaultOptions = {
       onClose: () => {},
       shouldTimeout: true,
-      title: null,
+      title: "",
     };
 
     return {
