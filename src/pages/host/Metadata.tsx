@@ -53,7 +53,7 @@ export const Metadata: React.VFC<{
           {distroId}
         </StyledLink>
       </MetadataItem>
-      {host?.startedBy === MCI_USER && (
+      {startedBy === MCI_USER && (
         <MetadataItem data-cy="current-running-task">
           Current Task:{" "}
           {runningTaskName ? (
