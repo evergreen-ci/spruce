@@ -4,7 +4,6 @@ import { DISABLE_QUERY_POLLING } from "./cookies";
 // 1000 ms = 1 second
 export const SECOND = 1000;
 
-export const TOAST_TIMEOUT = 30 * SECOND;
 export const DEFAULT_POLL_INTERVAL =
   Cookies.get(DISABLE_QUERY_POLLING) === "true" ? 0 : 60 * SECOND;
 export const FASTER_POLL_INTERVAL = DEFAULT_POLL_INTERVAL / 3;

@@ -1,12 +1,15 @@
-import * as toast from "../toast";
+import * as toast from "..";
 
 const { useToastContext } = toast;
 type DispatchToast = ReturnType<typeof useToastContext>;
 
-/** RenderFakeToastContext is a utility that takes a React Component which implements useToastContext
- *  and returns a React Component which renders the component with the context mocked out.
- *  This is useful for testing components that use the useToastContext hook.
- *  It also exposes some methods to assert that the toast context was called with the correct parameters.
+/**
+ * RenderFakeToastContext is a utility that takes a React Component which uses useToastContext and returns the
+ * React Component with the context mocked out.
+ *
+ * It is meant to be used for testing components that rely on the useToastContext hook. It also exposes some
+ * methods to assert that the toast context was called with the correct parameters.
+ *
  * @param {React.VFC} Component - A React Component which implements useToastContext
  * @returns {Object} response - An object with the following properties:
  * @returns {React.VFC} response.Component - A React Component which renders the component with the context mocked out
@@ -25,6 +28,7 @@ const RenderFakeToastContext = (Component?: React.ReactElement) => {
     error: jest.fn(),
     info: jest.fn(),
     warning: jest.fn(),
+    progress: jest.fn(),
     hide: jest.fn(),
   };
 
@@ -34,14 +38,8 @@ const RenderFakeToastContext = (Component?: React.ReactElement) => {
       ...dispatchToast,
     }));
 
-  const HookWrapper = (props: any) => {
-    const { children } = props;
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    return <>{children}</>;
-  };
   return {
     Component: () => Component,
-    HookWrapper,
     useToastContext: useToastContextSpied,
     dispatchToast,
   };

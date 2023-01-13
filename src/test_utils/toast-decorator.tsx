@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { action } from "@storybook/addon-actions";
-import { ToastDispatchContext } from "context/toast";
+import { ToastContext } from "context/toast";
 
 const WithToastContext = (Story) => (
   <MockToastProvider>
@@ -21,15 +21,20 @@ const MockToastProvider: React.VFC<{ children: React.ReactNode }> = ({
         action(`Toast Error`)({ message, closable }),
       info: (message: string, closable: boolean = true) =>
         action(`Toast Info`)({ message, closable }),
+      progress: (
+        message: string,
+        progress: number = 0.5,
+        closable: boolean = true
+      ) => action(`Toast Info`)({ message, progress, closable }),
       hide: () => action(`Toast Hide`)(),
     }),
     []
   );
 
   return (
-    <ToastDispatchContext.Provider value={toastContext}>
+    <ToastContext.Provider value={toastContext}>
       {children}
-    </ToastDispatchContext.Provider>
+    </ToastContext.Provider>
   );
 };
 export default WithToastContext;
