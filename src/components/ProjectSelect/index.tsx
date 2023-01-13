@@ -1,9 +1,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import SearchableDropdown from "components/SearchableDropdown";
-import { CURRENT_PROJECT } from "constants/cookies";
 import {
   GetProjectsQuery,
   GetProjectsQueryVariables,
@@ -101,7 +99,6 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
       }
       options={allProjects}
       onChange={(projectIdentifier: any) => {
-        Cookies.set(CURRENT_PROJECT, projectIdentifier, { expires: 365 });
         onSubmit(projectIdentifier);
         navigate(getRoute(projectIdentifier));
       }}

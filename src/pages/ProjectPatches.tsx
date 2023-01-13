@@ -15,7 +15,9 @@ import { PatchPageQueryParams } from "types/patch";
 
 export const ProjectPatches = () => {
   const dispatchToast = useToastContext();
-  const { id: projectId } = useParams<{ id: string }>();
+  const analyticsObject = useProjectPatchesAnalytics();
+
+  const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
   const { search } = useLocation();
   const [isCommitQueueCheckboxChecked] = useQueryParam(
     PatchPageQueryParams.CommitQueue,
@@ -24,14 +26,12 @@ export const ProjectPatches = () => {
 
   const patchesInput = usePatchesInputFromSearch(search);
 
-  const analyticsObject = useProjectPatchesAnalytics();
-
   const { data, refetch, startPolling, stopPolling, loading } = useQuery<
     ProjectPatchesQuery,
     ProjectPatchesQueryVariables
   >(GET_PROJECT_PATCHES, {
     variables: {
-      projectId,
+      projectId: projectIdentifier,
       patchesInput: {
         ...patchesInput,
         onlyCommitQueue: isCommitQueueCheckboxChecked,

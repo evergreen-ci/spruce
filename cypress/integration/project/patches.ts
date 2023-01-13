@@ -1,6 +1,6 @@
-const route = "/project/evergreen/patches";
-
 describe("Project Patches Page", () => {
+  const route = "/project/evergreen/patches";
+
   before(() => {
     cy.login();
   });

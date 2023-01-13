@@ -22,12 +22,12 @@ interface P extends Properties {
 export interface Analytics extends A<Action> {}
 
 export const useProjectSettingsAnalytics = (): Analytics => {
-  const { identifier } = useParams<{ identifier: string }>();
+  const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
 
   const sendEvent: Analytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
       object: "ProjectSettings",
-      identifier,
+      identifier: projectIdentifier,
     });
   };
 

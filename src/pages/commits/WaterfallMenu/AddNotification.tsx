@@ -7,7 +7,7 @@ import { waterfallTriggers } from "constants/triggers";
 import { subscriptionMethods } from "types/subscription";
 
 export const AddNotification: React.VFC = () => {
-  const { id: projectId } = useParams<{ id: string }>();
+  const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   return (
@@ -24,7 +24,7 @@ export const AddNotification: React.VFC = () => {
       <NotificationModal
         data-cy="waterfall-notification-modal"
         onCancel={() => setIsModalVisible(false)}
-        resourceId={projectId}
+        resourceId={projectIdentifier}
         sendAnalyticsEvent={(subscription) =>
           sendEvent({ name: "Add Notification", subscription })
         }
