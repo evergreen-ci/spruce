@@ -232,7 +232,7 @@ export const baseProps = {
       "ui:placeholder": "Golang Regex",
       "ui:sectionId": "task-regex-field",
       "ui:elementWrapperCSS": textAreaCSS,
-      "ui:widget": LeafyGreenTextArea,
+      "ui:widget": "textarea",
     },
   },
   taskTags: {
