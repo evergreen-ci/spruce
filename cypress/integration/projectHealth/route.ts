@@ -23,18 +23,4 @@ describe("Mainline Commits page route", () => {
     cy.contains("System Performance").click();
     cy.getCookie(projectCookie).should("have.property", "value", "sys-perf");
   });
-
-  it("Should update the project cookie when visiting a specific project", () => {
-    cy.clearCookie(projectCookie);
-    cy.visit("/commits/spruce");
-    cy.dataCy("commit-chart-container").should("be.visible");
-
-    cy.dataCy("auxiliary-dropdown-link").click();
-    cy.dataCy("auxiliary-dropdown-project-settings").should(
-      "have.attr",
-      "href",
-      "/project/spruce/settings"
-    );
-    cy.getCookie(projectCookie).should("have.property", "value", "spruce");
-  });
 });

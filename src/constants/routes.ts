@@ -59,7 +59,7 @@ const paths = {
 };
 
 export const routes = {
-  commitQueue: `${paths.commitQueue}/:id`,
+  commitQueue: `${paths.commitQueue}/:projectIdentifier`,
   commits: paths.commits,
   configurePatch: `${paths.patch}/:id/configure`,
   host: `${paths.host}/:id`,

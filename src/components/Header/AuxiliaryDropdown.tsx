@@ -12,11 +12,11 @@ import { NavDropdown } from "./NavDropdown";
 const { getUiUrl } = environmentalVariables;
 
 interface AuxiliaryDropdownProps {
-  projectRoute: string;
+  projectIdentifier: string;
 }
 
 export const AuxiliaryDropdown: React.VFC<AuxiliaryDropdownProps> = ({
-  projectRoute,
+  projectIdentifier,
 }) => {
   const uiURL = getUiUrl();
   const { sendEvent } = useNavbarAnalytics();
@@ -41,14 +41,14 @@ export const AuxiliaryDropdown: React.VFC<AuxiliaryDropdownProps> = ({
 
     {
       "data-cy": "auxiliary-dropdown-project-patches",
-      to: getProjectPatchesRoute(projectRoute),
+      to: getProjectPatchesRoute(projectIdentifier),
       text: "Project Patches",
       onClick: () => sendEvent({ name: "Click Project Patches Link" }),
     },
     {
       "data-cy": "auxiliary-dropdown-project-settings",
       text: "Project Settings",
-      to: getProjectSettingsRoute(projectRoute),
+      to: getProjectSettingsRoute(projectIdentifier),
       onClick: () => sendEvent({ name: "Click Projects Link" }),
     },
   ];

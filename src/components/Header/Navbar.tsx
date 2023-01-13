@@ -30,25 +30,29 @@ export const Navbar: React.VFC = () => {
   const { user } = userData || {};
   const { userId } = user || {};
 
-  const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
-  const project = projectIdentifier ?? Cookies.get(CURRENT_PROJECT);
+  const { projectIdentifier: projectFromUrl } = useParams<{
+    projectIdentifier: string;
+  }>();
 
-  // Update recent project cookie if the projectId in the URL does not equal the cookie value.
+  // Update current project cookie if the project in the URL does not equal the cookie value.
   // This will inform future navigations to the /commits page.
   useEffect(() => {
-    if (project && project !== Cookies.get(CURRENT_PROJECT)) {
-      Cookies.set(CURRENT_PROJECT, project);
+    if (projectFromUrl && projectFromUrl !== Cookies.get(CURRENT_PROJECT)) {
+      Cookies.set(CURRENT_PROJECT, projectFromUrl);
     }
-  }, [project]);
+  }, [projectFromUrl]);
+
+  const currProject = projectFromUrl ?? Cookies.get(CURRENT_PROJECT);
 
   const { data: configData } = useQuery<GetSpruceConfigQuery>(
     GET_SPRUCE_CONFIG,
     {
-      skip: project !== undefined,
+      skip: currProject !== undefined,
     }
   );
 
-  const projectRoute = project || configData?.spruceConfig?.ui?.defaultProject;
+  const projectIdentifier =
+    currProject || configData?.spruceConfig?.ui?.defaultProject;
 
   if (!isAuthenticated) {
     return null;
@@ -63,7 +67,8 @@ export const Navbar: React.VFC = () => {
           <ChristmasTreeIcon src={ChristmasTree} alt="Evergreen Logo" />
         </LogoLink>
         <PrimaryLink
-          to={getCommitsRoute(projectRoute)}
+          data-cy="project-health-link"
+          to={getCommitsRoute(projectIdentifier)}
           onClick={() => sendEvent({ name: "Click Waterfall Link" })}
         >
           Project Health
@@ -81,7 +86,7 @@ export const Navbar: React.VFC = () => {
         >
           My Hosts
         </PrimaryLink>
-        <AuxiliaryDropdown projectRoute={projectRoute} />
+        <AuxiliaryDropdown projectIdentifier={projectIdentifier} />
       </NavActionContainer>
       <NavActionContainer>
         {legacyURL && (

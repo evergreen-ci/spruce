@@ -18,13 +18,13 @@ import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
 const { gray } = palette;
 
 export const CommitQueue: React.VFC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
   const dispatchToast = useToastContext();
   const { data, loading } = useQuery<
     CommitQueueQuery,
     CommitQueueQueryVariables
   >(GET_COMMIT_QUEUE, {
-    variables: { id },
+    variables: { id: projectIdentifier },
     onError: (err) => {
       dispatchToast.error(
         `There was an error loading the commit queue: ${err.message}`
@@ -38,7 +38,7 @@ export const CommitQueue: React.VFC = () => {
   return (
     <PageWrapper>
       <PageTitle
-        pageTitle={`Commit Queue - ${id}`}
+        pageTitle={`Commit Queue - ${projectIdentifier}`}
         title="Commit Queue"
         badge={
           <Badge variant="darkgray">
