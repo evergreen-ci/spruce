@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import { ProjectAlias, ProjectAliasInput } from "gql/generated/types";
 
 const textAreaCSS = css`
