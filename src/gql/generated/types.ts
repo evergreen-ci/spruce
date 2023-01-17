@@ -1691,6 +1691,7 @@ export type Task = {
   buildVariant: Scalars["String"];
   buildVariantDisplayName?: Maybe<Scalars["String"]>;
   canAbort: Scalars["Boolean"];
+  canDisable: Scalars["Boolean"];
   canModifyAnnotation: Scalars["Boolean"];
   canOverrideDependencies: Scalars["Boolean"];
   canRestart: Scalars["Boolean"];
@@ -5752,6 +5753,7 @@ export type GetTaskQuery = {
     priority?: Maybe<number>;
     canRestart: boolean;
     canAbort: boolean;
+    canDisable: boolean;
     canSchedule: boolean;
     canUnschedule: boolean;
     canSetPriority: boolean;

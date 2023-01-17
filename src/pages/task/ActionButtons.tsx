@@ -58,6 +58,7 @@ export const ActionButtons: React.VFC<Props> = ({
 }) => {
   const {
     canAbort,
+    canDisable,
     canUnschedule,
     canRestart,
     canSetPriority,
@@ -209,7 +210,7 @@ export const ActionButtons: React.VFC<Props> = ({
     </DropdownItem>,
     <DropdownItem
       data-cy="disable-enable"
-      disabled={disabled}
+      disabled={disabled || !canDisable}
       key="disableTask"
       onClick={() => {
         setTaskPriority({
