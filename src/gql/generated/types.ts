@@ -1691,7 +1691,6 @@ export type Task = {
   buildVariant: Scalars["String"];
   buildVariantDisplayName?: Maybe<Scalars["String"]>;
   canAbort: Scalars["Boolean"];
-  canDisable: Scalars["Boolean"];
   canModifyAnnotation: Scalars["Boolean"];
   canOverrideDependencies: Scalars["Boolean"];
   canRestart: Scalars["Boolean"];
@@ -4579,6 +4578,8 @@ export type PatchQuery = {
 
 export type ProjectEventLogsQueryVariables = Exact<{
   identifier: Scalars["String"];
+  limit?: InputMaybe<Scalars["Int"]>;
+  before?: InputMaybe<Scalars["Time"]>;
 }>;
 
 export type ProjectEventLogsQuery = {

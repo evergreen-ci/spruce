@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
+import Button from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
 import { fontFamilies } from "@leafygreen-ui/tokens";
@@ -39,14 +41,13 @@ export const EventLogTab: React.VFC<TabProps> = ({ projectType }) => {
   const isRepo = projectType === ProjectType.Repo;
 
   const dispatchToast = useToastContext();
-  const { data: projectEventData } = useQuery<
+  const { data: projectEventData, fetchMore } = useQuery<
     ProjectEventLogsQuery,
     ProjectEventLogsQueryVariables
   >(GET_PROJECT_EVENT_LOGS, {
     variables: { identifier },
     errorPolicy: "all",
     skip: isRepo,
-    fetchPolicy: "no-cache",
     onError: (e) => {
       dispatchToast.error(`Unable to fetch events for ${identifier}: ${e}`);
     },
@@ -67,6 +68,14 @@ export const EventLogTab: React.VFC<TabProps> = ({ projectType }) => {
   const eventData: LogEntry[] = isRepo
     ? repoEventData?.repoEvents?.eventLogEntries || []
     : projectEventData?.projectEvents?.eventLogEntries || [];
+  console.log(eventData);
+
+  const lastEventTimestamp = eventData.length
+    ? eventData[eventData.length - 1].timestamp
+    : null;
+  console.log(lastEventTimestamp);
+  const [dummyState, setDummyState] = useState(true);
+  console.log(dummyState);
 
   return (
     <div data-cy="event-log">
@@ -113,6 +122,20 @@ export const EventLogTab: React.VFC<TabProps> = ({ projectType }) => {
           </Table>
         </EventLogCard>
       ))}
+      <Button
+        variant="primary"
+        onClick={() => {
+          setDummyState(!dummyState);
+          fetchMore({
+            variables: {
+              identifier,
+              before: lastEventTimestamp,
+            },
+          });
+        }}
+      >
+        Load previous events
+      </Button>
     </div>
   );
 };

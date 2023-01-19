@@ -40,6 +40,36 @@ interface ClientLinkParams {
 
 const cache = new InMemoryCache({
   typePolicies: {
+    Query: {
+      fields: {
+        projectEvents: {
+          keyArgs: false,
+        },
+      },
+    },
+    ProjectEvents: {
+      fields: {
+        count: {
+          merge(existing = 0, incoming = 0) {
+            return existing + incoming;
+          },
+        },
+        eventLogEntries: {
+          merge(existing = [], incoming = []) {
+            return [...existing, ...incoming];
+          },
+        },
+      },
+    },
+    ProjectAlias: {
+      keyFields: false,
+    },
+    Project: {
+      keyFields: false,
+    },
+    ProjectSubscription: {
+      keyFields: false,
+    },
     User: {
       keyFields: ["userId"],
     },
