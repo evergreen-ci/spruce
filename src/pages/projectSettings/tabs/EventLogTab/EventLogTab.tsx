@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
@@ -9,26 +7,14 @@ import { fontFamilies } from "@leafygreen-ui/tokens";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { size } from "constants/tokens";
-import { useToastContext } from "context/toast";
-import {
-  ProjectEventLogsQuery,
-  ProjectEventLogsQueryVariables,
-  ProjectEventSettingsFragment,
-  RepoEventLogsQuery,
-  RepoEventLogsQueryVariables,
-} from "gql/generated/types";
-import { GET_PROJECT_EVENT_LOGS, GET_REPO_EVENT_LOGS } from "gql/queries";
 import { useDateFormat } from "hooks";
 
 import { ProjectType } from "../utils";
 import { EventDiffLine, EventValue, getEventDiffLines } from "./EventLogDiffs";
+import { useEvents } from "./useEvents";
 
-type LogEntry = {
-  timestamp: Date;
-  user: string;
-  before?: ProjectEventSettingsFragment;
-  after?: ProjectEventSettingsFragment;
-};
+// Fetch 15 events at a time
+const limit = 15;
 
 type TabProps = {
   projectType: ProjectType;
@@ -38,48 +24,19 @@ export const EventLogTab: React.VFC<TabProps> = ({ projectType }) => {
   const { projectIdentifier: identifier } = useParams<{
     projectIdentifier: string;
   }>();
+
   const isRepo = projectType === ProjectType.Repo;
+  const { events, fetchMore, showLoadButton } = useEvents(
+    identifier,
+    isRepo,
+    limit
+  );
 
-  const dispatchToast = useToastContext();
-  const { data: projectEventData, fetchMore } = useQuery<
-    ProjectEventLogsQuery,
-    ProjectEventLogsQueryVariables
-  >(GET_PROJECT_EVENT_LOGS, {
-    variables: { identifier },
-    errorPolicy: "all",
-    skip: isRepo,
-    onError: (e) => {
-      dispatchToast.error(`Unable to fetch events for ${identifier}: ${e}`);
-    },
-  });
-
-  const { data: repoEventData } = useQuery<
-    RepoEventLogsQuery,
-    RepoEventLogsQueryVariables
-  >(GET_REPO_EVENT_LOGS, {
-    variables: { id: identifier },
-    errorPolicy: "all",
-    skip: !isRepo,
-    onError: (e) => {
-      dispatchToast.error(`Unable to fetch events for ${identifier}: ${e}`);
-    },
-  });
-
-  const eventData: LogEntry[] = isRepo
-    ? repoEventData?.repoEvents?.eventLogEntries || []
-    : projectEventData?.projectEvents?.eventLogEntries || [];
-  console.log(eventData);
-
-  const lastEventTimestamp = eventData.length
-    ? eventData[eventData.length - 1].timestamp
-    : null;
-  console.log(lastEventTimestamp);
-  const [dummyState, setDummyState] = useState(true);
-  console.log(dummyState);
+  const lastEventTimestamp = events[events.length - 1]?.timestamp;
 
   return (
-    <div data-cy="event-log">
-      {eventData.map(({ user, timestamp, before, after }) => (
+    <Container data-cy="event-log">
+      {events.map(({ user, timestamp, before, after }) => (
         <EventLogCard key={`event_log_${timestamp}`}>
           <EventLogHeader user={user} timestamp={timestamp} />
           <Table
@@ -122,21 +79,22 @@ export const EventLogTab: React.VFC<TabProps> = ({ projectType }) => {
           </Table>
         </EventLogCard>
       ))}
-      <Button
-        variant="primary"
-        onClick={() => {
-          setDummyState(!dummyState);
-          fetchMore({
-            variables: {
-              identifier,
-              before: lastEventTimestamp,
-            },
-          });
-        }}
-      >
-        Load previous events
-      </Button>
-    </div>
+      {showLoadButton && (
+        <Button
+          variant="primary"
+          onClick={() => {
+            fetchMore({
+              variables: {
+                identifier,
+                before: lastEventTimestamp,
+              },
+            });
+          }}
+        >
+          Load more events
+        </Button>
+      )}
+    </Container>
   );
 };
 
@@ -155,10 +113,17 @@ const EventLogHeader: React.VFC<Props> = ({ user, timestamp }) => {
   );
 };
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150%;
+`;
+
 const EventLogCard = styled(Card)`
+  width: 100%;
   margin-bottom: ${size.l};
   padding: ${size.m};
-  width: 150%;
 `;
 
 const CellText = styled.span`

@@ -5082,6 +5082,8 @@ export type GetMyPublicKeysQuery = {
 
 export type RepoEventLogsQueryVariables = Exact<{
   id: Scalars["String"];
+  limit?: InputMaybe<Scalars["Int"]>;
+  before?: InputMaybe<Scalars["Time"]>;
 }>;
 
 export type RepoEventLogsQuery = {
