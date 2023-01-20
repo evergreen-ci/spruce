@@ -451,6 +451,12 @@ export const getFormSchema = (
             !!githubProjectConflicts?.commitQueueIdentifiers?.length) && {
             "ui:hide": true,
           }),
+          ...hideIf(
+            fieldDisabled(
+              formData?.commitQueue?.enabled,
+              repoData?.commitQueue?.enabled
+            )
+          ),
           ...placeholderIf(repoData?.commitQueue?.requiredApprovalCount),
         },
         message: {
