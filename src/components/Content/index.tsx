@@ -78,7 +78,7 @@ export const Content: React.VFC = () => {
             <Route path=":projectIdentifier" element={null} />
           </Route>
           <Route
-            path={redirectRoutes.waterfallRedirect}
+            path={redirectRoutes.waterfall}
             element={<WaterfallCommitsRedirect />}
           />
           <Route path={routes.configurePatch} element={<ConfigurePatch />}>
@@ -101,7 +101,7 @@ export const Content: React.VFC = () => {
             <Route path={tab} element={null} />
           </Route>
           <Route
-            path={redirectRoutes.projectSettingsRedirect}
+            path={redirectRoutes.projectSettings}
             element={<ProjectSettingsRedirect />}
           />
           <Route path={`${routes.spawn}/*`} element={<Spawn />}>
@@ -118,7 +118,7 @@ export const Content: React.VFC = () => {
           </Route>
           <Route path={routes.userPatches} element={<UserPatches />} />
           <Route
-            path={redirectRoutes.userPatchesRedirect}
+            path={redirectRoutes.userPatches}
             element={<UserPatchesRedirect />}
           />
           <Route path={routes.variantHistory} element={<VariantHistory />} />

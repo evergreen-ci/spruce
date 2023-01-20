@@ -59,9 +59,9 @@ const paths = {
   jobLogs: "/job-logs",
 };
 export const redirectRoutes = {
-  projectSettingsRedirect: paths.projects,
-  userPatchesRedirect: `${paths.user}/:id`,
-  waterfallRedirect: `${paths.waterfall}/:projectIdentifier`,
+  projectSettings: paths.projects,
+  userPatches: `${paths.user}/:id`,
+  waterfall: `${paths.waterfall}/:projectIdentifier`,
 };
 
 export const routes = {
