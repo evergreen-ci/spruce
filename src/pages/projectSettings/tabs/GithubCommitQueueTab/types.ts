@@ -52,6 +52,7 @@ export interface FormState {
   commitQueue: {
     enabled: boolean | null;
     requireSigned: boolean | null;
+    requiredApprovalCount: number | null;
     mergeMethod: string;
     message: string;
     patchDefinitions: {

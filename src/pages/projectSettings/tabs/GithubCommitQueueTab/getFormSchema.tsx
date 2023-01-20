@@ -200,6 +200,11 @@ export const getFormSchema = (
                 repoData?.commitQueue?.requireSigned
               ),
             },
+            requiredApprovalCount: {
+              type: ["number", "null"],
+              title: "Require one or more approvals on Pull Request Merges",
+              minimum: 0,
+            },
             message: {
               type: "string" as "string",
               title: "Commit Queue Message",
@@ -439,6 +444,14 @@ export const getFormSchema = (
             !!githubProjectConflicts?.commitQueueIdentifiers?.length) && {
             "ui:hide": true,
           }),
+        },
+        requiredApprovalCount: {
+          "ui:data-cy": "required-approval-count-input",
+          ...((formData?.commitQueue?.enabled === false ||
+            !!githubProjectConflicts?.commitQueueIdentifiers?.length) && {
+            "ui:hide": true,
+          }),
+          ...placeholderIf(repoData?.commitQueue?.requiredApprovalCount),
         },
         message: {
           "ui:description": "Shown in commit queue CLI commands & web UI",
