@@ -202,7 +202,7 @@ export const getFormSchema = (
             },
             requiredApprovalCount: {
               type: ["number", "null"],
-              title: "Require one or more approvals on Pull Request Merges",
+              title: "Required Number of Approvals on Pull Request Merges",
               minimum: 0,
             },
             message: {
