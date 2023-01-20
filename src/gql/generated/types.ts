@@ -156,6 +156,7 @@ export type CommitQueueParams = {
   mergeMethod: Scalars["String"];
   message: Scalars["String"];
   requireSigned?: Maybe<Scalars["Boolean"]>;
+  requiredApprovalCount?: Maybe<Scalars["Int"]>;
 };
 
 export type CommitQueueParamsInput = {
@@ -163,6 +164,7 @@ export type CommitQueueParamsInput = {
   mergeMethod?: InputMaybe<Scalars["String"]>;
   message?: InputMaybe<Scalars["String"]>;
   requireSigned?: InputMaybe<Scalars["Boolean"]>;
+  requiredApprovalCount?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ContainerResources = {
@@ -1408,6 +1410,7 @@ export type RepoCommitQueueParams = {
   mergeMethod: Scalars["String"];
   message: Scalars["String"];
   requireSigned: Scalars["Boolean"];
+  requiredApprovalCount: Scalars["Int"];
 };
 
 /**
