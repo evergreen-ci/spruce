@@ -13,14 +13,15 @@ import { ProjectType } from "../utils";
 import { EventDiffLine, EventValue, getEventDiffLines } from "./EventLogDiffs";
 import { useEvents } from "./useEvents";
 
-// Fetch 15 events at a time
-const limit = 15;
-
 type TabProps = {
+  limit?: number;
   projectType: ProjectType;
 };
 
-export const EventLogTab: React.VFC<TabProps> = ({ projectType }) => {
+export const EventLogTab: React.VFC<TabProps> = ({
+  limit = 15,
+  projectType,
+}) => {
   const { projectIdentifier: identifier } = useParams<{
     projectIdentifier: string;
   }>();
@@ -37,7 +38,7 @@ export const EventLogTab: React.VFC<TabProps> = ({ projectType }) => {
   return (
     <Container data-cy="event-log">
       {events.map(({ user, timestamp, before, after }) => (
-        <EventLogCard key={`event_log_${timestamp}`}>
+        <EventLogCard key={`event_log_${timestamp}`} data-cy="event-log-card">
           <EventLogHeader user={user} timestamp={timestamp} />
           <Table
             data={getEventDiffLines(before, after)}
@@ -81,6 +82,7 @@ export const EventLogTab: React.VFC<TabProps> = ({ projectType }) => {
       ))}
       {showLoadButton && (
         <Button
+          data-cy="load-more-button"
           variant="primary"
           onClick={() => {
             fetchMore({
