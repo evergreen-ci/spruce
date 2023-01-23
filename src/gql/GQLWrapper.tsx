@@ -45,6 +45,9 @@ const cache = new InMemoryCache({
         projectEvents: {
           keyArgs: false,
         },
+        repoEvents: {
+          keyArgs: false,
+        },
       },
     },
     ProjectEvents: {

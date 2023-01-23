@@ -1694,6 +1694,7 @@ export type Task = {
   buildVariant: Scalars["String"];
   buildVariantDisplayName?: Maybe<Scalars["String"]>;
   canAbort: Scalars["Boolean"];
+  canDisable: Scalars["Boolean"];
   canModifyAnnotation: Scalars["Boolean"];
   canOverrideDependencies: Scalars["Boolean"];
   canRestart: Scalars["Boolean"];
