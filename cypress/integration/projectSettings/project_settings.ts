@@ -224,7 +224,7 @@ describe("Repo Settings", () => {
       countCQFields(2);
       cy.dataCy("cq-card").children().eq(1).should("be.empty");
       cy.dataCy("cq-enabled-radio-box").children().first().click();
-      countCQFields(5);
+      countCQFields(6);
 
       cy.dataCy("error-banner")
         .contains(

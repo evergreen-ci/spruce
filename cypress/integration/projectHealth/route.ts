@@ -11,16 +11,22 @@ describe("Mainline Commits page route", () => {
     cy.clearCookie(projectCookie);
     cy.visit("/commits");
     cy.location("pathname").should("eq", "/commits/evergreen");
+    cy.dataCy("commit-chart-container").should("be.visible");
     cy.getCookie(projectCookie).should("have.property", "value", "evergreen");
   });
 
   it("Should save what ever project the user viewed last", () => {
+    cy.clearCookie(projectCookie);
     cy.visit("/commits/spruce");
+
     cy.dataCy("project-select").click();
     cy.contains("evergreen smoke test").click();
+    cy.dataCy("commit-chart-container").should("be.visible");
     cy.getCookie(projectCookie).should("have.property", "value", "evergreen");
+
     cy.dataCy("project-select").click();
     cy.contains("System Performance").click();
+    cy.dataCy("commit-chart-container").should("be.visible");
     cy.getCookie(projectCookie).should("have.property", "value", "sys-perf");
   });
 });
