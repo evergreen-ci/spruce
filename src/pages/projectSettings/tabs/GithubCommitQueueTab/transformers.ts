@@ -104,6 +104,7 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
     commitQueue: {
       enabled: commitQueue.enabled,
       requireSigned: commitQueue.requireSigned,
+      requiredApprovalCount: commitQueue.requiredApprovalCount,
       message: commitQueue.message,
       mergeMethod: commitQueue.mergeMethod,
       patchDefinitions: {
@@ -130,6 +131,7 @@ export const formToGql: FormToGqlFunction<Tab> = (
     commitQueue: {
       enabled,
       requireSigned,
+      requiredApprovalCount,
       message,
       mergeMethod,
       patchDefinitions,
@@ -152,6 +154,7 @@ export const formToGql: FormToGqlFunction<Tab> = (
     commitQueue: {
       enabled,
       requireSigned,
+      requiredApprovalCount,
       message,
       mergeMethod,
     },
