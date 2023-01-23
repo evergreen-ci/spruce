@@ -447,15 +447,11 @@ export const getFormSchema = (
         },
         requiredApprovalCount: {
           "ui:data-cy": "required-approval-count-input",
-          ...((formData?.commitQueue?.enabled === false ||
-            !!githubProjectConflicts?.commitQueueIdentifiers?.length) && {
-            "ui:hide": true,
-          }),
           ...hideIf(
             fieldDisabled(
               formData?.commitQueue?.enabled,
               repoData?.commitQueue?.enabled
-            )
+            ) || !!githubProjectConflicts?.commitQueueIdentifiers?.length
           ),
           ...placeholderIf(repoData?.commitQueue?.requiredApprovalCount),
         },
