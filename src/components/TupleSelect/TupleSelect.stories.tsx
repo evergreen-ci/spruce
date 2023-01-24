@@ -1,6 +1,5 @@
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { action } from "@storybook/addon-actions";
-import { ProjectFilterOptions } from "types/commits";
 import TupleSelect from ".";
 
 export default {
@@ -10,12 +9,12 @@ export default {
 
 const options = [
   {
-    value: ProjectFilterOptions.BuildVariant,
+    value: "build_variant",
     displayName: "Build Variant",
     placeHolderText: "Search Build Variant names",
   },
   {
-    value: ProjectFilterOptions.Task,
+    value: "task",
     displayName: "Task",
     placeHolderText: "Search Task names",
   },

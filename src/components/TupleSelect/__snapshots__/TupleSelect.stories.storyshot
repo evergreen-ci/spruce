@@ -9,18 +9,18 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
   }
 >
   <div
-    className="css-1ry038z-Container e5gn9hl3"
+    className="css-1ry038z-Container e5gn9hl4"
   >
     <label
       className="leafygreen-ui-1k5mcru"
       htmlFor="filter-input"
     >
-      Add New 
-      Build Variant
-       Filter
+      <div
+        className="css-1lh1bx9-LabelContainer e5gn9hl2"
+      />
     </label>
     <div
-      className="css-19ahzkx-InputGroup e5gn9hl2"
+      className="css-iyur2e-InputGroup e5gn9hl3"
     >
       <div
         className="leafygreen-ui-1nkq8lt css-1scwv0u-GroupedSelect e5gn9hl1"
@@ -39,7 +39,7 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
           id="select-14"
           onClick={[Function]}
           type="button"
-          value="buildVariants"
+          value="build_variant"
         >
           <div
             className="leafygreen-ui-v038xi"

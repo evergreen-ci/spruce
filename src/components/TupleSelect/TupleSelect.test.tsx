@@ -1,16 +1,15 @@
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "test_utils";
-import { ProjectFilterOptions } from "types/commits";
 import TupleSelect from ".";
 
 const options = [
   {
-    value: ProjectFilterOptions.BuildVariant,
+    value: "build_variant",
     displayName: "Build Variant",
     placeHolderText: "Search Build Variant names",
   },
   {
-    value: ProjectFilterOptions.Task,
+    value: "task",
     displayName: "Task",
     placeHolderText: "Search Task names",
   },
