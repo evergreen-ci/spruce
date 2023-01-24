@@ -16,48 +16,43 @@ export const useEvents = (
 ) => {
   const dispatchToast = useToastContext();
 
-  const [prevCount, setPrevCount] = useState(0);
-  const [showLoadButton, setShowLoadButton] = useState(true);
+  const [allEventsFetched, setAllEventsFetched] = useState(false);
 
-  // Hide Load More button when event count < limit is returned,
-  // or when the same event count is returned twice in a row.
-  const onCompleted = (eventData) => {
-    if (eventData.length === prevCount) {
-      setShowLoadButton(false);
-    } else if (eventData.length - prevCount < limit) {
-      setShowLoadButton(false);
-    } else {
-      setPrevCount(eventData.length);
+  const {
+    data: projectEventData,
+    fetchMore: projectFetchMore,
+    previousData: projectPreviousData,
+  } = useQuery<ProjectEventLogsQuery, ProjectEventLogsQueryVariables>(
+    GET_PROJECT_EVENT_LOGS,
+    {
+      variables: { identifier, limit },
+      errorPolicy: "all",
+      skip: isRepo,
+      notifyOnNetworkStatusChange: true,
+      onCompleted: ({ projectEvents: { count } }) => onCompleted(count),
+      onError: (e) => {
+        dispatchToast.error(`Unable to fetch events for ${identifier}: ${e}`);
+      },
     }
-  };
+  );
 
-  const { data: projectEventData, fetchMore: projectFetchMore } = useQuery<
-    ProjectEventLogsQuery,
-    ProjectEventLogsQueryVariables
-  >(GET_PROJECT_EVENT_LOGS, {
-    variables: { identifier, limit },
-    errorPolicy: "all",
-    skip: isRepo,
-    onCompleted: ({ projectEvents: { eventLogEntries } }) =>
-      onCompleted(eventLogEntries),
-    onError: (e) => {
-      dispatchToast.error(`Unable to fetch events for ${identifier}: ${e}`);
-    },
-  });
-
-  const { data: repoEventData, fetchMore: repoFetchMore } = useQuery<
-    RepoEventLogsQuery,
-    RepoEventLogsQueryVariables
-  >(GET_REPO_EVENT_LOGS, {
-    variables: { id: identifier, limit },
-    errorPolicy: "all",
-    skip: !isRepo,
-    onCompleted: ({ repoEvents: { eventLogEntries } }) =>
-      onCompleted(eventLogEntries),
-    onError: (e) => {
-      dispatchToast.error(`Unable to fetch events for ${identifier}: ${e}`);
-    },
-  });
+  const {
+    data: repoEventData,
+    fetchMore: repoFetchMore,
+    previousData: repoPreviousData,
+  } = useQuery<RepoEventLogsQuery, RepoEventLogsQueryVariables>(
+    GET_REPO_EVENT_LOGS,
+    {
+      variables: { id: identifier, limit },
+      errorPolicy: "all",
+      skip: !isRepo,
+      notifyOnNetworkStatusChange: true,
+      onCompleted: ({ repoEvents: { count } }) => onCompleted(count),
+      onError: (e) => {
+        dispatchToast.error(`Unable to fetch events for ${identifier}: ${e}`);
+      },
+    }
+  );
 
   const events = isRepo
     ? repoEventData?.repoEvents?.eventLogEntries || []
@@ -65,5 +60,18 @@ export const useEvents = (
 
   const fetchMore = isRepo ? repoFetchMore : projectFetchMore;
 
-  return { events, fetchMore, showLoadButton };
+  const previousData = isRepo
+    ? repoPreviousData?.repoEvents
+    : projectPreviousData?.projectEvents;
+
+  // Hide Load More button when event count < limit is returned,
+  // or when an additional fetch fails to load more events.
+  const onCompleted = (count: number) => {
+    const { count: prevCount = 0 } = previousData ?? {};
+    if (count - prevCount < limit) {
+      setAllEventsFetched(true);
+    }
+  };
+
+  return { allEventsFetched, events, fetchMore };
 };

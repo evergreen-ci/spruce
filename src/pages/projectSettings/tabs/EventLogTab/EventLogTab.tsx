@@ -13,13 +13,15 @@ import { ProjectType } from "../utils";
 import { EventDiffLine, EventValue, getEventDiffLines } from "./EventLogDiffs";
 import { useEvents } from "./useEvents";
 
+const EVENT_LIMIT = 15;
+
 type TabProps = {
   limit?: number;
   projectType: ProjectType;
 };
 
 export const EventLogTab: React.VFC<TabProps> = ({
-  limit = 15,
+  limit = EVENT_LIMIT,
   projectType,
 }) => {
   const { projectIdentifier: identifier } = useParams<{
@@ -27,7 +29,7 @@ export const EventLogTab: React.VFC<TabProps> = ({
   }>();
 
   const isRepo = projectType === ProjectType.Repo;
-  const { events, fetchMore, showLoadButton } = useEvents(
+  const { allEventsFetched, events, fetchMore } = useEvents(
     identifier,
     isRepo,
     limit
@@ -80,7 +82,7 @@ export const EventLogTab: React.VFC<TabProps> = ({
           </Table>
         </EventLogCard>
       ))}
-      {showLoadButton && (
+      {!allEventsFetched && !!events.length && (
         <Button
           data-cy="load-more-button"
           variant="primary"
@@ -95,6 +97,9 @@ export const EventLogTab: React.VFC<TabProps> = ({
         >
           Load more events
         </Button>
+      )}
+      {allEventsFetched && events.length && (
+        <Subtitle>No more events to show.</Subtitle>
       )}
     </Container>
   );

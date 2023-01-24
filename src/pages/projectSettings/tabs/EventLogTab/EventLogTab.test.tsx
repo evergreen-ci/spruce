@@ -28,6 +28,7 @@ describe("loading events", () => {
       expect(screen.queryAllByDataCy("event-log-card")).toHaveLength(1);
     });
     expect(screen.queryByDataCy("load-more-button")).not.toBeInTheDocument();
+    expect(screen.getByText("No more events to show.")).toBeInTheDocument();
   });
 
   it("shows a 'Load more' button when the number of events loaded meets the limit", async () => {
@@ -45,6 +46,9 @@ describe("loading events", () => {
       expect(screen.queryAllByDataCy("event-log-card")).toHaveLength(1);
     });
     expect(screen.getByDataCy("load-more-button")).toBeInTheDocument();
+    expect(
+      screen.queryByText("No more events to show.")
+    ).not.toBeInTheDocument();
   });
 });
 
@@ -133,6 +137,7 @@ const eventLogEntry = {
       commitQueue: {
         enabled: true,
         requireSigned: false,
+        requiredApprovalCount: null,
         mergeMethod: "squash",
         message: "",
         __typename: "CommitQueueParams",
@@ -215,6 +220,7 @@ const eventLogEntry = {
       commitQueue: {
         enabled: true,
         requireSigned: false,
+        requiredApprovalCount: null,
         mergeMethod: "squash",
         message: "",
         __typename: "CommitQueueParams",

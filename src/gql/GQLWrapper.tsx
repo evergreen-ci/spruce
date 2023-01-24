@@ -43,10 +43,10 @@ const cache = new InMemoryCache({
     Query: {
       fields: {
         projectEvents: {
-          keyArgs: false,
+          keyArgs: ["$identifier"],
         },
         repoEvents: {
-          keyArgs: false,
+          keyArgs: ["$id"],
         },
       },
     },

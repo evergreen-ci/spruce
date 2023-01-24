@@ -204,7 +204,7 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
         />
         <Route
           path={ProjectSettingsTabRoutes.EventLog}
-          element={<EventLogTab projectType={projectType} />}
+          element={<EventLogTab projectType={projectType} key={identifier} />}
         />
         <Route
           path="*"
