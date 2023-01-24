@@ -8,6 +8,16 @@ export const wikiUrl = "https://github.com/evergreen-ci/evergreen/wiki";
 
 export const versionControlDocumentationUrl = `${wikiUrl}/Project-and-Distro-Settings#version-control`;
 
+export const patchAliasesDocumentationUrl = `${versionControlDocumentationUrl}#patch-aliases`;
+
+export const pullRequestAliasesDocumentationUrl = `${versionControlDocumentationUrl}#pr-aliases`;
+
+export const commitQueueAliasesDocumentationUrl = `${versionControlDocumentationUrl}#commit-queue-aliases`;
+
+export const gitTagAliasesDocumentationUrl = `${versionControlDocumentationUrl}#git-tag-aliases`;
+
+export const githubChecksAliasesDocumentationUrl = `${versionControlDocumentationUrl}#github-checks-aliases`;
+
 export const cliDocumentationUrl =
   "https://github.com/evergreen-ci/evergreen/wiki/Using-the-Command-Line-Tool";
 

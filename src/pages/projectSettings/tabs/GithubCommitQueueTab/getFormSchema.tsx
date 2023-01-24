@@ -1,13 +1,19 @@
 import { Description } from "@leafygreen-ui/typography";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { StyledRouterLink } from "components/styles";
+import { StyledRouterLink, StyledLink } from "components/styles";
 import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
 } from "constants/routes";
 import { GithubProjectConflicts } from "gql/generated/types";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
+import {
+  commitQueueAliasesDocumentationUrl,
+  pullRequestAliasesDocumentationUrl,
+  gitTagAliasesDocumentationUrl,
+  githubChecksAliasesDocumentationUrl,
+} from "../../../../constants/externalResources";
 import { GetFormSchema } from "../types";
 import { alias, form, ProjectType } from "../utils";
 import { githubConflictErrorStyling, sectionHasError } from "./getErrors";
@@ -81,8 +87,6 @@ export const getFormSchema = (
             prTesting: {
               type: "object" as "object",
               title: "GitHub Patch Definitions",
-              description:
-                "For patches created from GitHub pull requests, Evergreen will schedule only the tasks and variants matching the tags/regex definitions. All regular expressions must be valid Golang regular expressions.",
               ...overrideRadioBox(
                 "githubPrAliases",
                 [
@@ -171,8 +175,6 @@ export const getFormSchema = (
             },
             gitTags: {
               title: "Git Tag Version Definitions",
-              description: `Either the version will be fully populated from a new file, OR variants and tasks can be defined for the default config file using variant and task regexes/tags. 
-                If multiple regexes match and a config file has been defined for one or more of them, the version is ambiguous and no version will be created.`,
               ...overrideRadioBox(
                 "gitTagAliases",
                 ["Override Repo Git Tags", "Default to Repo Git Tags"],
@@ -238,8 +240,6 @@ export const getFormSchema = (
             patchDefinitions: {
               type: "object" as "object",
               title: "Commit Queue Patch Definitions",
-              description:
-                "Changes on the Commit Queue are tested with all variants and tasks that match each variant and task regex pair.",
               ...overrideRadioBox(
                 "commitQueueAliases",
                 [
@@ -304,6 +304,7 @@ export const getFormSchema = (
             "ui:data-cy": "pr-testing-override-radio-box",
             ...overrideStyling,
           },
+          "ui:description": PRAliasesDescription,
           githubPrAliases: {
             ...aliasRowUiSchema({
               addButtonText: "Add Patch Definition",
@@ -362,6 +363,7 @@ export const getFormSchema = (
             "Commit Check Definition"
           ),
           githubCheckAliasesOverride: overrideStyling,
+          "ui:description": GitHubChecksAliasesDescription,
           githubCheckAliases: aliasRowUiSchema({
             addButtonText: "Add Definition",
             numberedTitle: "Commit Check Definition",
@@ -410,6 +412,7 @@ export const getFormSchema = (
             "Git Tag Version Definition"
           ),
           gitTagAliasesOverride: overrideStyling,
+          "ui:description": GitTagAliasesDescription,
           gitTagAliases: gitTagArray.uiSchema,
           repoData: {
             gitTagAliases: {
@@ -494,6 +497,7 @@ export const getFormSchema = (
             "ui:data-cy": "cq-override-radio-box",
             ...overrideStyling,
           },
+          "ui:description": CommitQueueAliasesDescription,
           commitQueueAliases: {
             ...aliasRowUiSchema({
               addButtonText: "Add Commit Queue Patch Definition",
@@ -569,3 +573,48 @@ const GithubTriggerAliasDescription = ({
     </Description>
   );
 };
+
+const PRAliasesDescription = (
+  <>
+    For patches created from GitHub pull requests, Evergreen will schedule only
+    the tasks and variants matching the tags/regex definitions. All regular
+    expressions must be valid Golang regular expressions. These aliases{" "}
+    <StyledLink href={pullRequestAliasesDocumentationUrl}>
+      may be defined
+    </StyledLink>{" "}
+    in this project&rsquo;s config YAML instead.
+  </>
+);
+
+const CommitQueueAliasesDescription = (
+  <>
+    Changes on the Commit Queue are tested with all variants and tasks that
+    match each variant and task regex pair. These aliases{" "}
+    <StyledLink href={commitQueueAliasesDocumentationUrl}>
+      select properties
+    </StyledLink>{" "}
+    in this project&rsquo;s config YAML instead.
+  </>
+);
+
+const GitTagAliasesDescription = (
+  <>
+    Either the version will be fully populated from a new file, OR variants and
+    tasks can be defined for the default config file using variant and task
+    regexes/tags. If multiple regexes match and a config file has been defined
+    for one or more of them, the version is ambiguous and no version will be
+    created. These aliases{" "}
+    <StyledLink href={gitTagAliasesDocumentationUrl}>may be defined</StyledLink>{" "}
+    in this project&rsquo;s config YAML instead.
+  </>
+);
+
+const GitHubChecksAliasesDescription = (
+  <>
+    These aliases{" "}
+    <StyledLink href={githubChecksAliasesDocumentationUrl}>
+      may be defined
+    </StyledLink>{" "}
+    in this project&rsquo;s config YAML instead.
+  </>
+);
