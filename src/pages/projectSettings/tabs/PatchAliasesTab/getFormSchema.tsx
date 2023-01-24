@@ -236,6 +236,9 @@ const PatchAliasesDescription = (
     Golang regular expressions. Use an alias with the --alias flag passed to the
     CLI patch command. These aliases{" "}
     <StyledLink href={patchAliasesDocumentationUrl}>may be defined</StyledLink>{" "}
-    in this project&rsquo;s config YAML instead.
+    in this project&rsquo;s config YAML instead. The active set of patch aliases
+    for the project will be the merged result of aliases defined on this page
+    and in the config YAML, with this page taking precedence in the case of
+    duplicate names.
   </>
 );

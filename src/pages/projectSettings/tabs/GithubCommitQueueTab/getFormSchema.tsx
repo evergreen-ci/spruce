@@ -106,8 +106,6 @@ export const getFormSchema = (
             githubChecksEnabledTitle: {
               type: "null",
               title: "GitHub Commit Checks",
-              description:
-                "Commits will send their status as a Github Check (the check will pass/fail based only on the tasks matching the tags/regexes definitions).",
             },
             githubChecksEnabled: {
               type: ["boolean", "null"],
@@ -335,6 +333,7 @@ export const getFormSchema = (
         },
         githubChecksEnabledTitle: {
           "ui:sectionTitle": true,
+          "ui:description": GitHubChecksAliasesDescription,
         },
         githubChecksEnabled: {
           "ui:data-cy": "github-checks-enabled-radio-box",
@@ -363,7 +362,6 @@ export const getFormSchema = (
             "Commit Check Definition"
           ),
           githubCheckAliasesOverride: overrideStyling,
-          "ui:description": GitHubChecksAliasesDescription,
           githubCheckAliases: aliasRowUiSchema({
             addButtonText: "Add Definition",
             numberedTitle: "Commit Check Definition",
@@ -582,7 +580,8 @@ const PRAliasesDescription = (
     <StyledLink href={pullRequestAliasesDocumentationUrl}>
       may be defined
     </StyledLink>{" "}
-    in this project&rsquo;s config YAML instead.
+    in this project&rsquo;s config YAML instead, and will be active if no
+    aliases are defined on the project or repo page.
   </>
 );
 
@@ -591,9 +590,10 @@ const CommitQueueAliasesDescription = (
     Changes on the Commit Queue are tested with all variants and tasks that
     match each variant and task regex pair. These aliases{" "}
     <StyledLink href={commitQueueAliasesDocumentationUrl}>
-      select properties
+      may be defined
     </StyledLink>{" "}
-    in this project&rsquo;s config YAML instead.
+    in this project&rsquo;s config YAML instead, and will be active if no
+    aliases are defined on the project or repo page.
   </>
 );
 
@@ -605,16 +605,20 @@ const GitTagAliasesDescription = (
     for one or more of them, the version is ambiguous and no version will be
     created. These aliases{" "}
     <StyledLink href={gitTagAliasesDocumentationUrl}>may be defined</StyledLink>{" "}
-    in this project&rsquo;s config YAML instead.
+    in this project&rsquo;s config YAML instead, and will be active if no
+    aliases are defined on the project or repo page.
   </>
 );
 
 const GitHubChecksAliasesDescription = (
   <>
-    These aliases{" "}
+    Commits will send their status as a Github Check (the check will pass/fail
+    based only on the tasks matching the tags/regexes definitions). These
+    aliases{" "}
     <StyledLink href={githubChecksAliasesDocumentationUrl}>
       may be defined
     </StyledLink>{" "}
-    in this project&rsquo;s config YAML instead.
+    in this project&rsquo;s config YAML instead, and will be active if no
+    aliases are defined on the project or repo page.
   </>
 );
