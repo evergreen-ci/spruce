@@ -127,7 +127,7 @@ describe("Tests Table", () => {
   });
   describe("Changing page number", () => {
     before(() => {
-      cy.visit(TESTS_ROUTE);
+      cy.visit(`${TESTS_ROUTE}?limit=10`);
       // Asserts that the data in the table has loaded before running the tests
       cy.get(".ant-pagination-simple-pager").should("contain.text", "/2");
     });
