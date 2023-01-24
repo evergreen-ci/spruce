@@ -1,0 +1,229 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots Pages/Commits/TupleSelectWithRegexConditional Default 1`] = `
+<div
+  style={
+    Object {
+      "width": "40%",
+    }
+  }
+>
+  <div
+    className="css-1ry038z-Container e5gn9hl4"
+  >
+    <label
+      className="leafygreen-ui-1k5mcru"
+      htmlFor="filter-input"
+    >
+      <div
+        className="css-1lh1bx9-LabelContainer e5gn9hl2"
+      >
+        Add New Filter
+        <div
+          className="leafygreen-ui-1gmp0zo css-1qa4isu-PaddedSegmentedControl e182eap00"
+        >
+          <div
+            aria-label="segmented-control-1"
+            aria-owns="segmented-control-1-0 segmented-control-1-1"
+            className="leafygreen-ui-18en4yf"
+            onKeyDownCapture={[Function]}
+            role="tablist"
+          >
+            <div
+              className="leafygreen-ui-z1eqrh"
+              data-lg-checked={true}
+            >
+              <div
+                className="leafygreen-ui-177u11x"
+                data-cy="tuple-select-regex"
+                tabIndex={-1}
+              >
+                <button
+                  aria-controls="tuple-select-with-regex"
+                  aria-selected={true}
+                  className="leafygreen-ui-14n1nd3"
+                  disabled={false}
+                  id="segmented-control-1-0"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="tab"
+                  tabIndex={0}
+                  type="button"
+                >
+                  <span
+                    className="leafygreen-ui-dj6i8q"
+                  >
+                    REGEX
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div
+              className="leafygreen-ui-z1eqrh"
+              data-lg-checked={false}
+            >
+              <div
+                className="leafygreen-ui-177u11x"
+                data-cy="tuple-select-exact"
+                tabIndex={-1}
+              >
+                <button
+                  aria-controls="tuple-select-with-regex"
+                  aria-selected={false}
+                  className="leafygreen-ui-14n1nd3"
+                  disabled={false}
+                  id="segmented-control-1-1"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="tab"
+                  tabIndex={-1}
+                  type="button"
+                >
+                  <span
+                    className="leafygreen-ui-dj6i8q"
+                  >
+                    EXACT
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div
+              className="leafygreen-ui-1yekw9r"
+            />
+            <div
+              className="leafygreen-ui-5ppege"
+            />
+          </div>
+        </div>
+      </div>
+    </label>
+    <div
+      className="css-iyur2e-InputGroup e5gn9hl3"
+    >
+      <div
+        className="leafygreen-ui-1nkq8lt css-1scwv0u-GroupedSelect e5gn9hl1"
+      >
+        <button
+          aria-controls="select-17-menu"
+          aria-describedby="select-17-description"
+          aria-disabled={false}
+          aria-expanded={false}
+          aria-invalid={false}
+          aria-labelledby="Tuple Select"
+          className="lg-ui-button-0000 leafygreen-ui-sedrjd"
+          data-cy="tuple-select-dropdown"
+          data-testid="leafygreen-ui-select-menubutton"
+          disabled={false}
+          id="select-18"
+          onClick={[Function]}
+          type="button"
+          value="buildVariants"
+        >
+          <div
+            className="leafygreen-ui-v038xi"
+          />
+          <div
+            className="leafygreen-ui-1qmzz4y"
+          >
+            <div
+              className="leafygreen-ui-obh8q1"
+            >
+              <div
+                className="leafygreen-ui-17aj16e"
+              >
+                Build Variant
+              </div>
+            </div>
+            <svg
+              alt=""
+              aria-hidden={true}
+              className="leafygreen-ui-866818"
+              height={16}
+              role="presentation"
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <path
+                d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+      <div
+        className="css-mk4qpy-TextInputWrapper e13gwrw81"
+      >
+        <div
+          className="css-1f1bh8e-GroupedTextInput e5gn9hl0 leafygreen-ui-xtefr5"
+        >
+          <div
+            className="leafygreen-ui-lzja97"
+          >
+            <input
+              aria-invalid={false}
+              aria-label="Build Variant"
+              autoComplete="on"
+              className="leafygreen-ui-6i61vl"
+              data-cy="tuple-select-input"
+              disabled={false}
+              id="filter-input"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Search Build Variant names"
+              required={true}
+              type="search"
+              value=""
+            />
+            <div
+              className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+            />
+          </div>
+        </div>
+        <div
+          className="css-4bamt4-IconWrapper e13gwrw80"
+        >
+          <button
+            aria-disabled={false}
+            aria-label="Select plus button"
+            className="leafygreen-ui-6obv0c"
+            onClick={[Function]}
+            tabIndex={0}
+          >
+            <div
+              className="leafygreen-ui-xhlipt"
+            >
+              <svg
+                aria-label="Plus Icon"
+                className=""
+                data-cy="tuple-select-button"
+                fill="none"
+                height={16}
+                role="img"
+                viewBox="0 0 16 16"
+                width={16}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clipRule="evenodd"
+                  d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
+                  fill="currentColor"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <small
+    className="leafygreen-ui-ppjyot"
+  >
+    The word \`bad\` will fail validation
+  </small>
+</div>
+`;
