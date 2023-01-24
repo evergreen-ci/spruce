@@ -7,9 +7,15 @@ describe("Hosts Page Default", () => {
   });
 
   it("Renders hosts table with hosts sorted by status by default", () => {
-    cy.get("tr.ant-table-row").each(($el, index) =>
-      cy.wrap($el).contains(defaultHostsFirstPage[index])
-    );
+    cy.get("tr.ant-table-row").each(($el, index) => {
+      cy.log(
+        "@sophstad:",
+        index,
+        defaultHostsFirstPage[index],
+        defaultHostsFirstPage
+      );
+      return cy.wrap($el).contains(defaultHostsFirstPage[index]);
+    });
   });
 
   it("ID column value links to host page", () => {
