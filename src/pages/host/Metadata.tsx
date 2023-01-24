@@ -1,5 +1,6 @@
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
+import { palette } from "@leafygreen-ui/palette";
 import { formatDistanceToNow } from "date-fns";
 import {
   MetadataCard,
@@ -10,7 +11,7 @@ import { StyledLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { HostQuery } from "gql/generated/types";
 import { environmentalVariables } from "utils";
-
+const { gray } = palette;
 const { getUiUrl } = environmentalVariables;
 
 export const Metadata: React.VFC<{
@@ -53,20 +54,24 @@ export const Metadata: React.VFC<{
           {distroId}
         </StyledLink>
       </MetadataItem>
-      <MetadataItem data-cy="current-running-task">
-        Current Task:{" "}
-        {runningTaskName ? (
-          <StyledLink data-cy="running-task-link" href={taskLink}>
-            {runningTaskName}
-          </StyledLink>
-        ) : (
-          <Italic>none</Italic>
-        )}
-      </MetadataItem>
+      {startedBy === MCI_USER && (
+        <MetadataItem data-cy="current-running-task">
+          Current Task:{" "}
+          {runningTaskName ? (
+            <StyledLink data-cy="running-task-link" href={taskLink}>
+              {runningTaskName}
+            </StyledLink>
+          ) : (
+            <Italic>none</Italic>
+          )}
+        </MetadataItem>
+      )}
     </MetadataCard>
   );
 };
 
 const Italic = styled.i`
-  color: silver;
+  color: ${gray.light1};
 `;
+
+const MCI_USER = "mci";

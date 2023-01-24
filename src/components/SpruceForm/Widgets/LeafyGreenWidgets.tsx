@@ -184,7 +184,7 @@ export const LeafyGreenSelect: React.VFC<
           disabled={isDisabled}
           value={value}
           {...labelProps}
-          onChange={(v) => onChange(v === "" ? null : v)}
+          onChange={onChange}
           placeholder={placeholder}
           id={dataCy}
           name={dataCy}
@@ -197,10 +197,6 @@ export const LeafyGreenSelect: React.VFC<
             // LG Select doesn't handle disabled options well. So we need to ensure the selected option is not disabled
             const optionDisabled =
               (value !== o.value && enumDisabled?.includes(o.value)) ?? false;
-            // Handle deselect value without errors
-            if (o.value === null) {
-              return;
-            }
             return (
               <Option key={o.value} value={o.value} disabled={optionDisabled}>
                 {o.label}

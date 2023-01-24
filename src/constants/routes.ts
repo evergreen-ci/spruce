@@ -53,13 +53,19 @@ const paths = {
   user: "/user",
   version: "/version",
   commits: "/commits",
+  waterfall: "/waterfall",
   variantHistory: "/variant-history",
   taskHistory: "/task-history",
   jobLogs: "/job-logs",
 };
+export const redirectRoutes = {
+  projectSettings: paths.projects,
+  userPatches: `${paths.user}/:id`,
+  waterfall: `${paths.waterfall}/:projectIdentifier`,
+};
 
 export const routes = {
-  commitQueue: `${paths.commitQueue}/:id`,
+  commitQueue: `${paths.commitQueue}/:projectIdentifier`,
   commits: paths.commits,
   configurePatch: `${paths.patch}/:id/configure`,
   host: `${paths.host}/:id`,
@@ -69,18 +75,16 @@ export const routes = {
   myPatches: `${paths.user}/${PageNames.Patches}`,
   patch: `${paths.patch}/:id`,
   preferences: paths.preferences,
-  projectPatches: `${paths.project}/:id/${PageNames.Patches}`,
-  projectSettings: `${paths.project}/:identifier/${PageNames.Settings}`,
-  projectSettingsRedirect: paths.projects,
+  projectPatches: `${paths.project}/:projectIdentifier/${PageNames.Patches}`,
+  projectSettings: `${paths.project}/:projectIdentifier/${PageNames.Settings}`,
   spawn: paths.spawn,
   spawnHost: `${paths.spawn}/${SpawnTab.Host}`,
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
   task: `${paths.task}/:id`,
-  taskHistory: `${paths.taskHistory}/:projectId/:taskName`,
+  taskHistory: `${paths.taskHistory}/:projectIdentifier/:taskName`,
   taskQueue: paths.taskQueue,
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
-  userPatchesRedirect: `${paths.user}/:id`,
-  variantHistory: `${paths.variantHistory}/:projectId/:variantName`,
+  variantHistory: `${paths.variantHistory}/:projectIdentifier/:variantName`,
   version: `${paths.version}/:id`,
   user: `${paths.user}/*`,
 };

@@ -39,6 +39,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     commitQueue: {
       enabled: null,
       requireSigned: null,
+      requiredApprovalCount: null,
       mergeMethod: "",
       message: "",
     },
@@ -144,6 +145,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     commitQueue: {
       enabled: true,
       requireSigned: true,
+      requiredApprovalCount: 1,
       mergeMethod: "squash",
       message: "Commit Queue Message",
     },

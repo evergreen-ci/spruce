@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import MatchMediaMock from "jest-matchmedia-mock";
-import { RenderFakeToastContext } from "context/__mocks__/toast";
+import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { FILE_JIRA_TICKET } from "gql/mutations";
 import { GET_BUILD_BARON, GET_USER, GET_CREATED_TICKETS } from "gql/queries";
