@@ -12,8 +12,6 @@ const Wrapper = ({ children, mocks = [] }) => (
 );
 
 describe("loading events", () => {
-  afterEach(() => {});
-
   it("does not show a load more button when the event count is less than the limit", async () => {
     const { Component } = RenderFakeToastContext(
       <Wrapper mocks={[mock()]}>
@@ -183,7 +181,7 @@ const eventLogEntry = {
       __typename: "Project",
       private: false,
       restricted: false,
-      admins: ["arjun.patel", "mohamed.khelif", "sophie.stadler"],
+      admins: ["arjun.patel", "mohamed.khelif", "sophie.stadler", "minna.kt"],
       buildBaronSettings: {
         ticketCreateProject: "EVG",
         ticketSearchProjects: ["EVG"],
