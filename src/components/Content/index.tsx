@@ -5,12 +5,15 @@ import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
 import { Header } from "components/Header";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
-import { ProjectSettingsRedirect } from "components/ProjectSettingsRedirect";
+import {
+  ProjectSettingsRedirect,
+  UserPatchesRedirect,
+  WaterfallCommitsRedirect,
+} from "components/Redirects";
 import { PageGrid } from "components/styles/Layout";
 import { TaskStatusIconLegend } from "components/TaskStatusIconLegend";
-import { UserPatchesRedirect } from "components/UserPatchesRedirect";
 import WelcomeModal from "components/WelcomeModal";
-import { routes } from "constants/routes";
+import { redirectRoutes, routes } from "constants/routes";
 import { zIndex, size } from "constants/tokens";
 import { newSpruceUser } from "constants/welcomeModalProps";
 import { useAuthStateContext } from "context/auth";
@@ -74,6 +77,10 @@ export const Content: React.VFC = () => {
           <Route path={routes.commits} element={<Commits />}>
             <Route path=":projectIdentifier" element={null} />
           </Route>
+          <Route
+            path={redirectRoutes.waterfall}
+            element={<WaterfallCommitsRedirect />}
+          />
           <Route path={routes.configurePatch} element={<ConfigurePatch />}>
             <Route path={tab} element={null} />
           </Route>
@@ -94,7 +101,7 @@ export const Content: React.VFC = () => {
             <Route path={tab} element={null} />
           </Route>
           <Route
-            path={routes.projectSettingsRedirect}
+            path={redirectRoutes.projectSettings}
             element={<ProjectSettingsRedirect />}
           />
           <Route path={`${routes.spawn}/*`} element={<Spawn />}>
@@ -111,7 +118,7 @@ export const Content: React.VFC = () => {
           </Route>
           <Route path={routes.userPatches} element={<UserPatches />} />
           <Route
-            path={routes.userPatchesRedirect}
+            path={redirectRoutes.userPatches}
             element={<UserPatchesRedirect />}
           />
           <Route path={routes.variantHistory} element={<VariantHistory />} />
