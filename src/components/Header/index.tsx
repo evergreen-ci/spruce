@@ -5,6 +5,7 @@ import {
   SlackNotificationBanner,
   GithubUsernameBanner,
 } from "components/Banners";
+import { zIndex } from "constants/tokens";
 import { useNetworkStatus, usePageVisibility } from "hooks";
 import { Navbar } from "./Navbar";
 
@@ -31,6 +32,9 @@ const StyledHeader = styled.header`
 `;
 
 const BannerContainer = styled.div`
+  position: absolute;
+  z-index: ${zIndex.toast};
+  width: 100%;
   > * {
     margin: 12px;
   }
