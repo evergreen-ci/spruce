@@ -3,17 +3,17 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { StyledRouterLink, StyledLink } from "components/styles";
 import {
+  commitQueueAliasesDocumentationUrl,
+  pullRequestAliasesDocumentationUrl,
+  gitTagAliasesDocumentationUrl,
+  githubChecksAliasesDocumentationUrl,
+} from "constants/externalResources";
+import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
 } from "constants/routes";
 import { GithubProjectConflicts } from "gql/generated/types";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
-import {
-  commitQueueAliasesDocumentationUrl,
-  pullRequestAliasesDocumentationUrl,
-  gitTagAliasesDocumentationUrl,
-  githubChecksAliasesDocumentationUrl,
-} from "../../../../constants/externalResources";
 import { GetFormSchema } from "../types";
 import { alias, form, ProjectType } from "../utils";
 import { githubConflictErrorStyling, sectionHasError } from "./getErrors";
