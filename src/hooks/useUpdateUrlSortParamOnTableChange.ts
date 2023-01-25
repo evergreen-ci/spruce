@@ -17,9 +17,12 @@ export const useUpdateUrlSortParamOnTableChange = <T extends unknown>({
     const nextQueryParams = {
       ...queryParams,
       [PatchTasksQueryParams.SortDir]: mapTableSortDirectionToQueryParam(order),
-      ...(order && { [PatchTasksQueryParams.SortBy]: columnKey }),
+      [PatchTasksQueryParams.SortBy]: columnKey,
       [PatchTasksQueryParams.Page]: "0",
     };
+    if (!order) {
+      delete nextQueryParams[PatchTasksQueryParams.SortBy];
+    }
     setQueryParams(nextQueryParams);
   };
 
