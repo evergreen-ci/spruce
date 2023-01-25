@@ -438,10 +438,10 @@ tasks:
 
 
 buildvariants:
-  - name: ubuntu1604
-    display_name: Ubuntu 16.04
+  - name: ubuntu2004
+    display_name: Ubuntu 20.04
     run_on:
-    - ubuntu1604-large
+    - ubuntu2004-large
     modules:
       - evergreen
     tasks:
