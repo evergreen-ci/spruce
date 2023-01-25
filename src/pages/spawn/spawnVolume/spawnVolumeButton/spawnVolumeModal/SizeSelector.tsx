@@ -10,11 +10,11 @@ interface Props {
 
 export const SizeSelector: React.VFC<Props> = ({ value, onChange, limit }) => (
   <SectionContainer>
-    <div>
+    <div style={{ width: 200 }}>
       <SectionLabel weight="medium">Volume Size</SectionLabel>
-      <Description>The max volume size is {limit} GiB.</Description>
+      <Description>The max spawnable volume size is {limit} GiB.</Description>
     </div>
-    <ModalContent style={{ width: 200 }}>
+    <ModalContent>
       <TextInput
         label="Size (GB)"
         data-cy="volumeSize"
