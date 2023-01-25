@@ -152,23 +152,13 @@ functions:
         chmod +x check_codegen.sh
         ./check_codegen.sh
 
-  install-chrome:
-    command: shell.exec
-    params:
-      working_dir: spruce
-      script: |
-        cd /tmp
-        curl -L -o "chrome.zip" "${chrome_download_url}"
-        unzip chrome.zip
-        cd -
-
   run-cypress-tests:
     command: shell.exec
     params:
       working_dir: spruce
       script: |
         export PATH=${node_path}
-        yarn cy:run --browser /tmp/chrome-linux/chrome --record --key ${cypress_record_key} --reporter junit
+        yarn cy:run --record --key ${cypress_record_key} --reporter junit
         
   copy-cmdrc:
     command: shell.exec
@@ -420,7 +410,6 @@ tasks:
     - func: sym-link
     - func: yarn-build
     - func: yarn-serve
-    - func: install-chrome
     - func: wait-for-evergreen
     - func: run-cypress-tests
     

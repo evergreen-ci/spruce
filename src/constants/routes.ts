@@ -53,9 +53,15 @@ const paths = {
   user: "/user",
   version: "/version",
   commits: "/commits",
+  waterfall: "/waterfall",
   variantHistory: "/variant-history",
   taskHistory: "/task-history",
   jobLogs: "/job-logs",
+};
+export const redirectRoutes = {
+  projectSettings: paths.projects,
+  userPatches: `${paths.user}/:id`,
+  waterfall: `${paths.waterfall}/:projectIdentifier`,
 };
 
 export const routes = {
@@ -71,7 +77,6 @@ export const routes = {
   preferences: paths.preferences,
   projectPatches: `${paths.project}/:projectIdentifier/${PageNames.Patches}`,
   projectSettings: `${paths.project}/:projectIdentifier/${PageNames.Settings}`,
-  projectSettingsRedirect: paths.projects,
   spawn: paths.spawn,
   spawnHost: `${paths.spawn}/${SpawnTab.Host}`,
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
@@ -79,7 +84,6 @@ export const routes = {
   taskHistory: `${paths.taskHistory}/:projectIdentifier/:taskName`,
   taskQueue: paths.taskQueue,
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
-  userPatchesRedirect: `${paths.user}/:id`,
   variantHistory: `${paths.variantHistory}/:projectIdentifier/:variantName`,
   version: `${paths.version}/:id`,
   user: `${paths.user}/*`,

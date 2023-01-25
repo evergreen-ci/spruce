@@ -195,7 +195,7 @@ describe("Hosts page sorting", () => {
 
   sortByTests.forEach(({ sorterName, sortBy, expectedIds }) => {
     it(`Sorts by ${sorterName} when sortBy = ${sortBy}`, () => {
-      cy.visit(`${hostsRoute}?sortBy=${sortBy}`);
+      cy.visit(`${hostsRoute}?sortBy=${sortBy}&limit=10`);
       cy.get(tableRow).each(($el, index) =>
         cy.wrap($el).contains(expectedIds[index])
       );
@@ -204,7 +204,9 @@ describe("Hosts page sorting", () => {
 
   sortDirectionTests.forEach(({ order, sortDir, expectedIds }) => {
     it(`Sorts in ${order} order when sortDir = ${sortDir}`, () => {
-      cy.visit(`${hostsRoute}?page=0&sortBy=CURRENT_TASK&sortDir=${sortDir}`);
+      cy.visit(
+        `${hostsRoute}?page=0&sortBy=CURRENT_TASK&sortDir=${sortDir}&limit=10`
+      );
       cy.get(tableRow).each(($el, index) =>
         cy.wrap($el).contains(expectedIds[index])
       );
@@ -212,7 +214,7 @@ describe("Hosts page sorting", () => {
   });
 
   it("Uses default sortBy and sortDir if sortBy or sortDir param is invalid", () => {
-    cy.visit(`${hostsRoute}?sortBy=INVALID&sortDir=INVALID`);
+    cy.visit(`${hostsRoute}?sortBy=INVALID&sortDir=INVALID&limit=10`);
     cy.get(tableRow).each(($el, index) =>
       cy
         .wrap($el)
