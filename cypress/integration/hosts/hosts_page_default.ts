@@ -3,7 +3,7 @@ const taskId =
 
 describe("Hosts Page Default", () => {
   beforeEach(() => {
-    cy.visit("/hosts");
+    cy.visit("/hosts?limit=10");
   });
 
   it("Renders hosts table with hosts sorted by status by default", () => {

@@ -30,7 +30,7 @@ export const projectSubscriptionMethods = [
   ...subscriptionMethods,
   {
     value: NotificationMethods.WEBHOOK,
-    label: "Evergreen Webhook",
+    label: "Webhook",
   },
   {
     value: NotificationMethods.JIRA_ISSUE,
