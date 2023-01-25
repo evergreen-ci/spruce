@@ -163,15 +163,12 @@ describe("Hosts page sorting", () => {
       "?distroId=arfarf&page=0&sortBy=DISTRO&sortDir=ASC"
     );
   });
-  it("Clicking a sort direction 3 times will set the page query param to 0, clear the direction query param, and preserve the rest", () => {
+  it("Clicking a sort direction 3 times will set the page query param to 0, clear the direction & sortBy query param, and preserve the rest", () => {
     cy.visit(`${hostsRoute}?distroId=arfarf&page=5`);
     cy.get(distroSortControl).click();
     cy.get(distroSortControl).click();
     cy.get(distroSortControl).click();
-    cy.location("search").should(
-      "equal",
-      "?distroId=arfarf&page=0&sortBy=DISTRO"
-    );
+    cy.location("search").should("equal", "?distroId=arfarf&page=0");
   });
   it("Status sorter is selected by default if no sort params in url", () => {
     cy.visit(hostsRoute);
