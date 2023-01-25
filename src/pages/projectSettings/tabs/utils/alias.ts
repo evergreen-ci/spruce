@@ -4,7 +4,8 @@ import widgets from "components/SpruceForm/Widgets";
 import { ProjectAlias, ProjectAliasInput } from "gql/generated/types";
 
 const textAreaCSS = css`
-  width: 374px;
+  box-sizing: border-box;
+  max-width: 400px;
 `;
 
 export enum AliasNames {
