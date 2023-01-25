@@ -153,7 +153,7 @@ export const Metadata: React.VFC<Props> = ({
           </span>
         </MetadataItem>
       )}
-      {timeTaken > 0 && (
+      {timeTaken > 0 && finishTime && (
         <MetadataItem data-cy="task-metadata-duration">
           Duration: {msToDuration(timeTaken)}{" "}
         </MetadataItem>
