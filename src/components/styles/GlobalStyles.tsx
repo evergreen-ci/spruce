@@ -40,6 +40,8 @@ const globalStyles = css`
     font-family: ${fontFamilies.default};
     font-size: 13px;
     margin: 0;
+    -webkit-font-smoothing: antialiased; /* Chrome, Safari */
+    -moz-osx-font-smoothing: grayscale; /* Firefox */
   }
 
   // TODO: Remove when fixed: https://jira.mongodb.org/browse/EVG-18184

@@ -156,6 +156,7 @@ export type CommitQueueParams = {
   mergeMethod: Scalars["String"];
   message: Scalars["String"];
   requireSigned?: Maybe<Scalars["Boolean"]>;
+  requiredApprovalCount?: Maybe<Scalars["Int"]>;
 };
 
 export type CommitQueueParamsInput = {
@@ -163,6 +164,7 @@ export type CommitQueueParamsInput = {
   mergeMethod?: InputMaybe<Scalars["String"]>;
   message?: InputMaybe<Scalars["String"]>;
   requireSigned?: InputMaybe<Scalars["Boolean"]>;
+  requiredApprovalCount?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ContainerResources = {
@@ -1408,6 +1410,7 @@ export type RepoCommitQueueParams = {
   mergeMethod: Scalars["String"];
   message: Scalars["String"];
   requireSigned: Scalars["Boolean"];
+  requiredApprovalCount: Scalars["Int"];
 };
 
 /**
@@ -2521,6 +2524,7 @@ export type ProjectGithubSettingsFragment = {
   commitQueue: {
     enabled?: Maybe<boolean>;
     requireSigned?: Maybe<boolean>;
+    requiredApprovalCount?: Maybe<number>;
     mergeMethod: string;
     message: string;
   };
@@ -2537,6 +2541,7 @@ export type RepoGithubSettingsFragment = {
   commitQueue: {
     enabled: boolean;
     requireSigned: boolean;
+    requiredApprovalCount: number;
     mergeMethod: string;
     message: string;
   };
@@ -2555,6 +2560,7 @@ export type ProjectGithubCommitQueueFragment = {
     commitQueue: {
       enabled?: Maybe<boolean>;
       requireSigned?: Maybe<boolean>;
+      requiredApprovalCount?: Maybe<number>;
       mergeMethod: string;
       message: string;
     };
@@ -2574,6 +2580,7 @@ export type RepoGithubCommitQueueFragment = {
     commitQueue: {
       enabled: boolean;
       requireSigned: boolean;
+      requiredApprovalCount: number;
       mergeMethod: string;
       message: string;
     };
@@ -2593,6 +2600,7 @@ export type ProjectEventGithubCommitQueueFragment = {
     commitQueue: {
       enabled?: Maybe<boolean>;
       requireSigned?: Maybe<boolean>;
+      requiredApprovalCount?: Maybe<number>;
       mergeMethod: string;
       message: string;
     };
@@ -2681,6 +2689,7 @@ export type ProjectSettingsFragment = {
     commitQueue: {
       enabled?: Maybe<boolean>;
       requireSigned?: Maybe<boolean>;
+      requiredApprovalCount?: Maybe<number>;
       mergeMethod: string;
       message: string;
     };
@@ -2818,6 +2827,7 @@ export type RepoSettingsFragment = {
     commitQueue: {
       enabled: boolean;
       requireSigned: boolean;
+      requiredApprovalCount: number;
       mergeMethod: string;
       message: string;
     };
@@ -3083,6 +3093,7 @@ export type ProjectEventSettingsFragment = {
     commitQueue: {
       enabled?: Maybe<boolean>;
       requireSigned?: Maybe<boolean>;
+      requiredApprovalCount?: Maybe<number>;
       mergeMethod: string;
       message: string;
     };
@@ -4681,6 +4692,7 @@ export type ProjectEventLogsQuery = {
           commitQueue: {
             enabled?: Maybe<boolean>;
             requireSigned?: Maybe<boolean>;
+            requiredApprovalCount?: Maybe<number>;
             mergeMethod: string;
             message: string;
           };
@@ -4836,6 +4848,7 @@ export type ProjectEventLogsQuery = {
           commitQueue: {
             enabled?: Maybe<boolean>;
             requireSigned?: Maybe<boolean>;
+            requiredApprovalCount?: Maybe<number>;
             mergeMethod: string;
             message: string;
           };
@@ -4995,6 +5008,7 @@ export type ProjectSettingsQuery = {
       commitQueue: {
         enabled?: Maybe<boolean>;
         requireSigned?: Maybe<boolean>;
+        requiredApprovalCount?: Maybe<number>;
         mergeMethod: string;
         message: string;
       };
@@ -5183,6 +5197,7 @@ export type RepoEventLogsQuery = {
           commitQueue: {
             enabled?: Maybe<boolean>;
             requireSigned?: Maybe<boolean>;
+            requiredApprovalCount?: Maybe<number>;
             mergeMethod: string;
             message: string;
           };
@@ -5338,6 +5353,7 @@ export type RepoEventLogsQuery = {
           commitQueue: {
             enabled?: Maybe<boolean>;
             requireSigned?: Maybe<boolean>;
+            requiredApprovalCount?: Maybe<number>;
             mergeMethod: string;
             message: string;
           };
@@ -5490,6 +5506,7 @@ export type RepoSettingsQuery = {
       commitQueue: {
         enabled: boolean;
         requireSigned: boolean;
+        requiredApprovalCount: number;
         mergeMethod: string;
         message: string;
       };

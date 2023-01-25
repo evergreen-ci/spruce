@@ -1,7 +1,4 @@
-import { useQuery } from "@apollo/client";
-import Cookies from "js-cookie";
 import { useNavbarAnalytics } from "analytics";
-import { CURRENT_PROJECT } from "constants/cookies";
 import { legacyRoutes } from "constants/externalResources";
 import {
   routes,
@@ -9,23 +6,20 @@ import {
   getProjectSettingsRoute,
   getTaskQueueRoute,
 } from "constants/routes";
-import { GetSpruceConfigQuery } from "gql/generated/types";
-import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { environmentalVariables } from "utils";
 import { NavDropdown } from "./NavDropdown";
 
 const { getUiUrl } = environmentalVariables;
 
-export const AuxiliaryDropdown = () => {
+interface AuxiliaryDropdownProps {
+  projectIdentifier: string;
+}
+
+export const AuxiliaryDropdown: React.VFC<AuxiliaryDropdownProps> = ({
+  projectIdentifier,
+}) => {
   const uiURL = getUiUrl();
   const { sendEvent } = useNavbarAnalytics();
-  const projectCookie = Cookies.get(CURRENT_PROJECT);
-
-  const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG, {
-    skip: projectCookie !== undefined,
-  });
-  const mostRecentProject =
-    projectCookie || data?.spruceConfig?.ui?.defaultProject;
 
   const menuItems = [
     {
@@ -47,13 +41,14 @@ export const AuxiliaryDropdown = () => {
 
     {
       "data-cy": "auxiliary-dropdown-project-patches",
-      to: getProjectPatchesRoute(mostRecentProject),
+      to: getProjectPatchesRoute(projectIdentifier),
       text: "Project Patches",
       onClick: () => sendEvent({ name: "Click Project Patches Link" }),
     },
     {
+      "data-cy": "auxiliary-dropdown-project-settings",
       text: "Project Settings",
-      to: getProjectSettingsRoute(mostRecentProject),
+      to: getProjectSettingsRoute(projectIdentifier),
       onClick: () => sendEvent({ name: "Click Projects Link" }),
     },
   ];

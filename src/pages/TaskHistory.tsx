@@ -35,11 +35,11 @@ const { useTestFilters, useJumpToCommit } = hooks;
 
 const TaskHistoryContents: React.VFC = () => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
-  const { projectId, taskName } = useParams<{
-    projectId: string;
+  const { projectIdentifier, taskName } = useParams<{
+    projectIdentifier: string;
     taskName: string;
   }>();
-  usePageTitle(`Task History | ${projectId} | ${taskName}`);
+  usePageTitle(`Task History | ${projectIdentifier} | ${taskName}`);
   const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
   useTestFilters();
   useJumpToCommit();
@@ -53,7 +53,7 @@ const TaskHistoryContents: React.VFC = () => {
   >(GET_MAINLINE_COMMITS_FOR_HISTORY, {
     variables: {
       mainlineCommitsOptions: {
-        projectID: projectId,
+        projectID: projectIdentifier,
         limit: 10,
         skipOrderNumber: nextPageOrderNumber,
         shouldCollapse: true,
@@ -80,7 +80,10 @@ const TaskHistoryContents: React.VFC = () => {
                 });
               }}
             />
-            <BuildVariantSelector projectId={projectId} taskName={taskName} />
+            <BuildVariantSelector
+              projectId={projectIdentifier}
+              taskName={taskName}
+            />
           </PageHeaderContent>
         </PageHeader>
         <PaginationFilterWrapper>
@@ -107,7 +110,7 @@ const TaskHistoryContents: React.VFC = () => {
           />
         </PaginationFilterWrapper>
         <div>
-          <ColumnHeaders projectId={projectId} taskName={taskName} />
+          <ColumnHeaders projectId={projectIdentifier} taskName={taskName} />
 
           <TableWrapper>
             {error && <div>Failed to retrieve mainline commit history.</div>}

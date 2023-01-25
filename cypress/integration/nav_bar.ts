@@ -11,6 +11,8 @@ const LEGACY_URLS = {
   distros: `/distros`,
 };
 describe("Nav Bar", () => {
+  const projectCookie = "mci-project-cookie";
+
   it("Should have a nav bar linking to the proper page on the legacy UI", () => {
     cy.visit(SPRUCE_URLS.version);
     cy.dataCy("legacy-ui-link").should("exist");
@@ -43,14 +45,14 @@ describe("Nav Bar", () => {
       .and("include", LEGACY_URLS.distros);
   });
   it("Nav Dropdown should link to patches page of most recent project if cookie exists", () => {
-    cy.setCookie("mci-project-cookie", "spruce");
+    cy.setCookie(projectCookie, "spruce");
     cy.visit(SPRUCE_URLS.userPatches);
     cy.dataCy("auxiliary-dropdown-link").click();
     cy.dataCy("auxiliary-dropdown-project-patches").click();
     cy.location("pathname").should("eq", "/project/spruce/patches");
   });
   it("Nav Dropdown should link to patches page of default project in SpruceConfig if cookie does not exist", () => {
-    cy.clearCookie("mci-project-cookie");
+    cy.clearCookie(projectCookie);
     cy.visit(SPRUCE_URLS.userPatches);
     cy.dataCy("auxiliary-dropdown-link").click();
     cy.dataCy("auxiliary-dropdown-project-patches").should(
@@ -60,5 +62,41 @@ describe("Nav Bar", () => {
     );
     cy.dataCy("auxiliary-dropdown-project-patches").click();
     cy.location("pathname").should("eq", "/project/evergreen/patches");
+  });
+  it("Should update the links in the nav bar when visiting a specific project patches page", () => {
+    cy.clearCookie(projectCookie);
+    cy.visit("/project/evergreen/patches");
+    cy.dataCy("patch-card").should("exist");
+
+    cy.dataCy("project-health-link").should(
+      "have.attr",
+      "href",
+      "/commits/evergreen"
+    );
+    cy.dataCy("auxiliary-dropdown-link").click();
+    cy.dataCy("auxiliary-dropdown-project-settings").should(
+      "have.attr",
+      "href",
+      "/project/evergreen/settings"
+    );
+    cy.getCookie(projectCookie).should("have.property", "value", "evergreen");
+  });
+  it("Should update the links in the nav bar when visiting a specific project settings page", () => {
+    cy.clearCookie(projectCookie);
+    cy.visit("/project/spruce/settings");
+    cy.dataCy("project-settings-tab-title").should("be.visible");
+
+    cy.dataCy("project-health-link").should(
+      "have.attr",
+      "href",
+      "/commits/spruce"
+    );
+    cy.dataCy("auxiliary-dropdown-link").click();
+    cy.dataCy("auxiliary-dropdown-project-patches").should(
+      "have.attr",
+      "href",
+      "/project/spruce/patches"
+    );
+    cy.getCookie(projectCookie).should("have.property", "value", "spruce");
   });
 });

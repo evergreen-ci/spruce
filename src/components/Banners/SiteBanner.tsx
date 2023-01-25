@@ -28,7 +28,7 @@ export const SiteBanner = () => {
     <Banner
       data-cy={`sitewide-banner-${variant}`}
       dismissible
-      onClick={hideBanner}
+      onClose={hideBanner}
       variant={variant}
     >
       {jiraLinkify(text, jiraHost)}

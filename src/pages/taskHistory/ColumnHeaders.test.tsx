@@ -1,6 +1,6 @@
 import { ProviderWrapper } from "components/HistoryTable/hooks/test-utils";
 import { taskHistoryMaxLength as maxLength } from "constants/history";
-import { RenderFakeToastContext } from "context/__mocks__/toast";
+import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { GetBuildVariantsForTaskNameQuery } from "gql/generated/types";
 import { GET_BUILD_VARIANTS_FOR_TASK_NAME } from "gql/queries";
 import {

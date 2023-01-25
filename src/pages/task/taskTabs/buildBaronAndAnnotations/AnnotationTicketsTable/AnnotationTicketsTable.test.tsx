@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import MatchMediaMock from "jest-matchmedia-mock";
-import { RenderFakeToastContext } from "context/__mocks__/toast";
+import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
 import { GET_USER } from "gql/queries";
 import { renderWithRouterMatch as render, screen } from "test_utils";

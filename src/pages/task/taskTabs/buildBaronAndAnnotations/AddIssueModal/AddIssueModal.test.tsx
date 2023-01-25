@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
-import { RenderFakeToastContext } from "context/__mocks__/toast";
+import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import { AddIssueModal as AddIssueModalToTest } from ".";

@@ -10,7 +10,6 @@ const getPatchCardByDescription = (description: string) =>
 
 describe("Dropdown Menu of Patch Actions", () => {
   beforeEach(() => {
-    cy.preserveCookies();
     cy.visit("/");
   });
 
