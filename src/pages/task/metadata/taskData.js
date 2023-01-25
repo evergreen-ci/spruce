@@ -57,6 +57,7 @@ export const taskQuery = {
     canRestart: true,
     canAbort: false,
     canSchedule: false,
+    canDisable: true,
     canUnschedule: false,
     canSetPriority: false,
     canModifyAnnotation: false,
