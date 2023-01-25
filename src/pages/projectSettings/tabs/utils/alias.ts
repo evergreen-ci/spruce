@@ -1,12 +1,6 @@
-import { css } from "@emotion/react";
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { ProjectAlias, ProjectAliasInput } from "gql/generated/types";
-
-const textAreaCSS = css`
-  box-sizing: border-box;
-  max-width: 400px;
-`;
 
 export enum AliasNames {
   CommitQueue = "__commit_queue",
@@ -231,8 +225,6 @@ export const baseProps = {
       "ui:data-cy": "task-input",
       "ui:placeholder": "Golang Regex",
       "ui:sectionId": "task-regex-field",
-      "ui:elementWrapperCSS": textAreaCSS,
-      "ui:widget": "textarea",
     },
   },
   taskTags: {
@@ -272,8 +264,6 @@ export const baseProps = {
       "ui:data-cy": "variant-input",
       "ui:placeholder": "Golang Regex",
       "ui:sectionId": "variant-regex-field",
-      "ui:elementWrapperCSS": textAreaCSS,
-      "ui:widget": "textarea",
     },
   },
   variantTags: {
