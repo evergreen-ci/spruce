@@ -19,7 +19,8 @@ type Action =
   | { name: "Click EVG Wiki Link" }
   | { name: "Click Preferences Link" }
   | { name: "Click Notifications Link" }
-  | { name: "Click Task Queue Link" };
+  | { name: "Click Task Queue Link" }
+  | { name: "Click Commit Queue Link" };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}

@@ -6,7 +6,9 @@ import { Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
 import { useParams } from "react-router-dom";
 import { PageTitle } from "components/PageTitle";
+import { ProjectSelect } from "components/ProjectSelect";
 import { PageWrapper } from "components/styles";
+import { getCommitQueueRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
   CommitQueueQuery,
@@ -37,19 +39,32 @@ export const CommitQueue: React.VFC = () => {
 
   return (
     <PageWrapper>
-      <PageTitle
-        pageTitle={`Commit Queue - ${projectIdentifier}`}
-        title="Commit Queue"
-        badge={
-          <Badge variant="darkgray">
-            {buildBadgeString(queue ? queue.length : 0)}
-          </Badge>
-        }
-        loading={loading}
-      />
-      {commitQueue?.message && (
-        <Body data-cy="commit-queue-message">{commitQueue.message}</Body>
-      )}
+      <PageHeader>
+        <Column>
+          <PageTitle
+            pageTitle={`Commit Queue - ${projectIdentifier}`}
+            title="Commit Queue"
+            badge={
+              <Badge variant="darkgray">
+                {buildBadgeString(queue ? queue.length : 0)}
+              </Badge>
+            }
+            loading={loading}
+            size="large"
+          />
+          {commitQueue?.message && (
+            <Body data-cy="commit-queue-message">{commitQueue.message}</Body>
+          )}
+        </Column>
+        <ProjectSelectWrapper>
+          <ProjectSelect
+            selectedProjectIdentifier={projectIdentifier}
+            data-cy="commit-queue-project-select"
+            getRoute={getCommitQueueRoute}
+          />
+        </ProjectSelectWrapper>
+      </PageHeader>
+
       <HR />
       {queue &&
         queue.map(({ patch, issue, enqueueTime }, i) => (
@@ -86,3 +101,18 @@ const buildBadgeString = (queueLength: number): string => {
   }
   return `${queueLength} Item`;
 };
+
+const PageHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ProjectSelectWrapper = styled.div`
+  width: 30%;
+`;
