@@ -20,7 +20,6 @@ export interface ExpirationDateType {
 interface ExpirationFieldProps {
   data: ExpirationDateType;
   onChange: (data: ExpirationDateType) => void;
-  isVolume: boolean;
   targetItem?: MyHost | MyVolume;
 }
 
