@@ -6,7 +6,19 @@ const { getLobsterURL, getUiUrl } = environmentalVariables;
 
 export const wikiUrl = "https://github.com/evergreen-ci/evergreen/wiki";
 
-export const versionControlDocumentationUrl = `${wikiUrl}/Project-and-Distro-Settings#version-control`;
+export const projectDistroSettingsDocumentationUrl = `${wikiUrl}/Project-and-Distro-Settings`;
+
+export const versionControlDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#version-control`;
+
+export const patchAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#patch-aliases`;
+
+export const pullRequestAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#pr-aliases`;
+
+export const commitQueueAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#commit-queue-aliases`;
+
+export const gitTagAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#git-tag-aliases`;
+
+export const githubChecksAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#github-checks-aliases`;
 
 export const cliDocumentationUrl =
   "https://github.com/evergreen-ci/evergreen/wiki/Using-the-Command-Line-Tool";
