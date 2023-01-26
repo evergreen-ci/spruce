@@ -76,9 +76,16 @@ describe("My Patches Page", () => {
     cy.dataCy("commit-queue-checkbox").check({ force: true });
   });
 
-  describe("Changing page number and page size", () => {
+  it("Changing page size updates URL and renders less than or equal to that many rows ", () => {
+    cy.visit(`${MY_PATCHES_ROUTE}?limit=10`);
+    [20, 10, 50, 100].forEach((pageSize) => {
+      clickOnPageSizeBtnAndAssertURLandTableSize(pageSize, dataCyTableRows);
+    });
+  });
+
+  describe("Changing page number", () => {
     before(() => {
-      cy.visit(MY_PATCHES_ROUTE);
+      cy.visit(`${MY_PATCHES_ROUTE}?limit=10`);
     });
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
       clickOnPageBtnAndAssertURLandTableResults(
@@ -100,12 +107,6 @@ describe("My Patches Page", () => {
       cy.get(dataCyPrevPage).should("be.disabled");
       cy.visit(`${MY_PATCHES_ROUTE}?page=2`);
       cy.get(dataCyNextPage).should("be.disabled");
-    });
-
-    it("Changing page size updates URL and renders less than or equal to that many rows ", () => {
-      [20, 10, 50, 100].forEach((pageSize) => {
-        clickOnPageSizeBtnAndAssertURLandTableSize(pageSize, dataCyTableRows);
-      });
     });
   });
 
