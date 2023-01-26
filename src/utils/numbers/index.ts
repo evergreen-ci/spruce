@@ -29,4 +29,6 @@ const toPercent = (value: string | number): number => {
   return parseFloat(value) * 100;
 };
 
-export { toDecimal, toPercent };
+const convertZeroIndex = (value: number): number => value + 1;
+
+export { toDecimal, toPercent, convertZeroIndex };
