@@ -17,7 +17,7 @@ import { VersionQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { ProjectTriggerLevel } from "types/triggers";
 import { string } from "utils";
-import { convertZeroIndex } from "utils/numbers";
+import { convertZeroToOneIndex } from "utils/numbers";
 import ManifestBlob from "./ManifestBlob";
 import { ParametersModal } from "./ParametersModal";
 
@@ -138,7 +138,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
             data-cy="commit-queue-position"
             to={getCommitQueueRoute(project)}
           >
-            Commit queue position: {convertZeroIndex(commitQueuePosition)}
+            Commit queue position: {convertZeroToOneIndex(commitQueuePosition)}
           </StyledRouterLink>
         </MetadataItem>
       )}
