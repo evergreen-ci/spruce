@@ -5774,6 +5774,7 @@ export type GetTaskQuery = {
     priority?: Maybe<number>;
     canRestart: boolean;
     canAbort: boolean;
+    canDisable: boolean;
     canSchedule: boolean;
     canUnschedule: boolean;
     canSetPriority: boolean;

@@ -80,6 +80,7 @@ query GetTask($taskId: String!, $execution: Int) {
     priority
     canRestart
     canAbort
+    canDisable
     canSchedule
     canUnschedule
     canSetPriority

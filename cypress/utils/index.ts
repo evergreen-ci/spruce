@@ -52,7 +52,7 @@ export const clickOnPageBtnAndAssertURLandTableResults = (
 /**
  * Assert limit query param and table length after clicking on a page size button
  * @param pageSize new page size
- * @param dataCyTableRows dat-cy for table rows
+ * @param dataCyTableRows data-cy for table rows
  */
 export const clickOnPageSizeBtnAndAssertURLandTableSize = (
   pageSize: number,
