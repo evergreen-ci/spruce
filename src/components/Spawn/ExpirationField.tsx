@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { Tooltip } from "antd";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { set } from "date-fns";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 import DatePicker from "components/DatePicker";
 import { InputLabel } from "components/styles";
 import TimePicker from "components/TimePicker";
@@ -19,19 +20,17 @@ export interface ExpirationDateType {
 interface ExpirationFieldProps {
   data: ExpirationDateType;
   onChange: (data: ExpirationDateType) => void;
-  isVolume: boolean;
   targetItem?: MyHost | MyVolume;
 }
 
 export const ExpirationField: React.VFC<ExpirationFieldProps> = ({
   onChange,
   data,
-  isVolume,
   targetItem,
 }) => {
   const spruceConfig = useSpruceConfig();
   const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(
-    isVolume,
+    true,
     targetItem
   );
   const { expiration: expirationString, noExpiration } = data;
@@ -57,8 +56,14 @@ export const ExpirationField: React.VFC<ExpirationFieldProps> = ({
   };
 
   const disabledDate = (current) => current < Date.now();
-  const { unexpirableHostsPerUser, unexpirableVolumesPerUser } =
-    spruceConfig?.spawnHost ?? {};
+  const { unexpirableVolumesPerUser } = spruceConfig?.spawnHost ?? {};
+
+  const disabledExpirationCopy = getNoExpirationCheckboxTooltipCopy({
+    disableExpirationCheckbox,
+    isVolume: true,
+    limit: unexpirableVolumesPerUser,
+  });
+
   return (
     <SectionContainer>
       <SectionLabel weight="medium">Expiration</SectionLabel>
@@ -89,14 +94,18 @@ export const ExpirationField: React.VFC<ExpirationFieldProps> = ({
         </FlexColumnContainer>
         <PaddedBody> or </PaddedBody>
         <FlexColumnContainer>
-          <Tooltip
-            title={getNoExpirationCheckboxTooltipCopy({
-              disableExpirationCheckbox,
-              isVolume,
-              limit: isVolume
-                ? unexpirableVolumesPerUser
-                : unexpirableHostsPerUser,
-            })}
+          <ConditionalWrapper
+            condition={disableExpirationCheckbox}
+            wrapper={(children) => (
+              <Tooltip
+                align="top"
+                justify="middle"
+                trigger={<span>{children}</span>}
+                triggerEvent="hover"
+              >
+                {disabledExpirationCopy}
+              </Tooltip>
+            )}
           >
             <span>
               <PaddedCheckbox
@@ -109,7 +118,7 @@ export const ExpirationField: React.VFC<ExpirationFieldProps> = ({
                 }
               />
             </span>
-          </Tooltip>
+          </ConditionalWrapper>
         </FlexColumnContainer>
       </FormContainer>
     </SectionContainer>

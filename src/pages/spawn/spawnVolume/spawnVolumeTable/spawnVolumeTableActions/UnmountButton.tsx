@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
-import { Tooltip } from "antd";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { Popconfirm } from "components/Popconfirm";
@@ -52,8 +52,13 @@ export const UnmountButton: React.VFC<Props> = ({ volume }) => {
     <ConditionalWrapper
       condition={isHomeVolume}
       wrapper={(children) => (
-        <Tooltip title="Cannot unmount home volume">
-          <span>{children}</span>
+        <Tooltip
+          align="top"
+          justify="middle"
+          trigger={<span>{children}</span>}
+          triggerEvent="hover"
+        >
+          Cannot unmount home volume
         </Tooltip>
       )}
       altWrapper={(children) => (
