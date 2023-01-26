@@ -18,6 +18,7 @@ import {
 import { DISTRO_TASK_QUEUE } from "gql/queries";
 import { usePrevious } from "hooks";
 import { string } from "utils";
+import { convertZeroToOneIndex } from "utils/numbers";
 
 const { msToDuration } = string;
 
@@ -69,7 +70,9 @@ export const TaskQueueTable = () => {
       dataIndex: "number",
       key: "number",
       className: "cy-task-queue-col-index",
-      render: (...[, , index]) => <Body weight="medium">{index + 1}</Body>,
+      render: (...[, , index]) => (
+        <Body weight="medium">{convertZeroToOneIndex(index)}</Body>
+      ),
     },
     {
       title: "Task",

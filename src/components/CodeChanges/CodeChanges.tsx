@@ -15,6 +15,7 @@ import {
 import { GET_CODE_CHANGES } from "gql/queries";
 import { SubtitleType } from "types/leafygreen";
 import { commits } from "utils";
+import { convertZeroToOneIndex } from "utils/numbers";
 
 const { bucketByCommit, shouldPreserveCommits } = commits;
 
@@ -60,7 +61,7 @@ export const CodeChanges: React.VFC = () => {
             return (
               <CodeChangeModuleContainer key={`code_change_${description}`}>
                 <CommitContainer>
-                  <CommitTitle>Commit {idx + 1}</CommitTitle>
+                  <CommitTitle>Commit {convertZeroToOneIndex(idx)}</CommitTitle>
                   {description && <Description>{description}</Description>}
                 </CommitContainer>
                 <CodeChangesTable fileDiffs={sortedFileDiffs} />

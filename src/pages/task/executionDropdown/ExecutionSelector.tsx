@@ -10,7 +10,7 @@ import {
 } from "gql/generated/types";
 import { GET_TASK_ALL_EXECUTIONS } from "gql/queries";
 import { useDateFormat } from "hooks";
-import { executionAsDisplay } from "utils/task";
+import { convertZeroToOneIndex } from "utils/numbers";
 
 interface ExecutionSelectProps {
   id: string;
@@ -41,7 +41,7 @@ export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
       disabled={executionsLoading}
       key={currentExecution}
       data-cy="execution-select"
-      value={`Execution ${executionAsDisplay(currentExecution)}${
+      value={`Execution ${convertZeroToOneIndex(currentExecution)}${
         currentExecution === latestExecution ? " (latest)" : ""
       }`}
       onChange={(selected: number | null) => {
@@ -49,7 +49,7 @@ export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
       }}
     >
       {allExecutions?.map((singleExecution) => {
-        const optionText = `Execution ${executionAsDisplay(
+        const optionText = `Execution ${convertZeroToOneIndex(
           singleExecution.execution
         )} - ${getDateCopy(
           singleExecution.activatedTime ?? singleExecution.ingestTime
