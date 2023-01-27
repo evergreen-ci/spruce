@@ -31,6 +31,7 @@ import {
   useUpsertQueryParams,
   useUserSettings,
 } from "hooks";
+import { useCommitsLimit } from "hooks/useCommitsLimit";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString, validators } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
@@ -55,7 +56,7 @@ export const Commits = () => {
   const { userSettings } = useUserSettings();
   const { useSpruceOptions } = userSettings ?? {};
   const { hasUsedMainlineCommitsBefore = true } = useSpruceOptions ?? {};
-
+  const [ref, limit] = useCommitsLimit();
   const parsed = parseQueryString(search);
   const { projectIdentifier } = useParams<{
     projectIdentifier: string;
@@ -105,7 +106,7 @@ export const Commits = () => {
     mainlineCommitOptions: {
       projectID: projectIdentifier,
       skipOrderNumber,
-      limit: 5,
+      limit,
     },
     filterState,
   });
@@ -200,13 +201,15 @@ export const Commits = () => {
             nextPageOrderNumber={nextPageOrderNumber}
           />
         </PaginationWrapper>
-        <CommitsWrapper
-          versions={versions}
-          error={error}
-          isLoading={loading || !projectIdentifier}
-          hasTaskFilter={hasTasks}
-          hasFilters={hasFilters}
-        />
+        <span ref={ref}>
+          <CommitsWrapper
+            versions={versions}
+            error={error}
+            isLoading={loading || !projectIdentifier}
+            hasTaskFilter={hasTasks}
+            hasFilters={hasFilters}
+          />
+        </span>
       </PageContainer>
       {!hasUsedMainlineCommitsBefore && (
         <WelcomeModal
