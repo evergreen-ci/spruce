@@ -4,7 +4,6 @@ import Badge from "@leafygreen-ui/badge";
 import Banner from "@leafygreen-ui/banner";
 import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import get from "lodash/get";
 import { useParams } from "react-router-dom";
 import { PageTitle } from "components/PageTitle";
 import { ProjectSelect } from "components/ProjectSelect";
@@ -35,8 +34,8 @@ export const CommitQueue: React.VFC = () => {
     },
   });
 
-  const commitQueue = get(data, "commitQueue");
-  const queue = get(commitQueue, "queue");
+  const { commitQueue } = data || {};
+  const { queue } = commitQueue || {};
 
   return (
     <PageWrapper>
