@@ -10,6 +10,7 @@ import FilterBadges, {
 import { ProjectSelect } from "components/ProjectSelect";
 import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
+import TupleSelectWithRegexConditional from "components/TupleSelectWithRegexConditional";
 import WelcomeModal from "components/WelcomeModal";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -36,7 +37,6 @@ import { CommitsWrapper } from "./commits/CommitsWrapper";
 import CommitTypeSelect from "./commits/commitTypeSelect";
 import { PaginationButtons } from "./commits/PaginationButtons";
 import { StatusSelect } from "./commits/StatusSelect";
-import TupleSelectWithRegexConditional from "./commits/TupleSelectWithRegexConditional";
 import {
   getMainlineCommitsQueryVariables,
   getFilterStatus,

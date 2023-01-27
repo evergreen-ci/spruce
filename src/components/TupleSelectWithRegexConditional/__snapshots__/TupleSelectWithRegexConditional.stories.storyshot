@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Pages/Commits/TupleSelectWithRegexConditional Default 1`] = `
+exports[`storybook Storyshots Components/TupleSelect/TupleSelectWithRegexConditional Default 1`] = `
 <div
   style={
     Object {
@@ -20,7 +20,7 @@ exports[`storybook Storyshots Pages/Commits/TupleSelectWithRegexConditional Defa
       >
         Add New Filter
         <div
-          className="leafygreen-ui-1gmp0zo css-1qa4isu-PaddedSegmentedControl e182eap00"
+          className="leafygreen-ui-1gmp0zo css-1qa4isu-PaddedSegmentedControl egmqwjk0"
         >
           <div
             aria-label="segmented-control-1"
@@ -119,7 +119,7 @@ exports[`storybook Storyshots Pages/Commits/TupleSelectWithRegexConditional Defa
           id="select-18"
           onClick={[Function]}
           type="button"
-          value="buildVariants"
+          value="build_variant"
         >
           <div
             className="leafygreen-ui-v038xi"
