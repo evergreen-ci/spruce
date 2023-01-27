@@ -361,7 +361,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                 className="leafygreen-ui-55kazc"
               >
                 <label
-                  className="leafygreen-ui-hx39h2"
+                  className="leafygreen-ui-rae0jp"
                   htmlFor="checkbox-1"
                   id="checkbox-1-label"
                 >
@@ -419,7 +419,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                 className="leafygreen-ui-55kazc"
               >
                 <label
-                  className="leafygreen-ui-hx39h2"
+                  className="leafygreen-ui-rae0jp"
                   htmlFor="checkbox-2"
                   id="checkbox-2-label"
                 >
@@ -477,7 +477,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                 className="leafygreen-ui-55kazc"
               >
                 <label
-                  className="leafygreen-ui-hx39h2"
+                  className="leafygreen-ui-rae0jp"
                   htmlFor="checkbox-3"
                   id="checkbox-3-label"
                 >
@@ -535,7 +535,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                 className="leafygreen-ui-55kazc"
               >
                 <label
-                  className="leafygreen-ui-hx39h2"
+                  className="leafygreen-ui-rae0jp"
                   htmlFor="checkbox-4"
                   id="checkbox-4-label"
                 >
@@ -687,7 +687,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
                 className="leafygreen-ui-55kazc"
               >
                 <label
-                  className="leafygreen-ui-hx39h2"
+                  className="leafygreen-ui-rae0jp"
                   htmlFor="checkbox-5"
                   id="checkbox-5-label"
                 >

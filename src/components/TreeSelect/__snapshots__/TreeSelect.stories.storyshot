@@ -12,7 +12,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-6"
         id="checkbox-6-label"
       >
@@ -66,7 +66,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-7"
         id="checkbox-7-label"
       >
@@ -120,7 +120,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-8"
         id="checkbox-8-label"
       >
@@ -174,7 +174,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-9"
         id="checkbox-9-label"
       >
@@ -228,7 +228,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-10"
         id="checkbox-10-label"
       >
@@ -282,7 +282,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-11"
         id="checkbox-11-label"
       >
@@ -336,7 +336,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-12"
         id="checkbox-12-label"
       >
@@ -390,7 +390,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-13"
         id="checkbox-13-label"
       >
@@ -444,7 +444,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-14"
         id="checkbox-14-label"
       >
@@ -506,7 +506,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-15"
         id="checkbox-15-label"
       >
@@ -560,7 +560,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-16"
         id="checkbox-16-label"
       >
@@ -614,7 +614,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-17"
         id="checkbox-17-label"
       >
@@ -668,7 +668,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-18"
         id="checkbox-18-label"
       >
@@ -722,7 +722,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-19"
         id="checkbox-19-label"
       >
@@ -776,7 +776,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-20"
         id="checkbox-20-label"
       >
@@ -830,7 +830,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-21"
         id="checkbox-21-label"
       >
@@ -884,7 +884,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-22"
         id="checkbox-22-label"
       >
@@ -946,7 +946,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-23"
         id="checkbox-23-label"
       >
@@ -1000,7 +1000,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-24"
         id="checkbox-24-label"
       >
@@ -1054,7 +1054,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-25"
         id="checkbox-25-label"
       >
@@ -1108,7 +1108,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-26"
         id="checkbox-26-label"
       >
@@ -1162,7 +1162,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-27"
         id="checkbox-27-label"
       >
@@ -1216,7 +1216,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-28"
         id="checkbox-28-label"
       >
@@ -1270,7 +1270,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-29"
         id="checkbox-29-label"
       >
@@ -1324,7 +1324,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-30"
         id="checkbox-30-label"
       >
@@ -1386,7 +1386,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-31"
         id="checkbox-31-label"
       >
@@ -1440,7 +1440,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-32"
         id="checkbox-32-label"
       >
@@ -1494,7 +1494,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-33"
         id="checkbox-33-label"
       >
@@ -1548,7 +1548,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-34"
         id="checkbox-34-label"
       >
@@ -1602,7 +1602,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-35"
         id="checkbox-35-label"
       >
@@ -1656,7 +1656,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-36"
         id="checkbox-36-label"
       >
@@ -1710,7 +1710,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-37"
         id="checkbox-37-label"
       >
@@ -1764,7 +1764,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-38"
         id="checkbox-38-label"
       >
@@ -1818,7 +1818,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-39"
         id="checkbox-39-label"
       >
