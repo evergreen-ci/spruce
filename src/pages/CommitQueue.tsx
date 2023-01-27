@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
+import Banner from "@leafygreen-ui/banner";
 import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
@@ -52,9 +53,6 @@ export const CommitQueue: React.VFC = () => {
             loading={loading}
             size="large"
           />
-          {commitQueue?.message && (
-            <Body data-cy="commit-queue-message">{commitQueue.message}</Body>
-          )}
         </Column>
         <ProjectSelectWrapper>
           <ProjectSelect
@@ -64,9 +62,12 @@ export const CommitQueue: React.VFC = () => {
           />
         </ProjectSelectWrapper>
       </PageHeader>
+      {commitQueue?.message && (
+        <Banner data-cy="commit-queue-message">{commitQueue.message}</Banner>
+      )}
 
       <HR />
-      {queue &&
+      {queue ? (
         queue.map(({ patch, issue, enqueueTime }, i) => (
           <CommitQueueCard
             key={issue}
@@ -83,8 +84,10 @@ export const CommitQueue: React.VFC = () => {
             commitQueueId={commitQueue.projectId}
             activated={patch?.activated}
           />
-        ))}
-      {!queue && <Body>There are no items in this queue. </Body>}
+        ))
+      ) : (
+        <Body>There are no items in this queue. </Body>
+      )}
     </PageWrapper>
   );
 };
@@ -105,7 +108,6 @@ const buildBadgeString = (queueLength: number): string => {
 const PageHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  flex-direction: row;
 `;
 
 const Column = styled.div`
