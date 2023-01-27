@@ -1,5 +1,7 @@
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
+import { StyledLink } from "components/styles";
+import { patchAliasesDocumentationUrl } from "constants/externalResources";
 import { GetFormSchema } from "../types";
 import { alias, form, PatchTriggerAliasStatus, ProjectType } from "../utils";
 import { TaskSpecifier } from "./types";
@@ -19,8 +21,6 @@ export const getFormSchema = (
     properties: {
       patchAliases: {
         title: "Patch Aliases",
-        description:
-          "Specify aliases to use with the CLI. Aliases may be specified multiple times. The result will be their union. All regular expressions must be valid Golang regular expressions. Use an alias with the --alias flag passed to the CLI patch command.",
         ...overrideRadioBox(
           "aliases",
           ["Override Repo Patch Aliases", "Default to Repo Patch Aliases"],
@@ -151,6 +151,7 @@ export const getFormSchema = (
         "ui:showLabel": false,
         "ui:data-cy": "patch-aliases-override-radio-box",
       },
+      "ui:description": PatchAliasesDescription,
       aliases: patchAliasArray.uiSchema,
       repoData: {
         aliases: patchAliasArray.repoData.uiSchema,
@@ -227,3 +228,17 @@ const aliasesUiSchema = {
     },
   },
 };
+
+const PatchAliasesDescription = (
+  <>
+    Specify aliases to use with the CLI. Aliases may be specified multiple
+    times. The result will be their union. All regular expressions must be valid
+    Golang regular expressions. Use an alias with the --alias flag passed to the
+    CLI patch command. These aliases{" "}
+    <StyledLink href={patchAliasesDocumentationUrl}>may be defined</StyledLink>{" "}
+    in this project&rsquo;s config YAML instead. The active set of patch aliases
+    for the project will be the merged result of aliases defined on this page
+    and in the config YAML, with this page taking precedence in the case of
+    duplicate names.
+  </>
+);
