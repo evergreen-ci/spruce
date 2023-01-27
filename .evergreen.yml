@@ -10,21 +10,32 @@ modules:
   branch: main
   auto_update: true
 
+pre:
+  - func: get-project
+
 #######################################
 #              Functions              #
 #######################################
 functions:
   get-project:
-    command: git.get_project
-    type: setup
-    params:
-      directory: spruce
+    - command: git.get_project
+      type: setup
+      params:
+        directory: spruce
+    - command: subprocess.exec
+      params:
+        binary: bash
+        args:
+          - spruce/scripts/prepare-shell.sh
+    - command: expansions.update
+      params:
+        file: expansion.yml
 
   get-evergreen-project:
     command: git.get_project
     type: setup
     params:
-      directory: spruce
+      directory: evergreen
       revisions:
         evergreen: ${evergreen_rev}
 
@@ -36,24 +47,41 @@ functions:
           gobin: /opt/golang/go1.16/bin/go
           MONGODB_URL: ${mongodb_url}
           DECOMPRESS: ${decompress}
-        working_dir: spruce/evergreen
+        working_dir: evergreen
         command: make get-mongodb
     - command: subprocess.exec
       type: setup
       params:
         background: true
-        working_dir: spruce/evergreen
+        working_dir: evergreen
         command: make start-mongod
     - command: subprocess.exec
       type: setup
       params:
-        working_dir: spruce/evergreen
+        working_dir: evergreen
         command: make configure-mongod
+
+  setup-node:
+    command: shell.exec
+    params:
+      script: |
+        ${PREPARE_SHELL}
+
+        git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+        cd "$NVM_DIR"
+        git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+        cd "$PROJECT_DIRECTORY"
+
+        nvm install --no-progress 16.17.0
+        nvm alias default 16.17.0
+
+        npm install -g yarn
 
   run-make-background:
     command: subprocess.exec
     params:
-      working_dir: spruce/evergreen
+      working_dir: evergreen
       binary: make
       args: ["${make_args|}", "${target}"]
       background: true
@@ -82,24 +110,23 @@ functions:
       working_dir: spruce
       background: true
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         yarn serve
 
-  
   yarn-install:
     command: shell.exec
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
-        yarn
+        ${PREPARE_SHELL}
+        yarn install
 
   yarn-test:
     command: shell.exec
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         yarn test --reporters=default --reporters=jest-junit --testPathIgnorePatterns=storybook.test.ts
 
   yarn-eslint:
@@ -107,7 +134,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         yarn eslint:strict
 
   yarn-tsc:
@@ -115,7 +142,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         yarn check-types
 
   yarn-build:
@@ -123,7 +150,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         yarn build:local
 
   yarn-build-storybook:
@@ -131,7 +158,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         yarn build-storybook
     
   yarn-snapshot:
@@ -139,7 +166,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         yarn test --reporters="jest-junit" --reporters="default" --testPathPattern="storybook.test.ts"
 
   check-codegen:
@@ -148,7 +175,6 @@ functions:
       working_dir: spruce
       shell: bash
       script: |
-        export PATH=${node_path}
         chmod +x check_codegen.sh
         ./check_codegen.sh
 
@@ -157,7 +183,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         yarn cy:run --record --key ${cypress_record_key} --reporter junit
         
   copy-cmdrc:
@@ -167,40 +193,41 @@ functions:
       script: |
         cp env/.cmdrc_sample.json env/.cmdrc.json
 
-  attach-results:
+  attach-test-results:
     command: attach.xunit_results
     params:
       files:
-        - "./spruce/bin/cypress/*.xml"
         - "./spruce/bin/jest/*.xml"
 
-  attach-cypress-screenshots:
-    command: s3.put
-    type: system
-    params:
-      aws_key: ${aws_key}
-      aws_secret: ${aws_secret}
-      local_files_include_filter:
-        ["spruce/cypress/screenshots/*"]
-      remote_file: spruce/${task_id}/
-      bucket: mciuploads
-      content_type: image/png
-      permissions: public-read
-      display_name: "screenshot:"
-
-  attach-cypress-videos:
-    command: s3.put
-    type: system
-    params:
-      aws_key: ${aws_key}
-      aws_secret: ${aws_secret}
-      local_files_include_filter:
-        ["spruce/cypress/videos/*"]
-      remote_file: spruce/${task_id}/
-      bucket: mciuploads
-      content_type: video/mp4
-      permissions: public-read
-      display_name: "video:"
+  attach-cypress-results:
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${aws_key}
+        aws_secret: ${aws_secret}
+        local_files_include_filter:
+          ["spruce/cypress/screenshots/*"]
+        remote_file: spruce/${task_id}/
+        bucket: mciuploads
+        content_type: image/png
+        permissions: public-read
+        display_name: "screenshot:"
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${aws_key}
+        aws_secret: ${aws_secret}
+        local_files_include_filter:
+          ["spruce/cypress/videos/*"]
+        remote_file: spruce/${task_id}/
+        bucket: mciuploads
+        content_type: video/mp4
+        permissions: public-read
+        display_name: "video:"
+    - command: attach.xunit_results
+      params:
+        files:
+          - "./spruce/bin/cypress/*.xml"
 
   attach-server-logs:
     command: s3.put
@@ -324,7 +351,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         BUCKET=${bucket} AWS_ACCESS_KEY_ID=${aws_key} AWS_SECRET_ACCESS_KEY=${aws_secret}  yarn deploy; yarn upload-source-maps;
 
   build-prod:
@@ -332,7 +359,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         chmod +x scripts/app-version.sh
         . ./scripts/app-version.sh
         echo "Building Production version: $REACT_APP_VERSION"
@@ -356,15 +383,15 @@ functions:
 tasks:
   - name: compile
     commands:
-    - func: get-project
     - func: yarn-install
     - func: copy-cmdrc
     - func: sym-link
     - func: yarn-build
+    - func: attach-source-map
 
   - name: storybook
     commands:
-    - func: get-project
+    - func: setup-node
     - func: yarn-install
     - func: yarn-build-storybook
     - func: attach-storybook
@@ -374,27 +401,24 @@ tasks:
 
   - name: test
     commands:
-    - func: get-project
     - func: yarn-install
     - func: yarn-test
+    - func: attach-test-results
 
   - name: lint
     commands:
-    - func: get-project
     - func: sym-link
     - func: yarn-install
     - func: yarn-eslint
 
   - name: type_check
     commands:
-    - func: get-project
     - func: sym-link
     - func: yarn-install
     - func: yarn-tsc
 
   - name: snapshots
     commands:
-    - func: get-project
     - func: yarn-install
     - func: yarn-snapshot
 
@@ -412,23 +436,22 @@ tasks:
     - func: yarn-serve
     - func: wait-for-evergreen
     - func: run-cypress-tests
+    - func: attach-cypress-results
     
   - name: send_email
     commands:
-    - func: get-project
     - func: setup-credentials
     - func: send-email
 
   - name: check_codegen
     commands:
-    - func: get-project
     - func: sym-link
     - func: yarn-install
     - func: check-codegen
+    - func: attach-codegen-diff
 
   - name: deploy_to_prod
     commands:
-    - func: get-project
     - func: setup-credentials
     - func: yarn-install
     - func: sym-link
@@ -438,10 +461,10 @@ tasks:
 
 
 buildvariants:
-  - name: ubuntu1604
-    display_name: Ubuntu 16.04
+  - name: ubuntu2004
+    display_name: Ubuntu 20.04
     run_on:
-    - ubuntu1604-large
+    - ubuntu2004-large
     modules:
       - evergreen
     tasks:
@@ -457,11 +480,3 @@ buildvariants:
       git_tag_only: true
       patchable: false
       priority: 100
-
-post:
-  - func: attach-results
-  - func: attach-cypress-screenshots
-  - func: attach-cypress-videos
-  - func: attach-server-logs
-  - func: attach-source-map
-  - func: attach-codegen-diff
