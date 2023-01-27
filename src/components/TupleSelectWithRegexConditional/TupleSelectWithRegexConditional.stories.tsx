@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 import TupleSelectWithRegexConditional from ".";
 
 export default {
-  title: "Components/TupleSelect/TupleSelectWithRegexConditional",
+  title: "Components/TupleSelect",
   component: TupleSelectWithRegexConditional,
 };
 
@@ -20,7 +20,7 @@ const options = [
   },
 ];
 
-export const Default = () => (
+export const TupleSelectWithConditional = () => (
   <div style={{ width: "40%" }}>
     <TupleSelectWithRegexConditional
       options={options}
