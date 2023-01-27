@@ -5,6 +5,7 @@ import {
   getProjectPatchesRoute,
   getProjectSettingsRoute,
   getTaskQueueRoute,
+  getCommitQueueRoute,
 } from "constants/routes";
 import { environmentalVariables } from "utils";
 import { NavDropdown } from "./NavDropdown";
@@ -26,6 +27,11 @@ export const AuxiliaryDropdown: React.VFC<AuxiliaryDropdownProps> = ({
       text: "All Hosts",
       to: routes.hosts,
       onClick: () => sendEvent({ name: "Click All Hosts Link" }),
+    },
+    {
+      text: "Commit Queue",
+      to: getCommitQueueRoute(projectIdentifier),
+      onClick: () => sendEvent({ name: "Click Commit Queue Link" }),
     },
     {
       text: "Task Queue",

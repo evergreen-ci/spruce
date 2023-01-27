@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import ConfirmationModal, { Variant } from "@leafygreen-ui/confirmation-modal";
 
@@ -16,13 +17,13 @@ export const ConfirmPatchButton: React.VFC<ConfirmPatchButtonProps> = ({
 
   return (
     <>
-      <Button
+      <StyledButton
         data-cy="commit-queue-patch-button"
         disabled={disabled}
         onClick={() => setOpen(!open)}
       >
         Remove Patch From Queue
-      </Button>
+      </StyledButton>
       <ConfirmationModal
         data-cy="commit-queue-confirmation-modal"
         open={open}
@@ -40,3 +41,8 @@ export const ConfirmPatchButton: React.VFC<ConfirmPatchButtonProps> = ({
     </>
   );
 };
+
+const StyledButton = styled(Button)`
+  // Without this the button stretches and the text overflows
+  font-size: 12px;
+`;
