@@ -60,7 +60,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -73,7 +73,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         }).mainlineCommitsOptions
       ).toStrictEqual({
         limit: 5,
-        projectID: "projectID",
+        projectIdentifier: "projectIdentifier",
         skipOrderNumber: 0,
         shouldCollapse: false,
         requesters: [],
@@ -83,7 +83,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -96,7 +96,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         }).mainlineCommitsOptions
       ).toStrictEqual({
         limit: 5,
-        projectID: "projectID",
+        projectIdentifier: "projectIdentifier",
         skipOrderNumber: 0,
         shouldCollapse: true,
         requesters: [],
@@ -104,7 +104,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -117,7 +117,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         }).mainlineCommitsOptions
       ).toStrictEqual({
         limit: 5,
-        projectID: "projectID",
+        projectIdentifier: "projectIdentifier",
         skipOrderNumber: 0,
         shouldCollapse: true,
         requesters: [],
@@ -125,7 +125,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -138,7 +138,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         }).mainlineCommitsOptions
       ).toStrictEqual({
         limit: 5,
-        projectID: "projectID",
+        projectIdentifier: "projectIdentifier",
         skipOrderNumber: 0,
         shouldCollapse: true,
         requesters: [],
@@ -146,7 +146,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -159,7 +159,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         }).mainlineCommitsOptions
       ).toStrictEqual({
         limit: 5,
-        projectID: "projectID",
+        projectIdentifier: "projectIdentifier",
         skipOrderNumber: 0,
         shouldCollapse: true,
         requesters: [],
@@ -171,7 +171,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -191,7 +191,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -211,7 +211,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -235,7 +235,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -256,7 +256,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -275,7 +275,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -294,7 +294,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -317,7 +317,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -339,7 +339,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -361,7 +361,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -383,7 +383,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -403,7 +403,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -425,7 +425,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -450,7 +450,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -471,7 +471,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -492,7 +492,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -513,7 +513,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -534,7 +534,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -555,7 +555,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },
@@ -574,7 +574,7 @@ describe("getMainlineCommitsQueryVariables", () => {
       expect(
         getMainlineCommitsQueryVariables({
           mainlineCommitOptions: {
-            projectID: "projectID",
+            projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
           },

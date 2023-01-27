@@ -11,7 +11,7 @@ interface FilterState {
   requesters: string[];
 }
 interface MainlineCommitOptions {
-  projectID: string;
+  projectIdentifier: string;
   limit: number;
   skipOrderNumber: number;
 }
