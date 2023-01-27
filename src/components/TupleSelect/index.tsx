@@ -7,6 +7,7 @@ import { Label } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
 import IconTooltip from "components/IconTooltip";
 import TextInput from "components/TextInputWithGlyph";
+import { size } from "constants/tokens";
 
 const { yellow } = palette;
 type option = {
@@ -20,12 +21,14 @@ interface TupleSelectProps {
   onSubmit?: ({ category, value }: { category: string; value: string }) => void;
   validator?: (value: string) => boolean;
   validatorErrorMessage?: string;
+  label?: React.ReactNode;
 }
 const TupleSelect: React.VFC<TupleSelectProps> = ({
   options,
   onSubmit = () => {},
   validator = () => true,
   validatorErrorMessage = "Invalid Input",
+  label,
 }) => {
   const [input, setInput] = useState("");
   const [selected, setSelected] = useState(options[0].value);
@@ -46,7 +49,7 @@ const TupleSelect: React.VFC<TupleSelectProps> = ({
   return (
     <Container>
       <Label htmlFor="filter-input">
-        Add New {selectedOption.displayName} Filter
+        <LabelContainer>{label}</LabelContainer>
       </Label>
       <InputGroup>
         <GroupedSelect
@@ -108,6 +111,12 @@ const Container = styled.div`
 
 const InputGroup = styled.div`
   align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin-top: ${size.xxs};
+`;
+
+const LabelContainer = styled.div`
   display: flex;
   flex-direction: row;
 `;

@@ -1,10 +1,10 @@
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { action } from "@storybook/addon-actions";
-import TupleSelect from ".";
+import TupleSelectWithRegexConditional from ".";
 
 export default {
   title: "Components/TupleSelect",
-  component: TupleSelect,
+  component: TupleSelectWithRegexConditional,
 };
 
 const options = [
@@ -20,9 +20,9 @@ const options = [
   },
 ];
 
-export const Default = () => (
+export const TupleSelectWithConditional = () => (
   <div style={{ width: "40%" }}>
-    <TupleSelect
+    <TupleSelectWithRegexConditional
       options={options}
       onSubmit={action("submit")}
       validator={(v) => v !== "bad"}
