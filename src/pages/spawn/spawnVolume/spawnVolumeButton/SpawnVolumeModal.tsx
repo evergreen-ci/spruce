@@ -128,7 +128,6 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
           expiration: state.expiration,
           noExpiration: state.noExpiration,
         }}
-        isVolume
         onChange={(expData) => dispatch({ type: "editExpiration", ...expData })}
       />
       <SectionContainer>
