@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "test_utils";
+import { render, screen, userEvent, waitFor } from "test_utils";
 import TupleSelectWithRegexConditionalStories from ".";
 
 const options = [
@@ -77,9 +77,11 @@ describe("tupleSelectWithRegexConditional", () => {
     expect(validator).toHaveBeenLastCalledWith("bad");
     expect(screen.getByDataCy("tuple-select-warning")).toBeInTheDocument();
     userEvent.hover(screen.queryByDataCy("tuple-select-warning"));
-    await screen.findByText(validatorErrorMessage);
+    await waitFor(() => {
+      expect(screen.getByText(validatorErrorMessage)).toBeInTheDocument();
+    });
   });
-  it("toggling the input type selector to `exact` should escape any regex characters", async () => {
+  it("toggling the input type selector to `exact` should escape any regex characters", () => {
     const onSubmit = jest.fn();
     const validator = jest.fn((v) => v !== "bad");
     const validatorErrorMessage = "Invalid Input";
@@ -104,7 +106,7 @@ describe("tupleSelectWithRegexConditional", () => {
 
     expect(input).toHaveValue("");
   });
-  it("should not attempt to validate input if using the `exact` input type", async () => {
+  it("should not attempt to validate input if using the `exact` input type", () => {
     const onSubmit = jest.fn();
     const validator = jest.fn((v) => v !== "bad");
     const validatorErrorMessage = "Invalid Input";
