@@ -160,7 +160,6 @@ export const Commits = () => {
               onSubmit={onSubmitTupleSelect}
               validator={validateRegexp}
               validatorErrorMessage="Invalid Regular Expression"
-              label="Add New Filter"
             />
           </ElementWrapper>
           <ElementWrapper width="20">
