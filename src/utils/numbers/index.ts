@@ -30,7 +30,7 @@ const toPercent = (value: string | number): number => {
 };
 
 /**
- * `formatForDisplay` - Formats a zero-indexed number for display in the UI.
+ * formatZeroIndexForDisplay Formats a zero-indexed number for display in the UI.
  */
 const formatZeroIndexForDisplay = (value: number): number => value + 1;
 
