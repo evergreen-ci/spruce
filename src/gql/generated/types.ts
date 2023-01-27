@@ -4590,6 +4590,8 @@ export type PatchQuery = {
 
 export type ProjectEventLogsQueryVariables = Exact<{
   identifier: Scalars["String"];
+  limit?: InputMaybe<Scalars["Int"]>;
+  before?: InputMaybe<Scalars["Time"]>;
 }>;
 
 export type ProjectEventLogsQuery = {
@@ -5095,6 +5097,8 @@ export type GetMyPublicKeysQuery = {
 
 export type RepoEventLogsQueryVariables = Exact<{
   id: Scalars["String"];
+  limit?: InputMaybe<Scalars["Int"]>;
+  before?: InputMaybe<Scalars["Time"]>;
 }>;
 
 export type RepoEventLogsQuery = {
@@ -5770,6 +5774,7 @@ export type GetTaskQuery = {
     priority?: Maybe<number>;
     canRestart: boolean;
     canAbort: boolean;
+    canDisable: boolean;
     canSchedule: boolean;
     canUnschedule: boolean;
     canSetPriority: boolean;
