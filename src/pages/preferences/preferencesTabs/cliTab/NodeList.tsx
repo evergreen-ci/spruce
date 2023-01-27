@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { zIndex } from "constants/tokens";
-import { convertZeroToOneIndex } from "utils/numbers";
+import { formatZeroIndexForDisplay } from "utils/numbers";
 import { NodeType, Node } from "./nodeList/Node";
 
 const { gray } = palette;
@@ -15,7 +15,7 @@ export const NodeList: React.VFC<NodeListProps> = ({ list }) => (
         key={node.title}
         title={node.title}
         child={node.child}
-        stepNumber={convertZeroToOneIndex(index)}
+        stepNumber={formatZeroIndexForDisplay(index)}
       />
     ))}
   </NodeContainer>
