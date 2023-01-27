@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
+exports[`storybook Storyshots Components/TupleSelect Tuple Select With Conditional 1`] = `
 <div
   style={
     Object {
@@ -17,7 +17,87 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
     >
       <div
         className="css-1lh1bx9-LabelContainer e5gn9hl2"
-      />
+      >
+        Add New Filter
+        <div
+          className="leafygreen-ui-1gmp0zo css-1qa4isu-PaddedSegmentedControl egmqwjk0"
+        >
+          <div
+            aria-label="segmented-control-1"
+            aria-owns="segmented-control-1-0 segmented-control-1-1"
+            className="leafygreen-ui-18en4yf"
+            onKeyDownCapture={[Function]}
+            role="tablist"
+          >
+            <div
+              className="leafygreen-ui-z1eqrh"
+              data-lg-checked={true}
+            >
+              <div
+                className="leafygreen-ui-177u11x"
+                data-cy="tuple-select-regex"
+                tabIndex={-1}
+              >
+                <button
+                  aria-controls="tuple-select-with-regex"
+                  aria-selected={true}
+                  className="leafygreen-ui-14n1nd3"
+                  disabled={false}
+                  id="segmented-control-1-0"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="tab"
+                  tabIndex={0}
+                  type="button"
+                >
+                  <span
+                    className="leafygreen-ui-dj6i8q"
+                  >
+                    REGEX
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div
+              className="leafygreen-ui-z1eqrh"
+              data-lg-checked={false}
+            >
+              <div
+                className="leafygreen-ui-177u11x"
+                data-cy="tuple-select-exact"
+                tabIndex={-1}
+              >
+                <button
+                  aria-controls="tuple-select-with-regex"
+                  aria-selected={false}
+                  className="leafygreen-ui-14n1nd3"
+                  disabled={false}
+                  id="segmented-control-1-1"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="tab"
+                  tabIndex={-1}
+                  type="button"
+                >
+                  <span
+                    className="leafygreen-ui-dj6i8q"
+                  >
+                    EXACT
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div
+              className="leafygreen-ui-1yekw9r"
+            />
+            <div
+              className="leafygreen-ui-5ppege"
+            />
+          </div>
+        </div>
+      </div>
     </label>
     <div
       className="css-iyur2e-InputGroup e5gn9hl3"
@@ -26,8 +106,8 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
         className="leafygreen-ui-1nkq8lt css-1scwv0u-GroupedSelect e5gn9hl1"
       >
         <button
-          aria-controls="select-13-menu"
-          aria-describedby="select-13-description"
+          aria-controls="select-17-menu"
+          aria-describedby="select-17-description"
           aria-disabled={false}
           aria-expanded={false}
           aria-invalid={false}
@@ -36,7 +116,7 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
           data-cy="tuple-select-dropdown"
           data-testid="leafygreen-ui-select-menubutton"
           disabled={false}
-          id="select-14"
+          id="select-18"
           onClick={[Function]}
           type="button"
           value="build_variant"

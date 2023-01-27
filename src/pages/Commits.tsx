@@ -10,7 +10,7 @@ import FilterBadges, {
 import { ProjectSelect } from "components/ProjectSelect";
 import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
-import TupleSelect from "components/TupleSelect";
+import TupleSelectWithRegexConditional from "components/TupleSelectWithRegexConditional";
 import WelcomeModal from "components/WelcomeModal";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -156,7 +156,7 @@ export const Commits = () => {
       <PageContainer>
         <HeaderWrapper>
           <ElementWrapper width="35">
-            <TupleSelect
+            <TupleSelectWithRegexConditional
               options={tupleSelectOptions}
               onSubmit={onSubmitTupleSelect}
               validator={validateRegexp}
@@ -245,12 +245,12 @@ const tupleSelectOptions = [
   {
     value: ProjectFilterOptions.BuildVariant,
     displayName: "Build Variant",
-    placeHolderText: "Search build variant regex",
+    placeHolderText: "Search build variants",
   },
   {
     value: ProjectFilterOptions.Task,
     displayName: "Task",
-    placeHolderText: "Search task regex",
+    placeHolderText: "Search task names",
   },
 ];
 
