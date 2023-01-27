@@ -105,13 +105,12 @@ export const EditVolumeModal: React.VFC<Props> = ({
         </ModalContent>
       </SectionContainer>
       <ExpirationField
-        isVolume
-        targetItem={volume}
         data={{
           expiration: state.expiration,
           noExpiration: state.noExpiration,
         }}
         onChange={(expData) => dispatch({ type: "editExpiration", ...expData })}
+        targetItem={volume}
       />
     </ConfirmationModal>
   );

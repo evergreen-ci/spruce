@@ -1,12 +1,14 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
+import Banner from "@leafygreen-ui/banner";
 import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import get from "lodash/get";
 import { useParams } from "react-router-dom";
 import { PageTitle } from "components/PageTitle";
+import { ProjectSelect } from "components/ProjectSelect";
 import { PageWrapper } from "components/styles";
+import { getCommitQueueRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
   CommitQueueQuery,
@@ -33,26 +35,39 @@ export const CommitQueue: React.VFC = () => {
     },
   });
 
-  const commitQueue = get(data, "commitQueue");
-  const queue = get(commitQueue, "queue");
+  const { commitQueue } = data || {};
+  const { queue } = commitQueue || {};
 
   return (
     <PageWrapper>
-      <PageTitle
-        pageTitle={`Commit Queue - ${projectIdentifier}`}
-        title="Commit Queue"
-        badge={
-          <Badge variant="darkgray">
-            {buildBadgeString(queue ? queue.length : 0)}
-          </Badge>
-        }
-        loading={loading}
-      />
+      <PageHeader>
+        <Column>
+          <PageTitle
+            pageTitle={`Commit Queue - ${projectIdentifier}`}
+            title="Commit Queue"
+            badge={
+              <Badge variant="darkgray">
+                {buildBadgeString(queue ? queue.length : 0)}
+              </Badge>
+            }
+            loading={loading}
+            size="large"
+          />
+        </Column>
+        <ProjectSelectWrapper>
+          <ProjectSelect
+            selectedProjectIdentifier={projectIdentifier}
+            data-cy="commit-queue-project-select"
+            getRoute={getCommitQueueRoute}
+          />
+        </ProjectSelectWrapper>
+      </PageHeader>
       {commitQueue?.message && (
-        <Body data-cy="commit-queue-message">{commitQueue.message}</Body>
+        <Banner data-cy="commit-queue-message">{commitQueue.message}</Banner>
       )}
+
       <HR />
-      {queue &&
+      {queue ? (
         queue.map(({ patch, issue, enqueueTime }, i) => (
           <CommitQueueCard
             key={issue}
@@ -69,8 +84,10 @@ export const CommitQueue: React.VFC = () => {
             commitQueueId={commitQueue.projectId}
             activated={patch?.activated}
           />
-        ))}
-      {!queue && <Body>There are no items in this queue. </Body>}
+        ))
+      ) : (
+        <Body>There are no items in this queue. </Body>
+      )}
     </PageWrapper>
   );
 };
@@ -87,3 +104,17 @@ const buildBadgeString = (queueLength: number): string => {
   }
   return `${queueLength} Item`;
 };
+
+const PageHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ProjectSelectWrapper = styled.div`
+  width: 30%;
+`;
