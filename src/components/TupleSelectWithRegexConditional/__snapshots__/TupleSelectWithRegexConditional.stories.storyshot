@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/TupleSelect/TupleSelectWithRegexConditional Default 1`] = `
+exports[`storybook Storyshots Components/TupleSelect Tuple Select With Conditional 1`] = `
 <div
   style={
     Object {
