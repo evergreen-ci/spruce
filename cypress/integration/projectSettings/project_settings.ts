@@ -901,8 +901,7 @@ describe("Attaching Spruce to a repo", () => {
   it("Saves a new repo", () => {
     cy.dataCy("repo-input").clear().type("evergreen");
 
-    // TODO: Re-add test when EVG-16604 is completed.
-    // cy.dataCy("attach-repo-button").should("be.disabled");
+    cy.dataCy("attach-repo-button").should("be.disabled");
 
     cy.dataCy("save-settings-button").click();
     cy.validateToast("success", "Successfully updated project");

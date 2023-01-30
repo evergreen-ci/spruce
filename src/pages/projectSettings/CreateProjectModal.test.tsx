@@ -11,13 +11,6 @@ import {
 import { selectLGOption } from "test_utils/utils";
 import { CreateProjectModal } from "./CreateProjectModal";
 
-// Mock out useNavigate to prevent a warning when the page is redirected to the new project on success.
-const mockedUseNavigate = jest.fn();
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useNavigate: () => mockedUseNavigate,
-}));
-
 const defaultOwner = "evergreen-ci";
 const defaultRepo = "spruce";
 
@@ -140,7 +133,7 @@ describe("createProjectField", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <NewProjectModal />
     );
-    render(<Component />);
+    const { history } = render(<Component />);
 
     await waitFor(() =>
       expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
@@ -162,7 +155,9 @@ describe("createProjectField", () => {
     userEvent.click(screen.queryByText("Create Project"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
-    expect(mockedUseNavigate).toHaveBeenCalledTimes(1);
+    expect(history.location.pathname).toBe(
+      "/project/new-project-name/settings"
+    );
   });
 
   it("form submission succeeds when all fields are updated", async () => {
@@ -189,7 +184,7 @@ describe("createProjectField", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <NewProjectModal mock={mockWithId} />
     );
-    render(<Component />);
+    const { history } = render(<Component />);
 
     await waitFor(() =>
       expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
@@ -212,7 +207,9 @@ describe("createProjectField", () => {
     userEvent.click(screen.queryByText("Create Project"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
-    expect(mockedUseNavigate).toHaveBeenCalledTimes(1);
+    expect(history.location.pathname).toBe(
+      "/project/new-project-name/settings"
+    );
   });
 });
 
