@@ -94,11 +94,12 @@ describe("commits page", () => {
     });
   });
   it("resizing the page adjusts the number of commits rendered", () => {
+    cy.visit("/commits/spruce");
     cy.dataCy("commit-chart-container").should("have.length", 9);
     cy.viewport(2560, 1440);
     cy.dataCy("commit-chart-container").should("have.length", 12);
     cy.viewport(1280, 1024);
-    cy.dataCy("commit-chart-container").should("have.length", 5);
+    cy.dataCy("commit-chart-container").should("have.length", 6);
   });
   describe("task filtering", () => {
     beforeEach(() => {
@@ -217,7 +218,7 @@ describe("commits page", () => {
         cy.visit("/commits/spruce");
       });
       it("hovering on a failing task should reveal task metadata along side test results", () => {
-        cy.dataCy("waterfall-task-status-icon").should("have.length", 1);
+        cy.dataCy("waterfall-task-status-icon").should("have.length", 2);
         cy.dataCy("waterfall-task-status-icon").should(
           "have.attr",
           "aria-label",
@@ -258,7 +259,7 @@ describe("commits page", () => {
       it("hovering over a badge should show metadata about the task statuses", () => {
         cy.dataCy("grouped-task-status-badge").should("exist");
         cy.dataCy("grouped-task-status-badge").first().scrollIntoView();
-        cy.dataCy("grouped-task-status-badge").should("have.length", 5);
+        cy.dataCy("grouped-task-status-badge").should("have.length", 9);
         cy.dataCy("grouped-task-status-badge").first().trigger("mouseover");
         cy.dataCy("grouped-task-status-badge-tooltip").should("exist");
         cy.dataCy("grouped-task-status-badge-tooltip").should("be.visible");
