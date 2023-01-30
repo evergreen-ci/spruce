@@ -11,6 +11,7 @@ import {
 import { selectLGOption } from "test_utils/utils";
 import { CreateProjectModal } from "./CreateProjectModal";
 
+// Mock out useNavigate to prevent a warning when the page is redirected to the new project on success.
 const mockedUseNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -80,10 +81,10 @@ describe("createProjectField", () => {
       expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
     );
 
-    expect(screen.queryByDataCy("owner-select")).toHaveTextContent(
+    expect(screen.queryByDataCy("new-owner-select")).toHaveTextContent(
       defaultOwner
     );
-    expect(screen.queryByDataCy("repo-input")).toHaveValue(defaultRepo);
+    expect(screen.queryByDataCy("new-repo-input")).toHaveValue(defaultRepo);
   });
 
   it("disables the confirm button when repo field is missing", async () => {
@@ -97,7 +98,7 @@ describe("createProjectField", () => {
       screen.queryByDataCy("project-name-input"),
       "new-project-name-input"
     );
-    userEvent.clear(screen.queryByDataCy("repo-input"));
+    userEvent.clear(screen.queryByDataCy("new-repo-input"));
     expect(
       screen.getByRole("button", {
         name: "Create Project",
@@ -145,9 +146,9 @@ describe("createProjectField", () => {
       expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
     );
 
-    await selectLGOption("owner-select", "10gen");
-    userEvent.clear(screen.queryByDataCy("repo-input"));
-    userEvent.type(screen.queryByDataCy("repo-input"), "new-repo-name");
+    await selectLGOption("new-owner-select", "10gen");
+    userEvent.clear(screen.queryByDataCy("new-repo-input"));
+    userEvent.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
     userEvent.type(
       screen.queryByDataCy("project-name-input"),
       "new-project-name"
@@ -198,9 +199,9 @@ describe("createProjectField", () => {
       "new-project-name"
     );
     userEvent.type(screen.queryByDataCy("project-id-input"), "new-project-id");
-    await selectLGOption("owner-select", "10gen");
-    userEvent.clear(screen.queryByDataCy("repo-input"));
-    userEvent.type(screen.queryByDataCy("repo-input"), "new-repo-name");
+    await selectLGOption("new-owner-select", "10gen");
+    userEvent.clear(screen.queryByDataCy("new-repo-input"));
+    userEvent.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
 
     expect(
       screen.getByRole("button", {

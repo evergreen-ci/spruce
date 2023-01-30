@@ -41,7 +41,9 @@ export const CreateProjectModal: React.VFC<Props> = ({
   });
   const [hasError, setHasError] = useState(true);
 
-  const { data } = useQuery<GetGithubOrgsQuery>(GET_GITHUB_ORGS);
+  const { data } = useQuery<GetGithubOrgsQuery>(GET_GITHUB_ORGS, {
+    skip: !open,
+  });
   const { spruceConfig: { githubOrgs = [] } = {} } = data ?? {};
 
   const form = modalFormDefinition(githubOrgs);
@@ -131,11 +133,11 @@ const modalFormDefinition = (githubOrgs: string[]) => ({
     projectName: projectName.uiSchema,
     projectId: projectId.uiSchema,
     owner: {
-      "ui:data-cy": "owner-select",
+      "ui:data-cy": "new-owner-select",
       "ui:allowDeselect": false,
     },
     repo: {
-      "ui:data-cy": "repo-input",
+      "ui:data-cy": "new-repo-input",
     },
   },
 });
