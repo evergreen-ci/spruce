@@ -61,6 +61,7 @@ const renderWithRouterMatch = (
           }
           path={path}
         />
+        <Route element={<div>Not Found</div>} path="*" />
       </Routes>
     </HistoryRouter>
   );
