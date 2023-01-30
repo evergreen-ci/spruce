@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
+import styled from "@emotion/styled";
+import { Body } from "@leafygreen-ui/typography";
 import { useProjectSettingsAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm } from "components/SpruceForm";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   AttachProjectToNewRepoMutation,
   AttachProjectToNewRepoMutationVariables,
 } from "gql/generated/types";
 import { ATTACH_PROJECT_TO_NEW_REPO } from "gql/mutations";
-import { string } from "utils";
-
-const { joinWithConjunction } = string;
 
 type ModalProps = {
   githubOrgs: string[];
@@ -33,7 +33,9 @@ export const MoveRepoModal: React.VFC<ModalProps> = ({
   const dispatchToast = useToastContext();
   const { sendEvent } = useProjectSettingsAnalytics();
 
-  const [formState, setFormState] = useState(moveRepoForm.defaultFormData);
+  const form = moveRepoForm(githubOrgs);
+
+  const [formState, setFormState] = useState(form.defaultFormData);
   const [hasError, setHasError] = useState(true);
 
   const [attachProjectToNewRepo] = useMutation<
@@ -86,36 +88,35 @@ export const MoveRepoModal: React.VFC<ModalProps> = ({
       title="Move to New Repo"
       variant="danger"
     >
-      <p>
+      <StyledBody>
         Currently this project is using default settings for the repo{" "}
         {repoOwner}/{repoName}. Attach to an existing repo or create a new one
         to which unconfigured settings in this project will default.
-      </p>
-      <p>
+      </StyledBody>
+      <StyledBody>
         Any GitHub features that can only be enabled on one branch will be
         disabled on this branch if there is a conflict with existing branches.
-      </p>
-      <p>
-        {/* TODO: Replace with LeafyGreen Select when z-index modal bug has been fixed (PD-1677) */}
-        GitHub Organizations available for use as project owners are:{" "}
-        {joinWithConjunction(githubOrgs, "and")}
-      </p>
+      </StyledBody>
       <SpruceForm
         formData={formState}
         onChange={({ formData, errors }) => {
           setHasError(errors.length > 0);
           setFormState(formData);
         }}
-        schema={moveRepoForm.schema}
-        uiSchema={moveRepoForm.uiSchema}
+        schema={form.schema}
+        uiSchema={form.uiSchema}
       />
     </ConfirmationModal>
   );
 };
 
-const moveRepoForm = {
+const StyledBody = styled(Body)`
+  margin-bottom: ${size.xs};
+`;
+
+const moveRepoForm = (githubOrgs: string[]) => ({
   defaultFormData: {
-    owner: "",
+    owner: githubOrgs[0],
     repo: "",
   },
   schema: {
@@ -125,8 +126,11 @@ const moveRepoForm = {
       owner: {
         type: "string" as "string",
         title: "New Owner",
-        minLength: 1,
-        format: "noSpaces",
+        oneOf: githubOrgs.map((org) => ({
+          type: "string" as "string",
+          title: org,
+          enum: [org],
+        })),
       },
       repo: {
         type: "string" as "string",
@@ -138,10 +142,11 @@ const moveRepoForm = {
   },
   uiSchema: {
     owner: {
-      "ui:data-cy": "new-owner-input",
+      "ui:data-cy": "new-owner-select",
+      "ui:allowDeselect": false,
     },
     repo: {
       "ui:data-cy": "new-repo-input",
     },
   },
-};
+});

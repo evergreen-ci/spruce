@@ -84,12 +84,14 @@ export const CreateDuplicateProjectButton: React.VFC<Props> = ({
           </MenuItem>
         </Menu>
       )}
-      <CreateProjectModal
-        handleClose={() => setCreateModalOpen(false)}
-        open={createModalOpen}
-        owner={owner}
-        repo={repo}
-      />
+      {owner && repo && (
+        <CreateProjectModal
+          handleClose={() => setCreateModalOpen(false)}
+          open={createModalOpen}
+          owner={owner}
+          repo={repo}
+        />
+      )}
       <CopyProjectModal
         handleClose={() => setCopyModalOpen(false)}
         id={id}

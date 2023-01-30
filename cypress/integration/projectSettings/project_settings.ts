@@ -1,17 +1,12 @@
-const getSettingsRoute = (identifier: string) =>
-  `project/${identifier}/settings`;
-const getGeneralRoute = (identifier: string) =>
-  `${getSettingsRoute(identifier)}/general`;
-const getGithubCommitQueueRoute = (identifier: string) =>
-  `${getSettingsRoute(identifier)}/github-commitqueue`;
-const getNotificationsRoute = (identifier: string) =>
-  `${getSettingsRoute(identifier)}/notifications`;
-const getAccessRoute = (identifier: string) =>
-  `${getSettingsRoute(identifier)}/access`;
-
-const project = "spruce";
-const projectUseRepoEnabled = "evergreen";
-const repo = "602d70a2b2373672ee493184";
+import {
+  getAccessRoute,
+  getGeneralRoute,
+  getGithubCommitQueueRoute,
+  getNotificationsRoute,
+  project,
+  projectUseRepoEnabled,
+  repo,
+} from "./constants";
 
 describe("Access page", () => {
   const destination = getAccessRoute(projectUseRepoEnabled);
@@ -906,8 +901,7 @@ describe("Attaching Spruce to a repo", () => {
   it("Saves a new repo", () => {
     cy.dataCy("repo-input").clear().type("evergreen");
 
-    // TODO: Re-add test when EVG-16604 is completed.
-    // cy.dataCy("attach-repo-button").should("be.disabled");
+    cy.dataCy("attach-repo-button").should("be.disabled");
 
     cy.dataCy("save-settings-button").click();
     cy.validateToast("success", "Successfully updated project");
@@ -976,32 +970,6 @@ describe("Renaming the identifier", () => {
 
   it("Redirects to a new URL", () => {
     cy.url().should("include", "new-identifier");
-  });
-});
-
-describe("Duplicating a project with errors", () => {
-  const destination = getGeneralRoute(project);
-
-  before(() => {
-    cy.login();
-    cy.visit(destination);
-  });
-
-  it("Shows the copy modal when the button and dropdown menu are clicked", () => {
-    cy.dataCy("new-project-button").click();
-    cy.dataCy("new-project-menu").should("be.visible");
-    cy.dataCy("copy-project-button").click();
-    cy.dataCy("copy-project-modal").should("be.visible");
-  });
-
-  it("Successfully copies the project and shows a warning toast", () => {
-    cy.dataCy("project-name-input").type("copied-project");
-    cy.contains("button", "Duplicate").click();
-    cy.validateToast("warning");
-  });
-
-  it("Redirects to a new URL", () => {
-    cy.url().should("include", "copied-project");
   });
 });
 
