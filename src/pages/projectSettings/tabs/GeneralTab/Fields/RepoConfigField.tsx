@@ -53,13 +53,23 @@ export const RepoConfigField: Field = ({
         <>
           <ButtonRow>
             {isAttachedProject && !!githubOrgs.length && (
-              <Button
-                onClick={() => setMoveModalOpen(true)}
-                size="small"
-                data-cy="move-repo-button"
-              >
-                Move to New Repo
-              </Button>
+              <>
+                <Button
+                  onClick={() => setMoveModalOpen(true)}
+                  size="small"
+                  data-cy="move-repo-button"
+                >
+                  Move to New Repo
+                </Button>
+                <MoveRepoModal
+                  githubOrgs={githubOrgs}
+                  handleClose={() => setMoveModalOpen(false)}
+                  open={moveModalOpen}
+                  projectId={projectId}
+                  repoName={repoName}
+                  repoOwner={repoOwner}
+                />
+              </>
             )}
             <ConditionalWrapper
               condition={ownerOrRepoHasChanges}
@@ -91,14 +101,6 @@ export const RepoConfigField: Field = ({
               </ButtonWrapper>
             </ConditionalWrapper>
           </ButtonRow>
-          <MoveRepoModal
-            githubOrgs={githubOrgs}
-            handleClose={() => setMoveModalOpen(false)}
-            open={moveModalOpen}
-            projectId={projectId}
-            repoName={repoName}
-            repoOwner={repoOwner}
-          />
           <AttachDetachModal
             handleClose={() => setAttachModalOpen(false)}
             open={attachModalOpen}
