@@ -15,6 +15,7 @@ import {
   CommitQueueQueryVariables,
 } from "gql/generated/types";
 import { GET_COMMIT_QUEUE } from "gql/queries";
+import { formatZeroIndexForDisplay } from "utils/numbers";
 import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
 
 const { gray } = palette;
@@ -71,7 +72,7 @@ export const CommitQueue: React.VFC = () => {
           <CommitQueueCard
             key={issue}
             issue={issue}
-            index={i + 1}
+            index={formatZeroIndexForDisplay(i)}
             title={patch?.description}
             author={patch?.author}
             patchId={patch?.id}
