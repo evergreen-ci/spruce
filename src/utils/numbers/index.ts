@@ -29,4 +29,9 @@ const toPercent = (value: string | number): number => {
   return parseFloat(value) * 100;
 };
 
-export { toDecimal, toPercent };
+/**
+ * formatZeroIndexForDisplay Formats a zero-indexed number for display in the UI.
+ */
+const formatZeroIndexForDisplay = (value: number): number => value + 1;
+
+export { toDecimal, toPercent, formatZeroIndexForDisplay };

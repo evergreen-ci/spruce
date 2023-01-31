@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import { Skeleton } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useProjectSettingsAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
@@ -9,8 +10,10 @@ import { useToastContext } from "context/toast";
 import {
   CreateProjectMutation,
   CreateProjectMutationVariables,
+  GetGithubOrgsQuery,
 } from "gql/generated/types";
 import { CREATE_PROJECT } from "gql/mutations";
+import { GET_GITHUB_ORGS } from "gql/queries";
 import { projectId, projectName } from "./sharedFormSchema";
 
 interface Props {
@@ -37,6 +40,13 @@ export const CreateProjectModal: React.VFC<Props> = ({
     projectId: "",
   });
   const [hasError, setHasError] = useState(true);
+
+  const { data } = useQuery<GetGithubOrgsQuery>(GET_GITHUB_ORGS, {
+    skip: !open,
+  });
+  const { spruceConfig: { githubOrgs = [] } = {} } = data ?? {};
+
+  const form = modalFormDefinition(githubOrgs);
 
   const [createProject] = useMutation<
     CreateProjectMutation,
@@ -78,20 +88,24 @@ export const CreateProjectModal: React.VFC<Props> = ({
       submitDisabled={hasError}
       title="Create New Project"
     >
-      <SpruceForm
-        formData={formState}
-        onChange={({ formData, errors }) => {
-          setHasError(errors.length > 0);
-          setFormState(formData);
-        }}
-        schema={modalFormDefinition.schema}
-        uiSchema={modalFormDefinition.uiSchema}
-      />
+      {githubOrgs.length ? (
+        <SpruceForm
+          formData={formState}
+          onChange={({ formData, errors }) => {
+            setHasError(errors.length > 0);
+            setFormState(formData);
+          }}
+          schema={form.schema}
+          uiSchema={form.uiSchema}
+        />
+      ) : (
+        <Skeleton paragraph={{ rows: 11 }} />
+      )}
     </ConfirmationModal>
   );
 };
 
-const modalFormDefinition = {
+const modalFormDefinition = (githubOrgs: string[]) => ({
   schema: {
     type: "object" as "object",
     required: ["owner", "repo"],
@@ -101,8 +115,11 @@ const modalFormDefinition = {
       owner: {
         type: "string" as "string",
         title: "Owner",
-        minLength: 1,
-        format: "noSpaces",
+        oneOf: githubOrgs.map((org) => ({
+          type: "string" as "string",
+          title: org,
+          enum: [org],
+        })),
       },
       repo: {
         type: "string" as "string",
@@ -116,10 +133,11 @@ const modalFormDefinition = {
     projectName: projectName.uiSchema,
     projectId: projectId.uiSchema,
     owner: {
-      "ui:data-cy": "owner-input",
+      "ui:data-cy": "new-owner-select",
+      "ui:allowDeselect": false,
     },
     repo: {
-      "ui:data-cy": "repo-input",
+      "ui:data-cy": "new-repo-input",
     },
   },
-};
+});
