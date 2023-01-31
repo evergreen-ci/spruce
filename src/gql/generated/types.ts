@@ -501,7 +501,9 @@ export type MainlineCommits = {
  */
 export type MainlineCommitsOptions = {
   limit?: InputMaybe<Scalars["Int"]>;
-  projectID: Scalars["String"];
+  /** @deprecated projectID is deprecated. Use projectIdentifier instead. */
+  projectID?: InputMaybe<Scalars["String"]>;
+  projectIdentifier?: InputMaybe<Scalars["String"]>;
   requesters?: InputMaybe<Array<Scalars["String"]>>;
   shouldCollapse?: InputMaybe<Scalars["Boolean"]>;
   skipOrderNumber?: InputMaybe<Scalars["Int"]>;
@@ -1276,12 +1278,14 @@ export type QueryBuildBaronArgs = {
 };
 
 export type QueryBuildVariantsForTaskNameArgs = {
-  projectId: Scalars["String"];
+  projectId?: InputMaybe<Scalars["String"]>;
+  projectIdentifier?: InputMaybe<Scalars["String"]>;
   taskName: Scalars["String"];
 };
 
 export type QueryCommitQueueArgs = {
-  id: Scalars["String"];
+  id?: InputMaybe<Scalars["String"]>;
+  projectIdentifier?: InputMaybe<Scalars["String"]>;
 };
 
 export type QueryDistroTaskQueueArgs = {
@@ -1333,7 +1337,8 @@ export type QueryPatchArgs = {
 };
 
 export type QueryProjectArgs = {
-  projectId: Scalars["String"];
+  projectId?: InputMaybe<Scalars["String"]>;
+  projectIdentifier?: InputMaybe<Scalars["String"]>;
 };
 
 export type QueryProjectEventsArgs = {
@@ -1377,7 +1382,8 @@ export type QueryTaskLogsArgs = {
 
 export type QueryTaskNamesForBuildVariantArgs = {
   buildVariant: Scalars["String"];
-  projectId: Scalars["String"];
+  projectId?: InputMaybe<Scalars["String"]>;
+  projectIdentifier?: InputMaybe<Scalars["String"]>;
 };
 
 export type QueryTaskTestSampleArgs = {
