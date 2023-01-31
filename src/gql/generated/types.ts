@@ -501,6 +501,7 @@ export type MainlineCommits = {
  */
 export type MainlineCommitsOptions = {
   limit?: InputMaybe<Scalars["Int"]>;
+  /** @deprecated projectID is deprecated. Use projectIdentifier instead. */
   projectID?: InputMaybe<Scalars["String"]>;
   projectIdentifier?: InputMaybe<Scalars["String"]>;
   requesters?: InputMaybe<Array<Scalars["String"]>>;
