@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { TableRowSelection } from "antd/es/table/interface";
@@ -231,6 +232,7 @@ export const HostsTable: React.VFC<Props> = ({
       key: HostSortBy.Owner,
       sorter: true,
       width: "10%",
+      render: (owner) => <Owner>{owner}</Owner>,
       className: "cy-task-table-col-OWNER",
       ...getColumnSearchFilterProps({
         placeholder: "Search Owner",
@@ -301,3 +303,6 @@ export const HostsTable: React.VFC<Props> = ({
 };
 
 const rowKey = ({ id }: { id: string }): string => id;
+const Owner = styled.span`
+  word-break: break-all;
+`;
