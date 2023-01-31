@@ -11,9 +11,9 @@ describe("commits page", () => {
   });
   it("should present a default view with only failing task icons visible", () => {
     cy.dataCy("waterfall-task-status-icon").should("exist");
-    cy.dataCy("waterfall-task-status-icon").scrollIntoView();
-    cy.dataCy("waterfall-task-status-icon").should("be.visible");
-    cy.dataCy("waterfall-task-status-icon").should("have.length", 1);
+    cy.dataCy("waterfall-task-status-icon")
+      .should("be.visible")
+      .should("have.length", 2);
     cy.dataCy("waterfall-task-status-icon").should(
       "have.attr",
       "aria-label",
