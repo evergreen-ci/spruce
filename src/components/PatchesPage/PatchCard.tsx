@@ -76,9 +76,13 @@ export const PatchCard: React.VFC<Props> = ({
       ""
     );
   }
-  const patchProjectCopy = patchProject
-    ? `${pageType === "project" ? "by" : "on"} ${patchProject}`
-    : "";
+  const patchProjectCopy = patchProject ? (
+    <>
+      {pageType === "project" ? "by" : "on"} {patchProject}
+    </>
+  ) : (
+    ""
+  );
   const badges = stats?.map(({ count, umbrellaStatus, statusCounts }) => (
     <GroupedTaskStatusBadge
       status={umbrellaStatus}
