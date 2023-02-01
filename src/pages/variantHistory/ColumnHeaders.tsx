@@ -19,6 +19,7 @@ const { LoadingCell, ColumnHeaderCell, LabelCellContainer } = Cell;
 const { useHistoryTable } = context;
 const { useColumns } = hooks;
 const { trimStringFromMiddle } = string;
+
 interface ColumnHeadersProps {
   projectIdentifier: string;
   variantName: string;

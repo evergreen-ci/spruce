@@ -24,6 +24,7 @@ interface ColumnHeadersProps {
   projectIdentifier: string;
   taskName: string;
 }
+
 const ColumnHeaders: React.VFC<ColumnHeadersProps> = ({
   projectIdentifier,
   taskName,
