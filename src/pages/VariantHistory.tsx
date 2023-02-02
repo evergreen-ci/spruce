@@ -52,7 +52,7 @@ const VariantHistoryContents: React.VFC = () => {
   >(GET_MAINLINE_COMMITS_FOR_HISTORY, {
     variables: {
       mainlineCommitsOptions: {
-        projectID: projectIdentifier,
+        projectIdentifier,
         limit: 10,
         skipOrderNumber: nextPageOrderNumber,
         shouldCollapse: true,
@@ -80,7 +80,7 @@ const VariantHistoryContents: React.VFC = () => {
               }}
             />
             <TaskSelector
-              projectId={projectIdentifier}
+              projectIdentifier={projectIdentifier}
               buildVariant={variantName}
             />
           </PageHeaderContent>
@@ -110,7 +110,7 @@ const VariantHistoryContents: React.VFC = () => {
         </PaginationFilterWrapper>
         <div>
           <ColumnHeaders
-            projectId={projectIdentifier}
+            projectIdentifier={projectIdentifier}
             variantName={variantName}
           />
           <TableWrapper>
