@@ -23,7 +23,7 @@ export const useProjectPatchesAnalytics = (): Analytics => {
     addPageAction<Action, P>(action, {
       object: "ProjectPatches",
       userId,
-      projectId: projectIdentifier,
+      projectIdentifier,
     });
   };
 

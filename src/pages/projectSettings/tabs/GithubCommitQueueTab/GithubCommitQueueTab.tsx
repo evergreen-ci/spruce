@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import Banner from "@leafygreen-ui/banner";
-import { useParams } from "react-router-dom";
 import { SpruceForm } from "components/SpruceForm";
 import { ValidateProps } from "components/SpruceForm/types";
 import { ProjectSettingsTabRoutes } from "constants/routes";
@@ -35,14 +34,13 @@ const getInitialFormState = (
 
 export const GithubCommitQueueTab: React.VFC<TabProps> = ({
   githubWebhooksEnabled,
+  identifier,
   projectData,
+  projectId,
   projectType,
   repoData,
   versionControlEnabled,
 }) => {
-  const { projectIdentifier: identifier } = useParams<{
-    projectIdentifier: string;
-  }>();
   const { getTab, updateForm } = useProjectSettingsContext();
   const { formData } = getTab(tab);
 
@@ -51,7 +49,7 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
     GithubProjectConflictsQueryVariables
   >(GET_GITHUB_PROJECT_CONFLICTS, {
     skip: projectType === ProjectType.Repo,
-    variables: { projectId: identifier },
+    variables: { projectId },
   });
 
   const initialFormState = useMemo(
