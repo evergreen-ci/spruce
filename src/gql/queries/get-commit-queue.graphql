@@ -1,7 +1,7 @@
 #import "../fragments/moduleCodeChanges.graphql"
 
-query CommitQueue($id: String!) {
-  commitQueue(id: $id) {
+query CommitQueue($projectIdentifier: String!) {
+  commitQueue(projectIdentifier: $projectIdentifier) {
     projectId
     message
     owner

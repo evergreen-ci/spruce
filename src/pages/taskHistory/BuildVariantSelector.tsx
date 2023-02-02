@@ -14,12 +14,12 @@ import { useQueryParam } from "hooks/useQueryParam";
 import { HistoryQueryParams } from "types/history";
 
 interface BuildVariantSelectorProps {
-  projectId: string;
+  projectIdentifier: string;
   taskName: string;
 }
 
 const BuildVariantSelector: React.VFC<BuildVariantSelectorProps> = ({
-  projectId,
+  projectIdentifier,
   taskName,
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
@@ -33,7 +33,7 @@ const BuildVariantSelector: React.VFC<BuildVariantSelectorProps> = ({
     GetBuildVariantsForTaskNameQueryVariables
   >(GET_BUILD_VARIANTS_FOR_TASK_NAME, {
     variables: {
-      projectId,
+      projectIdentifier,
       taskName,
     },
   });
