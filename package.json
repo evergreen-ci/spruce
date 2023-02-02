@@ -235,6 +235,6 @@
     "@graphql-codegen/cli/**/ts-node": "10.8.2"
   },
   "engines": {
-    "node": ">=16.13.0"
+    "node": ">=16.17.0"
   }
 }
