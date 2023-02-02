@@ -6,7 +6,6 @@ import Button from "@leafygreen-ui/button";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { useLocation } from "react-router-dom";
 import { useHostsTableAnalytics } from "analytics";
-import { ErrorBoundary } from "components/ErrorBoundary";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";
 import { RestartJasper } from "components/Hosts/RestartJasper";
@@ -90,78 +89,77 @@ export const Hosts: React.VFC = () => {
   return (
     <PageWrapper data-cy="hosts-page">
       <H2>Evergreen Hosts</H2>
-      <ErrorBoundary>
-        <TableControlOuterRow>
-          <SubtitleDataWrapper>
-            <Disclaimer data-cy="filtered-hosts-count">
-              {`Showing ${
-                hasFilters ? filteredHostCount : totalHostsCount
-              } of ${totalHostsCount}`}
-            </Disclaimer>
-            <HostsSelectionWrapper>
-              <Badge variant={Variant.Blue} data-cy="hosts-selection-badge">
-                {selectedHostIds.length} Selected
-              </Badge>
-              <ButtonWrapper>
-                <Button
-                  data-cy="update-status-button"
-                  disabled={selectedHostIds.length === 0}
-                  onClick={() => setIsUpdateStatusModalVisible(true)}
-                >
-                  Update Status
-                </Button>
-              </ButtonWrapper>
-              <ButtonWrapper>
-                <RestartJasper
-                  selectedHostIds={selectedHostIds}
-                  canRestartJasper={canRestartJasper}
-                  jasperTooltipMessage={restartJasperError}
-                />
-              </ButtonWrapper>
-              <ButtonWrapper>
-                <Reprovision
-                  selectedHostIds={selectedHostIds}
-                  canReprovision={canReprovision}
-                  reprovisionTooltipMessage={reprovisionError}
-                />
-              </ButtonWrapper>
-            </HostsSelectionWrapper>
-          </SubtitleDataWrapper>
-          <TableControlInnerRow>
-            <Pagination
-              data-cy="hosts-table-pagination"
-              pageSize={limit}
-              value={page}
-              totalResults={hasFilters ? filteredHostCount : totalHostsCount}
-            />
-            <PageSizeSelector
-              data-cy="hosts-table-page-size-selector"
-              value={limit}
-              onChange={handlePageSizeChange}
-            />
-          </TableControlInnerRow>
-        </TableControlOuterRow>
-        <TableContainer hide={false}>
-          <HostsTable
-            hosts={hostItems}
-            sortBy={sortBy}
-            sortDir={sortDir}
-            selectedHostIds={selectedHostIds}
-            setSelectedHostIds={setSelectedHostIds}
-            setCanRestartJasper={setCanRestartJasper}
-            setRestartJasperError={setRestartJasperError}
-            setCanReprovision={setCanReprovision}
-            setReprovisionError={setReprovisionError}
-            loading={loading}
+
+      <TableControlOuterRow>
+        <SubtitleDataWrapper>
+          <Disclaimer data-cy="filtered-hosts-count">
+            {`Showing ${
+              hasFilters ? filteredHostCount : totalHostsCount
+            } of ${totalHostsCount}`}
+          </Disclaimer>
+          <HostsSelectionWrapper>
+            <Badge variant={Variant.Blue} data-cy="hosts-selection-badge">
+              {selectedHostIds.length} Selected
+            </Badge>
+            <ButtonWrapper>
+              <Button
+                data-cy="update-status-button"
+                disabled={selectedHostIds.length === 0}
+                onClick={() => setIsUpdateStatusModalVisible(true)}
+              >
+                Update Status
+              </Button>
+            </ButtonWrapper>
+            <ButtonWrapper>
+              <RestartJasper
+                selectedHostIds={selectedHostIds}
+                canRestartJasper={canRestartJasper}
+                jasperTooltipMessage={restartJasperError}
+              />
+            </ButtonWrapper>
+            <ButtonWrapper>
+              <Reprovision
+                selectedHostIds={selectedHostIds}
+                canReprovision={canReprovision}
+                reprovisionTooltipMessage={reprovisionError}
+              />
+            </ButtonWrapper>
+          </HostsSelectionWrapper>
+        </SubtitleDataWrapper>
+        <TableControlInnerRow>
+          <Pagination
+            data-cy="hosts-table-pagination"
+            pageSize={limit}
+            value={page}
+            totalResults={hasFilters ? filteredHostCount : totalHostsCount}
           />
-        </TableContainer>
-        <UpdateStatusModal
-          data-cy="update-host-status-modal"
-          hostIds={selectedHostIds}
-          visible={isUpdateStatusModalVisible}
-          closeModal={() => setIsUpdateStatusModalVisible(false)}
+          <PageSizeSelector
+            data-cy="hosts-table-page-size-selector"
+            value={limit}
+            onChange={handlePageSizeChange}
+          />
+        </TableControlInnerRow>
+      </TableControlOuterRow>
+      <TableContainer hide={false}>
+        <HostsTable
+          hosts={hostItems}
+          sortBy={sortBy}
+          sortDir={sortDir}
+          selectedHostIds={selectedHostIds}
+          setSelectedHostIds={setSelectedHostIds}
+          setCanRestartJasper={setCanRestartJasper}
+          setRestartJasperError={setRestartJasperError}
+          setCanReprovision={setCanReprovision}
+          setReprovisionError={setReprovisionError}
+          loading={loading}
         />
-      </ErrorBoundary>
+      </TableContainer>
+      <UpdateStatusModal
+        data-cy="update-host-status-modal"
+        hostIds={selectedHostIds}
+        visible={isUpdateStatusModalVisible}
+        closeModal={() => setIsUpdateStatusModalVisible(false)}
+      />
     </PageWrapper>
   );
 };
