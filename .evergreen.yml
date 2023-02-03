@@ -13,6 +13,14 @@ modules:
 pre:
   - func: get-project
   - func: setup-node
+  - func: yarn-install
+
+post:
+  - func: attach-codegen-diff
+  - func: attach-cypress-results
+  - func: attach-source-map
+  - func: attach-storybook
+  - func: attach-test-results
 
 #######################################
 #              Functions              #
@@ -234,7 +242,6 @@ functions:
       permissions: public-read
       display_name: "source map"
 
-  # Ideally we can convert this into one s3.put command upon the completion of EVG-17334.
   attach-storybook:
     - command: s3.put
       type: system
@@ -353,39 +360,30 @@ functions:
 tasks:
   - name: compile
     commands:
-      - func: yarn-install
       - func: copy-cmdrc
       - func: sym-link
       - func: yarn-build
-      - func: attach-source-map
 
   - name: storybook
     commands:
-      - func: yarn-install
       - func: yarn-build-storybook
-      - func: attach-storybook
 
   - name: test
     commands:
-      - func: yarn-install
       - func: yarn-test
-      - func: attach-test-results
 
   - name: lint
     commands:
       - func: sym-link
-      - func: yarn-install
       - func: yarn-eslint
 
   - name: type_check
     commands:
       - func: sym-link
-      - func: yarn-install
       - func: yarn-tsc
 
   - name: snapshots
     commands:
-      - func: yarn-install
       - func: yarn-snapshot
 
   - name: e2e_test
@@ -395,30 +393,20 @@ tasks:
       - func: run-make-background
         vars:
           target: local-evergreen
-      - func: yarn-install
       - func: sym-link
       - func: yarn-build
       - func: yarn-serve
       - func: wait-for-evergreen
       - func: run-cypress-tests
-      - func: attach-cypress-results
     
-  - name: send_email
-    commands:
-      - func: setup-credentials
-      - func: send-email
-
   - name: check_codegen
     commands:
       - func: sym-link
-      - func: yarn-install
       - func: check-codegen
-      - func: attach-codegen-diff
 
   - name: deploy_to_prod
     commands:
       - func: setup-credentials
-      - func: yarn-install
       - func: sym-link
       - func: build-prod
       - func: deploy-to-prod
