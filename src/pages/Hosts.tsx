@@ -89,7 +89,6 @@ export const Hosts: React.VFC = () => {
   return (
     <PageWrapper data-cy="hosts-page">
       <H2>Evergreen Hosts</H2>
-
       <TableControlOuterRow>
         <SubtitleDataWrapper>
           <Disclaimer data-cy="filtered-hosts-count">
