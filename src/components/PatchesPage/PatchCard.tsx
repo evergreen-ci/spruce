@@ -49,7 +49,7 @@ export const PatchCard: React.VFC<Props> = ({
 }) => {
   const createDate = new Date(createTime);
   const getDateCopy = useDateFormat();
-  const { taskStatusStats, id: versionId } = versionFull || {};
+  const { taskStatusStats, id: versionId, projectMetadata } = versionFull || {};
   const { stats } = groupStatusesByUmbrellaStatus(
     taskStatusStats?.counts ?? []
   );
@@ -65,6 +65,9 @@ export const PatchCard: React.VFC<Props> = ({
       </StyledRouterLink>
     );
   } else {
+    const fallBackPatchProject = projectMetadata
+      ? `${projectMetadata.owner}/${projectMetadata.repo}`
+      : "";
     patchProject = projectIdentifier ? (
       <StyledRouterLink
         to={getProjectPatchesRoute(projectIdentifier)}
@@ -73,10 +76,11 @@ export const PatchCard: React.VFC<Props> = ({
         <strong>{projectIdentifier}</strong>
       </StyledRouterLink>
     ) : (
-      ""
+      fallBackPatchProject
     );
   }
-  const patchProjectCopy = patchProject ? (
+
+  const projectCopy = patchProject ? (
     <>
       {pageType === "project" ? "by" : "on"} {patchProject}
     </>
@@ -105,7 +109,7 @@ export const PatchCard: React.VFC<Props> = ({
           {description || "no description"}
         </DescriptionLink>
         <TimeAndProject>
-          {getDateCopy(createDate)} {patchProjectCopy}
+          {getDateCopy(createDate)} {projectCopy}
         </TimeAndProject>
       </Left>
       <Center>
