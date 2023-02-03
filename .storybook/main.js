@@ -41,12 +41,6 @@ module.exports = {
       if (matchVitePlugin(plugin, "vite:react-babel")) {
         return false;
       }
-      // Storybook mocks out the core-js package which breaks on production builds https://github.com/storybookjs/builder-vite/issues/412
-      if (isProductionBuild) {
-        if (matchVitePlugin(plugin, "mock-core-js")) {
-          return false;
-        }
-      }
       return true;
     });
 
