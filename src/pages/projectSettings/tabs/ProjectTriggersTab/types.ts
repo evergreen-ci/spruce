@@ -2,7 +2,7 @@ import { ProjectType } from "../utils";
 
 type FormTrigger = {
   project: string;
-  dateCutoff: number;
+  dateCutoff: number | null;
   level: string;
   status: string;
   buildVariantRegex: string;

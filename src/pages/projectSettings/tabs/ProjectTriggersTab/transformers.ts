@@ -59,7 +59,7 @@ export const formToGql: FormToGqlFunction<Tab> = (
           buildVariantRegex: trigger.buildVariantRegex,
           taskRegex: trigger.taskRegex,
           status: trigger.status,
-          dateCutoff: trigger.dateCutoff || 0,
+          dateCutoff: trigger.dateCutoff,
           configFile: trigger.configFile,
           alias: trigger.alias,
         }))
