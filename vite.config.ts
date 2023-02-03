@@ -17,6 +17,7 @@ fs.writeFileSync(require.resolve("antd/lib/style/core/global.less"), "");
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
+    port: 3000,
     proxy: {
       "/graphql": {
         target: "http://localhost:9090/graphql/query",
