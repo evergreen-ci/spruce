@@ -30,8 +30,19 @@ const toPercent = (value: string | number): number => {
 };
 
 /**
- * formatZeroIndexForDisplay Formats a zero-indexed number for display in the UI.
+ * formatZeroIndexForDisplay formats a zero-indexed number for display in the UI.
  */
 const formatZeroIndexForDisplay = (value: number): number => value + 1;
 
-export { toDecimal, toPercent, formatZeroIndexForDisplay };
+/**
+ * roundDecimal rounds a decimal number to include a certain number of decimal places. Non-decimal
+ * numbers will be unaffected.
+ * @param value - the number to round
+ * @param decimalPlaces - the number of decimal places to preserve
+ * @example roundDecimal(0.54672, 3) // => 0.547
+ * @example roundDecimal(11) // => 11
+ */
+const roundDecimal = (value: number, decimalPlaces: number = 0): number =>
+  parseFloat(value.toFixed(decimalPlaces));
+
+export { toDecimal, toPercent, formatZeroIndexForDisplay, roundDecimal };
