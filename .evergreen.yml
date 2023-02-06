@@ -68,6 +68,8 @@ functions:
         script: |
           ${PREPARE_SHELL}
 
+          # Fetch NVM and install it into this task's .nvm directory
+          # Once downloaded, source nvm and install yarn
           git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
           cd "$NVM_DIR"
           git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
@@ -249,48 +251,39 @@ functions:
         aws_key: ${aws_key}
         aws_secret: ${aws_secret}
         local_files_include_filter:
-          - storybook-static/
+          ["storybook-static/*.html"]
         remote_file: spruce/${task_id}/storybook/
         bucket: mciuploads
         content_type: text/html
         permissions: public-read
         display_name: storybook-
+        preserve_path: true
     - command: s3.put
       type: system
       params:
         aws_key: ${aws_key}
         aws_secret: ${aws_secret}
         local_files_include_filter:
-          ["spruce/storybook-static/assets/*.css"]
-        remote_file: spruce/${task_id}/storybook/assets/
-        bucket: mciuploads
-        content_type: text/css
-        permissions: public-read
-        display_name: storybook_assets_css_
-    - command: s3.put
-      type: system
-      params:
-        aws_key: ${aws_key}
-        aws_secret: ${aws_secret}
-        local_files_include_filter:
-          ["spruce/storybook-static/assets/*.js"]
-        remote_file: spruce/${task_id}/storybook/assets/
+          ["spruce/storybook-static/**/*.js", "spruce/storybook-static/**/*.mjs"]
+        remote_file: spruce/${task_id}/storybook/
         bucket: mciuploads
         content_type: application/javascript
         permissions: public-read
         display_name: storybook_assets_js_
+        preserve_path: true
     - command: s3.put
       type: system
       params:
         aws_key: ${aws_key}
         aws_secret: ${aws_secret}
         local_files_include_filter:
-          ["spruce/storybook-static/assets/*.js.map"]
-        remote_file: spruce/${task_id}/storybook/assets/
+          ["spruce/storybook-static/**/*.js.map"]
+        remote_file: spruce/${task_id}/storybook/
         bucket: mciuploads
         content_type: application/json
         permissions: public-read
         display_name: storybook_assets_map_
+        preserve_path: true
   
   attach-codegen-diff:
     command: s3.put
