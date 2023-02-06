@@ -103,15 +103,15 @@ describe("Hosts page filtering from table filters", () => {
         if (param === statusesParam) {
           cy.getInputByLabel("Running").check({ force: true });
         } else {
-          cy.dataCy("input-filter").should("be.visible");
-          cy.dataCy("input-filter")
+          cy.dataCy(`${filterIconDataCy}-input-filter`).should("be.visible");
+          cy.dataCy(`${filterIconDataCy}-input-filter`)
             .should("be.focused")
             .focus()
             .type(`${filterValue}`, { scrollBehavior: false })
             .type("{enter}");
         }
+        cy.get(".ant-dropdown").should("not.be.visible");
         cy.location("search").should("contain", filterUrlParam);
-        cy.get(".ant-dropdown").should("not.exist");
         cy.dataCy("hosts-table").should("have.attr", "data-loading", "false");
 
         expectedIds.forEach((id) => {
@@ -124,8 +124,8 @@ describe("Hosts page filtering from table filters", () => {
         if (param === statusesParam) {
           cy.getInputByLabel("Running").uncheck({ force: true });
         } else {
-          cy.dataCy("input-filter").should("be.visible");
-          cy.dataCy("input-filter")
+          cy.dataCy(`${filterIconDataCy}-input-filter`).should("be.visible");
+          cy.dataCy(`${filterIconDataCy}-input-filter`)
             .should("be.focused")
             .focus()
             .clear()
