@@ -214,11 +214,11 @@ export const getProjectSettingsRoute = (
   return `${paths.project}/${projectId}/${PageNames.Settings}/${tab}`;
 };
 
-export const getCommitQueueRoute = (projectId: string) =>
-  `${paths.commitQueue}/${projectId}`;
+export const getCommitQueueRoute = (projectIdentifier: string) =>
+  `${paths.commitQueue}/${projectIdentifier}`;
 
-export const getCommitsRoute = (projectId: string = "") =>
-  `${paths.commits}/${projectId}`;
+export const getCommitsRoute = (projectIdentifier: string = "") =>
+  `${paths.commits}/${projectIdentifier}`;
 
 const getHistoryRoute = (
   basePath: string,

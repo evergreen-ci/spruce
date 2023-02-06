@@ -501,7 +501,7 @@ export type MainlineCommits = {
  */
 export type MainlineCommitsOptions = {
   limit?: InputMaybe<Scalars["Int"]>;
-  projectID: Scalars["String"];
+  projectIdentifier: Scalars["String"];
   requesters?: InputMaybe<Array<Scalars["String"]>>;
   shouldCollapse?: InputMaybe<Scalars["Boolean"]>;
   skipOrderNumber?: InputMaybe<Scalars["Int"]>;
@@ -1276,12 +1276,12 @@ export type QueryBuildBaronArgs = {
 };
 
 export type QueryBuildVariantsForTaskNameArgs = {
-  projectId: Scalars["String"];
+  projectIdentifier: Scalars["String"];
   taskName: Scalars["String"];
 };
 
 export type QueryCommitQueueArgs = {
-  id: Scalars["String"];
+  projectIdentifier: Scalars["String"];
 };
 
 export type QueryDistroTaskQueueArgs = {
@@ -1333,7 +1333,7 @@ export type QueryPatchArgs = {
 };
 
 export type QueryProjectArgs = {
-  projectId: Scalars["String"];
+  projectIdentifier: Scalars["String"];
 };
 
 export type QueryProjectEventsArgs = {
@@ -1377,7 +1377,7 @@ export type QueryTaskLogsArgs = {
 
 export type QueryTaskNamesForBuildVariantArgs = {
   buildVariant: Scalars["String"];
-  projectId: Scalars["String"];
+  projectIdentifier: Scalars["String"];
 };
 
 export type QueryTaskTestSampleArgs = {
@@ -3882,7 +3882,7 @@ export type GetBuildVariantStatsQuery = {
 };
 
 export type GetBuildVariantsForTaskNameQueryVariables = Exact<{
-  projectId: Scalars["String"];
+  projectIdentifier: Scalars["String"];
   taskName: Scalars["String"];
 }>;
 
@@ -3988,7 +3988,7 @@ export type CodeChangesQuery = {
 };
 
 export type CommitQueueQueryVariables = Exact<{
-  id: Scalars["String"];
+  projectIdentifier: Scalars["String"];
 }>;
 
 export type CommitQueueQuery = {
@@ -5680,7 +5680,7 @@ export type TaskLogsQuery = {
 };
 
 export type GetTaskNamesForBuildVariantQueryVariables = Exact<{
-  projectId: Scalars["String"];
+  projectIdentifier: Scalars["String"];
   buildVariant: Scalars["String"];
 }>;
 
@@ -6180,7 +6180,7 @@ export type HostsQuery = {
 };
 
 export type ProjectPatchesQueryVariables = Exact<{
-  projectId: Scalars["String"];
+  projectIdentifier: Scalars["String"];
   patchesInput: PatchesInput;
 }>;
 

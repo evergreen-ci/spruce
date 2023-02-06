@@ -8,7 +8,6 @@ import * as queryString from "./queryString";
 import * as request from "./request";
 import * as statuses from "./statuses";
 import * as string from "./string";
-import * as task from "./task";
 import * as url from "./url";
 import * as validators from "./validators";
 
@@ -23,7 +22,6 @@ export {
   request,
   statuses,
   string,
-  task,
   url,
   validators,
 };

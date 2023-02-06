@@ -1,5 +1,11 @@
-query GetBuildVariantsForTaskName($projectId: String!, $taskName: String!) {
-  buildVariantsForTaskName(projectId: $projectId, taskName: $taskName) {
+query GetBuildVariantsForTaskName(
+  $projectIdentifier: String!
+  $taskName: String!
+) {
+  buildVariantsForTaskName(
+    projectIdentifier: $projectIdentifier
+    taskName: $taskName
+  ) {
     displayName
     buildVariant
   }

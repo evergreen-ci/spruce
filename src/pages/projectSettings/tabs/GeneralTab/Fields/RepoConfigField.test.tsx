@@ -13,6 +13,7 @@ import {
   userEvent,
   waitFor,
 } from "test_utils";
+import { selectLGOption } from "test_utils/utils";
 import { ProjectType } from "../../utils";
 import { AttachDetachModal } from "./AttachDetachModal";
 import { MoveRepoModal } from "./MoveRepoModal";
@@ -74,7 +75,7 @@ const AttachmentModal = ({
 const MoveModal = ({ open = true }: { open?: boolean }) => (
   <MockedProvider mocks={[attachProjectToNewRepoMock]}>
     <MoveRepoModal
-      githubOrgs={["evergreen-ci"]}
+      githubOrgs={["evergreen-ci", "10gen"]}
       handleClose={() => {}}
       open={open}
       projectId="evergreen"
@@ -185,59 +186,51 @@ describe("repoConfigField", () => {
       const { Component } = RenderFakeToastContext(<MoveModal />);
       render(<Component />);
 
-      const moveRepoButton = screen.getByRole("button", {
-        name: "Move Project",
-      });
-      expect(moveRepoButton).toHaveAttribute("disabled");
+      expect(
+        screen.getByRole("button", {
+          name: "Move Project",
+        })
+      ).toHaveAttribute("disabled");
     });
 
-    it("disables the confirm button when only owner field is updated", () => {
+    it("prefills the owner dropdown", () => {
       const { Component } = RenderFakeToastContext(<MoveModal />);
       render(<Component />);
 
-      userEvent.type(screen.queryByDataCy("new-owner-input"), "new-owner-name");
-      const moveRepoButton = screen.getByRole("button", {
-        name: "Move Project",
-      });
-      expect(moveRepoButton).toHaveAttribute("disabled");
+      expect(screen.queryByDataCy("new-owner-select")).toHaveTextContent(
+        "evergreen-ci"
+      );
+      expect(
+        screen.getByRole("button", {
+          name: "Move Project",
+        })
+      ).toHaveAttribute("disabled");
     });
 
-    it("disables the confirm button when only repo field is updated", () => {
+    it("enables the confirm button when both fields are updated", async () => {
       const { Component } = RenderFakeToastContext(<MoveModal />);
       render(<Component />);
 
+      expect(screen.queryByDataCy("new-owner-select")).toHaveTextContent(
+        "evergreen-ci"
+      );
+      await selectLGOption("new-owner-select", "10gen");
       userEvent.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
-      const moveRepoButton = screen.getByRole("button", {
-        name: "Move Project",
-      });
-      expect(moveRepoButton).toHaveAttribute("disabled");
-    });
-
-    it("enables the confirm button when both fields are updated", () => {
-      const { Component } = RenderFakeToastContext(<MoveModal />);
-      render(<Component />);
-
-      userEvent.type(screen.queryByDataCy("new-owner-input"), "new-owner-name");
-      userEvent.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
-      const moveRepoButton = screen.getByRole("button", {
-        name: "Move Project",
-      });
-      expect(moveRepoButton).not.toHaveAttribute("disabled");
+      expect(
+        screen.getByRole("button", {
+          name: "Move Project",
+        })
+      ).not.toHaveAttribute("disabled");
     });
   });
 
   describe("attachDetachModal", () => {
-    afterEach(() => {
-      jest.restoreAllMocks();
-    });
-
     it("clicking the button opens the modal", async () => {
       const { Component } = RenderFakeToastContext(<Field />);
       render(<Component />);
 
       expect(screen.queryByDataCy("attach-repo-modal")).not.toBeInTheDocument();
-      const attachRepoButton = screen.queryByDataCy("attach-repo-button");
-      userEvent.click(attachRepoButton);
+      userEvent.click(screen.queryByDataCy("attach-repo-button"));
       await waitFor(() =>
         expect(screen.queryByDataCy("attach-repo-modal")).toBeVisible()
       );
@@ -354,7 +347,7 @@ const getGithubOrgsMock = {
   result: {
     data: {
       spruceConfig: {
-        githubOrgs: ["evergreen-ci"],
+        githubOrgs: ["evergreen-ci", "10gen"],
       },
     },
   },

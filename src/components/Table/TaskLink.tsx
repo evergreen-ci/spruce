@@ -1,7 +1,7 @@
 import { Body } from "@leafygreen-ui/typography";
 import { StyledRouterLink, WordBreak } from "components/styles";
 import { getTaskRoute } from "constants/routes";
-import { executionAsDisplay } from "utils/task";
+import { formatZeroIndexForDisplay } from "utils/numbers";
 
 interface TaskLinkProps {
   execution?: number;
@@ -20,7 +20,7 @@ export const TaskLink: React.VFC<TaskLinkProps> = ({
   <StyledRouterLink onClick={() => onClick(taskId)} to={getTaskRoute(taskId)}>
     <WordBreak>{taskName}</WordBreak>
     {showTaskExecutionLabel && (
-      <Body>Execution {executionAsDisplay(execution)}</Body>
+      <Body>Execution {formatZeroIndexForDisplay(execution)}</Body>
     )}
   </StyledRouterLink>
 );

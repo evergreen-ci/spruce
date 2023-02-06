@@ -106,9 +106,11 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
                 projectData?.githubWebhooksEnabled ||
                 repoData?.githubWebhooksEnabled
               }
+              identifier={identifier || repoBranch}
               projectData={
                 tabData[ProjectSettingsTabRoutes.GithubCommitQueue].projectData
               }
+              projectId={projectId}
               projectType={projectType}
               repoData={
                 tabData[ProjectSettingsTabRoutes.GithubCommitQueue].repoData

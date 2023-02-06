@@ -152,7 +152,24 @@ describe("Hosts page sorting", () => {
   const hostsRoute = "/hosts";
 
   const tableRow = "tr.ant-table-row";
+  const distroSortControl =
+    ".cy-task-table-col-DISTRO > .ant-table-filter-column > :nth-child(1) > .ant-table-column-sorters";
 
+  it("Clicking the sort direction filter will set the page query param to 0", () => {
+    cy.visit(`${hostsRoute}?distroId=arfarf&page=5`);
+    cy.get(distroSortControl).click();
+    cy.location("search").should(
+      "equal",
+      "?distroId=arfarf&page=0&sortBy=DISTRO&sortDir=ASC"
+    );
+  });
+  it("Clicking a sort direction 3 times will set the page query param to 0, clear the direction & sortBy query param, and preserve the rest", () => {
+    cy.visit(`${hostsRoute}?distroId=arfarf&page=5`);
+    cy.get(distroSortControl).click();
+    cy.get(distroSortControl).click();
+    cy.get(distroSortControl).click();
+    cy.location("search").should("equal", "?distroId=arfarf&page=0");
+  });
   it("Status sorter is selected by default if no sort params in url", () => {
     cy.visit(hostsRoute);
     cy.get(".cy-task-table-col-STATUS")

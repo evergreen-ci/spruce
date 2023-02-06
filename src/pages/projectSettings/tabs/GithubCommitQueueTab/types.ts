@@ -68,7 +68,9 @@ export interface FormState {
 
 export type TabProps = {
   githubWebhooksEnabled: boolean;
+  identifier: string;
   projectData?: FormState;
+  projectId: string;
   projectType: ProjectType;
   repoData?: FormState;
   versionControlEnabled: boolean;
