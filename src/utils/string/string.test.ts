@@ -10,6 +10,7 @@ import {
   trimStringFromMiddle,
   stripNewLines,
   toSentenceCase,
+  getTicketFromJiraURL,
 } from ".";
 
 describe("msToDuration", () => {
@@ -356,5 +357,19 @@ describe("stripNewLines", () => {
 describe("toSentenceCase", () => {
   it("capitalizes the first letter in a word", () => {
     expect(toSentenceCase("mystring")).toBe("Mystring");
+  });
+});
+
+describe("getTicketFromJiraURL", () => {
+  it("correctly extracts the ticket number from a JIRA URL", () => {
+    expect(
+      getTicketFromJiraURL("https://jira.mongodb.org/browse/EVG-123")
+    ).toBe("EVG-123");
+    expect(
+      getTicketFromJiraURL("https://jira.mongodb.org/browse/SOMETHING-12345")
+    ).toBe("SOMETHING-12345");
+  });
+  it("returns undefined if a ticket number is not found", () => {
+    expect(getTicketFromJiraURL("this-is-a-bad-jira-url")).toBeUndefined();
   });
 });
