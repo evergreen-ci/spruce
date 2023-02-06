@@ -36,6 +36,7 @@ describe("addIssueModal", () => {
     await waitFor(() => {
       checkModalVisibility();
     });
+
     expect(screen.queryByDataCy("issue-url")).toHaveValue("");
     expect(
       screen.getByRole("button", {
@@ -57,6 +58,7 @@ describe("addIssueModal", () => {
     await waitFor(() => {
       checkModalVisibility();
     });
+
     expect(screen.queryByDataCy("issue-url")).toHaveValue("");
     userEvent.type(
       screen.queryByDataCy("issue-url"),
@@ -89,35 +91,28 @@ describe("addIssueModal", () => {
       "https://jira.mongodb.org/browse/EVG-123"
     );
 
+    const confirmButton = screen.getByRole("button", {
+      name: "Add issue",
+    });
+
     userEvent.type(screen.queryByDataCy("confidence-level"), "not a number");
-    expect(
-      screen.getByRole("button", {
-        name: "Add issue",
-      })
-    ).toBeDisabled();
+    expect(confirmButton).toBeDisabled();
 
     userEvent.clear(screen.queryByDataCy("confidence-level"));
     userEvent.type(screen.queryByDataCy("confidence-level"), "110");
-    expect(
-      screen.getByRole("button", {
-        name: "Add issue",
-      })
-    ).toBeDisabled();
+    expect(confirmButton).toBeDisabled();
 
     userEvent.clear(screen.queryByDataCy("confidence-level"));
     userEvent.type(screen.queryByDataCy("confidence-level"), "80");
-    expect(
-      screen.getByRole("button", {
-        name: "Add issue",
-      })
-    ).not.toBeDisabled();
+    expect(confirmButton).not.toBeDisabled();
   });
 
   it("should be able to successfully add annotation", async () => {
+    const setSelectedRowKey = jest.fn();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <AddIssueModal
         closeModal={jest.fn()}
-        setSelectedRowKey={jest.fn()}
+        setSelectedRowKey={setSelectedRowKey}
         isIssue
       />
     );
@@ -139,6 +134,7 @@ describe("addIssueModal", () => {
     expect(confirmButton).not.toBeDisabled();
     userEvent.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
+    expect(setSelectedRowKey).toHaveBeenCalledWith("EVG-123");
   });
 });
 

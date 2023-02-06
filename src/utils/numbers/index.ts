@@ -35,8 +35,8 @@ const toPercent = (value: string | number): number => {
 const formatZeroIndexForDisplay = (value: number): number => value + 1;
 
 /**
- * roundDecimal rounds a decimal number to include a certain number of decimal places. Non-decimal
- * numbers will be unaffected.
+ * roundDecimal rounds a decimal number to include a certain number of decimal places. It does not add trailing
+ * zeroes.
  * @param value - the number to round
  * @param decimalPlaces - the number of decimal places to preserve
  * @example roundDecimal(0.54672, 3) // => 0.547

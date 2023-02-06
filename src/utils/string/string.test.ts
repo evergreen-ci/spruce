@@ -369,7 +369,7 @@ describe("getTicketFromJiraURL", () => {
       getTicketFromJiraURL("https://jira.mongodb.org/browse/SOMETHING-12345")
     ).toBe("SOMETHING-12345");
   });
-  it("returns undefined if match is not found", () => {
-    expect(getTicketFromJiraURL("this-is-a-bad-url")).toBeUndefined();
+  it("returns undefined if a ticket number is not found", () => {
+    expect(getTicketFromJiraURL("this-is-a-bad-jira-url")).toBeUndefined();
   });
 });
