@@ -1983,7 +1983,7 @@ export type TriggerAlias = {
   alias: Scalars["String"];
   buildVariantRegex: Scalars["String"];
   configFile: Scalars["String"];
-  dateCutoff: Scalars["Int"];
+  dateCutoff?: Maybe<Scalars["Int"]>;
   level: Scalars["String"];
   project: Scalars["String"];
   status: Scalars["String"];
@@ -1994,7 +1994,7 @@ export type TriggerAliasInput = {
   alias: Scalars["String"];
   buildVariantRegex: Scalars["String"];
   configFile: Scalars["String"];
-  dateCutoff: Scalars["Int"];
+  dateCutoff?: InputMaybe<Scalars["Int"]>;
   level: Scalars["String"];
   project: Scalars["String"];
   status: Scalars["String"];
@@ -2671,7 +2671,7 @@ export type ProjectSettingsFragment = {
         buildVariantRegex: string;
         taskRegex: string;
         status: string;
-        dateCutoff: number;
+        dateCutoff?: Maybe<number>;
         configFile: string;
         alias: string;
       }>
@@ -2810,7 +2810,7 @@ export type RepoSettingsFragment = {
       buildVariantRegex: string;
       taskRegex: string;
       status: string;
-      dateCutoff: number;
+      dateCutoff?: Maybe<number>;
       configFile: string;
       alias: string;
     }>;
@@ -3075,7 +3075,7 @@ export type ProjectEventSettingsFragment = {
         buildVariantRegex: string;
         taskRegex: string;
         status: string;
-        dateCutoff: number;
+        dateCutoff?: Maybe<number>;
         configFile: string;
         alias: string;
       }>
@@ -3161,7 +3161,7 @@ export type ProjectTriggersSettingsFragment = {
       buildVariantRegex: string;
       taskRegex: string;
       status: string;
-      dateCutoff: number;
+      dateCutoff?: Maybe<number>;
       configFile: string;
       alias: string;
     }>
@@ -3175,7 +3175,7 @@ export type RepoTriggersSettingsFragment = {
     buildVariantRegex: string;
     taskRegex: string;
     status: string;
-    dateCutoff: number;
+    dateCutoff?: Maybe<number>;
     configFile: string;
     alias: string;
   }>;
@@ -4676,7 +4676,7 @@ export type ProjectEventLogsQuery = {
               buildVariantRegex: string;
               taskRegex: string;
               status: string;
-              dateCutoff: number;
+              dateCutoff?: Maybe<number>;
               configFile: string;
               alias: string;
             }>
@@ -4832,7 +4832,7 @@ export type ProjectEventLogsQuery = {
               buildVariantRegex: string;
               taskRegex: string;
               status: string;
-              dateCutoff: number;
+              dateCutoff?: Maybe<number>;
               configFile: string;
               alias: string;
             }>
@@ -4992,7 +4992,7 @@ export type ProjectSettingsQuery = {
           buildVariantRegex: string;
           taskRegex: string;
           status: string;
-          dateCutoff: number;
+          dateCutoff?: Maybe<number>;
           configFile: string;
           alias: string;
         }>
@@ -5183,7 +5183,7 @@ export type RepoEventLogsQuery = {
               buildVariantRegex: string;
               taskRegex: string;
               status: string;
-              dateCutoff: number;
+              dateCutoff?: Maybe<number>;
               configFile: string;
               alias: string;
             }>
@@ -5339,7 +5339,7 @@ export type RepoEventLogsQuery = {
               buildVariantRegex: string;
               taskRegex: string;
               status: string;
-              dateCutoff: number;
+              dateCutoff?: Maybe<number>;
               configFile: string;
               alias: string;
             }>
@@ -5493,7 +5493,7 @@ export type RepoSettingsQuery = {
         buildVariantRegex: string;
         taskRegex: string;
         status: string;
-        dateCutoff: number;
+        dateCutoff?: Maybe<number>;
         configFile: string;
         alias: string;
       }>;
