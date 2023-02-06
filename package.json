@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.18",
+  "version": "3.0.19",
   "private": true,
   "scripts": {
     "build-storybook": "NODE_OPTIONS=--max-old-space-size=6144 build-storybook",
@@ -107,7 +107,8 @@
     "graphql": "16.5.0",
     "html-react-parser": "2.0.0",
     "js-cookie": "3.0.1",
-    "linkifyjs": "3.0.5",
+    "linkify-html": "4.1.0",
+    "linkifyjs": "4.1.0",
     "lodash.debounce": "4.0.8",
     "lodash.every": "4.6.0",
     "lodash.get": "4.4.2",
