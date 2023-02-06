@@ -68,6 +68,7 @@
     "@leafygreen-ui/card": "9.0.1",
     "@leafygreen-ui/checkbox": "12.0.1",
     "@leafygreen-ui/code": "14.0.1",
+    "@leafygreen-ui/combobox": "5.0.7",
     "@leafygreen-ui/confirmation-modal": "3.1.4",
     "@leafygreen-ui/emotion": "4.0.3",
     "@leafygreen-ui/expandable-card": "3.0.1",
