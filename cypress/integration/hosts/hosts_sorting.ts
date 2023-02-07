@@ -15,7 +15,7 @@ const sortByTests = [
       "build10.ny.cbi.10gen.cc",
     ],
   },
-  /* TODO: Re-enable distro sort upon completion of EVG-18900
+  /* TODO EVG-18907: Re-enable distro sort upon completion of EVG-18900
    * {
     sorterName: "distro",
     sortBy: "DISTRO",
