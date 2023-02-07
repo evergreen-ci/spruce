@@ -65,9 +65,6 @@ export const PatchCard: React.VFC<Props> = ({
       </StyledRouterLink>
     );
   } else {
-    const fallBackPatchProject = projectMetadata
-      ? `${projectMetadata.owner}/${projectMetadata.repo}`
-      : "";
     patchProject = projectIdentifier ? (
       <StyledRouterLink
         to={getProjectPatchesRoute(projectIdentifier)}
@@ -76,17 +73,10 @@ export const PatchCard: React.VFC<Props> = ({
         <strong>{projectIdentifier}</strong>
       </StyledRouterLink>
     ) : (
-      fallBackPatchProject
+      `${projectMetadata.owner}/${projectMetadata.repo}`
     );
   }
 
-  const projectCopy = patchProject ? (
-    <>
-      {pageType === "project" ? "by" : "on"} {patchProject}
-    </>
-  ) : (
-    ""
-  );
   const badges = stats?.map(({ count, umbrellaStatus, statusCounts }) => (
     <GroupedTaskStatusBadge
       status={umbrellaStatus}
@@ -109,7 +99,8 @@ export const PatchCard: React.VFC<Props> = ({
           {description || "no description"}
         </DescriptionLink>
         <TimeAndProject>
-          {getDateCopy(createDate)} {projectCopy}
+          {getDateCopy(createDate)} {pageType === "project" ? "by" : "on"}{" "}
+          {patchProject}
         </TimeAndProject>
       </Left>
       <Center>
