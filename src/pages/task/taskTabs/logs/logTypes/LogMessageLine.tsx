@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import AnsiUp from "ansi_up";
 import { format } from "date-fns";
 import parse from "html-react-parser";
-import linkifyHtml from "linkifyjs/html";
+import linkifyHtml from "linkify-html";
 import { LogMessageFragment } from "gql/generated/types";
 import { getLogLineWrapper } from "./logMessageLine/LogLines";
 

@@ -4276,6 +4276,19 @@
     "@leafygreen-ui/palette" "^3.4.4"
     "@leafygreen-ui/tokens" "^1.3.4"
 
+"@leafygreen-ui/icon-button@^15.0.4":
+  version "15.0.5"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-15.0.5.tgz#4c9e6a8388c471262c98bcb52b2d95c061625eea"
+  integrity sha512-8zWWqInWVvG2399FeyoQcvuzdEt0aongqZi06eGEQOpXwRCaIxUXOqeEmAHPjFy2K3jAUs2KtMFVlrdZZnWNbg==
+  dependencies:
+    "@leafygreen-ui/a11y" "^1.3.4"
+    "@leafygreen-ui/box" "^3.1.1"
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/icon" "^11.12.4"
+    "@leafygreen-ui/lib" "^10.0.0"
+    "@leafygreen-ui/palette" "^3.4.7"
+    "@leafygreen-ui/tokens" "^2.0.0"
+
 "@leafygreen-ui/icon@11.12.1", "@leafygreen-ui/icon@^11.12.1":
   version "11.12.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.12.1.tgz#8ec2a8cd209c07e5e9a3b5a8f42b74afa4364573"
@@ -4415,6 +4428,16 @@
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/polymorphic/-/polymorphic-1.1.0.tgz#c618d8432d667e7ab21bfeaf09501b1001fb2a10"
   integrity sha512-QS8UrJpKatqhms5LC3TImyYZx5DeMbme9Z+4R6EUiYcmyIQSlFvCvmh8+f7MKki2fiNpgU6U5E31seSfSz4l0A==
 
+"@leafygreen-ui/palette@^3.4.7":
+  version "3.4.7"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-3.4.7.tgz#7c4a619ca0cb7a9785326dcb67e012369b3d92d6"
+  integrity sha512-AsvPlbvF7CERiZbAQR8hy3lAJ2/rieXI3cO0jsOwV8ztDqYNotKAdLujyr/NviudrRUenYiXrLizIKVlSPUMuA==
+
+"@leafygreen-ui/polymorphic@^1.1.0":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/polymorphic/-/polymorphic-1.1.1.tgz#904bbf1f05ff0b1fdf333402acec1418952d26ea"
+  integrity sha512-6iMhVslKp5qspkq4JEwaaNJL6IqlEwrYnZAWaOK/kIoYoJ8Kh1g0ehYppE/rpLvG0qeoY3sYcd5z9TAgqdfChA==
+
 "@leafygreen-ui/popover@11.0.1", "@leafygreen-ui/popover@^11.0.1":
   version "11.0.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/popover/-/popover-11.0.1.tgz#864fb3d39cab2e98b600bd1b5bf930f3592af188"
@@ -4544,18 +4567,19 @@
     polished "^4.2.2"
     react-transition-group "^4.4.5"
 
-"@leafygreen-ui/table@9.0.1":
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/table/-/table-9.0.1.tgz#81b495e0e96007f0ee2765f8dc8c8d487b969e6e"
-  integrity sha512-WmCmRpmoSJsJk6r+gZbZQ2kFHInTt7dFERYoEO9JMcoi62VMyj2esOwNjyZFqSQz8CeSUoT/5aTS2TfgEuLcsQ==
+"@leafygreen-ui/table@10.0.1":
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/table/-/table-10.0.1.tgz#b20f673c20eda06192d2a97d2d2976b6e05f8b7b"
+  integrity sha512-dc6b5uWVSwDfuIUYrLKewVGXmRvAcKuDi6Q/xv4AA5Uibj67yDROwvd1Dd8QWvSPnfj/JK2Z1dTeDMM2rLXabA==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/icon" "^11.12.1"
-    "@leafygreen-ui/icon-button" "^15.0.1"
+    "@leafygreen-ui/icon" "^11.12.4"
+    "@leafygreen-ui/icon-button" "^15.0.4"
     "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.4.0"
+    "@leafygreen-ui/palette" "^3.4.7"
+    "@leafygreen-ui/tokens" "^2.0.0"
+    "@leafygreen-ui/typography" "^16.0.0"
     lodash "^4.17.21"
     polished "^4.2.2"
     react-transition-group "^4.4.1"
@@ -4656,6 +4680,13 @@
   dependencies:
     "@leafygreen-ui/palette" "^3.4.7"
 
+"@leafygreen-ui/tokens@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-2.0.0.tgz#92068a37309136eae320edd152de375743bc48c1"
+  integrity sha512-g4GtMp7p3ZutrVtXRK9oPjV4Uk3y3GfGJwrNm4cUvwHPbSEcSF+FNoTWS/ZCc8t2g7o42gMe/KT8zZvmq+UF/g==
+  dependencies:
+    "@leafygreen-ui/palette" "^3.4.7"
+
 "@leafygreen-ui/tooltip@9.0.1", "@leafygreen-ui/tooltip@^9.0.0", "@leafygreen-ui/tooltip@^9.0.1":
   version "9.0.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/tooltip/-/tooltip-9.0.1.tgz#ac83f85e31efc6d2e22483ea1a0de87fb9619c53"
@@ -4683,6 +4714,18 @@
     "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
     "@leafygreen-ui/tokens" "^1.4.0"
+
+"@leafygreen-ui/typography@^16.0.0":
+  version "16.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-16.0.0.tgz#aa17ee40e9581d3f9b544a21bcd3c6b49bb33314"
+  integrity sha512-jlblxTcYQqSfTOBoQ/vXDGstqzL+wiEsaGuC3pIwk2YCqXpOa6IcDlCPsNiJ5VMgnarY/PLJy2hoIN8lVlbf8Q==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/icon" "^11.12.4"
+    "@leafygreen-ui/lib" "^10.0.0"
+    "@leafygreen-ui/palette" "^3.4.7"
+    "@leafygreen-ui/polymorphic" "^1.1.0"
+    "@leafygreen-ui/tokens" "^2.0.0"
 
 "@leafygreen-ui/typography@^16.0.0":
   version "16.0.0"
@@ -12681,9 +12724,9 @@ htmlparser2@^6.1.0:
     entities "^2.0.0"
 
 http-cache-semantics@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-4.1.0.tgz#49e91c5cbf36c9b94bcfcd71c23d5249ec74e390"
-  integrity sha512-carPklcUh7ROWRK7Cv27RPtdhYhUsela/ue5/jKzjegVvXDqM2ILE9Q2BGn9JZJh1g87cp56su/FgQSzcWS8cQ==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-4.1.1.tgz#abe02fcb2985460bf0323be664436ec3476a6d5a"
+  integrity sha512-er295DKPVsV82j5kw1Gjt+ADA/XYHsajl82cGNQG2eyoPkvgUhX+nDIyelzhIWbbsXP39EHcI6l5tYs2FYqYXQ==
 
 http-errors@2.0.0:
   version "2.0.0"
@@ -14583,10 +14626,15 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
-linkifyjs@3.0.5:
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/linkifyjs/-/linkifyjs-3.0.5.tgz#99e51a3a0c0e232fcb63ebb89eea3ff923378f34"
-  integrity sha512-1Y9XQH65eQKA9p2xtk+zxvnTeQBG7rdAXSkUG97DmuI/Xhji9uaUzaWxRj6rf9YC0v8KKHkxav7tnLX82Sz5Fg==
+linkify-html@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/linkify-html/-/linkify-html-4.1.0.tgz#c7881090a21020e06d956039450c239b3ca06536"
+  integrity sha512-cQSNN4i5V1xRjdSUEnXgn855xsl+usD7zBSsNyMSFBf4NlaZFocn7cExJA217azxODeqea79b6fDPXLa7jdkcA==
+
+linkifyjs@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/linkifyjs/-/linkifyjs-4.1.0.tgz#0460bfcc37d3348fa80e078d92e7bbc82588db15"
+  integrity sha512-Ffv8VoY3+ixI1b3aZ3O+jM6x17cOsgwfB1Wq7pkytbo1WlyRp6ZO0YDMqiWT/gQPY/CmtiGuKfzDIVqxh1aCTA==
 
 lint-staged@13.0.3:
   version "13.0.3"
