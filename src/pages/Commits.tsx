@@ -56,7 +56,7 @@ export const Commits = () => {
   const { userSettings } = useUserSettings();
   const { useSpruceOptions } = userSettings ?? {};
   const { hasUsedMainlineCommitsBefore = true } = useSpruceOptions ?? {};
-  const [ref, limit] = useCommitsLimit();
+  const [ref, limit] = useCommitsLimit<HTMLDivElement>();
   const parsed = parseQueryString(search);
   const { projectIdentifier } = useParams<{
     projectIdentifier: string;
@@ -209,7 +209,7 @@ export const Commits = () => {
             hasTaskFilter={hasTasks}
             hasFilters={hasFilters}
           />
-        </span>
+        </div>
       </PageContainer>
       {!hasUsedMainlineCommitsBefore && (
         <WelcomeModal

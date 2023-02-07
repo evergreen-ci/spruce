@@ -3,9 +3,12 @@ import { useSearchParams } from "react-router-dom";
 import { MainlineCommitQueryParams } from "types/commits";
 import { useDimensions } from "./useDimensions";
 
-export const useCommitsLimit = (): [MutableRefObject<HTMLElement>, number] => {
+export const useCommitsLimit = <T extends HTMLElement>(): [
+  MutableRefObject<T>,
+  number
+] => {
   const [params, setParams] = useSearchParams();
-  const commitsContainerRef = useRef<HTMLElement>();
+  const commitsContainerRef = useRef<T>();
   const { width } = useDimensions(commitsContainerRef);
   const nextLimit = Math.max(Math.round(width / COL_WIDTH), MIN_LIMIT);
 
