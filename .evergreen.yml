@@ -263,7 +263,7 @@ functions:
         aws_key: ${aws_key}
         aws_secret: ${aws_secret}
         local_files_include_filter:
-          ["spruce/storybook-static/**/*.js", "spruce/storybook-static/**/*.mjs"]
+          ["spruce/storybook-static/**/*.js$", "spruce/storybook-static/**/*.mjs$"]
         remote_file: spruce/${task_id}/storybook/
         bucket: mciuploads
         content_type: application/javascript
@@ -279,6 +279,18 @@ functions:
         remote_file: spruce/${task_id}/storybook/
         bucket: mciuploads
         content_type: application/json
+        permissions: public-read
+        preserve_path: true
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${aws_key}
+        aws_secret: ${aws_secret}
+        local_files_include_filter:
+          ["spruce/storybook-static/**/*.css"]
+        remote_file: spruce/${task_id}/storybook/
+        bucket: mciuploads
+        content_type: text/css
         permissions: public-read
         preserve_path: true
   

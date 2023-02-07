@@ -44,6 +44,10 @@ module.exports = {
       return true;
     });
 
+    if (isProductionBuild) {
+      config.base = "./";
+    }
+
     return mergeConfig(viteConfig, config);
   },
 };
