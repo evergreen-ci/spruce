@@ -8,7 +8,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
     className="leafygreen-ui-nqkcdc"
   >
     <div
-      className="leafygreen-ui-17brm59"
+      className="leafygreen-ui-p59zoy"
     />
     <div
       className="leafygreen-ui-11dcrjd"
@@ -20,7 +20,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
       <table
         cellPadding="0"
         cellSpacing="0"
-        className="leafygreen-ui-7u661v"
+        className="leafygreen-ui-xh1r83"
       >
         <thead>
           <tr
@@ -28,7 +28,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
           >
             <th
               aria-sort="none"
-              className="css-175ua20-StyledTableHeader e1k6n0sw1 leafygreen-ui-mxd9tl"
+              className="css-175ua20-StyledTableHeader e1k6n0sw1 leafygreen-ui-uu7z1l"
               role="columnheader"
               scope="col"
             >
@@ -84,7 +84,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
             </th>
             <th
               aria-sort="none"
-              className="css-175ua20-StyledTableHeader e1k6n0sw1 leafygreen-ui-mxd9tl"
+              className="css-175ua20-StyledTableHeader e1k6n0sw1 leafygreen-ui-uu7z1l"
               role="columnheader"
               scope="col"
             >
@@ -140,7 +140,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
             </th>
             <th
               aria-sort="none"
-              className="css-175ua20-StyledTableHeader e1k6n0sw1 leafygreen-ui-mxd9tl"
+              className="css-175ua20-StyledTableHeader e1k6n0sw1 leafygreen-ui-uu7z1l"
               role="columnheader"
               scope="col"
             >
@@ -196,7 +196,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
             </th>
             <th
               aria-sort="none"
-              className="leafygreen-ui-mxd9tl"
+              className="leafygreen-ui-uu7z1l"
               role="columnheader"
               scope="col"
             >
@@ -215,7 +215,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                 <button
                   aria-disabled={false}
                   aria-label="sort"
-                  className="leafygreen-ui-1l0eekp"
+                  className="leafygreen-ui-1mo7gku"
                   onClick={[Function]}
                   tabIndex={0}
                 >
@@ -261,7 +261,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
             role="row"
           >
             <td
-              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -288,7 +288,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -309,7 +309,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -322,7 +322,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -351,7 +351,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
             role="row"
           >
             <td
-              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -378,7 +378,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -399,7 +399,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -412,7 +412,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -441,7 +441,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
             role="row"
           >
             <td
-              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -468,7 +468,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -489,7 +489,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -502,7 +502,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -531,7 +531,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
             role="row"
           >
             <td
-              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -558,7 +558,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -579,7 +579,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -592,7 +592,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -621,7 +621,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
             role="row"
           >
             <td
-              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -648,7 +648,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -669,7 +669,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -682,7 +682,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -711,7 +711,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
             role="row"
           >
             <td
-              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -738,7 +738,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -759,7 +759,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -772,7 +772,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -801,7 +801,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
             role="row"
           >
             <td
-              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -828,7 +828,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -849,7 +849,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -862,7 +862,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -891,7 +891,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
             role="row"
           >
             <td
-              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -918,7 +918,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -939,7 +939,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -952,7 +952,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -981,7 +981,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
             role="row"
           >
             <td
-              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -1008,7 +1008,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -1029,7 +1029,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -1042,7 +1042,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -1071,7 +1071,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
             role="row"
           >
             <td
-              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-wlhx1r"
+              className="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -1098,7 +1098,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-wlhx1r"
+              className="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -1119,7 +1119,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-wlhx1r"
+              className="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
@@ -1132,7 +1132,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
               </div>
             </td>
             <td
-              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-wlhx1r"
+              className="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
             >
               <div
                 className="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
