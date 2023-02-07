@@ -235,3 +235,13 @@ export const toSentenceCase = (string: string) => {
   }
   return string[0].toUpperCase() + string.substring(1).toLowerCase();
 };
+
+/**
+ * Given a JIRA URL, extract the ticket number.
+ * @param jiraURL - the URL from which to extract the ticket number
+ * @returns the JIRA ticket number
+ */
+export const getTicketFromJiraURL = (jiraURL: string) => {
+  const ticketNumber = jiraURL.match(/[A-Z]+-[0-9]+/)?.[0];
+  return ticketNumber;
+};

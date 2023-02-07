@@ -53,7 +53,7 @@ const TaskHistoryContents: React.VFC = () => {
   >(GET_MAINLINE_COMMITS_FOR_HISTORY, {
     variables: {
       mainlineCommitsOptions: {
-        projectID: projectIdentifier,
+        projectIdentifier,
         limit: 10,
         skipOrderNumber: nextPageOrderNumber,
         shouldCollapse: true,
@@ -81,7 +81,7 @@ const TaskHistoryContents: React.VFC = () => {
               }}
             />
             <BuildVariantSelector
-              projectId={projectIdentifier}
+              projectIdentifier={projectIdentifier}
               taskName={taskName}
             />
           </PageHeaderContent>
@@ -110,7 +110,10 @@ const TaskHistoryContents: React.VFC = () => {
           />
         </PaginationFilterWrapper>
         <div>
-          <ColumnHeaders projectId={projectIdentifier} taskName={taskName} />
+          <ColumnHeaders
+            projectIdentifier={projectIdentifier}
+            taskName={taskName}
+          />
 
           <TableWrapper>
             {error && <div>Failed to retrieve mainline commit history.</div>}

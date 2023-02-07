@@ -31,7 +31,7 @@ export const ProjectPatches = () => {
     ProjectPatchesQueryVariables
   >(GET_PROJECT_PATCHES, {
     variables: {
-      projectId: projectIdentifier,
+      projectIdentifier,
       patchesInput: {
         ...patchesInput,
         onlyCommitQueue: isCommitQueueCheckboxChecked,

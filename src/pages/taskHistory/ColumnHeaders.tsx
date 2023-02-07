@@ -21,11 +21,12 @@ const { useHistoryTable } = context;
 const { LoadingCell, ColumnHeaderCell, LabelCellContainer } = Cell;
 
 interface ColumnHeadersProps {
-  projectId: string;
+  projectIdentifier: string;
   taskName: string;
 }
+
 const ColumnHeaders: React.VFC<ColumnHeadersProps> = ({
-  projectId,
+  projectIdentifier,
   taskName,
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
@@ -37,7 +38,7 @@ const ColumnHeaders: React.VFC<ColumnHeadersProps> = ({
     GetBuildVariantsForTaskNameQueryVariables
   >(GET_BUILD_VARIANTS_FOR_TASK_NAME, {
     variables: {
-      projectId,
+      projectIdentifier,
       taskName,
     },
     onCompleted: ({ buildVariantsForTaskName }) => {
@@ -69,7 +70,7 @@ const ColumnHeaders: React.VFC<ColumnHeadersProps> = ({
         return (
           <ColumnHeaderCell
             key={`header_cell_${cell.displayName}`}
-            link={getVariantHistoryRoute(projectId, cell.buildVariant)}
+            link={getVariantHistoryRoute(projectIdentifier, cell.buildVariant)}
             trimmedDisplayName={trimStringFromMiddle(
               cell.displayName,
               maxLength

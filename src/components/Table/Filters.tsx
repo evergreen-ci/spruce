@@ -51,7 +51,7 @@ export const InputFilter = ({
         description="Press enter to filter."
         type="search"
         aria-label="Search Table"
-        data-cy="input-filter"
+        data-cy={`${dataCy}-input-filter`}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
@@ -142,11 +142,14 @@ export const getColumnCheckboxFilterProps = ({
   onChange,
   dataCy,
 }: CheckboxFilterProps) => ({
-  filterDropdown: () => (
+  filterDropdown: ({ confirm }: FilterDropdownProps) => (
     <CheckboxFilter
       statuses={statuses}
       value={value}
-      onChange={onChange}
+      onChange={(e, key) => {
+        onChange(e, key);
+        confirm({ closeDropdown: true });
+      }}
       dataCy={dataCy}
     />
   ),

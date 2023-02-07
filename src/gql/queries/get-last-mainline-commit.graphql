@@ -5,7 +5,7 @@ query GetLastMainlineCommit(
 ) {
   mainlineCommits(
     options: {
-      projectID: $projectIdentifier
+      projectIdentifier: $projectIdentifier
       limit: 1
       skipOrderNumber: $skipOrderNumber
       shouldCollapse: true

@@ -1,10 +1,9 @@
-import styled from "@emotion/styled";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { TableRowSelection } from "antd/es/table/interface";
 import { formatDistanceToNow } from "date-fns";
 import { useHostsTableAnalytics } from "analytics";
-import { StyledRouterLink } from "components/styles";
+import { StyledRouterLink, WordBreak } from "components/styles";
 import {
   getColumnSearchFilterProps,
   getColumnCheckboxFilterProps,
@@ -177,7 +176,7 @@ export const HostsTable: React.VFC<Props> = ({
             data-cy="current-task-link"
             to={getTaskRoute(runningTask?.id)}
           >
-            {runningTask?.name}
+            <WordBreak>{runningTask?.name}</WordBreak>
           </StyledRouterLink>
         ) : (
           ""
@@ -232,7 +231,7 @@ export const HostsTable: React.VFC<Props> = ({
       key: HostSortBy.Owner,
       sorter: true,
       width: "10%",
-      render: (owner) => <Owner>{owner}</Owner>,
+      render: (owner) => <WordBreak>{owner}</WordBreak>,
       className: "cy-task-table-col-OWNER",
       ...getColumnSearchFilterProps({
         placeholder: "Search Owner",
@@ -303,6 +302,3 @@ export const HostsTable: React.VFC<Props> = ({
 };
 
 const rowKey = ({ id }: { id: string }): string => id;
-const Owner = styled.span`
-  word-break: break-all;
-`;

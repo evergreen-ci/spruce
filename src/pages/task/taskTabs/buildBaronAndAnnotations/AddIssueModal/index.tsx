@@ -13,9 +13,11 @@ import {
 } from "gql/generated/types";
 import { ADD_ANNOTATION } from "gql/mutations";
 import { useSpruceConfig } from "hooks";
-import { numbers } from "utils";
+import { numbers, string } from "utils";
 
 const { toDecimal } = numbers;
+const { getTicketFromJiraURL } = string;
+
 interface Props {
   visible: boolean;
   closeModal: () => void;
@@ -42,14 +44,14 @@ export const AddIssueModal: React.VFC<Props> = ({
     ? "Add Task Annotation Issue"
     : "Add Task Annotation Suspected Issue";
 
+  const [canSubmit, setCanSubmit] = useState(false);
   const [formState, setFormState] = useState({
     url: "",
-    issueKey: "",
     advancedOptions: {
       confidenceScore: null,
     },
   });
-  const [canSubmit, setCanSubmit] = useState(false);
+  const issueKey = getTicketFromJiraURL(formState.url);
 
   const [addAnnotation] = useMutation<
     AddAnnotationIssueMutation,
@@ -57,7 +59,7 @@ export const AddIssueModal: React.VFC<Props> = ({
   >(ADD_ANNOTATION, {
     onCompleted: () => {
       dispatchToast.success(`Successfully added ${issueString}`);
-      setSelectedRowKey(formState.issueKey);
+      setSelectedRowKey(issueKey);
       closeModal();
       annotationAnalytics.sendEvent({ name: analyticsType });
     },
@@ -76,7 +78,7 @@ export const AddIssueModal: React.VFC<Props> = ({
   const handleSubmit = () => {
     const apiIssue: IssueLinkInput = {
       url: formState.url,
-      issueKey: formState.issueKey,
+      issueKey,
       confidenceScore: toDecimal(formState.advancedOptions.confidenceScore),
     };
     addAnnotation({ variables: { taskId, execution, apiIssue, isIssue } });
@@ -126,11 +128,6 @@ const addIssueModalSchema: SpruceFormProps = {
         minLength: 1,
         format: "validJiraURL",
       },
-      issueKey: {
-        type: "string" as "string",
-        title: "Display Text",
-        minLength: 1,
-      },
       advancedOptions: {
         type: "object" as "object",
         properties: {
@@ -143,14 +140,11 @@ const addIssueModalSchema: SpruceFormProps = {
         },
       },
     },
-    required: ["url", "issueKey"],
+    required: ["url"],
   },
   uiSchema: {
     url: {
       "ui:data-cy": "issue-url",
-    },
-    issueKey: {
-      "ui:data-cy": "issue-key",
     },
     advancedOptions: {
       "ui:ObjectFieldTemplate": AccordionFieldTemplate,
