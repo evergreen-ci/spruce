@@ -201,7 +201,7 @@ export const Commits = () => {
             nextPageOrderNumber={nextPageOrderNumber}
           />
         </PaginationWrapper>
-        <span ref={ref}>
+        <div ref={ref}>
           <CommitsWrapper
             versions={versions}
             error={error}
