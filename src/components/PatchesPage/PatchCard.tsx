@@ -46,10 +46,11 @@ export const PatchCard: React.VFC<Props> = ({
   isPatchOnCommitQueue,
   analyticsObject,
   versionFull,
+  projectMetadata,
 }) => {
   const createDate = new Date(createTime);
   const getDateCopy = useDateFormat();
-  const { taskStatusStats, id: versionId, projectMetadata } = versionFull || {};
+  const { taskStatusStats, id: versionId } = versionFull || {};
   const { stats } = groupStatusesByUmbrellaStatus(
     taskStatusStats?.counts ?? []
   );

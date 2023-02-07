@@ -501,9 +501,7 @@ export type MainlineCommits = {
  */
 export type MainlineCommitsOptions = {
   limit?: InputMaybe<Scalars["Int"]>;
-  /** @deprecated projectID is deprecated. Use projectIdentifier instead. */
-  projectID?: InputMaybe<Scalars["String"]>;
-  projectIdentifier?: InputMaybe<Scalars["String"]>;
+  projectIdentifier: Scalars["String"];
   requesters?: InputMaybe<Array<Scalars["String"]>>;
   shouldCollapse?: InputMaybe<Scalars["Boolean"]>;
   skipOrderNumber?: InputMaybe<Scalars["Int"]>;
@@ -892,6 +890,7 @@ export type Patch = {
   project?: Maybe<PatchProject>;
   projectID: Scalars["String"];
   projectIdentifier: Scalars["String"];
+  projectMetadata?: Maybe<Project>;
   status: Scalars["String"];
   taskCount?: Maybe<Scalars["Int"]>;
   taskStatuses: Array<Scalars["String"]>;
@@ -1278,14 +1277,12 @@ export type QueryBuildBaronArgs = {
 };
 
 export type QueryBuildVariantsForTaskNameArgs = {
-  projectId?: InputMaybe<Scalars["String"]>;
-  projectIdentifier?: InputMaybe<Scalars["String"]>;
+  projectIdentifier: Scalars["String"];
   taskName: Scalars["String"];
 };
 
 export type QueryCommitQueueArgs = {
-  id?: InputMaybe<Scalars["String"]>;
-  projectIdentifier?: InputMaybe<Scalars["String"]>;
+  projectIdentifier: Scalars["String"];
 };
 
 export type QueryDistroTaskQueueArgs = {
@@ -1337,8 +1334,7 @@ export type QueryPatchArgs = {
 };
 
 export type QueryProjectArgs = {
-  projectId?: InputMaybe<Scalars["String"]>;
-  projectIdentifier?: InputMaybe<Scalars["String"]>;
+  projectIdentifier: Scalars["String"];
 };
 
 export type QueryProjectEventsArgs = {
@@ -1382,8 +1378,7 @@ export type QueryTaskLogsArgs = {
 
 export type QueryTaskNamesForBuildVariantArgs = {
   buildVariant: Scalars["String"];
-  projectId?: InputMaybe<Scalars["String"]>;
-  projectIdentifier?: InputMaybe<Scalars["String"]>;
+  projectIdentifier: Scalars["String"];
 };
 
 export type QueryTaskTestSampleArgs = {
@@ -1989,7 +1984,7 @@ export type TriggerAlias = {
   alias: Scalars["String"];
   buildVariantRegex: Scalars["String"];
   configFile: Scalars["String"];
-  dateCutoff: Scalars["Int"];
+  dateCutoff?: Maybe<Scalars["Int"]>;
   level: Scalars["String"];
   project: Scalars["String"];
   status: Scalars["String"];
@@ -2000,7 +1995,7 @@ export type TriggerAliasInput = {
   alias: Scalars["String"];
   buildVariantRegex: Scalars["String"];
   configFile: Scalars["String"];
-  dateCutoff: Scalars["Int"];
+  dateCutoff?: InputMaybe<Scalars["Int"]>;
   level: Scalars["String"];
   project: Scalars["String"];
   status: Scalars["String"];
@@ -2440,13 +2435,13 @@ export type PatchesPagePatchesFragment = {
     createTime?: Maybe<Date>;
     commitQueuePosition?: Maybe<number>;
     canEnqueueToCommitQueue: boolean;
+    projectMetadata?: Maybe<{ owner: string; repo: string }>;
     versionFull?: Maybe<{
       id: string;
       status: string;
       taskStatusStats?: Maybe<{
         counts?: Maybe<Array<{ status: string; count: number }>>;
       }>;
-      projectMetadata?: Maybe<{ owner: string; repo: string }>;
     }>;
   }>;
 };
@@ -2677,7 +2672,7 @@ export type ProjectSettingsFragment = {
         buildVariantRegex: string;
         taskRegex: string;
         status: string;
-        dateCutoff: number;
+        dateCutoff?: Maybe<number>;
         configFile: string;
         alias: string;
       }>
@@ -2816,7 +2811,7 @@ export type RepoSettingsFragment = {
       buildVariantRegex: string;
       taskRegex: string;
       status: string;
-      dateCutoff: number;
+      dateCutoff?: Maybe<number>;
       configFile: string;
       alias: string;
     }>;
@@ -3081,7 +3076,7 @@ export type ProjectEventSettingsFragment = {
         buildVariantRegex: string;
         taskRegex: string;
         status: string;
-        dateCutoff: number;
+        dateCutoff?: Maybe<number>;
         configFile: string;
         alias: string;
       }>
@@ -3167,7 +3162,7 @@ export type ProjectTriggersSettingsFragment = {
       buildVariantRegex: string;
       taskRegex: string;
       status: string;
-      dateCutoff: number;
+      dateCutoff?: Maybe<number>;
       configFile: string;
       alias: string;
     }>
@@ -3181,7 +3176,7 @@ export type RepoTriggersSettingsFragment = {
     buildVariantRegex: string;
     taskRegex: string;
     status: string;
-    dateCutoff: number;
+    dateCutoff?: Maybe<number>;
     configFile: string;
     alias: string;
   }>;
@@ -4682,7 +4677,7 @@ export type ProjectEventLogsQuery = {
               buildVariantRegex: string;
               taskRegex: string;
               status: string;
-              dateCutoff: number;
+              dateCutoff?: Maybe<number>;
               configFile: string;
               alias: string;
             }>
@@ -4838,7 +4833,7 @@ export type ProjectEventLogsQuery = {
               buildVariantRegex: string;
               taskRegex: string;
               status: string;
-              dateCutoff: number;
+              dateCutoff?: Maybe<number>;
               configFile: string;
               alias: string;
             }>
@@ -4998,7 +4993,7 @@ export type ProjectSettingsQuery = {
           buildVariantRegex: string;
           taskRegex: string;
           status: string;
-          dateCutoff: number;
+          dateCutoff?: Maybe<number>;
           configFile: string;
           alias: string;
         }>
@@ -5189,7 +5184,7 @@ export type RepoEventLogsQuery = {
               buildVariantRegex: string;
               taskRegex: string;
               status: string;
-              dateCutoff: number;
+              dateCutoff?: Maybe<number>;
               configFile: string;
               alias: string;
             }>
@@ -5345,7 +5340,7 @@ export type RepoEventLogsQuery = {
               buildVariantRegex: string;
               taskRegex: string;
               status: string;
-              dateCutoff: number;
+              dateCutoff?: Maybe<number>;
               configFile: string;
               alias: string;
             }>
@@ -5499,7 +5494,7 @@ export type RepoSettingsQuery = {
         buildVariantRegex: string;
         taskRegex: string;
         status: string;
-        dateCutoff: number;
+        dateCutoff?: Maybe<number>;
         configFile: string;
         alias: string;
       }>;
@@ -6206,13 +6201,13 @@ export type ProjectPatchesQuery = {
         createTime?: Maybe<Date>;
         commitQueuePosition?: Maybe<number>;
         canEnqueueToCommitQueue: boolean;
+        projectMetadata?: Maybe<{ owner: string; repo: string }>;
         versionFull?: Maybe<{
           id: string;
           status: string;
           taskStatusStats?: Maybe<{
             counts?: Maybe<Array<{ status: string; count: number }>>;
           }>;
-          projectMetadata?: Maybe<{ owner: string; repo: string }>;
         }>;
       }>;
     };
@@ -6277,13 +6272,13 @@ export type UserPatchesQuery = {
         createTime?: Maybe<Date>;
         commitQueuePosition?: Maybe<number>;
         canEnqueueToCommitQueue: boolean;
+        projectMetadata?: Maybe<{ owner: string; repo: string }>;
         versionFull?: Maybe<{
           id: string;
           status: string;
           taskStatusStats?: Maybe<{
             counts?: Maybe<Array<{ status: string; count: number }>>;
           }>;
-          projectMetadata?: Maybe<{ owner: string; repo: string }>;
         }>;
       }>;
     };
