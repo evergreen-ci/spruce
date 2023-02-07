@@ -117,7 +117,7 @@ export const HostsTable: React.VFC<Props> = ({
       sorter: true,
       className: "cy-hosts-table-col-ID",
       defaultSortOrder: getDefaultSortOrder(HostSortBy.Id),
-      width: "15%",
+      width: "17%",
       render: (_, { id }: Host): JSX.Element => (
         <StyledRouterLink data-cy="host-id-link" to={getHostRoute(id)}>
           {id}
@@ -153,7 +153,7 @@ export const HostsTable: React.VFC<Props> = ({
       key: HostSortBy.Status,
       defaultSortOrder: getDefaultSortOrder(HostSortBy.Status),
       sorter: true,
-      width: "15%",
+      width: "10%",
       className: "cy-task-table-col-STATUS",
       ...getColumnCheckboxFilterProps({
         value: statusesValue,
@@ -168,7 +168,7 @@ export const HostsTable: React.VFC<Props> = ({
       key: HostSortBy.CurrentTask,
       defaultSortOrder: getDefaultSortOrder(HostSortBy.CurrentTask),
       sorter: true,
-      width: "15%",
+      width: "18%",
       className: "cy-task-table-col-CURRENT-TASK",
       render: (_, { runningTask }: Host) =>
         runningTask?.id !== null ? (
