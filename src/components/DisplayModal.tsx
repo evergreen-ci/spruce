@@ -33,7 +33,6 @@ export const DisplayModal: React.VFC<DisplayModalProps> = ({
   </StyledModal>
 );
 
-// @ts-expect-error
 const StyledModal = styled(Modal)`
   /* Ensure modal appears above feedback dialog */
   z-index: ${zIndex.modal};
