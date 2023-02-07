@@ -21,29 +21,25 @@ const { parseQueryString } = queryString;
 interface TaskTabProps {
   isDisplayTask: boolean;
   task: GetTaskQuery["task"];
-  taskFiles: GetTaskQuery["taskFiles"];
 }
-export const TaskTabs: React.VFC<TaskTabProps> = ({
-  isDisplayTask,
-  task,
-  taskFiles,
-}) => {
+export const TaskTabs: React.VFC<TaskTabProps> = ({ isDisplayTask, task }) => {
   const { tab: urlTab } = useParams<{ id: string; tab: TaskTab | null }>();
 
   const navigate = useNavigate();
   const location = useLocation();
   const taskAnalytics = useTaskAnalytics();
   const {
-    status,
-    failedTestCount,
-    logs: logLinks,
-    isPerfPluginEnabled,
+    id,
     annotation,
     canModifyAnnotation,
-    id,
     execution,
-    totalTestCount,
     executionTasksFull,
+    failedTestCount,
+    isPerfPluginEnabled,
+    logs: logLinks,
+    status,
+    taskFiles,
+    totalTestCount,
   } = task ?? {};
   const { fileCount } = taskFiles ?? {};
 
