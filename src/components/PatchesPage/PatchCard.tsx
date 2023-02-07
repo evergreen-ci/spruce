@@ -74,7 +74,7 @@ export const PatchCard: React.VFC<Props> = ({
         <strong>{projectIdentifier}</strong>
       </StyledRouterLink>
     ) : (
-      `${projectMetadata.owner}/${projectMetadata.repo}`
+      `${projectMetadata?.owner}/${projectMetadata?.repo}`
     );
   }
 
