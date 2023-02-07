@@ -104,7 +104,7 @@ export const Commits = () => {
   };
   const variables = getMainlineCommitsQueryVariables({
     mainlineCommitOptions: {
-      projectID: projectIdentifier,
+      projectIdentifier,
       skipOrderNumber,
       limit,
     },

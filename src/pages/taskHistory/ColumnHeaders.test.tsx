@@ -20,7 +20,7 @@ const trimmedVariantName = trimStringFromMiddle(longVariantName, maxLength);
 describe("columnHeaders (Task History)", () => {
   it("renders an initial skeleton for the 7 column headers when loading", () => {
     const { Component } = RenderFakeToastContext(
-      <ColumnHeaders projectId="evergreen" taskName="some_task" />
+      <ColumnHeaders projectIdentifier="evergreen" taskName="some_task" />
     );
     render(<Component />, {
       route: "/task-history/evergreen/some_task",
@@ -32,7 +32,7 @@ describe("columnHeaders (Task History)", () => {
 
   it("renders the column headers properly when not loading", async () => {
     const { Component } = RenderFakeToastContext(
-      <ColumnHeaders projectId="evergreen" taskName="some_task" />
+      <ColumnHeaders projectIdentifier="evergreen" taskName="some_task" />
     );
 
     render(<Component />, {
@@ -61,7 +61,7 @@ describe("columnHeaders (Task History)", () => {
 
   it("should not show more columns then the columnLimit", async () => {
     const { Component } = RenderFakeToastContext(
-      <ColumnHeaders projectId="evergreen" taskName="some_task" />
+      <ColumnHeaders projectIdentifier="evergreen" taskName="some_task" />
     );
     render(<Component />, {
       route: "/task-history/evergreen/some_task",
@@ -91,7 +91,7 @@ describe("columnHeaders (Task History)", () => {
 
   it("should link to corresponding /variant-history/:projectId/:variantName page", async () => {
     const { Component } = RenderFakeToastContext(
-      <ColumnHeaders projectId="evergreen" taskName="some_task" />
+      <ColumnHeaders projectIdentifier="evergreen" taskName="some_task" />
     );
     render(<Component />, {
       route: "/task-history/evergreen/some_task",
@@ -122,7 +122,7 @@ describe("columnHeaders (Task History)", () => {
 
   it("should truncate the variant name only if it is too long", async () => {
     const { Component } = RenderFakeToastContext(
-      <ColumnHeaders projectId="evergreen" taskName="some_task" />
+      <ColumnHeaders projectIdentifier="evergreen" taskName="some_task" />
     );
     render(<Component />, {
       route: "/task-history/evergreen/some_task",
@@ -155,7 +155,7 @@ describe("columnHeaders (Task History)", () => {
 
   it("should show a tooltip with the full name when hovering over a truncated variant name", async () => {
     const { Component } = RenderFakeToastContext(
-      <ColumnHeaders projectId="evergreen" taskName="some_task" />
+      <ColumnHeaders projectIdentifier="evergreen" taskName="some_task" />
     );
     render(<Component />, {
       route: "/task-history/evergreen/some_task",
@@ -192,7 +192,7 @@ const mock = (
   request: {
     query: GET_BUILD_VARIANTS_FOR_TASK_NAME,
     variables: {
-      projectId: "evergreen",
+      projectIdentifier: "evergreen",
       taskName: "some_task",
     },
   },

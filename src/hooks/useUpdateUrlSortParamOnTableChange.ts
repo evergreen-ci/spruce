@@ -1,9 +1,7 @@
-import { useNavigate, useLocation } from "react-router-dom";
 import { SortDirection } from "gql/generated/types";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
-import { queryString } from "utils";
+import { useQueryParams } from "./useQueryParam";
 
-const { parseQueryString, stringifyQuery } = queryString;
 interface Params {
   sendAnalyticsEvents?: () => void;
 }
@@ -11,37 +9,29 @@ interface Params {
 export const useUpdateUrlSortParamOnTableChange = <T extends unknown>({
   sendAnalyticsEvents = () => undefined,
 }: Params = {}) => {
-  const navigate = useNavigate();
-  const { search, pathname } = useLocation();
+  const [queryParams, setQueryParams] = useQueryParams();
 
   const tableChangeHandler: TableOnChange<T> = (...[, , sorter]) => {
     sendAnalyticsEvents();
-
     const { order, columnKey } = Array.isArray(sorter) ? sorter[0] : sorter;
-
-    // order is undefined when the column sorter is unselected (which occurs after being clicked three times)
-    // when order is undefined, sort should be reset; therefore removed from the url
-    if (!order) {
-      navigate(pathname, { replace: true });
-      return;
-    }
-
-    const queryParams = parseQueryString(search);
-
     const nextQueryParams = {
       ...queryParams,
-      [PatchTasksQueryParams.SortDir]:
-        order === "ascend" ? SortDirection.Asc : SortDirection.Desc,
+      [PatchTasksQueryParams.SortDir]: mapTableSortDirectionToQueryParam(order),
       [PatchTasksQueryParams.SortBy]: columnKey,
       [PatchTasksQueryParams.Page]: "0",
     };
-
-    const nextSearch = stringifyQuery(nextQueryParams);
-
-    if (nextSearch !== search.split("?")[1]) {
-      navigate(`${pathname}?${nextSearch}`, { replace: true });
+    if (!order) {
+      delete nextQueryParams[PatchTasksQueryParams.SortBy];
     }
+    setQueryParams(nextQueryParams);
   };
 
   return tableChangeHandler;
+};
+
+const mapTableSortDirectionToQueryParam = (order: string) => {
+  if (!order) {
+    return null;
+  }
+  return order === "ascend" ? SortDirection.Asc : SortDirection.Desc;
 };

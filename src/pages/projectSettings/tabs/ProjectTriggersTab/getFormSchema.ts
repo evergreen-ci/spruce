@@ -29,10 +29,11 @@ export const getFormSchema = (
               default: "",
               minLength: 1,
             },
-            dateCutoff: {
-              type: "number" as "number",
-              title: "Date Cutoff",
-              minimum: 0,
+            configFile: {
+              type: "string" as "string",
+              title: "Config File",
+              default: "",
+              minLength: 1,
             },
             level: {
               type: "string" as "string",
@@ -73,6 +74,11 @@ export const getFormSchema = (
                 },
               ],
             },
+            dateCutoff: {
+              type: ["number", "null"],
+              title: "Date Cutoff",
+              minimum: 0,
+            },
             buildVariantRegex: {
               type: "string" as "string",
               title: "Variant Regex",
@@ -82,12 +88,6 @@ export const getFormSchema = (
               type: "string" as "string",
               title: "Task Regex",
               default: "",
-            },
-            configFile: {
-              type: "string" as "string",
-              title: "Config File",
-              default: "",
-              minLength: 1,
             },
             alias: {
               type: "string" as "string",
@@ -117,16 +117,20 @@ export const getFormSchema = (
         project: {
           "ui:data-cy": "project-input",
         },
-        dateCutoff: {
-          "ui:description":
-            "Commits older than this number of days will not invoke trigger.",
-          "ui:optional": true,
+        configFile: {
+          "ui:data-cy": "config-file-input",
+          "ui:placeholder": ".evergreen.yml",
         },
         level: {
           "ui:allowDeselect": false,
         },
         status: {
           "ui:allowDeselect": false,
+        },
+        dateCutoff: {
+          "ui:description":
+            "Commits older than this number of days will not invoke trigger.",
+          "ui:optional": true,
         },
         buildVariantRegex: {
           "ui:description":
@@ -137,10 +141,6 @@ export const getFormSchema = (
           "ui:description":
             "Only matching tasks in the upstream project will invoke trigger.",
           "ui:optional": true,
-        },
-        configFile: {
-          "ui:data-cy": "config-file-input",
-          "ui:placeholder": ".evergreen.yml",
         },
         alias: {
           "ui:description":

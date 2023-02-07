@@ -9,7 +9,7 @@ import { JiraTicket } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { numbers } from "utils";
 
-const { toPercent } = numbers;
+const { toPercent, roundDecimal } = numbers;
 
 interface AnnotationTicketRowProps {
   issueKey: string;
@@ -69,7 +69,8 @@ export const AnnotationTicketRow: React.VFC<AnnotationTicketRowProps> = ({
               data-cy={`${issueKey}-confidence-badge`}
               variant="blue"
             >
-              {toPercent(confidenceScore)}% Confident in suggestion
+              {roundDecimal(toPercent(confidenceScore), 2)}% Confident in
+              suggestion
             </StyledBadge>
           )}
           <BottomMetaDataWrapper data-cy={`${issueKey}-metadata`}>
