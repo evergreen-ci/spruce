@@ -39,12 +39,12 @@ export const taskQuery = {
         "https://evergreen.mongodb.com/task_log_raw/spruce_ubuntu1604_e2e_test_patch_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_5f4889313627e0544660c800_20_08_28_04_33_55/0?type=ALL",
       agentLogLink:
         "https://evergreen.mongodb.com/task_log_raw/spruce_ubuntu1604_e2e_test_patch_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_5f4889313627e0544660c800_20_08_28_04_33_55/0?type=E",
+      eventLogLink:
+        "https://evergreen.mongodb.com/event_log/task/spruce_ubuntu1604_e2e_test_patch_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_5f4889313627e0544660c800_20_08_28_04_33_55",
       systemLogLink:
         "https://evergreen.mongodb.com/task_log_raw/spruce_ubuntu1604_e2e_test_patch_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_5f4889313627e0544660c800_20_08_28_04_33_55/0?type=S",
       taskLogLink:
         "https://evergreen.mongodb.com/task_log_raw/spruce_ubuntu1604_e2e_test_patch_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_5f4889313627e0544660c800_20_08_28_04_33_55/0?type=T",
-      eventLogLink:
-        "https://evergreen.mongodb.com/event_log/task/spruce_ubuntu1604_e2e_test_patch_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_5f4889313627e0544660c800_20_08_28_04_33_55",
     },
     minQueuePosition: 0,
     order: 1,
@@ -65,14 +65,14 @@ export const taskQuery = {
     version: "5f4889313627e0544660c800",
     versionMetadata: {
       __typename: "Version",
-      author: "mohamed.khelif",
       id: "spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
+      author: "mohamed.khelif",
       isPatch: false,
-      revision: "123j9123u9123",
+      message: "ubuntu_e2e_task",
+      order: 1,
       project: "spruce",
       projectIdentifier: "spruce",
-      order: 1,
-      message: "ubuntu_e2e_task",
+      revision: "123j9123u9123",
     },
   },
 };
