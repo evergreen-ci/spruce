@@ -51,7 +51,7 @@ export const Task = () => {
   });
   usePolling({ startPolling, stopPolling, refetch });
 
-  const { task, taskFiles } = data ?? {};
+  const { task } = data ?? {};
   const {
     annotation,
     displayName,
@@ -126,13 +126,7 @@ export const Task = () => {
         </PageSider>
         <LogWrapper>
           <PageContent>
-            {task && (
-              <TaskTabs
-                task={task}
-                taskFiles={taskFiles}
-                isDisplayTask={isDisplayTask}
-              />
-            )}
+            {task && <TaskTabs task={task} isDisplayTask={isDisplayTask} />}
           </PageContent>
         </LogWrapper>
       </PageLayout>
