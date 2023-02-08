@@ -155,6 +155,7 @@ export const getAllHostsRoute = (options?: GetAllHostsRouteOptions) => {
 
 interface GetTaskRouteOptions {
   tab?: TaskTab;
+  execution?: number;
   [key: string]: any;
 }
 export const getTaskRoute = (taskId: string, options?: GetTaskRouteOptions) => {
