@@ -4372,6 +4372,13 @@
   dependencies:
     lodash "^4.17.21"
 
+"@leafygreen-ui/lib@^10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-10.1.0.tgz#89b0f5fa23e2522222bf2d37f352d8102b9eb61a"
+  integrity sha512-r466/4fSQo5QVlEQ+Txua6tbbapMJxsUFCEdgDWPiT6McBBr4LWU8p94YEzkU3DHDpNfjvDN72KeRfUL4PKNug==
+  dependencies:
+    lodash "^4.17.21"
+
 "@leafygreen-ui/lib@^9.4.2":
   version "9.5.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-9.5.2.tgz#c80d7920e819c89ee544866b1046667fe99ea8d3"
@@ -4477,6 +4484,18 @@
     "@leafygreen-ui/portal" "^4.0.7"
     react-transition-group "^4.4.1"
 
+"@leafygreen-ui/popover@^11.0.4":
+  version "11.0.5"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/popover/-/popover-11.0.5.tgz#1f3676fbe768a40ccb5b90559d3f63f6378609d2"
+  integrity sha512-br8+fh9ow4JSExW1jobh94n8LKTcLFETnSIhwo+z+gaWecLHBH/5N+wh0GXA4JWjd6ZBaM73mu/BWfCCY5Mmhg==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/hooks" "^7.3.3"
+    "@leafygreen-ui/lib" "^10.1.0"
+    "@leafygreen-ui/portal" "^4.0.9"
+    "@leafygreen-ui/tokens" "^2.0.0"
+    react-transition-group "^4.4.1"
+
 "@leafygreen-ui/portal@^4.0.7":
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/portal/-/portal-4.0.7.tgz#af1db0bb81a825e9461c9d455cc676e4e7deb4c3"
@@ -4579,22 +4598,22 @@
     polished "^4.1.3"
     react-is "^17.0.1"
 
-"@leafygreen-ui/side-nav@12.0.1":
-  version "12.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/side-nav/-/side-nav-12.0.1.tgz#d0aa692f63bed9edb3078010fca921acc4991ed6"
-  integrity sha512-NH+opCK8ksVjzkeu1i0GEO+mpJLuDJ8bJuZ0dMiuwiNdXOTo1dm4uob6p6mMoXBY3wDCL1kn2N+phL9Uf5hJGg==
+"@leafygreen-ui/side-nav@13.0.2":
+  version "13.0.2"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/side-nav/-/side-nav-13.0.2.tgz#f448f21aebaadcfd34934f84c2120603cd112fc0"
+  integrity sha512-F0/810zWhVqRI6tNFOPZ3N3RGKgeY31Jn3yvWb6SjhHsXnr9UizTo1WJUss2PP4jAtka7+9GgRI72XBGj1+lZA==
   dependencies:
     "@leafygreen-ui/a11y" "^1.3.4"
     "@leafygreen-ui/box" "^3.1.1"
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/icon" "^11.12.1"
+    "@leafygreen-ui/icon" "^11.12.4"
     "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/portal" "^4.0.7"
-    "@leafygreen-ui/tokens" "^1.4.0"
-    "@leafygreen-ui/tooltip" "^9.0.1"
-    "@leafygreen-ui/typography" "^15.1.0"
+    "@leafygreen-ui/palette" "^3.4.7"
+    "@leafygreen-ui/portal" "^4.0.9"
+    "@leafygreen-ui/tokens" "^2.0.0"
+    "@leafygreen-ui/tooltip" "^9.1.3"
+    "@leafygreen-ui/typography" "^16.0.0"
     polished "^4.2.2"
     react-transition-group "^4.4.5"
 
@@ -4725,7 +4744,7 @@
   dependencies:
     "@leafygreen-ui/palette" "^3.4.7"
 
-"@leafygreen-ui/tooltip@9.0.1", "@leafygreen-ui/tooltip@^9.0.0", "@leafygreen-ui/tooltip@^9.0.1":
+"@leafygreen-ui/tooltip@9.0.1", "@leafygreen-ui/tooltip@^9.0.0":
   version "9.0.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/tooltip/-/tooltip-9.0.1.tgz#ac83f85e31efc6d2e22483ea1a0de87fb9619c53"
   integrity sha512-qDBUoUjmfqfA2PBSwFzkpuKsOApuBlDosATyG/KOJHOVYSuF6OyZvcanISK9Cu61+jokeYYX5lf5RtoLrYrqeQ==
@@ -4738,6 +4757,22 @@
     "@leafygreen-ui/popover" "^11.0.1"
     "@leafygreen-ui/tokens" "^1.4.0"
     "@leafygreen-ui/typography" "^15.1.0"
+    lodash "^4.17.21"
+    polished "^4.2.2"
+
+"@leafygreen-ui/tooltip@^9.1.3":
+  version "9.1.3"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tooltip/-/tooltip-9.1.3.tgz#559979294aabe5ce0af11800efb1349379ccc1f0"
+  integrity sha512-a9XEwUeWAN4t7822meMnKc0e6TcXVcK56OYf72+3ZxyVuxupO5V4HdDTocMqigGgkO7XZzOljNGJHNa65E9LNw==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/hooks" "^7.4.0"
+    "@leafygreen-ui/icon" "^11.12.4"
+    "@leafygreen-ui/lib" "^10.0.0"
+    "@leafygreen-ui/palette" "^3.4.7"
+    "@leafygreen-ui/popover" "^11.0.4"
+    "@leafygreen-ui/tokens" "^2.0.0"
+    "@leafygreen-ui/typography" "^16.0.0"
     lodash "^4.17.21"
     polished "^4.2.2"
 
