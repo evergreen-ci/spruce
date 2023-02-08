@@ -43,7 +43,7 @@ const columns = [
 ];
 
 export const FilesTables: React.VFC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id: taskId } = useParams<{ id: string }>();
   const { search: queryVars } = useLocation();
   const parsed = parseQueryString(queryVars);
   const initialExecution = queryParamAsNumber(
@@ -54,18 +54,21 @@ export const FilesTables: React.VFC = () => {
     TaskFilesQueryVariables
   >(GET_TASK_FILES, {
     variables: {
-      id,
+      taskId,
       execution: initialExecution,
     },
   });
   const [filterStr, setFilterStr] = useState("");
   const [filteredData, setFilteredData] = useState<[GroupedFiles]>();
 
+  const { task } = data ?? {};
+  const { taskFiles } = task ?? {};
+
   useEffect(
     () =>
       debounce(() => {
-        if (data) {
-          const nextData = data.taskFiles.groupedFiles.map((currVal) => ({
+        if (taskFiles) {
+          const nextData = taskFiles.groupedFiles.map((currVal) => ({
             taskName: currVal.taskName,
             files: filterStr.length
               ? currVal.files.filter(({ name }) =>
@@ -76,7 +79,7 @@ export const FilesTables: React.VFC = () => {
           setFilteredData(nextData);
         }
       }, 300)(),
-    [data, filterStr]
+    [taskFiles, filterStr]
   );
 
   if (error) {
