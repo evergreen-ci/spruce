@@ -70,7 +70,7 @@ export const routes = {
   configurePatch: `${paths.patch}/:id/configure`,
   host: `${paths.host}/:id`,
   hosts: paths.hosts,
-  jobLogs: `${paths.jobLogs}/:taskId/:execution`,
+  jobLogs: `${paths.jobLogs}/:buildId`,
   login: paths.login,
   myPatches: `${paths.user}/${PageNames.Patches}`,
   patch: `${paths.patch}/:id`,
