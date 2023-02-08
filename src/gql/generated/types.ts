@@ -633,10 +633,12 @@ export type MutationBbCreateTicketArgs = {
 
 export type MutationCopyProjectArgs = {
   project: CopyProjectInput;
+  requestS3Creds?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type MutationCreateProjectArgs = {
   project: CreateProjectInput;
+  requestS3Creds?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type MutationCreatePublicKeyArgs = {
@@ -1253,6 +1255,7 @@ export type Query = {
   subnetAvailabilityZones: Array<Scalars["String"]>;
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
+  /** @deprecated taskFiles is deprecated. Use task.taskFiles instead. */
   taskFiles: TaskFiles;
   taskLogs: TaskLogs;
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]>>;
@@ -1742,6 +1745,7 @@ export type Task = {
   spawnHostLink?: Maybe<Scalars["String"]>;
   startTime?: Maybe<Scalars["Time"]>;
   status: Scalars["String"];
+  taskFiles: TaskFiles;
   taskGroup?: Maybe<Scalars["String"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
   timeTaken?: Maybe<Scalars["Duration"]>;
