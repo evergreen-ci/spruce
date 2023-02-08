@@ -41,15 +41,15 @@ query GetTask($taskId: String!, $execution: Int) {
       taskId
     }
     details {
-      status
-      type
       description
-      timedOut
-      timeoutType
       oomTracker {
         detected
         pids
       }
+      status
+      timedOut
+      timeoutType
+      type
     }
     displayTask {
       id
@@ -79,9 +79,9 @@ query GetTask($taskId: String!, $execution: Int) {
     logs {
       allLogLink
       agentLogLink
+      eventLogLink
       systemLogLink
       taskLogLink
-      eventLogLink
     }
     minQueuePosition
     order
@@ -105,8 +105,8 @@ query GetTask($taskId: String!, $execution: Int) {
       isPatch
       project
       projectIdentifier
-      order
       message
+      order
       revision
     }
   }

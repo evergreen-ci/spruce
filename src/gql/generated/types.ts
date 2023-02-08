@@ -633,10 +633,12 @@ export type MutationBbCreateTicketArgs = {
 
 export type MutationCopyProjectArgs = {
   project: CopyProjectInput;
+  requestS3Creds?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type MutationCreateProjectArgs = {
   project: CreateProjectInput;
+  requestS3Creds?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type MutationCreatePublicKeyArgs = {
@@ -5860,11 +5862,11 @@ export type GetTaskQuery = {
       }>
     >;
     details?: Maybe<{
-      status: string;
-      type: string;
       description?: Maybe<string>;
+      status: string;
       timedOut?: Maybe<boolean>;
       timeoutType?: Maybe<string>;
+      type: string;
       oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
     }>;
     displayTask?: Maybe<{ id: string; displayName: string; execution: number }>;
@@ -5882,9 +5884,9 @@ export type GetTaskQuery = {
     logs: {
       allLogLink?: Maybe<string>;
       agentLogLink?: Maybe<string>;
+      eventLogLink?: Maybe<string>;
       systemLogLink?: Maybe<string>;
       taskLogLink?: Maybe<string>;
-      eventLogLink?: Maybe<string>;
     };
     project?: Maybe<{ identifier: string }>;
     taskFiles: { fileCount: number };
@@ -5894,8 +5896,8 @@ export type GetTaskQuery = {
       isPatch: boolean;
       project: string;
       projectIdentifier: string;
-      order: number;
       message: string;
+      order: number;
       revision: string;
     };
   }>;
