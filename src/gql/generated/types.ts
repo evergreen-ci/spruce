@@ -5652,18 +5652,22 @@ export type TaskEventLogsQuery = {
 };
 
 export type TaskFilesQueryVariables = Exact<{
-  id: Scalars["String"];
+  taskId: Scalars["String"];
   execution?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type TaskFilesQuery = {
-  taskFiles: {
-    fileCount: number;
-    groupedFiles: Array<{
-      taskName?: Maybe<string>;
-      files?: Maybe<Array<{ name: string; link: string }>>;
-    }>;
-  };
+  task?: Maybe<{
+    id: string;
+    execution: number;
+    taskFiles: {
+      fileCount: number;
+      groupedFiles: Array<{
+        taskName?: Maybe<string>;
+        files?: Maybe<Array<{ name: string; link: string }>>;
+      }>;
+    };
+  }>;
 };
 
 export type TaskLogsQueryVariables = Exact<{
@@ -5757,42 +5761,41 @@ export type GetTaskQueryVariables = Exact<{
 }>;
 
 export type GetTaskQuery = {
-  taskFiles: { fileCount: number };
   task?: Maybe<{
     aborted: boolean;
     activatedBy?: Maybe<string>;
-    ingestTime?: Maybe<Date>;
     activatedTime?: Maybe<Date>;
-    estimatedStart?: Maybe<number>;
-    finishTime?: Maybe<Date>;
-    hostId?: Maybe<string>;
-    order: number;
-    requester: string;
-    patchNumber?: Maybe<number>;
+    ami?: Maybe<string>;
+    blocked: boolean;
+    canAbort: boolean;
+    canDisable: boolean;
+    canModifyAnnotation: boolean;
     canOverrideDependencies: boolean;
+    canRestart: boolean;
+    canSchedule: boolean;
+    canSetPriority: boolean;
+    canUnschedule: boolean;
+    distroId: string;
+    estimatedStart?: Maybe<number>;
+    expectedDuration?: Maybe<number>;
+    failedTestCount: number;
+    finishTime?: Maybe<Date>;
+    generatedBy?: Maybe<string>;
+    generatedByName?: Maybe<string>;
+    hostId?: Maybe<string>;
+    ingestTime?: Maybe<Date>;
+    isPerfPluginEnabled: boolean;
+    latestExecution: number;
+    minQueuePosition: number;
+    order: number;
+    patchNumber?: Maybe<number>;
+    priority?: Maybe<number>;
+    resetWhenFinished: boolean;
+    requester: string;
+    spawnHostLink?: Maybe<string>;
     startTime?: Maybe<Date>;
     timeTaken?: Maybe<number>;
     totalTestCount: number;
-    failedTestCount: number;
-    spawnHostLink?: Maybe<string>;
-    priority?: Maybe<number>;
-    canRestart: boolean;
-    canAbort: boolean;
-    canDisable: boolean;
-    canSchedule: boolean;
-    canUnschedule: boolean;
-    canSetPriority: boolean;
-    ami?: Maybe<string>;
-    distroId: string;
-    latestExecution: number;
-    blocked: boolean;
-    generatedBy?: Maybe<string>;
-    generatedByName?: Maybe<string>;
-    isPerfPluginEnabled: boolean;
-    minQueuePosition: number;
-    expectedDuration?: Maybe<number>;
-    resetWhenFinished: boolean;
-    canModifyAnnotation: boolean;
     id: string;
     execution: number;
     buildVariant: string;
@@ -5800,64 +5803,12 @@ export type GetTaskQuery = {
     revision?: Maybe<string>;
     status: string;
     abortInfo?: Maybe<{
-      user: string;
-      taskDisplayName: string;
-      taskID: string;
       buildVariantDisplayName: string;
       newVersion: string;
       prClosed: boolean;
-    }>;
-    baseTask?: Maybe<{
-      id: string;
-      execution: number;
-      timeTaken?: Maybe<number>;
-    }>;
-    executionTasksFull?: Maybe<
-      Array<{
-        displayName: string;
-        id: string;
-        execution: number;
-        status: string;
-        baseStatus?: Maybe<string>;
-        buildVariant: string;
-        buildVariantDisplayName?: Maybe<string>;
-      }>
-    >;
-    displayTask?: Maybe<{ id: string; execution: number; displayName: string }>;
-    versionMetadata: {
-      id: string;
-      author: string;
-      isPatch: boolean;
-      revision: string;
-      project: string;
-      projectIdentifier: string;
-      order: number;
-      message: string;
-    };
-    project?: Maybe<{ identifier: string }>;
-    dependsOn?: Maybe<
-      Array<{
-        buildVariant: string;
-        metStatus: MetStatus;
-        name: string;
-        requiredStatus: RequiredStatus;
-        taskId: string;
-      }>
-    >;
-    logs: {
-      allLogLink?: Maybe<string>;
-      agentLogLink?: Maybe<string>;
-      systemLogLink?: Maybe<string>;
-      taskLogLink?: Maybe<string>;
-      eventLogLink?: Maybe<string>;
-    };
-    details?: Maybe<{
-      status: string;
-      type: string;
-      description?: Maybe<string>;
-      timedOut?: Maybe<boolean>;
-      timeoutType?: Maybe<string>;
-      oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
+      taskDisplayName: string;
+      taskID: string;
+      user: string;
     }>;
     annotation?: Maybe<{
       id: string;
@@ -5896,6 +5847,59 @@ export type GetTaskQuery = {
         >
       >;
     }>;
+    baseTask?: Maybe<{
+      id: string;
+      execution: number;
+      timeTaken?: Maybe<number>;
+    }>;
+    dependsOn?: Maybe<
+      Array<{
+        buildVariant: string;
+        metStatus: MetStatus;
+        name: string;
+        requiredStatus: RequiredStatus;
+        taskId: string;
+      }>
+    >;
+    details?: Maybe<{
+      description?: Maybe<string>;
+      status: string;
+      timedOut?: Maybe<boolean>;
+      timeoutType?: Maybe<string>;
+      type: string;
+      oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
+    }>;
+    displayTask?: Maybe<{ id: string; displayName: string; execution: number }>;
+    executionTasksFull?: Maybe<
+      Array<{
+        id: string;
+        baseStatus?: Maybe<string>;
+        buildVariant: string;
+        buildVariantDisplayName?: Maybe<string>;
+        displayName: string;
+        execution: number;
+        status: string;
+      }>
+    >;
+    logs: {
+      allLogLink?: Maybe<string>;
+      agentLogLink?: Maybe<string>;
+      eventLogLink?: Maybe<string>;
+      systemLogLink?: Maybe<string>;
+      taskLogLink?: Maybe<string>;
+    };
+    project?: Maybe<{ identifier: string }>;
+    taskFiles: { fileCount: number };
+    versionMetadata: {
+      id: string;
+      author: string;
+      isPatch: boolean;
+      project: string;
+      projectIdentifier: string;
+      message: string;
+      order: number;
+      revision: string;
+    };
   }>;
 };
 
