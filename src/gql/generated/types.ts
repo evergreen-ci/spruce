@@ -5749,7 +5749,6 @@ export type TaskTestsQuery = {
         url?: Maybe<string>;
         urlRaw?: Maybe<string>;
         urlParsley?: Maybe<string>;
-        urlLobster?: Maybe<string>;
       };
     }>;
   };

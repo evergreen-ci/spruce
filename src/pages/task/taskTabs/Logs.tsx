@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import {
@@ -8,10 +8,8 @@ import {
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import {
-  getLobsterTaskLink,
-  getParsleyTaskLogLink,
-} from "constants/externalResources";
+import FirstTimeGuideCue from "components/FirstTimeGuideCue";
+import { getParsleyTaskLogLink } from "constants/externalResources";
 import { size } from "constants/tokens";
 import { TaskLogLinks } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks";
@@ -54,7 +52,7 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
       : DEFAULT_LOG_TYPE
   );
   const [noLogs, setNoLogs] = useState(false);
-
+  const parsleyRef = useRef(null);
   const onChangeLog = (value: string): void => {
     const nextLogType = value as LogTypes;
     setCurrentLog(nextLogType);
@@ -65,14 +63,13 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
     });
   };
 
-  const { htmlLink, rawLink, parsleyLink, lobsterLink } = getLinks(
+  const { htmlLink, rawLink, parsleyLink } = getLinks(
     logLinks,
     currentLog,
     taskId,
     execution
   );
   const LogComp = options[currentLog];
-
   return (
     <>
       <LogHeader>
@@ -100,8 +97,16 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
           </SegmentedControlOption>
         </SegmentedControl>
 
-        {(htmlLink || rawLink || parsleyLink || lobsterLink) && (
+        {(htmlLink || rawLink || parsleyLink) && (
           <ButtonContainer>
+            <FirstTimeGuideCue
+              title="Lobster has moved!"
+              description="Parsley is now the default log viewer for Evergreen. Lobster is still available and can be accessed by clicking the Lobster button in the Parsley UI"
+              cookieName="lobster-moved"
+              numberOfSteps={1}
+              currentStep={1}
+              refEl={parsleyRef}
+            />
             {parsleyLink && (
               <Button
                 data-cy="parsley-log-btn"
@@ -115,27 +120,12 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
                     logViewer: "parsley",
                   })
                 }
+                ref={parsleyRef}
               >
                 Parsley
               </Button>
             )}
-            {lobsterLink && (
-              <Button
-                data-cy="lobster-log-btn"
-                disabled={noLogs}
-                href={lobsterLink}
-                target="_blank"
-                onClick={() =>
-                  sendEvent({
-                    name: "Click Logs Button",
-                    logType: currentLog,
-                    logViewer: "lobster",
-                  })
-                }
-              >
-                Lobster
-              </Button>
-            )}
+
             {htmlLink && (
               <Button
                 data-cy="html-log-btn"
@@ -219,7 +209,6 @@ const getLinks = (
   return {
     htmlLink,
     parsleyLink: getParsleyTaskLogLink(logType, taskId, execution),
-    lobsterLink: getLobsterTaskLink(logType, taskId, execution),
     rawLink: `${htmlLink}&text=true`,
   };
 };
