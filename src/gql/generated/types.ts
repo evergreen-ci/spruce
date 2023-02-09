@@ -480,6 +480,25 @@ export type LogMessage = {
   version?: Maybe<Scalars["Int"]>;
 };
 
+export type LogkeeperBuild = {
+  buildNum: Scalars["Int"];
+  builder: Scalars["String"];
+  id: Scalars["String"];
+  taskExecution: Scalars["Int"];
+  taskId: Scalars["String"];
+  tests: Array<LogkeeperTest>;
+};
+
+export type LogkeeperTest = {
+  buildId: Scalars["String"];
+  command: Scalars["String"];
+  id: Scalars["String"];
+  name: Scalars["String"];
+  phase: Scalars["String"];
+  taskExecution: Scalars["Int"];
+  taskId: Scalars["String"];
+};
+
 export type MainlineCommitVersion = {
   rolledUpVersions?: Maybe<Array<Version>>;
   version?: Maybe<Version>;
@@ -1240,6 +1259,7 @@ export type Query = {
   hostEvents: HostEvents;
   hosts: HostsResponse;
   instanceTypes: Array<Scalars["String"]>;
+  logkeeperBuildMetadata: LogkeeperBuild;
   mainlineCommits?: Maybe<MainlineCommits>;
   myHosts: Array<Host>;
   myPublicKeys: Array<PublicKey>;
@@ -1324,6 +1344,10 @@ export type QueryHostsArgs = {
   sortDir?: InputMaybe<SortDirection>;
   startedBy?: InputMaybe<Scalars["String"]>;
   statuses?: InputMaybe<Array<Scalars["String"]>>;
+};
+
+export type QueryLogkeeperBuildMetadataArgs = {
+  buildId: Scalars["String"];
 };
 
 export type QueryMainlineCommitsArgs = {
@@ -4302,6 +4326,28 @@ export type GetLastMainlineCommitQuery = {
       }>;
     }>;
   }>;
+};
+
+export type LogkeeperBuildMetadataQueryVariables = Exact<{
+  buildId: Scalars["String"];
+}>;
+
+export type LogkeeperBuildMetadataQuery = {
+  logkeeperBuildMetadata: {
+    builder: string;
+    buildNum: number;
+    taskId: string;
+    taskExecution: number;
+    tests: Array<{
+      buildId: string;
+      command: string;
+      id: string;
+      name: string;
+      phase: string;
+      taskExecution: number;
+      taskId: string;
+    }>;
+  };
 };
 
 export type MainlineCommitsForHistoryQueryVariables = Exact<{

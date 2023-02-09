@@ -1,0 +1,17 @@
+query LogkeeperBuildMetadata($buildId: String!) {
+  logkeeperBuildMetadata(buildId: $buildId) {
+    builder
+    buildNum
+    taskId
+    taskExecution
+    tests {
+      buildId
+      command
+      id
+      name
+      phase
+      taskExecution
+      taskId
+    }
+  }
+}
