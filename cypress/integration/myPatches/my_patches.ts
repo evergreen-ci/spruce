@@ -45,6 +45,12 @@ describe("My Patches Page", () => {
     cy.dataCy("patch-description-input").clear();
   });
 
+  it("Inputting a number successfully searches patches", () => {
+    cy.dataCy("patch-description-input").type(3186);
+    cy.dataCy("patch-card").should("have.length", "1");
+    cy.dataCy("patch-description-input").clear();
+  });
+
   it("Searching for a nonexistent patch shows 'No patches found'", () => {
     cy.dataCy("patch-description-input").type("satenarstharienht");
     cy.dataCy("no-patches-found").contains("No patches found");
