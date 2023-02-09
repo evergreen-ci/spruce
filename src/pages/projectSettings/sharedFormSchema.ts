@@ -27,8 +27,7 @@ export const projectId = {
 export const requestS3Creds = {
   schema: {
     type: "boolean" as "boolean",
-    title:
-      "Open a JIRA ticket for the Build team to add S3 credentials to the project",
+    title: "Open a JIRA ticket to request an S3 Bucket from the Build team",
     default: false,
   },
   uiSchema: {
