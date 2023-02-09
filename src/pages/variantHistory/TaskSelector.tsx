@@ -51,7 +51,7 @@ const TaskSelector: React.VFC<TaskSelectorProps> = ({
       <Combobox
         data-cy="task-selector"
         label="Tasks"
-        placeholder="Select tasks to view"
+        placeholder="Select tasks"
         value={visibleColumns}
         multiselect
         onChange={onChange}

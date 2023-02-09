@@ -50,11 +50,12 @@ const BuildVariantSelector: React.VFC<BuildVariantSelectorProps> = ({
       <Combobox
         data-cy="build-variant-selector"
         label="Build Variant"
-        placeholder="Select build variant to view"
+        placeholder="Select build variants"
         value={visibleColumns}
         multiselect
         onChange={onChange}
         disabled={loading}
+        overflow="scroll-x"
       >
         {buildVariantsForTaskName?.map((option) => (
           <ComboboxOption
