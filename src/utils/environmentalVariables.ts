@@ -85,13 +85,6 @@ export const getGQLUrl: () => string = () =>
   process.env.REACT_APP_GQL_URL || "";
 
 /**
- * `getLobsterUrl()` - Get the Lobster URL from the environment variables
- * @returns {string} - Returns the lobster URL.
- */
-export const getLobsterURL = (): string =>
-  process.env.REACT_APP_LOBSTER_URL || "";
-
-/**
  * `getParsleyUrl()` - Get the Parsley URL from the environment variables
  * @returns {string} - Returns the Parsley URL.
  */
@@ -100,7 +93,7 @@ export const getParsleyUrl = (): string =>
 
 /**
  * `getAppVersion()` - Get the app release version from the environment variables
- * @returns {string} - Returns the lobster URL.
+ * @returns {string} - Returns the App Version from the package.json.
  */
 export const getAppVersion = () => process.env.REACT_APP_VERSION || "";
 

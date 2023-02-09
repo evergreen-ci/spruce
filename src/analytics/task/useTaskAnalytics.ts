@@ -20,7 +20,7 @@ import { queryString } from "utils";
 
 const { parseQueryString } = queryString;
 
-type LogViewer = "raw" | "html" | "parsley" | "lobster";
+type LogViewer = "raw" | "html" | "parsley";
 type Action =
   | { name: "Filter Tests"; filterBy: string }
   | {

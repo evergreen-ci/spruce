@@ -2,7 +2,7 @@ import { LogTypes } from "types/task";
 import { environmentalVariables } from "utils";
 import { getParsleyUrl } from "utils/environmentalVariables";
 
-const { getLobsterURL, getUiUrl } = environmentalVariables;
+const { getUiUrl } = environmentalVariables;
 
 export const wikiUrl = "https://github.com/evergreen-ci/evergreen/wiki";
 
@@ -57,29 +57,3 @@ export const getParsleyTaskLogLink = (
   taskId: string,
   execution: number
 ) => `${getParsleyUrl()}/evergreen/${taskId}/${execution}/${logType}`;
-
-interface GetLobsterTestLogCompleteUrlParams {
-  taskId: string;
-  execution: number;
-  groupId?: string;
-  lineNum?: number;
-}
-
-export const getLobsterTestLogCompleteUrl = ({
-  taskId,
-  execution,
-  groupId,
-  lineNum,
-}: GetLobsterTestLogCompleteUrlParams) =>
-  taskId && Number.isFinite(execution)
-    ? `${getLobsterURL()}/lobster/evergreen/complete-test/${taskId}/${execution}${
-        groupId ? `/${groupId}` : ""
-      }${lineNum ? `#shareLine=${lineNum}` : ""}`
-    : "";
-
-export const getLobsterTaskLink = (
-  logType: LogTypes,
-  taskId: string,
-  execution: number
-) =>
-  `${getLobsterURL()}/lobster/evergreen/task/${taskId}/${execution}/${logType}`;
