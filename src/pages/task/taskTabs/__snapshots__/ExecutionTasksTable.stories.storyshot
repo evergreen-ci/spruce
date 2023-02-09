@@ -331,12 +331,12 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
-                      href="/task/some_id_5?execution=14"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      href="/task/some_id_5"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         <span
                           className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
@@ -384,12 +384,12 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/Windows"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         Windows 97
                       </span>
@@ -411,12 +411,12 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
-                      href="/task/some_id_6?execution=12"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      href="/task/some_id_6"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         <span
                           className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
@@ -464,12 +464,12 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/Windows"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         Windows 97
                       </span>
@@ -817,12 +817,12 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
-                      href="/task/some_id_5?execution=5"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      href="/task/some_id_5"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         <span
                           className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
@@ -864,12 +864,12 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/Windows"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         Windows 97
                       </span>
@@ -891,12 +891,12 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
-                      href="/task/some_id_6?execution=5"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      href="/task/some_id_6"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         <span
                           className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
@@ -938,12 +938,12 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/Windows"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         Windows 97
                       </span>
