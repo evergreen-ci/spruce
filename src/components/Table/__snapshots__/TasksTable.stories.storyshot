@@ -331,12 +331,12 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/task/some_id"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         <span
                           className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
@@ -385,12 +385,12 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/ubuntu1604"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         Ubuntu 16.04
                       </span>
@@ -412,12 +412,12 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/task/some_id_2"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         <span
                           className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
@@ -466,12 +466,12 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/ubuntu1604"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         Ubuntu 16.04
                       </span>
@@ -493,12 +493,12 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/task/some_id_3"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         <span
                           className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
@@ -547,12 +547,12 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/Windows"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         Windows 97
                       </span>
@@ -914,12 +914,12 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                       type="button"
                     />
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/task/some_id"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         <span
                           className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
@@ -968,12 +968,12 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/ubuntu1604"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         Ubuntu 16.04
                       </span>
@@ -1009,12 +1009,12 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                       type="button"
                     />
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/task/some_id_2"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         <span
                           className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
@@ -1063,12 +1063,12 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/ubuntu1604"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         Ubuntu 16.04
                       </span>
@@ -1104,12 +1104,12 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                       type="button"
                     />
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/task/some_id_3"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         <span
                           className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
@@ -1158,12 +1158,12 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/Windows"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         Windows 97
                       </span>
@@ -1199,12 +1199,12 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                       type="button"
                     />
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/task/some_id_4"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         <span
                           className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
@@ -1253,12 +1253,12 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <a
-                      className="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/Windows"
                       onClick={[Function]}
                     >
                       <span
-                        className="leafygreen-ui-baoi4d"
+                        className="leafygreen-ui-1ewnca3"
                       >
                         Windows 97
                       </span>

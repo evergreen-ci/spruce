@@ -20,7 +20,7 @@ exports[`storybook Storyshots Components/TupleSelect Tuple Select With Condition
       >
         Add New Filter
         <div
-          className="leafygreen-ui-ozfao7 css-1qa4isu-PaddedSegmentedControl egmqwjk0"
+          className="leafygreen-ui-1gmp0zo css-1qa4isu-PaddedSegmentedControl egmqwjk0"
         >
           <div
             aria-label="segmented-control-1"
@@ -41,7 +41,7 @@ exports[`storybook Storyshots Components/TupleSelect Tuple Select With Condition
                 <button
                   aria-controls="tuple-select-with-regex"
                   aria-selected={true}
-                  className="leafygreen-ui-ypz97o"
+                  className="leafygreen-ui-14n1nd3"
                   disabled={false}
                   id="segmented-control-1-0"
                   onClick={[Function]}
@@ -51,15 +51,11 @@ exports[`storybook Storyshots Components/TupleSelect Tuple Select With Condition
                   tabIndex={0}
                   type="button"
                 >
-                  <div
+                  <span
                     className="leafygreen-ui-dj6i8q"
                   >
-                    <span
-                      className="leafygreen-ui-plwatf"
-                    >
-                      REGEX
-                    </span>
-                  </div>
+                    REGEX
+                  </span>
                 </button>
               </div>
             </div>
@@ -75,7 +71,7 @@ exports[`storybook Storyshots Components/TupleSelect Tuple Select With Condition
                 <button
                   aria-controls="tuple-select-with-regex"
                   aria-selected={false}
-                  className="leafygreen-ui-ypz97o"
+                  className="leafygreen-ui-14n1nd3"
                   disabled={false}
                   id="segmented-control-1-1"
                   onClick={[Function]}
@@ -85,15 +81,11 @@ exports[`storybook Storyshots Components/TupleSelect Tuple Select With Condition
                   tabIndex={-1}
                   type="button"
                 >
-                  <div
+                  <span
                     className="leafygreen-ui-dj6i8q"
                   >
-                    <span
-                      className="leafygreen-ui-plwatf"
-                    >
-                      EXACT
-                    </span>
-                  </div>
+                    EXACT
+                  </span>
                 </button>
               </div>
             </div>
@@ -120,7 +112,7 @@ exports[`storybook Storyshots Components/TupleSelect Tuple Select With Condition
           aria-expanded={false}
           aria-invalid={false}
           aria-labelledby="Tuple Select"
-          className="lg-ui-button-0001 leafygreen-ui-sedrjd"
+          className="lg-ui-button-0000 leafygreen-ui-sedrjd"
           data-cy="tuple-select-dropdown"
           data-testid="leafygreen-ui-select-menubutton"
           disabled={false}
