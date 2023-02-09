@@ -23,3 +23,15 @@ export const projectId = {
     "ui:optional": true,
   },
 };
+
+export const requestS3Creds = {
+  schema: {
+    type: "boolean" as "boolean",
+    title:
+      "Open a JIRA ticket for the Build team to add S3 credentials to the project",
+    default: false,
+  },
+  uiSchema: {
+    "ui:data-cy": "request-s3-creds",
+  },
+};
