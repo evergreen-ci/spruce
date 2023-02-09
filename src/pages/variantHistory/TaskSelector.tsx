@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
-import SearchableDropdown from "components/SearchableDropdown";
 import {
   GetTaskNamesForBuildVariantQuery,
   GetTaskNamesForBuildVariantQueryVariables,
@@ -48,15 +48,20 @@ const TaskSelector: React.VFC<TaskSelectorProps> = ({
 
   return (
     <Container>
-      <SearchableDropdown
+      <Combobox
+        data-cy="task-selector"
         label="Tasks"
-        valuePlaceholder="Select tasks to view"
+        placeholder="Select tasks"
         value={visibleColumns}
+        multiselect
         onChange={onChange}
-        options={taskNamesForBuildVariant}
         disabled={loading}
-        allowMultiSelect
-      />
+        overflow="scroll-x"
+      >
+        {taskNamesForBuildVariant?.map((taskName) => (
+          <ComboboxOption key={taskName} value={taskName} />
+        ))}
+      </Combobox>
     </Container>
   );
 };
