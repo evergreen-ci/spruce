@@ -101,7 +101,7 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
           <ButtonContainer>
             <FirstTimeGuideCue
               title="Lobster has moved!"
-              description="Parsley is now the default log viewer for Evergreen. Lobster is still available and can be accessed by clicking the Lobster button in the Parsley UI"
+              description="Parsley is now the default log viewer for Evergreen. Lobster is still available and can be accessed by clicking the Lobster button in the Parsley UI."
               cookieName="lobster-moved"
               numberOfSteps={1}
               currentStep={1}
