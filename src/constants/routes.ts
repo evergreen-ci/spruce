@@ -70,7 +70,7 @@ export const routes = {
   configurePatch: `${paths.patch}/:id/configure`,
   host: `${paths.host}/:id`,
   hosts: paths.hosts,
-  jobLogs: `${paths.jobLogs}/:taskId/:execution`,
+  jobLogs: `${paths.jobLogs}/:buildId`,
   login: paths.login,
   myPatches: `${paths.user}/${PageNames.Patches}`,
   patch: `${paths.patch}/:id`,
@@ -155,6 +155,7 @@ export const getAllHostsRoute = (options?: GetAllHostsRouteOptions) => {
 
 interface GetTaskRouteOptions {
   tab?: TaskTab;
+  execution?: number;
   [key: string]: any;
 }
 export const getTaskRoute = (taskId: string, options?: GetTaskRouteOptions) => {
