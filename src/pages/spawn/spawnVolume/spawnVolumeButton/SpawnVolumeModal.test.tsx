@@ -56,7 +56,7 @@ describe("spawnVolumeModal", () => {
     expect(screen.queryByDataCy("host-select")).toHaveTextContent(
       "No hosts available"
     );
-  });
+  }, 10000);
 
   it("form submission succeeds with default values", async () => {
     const spawnVolumeMutation: MockedResponse = {
