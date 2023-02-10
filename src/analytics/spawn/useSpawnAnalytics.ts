@@ -33,7 +33,7 @@ type Action =
   | { name: "Unmount volume"; volumeId: string }
   | {
       name: "Spawned a volume";
-      params: SpawnVolumeMutationVariables;
+      params: SpawnVolumeMutationVariables["SpawnVolumeInput"];
     }
   | { name: "Edited a Spawn Volume"; params: UpdateVolumeMutationVariables };
 

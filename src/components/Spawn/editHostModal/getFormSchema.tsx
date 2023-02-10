@@ -6,8 +6,8 @@ import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidg
 import { InputLabel, StyledLink } from "components/styles";
 import { windowsPasswordRulesURL } from "constants/externalResources";
 import { GetMyPublicKeysQuery, MyVolumesQuery } from "gql/generated/types";
+import { ExpirationRow } from "../ExpirationRow";
 import { getDefaultExpiration } from "../utils";
-import { ExpirationRow } from "./FieldTemplates/ExpirationRow";
 import { UserTagRow } from "./FieldTemplates/UserTagRow";
 
 interface Props {
@@ -85,22 +85,38 @@ export const getFormSchema = ({
       instanceType: {
         title: "Change Instance Type",
         type: "string" as "string",
-        default: "m4.xlarge",
-        oneOf: instanceTypes.map((it) => ({
-          type: "string" as "string",
-          title: it,
-          enum: [it],
-        })),
+        default: "",
+        oneOf: [
+          {
+            type: "string" as "string",
+            title: "Select instance type…",
+            enum: [""],
+          },
+          ...instanceTypes.map((it) => ({
+            type: "string" as "string",
+            title: it,
+            enum: [it],
+          })),
+        ],
       },
       volume: {
         title: "Add Volume",
         type: "string" as "string",
         default: "",
-        oneOf: volumes.map((v) => ({
-          type: "string" as "string",
-          title: `(${v.size}GB) ${v.displayName || v.id}`,
-          enum: [v.id],
-        })),
+        oneOf: volumes.length
+          ? [
+              {
+                type: "string" as "string",
+                title: "Select volume…",
+                enum: [""],
+              },
+              ...volumes.map((v) => ({
+                type: "string" as "string",
+                title: `(${v.size}GB) ${v.displayName || v.id}`,
+                enum: [v.id],
+              })),
+            ]
+          : [],
       },
       ...(canEditRdpPassword && {
         rdpPassword: {
@@ -162,12 +178,20 @@ export const getFormSchema = ({
                     title: "Choose key",
                     type: "string" as "string",
                     default: "",
-                    oneOf:
-                      myPublicKeys?.map((d) => ({
-                        type: "string" as "string",
-                        title: d.name,
-                        enum: [d.name],
-                      })) || [],
+                    oneOf: myPublicKeys.length
+                      ? [
+                          {
+                            type: "string" as "string",
+                            title: "Select public key…",
+                            enum: [""],
+                          },
+                          ...myPublicKeys.map((d) => ({
+                            type: "string" as "string",
+                            title: d.name,
+                            enum: [d.name],
+                          })),
+                        ]
+                      : [],
                   },
                 },
               },
@@ -236,8 +260,7 @@ export const getFormSchema = ({
     volume: {
       "ui:allowDeselect": false,
       "ui:disabled": volumes.length === 0,
-      "ui:placeholder":
-        volumes.length === 0 ? "No Volumes Available" : undefined,
+      "ui:placeholder": "No volumes available",
     },
     rdpPassword: {
       // Console error should be resolved by https://jira.mongodb.org/browse/LG-2342.
@@ -266,8 +289,9 @@ export const getFormSchema = ({
         "ui:disabled": !canEditSshKeys,
       },
       publicKeyNameDropdown: {
-        "ui:valuePlaceholder": "Select a key",
-        "ui:disabled": !canEditSshKeys,
+        "ui:allowDeselect": false,
+        "ui:disabled": !canEditSshKeys || myPublicKeys?.length === 0,
+        "ui:placeholder": "No keys available",
       },
       newPublicKey: {
         "ui:widget": LeafyGreenTextArea,
