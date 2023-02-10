@@ -1,11 +1,9 @@
 #!/bin/bash
 
-pushd "$(dirname "$0")" >/dev/null
-    PROJECT_DIRECTORY="$(pwd -P)"
-    export PROJECT_DIRECTORY
-popd >/dev/null
-
+PROJECT_DIRECTORY="$(pwd)"
 NVM_DIR="$PROJECT_DIRECTORY/.nvm"
+
+export PROJECT_DIRECTORY
 export NVM_DIR
 
 cat <<EOT > expansion.yml

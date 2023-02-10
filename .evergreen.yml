@@ -65,6 +65,7 @@ functions:
         file: expansion.yml
     - command: shell.exec
       params:
+        shell: bash
         script: |
           ${PREPARE_SHELL}
 
@@ -101,6 +102,7 @@ functions:
     command: shell.exec
     params:
       working_dir: spruce
+      shell: bash
       script: |
         ln -s evergreen/graphql/schema sdlschema
 
@@ -118,6 +120,7 @@ functions:
     command: shell.exec
     params:
       working_dir: spruce
+      shell: bash
       script: |
         ${PREPARE_SHELL}
         yarn install
@@ -150,6 +153,7 @@ functions:
     command: shell.exec
     params:
       working_dir: spruce
+      shell: bash
       script: |
         ${PREPARE_SHELL}
         yarn build:local
@@ -192,6 +196,7 @@ functions:
     command: shell.exec
     params:
       working_dir: spruce
+      shell: bash
       script: |
         cp env/.cmdrc_sample.json env/.cmdrc.json
 

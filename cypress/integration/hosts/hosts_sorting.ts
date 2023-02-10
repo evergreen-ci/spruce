@@ -15,8 +15,7 @@ const sortByTests = [
       "build10.ny.cbi.10gen.cc",
     ],
   },
-  /* TODO EVG-18907: Re-enable distro sort upon completion of EVG-18900
-   * {
+  {
     sorterName: "distro",
     sortBy: "DISTRO",
     expectedIds: [
@@ -31,7 +30,7 @@ const sortByTests = [
       "build10.ny.cbi.10gen.c",
       "build10.ny.cbi.10gen.cc",
     ],
-  }, */
+  },
   {
     sorterName: "current task",
     sortBy: "CURRENT_TASK",
