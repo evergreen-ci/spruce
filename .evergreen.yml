@@ -5,10 +5,22 @@ ignore:
   - ".github/*"
 
 modules:
-- name: evergreen
-  repo: git@github.com:evergreen-ci/evergreen.git
-  branch: main
-  auto_update: true
+  - name: evergreen
+    repo: git@github.com:evergreen-ci/evergreen.git
+    branch: main
+    auto_update: true
+
+pre:
+  - func: get-project
+  - func: setup-node
+  - func: yarn-install
+
+post:
+  - func: attach-codegen-diff
+  - func: attach-cypress-results
+  - func: attach-source-map
+  - func: attach-storybook
+  - func: attach-test-results
 
 #######################################
 #              Functions              #
@@ -20,21 +32,13 @@ functions:
     params:
       directory: spruce
 
-  get-evergreen-project:
-    command: git.get_project
-    type: setup
-    params:
-      directory: spruce
-      revisions:
-        evergreen: ${evergreen_rev}
-
   setup-mongodb:
     - command: subprocess.exec
       type: setup
       params:
         env:
           gobin: /opt/golang/go1.16/bin/go
-          MONGODB_URL: ${mongodb_url}
+          MONGODB_URL: ${mongodb_url_2004}
           DECOMPRESS: ${decompress}
         working_dir: spruce/evergreen
         command: make get-mongodb
@@ -49,6 +53,32 @@ functions:
       params:
         working_dir: spruce/evergreen
         command: make configure-mongod
+
+  setup-node:
+    - command: subprocess.exec
+      params:
+        binary: bash
+        args:
+          - spruce/scripts/prepare-shell.sh
+    - command: expansions.update
+      params:
+        file: expansion.yml
+    - command: shell.exec
+      params:
+        shell: bash
+        script: |
+          ${PREPARE_SHELL}
+
+          # Fetch NVM and install it into this task's .nvm directory
+          # Once downloaded, source nvm and install yarn
+          git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+          cd "$NVM_DIR"
+          git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          cd -
+
+          nvm install --no-progress --default ${node_version}
+          npm install -g yarn
 
   run-make-background:
     command: subprocess.exec
@@ -72,6 +102,7 @@ functions:
     command: shell.exec
     params:
       working_dir: spruce
+      shell: bash
       script: |
         ln -s evergreen/graphql/schema sdlschema
 
@@ -82,24 +113,24 @@ functions:
       working_dir: spruce
       background: true
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         yarn serve
 
-  
   yarn-install:
     command: shell.exec
     params:
       working_dir: spruce
+      shell: bash
       script: |
-        export PATH=${node_path}
-        yarn
+        ${PREPARE_SHELL}
+        yarn install
 
   yarn-test:
     command: shell.exec
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         yarn test --reporters=default --reporters=jest-junit --testPathIgnorePatterns=storybook.test.ts
 
   yarn-eslint:
@@ -107,7 +138,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         yarn eslint:strict
 
   yarn-tsc:
@@ -115,15 +146,16 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         yarn check-types
 
   yarn-build:
     command: shell.exec
     params:
       working_dir: spruce
+      shell: bash
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         yarn build:local
 
   yarn-build-storybook:
@@ -131,7 +163,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         yarn build-storybook
     
   yarn-snapshot:
@@ -139,7 +171,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         yarn test --reporters="jest-junit" --reporters="default" --testPathPattern="storybook.test.ts"
 
   check-codegen:
@@ -148,7 +180,7 @@ functions:
       working_dir: spruce
       shell: bash
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         chmod +x check_codegen.sh
         ./check_codegen.sh
 
@@ -157,64 +189,52 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         yarn cy:run --record --key ${cypress_record_key} --reporter junit
         
   copy-cmdrc:
     command: shell.exec
     params:
       working_dir: spruce
+      shell: bash
       script: |
         cp env/.cmdrc_sample.json env/.cmdrc.json
 
-  attach-results:
+  attach-test-results:
     command: attach.xunit_results
     params:
       files:
-        - "./spruce/bin/cypress/*.xml"
         - "./spruce/bin/jest/*.xml"
 
-  attach-cypress-screenshots:
-    command: s3.put
-    type: system
-    params:
-      aws_key: ${aws_key}
-      aws_secret: ${aws_secret}
-      local_files_include_filter:
-        ["spruce/cypress/screenshots/*"]
-      remote_file: spruce/${task_id}/
-      bucket: mciuploads
-      content_type: image/png
-      permissions: public-read
-      display_name: "screenshot:"
-
-  attach-cypress-videos:
-    command: s3.put
-    type: system
-    params:
-      aws_key: ${aws_key}
-      aws_secret: ${aws_secret}
-      local_files_include_filter:
-        ["spruce/cypress/videos/*"]
-      remote_file: spruce/${task_id}/
-      bucket: mciuploads
-      content_type: video/mp4
-      permissions: public-read
-      display_name: "video:"
-
-  attach-server-logs:
-    command: s3.put
-    type: system
-    params:
-      aws_key: ${aws_key}
-      aws_secret: ${aws_secret}
-      local_files_include_filter:
-        ["evergreen/server_logs.txt"]
-      remote_file: spruce/${task_id}/
-      bucket: mciuploads
-      content_type: text/plain
-      permissions: public-read
-      display_name: "server logs"
+  attach-cypress-results:
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${aws_key}
+        aws_secret: ${aws_secret}
+        local_files_include_filter:
+          ["spruce/cypress/screenshots/*"]
+        remote_file: spruce/${task_id}/
+        bucket: mciuploads
+        content_type: image/png
+        permissions: public-read
+        display_name: "screenshot:"
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${aws_key}
+        aws_secret: ${aws_secret}
+        local_files_include_filter:
+          ["spruce/cypress/videos/*"]
+        remote_file: spruce/${task_id}/
+        bucket: mciuploads
+        content_type: video/mp4
+        permissions: public-read
+        display_name: "video:"
+    - command: attach.xunit_results
+      params:
+        files:
+          - "./spruce/bin/cypress/*.xml"
 
   attach-source-map:
     command: s3.put
@@ -230,63 +250,54 @@ functions:
       display_name: "source map"
 
   attach-storybook:
-    command: s3.put
-    type: system
-    params:
-      aws_key: ${aws_key}
-      aws_secret: ${aws_secret}
-      local_files_include_filter:
-        - storybook-static/
-      remote_file: spruce/${task_id}/storybook/
-      bucket: mciuploads
-      content_type: text/html
-      permissions: public-read
-      display_name: storybook-
-  
-  # Ideally we can get rid of this command upon the completion of EVG-17334.
-  attach-storybook-assets-css:
-    command: s3.put
-    type: system
-    params:
-      aws_key: ${aws_key}
-      aws_secret: ${aws_secret}
-      local_files_include_filter:
-        ["spruce/storybook-static/assets/*.css"]
-      remote_file: spruce/${task_id}/storybook/assets/
-      bucket: mciuploads
-      content_type: text/css
-      permissions: public-read
-      display_name: storybook_assets_css_
-
-  # Ideally we can get rid of this command upon the completion of EVG-17334.
-  attach-storybook-assets-js:
-    command: s3.put
-    type: system
-    params:
-      aws_key: ${aws_key}
-      aws_secret: ${aws_secret}
-      local_files_include_filter:
-        ["spruce/storybook-static/assets/*.js"]
-      remote_file: spruce/${task_id}/storybook/assets/
-      bucket: mciuploads
-      content_type: application/javascript
-      permissions: public-read
-      display_name: storybook_assets_js_
-
-  # Ideally we can get rid of this command upon the completion of EVG-17334.
-  attach-storybook-assets-map:
-    command: s3.put
-    type: system
-    params:
-      aws_key: ${aws_key}
-      aws_secret: ${aws_secret}
-      local_files_include_filter:
-        ["spruce/storybook-static/assets/*.js.map"]
-      remote_file: spruce/${task_id}/storybook/assets/
-      bucket: mciuploads
-      content_type: application/json
-      permissions: public-read
-      display_name: storybook_assets_map_
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${aws_key}
+        aws_secret: ${aws_secret}
+        local_files_include_filter:
+          ["spruce/storybook-static/*.html"]
+        remote_file: spruce/${task_id}/storybook/
+        bucket: mciuploads
+        content_type: text/html
+        permissions: public-read
+        preserve_path: true
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${aws_key}
+        aws_secret: ${aws_secret}
+        local_files_include_filter:
+          ["spruce/storybook-static/**/*.js$", "spruce/storybook-static/**/*.mjs$"]
+        remote_file: spruce/${task_id}/storybook/
+        bucket: mciuploads
+        content_type: application/javascript
+        permissions: public-read
+        preserve_path: true
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${aws_key}
+        aws_secret: ${aws_secret}
+        local_files_include_filter:
+          ["spruce/storybook-static/**/*.js.map"]
+        remote_file: spruce/${task_id}/storybook/
+        bucket: mciuploads
+        content_type: application/json
+        permissions: public-read
+        preserve_path: true
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${aws_key}
+        aws_secret: ${aws_secret}
+        local_files_include_filter:
+          ["spruce/storybook-static/**/*.css"]
+        remote_file: spruce/${task_id}/storybook/
+        bucket: mciuploads
+        content_type: text/css
+        permissions: public-read
+        preserve_path: true
   
   attach-codegen-diff:
     command: s3.put
@@ -307,7 +318,7 @@ functions:
       working_dir: spruce
       script: |
         echo "Generating .cmdrc.json"
-        REACT_APP_BUGSNAG_API_KEY=${REACT_APP_BUGSNAG_API_KEY} REACT_APP_NEW_RELIC_ACCOUNT_ID=${REACT_APP_NEW_RELIC_ACCOUNT_ID} REACT_APP_NEW_RELIC_AGENT_ID=${REACT_APP_NEW_RELIC_AGENT_ID} REACT_APP_NEW_RELIC_APPLICATION_ID=${REACT_APP_NEW_RELIC_APPLICATION_ID} REACT_APP_NEW_RELIC_LICENSE_KEY=${REACT_APP_NEW_RELIC_LICENSE_KEY} REACT_APP_NEW_RELIC_TRUST_KEY=${REACT_APP_NEW_RELIC_TRUST_KEY} REACT_APP_DEPLOYS_EMAIL=${REACT_APP_DEPLOYS_EMAIL} node cli-scripts/setup-credentials.js
+        REACT_APP_BUGSNAG_API_KEY=${REACT_APP_BUGSNAG_API_KEY} REACT_APP_NEW_RELIC_ACCOUNT_ID=${REACT_APP_NEW_RELIC_ACCOUNT_ID} REACT_APP_NEW_RELIC_AGENT_ID=${REACT_APP_NEW_RELIC_AGENT_ID} REACT_APP_NEW_RELIC_APPLICATION_ID=${REACT_APP_NEW_RELIC_APPLICATION_ID} REACT_APP_NEW_RELIC_LICENSE_KEY=${REACT_APP_NEW_RELIC_LICENSE_KEY} REACT_APP_NEW_RELIC_TRUST_KEY=${REACT_APP_NEW_RELIC_TRUST_KEY} REACT_APP_DEPLOYS_EMAIL=${REACT_APP_DEPLOYS_EMAIL} node scripts/setup-credentials.js
 
         echo "populating evergreen.yml"
         cat <<EOF > .evergreen.yml
@@ -324,7 +335,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         BUCKET=${bucket} AWS_ACCESS_KEY_ID=${aws_key} AWS_SECRET_ACCESS_KEY=${aws_secret}  yarn deploy; yarn upload-source-maps;
 
   build-prod:
@@ -332,7 +343,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=${node_path}
+        ${PREPARE_SHELL}
         chmod +x scripts/app-version.sh
         . ./scripts/app-version.sh
         echo "Building Production version: $REACT_APP_VERSION"
@@ -346,7 +357,7 @@ functions:
         export AUTHOR_EMAIL=${author_email}
         export REACT_APP_DEPLOYS_EMAIL=${REACT_APP_DEPLOYS_EMAIL}
         export EXECUTION=${execution}
-        bash email.sh
+        bash scripts/email.sh
 
 
 #######################################
@@ -356,112 +367,78 @@ functions:
 tasks:
   - name: compile
     commands:
-    - func: get-project
-    - func: yarn-install
-    - func: copy-cmdrc
-    - func: sym-link
-    - func: yarn-build
+      - func: copy-cmdrc
+      - func: sym-link
+      - func: yarn-build
 
   - name: storybook
     commands:
-    - func: get-project
-    - func: yarn-install
-    - func: yarn-build-storybook
-    - func: attach-storybook
-    - func: attach-storybook-assets-css
-    - func: attach-storybook-assets-js
-    - func: attach-storybook-assets-map
+      - func: yarn-build-storybook
 
   - name: test
     commands:
-    - func: get-project
-    - func: yarn-install
-    - func: yarn-test
+      - func: yarn-test
 
   - name: lint
     commands:
-    - func: get-project
-    - func: sym-link
-    - func: yarn-install
-    - func: yarn-eslint
+      - func: sym-link
+      - func: yarn-eslint
 
   - name: type_check
     commands:
-    - func: get-project
-    - func: sym-link
-    - func: yarn-install
-    - func: yarn-tsc
+      - func: sym-link
+      - func: yarn-tsc
 
   - name: snapshots
     commands:
-    - func: get-project
-    - func: yarn-install
-    - func: yarn-snapshot
+      - func: yarn-snapshot
 
   - name: e2e_test
     commands:
-    - func: get-evergreen-project
-    - func: setup-mongodb
-    - func: copy-cmdrc
-    - func: run-make-background
-      vars:
-        target: local-evergreen
-    - func: yarn-install
-    - func: sym-link
-    - func: yarn-build
-    - func: yarn-serve
-    - func: wait-for-evergreen
-    - func: run-cypress-tests
+      - func: setup-mongodb
+      - func: copy-cmdrc
+      - func: run-make-background
+        vars:
+          target: local-evergreen
+      - func: sym-link
+      - func: yarn-build
+      - func: yarn-serve
+      - func: wait-for-evergreen
+      - func: run-cypress-tests
     
-  - name: send_email
-    commands:
-    - func: get-project
-    - func: setup-credentials
-    - func: send-email
-
   - name: check_codegen
     commands:
-    - func: get-project
-    - func: sym-link
-    - func: yarn-install
-    - func: check-codegen
+      - func: sym-link
+      - func: check-codegen
 
   - name: deploy_to_prod
     commands:
-    - func: get-project
-    - func: setup-credentials
-    - func: yarn-install
-    - func: sym-link
-    - func: build-prod
-    - func: deploy-to-prod
-    - func: send-email
-
+      - func: setup-credentials
+      - func: sym-link
+      - func: build-prod
+      - func: deploy-to-prod
+      - func: send-email
 
 buildvariants:
-  - name: ubuntu1604
-    display_name: Ubuntu 16.04
+  - name: ubuntu2004
+    display_name: Ubuntu 20.04
     run_on:
-    - ubuntu1604-large
+      - ubuntu2004-large
+    expansions:
+      mongodb_url_2004: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-4.4.18.tgz
+      node_version: 16.17.0
     modules:
       - evergreen
     tasks:
-    - name: compile
-    - name: test
-    - name: lint
-    - name: type_check
-    - name: e2e_test
-    - name: storybook
-    - name: check_codegen
-    - name: snapshots
-    - name: deploy_to_prod
-      git_tag_only: true
-      patchable: false
-      priority: 100
-
-post:
-  - func: attach-results
-  - func: attach-cypress-screenshots
-  - func: attach-cypress-videos
-  - func: attach-server-logs
-  - func: attach-source-map
-  - func: attach-codegen-diff
+      - name: compile
+      - name: test
+      - name: lint
+      - name: type_check
+      - name: e2e_test
+      - name: storybook
+      - name: check_codegen
+      - name: snapshots
+      - name: deploy_to_prod
+        git_tag_only: true
+        patchable: false
+        priority: 100

@@ -3303,12 +3303,14 @@ export type ClearMySubscriptionsMutation = { clearMySubscriptions: number };
 
 export type CopyProjectMutationVariables = Exact<{
   project: CopyProjectInput;
+  requestS3Creds: Scalars["Boolean"];
 }>;
 
 export type CopyProjectMutation = { copyProject: { identifier: string } };
 
 export type CreateProjectMutationVariables = Exact<{
   project: CreateProjectInput;
+  requestS3Creds: Scalars["Boolean"];
 }>;
 
 export type CreateProjectMutation = { createProject: { identifier: string } };
