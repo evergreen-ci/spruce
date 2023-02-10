@@ -86,18 +86,11 @@ export const getFormSchema = ({
         title: "Change Instance Type",
         type: "string" as "string",
         default: "",
-        oneOf: [
-          {
-            type: "string" as "string",
-            title: "Select instance type…",
-            enum: [""],
-          },
-          ...instanceTypes.map((it) => ({
-            type: "string" as "string",
-            title: it,
-            enum: [it],
-          })),
-        ],
+        oneOf: instanceTypes.map((it) => ({
+          type: "string" as "string",
+          title: it,
+          enum: [it],
+        })),
       },
       volume: {
         title: "Add Volume",

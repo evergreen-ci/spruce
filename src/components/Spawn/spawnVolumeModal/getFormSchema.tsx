@@ -37,7 +37,7 @@ export const getFormSchema = ({
           availabilityZone: {
             title: "Region",
             type: "string" as "string",
-            default: availabilityZones.length ? availabilityZones[0] : "",
+            default: availabilityZones?.[0] ?? "",
             oneOf: availabilityZones.map((r) => ({
               type: "string" as "string",
               title: r,
@@ -47,7 +47,7 @@ export const getFormSchema = ({
           type: {
             title: "Type",
             type: "string" as "string",
-            default: types.length ? types[0] : "",
+            default: types?.[0] ?? "",
             oneOf: types.map((t) => ({
               type: "string" as "string",
               title: t,
@@ -105,7 +105,7 @@ export const getFormSchema = ({
           mountToHost: {
             title: "Mount to Host",
             type: "string" as "string",
-            default: hosts.length ? hosts[0].id : "",
+            default: hosts?.[0]?.id ?? "",
             oneOf: hosts.length
               ? [
                   {

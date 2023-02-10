@@ -20,11 +20,13 @@ import { HostStatus } from "types/host";
 interface SpawnVolumeModalProps {
   visible: boolean;
   onCancel: () => void;
+  maxSpawnableLimit: number;
 }
 
 export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
   visible,
   onCancel,
+  maxSpawnableLimit,
 }) => {
   const spawnAnalytics = useSpawnAnalytics();
   const dispatchToast = useToastContext();
@@ -39,11 +41,9 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
     SpawnVolumeMutationVariables
   >(SPAWN_VOLUME, {
     onCompleted() {
-      closeModal();
       dispatchToast.success("Successfully spawned volume");
     },
     onError(err) {
-      closeModal();
       dispatchToast.error(
         `There was an error while spawning your volume: ${err.message}`
       );
@@ -68,7 +68,6 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
     hosts,
     disableExpirationCheckbox,
     noExpirationCheckboxTooltip,
-    maxSpawnableLimit,
     loadingFormData,
   } = useLoadFormData();
 
@@ -101,11 +100,12 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
     <ConfirmationModal
       title="Spawn New Volume"
       open={visible}
-      onCancel={() => {
+      onCancel={closeModal}
+      buttonText={loadingSpawnVolume ? "Spawning volume" : "Spawn"}
+      onConfirm={() => {
+        spawnVolume();
         closeModal();
       }}
-      buttonText={loadingSpawnVolume ? "Spawning volume" : "Spawn"}
-      onConfirm={spawnVolume}
       submitDisabled={
         loadingSpawnVolume ||
         !formState?.requiredVolumeInformation?.volumeSize ||

@@ -20,7 +20,7 @@ import { SpawnVolumeModal } from "./SpawnVolumeModal";
 describe("spawnVolumeModal", () => {
   it("renders the Spawn Volume Modal when the visible prop is true", async () => {
     const { Component } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} />
+      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />
     );
     render(
       <MockedProvider mocks={baseMocks}>
@@ -34,7 +34,11 @@ describe("spawnVolumeModal", () => {
 
   it("does not render the Spawn Volume Modal when the visible prop is false", () => {
     const { Component } = RenderFakeToastContext(
-      <SpawnVolumeModal visible={false} onCancel={() => {}} />
+      <SpawnVolumeModal
+        visible={false}
+        onCancel={() => {}}
+        maxSpawnableLimit={1000}
+      />
     );
     render(
       <MockedProvider mocks={baseMocks}>
@@ -44,9 +48,9 @@ describe("spawnVolumeModal", () => {
     expect(screen.queryByDataCy("spawn-volume-modal")).not.toBeInTheDocument();
   });
 
-  it("form contains default volumes on initial render", async () => {
+  it("form contains default values on initial render", async () => {
     const { Component } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} />
+      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />
     );
     render(
       <MockedProvider mocks={baseMocks}>
@@ -86,7 +90,7 @@ describe("spawnVolumeModal", () => {
       result: { data: { spawnVolume: true } },
     };
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} />
+      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />
     );
     render(
       <MockedProvider mocks={[...baseMocks, spawnVolumeMutation]}>
@@ -124,7 +128,7 @@ describe("spawnVolumeModal", () => {
       result: { data: { spawnVolume: true } },
     };
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} />
+      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />
     );
     render(
       <MockedProvider mocks={[...baseMocks, spawnVolumeMutation]}>
