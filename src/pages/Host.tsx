@@ -124,7 +124,7 @@ export const Host: React.VFC = () => {
             <PageSider width={350}>
               <Metadata
                 loading={hostMetaDataLoading}
-                host={hostData?.host}
+                host={host}
                 error={error}
               />
               {hostUrl && (
