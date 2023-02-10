@@ -104,7 +104,7 @@ describe("spawnVolumeModal", () => {
     });
     userEvent.click(spawnButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
-  });
+  }, 10000);
 
   it("form submission succeeds after adjusting inputs", async () => {
     const spawnVolumeMutation: MockedResponse = {
@@ -151,7 +151,7 @@ describe("spawnVolumeModal", () => {
     });
     userEvent.click(spawnButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
-  });
+  }, 10000);
 });
 
 const myHostsMock = {

@@ -164,16 +164,16 @@ describe("Navigating to Spawn Volume page", () => {
   });
 
   it("Reopening the Spawn Volume modal clears previous input changes.", () => {
-    cy.dataCy("typeSelector").click();
-    cy.contains("sc1").click();
-    cy.contains("Never").click();
+    cy.selectLGOption("Type", "sc1");
+    cy.getInputByLabel("Never expire").check({ force: true });
     cy.dataCy("spawn-volume-modal").within(() => {
       cy.contains("button", "Cancel").should("not.be.disabled");
       cy.contains("button", "Cancel").click({ force: true });
     });
+
     cy.dataCy("spawn-volume-btn").click();
-    cy.dataCy("typeSelector").contains("gp2");
-    cy.dataCy("never-expire-checkbox").should(
+    cy.dataCy("type-select").contains("gp2");
+    cy.getInputByLabel("Never expire").should(
       "have.attr",
       "aria-checked",
       "false"
