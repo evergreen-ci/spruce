@@ -11,26 +11,27 @@ import { StyledLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { HostQuery } from "gql/generated/types";
 import { environmentalVariables } from "utils";
+
 const { gray } = palette;
 const { getUiUrl } = environmentalVariables;
 
 export const Metadata: React.VFC<{
   loading: boolean;
-  data: HostQuery;
+  host: HostQuery["host"];
   error: ApolloError;
-}> = ({ loading, data, error }) => {
-  const host = data?.host ?? null;
+}> = ({ loading, host, error }) => {
+  const {
+    hostUrl,
+    distroId,
+    startedBy,
+    provider,
+    user,
+    lastCommunicationTime,
+    runningTask,
+    uptime,
+  } = host ?? {};
 
-  const hostUrl = host?.hostUrl;
-  const distroId = host?.distroId;
-  const startedBy = host?.startedBy;
-  const provider = host?.provider;
-  const user = host?.user;
-  const lastCommunicationTime = host?.lastCommunicationTime;
-
-  const runningTask = host?.runningTask;
-  const runningTaskId = runningTask?.id;
-  const runningTaskName = runningTask?.name;
+  const { id: runningTaskId, name: runningTaskName } = runningTask ?? {};
 
   const taskLink = getTaskRoute(runningTaskId);
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
@@ -46,6 +47,9 @@ export const Metadata: React.VFC<{
           {formatDistanceToNow(new Date(lastCommunicationTime))} ago
         </MetadataItem>
       )}
+      <MetadataItem>
+        Uptime: {formatDistanceToNow(new Date(uptime))}
+      </MetadataItem>
       <MetadataItem>Started By: {startedBy}</MetadataItem>
       <MetadataItem>Cloud Provider: {provider}</MetadataItem>
       <MetadataItem>
