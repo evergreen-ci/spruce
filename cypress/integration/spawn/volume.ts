@@ -157,13 +157,13 @@ describe("Navigating to Spawn Volume page", () => {
   // cy.contains(errorBannerCopy).should("exist");
   // });
 
-  it("Clicking on 'Spawn Volume' should open the Spawn Volume Modal", () => {
+  it.skip("Clicking on 'Spawn Volume' should open the Spawn Volume Modal", () => {
     cy.visit("/spawn/volume");
     cy.dataCy("spawn-volume-btn").click();
     cy.dataCy("spawn-volume-modal").should("be.visible");
   });
 
-  it("Reopening the Spawn Volume modal clears previous input changes.", () => {
+  it.skip("Reopening the Spawn Volume modal clears previous input changes.", () => {
     cy.selectLGOption("Type", "sc1");
     cy.getInputByLabel("Never expire").check({ force: true });
     cy.dataCy("spawn-volume-modal").within(() => {

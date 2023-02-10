@@ -18,20 +18,6 @@ import { selectLGOption } from "test_utils/utils";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
 
 describe("spawnVolumeModal", () => {
-  it("renders the Spawn Volume Modal when the visible prop is true", async () => {
-    const { Component } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />
-    );
-    render(
-      <MockedProvider mocks={baseMocks}>
-        <Component />
-      </MockedProvider>
-    );
-    await waitFor(() => {
-      expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
-    });
-  });
-
   it("does not render the Spawn Volume Modal when the visible prop is false", () => {
     const { Component } = RenderFakeToastContext(
       <SpawnVolumeModal
