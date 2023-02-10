@@ -11,7 +11,7 @@ import {
   CopyProjectMutationVariables,
 } from "gql/generated/types";
 import { COPY_PROJECT } from "gql/mutations";
-import { projectId, projectName } from "./sharedFormSchema";
+import { projectId, projectName, requestS3Creds } from "./sharedFormSchema";
 
 interface Props {
   handleClose: () => void;
@@ -33,6 +33,7 @@ export const CopyProjectModal: React.VFC<Props> = ({
   const [formState, setFormState] = useState({
     projectId: "",
     projectName: "",
+    requestS3Creds: false,
   });
   const [hasError, setHasError] = useState(true);
 
@@ -84,6 +85,7 @@ export const CopyProjectModal: React.VFC<Props> = ({
           newProjectIdentifier: formState.projectName,
           projectIdToCopy: id,
         },
+        requestS3Creds: formState.requestS3Creds,
       },
     });
     sendEvent({ name: "Duplicate project", projectIdToCopy: id });
@@ -119,10 +121,12 @@ const modalFormDefinition = {
     properties: {
       projectName: projectName.schema,
       projectId: projectId.schema,
+      requestS3Creds: requestS3Creds.schema,
     },
   },
   uiSchema: {
     projectName: projectName.uiSchema,
     projectId: projectId.uiSchema,
+    requestS3Creds: requestS3Creds.uiSchema,
   },
 };

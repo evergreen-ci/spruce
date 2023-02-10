@@ -171,6 +171,7 @@ describe("createProjectField", () => {
             owner: "10gen",
             repo: "new-repo-name",
           },
+          requestS3Creds: true,
         },
       },
       result: {
@@ -204,6 +205,16 @@ describe("createProjectField", () => {
       })
     ).toBeEnabled();
 
+    const requestS3Creds = screen.getByDataCy("request-s3-creds");
+    expect(requestS3Creds).not.toBeChecked();
+    userEvent.click(requestS3Creds);
+    expect(requestS3Creds).toBeChecked();
+    expect(
+      screen.getByRole("button", {
+        name: "Create Project",
+      })
+    ).toBeEnabled();
+
     userEvent.click(screen.queryByText("Create Project"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
@@ -222,6 +233,7 @@ const createProjectMock = {
         owner: "10gen",
         repo: "new-repo-name",
       },
+      requestS3Creds: false,
     },
   },
   result: {

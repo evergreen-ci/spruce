@@ -20,7 +20,7 @@ exports[`storybook Storyshots Components/TupleSelect Tuple Select With Condition
       >
         Add New Filter
         <div
-          className="leafygreen-ui-1gmp0zo css-1qa4isu-PaddedSegmentedControl egmqwjk0"
+          className="leafygreen-ui-ozfao7 css-1qa4isu-PaddedSegmentedControl egmqwjk0"
         >
           <div
             aria-label="segmented-control-1"
@@ -41,7 +41,7 @@ exports[`storybook Storyshots Components/TupleSelect Tuple Select With Condition
                 <button
                   aria-controls="tuple-select-with-regex"
                   aria-selected={true}
-                  className="leafygreen-ui-14n1nd3"
+                  className="leafygreen-ui-ypz97o"
                   disabled={false}
                   id="segmented-control-1-0"
                   onClick={[Function]}
@@ -51,11 +51,15 @@ exports[`storybook Storyshots Components/TupleSelect Tuple Select With Condition
                   tabIndex={0}
                   type="button"
                 >
-                  <span
+                  <div
                     className="leafygreen-ui-dj6i8q"
                   >
-                    REGEX
-                  </span>
+                    <span
+                      className="leafygreen-ui-plwatf"
+                    >
+                      REGEX
+                    </span>
+                  </div>
                 </button>
               </div>
             </div>
@@ -71,7 +75,7 @@ exports[`storybook Storyshots Components/TupleSelect Tuple Select With Condition
                 <button
                   aria-controls="tuple-select-with-regex"
                   aria-selected={false}
-                  className="leafygreen-ui-14n1nd3"
+                  className="leafygreen-ui-ypz97o"
                   disabled={false}
                   id="segmented-control-1-1"
                   onClick={[Function]}
@@ -81,11 +85,15 @@ exports[`storybook Storyshots Components/TupleSelect Tuple Select With Condition
                   tabIndex={-1}
                   type="button"
                 >
-                  <span
+                  <div
                     className="leafygreen-ui-dj6i8q"
                   >
-                    EXACT
-                  </span>
+                    <span
+                      className="leafygreen-ui-plwatf"
+                    >
+                      EXACT
+                    </span>
+                  </div>
                 </button>
               </div>
             </div>

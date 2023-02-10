@@ -2,61 +2,37 @@
 #import "../fragments/annotation.graphql"
 
 query GetTask($taskId: String!, $execution: Int) {
-  taskFiles(taskId: $taskId, execution: $execution) {
-    fileCount
-  }
   task(taskId: $taskId, execution: $execution) {
     ...baseTask
     aborted
     abortInfo {
-      user
-      taskDisplayName
-      taskID
       buildVariantDisplayName
       newVersion
       prClosed
+      taskDisplayName
+      taskID
+      user
+    }
+    activatedBy
+    activatedTime
+    ami
+    annotation {
+      ...annotation
     }
     baseTask {
       id
       execution
       timeTaken
     }
-    activatedBy
-    executionTasksFull {
-      displayName
-      id
-      execution
-      status
-      baseStatus
-      buildVariant
-      buildVariantDisplayName
-    }
-    displayTask {
-      id
-      execution
-      displayName
-    }
-    ingestTime
-    activatedTime
-    estimatedStart
-    finishTime
-    hostId
-    order
-    versionMetadata {
-      id
-      author
-      isPatch
-      revision
-      project
-      projectIdentifier
-      order
-      message
-    }
-    requester
-    project {
-      identifier
-    }
-    patchNumber
+    blocked
+    canAbort
+    canDisable
+    canModifyAnnotation
+    canOverrideDependencies
+    canRestart
+    canSchedule
+    canSetPriority
+    canUnschedule
     dependsOn {
       buildVariant
       metStatus
@@ -64,50 +40,74 @@ query GetTask($taskId: String!, $execution: Int) {
       requiredStatus
       taskId
     }
-    canOverrideDependencies
-    logs {
-      allLogLink
-      agentLogLink
-      systemLogLink
-      taskLogLink
-      eventLogLink
-    }
-    startTime
-    timeTaken
-    totalTestCount
-    failedTestCount
-    spawnHostLink
-    priority
-    canRestart
-    canAbort
-    canDisable
-    canSchedule
-    canUnschedule
-    canSetPriority
-    ami
-    distroId
-    latestExecution
-    blocked
-    generatedBy
-    generatedByName
-    isPerfPluginEnabled
-    minQueuePosition
-    expectedDuration
-    resetWhenFinished
     details {
-      status
-      type
       description
-      timedOut
-      timeoutType
       oomTracker {
         detected
         pids
       }
+      status
+      timedOut
+      timeoutType
+      type
     }
-    canModifyAnnotation
-    annotation {
-      ...annotation
+    displayTask {
+      id
+      displayName
+      execution
+    }
+    distroId
+    estimatedStart
+    executionTasksFull {
+      id
+      baseStatus
+      buildVariant
+      buildVariantDisplayName
+      displayName
+      execution
+      status
+    }
+    expectedDuration
+    failedTestCount
+    finishTime
+    generatedBy
+    generatedByName
+    hostId
+    ingestTime
+    isPerfPluginEnabled
+    latestExecution
+    logs {
+      allLogLink
+      agentLogLink
+      eventLogLink
+      systemLogLink
+      taskLogLink
+    }
+    minQueuePosition
+    order
+    patchNumber
+    priority
+    project {
+      identifier
+    }
+    resetWhenFinished
+    requester
+    spawnHostLink
+    startTime
+    taskFiles {
+      fileCount
+    }
+    timeTaken
+    totalTestCount
+    versionMetadata {
+      id
+      author
+      isPatch
+      project
+      projectIdentifier
+      message
+      order
+      revision
     }
   }
 }
