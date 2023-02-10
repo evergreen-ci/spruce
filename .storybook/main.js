@@ -47,6 +47,7 @@ module.exports = {
     if (isProductionBuild) {
       config.base = "./";
     }
+
     return mergeConfig(viteConfig, config);
   },
 };
