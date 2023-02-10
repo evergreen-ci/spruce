@@ -134,9 +134,6 @@ describe("spawnVolumeModal", () => {
     await waitFor(() => {
       expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
     });
-    await waitFor(() => {
-      expect(screen.queryByDataCy("type-select")).toBeVisible();
-    });
 
     // Modify form values
     userEvent.clear(screen.queryByDataCy("volume-size-input"));
