@@ -1,13 +1,13 @@
 import { MutableRefObject, useEffect, useRef } from "react";
-import { useSearchParams } from "react-router-dom";
 import { useDimensions } from "hooks/useDimensions";
+import { useQueryParams } from "hooks/useQueryParam";
 import { MainlineCommitQueryParams } from "types/commits";
 
 export const useCommitsLimit = <T extends HTMLElement>(): [
   MutableRefObject<T>,
   number
 ] => {
-  const [params, setParams] = useSearchParams();
+  const [params, setParams] = useQueryParams();
   const commitsContainerRef = useRef<T>();
   const { width } = useDimensions(commitsContainerRef);
   const nextLimit = Math.max(Math.round(width / COL_WIDTH), MIN_LIMIT);
