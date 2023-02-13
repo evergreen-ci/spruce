@@ -2366,6 +2366,7 @@ export type BaseHostFragment = {
   user?: Maybe<string>;
   tag: string;
   provider: string;
+  uptime?: Maybe<Date>;
 };
 
 export type BasePatchFragment = {
@@ -2387,7 +2388,6 @@ export type BaseSpawnHostFragment = {
   homeVolumeID?: Maybe<string>;
   instanceType?: Maybe<string>;
   noExpiration: boolean;
-  uptime?: Maybe<Date>;
   id: string;
   hostUrl: string;
   status: string;
@@ -2395,6 +2395,7 @@ export type BaseSpawnHostFragment = {
   user?: Maybe<string>;
   tag: string;
   provider: string;
+  uptime?: Maybe<Date>;
   distro?: Maybe<{
     isVirtualWorkStation?: Maybe<boolean>;
     id?: Maybe<string>;
@@ -3387,7 +3388,6 @@ export type EditSpawnHostMutation = {
     homeVolumeID?: Maybe<string>;
     instanceType?: Maybe<string>;
     noExpiration: boolean;
-    uptime?: Maybe<Date>;
     id: string;
     hostUrl: string;
     status: string;
@@ -3395,6 +3395,7 @@ export type EditSpawnHostMutation = {
     user?: Maybe<string>;
     tag: string;
     provider: string;
+    uptime?: Maybe<Date>;
     distro?: Maybe<{
       isVirtualWorkStation?: Maybe<boolean>;
       id?: Maybe<string>;
@@ -4168,6 +4169,7 @@ export type HostQuery = {
     user?: Maybe<string>;
     tag: string;
     provider: string;
+    uptime?: Maybe<Date>;
     distro?: Maybe<{ bootstrapMethod?: Maybe<string> }>;
     runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
   }>;
@@ -4481,7 +4483,6 @@ export type MyHostsQuery = {
     homeVolumeID?: Maybe<string>;
     instanceType?: Maybe<string>;
     noExpiration: boolean;
-    uptime?: Maybe<Date>;
     id: string;
     hostUrl: string;
     status: string;
@@ -4489,6 +4490,7 @@ export type MyHostsQuery = {
     user?: Maybe<string>;
     tag: string;
     provider: string;
+    uptime?: Maybe<Date>;
     distro?: Maybe<{
       isVirtualWorkStation?: Maybe<boolean>;
       id?: Maybe<string>;
