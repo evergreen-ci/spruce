@@ -5,7 +5,13 @@ import { useDimensions } from "hooks/useDimensions";
 
 describe("useDimensions", () => {
   it("validate default value", () => {
-    (window as any).ResizeObserver = class ResizeObserver {};
+    window.ResizeObserver = class ResizeObserver {
+      observe() {}
+
+      disconnect() {}
+
+      unobserve() {}
+    };
     const { result } = renderHook(() => useDimensions({ current: null }));
     expect(result.current).toMatchObject({
       width: 0,
@@ -15,7 +21,7 @@ describe("useDimensions", () => {
 
   it("synchronously sets up ResizeObserver listener", () => {
     let listener = null;
-    (window as any).ResizeObserver = class ResizeObserver {
+    window.ResizeObserver = class ResizeObserver {
       constructor(ls) {
         listener = ls;
       }
@@ -23,6 +29,8 @@ describe("useDimensions", () => {
       observe() {}
 
       disconnect() {}
+
+      unobserve() {}
     };
     renderHook(() => useDimensions({ current: null }));
     expect(typeof listener).toBe("function");
@@ -30,7 +38,7 @@ describe("useDimensions", () => {
 
   it("tracks DOM dimensions", () => {
     let listener = null;
-    (window as any).ResizeObserver = class ResizeObserver {
+    window.ResizeObserver = class ResizeObserver {
       constructor(l) {
         listener = l;
       }
@@ -38,6 +46,8 @@ describe("useDimensions", () => {
       observe() {}
 
       disconnect() {}
+
+      unobserve() {}
     };
 
     const { result } = renderHook(() =>
@@ -63,7 +73,7 @@ describe("useDimensions", () => {
 
   it("tracks multiple updates", () => {
     let listener = null;
-    (window as any).ResizeObserver = class ResizeObserver {
+    window.ResizeObserver = class ResizeObserver {
       constructor(l) {
         listener = l;
       }
@@ -71,6 +81,8 @@ describe("useDimensions", () => {
       observe() {}
 
       disconnect() {}
+
+      unobserve() {}
     };
 
     const { result } = renderHook(() =>
@@ -112,12 +124,14 @@ describe("useDimensions", () => {
 
   it("calls .disconnect() on ResizeObserver when component unmounts", () => {
     const spy = jest.fn();
-    (window as any).ResizeObserver = class ResizeObserver {
+    window.ResizeObserver = class ResizeObserver {
       observe() {}
 
       disconnect() {
         spy();
       }
+
+      unobserve() {}
     };
 
     const { unmount } = renderHook(() =>
