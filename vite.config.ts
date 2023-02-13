@@ -77,7 +77,6 @@ export default defineConfig({
         __dirname,
         "./node_modules/date-fns/esm/locale"
       ),
-      // "date-fns-tz": path.resolve(__dirname, "./node_modules/date-fns-tz/esm"),
     },
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
   },
@@ -105,9 +104,7 @@ export default defineConfig({
         {
           libName: "antd",
           libDirectory: "es",
-          style: (name) =>
-            // console.log(name);
-            `antd/es/${name}/style/index.js`,
+          style: (name) => `antd/es/${name}/style/index.js`,
         },
         {
           libName: "lodash",
@@ -121,10 +118,7 @@ export default defineConfig({
         {
           libName: "date-fns",
           libDirectory: "esm",
-          style: (name) => {
-            console.log(name);
-            return `date-fns/esm/${name}`;
-          },
+          style: (name) => `date-fns/esm/${name}`,
           camel2DashComponentName: false,
         },
       ],
