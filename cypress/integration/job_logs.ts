@@ -1,6 +1,7 @@
 const buildId = "7e208050e166b1a9025c817b67eee48d";
+const invalidBuildId = "9b07c7f9677e49ddae4c53076ca4f4ca";
 
-describe.only("Job logs page", () => {
+describe("Job logs page", () => {
   beforeEach(() => {
     cy.visit(`job-logs/${buildId}`);
   });
@@ -28,7 +29,7 @@ describe.only("Job logs page", () => {
 
 describe("Invalid job logs page", () => {
   beforeEach(() => {
-    cy.visit(`job-logs/foo`);
+    cy.visit(`job-logs/${invalidBuildId}`);
   });
 
   it("shows an error toast", () => {

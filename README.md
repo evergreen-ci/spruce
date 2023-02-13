@@ -170,6 +170,15 @@ If you need more data to be able to test out your feature locally the easiest wa
 **Notes**
 
 When creating your queries you should be sure to limit the amount of documents so you don't accidently export an entire collection you can do this by passing a `--limit=<number>` flag to `mongoexport`
+
+### Logkeeper
+
+Spruce has a minimal dependency on Logkeeper: it is used for Cypress tests on the Job Logs page. If you'd like to get set up to develop these tests, complete the following:
+
+1. Clone the [Logkeeper Repository](https://github.com/evergreen-ci/logkeeper)
+2. Run `yarn bootstrap-logkeeper` to download some sample resmoke logs from S3.
+3. Run the command output by the previous step to seed the env variables and start the local logkeeper server at http://localhost:8080.
+
 ## Deployment
 
 ### Requirements

@@ -6,7 +6,7 @@
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
     "build-storybook": "NODE_OPTIONS=--max-old-space-size=6144 build-storybook",
     "build:beta": "env-cmd -e beta -r env/.cmdrc.json yarn build",
-    "build:local": "env-cmd -e local -r env/.cmdrc-local.json  yarn build",
+    "build:local": "env-cmd -e local -r env/.cmdrc-local.json yarn build",
     "build:prod": "env-cmd -e prod -r env/.cmdrc.json yarn build",
     "build:staging": "env-cmd -e staging -r env/.cmdrc.json yarn build",
     "build": "GIT_SHA=`git rev-parse HEAD` vite build",

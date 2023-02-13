@@ -133,18 +133,6 @@ functions:
       bucket: parsley-test
       working_dir: parsley/logkeeper
 
-  attach-logkeeper-logs:
-    command: s3.put
-    type: system
-    params:
-      aws_key: ${aws_key}
-      aws_secret: ${aws_secret}
-      local_file: parsley/logkeeper/logkeeperapp.log
-      remote_file: parsley/${task_id}/${execution}/logkeeperapp.log
-      bucket: mciuploads
-      content_type: text/html
-      permissions: public-read
-
   yarn-serve:
     command: shell.exec
     type: setup
