@@ -1,7 +1,7 @@
 import { MutableRefObject, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useDimensions } from "hooks/useDimensions";
 import { MainlineCommitQueryParams } from "types/commits";
-import { useDimensions } from "./useDimensions";
 
 export const useCommitsLimit = <T extends HTMLElement>(): [
   MutableRefObject<T>,

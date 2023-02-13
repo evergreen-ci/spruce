@@ -31,11 +31,11 @@ import {
   useUpsertQueryParams,
   useUserSettings,
 } from "hooks";
-import { useCommitsLimit } from "hooks/useCommitsLimit";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString, validators } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
 import CommitTypeSelect from "./commits/commitTypeSelect";
+import { useCommitsLimit } from "./commits/hooks/useCommitsLimit";
 import { PaginationButtons } from "./commits/PaginationButtons";
 import { StatusSelect } from "./commits/StatusSelect";
 import {
