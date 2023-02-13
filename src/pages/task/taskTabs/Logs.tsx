@@ -9,6 +9,7 @@ import queryString from "query-string";
 import { useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import FirstTimeGuideCue from "components/FirstTimeGuideCue";
+import { SEEN_LOBSTER_MOVED_GUIDE_CUE } from "constants/cookies";
 import { getParsleyTaskLogLink } from "constants/externalResources";
 import { size } from "constants/tokens";
 import { TaskLogLinks } from "gql/generated/types";
@@ -102,7 +103,7 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
             <FirstTimeGuideCue
               title="Lobster has moved!"
               description="Parsley is now the default log viewer for Evergreen. Lobster is still available and can be accessed by clicking the Lobster button in the Parsley UI."
-              cookieName="lobster-moved"
+              cookieName={SEEN_LOBSTER_MOVED_GUIDE_CUE}
               numberOfSteps={1}
               currentStep={1}
               refEl={parsleyRef}
