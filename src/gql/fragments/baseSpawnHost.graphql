@@ -23,7 +23,6 @@ fragment baseSpawnHost on Host {
     canBeModified
   }
   noExpiration
-  uptime
   volumes {
     displayName
     id
