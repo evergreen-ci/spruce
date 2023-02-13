@@ -53,9 +53,7 @@ describe("spawnVolumeModal", () => {
     expect(screen.queryByDataCy("type-select")).toHaveTextContent("gp2");
     expect(screen.queryByLabelText("Never expire")).not.toBeChecked();
     expect(screen.queryByDataCy("host-select")).toBeDisabled();
-    expect(screen.queryByDataCy("host-select")).toHaveTextContent(
-      "No hosts available"
-    );
+    expect(screen.queryByText("No hosts available.")).toBeVisible();
   }, 10000);
 
   it("form submission succeeds with default values", async () => {

@@ -33,6 +33,8 @@ export const getFormSchema = ({
             title: "Size (GB)",
             type: "number" as "number",
             default: maxSpawnableLimit > 500 ? 500 : maxSpawnableLimit,
+            minimum: 1,
+            maximum: maxSpawnableLimit,
           },
           availabilityZone: {
             title: "Region",
@@ -105,21 +107,19 @@ export const getFormSchema = ({
           mountToHost: {
             title: "Mount to Host",
             type: "string" as "string",
-            default: hosts?.[0]?.id ?? "",
-            oneOf: hosts.length
-              ? [
-                  {
-                    type: "string" as "string",
-                    title: "Select host…",
-                    enum: [""],
-                  },
-                  ...hosts.map((h) => ({
-                    type: "string" as "string",
-                    title: h.displayName,
-                    enum: [h.id],
-                  })),
-                ]
-              : [],
+            default: "",
+            oneOf: [
+              {
+                type: "string" as "string",
+                title: "Select host…",
+                enum: [""],
+              },
+              ...hosts.map((h) => ({
+                type: "string" as "string",
+                title: h.displayName,
+                enum: [h.id],
+              })),
+            ],
           },
         },
       },
@@ -158,7 +158,7 @@ export const getFormSchema = ({
       mountToHost: {
         "ui:allowDeselect": false,
         "ui:disabled": hosts.length === 0,
-        "ui:placeholder": "No hosts available",
+        "ui:description": hosts.length === 0 ? "No hosts available." : "",
         "ui:data-cy": "host-select",
       },
     },

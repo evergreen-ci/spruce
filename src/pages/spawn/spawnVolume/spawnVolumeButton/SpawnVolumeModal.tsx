@@ -71,6 +71,7 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
     loadingFormData,
   } = useLoadFormData();
 
+  const [canSubmit, setCanSubmit] = useState(true);
   const [formState, setFormState] = useState<FormState>({});
 
   const availableHosts = hosts
@@ -106,19 +107,16 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
         spawnVolume();
         closeModal();
       }}
-      submitDisabled={
-        loadingSpawnVolume ||
-        !formState?.requiredVolumeInformation?.volumeSize ||
-        formState?.requiredVolumeInformation?.volumeSize > maxSpawnableLimit
-      }
+      submitDisabled={loadingSpawnVolume || !canSubmit}
       data-cy="spawn-volume-modal"
     >
       <SpruceForm
         schema={schema}
         uiSchema={uiSchema}
         formData={formState}
-        onChange={({ formData }) => {
+        onChange={({ formData, errors }) => {
           setFormState(formData);
+          setCanSubmit(errors.length === 0);
         }}
       />
     </ConfirmationModal>

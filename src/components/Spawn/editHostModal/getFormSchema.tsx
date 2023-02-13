@@ -96,20 +96,18 @@ export const getFormSchema = ({
         title: "Add Volume",
         type: "string" as "string",
         default: "",
-        oneOf: volumes.length
-          ? [
-              {
-                type: "string" as "string",
-                title: "Select volume…",
-                enum: [""],
-              },
-              ...volumes.map((v) => ({
-                type: "string" as "string",
-                title: `(${v.size}GB) ${v.displayName || v.id}`,
-                enum: [v.id],
-              })),
-            ]
-          : [],
+        oneOf: [
+          {
+            type: "string" as "string",
+            title: "Select volume…",
+            enum: [""],
+          },
+          ...volumes.map((v) => ({
+            type: "string" as "string",
+            title: `(${v.size}GB) ${v.displayName || v.id}`,
+            enum: [v.id],
+          })),
+        ],
       },
       ...(canEditRdpPassword && {
         rdpPassword: {
@@ -171,20 +169,18 @@ export const getFormSchema = ({
                     title: "Choose key",
                     type: "string" as "string",
                     default: "",
-                    oneOf: myPublicKeys.length
-                      ? [
-                          {
-                            type: "string" as "string",
-                            title: "Select public key…",
-                            enum: [""],
-                          },
-                          ...myPublicKeys.map((d) => ({
-                            type: "string" as "string",
-                            title: d.name,
-                            enum: [d.name],
-                          })),
-                        ]
-                      : [],
+                    oneOf: [
+                      {
+                        type: "string" as "string",
+                        title: "Select public key…",
+                        enum: [""],
+                      },
+                      ...myPublicKeys.map((d) => ({
+                        type: "string" as "string",
+                        title: d.name,
+                        enum: [d.name],
+                      })),
+                    ],
                   },
                 },
               },
@@ -245,15 +241,16 @@ export const getFormSchema = ({
       },
     },
     instanceType: {
-      "ui:description":
-        "Instance type can only be changed when the host is stopped.",
+      "ui:description": !canEditInstanceType
+        ? "Instance type can only be changed when the host is stopped."
+        : "",
       "ui:disabled": !canEditInstanceType,
       "ui:allowDeselect": false,
     },
     volume: {
       "ui:allowDeselect": false,
       "ui:disabled": volumes.length === 0,
-      "ui:placeholder": "No volumes available",
+      "ui:description": volumes.length === 0 ? "No volumes available." : "",
     },
     rdpPassword: {
       // Console error should be resolved by https://jira.mongodb.org/browse/LG-2342.
@@ -277,14 +274,18 @@ export const getFormSchema = ({
     publicKeySection: {
       useExisting: {
         "ui:widget": widgets.RadioBoxWidget,
-        "ui:description":
-          "SSH keys can only be added when the host is running.",
+        "ui:description": !canEditSshKeys
+          ? "SSH keys can only be added when the host is running."
+          : "",
         "ui:disabled": !canEditSshKeys,
       },
       publicKeyNameDropdown: {
         "ui:allowDeselect": false,
         "ui:disabled": !canEditSshKeys || myPublicKeys?.length === 0,
-        "ui:placeholder": "No keys available",
+        "ui:description":
+          canEditSshKeys && myPublicKeys?.length === 0
+            ? "No keys available."
+            : "",
       },
       newPublicKey: {
         "ui:widget": LeafyGreenTextArea,
