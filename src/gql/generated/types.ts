@@ -1275,8 +1275,6 @@ export type Query = {
   subnetAvailabilityZones: Array<Scalars["String"]>;
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
-  /** @deprecated taskFiles is deprecated. Use task.taskFiles instead. */
-  taskFiles: TaskFiles;
   taskLogs: TaskLogs;
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]>>;
   taskQueueDistros: Array<TaskQueueDistro>;
@@ -1389,11 +1387,6 @@ export type QueryTaskArgs = {
 };
 
 export type QueryTaskAllExecutionsArgs = {
-  taskId: Scalars["String"];
-};
-
-export type QueryTaskFilesArgs = {
-  execution?: InputMaybe<Scalars["Int"]>;
   taskId: Scalars["String"];
 };
 
@@ -4338,15 +4331,7 @@ export type LogkeeperBuildMetadataQuery = {
     buildNum: number;
     taskId: string;
     taskExecution: number;
-    tests: Array<{
-      buildId: string;
-      command: string;
-      id: string;
-      name: string;
-      phase: string;
-      taskExecution: number;
-      taskId: string;
-    }>;
+    tests: Array<{ id: string; name: string }>;
   };
 };
 

@@ -5,7 +5,7 @@ import { LogkeeperTest } from "gql/generated/types";
 
 interface JobLogsTableProps {
   buildId: string;
-  tests: LogkeeperTest[];
+  tests: Pick<LogkeeperTest, "id" | "name">[];
 }
 
 export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
