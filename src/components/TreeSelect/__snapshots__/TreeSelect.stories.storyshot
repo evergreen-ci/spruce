@@ -12,7 +12,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-6"
         id="checkbox-6-label"
       >
@@ -22,7 +22,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-6-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-6"
@@ -51,6 +51,9 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -66,7 +69,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-7"
         id="checkbox-7-label"
       >
@@ -76,7 +79,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-7-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-7"
@@ -105,6 +108,9 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -120,7 +126,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-8"
         id="checkbox-8-label"
       >
@@ -130,7 +136,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-8-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-8"
@@ -159,6 +165,9 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -174,7 +183,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-9"
         id="checkbox-9-label"
       >
@@ -184,7 +193,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-9-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-9"
@@ -213,6 +222,9 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -228,7 +240,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-10"
         id="checkbox-10-label"
       >
@@ -238,7 +250,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-10-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-10"
@@ -267,6 +279,9 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -282,7 +297,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-11"
         id="checkbox-11-label"
       >
@@ -292,7 +307,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-11-label"
           checked={true}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-11"
@@ -321,6 +336,9 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -336,7 +354,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-12"
         id="checkbox-12-label"
       >
@@ -346,7 +364,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-12-label"
           checked={true}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-12"
@@ -375,6 +393,9 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -390,7 +411,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-13"
         id="checkbox-13-label"
       >
@@ -400,7 +421,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-13-label"
           checked={true}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-13"
@@ -429,6 +450,9 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -444,7 +468,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-14"
         id="checkbox-14-label"
       >
@@ -454,7 +478,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-14-label"
           checked={true}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-14"
@@ -483,6 +507,9 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -506,7 +533,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-15"
         id="checkbox-15-label"
       >
@@ -516,7 +543,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-15-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-15"
@@ -545,6 +572,9 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -560,7 +590,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-16"
         id="checkbox-16-label"
       >
@@ -570,7 +600,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-16-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-16"
@@ -599,6 +629,9 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -614,7 +647,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-17"
         id="checkbox-17-label"
       >
@@ -624,7 +657,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-17-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-17"
@@ -653,6 +686,9 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -668,7 +704,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-18"
         id="checkbox-18-label"
       >
@@ -678,7 +714,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-18-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-18"
@@ -707,6 +743,9 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -722,7 +761,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-19"
         id="checkbox-19-label"
       >
@@ -732,7 +771,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-19-label"
           checked={true}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-19"
@@ -761,6 +800,9 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -776,7 +818,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-20"
         id="checkbox-20-label"
       >
@@ -786,7 +828,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-20-label"
           checked={true}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-20"
@@ -815,6 +857,9 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -830,7 +875,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-21"
         id="checkbox-21-label"
       >
@@ -840,7 +885,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-21-label"
           checked={true}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-21"
@@ -869,6 +914,9 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -884,7 +932,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-22"
         id="checkbox-22-label"
       >
@@ -894,7 +942,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-22-label"
           checked={true}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-22"
@@ -923,6 +971,9 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -946,7 +997,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-23"
         id="checkbox-23-label"
       >
@@ -956,7 +1007,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-23-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-23"
@@ -985,6 +1036,9 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -1000,7 +1054,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-24"
         id="checkbox-24-label"
       >
@@ -1010,7 +1064,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-24-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-24"
@@ -1039,6 +1093,9 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -1054,7 +1111,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-25"
         id="checkbox-25-label"
       >
@@ -1064,7 +1121,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-25-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-25"
@@ -1093,6 +1150,9 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -1108,7 +1168,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-26"
         id="checkbox-26-label"
       >
@@ -1118,7 +1178,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-26-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-26"
@@ -1147,6 +1207,9 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -1162,7 +1225,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-27"
         id="checkbox-27-label"
       >
@@ -1172,7 +1235,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-27-label"
           checked={true}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-27"
@@ -1201,6 +1264,9 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -1216,7 +1282,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-28"
         id="checkbox-28-label"
       >
@@ -1226,7 +1292,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-28-label"
           checked={true}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-28"
@@ -1255,6 +1321,9 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -1270,7 +1339,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-29"
         id="checkbox-29-label"
       >
@@ -1280,7 +1349,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-29-label"
           checked={true}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-29"
@@ -1309,6 +1378,9 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -1324,7 +1396,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-30"
         id="checkbox-30-label"
       >
@@ -1334,7 +1406,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-30-label"
           checked={true}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-30"
@@ -1363,6 +1435,9 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -1386,7 +1461,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-31"
         id="checkbox-31-label"
       >
@@ -1396,7 +1471,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-31-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-31"
@@ -1425,6 +1500,9 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -1440,7 +1518,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-32"
         id="checkbox-32-label"
       >
@@ -1450,7 +1528,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-32-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-32"
@@ -1479,6 +1557,9 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -1494,7 +1575,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-33"
         id="checkbox-33-label"
       >
@@ -1504,7 +1585,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-33-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-33"
@@ -1533,6 +1614,9 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -1548,7 +1632,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-34"
         id="checkbox-34-label"
       >
@@ -1558,7 +1642,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-34-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-34"
@@ -1587,6 +1671,9 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -1602,7 +1689,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-35"
         id="checkbox-35-label"
       >
@@ -1612,7 +1699,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-35-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-35"
@@ -1641,6 +1728,9 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -1656,7 +1746,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-36"
         id="checkbox-36-label"
       >
@@ -1666,7 +1756,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-36-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-36"
@@ -1695,6 +1785,9 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -1710,7 +1803,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-37"
         id="checkbox-37-label"
       >
@@ -1720,7 +1813,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-37-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-37"
@@ -1749,6 +1842,9 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -1764,7 +1860,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-38"
         id="checkbox-38-label"
       >
@@ -1774,7 +1870,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-38-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-38"
@@ -1803,6 +1899,9 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
@@ -1818,7 +1917,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       className="leafygreen-ui-55kazc cy-checkbox"
     >
       <label
-        className="leafygreen-ui-hx39h2"
+        className="leafygreen-ui-rae0jp"
         htmlFor="checkbox-39"
         id="checkbox-39-label"
       >
@@ -1828,7 +1927,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
           aria-label="checkbox"
           aria-labelledby="checkbox-39-label"
           checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
           data-cy="checkbox"
           disabled={false}
           id="checkbox-39"
@@ -1857,6 +1956,9 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
             />
           </svg>
         </div>
+        <div
+          className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+        />
         <span
           className="leafygreen-ui-1wmrjan"
         >
