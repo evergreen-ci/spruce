@@ -16,7 +16,7 @@ export const useDimensions = (ref: MutableRefObject<HTMLElement>) => {
 
   const observer = useMemo(
     () =>
-      new (window as any).ResizeObserver((entries) => {
+      new ResizeObserver((entries) => {
         const { width, height } = entries[0]?.contentRect ?? {};
         setState({ width, height });
       }),
