@@ -49,15 +49,15 @@ describe("firstTimeGuideCue", () => {
     render(<Component />);
     expect(screen.getByDataCy("first-time-guide-cue")).toBeInTheDocument();
   });
-  it("if default open is true and the cookie is not set, the guide cue will be open by default", () => {
+  it("if isOpen is true and the cookie is not set, the guide cue will be open by default", () => {
     document.cookie = "cookie-name=";
-    render(<Component defaultOpen />);
+    render(<Component isOpen />);
     expect(screen.getByDataCy("first-time-guide-cue")).toBeInTheDocument();
   });
-  it("if default open is false and the cookie is not set, the guide cue will be open by default", () => {
+  it("if isOpen is false and the cookie is not set, the guide cue will not be open by default", () => {
     document.cookie = "cookie-name=";
-    render(<Component defaultOpen={false} />);
-    expect(screen.getByDataCy("first-time-guide-cue")).toBeInTheDocument();
+    render(<Component isOpen={false} />);
+    expect(screen.queryByDataCy("first-time-guide-cue")).toBeNull();
   });
   it("closing the guide cue sets a cookie", async () => {
     document.cookie = "";

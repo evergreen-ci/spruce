@@ -9,19 +9,27 @@ type GuideCueProps = Omit<
 
 type FirstTimeGuideCueProps = GuideCueProps & {
   cookieName: string;
-  defaultOpen?: boolean;
+  isOpen?: boolean;
   description: string;
 };
-
+/**
+ * `FirstTimeGuideCue` is a wrapper around `GuideCue` that handles the logic of
+ * whether or not to show the guide cue. It uses a cookie to determine whether or not
+ * to show the guide cue.
+ * @param cookieName - the name of the cookie to use to determine whether or not to show the guide cue
+ * @param isOpen - whether or not to show the guide cue by default
+ * @param description - the description to show in the guide cue
+ */
 const FirstTimeGuideCue: React.FC<FirstTimeGuideCueProps> = ({
   cookieName,
-  defaultOpen,
+  isOpen = true,
   description,
   ...props
 }) => {
   const [openGuideCue, setOpenGuideCue] = useState(
-    defaultOpen || !Cookies.get(cookieName)
+    isOpen && Cookies.get(cookieName) !== "true"
   );
+
   const onHideCue = () => {
     Cookies.set(cookieName, "true");
     setOpenGuideCue(false);

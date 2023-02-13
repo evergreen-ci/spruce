@@ -20,7 +20,7 @@ export const MigrateButton: React.VFC<Props> = ({ volume }) => {
     <>
       <FirstTimeGuideCue
         data-cy="migrate-cue"
-        defaultOpen={openGuideCue}
+        isOpen={openGuideCue}
         cookieName={SEEN_MIGRATE_GUIDE_CUE}
         title="New feature!"
         refEl={triggerRef}
