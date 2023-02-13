@@ -61,9 +61,8 @@ export default defineConfig({
             "node_modules/react/index.js",
             "node_modules/react-dom/index.js",
           ],
-          lodash: ["node_modules/lodash/index.js"],
           antd: ["node_modules/antd/es/index.js"],
-          "date-fns": ["node_modules/date-fns/esm/index.js"],
+          "date-fns/esm/locale": ["node_modules/date-fns/esm/locale/index.js"],
         },
       },
     },
@@ -74,6 +73,11 @@ export default defineConfig({
         __dirname,
         "./config/leafygreen-ui/emotion"
       ),
+      "date-fns/locale": path.resolve(
+        __dirname,
+        "./node_modules/date-fns/esm/locale"
+      ),
+      // "date-fns-tz": path.resolve(__dirname, "./node_modules/date-fns-tz/esm"),
     },
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
   },
@@ -101,18 +105,26 @@ export default defineConfig({
         {
           libName: "antd",
           libDirectory: "es",
-          style: (name) => `antd/es/${name}/style/index.js`,
+          style: (name) =>
+            // console.log(name);
+            `antd/es/${name}/style/index.js`,
         },
         {
           libName: "lodash",
           libDirectory: "",
           camel2DashComponentName: false,
-          style: (name) => `lodash/${name}`,
+          style: (name) => {
+            console.log(name);
+            return `lodash/${name}`;
+          },
         },
         {
           libName: "date-fns",
-          libDirectory: "",
-          style: (name) => `date-fns/esm/${name}`,
+          libDirectory: "esm",
+          style: (name) => {
+            console.log(name);
+            return `date-fns/esm/${name}`;
+          },
           camel2DashComponentName: false,
         },
       ],
