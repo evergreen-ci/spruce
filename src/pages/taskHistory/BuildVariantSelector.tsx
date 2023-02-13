@@ -1,13 +1,10 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
-import SearchableDropdown, {
-  SearchableDropdownOption,
-} from "components/SearchableDropdown";
 import {
   GetBuildVariantsForTaskNameQuery,
   GetBuildVariantsForTaskNameQueryVariables,
-  BuildVariantTuple,
 } from "gql/generated/types";
 import { GET_BUILD_VARIANTS_FOR_TASK_NAME } from "gql/queries";
 import { useQueryParam } from "hooks/useQueryParam";
@@ -48,35 +45,26 @@ const BuildVariantSelector: React.VFC<BuildVariantSelectorProps> = ({
 
   const { buildVariantsForTaskName } = data || {};
 
-  const handleSearch = (options: BuildVariantTuple[], match: string) =>
-    options.filter(
-      (option) =>
-        option.buildVariant.includes(match) ||
-        option.displayName.includes(match)
-    );
-
   return (
     <Container>
-      <SearchableDropdown
+      <Combobox
         data-cy="build-variant-selector"
         label="Build Variant"
-        valuePlaceholder="Select build variant to view"
+        placeholder="Select build variants"
         value={visibleColumns}
+        multiselect
         onChange={onChange}
-        options={buildVariantsForTaskName}
         disabled={loading}
-        allowMultiSelect
-        searchFunc={handleSearch}
-        optionRenderer={(option: BuildVariantTuple, onClick, isChecked) => (
-          <SearchableDropdownOption
+        overflow="scroll-x"
+      >
+        {buildVariantsForTaskName?.map((option) => (
+          <ComboboxOption
             key={`searchable_dropdown_option_${option.buildVariant}`}
             value={option.buildVariant}
             displayName={option.displayName}
-            onClick={() => onClick(option.buildVariant)}
-            isChecked={isChecked(option.buildVariant)}
           />
-        )}
-      />
+        ))}
+      </Combobox>
     </Container>
   );
 };

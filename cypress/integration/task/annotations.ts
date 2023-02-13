@@ -27,6 +27,7 @@ describe("Task Annotation Tab", () => {
     cy.get(popconfirmYesClassName).click();
     cy.get(issuesTable).should("have.length", 2);
     cy.get(suspectedIssuesTable).should("have.length", 2);
+    cy.validateToast("success", "Successfully moved suspected issue to issues");
 
     // move from Issues to suspectedIssues
     cy.dataCy("move-btn-AnotherOne").click();
@@ -36,6 +37,7 @@ describe("Task Annotation Tab", () => {
     cy.get(popconfirmYesClassName).click();
     cy.get(issuesTable).should("have.length", 1);
     cy.get(suspectedIssuesTable).should("have.length", 3);
+    cy.validateToast("success", "Successfully moved issue to suspected issues");
   });
 
   it("annotations add and delete correctly", () => {
@@ -46,18 +48,19 @@ describe("Task Annotation Tab", () => {
     // add a ticket
     cy.dataCy("add-suspected-issue-button").click();
     cy.dataCy("issue-url").type("https://jira.example.com/browse/SERVER-1234");
-    cy.dataCy("issue-key").type("A-New-Ticket");
     cy.contains("Add suspected issue").click();
     cy.get(issuesTable).should("have.length", 1);
     cy.get(suspectedIssuesTable).should("have.length", 4);
+    cy.validateToast("success", "Successfully added suspected issue");
 
     // delete the added ticket
-    cy.dataCy("A-New-Ticket-delete-btn").click();
+    cy.dataCy("SERVER-1234-delete-btn").click();
     cy.get(popconfirmYesClassName)
       .should("be.visible")
       .should("not.be.disabled");
     cy.get(popconfirmYesClassName).click();
     cy.get(issuesTable).should("have.length", 1);
     cy.get(suspectedIssuesTable).should("have.length", 3);
+    cy.validateToast("success", "Successfully removed suspected issue");
   });
 });
