@@ -460,12 +460,6 @@ export const getFormSchema = (
           "ui:description": "Shown in commit queue CLI commands & web UI",
           "ui:data-cy": "cq-message-input",
           ...placeholderIf(repoData?.commitQueue?.message),
-          ...hideIf(
-            fieldDisabled(
-              formData?.commitQueue?.enabled,
-              repoData?.commitQueue?.enabled
-            )
-          ),
         },
         mergeMethod: {
           "ui:allowDeselect": false,
