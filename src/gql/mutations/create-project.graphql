@@ -1,5 +1,8 @@
-mutation CreateProject($project: CreateProjectInput!) {
-  createProject(project: $project) {
+mutation CreateProject(
+  $project: CreateProjectInput!
+  $requestS3Creds: Boolean!
+) {
+  createProject(project: $project, requestS3Creds: $requestS3Creds) {
     identifier
   }
 }
