@@ -9,6 +9,10 @@ modules:
     repo: git@github.com:evergreen-ci/evergreen.git
     branch: main
     auto_update: true
+  - name: logkeeper
+    repo: git@github.com:evergreen-ci/logkeeper.git
+    branch: main
+    auto_update: true
 
 pre:
   - func: get-project
@@ -106,6 +110,41 @@ functions:
       script: |
         ln -s evergreen/graphql/schema sdlschema
 
+  run-logkeeper:
+    command: shell.exec
+    params:
+      working_dir: spruce/logkeeper
+      background: true
+      script: go run main/logkeeper.go --localPath _bucketdata
+      shell: bash
+      env:
+        GOROOT: ${goroot}
+        PATH: ${goroot}/bin:$PATH
+        LK_CORS_ORIGINS: http:\/\/localhost:\d+
+
+  seed-logkeeper:
+    command: s3.get
+    type: setup
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      extract_to: spruce/logkeeper
+      remote_file: _bucketdata.tar.gz
+      bucket: parsley-test
+      working_dir: parsley/logkeeper
+
+  attach-logkeeper-logs:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_file: parsley/logkeeper/logkeeperapp.log
+      remote_file: parsley/${task_id}/${execution}/logkeeperapp.log
+      bucket: mciuploads
+      content_type: text/html
+      permissions: public-read
+
   yarn-serve:
     command: shell.exec
     type: setup
@@ -192,14 +231,6 @@ functions:
         ${PREPARE_SHELL}
         yarn cy:run --record --key ${cypress_record_key} --reporter junit
         
-  copy-cmdrc:
-    command: shell.exec
-    params:
-      working_dir: spruce
-      shell: bash
-      script: |
-        cp env/.cmdrc_sample.json env/.cmdrc.json
-
   attach-test-results:
     command: attach.xunit_results
     params:
@@ -367,7 +398,6 @@ functions:
 tasks:
   - name: compile
     commands:
-      - func: copy-cmdrc
       - func: sym-link
       - func: yarn-build
 
@@ -396,11 +426,12 @@ tasks:
   - name: e2e_test
     commands:
       - func: setup-mongodb
-      - func: copy-cmdrc
       - func: run-make-background
         vars:
           target: local-evergreen
       - func: sym-link
+      - func: seed-logkeeper
+      - func: run-logkeeper
       - func: yarn-build
       - func: yarn-serve
       - func: wait-for-evergreen
