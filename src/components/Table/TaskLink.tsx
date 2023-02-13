@@ -17,7 +17,10 @@ export const TaskLink: React.VFC<TaskLinkProps> = ({
   taskId,
   taskName,
 }) => (
-  <StyledRouterLink onClick={() => onClick(taskId)} to={getTaskRoute(taskId)}>
+  <StyledRouterLink
+    onClick={() => onClick(taskId)}
+    to={getTaskRoute(taskId, { execution })}
+  >
     <WordBreak>{taskName}</WordBreak>
     {showTaskExecutionLabel && (
       <Body>Execution {formatZeroIndexForDisplay(execution)}</Body>

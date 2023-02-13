@@ -63,6 +63,12 @@ describe("copyProjectField", () => {
     const confirmButton = screen.getByRole("button", {
       name: "Duplicate",
     });
+    const requestS3Creds = screen.getByDataCy("request-s3-creds");
+    userEvent.click(requestS3Creds);
+    expect(confirmButton).toBeEnabled();
+    expect(requestS3Creds).toBeChecked();
+    userEvent.click(requestS3Creds);
+    expect(requestS3Creds).not.toBeChecked();
     expect(confirmButton).toBeEnabled();
 
     userEvent.click(screen.queryByText("Duplicate"));
@@ -81,6 +87,7 @@ describe("copyProjectField", () => {
             newProjectIdentifier,
             projectIdToCopy,
           },
+          requestS3Creds: false,
         },
       },
       result: {
@@ -122,6 +129,7 @@ describe("copyProjectField", () => {
             newProjectIdentifier,
             projectIdToCopy,
           },
+          requestS3Creds: false,
         },
       },
       result: {
@@ -163,6 +171,7 @@ describe("copyProjectField", () => {
             newProjectIdentifier,
             projectIdToCopy,
           },
+          requestS3Creds: false,
         },
       },
       result: {
@@ -199,6 +208,7 @@ const copyProjectMock = {
         newProjectIdentifier,
         projectIdToCopy,
       },
+      requestS3Creds: false,
     },
   },
   result: {

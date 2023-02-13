@@ -1,5 +1,5 @@
-mutation CopyProject($project: CopyProjectInput!) {
-  copyProject(project: $project) {
+mutation CopyProject($project: CopyProjectInput!, $requestS3Creds: Boolean!) {
+  copyProject(project: $project, requestS3Creds: $requestS3Creds) {
     identifier
   }
 }
