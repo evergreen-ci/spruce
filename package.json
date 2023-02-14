@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.23",
+  "version": "3.0.24",
   "private": true,
   "scripts": {
     "build-storybook": "NODE_OPTIONS=--max-old-space-size=6144 build-storybook",
@@ -66,7 +66,7 @@
     "@leafygreen-ui/banner": "7.0.1",
     "@leafygreen-ui/button": "19.0.1",
     "@leafygreen-ui/card": "9.0.1",
-    "@leafygreen-ui/checkbox": "12.0.1",
+    "@leafygreen-ui/checkbox": "12.0.5",
     "@leafygreen-ui/code": "14.0.1",
     "@leafygreen-ui/combobox": "5.0.7",
     "@leafygreen-ui/confirmation-modal": "4.0.3",
@@ -126,7 +126,7 @@
     "react-window-infinite-loader": "^1.0.8"
   },
   "devDependencies": {
-    "@babel/core": "7.12.3",
+    "@babel/core": "7.20.12",
     "@babel/parser": "^7.12.16",
     "@babel/plugin-proposal-private-property-in-object": "^7.17.12",
     "@babel/preset-react": "^7.12.13",
@@ -175,7 +175,7 @@
     "cypress": "12.5.1",
     "eslint": "8.19.0",
     "eslint-config-airbnb": "19.0.4",
-    "eslint-config-prettier": "8.5.0",
+    "eslint-config-prettier": "8.6.0",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jest": "^26.5.3",
@@ -184,7 +184,7 @@
     "eslint-plugin-react": "7.30.1",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-storybook": "0.5.13",
-    "eslint-plugin-testing-library": "^5.5.1",
+    "eslint-plugin-testing-library": "^5.10.1",
     "http-proxy": "^1.18.1",
     "husky": "8.0.1",
     "identity-obj-proxy": "3.0.0",
