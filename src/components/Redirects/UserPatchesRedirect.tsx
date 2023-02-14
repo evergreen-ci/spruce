@@ -3,5 +3,5 @@ import { getUserPatchesRoute } from "constants/routes";
 
 export const UserPatchesRedirect: React.VFC = () => {
   const { id } = useParams<{ id: string }>();
-  return <Navigate to={getUserPatchesRoute(id)} />;
+  return <Navigate replace to={getUserPatchesRoute(id)} />;
 };
