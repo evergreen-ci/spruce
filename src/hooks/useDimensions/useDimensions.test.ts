@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 /* eslint-disable max-classes-per-file */
 import { act, renderHook } from "@testing-library/react-hooks";
 import { useDimensions } from "hooks/useDimensions";
