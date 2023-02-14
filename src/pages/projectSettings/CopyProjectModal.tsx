@@ -58,11 +58,13 @@ export const CopyProjectModal: React.VFC<Props> = ({
           { shouldTimeout: false }
         );
       } else {
-        success(`Successfully created the project: ${identifier}`);
+        success(`Successfully duplicated the project: ${identifier}`);
       }
       navigate(getProjectSettingsRoute(identifier), { replace: true });
     } else if (error) {
-      errorToast(`There was an error creating the project: ${error?.message}`);
+      errorToast(
+        `There was an error duplicating the project: ${error?.message}`
+      );
     }
   }, [
     called,
