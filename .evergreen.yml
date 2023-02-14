@@ -41,7 +41,7 @@ functions:
       type: setup
       params:
         env:
-          gobin: /opt/golang/go1.16/bin/go
+          gobin: ${goroot}/bin/go
           MONGODB_URL: ${mongodb_url_2004}
           DECOMPRESS: ${decompress}
         working_dir: spruce/evergreen
@@ -93,7 +93,7 @@ functions:
       background: true
       env:
         SETTINGS_OVERRIDE: file
-        GOROOT: /opt/golang/go1.16
+        GOROOT: ${goroot}
 
   wait-for-evergreen:
     command: shell.exec
@@ -444,10 +444,12 @@ buildvariants:
     run_on:
       - ubuntu2004-large
     expansions:
+      goroot: /opt/golang/go1.16
       mongodb_url_2004: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-5.0.14.tgz
       node_version: 16.17.0
     modules:
       - evergreen
+      - logkeeper
     tasks:
       - name: compile
       - name: test
