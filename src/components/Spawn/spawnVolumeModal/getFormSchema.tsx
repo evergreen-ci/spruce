@@ -30,7 +30,7 @@ export const getFormSchema = ({
         title: "Required Volume Information",
         properties: {
           volumeSize: {
-            title: "Size (GB)",
+            title: "Size (GiB)",
             type: "number" as "number",
             default: maxSpawnableLimit > 500 ? 500 : maxSpawnableLimit,
             minimum: 1,

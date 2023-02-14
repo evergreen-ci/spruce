@@ -39,7 +39,7 @@ export const SpawnVolumeButton: React.VFC<SpawnVolumeButtonProps> = ({
                 });
               }}
             >
-              Spawn a Volume
+              Spawn a volume
             </PlusButton>
           </div>
         }
@@ -48,11 +48,13 @@ export const SpawnVolumeButton: React.VFC<SpawnVolumeButtonProps> = ({
         {`You have reached the max volume limit (${volumeLimit} GiB). Delete some volumes to spawn more.`}
       </Tooltip>
       <Info>Limit {volumeLimit} GiB per User</Info>
-      <SpawnVolumeModal
-        visible={openModal}
-        onCancel={() => setOpenModal(false)}
-        maxSpawnableLimit={maxSpawnableLimit}
-      />
+      {openModal && (
+        <SpawnVolumeModal
+          visible={openModal}
+          onCancel={() => setOpenModal(false)}
+          maxSpawnableLimit={maxSpawnableLimit}
+        />
+      )}
     </PaddedContainer>
   );
 };

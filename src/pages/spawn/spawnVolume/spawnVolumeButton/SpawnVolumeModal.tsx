@@ -31,11 +31,6 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
   const spawnAnalytics = useSpawnAnalytics();
   const dispatchToast = useToastContext();
 
-  const closeModal = () => {
-    onCancel();
-    setFormState({});
-  };
-
   const [spawnVolumeMutation, { loading: loadingSpawnVolume }] = useMutation<
     SpawnVolumeMutation,
     SpawnVolumeMutationVariables
@@ -101,11 +96,11 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
     <ConfirmationModal
       title="Spawn New Volume"
       open={visible}
-      onCancel={closeModal}
+      onCancel={onCancel}
       buttonText={loadingSpawnVolume ? "Spawning volume" : "Spawn"}
       onConfirm={() => {
         spawnVolume();
-        closeModal();
+        onCancel();
       }}
       submitDisabled={loadingSpawnVolume || !canSubmit}
       data-cy="spawn-volume-modal"
