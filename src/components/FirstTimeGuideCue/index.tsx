@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GuideCue } from "@leafygreen-ui/guide-cue";
 import Cookies from "js-cookie";
 
@@ -29,6 +29,10 @@ const FirstTimeGuideCue: React.FC<FirstTimeGuideCueProps> = ({
   const [openGuideCue, setOpenGuideCue] = useState(
     isOpen && Cookies.get(cookieName) !== "true"
   );
+
+  useEffect(() => {
+    setOpenGuideCue(isOpen && Cookies.get(cookieName) !== "true");
+  }, [isOpen, cookieName]);
 
   const onHideCue = () => {
     Cookies.set(cookieName, "true");
