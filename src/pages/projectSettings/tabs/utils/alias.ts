@@ -314,17 +314,17 @@ const variants = {
     properties: {
       specifier: {
         type: "string" as "string",
-        title: "Variant",
+        title: "",
         default: VariantTaskSpecifier.Tags,
         oneOf: [
           {
             type: "string" as "string",
-            title: "Tags",
+            title: "Variant Tags",
             enum: [VariantTaskSpecifier.Tags],
           },
           {
             type: "string" as "string",
-            title: "Regex",
+            title: "Variant Regex",
             enum: [VariantTaskSpecifier.Regex],
           },
         ],
@@ -372,17 +372,17 @@ const tasks = {
     properties: {
       specifier: {
         type: "string" as "string",
-        title: "Task",
+        title: "",
         default: VariantTaskSpecifier.Tags,
         oneOf: [
           {
             type: "string" as "string",
-            title: "Tags",
+            title: "Task Tags",
             enum: [VariantTaskSpecifier.Tags],
           },
           {
             type: "string" as "string",
-            title: "Regex",
+            title: "Task Regex",
             enum: [VariantTaskSpecifier.Regex],
           },
         ],
