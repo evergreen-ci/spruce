@@ -117,9 +117,11 @@ before(() => {
   cy.login();
 });
 beforeEach(() => {
-  cy.setCookie(bannerCookie, "true");
-  cy.setCookie(slackBannerCookie, "true");
+  cy.setCookie(BANNER_COOKIE, "true");
+  cy.setCookie(SLACK_BANNER_COOKIE, "true");
+  cy.setCookie(SEEN_LOBSTER_MOVED_GUIDE_CUE, "true");
 });
 
-const bannerCookie = "This is an important notification";
-const slackBannerCookie = "has-closed-slack-banner";
+const BANNER_COOKIE = "This is an important notification";
+const SLACK_BANNER_COOKIE = "has-closed-slack-banner";
+const SEEN_LOBSTER_MOVED_GUIDE_CUE = "seen-lobster-moved-guide-cue";
