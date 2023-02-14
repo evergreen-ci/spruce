@@ -159,6 +159,7 @@ describe("Navigating to Spawn Volume page", () => {
 
   it("Clicking on 'Spawn Volume' should open the Spawn Volume Modal", () => {
     cy.visit("/spawn/volume");
+    cy.dataCy("spawn-volume-btn").should("not.be.disabled");
     cy.dataCy("spawn-volume-btn").click();
     cy.dataCy("spawn-volume-modal").should("be.visible");
   });
