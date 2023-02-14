@@ -14,7 +14,7 @@ import {
 } from "gql/generated/types";
 import { CREATE_PROJECT } from "gql/mutations";
 import { GET_GITHUB_ORGS } from "gql/queries";
-import { projectId, projectName } from "./sharedFormSchema";
+import { projectId, projectName, requestS3Creds } from "./sharedFormSchema";
 
 interface Props {
   handleClose: () => void;
@@ -38,6 +38,7 @@ export const CreateProjectModal: React.VFC<Props> = ({
     repo: repo ?? "",
     projectName: "",
     projectId: "",
+    requestS3Creds: false,
   });
   const [hasError, setHasError] = useState(true);
 
@@ -72,6 +73,7 @@ export const CreateProjectModal: React.VFC<Props> = ({
           repo: formState.repo,
           ...(formState?.projectId && { id: formState.projectId }),
         },
+        requestS3Creds: formState.requestS3Creds,
       },
     });
     sendEvent({ name: "Create new project" });
@@ -127,6 +129,7 @@ const modalFormDefinition = (githubOrgs: string[]) => ({
         minLength: 1,
         format: "noSpaces",
       },
+      requestS3Creds: requestS3Creds.schema,
     },
   },
   uiSchema: {
@@ -139,5 +142,6 @@ const modalFormDefinition = (githubOrgs: string[]) => ({
     repo: {
       "ui:data-cy": "new-repo-input",
     },
+    requestS3Creds: requestS3Creds.uiSchema,
   },
 });
