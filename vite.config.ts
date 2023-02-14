@@ -58,11 +58,15 @@ export default defineConfig({
         ],
         manualChunks: {
           vendor: [
-            "node_modules/react/index.js",
-            "node_modules/react-dom/index.js",
+            "react",
+            "react-router-dom",
+            "react-dom",
+            "react-router",
+            "lodash",
+            "date-fns",
+            "antd",
+            "date-fns/esm/locale",
           ],
-          antd: ["node_modules/antd/es/index.js"],
-          "date-fns/esm/locale": ["node_modules/date-fns/esm/locale/index.js"],
         },
       },
     },
@@ -72,10 +76,6 @@ export default defineConfig({
       "@leafygreen-ui/emotion": path.resolve(
         __dirname,
         "./config/leafygreen-ui/emotion"
-      ),
-      "date-fns/locale": path.resolve(
-        __dirname,
-        "./node_modules/date-fns/esm/locale"
       ),
     },
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
