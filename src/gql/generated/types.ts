@@ -911,6 +911,7 @@ export type Patch = {
   project?: Maybe<PatchProject>;
   projectID: Scalars["String"];
   projectIdentifier: Scalars["String"];
+  projectMetadata?: Maybe<Project>;
   status: Scalars["String"];
   taskCount?: Maybe<Scalars["Int"]>;
   taskStatuses: Array<Scalars["String"]>;
