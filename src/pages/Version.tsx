@@ -130,7 +130,7 @@ export const VersionPage: React.VFC = () => {
 
   // If it's a patch, redirect to the proper page.
   if (redirectURL) {
-    return <Navigate to={redirectURL} />;
+    return <Navigate replace to={redirectURL} />;
   }
 
   // If it's a version, proceed with loading the version page.
