@@ -35,7 +35,8 @@ type Action =
       name: "Spawned a volume";
       params: SpawnVolumeMutationVariables;
     }
-  | { name: "Edited a Spawn Volume"; params: UpdateVolumeMutationVariables };
+  | { name: "Edited a Spawn Volume"; params: UpdateVolumeMutationVariables }
+  | { name: "Opened IDE" };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}

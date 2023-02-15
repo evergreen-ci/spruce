@@ -49,7 +49,9 @@ const host = {
   uptime: new Date("2020-06-15T11:10:44Z"),
 };
 
-export const SpawnHostCardStory = () => <SpawnHostCard host={host} />;
+export const SpawnHostCardStory = () => (
+  <SpawnHostCard host={host} sendEvent={() => {}} />
+);
 
 export default {
   title: "Pages/Spawn/Spawn Host Card",
