@@ -7,7 +7,7 @@ import { GET_USER } from "gql/queries";
 export const MyPatches: React.VFC = () => {
   const { data } = useQuery<GetUserQuery>(GET_USER);
   if (data) {
-    return <Navigate to={getUserPatchesRoute(data.user.userId)} />;
+    return <Navigate replace to={getUserPatchesRoute(data.user.userId)} />;
   }
   return null;
 };

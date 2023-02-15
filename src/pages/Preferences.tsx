@@ -16,7 +16,12 @@ export const Preferences: React.VFC = () => {
   const { tab } = useParams<{ tab: string }>();
   const { sendEvent } = usePreferencesAnalytics();
   if (!tabRouteValues.includes(tab as PreferencesTabRoutes)) {
-    return <Navigate to={getPreferencesRoute(PreferencesTabRoutes.Profile)} />;
+    return (
+      <Navigate
+        replace
+        to={getPreferencesRoute(PreferencesTabRoutes.Profile)}
+      />
+    );
   }
   return (
     <>
