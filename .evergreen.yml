@@ -131,7 +131,6 @@ functions:
       extract_to: spruce/logkeeper
       remote_file: _bucketdata.tar.gz
       bucket: parsley-test
-      working_dir: parsley/logkeeper
 
   yarn-serve:
     command: shell.exec
