@@ -4,6 +4,10 @@ fragment PatchesPagePatches on Patches {
     author
     authorDisplayName
     projectIdentifier
+    projectMetadata {
+      owner
+      repo
+    }
     description
     status
     createTime
@@ -17,10 +21,6 @@ fragment PatchesPagePatches on Patches {
         }
       }
       status
-      projectMetadata {
-        owner
-        repo
-      }
     }
     canEnqueueToCommitQueue
   }

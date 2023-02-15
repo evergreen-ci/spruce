@@ -2457,13 +2457,13 @@ export type PatchesPagePatchesFragment = {
     createTime?: Maybe<Date>;
     commitQueuePosition?: Maybe<number>;
     canEnqueueToCommitQueue: boolean;
+    projectMetadata?: Maybe<{ owner: string; repo: string }>;
     versionFull?: Maybe<{
       id: string;
       status: string;
       taskStatusStats?: Maybe<{
         counts?: Maybe<Array<{ status: string; count: number }>>;
       }>;
-      projectMetadata?: Maybe<{ owner: string; repo: string }>;
     }>;
   }>;
 };
@@ -6244,13 +6244,13 @@ export type ProjectPatchesQuery = {
         createTime?: Maybe<Date>;
         commitQueuePosition?: Maybe<number>;
         canEnqueueToCommitQueue: boolean;
+        projectMetadata?: Maybe<{ owner: string; repo: string }>;
         versionFull?: Maybe<{
           id: string;
           status: string;
           taskStatusStats?: Maybe<{
             counts?: Maybe<Array<{ status: string; count: number }>>;
           }>;
-          projectMetadata?: Maybe<{ owner: string; repo: string }>;
         }>;
       }>;
     };
@@ -6315,13 +6315,13 @@ export type UserPatchesQuery = {
         createTime?: Maybe<Date>;
         commitQueuePosition?: Maybe<number>;
         canEnqueueToCommitQueue: boolean;
+        projectMetadata?: Maybe<{ owner: string; repo: string }>;
         versionFull?: Maybe<{
           id: string;
           status: string;
           taskStatusStats?: Maybe<{
             counts?: Maybe<Array<{ status: string; count: number }>>;
           }>;
-          projectMetadata?: Maybe<{ owner: string; repo: string }>;
         }>;
       }>;
     };
