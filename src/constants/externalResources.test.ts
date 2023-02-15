@@ -38,7 +38,7 @@ describe("getLobsterTestLogCompleteUrl", () => {
 describe("getParsleyTestLogURL", () => {
   it("generates the correct url", () => {
     expect(getParsleyTestLogURL("myBuildId", "myTestId")).toBe(
-      "/resmoke/myBuildId/test/myTestId/"
+      "/resmoke/myBuildId/test/myTestId"
     );
   });
 });

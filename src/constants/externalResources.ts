@@ -84,7 +84,7 @@ export const getLobsterTaskLink = (
   `${getLobsterURL()}/lobster/evergreen/task/${taskId}/${execution}/${logType}`;
 
 export const getParsleyTestLogURL = (buildId: string, testId: string) =>
-  `${getParsleyUrl()}/resmoke/${buildId}/test/${testId}/`;
+  `${getParsleyUrl()}/resmoke/${buildId}/test/${testId}`;
 
 export const getParsleyBuildLogURL = (buildId: string) =>
   `${getParsleyUrl()}/resmoke/${buildId}/all`;

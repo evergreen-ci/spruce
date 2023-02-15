@@ -4,7 +4,6 @@ import Button from "@leafygreen-ui/button";
 import { Body, H2, H3, Link } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { PageWrapper, StyledRouterLink } from "components/styles";
-import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { getParsleyBuildLogURL } from "constants/externalResources";
 import { getTaskRoute } from "constants/routes";
 import { size } from "constants/tokens";
@@ -88,11 +87,7 @@ export const JobLogs = () => {
               Complete logs for all tests
             </Button>
           </CompleteLogsLink>
-          {tests.length ? (
-            <JobLogsTable buildId={buildId} tests={tests} />
-          ) : (
-            <TablePlaceholder message="No test results found." />
-          )}
+          <JobLogsTable buildId={buildId} tests={tests} />
         </ContentWrapper>
       )}
     </PageWrapper>
