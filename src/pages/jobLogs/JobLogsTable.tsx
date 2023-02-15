@@ -12,8 +12,8 @@ interface JobLogsTableProps {
 export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
   buildId,
   tests,
-}) =>
-  tests.length ? (
+}) => (
+  <>
     <Table
       data={tests}
       columns={[<TableHeader key="test-name" label="Test Name" />]}
@@ -31,6 +31,8 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
         </Row>
       )}
     </Table>
-  ) : (
-    <TablePlaceholder message="No test results found." />
-  );
+    {tests.length === 0 && (
+      <TablePlaceholder message="No test results found." />
+    )}
+  </>
+);
