@@ -1,35 +1,35 @@
 {
     "devLocal": {
-         "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
-         "REACT_APP_API_URL": "http://localhost:3000/api",
-         "REACT_APP_UI_URL": "http://localhost:9090",
-         "REACT_APP_SPRUCE_URL": "http://localhost:3000",
-         "REACT_APP_LOGKEEPER_URL": "http://localhost:8080",
-         "REACT_APP_PARSLEY_URL": "https://parsley.mongodb.com"
-     },
-     "devProd": {
-         "REACT_APP_SIGNAL_PROCESSING_URL": "https://performance-monitoring-and-analysis.server-tig.prod.corp.mongodb.com",
-         "REACT_APP_API_URL": "https://evergreen.mongodb.com/api",
-         "REACT_APP_UI_URL": "https://evergreen.mongodb.com",
-         "REACT_APP_GQL_URL": "https://evergreen.mongodb.com/graphql/query",
-         "REACT_APP_LOBSTER_URL": "https://evergreen.mongodb.com",
-         "REACT_APP_PARSLEY_URL": "https://parsley-beta.corp.mongodb.com",
-         "REACT_APP_SPRUCE_URL": "http://localhost:3000"
-     },
-     "devStaging": {
-         "REACT_APP_GQL_URL": "https://evergreen-staging.corp.mongodb.com/graphql/query",
-         "REACT_APP_API_URL": "https://evergreen-staging.corp.mongodb.com/api",
-         "REACT_APP_UI_URL": "https://evergreen-staging.corp.mongodb.com",
-         "REACT_APP_LOBSTER_URL": "https://evergreen-staging.corp.mongodb.com",
-         "REACT_APP_PARSLEY_URL": "http://parsley-staging.corp.mongodb.com",
-         "REACT_APP_SPRUCE_URL": "http://localhost:3000"
-     },
-     "local": {
-         "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
-         "REACT_APP_API_URL": "http://localhost:3000/api",
-         "REACT_APP_UI_URL": "http://localhost:9090",
-         "REACT_APP_SPRUCE_URL": "http://localhost:3000",
-         "REACT_APP_LOGKEEPER_URL": "http://localhost:8080",
-         "REACT_APP_RELEASE_STAGE": "local"
-     }
- }
+        "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
+        "REACT_APP_API_URL": "http://localhost:3000/api",
+        "REACT_APP_UI_URL": "http://localhost:9090",
+        "REACT_APP_SPRUCE_URL": "http://localhost:3000",
+        "REACT_APP_LOGKEEPER_URL": "http://localhost:8080",
+        "REACT_APP_PARSLEY_URL": "https://parsley.mongodb.com"
+    },
+    "devProd": {
+        "REACT_APP_SIGNAL_PROCESSING_URL": "https://performance-monitoring-and-analysis.server-tig.prod.corp.mongodb.com",
+        "REACT_APP_API_URL": "https://evergreen.mongodb.com/api",
+        "REACT_APP_UI_URL": "https://evergreen.mongodb.com",
+        "REACT_APP_GQL_URL": "https://evergreen.mongodb.com/graphql/query",
+        "REACT_APP_LOBSTER_URL": "https://evergreen.mongodb.com",
+        "REACT_APP_PARSLEY_URL": "https://parsley-beta.corp.mongodb.com",
+        "REACT_APP_SPRUCE_URL": "http://localhost:3000"
+    },
+    "devStaging": {
+        "REACT_APP_GQL_URL": "https://evergreen-staging.corp.mongodb.com/graphql/query",
+        "REACT_APP_API_URL": "https://evergreen-staging.corp.mongodb.com/api",
+        "REACT_APP_UI_URL": "https://evergreen-staging.corp.mongodb.com",
+        "REACT_APP_LOBSTER_URL": "https://evergreen-staging.corp.mongodb.com",
+        "REACT_APP_PARSLEY_URL": "http://parsley-staging.corp.mongodb.com",
+        "REACT_APP_SPRUCE_URL": "http://localhost:3000"
+    },
+    "local": {
+        "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
+        "REACT_APP_API_URL": "http://localhost:3000/api",
+        "REACT_APP_UI_URL": "http://localhost:9090",
+        "REACT_APP_SPRUCE_URL": "http://localhost:3000",
+        "REACT_APP_LOGKEEPER_URL": "http://localhost:8080",
+        "REACT_APP_RELEASE_STAGE": "local"
+    }
+}
