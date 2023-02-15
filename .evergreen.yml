@@ -192,14 +192,6 @@ functions:
         ${PREPARE_SHELL}
         yarn cy:run --record --key ${cypress_record_key} --reporter junit
         
-  copy-cmdrc:
-    command: shell.exec
-    params:
-      working_dir: spruce
-      shell: bash
-      script: |
-        cp env/.cmdrc_sample.json env/.cmdrc.json
-
   attach-test-results:
     command: attach.xunit_results
     params:
@@ -367,7 +359,6 @@ functions:
 tasks:
   - name: compile
     commands:
-      - func: copy-cmdrc
       - func: sym-link
       - func: yarn-build
 
@@ -396,7 +387,6 @@ tasks:
   - name: e2e_test
     commands:
       - func: setup-mongodb
-      - func: copy-cmdrc
       - func: run-make-background
         vars:
           target: local-evergreen
