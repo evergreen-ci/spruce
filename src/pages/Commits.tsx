@@ -35,7 +35,7 @@ import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString, validators } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
 import CommitTypeSelect from "./commits/commitTypeSelect";
-import { useCommitsLimit } from "./commits/hooks/useCommitsLimit";
+import { useCommitLimit } from "./commits/hooks/useCommitsLimit";
 import { PaginationButtons } from "./commits/PaginationButtons";
 import { StatusSelect } from "./commits/StatusSelect";
 import {
@@ -56,7 +56,7 @@ export const Commits = () => {
   const { userSettings } = useUserSettings();
   const { useSpruceOptions } = userSettings ?? {};
   const { hasUsedMainlineCommitsBefore = true } = useSpruceOptions ?? {};
-  const [ref, limit] = useCommitsLimit<HTMLDivElement>();
+  const [ref, limit] = useCommitLimit<HTMLDivElement>();
   const parsed = parseQueryString(search);
   const { projectIdentifier } = useParams<{
     projectIdentifier: string;

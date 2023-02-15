@@ -3,7 +3,7 @@ import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam } from "hooks/useQueryParam";
 import { MainlineCommitQueryParams } from "types/commits";
 
-export const useCommitsLimit = <T extends HTMLElement>(): [
+export const useCommitLimit = <T extends HTMLElement>(): [
   MutableRefObject<T>,
   number
 ] => {
