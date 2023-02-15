@@ -35,7 +35,7 @@ import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString, validators } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
 import CommitTypeSelect from "./commits/commitTypeSelect";
-import { useCommitLimit } from "./commits/hooks/useCommitsLimit";
+import { useCommitLimit } from "./commits/hooks/useCommitLimit";
 import { PaginationButtons } from "./commits/PaginationButtons";
 import { StatusSelect } from "./commits/StatusSelect";
 import {
