@@ -27,6 +27,7 @@ import GET_JIRA_CUSTOM_CREATED_ISSUES from "./get-jira-custom-created-issues.gra
 import GET_JIRA_ISSUES from "./get-jira-issues.graphql";
 import GET_JIRA_SUSPECTED_ISSUES from "./get-jira-suspected-issues.graphql";
 import GET_LAST_MAINLINE_COMMIT from "./get-last-mainline-commit.graphql";
+import GET_LOGKEEPER_BUILD_METADATA from "./get-logkeeper-build-metadata.graphql";
 import GET_MAINLINE_COMMITS_FOR_HISTORY from "./get-mainline-commits-for-history.graphql";
 import GET_MAINLINE_COMMITS from "./get-mainline-commits.graphql";
 import GET_MY_HOSTS from "./get-my-hosts.graphql";
@@ -100,6 +101,7 @@ export {
   GET_JIRA_ISSUES,
   GET_JIRA_SUSPECTED_ISSUES,
   GET_LAST_MAINLINE_COMMIT,
+  GET_LOGKEEPER_BUILD_METADATA,
   GET_MAINLINE_COMMITS_FOR_HISTORY,
   GET_MAINLINE_COMMITS,
   GET_MY_HOSTS,

@@ -1,5 +1,9 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
+import {
+  Analytics,
+  useSpawnAnalytics,
+} from "analytics/spawn/useSpawnAnalytics";
 import { DoesNotExpire, DetailsCard } from "components/Spawn";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { getIdeUrl } from "constants/externalResources";
@@ -9,17 +13,23 @@ import { useDateFormat } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 
+type SendEvent = Analytics["sendEvent"];
+
 interface SpawnHostCardProps {
   host: MyHost;
 }
 
-export const SpawnHostCard: React.VFC<SpawnHostCardProps> = ({ host }) => (
-  <DetailsCard
-    data-cy="spawn-host-card"
-    fieldMaps={spawnHostCardFieldMaps}
-    type={host}
-  />
-);
+export const SpawnHostCard: React.VFC<SpawnHostCardProps> = ({ host }) => {
+  const { sendEvent } = useSpawnAnalytics();
+
+  return (
+    <DetailsCard
+      data-cy="spawn-host-card"
+      fieldMaps={spawnHostCardFieldMaps(sendEvent)}
+      type={host}
+    />
+  );
+};
 
 const HostUptime: React.VFC<MyHost> = ({ uptime }) => {
   const getDateCopy = useDateFormat();
@@ -30,7 +40,7 @@ const HostExpiration: React.VFC<MyHost> = ({ noExpiration, expiration }) => {
   const getDateCopy = useDateFormat();
   return <span>{noExpiration ? DoesNotExpire : getDateCopy(expiration)}</span>;
 };
-const spawnHostCardFieldMaps = {
+const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
   ID: (host: MyHost) => <span>{host?.id}</span>,
   "Created at": HostUptime,
   "Started at": HostUptime,
@@ -74,10 +84,15 @@ const spawnHostCardFieldMaps = {
     host?.distro?.isVirtualWorkStation &&
     host?.status === HostStatus.Running ? (
       <span>
-        <StyledLink href={getIdeUrl(host.id)}>Open IDE</StyledLink>
+        <StyledLink
+          href={getIdeUrl(host.id)}
+          onClick={() => sendEvent({ name: "Opened IDE" })}
+        >
+          Open IDE
+        </StyledLink>
       </span>
     ) : undefined,
-};
+});
 
 const PaddedBadge = styled(Badge)`
   margin-right: ${size.xs};

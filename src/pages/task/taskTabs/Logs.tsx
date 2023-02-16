@@ -104,6 +104,7 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
           <ButtonContainer>
             {parsleyLink && (
               <Button
+                title="High-powered log viewer"
                 data-cy="parsley-log-btn"
                 disabled={noLogs}
                 href={parsleyLink}
@@ -121,6 +122,7 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
             )}
             {lobsterLink && (
               <Button
+                title="Legacy log viewer"
                 data-cy="lobster-log-btn"
                 disabled={noLogs}
                 href={lobsterLink}
@@ -138,6 +140,7 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
             )}
             {htmlLink && (
               <Button
+                title="Plain, colorized log viewer"
                 data-cy="html-log-btn"
                 disabled={noLogs}
                 href={htmlLink}
@@ -155,6 +158,7 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
             )}
             {rawLink && (
               <Button
+                title="Plain text log viewer"
                 data-cy="raw-log-btn"
                 disabled={noLogs}
                 href={rawLink}
