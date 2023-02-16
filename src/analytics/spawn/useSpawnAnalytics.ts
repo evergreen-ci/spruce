@@ -53,3 +53,5 @@ export const useSpawnAnalytics = (): Analytics => {
 
   return { sendEvent };
 };
+
+export type { Analytics };
