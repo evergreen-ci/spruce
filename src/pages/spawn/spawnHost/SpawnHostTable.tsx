@@ -29,9 +29,7 @@ export const SpawnHostTable: React.VFC<SpawnHostTableProps> = ({ hosts }) => {
       columns={columns}
       dataSource={hosts}
       expandable={{
-        expandedRowRender: (record: MyHost) => (
-          <SpawnHostCard host={record} sendEvent={spawnAnalytics.sendEvent} />
-        ),
+        expandedRowRender: (record: MyHost) => <SpawnHostCard host={record} />,
         onExpand: (expanded) => {
           spawnAnalytics.sendEvent({
             name: "Toggle Spawn Host Details",

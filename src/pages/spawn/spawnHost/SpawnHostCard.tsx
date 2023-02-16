@@ -1,6 +1,9 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { Analytics } from "analytics/spawn/useSpawnAnalytics";
+import {
+  Analytics,
+  useSpawnAnalytics,
+} from "analytics/spawn/useSpawnAnalytics";
 import { DoesNotExpire, DetailsCard } from "components/Spawn";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { getIdeUrl } from "constants/externalResources";
@@ -14,19 +17,19 @@ type SendEvent = Analytics["sendEvent"];
 
 interface SpawnHostCardProps {
   host: MyHost;
-  sendEvent: SendEvent;
 }
 
-export const SpawnHostCard: React.VFC<SpawnHostCardProps> = ({
-  host,
-  sendEvent,
-}) => (
-  <DetailsCard
-    data-cy="spawn-host-card"
-    fieldMaps={spawnHostCardFieldMaps(sendEvent)}
-    type={host}
-  />
-);
+export const SpawnHostCard: React.VFC<SpawnHostCardProps> = ({ host }) => {
+  const { sendEvent } = useSpawnAnalytics();
+
+  return (
+    <DetailsCard
+      data-cy="spawn-host-card"
+      fieldMaps={spawnHostCardFieldMaps(sendEvent)}
+      type={host}
+    />
+  );
+};
 
 const HostUptime: React.VFC<MyHost> = ({ uptime }) => {
   const getDateCopy = useDateFormat();
