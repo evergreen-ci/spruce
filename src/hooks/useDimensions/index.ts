@@ -17,8 +17,10 @@ export const useDimensions = (ref: MutableRefObject<HTMLElement>) => {
   const observer = useMemo(
     () =>
       new ResizeObserver((entries) => {
-        const { width, height } = entries[0]?.contentRect ?? {};
-        setState({ width, height });
+        requestAnimationFrame(() => {
+          const { width, height } = entries[0]?.contentRect ?? {};
+          setState({ width, height });
+        });
       }),
     []
   );
@@ -29,7 +31,7 @@ export const useDimensions = (ref: MutableRefObject<HTMLElement>) => {
     return () => {
       observer.disconnect();
     };
-  }, [ref]);
+  }, [ref]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return state;
 };

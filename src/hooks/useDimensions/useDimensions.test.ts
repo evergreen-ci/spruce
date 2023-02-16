@@ -6,6 +6,8 @@ describe("useDimensions", () => {
   let disconnectSpy;
 
   beforeEach(() => {
+    // @ts-ignore next-line
+    window.requestAnimationFrame = jest.fn((cb) => cb()); // eslint-disable-line jest/prefer-spy-on
     disconnectSpy = jest.fn();
     // eslint-disable-next-line jest/prefer-spy-on
     window.ResizeObserver = jest.fn().mockImplementation((l) => {
