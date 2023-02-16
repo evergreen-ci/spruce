@@ -1,4 +1,8 @@
-import { getLobsterTestLogCompleteUrl } from "./externalResources";
+import {
+  getLobsterTestLogCompleteUrl,
+  getParsleyBuildLogURL,
+  getParsleyTestLogURL,
+} from "./externalResources";
 
 describe("getLobsterTestLogCompleteUrl", () => {
   const taskId = "taskId";
@@ -28,5 +32,19 @@ describe("getLobsterTestLogCompleteUrl", () => {
         lineNum: 0,
       })
     ).toBe("/lobster/evergreen/complete-test/taskId/44");
+  });
+});
+
+describe("getParsleyTestLogURL", () => {
+  it("generates the correct url", () => {
+    expect(getParsleyTestLogURL("myBuildId", "myTestId")).toBe(
+      "/resmoke/myBuildId/test/myTestId"
+    );
+  });
+});
+
+describe("getParsleyBuildLogURL", () => {
+  it("generates the correct url", () => {
+    expect(getParsleyBuildLogURL("myBuildId")).toBe("/resmoke/myBuildId/all");
   });
 });

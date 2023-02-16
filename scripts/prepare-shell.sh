@@ -15,9 +15,7 @@ PREPARE_SHELL: |
     export NVM_DIR
 
     if [ -d "${NVM_DIR}" ]; then
-      pushd "$PROJECT_DIRECTORY"
       [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-      popd
     fi
 EOT
 

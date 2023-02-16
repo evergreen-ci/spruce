@@ -36,6 +36,7 @@ export const LogsColumn: React.VFC<Props> = ({ testResult, task }) => {
     <ButtonWrapper>
       {urlParsley && (
         <Button
+          title="High-powered log viewer"
           data-cy="test-table-parsley-btn"
           size="xsmall"
           target="_blank"
@@ -53,6 +54,7 @@ export const LogsColumn: React.VFC<Props> = ({ testResult, task }) => {
       )}
       {urlLobster && (
         <Button
+          title="Legacy log viewer"
           data-cy="test-table-lobster-btn"
           size="xsmall"
           target="_blank"
@@ -70,6 +72,7 @@ export const LogsColumn: React.VFC<Props> = ({ testResult, task }) => {
       )}
       {urlHTML && (
         <Button
+          title="Plain, colorized log viewer"
           data-cy="test-table-html-btn"
           size="xsmall"
           target="_blank"
@@ -87,6 +90,7 @@ export const LogsColumn: React.VFC<Props> = ({ testResult, task }) => {
       )}
       {urlRaw && (
         <Button
+          title="Plain text log viewer"
           data-cy="test-table-raw-btn"
           size="xsmall"
           target="_blank"
