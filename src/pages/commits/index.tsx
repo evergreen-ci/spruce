@@ -35,6 +35,7 @@ import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString, validators } from "utils";
 import { CommitsWrapper } from "./CommitsWrapper";
 import CommitTypeSelect from "./commitTypeSelect";
+import { useCommitLimit } from "./hooks/useCommitLimit";
 import { PaginationButtons } from "./PaginationButtons";
 import { StatusSelect } from "./StatusSelect";
 import { getMainlineCommitsQueryVariables, getFilterStatus } from "./utils";
@@ -52,7 +53,7 @@ const Commits = () => {
   const { userSettings } = useUserSettings();
   const { useSpruceOptions } = userSettings ?? {};
   const { hasUsedMainlineCommitsBefore = true } = useSpruceOptions ?? {};
-
+  const [ref, limit] = useCommitLimit<HTMLDivElement>();
   const parsed = parseQueryString(search);
   const { projectIdentifier } = useParams<{
     projectIdentifier: string;
@@ -102,7 +103,7 @@ const Commits = () => {
     mainlineCommitOptions: {
       projectIdentifier,
       skipOrderNumber,
-      limit: 5,
+      limit,
     },
     filterState,
   });
@@ -197,13 +198,15 @@ const Commits = () => {
             nextPageOrderNumber={nextPageOrderNumber}
           />
         </PaginationWrapper>
-        <CommitsWrapper
-          versions={versions}
-          error={error}
-          isLoading={loading || !projectIdentifier}
-          hasTaskFilter={hasTasks}
-          hasFilters={hasFilters}
-        />
+        <div ref={ref}>
+          <CommitsWrapper
+            versions={versions}
+            error={error}
+            isLoading={loading || !projectIdentifier}
+            hasTaskFilter={hasTasks}
+            hasFilters={hasFilters}
+          />
+        </div>
       </PageContainer>
       {!hasUsedMainlineCommitsBefore && (
         <WelcomeModal
