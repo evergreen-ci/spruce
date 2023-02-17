@@ -20,6 +20,8 @@ export const SpawnVolumeButton: React.VFC<SpawnVolumeButtonProps> = ({
   const [openModal, setOpenModal] = useState(false);
   const spawnAnalytics = useSpawnAnalytics();
 
+  const reachedMaxVolumeSize = maxSpawnableLimit === 0;
+
   return (
     <PaddedContainer>
       <Tooltip
@@ -31,7 +33,7 @@ export const SpawnVolumeButton: React.VFC<SpawnVolumeButtonProps> = ({
           <div>
             <PlusButton
               data-cy="spawn-volume-btn"
-              disabled={maxSpawnableLimit === 0}
+              disabled={reachedMaxVolumeSize}
               onClick={() => {
                 setOpenModal(true);
                 spawnAnalytics.sendEvent({
@@ -43,7 +45,7 @@ export const SpawnVolumeButton: React.VFC<SpawnVolumeButtonProps> = ({
             </PlusButton>
           </div>
         }
-        enabled={maxSpawnableLimit === 0}
+        enabled={reachedMaxVolumeSize}
       >
         {`You have reached the max volume limit (${volumeLimit} GiB). Delete some volumes to spawn more.`}
       </Tooltip>

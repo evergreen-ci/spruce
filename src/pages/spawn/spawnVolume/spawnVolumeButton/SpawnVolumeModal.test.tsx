@@ -84,6 +84,7 @@ describe("spawnVolumeModal", () => {
     await waitFor(() => {
       expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
     });
+    expect(screen.queryByLabelText("Never expire")).toBeEnabled();
     userEvent.click(screen.queryByLabelText("Never expire"));
 
     const spawnButton = screen.queryByRole("button", { name: "Spawn" });
@@ -130,6 +131,7 @@ describe("spawnVolumeModal", () => {
     await selectLGOption("availability-zone-select", "us-east-1c");
     await selectLGOption("type-select", "st1");
     await selectLGOption("host-select", "i-00b212e96b3f91079");
+    expect(screen.queryByLabelText("Never expire")).toBeEnabled();
     userEvent.click(screen.queryByLabelText("Never expire"));
 
     // Click spawn button
@@ -348,7 +350,7 @@ const myVolumesQueryMock = {
             noExpiration: false,
             __typename: "Host",
           },
-          noExpiration: true,
+          noExpiration: false,
           homeVolume: false,
           creationTime: "2020-11-05T18:19:39Z",
           migrating: false,
@@ -370,7 +372,7 @@ const myVolumesQueryMock = {
             noExpiration: false,
             __typename: "Host",
           },
-          noExpiration: true,
+          noExpiration: false,
           homeVolume: false,
           migrating: false,
           creationTime: "2020-11-05T18:18:36Z",

@@ -37,11 +37,13 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
   >(SPAWN_VOLUME, {
     onCompleted() {
       dispatchToast.success("Successfully spawned volume");
+      onCancel();
     },
     onError(err) {
       dispatchToast.error(
         `There was an error while spawning your volume: ${err.message}`
       );
+      onCancel();
     },
     refetchQueries: ["MyVolumes"],
   });
@@ -98,10 +100,7 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
       open={visible}
       onCancel={onCancel}
       buttonText={loadingSpawnVolume ? "Spawning volume" : "Spawn"}
-      onConfirm={() => {
-        spawnVolume();
-        onCancel();
-      }}
+      onConfirm={spawnVolume}
       submitDisabled={loadingSpawnVolume || !canSubmit}
       data-cy="spawn-volume-modal"
     >

@@ -87,11 +87,13 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
     onCompleted(mutationResult) {
       const { id } = mutationResult?.editSpawnHost ?? {};
       dispatchToast.success(`Successfully modified spawned host: ${id}`);
+      onCancel();
     },
     onError(err) {
       dispatchToast.error(
         `There was an error while modifying your host: ${err.message}`
       );
+      onCancel();
     },
     refetchQueries: ["MyVolumes"],
   });
@@ -141,10 +143,7 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
         onCancel();
         setFormState(initialFormState);
       }}
-      onConfirm={() => {
-        onSubmit();
-        onCancel();
-      }}
+      onConfirm={onSubmit}
       buttonText={loadingSpawnHost ? "Saving" : "Save"}
     >
       <SpruceForm
