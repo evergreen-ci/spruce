@@ -70,10 +70,13 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
       const newProjects = pg.filter(
         (p) =>
           groupDisplayName.toLowerCase().includes(value.toLowerCase()) ||
+          // @ts-expect-error
           p.displayName.toLowerCase().includes(value.toLowerCase()) ||
+          // @ts-expect-error
           p.identifier.toLowerCase().includes(value.toLowerCase())
       );
       if (newProjects.length > 0) {
+        // @ts-expect-error
         acc.push({
           groupDisplayName,
           projects: newProjects,
@@ -81,6 +84,7 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
         });
       }
       return acc;
+      // @ts-expect-error
     }, [] as typeof allProjects);
     return filteredProjects;
   };
@@ -112,6 +116,7 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
           canClickOnRepoGroup={isProjectSettingsPage && projectGroup?.repo?.id}
         />
       )}
+      // @ts-expect-error
       searchFunc={handleSearch}
       disabled={loading}
       valuePlaceholder="Select a project"

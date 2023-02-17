@@ -1,6 +1,8 @@
+import { ProjectEventSettings } from "gql/generated/types";
+import { Subset } from "types/utils";
 import { getEventDiffLines } from "./EventLogDiffs";
 
-const beforeAddition = {
+const beforeAddition: Subset<ProjectEventSettings> = {
   __typename: "ProjectEventSettings",
   projectRef: {
     __typename: "Project",
@@ -13,7 +15,7 @@ const beforeAddition = {
   },
 };
 
-const afterAddition = {
+const afterAddition: Subset<ProjectEventSettings> = {
   __typename: "ProjectEventSettings",
   projectRef: {
     __typename: "Project",
@@ -32,7 +34,7 @@ const afterAddition = {
   },
 };
 
-const beforeUpdate = {
+const beforeUpdate: Subset<ProjectEventSettings> = {
   __typename: "ProjectEventSettings",
   projectRef: {
     __typename: "Project",
@@ -50,7 +52,7 @@ const beforeUpdate = {
     vars: { newVariable: "so new" },
   },
 };
-const afterUpdate = {
+const afterUpdate: Subset<ProjectEventSettings> = {
   __typename: "ProjectEventSettings",
   projectRef: {
     __typename: "Project",
@@ -69,7 +71,7 @@ const afterUpdate = {
   },
 };
 
-const beforeDeletion = {
+const beforeDeletion: Subset<ProjectEventSettings> = {
   __typename: "ProjectEventSettings",
   projectRef: {
     __typename: "Project",
@@ -82,7 +84,7 @@ const beforeDeletion = {
   },
 };
 
-const afterDeletion = {
+const afterDeletion: Subset<ProjectEventSettings> = {
   __typename: "ProjectEventSettings",
   projectRef: {
     __typename: "Project",
