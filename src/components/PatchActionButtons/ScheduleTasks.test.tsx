@@ -1,6 +1,12 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { ScheduleTasksModal } from "components/ScheduleTasksModal";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
+import {
+  GetUndispatchedTasksQuery,
+  GetUndispatchedTasksQueryVariables,
+  ScheduleTasksMutation,
+  ScheduleTasksMutationVariables,
+} from "gql/generated/types";
 import { SCHEDULE_TASKS } from "gql/mutations";
 import { GET_UNSCHEDULED_TASKS } from "gql/queries";
 import {
@@ -10,6 +16,7 @@ import {
   screen,
   waitFor,
 } from "test_utils";
+import { ApolloMock } from "types/gql";
 import { ScheduleTasks } from "./ScheduleTasks";
 
 const ScheduleButton = () => (
@@ -145,7 +152,10 @@ describe("scheduleTasks", () => {
   });
 });
 
-const scheduleTasksMock = {
+const scheduleTasksMock: ApolloMock<
+  ScheduleTasksMutation,
+  ScheduleTasksMutationVariables
+> = {
   request: {
     query: SCHEDULE_TASKS,
     variables: {
@@ -156,19 +166,24 @@ const scheduleTasksMock = {
   },
   result: {
     data: {
-      scheduleTasks: {
-        id: "1",
-        execution: 3,
-        buildVariant: "windows",
-        displayName: "compile",
-        revision: "abcb",
-        status: "will-run",
-      },
+      scheduleTasks: [
+        {
+          id: "1",
+          execution: 3,
+          buildVariant: "windows",
+          displayName: "compile",
+          revision: "abcb",
+          status: "will-run",
+        },
+      ],
     },
   },
 };
 
-const getUnscheduledTasksMock = {
+const getUnscheduledTasksMock: ApolloMock<
+  GetUndispatchedTasksQuery,
+  GetUndispatchedTasksQueryVariables
+> = {
   request: {
     query: GET_UNSCHEDULED_TASKS,
     variables: { versionId: "version" },
@@ -282,7 +297,10 @@ const getUnscheduledTasksMock = {
     },
   },
 };
-const getUnscheduledTasksMockEmpty = {
+const getUnscheduledTasksMockEmpty: ApolloMock<
+  GetUndispatchedTasksQuery,
+  GetUndispatchedTasksQueryVariables
+> = {
   request: {
     query: GET_UNSCHEDULED_TASKS,
     variables: { versionId: "emptyVersion" },

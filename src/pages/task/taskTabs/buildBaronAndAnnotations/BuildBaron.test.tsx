@@ -1,6 +1,18 @@
 import { MockedProvider } from "@apollo/client/testing";
 import MatchMediaMock from "jest-matchmedia-mock";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
+import {
+  BbCreateTicketMutation,
+  BbCreateTicketMutationVariables,
+  BuildBaronQuery,
+  BuildBaronQueryVariables,
+  GetCreatedTicketsQuery,
+  GetCreatedTicketsQueryVariables,
+  GetSpruceConfigQuery,
+  GetSpruceConfigQueryVariables,
+  GetUserQuery,
+  GetUserQueryVariables,
+} from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { FILE_JIRA_TICKET } from "gql/mutations";
 import { GET_BUILD_BARON, GET_USER, GET_CREATED_TICKETS } from "gql/queries";
@@ -10,6 +22,7 @@ import {
   screen,
   waitFor,
 } from "test_utils";
+import { ApolloMock } from "types/gql";
 import BuildBaronContent from "./BuildBaronContent";
 
 const taskId =
@@ -177,7 +190,13 @@ const buildBaronQuery = {
   },
 };
 
-const buildBaronMocks = [
+const buildBaronMocks: [
+  ApolloMock<BuildBaronQuery, BuildBaronQueryVariables>,
+  ApolloMock<BbCreateTicketMutation, BbCreateTicketMutationVariables>,
+  ApolloMock<GetCreatedTicketsQuery, GetCreatedTicketsQueryVariables>,
+  ApolloMock<GetUserQuery, GetUserQueryVariables>,
+  ApolloMock<GetSpruceConfigQuery, GetSpruceConfigQueryVariables>
+] = [
   {
     request: {
       query: GET_BUILD_BARON,

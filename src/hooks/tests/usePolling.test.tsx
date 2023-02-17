@@ -3,8 +3,10 @@ import { fireEvent } from "@testing-library/react";
 import { renderHook, act } from "@testing-library/react-hooks/dom";
 import Cookie from "js-cookie";
 import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/index";
+import { GetUserQuery, GetUserQueryVariables } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
 import { usePolling } from "hooks";
+import { ApolloMock } from "types/gql";
 
 jest.mock("js-cookie");
 
@@ -345,7 +347,7 @@ describe("usePolling", () => {
   });
 });
 
-const getUserMock = {
+const getUserMock: ApolloMock<GetUserQuery, GetUserQueryVariables> = {
   request: {
     query: GET_USER,
   },

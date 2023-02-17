@@ -1,9 +1,18 @@
 import { MockedProvider } from "@apollo/client/testing";
 import MatchMediaMock from "jest-matchmedia-mock";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
+import {
+  GetUserQuery,
+  GetUserQueryVariables,
+  MoveAnnotationIssueMutation,
+  MoveAnnotationIssueMutationVariables,
+  RemoveAnnotationIssueMutation,
+  RemoveAnnotationIssueMutationVariables,
+} from "gql/generated/types";
 import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
 import { GET_USER } from "gql/queries";
 import { renderWithRouterMatch as render, screen } from "test_utils";
+import { ApolloMock } from "types/gql";
 import AnnotationTicketsTable from "./AnnotationTicketsTable";
 
 const taskId =
@@ -56,7 +65,14 @@ const apiIssue = {
   issueKey: "EVG-1234567",
 };
 
-const ticketsTableMocks = [
+const ticketsTableMocks: [
+  ApolloMock<MoveAnnotationIssueMutation, MoveAnnotationIssueMutationVariables>,
+  ApolloMock<
+    RemoveAnnotationIssueMutation,
+    RemoveAnnotationIssueMutationVariables
+  >,
+  ApolloMock<GetUserQuery, GetUserQueryVariables>
+] = [
   {
     request: {
       query: MOVE_ANNOTATION,

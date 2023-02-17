@@ -1,7 +1,9 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { addMilliseconds } from "date-fns";
+import { GetUserQuery, GetUserQueryVariables } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
 import { renderWithRouterMatch as render, screen } from "test_utils";
+import { ApolloMock } from "types/gql";
 import { Metadata } from "./index";
 import { taskQuery } from "./taskData";
 
@@ -100,7 +102,7 @@ const taskSucceeded = {
   },
 };
 
-const mocks = [
+const mocks: [ApolloMock<GetUserQuery, GetUserQueryVariables>] = [
   {
     request: {
       query: GET_USER,

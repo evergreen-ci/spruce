@@ -1,6 +1,8 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { GetUserQuery, GetUserQueryVariables } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
 import { act, render, screen, userEvent, waitFor } from "test_utils";
+import { ApolloMock } from "types/gql";
 import { HostStatus } from "types/host";
 import { CopySSHCommandButton } from "./SpawnHostTableActions";
 
@@ -122,7 +124,7 @@ describe("copySSHCommandButton", () => {
   });
 });
 
-const getUserMock = {
+const getUserMock: ApolloMock<GetUserQuery, GetUserQueryVariables> = {
   request: {
     query: GET_USER,
     variables: {},

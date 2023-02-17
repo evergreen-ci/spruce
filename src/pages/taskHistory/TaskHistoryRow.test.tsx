@@ -3,6 +3,10 @@ import { context, constants } from "components/HistoryTable";
 import { HistoryTableReducerState } from "components/HistoryTable/historyTableContextReducer";
 import { mainlineCommitData } from "components/HistoryTable/testData";
 import { rowType, CommitRowType } from "components/HistoryTable/types";
+import {
+  GetTaskTestSampleQuery,
+  GetTaskTestSampleQueryVariables,
+} from "gql/generated/types";
 import { GET_TASK_TEST_SAMPLE } from "gql/queries";
 import {
   fireEvent,
@@ -10,6 +14,7 @@ import {
   screen,
   waitFor,
 } from "test_utils";
+import { ApolloMock } from "types/gql";
 import { TestStatus } from "types/history";
 import TaskHistoryRow from "./TaskHistoryRow";
 
@@ -333,7 +338,10 @@ const taskRow: CommitRowType = {
   date: new Date("2021-09-02T14:20:04Z"),
 };
 
-const noFilterData = {
+const noFilterData: ApolloMock<
+  GetTaskTestSampleQuery,
+  GetTaskTestSampleQueryVariables
+> = {
   request: {
     query: GET_TASK_TEST_SAMPLE,
     variables: {
@@ -363,7 +371,10 @@ const noFilterData = {
   },
 };
 
-const withMatchingFilter = {
+const withMatchingFilter: ApolloMock<
+  GetTaskTestSampleQuery,
+  GetTaskTestSampleQueryVariables
+> = {
   request: {
     query: GET_TASK_TEST_SAMPLE,
     variables: {
@@ -395,7 +406,10 @@ const withMatchingFilter = {
   },
 };
 
-const withNonMatchingFilter = {
+const withNonMatchingFilter: ApolloMock<
+  GetTaskTestSampleQuery,
+  GetTaskTestSampleQueryVariables
+> = {
   request: {
     query: GET_TASK_TEST_SAMPLE,
     variables: {

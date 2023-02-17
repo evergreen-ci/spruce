@@ -1,8 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { fireEvent } from "@testing-library/react";
 import { renderHook, act } from "@testing-library/react-hooks/dom";
+import { GetUserQuery, GetUserQueryVariables } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
 import { usePageVisibility } from "hooks";
+import { ApolloMock } from "types/gql";
 
 const Provider = ({ children }) => (
   <MockedProvider mocks={[getUserMock]}>{children}</MockedProvider>
@@ -30,7 +32,7 @@ describe("usePageVisibility", () => {
   });
 });
 
-const getUserMock = {
+const getUserMock: ApolloMock<GetUserQuery, GetUserQueryVariables> = {
   request: {
     query: GET_USER,
   },
