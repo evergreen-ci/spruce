@@ -5,21 +5,21 @@ import { ExpirationRow } from "../ExpirationRow";
 import { getDefaultExpiration } from "../utils";
 
 interface Props {
-  maxSpawnableLimit: number;
   availabilityZones: string[];
-  types: string[];
-  hosts: { id: string; displayName: string }[];
   disableExpirationCheckbox: boolean;
+  hosts: { id: string; displayName: string }[];
+  maxSpawnableLimit: number;
   noExpirationCheckboxTooltip: string;
+  types: string[];
 }
 
 export const getFormSchema = ({
-  maxSpawnableLimit,
   availabilityZones,
-  types,
-  hosts,
   disableExpirationCheckbox,
+  hosts,
+  maxSpawnableLimit,
   noExpirationCheckboxTooltip,
+  types,
 }: Props): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -29,7 +29,7 @@ export const getFormSchema = ({
         type: "object" as "object",
         title: "Required Volume Information",
         properties: {
-          volumeSize: {
+          size: {
             title: "Size (GiB)",
             type: "number" as "number",
             default: maxSpawnableLimit > 500 ? 500 : maxSpawnableLimit,
@@ -127,7 +127,7 @@ export const getFormSchema = ({
   },
   uiSchema: {
     requiredVolumeInformation: {
-      volumeSize: {
+      size: {
         "ui:description": `The max spawnable volume size is ${maxSpawnableLimit} GiB.`,
         "ui:data-cy": "volume-size-input",
       },

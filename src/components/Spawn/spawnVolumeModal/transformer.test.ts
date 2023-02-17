@@ -19,7 +19,7 @@ describe("spawn volume modal", () => {
 
 const formState = {
   requiredVolumeInformation: {
-    volumeSize: 200,
+    size: 200,
     availabilityZone: "us-east-1c",
     type: "gp3",
   },

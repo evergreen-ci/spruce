@@ -1,7 +1,7 @@
 export type FormState = {
   requiredVolumeInformation?: {
     availabilityZone?: string;
-    volumeSize?: number;
+    size?: number;
     type?: string;
   };
   optionalVolumeInformation?: {

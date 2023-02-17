@@ -28,11 +28,11 @@ export const useLoadFormData = () => {
     >(GET_SUBNET_AVAILABILITY_ZONES);
   const availabilityZones = availabilityZoneData?.subnetAvailabilityZones ?? [];
 
-  const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(false);
+  const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(true);
 
   const noExpirationCheckboxTooltip = getNoExpirationCheckboxTooltipCopy({
     disableExpirationCheckbox,
-    limit: spruceConfig?.spawnHost?.unexpirableHostsPerUser,
+    limit: spruceConfig?.spawnHost?.unexpirableVolumesPerUser,
     isVolume: true,
   });
 

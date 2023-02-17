@@ -74,7 +74,7 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
     canEditSshKeys: host.status === HostStatus.Running,
     disableExpirationCheckbox,
     instanceTypes: instanceTypes ?? [],
-    myPublicKeys: publicKeys,
+    myPublicKeys: publicKeys ?? [],
     noExpirationCheckboxTooltip,
     volumes,
   });
@@ -87,10 +87,8 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
     onCompleted(mutationResult) {
       const { id } = mutationResult?.editSpawnHost ?? {};
       dispatchToast.success(`Successfully modified spawned host: ${id}`);
-      onCancel();
     },
     onError(err) {
-      onCancel();
       dispatchToast.error(
         `There was an error while modifying your host: ${err.message}`
       );
@@ -143,7 +141,10 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
         onCancel();
         setFormState(initialFormState);
       }}
-      onConfirm={onSubmit}
+      onConfirm={() => {
+        onSubmit();
+        onCancel();
+      }}
       buttonText={loadingSpawnHost ? "Saving" : "Save"}
     >
       <SpruceForm

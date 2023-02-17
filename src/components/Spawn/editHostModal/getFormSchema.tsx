@@ -281,9 +281,9 @@ export const getFormSchema = ({
       },
       publicKeyNameDropdown: {
         "ui:allowDeselect": false,
-        "ui:disabled": !canEditSshKeys || myPublicKeys?.length === 0,
+        "ui:disabled": !canEditSshKeys || myPublicKeys.length === 0,
         "ui:description":
-          canEditSshKeys && myPublicKeys?.length === 0
+          canEditSshKeys && myPublicKeys.length === 0
             ? "No keys available."
             : "",
       },
