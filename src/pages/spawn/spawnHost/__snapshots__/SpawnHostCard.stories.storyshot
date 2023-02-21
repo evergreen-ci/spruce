@@ -188,6 +188,7 @@ exports[`storybook Storyshots Pages/Spawn/Spawn Host Card Spawn Host Card Story 
         <a
           className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           href="/host/i-04ade558e1e26b0ad/ide"
+          onClick={[Function]}
           target="_self"
         >
           <span

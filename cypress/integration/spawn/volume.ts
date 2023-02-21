@@ -159,25 +159,21 @@ describe("Navigating to Spawn Volume page", () => {
 
   it("Clicking on 'Spawn Volume' should open the Spawn Volume Modal", () => {
     cy.visit("/spawn/volume");
+    cy.dataCy("spawn-volume-btn").should("not.be.disabled");
     cy.dataCy("spawn-volume-btn").click();
     cy.dataCy("spawn-volume-modal").should("be.visible");
   });
 
   it("Reopening the Spawn Volume modal clears previous input changes.", () => {
-    cy.dataCy("typeSelector").click();
-    cy.contains("sc1").click();
-    cy.contains("Never").click();
+    cy.selectLGOption("Type", "sc1");
     cy.dataCy("spawn-volume-modal").within(() => {
       cy.contains("button", "Cancel").should("not.be.disabled");
       cy.contains("button", "Cancel").click({ force: true });
     });
+
     cy.dataCy("spawn-volume-btn").click();
-    cy.dataCy("typeSelector").contains("gp2");
-    cy.dataCy("never-expire-checkbox").should(
-      "have.attr",
-      "aria-checked",
-      "false"
-    );
+    cy.dataCy("spawn-volume-modal").should("be.visible");
+    cy.dataCy("type-select").contains("gp2");
   });
 
   describe("Migrate Modal", () => {

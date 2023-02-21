@@ -31,50 +31,43 @@ import { ApolloMock } from "types/gql";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
 
 describe("spawnVolumeModal", () => {
-  it("renders the Spawn Volume Modal when the visible prop is true", async () => {
+  it("does not render the Spawn Volume Modal when the visible prop is false", () => {
     const { Component } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} />
+      <SpawnVolumeModal
+        visible={false}
+        onCancel={() => {}}
+        maxSpawnableLimit={1000}
+      />
     );
     render(
       <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>
     );
-    expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
+    expect(screen.queryByDataCy("spawn-volume-modal")).not.toBeInTheDocument();
   });
 
-  it("does not renders the Spawn Volume Modal when the visible prop is false", async () => {
+  it("form contains default values on initial render", async () => {
     const { Component } = RenderFakeToastContext(
-      <SpawnVolumeModal visible={false} onCancel={() => {}} />
+      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />
     );
     render(
       <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>
     );
-    expect(screen.queryByDataCy("modal-title")).not.toBeInTheDocument();
-  });
-
-  it("form contains default volumes on initial render", async () => {
-    const { Component } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} />
-    );
-    render(
-      <MockedProvider mocks={baseMocks}>
-        <Component />
-      </MockedProvider>
-    );
-    await waitFor(() =>
-      expect(screen.queryByDataCy("volumeSize")).toHaveValue(500)
-    );
-
-    expect(screen.queryByDataCy("regionSelector")).toHaveTextContent(
+    await waitFor(() => {
+      expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
+    });
+    expect(screen.queryByDataCy("volume-size-input")).toHaveValue("500");
+    expect(screen.queryByDataCy("availability-zone-select")).toHaveTextContent(
       "us-east-1a"
     );
-    expect(screen.queryByDataCy("typeSelector")).toHaveTextContent("gp2");
-    expect(screen.queryByDataCy("never-expire-checkbox")).not.toBeChecked();
-    expect(screen.queryByDataCy("host-select")).toHaveTextContent("");
-  });
+    expect(screen.queryByDataCy("type-select")).toHaveTextContent("gp2");
+    expect(screen.queryByLabelText("Never expire")).not.toBeChecked();
+    expect(screen.queryByDataCy("host-select")).toBeDisabled();
+    expect(screen.queryByText("No hosts available.")).toBeVisible();
+  }, 10000);
 
   it("form submission succeeds with default values", async () => {
     const spawnVolumeMutation: ApolloMock<
@@ -89,27 +82,34 @@ describe("spawnVolumeModal", () => {
             size: 500,
             type: "gp2",
             expiration: null,
-            noExpiration: false,
+            noExpiration: true,
+            host: null,
           },
         },
       },
       result: { data: { spawnVolume: true } },
     };
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} />
+      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />
     );
     render(
       <MockedProvider mocks={[...baseMocks, spawnVolumeMutation]}>
         <Component />
       </MockedProvider>
     );
+    await waitFor(() => {
+      expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
+    });
+    expect(screen.queryByLabelText("Never expire")).toBeEnabled();
+    userEvent.click(screen.queryByLabelText("Never expire"));
+
     const spawnButton = screen.queryByRole("button", { name: "Spawn" });
     await waitFor(() => {
-      expect(spawnButton).not.toBeDisabled();
+      expect(spawnButton).toBeEnabled();
     });
     userEvent.click(spawnButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
-  });
+  }, 10000);
 
   it("form submission succeeds after adjusting inputs", async () => {
     const spawnVolumeMutation: ApolloMock<
@@ -124,7 +124,7 @@ describe("spawnVolumeModal", () => {
             size: 24,
             type: "st1",
             expiration: null,
-            noExpiration: false,
+            noExpiration: true,
             host: "i-00b212e96b3f91079",
           },
         },
@@ -132,25 +132,31 @@ describe("spawnVolumeModal", () => {
       result: { data: { spawnVolume: true } },
     };
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} />
+      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />
     );
-
     render(
       <MockedProvider mocks={[...baseMocks, spawnVolumeMutation]}>
         <Component />
       </MockedProvider>
     );
-    // select us-east-1c region
-    await selectLGOption("regionSelector", "us-east-1c");
-    await selectLGOption("typeSelector", "st1");
+    await waitFor(() => {
+      expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
+    });
+
+    // Modify form values
+    userEvent.clear(screen.queryByDataCy("volume-size-input"));
+    userEvent.type(screen.queryByDataCy("volume-size-input"), "24");
+    expect(screen.queryByDataCy("volume-size-input")).toHaveValue("24");
+    await selectLGOption("availability-zone-select", "us-east-1c");
+    await selectLGOption("type-select", "st1");
     await selectLGOption("host-select", "i-00b212e96b3f91079");
-    userEvent.type(screen.queryByDataCy("volumeSize"), "{clear}24");
-    expect(screen.queryByDataCy("volumeSize")).toHaveValue(24);
+    expect(screen.queryByLabelText("Never expire")).toBeEnabled();
+    userEvent.click(screen.queryByLabelText("Never expire"));
 
     // Click spawn button
     const spawnButton = screen.queryByRole("button", { name: "Spawn" });
     await waitFor(() => {
-      expect(spawnButton).not.toBeDisabled();
+      expect(spawnButton).toBeEnabled();
     });
     userEvent.click(spawnButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));

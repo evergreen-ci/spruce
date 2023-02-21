@@ -120,7 +120,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       }
       onCancel={() => {
         setOpen(false);
-        setFormState({});
       }}
       onConfirm={spawnHost}
       buttonText={loadingSpawnHost ? "Spawning" : "Spawn a host"}

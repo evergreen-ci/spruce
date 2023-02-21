@@ -23,24 +23,25 @@ import {
 import { GET_MAINLINE_COMMITS_FOR_HISTORY } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { string } from "utils";
+import BuildVariantSelector from "./BuildVariantSelector";
 import ColumnHeaders from "./ColumnHeaders";
-import TaskSelector from "./TaskSelector";
-import VariantHistoryRow from "./VariantHistoryRow";
+import TaskHistoryRow from "./TaskHistoryRow";
 
 const { HistoryTableProvider } = context;
-const { useTestFilters, useJumpToCommit } = hooks;
 const { applyStrictRegex } = string;
+const { useTestFilters, useJumpToCommit } = hooks;
 
-const VariantHistoryContents: React.VFC = () => {
-  const { projectIdentifier, variantName } = useParams<{
+const TaskHistoryContents: React.VFC = () => {
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
+  const { projectIdentifier, taskName } = useParams<{
     projectIdentifier: string;
-    variantName: string;
+    taskName: string;
   }>();
-  const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
-  usePageTitle(`Variant History | ${projectIdentifier} | ${variantName}`);
+  usePageTitle(`Task History | ${projectIdentifier} | ${taskName}`);
   const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
-  useJumpToCommit();
   useTestFilters();
+  useJumpToCommit();
+
   const { badges, handleOnRemove, handleClearAll } = useFilterBadgeQueryParams(
     constants.queryParamsToDisplay
   );
@@ -56,7 +57,7 @@ const VariantHistoryContents: React.VFC = () => {
         shouldCollapse: true,
       },
       buildVariantOptions: {
-        variants: [applyStrictRegex(variantName)],
+        tasks: [applyStrictRegex(taskName)],
         includeBaseTasks: false,
       },
     },
@@ -68,7 +69,7 @@ const VariantHistoryContents: React.VFC = () => {
     <PageWrapper>
       <CenterPage>
         <PageHeader>
-          <H2>Build Variant: {variantName}</H2>
+          <H2>Task Name: {taskName}</H2>
           <PageHeaderContent>
             <HistoryTableTestSearch
               onSubmit={() => {
@@ -77,9 +78,9 @@ const VariantHistoryContents: React.VFC = () => {
                 });
               }}
             />
-            <TaskSelector
+            <BuildVariantSelector
               projectIdentifier={projectIdentifier}
-              buildVariant={variantName}
+              taskName={taskName}
             />
           </PageHeaderContent>
         </PageHeader>
@@ -109,8 +110,9 @@ const VariantHistoryContents: React.VFC = () => {
         <div>
           <ColumnHeaders
             projectIdentifier={projectIdentifier}
-            variantName={variantName}
+            taskName={taskName}
           />
+
           <TableWrapper>
             {error && <div>Failed to retrieve mainline commit history.</div>}
             {!error && (
@@ -122,7 +124,7 @@ const VariantHistoryContents: React.VFC = () => {
                   }
                 }}
               >
-                {VariantHistoryRow}
+                {TaskHistoryRow}
               </HistoryTable>
             )}
           </TableWrapper>
@@ -132,15 +134,16 @@ const VariantHistoryContents: React.VFC = () => {
   );
 };
 
-const VariantHistory = () => (
+const TaskHistory = () => (
   <HistoryTableProvider>
-    <VariantHistoryContents />
+    <TaskHistoryContents />
   </HistoryTableProvider>
 );
 const PageHeader = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-top: ${size.s};
 `;
 
 const PageHeaderContent = styled.div`
@@ -169,4 +172,4 @@ const CenterPage = styled.div`
   flex-direction: column;
 `;
 
-export default VariantHistory;
+export default TaskHistory;

@@ -74,7 +74,7 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
     canEditSshKeys: host.status === HostStatus.Running,
     disableExpirationCheckbox,
     instanceTypes: instanceTypes ?? [],
-    myPublicKeys: publicKeys,
+    myPublicKeys: publicKeys ?? [],
     noExpirationCheckboxTooltip,
     volumes,
   });
@@ -90,10 +90,10 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
       onCancel();
     },
     onError(err) {
-      onCancel();
       dispatchToast.error(
         `There was an error while modifying your host: ${err.message}`
       );
+      onCancel();
     },
     refetchQueries: ["MyVolumes"],
   });
