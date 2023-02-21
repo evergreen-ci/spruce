@@ -54,7 +54,7 @@ describe("createDuplicateProjectField", () => {
       },
     };
     const { Component } = RenderFakeToastContext(
-      <Button mock={lacksPersmissionsMock} />
+      <Button mock={lacksPermissionsMock} />
     );
     render(<Component />);
 
