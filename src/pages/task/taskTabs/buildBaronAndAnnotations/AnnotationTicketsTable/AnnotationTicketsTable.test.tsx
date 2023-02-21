@@ -64,41 +64,42 @@ const apiIssue = {
   url: "https://fake-url/EVG-1234567",
   issueKey: "EVG-1234567",
 };
-
-const ticketsTableMocks: [
-  ApolloMock<MoveAnnotationIssueMutation, MoveAnnotationIssueMutationVariables>,
-  ApolloMock<
-    RemoveAnnotationIssueMutation,
-    RemoveAnnotationIssueMutationVariables
-  >,
-  ApolloMock<GetUserQuery, GetUserQueryVariables>
-] = [
-  {
-    request: {
-      query: MOVE_ANNOTATION,
-      variables: { taskId, execution, apiIssue, isIssue: true },
-    },
-    result: { data: { moveAnnotationIssue: true } },
+const moveAnnotationMock: ApolloMock<
+  MoveAnnotationIssueMutation,
+  MoveAnnotationIssueMutationVariables
+> = {
+  request: {
+    query: MOVE_ANNOTATION,
+    variables: { taskId, execution, apiIssue, isIssue: true },
   },
-  {
-    request: {
-      query: REMOVE_ANNOTATION,
-      variables: { taskId, execution, apiIssue, isIssue: true },
-    },
-    result: { data: { removeAnnotationIssue: true } },
+  result: { data: { moveAnnotationIssue: true } },
+};
+const removeAnnotationMock: ApolloMock<
+  RemoveAnnotationIssueMutation,
+  RemoveAnnotationIssueMutationVariables
+> = {
+  request: {
+    query: REMOVE_ANNOTATION,
+    variables: { taskId, execution, apiIssue, isIssue: true },
   },
-  {
-    request: {
-      query: GET_USER,
-    },
-    result: {
-      data: {
-        user: {
-          userId: "minna.kt",
-          displayName: "Minna K-T",
-          emailAddress: "a@mongodb.com",
-        },
+  result: { data: { removeAnnotationIssue: true } },
+};
+const getUserQueryMock: ApolloMock<GetUserQuery, GetUserQueryVariables> = {
+  request: {
+    query: GET_USER,
+  },
+  result: {
+    data: {
+      user: {
+        userId: "minna.kt",
+        displayName: "Minna K-T",
+        emailAddress: "a@mongodb.com",
       },
     },
   },
+};
+const ticketsTableMocks = [
+  moveAnnotationMock,
+  removeAnnotationMock,
+  getUserQueryMock,
 ];
