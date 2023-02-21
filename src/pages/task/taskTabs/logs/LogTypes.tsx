@@ -212,6 +212,6 @@ const StyledPre = styled.pre`
   border: 1px solid ${gray.light2};
   border-radius: ${size.xxs};
   font-size: ${fontSize.m};
-  overflow-x: scroll;
+  overflow: scroll hidden;
   padding: ${size.xs};
 `;
