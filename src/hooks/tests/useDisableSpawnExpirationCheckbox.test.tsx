@@ -212,7 +212,7 @@ const volume = {
   migrating: false,
 };
 
-const myHostBase: Omit<MyHostsQuery["myHosts"][0], "noExpirtion" | "id"> = {
+const myHostBase: Omit<MyHostsQuery["myHosts"][0], "noExpiration" | "id"> = {
   expiration: new Date("2021-10-28T22:37:40Z"),
   distro: {
     isVirtualWorkStation: true,
