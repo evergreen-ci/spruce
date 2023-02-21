@@ -34,7 +34,7 @@ const Button = ({
 
 describe("createDuplicateProjectField", () => {
   it("does not show button when user lacks permissions", async () => {
-    const lacksPersmissionsMock: ApolloMock<
+    const lacksPermissionsMock: ApolloMock<
       GetUserPermissionsQuery,
       GetUserPermissionsQueryVariables
     > = {
