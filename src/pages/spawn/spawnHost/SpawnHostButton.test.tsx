@@ -6,6 +6,7 @@ import { GET_MY_HOSTS } from "gql/queries";
 import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { HostStatus } from "types/host";
+import { MyHost } from "types/spawn";
 import { SpawnHostButton } from "./SpawnHostButton";
 
 describe("spawnHostButton", () => {
@@ -60,7 +61,7 @@ describe("spawnHostButton", () => {
   });
 });
 
-const baseSpawnHost: Omit<MyHostsQuery["myHosts"][0], "id" | "status"> = {
+const baseSpawnHost: Omit<MyHost, "id" | "status"> = {
   expiration: new Date("2021-10-28T22:37:40Z"),
   distro: {
     isVirtualWorkStation: true,
@@ -96,43 +97,43 @@ const baseSpawnHost: Omit<MyHostsQuery["myHosts"][0], "id" | "status"> = {
   __typename: "Host",
 };
 
-const spawnHost1: MyHostsQuery["myHosts"][0] = {
+const spawnHost1: MyHost = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91079",
   status: HostStatus.Running,
 };
 
-const spawnHost2 = {
+const spawnHost2: MyHost = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91080",
   status: HostStatus.Running,
 };
 
-const spawnHost3 = {
+const spawnHost3: MyHost = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91081",
   status: HostStatus.Stopped,
 };
 
-const spawnHost4 = {
+const spawnHost4: MyHost = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91082",
   status: HostStatus.Starting,
 };
 
-const spawnHost5 = {
+const spawnHost5: MyHost = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91083",
   status: HostStatus.Provisioning,
 };
 
-const spawnHost6 = {
+const spawnHost6: MyHost = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91084",
   status: HostStatus.Running,
 };
 
-const terminatedHost = {
+const terminatedHost: MyHost = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91085",
   status: HostStatus.Terminated,
