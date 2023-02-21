@@ -8,8 +8,6 @@ import {
   BuildBaronQueryVariables,
   GetCreatedTicketsQuery,
   GetCreatedTicketsQueryVariables,
-  GetSpruceConfigQuery,
-  GetSpruceConfigQueryVariables,
   GetUserQuery,
   GetUserQueryVariables,
 } from "gql/generated/types";
@@ -189,14 +187,7 @@ const buildBaronQuery = {
     },
   },
 };
-
-const buildBaronMocks: [
-  ApolloMock<BuildBaronQuery, BuildBaronQueryVariables>,
-  ApolloMock<BbCreateTicketMutation, BbCreateTicketMutationVariables>,
-  ApolloMock<GetCreatedTicketsQuery, GetCreatedTicketsQueryVariables>,
-  ApolloMock<GetUserQuery, GetUserQueryVariables>,
-  ApolloMock<GetSpruceConfigQuery, GetSpruceConfigQueryVariables>
-] = [
+const getBuildBaronMock: ApolloMock<BuildBaronQuery, BuildBaronQueryVariables> =
   {
     request: {
       query: GET_BUILD_BARON,
@@ -208,47 +199,59 @@ const buildBaronMocks: [
     result: {
       data: buildBaronQuery,
     },
-  },
-  {
-    request: {
-      query: FILE_JIRA_TICKET,
-      variables: {
-        taskId,
-        execution,
-      },
-    },
-    result: {
-      data: {
-        bbCreateTicket: true,
-      },
+  };
+
+const fileJiraTicketMock: ApolloMock<
+  BbCreateTicketMutation,
+  BbCreateTicketMutationVariables
+> = {
+  request: {
+    query: FILE_JIRA_TICKET,
+    variables: {
+      taskId,
+      execution,
     },
   },
-  {
-    request: {
-      query: GET_CREATED_TICKETS,
-      variables: {
-        taskId,
-      },
+  result: {
+    data: {
+      bbCreateTicket: true,
     },
-    result: {
-      data: {
-        bbGetCreatedTickets: [],
+  },
+};
+const getJiraTicketsMock: ApolloMock<
+  GetCreatedTicketsQuery,
+  GetCreatedTicketsQueryVariables
+> = {
+  request: {
+    query: GET_CREATED_TICKETS,
+    variables: {
+      taskId,
+    },
+  },
+  result: {
+    data: {
+      bbGetCreatedTickets: [],
+    },
+  },
+};
+const getUserMock: ApolloMock<GetUserQuery, GetUserQueryVariables> = {
+  request: {
+    query: GET_USER,
+  },
+  result: {
+    data: {
+      user: {
+        userId: "mohamed.khelif",
+        displayName: "Mohamed Khelif",
+        emailAddress: "a@mongodb.com",
       },
     },
   },
-  {
-    request: {
-      query: GET_USER,
-    },
-    result: {
-      data: {
-        user: {
-          userId: "mohamed.khelif",
-          displayName: "Mohamed Khelif",
-          emailAddress: "a@mongodb.com",
-        },
-      },
-    },
-  },
+};
+const buildBaronMocks = [
+  getBuildBaronMock,
+  fileJiraTicketMock,
+  getJiraTicketsMock,
+  getUserMock,
   getSpruceConfigMock,
 ];
