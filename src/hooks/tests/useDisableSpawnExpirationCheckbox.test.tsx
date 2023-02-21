@@ -230,7 +230,6 @@ const myHostBase: Omit<MyHostsQuery["myHosts"][0], "noExpiration" | "id"> = {
   instanceType: "m5.xlarge",
   instanceTags: [],
   volumes: [],
-  noExpiration: false,
   provider: "ec2-ondemand",
   status: "running",
   startedBy: "ta.arst",
