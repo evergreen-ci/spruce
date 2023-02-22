@@ -1276,6 +1276,7 @@ export type Query = {
   subnetAvailabilityZones: Array<Scalars["String"]>;
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
+  /** @deprecated Use task.taskLogs instead */
   taskLogs: TaskLogs;
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]>>;
   taskQueueDistros: Array<TaskQueueDistro>;
@@ -1766,6 +1767,8 @@ export type Task = {
   taskFiles: TaskFiles;
   taskGroup?: Maybe<Scalars["String"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
+  /** taskLogs returns the tail 100 lines of the task's logs. */
+  taskLogs: TaskLogs;
   timeTaken?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
   versionMetadata: Version;
@@ -3752,15 +3755,15 @@ export type AgentLogsQueryVariables = Exact<{
 }>;
 
 export type AgentLogsQuery = {
-  taskLogs: {
-    execution: number;
-    taskId: string;
-    agentLogs: Array<{
-      severity?: Maybe<string>;
-      message?: Maybe<string>;
-      timestamp?: Maybe<Date>;
-    }>;
-  };
+  task?: Maybe<{
+    taskLogs: {
+      agentLogs: Array<{
+        severity?: Maybe<string>;
+        message?: Maybe<string>;
+        timestamp?: Maybe<Date>;
+      }>;
+    };
+  }>;
 };
 
 export type AllLogsQueryVariables = Exact<{
@@ -3769,15 +3772,16 @@ export type AllLogsQueryVariables = Exact<{
 }>;
 
 export type AllLogsQuery = {
-  taskLogs: {
+  task?: Maybe<{
     execution: number;
-    taskId: string;
-    allLogs: Array<{
-      severity?: Maybe<string>;
-      message?: Maybe<string>;
-      timestamp?: Maybe<Date>;
-    }>;
-  };
+    taskLogs: {
+      allLogs: Array<{
+        severity?: Maybe<string>;
+        message?: Maybe<string>;
+        timestamp?: Maybe<Date>;
+      }>;
+    };
+  }>;
 };
 
 export type GetAnnotationEventDataQueryVariables = Exact<{
@@ -5637,15 +5641,16 @@ export type SystemLogsQueryVariables = Exact<{
 }>;
 
 export type SystemLogsQuery = {
-  taskLogs: {
+  task?: Maybe<{
     execution: number;
-    taskId: string;
-    systemLogs: Array<{
-      severity?: Maybe<string>;
-      message?: Maybe<string>;
-      timestamp?: Maybe<Date>;
-    }>;
-  };
+    taskLogs: {
+      systemLogs: Array<{
+        severity?: Maybe<string>;
+        message?: Maybe<string>;
+        timestamp?: Maybe<Date>;
+      }>;
+    };
+  }>;
 };
 
 export type GetTaskAllExecutionsQueryVariables = Exact<{
@@ -5668,23 +5673,24 @@ export type TaskEventLogsQueryVariables = Exact<{
 }>;
 
 export type TaskEventLogsQuery = {
-  taskLogs: {
+  task?: Maybe<{
     execution: number;
-    taskId: string;
-    eventLogs: Array<{
-      timestamp?: Maybe<Date>;
-      eventType?: Maybe<string>;
-      data: {
-        hostId?: Maybe<string>;
-        jiraIssue?: Maybe<string>;
-        jiraLink?: Maybe<string>;
-        priority?: Maybe<number>;
-        status?: Maybe<string>;
+    taskLogs: {
+      eventLogs: Array<{
         timestamp?: Maybe<Date>;
-        userId?: Maybe<string>;
-      };
-    }>;
-  };
+        eventType?: Maybe<string>;
+        data: {
+          hostId?: Maybe<string>;
+          jiraIssue?: Maybe<string>;
+          jiraLink?: Maybe<string>;
+          priority?: Maybe<number>;
+          status?: Maybe<string>;
+          timestamp?: Maybe<Date>;
+          userId?: Maybe<string>;
+        };
+      }>;
+    };
+  }>;
 };
 
 export type TaskFilesQueryVariables = Exact<{
@@ -5712,15 +5718,16 @@ export type TaskLogsQueryVariables = Exact<{
 }>;
 
 export type TaskLogsQuery = {
-  taskLogs: {
+  task?: Maybe<{
     execution: number;
-    taskId: string;
-    taskLogs: Array<{
-      severity?: Maybe<string>;
-      message?: Maybe<string>;
-      timestamp?: Maybe<Date>;
-    }>;
-  };
+    taskLogs: {
+      taskLogs: Array<{
+        severity?: Maybe<string>;
+        message?: Maybe<string>;
+        timestamp?: Maybe<Date>;
+      }>;
+    };
+  }>;
 };
 
 export type GetTaskNamesForBuildVariantQueryVariables = Exact<{
