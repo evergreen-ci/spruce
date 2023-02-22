@@ -29,9 +29,7 @@ export const CreateProjectModal: React.VFC<Props> = ({
   owner,
   repo,
 }) => {
-  // const dispatchToast = useToastContext();
-  const { error: errorToast, success, warning } = useToastContext();
-
+  const dispatchToast = useToastContext();
   const navigate = useNavigate();
   const { sendEvent } = useProjectSettingsAnalytics();
 
@@ -66,17 +64,21 @@ export const CreateProjectModal: React.VFC<Props> = ({
     const identifier = data?.createProject?.identifier;
     if (identifier) {
       if (error) {
-        warning(
+        dispatchToast.warning(
           `The project was successfully created with the following errors: ${error.message}.`,
           true,
           { shouldTimeout: false }
         );
       } else {
-        success(`Successfully created the project: ${identifier}`);
+        dispatchToast.success(
+          `Successfully created the project: ${identifier}`
+        );
       }
       navigate(getProjectSettingsRoute(identifier), { replace: true });
     } else if (error) {
-      errorToast(`There was an error creating the project: ${error?.message}`);
+      dispatchToast.error(
+        `There was an error creating the project: ${error?.message}`
+      );
     }
   }, [
     called,
@@ -84,9 +86,7 @@ export const CreateProjectModal: React.VFC<Props> = ({
     error,
     loading,
     navigate,
-    errorToast,
-    success,
-    warning,
+    dispatchToast,
   ]);
 
   const onConfirm = () => {
