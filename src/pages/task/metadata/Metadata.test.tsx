@@ -1,14 +1,12 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { addMilliseconds } from "date-fns";
-import { GetUserQuery, GetUserQueryVariables } from "gql/generated/types";
-import { GET_USER } from "gql/queries";
+import { getUserMock } from "gql/mocks/getUser";
 import { renderWithRouterMatch as render, screen } from "test_utils";
-import { ApolloMock } from "types/gql";
 import { Metadata } from "./index";
 import { taskQuery } from "./taskData";
 
 const wrapper = ({ children }) => (
-  <MockedProvider mocks={mocks} addTypename={false}>
+  <MockedProvider mocks={[getUserMock]} addTypename={false}>
     {children}
   </MockedProvider>
 );
@@ -101,20 +99,3 @@ const taskSucceeded = {
     status: "succeeded",
   },
 };
-
-const mocks: [ApolloMock<GetUserQuery, GetUserQueryVariables>] = [
-  {
-    request: {
-      query: GET_USER,
-    },
-    result: {
-      data: {
-        user: {
-          userId: "mohamed.khelif",
-          displayName: "Mohamed Khelif",
-          emailAddress: "a@mongodb.com",
-        },
-      },
-    },
-  },
-];

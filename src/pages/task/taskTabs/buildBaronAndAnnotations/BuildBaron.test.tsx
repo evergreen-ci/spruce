@@ -8,12 +8,11 @@ import {
   BuildBaronQueryVariables,
   GetCreatedTicketsQuery,
   GetCreatedTicketsQueryVariables,
-  GetUserQuery,
-  GetUserQueryVariables,
 } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import { getUserMock } from "gql/mocks/getUser";
 import { FILE_JIRA_TICKET } from "gql/mutations";
-import { GET_BUILD_BARON, GET_USER, GET_CREATED_TICKETS } from "gql/queries";
+import { GET_BUILD_BARON, GET_CREATED_TICKETS } from "gql/queries";
 import {
   fireEvent,
   renderWithRouterMatch as render,
@@ -234,20 +233,7 @@ const getJiraTicketsMock: ApolloMock<
     },
   },
 };
-const getUserMock: ApolloMock<GetUserQuery, GetUserQueryVariables> = {
-  request: {
-    query: GET_USER,
-  },
-  result: {
-    data: {
-      user: {
-        userId: "mohamed.khelif",
-        displayName: "Mohamed Khelif",
-        emailAddress: "a@mongodb.com",
-      },
-    },
-  },
-};
+
 const buildBaronMocks = [
   getBuildBaronMock,
   fileJiraTicketMock,

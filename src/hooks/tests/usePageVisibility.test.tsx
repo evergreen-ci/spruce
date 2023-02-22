@@ -1,10 +1,8 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { fireEvent } from "@testing-library/react";
 import { renderHook, act } from "@testing-library/react-hooks/dom";
-import { GetUserQuery, GetUserQueryVariables } from "gql/generated/types";
-import { GET_USER } from "gql/queries";
+import { getUserMock } from "gql/mocks/getUser";
 import { usePageVisibility } from "hooks";
-import { ApolloMock } from "types/gql";
 
 const Provider = ({ children }) => (
   <MockedProvider mocks={[getUserMock]}>{children}</MockedProvider>
@@ -31,19 +29,3 @@ describe("usePageVisibility", () => {
     expect(result.current).toBe(false);
   });
 });
-
-const getUserMock: ApolloMock<GetUserQuery, GetUserQueryVariables> = {
-  request: {
-    query: GET_USER,
-  },
-  result: {
-    data: {
-      user: {
-        userId: "",
-        displayName: "",
-        emailAddress: "fake.user@mongodb.com",
-        __typename: "User",
-      },
-    },
-  },
-};

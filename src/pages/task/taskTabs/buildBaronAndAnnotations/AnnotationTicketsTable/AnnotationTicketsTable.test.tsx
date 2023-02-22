@@ -2,15 +2,13 @@ import { MockedProvider } from "@apollo/client/testing";
 import MatchMediaMock from "jest-matchmedia-mock";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
-  GetUserQuery,
-  GetUserQueryVariables,
   MoveAnnotationIssueMutation,
   MoveAnnotationIssueMutationVariables,
   RemoveAnnotationIssueMutation,
   RemoveAnnotationIssueMutationVariables,
 } from "gql/generated/types";
+import { getUserMock } from "gql/mocks/getUser";
 import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
-import { GET_USER } from "gql/queries";
 import { renderWithRouterMatch as render, screen } from "test_utils";
 import { ApolloMock } from "types/gql";
 import AnnotationTicketsTable from "./AnnotationTicketsTable";
@@ -84,22 +82,9 @@ const removeAnnotationMock: ApolloMock<
   },
   result: { data: { removeAnnotationIssue: true } },
 };
-const getUserQueryMock: ApolloMock<GetUserQuery, GetUserQueryVariables> = {
-  request: {
-    query: GET_USER,
-  },
-  result: {
-    data: {
-      user: {
-        userId: "minna.kt",
-        displayName: "Minna K-T",
-        emailAddress: "a@mongodb.com",
-      },
-    },
-  },
-};
+
 const ticketsTableMocks = [
   moveAnnotationMock,
   removeAnnotationMock,
-  getUserQueryMock,
+  getUserMock,
 ];

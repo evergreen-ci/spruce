@@ -1,8 +1,6 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
-  GetUserQuery,
-  GetUserQueryVariables,
   MyHostsQuery,
   MyHostsQueryVariables,
   MyVolumesQuery,
@@ -13,11 +11,11 @@ import {
   SubnetAvailabilityZonesQueryVariables,
 } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import { getUserMock } from "gql/mocks/getUser";
 import { SPAWN_VOLUME } from "gql/mutations";
 import {
   GET_MY_HOSTS,
   GET_SUBNET_AVAILABILITY_ZONES,
-  GET_USER,
   GET_MY_VOLUMES,
 } from "gql/queries";
 import {
@@ -403,22 +401,6 @@ const myVolumesQueryMock: ApolloMock<MyVolumesQuery, MyVolumesQueryVariables> =
     },
   };
 
-const userMock: ApolloMock<GetUserQuery, GetUserQueryVariables> = {
-  request: {
-    query: GET_USER,
-    variables: {},
-  },
-  result: {
-    data: {
-      user: {
-        userId: "a",
-        displayName: "A",
-        emailAddress: "a@mongodb.com",
-      },
-    },
-  },
-};
-
 const subnetZonesMock: ApolloMock<
   SubnetAvailabilityZonesQuery,
   SubnetAvailabilityZonesQueryVariables
@@ -448,7 +430,7 @@ const subnetZonesMock: ApolloMock<
 };
 
 const baseMocks: MockedResponse[] = [
-  userMock,
+  getUserMock,
   subnetZonesMock,
   myHostsMock,
   getSpruceConfigMock,

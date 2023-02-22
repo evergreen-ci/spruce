@@ -3,10 +3,9 @@ import { renderHook } from "@testing-library/react-hooks";
 import {
   GetOtherUserQuery,
   GetOtherUserQueryVariables,
-  GetUserQuery,
-  GetUserQueryVariables,
 } from "gql/generated/types";
-import { GET_USER, GET_OTHER_USER } from "gql/queries";
+import { getUserMock } from "gql/mocks/getUser";
+import { GET_OTHER_USER } from "gql/queries";
 import { useBreadcrumbRoot } from "hooks";
 import { ApolloMock } from "types/gql";
 
@@ -56,22 +55,6 @@ describe("useBreadcrumbRoot", () => {
     expect(result.current.text).toBe("spruce");
   });
 });
-
-const getUserMock: ApolloMock<GetUserQuery, GetUserQueryVariables> = {
-  request: {
-    query: GET_USER,
-    variables: {},
-  },
-  result: {
-    data: {
-      user: {
-        userId: "admin",
-        displayName: "admin",
-        emailAddress: "admin@admin.com",
-      },
-    },
-  },
-};
 
 const sameUserMock: ApolloMock<GetOtherUserQuery, GetOtherUserQueryVariables> =
   {
