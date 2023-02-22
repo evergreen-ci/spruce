@@ -68,7 +68,7 @@ export const JobLogs = () => {
             data-cy="complete-test-logs-link"
             target="_blank"
             onClick={() => {
-              sendEvent({ name: "Clicked complete logs link", taskId });
+              sendEvent({ name: "Clicked complete logs link", buildId });
             }}
           >
             Complete logs for all tests
