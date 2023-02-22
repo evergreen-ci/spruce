@@ -64,19 +64,15 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
   const handleSearch = (options: typeof allProjects, value: string) => {
     // iterate through options and remove any groups that have no matching projects
     const filteredProjects = options.reduce((acc, g) => {
-      // @ts-expect-error
       const { groupDisplayName, projects: pg, repo } = g;
 
       const newProjects = pg.filter(
         (p) =>
           groupDisplayName.toLowerCase().includes(value.toLowerCase()) ||
-          // @ts-expect-error
           p.displayName.toLowerCase().includes(value.toLowerCase()) ||
-          // @ts-expect-error
           p.identifier.toLowerCase().includes(value.toLowerCase())
       );
       if (newProjects.length > 0) {
-        // @ts-expect-error
         acc.push({
           groupDisplayName,
           projects: newProjects,
@@ -84,7 +80,6 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
         });
       }
       return acc;
-      // @ts-expect-error
     }, [] as typeof allProjects);
     return filteredProjects;
   };
@@ -116,7 +111,6 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
           canClickOnRepoGroup={isProjectSettingsPage && projectGroup?.repo?.id}
         />
       )}
-      // @ts-expect-error
       searchFunc={handleSearch}
       disabled={loading}
       valuePlaceholder="Select a project"
@@ -125,11 +119,8 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
   );
 };
 
-const getFavoriteProjects = (
-  projectGroups: Array<{
-    projects: Array<{ isFavorite: boolean }>;
-  }>
-) => projectGroups?.flatMap((g) => g.projects.filter((p) => p.isFavorite));
+const getFavoriteProjects = (projectGroups: GetProjectsQuery["projects"]) =>
+  projectGroups?.flatMap((g) => g.projects.filter((p) => p.isFavorite));
 
 // Split a list of projects into two arrays, one of enabled projects and one of disabled projects
 const filterDisabledProjects = (
@@ -145,10 +136,24 @@ const filterDisabledProjects = (
     [[], []]
   );
 
-const getProjects = (
+type ViewableProjectRef = Unpacked<
+  GetViewableProjectRefsQuery["viewableProjectRefs"]
+>;
+interface GetProjectsResult {
+  groupDisplayName: ViewableProjectRef["groupDisplayName"];
+  projects: ViewableProjectRef["projects"];
+  repo?: ViewableProjectRef["repo"];
+}
+type GetProjectsType = (
   projectsData: GetProjectsQuery,
   viewableProjectsData: GetViewableProjectRefsQuery,
   isProjectSettingsPage: boolean
+) => GetProjectsResult[];
+
+const getProjects: GetProjectsType = (
+  projectsData,
+  viewableProjectsData,
+  isProjectSettingsPage
 ) => {
   if (!isProjectSettingsPage) {
     const projectGroups = projectsData?.projects ?? [];
