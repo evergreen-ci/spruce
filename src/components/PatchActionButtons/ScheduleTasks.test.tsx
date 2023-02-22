@@ -103,12 +103,12 @@ describe("scheduleTasks", () => {
     await waitFor(() => {
       // Unable to pass data-cy to modal buttons so we have to use getAllByRole
       const confirmButton = screen.getAllByRole("button")[0];
-      expect(confirmButton).toBeDisabled();
+      expect(confirmButton).toHaveAttribute("aria-disabled", "true");
     });
     fireEvent.click(screen.queryByDataCy("windows-compile-task-checkbox"));
     await waitFor(() => {
       const confirmButton = screen.getAllByRole("button")[0];
-      expect(confirmButton).not.toBeDisabled();
+      expect(confirmButton).not.toHaveAttribute("aria-disabled", "true");
     });
   });
 

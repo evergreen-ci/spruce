@@ -48,7 +48,7 @@ describe("copyProjectField", () => {
     const confirmButton = screen.getByRole("button", {
       name: "Duplicate",
     });
-    expect(confirmButton).toBeDisabled();
+    expect(confirmButton).toHaveAttribute("aria-disabled", "true");
   });
 
   it("submits the modal when a project name is provided", async () => {

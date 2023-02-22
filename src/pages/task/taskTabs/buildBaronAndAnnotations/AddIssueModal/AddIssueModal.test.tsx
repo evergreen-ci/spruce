@@ -42,7 +42,7 @@ describe("addIssueModal", () => {
       screen.getByRole("button", {
         name: "Add issue",
       })
-    ).toBeDisabled();
+    ).toHaveAttribute("aria-disabled", "true");
   });
 
   it("entering values should enable the submit button", async () => {
@@ -68,7 +68,7 @@ describe("addIssueModal", () => {
       screen.getByRole("button", {
         name: "Add issue",
       })
-    ).not.toBeDisabled();
+    ).not.toHaveAttribute("aria-disabled", "true");
   });
 
   it("entering an invalid confidence score should disable the submit button", async () => {
@@ -96,15 +96,15 @@ describe("addIssueModal", () => {
     });
 
     userEvent.type(screen.queryByDataCy("confidence-level"), "not a number");
-    expect(confirmButton).toBeDisabled();
+    expect(confirmButton).toHaveAttribute("aria-disabled", "true");
 
     userEvent.clear(screen.queryByDataCy("confidence-level"));
     userEvent.type(screen.queryByDataCy("confidence-level"), "110");
-    expect(confirmButton).toBeDisabled();
+    expect(confirmButton).toHaveAttribute("aria-disabled", "true");
 
     userEvent.clear(screen.queryByDataCy("confidence-level"));
     userEvent.type(screen.queryByDataCy("confidence-level"), "80");
-    expect(confirmButton).not.toBeDisabled();
+    expect(confirmButton).not.toHaveAttribute("aria-disabled", "true");
   });
 
   it("should be able to successfully add annotation", async () => {
@@ -131,7 +131,7 @@ describe("addIssueModal", () => {
     const confirmButton = screen.getByRole("button", {
       name: "Add issue",
     });
-    expect(confirmButton).not.toBeDisabled();
+    expect(confirmButton).not.toHaveAttribute("aria-disabled", "true");
     userEvent.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     expect(setSelectedRowKey).toHaveBeenCalledWith("EVG-123");

@@ -49,7 +49,7 @@ describe("deactivateStepbackTask", () => {
     const confirmButton = screen.getByRole("button", {
       name: "Confirm",
     });
-    expect(confirmButton).toBeDisabled();
+    expect(confirmButton).toHaveAttribute("aria-disabled", "true");
   });
 
   it("filling out all of the fields should enable the confirm button", async () => {

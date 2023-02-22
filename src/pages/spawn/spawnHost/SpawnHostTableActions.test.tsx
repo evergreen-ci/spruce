@@ -84,7 +84,7 @@ describe("copySSHCommandButton", () => {
     );
     const copySSHButton = screen.queryByDataCy("copy-ssh-button");
     expect(copySSHButton).toBeInTheDocument();
-    expect(copySSHButton).toBeDisabled();
+    expect(copySSHButton).toHaveAttribute("aria-disabled", "true");
 
     userEvent.hover(copySSHButtonWrapper);
     await waitFor(() => {
@@ -110,7 +110,7 @@ describe("copySSHCommandButton", () => {
     );
     const copySSHButton = screen.queryByDataCy("copy-ssh-button");
     expect(copySSHButton).toBeInTheDocument();
-    expect(copySSHButton).toBeDisabled();
+    expect(copySSHButton).toHaveAttribute("aria-disabled", "true");
 
     userEvent.hover(copySSHButtonWrapper);
     await waitFor(() => {

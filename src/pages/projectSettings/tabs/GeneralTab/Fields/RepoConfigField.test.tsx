@@ -104,7 +104,8 @@ describe("repoConfigField", () => {
     );
     render(<Component />);
     expect(screen.queryByDataCy("attach-repo-button")).toHaveAttribute(
-      "disabled"
+      "aria-disabled",
+      "true"
     );
 
     expect(
@@ -127,7 +128,8 @@ describe("repoConfigField", () => {
     );
     render(<Component />);
     expect(screen.queryByDataCy("attach-repo-button")).toHaveAttribute(
-      "disabled"
+      "aria-disabled",
+      "true"
     );
 
     expect(
@@ -190,7 +192,7 @@ describe("repoConfigField", () => {
         screen.getByRole("button", {
           name: "Move Project",
         })
-      ).toHaveAttribute("disabled");
+      ).toHaveAttribute("aria-disabled", "true");
     });
 
     it("prefills the owner dropdown", () => {
@@ -204,7 +206,7 @@ describe("repoConfigField", () => {
         screen.getByRole("button", {
           name: "Move Project",
         })
-      ).toHaveAttribute("disabled");
+      ).toHaveAttribute("aria-disabled", "true");
     });
 
     it("enables the confirm button when both fields are updated", async () => {
@@ -220,7 +222,7 @@ describe("repoConfigField", () => {
         screen.getByRole("button", {
           name: "Move Project",
         })
-      ).not.toHaveAttribute("disabled");
+      ).not.toHaveAttribute("aria-disabled", "true");
     });
   });
 
