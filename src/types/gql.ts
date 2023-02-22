@@ -1,8 +1,8 @@
-import { GraphQLError } from "graphql";
+import { DocumentNode, GraphQLError } from "graphql";
 
 export type ApolloMock<Data, Variables> = {
   request: {
-    query: any;
+    query: DocumentNode;
     variables?: Variables;
   };
   result?: {
