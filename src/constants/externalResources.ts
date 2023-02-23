@@ -4,7 +4,7 @@ import { environmentalVariables } from "utils";
 const { getLobsterURL, getParsleyUrl, getUiUrl } = environmentalVariables;
 
 export const wikiUrl =
-  "https://docs.devprod.prod.corp.mongodb.com/evergreen/Home/";
+  "https://docs.devprod.prod.corp.mongodb.com/evergreen/Home";
 
 export const projectDistroSettingsDocumentationUrl = `${wikiUrl}/Project-and-Distro-Settings`;
 
