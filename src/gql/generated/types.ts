@@ -4373,6 +4373,8 @@ export type AgentLogsQuery = {
   __typename?: "Query";
   task?: Maybe<{
     __typename?: "Task";
+    id: string;
+    execution: number;
     taskLogs: {
       __typename?: "TaskLogs";
       agentLogs: Array<{
@@ -4394,6 +4396,7 @@ export type AllLogsQuery = {
   __typename?: "Query";
   task?: Maybe<{
     __typename?: "Task";
+    id: string;
     execution: number;
     taskLogs: {
       __typename?: "TaskLogs";
@@ -6817,6 +6820,7 @@ export type SystemLogsQuery = {
   __typename?: "Query";
   task?: Maybe<{
     __typename?: "Task";
+    id: string;
     execution: number;
     taskLogs: {
       __typename?: "TaskLogs";
@@ -6856,6 +6860,7 @@ export type TaskEventLogsQuery = {
   task?: Maybe<{
     __typename?: "Task";
     execution: number;
+    id: string;
     taskLogs: {
       __typename?: "TaskLogs";
       eventLogs: Array<{
@@ -6911,6 +6916,7 @@ export type TaskLogsQuery = {
   __typename?: "Query";
   task?: Maybe<{
     __typename?: "Task";
+    id: string;
     execution: number;
     taskLogs: {
       __typename?: "TaskLogs";
