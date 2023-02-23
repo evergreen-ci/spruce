@@ -1,7 +1,13 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { renderHook } from "@testing-library/react-hooks";
-import { GET_USER, GET_OTHER_USER } from "gql/queries";
+import {
+  GetOtherUserQuery,
+  GetOtherUserQueryVariables,
+} from "gql/generated/types";
+import { getUserMock } from "gql/mocks/getUser";
+import { GET_OTHER_USER } from "gql/queries";
 import { useBreadcrumbRoot } from "hooks";
+import { ApolloMock } from "types/gql";
 
 const SameUserProvider = ({ children }) => (
   <MockedProvider mocks={[getUserMock, sameUserMock]}>
@@ -50,57 +56,43 @@ describe("useBreadcrumbRoot", () => {
   });
 });
 
-const getUserMock = {
-  request: {
-    query: GET_USER,
-    variables: {},
-  },
-  result: {
-    data: {
-      user: {
+const sameUserMock: ApolloMock<GetOtherUserQuery, GetOtherUserQueryVariables> =
+  {
+    request: {
+      query: GET_OTHER_USER,
+      variables: {
         userId: "admin",
-        displayName: "admin",
-        emailAddress: "admin@admin.com",
       },
     },
-  },
-};
-
-const sameUserMock = {
-  request: {
-    query: GET_OTHER_USER,
-    variables: {
-      userId: "admin",
-    },
-  },
-  result: {
-    data: {
-      otherUser: {
-        userId: "admin",
-        displayName: "Evergreen Admin",
-        __typename: "User",
+    result: {
+      data: {
+        otherUser: {
+          userId: "admin",
+          displayName: "Evergreen Admin",
+          __typename: "User",
+        },
+        currentUser: { userId: "admin", __typename: "User" },
       },
-      currentUser: { userId: "admin", __typename: "User" },
     },
-  },
-};
+  };
 
-const otherUserMock = {
-  request: {
-    query: GET_OTHER_USER,
-    variables: {
-      userId: "john.doe",
-    },
-  },
-  result: {
-    data: {
-      otherUser: {
+const otherUserMock: ApolloMock<GetOtherUserQuery, GetOtherUserQueryVariables> =
+  {
+    request: {
+      query: GET_OTHER_USER,
+      variables: {
         userId: "john.doe",
-        displayName: "John Doe",
-      },
-      currentUser: {
-        userId: "admin",
       },
     },
-  },
-};
+    result: {
+      data: {
+        otherUser: {
+          userId: "john.doe",
+          displayName: "John Doe",
+        },
+        currentUser: {
+          userId: "admin",
+        },
+      },
+    },
+  };

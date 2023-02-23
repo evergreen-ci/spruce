@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { fireEvent } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks/dom";
-import { GET_USER } from "gql/queries";
+import { getUserMock } from "gql/mocks/getUser";
 import { useNetworkStatus } from "hooks";
 
 const Provider = ({ children }) => (
@@ -24,19 +24,3 @@ describe("useNetworkStatus", () => {
     expect(result.current).toBe(false);
   });
 });
-
-const getUserMock = {
-  request: {
-    query: GET_USER,
-  },
-  result: {
-    data: {
-      user: {
-        userId: "",
-        displayName: "",
-        emailAddress: "fake.user@mongodb.com",
-        __typename: "User",
-      },
-    },
-  },
-};

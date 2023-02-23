@@ -1,3 +1,4 @@
+import { FileDiffsFragment } from "gql/generated/types";
 import { bucketByCommit } from "./bucketByCommit";
 
 describe("bucketByCommit", () => {
@@ -10,7 +11,7 @@ describe("bucketByCommit", () => {
   });
 });
 
-const input = [
+const input: FileDiffsFragment[] = [
   {
     __typename: "FileDiff",
     fileName: "src/pages/Task.tsx",

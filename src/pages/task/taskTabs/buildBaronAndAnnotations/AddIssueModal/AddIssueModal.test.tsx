@@ -1,9 +1,14 @@
 import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
+import {
+  AddAnnotationIssueMutation,
+  AddAnnotationIssueMutationVariables,
+} from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { ADD_ANNOTATION } from "gql/mutations";
 import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
+import { ApolloMock } from "types/gql";
 import { AddIssueModal as AddIssueModalToTest } from ".";
 
 const AddIssueModal = (
@@ -144,7 +149,10 @@ const checkModalVisibility = () => {
   expect(screen.getByDataCy("confidence-level")).toBeVisible();
 };
 
-const addAnnotationMock = {
+const addAnnotationMock: ApolloMock<
+  AddAnnotationIssueMutation,
+  AddAnnotationIssueMutationVariables
+> = {
   request: {
     query: ADD_ANNOTATION,
     variables: {
