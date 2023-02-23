@@ -32,10 +32,18 @@ describe("Navigating to Spawn Volume page", () => {
     });
 
     it("Submit button should be enabled when the volume details input value differs from what already exists.", () => {
-      cy.contains("button", "Save").should("be.disabled");
+      cy.contains("button", "Save").should(
+        "have.attr",
+        "aria-disabled",
+        "true"
+      );
       // type a new name
       cy.dataCy("volume-name-input").type("Hello, World");
-      cy.contains("button", "Save").should("not.be.disabled");
+      cy.contains("button", "Save").should(
+        "not.have.attr",
+        "aria-disabled",
+        "true"
+      );
 
       // type original name
       cy.dataCy("volume-name-input")
@@ -43,10 +51,18 @@ describe("Navigating to Spawn Volume page", () => {
         .type(
           "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
         );
-      cy.contains("button", "Save").should("be.disabled");
+      cy.contains("button", "Save").should(
+        "have.attr",
+        "aria-disabled",
+        "true"
+      );
 
       cy.contains("Never").click();
-      cy.contains("button", "Save").should("not.be.disabled");
+      cy.contains("button", "Save").should(
+        "not.have.attr",
+        "aria-disabled",
+        "true"
+      );
     });
 
     it("Clicking on save button should close the modal and show a success toast", () => {
@@ -77,7 +93,7 @@ describe("Navigating to Spawn Volume page", () => {
   it("Should render migrating volumes with a different badge and disable action buttons", () => {
     cy.dataRowKey("vol-0ae8720b445b771b6").within(() => {
       cy.dataCy("volume-status-badge").contains("Migrating");
-      cy.get("button").should("be.disabled");
+      cy.get("button").should("have.attr", "aria-disabled", "true");
     });
   });
 
@@ -107,7 +123,7 @@ describe("Navigating to Spawn Volume page", () => {
       cy.wrap($el)
         .contains("Yes")
         .should("be.visible")
-        .should("not.be.disabled");
+        .should("not.have.attr", "aria-disabled", "true");
       cy.wrap($el).contains("Yes").click();
     });
     cy.dataRowKey("vol-0c66e16459646704d").should("not.exist");
@@ -131,13 +147,15 @@ describe("Navigating to Spawn Volume page", () => {
         )
         .should("not.be.checked");
       cy.wrap($el).contains("Yes");
-      cy.wrap($el).contains("Yes").should("be.disabled");
+      cy.wrap($el).contains("Yes").should("have.attr", "aria-disabled", "true");
       cy.wrap($el)
         .getInputByLabel(
           "I understand this volume is currently mounted to a host."
         )
         .check({ force: true });
-      cy.wrap($el).contains("Yes").should("not.be.disabled");
+      cy.wrap($el)
+        .contains("Yes")
+        .should("not.have.attr", "aria-disabled", "true");
     });
     // TODO: fix in EVG-16481 This should assert what happens when we click Yes above
     // cy.dataRowKey(
@@ -159,7 +177,11 @@ describe("Navigating to Spawn Volume page", () => {
 
   it("Clicking on 'Spawn Volume' should open the Spawn Volume Modal", () => {
     cy.visit("/spawn/volume");
-    cy.dataCy("spawn-volume-btn").should("not.be.disabled");
+    cy.dataCy("spawn-volume-btn").should(
+      "not.have.attr",
+      "aria-disabled",
+      "true"
+    );
     cy.dataCy("spawn-volume-btn").click();
     cy.dataCy("spawn-volume-modal").should("be.visible");
   });
@@ -167,7 +189,11 @@ describe("Navigating to Spawn Volume page", () => {
   it("Reopening the Spawn Volume modal clears previous input changes.", () => {
     cy.selectLGOption("Type", "sc1");
     cy.dataCy("spawn-volume-modal").within(() => {
-      cy.contains("button", "Cancel").should("not.be.disabled");
+      cy.contains("button", "Cancel").should(
+        "not.have.attr",
+        "aria-disabled",
+        "true"
+      );
       cy.contains("button", "Cancel").click({ force: true });
     });
 
@@ -185,7 +211,11 @@ describe("Navigating to Spawn Volume page", () => {
       cy.get("[data-row-key=vol-0ae8720b445b771b6]")
         .find("[data-cy=volume-status-badge]")
         .contains("Migrating");
-      cy.dataCy("migrate-btn-vol-0ae8720b445b771b6").should("be.disabled");
+      cy.dataCy("migrate-btn-vol-0ae8720b445b771b6").should(
+        "have.attr",
+        "aria-disabled",
+        "true"
+      );
     });
     it("will persistently not show the guide cue after the Migrate button has been clicked", () => {
       cy.dataCy("migrate-cue").should("be.visible");

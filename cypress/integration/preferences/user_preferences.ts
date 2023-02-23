@@ -15,10 +15,18 @@ describe("user preferences pages", () => {
     cy.dataCy("preferences-tab-title").should("have.text", "Notifications");
   });
   it("updating a field should enable the submit button", () => {
-    cy.dataCy("save-profile-changes-button").should("be.disabled");
+    cy.dataCy("save-profile-changes-button").should(
+      "have.attr",
+      "aria-disabled",
+      "true"
+    );
     cy.dataCy("slack-username-field").type("mohamed.khelif");
     cy.dataCy("slack-member-id-field").type("member-id");
-    cy.dataCy("save-profile-changes-button").should("not.be.disabled");
+    cy.dataCy("save-profile-changes-button").should(
+      "not.have.attr",
+      "aria-disabled",
+      "true"
+    );
   });
   it("saving changes to a field should work", () => {
     cy.dataCy("save-profile-changes-button").click();

@@ -87,15 +87,18 @@ describe("Restarting a patch", () => {
 describe("Restarting mainline commits", () => {
   it("should be able to restart scheduled mainline commit tasks", () => {
     cy.visit("/version/spruce_ab494436448fbb1d244833046ea6f6af1544e86d");
-    cy.dataCy("restart-version").should("not.be.disabled");
+    cy.dataCy("restart-version").should(
+      "not.have.attr",
+      "aria-disabled",
+      "true"
+    );
     cy.dataCy("restart-version").click();
     cy.dataCy("version-restart-modal").should("be.visible");
     cy.dataCy("version-restart-modal").within(() => {
       cy.dataCy("accordion-toggle").click();
       cy.getInputByLabel("check_codegen").should("exist");
-      cy.getInputByLabel("check_codegen").click({ force: true });
-      cy.contains("button", "Restart").should("not.be.disabled");
-      cy.contains("button", "Restart").click({ force: true });
+      cy.getInputByLabel("check_codegen").check({ force: true });
+      cy.contains("button", "Restart").click();
     });
     cy.validateToast("success", "Successfully restarted tasks!");
   });

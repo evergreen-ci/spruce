@@ -41,7 +41,7 @@ export const clickOnPageBtnAndAssertURLandTableResults = (
   pageQueryParamValue: number
 ) => {
   cy.get(dataCyPageBtn).should("be.visible");
-  cy.get(dataCyPageBtn).should("not.be.disabled");
+  cy.get(dataCyPageBtn).should("not.have.attr", "aria-disabled", "true");
   cy.get(dataCyPageBtn).click({ force: true });
   tableDisplayNames.forEach((displayName) => {
     cy.contains(displayName);
