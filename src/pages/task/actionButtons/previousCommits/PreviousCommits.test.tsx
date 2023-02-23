@@ -1,10 +1,17 @@
 import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import {
+  GetBaseVersionAndTaskQuery,
+  GetBaseVersionAndTaskQueryVariables,
+  GetLastMainlineCommitQuery,
+  GetLastMainlineCommitQueryVariables,
+} from "gql/generated/types";
+import {
   GET_BASE_VERSION_AND_TASK,
   GET_LAST_MAINLINE_COMMIT,
 } from "gql/queries";
 import { renderWithRouterMatch, screen, waitFor } from "test_utils";
+import { ApolloMock } from "types/gql";
 import { PreviousCommits } from "./PreviousCommits";
 
 const goButton = "previous-commits-go-button";
@@ -217,7 +224,10 @@ const baseTaskId =
   "evergreen_lint_lint_agent_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_21_11_29_17_55_27";
 const baseTaskHref = `/task/${baseTaskId}`;
 
-const getPatchTaskWithSuccessfulBaseTask = {
+const getPatchTaskWithSuccessfulBaseTask: ApolloMock<
+  GetBaseVersionAndTaskQuery,
+  GetBaseVersionAndTaskQueryVariables
+> = {
   request: {
     query: GET_BASE_VERSION_AND_TASK,
     variables: {
@@ -254,7 +264,10 @@ const getPatchTaskWithSuccessfulBaseTask = {
   },
 };
 
-const getPatchTaskWithRunningBaseTask = {
+const getPatchTaskWithRunningBaseTask: ApolloMock<
+  GetBaseVersionAndTaskQuery,
+  GetBaseVersionAndTaskQueryVariables
+> = {
   request: {
     query: GET_BASE_VERSION_AND_TASK,
     variables: {
@@ -291,7 +304,10 @@ const getPatchTaskWithRunningBaseTask = {
   },
 };
 
-const getPatchTaskWithFailingBaseTask = {
+const getPatchTaskWithFailingBaseTask: ApolloMock<
+  GetBaseVersionAndTaskQuery,
+  GetBaseVersionAndTaskQueryVariables
+> = {
   request: {
     query: GET_BASE_VERSION_AND_TASK,
     variables: {
@@ -328,7 +344,10 @@ const getPatchTaskWithFailingBaseTask = {
   },
 };
 
-const getPatchTaskWithNoBaseVersion = {
+const getPatchTaskWithNoBaseVersion: ApolloMock<
+  GetBaseVersionAndTaskQuery,
+  GetBaseVersionAndTaskQueryVariables
+> = {
   request: {
     query: GET_BASE_VERSION_AND_TASK,
     variables: {
@@ -355,7 +374,10 @@ const getPatchTaskWithNoBaseVersion = {
   },
 };
 
-const getLastPassingVersion = {
+const getLastPassingVersion: ApolloMock<
+  GetLastMainlineCommitQuery,
+  GetLastMainlineCommitQueryVariables
+> = {
   request: {
     query: GET_LAST_MAINLINE_COMMIT,
     variables: {
@@ -399,7 +421,10 @@ const getLastPassingVersion = {
   },
 };
 
-const getLastExecutedVersion = {
+const getLastExecutedVersion: ApolloMock<
+  GetLastMainlineCommitQuery,
+  GetLastMainlineCommitQueryVariables
+> = {
   request: {
     query: GET_LAST_MAINLINE_COMMIT,
     variables: {
@@ -454,7 +479,10 @@ const getLastExecutedVersion = {
 };
 
 // patch specific
-const getPatchTaskWithNoBaseTask = {
+const getPatchTaskWithNoBaseTask: ApolloMock<
+  GetBaseVersionAndTaskQuery,
+  GetBaseVersionAndTaskQueryVariables
+> = {
   request: {
     query: GET_BASE_VERSION_AND_TASK,
     variables: {
@@ -487,7 +515,10 @@ const getPatchTaskWithNoBaseTask = {
 };
 
 // Mainline commits specific
-const getMainlineTaskWithBaseVersion = {
+const getMainlineTaskWithBaseVersion: ApolloMock<
+  GetBaseVersionAndTaskQuery,
+  GetBaseVersionAndTaskQueryVariables
+> = {
   request: {
     query: GET_BASE_VERSION_AND_TASK,
     variables: {
@@ -519,7 +550,10 @@ const getMainlineTaskWithBaseVersion = {
   },
 };
 
-const getNullParentTask = {
+const getNullParentTask: ApolloMock<
+  GetLastMainlineCommitQuery,
+  GetLastMainlineCommitQueryVariables
+> = {
   request: {
     query: GET_LAST_MAINLINE_COMMIT,
     variables: {
@@ -535,7 +569,10 @@ const getNullParentTask = {
   error: new Error("Matching version not found in 300 most recent versions"),
 };
 
-const getParentTaskWithError = {
+const getParentTaskWithError: ApolloMock<
+  GetLastMainlineCommitQuery,
+  GetLastMainlineCommitQueryVariables
+> = {
   request: {
     query: GET_LAST_MAINLINE_COMMIT,
     variables: {

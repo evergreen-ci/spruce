@@ -1,15 +1,25 @@
 import { MockedProvider } from "@apollo/client/testing";
 import MatchMediaMock from "jest-matchmedia-mock";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
+import {
+  BbCreateTicketMutation,
+  BbCreateTicketMutationVariables,
+  BuildBaronQuery,
+  BuildBaronQueryVariables,
+  GetCreatedTicketsQuery,
+  GetCreatedTicketsQueryVariables,
+} from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import { getUserMock } from "gql/mocks/getUser";
 import { FILE_JIRA_TICKET } from "gql/mutations";
-import { GET_BUILD_BARON, GET_USER, GET_CREATED_TICKETS } from "gql/queries";
+import { GET_BUILD_BARON, GET_CREATED_TICKETS } from "gql/queries";
 import {
   fireEvent,
   renderWithRouterMatch as render,
   screen,
   waitFor,
 } from "test_utils";
+import { ApolloMock } from "types/gql";
 import BuildBaronContent from "./BuildBaronContent";
 
 const taskId =
@@ -176,8 +186,7 @@ const buildBaronQuery = {
     },
   },
 };
-
-const buildBaronMocks = [
+const getBuildBaronMock: ApolloMock<BuildBaronQuery, BuildBaronQueryVariables> =
   {
     request: {
       query: GET_BUILD_BARON,
@@ -189,47 +198,46 @@ const buildBaronMocks = [
     result: {
       data: buildBaronQuery,
     },
-  },
-  {
-    request: {
-      query: FILE_JIRA_TICKET,
-      variables: {
-        taskId,
-        execution,
-      },
-    },
-    result: {
-      data: {
-        bbCreateTicket: true,
-      },
+  };
+
+const fileJiraTicketMock: ApolloMock<
+  BbCreateTicketMutation,
+  BbCreateTicketMutationVariables
+> = {
+  request: {
+    query: FILE_JIRA_TICKET,
+    variables: {
+      taskId,
+      execution,
     },
   },
-  {
-    request: {
-      query: GET_CREATED_TICKETS,
-      variables: {
-        taskId,
-      },
-    },
-    result: {
-      data: {
-        bbGetCreatedTickets: [],
-      },
+  result: {
+    data: {
+      bbCreateTicket: true,
     },
   },
-  {
-    request: {
-      query: GET_USER,
-    },
-    result: {
-      data: {
-        user: {
-          userId: "mohamed.khelif",
-          displayName: "Mohamed Khelif",
-          emailAddress: "a@mongodb.com",
-        },
-      },
+};
+const getJiraTicketsMock: ApolloMock<
+  GetCreatedTicketsQuery,
+  GetCreatedTicketsQueryVariables
+> = {
+  request: {
+    query: GET_CREATED_TICKETS,
+    variables: {
+      taskId,
     },
   },
+  result: {
+    data: {
+      bbGetCreatedTickets: [],
+    },
+  },
+};
+
+const buildBaronMocks = [
+  getBuildBaronMock,
+  fileJiraTicketMock,
+  getJiraTicketsMock,
+  getUserMock,
   getSpruceConfigMock,
 ];

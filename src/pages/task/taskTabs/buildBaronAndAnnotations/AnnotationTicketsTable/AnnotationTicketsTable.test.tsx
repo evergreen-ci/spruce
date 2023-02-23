@@ -1,9 +1,16 @@
 import { MockedProvider } from "@apollo/client/testing";
 import MatchMediaMock from "jest-matchmedia-mock";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
+import {
+  MoveAnnotationIssueMutation,
+  MoveAnnotationIssueMutationVariables,
+  RemoveAnnotationIssueMutation,
+  RemoveAnnotationIssueMutationVariables,
+} from "gql/generated/types";
+import { getUserMock } from "gql/mocks/getUser";
 import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
-import { GET_USER } from "gql/queries";
 import { renderWithRouterMatch as render, screen } from "test_utils";
+import { ApolloMock } from "types/gql";
 import AnnotationTicketsTable from "./AnnotationTicketsTable";
 
 const taskId =
@@ -55,34 +62,29 @@ const apiIssue = {
   url: "https://fake-url/EVG-1234567",
   issueKey: "EVG-1234567",
 };
+const moveAnnotationMock: ApolloMock<
+  MoveAnnotationIssueMutation,
+  MoveAnnotationIssueMutationVariables
+> = {
+  request: {
+    query: MOVE_ANNOTATION,
+    variables: { taskId, execution, apiIssue, isIssue: true },
+  },
+  result: { data: { moveAnnotationIssue: true } },
+};
+const removeAnnotationMock: ApolloMock<
+  RemoveAnnotationIssueMutation,
+  RemoveAnnotationIssueMutationVariables
+> = {
+  request: {
+    query: REMOVE_ANNOTATION,
+    variables: { taskId, execution, apiIssue, isIssue: true },
+  },
+  result: { data: { removeAnnotationIssue: true } },
+};
 
 const ticketsTableMocks = [
-  {
-    request: {
-      query: MOVE_ANNOTATION,
-      variables: { taskId, execution, apiIssue, isIssue: true },
-    },
-    result: { data: { moveAnnotationIssue: true } },
-  },
-  {
-    request: {
-      query: REMOVE_ANNOTATION,
-      variables: { taskId, execution, apiIssue, isIssue: true },
-    },
-    result: { data: { removeAnnotationIssue: true } },
-  },
-  {
-    request: {
-      query: GET_USER,
-    },
-    result: {
-      data: {
-        user: {
-          userId: "minna.kt",
-          displayName: "Minna K-T",
-          emailAddress: "a@mongodb.com",
-        },
-      },
-    },
-  },
+  moveAnnotationMock,
+  removeAnnotationMock,
+  getUserMock,
 ];
