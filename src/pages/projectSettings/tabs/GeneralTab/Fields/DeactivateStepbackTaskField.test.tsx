@@ -1,6 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { FieldProps } from "@rjsf/core";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
+import {
+  DeactivateStepbackTaskMutation,
+  DeactivateStepbackTaskMutationVariables,
+} from "gql/generated/types";
 import { DEACTIVATE_STEPBACK_TASK } from "gql/mutations";
 import {
   renderWithRouterMatch as render,
@@ -8,6 +12,7 @@ import {
   userEvent,
   waitFor,
 } from "test_utils";
+import { ApolloMock } from "types/gql";
 import { DeactivateStepbackTaskField } from ".";
 
 const Field = () => (
@@ -81,7 +86,10 @@ describe("deactivateStepbackTask", () => {
   });
 });
 
-const deactivateStepbackTaskMock = {
+const deactivateStepbackTaskMock: ApolloMock<
+  DeactivateStepbackTaskMutation,
+  DeactivateStepbackTaskMutationVariables
+> = {
   request: {
     query: DEACTIVATE_STEPBACK_TASK,
     variables: {

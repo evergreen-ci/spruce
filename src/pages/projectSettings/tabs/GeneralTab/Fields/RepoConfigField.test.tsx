@@ -2,6 +2,16 @@ import { MockedProvider } from "@apollo/client/testing";
 import { FieldProps } from "@rjsf/core";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
+  AttachProjectToNewRepoMutation,
+  AttachProjectToNewRepoMutationVariables,
+  AttachProjectToRepoMutation,
+  AttachProjectToRepoMutationVariables,
+  DetachProjectFromRepoMutation,
+  DetachProjectFromRepoMutationVariables,
+  GetGithubOrgsQuery,
+  GetGithubOrgsQueryVariables,
+} from "gql/generated/types";
+import {
   ATTACH_PROJECT_TO_REPO,
   ATTACH_PROJECT_TO_NEW_REPO,
   DETACH_PROJECT_FROM_REPO,
@@ -14,6 +24,7 @@ import {
   waitFor,
 } from "test_utils";
 import { selectLGOption } from "test_utils/utils";
+import { ApolloMock } from "types/gql";
 import { ProjectType } from "../../utils";
 import { AttachDetachModal } from "./AttachDetachModal";
 import { MoveRepoModal } from "./MoveRepoModal";
@@ -298,23 +309,33 @@ describe("repoConfigField", () => {
   });
 });
 
-const attachProjectToNewRepoMock = {
+const attachProjectToNewRepoMock: ApolloMock<
+  AttachProjectToNewRepoMutation,
+  AttachProjectToNewRepoMutationVariables
+> = {
   request: {
     query: ATTACH_PROJECT_TO_NEW_REPO,
     variables: {
-      projectId: "evergreen",
-      newOwner: "evergreen-ci",
-      newRepo: "logkeeper",
+      project: {
+        projectId: "evergreen",
+        newOwner: "evergreen-ci",
+        newRepo: "logkeeper",
+      },
     },
   },
   result: {
     data: {
-      id: "evergreen",
+      attachProjectToNewRepo: {
+        repoRefId: "evergreen",
+      },
     },
   },
 };
 
-const attachProjectToRepoMock = {
+const attachProjectToRepoMock: ApolloMock<
+  AttachProjectToRepoMutation,
+  AttachProjectToRepoMutationVariables
+> = {
   request: {
     query: ATTACH_PROJECT_TO_REPO,
     variables: { projectId: "evergreen" },
@@ -328,7 +349,10 @@ const attachProjectToRepoMock = {
   },
 };
 
-const detachProjectFromRepoMock = {
+const detachProjectFromRepoMock: ApolloMock<
+  DetachProjectFromRepoMutation,
+  DetachProjectFromRepoMutationVariables
+> = {
   request: {
     query: DETACH_PROJECT_FROM_REPO,
     variables: { projectId: "evergreen" },
@@ -342,7 +366,10 @@ const detachProjectFromRepoMock = {
   },
 };
 
-const getGithubOrgsMock = {
+const getGithubOrgsMock: ApolloMock<
+  GetGithubOrgsQuery,
+  GetGithubOrgsQueryVariables
+> = {
   request: {
     query: GET_GITHUB_ORGS,
   },

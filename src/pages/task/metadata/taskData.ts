@@ -1,4 +1,6 @@
-export const taskQuery = {
+import { GetTaskQuery } from "gql/generated/types";
+
+export const taskQuery: GetTaskQuery = {
   task: {
     __typename: "Task",
     id: "someTaskId",
@@ -8,7 +10,6 @@ export const taskQuery = {
     baseTask: {
       id: "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
       execution: 1,
-      baseTaskDuration: 1228078,
       __typename: "Task",
     },
     blocked: false,
@@ -21,7 +22,6 @@ export const taskQuery = {
     canSchedule: false,
     canSetPriority: false,
     canUnschedule: false,
-    createTime: new Date("2020-08-26T19:20:41Z"),
     dependsOn: [],
     displayName: "e2e_test",
     distroId: "ubuntu1604-small",
@@ -30,7 +30,6 @@ export const taskQuery = {
     expectedDuration: 123,
     failedTestCount: 0,
     hostId: "i-0e0e62799806e037d",
-    hostLink: "https://evergreen.mongodb.com/host/i-0e0e62799806e037d",
     isPerfPluginEnabled: false,
     latestExecution: 0,
     logs: {
@@ -49,7 +48,6 @@ export const taskQuery = {
     minQueuePosition: 0,
     order: 1,
     priority: 0,
-    projectId: "spruce",
     patchNumber: 417,
     project: {
       identifier: "spruce",
@@ -62,7 +60,6 @@ export const taskQuery = {
     status: "pending",
     taskFiles: { __typename: "TaskFiles", fileCount: 38 },
     totalTestCount: 0,
-    version: "5f4889313627e0544660c800",
     versionMetadata: {
       __typename: "Version",
       id: "spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",

@@ -23,10 +23,12 @@ export type Scalars = {
 };
 
 export type AwsConfig = {
+  __typename?: "AWSConfig";
   maxVolumeSizePerUser?: Maybe<Scalars["Int"]>;
 };
 
 export type AbortInfo = {
+  __typename?: "AbortInfo";
   buildVariantDisplayName: Scalars["String"];
   newVersion: Scalars["String"];
   prClosed: Scalars["Boolean"];
@@ -40,6 +42,7 @@ export type AbortInfo = {
  * It is used as a field within the Task type.
  */
 export type Annotation = {
+  __typename?: "Annotation";
   createdIssues?: Maybe<Array<Maybe<IssueLink>>>;
   id: Scalars["String"];
   issues?: Maybe<Array<Maybe<IssueLink>>>;
@@ -51,6 +54,7 @@ export type Annotation = {
 };
 
 export type Build = {
+  __typename?: "Build";
   actualMakespan: Scalars["Duration"];
   buildVariant: Scalars["String"];
   id: Scalars["String"];
@@ -64,12 +68,14 @@ export type Build = {
  * tickets from JIRA for a given task on a given execution.
  */
 export type BuildBaron = {
+  __typename?: "BuildBaron";
   bbTicketCreationDefined: Scalars["Boolean"];
   buildBaronConfigured: Scalars["Boolean"];
   searchReturnInfo?: Maybe<SearchReturnInfo>;
 };
 
 export type BuildBaronSettings = {
+  __typename?: "BuildBaronSettings";
   bfSuggestionFeaturesURL?: Maybe<Scalars["String"]>;
   bfSuggestionPassword?: Maybe<Scalars["String"]>;
   bfSuggestionServer?: Maybe<Scalars["String"]>;
@@ -101,16 +107,19 @@ export type BuildVariantOptions = {
 };
 
 export type BuildVariantTuple = {
+  __typename?: "BuildVariantTuple";
   buildVariant: Scalars["String"];
   displayName: Scalars["String"];
 };
 
 export type ChildPatchAlias = {
+  __typename?: "ChildPatchAlias";
   alias: Scalars["String"];
   patchId: Scalars["String"];
 };
 
 export type ClientBinary = {
+  __typename?: "ClientBinary";
   arch?: Maybe<Scalars["String"]>;
   displayName?: Maybe<Scalars["String"]>;
   os?: Maybe<Scalars["String"]>;
@@ -122,11 +131,13 @@ export type ClientBinary = {
  * download on Evergreen.
  */
 export type ClientConfig = {
+  __typename?: "ClientConfig";
   clientBinaries?: Maybe<Array<ClientBinary>>;
   latestRevision?: Maybe<Scalars["String"]>;
 };
 
 export type CloudProviderConfig = {
+  __typename?: "CloudProviderConfig";
   aws?: Maybe<AwsConfig>;
 };
 
@@ -135,6 +146,7 @@ export type CloudProviderConfig = {
  * It contains information about the patches on the commit queue (e.g. author, code changes) for a given project.
  */
 export type CommitQueue = {
+  __typename?: "CommitQueue";
   message?: Maybe<Scalars["String"]>;
   owner?: Maybe<Scalars["String"]>;
   projectId?: Maybe<Scalars["String"]>;
@@ -143,6 +155,7 @@ export type CommitQueue = {
 };
 
 export type CommitQueueItem = {
+  __typename?: "CommitQueueItem";
   enqueueTime?: Maybe<Scalars["Time"]>;
   issue?: Maybe<Scalars["String"]>;
   modules?: Maybe<Array<Module>>;
@@ -152,6 +165,7 @@ export type CommitQueueItem = {
 };
 
 export type CommitQueueParams = {
+  __typename?: "CommitQueueParams";
   enabled?: Maybe<Scalars["Boolean"]>;
   mergeMethod: Scalars["String"];
   message: Scalars["String"];
@@ -168,6 +182,7 @@ export type CommitQueueParamsInput = {
 };
 
 export type ContainerResources = {
+  __typename?: "ContainerResources";
   cpu: Scalars["Int"];
   memoryMb: Scalars["Int"];
   name: Scalars["String"];
@@ -202,6 +217,7 @@ export type CreateProjectInput = {
 };
 
 export type Dependency = {
+  __typename?: "Dependency";
   buildVariant: Scalars["String"];
   metStatus: MetStatus;
   name: Scalars["String"];
@@ -219,6 +235,7 @@ export type DisplayTask = {
  * It models an environment configuration for a host.
  */
 export type Distro = {
+  __typename?: "Distro";
   isVirtualWorkStation: Scalars["Boolean"];
   name?: Maybe<Scalars["String"]>;
   user?: Maybe<Scalars["String"]>;
@@ -227,6 +244,7 @@ export type Distro = {
 };
 
 export type DistroInfo = {
+  __typename?: "DistroInfo";
   bootstrapMethod?: Maybe<Scalars["String"]>;
   id?: Maybe<Scalars["String"]>;
   isVirtualWorkStation?: Maybe<Scalars["Boolean"]>;
@@ -254,12 +272,14 @@ export type EditSpawnHostInput = {
 };
 
 export type File = {
+  __typename?: "File";
   link: Scalars["String"];
   name: Scalars["String"];
   visibility: Scalars["String"];
 };
 
 export type FileDiff = {
+  __typename?: "FileDiff";
   additions: Scalars["Int"];
   deletions: Scalars["Int"];
   description: Scalars["String"];
@@ -268,12 +288,14 @@ export type FileDiff = {
 };
 
 export type GithubCheckSubscriber = {
+  __typename?: "GithubCheckSubscriber";
   owner: Scalars["String"];
   ref: Scalars["String"];
   repo: Scalars["String"];
 };
 
 export type GithubPrSubscriber = {
+  __typename?: "GithubPRSubscriber";
   owner: Scalars["String"];
   prNumber?: Maybe<Scalars["Int"]>;
   ref: Scalars["String"];
@@ -285,12 +307,14 @@ export type GithubPrSubscriber = {
  * Its contains information about potential conflicts in the commit checks, the commit queue, and PR testing.
  */
 export type GithubProjectConflicts = {
+  __typename?: "GithubProjectConflicts";
   commitCheckIdentifiers?: Maybe<Array<Scalars["String"]>>;
   commitQueueIdentifiers?: Maybe<Array<Scalars["String"]>>;
   prTestingIdentifiers?: Maybe<Array<Scalars["String"]>>;
 };
 
 export type GithubUser = {
+  __typename?: "GithubUser";
   lastKnownAs?: Maybe<Scalars["String"]>;
   uid?: Maybe<Scalars["Int"]>;
 };
@@ -300,12 +324,14 @@ export type GithubUserInput = {
 };
 
 export type GroupedBuildVariant = {
+  __typename?: "GroupedBuildVariant";
   displayName: Scalars["String"];
   tasks?: Maybe<Array<Maybe<Task>>>;
   variant: Scalars["String"];
 };
 
 export type GroupedFiles = {
+  __typename?: "GroupedFiles";
   files?: Maybe<Array<File>>;
   taskName?: Maybe<Scalars["String"]>;
 };
@@ -315,12 +341,14 @@ export type GroupedFiles = {
  * It contains an array of projects which are grouped under a groupDisplayName.
  */
 export type GroupedProjects = {
+  __typename?: "GroupedProjects";
   groupDisplayName: Scalars["String"];
   projects: Array<Project>;
   repo?: Maybe<RepoRef>;
 };
 
 export type GroupedTaskStatusCount = {
+  __typename?: "GroupedTaskStatusCount";
   displayName: Scalars["String"];
   statusCounts: Array<StatusCount>;
   variant: Scalars["String"];
@@ -328,6 +356,7 @@ export type GroupedTaskStatusCount = {
 
 /** Host models a host, which are used for things like running tasks or as virtual workstations. */
 export type Host = {
+  __typename?: "Host";
   availabilityZone?: Maybe<Scalars["String"]>;
   displayName?: Maybe<Scalars["String"]>;
   distro?: Maybe<DistroInfo>;
@@ -354,6 +383,7 @@ export type Host = {
 };
 
 export type HostEventLogData = {
+  __typename?: "HostEventLogData";
   agentBuild: Scalars["String"];
   agentRevision: Scalars["String"];
   duration: Scalars["Duration"];
@@ -373,6 +403,7 @@ export type HostEventLogData = {
 };
 
 export type HostEventLogEntry = {
+  __typename?: "HostEventLogEntry";
   data: HostEventLogData;
   eventType?: Maybe<Scalars["String"]>;
   id: Scalars["String"];
@@ -387,6 +418,7 @@ export type HostEventLogEntry = {
  * It contains the event log entries for a given host.
  */
 export type HostEvents = {
+  __typename?: "HostEvents";
   count: Scalars["Int"];
   eventLogEntries: Array<HostEventLogEntry>;
 };
@@ -407,12 +439,14 @@ export enum HostSortBy {
  * It contains an array of Hosts matching the filter conditions, as well as some count information.
  */
 export type HostsResponse = {
+  __typename?: "HostsResponse";
   filteredHostsCount?: Maybe<Scalars["Int"]>;
   hosts: Array<Host>;
   totalHostsCount: Scalars["Int"];
 };
 
 export type InstanceTag = {
+  __typename?: "InstanceTag";
   canBeModified: Scalars["Boolean"];
   key: Scalars["String"];
   value: Scalars["String"];
@@ -424,6 +458,7 @@ export type InstanceTagInput = {
 };
 
 export type IssueLink = {
+  __typename?: "IssueLink";
   confidenceScore?: Maybe<Scalars["Float"]>;
   issueKey?: Maybe<Scalars["String"]>;
   jiraTicket?: Maybe<JiraTicket>;
@@ -439,10 +474,12 @@ export type IssueLinkInput = {
 };
 
 export type JiraConfig = {
+  __typename?: "JiraConfig";
   host?: Maybe<Scalars["String"]>;
 };
 
 export type JiraField = {
+  __typename?: "JiraField";
   displayText: Scalars["String"];
   field: Scalars["String"];
 };
@@ -453,6 +490,7 @@ export type JiraFieldInput = {
 };
 
 export type JiraIssueSubscriber = {
+  __typename?: "JiraIssueSubscriber";
   issueType: Scalars["String"];
   project: Scalars["String"];
 };
@@ -463,16 +501,19 @@ export type JiraIssueSubscriberInput = {
 };
 
 export type JiraStatus = {
+  __typename?: "JiraStatus";
   id: Scalars["String"];
   name: Scalars["String"];
 };
 
 export type JiraTicket = {
+  __typename?: "JiraTicket";
   fields: TicketFields;
   key: Scalars["String"];
 };
 
 export type LogMessage = {
+  __typename?: "LogMessage";
   message?: Maybe<Scalars["String"]>;
   severity?: Maybe<Scalars["String"]>;
   timestamp?: Maybe<Scalars["Time"]>;
@@ -481,6 +522,7 @@ export type LogMessage = {
 };
 
 export type LogkeeperBuild = {
+  __typename?: "LogkeeperBuild";
   buildNum: Scalars["Int"];
   builder: Scalars["String"];
   id: Scalars["String"];
@@ -490,6 +532,7 @@ export type LogkeeperBuild = {
 };
 
 export type LogkeeperTest = {
+  __typename?: "LogkeeperTest";
   buildId: Scalars["String"];
   command: Scalars["String"];
   id: Scalars["String"];
@@ -500,6 +543,7 @@ export type LogkeeperTest = {
 };
 
 export type MainlineCommitVersion = {
+  __typename?: "MainlineCommitVersion";
   rolledUpVersions?: Maybe<Array<Version>>;
   version?: Maybe<Version>;
 };
@@ -509,6 +553,7 @@ export type MainlineCommitVersion = {
  * It contains information about versions (both unactivated and activated) which is surfaced on the Project Health page.
  */
 export type MainlineCommits = {
+  __typename?: "MainlineCommits";
   nextPageOrderNumber?: Maybe<Scalars["Int"]>;
   prevPageOrderNumber?: Maybe<Scalars["Int"]>;
   versions: Array<MainlineCommitVersion>;
@@ -527,6 +572,7 @@ export type MainlineCommitsOptions = {
 };
 
 export type Manifest = {
+  __typename?: "Manifest";
   branch: Scalars["String"];
   id: Scalars["String"];
   isBase: Scalars["Boolean"];
@@ -544,11 +590,13 @@ export enum MetStatus {
 }
 
 export type Module = {
+  __typename?: "Module";
   issue?: Maybe<Scalars["String"]>;
   module?: Maybe<Scalars["String"]>;
 };
 
 export type ModuleCodeChange = {
+  __typename?: "ModuleCodeChange";
   branchName: Scalars["String"];
   fileDiffs: Array<FileDiff>;
   htmlLink: Scalars["String"];
@@ -566,6 +614,7 @@ export type MoveProjectInput = {
 };
 
 export type Mutation = {
+  __typename?: "Mutation";
   abortTask: Task;
   addAnnotationIssue: Scalars["Boolean"];
   addFavoriteProject: Project;
@@ -850,11 +899,13 @@ export type MutationUpdateVolumeArgs = {
 };
 
 export type Note = {
+  __typename?: "Note";
   message: Scalars["String"];
   source: Source;
 };
 
 export type Notifications = {
+  __typename?: "Notifications";
   buildBreak?: Maybe<Scalars["String"]>;
   commitQueue?: Maybe<Scalars["String"]>;
   patchFinish?: Maybe<Scalars["String"]>;
@@ -873,11 +924,13 @@ export type NotificationsInput = {
 };
 
 export type OomTrackerInfo = {
+  __typename?: "OomTrackerInfo";
   detected: Scalars["Boolean"];
   pids?: Maybe<Array<Maybe<Scalars["Int"]>>>;
 };
 
 export type Parameter = {
+  __typename?: "Parameter";
   key: Scalars["String"];
   value: Scalars["String"];
 };
@@ -889,6 +942,7 @@ export type ParameterInput = {
 
 /** Patch is a manually initiated version submitted to test local code changes. */
 export type Patch = {
+  __typename?: "Patch";
   activated: Scalars["Boolean"];
   alias?: Maybe<Scalars["String"]>;
   author: Scalars["String"];
@@ -934,22 +988,26 @@ export type PatchConfigure = {
 };
 
 export type PatchDuration = {
+  __typename?: "PatchDuration";
   makespan?: Maybe<Scalars["String"]>;
   time?: Maybe<PatchTime>;
   timeTaken?: Maybe<Scalars["String"]>;
 };
 
 export type PatchProject = {
+  __typename?: "PatchProject";
   variants: Array<ProjectBuildVariant>;
 };
 
 export type PatchTime = {
+  __typename?: "PatchTime";
   finished?: Maybe<Scalars["String"]>;
   started?: Maybe<Scalars["String"]>;
   submittedAt: Scalars["String"];
 };
 
 export type PatchTriggerAlias = {
+  __typename?: "PatchTriggerAlias";
   alias: Scalars["String"];
   childProjectId: Scalars["String"];
   childProjectIdentifier: Scalars["String"];
@@ -972,6 +1030,7 @@ export type PatchTriggerAliasInput = {
  * It contains an array Patches for either an individual user or a project.
  */
 export type Patches = {
+  __typename?: "Patches";
   filteredPatchCount: Scalars["Int"];
   patches: Array<Patch>;
 };
@@ -990,6 +1049,7 @@ export type PatchesInput = {
 };
 
 export type PeriodicBuild = {
+  __typename?: "PeriodicBuild";
   alias: Scalars["String"];
   configFile: Scalars["String"];
   id: Scalars["String"];
@@ -1008,12 +1068,14 @@ export type PeriodicBuildInput = {
 };
 
 export type Permissions = {
+  __typename?: "Permissions";
   canCreateProject: Scalars["Boolean"];
   userId: Scalars["String"];
 };
 
 /** Project models single repository on GitHub. */
 export type Project = {
+  __typename?: "Project";
   admins?: Maybe<Array<Maybe<Scalars["String"]>>>;
   batchTime: Scalars["Int"];
   branch: Scalars["String"];
@@ -1065,6 +1127,7 @@ export type ProjectPatchesArgs = {
 };
 
 export type ProjectAlias = {
+  __typename?: "ProjectAlias";
   alias: Scalars["String"];
   gitTag: Scalars["String"];
   id: Scalars["String"];
@@ -1087,12 +1150,14 @@ export type ProjectAliasInput = {
 };
 
 export type ProjectBuildVariant = {
+  __typename?: "ProjectBuildVariant";
   displayName: Scalars["String"];
   name: Scalars["String"];
   tasks: Array<Scalars["String"]>;
 };
 
 export type ProjectEventLogEntry = {
+  __typename?: "ProjectEventLogEntry";
   after?: Maybe<ProjectEventSettings>;
   before?: Maybe<ProjectEventSettings>;
   timestamp: Scalars["Time"];
@@ -1100,6 +1165,7 @@ export type ProjectEventLogEntry = {
 };
 
 export type ProjectEventSettings = {
+  __typename?: "ProjectEventSettings";
   aliases?: Maybe<Array<ProjectAlias>>;
   githubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<Project>;
@@ -1114,6 +1180,7 @@ export type ProjectEventSettings = {
  * or event logs because new fields could always be introduced that don't exist in the old event logs.
  */
 export type ProjectEvents = {
+  __typename?: "ProjectEvents";
   count: Scalars["Int"];
   eventLogEntries: Array<ProjectEventLogEntry>;
 };
@@ -1162,6 +1229,7 @@ export type ProjectInput = {
 
 /** ProjectSettings models the settings for a given Project. */
 export type ProjectSettings = {
+  __typename?: "ProjectSettings";
   aliases?: Maybe<Array<ProjectAlias>>;
   githubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<Project>;
@@ -1206,11 +1274,13 @@ export enum ProjectSettingsSection {
  * enabled that trigger whenever any version finishes.
  */
 export type ProjectSubscriber = {
+  __typename?: "ProjectSubscriber";
   subscriber: Subscriber;
   type: Scalars["String"];
 };
 
 export type ProjectSubscription = {
+  __typename?: "ProjectSubscription";
   id: Scalars["String"];
   ownerType: Scalars["String"];
   regexSelectors: Array<Selector>;
@@ -1222,6 +1292,7 @@ export type ProjectSubscription = {
 };
 
 export type ProjectVars = {
+  __typename?: "ProjectVars";
   adminOnlyVars: Array<Scalars["String"]>;
   privateVars: Array<Scalars["String"]>;
   vars?: Maybe<Scalars["StringMap"]>;
@@ -1235,6 +1306,7 @@ export type ProjectVarsInput = {
 
 /** PublicKey models a public key. Users can save/modify/delete their public keys. */
 export type PublicKey = {
+  __typename?: "PublicKey";
   key: Scalars["String"];
   name: Scalars["String"];
 };
@@ -1246,6 +1318,7 @@ export type PublicKeyInput = {
 };
 
 export type Query = {
+  __typename?: "Query";
   awsRegions?: Maybe<Array<Scalars["String"]>>;
   bbGetCreatedTickets: Array<JiraTicket>;
   buildBaron: BuildBaron;
@@ -1276,6 +1349,7 @@ export type Query = {
   subnetAvailabilityZones: Array<Scalars["String"]>;
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
+  /** @deprecated Use task.taskLogs instead */
   taskLogs: TaskLogs;
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]>>;
   taskQueueDistros: Array<TaskQueueDistro>;
@@ -1427,6 +1501,7 @@ export type QueryVersionArgs = {
 };
 
 export type RepoCommitQueueParams = {
+  __typename?: "RepoCommitQueueParams";
   enabled: Scalars["Boolean"];
   mergeMethod: Scalars["String"];
   message: Scalars["String"];
@@ -1440,6 +1515,7 @@ export type RepoCommitQueueParams = {
  * exactly.
  */
 export type RepoRef = {
+  __typename?: "RepoRef";
   admins: Array<Scalars["String"]>;
   batchTime: Scalars["Int"];
   branch: Scalars["String"];
@@ -1523,6 +1599,7 @@ export type RepoRefInput = {
 
 /** RepoSettings models the settings for a given RepoRef. */
 export type RepoSettings = {
+  __typename?: "RepoSettings";
   aliases?: Maybe<Array<ProjectAlias>>;
   githubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<RepoRef>;
@@ -1544,11 +1621,13 @@ export type RepoSettingsInput = {
 };
 
 export type RepoTaskSyncOptions = {
+  __typename?: "RepoTaskSyncOptions";
   configEnabled: Scalars["Boolean"];
   patchEnabled: Scalars["Boolean"];
 };
 
 export type RepoWorkstationConfig = {
+  __typename?: "RepoWorkstationConfig";
   gitClone: Scalars["Boolean"];
   setupCommands?: Maybe<Array<WorkstationSetupCommand>>;
 };
@@ -1560,6 +1639,7 @@ export enum RequiredStatus {
 }
 
 export type SearchReturnInfo = {
+  __typename?: "SearchReturnInfo";
   featuresURL: Scalars["String"];
   issues: Array<JiraTicket>;
   search: Scalars["String"];
@@ -1567,6 +1647,7 @@ export type SearchReturnInfo = {
 };
 
 export type Selector = {
+  __typename?: "Selector";
   data: Scalars["String"];
   type: Scalars["String"];
 };
@@ -1577,6 +1658,7 @@ export type SelectorInput = {
 };
 
 export type SlackConfig = {
+  __typename?: "SlackConfig";
   name?: Maybe<Scalars["String"]>;
 };
 
@@ -1592,12 +1674,14 @@ export type SortOrder = {
 };
 
 export type Source = {
+  __typename?: "Source";
   author: Scalars["String"];
   requester: Scalars["String"];
   time: Scalars["Time"];
 };
 
 export type SpawnHostConfig = {
+  __typename?: "SpawnHostConfig";
   spawnHostsPerUser: Scalars["Int"];
   unexpirableHostsPerUser: Scalars["Int"];
   unexpirableVolumesPerUser: Scalars["Int"];
@@ -1650,6 +1734,7 @@ export type SpawnVolumeInput = {
  * For example, if the banner field is populated, then a sitewide banner will be shown to all users.
  */
 export type SpruceConfig = {
+  __typename?: "SpruceConfig";
   banner?: Maybe<Scalars["String"]>;
   bannerTheme?: Maybe<Scalars["String"]>;
   githubOrgs: Array<Scalars["String"]>;
@@ -1661,11 +1746,13 @@ export type SpruceConfig = {
 };
 
 export type StatusCount = {
+  __typename?: "StatusCount";
   count: Scalars["Int"];
   status: Scalars["String"];
 };
 
 export type Subscriber = {
+  __typename?: "Subscriber";
   emailSubscriber?: Maybe<Scalars["String"]>;
   githubCheckSubscriber?: Maybe<GithubCheckSubscriber>;
   githubPRSubscriber?: Maybe<GithubPrSubscriber>;
@@ -1701,6 +1788,7 @@ export type SubscriptionInput = {
 
 /** Task models a task, the simplest unit of execution for Evergreen. */
 export type Task = {
+  __typename?: "Task";
   abortInfo?: Maybe<AbortInfo>;
   aborted: Scalars["Boolean"];
   activated: Scalars["Boolean"];
@@ -1766,12 +1854,15 @@ export type Task = {
   taskFiles: TaskFiles;
   taskGroup?: Maybe<Scalars["String"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
+  /** taskLogs returns the tail 100 lines of the task's logs. */
+  taskLogs: TaskLogs;
   timeTaken?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
   versionMetadata: Version;
 };
 
 export type TaskAnnotationSettings = {
+  __typename?: "TaskAnnotationSettings";
   fileTicketWebhook: Webhook;
   jiraCustomFields?: Maybe<Array<JiraField>>;
 };
@@ -1782,6 +1873,7 @@ export type TaskAnnotationSettingsInput = {
 };
 
 export type TaskEndDetail = {
+  __typename?: "TaskEndDetail";
   description?: Maybe<Scalars["String"]>;
   oomTracker: OomTrackerInfo;
   status: Scalars["String"];
@@ -1791,6 +1883,7 @@ export type TaskEndDetail = {
 };
 
 export type TaskEventLogData = {
+  __typename?: "TaskEventLogData";
   hostId?: Maybe<Scalars["String"]>;
   jiraIssue?: Maybe<Scalars["String"]>;
   jiraLink?: Maybe<Scalars["String"]>;
@@ -1801,6 +1894,7 @@ export type TaskEventLogData = {
 };
 
 export type TaskEventLogEntry = {
+  __typename?: "TaskEventLogEntry";
   data: TaskEventLogData;
   eventType?: Maybe<Scalars["String"]>;
   id: Scalars["String"];
@@ -1815,6 +1909,7 @@ export type TaskEventLogEntry = {
  * Some tasks generate files which are represented by this type.
  */
 export type TaskFiles = {
+  __typename?: "TaskFiles";
   fileCount: Scalars["Int"];
   groupedFiles: Array<GroupedFiles>;
 };
@@ -1834,11 +1929,13 @@ export type TaskFilterOptions = {
 };
 
 export type TaskInfo = {
+  __typename?: "TaskInfo";
   id?: Maybe<Scalars["ID"]>;
   name?: Maybe<Scalars["String"]>;
 };
 
 export type TaskLogLinks = {
+  __typename?: "TaskLogLinks";
   agentLogLink?: Maybe<Scalars["String"]>;
   allLogLink?: Maybe<Scalars["String"]>;
   eventLogLink?: Maybe<Scalars["String"]>;
@@ -1847,10 +1944,11 @@ export type TaskLogLinks = {
 };
 
 /**
- * TaskLogs is the return value for the taskLogs query.
+ * TaskLogs is the return value for the task.taskLogs query.
  * It contains the logs for a given task on a given execution.
  */
 export type TaskLogs = {
+  __typename?: "TaskLogs";
   agentLogs: Array<LogMessage>;
   allLogs: Array<LogMessage>;
   defaultLogger: Scalars["String"];
@@ -1866,6 +1964,7 @@ export type TaskLogs = {
  * It contains information about how many tasks and hosts are running on on a particular distro.
  */
 export type TaskQueueDistro = {
+  __typename?: "TaskQueueDistro";
   hostCount: Scalars["Int"];
   id: Scalars["ID"];
   taskCount: Scalars["Int"];
@@ -1877,6 +1976,7 @@ export type TaskQueueDistro = {
  * and how long it's expected to take to finish running.
  */
 export type TaskQueueItem = {
+  __typename?: "TaskQueueItem";
   buildVariant: Scalars["String"];
   displayName: Scalars["String"];
   expectedDuration: Scalars["Duration"];
@@ -1902,6 +2002,7 @@ export enum TaskSortCategory {
 }
 
 export type TaskSpecifier = {
+  __typename?: "TaskSpecifier";
   patchAlias: Scalars["String"];
   taskRegex: Scalars["String"];
   variantRegex: Scalars["String"];
@@ -1914,11 +2015,13 @@ export type TaskSpecifierInput = {
 };
 
 export type TaskStats = {
+  __typename?: "TaskStats";
   counts?: Maybe<Array<StatusCount>>;
   eta?: Maybe<Scalars["Time"]>;
 };
 
 export type TaskSyncOptions = {
+  __typename?: "TaskSyncOptions";
   configEnabled?: Maybe<Scalars["Boolean"]>;
   patchEnabled?: Maybe<Scalars["Boolean"]>;
 };
@@ -1934,6 +2037,7 @@ export type TaskSyncOptionsInput = {
  * could be the result of each individual unit test.
  */
 export type TaskTestResult = {
+  __typename?: "TaskTestResult";
   filteredTestCount: Scalars["Int"];
   testResults: Array<TestResult>;
   totalTestCount: Scalars["Int"];
@@ -1944,6 +2048,7 @@ export type TaskTestResult = {
  * It is used to represent failing test results on the task history pages.
  */
 export type TaskTestResultSample = {
+  __typename?: "TaskTestResultSample";
   execution: Scalars["Int"];
   matchingFailedTestNames: Array<Scalars["String"]>;
   taskId: Scalars["String"];
@@ -1960,6 +2065,7 @@ export type TestFilter = {
 };
 
 export type TestLog = {
+  __typename?: "TestLog";
   lineNum?: Maybe<Scalars["Int"]>;
   url?: Maybe<Scalars["String"]>;
   /** @deprecated Use urlParsley instead */
@@ -1969,6 +2075,7 @@ export type TestLog = {
 };
 
 export type TestResult = {
+  __typename?: "TestResult";
   baseStatus?: Maybe<Scalars["String"]>;
   duration?: Maybe<Scalars["Float"]>;
   endTime?: Maybe<Scalars["Time"]>;
@@ -1992,6 +2099,7 @@ export enum TestSortCategory {
 }
 
 export type TicketFields = {
+  __typename?: "TicketFields";
   assignedTeam?: Maybe<Scalars["String"]>;
   assigneeDisplayName?: Maybe<Scalars["String"]>;
   created: Scalars["String"];
@@ -2002,6 +2110,7 @@ export type TicketFields = {
 };
 
 export type TriggerAlias = {
+  __typename?: "TriggerAlias";
   alias: Scalars["String"];
   buildVariantRegex: Scalars["String"];
   configFile: Scalars["String"];
@@ -2024,6 +2133,7 @@ export type TriggerAliasInput = {
 };
 
 export type UiConfig = {
+  __typename?: "UIConfig";
   defaultProject: Scalars["String"];
   userVoice?: Maybe<Scalars["String"]>;
 };
@@ -2040,6 +2150,7 @@ export type UpdateVolumeInput = {
 };
 
 export type UpstreamProject = {
+  __typename?: "UpstreamProject";
   owner: Scalars["String"];
   project: Scalars["String"];
   repo: Scalars["String"];
@@ -2052,6 +2163,7 @@ export type UpstreamProject = {
 };
 
 export type UseSpruceOptions = {
+  __typename?: "UseSpruceOptions";
   hasUsedMainlineCommitsBefore?: Maybe<Scalars["Boolean"]>;
   hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]>;
   spruceV1?: Maybe<Scalars["Boolean"]>;
@@ -2068,6 +2180,7 @@ export type UseSpruceOptionsInput = {
  * It contains information about a user's id, name, email, and permissions.
  */
 export type User = {
+  __typename?: "User";
   displayName: Scalars["String"];
   emailAddress: Scalars["String"];
   patches: Patches;
@@ -2089,6 +2202,7 @@ export type UserPatchesArgs = {
  * preferred UI (legacy vs Spruce).
  */
 export type UserConfig = {
+  __typename?: "UserConfig";
   api_key: Scalars["String"];
   api_server_host: Scalars["String"];
   ui_server_host: Scalars["String"];
@@ -2100,6 +2214,7 @@ export type UserConfig = {
  * It contains information about a user's settings, such as their GitHub username or timezone.
  */
 export type UserSettings = {
+  __typename?: "UserSettings";
   dateFormat?: Maybe<Scalars["String"]>;
   githubUser?: Maybe<GithubUser>;
   notifications?: Maybe<Notifications>;
@@ -2126,6 +2241,7 @@ export type UserSettingsInput = {
 };
 
 export type VariantTask = {
+  __typename?: "VariantTask";
   name: Scalars["String"];
   tasks: Array<Scalars["String"]>;
 };
@@ -2138,6 +2254,7 @@ export type VariantTasks = {
 
 /** Version models a commit within a project. */
 export type Version = {
+  __typename?: "Version";
   activated?: Maybe<Scalars["Boolean"]>;
   author: Scalars["String"];
   baseTaskStatuses: Array<Scalars["String"]>;
@@ -2193,11 +2310,13 @@ export type VersionTasksArgs = {
 };
 
 export type VersionTasks = {
+  __typename?: "VersionTasks";
   count: Scalars["Int"];
   data: Array<Task>;
 };
 
 export type VersionTiming = {
+  __typename?: "VersionTiming";
   makespan?: Maybe<Scalars["Duration"]>;
   timeTaken?: Maybe<Scalars["Duration"]>;
 };
@@ -2212,6 +2331,7 @@ export type VersionToRestart = {
 };
 
 export type Volume = {
+  __typename?: "Volume";
   availabilityZone: Scalars["String"];
   createdBy: Scalars["String"];
   creationTime?: Maybe<Scalars["Time"]>;
@@ -2238,11 +2358,13 @@ export type VolumeHost = {
 };
 
 export type Webhook = {
+  __typename?: "Webhook";
   endpoint: Scalars["String"];
   secret: Scalars["String"];
 };
 
 export type WebhookHeader = {
+  __typename?: "WebhookHeader";
   key: Scalars["String"];
   value: Scalars["String"];
 };
@@ -2258,6 +2380,7 @@ export type WebhookInput = {
 };
 
 export type WebhookSubscriber = {
+  __typename?: "WebhookSubscriber";
   headers: Array<Maybe<WebhookHeader>>;
   secret: Scalars["String"];
   url: Scalars["String"];
@@ -2270,6 +2393,7 @@ export type WebhookSubscriberInput = {
 };
 
 export type WorkstationConfig = {
+  __typename?: "WorkstationConfig";
   gitClone?: Maybe<Scalars["Boolean"]>;
   setupCommands?: Maybe<Array<WorkstationSetupCommand>>;
 };
@@ -2280,6 +2404,7 @@ export type WorkstationConfigInput = {
 };
 
 export type WorkstationSetupCommand = {
+  __typename?: "WorkstationSetupCommand";
   command: Scalars["String"];
   directory: Scalars["String"];
 };
@@ -2290,76 +2415,112 @@ export type WorkstationSetupCommandInput = {
 };
 
 export type AnnotationFragment = {
+  __typename?: "Annotation";
   id: string;
   taskId: string;
   taskExecution: number;
   webhookConfigured: boolean;
   note?: Maybe<{
+    __typename?: "Note";
     message: string;
-    source: { author: string; time: Date; requester: string };
+    source: {
+      __typename?: "Source";
+      author: string;
+      time: Date;
+      requester: string;
+    };
   }>;
   issues?: Maybe<
     Array<
       Maybe<{
+        __typename?: "IssueLink";
         issueKey?: Maybe<string>;
         url?: Maybe<string>;
-        source?: Maybe<{ author: string; time: Date; requester: string }>;
+        source?: Maybe<{
+          __typename?: "Source";
+          author: string;
+          time: Date;
+          requester: string;
+        }>;
       }>
     >
   >;
   suspectedIssues?: Maybe<
     Array<
       Maybe<{
+        __typename?: "IssueLink";
         issueKey?: Maybe<string>;
         url?: Maybe<string>;
-        source?: Maybe<{ author: string; time: Date; requester: string }>;
+        source?: Maybe<{
+          __typename?: "Source";
+          author: string;
+          time: Date;
+          requester: string;
+        }>;
       }>
     >
   >;
   createdIssues?: Maybe<
     Array<
       Maybe<{
+        __typename?: "IssueLink";
         issueKey?: Maybe<string>;
         url?: Maybe<string>;
-        source?: Maybe<{ author: string; time: Date; requester: string }>;
+        source?: Maybe<{
+          __typename?: "Source";
+          author: string;
+          time: Date;
+          requester: string;
+        }>;
       }>
     >
   >;
 };
 
 export type IssueLinkFragment = {
+  __typename?: "IssueLink";
   issueKey?: Maybe<string>;
   url?: Maybe<string>;
   confidenceScore?: Maybe<number>;
-  source?: Maybe<{ author: string; time: Date; requester: string }>;
+  source?: Maybe<{
+    __typename?: "Source";
+    author: string;
+    time: Date;
+    requester: string;
+  }>;
   jiraTicket?: Maybe<{
+    __typename?: "JiraTicket";
     key: string;
     fields: {
+      __typename?: "TicketFields";
       summary: string;
       assigneeDisplayName?: Maybe<string>;
       resolutionName?: Maybe<string>;
       created: string;
       updated: string;
       assignedTeam?: Maybe<string>;
-      status: { id: string; name: string };
+      status: { __typename?: "JiraStatus"; id: string; name: string };
     };
   }>;
 };
 
 export type JiraTicketFragment = {
+  __typename?: "JiraTicket";
   key: string;
   fields: {
+    __typename?: "TicketFields";
     summary: string;
     assigneeDisplayName?: Maybe<string>;
     resolutionName?: Maybe<string>;
     created: string;
     updated: string;
     assignedTeam?: Maybe<string>;
-    status: { id: string; name: string };
+    status: { __typename?: "JiraStatus"; id: string; name: string };
   };
 };
 
 export type BaseHostFragment = {
+  __typename?: "Host";
   id: string;
   hostUrl: string;
   status: string;
@@ -2371,6 +2532,7 @@ export type BaseHostFragment = {
 };
 
 export type BasePatchFragment = {
+  __typename?: "Patch";
   id: string;
   description: string;
   author: string;
@@ -2378,11 +2540,14 @@ export type BasePatchFragment = {
   activated: boolean;
   alias?: Maybe<string>;
   commitQueuePosition?: Maybe<number>;
-  variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
-  parameters: Array<{ key: string; value: string }>;
+  variantsTasks: Array<
+    Maybe<{ __typename?: "VariantTask"; name: string; tasks: Array<string> }>
+  >;
+  parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
 };
 
 export type BaseSpawnHostFragment = {
+  __typename?: "Host";
   availabilityZone?: Maybe<string>;
   displayName?: Maybe<string>;
   expiration?: Maybe<Date>;
@@ -2398,18 +2563,30 @@ export type BaseSpawnHostFragment = {
   provider: string;
   uptime?: Maybe<Date>;
   distro?: Maybe<{
+    __typename?: "DistroInfo";
     isVirtualWorkStation?: Maybe<boolean>;
     id?: Maybe<string>;
     user?: Maybe<string>;
     workDir?: Maybe<string>;
     isWindows?: Maybe<boolean>;
   }>;
-  homeVolume?: Maybe<{ displayName: string }>;
-  instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
-  volumes: Array<{ displayName: string; id: string; migrating: boolean }>;
+  homeVolume?: Maybe<{ __typename?: "Volume"; displayName: string }>;
+  instanceTags: Array<{
+    __typename?: "InstanceTag";
+    key: string;
+    value: string;
+    canBeModified: boolean;
+  }>;
+  volumes: Array<{
+    __typename?: "Volume";
+    displayName: string;
+    id: string;
+    migrating: boolean;
+  }>;
 };
 
 export type BaseTaskFragment = {
+  __typename?: "Task";
   id: string;
   execution: number;
   buildVariant: string;
@@ -2419,6 +2596,7 @@ export type BaseTaskFragment = {
 };
 
 export type FileDiffsFragment = {
+  __typename?: "FileDiff";
   fileName: string;
   additions: number;
   deletions: number;
@@ -2427,16 +2605,19 @@ export type FileDiffsFragment = {
 };
 
 export type LogMessageFragment = {
+  __typename?: "LogMessage";
   severity?: Maybe<string>;
   message?: Maybe<string>;
   timestamp?: Maybe<Date>;
 };
 
 export type ModuleCodeChangeFragment = {
+  __typename?: "ModuleCodeChange";
   rawLink: string;
   branchName: string;
   htmlLink: string;
   fileDiffs: Array<{
+    __typename?: "FileDiff";
     fileName: string;
     additions: number;
     deletions: number;
@@ -2446,8 +2627,10 @@ export type ModuleCodeChangeFragment = {
 };
 
 export type PatchesPagePatchesFragment = {
+  __typename?: "Patches";
   filteredPatchCount: number;
   patches: Array<{
+    __typename?: "Patch";
     id: string;
     author: string;
     authorDisplayName: string;
@@ -2457,18 +2640,27 @@ export type PatchesPagePatchesFragment = {
     createTime?: Maybe<Date>;
     commitQueuePosition?: Maybe<number>;
     canEnqueueToCommitQueue: boolean;
-    projectMetadata?: Maybe<{ owner: string; repo: string }>;
+    projectMetadata?: Maybe<{
+      __typename?: "Project";
+      owner: string;
+      repo: string;
+    }>;
     versionFull?: Maybe<{
+      __typename?: "Version";
       id: string;
       status: string;
       taskStatusStats?: Maybe<{
-        counts?: Maybe<Array<{ status: string; count: number }>>;
+        __typename?: "TaskStats";
+        counts?: Maybe<
+          Array<{ __typename?: "StatusCount"; status: string; count: number }>
+        >;
       }>;
     }>;
   }>;
 };
 
 export type ProjectFragment = {
+  __typename?: "Project";
   identifier: string;
   repo: string;
   owner: string;
@@ -2476,18 +2668,21 @@ export type ProjectFragment = {
 };
 
 export type ProjectAccessSettingsFragment = {
+  __typename?: "Project";
   private?: Maybe<boolean>;
   restricted?: Maybe<boolean>;
   admins?: Maybe<Array<Maybe<string>>>;
 };
 
 export type RepoAccessSettingsFragment = {
+  __typename?: "RepoRef";
   private: boolean;
   restricted: boolean;
   admins: Array<string>;
 };
 
 export type AliasFragment = {
+  __typename?: "ProjectAlias";
   id: string;
   alias: string;
   gitTag: string;
@@ -2499,6 +2694,7 @@ export type AliasFragment = {
 };
 
 export type ProjectGeneralSettingsFragment = {
+  __typename?: "Project";
   enabled?: Maybe<boolean>;
   owner: string;
   repo: string;
@@ -2514,10 +2710,15 @@ export type ProjectGeneralSettingsFragment = {
   stepbackDisabled?: Maybe<boolean>;
   patchingDisabled?: Maybe<boolean>;
   disabledStatsCache?: Maybe<boolean>;
-  taskSync: { configEnabled?: Maybe<boolean>; patchEnabled?: Maybe<boolean> };
+  taskSync: {
+    __typename?: "TaskSyncOptions";
+    configEnabled?: Maybe<boolean>;
+    patchEnabled?: Maybe<boolean>;
+  };
 };
 
 export type RepoGeneralSettingsFragment = {
+  __typename?: "RepoRef";
   enabled: boolean;
   owner: string;
   repo: string;
@@ -2533,10 +2734,15 @@ export type RepoGeneralSettingsFragment = {
   stepbackDisabled: boolean;
   patchingDisabled: boolean;
   disabledStatsCache: boolean;
-  taskSync: { configEnabled: boolean; patchEnabled: boolean };
+  taskSync: {
+    __typename?: "RepoTaskSyncOptions";
+    configEnabled: boolean;
+    patchEnabled: boolean;
+  };
 };
 
 export type ProjectGithubSettingsFragment = {
+  __typename?: "Project";
   prTestingEnabled?: Maybe<boolean>;
   manualPrTestingEnabled?: Maybe<boolean>;
   githubChecksEnabled?: Maybe<boolean>;
@@ -2545,6 +2751,7 @@ export type ProjectGithubSettingsFragment = {
   gitTagAuthorizedUsers?: Maybe<Array<string>>;
   gitTagAuthorizedTeams?: Maybe<Array<string>>;
   commitQueue: {
+    __typename?: "CommitQueueParams";
     enabled?: Maybe<boolean>;
     requireSigned?: Maybe<boolean>;
     requiredApprovalCount?: Maybe<number>;
@@ -2554,6 +2761,7 @@ export type ProjectGithubSettingsFragment = {
 };
 
 export type RepoGithubSettingsFragment = {
+  __typename?: "RepoRef";
   prTestingEnabled: boolean;
   manualPrTestingEnabled: boolean;
   githubChecksEnabled: boolean;
@@ -2562,6 +2770,7 @@ export type RepoGithubSettingsFragment = {
   gitTagAuthorizedUsers?: Maybe<Array<string>>;
   gitTagAuthorizedTeams?: Maybe<Array<string>>;
   commitQueue: {
+    __typename?: "RepoCommitQueueParams";
     enabled: boolean;
     requireSigned: boolean;
     requiredApprovalCount: number;
@@ -2571,8 +2780,10 @@ export type RepoGithubSettingsFragment = {
 };
 
 export type ProjectGithubCommitQueueFragment = {
+  __typename?: "ProjectSettings";
   githubWebhooksEnabled: boolean;
   projectRef?: Maybe<{
+    __typename?: "Project";
     prTestingEnabled?: Maybe<boolean>;
     manualPrTestingEnabled?: Maybe<boolean>;
     githubChecksEnabled?: Maybe<boolean>;
@@ -2581,6 +2792,7 @@ export type ProjectGithubCommitQueueFragment = {
     gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
     commitQueue: {
+      __typename?: "CommitQueueParams";
       enabled?: Maybe<boolean>;
       requireSigned?: Maybe<boolean>;
       requiredApprovalCount?: Maybe<number>;
@@ -2591,8 +2803,10 @@ export type ProjectGithubCommitQueueFragment = {
 };
 
 export type RepoGithubCommitQueueFragment = {
+  __typename?: "RepoSettings";
   githubWebhooksEnabled: boolean;
   projectRef?: Maybe<{
+    __typename?: "RepoRef";
     prTestingEnabled: boolean;
     manualPrTestingEnabled: boolean;
     githubChecksEnabled: boolean;
@@ -2601,6 +2815,7 @@ export type RepoGithubCommitQueueFragment = {
     gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
     commitQueue: {
+      __typename?: "RepoCommitQueueParams";
       enabled: boolean;
       requireSigned: boolean;
       requiredApprovalCount: number;
@@ -2611,8 +2826,10 @@ export type RepoGithubCommitQueueFragment = {
 };
 
 export type ProjectEventGithubCommitQueueFragment = {
+  __typename?: "ProjectEventSettings";
   githubWebhooksEnabled: boolean;
   projectRef?: Maybe<{
+    __typename?: "Project";
     prTestingEnabled?: Maybe<boolean>;
     manualPrTestingEnabled?: Maybe<boolean>;
     githubChecksEnabled?: Maybe<boolean>;
@@ -2621,6 +2838,7 @@ export type ProjectEventGithubCommitQueueFragment = {
     gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
     commitQueue: {
+      __typename?: "CommitQueueParams";
       enabled?: Maybe<boolean>;
       requireSigned?: Maybe<boolean>;
       requiredApprovalCount?: Maybe<number>;
@@ -2631,8 +2849,10 @@ export type ProjectEventGithubCommitQueueFragment = {
 };
 
 export type ProjectSettingsFragment = {
+  __typename?: "ProjectSettings";
   githubWebhooksEnabled: boolean;
   projectRef?: Maybe<{
+    __typename?: "Project";
     id: string;
     identifier: string;
     repoRefId: string;
@@ -2663,32 +2883,58 @@ export type ProjectSettingsFragment = {
     gitTagVersionsEnabled?: Maybe<boolean>;
     gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
-    taskSync: { configEnabled?: Maybe<boolean>; patchEnabled?: Maybe<boolean> };
+    taskSync: {
+      __typename?: "TaskSyncOptions";
+      configEnabled?: Maybe<boolean>;
+      patchEnabled?: Maybe<boolean>;
+    };
     buildBaronSettings: {
+      __typename?: "BuildBaronSettings";
       ticketCreateProject: string;
       ticketSearchProjects?: Maybe<Array<string>>;
     };
     taskAnnotationSettings: {
-      jiraCustomFields?: Maybe<Array<{ field: string; displayText: string }>>;
-      fileTicketWebhook: { endpoint: string; secret: string };
+      __typename?: "TaskAnnotationSettings";
+      jiraCustomFields?: Maybe<
+        Array<{ __typename?: "JiraField"; field: string; displayText: string }>
+      >;
+      fileTicketWebhook: {
+        __typename?: "Webhook";
+        endpoint: string;
+        secret: string;
+      };
     };
     patchTriggerAliases?: Maybe<
       Array<{
+        __typename?: "PatchTriggerAlias";
         alias: string;
         childProjectIdentifier: string;
         status?: Maybe<string>;
         parentAsModule?: Maybe<string>;
         taskSpecifiers?: Maybe<
-          Array<{ patchAlias: string; taskRegex: string; variantRegex: string }>
+          Array<{
+            __typename?: "TaskSpecifier";
+            patchAlias: string;
+            taskRegex: string;
+            variantRegex: string;
+          }>
         >;
       }>
     >;
     workstationConfig: {
+      __typename?: "WorkstationConfig";
       gitClone?: Maybe<boolean>;
-      setupCommands?: Maybe<Array<{ command: string; directory: string }>>;
+      setupCommands?: Maybe<
+        Array<{
+          __typename?: "WorkstationSetupCommand";
+          command: string;
+          directory: string;
+        }>
+      >;
     };
     triggers?: Maybe<
       Array<{
+        __typename?: "TriggerAlias";
         project: string;
         level: string;
         buildVariantRegex: string;
@@ -2701,6 +2947,7 @@ export type ProjectSettingsFragment = {
     >;
     periodicBuilds?: Maybe<
       Array<{
+        __typename?: "PeriodicBuild";
         id: string;
         configFile: string;
         intervalHours: number;
@@ -2710,6 +2957,7 @@ export type ProjectSettingsFragment = {
       }>
     >;
     commitQueue: {
+      __typename?: "CommitQueueParams";
       enabled?: Maybe<boolean>;
       requireSigned?: Maybe<boolean>;
       requiredApprovalCount?: Maybe<number>;
@@ -2719,47 +2967,69 @@ export type ProjectSettingsFragment = {
   }>;
   subscriptions?: Maybe<
     Array<{
+      __typename?: "ProjectSubscription";
       id: string;
       resourceType: string;
       trigger: string;
       ownerType: string;
       triggerData?: Maybe<{ [key: string]: any }>;
-      selectors: Array<{ type: string; data: string }>;
-      regexSelectors: Array<{ type: string; data: string }>;
+      selectors: Array<{ __typename?: "Selector"; type: string; data: string }>;
+      regexSelectors: Array<{
+        __typename?: "Selector";
+        type: string;
+        data: string;
+      }>;
       subscriber?: Maybe<{
+        __typename?: "ProjectSubscriber";
         type: string;
         subscriber: {
+          __typename?: "Subscriber";
           jiraCommentSubscriber?: Maybe<string>;
           emailSubscriber?: Maybe<string>;
           slackSubscriber?: Maybe<string>;
           githubPRSubscriber?: Maybe<{
+            __typename?: "GithubPRSubscriber";
             owner: string;
             repo: string;
             ref: string;
             prNumber?: Maybe<number>;
           }>;
           githubCheckSubscriber?: Maybe<{
+            __typename?: "GithubCheckSubscriber";
             owner: string;
             repo: string;
             ref: string;
           }>;
           webhookSubscriber?: Maybe<{
+            __typename?: "WebhookSubscriber";
             url: string;
             secret: string;
-            headers: Array<Maybe<{ key: string; value: string }>>;
+            headers: Array<
+              Maybe<{
+                __typename?: "WebhookHeader";
+                key: string;
+                value: string;
+              }>
+            >;
           }>;
-          jiraIssueSubscriber?: Maybe<{ project: string; issueType: string }>;
+          jiraIssueSubscriber?: Maybe<{
+            __typename?: "JiraIssueSubscriber";
+            project: string;
+            issueType: string;
+          }>;
         };
       }>;
     }>
   >;
   vars?: Maybe<{
+    __typename?: "ProjectVars";
     vars?: Maybe<{ [key: string]: any }>;
     privateVars: Array<string>;
     adminOnlyVars: Array<string>;
   }>;
   aliases?: Maybe<
     Array<{
+      __typename?: "ProjectAlias";
       id: string;
       alias: string;
       gitTag: string;
@@ -2773,8 +3043,10 @@ export type ProjectSettingsFragment = {
 };
 
 export type RepoSettingsFragment = {
+  __typename?: "RepoSettings";
   githubWebhooksEnabled: boolean;
   projectRef?: Maybe<{
+    __typename?: "RepoRef";
     id: string;
     displayName: string;
     enabled: boolean;
@@ -2803,31 +3075,57 @@ export type RepoSettingsFragment = {
     gitTagVersionsEnabled: boolean;
     gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
-    taskSync: { configEnabled: boolean; patchEnabled: boolean };
+    taskSync: {
+      __typename?: "RepoTaskSyncOptions";
+      configEnabled: boolean;
+      patchEnabled: boolean;
+    };
     buildBaronSettings: {
+      __typename?: "BuildBaronSettings";
       ticketCreateProject: string;
       ticketSearchProjects?: Maybe<Array<string>>;
     };
     taskAnnotationSettings: {
-      jiraCustomFields?: Maybe<Array<{ field: string; displayText: string }>>;
-      fileTicketWebhook: { endpoint: string; secret: string };
+      __typename?: "TaskAnnotationSettings";
+      jiraCustomFields?: Maybe<
+        Array<{ __typename?: "JiraField"; field: string; displayText: string }>
+      >;
+      fileTicketWebhook: {
+        __typename?: "Webhook";
+        endpoint: string;
+        secret: string;
+      };
     };
     patchTriggerAliases?: Maybe<
       Array<{
+        __typename?: "PatchTriggerAlias";
         alias: string;
         childProjectIdentifier: string;
         status?: Maybe<string>;
         parentAsModule?: Maybe<string>;
         taskSpecifiers?: Maybe<
-          Array<{ patchAlias: string; taskRegex: string; variantRegex: string }>
+          Array<{
+            __typename?: "TaskSpecifier";
+            patchAlias: string;
+            taskRegex: string;
+            variantRegex: string;
+          }>
         >;
       }>
     >;
     workstationConfig: {
+      __typename?: "RepoWorkstationConfig";
       gitClone: boolean;
-      setupCommands?: Maybe<Array<{ command: string; directory: string }>>;
+      setupCommands?: Maybe<
+        Array<{
+          __typename?: "WorkstationSetupCommand";
+          command: string;
+          directory: string;
+        }>
+      >;
     };
     triggers: Array<{
+      __typename?: "TriggerAlias";
       project: string;
       level: string;
       buildVariantRegex: string;
@@ -2839,6 +3137,7 @@ export type RepoSettingsFragment = {
     }>;
     periodicBuilds?: Maybe<
       Array<{
+        __typename?: "PeriodicBuild";
         id: string;
         configFile: string;
         intervalHours: number;
@@ -2848,6 +3147,7 @@ export type RepoSettingsFragment = {
       }>
     >;
     commitQueue: {
+      __typename?: "RepoCommitQueueParams";
       enabled: boolean;
       requireSigned: boolean;
       requiredApprovalCount: number;
@@ -2856,48 +3156,70 @@ export type RepoSettingsFragment = {
     };
   }>;
   vars?: Maybe<{
+    __typename?: "ProjectVars";
     vars?: Maybe<{ [key: string]: any }>;
     privateVars: Array<string>;
     adminOnlyVars: Array<string>;
   }>;
   subscriptions?: Maybe<
     Array<{
+      __typename?: "ProjectSubscription";
       id: string;
       resourceType: string;
       trigger: string;
       ownerType: string;
       triggerData?: Maybe<{ [key: string]: any }>;
-      selectors: Array<{ type: string; data: string }>;
-      regexSelectors: Array<{ type: string; data: string }>;
+      selectors: Array<{ __typename?: "Selector"; type: string; data: string }>;
+      regexSelectors: Array<{
+        __typename?: "Selector";
+        type: string;
+        data: string;
+      }>;
       subscriber?: Maybe<{
+        __typename?: "ProjectSubscriber";
         type: string;
         subscriber: {
+          __typename?: "Subscriber";
           jiraCommentSubscriber?: Maybe<string>;
           emailSubscriber?: Maybe<string>;
           slackSubscriber?: Maybe<string>;
           githubPRSubscriber?: Maybe<{
+            __typename?: "GithubPRSubscriber";
             owner: string;
             repo: string;
             ref: string;
             prNumber?: Maybe<number>;
           }>;
           githubCheckSubscriber?: Maybe<{
+            __typename?: "GithubCheckSubscriber";
             owner: string;
             repo: string;
             ref: string;
           }>;
           webhookSubscriber?: Maybe<{
+            __typename?: "WebhookSubscriber";
             url: string;
             secret: string;
-            headers: Array<Maybe<{ key: string; value: string }>>;
+            headers: Array<
+              Maybe<{
+                __typename?: "WebhookHeader";
+                key: string;
+                value: string;
+              }>
+            >;
           }>;
-          jiraIssueSubscriber?: Maybe<{ project: string; issueType: string }>;
+          jiraIssueSubscriber?: Maybe<{
+            __typename?: "JiraIssueSubscriber";
+            project: string;
+            issueType: string;
+          }>;
         };
       }>;
     }>
   >;
   aliases?: Maybe<
     Array<{
+      __typename?: "ProjectAlias";
       id: string;
       alias: string;
       gitTag: string;
@@ -2911,81 +3233,115 @@ export type RepoSettingsFragment = {
 };
 
 export type ProjectNotificationSettingsFragment = {
+  __typename?: "Project";
   notifyOnBuildFailure?: Maybe<boolean>;
 };
 
 export type RepoNotificationSettingsFragment = {
+  __typename?: "RepoRef";
   notifyOnBuildFailure: boolean;
 };
 
 export type SubscriptionsFragment = {
+  __typename?: "ProjectSubscription";
   id: string;
   resourceType: string;
   trigger: string;
   ownerType: string;
   triggerData?: Maybe<{ [key: string]: any }>;
-  selectors: Array<{ type: string; data: string }>;
-  regexSelectors: Array<{ type: string; data: string }>;
+  selectors: Array<{ __typename?: "Selector"; type: string; data: string }>;
+  regexSelectors: Array<{
+    __typename?: "Selector";
+    type: string;
+    data: string;
+  }>;
   subscriber?: Maybe<{
+    __typename?: "ProjectSubscriber";
     type: string;
     subscriber: {
+      __typename?: "Subscriber";
       jiraCommentSubscriber?: Maybe<string>;
       emailSubscriber?: Maybe<string>;
       slackSubscriber?: Maybe<string>;
       githubPRSubscriber?: Maybe<{
+        __typename?: "GithubPRSubscriber";
         owner: string;
         repo: string;
         ref: string;
         prNumber?: Maybe<number>;
       }>;
       githubCheckSubscriber?: Maybe<{
+        __typename?: "GithubCheckSubscriber";
         owner: string;
         repo: string;
         ref: string;
       }>;
       webhookSubscriber?: Maybe<{
+        __typename?: "WebhookSubscriber";
         url: string;
         secret: string;
-        headers: Array<Maybe<{ key: string; value: string }>>;
+        headers: Array<
+          Maybe<{ __typename?: "WebhookHeader"; key: string; value: string }>
+        >;
       }>;
-      jiraIssueSubscriber?: Maybe<{ project: string; issueType: string }>;
+      jiraIssueSubscriber?: Maybe<{
+        __typename?: "JiraIssueSubscriber";
+        project: string;
+        issueType: string;
+      }>;
     };
   }>;
 };
 
 export type ProjectPatchAliasSettingsFragment = {
+  __typename?: "Project";
   githubTriggerAliases?: Maybe<Array<string>>;
   patchTriggerAliases?: Maybe<
     Array<{
+      __typename?: "PatchTriggerAlias";
       alias: string;
       childProjectIdentifier: string;
       status?: Maybe<string>;
       parentAsModule?: Maybe<string>;
       taskSpecifiers?: Maybe<
-        Array<{ patchAlias: string; taskRegex: string; variantRegex: string }>
+        Array<{
+          __typename?: "TaskSpecifier";
+          patchAlias: string;
+          taskRegex: string;
+          variantRegex: string;
+        }>
       >;
     }>
   >;
 };
 
 export type RepoPatchAliasSettingsFragment = {
+  __typename?: "RepoRef";
   githubTriggerAliases?: Maybe<Array<string>>;
   patchTriggerAliases?: Maybe<
     Array<{
+      __typename?: "PatchTriggerAlias";
       alias: string;
       childProjectIdentifier: string;
       status?: Maybe<string>;
       parentAsModule?: Maybe<string>;
       taskSpecifiers?: Maybe<
-        Array<{ patchAlias: string; taskRegex: string; variantRegex: string }>
+        Array<{
+          __typename?: "TaskSpecifier";
+          patchAlias: string;
+          taskRegex: string;
+          variantRegex: string;
+        }>
       >;
     }>
   >;
 };
 
 export type ProjectPeriodicBuildsSettingsFragment = {
+  __typename?: "Project";
   periodicBuilds?: Maybe<
     Array<{
+      __typename?: "PeriodicBuild";
       id: string;
       configFile: string;
       intervalHours: number;
@@ -2997,8 +3353,10 @@ export type ProjectPeriodicBuildsSettingsFragment = {
 };
 
 export type RepoPeriodicBuildsSettingsFragment = {
+  __typename?: "RepoRef";
   periodicBuilds?: Maybe<
     Array<{
+      __typename?: "PeriodicBuild";
       id: string;
       configFile: string;
       intervalHours: number;
@@ -3010,32 +3368,52 @@ export type RepoPeriodicBuildsSettingsFragment = {
 };
 
 export type ProjectPluginsSettingsFragment = {
+  __typename?: "Project";
   perfEnabled?: Maybe<boolean>;
   buildBaronSettings: {
+    __typename?: "BuildBaronSettings";
     ticketCreateProject: string;
     ticketSearchProjects?: Maybe<Array<string>>;
   };
   taskAnnotationSettings: {
-    jiraCustomFields?: Maybe<Array<{ field: string; displayText: string }>>;
-    fileTicketWebhook: { endpoint: string; secret: string };
+    __typename?: "TaskAnnotationSettings";
+    jiraCustomFields?: Maybe<
+      Array<{ __typename?: "JiraField"; field: string; displayText: string }>
+    >;
+    fileTicketWebhook: {
+      __typename?: "Webhook";
+      endpoint: string;
+      secret: string;
+    };
   };
 };
 
 export type RepoPluginsSettingsFragment = {
+  __typename?: "RepoRef";
   perfEnabled: boolean;
   buildBaronSettings: {
+    __typename?: "BuildBaronSettings";
     ticketCreateProject: string;
     ticketSearchProjects?: Maybe<Array<string>>;
   };
   taskAnnotationSettings: {
-    jiraCustomFields?: Maybe<Array<{ field: string; displayText: string }>>;
-    fileTicketWebhook: { endpoint: string; secret: string };
+    __typename?: "TaskAnnotationSettings";
+    jiraCustomFields?: Maybe<
+      Array<{ __typename?: "JiraField"; field: string; displayText: string }>
+    >;
+    fileTicketWebhook: {
+      __typename?: "Webhook";
+      endpoint: string;
+      secret: string;
+    };
   };
 };
 
 export type ProjectEventSettingsFragment = {
+  __typename?: "ProjectEventSettings";
   githubWebhooksEnabled: boolean;
   projectRef?: Maybe<{
+    __typename?: "Project";
     identifier: string;
     repoRefId: string;
     versionControlEnabled?: Maybe<boolean>;
@@ -3067,32 +3445,58 @@ export type ProjectEventSettingsFragment = {
     gitTagVersionsEnabled?: Maybe<boolean>;
     gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
-    taskSync: { configEnabled?: Maybe<boolean>; patchEnabled?: Maybe<boolean> };
+    taskSync: {
+      __typename?: "TaskSyncOptions";
+      configEnabled?: Maybe<boolean>;
+      patchEnabled?: Maybe<boolean>;
+    };
     buildBaronSettings: {
+      __typename?: "BuildBaronSettings";
       ticketCreateProject: string;
       ticketSearchProjects?: Maybe<Array<string>>;
     };
     taskAnnotationSettings: {
-      jiraCustomFields?: Maybe<Array<{ field: string; displayText: string }>>;
-      fileTicketWebhook: { endpoint: string; secret: string };
+      __typename?: "TaskAnnotationSettings";
+      jiraCustomFields?: Maybe<
+        Array<{ __typename?: "JiraField"; field: string; displayText: string }>
+      >;
+      fileTicketWebhook: {
+        __typename?: "Webhook";
+        endpoint: string;
+        secret: string;
+      };
     };
     patchTriggerAliases?: Maybe<
       Array<{
+        __typename?: "PatchTriggerAlias";
         alias: string;
         childProjectIdentifier: string;
         status?: Maybe<string>;
         parentAsModule?: Maybe<string>;
         taskSpecifiers?: Maybe<
-          Array<{ patchAlias: string; taskRegex: string; variantRegex: string }>
+          Array<{
+            __typename?: "TaskSpecifier";
+            patchAlias: string;
+            taskRegex: string;
+            variantRegex: string;
+          }>
         >;
       }>
     >;
     workstationConfig: {
+      __typename?: "WorkstationConfig";
       gitClone?: Maybe<boolean>;
-      setupCommands?: Maybe<Array<{ command: string; directory: string }>>;
+      setupCommands?: Maybe<
+        Array<{
+          __typename?: "WorkstationSetupCommand";
+          command: string;
+          directory: string;
+        }>
+      >;
     };
     triggers?: Maybe<
       Array<{
+        __typename?: "TriggerAlias";
         project: string;
         level: string;
         buildVariantRegex: string;
@@ -3105,6 +3509,7 @@ export type ProjectEventSettingsFragment = {
     >;
     periodicBuilds?: Maybe<
       Array<{
+        __typename?: "PeriodicBuild";
         id: string;
         configFile: string;
         intervalHours: number;
@@ -3114,6 +3519,7 @@ export type ProjectEventSettingsFragment = {
       }>
     >;
     commitQueue: {
+      __typename?: "CommitQueueParams";
       enabled?: Maybe<boolean>;
       requireSigned?: Maybe<boolean>;
       requiredApprovalCount?: Maybe<number>;
@@ -3123,47 +3529,69 @@ export type ProjectEventSettingsFragment = {
   }>;
   subscriptions?: Maybe<
     Array<{
+      __typename?: "ProjectSubscription";
       id: string;
       resourceType: string;
       trigger: string;
       ownerType: string;
       triggerData?: Maybe<{ [key: string]: any }>;
-      selectors: Array<{ type: string; data: string }>;
-      regexSelectors: Array<{ type: string; data: string }>;
+      selectors: Array<{ __typename?: "Selector"; type: string; data: string }>;
+      regexSelectors: Array<{
+        __typename?: "Selector";
+        type: string;
+        data: string;
+      }>;
       subscriber?: Maybe<{
+        __typename?: "ProjectSubscriber";
         type: string;
         subscriber: {
+          __typename?: "Subscriber";
           jiraCommentSubscriber?: Maybe<string>;
           emailSubscriber?: Maybe<string>;
           slackSubscriber?: Maybe<string>;
           githubPRSubscriber?: Maybe<{
+            __typename?: "GithubPRSubscriber";
             owner: string;
             repo: string;
             ref: string;
             prNumber?: Maybe<number>;
           }>;
           githubCheckSubscriber?: Maybe<{
+            __typename?: "GithubCheckSubscriber";
             owner: string;
             repo: string;
             ref: string;
           }>;
           webhookSubscriber?: Maybe<{
+            __typename?: "WebhookSubscriber";
             url: string;
             secret: string;
-            headers: Array<Maybe<{ key: string; value: string }>>;
+            headers: Array<
+              Maybe<{
+                __typename?: "WebhookHeader";
+                key: string;
+                value: string;
+              }>
+            >;
           }>;
-          jiraIssueSubscriber?: Maybe<{ project: string; issueType: string }>;
+          jiraIssueSubscriber?: Maybe<{
+            __typename?: "JiraIssueSubscriber";
+            project: string;
+            issueType: string;
+          }>;
         };
       }>;
     }>
   >;
   vars?: Maybe<{
+    __typename?: "ProjectVars";
     vars?: Maybe<{ [key: string]: any }>;
     privateVars: Array<string>;
     adminOnlyVars: Array<string>;
   }>;
   aliases?: Maybe<
     Array<{
+      __typename?: "ProjectAlias";
       id: string;
       alias: string;
       gitTag: string;
@@ -3177,8 +3605,10 @@ export type ProjectEventSettingsFragment = {
 };
 
 export type ProjectTriggersSettingsFragment = {
+  __typename?: "Project";
   triggers?: Maybe<
     Array<{
+      __typename?: "TriggerAlias";
       project: string;
       level: string;
       buildVariantRegex: string;
@@ -3192,7 +3622,9 @@ export type ProjectTriggersSettingsFragment = {
 };
 
 export type RepoTriggersSettingsFragment = {
+  __typename?: "RepoRef";
   triggers: Array<{
+    __typename?: "TriggerAlias";
     project: string;
     level: string;
     buildVariantRegex: string;
@@ -3205,33 +3637,52 @@ export type RepoTriggersSettingsFragment = {
 };
 
 export type VariablesFragment = {
+  __typename?: "ProjectVars";
   vars?: Maybe<{ [key: string]: any }>;
   privateVars: Array<string>;
   adminOnlyVars: Array<string>;
 };
 
 export type ProjectVirtualWorkstationSettingsFragment = {
+  __typename?: "Project";
   workstationConfig: {
+    __typename?: "WorkstationConfig";
     gitClone?: Maybe<boolean>;
-    setupCommands?: Maybe<Array<{ command: string; directory: string }>>;
+    setupCommands?: Maybe<
+      Array<{
+        __typename?: "WorkstationSetupCommand";
+        command: string;
+        directory: string;
+      }>
+    >;
   };
 };
 
 export type RepoVirtualWorkstationSettingsFragment = {
+  __typename?: "RepoRef";
   workstationConfig: {
+    __typename?: "RepoWorkstationConfig";
     gitClone: boolean;
-    setupCommands?: Maybe<Array<{ command: string; directory: string }>>;
+    setupCommands?: Maybe<
+      Array<{
+        __typename?: "WorkstationSetupCommand";
+        command: string;
+        directory: string;
+      }>
+    >;
   };
 };
 
 export type UpstreamProjectFragment = {
+  __typename?: "Version";
   upstreamProject?: Maybe<{
+    __typename?: "UpstreamProject";
     triggerID: string;
     triggerType: string;
     repo: string;
     project: string;
-    task?: Maybe<{ id: string; execution: number }>;
-    version?: Maybe<{ id: string }>;
+    task?: Maybe<{ __typename?: "Task"; id: string; execution: number }>;
+    version?: Maybe<{ __typename?: "Version"; id: string }>;
   }>;
 };
 
@@ -3240,7 +3691,9 @@ export type AbortTaskMutationVariables = Exact<{
 }>;
 
 export type AbortTaskMutation = {
+  __typename?: "Mutation";
   abortTask: {
+    __typename?: "Task";
     priority?: Maybe<number>;
     id: string;
     execution: number;
@@ -3258,14 +3711,19 @@ export type AddAnnotationIssueMutationVariables = Exact<{
   isIssue: Scalars["Boolean"];
 }>;
 
-export type AddAnnotationIssueMutation = { addAnnotationIssue: boolean };
+export type AddAnnotationIssueMutation = {
+  __typename?: "Mutation";
+  addAnnotationIssue: boolean;
+};
 
 export type AddFavoriteProjectMutationVariables = Exact<{
   identifier: Scalars["String"];
 }>;
 
 export type AddFavoriteProjectMutation = {
+  __typename?: "Mutation";
   addFavoriteProject: {
+    __typename?: "Project";
     id: string;
     identifier: string;
     repo: string;
@@ -3280,7 +3738,8 @@ export type AttachProjectToNewRepoMutationVariables = Exact<{
 }>;
 
 export type AttachProjectToNewRepoMutation = {
-  attachProjectToNewRepo: { repoRefId: string };
+  __typename?: "Mutation";
+  attachProjectToNewRepo: { __typename?: "Project"; repoRefId: string };
 };
 
 export type AttachProjectToRepoMutationVariables = Exact<{
@@ -3288,41 +3747,59 @@ export type AttachProjectToRepoMutationVariables = Exact<{
 }>;
 
 export type AttachProjectToRepoMutation = {
-  attachProjectToRepo: { id: string };
+  __typename?: "Mutation";
+  attachProjectToRepo: { __typename?: "Project"; id: string };
 };
 
 export type AttachVolumeToHostMutationVariables = Exact<{
   volumeAndHost: VolumeHost;
 }>;
 
-export type AttachVolumeToHostMutation = { attachVolumeToHost: boolean };
+export type AttachVolumeToHostMutation = {
+  __typename?: "Mutation";
+  attachVolumeToHost: boolean;
+};
 
 export type ClearMySubscriptionsMutationVariables = Exact<{
   [key: string]: never;
 }>;
 
-export type ClearMySubscriptionsMutation = { clearMySubscriptions: number };
+export type ClearMySubscriptionsMutation = {
+  __typename?: "Mutation";
+  clearMySubscriptions: number;
+};
 
 export type CopyProjectMutationVariables = Exact<{
   project: CopyProjectInput;
   requestS3Creds: Scalars["Boolean"];
 }>;
 
-export type CopyProjectMutation = { copyProject: { identifier: string } };
+export type CopyProjectMutation = {
+  __typename?: "Mutation";
+  copyProject: { __typename?: "Project"; identifier: string };
+};
 
 export type CreateProjectMutationVariables = Exact<{
   project: CreateProjectInput;
   requestS3Creds: Scalars["Boolean"];
 }>;
 
-export type CreateProjectMutation = { createProject: { identifier: string } };
+export type CreateProjectMutation = {
+  __typename?: "Mutation";
+  createProject: { __typename?: "Project"; identifier: string };
+};
 
 export type CreatePublicKeyMutationVariables = Exact<{
   publicKeyInput: PublicKeyInput;
 }>;
 
 export type CreatePublicKeyMutation = {
-  createPublicKey: Array<{ key: string; name: string }>;
+  __typename?: "Mutation";
+  createPublicKey: Array<{
+    __typename?: "PublicKey";
+    key: string;
+    name: string;
+  }>;
 };
 
 export type DeactivateStepbackTaskMutationVariables = Exact<{
@@ -3332,6 +3809,7 @@ export type DeactivateStepbackTaskMutationVariables = Exact<{
 }>;
 
 export type DeactivateStepbackTaskMutation = {
+  __typename?: "Mutation";
   deactivateStepbackTask: boolean;
 };
 
@@ -3341,6 +3819,7 @@ export type DefaultSectionToRepoMutationVariables = Exact<{
 }>;
 
 export type DefaultSectionToRepoMutation = {
+  __typename?: "Mutation";
   defaultSectionToRepo?: Maybe<string>;
 };
 
@@ -3349,14 +3828,18 @@ export type DetachProjectFromRepoMutationVariables = Exact<{
 }>;
 
 export type DetachProjectFromRepoMutation = {
-  detachProjectFromRepo: { id: string };
+  __typename?: "Mutation";
+  detachProjectFromRepo: { __typename?: "Project"; id: string };
 };
 
 export type DetachVolumeFromHostMutationVariables = Exact<{
   volumeId: Scalars["String"];
 }>;
 
-export type DetachVolumeFromHostMutation = { detachVolumeFromHost: boolean };
+export type DetachVolumeFromHostMutation = {
+  __typename?: "Mutation";
+  detachVolumeFromHost: boolean;
+};
 
 export type EditAnnotationNoteMutationVariables = Exact<{
   taskId: Scalars["String"];
@@ -3365,7 +3848,10 @@ export type EditAnnotationNoteMutationVariables = Exact<{
   newMessage: Scalars["String"];
 }>;
 
-export type EditAnnotationNoteMutation = { editAnnotationNote: boolean };
+export type EditAnnotationNoteMutation = {
+  __typename?: "Mutation";
+  editAnnotationNote: boolean;
+};
 
 export type EditSpawnHostMutationVariables = Exact<{
   hostId: Scalars["String"];
@@ -3382,7 +3868,9 @@ export type EditSpawnHostMutationVariables = Exact<{
 }>;
 
 export type EditSpawnHostMutation = {
+  __typename?: "Mutation";
   editSpawnHost: {
+    __typename?: "Host";
     availabilityZone?: Maybe<string>;
     displayName?: Maybe<string>;
     expiration?: Maybe<Date>;
@@ -3398,15 +3886,26 @@ export type EditSpawnHostMutation = {
     provider: string;
     uptime?: Maybe<Date>;
     distro?: Maybe<{
+      __typename?: "DistroInfo";
       isVirtualWorkStation?: Maybe<boolean>;
       id?: Maybe<string>;
       user?: Maybe<string>;
       workDir?: Maybe<string>;
       isWindows?: Maybe<boolean>;
     }>;
-    homeVolume?: Maybe<{ displayName: string }>;
-    instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
-    volumes: Array<{ displayName: string; id: string; migrating: boolean }>;
+    homeVolume?: Maybe<{ __typename?: "Volume"; displayName: string }>;
+    instanceTags: Array<{
+      __typename?: "InstanceTag";
+      key: string;
+      value: string;
+      canBeModified: boolean;
+    }>;
+    volumes: Array<{
+      __typename?: "Volume";
+      displayName: string;
+      id: string;
+      migrating: boolean;
+    }>;
   };
 };
 
@@ -3415,27 +3914,39 @@ export type EnqueuePatchMutationVariables = Exact<{
   commitMessage?: InputMaybe<Scalars["String"]>;
 }>;
 
-export type EnqueuePatchMutation = { enqueuePatch: { id: string } };
+export type EnqueuePatchMutation = {
+  __typename?: "Mutation";
+  enqueuePatch: { __typename?: "Patch"; id: string };
+};
 
 export type BbCreateTicketMutationVariables = Exact<{
   taskId: Scalars["String"];
   execution?: InputMaybe<Scalars["Int"]>;
 }>;
 
-export type BbCreateTicketMutation = { bbCreateTicket: boolean };
+export type BbCreateTicketMutation = {
+  __typename?: "Mutation";
+  bbCreateTicket: boolean;
+};
 
 export type ForceRepotrackerRunMutationVariables = Exact<{
   projectId: Scalars["String"];
 }>;
 
-export type ForceRepotrackerRunMutation = { forceRepotrackerRun: boolean };
+export type ForceRepotrackerRunMutation = {
+  __typename?: "Mutation";
+  forceRepotrackerRun: boolean;
+};
 
 export type MigrateVolumeMutationVariables = Exact<{
   volumeId: Scalars["String"];
   spawnHostInput: SpawnHostInput;
 }>;
 
-export type MigrateVolumeMutation = { migrateVolume: boolean };
+export type MigrateVolumeMutation = {
+  __typename?: "Mutation";
+  migrateVolume: boolean;
+};
 
 export type MoveAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];
@@ -3444,14 +3955,23 @@ export type MoveAnnotationIssueMutationVariables = Exact<{
   isIssue: Scalars["Boolean"];
 }>;
 
-export type MoveAnnotationIssueMutation = { moveAnnotationIssue: boolean };
+export type MoveAnnotationIssueMutation = {
+  __typename?: "Mutation";
+  moveAnnotationIssue: boolean;
+};
 
 export type OverrideTaskDependenciesMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
 
 export type OverrideTaskDependenciesMutation = {
-  overrideTaskDependencies: { id: string; execution: number; status: string };
+  __typename?: "Mutation";
+  overrideTaskDependencies: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    status: string;
+  };
 };
 
 export type PromoteVarsToRepoMutationVariables = Exact<{
@@ -3459,7 +3979,10 @@ export type PromoteVarsToRepoMutationVariables = Exact<{
   varNames: Array<Scalars["String"]>;
 }>;
 
-export type PromoteVarsToRepoMutation = { promoteVarsToRepo: boolean };
+export type PromoteVarsToRepoMutation = {
+  __typename?: "Mutation";
+  promoteVarsToRepo: boolean;
+};
 
 export type RemoveAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];
@@ -3468,14 +3991,19 @@ export type RemoveAnnotationIssueMutationVariables = Exact<{
   isIssue: Scalars["Boolean"];
 }>;
 
-export type RemoveAnnotationIssueMutation = { removeAnnotationIssue: boolean };
+export type RemoveAnnotationIssueMutation = {
+  __typename?: "Mutation";
+  removeAnnotationIssue: boolean;
+};
 
 export type RemoveFavoriteProjectMutationVariables = Exact<{
   identifier: Scalars["String"];
 }>;
 
 export type RemoveFavoriteProjectMutation = {
+  __typename?: "Mutation";
   removeFavoriteProject: {
+    __typename?: "Project";
     id: string;
     identifier: string;
     repo: string;
@@ -3491,6 +4019,7 @@ export type RemoveItemFromCommitQueueMutationVariables = Exact<{
 }>;
 
 export type RemoveItemFromCommitQueueMutation = {
+  __typename?: "Mutation";
   removeItemFromCommitQueue?: Maybe<string>;
 };
 
@@ -3499,26 +4028,40 @@ export type RemovePublicKeyMutationVariables = Exact<{
 }>;
 
 export type RemovePublicKeyMutation = {
-  removePublicKey: Array<{ key: string; name: string }>;
+  __typename?: "Mutation";
+  removePublicKey: Array<{
+    __typename?: "PublicKey";
+    key: string;
+    name: string;
+  }>;
 };
 
 export type RemoveVolumeMutationVariables = Exact<{
   volumeId: Scalars["String"];
 }>;
 
-export type RemoveVolumeMutation = { removeVolume: boolean };
+export type RemoveVolumeMutation = {
+  __typename?: "Mutation";
+  removeVolume: boolean;
+};
 
 export type ReprovisionToNewMutationVariables = Exact<{
   hostIds: Array<Scalars["String"]>;
 }>;
 
-export type ReprovisionToNewMutation = { reprovisionToNew: number };
+export type ReprovisionToNewMutation = {
+  __typename?: "Mutation";
+  reprovisionToNew: number;
+};
 
 export type RestartJasperMutationVariables = Exact<{
   hostIds: Array<Scalars["String"]>;
 }>;
 
-export type RestartJasperMutation = { restartJasper: number };
+export type RestartJasperMutation = {
+  __typename?: "Mutation";
+  restartJasper: number;
+};
 
 export type RestartTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
@@ -3526,7 +4069,9 @@ export type RestartTaskMutationVariables = Exact<{
 }>;
 
 export type RestartTaskMutation = {
+  __typename?: "Mutation";
   restartTask: {
+    __typename?: "Task";
     latestExecution: number;
     execution: number;
     id: string;
@@ -3544,15 +4089,20 @@ export type RestartVersionsMutationVariables = Exact<{
 }>;
 
 export type RestartVersionsMutation = {
+  __typename?: "Mutation";
   restartVersions?: Maybe<
     Array<{
+      __typename?: "Version";
       id: string;
       taskStatuses: Array<string>;
       status: string;
       patch?: Maybe<{
+        __typename?: "Patch";
         id: string;
         status: string;
-        childPatches?: Maybe<Array<{ id: string; status: string }>>;
+        childPatches?: Maybe<
+          Array<{ __typename?: "Patch"; id: string; status: string }>
+        >;
       }>;
     }>
   >;
@@ -3564,8 +4114,14 @@ export type SaveProjectSettingsForSectionMutationVariables = Exact<{
 }>;
 
 export type SaveProjectSettingsForSectionMutation = {
+  __typename?: "Mutation";
   saveProjectSettingsForSection: {
-    projectRef?: Maybe<{ id: string; identifier: string }>;
+    __typename?: "ProjectSettings";
+    projectRef?: Maybe<{
+      __typename?: "Project";
+      id: string;
+      identifier: string;
+    }>;
   };
 };
 
@@ -3575,14 +4131,21 @@ export type SaveRepoSettingsForSectionMutationVariables = Exact<{
 }>;
 
 export type SaveRepoSettingsForSectionMutation = {
-  saveRepoSettingsForSection: { projectRef?: Maybe<{ id: string }> };
+  __typename?: "Mutation";
+  saveRepoSettingsForSection: {
+    __typename?: "RepoSettings";
+    projectRef?: Maybe<{ __typename?: "RepoRef"; id: string }>;
+  };
 };
 
 export type SaveSubscriptionMutationVariables = Exact<{
   subscription: SubscriptionInput;
 }>;
 
-export type SaveSubscriptionMutation = { saveSubscription: boolean };
+export type SaveSubscriptionMutation = {
+  __typename?: "Mutation";
+  saveSubscription: boolean;
+};
 
 export type SchedulePatchMutationVariables = Exact<{
   patchId: Scalars["String"];
@@ -3590,7 +4153,9 @@ export type SchedulePatchMutationVariables = Exact<{
 }>;
 
 export type SchedulePatchMutation = {
+  __typename?: "Mutation";
   schedulePatch: {
+    __typename?: "Patch";
     tasks: Array<string>;
     variants: Array<string>;
     id: string;
@@ -3600,9 +4165,11 @@ export type SchedulePatchMutation = {
     activated: boolean;
     alias?: Maybe<string>;
     commitQueuePosition?: Maybe<number>;
-    versionFull?: Maybe<{ id: string }>;
-    variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
-    parameters: Array<{ key: string; value: string }>;
+    versionFull?: Maybe<{ __typename?: "Version"; id: string }>;
+    variantsTasks: Array<
+      Maybe<{ __typename?: "VariantTask"; name: string; tasks: Array<string> }>
+    >;
+    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
   };
 };
 
@@ -3611,7 +4178,9 @@ export type ScheduleTasksMutationVariables = Exact<{
 }>;
 
 export type ScheduleTasksMutation = {
+  __typename?: "Mutation";
   scheduleTasks: Array<{
+    __typename?: "Task";
     id: string;
     execution: number;
     buildVariant: string;
@@ -3626,8 +4195,14 @@ export type ScheduleUndispatchedBaseTasksMutationVariables = Exact<{
 }>;
 
 export type ScheduleUndispatchedBaseTasksMutation = {
+  __typename?: "Mutation";
   scheduleUndispatchedBaseTasks?: Maybe<
-    Array<{ id: string; execution: number; status: string }>
+    Array<{
+      __typename?: "Task";
+      id: string;
+      execution: number;
+      status: string;
+    }>
   >;
 };
 
@@ -3636,7 +4211,10 @@ export type SetPatchPriorityMutationVariables = Exact<{
   priority: Scalars["Int"];
 }>;
 
-export type SetPatchPriorityMutation = { setPatchPriority?: Maybe<string> };
+export type SetPatchPriorityMutation = {
+  __typename?: "Mutation";
+  setPatchPriority?: Maybe<string>;
+};
 
 export type SetTaskPriorityMutationVariables = Exact<{
   taskId: Scalars["String"];
@@ -3644,20 +4222,32 @@ export type SetTaskPriorityMutationVariables = Exact<{
 }>;
 
 export type SetTaskPriorityMutation = {
-  setTaskPriority: { id: string; execution: number; priority?: Maybe<number> };
+  __typename?: "Mutation";
+  setTaskPriority: {
+    __typename?: "Task";
+    id: string;
+    execution: number;
+    priority?: Maybe<number>;
+  };
 };
 
 export type SpawnHostMutationVariables = Exact<{
   SpawnHostInput?: InputMaybe<SpawnHostInput>;
 }>;
 
-export type SpawnHostMutation = { spawnHost: { id: string; status: string } };
+export type SpawnHostMutation = {
+  __typename?: "Mutation";
+  spawnHost: { __typename?: "Host"; id: string; status: string };
+};
 
 export type SpawnVolumeMutationVariables = Exact<{
   SpawnVolumeInput: SpawnVolumeInput;
 }>;
 
-export type SpawnVolumeMutation = { spawnVolume: boolean };
+export type SpawnVolumeMutation = {
+  __typename?: "Mutation";
+  spawnVolume: boolean;
+};
 
 export type UnschedulePatchTasksMutationVariables = Exact<{
   patchId: Scalars["String"];
@@ -3665,6 +4255,7 @@ export type UnschedulePatchTasksMutationVariables = Exact<{
 }>;
 
 export type UnschedulePatchTasksMutation = {
+  __typename?: "Mutation";
   unschedulePatchTasks?: Maybe<string>;
 };
 
@@ -3673,7 +4264,8 @@ export type UnscheduleTaskMutationVariables = Exact<{
 }>;
 
 export type UnscheduleTaskMutation = {
-  unscheduleTask: { id: string; execution: number };
+  __typename?: "Mutation";
+  unscheduleTask: { __typename?: "Task"; id: string; execution: number };
 };
 
 export type UpdateHostStatusMutationVariables = Exact<{
@@ -3682,7 +4274,10 @@ export type UpdateHostStatusMutationVariables = Exact<{
   notes?: InputMaybe<Scalars["String"]>;
 }>;
 
-export type UpdateHostStatusMutation = { updateHostStatus: number };
+export type UpdateHostStatusMutation = {
+  __typename?: "Mutation";
+  updateHostStatus: number;
+};
 
 export type UpdatePublicKeyMutationVariables = Exact<{
   targetKeyName: Scalars["String"];
@@ -3690,7 +4285,12 @@ export type UpdatePublicKeyMutationVariables = Exact<{
 }>;
 
 export type UpdatePublicKeyMutation = {
-  updatePublicKey: Array<{ key: string; name: string }>;
+  __typename?: "Mutation";
+  updatePublicKey: Array<{
+    __typename?: "PublicKey";
+    key: string;
+    name: string;
+  }>;
 };
 
 export type UpdateSpawnHostStatusMutationVariables = Exact<{
@@ -3699,31 +4299,43 @@ export type UpdateSpawnHostStatusMutationVariables = Exact<{
 }>;
 
 export type UpdateSpawnHostStatusMutation = {
-  updateSpawnHostStatus: { id: string; status: string };
+  __typename?: "Mutation";
+  updateSpawnHostStatus: { __typename?: "Host"; id: string; status: string };
 };
 
 export type UpdateVolumeMutationVariables = Exact<{
   UpdateVolumeInput: UpdateVolumeInput;
 }>;
 
-export type UpdateVolumeMutation = { updateVolume: boolean };
+export type UpdateVolumeMutation = {
+  __typename?: "Mutation";
+  updateVolume: boolean;
+};
 
 export type UpdateUserSettingsMutationVariables = Exact<{
   userSettings: UserSettingsInput;
 }>;
 
-export type UpdateUserSettingsMutation = { updateUserSettings: boolean };
+export type UpdateUserSettingsMutation = {
+  __typename?: "Mutation";
+  updateUserSettings: boolean;
+};
 
 export type AwsRegionsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type AwsRegionsQuery = { awsRegions?: Maybe<Array<string>> };
+export type AwsRegionsQuery = {
+  __typename?: "Query";
+  awsRegions?: Maybe<Array<string>>;
+};
 
 export type DistroTaskQueueQueryVariables = Exact<{
   distroId: Scalars["String"];
 }>;
 
 export type DistroTaskQueueQuery = {
+  __typename?: "Query";
   distroTaskQueue: Array<{
+    __typename?: "TaskQueueItem";
     id: string;
     expectedDuration: number;
     requester: TaskQueueItemType;
@@ -3740,9 +4352,15 @@ export type GetFailedTaskStatusIconTooltipQueryVariables = Exact<{
 }>;
 
 export type GetFailedTaskStatusIconTooltipQuery = {
+  __typename?: "Query";
   taskTests: {
+    __typename?: "TaskTestResult";
     filteredTestCount: number;
-    testResults: Array<{ id: string; testFile: string }>;
+    testResults: Array<{
+      __typename?: "TestResult";
+      id: string;
+      testFile: string;
+    }>;
   };
 };
 
@@ -3752,10 +4370,13 @@ export type AgentLogsQueryVariables = Exact<{
 }>;
 
 export type AgentLogsQuery = {
+  __typename?: "Query";
   taskLogs: {
+    __typename?: "TaskLogs";
     execution: number;
     taskId: string;
     agentLogs: Array<{
+      __typename?: "LogMessage";
       severity?: Maybe<string>;
       message?: Maybe<string>;
       timestamp?: Maybe<Date>;
@@ -3769,10 +4390,13 @@ export type AllLogsQueryVariables = Exact<{
 }>;
 
 export type AllLogsQuery = {
+  __typename?: "Query";
   taskLogs: {
+    __typename?: "TaskLogs";
     execution: number;
     taskId: string;
     allLogs: Array<{
+      __typename?: "LogMessage";
       severity?: Maybe<string>;
       message?: Maybe<string>;
       timestamp?: Maybe<Date>;
@@ -3786,42 +4410,69 @@ export type GetAnnotationEventDataQueryVariables = Exact<{
 }>;
 
 export type GetAnnotationEventDataQuery = {
+  __typename?: "Query";
   task?: Maybe<{
+    __typename?: "Task";
     id: string;
     execution: number;
     annotation?: Maybe<{
+      __typename?: "Annotation";
       id: string;
       taskId: string;
       taskExecution: number;
       webhookConfigured: boolean;
       note?: Maybe<{
+        __typename?: "Note";
         message: string;
-        source: { author: string; time: Date; requester: string };
+        source: {
+          __typename?: "Source";
+          author: string;
+          time: Date;
+          requester: string;
+        };
       }>;
       issues?: Maybe<
         Array<
           Maybe<{
+            __typename?: "IssueLink";
             issueKey?: Maybe<string>;
             url?: Maybe<string>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
+            source?: Maybe<{
+              __typename?: "Source";
+              author: string;
+              time: Date;
+              requester: string;
+            }>;
           }>
         >
       >;
       suspectedIssues?: Maybe<
         Array<
           Maybe<{
+            __typename?: "IssueLink";
             issueKey?: Maybe<string>;
             url?: Maybe<string>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
+            source?: Maybe<{
+              __typename?: "Source";
+              author: string;
+              time: Date;
+              requester: string;
+            }>;
           }>
         >
       >;
       createdIssues?: Maybe<
         Array<
           Maybe<{
+            __typename?: "IssueLink";
             issueKey?: Maybe<string>;
             url?: Maybe<string>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
+            source?: Maybe<{
+              __typename?: "Source";
+              author: string;
+              time: Date;
+              requester: string;
+            }>;
           }>
         >
       >;
@@ -3834,21 +4485,30 @@ export type GetBaseVersionAndTaskQueryVariables = Exact<{
 }>;
 
 export type GetBaseVersionAndTaskQuery = {
+  __typename?: "Query";
   task?: Maybe<{
+    __typename?: "Task";
     id: string;
     execution: number;
     displayName: string;
     buildVariant: string;
     versionMetadata: {
+      __typename?: "Version";
       id: string;
       isPatch: boolean;
       baseVersion?: Maybe<{
+        __typename?: "Version";
         id: string;
         order: number;
         projectIdentifier: string;
       }>;
     };
-    baseTask?: Maybe<{ id: string; execution: number; status: string }>;
+    baseTask?: Maybe<{
+      __typename?: "Task";
+      id: string;
+      execution: number;
+      status: string;
+    }>;
   }>;
 };
 
@@ -3858,7 +4518,8 @@ export type GetBuildBaronConfiguredQueryVariables = Exact<{
 }>;
 
 export type GetBuildBaronConfiguredQuery = {
-  buildBaron: { buildBaronConfigured: boolean };
+  __typename?: "Query";
+  buildBaron: { __typename?: "BuildBaron"; buildBaronConfigured: boolean };
 };
 
 export type BuildBaronQueryVariables = Exact<{
@@ -3867,22 +4528,27 @@ export type BuildBaronQueryVariables = Exact<{
 }>;
 
 export type BuildBaronQuery = {
+  __typename?: "Query";
   buildBaron: {
+    __typename?: "BuildBaron";
     buildBaronConfigured: boolean;
     bbTicketCreationDefined: boolean;
     searchReturnInfo?: Maybe<{
+      __typename?: "SearchReturnInfo";
       search: string;
       source: string;
       featuresURL: string;
       issues: Array<{
+        __typename?: "JiraTicket";
         key: string;
         fields: {
+          __typename?: "TicketFields";
           summary: string;
           assigneeDisplayName?: Maybe<string>;
           resolutionName?: Maybe<string>;
           created: string;
           updated: string;
-          status: { id: string; name: string };
+          status: { __typename?: "JiraStatus"; id: string; name: string };
         };
       }>;
     }>;
@@ -3894,13 +4560,20 @@ export type GetBuildVariantStatsQueryVariables = Exact<{
 }>;
 
 export type GetBuildVariantStatsQuery = {
+  __typename?: "Query";
   version: {
+    __typename?: "Version";
     id: string;
     buildVariantStats?: Maybe<
       Array<{
+        __typename?: "GroupedTaskStatusCount";
         variant: string;
         displayName: string;
-        statusCounts: Array<{ count: number; status: string }>;
+        statusCounts: Array<{
+          __typename?: "StatusCount";
+          count: number;
+          status: string;
+        }>;
       }>
     >;
   };
@@ -3912,8 +4585,15 @@ export type GetBuildVariantsForTaskNameQueryVariables = Exact<{
 }>;
 
 export type GetBuildVariantsForTaskNameQuery = {
+  __typename?: "Query";
   buildVariantsForTaskName?: Maybe<
-    Array<Maybe<{ displayName: string; buildVariant: string }>>
+    Array<
+      Maybe<{
+        __typename?: "BuildVariantTuple";
+        displayName: string;
+        buildVariant: string;
+      }>
+    >
   >;
 };
 
@@ -3922,16 +4602,20 @@ export type BuildVariantsWithChildrenQueryVariables = Exact<{
 }>;
 
 export type BuildVariantsWithChildrenQuery = {
+  __typename?: "Query";
   version: {
+    __typename?: "Version";
     id: string;
     buildVariants?: Maybe<
       Array<
         Maybe<{
+          __typename?: "GroupedBuildVariant";
           variant: string;
           displayName: string;
           tasks?: Maybe<
             Array<
               Maybe<{
+                __typename?: "Task";
                 id: string;
                 execution: number;
                 status: string;
@@ -3946,17 +4630,20 @@ export type BuildVariantsWithChildrenQuery = {
     childVersions?: Maybe<
       Array<
         Maybe<{
+          __typename?: "Version";
           id: string;
           projectIdentifier: string;
           project: string;
           buildVariants?: Maybe<
             Array<
               Maybe<{
+                __typename?: "GroupedBuildVariant";
                 variant: string;
                 displayName: string;
                 tasks?: Maybe<
                   Array<
                     Maybe<{
+                      __typename?: "Task";
                       id: string;
                       execution: number;
                       status: string;
@@ -3977,10 +4664,13 @@ export type BuildVariantsWithChildrenQuery = {
 export type ClientConfigQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ClientConfigQuery = {
+  __typename?: "Query";
   clientConfig?: Maybe<{
+    __typename?: "ClientConfig";
     latestRevision?: Maybe<string>;
     clientBinaries?: Maybe<
       Array<{
+        __typename?: "ClientBinary";
         os?: Maybe<string>;
         displayName?: Maybe<string>;
         url?: Maybe<string>;
@@ -3995,13 +4685,17 @@ export type CodeChangesQueryVariables = Exact<{
 }>;
 
 export type CodeChangesQuery = {
+  __typename?: "Query";
   patch: {
+    __typename?: "Patch";
     id: string;
     moduleCodeChanges: Array<{
+      __typename?: "ModuleCodeChange";
       rawLink: string;
       branchName: string;
       htmlLink: string;
       fileDiffs: Array<{
+        __typename?: "FileDiff";
         fileName: string;
         additions: number;
         deletions: number;
@@ -4017,26 +4711,32 @@ export type CommitQueueQueryVariables = Exact<{
 }>;
 
 export type CommitQueueQuery = {
+  __typename?: "Query";
   commitQueue: {
+    __typename?: "CommitQueue";
     projectId?: Maybe<string>;
     message?: Maybe<string>;
     owner?: Maybe<string>;
     repo?: Maybe<string>;
     queue?: Maybe<
       Array<{
+        __typename?: "CommitQueueItem";
         issue?: Maybe<string>;
         enqueueTime?: Maybe<Date>;
         patch?: Maybe<{
+          __typename?: "Patch";
           id: string;
           author: string;
           description: string;
           activated: boolean;
-          versionFull?: Maybe<{ id: string }>;
+          versionFull?: Maybe<{ __typename?: "Version"; id: string }>;
           moduleCodeChanges: Array<{
+            __typename?: "ModuleCodeChange";
             rawLink: string;
             branchName: string;
             htmlLink: string;
             fileDiffs: Array<{
+              __typename?: "FileDiff";
               fileName: string;
               additions: number;
               deletions: number;
@@ -4055,15 +4755,18 @@ export type GetCreatedTicketsQueryVariables = Exact<{
 }>;
 
 export type GetCreatedTicketsQuery = {
+  __typename?: "Query";
   bbGetCreatedTickets: Array<{
+    __typename?: "JiraTicket";
     key: string;
     fields: {
+      __typename?: "TicketFields";
       summary: string;
       assigneeDisplayName?: Maybe<string>;
       resolutionName?: Maybe<string>;
       created: string;
       updated: string;
-      status: { id: string; name: string };
+      status: { __typename?: "JiraStatus"; id: string; name: string };
     };
   }>;
 };
@@ -4074,12 +4777,14 @@ export type GetDisplayTaskQueryVariables = Exact<{
 }>;
 
 export type GetDisplayTaskQuery = {
+  __typename?: "Query";
   task?: Maybe<{
+    __typename?: "Task";
     id: string;
     displayName: string;
     execution: number;
     executionTasks?: Maybe<Array<string>>;
-    displayTask?: Maybe<{ id: string; execution: number }>;
+    displayTask?: Maybe<{ __typename?: "Task"; id: string; execution: number }>;
   }>;
 };
 
@@ -4088,15 +4793,24 @@ export type DistrosQueryVariables = Exact<{
 }>;
 
 export type DistrosQuery = {
+  __typename?: "Query";
   distros: Array<
-    Maybe<{ name?: Maybe<string>; isVirtualWorkStation: boolean }>
+    Maybe<{
+      __typename?: "Distro";
+      name?: Maybe<string>;
+      isVirtualWorkStation: boolean;
+    }>
   >;
 };
 
 export type GetGithubOrgsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetGithubOrgsQuery = {
-  spruceConfig?: Maybe<{ githubOrgs: Array<string> }>;
+  __typename?: "Query";
+  spruceConfig?: Maybe<{
+    __typename?: "SpruceConfig";
+    githubOrgs: Array<string>;
+  }>;
 };
 
 export type GithubProjectConflictsQueryVariables = Exact<{
@@ -4104,7 +4818,9 @@ export type GithubProjectConflictsQueryVariables = Exact<{
 }>;
 
 export type GithubProjectConflictsQuery = {
+  __typename?: "Query";
   githubProjectConflicts: {
+    __typename?: "GithubProjectConflicts";
     commitQueueIdentifiers?: Maybe<Array<string>>;
     prTestingIdentifiers?: Maybe<Array<string>>;
     commitCheckIdentifiers?: Maybe<Array<string>>;
@@ -4115,7 +4831,7 @@ export type GetHasVersionQueryVariables = Exact<{
   id: Scalars["String"];
 }>;
 
-export type GetHasVersionQuery = { hasVersion: boolean };
+export type GetHasVersionQuery = { __typename?: "Query"; hasVersion: boolean };
 
 export type HostEventsQueryVariables = Exact<{
   id: Scalars["String"];
@@ -4125,9 +4841,12 @@ export type HostEventsQueryVariables = Exact<{
 }>;
 
 export type HostEventsQuery = {
+  __typename?: "Query";
   hostEvents: {
+    __typename?: "HostEvents";
     count: number;
     eventLogEntries: Array<{
+      __typename?: "HostEventLogEntry";
       id: string;
       resourceType: string;
       processedAt: Date;
@@ -4135,6 +4854,7 @@ export type HostEventsQuery = {
       eventType?: Maybe<string>;
       resourceId: string;
       data: {
+        __typename?: "HostEventLogData";
         agentRevision: string;
         agentBuild: string;
         oldStatus: string;
@@ -4160,7 +4880,9 @@ export type HostQueryVariables = Exact<{
 }>;
 
 export type HostQuery = {
+  __typename?: "Query";
   host?: Maybe<{
+    __typename?: "Host";
     distroId?: Maybe<string>;
     lastCommunicationTime?: Maybe<Date>;
     id: string;
@@ -4171,21 +4893,33 @@ export type HostQuery = {
     tag: string;
     provider: string;
     uptime?: Maybe<Date>;
-    distro?: Maybe<{ bootstrapMethod?: Maybe<string> }>;
-    runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
+    distro?: Maybe<{
+      __typename?: "DistroInfo";
+      bootstrapMethod?: Maybe<string>;
+    }>;
+    runningTask?: Maybe<{
+      __typename?: "TaskInfo";
+      id?: Maybe<string>;
+      name?: Maybe<string>;
+    }>;
   }>;
 };
 
 export type InstanceTypesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type InstanceTypesQuery = { instanceTypes: Array<string> };
+export type InstanceTypesQuery = {
+  __typename?: "Query";
+  instanceTypes: Array<string>;
+};
 
 export type IsPatchConfiguredQueryVariables = Exact<{
   id: Scalars["String"];
 }>;
 
 export type IsPatchConfiguredQuery = {
+  __typename?: "Query";
   patch: {
+    __typename?: "Patch";
     id: string;
     activated: boolean;
     alias?: Maybe<string>;
@@ -4199,27 +4933,38 @@ export type GetCustomCreatedIssuesQueryVariables = Exact<{
 }>;
 
 export type GetCustomCreatedIssuesQuery = {
+  __typename?: "Query";
   task?: Maybe<{
+    __typename?: "Task";
     id: string;
     execution: number;
     annotation?: Maybe<{
+      __typename?: "Annotation";
       createdIssues?: Maybe<
         Array<
           Maybe<{
+            __typename?: "IssueLink";
             issueKey?: Maybe<string>;
             url?: Maybe<string>;
             confidenceScore?: Maybe<number>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
+            source?: Maybe<{
+              __typename?: "Source";
+              author: string;
+              time: Date;
+              requester: string;
+            }>;
             jiraTicket?: Maybe<{
+              __typename?: "JiraTicket";
               key: string;
               fields: {
+                __typename?: "TicketFields";
                 summary: string;
                 assigneeDisplayName?: Maybe<string>;
                 resolutionName?: Maybe<string>;
                 created: string;
                 updated: string;
                 assignedTeam?: Maybe<string>;
-                status: { id: string; name: string };
+                status: { __typename?: "JiraStatus"; id: string; name: string };
               };
             }>;
           }>
@@ -4235,27 +4980,38 @@ export type GetIssuesQueryVariables = Exact<{
 }>;
 
 export type GetIssuesQuery = {
+  __typename?: "Query";
   task?: Maybe<{
+    __typename?: "Task";
     id: string;
     execution: number;
     annotation?: Maybe<{
+      __typename?: "Annotation";
       issues?: Maybe<
         Array<
           Maybe<{
+            __typename?: "IssueLink";
             issueKey?: Maybe<string>;
             url?: Maybe<string>;
             confidenceScore?: Maybe<number>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
+            source?: Maybe<{
+              __typename?: "Source";
+              author: string;
+              time: Date;
+              requester: string;
+            }>;
             jiraTicket?: Maybe<{
+              __typename?: "JiraTicket";
               key: string;
               fields: {
+                __typename?: "TicketFields";
                 summary: string;
                 assigneeDisplayName?: Maybe<string>;
                 resolutionName?: Maybe<string>;
                 created: string;
                 updated: string;
                 assignedTeam?: Maybe<string>;
-                status: { id: string; name: string };
+                status: { __typename?: "JiraStatus"; id: string; name: string };
               };
             }>;
           }>
@@ -4271,27 +5027,38 @@ export type GetSuspectedIssuesQueryVariables = Exact<{
 }>;
 
 export type GetSuspectedIssuesQuery = {
+  __typename?: "Query";
   task?: Maybe<{
+    __typename?: "Task";
     id: string;
     execution: number;
     annotation?: Maybe<{
+      __typename?: "Annotation";
       suspectedIssues?: Maybe<
         Array<
           Maybe<{
+            __typename?: "IssueLink";
             issueKey?: Maybe<string>;
             url?: Maybe<string>;
             confidenceScore?: Maybe<number>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
+            source?: Maybe<{
+              __typename?: "Source";
+              author: string;
+              time: Date;
+              requester: string;
+            }>;
             jiraTicket?: Maybe<{
+              __typename?: "JiraTicket";
               key: string;
               fields: {
+                __typename?: "TicketFields";
                 summary: string;
                 assigneeDisplayName?: Maybe<string>;
                 resolutionName?: Maybe<string>;
                 created: string;
                 updated: string;
                 assignedTeam?: Maybe<string>;
-                status: { id: string; name: string };
+                status: { __typename?: "JiraStatus"; id: string; name: string };
               };
             }>;
           }>
@@ -4308,15 +5075,27 @@ export type GetLastMainlineCommitQueryVariables = Exact<{
 }>;
 
 export type GetLastMainlineCommitQuery = {
+  __typename?: "Query";
   mainlineCommits?: Maybe<{
+    __typename?: "MainlineCommits";
     versions: Array<{
+      __typename?: "MainlineCommitVersion";
       version?: Maybe<{
+        __typename?: "Version";
         id: string;
         buildVariants?: Maybe<
           Array<
             Maybe<{
+              __typename?: "GroupedBuildVariant";
               tasks?: Maybe<
-                Array<Maybe<{ id: string; execution: number; status: string }>>
+                Array<
+                  Maybe<{
+                    __typename?: "Task";
+                    id: string;
+                    execution: number;
+                    status: string;
+                  }>
+                >
               >;
             }>
           >
@@ -4331,12 +5110,14 @@ export type LogkeeperBuildMetadataQueryVariables = Exact<{
 }>;
 
 export type LogkeeperBuildMetadataQuery = {
+  __typename?: "Query";
   logkeeperBuildMetadata: {
+    __typename?: "LogkeeperBuild";
     builder: string;
     buildNum: number;
     taskId: string;
     taskExecution: number;
-    tests: Array<{ id: string; name: string }>;
+    tests: Array<{ __typename?: "LogkeeperTest"; id: string; name: string }>;
   };
 };
 
@@ -4346,11 +5127,15 @@ export type MainlineCommitsForHistoryQueryVariables = Exact<{
 }>;
 
 export type MainlineCommitsForHistoryQuery = {
+  __typename?: "Query";
   mainlineCommits?: Maybe<{
+    __typename?: "MainlineCommits";
     nextPageOrderNumber?: Maybe<number>;
     prevPageOrderNumber?: Maybe<number>;
     versions: Array<{
+      __typename?: "MainlineCommitVersion";
       version?: Maybe<{
+        __typename?: "Version";
         id: string;
         author: string;
         createTime: Date;
@@ -4360,11 +5145,13 @@ export type MainlineCommitsForHistoryQuery = {
         buildVariants?: Maybe<
           Array<
             Maybe<{
+              __typename?: "GroupedBuildVariant";
               displayName: string;
               variant: string;
               tasks?: Maybe<
                 Array<
                   Maybe<{
+                    __typename?: "Task";
                     id: string;
                     execution: number;
                     status: string;
@@ -4376,16 +5163,18 @@ export type MainlineCommitsForHistoryQuery = {
           >
         >;
         upstreamProject?: Maybe<{
+          __typename?: "UpstreamProject";
           triggerID: string;
           triggerType: string;
           repo: string;
           project: string;
-          task?: Maybe<{ id: string; execution: number }>;
-          version?: Maybe<{ id: string }>;
+          task?: Maybe<{ __typename?: "Task"; id: string; execution: number }>;
+          version?: Maybe<{ __typename?: "Version"; id: string }>;
         }>;
       }>;
       rolledUpVersions?: Maybe<
         Array<{
+          __typename?: "Version";
           id: string;
           createTime: Date;
           author: string;
@@ -4393,12 +5182,17 @@ export type MainlineCommitsForHistoryQuery = {
           message: string;
           revision: string;
           upstreamProject?: Maybe<{
+            __typename?: "UpstreamProject";
             triggerID: string;
             triggerType: string;
             repo: string;
             project: string;
-            task?: Maybe<{ id: string; execution: number }>;
-            version?: Maybe<{ id: string }>;
+            task?: Maybe<{
+              __typename?: "Task";
+              id: string;
+              execution: number;
+            }>;
+            version?: Maybe<{ __typename?: "Version"; id: string }>;
           }>;
         }>
       >;
@@ -4415,11 +5209,15 @@ export type MainlineCommitsQueryVariables = Exact<{
 }>;
 
 export type MainlineCommitsQuery = {
+  __typename?: "Query";
   mainlineCommits?: Maybe<{
+    __typename?: "MainlineCommits";
     nextPageOrderNumber?: Maybe<number>;
     prevPageOrderNumber?: Maybe<number>;
     versions: Array<{
+      __typename?: "MainlineCommitVersion";
       version?: Maybe<{
+        __typename?: "Version";
         projectIdentifier: string;
         id: string;
         author: string;
@@ -4428,24 +5226,34 @@ export type MainlineCommitsQuery = {
         revision: string;
         order: number;
         taskStatusStats?: Maybe<{
+          __typename?: "TaskStats";
           eta?: Maybe<Date>;
-          counts?: Maybe<Array<{ status: string; count: number }>>;
+          counts?: Maybe<
+            Array<{ __typename?: "StatusCount"; status: string; count: number }>
+          >;
         }>;
         buildVariantStats?: Maybe<
           Array<{
+            __typename?: "GroupedTaskStatusCount";
             displayName: string;
             variant: string;
-            statusCounts: Array<{ count: number; status: string }>;
+            statusCounts: Array<{
+              __typename?: "StatusCount";
+              count: number;
+              status: string;
+            }>;
           }>
         >;
         buildVariants?: Maybe<
           Array<
             Maybe<{
+              __typename?: "GroupedBuildVariant";
               displayName: string;
               variant: string;
               tasks?: Maybe<
                 Array<
                   Maybe<{
+                    __typename?: "Task";
                     id: string;
                     execution: number;
                     status: string;
@@ -4458,16 +5266,18 @@ export type MainlineCommitsQuery = {
           >
         >;
         upstreamProject?: Maybe<{
+          __typename?: "UpstreamProject";
           triggerID: string;
           triggerType: string;
           repo: string;
           project: string;
-          task?: Maybe<{ id: string; execution: number }>;
-          version?: Maybe<{ id: string }>;
+          task?: Maybe<{ __typename?: "Task"; id: string; execution: number }>;
+          version?: Maybe<{ __typename?: "Version"; id: string }>;
         }>;
       }>;
       rolledUpVersions?: Maybe<
         Array<{
+          __typename?: "Version";
           id: string;
           createTime: Date;
           author: string;
@@ -4475,12 +5285,17 @@ export type MainlineCommitsQuery = {
           message: string;
           revision: string;
           upstreamProject?: Maybe<{
+            __typename?: "UpstreamProject";
             triggerID: string;
             triggerType: string;
             repo: string;
             project: string;
-            task?: Maybe<{ id: string; execution: number }>;
-            version?: Maybe<{ id: string }>;
+            task?: Maybe<{
+              __typename?: "Task";
+              id: string;
+              execution: number;
+            }>;
+            version?: Maybe<{ __typename?: "Version"; id: string }>;
           }>;
         }>
       >;
@@ -4491,7 +5306,9 @@ export type MainlineCommitsQuery = {
 export type MyHostsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MyHostsQuery = {
+  __typename?: "Query";
   myHosts: Array<{
+    __typename?: "Host";
     availabilityZone?: Maybe<string>;
     displayName?: Maybe<string>;
     expiration?: Maybe<Date>;
@@ -4507,22 +5324,35 @@ export type MyHostsQuery = {
     provider: string;
     uptime?: Maybe<Date>;
     distro?: Maybe<{
+      __typename?: "DistroInfo";
       isVirtualWorkStation?: Maybe<boolean>;
       id?: Maybe<string>;
       user?: Maybe<string>;
       workDir?: Maybe<string>;
       isWindows?: Maybe<boolean>;
     }>;
-    homeVolume?: Maybe<{ displayName: string }>;
-    instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
-    volumes: Array<{ displayName: string; id: string; migrating: boolean }>;
+    homeVolume?: Maybe<{ __typename?: "Volume"; displayName: string }>;
+    instanceTags: Array<{
+      __typename?: "InstanceTag";
+      key: string;
+      value: string;
+      canBeModified: boolean;
+    }>;
+    volumes: Array<{
+      __typename?: "Volume";
+      displayName: string;
+      id: string;
+      migrating: boolean;
+    }>;
   }>;
 };
 
 export type MyVolumesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MyVolumesQuery = {
+  __typename?: "Query";
   myVolumes: Array<{
+    __typename?: "Volume";
     id: string;
     displayName: string;
     createdBy: string;
@@ -4537,6 +5367,7 @@ export type MyVolumesQuery = {
     creationTime?: Maybe<Date>;
     migrating: boolean;
     host?: Maybe<{
+      __typename?: "Host";
       displayName?: Maybe<string>;
       id: string;
       noExpiration: boolean;
@@ -4549,8 +5380,9 @@ export type GetOtherUserQueryVariables = Exact<{
 }>;
 
 export type GetOtherUserQuery = {
-  otherUser: { userId: string; displayName: string };
-  currentUser: { userId: string };
+  __typename?: "Query";
+  otherUser: { __typename?: "User"; userId: string; displayName: string };
+  currentUser: { __typename?: "User"; userId: string };
 };
 
 export type ConfigurePatchQueryVariables = Exact<{
@@ -4558,7 +5390,9 @@ export type ConfigurePatchQueryVariables = Exact<{
 }>;
 
 export type ConfigurePatchQuery = {
+  __typename?: "Query";
   patch: {
+    __typename?: "Patch";
     id: string;
     description: string;
     author: string;
@@ -4566,9 +5400,11 @@ export type ConfigurePatchQuery = {
     activated: boolean;
     alias?: Maybe<string>;
     commitQueuePosition?: Maybe<number>;
-    time?: Maybe<{ submittedAt: string }>;
+    time?: Maybe<{ __typename?: "PatchTime"; submittedAt: string }>;
     project?: Maybe<{
+      __typename?: "PatchProject";
       variants: Array<{
+        __typename?: "ProjectBuildVariant";
         name: string;
         displayName: string;
         tasks: Array<string>;
@@ -4576,20 +5412,36 @@ export type ConfigurePatchQuery = {
     }>;
     childPatches?: Maybe<
       Array<{
+        __typename?: "Patch";
         id: string;
         projectIdentifier: string;
-        variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+        variantsTasks: Array<
+          Maybe<{
+            __typename?: "VariantTask";
+            name: string;
+            tasks: Array<string>;
+          }>
+        >;
       }>
     >;
     patchTriggerAliases: Array<{
+      __typename?: "PatchTriggerAlias";
       alias: string;
       childProjectId: string;
       childProjectIdentifier: string;
-      variantsTasks: Array<{ name: string; tasks: Array<string> }>;
+      variantsTasks: Array<{
+        __typename?: "VariantTask";
+        name: string;
+        tasks: Array<string>;
+      }>;
     }>;
-    childPatchAliases?: Maybe<Array<{ alias: string; patchId: string }>>;
-    variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
-    parameters: Array<{ key: string; value: string }>;
+    childPatchAliases?: Maybe<
+      Array<{ __typename?: "ChildPatchAlias"; alias: string; patchId: string }>
+    >;
+    variantsTasks: Array<
+      Maybe<{ __typename?: "VariantTask"; name: string; tasks: Array<string> }>
+    >;
+    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
   };
 };
 
@@ -4598,7 +5450,9 @@ export type GetPatchTaskStatusesQueryVariables = Exact<{
 }>;
 
 export type GetPatchTaskStatusesQuery = {
+  __typename?: "Query";
   patch: {
+    __typename?: "Patch";
     id: string;
     taskStatuses: Array<string>;
     baseTaskStatuses: Array<string>;
@@ -4610,7 +5464,9 @@ export type PatchQueryVariables = Exact<{
 }>;
 
 export type PatchQuery = {
+  __typename?: "Query";
   patch: {
+    __typename?: "Patch";
     projectID: string;
     projectIdentifier: string;
     githash: string;
@@ -4622,9 +5478,11 @@ export type PatchQuery = {
     activated: boolean;
     alias?: Maybe<string>;
     commitQueuePosition?: Maybe<number>;
-    versionFull?: Maybe<{ id: string }>;
-    variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
-    parameters: Array<{ key: string; value: string }>;
+    versionFull?: Maybe<{ __typename?: "Version"; id: string }>;
+    variantsTasks: Array<
+      Maybe<{ __typename?: "VariantTask"; name: string; tasks: Array<string> }>
+    >;
+    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
   };
 };
 
@@ -4635,14 +5493,19 @@ export type ProjectEventLogsQueryVariables = Exact<{
 }>;
 
 export type ProjectEventLogsQuery = {
+  __typename?: "Query";
   projectEvents: {
+    __typename?: "ProjectEvents";
     count: number;
     eventLogEntries: Array<{
+      __typename?: "ProjectEventLogEntry";
       timestamp: Date;
       user: string;
       before?: Maybe<{
+        __typename?: "ProjectEventSettings";
         githubWebhooksEnabled: boolean;
         projectRef?: Maybe<{
+          __typename?: "Project";
           identifier: string;
           repoRefId: string;
           versionControlEnabled?: Maybe<boolean>;
@@ -4675,27 +5538,40 @@ export type ProjectEventLogsQuery = {
           gitTagAuthorizedUsers?: Maybe<Array<string>>;
           gitTagAuthorizedTeams?: Maybe<Array<string>>;
           taskSync: {
+            __typename?: "TaskSyncOptions";
             configEnabled?: Maybe<boolean>;
             patchEnabled?: Maybe<boolean>;
           };
           buildBaronSettings: {
+            __typename?: "BuildBaronSettings";
             ticketCreateProject: string;
             ticketSearchProjects?: Maybe<Array<string>>;
           };
           taskAnnotationSettings: {
+            __typename?: "TaskAnnotationSettings";
             jiraCustomFields?: Maybe<
-              Array<{ field: string; displayText: string }>
+              Array<{
+                __typename?: "JiraField";
+                field: string;
+                displayText: string;
+              }>
             >;
-            fileTicketWebhook: { endpoint: string; secret: string };
+            fileTicketWebhook: {
+              __typename?: "Webhook";
+              endpoint: string;
+              secret: string;
+            };
           };
           patchTriggerAliases?: Maybe<
             Array<{
+              __typename?: "PatchTriggerAlias";
               alias: string;
               childProjectIdentifier: string;
               status?: Maybe<string>;
               parentAsModule?: Maybe<string>;
               taskSpecifiers?: Maybe<
                 Array<{
+                  __typename?: "TaskSpecifier";
                   patchAlias: string;
                   taskRegex: string;
                   variantRegex: string;
@@ -4704,13 +5580,19 @@ export type ProjectEventLogsQuery = {
             }>
           >;
           workstationConfig: {
+            __typename?: "WorkstationConfig";
             gitClone?: Maybe<boolean>;
             setupCommands?: Maybe<
-              Array<{ command: string; directory: string }>
+              Array<{
+                __typename?: "WorkstationSetupCommand";
+                command: string;
+                directory: string;
+              }>
             >;
           };
           triggers?: Maybe<
             Array<{
+              __typename?: "TriggerAlias";
               project: string;
               level: string;
               buildVariantRegex: string;
@@ -4723,6 +5605,7 @@ export type ProjectEventLogsQuery = {
           >;
           periodicBuilds?: Maybe<
             Array<{
+              __typename?: "PeriodicBuild";
               id: string;
               configFile: string;
               intervalHours: number;
@@ -4732,6 +5615,7 @@ export type ProjectEventLogsQuery = {
             }>
           >;
           commitQueue: {
+            __typename?: "CommitQueueParams";
             enabled?: Maybe<boolean>;
             requireSigned?: Maybe<boolean>;
             requiredApprovalCount?: Maybe<number>;
@@ -4741,36 +5625,57 @@ export type ProjectEventLogsQuery = {
         }>;
         subscriptions?: Maybe<
           Array<{
+            __typename?: "ProjectSubscription";
             id: string;
             resourceType: string;
             trigger: string;
             ownerType: string;
             triggerData?: Maybe<{ [key: string]: any }>;
-            selectors: Array<{ type: string; data: string }>;
-            regexSelectors: Array<{ type: string; data: string }>;
+            selectors: Array<{
+              __typename?: "Selector";
+              type: string;
+              data: string;
+            }>;
+            regexSelectors: Array<{
+              __typename?: "Selector";
+              type: string;
+              data: string;
+            }>;
             subscriber?: Maybe<{
+              __typename?: "ProjectSubscriber";
               type: string;
               subscriber: {
+                __typename?: "Subscriber";
                 jiraCommentSubscriber?: Maybe<string>;
                 emailSubscriber?: Maybe<string>;
                 slackSubscriber?: Maybe<string>;
                 githubPRSubscriber?: Maybe<{
+                  __typename?: "GithubPRSubscriber";
                   owner: string;
                   repo: string;
                   ref: string;
                   prNumber?: Maybe<number>;
                 }>;
                 githubCheckSubscriber?: Maybe<{
+                  __typename?: "GithubCheckSubscriber";
                   owner: string;
                   repo: string;
                   ref: string;
                 }>;
                 webhookSubscriber?: Maybe<{
+                  __typename?: "WebhookSubscriber";
                   url: string;
                   secret: string;
-                  headers: Array<Maybe<{ key: string; value: string }>>;
+                  headers: Array<
+                    Maybe<{
+                      __typename?: "WebhookHeader";
+                      key: string;
+                      value: string;
+                    }>
+                  >;
                 }>;
                 jiraIssueSubscriber?: Maybe<{
+                  __typename?: "JiraIssueSubscriber";
                   project: string;
                   issueType: string;
                 }>;
@@ -4779,12 +5684,14 @@ export type ProjectEventLogsQuery = {
           }>
         >;
         vars?: Maybe<{
+          __typename?: "ProjectVars";
           vars?: Maybe<{ [key: string]: any }>;
           privateVars: Array<string>;
           adminOnlyVars: Array<string>;
         }>;
         aliases?: Maybe<
           Array<{
+            __typename?: "ProjectAlias";
             id: string;
             alias: string;
             gitTag: string;
@@ -4797,8 +5704,10 @@ export type ProjectEventLogsQuery = {
         >;
       }>;
       after?: Maybe<{
+        __typename?: "ProjectEventSettings";
         githubWebhooksEnabled: boolean;
         projectRef?: Maybe<{
+          __typename?: "Project";
           identifier: string;
           repoRefId: string;
           versionControlEnabled?: Maybe<boolean>;
@@ -4831,27 +5740,40 @@ export type ProjectEventLogsQuery = {
           gitTagAuthorizedUsers?: Maybe<Array<string>>;
           gitTagAuthorizedTeams?: Maybe<Array<string>>;
           taskSync: {
+            __typename?: "TaskSyncOptions";
             configEnabled?: Maybe<boolean>;
             patchEnabled?: Maybe<boolean>;
           };
           buildBaronSettings: {
+            __typename?: "BuildBaronSettings";
             ticketCreateProject: string;
             ticketSearchProjects?: Maybe<Array<string>>;
           };
           taskAnnotationSettings: {
+            __typename?: "TaskAnnotationSettings";
             jiraCustomFields?: Maybe<
-              Array<{ field: string; displayText: string }>
+              Array<{
+                __typename?: "JiraField";
+                field: string;
+                displayText: string;
+              }>
             >;
-            fileTicketWebhook: { endpoint: string; secret: string };
+            fileTicketWebhook: {
+              __typename?: "Webhook";
+              endpoint: string;
+              secret: string;
+            };
           };
           patchTriggerAliases?: Maybe<
             Array<{
+              __typename?: "PatchTriggerAlias";
               alias: string;
               childProjectIdentifier: string;
               status?: Maybe<string>;
               parentAsModule?: Maybe<string>;
               taskSpecifiers?: Maybe<
                 Array<{
+                  __typename?: "TaskSpecifier";
                   patchAlias: string;
                   taskRegex: string;
                   variantRegex: string;
@@ -4860,13 +5782,19 @@ export type ProjectEventLogsQuery = {
             }>
           >;
           workstationConfig: {
+            __typename?: "WorkstationConfig";
             gitClone?: Maybe<boolean>;
             setupCommands?: Maybe<
-              Array<{ command: string; directory: string }>
+              Array<{
+                __typename?: "WorkstationSetupCommand";
+                command: string;
+                directory: string;
+              }>
             >;
           };
           triggers?: Maybe<
             Array<{
+              __typename?: "TriggerAlias";
               project: string;
               level: string;
               buildVariantRegex: string;
@@ -4879,6 +5807,7 @@ export type ProjectEventLogsQuery = {
           >;
           periodicBuilds?: Maybe<
             Array<{
+              __typename?: "PeriodicBuild";
               id: string;
               configFile: string;
               intervalHours: number;
@@ -4888,6 +5817,7 @@ export type ProjectEventLogsQuery = {
             }>
           >;
           commitQueue: {
+            __typename?: "CommitQueueParams";
             enabled?: Maybe<boolean>;
             requireSigned?: Maybe<boolean>;
             requiredApprovalCount?: Maybe<number>;
@@ -4897,36 +5827,57 @@ export type ProjectEventLogsQuery = {
         }>;
         subscriptions?: Maybe<
           Array<{
+            __typename?: "ProjectSubscription";
             id: string;
             resourceType: string;
             trigger: string;
             ownerType: string;
             triggerData?: Maybe<{ [key: string]: any }>;
-            selectors: Array<{ type: string; data: string }>;
-            regexSelectors: Array<{ type: string; data: string }>;
+            selectors: Array<{
+              __typename?: "Selector";
+              type: string;
+              data: string;
+            }>;
+            regexSelectors: Array<{
+              __typename?: "Selector";
+              type: string;
+              data: string;
+            }>;
             subscriber?: Maybe<{
+              __typename?: "ProjectSubscriber";
               type: string;
               subscriber: {
+                __typename?: "Subscriber";
                 jiraCommentSubscriber?: Maybe<string>;
                 emailSubscriber?: Maybe<string>;
                 slackSubscriber?: Maybe<string>;
                 githubPRSubscriber?: Maybe<{
+                  __typename?: "GithubPRSubscriber";
                   owner: string;
                   repo: string;
                   ref: string;
                   prNumber?: Maybe<number>;
                 }>;
                 githubCheckSubscriber?: Maybe<{
+                  __typename?: "GithubCheckSubscriber";
                   owner: string;
                   repo: string;
                   ref: string;
                 }>;
                 webhookSubscriber?: Maybe<{
+                  __typename?: "WebhookSubscriber";
                   url: string;
                   secret: string;
-                  headers: Array<Maybe<{ key: string; value: string }>>;
+                  headers: Array<
+                    Maybe<{
+                      __typename?: "WebhookHeader";
+                      key: string;
+                      value: string;
+                    }>
+                  >;
                 }>;
                 jiraIssueSubscriber?: Maybe<{
+                  __typename?: "JiraIssueSubscriber";
                   project: string;
                   issueType: string;
                 }>;
@@ -4935,12 +5886,14 @@ export type ProjectEventLogsQuery = {
           }>
         >;
         vars?: Maybe<{
+          __typename?: "ProjectVars";
           vars?: Maybe<{ [key: string]: any }>;
           privateVars: Array<string>;
           adminOnlyVars: Array<string>;
         }>;
         aliases?: Maybe<
           Array<{
+            __typename?: "ProjectAlias";
             id: string;
             alias: string;
             gitTag: string;
@@ -4961,9 +5914,12 @@ export type ProjectSettingsQueryVariables = Exact<{
 }>;
 
 export type ProjectSettingsQuery = {
+  __typename?: "Query";
   projectSettings: {
+    __typename?: "ProjectSettings";
     githubWebhooksEnabled: boolean;
     projectRef?: Maybe<{
+      __typename?: "Project";
       id: string;
       identifier: string;
       repoRefId: string;
@@ -4995,25 +5951,40 @@ export type ProjectSettingsQuery = {
       gitTagAuthorizedUsers?: Maybe<Array<string>>;
       gitTagAuthorizedTeams?: Maybe<Array<string>>;
       taskSync: {
+        __typename?: "TaskSyncOptions";
         configEnabled?: Maybe<boolean>;
         patchEnabled?: Maybe<boolean>;
       };
       buildBaronSettings: {
+        __typename?: "BuildBaronSettings";
         ticketCreateProject: string;
         ticketSearchProjects?: Maybe<Array<string>>;
       };
       taskAnnotationSettings: {
-        jiraCustomFields?: Maybe<Array<{ field: string; displayText: string }>>;
-        fileTicketWebhook: { endpoint: string; secret: string };
+        __typename?: "TaskAnnotationSettings";
+        jiraCustomFields?: Maybe<
+          Array<{
+            __typename?: "JiraField";
+            field: string;
+            displayText: string;
+          }>
+        >;
+        fileTicketWebhook: {
+          __typename?: "Webhook";
+          endpoint: string;
+          secret: string;
+        };
       };
       patchTriggerAliases?: Maybe<
         Array<{
+          __typename?: "PatchTriggerAlias";
           alias: string;
           childProjectIdentifier: string;
           status?: Maybe<string>;
           parentAsModule?: Maybe<string>;
           taskSpecifiers?: Maybe<
             Array<{
+              __typename?: "TaskSpecifier";
               patchAlias: string;
               taskRegex: string;
               variantRegex: string;
@@ -5022,11 +5993,19 @@ export type ProjectSettingsQuery = {
         }>
       >;
       workstationConfig: {
+        __typename?: "WorkstationConfig";
         gitClone?: Maybe<boolean>;
-        setupCommands?: Maybe<Array<{ command: string; directory: string }>>;
+        setupCommands?: Maybe<
+          Array<{
+            __typename?: "WorkstationSetupCommand";
+            command: string;
+            directory: string;
+          }>
+        >;
       };
       triggers?: Maybe<
         Array<{
+          __typename?: "TriggerAlias";
           project: string;
           level: string;
           buildVariantRegex: string;
@@ -5039,6 +6018,7 @@ export type ProjectSettingsQuery = {
       >;
       periodicBuilds?: Maybe<
         Array<{
+          __typename?: "PeriodicBuild";
           id: string;
           configFile: string;
           intervalHours: number;
@@ -5048,6 +6028,7 @@ export type ProjectSettingsQuery = {
         }>
       >;
       commitQueue: {
+        __typename?: "CommitQueueParams";
         enabled?: Maybe<boolean>;
         requireSigned?: Maybe<boolean>;
         requiredApprovalCount?: Maybe<number>;
@@ -5057,47 +6038,73 @@ export type ProjectSettingsQuery = {
     }>;
     subscriptions?: Maybe<
       Array<{
+        __typename?: "ProjectSubscription";
         id: string;
         resourceType: string;
         trigger: string;
         ownerType: string;
         triggerData?: Maybe<{ [key: string]: any }>;
-        selectors: Array<{ type: string; data: string }>;
-        regexSelectors: Array<{ type: string; data: string }>;
+        selectors: Array<{
+          __typename?: "Selector";
+          type: string;
+          data: string;
+        }>;
+        regexSelectors: Array<{
+          __typename?: "Selector";
+          type: string;
+          data: string;
+        }>;
         subscriber?: Maybe<{
+          __typename?: "ProjectSubscriber";
           type: string;
           subscriber: {
+            __typename?: "Subscriber";
             jiraCommentSubscriber?: Maybe<string>;
             emailSubscriber?: Maybe<string>;
             slackSubscriber?: Maybe<string>;
             githubPRSubscriber?: Maybe<{
+              __typename?: "GithubPRSubscriber";
               owner: string;
               repo: string;
               ref: string;
               prNumber?: Maybe<number>;
             }>;
             githubCheckSubscriber?: Maybe<{
+              __typename?: "GithubCheckSubscriber";
               owner: string;
               repo: string;
               ref: string;
             }>;
             webhookSubscriber?: Maybe<{
+              __typename?: "WebhookSubscriber";
               url: string;
               secret: string;
-              headers: Array<Maybe<{ key: string; value: string }>>;
+              headers: Array<
+                Maybe<{
+                  __typename?: "WebhookHeader";
+                  key: string;
+                  value: string;
+                }>
+              >;
             }>;
-            jiraIssueSubscriber?: Maybe<{ project: string; issueType: string }>;
+            jiraIssueSubscriber?: Maybe<{
+              __typename?: "JiraIssueSubscriber";
+              project: string;
+              issueType: string;
+            }>;
           };
         }>;
       }>
     >;
     vars?: Maybe<{
+      __typename?: "ProjectVars";
       vars?: Maybe<{ [key: string]: any }>;
       privateVars: Array<string>;
       adminOnlyVars: Array<string>;
     }>;
     aliases?: Maybe<
       Array<{
+        __typename?: "ProjectAlias";
         id: string;
         alias: string;
         gitTag: string;
@@ -5114,10 +6121,13 @@ export type ProjectSettingsQuery = {
 export type GetProjectsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetProjectsQuery = {
+  __typename?: "Query";
   projects: Array<
     Maybe<{
+      __typename?: "GroupedProjects";
       groupDisplayName: string;
       projects: Array<{
+        __typename?: "Project";
         id: string;
         identifier: string;
         repo: string;
@@ -5132,7 +6142,8 @@ export type GetProjectsQuery = {
 export type GetMyPublicKeysQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetMyPublicKeysQuery = {
-  myPublicKeys: Array<{ name: string; key: string }>;
+  __typename?: "Query";
+  myPublicKeys: Array<{ __typename?: "PublicKey"; name: string; key: string }>;
 };
 
 export type RepoEventLogsQueryVariables = Exact<{
@@ -5142,14 +6153,19 @@ export type RepoEventLogsQueryVariables = Exact<{
 }>;
 
 export type RepoEventLogsQuery = {
+  __typename?: "Query";
   repoEvents: {
+    __typename?: "ProjectEvents";
     count: number;
     eventLogEntries: Array<{
+      __typename?: "ProjectEventLogEntry";
       timestamp: Date;
       user: string;
       before?: Maybe<{
+        __typename?: "ProjectEventSettings";
         githubWebhooksEnabled: boolean;
         projectRef?: Maybe<{
+          __typename?: "Project";
           identifier: string;
           repoRefId: string;
           versionControlEnabled?: Maybe<boolean>;
@@ -5182,27 +6198,40 @@ export type RepoEventLogsQuery = {
           gitTagAuthorizedUsers?: Maybe<Array<string>>;
           gitTagAuthorizedTeams?: Maybe<Array<string>>;
           taskSync: {
+            __typename?: "TaskSyncOptions";
             configEnabled?: Maybe<boolean>;
             patchEnabled?: Maybe<boolean>;
           };
           buildBaronSettings: {
+            __typename?: "BuildBaronSettings";
             ticketCreateProject: string;
             ticketSearchProjects?: Maybe<Array<string>>;
           };
           taskAnnotationSettings: {
+            __typename?: "TaskAnnotationSettings";
             jiraCustomFields?: Maybe<
-              Array<{ field: string; displayText: string }>
+              Array<{
+                __typename?: "JiraField";
+                field: string;
+                displayText: string;
+              }>
             >;
-            fileTicketWebhook: { endpoint: string; secret: string };
+            fileTicketWebhook: {
+              __typename?: "Webhook";
+              endpoint: string;
+              secret: string;
+            };
           };
           patchTriggerAliases?: Maybe<
             Array<{
+              __typename?: "PatchTriggerAlias";
               alias: string;
               childProjectIdentifier: string;
               status?: Maybe<string>;
               parentAsModule?: Maybe<string>;
               taskSpecifiers?: Maybe<
                 Array<{
+                  __typename?: "TaskSpecifier";
                   patchAlias: string;
                   taskRegex: string;
                   variantRegex: string;
@@ -5211,13 +6240,19 @@ export type RepoEventLogsQuery = {
             }>
           >;
           workstationConfig: {
+            __typename?: "WorkstationConfig";
             gitClone?: Maybe<boolean>;
             setupCommands?: Maybe<
-              Array<{ command: string; directory: string }>
+              Array<{
+                __typename?: "WorkstationSetupCommand";
+                command: string;
+                directory: string;
+              }>
             >;
           };
           triggers?: Maybe<
             Array<{
+              __typename?: "TriggerAlias";
               project: string;
               level: string;
               buildVariantRegex: string;
@@ -5230,6 +6265,7 @@ export type RepoEventLogsQuery = {
           >;
           periodicBuilds?: Maybe<
             Array<{
+              __typename?: "PeriodicBuild";
               id: string;
               configFile: string;
               intervalHours: number;
@@ -5239,6 +6275,7 @@ export type RepoEventLogsQuery = {
             }>
           >;
           commitQueue: {
+            __typename?: "CommitQueueParams";
             enabled?: Maybe<boolean>;
             requireSigned?: Maybe<boolean>;
             requiredApprovalCount?: Maybe<number>;
@@ -5248,36 +6285,57 @@ export type RepoEventLogsQuery = {
         }>;
         subscriptions?: Maybe<
           Array<{
+            __typename?: "ProjectSubscription";
             id: string;
             resourceType: string;
             trigger: string;
             ownerType: string;
             triggerData?: Maybe<{ [key: string]: any }>;
-            selectors: Array<{ type: string; data: string }>;
-            regexSelectors: Array<{ type: string; data: string }>;
+            selectors: Array<{
+              __typename?: "Selector";
+              type: string;
+              data: string;
+            }>;
+            regexSelectors: Array<{
+              __typename?: "Selector";
+              type: string;
+              data: string;
+            }>;
             subscriber?: Maybe<{
+              __typename?: "ProjectSubscriber";
               type: string;
               subscriber: {
+                __typename?: "Subscriber";
                 jiraCommentSubscriber?: Maybe<string>;
                 emailSubscriber?: Maybe<string>;
                 slackSubscriber?: Maybe<string>;
                 githubPRSubscriber?: Maybe<{
+                  __typename?: "GithubPRSubscriber";
                   owner: string;
                   repo: string;
                   ref: string;
                   prNumber?: Maybe<number>;
                 }>;
                 githubCheckSubscriber?: Maybe<{
+                  __typename?: "GithubCheckSubscriber";
                   owner: string;
                   repo: string;
                   ref: string;
                 }>;
                 webhookSubscriber?: Maybe<{
+                  __typename?: "WebhookSubscriber";
                   url: string;
                   secret: string;
-                  headers: Array<Maybe<{ key: string; value: string }>>;
+                  headers: Array<
+                    Maybe<{
+                      __typename?: "WebhookHeader";
+                      key: string;
+                      value: string;
+                    }>
+                  >;
                 }>;
                 jiraIssueSubscriber?: Maybe<{
+                  __typename?: "JiraIssueSubscriber";
                   project: string;
                   issueType: string;
                 }>;
@@ -5286,12 +6344,14 @@ export type RepoEventLogsQuery = {
           }>
         >;
         vars?: Maybe<{
+          __typename?: "ProjectVars";
           vars?: Maybe<{ [key: string]: any }>;
           privateVars: Array<string>;
           adminOnlyVars: Array<string>;
         }>;
         aliases?: Maybe<
           Array<{
+            __typename?: "ProjectAlias";
             id: string;
             alias: string;
             gitTag: string;
@@ -5304,8 +6364,10 @@ export type RepoEventLogsQuery = {
         >;
       }>;
       after?: Maybe<{
+        __typename?: "ProjectEventSettings";
         githubWebhooksEnabled: boolean;
         projectRef?: Maybe<{
+          __typename?: "Project";
           identifier: string;
           repoRefId: string;
           versionControlEnabled?: Maybe<boolean>;
@@ -5338,27 +6400,40 @@ export type RepoEventLogsQuery = {
           gitTagAuthorizedUsers?: Maybe<Array<string>>;
           gitTagAuthorizedTeams?: Maybe<Array<string>>;
           taskSync: {
+            __typename?: "TaskSyncOptions";
             configEnabled?: Maybe<boolean>;
             patchEnabled?: Maybe<boolean>;
           };
           buildBaronSettings: {
+            __typename?: "BuildBaronSettings";
             ticketCreateProject: string;
             ticketSearchProjects?: Maybe<Array<string>>;
           };
           taskAnnotationSettings: {
+            __typename?: "TaskAnnotationSettings";
             jiraCustomFields?: Maybe<
-              Array<{ field: string; displayText: string }>
+              Array<{
+                __typename?: "JiraField";
+                field: string;
+                displayText: string;
+              }>
             >;
-            fileTicketWebhook: { endpoint: string; secret: string };
+            fileTicketWebhook: {
+              __typename?: "Webhook";
+              endpoint: string;
+              secret: string;
+            };
           };
           patchTriggerAliases?: Maybe<
             Array<{
+              __typename?: "PatchTriggerAlias";
               alias: string;
               childProjectIdentifier: string;
               status?: Maybe<string>;
               parentAsModule?: Maybe<string>;
               taskSpecifiers?: Maybe<
                 Array<{
+                  __typename?: "TaskSpecifier";
                   patchAlias: string;
                   taskRegex: string;
                   variantRegex: string;
@@ -5367,13 +6442,19 @@ export type RepoEventLogsQuery = {
             }>
           >;
           workstationConfig: {
+            __typename?: "WorkstationConfig";
             gitClone?: Maybe<boolean>;
             setupCommands?: Maybe<
-              Array<{ command: string; directory: string }>
+              Array<{
+                __typename?: "WorkstationSetupCommand";
+                command: string;
+                directory: string;
+              }>
             >;
           };
           triggers?: Maybe<
             Array<{
+              __typename?: "TriggerAlias";
               project: string;
               level: string;
               buildVariantRegex: string;
@@ -5386,6 +6467,7 @@ export type RepoEventLogsQuery = {
           >;
           periodicBuilds?: Maybe<
             Array<{
+              __typename?: "PeriodicBuild";
               id: string;
               configFile: string;
               intervalHours: number;
@@ -5395,6 +6477,7 @@ export type RepoEventLogsQuery = {
             }>
           >;
           commitQueue: {
+            __typename?: "CommitQueueParams";
             enabled?: Maybe<boolean>;
             requireSigned?: Maybe<boolean>;
             requiredApprovalCount?: Maybe<number>;
@@ -5404,36 +6487,57 @@ export type RepoEventLogsQuery = {
         }>;
         subscriptions?: Maybe<
           Array<{
+            __typename?: "ProjectSubscription";
             id: string;
             resourceType: string;
             trigger: string;
             ownerType: string;
             triggerData?: Maybe<{ [key: string]: any }>;
-            selectors: Array<{ type: string; data: string }>;
-            regexSelectors: Array<{ type: string; data: string }>;
+            selectors: Array<{
+              __typename?: "Selector";
+              type: string;
+              data: string;
+            }>;
+            regexSelectors: Array<{
+              __typename?: "Selector";
+              type: string;
+              data: string;
+            }>;
             subscriber?: Maybe<{
+              __typename?: "ProjectSubscriber";
               type: string;
               subscriber: {
+                __typename?: "Subscriber";
                 jiraCommentSubscriber?: Maybe<string>;
                 emailSubscriber?: Maybe<string>;
                 slackSubscriber?: Maybe<string>;
                 githubPRSubscriber?: Maybe<{
+                  __typename?: "GithubPRSubscriber";
                   owner: string;
                   repo: string;
                   ref: string;
                   prNumber?: Maybe<number>;
                 }>;
                 githubCheckSubscriber?: Maybe<{
+                  __typename?: "GithubCheckSubscriber";
                   owner: string;
                   repo: string;
                   ref: string;
                 }>;
                 webhookSubscriber?: Maybe<{
+                  __typename?: "WebhookSubscriber";
                   url: string;
                   secret: string;
-                  headers: Array<Maybe<{ key: string; value: string }>>;
+                  headers: Array<
+                    Maybe<{
+                      __typename?: "WebhookHeader";
+                      key: string;
+                      value: string;
+                    }>
+                  >;
                 }>;
                 jiraIssueSubscriber?: Maybe<{
+                  __typename?: "JiraIssueSubscriber";
                   project: string;
                   issueType: string;
                 }>;
@@ -5442,12 +6546,14 @@ export type RepoEventLogsQuery = {
           }>
         >;
         vars?: Maybe<{
+          __typename?: "ProjectVars";
           vars?: Maybe<{ [key: string]: any }>;
           privateVars: Array<string>;
           adminOnlyVars: Array<string>;
         }>;
         aliases?: Maybe<
           Array<{
+            __typename?: "ProjectAlias";
             id: string;
             alias: string;
             gitTag: string;
@@ -5468,9 +6574,12 @@ export type RepoSettingsQueryVariables = Exact<{
 }>;
 
 export type RepoSettingsQuery = {
+  __typename?: "Query";
   repoSettings: {
+    __typename?: "RepoSettings";
     githubWebhooksEnabled: boolean;
     projectRef?: Maybe<{
+      __typename?: "RepoRef";
       id: string;
       displayName: string;
       enabled: boolean;
@@ -5499,23 +6608,41 @@ export type RepoSettingsQuery = {
       gitTagVersionsEnabled: boolean;
       gitTagAuthorizedUsers?: Maybe<Array<string>>;
       gitTagAuthorizedTeams?: Maybe<Array<string>>;
-      taskSync: { configEnabled: boolean; patchEnabled: boolean };
+      taskSync: {
+        __typename?: "RepoTaskSyncOptions";
+        configEnabled: boolean;
+        patchEnabled: boolean;
+      };
       buildBaronSettings: {
+        __typename?: "BuildBaronSettings";
         ticketCreateProject: string;
         ticketSearchProjects?: Maybe<Array<string>>;
       };
       taskAnnotationSettings: {
-        jiraCustomFields?: Maybe<Array<{ field: string; displayText: string }>>;
-        fileTicketWebhook: { endpoint: string; secret: string };
+        __typename?: "TaskAnnotationSettings";
+        jiraCustomFields?: Maybe<
+          Array<{
+            __typename?: "JiraField";
+            field: string;
+            displayText: string;
+          }>
+        >;
+        fileTicketWebhook: {
+          __typename?: "Webhook";
+          endpoint: string;
+          secret: string;
+        };
       };
       patchTriggerAliases?: Maybe<
         Array<{
+          __typename?: "PatchTriggerAlias";
           alias: string;
           childProjectIdentifier: string;
           status?: Maybe<string>;
           parentAsModule?: Maybe<string>;
           taskSpecifiers?: Maybe<
             Array<{
+              __typename?: "TaskSpecifier";
               patchAlias: string;
               taskRegex: string;
               variantRegex: string;
@@ -5524,10 +6651,18 @@ export type RepoSettingsQuery = {
         }>
       >;
       workstationConfig: {
+        __typename?: "RepoWorkstationConfig";
         gitClone: boolean;
-        setupCommands?: Maybe<Array<{ command: string; directory: string }>>;
+        setupCommands?: Maybe<
+          Array<{
+            __typename?: "WorkstationSetupCommand";
+            command: string;
+            directory: string;
+          }>
+        >;
       };
       triggers: Array<{
+        __typename?: "TriggerAlias";
         project: string;
         level: string;
         buildVariantRegex: string;
@@ -5539,6 +6674,7 @@ export type RepoSettingsQuery = {
       }>;
       periodicBuilds?: Maybe<
         Array<{
+          __typename?: "PeriodicBuild";
           id: string;
           configFile: string;
           intervalHours: number;
@@ -5548,6 +6684,7 @@ export type RepoSettingsQuery = {
         }>
       >;
       commitQueue: {
+        __typename?: "RepoCommitQueueParams";
         enabled: boolean;
         requireSigned: boolean;
         requiredApprovalCount: number;
@@ -5556,48 +6693,74 @@ export type RepoSettingsQuery = {
       };
     }>;
     vars?: Maybe<{
+      __typename?: "ProjectVars";
       vars?: Maybe<{ [key: string]: any }>;
       privateVars: Array<string>;
       adminOnlyVars: Array<string>;
     }>;
     subscriptions?: Maybe<
       Array<{
+        __typename?: "ProjectSubscription";
         id: string;
         resourceType: string;
         trigger: string;
         ownerType: string;
         triggerData?: Maybe<{ [key: string]: any }>;
-        selectors: Array<{ type: string; data: string }>;
-        regexSelectors: Array<{ type: string; data: string }>;
+        selectors: Array<{
+          __typename?: "Selector";
+          type: string;
+          data: string;
+        }>;
+        regexSelectors: Array<{
+          __typename?: "Selector";
+          type: string;
+          data: string;
+        }>;
         subscriber?: Maybe<{
+          __typename?: "ProjectSubscriber";
           type: string;
           subscriber: {
+            __typename?: "Subscriber";
             jiraCommentSubscriber?: Maybe<string>;
             emailSubscriber?: Maybe<string>;
             slackSubscriber?: Maybe<string>;
             githubPRSubscriber?: Maybe<{
+              __typename?: "GithubPRSubscriber";
               owner: string;
               repo: string;
               ref: string;
               prNumber?: Maybe<number>;
             }>;
             githubCheckSubscriber?: Maybe<{
+              __typename?: "GithubCheckSubscriber";
               owner: string;
               repo: string;
               ref: string;
             }>;
             webhookSubscriber?: Maybe<{
+              __typename?: "WebhookSubscriber";
               url: string;
               secret: string;
-              headers: Array<Maybe<{ key: string; value: string }>>;
+              headers: Array<
+                Maybe<{
+                  __typename?: "WebhookHeader";
+                  key: string;
+                  value: string;
+                }>
+              >;
             }>;
-            jiraIssueSubscriber?: Maybe<{ project: string; issueType: string }>;
+            jiraIssueSubscriber?: Maybe<{
+              __typename?: "JiraIssueSubscriber";
+              project: string;
+              issueType: string;
+            }>;
           };
         }>;
       }>
     >;
     aliases?: Maybe<
       Array<{
+        __typename?: "ProjectAlias";
         id: string;
         alias: string;
         gitTag: string;
@@ -5614,20 +6777,31 @@ export type RepoSettingsQuery = {
 export type GetSpruceConfigQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetSpruceConfigQuery = {
+  __typename?: "Query";
   spruceConfig?: Maybe<{
+    __typename?: "SpruceConfig";
     bannerTheme?: Maybe<string>;
     banner?: Maybe<string>;
-    ui?: Maybe<{ userVoice?: Maybe<string>; defaultProject: string }>;
-    jira?: Maybe<{ host?: Maybe<string> }>;
+    ui?: Maybe<{
+      __typename?: "UIConfig";
+      userVoice?: Maybe<string>;
+      defaultProject: string;
+    }>;
+    jira?: Maybe<{ __typename?: "JiraConfig"; host?: Maybe<string> }>;
     providers?: Maybe<{
-      aws?: Maybe<{ maxVolumeSizePerUser?: Maybe<number> }>;
+      __typename?: "CloudProviderConfig";
+      aws?: Maybe<{
+        __typename?: "AWSConfig";
+        maxVolumeSizePerUser?: Maybe<number>;
+      }>;
     }>;
     spawnHost: {
+      __typename?: "SpawnHostConfig";
       spawnHostsPerUser: number;
       unexpirableHostsPerUser: number;
       unexpirableVolumesPerUser: number;
     };
-    slack?: Maybe<{ name?: Maybe<string> }>;
+    slack?: Maybe<{ __typename?: "SlackConfig"; name?: Maybe<string> }>;
   }>;
 };
 
@@ -5637,10 +6811,13 @@ export type SystemLogsQueryVariables = Exact<{
 }>;
 
 export type SystemLogsQuery = {
+  __typename?: "Query";
   taskLogs: {
+    __typename?: "TaskLogs";
     execution: number;
     taskId: string;
     systemLogs: Array<{
+      __typename?: "LogMessage";
       severity?: Maybe<string>;
       message?: Maybe<string>;
       timestamp?: Maybe<Date>;
@@ -5653,7 +6830,9 @@ export type GetTaskAllExecutionsQueryVariables = Exact<{
 }>;
 
 export type GetTaskAllExecutionsQuery = {
+  __typename?: "Query";
   taskAllExecutions: Array<{
+    __typename?: "Task";
     id: string;
     execution: number;
     status: string;
@@ -5668,13 +6847,17 @@ export type TaskEventLogsQueryVariables = Exact<{
 }>;
 
 export type TaskEventLogsQuery = {
+  __typename?: "Query";
   taskLogs: {
+    __typename?: "TaskLogs";
     execution: number;
     taskId: string;
     eventLogs: Array<{
+      __typename?: "TaskEventLogEntry";
       timestamp?: Maybe<Date>;
       eventType?: Maybe<string>;
       data: {
+        __typename?: "TaskEventLogData";
         hostId?: Maybe<string>;
         jiraIssue?: Maybe<string>;
         jiraLink?: Maybe<string>;
@@ -5693,14 +6876,20 @@ export type TaskFilesQueryVariables = Exact<{
 }>;
 
 export type TaskFilesQuery = {
+  __typename?: "Query";
   task?: Maybe<{
+    __typename?: "Task";
     id: string;
     execution: number;
     taskFiles: {
+      __typename?: "TaskFiles";
       fileCount: number;
       groupedFiles: Array<{
+        __typename?: "GroupedFiles";
         taskName?: Maybe<string>;
-        files?: Maybe<Array<{ name: string; link: string }>>;
+        files?: Maybe<
+          Array<{ __typename?: "File"; name: string; link: string }>
+        >;
       }>;
     };
   }>;
@@ -5712,10 +6901,13 @@ export type TaskLogsQueryVariables = Exact<{
 }>;
 
 export type TaskLogsQuery = {
+  __typename?: "Query";
   taskLogs: {
+    __typename?: "TaskLogs";
     execution: number;
     taskId: string;
     taskLogs: Array<{
+      __typename?: "LogMessage";
       severity?: Maybe<string>;
       message?: Maybe<string>;
       timestamp?: Maybe<Date>;
@@ -5729,6 +6921,7 @@ export type GetTaskNamesForBuildVariantQueryVariables = Exact<{
 }>;
 
 export type GetTaskNamesForBuildVariantQuery = {
+  __typename?: "Query";
   taskNamesForBuildVariant?: Maybe<Array<string>>;
 };
 
@@ -5737,7 +6930,9 @@ export type GetTaskStatusesQueryVariables = Exact<{
 }>;
 
 export type GetTaskStatusesQuery = {
+  __typename?: "Query";
   version: {
+    __typename?: "Version";
     id: string;
     taskStatuses: Array<string>;
     baseTaskStatuses: Array<string>;
@@ -5750,8 +6945,10 @@ export type GetTaskTestSampleQueryVariables = Exact<{
 }>;
 
 export type GetTaskTestSampleQuery = {
+  __typename?: "Query";
   taskTestSample?: Maybe<
     Array<{
+      __typename?: "TaskTestResultSample";
       taskId: string;
       execution: number;
       matchingFailedTestNames: Array<string>;
@@ -5772,16 +6969,20 @@ export type TaskTestsQueryVariables = Exact<{
 }>;
 
 export type TaskTestsQuery = {
+  __typename?: "Query";
   taskTests: {
+    __typename?: "TaskTestResult";
     filteredTestCount: number;
     totalTestCount: number;
     testResults: Array<{
+      __typename?: "TestResult";
       testFile: string;
       id: string;
       status: string;
       baseStatus?: Maybe<string>;
       duration?: Maybe<number>;
       logs: {
+        __typename?: "TestLog";
         url?: Maybe<string>;
         urlRaw?: Maybe<string>;
         urlParsley?: Maybe<string>;
@@ -5797,7 +6998,9 @@ export type GetTaskQueryVariables = Exact<{
 }>;
 
 export type GetTaskQuery = {
+  __typename?: "Query";
   task?: Maybe<{
+    __typename?: "Task";
     aborted: boolean;
     activatedBy?: Maybe<string>;
     activatedTime?: Maybe<Date>;
@@ -5839,6 +7042,7 @@ export type GetTaskQuery = {
     revision?: Maybe<string>;
     status: string;
     abortInfo?: Maybe<{
+      __typename?: "AbortInfo";
       buildVariantDisplayName: string;
       newVersion: string;
       prClosed: boolean;
@@ -5847,49 +7051,76 @@ export type GetTaskQuery = {
       user: string;
     }>;
     annotation?: Maybe<{
+      __typename?: "Annotation";
       id: string;
       taskId: string;
       taskExecution: number;
       webhookConfigured: boolean;
       note?: Maybe<{
+        __typename?: "Note";
         message: string;
-        source: { author: string; time: Date; requester: string };
+        source: {
+          __typename?: "Source";
+          author: string;
+          time: Date;
+          requester: string;
+        };
       }>;
       issues?: Maybe<
         Array<
           Maybe<{
+            __typename?: "IssueLink";
             issueKey?: Maybe<string>;
             url?: Maybe<string>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
+            source?: Maybe<{
+              __typename?: "Source";
+              author: string;
+              time: Date;
+              requester: string;
+            }>;
           }>
         >
       >;
       suspectedIssues?: Maybe<
         Array<
           Maybe<{
+            __typename?: "IssueLink";
             issueKey?: Maybe<string>;
             url?: Maybe<string>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
+            source?: Maybe<{
+              __typename?: "Source";
+              author: string;
+              time: Date;
+              requester: string;
+            }>;
           }>
         >
       >;
       createdIssues?: Maybe<
         Array<
           Maybe<{
+            __typename?: "IssueLink";
             issueKey?: Maybe<string>;
             url?: Maybe<string>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
+            source?: Maybe<{
+              __typename?: "Source";
+              author: string;
+              time: Date;
+              requester: string;
+            }>;
           }>
         >
       >;
     }>;
     baseTask?: Maybe<{
+      __typename?: "Task";
       id: string;
       execution: number;
       timeTaken?: Maybe<number>;
     }>;
     dependsOn?: Maybe<
       Array<{
+        __typename?: "Dependency";
         buildVariant: string;
         metStatus: MetStatus;
         name: string;
@@ -5898,16 +7129,27 @@ export type GetTaskQuery = {
       }>
     >;
     details?: Maybe<{
+      __typename?: "TaskEndDetail";
       description?: Maybe<string>;
       status: string;
       timedOut?: Maybe<boolean>;
       timeoutType?: Maybe<string>;
       type: string;
-      oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
+      oomTracker: {
+        __typename?: "OomTrackerInfo";
+        detected: boolean;
+        pids?: Maybe<Array<Maybe<number>>>;
+      };
     }>;
-    displayTask?: Maybe<{ id: string; displayName: string; execution: number }>;
+    displayTask?: Maybe<{
+      __typename?: "Task";
+      id: string;
+      displayName: string;
+      execution: number;
+    }>;
     executionTasksFull?: Maybe<
       Array<{
+        __typename?: "Task";
         id: string;
         baseStatus?: Maybe<string>;
         buildVariant: string;
@@ -5918,15 +7160,17 @@ export type GetTaskQuery = {
       }>
     >;
     logs: {
+      __typename?: "TaskLogLinks";
       allLogLink?: Maybe<string>;
       agentLogLink?: Maybe<string>;
       eventLogLink?: Maybe<string>;
       systemLogLink?: Maybe<string>;
       taskLogLink?: Maybe<string>;
     };
-    project?: Maybe<{ identifier: string }>;
-    taskFiles: { fileCount: number };
+    project?: Maybe<{ __typename?: "Project"; identifier: string }>;
+    taskFiles: { __typename?: "TaskFiles"; fileCount: number };
     versionMetadata: {
+      __typename?: "Version";
       id: string;
       author: string;
       isPatch: boolean;
@@ -5949,12 +7193,19 @@ export type GetTestsQueryVariables = Exact<{
 }>;
 
 export type GetTestsQuery = {
+  __typename?: "Query";
   taskTests: {
+    __typename?: "TaskTestResult";
     filteredTestCount: number;
     testResults: Array<{
+      __typename?: "TestResult";
       id: string;
       testFile: string;
-      logs: { url?: Maybe<string>; urlParsley?: Maybe<string> };
+      logs: {
+        __typename?: "TestLog";
+        url?: Maybe<string>;
+        urlParsley?: Maybe<string>;
+      };
     }>;
   };
 };
@@ -5964,9 +7215,13 @@ export type GetUndispatchedTasksQueryVariables = Exact<{
 }>;
 
 export type GetUndispatchedTasksQuery = {
+  __typename?: "Query";
   version: {
+    __typename?: "Version";
     tasks: {
+      __typename?: "VersionTasks";
       data: Array<{
+        __typename?: "Task";
         id: string;
         buildVariant: string;
         buildVariantDisplayName?: Maybe<string>;
@@ -5980,7 +7235,9 @@ export type GetUndispatchedTasksQuery = {
 export type GetUserConfigQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetUserConfigQuery = {
+  __typename?: "Query";
   userConfig?: Maybe<{
+    __typename?: "UserConfig";
     api_key: string;
     api_server_host: string;
     ui_server_host: string;
@@ -5991,19 +7248,27 @@ export type GetUserConfigQuery = {
 export type GetUserPermissionsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetUserPermissionsQuery = {
-  user: { userId: string; permissions: { canCreateProject: boolean } };
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    permissions: { __typename?: "Permissions"; canCreateProject: boolean };
+  };
 };
 
 export type GetUserSettingsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetUserSettingsQuery = {
+  __typename?: "Query";
   userSettings?: Maybe<{
+    __typename?: "UserSettings";
     timezone?: Maybe<string>;
     region?: Maybe<string>;
     slackUsername?: Maybe<string>;
     slackMemberId?: Maybe<string>;
     dateFormat?: Maybe<string>;
     notifications?: Maybe<{
+      __typename?: "Notifications";
       buildBreak?: Maybe<string>;
       commitQueue?: Maybe<string>;
       patchFinish?: Maybe<string>;
@@ -6011,8 +7276,12 @@ export type GetUserSettingsQuery = {
       spawnHostExpiration?: Maybe<string>;
       spawnHostOutcome?: Maybe<string>;
     }>;
-    githubUser?: Maybe<{ lastKnownAs?: Maybe<string> }>;
+    githubUser?: Maybe<{
+      __typename?: "GithubUser";
+      lastKnownAs?: Maybe<string>;
+    }>;
     useSpruceOptions?: Maybe<{
+      __typename?: "UseSpruceOptions";
       hasUsedSpruceBefore?: Maybe<boolean>;
       spruceV1?: Maybe<boolean>;
       hasUsedMainlineCommitsBefore?: Maybe<boolean>;
@@ -6023,7 +7292,13 @@ export type GetUserSettingsQuery = {
 export type GetUserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetUserQuery = {
-  user: { userId: string; displayName: string; emailAddress: string };
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    displayName: string;
+    emailAddress: string;
+  };
 };
 
 export type VersionTaskDurationsQueryVariables = Exact<{
@@ -6032,10 +7307,14 @@ export type VersionTaskDurationsQueryVariables = Exact<{
 }>;
 
 export type VersionTaskDurationsQuery = {
+  __typename?: "Query";
   version: {
+    __typename?: "Version";
     tasks: {
+      __typename?: "VersionTasks";
       count: number;
       data: Array<{
+        __typename?: "Task";
         id: string;
         buildVariantDisplayName?: Maybe<string>;
         displayName: string;
@@ -6045,6 +7324,7 @@ export type VersionTaskDurationsQuery = {
         timeTaken?: Maybe<number>;
         executionTasksFull?: Maybe<
           Array<{
+            __typename?: "Task";
             id: string;
             buildVariantDisplayName?: Maybe<string>;
             displayName: string;
@@ -6065,11 +7345,15 @@ export type VersionTasksQueryVariables = Exact<{
 }>;
 
 export type VersionTasksQuery = {
+  __typename?: "Query";
   version: {
+    __typename?: "Version";
     id: string;
     tasks: {
+      __typename?: "VersionTasks";
       count: number;
       data: Array<{
+        __typename?: "Task";
         id: string;
         aborted: boolean;
         buildVariant: string;
@@ -6079,9 +7363,15 @@ export type VersionTasksQuery = {
         execution: number;
         projectIdentifier?: Maybe<string>;
         status: string;
-        baseTask?: Maybe<{ id: string; execution: number; status: string }>;
+        baseTask?: Maybe<{
+          __typename?: "Task";
+          id: string;
+          execution: number;
+          status: string;
+        }>;
         executionTasksFull?: Maybe<
           Array<{
+            __typename?: "Task";
             id: string;
             buildVariant: string;
             buildVariantDisplayName?: Maybe<string>;
@@ -6089,7 +7379,12 @@ export type VersionTasksQuery = {
             execution: number;
             projectIdentifier?: Maybe<string>;
             status: string;
-            baseTask?: Maybe<{ id: string; execution: number; status: string }>;
+            baseTask?: Maybe<{
+              __typename?: "Task";
+              id: string;
+              execution: number;
+              status: string;
+            }>;
           }>
         >;
       }>;
@@ -6102,7 +7397,9 @@ export type VersionQueryVariables = Exact<{
 }>;
 
 export type VersionQuery = {
+  __typename?: "Query";
   version: {
+    __typename?: "Version";
     id: string;
     createTime: Date;
     startTime?: Maybe<Date>;
@@ -6118,13 +7415,15 @@ export type VersionQuery = {
     isPatch: boolean;
     taskCount?: Maybe<number>;
     projectIdentifier: string;
-    baseVersion?: Maybe<{ id: string }>;
+    baseVersion?: Maybe<{ __typename?: "Version"; id: string }>;
     versionTiming?: Maybe<{
+      __typename?: "VersionTiming";
       makespan?: Maybe<number>;
       timeTaken?: Maybe<number>;
     }>;
-    parameters: Array<{ key: string; value: string }>;
+    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     manifest?: Maybe<{
+      __typename?: "Manifest";
       id: string;
       revision: string;
       project: string;
@@ -6133,9 +7432,18 @@ export type VersionQuery = {
       moduleOverrides?: Maybe<{ [key: string]: any }>;
       modules?: Maybe<any>;
     }>;
-    previousVersion?: Maybe<{ id: string; revision: string }>;
-    projectMetadata?: Maybe<{ repo: string; owner: string }>;
+    previousVersion?: Maybe<{
+      __typename?: "Version";
+      id: string;
+      revision: string;
+    }>;
+    projectMetadata?: Maybe<{
+      __typename?: "Project";
+      repo: string;
+      owner: string;
+    }>;
     patch?: Maybe<{
+      __typename?: "Patch";
       id: string;
       patchNumber: number;
       alias?: Maybe<string>;
@@ -6143,26 +7451,29 @@ export type VersionQuery = {
       canEnqueueToCommitQueue: boolean;
       childPatches?: Maybe<
         Array<{
+          __typename?: "Patch";
           id: string;
           githash: string;
           projectIdentifier: string;
           taskCount?: Maybe<number>;
           status: string;
           versionFull?: Maybe<{
+            __typename?: "Version";
             id: string;
             status: string;
-            baseVersion?: Maybe<{ id: string }>;
+            baseVersion?: Maybe<{ __typename?: "Version"; id: string }>;
           }>;
         }>
       >;
     }>;
     upstreamProject?: Maybe<{
+      __typename?: "UpstreamProject";
       triggerID: string;
       triggerType: string;
       repo: string;
       project: string;
-      task?: Maybe<{ id: string; execution: number }>;
-      version?: Maybe<{ id: string }>;
+      task?: Maybe<{ __typename?: "Task"; id: string; execution: number }>;
+      version?: Maybe<{ __typename?: "Version"; id: string }>;
     }>;
   };
 };
@@ -6172,11 +7483,14 @@ export type GetViewableProjectRefsQueryVariables = Exact<{
 }>;
 
 export type GetViewableProjectRefsQuery = {
+  __typename?: "Query";
   viewableProjectRefs: Array<
     Maybe<{
+      __typename?: "GroupedProjects";
       groupDisplayName: string;
-      repo?: Maybe<{ id: string }>;
+      repo?: Maybe<{ __typename?: "RepoRef"; id: string }>;
       projects: Array<{
+        __typename?: "Project";
         id: string;
         identifier: string;
         repo: string;
@@ -6202,10 +7516,13 @@ export type HostsQueryVariables = Exact<{
 }>;
 
 export type HostsQuery = {
+  __typename?: "Query";
   hosts: {
+    __typename?: "HostsResponse";
     filteredHostsCount?: Maybe<number>;
     totalHostsCount: number;
     hosts: Array<{
+      __typename?: "Host";
       id: string;
       distroId?: Maybe<string>;
       status: string;
@@ -6217,8 +7534,15 @@ export type HostsQuery = {
       elapsed?: Maybe<Date>;
       provider: string;
       noExpiration: boolean;
-      distro?: Maybe<{ bootstrapMethod?: Maybe<string> }>;
-      runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
+      distro?: Maybe<{
+        __typename?: "DistroInfo";
+        bootstrapMethod?: Maybe<string>;
+      }>;
+      runningTask?: Maybe<{
+        __typename?: "TaskInfo";
+        id?: Maybe<string>;
+        name?: Maybe<string>;
+      }>;
     }>;
   };
 };
@@ -6229,12 +7553,16 @@ export type ProjectPatchesQueryVariables = Exact<{
 }>;
 
 export type ProjectPatchesQuery = {
+  __typename?: "Query";
   project: {
+    __typename?: "Project";
     id: string;
     displayName: string;
     patches: {
+      __typename?: "Patches";
       filteredPatchCount: number;
       patches: Array<{
+        __typename?: "Patch";
         id: string;
         author: string;
         authorDisplayName: string;
@@ -6244,12 +7572,24 @@ export type ProjectPatchesQuery = {
         createTime?: Maybe<Date>;
         commitQueuePosition?: Maybe<number>;
         canEnqueueToCommitQueue: boolean;
-        projectMetadata?: Maybe<{ owner: string; repo: string }>;
+        projectMetadata?: Maybe<{
+          __typename?: "Project";
+          owner: string;
+          repo: string;
+        }>;
         versionFull?: Maybe<{
+          __typename?: "Version";
           id: string;
           status: string;
           taskStatusStats?: Maybe<{
-            counts?: Maybe<Array<{ status: string; count: number }>>;
+            __typename?: "TaskStats";
+            counts?: Maybe<
+              Array<{
+                __typename?: "StatusCount";
+                status: string;
+                count: number;
+              }>
+            >;
           }>;
         }>;
       }>;
@@ -6260,8 +7600,13 @@ export type ProjectPatchesQuery = {
 export type SpawnExpirationInfoQueryVariables = Exact<{ [key: string]: never }>;
 
 export type SpawnExpirationInfoQuery = {
-  myHosts: Array<{ noExpiration: boolean; id: string }>;
-  myVolumes: Array<{ noExpiration: boolean; id: string }>;
+  __typename?: "Query";
+  myHosts: Array<{ __typename?: "Host"; noExpiration: boolean; id: string }>;
+  myVolumes: Array<{
+    __typename?: "Volume";
+    noExpiration: boolean;
+    id: string;
+  }>;
 };
 
 export type GetSpawnTaskQueryVariables = Exact<{
@@ -6269,7 +7614,9 @@ export type GetSpawnTaskQueryVariables = Exact<{
 }>;
 
 export type GetSpawnTaskQuery = {
+  __typename?: "Query";
   task?: Maybe<{
+    __typename?: "Task";
     canSync: boolean;
     id: string;
     execution: number;
@@ -6277,7 +7624,7 @@ export type GetSpawnTaskQuery = {
     displayName: string;
     revision?: Maybe<string>;
     status: string;
-    project?: Maybe<{ spawnHostScriptPath: string }>;
+    project?: Maybe<{ __typename?: "Project"; spawnHostScriptPath: string }>;
   }>;
 };
 
@@ -6286,13 +7633,20 @@ export type SubnetAvailabilityZonesQueryVariables = Exact<{
 }>;
 
 export type SubnetAvailabilityZonesQuery = {
+  __typename?: "Query";
   subnetAvailabilityZones: Array<string>;
 };
 
 export type TaskQueueDistrosQueryVariables = Exact<{ [key: string]: never }>;
 
 export type TaskQueueDistrosQuery = {
-  taskQueueDistros: Array<{ id: string; taskCount: number; hostCount: number }>;
+  __typename?: "Query";
+  taskQueueDistros: Array<{
+    __typename?: "TaskQueueDistro";
+    id: string;
+    taskCount: number;
+    hostCount: number;
+  }>;
 };
 
 export type UserPatchesQueryVariables = Exact<{
@@ -6301,11 +7655,15 @@ export type UserPatchesQueryVariables = Exact<{
 }>;
 
 export type UserPatchesQuery = {
+  __typename?: "Query";
   user: {
+    __typename?: "User";
     userId: string;
     patches: {
+      __typename?: "Patches";
       filteredPatchCount: number;
       patches: Array<{
+        __typename?: "Patch";
         id: string;
         author: string;
         authorDisplayName: string;
@@ -6315,12 +7673,24 @@ export type UserPatchesQuery = {
         createTime?: Maybe<Date>;
         commitQueuePosition?: Maybe<number>;
         canEnqueueToCommitQueue: boolean;
-        projectMetadata?: Maybe<{ owner: string; repo: string }>;
+        projectMetadata?: Maybe<{
+          __typename?: "Project";
+          owner: string;
+          repo: string;
+        }>;
         versionFull?: Maybe<{
+          __typename?: "Version";
           id: string;
           status: string;
           taskStatusStats?: Maybe<{
-            counts?: Maybe<Array<{ status: string; count: number }>>;
+            __typename?: "TaskStats";
+            counts?: Maybe<
+              Array<{
+                __typename?: "StatusCount";
+                status: string;
+                count: number;
+              }>
+            >;
           }>;
         }>;
       }>;
