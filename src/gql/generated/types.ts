@@ -1349,6 +1349,7 @@ export type Query = {
   subnetAvailabilityZones: Array<Scalars["String"]>;
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
+  /** @deprecated Use task.taskLogs instead */
   taskLogs: TaskLogs;
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]>>;
   taskQueueDistros: Array<TaskQueueDistro>;
@@ -1853,6 +1854,8 @@ export type Task = {
   taskFiles: TaskFiles;
   taskGroup?: Maybe<Scalars["String"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
+  /** taskLogs returns the tail 100 lines of the task's logs. */
+  taskLogs: TaskLogs;
   timeTaken?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
   versionMetadata: Version;
@@ -1941,7 +1944,7 @@ export type TaskLogLinks = {
 };
 
 /**
- * TaskLogs is the return value for the taskLogs query.
+ * TaskLogs is the return value for the task.taskLogs query.
  * It contains the logs for a given task on a given execution.
  */
 export type TaskLogs = {
