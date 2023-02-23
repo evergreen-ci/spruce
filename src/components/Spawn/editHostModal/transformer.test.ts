@@ -1,4 +1,4 @@
-import { formToGql } from "./transformers";
+import { formToGql } from "./transformer";
 
 describe("edit spawn host modal", () => {
   it("correctly converts from a form to GQL", () => {

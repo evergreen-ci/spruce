@@ -13,7 +13,6 @@
       - typescript
       - typescript-operations
       config:
-        skipTypename: true,
         preResolveTypes: true,
         arrayInputCoercion: false
         scalars:

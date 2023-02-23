@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useSpawnAnalytics } from "analytics";
 import { PlusButton } from "components/Buttons";
-import { size } from "constants/tokens";
+import { size, zIndex } from "constants/tokens";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { GET_MY_HOSTS } from "gql/queries";
 import { useSpruceConfig } from "hooks";
@@ -40,19 +40,22 @@ export const SpawnHostButton: React.VFC = () => {
         align="top"
         justify="middle"
         triggerEvent="hover"
+        popoverZIndex={zIndex.tooltip}
         trigger={
-          <PlusButton
-            disabled={reachedMaxNumHosts}
-            onClick={() => {
-              setOpenModal(true);
-              spawnAnalytics.sendEvent({
-                name: "Opened the Spawn Host Modal",
-              });
-            }}
-            data-cy="spawn-host-button"
-          >
-            Spawn a host
-          </PlusButton>
+          <div>
+            <PlusButton
+              disabled={reachedMaxNumHosts}
+              onClick={() => {
+                setOpenModal(true);
+                spawnAnalytics.sendEvent({
+                  name: "Opened the Spawn Host Modal",
+                });
+              }}
+              data-cy="spawn-host-button"
+            >
+              Spawn a host
+            </PlusButton>
+          </div>
         }
         enabled={reachedMaxNumHosts}
       >
@@ -73,4 +76,6 @@ export const SpawnHostButton: React.VFC = () => {
 
 const PaddedContainer = styled.div`
   padding: ${size.l} 0;
+  display: flex;
+  align-items: center;
 `;

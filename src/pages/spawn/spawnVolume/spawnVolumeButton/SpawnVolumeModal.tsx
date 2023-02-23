@@ -1,144 +1,118 @@
-import { useReducer, useEffect } from "react";
-import { useMutation, useQuery } from "@apollo/client";
-import { Subtitle } from "@leafygreen-ui/typography";
+import { useState } from "react";
+import { useMutation } from "@apollo/client";
 import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import {
-  MountVolumeSelect,
-  SectionContainer,
-  SectionLabel,
-} from "components/Spawn";
-import { ExpirationField } from "components/Spawn/ExpirationField";
-import { HR } from "components/styles/Layout";
+  FormState,
+  formToGql,
+  getFormSchema,
+  useLoadFormData,
+} from "components/Spawn/spawnVolumeModal";
+import { SpruceForm } from "components/SpruceForm";
 import { useToastContext } from "context/toast";
 import {
   SpawnVolumeMutation,
   SpawnVolumeMutationVariables,
-  MyVolumesQuery,
-  MyVolumesQueryVariables,
 } from "gql/generated/types";
 import { SPAWN_VOLUME } from "gql/mutations";
-import { GET_MY_VOLUMES } from "gql/queries";
-import { useSpruceConfig } from "hooks";
-import { AvailabilityZoneSelector } from "./spawnVolumeModal/AvailabilityZoneSelector";
-import { reducer, initialState } from "./spawnVolumeModal/reducer";
-import { SizeSelector } from "./spawnVolumeModal/SizeSelector";
-import { TypeSelector } from "./spawnVolumeModal/TypeSelector";
+import { HostStatus } from "types/host";
 
 interface SpawnVolumeModalProps {
   visible: boolean;
   onCancel: () => void;
+  maxSpawnableLimit: number;
 }
 
 export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
   visible,
   onCancel,
+  maxSpawnableLimit,
 }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
   const spawnAnalytics = useSpawnAnalytics();
   const dispatchToast = useToastContext();
-  const spruceConfig = useSpruceConfig();
-  const { data: volumesData } = useQuery<
-    MyVolumesQuery,
-    MyVolumesQueryVariables
-  >(GET_MY_VOLUMES);
 
   const [spawnVolumeMutation, { loading: loadingSpawnVolume }] = useMutation<
     SpawnVolumeMutation,
     SpawnVolumeMutationVariables
   >(SPAWN_VOLUME, {
     onCompleted() {
-      onCancel();
       dispatchToast.success("Successfully spawned volume");
+      onCancel();
     },
     onError(err) {
-      onCancel();
       dispatchToast.error(
         `There was an error while spawning your volume: ${err.message}`
       );
+      onCancel();
     },
     refetchQueries: ["MyVolumes"],
   });
 
-  useEffect(() => {
-    if (visible) {
-      dispatch({ type: "reset" });
-    }
-  }, [visible, dispatch]);
-
   const spawnVolume = () => {
-    const mutationVars = { ...state };
-    if (mutationVars.noExpiration === true) {
-      delete mutationVars.expiration;
-    }
-    if (mutationVars.host === "") {
-      delete mutationVars.host;
-    }
-    const variables = { SpawnVolumeInput: mutationVars };
-    spawnAnalytics.sendEvent({ name: "Spawned a volume", params: variables });
-    spawnVolumeMutation({ variables });
-  };
-  const volumeLimit = spruceConfig?.providers?.aws?.maxVolumeSizePerUser;
-  const totalVolumeSize = volumesData?.myVolumes?.reduce(
-    (cnt, v) => cnt + v.size,
-    0
-  );
-  const maxSpawnableLimit =
-    volumeLimit - totalVolumeSize >= 0 ? volumeLimit - totalVolumeSize : 0;
-
-  useEffect(() => {
-    // Update the size input when we set a new max volume size limit
-    // If the max size limit is > 500 default to 500
-    dispatch({
-      type: "setSize",
-      data: maxSpawnableLimit > 500 ? 500 : maxSpawnableLimit,
+    const mutationInput = formToGql({ formData: formState });
+    spawnAnalytics.sendEvent({
+      name: "Spawned a volume",
+      params: mutationInput,
     });
-  }, [maxSpawnableLimit, totalVolumeSize, volumeLimit]);
+    spawnVolumeMutation({
+      variables: { SpawnVolumeInput: mutationInput },
+    });
+  };
+
+  const {
+    availabilityZones,
+    types,
+    hosts,
+    disableExpirationCheckbox,
+    noExpirationCheckboxTooltip,
+    loadingFormData,
+  } = useLoadFormData();
+
+  const [canSubmit, setCanSubmit] = useState(true);
+  const [formState, setFormState] = useState<FormState>({});
+
+  const availableHosts = hosts
+    .filter(
+      ({ availabilityZone, status }) =>
+        availabilityZone ===
+          formState?.requiredVolumeInformation?.availabilityZone &&
+        (status === HostStatus.Running || status === HostStatus.Stopped)
+    )
+    .map(({ id, displayName }) => ({ id, displayName }))
+    .sort((a, b) => a.displayName.localeCompare(b.displayName));
+
+  const { schema, uiSchema } = getFormSchema({
+    maxSpawnableLimit,
+    availabilityZones,
+    types,
+    hosts: availableHosts,
+    disableExpirationCheckbox,
+    noExpirationCheckboxTooltip,
+  });
+
+  if (loadingFormData) {
+    return null;
+  }
 
   return (
     <ConfirmationModal
       title="Spawn New Volume"
       open={visible}
       onCancel={onCancel}
-      buttonText={loadingSpawnVolume ? "Spawning Volume" : "Spawn"}
+      buttonText={loadingSpawnVolume ? "Spawning volume" : "Spawn"}
       onConfirm={spawnVolume}
-      submitDisabled={
-        loadingSpawnVolume || !state.size || state.size > maxSpawnableLimit
-      }
+      submitDisabled={loadingSpawnVolume || !canSubmit}
       data-cy="spawn-volume-modal"
     >
-      <Subtitle>Required Volume Information</Subtitle>
-      <SizeSelector
-        limit={maxSpawnableLimit}
-        onChange={(s) => dispatch({ type: "setSize", data: s })}
-        value={state.size}
-      />
-      <AvailabilityZoneSelector
-        onChange={(z) => dispatch({ type: "setAvailabilityZone", data: z })}
-        value={state.availabilityZone}
-      />
-      <TypeSelector
-        onChange={(t) => dispatch({ type: "setType", typeId: t })}
-        value={state.type}
-      />
-      <HR />
-      <Subtitle>Optional Volume Information</Subtitle>
-      <ExpirationField
-        data={{
-          expiration: state.expiration,
-          noExpiration: state.noExpiration,
+      <SpruceForm
+        schema={schema}
+        uiSchema={uiSchema}
+        formData={formState}
+        onChange={({ formData, errors }) => {
+          setFormState(formData);
+          setCanSubmit(errors.length === 0);
         }}
-        onChange={(expData) => dispatch({ type: "editExpiration", ...expData })}
       />
-      <SectionContainer>
-        <SectionLabel weight="medium">Mount to Host</SectionLabel>
-        <MountVolumeSelect
-          label="Host"
-          onChange={(hostId) => dispatch({ type: "setHost", hostId })}
-          selectedHostId={state.host}
-          targetAvailabilityZone={state.availabilityZone}
-        />
-      </SectionContainer>
     </ConfirmationModal>
   );
 };

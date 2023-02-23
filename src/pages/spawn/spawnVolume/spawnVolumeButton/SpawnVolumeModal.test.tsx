@@ -1,11 +1,21 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
+import {
+  MyHostsQuery,
+  MyHostsQueryVariables,
+  MyVolumesQuery,
+  MyVolumesQueryVariables,
+  SpawnVolumeMutation,
+  SpawnVolumeMutationVariables,
+  SubnetAvailabilityZonesQuery,
+  SubnetAvailabilityZonesQueryVariables,
+} from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import { getUserMock } from "gql/mocks/getUser";
 import { SPAWN_VOLUME } from "gql/mutations";
 import {
   GET_MY_HOSTS,
   GET_SUBNET_AVAILABILITY_ZONES,
-  GET_USER,
   GET_MY_VOLUMES,
 } from "gql/queries";
 import {
@@ -15,56 +25,53 @@ import {
   waitFor,
 } from "test_utils";
 import { selectLGOption } from "test_utils/utils";
+import { ApolloMock } from "types/gql";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
 
 describe("spawnVolumeModal", () => {
-  it("renders the Spawn Volume Modal when the visible prop is true", async () => {
+  it("does not render the Spawn Volume Modal when the visible prop is false", () => {
     const { Component } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} />
+      <SpawnVolumeModal
+        visible={false}
+        onCancel={() => {}}
+        maxSpawnableLimit={1000}
+      />
     );
     render(
       <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>
     );
-    expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
+    expect(screen.queryByDataCy("spawn-volume-modal")).not.toBeInTheDocument();
   });
 
-  it("does not renders the Spawn Volume Modal when the visible prop is false", async () => {
+  it("form contains default values on initial render", async () => {
     const { Component } = RenderFakeToastContext(
-      <SpawnVolumeModal visible={false} onCancel={() => {}} />
+      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />
     );
     render(
       <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>
     );
-    expect(screen.queryByDataCy("modal-title")).not.toBeInTheDocument();
-  });
-
-  it("form contains default volumes on initial render", async () => {
-    const { Component } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} />
-    );
-    render(
-      <MockedProvider mocks={baseMocks}>
-        <Component />
-      </MockedProvider>
-    );
-    await waitFor(() =>
-      expect(screen.queryByDataCy("volumeSize")).toHaveValue(500)
-    );
-
-    expect(screen.queryByDataCy("regionSelector")).toHaveTextContent(
+    await waitFor(() => {
+      expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
+    });
+    expect(screen.queryByDataCy("volume-size-input")).toHaveValue("500");
+    expect(screen.queryByDataCy("availability-zone-select")).toHaveTextContent(
       "us-east-1a"
     );
-    expect(screen.queryByDataCy("typeSelector")).toHaveTextContent("gp2");
-    expect(screen.queryByDataCy("never-expire-checkbox")).not.toBeChecked();
-    expect(screen.queryByDataCy("host-select")).toHaveTextContent("");
-  });
+    expect(screen.queryByDataCy("type-select")).toHaveTextContent("gp2");
+    expect(screen.queryByLabelText("Never expire")).not.toBeChecked();
+    expect(screen.queryByDataCy("host-select")).toBeDisabled();
+    expect(screen.queryByText("No hosts available.")).toBeVisible();
+  }, 10000);
 
   it("form submission succeeds with default values", async () => {
-    const spawnVolumeMutation: MockedResponse = {
+    const spawnVolumeMutation: ApolloMock<
+      SpawnVolumeMutation,
+      SpawnVolumeMutationVariables
+    > = {
       request: {
         query: SPAWN_VOLUME,
         variables: {
@@ -73,30 +80,40 @@ describe("spawnVolumeModal", () => {
             size: 500,
             type: "gp2",
             expiration: null,
-            noExpiration: false,
+            noExpiration: true,
+            host: null,
           },
         },
       },
       result: { data: { spawnVolume: true } },
     };
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} />
+      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />
     );
     render(
       <MockedProvider mocks={[...baseMocks, spawnVolumeMutation]}>
         <Component />
       </MockedProvider>
     );
+    await waitFor(() => {
+      expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
+    });
+    expect(screen.queryByLabelText("Never expire")).toBeEnabled();
+    userEvent.click(screen.queryByLabelText("Never expire"));
+
     const spawnButton = screen.queryByRole("button", { name: "Spawn" });
     await waitFor(() => {
-      expect(spawnButton).not.toBeDisabled();
+      expect(spawnButton).toBeEnabled();
     });
     userEvent.click(spawnButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
-  });
+  }, 10000);
 
   it("form submission succeeds after adjusting inputs", async () => {
-    const spawnVolumeMutation: MockedResponse = {
+    const spawnVolumeMutation: ApolloMock<
+      SpawnVolumeMutation,
+      SpawnVolumeMutationVariables
+    > = {
       request: {
         query: SPAWN_VOLUME,
         variables: {
@@ -105,7 +122,7 @@ describe("spawnVolumeModal", () => {
             size: 24,
             type: "st1",
             expiration: null,
-            noExpiration: false,
+            noExpiration: true,
             host: "i-00b212e96b3f91079",
           },
         },
@@ -113,32 +130,38 @@ describe("spawnVolumeModal", () => {
       result: { data: { spawnVolume: true } },
     };
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} />
+      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />
     );
-
     render(
       <MockedProvider mocks={[...baseMocks, spawnVolumeMutation]}>
         <Component />
       </MockedProvider>
     );
-    // select us-east-1c region
-    await selectLGOption("regionSelector", "us-east-1c");
-    await selectLGOption("typeSelector", "st1");
+    await waitFor(() => {
+      expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
+    });
+
+    // Modify form values
+    userEvent.clear(screen.queryByDataCy("volume-size-input"));
+    userEvent.type(screen.queryByDataCy("volume-size-input"), "24");
+    expect(screen.queryByDataCy("volume-size-input")).toHaveValue("24");
+    await selectLGOption("availability-zone-select", "us-east-1c");
+    await selectLGOption("type-select", "st1");
     await selectLGOption("host-select", "i-00b212e96b3f91079");
-    userEvent.type(screen.queryByDataCy("volumeSize"), "{clear}24");
-    expect(screen.queryByDataCy("volumeSize")).toHaveValue(24);
+    expect(screen.queryByLabelText("Never expire")).toBeEnabled();
+    userEvent.click(screen.queryByLabelText("Never expire"));
 
     // Click spawn button
     const spawnButton = screen.queryByRole("button", { name: "Spawn" });
     await waitFor(() => {
-      expect(spawnButton).not.toBeDisabled();
+      expect(spawnButton).toBeEnabled();
     });
     userEvent.click(spawnButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
   }, 10000);
 });
 
-const myHostsMock = {
+const myHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
   request: {
     query: GET_MY_HOSTS,
     variables: {},
@@ -147,7 +170,7 @@ const myHostsMock = {
     data: {
       myHosts: [
         {
-          expiration: "2021-10-28T22:37:40Z",
+          expiration: new Date("2021-10-28T22:37:40Z"),
           distro: {
             isVirtualWorkStation: true,
             id: "ubuntu1804-workstation",
@@ -190,7 +213,7 @@ const myHostsMock = {
             },
             {
               key: "owner",
-              value: "arjun.patel",
+              value: "taaaa.arst",
               canBeModified: false,
               __typename: "InstanceTag",
             },
@@ -224,16 +247,16 @@ const myHostsMock = {
           noExpiration: false,
           provider: "ec2-ondemand",
           status: "running",
-          startedBy: "arjun.patel",
+          startedBy: "arst.arst",
           tag: "evg-ubuntu1804-workstation-20201014223740-6478743249380995507",
           user: "ubuntu",
-          uptime: "2020-10-14T22:37:40Z",
+          uptime: new Date("2020-10-14T22:37:40Z"),
           displayName: "",
           availabilityZone: "us-east-1c",
           __typename: "Host",
         },
         {
-          expiration: "2021-10-28T22:37:40Z",
+          expiration: new Date("2021-10-28T22:37:40Z"),
           distro: {
             isVirtualWorkStation: true,
             id: "ubuntu1804-workstation",
@@ -276,7 +299,7 @@ const myHostsMock = {
             },
             {
               key: "owner",
-              value: "arjun.patel",
+              value: "asrta.asrt",
               canBeModified: false,
               __typename: "InstanceTag",
             },
@@ -310,10 +333,10 @@ const myHostsMock = {
           noExpiration: false,
           provider: "ec2-ondemand",
           status: "running",
-          startedBy: "arjun.patel",
+          startedBy: "asrt.arsts",
           tag: "evg-ubuntu1804-workstation-20201014223740-6478743249380995507",
           user: "ubuntu",
-          uptime: "2020-10-14T22:37:40Z",
+          uptime: new Date("2020-10-14T22:37:40Z"),
           displayName: "",
           availabilityZone: "us-east-1c",
           __typename: "Host",
@@ -323,77 +346,65 @@ const myHostsMock = {
   },
 };
 
-const myVolumesQueryMock = {
-  request: { query: GET_MY_VOLUMES, variables: {} },
-  result: {
-    data: {
-      myVolumes: [
-        {
-          id: "vol-0228202a15111023c",
-          displayName: "",
-          createdBy: "arjrsatun.psratatel",
-          type: "gp2",
-          availabilityZone: "us-east-1d",
-          size: 200,
-          expiration: "2020-11-12T18:19:39Z",
-          deviceName: null,
-          hostID: "i-0d5d29bf2e7ee342d",
-          host: {
-            displayName: "hai",
-            id: "i-0d5d29bf2e7ee342d",
+const myVolumesQueryMock: ApolloMock<MyVolumesQuery, MyVolumesQueryVariables> =
+  {
+    request: { query: GET_MY_VOLUMES, variables: {} },
+    result: {
+      data: {
+        myVolumes: [
+          {
+            id: "vol-0228202a15111023c",
+            displayName: "",
+            createdBy: "arjrsatun.psratatel",
+            type: "gp2",
+            availabilityZone: "us-east-1d",
+            size: 200,
+            expiration: new Date("2020-11-12T18:19:39Z"),
+            deviceName: null,
+            hostID: "i-0d5d29bf2e7ee342d",
+            host: {
+              displayName: "hai",
+              id: "i-0d5d29bf2e7ee342d",
+              noExpiration: false,
+              __typename: "Host",
+            },
             noExpiration: false,
-            __typename: "Host",
+            homeVolume: false,
+            creationTime: new Date("2020-11-05T18:19:39Z"),
+            migrating: false,
+            __typename: "Volume",
           },
-          noExpiration: true,
-          homeVolume: false,
-          creationTime: "2020-11-05T18:19:39Z",
-          migrating: false,
-          __typename: "Volume",
-        },
-        {
-          id: "vol-0d7b1973c71a7cccb",
-          displayName: "ramen",
-          createdBy: "arrastrjun.prastatel",
-          type: "gp2",
-          availabilityZone: "us-east-1d",
-          size: 100,
-          expiration: "2020-11-12T18:24:09Z",
-          deviceName: null,
-          hostID: "i-0d5d29bf2e7ee342d",
-          host: {
-            displayName: "hai",
-            id: "i-0d5d29bf2e7ee342d",
+          {
+            id: "vol-0d7b1973c71a7cccb",
+            displayName: "ramen",
+            createdBy: "arrastrjun.prastatel",
+            type: "gp2",
+            availabilityZone: "us-east-1d",
+            size: 100,
+            expiration: new Date("2020-11-12T18:24:09Z"),
+            deviceName: null,
+            hostID: "i-0d5d29bf2e7ee342d",
+            host: {
+              displayName: "hai",
+              id: "i-0d5d29bf2e7ee342d",
+              noExpiration: false,
+              __typename: "Host",
+            },
             noExpiration: false,
-            __typename: "Host",
+            homeVolume: false,
+            migrating: false,
+            creationTime: new Date("2020-11-05T18:18:36Z"),
+            __typename: "Volume",
           },
-          noExpiration: true,
-          homeVolume: false,
-          migrating: false,
-          creationTime: "2020-11-05T18:18:36Z",
-          __typename: "Volume",
-        },
-      ],
-    },
-  },
-};
-
-const userMock = {
-  request: {
-    query: GET_USER,
-    variables: {},
-  },
-  result: {
-    data: {
-      user: {
-        userId: "a",
-        displayName: "A",
-        emailAddress: "a@mongodb.com",
+        ],
       },
     },
-  },
-};
+  };
 
-const subnetZonesMock = {
+const subnetZonesMock: ApolloMock<
+  SubnetAvailabilityZonesQuery,
+  SubnetAvailabilityZonesQueryVariables
+> = {
   request: {
     query: GET_SUBNET_AVAILABILITY_ZONES,
     variables: {},
@@ -419,7 +430,7 @@ const subnetZonesMock = {
 };
 
 const baseMocks: MockedResponse[] = [
-  userMock,
+  getUserMock,
   subnetZonesMock,
   myHostsMock,
   getSpruceConfigMock,
