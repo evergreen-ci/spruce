@@ -1,7 +1,10 @@
 import { ProviderWrapper } from "components/HistoryTable/hooks/test-utils";
 import { variantHistoryMaxLength as maxLength } from "constants/history";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
-import { GetTaskNamesForBuildVariantQuery } from "gql/generated/types";
+import {
+  GetTaskNamesForBuildVariantQuery,
+  GetTaskNamesForBuildVariantQueryVariables,
+} from "gql/generated/types";
 import { GET_TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
 import {
   fireEvent,
@@ -9,6 +12,7 @@ import {
   screen,
   waitFor,
 } from "test_utils";
+import { ApolloMock } from "types/gql";
 import { string } from "utils";
 import ColumnHeaders from "./ColumnHeaders";
 
@@ -140,7 +144,10 @@ describe("columnHeaders (Variant History)", () => {
 
 const mock = (
   taskNames: GetTaskNamesForBuildVariantQuery["taskNamesForBuildVariant"]
-) => ({
+): ApolloMock<
+  GetTaskNamesForBuildVariantQuery,
+  GetTaskNamesForBuildVariantQueryVariables
+> => ({
   request: {
     query: GET_TASK_NAMES_FOR_BUILD_VARIANT,
     variables: {

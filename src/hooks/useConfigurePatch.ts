@@ -221,7 +221,7 @@ export const useConfigurePatch = (
 // Takes in variant tasks and default selected tasks and returns an object
 // With merged variant and default selected tasks auto selected.
 const initializeTaskState = (
-  variantTasks: VariantTask[],
+  variantTasks: ConfigurePatchQuery["patch"]["project"]["variants"],
   defaultSelectedTasks: VariantTask[]
 ) => {
   const defaultTasks = convertArrayToObject(defaultSelectedTasks, "name");
