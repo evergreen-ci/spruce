@@ -1850,7 +1850,7 @@ export type TaskLogLinks = {
 };
 
 /**
- * TaskLogs is the return value for the taskLogs query.
+ * TaskLogs is the return value for the task.taskLogs query.
  * It contains the logs for a given task on a given execution.
  */
 export type TaskLogs = {
