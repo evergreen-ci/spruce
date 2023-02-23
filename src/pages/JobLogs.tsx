@@ -1,8 +1,9 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { Body, H2, H3, Link } from "@leafygreen-ui/typography";
+import { Body, H3 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
+import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { PageWrapper, StyledRouterLink } from "components/styles";
 import { getParsleyBuildLogURL } from "constants/externalResources";
 import { getTaskRoute } from "constants/routes";
@@ -14,14 +15,12 @@ import {
 } from "gql/generated/types";
 import { GET_LOGKEEPER_BUILD_METADATA } from "gql/queries";
 import { usePageTitle } from "hooks";
-import { environmentalVariables } from "utils";
 import { JobLogsTable } from "./jobLogs/JobLogsTable";
-
-const { isProduction } = environmentalVariables;
 
 export const JobLogs = () => {
   const { buildId } = useParams<{ buildId: string }>();
   const dispatchToast = useToastContext();
+  const { sendEvent } = useJobLogsAnalytics();
 
   usePageTitle(`Job Logs - ${buildId}`);
 
@@ -45,51 +44,38 @@ export const JobLogs = () => {
 
   return (
     <PageWrapper>
-      {isProduction() ? (
-        <>
-          <H2>⚒️ Under Construction</H2>
-          <Body>
-            Please visit{" "}
-            <Link
-              href={`https://logkeeper2.build.10gen.cc/build/${buildId}`}
-              hideExternalIcon
-            >
-              Logkeeper
-            </Link>{" "}
-            to see this build&rsquo;s logs.
-          </Body>
-        </>
-      ) : (
-        <ContentWrapper>
-          <TaskMetadata>
-            <H3>
-              {builder} – {buildNum}
-            </H3>
-            {taskId && (
-              <Body>
-                Task:{" "}
-                <StyledRouterLink
-                  to={getTaskRoute(taskId, { execution: taskExecution })}
-                  data-cy="task-link"
-                >
-                  {taskId}
-                </StyledRouterLink>
-              </Body>
-            )}
-          </TaskMetadata>
+      <ContentWrapper>
+        <TaskMetadata>
+          <H3>
+            {builder} – {buildNum}
+          </H3>
+          {taskId && (
+            <Body>
+              Task:{" "}
+              <StyledRouterLink
+                to={getTaskRoute(taskId, { execution: taskExecution })}
+                data-cy="task-link"
+              >
+                {taskId}
+              </StyledRouterLink>
+            </Body>
+          )}
+        </TaskMetadata>
 
-          <CompleteLogsLink>
-            <Button
-              href={getParsleyBuildLogURL(buildId)}
-              data-cy="complete-test-logs-link"
-              target="_blank"
-            >
-              Complete logs for all tests
-            </Button>
-          </CompleteLogsLink>
-          <JobLogsTable buildId={buildId} tests={tests} />
-        </ContentWrapper>
-      )}
+        <CompleteLogsLink>
+          <Button
+            href={getParsleyBuildLogURL(buildId)}
+            data-cy="complete-test-logs-link"
+            target="_blank"
+            onClick={() => {
+              sendEvent({ name: "Clicked complete logs link", buildId });
+            }}
+          >
+            Complete logs for all tests
+          </Button>
+        </CompleteLogsLink>
+        <JobLogsTable buildId={buildId} tests={tests} />
+      </ContentWrapper>
     </PageWrapper>
   );
 };
