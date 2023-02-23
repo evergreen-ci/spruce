@@ -4,7 +4,7 @@ describe("Task Action Buttons", () => {
   describe("Based on the state of the task, some buttons should be disabled and others should be clickable. Clicking on buttons produces banners messaging if the action succeeded or failed.", () => {
     it("Schedule button should be disabled on a completed task", () => {
       cy.visit(tasks[1]);
-      cy.dataCy("schedule-task").should("be.disabled");
+      cy.dataCy("schedule-task").should("have.attr", "aria-disabled", "true");
     });
 
     it("Clicking Restart button should restart a task and display a success toast", () => {

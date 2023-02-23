@@ -147,7 +147,7 @@ describe("Navigating to Spawn Volume page", () => {
         )
         .should("not.be.checked");
       cy.wrap($el).contains("Yes");
-      cy.wrap($el).contains("Yes").should("have.attr", "aria-disabled", "true");
+      cy.wrap($el).contains("Yes").should("be.disabled");
       cy.wrap($el)
         .getInputByLabel(
           "I understand this volume is currently mounted to a host."

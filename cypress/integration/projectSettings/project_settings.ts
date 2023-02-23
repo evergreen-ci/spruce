@@ -821,9 +821,7 @@ describe("Project Settings when defaulting to repo", () => {
         .first()
         .click({ force: true });
       cy.dataCy("expandable-card").find("input").should("be.disabled");
-      cy.dataCy("expandable-card")
-        .find("button")
-        .should("have.attr", "aria-disabled", "true");
+      cy.dataCy("expandable-card").find("button").should("be.disabled");
     });
 
     it("Allows adding a patch alias", () => {
