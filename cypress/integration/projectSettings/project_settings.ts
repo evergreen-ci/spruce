@@ -98,7 +98,6 @@ describe("Clicking on The Project Select Dropdown ", () => {
   const destination = getGeneralRoute(project);
 
   before(() => {
-    cy.login();
     cy.visit(destination);
   });
 
@@ -118,7 +117,6 @@ describe("Repo Settings", () => {
   const destination = getGeneralRoute(repo);
 
   before(() => {
-    cy.login();
     cy.visit(destination);
   });
 
@@ -386,7 +384,6 @@ describe("Project Settings when not defaulting to repo", () => {
   const destination = getGeneralRoute(project);
 
   before(() => {
-    cy.login();
     cy.visit(destination);
   });
 
@@ -565,7 +562,6 @@ describe("Project Settings when defaulting to repo", () => {
   const destination = getGeneralRoute(projectUseRepoEnabled);
 
   before(() => {
-    cy.login();
     cy.visit(destination);
   });
 
@@ -895,7 +891,6 @@ describe("Attaching Spruce to a repo", () => {
   const destination = getGeneralRoute(project);
 
   before(() => {
-    cy.login();
     cy.visit(destination);
   });
 
@@ -955,7 +950,6 @@ describe("Renaming the identifier", () => {
   const destination = getGeneralRoute(project);
 
   before(() => {
-    cy.login();
     cy.visit(destination);
   });
 
@@ -982,12 +976,13 @@ describe("A project that has GitHub webhooks disabled", () => {
   const destination = getGithubCommitQueueRoute("logkeeper");
 
   before(() => {
-    cy.login();
     cy.visit(destination);
   });
 
   it("Disables all interactive elements on the page", () => {
-    cy.get("button").should("have.attr", "aria-disabled", "true");
+    cy.dataCy("project-settings-page")
+      .find("button")
+      .should("have.attr", "aria-disabled", "true");
     cy.get("input").should("be.disabled");
   });
 });
@@ -995,7 +990,6 @@ describe("A project that has GitHub webhooks disabled", () => {
 describe("Notifications", () => {
   const destination = getNotificationsRoute("evergreen");
   before(() => {
-    cy.login();
     cy.visit(destination);
   });
   it("Does not show a 'Default to Repo' button on page", () => {

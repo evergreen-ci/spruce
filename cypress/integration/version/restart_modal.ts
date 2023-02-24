@@ -98,6 +98,11 @@ describe("Restarting mainline commits", () => {
       cy.dataCy("accordion-toggle").click();
       cy.getInputByLabel("check_codegen").should("exist");
       cy.getInputByLabel("check_codegen").check({ force: true });
+      cy.contains("button", "Restart").should(
+        "not.have.attr",
+        "aria-disabled",
+        "true"
+      );
       cy.contains("button", "Restart").click();
     });
     cy.validateToast("success", "Successfully restarted tasks!");

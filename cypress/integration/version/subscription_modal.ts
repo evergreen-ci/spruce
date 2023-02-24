@@ -47,6 +47,11 @@ describe("Version Subscription Modal", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
       cy.selectLGOption("Event", "A build-variant in this version finishes");
       cy.dataCy("jira-comment-input").type("EVG-2000");
+      cy.contains("button", "Save").should(
+        "not.have.attr",
+        "aria-disabled",
+        "true"
+      );
       cy.contains("button", "Save").click();
       cy.validateToast("success", "Your subscription has been added");
     });

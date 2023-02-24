@@ -150,6 +150,7 @@ describe("Waterfall subscription modal", () => {
     cy.selectLGOption("Notification Method", "JIRA issue");
 
     cy.dataCy("jira-comment-input").type("EVG-2000");
+    saveButtonEnabled();
     cy.contains("button", "Save").click();
     cy.validateToast("success", successText);
   });
