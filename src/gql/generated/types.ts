@@ -1073,6 +1073,15 @@ export type Permissions = {
   userId: Scalars["String"];
 };
 
+export type Pod = {
+  __typename?: "Pod";
+  id: Scalars["String"];
+  status: Scalars["String"];
+  task?: Maybe<Task>;
+  taskContainerCreationOpts: TaskContainerCreationOpts;
+  type: Scalars["String"];
+};
+
 /** Project models single repository on GitHub. */
 export type Project = {
   __typename?: "Project";
@@ -1339,6 +1348,7 @@ export type Query = {
   myPublicKeys: Array<PublicKey>;
   myVolumes: Array<Volume>;
   patch: Patch;
+  pod: Pod;
   project: Project;
   projectEvents: ProjectEvents;
   projectSettings: ProjectSettings;
@@ -1430,6 +1440,10 @@ export type QueryMainlineCommitsArgs = {
 
 export type QueryPatchArgs = {
   id: Scalars["String"];
+};
+
+export type QueryPodArgs = {
+  podId: Scalars["String"];
 };
 
 export type QueryProjectArgs = {
@@ -1840,6 +1854,7 @@ export type Task = {
   order: Scalars["Int"];
   patch?: Maybe<Patch>;
   patchNumber?: Maybe<Scalars["Int"]>;
+  pod?: Maybe<Pod>;
   priority?: Maybe<Scalars["Int"]>;
   project?: Maybe<Project>;
   projectId: Scalars["String"];
@@ -1870,6 +1885,16 @@ export type TaskAnnotationSettings = {
 export type TaskAnnotationSettingsInput = {
   fileTicketWebhook?: InputMaybe<WebhookInput>;
   jiraCustomFields?: InputMaybe<Array<JiraFieldInput>>;
+};
+
+export type TaskContainerCreationOpts = {
+  __typename?: "TaskContainerCreationOpts";
+  arch: Scalars["String"];
+  cpu: Scalars["Int"];
+  image: Scalars["String"];
+  memoryMB: Scalars["Int"];
+  os: Scalars["String"];
+  workingDir: Scalars["String"];
 };
 
 export type TaskEndDetail = {
