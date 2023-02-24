@@ -174,7 +174,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                             >
                               <label
                                 className="leafygreen-ui-gr5280"
-                                htmlFor="textinput-16"
+                                htmlFor="textinput-10"
                               >
                                 key
                               </label>
@@ -188,7 +188,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                                 autoComplete="on"
                                 className="leafygreen-ui-6i61vl"
                                 disabled={false}
-                                id="textinput-16"
+                                id="textinput-10"
                                 onBlur={[Function]}
                                 onChange={[Function]}
                                 required={true}
@@ -221,7 +221,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                             >
                               <label
                                 className="leafygreen-ui-gr5280"
-                                htmlFor="textinput-17"
+                                htmlFor="textinput-11"
                               >
                                 value
                               </label>
@@ -235,7 +235,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                                 autoComplete="on"
                                 className="leafygreen-ui-6i61vl"
                                 disabled={false}
-                                id="textinput-17"
+                                id="textinput-11"
                                 onBlur={[Function]}
                                 onChange={[Function]}
                                 required={true}

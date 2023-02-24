@@ -63,7 +63,7 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
       >
         <label
           className="leafygreen-ui-gr5280"
-          htmlFor="textinput-13"
+          htmlFor="textinput-7"
         >
           key
         </label>
@@ -76,7 +76,7 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
           autoComplete="on"
           className="leafygreen-ui-6i61vl"
           disabled={false}
-          id="textinput-13"
+          id="textinput-7"
           onBlur={[Function]}
           onChange={[Function]}
           placeholder="key"
@@ -97,7 +97,7 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
       >
         <label
           className="leafygreen-ui-gr5280"
-          htmlFor="textinput-14"
+          htmlFor="textinput-8"
         >
           value
         </label>
@@ -110,7 +110,7 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
           autoComplete="on"
           className="leafygreen-ui-6i61vl"
           disabled={false}
-          id="textinput-14"
+          id="textinput-8"
           onBlur={[Function]}
           onChange={[Function]}
           placeholder="value"
