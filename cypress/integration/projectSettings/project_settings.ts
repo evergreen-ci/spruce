@@ -53,8 +53,7 @@ describe("Access page", () => {
     cy.get("[aria-label='Username']")
       .should("have.value", "admin")
       .should("exist");
-    saveButtonEnabled();
-    cy.dataCy("save-settings-button").click();
+    clickSave();
     cy.validateToast("success", "Successfully updated project");
   });
 
@@ -62,8 +61,7 @@ describe("Access page", () => {
     cy.get("[aria-label='Username']").should("have.length", 1);
     cy.dataCy("delete-item-button").should("be.visible").click();
     cy.get("[aria-label='Username']").should("have.length", 0);
-    saveButtonEnabled();
-    cy.dataCy("save-settings-button").click();
+    clickSave();
     cy.validateToast("success", "Successfully updated project");
 
     cy.reload();
@@ -88,8 +86,7 @@ describe("Access page", () => {
       .should("have.length", 4)
       .first()
       .type("mongodb_user");
-    saveButtonEnabled();
-    cy.dataCy("save-settings-button").click();
+    clickSave();
     cy.validateToast(
       "error",
       "There was an error saving the project: error updating project admin roles: no admin role for project 'spruce' found"
@@ -150,7 +147,7 @@ describe("Repo Settings", () => {
   });
 
   it("Clicking on save button should show a success toast", () => {
-    cy.dataCy("save-settings-button").click();
+    clickSave();
     cy.validateToast("success", "Successfully updated repo");
   });
 
@@ -260,7 +257,7 @@ describe("Repo Settings", () => {
     });
 
     it("Successfully saves the page", () => {
-      cy.dataCy("save-settings-button").click();
+      clickSave();
       cy.validateToast("success", "Successfully updated repo");
     });
   });
@@ -289,7 +286,7 @@ describe("Repo Settings", () => {
     it("Successfully saves a complete alias", () => {
       cy.dataCy("variant-tags-input").first().type("alias variant tag");
       cy.dataCy("task-tags-input").first().type("alias task tag");
-      cy.dataCy("save-settings-button").click();
+      clickSave();
       cy.validateToast("success", "Successfully updated repo");
     });
 
@@ -310,7 +307,7 @@ describe("Repo Settings", () => {
       cy.dataCy("task-regex-input").type(".*");
       cy.dataCy("github-trigger-alias-checkbox").check({ force: true });
 
-      cy.dataCy("save-settings-button").click();
+      clickSave();
       cy.validateToast("success", "Successfully updated repo");
       saveButtonEnabled(false);
     });
@@ -348,14 +345,15 @@ describe("Repo Settings", () => {
       cy.dataCy("add-button").click({ force: true });
       cy.dataCy("command-input").eq(1).type("command 2");
 
-      cy.dataCy("save-settings-button").click();
+      clickSave();
       cy.validateToast("success", "Successfully updated repo");
     });
 
     it("Reorders the commands", () => {
       cy.dataCy("array-down-button").click();
 
-      cy.dataCy("save-settings-button").scrollIntoView().click();
+      cy.dataCy("save-settings-button").scrollIntoView();
+      clickSave();
       cy.validateToast("success", "Successfully updated repo");
 
       cy.dataCy("command-input").first().should("have.value", "command 2");
@@ -446,7 +444,7 @@ describe("Project Settings when not defaulting to repo", () => {
     it("Should correctly save a private variable", () => {
       cy.dataCy("var-value-input").type("sample_value");
       cy.dataCy("var-private-input").check({ force: true });
-      cy.dataCy("save-settings-button").click();
+      clickSave();
       cy.validateToast("success", "Successfully updated project");
     });
 
@@ -479,7 +477,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-name-input").first().type("admin_var");
       cy.dataCy("var-value-input").first().type("admin_value");
       cy.dataCy("var-admin-input").first().check({ force: true });
-      cy.dataCy("save-settings-button").click();
+      clickSave();
       cy.validateToast("success", "Successfully updated project");
     });
 
@@ -495,7 +493,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("delete-item-button").first().click();
-      cy.dataCy("save-settings-button").click();
+      clickSave();
       cy.validateToast("success", "Successfully updated project");
     });
 
@@ -515,7 +513,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("git-tag-input").type("myGitTag");
       cy.dataCy("remote-path-input").type("./evergreen.yml");
 
-      cy.dataCy("save-settings-button").click();
+      clickSave();
       cy.validateToast("success", "Successfully updated project");
     });
 
@@ -544,7 +542,7 @@ describe("Project Settings when not defaulting to repo", () => {
 
     it("Saves when a number is entered", () => {
       cy.dataCy("interval-input").clear().type("12");
-      cy.dataCy("save-settings-button").click();
+      clickSave();
       cy.validateToast("success", "Successfully updated project");
     });
   });
@@ -619,13 +617,13 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Clicking on save button should show a success toast", () => {
-      cy.dataCy("save-settings-button").click();
+      clickSave();
       cy.validateToast("success", "Successfully updated project");
     });
 
     it("Saves when batch time is updated", () => {
       cy.dataCy("batch-time-input").type("12");
-      cy.dataCy("save-settings-button").click();
+      clickSave();
       cy.validateToast("success", "Successfully updated project");
     });
   });
@@ -649,7 +647,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("var-name-input").first().type("c");
       cy.dataCy("var-value-input").first().type("3");
 
-      cy.dataCy("save-settings-button").click();
+      clickSave();
       cy.validateToast("success", "Successfully updated project");
     });
 
@@ -769,7 +767,7 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Returns an error on save because no commit check definitions are defined", () => {
-      cy.dataCy("save-settings-button").click();
+      clickSave();
       cy.validateToast("error");
     });
 
@@ -778,7 +776,7 @@ describe("Project Settings when defaulting to repo", () => {
         cy.wrap($el).getInputByLabel("Disabled").parent().click();
       });
 
-      cy.dataCy("save-settings-button").click();
+      clickSave();
       cy.validateToast("success", "Successfully updated project");
     });
 
@@ -844,7 +842,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("add-button").contains("Add Task Tag").parent().click();
       cy.dataCy("task-tags-input").first().type("alias task tag 3");
 
-      cy.dataCy("save-settings-button").click();
+      clickSave();
       cy.validateToast("success", "Successfully updated project");
     });
 
@@ -853,7 +851,7 @@ describe("Project Settings when defaulting to repo", () => {
         force: true,
       });
 
-      cy.dataCy("save-settings-button").click();
+      clickSave();
       cy.validateToast("success", "Successfully updated project");
 
       saveButtonEnabled(false);
@@ -885,7 +883,7 @@ describe("Project Settings when defaulting to repo", () => {
     it("Allows overriding without adding a command", () => {
       cy.getInputByLabel("Override Repo Commands").click({ force: true });
 
-      cy.dataCy("save-settings-button").click();
+      clickSave();
       cy.validateToast("success", "Successfully updated project");
 
       cy.getInputByLabel("Override Repo Commands").should("be.checked");
@@ -910,7 +908,7 @@ describe("Attaching Spruce to a repo", () => {
       "true"
     );
 
-    cy.dataCy("save-settings-button").click();
+    clickSave();
     cy.validateToast("success", "Successfully updated project");
   });
 
@@ -971,7 +969,7 @@ describe("Renaming the identifier", () => {
   });
 
   it("Successfully saves", () => {
-    cy.dataCy("save-settings-button").click();
+    clickSave();
     cy.validateToast("success", "Successfully updated project");
   });
 
@@ -1018,8 +1016,7 @@ describe("Notifications", () => {
     cy.selectLGOption("Notification Method", "Email");
     cy.getInputByLabel("Email").type("mohamed.khelif@mongodb.com");
     cy.dataCy("save-settings-button").scrollIntoView();
-    saveButtonEnabled();
-    cy.dataCy("save-settings-button").click();
+    clickSave();
     cy.validateToast("success", "Successfully updated project");
 
     saveButtonEnabled(false);
@@ -1036,8 +1033,7 @@ describe("Notifications", () => {
     cy.dataCy("delete-item-button").click({ force: true });
     cy.dataCy("expandable-card").should("not.exist");
     cy.dataCy("save-settings-button").scrollIntoView();
-    saveButtonEnabled();
-    cy.dataCy("save-settings-button").click();
+    clickSave();
     cy.validateToast("success", "Successfully updated project");
   });
   it("should not be able to combine a jira comment subscription with a task event", () => {
@@ -1071,4 +1067,10 @@ const saveButtonEnabled = (isEnabled: boolean = true) => {
     "aria-disabled",
     "true"
   );
+};
+
+const clickSave = () => {
+  cy.dataCy("save-settings-button")
+    .should("not.have.attr", "aria-disabled", "true")
+    .click();
 };

@@ -112,7 +112,7 @@ describe("My Patches Page", () => {
     it("Should disable pagination when there are no more pages", () => {
       cy.get(dataCyPrevPage).should("be.disabled");
       cy.visit(`${MY_PATCHES_ROUTE}?page=2`);
-      cy.get(dataCyPrevPage).should("have.attr", "aria-disabled", "true");
+      cy.get(dataCyPrevPage).should("be.disabled");
     });
   });
 
