@@ -26,7 +26,7 @@ import { AbortMessage } from "./AbortMessage";
 import { DependsOn } from "./DependsOn";
 import { ETATimer } from "./ETATimer";
 
-const { msToDuration, shortenGithash } = string;
+const { applyStrictRegex, msToDuration, shortenGithash } = string;
 const { getUiUrl } = environmentalVariables;
 const { red } = palette;
 
@@ -87,12 +87,12 @@ export const Metadata: React.VFC<Props> = ({
     <MetadataCard error={error} loading={loading}>
       <MetadataTitle>Task Metadata</MetadataTitle>
       <MetadataItem data-cy="task-metadata-build-variant">
-        Build Variant Name:{" "}
+        Build Variant:{" "}
         <StyledRouterLink
           data-cy="build-variant-link"
           to={getVersionRoute(versionID, {
             page: 0,
-            variant: buildVariant,
+            variant: applyStrictRegex(buildVariant),
           })}
           onClick={() =>
             taskAnalytics.sendEvent({ name: "Click Build Variant Link" })

@@ -47,7 +47,11 @@ describe("Version Subscription Modal", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
       cy.selectLGOption("Event", "A build-variant in this version finishes");
       cy.dataCy("jira-comment-input").type("EVG-2000");
-      cy.contains("button", "Save").should("not.be.disabled");
+      cy.contains("button", "Save").should(
+        "not.have.attr",
+        "aria-disabled",
+        "true"
+      );
       cy.contains("button", "Save").click();
       cy.validateToast("success", "Your subscription has been added");
     });
@@ -91,9 +95,17 @@ describe("Version Subscription Modal", () => {
     it("'Add Additional Criteria' button should not appear when there are enough 'Field name' dropdowns to represent all possible regex selector types for a trigger", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
       cy.selectLGOption("Event", "A build-variant in this version finishes");
-      cy.contains("Add Additional Criteria").should("not.be.disabled");
+      cy.contains("Add Additional Criteria").should(
+        "not.have.attr",
+        "aria-disabled",
+        "true"
+      );
       cy.contains("Add Additional Criteria").click();
-      cy.contains("Add Additional Criteria").should("not.be.disabled");
+      cy.contains("Add Additional Criteria").should(
+        "not.have.attr",
+        "aria-disabled",
+        "true"
+      );
       cy.contains("Add Additional Criteria").click();
       cy.contains("Add Additional Criteria").should("not.exist");
     });

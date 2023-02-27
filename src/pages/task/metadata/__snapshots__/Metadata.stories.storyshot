@@ -20,12 +20,12 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
       className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
       data-cy="task-metadata-build-variant"
     >
-      Build Variant Name:
+      Build Variant:
        
       <a
         className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="build-variant-link"
-        href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=ubuntu1604"
+        href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=%5Eubuntu1604%24"
         onClick={[Function]}
       >
         <span
@@ -174,12 +174,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
       className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
       data-cy="task-metadata-build-variant"
     >
-      Build Variant Name:
+      Build Variant:
        
       <a
         className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="build-variant-link"
-        href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=ubuntu1604"
+        href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=%5Eubuntu1604%24"
         onClick={[Function]}
       >
         <span
@@ -328,12 +328,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
       className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
       data-cy="task-metadata-build-variant"
     >
-      Build Variant Name:
+      Build Variant:
        
       <a
         className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="build-variant-link"
-        href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=ubuntu1604"
+        href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=%5Eubuntu1604%24"
         onClick={[Function]}
       >
         <span

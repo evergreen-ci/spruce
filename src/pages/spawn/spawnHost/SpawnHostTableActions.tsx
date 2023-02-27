@@ -56,23 +56,20 @@ export const CopySSHCommandButton: React.VFC<{
         justify="middle"
         data-cy="copy-ssh-tooltip"
         trigger={
-          // Wrapper is necessary because disabled elements cannot trigger mouse events.
-          <div data-cy="copy-ssh-button-wrapper">
-            <Button
-              data-cy="copy-ssh-button"
-              disabled={!canSSH}
-              leftGlyph={<Icon glyph="Copy" />}
-              onClick={(event: React.MouseEvent) => {
-                event.stopPropagation();
-                copyToClipboard(sshCommand);
-                spawnAnalytics.sendEvent({ name: "Copy SSH Command" });
-                setHasCopied(!hasCopied);
-              }}
-              size={Size.XSmall}
-            >
-              <Label>SSH Command</Label>
-            </Button>
-          </div>
+          <Button
+            data-cy="copy-ssh-button"
+            disabled={!canSSH}
+            leftGlyph={<Icon glyph="Copy" />}
+            onClick={(event: React.MouseEvent) => {
+              event.stopPropagation();
+              copyToClipboard(sshCommand);
+              spawnAnalytics.sendEvent({ name: "Copy SSH Command" });
+              setHasCopied(!hasCopied);
+            }}
+            size={Size.XSmall}
+          >
+            <Label>SSH Command</Label>
+          </Button>
         }
       >
         {hasCopied ? (

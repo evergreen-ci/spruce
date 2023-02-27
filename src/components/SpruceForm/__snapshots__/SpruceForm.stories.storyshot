@@ -50,7 +50,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                     aria-expanded={false}
                     aria-invalid={false}
                     aria-labelledby="select-5-label"
-                    className="lg-ui-button-0000 leafygreen-ui-sedrjd"
+                    className="lg-ui-button-0001 leafygreen-ui-sedrjd"
                     data-testid="leafygreen-ui-select-menubutton"
                     disabled={false}
                     id="select-6"
@@ -108,9 +108,8 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
             >
               <button
                 aria-disabled={false}
-                className="lg-ui-button-0000 leafygreen-ui-1t94nwe"
+                className="lg-ui-button-0000 leafygreen-ui-1kt1vpf"
                 data-cy="add-button"
-                disabled={false}
                 onClick={[Function]}
                 type="button"
               >
@@ -257,9 +256,8 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                 >
                   <button
                     aria-disabled={false}
-                    className="lg-ui-button-0000 leafygreen-ui-1t94nwe"
+                    className="lg-ui-button-0000 leafygreen-ui-1kt1vpf"
                     data-cy="delete-item-button"
-                    disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
@@ -615,7 +613,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                     aria-expanded={false}
                     aria-invalid={false}
                     aria-labelledby="select-9-label"
-                    className="lg-ui-button-0000 leafygreen-ui-1bn2bfe"
+                    className="lg-ui-button-0001 leafygreen-ui-1bn2bfe"
                     data-testid="leafygreen-ui-select-menubutton"
                     disabled={false}
                     id="select-10"
