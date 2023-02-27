@@ -4396,17 +4396,20 @@ export type AgentLogsQueryVariables = Exact<{
 
 export type AgentLogsQuery = {
   __typename?: "Query";
-  taskLogs: {
-    __typename?: "TaskLogs";
+  task?: Maybe<{
+    __typename?: "Task";
+    id: string;
     execution: number;
-    taskId: string;
-    agentLogs: Array<{
-      __typename?: "LogMessage";
-      severity?: Maybe<string>;
-      message?: Maybe<string>;
-      timestamp?: Maybe<Date>;
-    }>;
-  };
+    taskLogs: {
+      __typename?: "TaskLogs";
+      agentLogs: Array<{
+        __typename?: "LogMessage";
+        severity?: Maybe<string>;
+        message?: Maybe<string>;
+        timestamp?: Maybe<Date>;
+      }>;
+    };
+  }>;
 };
 
 export type AllLogsQueryVariables = Exact<{
@@ -4416,17 +4419,20 @@ export type AllLogsQueryVariables = Exact<{
 
 export type AllLogsQuery = {
   __typename?: "Query";
-  taskLogs: {
-    __typename?: "TaskLogs";
+  task?: Maybe<{
+    __typename?: "Task";
+    id: string;
     execution: number;
-    taskId: string;
-    allLogs: Array<{
-      __typename?: "LogMessage";
-      severity?: Maybe<string>;
-      message?: Maybe<string>;
-      timestamp?: Maybe<Date>;
-    }>;
-  };
+    taskLogs: {
+      __typename?: "TaskLogs";
+      allLogs: Array<{
+        __typename?: "LogMessage";
+        severity?: Maybe<string>;
+        message?: Maybe<string>;
+        timestamp?: Maybe<Date>;
+      }>;
+    };
+  }>;
 };
 
 export type GetAnnotationEventDataQueryVariables = Exact<{
@@ -6837,17 +6843,20 @@ export type SystemLogsQueryVariables = Exact<{
 
 export type SystemLogsQuery = {
   __typename?: "Query";
-  taskLogs: {
-    __typename?: "TaskLogs";
+  task?: Maybe<{
+    __typename?: "Task";
+    id: string;
     execution: number;
-    taskId: string;
-    systemLogs: Array<{
-      __typename?: "LogMessage";
-      severity?: Maybe<string>;
-      message?: Maybe<string>;
-      timestamp?: Maybe<Date>;
-    }>;
-  };
+    taskLogs: {
+      __typename?: "TaskLogs";
+      systemLogs: Array<{
+        __typename?: "LogMessage";
+        severity?: Maybe<string>;
+        message?: Maybe<string>;
+        timestamp?: Maybe<Date>;
+      }>;
+    };
+  }>;
 };
 
 export type GetTaskAllExecutionsQueryVariables = Exact<{
@@ -6873,26 +6882,29 @@ export type TaskEventLogsQueryVariables = Exact<{
 
 export type TaskEventLogsQuery = {
   __typename?: "Query";
-  taskLogs: {
-    __typename?: "TaskLogs";
+  task?: Maybe<{
+    __typename?: "Task";
     execution: number;
-    taskId: string;
-    eventLogs: Array<{
-      __typename?: "TaskEventLogEntry";
-      timestamp?: Maybe<Date>;
-      eventType?: Maybe<string>;
-      data: {
-        __typename?: "TaskEventLogData";
-        hostId?: Maybe<string>;
-        jiraIssue?: Maybe<string>;
-        jiraLink?: Maybe<string>;
-        priority?: Maybe<number>;
-        status?: Maybe<string>;
+    id: string;
+    taskLogs: {
+      __typename?: "TaskLogs";
+      eventLogs: Array<{
+        __typename?: "TaskEventLogEntry";
         timestamp?: Maybe<Date>;
-        userId?: Maybe<string>;
-      };
-    }>;
-  };
+        eventType?: Maybe<string>;
+        data: {
+          __typename?: "TaskEventLogData";
+          hostId?: Maybe<string>;
+          jiraIssue?: Maybe<string>;
+          jiraLink?: Maybe<string>;
+          priority?: Maybe<number>;
+          status?: Maybe<string>;
+          timestamp?: Maybe<Date>;
+          userId?: Maybe<string>;
+        };
+      }>;
+    };
+  }>;
 };
 
 export type TaskFilesQueryVariables = Exact<{
@@ -6927,17 +6939,20 @@ export type TaskLogsQueryVariables = Exact<{
 
 export type TaskLogsQuery = {
   __typename?: "Query";
-  taskLogs: {
-    __typename?: "TaskLogs";
+  task?: Maybe<{
+    __typename?: "Task";
+    id: string;
     execution: number;
-    taskId: string;
-    taskLogs: Array<{
-      __typename?: "LogMessage";
-      severity?: Maybe<string>;
-      message?: Maybe<string>;
-      timestamp?: Maybe<Date>;
-    }>;
-  };
+    taskLogs: {
+      __typename?: "TaskLogs";
+      taskLogs: Array<{
+        __typename?: "LogMessage";
+        severity?: Maybe<string>;
+        message?: Maybe<string>;
+        timestamp?: Maybe<Date>;
+      }>;
+    };
+  }>;
 };
 
 export type GetTaskNamesForBuildVariantQueryVariables = Exact<{
