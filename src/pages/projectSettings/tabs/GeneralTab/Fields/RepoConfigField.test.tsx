@@ -122,7 +122,7 @@ describe("repoConfigField", () => {
     expect(
       screen.queryByDataCy("attach-repo-disabled-tooltip")
     ).not.toBeInTheDocument();
-    userEvent.hover(screen.queryByDataCy("attach-repo-button-wrapper"));
+    userEvent.hover(screen.queryByDataCy("attach-repo-button"));
     await waitFor(() => {
       expect(
         screen.queryByDataCy("attach-repo-disabled-tooltip")
@@ -146,7 +146,7 @@ describe("repoConfigField", () => {
     expect(
       screen.queryByDataCy("attach-repo-disabled-tooltip")
     ).not.toBeInTheDocument();
-    userEvent.hover(screen.queryByDataCy("attach-repo-button-wrapper"));
+    userEvent.hover(screen.queryByDataCy("attach-repo-button"));
     await waitFor(() => {
       expect(
         screen.queryByDataCy("attach-repo-disabled-tooltip")
