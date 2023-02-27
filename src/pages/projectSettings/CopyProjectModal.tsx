@@ -27,7 +27,7 @@ export const CopyProjectModal: React.VFC<Props> = ({
   open,
 }) => {
   const navigate = useNavigate();
-  const { error: errorToast, success, warning } = useToastContext();
+  const dispatchToast = useToastContext();
   const { sendEvent } = useProjectSettingsAnalytics();
 
   const [formState, setFormState] = useState({
@@ -52,17 +52,19 @@ export const CopyProjectModal: React.VFC<Props> = ({
     const identifier = data?.copyProject?.identifier;
     if (identifier) {
       if (error) {
-        warning(
+        dispatchToast.warning(
           `The project was successfully duplicated with the following errors: ${error.message}.`,
           true,
           { shouldTimeout: false }
         );
       } else {
-        success(`Successfully duplicated the project: ${identifier}`);
+        dispatchToast.success(
+          `Successfully duplicated the project: ${identifier}`
+        );
       }
       navigate(getProjectSettingsRoute(identifier), { replace: true });
     } else if (error) {
-      errorToast(
+      dispatchToast.error(
         `There was an error duplicating the project: ${error?.message}`
       );
     }
@@ -72,9 +74,7 @@ export const CopyProjectModal: React.VFC<Props> = ({
     error,
     loading,
     navigate,
-    errorToast,
-    success,
-    warning,
+    dispatchToast,
   ]);
 
   const onConfirm = () => {
