@@ -115,13 +115,14 @@ describe("repoConfigField", () => {
     );
     render(<Component />);
     expect(screen.queryByDataCy("attach-repo-button")).toHaveAttribute(
-      "disabled"
+      "aria-disabled",
+      "true"
     );
 
     expect(
       screen.queryByDataCy("attach-repo-disabled-tooltip")
     ).not.toBeInTheDocument();
-    userEvent.hover(screen.queryByDataCy("attach-repo-button-wrapper"));
+    userEvent.hover(screen.queryByDataCy("attach-repo-button"));
     await waitFor(() => {
       expect(
         screen.queryByDataCy("attach-repo-disabled-tooltip")
@@ -138,13 +139,14 @@ describe("repoConfigField", () => {
     );
     render(<Component />);
     expect(screen.queryByDataCy("attach-repo-button")).toHaveAttribute(
-      "disabled"
+      "aria-disabled",
+      "true"
     );
 
     expect(
       screen.queryByDataCy("attach-repo-disabled-tooltip")
     ).not.toBeInTheDocument();
-    userEvent.hover(screen.queryByDataCy("attach-repo-button-wrapper"));
+    userEvent.hover(screen.queryByDataCy("attach-repo-button"));
     await waitFor(() => {
       expect(
         screen.queryByDataCy("attach-repo-disabled-tooltip")
@@ -201,7 +203,7 @@ describe("repoConfigField", () => {
         screen.getByRole("button", {
           name: "Move Project",
         })
-      ).toHaveAttribute("disabled");
+      ).toHaveAttribute("aria-disabled", "true");
     });
 
     it("prefills the owner dropdown", () => {
@@ -215,7 +217,7 @@ describe("repoConfigField", () => {
         screen.getByRole("button", {
           name: "Move Project",
         })
-      ).toHaveAttribute("disabled");
+      ).toHaveAttribute("aria-disabled", "true");
     });
 
     it("enables the confirm button when both fields are updated", async () => {
@@ -231,7 +233,7 @@ describe("repoConfigField", () => {
         screen.getByRole("button", {
           name: "Move Project",
         })
-      ).not.toHaveAttribute("disabled");
+      ).not.toHaveAttribute("aria-disabled", "true");
     });
   });
 

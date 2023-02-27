@@ -76,15 +76,17 @@ const cache = new InMemoryCache({
     User: {
       keyFields: ["userId"],
     },
-    TaskLogs: {
-      keyFields: ["execution", "taskId"],
-    },
     Task: {
       keyFields: ["execution", "id"],
       fields: {
         annotation: {
           merge(existing, incoming, { mergeObjects }) {
             return mergeObjects(existing, incoming);
+          },
+        },
+        taskLogs: {
+          merge(_, incoming) {
+            return incoming;
           },
         },
       },

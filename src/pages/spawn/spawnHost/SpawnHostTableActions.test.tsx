@@ -79,14 +79,11 @@ describe("copySSHCommandButton", () => {
         />
       </MockedProvider>
     );
-    const copySSHButtonWrapper = screen.queryByDataCy(
-      "copy-ssh-button-wrapper"
-    );
     const copySSHButton = screen.queryByDataCy("copy-ssh-button");
     expect(copySSHButton).toBeInTheDocument();
-    expect(copySSHButton).toBeDisabled();
+    expect(copySSHButton).toHaveAttribute("aria-disabled", "true");
 
-    userEvent.hover(copySSHButtonWrapper);
+    userEvent.hover(copySSHButton);
     await waitFor(() => {
       expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
     });
@@ -105,14 +102,11 @@ describe("copySSHCommandButton", () => {
         />
       </MockedProvider>
     );
-    const copySSHButtonWrapper = screen.queryByDataCy(
-      "copy-ssh-button-wrapper"
-    );
     const copySSHButton = screen.queryByDataCy("copy-ssh-button");
     expect(copySSHButton).toBeInTheDocument();
-    expect(copySSHButton).toBeDisabled();
+    expect(copySSHButton).toHaveAttribute("aria-disabled", "true");
 
-    userEvent.hover(copySSHButtonWrapper);
+    userEvent.hover(copySSHButton);
     await waitFor(() => {
       expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
     });

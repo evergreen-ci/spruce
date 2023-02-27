@@ -71,7 +71,7 @@ describe("createProjectField", () => {
       screen.getByRole("button", {
         name: "Create Project",
       })
-    ).toBeDisabled();
+    ).toHaveAttribute("aria-disabled", "true");
   });
 
   it("pre-fills the owner and repo", async () => {
@@ -104,7 +104,7 @@ describe("createProjectField", () => {
       screen.getByRole("button", {
         name: "Create Project",
       })
-    ).toBeDisabled();
+    ).toHaveAttribute("aria-disabled", "true");
   });
 
   it("disables the confirm button when project name field is missing", async () => {
@@ -119,7 +119,7 @@ describe("createProjectField", () => {
       screen.getByRole("button", {
         name: "Create Project",
       })
-    ).toBeDisabled();
+    ).toHaveAttribute("aria-disabled", "true");
   });
 
   it("disables the confirm button when project name contains a space", async () => {
@@ -134,7 +134,7 @@ describe("createProjectField", () => {
       screen.getByRole("button", {
         name: "Create Project",
       })
-    ).toBeDisabled();
+    ).toHaveAttribute("aria-disabled", "true");
   });
 
   it("enables the confirm button if the optional project id is empty", async () => {
