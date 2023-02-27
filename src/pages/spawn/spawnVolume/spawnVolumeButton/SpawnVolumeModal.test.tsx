@@ -1,11 +1,21 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
+import {
+  MyHostsQuery,
+  MyHostsQueryVariables,
+  MyVolumesQuery,
+  MyVolumesQueryVariables,
+  SpawnVolumeMutation,
+  SpawnVolumeMutationVariables,
+  SubnetAvailabilityZonesQuery,
+  SubnetAvailabilityZonesQueryVariables,
+} from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import { getUserMock } from "gql/mocks/getUser";
 import { SPAWN_VOLUME } from "gql/mutations";
 import {
   GET_MY_HOSTS,
   GET_SUBNET_AVAILABILITY_ZONES,
-  GET_USER,
   GET_MY_VOLUMES,
 } from "gql/queries";
 import {
@@ -15,6 +25,7 @@ import {
   waitFor,
 } from "test_utils";
 import { selectLGOption } from "test_utils/utils";
+import { ApolloMock } from "types/gql";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
 
 describe("spawnVolumeModal", () => {
@@ -57,7 +68,10 @@ describe("spawnVolumeModal", () => {
   }, 10000);
 
   it("form submission succeeds with default values", async () => {
-    const spawnVolumeMutation: MockedResponse = {
+    const spawnVolumeMutation: ApolloMock<
+      SpawnVolumeMutation,
+      SpawnVolumeMutationVariables
+    > = {
       request: {
         query: SPAWN_VOLUME,
         variables: {
@@ -96,7 +110,10 @@ describe("spawnVolumeModal", () => {
   }, 10000);
 
   it("form submission succeeds after adjusting inputs", async () => {
-    const spawnVolumeMutation: MockedResponse = {
+    const spawnVolumeMutation: ApolloMock<
+      SpawnVolumeMutation,
+      SpawnVolumeMutationVariables
+    > = {
       request: {
         query: SPAWN_VOLUME,
         variables: {
@@ -144,7 +161,7 @@ describe("spawnVolumeModal", () => {
   }, 10000);
 });
 
-const myHostsMock = {
+const myHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
   request: {
     query: GET_MY_HOSTS,
     variables: {},
@@ -153,7 +170,7 @@ const myHostsMock = {
     data: {
       myHosts: [
         {
-          expiration: "2021-10-28T22:37:40Z",
+          expiration: new Date("2021-10-28T22:37:40Z"),
           distro: {
             isVirtualWorkStation: true,
             id: "ubuntu1804-workstation",
@@ -196,7 +213,7 @@ const myHostsMock = {
             },
             {
               key: "owner",
-              value: "arjun.patel",
+              value: "taaaa.arst",
               canBeModified: false,
               __typename: "InstanceTag",
             },
@@ -230,16 +247,16 @@ const myHostsMock = {
           noExpiration: false,
           provider: "ec2-ondemand",
           status: "running",
-          startedBy: "arjun.patel",
+          startedBy: "arst.arst",
           tag: "evg-ubuntu1804-workstation-20201014223740-6478743249380995507",
           user: "ubuntu",
-          uptime: "2020-10-14T22:37:40Z",
+          uptime: new Date("2020-10-14T22:37:40Z"),
           displayName: "",
           availabilityZone: "us-east-1c",
           __typename: "Host",
         },
         {
-          expiration: "2021-10-28T22:37:40Z",
+          expiration: new Date("2021-10-28T22:37:40Z"),
           distro: {
             isVirtualWorkStation: true,
             id: "ubuntu1804-workstation",
@@ -282,7 +299,7 @@ const myHostsMock = {
             },
             {
               key: "owner",
-              value: "arjun.patel",
+              value: "asrta.asrt",
               canBeModified: false,
               __typename: "InstanceTag",
             },
@@ -316,10 +333,10 @@ const myHostsMock = {
           noExpiration: false,
           provider: "ec2-ondemand",
           status: "running",
-          startedBy: "arjun.patel",
+          startedBy: "asrt.arsts",
           tag: "evg-ubuntu1804-workstation-20201014223740-6478743249380995507",
           user: "ubuntu",
-          uptime: "2020-10-14T22:37:40Z",
+          uptime: new Date("2020-10-14T22:37:40Z"),
           displayName: "",
           availabilityZone: "us-east-1c",
           __typename: "Host",
@@ -329,77 +346,65 @@ const myHostsMock = {
   },
 };
 
-const myVolumesQueryMock = {
-  request: { query: GET_MY_VOLUMES, variables: {} },
-  result: {
-    data: {
-      myVolumes: [
-        {
-          id: "vol-0228202a15111023c",
-          displayName: "",
-          createdBy: "arjrsatun.psratatel",
-          type: "gp2",
-          availabilityZone: "us-east-1d",
-          size: 200,
-          expiration: "2020-11-12T18:19:39Z",
-          deviceName: null,
-          hostID: "i-0d5d29bf2e7ee342d",
-          host: {
-            displayName: "hai",
-            id: "i-0d5d29bf2e7ee342d",
+const myVolumesQueryMock: ApolloMock<MyVolumesQuery, MyVolumesQueryVariables> =
+  {
+    request: { query: GET_MY_VOLUMES, variables: {} },
+    result: {
+      data: {
+        myVolumes: [
+          {
+            id: "vol-0228202a15111023c",
+            displayName: "",
+            createdBy: "arjrsatun.psratatel",
+            type: "gp2",
+            availabilityZone: "us-east-1d",
+            size: 200,
+            expiration: new Date("2020-11-12T18:19:39Z"),
+            deviceName: null,
+            hostID: "i-0d5d29bf2e7ee342d",
+            host: {
+              displayName: "hai",
+              id: "i-0d5d29bf2e7ee342d",
+              noExpiration: false,
+              __typename: "Host",
+            },
             noExpiration: false,
-            __typename: "Host",
+            homeVolume: false,
+            creationTime: new Date("2020-11-05T18:19:39Z"),
+            migrating: false,
+            __typename: "Volume",
           },
-          noExpiration: false,
-          homeVolume: false,
-          creationTime: "2020-11-05T18:19:39Z",
-          migrating: false,
-          __typename: "Volume",
-        },
-        {
-          id: "vol-0d7b1973c71a7cccb",
-          displayName: "ramen",
-          createdBy: "arrastrjun.prastatel",
-          type: "gp2",
-          availabilityZone: "us-east-1d",
-          size: 100,
-          expiration: "2020-11-12T18:24:09Z",
-          deviceName: null,
-          hostID: "i-0d5d29bf2e7ee342d",
-          host: {
-            displayName: "hai",
-            id: "i-0d5d29bf2e7ee342d",
+          {
+            id: "vol-0d7b1973c71a7cccb",
+            displayName: "ramen",
+            createdBy: "arrastrjun.prastatel",
+            type: "gp2",
+            availabilityZone: "us-east-1d",
+            size: 100,
+            expiration: new Date("2020-11-12T18:24:09Z"),
+            deviceName: null,
+            hostID: "i-0d5d29bf2e7ee342d",
+            host: {
+              displayName: "hai",
+              id: "i-0d5d29bf2e7ee342d",
+              noExpiration: false,
+              __typename: "Host",
+            },
             noExpiration: false,
-            __typename: "Host",
+            homeVolume: false,
+            migrating: false,
+            creationTime: new Date("2020-11-05T18:18:36Z"),
+            __typename: "Volume",
           },
-          noExpiration: false,
-          homeVolume: false,
-          migrating: false,
-          creationTime: "2020-11-05T18:18:36Z",
-          __typename: "Volume",
-        },
-      ],
-    },
-  },
-};
-
-const userMock = {
-  request: {
-    query: GET_USER,
-    variables: {},
-  },
-  result: {
-    data: {
-      user: {
-        userId: "a",
-        displayName: "A",
-        emailAddress: "a@mongodb.com",
+        ],
       },
     },
-  },
-};
+  };
 
-const subnetZonesMock = {
+const subnetZonesMock: ApolloMock<
+  SubnetAvailabilityZonesQuery,
+  SubnetAvailabilityZonesQueryVariables
+> = {
   request: {
     query: GET_SUBNET_AVAILABILITY_ZONES,
     variables: {},
@@ -425,7 +430,7 @@ const subnetZonesMock = {
 };
 
 const baseMocks: MockedResponse[] = [
-  userMock,
+  getUserMock,
   subnetZonesMock,
   myHostsMock,
   getSpruceConfigMock,

@@ -2,9 +2,18 @@ import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
+import {
+  CopyProjectMutation,
+  CopyProjectMutationVariables,
+  ProjectSettingsQuery,
+  ProjectSettingsQueryVariables,
+  RepoSettingsQuery,
+  RepoSettingsQueryVariables,
+} from "gql/generated/types";
 import { COPY_PROJECT } from "gql/mutations";
 import { GET_PROJECT_SETTINGS, GET_REPO_SETTINGS } from "gql/queries";
 import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
+import { ApolloMock } from "types/gql";
 import { CopyProjectModal } from "./CopyProjectModal";
 
 const newProjectIdentifier = "new_evergreen";
@@ -78,7 +87,10 @@ describe("copyProjectField", () => {
   });
 
   it("submits the modal when a project name and id are provided", async () => {
-    const mockWithId = {
+    const mockWithId: ApolloMock<
+      CopyProjectMutation,
+      CopyProjectMutationVariables
+    > = {
       request: {
         query: COPY_PROJECT,
         variables: {
@@ -121,7 +133,10 @@ describe("copyProjectField", () => {
   });
 
   it("shows a warning toast when an error and data are returned", async () => {
-    const mockWithError = {
+    const mockWithError: ApolloMock<
+      CopyProjectMutation,
+      CopyProjectMutationVariables
+    > = {
       request: {
         query: COPY_PROJECT,
         variables: {
@@ -163,7 +178,10 @@ describe("copyProjectField", () => {
   });
 
   it("shows a warning toast when no data is returned", async () => {
-    const mockWithError = {
+    const mockWithError: ApolloMock<
+      CopyProjectMutation,
+      CopyProjectMutationVariables
+    > = {
       request: {
         query: COPY_PROJECT,
         variables: {
@@ -200,7 +218,10 @@ describe("copyProjectField", () => {
   });
 });
 
-const copyProjectMock = {
+const copyProjectMock: ApolloMock<
+  CopyProjectMutation,
+  CopyProjectMutationVariables
+> = {
   request: {
     query: COPY_PROJECT,
     variables: {
@@ -220,7 +241,10 @@ const copyProjectMock = {
   },
 };
 
-const projectSettingsMock = {
+const projectSettingsMock: ApolloMock<
+  ProjectSettingsQuery,
+  ProjectSettingsQueryVariables
+> = {
   request: {
     query: GET_PROJECT_SETTINGS,
     variables: {
@@ -229,21 +253,123 @@ const projectSettingsMock = {
   },
   result: {
     data: {
-      projectSettings: {},
+      projectSettings: {
+        projectRef: {
+          id: "asrt",
+          identifier: "asrt",
+          repoRefId: "arst",
+          enabled: true,
+          owner: "arst-ci",
+          repo: "arst",
+          branch: "main",
+          displayName: "arst",
+          batchTime: 60,
+          remotePath: ".arst.yml",
+          spawnHostScriptPath: "",
+          dispatchingDisabled: false,
+          versionControlEnabled: false,
+          deactivatePrevious: true,
+          repotrackerDisabled: false,
+          stepbackDisabled: null,
+          patchingDisabled: false,
+          taskSync: {
+            configEnabled: false,
+            patchEnabled: false,
+            __typename: "TaskSyncOptions",
+          },
+          disabledStatsCache: false,
+          __typename: "Project",
+          private: false,
+          restricted: false,
+          admins: ["admin"],
+          buildBaronSettings: {
+            ticketCreateProject: "suv",
+            ticketSearchProjects: ["suv"],
+            __typename: "BuildBaronSettings",
+          },
+          taskAnnotationSettings: {
+            jiraCustomFields: null,
+            fileTicketWebhook: {
+              endpoint: "",
+              secret: "",
+              __typename: "Webhook",
+            },
+            __typename: "TaskAnnotationSettings",
+          },
+          perfEnabled: false,
+          notifyOnBuildFailure: false,
+          patchTriggerAliases: [],
+          githubTriggerAliases: [],
+          workstationConfig: {
+            gitClone: false,
+            setupCommands: null,
+            __typename: "WorkstationConfig",
+          },
+          triggers: [
+            {
+              project: "asrt",
+              level: "task",
+              buildVariantRegex: "",
+              taskRegex: "dist",
+              status: "success",
+              dateCutoff: 1,
+              configFile: ".arst.yml",
+              alias: "e2e",
+              __typename: "TriggerAlias",
+            },
+          ],
+          periodicBuilds: [],
+          prTestingEnabled: true,
+          manualPrTestingEnabled: null,
+          githubChecksEnabled: false,
+          gitTagVersionsEnabled: true,
+          gitTagAuthorizedUsers: ["user"],
+          gitTagAuthorizedTeams: ["team"],
+          commitQueue: {
+            enabled: true,
+            requireSigned: false,
+            requiredApprovalCount: 0,
+            mergeMethod: "squash",
+            message: "",
+            __typename: "CommitQueueParams",
+          },
+        },
+        subscriptions: [],
+        vars: {
+          vars: {},
+          privateVars: [],
+          adminOnlyVars: [],
+          __typename: "ProjectVars",
+        },
+        githubWebhooksEnabled: true,
+        __typename: "ProjectSettings",
+        aliases: [
+          {
+            id: "arst",
+            alias: "arst",
+            gitTag: "v[0-9]+\\.[0-9]+\\.[0-9]+",
+            variant: "ubuntu[0-9]+04",
+            task: "arst",
+            remotePath: "",
+            variantTags: [],
+            taskTags: [],
+            __typename: "ProjectAlias",
+          },
+        ],
+      },
     },
   },
 };
 
-const repoSettingsMock = {
+const repoSettingsMock: ApolloMock<
+  RepoSettingsQuery,
+  RepoSettingsQueryVariables
+> = {
   request: {
     query: GET_REPO_SETTINGS,
     variables: {
-      id: newProjectIdentifier,
+      repoId: newProjectIdentifier,
     },
   },
-  result: {
-    data: {
-      repoSettings: {},
-    },
-  },
+  result: { data: { repoSettings: { githubWebhooksEnabled: true } } },
 };

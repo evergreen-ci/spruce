@@ -1,6 +1,12 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { GraphQLError } from "graphql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
+import {
+  CreateProjectMutation,
+  CreateProjectMutationVariables,
+  GetGithubOrgsQuery,
+  GetGithubOrgsQueryVariables,
+} from "gql/generated/types";
 import { CREATE_PROJECT } from "gql/mutations";
 import { GET_GITHUB_ORGS } from "gql/queries";
 import {
@@ -10,6 +16,7 @@ import {
   waitFor,
 } from "test_utils";
 import { selectLGOption } from "test_utils/utils";
+import { ApolloMock } from "types/gql";
 import { CreateProjectModal } from "./CreateProjectModal";
 
 const defaultOwner = "evergreen-ci";
@@ -162,7 +169,10 @@ describe("createProjectField", () => {
   });
 
   it("form submission succeeds when all fields are updated", async () => {
-    const mockWithId = {
+    const mockWithId: ApolloMock<
+      CreateProjectMutation,
+      CreateProjectMutationVariables
+    > = {
       request: {
         query: CREATE_PROJECT,
         variables: {
@@ -277,7 +287,10 @@ describe("createProjectField", () => {
   });
 });
 
-const createProjectMock = {
+const createProjectMock: ApolloMock<
+  CreateProjectMutation,
+  CreateProjectMutationVariables
+> = {
   request: {
     query: CREATE_PROJECT,
     variables: {
@@ -298,7 +311,10 @@ const createProjectMock = {
   },
 };
 
-const getGithubOrgsMock = {
+const getGithubOrgsMock: ApolloMock<
+  GetGithubOrgsQuery,
+  GetGithubOrgsQueryVariables
+> = {
   request: {
     query: GET_GITHUB_ORGS,
   },

@@ -3,7 +3,7 @@ import { environmentalVariables } from "utils";
 
 const { getLobsterURL, getParsleyUrl, getUiUrl } = environmentalVariables;
 
-export const wikiUrl = "https://github.com/evergreen-ci/evergreen/wiki";
+export const wikiUrl = "https://docs.devprod.prod.corp.mongodb.com/evergreen";
 
 export const projectDistroSettingsDocumentationUrl = `${wikiUrl}/Project-and-Distro-Settings`;
 
@@ -20,7 +20,7 @@ export const gitTagAliasesDocumentationUrl = `${projectDistroSettingsDocumentati
 export const githubChecksAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#github-checks-aliases`;
 
 export const cliDocumentationUrl =
-  "https://github.com/evergreen-ci/evergreen/wiki/Using-the-Command-Line-Tool";
+  "https://docs.devprod.prod.corp.mongodb.com/evergreen/Using-the-Command-Line-Tool";
 
 export const windowsPasswordRulesURL =
   "https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc786468(v=ws.10)?redirectedfrom=MSDN";

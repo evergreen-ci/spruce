@@ -1,9 +1,12 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
+import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { GET_MY_HOSTS } from "gql/queries";
 import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
+import { ApolloMock } from "types/gql";
 import { HostStatus } from "types/host";
+import { MyHost } from "types/spawn";
 import { SpawnHostButton } from "./SpawnHostButton";
 
 describe("spawnHostButton", () => {
@@ -58,8 +61,8 @@ describe("spawnHostButton", () => {
   });
 });
 
-const baseSpawnHost = {
-  expiration: "2021-10-28T22:37:40Z",
+const baseSpawnHost: Omit<MyHost, "id" | "status"> = {
+  expiration: new Date("2021-10-28T22:37:40Z"),
   distro: {
     isVirtualWorkStation: true,
     id: "ubuntu1804-workstation",
@@ -79,64 +82,64 @@ const baseSpawnHost = {
     {
       displayName: "",
       id: "vol-0cf616375140c067e",
-      migrating: "false",
+      migrating: false,
       __typename: "Volume",
     },
   ],
   noExpiration: false,
   provider: "ec2-ondemand",
-  startedBy: "arjun.patel",
+  startedBy: "stssss.arst",
   tag: "evg-ubuntu1804-workstation-20201014223740-6478743249380995507",
   user: "ubuntu",
-  uptime: "2020-10-14T22:37:40Z",
+  uptime: new Date("2020-10-14T22:37:40Z"),
   displayName: "",
   availabilityZone: "us-east-1c",
   __typename: "Host",
 };
 
-const spawnHost1 = {
+const spawnHost1: MyHost = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91079",
   status: HostStatus.Running,
 };
 
-const spawnHost2 = {
+const spawnHost2: MyHost = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91080",
   status: HostStatus.Running,
 };
 
-const spawnHost3 = {
+const spawnHost3: MyHost = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91081",
   status: HostStatus.Stopped,
 };
 
-const spawnHost4 = {
+const spawnHost4: MyHost = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91082",
   status: HostStatus.Starting,
 };
 
-const spawnHost5 = {
+const spawnHost5: MyHost = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91083",
   status: HostStatus.Provisioning,
 };
 
-const spawnHost6 = {
+const spawnHost6: MyHost = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91084",
   status: HostStatus.Running,
 };
 
-const terminatedHost = {
+const terminatedHost: MyHost = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91085",
   status: HostStatus.Terminated,
 };
 
-const sixHostsMock = {
+const sixHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
   request: {
     query: GET_MY_HOSTS,
     variables: {},
@@ -155,7 +158,7 @@ const sixHostsMock = {
   },
 };
 
-const twoHostsMock = {
+const twoHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
   request: {
     query: GET_MY_HOSTS,
     variables: {},
@@ -167,7 +170,10 @@ const twoHostsMock = {
   },
 };
 
-const fiveHostsWithTerminatedMock = {
+const fiveHostsWithTerminatedMock: ApolloMock<
+  MyHostsQuery,
+  MyHostsQueryVariables
+> = {
   request: {
     query: GET_MY_HOSTS,
     variables: {},
