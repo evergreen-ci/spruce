@@ -11,6 +11,7 @@ query Host($id: String!) {
       id
       name
     }
+    ami
     lastCommunicationTime
   }
 }
