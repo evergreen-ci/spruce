@@ -42,20 +42,18 @@ export const SpawnHostButton: React.VFC = () => {
         triggerEvent="hover"
         popoverZIndex={zIndex.tooltip}
         trigger={
-          <div>
-            <PlusButton
-              disabled={reachedMaxNumHosts}
-              onClick={() => {
-                setOpenModal(true);
-                spawnAnalytics.sendEvent({
-                  name: "Opened the Spawn Host Modal",
-                });
-              }}
-              data-cy="spawn-host-button"
-            >
-              Spawn a host
-            </PlusButton>
-          </div>
+          <PlusButton
+            disabled={reachedMaxNumHosts}
+            onClick={() => {
+              setOpenModal(true);
+              spawnAnalytics.sendEvent({
+                name: "Opened the Spawn Host Modal",
+              });
+            }}
+            data-cy="spawn-host-button"
+          >
+            Spawn a host
+          </PlusButton>
         }
         enabled={reachedMaxNumHosts}
       >

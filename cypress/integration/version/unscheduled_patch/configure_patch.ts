@@ -123,7 +123,7 @@ describe("Configure Patch Page", () => {
     });
     it("Schedule button should be disabled when no tasks are selected and enabled when they are", () => {
       cy.dataCy("task-checkbox").should("not.be.checked");
-      cy.dataCy("schedule-patch").should("be.disabled");
+      cy.dataCy("schedule-patch").should("have.attr", "aria-disabled", "true");
       cy.dataCy("task-checkbox").check({ force: true });
 
       cy.dataCy("schedule-patch").should("not.be.disabled");

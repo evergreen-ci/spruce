@@ -3668,17 +3668,17 @@
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/box/-/box-3.1.1.tgz#3d2cc09ac5105e19d2a49da2f2065b45cc8e4722"
   integrity sha512-zA6Ors7GV19DTVLqhQdg3jvypUNlyNJNVrS2XytmsPvR5XJuh5saNLmi9zw1aNsN7hETUCxj4JH1QxDEgaYTqg==
 
-"@leafygreen-ui/button@19.0.1", "@leafygreen-ui/button@^19.0.1":
-  version "19.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-19.0.1.tgz#76b927abcd246d23b99963aa73f2cec3eb465526"
-  integrity sha512-RXD+Y37LSL3Wc2gDAqIOCznYcuwxWpm/KY7w2wEie9Okj0OFPf6v5haBTvtrBF8opq0RepXM/KYEWVgKYVOWoQ==
+"@leafygreen-ui/button@20.0.0":
+  version "20.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-20.0.0.tgz#862ae0c66b8d5d0d3575caf8093b74c17bd62e9e"
+  integrity sha512-MRLgkUE3bFum5rP4+g2zLPvdRMRN9TgORnbNU4E5vIug11/jlKeLLh2M4yPJo8Ko6bUEeDcW5sb5OBo0SFmVqA==
   dependencies:
     "@leafygreen-ui/box" "^3.1.1"
     "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/ripple" "^1.1.6"
-    "@leafygreen-ui/tokens" "^1.4.0"
+    "@leafygreen-ui/lib" "^10.1.0"
+    "@leafygreen-ui/palette" "^3.4.7"
+    "@leafygreen-ui/ripple" "^1.1.8"
+    "@leafygreen-ui/tokens" "^2.0.0"
     polished "^4.2.2"
 
 "@leafygreen-ui/button@^19.0.0":
@@ -3692,6 +3692,19 @@
     "@leafygreen-ui/palette" "^3.4.4"
     "@leafygreen-ui/ripple" "^1.1.5"
     "@leafygreen-ui/tokens" "^1.3.4"
+
+"@leafygreen-ui/button@^19.0.1":
+  version "19.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-19.0.1.tgz#76b927abcd246d23b99963aa73f2cec3eb465526"
+  integrity sha512-RXD+Y37LSL3Wc2gDAqIOCznYcuwxWpm/KY7w2wEie9Okj0OFPf6v5haBTvtrBF8opq0RepXM/KYEWVgKYVOWoQ==
+  dependencies:
+    "@leafygreen-ui/box" "^3.1.1"
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/lib" "^10.0.0"
+    "@leafygreen-ui/palette" "^3.4.4"
+    "@leafygreen-ui/ripple" "^1.1.6"
+    "@leafygreen-ui/tokens" "^1.4.0"
+    polished "^4.2.2"
 
 "@leafygreen-ui/button@^19.0.4":
   version "19.0.4"

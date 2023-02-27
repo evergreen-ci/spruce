@@ -173,7 +173,7 @@ const ProjectSettings: React.VFC = () => {
           />
         </SideNavGroup>
       </SideNav>
-      <PageWrapper>
+      <PageWrapper data-cy="project-settings-page">
         {project ? (
           <ProjectSettingsTabs
             projectData={projectData?.projectSettings}
