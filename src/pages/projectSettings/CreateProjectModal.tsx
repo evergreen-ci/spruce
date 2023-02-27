@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { Skeleton } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -42,27 +42,52 @@ export const CreateProjectModal: React.VFC<Props> = ({
   });
   const [hasError, setHasError] = useState(true);
 
-  const { data } = useQuery<GetGithubOrgsQuery>(GET_GITHUB_ORGS, {
+  const { data: gitOrgs } = useQuery<GetGithubOrgsQuery>(GET_GITHUB_ORGS, {
     skip: !open,
   });
-  const { spruceConfig: { githubOrgs = [] } = {} } = data ?? {};
+  const { spruceConfig: { githubOrgs = [] } = {} } = gitOrgs ?? {};
 
   const form = modalFormDefinition(githubOrgs);
 
-  const [createProject] = useMutation<
+  const [createProject, { called, data, error, loading }] = useMutation<
     CreateProjectMutation,
     CreateProjectMutationVariables
-  >(CREATE_PROJECT, {
-    onCompleted({ createProject: { identifier } }) {
-      dispatchToast.success(`Successfully created the project: ${identifier}`);
+  >(CREATE_PROJECT, { errorPolicy: "all" });
+
+  useEffect(() => {
+    // onCompleted and onError don't provide sufficient information when used with errorPolicy: 'all', so use hook to manage behavior after confirming modal.
+    // https://github.com/apollographql/apollo-client/issues/6966
+    if (!called || loading) {
+      return;
+    }
+
+    const identifier = data?.createProject?.identifier;
+    if (identifier) {
+      if (error) {
+        dispatchToast.warning(
+          `The project was successfully created with the following errors: ${error.message}.`,
+          true,
+          { shouldTimeout: false }
+        );
+      } else {
+        dispatchToast.success(
+          `Successfully created the project: ${identifier}`
+        );
+      }
       navigate(getProjectSettingsRoute(identifier), { replace: true });
-    },
-    onError(err) {
+    } else if (error) {
       dispatchToast.error(
-        `There was an error creating the project: ${err.message}`
+        `There was an error creating the project: ${error?.message}`
       );
-    },
-  });
+    }
+  }, [
+    called,
+    data?.createProject?.identifier,
+    error,
+    loading,
+    navigate,
+    dispatchToast,
+  ]);
 
   const onConfirm = () => {
     createProject({
