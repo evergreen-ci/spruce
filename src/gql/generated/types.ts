@@ -2289,6 +2289,7 @@ export type Version = {
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
   childVersions?: Maybe<Array<Maybe<Version>>>;
   createTime: Scalars["Time"];
+  errors: Array<Scalars["String"]>;
   finishTime?: Maybe<Scalars["Time"]>;
   id: Scalars["String"];
   isPatch: Scalars["Boolean"];
@@ -2312,6 +2313,7 @@ export type Version = {
   tasks: VersionTasks;
   upstreamProject?: Maybe<UpstreamProject>;
   versionTiming?: Maybe<VersionTiming>;
+  warnings: Array<Scalars["String"]>;
 };
 
 /** Version models a commit within a project. */
@@ -7441,27 +7443,23 @@ export type VersionQuery = {
   version: {
     __typename?: "Version";
     id: string;
-    createTime: Date;
-    startTime?: Maybe<Date>;
-    finishTime?: Maybe<Date>;
-    revision: string;
-    author: string;
-    status: string;
-    order: number;
-    repo: string;
-    project: string;
     activated?: Maybe<boolean>;
-    message: string;
+    author: string;
+    createTime: Date;
+    errors: Array<string>;
+    finishTime?: Maybe<Date>;
     isPatch: boolean;
-    taskCount?: Maybe<number>;
+    message: string;
+    order: number;
+    project: string;
     projectIdentifier: string;
+    repo: string;
+    revision: string;
+    startTime?: Maybe<Date>;
+    status: string;
+    taskCount?: Maybe<number>;
+    warnings: Array<string>;
     baseVersion?: Maybe<{ __typename?: "Version"; id: string }>;
-    versionTiming?: Maybe<{
-      __typename?: "VersionTiming";
-      makespan?: Maybe<number>;
-      timeTaken?: Maybe<number>;
-    }>;
-    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     manifest?: Maybe<{
       __typename?: "Manifest";
       id: string;
@@ -7471,6 +7469,31 @@ export type VersionQuery = {
       isBase: boolean;
       moduleOverrides?: Maybe<{ [key: string]: any }>;
       modules?: Maybe<any>;
+    }>;
+    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+    patch?: Maybe<{
+      __typename?: "Patch";
+      id: string;
+      alias?: Maybe<string>;
+      canEnqueueToCommitQueue: boolean;
+      commitQueuePosition?: Maybe<number>;
+      patchNumber: number;
+      childPatches?: Maybe<
+        Array<{
+          __typename?: "Patch";
+          id: string;
+          githash: string;
+          projectIdentifier: string;
+          status: string;
+          taskCount?: Maybe<number>;
+          versionFull?: Maybe<{
+            __typename?: "Version";
+            id: string;
+            status: string;
+            baseVersion?: Maybe<{ __typename?: "Version"; id: string }>;
+          }>;
+        }>
+      >;
     }>;
     previousVersion?: Maybe<{
       __typename?: "Version";
@@ -7482,29 +7505,10 @@ export type VersionQuery = {
       repo: string;
       owner: string;
     }>;
-    patch?: Maybe<{
-      __typename?: "Patch";
-      id: string;
-      patchNumber: number;
-      alias?: Maybe<string>;
-      commitQueuePosition?: Maybe<number>;
-      canEnqueueToCommitQueue: boolean;
-      childPatches?: Maybe<
-        Array<{
-          __typename?: "Patch";
-          id: string;
-          githash: string;
-          projectIdentifier: string;
-          taskCount?: Maybe<number>;
-          status: string;
-          versionFull?: Maybe<{
-            __typename?: "Version";
-            id: string;
-            status: string;
-            baseVersion?: Maybe<{ __typename?: "Version"; id: string }>;
-          }>;
-        }>
-      >;
+    versionTiming?: Maybe<{
+      __typename?: "VersionTiming";
+      makespan?: Maybe<number>;
+      timeTaken?: Maybe<number>;
     }>;
     upstreamProject?: Maybe<{
       __typename?: "UpstreamProject";

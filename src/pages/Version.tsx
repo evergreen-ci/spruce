@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLazyQuery, useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
 import { useParams, Navigate } from "react-router-dom";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageTitle } from "components/PageTitle";
@@ -30,6 +31,7 @@ import { useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { shortenGithash, githubPRLinkify } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
+import { WarningBanner, ErrorBanner } from "./version/Banners";
 import VersionPageBreadcrumbs from "./version/Breadcrumbs";
 import {
   ActionButtons,
@@ -135,7 +137,8 @@ export const VersionPage: React.VFC = () => {
 
   // If it's a version, proceed with loading the version page.
   const { version } = versionData || {};
-  const { status, patch, isPatch, revision, message, order } = version || {};
+  const { status, patch, isPatch, revision, message, order, warnings, errors } =
+    version || {};
 
   const {
     commitQueuePosition = null,
@@ -157,6 +160,11 @@ export const VersionPage: React.VFC = () => {
 
   return (
     <PageWrapper data-cy="version-page">
+      <BannerWrapper>
+        {errors.length > 0 && <ErrorBanner errors={errors} />}
+        {warnings.length > 0 && <WarningBanner warnings={warnings} />}
+      </BannerWrapper>
+
       {version && (
         <VersionPageBreadcrumbs
           patchNumber={patchNumber}
@@ -197,3 +205,8 @@ export const VersionPage: React.VFC = () => {
     </PageWrapper>
   );
 };
+
+const BannerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
