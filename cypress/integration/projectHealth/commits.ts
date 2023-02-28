@@ -71,12 +71,20 @@ describe("commits page", () => {
     );
   });
   it("Should be able to paginate between commits", () => {
-    cy.dataCy("prev-page-button").should("be.disabled");
-    cy.dataCy("next-page-button").should("not.be.disabled");
+    cy.dataCy("prev-page-button").should("have.attr", "aria-disabled", "true");
+    cy.dataCy("next-page-button").should(
+      "not.have.attr",
+      "aria-disabled",
+      "true"
+    );
     cy.dataCy("next-page-button").click();
-    cy.dataCy("prev-page-button").should("not.be.disabled");
+    cy.dataCy("prev-page-button").should(
+      "not.have.attr",
+      "aria-disabled",
+      "true"
+    );
     cy.dataCy("prev-page-button").click();
-    cy.dataCy("prev-page-button").should("be.disabled");
+    cy.dataCy("prev-page-button").should("have.attr", "aria-disabled", "true");
   });
   it("should only show matching requester filters", () => {
     cy.dataCy("requester-select").click();

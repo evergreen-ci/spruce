@@ -38,9 +38,8 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
     </div>
     <button
       aria-disabled={false}
-      className="lg-ui-button-0000 leafygreen-ui-m55msn"
+      className="lg-ui-button-0000 leafygreen-ui-iff687"
       data-cy="clear-all-filters"
-      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -63,7 +62,7 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
       >
         <label
           className="leafygreen-ui-gr5280"
-          htmlFor="textinput-13"
+          htmlFor="textinput-7"
         >
           key
         </label>
@@ -76,7 +75,7 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
           autoComplete="on"
           className="leafygreen-ui-6i61vl"
           disabled={false}
-          id="textinput-13"
+          id="textinput-7"
           onBlur={[Function]}
           onChange={[Function]}
           placeholder="key"
@@ -97,7 +96,7 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
       >
         <label
           className="leafygreen-ui-gr5280"
-          htmlFor="textinput-14"
+          htmlFor="textinput-8"
         >
           value
         </label>
@@ -110,7 +109,7 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
           autoComplete="on"
           className="leafygreen-ui-6i61vl"
           disabled={false}
-          id="textinput-14"
+          id="textinput-8"
           onBlur={[Function]}
           onChange={[Function]}
           placeholder="value"
@@ -125,8 +124,7 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
     </div>
     <button
       aria-disabled={false}
-      className="lg-ui-button-0000 leafygreen-ui-n2d19n css-1ck35jk-StyledButton eqgjs5q0"
-      disabled={false}
+      className="lg-ui-button-0000 leafygreen-ui-10g1wb5 css-1ck35jk-StyledButton eqgjs5q0"
       onClick={[Function]}
       type="button"
     >

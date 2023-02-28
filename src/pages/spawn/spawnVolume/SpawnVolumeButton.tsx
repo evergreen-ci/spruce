@@ -30,20 +30,18 @@ export const SpawnVolumeButton: React.VFC<SpawnVolumeButtonProps> = ({
         triggerEvent="hover"
         popoverZIndex={zIndex.tooltip}
         trigger={
-          <div>
-            <PlusButton
-              data-cy="spawn-volume-btn"
-              disabled={reachedMaxVolumeSize}
-              onClick={() => {
-                setOpenModal(true);
-                spawnAnalytics.sendEvent({
-                  name: "Opened the Spawn Volume Modal",
-                });
-              }}
-            >
-              Spawn a volume
-            </PlusButton>
-          </div>
+          <PlusButton
+            data-cy="spawn-volume-btn"
+            disabled={reachedMaxVolumeSize}
+            onClick={() => {
+              setOpenModal(true);
+              spawnAnalytics.sendEvent({
+                name: "Opened the Spawn Volume Modal",
+              });
+            }}
+          >
+            Spawn a volume
+          </PlusButton>
         }
         enabled={reachedMaxVolumeSize}
       >
