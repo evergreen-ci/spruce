@@ -146,7 +146,6 @@
     "@storybook/builder-vite": "0.4.0",
     "@storybook/react": "^6.5.9",
     "@storybook/testing-library": "^0.0.13",
-    "@svgr/webpack": "5.4.0",
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "12.1.5",
     "@testing-library/react-hooks": "8.0.0",
