@@ -26,4 +26,15 @@ describe("warningBanner", () => {
     });
     expect(screen.getAllByRole("listitem")).toHaveLength(3);
   });
+
+  it("should be possible to dismiss the banner", async () => {
+    render(<WarningBanner warnings={warnings} />);
+    expect(
+      screen.getByDataCy("configuration-warnings-banner")
+    ).toBeInTheDocument();
+    userEvent.click(screen.getByLabelText("X Icon"));
+    await waitFor(() => {
+      expect(screen.queryByDataCy("configuration-warnings-banner")).toBeNull();
+    });
+  });
 });

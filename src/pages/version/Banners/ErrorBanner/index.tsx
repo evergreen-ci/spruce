@@ -15,7 +15,7 @@ interface ErrorBannerProps {
 }
 
 const ErrorBanner: React.VFC<ErrorBannerProps> = ({ errors }) => {
-  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const errorTitle =
     errors.length === 1
@@ -31,7 +31,7 @@ const ErrorBanner: React.VFC<ErrorBannerProps> = ({ errors }) => {
             <br />
             <ModalTrigger
               data-cy="configuration-errors-modal-trigger"
-              onClick={() => setShowErrorModal(true)}
+              onClick={() => setShowModal(true)}
             >
               See all errors
             </ModalTrigger>
@@ -40,8 +40,8 @@ const ErrorBanner: React.VFC<ErrorBannerProps> = ({ errors }) => {
       </Callout>
       <DisplayModal
         data-cy="configuration-errors-modal"
-        open={showErrorModal}
-        setOpen={setShowErrorModal}
+        open={showModal}
+        setOpen={setShowModal}
         title={
           <TitleWrapper>
             <Icon glyph="Warning" size="xlarge" />

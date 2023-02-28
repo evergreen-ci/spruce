@@ -15,23 +15,28 @@ interface WarningBannerProps {
 }
 
 const WarningBanner: React.VFC<WarningBannerProps> = ({ warnings }) => {
-  const [showWarningModal, setShowWarningModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showBanner, setShowBanner] = useState(true);
 
   const warningTitle =
     warnings.length === 1
       ? "1 warning in configuration file"
       : `${warnings.length} warnings in configuration file`;
 
-  return (
+  return showBanner ? (
     <BannerContainer data-cy="configuration-warnings-banner">
-      <Banner variant="warning">
+      <Banner
+        variant="warning"
+        dismissible
+        onClose={() => setShowBanner(false)}
+      >
         <b>{warningTitle}</b>
         <br />
         <span>
           See all warnings{" "}
           <ModalTrigger
             data-cy="configuration-warnings-modal-trigger"
-            onClick={() => setShowWarningModal(true)}
+            onClick={() => setShowModal(true)}
           >
             here
           </ModalTrigger>
@@ -39,8 +44,8 @@ const WarningBanner: React.VFC<WarningBannerProps> = ({ warnings }) => {
       </Banner>
       <DisplayModal
         data-cy="configuration-warnings-modal"
-        open={showWarningModal}
-        setOpen={setShowWarningModal}
+        open={showModal}
+        setOpen={setShowModal}
         title={
           <TitleWrapper>
             <Icon glyph="ImportantWithCircle" size="xlarge" />
@@ -55,7 +60,7 @@ const WarningBanner: React.VFC<WarningBannerProps> = ({ warnings }) => {
         </OrderedList>
       </DisplayModal>
     </BannerContainer>
-  );
+  ) : null;
 };
 
 export default WarningBanner;
