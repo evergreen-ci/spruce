@@ -22,6 +22,7 @@ export const useBreadcrumbRoot = (
             link: "myPatches",
           });
         },
+        "data-cy": "bc-my-patches",
       }
     : {
         to: getCommitsRoute(projectIdentifier),
