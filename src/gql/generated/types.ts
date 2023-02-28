@@ -1871,9 +1871,15 @@ export type Task = {
   taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
   /** taskLogs returns the tail 100 lines of the task's logs. */
   taskLogs: TaskLogs;
+  tests: TaskTestResult;
   timeTaken?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
   versionMetadata: Version;
+};
+
+/** Task models a task, the simplest unit of execution for Evergreen. */
+export type TaskTestsArgs = {
+  opts?: InputMaybe<TestFilterOptions>;
 };
 
 export type TaskAnnotationSettings = {
@@ -2089,6 +2095,19 @@ export type TestFilter = {
   testStatus: Scalars["String"];
 };
 
+/**
+ * TestFilterOptions is an input for the task.Tests query.
+ * It's used to filter, sort, and paginate test results of a task.
+ */
+export type TestFilterOptions = {
+  groupID?: Scalars["String"];
+  limit?: Scalars["Int"];
+  page?: Scalars["Int"];
+  sort?: InputMaybe<Array<TestSortOptions>>;
+  statuses?: InputMaybe<Array<Scalars["String"]>>;
+  testName?: Scalars["String"];
+};
+
 export type TestLog = {
   __typename?: "TestLog";
   lineNum?: Maybe<Scalars["Int"]>;
@@ -2122,6 +2141,15 @@ export enum TestSortCategory {
   Status = "STATUS",
   TestName = "TEST_NAME",
 }
+
+/**
+ * TestSortOptions is an input for the task.Tests query.
+ * It's used to define sort criteria for test results of a task.
+ */
+export type TestSortOptions = {
+  direction: SortDirection;
+  sortBy: TestSortCategory;
+};
 
 export type TicketFields = {
   __typename?: "TicketFields";
