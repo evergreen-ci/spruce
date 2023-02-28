@@ -1,4 +1,14 @@
 {
+    "presets": [
+        "react-app",
+        [
+            "@babel/preset-react",
+            {
+                "runtime": "automatic",
+                "importSource": "@emotion/react"
+            }
+        ]
+    ],
     "plugins": [
         [
             "import",
