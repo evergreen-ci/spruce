@@ -205,7 +205,6 @@
     "react-test-renderer": "17.0.1",
     "replace-in-file": "6.3.5",
     "resolve": "1.18.1",
-    "resolve-url-loader": "^3.1.2",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "rollup-plugin-visualizer": "^5.6.0",
     "semver": "7.3.2",
