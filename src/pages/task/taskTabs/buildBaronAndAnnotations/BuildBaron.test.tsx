@@ -14,9 +14,9 @@ import { getUserMock } from "gql/mocks/getUser";
 import { FILE_JIRA_TICKET } from "gql/mutations";
 import { GET_BUILD_BARON, GET_CREATED_TICKETS } from "gql/queries";
 import {
-  fireEvent,
   renderWithRouterMatch as render,
   screen,
+  userEvent,
   waitFor,
 } from "test_utils";
 import { ApolloMock } from "types/gql";
@@ -76,9 +76,9 @@ describe("buildBaronContent", () => {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
-    fireEvent.click(screen.queryByDataCy("file-ticket-button"));
+    userEvent.click(screen.queryByDataCy("file-ticket-button"));
     expect(screen.getByText("File Ticket")).toBeInTheDocument();
-    fireEvent.click(screen.getByText("File Ticket"));
+    userEvent.click(screen.getByText("File Ticket"));
 
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledWith(

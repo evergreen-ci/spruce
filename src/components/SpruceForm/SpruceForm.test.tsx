@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, userEvent, waitFor } from "test_utils";
+import { render, screen, userEvent, waitFor } from "test_utils";
 import { SpruceForm, SpruceFormContainer } from ".";
 
 describe("spruce form", () => {
@@ -15,7 +15,6 @@ describe("spruce form", () => {
       </SpruceFormContainer>
     );
     expect(screen.getByLabelText("Project Cloning Method")).toBeInTheDocument();
-
     expect(screen.queryByText("Username Label")).not.toBeInTheDocument();
     expect(screen.queryByDataCy("add-button")).toHaveTextContent("New User");
     expect(screen.getAllByRole("heading", { level: 3 })[1]).toHaveTextContent(
@@ -39,18 +38,14 @@ describe("spruce form", () => {
         />
       </SpruceFormContainer>
     );
-    fireEvent.change(screen.queryByDataCy("valid-projects-input"), {
-      target: { value: "new value" },
-    });
+    userEvent.clear(screen.queryByDataCy("valid-projects-input"));
+    userEvent.type(screen.queryByDataCy("valid-projects-input"), "new value");
     userEvent.click(screen.queryByDataCy("add-button"));
     await waitFor(() =>
       expect(screen.queryAllByDataCy("new-user-input")).toHaveLength(2)
     );
-    fireEvent.change(screen.queryAllByDataCy("new-user-input")[0], {
-      target: { value: "new-user" },
-    });
-    // eslint-disable-next-line jest/prefer-called-with
-    expect(onChange).toHaveBeenCalled();
+    userEvent.type(screen.queryAllByDataCy("new-user-input")[0], "new-user");
+    expect(onChange).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
     expect(screen.queryByDataCy("valid-projects-input")).toHaveValue(
       "new value"
     );
@@ -85,12 +80,8 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>
           );
-          fireEvent.change(screen.queryByDataCy("text-input"), {
-            target: { value: "new value" },
-          });
-          fireEvent.change(screen.queryByDataCy("text-input"), {
-            target: { value: "" },
-          });
+          userEvent.type(screen.queryByDataCy("text-input"), "new value");
+          userEvent.clear(screen.queryByDataCy("text-input"));
           expect(screen.queryByDataCy("text-input")).toHaveValue("");
 
           // Invisible errors should be in the form error state but not visible on the page.
@@ -117,12 +108,8 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>
           );
-          fireEvent.change(screen.queryByDataCy("text-input"), {
-            target: { value: "new value" },
-          });
-          fireEvent.change(screen.queryByDataCy("text-input"), {
-            target: { value: "" },
-          });
+          userEvent.type(screen.queryByDataCy("text-input"), "new value");
+          userEvent.clear(screen.queryByDataCy("text-input"));
           expect(screen.queryByDataCy("text-input")).toHaveValue("");
           expect(data).toStrictEqual({
             textInput: "",
@@ -146,12 +133,8 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>
           );
-          fireEvent.change(screen.queryByDataCy("text-input"), {
-            target: { value: "new value" },
-          });
-          fireEvent.change(screen.queryByDataCy("text-input"), {
-            target: { value: "" },
-          });
+          userEvent.type(screen.queryByDataCy("text-input"), "new value");
+          userEvent.clear(screen.queryByDataCy("text-input"));
           expect(screen.queryByDataCy("text-input")).toHaveValue(
             "myEmptyValue"
           );
@@ -184,12 +167,8 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>
           );
-          fireEvent.change(screen.queryByDataCy("text-area"), {
-            target: { value: "new value" },
-          });
-          fireEvent.change(screen.queryByDataCy("text-area"), {
-            target: { value: "" },
-          });
+          userEvent.type(screen.queryByDataCy("text-area"), "new value");
+          userEvent.clear(screen.queryByDataCy("text-area"));
           expect(screen.queryByDataCy("text-area")).toHaveValue("");
 
           // Invisible errors should be in the form error state but not visible on the page.
@@ -216,12 +195,8 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>
           );
-          fireEvent.change(screen.queryByDataCy("text-area"), {
-            target: { value: "new value" },
-          });
-          fireEvent.change(screen.queryByDataCy("text-area"), {
-            target: { value: "" },
-          });
+          userEvent.type(screen.queryByDataCy("text-area"), "new value");
+          userEvent.clear(screen.queryByDataCy("text-area"));
           expect(screen.queryByDataCy("text-area")).toHaveValue("");
           expect(data).toStrictEqual({
             textArea: "",
@@ -245,12 +220,8 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>
           );
-          fireEvent.change(screen.queryByDataCy("text-area"), {
-            target: { value: "new value" },
-          });
-          fireEvent.change(screen.queryByDataCy("text-area"), {
-            target: { value: "" },
-          });
+          userEvent.type(screen.queryByDataCy("text-area"), "new value");
+          userEvent.clear(screen.queryByDataCy("text-area"));
           expect(screen.queryByDataCy("text-area")).toHaveValue("myEmptyValue");
           expect(data).toStrictEqual({
             textArea: "myEmptyValue",
