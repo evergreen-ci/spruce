@@ -357,6 +357,7 @@ export type GroupedTaskStatusCount = {
 /** Host models a host, which are used for things like running tasks or as virtual workstations. */
 export type Host = {
   __typename?: "Host";
+  ami?: Maybe<Scalars["String"]>;
   availabilityZone?: Maybe<Scalars["String"]>;
   displayName?: Maybe<Scalars["String"]>;
   distro?: Maybe<DistroInfo>;
@@ -4915,6 +4916,7 @@ export type HostQuery = {
   host?: Maybe<{
     __typename?: "Host";
     distroId?: Maybe<string>;
+    ami?: Maybe<string>;
     lastCommunicationTime?: Maybe<Date>;
     id: string;
     hostUrl: string;
