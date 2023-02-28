@@ -172,7 +172,6 @@
     "babel-preset-react-app": "^10.0.1",
     "camelcase": "^6.1.0",
     "colors": "1.4.0",
-    "css-loader": "4.3.0",
     "cypress": "12.5.1",
     "eslint": "8.19.0",
     "eslint-config-airbnb": "19.0.4",
