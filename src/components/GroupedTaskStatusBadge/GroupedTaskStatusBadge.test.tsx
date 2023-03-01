@@ -1,8 +1,7 @@
-import userEvent from "@testing-library/user-event";
 import {
-  fireEvent,
   renderWithRouterMatch as render,
   screen,
+  userEvent,
   waitFor,
 } from "test_utils";
 import { TaskStatus } from "types/task";
@@ -24,7 +23,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
     );
     const badge = screen.queryByDataCy("grouped-task-status-badge");
     expect(badge).toBeInTheDocument();
-    fireEvent.click(badge);
+    userEvent.click(badge);
     expect(onClick).toHaveBeenCalledWith();
   });
 

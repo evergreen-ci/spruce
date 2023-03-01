@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "test_utils";
+import { render, screen, userEvent } from "test_utils";
 import { PopconfirmWithCheckbox } from ".";
 
 const noop = () => {};
@@ -18,7 +18,7 @@ describe("popconfirmWithCheckbox", () => {
       </PopconfirmWithCheckbox>
     );
     expect(screen.queryByText(checkboxLabel)).not.toBeInTheDocument();
-    fireEvent.click(screen.queryByText("btn"));
+    userEvent.click(screen.queryByText("btn"));
     expect(screen.getByText(checkboxLabel)).toBeInTheDocument();
     expect(screen.getByDataCy("popconfirm-checkbox")).toBeInTheDocument();
   });
@@ -29,7 +29,7 @@ describe("popconfirmWithCheckbox", () => {
         {btn}
       </PopconfirmWithCheckbox>
     );
-    fireEvent.click(screen.queryByText("btn"));
+    userEvent.click(screen.queryByText("btn"));
     expect(screen.queryByText(checkboxLabel)).not.toBeInTheDocument();
     expect(screen.queryByDataCy("popconfirm-checkbox")).not.toBeInTheDocument();
   });
@@ -40,7 +40,7 @@ describe("popconfirmWithCheckbox", () => {
         {btn}
       </PopconfirmWithCheckbox>
     );
-    fireEvent.click(screen.queryByText("btn"));
+    userEvent.click(screen.queryByText("btn"));
     expect(screen.queryByText(checkboxLabel)).not.toBeInTheDocument();
     expect(screen.queryByDataCy("popconfirm-checkbox")).not.toBeInTheDocument();
   });
@@ -52,9 +52,9 @@ describe("popconfirmWithCheckbox", () => {
         {btn}
       </PopconfirmWithCheckbox>
     );
-    fireEvent.click(screen.queryByText("btn"));
+    userEvent.click(screen.queryByText("btn"));
     await screen.findByText("Yes");
-    fireEvent.click(screen.queryByText("Yes"));
+    userEvent.click(screen.queryByText("Yes"));
     expect(mockCb).toHaveBeenCalledTimes(1);
   });
 
@@ -69,9 +69,9 @@ describe("popconfirmWithCheckbox", () => {
         {btn}
       </PopconfirmWithCheckbox>
     );
-    fireEvent.click(screen.queryByText("btn"));
+    userEvent.click(screen.queryByText("btn"));
     await screen.findByText("Yes");
-    fireEvent.click(screen.queryByText("Yes"));
+    userEvent.click(screen.queryByText("Yes"));
     expect(mockCb).toHaveBeenCalledTimes(0);
   });
 
@@ -86,17 +86,17 @@ describe("popconfirmWithCheckbox", () => {
         {btn}
       </PopconfirmWithCheckbox>
     );
-    fireEvent.click(screen.queryByText("btn"));
+    userEvent.click(screen.queryByText("btn"));
     await screen.findByText("Yes");
 
     // attempt before checking
-    fireEvent.click(screen.queryByText("Yes"));
+    userEvent.click(screen.queryByText("Yes"));
     expect(mockCb).toHaveBeenCalledTimes(0);
 
-    fireEvent.click(screen.queryByDataCy("popconfirm-checkbox"));
+    userEvent.click(screen.queryByDataCy("popconfirm-checkbox"));
 
     // attempt after checking
-    fireEvent.click(screen.queryByText("Yes"));
+    userEvent.click(screen.queryByText("Yes"));
     expect(mockCb).toHaveBeenCalledTimes(1);
   });
 });

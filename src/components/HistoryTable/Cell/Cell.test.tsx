@@ -1,4 +1,4 @@
-import { fireEvent, renderWithRouterMatch as render, screen } from "test_utils";
+import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { TaskStatus } from "types/task";
 import { TaskCell } from "./Cell";
 
@@ -84,7 +84,7 @@ describe("taskCell", () => {
         loading={false}
       />
     );
-    fireEvent.mouseOver(screen.queryByDataCy("history-table-icon"));
+    userEvent.hover(screen.queryByDataCy("history-table-icon"));
     await screen.findByText("some-test");
     expect(screen.getByDataCy("test-tooltip")).toBeInTheDocument();
     expect(screen.getByText("some-test")).toBeInTheDocument();

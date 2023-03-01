@@ -3,7 +3,7 @@ import { ColumnProps } from "antd/es/table";
 import MatchMediaMock from "jest-matchmedia-mock";
 import { useLocation } from "react-router-dom";
 import { useUpdateUrlSortParamOnTableChange } from "hooks";
-import { fireEvent, renderWithRouterMatch as render, screen } from "test_utils";
+import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { queryString } from "utils";
 
 describe("useUpdateUrlSortParamOnTableChange", () => {
@@ -25,22 +25,22 @@ describe("useUpdateUrlSortParamOnTableChange", () => {
     const idHeader = screen.getByText("ID");
     const statusHeader = screen.getByText("Status");
 
-    fireEvent.click(idHeader);
+    userEvent.click(idHeader);
 
     expect(screen.getByText("sortBy: ID")).toBeInTheDocument();
     expect(screen.getByText("sortDir: ASC")).toBeInTheDocument();
 
-    fireEvent.click(statusHeader);
+    userEvent.click(statusHeader);
 
     expect(screen.getByText("sortBy: STATUS")).toBeInTheDocument();
     expect(screen.getByText("sortDir: ASC")).toBeInTheDocument();
 
-    fireEvent.click(statusHeader);
+    userEvent.click(statusHeader);
 
     expect(screen.getByText("sortBy: STATUS")).toBeInTheDocument();
     expect(screen.getByText("sortDir: DESC")).toBeInTheDocument();
 
-    fireEvent.click(statusHeader);
+    userEvent.click(statusHeader);
 
     expect(screen.getByText("sortBy: none")).toBeInTheDocument();
     expect(screen.getByText("sortDir: none")).toBeInTheDocument();

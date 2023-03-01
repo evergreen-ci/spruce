@@ -1,5 +1,5 @@
 import FilterBadges from "components/FilterBadges";
-import { fireEvent, renderWithRouterMatch as render, screen } from "test_utils";
+import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { ProjectFilterOptions } from "types/commits";
 import useFilterBadgeQueryParams from "./useFilterBadgeQueryParams";
 
@@ -68,7 +68,7 @@ describe("filterBadges - queryParams", () => {
     expect(badge).toHaveTextContent("buildVariants: variant1");
     const closeBadge = screen.queryByDataCy("close-badge");
     expect(closeBadge).toBeInTheDocument();
-    fireEvent.click(closeBadge);
+    userEvent.click(closeBadge);
     const { location } = history;
 
     expect(screen.queryByDataCy("filter-badge")).toBeNull();
@@ -85,7 +85,7 @@ describe("filterBadges - queryParams", () => {
     expect(badges).toHaveLength(2);
     expect(screen.getByText("buildVariants: variant1")).toBeInTheDocument();
     const closeBadge = screen.queryAllByDataCy("close-badge");
-    fireEvent.click(closeBadge[0]);
+    userEvent.click(closeBadge[0]);
     badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(1);
     expect(screen.queryByText("buildVariants: variant1")).toBeNull();
@@ -106,7 +106,7 @@ describe("filterBadges - queryParams", () => {
     let badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(4);
 
-    fireEvent.click(screen.queryByDataCy("clear-all-filters"));
+    userEvent.click(screen.queryByDataCy("clear-all-filters"));
     badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(0);
     const { location } = history;
@@ -124,7 +124,7 @@ describe("filterBadges - queryParams", () => {
     let badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(4);
 
-    fireEvent.click(screen.queryByDataCy("clear-all-filters"));
+    userEvent.click(screen.queryByDataCy("clear-all-filters"));
     badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(0);
     const { location } = history;
