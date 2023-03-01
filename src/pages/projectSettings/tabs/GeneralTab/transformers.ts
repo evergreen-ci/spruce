@@ -19,7 +19,9 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
 
   return {
     generalConfiguration: {
-      enabled: projectRef.enabled,
+      ...("enabled" in projectRef && {
+        enabled: projectRef.enabled,
+      }),
       repositoryInfo: {
         owner: projectRef.owner,
         repo: projectRef.repo,
@@ -71,7 +73,9 @@ export const formToGql: FormToGqlFunction<Tab> = (
 ) => {
   const projectRef: ProjectInput = {
     id,
-    enabled: generalConfiguration.enabled,
+    ...(generalConfiguration.enabled && {
+      enabled: generalConfiguration.enabled,
+    }),
     owner: generalConfiguration.repositoryInfo.owner,
     repo: generalConfiguration.repositoryInfo.repo,
     branch: generalConfiguration.branch,

@@ -112,7 +112,6 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
 
   projectRef: {
     id: "123",
-    enabled: true,
     owner: "evergreen-ci",
     repo: "spruce",
     branch: "main",

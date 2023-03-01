@@ -21,7 +21,6 @@ fragment projectGeneralSettings on Project {
 }
 
 fragment repoGeneralSettings on RepoRef {
-  enabled
   owner
   repo
   branch
