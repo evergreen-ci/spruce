@@ -259,6 +259,7 @@ const projectSettingsMock: ApolloMock<
     data: {
       projectSettings: {
         projectRef: {
+          externalLinks: [],
           id: "asrt",
           identifier: "asrt",
           repoRefId: "arst",

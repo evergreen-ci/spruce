@@ -271,6 +271,23 @@ export type EditSpawnHostInput = {
   volume?: InputMaybe<Scalars["String"]>;
 };
 
+export type ExternalLink = {
+  __typename?: "ExternalLink";
+  displayName: Scalars["String"];
+  urlTemplate: Scalars["String"];
+};
+
+export type ExternalLinkForMetadata = {
+  __typename?: "ExternalLinkForMetadata";
+  displayName: Scalars["String"];
+  url: Scalars["String"];
+};
+
+export type ExternalLinkInput = {
+  displayName: Scalars["String"];
+  urlTemplate: Scalars["String"];
+};
+
 export type File = {
   __typename?: "File";
   link: Scalars["String"];
@@ -1097,6 +1114,7 @@ export type Project = {
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
   displayName: Scalars["String"];
   enabled?: Maybe<Scalars["Boolean"]>;
+  externalLinks?: Maybe<Array<ExternalLink>>;
   gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
   gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
@@ -1207,6 +1225,7 @@ export type ProjectInput = {
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]>;
   displayName?: InputMaybe<Scalars["String"]>;
   enabled?: InputMaybe<Scalars["Boolean"]>;
+  externalLinks?: InputMaybe<Array<ExternalLinkInput>>;
   gitTagAuthorizedTeams?: InputMaybe<Array<Scalars["String"]>>;
   gitTagAuthorizedUsers?: InputMaybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled?: InputMaybe<Scalars["Boolean"]>;
@@ -1542,6 +1561,7 @@ export type RepoRef = {
   dispatchingDisabled: Scalars["Boolean"];
   displayName: Scalars["String"];
   enabled: Scalars["Boolean"];
+  externalLinks?: Maybe<Array<ExternalLink>>;
   gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
   gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled: Scalars["Boolean"];
@@ -1583,6 +1603,7 @@ export type RepoRefInput = {
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]>;
   displayName?: InputMaybe<Scalars["String"]>;
   enabled?: InputMaybe<Scalars["Boolean"]>;
+  externalLinks?: InputMaybe<Array<ExternalLinkInput>>;
   gitTagAuthorizedTeams?: InputMaybe<Array<Scalars["String"]>>;
   gitTagAuthorizedUsers?: InputMaybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled?: InputMaybe<Scalars["Boolean"]>;
@@ -2319,6 +2340,7 @@ export type Version = {
   childVersions?: Maybe<Array<Maybe<Version>>>;
   createTime: Scalars["Time"];
   errors: Array<Scalars["String"]>;
+  externalLinksForMetadata: Array<ExternalLinkForMetadata>;
   finishTime?: Maybe<Scalars["Time"]>;
   id: Scalars["String"];
   isPatch: Scalars["Boolean"];
@@ -2949,6 +2971,13 @@ export type ProjectSettingsFragment = {
         secret: string;
       };
     };
+    externalLinks?: Maybe<
+      Array<{
+        __typename?: "ExternalLink";
+        displayName: string;
+        urlTemplate: string;
+      }>
+    >;
     patchTriggerAliases?: Maybe<
       Array<{
         __typename?: "PatchTriggerAlias";
@@ -3138,6 +3167,13 @@ export type RepoSettingsFragment = {
         secret: string;
       };
     };
+    externalLinks?: Maybe<
+      Array<{
+        __typename?: "ExternalLink";
+        displayName: string;
+        urlTemplate: string;
+      }>
+    >;
     patchTriggerAliases?: Maybe<
       Array<{
         __typename?: "PatchTriggerAlias";
@@ -3426,6 +3462,13 @@ export type ProjectPluginsSettingsFragment = {
       secret: string;
     };
   };
+  externalLinks?: Maybe<
+    Array<{
+      __typename?: "ExternalLink";
+      displayName: string;
+      urlTemplate: string;
+    }>
+  >;
 };
 
 export type RepoPluginsSettingsFragment = {
@@ -3447,6 +3490,13 @@ export type RepoPluginsSettingsFragment = {
       secret: string;
     };
   };
+  externalLinks?: Maybe<
+    Array<{
+      __typename?: "ExternalLink";
+      displayName: string;
+      urlTemplate: string;
+    }>
+  >;
 };
 
 export type ProjectEventSettingsFragment = {
@@ -3506,6 +3556,13 @@ export type ProjectEventSettingsFragment = {
         secret: string;
       };
     };
+    externalLinks?: Maybe<
+      Array<{
+        __typename?: "ExternalLink";
+        displayName: string;
+        urlTemplate: string;
+      }>
+    >;
     patchTriggerAliases?: Maybe<
       Array<{
         __typename?: "PatchTriggerAlias";
@@ -5607,6 +5664,13 @@ export type ProjectEventLogsQuery = {
               secret: string;
             };
           };
+          externalLinks?: Maybe<
+            Array<{
+              __typename?: "ExternalLink";
+              displayName: string;
+              urlTemplate: string;
+            }>
+          >;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -5807,6 +5871,13 @@ export type ProjectEventLogsQuery = {
               secret: string;
             };
           };
+          externalLinks?: Maybe<
+            Array<{
+              __typename?: "ExternalLink";
+              displayName: string;
+              urlTemplate: string;
+            }>
+          >;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -6016,6 +6087,13 @@ export type ProjectSettingsQuery = {
           secret: string;
         };
       };
+      externalLinks?: Maybe<
+        Array<{
+          __typename?: "ExternalLink";
+          displayName: string;
+          urlTemplate: string;
+        }>
+      >;
       patchTriggerAliases?: Maybe<
         Array<{
           __typename?: "PatchTriggerAlias";
@@ -6261,6 +6339,13 @@ export type RepoEventLogsQuery = {
               secret: string;
             };
           };
+          externalLinks?: Maybe<
+            Array<{
+              __typename?: "ExternalLink";
+              displayName: string;
+              urlTemplate: string;
+            }>
+          >;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -6461,6 +6546,13 @@ export type RepoEventLogsQuery = {
               secret: string;
             };
           };
+          externalLinks?: Maybe<
+            Array<{
+              __typename?: "ExternalLink";
+              displayName: string;
+              urlTemplate: string;
+            }>
+          >;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -6667,6 +6759,13 @@ export type RepoSettingsQuery = {
           secret: string;
         };
       };
+      externalLinks?: Maybe<
+        Array<{
+          __typename?: "ExternalLink";
+          displayName: string;
+          urlTemplate: string;
+        }>
+      >;
       patchTriggerAliases?: Maybe<
         Array<{
           __typename?: "PatchTriggerAlias";

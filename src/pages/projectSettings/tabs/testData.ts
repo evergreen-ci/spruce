@@ -3,6 +3,12 @@ import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 const projectBase: ProjectSettingsQuery["projectSettings"] = {
   githubWebhooksEnabled: true,
   projectRef: {
+    externalLinks: [
+      {
+        displayName: "a link display name",
+        urlTemplate: "https:/a-link-template-{version_id}.com",
+      },
+    ],
     id: "project",
     identifier: "project",
     repoRefId: "repo",
@@ -107,8 +113,13 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
 
 const repoBase: RepoSettingsQuery["repoSettings"] = {
   githubWebhooksEnabled: true,
-
   projectRef: {
+    externalLinks: [
+      {
+        displayName: "a link display name",
+        urlTemplate: "https:/a-link-template-{version_id}.com",
+      },
+    ],
     id: "123",
     owner: "evergreen-ci",
     repo: "spruce",
