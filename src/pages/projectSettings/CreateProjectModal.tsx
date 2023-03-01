@@ -65,7 +65,7 @@ export const CreateProjectModal: React.VFC<Props> = ({
     if (identifier) {
       if (error) {
         dispatchToast.warning(
-          `The project was successfully created with the following errors: ${error.message}.`,
+          `Project cannot be enabled due to the global or repo-specific limits.`,
           true,
           { shouldTimeout: false }
         );
