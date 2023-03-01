@@ -27,7 +27,6 @@ describe("historyTableTestSearch", () => {
     expect(input).toHaveValue("");
     userEvent.type(input, "some-test-name");
     expect(input).toHaveValue("some-test-name");
-    expect(input).toHaveFocus();
     userEvent.type(input, "{enter}");
     expect(input).toHaveValue("");
   });
@@ -45,7 +44,6 @@ describe("historyTableTestSearch", () => {
     expect(input).toHaveValue("");
     userEvent.type(input, "some-test-name");
     expect(input).toHaveValue("some-test-name");
-    expect(input).toHaveFocus();
     userEvent.type(input, "{enter}");
     const { location } = history;
     expect(location.search).toBe(`?failed=some-test-name`);

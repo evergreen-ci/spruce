@@ -67,7 +67,6 @@ describe("editableTagField", () => {
     );
 
     expect(screen.queryAllByDataCy("user-tag-edit-icon")[0]).toBeVisible();
-
     userEvent.click(screen.queryAllByDataCy("user-tag-edit-icon")[0]);
 
     expect(updateData).toHaveBeenCalledWith([
@@ -160,19 +159,19 @@ describe("editableTagField", () => {
     expect(screen.queryByDataCy("add-tag-button")).toBeNull();
     expect(screen.queryAllByDataCy("user-tag-trash-icon")[3]).toBeVisible();
     expect(screen.queryAllByDataCy("user-tag-row")).toHaveLength(4);
-    expect(screen.queryAllByDataCy("user-tag-key-field")[3]).toBeVisible();
 
+    expect(screen.queryAllByDataCy("user-tag-key-field")[3]).toBeVisible();
+    userEvent.clear(screen.queryAllByDataCy("user-tag-key-field")[3]);
     userEvent.type(screen.queryAllByDataCy("user-tag-key-field")[3], "new key");
 
     expect(screen.queryAllByDataCy("user-tag-value-field")[3]).toBeVisible();
-
+    userEvent.clear(screen.queryAllByDataCy("user-tag-value-field")[3]);
     userEvent.type(
       screen.queryAllByDataCy("user-tag-value-field")[3],
       "new value"
     );
 
     expect(screen.queryAllByDataCy("user-tag-edit-icon")).toHaveLength(1);
-
     userEvent.click(screen.queryAllByDataCy("user-tag-edit-icon")[0]);
 
     expect(updateData).toHaveBeenCalledTimes(1);
