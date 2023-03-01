@@ -1,5 +1,4 @@
 import { MockedProvider } from "@apollo/client/testing";
-import userEvent from "@testing-library/user-event";
 import {
   GetBaseVersionAndTaskQuery,
   GetBaseVersionAndTaskQueryVariables,
@@ -10,7 +9,7 @@ import {
   GET_BASE_VERSION_AND_TASK,
   GET_LAST_MAINLINE_COMMIT,
 } from "gql/queries";
-import { renderWithRouterMatch, screen, waitFor } from "test_utils";
+import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { PreviousCommits } from "./PreviousCommits";
 

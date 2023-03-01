@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useUpsertQueryParams } from "hooks";
-import { fireEvent, renderWithRouterMatch, screen } from "test_utils";
+import { renderWithRouterMatch, screen, userEvent } from "test_utils";
 
 const Content = () => {
   const onSubmit = useUpsertQueryParams();
@@ -48,13 +48,9 @@ describe("useUpsertQueryParams", () => {
     const category = screen.queryByDataCy("category");
     const value = screen.queryByDataCy("value");
 
-    fireEvent.change(category, {
-      target: { value: "category" },
-    });
-    fireEvent.change(value, {
-      target: { value: "value" },
-    });
-    fireEvent.click(screen.queryByDataCy("submit"));
+    userEvent.type(category, "category");
+    userEvent.type(value, "value");
+    userEvent.click(screen.queryByDataCy("submit"));
 
     expect(history.location.search).toBe(`?category=value`);
   });
@@ -67,19 +63,14 @@ describe("useUpsertQueryParams", () => {
 
     const category = screen.queryByDataCy("category");
     const value = screen.queryByDataCy("value");
-    fireEvent.change(category, {
-      target: { value: "category" },
-    });
-    fireEvent.change(value, {
-      target: { value: "value1" },
-    });
-    fireEvent.click(screen.queryByDataCy("submit"));
+    userEvent.type(category, "category");
+    userEvent.type(value, "value1");
+    userEvent.click(screen.queryByDataCy("submit"));
     expect(history.location.search).toBe(`?category=value1`);
-    fireEvent.change(value, {
-      target: { value: "value2" },
-    });
 
-    fireEvent.click(screen.queryByDataCy("submit"));
+    userEvent.clear(value);
+    userEvent.type(value, "value2");
+    userEvent.click(screen.queryByDataCy("submit"));
     expect(history.location.search).toBe(`?category=value1,value2`);
   });
 
@@ -90,21 +81,14 @@ describe("useUpsertQueryParams", () => {
     });
     const category = screen.queryByDataCy("category");
     const value = screen.queryByDataCy("value");
-    fireEvent.change(category, {
-      target: { value: "category" },
-    });
-    fireEvent.change(value, {
-      target: { value: "value1" },
-    });
-    fireEvent.click(screen.queryByDataCy("submit"));
-
+    userEvent.type(category, "category");
+    userEvent.type(value, "value1");
+    userEvent.click(screen.queryByDataCy("submit"));
     expect(history.location.search).toBe(`?category=value1`);
 
-    fireEvent.change(value, {
-      target: { value: "value1" },
-    });
-    fireEvent.click(screen.queryByDataCy("submit"));
-
+    userEvent.clear(value);
+    userEvent.type(value, "value1");
+    userEvent.click(screen.queryByDataCy("submit"));
     expect(history.location.search).toBe(`?category=value1`);
   });
 
@@ -115,20 +99,14 @@ describe("useUpsertQueryParams", () => {
     });
     const category = screen.queryByDataCy("category");
     const value = screen.queryByDataCy("value");
-    fireEvent.change(category, {
-      target: { value: "category" },
-    });
-    fireEvent.change(value, {
-      target: { value: "value1" },
-    });
-    fireEvent.click(screen.queryByDataCy("submit"));
-
+    userEvent.type(category, "category");
+    userEvent.type(value, "value1");
+    userEvent.click(screen.queryByDataCy("submit"));
     expect(history.location.search).toBe(`?category=value1`);
 
-    fireEvent.change(category, {
-      target: { value: "category2" },
-    });
-    fireEvent.click(screen.queryByDataCy("submit"));
+    userEvent.clear(category);
+    userEvent.type(category, "category2");
+    userEvent.click(screen.queryByDataCy("submit"));
     expect(history.location.search).toBe(`?category=value1&category2=value1`);
   });
 });

@@ -1,5 +1,4 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
-import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
@@ -12,7 +11,12 @@ import {
 } from "gql/generated/types";
 import { COPY_PROJECT } from "gql/mutations";
 import { GET_PROJECT_SETTINGS, GET_REPO_SETTINGS } from "gql/queries";
-import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+  waitFor,
+} from "test_utils";
 import { ApolloMock } from "types/gql";
 import { CopyProjectModal } from "./CopyProjectModal";
 

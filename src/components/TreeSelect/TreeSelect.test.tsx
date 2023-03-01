@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "test_utils";
+import { render, screen, userEvent } from "test_utils";
 import { TreeSelect } from ".";
 
 describe("treeSelect", () => {
@@ -23,7 +23,7 @@ describe("treeSelect", () => {
     const onChange = jest.fn();
     render(<TreeSelect onChange={onChange} state={[]} tData={treeData} />);
     expect(screen.getByText("Pass")).toBeInTheDocument();
-    fireEvent.click(screen.queryByText("Pass"));
+    userEvent.click(screen.queryByText("Pass"));
     expect(onChange).toHaveBeenCalledWith(["pass"]);
   });
 
@@ -31,7 +31,7 @@ describe("treeSelect", () => {
     const onChange = jest.fn();
     render(<TreeSelect onChange={onChange} state={[]} tData={treeData} />);
     expect(screen.getByText("All")).toBeInTheDocument();
-    fireEvent.click(screen.queryByText("All"));
+    userEvent.click(screen.queryByText("All"));
     expect(onChange).toHaveBeenCalledWith([
       "all",
       "pass",
@@ -62,7 +62,7 @@ describe("treeSelect", () => {
     expect(screen.queryByLabelText("Failing Umbrella")).toBeChecked();
     expect(screen.queryByLabelText("System Failure")).toBeChecked();
     expect(screen.queryByLabelText("Fail")).toBeChecked();
-    fireEvent.click(screen.queryByText("Fail"));
+    userEvent.click(screen.queryByText("Fail"));
     expect(onChange).toHaveBeenCalledWith(["system-failure"]);
   });
 
@@ -72,7 +72,7 @@ describe("treeSelect", () => {
       <TreeSelect onChange={onChange} state={[]} tData={nestedTreeData} />
     );
     expect(screen.getByText("Failing Umbrella")).toBeInTheDocument();
-    fireEvent.click(screen.queryByText("Failing Umbrella"));
+    userEvent.click(screen.queryByText("Failing Umbrella"));
     expect(onChange).toHaveBeenCalledWith([
       "failing-umbrella",
       "system-failure",

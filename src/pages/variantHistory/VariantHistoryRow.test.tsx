@@ -10,9 +10,9 @@ import {
 } from "gql/generated/types";
 import { GET_TASK_TEST_SAMPLE } from "gql/queries";
 import {
-  fireEvent,
   renderWithRouterMatch as render,
   screen,
+  userEvent,
   waitFor,
 } from "test_utils";
 import { ApolloMock } from "types/gql";
@@ -159,7 +159,7 @@ describe("variantHistoryRow", () => {
       );
     });
 
-    fireEvent.mouseEnter(screen.queryByDataCy("history-table-icon"));
+    userEvent.hover(screen.queryByDataCy("history-table-icon"));
 
     await waitFor(() => {
       expect(screen.queryByText("TestJiraIntegration")).toBeVisible();
@@ -205,7 +205,7 @@ describe("variantHistoryRow", () => {
     });
 
     expect(screen.queryByText("1 / 1 Failing Tests")).toBeVisible();
-    fireEvent.mouseEnter(screen.queryByDataCy("history-table-icon"));
+    userEvent.hover(screen.queryByDataCy("history-table-icon"));
     await waitFor(() => {
       expect(screen.queryByText("TestJiraIntegration")).toBeVisible();
     });
