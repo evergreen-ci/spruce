@@ -24,7 +24,7 @@ const ErrorBanner: React.VFC<ErrorBannerProps> = ({ errors }) => {
 
   return (
     <BannerContainer data-cy="configuration-errors-banner">
-      <Callout variant="warning" title={errorTitle.toUpperCase()}>
+      <Callout variant="warning" title={errorTitle}>
         {errors[0]}
         {errors.length > 1 && (
           <>
