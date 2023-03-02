@@ -76,6 +76,7 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   background-color: ${white};
   max-width: 300px;
+  // The following properties have been lifted from other LeafyGreen styles.
   border-radius: ${size.s};
   padding: 12px 16px;
   box-shadow: 0px 2px 4px -1px rgba(0, 30, 43, 0.15);
