@@ -54,7 +54,7 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("unschedule-patch").click({ force: true });
     cy.dataCy("unschedule-patch-popconfirm").should("be.visible");
     cy.contains("button", "Cancel").click();
-    cy.dataCy("unschedule-patch-popconfirm").should("not.be.visible");
+    cy.dataCy("unschedule-patch-popconfirm").should("not.exist");
   });
 
   it("'Unschedule' link is disabled for unfinalized patch", () => {
