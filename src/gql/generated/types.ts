@@ -2290,6 +2290,7 @@ export type Version = {
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
   childVersions?: Maybe<Array<Maybe<Version>>>;
   createTime: Scalars["Time"];
+  errors: Array<Scalars["String"]>;
   finishTime?: Maybe<Scalars["Time"]>;
   id: Scalars["String"];
   isPatch: Scalars["Boolean"];
@@ -2313,6 +2314,7 @@ export type Version = {
   tasks: VersionTasks;
   upstreamProject?: Maybe<UpstreamProject>;
   versionTiming?: Maybe<VersionTiming>;
+  warnings: Array<Scalars["String"]>;
 };
 
 /** Version models a commit within a project. */
