@@ -3910,18 +3910,18 @@
     "@leafygreen-ui/portal" "^4.0.7"
     "@leafygreen-ui/tokens" "^1.4.0"
 
-"@leafygreen-ui/text-area@8.0.1":
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/text-area/-/text-area-8.0.1.tgz#d299a6e54008e07c7bdefb9763f1e1c51f3e5673"
-  integrity sha512-3MWCVSCn1z6DdqfgBaAEjazi22ub9wRz9U3if9/XIe7W9FRzWSamVQZ4wsvCtFQTOZ6tc4V07OhrFK4g/ZsGNA==
+"@leafygreen-ui/text-area@8.0.4":
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/text-area/-/text-area-8.0.4.tgz#57d4d4eaad5210b90baa24ec1980afb24923c989"
+  integrity sha512-NnhVINOpf5TdlEikxAHM1k6TiJOpSCTuqRr5eQcTYnelyiStYiVhHqXqfPgQ4M5YZqYSyEVpyNqWz/li9c7o1w==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/icon" "^11.12.1"
+    "@leafygreen-ui/hooks" "^7.4.0"
+    "@leafygreen-ui/icon" "^11.12.4"
     "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.4.0"
-    "@leafygreen-ui/typography" "^15.1.0"
+    "@leafygreen-ui/palette" "^3.4.7"
+    "@leafygreen-ui/tokens" "^2.0.0"
+    "@leafygreen-ui/typography" "^16.0.0"
 
 "@leafygreen-ui/text-input@12.1.0":
   version "12.1.0"
