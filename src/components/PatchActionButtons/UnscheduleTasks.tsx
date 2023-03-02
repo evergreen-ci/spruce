@@ -68,6 +68,7 @@ export const UnscheduleTasks: React.VFC<props> = ({
       </DropdownItem>
       <Popconfirm
         active={active}
+        data-cy="unschedule-patch-popconfirm"
         align="left"
         content={
           <>

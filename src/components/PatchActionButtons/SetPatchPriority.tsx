@@ -66,6 +66,7 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
       </DropdownItem>
       <Popconfirm
         active={active}
+        data-cy="set-patch-priority-popconfirm"
         align="left"
         content={
           <TextInput

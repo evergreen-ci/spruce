@@ -74,6 +74,7 @@ export const SetTaskPriority: React.VFC<SetTaskPriorityProps> = ({
       </DropdownItem>
       <Popconfirm
         active={active}
+        data-cy="set-task-priority-popconfirm"
         align="left"
         content={
           <TextInput

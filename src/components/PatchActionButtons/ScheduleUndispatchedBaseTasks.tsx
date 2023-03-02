@@ -52,6 +52,7 @@ export const ScheduleUndispatchedBaseTasks: React.VFC<Props> = ({
       </DropdownItem>
       <Popconfirm
         active={active}
+        data-cy="schedule-undispatched-base-popconfirm"
         align="left"
         content={
           <Body>
