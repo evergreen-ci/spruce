@@ -3581,19 +3581,7 @@
   dependencies:
     lodash "^4.17.21"
 
-"@leafygreen-ui/icon-button@15.0.1":
-  version "15.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-15.0.1.tgz#f27ef4837699f819803b4c8ff40b2216707db036"
-  integrity sha512-obpTJbCd0cc/tD9WjX5yV1ulJKZsf+9BIkRl/NV0BcgIfdvLG6foV9AMLFKnMrql0BF+R3Jo6HBJozY1h2yfXw==
-  dependencies:
-    "@leafygreen-ui/a11y" "^1.3.4"
-    "@leafygreen-ui/box" "^3.1.1"
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.4.0"
-
-"@leafygreen-ui/icon-button@^15.0.0", "@leafygreen-ui/icon-button@^15.0.1", "@leafygreen-ui/icon-button@^15.0.4":
+"@leafygreen-ui/icon-button@15.0.5", "@leafygreen-ui/icon-button@^15.0.0", "@leafygreen-ui/icon-button@^15.0.1", "@leafygreen-ui/icon-button@^15.0.4":
   version "15.0.5"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-15.0.5.tgz#4c9e6a8388c471262c98bcb52b2d95c061625eea"
   integrity sha512-8zWWqInWVvG2399FeyoQcvuzdEt0aongqZi06eGEQOpXwRCaIxUXOqeEmAHPjFy2K3jAUs2KtMFVlrdZZnWNbg==
