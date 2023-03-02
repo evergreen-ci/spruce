@@ -2,7 +2,7 @@ import { ProjectType } from "../utils";
 
 export interface FormState {
   generalConfiguration: {
-    enabled: boolean | null;
+    enabled?: boolean;
     repositoryInfo: {
       owner: string;
       repo: string;
