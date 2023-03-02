@@ -8,10 +8,9 @@ import {
   EnqueuePatch,
   AddNotification,
   DisableTasks,
+  ScheduleUndispatchedBaseTasks,
 } from "components/PatchActionButtons";
-
 import { PageButtonRow } from "components/styles";
-import { ScheduleUndispatchedBaseTasks } from "./ScheduleUndispatchedBaseTasks";
 
 interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;

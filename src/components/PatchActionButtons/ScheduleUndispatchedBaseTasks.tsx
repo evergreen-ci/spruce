@@ -1,7 +1,8 @@
+import { useState, useRef } from "react";
 import { useMutation } from "@apollo/client";
 import { Body } from "@leafygreen-ui/typography";
-import { Popconfirm } from "antd";
 import { DropdownItem } from "components/ButtonDropdown";
+import Popconfirm from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
   ScheduleUndispatchedBaseTasksMutation,
@@ -18,6 +19,9 @@ export const ScheduleUndispatchedBaseTasks: React.VFC<Props> = ({
   disabled,
 }) => {
   const dispatchToast = useToastContext();
+  const [active, setActive] = useState(false);
+  const menuItemRef = useRef<HTMLElement>(null);
+
   const [scheduleBasePatchTasks] = useMutation<
     ScheduleUndispatchedBaseTasksMutation,
     ScheduleUndispatchedBaseTasksMutationVariables
@@ -30,25 +34,35 @@ export const ScheduleUndispatchedBaseTasks: React.VFC<Props> = ({
       dispatchToast.error(message);
     },
   });
+
+  const onConfirm = () => {
+    scheduleBasePatchTasks({ variables: { patchId } });
+  };
+
   return (
-    <Popconfirm
-      icon={null}
-      placement="left"
-      title={
-        <Body>
-          Are you sure you want to schedule all the undispatched base tasks for
-          this patch&apos;s failing tasks?
-        </Body>
-      }
-      onConfirm={() => {
-        scheduleBasePatchTasks({ variables: { patchId } });
-      }}
-      okText="Yes"
-      cancelText="Cancel"
-    >
-      <DropdownItem key="reschedule-failing" disabled={disabled}>
+    <>
+      <DropdownItem
+        ref={menuItemRef}
+        active={active}
+        key="reschedule-failing"
+        disabled={disabled}
+        onClick={() => setActive(!active)}
+      >
         Schedule failing base tasks
       </DropdownItem>
-    </Popconfirm>
+      <Popconfirm
+        active={active}
+        align="left"
+        content={
+          <Body>
+            Are you sure you want to schedule all the undispatched base tasks
+            for this patch&apos;s failing tasks?
+          </Body>
+        }
+        refEl={menuItemRef}
+        onConfirm={onConfirm}
+        setActive={setActive}
+      />
+    </>
   );
 };

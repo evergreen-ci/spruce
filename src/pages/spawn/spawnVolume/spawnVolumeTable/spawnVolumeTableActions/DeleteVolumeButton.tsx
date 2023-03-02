@@ -1,8 +1,8 @@
 import { useMutation } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
+import { PopconfirmWithCheckbox } from "components/AntdPopconfirm";
 import Icon from "components/Icon";
-import { PopconfirmWithCheckbox } from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
   RemoveVolumeMutation,

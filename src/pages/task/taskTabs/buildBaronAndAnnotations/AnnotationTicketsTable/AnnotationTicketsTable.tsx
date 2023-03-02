@@ -6,8 +6,8 @@ import Icon, { Size } from "@leafygreen-ui/icon";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Table } from "antd";
 import { useAnnotationAnalytics } from "analytics";
+import { Popconfirm } from "components/AntdPopconfirm";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import { Popconfirm } from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
   MoveAnnotationIssueMutation,
