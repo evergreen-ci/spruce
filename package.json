@@ -187,7 +187,7 @@
     "husky": "8.0.1",
     "identity-obj-proxy": "3.0.0",
     "jest": "28.1.0",
-    "jest-environment-jsdom": "^28.1.0",
+    "jest-environment-jsdom": "^29.4.3",
     "jest-junit": "^13.2.0",
     "jest-matchmedia-mock": "^1.1.0",
     "jest-watch-typeahead": "1.1.0",
