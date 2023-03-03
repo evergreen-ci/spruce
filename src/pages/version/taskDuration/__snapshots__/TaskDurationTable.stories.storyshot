@@ -298,7 +298,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                 >
                   <div
                     border="#2D0B59"
-                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
                     data-cy="task-status-badge"
                     fill="#5E0C9E"
                     text="#F9EBFF"
@@ -388,7 +388,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                 >
                   <div
                     border="#2D0B59"
-                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
                     data-cy="task-status-badge"
                     fill="#5E0C9E"
                     text="#F9EBFF"
@@ -478,7 +478,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                 >
                   <div
                     border="#2D0B59"
-                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
                     data-cy="task-status-badge"
                     fill="#5E0C9E"
                     text="#F9EBFF"
@@ -568,7 +568,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                 >
                   <div
                     border="#2D0B59"
-                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
                     data-cy="task-status-badge"
                     fill="#5E0C9E"
                     text="#F9EBFF"
@@ -658,7 +658,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                 >
                   <div
                     border="#2D0B59"
-                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
                     data-cy="task-status-badge"
                     fill="#5E0C9E"
                     text="#F9EBFF"
@@ -748,7 +748,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                 >
                   <div
                     border="#2D0B59"
-                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
                     data-cy="task-status-badge"
                     fill="#5E0C9E"
                     text="#F9EBFF"
@@ -838,7 +838,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                 >
                   <div
                     border="#2D0B59"
-                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
                     data-cy="task-status-badge"
                     fill="#5E0C9E"
                     text="#F9EBFF"
@@ -928,7 +928,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                 >
                   <div
                     border="#2D0B59"
-                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
                     data-cy="task-status-badge"
                     fill="#5E0C9E"
                     text="#F9EBFF"
@@ -1018,7 +1018,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                 >
                   <div
                     border="#2D0B59"
-                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
                     data-cy="task-status-badge"
                     fill="#5E0C9E"
                     text="#F9EBFF"
@@ -1108,7 +1108,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                 >
                   <div
                     border="#2D0B59"
-                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                    className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
                     data-cy="task-status-badge"
                     fill="#5E0C9E"
                     text="#F9EBFF"
