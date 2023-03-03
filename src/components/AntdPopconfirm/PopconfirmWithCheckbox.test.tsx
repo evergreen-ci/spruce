@@ -23,17 +23,6 @@ describe("popconfirmWithCheckbox", () => {
     expect(screen.getByDataCy("popconfirm-checkbox")).toBeInTheDocument();
   });
 
-  it("passing in an empty checkboxLabel prop should not render confirmation checkbox and checkbox label", () => {
-    render(
-      <PopconfirmWithCheckbox title={title} checkboxLabel="" onConfirm={noop}>
-        {btn}
-      </PopconfirmWithCheckbox>
-    );
-    userEvent.click(screen.queryByText("btn"));
-    expect(screen.queryByText(checkboxLabel)).not.toBeInTheDocument();
-    expect(screen.queryByDataCy("popconfirm-checkbox")).not.toBeInTheDocument();
-  });
-
   it("ok button is disabled on initial render when a checkbox label is provided", async () => {
     const mockCb = jest.fn();
     render(
