@@ -14,12 +14,12 @@ query Version($id: String!) {
     isPatch
     manifest {
       id
-      revision
-      project
       branch
       isBase
-      moduleOverrides
       modules
+      moduleOverrides
+      project
+      revision
     }
     message
     order
@@ -55,8 +55,8 @@ query Version($id: String!) {
     project
     projectIdentifier
     projectMetadata {
-      repo
       owner
+      repo
     }
     repo
     revision

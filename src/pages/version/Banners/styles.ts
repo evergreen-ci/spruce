@@ -19,7 +19,7 @@ const ListItem = styled.li`
   margin-bottom: ${size.xs};
 `;
 
-const ModalTrigger = styled.span`
+const ModalTriggerText = styled.span`
   font-weight: bold;
   text-decoration-line: underline;
   text-underline-offset: 2px;
@@ -29,4 +29,10 @@ const ModalTrigger = styled.span`
   }
 `;
 
-export { BannerContainer, TitleWrapper, OrderedList, ListItem, ModalTrigger };
+export {
+  BannerContainer,
+  TitleWrapper,
+  OrderedList,
+  ListItem,
+  ModalTriggerText,
+};

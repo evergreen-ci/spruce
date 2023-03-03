@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useLazyQuery, useQuery } from "@apollo/client";
-import styled from "@emotion/styled";
 import { useParams, Navigate } from "react-router-dom";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageTitle } from "components/PageTitle";
@@ -160,11 +159,8 @@ export const VersionPage: React.VFC = () => {
 
   return (
     <PageWrapper data-cy="version-page">
-      <BannerWrapper>
-        {errors.length > 0 && <ErrorBanner errors={errors} />}
-        {warnings.length > 0 && <WarningBanner warnings={warnings} />}
-      </BannerWrapper>
-
+      {errors.length > 0 && <ErrorBanner errors={errors} />}
+      {warnings.length > 0 && <WarningBanner warnings={warnings} />}
       {version && (
         <VersionPageBreadcrumbs
           patchNumber={patchNumber}
@@ -205,8 +201,3 @@ export const VersionPage: React.VFC = () => {
     </PageWrapper>
   );
 };
-
-const BannerWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;

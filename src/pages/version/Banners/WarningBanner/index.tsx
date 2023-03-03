@@ -7,7 +7,7 @@ import {
   TitleWrapper,
   OrderedList,
   ListItem,
-  ModalTrigger,
+  ModalTriggerText,
 } from "../styles";
 
 interface WarningBannerProps {
@@ -26,20 +26,20 @@ const WarningBanner: React.VFC<WarningBannerProps> = ({ warnings }) => {
   return showBanner ? (
     <BannerContainer data-cy="configuration-warnings-banner">
       <Banner
-        variant="warning"
         dismissible
         onClose={() => setShowBanner(false)}
+        variant="warning"
       >
         <b>{warningTitle}</b>
         <br />
         <span>
           See all warnings{" "}
-          <ModalTrigger
+          <ModalTriggerText
             data-cy="configuration-warnings-modal-trigger"
             onClick={() => setShowModal(true)}
           >
             here
-          </ModalTrigger>
+          </ModalTriggerText>
         </span>
       </Banner>
       <DisplayModal

@@ -9,9 +9,7 @@ describe("banners", () => {
   describe("errors", () => {
     it("should display the number of configuration errors", () => {
       cy.dataCy("configuration-errors-banner").should("be.visible");
-      cy.contains("4 errors in configuration file", {
-        matchCase: false,
-      }).should("be.visible");
+      cy.contains("4 errors in configuration file").should("be.visible");
     });
     it("should be able to open the modal and see all errors", () => {
       cy.dataCy("configuration-errors-modal-trigger").click();
@@ -23,9 +21,7 @@ describe("banners", () => {
   describe("warnings", () => {
     it("should display the number of configuration warnings", () => {
       cy.dataCy("configuration-warnings-banner").should("be.visible");
-      cy.contains("3 warnings in configuration file", {
-        matchCase: false,
-      }).should("be.visible");
+      cy.contains("3 warnings in configuration file").should("be.visible");
     });
     it("should be able to open the modal and see all warnings", () => {
       cy.dataCy("configuration-warnings-modal-trigger").click();

@@ -7,7 +7,7 @@ import {
   TitleWrapper,
   OrderedList,
   ListItem,
-  ModalTrigger,
+  ModalTriggerText,
 } from "../styles";
 
 interface ErrorBannerProps {
@@ -24,17 +24,17 @@ const ErrorBanner: React.VFC<ErrorBannerProps> = ({ errors }) => {
 
   return (
     <BannerContainer data-cy="configuration-errors-banner">
-      <Callout variant="warning" title={errorTitle}>
+      <Callout title={errorTitle} variant="warning">
         {errors[0]}
         {errors.length > 1 && (
           <>
             <br />
-            <ModalTrigger
+            <ModalTriggerText
               data-cy="configuration-errors-modal-trigger"
               onClick={() => setShowModal(true)}
             >
               See all errors
-            </ModalTrigger>
+            </ModalTriggerText>
           </>
         )}
       </Callout>

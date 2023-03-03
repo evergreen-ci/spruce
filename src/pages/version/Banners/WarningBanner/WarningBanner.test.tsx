@@ -1,5 +1,5 @@
 import { render, screen, userEvent, waitFor } from "test_utils";
-import { WarningBanner } from "..";
+import WarningBanner from ".";
 
 const warnings = ["warning1", "warning2", "warning3"];
 
@@ -18,7 +18,7 @@ describe("warningBanner", () => {
     ).toBeInTheDocument();
   });
 
-  it("opens modal when clicking on the trigger text", async () => {
+  it("opens modal when clicking on trigger text", async () => {
     render(<WarningBanner warnings={warnings} />);
     userEvent.click(screen.getByDataCy("configuration-warnings-modal-trigger"));
     await waitFor(() => {

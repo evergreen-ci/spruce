@@ -7462,12 +7462,12 @@ export type VersionQuery = {
     manifest?: Maybe<{
       __typename?: "Manifest";
       id: string;
-      revision: string;
-      project: string;
       branch: string;
       isBase: boolean;
-      moduleOverrides?: Maybe<{ [key: string]: any }>;
       modules?: Maybe<any>;
+      moduleOverrides?: Maybe<{ [key: string]: any }>;
+      project: string;
+      revision: string;
     }>;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     patch?: Maybe<{
@@ -7501,8 +7501,8 @@ export type VersionQuery = {
     }>;
     projectMetadata?: Maybe<{
       __typename?: "Project";
-      repo: string;
       owner: string;
+      repo: string;
     }>;
     versionTiming?: Maybe<{
       __typename?: "VersionTiming";
