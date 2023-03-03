@@ -6,7 +6,7 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { PlusButton } from "components/Buttons";
 import { size, zIndex } from "constants/tokens";
-import { SpawnVolumeModal } from "./spawnVolumeButton/SpawnVolumeModal";
+import { SpawnVolumeModal } from "./SpawnVolumeModal";
 
 interface SpawnVolumeButtonProps {
   maxSpawnableLimit: number;
