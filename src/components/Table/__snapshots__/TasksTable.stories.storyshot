@@ -355,7 +355,7 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1yuwcm3"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ixbeze"
                       data-cy="task-status-badge"
                     >
                       Running
@@ -370,7 +370,7 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
                       data-cy="task-status-badge"
                     >
                       Unscheduled
@@ -436,7 +436,7 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1w3euls"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
                       data-cy="task-status-badge"
                     >
                       Succeeded
@@ -451,7 +451,7 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-701c3t"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
                       data-cy="task-status-badge"
                     >
                       Failed
@@ -517,7 +517,7 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1w3euls"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
                       data-cy="task-status-badge"
                     >
                       Succeeded
@@ -532,7 +532,7 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-701c3t"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
                       data-cy="task-status-badge"
                     >
                       Failed
@@ -938,7 +938,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1yuwcm3"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ixbeze"
                       data-cy="task-status-badge"
                     >
                       Running
@@ -953,7 +953,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1q59p9a"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
                       data-cy="task-status-badge"
                     >
                       Unscheduled
@@ -1033,7 +1033,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1w3euls"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
                       data-cy="task-status-badge"
                     >
                       Succeeded
@@ -1048,7 +1048,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-701c3t"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
                       data-cy="task-status-badge"
                     >
                       Failed
@@ -1128,7 +1128,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1w3euls"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
                       data-cy="task-status-badge"
                     >
                       Succeeded
@@ -1143,7 +1143,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-701c3t"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
                       data-cy="task-status-badge"
                     >
                       Failed
@@ -1223,7 +1223,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1w3euls"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
                       data-cy="task-status-badge"
                     >
                       Succeeded
@@ -1238,7 +1238,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-701c3t"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
                       data-cy="task-status-badge"
                     >
                       Failed
