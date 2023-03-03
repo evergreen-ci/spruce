@@ -37,7 +37,7 @@ export const DeleteVolumeButton: React.VFC<Props> = ({ volume }) => {
       checkboxLabel={
         volume.hostID
           ? "I understand this volume is currently mounted to a host."
-          : ""
+          : "I understand this volume will be deleted."
       }
       onConfirm={() => {
         spawnAnalytics.sendEvent({

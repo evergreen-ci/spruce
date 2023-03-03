@@ -76,28 +76,27 @@ export const SetTaskPriority: React.VFC<SetTaskPriorityProps> = ({
         active={active}
         data-cy="set-task-priority-popconfirm"
         align="left"
-        content={
-          <TextInput
-            ref={(el) => setInputRef(el)}
-            data-cy="task-priority-input"
-            label="Set new priority"
-            min={-1}
-            onChange={(e) => setPriority(parseInt(e.target.value, 10))}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                onConfirm();
-                setActive(false);
-              }
-            }}
-            size={16}
-            type="number"
-            value={priority.toString()}
-          />
-        }
         refEl={menuItemRef}
         onConfirm={onConfirm}
         setActive={setActive}
-      />
+      >
+        <TextInput
+          ref={(el) => setInputRef(el)}
+          data-cy="task-priority-input"
+          label="Set new priority"
+          min={-1}
+          onChange={(e) => setPriority(parseInt(e.target.value, 10))}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              onConfirm();
+              setActive(false);
+            }
+          }}
+          size={16}
+          type="number"
+          value={priority.toString()}
+        />
+      </Popconfirm>
     </>
   );
 };

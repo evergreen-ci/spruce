@@ -54,16 +54,15 @@ export const ScheduleUndispatchedBaseTasks: React.VFC<Props> = ({
         active={active}
         data-cy="schedule-undispatched-base-popconfirm"
         align="left"
-        content={
-          <Body>
-            Are you sure you want to schedule all the undispatched base tasks
-            for this patch&apos;s failing tasks?
-          </Body>
-        }
         refEl={menuItemRef}
         onConfirm={onConfirm}
         setActive={setActive}
-      />
+      >
+        <Body>
+          Are you sure you want to schedule all the undispatched base tasks for
+          this patch&apos;s failing tasks?
+        </Body>
+      </Popconfirm>
     </>
   );
 };

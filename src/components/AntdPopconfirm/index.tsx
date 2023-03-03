@@ -22,12 +22,12 @@ export const Popconfirm: React.VFC<Props> = ({ children, ...props }) => (
 interface PopconfirmWithCheckboxProps {
   onConfirm: (e: React.MouseEvent) => void;
   title: string;
-  checkboxLabel?: string;
+  checkboxLabel: string;
   children: React.ReactNode;
 }
 
 export const PopconfirmWithCheckbox: React.VFC<PopconfirmWithCheckboxProps> = ({
-  checkboxLabel, // truthiness determines if checkbox is rendered
+  checkboxLabel,
   children,
   onConfirm,
   title,
@@ -43,18 +43,16 @@ export const PopconfirmWithCheckbox: React.VFC<PopconfirmWithCheckboxProps> = ({
       title={
         <>
           {title}
-          {checkboxLabel && (
-            <CheckboxContainer>
-              <Checkbox
-                data-cy="popconfirm-checkbox"
-                className="cy-checkbox"
-                onChange={() => setChecked(!checked)}
-                label={checkboxLabel}
-                checked={checked}
-                bold={false}
-              />
-            </CheckboxContainer>
-          )}
+          <CheckboxContainer>
+            <Checkbox
+              data-cy="popconfirm-checkbox"
+              className="cy-checkbox"
+              onChange={() => setChecked(!checked)}
+              label={checkboxLabel}
+              checked={checked}
+              bold={false}
+            />
+          </CheckboxContainer>
         </>
       }
       onConfirm={onConfirm}

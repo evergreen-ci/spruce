@@ -4,7 +4,9 @@ import Popconfirm from ".";
 describe("popconfirm", () => {
   it("properly shows content inside the popconfirm", () => {
     render(
-      <Popconfirm active content={<div>hello</div>} setActive={jest.fn()} />
+      <Popconfirm active setActive={jest.fn()}>
+        <div>hello</div>
+      </Popconfirm>
     );
     expect(screen.getByText("hello")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Ok" })).toBeInTheDocument();
@@ -15,12 +17,9 @@ describe("popconfirm", () => {
     const onConfirm = jest.fn();
     const setActive = jest.fn();
     render(
-      <Popconfirm
-        active
-        onConfirm={onConfirm}
-        content={<div>hello</div>}
-        setActive={setActive}
-      />
+      <Popconfirm active onConfirm={onConfirm} setActive={setActive}>
+        <div>hello</div>
+      </Popconfirm>
     );
     userEvent.click(screen.getByRole("button", { name: "Ok" }));
     expect(onConfirm).toHaveBeenCalledTimes(1);
@@ -32,12 +31,9 @@ describe("popconfirm", () => {
     const onCancel = jest.fn();
     const setActive = jest.fn();
     render(
-      <Popconfirm
-        active
-        onCancel={onCancel}
-        content={<div>hello</div>}
-        setActive={setActive}
-      />
+      <Popconfirm active onCancel={onCancel} setActive={setActive}>
+        <div>hello</div>
+      </Popconfirm>
     );
     userEvent.click(screen.getByRole("button", { name: "Cancel" }));
     expect(onCancel).toHaveBeenCalledTimes(1);

@@ -70,22 +70,21 @@ export const UnscheduleTasks: React.VFC<props> = ({
         active={active}
         data-cy="unschedule-patch-popconfirm"
         align="left"
-        content={
-          <>
-            <StyledBody>Unschedule all tasks?</StyledBody>
-            <Checkbox
-              data-cy="abort-checkbox"
-              label="Abort tasks that have already started"
-              onChange={() => setAbort(!abort)}
-              checked={abort}
-              bold={false}
-            />
-          </>
-        }
         refEl={menuItemRef}
         onConfirm={onConfirm}
         setActive={setActive}
-      />
+      >
+        <>
+          <StyledBody>Unschedule all tasks?</StyledBody>
+          <Checkbox
+            data-cy="abort-checkbox"
+            label="Abort tasks that have already started"
+            onChange={() => setAbort(!abort)}
+            checked={abort}
+            bold={false}
+          />
+        </>
+      </Popconfirm>
     </>
   );
 };

@@ -13,7 +13,7 @@ interface PopconfirmProps {
   align?: Align;
   justify?: Justify;
   "data-cy"?: string;
-  content: React.ReactNode;
+  children: React.ReactNode;
   refEl?: React.RefObject<HTMLElement>;
   onCancel?: () => void;
   onConfirm?: () => void;
@@ -25,7 +25,7 @@ const Popconfirm: React.VFC<PopconfirmProps> = ({
   align = "top",
   justify = "middle",
   "data-cy": dataCy,
-  content,
+  children,
   refEl,
   onCancel = () => {},
   onConfirm = () => {},
@@ -44,7 +44,7 @@ const Popconfirm: React.VFC<PopconfirmProps> = ({
       popoverZIndex={zIndex.popover}
     >
       <ContentWrapper ref={popoverRef}>
-        {content}
+        {children}
         <ButtonWrapper>
           <Button
             size="small"
