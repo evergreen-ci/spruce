@@ -2747,7 +2747,6 @@ export type ProjectGeneralSettingsFragment = {
 
 export type RepoGeneralSettingsFragment = {
   __typename?: "RepoRef";
-  enabled: boolean;
   owner: string;
   repo: string;
   branch: string;
@@ -3077,7 +3076,6 @@ export type RepoSettingsFragment = {
     __typename?: "RepoRef";
     id: string;
     displayName: string;
-    enabled: boolean;
     owner: string;
     repo: string;
     branch: string;
@@ -6617,7 +6615,6 @@ export type RepoSettingsQuery = {
       __typename?: "RepoRef";
       id: string;
       displayName: string;
-      enabled: boolean;
       owner: string;
       repo: string;
       branch: string;

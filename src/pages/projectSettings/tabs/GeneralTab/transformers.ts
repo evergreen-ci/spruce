@@ -5,21 +5,26 @@ import {
   RepoSettingsQuery,
 } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
+import { ProjectType } from "../utils";
 
 type Tab = ProjectSettingsTabRoutes.General;
 
 export const gqlToForm: GqlToFormFunction<Tab> = (
   data:
     | ProjectSettingsQuery["projectSettings"]
-    | RepoSettingsQuery["repoSettings"]
+    | RepoSettingsQuery["repoSettings"],
+  options: { projectType?: ProjectType } = {}
 ) => {
   if (!data) return null;
-
+  const projectType = options.projectType ?? ProjectType.Project;
   const { projectRef } = data;
 
   return {
     generalConfiguration: {
-      enabled: projectRef.enabled,
+      ...(projectType !== ProjectType.Repo &&
+        "enabled" in projectRef && {
+          enabled: projectRef.enabled,
+        }),
       repositoryInfo: {
         owner: projectRef.owner,
         repo: projectRef.repo,
@@ -27,9 +32,10 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
       branch: projectRef.branch,
       other: {
         displayName: projectRef.displayName,
-        ...("identifier" in projectRef && {
-          identifier: projectRef?.identifier,
-        }),
+        ...(projectType !== ProjectType.Repo &&
+          "identifier" in projectRef && {
+            identifier: projectRef.identifier,
+          }),
         batchTime: projectRef.batchTime || null,
         remotePath: projectRef.remotePath,
         spawnHostScriptPath: projectRef.spawnHostScriptPath,
@@ -71,7 +77,9 @@ export const formToGql: FormToGqlFunction<Tab> = (
 ) => {
   const projectRef: ProjectInput = {
     id,
-    enabled: generalConfiguration.enabled,
+    ...("enabled" in generalConfiguration && {
+      enabled: generalConfiguration.enabled,
+    }),
     owner: generalConfiguration.repositoryInfo.owner,
     repo: generalConfiguration.repositoryInfo.repo,
     branch: generalConfiguration.branch,
