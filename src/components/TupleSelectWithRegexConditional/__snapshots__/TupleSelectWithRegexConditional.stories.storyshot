@@ -120,7 +120,7 @@ exports[`storybook Storyshots Components/TupleSelect Tuple Select With Condition
           aria-expanded={false}
           aria-invalid={false}
           aria-labelledby="Tuple Select"
-          className="lg-ui-button-0001 leafygreen-ui-sedrjd"
+          className="lg-ui-button-0001 leafygreen-ui-1bm1nmn"
           data-cy="tuple-select-dropdown"
           data-testid="leafygreen-ui-select-menubutton"
           disabled={false}
@@ -197,7 +197,7 @@ exports[`storybook Storyshots Components/TupleSelect Tuple Select With Condition
           <button
             aria-disabled={false}
             aria-label="Select plus button"
-            className="leafygreen-ui-6obv0c"
+            className="leafygreen-ui-1xt2asn"
             onClick={[Function]}
             tabIndex={0}
           >
