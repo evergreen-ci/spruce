@@ -54,6 +54,8 @@ export const DeleteVolumeButton: React.VFC<Props> = ({ volume }) => {
     <Popconfirm
       icon={null}
       title={`Delete this volume ${volumeName}?`}
+      okText="Yes"
+      cancelText="Cancel"
       onConfirm={() => {
         spawnAnalytics.sendEvent({
           name: "Delete volume",
