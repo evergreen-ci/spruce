@@ -1,5 +1,4 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { fireEvent } from "@testing-library/react";
 import { renderHook, act } from "@testing-library/react-hooks/dom";
 import Cookie from "js-cookie";
 import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -16,6 +15,21 @@ const Provider = ({ children }) => (
 );
 
 describe("usePolling", () => {
+  const updateNetworkStatus = (status: string) => {
+    act(() => {
+      window.dispatchEvent(new window.Event(status));
+    });
+  };
+
+  const updatePageVisibility = (status: string) => {
+    act(() => {
+      Object.defineProperty(document, "visibilityState", {
+        value: status,
+      });
+      document.dispatchEvent(new window.Event("visibilitychange"));
+    });
+  };
+
   beforeEach(() => {
     Object.defineProperty(document, "visibilityState", {
       value: "visible",
@@ -97,29 +111,17 @@ describe("usePolling", () => {
       await waitForNextUpdate();
 
       // go offline
-      fireEvent(window, new Event("offline"));
+      updateNetworkStatus("offline");
       shouldPollFaster = false;
       rerender();
       // go online
-      fireEvent(window, new Event("online"));
-
+      updateNetworkStatus("online");
       // document hidden
-      act(() => {
-        Object.defineProperty(document, "visibilityState", {
-          value: "hidden",
-        });
-      });
-      fireEvent(document, new Event("visibilitychange"));
+      updatePageVisibility("hidden");
       shouldPollFaster = true;
       rerender();
       // document visible
-      act(() => {
-        Object.defineProperty(document, "visibilityState", {
-          value: "visible",
-        });
-      });
-      fireEvent(document, new Event("visibilitychange"));
-
+      updatePageVisibility("visible");
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(0);
     });
@@ -137,7 +139,7 @@ describe("usePolling", () => {
       await waitForNextUpdate();
       expect(result.current).toBe(true);
 
-      fireEvent(window, new Event("offline"));
+      updateNetworkStatus("offline");
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
       expect(result.current).toBe(false);
@@ -154,13 +156,7 @@ describe("usePolling", () => {
       await waitForNextUpdate();
       expect(result.current).toBe(true);
 
-      act(() => {
-        Object.defineProperty(document, "visibilityState", {
-          value: "hidden",
-        });
-      });
-      fireEvent(document, new Event("visibilitychange"));
-
+      updatePageVisibility("hidden");
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
       expect(result.current).toBe(false);
@@ -178,19 +174,13 @@ describe("usePolling", () => {
       expect(result.current).toBe(true);
 
       // go offline
-      fireEvent(window, new Event("offline"));
+      updateNetworkStatus("offline");
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
       expect(result.current).toBe(false);
 
       // document hidden
-      act(() => {
-        Object.defineProperty(document, "visibilityState", {
-          value: "hidden",
-        });
-      });
-      fireEvent(document, new Event("visibilitychange"));
-
+      updatePageVisibility("hidden");
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
       expect(result.current).toBe(false);
@@ -208,18 +198,13 @@ describe("usePolling", () => {
       expect(result.current).toBe(true);
 
       // document hidden
-      act(() => {
-        Object.defineProperty(document, "visibilityState", {
-          value: "hidden",
-        });
-      });
-      fireEvent(document, new Event("visibilitychange"));
+      updatePageVisibility("hidden");
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
       expect(result.current).toBe(false);
 
       // go offline
-      fireEvent(window, new Event("offline"));
+      updateNetworkStatus("offline");
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
       expect(result.current).toBe(false);
@@ -239,35 +224,25 @@ describe("usePolling", () => {
       expect(result.current).toBe(true);
 
       // go offline
-      fireEvent(window, new Event("offline"));
+      updateNetworkStatus("offline");
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
       expect(result.current).toBe(false);
 
       // document hidden
-      act(() => {
-        Object.defineProperty(document, "visibilityState", {
-          value: "hidden",
-        });
-      });
-      fireEvent(document, new Event("visibilitychange"));
+      updatePageVisibility("hidden");
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
       expect(result.current).toBe(false);
 
       // go online - should not start polling because document is still hidden
-      fireEvent(window, new Event("online"));
+      updateNetworkStatus("online");
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
       expect(result.current).toBe(false);
 
       // document visible - start polling
-      act(() => {
-        Object.defineProperty(document, "visibilityState", {
-          value: "visible",
-        });
-      });
-      fireEvent(document, new Event("visibilitychange"));
+      updatePageVisibility("visible");
       expect(startPolling).toHaveBeenCalledTimes(1);
       expect(stopPolling).toHaveBeenCalledTimes(1);
       expect(result.current).toBe(true);
@@ -309,35 +284,25 @@ describe("usePolling", () => {
       await waitForNextUpdate();
 
       // go offline
-      fireEvent(window, new Event("offline"));
+      updateNetworkStatus("offline");
       expect(refetch).toHaveBeenCalledTimes(0);
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
 
       // go online
-      fireEvent(window, new Event("online"));
+      updateNetworkStatus("online");
       expect(refetch).toHaveBeenCalledTimes(1);
       expect(startPolling).toHaveBeenCalledTimes(1);
       expect(stopPolling).toHaveBeenCalledTimes(1);
 
       // document hidden
-      act(() => {
-        Object.defineProperty(document, "visibilityState", {
-          value: "hidden",
-        });
-      });
-      fireEvent(document, new Event("visibilitychange"));
+      updatePageVisibility("hidden");
       expect(refetch).toHaveBeenCalledTimes(1);
       expect(startPolling).toHaveBeenCalledTimes(1);
       expect(stopPolling).toHaveBeenCalledTimes(2);
 
       // document visible
-      act(() => {
-        Object.defineProperty(document, "visibilityState", {
-          value: "visible",
-        });
-      });
-      fireEvent(document, new Event("visibilitychange"));
+      updatePageVisibility("visible");
       expect(refetch).toHaveBeenCalledTimes(2);
       expect(startPolling).toHaveBeenCalledTimes(2);
       expect(stopPolling).toHaveBeenCalledTimes(2);

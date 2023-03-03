@@ -7,9 +7,9 @@ import {
 } from "gql/generated/types";
 import { GET_TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
 import {
-  fireEvent,
   renderWithRouterMatch as render,
   screen,
+  userEvent,
   waitFor,
 } from "test_utils";
 import { ApolloMock } from "types/gql";
@@ -135,7 +135,7 @@ describe("columnHeaders (Variant History)", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
-    fireEvent.mouseEnter(screen.queryByText(trimmedTaskName));
+    userEvent.hover(screen.queryByText(trimmedTaskName));
     await waitFor(() => {
       expect(screen.queryByText(longTaskName)).toBeVisible();
     });

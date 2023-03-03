@@ -1,5 +1,4 @@
-import userEvent from "@testing-library/user-event";
-import { render, screen } from "test_utils";
+import { render, screen, userEvent } from "test_utils";
 import TupleSelect from ".";
 
 const options = [

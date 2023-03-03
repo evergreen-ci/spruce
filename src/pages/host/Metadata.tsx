@@ -29,6 +29,7 @@ export const Metadata: React.VFC<{
     lastCommunicationTime,
     runningTask,
     uptime,
+    ami,
   } = host ?? {};
 
   const { id: runningTaskId, name: runningTaskName } = runningTask ?? {};
@@ -52,6 +53,7 @@ export const Metadata: React.VFC<{
       </MetadataItem>
       <MetadataItem>Started By: {startedBy}</MetadataItem>
       <MetadataItem>Cloud Provider: {provider}</MetadataItem>
+      {ami && <MetadataItem>AMI: {ami}</MetadataItem>}
       <MetadataItem>
         Distro:{" "}
         <StyledLink data-cy="distro-link" href={distroLink}>

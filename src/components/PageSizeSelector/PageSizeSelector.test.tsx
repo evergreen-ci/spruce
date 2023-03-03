@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "test_utils";
+import { render, screen, userEvent, waitFor } from "test_utils";
 import PageSizeSelector from ".";
 
 describe("pageSizeSelector", () => {
@@ -11,11 +11,11 @@ describe("pageSizeSelector", () => {
         onChange={onChange}
       />
     );
-    fireEvent.click(screen.queryByText("10 / page"));
+    userEvent.click(screen.queryByText("10 / page"));
     await waitFor(() => {
       expect(screen.queryByText("20 / page")).toBeVisible();
     });
-    fireEvent.click(screen.queryByText("20 / page"));
+    userEvent.click(screen.queryByText("20 / page"));
     expect(onChange).toHaveBeenCalledWith(20);
   });
 });

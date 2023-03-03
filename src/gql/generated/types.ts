@@ -357,6 +357,7 @@ export type GroupedTaskStatusCount = {
 /** Host models a host, which are used for things like running tasks or as virtual workstations. */
 export type Host = {
   __typename?: "Host";
+  ami?: Maybe<Scalars["String"]>;
   availabilityZone?: Maybe<Scalars["String"]>;
   displayName?: Maybe<Scalars["String"]>;
   distro?: Maybe<DistroInfo>;
@@ -2289,6 +2290,7 @@ export type Version = {
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
   childVersions?: Maybe<Array<Maybe<Version>>>;
   createTime: Scalars["Time"];
+  errors: Array<Scalars["String"]>;
   finishTime?: Maybe<Scalars["Time"]>;
   id: Scalars["String"];
   isPatch: Scalars["Boolean"];
@@ -2312,6 +2314,7 @@ export type Version = {
   tasks: VersionTasks;
   upstreamProject?: Maybe<UpstreamProject>;
   versionTiming?: Maybe<VersionTiming>;
+  warnings: Array<Scalars["String"]>;
 };
 
 /** Version models a commit within a project. */
@@ -2744,7 +2747,6 @@ export type ProjectGeneralSettingsFragment = {
 
 export type RepoGeneralSettingsFragment = {
   __typename?: "RepoRef";
-  enabled: boolean;
   owner: string;
   repo: string;
   branch: string;
@@ -3074,7 +3076,6 @@ export type RepoSettingsFragment = {
     __typename?: "RepoRef";
     id: string;
     displayName: string;
-    enabled: boolean;
     owner: string;
     repo: string;
     branch: string;
@@ -4915,6 +4916,7 @@ export type HostQuery = {
   host?: Maybe<{
     __typename?: "Host";
     distroId?: Maybe<string>;
+    ami?: Maybe<string>;
     lastCommunicationTime?: Maybe<Date>;
     id: string;
     hostUrl: string;
@@ -6613,7 +6615,6 @@ export type RepoSettingsQuery = {
       __typename?: "RepoRef";
       id: string;
       displayName: string;
-      enabled: boolean;
       owner: string;
       repo: string;
       branch: string;

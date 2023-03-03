@@ -6,7 +6,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     id: "project",
     identifier: "project",
     repoRefId: "repo",
-    enabled: null,
+    enabled: false,
     owner: "evergreen-ci",
     repo: "evergreen",
     branch: null,
@@ -112,7 +112,6 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
 
   projectRef: {
     id: "123",
-    enabled: true,
     owner: "evergreen-ci",
     repo: "spruce",
     branch: "main",

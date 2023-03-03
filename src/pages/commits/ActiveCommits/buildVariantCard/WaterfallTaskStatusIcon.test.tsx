@@ -1,11 +1,15 @@
 import { MockedProvider } from "@apollo/client/testing";
-import userEvent from "@testing-library/user-event";
 import {
   GetFailedTaskStatusIconTooltipQuery,
   GetFailedTaskStatusIconTooltipQueryVariables,
 } from "gql/generated/types";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
-import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+  waitFor,
+} from "test_utils";
 import { ApolloMock } from "types/gql";
 import { injectGlobalStyle, removeGlobalStyle } from "../utils";
 import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";

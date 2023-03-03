@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "test_utils";
+import { render, screen, userEvent, waitFor } from "test_utils";
 import { TaskStatus } from "types/task";
 import { HistoryTableIcon } from ".";
 
@@ -10,7 +10,7 @@ describe("historyTableIcon", () => {
     );
     const icon = screen.queryByDataCy("history-table-icon");
     expect(icon).toBeInTheDocument();
-    fireEvent.click(icon);
+    userEvent.click(icon);
     expect(onClick).toHaveBeenCalledWith();
   });
 
@@ -18,7 +18,7 @@ describe("historyTableIcon", () => {
     render(<HistoryTableIcon status={TaskStatus.Succeeded} />);
     const icon = screen.queryByDataCy("history-table-icon");
     expect(icon).toBeInTheDocument();
-    fireEvent.mouseOver(icon);
+    userEvent.hover(icon);
     expect(screen.queryByText("test a")).not.toBeInTheDocument();
   });
 
@@ -31,7 +31,7 @@ describe("historyTableIcon", () => {
     );
     const icon = screen.queryByDataCy("history-table-icon");
     expect(icon).toBeInTheDocument();
-    fireEvent.mouseOver(icon);
+    userEvent.hover(icon);
     await waitFor(() => {
       expect(screen.queryByText("test a")).toBeVisible();
     });

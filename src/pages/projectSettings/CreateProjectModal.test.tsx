@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { GraphQLError } from "graphql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   CreateProjectMutation,
@@ -227,6 +228,58 @@ describe("createProjectField", () => {
 
     userEvent.click(screen.queryByText("Create Project"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
+    expect(history.location.pathname).toBe(
+      "/project/new-project-name/settings"
+    );
+  });
+  it("shows a warning toast when an error and data are returned", async () => {
+    const mockWithWarn = {
+      request: {
+        query: CREATE_PROJECT,
+        variables: {
+          project: {
+            identifier: "new-project-name",
+            owner: "10gen",
+            repo: "new-repo-name",
+          },
+          requestS3Creds: false,
+        },
+      },
+      result: {
+        data: {
+          createProject: {
+            identifier: "new-project-name",
+          },
+        },
+        errors: [new GraphQLError("There was an error creating the project")],
+      },
+    };
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <NewProjectModal mock={mockWithWarn} />
+    );
+    const { history } = render(<Component />);
+
+    await waitFor(() =>
+      expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
+    );
+    userEvent.type(
+      screen.queryByDataCy("project-name-input"),
+      "new-project-name"
+    );
+    await selectLGOption("new-owner-select", "10gen");
+    userEvent.clear(screen.queryByDataCy("new-repo-input"));
+    userEvent.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
+
+    expect(
+      screen.getByRole("button", {
+        name: "Create Project",
+      })
+    ).toBeEnabled();
+
+    userEvent.click(screen.queryByText("Create Project"));
+    await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
+    await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
     expect(history.location.pathname).toBe(
       "/project/new-project-name/settings"
