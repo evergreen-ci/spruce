@@ -62,6 +62,9 @@ export const getFormSchema = ({
     },
   },
   uiSchema: {
+    name: {
+      "ui:data-cy": "volume-name-input",
+    },
     expirationDetails: {
       "ui:ObjectFieldTemplate": ExpirationRow,
       expiration: {
