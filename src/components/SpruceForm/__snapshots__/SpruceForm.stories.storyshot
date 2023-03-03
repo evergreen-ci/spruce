@@ -37,7 +37,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                   className="leafygreen-ui-1nkq8lt"
                 >
                   <label
-                    className="leafygreen-ui-1wkudkc"
+                    className="leafygreen-ui-vg7131"
                     htmlFor="select-6"
                     id="select-5-label"
                   >
@@ -50,7 +50,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                     aria-expanded={false}
                     aria-invalid={false}
                     aria-labelledby="select-5-label"
-                    className="lg-ui-button-0001 leafygreen-ui-sedrjd"
+                    className="lg-ui-button-0001 leafygreen-ui-3qrx9g"
                     data-testid="leafygreen-ui-select-menubutton"
                     disabled={false}
                     id="select-6"
@@ -613,7 +613,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                     aria-expanded={false}
                     aria-invalid={false}
                     aria-labelledby="select-9-label"
-                    className="lg-ui-button-0001 leafygreen-ui-1bn2bfe"
+                    className="lg-ui-button-0001 leafygreen-ui-d27c4e"
                     data-testid="leafygreen-ui-select-menubutton"
                     disabled={false}
                     id="select-10"

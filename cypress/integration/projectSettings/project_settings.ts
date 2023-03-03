@@ -594,8 +594,8 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("default-to-repo-button").should("exist");
     });
 
-    it("Shows a third radio box when rendering a project that inherits from repo", () => {
-      cy.dataCy("enabled-radio-box").children().should("have.length", 3);
+    it("Shows only two radio boxes even when rendering a project that inherits from repo", () => {
+      cy.dataCy("enabled-radio-box").children().should("have.length", 2);
     });
 
     it("Does not default to repo value for display name", () => {
