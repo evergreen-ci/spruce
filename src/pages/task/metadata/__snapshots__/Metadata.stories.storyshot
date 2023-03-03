@@ -512,7 +512,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
             ubuntu1604
           </small>
           <div
-            className="css-1x0kgpn-StyledBadge e1dgw5p60 leafygreen-ui-1w3euls"
+            className="css-1x0kgpn-StyledBadge e1dgw5p60 leafygreen-ui-n4itms"
           >
             Must succeed
           </div>
@@ -564,7 +564,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
             ubuntu1604
           </small>
           <div
-            className="css-1x0kgpn-StyledBadge e1dgw5p60 leafygreen-ui-z8wldb"
+            className="css-1x0kgpn-StyledBadge e1dgw5p60 leafygreen-ui-1qtf7xy"
           >
             Must finish
           </div>
@@ -616,7 +616,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
             ubuntu1604
           </small>
           <div
-            className="css-1x0kgpn-StyledBadge e1dgw5p60 leafygreen-ui-701c3t"
+            className="css-1x0kgpn-StyledBadge e1dgw5p60 leafygreen-ui-ud6teo"
           >
             Must fail
           </div>
@@ -666,7 +666,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
             ubuntu1604
           </small>
           <div
-            className="css-1x0kgpn-StyledBadge e1dgw5p60 leafygreen-ui-701c3t"
+            className="css-1x0kgpn-StyledBadge e1dgw5p60 leafygreen-ui-ud6teo"
           >
             Must fail
           </div>
