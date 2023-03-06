@@ -10,7 +10,7 @@ export interface DisplayModalProps {
     open: boolean
   ) => void | React.Dispatch<React.SetStateAction<boolean>>;
   size?: ModalSize;
-  title?: string;
+  title?: React.ReactNode | string;
   children: React.ReactNode;
   subtitle?: string;
 }
