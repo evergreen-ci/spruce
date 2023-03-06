@@ -77,6 +77,7 @@ export const SetTaskPriority: React.VFC<SetTaskPriorityProps> = ({
         data-cy="set-task-priority-popconfirm"
         align="left"
         refEl={menuItemRef}
+        confirmText="Set"
         onConfirm={onConfirm}
         setActive={setActive}
       >

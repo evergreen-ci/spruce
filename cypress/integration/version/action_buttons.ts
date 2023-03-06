@@ -35,13 +35,13 @@ describe("Action Buttons", () => {
         mockErrorResponse({
           errorMessage: "There was an error unscheduling tasks",
         });
-        cy.contains("button", "Ok").click({ force: true });
+        cy.contains("button", "Yes").click({ force: true });
         cy.validateToast("error");
       });
 
       it("Clicking 'Unschedule' button show popconfirm with abort checkbox and a toast on success", () => {
         cy.dataCy("unschedule-patch").click();
-        cy.contains("button", "Ok").click({ force: true });
+        cy.contains("button", "Yes").click({ force: true });
         cy.validateToast("success");
       });
 

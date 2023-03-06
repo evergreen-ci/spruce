@@ -14,6 +14,7 @@ interface PopconfirmProps {
   justify?: Justify;
   "data-cy"?: string;
   children: React.ReactNode;
+  confirmText?: string;
   refEl?: React.RefObject<HTMLElement>;
   onCancel?: () => void;
   onConfirm?: () => void;
@@ -26,13 +27,16 @@ const Popconfirm: React.VFC<PopconfirmProps> = ({
   justify = "middle",
   "data-cy": dataCy,
   children,
+  confirmText = "Yes",
   refEl,
   onCancel = () => {},
   onConfirm = () => {},
   setActive,
 }) => {
-  const popoverRef = useRef(null);
-  useOnClickOutside([popoverRef, refEl], () => setActive(false));
+  const popoverRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside([popoverRef, ...(refEl ? [refEl] : [])], () =>
+    setActive(false)
+  );
 
   return (
     <Popover
@@ -63,7 +67,7 @@ const Popconfirm: React.VFC<PopconfirmProps> = ({
               setActive(false);
             }}
           >
-            Ok
+            {confirmText}
           </Button>
         </ButtonWrapper>
       </ContentWrapper>

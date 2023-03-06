@@ -69,6 +69,7 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
         data-cy="set-patch-priority-popconfirm"
         align="left"
         refEl={menuItemRef}
+        confirmText="Set"
         onConfirm={onConfirm}
         setActive={setActive}
       >
