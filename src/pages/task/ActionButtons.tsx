@@ -2,13 +2,10 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
-import TextInput from "@leafygreen-ui/text-input";
-import { Popconfirm } from "antd";
 import { useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PageButtonRow } from "components/styles";
 import { commitQueueRequester } from "constants/patch";
 import { getTaskHistoryRoute } from "constants/routes";
@@ -41,6 +38,7 @@ import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { useQueryParam } from "hooks/useQueryParam";
 import { TaskStatus } from "types/task";
 import { PreviousCommits } from "./actionButtons/previousCommits/PreviousCommits";
+import { SetTaskPriority } from "./actionButtons/SetTaskPriority";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
@@ -80,7 +78,7 @@ export const ActionButtons: React.VFC<Props> = ({
 
   const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
-  const [priority, setPriority] = useState<number>(initialPriority);
+
   const { id: taskId } = useParams<{ id: string }>();
   const taskAnalytics = useTaskAnalytics();
   const [, setExecution] = useQueryParam("execution", 0);
@@ -187,8 +185,8 @@ export const ActionButtons: React.VFC<Props> = ({
 
   const dropdownItems = [
     <DropdownItem
-      disabled={disabled || !canUnschedule}
       key="unschedule"
+      disabled={disabled || !canUnschedule}
       data-cy="unschedule-task"
       onClick={() => {
         unscheduleTask();
@@ -198,8 +196,8 @@ export const ActionButtons: React.VFC<Props> = ({
       Unschedule
     </DropdownItem>,
     <DropdownItem
-      data-cy="abort-task"
       key="abort"
+      data-cy="abort-task"
       disabled={disabled || !canAbort}
       onClick={() => {
         abortTask();
@@ -209,9 +207,9 @@ export const ActionButtons: React.VFC<Props> = ({
       Abort
     </DropdownItem>,
     <DropdownItem
+      key="disable-task"
       data-cy="disable-enable"
       disabled={disabled || !canDisable}
-      key="disableTask"
       onClick={() => {
         setTaskPriority({
           variables: { taskId, priority: initialPriority < 0 ? 0 : -1 },
@@ -220,51 +218,16 @@ export const ActionButtons: React.VFC<Props> = ({
     >
       {initialPriority < 0 ? "Enable" : "Disable"}
     </DropdownItem>,
-    <ConditionalWrapper
-      key="taskPriorityWrapper"
-      condition={canSetPriority}
-      wrapper={(children) => (
-        <Popconfirm
-          key="priority"
-          icon={null}
-          placement="left"
-          title={
-            <TextInput
-              label="Set new priority"
-              size={1}
-              min={0}
-              type="number"
-              value={priority.toString()}
-              onChange={(e) => setPriority(parseInt(e.target.value, 10))}
-              data-cy="task-priority-input"
-              autoFocus
-            />
-          }
-          onConfirm={() => {
-            setTaskPriority({
-              variables: { taskId, priority },
-            });
-            taskAnalytics.sendEvent({ name: "Set Priority", priority });
-          }}
-          okText="Set"
-          cancelText="Cancel"
-        >
-          {children}
-        </Popconfirm>
-      )}
-    >
-      <DropdownItem
-        data-cy="prioritize-task"
-        disabled={disabled || !canSetPriority}
-        key="setTaskPriority"
-      >
-        Set priority
-      </DropdownItem>
-    </ConditionalWrapper>,
+    <SetTaskPriority
+      key="set-task-priority"
+      taskId={taskId}
+      disabled={disabled || !canSetPriority}
+      initialPriority={initialPriority}
+    />,
     <DropdownItem
+      key="override-dependencies"
       data-cy="override-dependencies"
       disabled={disabled || !canOverrideDependencies}
-      key="overrideDependencies"
       onClick={() => {
         overrideTaskDependencies({ variables: { taskId } });
       }}
