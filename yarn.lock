@@ -3358,15 +3358,15 @@
     "@leafygreen-ui/hooks" "^7.3.3"
     "@leafygreen-ui/lib" "^10.0.0"
 
-"@leafygreen-ui/badge@8.0.1":
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/badge/-/badge-8.0.1.tgz#d11193338617637c3ae7fce6d91984748eb2e0bf"
-  integrity sha512-1ByvvzNu7K3uQjCxtGdxdwzHkhU0ZbYmJfLp5nsC6SxxH6NYEqoPbU9DzA+kX+Ef02ksArLp1FPoEde9sSkgbw==
+"@leafygreen-ui/badge@8.0.2":
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/badge/-/badge-8.0.2.tgz#2928d5a3877644b83f7459a008c03361cb2c744b"
+  integrity sha512-rMAV+oXaR8pQDS2UqaakhhR4Zat4HJ7INBYzXr0L1JmUcIkLDM3qgVGYfZhwoadW1MVKIJ7J2z6TNt9+3kOtOQ==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.4.0"
+    "@leafygreen-ui/palette" "^3.4.7"
+    "@leafygreen-ui/tokens" "^2.0.0"
 
 "@leafygreen-ui/banner@7.0.1":
   version "7.0.1"
