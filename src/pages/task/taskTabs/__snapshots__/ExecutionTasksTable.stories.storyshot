@@ -361,7 +361,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1w3euls"
                       data-cy="task-status-badge"
                     >
                       Succeeded
@@ -441,7 +441,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1w3euls"
                       data-cy="task-status-badge"
                     >
                       Succeeded
@@ -841,7 +841,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1w3euls"
                       data-cy="task-status-badge"
                     >
                       Succeeded
@@ -915,7 +915,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1w3euls"
                       data-cy="task-status-badge"
                     >
                       Succeeded
