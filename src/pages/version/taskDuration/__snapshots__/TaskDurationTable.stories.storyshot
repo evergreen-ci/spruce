@@ -48,7 +48,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                       <button
                         aria-disabled={false}
                         aria-label="Table Search Popover Icon"
-                        className="leafygreen-ui-6obv0c"
+                        className="leafygreen-ui-1xt2asn"
                         data-cy="task-name-filter-popover"
                         onClick={[Function]}
                         tabIndex={0}
@@ -104,7 +104,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                       <button
                         aria-disabled={false}
                         aria-label="Table Filter Popover Icon"
-                        className="leafygreen-ui-6obv0c"
+                        className="leafygreen-ui-1xt2asn"
                         data-cy="status-filter-popover"
                         onClick={[Function]}
                         tabIndex={0}
@@ -160,7 +160,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                       <button
                         aria-disabled={false}
                         aria-label="Table Search Popover Icon"
-                        className="leafygreen-ui-6obv0c"
+                        className="leafygreen-ui-1xt2asn"
                         data-cy="build-variant-filter-popover"
                         onClick={[Function]}
                         tabIndex={0}
