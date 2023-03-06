@@ -6,7 +6,7 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
     className="css-19f1xe2-Container e3qndfh0"
   >
     <div
-      className="css-1p0v37z-PaddedBadge e1vs77ku2 leafygreen-ui-ohl2hc"
+      className="css-1p0v37z-PaddedBadge e1vs77ku2 leafygreen-ui-1q59p9a"
       data-cy="filter-badge"
     >
       <div
