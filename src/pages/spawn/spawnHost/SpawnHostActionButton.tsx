@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
 import { useSpawnAnalytics } from "analytics";
+import { PopconfirmWithCheckbox } from "components/AntdPopconfirm";
 import Icon from "components/Icon";
-import { PopconfirmWithCheckbox } from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
   UpdateSpawnHostStatusMutation,

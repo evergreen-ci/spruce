@@ -3,61 +3,40 @@
 query Version($id: String!) {
   version(id: $id) {
     id
-    createTime
-    startTime
-    finishTime
-    revision
-    author
-    status
-    order
-    repo
-    project
     activated
-    message
-    isPatch
-    taskCount
-    project
+    author
     baseVersion {
       id
     }
-    projectIdentifier
-    versionTiming {
-      makespan
-      timeTaken
+    createTime
+    errors
+    finishTime
+    isPatch
+    manifest {
+      id
+      branch
+      isBase
+      modules
+      moduleOverrides
+      project
+      revision
     }
+    message
+    order
     parameters {
       key
       value
     }
-    manifest {
-      id
-      revision
-      project
-      branch
-      isBase
-      moduleOverrides
-      modules
-    }
-    previousVersion {
-      id
-      revision
-    }
-    projectMetadata {
-      repo
-      owner
-    }
     patch {
       id
-      patchNumber
       alias
-      commitQueuePosition
       canEnqueueToCommitQueue
       childPatches {
         id
         githash
         projectIdentifier
-        taskCount
         status
+        taskCount
         versionFull {
           id
           baseVersion {
@@ -66,7 +45,29 @@ query Version($id: String!) {
           status
         }
       }
+      commitQueuePosition
+      patchNumber
     }
+    previousVersion {
+      id
+      revision
+    }
+    project
+    projectIdentifier
+    projectMetadata {
+      owner
+      repo
+    }
+    repo
+    revision
+    startTime
+    status
+    taskCount
+    versionTiming {
+      makespan
+      timeTaken
+    }
+    warnings
     ...upstreamProject
   }
 }
