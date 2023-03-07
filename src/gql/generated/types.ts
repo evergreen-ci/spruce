@@ -2101,12 +2101,12 @@ export type TestFilter = {
  * It's used to filter, sort, and paginate test results of a task.
  */
 export type TestFilterOptions = {
-  groupID?: Scalars["String"];
-  limit?: Scalars["Int"];
-  page?: Scalars["Int"];
+  groupID?: InputMaybe<Scalars["String"]>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  page?: InputMaybe<Scalars["Int"]>;
   sort?: InputMaybe<Array<TestSortOptions>>;
   statuses?: InputMaybe<Array<Scalars["String"]>>;
-  testName?: Scalars["String"];
+  testName?: InputMaybe<Scalars["String"]>;
 };
 
 export type TestLog = {
