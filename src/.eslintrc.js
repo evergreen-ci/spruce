@@ -92,6 +92,8 @@ module.exports = {
         "jest/no-hooks": OFF,
         "jest/no-mocks-import": OFF,
         "jest/prefer-expect-assertions": OFF,
+        "@typescript-eslint/unbound-method": OFF,
+        "jest/unbound-method": OFF,
       },
     },
   ],
