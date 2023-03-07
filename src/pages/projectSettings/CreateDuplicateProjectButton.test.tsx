@@ -1,12 +1,16 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
-import userEvent from "@testing-library/user-event";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   GetUserPermissionsQuery,
   GetUserPermissionsQueryVariables,
 } from "gql/generated/types";
 import { GET_USER_PERMISSIONS } from "gql/queries";
-import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+  waitFor,
+} from "test_utils";
 import { ApolloMock } from "types/gql";
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
 import { ProjectType } from "./tabs/utils";

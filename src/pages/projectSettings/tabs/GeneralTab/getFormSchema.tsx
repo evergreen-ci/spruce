@@ -34,13 +34,12 @@ export const getFormSchema = (
         title: "General Configuration",
         required: ["branch"],
         properties: {
-          enabled: {
-            type: ["boolean", "null"],
-            oneOf: radioBoxOptions(
-              ["Enabled", "Disabled"],
-              repoData?.generalConfiguration?.enabled
-            ),
-          },
+          ...(projectType !== ProjectType.Repo && {
+            enabled: {
+              type: "boolean" as "boolean",
+              oneOf: radioBoxOptions(["Enabled", "Disabled"]),
+            },
+          }),
           repositoryInfo: {
             type: "object" as "object",
             title: "Repository Info",

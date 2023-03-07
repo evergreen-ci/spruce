@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { CheckboxFilter, InputFilter } from "components/Table/Filters";
 import { useTableInputFilter, useTableCheckboxFilter } from "hooks";
-import { fireEvent, renderWithRouterMatch as render, screen } from "test_utils";
+import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { queryString } from "utils";
 
 describe("useTableInputFilter", () => {
@@ -16,14 +16,10 @@ describe("useTableInputFilter", () => {
     // starts with initial url params as value
     expect(input.value).toBe("123");
 
-    fireEvent.change(input, { target: { value: "" } });
-    fireEvent.change(input, { target: { value: "abc" } });
+    userEvent.clear(input);
+    userEvent.type(input, "abc");
     expect(input).toHaveValue("abc");
-    fireEvent.focus(input);
-    fireEvent.keyPress(input, {
-      key: "Enter",
-      keyCode: 13,
-    });
+    userEvent.type(input, "{enter}");
 
     // returns updates value when component changes
     expect(input.value).toBe("abc");
@@ -31,13 +27,9 @@ describe("useTableInputFilter", () => {
     // updates url query params when update fn is called
     screen.getByText("host id from url: abc");
 
-    fireEvent.change(input, { target: { value: "" } });
+    userEvent.clear(input);
     expect(input).toHaveValue("");
-    fireEvent.focus(input);
-    fireEvent.keyPress(input, {
-      key: "Enter",
-      keyCode: 13,
-    });
+    userEvent.type(input, "{enter}");
 
     // resets url query params when reset fn is called
     expect(input.value).toBe("");
@@ -51,13 +43,9 @@ describe("useTableInputFilter", () => {
     });
 
     const input = screen.getByPlaceholderText("Search ID") as HTMLInputElement;
-    fireEvent.change(input, { target: { value: "     abc  " } });
-    fireEvent.focus(input);
-    fireEvent.keyPress(input, {
-      key: "Enter",
-      keyCode: 13,
-    });
-
+    userEvent.clear(input);
+    userEvent.type(input, "     abc  ");
+    userEvent.type(input, "{enter}");
     expect(screen.getByText("host id from url: abc")).toBeInTheDocument();
   });
 });
@@ -81,7 +69,7 @@ describe("useTableCheckboxFilter", () => {
     expect(terminatedCheckbox.checked).toBe(true);
 
     // returns updates value when component changes
-    fireEvent.click(runningCheckbox);
+    userEvent.click(runningCheckbox);
 
     // updates url query params when update fn is called
     expect(runningCheckbox.checked).toBe(false);
@@ -92,7 +80,7 @@ describe("useTableCheckboxFilter", () => {
     ).toBeInTheDocument();
 
     // resets url query params when reset fn is called
-    fireEvent.click(terminatedCheckbox);
+    userEvent.click(terminatedCheckbox);
 
     expect(runningCheckbox.checked).toBe(false);
     expect(terminatedCheckbox.checked).toBe(false);

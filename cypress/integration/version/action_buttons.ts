@@ -1,11 +1,10 @@
 import { mockErrorResponse } from "../../utils/mockErrorResponse";
-import { popconfirmYesClassName } from "../../utils/popconfirm";
-
-const patch = "5ecedafb562343215a7ff297";
-const mainlineCommit = "5e4ff3abe3c3317e352062e4";
-const versionPath = (id) => `/version/${id}`;
 
 describe("Action Buttons", () => {
+  const patch = "5ecedafb562343215a7ff297";
+  const mainlineCommit = "5e4ff3abe3c3317e352062e4";
+  const versionPath = (id: string) => `/version/${id}`;
+
   describe("When viewing a patch build", () => {
     before(() => {
       cy.visit(versionPath(patch));
@@ -36,31 +35,30 @@ describe("Action Buttons", () => {
         mockErrorResponse({
           errorMessage: "There was an error unscheduling tasks",
         });
-        cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
+        cy.contains("button", "Yes").click({ force: true });
         cy.validateToast("error");
       });
 
       it("Clicking 'Unschedule' button show popconfirm with abort checkbox and a toast on success", () => {
         cy.dataCy("unschedule-patch").click();
-        cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
+        cy.contains("button", "Yes").click({ force: true });
         cy.validateToast("success");
       });
 
       it("Clicking 'Set Priority' button shows popconfirm with input and toast on success", () => {
         const priority = "99";
         cy.dataCy("prioritize-patch").click();
-        cy.dataCy("patch-priority-input").clear().type(priority);
-        cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
+        cy.dataCy("patch-priority-input").type(priority).type("{enter}");
         cy.validateToast("success", priority);
       });
 
       it("Error setting priority shows error toast", () => {
         cy.dataCy("prioritize-patch").click();
-        cy.dataCy("patch-priority-input").clear().type("88");
+        cy.dataCy("patch-priority-input").type("88");
         mockErrorResponse({
           errorMessage: "There was an error setting priority",
         });
-        cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
+        cy.dataCy("patch-priority-input").type("{enter}");
         cy.validateToast("error");
       });
       it("Should be able to reconfigure the patch", () => {

@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useMutation } from "@apollo/client";
 import TextInput from "@leafygreen-ui/text-input";
-import { Popconfirm } from "antd";
 import { useVersionAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
+import Popconfirm from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
   SetPatchPriorityMutation,
@@ -22,8 +22,14 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
   disabled,
   refetchQueries = [],
 }) => {
-  const [priority, setPriority] = useState<number>(0);
+  const { sendEvent } = useVersionAnalytics(patchId);
   const dispatchToast = useToastContext();
+
+  const [priority, setPriority] = useState<number>(0);
+  const [active, setActive] = useState(false);
+  const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
+  const menuItemRef = useRef<HTMLElement>(null);
+
   const [setPatchPriority, { loading: loadingSetPatchPriority }] = useMutation<
     SetPatchPriorityMutation,
     SetPatchPriorityMutationVariables
@@ -37,38 +43,53 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
     refetchQueries,
   });
 
-  const { sendEvent } = useVersionAnalytics(patchId);
+  const onConfirm = () => {
+    setPatchPriority({ variables: { patchId, priority } });
+    sendEvent({ name: "Set Priority", priority });
+  };
+
+  useEffect(() => {
+    inputRef?.focus();
+    inputRef?.select();
+  }, [inputRef]);
 
   return (
-    <Popconfirm
-      key="priority"
-      icon={null}
-      placement="left"
-      title={
-        <TextInput
-          label="Set new priority"
-          value={priority.toString()}
-          onChange={(e) => setPriority(parseInt(e.target.value, 10))}
-          min={0}
-          size={1}
-          autoFocus
-          type="number"
-          data-cy="patch-priority-input"
-        />
-      }
-      onConfirm={() => {
-        setPatchPriority({ variables: { patchId, priority } });
-        sendEvent({ name: "Set Priority", priority });
-      }}
-      okText="Set"
-      cancelText="Cancel"
-    >
+    <>
       <DropdownItem
+        ref={menuItemRef}
+        active={active}
         data-cy="prioritize-patch"
         disabled={disabled || loadingSetPatchPriority}
+        onClick={() => setActive(!active)}
       >
         Set priority
       </DropdownItem>
-    </Popconfirm>
+      <Popconfirm
+        active={active}
+        data-cy="set-patch-priority-popconfirm"
+        align="left"
+        refEl={menuItemRef}
+        confirmText="Set"
+        onConfirm={onConfirm}
+        setActive={setActive}
+      >
+        <TextInput
+          ref={(el) => setInputRef(el)}
+          data-cy="patch-priority-input"
+          label="Set new priority"
+          min={-1}
+          onChange={(e) => setPriority(parseInt(e.target.value, 10))}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              onConfirm();
+              setActive(false);
+            }
+          }}
+          size={16}
+          type="number"
+          value={priority.toString()}
+        />
+      </Popconfirm>
+    </>
   );
 };

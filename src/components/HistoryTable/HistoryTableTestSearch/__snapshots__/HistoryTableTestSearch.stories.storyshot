@@ -23,7 +23,7 @@ exports[`storybook Storyshots Components/History Table/HistoryTableTestSearch Te
         >
           <label
             className="leafygreen-ui-gr5280"
-            htmlFor="textinput-15"
+            htmlFor="textinput-9"
           >
             Filter by Failed Tests
           </label>
@@ -37,7 +37,7 @@ exports[`storybook Storyshots Components/History Table/HistoryTableTestSearch Te
             autoComplete="on"
             className="leafygreen-ui-6i61vl"
             disabled={false}
-            id="textinput-15"
+            id="textinput-9"
             onBlur={[Function]}
             onChange={[Function]}
             onKeyPress={[Function]}
@@ -57,7 +57,7 @@ exports[`storybook Storyshots Components/History Table/HistoryTableTestSearch Te
         <button
           aria-disabled={false}
           aria-label="Select plus button"
-          className="leafygreen-ui-6obv0c"
+          className="leafygreen-ui-1xt2asn"
           onClick={[Function]}
           tabIndex={0}
         >

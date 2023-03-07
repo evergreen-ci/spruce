@@ -357,6 +357,7 @@ export type GroupedTaskStatusCount = {
 /** Host models a host, which are used for things like running tasks or as virtual workstations. */
 export type Host = {
   __typename?: "Host";
+  ami?: Maybe<Scalars["String"]>;
   availabilityZone?: Maybe<Scalars["String"]>;
   displayName?: Maybe<Scalars["String"]>;
   distro?: Maybe<DistroInfo>;
@@ -2317,6 +2318,7 @@ export type Version = {
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
   childVersions?: Maybe<Array<Maybe<Version>>>;
   createTime: Scalars["Time"];
+  errors: Array<Scalars["String"]>;
   finishTime?: Maybe<Scalars["Time"]>;
   id: Scalars["String"];
   isPatch: Scalars["Boolean"];
@@ -2340,6 +2342,7 @@ export type Version = {
   tasks: VersionTasks;
   upstreamProject?: Maybe<UpstreamProject>;
   versionTiming?: Maybe<VersionTiming>;
+  warnings: Array<Scalars["String"]>;
 };
 
 /** Version models a commit within a project. */
@@ -2772,7 +2775,6 @@ export type ProjectGeneralSettingsFragment = {
 
 export type RepoGeneralSettingsFragment = {
   __typename?: "RepoRef";
-  enabled: boolean;
   owner: string;
   repo: string;
   branch: string;
@@ -3102,7 +3104,6 @@ export type RepoSettingsFragment = {
     __typename?: "RepoRef";
     id: string;
     displayName: string;
-    enabled: boolean;
     owner: string;
     repo: string;
     branch: string;
@@ -4943,6 +4944,7 @@ export type HostQuery = {
   host?: Maybe<{
     __typename?: "Host";
     distroId?: Maybe<string>;
+    ami?: Maybe<string>;
     lastCommunicationTime?: Maybe<Date>;
     id: string;
     hostUrl: string;
@@ -6641,7 +6643,6 @@ export type RepoSettingsQuery = {
       __typename?: "RepoRef";
       id: string;
       displayName: string;
-      enabled: boolean;
       owner: string;
       repo: string;
       branch: string;
@@ -7469,62 +7470,49 @@ export type VersionQuery = {
   version: {
     __typename?: "Version";
     id: string;
-    createTime: Date;
-    startTime?: Maybe<Date>;
-    finishTime?: Maybe<Date>;
-    revision: string;
-    author: string;
-    status: string;
-    order: number;
-    repo: string;
-    project: string;
     activated?: Maybe<boolean>;
-    message: string;
+    author: string;
+    createTime: Date;
+    errors: Array<string>;
+    finishTime?: Maybe<Date>;
     isPatch: boolean;
-    taskCount?: Maybe<number>;
+    message: string;
+    order: number;
+    project: string;
     projectIdentifier: string;
+    repo: string;
+    revision: string;
+    startTime?: Maybe<Date>;
+    status: string;
+    taskCount?: Maybe<number>;
+    warnings: Array<string>;
     baseVersion?: Maybe<{ __typename?: "Version"; id: string }>;
-    versionTiming?: Maybe<{
-      __typename?: "VersionTiming";
-      makespan?: Maybe<number>;
-      timeTaken?: Maybe<number>;
-    }>;
-    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     manifest?: Maybe<{
       __typename?: "Manifest";
       id: string;
-      revision: string;
-      project: string;
       branch: string;
       isBase: boolean;
-      moduleOverrides?: Maybe<{ [key: string]: any }>;
       modules?: Maybe<any>;
-    }>;
-    previousVersion?: Maybe<{
-      __typename?: "Version";
-      id: string;
+      moduleOverrides?: Maybe<{ [key: string]: any }>;
+      project: string;
       revision: string;
     }>;
-    projectMetadata?: Maybe<{
-      __typename?: "Project";
-      repo: string;
-      owner: string;
-    }>;
+    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     patch?: Maybe<{
       __typename?: "Patch";
       id: string;
-      patchNumber: number;
       alias?: Maybe<string>;
-      commitQueuePosition?: Maybe<number>;
       canEnqueueToCommitQueue: boolean;
+      commitQueuePosition?: Maybe<number>;
+      patchNumber: number;
       childPatches?: Maybe<
         Array<{
           __typename?: "Patch";
           id: string;
           githash: string;
           projectIdentifier: string;
-          taskCount?: Maybe<number>;
           status: string;
+          taskCount?: Maybe<number>;
           versionFull?: Maybe<{
             __typename?: "Version";
             id: string;
@@ -7533,6 +7521,21 @@ export type VersionQuery = {
           }>;
         }>
       >;
+    }>;
+    previousVersion?: Maybe<{
+      __typename?: "Version";
+      id: string;
+      revision: string;
+    }>;
+    projectMetadata?: Maybe<{
+      __typename?: "Project";
+      owner: string;
+      repo: string;
+    }>;
+    versionTiming?: Maybe<{
+      __typename?: "VersionTiming";
+      makespan?: Maybe<number>;
+      timeTaken?: Maybe<number>;
     }>;
     upstreamProject?: Maybe<{
       __typename?: "UpstreamProject";

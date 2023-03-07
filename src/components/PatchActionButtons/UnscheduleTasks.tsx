@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Body } from "@leafygreen-ui/typography";
-import { Popconfirm } from "antd";
 import { useVersionAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
+import Popconfirm from "components/Popconfirm";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -25,7 +25,12 @@ export const UnscheduleTasks: React.VFC<props> = ({
   disabled,
 }) => {
   const dispatchToast = useToastContext();
+  const { sendEvent } = useVersionAnalytics(patchId);
+
   const [abort, setAbort] = useState(true);
+  const [active, setActive] = useState(false);
+  const menuItemRef = useRef<HTMLElement>(null);
+
   const [unschedulePatchTasks, { loading: loadingUnschedulePatchTasks }] =
     useMutation<
       UnschedulePatchTasksMutation,
@@ -45,13 +50,30 @@ export const UnscheduleTasks: React.VFC<props> = ({
       refetchQueries,
     });
 
-  const { sendEvent } = useVersionAnalytics(patchId);
+  const onConfirm = () => {
+    unschedulePatchTasks({ variables: { patchId, abort } });
+    sendEvent({ name: "Unschedule", abort });
+  };
 
   return (
-    <Popconfirm
-      icon={null}
-      placement="left"
-      title={
+    <>
+      <DropdownItem
+        ref={menuItemRef}
+        active={active}
+        data-cy="unschedule-patch"
+        disabled={disabled || loadingUnschedulePatchTasks}
+        onClick={() => setActive(!active)}
+      >
+        Unschedule all tasks
+      </DropdownItem>
+      <Popconfirm
+        active={active}
+        data-cy="unschedule-patch-popconfirm"
+        align="left"
+        refEl={menuItemRef}
+        onConfirm={onConfirm}
+        setActive={setActive}
+      >
         <>
           <StyledBody>Unschedule all tasks?</StyledBody>
           <Checkbox
@@ -62,21 +84,8 @@ export const UnscheduleTasks: React.VFC<props> = ({
             bold={false}
           />
         </>
-      }
-      onConfirm={() => {
-        unschedulePatchTasks({ variables: { patchId, abort } });
-        sendEvent({ name: "Unschedule", abort });
-      }}
-      okText="Yes"
-      cancelText="Cancel"
-    >
-      <DropdownItem
-        data-cy="unschedule-patch"
-        disabled={loadingUnschedulePatchTasks || disabled}
-      >
-        Unschedule all tasks
-      </DropdownItem>
-    </Popconfirm>
+      </Popconfirm>
+    </>
   );
 };
 

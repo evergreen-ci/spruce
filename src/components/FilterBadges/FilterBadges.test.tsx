@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor, within } from "test_utils";
+import { render, screen, userEvent, waitFor, within } from "test_utils";
 import FilterBadges from ".";
 
 describe("filterBadges", () => {
@@ -91,7 +91,7 @@ describe("filterBadges", () => {
         onClearAll={onClearAll}
       />
     );
-    fireEvent.click(screen.queryByText("see 2 more"));
+    userEvent.click(screen.queryByText("see 2 more"));
     expect(screen.getByDataCy("see-more-modal")).toBeInTheDocument();
     expect(
       within(screen.queryByDataCy("see-more-modal")).queryAllByDataCy(
@@ -128,7 +128,7 @@ describe("filterBadges", () => {
         onClearAll={onClearAll}
       />
     );
-    fireEvent.click(screen.queryByText("CLEAR ALL FILTERS"));
+    userEvent.click(screen.queryByText("CLEAR ALL FILTERS"));
     expect(onClearAll).toHaveBeenCalledTimes(1);
   });
 
@@ -155,7 +155,7 @@ describe("filterBadges", () => {
     );
     const closeBadge = screen.queryAllByDataCy("close-badge")[0];
     expect(closeBadge).toBeInTheDocument();
-    fireEvent.click(closeBadge);
+    userEvent.click(closeBadge);
     expect(onRemove).toHaveBeenCalledWith({ key: "test1", value: "value1" });
   });
 
@@ -173,7 +173,7 @@ describe("filterBadges", () => {
     const truncatedBadge = screen.queryByDataCy("filter-badge");
     expect(truncatedBadge).toBeInTheDocument();
     expect(truncatedBadge).not.toHaveTextContent(longName);
-    fireEvent.mouseEnter(truncatedBadge);
+    userEvent.hover(truncatedBadge);
     await waitFor(() => {
       expect(screen.queryByText(longName)).toBeVisible();
     });

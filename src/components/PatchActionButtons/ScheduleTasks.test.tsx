@@ -10,10 +10,10 @@ import {
 import { SCHEDULE_TASKS } from "gql/mutations";
 import { GET_UNSCHEDULED_TASKS } from "gql/queries";
 import {
-  fireEvent,
   render,
   renderWithRouterMatch,
   screen,
+  userEvent,
   waitFor,
 } from "test_utils";
 import { ApolloMock } from "types/gql";
@@ -47,7 +47,7 @@ describe("scheduleTasks", () => {
     expect(
       screen.queryByDataCy("schedule-tasks-modal")
     ).not.toBeInTheDocument();
-    fireEvent.click(screen.queryByDataCy("schedule-patch"));
+    userEvent.click(screen.queryByDataCy("schedule-patch"));
     await waitFor(() =>
       expect(screen.queryByDataCy("schedule-tasks-modal")).toBeVisible()
     );
@@ -59,7 +59,7 @@ describe("scheduleTasks", () => {
     render(<Component />);
     await waitFor(() => expect(screen.queryByText("Windows")).toBeVisible());
     const toggles = screen.queryAllByDataCy("accordion-toggle");
-    fireEvent.click(toggles[1]);
+    userEvent.click(toggles[1]);
     await waitFor(() => {
       expect(
         screen
@@ -67,7 +67,7 @@ describe("scheduleTasks", () => {
           .getAttribute("aria-checked")
       ).toBe("false");
     });
-    fireEvent.click(screen.queryByDataCy("windows-compile-task-checkbox"));
+    userEvent.click(screen.queryByDataCy("windows-compile-task-checkbox"));
     await waitFor(() => {
       expect(
         screen
@@ -90,8 +90,8 @@ describe("scheduleTasks", () => {
 
     // open the accordions
     const toggles = screen.queryAllByDataCy("accordion-toggle");
-    fireEvent.click(toggles[0]);
-    fireEvent.click(toggles[1]);
+    userEvent.click(toggles[0]);
+    userEvent.click(toggles[1]);
 
     // assert task checkbox labels are visible
     screen.queryAllByDataCy("task-checkbox-label").forEach((label) => {
@@ -105,14 +105,14 @@ describe("scheduleTasks", () => {
     render(<Component />);
     await waitFor(() => expect(screen.queryByText("Windows")).toBeVisible());
     const toggles = screen.queryAllByDataCy("accordion-toggle");
-    fireEvent.click(toggles[1]);
-    fireEvent.click(screen.queryByDataCy("windows-compile-task-checkbox")); // deselect checkbox from previous test
+    userEvent.click(toggles[1]);
+    userEvent.click(screen.queryByDataCy("windows-compile-task-checkbox")); // deselect checkbox from previous test
     await waitFor(() => {
       // Unable to pass data-cy to modal buttons so we have to use getAllByRole
       const confirmButton = screen.getAllByRole("button")[0];
       expect(confirmButton).toHaveAttribute("aria-disabled", "true");
     });
-    fireEvent.click(screen.queryByDataCy("windows-compile-task-checkbox"));
+    userEvent.click(screen.queryByDataCy("windows-compile-task-checkbox"));
     await waitFor(() => {
       const confirmButton = screen.getAllByRole("button")[0];
       expect(confirmButton).not.toHaveAttribute("aria-disabled", "true");
@@ -127,10 +127,10 @@ describe("scheduleTasks", () => {
     render(<Component />);
     await waitFor(() => expect(screen.queryByText("Windows")).toBeVisible());
     const windowVariantToggle = screen.queryAllByDataCy("accordion-toggle")[1];
-    fireEvent.click(windowVariantToggle);
-    fireEvent.click(screen.queryByDataCy("windows-compile-task-checkbox"));
+    userEvent.click(windowVariantToggle);
+    userEvent.click(screen.queryByDataCy("windows-compile-task-checkbox"));
     const confirmButton = screen.getAllByRole("button")[0];
-    fireEvent.click(confirmButton);
+    userEvent.click(confirmButton);
 
     expect(dispatchToast.error).not.toHaveBeenCalled();
     await waitFor(() => {

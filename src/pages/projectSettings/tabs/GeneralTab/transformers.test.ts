@@ -20,9 +20,7 @@ describe("repo data", () => {
 
 describe("project data", () => {
   it("correctly converts from GQL to a form", () => {
-    expect(
-      gqlToForm(projectBase, { projectType: ProjectType.AttachedProject })
-    ).toStrictEqual(projectForm);
+    expect(gqlToForm(projectBase)).toStrictEqual(projectForm);
   });
 
   it("correctly converts from a form to GQL", () => {
@@ -32,7 +30,6 @@ describe("project data", () => {
 
 const repoForm: FormState = {
   generalConfiguration: {
-    enabled: true,
     repositoryInfo: {
       owner: "evergreen-ci",
       repo: "spruce",
@@ -73,7 +70,6 @@ const repoForm: FormState = {
 const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
   projectRef: {
     id: "repo",
-    enabled: true,
     owner: "evergreen-ci",
     repo: "spruce",
     branch: "main",
@@ -97,7 +93,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
 
 const projectForm: FormState = {
   generalConfiguration: {
-    enabled: null,
+    enabled: false,
     repositoryInfo: {
       owner: "evergreen-ci",
       repo: "evergreen",
@@ -139,7 +135,7 @@ const projectForm: FormState = {
 const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
   projectRef: {
     id: "project",
-    enabled: null,
+    enabled: false,
     owner: "evergreen-ci",
     repo: "evergreen",
     branch: null,

@@ -1,5 +1,9 @@
-import userEvent from "@testing-library/user-event";
-import { screen, renderWithRouterMatch as render, waitFor } from "test_utils";
+import {
+  screen,
+  renderWithRouterMatch as render,
+  userEvent,
+  waitFor,
+} from "test_utils";
 import { trimStringFromMiddle } from "utils/string";
 import Breadcrumbs from ".";
 
