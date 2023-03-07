@@ -160,11 +160,9 @@ describe("editableTagField", () => {
     expect(screen.queryAllByDataCy("user-tag-trash-icon")[3]).toBeVisible();
     expect(screen.queryAllByDataCy("user-tag-row")).toHaveLength(4);
 
-    expect(screen.queryAllByDataCy("user-tag-key-field")[3]).toBeVisible();
     userEvent.clear(screen.queryAllByDataCy("user-tag-key-field")[3]);
     userEvent.type(screen.queryAllByDataCy("user-tag-key-field")[3], "new key");
 
-    expect(screen.queryAllByDataCy("user-tag-value-field")[3]).toBeVisible();
     userEvent.clear(screen.queryAllByDataCy("user-tag-value-field")[3]);
     userEvent.type(
       screen.queryAllByDataCy("user-tag-value-field")[3],

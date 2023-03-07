@@ -89,10 +89,16 @@ module.exports = {
       files: ["*.test.ts", "*.test.tsx"],
       extends: ["plugin:testing-library/react", "plugin:jest/all"],
       rules: {
+        "@typescript-eslint/unbound-method": OFF,
+        "jest/max-expects": [
+          WARN,
+          {
+            max: 10,
+          },
+        ],
         "jest/no-hooks": OFF,
         "jest/no-mocks-import": OFF,
         "jest/prefer-expect-assertions": OFF,
-        "@typescript-eslint/unbound-method": OFF,
         "jest/unbound-method": OFF,
       },
     },
