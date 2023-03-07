@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Code from "@leafygreen-ui/code";
-import { Collapse } from "antd";
+import { Body } from "@leafygreen-ui/typography";
 import { StyledRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { HostEventLogData } from "gql/generated/types";
@@ -8,7 +8,6 @@ import { HostEvent, HostMonitorOp } from "types/host";
 import { string } from "utils";
 
 const { stringifyNanoseconds, shortenString } = string;
-const { Panel } = Collapse;
 
 const getTerminationString = (monitorOp: string) => {
   switch (monitorOp) {
@@ -309,28 +308,22 @@ export const getHostEventString = (
   }
 };
 
-export const StyledCollapse = styled(Collapse)`
-  background: none;
-  width: inherit;
-  > * {
-    border-bottom: hidden !important;
-    width: inherit;
-  }
-`;
-
 export const HostEventLog: React.VFC<{
   title: string;
   logs: string;
   isCode: boolean;
   "data-cy"?: string;
 }> = ({ title, logs, isCode, "data-cy": dataCy = "host-event-logs-title" }) => (
-  <span data-cy="host-event-logs">
-    <StyledCollapse bordered={false}>
-      <Panel header={<span data-cy={dataCy}>{title}</span>} key="1">
-        <span data-cy="host-event-log-content">
-          {isCode ? <Code language="shell">{logs}</Code> : logs}
-        </span>
-      </Panel>
-    </StyledCollapse>
-  </span>
+  <details data-cy="host-event-logs">
+    <summary data-cy={dataCy}>
+      <StyledBody weight="medium">{title}</StyledBody>
+    </summary>
+    <span data-cy="host-event-log-content">
+      {isCode ? <Code language="shell">{logs}</Code> : logs}
+    </span>
+  </details>
 );
+
+const StyledBody = styled(Body)`
+  display: inline-block;
+`;
