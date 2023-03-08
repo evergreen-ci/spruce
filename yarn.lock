@@ -3332,6 +3332,15 @@
     "@leafygreen-ui/hooks" "^7.3.3"
     "@leafygreen-ui/lib" "^10.0.0"
 
+"@leafygreen-ui/a11y@^1.4.0":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/a11y/-/a11y-1.4.1.tgz#cb5f28483d1e9500ad719086ae3c90c13c24db9c"
+  integrity sha512-vYjIorEFOWLFhs2WPmCg5wYYWq9CmScQ2CkqtJhixkgzXP/Q36TEfkJ2BuReyLir8XZG/QIWBSSO7dR5sQLDPA==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/hooks" "^7.5.0"
+    "@leafygreen-ui/lib" "^10.2.1"
+
 "@leafygreen-ui/badge@8.0.2":
   version "8.0.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/badge/-/badge-8.0.2.tgz#2928d5a3877644b83f7459a008c03361cb2c744b"
@@ -3542,6 +3551,13 @@
   dependencies:
     lodash "^4.17.21"
 
+"@leafygreen-ui/hooks@^7.5.0":
+  version "7.6.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-7.6.0.tgz#bf53b95706f27d81d055be3bac19a7f10d48b36e"
+  integrity sha512-/VFuuaeaNq0XHC0g6R2IpESKQwa7VUK3I6fEH+nh1QL1unu7t+j0Yuah8cWtqYqv6pXPy+IXw7Elw4JwFUTDOg==
+  dependencies:
+    lodash "^4.17.21"
+
 "@leafygreen-ui/icon-button@15.0.5", "@leafygreen-ui/icon-button@^15.0.0", "@leafygreen-ui/icon-button@^15.0.1", "@leafygreen-ui/icon-button@^15.0.4":
   version "15.0.5"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-15.0.5.tgz#4c9e6a8388c471262c98bcb52b2d95c061625eea"
@@ -3552,6 +3568,19 @@
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/icon" "^11.12.4"
     "@leafygreen-ui/lib" "^10.0.0"
+    "@leafygreen-ui/palette" "^3.4.7"
+    "@leafygreen-ui/tokens" "^2.0.0"
+
+"@leafygreen-ui/icon-button@^15.0.6":
+  version "15.0.6"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-15.0.6.tgz#432df9b8e565f1e4db3f9c925b4495ce62d1e6a4"
+  integrity sha512-g9pBwz7aG1LDk2b/WeJcOO1cM3LTOJtm1tNYjv04WJ9AOxK7W6lquus3RtWte8VDs7qz53DHZibspUfJ5vc57g==
+  dependencies:
+    "@leafygreen-ui/a11y" "^1.4.0"
+    "@leafygreen-ui/box" "^3.1.1"
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/icon" "^11.12.4"
+    "@leafygreen-ui/lib" "^10.1.0"
     "@leafygreen-ui/palette" "^3.4.7"
     "@leafygreen-ui/tokens" "^2.0.0"
 
@@ -3614,6 +3643,13 @@
   dependencies:
     lodash "^4.17.21"
 
+"@leafygreen-ui/lib@^10.2.1":
+  version "10.2.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-10.2.1.tgz#cd83f3865f14785f29cd3392a8b96f52cbc94f5f"
+  integrity sha512-2fat+tej+QVSMMed7c/jZZOYBodrs57VKBC5OkqcSr68VWbKpUdrb7yKfK2Cx5VNY1cnbYYpRNFa9VwTfCW/rw==
+  dependencies:
+    lodash "^4.17.21"
+
 "@leafygreen-ui/lib@^9.4.2":
   version "9.5.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-9.5.2.tgz#c80d7920e819c89ee544866b1046667fe99ea8d3"
@@ -3621,20 +3657,20 @@
   dependencies:
     lodash "^4.17.21"
 
-"@leafygreen-ui/menu@19.0.1":
-  version "19.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/menu/-/menu-19.0.1.tgz#42a4bb0c3dcb97a93c4114a4fd51a735468d7abb"
-  integrity sha512-k6EBJh32PidaeTdpZefl7kh3bA9GDcRehzXur1wC0L+dzZYY2QCjKfmoebwJsbwZnVb64IkMW4U/Rg0k9cQsPg==
+"@leafygreen-ui/menu@20.0.0":
+  version "20.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/menu/-/menu-20.0.0.tgz#cf7cac392c38e471f4a2a7c6d135667930f5502d"
+  integrity sha512-dRZY6dqagX7fc/MK/oBf75FNedAyXYBbo1OOlBrQhemCLuFUuCK+TeNIjFBHCkEU4HkMHg+pBodtPVgxt95Zsw==
   dependencies:
-    "@leafygreen-ui/box" "^3.1.1"
     "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/icon" "^11.12.1"
-    "@leafygreen-ui/icon-button" "^15.0.1"
-    "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/popover" "^11.0.1"
-    "@leafygreen-ui/tokens" "^1.4.0"
+    "@leafygreen-ui/hooks" "^7.5.0"
+    "@leafygreen-ui/icon" "^11.12.4"
+    "@leafygreen-ui/icon-button" "^15.0.6"
+    "@leafygreen-ui/lib" "^10.1.0"
+    "@leafygreen-ui/palette" "^3.4.7"
+    "@leafygreen-ui/polymorphic" "^1.1.0"
+    "@leafygreen-ui/popover" "^11.0.4"
+    "@leafygreen-ui/tokens" "^2.0.0"
     lodash "^4.17.21"
     react-transition-group "^4.4.1"
 
