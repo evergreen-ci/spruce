@@ -41,6 +41,7 @@ export const DeleteVolumeButton: React.VFC<Props> = ({ volume }) => {
   return (
     <Popconfirm
       confirmDisabled={!checkboxAcknowledged}
+      data-cy="delete-volume-popconfirm"
       onConfirm={() => {
         spawnAnalytics.sendEvent({
           name: "Delete volume",
