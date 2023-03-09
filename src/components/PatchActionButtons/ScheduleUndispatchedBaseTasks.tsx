@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { useMutation } from "@apollo/client";
+import { MenuItem } from "@leafygreen-ui/menu";
 import { Body } from "@leafygreen-ui/typography";
-import { DropdownItem } from "components/ButtonDropdown";
 import Popconfirm from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
@@ -20,7 +20,7 @@ export const ScheduleUndispatchedBaseTasks: React.VFC<Props> = ({
 }) => {
   const dispatchToast = useToastContext();
   const [active, setActive] = useState(false);
-  const menuItemRef = useRef<HTMLElement>(null);
+  const menuItemRef = useRef<HTMLDivElement>(null);
 
   const [scheduleBasePatchTasks] = useMutation<
     ScheduleUndispatchedBaseTasksMutation,
@@ -41,15 +41,16 @@ export const ScheduleUndispatchedBaseTasks: React.VFC<Props> = ({
 
   return (
     <>
-      <DropdownItem
-        ref={menuItemRef}
-        active={active}
-        key="reschedule-failing"
-        disabled={disabled}
-        onClick={() => setActive(!active)}
-      >
-        Schedule failing base tasks
-      </DropdownItem>
+      <div ref={menuItemRef}>
+        <MenuItem
+          active={active}
+          key="reschedule-failing"
+          disabled={disabled}
+          onClick={() => setActive(!active)}
+        >
+          Schedule failing base tasks
+        </MenuItem>
+      </div>
       <Popconfirm
         active={active}
         data-cy="schedule-undispatched-base-popconfirm"

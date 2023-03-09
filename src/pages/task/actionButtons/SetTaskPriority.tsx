@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useMutation } from "@apollo/client";
+import { MenuItem } from "@leafygreen-ui/menu";
 import TextInput from "@leafygreen-ui/text-input";
 import { useTaskAnalytics } from "analytics";
-import { DropdownItem } from "components/ButtonDropdown";
 import Popconfirm from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
@@ -30,7 +30,7 @@ export const SetTaskPriority: React.VFC<SetTaskPriorityProps> = ({
   const [priority, setPriority] = useState<number>(initialPriority);
   const [active, setActive] = useState(false);
   const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
-  const menuItemRef = useRef<HTMLElement>(null);
+  const menuItemRef = useRef<HTMLDivElement>(null);
 
   const [setTaskPriority, { loading: loadingSetPriority }] = useMutation<
     SetTaskPriorityMutation,
@@ -63,15 +63,16 @@ export const SetTaskPriority: React.VFC<SetTaskPriorityProps> = ({
 
   return (
     <>
-      <DropdownItem
-        ref={menuItemRef}
-        active={active}
-        data-cy="prioritize-task"
-        disabled={disabled || loadingSetPriority}
-        onClick={() => setActive(!active)}
-      >
-        Set priority
-      </DropdownItem>
+      <div ref={menuItemRef}>
+        <MenuItem
+          active={active}
+          data-cy="prioritize-task"
+          disabled={disabled || loadingSetPriority}
+          onClick={() => setActive(!active)}
+        >
+          Set priority
+        </MenuItem>
+      </div>
       <Popconfirm
         active={active}
         data-cy="set-task-priority-popconfirm"

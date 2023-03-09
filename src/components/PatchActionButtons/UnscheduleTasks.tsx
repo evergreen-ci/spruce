@@ -2,9 +2,9 @@ import { useState, useRef } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { MenuItem } from "@leafygreen-ui/menu";
 import { Body } from "@leafygreen-ui/typography";
 import { useVersionAnalytics } from "analytics";
-import { DropdownItem } from "components/ButtonDropdown";
 import Popconfirm from "components/Popconfirm";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -29,7 +29,7 @@ export const UnscheduleTasks: React.VFC<props> = ({
 
   const [abort, setAbort] = useState(true);
   const [active, setActive] = useState(false);
-  const menuItemRef = useRef<HTMLElement>(null);
+  const menuItemRef = useRef<HTMLDivElement>(null);
 
   const [unschedulePatchTasks, { loading: loadingUnschedulePatchTasks }] =
     useMutation<
@@ -57,15 +57,16 @@ export const UnscheduleTasks: React.VFC<props> = ({
 
   return (
     <>
-      <DropdownItem
-        ref={menuItemRef}
-        active={active}
-        data-cy="unschedule-patch"
-        disabled={disabled || loadingUnschedulePatchTasks}
-        onClick={() => setActive(!active)}
-      >
-        Unschedule all tasks
-      </DropdownItem>
+      <div ref={menuItemRef}>
+        <MenuItem
+          active={active}
+          data-cy="unschedule-patch"
+          disabled={disabled || loadingUnschedulePatchTasks}
+          onClick={() => setActive(!active)}
+        >
+          Unschedule all tasks
+        </MenuItem>
+      </div>
       <Popconfirm
         active={active}
         data-cy="unschedule-patch-popconfirm"
