@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { diff } from "deep-object-diff";
 import { useSpawnAnalytics } from "analytics";
@@ -7,8 +7,8 @@ import {
   FormState,
   formToGql,
   getFormSchema,
+  useLoadFormData,
 } from "components/Spawn/editVolumeModal";
-import { useLoadFormData } from "components/Spawn/spawnVolumeModal";
 import { SpruceForm } from "components/SpruceForm";
 import { useToastContext } from "context/toast";
 import {
@@ -42,7 +42,6 @@ export const EditVolumeModal: React.VFC<Props> = ({
     },
     onError(err) {
       onCancel();
-
       dispatchToast.error(
         `There was an error while updating your volume: ${err.message}`
       );
@@ -75,16 +74,17 @@ export const EditVolumeModal: React.VFC<Props> = ({
   };
 
   const { disableExpirationCheckbox, noExpirationCheckboxTooltip } =
-    useLoadFormData();
+    useLoadFormData(volume);
+
   const { schema, uiSchema } = getFormSchema({
     disableExpirationCheckbox,
     noExpirationCheckboxTooltip,
+    hasName: !!formState?.name?.length,
   });
 
-  const [hasChanges, setHasChanges] = useState(false);
-  useEffect(() => {
+  const hasChanges = useMemo(() => {
     const changes = diff(initialState, formState);
-    setHasChanges(Object.entries(changes).length > 0);
+    return Object.entries(changes).length > 0;
   }, [formState, initialState]);
 
   return (

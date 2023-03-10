@@ -5,11 +5,13 @@ import { ExpirationRow } from "../ExpirationRow";
 
 interface Props {
   disableExpirationCheckbox: boolean;
+  hasName: boolean;
   noExpirationCheckboxTooltip: string;
 }
 
 export const getFormSchema = ({
   disableExpirationCheckbox,
+  hasName,
   noExpirationCheckboxTooltip,
 }: Props): ReturnType<GetFormSchema> => ({
   fields: {},
@@ -19,6 +21,8 @@ export const getFormSchema = ({
       name: {
         type: "string",
         title: "Volume Name",
+        // The back end requires a name if one has previously been set, so prevent users from unsetting a name.
+        ...(hasName && { minLength: 1 }),
       },
       expirationDetails: {
         type: "object",

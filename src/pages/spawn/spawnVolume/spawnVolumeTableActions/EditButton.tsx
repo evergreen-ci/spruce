@@ -23,11 +23,13 @@ export const EditButton: React.VFC<Props> = ({ volume }) => {
       >
         Edit
       </Button>
-      <EditVolumeModal
-        visible={openModal}
-        onCancel={() => setOpenModal(false)}
-        volume={volume}
-      />
+      {openModal && (
+        <EditVolumeModal
+          visible={openModal}
+          onCancel={() => setOpenModal(false)}
+          volume={volume}
+        />
+      )}
     </>
   );
 };
