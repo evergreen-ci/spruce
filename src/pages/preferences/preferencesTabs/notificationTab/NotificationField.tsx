@@ -8,7 +8,7 @@ interface NotificationFieldProps {
   notification: string;
   notificationStatus: Notifications;
   index: number;
-  setNotificationStatus: (statuses: { [key: string]: string }) => void;
+  setNotificationStatus: (notifications: { [key: string]: string }) => void;
 }
 
 export const NotificationField: React.VFC<NotificationFieldProps> = ({
@@ -18,7 +18,9 @@ export const NotificationField: React.VFC<NotificationFieldProps> = ({
   index,
 }) => (
   <>
-    <FieldLabel row={index}>{notificationFields[notification]}</FieldLabel>
+    <NotificationEvent row={index}>
+      {notificationFields[notification]}
+    </NotificationEvent>
     <StyledRadioGroup
       row={index}
       onChange={(e) => {
@@ -36,7 +38,7 @@ export const NotificationField: React.VFC<NotificationFieldProps> = ({
   </>
 );
 
-const FieldLabel = styled.span<{ row: number }>`
+const NotificationEvent = styled.span<{ row: number }>`
   font-size: ${fontSize.m};
   margin-top: ${size.xs};
 
