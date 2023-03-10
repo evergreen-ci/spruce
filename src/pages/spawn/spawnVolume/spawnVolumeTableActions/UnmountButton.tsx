@@ -2,8 +2,8 @@ import { useQuery, useMutation } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
+import { Popconfirm } from "components/AntdPopconfirm";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import { Popconfirm } from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
   MyHostsQuery,

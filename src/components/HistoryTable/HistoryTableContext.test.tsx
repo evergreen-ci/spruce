@@ -310,9 +310,8 @@ describe("historyTableContext", () => {
       expect(result.current.visibleColumns).toStrictEqual(columns.slice(0, 7));
     });
   });
-  describe("change table width", () => {
-    it(`should adjust the number of visible columns, current page, and page count after changing the 
-    screen width to a value where the number of columns that fit on the screen changes`, () => {
+  describe("change table width adjusts the number of visible columns, current page, and page count", () => {
+    it(`correctly changes table width to 3000`, () => {
       const { result } = renderHook(() => useHistoryTable(), { wrapper });
       act(() => {
         result.current.addColumns(columns);
@@ -322,13 +321,21 @@ describe("historyTableContext", () => {
       expect(result.current.visibleColumns).toHaveLength(18);
       expect(result.current.visibleColumns).toStrictEqual(columns.slice(0, 18));
       expect(result.current.currentPage).toBe(0);
+    });
+    it(`correctly changes table width to 5000`, () => {
+      const { result } = renderHook(() => useHistoryTable(), { wrapper });
       act(() => {
+        result.current.addColumns(columns);
         result.current.onChangeTableWidth(5000);
       });
       expect(result.current.pageCount).toBe(1);
       expect(result.current.visibleColumns).toHaveLength(25);
       expect(result.current.visibleColumns).toStrictEqual(columns);
+    });
+    it(`correctly changes table width to 200`, () => {
+      const { result } = renderHook(() => useHistoryTable(), { wrapper });
       act(() => {
+        result.current.addColumns(columns);
         result.current.onChangeTableWidth(200);
       });
       expect(result.current.pageCount).toBe(25);

@@ -19,13 +19,13 @@ exports[`storybook Storyshots Pages/Task/BuildBaron/AnnotationTicketRow Default 
     </span>
   </a>
   <div
-    className="css-39fn8m-StyledBadge ekm0eth1 leafygreen-ui-1q59p9a"
+    className="css-39fn8m-StyledBadge ekm0eth1 leafygreen-ui-ohl2hc"
     data-cy="EVG-123-badge"
   >
     status
   </div>
   <div
-    className="css-39fn8m-StyledBadge ekm0eth1 leafygreen-ui-z8wldb"
+    className="css-39fn8m-StyledBadge ekm0eth1 leafygreen-ui-1qtf7xy"
     data-cy="EVG-123-confidence-badge"
   >
     50

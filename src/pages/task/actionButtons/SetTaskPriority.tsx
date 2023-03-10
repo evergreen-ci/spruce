@@ -2,49 +2,57 @@ import { useEffect, useState, useRef } from "react";
 import { useMutation } from "@apollo/client";
 import { MenuItem } from "@leafygreen-ui/menu";
 import TextInput from "@leafygreen-ui/text-input";
-import { useVersionAnalytics } from "analytics";
+import { useTaskAnalytics } from "analytics";
 import Popconfirm from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
-  SetPatchPriorityMutation,
-  SetPatchPriorityMutationVariables,
+  SetTaskPriorityMutation,
+  SetTaskPriorityMutationVariables,
 } from "gql/generated/types";
-import { SET_PATCH_PRIORITY } from "gql/mutations";
+import { SET_TASK_PRIORTY } from "gql/mutations";
 
-interface SetPriorityProps {
-  patchId: string;
+interface SetTaskPriorityProps {
+  taskId: string;
+  initialPriority: number;
   disabled?: boolean;
   refetchQueries?: string[];
 }
 
-export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
-  patchId,
+export const SetTaskPriority: React.VFC<SetTaskPriorityProps> = ({
+  taskId,
+  initialPriority,
   disabled,
   refetchQueries = [],
 }) => {
-  const { sendEvent } = useVersionAnalytics(patchId);
+  const { sendEvent } = useTaskAnalytics();
   const dispatchToast = useToastContext();
 
-  const [priority, setPriority] = useState<number>(0);
+  const [priority, setPriority] = useState<number>(initialPriority);
   const [active, setActive] = useState(false);
   const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
   const menuItemRef = useRef<HTMLDivElement>(null);
 
-  const [setPatchPriority, { loading: loadingSetPatchPriority }] = useMutation<
-    SetPatchPriorityMutation,
-    SetPatchPriorityMutationVariables
-  >(SET_PATCH_PRIORITY, {
-    onCompleted: () => {
-      dispatchToast.success(`Priority was set to ${priority}`);
+  const [setTaskPriority, { loading: loadingSetPriority }] = useMutation<
+    SetTaskPriorityMutation,
+    SetTaskPriorityMutationVariables
+  >(SET_TASK_PRIORTY, {
+    onCompleted: (data) => {
+      dispatchToast.success(
+        data.setTaskPriority.priority >= 0
+          ? `Priority for task updated to ${data.setTaskPriority.priority}`
+          : `Task was successfully disabled`
+      );
     },
     onError: (err) => {
-      dispatchToast.error(`Error setting priority: ${err.message}`);
+      dispatchToast.error(`Error updating priority for task: ${err.message}`);
     },
     refetchQueries,
   });
 
   const onConfirm = () => {
-    setPatchPriority({ variables: { patchId, priority } });
+    setTaskPriority({
+      variables: { taskId, priority },
+    });
     sendEvent({ name: "Set Priority", priority });
   };
 
@@ -58,8 +66,8 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
       <div ref={menuItemRef}>
         <MenuItem
           active={active}
-          data-cy="prioritize-patch"
-          disabled={disabled || loadingSetPatchPriority}
+          data-cy="prioritize-task"
+          disabled={disabled || loadingSetPriority}
           onClick={() => setActive(!active)}
         >
           Set priority
@@ -67,7 +75,7 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
       </div>
       <Popconfirm
         active={active}
-        data-cy="set-patch-priority-popconfirm"
+        data-cy="set-task-priority-popconfirm"
         align="left"
         refEl={menuItemRef}
         confirmText="Set"
@@ -76,7 +84,7 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
       >
         <TextInput
           ref={(el) => setInputRef(el)}
-          data-cy="patch-priority-input"
+          data-cy="task-priority-input"
           label="Set new priority"
           min={-1}
           onChange={(e) => setPriority(parseInt(e.target.value, 10))}

@@ -1872,9 +1872,15 @@ export type Task = {
   taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
   /** taskLogs returns the tail 100 lines of the task's logs. */
   taskLogs: TaskLogs;
+  tests: TaskTestResult;
   timeTaken?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
   versionMetadata: Version;
+};
+
+/** Task models a task, the simplest unit of execution for Evergreen. */
+export type TaskTestsArgs = {
+  opts?: InputMaybe<TestFilterOptions>;
 };
 
 export type TaskAnnotationSettings = {
@@ -2090,6 +2096,19 @@ export type TestFilter = {
   testStatus: Scalars["String"];
 };
 
+/**
+ * TestFilterOptions is an input for the task.Tests query.
+ * It's used to filter, sort, and paginate test results of a task.
+ */
+export type TestFilterOptions = {
+  groupID?: InputMaybe<Scalars["String"]>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  page?: InputMaybe<Scalars["Int"]>;
+  sort?: InputMaybe<Array<TestSortOptions>>;
+  statuses?: InputMaybe<Array<Scalars["String"]>>;
+  testName?: InputMaybe<Scalars["String"]>;
+};
+
 export type TestLog = {
   __typename?: "TestLog";
   lineNum?: Maybe<Scalars["Int"]>;
@@ -2123,6 +2142,15 @@ export enum TestSortCategory {
   Status = "STATUS",
   TestName = "TEST_NAME",
 }
+
+/**
+ * TestSortOptions is an input for the task.Tests query.
+ * It's used to define sort criteria for test results of a task.
+ */
+export type TestSortOptions = {
+  direction: SortDirection;
+  sortBy: TestSortCategory;
+};
 
 export type TicketFields = {
   __typename?: "TicketFields";
@@ -7442,62 +7470,49 @@ export type VersionQuery = {
   version: {
     __typename?: "Version";
     id: string;
-    createTime: Date;
-    startTime?: Maybe<Date>;
-    finishTime?: Maybe<Date>;
-    revision: string;
-    author: string;
-    status: string;
-    order: number;
-    repo: string;
-    project: string;
     activated?: Maybe<boolean>;
-    message: string;
+    author: string;
+    createTime: Date;
+    errors: Array<string>;
+    finishTime?: Maybe<Date>;
     isPatch: boolean;
-    taskCount?: Maybe<number>;
+    message: string;
+    order: number;
+    project: string;
     projectIdentifier: string;
+    repo: string;
+    revision: string;
+    startTime?: Maybe<Date>;
+    status: string;
+    taskCount?: Maybe<number>;
+    warnings: Array<string>;
     baseVersion?: Maybe<{ __typename?: "Version"; id: string }>;
-    versionTiming?: Maybe<{
-      __typename?: "VersionTiming";
-      makespan?: Maybe<number>;
-      timeTaken?: Maybe<number>;
-    }>;
-    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     manifest?: Maybe<{
       __typename?: "Manifest";
       id: string;
-      revision: string;
-      project: string;
       branch: string;
       isBase: boolean;
-      moduleOverrides?: Maybe<{ [key: string]: any }>;
       modules?: Maybe<any>;
-    }>;
-    previousVersion?: Maybe<{
-      __typename?: "Version";
-      id: string;
+      moduleOverrides?: Maybe<{ [key: string]: any }>;
+      project: string;
       revision: string;
     }>;
-    projectMetadata?: Maybe<{
-      __typename?: "Project";
-      repo: string;
-      owner: string;
-    }>;
+    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     patch?: Maybe<{
       __typename?: "Patch";
       id: string;
-      patchNumber: number;
       alias?: Maybe<string>;
-      commitQueuePosition?: Maybe<number>;
       canEnqueueToCommitQueue: boolean;
+      commitQueuePosition?: Maybe<number>;
+      patchNumber: number;
       childPatches?: Maybe<
         Array<{
           __typename?: "Patch";
           id: string;
           githash: string;
           projectIdentifier: string;
-          taskCount?: Maybe<number>;
           status: string;
+          taskCount?: Maybe<number>;
           versionFull?: Maybe<{
             __typename?: "Version";
             id: string;
@@ -7506,6 +7521,21 @@ export type VersionQuery = {
           }>;
         }>
       >;
+    }>;
+    previousVersion?: Maybe<{
+      __typename?: "Version";
+      id: string;
+      revision: string;
+    }>;
+    projectMetadata?: Maybe<{
+      __typename?: "Project";
+      owner: string;
+      repo: string;
+    }>;
+    versionTiming?: Maybe<{
+      __typename?: "VersionTiming";
+      makespan?: Maybe<number>;
+      timeTaken?: Maybe<number>;
     }>;
     upstreamProject?: Maybe<{
       __typename?: "UpstreamProject";
