@@ -8,6 +8,7 @@ import { Skeleton } from "antd";
 import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { ConfirmationModal } from "components/ConfirmationModal";
+import { Divider } from "components/styles/Divider";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -226,7 +227,7 @@ const VersionTasks: React.VFC<VersionTasksProps> = ({
           toggleSelectedTask={toggleSelectedTask}
         />
       ))}
-      <HR />
+      <Divider />
     </>
   ) : null;
 };
@@ -253,12 +254,6 @@ const getTaskIds = (selectedTasks: versionSelectedTasks) =>
     versionId,
     taskIds: selectedArray(tasks),
   }));
-
-const HR = styled.hr`
-  background-color: ${gray.light2};
-  border: 0;
-  height: 1px;
-`;
 
 const ConfirmationMessage = styled(Body)`
   padding-top: ${size.s};

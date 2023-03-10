@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";
 import { Skeleton } from "antd";
+import isEqual from "lodash.isequal";
 import { usePreferencesAnalytics } from "analytics";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -80,7 +81,7 @@ export const NotificationsTab: React.VFC = () => {
   const hasFieldUpdates =
     slackUsername !== slackUsernameField ||
     slackMemberId !== slackMemberIdField ||
-    notificationStatus !== notifications;
+    !isEqual(notificationStatus, notifications);
 
   const newPayload = omitTypename(notificationStatus);
   return (
@@ -99,14 +100,17 @@ export const NotificationsTab: React.VFC = () => {
           description="Click on the three dots next to 'set a status' in your Slack profile, and then 'Copy member ID'."
           data-cy="slack-member-id-field"
         />
+
         <GridContainer>
-          <GridField gridArea="1 / 3 / 2 / 4">Email</GridField>
-          <GridField gridArea="1 / 4 / 2 / 5">Slack</GridField>
-          <GridField gridArea="1 / 5 / 2 / 6">None</GridField>
+          <NotificationMethod>
+            <span>Email</span>
+            <span>Slack</span>
+            <span>None</span>
+          </NotificationMethod>
           {Object.keys(newPayload).map((notification, index) => (
             <NotificationField
               notification={notification}
-              index={index}
+              index={index + 2}
               notificationStatus={notificationStatus}
               setNotificationStatus={setNotificationStatus}
               key={notification}
@@ -135,20 +139,24 @@ const handleFieldUpdate = (stateUpdate) => (e) => {
   }
 };
 
-const GridContainer = styled.div`
-  display: grid;
-  grid-template-columns: 2fr repeat(3, 1fr);
-  grid-template-rows: repeat(7, 1fr);
-  column-gap: 0;
-  row-gap: 0;
-  width: 50%;
-`;
-
-const GridField = styled.div`
-  grid-area: ${(props: { gridArea: string }): string => props.gridArea};
-`;
-
 const StyledTextInput = styled(TextInput)`
   margin-bottom: ${size.m};
   width: 50%;
+`;
+
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  margin-bottom: ${size.s};
+  width: 350px;
+`;
+
+const NotificationMethod = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${size.l};
+
+  grid-column: 2;
+  grid-row: 1;
 `;

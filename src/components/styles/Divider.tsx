@@ -1,9 +1,14 @@
 import styled from "@emotion/styled";
-import { Divider } from "antd";
+import { palette } from "@leafygreen-ui/palette";
 import { size } from "constants/tokens";
 
-const StyledDivider = styled(Divider)`
+const { gray } = palette;
+
+const Divider = styled("hr")`
+  background-color: ${gray.light2};
+  border: 0;
+  height: 1px;
   margin: ${size.xxs} 0 ${size.xs} 0;
 `;
 
-export { StyledDivider as Divider };
+export { Divider };
