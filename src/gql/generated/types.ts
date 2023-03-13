@@ -7558,6 +7558,11 @@ export type VersionQuery = {
     taskCount?: Maybe<number>;
     warnings: Array<string>;
     baseVersion?: Maybe<{ __typename?: "Version"; id: string }>;
+    externalLinksForMetadata: Array<{
+      __typename?: "ExternalLinkForMetadata";
+      displayName: string;
+      url: string;
+    }>;
     manifest?: Maybe<{
       __typename?: "Manifest";
       id: string;
