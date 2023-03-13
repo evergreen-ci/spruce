@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { H1, H2 } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
+import { H1Type, H2Type } from "types/leafygreen";
 import { environmentalVariables } from "utils";
 import errorPage from "./errorPage.svg";
 
@@ -11,9 +12,7 @@ const { white } = palette;
 const ErrorFallback = () => (
   <Center>
     <Text>
-      {/* @ts-expect-error */}
       <StyledHeader>Error</StyledHeader>
-      {/* @ts-expect-error */}
       <StyledSubtitle>
         Ouch! That&apos;s gotta hurt,
         <br /> sorry about that!
@@ -26,19 +25,20 @@ const ErrorFallback = () => (
 
 export default ErrorFallback;
 
-// @ts-expect-error
-const StyledHeader = styled(H1)`
+const StyledHeader = styled<H1Type>(H1)`
   color: ${white};
 `;
-// @ts-expect-error
-const StyledSubtitle = styled(H2)`
+
+const StyledSubtitle = styled<H2Type>(H2)`
   color: ${white};
 `;
+
 const StyledLink = styled.a`
   padding-top: ${size.xl};
   color: ${white};
   text-decoration: underline;
 `;
+
 const Text = styled.div`
   position: absolute;
   color: white;
