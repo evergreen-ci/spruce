@@ -243,9 +243,11 @@ describe("usePolling", () => {
 
       // document visible - start polling
       updatePageVisibility("visible");
+      /* eslint-disable jest/max-expects */
       expect(startPolling).toHaveBeenCalledTimes(1);
       expect(stopPolling).toHaveBeenCalledTimes(1);
       expect(result.current).toBe(true);
+      /* eslint-enable jest/max-expects */
     });
   });
 
@@ -304,8 +306,10 @@ describe("usePolling", () => {
       // document visible
       updatePageVisibility("visible");
       expect(refetch).toHaveBeenCalledTimes(2);
+      /* eslint-disable jest/max-expects */
       expect(startPolling).toHaveBeenCalledTimes(2);
       expect(stopPolling).toHaveBeenCalledTimes(2);
+      /* eslint-enable jest/max-expects */
     });
   });
 });
