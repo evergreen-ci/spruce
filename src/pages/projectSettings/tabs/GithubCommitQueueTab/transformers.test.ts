@@ -100,8 +100,6 @@ const projectForm: FormState = {
   },
   commitQueue: {
     enabled: null,
-    requireSigned: null,
-    requiredApprovalCount: null,
     mergeMethod: "",
     message: "",
     patchDefinitions: {
@@ -139,8 +137,6 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
     gitTagAuthorizedTeams: [],
     commitQueue: {
       enabled: null,
-      requireSigned: null,
-      requiredApprovalCount: null,
       mergeMethod: "",
       message: "",
     },
@@ -245,8 +241,6 @@ const repoForm: FormState = {
   },
   commitQueue: {
     enabled: true,
-    requireSigned: true,
-    requiredApprovalCount: 1,
     mergeMethod: "squash",
     message: "Commit Queue Message",
     patchDefinitions: {
@@ -267,8 +261,6 @@ const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
     gitTagAuthorizedTeams: [],
     commitQueue: {
       enabled: true,
-      requireSigned: true,
-      requiredApprovalCount: 1,
       mergeMethod: "squash",
       message: "Commit Queue Message",
     },
@@ -389,8 +381,6 @@ const mergedForm: FormState = {
   },
   commitQueue: {
     enabled: null,
-    requireSigned: null,
-    requiredApprovalCount: null,
     mergeMethod: "",
     message: "",
     patchDefinitions: {
