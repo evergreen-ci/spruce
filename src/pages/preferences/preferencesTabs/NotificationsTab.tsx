@@ -100,23 +100,11 @@ export const NotificationsTab: React.VFC = () => {
           description="Click on the three dots next to 'set a status' in your Slack profile, and then 'Copy member ID'."
           data-cy="slack-member-id-field"
         />
-
-        <GridContainer>
-          <NotificationMethod>
-            <span>Email</span>
-            <span>Slack</span>
-            <span>None</span>
-          </NotificationMethod>
-          {Object.keys(newPayload).map((notification, index) => (
-            <NotificationField
-              notification={notification}
-              index={index + 2}
-              notificationStatus={notificationStatus}
-              setNotificationStatus={setNotificationStatus}
-              key={notification}
-            />
-          ))}
-        </GridContainer>
+        <NotificationField
+          notifications={newPayload}
+          notificationStatus={notificationStatus}
+          setNotificationStatus={setNotificationStatus}
+        />
         <Button
           data-cy="save-profile-changes-button"
           variant={Variant.Primary}
@@ -142,21 +130,4 @@ const handleFieldUpdate = (stateUpdate) => (e) => {
 const StyledTextInput = styled(TextInput)`
   margin-bottom: ${size.m};
   width: 50%;
-`;
-
-const GridContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(7, 1fr);
-  margin-bottom: ${size.s};
-  width: 350px;
-`;
-
-const NotificationMethod = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.l};
-
-  grid-column: 2;
-  grid-row: 1;
 `;

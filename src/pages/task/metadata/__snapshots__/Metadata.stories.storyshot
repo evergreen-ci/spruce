@@ -13,7 +13,7 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
       Task Metadata
     </p>
     <hr
-      className="css-1v6zjf9-Divider eyj3qof0"
+      className="css-qqg5h5-Divider eyj3qof0"
     />
     <p
       className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
@@ -166,7 +166,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
       Task Metadata
     </p>
     <hr
-      className="css-1v6zjf9-Divider eyj3qof0"
+      className="css-qqg5h5-Divider eyj3qof0"
     />
     <p
       className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
@@ -319,7 +319,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
       Task Metadata
     </p>
     <hr
-      className="css-1v6zjf9-Divider eyj3qof0"
+      className="css-qqg5h5-Divider eyj3qof0"
     />
     <p
       className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
@@ -465,7 +465,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
         Depends On
       </p>
       <hr
-        className="css-1v6zjf9-Divider eyj3qof0"
+        className="css-qqg5h5-Divider eyj3qof0"
       />
       <div
         className="css-3ay4yh-DependsOnWrapper e1dgw5p64"
