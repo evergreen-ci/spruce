@@ -301,13 +301,13 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                 className="leafygreen-ui-1iyoj2o"
               >
                 <label
-                  className="leafygreen-ui-1k5mcru"
+                  className="leafygreen-ui-591fuk"
                   htmlFor="textarea-1"
                 >
                   Valid Projects
                 </label>
                 <textarea
-                  className="leafygreen-ui-1or2ez7"
+                  className="leafygreen-ui-j9hxzb"
                   disabled={false}
                   id="textarea-1"
                   onBlur={[Function]}
