@@ -214,9 +214,10 @@ describe("Repo Settings", () => {
         cy.dataCy("cq-card").children().should("have.length", count);
       };
 
-      countCQFields(2);
+      countCQFields(3);
+      cy.dataCy("cq-card").children().eq(1).should("be.empty");
       cy.dataCy("cq-enabled-radio-box").children().first().click();
-      countCQFields(4);
+      countCQFields(6);
 
       cy.dataCy("error-banner")
         .contains(

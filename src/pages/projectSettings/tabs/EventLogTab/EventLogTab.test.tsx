@@ -142,6 +142,8 @@ const eventLogEntry: ProjectEventLogsQuery["projectEvents"]["eventLogEntries"][0
         gitTagAuthorizedTeams: ["arst"],
         commitQueue: {
           enabled: true,
+          requireSigned: false,
+          requiredApprovalCount: null,
           mergeMethod: "squash",
           message: "",
           __typename: "CommitQueueParams",
@@ -223,6 +225,8 @@ const eventLogEntry: ProjectEventLogsQuery["projectEvents"]["eventLogEntries"][0
         gitTagAuthorizedTeams: ["evergreen"],
         commitQueue: {
           enabled: true,
+          requireSigned: false,
+          requiredApprovalCount: null,
           mergeMethod: "squash",
           message: "",
           __typename: "CommitQueueParams",

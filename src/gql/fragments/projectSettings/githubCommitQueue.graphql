@@ -8,6 +8,8 @@ fragment projectGithubSettings on Project {
   gitTagAuthorizedTeams
   commitQueue {
     enabled
+    requireSigned
+    requiredApprovalCount
     mergeMethod
     message
   }
@@ -23,6 +25,8 @@ fragment repoGithubSettings on RepoRef {
   gitTagAuthorizedTeams
   commitQueue {
     enabled
+    requireSigned
+    requiredApprovalCount
     mergeMethod
     message
   }

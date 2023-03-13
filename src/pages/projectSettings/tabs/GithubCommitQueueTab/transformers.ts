@@ -103,6 +103,8 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
     },
     commitQueue: {
       enabled: commitQueue.enabled,
+      requireSigned: commitQueue.requireSigned,
+      requiredApprovalCount: commitQueue.requiredApprovalCount,
       message: commitQueue.message,
       mergeMethod: commitQueue.mergeMethod,
       patchDefinitions: {
@@ -126,7 +128,14 @@ export const formToGql: FormToGqlFunction<Tab> = (
       teams: { gitTagAuthorizedTeams, gitTagAuthorizedTeamsOverride },
       gitTags,
     },
-    commitQueue: { enabled, message, mergeMethod, patchDefinitions },
+    commitQueue: {
+      enabled,
+      requireSigned,
+      requiredApprovalCount,
+      message,
+      mergeMethod,
+      patchDefinitions,
+    },
   }: FormState,
   id
 ) => {
@@ -144,6 +153,8 @@ export const formToGql: FormToGqlFunction<Tab> = (
       : null,
     commitQueue: {
       enabled,
+      requireSigned,
+      requiredApprovalCount,
       message,
       mergeMethod,
     },

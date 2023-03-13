@@ -331,6 +331,8 @@ const projectSettingsMock: ApolloMock<
           gitTagAuthorizedTeams: ["team"],
           commitQueue: {
             enabled: true,
+            requireSigned: false,
+            requiredApprovalCount: 0,
             mergeMethod: "squash",
             message: "",
             __typename: "CommitQueueParams",

@@ -2808,6 +2808,8 @@ export type ProjectGithubSettingsFragment = {
   commitQueue: {
     __typename?: "CommitQueueParams";
     enabled?: Maybe<boolean>;
+    requireSigned?: Maybe<boolean>;
+    requiredApprovalCount?: Maybe<number>;
     mergeMethod: string;
     message: string;
   };
@@ -2825,6 +2827,8 @@ export type RepoGithubSettingsFragment = {
   commitQueue: {
     __typename?: "RepoCommitQueueParams";
     enabled: boolean;
+    requireSigned: boolean;
+    requiredApprovalCount: number;
     mergeMethod: string;
     message: string;
   };
@@ -2845,6 +2849,8 @@ export type ProjectGithubCommitQueueFragment = {
     commitQueue: {
       __typename?: "CommitQueueParams";
       enabled?: Maybe<boolean>;
+      requireSigned?: Maybe<boolean>;
+      requiredApprovalCount?: Maybe<number>;
       mergeMethod: string;
       message: string;
     };
@@ -2866,6 +2872,8 @@ export type RepoGithubCommitQueueFragment = {
     commitQueue: {
       __typename?: "RepoCommitQueueParams";
       enabled: boolean;
+      requireSigned: boolean;
+      requiredApprovalCount: number;
       mergeMethod: string;
       message: string;
     };
@@ -2887,6 +2895,8 @@ export type ProjectEventGithubCommitQueueFragment = {
     commitQueue: {
       __typename?: "CommitQueueParams";
       enabled?: Maybe<boolean>;
+      requireSigned?: Maybe<boolean>;
+      requiredApprovalCount?: Maybe<number>;
       mergeMethod: string;
       message: string;
     };
@@ -3004,6 +3014,8 @@ export type ProjectSettingsFragment = {
     commitQueue: {
       __typename?: "CommitQueueParams";
       enabled?: Maybe<boolean>;
+      requireSigned?: Maybe<boolean>;
+      requiredApprovalCount?: Maybe<number>;
       mergeMethod: string;
       message: string;
     };
@@ -3191,6 +3203,8 @@ export type RepoSettingsFragment = {
     commitQueue: {
       __typename?: "RepoCommitQueueParams";
       enabled: boolean;
+      requireSigned: boolean;
+      requiredApprovalCount: number;
       mergeMethod: string;
       message: string;
     };
@@ -3561,6 +3575,8 @@ export type ProjectEventSettingsFragment = {
     commitQueue: {
       __typename?: "CommitQueueParams";
       enabled?: Maybe<boolean>;
+      requireSigned?: Maybe<boolean>;
+      requiredApprovalCount?: Maybe<number>;
       mergeMethod: string;
       message: string;
     };
@@ -5662,6 +5678,8 @@ export type ProjectEventLogsQuery = {
           commitQueue: {
             __typename?: "CommitQueueParams";
             enabled?: Maybe<boolean>;
+            requireSigned?: Maybe<boolean>;
+            requiredApprovalCount?: Maybe<number>;
             mergeMethod: string;
             message: string;
           };
@@ -5862,6 +5880,8 @@ export type ProjectEventLogsQuery = {
           commitQueue: {
             __typename?: "CommitQueueParams";
             enabled?: Maybe<boolean>;
+            requireSigned?: Maybe<boolean>;
+            requiredApprovalCount?: Maybe<number>;
             mergeMethod: string;
             message: string;
           };
@@ -6071,6 +6091,8 @@ export type ProjectSettingsQuery = {
       commitQueue: {
         __typename?: "CommitQueueParams";
         enabled?: Maybe<boolean>;
+        requireSigned?: Maybe<boolean>;
+        requiredApprovalCount?: Maybe<number>;
         mergeMethod: string;
         message: string;
       };
@@ -6316,6 +6338,8 @@ export type RepoEventLogsQuery = {
           commitQueue: {
             __typename?: "CommitQueueParams";
             enabled?: Maybe<boolean>;
+            requireSigned?: Maybe<boolean>;
+            requiredApprovalCount?: Maybe<number>;
             mergeMethod: string;
             message: string;
           };
@@ -6516,6 +6540,8 @@ export type RepoEventLogsQuery = {
           commitQueue: {
             __typename?: "CommitQueueParams";
             enabled?: Maybe<boolean>;
+            requireSigned?: Maybe<boolean>;
+            requiredApprovalCount?: Maybe<number>;
             mergeMethod: string;
             message: string;
           };
@@ -6720,6 +6746,8 @@ export type RepoSettingsQuery = {
       commitQueue: {
         __typename?: "RepoCommitQueueParams";
         enabled: boolean;
+        requireSigned: boolean;
+        requiredApprovalCount: number;
         mergeMethod: string;
         message: string;
       };
