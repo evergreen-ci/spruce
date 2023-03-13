@@ -51,6 +51,7 @@ export const PluginsTab: React.VFC<TabProps> = ({
 const validate: ValidateProps<FormState> = (formData, errors) => {
   const {
     buildBaronSettings: { ticketSearchProjects },
+    externalLinks: { patchMetadataPanelLink },
   } = formData;
 
   // if a search project is defined, a create project must be defined, and vice versa
@@ -72,5 +73,16 @@ const validate: ValidateProps<FormState> = (formData, errors) => {
     );
   }
 
+  const displayNameDefined = !!patchMetadataPanelLink.displayName.trim();
+  const urlTemplateDefined = !!patchMetadataPanelLink.urlTemplate.trim();
+  if (displayNameDefined && !urlTemplateDefined) {
+    errors.externalLinks.patchMetadataPanelLink.urlTemplate.addError(
+      "You must specify a URL template or exclude display name."
+    );
+  } else if (!displayNameDefined && urlTemplateDefined) {
+    errors.externalLinks.patchMetadataPanelLink.displayName.addError(
+      "You must specify a display name or exclude URL template."
+    );
+  }
   return errors;
 };
