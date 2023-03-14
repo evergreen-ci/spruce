@@ -7,11 +7,11 @@ import { DoesNotExpire, SpawnTable } from "components/Spawn";
 import { StyledRouterLink, WordBreak } from "components/styles";
 import { SEEN_MIGRATE_GUIDE_CUE } from "constants/cookies";
 import { getSpawnHostRoute } from "constants/routes";
-import { SpawnVolumeCard } from "pages/spawn/spawnVolume/spawnVolumeTable/SpawnVolumeCard";
 import { MyVolume, TableVolume } from "types/spawn";
 import { queryString, string } from "utils";
-import { SpawnVolumeTableActions } from "./spawnVolumeTable/SpawnVolumeTableActions";
-import { VolumeStatusBadge } from "./spawnVolumeTable/VolumeStatusBadge";
+import { SpawnVolumeCard } from "./SpawnVolumeCard";
+import { SpawnVolumeTableActions } from "./SpawnVolumeTableActions";
+import { VolumeStatusBadge } from "./VolumeStatusBadge";
 
 const { sortFunctionDate } = string;
 const { parseQueryString } = queryString;

@@ -33,9 +33,6 @@ const NavDropdownItem: React.VFC<NavDropdownItemType> = ({
 }) => (
   <MenuItem
     as={to && Link}
-    // LG typing should permit props associated with the `as`
-    // component, but right now it doesn't. ¯\_(ツ)_/¯
-    // @ts-expect-error
     to={to}
     href={href}
     data-cy={itemDataCy}

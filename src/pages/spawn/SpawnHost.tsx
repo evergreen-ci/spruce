@@ -62,9 +62,7 @@ export const SpawnHost = () => {
       {hasHosts ? (
         <SpawnHostTable hosts={hosts} />
       ) : (
-        <Subtitle>
-          No Spawned hosts available, Spawn one to get started
-        </Subtitle>
+        <Subtitle>No hosts available, spawn one to get started.</Subtitle>
       )}
     </>
   );
