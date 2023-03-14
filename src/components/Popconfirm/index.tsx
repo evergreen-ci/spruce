@@ -52,8 +52,7 @@ const Popconfirm: React.VFC<PopconfirmProps> = ({
   trigger,
 }) => {
   const [uncontrolledOpen, uncontrolledSetOpen] = useState<boolean>(false);
-  const setOpen =
-    (typeof active === "boolean" && setActive) || uncontrolledSetOpen;
+  const setOpen = (active !== undefined && setActive) || uncontrolledSetOpen;
   const open = active ?? uncontrolledOpen;
 
   const triggerRef = useRef(null);
@@ -103,30 +102,27 @@ const Popconfirm: React.VFC<PopconfirmProps> = ({
     </Popover>
   );
 
-  if (trigger) {
-    const triggerClickHandler = (e: React.MouseEvent) => {
-      if (open) {
-        onCancel();
-      }
+  const triggerClickHandler = (e: React.MouseEvent) => {
+    if (open) {
+      onCancel();
+    }
+    setOpen(!open);
+    trigger?.props?.onClick?.(e);
+  };
 
-      setOpen(!open);
-      trigger?.props?.onClick?.(e);
-    };
-
-    const renderedTrigger = cloneElement(trigger, {
+  const renderedTrigger =
+    trigger !== undefined &&
+    cloneElement(trigger, {
       ref: triggerRef,
       onClick: triggerClickHandler,
     });
 
-    return (
-      <>
-        {renderedTrigger}
-        {popoverContent}
-      </>
-    );
-  }
-
-  return popoverContent;
+  return (
+    <>
+      {renderedTrigger}
+      {popoverContent}
+    </>
+  );
 };
 
 const ContentWrapper = styled.div`
