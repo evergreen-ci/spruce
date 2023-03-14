@@ -1,6 +1,5 @@
-import styled from "@emotion/styled";
 import Code from "@leafygreen-ui/code";
-import { Body } from "@leafygreen-ui/typography";
+import { Accordion } from "components/Accordion";
 import { StyledRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { HostEventLogData } from "gql/generated/types";
@@ -314,16 +313,9 @@ export const HostEventLog: React.VFC<{
   isCode: boolean;
   "data-cy"?: string;
 }> = ({ title, logs, isCode, "data-cy": dataCy = "host-event-logs-title" }) => (
-  <details data-cy="host-event-logs">
-    <summary data-cy={dataCy}>
-      <StyledBody weight="medium">{title}</StyledBody>
-    </summary>
+  <Accordion data-cy={dataCy ?? "host-event-logs"} title={title}>
     <span data-cy="host-event-log-content">
       {isCode ? <Code language="shell">{logs}</Code> : logs}
     </span>
-  </details>
+  </Accordion>
 );
-
-const StyledBody = styled(Body)`
-  display: inline-block;
-`;
