@@ -1,77 +1,4 @@
 describe("Navigating to Spawn Volume page", () => {
-  describe("Edit volume modal", () => {
-    it("Clicking on 'Edit' should open the Edit Volume Modal", () => {
-      cy.visit("/spawn/volume");
-      cy.dataCy(
-        "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
-      ).click();
-      cy.dataCy("update-volume-modal").should("be.visible");
-    });
-
-    it("Volume name & expiration inputs should be populated with the volume display name & expiration on initial render", () => {
-      cy.dataCy("volume-name-input").should(
-        "have.value",
-        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
-      );
-      cy.dataCy("date-picker").should("have.value", "2020-06-06");
-      cy.dataCy("time-picker").should("have.value", "15:48:18");
-    });
-
-    it("Reopening the edit volume modal should reset form input fields.", () => {
-      cy.dataCy("volume-name-input").type("Hello, World");
-      cy.dataCy("update-volume-modal").within(() => {
-        cy.contains("button", "Cancel").click();
-      });
-      cy.dataCy(
-        "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
-      ).click();
-      cy.dataCy("volume-name-input").should(
-        "have.value",
-        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
-      );
-    });
-
-    it("Submit button should be enabled when the volume details input value differs from what already exists.", () => {
-      cy.contains("button", "Save").should(
-        "have.attr",
-        "aria-disabled",
-        "true"
-      );
-      // type a new name
-      cy.dataCy("volume-name-input").type("Hello, World");
-      cy.contains("button", "Save").should(
-        "not.have.attr",
-        "aria-disabled",
-        "true"
-      );
-
-      // type original name
-      cy.dataCy("volume-name-input")
-        .clear()
-        .type(
-          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
-        );
-      cy.contains("button", "Save").should(
-        "have.attr",
-        "aria-disabled",
-        "true"
-      );
-
-      cy.contains("Never").click();
-      cy.contains("button", "Save").should(
-        "not.have.attr",
-        "aria-disabled",
-        "true"
-      );
-    });
-
-    it("Clicking on save button should close the modal and show a success toast", () => {
-      cy.contains("button", "Save").click();
-      cy.validateToast("success", "Successfully updated volume");
-      cy.dataCy("update-volume-modal").should("not.exist");
-    });
-  });
-
   it("Visiting the spawn volume page should display the number of free and mounted volumes.", () => {
     cy.visit("/spawn/volume");
     cy.dataCy("mounted-badge").contains("9 Mounted");
@@ -200,6 +127,79 @@ describe("Navigating to Spawn Volume page", () => {
     cy.dataCy("spawn-volume-btn").click();
     cy.dataCy("spawn-volume-modal").should("be.visible");
     cy.dataCy("type-select").contains("gp2");
+  });
+
+  describe("Edit volume modal", () => {
+    it("Clicking on 'Edit' should open the Edit Volume Modal", () => {
+      cy.visit("/spawn/volume");
+      cy.dataCy(
+        "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      ).click();
+      cy.dataCy("update-volume-modal").should("be.visible");
+    });
+
+    it("Volume name & expiration inputs should be populated with the volume display name & expiration on initial render", () => {
+      cy.dataCy("volume-name-input").should(
+        "have.value",
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      );
+      cy.dataCy("date-picker").should("have.value", "2020-06-06");
+      cy.dataCy("time-picker").should("have.value", "05:48:18");
+    });
+
+    it("Reopening the edit volume modal should reset form input fields.", () => {
+      cy.dataCy("volume-name-input").type("Hello, World");
+      cy.dataCy("update-volume-modal").within(() => {
+        cy.contains("button", "Cancel").click();
+      });
+      cy.dataCy(
+        "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      ).click();
+      cy.dataCy("volume-name-input").should(
+        "have.value",
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      );
+    });
+
+    it("Submit button should be enabled when the volume details input value differs from what already exists.", () => {
+      cy.contains("button", "Save").should(
+        "have.attr",
+        "aria-disabled",
+        "true"
+      );
+      // type a new name
+      cy.dataCy("volume-name-input").type("Hello, World");
+      cy.contains("button", "Save").should(
+        "not.have.attr",
+        "aria-disabled",
+        "true"
+      );
+
+      // type original name
+      cy.dataCy("volume-name-input")
+        .clear()
+        .type(
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+        );
+      cy.contains("button", "Save").should(
+        "have.attr",
+        "aria-disabled",
+        "true"
+      );
+
+      cy.contains("Never").click();
+      cy.contains("button", "Save").should(
+        "not.have.attr",
+        "aria-disabled",
+        "true"
+      );
+    });
+
+    it("Clicking on save button should close the modal and show a success toast", () => {
+      cy.contains("button", "Save").click();
+      cy.validateToast("success", "Successfully updated volume");
+      cy.dataCy("update-volume-modal").should("not.exist");
+    });
   });
 
   describe("Migrate Modal", () => {
