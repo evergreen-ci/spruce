@@ -22,7 +22,7 @@ const validateJiraURL = (jiraURL: string, url: string): boolean =>
   new RegExp(`^https://${jiraURL}/browse/${jiraTicketNumberRegex}$`).test(url);
 
 const validateUrlRegex =
-  /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+  /^(https?:\/\/(www\.)?|ftp:\/\/(www\.)?|www\.){1}([0-9A-Za-z-.@:%_+~#=]+)+((\.[a-zA-Z]{2,3})+)(\/(.)*)?(\?(.)*)?/;
 
 const validateURL = (url: string): boolean => {
   if (!url) {
