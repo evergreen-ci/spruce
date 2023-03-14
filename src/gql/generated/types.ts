@@ -1379,8 +1379,6 @@ export type Query = {
   subnetAvailabilityZones: Array<Scalars["String"]>;
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
-  /** @deprecated Use task.taskLogs instead */
-  taskLogs: TaskLogs;
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]>>;
   taskQueueDistros: Array<TaskQueueDistro>;
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
@@ -1496,11 +1494,6 @@ export type QueryTaskArgs = {
 };
 
 export type QueryTaskAllExecutionsArgs = {
-  taskId: Scalars["String"];
-};
-
-export type QueryTaskLogsArgs = {
-  execution?: InputMaybe<Scalars["Int"]>;
   taskId: Scalars["String"];
 };
 
