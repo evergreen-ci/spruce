@@ -52,7 +52,7 @@ export const EditVolumeModal: React.VFC<Props> = ({
   const initialState = useMemo(
     () => ({
       expirationDetails: {
-        expiration: volume?.expiration?.toString(),
+        expiration: new Date(volume?.expiration).toString(),
         noExpiration: volume.noExpiration,
       },
       name: volume.displayName,
@@ -79,7 +79,7 @@ export const EditVolumeModal: React.VFC<Props> = ({
   const { schema, uiSchema } = getFormSchema({
     disableExpirationCheckbox,
     noExpirationCheckboxTooltip,
-    hasName: !!formState?.name?.length,
+    hasName: !!initialState?.name?.length,
   });
 
   const hasChanges = useMemo(() => {
