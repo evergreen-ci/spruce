@@ -41,8 +41,8 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
     },
     externalLinks: {
       patchMetadataPanelLink: {
-        displayName: projectRef?.externalLinks[0]?.displayName ?? "",
-        urlTemplate: projectRef?.externalLinks[0]?.urlTemplate ?? "",
+        displayName: projectRef?.externalLinks?.[0].displayName ?? "",
+        urlTemplate: projectRef?.externalLinks?.[0].urlTemplate ?? "",
       },
     },
   };

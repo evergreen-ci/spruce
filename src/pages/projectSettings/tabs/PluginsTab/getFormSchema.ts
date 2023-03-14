@@ -213,6 +213,10 @@ export const getFormSchema = (
       patchMetadataPanelLink: {
         urlTemplate: {
           "ui:placeholder": "https://example.com/{version_id}",
+          "ui:data-cy": "url-template-input",
+        },
+        displayName: {
+          "ui:data-cy": "display-name-input",
         },
       },
     },
