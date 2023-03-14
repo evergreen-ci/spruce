@@ -271,6 +271,23 @@ export type EditSpawnHostInput = {
   volume?: InputMaybe<Scalars["String"]>;
 };
 
+export type ExternalLink = {
+  __typename?: "ExternalLink";
+  displayName: Scalars["String"];
+  urlTemplate: Scalars["String"];
+};
+
+export type ExternalLinkForMetadata = {
+  __typename?: "ExternalLinkForMetadata";
+  displayName: Scalars["String"];
+  url: Scalars["String"];
+};
+
+export type ExternalLinkInput = {
+  displayName: Scalars["String"];
+  urlTemplate: Scalars["String"];
+};
+
 export type File = {
   __typename?: "File";
   link: Scalars["String"];
@@ -1097,6 +1114,7 @@ export type Project = {
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
   displayName: Scalars["String"];
   enabled?: Maybe<Scalars["Boolean"]>;
+  externalLinks?: Maybe<Array<ExternalLink>>;
   gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
   gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
@@ -1207,6 +1225,7 @@ export type ProjectInput = {
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]>;
   displayName?: InputMaybe<Scalars["String"]>;
   enabled?: InputMaybe<Scalars["Boolean"]>;
+  externalLinks?: InputMaybe<Array<ExternalLinkInput>>;
   gitTagAuthorizedTeams?: InputMaybe<Array<Scalars["String"]>>;
   gitTagAuthorizedUsers?: InputMaybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled?: InputMaybe<Scalars["Boolean"]>;
@@ -1535,6 +1554,7 @@ export type RepoRef = {
   dispatchingDisabled: Scalars["Boolean"];
   displayName: Scalars["String"];
   enabled: Scalars["Boolean"];
+  externalLinks?: Maybe<Array<ExternalLink>>;
   gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
   gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled: Scalars["Boolean"];
@@ -1576,6 +1596,7 @@ export type RepoRefInput = {
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]>;
   displayName?: InputMaybe<Scalars["String"]>;
   enabled?: InputMaybe<Scalars["Boolean"]>;
+  externalLinks?: InputMaybe<Array<ExternalLinkInput>>;
   gitTagAuthorizedTeams?: InputMaybe<Array<Scalars["String"]>>;
   gitTagAuthorizedUsers?: InputMaybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled?: InputMaybe<Scalars["Boolean"]>;
@@ -1865,9 +1886,15 @@ export type Task = {
   taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
   /** taskLogs returns the tail 100 lines of the task's logs. */
   taskLogs: TaskLogs;
+  tests: TaskTestResult;
   timeTaken?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
   versionMetadata: Version;
+};
+
+/** Task models a task, the simplest unit of execution for Evergreen. */
+export type TaskTestsArgs = {
+  opts?: InputMaybe<TestFilterOptions>;
 };
 
 export type TaskAnnotationSettings = {
@@ -2083,6 +2110,19 @@ export type TestFilter = {
   testStatus: Scalars["String"];
 };
 
+/**
+ * TestFilterOptions is an input for the task.Tests query.
+ * It's used to filter, sort, and paginate test results of a task.
+ */
+export type TestFilterOptions = {
+  groupID?: InputMaybe<Scalars["String"]>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  page?: InputMaybe<Scalars["Int"]>;
+  sort?: InputMaybe<Array<TestSortOptions>>;
+  statuses?: InputMaybe<Array<Scalars["String"]>>;
+  testName?: InputMaybe<Scalars["String"]>;
+};
+
 export type TestLog = {
   __typename?: "TestLog";
   lineNum?: Maybe<Scalars["Int"]>;
@@ -2116,6 +2156,15 @@ export enum TestSortCategory {
   Status = "STATUS",
   TestName = "TEST_NAME",
 }
+
+/**
+ * TestSortOptions is an input for the task.Tests query.
+ * It's used to define sort criteria for test results of a task.
+ */
+export type TestSortOptions = {
+  direction: SortDirection;
+  sortBy: TestSortCategory;
+};
 
 export type TicketFields = {
   __typename?: "TicketFields";
@@ -2284,6 +2333,7 @@ export type Version = {
   childVersions?: Maybe<Array<Maybe<Version>>>;
   createTime: Scalars["Time"];
   errors: Array<Scalars["String"]>;
+  externalLinksForMetadata: Array<ExternalLinkForMetadata>;
   finishTime?: Maybe<Scalars["Time"]>;
   id: Scalars["String"];
   isPatch: Scalars["Boolean"];
