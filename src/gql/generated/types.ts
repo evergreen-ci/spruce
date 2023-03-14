@@ -2740,14 +2740,12 @@ export type ProjectFragment = {
 
 export type ProjectAccessSettingsFragment = {
   __typename?: "Project";
-  private?: Maybe<boolean>;
   restricted?: Maybe<boolean>;
   admins?: Maybe<Array<Maybe<string>>>;
 };
 
 export type RepoAccessSettingsFragment = {
   __typename?: "RepoRef";
-  private: boolean;
   restricted: boolean;
   admins: Array<string>;
 };
@@ -2931,7 +2929,6 @@ export type ProjectSettingsFragment = {
     stepbackDisabled?: Maybe<boolean>;
     patchingDisabled?: Maybe<boolean>;
     disabledStatsCache?: Maybe<boolean>;
-    private?: Maybe<boolean>;
     restricted?: Maybe<boolean>;
     admins?: Maybe<Array<Maybe<string>>>;
     perfEnabled?: Maybe<boolean>;
@@ -3120,7 +3117,6 @@ export type RepoSettingsFragment = {
     stepbackDisabled: boolean;
     patchingDisabled: boolean;
     disabledStatsCache: boolean;
-    private: boolean;
     restricted: boolean;
     admins: Array<string>;
     perfEnabled: boolean;
@@ -3488,7 +3484,6 @@ export type ProjectEventSettingsFragment = {
     stepbackDisabled?: Maybe<boolean>;
     patchingDisabled?: Maybe<boolean>;
     disabledStatsCache?: Maybe<boolean>;
-    private?: Maybe<boolean>;
     restricted?: Maybe<boolean>;
     admins?: Maybe<Array<Maybe<string>>>;
     perfEnabled?: Maybe<boolean>;
@@ -5585,7 +5580,6 @@ export type ProjectEventLogsQuery = {
           stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
-          private?: Maybe<boolean>;
           restricted?: Maybe<boolean>;
           admins?: Maybe<Array<Maybe<string>>>;
           perfEnabled?: Maybe<boolean>;
@@ -5785,7 +5779,6 @@ export type ProjectEventLogsQuery = {
           stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
-          private?: Maybe<boolean>;
           restricted?: Maybe<boolean>;
           admins?: Maybe<Array<Maybe<string>>>;
           perfEnabled?: Maybe<boolean>;
@@ -5994,7 +5987,6 @@ export type ProjectSettingsQuery = {
       stepbackDisabled?: Maybe<boolean>;
       patchingDisabled?: Maybe<boolean>;
       disabledStatsCache?: Maybe<boolean>;
-      private?: Maybe<boolean>;
       restricted?: Maybe<boolean>;
       admins?: Maybe<Array<Maybe<string>>>;
       perfEnabled?: Maybe<boolean>;
@@ -6239,7 +6231,6 @@ export type RepoEventLogsQuery = {
           stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
-          private?: Maybe<boolean>;
           restricted?: Maybe<boolean>;
           admins?: Maybe<Array<Maybe<string>>>;
           perfEnabled?: Maybe<boolean>;
@@ -6439,7 +6430,6 @@ export type RepoEventLogsQuery = {
           stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
-          private?: Maybe<boolean>;
           restricted?: Maybe<boolean>;
           admins?: Maybe<Array<Maybe<string>>>;
           perfEnabled?: Maybe<boolean>;
@@ -6645,7 +6635,6 @@ export type RepoSettingsQuery = {
       stepbackDisabled: boolean;
       patchingDisabled: boolean;
       disabledStatsCache: boolean;
-      private: boolean;
       restricted: boolean;
       admins: Array<string>;
       perfEnabled: boolean;
