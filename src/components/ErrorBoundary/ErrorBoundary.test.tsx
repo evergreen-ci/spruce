@@ -23,28 +23,27 @@ describe("initializeBugsnag", () => {
     expect(Bugsnag.start).not.toHaveBeenCalled();
   });
 
-  it("should initialize bugsnag if running in production", () => {
-    const mockBugsnag = jest.fn();
-    jest.spyOn(Bugsnag, "start").mockImplementation(mockBugsnag);
-
-    mockEnv("NODE_ENV", "production");
-    mockEnv("REACT_APP_VERSION", "1.0.0");
-    mockEnv("REACT_APP_RELEASE_STAGE", "production");
-
-    initializeBugsnag();
-    expect(Bugsnag.start).toHaveBeenCalledWith({
-      apiKey: "i-am-a-fake-key",
-      appVersion: "1.0.0",
-      releaseStage: "production",
-      plugins: [new BugsnagPluginReact()],
-    });
-  });
-
   describe("should initialize bugsnag with appropriate release stage", () => {
     afterEach(() => {
       jest.restoreAllMocks();
       resetBugsnag();
       cleanup();
+    });
+    it("production", () => {
+      const mockBugsnag = jest.fn();
+      jest.spyOn(Bugsnag, "start").mockImplementation(mockBugsnag);
+
+      mockEnv("NODE_ENV", "production");
+      mockEnv("REACT_APP_VERSION", "1.0.0");
+      mockEnv("REACT_APP_RELEASE_STAGE", "production");
+
+      initializeBugsnag();
+      expect(Bugsnag.start).toHaveBeenCalledWith({
+        apiKey: "i-am-a-fake-key",
+        appVersion: "1.0.0",
+        releaseStage: "production",
+        plugins: [new BugsnagPluginReact()],
+      });
     });
     it("beta", () => {
       const mockBugsnag = jest.fn();

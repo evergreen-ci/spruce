@@ -192,19 +192,6 @@ export const getFormSchema = (
                 repoData?.commitQueue?.enabled
               ),
             },
-            requireSigned: {
-              type: ["boolean", "null"],
-              title: "Require Signed Commits on Pull Request Merges",
-              oneOf: radioBoxOptions(
-                ["Enabled", "Disabled"],
-                repoData?.commitQueue?.requireSigned
-              ),
-            },
-            requiredApprovalCount: {
-              type: ["number", "null"],
-              title: "Required Number of Approvals on Pull Request Merges",
-              minimum: 0,
-            },
             message: {
               type: "string" as "string",
               title: "Commit Queue Message",
@@ -437,24 +424,6 @@ export const getFormSchema = (
             repoData?.commitQueue?.enabled,
             "the Commit Queue"
           ),
-        },
-        requireSigned: {
-          "ui:data-cy": "require-signed-radio-box",
-          "ui:widget": widgets.RadioBoxWidget,
-          ...((formData?.commitQueue?.enabled === false ||
-            !!githubProjectConflicts?.commitQueueIdentifiers?.length) && {
-            "ui:hide": true,
-          }),
-        },
-        requiredApprovalCount: {
-          "ui:data-cy": "required-approval-count-input",
-          ...hideIf(
-            fieldDisabled(
-              formData?.commitQueue?.enabled,
-              repoData?.commitQueue?.enabled
-            ) || !!githubProjectConflicts?.commitQueueIdentifiers?.length
-          ),
-          ...placeholderIf(repoData?.commitQueue?.requiredApprovalCount),
         },
         message: {
           "ui:description": "Shown in commit queue CLI commands & web UI",
