@@ -2661,6 +2661,7 @@ export type BaseTaskFragment = {
   id: string;
   execution: number;
   buildVariant: string;
+  buildVariantDisplayName?: Maybe<string>;
   displayName: string;
   revision?: Maybe<string>;
   status: string;
@@ -3746,6 +3747,7 @@ export type AbortTaskMutation = {
     id: string;
     execution: number;
     buildVariant: string;
+    buildVariantDisplayName?: Maybe<string>;
     displayName: string;
     revision?: Maybe<string>;
     status: string;
@@ -4124,6 +4126,7 @@ export type RestartTaskMutation = {
     execution: number;
     id: string;
     buildVariant: string;
+    buildVariantDisplayName?: Maybe<string>;
     displayName: string;
     revision?: Maybe<string>;
     status: string;
@@ -4232,6 +4235,7 @@ export type ScheduleTasksMutation = {
     id: string;
     execution: number;
     buildVariant: string;
+    buildVariantDisplayName?: Maybe<string>;
     displayName: string;
     revision?: Maybe<string>;
     status: string;
@@ -7083,6 +7087,7 @@ export type GetTaskQuery = {
     id: string;
     execution: number;
     buildVariant: string;
+    buildVariantDisplayName?: Maybe<string>;
     displayName: string;
     revision?: Maybe<string>;
     status: string;
@@ -7668,6 +7673,7 @@ export type GetSpawnTaskQuery = {
     id: string;
     execution: number;
     buildVariant: string;
+    buildVariantDisplayName?: Maybe<string>;
     displayName: string;
     revision?: Maybe<string>;
     status: string;
