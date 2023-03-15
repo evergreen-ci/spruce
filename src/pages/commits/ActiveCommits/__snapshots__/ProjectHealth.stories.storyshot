@@ -277,7 +277,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                         className="leafygreen-ui-3n5lp7"
                       >
                         <label
-                          className="leafygreen-ui-1oju0e3"
+                          className="leafygreen-ui-1lododq"
                           htmlFor="chart-radio-absolute"
                         >
                           <input
@@ -309,7 +309,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                         className="leafygreen-ui-3n5lp7"
                       >
                         <label
-                          className="leafygreen-ui-1oju0e3"
+                          className="leafygreen-ui-1lododq"
                           htmlFor="chart-radio-percent"
                         >
                           <input
