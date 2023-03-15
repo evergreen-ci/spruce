@@ -271,6 +271,23 @@ export type EditSpawnHostInput = {
   volume?: InputMaybe<Scalars["String"]>;
 };
 
+export type ExternalLink = {
+  __typename?: "ExternalLink";
+  displayName: Scalars["String"];
+  urlTemplate: Scalars["String"];
+};
+
+export type ExternalLinkForMetadata = {
+  __typename?: "ExternalLinkForMetadata";
+  displayName: Scalars["String"];
+  url: Scalars["String"];
+};
+
+export type ExternalLinkInput = {
+  displayName: Scalars["String"];
+  urlTemplate: Scalars["String"];
+};
+
 export type File = {
   __typename?: "File";
   link: Scalars["String"];
@@ -1097,6 +1114,7 @@ export type Project = {
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
   displayName: Scalars["String"];
   enabled?: Maybe<Scalars["Boolean"]>;
+  externalLinks?: Maybe<Array<ExternalLink>>;
   gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
   gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
@@ -1207,6 +1225,7 @@ export type ProjectInput = {
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]>;
   displayName?: InputMaybe<Scalars["String"]>;
   enabled?: InputMaybe<Scalars["Boolean"]>;
+  externalLinks?: InputMaybe<Array<ExternalLinkInput>>;
   gitTagAuthorizedTeams?: InputMaybe<Array<Scalars["String"]>>;
   gitTagAuthorizedUsers?: InputMaybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled?: InputMaybe<Scalars["Boolean"]>;
@@ -1360,8 +1379,6 @@ export type Query = {
   subnetAvailabilityZones: Array<Scalars["String"]>;
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
-  /** @deprecated Use task.taskLogs instead */
-  taskLogs: TaskLogs;
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]>>;
   taskQueueDistros: Array<TaskQueueDistro>;
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
@@ -1480,11 +1497,6 @@ export type QueryTaskAllExecutionsArgs = {
   taskId: Scalars["String"];
 };
 
-export type QueryTaskLogsArgs = {
-  execution?: InputMaybe<Scalars["Int"]>;
-  taskId: Scalars["String"];
-};
-
 export type QueryTaskNamesForBuildVariantArgs = {
   buildVariant: Scalars["String"];
   projectIdentifier: Scalars["String"];
@@ -1542,6 +1554,7 @@ export type RepoRef = {
   dispatchingDisabled: Scalars["Boolean"];
   displayName: Scalars["String"];
   enabled: Scalars["Boolean"];
+  externalLinks?: Maybe<Array<ExternalLink>>;
   gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
   gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled: Scalars["Boolean"];
@@ -1583,6 +1596,7 @@ export type RepoRefInput = {
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]>;
   displayName?: InputMaybe<Scalars["String"]>;
   enabled?: InputMaybe<Scalars["Boolean"]>;
+  externalLinks?: InputMaybe<Array<ExternalLinkInput>>;
   gitTagAuthorizedTeams?: InputMaybe<Array<Scalars["String"]>>;
   gitTagAuthorizedUsers?: InputMaybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled?: InputMaybe<Scalars["Boolean"]>;
@@ -2319,6 +2333,7 @@ export type Version = {
   childVersions?: Maybe<Array<Maybe<Version>>>;
   createTime: Scalars["Time"];
   errors: Array<Scalars["String"]>;
+  externalLinksForMetadata: Array<ExternalLinkForMetadata>;
   finishTime?: Maybe<Scalars["Time"]>;
   id: Scalars["String"];
   isPatch: Scalars["Boolean"];
@@ -2646,6 +2661,7 @@ export type BaseTaskFragment = {
   id: string;
   execution: number;
   buildVariant: string;
+  buildVariantDisplayName?: Maybe<string>;
   displayName: string;
   revision?: Maybe<string>;
   status: string;
@@ -2808,8 +2824,6 @@ export type ProjectGithubSettingsFragment = {
   commitQueue: {
     __typename?: "CommitQueueParams";
     enabled?: Maybe<boolean>;
-    requireSigned?: Maybe<boolean>;
-    requiredApprovalCount?: Maybe<number>;
     mergeMethod: string;
     message: string;
   };
@@ -2827,8 +2841,6 @@ export type RepoGithubSettingsFragment = {
   commitQueue: {
     __typename?: "RepoCommitQueueParams";
     enabled: boolean;
-    requireSigned: boolean;
-    requiredApprovalCount: number;
     mergeMethod: string;
     message: string;
   };
@@ -2849,8 +2861,6 @@ export type ProjectGithubCommitQueueFragment = {
     commitQueue: {
       __typename?: "CommitQueueParams";
       enabled?: Maybe<boolean>;
-      requireSigned?: Maybe<boolean>;
-      requiredApprovalCount?: Maybe<number>;
       mergeMethod: string;
       message: string;
     };
@@ -2872,8 +2882,6 @@ export type RepoGithubCommitQueueFragment = {
     commitQueue: {
       __typename?: "RepoCommitQueueParams";
       enabled: boolean;
-      requireSigned: boolean;
-      requiredApprovalCount: number;
       mergeMethod: string;
       message: string;
     };
@@ -2895,8 +2903,6 @@ export type ProjectEventGithubCommitQueueFragment = {
     commitQueue: {
       __typename?: "CommitQueueParams";
       enabled?: Maybe<boolean>;
-      requireSigned?: Maybe<boolean>;
-      requiredApprovalCount?: Maybe<number>;
       mergeMethod: string;
       message: string;
     };
@@ -3014,8 +3020,6 @@ export type ProjectSettingsFragment = {
     commitQueue: {
       __typename?: "CommitQueueParams";
       enabled?: Maybe<boolean>;
-      requireSigned?: Maybe<boolean>;
-      requiredApprovalCount?: Maybe<number>;
       mergeMethod: string;
       message: string;
     };
@@ -3203,8 +3207,6 @@ export type RepoSettingsFragment = {
     commitQueue: {
       __typename?: "RepoCommitQueueParams";
       enabled: boolean;
-      requireSigned: boolean;
-      requiredApprovalCount: number;
       mergeMethod: string;
       message: string;
     };
@@ -3575,8 +3577,6 @@ export type ProjectEventSettingsFragment = {
     commitQueue: {
       __typename?: "CommitQueueParams";
       enabled?: Maybe<boolean>;
-      requireSigned?: Maybe<boolean>;
-      requiredApprovalCount?: Maybe<number>;
       mergeMethod: string;
       message: string;
     };
@@ -3752,6 +3752,7 @@ export type AbortTaskMutation = {
     id: string;
     execution: number;
     buildVariant: string;
+    buildVariantDisplayName?: Maybe<string>;
     displayName: string;
     revision?: Maybe<string>;
     status: string;
@@ -4130,6 +4131,7 @@ export type RestartTaskMutation = {
     execution: number;
     id: string;
     buildVariant: string;
+    buildVariantDisplayName?: Maybe<string>;
     displayName: string;
     revision?: Maybe<string>;
     status: string;
@@ -4238,6 +4240,7 @@ export type ScheduleTasksMutation = {
     id: string;
     execution: number;
     buildVariant: string;
+    buildVariantDisplayName?: Maybe<string>;
     displayName: string;
     revision?: Maybe<string>;
     status: string;
@@ -5678,8 +5681,6 @@ export type ProjectEventLogsQuery = {
           commitQueue: {
             __typename?: "CommitQueueParams";
             enabled?: Maybe<boolean>;
-            requireSigned?: Maybe<boolean>;
-            requiredApprovalCount?: Maybe<number>;
             mergeMethod: string;
             message: string;
           };
@@ -5880,8 +5881,6 @@ export type ProjectEventLogsQuery = {
           commitQueue: {
             __typename?: "CommitQueueParams";
             enabled?: Maybe<boolean>;
-            requireSigned?: Maybe<boolean>;
-            requiredApprovalCount?: Maybe<number>;
             mergeMethod: string;
             message: string;
           };
@@ -6091,8 +6090,6 @@ export type ProjectSettingsQuery = {
       commitQueue: {
         __typename?: "CommitQueueParams";
         enabled?: Maybe<boolean>;
-        requireSigned?: Maybe<boolean>;
-        requiredApprovalCount?: Maybe<number>;
         mergeMethod: string;
         message: string;
       };
@@ -6338,8 +6335,6 @@ export type RepoEventLogsQuery = {
           commitQueue: {
             __typename?: "CommitQueueParams";
             enabled?: Maybe<boolean>;
-            requireSigned?: Maybe<boolean>;
-            requiredApprovalCount?: Maybe<number>;
             mergeMethod: string;
             message: string;
           };
@@ -6540,8 +6535,6 @@ export type RepoEventLogsQuery = {
           commitQueue: {
             __typename?: "CommitQueueParams";
             enabled?: Maybe<boolean>;
-            requireSigned?: Maybe<boolean>;
-            requiredApprovalCount?: Maybe<number>;
             mergeMethod: string;
             message: string;
           };
@@ -6746,8 +6739,6 @@ export type RepoSettingsQuery = {
       commitQueue: {
         __typename?: "RepoCommitQueueParams";
         enabled: boolean;
-        requireSigned: boolean;
-        requiredApprovalCount: number;
         mergeMethod: string;
         message: string;
       };
@@ -7107,6 +7098,7 @@ export type GetTaskQuery = {
     id: string;
     execution: number;
     buildVariant: string;
+    buildVariantDisplayName?: Maybe<string>;
     displayName: string;
     revision?: Maybe<string>;
     status: string;
@@ -7692,6 +7684,7 @@ export type GetSpawnTaskQuery = {
     id: string;
     execution: number;
     buildVariant: string;
+    buildVariantDisplayName?: Maybe<string>;
     displayName: string;
     revision?: Maybe<string>;
     status: string;

@@ -1,29 +1,29 @@
 import { useState } from "react";
 import Button, { Size } from "@leafygreen-ui/button";
 import { TableVolume } from "types/spawn";
-import { EditVolumeModal } from "./editButton/EditVolumeModal";
+import { MountVolumeModal } from "./MountVolumeModal";
 
 interface Props {
   volume: TableVolume;
 }
 
-export const EditButton: React.VFC<Props> = ({ volume }) => {
+export const MountButton: React.VFC<Props> = ({ volume }) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
     <>
       <Button
         size={Size.XSmall}
-        data-cy={`edit-btn-${volume.displayName || volume.id}`}
+        data-cy={`attach-btn-${volume.displayName || volume.id}`}
         disabled={volume.migrating}
         onClick={(e) => {
           e.stopPropagation();
           setOpenModal(true);
         }}
       >
-        Edit
+        Mount
       </Button>
-      <EditVolumeModal
+      <MountVolumeModal
         visible={openModal}
         onCancel={() => setOpenModal(false)}
         volume={volume}

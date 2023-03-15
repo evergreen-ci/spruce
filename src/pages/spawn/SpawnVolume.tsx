@@ -74,9 +74,7 @@ export const SpawnVolume = () => {
       {volumes.length ? (
         <SpawnVolumeTable volumes={volumes} />
       ) : (
-        <Subtitle>
-          No Spawned volumes available, Spawn one to get started
-        </Subtitle>
+        <Subtitle>No volumes available, spawn one to get started.</Subtitle>
       )}
     </>
   );
