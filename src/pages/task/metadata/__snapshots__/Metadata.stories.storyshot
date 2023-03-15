@@ -31,7 +31,7 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
         <span
           className="leafygreen-ui-1ewnca3"
         >
-          ubuntu1604
+          Ubuntu 16.04
         </span>
       </a>
     </p>
@@ -185,7 +185,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
         <span
           className="leafygreen-ui-1ewnca3"
         >
-          ubuntu1604
+          Ubuntu 16.04
         </span>
       </a>
     </p>
@@ -339,7 +339,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
         <span
           className="leafygreen-ui-1ewnca3"
         >
-          ubuntu1604
+          Ubuntu 16.04
         </span>
       </a>
     </p>

@@ -62,6 +62,7 @@ export const Metadata: React.VFC<Props> = ({
     priority,
     versionMetadata,
     buildVariant,
+    buildVariantDisplayName,
     details,
     generatedBy,
     generatedByName,
@@ -98,7 +99,7 @@ export const Metadata: React.VFC<Props> = ({
             taskAnalytics.sendEvent({ name: "Click Build Variant Link" })
           }
         >
-          {buildVariant}
+          {buildVariantDisplayName || buildVariant}
         </StyledRouterLink>
       </MetadataItem>
       <MetadataItem data-cy="task-metadata-project">
