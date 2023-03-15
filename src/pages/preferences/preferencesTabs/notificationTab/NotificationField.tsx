@@ -28,7 +28,6 @@ export const NotificationField: React.VFC<NotificationFieldProps> = ({
           {notificationFields[notification]}
         </NotificationEvent>
         <StyledRadioGroup
-          key={`${notification}-radio`}
           row={index}
           onChange={(e) => {
             setNotificationStatus({
@@ -59,7 +58,6 @@ const NotificationMethod = styled.div`
   display: flex;
   align-items: center;
   gap: ${size.l};
-
   grid-column: 2;
   grid-row: 1;
 `;
@@ -67,7 +65,6 @@ const NotificationMethod = styled.div`
 const NotificationEvent = styled.span<{ row: number }>`
   font-size: ${fontSize.m};
   margin-top: ${size.xs};
-
   grid-column: 1;
   grid-row: ${({ row }) => row + 2};
 `;
@@ -76,7 +73,6 @@ const StyledRadioGroup = styled(RadioGroup)<{ row: number }>`
   display: flex;
   gap: ${size.l};
   align-items: baseline;
-
   grid-column: 2;
   grid-row: ${({ row }) => row + 2};
 `;
