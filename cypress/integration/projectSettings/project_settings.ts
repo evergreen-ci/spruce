@@ -53,7 +53,7 @@ describe("Access page", () => {
     cy.get("[aria-label='Username']").should("have.length", 0);
   });
 
-  it("Clicking on 'Default to Repo on Page' selects the 'Default to repo (unrestricted)' radio kbox and produces a success banner", () => {
+  it("Clicking on 'Default to Repo on Page' selects the 'Default to repo (unrestricted)' radio box and produces a success banner", () => {
     cy.dataCy("default-to-repo-button").click();
     cy.dataCy("default-to-repo-modal").contains("Confirm").click();
     cy.validateToast("success", "Successfully defaulted page to repo");
