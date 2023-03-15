@@ -4,27 +4,29 @@ import Icon from "@leafygreen-ui/icon";
 import { size } from "constants/tokens";
 
 interface AccordionProps {
+  allowToggleFromTitle?: boolean;
+  children: React.ReactNode;
+  "data-cy"?: string;
+  defaultOpen?: boolean;
+  onToggle?: (s: { isVisible: boolean }) => void;
+  showCaret?: boolean;
   title: React.ReactNode;
+  titleTag?: React.VFC;
   toggledTitle?: React.ReactNode;
   toggleFromBottom?: boolean;
-  showCaret?: boolean;
-  allowToggleFromTitle?: boolean;
-  defaultOpen?: boolean;
-  titleTag?: React.VFC;
-  onToggle?: (s: { isVisible: boolean }) => void;
   useIndent?: boolean;
-  children: React.ReactNode;
 }
 export const Accordion: React.VFC<AccordionProps> = ({
-  title,
-  toggledTitle,
-  children,
-  toggleFromBottom = false,
-  showCaret = true,
   allowToggleFromTitle = true,
+  children,
+  "data-cy": dataCy,
   defaultOpen = false,
-  titleTag,
   onToggle = () => {},
+  showCaret = true,
+  title,
+  titleTag,
+  toggledTitle,
+  toggleFromBottom = false,
   useIndent = true,
 }) => {
   const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(defaultOpen);
@@ -38,24 +40,22 @@ export const Accordion: React.VFC<AccordionProps> = ({
     <TitleTag>{toggledTitle ? showToggledTitle : title}</TitleTag>
   );
   return (
-    <>
+    <div data-cy={dataCy}>
       {toggleFromBottom && (
         <AnimatedAccordion hide={!isAccordionDisplayed}>
           {children}
         </AnimatedAccordion>
       )}
-      <Row>
-        <AccordionToggle
-          data-cy="accordion-toggle"
-          onClick={toggleAccordionHandler}
-        >
-          {showCaret && (
-            <Icon glyph={isAccordionDisplayed ? "CaretDown" : "CaretRight"} />
-          )}
-          {allowToggleFromTitle && titleComp}
-        </AccordionToggle>
-        {!allowToggleFromTitle && titleComp}
-      </Row>
+      <AccordionToggle
+        data-cy="accordion-toggle"
+        onClick={toggleAccordionHandler}
+      >
+        {showCaret && (
+          <Icon glyph={isAccordionDisplayed ? "CaretDown" : "CaretRight"} />
+        )}
+        {allowToggleFromTitle && titleComp}
+      </AccordionToggle>
+      {!allowToggleFromTitle && titleComp}
       {!toggleFromBottom && (
         <AnimatedAccordion hide={!isAccordionDisplayed}>
           <ContentsContainer indent={showCaret && useIndent}>
@@ -63,17 +63,14 @@ export const Accordion: React.VFC<AccordionProps> = ({
           </ContentsContainer>
         </AnimatedAccordion>
       )}
-    </>
+    </div>
   );
 };
 
 export const AccordionWrapper = styled.div`
   padding: 12px 0;
 `;
-const Row = styled.div`
-  display: flex;
-`;
-const AccordionToggle = styled.span`
+const AccordionToggle = styled.div`
   display: flex;
   align-items: center;
   :hover {

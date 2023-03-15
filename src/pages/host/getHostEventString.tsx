@@ -158,7 +158,6 @@ export const getHostEventString = (
             <HostEventLog
               title="Additional details"
               logs={data.logs}
-              data-cy="host-status-log"
               isCode={false}
             />
           ) : (
@@ -311,9 +310,8 @@ export const HostEventLog: React.VFC<{
   title: string;
   logs: string;
   isCode: boolean;
-  "data-cy"?: string;
-}> = ({ title, logs, isCode, "data-cy": dataCy = "host-event-logs-title" }) => (
-  <Accordion data-cy={dataCy ?? "host-event-logs"} title={title}>
+}> = ({ title, logs, isCode }) => (
+  <Accordion data-cy="host-event-log" title={title}>
     <span data-cy="host-event-log-content">
       {isCode ? <Code language="shell">{logs}</Code> : logs}
     </span>
