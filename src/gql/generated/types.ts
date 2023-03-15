@@ -169,16 +169,12 @@ export type CommitQueueParams = {
   enabled?: Maybe<Scalars["Boolean"]>;
   mergeMethod: Scalars["String"];
   message: Scalars["String"];
-  requireSigned?: Maybe<Scalars["Boolean"]>;
-  requiredApprovalCount?: Maybe<Scalars["Int"]>;
 };
 
 export type CommitQueueParamsInput = {
   enabled?: InputMaybe<Scalars["Boolean"]>;
   mergeMethod?: InputMaybe<Scalars["String"]>;
   message?: InputMaybe<Scalars["String"]>;
-  requireSigned?: InputMaybe<Scalars["Boolean"]>;
-  requiredApprovalCount?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ContainerResources = {
@@ -1532,8 +1528,6 @@ export type RepoCommitQueueParams = {
   enabled: Scalars["Boolean"];
   mergeMethod: Scalars["String"];
   message: Scalars["String"];
-  requireSigned: Scalars["Boolean"];
-  requiredApprovalCount: Scalars["Int"];
 };
 
 /**
