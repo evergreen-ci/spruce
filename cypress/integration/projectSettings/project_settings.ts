@@ -1055,7 +1055,7 @@ describe("Notifications", () => {
   });
 });
 
-describe.only("Plugins", () => {
+describe("Plugins", () => {
   beforeEach(() => {
     const destination = getPluginsRoute(projectUseRepoEnabled);
     cy.visit(destination);
