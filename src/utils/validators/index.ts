@@ -21,10 +21,9 @@ const validateJira = (v: string) => new RegExp(jiraTicketNumberRegex).test(v);
 const validateJiraURL = (jiraURL: string, url: string): boolean =>
   new RegExp(`^https://${jiraURL}/browse/${jiraTicketNumberRegex}$`).test(url);
 
-const validateUrlRegex =
-  /^(https?:\/\/(www\.)?|ftp:\/\/(www\.)?|www\.){1}([0-9A-Za-z-.@:%_+~#=]+)+((\.[a-zA-Z]{2,3})+)(\/(.)*)?(\?(.)*)?/;
-
 const validateURL = (url: string): boolean => {
+  const validateUrlRegex =
+    /^(https?:\/\/(www\.)?|ftp:\/\/(www\.)?|www\.){1}([0-9A-Za-z-.@:%_+~#=]+)+((\.[a-zA-Z]{2,3})+)(\/(.)*)?(\?(.)*)?/;
   if (!url) {
     return false;
   }
@@ -36,7 +35,7 @@ const validateURLTemplate = (url: string): boolean => {
     return true;
   }
   const formattedURL = url.replace("{version_id}", "version_id");
-  return validateUrlRegex.test(formattedURL);
+  return validateURL(formattedURL);
 };
 
 const validateSSHPublicKey = (v: string): boolean => {
