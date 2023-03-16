@@ -4,8 +4,8 @@ import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
-import { Popconfirm } from "antd";
 import Cookies from "js-cookie";
+import Popconfirm from "components/Popconfirm";
 import { SLACK_NOTIFICATION_BANNER } from "constants/cookies";
 import { fontSize } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -92,32 +92,25 @@ export const SlackNotificationBanner = () => {
       dismissible
       onClose={hideBanner}
     >
-      You can receive a Slack notification when your patch is ready.
+      You can receive a Slack notification when your patch is ready.{" "}
       <Popconfirm
-        title={
-          <TextInput
-            label="Slack Username"
-            data-cy="slack-username-input"
-            value={slackUsername}
-            onChange={(e) => setSlackUsername(e.target.value)}
-            onKeyPress={(e) => e.key === "Enter" && saveNotificationSettings()}
-            autoFocus
-          />
-        }
+        confirmText="Save"
         onConfirm={() => saveNotificationSettings()}
-        okText="Save"
-        cancelText="Cancel"
-        okButtonProps={{
-          loading: loadingUpdateUserSettings,
-          disabled: !slackUsername,
-        }}
-        cancelButtonProps={{ disabled: loadingUpdateUserSettings }}
-        icon={null}
+        confirmDisabled={!slackUsername || loadingUpdateUserSettings}
+        trigger={
+          <SubscribeButton data-cy="subscribe-to-notifications">
+            Subscribe
+          </SubscribeButton>
+        }
       >
-        {" "}
-        <SubscribeButton data-cy="subscribe-to-notifications">
-          Subscribe
-        </SubscribeButton>
+        <TextInput
+          label="Slack Username"
+          data-cy="slack-username-input"
+          value={slackUsername}
+          onChange={(e) => setSlackUsername(e.target.value)}
+          onKeyPress={(e) => e.key === "Enter" && saveNotificationSettings()}
+          autoFocus
+        />
       </Popconfirm>
     </Banner>
   ) : null;

@@ -2,8 +2,8 @@ import { useQuery, useMutation } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
-import { Popconfirm } from "components/AntdPopconfirm";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
+import Popconfirm from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
   MyHostsQuery,
@@ -48,6 +48,7 @@ export const UnmountButton: React.VFC<Props> = ({ volume }) => {
   // Check if myHosts has this volume as one of its homeVolumes. This handles the scenarios where
   // one of the volumes was a home volume but is no longer attached to a host
   const isHomeVolume = myHosts?.some((h) => h.homeVolumeID === volume.id);
+
   return (
     <ConditionalWrapper
       condition={isHomeVolume}
@@ -55,7 +56,7 @@ export const UnmountButton: React.VFC<Props> = ({ volume }) => {
         <Tooltip
           align="top"
           justify="middle"
-          trigger={<span>{children}</span>}
+          trigger={children}
           triggerEvent="hover"
         >
           Cannot unmount home volume
@@ -63,9 +64,7 @@ export const UnmountButton: React.VFC<Props> = ({ volume }) => {
       )}
       altWrapper={(children) => (
         <Popconfirm
-          icon={null}
-          placement="left"
-          title={`Detach this volume ${volumeName} from host ${hostName}?`}
+          align="left"
           onConfirm={() => {
             spawnAnalytics.sendEvent({
               name: "Unmount volume",
@@ -73,11 +72,9 @@ export const UnmountButton: React.VFC<Props> = ({ volume }) => {
             });
             detachVolume({ variables: { volumeId: volume.id } });
           }}
-          okText="Yes"
-          cancelText="Cancel"
-          disabled={isHomeVolume || volume.migrating}
+          trigger={children}
         >
-          {children}
+          Detach this volume {volumeName} from host {hostName}?
         </Popconfirm>
       )}
     >
