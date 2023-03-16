@@ -73,8 +73,8 @@ const validate: ValidateProps<FormState> = (formData, errors) => {
     );
   }
 
-  const displayNameDefined = !!patchMetadataPanelLink.displayName.trim();
-  const urlTemplateDefined = !!patchMetadataPanelLink.urlTemplate.trim();
+  const displayNameDefined = patchMetadataPanelLink.displayName.trim() !== "";
+  const urlTemplateDefined = patchMetadataPanelLink.urlTemplate.trim() !== "";
   if (displayNameDefined && !urlTemplateDefined) {
     errors.externalLinks.patchMetadataPanelLink.urlTemplate.addError(
       "You must specify a URL template or exclude display name."
