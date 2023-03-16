@@ -22,22 +22,7 @@ describe("Access page", () => {
     cy.dataCy("default-to-repo-button").should("exist").should("be.enabled");
   });
 
-  it("Should enable the save button when the General Access value changes", () => {
-    cy.getInputByLabel("Private").parent().click();
-    cy.getInputByLabel("Private").should("have.attr", "aria-checked", "true");
-    saveButtonEnabled();
-  });
-
-  it("Should enable the save button when the General Access value changes", () => {
-    cy.getInputByLabel("Private").parent().click();
-    cy.getInputByLabel("Private").should("have.attr", "aria-checked", "true");
-    saveButtonEnabled();
-  });
-
   it("Changing settings and clicking the save button produces a success toast and the changes are persisted", () => {
-    cy.getInputByLabel("Private").parent().click();
-    cy.getInputByLabel("Private").should("have.attr", "aria-checked", "true");
-
     cy.getInputByLabel("Unrestricted").parent().click();
     cy.getInputByLabel("Unrestricted").should(
       "have.attr",
@@ -68,11 +53,11 @@ describe("Access page", () => {
     cy.get("[aria-label='Username']").should("have.length", 0);
   });
 
-  it("Clicking on 'Default to Repo on Page' selects the 'Default to repo (public)' checkbox and produces a success banner", () => {
+  it("Clicking on 'Default to Repo on Page' selects the 'Default to repo (unrestricted)' radio box and produces a success banner", () => {
     cy.dataCy("default-to-repo-button").click();
     cy.dataCy("default-to-repo-modal").contains("Confirm").click();
     cy.validateToast("success", "Successfully defaulted page to repo");
-    cy.getInputByLabel("Default to repo (public)").should(
+    cy.getInputByLabel("Default to repo (unrestricted)").should(
       "have.attr",
       "aria-checked",
       "true"

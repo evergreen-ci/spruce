@@ -12,9 +12,8 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
     >
       Task Metadata
     </p>
-    <div
-      className="ant-divider ant-divider-horizontal css-1gzlxe4-StyledDivider eyj3qof0"
-      role="separator"
+    <hr
+      className="css-qqg5h5-Divider eyj3qof0"
     />
     <p
       className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
@@ -31,7 +30,7 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
         <span
           className="leafygreen-ui-1ewnca3"
         >
-          ubuntu1604
+          Ubuntu 16.04
         </span>
       </a>
     </p>
@@ -166,9 +165,8 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
     >
       Task Metadata
     </p>
-    <div
-      className="ant-divider ant-divider-horizontal css-1gzlxe4-StyledDivider eyj3qof0"
-      role="separator"
+    <hr
+      className="css-qqg5h5-Divider eyj3qof0"
     />
     <p
       className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
@@ -185,7 +183,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
         <span
           className="leafygreen-ui-1ewnca3"
         >
-          ubuntu1604
+          Ubuntu 16.04
         </span>
       </a>
     </p>
@@ -320,9 +318,8 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
     >
       Task Metadata
     </p>
-    <div
-      className="ant-divider ant-divider-horizontal css-1gzlxe4-StyledDivider eyj3qof0"
-      role="separator"
+    <hr
+      className="css-qqg5h5-Divider eyj3qof0"
     />
     <p
       className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
@@ -339,7 +336,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
         <span
           className="leafygreen-ui-1ewnca3"
         >
-          ubuntu1604
+          Ubuntu 16.04
         </span>
       </a>
     </p>
@@ -467,9 +464,8 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
       >
         Depends On
       </p>
-      <div
-        className="ant-divider ant-divider-horizontal css-1gzlxe4-StyledDivider eyj3qof0"
-        role="separator"
+      <hr
+        className="css-qqg5h5-Divider eyj3qof0"
       />
       <div
         className="css-3ay4yh-DependsOnWrapper e1dgw5p64"

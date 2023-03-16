@@ -14,6 +14,7 @@ export const taskQuery: GetTaskQuery = {
     },
     blocked: false,
     buildVariant: "ubuntu1604",
+    buildVariantDisplayName: "Ubuntu 16.04",
     canAbort: false,
     canDisable: true,
     canModifyAnnotation: false,
