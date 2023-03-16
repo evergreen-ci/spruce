@@ -1056,6 +1056,8 @@ describe("Notifications", () => {
 });
 
 describe("Plugins", () => {
+  const versionPage =
+    "version/evergreen_b0c52a750150b4f1f67e501bd3351a808939815c";
   beforeEach(() => {
     const destination = getPluginsRoute(projectUseRepoEnabled);
     cy.visit(destination);
@@ -1083,8 +1085,6 @@ describe("Plugins", () => {
     cy.visit(versionPage);
     cy.dataCy("external-link").should("not.exist");
   });
-  const versionPage =
-    "version/evergreen_b0c52a750150b4f1f67e501bd3351a808939815c";
 });
 
 const saveButtonEnabled = (isEnabled: boolean = true) => {
