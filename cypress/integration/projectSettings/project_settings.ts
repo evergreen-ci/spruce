@@ -1044,8 +1044,7 @@ describe("Plugins", () => {
   const versionPage =
     "version/evergreen_b0c52a750150b4f1f67e501bd3351a808939815c";
   beforeEach(() => {
-    const destination = getPluginsRoute(projectUseRepoEnabled);
-    cy.visit(destination);
+    cy.visit(getPluginsRoute(projectUseRepoEnabled));
   });
   it("Should set an external link to render on version metadata", () => {
     cy.dataCy("display-name-input").type("An external link");
