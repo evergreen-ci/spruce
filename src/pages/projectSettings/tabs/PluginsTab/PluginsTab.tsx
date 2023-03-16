@@ -84,10 +84,6 @@ const validate: ValidateProps<FormState> = (formData, errors) => {
       "You must specify a display name or exclude URL template."
     );
   }
-  if (patchMetadataPanelLink.displayName.length > 40) {
-    errors.externalLinks.patchMetadataPanelLink.displayName.addError(
-      "Display name must be less than 40 characters."
-    );
-  }
+
   return errors;
 };

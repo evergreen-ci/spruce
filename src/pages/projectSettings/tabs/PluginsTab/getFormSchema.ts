@@ -147,6 +147,7 @@ export const getFormSchema = (
               displayName: {
                 type: "string" as "string",
                 title: "Display name",
+                maxLength: 40,
               },
               urlTemplate: {
                 type: "string" as "string",
