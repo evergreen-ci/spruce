@@ -4,7 +4,7 @@ import { GuideCue } from "@leafygreen-ui/guide-cue";
 import Cookies from "js-cookie";
 import { SEEN_MIGRATE_GUIDE_CUE } from "constants/cookies";
 import { TableVolume } from "types/spawn";
-import { MigrateVolumeModal } from "./migrateButton/MigrateVolumeModal";
+import { MigrateVolumeModal } from "./MigrateVolumeModal";
 
 interface Props {
   volume: TableVolume;

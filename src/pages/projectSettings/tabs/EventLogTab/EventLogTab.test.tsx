@@ -105,7 +105,6 @@ const eventLogEntry: ProjectEventLogsQuery["projectEvents"]["eventLogEntries"][0
         },
         disabledStatsCache: false,
         __typename: "Project",
-        private: false,
         restricted: false,
         admins: ["rsatsrt"],
         buildBaronSettings: {
@@ -187,7 +186,6 @@ const eventLogEntry: ProjectEventLogsQuery["projectEvents"]["eventLogEntries"][0
         },
         disabledStatsCache: false,
         __typename: "Project",
-        private: false,
         restricted: false,
         admins: ["arstastr", "asrt", "ata", "oienrsat"],
         buildBaronSettings: {

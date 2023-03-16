@@ -20,7 +20,7 @@ import { MIGRATE_VOLUME } from "gql/mutations";
 import { AZToRegion } from "pages/spawn/utils";
 import { TableVolume } from "types/spawn";
 import { omit } from "utils/object";
-import { initialState, Page, reducer } from "./migrateVolumeModal/reducer";
+import { initialState, Page, reducer } from "./migrateVolumeReducer";
 
 interface MigrateVolumeModalProps {
   volume: TableVolume;

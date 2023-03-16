@@ -169,16 +169,12 @@ export type CommitQueueParams = {
   enabled?: Maybe<Scalars["Boolean"]>;
   mergeMethod: Scalars["String"];
   message: Scalars["String"];
-  requireSigned?: Maybe<Scalars["Boolean"]>;
-  requiredApprovalCount?: Maybe<Scalars["Int"]>;
 };
 
 export type CommitQueueParamsInput = {
   enabled?: InputMaybe<Scalars["Boolean"]>;
   mergeMethod?: InputMaybe<Scalars["String"]>;
   message?: InputMaybe<Scalars["String"]>;
-  requireSigned?: InputMaybe<Scalars["Boolean"]>;
-  requiredApprovalCount?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ContainerResources = {
@@ -1532,8 +1528,6 @@ export type RepoCommitQueueParams = {
   enabled: Scalars["Boolean"];
   mergeMethod: Scalars["String"];
   message: Scalars["String"];
-  requireSigned: Scalars["Boolean"];
-  requiredApprovalCount: Scalars["Int"];
 };
 
 /**
@@ -2661,6 +2655,7 @@ export type BaseTaskFragment = {
   id: string;
   execution: number;
   buildVariant: string;
+  buildVariantDisplayName?: Maybe<string>;
   displayName: string;
   revision?: Maybe<string>;
   status: string;
@@ -2740,14 +2735,12 @@ export type ProjectFragment = {
 
 export type ProjectAccessSettingsFragment = {
   __typename?: "Project";
-  private?: Maybe<boolean>;
   restricted?: Maybe<boolean>;
   admins?: Maybe<Array<Maybe<string>>>;
 };
 
 export type RepoAccessSettingsFragment = {
   __typename?: "RepoRef";
-  private: boolean;
   restricted: boolean;
   admins: Array<string>;
 };
@@ -2931,7 +2924,6 @@ export type ProjectSettingsFragment = {
     stepbackDisabled?: Maybe<boolean>;
     patchingDisabled?: Maybe<boolean>;
     disabledStatsCache?: Maybe<boolean>;
-    private?: Maybe<boolean>;
     restricted?: Maybe<boolean>;
     admins?: Maybe<Array<Maybe<string>>>;
     perfEnabled?: Maybe<boolean>;
@@ -3127,7 +3119,6 @@ export type RepoSettingsFragment = {
     stepbackDisabled: boolean;
     patchingDisabled: boolean;
     disabledStatsCache: boolean;
-    private: boolean;
     restricted: boolean;
     admins: Array<string>;
     perfEnabled: boolean;
@@ -3516,7 +3507,6 @@ export type ProjectEventSettingsFragment = {
     stepbackDisabled?: Maybe<boolean>;
     patchingDisabled?: Maybe<boolean>;
     disabledStatsCache?: Maybe<boolean>;
-    private?: Maybe<boolean>;
     restricted?: Maybe<boolean>;
     admins?: Maybe<Array<Maybe<string>>>;
     perfEnabled?: Maybe<boolean>;
@@ -3786,6 +3776,7 @@ export type AbortTaskMutation = {
     id: string;
     execution: number;
     buildVariant: string;
+    buildVariantDisplayName?: Maybe<string>;
     displayName: string;
     revision?: Maybe<string>;
     status: string;
@@ -4164,6 +4155,7 @@ export type RestartTaskMutation = {
     execution: number;
     id: string;
     buildVariant: string;
+    buildVariantDisplayName?: Maybe<string>;
     displayName: string;
     revision?: Maybe<string>;
     status: string;
@@ -4272,6 +4264,7 @@ export type ScheduleTasksMutation = {
     id: string;
     execution: number;
     buildVariant: string;
+    buildVariantDisplayName?: Maybe<string>;
     displayName: string;
     revision?: Maybe<string>;
     status: string;
@@ -5620,7 +5613,6 @@ export type ProjectEventLogsQuery = {
           stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
-          private?: Maybe<boolean>;
           restricted?: Maybe<boolean>;
           admins?: Maybe<Array<Maybe<string>>>;
           perfEnabled?: Maybe<boolean>;
@@ -5827,7 +5819,6 @@ export type ProjectEventLogsQuery = {
           stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
-          private?: Maybe<boolean>;
           restricted?: Maybe<boolean>;
           admins?: Maybe<Array<Maybe<string>>>;
           perfEnabled?: Maybe<boolean>;
@@ -6043,7 +6034,6 @@ export type ProjectSettingsQuery = {
       stepbackDisabled?: Maybe<boolean>;
       patchingDisabled?: Maybe<boolean>;
       disabledStatsCache?: Maybe<boolean>;
-      private?: Maybe<boolean>;
       restricted?: Maybe<boolean>;
       admins?: Maybe<Array<Maybe<string>>>;
       perfEnabled?: Maybe<boolean>;
@@ -6295,7 +6285,6 @@ export type RepoEventLogsQuery = {
           stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
-          private?: Maybe<boolean>;
           restricted?: Maybe<boolean>;
           admins?: Maybe<Array<Maybe<string>>>;
           perfEnabled?: Maybe<boolean>;
@@ -6502,7 +6491,6 @@ export type RepoEventLogsQuery = {
           stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
-          private?: Maybe<boolean>;
           restricted?: Maybe<boolean>;
           admins?: Maybe<Array<Maybe<string>>>;
           perfEnabled?: Maybe<boolean>;
@@ -6715,7 +6703,6 @@ export type RepoSettingsQuery = {
       stepbackDisabled: boolean;
       patchingDisabled: boolean;
       disabledStatsCache: boolean;
-      private: boolean;
       restricted: boolean;
       admins: Array<string>;
       perfEnabled: boolean;
@@ -7171,6 +7158,7 @@ export type GetTaskQuery = {
     id: string;
     execution: number;
     buildVariant: string;
+    buildVariantDisplayName?: Maybe<string>;
     displayName: string;
     revision?: Maybe<string>;
     status: string;
@@ -7761,6 +7749,7 @@ export type GetSpawnTaskQuery = {
     id: string;
     execution: number;
     buildVariant: string;
+    buildVariantDisplayName?: Maybe<string>;
     displayName: string;
     revision?: Maybe<string>;
     status: string;
