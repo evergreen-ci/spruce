@@ -55,7 +55,8 @@ const webhookFormToGql = (webhookInput: Notification["webhookInput"]) => {
   }
   return {
     url: webhookInput.urlInput,
-    secret: generateWebhookSecret(),
+    // Use existing secret if it was already generated, otherwise generate a new secret.
+    secret: webhookInput.secretInput || generateWebhookSecret(),
     headers:
       webhookInput.httpHeaders?.map(({ keyInput, valueInput }) => ({
         key: keyInput,
