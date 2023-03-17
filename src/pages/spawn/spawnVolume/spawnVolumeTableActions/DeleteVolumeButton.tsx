@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
-import Checkbox from "@leafygreen-ui/checkbox";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
+import { PopconfirmWithCheckbox, Popconfirm } from "components/AntdPopconfirm";
 import Icon from "components/Icon";
-import Popconfirm from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
   RemoveVolumeMutation,
@@ -33,15 +31,10 @@ export const DeleteVolumeButton: React.VFC<Props> = ({ volume }) => {
 
   const volumeName = volume.displayName ? volume.displayName : volume.id;
   const spawnAnalytics = useSpawnAnalytics();
-
-  const [checkboxAcknowledged, setCheckboxAcknowledged] = useState(
-    !volume.hostID
-  );
-
-  return (
-    <Popconfirm
-      confirmDisabled={!checkboxAcknowledged}
-      data-cy="delete-volume-popconfirm"
+  return volume.hostID ? (
+    <PopconfirmWithCheckbox
+      title={`Delete this volume ${volumeName}?`}
+      checkboxLabel="I understand this volume is currently mounted to a host."
       onConfirm={() => {
         spawnAnalytics.sendEvent({
           name: "Delete volume",
@@ -49,27 +42,34 @@ export const DeleteVolumeButton: React.VFC<Props> = ({ volume }) => {
         });
         removeVolume({ variables: { volumeId: volume.id } });
       }}
-      trigger={
-        <Button
-          size={Size.XSmall}
-          data-cy={`trash-${volume.displayName || volume.id}`}
-          leftGlyph={<Icon glyph="Trash" />}
-          disabled={loadingRemoveVolume || volume.migrating}
-        />
-      }
     >
-      Delete volume “{volumeName}”?
-      {volume.hostID && (
-        <Checkbox
-          data-cy="abort-checkbox"
-          label="I understand this volume is currently mounted to a host."
-          onChange={(e) => {
-            e.nativeEvent.stopPropagation();
-            setCheckboxAcknowledged(!checkboxAcknowledged);
-          }}
-          checked={checkboxAcknowledged}
-        />
-      )}
+      <Button
+        size={Size.XSmall}
+        data-cy={`trash-${volume.displayName || volume.id}`}
+        leftGlyph={<Icon glyph="Trash" />}
+        disabled={loadingRemoveVolume || volume.migrating}
+      />
+    </PopconfirmWithCheckbox>
+  ) : (
+    <Popconfirm
+      icon={null}
+      title={`Delete this volume ${volumeName}?`}
+      okText="Yes"
+      cancelText="Cancel"
+      onConfirm={() => {
+        spawnAnalytics.sendEvent({
+          name: "Delete volume",
+          volumeId: volume.id,
+        });
+        removeVolume({ variables: { volumeId: volume.id } });
+      }}
+    >
+      <Button
+        size={Size.XSmall}
+        data-cy={`trash-${volume.displayName || volume.id}`}
+        leftGlyph={<Icon glyph="Trash" />}
+        disabled={loadingRemoveVolume || volume.migrating}
+      />
     </Popconfirm>
   );
 };

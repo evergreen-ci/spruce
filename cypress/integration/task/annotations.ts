@@ -1,3 +1,5 @@
+import { popconfirmYesClassName } from "../../utils/popconfirm";
+
 const taskWithAnnotations =
   "evergreen_ubuntu1604_test_annotations_b_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
 const taskRoute = `/task/${taskWithAnnotations}/annotations`;
@@ -19,20 +21,20 @@ describe("Task Annotation Tab", () => {
 
     // move from suspectedIssues to Issues
     cy.dataCy("move-btn-AnotherOne").click();
-    cy.contains("button", "Yes")
+    cy.get(popconfirmYesClassName)
       .should("be.visible")
-      .should("not.have.attr", "aria-disabled", "true");
-    cy.contains("button", "Yes").click();
+      .should("not.be.disabled");
+    cy.get(popconfirmYesClassName).click();
     cy.get(issuesTable).should("have.length", 2);
     cy.get(suspectedIssuesTable).should("have.length", 2);
     cy.validateToast("success", "Successfully moved suspected issue to issues");
 
     // move from Issues to suspectedIssues
     cy.dataCy("move-btn-AnotherOne").click();
-    cy.contains("button", "Yes")
+    cy.get(popconfirmYesClassName)
       .should("be.visible")
-      .should("not.have.attr", "aria-disabled", "true");
-    cy.contains("button", "Yes").click();
+      .should("not.be.disabled");
+    cy.get(popconfirmYesClassName).click();
     cy.get(issuesTable).should("have.length", 1);
     cy.get(suspectedIssuesTable).should("have.length", 3);
     cy.validateToast("success", "Successfully moved issue to suspected issues");
@@ -53,10 +55,10 @@ describe("Task Annotation Tab", () => {
 
     // delete the added ticket
     cy.dataCy("SERVER-1234-delete-btn").click();
-    cy.contains("button", "Yes")
+    cy.get(popconfirmYesClassName)
       .should("be.visible")
-      .should("not.have.attr", "aria-disabled", "true");
-    cy.contains("button", "Yes").click();
+      .should("not.be.disabled");
+    cy.get(popconfirmYesClassName).click();
     cy.get(issuesTable).should("have.length", 1);
     cy.get(suspectedIssuesTable).should("have.length", 3);
     cy.validateToast("success", "Successfully removed suspected issue");
