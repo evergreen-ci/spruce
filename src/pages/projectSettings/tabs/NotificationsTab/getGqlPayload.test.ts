@@ -1,4 +1,5 @@
-import { getGqlPayload } from "./utils";
+import { getGqlPayload } from "./getGqlPayload";
+import * as utils from "./utils";
 
 describe("getGqlPayload", () => {
   it("should correctly format multiple subscriptions", () => {
@@ -43,6 +44,10 @@ describe("getGqlPayload", () => {
     ]);
   });
   it("should correctly format webhook subscription", () => {
+    jest
+      .spyOn(utils, "generateWebhookSecret")
+      .mockImplementationOnce(() => "webhook_secret");
+
     const payload = getGqlPayload("project_id")(webhookSubscription);
     expect(payload).toStrictEqual({
       id: "webhook_subscription",

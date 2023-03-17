@@ -2,6 +2,7 @@ import { ProjectSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
 import { FormState } from "./types";
+import * as utils from "./utils";
 
 const { projectBase } = data;
 
@@ -130,6 +131,10 @@ describe("project data", () => {
     expect(formToGql(projectForm, "spruce")).toStrictEqual(projectResult);
   });
   it("handles webhook subscriptions", () => {
+    jest
+      .spyOn(utils, "generateWebhookSecret")
+      .mockImplementationOnce(() => "webhook_secret");
+
     const projectForm = {
       ...projectFormBase,
       subscriptions: [
@@ -146,7 +151,7 @@ describe("project data", () => {
               notificationSelect: "evergreen-webhook",
               webhookInput: {
                 urlInput: "https://example.com",
-                secretInput: "",
+                secretInput: "webhook_secret",
                 httpHeaders: [
                   {
                     keyInput: "Content-Type",
@@ -184,7 +189,7 @@ describe("project data", () => {
             jiraIssueSubscriber: undefined,
             webhookSubscriber: {
               url: "https://example.com",
-              secret: "",
+              secret: "webhook_secret",
               headers: [
                 {
                   key: "Content-Type",
