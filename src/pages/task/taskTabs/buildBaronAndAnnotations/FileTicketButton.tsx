@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
+import { Popconfirm } from "antd";
 import { useAnnotationAnalytics } from "analytics";
-import Popconfirm from "components/Popconfirm";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -49,23 +49,23 @@ const FileTicketButton: React.VFC<FileTicketProps> = ({
   return (
     <Container>
       <Popconfirm
-        align="right"
+        title="Do you want to create a failure ticket for this task?"
         onConfirm={onClickFile}
-        confirmText="File Ticket"
-        confirmDisabled={loadingFileJiraTicket}
-        trigger={
-          <ButtonWrapper>
-            <Button
-              data-cy="file-ticket-button"
-              variant={Variant.Primary}
-              size={Size.XSmall}
-            >
-              {buttonText}
-            </Button>
-          </ButtonWrapper>
-        }
+        icon={null}
+        placement="right"
+        okText="File Ticket"
+        okButtonProps={{ loading: loadingFileJiraTicket }}
+        cancelButtonProps={{ disabled: loadingFileJiraTicket }}
       >
-        Do you want to create a failure ticket for this task?
+        <ButtonWrapper>
+          <Button
+            data-cy="file-ticket-button"
+            variant={Variant.Primary}
+            size={Size.XSmall}
+          >
+            {buttonText}
+          </Button>
+        </ButtonWrapper>
       </Popconfirm>
     </Container>
   );

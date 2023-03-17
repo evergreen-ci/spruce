@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
-import Checkbox from "@leafygreen-ui/checkbox";
 import { useSpawnAnalytics } from "analytics";
+import { PopconfirmWithCheckbox } from "components/AntdPopconfirm";
 import Icon from "components/Icon";
-import Popconfirm from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
   UpdateSpawnHostStatusMutation,
@@ -96,10 +95,6 @@ export const SpawnHostActionButton: React.VFC<{ host: MyHost }> = ({
     checkboxLabel = `${copyPrefix} a virtual workstation.`;
   }
 
-  const [checkboxAcknowledged, setCheckboxAcknowledged] = useState(
-    !checkboxLabel
-  );
-
   return (
     <>
       {action ? (
@@ -110,29 +105,17 @@ export const SpawnHostActionButton: React.VFC<{ host: MyHost }> = ({
           onClick={onClick(action)}
         />
       ) : null}
-      <Popconfirm
-        confirmDisabled={!checkboxAcknowledged}
+      <PopconfirmWithCheckbox
         onConfirm={onClick(SpawnHostStatusActions.Terminate)}
-        trigger={
-          <Button
-            leftGlyph={<Icon glyph="Trash" />}
-            size={Size.XSmall}
-            disabled={!canTerminate}
-          />
-        }
+        title={`Delete host ${host.displayName || host.id}?`}
+        checkboxLabel={checkboxLabel}
       >
-        Delete host “{host.displayName || host.id}”?
-        {checkboxLabel && (
-          <Checkbox
-            label={checkboxLabel}
-            onChange={(e) => {
-              e.nativeEvent.stopPropagation();
-              setCheckboxAcknowledged(!checkboxAcknowledged);
-            }}
-            checked={checkboxAcknowledged}
-          />
-        )}
-      </Popconfirm>
+        <Button
+          leftGlyph={<Icon glyph="Trash" />}
+          size={Size.XSmall}
+          disabled={!canTerminate}
+        />
+      </PopconfirmWithCheckbox>
     </>
   );
 };

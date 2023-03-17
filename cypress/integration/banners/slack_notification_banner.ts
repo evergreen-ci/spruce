@@ -1,3 +1,5 @@
+import { popconfirmYesClassName } from "../../utils/popconfirm";
+
 const slackNotificationBanner = "slack-notification-banner";
 const slackUsername = "username";
 
@@ -33,7 +35,7 @@ describe("Slack notification banner", () => {
     cy.dataCy(slackNotificationBanner).should("be.visible");
     cy.dataCy("subscribe-to-notifications").click();
     cy.dataCy("slack-username-input").type(slackUsername);
-    cy.contains("button", "Save").click();
+    cy.get(popconfirmYesClassName).click();
 
     cy.dataCy(slackNotificationBanner).should("not.exist");
     cy.validateToast(
