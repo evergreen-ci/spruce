@@ -1089,11 +1089,48 @@ export type Permissions = {
 
 export type Pod = {
   __typename?: "Pod";
+  events: PodEvents;
   id: Scalars["String"];
   status: Scalars["String"];
   task?: Maybe<Task>;
   taskContainerCreationOpts: TaskContainerCreationOpts;
   type: Scalars["String"];
+};
+
+export type PodEventsArgs = {
+  limit?: InputMaybe<Scalars["Int"]>;
+  page?: InputMaybe<Scalars["Int"]>;
+};
+
+export type PodEventLogData = {
+  __typename?: "PodEventLogData";
+  newStatus?: Maybe<Scalars["String"]>;
+  oldStatus?: Maybe<Scalars["String"]>;
+  reason?: Maybe<Scalars["String"]>;
+  taskExecution?: Maybe<Scalars["Int"]>;
+  taskID?: Maybe<Scalars["String"]>;
+  taskStatus?: Maybe<Scalars["String"]>;
+};
+
+export type PodEventLogEntry = {
+  __typename?: "PodEventLogEntry";
+  data: PodEventLogData;
+  eventType?: Maybe<Scalars["String"]>;
+  id: Scalars["String"];
+  processedAt: Scalars["Time"];
+  resourceId: Scalars["String"];
+  resourceType: Scalars["String"];
+  timestamp?: Maybe<Scalars["Time"]>;
+};
+
+/**
+ * PodEvents is the return value for the events query.
+ * It contains the event log entries for a pod.
+ */
+export type PodEvents = {
+  __typename?: "PodEvents";
+  count: Scalars["Int"];
+  eventLogEntries: Array<PodEventLogEntry>;
 };
 
 /** Project models single repository on GitHub. */
@@ -7488,6 +7525,11 @@ export type VersionQuery = {
           projectIdentifier: string;
           status: string;
           taskCount?: Maybe<number>;
+          parameters: Array<{
+            __typename?: "Parameter";
+            key: string;
+            value: string;
+          }>;
           versionFull?: Maybe<{
             __typename?: "Version";
             id: string;
