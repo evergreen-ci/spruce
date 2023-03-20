@@ -40,6 +40,7 @@ export enum ProjectSettingsTabRoutes {
 
 const paths = {
   commitQueue: "/commit-queue",
+  container: "/container",
   host: "/host",
   hosts: "/hosts",
   login: "/login",
@@ -68,6 +69,7 @@ export const routes = {
   commitQueue: `${paths.commitQueue}/:projectIdentifier`,
   commits: paths.commits,
   configurePatch: `${paths.patch}/:id/configure`,
+  container: `${paths.container}/:id`,
   host: `${paths.host}/:id`,
   hosts: paths.hosts,
   jobLogs: `${paths.jobLogs}/:buildId`,
