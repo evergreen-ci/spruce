@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -18,6 +18,7 @@ import { getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
+  Parameter,
   SortDirection,
   SortOrder,
   Task,
@@ -29,6 +30,7 @@ import { GET_VERSION_TASKS } from "gql/queries";
 import { usePolling, useTaskStatuses } from "hooks";
 import { PatchStatus } from "types/patch";
 import { queryString, string } from "utils";
+import { ParametersModal } from "../ParametersModal";
 import { reducer } from "./reducer";
 
 const { parseSortString, toSortString } = queryString;
@@ -41,6 +43,7 @@ interface DownstreamProjectAccordionProps {
   status: string;
   taskCount: number;
   childPatchId: string;
+  parameters: Parameter[];
 }
 
 export const DownstreamProjectAccordion: React.VFC<
@@ -52,9 +55,13 @@ export const DownstreamProjectAccordion: React.VFC<
   projectName,
   status,
   taskCount,
+  parameters,
 }) => {
   const dispatchToast = useToastContext();
 
+  const [isAccordionOpen, setIsAccordionOpen] = useState(
+    status === PatchStatus.Failed
+  );
   const { id } = useParams<{ id: string }>();
   const { sendEvent } = useVersionAnalytics(id);
 
@@ -172,17 +179,14 @@ export const DownstreamProjectAccordion: React.VFC<
         defaultOpen={status === PatchStatus.Failed}
         title={variantTitle}
         titleTag={FlexContainer}
+        onToggle={({ isVisible }) => setIsAccordionOpen(isVisible)}
       >
         <AccordionContents>
-          <p>
-            Base commit:{" "}
-            <InlineCode
-              data-cy="downstream-base-commit"
-              href={getVersionRoute(baseVersionID)}
-            >
-              {shortenGithash(githash)}
-            </InlineCode>
-          </p>
+          <DownstreamMetadata
+            baseVersionID={baseVersionID}
+            githash={githash}
+            parameters={parameters}
+          />
           <TableWrapper>
             <TableControlOuterRow>
               <FlexContainer>
@@ -243,10 +247,43 @@ export const DownstreamProjectAccordion: React.VFC<
           </TableWrapper>
         </AccordionContents>
       </Accordion>
+      {!isAccordionOpen && (
+        <DownstreamMetadata
+          baseVersionID={baseVersionID}
+          githash={githash}
+          parameters={parameters}
+        />
+      )}
     </AccordionWrapper>
   );
 };
+interface DownstreamMetadataProps {
+  baseVersionID: string;
+  githash: string;
+  parameters: Parameter[];
+}
+const DownstreamMetadata: React.VFC<DownstreamMetadataProps> = ({
+  baseVersionID,
+  githash,
+  parameters,
+}) => (
+  <FlexRow>
+    <PaddedText>
+      Base commit:{" "}
+      <InlineCode
+        data-cy="downstream-base-commit"
+        href={getVersionRoute(baseVersionID)}
+      >
+        {shortenGithash(githash)}
+      </InlineCode>
+    </PaddedText>
+    <ParametersModal parameters={parameters} />
+  </FlexRow>
+);
 
+const PaddedText = styled.p`
+  margin-right: ${size.xs};
+`;
 const ProjectTitleWrapper = styled.div`
   margin-right: ${size.xs};
   font-weight: bold;
@@ -267,4 +304,10 @@ const FlexContainer = styled.div`
 
 const PaddedButton = styled(Button)`
   margin-left: ${size.s};
+`;
+
+const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
