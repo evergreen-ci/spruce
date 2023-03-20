@@ -444,7 +444,7 @@ buildvariants:
       - ubuntu2004-large
     expansions:
       goroot: /opt/golang/go1.19
-      mongodb_url_2004: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-6.0.5.tgz
+      mongodb_url_2004: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-6.0.5.tgz
       node_version: 16.17.0
     modules:
       - evergreen
