@@ -1,43 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/History Table Task History Table 1`] = `
-<div
-  style={
-    Object {
-      "height": 800,
-      "width": "100%",
-    }
-  }
->
+exports[`storybook Storyshots components/HistoryTable Task History Table 1`] = `
+<div>
   <div
-    style={
-      Object {
-        "height": 0,
-        "overflow": "visible",
-        "width": 0,
-      }
-    }
-  />
+    style="height: 800px; width: 100%;"
+  >
+    <div
+      style="overflow: visible; height: 0px; width: 0px;"
+    />
+    <div
+      class="resize-triggers"
+    >
+      <div
+        class="expand-trigger"
+      >
+        <div
+          style="width: 1px; height: 1px;"
+        />
+      </div>
+      <div
+        class="contract-trigger"
+      />
+    </div>
+  </div>
 </div>
 `;
 
-exports[`storybook Storyshots Components/History Table Variant History Table 1`] = `
-<div
-  style={
-    Object {
-      "height": 800,
-      "width": "100%",
-    }
-  }
->
+exports[`storybook Storyshots components/HistoryTable Variant History Table 1`] = `
+<div>
   <div
-    style={
-      Object {
-        "height": 0,
-        "overflow": "visible",
-        "width": 0,
-      }
-    }
-  />
+    style="height: 800px; width: 100%;"
+  >
+    <div
+      style="overflow: visible; height: 0px; width: 0px;"
+    />
+    <div
+      class="resize-triggers"
+    >
+      <div
+        class="expand-trigger"
+      >
+        <div
+          style="width: 1px; height: 1px;"
+        />
+      </div>
+      <div
+        class="contract-trigger"
+      />
+    </div>
+  </div>
 </div>
 `;

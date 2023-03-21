@@ -1,13 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/ExpandedText Sample 1`] = `
-<small
-  className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
-  onBlur={[Function]}
-  onFocus={[Function]}
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
->
-  more
-</small>
+exports[`storybook Storyshots components/ExpandedText Default 1`] = `
+<div>
+  <small
+    class="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
+  >
+    more
+  </small>
+</div>
 `;
