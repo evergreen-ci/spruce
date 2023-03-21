@@ -1,5 +1,5 @@
 import { screen, renderWithRouterMatch as render, waitFor } from "test_utils";
-import { NavDropdown } from "./NavDropdown";
+import { NavDropdown } from ".";
 
 const menuItems = [
   {
