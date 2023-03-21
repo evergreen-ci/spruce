@@ -579,7 +579,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
                     class="leafygreen-ui-3n5lp7"
                   >
                     <label
-                      class="leafygreen-ui-1d5p7a4"
+                      class="leafygreen-ui-1oju0e3"
                       for="radio-group-1-0"
                     >
                       <input
@@ -607,7 +607,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
                     class="leafygreen-ui-3n5lp7"
                   >
                     <label
-                      class="leafygreen-ui-1d5p7a4"
+                      class="leafygreen-ui-1oju0e3"
                       for="radio-group-1-1"
                     >
                       <input

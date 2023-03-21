@@ -252,7 +252,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                           class="leafygreen-ui-3n5lp7"
                         >
                           <label
-                            class="leafygreen-ui-1d5p7a4"
+                            class="leafygreen-ui-1oju0e3"
                             for="chart-radio-absolute"
                           >
                             <input
@@ -282,7 +282,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                           class="leafygreen-ui-3n5lp7"
                         >
                           <label
-                            class="leafygreen-ui-1d5p7a4"
+                            class="leafygreen-ui-1oju0e3"
                             for="chart-radio-percent"
                           >
                             <input
