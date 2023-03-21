@@ -26,10 +26,6 @@ export default defineConfig({
     },
   },
 
-  // Add polyfill for has-symbols@1.0.1
-  // https://github.com/vitejs/vite/discussions/5912
-  define: { global: {} },
-
   optimizeDeps: {
     esbuildOptions: {
       // Node.js global to browser globalThis
