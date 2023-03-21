@@ -27,7 +27,6 @@ describe("project data", () => {
 
 const projectForm: FormState = {
   accessSettings: {
-    private: null,
     restricted: true,
   },
   admin: {
@@ -38,7 +37,6 @@ const projectForm: FormState = {
 const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
   projectRef: {
     id: "project",
-    private: null,
     restricted: true,
     admins: [],
   },
@@ -46,7 +44,6 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
 
 const repoForm: FormState = {
   accessSettings: {
-    private: false,
     restricted: true,
   },
   admin: {
@@ -57,7 +54,6 @@ const repoForm: FormState = {
 const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
   projectRef: {
     id: "repo",
-    private: false,
     restricted: true,
     admins: ["admin"],
   },
