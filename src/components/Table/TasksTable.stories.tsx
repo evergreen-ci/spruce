@@ -1,4 +1,17 @@
+import { StoryObj } from "@storybook/react";
 import { TasksTable } from "./TasksTable";
+
+export default {
+  component: TasksTable,
+};
+
+export const BaseTaskTable: StoryObj<typeof TasksTable> = {
+  render: () => <TasksTable tasks={tasks} />,
+};
+
+export const ExecutionTasksTable: StoryObj<typeof TasksTable> = {
+  render: () => <TasksTable tasks={nestedTasks} />,
+};
 
 const tasks = [
   {
@@ -86,9 +99,3 @@ const nestedTasks = [
     ],
   },
 ];
-export const BaseTaskTable = () => <TasksTable tasks={tasks} />;
-export const ExecutionTasksTable = () => <TasksTable tasks={nestedTasks} />;
-export default {
-  title: "Components/Tasks Table",
-  component: TasksTable,
-};

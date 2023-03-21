@@ -1,3 +1,4 @@
+import { IconProps } from "@leafygreen-ui/icon";
 import { palette } from "@leafygreen-ui/palette";
 import Icon from "components/Icon";
 import { TaskStatus } from "types/task";
@@ -6,8 +7,7 @@ import { errorReporting } from "utils";
 const { reportError } = errorReporting;
 const { green, red, yellow, gray, purple } = palette;
 
-type IconProps = React.ComponentProps<typeof Icon>;
-interface TaskStatusIconProps
+export interface TaskStatusIconProps
   extends Omit<IconProps, "glyph" | "fill" | "size"> {
   status: string;
   size?: number;

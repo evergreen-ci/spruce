@@ -1,34 +1,28 @@
 import { useState } from "react";
-import SearchableDropdown from ".";
+import { StoryObj } from "@storybook/react";
+import SearchableDropdown, { SearchableDropdownProps } from ".";
 
 export default {
-  title: "Components/Searchable Dropdown",
   component: SearchableDropdown,
 };
 
-export const Default = () => {
-  const [value, setValue] = useState("");
-
-  return (
-    <SearchableDropdown
-      label="standard select"
-      value={value}
-      onChange={setValue}
-      options={["1", "2", "3"]}
-    />
-  );
+export const Default: StoryObj<SearchableDropdownProps<string>> = {
+  render: (args) => <Dropdown {...args} />,
+  args: {
+    allowMultiSelect: false,
+    disabled: false,
+    label: "Searchable Dropdown",
+  },
 };
 
-export const Multiselect = () => {
+const Dropdown = (props) => {
   const [value, setValue] = useState([]);
-
   return (
     <SearchableDropdown
-      label="multi select"
       value={value}
       onChange={setValue}
       options={["1", "2", "3"]}
-      allowMultiSelect
+      {...props}
     />
   );
 };

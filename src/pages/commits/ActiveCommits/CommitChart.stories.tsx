@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { StoryObj } from "@storybook/react";
 import { ChartTypes, Commits } from "types/commits";
 import { CommitChart } from "./CommitChart";
 import {
@@ -11,35 +12,31 @@ export default {
   component: CommitChart,
 };
 
-export const AbsoluteChart = () => (
-  <FlexRowContainer>
-    {versions.map((item) => (
-      <CommitChart
-        key={item.version.id}
-        groupedTaskStats={groupedTaskData[item.version.id].stats}
-        total={groupedTaskData[item.version.id].total}
-        max={max}
-        chartType={ChartTypes.Absolute}
-        eta={item.version?.taskStatusStats?.eta}
-      />
-    ))}
-  </FlexRowContainer>
-);
-
-export const PercentChart = () => (
-  <FlexRowContainer>
-    {versions.map((item) => (
-      <CommitChart
-        key={item.version.id}
-        groupedTaskStats={groupedTaskData[item.version.id].stats}
-        total={groupedTaskData[item.version.id].total}
-        max={max}
-        chartType={ChartTypes.Percentage}
-        eta={item.version?.taskStatusStats?.eta}
-      />
-    ))}
-  </FlexRowContainer>
-);
+export const Default: StoryObj<typeof CommitChart> = {
+  render: ({ chartType }) => (
+    <FlexRowContainer>
+      {versions.map((item) => (
+        <CommitChart
+          key={item.version.id}
+          groupedTaskStats={groupedTaskData[item.version.id].stats}
+          total={groupedTaskData[item.version.id].total}
+          max={max}
+          chartType={chartType}
+          eta={item.version?.taskStatusStats?.eta}
+        />
+      ))}
+    </FlexRowContainer>
+  ),
+  args: {
+    chartType: ChartTypes.Absolute,
+  },
+  argTypes: {
+    chartType: {
+      options: ChartTypes,
+      control: { type: "select" },
+    },
+  },
+};
 
 const FlexRowContainer = styled.div`
   display: flex;

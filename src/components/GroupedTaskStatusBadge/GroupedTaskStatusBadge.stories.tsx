@@ -1,27 +1,29 @@
 import styled from "@emotion/styled";
 import { action } from "@storybook/addon-actions";
+import { StoryObj } from "@storybook/react";
 import { TaskStatus } from "types/task";
 import { GroupedTaskStatusBadge } from ".";
 
 export default {
-  title: "Components/Grouped Task Status Badge",
   component: GroupedTaskStatusBadge,
 };
 
-export const GroupedTaskStatusBadges = () => (
-  <Container>
-    {groupedTaskStats.map((item) => (
-      <GroupedTaskStatusBadge
-        versionId="some_version"
-        status={item.status}
-        count={item.count}
-        key={item.status}
-        onClick={action(`Click status ${item.status}`)}
-        statusCounts={statusCounts}
-      />
-    ))}
-  </Container>
-);
+export const Default: StoryObj<typeof GroupedTaskStatusBadge> = {
+  render: () => (
+    <Container>
+      {groupedTaskStats.map((item) => (
+        <GroupedTaskStatusBadge
+          versionId="some_version"
+          status={item.status}
+          count={item.count}
+          key={item.status}
+          onClick={action(`Click status ${item.status}`)}
+          statusCounts={statusCounts}
+        />
+      ))}
+    </Container>
+  ),
+};
 
 const groupedTaskStats = [
   { status: TaskStatus.Succeeded, count: 20 },

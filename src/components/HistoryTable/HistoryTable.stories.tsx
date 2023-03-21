@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { StoryObj } from "@storybook/react";
 import TaskHistoryRow from "pages/taskHistory/TaskHistoryRow";
 import VariantHistoryRow from "pages/variantHistory/VariantHistoryRow";
 import HistoryTable, { context } from ".";
@@ -7,21 +8,24 @@ import { mainlineCommitData } from "./testData";
 const { HistoryTableProvider, useHistoryTable } = context;
 
 export default {
-  title: "Components/History Table",
   component: HistoryTable,
 };
 
-export const TaskHistoryTable = () => (
-  <HistoryTableProvider>
-    <HistoryTableWrapper type="task" />
-  </HistoryTableProvider>
-);
+export const TaskHistoryTable: StoryObj<typeof HistoryTable> = {
+  render: () => (
+    <HistoryTableProvider>
+      <HistoryTableWrapper type="task" />
+    </HistoryTableProvider>
+  ),
+};
 
-export const VariantHistoryTable = () => (
-  <HistoryTableProvider>
-    <HistoryTableWrapper type="variant" />
-  </HistoryTableProvider>
-);
+export const VariantHistoryTable: StoryObj<typeof HistoryTable> = {
+  render: () => (
+    <HistoryTableProvider>
+      <HistoryTableWrapper type="variant" />
+    </HistoryTableProvider>
+  ),
+};
 
 interface HistoryTableWrapperProps {
   type?: "variant" | "task";

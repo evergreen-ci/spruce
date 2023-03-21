@@ -1,8 +1,10 @@
+import { StoryObj } from "@storybook/react";
 import ExpandedText from ".";
 
 export default {
-  title: "Components/ExpandedText",
   component: ExpandedText,
 };
 
-export const Sample = () => <ExpandedText message="Here is some hidden text" />;
+export const Default: StoryObj<typeof ExpandedText> = {
+  render: () => <ExpandedText message="Here is some hidden text" />,
+};

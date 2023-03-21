@@ -1,23 +1,28 @@
 import { useState } from "react";
+import { StoryObj } from "@storybook/react";
 import Icon from "components/Icon";
 import TextInputWithGlyph from ".";
 
 export default {
-  title: "Components/TextInputWithGlyph",
   component: TextInputWithGlyph,
 };
 
-export const Default = () => {
+export const Default: StoryObj<typeof TextInputWithGlyph> = {
+  render: (args) => <Input {...args} />,
+  args: {
+    label: "Some search field",
+    placeholder: "Search",
+  },
+};
+
+const Input = (props) => {
   const [value, setValue] = useState("");
   return (
-    <div style={{ width: "40%" }}>
-      <TextInputWithGlyph
-        icon={<Icon glyph="MagnifyingGlass" />}
-        placeholder="Search"
-        label="Some search field"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      />
-    </div>
+    <TextInputWithGlyph
+      icon={<Icon glyph="MagnifyingGlass" />}
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      {...props}
+    />
   );
 };

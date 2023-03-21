@@ -1,20 +1,22 @@
 import { actions } from "@storybook/addon-actions";
+import { StoryObj } from "@storybook/react";
 import Breadcrumbs from ".";
 
 export default {
-  title: "Components/Breadcrumbs",
   component: Breadcrumbs,
 };
 
-export const Default = () => (
-  <Breadcrumbs
-    breadcrumbs={[
-      {
-        text: "spruce",
-        to: "/commits/spruce",
-        onClick: () => actions("Clicked first link"),
-      },
-      { text: "511232" },
-    ]}
-  />
-);
+export const Default: StoryObj<typeof Breadcrumbs> = {
+  render: () => (
+    <Breadcrumbs
+      breadcrumbs={[
+        {
+          text: "spruce",
+          to: "/commits/spruce",
+          onClick: () => actions("Clicked first link"),
+        },
+        { text: "511232" },
+      ]}
+    />
+  ),
+};

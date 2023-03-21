@@ -30,14 +30,14 @@ const { applyStrictRegex, msToDuration, shortenGithash } = string;
 const { getUiUrl } = environmentalVariables;
 const { red } = palette;
 
-interface Props {
+export interface MetadataProps {
   taskId: string;
   loading: boolean;
   task: GetTaskQuery["task"];
   error: ApolloError;
 }
 
-export const Metadata: React.VFC<Props> = ({
+export const Metadata: React.VFC<MetadataProps> = ({
   loading,
   task,
   error,
