@@ -34,13 +34,13 @@ query Version($id: String!) {
       childPatches {
         id
         githash
-        projectIdentifier
-        status
-        taskCount
         parameters {
           key
           value
         }
+        projectIdentifier
+        status
+        taskCount
         versionFull {
           id
           baseVersion {
