@@ -31,8 +31,8 @@ const NavDropdownItem: React.VFC<NavDropdownItemType> = ({
   text,
   to,
 }) => {
-  const isLink = to !== undefined;
-  const linkProps = isLink
+  const isInternalLink = to !== undefined;
+  const linkProps = isInternalLink
     ? {
         to,
       }
@@ -41,7 +41,7 @@ const NavDropdownItem: React.VFC<NavDropdownItemType> = ({
       };
   return (
     <MenuItem
-      as={isLink ? Link : "a"}
+      as={isInternalLink ? Link : "a"}
       data-cy={itemDataCy}
       onClick={closeMenu}
       {...linkProps}
