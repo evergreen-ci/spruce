@@ -30,17 +30,26 @@ const NavDropdownItem: React.VFC<NavDropdownItemType> = ({
   href,
   text,
   to,
-}) => (
-  <MenuItem
-    as={to && Link}
-    to={to}
-    href={href}
-    data-cy={itemDataCy}
-    onClick={closeMenu}
-  >
-    {text}
-  </MenuItem>
-);
+}) => {
+  const isLink = to !== undefined;
+  const linkProps = isLink
+    ? {
+        to,
+      }
+    : {
+        href,
+      };
+  return (
+    <MenuItem
+      as={isLink ? Link : "a"}
+      data-cy={itemDataCy}
+      onClick={closeMenu}
+      {...linkProps}
+    >
+      {text}
+    </MenuItem>
+  );
+};
 
 interface NavDropdownProps {
   dataCy?: string;
