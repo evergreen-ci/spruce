@@ -1,5 +1,4 @@
 import { useMutation } from "@apollo/client";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
@@ -83,7 +82,7 @@ export const CommitQueueCard: React.VFC<Props> = ({
       return githubTitle;
     }
 
-    if (githubTitle.length === 1) {
+    if (githubTitle.length === 1 || typeof githubTitle[0] !== "string") {
       return (
         <StyledRouterLink to={getVersionRoute(patchId)}>
           {githubTitle}
@@ -91,9 +90,38 @@ export const CommitQueueCard: React.VFC<Props> = ({
       );
     }
 
-    return reactStringReplace(githubTitle, /(^[^:]*)/g, (match) => (
-      <StyledRouterLink to={getVersionRoute(patchId)}>{match}</StyledRouterLink>
-    ));
+    // Only replace the string that occurs before the link. We don't want to run this operation on the trailing parentheses.
+    const [versionString, ...rest] = githubTitle;
+    const versionLink = reactStringReplace(
+      versionString,
+      /(^[^:]*)/g,
+      (match, i) => (
+        <StyledRouterLink key={`${match}${i}`} to={getVersionRoute(patchId)}>
+          {match}
+        </StyledRouterLink>
+      )
+    );
+
+    return (
+      <>
+        {versionLink}
+        {rest}
+      </>
+    );
+  };
+
+  const noVersionLinkify = () => {
+    const githubTitle = githubPRLinkify(title);
+
+    // If a URL wasn't found in the text, construct a link to wrap the entire title
+    if (githubTitle.length === 1) {
+      return (
+        <StyledLink href={getGithubPullRequestUrl(owner, repo, issue)}>
+          {title}
+        </StyledLink>
+      );
+    }
+    return githubTitle;
   };
 
   return (
@@ -106,9 +134,7 @@ export const CommitQueueCard: React.VFC<Props> = ({
               {!!versionId || issue === "" || Number.isNaN(Number(issue)) ? (
                 <>{versionLinkify()}</>
               ) : (
-                <StyledLink href={getGithubPullRequestUrl(owner, repo, issue)}>
-                  {title}
-                </StyledLink>
+                <>{noVersionLinkify()}</>
               )}
             </CardTitle>
             <CardMetaData>
@@ -126,9 +152,11 @@ export const CommitQueueCard: React.VFC<Props> = ({
         ) : (
           // should only get here for pull requests not processed yet (ie. added in the past minute)
           <CommitInfo>
-            <PRCardTitle href={getGithubPullRequestUrl(owner, repo, issue)}>
-              Pull Request #{issue}
-            </PRCardTitle>
+            <CardTitle data-cy="commit-queue-card-title">
+              <StyledLink href={getGithubPullRequestUrl(owner, repo, issue)}>
+                Pull Request #{issue}
+              </StyledLink>
+            </CardTitle>
           </CommitInfo>
         )}
         <CommitQueueCardActions>
@@ -149,18 +177,10 @@ const Card = styled.div`
   width: 100%;
 `;
 
-const cardTitleStyles = css`
+const CardTitle = styled.span`
   margin-bottom: ${size.s};
   font-size: ${fontSize.l};
   font-weight: bold;
-`;
-
-const CardTitle = styled.span`
-  ${cardTitleStyles}
-`;
-
-const PRCardTitle = styled(StyledLink)`
-  ${cardTitleStyles}
 `;
 
 const CommitInfo = styled.div`
