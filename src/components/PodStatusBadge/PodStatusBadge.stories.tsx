@@ -1,20 +1,20 @@
 import styled from "@emotion/styled";
 import { size } from "constants/tokens";
-import { HostStatus } from "types/host";
-import HostStatusBadge from ".";
+import { PodStatus } from "types/pod";
+import PodStatusBadge from ".";
 
 export default {
-  title: "Components/Host Status Badges",
-  component: HostStatusBadge,
+  title: "Components/Pod Status Badges",
+  component: PodStatusBadge,
 };
 
 export const Default = () => {
-  const hostStatuses = Object.keys(HostStatus);
+  const podStatuses = Object.keys(PodStatus);
   return (
     <Container>
-      {hostStatuses.map((status) => (
+      {podStatuses.map((status) => (
         <Wrapper key={`badge_${status}`}>
-          <HostStatusBadge status={HostStatus[status]} />
+          <PodStatusBadge status={PodStatus[status]} />
         </Wrapper>
       ))}
     </Container>
