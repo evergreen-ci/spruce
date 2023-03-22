@@ -35,7 +35,7 @@ const Container = () => {
     <PageWrapper data-cy="host-page">
       <PageTitle
         title={`Container: ${podId}`}
-        pageTitle="Container: {id}"
+        pageTitle={`Container: ${podId}`}
         size="large"
         loading={loading}
         badge={<PodStatusBadge status={status as PodStatus} />}
