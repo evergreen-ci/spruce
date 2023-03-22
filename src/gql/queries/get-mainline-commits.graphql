@@ -45,6 +45,7 @@ query MainlineCommits(
             status
             displayName
             timeTaken
+            failedTestCount
           }
         }
       }
