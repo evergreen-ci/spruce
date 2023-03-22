@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
+import reactStringReplace from "react-string-replace";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { getGithubPullRequestUrl } from "constants/externalResources";
 import { getVersionRoute } from "constants/routes";
@@ -16,9 +16,11 @@ import {
 } from "gql/generated/types";
 import { REMOVE_ITEM_FROM_COMMIT_QUEUE } from "gql/mutations";
 import { useDateFormat } from "hooks";
-
-import { CodeChangeModule } from "./codeChangesModule/CodeChangesModule";
+import { string } from "utils";
+import { CodeChangeModule } from "./CodeChangesModule";
 import { ConfirmPatchButton } from "./ConfirmPatchButton";
+
+const { githubPRLinkify } = string;
 
 interface Props {
   issue: string;
@@ -63,46 +65,52 @@ export const CommitQueueCard: React.VFC<Props> = ({
       dispatchToast.error(`Error removing item from commit queue ${err}`);
     },
   });
+
   const handleEnroll = () => {
     removeItemFromCommitQueue({
       variables: { issue, commitQueueId },
       refetchQueries: ["CommitQueue"],
     });
   };
+
+  // Linkify any GitHub URLs that appear in the title text.
+  // If no GitHub link was found, wrap all text in a link to the version.
+  // If a GitHub link was identified, wrap all text that appears before the first : with the version link.
+  const versionLinkify = () => {
+    const githubTitle = githubPRLinkify(title);
+
+    if (!activated) {
+      return githubTitle;
+    }
+
+    if (githubTitle.length === 1) {
+      return (
+        <StyledRouterLink to={getVersionRoute(patchId)}>
+          {githubTitle}
+        </StyledRouterLink>
+      );
+    }
+
+    return reactStringReplace(githubTitle, /(^[^:]*)/g, (match) => (
+      <StyledRouterLink to={getVersionRoute(patchId)}>{match}</StyledRouterLink>
+    ));
+  };
+
   return (
     <Card data-cy="commit-queue-card">
       <Subtitle>{index}.</Subtitle>
       <CommitQueueCardGrid>
         {patchId ? (
           <CommitInfo>
-            <ConditionalWrapper
-              condition={
-                !!versionId || issue === "" || Number.isNaN(Number(issue))
-              }
-              wrapper={(c) =>
-                activated ? (
-                  <CardTitleLink
-                    data-cy="commit-queue-card-title"
-                    to={getVersionRoute(patchId)}
-                  >
-                    {c}
-                  </CardTitleLink>
-                ) : (
-                  <CardTitle data-cy="commit-queue-card-title">{c}</CardTitle>
-                )
-              }
-              altWrapper={(c) => (
-                <PRCardTitle
-                  data-cy="commit-queue-card-title"
-                  href={getGithubPullRequestUrl(owner, repo, issue)}
-                >
-                  {c}
-                </PRCardTitle>
+            <CardTitle data-cy="commit-queue-card-title">
+              {!!versionId || issue === "" || Number.isNaN(Number(issue)) ? (
+                <>{versionLinkify()}</>
+              ) : (
+                <StyledLink href={getGithubPullRequestUrl(owner, repo, issue)}>
+                  {title}
+                </StyledLink>
               )}
-            >
-              {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
-              <>{title}</>
-            </ConditionalWrapper>
+            </CardTitle>
             <CardMetaData>
               By <b>{author}</b> on {getDateCopy(commitTime)}
             </CardMetaData>
@@ -148,10 +156,6 @@ const cardTitleStyles = css`
 `;
 
 const CardTitle = styled.span`
-  ${cardTitleStyles}
-`;
-
-const CardTitleLink = styled(StyledRouterLink)`
   ${cardTitleStyles}
 `;
 
