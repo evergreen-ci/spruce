@@ -30,12 +30,14 @@ const Metadata: React.VFC<{
   return (
     <MetadataCard error={error} loading={loading}>
       <MetadataTitle>Container Details</MetadataTitle>
-      <MetadataItem>
-        Running Task:{" "}
-        <StyledRouterLink to={taskLink}>
-          {runningTaskDisplayName}
-        </StyledRouterLink>
-      </MetadataItem>
+      {runningTaskId !== "" && (
+        <MetadataItem>
+          Running Task:{" "}
+          <StyledRouterLink to={taskLink}>
+            {runningTaskDisplayName}
+          </StyledRouterLink>
+        </MetadataItem>
+      )}
       <MetadataItem>Container Type: {type}</MetadataItem>
       <MetadataItem>CPU: {cpu}</MetadataItem>
       <MetadataItem>Memory: {memoryMB} MB</MetadataItem>
