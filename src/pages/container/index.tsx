@@ -12,6 +12,7 @@ import { useToastContext } from "context/toast";
 import { PodQuery, PodQueryVariables } from "gql/generated/types";
 import { GET_POD } from "gql/queries";
 import { PodStatus } from "types/pod";
+import EventsTable from "./EventsTable";
 import Metadata from "./Metadata";
 
 const Container = () => {
@@ -45,7 +46,7 @@ const Container = () => {
         </PageSider>
         <PageLayout>
           <PageContent>
-            <div>Some Table</div>
+            <EventsTable />
           </PageContent>
         </PageLayout>
       </PageLayout>
