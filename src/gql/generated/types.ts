@@ -5576,6 +5576,35 @@ export type PatchQuery = {
   };
 };
 
+export type PodQueryVariables = Exact<{
+  podId: Scalars["String"];
+}>;
+
+export type PodQuery = {
+  __typename?: "Query";
+  pod: {
+    __typename?: "Pod";
+    id: string;
+    status: string;
+    type: string;
+    taskContainerCreationOpts: {
+      __typename?: "TaskContainerCreationOpts";
+      arch: string;
+      cpu: number;
+      memoryMB: number;
+      os: string;
+      image: string;
+      workingDir: string;
+    };
+    task?: Maybe<{
+      __typename?: "Task";
+      id: string;
+      execution: number;
+      displayName: string;
+    }>;
+  };
+};
+
 export type ProjectEventLogsQueryVariables = Exact<{
   identifier: Scalars["String"];
   limit?: InputMaybe<Scalars["Int"]>;
