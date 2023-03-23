@@ -18,6 +18,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
         className="css-58nl5l-AccordionToggle ev0bopr2"
         data-cy="accordion-toggle"
         onClick={[Function]}
+        role="button"
       >
         <svg
           aria-label="Caret Down Icon"
@@ -238,6 +239,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                   className="css-58nl5l-AccordionToggle ev0bopr2"
                   data-cy="accordion-toggle"
                   onClick={[Function]}
+                  role="button"
                 >
                   <svg
                     aria-label="Caret Down Icon"

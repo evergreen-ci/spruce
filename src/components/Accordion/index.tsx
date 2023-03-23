@@ -48,6 +48,7 @@ export const Accordion: React.VFC<AccordionProps> = ({
         <AccordionToggle
           data-cy="accordion-toggle"
           onClick={toggleAccordionHandler}
+          role="button"
         >
           {showCaret && (
             <Icon glyph={isAccordionDisplayed ? "CaretDown" : "CaretRight"} />
