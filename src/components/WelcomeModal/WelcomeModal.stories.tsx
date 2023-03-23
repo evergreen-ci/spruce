@@ -1,3 +1,4 @@
+import { MockedProvider } from "@apollo/client/testing";
 import { StoryObj } from "@storybook/react";
 import {
   newSpruceUser,
@@ -13,6 +14,13 @@ export default {
       disable: true,
     },
   },
+  decorators: [
+    (Story: () => JSX.Element) => (
+      <MockedProvider>
+        <Story />
+      </MockedProvider>
+    ),
+  ],
 };
 
 export const NewSpruceUser: StoryObj<typeof WelcomeModal> = {

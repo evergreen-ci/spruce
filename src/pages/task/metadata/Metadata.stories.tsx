@@ -2,7 +2,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import styled from "@emotion/styled";
 import { StoryObj } from "@storybook/react";
 import { MetStatus, RequiredStatus } from "gql/generated/types";
-import { Metadata, MetadataProps } from "./index";
+import { Metadata } from "./index";
 import { taskQuery } from "./taskData";
 
 export default {
@@ -17,7 +17,7 @@ export default {
   ],
 };
 
-export const Default: StoryObj<MetadataProps> = {
+export const Default: StoryObj<typeof Metadata> = {
   render: (args) => (
     <Container>
       <Metadata
@@ -30,7 +30,7 @@ export const Default: StoryObj<MetadataProps> = {
   ),
 };
 
-export const WithDependencies: StoryObj<MetadataProps> = {
+export const WithDependencies: StoryObj<typeof Metadata> = {
   render: (args) => (
     <Container>
       <Metadata
@@ -76,7 +76,7 @@ export const WithDependencies: StoryObj<MetadataProps> = {
 };
 
 export const WithAbortMessage: StoryObj<
-  { abortInfoSelection: string } & MetadataProps
+  { abortInfoSelection: string } & React.ComponentProps<typeof Metadata>
 > = {
   render: ({ abortInfoSelection, ...args }) => (
     <Container>

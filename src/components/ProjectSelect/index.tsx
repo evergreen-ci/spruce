@@ -168,7 +168,6 @@ const getProjects: GetProjectsType = (
 
   // For Project Settings pages, move disabled projects to the bottom of the dropdown
   const projectGroups = viewableProjectsData?.viewableProjectRefs ?? [];
-  console.log(projectGroups);
 
   const disabledProjects = [];
   const enabledProjectGroups = projectGroups.map((projectGroup) => {

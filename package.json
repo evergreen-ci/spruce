@@ -217,7 +217,6 @@
     "webpack-merge": "^5.7.3"
   },
   "resolutions": {
-    "@graphql-codegen/cli/**/ts-node": "10.8.2",
     "has-symbols": "^1.0.2"
   },
   "engines": {

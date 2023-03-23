@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { MockedProvider } from "@apollo/client/testing";
 import { StoryObj } from "@storybook/react";
 import TaskHistoryRow from "pages/taskHistory/TaskHistoryRow";
 import VariantHistoryRow from "pages/variantHistory/VariantHistoryRow";
@@ -9,6 +10,13 @@ const { HistoryTableProvider, useHistoryTable } = context;
 
 export default {
   component: HistoryTable,
+  decorators: [
+    (Story: () => JSX.Element) => (
+      <MockedProvider>
+        <Story />
+      </MockedProvider>
+    ),
+  ],
 };
 
 export const TaskHistoryTable: StoryObj<typeof HistoryTable> = {
