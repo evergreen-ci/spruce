@@ -81,6 +81,7 @@ const generateTasks = (count: number) =>
       id: `task_${index}`,
       status: randomStatus(index),
       execution: 0,
+      failedTestCount: 1,
     }));
 
 /**
