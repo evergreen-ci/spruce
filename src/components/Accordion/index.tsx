@@ -4,8 +4,8 @@ import Icon from "@leafygreen-ui/icon";
 import { size } from "constants/tokens";
 
 interface AccordionProps {
-  allowToggleFromTitle?: boolean;
   children: React.ReactNode;
+  className?: string;
   "data-cy"?: string;
   defaultOpen?: boolean;
   onToggle?: (s: { isVisible: boolean }) => void;
@@ -17,8 +17,8 @@ interface AccordionProps {
   useIndent?: boolean;
 }
 export const Accordion: React.VFC<AccordionProps> = ({
-  allowToggleFromTitle = true,
   children,
+  className,
   "data-cy": dataCy,
   defaultOpen = false,
   onToggle = () => {},
@@ -40,7 +40,7 @@ export const Accordion: React.VFC<AccordionProps> = ({
     <TitleTag>{toggledTitle ? showToggledTitle : title}</TitleTag>
   );
   return (
-    <div data-cy={dataCy}>
+    <div className={className} data-cy={dataCy}>
       {toggleFromBottom && (
         <AnimatedAccordion hide={!isAccordionDisplayed}>
           {children}
@@ -53,9 +53,8 @@ export const Accordion: React.VFC<AccordionProps> = ({
         {showCaret && (
           <Icon glyph={isAccordionDisplayed ? "CaretDown" : "CaretRight"} />
         )}
-        {allowToggleFromTitle && titleComp}
+        {titleComp}
       </AccordionToggle>
-      {!allowToggleFromTitle && titleComp}
       {!toggleFromBottom && (
         <AnimatedAccordion hide={!isAccordionDisplayed}>
           <ContentsContainer indent={showCaret && useIndent}>
