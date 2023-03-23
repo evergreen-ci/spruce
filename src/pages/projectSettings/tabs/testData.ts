@@ -26,7 +26,6 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       patchEnabled: null,
     },
     disabledStatsCache: null,
-    private: null,
     restricted: true,
     admins: [],
     prTestingEnabled: null,
@@ -107,7 +106,6 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
 
 const repoBase: RepoSettingsQuery["repoSettings"] = {
   githubWebhooksEnabled: true,
-
   projectRef: {
     id: "123",
     owner: "evergreen-ci",
@@ -129,7 +127,6 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       patchEnabled: true,
     },
     disabledStatsCache: false,
-    private: false,
     restricted: true,
     admins: ["admin"],
     prTestingEnabled: false,

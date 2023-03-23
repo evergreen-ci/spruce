@@ -283,7 +283,6 @@ const projectSettingsMock: ApolloMock<
           },
           disabledStatsCache: false,
           __typename: "Project",
-          private: false,
           restricted: false,
           admins: ["admin"],
           buildBaronSettings: {

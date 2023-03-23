@@ -40,8 +40,11 @@ export enum ProjectSettingsTabRoutes {
 
 const paths = {
   commitQueue: "/commit-queue",
+  commits: "/commits",
+  container: "/container",
   host: "/host",
   hosts: "/hosts",
+  jobLogs: "/job-logs",
   login: "/login",
   patch: "/patch",
   preferences: "/preferences",
@@ -49,14 +52,12 @@ const paths = {
   projects: "/projects",
   spawn: "/spawn",
   task: "/task",
+  taskHistory: "/task-history",
   taskQueue: "/task-queue",
   user: "/user",
-  version: "/version",
-  commits: "/commits",
-  waterfall: "/waterfall",
   variantHistory: "/variant-history",
-  taskHistory: "/task-history",
-  jobLogs: "/job-logs",
+  version: "/version",
+  waterfall: "/waterfall",
 };
 export const redirectRoutes = {
   projectSettings: paths.projects,
@@ -68,6 +69,7 @@ export const routes = {
   commitQueue: `${paths.commitQueue}/:projectIdentifier`,
   commits: paths.commits,
   configurePatch: `${paths.patch}/:id/configure`,
+  container: `${paths.container}/:id`,
   host: `${paths.host}/:id`,
   hosts: paths.hosts,
   jobLogs: `${paths.jobLogs}/:buildId`,
@@ -83,10 +85,10 @@ export const routes = {
   task: `${paths.task}/:id`,
   taskHistory: `${paths.taskHistory}/:projectIdentifier/:taskName`,
   taskQueue: paths.taskQueue,
+  user: `${paths.user}/*`,
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
   variantHistory: `${paths.variantHistory}/:projectIdentifier/:variantName`,
   version: `${paths.version}/:id`,
-  user: `${paths.user}/*`,
 };
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;
