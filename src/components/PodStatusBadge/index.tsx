@@ -17,7 +17,7 @@ const PodStatusBadge: React.VFC<Props> = ({ status }) => (
 
 const statusToBadgeVariant = {
   [PodStatus.Decommissioned]: Variant.LightGray,
-  [PodStatus.Initializing]: Variant.Yellow,
+  [PodStatus.Initializing]: Variant.LightGray,
   [PodStatus.Running]: Variant.Green,
   [PodStatus.Starting]: Variant.Yellow,
   [PodStatus.Terminated]: Variant.Red,
