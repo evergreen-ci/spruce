@@ -32,8 +32,11 @@ const list = [
     child: <Child />,
   },
 ];
-export const NodeListFull = () => (
-  <div style={{ position: "relative" }}>
-    <NodeList list={list} />
-  </div>
-);
+
+export const NodeListFull: StoryObj<typeof NodeList> = {
+  render: () => (
+    <div style={{ position: "relative" }}>
+      <NodeList list={list} />
+    </div>
+  ),
+};
