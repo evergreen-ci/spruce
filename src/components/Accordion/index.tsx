@@ -8,6 +8,7 @@ interface AccordionProps {
   className?: string;
   "data-cy"?: string;
   defaultOpen?: boolean;
+  disableAnimation?: boolean;
   onToggle?: (s: { isVisible: boolean }) => void;
   showCaret?: boolean;
   title: React.ReactNode;
@@ -21,6 +22,7 @@ export const Accordion: React.VFC<AccordionProps> = ({
   className,
   "data-cy": dataCy,
   defaultOpen = false,
+  disableAnimation = false,
   onToggle = () => {},
   showCaret = true,
   title,
@@ -42,7 +44,10 @@ export const Accordion: React.VFC<AccordionProps> = ({
   return (
     <div className={className} data-cy={dataCy}>
       {toggleFromBottom && (
-        <AnimatedAccordion hide={!isAccordionDisplayed}>
+        <AnimatedAccordion
+          hide={!isAccordionDisplayed}
+          disableAnimation={disableAnimation}
+        >
           {children}
         </AnimatedAccordion>
       )}
@@ -56,7 +61,10 @@ export const Accordion: React.VFC<AccordionProps> = ({
         {titleComp}
       </AccordionToggle>
       {!toggleFromBottom && (
-        <AnimatedAccordion hide={!isAccordionDisplayed}>
+        <AnimatedAccordion
+          hide={!isAccordionDisplayed}
+          disableAnimation={disableAnimation}
+        >
           <ContentsContainer indent={showCaret && useIndent}>
             {children}
           </ContentsContainer>
@@ -76,16 +84,22 @@ const AccordionToggle = styled.div`
     cursor: pointer;
   }
 `;
-const AnimatedAccordion = styled.div`
+
+const AnimatedAccordion = styled.div<{
+  hide: boolean;
+  disableAnimation: boolean;
+}>`
   /* This is used to calculate a fixed height for the Accordion since height
       transitions require a fixed height for their end height */
-  max-height: ${(props: { hide: boolean }): string =>
-    props.hide ? "0px" : "9999px"};
-  overflow-y: ${(props: { hide: boolean }): string => props.hide && "hidden"};
-  transition: ${(props: { hide: boolean }): string =>
-    props.hide
-      ? "max-height 0.3s cubic-bezier(0, 1, 0, 1)"
-      : "max-height 0.6s ease-in-out"};
+  max-height: ${({ hide }): string => (hide ? "0px" : "9999px")};
+  overflow-y: ${({ hide }): string => hide && "hidden"};
+  ${({ disableAnimation, hide }): string =>
+    !disableAnimation &&
+    `transition: ${
+      hide
+        ? "max-height 0.3s cubic-bezier(0, 1, 0, 1)"
+        : "max-height 0.6s ease-in-out"
+    }`};
 `;
 const ContentsContainer = styled.div`
   margin-left: ${(props: { indent: boolean }): string =>

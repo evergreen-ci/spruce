@@ -37,7 +37,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
         </span>
       </div>
       <div
-        className="css-1ofqqce-AnimatedAccordion ev0bopr1"
+        className="css-n5l1wu-AnimatedAccordion ev0bopr1"
       >
         <div
           className="css-1ds08bm-ContentsContainer ev0bopr0"
@@ -226,110 +226,108 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               className="css-7yxj8m-AbsoluteContainer e3d007b2"
             >
               <div
-                className="css-nbsfda-AccordionContainer e1d5uzqe0"
+                className="css-3jftg7-StyledAccordion e1d5uzqe0"
               >
-                <div>
-                  <div
-                    className="css-58nl5l-AccordionToggle ev0bopr2"
-                    data-cy="accordion-toggle"
-                    onClick={[Function]}
+                <div
+                  className="css-58nl5l-AccordionToggle ev0bopr2"
+                  data-cy="accordion-toggle"
+                  onClick={[Function]}
+                >
+                  <svg
+                    aria-label="Caret Down Icon"
+                    className=""
+                    fill="none"
+                    height={16}
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width={16}
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <svg
-                      aria-label="Caret Down Icon"
-                      className=""
-                      fill="none"
-                      height={16}
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width={16}
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M8.679 10.796a.554.554 0 01-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <span>
-                      View options
-                    </span>
-                  </div>
+                    <path
+                      d="M8.679 10.796a.554.554 0 01-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <span>
+                    View options
+                  </span>
+                </div>
+                <div
+                  className="css-n5l1wu-AnimatedAccordion ev0bopr1"
+                >
                   <div
-                    className="css-1ofqqce-AnimatedAccordion ev0bopr1"
+                    className="css-1nylm8s-ContentsContainer ev0bopr0"
                   >
                     <div
-                      className="css-1nylm8s-ContentsContainer ev0bopr0"
+                      className="css-xetfur-ToggleWrapper e1d5uzqe1"
                     >
                       <div
-                        className="css-xetfur-ToggleWrapper e1d5uzqe1"
+                        aria-label="chart-select"
+                        className="css-1ny7bse-StyledRadioGroup e1d5uzqe2"
+                        role="group"
                       >
                         <div
-                          aria-label="chart-select"
-                          className="css-1ny7bse-StyledRadioGroup e1d5uzqe2"
-                          role="group"
+                          className="leafygreen-ui-3n5lp7"
                         >
-                          <div
-                            className="leafygreen-ui-3n5lp7"
+                          <label
+                            className="leafygreen-ui-1oju0e3"
+                            htmlFor="chart-radio-absolute"
                           >
-                            <label
-                              className="leafygreen-ui-1oju0e3"
-                              htmlFor="chart-radio-absolute"
+                            <input
+                              aria-checked={true}
+                              aria-disabled={false}
+                              checked={true}
+                              className="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
+                              data-cy="cy-chart-absolute-radio"
+                              disabled={false}
+                              id="chart-radio-absolute"
+                              name="chart-select"
+                              onChange={[Function]}
+                              type="radio"
+                              value="absolute"
+                            />
+                            <div
+                              className="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
                             >
-                              <input
-                                aria-checked={true}
-                                aria-disabled={false}
-                                checked={true}
-                                className="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
-                                data-cy="cy-chart-absolute-radio"
-                                disabled={false}
-                                id="chart-radio-absolute"
-                                name="chart-select"
-                                onChange={[Function]}
-                                type="radio"
-                                value="absolute"
-                              />
                               <div
-                                className="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
-                              >
-                                <div
-                                  className="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
-                                />
-                              </div>
-                              <div>
-                                Absolute Number
-                              </div>
-                            </label>
-                          </div>
-                          <div
-                            className="leafygreen-ui-3n5lp7"
+                                className="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
+                              />
+                            </div>
+                            <div>
+                              Absolute Number
+                            </div>
+                          </label>
+                        </div>
+                        <div
+                          className="leafygreen-ui-3n5lp7"
+                        >
+                          <label
+                            className="leafygreen-ui-1oju0e3"
+                            htmlFor="chart-radio-percent"
                           >
-                            <label
-                              className="leafygreen-ui-1oju0e3"
-                              htmlFor="chart-radio-percent"
+                            <input
+                              aria-disabled={false}
+                              checked={false}
+                              className="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
+                              data-cy="cy-chart-percent-radio"
+                              disabled={false}
+                              id="chart-radio-percent"
+                              name="chart-select"
+                              onChange={[Function]}
+                              type="radio"
+                              value="percentage"
+                            />
+                            <div
+                              className="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
                             >
-                              <input
-                                aria-disabled={false}
-                                checked={false}
-                                className="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
-                                data-cy="cy-chart-percent-radio"
-                                disabled={false}
-                                id="chart-radio-percent"
-                                name="chart-select"
-                                onChange={[Function]}
-                                type="radio"
-                                value="percentage"
-                              />
                               <div
-                                className="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
-                              >
-                                <div
-                                  className="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
-                                />
-                              </div>
-                              <div>
-                                Percentage
-                              </div>
-                            </label>
-                          </div>
+                                className="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
+                              />
+                            </div>
+                            <div>
+                              Percentage
+                            </div>
+                          </label>
                         </div>
                       </div>
                     </div>
