@@ -5349,6 +5349,7 @@ export type MainlineCommitsQuery = {
                     status: string;
                     displayName: string;
                     timeTaken?: Maybe<number>;
+                    failedTestCount: number;
                   }>
                 >
               >;

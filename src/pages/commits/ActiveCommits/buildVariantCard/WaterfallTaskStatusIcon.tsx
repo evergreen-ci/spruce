@@ -25,12 +25,20 @@ interface WaterfallTaskStatusIconProps {
   displayName: string;
   timeTaken?: number;
   identifier: string;
+  failedTestCount?: number;
 }
 
 let timeout;
 export const WaterfallTaskStatusIcon: React.VFC<
   WaterfallTaskStatusIconProps
-> = ({ taskId, status, displayName, timeTaken, identifier }) => {
+> = ({
+  taskId,
+  status,
+  displayName,
+  timeTaken,
+  identifier,
+  failedTestCount,
+}) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const [enabled, setEnabled] = useState(false);
   const [loadData, { data, loading }] = useLazyQuery<
@@ -48,7 +56,7 @@ export const WaterfallTaskStatusIcon: React.VFC<
       injectGlobalStyle(identifier);
       timeout = setTimeout(() => {
         // Only query failing test names if the task has failed.
-        if (isFailedTaskStatus(status)) {
+        if (isFailedTaskStatus(status) && failedTestCount > 0) {
           loadData();
         }
       }, 500);

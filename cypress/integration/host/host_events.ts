@@ -4,10 +4,11 @@ const pathWithEvents = "/host/i-0f81a2d39744003dd";
 
 describe("Host events", () => {
   beforeEach(() => {
-     cy.window().then((win) => {
-         win.localStorage.setItem("recentPageSize", "20");
+    cy.window().then((win) => {
+      win.localStorage.setItem("recentPageSize", "20");
     });
   });
+
   it("host events display the correct text", () => {
     cy.visit(pathWithEvents);
     clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCy);
@@ -152,10 +153,10 @@ describe("Host events", () => {
       cy.dataCy(hostType)
         .contains(text)
         .within(() => {
-          cy.dataCy("host-event-logs").should("exist").contains(logsTitle);
+          cy.dataCy("host-event-log").should("exist").contains(logsTitle);
         });
     });
-    cy.dataCy("host-status-log").click();
+    cy.dataCy("host-status-changed").find("[data-cy='host-event-log']").click();
     cy.dataCy("host-event-log-content")
       .should("exist")
       .contains("terminated via UI by chaya.malik");
@@ -166,7 +167,7 @@ describe("Host events", () => {
       .contains("Status changed from running to stopping")
       .first()
       .within(() => {
-        cy.dataCy("host-event-logs").should("not.exist");
+        cy.dataCy("host-event-log").should("not.exist");
       });
   });
 
@@ -198,4 +199,4 @@ describe("Host events", () => {
   });
 });
 
-const dataCy = "[data-cy=host-events-table] tr td:first-child";
+const dataCy = "[data-cy=host-events-table] .ant-table-row";

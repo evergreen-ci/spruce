@@ -119,7 +119,6 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
                     data-cy="variant-accordion"
                   >
                     <Accordion
-                      allowToggleFromTitle={false}
                       title={
                         <Checkbox
                           data-cy={`${buildVariant}-variant-checkbox`}

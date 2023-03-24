@@ -8,10 +8,8 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
     <div
       class="css-1htrvjs-ChartContainer ech0nhv3"
     >
-      <div
-        class="css-1r6zuyg-Row ev0bopr3"
-      >
-        <span
+      <div>
+        <div
           class="css-58nl5l-AccordionToggle ev0bopr2"
           data-cy="accordion-toggle"
         >
@@ -33,184 +31,180 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
           <span>
             Project Health
           </span>
-        </span>
-      </div>
-      <div
-        class="css-1ofqqce-AnimatedAccordion ev0bopr1"
-      >
+        </div>
         <div
-          class="css-1ds08bm-ContentsContainer ev0bopr0"
+          class="css-n5l1wu-AnimatedAccordion ev0bopr1"
         >
           <div
-            class="css-j6oyur-ChartWrapper e3d007b1"
+            class="css-1ds08bm-ContentsContainer ev0bopr0"
           >
             <div
-              class="css-gnwyka-FlexRowContainer eq4i7ol1"
+              class="css-j6oyur-ChartWrapper e3d007b1"
             >
               <div
-                class="css-mgqp2w-CommitWrapper eq4i7ol0"
-                width="200"
+                class="css-gnwyka-FlexRowContainer eq4i7ol1"
               >
                 <div
-                  class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-                  data-cy="commit-chart-container"
-                  data-type="absolute"
+                  class="css-mgqp2w-CommitWrapper eq4i7ol0"
+                  width="200"
                 >
                   <div
-                    class="css-12xroym-Bar e1tzsy280"
-                    color="#889397"
-                    data-cy="commit-chart-bar"
-                    height="30%"
-                  />
+                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+                    data-cy="commit-chart-container"
+                    data-type="absolute"
+                  >
+                    <div
+                      class="css-12xroym-Bar e1tzsy280"
+                      color="#889397"
+                      data-cy="commit-chart-bar"
+                      height="30%"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="css-mgqp2w-CommitWrapper eq4i7ol0"
+                  width="200"
+                >
+                  <div
+                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+                    data-cy="commit-chart-container"
+                    data-type="absolute"
+                  >
+                    <div
+                      class="css-12xroym-Bar e1tzsy280"
+                      color="#889397"
+                      data-cy="commit-chart-bar"
+                      height="30%"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="css-11x1fi4-CommitWrapper eq4i7ol0"
+                  width="64"
+                >
+                  <div
+                    class="css-316fn7-InactiveCommitContainer ezzuvrx10"
+                  >
+                    <div
+                      class="css-1e8x40o-InactiveCommitLine ezzuvrx9"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="css-mgqp2w-CommitWrapper eq4i7ol0"
+                  width="200"
+                >
+                  <div
+                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+                    data-cy="commit-chart-container"
+                    data-type="absolute"
+                  >
+                    <div
+                      class="css-12xroym-Bar e1tzsy280"
+                      color="#889397"
+                      data-cy="commit-chart-bar"
+                      height="30%"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="css-mgqp2w-CommitWrapper eq4i7ol0"
+                  width="200"
+                >
+                  <div
+                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+                    data-cy="commit-chart-container"
+                    data-type="absolute"
+                  >
+                    <div
+                      class="css-12xroym-Bar e1tzsy280"
+                      color="#889397"
+                      data-cy="commit-chart-bar"
+                      height="30%"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="css-mgqp2w-CommitWrapper eq4i7ol0"
+                  width="200"
+                >
+                  <div
+                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+                    data-cy="commit-chart-container"
+                    data-type="absolute"
+                  >
+                    <div
+                      class="css-12xroym-Bar e1tzsy280"
+                      color="#889397"
+                      data-cy="commit-chart-bar"
+                      height="30%"
+                    />
+                  </div>
                 </div>
               </div>
               <div
-                class="css-mgqp2w-CommitWrapper eq4i7ol0"
-                width="200"
+                class="css-fbf73e-GridLabelContainer e18agri1"
               >
                 <div
-                  class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-                  data-cy="commit-chart-container"
-                  data-type="absolute"
+                  class="css-1dwm295-YAxisValue e18agri0"
                 >
-                  <div
-                    class="css-12xroym-Bar e1tzsy280"
-                    color="#889397"
-                    data-cy="commit-chart-bar"
-                    height="30%"
-                  />
+                  10
+                </div>
+                <div
+                  class="css-1dwm295-YAxisValue e18agri0"
+                >
+                  8
+                </div>
+                <div
+                  class="css-1dwm295-YAxisValue e18agri0"
+                >
+                  6
+                </div>
+                <div
+                  class="css-1dwm295-YAxisValue e18agri0"
+                >
+                  4
+                </div>
+                <div
+                  class="css-1dwm295-YAxisValue e18agri0"
+                >
+                  2
+                </div>
+                <div
+                  class="css-1dwm295-YAxisValue e18agri0"
+                >
+                  0
                 </div>
               </div>
               <div
-                class="css-11x1fi4-CommitWrapper eq4i7ol0"
-                width="64"
+                class="css-1kwm5h2-ColumnContainer e15dc98b2"
               >
                 <div
-                  class="css-316fn7-InactiveCommitContainer ezzuvrx10"
+                  class="css-2g8xyl-DashedLine e15dc98b1"
+                />
+                <div
+                  class="css-2g8xyl-DashedLine e15dc98b1"
+                />
+                <div
+                  class="css-2g8xyl-DashedLine e15dc98b1"
+                />
+                <div
+                  class="css-2g8xyl-DashedLine e15dc98b1"
+                />
+                <div
+                  class="css-2g8xyl-DashedLine e15dc98b1"
+                />
+                <div
+                  class="css-16mwmlj-SolidLine e15dc98b0"
+                />
+              </div>
+              <div
+                class="css-7yxj8m-AbsoluteContainer e3d007b2"
+              >
+                <div
+                  class="css-3jftg7-StyledAccordion e1d5uzqe0"
                 >
                   <div
-                    class="css-1e8x40o-InactiveCommitLine ezzuvrx9"
-                  />
-                </div>
-              </div>
-              <div
-                class="css-mgqp2w-CommitWrapper eq4i7ol0"
-                width="200"
-              >
-                <div
-                  class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-                  data-cy="commit-chart-container"
-                  data-type="absolute"
-                >
-                  <div
-                    class="css-12xroym-Bar e1tzsy280"
-                    color="#889397"
-                    data-cy="commit-chart-bar"
-                    height="30%"
-                  />
-                </div>
-              </div>
-              <div
-                class="css-mgqp2w-CommitWrapper eq4i7ol0"
-                width="200"
-              >
-                <div
-                  class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-                  data-cy="commit-chart-container"
-                  data-type="absolute"
-                >
-                  <div
-                    class="css-12xroym-Bar e1tzsy280"
-                    color="#889397"
-                    data-cy="commit-chart-bar"
-                    height="30%"
-                  />
-                </div>
-              </div>
-              <div
-                class="css-mgqp2w-CommitWrapper eq4i7ol0"
-                width="200"
-              >
-                <div
-                  class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-                  data-cy="commit-chart-container"
-                  data-type="absolute"
-                >
-                  <div
-                    class="css-12xroym-Bar e1tzsy280"
-                    color="#889397"
-                    data-cy="commit-chart-bar"
-                    height="30%"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              class="css-fbf73e-GridLabelContainer e18agri1"
-            >
-              <div
-                class="css-1dwm295-YAxisValue e18agri0"
-              >
-                10
-              </div>
-              <div
-                class="css-1dwm295-YAxisValue e18agri0"
-              >
-                8
-              </div>
-              <div
-                class="css-1dwm295-YAxisValue e18agri0"
-              >
-                6
-              </div>
-              <div
-                class="css-1dwm295-YAxisValue e18agri0"
-              >
-                4
-              </div>
-              <div
-                class="css-1dwm295-YAxisValue e18agri0"
-              >
-                2
-              </div>
-              <div
-                class="css-1dwm295-YAxisValue e18agri0"
-              >
-                0
-              </div>
-            </div>
-            <div
-              class="css-1kwm5h2-ColumnContainer e15dc98b2"
-            >
-              <div
-                class="css-2g8xyl-DashedLine e15dc98b1"
-              />
-              <div
-                class="css-2g8xyl-DashedLine e15dc98b1"
-              />
-              <div
-                class="css-2g8xyl-DashedLine e15dc98b1"
-              />
-              <div
-                class="css-2g8xyl-DashedLine e15dc98b1"
-              />
-              <div
-                class="css-2g8xyl-DashedLine e15dc98b1"
-              />
-              <div
-                class="css-16mwmlj-SolidLine e15dc98b0"
-              />
-            </div>
-            <div
-              class="css-7yxj8m-AbsoluteContainer e3d007b2"
-            >
-              <div
-                class="css-nbsfda-AccordionContainer e1d5uzqe0"
-              >
-                <div
-                  class="css-1r6zuyg-Row ev0bopr3"
-                >
-                  <span
                     class="css-58nl5l-AccordionToggle ev0bopr2"
                     data-cy="accordion-toggle"
                   >
@@ -232,79 +226,79 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                     <span>
                       View options
                     </span>
-                  </span>
-                </div>
-                <div
-                  class="css-1ofqqce-AnimatedAccordion ev0bopr1"
-                >
+                  </div>
                   <div
-                    class="css-1nylm8s-ContentsContainer ev0bopr0"
+                    class="css-n5l1wu-AnimatedAccordion ev0bopr1"
                   >
                     <div
-                      class="css-xetfur-ToggleWrapper e1d5uzqe1"
+                      class="css-1nylm8s-ContentsContainer ev0bopr0"
                     >
                       <div
-                        aria-label="chart-select"
-                        class="css-1ny7bse-StyledRadioGroup e1d5uzqe2"
-                        role="group"
+                        class="css-xetfur-ToggleWrapper e1d5uzqe1"
                       >
                         <div
-                          class="leafygreen-ui-3n5lp7"
+                          aria-label="chart-select"
+                          class="css-1ny7bse-StyledRadioGroup e1d5uzqe2"
+                          role="group"
                         >
-                          <label
-                            class="leafygreen-ui-1oju0e3"
-                            for="chart-radio-absolute"
+                          <div
+                            class="leafygreen-ui-3n5lp7"
                           >
-                            <input
-                              aria-checked="true"
-                              aria-disabled="false"
-                              checked=""
-                              class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
-                              data-cy="cy-chart-absolute-radio"
-                              id="chart-radio-absolute"
-                              name="chart-select"
-                              type="radio"
-                              value="absolute"
-                            />
-                            <div
-                              class="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
+                            <label
+                              class="leafygreen-ui-1oju0e3"
+                              for="chart-radio-absolute"
                             >
-                              <div
-                                class="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
+                              <input
+                                aria-checked="true"
+                                aria-disabled="false"
+                                checked=""
+                                class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
+                                data-cy="cy-chart-absolute-radio"
+                                id="chart-radio-absolute"
+                                name="chart-select"
+                                type="radio"
+                                value="absolute"
                               />
-                            </div>
-                            <div>
-                              Absolute Number
-                            </div>
-                          </label>
-                        </div>
-                        <div
-                          class="leafygreen-ui-3n5lp7"
-                        >
-                          <label
-                            class="leafygreen-ui-1oju0e3"
-                            for="chart-radio-percent"
+                              <div
+                                class="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
+                              >
+                                <div
+                                  class="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
+                                />
+                              </div>
+                              <div>
+                                Absolute Number
+                              </div>
+                            </label>
+                          </div>
+                          <div
+                            class="leafygreen-ui-3n5lp7"
                           >
-                            <input
-                              aria-disabled="false"
-                              class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
-                              data-cy="cy-chart-percent-radio"
-                              id="chart-radio-percent"
-                              name="chart-select"
-                              type="radio"
-                              value="percentage"
-                            />
-                            <div
-                              class="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
+                            <label
+                              class="leafygreen-ui-1oju0e3"
+                              for="chart-radio-percent"
                             >
-                              <div
-                                class="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
+                              <input
+                                aria-disabled="false"
+                                class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
+                                data-cy="cy-chart-percent-radio"
+                                id="chart-radio-percent"
+                                name="chart-select"
+                                type="radio"
+                                value="percentage"
                               />
-                            </div>
-                            <div>
-                              Percentage
-                            </div>
-                          </label>
+                              <div
+                                class="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
+                              >
+                                <div
+                                  class="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
+                                />
+                              </div>
+                              <div>
+                                Percentage
+                              </div>
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </div>
