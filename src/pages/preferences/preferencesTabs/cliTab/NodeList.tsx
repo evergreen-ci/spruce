@@ -12,7 +12,7 @@ export const NodeList: React.VFC<NodeListProps> = ({ list }) => (
   <NodeContainer>
     {list.map((node, index) => (
       <Node
-        key={node.title}
+        key={formatZeroIndexForDisplay(index)}
         title={node.title}
         child={node.child}
         stepNumber={formatZeroIndexForDisplay(index)}
