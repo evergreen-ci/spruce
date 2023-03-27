@@ -1,24 +1,23 @@
 import styled from "@emotion/styled";
+import { StoryObj } from "@storybook/react";
 import { size } from "constants/tokens";
 import { PodStatus } from "types/pod";
 import PodStatusBadge from ".";
 
 export default {
-  title: "Components/Pod Status Badges",
   component: PodStatusBadge,
 };
 
-export const Default = () => {
-  const podStatuses = Object.keys(PodStatus);
-  return (
+export const Default: StoryObj<typeof PodStatusBadge> = {
+  render: () => (
     <Container>
-      {podStatuses.map((status) => (
+      {Object.keys(PodStatus).map((status) => (
         <Wrapper key={`badge_${status}`}>
           <PodStatusBadge status={PodStatus[status]} />
         </Wrapper>
       ))}
     </Container>
-  );
+  ),
 };
 
 const Container = styled.div`
