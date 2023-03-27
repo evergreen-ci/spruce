@@ -1,4 +1,22 @@
+import { MockedProvider } from "@apollo/client/testing";
+import { StoryObj } from "@storybook/react";
 import { TaskDurationTable } from "./TaskDurationTable";
+
+export default {
+  title: "Pages/Task/Table/Task Duration Table",
+  component: TaskDurationTable,
+  decorators: [
+    (Story: () => JSX.Element) => (
+      <MockedProvider>
+        <Story />
+      </MockedProvider>
+    ),
+  ],
+};
+
+export const Default: StoryObj<typeof TaskDurationTable> = {
+  render: () => <TaskDurationTable tasks={props.tasks} loading={false} />,
+};
 
 const props = {
   tasks: [
@@ -104,12 +122,4 @@ const props = {
     },
   ],
   loading: false,
-};
-
-export const Default = () => (
-  <TaskDurationTable tasks={props.tasks} loading={false} />
-);
-export default {
-  title: "Pages/Task/Table/Task Duration Table",
-  component: TaskDurationTable,
 };

@@ -5384,6 +5384,7 @@ export type MainlineCommitsQuery = {
                     status: string;
                     displayName: string;
                     timeTaken?: Maybe<number>;
+                    failedTestCount: number;
                   }>
                 >
               >;
@@ -5608,6 +5609,35 @@ export type PatchQuery = {
       Maybe<{ __typename?: "VariantTask"; name: string; tasks: Array<string> }>
     >;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+  };
+};
+
+export type PodQueryVariables = Exact<{
+  podId: Scalars["String"];
+}>;
+
+export type PodQuery = {
+  __typename?: "Query";
+  pod: {
+    __typename?: "Pod";
+    id: string;
+    status: string;
+    type: string;
+    taskContainerCreationOpts: {
+      __typename?: "TaskContainerCreationOpts";
+      arch: string;
+      cpu: number;
+      memoryMB: number;
+      os: string;
+      image: string;
+      workingDir: string;
+    };
+    task?: Maybe<{
+      __typename?: "Task";
+      id: string;
+      execution: number;
+      displayName: string;
+    }>;
   };
 };
 

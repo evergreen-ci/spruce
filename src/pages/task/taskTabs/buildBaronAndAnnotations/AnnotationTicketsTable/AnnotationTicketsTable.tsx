@@ -6,9 +6,8 @@ import Icon, { Size } from "@leafygreen-ui/icon";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Table } from "antd";
 import { useAnnotationAnalytics } from "analytics";
+import { Popconfirm } from "components/AntdPopconfirm";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import Popconfirm from "components/Popconfirm";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   MoveAnnotationIssueMutation,
@@ -75,14 +74,18 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
             condition: userCanModify,
             wrapper: (children: JSX.Element) => (
               <Popconfirm
-                align="right"
+                icon={null}
+                placement="topRight"
+                title={`Do you want to move this ${issueString} to ${
+                  isIssue ? "suspected issues" : "issues"
+                }?`}
                 onConfirm={() => {
                   handleMove({ url, issueKey, confidenceScore });
                 }}
-                trigger={children}
+                okText="Yes"
+                cancelText="Cancel"
               >
-                Do you want to move this {issueString} to{" "}
-                {isIssue ? "suspected issues" : "issues"}?
+                {children}
               </Popconfirm>
             ),
             altWrapper: (children: JSX.Element) => (
@@ -105,13 +108,16 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
             condition: userCanModify,
             wrapper: (children: JSX.Element) => (
               <Popconfirm
-                align="right"
+                icon={null}
+                placement="topRight"
+                title={`Do you want to delete this ${issueString}?`}
                 onConfirm={() => {
                   handleRemove(url, issueKey);
                 }}
-                trigger={children}
+                okText="Yes"
+                cancelText="Cancel"
               >
-                Do you want to delete this {issueString}?
+                {children}
               </Popconfirm>
             ),
             altWrapper: (children: JSX.Element) => (
@@ -232,7 +238,6 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: ${size.xs};
 `;
 
 export default AnnotationTicketsTable;

@@ -1,12 +1,14 @@
+import { StoryObj } from "@storybook/react";
 import NotFound from "./NotFound";
 
 export default {
-  title: "Pages/404/Not Found",
   component: NotFound,
 };
 
-export const Default404 = () => (
-  <div style={{ height: "100%", width: "100%" }}>
-    <NotFound />
-  </div>
-);
+export const Default404: StoryObj<typeof NotFound> = {
+  render: () => (
+    <div style={{ height: "100%", width: "100%" }}>
+      <NotFound />
+    </div>
+  ),
+};

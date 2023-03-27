@@ -1,3 +1,4 @@
+import { StoryObj } from "@storybook/react";
 import { NodeList } from "pages/preferences/preferencesTabs/cliTab/NodeList";
 import { Node } from "pages/preferences/preferencesTabs/cliTab/nodeList/Node";
 
@@ -6,13 +7,15 @@ export default {
   component: NodeList,
 };
 
-export const NodeElement = () => (
-  <Node
-    title="Download the Command-Line Client."
-    child={<Child />}
-    stepNumber={1}
-  />
-);
+export const NodeElement: StoryObj<typeof Node> = {
+  render: () => (
+    <Node
+      title="Download the Command-Line Client."
+      child={<Child />}
+      stepNumber={1}
+    />
+  ),
+};
 
 const Child = () => (
   <div style={{ width: 500, height: 300, backgroundColor: "red" }}>Test</div>
@@ -29,8 +32,11 @@ const list = [
     child: <Child />,
   },
 ];
-export const NodeListFull = () => (
-  <div style={{ position: "relative" }}>
-    <NodeList list={list} />
-  </div>
-);
+
+export const NodeListFull: StoryObj<typeof NodeList> = {
+  render: () => (
+    <div style={{ position: "relative" }}>
+      <NodeList list={list} />
+    </div>
+  ),
+};

@@ -163,6 +163,10 @@ const FAILED_STATUSES = [
   TaskStatus.TaskTimedOut,
   TaskStatus.TestTimedOut,
   TaskStatus.KnownIssue,
+  TaskStatus.SetupFailed,
+  TaskStatus.SystemFailed,
+  TaskStatus.SystemTimedOut,
+  TaskStatus.SystemUnresponsive,
   TaskStatus.Aborted,
 ];
 

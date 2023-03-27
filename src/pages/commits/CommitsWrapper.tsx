@@ -17,7 +17,7 @@ import { FlexRowContainer, CommitWrapper } from "./styles";
 
 const { white } = palette;
 
-interface Props {
+export interface CommitsWrapperProps {
   versions: Commits;
   error?: ApolloError;
   isLoading: boolean;
@@ -25,7 +25,7 @@ interface Props {
   hasFilters: boolean;
 }
 
-export const CommitsWrapper: React.VFC<Props> = ({
+export const CommitsWrapper: React.VFC<CommitsWrapperProps> = ({
   versions,
   isLoading,
   error,
