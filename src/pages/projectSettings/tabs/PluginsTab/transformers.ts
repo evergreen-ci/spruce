@@ -39,11 +39,17 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
         secret: projectRef?.taskAnnotationSettings?.fileTicketWebhook?.secret,
       },
     },
+    externalLinks: {
+      patchMetadataPanelLink: {
+        displayName: projectRef?.externalLinks?.[0].displayName ?? "",
+        urlTemplate: projectRef?.externalLinks?.[0].urlTemplate ?? "",
+      },
+    },
   };
 };
 
 export const formToGql: FormToGqlFunction<Tab> = (
-  { performanceSettings, buildBaronSettings }: FormState,
+  { performanceSettings, buildBaronSettings, externalLinks }: FormState,
   id: string
 ) => {
   const projectRef: ProjectInput = {
@@ -60,6 +66,7 @@ export const formToGql: FormToGqlFunction<Tab> = (
           .map(({ field, displayText }) => ({ field, displayText }))
           .filter((str) => !!str),
     },
+    externalLinks: [externalLinks.patchMetadataPanelLink],
   };
 
   return { projectRef };
