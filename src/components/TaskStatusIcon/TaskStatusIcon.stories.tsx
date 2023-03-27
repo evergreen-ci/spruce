@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
+import { StoryObj } from "@storybook/react";
 import { Size } from "components/Icon";
 import { size } from "constants/tokens";
 import { TaskStatus } from "types/task";
-import { TaskStatusIcon } from ".";
+import { TaskStatusIcon, TaskStatusIconProps } from ".";
 
 const Sizes = {
   [Size.Small]: 14,
@@ -12,34 +13,37 @@ const Sizes = {
 };
 
 export default {
-  title: "Components/Icons/Task Status",
+  title: "Components/Icon/Task Status",
   component: TaskStatusIcon,
+};
+
+export const Default: StoryObj<TaskStatusIconProps> = {
+  render: ({ size: s }) => {
+    // filter out umbrella statuses
+    const taskStatuses = Object.keys(TaskStatus).filter(
+      (taskName) => !taskName.includes("Umbrella")
+    );
+    return (
+      <Container>
+        {taskStatuses.map((status) => (
+          <IconContainer key={status}>
+            <TaskStatusIcon status={TaskStatus[status]} size={s} />
+            <span>{status}</span>
+          </IconContainer>
+        ))}
+      </Container>
+    );
+  },
   args: {
     color: "#000000",
     size: Sizes[Size.Default],
   },
   argTypes: {
     size: {
-      control: { type: "select", options: Sizes },
+      options: Object.values(Sizes),
+      control: { type: "select" },
     },
   },
-};
-
-export const AllStatuses = ({ size: s }) => {
-  // filter out umbrella statuses
-  const taskStatuses = Object.keys(TaskStatus).filter(
-    (taskName) => !taskName.includes("Umbrella")
-  );
-  return (
-    <Container>
-      {taskStatuses.map((status) => (
-        <IconContainer key={status}>
-          <TaskStatusIcon status={TaskStatus[status]} size={s} />
-          <span>{status}</span>
-        </IconContainer>
-      ))}
-    </Container>
-  );
 };
 
 const Container = styled.div`

@@ -6,7 +6,7 @@ import { size } from "constants/tokens";
 const { green, white } = palette;
 
 export type NodeType = {
-  title: string;
+  title: React.ReactNode;
   child?: JSX.Element;
 };
 

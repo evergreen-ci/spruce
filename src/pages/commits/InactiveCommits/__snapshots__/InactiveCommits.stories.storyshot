@@ -1,19 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Pages/Commits/Inactive Commits Default 1`] = `
-<div
-  className="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx7"
-  onClick={[Function]}
-  role="button"
->
-  <small
-    className="css-t2ltce-ButtonText ezzuvrx6 leafygreen-ui-ppjyot"
-    data-cy="inactive-commits-button"
+exports[`storybook Storyshots pages/commits/InactiveCommits Default 1`] = `
+<div>
+  <div
+    class="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx7"
+    role="button"
   >
-    <div>
-      6
-    </div>
-    Inactive
-  </small>
+    <small
+      class="css-t2ltce-ButtonText ezzuvrx6 leafygreen-ui-ppjyot"
+      data-cy="inactive-commits-button"
+    >
+      <div>
+        6
+      </div>
+      Inactive
+    </small>
+  </div>
 </div>
 `;
