@@ -1,11 +1,13 @@
+import { StoryObj } from "@storybook/react";
 import DatePicker from ".";
 
 export default {
-  title: "Components/DatePicker",
   component: DatePicker,
+};
+
+export const Default: StoryObj<typeof DatePicker> = {
+  render: (args) => <DatePicker {...args} onChange={() => {}} />,
   args: {
     disabled: false,
   },
 };
-
-export const Default = (args) => <DatePicker {...args} onChange={() => {}} />;

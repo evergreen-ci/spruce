@@ -1,6 +1,51 @@
+import { MockedProvider } from "@apollo/client/testing";
 import styled from "@emotion/styled";
+import { StoryObj } from "@storybook/react";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
+import { TaskStatus } from "types/task";
 import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
+
+export default {
+  title: "Pages/Commits/WaterfallIcon",
+  component: WaterfallTaskStatusIcon,
+  decorators: [
+    (Story: () => JSX.Element) => (
+      <MockedProvider mocks={[getTooltipQueryMock]}>
+        <Story />
+      </MockedProvider>
+    ),
+    (Story: () => JSX.Element) => (
+      <Container>
+        <Story />
+      </Container>
+    ),
+  ],
+};
+
+export const Default: StoryObj<typeof WaterfallTaskStatusIcon> = {
+  render: (args) => <WaterfallTaskStatusIcon {...args} />,
+  args: {
+    displayName: "multiversion",
+    timeTaken: 2754729,
+    taskId: "task-id",
+    identifier: "ubuntu1604",
+    status: "failed",
+  },
+  argTypes: {
+    status: {
+      options: TaskStatus,
+      control: { type: "select" },
+    },
+  },
+};
+
+const Container = styled.div`
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  margin-right: auto;
+  margin-left: auto;
+`;
 
 const getTooltipQueryMock = {
   request: {
@@ -27,42 +72,3 @@ const getTooltipQueryMock = {
     },
   },
 };
-
-export default {
-  title: "Pages/Commits/WaterfallIcon",
-  component: WaterfallTaskStatusIcon,
-  args: {
-    displayName: "multiversion",
-    timeTaken: 2754729,
-    taskId: "task-id",
-    identifier: "ubuntu1604",
-  },
-  parameters: {
-    apolloClient: {
-      mocks: [getTooltipQueryMock],
-    },
-  },
-  decorators: [
-    (Story) => (
-      <Container>
-        <Story />
-      </Container>
-    ),
-  ],
-};
-
-export const FailedIcon = (args) => (
-  <WaterfallTaskStatusIcon {...args} status="failed" />
-);
-
-export const SuccessIcon = (args) => (
-  <WaterfallTaskStatusIcon {...args} status="success" />
-);
-
-const Container = styled.div`
-  width: fit-content;
-  display: flex;
-  justify-content: center;
-  margin-right: auto;
-  margin-left: auto;
-`;

@@ -316,6 +316,18 @@ functions:
         content_type: text/css
         permissions: public-read
         preserve_path: true
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${aws_key}
+        aws_secret: ${aws_secret}
+        local_files_include_filter:
+          ["spruce/storybook-static/**/*.json"]
+        remote_file: spruce/${task_id}/storybook/
+        bucket: mciuploads
+        content_type: application/json
+        permissions: public-read
+        preserve_path: true
   
   attach-codegen-diff:
     command: s3.put

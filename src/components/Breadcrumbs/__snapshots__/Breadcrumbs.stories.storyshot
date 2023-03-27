@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots components/Breadcrumbs Default 1`] = `
+<div>
+  <nav
+    class="css-tfl7ja-Container eaak0tv1"
+  >
+    <div
+      class="leafygreen-ui-cssveg"
+    >
+      <a
+        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+        href="/commits/spruce"
+      >
+        <span
+          class="leafygreen-ui-1ewnca3"
+        >
+          spruce
+        </span>
+      </a>
+    </div>
+    <svg
+      aria-label="Chevron Right Icon"
+      class="leafygreen-ui-1t8pczl css-c08ex9-PaddedIcon eaak0tv0"
+      data-cy="breadcrumb-chevron"
+      fill="none"
+      height="14"
+      role="img"
+      viewBox="0 0 16 16"
+      width="14"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clip-rule="evenodd"
+        d="M5.364 14.364a1 1 0 001.414 0l4.95-4.95.707-.707a1 1 0 000-1.414l-.707-.707-4.95-4.95a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L8.899 8l-4.242 4.243a1 1 0 000 1.414l.707.707z"
+        fill="currentColor"
+        fill-rule="evenodd"
+      />
+    </svg>
+    <div
+      class="leafygreen-ui-cssveg"
+    >
+      511232
+    </div>
+  </nav>
+</div>
+`;
