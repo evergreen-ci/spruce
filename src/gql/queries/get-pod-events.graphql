@@ -1,0 +1,24 @@
+query podEvents($id: String!, $limit: Int, $page: Int) {
+  pod(podId: $id) {
+    id
+    events(page: $page, limit: $limit) {
+      count
+      eventLogEntries {
+        id
+        data {
+          oldStatus
+          newStatus
+          reason
+          taskID
+          taskExecution
+          taskStatus
+        }
+        eventType
+        processedAt
+        resourceId
+        resourceType
+        timestamp
+      }
+    }
+  }
+}

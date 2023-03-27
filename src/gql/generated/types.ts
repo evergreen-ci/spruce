@@ -5577,6 +5577,42 @@ export type PatchQuery = {
   };
 };
 
+export type PodEventsQueryVariables = Exact<{
+  id: Scalars["String"];
+  limit?: InputMaybe<Scalars["Int"]>;
+  page?: InputMaybe<Scalars["Int"]>;
+}>;
+
+export type PodEventsQuery = {
+  __typename?: "Query";
+  pod: {
+    __typename?: "Pod";
+    id: string;
+    events: {
+      __typename?: "PodEvents";
+      count: number;
+      eventLogEntries: Array<{
+        __typename?: "PodEventLogEntry";
+        id: string;
+        eventType?: Maybe<string>;
+        processedAt: Date;
+        resourceId: string;
+        resourceType: string;
+        timestamp?: Maybe<Date>;
+        data: {
+          __typename?: "PodEventLogData";
+          oldStatus?: Maybe<string>;
+          newStatus?: Maybe<string>;
+          reason?: Maybe<string>;
+          taskID?: Maybe<string>;
+          taskExecution?: Maybe<number>;
+          taskStatus?: Maybe<string>;
+        };
+      }>;
+    };
+  };
+};
+
 export type PodQueryVariables = Exact<{
   podId: Scalars["String"];
 }>;
