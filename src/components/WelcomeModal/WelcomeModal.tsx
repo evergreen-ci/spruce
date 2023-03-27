@@ -46,6 +46,7 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
     },
     onError: (err) => {
       reportError(err).warning();
+      setVisible(false);
     },
   });
 

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { InlineCode } from "@leafygreen-ui/typography";
 import {
   DownloadCard,
   AuthenticationCard,
@@ -12,21 +13,40 @@ export const CliTab = () => (
   </RelativeContainer>
 );
 
+const Code = styled(InlineCode)`
+  font-size: inherit;
+`;
+
 const list = [
   {
     title: "Download the Command-Line Client.",
     child: <DownloadCard />,
   },
   {
-    title:
-      "Move the command-line client to somewhere in your PATH. On many systems this will be /usr/local/bin.",
+    title: (
+      <>
+        Move the command-line client to somewhere in your PATH. On many systems
+        this will be <Code>/usr/local/bin</Code>.
+      </>
+    ),
+  },
+  {
+    title: (
+      <>
+        Ensure the client is executable using <Code>chmod +x</Code>.
+      </>
+    ),
   },
   {
     title: "Download the authentication file.",
     child: <AuthenticationCard />,
   },
   {
-    title: "Move the authentication file to 〜/.evergreen.yml.",
+    title: (
+      <>
+        Move the authentication file to <Code>~/.evergreen.yml</Code>.
+      </>
+    ),
   },
   {
     title: "Make sure you are good to go!",

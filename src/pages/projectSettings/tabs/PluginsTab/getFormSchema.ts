@@ -134,6 +134,30 @@ export const getFormSchema = (
           },
         },
       },
+      externalLinks: {
+        type: "object" as "object",
+        title: "Patch Metadata Link",
+        properties: {
+          patchMetadataPanelLink: {
+            type: "object" as "object",
+            title: "",
+            description:
+              "Add a URL to the patch/version metadata panel with the corresponding display name. Include {version_id} in the URL template and it will be replaced by an actual version ID.",
+            properties: {
+              displayName: {
+                type: "string" as "string",
+                title: "Display name",
+                maxLength: 40,
+              },
+              urlTemplate: {
+                type: "string" as "string",
+                title: "URL template",
+                format: "validURLTemplate",
+              },
+            },
+          },
+        },
+      },
     },
   },
   uiSchema: {
@@ -182,6 +206,19 @@ export const getFormSchema = (
         secret: placeholderIf(
           repoData?.buildBaronSettings?.fileTicketWebhook?.secret
         ),
+      },
+    },
+    externalLinks: {
+      "ui:rootFieldId": "externalLinks",
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      patchMetadataPanelLink: {
+        urlTemplate: {
+          "ui:placeholder": "https://example.com/{version_id}",
+          "ui:data-cy": "url-template-input",
+        },
+        displayName: {
+          "ui:data-cy": "display-name-input",
+        },
       },
     },
   },

@@ -1,65 +1,62 @@
 import { useState } from "react";
 import { action } from "@storybook/addon-actions";
+import { StoryObj } from "@storybook/react";
 import { SpruceForm, SpruceFormContainer } from ".";
 
-export const Example1 = () => {
-  const [formState, setFormState] = useState(example1Def.formData);
-  const onChange = (d) => {
-    const { formData } = d;
-    action("Change Form State")(formData);
-    setFormState(formData);
-  };
-  return (
-    <SpruceFormContainer title="Distro Projects">
-      <SpruceForm
-        schema={example1Def.schema}
-        uiSchema={example1Def.uiSchema}
-        onChange={onChange}
-        formData={formState}
-      />
-    </SpruceFormContainer>
-  );
-};
-export const Example2 = () => {
-  const [formState, setFormState] = useState(example2Def.formData);
-  const onChange = (d) => {
-    const { formData } = d;
-    action("Change Form State")(formData);
-    setFormState(formData);
-  };
-  return (
-    <SpruceFormContainer title="Admin Options">
-      <SpruceForm
-        schema={example2Def.schema}
-        onChange={onChange}
-        formData={formState}
-        uiSchema={example2Def.schema}
-      />
-    </SpruceFormContainer>
-  );
+export default {
+  component: SpruceForm,
 };
 
-export const Example3 = () => {
-  const [formState, setFormState] = useState(example3Def.formData);
+export const Example1: StoryObj<typeof SpruceForm> = {
+  render: () => (
+    <BaseForm
+      title="Distro Projects"
+      data={example1Def.formData}
+      schema={example1Def.schema}
+      uiSchema={example1Def.uiSchema}
+    />
+  ),
+};
+
+export const Example2: StoryObj<typeof SpruceForm> = {
+  render: () => (
+    <BaseForm
+      title="Admin Options"
+      data={example2Def.formData}
+      schema={example2Def.schema}
+      uiSchema={example2Def.uiSchema}
+    />
+  ),
+};
+
+export const Example3: StoryObj<typeof SpruceForm> = {
+  render: () => (
+    <BaseForm
+      title="UI Options"
+      data={example3Def.formData}
+      schema={example3Def.schema}
+      uiSchema={example3Def.uiSchema}
+    />
+  ),
+};
+
+const BaseForm = ({ title, data, schema, uiSchema }) => {
+  const [formState, setFormState] = useState(data);
   const onChange = (d) => {
     const { formData } = d;
     action("Change Form State")(formData);
     setFormState(formData);
   };
   return (
-    <SpruceFormContainer title="UI Options">
+    <SpruceFormContainer title={title}>
       <SpruceForm
-        schema={example3Def.schema}
+        schema={schema}
+        uiSchema={uiSchema}
         onChange={onChange}
         formData={formState}
-        uiSchema={example3Def.uiSchema}
       />
     </SpruceFormContainer>
   );
-};
-export default {
-  title: "Components/Spruce Form",
-  component: SpruceForm,
 };
 
 const example1Def = {

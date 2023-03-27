@@ -1,6 +1,7 @@
+import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { MemoryRouter } from "react-router-dom";
-import { withRouter } from "storybook-addon-react-router-v6";
+import { GlobalStyles } from "../src/components/styles/GlobalStyles";
 
 const isTest = process.env.NODE_ENV === "test";
 
@@ -17,5 +18,16 @@ export const parameters = {
   },
 };
 
-// @storybook/addon-storyshots isn't successfully injecting the decorators from storybook-addon-react-router-v6 and storybook-addon-apollo-client so we need to manually wrap the stories.
-export const decorators = !isTest ?  [withRouter] : [(Story) => <MockedProvider><MemoryRouter>{<Story />}</MemoryRouter></MockedProvider>];
+export const decorators = [
+  (Story: () => JSX.Element) => (
+    <>
+      <GlobalStyles />
+      <Story />
+    </>
+  ),
+  (Story: () => JSX.Element) => (
+    <MemoryRouter initialEntries={["/"]}>
+      <Story />
+    </MemoryRouter>
+  ),
+];

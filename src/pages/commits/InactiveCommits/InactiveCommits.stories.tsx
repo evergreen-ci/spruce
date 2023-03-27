@@ -1,13 +1,16 @@
+import { StoryObj } from "@storybook/react";
 import { InactiveCommitButton as InactiveCommits } from ".";
 
 export default {
-  title: "Pages/Commits/Inactive Commits",
   component: InactiveCommits,
 };
 
-export const Default = (args) => (
-  <InactiveCommits rolledUpVersions={versions} {...args} />
-);
+export const Default: StoryObj<typeof InactiveCommits> = {
+  render: (args) => <InactiveCommits rolledUpVersions={versions} {...args} />,
+  args: {
+    hasFilters: false,
+  },
+};
 
 const versions = [
   {

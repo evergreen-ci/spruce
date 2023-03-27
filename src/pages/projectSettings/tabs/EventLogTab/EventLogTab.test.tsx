@@ -81,6 +81,7 @@ const eventLogEntry: ProjectEventLogsQuery["projectEvents"]["eventLogEntries"][0
     user: "art.oeinf",
     before: {
       projectRef: {
+        externalLinks: [],
         identifier: "spruce",
         repoRefId: "6352b7f70ae6065419d5a499",
         enabled: true,
@@ -104,7 +105,6 @@ const eventLogEntry: ProjectEventLogsQuery["projectEvents"]["eventLogEntries"][0
         },
         disabledStatsCache: false,
         __typename: "Project",
-        private: false,
         restricted: false,
         admins: ["rsatsrt"],
         buildBaronSettings: {
@@ -162,6 +162,7 @@ const eventLogEntry: ProjectEventLogsQuery["projectEvents"]["eventLogEntries"][0
     },
     after: {
       projectRef: {
+        externalLinks: [],
         identifier: "spruce",
         repoRefId: "arst",
         enabled: true,
@@ -185,7 +186,6 @@ const eventLogEntry: ProjectEventLogsQuery["projectEvents"]["eventLogEntries"][0
         },
         disabledStatsCache: false,
         __typename: "Project",
-        private: false,
         restricted: false,
         admins: ["arstastr", "asrt", "ata", "oienrsat"],
         buildBaronSettings: {

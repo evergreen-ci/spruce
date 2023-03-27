@@ -1,11 +1,9 @@
 fragment projectAccessSettings on Project {
-  private
   restricted
   admins
 }
 
 fragment repoAccessSettings on RepoRef {
-  private
   restricted
   admins
 }

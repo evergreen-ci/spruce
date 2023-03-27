@@ -2,7 +2,6 @@ import { ProjectType } from "../utils";
 
 export interface FormState {
   accessSettings: {
-    private: boolean | null;
     restricted: boolean | null;
   };
   admin: {

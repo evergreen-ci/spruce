@@ -1,11 +1,43 @@
 import styled from "@emotion/styled";
 import { action } from "@storybook/addon-actions";
+import { StoryObj } from "@storybook/react";
 import { TaskStatus } from "types/task";
 import { HistoryTableIcon } from "./index";
 
 export default {
-  title: "Components/History Table/Icons",
+  title: "Components/HistoryTable/Icons",
   component: HistoryTableIcon,
+};
+
+export const ActiveIcons: StoryObj<typeof HistoryTableIcon> = {
+  render: () => (
+    <Container>
+      {data.map(({ status, label }) => (
+        <HistoryTableIcon
+          key={`${status}_history_table`}
+          status={status}
+          label={label}
+          failingTests={label ? failingTests : undefined}
+          inactive={false}
+          onClick={action(`clicked ${status}`)}
+        />
+      ))}
+    </Container>
+  ),
+};
+
+export const InactiveIcons: StoryObj<typeof HistoryTableIcon> = {
+  render: () => (
+    <Container>
+      {data.map(({ status }) => (
+        <HistoryTableIcon
+          key={`${status}_history_table_inactive`}
+          status={status}
+          inactive
+        />
+      ))}
+    </Container>
+  ),
 };
 
 const failingTests = [
@@ -29,33 +61,6 @@ const data = [
   { status: TaskStatus.WillRun },
   { status: TaskStatus.Inactive },
 ];
-export const ActiveIcons = () => (
-  <Container>
-    {data.map(({ status, label }) => (
-      <HistoryTableIcon
-        key={`${status}_history_table`}
-        status={status}
-        label={label}
-        failingTests={label ? failingTests : undefined}
-        inactive={false}
-        onClick={action(`clicked ${status}`)}
-      />
-    ))}
-  </Container>
-);
-
-export const InactiveIcons = () => (
-  <Container>
-    {data.map(({ status }) => (
-      <HistoryTableIcon
-        key={`${status}_history_table_inactive`}
-        status={status}
-        inactive
-      />
-    ))}
-  </Container>
-);
-
 const Container = styled.div`
   display: flex;
   flex-direction: row;

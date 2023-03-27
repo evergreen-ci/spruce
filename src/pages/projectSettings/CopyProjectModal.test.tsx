@@ -259,6 +259,7 @@ const projectSettingsMock: ApolloMock<
     data: {
       projectSettings: {
         projectRef: {
+          externalLinks: [],
           id: "asrt",
           identifier: "asrt",
           repoRefId: "arst",
@@ -283,7 +284,6 @@ const projectSettingsMock: ApolloMock<
           },
           disabledStatsCache: false,
           __typename: "Project",
-          private: false,
           restricted: false,
           admins: ["admin"],
           buildBaronSettings: {

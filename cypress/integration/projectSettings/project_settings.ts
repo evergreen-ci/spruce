@@ -3,6 +3,7 @@ import {
   getGeneralRoute,
   getGithubCommitQueueRoute,
   getNotificationsRoute,
+  getPluginsRoute,
   project,
   projectUseRepoEnabled,
   repo,
@@ -22,22 +23,7 @@ describe("Access page", () => {
     cy.dataCy("default-to-repo-button").should("exist").should("be.enabled");
   });
 
-  it("Should enable the save button when the General Access value changes", () => {
-    cy.getInputByLabel("Private").parent().click();
-    cy.getInputByLabel("Private").should("have.attr", "aria-checked", "true");
-    saveButtonEnabled();
-  });
-
-  it("Should enable the save button when the General Access value changes", () => {
-    cy.getInputByLabel("Private").parent().click();
-    cy.getInputByLabel("Private").should("have.attr", "aria-checked", "true");
-    saveButtonEnabled();
-  });
-
   it("Changing settings and clicking the save button produces a success toast and the changes are persisted", () => {
-    cy.getInputByLabel("Private").parent().click();
-    cy.getInputByLabel("Private").should("have.attr", "aria-checked", "true");
-
     cy.getInputByLabel("Unrestricted").parent().click();
     cy.getInputByLabel("Unrestricted").should(
       "have.attr",
@@ -68,11 +54,11 @@ describe("Access page", () => {
     cy.get("[aria-label='Username']").should("have.length", 0);
   });
 
-  it("Clicking on 'Default to Repo on Page' selects the 'Default to repo (public)' checkbox and produces a success banner", () => {
+  it("Clicking on 'Default to Repo on Page' selects the 'Default to repo (unrestricted)' radio box and produces a success banner", () => {
     cy.dataCy("default-to-repo-button").click();
     cy.dataCy("default-to-repo-modal").contains("Confirm").click();
     cy.validateToast("success", "Successfully defaulted page to repo");
-    cy.getInputByLabel("Default to repo (public)").should(
+    cy.getInputByLabel("Default to repo (unrestricted)").should(
       "have.attr",
       "aria-checked",
       "true"
@@ -1051,6 +1037,37 @@ describe("Notifications", () => {
     cy.contains("Value should be a valid email.").should("exist");
     cy.dataCy("save-settings-button").scrollIntoView();
     saveButtonEnabled(false);
+  });
+});
+
+describe("Plugins", () => {
+  const versionPage =
+    "version/evergreen_b0c52a750150b4f1f67e501bd3351a808939815c";
+  beforeEach(() => {
+    cy.visit(getPluginsRoute(projectUseRepoEnabled));
+  });
+  it("Should set an external link to render on version metadata", () => {
+    cy.dataCy("display-name-input").type("An external link");
+    cy.dataCy("url-template-input").type("https://example.com/{version_id}", {
+      parseSpecialCharSequences: false,
+    });
+    cy.dataCy("save-settings-button").scrollIntoView();
+    clickSave();
+    cy.visit(versionPage);
+    cy.dataCy("external-link").contains("An external link");
+    cy.dataCy("external-link").should(
+      "have.attr",
+      "href",
+      "https://example.com/evergreen_b0c52a750150b4f1f67e501bd3351a808939815c"
+    );
+  });
+  it("Unsetting the external link should remove it from the version metadata", () => {
+    cy.dataCy("display-name-input").clear();
+    cy.dataCy("url-template-input").clear();
+    cy.dataCy("save-settings-button").scrollIntoView();
+    clickSave();
+    cy.visit(versionPage);
+    cy.dataCy("external-link").should("not.exist");
   });
 });
 

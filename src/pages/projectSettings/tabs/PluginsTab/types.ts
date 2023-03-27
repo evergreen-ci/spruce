@@ -21,6 +21,12 @@ export interface FormState {
       secret: string;
     };
   };
+  externalLinks: {
+    patchMetadataPanelLink: {
+      displayName: string;
+      urlTemplate: string;
+    };
+  };
 }
 
 export type TabProps = {
