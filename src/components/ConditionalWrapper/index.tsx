@@ -1,8 +1,8 @@
-interface ConditionalWrapperProps {
+interface ConditionalWrapperProps<T = any> {
   condition: boolean;
-  wrapper: (children: any) => JSX.Element;
-  altWrapper?: (children: any) => JSX.Element;
-  children: JSX.Element;
+  wrapper: (children: T) => JSX.Element;
+  altWrapper?: (children: T) => JSX.Element;
+  children: T;
 }
 export const ConditionalWrapper: React.VFC<ConditionalWrapperProps> = ({
   condition,
