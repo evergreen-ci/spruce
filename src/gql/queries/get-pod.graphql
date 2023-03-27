@@ -1,0 +1,20 @@
+query Pod($podId: String!) {
+  pod(podId: $podId) {
+    id
+    status
+    taskContainerCreationOpts {
+      arch
+      cpu
+      memoryMB
+      os
+      image
+      workingDir
+    }
+    task {
+      id
+      execution
+      displayName
+    }
+    type
+  }
+}
