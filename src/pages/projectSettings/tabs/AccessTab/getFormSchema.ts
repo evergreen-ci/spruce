@@ -68,11 +68,16 @@ export const getFormSchema = (
 });
 
 const getAdminsDescription = (projectType: ProjectType): string => {
+  let description = "";
   if (projectType === ProjectType.Repo) {
-    return "Admins for this repo will be able to edit repo settings and any attached branches’ settings.";
+    description =
+      "Admins for this repo will be able to edit repo settings and any attached branches’ settings.";
+  } else if (projectType === ProjectType.AttachedProject) {
+    description =
+      "Admins for this branch will be able to edit branch settings and view repo settings.";
+  } else {
+    description =
+      "Admins for this branch will be able to edit branch settings.";
   }
-  if (projectType === ProjectType.AttachedProject) {
-    return "Admins for this branch will be able to edit branch settings and view repo settings.";
-  }
-  return "Admins for this branch will be able to edit branch settings.";
+  return `${description} All admins will have access to create new projects on Evergreen.`;
 };
