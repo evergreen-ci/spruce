@@ -10,8 +10,9 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
     >
       <div>
         <div
-          class="css-58nl5l-AccordionToggle ev0bopr2"
+          class="css-58nl5l-AccordionToggle ev0bopr3"
           data-cy="accordion-toggle"
+          role="button"
         >
           <svg
             aria-label="Caret Down Icon"
@@ -33,10 +34,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
           </span>
         </div>
         <div
-          class="css-n5l1wu-AnimatedAccordion ev0bopr1"
+          class="css-n5l1wu-AnimatedAccordion ev0bopr2"
         >
           <div
-            class="css-1ds08bm-ContentsContainer ev0bopr0"
+            class="css-1ds08bm-ContentsContainer ev0bopr1"
           >
             <div
               class="css-j6oyur-ChartWrapper e3d007b1"
@@ -205,8 +206,9 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                   class="css-3jftg7-StyledAccordion e1d5uzqe0"
                 >
                   <div
-                    class="css-58nl5l-AccordionToggle ev0bopr2"
+                    class="css-58nl5l-AccordionToggle ev0bopr3"
                     data-cy="accordion-toggle"
+                    role="button"
                   >
                     <svg
                       aria-label="Caret Down Icon"
@@ -228,10 +230,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                     </span>
                   </div>
                   <div
-                    class="css-n5l1wu-AnimatedAccordion ev0bopr1"
+                    class="css-n5l1wu-AnimatedAccordion ev0bopr2"
                   >
                     <div
-                      class="css-1nylm8s-ContentsContainer ev0bopr0"
+                      class="css-1nylm8s-ContentsContainer ev0bopr1"
                     >
                       <div
                         class="css-xetfur-ToggleWrapper e1d5uzqe1"

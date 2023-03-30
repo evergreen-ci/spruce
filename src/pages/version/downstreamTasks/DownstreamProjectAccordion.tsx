@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useReducer } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -59,9 +59,6 @@ export const DownstreamProjectAccordion: React.VFC<
 }) => {
   const dispatchToast = useToastContext();
 
-  const [isAccordionOpen, setIsAccordionOpen] = useState(
-    status === PatchStatus.Failed
-  );
   const { id } = useParams<{ id: string }>();
   const { sendEvent } = useVersionAnalytics(id);
 
@@ -179,14 +176,15 @@ export const DownstreamProjectAccordion: React.VFC<
         defaultOpen={status === PatchStatus.Failed}
         title={variantTitle}
         titleTag={FlexContainer}
-        onToggle={({ isVisible }) => setIsAccordionOpen(isVisible)}
-      >
-        <AccordionContents>
+        subtitle={
           <DownstreamMetadata
             baseVersionID={baseVersionID}
             githash={githash}
             parameters={parameters}
           />
+        }
+      >
+        <AccordionContents>
           <TableWrapper>
             <TableControlOuterRow>
               <FlexContainer>
@@ -247,13 +245,6 @@ export const DownstreamProjectAccordion: React.VFC<
           </TableWrapper>
         </AccordionContents>
       </Accordion>
-      {!isAccordionOpen && (
-        <DownstreamMetadata
-          baseVersionID={baseVersionID}
-          githash={githash}
-          parameters={parameters}
-        />
-      )}
     </AccordionWrapper>
   );
 };

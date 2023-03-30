@@ -4,8 +4,9 @@ exports[`storybook Storyshots Components/Accordion Default 1`] = `
 <div>
   <div>
     <div
-      class="css-58nl5l-AccordionToggle ev0bopr2"
+      class="css-58nl5l-AccordionToggle ev0bopr3"
       data-cy="accordion-toggle"
+      role="button"
     >
       <svg
         aria-label="Caret Right Icon"
@@ -27,10 +28,55 @@ exports[`storybook Storyshots Components/Accordion Default 1`] = `
       </span>
     </div>
     <div
-      class="css-dpq6jj-AnimatedAccordion ev0bopr1"
+      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
     >
       <div
-        class="css-1nylm8s-ContentsContainer ev0bopr0"
+        class="css-1nylm8s-ContentsContainer ev0bopr1"
+      >
+        Accordion content
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`storybook Storyshots Components/Accordion With Subtitle 1`] = `
+<div>
+  <div>
+    <div
+      class="css-58nl5l-AccordionToggle ev0bopr3"
+      data-cy="accordion-toggle"
+      role="button"
+    >
+      <svg
+        aria-label="Caret Right Icon"
+        class=""
+        fill="none"
+        height="16"
+        role="img"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+          fill="currentColor"
+        />
+      </svg>
+      <span>
+        Accordion
+      </span>
+    </div>
+    <div
+      class="css-158kn6c-SubtitleContainer ev0bopr0"
+    >
+      Subtitle
+    </div>
+    <div
+      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+    >
+      <div
+        class="css-1nylm8s-ContentsContainer ev0bopr1"
       >
         Accordion content
       </div>
