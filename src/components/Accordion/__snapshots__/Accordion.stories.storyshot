@@ -1,24 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`storybook Storyshots Components/Accordion Default 1`] = `
-Array [
-  <div
-    className="css-1r6zuyg-Row ev0bopr3"
-  >
-    <span
-      className="css-58nl5l-AccordionToggle ev0bopr2"
+<div>
+  <div>
+    <div
+      class="css-58nl5l-AccordionToggle ev0bopr2"
       data-cy="accordion-toggle"
-      onClick={[Function]}
-      role="button"
     >
       <svg
         aria-label="Caret Right Icon"
-        className=""
+        class=""
         fill="none"
-        height={16}
+        height="16"
         role="img"
         viewBox="0 0 16 16"
-        width={16}
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -29,16 +25,16 @@ Array [
       <span>
         Accordion
       </span>
-    </span>
-  </div>,
-  <div
-    className="css-8qd0v1-AnimatedAccordion ev0bopr1"
-  >
-    <div
-      className="css-1nylm8s-ContentsContainer ev0bopr0"
-    >
-      Accordion content
     </div>
-  </div>,
-]
+    <div
+      class="css-dpq6jj-AnimatedAccordion ev0bopr1"
+    >
+      <div
+        class="css-1nylm8s-ContentsContainer ev0bopr0"
+      >
+        Accordion content
+      </div>
+    </div>
+  </div>
+</div>
 `;

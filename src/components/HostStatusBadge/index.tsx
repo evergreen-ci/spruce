@@ -12,7 +12,7 @@ interface Props {
   status: HostStatus;
 }
 
-export const HostStatusBadge: React.VFC<Props> = ({ status }) => (
+const HostStatusBadge: React.VFC<Props> = ({ status }) => (
   <HostStatusWrapper>
     <Badge variant={statusToBadgeVariant[status]}>
       {hostStatusToCopy[status]}
@@ -68,3 +68,5 @@ const HostStatusWrapper = styled.div`
 const iconMargin = css`
   margin-left: ${size.xxs};
 `;
+
+export default HostStatusBadge;

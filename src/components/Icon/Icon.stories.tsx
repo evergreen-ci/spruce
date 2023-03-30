@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { StoryObj } from "@storybook/react";
 import { size } from "constants/tokens";
 import Icon, { glyphs, Size } from "./index";
 
@@ -10,29 +11,31 @@ const Sizes = {
 };
 
 export default {
-  title: "Components/Icons",
   component: Icon,
+};
+
+export const Icons: StoryObj<typeof Icon> = {
+  render: ({ size: s, ...rest }) => (
+    <Container>
+      {Object.keys(glyphs).map((name) => (
+        <IconContainer key={name}>
+          <Icon glyph={name} size={s} {...rest} />
+          <span>{name}</span>
+        </IconContainer>
+      ))}
+    </Container>
+  ),
   args: {
     color: "#000000",
     size: Sizes[Size.Default],
   },
   argTypes: {
     size: {
-      control: { type: "select", options: Sizes },
+      options: Object.values(Sizes),
+      control: { type: "select" },
     },
   },
 };
-
-export const Icons = ({ size: s, ...rest }) => (
-  <Container>
-    {Object.keys(glyphs).map((name) => (
-      <IconContainer key={name}>
-        <Icon glyph={name} size={s} {...rest} />
-        <span>{name}</span>
-      </IconContainer>
-    ))}
-  </Container>
-);
 
 const Container = styled.div`
   display: flex;

@@ -4,7 +4,7 @@ import Badge from "@leafygreen-ui/badge";
 import { formatDistanceToNow } from "date-fns";
 import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
-import { HostStatusBadge } from "components/HostStatusBadge";
+import HostStatusBadge from "components/HostStatusBadge";
 import { DoesNotExpire, SpawnTable } from "components/Spawn";
 import { StyledRouterLink, WordBreak } from "components/styles";
 import { getHostRoute } from "constants/routes";

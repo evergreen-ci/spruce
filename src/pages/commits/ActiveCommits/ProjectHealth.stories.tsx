@@ -1,11 +1,29 @@
+import { MockedProvider } from "@apollo/client/testing";
+import { StoryObj } from "@storybook/react";
 import { Commit, Commits } from "types/commits";
 import { TaskStatus } from "types/task";
 import { isFailedTaskStatus } from "utils/statuses";
-import { CommitsWrapper } from "../CommitsWrapper";
+import { CommitsWrapper, CommitsWrapperProps } from "../CommitsWrapper";
 
 export default {
-  title: "Pages/Commits/Project Health Page",
   component: CommitsWrapper,
+  title: "Pages/Commits/Project Health Page",
+  decorators: [
+    (Story: () => JSX.Element) => (
+      <MockedProvider>
+        <Story />
+      </MockedProvider>
+    ),
+  ],
+};
+
+type RenderProps = {
+  buildVariantCount: number;
+  taskCount: number;
+};
+
+export const Default: StoryObj<RenderProps & CommitsWrapperProps> = {
+  render: (args) => <RenderCommitsWrapper {...args} />,
   args: {
     buildVariantCount: 3,
     taskCount: 2,
@@ -33,7 +51,7 @@ export default {
   },
 };
 
-export const ActualWaterfallPage = ({
+const RenderCommitsWrapper = ({
   buildVariantCount,
   taskCount,
   isLoading,

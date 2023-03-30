@@ -2993,6 +2993,13 @@ export type ProjectSettingsFragment = {
         secret: string;
       };
     };
+    externalLinks?: Maybe<
+      Array<{
+        __typename?: "ExternalLink";
+        displayName: string;
+        urlTemplate: string;
+      }>
+    >;
     patchTriggerAliases?: Maybe<
       Array<{
         __typename?: "PatchTriggerAlias";
@@ -3181,6 +3188,13 @@ export type RepoSettingsFragment = {
         secret: string;
       };
     };
+    externalLinks?: Maybe<
+      Array<{
+        __typename?: "ExternalLink";
+        displayName: string;
+        urlTemplate: string;
+      }>
+    >;
     patchTriggerAliases?: Maybe<
       Array<{
         __typename?: "PatchTriggerAlias";
@@ -3469,6 +3483,13 @@ export type ProjectPluginsSettingsFragment = {
       secret: string;
     };
   };
+  externalLinks?: Maybe<
+    Array<{
+      __typename?: "ExternalLink";
+      displayName: string;
+      urlTemplate: string;
+    }>
+  >;
 };
 
 export type RepoPluginsSettingsFragment = {
@@ -3490,6 +3511,13 @@ export type RepoPluginsSettingsFragment = {
       secret: string;
     };
   };
+  externalLinks?: Maybe<
+    Array<{
+      __typename?: "ExternalLink";
+      displayName: string;
+      urlTemplate: string;
+    }>
+  >;
 };
 
 export type ProjectEventSettingsFragment = {
@@ -3548,6 +3576,13 @@ export type ProjectEventSettingsFragment = {
         secret: string;
       };
     };
+    externalLinks?: Maybe<
+      Array<{
+        __typename?: "ExternalLink";
+        displayName: string;
+        urlTemplate: string;
+      }>
+    >;
     patchTriggerAliases?: Maybe<
       Array<{
         __typename?: "PatchTriggerAlias";
@@ -5577,6 +5612,35 @@ export type PatchQuery = {
   };
 };
 
+export type PodQueryVariables = Exact<{
+  podId: Scalars["String"];
+}>;
+
+export type PodQuery = {
+  __typename?: "Query";
+  pod: {
+    __typename?: "Pod";
+    id: string;
+    status: string;
+    type: string;
+    taskContainerCreationOpts: {
+      __typename?: "TaskContainerCreationOpts";
+      arch: string;
+      cpu: number;
+      memoryMB: number;
+      os: string;
+      image: string;
+      workingDir: string;
+    };
+    task?: Maybe<{
+      __typename?: "Task";
+      id: string;
+      execution: number;
+      displayName: string;
+    }>;
+  };
+};
+
 export type ProjectEventLogsQueryVariables = Exact<{
   identifier: Scalars["String"];
   limit?: InputMaybe<Scalars["Int"]>;
@@ -5652,6 +5716,13 @@ export type ProjectEventLogsQuery = {
               secret: string;
             };
           };
+          externalLinks?: Maybe<
+            Array<{
+              __typename?: "ExternalLink";
+              displayName: string;
+              urlTemplate: string;
+            }>
+          >;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -5851,6 +5922,13 @@ export type ProjectEventLogsQuery = {
               secret: string;
             };
           };
+          externalLinks?: Maybe<
+            Array<{
+              __typename?: "ExternalLink";
+              displayName: string;
+              urlTemplate: string;
+            }>
+          >;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -6059,6 +6137,13 @@ export type ProjectSettingsQuery = {
           secret: string;
         };
       };
+      externalLinks?: Maybe<
+        Array<{
+          __typename?: "ExternalLink";
+          displayName: string;
+          urlTemplate: string;
+        }>
+      >;
       patchTriggerAliases?: Maybe<
         Array<{
           __typename?: "PatchTriggerAlias";
@@ -6303,6 +6388,13 @@ export type RepoEventLogsQuery = {
               secret: string;
             };
           };
+          externalLinks?: Maybe<
+            Array<{
+              __typename?: "ExternalLink";
+              displayName: string;
+              urlTemplate: string;
+            }>
+          >;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -6502,6 +6594,13 @@ export type RepoEventLogsQuery = {
               secret: string;
             };
           };
+          externalLinks?: Maybe<
+            Array<{
+              __typename?: "ExternalLink";
+              displayName: string;
+              urlTemplate: string;
+            }>
+          >;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -6707,6 +6806,13 @@ export type RepoSettingsQuery = {
           secret: string;
         };
       };
+      externalLinks?: Maybe<
+        Array<{
+          __typename?: "ExternalLink";
+          displayName: string;
+          urlTemplate: string;
+        }>
+      >;
       patchTriggerAliases?: Maybe<
         Array<{
           __typename?: "PatchTriggerAlias";
@@ -7500,6 +7606,11 @@ export type VersionQuery = {
     taskCount?: Maybe<number>;
     warnings: Array<string>;
     baseVersion?: Maybe<{ __typename?: "Version"; id: string }>;
+    externalLinksForMetadata: Array<{
+      __typename?: "ExternalLinkForMetadata";
+      displayName: string;
+      url: string;
+    }>;
     manifest?: Maybe<{
       __typename?: "Manifest";
       id: string;
