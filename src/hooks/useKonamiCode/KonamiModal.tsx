@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import MarketingModal from "@leafygreen-ui/marketing-modal";
 import { InlineKeyCode } from "@leafygreen-ui/typography";
@@ -11,14 +11,24 @@ import evergreenKonami from "./EvergreenKonami.png";
 import streetfighterTree from "./StreetFighterTree.png";
 
 const KonamiModal = () => {
-  const [open, setOpen] = useState(Cookies.get(SEEN_KONAMI_CODE) !== "true");
+  const [open, setOpen] = useState(false);
   const [graphic, setGraphic] = useState(evergreenKonami);
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setOpen(Cookies.get(SEEN_KONAMI_CODE) !== "true");
+    }, 2000);
+  }, []);
   useKonamiCode(() => {
     setGraphic(streetfighterTree);
     audioRef.current?.play();
   });
+
+  const handleClose = () => {
+    setOpen(false);
+    Cookies.set(SEEN_KONAMI_CODE, "true", { expires: 5 });
+  };
 
   const keys = ["↑", "↑", "↓", "↓", "←", "→", "←", "→", "b", "a"];
   return (
@@ -40,10 +50,8 @@ const KonamiModal = () => {
           />
         }
         linkText=""
-        onButtonClick={() => {
-          setOpen(false);
-          Cookies.set(SEEN_KONAMI_CODE, "true", { expires: 365 });
-        }}
+        onButtonClick={handleClose}
+        onClose={handleClose}
         css={css`
           z-index: ${zIndex.modal};
         `}
