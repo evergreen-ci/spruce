@@ -28,7 +28,6 @@ export const UnscheduleTasks: React.VFC<props> = ({
   const { sendEvent } = useVersionAnalytics(patchId);
 
   const [abort, setAbort] = useState(true);
-  const [active, setActive] = useState(false);
   const menuItemRef = useRef<HTMLDivElement>(null);
 
   const [unschedulePatchTasks, { loading: loadingUnschedulePatchTasks }] =
@@ -56,37 +55,31 @@ export const UnscheduleTasks: React.VFC<props> = ({
   };
 
   return (
-    <>
-      <div ref={menuItemRef}>
+    <Popconfirm
+      data-cy="unschedule-patch-popconfirm"
+      align="left"
+      refEl={menuItemRef}
+      onConfirm={onConfirm}
+      trigger={
         <MenuItem
-          active={active}
           data-cy="unschedule-patch"
           disabled={disabled || loadingUnschedulePatchTasks}
-          onClick={() => setActive(!active)}
         >
           Unschedule all tasks
         </MenuItem>
-      </div>
-      <Popconfirm
-        active={active}
-        data-cy="unschedule-patch-popconfirm"
-        align="left"
-        refEl={menuItemRef}
-        onConfirm={onConfirm}
-        setActive={setActive}
-      >
-        <>
-          <StyledBody>Unschedule all tasks?</StyledBody>
-          <Checkbox
-            data-cy="abort-checkbox"
-            label="Abort tasks that have already started"
-            onChange={() => setAbort(!abort)}
-            checked={abort}
-            bold={false}
-          />
-        </>
-      </Popconfirm>
-    </>
+      }
+    >
+      <>
+        <StyledBody>Unschedule all tasks?</StyledBody>
+        <Checkbox
+          data-cy="abort-checkbox"
+          label="Abort tasks that have already started"
+          onChange={() => setAbort(!abort)}
+          checked={abort}
+          bold={false}
+        />
+      </>
+    </Popconfirm>
   );
 };
 

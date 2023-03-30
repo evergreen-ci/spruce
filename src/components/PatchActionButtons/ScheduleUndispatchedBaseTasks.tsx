@@ -41,28 +41,19 @@ export const ScheduleUndispatchedBaseTasks: React.VFC<Props> = ({
 
   return (
     <>
-      <div ref={menuItemRef}>
-        <MenuItem
-          active={active}
-          key="reschedule-failing"
-          disabled={disabled}
-          onClick={() => setActive(!active)}
-        >
-          Schedule failing base tasks
-        </MenuItem>
-      </div>
+      <div ref={menuItemRef} />
       <Popconfirm
-        active={active}
-        data-cy="schedule-undispatched-base-popconfirm"
         align="left"
-        refEl={menuItemRef}
+        data-cy="schedule-undispatched-base-popconfirm"
         onConfirm={onConfirm}
-        setActive={setActive}
+        trigger={
+          <MenuItem key="reschedule-failing" disabled={disabled}>
+            Schedule failing base tasks
+          </MenuItem>
+        }
       >
-        <Body>
-          Are you sure you want to schedule all the undispatched base tasks for
-          this patch&apos;s failing tasks?
-        </Body>
+        Are you sure you want to schedule all the undispatched base tasks for
+        this patch&apos;s failing tasks?
       </Popconfirm>
     </>
   );

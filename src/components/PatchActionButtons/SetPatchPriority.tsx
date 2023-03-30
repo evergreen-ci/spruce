@@ -54,43 +54,36 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
   }, [inputRef]);
 
   return (
-    <>
-      <div ref={menuItemRef}>
+    <Popconfirm
+      data-cy="set-patch-priority-popconfirm"
+      align="left"
+      confirmText="Set"
+      onConfirm={onConfirm}
+      trigger={
         <MenuItem
-          active={active}
           data-cy="prioritize-patch"
           disabled={disabled || loadingSetPatchPriority}
-          onClick={() => setActive(!active)}
         >
           Set priority
         </MenuItem>
-      </div>
-      <Popconfirm
-        active={active}
-        data-cy="set-patch-priority-popconfirm"
-        align="left"
-        refEl={menuItemRef}
-        confirmText="Set"
-        onConfirm={onConfirm}
-        setActive={setActive}
-      >
-        <TextInput
-          ref={(el) => setInputRef(el)}
-          data-cy="patch-priority-input"
-          label="Set new priority"
-          min={-1}
-          onChange={(e) => setPriority(parseInt(e.target.value, 10))}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              onConfirm();
-              setActive(false);
-            }
-          }}
-          size={16}
-          type="number"
-          value={priority.toString()}
-        />
-      </Popconfirm>
-    </>
+      }
+    >
+      <TextInput
+        ref={(el) => setInputRef(el)}
+        data-cy="patch-priority-input"
+        label="Set new priority"
+        min={-1}
+        onChange={(e) => setPriority(parseInt(e.target.value, 10))}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            onConfirm();
+            setActive(false);
+          }
+        }}
+        size={16}
+        type="number"
+        value={priority.toString()}
+      />
+    </Popconfirm>
   );
 };
