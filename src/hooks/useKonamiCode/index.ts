@@ -7,7 +7,7 @@ import { TaskStatus } from "types/task";
 const konamiCode =
   "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba";
 
-const useKonamiCode = () => {
+const useKonamiCode = (onActivate: () => void) => {
   const [pressedKeys, setPressedKeys] = useState<string[]>([]);
   const dispatchToast = useToastContext();
 
@@ -31,6 +31,7 @@ const useKonamiCode = () => {
       dispatchToast.success("To reset just refresh the page", true, {
         title: "Konami Code Activated!",
       });
+      onActivate();
       setPressedKeys([]);
       const TaskKeys = Object.keys(cache.extract()).filter((key) =>
         key.includes("Task")
