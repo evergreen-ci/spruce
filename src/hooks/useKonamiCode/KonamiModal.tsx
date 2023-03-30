@@ -3,12 +3,13 @@ import { css } from "@emotion/react";
 import MarketingModal from "@leafygreen-ui/marketing-modal";
 import { InlineKeyCode } from "@leafygreen-ui/typography";
 import Cookies from "js-cookie";
+import { SEEN_KONAMI_CODE } from "constants/cookies";
 import { zIndex } from "constants/tokens";
 import useKonamiCode from ".";
 import graphic from "./EvergreenKonami.png";
 
 const KonamiModal = () => {
-  const [open, setOpen] = useState(Cookies.get("konami") !== "true");
+  const [open, setOpen] = useState(Cookies.get(SEEN_KONAMI_CODE) !== "true");
   useKonamiCode();
   const keys = ["↑", "↑", "↓", "↓", "←", "→", "←", "→", "b", "a"];
   return (
@@ -23,7 +24,7 @@ const KonamiModal = () => {
       linkText=""
       onButtonClick={() => {
         setOpen(false);
-        Cookies.set("konami", "true", { expires: 365 });
+        Cookies.set(SEEN_KONAMI_CODE, "true", { expires: 365 });
       }}
       css={css`
         z-index: ${zIndex.modal};
