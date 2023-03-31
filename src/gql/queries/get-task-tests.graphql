@@ -19,7 +19,6 @@ query TaskTests(
     execution: $execution
   ) {
     testResults {
-      testFile
       id
       status
       baseStatus

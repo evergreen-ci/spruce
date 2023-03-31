@@ -1,13 +1,12 @@
-
-  query DistroTaskQueue($distroId: String!) {
-    distroTaskQueue(distroId: $distroId) {
-      id
-      expectedDuration
-      requester
-      displayName
-      project
-      buildVariant
-      priority
-      version
-    }
+query DistroTaskQueue($distroId: String!) {
+  distroTaskQueue(distroId: $distroId) {
+    id
+    expectedDuration
+    requester
+    displayName
+    project
+    buildVariant
+    priority
+    version
   }
+}

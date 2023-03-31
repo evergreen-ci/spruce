@@ -5,6 +5,7 @@ query GetSpawnTask($taskId: String!) {
     ...baseTask
     canSync
     project {
+      id
       spawnHostScriptPath
     }
   }

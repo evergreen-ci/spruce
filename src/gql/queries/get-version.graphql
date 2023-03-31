@@ -59,6 +59,7 @@ query Version($id: String!) {
     project
     projectIdentifier
     projectMetadata {
+      id
       owner
       repo
     }

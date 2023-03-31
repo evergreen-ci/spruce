@@ -1,5 +1,6 @@
 query GetUndispatchedTasks($versionId: String!) {
   version(id: $versionId) {
+    id
     tasks(
       options: { statuses: ["unscheduled"], includeEmptyActivation: true }
     ) {

@@ -1,9 +1,9 @@
-  query GetOtherUser($userId: String) {
-    otherUser: user(userId: $userId) {
-      userId
-      displayName
-    }
-    currentUser: user {
-      userId
-    }
+query GetOtherUser($userId: String) {
+  otherUser: user(userId: $userId) {
+    userId
+    displayName
   }
+  currentUser: user {
+    userId
+  }
+}

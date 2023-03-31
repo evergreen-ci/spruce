@@ -4,6 +4,7 @@ query TaskEventLogs($id: String!, $execution: Int) {
     id
     taskLogs {
       eventLogs {
+        id
         timestamp
         eventType
         data {

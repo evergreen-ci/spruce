@@ -1,5 +1,5 @@
-mutation RemoveFavoriteProject($identifier: String!){
-  removeFavoriteProject(identifier: $identifier){
+mutation RemoveFavoriteProject($identifier: String!) {
+  removeFavoriteProject(identifier: $identifier) {
     id
     identifier
     repo

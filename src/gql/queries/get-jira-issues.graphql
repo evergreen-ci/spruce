@@ -5,6 +5,7 @@ query GetIssues($taskId: String!, $execution: Int) {
     id
     execution
     annotation {
+      id
       issues {
         ...issueLink
       }

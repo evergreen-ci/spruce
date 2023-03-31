@@ -5,6 +5,7 @@ query Host($id: String!) {
     ...baseHost
     distroId
     distro {
+      id
       bootstrapMethod
     }
     runningTask {
