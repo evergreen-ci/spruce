@@ -2519,49 +2519,9 @@ export type WorkstationSetupCommandInput = {
 export type AnnotationFragment = {
   __typename?: "Annotation";
   id: string;
-  taskId: string;
   taskExecution: number;
+  taskId: string;
   webhookConfigured: boolean;
-  note?: Maybe<{
-    __typename?: "Note";
-    message: string;
-    source: {
-      __typename?: "Source";
-      author: string;
-      time: Date;
-      requester: string;
-    };
-  }>;
-  issues?: Maybe<
-    Array<
-      Maybe<{
-        __typename?: "IssueLink";
-        issueKey?: Maybe<string>;
-        url?: Maybe<string>;
-        source?: Maybe<{
-          __typename?: "Source";
-          author: string;
-          time: Date;
-          requester: string;
-        }>;
-      }>
-    >
-  >;
-  suspectedIssues?: Maybe<
-    Array<
-      Maybe<{
-        __typename?: "IssueLink";
-        issueKey?: Maybe<string>;
-        url?: Maybe<string>;
-        source?: Maybe<{
-          __typename?: "Source";
-          author: string;
-          time: Date;
-          requester: string;
-        }>;
-      }>
-    >
-  >;
   createdIssues?: Maybe<
     Array<
       Maybe<{
@@ -2571,8 +2531,48 @@ export type AnnotationFragment = {
         source?: Maybe<{
           __typename?: "Source";
           author: string;
-          time: Date;
           requester: string;
+          time: Date;
+        }>;
+      }>
+    >
+  >;
+  issues?: Maybe<
+    Array<
+      Maybe<{
+        __typename?: "IssueLink";
+        issueKey?: Maybe<string>;
+        url?: Maybe<string>;
+        source?: Maybe<{
+          __typename?: "Source";
+          author: string;
+          requester: string;
+          time: Date;
+        }>;
+      }>
+    >
+  >;
+  note?: Maybe<{
+    __typename?: "Note";
+    message: string;
+    source: {
+      __typename?: "Source";
+      author: string;
+      requester: string;
+      time: Date;
+    };
+  }>;
+  suspectedIssues?: Maybe<
+    Array<
+      Maybe<{
+        __typename?: "IssueLink";
+        issueKey?: Maybe<string>;
+        url?: Maybe<string>;
+        source?: Maybe<{
+          __typename?: "Source";
+          author: string;
+          requester: string;
+          time: Date;
         }>;
       }>
     >
@@ -2581,28 +2581,28 @@ export type AnnotationFragment = {
 
 export type IssueLinkFragment = {
   __typename?: "IssueLink";
+  confidenceScore?: Maybe<number>;
   issueKey?: Maybe<string>;
   url?: Maybe<string>;
-  confidenceScore?: Maybe<number>;
-  source?: Maybe<{
-    __typename?: "Source";
-    author: string;
-    time: Date;
-    requester: string;
-  }>;
   jiraTicket?: Maybe<{
     __typename?: "JiraTicket";
     key: string;
     fields: {
       __typename?: "TicketFields";
-      summary: string;
-      assigneeDisplayName?: Maybe<string>;
-      resolutionName?: Maybe<string>;
-      created: string;
-      updated: string;
       assignedTeam?: Maybe<string>;
+      assigneeDisplayName?: Maybe<string>;
+      created: string;
+      resolutionName?: Maybe<string>;
+      summary: string;
+      updated: string;
       status: { __typename?: "JiraStatus"; id: string; name: string };
     };
+  }>;
+  source?: Maybe<{
+    __typename?: "Source";
+    author: string;
+    requester: string;
+    time: Date;
   }>;
 };
 
@@ -2611,41 +2611,41 @@ export type JiraTicketFragment = {
   key: string;
   fields: {
     __typename?: "TicketFields";
-    summary: string;
-    assigneeDisplayName?: Maybe<string>;
-    resolutionName?: Maybe<string>;
-    created: string;
-    updated: string;
     assignedTeam?: Maybe<string>;
+    assigneeDisplayName?: Maybe<string>;
+    created: string;
+    resolutionName?: Maybe<string>;
+    summary: string;
+    updated: string;
     status: { __typename?: "JiraStatus"; id: string; name: string };
   };
 };
 
 export type BaseHostFragment = {
   __typename?: "Host";
-  id: string;
   hostUrl: string;
-  status: string;
-  startedBy: string;
-  user?: Maybe<string>;
-  tag: string;
+  id: string;
   provider: string;
+  startedBy: string;
+  status: string;
+  tag: string;
   uptime?: Maybe<Date>;
+  user?: Maybe<string>;
 };
 
 export type BasePatchFragment = {
   __typename?: "Patch";
-  id: string;
-  description: string;
-  author: string;
-  status: string;
   activated: boolean;
   alias?: Maybe<string>;
+  author: string;
   commitQueuePosition?: Maybe<number>;
+  description: string;
+  id: string;
+  status: string;
+  parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
   variantsTasks: Array<
     Maybe<{ __typename?: "VariantTask"; name: string; tasks: Array<string> }>
   >;
-  parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
 };
 
 export type BaseSpawnHostFragment = {
@@ -2656,32 +2656,32 @@ export type BaseSpawnHostFragment = {
   homeVolumeID?: Maybe<string>;
   instanceType?: Maybe<string>;
   noExpiration: boolean;
-  id: string;
   hostUrl: string;
-  status: string;
-  startedBy: string;
-  user?: Maybe<string>;
-  tag: string;
+  id: string;
   provider: string;
+  startedBy: string;
+  status: string;
+  tag: string;
   uptime?: Maybe<Date>;
+  user?: Maybe<string>;
   distro?: Maybe<{
     __typename?: "DistroInfo";
-    isVirtualWorkStation?: Maybe<boolean>;
     id?: Maybe<string>;
+    isVirtualWorkStation?: Maybe<boolean>;
+    isWindows?: Maybe<boolean>;
     user?: Maybe<string>;
     workDir?: Maybe<string>;
-    isWindows?: Maybe<boolean>;
   }>;
   homeVolume?: Maybe<{
     __typename?: "Volume";
-    id: string;
     displayName: string;
+    id: string;
   }>;
   instanceTags: Array<{
     __typename?: "InstanceTag";
+    canBeModified: boolean;
     key: string;
     value: string;
-    canBeModified: boolean;
   }>;
   volumes: Array<{
     __typename?: "Volume";
@@ -2693,43 +2693,43 @@ export type BaseSpawnHostFragment = {
 
 export type BaseTaskFragment = {
   __typename?: "Task";
-  id: string;
-  execution: number;
   buildVariant: string;
   buildVariantDisplayName?: Maybe<string>;
   displayName: string;
+  execution: number;
+  id: string;
   revision?: Maybe<string>;
   status: string;
 };
 
 export type FileDiffsFragment = {
   __typename?: "FileDiff";
-  fileName: string;
   additions: number;
   deletions: number;
-  diffLink: string;
   description: string;
+  diffLink: string;
+  fileName: string;
 };
 
 export type LogMessageFragment = {
   __typename?: "LogMessage";
-  severity?: Maybe<string>;
   message?: Maybe<string>;
+  severity?: Maybe<string>;
   timestamp?: Maybe<Date>;
 };
 
 export type ModuleCodeChangeFragment = {
   __typename?: "ModuleCodeChange";
-  rawLink: string;
   branchName: string;
   htmlLink: string;
+  rawLink: string;
   fileDiffs: Array<{
     __typename?: "FileDiff";
-    fileName: string;
     additions: number;
     deletions: number;
-    diffLink: string;
     description: string;
+    diffLink: string;
+    fileName: string;
   }>;
 };
 
@@ -2738,15 +2738,15 @@ export type PatchesPagePatchesFragment = {
   filteredPatchCount: number;
   patches: Array<{
     __typename?: "Patch";
-    id: string;
     author: string;
     authorDisplayName: string;
-    projectIdentifier: string;
-    description: string;
-    status: string;
-    createTime?: Maybe<Date>;
-    commitQueuePosition?: Maybe<number>;
     canEnqueueToCommitQueue: boolean;
+    commitQueuePosition?: Maybe<number>;
+    createTime?: Maybe<Date>;
+    description: string;
+    id: string;
+    projectIdentifier: string;
+    status: string;
     projectMetadata?: Maybe<{
       __typename?: "Project";
       owner: string;
@@ -2759,7 +2759,7 @@ export type PatchesPagePatchesFragment = {
       taskStatusStats?: Maybe<{
         __typename?: "TaskStats";
         counts?: Maybe<
-          Array<{ __typename?: "StatusCount"; status: string; count: number }>
+          Array<{ __typename?: "StatusCount"; count: number; status: string }>
         >;
       }>;
     }>;
@@ -2768,45 +2768,45 @@ export type PatchesPagePatchesFragment = {
 
 export type ProjectAccessSettingsFragment = {
   __typename?: "Project";
-  restricted?: Maybe<boolean>;
   admins?: Maybe<Array<Maybe<string>>>;
+  restricted?: Maybe<boolean>;
 };
 
 export type RepoAccessSettingsFragment = {
   __typename?: "RepoRef";
-  restricted: boolean;
   admins: Array<string>;
+  restricted: boolean;
 };
 
 export type AliasFragment = {
   __typename?: "ProjectAlias";
-  id: string;
   alias: string;
   gitTag: string;
-  variant: string;
-  task: string;
+  id: string;
   remotePath: string;
-  variantTags: Array<string>;
+  task: string;
   taskTags: Array<string>;
+  variant: string;
+  variantTags: Array<string>;
 };
 
 export type ProjectGeneralSettingsFragment = {
   __typename?: "Project";
+  batchTime: number;
+  branch: string;
+  deactivatePrevious?: Maybe<boolean>;
+  disabledStatsCache?: Maybe<boolean>;
+  dispatchingDisabled?: Maybe<boolean>;
+  displayName: string;
   enabled?: Maybe<boolean>;
   owner: string;
-  repo: string;
-  branch: string;
-  displayName: string;
-  batchTime: number;
-  remotePath: string;
-  spawnHostScriptPath: string;
-  dispatchingDisabled?: Maybe<boolean>;
-  versionControlEnabled?: Maybe<boolean>;
-  deactivatePrevious?: Maybe<boolean>;
-  repotrackerDisabled?: Maybe<boolean>;
-  stepbackDisabled?: Maybe<boolean>;
   patchingDisabled?: Maybe<boolean>;
-  disabledStatsCache?: Maybe<boolean>;
+  remotePath: string;
+  repo: string;
+  repotrackerDisabled?: Maybe<boolean>;
+  spawnHostScriptPath: string;
+  stepbackDisabled?: Maybe<boolean>;
+  versionControlEnabled?: Maybe<boolean>;
   taskSync: {
     __typename?: "TaskSyncOptions";
     configEnabled?: Maybe<boolean>;
@@ -2816,20 +2816,20 @@ export type ProjectGeneralSettingsFragment = {
 
 export type RepoGeneralSettingsFragment = {
   __typename?: "RepoRef";
-  owner: string;
-  repo: string;
-  branch: string;
-  displayName: string;
   batchTime: number;
-  remotePath: string;
-  spawnHostScriptPath: string;
-  dispatchingDisabled: boolean;
-  versionControlEnabled: boolean;
+  branch: string;
   deactivatePrevious: boolean;
-  repotrackerDisabled: boolean;
-  stepbackDisabled: boolean;
-  patchingDisabled: boolean;
   disabledStatsCache: boolean;
+  dispatchingDisabled: boolean;
+  displayName: string;
+  owner: string;
+  patchingDisabled: boolean;
+  remotePath: string;
+  repo: string;
+  repotrackerDisabled: boolean;
+  spawnHostScriptPath: string;
+  stepbackDisabled: boolean;
+  versionControlEnabled: boolean;
   taskSync: {
     __typename?: "RepoTaskSyncOptions";
     configEnabled: boolean;
@@ -2839,13 +2839,13 @@ export type RepoGeneralSettingsFragment = {
 
 export type ProjectGithubSettingsFragment = {
   __typename?: "Project";
-  prTestingEnabled?: Maybe<boolean>;
-  manualPrTestingEnabled?: Maybe<boolean>;
   githubChecksEnabled?: Maybe<boolean>;
   githubTriggerAliases?: Maybe<Array<string>>;
-  gitTagVersionsEnabled?: Maybe<boolean>;
-  gitTagAuthorizedUsers?: Maybe<Array<string>>;
   gitTagAuthorizedTeams?: Maybe<Array<string>>;
+  gitTagAuthorizedUsers?: Maybe<Array<string>>;
+  gitTagVersionsEnabled?: Maybe<boolean>;
+  manualPrTestingEnabled?: Maybe<boolean>;
+  prTestingEnabled?: Maybe<boolean>;
   commitQueue: {
     __typename?: "CommitQueueParams";
     enabled?: Maybe<boolean>;
@@ -2856,13 +2856,13 @@ export type ProjectGithubSettingsFragment = {
 
 export type RepoGithubSettingsFragment = {
   __typename?: "RepoRef";
-  prTestingEnabled: boolean;
-  manualPrTestingEnabled: boolean;
   githubChecksEnabled: boolean;
   githubTriggerAliases?: Maybe<Array<string>>;
-  gitTagVersionsEnabled: boolean;
-  gitTagAuthorizedUsers?: Maybe<Array<string>>;
   gitTagAuthorizedTeams?: Maybe<Array<string>>;
+  gitTagAuthorizedUsers?: Maybe<Array<string>>;
+  gitTagVersionsEnabled: boolean;
+  manualPrTestingEnabled: boolean;
+  prTestingEnabled: boolean;
   commitQueue: {
     __typename?: "RepoCommitQueueParams";
     enabled: boolean;
@@ -2876,13 +2876,13 @@ export type ProjectGithubCommitQueueFragment = {
   githubWebhooksEnabled: boolean;
   projectRef?: Maybe<{
     __typename?: "Project";
-    prTestingEnabled?: Maybe<boolean>;
-    manualPrTestingEnabled?: Maybe<boolean>;
     githubChecksEnabled?: Maybe<boolean>;
     githubTriggerAliases?: Maybe<Array<string>>;
-    gitTagVersionsEnabled?: Maybe<boolean>;
-    gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
+    gitTagAuthorizedUsers?: Maybe<Array<string>>;
+    gitTagVersionsEnabled?: Maybe<boolean>;
+    manualPrTestingEnabled?: Maybe<boolean>;
+    prTestingEnabled?: Maybe<boolean>;
     commitQueue: {
       __typename?: "CommitQueueParams";
       enabled?: Maybe<boolean>;
@@ -2897,13 +2897,13 @@ export type RepoGithubCommitQueueFragment = {
   githubWebhooksEnabled: boolean;
   projectRef?: Maybe<{
     __typename?: "RepoRef";
-    prTestingEnabled: boolean;
-    manualPrTestingEnabled: boolean;
     githubChecksEnabled: boolean;
     githubTriggerAliases?: Maybe<Array<string>>;
-    gitTagVersionsEnabled: boolean;
-    gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
+    gitTagAuthorizedUsers?: Maybe<Array<string>>;
+    gitTagVersionsEnabled: boolean;
+    manualPrTestingEnabled: boolean;
+    prTestingEnabled: boolean;
     commitQueue: {
       __typename?: "RepoCommitQueueParams";
       enabled: boolean;
@@ -2918,13 +2918,13 @@ export type ProjectEventGithubCommitQueueFragment = {
   githubWebhooksEnabled: boolean;
   projectRef?: Maybe<{
     __typename?: "Project";
-    prTestingEnabled?: Maybe<boolean>;
-    manualPrTestingEnabled?: Maybe<boolean>;
     githubChecksEnabled?: Maybe<boolean>;
     githubTriggerAliases?: Maybe<Array<string>>;
-    gitTagVersionsEnabled?: Maybe<boolean>;
-    gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
+    gitTagAuthorizedUsers?: Maybe<Array<string>>;
+    gitTagVersionsEnabled?: Maybe<boolean>;
+    manualPrTestingEnabled?: Maybe<boolean>;
+    prTestingEnabled?: Maybe<boolean>;
     commitQueue: {
       __typename?: "CommitQueueParams";
       enabled?: Maybe<boolean>;
@@ -2937,72 +2937,62 @@ export type ProjectEventGithubCommitQueueFragment = {
 export type ProjectSettingsFragment = {
   __typename?: "ProjectSettings";
   githubWebhooksEnabled: boolean;
+  aliases?: Maybe<
+    Array<{
+      __typename?: "ProjectAlias";
+      alias: string;
+      gitTag: string;
+      id: string;
+      remotePath: string;
+      task: string;
+      taskTags: Array<string>;
+      variant: string;
+      variantTags: Array<string>;
+    }>
+  >;
   projectRef?: Maybe<{
     __typename?: "Project";
     id: string;
     identifier: string;
     repoRefId: string;
+    admins?: Maybe<Array<Maybe<string>>>;
+    restricted?: Maybe<boolean>;
+    batchTime: number;
+    branch: string;
+    deactivatePrevious?: Maybe<boolean>;
+    disabledStatsCache?: Maybe<boolean>;
+    dispatchingDisabled?: Maybe<boolean>;
+    displayName: string;
     enabled?: Maybe<boolean>;
     owner: string;
-    repo: string;
-    branch: string;
-    displayName: string;
-    batchTime: number;
-    remotePath: string;
-    spawnHostScriptPath: string;
-    dispatchingDisabled?: Maybe<boolean>;
-    versionControlEnabled?: Maybe<boolean>;
-    deactivatePrevious?: Maybe<boolean>;
-    repotrackerDisabled?: Maybe<boolean>;
-    stepbackDisabled?: Maybe<boolean>;
     patchingDisabled?: Maybe<boolean>;
-    disabledStatsCache?: Maybe<boolean>;
-    restricted?: Maybe<boolean>;
-    admins?: Maybe<Array<Maybe<string>>>;
-    perfEnabled?: Maybe<boolean>;
+    remotePath: string;
+    repo: string;
+    repotrackerDisabled?: Maybe<boolean>;
+    spawnHostScriptPath: string;
+    stepbackDisabled?: Maybe<boolean>;
+    versionControlEnabled?: Maybe<boolean>;
     notifyOnBuildFailure?: Maybe<boolean>;
     githubTriggerAliases?: Maybe<Array<string>>;
-    prTestingEnabled?: Maybe<boolean>;
-    manualPrTestingEnabled?: Maybe<boolean>;
+    perfEnabled?: Maybe<boolean>;
     githubChecksEnabled?: Maybe<boolean>;
-    gitTagVersionsEnabled?: Maybe<boolean>;
-    gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
+    gitTagAuthorizedUsers?: Maybe<Array<string>>;
+    gitTagVersionsEnabled?: Maybe<boolean>;
+    manualPrTestingEnabled?: Maybe<boolean>;
+    prTestingEnabled?: Maybe<boolean>;
     taskSync: {
       __typename?: "TaskSyncOptions";
       configEnabled?: Maybe<boolean>;
       patchEnabled?: Maybe<boolean>;
     };
-    buildBaronSettings: {
-      __typename?: "BuildBaronSettings";
-      ticketCreateProject: string;
-      ticketSearchProjects?: Maybe<Array<string>>;
-    };
-    taskAnnotationSettings: {
-      __typename?: "TaskAnnotationSettings";
-      jiraCustomFields?: Maybe<
-        Array<{ __typename?: "JiraField"; field: string; displayText: string }>
-      >;
-      fileTicketWebhook: {
-        __typename?: "Webhook";
-        endpoint: string;
-        secret: string;
-      };
-    };
-    externalLinks?: Maybe<
-      Array<{
-        __typename?: "ExternalLink";
-        displayName: string;
-        urlTemplate: string;
-      }>
-    >;
     patchTriggerAliases?: Maybe<
       Array<{
         __typename?: "PatchTriggerAlias";
         alias: string;
         childProjectIdentifier: string;
-        status?: Maybe<string>;
         parentAsModule?: Maybe<string>;
+        status?: Maybe<string>;
         taskSpecifiers?: Maybe<
           Array<{
             __typename?: "TaskSpecifier";
@@ -3011,6 +3001,53 @@ export type ProjectSettingsFragment = {
             variantRegex: string;
           }>
         >;
+      }>
+    >;
+    periodicBuilds?: Maybe<
+      Array<{
+        __typename?: "PeriodicBuild";
+        alias: string;
+        configFile: string;
+        id: string;
+        intervalHours: number;
+        message: string;
+        nextRunTime: Date;
+      }>
+    >;
+    buildBaronSettings: {
+      __typename?: "BuildBaronSettings";
+      ticketCreateProject: string;
+      ticketSearchProjects?: Maybe<Array<string>>;
+    };
+    externalLinks?: Maybe<
+      Array<{
+        __typename?: "ExternalLink";
+        displayName: string;
+        urlTemplate: string;
+      }>
+    >;
+    taskAnnotationSettings: {
+      __typename?: "TaskAnnotationSettings";
+      fileTicketWebhook: {
+        __typename?: "Webhook";
+        endpoint: string;
+        secret: string;
+      };
+      jiraCustomFields?: Maybe<
+        Array<{ __typename?: "JiraField"; displayText: string; field: string }>
+      >;
+    };
+    triggers?: Maybe<
+      Array<{
+        __typename?: "TriggerAlias";
+        alias: string;
+        buildVariantRegex: string;
+        configFile: string;
+        dateCutoff?: Maybe<number>;
+        level: string;
+        project: string;
+        status: string;
+        taskRegex: string;
       }>
     >;
     workstationConfig: {
@@ -3024,30 +3061,6 @@ export type ProjectSettingsFragment = {
         }>
       >;
     };
-    triggers?: Maybe<
-      Array<{
-        __typename?: "TriggerAlias";
-        project: string;
-        level: string;
-        buildVariantRegex: string;
-        taskRegex: string;
-        status: string;
-        dateCutoff?: Maybe<number>;
-        configFile: string;
-        alias: string;
-      }>
-    >;
-    periodicBuilds?: Maybe<
-      Array<{
-        __typename?: "PeriodicBuild";
-        id: string;
-        configFile: string;
-        intervalHours: number;
-        alias: string;
-        message: string;
-        nextRunTime: Date;
-      }>
-    >;
     commitQueue: {
       __typename?: "CommitQueueParams";
       enabled?: Maybe<boolean>;
@@ -3059,41 +3072,46 @@ export type ProjectSettingsFragment = {
     Array<{
       __typename?: "ProjectSubscription";
       id: string;
+      ownerType: string;
       resourceType: string;
       trigger: string;
-      ownerType: string;
       triggerData?: Maybe<{ [key: string]: any }>;
-      selectors: Array<{ __typename?: "Selector"; type: string; data: string }>;
       regexSelectors: Array<{
         __typename?: "Selector";
-        type: string;
         data: string;
+        type: string;
       }>;
+      selectors: Array<{ __typename?: "Selector"; data: string; type: string }>;
       subscriber?: Maybe<{
         __typename?: "ProjectSubscriber";
         type: string;
         subscriber: {
           __typename?: "Subscriber";
-          jiraCommentSubscriber?: Maybe<string>;
           emailSubscriber?: Maybe<string>;
+          jiraCommentSubscriber?: Maybe<string>;
           slackSubscriber?: Maybe<string>;
-          githubPRSubscriber?: Maybe<{
-            __typename?: "GithubPRSubscriber";
-            owner: string;
-            repo: string;
-            ref: string;
-            prNumber?: Maybe<number>;
-          }>;
           githubCheckSubscriber?: Maybe<{
             __typename?: "GithubCheckSubscriber";
             owner: string;
-            repo: string;
             ref: string;
+            repo: string;
+          }>;
+          githubPRSubscriber?: Maybe<{
+            __typename?: "GithubPRSubscriber";
+            owner: string;
+            prNumber?: Maybe<number>;
+            ref: string;
+            repo: string;
+          }>;
+          jiraIssueSubscriber?: Maybe<{
+            __typename?: "JiraIssueSubscriber";
+            issueType: string;
+            project: string;
           }>;
           webhookSubscriber?: Maybe<{
             __typename?: "WebhookSubscriber";
-            url: string;
             secret: string;
+            url: string;
             headers: Array<
               Maybe<{
                 __typename?: "WebhookHeader";
@@ -3102,102 +3120,74 @@ export type ProjectSettingsFragment = {
               }>
             >;
           }>;
-          jiraIssueSubscriber?: Maybe<{
-            __typename?: "JiraIssueSubscriber";
-            project: string;
-            issueType: string;
-          }>;
         };
       }>;
     }>
   >;
   vars?: Maybe<{
     __typename?: "ProjectVars";
-    vars?: Maybe<{ [key: string]: any }>;
-    privateVars: Array<string>;
     adminOnlyVars: Array<string>;
+    privateVars: Array<string>;
+    vars?: Maybe<{ [key: string]: any }>;
   }>;
-  aliases?: Maybe<
-    Array<{
-      __typename?: "ProjectAlias";
-      id: string;
-      alias: string;
-      gitTag: string;
-      variant: string;
-      task: string;
-      remotePath: string;
-      variantTags: Array<string>;
-      taskTags: Array<string>;
-    }>
-  >;
 };
 
 export type RepoSettingsFragment = {
   __typename?: "RepoSettings";
   githubWebhooksEnabled: boolean;
+  aliases?: Maybe<
+    Array<{
+      __typename?: "ProjectAlias";
+      alias: string;
+      gitTag: string;
+      id: string;
+      remotePath: string;
+      task: string;
+      taskTags: Array<string>;
+      variant: string;
+      variantTags: Array<string>;
+    }>
+  >;
   projectRef?: Maybe<{
     __typename?: "RepoRef";
-    id: string;
     displayName: string;
-    owner: string;
-    repo: string;
-    branch: string;
-    batchTime: number;
-    remotePath: string;
-    spawnHostScriptPath: string;
-    dispatchingDisabled: boolean;
-    versionControlEnabled: boolean;
-    deactivatePrevious: boolean;
-    repotrackerDisabled: boolean;
-    stepbackDisabled: boolean;
-    patchingDisabled: boolean;
-    disabledStatsCache: boolean;
-    restricted: boolean;
+    id: string;
     admins: Array<string>;
-    perfEnabled: boolean;
+    restricted: boolean;
+    batchTime: number;
+    branch: string;
+    deactivatePrevious: boolean;
+    disabledStatsCache: boolean;
+    dispatchingDisabled: boolean;
+    owner: string;
+    patchingDisabled: boolean;
+    remotePath: string;
+    repo: string;
+    repotrackerDisabled: boolean;
+    spawnHostScriptPath: string;
+    stepbackDisabled: boolean;
+    versionControlEnabled: boolean;
     notifyOnBuildFailure: boolean;
     githubTriggerAliases?: Maybe<Array<string>>;
-    prTestingEnabled: boolean;
-    manualPrTestingEnabled: boolean;
+    perfEnabled: boolean;
     githubChecksEnabled: boolean;
-    gitTagVersionsEnabled: boolean;
-    gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
+    gitTagAuthorizedUsers?: Maybe<Array<string>>;
+    gitTagVersionsEnabled: boolean;
+    manualPrTestingEnabled: boolean;
+    prTestingEnabled: boolean;
     taskSync: {
       __typename?: "RepoTaskSyncOptions";
       configEnabled: boolean;
       patchEnabled: boolean;
     };
-    buildBaronSettings: {
-      __typename?: "BuildBaronSettings";
-      ticketCreateProject: string;
-      ticketSearchProjects?: Maybe<Array<string>>;
-    };
-    taskAnnotationSettings: {
-      __typename?: "TaskAnnotationSettings";
-      jiraCustomFields?: Maybe<
-        Array<{ __typename?: "JiraField"; field: string; displayText: string }>
-      >;
-      fileTicketWebhook: {
-        __typename?: "Webhook";
-        endpoint: string;
-        secret: string;
-      };
-    };
-    externalLinks?: Maybe<
-      Array<{
-        __typename?: "ExternalLink";
-        displayName: string;
-        urlTemplate: string;
-      }>
-    >;
     patchTriggerAliases?: Maybe<
       Array<{
         __typename?: "PatchTriggerAlias";
         alias: string;
         childProjectIdentifier: string;
-        status?: Maybe<string>;
         parentAsModule?: Maybe<string>;
+        status?: Maybe<string>;
         taskSpecifiers?: Maybe<
           Array<{
             __typename?: "TaskSpecifier";
@@ -3208,6 +3198,51 @@ export type RepoSettingsFragment = {
         >;
       }>
     >;
+    periodicBuilds?: Maybe<
+      Array<{
+        __typename?: "PeriodicBuild";
+        alias: string;
+        configFile: string;
+        id: string;
+        intervalHours: number;
+        message: string;
+        nextRunTime: Date;
+      }>
+    >;
+    buildBaronSettings: {
+      __typename?: "BuildBaronSettings";
+      ticketCreateProject: string;
+      ticketSearchProjects?: Maybe<Array<string>>;
+    };
+    externalLinks?: Maybe<
+      Array<{
+        __typename?: "ExternalLink";
+        displayName: string;
+        urlTemplate: string;
+      }>
+    >;
+    taskAnnotationSettings: {
+      __typename?: "TaskAnnotationSettings";
+      fileTicketWebhook: {
+        __typename?: "Webhook";
+        endpoint: string;
+        secret: string;
+      };
+      jiraCustomFields?: Maybe<
+        Array<{ __typename?: "JiraField"; displayText: string; field: string }>
+      >;
+    };
+    triggers: Array<{
+      __typename?: "TriggerAlias";
+      alias: string;
+      buildVariantRegex: string;
+      configFile: string;
+      dateCutoff?: Maybe<number>;
+      level: string;
+      project: string;
+      status: string;
+      taskRegex: string;
+    }>;
     workstationConfig: {
       __typename?: "RepoWorkstationConfig";
       gitClone: boolean;
@@ -3219,28 +3254,6 @@ export type RepoSettingsFragment = {
         }>
       >;
     };
-    triggers: Array<{
-      __typename?: "TriggerAlias";
-      project: string;
-      level: string;
-      buildVariantRegex: string;
-      taskRegex: string;
-      status: string;
-      dateCutoff?: Maybe<number>;
-      configFile: string;
-      alias: string;
-    }>;
-    periodicBuilds?: Maybe<
-      Array<{
-        __typename?: "PeriodicBuild";
-        id: string;
-        configFile: string;
-        intervalHours: number;
-        alias: string;
-        message: string;
-        nextRunTime: Date;
-      }>
-    >;
     commitQueue: {
       __typename?: "RepoCommitQueueParams";
       enabled: boolean;
@@ -3248,51 +3261,50 @@ export type RepoSettingsFragment = {
       message: string;
     };
   }>;
-  vars?: Maybe<{
-    __typename?: "ProjectVars";
-    vars?: Maybe<{ [key: string]: any }>;
-    privateVars: Array<string>;
-    adminOnlyVars: Array<string>;
-  }>;
   subscriptions?: Maybe<
     Array<{
       __typename?: "ProjectSubscription";
       id: string;
+      ownerType: string;
       resourceType: string;
       trigger: string;
-      ownerType: string;
       triggerData?: Maybe<{ [key: string]: any }>;
-      selectors: Array<{ __typename?: "Selector"; type: string; data: string }>;
       regexSelectors: Array<{
         __typename?: "Selector";
-        type: string;
         data: string;
+        type: string;
       }>;
+      selectors: Array<{ __typename?: "Selector"; data: string; type: string }>;
       subscriber?: Maybe<{
         __typename?: "ProjectSubscriber";
         type: string;
         subscriber: {
           __typename?: "Subscriber";
-          jiraCommentSubscriber?: Maybe<string>;
           emailSubscriber?: Maybe<string>;
+          jiraCommentSubscriber?: Maybe<string>;
           slackSubscriber?: Maybe<string>;
-          githubPRSubscriber?: Maybe<{
-            __typename?: "GithubPRSubscriber";
-            owner: string;
-            repo: string;
-            ref: string;
-            prNumber?: Maybe<number>;
-          }>;
           githubCheckSubscriber?: Maybe<{
             __typename?: "GithubCheckSubscriber";
             owner: string;
-            repo: string;
             ref: string;
+            repo: string;
+          }>;
+          githubPRSubscriber?: Maybe<{
+            __typename?: "GithubPRSubscriber";
+            owner: string;
+            prNumber?: Maybe<number>;
+            ref: string;
+            repo: string;
+          }>;
+          jiraIssueSubscriber?: Maybe<{
+            __typename?: "JiraIssueSubscriber";
+            issueType: string;
+            project: string;
           }>;
           webhookSubscriber?: Maybe<{
             __typename?: "WebhookSubscriber";
-            url: string;
             secret: string;
+            url: string;
             headers: Array<
               Maybe<{
                 __typename?: "WebhookHeader";
@@ -3301,28 +3313,16 @@ export type RepoSettingsFragment = {
               }>
             >;
           }>;
-          jiraIssueSubscriber?: Maybe<{
-            __typename?: "JiraIssueSubscriber";
-            project: string;
-            issueType: string;
-          }>;
         };
       }>;
     }>
   >;
-  aliases?: Maybe<
-    Array<{
-      __typename?: "ProjectAlias";
-      id: string;
-      alias: string;
-      gitTag: string;
-      variant: string;
-      task: string;
-      remotePath: string;
-      variantTags: Array<string>;
-      taskTags: Array<string>;
-    }>
-  >;
+  vars?: Maybe<{
+    __typename?: "ProjectVars";
+    adminOnlyVars: Array<string>;
+    privateVars: Array<string>;
+    vars?: Maybe<{ [key: string]: any }>;
+  }>;
 };
 
 export type ProjectNotificationSettingsFragment = {
@@ -3338,49 +3338,49 @@ export type RepoNotificationSettingsFragment = {
 export type SubscriptionsFragment = {
   __typename?: "ProjectSubscription";
   id: string;
+  ownerType: string;
   resourceType: string;
   trigger: string;
-  ownerType: string;
   triggerData?: Maybe<{ [key: string]: any }>;
-  selectors: Array<{ __typename?: "Selector"; type: string; data: string }>;
   regexSelectors: Array<{
     __typename?: "Selector";
-    type: string;
     data: string;
+    type: string;
   }>;
+  selectors: Array<{ __typename?: "Selector"; data: string; type: string }>;
   subscriber?: Maybe<{
     __typename?: "ProjectSubscriber";
     type: string;
     subscriber: {
       __typename?: "Subscriber";
-      jiraCommentSubscriber?: Maybe<string>;
       emailSubscriber?: Maybe<string>;
+      jiraCommentSubscriber?: Maybe<string>;
       slackSubscriber?: Maybe<string>;
-      githubPRSubscriber?: Maybe<{
-        __typename?: "GithubPRSubscriber";
-        owner: string;
-        repo: string;
-        ref: string;
-        prNumber?: Maybe<number>;
-      }>;
       githubCheckSubscriber?: Maybe<{
         __typename?: "GithubCheckSubscriber";
         owner: string;
-        repo: string;
         ref: string;
+        repo: string;
       }>;
-      webhookSubscriber?: Maybe<{
-        __typename?: "WebhookSubscriber";
-        url: string;
-        secret: string;
-        headers: Array<
-          Maybe<{ __typename?: "WebhookHeader"; key: string; value: string }>
-        >;
+      githubPRSubscriber?: Maybe<{
+        __typename?: "GithubPRSubscriber";
+        owner: string;
+        prNumber?: Maybe<number>;
+        ref: string;
+        repo: string;
       }>;
       jiraIssueSubscriber?: Maybe<{
         __typename?: "JiraIssueSubscriber";
-        project: string;
         issueType: string;
+        project: string;
+      }>;
+      webhookSubscriber?: Maybe<{
+        __typename?: "WebhookSubscriber";
+        secret: string;
+        url: string;
+        headers: Array<
+          Maybe<{ __typename?: "WebhookHeader"; key: string; value: string }>
+        >;
       }>;
     };
   }>;
@@ -3394,8 +3394,8 @@ export type ProjectPatchAliasSettingsFragment = {
       __typename?: "PatchTriggerAlias";
       alias: string;
       childProjectIdentifier: string;
-      status?: Maybe<string>;
       parentAsModule?: Maybe<string>;
+      status?: Maybe<string>;
       taskSpecifiers?: Maybe<
         Array<{
           __typename?: "TaskSpecifier";
@@ -3416,8 +3416,8 @@ export type RepoPatchAliasSettingsFragment = {
       __typename?: "PatchTriggerAlias";
       alias: string;
       childProjectIdentifier: string;
-      status?: Maybe<string>;
       parentAsModule?: Maybe<string>;
+      status?: Maybe<string>;
       taskSpecifiers?: Maybe<
         Array<{
           __typename?: "TaskSpecifier";
@@ -3435,10 +3435,10 @@ export type ProjectPeriodicBuildsSettingsFragment = {
   periodicBuilds?: Maybe<
     Array<{
       __typename?: "PeriodicBuild";
-      id: string;
-      configFile: string;
-      intervalHours: number;
       alias: string;
+      configFile: string;
+      id: string;
+      intervalHours: number;
       message: string;
       nextRunTime: Date;
     }>
@@ -3450,10 +3450,10 @@ export type RepoPeriodicBuildsSettingsFragment = {
   periodicBuilds?: Maybe<
     Array<{
       __typename?: "PeriodicBuild";
-      id: string;
-      configFile: string;
-      intervalHours: number;
       alias: string;
+      configFile: string;
+      id: string;
+      intervalHours: number;
       message: string;
       nextRunTime: Date;
     }>
@@ -3468,17 +3468,6 @@ export type ProjectPluginsSettingsFragment = {
     ticketCreateProject: string;
     ticketSearchProjects?: Maybe<Array<string>>;
   };
-  taskAnnotationSettings: {
-    __typename?: "TaskAnnotationSettings";
-    jiraCustomFields?: Maybe<
-      Array<{ __typename?: "JiraField"; field: string; displayText: string }>
-    >;
-    fileTicketWebhook: {
-      __typename?: "Webhook";
-      endpoint: string;
-      secret: string;
-    };
-  };
   externalLinks?: Maybe<
     Array<{
       __typename?: "ExternalLink";
@@ -3486,6 +3475,17 @@ export type ProjectPluginsSettingsFragment = {
       urlTemplate: string;
     }>
   >;
+  taskAnnotationSettings: {
+    __typename?: "TaskAnnotationSettings";
+    fileTicketWebhook: {
+      __typename?: "Webhook";
+      endpoint: string;
+      secret: string;
+    };
+    jiraCustomFields?: Maybe<
+      Array<{ __typename?: "JiraField"; displayText: string; field: string }>
+    >;
+  };
 };
 
 export type RepoPluginsSettingsFragment = {
@@ -3496,17 +3496,6 @@ export type RepoPluginsSettingsFragment = {
     ticketCreateProject: string;
     ticketSearchProjects?: Maybe<Array<string>>;
   };
-  taskAnnotationSettings: {
-    __typename?: "TaskAnnotationSettings";
-    jiraCustomFields?: Maybe<
-      Array<{ __typename?: "JiraField"; field: string; displayText: string }>
-    >;
-    fileTicketWebhook: {
-      __typename?: "Webhook";
-      endpoint: string;
-      secret: string;
-    };
-  };
   externalLinks?: Maybe<
     Array<{
       __typename?: "ExternalLink";
@@ -3514,78 +3503,79 @@ export type RepoPluginsSettingsFragment = {
       urlTemplate: string;
     }>
   >;
+  taskAnnotationSettings: {
+    __typename?: "TaskAnnotationSettings";
+    fileTicketWebhook: {
+      __typename?: "Webhook";
+      endpoint: string;
+      secret: string;
+    };
+    jiraCustomFields?: Maybe<
+      Array<{ __typename?: "JiraField"; displayText: string; field: string }>
+    >;
+  };
 };
 
 export type ProjectEventSettingsFragment = {
   __typename?: "ProjectEventSettings";
   githubWebhooksEnabled: boolean;
+  aliases?: Maybe<
+    Array<{
+      __typename?: "ProjectAlias";
+      alias: string;
+      gitTag: string;
+      id: string;
+      remotePath: string;
+      task: string;
+      taskTags: Array<string>;
+      variant: string;
+      variantTags: Array<string>;
+    }>
+  >;
   projectRef?: Maybe<{
     __typename?: "Project";
+    hidden?: Maybe<boolean>;
     identifier: string;
     repoRefId: string;
-    versionControlEnabled?: Maybe<boolean>;
     tracksPushEvents?: Maybe<boolean>;
-    hidden?: Maybe<boolean>;
+    versionControlEnabled?: Maybe<boolean>;
+    admins?: Maybe<Array<Maybe<string>>>;
+    restricted?: Maybe<boolean>;
+    batchTime: number;
+    branch: string;
+    deactivatePrevious?: Maybe<boolean>;
+    disabledStatsCache?: Maybe<boolean>;
+    dispatchingDisabled?: Maybe<boolean>;
+    displayName: string;
     enabled?: Maybe<boolean>;
     owner: string;
-    repo: string;
-    branch: string;
-    displayName: string;
-    batchTime: number;
-    remotePath: string;
-    spawnHostScriptPath: string;
-    dispatchingDisabled?: Maybe<boolean>;
-    deactivatePrevious?: Maybe<boolean>;
-    repotrackerDisabled?: Maybe<boolean>;
-    stepbackDisabled?: Maybe<boolean>;
     patchingDisabled?: Maybe<boolean>;
-    disabledStatsCache?: Maybe<boolean>;
-    restricted?: Maybe<boolean>;
-    admins?: Maybe<Array<Maybe<string>>>;
-    perfEnabled?: Maybe<boolean>;
+    remotePath: string;
+    repo: string;
+    repotrackerDisabled?: Maybe<boolean>;
+    spawnHostScriptPath: string;
+    stepbackDisabled?: Maybe<boolean>;
     notifyOnBuildFailure?: Maybe<boolean>;
     githubTriggerAliases?: Maybe<Array<string>>;
-    prTestingEnabled?: Maybe<boolean>;
-    manualPrTestingEnabled?: Maybe<boolean>;
+    perfEnabled?: Maybe<boolean>;
     githubChecksEnabled?: Maybe<boolean>;
-    gitTagVersionsEnabled?: Maybe<boolean>;
-    gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
+    gitTagAuthorizedUsers?: Maybe<Array<string>>;
+    gitTagVersionsEnabled?: Maybe<boolean>;
+    manualPrTestingEnabled?: Maybe<boolean>;
+    prTestingEnabled?: Maybe<boolean>;
     taskSync: {
       __typename?: "TaskSyncOptions";
       configEnabled?: Maybe<boolean>;
       patchEnabled?: Maybe<boolean>;
     };
-    buildBaronSettings: {
-      __typename?: "BuildBaronSettings";
-      ticketCreateProject: string;
-      ticketSearchProjects?: Maybe<Array<string>>;
-    };
-    taskAnnotationSettings: {
-      __typename?: "TaskAnnotationSettings";
-      jiraCustomFields?: Maybe<
-        Array<{ __typename?: "JiraField"; field: string; displayText: string }>
-      >;
-      fileTicketWebhook: {
-        __typename?: "Webhook";
-        endpoint: string;
-        secret: string;
-      };
-    };
-    externalLinks?: Maybe<
-      Array<{
-        __typename?: "ExternalLink";
-        displayName: string;
-        urlTemplate: string;
-      }>
-    >;
     patchTriggerAliases?: Maybe<
       Array<{
         __typename?: "PatchTriggerAlias";
         alias: string;
         childProjectIdentifier: string;
-        status?: Maybe<string>;
         parentAsModule?: Maybe<string>;
+        status?: Maybe<string>;
         taskSpecifiers?: Maybe<
           Array<{
             __typename?: "TaskSpecifier";
@@ -3594,6 +3584,53 @@ export type ProjectEventSettingsFragment = {
             variantRegex: string;
           }>
         >;
+      }>
+    >;
+    periodicBuilds?: Maybe<
+      Array<{
+        __typename?: "PeriodicBuild";
+        alias: string;
+        configFile: string;
+        id: string;
+        intervalHours: number;
+        message: string;
+        nextRunTime: Date;
+      }>
+    >;
+    buildBaronSettings: {
+      __typename?: "BuildBaronSettings";
+      ticketCreateProject: string;
+      ticketSearchProjects?: Maybe<Array<string>>;
+    };
+    externalLinks?: Maybe<
+      Array<{
+        __typename?: "ExternalLink";
+        displayName: string;
+        urlTemplate: string;
+      }>
+    >;
+    taskAnnotationSettings: {
+      __typename?: "TaskAnnotationSettings";
+      fileTicketWebhook: {
+        __typename?: "Webhook";
+        endpoint: string;
+        secret: string;
+      };
+      jiraCustomFields?: Maybe<
+        Array<{ __typename?: "JiraField"; displayText: string; field: string }>
+      >;
+    };
+    triggers?: Maybe<
+      Array<{
+        __typename?: "TriggerAlias";
+        alias: string;
+        buildVariantRegex: string;
+        configFile: string;
+        dateCutoff?: Maybe<number>;
+        level: string;
+        project: string;
+        status: string;
+        taskRegex: string;
       }>
     >;
     workstationConfig: {
@@ -3607,30 +3644,6 @@ export type ProjectEventSettingsFragment = {
         }>
       >;
     };
-    triggers?: Maybe<
-      Array<{
-        __typename?: "TriggerAlias";
-        project: string;
-        level: string;
-        buildVariantRegex: string;
-        taskRegex: string;
-        status: string;
-        dateCutoff?: Maybe<number>;
-        configFile: string;
-        alias: string;
-      }>
-    >;
-    periodicBuilds?: Maybe<
-      Array<{
-        __typename?: "PeriodicBuild";
-        id: string;
-        configFile: string;
-        intervalHours: number;
-        alias: string;
-        message: string;
-        nextRunTime: Date;
-      }>
-    >;
     commitQueue: {
       __typename?: "CommitQueueParams";
       enabled?: Maybe<boolean>;
@@ -3642,41 +3655,46 @@ export type ProjectEventSettingsFragment = {
     Array<{
       __typename?: "ProjectSubscription";
       id: string;
+      ownerType: string;
       resourceType: string;
       trigger: string;
-      ownerType: string;
       triggerData?: Maybe<{ [key: string]: any }>;
-      selectors: Array<{ __typename?: "Selector"; type: string; data: string }>;
       regexSelectors: Array<{
         __typename?: "Selector";
-        type: string;
         data: string;
+        type: string;
       }>;
+      selectors: Array<{ __typename?: "Selector"; data: string; type: string }>;
       subscriber?: Maybe<{
         __typename?: "ProjectSubscriber";
         type: string;
         subscriber: {
           __typename?: "Subscriber";
-          jiraCommentSubscriber?: Maybe<string>;
           emailSubscriber?: Maybe<string>;
+          jiraCommentSubscriber?: Maybe<string>;
           slackSubscriber?: Maybe<string>;
-          githubPRSubscriber?: Maybe<{
-            __typename?: "GithubPRSubscriber";
-            owner: string;
-            repo: string;
-            ref: string;
-            prNumber?: Maybe<number>;
-          }>;
           githubCheckSubscriber?: Maybe<{
             __typename?: "GithubCheckSubscriber";
             owner: string;
-            repo: string;
             ref: string;
+            repo: string;
+          }>;
+          githubPRSubscriber?: Maybe<{
+            __typename?: "GithubPRSubscriber";
+            owner: string;
+            prNumber?: Maybe<number>;
+            ref: string;
+            repo: string;
+          }>;
+          jiraIssueSubscriber?: Maybe<{
+            __typename?: "JiraIssueSubscriber";
+            issueType: string;
+            project: string;
           }>;
           webhookSubscriber?: Maybe<{
             __typename?: "WebhookSubscriber";
-            url: string;
             secret: string;
+            url: string;
             headers: Array<
               Maybe<{
                 __typename?: "WebhookHeader";
@@ -3685,34 +3703,16 @@ export type ProjectEventSettingsFragment = {
               }>
             >;
           }>;
-          jiraIssueSubscriber?: Maybe<{
-            __typename?: "JiraIssueSubscriber";
-            project: string;
-            issueType: string;
-          }>;
         };
       }>;
     }>
   >;
   vars?: Maybe<{
     __typename?: "ProjectVars";
-    vars?: Maybe<{ [key: string]: any }>;
-    privateVars: Array<string>;
     adminOnlyVars: Array<string>;
+    privateVars: Array<string>;
+    vars?: Maybe<{ [key: string]: any }>;
   }>;
-  aliases?: Maybe<
-    Array<{
-      __typename?: "ProjectAlias";
-      id: string;
-      alias: string;
-      gitTag: string;
-      variant: string;
-      task: string;
-      remotePath: string;
-      variantTags: Array<string>;
-      taskTags: Array<string>;
-    }>
-  >;
 };
 
 export type ProjectTriggersSettingsFragment = {
@@ -3720,14 +3720,14 @@ export type ProjectTriggersSettingsFragment = {
   triggers?: Maybe<
     Array<{
       __typename?: "TriggerAlias";
-      project: string;
-      level: string;
-      buildVariantRegex: string;
-      taskRegex: string;
-      status: string;
-      dateCutoff?: Maybe<number>;
-      configFile: string;
       alias: string;
+      buildVariantRegex: string;
+      configFile: string;
+      dateCutoff?: Maybe<number>;
+      level: string;
+      project: string;
+      status: string;
+      taskRegex: string;
     }>
   >;
 };
@@ -3736,22 +3736,22 @@ export type RepoTriggersSettingsFragment = {
   __typename?: "RepoRef";
   triggers: Array<{
     __typename?: "TriggerAlias";
-    project: string;
-    level: string;
-    buildVariantRegex: string;
-    taskRegex: string;
-    status: string;
-    dateCutoff?: Maybe<number>;
-    configFile: string;
     alias: string;
+    buildVariantRegex: string;
+    configFile: string;
+    dateCutoff?: Maybe<number>;
+    level: string;
+    project: string;
+    status: string;
+    taskRegex: string;
   }>;
 };
 
 export type VariablesFragment = {
   __typename?: "ProjectVars";
-  vars?: Maybe<{ [key: string]: any }>;
-  privateVars: Array<string>;
   adminOnlyVars: Array<string>;
+  privateVars: Array<string>;
+  vars?: Maybe<{ [key: string]: any }>;
 };
 
 export type ProjectVirtualWorkstationSettingsFragment = {
@@ -3788,11 +3788,11 @@ export type UpstreamProjectFragment = {
   __typename?: "Version";
   upstreamProject?: Maybe<{
     __typename?: "UpstreamProject";
+    project: string;
+    repo: string;
     triggerID: string;
     triggerType: string;
-    repo: string;
-    project: string;
-    task?: Maybe<{ __typename?: "Task"; id: string; execution: number }>;
+    task?: Maybe<{ __typename?: "Task"; execution: number; id: string }>;
     version?: Maybe<{ __typename?: "Version"; id: string }>;
   }>;
 };
@@ -3806,11 +3806,11 @@ export type AbortTaskMutation = {
   abortTask: {
     __typename?: "Task";
     priority?: Maybe<number>;
-    id: string;
-    execution: number;
     buildVariant: string;
     buildVariantDisplayName?: Maybe<string>;
     displayName: string;
+    execution: number;
+    id: string;
     revision?: Maybe<string>;
     status: string;
   };
@@ -3993,32 +3993,32 @@ export type EditSpawnHostMutation = {
     homeVolumeID?: Maybe<string>;
     instanceType?: Maybe<string>;
     noExpiration: boolean;
-    id: string;
     hostUrl: string;
-    status: string;
-    startedBy: string;
-    user?: Maybe<string>;
-    tag: string;
+    id: string;
     provider: string;
+    startedBy: string;
+    status: string;
+    tag: string;
     uptime?: Maybe<Date>;
+    user?: Maybe<string>;
     distro?: Maybe<{
       __typename?: "DistroInfo";
-      isVirtualWorkStation?: Maybe<boolean>;
       id?: Maybe<string>;
+      isVirtualWorkStation?: Maybe<boolean>;
+      isWindows?: Maybe<boolean>;
       user?: Maybe<string>;
       workDir?: Maybe<string>;
-      isWindows?: Maybe<boolean>;
     }>;
     homeVolume?: Maybe<{
       __typename?: "Volume";
-      id: string;
       displayName: string;
+      id: string;
     }>;
     instanceTags: Array<{
       __typename?: "InstanceTag";
+      canBeModified: boolean;
       key: string;
       value: string;
-      canBeModified: boolean;
     }>;
     volumes: Array<{
       __typename?: "Volume";
@@ -4194,10 +4194,10 @@ export type RestartTaskMutation = {
     __typename?: "Task";
     execution: number;
     latestExecution: number;
-    id: string;
     buildVariant: string;
     buildVariantDisplayName?: Maybe<string>;
     displayName: string;
+    id: string;
     revision?: Maybe<string>;
     status: string;
   };
@@ -4279,18 +4279,18 @@ export type SchedulePatchMutation = {
     __typename?: "Patch";
     tasks: Array<string>;
     variants: Array<string>;
-    id: string;
-    description: string;
-    author: string;
-    status: string;
     activated: boolean;
     alias?: Maybe<string>;
+    author: string;
     commitQueuePosition?: Maybe<number>;
+    description: string;
+    id: string;
+    status: string;
     versionFull?: Maybe<{ __typename?: "Version"; id: string }>;
+    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     variantsTasks: Array<
       Maybe<{ __typename?: "VariantTask"; name: string; tasks: Array<string> }>
     >;
-    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
   };
 };
 
@@ -4302,11 +4302,11 @@ export type ScheduleTasksMutation = {
   __typename?: "Mutation";
   scheduleTasks: Array<{
     __typename?: "Task";
-    id: string;
-    execution: number;
     buildVariant: string;
     buildVariantDisplayName?: Maybe<string>;
     displayName: string;
+    execution: number;
+    id: string;
     revision?: Maybe<string>;
     status: string;
   }>;
@@ -4501,8 +4501,8 @@ export type AgentLogsQuery = {
       __typename?: "TaskLogs";
       agentLogs: Array<{
         __typename?: "LogMessage";
-        severity?: Maybe<string>;
         message?: Maybe<string>;
+        severity?: Maybe<string>;
         timestamp?: Maybe<Date>;
       }>;
     };
@@ -4524,8 +4524,8 @@ export type AllLogsQuery = {
       __typename?: "TaskLogs";
       allLogs: Array<{
         __typename?: "LogMessage";
-        severity?: Maybe<string>;
         message?: Maybe<string>;
+        severity?: Maybe<string>;
         timestamp?: Maybe<Date>;
       }>;
     };
@@ -4546,49 +4546,9 @@ export type GetAnnotationEventDataQuery = {
     annotation?: Maybe<{
       __typename?: "Annotation";
       id: string;
-      taskId: string;
       taskExecution: number;
+      taskId: string;
       webhookConfigured: boolean;
-      note?: Maybe<{
-        __typename?: "Note";
-        message: string;
-        source: {
-          __typename?: "Source";
-          author: string;
-          time: Date;
-          requester: string;
-        };
-      }>;
-      issues?: Maybe<
-        Array<
-          Maybe<{
-            __typename?: "IssueLink";
-            issueKey?: Maybe<string>;
-            url?: Maybe<string>;
-            source?: Maybe<{
-              __typename?: "Source";
-              author: string;
-              time: Date;
-              requester: string;
-            }>;
-          }>
-        >
-      >;
-      suspectedIssues?: Maybe<
-        Array<
-          Maybe<{
-            __typename?: "IssueLink";
-            issueKey?: Maybe<string>;
-            url?: Maybe<string>;
-            source?: Maybe<{
-              __typename?: "Source";
-              author: string;
-              time: Date;
-              requester: string;
-            }>;
-          }>
-        >
-      >;
       createdIssues?: Maybe<
         Array<
           Maybe<{
@@ -4598,8 +4558,48 @@ export type GetAnnotationEventDataQuery = {
             source?: Maybe<{
               __typename?: "Source";
               author: string;
-              time: Date;
               requester: string;
+              time: Date;
+            }>;
+          }>
+        >
+      >;
+      issues?: Maybe<
+        Array<
+          Maybe<{
+            __typename?: "IssueLink";
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source?: Maybe<{
+              __typename?: "Source";
+              author: string;
+              requester: string;
+              time: Date;
+            }>;
+          }>
+        >
+      >;
+      note?: Maybe<{
+        __typename?: "Note";
+        message: string;
+        source: {
+          __typename?: "Source";
+          author: string;
+          requester: string;
+          time: Date;
+        };
+      }>;
+      suspectedIssues?: Maybe<
+        Array<
+          Maybe<{
+            __typename?: "IssueLink";
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source?: Maybe<{
+              __typename?: "Source";
+              author: string;
+              requester: string;
+              time: Date;
             }>;
           }>
         >
@@ -4819,16 +4819,16 @@ export type CodeChangesQuery = {
     id: string;
     moduleCodeChanges: Array<{
       __typename?: "ModuleCodeChange";
-      rawLink: string;
       branchName: string;
       htmlLink: string;
+      rawLink: string;
       fileDiffs: Array<{
         __typename?: "FileDiff";
-        fileName: string;
         additions: number;
         deletions: number;
-        diffLink: string;
         description: string;
+        diffLink: string;
+        fileName: string;
       }>;
     }>;
   };
@@ -4859,16 +4859,16 @@ export type CommitQueueQuery = {
           id: string;
           moduleCodeChanges: Array<{
             __typename?: "ModuleCodeChange";
-            rawLink: string;
             branchName: string;
             htmlLink: string;
+            rawLink: string;
             fileDiffs: Array<{
               __typename?: "FileDiff";
-              fileName: string;
               additions: number;
               deletions: number;
-              diffLink: string;
               description: string;
+              diffLink: string;
+              fileName: string;
             }>;
           }>;
           versionFull?: Maybe<{ __typename?: "Version"; id: string }>;
@@ -5014,14 +5014,14 @@ export type HostQuery = {
     ami?: Maybe<string>;
     distroId?: Maybe<string>;
     lastCommunicationTime?: Maybe<Date>;
-    id: string;
     hostUrl: string;
-    status: string;
-    startedBy: string;
-    user?: Maybe<string>;
-    tag: string;
+    id: string;
     provider: string;
+    startedBy: string;
+    status: string;
+    tag: string;
     uptime?: Maybe<Date>;
+    user?: Maybe<string>;
     distro?: Maybe<{
       __typename?: "DistroInfo";
       bootstrapMethod?: Maybe<string>;
@@ -5075,28 +5075,28 @@ export type GetCustomCreatedIssuesQuery = {
         Array<
           Maybe<{
             __typename?: "IssueLink";
+            confidenceScore?: Maybe<number>;
             issueKey?: Maybe<string>;
             url?: Maybe<string>;
-            confidenceScore?: Maybe<number>;
-            source?: Maybe<{
-              __typename?: "Source";
-              author: string;
-              time: Date;
-              requester: string;
-            }>;
             jiraTicket?: Maybe<{
               __typename?: "JiraTicket";
               key: string;
               fields: {
                 __typename?: "TicketFields";
-                summary: string;
-                assigneeDisplayName?: Maybe<string>;
-                resolutionName?: Maybe<string>;
-                created: string;
-                updated: string;
                 assignedTeam?: Maybe<string>;
+                assigneeDisplayName?: Maybe<string>;
+                created: string;
+                resolutionName?: Maybe<string>;
+                summary: string;
+                updated: string;
                 status: { __typename?: "JiraStatus"; id: string; name: string };
               };
+            }>;
+            source?: Maybe<{
+              __typename?: "Source";
+              author: string;
+              requester: string;
+              time: Date;
             }>;
           }>
         >
@@ -5123,28 +5123,28 @@ export type GetIssuesQuery = {
         Array<
           Maybe<{
             __typename?: "IssueLink";
+            confidenceScore?: Maybe<number>;
             issueKey?: Maybe<string>;
             url?: Maybe<string>;
-            confidenceScore?: Maybe<number>;
-            source?: Maybe<{
-              __typename?: "Source";
-              author: string;
-              time: Date;
-              requester: string;
-            }>;
             jiraTicket?: Maybe<{
               __typename?: "JiraTicket";
               key: string;
               fields: {
                 __typename?: "TicketFields";
-                summary: string;
-                assigneeDisplayName?: Maybe<string>;
-                resolutionName?: Maybe<string>;
-                created: string;
-                updated: string;
                 assignedTeam?: Maybe<string>;
+                assigneeDisplayName?: Maybe<string>;
+                created: string;
+                resolutionName?: Maybe<string>;
+                summary: string;
+                updated: string;
                 status: { __typename?: "JiraStatus"; id: string; name: string };
               };
+            }>;
+            source?: Maybe<{
+              __typename?: "Source";
+              author: string;
+              requester: string;
+              time: Date;
             }>;
           }>
         >
@@ -5171,28 +5171,28 @@ export type GetSuspectedIssuesQuery = {
         Array<
           Maybe<{
             __typename?: "IssueLink";
+            confidenceScore?: Maybe<number>;
             issueKey?: Maybe<string>;
             url?: Maybe<string>;
-            confidenceScore?: Maybe<number>;
-            source?: Maybe<{
-              __typename?: "Source";
-              author: string;
-              time: Date;
-              requester: string;
-            }>;
             jiraTicket?: Maybe<{
               __typename?: "JiraTicket";
               key: string;
               fields: {
                 __typename?: "TicketFields";
-                summary: string;
-                assigneeDisplayName?: Maybe<string>;
-                resolutionName?: Maybe<string>;
-                created: string;
-                updated: string;
                 assignedTeam?: Maybe<string>;
+                assigneeDisplayName?: Maybe<string>;
+                created: string;
+                resolutionName?: Maybe<string>;
+                summary: string;
+                updated: string;
                 status: { __typename?: "JiraStatus"; id: string; name: string };
               };
+            }>;
+            source?: Maybe<{
+              __typename?: "Source";
+              author: string;
+              requester: string;
+              time: Date;
             }>;
           }>
         >
@@ -5279,14 +5279,14 @@ export type MainlineCommitsForHistoryQuery = {
           revision: string;
           upstreamProject?: Maybe<{
             __typename?: "UpstreamProject";
+            project: string;
+            repo: string;
             triggerID: string;
             triggerType: string;
-            repo: string;
-            project: string;
             task?: Maybe<{
               __typename?: "Task";
-              id: string;
               execution: number;
+              id: string;
             }>;
             version?: Maybe<{ __typename?: "Version"; id: string }>;
           }>;
@@ -5322,11 +5322,11 @@ export type MainlineCommitsForHistoryQuery = {
         >;
         upstreamProject?: Maybe<{
           __typename?: "UpstreamProject";
+          project: string;
+          repo: string;
           triggerID: string;
           triggerType: string;
-          repo: string;
-          project: string;
-          task?: Maybe<{ __typename?: "Task"; id: string; execution: number }>;
+          task?: Maybe<{ __typename?: "Task"; execution: number; id: string }>;
           version?: Maybe<{ __typename?: "Version"; id: string }>;
         }>;
       }>;
@@ -5361,14 +5361,14 @@ export type MainlineCommitsQuery = {
           revision: string;
           upstreamProject?: Maybe<{
             __typename?: "UpstreamProject";
+            project: string;
+            repo: string;
             triggerID: string;
             triggerType: string;
-            repo: string;
-            project: string;
             task?: Maybe<{
               __typename?: "Task";
-              id: string;
               execution: number;
+              id: string;
             }>;
             version?: Maybe<{ __typename?: "Version"; id: string }>;
           }>;
@@ -5426,11 +5426,11 @@ export type MainlineCommitsQuery = {
         }>;
         upstreamProject?: Maybe<{
           __typename?: "UpstreamProject";
+          project: string;
+          repo: string;
           triggerID: string;
           triggerType: string;
-          repo: string;
-          project: string;
-          task?: Maybe<{ __typename?: "Task"; id: string; execution: number }>;
+          task?: Maybe<{ __typename?: "Task"; execution: number; id: string }>;
           version?: Maybe<{ __typename?: "Version"; id: string }>;
         }>;
       }>;
@@ -5450,32 +5450,32 @@ export type MyHostsQuery = {
     homeVolumeID?: Maybe<string>;
     instanceType?: Maybe<string>;
     noExpiration: boolean;
-    id: string;
     hostUrl: string;
-    status: string;
-    startedBy: string;
-    user?: Maybe<string>;
-    tag: string;
+    id: string;
     provider: string;
+    startedBy: string;
+    status: string;
+    tag: string;
     uptime?: Maybe<Date>;
+    user?: Maybe<string>;
     distro?: Maybe<{
       __typename?: "DistroInfo";
-      isVirtualWorkStation?: Maybe<boolean>;
       id?: Maybe<string>;
+      isVirtualWorkStation?: Maybe<boolean>;
+      isWindows?: Maybe<boolean>;
       user?: Maybe<string>;
       workDir?: Maybe<string>;
-      isWindows?: Maybe<boolean>;
     }>;
     homeVolume?: Maybe<{
       __typename?: "Volume";
-      id: string;
       displayName: string;
+      id: string;
     }>;
     instanceTags: Array<{
       __typename?: "InstanceTag";
+      canBeModified: boolean;
       key: string;
       value: string;
-      canBeModified: boolean;
     }>;
     volumes: Array<{
       __typename?: "Volume";
@@ -5532,13 +5532,13 @@ export type ConfigurePatchQuery = {
   __typename?: "Query";
   patch: {
     __typename?: "Patch";
-    id: string;
-    description: string;
-    author: string;
-    status: string;
     activated: boolean;
     alias?: Maybe<string>;
+    author: string;
     commitQueuePosition?: Maybe<number>;
+    description: string;
+    id: string;
+    status: string;
     childPatchAliases?: Maybe<
       Array<{ __typename?: "ChildPatchAlias"; alias: string; patchId: string }>
     >;
@@ -5577,10 +5577,10 @@ export type ConfigurePatchQuery = {
       }>;
     }>;
     time?: Maybe<{ __typename?: "PatchTime"; submittedAt: string }>;
+    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     variantsTasks: Array<
       Maybe<{ __typename?: "VariantTask"; name: string; tasks: Array<string> }>
     >;
-    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
   };
 };
 
@@ -5610,18 +5610,18 @@ export type PatchQuery = {
     patchNumber: number;
     projectID: string;
     projectIdentifier: string;
-    id: string;
-    description: string;
-    author: string;
-    status: string;
     activated: boolean;
     alias?: Maybe<string>;
+    author: string;
     commitQueuePosition?: Maybe<number>;
+    description: string;
+    id: string;
+    status: string;
     versionFull?: Maybe<{ __typename?: "Version"; id: string }>;
+    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     variantsTasks: Array<
       Maybe<{ __typename?: "VariantTask"; name: string; tasks: Array<string> }>
     >;
-    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
   };
 };
 
@@ -5672,77 +5672,63 @@ export type ProjectEventLogsQuery = {
       after?: Maybe<{
         __typename?: "ProjectEventSettings";
         githubWebhooksEnabled: boolean;
+        aliases?: Maybe<
+          Array<{
+            __typename?: "ProjectAlias";
+            alias: string;
+            gitTag: string;
+            id: string;
+            remotePath: string;
+            task: string;
+            taskTags: Array<string>;
+            variant: string;
+            variantTags: Array<string>;
+          }>
+        >;
         projectRef?: Maybe<{
           __typename?: "Project";
+          hidden?: Maybe<boolean>;
           identifier: string;
           repoRefId: string;
-          versionControlEnabled?: Maybe<boolean>;
           tracksPushEvents?: Maybe<boolean>;
-          hidden?: Maybe<boolean>;
+          versionControlEnabled?: Maybe<boolean>;
+          admins?: Maybe<Array<Maybe<string>>>;
+          restricted?: Maybe<boolean>;
+          batchTime: number;
+          branch: string;
+          deactivatePrevious?: Maybe<boolean>;
+          disabledStatsCache?: Maybe<boolean>;
+          dispatchingDisabled?: Maybe<boolean>;
+          displayName: string;
           enabled?: Maybe<boolean>;
           owner: string;
-          repo: string;
-          branch: string;
-          displayName: string;
-          batchTime: number;
-          remotePath: string;
-          spawnHostScriptPath: string;
-          dispatchingDisabled?: Maybe<boolean>;
-          deactivatePrevious?: Maybe<boolean>;
-          repotrackerDisabled?: Maybe<boolean>;
-          stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
-          disabledStatsCache?: Maybe<boolean>;
-          restricted?: Maybe<boolean>;
-          admins?: Maybe<Array<Maybe<string>>>;
-          perfEnabled?: Maybe<boolean>;
+          remotePath: string;
+          repo: string;
+          repotrackerDisabled?: Maybe<boolean>;
+          spawnHostScriptPath: string;
+          stepbackDisabled?: Maybe<boolean>;
           notifyOnBuildFailure?: Maybe<boolean>;
           githubTriggerAliases?: Maybe<Array<string>>;
-          prTestingEnabled?: Maybe<boolean>;
-          manualPrTestingEnabled?: Maybe<boolean>;
+          perfEnabled?: Maybe<boolean>;
           githubChecksEnabled?: Maybe<boolean>;
-          gitTagVersionsEnabled?: Maybe<boolean>;
-          gitTagAuthorizedUsers?: Maybe<Array<string>>;
           gitTagAuthorizedTeams?: Maybe<Array<string>>;
+          gitTagAuthorizedUsers?: Maybe<Array<string>>;
+          gitTagVersionsEnabled?: Maybe<boolean>;
+          manualPrTestingEnabled?: Maybe<boolean>;
+          prTestingEnabled?: Maybe<boolean>;
           taskSync: {
             __typename?: "TaskSyncOptions";
             configEnabled?: Maybe<boolean>;
             patchEnabled?: Maybe<boolean>;
           };
-          buildBaronSettings: {
-            __typename?: "BuildBaronSettings";
-            ticketCreateProject: string;
-            ticketSearchProjects?: Maybe<Array<string>>;
-          };
-          taskAnnotationSettings: {
-            __typename?: "TaskAnnotationSettings";
-            jiraCustomFields?: Maybe<
-              Array<{
-                __typename?: "JiraField";
-                field: string;
-                displayText: string;
-              }>
-            >;
-            fileTicketWebhook: {
-              __typename?: "Webhook";
-              endpoint: string;
-              secret: string;
-            };
-          };
-          externalLinks?: Maybe<
-            Array<{
-              __typename?: "ExternalLink";
-              displayName: string;
-              urlTemplate: string;
-            }>
-          >;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
               alias: string;
               childProjectIdentifier: string;
-              status?: Maybe<string>;
               parentAsModule?: Maybe<string>;
+              status?: Maybe<string>;
               taskSpecifiers?: Maybe<
                 Array<{
                   __typename?: "TaskSpecifier";
@@ -5751,6 +5737,57 @@ export type ProjectEventLogsQuery = {
                   variantRegex: string;
                 }>
               >;
+            }>
+          >;
+          periodicBuilds?: Maybe<
+            Array<{
+              __typename?: "PeriodicBuild";
+              alias: string;
+              configFile: string;
+              id: string;
+              intervalHours: number;
+              message: string;
+              nextRunTime: Date;
+            }>
+          >;
+          buildBaronSettings: {
+            __typename?: "BuildBaronSettings";
+            ticketCreateProject: string;
+            ticketSearchProjects?: Maybe<Array<string>>;
+          };
+          externalLinks?: Maybe<
+            Array<{
+              __typename?: "ExternalLink";
+              displayName: string;
+              urlTemplate: string;
+            }>
+          >;
+          taskAnnotationSettings: {
+            __typename?: "TaskAnnotationSettings";
+            fileTicketWebhook: {
+              __typename?: "Webhook";
+              endpoint: string;
+              secret: string;
+            };
+            jiraCustomFields?: Maybe<
+              Array<{
+                __typename?: "JiraField";
+                displayText: string;
+                field: string;
+              }>
+            >;
+          };
+          triggers?: Maybe<
+            Array<{
+              __typename?: "TriggerAlias";
+              alias: string;
+              buildVariantRegex: string;
+              configFile: string;
+              dateCutoff?: Maybe<number>;
+              level: string;
+              project: string;
+              status: string;
+              taskRegex: string;
             }>
           >;
           workstationConfig: {
@@ -5764,30 +5801,6 @@ export type ProjectEventLogsQuery = {
               }>
             >;
           };
-          triggers?: Maybe<
-            Array<{
-              __typename?: "TriggerAlias";
-              project: string;
-              level: string;
-              buildVariantRegex: string;
-              taskRegex: string;
-              status: string;
-              dateCutoff?: Maybe<number>;
-              configFile: string;
-              alias: string;
-            }>
-          >;
-          periodicBuilds?: Maybe<
-            Array<{
-              __typename?: "PeriodicBuild";
-              id: string;
-              configFile: string;
-              intervalHours: number;
-              alias: string;
-              message: string;
-              nextRunTime: Date;
-            }>
-          >;
           commitQueue: {
             __typename?: "CommitQueueParams";
             enabled?: Maybe<boolean>;
@@ -5799,45 +5812,50 @@ export type ProjectEventLogsQuery = {
           Array<{
             __typename?: "ProjectSubscription";
             id: string;
+            ownerType: string;
             resourceType: string;
             trigger: string;
-            ownerType: string;
             triggerData?: Maybe<{ [key: string]: any }>;
-            selectors: Array<{
-              __typename?: "Selector";
-              type: string;
-              data: string;
-            }>;
             regexSelectors: Array<{
               __typename?: "Selector";
-              type: string;
               data: string;
+              type: string;
+            }>;
+            selectors: Array<{
+              __typename?: "Selector";
+              data: string;
+              type: string;
             }>;
             subscriber?: Maybe<{
               __typename?: "ProjectSubscriber";
               type: string;
               subscriber: {
                 __typename?: "Subscriber";
-                jiraCommentSubscriber?: Maybe<string>;
                 emailSubscriber?: Maybe<string>;
+                jiraCommentSubscriber?: Maybe<string>;
                 slackSubscriber?: Maybe<string>;
-                githubPRSubscriber?: Maybe<{
-                  __typename?: "GithubPRSubscriber";
-                  owner: string;
-                  repo: string;
-                  ref: string;
-                  prNumber?: Maybe<number>;
-                }>;
                 githubCheckSubscriber?: Maybe<{
                   __typename?: "GithubCheckSubscriber";
                   owner: string;
-                  repo: string;
                   ref: string;
+                  repo: string;
+                }>;
+                githubPRSubscriber?: Maybe<{
+                  __typename?: "GithubPRSubscriber";
+                  owner: string;
+                  prNumber?: Maybe<number>;
+                  ref: string;
+                  repo: string;
+                }>;
+                jiraIssueSubscriber?: Maybe<{
+                  __typename?: "JiraIssueSubscriber";
+                  issueType: string;
+                  project: string;
                 }>;
                 webhookSubscriber?: Maybe<{
                   __typename?: "WebhookSubscriber";
-                  url: string;
                   secret: string;
+                  url: string;
                   headers: Array<
                     Maybe<{
                       __typename?: "WebhookHeader";
@@ -5846,109 +5864,77 @@ export type ProjectEventLogsQuery = {
                     }>
                   >;
                 }>;
-                jiraIssueSubscriber?: Maybe<{
-                  __typename?: "JiraIssueSubscriber";
-                  project: string;
-                  issueType: string;
-                }>;
               };
             }>;
           }>
         >;
         vars?: Maybe<{
           __typename?: "ProjectVars";
-          vars?: Maybe<{ [key: string]: any }>;
-          privateVars: Array<string>;
           adminOnlyVars: Array<string>;
+          privateVars: Array<string>;
+          vars?: Maybe<{ [key: string]: any }>;
         }>;
-        aliases?: Maybe<
-          Array<{
-            __typename?: "ProjectAlias";
-            id: string;
-            alias: string;
-            gitTag: string;
-            variant: string;
-            task: string;
-            remotePath: string;
-            variantTags: Array<string>;
-            taskTags: Array<string>;
-          }>
-        >;
       }>;
       before?: Maybe<{
         __typename?: "ProjectEventSettings";
         githubWebhooksEnabled: boolean;
+        aliases?: Maybe<
+          Array<{
+            __typename?: "ProjectAlias";
+            alias: string;
+            gitTag: string;
+            id: string;
+            remotePath: string;
+            task: string;
+            taskTags: Array<string>;
+            variant: string;
+            variantTags: Array<string>;
+          }>
+        >;
         projectRef?: Maybe<{
           __typename?: "Project";
+          hidden?: Maybe<boolean>;
           identifier: string;
           repoRefId: string;
-          versionControlEnabled?: Maybe<boolean>;
           tracksPushEvents?: Maybe<boolean>;
-          hidden?: Maybe<boolean>;
+          versionControlEnabled?: Maybe<boolean>;
+          admins?: Maybe<Array<Maybe<string>>>;
+          restricted?: Maybe<boolean>;
+          batchTime: number;
+          branch: string;
+          deactivatePrevious?: Maybe<boolean>;
+          disabledStatsCache?: Maybe<boolean>;
+          dispatchingDisabled?: Maybe<boolean>;
+          displayName: string;
           enabled?: Maybe<boolean>;
           owner: string;
-          repo: string;
-          branch: string;
-          displayName: string;
-          batchTime: number;
-          remotePath: string;
-          spawnHostScriptPath: string;
-          dispatchingDisabled?: Maybe<boolean>;
-          deactivatePrevious?: Maybe<boolean>;
-          repotrackerDisabled?: Maybe<boolean>;
-          stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
-          disabledStatsCache?: Maybe<boolean>;
-          restricted?: Maybe<boolean>;
-          admins?: Maybe<Array<Maybe<string>>>;
-          perfEnabled?: Maybe<boolean>;
+          remotePath: string;
+          repo: string;
+          repotrackerDisabled?: Maybe<boolean>;
+          spawnHostScriptPath: string;
+          stepbackDisabled?: Maybe<boolean>;
           notifyOnBuildFailure?: Maybe<boolean>;
           githubTriggerAliases?: Maybe<Array<string>>;
-          prTestingEnabled?: Maybe<boolean>;
-          manualPrTestingEnabled?: Maybe<boolean>;
+          perfEnabled?: Maybe<boolean>;
           githubChecksEnabled?: Maybe<boolean>;
-          gitTagVersionsEnabled?: Maybe<boolean>;
-          gitTagAuthorizedUsers?: Maybe<Array<string>>;
           gitTagAuthorizedTeams?: Maybe<Array<string>>;
+          gitTagAuthorizedUsers?: Maybe<Array<string>>;
+          gitTagVersionsEnabled?: Maybe<boolean>;
+          manualPrTestingEnabled?: Maybe<boolean>;
+          prTestingEnabled?: Maybe<boolean>;
           taskSync: {
             __typename?: "TaskSyncOptions";
             configEnabled?: Maybe<boolean>;
             patchEnabled?: Maybe<boolean>;
           };
-          buildBaronSettings: {
-            __typename?: "BuildBaronSettings";
-            ticketCreateProject: string;
-            ticketSearchProjects?: Maybe<Array<string>>;
-          };
-          taskAnnotationSettings: {
-            __typename?: "TaskAnnotationSettings";
-            jiraCustomFields?: Maybe<
-              Array<{
-                __typename?: "JiraField";
-                field: string;
-                displayText: string;
-              }>
-            >;
-            fileTicketWebhook: {
-              __typename?: "Webhook";
-              endpoint: string;
-              secret: string;
-            };
-          };
-          externalLinks?: Maybe<
-            Array<{
-              __typename?: "ExternalLink";
-              displayName: string;
-              urlTemplate: string;
-            }>
-          >;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
               alias: string;
               childProjectIdentifier: string;
-              status?: Maybe<string>;
               parentAsModule?: Maybe<string>;
+              status?: Maybe<string>;
               taskSpecifiers?: Maybe<
                 Array<{
                   __typename?: "TaskSpecifier";
@@ -5957,6 +5943,57 @@ export type ProjectEventLogsQuery = {
                   variantRegex: string;
                 }>
               >;
+            }>
+          >;
+          periodicBuilds?: Maybe<
+            Array<{
+              __typename?: "PeriodicBuild";
+              alias: string;
+              configFile: string;
+              id: string;
+              intervalHours: number;
+              message: string;
+              nextRunTime: Date;
+            }>
+          >;
+          buildBaronSettings: {
+            __typename?: "BuildBaronSettings";
+            ticketCreateProject: string;
+            ticketSearchProjects?: Maybe<Array<string>>;
+          };
+          externalLinks?: Maybe<
+            Array<{
+              __typename?: "ExternalLink";
+              displayName: string;
+              urlTemplate: string;
+            }>
+          >;
+          taskAnnotationSettings: {
+            __typename?: "TaskAnnotationSettings";
+            fileTicketWebhook: {
+              __typename?: "Webhook";
+              endpoint: string;
+              secret: string;
+            };
+            jiraCustomFields?: Maybe<
+              Array<{
+                __typename?: "JiraField";
+                displayText: string;
+                field: string;
+              }>
+            >;
+          };
+          triggers?: Maybe<
+            Array<{
+              __typename?: "TriggerAlias";
+              alias: string;
+              buildVariantRegex: string;
+              configFile: string;
+              dateCutoff?: Maybe<number>;
+              level: string;
+              project: string;
+              status: string;
+              taskRegex: string;
             }>
           >;
           workstationConfig: {
@@ -5970,30 +6007,6 @@ export type ProjectEventLogsQuery = {
               }>
             >;
           };
-          triggers?: Maybe<
-            Array<{
-              __typename?: "TriggerAlias";
-              project: string;
-              level: string;
-              buildVariantRegex: string;
-              taskRegex: string;
-              status: string;
-              dateCutoff?: Maybe<number>;
-              configFile: string;
-              alias: string;
-            }>
-          >;
-          periodicBuilds?: Maybe<
-            Array<{
-              __typename?: "PeriodicBuild";
-              id: string;
-              configFile: string;
-              intervalHours: number;
-              alias: string;
-              message: string;
-              nextRunTime: Date;
-            }>
-          >;
           commitQueue: {
             __typename?: "CommitQueueParams";
             enabled?: Maybe<boolean>;
@@ -6005,45 +6018,50 @@ export type ProjectEventLogsQuery = {
           Array<{
             __typename?: "ProjectSubscription";
             id: string;
+            ownerType: string;
             resourceType: string;
             trigger: string;
-            ownerType: string;
             triggerData?: Maybe<{ [key: string]: any }>;
-            selectors: Array<{
-              __typename?: "Selector";
-              type: string;
-              data: string;
-            }>;
             regexSelectors: Array<{
               __typename?: "Selector";
-              type: string;
               data: string;
+              type: string;
+            }>;
+            selectors: Array<{
+              __typename?: "Selector";
+              data: string;
+              type: string;
             }>;
             subscriber?: Maybe<{
               __typename?: "ProjectSubscriber";
               type: string;
               subscriber: {
                 __typename?: "Subscriber";
-                jiraCommentSubscriber?: Maybe<string>;
                 emailSubscriber?: Maybe<string>;
+                jiraCommentSubscriber?: Maybe<string>;
                 slackSubscriber?: Maybe<string>;
-                githubPRSubscriber?: Maybe<{
-                  __typename?: "GithubPRSubscriber";
-                  owner: string;
-                  repo: string;
-                  ref: string;
-                  prNumber?: Maybe<number>;
-                }>;
                 githubCheckSubscriber?: Maybe<{
                   __typename?: "GithubCheckSubscriber";
                   owner: string;
-                  repo: string;
                   ref: string;
+                  repo: string;
+                }>;
+                githubPRSubscriber?: Maybe<{
+                  __typename?: "GithubPRSubscriber";
+                  owner: string;
+                  prNumber?: Maybe<number>;
+                  ref: string;
+                  repo: string;
+                }>;
+                jiraIssueSubscriber?: Maybe<{
+                  __typename?: "JiraIssueSubscriber";
+                  issueType: string;
+                  project: string;
                 }>;
                 webhookSubscriber?: Maybe<{
                   __typename?: "WebhookSubscriber";
-                  url: string;
                   secret: string;
+                  url: string;
                   headers: Array<
                     Maybe<{
                       __typename?: "WebhookHeader";
@@ -6052,34 +6070,16 @@ export type ProjectEventLogsQuery = {
                     }>
                   >;
                 }>;
-                jiraIssueSubscriber?: Maybe<{
-                  __typename?: "JiraIssueSubscriber";
-                  project: string;
-                  issueType: string;
-                }>;
               };
             }>;
           }>
         >;
         vars?: Maybe<{
           __typename?: "ProjectVars";
-          vars?: Maybe<{ [key: string]: any }>;
-          privateVars: Array<string>;
           adminOnlyVars: Array<string>;
+          privateVars: Array<string>;
+          vars?: Maybe<{ [key: string]: any }>;
         }>;
-        aliases?: Maybe<
-          Array<{
-            __typename?: "ProjectAlias";
-            id: string;
-            alias: string;
-            gitTag: string;
-            variant: string;
-            task: string;
-            remotePath: string;
-            variantTags: Array<string>;
-            taskTags: Array<string>;
-          }>
-        >;
       }>;
     }>;
   };
@@ -6094,76 +6094,62 @@ export type ProjectSettingsQuery = {
   projectSettings: {
     __typename?: "ProjectSettings";
     githubWebhooksEnabled: boolean;
+    aliases?: Maybe<
+      Array<{
+        __typename?: "ProjectAlias";
+        alias: string;
+        gitTag: string;
+        id: string;
+        remotePath: string;
+        task: string;
+        taskTags: Array<string>;
+        variant: string;
+        variantTags: Array<string>;
+      }>
+    >;
     projectRef?: Maybe<{
       __typename?: "Project";
       id: string;
       identifier: string;
       repoRefId: string;
+      admins?: Maybe<Array<Maybe<string>>>;
+      restricted?: Maybe<boolean>;
+      batchTime: number;
+      branch: string;
+      deactivatePrevious?: Maybe<boolean>;
+      disabledStatsCache?: Maybe<boolean>;
+      dispatchingDisabled?: Maybe<boolean>;
+      displayName: string;
       enabled?: Maybe<boolean>;
       owner: string;
-      repo: string;
-      branch: string;
-      displayName: string;
-      batchTime: number;
-      remotePath: string;
-      spawnHostScriptPath: string;
-      dispatchingDisabled?: Maybe<boolean>;
-      versionControlEnabled?: Maybe<boolean>;
-      deactivatePrevious?: Maybe<boolean>;
-      repotrackerDisabled?: Maybe<boolean>;
-      stepbackDisabled?: Maybe<boolean>;
       patchingDisabled?: Maybe<boolean>;
-      disabledStatsCache?: Maybe<boolean>;
-      restricted?: Maybe<boolean>;
-      admins?: Maybe<Array<Maybe<string>>>;
-      perfEnabled?: Maybe<boolean>;
+      remotePath: string;
+      repo: string;
+      repotrackerDisabled?: Maybe<boolean>;
+      spawnHostScriptPath: string;
+      stepbackDisabled?: Maybe<boolean>;
+      versionControlEnabled?: Maybe<boolean>;
       notifyOnBuildFailure?: Maybe<boolean>;
       githubTriggerAliases?: Maybe<Array<string>>;
-      prTestingEnabled?: Maybe<boolean>;
-      manualPrTestingEnabled?: Maybe<boolean>;
+      perfEnabled?: Maybe<boolean>;
       githubChecksEnabled?: Maybe<boolean>;
-      gitTagVersionsEnabled?: Maybe<boolean>;
-      gitTagAuthorizedUsers?: Maybe<Array<string>>;
       gitTagAuthorizedTeams?: Maybe<Array<string>>;
+      gitTagAuthorizedUsers?: Maybe<Array<string>>;
+      gitTagVersionsEnabled?: Maybe<boolean>;
+      manualPrTestingEnabled?: Maybe<boolean>;
+      prTestingEnabled?: Maybe<boolean>;
       taskSync: {
         __typename?: "TaskSyncOptions";
         configEnabled?: Maybe<boolean>;
         patchEnabled?: Maybe<boolean>;
       };
-      buildBaronSettings: {
-        __typename?: "BuildBaronSettings";
-        ticketCreateProject: string;
-        ticketSearchProjects?: Maybe<Array<string>>;
-      };
-      taskAnnotationSettings: {
-        __typename?: "TaskAnnotationSettings";
-        jiraCustomFields?: Maybe<
-          Array<{
-            __typename?: "JiraField";
-            field: string;
-            displayText: string;
-          }>
-        >;
-        fileTicketWebhook: {
-          __typename?: "Webhook";
-          endpoint: string;
-          secret: string;
-        };
-      };
-      externalLinks?: Maybe<
-        Array<{
-          __typename?: "ExternalLink";
-          displayName: string;
-          urlTemplate: string;
-        }>
-      >;
       patchTriggerAliases?: Maybe<
         Array<{
           __typename?: "PatchTriggerAlias";
           alias: string;
           childProjectIdentifier: string;
-          status?: Maybe<string>;
           parentAsModule?: Maybe<string>;
+          status?: Maybe<string>;
           taskSpecifiers?: Maybe<
             Array<{
               __typename?: "TaskSpecifier";
@@ -6172,6 +6158,57 @@ export type ProjectSettingsQuery = {
               variantRegex: string;
             }>
           >;
+        }>
+      >;
+      periodicBuilds?: Maybe<
+        Array<{
+          __typename?: "PeriodicBuild";
+          alias: string;
+          configFile: string;
+          id: string;
+          intervalHours: number;
+          message: string;
+          nextRunTime: Date;
+        }>
+      >;
+      buildBaronSettings: {
+        __typename?: "BuildBaronSettings";
+        ticketCreateProject: string;
+        ticketSearchProjects?: Maybe<Array<string>>;
+      };
+      externalLinks?: Maybe<
+        Array<{
+          __typename?: "ExternalLink";
+          displayName: string;
+          urlTemplate: string;
+        }>
+      >;
+      taskAnnotationSettings: {
+        __typename?: "TaskAnnotationSettings";
+        fileTicketWebhook: {
+          __typename?: "Webhook";
+          endpoint: string;
+          secret: string;
+        };
+        jiraCustomFields?: Maybe<
+          Array<{
+            __typename?: "JiraField";
+            displayText: string;
+            field: string;
+          }>
+        >;
+      };
+      triggers?: Maybe<
+        Array<{
+          __typename?: "TriggerAlias";
+          alias: string;
+          buildVariantRegex: string;
+          configFile: string;
+          dateCutoff?: Maybe<number>;
+          level: string;
+          project: string;
+          status: string;
+          taskRegex: string;
         }>
       >;
       workstationConfig: {
@@ -6185,30 +6222,6 @@ export type ProjectSettingsQuery = {
           }>
         >;
       };
-      triggers?: Maybe<
-        Array<{
-          __typename?: "TriggerAlias";
-          project: string;
-          level: string;
-          buildVariantRegex: string;
-          taskRegex: string;
-          status: string;
-          dateCutoff?: Maybe<number>;
-          configFile: string;
-          alias: string;
-        }>
-      >;
-      periodicBuilds?: Maybe<
-        Array<{
-          __typename?: "PeriodicBuild";
-          id: string;
-          configFile: string;
-          intervalHours: number;
-          alias: string;
-          message: string;
-          nextRunTime: Date;
-        }>
-      >;
       commitQueue: {
         __typename?: "CommitQueueParams";
         enabled?: Maybe<boolean>;
@@ -6220,45 +6233,50 @@ export type ProjectSettingsQuery = {
       Array<{
         __typename?: "ProjectSubscription";
         id: string;
+        ownerType: string;
         resourceType: string;
         trigger: string;
-        ownerType: string;
         triggerData?: Maybe<{ [key: string]: any }>;
-        selectors: Array<{
-          __typename?: "Selector";
-          type: string;
-          data: string;
-        }>;
         regexSelectors: Array<{
           __typename?: "Selector";
-          type: string;
           data: string;
+          type: string;
+        }>;
+        selectors: Array<{
+          __typename?: "Selector";
+          data: string;
+          type: string;
         }>;
         subscriber?: Maybe<{
           __typename?: "ProjectSubscriber";
           type: string;
           subscriber: {
             __typename?: "Subscriber";
-            jiraCommentSubscriber?: Maybe<string>;
             emailSubscriber?: Maybe<string>;
+            jiraCommentSubscriber?: Maybe<string>;
             slackSubscriber?: Maybe<string>;
-            githubPRSubscriber?: Maybe<{
-              __typename?: "GithubPRSubscriber";
-              owner: string;
-              repo: string;
-              ref: string;
-              prNumber?: Maybe<number>;
-            }>;
             githubCheckSubscriber?: Maybe<{
               __typename?: "GithubCheckSubscriber";
               owner: string;
-              repo: string;
               ref: string;
+              repo: string;
+            }>;
+            githubPRSubscriber?: Maybe<{
+              __typename?: "GithubPRSubscriber";
+              owner: string;
+              prNumber?: Maybe<number>;
+              ref: string;
+              repo: string;
+            }>;
+            jiraIssueSubscriber?: Maybe<{
+              __typename?: "JiraIssueSubscriber";
+              issueType: string;
+              project: string;
             }>;
             webhookSubscriber?: Maybe<{
               __typename?: "WebhookSubscriber";
-              url: string;
               secret: string;
+              url: string;
               headers: Array<
                 Maybe<{
                   __typename?: "WebhookHeader";
@@ -6267,34 +6285,16 @@ export type ProjectSettingsQuery = {
                 }>
               >;
             }>;
-            jiraIssueSubscriber?: Maybe<{
-              __typename?: "JiraIssueSubscriber";
-              project: string;
-              issueType: string;
-            }>;
           };
         }>;
       }>
     >;
     vars?: Maybe<{
       __typename?: "ProjectVars";
-      vars?: Maybe<{ [key: string]: any }>;
-      privateVars: Array<string>;
       adminOnlyVars: Array<string>;
+      privateVars: Array<string>;
+      vars?: Maybe<{ [key: string]: any }>;
     }>;
-    aliases?: Maybe<
-      Array<{
-        __typename?: "ProjectAlias";
-        id: string;
-        alias: string;
-        gitTag: string;
-        variant: string;
-        task: string;
-        remotePath: string;
-        variantTags: Array<string>;
-        taskTags: Array<string>;
-      }>
-    >;
   };
 };
 
@@ -6344,77 +6344,63 @@ export type RepoEventLogsQuery = {
       after?: Maybe<{
         __typename?: "ProjectEventSettings";
         githubWebhooksEnabled: boolean;
+        aliases?: Maybe<
+          Array<{
+            __typename?: "ProjectAlias";
+            alias: string;
+            gitTag: string;
+            id: string;
+            remotePath: string;
+            task: string;
+            taskTags: Array<string>;
+            variant: string;
+            variantTags: Array<string>;
+          }>
+        >;
         projectRef?: Maybe<{
           __typename?: "Project";
+          hidden?: Maybe<boolean>;
           identifier: string;
           repoRefId: string;
-          versionControlEnabled?: Maybe<boolean>;
           tracksPushEvents?: Maybe<boolean>;
-          hidden?: Maybe<boolean>;
+          versionControlEnabled?: Maybe<boolean>;
+          admins?: Maybe<Array<Maybe<string>>>;
+          restricted?: Maybe<boolean>;
+          batchTime: number;
+          branch: string;
+          deactivatePrevious?: Maybe<boolean>;
+          disabledStatsCache?: Maybe<boolean>;
+          dispatchingDisabled?: Maybe<boolean>;
+          displayName: string;
           enabled?: Maybe<boolean>;
           owner: string;
-          repo: string;
-          branch: string;
-          displayName: string;
-          batchTime: number;
-          remotePath: string;
-          spawnHostScriptPath: string;
-          dispatchingDisabled?: Maybe<boolean>;
-          deactivatePrevious?: Maybe<boolean>;
-          repotrackerDisabled?: Maybe<boolean>;
-          stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
-          disabledStatsCache?: Maybe<boolean>;
-          restricted?: Maybe<boolean>;
-          admins?: Maybe<Array<Maybe<string>>>;
-          perfEnabled?: Maybe<boolean>;
+          remotePath: string;
+          repo: string;
+          repotrackerDisabled?: Maybe<boolean>;
+          spawnHostScriptPath: string;
+          stepbackDisabled?: Maybe<boolean>;
           notifyOnBuildFailure?: Maybe<boolean>;
           githubTriggerAliases?: Maybe<Array<string>>;
-          prTestingEnabled?: Maybe<boolean>;
-          manualPrTestingEnabled?: Maybe<boolean>;
+          perfEnabled?: Maybe<boolean>;
           githubChecksEnabled?: Maybe<boolean>;
-          gitTagVersionsEnabled?: Maybe<boolean>;
-          gitTagAuthorizedUsers?: Maybe<Array<string>>;
           gitTagAuthorizedTeams?: Maybe<Array<string>>;
+          gitTagAuthorizedUsers?: Maybe<Array<string>>;
+          gitTagVersionsEnabled?: Maybe<boolean>;
+          manualPrTestingEnabled?: Maybe<boolean>;
+          prTestingEnabled?: Maybe<boolean>;
           taskSync: {
             __typename?: "TaskSyncOptions";
             configEnabled?: Maybe<boolean>;
             patchEnabled?: Maybe<boolean>;
           };
-          buildBaronSettings: {
-            __typename?: "BuildBaronSettings";
-            ticketCreateProject: string;
-            ticketSearchProjects?: Maybe<Array<string>>;
-          };
-          taskAnnotationSettings: {
-            __typename?: "TaskAnnotationSettings";
-            jiraCustomFields?: Maybe<
-              Array<{
-                __typename?: "JiraField";
-                field: string;
-                displayText: string;
-              }>
-            >;
-            fileTicketWebhook: {
-              __typename?: "Webhook";
-              endpoint: string;
-              secret: string;
-            };
-          };
-          externalLinks?: Maybe<
-            Array<{
-              __typename?: "ExternalLink";
-              displayName: string;
-              urlTemplate: string;
-            }>
-          >;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
               alias: string;
               childProjectIdentifier: string;
-              status?: Maybe<string>;
               parentAsModule?: Maybe<string>;
+              status?: Maybe<string>;
               taskSpecifiers?: Maybe<
                 Array<{
                   __typename?: "TaskSpecifier";
@@ -6423,6 +6409,57 @@ export type RepoEventLogsQuery = {
                   variantRegex: string;
                 }>
               >;
+            }>
+          >;
+          periodicBuilds?: Maybe<
+            Array<{
+              __typename?: "PeriodicBuild";
+              alias: string;
+              configFile: string;
+              id: string;
+              intervalHours: number;
+              message: string;
+              nextRunTime: Date;
+            }>
+          >;
+          buildBaronSettings: {
+            __typename?: "BuildBaronSettings";
+            ticketCreateProject: string;
+            ticketSearchProjects?: Maybe<Array<string>>;
+          };
+          externalLinks?: Maybe<
+            Array<{
+              __typename?: "ExternalLink";
+              displayName: string;
+              urlTemplate: string;
+            }>
+          >;
+          taskAnnotationSettings: {
+            __typename?: "TaskAnnotationSettings";
+            fileTicketWebhook: {
+              __typename?: "Webhook";
+              endpoint: string;
+              secret: string;
+            };
+            jiraCustomFields?: Maybe<
+              Array<{
+                __typename?: "JiraField";
+                displayText: string;
+                field: string;
+              }>
+            >;
+          };
+          triggers?: Maybe<
+            Array<{
+              __typename?: "TriggerAlias";
+              alias: string;
+              buildVariantRegex: string;
+              configFile: string;
+              dateCutoff?: Maybe<number>;
+              level: string;
+              project: string;
+              status: string;
+              taskRegex: string;
             }>
           >;
           workstationConfig: {
@@ -6436,30 +6473,6 @@ export type RepoEventLogsQuery = {
               }>
             >;
           };
-          triggers?: Maybe<
-            Array<{
-              __typename?: "TriggerAlias";
-              project: string;
-              level: string;
-              buildVariantRegex: string;
-              taskRegex: string;
-              status: string;
-              dateCutoff?: Maybe<number>;
-              configFile: string;
-              alias: string;
-            }>
-          >;
-          periodicBuilds?: Maybe<
-            Array<{
-              __typename?: "PeriodicBuild";
-              id: string;
-              configFile: string;
-              intervalHours: number;
-              alias: string;
-              message: string;
-              nextRunTime: Date;
-            }>
-          >;
           commitQueue: {
             __typename?: "CommitQueueParams";
             enabled?: Maybe<boolean>;
@@ -6471,45 +6484,50 @@ export type RepoEventLogsQuery = {
           Array<{
             __typename?: "ProjectSubscription";
             id: string;
+            ownerType: string;
             resourceType: string;
             trigger: string;
-            ownerType: string;
             triggerData?: Maybe<{ [key: string]: any }>;
-            selectors: Array<{
-              __typename?: "Selector";
-              type: string;
-              data: string;
-            }>;
             regexSelectors: Array<{
               __typename?: "Selector";
-              type: string;
               data: string;
+              type: string;
+            }>;
+            selectors: Array<{
+              __typename?: "Selector";
+              data: string;
+              type: string;
             }>;
             subscriber?: Maybe<{
               __typename?: "ProjectSubscriber";
               type: string;
               subscriber: {
                 __typename?: "Subscriber";
-                jiraCommentSubscriber?: Maybe<string>;
                 emailSubscriber?: Maybe<string>;
+                jiraCommentSubscriber?: Maybe<string>;
                 slackSubscriber?: Maybe<string>;
-                githubPRSubscriber?: Maybe<{
-                  __typename?: "GithubPRSubscriber";
-                  owner: string;
-                  repo: string;
-                  ref: string;
-                  prNumber?: Maybe<number>;
-                }>;
                 githubCheckSubscriber?: Maybe<{
                   __typename?: "GithubCheckSubscriber";
                   owner: string;
-                  repo: string;
                   ref: string;
+                  repo: string;
+                }>;
+                githubPRSubscriber?: Maybe<{
+                  __typename?: "GithubPRSubscriber";
+                  owner: string;
+                  prNumber?: Maybe<number>;
+                  ref: string;
+                  repo: string;
+                }>;
+                jiraIssueSubscriber?: Maybe<{
+                  __typename?: "JiraIssueSubscriber";
+                  issueType: string;
+                  project: string;
                 }>;
                 webhookSubscriber?: Maybe<{
                   __typename?: "WebhookSubscriber";
-                  url: string;
                   secret: string;
+                  url: string;
                   headers: Array<
                     Maybe<{
                       __typename?: "WebhookHeader";
@@ -6518,109 +6536,77 @@ export type RepoEventLogsQuery = {
                     }>
                   >;
                 }>;
-                jiraIssueSubscriber?: Maybe<{
-                  __typename?: "JiraIssueSubscriber";
-                  project: string;
-                  issueType: string;
-                }>;
               };
             }>;
           }>
         >;
         vars?: Maybe<{
           __typename?: "ProjectVars";
-          vars?: Maybe<{ [key: string]: any }>;
-          privateVars: Array<string>;
           adminOnlyVars: Array<string>;
+          privateVars: Array<string>;
+          vars?: Maybe<{ [key: string]: any }>;
         }>;
-        aliases?: Maybe<
-          Array<{
-            __typename?: "ProjectAlias";
-            id: string;
-            alias: string;
-            gitTag: string;
-            variant: string;
-            task: string;
-            remotePath: string;
-            variantTags: Array<string>;
-            taskTags: Array<string>;
-          }>
-        >;
       }>;
       before?: Maybe<{
         __typename?: "ProjectEventSettings";
         githubWebhooksEnabled: boolean;
+        aliases?: Maybe<
+          Array<{
+            __typename?: "ProjectAlias";
+            alias: string;
+            gitTag: string;
+            id: string;
+            remotePath: string;
+            task: string;
+            taskTags: Array<string>;
+            variant: string;
+            variantTags: Array<string>;
+          }>
+        >;
         projectRef?: Maybe<{
           __typename?: "Project";
+          hidden?: Maybe<boolean>;
           identifier: string;
           repoRefId: string;
-          versionControlEnabled?: Maybe<boolean>;
           tracksPushEvents?: Maybe<boolean>;
-          hidden?: Maybe<boolean>;
+          versionControlEnabled?: Maybe<boolean>;
+          admins?: Maybe<Array<Maybe<string>>>;
+          restricted?: Maybe<boolean>;
+          batchTime: number;
+          branch: string;
+          deactivatePrevious?: Maybe<boolean>;
+          disabledStatsCache?: Maybe<boolean>;
+          dispatchingDisabled?: Maybe<boolean>;
+          displayName: string;
           enabled?: Maybe<boolean>;
           owner: string;
-          repo: string;
-          branch: string;
-          displayName: string;
-          batchTime: number;
-          remotePath: string;
-          spawnHostScriptPath: string;
-          dispatchingDisabled?: Maybe<boolean>;
-          deactivatePrevious?: Maybe<boolean>;
-          repotrackerDisabled?: Maybe<boolean>;
-          stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
-          disabledStatsCache?: Maybe<boolean>;
-          restricted?: Maybe<boolean>;
-          admins?: Maybe<Array<Maybe<string>>>;
-          perfEnabled?: Maybe<boolean>;
+          remotePath: string;
+          repo: string;
+          repotrackerDisabled?: Maybe<boolean>;
+          spawnHostScriptPath: string;
+          stepbackDisabled?: Maybe<boolean>;
           notifyOnBuildFailure?: Maybe<boolean>;
           githubTriggerAliases?: Maybe<Array<string>>;
-          prTestingEnabled?: Maybe<boolean>;
-          manualPrTestingEnabled?: Maybe<boolean>;
+          perfEnabled?: Maybe<boolean>;
           githubChecksEnabled?: Maybe<boolean>;
-          gitTagVersionsEnabled?: Maybe<boolean>;
-          gitTagAuthorizedUsers?: Maybe<Array<string>>;
           gitTagAuthorizedTeams?: Maybe<Array<string>>;
+          gitTagAuthorizedUsers?: Maybe<Array<string>>;
+          gitTagVersionsEnabled?: Maybe<boolean>;
+          manualPrTestingEnabled?: Maybe<boolean>;
+          prTestingEnabled?: Maybe<boolean>;
           taskSync: {
             __typename?: "TaskSyncOptions";
             configEnabled?: Maybe<boolean>;
             patchEnabled?: Maybe<boolean>;
           };
-          buildBaronSettings: {
-            __typename?: "BuildBaronSettings";
-            ticketCreateProject: string;
-            ticketSearchProjects?: Maybe<Array<string>>;
-          };
-          taskAnnotationSettings: {
-            __typename?: "TaskAnnotationSettings";
-            jiraCustomFields?: Maybe<
-              Array<{
-                __typename?: "JiraField";
-                field: string;
-                displayText: string;
-              }>
-            >;
-            fileTicketWebhook: {
-              __typename?: "Webhook";
-              endpoint: string;
-              secret: string;
-            };
-          };
-          externalLinks?: Maybe<
-            Array<{
-              __typename?: "ExternalLink";
-              displayName: string;
-              urlTemplate: string;
-            }>
-          >;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
               alias: string;
               childProjectIdentifier: string;
-              status?: Maybe<string>;
               parentAsModule?: Maybe<string>;
+              status?: Maybe<string>;
               taskSpecifiers?: Maybe<
                 Array<{
                   __typename?: "TaskSpecifier";
@@ -6629,6 +6615,57 @@ export type RepoEventLogsQuery = {
                   variantRegex: string;
                 }>
               >;
+            }>
+          >;
+          periodicBuilds?: Maybe<
+            Array<{
+              __typename?: "PeriodicBuild";
+              alias: string;
+              configFile: string;
+              id: string;
+              intervalHours: number;
+              message: string;
+              nextRunTime: Date;
+            }>
+          >;
+          buildBaronSettings: {
+            __typename?: "BuildBaronSettings";
+            ticketCreateProject: string;
+            ticketSearchProjects?: Maybe<Array<string>>;
+          };
+          externalLinks?: Maybe<
+            Array<{
+              __typename?: "ExternalLink";
+              displayName: string;
+              urlTemplate: string;
+            }>
+          >;
+          taskAnnotationSettings: {
+            __typename?: "TaskAnnotationSettings";
+            fileTicketWebhook: {
+              __typename?: "Webhook";
+              endpoint: string;
+              secret: string;
+            };
+            jiraCustomFields?: Maybe<
+              Array<{
+                __typename?: "JiraField";
+                displayText: string;
+                field: string;
+              }>
+            >;
+          };
+          triggers?: Maybe<
+            Array<{
+              __typename?: "TriggerAlias";
+              alias: string;
+              buildVariantRegex: string;
+              configFile: string;
+              dateCutoff?: Maybe<number>;
+              level: string;
+              project: string;
+              status: string;
+              taskRegex: string;
             }>
           >;
           workstationConfig: {
@@ -6642,30 +6679,6 @@ export type RepoEventLogsQuery = {
               }>
             >;
           };
-          triggers?: Maybe<
-            Array<{
-              __typename?: "TriggerAlias";
-              project: string;
-              level: string;
-              buildVariantRegex: string;
-              taskRegex: string;
-              status: string;
-              dateCutoff?: Maybe<number>;
-              configFile: string;
-              alias: string;
-            }>
-          >;
-          periodicBuilds?: Maybe<
-            Array<{
-              __typename?: "PeriodicBuild";
-              id: string;
-              configFile: string;
-              intervalHours: number;
-              alias: string;
-              message: string;
-              nextRunTime: Date;
-            }>
-          >;
           commitQueue: {
             __typename?: "CommitQueueParams";
             enabled?: Maybe<boolean>;
@@ -6677,45 +6690,50 @@ export type RepoEventLogsQuery = {
           Array<{
             __typename?: "ProjectSubscription";
             id: string;
+            ownerType: string;
             resourceType: string;
             trigger: string;
-            ownerType: string;
             triggerData?: Maybe<{ [key: string]: any }>;
-            selectors: Array<{
-              __typename?: "Selector";
-              type: string;
-              data: string;
-            }>;
             regexSelectors: Array<{
               __typename?: "Selector";
-              type: string;
               data: string;
+              type: string;
+            }>;
+            selectors: Array<{
+              __typename?: "Selector";
+              data: string;
+              type: string;
             }>;
             subscriber?: Maybe<{
               __typename?: "ProjectSubscriber";
               type: string;
               subscriber: {
                 __typename?: "Subscriber";
-                jiraCommentSubscriber?: Maybe<string>;
                 emailSubscriber?: Maybe<string>;
+                jiraCommentSubscriber?: Maybe<string>;
                 slackSubscriber?: Maybe<string>;
-                githubPRSubscriber?: Maybe<{
-                  __typename?: "GithubPRSubscriber";
-                  owner: string;
-                  repo: string;
-                  ref: string;
-                  prNumber?: Maybe<number>;
-                }>;
                 githubCheckSubscriber?: Maybe<{
                   __typename?: "GithubCheckSubscriber";
                   owner: string;
-                  repo: string;
                   ref: string;
+                  repo: string;
+                }>;
+                githubPRSubscriber?: Maybe<{
+                  __typename?: "GithubPRSubscriber";
+                  owner: string;
+                  prNumber?: Maybe<number>;
+                  ref: string;
+                  repo: string;
+                }>;
+                jiraIssueSubscriber?: Maybe<{
+                  __typename?: "JiraIssueSubscriber";
+                  issueType: string;
+                  project: string;
                 }>;
                 webhookSubscriber?: Maybe<{
                   __typename?: "WebhookSubscriber";
-                  url: string;
                   secret: string;
+                  url: string;
                   headers: Array<
                     Maybe<{
                       __typename?: "WebhookHeader";
@@ -6724,34 +6742,16 @@ export type RepoEventLogsQuery = {
                     }>
                   >;
                 }>;
-                jiraIssueSubscriber?: Maybe<{
-                  __typename?: "JiraIssueSubscriber";
-                  project: string;
-                  issueType: string;
-                }>;
               };
             }>;
           }>
         >;
         vars?: Maybe<{
           __typename?: "ProjectVars";
-          vars?: Maybe<{ [key: string]: any }>;
-          privateVars: Array<string>;
           adminOnlyVars: Array<string>;
+          privateVars: Array<string>;
+          vars?: Maybe<{ [key: string]: any }>;
         }>;
-        aliases?: Maybe<
-          Array<{
-            __typename?: "ProjectAlias";
-            id: string;
-            alias: string;
-            gitTag: string;
-            variant: string;
-            task: string;
-            remotePath: string;
-            variantTags: Array<string>;
-            taskTags: Array<string>;
-          }>
-        >;
       }>;
     }>;
   };
@@ -6766,73 +6766,59 @@ export type RepoSettingsQuery = {
   repoSettings: {
     __typename?: "RepoSettings";
     githubWebhooksEnabled: boolean;
+    aliases?: Maybe<
+      Array<{
+        __typename?: "ProjectAlias";
+        alias: string;
+        gitTag: string;
+        id: string;
+        remotePath: string;
+        task: string;
+        taskTags: Array<string>;
+        variant: string;
+        variantTags: Array<string>;
+      }>
+    >;
     projectRef?: Maybe<{
       __typename?: "RepoRef";
-      id: string;
       displayName: string;
-      owner: string;
-      repo: string;
-      branch: string;
-      batchTime: number;
-      remotePath: string;
-      spawnHostScriptPath: string;
-      dispatchingDisabled: boolean;
-      versionControlEnabled: boolean;
-      deactivatePrevious: boolean;
-      repotrackerDisabled: boolean;
-      stepbackDisabled: boolean;
-      patchingDisabled: boolean;
-      disabledStatsCache: boolean;
-      restricted: boolean;
+      id: string;
       admins: Array<string>;
-      perfEnabled: boolean;
+      restricted: boolean;
+      batchTime: number;
+      branch: string;
+      deactivatePrevious: boolean;
+      disabledStatsCache: boolean;
+      dispatchingDisabled: boolean;
+      owner: string;
+      patchingDisabled: boolean;
+      remotePath: string;
+      repo: string;
+      repotrackerDisabled: boolean;
+      spawnHostScriptPath: string;
+      stepbackDisabled: boolean;
+      versionControlEnabled: boolean;
       notifyOnBuildFailure: boolean;
       githubTriggerAliases?: Maybe<Array<string>>;
-      prTestingEnabled: boolean;
-      manualPrTestingEnabled: boolean;
+      perfEnabled: boolean;
       githubChecksEnabled: boolean;
-      gitTagVersionsEnabled: boolean;
-      gitTagAuthorizedUsers?: Maybe<Array<string>>;
       gitTagAuthorizedTeams?: Maybe<Array<string>>;
+      gitTagAuthorizedUsers?: Maybe<Array<string>>;
+      gitTagVersionsEnabled: boolean;
+      manualPrTestingEnabled: boolean;
+      prTestingEnabled: boolean;
       taskSync: {
         __typename?: "RepoTaskSyncOptions";
         configEnabled: boolean;
         patchEnabled: boolean;
       };
-      buildBaronSettings: {
-        __typename?: "BuildBaronSettings";
-        ticketCreateProject: string;
-        ticketSearchProjects?: Maybe<Array<string>>;
-      };
-      taskAnnotationSettings: {
-        __typename?: "TaskAnnotationSettings";
-        jiraCustomFields?: Maybe<
-          Array<{
-            __typename?: "JiraField";
-            field: string;
-            displayText: string;
-          }>
-        >;
-        fileTicketWebhook: {
-          __typename?: "Webhook";
-          endpoint: string;
-          secret: string;
-        };
-      };
-      externalLinks?: Maybe<
-        Array<{
-          __typename?: "ExternalLink";
-          displayName: string;
-          urlTemplate: string;
-        }>
-      >;
       patchTriggerAliases?: Maybe<
         Array<{
           __typename?: "PatchTriggerAlias";
           alias: string;
           childProjectIdentifier: string;
-          status?: Maybe<string>;
           parentAsModule?: Maybe<string>;
+          status?: Maybe<string>;
           taskSpecifiers?: Maybe<
             Array<{
               __typename?: "TaskSpecifier";
@@ -6843,6 +6829,55 @@ export type RepoSettingsQuery = {
           >;
         }>
       >;
+      periodicBuilds?: Maybe<
+        Array<{
+          __typename?: "PeriodicBuild";
+          alias: string;
+          configFile: string;
+          id: string;
+          intervalHours: number;
+          message: string;
+          nextRunTime: Date;
+        }>
+      >;
+      buildBaronSettings: {
+        __typename?: "BuildBaronSettings";
+        ticketCreateProject: string;
+        ticketSearchProjects?: Maybe<Array<string>>;
+      };
+      externalLinks?: Maybe<
+        Array<{
+          __typename?: "ExternalLink";
+          displayName: string;
+          urlTemplate: string;
+        }>
+      >;
+      taskAnnotationSettings: {
+        __typename?: "TaskAnnotationSettings";
+        fileTicketWebhook: {
+          __typename?: "Webhook";
+          endpoint: string;
+          secret: string;
+        };
+        jiraCustomFields?: Maybe<
+          Array<{
+            __typename?: "JiraField";
+            displayText: string;
+            field: string;
+          }>
+        >;
+      };
+      triggers: Array<{
+        __typename?: "TriggerAlias";
+        alias: string;
+        buildVariantRegex: string;
+        configFile: string;
+        dateCutoff?: Maybe<number>;
+        level: string;
+        project: string;
+        status: string;
+        taskRegex: string;
+      }>;
       workstationConfig: {
         __typename?: "RepoWorkstationConfig";
         gitClone: boolean;
@@ -6854,28 +6889,6 @@ export type RepoSettingsQuery = {
           }>
         >;
       };
-      triggers: Array<{
-        __typename?: "TriggerAlias";
-        project: string;
-        level: string;
-        buildVariantRegex: string;
-        taskRegex: string;
-        status: string;
-        dateCutoff?: Maybe<number>;
-        configFile: string;
-        alias: string;
-      }>;
-      periodicBuilds?: Maybe<
-        Array<{
-          __typename?: "PeriodicBuild";
-          id: string;
-          configFile: string;
-          intervalHours: number;
-          alias: string;
-          message: string;
-          nextRunTime: Date;
-        }>
-      >;
       commitQueue: {
         __typename?: "RepoCommitQueueParams";
         enabled: boolean;
@@ -6883,55 +6896,54 @@ export type RepoSettingsQuery = {
         message: string;
       };
     }>;
-    vars?: Maybe<{
-      __typename?: "ProjectVars";
-      vars?: Maybe<{ [key: string]: any }>;
-      privateVars: Array<string>;
-      adminOnlyVars: Array<string>;
-    }>;
     subscriptions?: Maybe<
       Array<{
         __typename?: "ProjectSubscription";
         id: string;
+        ownerType: string;
         resourceType: string;
         trigger: string;
-        ownerType: string;
         triggerData?: Maybe<{ [key: string]: any }>;
-        selectors: Array<{
-          __typename?: "Selector";
-          type: string;
-          data: string;
-        }>;
         regexSelectors: Array<{
           __typename?: "Selector";
-          type: string;
           data: string;
+          type: string;
+        }>;
+        selectors: Array<{
+          __typename?: "Selector";
+          data: string;
+          type: string;
         }>;
         subscriber?: Maybe<{
           __typename?: "ProjectSubscriber";
           type: string;
           subscriber: {
             __typename?: "Subscriber";
-            jiraCommentSubscriber?: Maybe<string>;
             emailSubscriber?: Maybe<string>;
+            jiraCommentSubscriber?: Maybe<string>;
             slackSubscriber?: Maybe<string>;
-            githubPRSubscriber?: Maybe<{
-              __typename?: "GithubPRSubscriber";
-              owner: string;
-              repo: string;
-              ref: string;
-              prNumber?: Maybe<number>;
-            }>;
             githubCheckSubscriber?: Maybe<{
               __typename?: "GithubCheckSubscriber";
               owner: string;
-              repo: string;
               ref: string;
+              repo: string;
+            }>;
+            githubPRSubscriber?: Maybe<{
+              __typename?: "GithubPRSubscriber";
+              owner: string;
+              prNumber?: Maybe<number>;
+              ref: string;
+              repo: string;
+            }>;
+            jiraIssueSubscriber?: Maybe<{
+              __typename?: "JiraIssueSubscriber";
+              issueType: string;
+              project: string;
             }>;
             webhookSubscriber?: Maybe<{
               __typename?: "WebhookSubscriber";
-              url: string;
               secret: string;
+              url: string;
               headers: Array<
                 Maybe<{
                   __typename?: "WebhookHeader";
@@ -6940,28 +6952,16 @@ export type RepoSettingsQuery = {
                 }>
               >;
             }>;
-            jiraIssueSubscriber?: Maybe<{
-              __typename?: "JiraIssueSubscriber";
-              project: string;
-              issueType: string;
-            }>;
           };
         }>;
       }>
     >;
-    aliases?: Maybe<
-      Array<{
-        __typename?: "ProjectAlias";
-        id: string;
-        alias: string;
-        gitTag: string;
-        variant: string;
-        task: string;
-        remotePath: string;
-        variantTags: Array<string>;
-        taskTags: Array<string>;
-      }>
-    >;
+    vars?: Maybe<{
+      __typename?: "ProjectVars";
+      adminOnlyVars: Array<string>;
+      privateVars: Array<string>;
+      vars?: Maybe<{ [key: string]: any }>;
+    }>;
   };
 };
 
@@ -7011,8 +7011,8 @@ export type SystemLogsQuery = {
       __typename?: "TaskLogs";
       systemLogs: Array<{
         __typename?: "LogMessage";
-        severity?: Maybe<string>;
         message?: Maybe<string>;
+        severity?: Maybe<string>;
         timestamp?: Maybe<Date>;
       }>;
     };
@@ -7108,8 +7108,8 @@ export type TaskLogsQuery = {
       __typename?: "TaskLogs";
       taskLogs: Array<{
         __typename?: "LogMessage";
-        severity?: Maybe<string>;
         message?: Maybe<string>;
+        severity?: Maybe<string>;
         timestamp?: Maybe<Date>;
       }>;
     };
@@ -7236,11 +7236,11 @@ export type GetTaskQuery = {
     startTime?: Maybe<Date>;
     timeTaken?: Maybe<number>;
     totalTestCount: number;
-    id: string;
-    execution: number;
     buildVariant: string;
     buildVariantDisplayName?: Maybe<string>;
     displayName: string;
+    execution: number;
+    id: string;
     revision?: Maybe<string>;
     status: string;
     abortInfo?: Maybe<{
@@ -7255,49 +7255,9 @@ export type GetTaskQuery = {
     annotation?: Maybe<{
       __typename?: "Annotation";
       id: string;
-      taskId: string;
       taskExecution: number;
+      taskId: string;
       webhookConfigured: boolean;
-      note?: Maybe<{
-        __typename?: "Note";
-        message: string;
-        source: {
-          __typename?: "Source";
-          author: string;
-          time: Date;
-          requester: string;
-        };
-      }>;
-      issues?: Maybe<
-        Array<
-          Maybe<{
-            __typename?: "IssueLink";
-            issueKey?: Maybe<string>;
-            url?: Maybe<string>;
-            source?: Maybe<{
-              __typename?: "Source";
-              author: string;
-              time: Date;
-              requester: string;
-            }>;
-          }>
-        >
-      >;
-      suspectedIssues?: Maybe<
-        Array<
-          Maybe<{
-            __typename?: "IssueLink";
-            issueKey?: Maybe<string>;
-            url?: Maybe<string>;
-            source?: Maybe<{
-              __typename?: "Source";
-              author: string;
-              time: Date;
-              requester: string;
-            }>;
-          }>
-        >
-      >;
       createdIssues?: Maybe<
         Array<
           Maybe<{
@@ -7307,8 +7267,48 @@ export type GetTaskQuery = {
             source?: Maybe<{
               __typename?: "Source";
               author: string;
-              time: Date;
               requester: string;
+              time: Date;
+            }>;
+          }>
+        >
+      >;
+      issues?: Maybe<
+        Array<
+          Maybe<{
+            __typename?: "IssueLink";
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source?: Maybe<{
+              __typename?: "Source";
+              author: string;
+              requester: string;
+              time: Date;
+            }>;
+          }>
+        >
+      >;
+      note?: Maybe<{
+        __typename?: "Note";
+        message: string;
+        source: {
+          __typename?: "Source";
+          author: string;
+          requester: string;
+          time: Date;
+        };
+      }>;
+      suspectedIssues?: Maybe<
+        Array<
+          Maybe<{
+            __typename?: "IssueLink";
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source?: Maybe<{
+              __typename?: "Source";
+              author: string;
+              requester: string;
+              time: Date;
             }>;
           }>
         >
@@ -7680,11 +7680,11 @@ export type VersionQuery = {
     }>;
     upstreamProject?: Maybe<{
       __typename?: "UpstreamProject";
+      project: string;
+      repo: string;
       triggerID: string;
       triggerType: string;
-      repo: string;
-      project: string;
-      task?: Maybe<{ __typename?: "Task"; id: string; execution: number }>;
+      task?: Maybe<{ __typename?: "Task"; execution: number; id: string }>;
       version?: Maybe<{ __typename?: "Version"; id: string }>;
     }>;
   };
@@ -7776,15 +7776,15 @@ export type ProjectPatchesQuery = {
       filteredPatchCount: number;
       patches: Array<{
         __typename?: "Patch";
-        id: string;
         author: string;
         authorDisplayName: string;
-        projectIdentifier: string;
-        description: string;
-        status: string;
-        createTime?: Maybe<Date>;
-        commitQueuePosition?: Maybe<number>;
         canEnqueueToCommitQueue: boolean;
+        commitQueuePosition?: Maybe<number>;
+        createTime?: Maybe<Date>;
+        description: string;
+        id: string;
+        projectIdentifier: string;
+        status: string;
         projectMetadata?: Maybe<{
           __typename?: "Project";
           owner: string;
@@ -7799,8 +7799,8 @@ export type ProjectPatchesQuery = {
             counts?: Maybe<
               Array<{
                 __typename?: "StatusCount";
-                status: string;
                 count: number;
+                status: string;
               }>
             >;
           }>;
@@ -7831,11 +7831,11 @@ export type GetSpawnTaskQuery = {
   task?: Maybe<{
     __typename?: "Task";
     canSync: boolean;
-    id: string;
-    execution: number;
     buildVariant: string;
     buildVariantDisplayName?: Maybe<string>;
     displayName: string;
+    execution: number;
+    id: string;
     revision?: Maybe<string>;
     status: string;
     project?: Maybe<{
@@ -7882,15 +7882,15 @@ export type UserPatchesQuery = {
       filteredPatchCount: number;
       patches: Array<{
         __typename?: "Patch";
-        id: string;
         author: string;
         authorDisplayName: string;
-        projectIdentifier: string;
-        description: string;
-        status: string;
-        createTime?: Maybe<Date>;
-        commitQueuePosition?: Maybe<number>;
         canEnqueueToCommitQueue: boolean;
+        commitQueuePosition?: Maybe<number>;
+        createTime?: Maybe<Date>;
+        description: string;
+        id: string;
+        projectIdentifier: string;
+        status: string;
         projectMetadata?: Maybe<{
           __typename?: "Project";
           owner: string;
@@ -7905,8 +7905,8 @@ export type UserPatchesQuery = {
             counts?: Maybe<
               Array<{
                 __typename?: "StatusCount";
-                status: string;
                 count: number;
+                status: string;
               }>
             >;
           }>;
