@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useAprilFoolsAnalytics } from "analytics/aprilFools/useAprilFoolsAnalytics";
 import { useToastContext } from "context/toast";
 import { cache } from "gql/GQLWrapper";
 import { PatchStatus } from "types/patch";
@@ -10,7 +11,7 @@ const konamiCode =
 const useKonamiCode = (onActivate: () => void) => {
   const [pressedKeys, setPressedKeys] = useState<string[]>([]);
   const dispatchToast = useToastContext();
-
+  const { sendEvent } = useAprilFoolsAnalytics();
   const downHandler = ({ key }: KeyboardEvent) => {
     setPressedKeys((curr) => [...curr, key]);
   };
@@ -31,6 +32,7 @@ const useKonamiCode = (onActivate: () => void) => {
       dispatchToast.success("To reset just refresh the page", true, {
         title: "Konami Code Activated!",
       });
+      sendEvent({ name: "Triggered Konami Code" });
       onActivate();
       setPressedKeys([]);
       const TaskKeys = Object.keys(cache.extract()).filter((key) =>
