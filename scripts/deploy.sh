@@ -3,7 +3,7 @@
 
 # Try this step and throw an error if it fails
 echo "Deploying to S3"
-aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude .env-cmdrc.json 
+aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude .cmdrc.json 
 echo "Deployed to S3"
 
 # If the above step succeeds, run this step
