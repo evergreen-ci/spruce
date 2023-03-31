@@ -46,7 +46,7 @@ results.
 
 1. Symlink the standard definition language GraphQL schema used in your backend
    to a file named sdlschema in the root of the Spruce directory to enable query
-   linting with ESlint like so `ln -s /path/to/evergreen/schema sdlschema`
+   linting with ESlint like so `ln -s <path_to_evergreen_repo>/graphql/schema sdlschema`
 2. Run `yarn run eslint` to see the results of query linting in your terminal or
    install a plugin to integrate ESlint into your editor. If you are using
    VSCode, we recommend ESLint by Dirk Baeumer.
