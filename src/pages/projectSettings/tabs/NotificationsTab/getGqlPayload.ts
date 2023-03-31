@@ -25,6 +25,22 @@ const regexFormToGql = (
       }))
     : [];
 
+const webhookFormToGql = (webhookInput: Notification["webhookInput"]) => {
+  if (!webhookInput) {
+    return null;
+  }
+  return {
+    url: webhookInput.urlInput,
+    // Use existing secret if it was already generated, otherwise generate a new secret.
+    secret: webhookInput.secretInput || generateWebhookSecret(),
+    headers:
+      webhookInput.httpHeaders?.map(({ keyInput, valueInput }) => ({
+        key: keyInput,
+        value: valueInput,
+      })) ?? [],
+  };
+};
+
 const jiraFormToGql = (jiraInput: Notification["jiraIssueInput"]) => {
   if (!jiraInput) {
     return null;
@@ -48,22 +64,6 @@ const extraFieldsFormToGql = (
     }
     return acc;
   }, {} as { [key: string]: string });
-
-const webhookFormToGql = (webhookInput: Notification["webhookInput"]) => {
-  if (!webhookInput) {
-    return null;
-  }
-  return {
-    url: webhookInput.urlInput,
-    // Use existing secret if it was already generated, otherwise generate a new secret.
-    secret: webhookInput.secretInput || generateWebhookSecret(),
-    headers:
-      webhookInput.httpHeaders?.map(({ keyInput, valueInput }) => ({
-        key: keyInput,
-        value: valueInput,
-      })) ?? [],
-  };
-};
 
 export const getGqlPayload =
   (projectId: string) =>

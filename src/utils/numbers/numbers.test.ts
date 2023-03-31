@@ -15,7 +15,6 @@ describe("roundDecimal", () => {
 describe("cryptoRandom", () => {
   it("returns a number between 0 (inclusive) and 1 (exclusive)", () => {
     const randomNumber = cryptoRandom();
-    expect(typeof randomNumber).toBe("number");
     expect(randomNumber).toBeGreaterThanOrEqual(0);
     expect(randomNumber).toBeLessThan(1);
   });

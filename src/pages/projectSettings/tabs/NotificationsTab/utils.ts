@@ -1,9 +1,6 @@
 import { NotificationMethods } from "types/subscription";
 import { Unpacked } from "types/utils";
-import { numbers } from "utils";
 import { FormState, Notification } from "./types";
-
-const { cryptoRandom } = numbers;
 
 export const getTargetForMethod = (
   method: string,
@@ -36,13 +33,9 @@ export const hasInitialError = (
 };
 
 export const generateWebhookSecret = () => {
-  let text = "";
-  const possible =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-  for (let i = 0; i < 64; i++) {
-    text += possible.charAt(Math.floor(cryptoRandom() * possible.length));
-  }
-
-  return text;
+  const arr = new Uint8Array(32);
+  const randomValues = crypto.getRandomValues(arr);
+  return Array.from(randomValues, (byte) =>
+    byte.toString(36).padStart(2, "0")
+  ).join("");
 };
