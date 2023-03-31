@@ -1,41 +1,41 @@
 fragment annotation on Annotation {
-  id
-  taskId
-  taskExecution
-  webhookConfigured
-  note {
+  createdIssues {
+    issueKey
     source {
       author
-      time
       requester
+      time
     }
-    message
+    url
   }
+  id
   issues {
     issueKey
-    url
     source {
       author
-      time
       requester
+      time
+    }
+    url
+  }
+  note {
+    message
+    source {
+      author
+      requester
+      time
     }
   }
   suspectedIssues {
     issueKey
-    url
     source {
       author
-      time
       requester
+      time
     }
-  }
-  createdIssues {
-    issueKey
     url
-    source {
-      author
-      time
-      requester
-    }
   }
+  taskExecution
+  taskId
+  webhookConfigured
 }

@@ -227,6 +227,7 @@ const myHostBase: Omit<MyHostsQuery["myHosts"][0], "noExpiration" | "id"> = {
   hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
   homeVolumeID: "vol-07fa9f6b5c2067e34",
   homeVolume: {
+    id: "home-volume-id",
     displayName: "",
   },
   instanceType: "m5.xlarge",

@@ -231,7 +231,7 @@ module.exports = {
         "@graphql-eslint/no-deprecated": WARN,
         "@graphql-eslint/alphabetize": [
           ERROR,
-          { selections: ["OperationDefinition"] },
+          { selections: ["OperationDefinition", "FragmentDefinition"] },
         ],
         // Following two rules can possibly be removed after ESLint updates.
         "spaced-comment": OFF,

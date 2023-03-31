@@ -326,6 +326,7 @@ const attachProjectToNewRepoMock: ApolloMock<
   result: {
     data: {
       attachProjectToNewRepo: {
+        id: "evergreen",
         repoRefId: "evergreen",
       },
     },
