@@ -98,7 +98,7 @@ functions:
   wait-for-evergreen:
     command: shell.exec
     type: setup
-    timeout_secs: 600
+    exec_timeout_secs: 600
     params:
       working_dir: spruce
       script: ./scripts/wait-for-evergreen.sh
