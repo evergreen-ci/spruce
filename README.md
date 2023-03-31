@@ -74,7 +74,7 @@ well and you can refer to those before creating your own.
 ### Setting up code generation
 
 - create a symlink from the `schema` folder from evergreen with the spruce
-  folder using `ln -s path-to-evergreen-schema sdlschema`
+  folder using `ln -s <path_to_evergreen_repo>/graphql/schema sdlschema`
 
 ### Using code generation
 
