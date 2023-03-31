@@ -14,6 +14,7 @@ export interface Analytics<Action> {
 }
 
 type AnalyticsObject =
+  | "April Fools"
   | "Patch"
   | "Version"
   | "Task"

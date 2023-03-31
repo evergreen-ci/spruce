@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.45",
+  "version": "3.0.46",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -80,6 +80,7 @@
     "@leafygreen-ui/inline-definition": "6.0.0",
     "@leafygreen-ui/interaction-ring": "7.0.1",
     "@leafygreen-ui/leafygreen-provider": "3.1.0",
+    "@leafygreen-ui/marketing-modal": "^4.0.5",
     "@leafygreen-ui/menu": "20.0.0",
     "@leafygreen-ui/modal": "14.0.1",
     "@leafygreen-ui/palette": "3.4.4",

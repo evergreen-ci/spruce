@@ -194,4 +194,5 @@ const getGQLClient = ({
   return client;
 };
 
+export { cache };
 export default GQLWrapper;
