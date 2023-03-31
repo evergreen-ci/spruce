@@ -21,27 +21,27 @@ query Hosts(
     limit: $limit
   ) {
     filteredHostsCount
-    totalHostsCount
     hosts {
-      id
-      distroId
       distro {
-        id
         bootstrapMethod
+        id
       }
-      status
-      startedBy
-      hostUrl
-      tag
-      totalIdleTime
-      uptime
+      distroId
       elapsed
-      provider
+      hostUrl
+      id
       noExpiration
+      provider
       runningTask {
         id
         name
       }
+      startedBy
+      status
+      tag
+      totalIdleTime
+      uptime
     }
+    totalHostsCount
   }
 }

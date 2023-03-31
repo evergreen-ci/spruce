@@ -5,11 +5,11 @@ query GetUndispatchedTasks($versionId: String!) {
       options: { statuses: ["unscheduled"], includeEmptyActivation: true }
     ) {
       data {
-        id
         buildVariant
         buildVariantDisplayName
         displayName
         execution
+        id
       }
     }
   }

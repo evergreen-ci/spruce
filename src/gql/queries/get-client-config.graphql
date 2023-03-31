@@ -1,10 +1,10 @@
 query ClientConfig {
   clientConfig {
     clientBinaries {
-      os
-      displayName
-      url
       arch
+      displayName
+      os
+      url
     }
     latestRevision
   }

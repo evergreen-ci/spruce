@@ -7,19 +7,19 @@ query VersionTaskDurations(
     tasks(options: $taskFilterOptions) {
       count
       data {
-        id
         buildVariantDisplayName
         displayName
         execution
         executionTasksFull {
-          id
           buildVariantDisplayName
           displayName
           execution
+          id
           startTime
           status
           timeTaken
         }
+        id
         startTime
         status
         timeTaken

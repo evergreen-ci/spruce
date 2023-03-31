@@ -1,6 +1,6 @@
 query distros($onlySpawnable: Boolean!) {
   distros(onlySpawnable: $onlySpawnable) {
-    name
     isVirtualWorkStation
+    name
   }
 }

@@ -226,9 +226,13 @@ module.exports = {
       files: ["src/**/*.graphql"],
       extends: "plugin:@graphql-eslint/operations-recommended",
       rules: {
-        "@graphql-eslint/naming-convention": OFF,
+        "@graphql-eslint/naming-convention": OFF, // This should be turned on eventually.
         "@graphql-eslint/selection-set-depth": OFF,
         "@graphql-eslint/no-deprecated": WARN,
+        "@graphql-eslint/alphabetize": [
+          ERROR,
+          { selections: ["OperationDefinition"] },
+        ],
         // Following two rules can possibly be removed after ESLint updates.
         "spaced-comment": OFF,
         "@typescript-eslint/spaced-comment": OFF,

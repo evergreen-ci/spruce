@@ -2,13 +2,13 @@
 
 query GetCustomCreatedIssues($taskId: String!, $execution: Int) {
   task(taskId: $taskId, execution: $execution) {
-    id
-    execution
     annotation {
-      id
       createdIssues {
         ...issueLink
       }
+      id
     }
+    execution
+    id
   }
 }

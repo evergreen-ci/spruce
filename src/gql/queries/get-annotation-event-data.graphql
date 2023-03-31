@@ -2,10 +2,10 @@
 
 query GetAnnotationEventData($taskId: String!, $execution: Int) {
   task(taskId: $taskId, execution: $execution) {
-    id
-    execution
     annotation {
       ...annotation
     }
+    execution
+    id
   }
 }

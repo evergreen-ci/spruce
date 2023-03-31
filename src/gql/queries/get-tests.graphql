@@ -16,6 +16,7 @@ query GetTests(
     sortDirection: ASC
     taskId: $taskId
   ) {
+    filteredTestCount
     testResults {
       id
       logs {
@@ -24,6 +25,5 @@ query GetTests(
       }
       testFile
     }
-    filteredTestCount
   }
 }

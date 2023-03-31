@@ -2,13 +2,13 @@
 
 query GetIssues($taskId: String!, $execution: Int) {
   task(taskId: $taskId, execution: $execution) {
-    id
-    execution
     annotation {
       id
       issues {
         ...issueLink
       }
     }
+    execution
+    id
   }
 }

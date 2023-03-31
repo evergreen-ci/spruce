@@ -2,26 +2,26 @@
 
 query Version($id: String!) {
   version(id: $id) {
-    id
     activated
     author
     baseVersion {
       id
     }
+    createTime
+    errors
     externalLinksForMetadata {
       displayName
       url
     }
-    createTime
-    errors
     finishTime
+    id
     isPatch
     manifest {
-      id
       branch
+      id
       isBase
-      modules
       moduleOverrides
+      modules
       project
       revision
     }
@@ -32,24 +32,24 @@ query Version($id: String!) {
       value
     }
     patch {
-      id
       alias
       canEnqueueToCommitQueue
       childPatches {
-        id
         githash
+        id
         projectIdentifier
         status
         taskCount
         versionFull {
-          id
           baseVersion {
             id
           }
+          id
           status
         }
       }
       commitQueuePosition
+      id
       patchNumber
     }
     previousVersion {
@@ -68,11 +68,11 @@ query Version($id: String!) {
     startTime
     status
     taskCount
+    ...upstreamProject
     versionTiming {
       makespan
       timeTaken
     }
     warnings
-    ...upstreamProject
   }
 }

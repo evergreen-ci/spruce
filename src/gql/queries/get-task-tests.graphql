@@ -18,20 +18,20 @@ query TaskTests(
     testName: $testName
     execution: $execution
   ) {
+    filteredTestCount
     testResults {
-      id
-      status
       baseStatus
-      testFile
       duration
+      id
       logs {
         url
-        urlRaw
-        urlParsley
         urlLobster
+        urlParsley
+        urlRaw
       }
+      status
+      testFile
     }
-    filteredTestCount
     totalTestCount
   }
 }
