@@ -1,4 +1,33 @@
+import { MockedProvider } from "@apollo/client/testing";
+import { StoryObj } from "@storybook/react";
 import { ExecutionTasksTable } from "./ExecutionTasksTable";
+
+export default {
+  title: "Pages/Task/Table/Execution Tasks Table",
+  component: ExecutionTasksTable,
+  decorators: [
+    (Story: () => JSX.Element) => (
+      <MockedProvider>
+        <Story />
+      </MockedProvider>
+    ),
+  ],
+};
+
+export const SingleExecution: StoryObj<typeof ExecutionTasksTable> = {
+  render: () => (
+    <ExecutionTasksTable executionTasksFull={singleExecution} execution={5} />
+  ),
+};
+
+export const MultipleExecutions: StoryObj<typeof ExecutionTasksTable> = {
+  render: () => (
+    <ExecutionTasksTable
+      executionTasksFull={multipleExecutions}
+      execution={14}
+    />
+  ),
+};
 
 const singleExecution = [
   {
@@ -41,13 +70,3 @@ const multipleExecutions = [
     status: "success",
   },
 ];
-export const SingleExecution = () => (
-  <ExecutionTasksTable executionTasksFull={singleExecution} execution={5} />
-);
-export const MultipleExecutions = () => (
-  <ExecutionTasksTable executionTasksFull={multipleExecutions} execution={14} />
-);
-export default {
-  title: "Pages/Task/Table/Execution Tasks Table",
-  component: ExecutionTasksTable,
-};

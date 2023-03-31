@@ -79,6 +79,7 @@ export const FoldedCommit = memo<FoldedCommitProps>(
     return (
       <Column style={style} selected={selected}>
         <Accordion
+          disableAnimation
           title={`Expand ${numCommits} inactive`}
           toggledTitle={`Collapse ${numCommits} inactive`}
           titleTag={AccordionTitle}

@@ -1,12 +1,14 @@
 import styled from "@emotion/styled";
+import { IconProps } from "@leafygreen-ui/icon";
 import Tooltip from "@leafygreen-ui/tooltip";
 import Icon from "components/Icon";
 
-interface IconTooltipProps extends React.ComponentProps<typeof Icon> {
+export type IconTooltipProps = IconProps & {
   ["data-cy"]?: string;
-}
+  children: React.ReactNode;
+};
 
-const IconTooltip: React.FC<IconTooltipProps> = ({
+const IconTooltip: React.VFC<IconTooltipProps> = ({
   children,
   "data-cy": dataCy,
   ...rest

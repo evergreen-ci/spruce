@@ -21,10 +21,12 @@ import { GetUserQuery, GetUserQueryVariables } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
 import { useUserSettings } from "hooks";
 import { useAnnouncementToast } from "hooks/useAnnouncementToast";
+import KonamiModal from "hooks/useKonamiCode/KonamiModal";
 import { PageDoesNotExist } from "pages/404";
 import { CommitQueue } from "pages/CommitQueue";
 import { Commits } from "pages/Commits";
 import { ConfigurePatch } from "pages/ConfigurePatch";
+import { Container } from "pages/Container";
 import { Host } from "pages/Host";
 import { Hosts } from "pages/Hosts";
 import { JobLogs } from "pages/JobLogs";
@@ -77,6 +79,7 @@ export const Content: React.VFC = () => {
           <Route path={routes.commits} element={<Commits />}>
             <Route path=":projectIdentifier" element={null} />
           </Route>
+          <Route path={routes.container} element={<Container />} />
           <Route
             path={redirectRoutes.waterfall}
             element={<WaterfallCommitsRedirect />}
@@ -138,6 +141,7 @@ export const Content: React.VFC = () => {
         <TaskStatusIconLegend />
         <Feedback />
       </FloatingContent>
+      <KonamiModal />
     </PageGrid>
   );
 };

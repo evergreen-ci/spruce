@@ -95,11 +95,13 @@ describe("commit queue page", () => {
         "have.text",
         "patch description here"
       );
-      cy.dataCy("commit-queue-card-title").should(
-        "have.attr",
-        "href",
-        "https://github.com/logkeeper/logkeeper/pull/1234"
-      );
+      cy.dataCy("commit-queue-card-title").within(() => {
+        cy.get("a").should(
+          "have.attr",
+          "href",
+          "https://github.com/logkeeper/logkeeper/pull/1234"
+        );
+      });
       cy.dataCy("commit-queue-patch-button").should("exist");
       cy.dataCy("commit-queue-patch-button").click();
       cy.dataCy("commit-queue-confirmation-modal").should("be.visible");

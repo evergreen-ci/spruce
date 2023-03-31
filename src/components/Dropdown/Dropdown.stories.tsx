@@ -1,17 +1,22 @@
+import { StoryObj } from "@storybook/react";
 import Dropdown from ".";
 
 export default {
-  title: "Components/Dropdown",
   component: Dropdown,
+};
+
+export const Default: StoryObj<typeof Dropdown> = {
+  render: (args) => <Dropdown {...args}>Some Children</Dropdown>,
   args: {
     disabled: false,
   },
 };
 
-export const Default = (args) => <Dropdown {...args}>Some Children</Dropdown>;
-
-export const CustomButtonRender = (args) => (
-  <Dropdown {...args} buttonRenderer={() => <b>Some Magic Button</b>}>
-    Some Children
-  </Dropdown>
-);
+export const CustomButtonRender: StoryObj<typeof Dropdown> = {
+  render: (args) => (
+    <Dropdown {...args} buttonRenderer={() => <b>Some Magic Button</b>}>
+      Some Children
+    </Dropdown>
+  ),
+  args: Default.args,
+};

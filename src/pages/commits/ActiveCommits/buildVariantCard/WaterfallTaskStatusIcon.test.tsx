@@ -23,14 +23,24 @@ const props = {
 
 jest.mock("../utils");
 
-const Content = ({ status }: { status: string }) => (
+const Content = ({
+  status,
+  failedTestCount = 0,
+}: {
+  status: string;
+  failedTestCount?: number;
+}) => (
   <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>
-    <WaterfallTaskStatusIcon {...props} status={status} />
+    <WaterfallTaskStatusIcon
+      {...props}
+      status={status}
+      failedTestCount={failedTestCount}
+    />
   </MockedProvider>
 );
 describe("waterfallTaskStatusIcon", () => {
   it("tooltip should contain task name, duration, list of failing test names and additonal test count", async () => {
-    render(<Content status="failed" />);
+    render(<Content status="failed" failedTestCount={1} />);
     userEvent.hover(screen.queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(
@@ -74,7 +84,7 @@ describe("waterfallTaskStatusIcon", () => {
     );
     (removeGlobalStyle as jest.Mock).mockImplementationOnce(() => {});
 
-    render(<Content status="failed" />);
+    render(<Content status="failed" failedTestCount={1} />);
     userEvent.hover(screen.queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(injectGlobalStyle).toHaveBeenCalledTimes(1);

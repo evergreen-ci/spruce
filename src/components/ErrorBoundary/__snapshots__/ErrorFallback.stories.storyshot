@@ -1,42 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/Error Fallback Default Error 1`] = `
-<div
-  style={
-    Object {
-      "height": "100%",
-      "width": "100%",
-    }
-  }
->
+exports[`storybook Storyshots components/ErrorBoundary/ErrorFallback Default Error 1`] = `
+<div>
   <div
-    className="css-73tbsm-Center e1n39ls30"
+    style="height: 100%; width: 100%;"
   >
     <div
-      className="css-1ow8p7h-Text e1n39ls31"
+      class="css-73tbsm-Center e1n39ls30"
     >
-      <h1
-        className="css-15usbh5-StyledHeader e1n39ls34 leafygreen-ui-a01oan"
+      <div
+        class="css-1ow8p7h-Text e1n39ls31"
       >
-        Error
-      </h1>
-      <h2
-        className="css-15lzim1-StyledSubtitle e1n39ls33 leafygreen-ui-1wgcd7w"
-      >
-        Ouch! That's gotta hurt,
-        <br />
-         sorry about that!
-      </h2>
-      <a
-        className="css-137t5xh-StyledLink e1n39ls32"
-      >
-        Back To Home
-      </a>
+        <h1
+          class="css-15usbh5-StyledHeader e1n39ls34 leafygreen-ui-a01oan"
+        >
+          Error
+        </h1>
+        <h2
+          class="css-15lzim1-StyledSubtitle e1n39ls33 leafygreen-ui-1wgcd7w"
+        >
+          Ouch! That's gotta hurt,
+          <br />
+           sorry about that!
+        </h2>
+        <a
+          class="css-137t5xh-StyledLink e1n39ls32"
+        >
+          Back To Home
+        </a>
+      </div>
+      <img
+        alt="Error Background"
+        src="errorPage.svg"
+      />
     </div>
-    <img
-      alt="Error Background"
-      src="errorPage.svg"
-    />
   </div>
 </div>
 `;

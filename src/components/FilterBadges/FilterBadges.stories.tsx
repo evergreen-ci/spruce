@@ -2,16 +2,20 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";
+import { StoryObj } from "@storybook/react";
 import { size } from "constants/tokens";
 import FilterBadges from ".";
 import { FilterBadgeType } from "./FilterBadge";
 
 export default {
-  title: "Components/FilterBadges",
   component: FilterBadges,
 };
 
-export const Default = () => {
+export const Default: StoryObj<typeof FilterBadges> = {
+  render: () => <BadgeContainer />,
+};
+
+const BadgeContainer = () => {
   const [badges, setBadges] = useState<FilterBadgeType[]>([
     { key: "test", value: "test" },
   ]);

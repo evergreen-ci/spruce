@@ -3,6 +3,7 @@ import {
   getGeneralRoute,
   getGithubCommitQueueRoute,
   getNotificationsRoute,
+  getPluginsRoute,
   project,
   projectUseRepoEnabled,
   repo,
@@ -1036,6 +1037,37 @@ describe("Notifications", () => {
     cy.contains("Value should be a valid email.").should("exist");
     cy.dataCy("save-settings-button").scrollIntoView();
     saveButtonEnabled(false);
+  });
+});
+
+describe("Plugins", () => {
+  const versionPage =
+    "version/evergreen_b0c52a750150b4f1f67e501bd3351a808939815c";
+  beforeEach(() => {
+    cy.visit(getPluginsRoute(projectUseRepoEnabled));
+  });
+  it("Should set an external link to render on version metadata", () => {
+    cy.dataCy("display-name-input").type("An external link");
+    cy.dataCy("url-template-input").type("https://example.com/{version_id}", {
+      parseSpecialCharSequences: false,
+    });
+    cy.dataCy("save-settings-button").scrollIntoView();
+    clickSave();
+    cy.visit(versionPage);
+    cy.dataCy("external-link").contains("An external link");
+    cy.dataCy("external-link").should(
+      "have.attr",
+      "href",
+      "https://example.com/evergreen_b0c52a750150b4f1f67e501bd3351a808939815c"
+    );
+  });
+  it("Unsetting the external link should remove it from the version metadata", () => {
+    cy.dataCy("display-name-input").clear();
+    cy.dataCy("url-template-input").clear();
+    cy.dataCy("save-settings-button").scrollIntoView();
+    clickSave();
+    cy.visit(versionPage);
+    cy.dataCy("external-link").should("not.exist");
   });
 });
 

@@ -9,6 +9,7 @@ const {
   validateRegexp,
   validateSlack,
   validateURL,
+  validateURLTemplate,
 } = validators;
 
 export const customFormats = (jiraHost: string) => ({
@@ -16,6 +17,7 @@ export const customFormats = (jiraHost: string) => ({
   noSpaces: /^$|^\S+$/,
   // Permit url
   validURL: validateURL,
+  validURLTemplate: validateURLTemplate,
   validDuration: validateDuration,
   validPercentage: validatePercentage,
   validJiraTicket: validateJira,

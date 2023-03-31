@@ -1,4 +1,22 @@
+import { MockedProvider } from "@apollo/client/testing";
+import { StoryObj } from "@storybook/react";
 import { SpawnHostCard } from "pages/spawn/spawnHost/SpawnHostCard";
+
+export default {
+  title: "Pages/Spawn/Spawn Host Card",
+  component: SpawnHostCard,
+  decorators: [
+    (Story: () => JSX.Element) => (
+      <MockedProvider>
+        <Story />
+      </MockedProvider>
+    ),
+  ],
+};
+
+export const Default: StoryObj<typeof SpawnHostCard> = {
+  render: () => <SpawnHostCard host={host} />,
+};
 
 const host = {
   expiration: new Date("2020-08-21T18:00:07Z"),
@@ -47,11 +65,4 @@ const host = {
   tag: "evg-ubuntu1804-workstation-20200615111044-7227428564029203",
   user: "ubuntu",
   uptime: new Date("2020-06-15T11:10:44Z"),
-};
-
-export const SpawnHostCardStory = () => <SpawnHostCard host={host} />;
-
-export default {
-  title: "Pages/Spawn/Spawn Host Card",
-  component: SpawnHostCardStory,
 };
