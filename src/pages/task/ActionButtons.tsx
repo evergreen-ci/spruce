@@ -215,6 +215,11 @@ export const ActionButtons: React.VFC<Props> = ({
           variables: { taskId, priority: initialPriority < 0 ? 0 : -1 },
         });
       }}
+      title={
+        initialPriority < 0
+          ? ""
+          : "Disabling a task prevents it from being run unless explicitly activated by a user."
+      }
     >
       {initialPriority < 0 ? "Enable" : "Disable"}
     </DropdownItem>,
