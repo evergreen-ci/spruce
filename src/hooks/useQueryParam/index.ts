@@ -11,7 +11,9 @@ const useQueryParams = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const setQueryString = useCallback(
     (params: { [key: string]: any }) => {
-      const stringifiedQuery = stringifyQuery(params);
+      const stringifiedQuery = stringifyQuery(params, {
+        skipEmptyString: false,
+      });
       setSearchParams(new URLSearchParams(stringifiedQuery), { replace: true });
     },
     [setSearchParams]
