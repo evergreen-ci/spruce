@@ -103,6 +103,25 @@ describe("useQueryParam", () => {
       });
       expect(result.current.queryParam).toBe("test2");
     });
+    it("should handle empty strings", () => {
+      const wrapper: React.FC<{ children: React.ReactNode }> = ({
+        children,
+      }) => (
+        <MemoryRouter initialEntries={["/?search="]}>{children}</MemoryRouter>
+      );
+      const { result } = renderHook(() => useQueryJointHook("search", "test"), {
+        wrapper,
+      });
+      expect(result.current.queryParam).toBe("");
+      act(() => {
+        result.current.setQueryParam("test2");
+      });
+      expect(result.current.queryParam).toBe("test2");
+      act(() => {
+        result.current.setQueryParam("");
+      });
+      expect(result.current.queryParam).toBe("");
+    });
   });
   describe("should handle numbers", () => {
     it("when a default is provided", () => {
