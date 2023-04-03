@@ -1,4 +1,5 @@
-import { getGqlPayload } from "./utils";
+import { getGqlPayload } from "./getGqlPayload";
+import * as utils from "./utils";
 
 describe("getGqlPayload", () => {
   it("should correctly format multiple subscriptions", () => {
@@ -42,8 +43,9 @@ describe("getGqlPayload", () => {
       },
     ]);
   });
+
   it("should correctly format webhook subscription", () => {
-    const payload = getGqlPayload("project_id")(webhookSubscription);
+    const payload = getGqlPayload("project_id")(webhookSubscriptionWithSecret);
     expect(payload).toStrictEqual({
       id: "webhook_subscription",
       owner_type: "project",
@@ -58,6 +60,38 @@ describe("getGqlPayload", () => {
         type: "evergreen-webhook",
         webhookSubscriber: {
           secret: "webhook_secret",
+          url: "https://fake-website.com",
+          headers: [],
+        },
+        jiraIssueSubscriber: undefined,
+      },
+      trigger: "outcome",
+      trigger_data: { requester: "gitter_request" },
+    });
+  });
+
+  it("should correctly format and generate a secret for webhook subscription", () => {
+    jest
+      .spyOn(utils, "generateWebhookSecret")
+      .mockImplementationOnce(() => "my_generated_secret");
+
+    const payload = getGqlPayload("project_id")(
+      webhookSubscriptionWithoutSecret
+    );
+    expect(payload).toStrictEqual({
+      id: "webhook_subscription",
+      owner_type: "project",
+      regex_selectors: [],
+      resource_type: "TASK",
+      selectors: [
+        { type: "project", data: "project_id" },
+        { type: "requester", data: "gitter_request" },
+      ],
+      subscriber: {
+        target: "https://fake-website.com",
+        type: "evergreen-webhook",
+        webhookSubscriber: {
+          secret: "my_generated_secret",
           url: "https://fake-website.com",
           headers: [],
         },
@@ -155,7 +189,7 @@ const multipleSubscriptions = [
   },
 ];
 
-const webhookSubscription = {
+const webhookSubscriptionWithSecret = {
   subscriptionData: {
     id: "webhook_subscription",
     event: {
@@ -167,6 +201,26 @@ const webhookSubscription = {
     notification: {
       webhookInput: {
         secretInput: "webhook_secret",
+        urlInput: "https://fake-website.com",
+        httpHeaders: undefined,
+      },
+      notificationSelect: "evergreen-webhook",
+    },
+  },
+};
+
+const webhookSubscriptionWithoutSecret = {
+  subscriptionData: {
+    id: "webhook_subscription",
+    event: {
+      extraFields: {
+        requester: "gitter_request",
+      },
+      eventSelect: "any-task-finishes",
+    },
+    notification: {
+      webhookInput: {
+        secretInput: "",
         urlInput: "https://fake-website.com",
         httpHeaders: undefined,
       },
