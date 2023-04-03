@@ -37,13 +37,13 @@ describe("Container events", () => {
   });
 
   it("event links get displayed", () => {
-    const hostTypes = [
+    const eventTypes = [
       "event-type-CONTAINER_TASK_FINISHED",
       "event-type-CLEARED_TASK",
       "event-type-CONTAINER_TASK_FINISHED",
     ];
-    hostTypes.forEach((hostType) => {
-      cy.dataCy(hostType)
+    eventTypes.forEach((type) => {
+      cy.dataCy(type)
         .find("a")
         .should(
           "have.attr",
