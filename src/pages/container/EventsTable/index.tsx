@@ -1,18 +1,80 @@
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { Skeleton } from "antd";
-import { SiderCard } from "components/styles";
+import { useLocation, useParams } from "react-router-dom";
+import PageSizeSelector, {
+  usePageSizeSelector,
+} from "components/PageSizeSelector";
+import { Pagination } from "components/Pagination";
+import { SiderCard, TableControlInnerRow } from "components/styles";
 import { size } from "constants/tokens";
+import { useToastContext } from "context/toast";
+import { PodEventsQuery, PodEventsQueryVariables } from "gql/generated/types";
+import { GET_POD_EVENTS } from "gql/queries";
+import { useDateFormat } from "hooks";
+import { url } from "utils";
+import { getEventCopy } from "./util";
 
-const EventsTable: React.VFC<{}> = () => (
-  <SiderCard>
-    <TableTitle>
-      {/* @ts-expect-error */}
-      <StyledSubtitle>Recent Events</StyledSubtitle>
-    </TableTitle>
-    <Skeleton active />
-  </SiderCard>
-);
+const { getPageFromSearch, getLimitFromSearch } = url;
+
+const EventsTable: React.VFC<{}> = () => {
+  const getDateCopy = useDateFormat();
+  const { search } = useLocation();
+  const setPageSize = usePageSizeSelector();
+  const page = getPageFromSearch(search);
+  const limit = getLimitFromSearch(search);
+  const { id } = useParams<{ id: string }>();
+  const dispatchToast = useToastContext();
+  const { data: podEventsData } = useQuery<
+    PodEventsQuery,
+    PodEventsQueryVariables
+  >(GET_POD_EVENTS, {
+    variables: { id, page, limit },
+    onError: (err) => {
+      dispatchToast.error(
+        `There was an error loading the pod events: ${err.message}`
+      );
+    },
+  });
+
+  return (
+    <SiderCard>
+      <TableTitle>
+        {/* @ts-expect-error */}
+        <StyledSubtitle>Recent Events</StyledSubtitle>
+        <TableControlInnerRow>
+          <Pagination
+            pageSize={limit}
+            value={page}
+            totalResults={podEventsData?.pod.events.count ?? 0}
+            data-cy="my-patches-pagination"
+          />
+          <PageSizeSelector
+            data-cy="pod-events-page-size-selector"
+            value={limit}
+            onChange={setPageSize}
+          />
+        </TableControlInnerRow>
+      </TableTitle>
+
+      <Table
+        data={podEventsData?.pod.events.eventLogEntries}
+        columns={[
+          <TableHeader key="date" dataType="date" label="Date" />,
+          <TableHeader key="event" label="Event" />,
+        ]}
+      >
+        {({ datum }) => (
+          <Row key={datum.id}>
+            <Cell>{getDateCopy(datum.timestamp)}</Cell>
+            <Cell>{getEventCopy(datum)}</Cell>
+          </Row>
+        )}
+      </Table>
+    </SiderCard>
+  );
+};
 
 // @ts-expect-error
 const StyledSubtitle = styled(Subtitle)`
