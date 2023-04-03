@@ -1107,6 +1107,7 @@ export type PodEventLogData = {
   newStatus?: Maybe<Scalars["String"]>;
   oldStatus?: Maybe<Scalars["String"]>;
   reason?: Maybe<Scalars["String"]>;
+  task?: Maybe<Task>;
   taskExecution?: Maybe<Scalars["Int"]>;
   taskID?: Maybe<Scalars["String"]>;
   taskStatus?: Maybe<Scalars["String"]>;
@@ -5607,6 +5608,12 @@ export type PodEventsQuery = {
           taskID?: Maybe<string>;
           taskExecution?: Maybe<number>;
           taskStatus?: Maybe<string>;
+          task?: Maybe<{
+            __typename?: "Task";
+            id: string;
+            execution: number;
+            displayName: string;
+          }>;
         };
       }>;
     };

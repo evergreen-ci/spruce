@@ -12,6 +12,11 @@ query podEvents($id: String!, $limit: Int, $page: Int) {
           taskID
           taskExecution
           taskStatus
+          task {
+            id
+            execution
+            displayName
+          }
         }
         eventType
         processedAt
