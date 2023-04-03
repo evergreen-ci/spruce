@@ -108,14 +108,13 @@ describe("scheduleTasks", () => {
     userEvent.click(toggles[1]);
     userEvent.click(screen.queryByDataCy("windows-compile-task-checkbox")); // deselect checkbox from previous test
     await waitFor(() => {
-      // Unable to pass data-cy to modal buttons so we have to use getAllByRole
-      const confirmButton = screen.getAllByRole("button")[0];
-      expect(confirmButton).toHaveAttribute("aria-disabled", "true");
+      const confirmButton = screen.getByRole("button", { name: "Schedule" });
+      expect(confirmButton).toBeDisabled();
     });
     userEvent.click(screen.queryByDataCy("windows-compile-task-checkbox"));
     await waitFor(() => {
-      const confirmButton = screen.getAllByRole("button")[0];
-      expect(confirmButton).not.toHaveAttribute("aria-disabled", "true");
+      const confirmButton = screen.getByRole("button", { name: "Schedule" });
+      expect(confirmButton).not.toBeDisabled();
     });
   });
 
@@ -128,8 +127,11 @@ describe("scheduleTasks", () => {
     await waitFor(() => expect(screen.queryByText("Windows")).toBeVisible());
     const windowVariantToggle = screen.queryAllByDataCy("accordion-toggle")[1];
     userEvent.click(windowVariantToggle);
+    await waitFor(() => {
+      expect(screen.getByDataCy("windows-compile-task-checkbox")).toBeDefined();
+    });
     userEvent.click(screen.queryByDataCy("windows-compile-task-checkbox"));
-    const confirmButton = screen.getAllByRole("button")[0];
+    const confirmButton = screen.getByRole("button", { name: "Schedule" });
     userEvent.click(confirmButton);
 
     expect(dispatchToast.error).not.toHaveBeenCalled();
