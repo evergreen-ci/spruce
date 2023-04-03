@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { conditionalToArray } from "utils/array";
 import {
@@ -17,7 +17,11 @@ const useQueryParams = () => {
     [setSearchParams]
   );
 
-  return [parseQueryString(searchParams.toString()), setQueryString] as const;
+  const parsedQueryString = useMemo(
+    () => parseQueryString(searchParams.toString()),
+    [searchParams]
+  );
+  return [parsedQueryString, setQueryString] as const;
 };
 
 /**
