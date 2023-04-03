@@ -1107,6 +1107,7 @@ export type PodEventLogData = {
   newStatus?: Maybe<Scalars["String"]>;
   oldStatus?: Maybe<Scalars["String"]>;
   reason?: Maybe<Scalars["String"]>;
+  task?: Maybe<Task>;
   taskExecution?: Maybe<Scalars["Int"]>;
   taskID?: Maybe<Scalars["String"]>;
   taskStatus?: Maybe<Scalars["String"]>;
