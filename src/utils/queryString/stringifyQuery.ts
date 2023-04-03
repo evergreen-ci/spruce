@@ -9,5 +9,4 @@ export const stringifyQueryAsValue = (object: { [key: string]: any }) =>
   stringify(object, {
     arrayFormat: "comma",
     skipNull: true,
-    skipEmptyString: true,
   });
