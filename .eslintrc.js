@@ -226,7 +226,7 @@ module.exports = {
       files: ["src/**/*.graphql"],
       extends: "plugin:@graphql-eslint/operations-recommended",
       rules: {
-        "@graphql-eslint/naming-convention": OFF, // This should be turned on eventually.
+        "@graphql-eslint/naming-convention": OFF, // This line should be removed as part of EVG-19316.
         "@graphql-eslint/selection-set-depth": OFF,
         "@graphql-eslint/no-deprecated": WARN,
         "@graphql-eslint/alphabetize": [
