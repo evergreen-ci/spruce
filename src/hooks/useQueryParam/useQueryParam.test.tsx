@@ -103,7 +103,7 @@ describe("useQueryParam", () => {
       });
       expect(result.current.queryParam).toBe("test2");
     });
-    it("should handle empty strings", () => {
+    it("should preserve empty strings", () => {
       const wrapper: React.FC<{ children: React.ReactNode }> = ({
         children,
       }) => (
