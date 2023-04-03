@@ -81,9 +81,6 @@ export const Accordion: React.VFC<AccordionProps> = ({
   );
 };
 
-export const AccordionWrapper = styled.div`
-  padding: 12px 0;
-`;
 const AccordionToggle = styled.div`
   display: flex;
   align-items: center;

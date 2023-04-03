@@ -7,7 +7,7 @@ import { Skeleton } from "antd";
 import { TableProps } from "antd/es/table";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
-import { Accordion, AccordionWrapper } from "components/Accordion";
+import { Accordion } from "components/Accordion";
 import PageSizeSelector from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
@@ -171,7 +171,7 @@ export const DownstreamProjectAccordion: React.VFC<
     });
 
   return (
-    <AccordionWrapper data-cy="project-accordion">
+    <Wrapper data-cy="project-accordion">
       <Accordion
         defaultOpen={status === PatchStatus.Failed}
         title={variantTitle}
@@ -245,7 +245,7 @@ export const DownstreamProjectAccordion: React.VFC<
           </TableWrapper>
         </AccordionContents>
       </Accordion>
-    </AccordionWrapper>
+    </Wrapper>
   );
 };
 interface DownstreamMetadataProps {
@@ -301,4 +301,8 @@ const FlexRow = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+`;
+
+const Wrapper = styled.div`
+  margin: ${size.xs} 0;
 `;

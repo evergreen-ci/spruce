@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { Accordion, AccordionWrapper } from "components/Accordion";
+import { Accordion } from "components/Accordion";
+import { size } from "constants/tokens";
 import { selectedStrings } from "hooks/useVersionTaskStatusSelect";
 import { TaskStatusCheckboxContainer } from "./TaskStatusCheckboxContainer";
 
@@ -48,7 +49,7 @@ export const BuildVariantAccordion: React.VFC<BuildVariantAccordionProps> = ({
     </>
   );
   return (
-    <AccordionWrapper data-cy="variant-accordion">
+    <Wrapper data-cy="variant-accordion">
       <Accordion title={variantTitle} titleTag={FlexContainer}>
         <TaskStatusCheckboxContainer
           versionId={versionId}
@@ -57,7 +58,7 @@ export const BuildVariantAccordion: React.VFC<BuildVariantAccordionProps> = ({
           toggleSelectedTask={toggleSelectedTask}
         />
       </Accordion>
-    </AccordionWrapper>
+    </Wrapper>
   );
 };
 
@@ -76,6 +77,10 @@ const countMatchingTasks = (
 
 const BadgeWrapper = styled.div`
   padding-left: 10px;
+`;
+
+const Wrapper = styled.div`
+  margin: ${size.xs} 0;
 `;
 
 const FlexContainer = styled.div`
