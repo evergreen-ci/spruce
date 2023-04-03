@@ -64,7 +64,7 @@ export const Accordion: React.VFC<AccordionProps> = ({
         )}
         {titleComp}
       </AccordionToggle>
-      {subtitle !== undefined && (
+      {subtitle && (
         <SubtitleContainer showCaret={showCaret}>{subtitle}</SubtitleContainer>
       )}
       {!toggleFromBottom && (

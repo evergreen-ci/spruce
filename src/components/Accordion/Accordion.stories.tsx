@@ -2,7 +2,6 @@ import { StoryObj } from "@storybook/react";
 import { Accordion } from ".";
 
 export default {
-  title: "Components/Accordion",
   component: Accordion,
 };
 

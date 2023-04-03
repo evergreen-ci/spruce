@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/Accordion Default 1`] = `
+exports[`storybook Storyshots components/Accordion Default 1`] = `
 <div>
   <div>
     <div
@@ -40,7 +40,7 @@ exports[`storybook Storyshots Components/Accordion Default 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots Components/Accordion With Subtitle 1`] = `
+exports[`storybook Storyshots components/Accordion With Subtitle 1`] = `
 <div>
   <div>
     <div
