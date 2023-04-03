@@ -9,7 +9,7 @@ describe("Container events", () => {
     });
   });
 
-  it("pod events display the correct text", () => {
+  it("events display the correct text", () => {
     cy.visit(pathWithEvents);
 
     const eventTypes = [
@@ -36,7 +36,7 @@ describe("Container events", () => {
     });
   });
 
-  it("host event links get displayed", () => {
+  it("event links get displayed", () => {
     const hostTypes = [
       "event-type-CONTAINER_TASK_FINISHED",
       "event-type-CLEARED_TASK",
@@ -58,7 +58,7 @@ describe("Container events", () => {
     clickOnPageSizeBtnAndAssertURLandTableSize(10, allRows);
   });
 
-  it.only("host events are displayed in the right timezone", () => {
+  it("events are displayed in the right timezone", () => {
     cy.visit(pathWithEvents);
     cy.dataCy("ASSIGNED_TASK-time").contains("Apr 4, 2023, 12:34:03 PM");
     cy.visit("/preferences");
