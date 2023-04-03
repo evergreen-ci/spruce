@@ -59,6 +59,7 @@ const EventsTable: React.VFC<{}> = () => {
       </TableTitle>
 
       <Table
+        data-cy="container-events"
         data={podEventsData?.pod.events.eventLogEntries}
         columns={[
           <TableHeader key="date" dataType="date" label="Date" />,
@@ -66,8 +67,10 @@ const EventsTable: React.VFC<{}> = () => {
         ]}
       >
         {({ datum }) => (
-          <Row key={datum.id}>
-            <Cell>{getDateCopy(datum.timestamp)}</Cell>
+          <Row data-cy={`event-type-${datum.eventType}`} key={datum.id}>
+            <Cell data-cy={`${datum.eventType}-time`}>
+              {getDateCopy(datum.timestamp)}
+            </Cell>
             <Cell>{getEventCopy(datum)}</Cell>
           </Row>
         )}
