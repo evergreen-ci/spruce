@@ -1,5 +1,4 @@
 import { SpruceFormProps } from "components/SpruceForm/types";
-import { generateWebhookSecret } from "pages/projectSettings/tabs/NotificationsTab/utils";
 import {
   SubscriptionMethodOption,
   NotificationMethods,
@@ -99,7 +98,6 @@ export const getNotificationSchema = (
                   secretInput: {
                     type: "string" as "string",
                     title: "Webhook Secret",
-                    default: generateWebhookSecret(),
                   },
                   httpHeaders: {
                     type: "array" as "array",
@@ -187,6 +185,8 @@ export const getNotificationSchema = (
       },
       secretInput: {
         "ui:readonly": true,
+        "ui:placeholder":
+          "The secret will be shown upon saving the subscription.",
         "ui:data-cy": "secret-input",
       },
       httpHeaders: {

@@ -1,213 +1,211 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/Host Status Badges Default 1`] = `
-<div
-  className="css-o6c4dw-Container e1or3ep41"
->
+exports[`storybook Storyshots components/HostStatusBadge Default 1`] = `
+<div>
   <div
-    className="css-11yt18y-Wrapper e1or3ep40"
+    class="css-o6c4dw-Container e1or3ep41"
   >
     <div
-      className="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
+      class="css-11yt18y-Wrapper e1or3ep40"
     >
       <div
-        className="leafygreen-ui-n4itms"
+        class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
-        Running
-      </div>
-    </div>
-  </div>
-  <div
-    className="css-11yt18y-Wrapper e1or3ep40"
-  >
-    <div
-      className="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
-    >
-      <div
-        className="leafygreen-ui-ixbeze"
-      >
-        Starting
-      </div>
-    </div>
-  </div>
-  <div
-    className="css-11yt18y-Wrapper e1or3ep40"
-  >
-    <div
-      className="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
-    >
-      <div
-        className="leafygreen-ui-ixbeze"
-      >
-        Provisioning
-      </div>
-    </div>
-  </div>
-  <div
-    className="css-11yt18y-Wrapper e1or3ep40"
-  >
-    <div
-      className="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
-    >
-      <div
-        className="leafygreen-ui-ud6teo"
-      >
-        Terminated
-      </div>
-      <div
-        className="leafygreen-ui-cssveg css-1c025ob-IconWrapper e1g9h96g0"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-      >
-        <svg
-          aria-label="Info With Circle Icon"
-          className="leafygreen-ui-1xsx4zj css-1bgg0m1-iconMargin"
-          fill="none"
-          height={16}
-          role="img"
-          viewBox="0 0 16 16"
-          width={16}
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="leafygreen-ui-n4itms"
         >
-          <path
-            clipRule="evenodd"
-            d="M8 15A7 7 0 108 1a7 7 0 000 14zM9 4a1 1 0 11-2 0 1 1 0 012 0zM8 6a1 1 0 011 1v4h.5a.5.5 0 010 1h-3a.5.5 0 010-1H7V7h-.5a.5.5 0 010-1H8z"
-            fill="currentColor"
-            fillRule="evenodd"
-          />
-        </svg>
+          Running
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    className="css-11yt18y-Wrapper e1or3ep40"
-  >
     <div
-      className="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
+      class="css-11yt18y-Wrapper e1or3ep40"
     >
       <div
-        className="leafygreen-ui-ohl2hc"
+        class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
-        Decommissioned
+        <div
+          class="leafygreen-ui-ixbeze"
+        >
+          Starting
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    className="css-11yt18y-Wrapper e1or3ep40"
-  >
     <div
-      className="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
+      class="css-11yt18y-Wrapper e1or3ep40"
     >
       <div
-        className="leafygreen-ui-ohl2hc"
+        class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
-        Quarantined
+        <div
+          class="leafygreen-ui-ixbeze"
+        >
+          Provisioning
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    className="css-11yt18y-Wrapper e1or3ep40"
-  >
     <div
-      className="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
+      class="css-11yt18y-Wrapper e1or3ep40"
     >
       <div
-        className="leafygreen-ui-ohl2hc"
+        class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
-        Provision Failed
+        <div
+          class="leafygreen-ui-ud6teo"
+        >
+          Terminated
+        </div>
+        <div
+          class="leafygreen-ui-cssveg css-1c025ob-IconWrapper e1g9h96g0"
+        >
+          <svg
+            aria-label="Info With Circle Icon"
+            class="leafygreen-ui-1xsx4zj css-1bgg0m1-iconMargin"
+            fill="none"
+            height="16"
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M8 15A7 7 0 108 1a7 7 0 000 14zM9 4a1 1 0 11-2 0 1 1 0 012 0zM8 6a1 1 0 011 1v4h.5a.5.5 0 010 1h-3a.5.5 0 010-1H7V7h-.5a.5.5 0 010-1H8z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    className="css-11yt18y-Wrapper e1or3ep40"
-  >
     <div
-      className="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
+      class="css-11yt18y-Wrapper e1or3ep40"
     >
       <div
-        className="leafygreen-ui-ohl2hc"
+        class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
-        Initializing
+        <div
+          class="leafygreen-ui-ohl2hc"
+        >
+          Decommissioned
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    className="css-11yt18y-Wrapper e1or3ep40"
-  >
     <div
-      className="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
+      class="css-11yt18y-Wrapper e1or3ep40"
     >
       <div
-        className="leafygreen-ui-ohl2hc"
+        class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
-        Building
+        <div
+          class="leafygreen-ui-ohl2hc"
+        >
+          Quarantined
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    className="css-11yt18y-Wrapper e1or3ep40"
-  >
     <div
-      className="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
+      class="css-11yt18y-Wrapper e1or3ep40"
     >
       <div
-        className="leafygreen-ui-ohl2hc"
+        class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
-        Success
+        <div
+          class="leafygreen-ui-ohl2hc"
+        >
+          Provision Failed
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    className="css-11yt18y-Wrapper e1or3ep40"
-  >
     <div
-      className="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
+      class="css-11yt18y-Wrapper e1or3ep40"
     >
       <div
-        className="leafygreen-ui-ohl2hc"
+        class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
-        Stopping
+        <div
+          class="leafygreen-ui-ohl2hc"
+        >
+          Initializing
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    className="css-11yt18y-Wrapper e1or3ep40"
-  >
     <div
-      className="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
+      class="css-11yt18y-Wrapper e1or3ep40"
     >
       <div
-        className="leafygreen-ui-ohl2hc"
+        class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
-        Stopped
+        <div
+          class="leafygreen-ui-ohl2hc"
+        >
+          Building
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    className="css-11yt18y-Wrapper e1or3ep40"
-  >
     <div
-      className="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
+      class="css-11yt18y-Wrapper e1or3ep40"
     >
       <div
-        className="leafygreen-ui-ohl2hc"
+        class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
-        Failed
+        <div
+          class="leafygreen-ui-ohl2hc"
+        >
+          Success
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    className="css-11yt18y-Wrapper e1or3ep40"
-  >
     <div
-      className="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
+      class="css-11yt18y-Wrapper e1or3ep40"
     >
       <div
-        className="leafygreen-ui-ohl2hc"
+        class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
-        External
+        <div
+          class="leafygreen-ui-ohl2hc"
+        >
+          Stopping
+        </div>
+      </div>
+    </div>
+    <div
+      class="css-11yt18y-Wrapper e1or3ep40"
+    >
+      <div
+        class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
+      >
+        <div
+          class="leafygreen-ui-ohl2hc"
+        >
+          Stopped
+        </div>
+      </div>
+    </div>
+    <div
+      class="css-11yt18y-Wrapper e1or3ep40"
+    >
+      <div
+        class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
+      >
+        <div
+          class="leafygreen-ui-ohl2hc"
+        >
+          Failed
+        </div>
+      </div>
+    </div>
+    <div
+      class="css-11yt18y-Wrapper e1or3ep40"
+    >
+      <div
+        class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
+      >
+        <div
+          class="leafygreen-ui-ohl2hc"
+        >
+          External
+        </div>
       </div>
     </div>
   </div>

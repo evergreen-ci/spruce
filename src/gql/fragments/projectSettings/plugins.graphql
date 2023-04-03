@@ -13,6 +13,10 @@ fragment projectPluginsSettings on Project {
       secret
     }
   }
+  externalLinks {
+    displayName
+    urlTemplate
+  }
   perfEnabled
 }
 
@@ -30,6 +34,10 @@ fragment repoPluginsSettings on RepoRef {
       endpoint
       secret
     }
+  }
+  externalLinks {
+    displayName
+    urlTemplate
   }
   perfEnabled
 }

@@ -22,12 +22,20 @@ const validateJiraURL = (jiraURL: string, url: string): boolean =>
   new RegExp(`^https://${jiraURL}/browse/${jiraTicketNumberRegex}$`).test(url);
 
 const validateURL = (url: string): boolean => {
+  const validateUrlRegex =
+    /^(https?:\/\/(www\.)?|ftp:\/\/(www\.)?|www\.){1}([0-9A-Za-z-.@:%_+~#=]+)+((\.[a-zA-Z]{2,3})+)(\/(.)*)?(\?(.)*)?/;
   if (!url) {
     return false;
   }
-  const validateUrl =
-    /^(https?:\/\/(www\.)?|ftp:\/\/(www\.)?|www\.){1}([0-9A-Za-z-.@:%_+~#=]+)+((\.[a-zA-Z]{2,3})+)(\/(.)*)?(\?(.)*)?/;
-  return validateUrl.test(url);
+  return validateUrlRegex.test(url);
+};
+
+const validateURLTemplate = (url: string): boolean => {
+  if (!url) {
+    return true;
+  }
+  const formattedURL = url.replace("{version_id}", "version_id");
+  return validateURL(formattedURL);
 };
 
 const validateSSHPublicKey = (v: string): boolean => {
@@ -85,4 +93,5 @@ export {
   validateSSHPublicKey,
   validateSlack,
   validateURL,
+  validateURLTemplate,
 };

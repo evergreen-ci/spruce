@@ -5,7 +5,7 @@ import {
   MetadataItem,
   MetadataTitle,
 } from "components/MetadataCard";
-import { StyledRouterLink } from "components/styles";
+import { StyledLink, StyledRouterLink } from "components/styles";
 import { getGithubCommitUrl } from "constants/externalResources";
 import {
   getCommitQueueRoute,
@@ -48,6 +48,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
     previousVersion,
     upstreamProject,
     projectMetadata,
+    externalLinksForMetadata,
   } = version || {};
   const { sendEvent } = useVersionAnalytics(id);
   const { commitQueuePosition } = patch || {};
@@ -60,6 +61,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
   } = upstreamProject || {};
 
   const { repo, owner } = projectMetadata || {};
+  const { url, displayName } = externalLinksForMetadata[0] || {};
   return (
     <MetadataCard loading={loading} error={null}>
       <MetadataTitle>
@@ -159,6 +161,13 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
         </MetadataItem>
       )}
       <ParametersModal parameters={parameters} />
+      {url && displayName && (
+        <MetadataItem>
+          <StyledLink data-cy="external-link" href={url}>
+            {displayName}
+          </StyledLink>
+        </MetadataItem>
+      )}
     </MetadataCard>
   );
 };

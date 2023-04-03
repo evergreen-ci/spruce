@@ -1,24 +1,23 @@
 import styled from "@emotion/styled";
+import { StoryObj } from "@storybook/react";
 import { size } from "constants/tokens";
 import { HostStatus } from "types/host";
 import HostStatusBadge from ".";
 
 export default {
-  title: "Components/Host Status Badges",
   component: HostStatusBadge,
 };
 
-export const Default = () => {
-  const hostStatuses = Object.keys(HostStatus);
-  return (
+export const Default: StoryObj<typeof HostStatusBadge> = {
+  render: () => (
     <Container>
-      {hostStatuses.map((status) => (
+      {Object.keys(HostStatus).map((status) => (
         <Wrapper key={`badge_${status}`}>
           <HostStatusBadge status={HostStatus[status]} />
         </Wrapper>
       ))}
     </Container>
-  );
+  ),
 };
 
 const Container = styled.div`
