@@ -1,4 +1,3 @@
-
-  mutation SetPatchPriority($patchId: String!, $priority: Int!) {
-    setPatchPriority(patchId: $patchId, priority: $priority)
-  }
+mutation SetPatchPriority($patchId: String!, $priority: Int!) {
+  setPatchPriority(patchId: $patchId, priority: $priority)
+}

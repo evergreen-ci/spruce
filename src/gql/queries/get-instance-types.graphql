@@ -1,4 +1,3 @@
-
-  query InstanceTypes {
-    instanceTypes
-  }
+query InstanceTypes {
+  instanceTypes
+}

@@ -51,6 +51,7 @@ export const taskQuery: GetTaskQuery = {
     priority: 0,
     patchNumber: 417,
     project: {
+      id: "spruce",
       identifier: "spruce",
     },
     requester: "github_pull_request",

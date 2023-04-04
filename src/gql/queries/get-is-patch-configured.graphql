@@ -1,8 +1,8 @@
 query IsPatchConfigured($id: String!) {
   patch(id: $id) {
-    id
     activated
     alias
+    id
     projectID
   }
 }

@@ -4,14 +4,14 @@ query ProjectEventLogs($identifier: String!, $limit: Int, $before: Time) {
   projectEvents(identifier: $identifier, limit: $limit, before: $before) {
     count
     eventLogEntries {
-      timestamp
-      user
-      before {
-        ...projectEventSettings
-      }
       after {
         ...projectEventSettings
       }
+      before {
+        ...projectEventSettings
+      }
+      timestamp
+      user
     }
   }
 }

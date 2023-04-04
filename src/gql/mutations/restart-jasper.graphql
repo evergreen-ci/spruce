@@ -1,4 +1,3 @@
-
-  mutation RestartJasper($hostIds: [String!]!) {
-    restartJasper(hostIds: $hostIds)
-  }
+mutation RestartJasper($hostIds: [String!]!) {
+  restartJasper(hostIds: $hostIds)
+}
