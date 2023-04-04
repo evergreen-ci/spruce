@@ -2,8 +2,8 @@
 
 query AgentLogs($id: String!, $execution: Int) {
   task(taskId: $id, execution: $execution) {
-    id
     execution
+    id
     taskLogs {
       agentLogs {
         ...logMessage

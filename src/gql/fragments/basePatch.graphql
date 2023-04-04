@@ -1,17 +1,17 @@
 fragment basePatch on Patch {
-    id
-    description
-    author
-    status
-    activated
-    alias
-    commitQueuePosition
-    variantsTasks {
-      name
-      tasks
-    }
-    parameters {
-        key
-        value
-    }
+  activated
+  alias
+  author
+  commitQueuePosition
+  description
+  id
+  parameters {
+    key
+    value
+  }
+  status
+  variantsTasks {
+    name
+    tasks
+  }
 }

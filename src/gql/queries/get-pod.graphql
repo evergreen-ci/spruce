@@ -2,18 +2,18 @@ query Pod($podId: String!) {
   pod(podId: $podId) {
     id
     status
+    task {
+      displayName
+      execution
+      id
+    }
     taskContainerCreationOpts {
       arch
       cpu
+      image
       memoryMB
       os
-      image
       workingDir
-    }
-    task {
-      id
-      execution
-      displayName
     }
     type
   }

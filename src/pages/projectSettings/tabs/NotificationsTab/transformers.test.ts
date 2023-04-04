@@ -146,7 +146,7 @@ describe("project data", () => {
               notificationSelect: "evergreen-webhook",
               webhookInput: {
                 urlInput: "https://example.com",
-                secretInput: "",
+                secretInput: "webhook_secret",
                 httpHeaders: [
                   {
                     keyInput: "Content-Type",
@@ -184,7 +184,7 @@ describe("project data", () => {
             jiraIssueSubscriber: undefined,
             webhookSubscriber: {
               url: "https://example.com",
-              secret: "",
+              secret: "webhook_secret",
               headers: [
                 {
                   key: "Content-Type",

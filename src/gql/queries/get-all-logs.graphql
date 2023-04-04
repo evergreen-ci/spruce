@@ -2,8 +2,8 @@
 
 query AllLogs($id: String!, $execution: Int) {
   task(taskId: $id, execution: $execution) {
-    id
     execution
+    id
     taskLogs {
       allLogs {
         ...logMessage

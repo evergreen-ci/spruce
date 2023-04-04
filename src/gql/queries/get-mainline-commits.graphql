@@ -11,55 +11,55 @@ query MainlineCommits(
     options: $mainlineCommitsOptions
     buildVariantOptions: $buildVariantOptions
   ) {
+    nextPageOrderNumber
+    prevPageOrderNumber
     versions {
-      version {
-        projectIdentifier
-        id
+      rolledUpVersions {
         author
         createTime
+        id
         message
-        revision
         order
+        revision
         ...upstreamProject
-        taskStatusStats(options: $buildVariantOptionsForGraph) {
-          eta
-          counts {
+      }
+      version {
+        author
+        buildVariants(options: $buildVariantOptionsForTaskIcons) {
+          displayName
+          tasks {
+            displayName
+            execution
+            failedTestCount
+            id
             status
-            count
+            timeTaken
           }
+          variant
         }
         buildVariantStats(options: $buildVariantOptionsForGroupedTasks) {
           displayName
-          variant
           statusCounts {
             count
             status
           }
-        }
-        buildVariants(options: $buildVariantOptionsForTaskIcons) {
-          displayName
           variant
-          tasks {
-            id
-            execution
-            status
-            displayName
-            timeTaken
-            failedTestCount
-          }
         }
-      }
-      rolledUpVersions {
-        id
         createTime
-        author
-        order
+        id
         message
+        order
+        projectIdentifier
         revision
+        taskStatusStats(options: $buildVariantOptionsForGraph) {
+          counts {
+            count
+            status
+          }
+          eta
+        }
         ...upstreamProject
       }
     }
-    nextPageOrderNumber
-    prevPageOrderNumber
   }
 }

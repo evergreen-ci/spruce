@@ -4,8 +4,6 @@ query TaskEventLogs($id: String!, $execution: Int) {
     id
     taskLogs {
       eventLogs {
-        timestamp
-        eventType
         data {
           hostId
           jiraIssue
@@ -15,6 +13,9 @@ query TaskEventLogs($id: String!, $execution: Int) {
           timestamp
           userId
         }
+        eventType
+        id
+        timestamp
       }
     }
   }

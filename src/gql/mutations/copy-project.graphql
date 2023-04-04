@@ -1,5 +1,6 @@
 mutation CopyProject($project: CopyProjectInput!, $requestS3Creds: Boolean!) {
   copyProject(project: $project, requestS3Creds: $requestS3Creds) {
+    id
     identifier
   }
 }

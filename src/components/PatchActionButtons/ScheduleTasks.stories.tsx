@@ -41,6 +41,7 @@ const mocks: ApolloMock<
     result: {
       data: {
         version: {
+          id: "version_id",
           tasks: {
             data: [
               {
@@ -155,6 +156,7 @@ const mocks: ApolloMock<
     result: {
       data: {
         version: {
+          id: "version_empty",
           tasks: {
             data: [],
           },

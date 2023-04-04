@@ -191,6 +191,7 @@ const getUnscheduledTasksMock: ApolloMock<
   result: {
     data: {
       version: {
+        id: "version_id",
         tasks: {
           data: [
             {
@@ -308,6 +309,7 @@ const getUnscheduledTasksMockEmpty: ApolloMock<
   result: {
     data: {
       version: {
+        id: "version_empty",
         tasks: {
           data: [],
         },

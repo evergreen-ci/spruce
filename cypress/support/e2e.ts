@@ -119,7 +119,9 @@ before(() => {
 beforeEach(() => {
   cy.setCookie(bannerCookie, "true");
   cy.setCookie(slackBannerCookie, "true");
+  cy.setCookie(konamiCookie, "true");
 });
 
 const bannerCookie = "This is an important notification";
 const slackBannerCookie = "has-closed-slack-banner";
+const konamiCookie = "seen-konami-code";

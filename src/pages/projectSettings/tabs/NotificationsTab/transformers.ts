@@ -9,8 +9,8 @@ import { NotificationMethods } from "types/subscription";
 import { TriggerType } from "types/triggers";
 import { string } from "utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
+import { getGqlPayload } from "./getGqlPayload";
 import { FormState } from "./types";
-import { getGqlPayload } from "./utils";
 
 type Tab = ProjectSettingsTabRoutes.Notifications;
 
