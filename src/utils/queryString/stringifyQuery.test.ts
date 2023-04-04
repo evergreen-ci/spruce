@@ -37,10 +37,20 @@ describe("stringifyQueryAsValue", () => {
     const result = stringifyQueryAsValue({ foo: ["bar", "baz"], qux: null });
     expect(result).toBe("foo=bar,baz");
   });
-  it("should preserve empty strings", () => {
-    let result = stringifyQueryAsValue({ foo: "", bar: null });
+  it("should skip empty strings", () => {
+    const result = stringifyQueryAsValue({ foo: "", bar: null });
+    expect(result).toBe("");
+  });
+  it("should preserve empty strings if skipEmptyString is passed in", () => {
+    let result = stringifyQueryAsValue(
+      { foo: "", bar: null },
+      { skipEmptyString: false }
+    );
     expect(result).toBe("foo=");
-    result = stringifyQueryAsValue({ foo: "", bar: 21 });
+    result = stringifyQueryAsValue(
+      { foo: "", bar: 21 },
+      { skipEmptyString: false }
+    );
     expect(result).toBe("bar=21&foo=");
   });
 });
