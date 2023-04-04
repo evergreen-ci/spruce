@@ -1,9 +1,9 @@
 fragment projectPeriodicBuildsSettings on Project {
   periodicBuilds {
-    id
-    configFile
-    intervalHours
     alias
+    configFile
+    id
+    intervalHours
     message
     nextRunTime
   }
@@ -11,10 +11,10 @@ fragment projectPeriodicBuildsSettings on Project {
 
 fragment repoPeriodicBuildsSettings on RepoRef {
   periodicBuilds {
-    id
-    configFile
-    intervalHours
     alias
+    configFile
+    id
+    intervalHours
     message
     nextRunTime
   }

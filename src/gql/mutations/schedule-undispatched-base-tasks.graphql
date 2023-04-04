@@ -1,7 +1,7 @@
 mutation ScheduleUndispatchedBaseTasks($patchId: String!) {
   scheduleUndispatchedBaseTasks(patchId: $patchId) {
-    id
     execution
+    id
     status
   }
 }

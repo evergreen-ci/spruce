@@ -2,12 +2,13 @@
 
 query GetSuspectedIssues($taskId: String!, $execution: Int) {
   task(taskId: $taskId, execution: $execution) {
-    id
-    execution
     annotation {
+      id
       suspectedIssues {
         ...issueLink
       }
     }
+    execution
+    id
   }
 }

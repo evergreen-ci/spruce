@@ -1,11 +1,7 @@
 query GetSpruceConfig {
   spruceConfig {
-    bannerTheme
     banner
-    ui {
-      userVoice
-      defaultProject
-    }
+    bannerTheme
     jira {
       host
     }
@@ -14,13 +10,17 @@ query GetSpruceConfig {
         maxVolumeSizePerUser
       }
     }
+    slack {
+      name
+    }
     spawnHost {
       spawnHostsPerUser
       unexpirableHostsPerUser
       unexpirableVolumesPerUser
     }
-    slack {
-      name
+    ui {
+      defaultProject
+      userVoice
     }
   }
 }

@@ -1,4 +1,3 @@
-
-  mutation UnschedulePatchTasks($patchId: String!, $abort: Boolean!) {
-    unschedulePatchTasks(patchId: $patchId, abort: $abort)
-  }
+mutation UnschedulePatchTasks($patchId: String!, $abort: Boolean!) {
+  unschedulePatchTasks(patchId: $patchId, abort: $abort)
+}

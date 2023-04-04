@@ -11,30 +11,29 @@
 #import "./periodicBuilds.graphql"
 
 fragment projectEventSettings on ProjectEventSettings {
+  aliases {
+    ...alias
+  }
+  ...projectEventGithubCommitQueue
   projectRef {
+    hidden
     identifier
-    repoRefId
-    ...projectGeneralSettings
     ...projectAccessSettings
-    ...projectPluginsSettings
+    ...projectGeneralSettings
     ...projectNotificationSettings
     ...projectPatchAliasSettings
-    ...projectVirtualWorkstationSettings
-    ...projectTriggersSettings
     ...projectPeriodicBuildsSettings
-
-    versionControlEnabled
+    ...projectPluginsSettings
+    ...projectTriggersSettings
+    ...projectVirtualWorkstationSettings
+    repoRefId
     tracksPushEvents
-    hidden
+    versionControlEnabled
   }
   subscriptions {
     ...subscriptions
   }
   vars {
     ...variables
-  }
-  ...projectEventGithubCommitQueue
-  aliases {
-    ...alias
   }
 }

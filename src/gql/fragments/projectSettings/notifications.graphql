@@ -8,47 +8,47 @@ fragment repoNotificationSettings on RepoRef {
 
 fragment subscriptions on ProjectSubscription {
   id
-  resourceType
-  trigger
-  selectors {
-    type
-    data
-  }
+  ownerType
   regexSelectors {
-    type
     data
+    type
+  }
+  resourceType
+  selectors {
+    data
+    type
   }
   subscriber {
-    type
     subscriber {
-      githubPRSubscriber {
-        owner
-        repo
-        ref
-        prNumber
-      }
+      emailSubscriber
       githubCheckSubscriber {
         owner
-        repo
         ref
+        repo
       }
+      githubPRSubscriber {
+        owner
+        prNumber
+        ref
+        repo
+      }
+      jiraCommentSubscriber
+      jiraIssueSubscriber {
+        issueType
+        project
+      }
+      slackSubscriber
       webhookSubscriber {
-        url
-        secret
         headers {
           key
           value
         }
+        secret
+        url
       }
-      jiraIssueSubscriber {
-        project
-        issueType
-      }
-      jiraCommentSubscriber
-      emailSubscriber
-      slackSubscriber
     }
+    type
   }
-  ownerType
+  trigger
   triggerData
 }

@@ -1,31 +1,31 @@
 fragment projectGithubSettings on Project {
-  prTestingEnabled
-  manualPrTestingEnabled
-  githubChecksEnabled
-  githubTriggerAliases
-  gitTagVersionsEnabled
-  gitTagAuthorizedUsers
-  gitTagAuthorizedTeams
   commitQueue {
     enabled
     mergeMethod
     message
   }
+  githubChecksEnabled
+  githubTriggerAliases
+  gitTagAuthorizedTeams
+  gitTagAuthorizedUsers
+  gitTagVersionsEnabled
+  manualPrTestingEnabled
+  prTestingEnabled
 }
 
 fragment repoGithubSettings on RepoRef {
-  prTestingEnabled
-  manualPrTestingEnabled
-  githubChecksEnabled
-  githubTriggerAliases
-  gitTagVersionsEnabled
-  gitTagAuthorizedUsers
-  gitTagAuthorizedTeams
   commitQueue {
     enabled
     mergeMethod
     message
   }
+  githubChecksEnabled
+  githubTriggerAliases
+  gitTagAuthorizedTeams
+  gitTagAuthorizedUsers
+  gitTagVersionsEnabled
+  manualPrTestingEnabled
+  prTestingEnabled
 }
 
 fragment projectGithubCommitQueue on ProjectSettings {

@@ -8,37 +8,37 @@ query MainlineCommitsForHistory(
     options: $mainlineCommitsOptions
     buildVariantOptions: $buildVariantOptions
   ) {
+    nextPageOrderNumber
+    prevPageOrderNumber
     versions {
-      version {
-        id
+      rolledUpVersions {
         author
         createTime
+        id
         message
-        revision
         order
+        revision
         ...upstreamProject
+      }
+      version {
+        author
         buildVariants(options: $buildVariantOptions) {
           displayName
-          variant
           tasks {
-            id
-            execution
-            status
             displayName
+            execution
+            id
+            status
           }
+          variant
         }
-      }
-      rolledUpVersions {
-        id
         createTime
-        author
-        order
+        id
         message
+        order
         revision
         ...upstreamProject
       }
     }
-    nextPageOrderNumber
-    prevPageOrderNumber
   }
 }

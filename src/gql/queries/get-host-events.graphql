@@ -1,31 +1,30 @@
-  query hostEvents($id: String!, $tag: String!, $limit: Int, $page: Int) {
-    hostEvents(hostId: $id, hostTag: $tag, limit: $limit, page: $page) {
-      eventLogEntries {
-        id
-        resourceType
-        processedAt
-        timestamp
-        eventType
-        data {
-          agentRevision
-          agentBuild
-          agentBuild
-          oldStatus
-          newStatus
-          logs
-          hostname
-          provisioningMethod
-          taskId
-          taskPid
-          taskStatus
-          execution
-          monitorOp
-          user
-          successful
-          duration
-        }
-        resourceId
+query hostEvents($id: String!, $tag: String!, $limit: Int, $page: Int) {
+  hostEvents(hostId: $id, hostTag: $tag, limit: $limit, page: $page) {
+    count
+    eventLogEntries {
+      data {
+        agentBuild
+        agentRevision
+        duration
+        execution
+        hostname
+        logs
+        monitorOp
+        newStatus
+        oldStatus
+        provisioningMethod
+        successful
+        taskId
+        taskPid
+        taskStatus
+        user
       }
-      count
+      eventType
+      id
+      processedAt
+      resourceId
+      resourceType
+      timestamp
     }
   }
+}

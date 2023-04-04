@@ -1,4 +1,3 @@
-
-  mutation UpdateUserSettings($userSettings: UserSettingsInput!) {
-    updateUserSettings(userSettings: $userSettings)
-  }
+mutation UpdateUserSettings($userSettings: UserSettingsInput!) {
+  updateUserSettings(userSettings: $userSettings)
+}

@@ -2,12 +2,12 @@ query GetProjects {
   projects {
     groupDisplayName
     projects {
+      displayName
       id
       identifier
-      repo
-      owner
-      displayName
       isFavorite
+      owner
+      repo
     }
   }
 }
