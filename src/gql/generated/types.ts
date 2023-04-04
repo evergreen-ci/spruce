@@ -540,6 +540,7 @@ export type LogkeeperBuild = {
   buildNum: Scalars["Int"];
   builder: Scalars["String"];
   id: Scalars["String"];
+  task: Task;
   taskExecution: Scalars["Int"];
   taskId: Scalars["String"];
   tests: Array<LogkeeperTest>;
