@@ -60,7 +60,7 @@ describe("Container events", () => {
 
   it("events are displayed in the right timezone", () => {
     cy.visit(pathWithEvents);
-    cy.dataCy("ASSIGNED_TASK-time").contains("Apr 4, 2023, 12:34:03 PM");
+    cy.dataCy("ASSIGNED_TASK-time").contains("Apr 4, 2023, 4:34:03 PM");
     cy.visit("/preferences");
     cy.contains("Select a timezone").click();
     cy.contains("Chatham Islands").click();
