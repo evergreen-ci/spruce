@@ -223,7 +223,7 @@ module.exports = {
     },
     // For GraphQL files.
     {
-      files: ["src/**/*.graphql"],
+      files: ["src/gql/**/*.graphql"],
       extends: "plugin:@graphql-eslint/operations-recommended",
       rules: {
         "@graphql-eslint/naming-convention": OFF, // This line should be removed as part of EVG-19316.
