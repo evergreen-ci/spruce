@@ -8,6 +8,10 @@ query Version($id: String!) {
     baseVersion {
       id
     }
+    externalLinksForMetadata {
+      displayName
+      url
+    }
     createTime
     errors
     finishTime

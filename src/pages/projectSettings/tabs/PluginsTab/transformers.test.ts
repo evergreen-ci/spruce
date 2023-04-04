@@ -44,6 +44,12 @@ const projectForm: FormState = {
       secret: null,
     },
   },
+  externalLinks: {
+    patchMetadataPanelLink: {
+      displayName: "a link display name",
+      urlTemplate: "https:/a-link-template-{version_id}.com",
+    },
+  },
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
@@ -57,6 +63,12 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
         secret: null,
       },
     },
+    externalLinks: [
+      {
+        displayName: "a link display name",
+        urlTemplate: "https:/a-link-template-{version_id}.com",
+      },
+    ],
   },
 };
 
@@ -87,6 +99,12 @@ const repoForm: FormState = {
       secret: "secret",
     },
   },
+  externalLinks: {
+    patchMetadataPanelLink: {
+      displayName: "a link display name",
+      urlTemplate: "https:/a-link-template-{version_id}.com",
+    },
+  },
 };
 
 const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
@@ -105,5 +123,11 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
         secret: "secret",
       },
     },
+    externalLinks: [
+      {
+        displayName: "a link display name",
+        urlTemplate: "https:/a-link-template-{version_id}.com",
+      },
+    ],
   },
 };

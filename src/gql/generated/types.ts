@@ -2994,6 +2994,13 @@ export type ProjectSettingsFragment = {
         secret: string;
       };
     };
+    externalLinks?: Maybe<
+      Array<{
+        __typename?: "ExternalLink";
+        displayName: string;
+        urlTemplate: string;
+      }>
+    >;
     patchTriggerAliases?: Maybe<
       Array<{
         __typename?: "PatchTriggerAlias";
@@ -3182,6 +3189,13 @@ export type RepoSettingsFragment = {
         secret: string;
       };
     };
+    externalLinks?: Maybe<
+      Array<{
+        __typename?: "ExternalLink";
+        displayName: string;
+        urlTemplate: string;
+      }>
+    >;
     patchTriggerAliases?: Maybe<
       Array<{
         __typename?: "PatchTriggerAlias";
@@ -3470,6 +3484,13 @@ export type ProjectPluginsSettingsFragment = {
       secret: string;
     };
   };
+  externalLinks?: Maybe<
+    Array<{
+      __typename?: "ExternalLink";
+      displayName: string;
+      urlTemplate: string;
+    }>
+  >;
 };
 
 export type RepoPluginsSettingsFragment = {
@@ -3491,6 +3512,13 @@ export type RepoPluginsSettingsFragment = {
       secret: string;
     };
   };
+  externalLinks?: Maybe<
+    Array<{
+      __typename?: "ExternalLink";
+      displayName: string;
+      urlTemplate: string;
+    }>
+  >;
 };
 
 export type ProjectEventSettingsFragment = {
@@ -3549,6 +3577,13 @@ export type ProjectEventSettingsFragment = {
         secret: string;
       };
     };
+    externalLinks?: Maybe<
+      Array<{
+        __typename?: "ExternalLink";
+        displayName: string;
+        urlTemplate: string;
+      }>
+    >;
     patchTriggerAliases?: Maybe<
       Array<{
         __typename?: "PatchTriggerAlias";
@@ -5724,6 +5759,13 @@ export type ProjectEventLogsQuery = {
               secret: string;
             };
           };
+          externalLinks?: Maybe<
+            Array<{
+              __typename?: "ExternalLink";
+              displayName: string;
+              urlTemplate: string;
+            }>
+          >;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -5923,6 +5965,13 @@ export type ProjectEventLogsQuery = {
               secret: string;
             };
           };
+          externalLinks?: Maybe<
+            Array<{
+              __typename?: "ExternalLink";
+              displayName: string;
+              urlTemplate: string;
+            }>
+          >;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -6131,6 +6180,13 @@ export type ProjectSettingsQuery = {
           secret: string;
         };
       };
+      externalLinks?: Maybe<
+        Array<{
+          __typename?: "ExternalLink";
+          displayName: string;
+          urlTemplate: string;
+        }>
+      >;
       patchTriggerAliases?: Maybe<
         Array<{
           __typename?: "PatchTriggerAlias";
@@ -6375,6 +6431,13 @@ export type RepoEventLogsQuery = {
               secret: string;
             };
           };
+          externalLinks?: Maybe<
+            Array<{
+              __typename?: "ExternalLink";
+              displayName: string;
+              urlTemplate: string;
+            }>
+          >;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -6574,6 +6637,13 @@ export type RepoEventLogsQuery = {
               secret: string;
             };
           };
+          externalLinks?: Maybe<
+            Array<{
+              __typename?: "ExternalLink";
+              displayName: string;
+              urlTemplate: string;
+            }>
+          >;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -6779,6 +6849,13 @@ export type RepoSettingsQuery = {
           secret: string;
         };
       };
+      externalLinks?: Maybe<
+        Array<{
+          __typename?: "ExternalLink";
+          displayName: string;
+          urlTemplate: string;
+        }>
+      >;
       patchTriggerAliases?: Maybe<
         Array<{
           __typename?: "PatchTriggerAlias";
@@ -7572,6 +7649,11 @@ export type VersionQuery = {
     taskCount?: Maybe<number>;
     warnings: Array<string>;
     baseVersion?: Maybe<{ __typename?: "Version"; id: string }>;
+    externalLinksForMetadata: Array<{
+      __typename?: "ExternalLinkForMetadata";
+      displayName: string;
+      url: string;
+    }>;
     manifest?: Maybe<{
       __typename?: "Manifest";
       id: string;
