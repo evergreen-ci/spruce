@@ -4202,15 +4202,15 @@
     "@leafygreen-ui/palette" "^3.4.7"
     "@leafygreen-ui/tooltip" "^9.1.3"
 
-"@leafygreen-ui/interaction-ring@7.0.1":
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/interaction-ring/-/interaction-ring-7.0.1.tgz#bbb6066c3365559d10c41426b91b36b0115028e6"
-  integrity sha512-951IutLRkMNbdyslbs9Vc61/qXoSp6xRtIPWO0P+KiKSWWxXD2zf04ekRH8HJvgrf9qs6XdzWjPIzz/b9bX8aA==
+"@leafygreen-ui/interaction-ring@7.0.2":
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/interaction-ring/-/interaction-ring-7.0.2.tgz#bc229b90dde0bb6d8e4e886001d6dc4e75c9b47a"
+  integrity sha512-QLA2WGzAqyZDJJC90eXJsVD/woryFKQzGeenbSfjVbV5R7Vcs9xJIu/1WiXCMDyOA57JTbuNZ+pBV7+Cv2+glA==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.4.0"
+    "@leafygreen-ui/palette" "^3.4.5"
+    "@leafygreen-ui/tokens" "^1.4.1"
 
 "@leafygreen-ui/leafygreen-provider@3.1.0":
   version "3.1.0"
@@ -4220,21 +4220,7 @@
     "@leafygreen-ui/hooks" "^7.3.3"
     "@leafygreen-ui/lib" "^10.0.0"
 
-"@leafygreen-ui/lib@^10.0.0", "@leafygreen-ui/lib@^10.1.0":
-  version "10.1.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-10.1.0.tgz#89b0f5fa23e2522222bf2d37f352d8102b9eb61a"
-  integrity sha512-r466/4fSQo5QVlEQ+Txua6tbbapMJxsUFCEdgDWPiT6McBBr4LWU8p94YEzkU3DHDpNfjvDN72KeRfUL4PKNug==
-  dependencies:
-    lodash "^4.17.21"
-
-"@leafygreen-ui/lib@^10.2.1":
-  version "10.2.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-10.2.1.tgz#cd83f3865f14785f29cd3392a8b96f52cbc94f5f"
-  integrity sha512-2fat+tej+QVSMMed7c/jZZOYBodrs57VKBC5OkqcSr68VWbKpUdrb7yKfK2Cx5VNY1cnbYYpRNFa9VwTfCW/rw==
-  dependencies:
-    lodash "^4.17.21"
-
-"@leafygreen-ui/lib@^10.2.2":
+"@leafygreen-ui/lib@^10.0.0", "@leafygreen-ui/lib@^10.1.0", "@leafygreen-ui/lib@^10.2.1", "@leafygreen-ui/lib@^10.2.2":
   version "10.3.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-10.3.0.tgz#ec87d9665bd52bad64bedca6e0fef324e47a109a"
   integrity sha512-nCNU25lbOGGfJJAkpdipIAwitD0h2rOZiHgCfERlwHsL4lr8K29qrPYKKEiE9JxbW8EBkoP2zJseY0RMd6Jq8A==
@@ -4589,14 +4575,7 @@
   dependencies:
     "@leafygreen-ui/palette" "^3.4.5"
 
-"@leafygreen-ui/tokens@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-2.0.0.tgz#92068a37309136eae320edd152de375743bc48c1"
-  integrity sha512-g4GtMp7p3ZutrVtXRK9oPjV4Uk3y3GfGJwrNm4cUvwHPbSEcSF+FNoTWS/ZCc8t2g7o42gMe/KT8zZvmq+UF/g==
-  dependencies:
-    "@leafygreen-ui/palette" "^3.4.7"
-
-"@leafygreen-ui/tokens@^2.0.1":
+"@leafygreen-ui/tokens@^2.0.0", "@leafygreen-ui/tokens@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-2.0.1.tgz#043ad2ef840e014f0f5e22b3513544419b5e7ff3"
   integrity sha512-aKEV9AHhNpv4Tg36w3pdbec7N4ldX4ImT75U5hCdAM3Ws2fSzNKPh1+yetAnf0BnRCudjdccnOizNfCv3NMC+A==
