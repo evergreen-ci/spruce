@@ -16,6 +16,7 @@ import {
   getSpawnHostRoute,
   getVersionRoute,
   getProjectPatchesRoute,
+  getPodRoute,
 } from "constants/routes";
 import { size } from "constants/tokens";
 import { GetTaskQuery } from "gql/generated/types";
@@ -70,6 +71,7 @@ export const Metadata: React.VFC<Props> = ({
     abortInfo,
     displayTask,
     project,
+    pod,
     expectedDuration,
     baseTask,
     resetWhenFinished,
@@ -81,8 +83,11 @@ export const Metadata: React.VFC<Props> = ({
   const projectIdentifier = project?.identifier;
   const { author, id: versionID } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;
+  const { id: podId } = pod ?? {};
+  const isContainerTask = !!podId;
+  const podLink = isContainerTask ? getPodRoute(podId) : undefined;
+  const hostLink = !isContainerTask ? getHostRoute(hostId) : undefined;
 
-  const hostLink = getHostRoute(hostId);
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
   return (
     <MetadataCard error={error} loading={loading}>
@@ -201,7 +206,7 @@ export const Metadata: React.VFC<Props> = ({
           </StyledRouterLink>
         </MetadataItem>
       )}
-      {distroId && (
+      {!isContainerTask && distroId && (
         <MetadataItem>
           Distro:{" "}
           <StyledLink
@@ -218,7 +223,7 @@ export const Metadata: React.VFC<Props> = ({
       {ami && (
         <MetadataItem data-cy="task-metadata-ami">AMI: {ami}</MetadataItem>
       )}
-      {hostId && (
+      {hostLink && (
         <MetadataItem>
           Host:{" "}
           <StyledLink
@@ -227,6 +232,18 @@ export const Metadata: React.VFC<Props> = ({
             onClick={() => taskAnalytics.sendEvent({ name: "Click Host Link" })}
           >
             {hostId}
+          </StyledLink>
+        </MetadataItem>
+      )}
+      {podLink && (
+        <MetadataItem>
+          Container:{" "}
+          <StyledLink
+            data-cy="task-pod-link"
+            href={podLink}
+            onClick={() => taskAnalytics.sendEvent({ name: "Click Pod Link" })}
+          >
+            {podId}
           </StyledLink>
         </MetadataItem>
       )}

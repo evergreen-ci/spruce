@@ -7356,6 +7356,7 @@ export type GetTaskQuery = {
       systemLogLink?: Maybe<string>;
       taskLogLink?: Maybe<string>;
     };
+    pod?: Maybe<{ __typename?: "Pod"; id: string }>;
     project?: Maybe<{ __typename?: "Project"; identifier: string }>;
     taskFiles: { __typename?: "TaskFiles"; fileCount: number };
     versionMetadata: {
