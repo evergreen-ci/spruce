@@ -5,6 +5,9 @@ const { getLobsterURL, getParsleyUrl, getUiUrl } = environmentalVariables;
 
 export const wikiUrl = "https://docs.devprod.prod.corp.mongodb.com/evergreen";
 
+export const konamiSoundTrackUrl =
+  "https://www.myinstants.com/media/sounds/mvssf-win.mp3";
+
 export const projectDistroSettingsDocumentationUrl = `${wikiUrl}/Project-and-Distro-Settings`;
 
 export const versionControlDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#version-control`;

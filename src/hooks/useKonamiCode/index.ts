@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAprilFoolsAnalytics } from "analytics/aprilFools/useAprilFoolsAnalytics";
+import { konamiSoundTrackUrl } from "constants/externalResources";
 import { useToastContext } from "context/toast";
 import { cache } from "gql/GQLWrapper";
 import { PatchStatus } from "types/patch";
@@ -8,12 +9,19 @@ import { TaskStatus } from "types/task";
 const konamiCode =
   "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba";
 
-const useKonamiCode = (onActivate: () => void) => {
+const useKonamiCode = () => {
   const [pressedKeys, setPressedKeys] = useState<string[]>([]);
   const dispatchToast = useToastContext();
   const { sendEvent } = useAprilFoolsAnalytics();
-  const downHandler = ({ key }: KeyboardEvent) => {
+  const downHandler = ({ key, target }: KeyboardEvent) => {
+    // Ignore key presses if the user is typing in an input
+    if (target instanceof HTMLInputElement) return;
     setPressedKeys((curr) => [...curr, key]);
+  };
+
+  const playMusic = () => {
+    const audio = new Audio(konamiSoundTrackUrl);
+    audio.play();
   };
   // Listen to all key presses
   useEffect(() => {
@@ -33,7 +41,6 @@ const useKonamiCode = (onActivate: () => void) => {
         title: "Konami Code Activated!",
       });
       sendEvent({ name: "Triggered Konami Code" });
-      onActivate();
       setPressedKeys([]);
       const TaskKeys = Object.keys(cache.extract()).filter((key) =>
         key.includes("Task")
@@ -41,6 +48,7 @@ const useKonamiCode = (onActivate: () => void) => {
       const VersionKeys = Object.keys(cache.extract()).filter((key) =>
         key.includes("Version")
       );
+      playMusic();
 
       //   eslint-disable-next-line no-restricted-syntax
       for (const key of TaskKeys) {
