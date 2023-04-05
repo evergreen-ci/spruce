@@ -21,7 +21,6 @@ import { GetUserQuery, GetUserQueryVariables } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
 import { useUserSettings } from "hooks";
 import { useAnnouncementToast } from "hooks/useAnnouncementToast";
-import useKonamiCode from "hooks/useKonamiCode";
 import { PageDoesNotExist } from "pages/404";
 import { CommitQueue } from "pages/CommitQueue";
 import { Commits } from "pages/Commits";
@@ -63,7 +62,6 @@ export const Content: React.VFC = () => {
   const { hasUsedSpruceBefore = true } = useSpruceOptions ?? {};
 
   useAnalyticsAttributes();
-  useKonamiCode();
   useAnnouncementToast();
 
   if (!isAuthenticated) {
