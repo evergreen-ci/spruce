@@ -1,10 +1,10 @@
 fragment baseHost on Host {
-  id
   hostUrl
-  status
-  startedBy
-  user
-  tag
+  id
   provider
+  startedBy
+  status
+  tag
   uptime
+  user
 }

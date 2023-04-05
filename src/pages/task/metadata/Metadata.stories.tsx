@@ -2,8 +2,8 @@ import { MockedProvider } from "@apollo/client/testing";
 import styled from "@emotion/styled";
 import { StoryObj } from "@storybook/react";
 import { MetStatus, RequiredStatus } from "gql/generated/types";
+import { taskQuery } from "gql/mocks/taskData";
 import { Metadata } from "./index";
-import { taskQuery } from "./taskData";
 
 export default {
   title: "Pages/Task/Metadata",

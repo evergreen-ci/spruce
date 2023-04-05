@@ -188,6 +188,7 @@ describe("createProjectField", () => {
       result: {
         data: {
           createProject: {
+            id: "new-project-id",
             identifier: "new-project-name",
           },
         },
@@ -305,6 +306,7 @@ const createProjectMock: ApolloMock<
   result: {
     data: {
       createProject: {
+        id: "new-project-id",
         identifier: "new-project-name",
       },
     },

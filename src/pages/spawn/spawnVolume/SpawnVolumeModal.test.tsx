@@ -182,6 +182,7 @@ const myHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
           hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
           homeVolumeID: "vol-07fa9f6b5c2067e34",
           homeVolume: {
+            id: "home-volume-id",
             displayName: "",
           },
           id: "i-00a902e96b3f91079",
@@ -268,6 +269,7 @@ const myHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
           hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
           homeVolumeID: "vol-07fa9f6b5c2067e34",
           homeVolume: {
+            id: "home-volume-id",
             displayName: "",
           },
           id: "i-00b212e96b3f91079",
