@@ -540,6 +540,7 @@ export type LogkeeperBuild = {
   buildNum: Scalars["Int"];
   builder: Scalars["String"];
   id: Scalars["String"];
+  task: Task;
   taskExecution: Scalars["Int"];
   taskId: Scalars["String"];
   tests: Array<LogkeeperTest>;
@@ -5642,25 +5643,25 @@ export type PodEventsQuery = {
       count: number;
       eventLogEntries: Array<{
         __typename?: "PodEventLogEntry";
-        id: string;
         eventType?: Maybe<string>;
+        id: string;
         processedAt: Date;
         resourceId: string;
         resourceType: string;
         timestamp?: Maybe<Date>;
         data: {
           __typename?: "PodEventLogData";
-          oldStatus?: Maybe<string>;
           newStatus?: Maybe<string>;
+          oldStatus?: Maybe<string>;
           reason?: Maybe<string>;
-          taskID?: Maybe<string>;
           taskExecution?: Maybe<number>;
+          taskID?: Maybe<string>;
           taskStatus?: Maybe<string>;
           task?: Maybe<{
             __typename?: "Task";
-            id: string;
-            execution: number;
             displayName: string;
+            execution: number;
+            id: string;
           }>;
         };
       }>;
