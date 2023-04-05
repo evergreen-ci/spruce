@@ -9,15 +9,15 @@ mutation RestartVersions(
     versionsToRestart: $versionsToRestart
   ) {
     id
-    taskStatuses
-    status
     patch {
-      id
-      status
       childPatches {
         id
         status
       }
+      id
+      status
     }
+    status
+    taskStatuses
   }
 }

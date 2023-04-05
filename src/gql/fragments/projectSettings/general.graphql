@@ -1,42 +1,42 @@
 fragment projectGeneralSettings on Project {
+  batchTime
+  branch
+  deactivatePrevious
+  disabledStatsCache
+  dispatchingDisabled
+  displayName
   enabled
   owner
-  repo
-  branch
-  displayName
-  batchTime
-  remotePath
-  spawnHostScriptPath
-  dispatchingDisabled
-  versionControlEnabled
-  deactivatePrevious
-  repotrackerDisabled
-  stepbackDisabled
   patchingDisabled
+  remotePath
+  repo
+  repotrackerDisabled
+  spawnHostScriptPath
+  stepbackDisabled
   taskSync {
     configEnabled
     patchEnabled
   }
-  disabledStatsCache
+  versionControlEnabled
 }
 
 fragment repoGeneralSettings on RepoRef {
-  owner
-  repo
-  branch
-  displayName
   batchTime
-  remotePath
-  spawnHostScriptPath
-  dispatchingDisabled
-  versionControlEnabled
+  branch
   deactivatePrevious
-  repotrackerDisabled
-  stepbackDisabled
+  disabledStatsCache
+  dispatchingDisabled
+  displayName
+  owner
   patchingDisabled
+  remotePath
+  repo
+  repotrackerDisabled
+  spawnHostScriptPath
+  stepbackDisabled
   taskSync {
     configEnabled
     patchEnabled
   }
-  disabledStatsCache
+  versionControlEnabled
 }

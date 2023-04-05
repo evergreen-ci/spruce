@@ -1,25 +1,25 @@
 query BuildBaron($taskId: String!, $execution: Int!) {
   buildBaron(taskId: $taskId, execution: $execution) {
-    buildBaronConfigured
     bbTicketCreationDefined
+    buildBaronConfigured
     searchReturnInfo {
+      featuresURL
       issues {
-        key
         fields {
-          summary
           assigneeDisplayName
-          resolutionName
           created
-          updated
+          resolutionName
           status {
             id
             name
           }
+          summary
+          updated
         }
+        key
       }
       search
       source
-      featuresURL
     }
   }
 }

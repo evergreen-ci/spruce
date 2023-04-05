@@ -11,52 +11,52 @@
 #import "./periodicBuilds.graphql"
 
 fragment projectSettings on ProjectSettings {
+  aliases {
+    ...alias
+  }
+  ...projectGithubCommitQueue
   projectRef {
     id
     identifier
-    repoRefId
-    ...projectGeneralSettings
     ...projectAccessSettings
-    ...projectPluginsSettings
+    ...projectGeneralSettings
     ...projectNotificationSettings
     ...projectPatchAliasSettings
-    ...projectVirtualWorkstationSettings
-    ...projectTriggersSettings
     ...projectPeriodicBuildsSettings
+    ...projectPluginsSettings
+    ...projectTriggersSettings
+    ...projectVirtualWorkstationSettings
+    repoRefId
   }
   subscriptions {
     ...subscriptions
   }
   vars {
     ...variables
-  }
-  ...projectGithubCommitQueue
-  aliases {
-    ...alias
   }
 }
 
 fragment repoSettings on RepoSettings {
+  aliases {
+    ...alias
+  }
   projectRef {
-    id
     displayName
-    ...repoGeneralSettings
+    id
     ...repoAccessSettings
-    ...repoPluginsSettings
+    ...repoGeneralSettings
     ...repoNotificationSettings
     ...repoPatchAliasSettings
-    ...repoVirtualWorkstationSettings
-    ...repoTriggersSettings
     ...repoPeriodicBuildsSettings
+    ...repoPluginsSettings
+    ...repoTriggersSettings
+    ...repoVirtualWorkstationSettings
   }
-  vars {
-    ...variables
-  }
+  ...repoGithubCommitQueue
   subscriptions {
     ...subscriptions
   }
-  ...repoGithubCommitQueue
-  aliases {
-    ...alias
+  vars {
+    ...variables
   }
 }

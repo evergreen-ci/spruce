@@ -3,21 +3,21 @@ fragment projectPluginsSettings on Project {
     ticketCreateProject
     ticketSearchProjects
   }
-  taskAnnotationSettings {
-    jiraCustomFields {
-      field
-      displayText
-    }
-    fileTicketWebhook {
-      endpoint
-      secret
-    }
-  }
   externalLinks {
     displayName
     urlTemplate
   }
   perfEnabled
+  taskAnnotationSettings {
+    fileTicketWebhook {
+      endpoint
+      secret
+    }
+    jiraCustomFields {
+      displayText
+      field
+    }
+  }
 }
 
 fragment repoPluginsSettings on RepoRef {
@@ -25,19 +25,19 @@ fragment repoPluginsSettings on RepoRef {
     ticketCreateProject
     ticketSearchProjects
   }
-  taskAnnotationSettings {
-    jiraCustomFields {
-      field
-      displayText
-    }
-    fileTicketWebhook {
-      endpoint
-      secret
-    }
-  }
   externalLinks {
     displayName
     urlTemplate
   }
   perfEnabled
+  taskAnnotationSettings {
+    fileTicketWebhook {
+      endpoint
+      secret
+    }
+    jiraCustomFields {
+      displayText
+      field
+    }
+  }
 }

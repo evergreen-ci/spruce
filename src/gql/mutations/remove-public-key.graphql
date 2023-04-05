@@ -1,7 +1,6 @@
-
-  mutation RemovePublicKey($keyName: String!) {
-    removePublicKey(keyName: $keyName) {
-      key
-      name
-    }
+mutation RemovePublicKey($keyName: String!) {
+  removePublicKey(keyName: $keyName) {
+    key
+    name
   }
+}

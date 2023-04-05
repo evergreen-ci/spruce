@@ -1,9 +1,9 @@
 query GetUserSettings {
   userSettings {
-    timezone
-    region
-    slackUsername
-    slackMemberId
+    dateFormat
+    githubUser {
+      lastKnownAs
+    }
     notifications {
       buildBreak
       commitQueue
@@ -12,14 +12,14 @@ query GetUserSettings {
       spawnHostExpiration
       spawnHostOutcome
     }
-    githubUser {
-      lastKnownAs
-    }
+    region
+    slackMemberId
+    slackUsername
+    timezone
     useSpruceOptions {
+      hasUsedMainlineCommitsBefore
       hasUsedSpruceBefore
       spruceV1
-      hasUsedMainlineCommitsBefore
     }
-    dateFormat
   }
 }

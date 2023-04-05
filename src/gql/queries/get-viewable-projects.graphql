@@ -1,17 +1,17 @@
 query GetViewableProjectRefs {
   viewableProjectRefs {
     groupDisplayName
-    repo {
-      id
-    }
     projects {
+      displayName
+      enabled
       id
       identifier
-      repo
-      owner
-      displayName
       isFavorite
-      enabled
+      owner
+      repo
+    }
+    repo {
+      id
     }
   }
 }

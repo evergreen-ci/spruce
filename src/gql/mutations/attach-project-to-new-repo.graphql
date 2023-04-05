@@ -1,5 +1,6 @@
 mutation AttachProjectToNewRepo($project: MoveProjectInput!) {
   attachProjectToNewRepo(project: $project) {
+    id
     repoRefId
   }
 }

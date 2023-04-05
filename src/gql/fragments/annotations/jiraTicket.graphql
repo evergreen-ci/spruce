@@ -1,15 +1,15 @@
 fragment jiraTicket on JiraTicket {
-  key
   fields {
-    summary
+    assignedTeam
     assigneeDisplayName
-    resolutionName
     created
-    updated
+    resolutionName
     status {
       id
       name
     }
-    assignedTeam
+    summary
+    updated
   }
+  key
 }

@@ -4,14 +4,14 @@ query RepoEventLogs($id: String!, $limit: Int, $before: Time) {
   repoEvents(id: $id, limit: $limit, before: $before) {
     count
     eventLogEntries {
-      timestamp
-      user
-      before {
-        ...projectEventSettings
-      }
       after {
         ...projectEventSettings
       }
+      before {
+        ...projectEventSettings
+      }
+      timestamp
+      user
     }
   }
 }

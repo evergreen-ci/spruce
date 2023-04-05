@@ -71,6 +71,12 @@ exports[`storybook Storyshots Pages/Task/Metadata Default 1`] = `
       </p>
       <p
         class="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
+        data-cy="task-metadata-base-commit-duration"
+      >
+        Base commit duration: 
+      </p>
+      <p
+        class="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
       >
         Base commit:
          
@@ -220,6 +226,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
       </p>
       <p
         class="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
+        data-cy="task-metadata-base-commit-duration"
+      >
+        Base commit duration: 
+      </p>
+      <p
+        class="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
       >
         Base commit:
          
@@ -366,6 +378,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
         >
           1s
         </span>
+      </p>
+      <p
+        class="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
+        data-cy="task-metadata-base-commit-duration"
+      >
+        Base commit duration: 
       </p>
       <p
         class="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"

@@ -1,4 +1,3 @@
-
-  query SubnetAvailabilityZones {
-    subnetAvailabilityZones
-  }
+query SubnetAvailabilityZones {
+  subnetAvailabilityZones
+}
