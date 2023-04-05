@@ -15,7 +15,13 @@ const useKonamiCode = () => {
   const { sendEvent } = useAprilFoolsAnalytics();
   const downHandler = ({ key, target }: KeyboardEvent) => {
     // Ignore key presses if the user is typing in an input
-    if (target instanceof HTMLInputElement) return;
+    if (
+      target instanceof HTMLInputElement ||
+      target instanceof HTMLButtonElement ||
+      target instanceof HTMLSelectElement
+    ) {
+      return;
+    }
     setPressedKeys((curr) => [...curr, key]);
   };
 
