@@ -3,9 +3,11 @@ import { environmentalVariables } from "utils";
 
 const { getLobsterURL, getParsleyUrl, getUiUrl } = environmentalVariables;
 
-export const wikiUrl = "https://docs.devprod.prod.corp.mongodb.com/evergreen";
+export const wikiBaseUrl = "https://docs.devprod.prod.corp.mongodb.com/evergreen";
 
-export const projectDistroSettingsDocumentationUrl = `${wikiUrl}/Test%20with%20Evergreen/Configure%20a%20Project/Project-and-Distro-Settings`;
+export const wikiUrl = `${wikiBaseUrl}/Home`;
+
+export const projectDistroSettingsDocumentationUrl = `${wikiBaseUrl}/Test%20with%20Evergreen/Configure%20a%20Project/Project-and-Distro-Settings`;
 
 export const versionControlDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#version-control`;
 
