@@ -2574,6 +2574,9 @@ export type AnnotationFragment = {
       }>
     >
   >;
+  metadataLinks?: Maybe<
+    Array<Maybe<{ __typename?: "MetadataLink"; text: string; url: string }>>
+  >;
   note?: Maybe<{
     __typename?: "Note";
     message: string;
@@ -4600,6 +4603,9 @@ export type GetAnnotationEventDataQuery = {
             }>;
           }>
         >
+      >;
+      metadataLinks?: Maybe<
+        Array<Maybe<{ __typename?: "MetadataLink"; text: string; url: string }>>
       >;
       note?: Maybe<{
         __typename?: "Note";
@@ -7309,6 +7315,9 @@ export type GetTaskQuery = {
             }>;
           }>
         >
+      >;
+      metadataLinks?: Maybe<
+        Array<Maybe<{ __typename?: "MetadataLink"; text: string; url: string }>>
       >;
       note?: Maybe<{
         __typename?: "Note";

@@ -46,33 +46,34 @@ export const Metadata: React.VFC<Props> = ({
   const taskAnalytics = useTaskAnalytics();
   const getDateCopy = useDateFormat();
   const {
-    status,
-    spawnHostLink,
-    ingestTime,
+    abortInfo,
     activatedTime,
-    finishTime,
-    hostId,
-    startTime,
-    estimatedStart,
-    timeTaken,
-    revision,
-    dependsOn,
     ami,
-    distroId,
-    priority,
-    versionMetadata,
+    annotation,
+    baseTask,
     buildVariant,
     buildVariantDisplayName,
+    dependsOn,
     details,
+    displayTask,
+    distroId,
+    estimatedStart,
+    expectedDuration,
+    finishTime,
     generatedBy,
     generatedByName,
+    hostId,
+    ingestTime,
     minQueuePosition: taskQueuePosition,
-    abortInfo,
-    displayTask,
+    priority,
     project,
-    expectedDuration,
-    baseTask,
     resetWhenFinished,
+    revision,
+    spawnHostLink,
+    startTime,
+    status,
+    timeTaken,
+    versionMetadata,
   } = task || {};
 
   const baseCommit = shortenGithash(revision);
@@ -81,6 +82,7 @@ export const Metadata: React.VFC<Props> = ({
   const projectIdentifier = project?.identifier;
   const { author, id: versionID } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;
+  const { metadataLinks } = annotation ?? {};
 
   const hostLink = getHostRoute(hostId);
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
@@ -252,6 +254,23 @@ export const Metadata: React.VFC<Props> = ({
           </StyledRouterLink>
         </MetadataItem>
       )}
+      {metadataLinks &&
+        metadataLinks.map((link) => (
+          <MetadataItem key={link.text}>
+            <StyledLink
+              data-cy="task-metadata-link"
+              href={link.url}
+              onClick={() =>
+                taskAnalytics.sendEvent({
+                  name: "Click Annotation Link",
+                  linkText: link.text,
+                })
+              }
+            >
+              {link.text}
+            </StyledLink>
+          </MetadataItem>
+        ))}
       {taskQueuePosition > 0 && (
         <MetadataItem>
           Position in queue:{" "}
