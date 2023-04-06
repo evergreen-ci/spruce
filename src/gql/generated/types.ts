@@ -46,6 +46,7 @@ export type Annotation = {
   createdIssues?: Maybe<Array<Maybe<IssueLink>>>;
   id: Scalars["String"];
   issues?: Maybe<Array<Maybe<IssueLink>>>;
+  metadataLinks?: Maybe<Array<Maybe<MetadataLink>>>;
   note?: Maybe<Note>;
   suspectedIssues?: Maybe<Array<Maybe<IssueLink>>>;
   taskExecution: Scalars["Int"];
@@ -540,6 +541,7 @@ export type LogkeeperBuild = {
   buildNum: Scalars["Int"];
   builder: Scalars["String"];
   id: Scalars["String"];
+  task: Task;
   taskExecution: Scalars["Int"];
   taskId: Scalars["String"];
   tests: Array<LogkeeperTest>;
@@ -602,6 +604,18 @@ export enum MetStatus {
   Started = "STARTED",
   Unmet = "UNMET",
 }
+
+export type MetadataLink = {
+  __typename?: "MetadataLink";
+  source?: Maybe<Source>;
+  text: Scalars["String"];
+  url: Scalars["String"];
+};
+
+export type MetadataLinkInput = {
+  text: Scalars["String"];
+  url: Scalars["String"];
+};
 
 export type Module = {
   __typename?: "Module";
@@ -668,6 +682,7 @@ export type Mutation = {
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   scheduleTasks: Array<Task>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
+  setAnnotationMetadataLinks: Scalars["Boolean"];
   setPatchPriority?: Maybe<Scalars["String"]>;
   setTaskPriority: Task;
   spawnHost: Host;
@@ -859,6 +874,12 @@ export type MutationScheduleTasksArgs = {
 
 export type MutationScheduleUndispatchedBaseTasksArgs = {
   patchId: Scalars["String"];
+};
+
+export type MutationSetAnnotationMetadataLinksArgs = {
+  apiMetadataLinks: Array<MetadataLinkInput>;
+  execution: Scalars["Int"];
+  taskId: Scalars["String"];
 };
 
 export type MutationSetPatchPriorityArgs = {
