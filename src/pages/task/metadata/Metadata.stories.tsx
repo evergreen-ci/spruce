@@ -108,6 +108,28 @@ export const WithAbortMessage: StoryObj<
   },
 };
 
+export const ContainerizedTask: StoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        task={{
+          ...taskQuery.task,
+          hostId: null,
+          ami: null,
+          distroId: null,
+          pod: {
+            id: "pod_id",
+          },
+          spawnHostLink: null,
+        }}
+        taskId={taskQuery.task.id}
+        error={null}
+      />
+    </Container>
+  ),
+};
+
 const Container = styled.div`
   width: 400px;
 `;
