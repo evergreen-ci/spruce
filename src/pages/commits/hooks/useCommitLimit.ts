@@ -19,8 +19,16 @@ export const useCommitLimit = <T extends HTMLElement>(): [
   const nextLimit = Math.max(Math.round(width / COL_WIDTH), MIN_LIMIT);
 
   useEffect(() => {
-    setSkipOrderNumber(undefined);
-  }, [nextLimit]); // eslint-disable-line react-hooks/exhaustive-deps
+    const handleResize = () => {
+      setSkipOrderNumber(undefined);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return [commitsContainerRef, nextLimit];
 };
