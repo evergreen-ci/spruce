@@ -877,8 +877,8 @@ export type MutationScheduleUndispatchedBaseTasksArgs = {
 };
 
 export type MutationSetAnnotationMetadataLinksArgs = {
-  apiMetadataLinks: Array<MetadataLinkInput>;
   execution: Scalars["Int"];
+  metadataLinks: Array<MetadataLinkInput>;
   taskId: Scalars["String"];
 };
 
