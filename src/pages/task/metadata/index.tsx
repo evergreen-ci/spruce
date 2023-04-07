@@ -85,8 +85,6 @@ export const Metadata: React.VFC<Props> = ({
   const oomTracker = details?.oomTracker;
   const { id: podId } = pod ?? {};
   const isContainerTask = !!podId;
-  const podLink = isContainerTask ? getPodRoute(podId) : undefined;
-  const hostLink = !isContainerTask ? getHostRoute(hostId) : undefined;
 
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
   return (
@@ -223,24 +221,24 @@ export const Metadata: React.VFC<Props> = ({
       {ami && (
         <MetadataItem data-cy="task-metadata-ami">AMI: {ami}</MetadataItem>
       )}
-      {hostLink && (
+      {!isContainerTask && (
         <MetadataItem>
           Host:{" "}
           <StyledLink
             data-cy="task-host-link"
-            href={hostLink}
+            href={getHostRoute(hostId)}
             onClick={() => taskAnalytics.sendEvent({ name: "Click Host Link" })}
           >
             {hostId}
           </StyledLink>
         </MetadataItem>
       )}
-      {podLink && (
+      {isContainerTask && (
         <MetadataItem>
           Container:{" "}
           <StyledLink
             data-cy="task-pod-link"
-            href={podLink}
+            href={getPodRoute(podId)}
             onClick={() => taskAnalytics.sendEvent({ name: "Click Pod Link" })}
           >
             {podId}
