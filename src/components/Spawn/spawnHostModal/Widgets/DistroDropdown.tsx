@@ -118,7 +118,7 @@ const OptionContainer = styled.div`
   padding: ${size.xs};
 `;
 const Option = styled(OptionContainer)`
-  word-break: break-word;
+  word-break: normal;
   cursor: pointer;
   :hover {
     background-color: ${gray.light1};
