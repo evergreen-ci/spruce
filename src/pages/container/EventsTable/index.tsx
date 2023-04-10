@@ -37,7 +37,7 @@ const EventsTable: React.VFC<{}> = () => {
       );
     },
   });
-
+  const { count, eventLogEntries } = podEventsData?.pod.events ?? {};
   return (
     <SiderCard>
       <TableTitle>
@@ -47,7 +47,7 @@ const EventsTable: React.VFC<{}> = () => {
           <Pagination
             pageSize={limit}
             value={page}
-            totalResults={podEventsData?.pod.events.count ?? 0}
+            totalResults={count ?? 0}
             data-cy="my-patches-pagination"
           />
           <PageSizeSelector
@@ -60,7 +60,7 @@ const EventsTable: React.VFC<{}> = () => {
 
       <Table
         data-cy="container-events"
-        data={podEventsData?.pod.events.eventLogEntries}
+        data={eventLogEntries}
         columns={[
           <TableHeader key="date" dataType="date" label="Date" />,
           <TableHeader key="event" label="Event" />,
