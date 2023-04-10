@@ -205,7 +205,6 @@
     "simple-git": "^3.16.0",
     "storybook": "7.0.0-rc.5",
     "typescript": "5.0.3",
-    "uuid": "8.3.2",
     "vite": "4.1.1",
     "vite-plugin-checker": "0.5.5",
     "vite-plugin-env-compatible": "1.1.1",
