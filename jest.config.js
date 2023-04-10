@@ -21,6 +21,7 @@ module.exports = {
   moduleNameMapper: {
     "^react-native$": "react-native-web",
     "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
+    "^uuid$": "<rootDir>/node_modules/uuid/dist/index.js",
     "^nanoid$": "<rootDir>/node_modules/nanoid/index.cjs",
     "^antd/es/(.*)$": "antd/lib/$1",
   },

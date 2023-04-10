@@ -13,6 +13,7 @@ import {
   // https://reactrouter.com/docs/en/v6/routers/history-router
   unstable_HistoryRouter as HistoryRouter,
 } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 import * as customQueries from "./custom-queries";
 
 type QueriesType = typeof queries;
@@ -88,6 +89,14 @@ const boundQueries = Object.entries(customQueries).reduce(
   {}
 ) as BoundFunctions<CustomQueriesType>;
 const customScreen = { ...screen, ...boundQueries };
+
+/** mockUUID mocks the implementation of the uuid library and provides an implementation that can be used in tests */
+export const mockUUID = () => {
+  const MAX_INT = Number.MAX_SAFE_INTEGER;
+  uuid.mockImplementation(() =>
+    Math.floor(Math.random() * Math.floor(MAX_INT))
+  );
+};
 
 // re-export everything
 export * from "@testing-library/react";
