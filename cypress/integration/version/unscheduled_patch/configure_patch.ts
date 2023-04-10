@@ -1,9 +1,10 @@
 import { hasOperationName, GQL_URL } from "../../../utils/graphql-test-utils";
 import { mockErrorResponse } from "../../../utils/mockErrorResponse";
 
-const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
-const patchWithDisplayTasks = "5e6bb9e23066155a993e0f1b";
-describe("Configure Patch Page", () => {
+describe("Configure Patch Page", { testIsolation: false }, () => {
+  const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
+  const patchWithDisplayTasks = "5e6bb9e23066155a993e0f1b";
+
   describe("Initial state reflects patch data", () => {
     before(() => {
       cy.visit(`/version/${unactivatedPatchId}`);
@@ -345,13 +346,13 @@ describe("Configure Patch Page", () => {
             .contains("RHEL 7.2 zLinux")
             .click();
 
-          cy.dataCy("task-checkbox").its("length").as("variant1TaskCount");
+          cy.dataCy("task-checkbox").as("variant1Task");
 
           cy.dataCy("build-variant-list-item")
             .contains("RHEL 7.1 POWER8")
             .click();
 
-          cy.dataCy("task-checkbox").its("length").as("variant2TaskCount");
+          cy.dataCy("task-checkbox").as("variant2Task");
 
           cy.get("body").type("{meta}", {
             release: false,
@@ -367,15 +368,20 @@ describe("Configure Patch Page", () => {
             cy.wrap($el).should("be.checked");
           });
 
-          cy.get("@variant1TaskCount").then((variant1TaskCount) => {
-            cy.get("@variant2TaskCount").then((variant2TaskCount) => {
-              cy.dataCy("selected-task-disclaimer").contains(
-                `${
-                  variant1TaskCount + variant2TaskCount
-                } tasks across 2 build variants`
-              );
+          cy.get("@variant1Task")
+            .its("length")
+            .then((variant1TaskCount) => {
+              cy.get("@variant2Task")
+                .its("length")
+                .then((variant2TaskCount) => {
+                  cy.dataCy("selected-task-disclaimer").contains(
+                    `${
+                      variant1TaskCount + variant2TaskCount
+                    } tasks across 2 build variants`
+                  );
+                });
             });
-          });
+
           cy.get("body").type("{meta}", {
             release: true,
           });

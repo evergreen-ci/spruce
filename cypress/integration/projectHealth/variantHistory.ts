@@ -30,6 +30,7 @@ describe(
       cy.get("[data-selected='true']").should("contain.text", "v2.28.5");
     });
     it("should be able to paginate column headers", () => {
+      cy.visit("/variant-history/spruce/ubuntu1604");
       cy.dataCy("header-cell").should("have.length", 4);
       cy.dataCy("next-page-button").click();
       cy.dataCy("header-cell").should("have.length", 4);
@@ -51,19 +52,18 @@ describe(
       cy.contains("EVG-16356").should("not.be.visible");
     });
     it("should be able to filter column headers", () => {
+      cy.visit("/variant-history/spruce/ubuntu1604");
       cy.dataCy("header-cell").should("have.length", 4);
-      cy.getInputByLabel("Tasks").click();
 
+      cy.getInputByLabel("Tasks").click();
       cy.get("[aria-label='compile']").click();
       cy.get("[aria-label='e2e_test']").click();
 
       cy.getInputByLabel("Tasks").click();
       cy.dataCy("header-cell").should("have.length", 2);
-    });
-    it("removing column header filters should restore all columns", () => {
-      cy.dataCy("header-cell").should("have.length", 2);
-      cy.getInputByLabel("Tasks").click();
 
+      // removing column header filters should restore all columns
+      cy.getInputByLabel("Tasks").click();
       cy.get("[aria-label='compile']").click();
       cy.get("[aria-label='e2e_test']").click();
 
@@ -71,6 +71,9 @@ describe(
       cy.dataCy("header-cell").should("have.length", 4);
     });
     it("hovering over a failing task should show test results", () => {
+      cy.visit(
+        "/variant-history/spruce/ubuntu1604?failed=JustAFakeTestInALonelyWorld&selectedCommit=1236"
+      );
       cy.dataCy("history-table-icon")
         .get("[data-status=failed]")
         .should("have.length", 1);
@@ -89,7 +92,8 @@ describe(
         .trigger("mouseout");
     });
     describe("applying a test filter", () => {
-      before(() => {
+      beforeEach(() => {
+        cy.visit("/variant-history/spruce/ubuntu1604");
         cy.getInputByLabel("Filter by Failed Tests").should("exist");
         cy.getInputByLabel("Filter by Failed Tests")
           .focus()
@@ -105,10 +109,7 @@ describe(
             cy.wrap($el).should("have.attr", "aria-disabled", "true");
           });
       });
-      it("should display a message on matching tasks", () => {
-        cy.contains("1 / 1 Failing Tests").should("exist");
-      });
-      it("should have a tooltip on matching tests with test results", () => {
+      it("should display a message and tooltip on matching tasks", () => {
         cy.contains("1 / 1 Failing Tests").should("exist");
         cy.contains("1 / 1 Failing Tests").trigger("mouseover");
         cy.dataCy("test-tooltip").should("be.visible");

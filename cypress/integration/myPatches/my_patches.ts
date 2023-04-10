@@ -46,12 +46,14 @@ describe("My Patches Page", () => {
   });
 
   it("Inputting a number successfully searches patches", () => {
-    cy.dataCy("patch-description-input").type(3186);
+    cy.visit(MY_PATCHES_ROUTE);
+    cy.dataCy("patch-description-input").type("3186");
     cy.dataCy("patch-card").should("have.length", "1");
     cy.dataCy("patch-description-input").clear();
   });
 
   it("Searching for a nonexistent patch shows 'No patches found'", () => {
+    cy.visit(MY_PATCHES_ROUTE);
     cy.dataCy("patch-description-input").type("satenarstharienht");
     cy.dataCy("no-patches-found").contains("No patches found");
   });
@@ -90,10 +92,10 @@ describe("My Patches Page", () => {
   });
 
   describe("Changing page number", () => {
-    before(() => {
-      cy.visit(`${MY_PATCHES_ROUTE}?limit=10`);
-    });
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
+      cy.visit(`${MY_PATCHES_ROUTE}?limit=10`);
+      cy.dataCy("patch-card").should("exist");
+      cy.get(dataCyNextPage).should("not.be.disabled");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyNextPage,
         secondPageDisplayNames,
@@ -102,6 +104,9 @@ describe("My Patches Page", () => {
     });
 
     it("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", () => {
+      cy.visit(`${MY_PATCHES_ROUTE}?limit=10&page=1`);
+      cy.dataCy("patch-card").should("exist");
+      cy.get(dataCyPrevPage).should("not.be.disabled");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyPrevPage,
         firstPageDisplayNames,
@@ -110,18 +115,21 @@ describe("My Patches Page", () => {
     });
 
     it("Should disable pagination when there are no more pages", () => {
+      cy.visit(`${MY_PATCHES_ROUTE}?limit=10`);
+      cy.dataCy("patch-card").should("exist");
       cy.get(dataCyPrevPage).should("be.disabled");
+
       cy.visit(`${MY_PATCHES_ROUTE}?page=2`);
+      cy.dataCy("patch-card").should("exist");
       cy.get(dataCyNextPage).should("be.disabled");
     });
   });
 
   describe("Clicking on status checkbox requests and renders patches for that status", () => {
     beforeEach(() => {
-      cy.dataCy("my-patch-status-select").click();
-    });
-    before(() => {
       cy.visit(MY_PATCHES_ROUTE);
+      cy.dataCy("patch-card").should("exist");
+      cy.dataCy("my-patch-status-select").click();
     });
 
     const statuses = [
@@ -132,7 +140,7 @@ describe("My Patches Page", () => {
     ];
 
     it(`Clicking on a status checkbox applies the status and clicking again removes it`, () => {
-      cy.wrap(statuses).each(({ display, key }) => {
+      statuses.forEach(({ display, key }) => {
         clickingCheckboxUpdatesUrlAndRendersFetchedResults({
           checkboxDisplayName: display,
           pathname: MY_PATCHES_ROUTE,
@@ -143,7 +151,6 @@ describe("My Patches Page", () => {
     });
 
     it("Clicking on All status checkbox applies all of the statuses and clicking again removes them", () => {
-      cy.dataCy("my-patch-status-select").click();
       clickingCheckboxUpdatesUrlAndRendersFetchedResults({
         checkboxDisplayName: "All",
         pathname: MY_PATCHES_ROUTE,

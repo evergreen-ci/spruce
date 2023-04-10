@@ -4,9 +4,13 @@ const slackNotificationBanner = "slack-notification-banner";
 const slackUsername = "username";
 
 describe("Slack notification banner", () => {
+  it("does not show up if user has the cookie set", () => {
+    cy.visit("/");
+    cy.dataCy(slackNotificationBanner).should("not.exist");
+  });
+
   it("shows up across the app if user has not set slack notification settings", () => {
     cy.clearCookie("has-closed-slack-banner");
-
     cy.visit("/");
     cy.dataCy(slackNotificationBanner).should("exist");
 
@@ -19,17 +23,8 @@ describe("Slack notification banner", () => {
     cy.dataCy(slackNotificationBanner).should("exist");
   });
 
-  it("does not show up again if user closes the banner", () => {
-    cy.closeBanner(slackNotificationBanner);
-    cy.dataCy(slackNotificationBanner).should("not.exist");
-
-    cy.visit("/version/5ecedafb562343215a7ff297/tasks");
-    cy.dataCy(slackNotificationBanner).should("not.exist");
-  });
-
-  it("does not show up after user has entered their username and clicks 'save'", () => {
+  it("after user has entered their username and clicks 'save', new settings are reflected in use preferences", () => {
     cy.clearCookie("has-closed-slack-banner");
-
     cy.visit("/version/5ecedafb562343215a7ff297/tasks");
 
     cy.dataCy(slackNotificationBanner).should("be.visible");
@@ -42,10 +37,9 @@ describe("Slack notification banner", () => {
       "success",
       "You will now receive Slack notifications when your patches fail or succeed"
     );
-  });
 
-  it("new settings are reflected in user preferences", () => {
     cy.visit("/preferences/notifications");
+    cy.dataCy(slackNotificationBanner).should("not.exist");
     cy.dataCy("slack-username-field").should("contain.value", slackUsername);
     cy.get('input[value="slack"]').should("be.checked");
   });

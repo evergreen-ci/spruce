@@ -25,18 +25,18 @@ const hostTaskId =
 const distroId = "windows-64-vs2015-small";
 
 describe("Navigating to Spawn Host page", () => {
-  it("Visiting the spawn host page should display all of your spawned hosts", () => {
+  beforeEach(() => {
     cy.visit("/spawn/host");
+  });
+  it("Visiting the spawn host page should display all of your spawned hosts", () => {
     cy.get(hostTableRow).should("have.length", 2);
   });
   it("Visiting the spawn host page should not have any cards expanded by default", () => {
     cy.dataCy("spawn-host-card").should("not.exist");
   });
-  it("Clicking on a spawn host row should expand it and show more info about the host in a card", () => {
+  it("Clicking on a spawn host row should toggle the host card", () => {
     cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(1)').click();
     cy.dataCy("spawn-host-card").should("be.visible");
-  });
-  it("Clicking on a spawn host row should toggle the card closed", () => {
     cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(1)').click();
     cy.dataCy("spawn-host-card").should("not.be.visible");
   });
@@ -46,14 +46,15 @@ describe("Navigating to Spawn Host page", () => {
     cy.dataCy("spawn-host-card").should("have.length", 1);
   });
   it("Clicking on the Event Log link should redirect to /host/:hostId", () => {
-    cy.visit("/spawn/host");
     cy.contains("Event Log").click();
     cy.location("pathname").should("eq", "/host/i-092593689871a50dc");
   });
 
   describe("Spawn host card sorting", () => {
-    it("Visiting the spawn host page should display all of your spawned hosts not sorted by default", () => {
+    beforeEach(() => {
       cy.visit("/spawn/host");
+    });
+    it("Visiting the spawn host page should display all of your spawned hosts not sorted by default", () => {
       cy.get(hostTableRow).each(($el, index) =>
         cy.wrap($el).contains(unsortedSpawnHostOrder[index])
       );
@@ -66,11 +67,14 @@ describe("Navigating to Spawn Host page", () => {
     });
     it("Clicking on the host column header a second time should sort spawn hosts by decending order by id", () => {
       cy.get(hostColumnHeader).click();
+      cy.get(hostColumnHeader).click();
       cy.get(hostTableRow).each(($el, index) =>
         cy.wrap($el).contains(descendingSortSpawnHostOrderByHostId[index])
       );
     });
     it("Clicking on the host column header a third time should return the spawn host table to its original state", () => {
+      cy.get(hostColumnHeader).click();
+      cy.get(hostColumnHeader).click();
       cy.get(hostColumnHeader).click();
       cy.get(hostTableRow).each(($el, index) =>
         cy.wrap($el).contains(unsortedSpawnHostOrder[index])
@@ -84,11 +88,14 @@ describe("Navigating to Spawn Host page", () => {
     });
     it("Clicking on the expiration column header should sort the hosts by descending order", () => {
       cy.contains("Expires In").click();
+      cy.contains("Expires In").click();
       cy.get(hostTableRow).each(($el, index) =>
         cy.wrap($el).contains(descendingSortSpawnHostOrderByExpiration[index])
       );
     });
     it("Clicking on the expiration column header a third  time should return the spawn host table to its original state", () => {
+      cy.contains("Expires In").click();
+      cy.contains("Expires In").click();
       cy.contains("Expires In").click();
       cy.get(hostTableRow).each(($el, index) =>
         cy.wrap($el).contains(unsortedSpawnHostOrder[index])
@@ -175,6 +182,9 @@ describe("Navigating to Spawn Host page", () => {
         cy.dataCy("distro-input").dataCy("dropdown-value").contains(distroId);
       });
       it("The virtual workstation dropdown should filter any volumes that aren't a home volume", () => {
+        cy.visit(
+          `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`
+        );
         cy.dataCy("distro-input").click();
         cy.dataCy("distro-option-ubuntu1804-workstation")
           .should("be.visible")
@@ -203,6 +213,9 @@ describe("Navigating to Spawn Host page", () => {
       });
 
       it("Checking 'Define setup script...' shows the setup script text area", () => {
+        cy.visit(
+          `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`
+        );
         cy.dataCy("setup-script-text-area").should("not.exist");
         cy.contains(
           "Define setup script to run after host is configured (i.e. task data and artifacts are loaded"

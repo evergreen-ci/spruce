@@ -86,12 +86,9 @@ describe("Task table", () => {
   });
 
   describe("Changing page number", () => {
-    before(() => {
-      cy.visit(pathTasks);
-    });
-
     // Instead of checking the entire table rows lets just check if the elements on the table have changed
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
+      cy.visit(`${pathTasks}?page=0`);
       cy.contains("test-cloud");
       const firstPageRows = tableRowToText(dataCyTableRows);
       cy.get(dataCyNextPage).click();
@@ -102,6 +99,7 @@ describe("Task table", () => {
     });
 
     it("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", () => {
+      cy.visit(`${pathTasks}?page=1`);
       cy.contains("js-test");
       const secondPageRows = tableRowToText(dataCyTableRows);
       cy.get(dataCyPrevPage).click();
@@ -111,6 +109,7 @@ describe("Task table", () => {
     });
 
     it("Does not update results or URL when left arrow is clicked and previous page does not exist", () => {
+      cy.visit(`${pathTasks}?page=0`);
       cy.get(dataCyPrevPage).should("have.attr", "aria-disabled", "true");
     });
 
@@ -120,17 +119,17 @@ describe("Task table", () => {
     });
   });
 
-  describe("Changing page size updates URL and renders less than or equal to that many rows ", () => {
-    before(() => {
-      cy.visit(pathTasks);
-      cy.dataCy("tasks-table").should("exist");
-    });
-    [20, 10, 50, 100].forEach((pageSize) => {
-      it(`Updates URL and displays up to ${pageSize} results at once when the page size is changed to ${pageSize}`, () => {
-        clickOnPageSizeBtnAndAssertURLandTableSize(
-          pageSize,
-          dataCyTableDataRows
-        );
+  describe("Changing page limit", () => {
+    it("Changing page size updates URL and renders less than or equal to that many rows ", () => {
+      [20, 50, 100].forEach((pageSize) => {
+        it(`Updates URL and displays up to ${pageSize} results at once when the page size is changed to ${pageSize}`, () => {
+          cy.visit(pathTasks);
+          cy.dataCy("tasks-table").should("exist");
+          clickOnPageSizeBtnAndAssertURLandTableSize(
+            pageSize,
+            dataCyTableDataRows
+          );
+        });
       });
     });
   });
