@@ -57,6 +57,7 @@ type Action =
     }
   | { name: "Click Base Commit" }
   | { name: "Click Host Link" }
+  | { name: "Click Pod Link" }
   | { name: "Click Spawn Host" }
   | { name: "Click Distro Link" }
   | { name: "Click Build Variant Link" }
