@@ -6,7 +6,7 @@ module.exports = {
     "!<rootDir>/src/{index.tsx,react-app-env.d.ts}",
   ],
   coverageReporters: ["text"],
-  moduleFileExtensions: ["js", "ts", "tsx", "json", "jsx", "node"],
+  moduleFileExtensions: ["js", "jsx", "ts", "tsx", "json", "node"],
   moduleNameMapper: {
     "^react-native$": "react-native-web",
     "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
