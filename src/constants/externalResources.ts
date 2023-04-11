@@ -90,27 +90,31 @@ const getParsleyTestLogURL = (buildId: string, testId: string) =>
 const getParsleyBuildLogURL = (buildId: string) =>
   `${getParsleyUrl()}/resmoke/${buildId}/all`;
 
+const getDistroPageUrl = (distroId: string) =>
+  `${getUiUrl()}/distros##${distroId}`;
+
 export {
-  wikiUrl,
-  projectDistroSettingsDocumentationUrl,
-  versionControlDocumentationUrl,
-  patchAliasesDocumentationUrl,
-  pullRequestAliasesDocumentationUrl,
-  commitQueueAliasesDocumentationUrl,
-  gitTagAliasesDocumentationUrl,
-  githubChecksAliasesDocumentationUrl,
   cliDocumentationUrl,
-  windowsPasswordRulesURL,
-  konamiSoundTrackUrl,
-  legacyRoutes,
+  commitQueueAliasesDocumentationUrl,
+  getDistroPageUrl,
+  getGithubCommitUrl,
+  getGithubPullRequestUrl,
   getIdeUrl,
   getJiraSearchUrl,
   getJiraTicketUrl,
-  getGithubPullRequestUrl,
-  getGithubCommitUrl,
-  getParsleyTaskLogLink,
-  getLobsterTestLogCompleteUrl,
   getLobsterTaskLink,
-  getParsleyTestLogURL,
+  getLobsterTestLogCompleteUrl,
   getParsleyBuildLogURL,
+  getParsleyTaskLogLink,
+  getParsleyTestLogURL,
+  githubChecksAliasesDocumentationUrl,
+  gitTagAliasesDocumentationUrl,
+  konamiSoundTrackUrl,
+  legacyRoutes,
+  patchAliasesDocumentationUrl,
+  projectDistroSettingsDocumentationUrl,
+  pullRequestAliasesDocumentationUrl,
+  versionControlDocumentationUrl,
+  wikiUrl,
+  windowsPasswordRulesURL,
 };

@@ -877,8 +877,8 @@ export type MutationScheduleUndispatchedBaseTasksArgs = {
 };
 
 export type MutationSetAnnotationMetadataLinksArgs = {
-  apiMetadataLinks: Array<MetadataLinkInput>;
   execution: Scalars["Int"];
+  metadataLinks: Array<MetadataLinkInput>;
   taskId: Scalars["String"];
 };
 
@@ -2573,6 +2573,9 @@ export type AnnotationFragment = {
         }>;
       }>
     >
+  >;
+  metadataLinks?: Maybe<
+    Array<Maybe<{ __typename?: "MetadataLink"; text: string; url: string }>>
   >;
   note?: Maybe<{
     __typename?: "Note";
@@ -4600,6 +4603,9 @@ export type GetAnnotationEventDataQuery = {
             }>;
           }>
         >
+      >;
+      metadataLinks?: Maybe<
+        Array<Maybe<{ __typename?: "MetadataLink"; text: string; url: string }>>
       >;
       note?: Maybe<{
         __typename?: "Note";
@@ -7310,6 +7316,9 @@ export type GetTaskQuery = {
           }>
         >
       >;
+      metadataLinks?: Maybe<
+        Array<Maybe<{ __typename?: "MetadataLink"; text: string; url: string }>>
+      >;
       note?: Maybe<{
         __typename?: "Note";
         message: string;
@@ -7391,6 +7400,7 @@ export type GetTaskQuery = {
       systemLogLink?: Maybe<string>;
       taskLogLink?: Maybe<string>;
     };
+    pod?: Maybe<{ __typename?: "Pod"; id: string }>;
     project?: Maybe<{ __typename?: "Project"; id: string; identifier: string }>;
     taskFiles: { __typename?: "TaskFiles"; fileCount: number };
     versionMetadata: {

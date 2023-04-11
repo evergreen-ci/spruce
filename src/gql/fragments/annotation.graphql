@@ -18,6 +18,10 @@ fragment annotation on Annotation {
     }
     url
   }
+  metadataLinks {
+    text
+    url
+  }
   note {
     message
     source {
