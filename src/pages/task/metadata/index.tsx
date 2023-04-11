@@ -9,6 +9,7 @@ import {
   MetadataTitle,
 } from "components/MetadataCard";
 import { StyledLink, StyledRouterLink } from "components/styles";
+import { getDistroPageUrl } from "constants/externalResources";
 import {
   getTaskQueueRoute,
   getTaskRoute,
@@ -22,13 +23,12 @@ import { size } from "constants/tokens";
 import { GetTaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { TaskStatus } from "types/task";
-import { environmentalVariables, string } from "utils";
+import { string } from "utils";
 import { AbortMessage } from "./AbortMessage";
 import { DependsOn } from "./DependsOn";
 import { ETATimer } from "./ETATimer";
 
 const { applyStrictRegex, msToDuration, shortenGithash } = string;
-const { getUiUrl } = environmentalVariables;
 const { red } = palette;
 
 interface Props {
@@ -88,7 +88,6 @@ export const Metadata: React.VFC<Props> = ({
   const isContainerTask = !!podId;
   const { metadataLinks } = annotation ?? {};
 
-  const distroLink = `${getUiUrl()}/distros##${distroId}`;
   return (
     <MetadataCard error={error} loading={loading}>
       <MetadataTitle>Task Metadata</MetadataTitle>
@@ -211,7 +210,7 @@ export const Metadata: React.VFC<Props> = ({
           Distro:{" "}
           <StyledLink
             data-cy="task-distro-link"
-            href={distroLink}
+            href={getDistroPageUrl(distroId)}
             onClick={() =>
               taskAnalytics.sendEvent({ name: "Click Distro Link" })
             }
