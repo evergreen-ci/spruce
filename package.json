@@ -23,7 +23,6 @@
     "eslint:fix": "yarn eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint '*.{js,ts,tsx}' 'src/**/*.ts?(x)' 'cypress/**/*.ts' 'src/gql/**/*.graphql'",
-    "notify-email": "env-cmd -e prod bash email.sh",
     "prepare": "husky install",
     "prettier": "prettier --write",
     "prod": "env-cmd -e devProd -r .env-cmdrc.local.json yarn start",
