@@ -1,13 +1,13 @@
-import { parse } from "query-string";
+import queryString from "query-string";
 
 interface ParseQueryString {
   [key: string]: string | string[];
 }
 export const parseQueryString = (search: string): ParseQueryString =>
-  parse(search, { arrayFormat: "comma" });
+  queryString.parse(search, { arrayFormat: "comma" });
 
 export const parseQueryStringAsValue = (search: string) =>
-  parse(search, {
+  queryString.parse(search, {
     arrayFormat: "comma",
     parseBooleans: true,
     parseNumbers: true,
