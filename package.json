@@ -7,7 +7,7 @@
     "build-storybook": "storybook build",
     "build:beta": "env-cmd -e beta yarn build",
     "build:local": "env-cmd -e local -r .env-cmdrc.local.json yarn build",
-    "build:prod": "env-cmd -e prod yarn build",
+    "build:prod": "env-cmd -e production yarn build",
     "build:staging": "env-cmd -e staging yarn build",
     "build": "GIT_SHA=`git rev-parse HEAD` vite build",
     "check-types": "tsc -p tsconfig.json --noEmit",
@@ -25,7 +25,7 @@
     "eslint:strict": "STRICT=1 eslint '*.{js,ts,tsx}' 'src/**/*.ts?(x)' 'cypress/**/*.ts' 'src/gql/**/*.graphql'",
     "prepare": "husky install",
     "prettier": "prettier --write",
-    "prod": "env-cmd -e devProd -r .env-cmdrc.local.json yarn start",
+    "prod": "env-cmd -e devProduction -r .env-cmdrc.local.json yarn start",
     "serve": "node scripts/prodServer.js",
     "snapshot": "jest storybook.test.ts --watchAll=false",
     "staging": "env-cmd -e devStaging -r .env-cmdrc.local.json yarn start",
@@ -33,7 +33,8 @@
     "storybook": "storybook dev -p 6006",
     "test:watch": "node scripts/test.js  --verbose",
     "test": "node scripts/test.js  --watchAll=false",
-    "upload-source-maps": "env-cmd -e prod node ./scripts/upload-bugsnag-sourcemaps"
+    "upload-source-maps": "env-cmd -e production node ./scripts/upload-bugsnag-sourcemaps",
+    "postversion": "git push upstream && git push upstream --tags && git push && git push --tags"
   },
   "browserslist": {
     "production": [
