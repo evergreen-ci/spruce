@@ -140,6 +140,8 @@ export const getPatchRoute = (
 
 export const getHostRoute = (hostId: string) => `${paths.host}/${hostId}`;
 
+export const getPodRoute = (podId: string) => `${paths.container}/${podId}`;
+
 interface GetAllHostsRouteOptions {
   hostId?: string;
   distroId?: string;
