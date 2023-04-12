@@ -1,4 +1,5 @@
 import { MutableRefObject, useEffect, useRef } from "react";
+import { usePrevious } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam } from "hooks/useQueryParam";
 import { MainlineCommitQueryParams } from "types/commits";
@@ -16,19 +17,15 @@ export const useCommitLimit = <T extends HTMLElement>(): [
   );
   const commitsContainerRef = useRef<T>();
   const { width } = useDimensions(commitsContainerRef);
+  const previousWidth = usePrevious(width);
   const nextLimit = Math.max(Math.round(width / COL_WIDTH), MIN_LIMIT);
 
   useEffect(() => {
-    const handleResize = () => {
+    // Checking that a previous width existed ensures that skipOrderNumber is not reset on initial page loads
+    if (previousWidth) {
       setSkipOrderNumber(undefined);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }
+  }, [nextLimit]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return [commitsContainerRef, nextLimit];
 };
