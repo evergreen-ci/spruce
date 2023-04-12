@@ -10,4 +10,4 @@ import { randomUUID } from "node:crypto";
 global.MutationObserver = MutationObserver;
 
 // @ts-ignore
-window.crypto = randomUUID;
+window.crypto.randomUUID = randomUUID;
