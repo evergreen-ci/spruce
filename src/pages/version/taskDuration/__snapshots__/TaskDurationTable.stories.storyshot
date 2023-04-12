@@ -273,7 +273,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                         class="leafygreen-ui-1ewnca3"
                       >
                         <span
-                          class="css-oungzq-WordBreak-wordBreakCss e142uq4k0"
+                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                         >
                           test-rest-data
                         </span>
@@ -362,7 +362,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                         class="leafygreen-ui-1ewnca3"
                       >
                         <span
-                          class="css-oungzq-WordBreak-wordBreakCss e142uq4k0"
+                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                         >
                           test-model-distro
                         </span>
@@ -451,7 +451,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                         class="leafygreen-ui-1ewnca3"
                       >
                         <span
-                          class="css-oungzq-WordBreak-wordBreakCss e142uq4k0"
+                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                         >
                           test-agent-internal
                         </span>
@@ -540,7 +540,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                         class="leafygreen-ui-1ewnca3"
                       >
                         <span
-                          class="css-oungzq-WordBreak-wordBreakCss e142uq4k0"
+                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                         >
                           test-evergreen
                         </span>
@@ -629,7 +629,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                         class="leafygreen-ui-1ewnca3"
                       >
                         <span
-                          class="css-oungzq-WordBreak-wordBreakCss e142uq4k0"
+                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                         >
                           test-model-artifact
                         </span>
@@ -718,7 +718,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                         class="leafygreen-ui-1ewnca3"
                       >
                         <span
-                          class="css-oungzq-WordBreak-wordBreakCss e142uq4k0"
+                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                         >
                           test-thirdparty
                         </span>
@@ -807,7 +807,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                         class="leafygreen-ui-1ewnca3"
                       >
                         <span
-                          class="css-oungzq-WordBreak-wordBreakCss e142uq4k0"
+                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                         >
                           test-model-event
                         </span>
@@ -896,7 +896,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                         class="leafygreen-ui-1ewnca3"
                       >
                         <span
-                          class="css-oungzq-WordBreak-wordBreakCss e142uq4k0"
+                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                         >
                           test-model-testresult
                         </span>
@@ -985,7 +985,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                         class="leafygreen-ui-1ewnca3"
                       >
                         <span
-                          class="css-oungzq-WordBreak-wordBreakCss e142uq4k0"
+                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                         >
                           test-model-alertrecord
                         </span>
@@ -1074,7 +1074,7 @@ exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] =
                         class="leafygreen-ui-1ewnca3"
                       >
                         <span
-                          class="css-oungzq-WordBreak-wordBreakCss e142uq4k0"
+                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                         >
                           test-model-patch
                         </span>

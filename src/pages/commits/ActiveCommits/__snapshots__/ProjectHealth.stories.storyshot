@@ -320,7 +320,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
             width="200"
           >
             <div
-              class="css-1qaqms-LabelContainer e1cz15301"
+              class="css-42v5yq-LabelContainer e1cz15301"
               data-cy="commit-label"
             >
               <p
@@ -379,7 +379,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
             width="200"
           >
             <div
-              class="css-1qaqms-LabelContainer e1cz15301"
+              class="css-42v5yq-LabelContainer e1cz15301"
               data-cy="commit-label"
             >
               <p
@@ -443,7 +443,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
             width="200"
           >
             <div
-              class="css-1qaqms-LabelContainer e1cz15301"
+              class="css-42v5yq-LabelContainer e1cz15301"
               data-cy="commit-label"
             >
               <p
@@ -502,7 +502,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
             width="200"
           >
             <div
-              class="css-1qaqms-LabelContainer e1cz15301"
+              class="css-42v5yq-LabelContainer e1cz15301"
               data-cy="commit-label"
             >
               <p
@@ -547,7 +547,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
             width="200"
           >
             <div
-              class="css-1qaqms-LabelContainer e1cz15301"
+              class="css-42v5yq-LabelContainer e1cz15301"
               data-cy="commit-label"
             >
               <p
@@ -603,7 +603,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container ek3nkvx1"
             >
               <a
-                class="lg-ui-0001 ek3nkvx3 css-d8h2au-StyledLink-Label leafygreen-ui-1cn1hqb"
+                class="lg-ui-0001 ek3nkvx3 css-1vedf2u-StyledLink-Label leafygreen-ui-1cn1hqb"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_000?selectedCommit=929"
               >
@@ -653,7 +653,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container ek3nkvx1"
             >
               <a
-                class="lg-ui-0001 ek3nkvx3 css-d8h2au-StyledLink-Label leafygreen-ui-1cn1hqb"
+                class="lg-ui-0001 ek3nkvx3 css-1vedf2u-StyledLink-Label leafygreen-ui-1cn1hqb"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_001?selectedCommit=929"
               >
@@ -703,7 +703,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container ek3nkvx1"
             >
               <a
-                class="lg-ui-0001 ek3nkvx3 css-d8h2au-StyledLink-Label leafygreen-ui-1cn1hqb"
+                class="lg-ui-0001 ek3nkvx3 css-1vedf2u-StyledLink-Label leafygreen-ui-1cn1hqb"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_002?selectedCommit=929"
               >
@@ -762,7 +762,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container ek3nkvx1"
             >
               <a
-                class="lg-ui-0001 ek3nkvx3 css-d8h2au-StyledLink-Label leafygreen-ui-1cn1hqb"
+                class="lg-ui-0001 ek3nkvx3 css-1vedf2u-StyledLink-Label leafygreen-ui-1cn1hqb"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_000?selectedCommit=928"
               >
@@ -812,7 +812,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container ek3nkvx1"
             >
               <a
-                class="lg-ui-0001 ek3nkvx3 css-d8h2au-StyledLink-Label leafygreen-ui-1cn1hqb"
+                class="lg-ui-0001 ek3nkvx3 css-1vedf2u-StyledLink-Label leafygreen-ui-1cn1hqb"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_001?selectedCommit=928"
               >
@@ -862,7 +862,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container ek3nkvx1"
             >
               <a
-                class="lg-ui-0001 ek3nkvx3 css-d8h2au-StyledLink-Label leafygreen-ui-1cn1hqb"
+                class="lg-ui-0001 ek3nkvx3 css-1vedf2u-StyledLink-Label leafygreen-ui-1cn1hqb"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_002?selectedCommit=928"
               >
@@ -925,7 +925,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container ek3nkvx1"
             >
               <a
-                class="lg-ui-0001 ek3nkvx3 css-d8h2au-StyledLink-Label leafygreen-ui-1cn1hqb"
+                class="lg-ui-0001 ek3nkvx3 css-1vedf2u-StyledLink-Label leafygreen-ui-1cn1hqb"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_000?selectedCommit=926"
               >
@@ -975,7 +975,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container ek3nkvx1"
             >
               <a
-                class="lg-ui-0001 ek3nkvx3 css-d8h2au-StyledLink-Label leafygreen-ui-1cn1hqb"
+                class="lg-ui-0001 ek3nkvx3 css-1vedf2u-StyledLink-Label leafygreen-ui-1cn1hqb"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_001?selectedCommit=926"
               >
@@ -1025,7 +1025,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container ek3nkvx1"
             >
               <a
-                class="lg-ui-0001 ek3nkvx3 css-d8h2au-StyledLink-Label leafygreen-ui-1cn1hqb"
+                class="lg-ui-0001 ek3nkvx3 css-1vedf2u-StyledLink-Label leafygreen-ui-1cn1hqb"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_002?selectedCommit=926"
               >
@@ -1084,7 +1084,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container ek3nkvx1"
             >
               <a
-                class="lg-ui-0001 ek3nkvx3 css-d8h2au-StyledLink-Label leafygreen-ui-1cn1hqb"
+                class="lg-ui-0001 ek3nkvx3 css-1vedf2u-StyledLink-Label leafygreen-ui-1cn1hqb"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_000?selectedCommit=925"
               >
@@ -1134,7 +1134,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container ek3nkvx1"
             >
               <a
-                class="lg-ui-0001 ek3nkvx3 css-d8h2au-StyledLink-Label leafygreen-ui-1cn1hqb"
+                class="lg-ui-0001 ek3nkvx3 css-1vedf2u-StyledLink-Label leafygreen-ui-1cn1hqb"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_001?selectedCommit=925"
               >
@@ -1184,7 +1184,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container ek3nkvx1"
             >
               <a
-                class="lg-ui-0001 ek3nkvx3 css-d8h2au-StyledLink-Label leafygreen-ui-1cn1hqb"
+                class="lg-ui-0001 ek3nkvx3 css-1vedf2u-StyledLink-Label leafygreen-ui-1cn1hqb"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_002?selectedCommit=925"
               >
@@ -1243,7 +1243,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container ek3nkvx1"
             >
               <a
-                class="lg-ui-0001 ek3nkvx3 css-d8h2au-StyledLink-Label leafygreen-ui-1cn1hqb"
+                class="lg-ui-0001 ek3nkvx3 css-1vedf2u-StyledLink-Label leafygreen-ui-1cn1hqb"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_000?selectedCommit=924"
               >
@@ -1293,7 +1293,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container ek3nkvx1"
             >
               <a
-                class="lg-ui-0001 ek3nkvx3 css-d8h2au-StyledLink-Label leafygreen-ui-1cn1hqb"
+                class="lg-ui-0001 ek3nkvx3 css-1vedf2u-StyledLink-Label leafygreen-ui-1cn1hqb"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_001?selectedCommit=924"
               >
@@ -1343,7 +1343,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container ek3nkvx1"
             >
               <a
-                class="lg-ui-0001 ek3nkvx3 css-d8h2au-StyledLink-Label leafygreen-ui-1cn1hqb"
+                class="lg-ui-0001 ek3nkvx3 css-1vedf2u-StyledLink-Label leafygreen-ui-1cn1hqb"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_002?selectedCommit=924"
               >
