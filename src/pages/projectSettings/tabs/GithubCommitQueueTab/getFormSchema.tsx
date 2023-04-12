@@ -192,47 +192,75 @@ export const getFormSchema = (
                 repoData?.commitQueue?.enabled
               ),
             },
-            message: {
-              type: "string" as "string",
-              title: "Commit Queue Message",
-            },
-            mergeMethod: {
-              type: "string" as "string",
-              title: "Merge Method",
+          },
+          dependencies: {
+            enabled: {
               oneOf: [
                 {
-                  type: "string" as "string",
-                  title: "Squash",
-                  enum: ["squash"],
+                  properties: {
+                    enabled: {
+                      enum: [false],
+                    },
+
+                    message: {
+                      type: "string" as "string",
+                      title: "Commit Queue Message",
+                    },
+                  },
                 },
                 {
-                  type: "string" as "string",
-                  title: "Merge",
-                  enum: ["merge"],
+                  properties: {
+                    enabled: {
+                      enum: [true],
+                    },
+                    message: {
+                      type: "string" as "string",
+                      title: "Commit Queue Message",
+                    },
+                    mergeMethod: {
+                      type: "string" as "string",
+                      title: "Merge Method",
+                      oneOf: [
+                        {
+                          type: "string" as "string",
+                          title: "Squash",
+                          enum: ["squash"],
+                        },
+                        {
+                          type: "string" as "string",
+                          title: "Merge",
+                          enum: ["merge"],
+                        },
+                        {
+                          type: "string" as "string",
+                          title: "Rebase",
+                          enum: ["rebase"],
+                        },
+                        ...insertIf(
+                          projectType === ProjectType.AttachedProject,
+                          {
+                            type: "string" as "string",
+                            title: `Default to Repo (${repoData?.commitQueue?.mergeMethod})`,
+                            enum: [""],
+                          }
+                        ),
+                      ],
+                    },
+                    patchDefinitions: {
+                      type: "object" as "object",
+                      title: "Commit Queue Patch Definitions",
+                      ...overrideRadioBox(
+                        "commitQueueAliases",
+                        [
+                          "Override Repo Patch Definition",
+                          "Default to Repo Patch Definition",
+                        ],
+                        aliasArray.schema
+                      ),
+                    },
+                  },
                 },
-                {
-                  type: "string" as "string",
-                  title: "Rebase",
-                  enum: ["rebase"],
-                },
-                ...insertIf(projectType === ProjectType.AttachedProject, {
-                  type: "string" as "string",
-                  title: `Default to Repo (${repoData?.commitQueue?.mergeMethod})`,
-                  enum: [""],
-                }),
               ],
-            },
-            patchDefinitions: {
-              type: "object" as "object",
-              title: "Commit Queue Patch Definitions",
-              ...overrideRadioBox(
-                "commitQueueAliases",
-                [
-                  "Override Repo Patch Definition",
-                  "Default to Repo Patch Definition",
-                ],
-                aliasArray.schema
-              ),
             },
           },
         },
@@ -433,20 +461,8 @@ export const getFormSchema = (
         mergeMethod: {
           "ui:allowDeselect": false,
           "ui:data-cy": "merge-method-select",
-          ...hideIf(
-            fieldDisabled(
-              formData?.commitQueue?.enabled,
-              repoData?.commitQueue?.enabled
-            )
-          ),
         },
         patchDefinitions: {
-          ...hideIf(
-            fieldDisabled(
-              formData?.commitQueue?.enabled,
-              repoData?.commitQueue?.enabled
-            )
-          ),
           ...errorStyling(
             formData?.commitQueue?.enabled,
             formData?.commitQueue?.patchDefinitions?.commitQueueAliasesOverride,

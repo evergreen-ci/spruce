@@ -34,6 +34,11 @@ export const transformErrors = (errors: AjvError[]) =>
             ...error,
             message: Errors.Invisible,
           };
+        case "oneOf":
+          return {
+            ...error,
+            message: "Please select one of the available options.",
+          };
         case "format":
           switch (error.params.format) {
             case "noSpaces":
