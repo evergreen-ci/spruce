@@ -46,6 +46,7 @@ export type Annotation = {
   createdIssues?: Maybe<Array<Maybe<IssueLink>>>;
   id: Scalars["String"];
   issues?: Maybe<Array<Maybe<IssueLink>>>;
+  metadataLinks?: Maybe<Array<Maybe<MetadataLink>>>;
   note?: Maybe<Note>;
   suspectedIssues?: Maybe<Array<Maybe<IssueLink>>>;
   taskExecution: Scalars["Int"];
@@ -540,6 +541,7 @@ export type LogkeeperBuild = {
   buildNum: Scalars["Int"];
   builder: Scalars["String"];
   id: Scalars["String"];
+  task: Task;
   taskExecution: Scalars["Int"];
   taskId: Scalars["String"];
   tests: Array<LogkeeperTest>;
@@ -602,6 +604,18 @@ export enum MetStatus {
   Started = "STARTED",
   Unmet = "UNMET",
 }
+
+export type MetadataLink = {
+  __typename?: "MetadataLink";
+  source?: Maybe<Source>;
+  text: Scalars["String"];
+  url: Scalars["String"];
+};
+
+export type MetadataLinkInput = {
+  text: Scalars["String"];
+  url: Scalars["String"];
+};
 
 export type Module = {
   __typename?: "Module";
@@ -668,6 +682,7 @@ export type Mutation = {
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   scheduleTasks: Array<Task>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
+  setAnnotationMetadataLinks: Scalars["Boolean"];
   setPatchPriority?: Maybe<Scalars["String"]>;
   setTaskPriority: Task;
   spawnHost: Host;
@@ -859,6 +874,12 @@ export type MutationScheduleTasksArgs = {
 
 export type MutationScheduleUndispatchedBaseTasksArgs = {
   patchId: Scalars["String"];
+};
+
+export type MutationSetAnnotationMetadataLinksArgs = {
+  execution: Scalars["Int"];
+  metadataLinks: Array<MetadataLinkInput>;
+  taskId: Scalars["String"];
 };
 
 export type MutationSetPatchPriorityArgs = {
@@ -2552,6 +2573,9 @@ export type AnnotationFragment = {
         }>;
       }>
     >
+  >;
+  metadataLinks?: Maybe<
+    Array<Maybe<{ __typename?: "MetadataLink"; text: string; url: string }>>
   >;
   note?: Maybe<{
     __typename?: "Note";
@@ -4580,6 +4604,9 @@ export type GetAnnotationEventDataQuery = {
           }>
         >
       >;
+      metadataLinks?: Maybe<
+        Array<Maybe<{ __typename?: "MetadataLink"; text: string; url: string }>>
+      >;
       note?: Maybe<{
         __typename?: "Note";
         message: string;
@@ -5623,6 +5650,48 @@ export type PatchQuery = {
     variantsTasks: Array<
       Maybe<{ __typename?: "VariantTask"; name: string; tasks: Array<string> }>
     >;
+  };
+};
+
+export type PodEventsQueryVariables = Exact<{
+  id: Scalars["String"];
+  limit?: InputMaybe<Scalars["Int"]>;
+  page?: InputMaybe<Scalars["Int"]>;
+}>;
+
+export type PodEventsQuery = {
+  __typename?: "Query";
+  pod: {
+    __typename?: "Pod";
+    id: string;
+    events: {
+      __typename?: "PodEvents";
+      count: number;
+      eventLogEntries: Array<{
+        __typename?: "PodEventLogEntry";
+        eventType?: Maybe<string>;
+        id: string;
+        processedAt: Date;
+        resourceId: string;
+        resourceType: string;
+        timestamp?: Maybe<Date>;
+        data: {
+          __typename?: "PodEventLogData";
+          newStatus?: Maybe<string>;
+          oldStatus?: Maybe<string>;
+          reason?: Maybe<string>;
+          taskExecution?: Maybe<number>;
+          taskID?: Maybe<string>;
+          taskStatus?: Maybe<string>;
+          task?: Maybe<{
+            __typename?: "Task";
+            displayName: string;
+            execution: number;
+            id: string;
+          }>;
+        };
+      }>;
+    };
   };
 };
 
@@ -7289,6 +7358,9 @@ export type GetTaskQuery = {
           }>
         >
       >;
+      metadataLinks?: Maybe<
+        Array<Maybe<{ __typename?: "MetadataLink"; text: string; url: string }>>
+      >;
       note?: Maybe<{
         __typename?: "Note";
         message: string;
@@ -7370,6 +7442,7 @@ export type GetTaskQuery = {
       systemLogLink?: Maybe<string>;
       taskLogLink?: Maybe<string>;
     };
+    pod?: Maybe<{ __typename?: "Pod"; id: string }>;
     project?: Maybe<{ __typename?: "Project"; id: string; identifier: string }>;
     taskFiles: { __typename?: "TaskFiles"; fileCount: number };
     versionMetadata: {
