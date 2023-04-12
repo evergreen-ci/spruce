@@ -142,6 +142,7 @@ const SubStatusText = styled(Disclaimer)`
   text-align: left;
   margin: 2px 0px 0px 20px;
   word-break: normal;
+  overflow-wrap: anywhere;
 `;
 
 const sharedCss = css`

@@ -119,6 +119,7 @@ const OptionContainer = styled.div`
 `;
 const Option = styled(OptionContainer)`
   word-break: normal;
+  overflow-wrap: anywhere;
   cursor: pointer;
   :hover {
     background-color: ${gray.light1};

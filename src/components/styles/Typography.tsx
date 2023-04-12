@@ -6,6 +6,7 @@ export const wordBreakCss = css`
   word-wrap: break-word;
   hyphens: auto;
   word-break: normal;
+  overflow-wrap: anywhere;
 `;
 
 export const WordBreak = styled.span`

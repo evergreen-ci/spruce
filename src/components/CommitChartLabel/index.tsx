@@ -102,6 +102,7 @@ const LabelContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   word-break: normal;
+  overflow-wrap: anywhere;
 `;
 
 const LabelText = styled(Body)`
