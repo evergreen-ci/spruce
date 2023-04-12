@@ -12,3 +12,10 @@ export enum PodStatus {
   // red: pod-terminated
   Terminated = "terminated",
 }
+
+export enum PodEvent {
+  StatusChange = "STATUS_CHANGE",
+  ContainerTaskFinished = "CONTAINER_TASK_FINISHED",
+  ClearedTask = "CLEARED_TASK",
+  AssignedTask = "ASSIGNED_TASK",
+}

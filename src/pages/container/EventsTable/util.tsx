@@ -1,17 +1,11 @@
 import { Link } from "react-router-dom";
 import { getTaskRoute } from "constants/routes";
 import { PodEventsQuery } from "gql/generated/types";
+import { PodEvent } from "types/pod";
 import { Unpacked } from "types/utils";
 import { errorReporting } from "utils";
 
 const { reportError } = errorReporting;
-
-enum EventTypes {
-  StatusChange = "STATUS_CHANGE",
-  ContainerTaskFinished = "CONTAINER_TASK_FINISHED",
-  ClearedTask = "CLEARED_TASK",
-  AssignedTask = "ASSIGNED_TASK",
-}
 
 export const getEventCopy = (
   event: Unpacked<PodEventsQuery["pod"]["events"]["eventLogEntries"]>
@@ -23,22 +17,22 @@ export const getEventCopy = (
     </Link>
   );
   switch (eventType) {
-    case EventTypes.StatusChange:
+    case PodEvent.StatusChange:
       return (
         <span>
           Container status changed from <b>{data?.oldStatus}</b> to{" "}
           <b>{data?.newStatus}</b>.
         </span>
       );
-    case EventTypes.ContainerTaskFinished:
+    case PodEvent.ContainerTaskFinished:
       return (
         <span>
           Task {taskLink} finished with status <b>{data?.taskStatus}</b>.
         </span>
       );
-    case EventTypes.ClearedTask:
+    case PodEvent.ClearedTask:
       return <span>Task {taskLink} cleared.</span>;
-    case EventTypes.AssignedTask:
+    case PodEvent.AssignedTask:
       return <span>Task {taskLink} assigned.</span>;
     default:
       reportError(
