@@ -9,6 +9,7 @@ import {
   MetadataTitle,
 } from "components/MetadataCard";
 import { StyledLink, StyledRouterLink } from "components/styles";
+import { getDistroPageUrl } from "constants/externalResources";
 import {
   getTaskQueueRoute,
   getTaskRoute,
@@ -22,13 +23,12 @@ import { size } from "constants/tokens";
 import { GetTaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { TaskStatus } from "types/task";
-import { environmentalVariables, string } from "utils";
+import { string } from "utils";
 import { AbortMessage } from "./AbortMessage";
 import { DependsOn } from "./DependsOn";
 import { ETATimer } from "./ETATimer";
 
 const { applyStrictRegex, msToDuration, shortenGithash } = string;
-const { getUiUrl } = environmentalVariables;
 const { red } = palette;
 
 interface Props {
@@ -47,34 +47,35 @@ export const Metadata: React.VFC<Props> = ({
   const taskAnalytics = useTaskAnalytics();
   const getDateCopy = useDateFormat();
   const {
-    status,
-    spawnHostLink,
-    ingestTime,
+    abortInfo,
     activatedTime,
-    finishTime,
-    hostId,
-    startTime,
-    estimatedStart,
-    timeTaken,
-    revision,
-    dependsOn,
     ami,
-    distroId,
-    priority,
-    versionMetadata,
+    annotation,
+    baseTask,
     buildVariant,
     buildVariantDisplayName,
+    dependsOn,
     details,
+    displayTask,
+    distroId,
+    estimatedStart,
+    expectedDuration,
+    finishTime,
     generatedBy,
     generatedByName,
+    hostId,
+    ingestTime,
     minQueuePosition: taskQueuePosition,
-    abortInfo,
-    displayTask,
+    priority,
     project,
     pod,
-    expectedDuration,
-    baseTask,
     resetWhenFinished,
+    revision,
+    spawnHostLink,
+    startTime,
+    status,
+    timeTaken,
+    versionMetadata,
   } = task || {};
 
   const baseCommit = shortenGithash(revision);
@@ -85,8 +86,8 @@ export const Metadata: React.VFC<Props> = ({
   const oomTracker = details?.oomTracker;
   const { id: podId } = pod ?? {};
   const isContainerTask = !!podId;
+  const { metadataLinks } = annotation ?? {};
 
-  const distroLink = `${getUiUrl()}/distros##${distroId}`;
   return (
     <MetadataCard error={error} loading={loading}>
       <MetadataTitle>Task Metadata</MetadataTitle>
@@ -209,7 +210,7 @@ export const Metadata: React.VFC<Props> = ({
           Distro:{" "}
           <StyledLink
             data-cy="task-distro-link"
-            href={distroLink}
+            href={getDistroPageUrl(distroId)}
             onClick={() =>
               taskAnalytics.sendEvent({ name: "Click Distro Link" })
             }
@@ -267,6 +268,23 @@ export const Metadata: React.VFC<Props> = ({
           </StyledRouterLink>
         </MetadataItem>
       )}
+      {metadataLinks &&
+        metadataLinks.map((link) => (
+          <MetadataItem key={link.text}>
+            <StyledLink
+              data-cy="task-metadata-link"
+              href={link.url}
+              onClick={() =>
+                taskAnalytics.sendEvent({
+                  name: "Click Annotation Link",
+                  linkText: link.text,
+                })
+              }
+            >
+              {link.text}
+            </StyledLink>
+          </MetadataItem>
+        ))}
       {taskQueuePosition > 0 && (
         <MetadataItem>
           Position in queue:{" "}
