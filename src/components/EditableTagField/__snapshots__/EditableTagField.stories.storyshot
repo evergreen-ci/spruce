@@ -26,7 +26,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
               >
                 <label
                   class="leafygreen-ui-gr5280"
-                  for="tag_key_02ad7dce-9e00-4572-b977-22bedef63d9b"
+                  for="tag_key_1"
                 >
                   Key
                 </label>
@@ -39,7 +39,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
                   autocomplete="on"
                   class="leafygreen-ui-6i61vl"
                   data-cy="user-tag-key-field"
-                  id="tag_key_02ad7dce-9e00-4572-b977-22bedef63d9b"
+                  id="tag_key_1"
                   required=""
                   type="text"
                   value="keyA"
@@ -65,7 +65,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
               >
                 <label
                   class="leafygreen-ui-gr5280"
-                  for="tag_value_02ad7dce-9e00-4572-b977-22bedef63d9b"
+                  for="tag_value_1"
                 >
                   Value
                 </label>
@@ -78,7 +78,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
                   autocomplete="on"
                   class="leafygreen-ui-6i61vl"
                   data-cy="user-tag-value-field"
-                  id="tag_value_02ad7dce-9e00-4572-b977-22bedef63d9b"
+                  id="tag_value_1"
                   required=""
                   type="text"
                   value="valueA"
@@ -146,7 +146,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
               >
                 <label
                   class="leafygreen-ui-gr5280"
-                  for="tag_key_e24639b2-f609-465b-bcb7-3abdec8ea6f2"
+                  for="tag_key_2"
                 >
                   Key
                 </label>
@@ -159,7 +159,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
                   autocomplete="on"
                   class="leafygreen-ui-6i61vl"
                   data-cy="user-tag-key-field"
-                  id="tag_key_e24639b2-f609-465b-bcb7-3abdec8ea6f2"
+                  id="tag_key_2"
                   required=""
                   type="text"
                   value="keyB"
@@ -185,7 +185,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
               >
                 <label
                   class="leafygreen-ui-gr5280"
-                  for="tag_value_e24639b2-f609-465b-bcb7-3abdec8ea6f2"
+                  for="tag_value_2"
                 >
                   Value
                 </label>
@@ -198,7 +198,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
                   autocomplete="on"
                   class="leafygreen-ui-6i61vl"
                   data-cy="user-tag-value-field"
-                  id="tag_value_e24639b2-f609-465b-bcb7-3abdec8ea6f2"
+                  id="tag_value_2"
                   required=""
                   type="text"
                   value="valueB"
@@ -266,7 +266,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
               >
                 <label
                   class="leafygreen-ui-gr5280"
-                  for="tag_key_db7c8cff-48ab-42bd-9170-c836e2f37a1f"
+                  for="tag_key_3"
                 >
                   Key
                 </label>
@@ -279,7 +279,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
                   autocomplete="on"
                   class="leafygreen-ui-6i61vl"
                   data-cy="user-tag-key-field"
-                  id="tag_key_db7c8cff-48ab-42bd-9170-c836e2f37a1f"
+                  id="tag_key_3"
                   required=""
                   type="text"
                   value="keyC"
@@ -305,7 +305,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
               >
                 <label
                   class="leafygreen-ui-gr5280"
-                  for="tag_value_db7c8cff-48ab-42bd-9170-c836e2f37a1f"
+                  for="tag_value_3"
                 >
                   Value
                 </label>
@@ -318,7 +318,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
                   autocomplete="on"
                   class="leafygreen-ui-6i61vl"
                   data-cy="user-tag-value-field"
-                  id="tag_value_db7c8cff-48ab-42bd-9170-c836e2f37a1f"
+                  id="tag_value_3"
                   required=""
                   type="text"
                   value="valueC"

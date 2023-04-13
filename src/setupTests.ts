@@ -4,10 +4,15 @@
 // learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom/extend-expect";
 import MutationObserver from "mutation-observer";
-import { randomUUID } from "node:crypto";
 
 // @ts-ignore
 global.MutationObserver = MutationObserver;
 
 // @ts-ignore
-window.crypto.randomUUID = randomUUID;
+window.crypto.randomUUID = (() => {
+  let value = 0;
+  return () => {
+    value += 1;
+    return value.toString();
+  };
+})();
