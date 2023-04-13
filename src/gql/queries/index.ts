@@ -36,6 +36,7 @@ import GET_OTHER_USER from "./get-other-user.graphql";
 import GET_PATCH_CONFIGURE from "./get-patch-configure.graphql";
 import GET_PATCH_TASK_STATUSES from "./get-patch-task-statuses.graphql";
 import GET_PATCH from "./get-patch.graphql";
+import GET_POD_EVENTS from "./get-pod-events.graphql";
 import GET_POD from "./get-pod.graphql";
 import GET_PROJECT_EVENT_LOGS from "./get-project-event-logs.graphql";
 import GET_PROJECT_SETTINGS from "./get-project-settings.graphql";
@@ -112,6 +113,7 @@ export {
   GET_PATCH_CONFIGURE,
   GET_PATCH_TASK_STATUSES,
   GET_PATCH,
+  GET_POD_EVENTS,
   GET_POD,
   GET_PROJECT_EVENT_LOGS,
   GET_PROJECT_PATCHES,

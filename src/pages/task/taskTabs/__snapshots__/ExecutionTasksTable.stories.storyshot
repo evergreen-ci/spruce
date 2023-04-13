@@ -291,7 +291,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                           class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                           >
                             Some fancy execution task
                           </span>
@@ -347,7 +347,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                           class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                           >
                             Another execution task
                           </span>
@@ -690,7 +690,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                           class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                           >
                             Some fancy execution task
                           </span>
@@ -740,7 +740,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                           class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                           >
                             Another execution task
                           </span>
