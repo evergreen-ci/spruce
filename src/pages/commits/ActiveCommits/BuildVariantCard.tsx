@@ -103,7 +103,8 @@ const RenderTaskIcons: React.VFC<RenderTaskIconsProps> = ({ tasks, variant }) =>
   ) : null;
 
 const Label = styled(StyledRouterLink)`
-  word-break: break-word;
+  word-break: normal;
+  overflow-wrap: anywhere;
 `;
 
 const IconContainer = styled.div`

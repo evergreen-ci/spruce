@@ -290,7 +290,7 @@ exports[`storybook Storyshots components/Table/TasksTable Base Task Table 1`] = 
                           class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                           >
                             Some Fancy ID
                           </span>
@@ -347,7 +347,7 @@ exports[`storybook Storyshots components/Table/TasksTable Base Task Table 1`] = 
                           class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                           >
                             Some other Fancy ID
                           </span>
@@ -404,7 +404,7 @@ exports[`storybook Storyshots components/Table/TasksTable Base Task Table 1`] = 
                           class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                           >
                             Some different Fancy ID
                           </span>
@@ -756,7 +756,7 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                           class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                           >
                             Some Fancy ID
                           </span>
@@ -822,7 +822,7 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                           class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                           >
                             Some other Fancy ID
                           </span>
@@ -888,7 +888,7 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                           class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                           >
                             Some different Fancy ID
                           </span>
@@ -954,7 +954,7 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                           class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
                           >
                             Some Fancy Display Task
                           </span>
