@@ -7,3 +7,12 @@ import MutationObserver from "mutation-observer";
 
 // @ts-ignore
 global.MutationObserver = MutationObserver;
+
+// @ts-ignore
+window.crypto.randomUUID = (() => {
+  let value = 0;
+  return () => {
+    value += 1;
+    return value.toString();
+  };
+})();
