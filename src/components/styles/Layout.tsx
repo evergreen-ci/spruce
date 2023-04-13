@@ -44,10 +44,9 @@ export const PageContent = styled(Content)`
 
 PageSider.defaultProps = { width: 275 };
 
-// @ts-expect-error
 export const PageTitle = styled(H2)`
   margin-bottom: ${size.s};
-` as typeof H2;
+`;
 
 export const TableContainer = styled.div`
   ${(props: { hide?: boolean }): string => props.hide && "display:none;"}

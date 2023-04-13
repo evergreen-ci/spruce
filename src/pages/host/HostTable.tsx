@@ -55,7 +55,6 @@ export const HostTable: React.VFC<{
   return (
     <HostCard error={error} loading={loading} metaData={false}>
       <TableTitle>
-        {/* @ts-expect-error */}
         <StyledSubtitle>Recent Events </StyledSubtitle>
         <PaginationWrapper>
           <Pagination
@@ -85,7 +84,6 @@ export const HostTable: React.VFC<{
 
 const rowKey = (record: HostEventLogEntry): string => `${record.id}`;
 
-// @ts-expect-error
 const StyledSubtitle = styled(Subtitle)`
   margin-bottom: 20px;
   margin-top: ${size.s};

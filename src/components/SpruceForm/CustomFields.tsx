@@ -13,18 +13,15 @@ export const TitleField: React.VFC<TitleFieldProps> = ({
   const isSectionTitle = uiSchema?.["ui:sectionTitle"] ?? false;
   const Component = isSectionTitle ? StyledH3 : StyledSubtitle;
   return (
-    /* @ts-expect-error */
     <Component id={id}>{title}</Component>
   );
 };
 
-/* @ts-expect-error  */
 const StyledH3 = styled(H3)`
   margin-top: ${size.m};
   margin-bottom: 12px;
 `;
 
-/* @ts-expect-error  */
 const StyledSubtitle = styled(Subtitle)`
   margin-top: ${size.s};
   margin-bottom: 12px;

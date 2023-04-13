@@ -28,7 +28,6 @@ const CarouselCard: React.VFC<CarouselCardProps> = ({ card, visible }) => {
   }, [visible]);
   return (
     <CardContainer>
-      {/* @ts-expect-error */}
       {title && <StyledTitle>{title}</StyledTitle>}
       {subtitle && <StyledBody weight="medium">{subtitle}</StyledBody>}
       <Body>{description}</Body>
@@ -79,7 +78,6 @@ const StyledBody = styled(Body)`
   margin-bottom: ${size.s};
 `;
 
-// @ts-expect-error
 const StyledTitle = styled(Subtitle)`
   margin-bottom: ${size.s};
 `;

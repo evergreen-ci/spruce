@@ -4175,6 +4175,14 @@
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.3"
 
+"@leafygreen-ui/icon@^11.12.7":
+  version "11.12.7"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.12.7.tgz#1d0cde6d63d2e29b69f35c667a636aad0f10c10b"
+  integrity sha512-XjmD5FXHgyDzUfAik+Ox0kAfRdc0lRImDbl+8DlYfbGdz1lO8AFTSchnLzr766ESF1RHTUImsHWd/0YAHvwOaw==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.3"
+    lodash "^4.17.21"
+
 "@leafygreen-ui/inline-definition@6.0.0":
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/inline-definition/-/inline-definition-6.0.0.tgz#44632ced7f7e053575390923ec9a95cfc0e3842d"
@@ -4218,6 +4226,15 @@
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-10.3.0.tgz#ec87d9665bd52bad64bedca6e0fef324e47a109a"
   integrity sha512-nCNU25lbOGGfJJAkpdipIAwitD0h2rOZiHgCfERlwHsL4lr8K29qrPYKKEiE9JxbW8EBkoP2zJseY0RMd6Jq8A==
   dependencies:
+    lodash "^4.17.21"
+    prop-types "^15.7.2"
+
+"@leafygreen-ui/lib@^10.3.1":
+  version "10.3.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-10.3.1.tgz#ac339c7f2791ee2a95206a763ed944e4134ab863"
+  integrity sha512-xwXqisBR8Gp9BcwYSudOvNBTEh52IHCOTnKECjlYBc3X6n3doz8vNW2km2l1DcwGodjqAYsTjiJAp8CgI8QZKw==
+  dependencies:
+    "@storybook/csf" "^0.0.2-next.10"
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
@@ -4310,6 +4327,11 @@
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-4.0.0.tgz#a04ee5bc511dd4db15495d514b9f002cf449d7b8"
   integrity sha512-hZBf1tqLf9IF3uyRSiyVbPGmvdDbqAonYUrDa+9CPTopZNqXtga6zxkkjxsbVzZDjs1IL5tkW/A0sMQlMWzT3Q==
 
+"@leafygreen-ui/palette@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-4.0.1.tgz#17b787289ebb1d93ecfa25d7922cc72d3a061be2"
+  integrity sha512-MQYtjFgMcagKIdhtqkasRzhJ4Px7r+fE1AySGSU45RasQmeaJcBss9HziZ1QESMeuDPGH+uCXcoxNQjU5iy4vg==
+
 "@leafygreen-ui/polymorphic@^1.1.0":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/polymorphic/-/polymorphic-1.1.1.tgz#904bbf1f05ff0b1fdf333402acec1418952d26ea"
@@ -4319,6 +4341,11 @@
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/polymorphic/-/polymorphic-1.2.0.tgz#2276a28a326caa47c630026e9ee2ba2abcbaf88e"
   integrity sha512-PWNzW7Kfc1CU3qxAhIjR1K91oV2A0TkVAzvfChMYoMc9czv6DJBWUEbjcPzV7r9QHSCFDncaV1vyT/xoWGnlqA==
+
+"@leafygreen-ui/polymorphic@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/polymorphic/-/polymorphic-1.3.0.tgz#d4ec0f44be9d1b190f514e8d963810443c666baa"
+  integrity sha512-XTKbrevrOQHUp1gMP3/sqh92vYYGJ8cz5c7EiGCTJZIegrejwuxQe2lGxW2UEUJk2PpkZDvgPwkKmuqvEayu2Q==
 
 "@leafygreen-ui/popover@11.0.1":
   version "11.0.1"
@@ -4607,7 +4634,19 @@
     lodash "^4.17.21"
     polished "^4.2.2"
 
-"@leafygreen-ui/typography@15.1.0", "@leafygreen-ui/typography@^15.0.0", "@leafygreen-ui/typography@^15.1.0":
+"@leafygreen-ui/typography@16.2.0":
+  version "16.2.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-16.2.0.tgz#a6a993197734eb1f95fc5b461a60ff419cf173fc"
+  integrity sha512-3OP3x5n+6fP9XUeX4Di+QJ5BW1Hlpb58e34EJEUtmZ5MH+lHWfqguG+fhynDUL7x1eWiLmUpy8isp2k3oX7J/w==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/icon" "^11.12.7"
+    "@leafygreen-ui/lib" "^10.3.1"
+    "@leafygreen-ui/palette" "^4.0.1"
+    "@leafygreen-ui/polymorphic" "^1.3.0"
+    "@leafygreen-ui/tokens" "^2.0.1"
+
+"@leafygreen-ui/typography@^15.0.0", "@leafygreen-ui/typography@^15.1.0":
   version "15.1.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-15.1.0.tgz#e0d99598de2141d938ddbe10a8bfb7328aae1ffd"
   integrity sha512-ajvxMdjZjlPpBIdM2eIjFGzFdH8Av42Y/dY7EsO0Cfbq+xxAcmzP5jhtGHwkgECIgkxuJW2B9tPUxu98AbN4Ow==
@@ -5329,6 +5368,13 @@
   integrity sha512-USTLkZze5gkel8MYCujSRBVIrUQ3YPBrLOx7GNk/0wttvVtlzWXAq9eLbQ4p/NicGxP+3T7KPEMVV//g+yubpw==
   dependencies:
     lodash "^4.17.15"
+
+"@storybook/csf@^0.0.2-next.10":
+  version "0.0.2-next.11"
+  resolved "https://registry.yarnpkg.com/@storybook/csf/-/csf-0.0.2-next.11.tgz#2f17e6041ec6b7f0216983f2e08a42ade088d306"
+  integrity sha512-xGt0YSVxZb43sKmEf1GIQD8xEbo+c+S6khDEL7Qu/pYA0gh5z3WUuhOlovnelYj/YJod+XRsfVvk23AaRfUJ4Q==
+  dependencies:
+    type-fest "^2.19.0"
 
 "@storybook/csf@next":
   version "0.0.2-next.10"

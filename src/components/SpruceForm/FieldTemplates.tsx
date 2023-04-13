@@ -396,7 +396,6 @@ export const AccordionFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
   );
 };
 
-/* @ts-expect-error  */
 const AccordionTitle = styled(Subtitle)`
   font-size: ${fontSize.l};
   margin: ${size.xs} 0;

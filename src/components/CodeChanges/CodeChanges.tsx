@@ -13,7 +13,6 @@ import {
   FileDiffsFragment,
 } from "gql/generated/types";
 import { GET_CODE_CHANGES } from "gql/queries";
-import { SubtitleType } from "types/leafygreen";
 import { commits } from "utils";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 
@@ -114,8 +113,7 @@ const StyledButton = styled(Button)`
   margin-right: ${size.xs};
 `;
 
-// @ts-expect-error
-const Title: SubtitleType = styled(Subtitle)`
+const Title = styled(Subtitle)`
   font-weight: normal;
   margin-right: ${size.s};
   margin-bottom: ${size.s};
