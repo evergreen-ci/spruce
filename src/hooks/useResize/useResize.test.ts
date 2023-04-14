@@ -30,4 +30,14 @@ describe("useResize", () => {
     });
     expect(result.current).toBe(false);
   });
+
+  it("should call onResize callback if it is provided", () => {
+    const onResize = jest.fn();
+    const { result } = renderHook(() => useResize({ onResize }));
+    expect(result.current).toBe(false);
+
+    updateResizeState();
+    expect(result.current).toBe(true);
+    expect(onResize).toHaveBeenCalledTimes(1);
+  });
 });
