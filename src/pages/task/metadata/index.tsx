@@ -184,7 +184,8 @@ export const Metadata: React.VFC<Props> = ({
       )}
       {details?.status === TaskStatus.Failed && (
         <MetadataItem>
-          Failing command: {processFailingCommand(details?.description)}
+          Failing command:{" "}
+          {processFailingCommand(details?.description, isContainerTask)}
         </MetadataItem>
       )}
       {details?.timeoutType && details?.timeoutType !== "" && (
@@ -328,12 +329,22 @@ export const Metadata: React.VFC<Props> = ({
   );
 };
 
-const processFailingCommand = (description: string): string => {
+const processFailingCommand = (
+  description: string,
+  isContainerTask: boolean
+): string => {
   if (description === "stranded") {
-    return "Task failed because spot host was unexpectedly terminated by AWS.";
+    return isContainerTask
+      ? containerTaskStrandedMessage
+      : hostTaskStrandedMessage;
   }
   return description;
 };
+
+const containerTaskStrandedMessage =
+  "Task failed because the container was stranded by the ECS agent.";
+const hostTaskStrandedMessage =
+  "Task failed because spot host was unexpectedly terminated by AWS.";
 
 const DependsOnContainer = styled.div`
   margin-top: ${size.s};
