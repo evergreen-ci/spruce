@@ -23,7 +23,7 @@ describe("Slack notification banner", () => {
     cy.dataCy(slackNotificationBanner).should("exist");
   });
 
-  it("after user has entered their username and clicks 'save', new settings are reflected in use preferences", () => {
+  it("after user has entered their username and clicks 'save', new settings are reflected in user preferences", () => {
     cy.clearCookie("has-closed-slack-banner");
     cy.visit("/version/5ecedafb562343215a7ff297/tasks");
 

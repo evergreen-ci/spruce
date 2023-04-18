@@ -84,7 +84,7 @@ describe("My Patches Page", () => {
     cy.dataCy("commit-queue-checkbox").check({ force: true });
   });
 
-  it("Changing page size updates URL and renders less than or equal to that many rows ", () => {
+  it("Changing page size updates URL and renders less than or equal to that many rows", () => {
     cy.visit(`${MY_PATCHES_ROUTE}?limit=10`);
     [20, 10, 50, 100].forEach((pageSize) => {
       clickOnPageSizeBtnAndAssertURLandTableSize(pageSize, dataCyTableRows);

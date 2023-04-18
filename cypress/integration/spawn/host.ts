@@ -86,14 +86,14 @@ describe("Navigating to Spawn Host page", () => {
         cy.wrap($el).contains(ascendingSortSpawnHostOrderByExpiration[index])
       );
     });
-    it("Clicking on the expiration column header should sort the hosts by descending order", () => {
+    it("Clicking on the expiration column header a second time should sort the hosts by descending order", () => {
       cy.contains("Expires In").click();
       cy.contains("Expires In").click();
       cy.get(hostTableRow).each(($el, index) =>
         cy.wrap($el).contains(descendingSortSpawnHostOrderByExpiration[index])
       );
     });
-    it("Clicking on the expiration column header a third  time should return the spawn host table to its original state", () => {
+    it("Clicking on the expiration column header a third time should return the spawn host table to its original state", () => {
       cy.contains("Expires In").click();
       cy.contains("Expires In").click();
       cy.contains("Expires In").click();

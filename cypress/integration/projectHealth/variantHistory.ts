@@ -109,7 +109,7 @@ describe(
             cy.wrap($el).should("have.attr", "aria-disabled", "true");
           });
       });
-      it("should display a message and tooltip on matching tasks", () => {
+      it("should display a message and tooltip on matching tasks with test results", () => {
         cy.contains("1 / 1 Failing Tests").should("exist");
         cy.contains("1 / 1 Failing Tests").trigger("mouseover");
         cy.dataCy("test-tooltip").should("be.visible");

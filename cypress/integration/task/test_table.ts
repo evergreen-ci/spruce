@@ -169,9 +169,9 @@ describe("Tests Table", () => {
   });
 
   describe("Changing page limit", () => {
-    it("Changing page size updates URL and renders less than or equal to that many rows ", () => {
+    it("Changing page size updates URL and renders less than or equal to that many rows", () => {
       [20, 50, 100].forEach((pageSize) => {
-        it(`Updates URL and displays up to ${pageSize} results at once when the page size is changed to ${pageSize}`, () => {
+        it(`when the page size is set to ${pageSize}`, () => {
           cy.visit(`${TESTS_ROUTE}`);
           clickOnPageSizeBtnAndAssertURLandTableSize(pageSize, dataCyTableRows);
         });
