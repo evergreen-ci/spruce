@@ -29,7 +29,7 @@ export const getFormSchema = (
       },
       buildBaronSettings: {
         type: "object" as "object",
-        title: "Build Baron and Task Annotations",
+        title: "Ticket Creation",
         properties: {
           taskAnnotationSettings: {
             title: "",
@@ -61,7 +61,7 @@ export const getFormSchema = (
           useBuildBaron: {
             type: "boolean" as "boolean",
             oneOf: radioBoxOptions([
-              "Build Baron Ticket Search and Create",
+              "JIRA Ticket Search and Create",
               "Custom Ticket Creation",
             ]),
           },
