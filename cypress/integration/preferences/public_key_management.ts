@@ -1,8 +1,8 @@
 import { popconfirmYesClassName } from "../../utils/popconfirm";
 
-const route = "/preferences/publickeys";
+describe("Public Key Management Page", { testIsolation: false }, () => {
+  const route = "/preferences/publickeys";
 
-describe("Public Key Management Page", () => {
   describe("Public keys list", () => {
     before(() => {
       cy.visit(route);

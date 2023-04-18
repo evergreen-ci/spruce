@@ -1,5 +1,5 @@
 describe("Host page restart jasper, reprovision, and update host status buttons", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit("/host/i-0d0ae8b83366d22be");
   });
   it("Should show a toast when jasper restarted", () => {

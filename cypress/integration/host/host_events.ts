@@ -1,8 +1,9 @@
 import { clickOnPageSizeBtnAndAssertURLandTableSize } from "../../utils";
 
-const pathWithEvents = "/host/i-0f81a2d39744003dd";
-
 describe("Host events", () => {
+  const pathWithEvents = "/host/i-0f81a2d39744003dd";
+  const dataCyTableRows = "[data-cy=host-events-table] .ant-table-row";
+
   beforeEach(() => {
     cy.window().then((win) => {
       win.localStorage.setItem("recentPageSize", "20");
@@ -11,7 +12,7 @@ describe("Host events", () => {
 
   it("host events display the correct text", () => {
     cy.visit(pathWithEvents);
-    clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCy);
+    clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCyTableRows);
 
     const hostTypes = [
       {
@@ -147,7 +148,7 @@ describe("Host events", () => {
       },
     ];
     cy.visit(pathWithEvents);
-    clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCy);
+    clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCyTableRows);
 
     hostTypes.forEach(({ hostType, text, logsTitle }) => {
       cy.dataCy(hostType)
@@ -163,6 +164,7 @@ describe("Host events", () => {
   });
 
   it("host events logs do not display when not available", () => {
+    cy.visit(pathWithEvents);
     cy.dataCy("host-status-changed")
       .contains("Status changed from running to stopping")
       .first()
@@ -172,6 +174,8 @@ describe("Host events", () => {
   });
 
   it("host event links get displayed", () => {
+    cy.visit(pathWithEvents);
+    clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCyTableRows);
     const hostTypes = [
       "host-running-task-set-link",
       "host-running-task-cleared-link",
@@ -196,7 +200,10 @@ describe("Host events", () => {
     cy.dataCy("HOST_JASPER_RESTARTING-time").contains(
       "Sep 30, 2017, 9:11:16 AM"
     );
+    // Reset timezone so re-running this test works.
+    cy.visit("/preferences");
+    cy.contains("Hawaii").click();
+    cy.contains("Select a timezone").click();
+    cy.contains("button", "Save Changes").click();
   });
 });
-
-const dataCy = "[data-cy=host-events-table] .ant-table-row";

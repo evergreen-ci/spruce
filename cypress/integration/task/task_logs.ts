@@ -8,8 +8,7 @@ describe("task logs", () => {
   const eventLogsButton = 'button[id="cy-event-option"]';
   const allLogsButton = 'button[id="cy-all-option"]';
 
-  before(() => {
-    cy.login();
+  beforeEach(() => {
     cy.visit(LOGS_ROUTE);
   });
 
@@ -20,7 +19,6 @@ describe("task logs", () => {
   });
 
   it("Should display 'No logs' and disable Parsley, HTML and Raw buttons when no logs are found.", () => {
-    cy.visit(LOGS_ROUTE);
     cy.dataCy("cy-no-logs").contains("No logs");
     cy.dataCy("parsley-log-btn")
       .should("have.attr", "aria-disabled")
@@ -34,7 +32,6 @@ describe("task logs", () => {
   });
 
   it("Should link to Parsley, HTML and Raw version of logs", () => {
-    cy.visit(LOGS_ROUTE);
     cy.get(systemLogsButton).click({ force: true });
     cy.get(systemLogsButton)
       .should("have.attr", "aria-selected")

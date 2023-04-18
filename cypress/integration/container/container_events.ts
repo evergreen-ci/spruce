@@ -1,17 +1,16 @@
 import { clickOnPageSizeBtnAndAssertURLandTableSize } from "../../utils";
 
-const pathWithEvents = "/container/localhost";
-
 describe("Container events", () => {
+  const pathWithEvents = "/container/localhost";
+
   beforeEach(() => {
     cy.window().then((win) => {
       win.localStorage.setItem("recentPageSize", "20");
     });
+    cy.visit(pathWithEvents);
   });
 
   it("events display the correct text", () => {
-    cy.visit(pathWithEvents);
-
     const eventTypes = [
       {
         event: "event-type-ASSIGNED_TASK",
@@ -54,12 +53,10 @@ describe("Container events", () => {
   });
 
   it("pagination component updates the page size and renders the correct number of rows", () => {
-    cy.visit(pathWithEvents);
     clickOnPageSizeBtnAndAssertURLandTableSize(10, allRows);
   });
 
   it("events are displayed in the right timezone", () => {
-    cy.visit(pathWithEvents);
     cy.dataCy("ASSIGNED_TASK-time").contains("Apr 4, 2023, 4:34:03 PM");
     cy.visit("/preferences");
     cy.contains("Select a timezone").click();

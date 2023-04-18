@@ -37,6 +37,7 @@ describe("Nav Bar", () => {
     cy.dataCy("legacy-ui-link").should("not.exist");
   });
   it("Nav Dropdown should provide links to legacy pages", () => {
+    cy.visit(SPRUCE_URLS.version);
     cy.dataCy("legacy_route").should("not.exist");
     cy.dataCy("auxiliary-dropdown-link").click();
     cy.dataCy("legacy_route").should("exist");

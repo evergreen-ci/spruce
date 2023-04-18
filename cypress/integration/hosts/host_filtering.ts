@@ -86,10 +86,8 @@ const filterTests = [
 ];
 
 describe("Hosts page filtering from table filters", () => {
-  before(() => {
-    cy.visit(`${hostsRoute}?page=0`);
-  });
   beforeEach(() => {
+    cy.visit(`${hostsRoute}?page=0`);
     cy.dataCy("hosts-table").should("be.visible");
     cy.dataCy("hosts-table").should("have.attr", "data-loading", "false");
   });

@@ -1,8 +1,7 @@
-const patchId = "5ecedafb562343215a7ff297";
-
 describe("Code Changes Table", () => {
-  before(() => {
-    cy.login();
+  const patchId = "5ecedafb562343215a7ff297";
+
+  beforeEach(() => {
     cy.visit(`/version/${patchId}/changes`);
   });
 
