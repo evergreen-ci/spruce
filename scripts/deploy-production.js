@@ -55,7 +55,7 @@ const main = async () => {
         console.log(createTagOutput);
         console.log("Pushed to remote. Should be deploying soon...");
         console.log(
-          "Track deploy progress at https://spruce.mongodb.com/commits/parsley?requester=git_tag_request"
+          "Track deploy progress at https://spruce.mongodb.com/commits/spruce?requester=git_tag_request"
         );
       } catch (err) {
         console.log(err);
