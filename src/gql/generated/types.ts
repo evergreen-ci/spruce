@@ -2574,6 +2574,9 @@ export type AnnotationFragment = {
       }>
     >
   >;
+  metadataLinks?: Maybe<
+    Array<Maybe<{ __typename?: "MetadataLink"; text: string; url: string }>>
+  >;
   note?: Maybe<{
     __typename?: "Note";
     message: string;
@@ -4601,6 +4604,9 @@ export type GetAnnotationEventDataQuery = {
           }>
         >
       >;
+      metadataLinks?: Maybe<
+        Array<Maybe<{ __typename?: "MetadataLink"; text: string; url: string }>>
+      >;
       note?: Maybe<{
         __typename?: "Note";
         message: string;
@@ -5644,6 +5650,48 @@ export type PatchQuery = {
     variantsTasks: Array<
       Maybe<{ __typename?: "VariantTask"; name: string; tasks: Array<string> }>
     >;
+  };
+};
+
+export type PodEventsQueryVariables = Exact<{
+  id: Scalars["String"];
+  limit?: InputMaybe<Scalars["Int"]>;
+  page?: InputMaybe<Scalars["Int"]>;
+}>;
+
+export type PodEventsQuery = {
+  __typename?: "Query";
+  pod: {
+    __typename?: "Pod";
+    id: string;
+    events: {
+      __typename?: "PodEvents";
+      count: number;
+      eventLogEntries: Array<{
+        __typename?: "PodEventLogEntry";
+        eventType?: Maybe<string>;
+        id: string;
+        processedAt: Date;
+        resourceId: string;
+        resourceType: string;
+        timestamp?: Maybe<Date>;
+        data: {
+          __typename?: "PodEventLogData";
+          newStatus?: Maybe<string>;
+          oldStatus?: Maybe<string>;
+          reason?: Maybe<string>;
+          taskExecution?: Maybe<number>;
+          taskID?: Maybe<string>;
+          taskStatus?: Maybe<string>;
+          task?: Maybe<{
+            __typename?: "Task";
+            displayName: string;
+            execution: number;
+            id: string;
+          }>;
+        };
+      }>;
+    };
   };
 };
 
@@ -7310,6 +7358,9 @@ export type GetTaskQuery = {
           }>
         >
       >;
+      metadataLinks?: Maybe<
+        Array<Maybe<{ __typename?: "MetadataLink"; text: string; url: string }>>
+      >;
       note?: Maybe<{
         __typename?: "Note";
         message: string;
@@ -7676,6 +7727,11 @@ export type VersionQuery = {
           projectIdentifier: string;
           status: string;
           taskCount?: Maybe<number>;
+          parameters: Array<{
+            __typename?: "Parameter";
+            key: string;
+            value: string;
+          }>;
           versionFull?: Maybe<{
             __typename?: "Version";
             id: string;

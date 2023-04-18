@@ -6,22 +6,10 @@ module.exports = {
     "!<rootDir>/src/{index.tsx,react-app-env.d.ts}",
   ],
   coverageReporters: ["text"],
-  moduleFileExtensions: [
-    "web.js",
-    "js",
-    "web.ts",
-    "ts",
-    "web.tsx",
-    "tsx",
-    "json",
-    "web.jsx",
-    "jsx",
-    "node",
-  ],
+  moduleFileExtensions: ["js", "jsx", "ts", "tsx", "json", "node"],
   moduleNameMapper: {
     "^react-native$": "react-native-web",
     "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
-    "^uuid$": "<rootDir>/node_modules/uuid/dist/index.js",
     "^nanoid$": "<rootDir>/node_modules/nanoid/index.cjs",
     "^antd/es/(.*)$": "antd/lib/$1",
   },
@@ -38,14 +26,20 @@ module.exports = {
   ],
   testRunner: "<rootDir>/node_modules/jest-circus/runner.js",
   transform: {
-    "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
+    "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "babel-jest",
     "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
     "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)":
       "<rootDir>/config/jest/fileTransform.js",
   },
   transformIgnorePatterns: [
-    "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|cjs|ts|tsx)$",
-    "^.+\\.module\\.(css|sass|scss)$",
+    `<rootDir>/node_modules/(?!${[
+      "antd",
+      // The following modules are all related to the query-string package.
+      "query-string",
+      "decode-uri-component",
+      "split-on-first",
+      "filter-obj",
+    ].join("|")})`,
   ],
   watchPlugins: [
     "jest-watch-typeahead/filename",

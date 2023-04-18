@@ -53,7 +53,7 @@ const Commits = () => {
   const { userSettings } = useUserSettings();
   const { useSpruceOptions } = userSettings ?? {};
   const { hasUsedMainlineCommitsBefore = true } = useSpruceOptions ?? {};
-  const [ref, limit] = useCommitLimit<HTMLDivElement>();
+  const [ref, limit, isResizing] = useCommitLimit<HTMLDivElement>();
   const parsed = parseQueryString(search);
   const { projectIdentifier } = useParams<{
     projectIdentifier: string;
@@ -114,7 +114,7 @@ const Commits = () => {
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
   >(GET_MAINLINE_COMMITS, {
-    skip: !projectIdentifier,
+    skip: !projectIdentifier || isResizing,
     variables,
     pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (e) =>
@@ -202,7 +202,7 @@ const Commits = () => {
           <CommitsWrapper
             versions={versions}
             error={error}
-            isLoading={loading || !projectIdentifier}
+            isLoading={loading || !projectIdentifier || isResizing}
             hasTaskFilter={hasTasks}
             hasFilters={hasFilters}
           />

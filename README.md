@@ -46,7 +46,8 @@ results.
 
 1. Symlink the standard definition language GraphQL schema used in your backend
    to a file named sdlschema in the root of the Spruce directory to enable query
-   linting with ESlint like so `ln -s <path_to_evergreen_repo>/graphql/schema sdlschema`
+   linting with ESlint like so
+   `ln -s <path_to_evergreen_repo>/graphql/schema sdlschema`
 2. Run `yarn run eslint` to see the results of query linting in your terminal or
    install a plugin to integrate ESlint into your editor. If you are using
    VSCode, we recommend ESLint by Dirk Baeumer.
@@ -55,12 +56,12 @@ results.
 
 [env-cmd](https://github.com/toddbluhm/env-cmd#readme) is used to configure
 build environments for production, staging and development. We use two files to
-represent these various environments: `.cmdrc-local.json` for local builds with
-non-sensitive information, and `.cmdrc.json` for builds deployed to S3. This
-file is git ignored because it contains API keys that we do not want to publish.
-It should be named `.cmdrc.json` and placed in the `env/` folder at the root of
-the project. This file is required to deploy Spruce to production and to
-staging. The credential file is located in the R&D Dev Prod 1password vault.
+represent these various environments: `.env-cmdrc.local.json` for local builds
+with non-sensitive information, and `.env-cmdrc.json` for builds deployed to S3.
+This file is git ignored because it contains API keys that we do not want to
+publish. It should be named `.env-cmdrc.json` and placed in the root of the
+project. This file is required to deploy Spruce to production and to staging.
+The credential file is located in the R&D Dev Prod 1password vault.
 
 ## GraphQL Type Generation
 

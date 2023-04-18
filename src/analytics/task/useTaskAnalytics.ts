@@ -49,6 +49,7 @@ type Action =
   | { name: "Change Execution" }
   | { name: "Click Logs Button"; logType: LogTypes; logViewer: LogViewer }
   | { name: "Click Test Logs Button"; logViewer: LogViewer; testStatus: string }
+  | { name: "Click Annotation Link"; linkText: string }
   | { name: "Select Logs Type"; logType: LogTypes }
   | { name: "Open Notification Modal" }
   | {

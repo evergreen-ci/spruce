@@ -1,8 +1,5 @@
-import { mockUUID, render, screen, userEvent } from "test_utils";
+import { render, screen, userEvent } from "test_utils";
 import { EditableTagField } from ".";
-
-// Must mock uuid for this test since getRandomValues() is not supported in CI
-jest.mock("uuid");
 
 const editableTags = [
   { key: "keyA", value: "valueA" },
@@ -18,10 +15,6 @@ const editableTags = [
 
 const defaultData = [...editableTags];
 describe("editableTagField", () => {
-  beforeAll(() => {
-    mockUUID();
-  });
-
   afterAll(() => jest.restoreAllMocks());
 
   it("renders editable tags", async () => {
