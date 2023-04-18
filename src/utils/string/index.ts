@@ -120,9 +120,11 @@ export const getDateCopy = (
   }
   const finalDateFormat = dateOnly
     ? dateFormat
-    : `${dateFormat}, h:mm${omitSeconds ? "" : ":ss"} aa`;
+    : `${dateFormat}, h:mm${omitSeconds ? "" : ":ss"} aa O`;
   if (tz) {
-    return format(utcToZonedTime(time, tz), finalDateFormat);
+    return format(utcToZonedTime(time, tz), finalDateFormat, {
+      timeZone: tz,
+    });
   }
 
   return format(new Date(time), finalDateFormat);
