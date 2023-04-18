@@ -1,7 +1,7 @@
-const taskId =
-  "mongo_tools_ubuntu1604_qa_dump_restore_with_archiving_current_patch_b7227e1b7aeaaa6283d53b32fc03968a46b19c2d_5f15ad3c3627e07772ab2d01_20_07_20_14_42_05";
-
 describe("Hosts Page Default", () => {
+  const taskId =
+    "mongo_tools_ubuntu1604_qa_dump_restore_with_archiving_current_patch_b7227e1b7aeaaa6283d53b32fc03968a46b19c2d_5f15ad3c3627e07772ab2d01_20_07_20_14_42_05";
+
   beforeEach(() => {
     cy.visit("/hosts?limit=10");
   });

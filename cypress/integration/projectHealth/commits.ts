@@ -1,6 +1,5 @@
 describe("commits page", () => {
-  before(() => {
-    cy.login();
+  beforeEach(() => {
     cy.visit("/commits/spruce");
   });
   it("visiting the commits page for the first time should show a welcome modal", () => {
@@ -53,10 +52,7 @@ describe("commits page", () => {
       "data-type",
       "percentage"
     );
-    cy.location("search").should(
-      "contain",
-      "?chartOpen=true&chartType=percentage"
-    );
+    cy.location("search").should("contain", "chartType=percentage");
     cy.getInputByLabel("Absolute Number").click({ force: true });
     cy.getInputByLabel("Absolute Number").should("be.checked");
     cy.getInputByLabel("Percentage").should("not.be.checked");
@@ -65,10 +61,7 @@ describe("commits page", () => {
       "data-type",
       "absolute"
     );
-    cy.location("search").should(
-      "contain",
-      "?chartOpen=true&chartType=absolute"
-    );
+    cy.location("search").should("contain", "chartType=absolute");
   });
   it("Should be able to paginate between commits", () => {
     cy.dataCy("prev-page-button").should("have.attr", "aria-disabled", "true");
@@ -198,7 +191,7 @@ describe("commits page", () => {
     });
   });
   describe("inactive / unmatching commit tooltips", () => {
-    before(() => {
+    beforeEach(() => {
       cy.visit("/commits/spruce");
     });
     it("should collapse inactive commits when no filters are applied", () => {
@@ -222,7 +215,7 @@ describe("commits page", () => {
   });
   describe("task icons", () => {
     describe("individual task icons", () => {
-      before(() => {
+      beforeEach(() => {
         cy.visit("/commits/spruce");
       });
       it("hovering on a failing task should reveal task metadata along side test results", () => {
@@ -251,7 +244,7 @@ describe("commits page", () => {
     });
 
     describe("grouped task status badges", () => {
-      before(() => {
+      beforeEach(() => {
         cy.visit("/commits/spruce");
         cy.dataCy("project-task-status-select").should("exist");
         cy.dataCy("project-task-status-select").click();

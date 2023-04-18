@@ -1,7 +1,7 @@
 describe("Downstream Projects Tab", () => {
   const DOWNSTREAM_ROUTE = `/version/5f74d99ab2373627c047c5e5/downstream-projects`;
 
-  before(() => {
+  beforeEach(() => {
     cy.visit(DOWNSTREAM_ROUTE);
   });
 
@@ -13,7 +13,7 @@ describe("Downstream Projects Tab", () => {
   it("shows the child patches", () => {
     cy.dataCy("project-accordion").should("have.length", 3);
     cy.dataCy("project-title").should("have.length", 3);
-    // No patches failed, so no tables should be showing.
+    // On CI, none of the child patches failed, so no tables should be visible.
     cy.dataCy("tasks-table").should("not.be.visible");
   });
 
@@ -28,6 +28,7 @@ describe("Downstream Projects Tab", () => {
   });
 
   it("filters by test name", () => {
+    cy.dataCy("accordion-toggle").first().click();
     cy.get("tbody").first().children().should("have.length", 1);
     cy.toggleTableFilter(1);
     cy.dataCy("taskname-input-wrapper")

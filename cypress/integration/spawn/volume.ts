@@ -1,4 +1,4 @@
-describe("Navigating to Spawn Volume page", () => {
+describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
   it("Visiting the spawn volume page should display the number of free and mounted volumes.", () => {
     cy.visit("/spawn/volume");
     cy.dataCy("mounted-badge").contains("9 Mounted");
@@ -144,7 +144,7 @@ describe("Navigating to Spawn Volume page", () => {
         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
       );
       cy.dataCy("date-picker").should("have.value", "2020-06-06");
-      cy.dataCy("time-picker").should("have.value", "05:48:18");
+      cy.dataCy("time-picker").should("have.value", "15:48:18"); // Defaults to UTC
     });
 
     it("Reopening the edit volume modal should reset form input fields.", () => {

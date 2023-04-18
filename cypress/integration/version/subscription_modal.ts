@@ -6,15 +6,11 @@ describe("Version Subscription Modal", () => {
   const regexSelectorRow = "regex-selector-row";
 
   describe("Regex selector inputs", () => {
-    it("Clicking on 'Add Additional Criteria' adds a regex selector row", () => {
+    it("Can add and remove regex selectors", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
       cy.selectLGOption("Event", "A build-variant in this version finishes");
       cy.dataCy(regexSelectorRow).should("have.length", 0);
       cy.contains("Add Additional Criteria").click();
-      cy.dataCy(regexSelectorRow).should("have.length", 1);
-    });
-
-    it("Clicking on the trash glyph removes the regex selector", () => {
       cy.dataCy(regexSelectorRow).should("have.length", 1);
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy(regexSelectorRow).should("have.length", 0);
@@ -29,6 +25,8 @@ describe("Version Subscription Modal", () => {
     });
 
     it("Selecting a regex selector type will disable that option in other regex selector type dropdowns", () => {
+      openSubscriptionModal(route, dataCyToggleModalButton);
+      cy.selectLGOption("Event", "A build-variant in this version finishes");
       cy.contains("Add Additional Criteria").click();
       cy.contains("Build Variant ID").should("be.visible");
       cy.contains("Add Additional Criteria").click();

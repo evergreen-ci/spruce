@@ -125,14 +125,11 @@ describe("Tests Table", () => {
       });
     });
   });
-  describe("Changing page number", () => {
-    before(() => {
-      cy.visit(`${TESTS_ROUTE}?limit=10`);
-      // Asserts that the data in the table has loaded before running the tests
-      cy.get(".ant-pagination-simple-pager").should("contain.text", "/2");
-    });
 
+  describe("Changing page number", () => {
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
+      cy.visit(`${TESTS_ROUTE}?limit=10`);
+      cy.get(".ant-pagination-simple-pager").should("contain.text", "/2");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyNextPage,
         secondPageDisplayNames,
@@ -141,6 +138,8 @@ describe("Tests Table", () => {
     });
 
     it("Does not update results or URL when right arrow is clicked and next page does not exist", () => {
+      cy.visit(`${TESTS_ROUTE}?limit=10&page=1`);
+      cy.get(".ant-pagination-simple-pager").should("contain.text", "/2");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyNextPage,
         secondPageDisplayNames,
@@ -149,6 +148,8 @@ describe("Tests Table", () => {
     });
 
     it("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", () => {
+      cy.visit(`${TESTS_ROUTE}?limit=10&page=1`);
+      cy.get(".ant-pagination-simple-pager").should("contain.text", "/2");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyPrevPage,
         firstPageDisplayNames,
@@ -157,6 +158,8 @@ describe("Tests Table", () => {
     });
 
     it("Does not update results or URL when left arrow is clicked and previous page does not exist", () => {
+      cy.visit(`${TESTS_ROUTE}?limit=10&page=0`);
+      cy.get(".ant-pagination-simple-pager").should("contain.text", "/2");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyPrevPage,
         firstPageDisplayNames,
@@ -165,10 +168,13 @@ describe("Tests Table", () => {
     });
   });
 
-  describe("Changing page size updates URL and renders less than or equal to that many rows ", () => {
-    [20, 10, 50, 100].forEach((pageSize) => {
-      it(`Updates URL and displays up to ${pageSize} results at once when the page size is changed to ${pageSize}`, () => {
-        clickOnPageSizeBtnAndAssertURLandTableSize(pageSize, dataCyTableRows);
+  describe("Changing page limit", () => {
+    it("Changing page size updates URL and renders less than or equal to that many rows", () => {
+      [20, 50, 100].forEach((pageSize) => {
+        it(`when the page size is set to ${pageSize}`, () => {
+          cy.visit(`${TESTS_ROUTE}`);
+          clickOnPageSizeBtnAndAssertURLandTableSize(pageSize, dataCyTableRows);
+        });
       });
     });
   });

@@ -1,21 +1,18 @@
 describe("Project Patches Page", () => {
-  const route = "/project/evergreen/patches";
-
-  before(() => {
-    cy.login();
-  });
+  const adminPatchesRoute = "/user/admin/patches";
+  const evergreenPatchesRoute = "/project/evergreen/patches";
 
   it("Should link to project patches page from the user patches page", () => {
-    cy.visit("/user/admin/patches");
+    cy.visit(adminPatchesRoute);
     cy.dataCy("project-patches-link").first().click();
-    cy.location("pathname").should("eq", route);
+    cy.location("pathname").should("eq", evergreenPatchesRoute);
     cy.dataCy("patch-card").should("exist");
   });
 
   it("Should link to author patches page from the project patches page", () => {
-    cy.visit("/project/evergreen/patches");
+    cy.visit(evergreenPatchesRoute);
     cy.dataCy("user-patches-link").first().click();
-    cy.location("pathname").should("eq", "/user/admin/patches");
+    cy.location("pathname").should("eq", adminPatchesRoute);
     cy.dataCy("patch-card").should("exist");
   });
 });

@@ -11,7 +11,7 @@ const INVALID_COMMIT_QUEUE_ROUTE = `/commit-queue/${commitQueue.id3}`;
 const COMMIT_QUEUE_ROUTE_4 = `/commit-queue/${commitQueue.id4}`;
 const COMMIT_QUEUE_ROUTE_PR = `/commit-queue/${commitQueue.id5}`;
 
-describe("commit queue page", () => {
+describe("commit queue page", { testIsolation: false }, () => {
   describe(COMMIT_QUEUE_ROUTE_1, () => {
     before(() => {
       cy.visit(COMMIT_QUEUE_ROUTE_1);

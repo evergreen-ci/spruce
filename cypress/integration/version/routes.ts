@@ -31,10 +31,8 @@ describe("Version route", () => {
   });
 
   describe("Metadata", () => {
-    before(() => {
-      cy.visit(versionRoute(versions[0]));
-    });
     it("Shows patch parameters if they exist", () => {
+      cy.visit(versionRoute(versions[0]));
       cy.dataCy("parameters-modal").should("not.exist");
       cy.dataCy("parameters-link").click();
       cy.dataCy("parameters-modal").should("be.visible");
@@ -42,6 +40,7 @@ describe("Version route", () => {
       cy.dataCy("parameters-modal").should("not.exist");
     });
     it("'Base commit' link in metadata links to version page", () => {
+      cy.visit(versionRoute(versions[0]));
       cy.dataCy("patch-base-commit")
         .should("have.attr", "href")
         .and("include", `/version/${versions[5]}`);
@@ -54,7 +53,7 @@ describe("Version route", () => {
   });
 
   describe("Build Variants", () => {
-    before(() => {
+    beforeEach(() => {
       cy.visit(versionRoute(versions[0]));
     });
 
@@ -185,7 +184,7 @@ describe("Version route", () => {
   });
 
   describe("Page title", () => {
-    before(() => {
+    beforeEach(() => {
       cy.visit(versionRoute(versions[6]));
     });
     it("Should include a link to Jira", () => {
