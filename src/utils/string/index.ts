@@ -102,6 +102,7 @@ export type DateCopyOptions = {
   tz?: string;
   dateOnly?: boolean;
   omitSeconds?: boolean;
+  omitTimezone?: boolean;
   dateFormat?: string;
 };
 
@@ -113,14 +114,16 @@ export const getDateCopy = (
   if (!time) {
     return "";
   }
-  const { tz, dateOnly, omitSeconds } = options || {};
+  const { tz, dateOnly, omitSeconds, omitTimezone } = options || {};
   let { dateFormat } = options || {};
   if (!dateFormat) {
     dateFormat = "MMM d, yyyy";
   }
   const finalDateFormat = dateOnly
     ? dateFormat
-    : `${dateFormat}, h:mm${omitSeconds ? "" : ":ss"} aa O`;
+    : `${dateFormat}, h:mm${omitSeconds ? "" : ":ss"} aa${
+        omitTimezone ? "" : " O"
+      }`;
   if (tz) {
     return format(utcToZonedTime(time, tz), finalDateFormat, {
       timeZone: tz,
