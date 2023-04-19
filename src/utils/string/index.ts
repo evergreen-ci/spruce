@@ -122,7 +122,7 @@ export const getDateCopy = (
   const finalDateFormat = dateOnly
     ? dateFormat
     : `${dateFormat}, h:mm${omitSeconds ? "" : ":ss"} aa${
-        omitTimezone ? "" : " O"
+        omitTimezone ? "" : " z"
       }`;
   if (tz) {
     return format(utcToZonedTime(time, tz), finalDateFormat, {
