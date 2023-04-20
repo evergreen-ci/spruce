@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { useParams, Navigate } from "react-router-dom";
+import { ProjectBanner } from "components/Banners/ProjectBanner";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageTitle } from "components/PageTitle";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
@@ -136,9 +137,18 @@ export const VersionPage: React.VFC = () => {
 
   // If it's a version, proceed with loading the version page.
   const { version } = versionData || {};
-  const { status, patch, isPatch, revision, message, order, warnings, errors } =
-    version || {};
-
+  const {
+    status,
+    patch,
+    isPatch,
+    revision,
+    message,
+    order,
+    warnings,
+    errors,
+    projectMetadata,
+  } = version || {};
+  const { banner } = projectMetadata || {};
   const {
     commitQueuePosition = null,
     patchNumber,
@@ -159,6 +169,7 @@ export const VersionPage: React.VFC = () => {
 
   return (
     <PageWrapper data-cy="version-page">
+      <ProjectBanner theme={banner?.theme} text={banner?.text} />
       {errors.length > 0 && <ErrorBanner errors={errors} />}
       {warnings.length > 0 && <WarningBanner warnings={warnings} />}
       {version && (

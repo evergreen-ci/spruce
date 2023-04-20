@@ -7509,8 +7509,8 @@ export type GetTaskQuery = {
       identifier: string;
       banner?: Maybe<{
         __typename?: "ProjectBanner";
-        theme: BannerTheme;
         text: string;
+        theme: BannerTheme;
       }>;
     }>;
     taskFiles: { __typename?: "TaskFiles"; fileCount: number };
@@ -7820,6 +7820,11 @@ export type VersionQuery = {
       id: string;
       owner: string;
       repo: string;
+      banner?: Maybe<{
+        __typename?: "ProjectBanner";
+        text: string;
+        theme: BannerTheme;
+      }>;
     }>;
     versionTiming?: Maybe<{
       __typename?: "VersionTiming";

@@ -63,6 +63,10 @@ query Version($id: String!) {
     project
     projectIdentifier
     projectMetadata {
+      banner {
+        text
+        theme
+      }
       id
       owner
       repo
