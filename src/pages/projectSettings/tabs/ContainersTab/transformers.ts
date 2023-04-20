@@ -23,11 +23,15 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
 };
 
 export const formToGql: FormToGqlFunction<Tab> = (
-  { containerSizeDefinitions }: FormState,
+  props: FormState,
   id: string
-) => ({
-  projectRef: {
-    id,
-    containerSizeDefinitions: containerSizeDefinitions.variables,
-  },
-});
+) => {
+  const { containerSizeDefinitions } = props;
+  console.log("formToGql", { containerSizeDefinitions });
+  return {
+    projectRef: {
+      id,
+      containerSizeDefinitions: containerSizeDefinitions.variables,
+    },
+  };
+};
