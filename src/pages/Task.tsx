@@ -1,9 +1,8 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { createPortal } from "react-dom";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import { SiteBanner } from "components/Banners";
+import { ProjectBanner } from "components/Banners/ProjectBanner";
 import { PageTitle } from "components/PageTitle";
 import {
   PageWrapper,
@@ -84,15 +83,9 @@ export const Task = () => {
     return <PageDoesNotExist />;
   }
 
-  const bannerContainerEl = document.getElementById("banner-container");
-
   return (
     <PageWrapper>
-      {bannerContainerEl &&
-        createPortal(
-          <SiteBanner text={banner?.text} theme={banner?.theme} />,
-          bannerContainerEl
-        )}
+      <ProjectBanner text={banner?.text} theme={banner?.theme} />
       {task && (
         <TaskPageBreadcrumbs
           taskName={displayName}
