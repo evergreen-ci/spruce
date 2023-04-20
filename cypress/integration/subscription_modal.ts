@@ -22,7 +22,7 @@ const testSharedSubscriptionModalFunctionality = (
     });
 
     describe("Disables save button and displays an error message when populating form with invalid values", () => {
-      before(() => {
+      beforeEach(() => {
         openSubscriptionModal(route, dataCyToggleModalButton);
         cy.dataCy(dataCyModal).should("be.visible");
       });
@@ -138,7 +138,7 @@ describe("Waterfall subscription modal", () => {
   const errorTextRegex = "Value should be a valid regex expression.";
   const successText = "Your subscription has been added";
 
-  before(() => {
+  beforeEach(() => {
     cy.visit(route);
   });
   it("Displays success toast after submitting a valid form and request succeeds", () => {

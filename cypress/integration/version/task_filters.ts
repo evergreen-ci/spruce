@@ -10,7 +10,6 @@ const defaultPath = `${pathTasks}?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC`;
 describe("Tasks filters", () => {
   it("Should clear any filters with the Clear All Filters button and reset the table to its default state", () => {
     cy.visit(pathURLWithFilters);
-
     waitForTable();
     cy.dataCy("clear-all-filters").click();
     cy.location().should((loc) => {
@@ -40,6 +39,9 @@ describe("Tasks filters", () => {
     const variantInputValue = "lint";
     const urlParam = "variant";
     it("Updates url with input value and fetches tasks filtered by variant", () => {
+      cy.visit(defaultPath);
+      waitForTable();
+      cy.toggleTableFilter(4);
       cy.dataCy("variant-input-wrapper")
         .find("input")
         .focus()
@@ -75,6 +77,8 @@ describe("Tasks filters", () => {
     const taskNameInputValue = "test-cloud";
     const urlParam = "taskName";
     it("Updates url with input value and fetches tasks filtered by task name", () => {
+      cy.visit(defaultPath);
+      waitForTable();
       cy.toggleTableFilter(1);
       cy.dataCy("taskname-input-wrapper")
         .find("input")
@@ -109,8 +113,8 @@ describe("Tasks filters", () => {
 
   describe("Task Statuses select", () => {
     const urlParam = "statuses";
-    before(() => {
-      cy.contains("Clear All Filters").click();
+    beforeEach(() => {
+      cy.visit(defaultPath);
       waitForTable();
       cy.toggleTableFilter(2);
     });
@@ -186,8 +190,8 @@ describe("Tasks filters", () => {
 
   describe("Task Base Statuses select", () => {
     const urlParam = "baseStatuses";
-    before(() => {
-      cy.contains("Clear All Filters").click();
+    beforeEach(() => {
+      cy.visit(defaultPath);
       waitForTable();
       cy.toggleTableFilter(3);
     });

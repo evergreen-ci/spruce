@@ -6,7 +6,7 @@ const patchWithVersionOnCommitQueue =
 const getPatchCardByDescription = (description: string) =>
   cy.dataCy("patch-card").filter(`:contains(${description})`);
 
-describe("Dropdown Menu of Patch Actions", () => {
+describe("Dropdown Menu of Patch Actions", { testIsolation: false }, () => {
   beforeEach(() => {
     cy.visit("/");
   });

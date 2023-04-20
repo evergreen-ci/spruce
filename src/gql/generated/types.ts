@@ -7727,6 +7727,11 @@ export type VersionQuery = {
           projectIdentifier: string;
           status: string;
           taskCount?: Maybe<number>;
+          parameters: Array<{
+            __typename?: "Parameter";
+            key: string;
+            value: string;
+          }>;
           versionFull?: Maybe<{
             __typename?: "Version";
             id: string;

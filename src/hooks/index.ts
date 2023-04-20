@@ -22,3 +22,4 @@ export { useSpruceConfig } from "./useSpruceConfig";
 export { useUserSettings } from "./useUserSettings";
 export { useDateFormat } from "./useDateFormat";
 export { useBreadcrumbRoot } from "./useBreadcrumbRoot";
+export { useResize } from "./useResize";

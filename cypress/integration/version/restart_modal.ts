@@ -1,18 +1,18 @@
-describe("Restarting a patch with Downstream Tasks", () => {
-  before(() => {
-    cy.login();
-  });
+describe(
+  "Restarting a patch with Downstream Tasks",
+  { testIsolation: false },
+  () => {
+    it("Clicking on the Select Downstream Tasks should show the downstream projects", () => {
+      const versionWithDownstream = `/version/5f74d99ab2373627c047c5e5`;
+      cy.visit(versionWithDownstream);
+      cy.dataCy("restart-version").click();
+      cy.dataCy("select-downstream").first().click();
+      cy.dataCy("select-downstream").first().contains("evergreen").click();
+    });
+  }
+);
 
-  it("Clicking on the Select Downstream Tasks should show the downstream projects", () => {
-    const versionWithDownstream = `/version/5f74d99ab2373627c047c5e5`;
-    cy.visit(versionWithDownstream);
-    cy.dataCy("restart-version").click();
-    cy.dataCy("select-downstream").first().click();
-    cy.dataCy("select-downstream").first().contains("evergreen").click();
-  });
-});
-
-describe("Restarting a patch", () => {
+describe("Restarting a patch", { testIsolation: false }, () => {
   it("Clicking on the Restart button opens a patch restart modal", () => {
     cy.visit(path);
     cy.dataCy("version-restart-modal").should("not.exist");
@@ -84,7 +84,7 @@ describe("Restarting a patch", () => {
   });
 });
 
-describe("Restarting mainline commits", () => {
+describe("Restarting mainline commits", { testIsolation: false }, () => {
   it("should be able to restart scheduled mainline commit tasks", () => {
     cy.visit("/version/spruce_ab494436448fbb1d244833046ea6f6af1544e86d");
     cy.dataCy("restart-version").should(
