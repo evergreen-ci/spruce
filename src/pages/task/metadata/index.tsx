@@ -9,6 +9,7 @@ import {
   MetadataTitle,
 } from "components/MetadataCard";
 import { StyledLink, StyledRouterLink } from "components/styles";
+import { getDistroPageUrl } from "constants/externalResources";
 import {
   getTaskQueueRoute,
   getTaskRoute,
@@ -16,18 +17,18 @@ import {
   getSpawnHostRoute,
   getVersionRoute,
   getProjectPatchesRoute,
+  getPodRoute,
 } from "constants/routes";
 import { size } from "constants/tokens";
 import { GetTaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { TaskStatus } from "types/task";
-import { environmentalVariables, string } from "utils";
+import { string } from "utils";
 import { AbortMessage } from "./AbortMessage";
 import { DependsOn } from "./DependsOn";
 import { ETATimer } from "./ETATimer";
 
 const { applyStrictRegex, msToDuration, shortenGithash } = string;
-const { getUiUrl } = environmentalVariables;
 const { red } = palette;
 
 interface Props {
@@ -46,33 +47,35 @@ export const Metadata: React.VFC<Props> = ({
   const taskAnalytics = useTaskAnalytics();
   const getDateCopy = useDateFormat();
   const {
-    status,
-    spawnHostLink,
-    ingestTime,
+    abortInfo,
     activatedTime,
-    finishTime,
-    hostId,
-    startTime,
-    estimatedStart,
-    timeTaken,
-    revision,
-    dependsOn,
     ami,
-    distroId,
-    priority,
-    versionMetadata,
+    annotation,
+    baseTask,
     buildVariant,
     buildVariantDisplayName,
+    dependsOn,
     details,
+    displayTask,
+    distroId,
+    estimatedStart,
+    expectedDuration,
+    finishTime,
     generatedBy,
     generatedByName,
+    hostId,
+    ingestTime,
     minQueuePosition: taskQueuePosition,
-    abortInfo,
-    displayTask,
+    priority,
     project,
-    expectedDuration,
-    baseTask,
+    pod,
     resetWhenFinished,
+    revision,
+    spawnHostLink,
+    startTime,
+    status,
+    timeTaken,
+    versionMetadata,
   } = task || {};
 
   const baseCommit = shortenGithash(revision);
@@ -81,9 +84,10 @@ export const Metadata: React.VFC<Props> = ({
   const projectIdentifier = project?.identifier;
   const { author, id: versionID } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;
+  const { id: podId } = pod ?? {};
+  const isContainerTask = !!podId;
+  const { metadataLinks } = annotation ?? {};
 
-  const hostLink = getHostRoute(hostId);
-  const distroLink = `${getUiUrl()}/distros##${distroId}`;
   return (
     <MetadataCard error={error} loading={loading}>
       <MetadataTitle>Task Metadata</MetadataTitle>
@@ -180,7 +184,8 @@ export const Metadata: React.VFC<Props> = ({
       )}
       {details?.status === TaskStatus.Failed && (
         <MetadataItem>
-          Failing command: {processFailingCommand(details?.description)}
+          Failing command:{" "}
+          {processFailingCommand(details?.description, isContainerTask)}
         </MetadataItem>
       )}
       {details?.timeoutType && details?.timeoutType !== "" && (
@@ -201,12 +206,12 @@ export const Metadata: React.VFC<Props> = ({
           </StyledRouterLink>
         </MetadataItem>
       )}
-      {distroId && (
+      {!isContainerTask && distroId && (
         <MetadataItem>
           Distro:{" "}
           <StyledLink
             data-cy="task-distro-link"
-            href={distroLink}
+            href={getDistroPageUrl(distroId)}
             onClick={() =>
               taskAnalytics.sendEvent({ name: "Click Distro Link" })
             }
@@ -218,15 +223,27 @@ export const Metadata: React.VFC<Props> = ({
       {ami && (
         <MetadataItem data-cy="task-metadata-ami">AMI: {ami}</MetadataItem>
       )}
-      {hostId && (
+      {!isContainerTask && (
         <MetadataItem>
           Host:{" "}
           <StyledLink
             data-cy="task-host-link"
-            href={hostLink}
+            href={getHostRoute(hostId)}
             onClick={() => taskAnalytics.sendEvent({ name: "Click Host Link" })}
           >
             {hostId}
+          </StyledLink>
+        </MetadataItem>
+      )}
+      {isContainerTask && (
+        <MetadataItem>
+          Container:{" "}
+          <StyledLink
+            data-cy="task-pod-link"
+            href={getPodRoute(podId)}
+            onClick={() => taskAnalytics.sendEvent({ name: "Click Pod Link" })}
+          >
+            {podId}
           </StyledLink>
         </MetadataItem>
       )}
@@ -252,6 +269,23 @@ export const Metadata: React.VFC<Props> = ({
           </StyledRouterLink>
         </MetadataItem>
       )}
+      {metadataLinks &&
+        metadataLinks.map((link) => (
+          <MetadataItem key={link.text}>
+            <StyledLink
+              data-cy="task-metadata-link"
+              href={link.url}
+              onClick={() =>
+                taskAnalytics.sendEvent({
+                  name: "Click Annotation Link",
+                  linkText: link.text,
+                })
+              }
+            >
+              {link.text}
+            </StyledLink>
+          </MetadataItem>
+        ))}
       {taskQueuePosition > 0 && (
         <MetadataItem>
           Position in queue:{" "}
@@ -295,12 +329,22 @@ export const Metadata: React.VFC<Props> = ({
   );
 };
 
-const processFailingCommand = (description: string): string => {
+const processFailingCommand = (
+  description: string,
+  isContainerTask: boolean
+): string => {
   if (description === "stranded") {
-    return "Task failed because spot host was unexpectedly terminated by AWS.";
+    return isContainerTask
+      ? containerTaskStrandedMessage
+      : hostTaskStrandedMessage;
   }
   return description;
 };
+
+const containerTaskStrandedMessage =
+  "Task failed because the container was stranded by the ECS agent.";
+const hostTaskStrandedMessage =
+  "Task failed because spot host was unexpectedly terminated by AWS.";
 
 const DependsOnContainer = styled.div`
   margin-top: ${size.s};

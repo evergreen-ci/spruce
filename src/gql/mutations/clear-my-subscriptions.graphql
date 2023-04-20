@@ -1,4 +1,3 @@
-
-  mutation ClearMySubscriptions {
-    clearMySubscriptions
-  }
+mutation ClearMySubscriptions {
+  clearMySubscriptions
+}

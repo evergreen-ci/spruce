@@ -11,10 +11,12 @@ import { GET_MY_VOLUMES, GET_MY_HOSTS } from "gql/queries";
 import { ApolloMock } from "types/gql";
 import { useDisableSpawnExpirationCheckbox } from "..";
 
-const getProvider =
-  (mocks) =>
-  ({ children }) =>
-    <MockedProvider mocks={mocks}>{children}</MockedProvider>;
+const getProvider = (mocks) => {
+  const mockedProvider = ({ children }) => (
+    <MockedProvider mocks={mocks}>{children}</MockedProvider>
+  );
+  return mockedProvider;
+};
 
 describe("useDisableSpawnExpirationCheckbox", () => {
   it("should return true when the user already has the maximum unexpirable volumes and a target item is not supplied.", async () => {
@@ -225,6 +227,7 @@ const myHostBase: Omit<MyHostsQuery["myHosts"][0], "noExpiration" | "id"> = {
   hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
   homeVolumeID: "vol-07fa9f6b5c2067e34",
   homeVolume: {
+    id: "home-volume-id",
     displayName: "",
   },
   instanceType: "m5.xlarge",

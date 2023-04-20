@@ -1,3 +1,2 @@
-# prettier ignore
 schema: "sdlschema/**/*.graphql"
 documents: "src/gql/**/*.graphql"

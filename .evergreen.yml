@@ -98,6 +98,7 @@ functions:
   wait-for-evergreen:
     command: shell.exec
     type: setup
+    exec_timeout_secs: 600
     params:
       working_dir: spruce
       script: ./scripts/wait-for-evergreen.sh
@@ -360,14 +361,6 @@ functions:
 
         echo "Done populating"
 
-  deploy-to-prod:
-    command: shell.exec
-    params:
-      working_dir: spruce
-      script: |
-        ${PREPARE_SHELL}
-        BUCKET=${bucket} AWS_ACCESS_KEY_ID=${aws_key} AWS_SECRET_ACCESS_KEY=${aws_secret}  yarn deploy; yarn upload-source-maps;
-
   build-prod:
     command: shell.exec
     params:
@@ -379,6 +372,15 @@ functions:
         echo "Building Production version: $REACT_APP_VERSION"
         yarn build:prod
   
+  upload-to-prod-s3:
+    command: shell.exec
+    params:
+      working_dir: spruce
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        REACT_APP_BUGSNAG_API_KEY=${REACT_APP_BUGSNAG_API_KEY} BUCKET=${bucket} AWS_ACCESS_KEY_ID=${aws_key} AWS_SECRET_ACCESS_KEY=${aws_secret}  yarn deploy:do-not-use;
+
   send-email:
     command: shell.exec
     params:
@@ -446,7 +448,7 @@ tasks:
       - func: setup-credentials
       - func: sym-link
       - func: build-prod
-      - func: deploy-to-prod
+      - func: upload-to-prod-s3
       - func: send-email
 
 buildvariants:

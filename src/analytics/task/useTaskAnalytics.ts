@@ -49,6 +49,7 @@ type Action =
   | { name: "Change Execution" }
   | { name: "Click Logs Button"; logType: LogTypes; logViewer: LogViewer }
   | { name: "Click Test Logs Button"; logViewer: LogViewer; testStatus: string }
+  | { name: "Click Annotation Link"; linkText: string }
   | { name: "Select Logs Type"; logType: LogTypes }
   | { name: "Open Notification Modal" }
   | {
@@ -57,6 +58,7 @@ type Action =
     }
   | { name: "Click Base Commit" }
   | { name: "Click Host Link" }
+  | { name: "Click Pod Link" }
   | { name: "Click Spawn Host" }
   | { name: "Click Distro Link" }
   | { name: "Click Build Variant Link" }

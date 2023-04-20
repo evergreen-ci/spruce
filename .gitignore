@@ -17,6 +17,7 @@ storybook-static
 
 #env variables
 env/.cmdrc.json
+.env-cmdrc.json
 
 # misc
 .DS_Store

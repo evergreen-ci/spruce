@@ -62,7 +62,6 @@ export const Content: React.VFC = () => {
   const { hasUsedSpruceBefore = true } = useSpruceOptions ?? {};
 
   useAnalyticsAttributes();
-
   useAnnouncementToast();
 
   if (!isAuthenticated) {

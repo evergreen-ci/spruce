@@ -141,7 +141,8 @@ const SubStatusText = styled(Disclaimer)`
   width: ${size.xxl};
   text-align: left;
   margin: 2px 0px 0px 20px;
-  word-break: break-word;
+  word-break: normal;
+  overflow-wrap: anywhere;
 `;
 
 const sharedCss = css`

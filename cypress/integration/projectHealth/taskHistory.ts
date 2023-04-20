@@ -1,9 +1,4 @@
 describe("task history", () => {
-  before(() => {
-    cy.login();
-    cy.setCookie("has-closed-slack-banner", "true");
-  });
-
   it("shows an error message if mainline commit history could not be retrieved", () => {
     cy.visit("/task-history/bogus-project/bogus-task");
     cy.dataCy("loading-cell").should("have.length", 0);
@@ -39,7 +34,6 @@ describe("task history", () => {
 
   it("clicking on a failing test history button should show the task history view with the failing test filter applied", () => {
     cy.visit(`/task/${taskId}`);
-
     cy.dataCy("task-history-tests-btn").click();
     cy.location("pathname").should(
       "contain",
@@ -49,6 +43,9 @@ describe("task history", () => {
     cy.dataCy("filter-badge").should("contain.text", "JustAFake");
   });
   it("hovering over a failing task should show test results", () => {
+    cy.visit(
+      "/task-history/spruce/check_codegen?failed=JustAFakeTestInALonelyWorld&selectedCommit=1236"
+    );
     cy.dataCy("history-table-icon")
       .get("[data-status=failed]")
       .should("have.length", 2);
@@ -71,7 +68,8 @@ describe("task history", () => {
       .trigger("mouseout");
   });
   describe("applying a test filter", () => {
-    before(() => {
+    beforeEach(() => {
+      cy.visit("/task-history/spruce/check_codegen");
       cy.getInputByLabel("Filter by Failed Tests").should("exist");
       cy.getInputByLabel("Filter by Failed Tests")
         .type("JustAFakeTestInALonelyWorld")
@@ -86,10 +84,7 @@ describe("task history", () => {
           cy.wrap($el).should("have.attr", "aria-disabled", "true");
         });
     });
-    it("should display a message on matching tasks", () => {
-      cy.contains("1 / 1 Failing Tests").should("exist");
-    });
-    it("should have a tooltip on matching tests with test results", () => {
+    it("should display a message and tooltip on matching tasks with test results", () => {
       cy.contains("1 / 1 Failing Tests").should("exist");
       cy.contains("1 / 1 Failing Tests").trigger("mouseover");
       cy.dataCy("test-tooltip").should("be.visible");

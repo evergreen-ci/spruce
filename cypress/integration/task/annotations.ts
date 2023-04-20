@@ -7,8 +7,7 @@ const suspectedIssuesTable =
 const issuesTable = "[data-test-id=issues-table] tr td:first-child";
 
 describe("Task Annotation Tab", () => {
-  before(() => {
-    cy.login();
+  beforeEach(() => {
     cy.visit(taskRoute);
   });
 

@@ -2,8 +2,8 @@ import { MockedProvider } from "@apollo/client/testing";
 import styled from "@emotion/styled";
 import { StoryObj } from "@storybook/react";
 import { MetStatus, RequiredStatus } from "gql/generated/types";
+import { taskQuery } from "gql/mocks/taskData";
 import { Metadata } from "./index";
-import { taskQuery } from "./taskData";
 
 export default {
   title: "Pages/Task/Metadata",
@@ -106,6 +106,28 @@ export const WithAbortMessage: StoryObj<
       ],
     },
   },
+};
+
+export const ContainerizedTask: StoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        task={{
+          ...taskQuery.task,
+          hostId: null,
+          ami: null,
+          distroId: null,
+          pod: {
+            id: "pod_id",
+          },
+          spawnHostLink: null,
+        }}
+        taskId={taskQuery.task.id}
+        error={null}
+      />
+    </Container>
+  ),
 };
 
 const Container = styled.div`
