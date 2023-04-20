@@ -16,12 +16,11 @@ const Popconfirm: React.VFC<PopconfirmProps> = ({
   children,
   confirmDisabled = false,
   confirmText = "Yes",
-  "data-cy": dataCy,
   onClose = () => {},
   onConfirm = () => {},
   open: controlledOpen,
   setOpen: controlledSetOpen,
-  ...tooltipProps
+  ...props
 }) => {
   const isControlled = controlledOpen !== undefined && controlledSetOpen;
   const [uncontrolledOpen, uncontrolledSetOpen] = useState(false);
@@ -37,7 +36,7 @@ const Popconfirm: React.VFC<PopconfirmProps> = ({
       open={open}
       onClose={onClose}
       setOpen={setOpen}
-      {...tooltipProps}
+      {...props}
     >
       <ContentWrapper ref={popoverRef}>
         {children}
