@@ -6,14 +6,17 @@ import {
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { projectTriggers } from "constants/triggers";
+import { BannerTheme } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
 import { projectSubscriptionMethods as subscriptionMethods } from "types/subscription";
 import { GetFormSchema } from "../types";
-import { radioBoxOptions } from "../utils/form";
+import { ProjectType, form } from "../utils";
 import { FormState } from "./types";
 
+const { radioBoxOptions } = form;
 export const getFormSchema = (
-  repoData?: FormState
+  repoData: FormState | null,
+  projectType: ProjectType
 ): ReturnType<GetFormSchema> => {
   const { schema: eventSchema, uiSchema: eventUiSchema } = getEventSchema(
     [],
@@ -58,6 +61,53 @@ export const getFormSchema = (
             },
           },
         },
+        ...(projectType !== ProjectType.Repo && {
+          banner: {
+            type: "object" as "object",
+            title: "",
+            properties: {
+              bannerData: {
+                type: "object" as "object",
+                title: "Project Banner",
+                description:
+                  "Add a banner to pages that represent data from this project.",
+                properties: {
+                  theme: {
+                    type: "string" as "string",
+                    title: "Theme",
+                    default: BannerTheme.Announcement,
+                    oneOf: [
+                      {
+                        type: "string" as "string",
+                        title: "Announcement",
+                        enum: [BannerTheme.Announcement],
+                      },
+                      {
+                        type: "string" as "string",
+                        title: "Information",
+                        enum: [BannerTheme.Information],
+                      },
+                      {
+                        type: "string" as "string",
+                        title: "Warning",
+                        enum: [BannerTheme.Warning],
+                      },
+                      {
+                        type: "string" as "string",
+                        title: "Important",
+                        enum: [BannerTheme.Important],
+                      },
+                    ],
+                  },
+                  text: {
+                    type: "string" as "string",
+                    title: "Banner Text",
+                  },
+                },
+              },
+            },
+          },
+        }),
       },
     },
     uiSchema: {
@@ -84,6 +134,21 @@ export const getFormSchema = (
           },
         },
       },
+      ...(projectType !== ProjectType.Repo && {
+        banner: {
+          "ui:rootFieldId": "banner",
+          "ui:ObjectFieldTemplate": CardFieldTemplate,
+          bannerData: {
+            text: {
+              "ui:placeholder": "Enter banner text",
+              "ui:data-cy": "banner-text",
+            },
+            theme: {
+              "ui:data-cy": "banner-theme",
+            },
+          },
+        },
+      }),
     },
   };
 };

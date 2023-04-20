@@ -1,4 +1,4 @@
-import { ProjectSettingsInput } from "gql/generated/types";
+import { BannerTheme, ProjectSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
 import { FormState } from "./types";
@@ -210,12 +210,17 @@ const projectFormBase: FormState = {
     notifyOnBuildFailure: null,
   },
   subscriptions: [],
+  banner: { bannerData: { text: "", theme: BannerTheme.Announcement } },
 };
 
 const projectResultBase: ProjectSettingsInput = {
   projectRef: {
     id: "spruce",
     notifyOnBuildFailure: null,
+    banner: {
+      text: "",
+      theme: BannerTheme.Announcement,
+    },
   },
   subscriptions: [],
 };

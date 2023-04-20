@@ -1243,7 +1243,7 @@ export type ProjectAliasInput = {
 export type ProjectBanner = {
   __typename?: "ProjectBanner";
   text: Scalars["String"];
-  theme: Scalars["String"];
+  theme: BannerTheme;
 };
 
 export type ProjectBannerInput = {
@@ -3034,7 +3034,7 @@ export type ProjectSettingsFragment = {
     banner?: Maybe<{
       __typename?: "ProjectBanner";
       text: string;
-      theme: string;
+      theme: BannerTheme;
     }>;
     patchTriggerAliases?: Maybe<
       Array<{
@@ -3378,7 +3378,11 @@ export type RepoSettingsFragment = {
 export type ProjectNotificationSettingsFragment = {
   __typename?: "Project";
   notifyOnBuildFailure?: Maybe<boolean>;
-  banner?: Maybe<{ __typename?: "ProjectBanner"; text: string; theme: string }>;
+  banner?: Maybe<{
+    __typename?: "ProjectBanner";
+    text: string;
+    theme: BannerTheme;
+  }>;
 };
 
 export type RepoNotificationSettingsFragment = {
@@ -3623,7 +3627,7 @@ export type ProjectEventSettingsFragment = {
     banner?: Maybe<{
       __typename?: "ProjectBanner";
       text: string;
-      theme: string;
+      theme: BannerTheme;
     }>;
     patchTriggerAliases?: Maybe<
       Array<{
@@ -5826,7 +5830,7 @@ export type ProjectEventLogsQuery = {
           banner?: Maybe<{
             __typename?: "ProjectBanner";
             text: string;
-            theme: string;
+            theme: BannerTheme;
           }>;
           patchTriggerAliases?: Maybe<
             Array<{
@@ -6037,7 +6041,7 @@ export type ProjectEventLogsQuery = {
           banner?: Maybe<{
             __typename?: "ProjectBanner";
             text: string;
-            theme: string;
+            theme: BannerTheme;
           }>;
           patchTriggerAliases?: Maybe<
             Array<{
@@ -6257,7 +6261,7 @@ export type ProjectSettingsQuery = {
       banner?: Maybe<{
         __typename?: "ProjectBanner";
         text: string;
-        theme: string;
+        theme: BannerTheme;
       }>;
       patchTriggerAliases?: Maybe<
         Array<{
@@ -6513,7 +6517,7 @@ export type RepoEventLogsQuery = {
           banner?: Maybe<{
             __typename?: "ProjectBanner";
             text: string;
-            theme: string;
+            theme: BannerTheme;
           }>;
           patchTriggerAliases?: Maybe<
             Array<{
@@ -6724,7 +6728,7 @@ export type RepoEventLogsQuery = {
           banner?: Maybe<{
             __typename?: "ProjectBanner";
             text: string;
-            theme: string;
+            theme: BannerTheme;
           }>;
           patchTriggerAliases?: Maybe<
             Array<{

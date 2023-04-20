@@ -29,7 +29,8 @@ export const NotificationsTab: React.VFC<TabProps> = ({
   const { fields, schema, uiSchema } = useMemo(
     () =>
       getFormSchema(
-        projectType === ProjectType.AttachedProject ? repoData : null
+        projectType === ProjectType.AttachedProject ? repoData : null,
+        projectType
       ),
     [projectType, repoData]
   );
