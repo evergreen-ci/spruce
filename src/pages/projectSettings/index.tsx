@@ -157,6 +157,10 @@ const ProjectSettings: React.VFC = () => {
           />
           <ProjectSettingsNavItem
             {...sharedProps}
+            tab={ProjectSettingsTabRoutes.Containers}
+          />
+          <ProjectSettingsNavItem
+            {...sharedProps}
             tab={ProjectSettingsTabRoutes.ProjectTriggers}
           />
           <ProjectSettingsNavItem

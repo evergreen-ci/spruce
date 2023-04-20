@@ -5,6 +5,7 @@ import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { useProjectSettingsContext } from "./Context";
 import { Header } from "./Header";
+import { ContainersTab } from "./tabs/ContainersTab/ContainersTab";
 import {
   AccessTab,
   EventLogTab,
@@ -173,6 +174,19 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
               repoData={
                 tabData[ProjectSettingsTabRoutes.VirtualWorkstation].repoData
               }
+            />
+          }
+        />
+        <Route
+          path={ProjectSettingsTabRoutes.Containers}
+          element={
+            <ContainersTab
+              identifier={identifier || repoBranch}
+              projectData={
+                tabData[ProjectSettingsTabRoutes.Containers].projectData
+              }
+              projectType={projectType}
+              repoData={tabData[ProjectSettingsTabRoutes.Containers].repoData}
             />
           }
         />
