@@ -82,6 +82,9 @@ export const UnmountButton: React.VFC<Props> = ({ volume }) => {
         size={Size.XSmall}
         data-cy={`detach-btn-${volume.displayName || volume.id}`}
         disabled={loadingDetachVolume || isHomeVolume || volume.migrating}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
       >
         Unmount
       </Button>

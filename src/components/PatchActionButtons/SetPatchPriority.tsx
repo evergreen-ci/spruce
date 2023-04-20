@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { MenuItem } from "@leafygreen-ui/menu";
 import TextInput from "@leafygreen-ui/text-input";
@@ -26,9 +26,8 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
   const dispatchToast = useToastContext();
 
   const [priority, setPriority] = useState<number>(0);
-  const [active, setActive] = useState(false);
+  const [open, setOpen] = useState(false);
   const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
-  const menuItemRef = useRef<HTMLDivElement>(null);
 
   const [setPatchPriority, { loading: loadingSetPatchPriority }] = useMutation<
     SetPatchPriorityMutation,
@@ -59,13 +58,17 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
       align="left"
       confirmText="Set"
       onConfirm={onConfirm}
+      open={open}
+      setOpen={setOpen}
       trigger={
-        <MenuItem
-          data-cy="prioritize-patch"
-          disabled={disabled || loadingSetPatchPriority}
-        >
-          Set priority
-        </MenuItem>
+        <div>
+          <MenuItem
+            data-cy="prioritize-patch"
+            disabled={disabled || loadingSetPatchPriority}
+          >
+            Set priority
+          </MenuItem>
+        </div>
       }
     >
       <TextInput
@@ -77,7 +80,7 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
         onKeyPress={(e) => {
           if (e.key === "Enter") {
             onConfirm();
-            setActive(false);
+            setOpen(false);
           }
         }}
         size={16}

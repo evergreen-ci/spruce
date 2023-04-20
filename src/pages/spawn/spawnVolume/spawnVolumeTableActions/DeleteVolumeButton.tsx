@@ -53,13 +53,13 @@ export const DeleteVolumeButton: React.VFC<Props> = ({ volume }) => {
         <Button
           size={Size.XSmall}
           data-cy={`trash-${volume.displayName || volume.id}`}
-          leftGlyph={<Icon glyph="Trash" />}
           disabled={loadingRemoveVolume || volume.migrating}
           onClick={(e) => {
-            console.log("hi");
             e.stopPropagation();
           }}
-        />
+        >
+          <Icon glyph="Trash" />
+        </Button>
       }
     >
       Delete volume “{volumeName}”?

@@ -115,10 +115,14 @@ export const SpawnHostActionButton: React.VFC<{ host: MyHost }> = ({
         onConfirm={onClick(SpawnHostStatusActions.Terminate)}
         trigger={
           <Button
-            leftGlyph={<Icon glyph="Trash" />}
             size={Size.XSmall}
             disabled={!canTerminate}
-          />
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <Icon glyph="Trash" />
+          </Button>
         }
       >
         Delete host “{host.displayName || host.id}”?

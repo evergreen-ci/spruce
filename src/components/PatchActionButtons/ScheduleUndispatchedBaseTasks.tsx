@@ -1,7 +1,5 @@
-import { useState, useRef } from "react";
 import { useMutation } from "@apollo/client";
 import { MenuItem } from "@leafygreen-ui/menu";
-import { Body } from "@leafygreen-ui/typography";
 import Popconfirm from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
@@ -14,13 +12,12 @@ interface Props {
   patchId: string;
   disabled: boolean;
 }
+
 export const ScheduleUndispatchedBaseTasks: React.VFC<Props> = ({
   patchId,
   disabled,
 }) => {
   const dispatchToast = useToastContext();
-  const [active, setActive] = useState(false);
-  const menuItemRef = useRef<HTMLDivElement>(null);
 
   const [scheduleBasePatchTasks] = useMutation<
     ScheduleUndispatchedBaseTasksMutation,
@@ -40,21 +37,20 @@ export const ScheduleUndispatchedBaseTasks: React.VFC<Props> = ({
   };
 
   return (
-    <>
-      <div ref={menuItemRef} />
-      <Popconfirm
-        align="left"
-        data-cy="schedule-undispatched-base-popconfirm"
-        onConfirm={onConfirm}
-        trigger={
+    <Popconfirm
+      align="left"
+      data-cy="schedule-undispatched-base-popconfirm"
+      onConfirm={onConfirm}
+      trigger={
+        <div>
           <MenuItem key="reschedule-failing" disabled={disabled}>
             Schedule failing base tasks
           </MenuItem>
-        }
-      >
-        Are you sure you want to schedule all the undispatched base tasks for
-        this patch&apos;s failing tasks?
-      </Popconfirm>
-    </>
+        </div>
+      }
+    >
+      Are you sure you want to schedule all the undispatched base tasks for this
+      patch&apos;s failing tasks?
+    </Popconfirm>
   );
 };

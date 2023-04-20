@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
@@ -28,7 +28,6 @@ export const UnscheduleTasks: React.VFC<props> = ({
   const { sendEvent } = useVersionAnalytics(patchId);
 
   const [abort, setAbort] = useState(true);
-  const menuItemRef = useRef<HTMLDivElement>(null);
 
   const [unschedulePatchTasks, { loading: loadingUnschedulePatchTasks }] =
     useMutation<
@@ -56,17 +55,18 @@ export const UnscheduleTasks: React.VFC<props> = ({
 
   return (
     <Popconfirm
-      data-cy="unschedule-patch-popconfirm"
       align="left"
-      refEl={menuItemRef}
+      data-cy="unschedule-patch-popconfirm"
       onConfirm={onConfirm}
       trigger={
-        <MenuItem
-          data-cy="unschedule-patch"
-          disabled={disabled || loadingUnschedulePatchTasks}
-        >
-          Unschedule all tasks
-        </MenuItem>
+        <div>
+          <MenuItem
+            data-cy="unschedule-patch"
+            disabled={disabled || loadingUnschedulePatchTasks}
+          >
+            Unschedule all tasks
+          </MenuItem>
+        </div>
       }
     >
       <>

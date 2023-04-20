@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { MenuItem } from "@leafygreen-ui/menu";
@@ -20,9 +19,8 @@ export const DisableTasks: React.VFC<Props> = ({
   patchId,
   refetchQueries = [],
 }) => {
-  const [active, setActive] = useState(false);
-
   const dispatchToast = useToastContext();
+
   const [disablePatch] = useMutation<
     SetPatchPriorityMutation,
     SetPatchPriorityMutationVariables
@@ -45,13 +43,11 @@ export const DisableTasks: React.VFC<Props> = ({
         });
       }}
       trigger={
-        <MenuItem
-          data-cy="disable"
-          disabled={false}
-          onClick={() => setActive(!active)}
-        >
-          Disable all tasks
-        </MenuItem>
+        <div>
+          <MenuItem data-cy="disable" disabled={false}>
+            Disable all tasks
+          </MenuItem>
+        </div>
       }
     >
       <StyledBody weight="medium">Disable all tasks?</StyledBody>

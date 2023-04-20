@@ -94,9 +94,10 @@ export const PublicKeysTab: React.VFC = () => {
               <StyledButton
                 size="small"
                 data-cy="delete-btn"
-                leftGlyph={<Icon glyph="Trash" />}
                 disabled={loadingRemovePublicKey}
-              />
+              >
+                <Icon glyph="Trash" />
+              </StyledButton>
             }
           >
             Delete this public key?
