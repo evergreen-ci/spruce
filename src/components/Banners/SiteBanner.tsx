@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 
-interface SiteBannerProps {
+export interface SiteBannerProps {
   text: string;
   theme: string;
 }
