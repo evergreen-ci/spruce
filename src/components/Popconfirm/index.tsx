@@ -35,6 +35,7 @@ const Popconfirm: React.VFC<PopconfirmProps> = ({
       popoverZIndex={zIndex.popover}
       triggerEvent="click"
       open={open}
+      onClose={onClose}
       setOpen={setOpen}
       {...tooltipProps}
     >
