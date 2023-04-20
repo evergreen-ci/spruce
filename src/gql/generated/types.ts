@@ -7503,7 +7503,16 @@ export type GetTaskQuery = {
       taskLogLink?: Maybe<string>;
     };
     pod?: Maybe<{ __typename?: "Pod"; id: string }>;
-    project?: Maybe<{ __typename?: "Project"; id: string; identifier: string }>;
+    project?: Maybe<{
+      __typename?: "Project";
+      id: string;
+      identifier: string;
+      banner?: Maybe<{
+        __typename?: "ProjectBanner";
+        theme: BannerTheme;
+        text: string;
+      }>;
+    }>;
     taskFiles: { __typename?: "TaskFiles"; fileCount: number };
     versionMetadata: {
       __typename?: "Version";

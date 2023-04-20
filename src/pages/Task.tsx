@@ -1,7 +1,9 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { createPortal } from "react-dom";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
+import { SiteBanner } from "components/Banners";
 import { PageTitle } from "components/PageTitle";
 import {
   PageWrapper,
@@ -62,7 +64,9 @@ export const Task = () => {
     priority,
     status,
     versionMetadata,
+    project,
   } = task ?? {};
+  const { banner } = project ?? {};
   const attributed = annotation?.issues?.length > 0;
   const isDisplayTask = executionTasksFull != null;
 
@@ -79,8 +83,16 @@ export const Task = () => {
   if (error) {
     return <PageDoesNotExist />;
   }
+
+  const bannerContainerEl = document.getElementById("banner-container");
+
   return (
     <PageWrapper>
+      {bannerContainerEl &&
+        createPortal(
+          <SiteBanner text={banner?.text} theme={banner?.theme} />,
+          bannerContainerEl
+        )}
       {task && (
         <TaskPageBreadcrumbs
           taskName={displayName}

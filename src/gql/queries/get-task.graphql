@@ -91,6 +91,10 @@ query GetTask($taskId: String!, $execution: Int) {
     }
     priority
     project {
+      banner {
+        text
+        theme
+      }
       id
       identifier
     }

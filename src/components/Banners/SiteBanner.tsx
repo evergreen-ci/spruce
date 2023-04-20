@@ -25,7 +25,7 @@ export const SiteBanner: React.FC<SiteBannerProps> = ({ text, theme }) => {
     Cookies.set(text, "viewed", { expires: 7 });
   };
 
-  const variant = mapThemeToVariant[theme.toLowerCase()] ?? Variant.Info;
+  const variant = mapThemeToVariant[theme?.toLowerCase()] ?? Variant.Info;
   return showBanner ? (
     <Banner
       data-cy={`sitewide-banner-${variant}`}
