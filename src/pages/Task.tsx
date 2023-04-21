@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import { ProjectBanner } from "components/Banners/ProjectBanner";
+import { ProjectBanner } from "components/Banners";
 import { PageTitle } from "components/PageTitle";
 import {
   PageWrapper,
@@ -63,9 +63,7 @@ export const Task = () => {
     priority,
     status,
     versionMetadata,
-    project,
   } = task ?? {};
-  const { banner } = project ?? {};
   const attributed = annotation?.issues?.length > 0;
   const isDisplayTask = executionTasksFull != null;
 
@@ -85,7 +83,7 @@ export const Task = () => {
 
   return (
     <PageWrapper>
-      <ProjectBanner text={banner?.text} theme={banner?.theme} />
+      <ProjectBanner projectIdentifier={versionMetadata?.projectIdentifier} />
       {task && (
         <TaskPageBreadcrumbs
           taskName={displayName}

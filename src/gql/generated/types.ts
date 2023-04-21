@@ -5595,6 +5595,7 @@ export type ConfigurePatchQuery = {
   __typename?: "Query";
   patch: {
     __typename?: "Patch";
+    projectIdentifier: string;
     activated: boolean;
     alias?: Maybe<string>;
     author: string;
@@ -7520,16 +7521,7 @@ export type GetTaskQuery = {
       taskLogLink?: Maybe<string>;
     };
     pod?: Maybe<{ __typename?: "Pod"; id: string }>;
-    project?: Maybe<{
-      __typename?: "Project";
-      id: string;
-      identifier: string;
-      banner?: Maybe<{
-        __typename?: "ProjectBanner";
-        text: string;
-        theme: BannerTheme;
-      }>;
-    }>;
+    project?: Maybe<{ __typename?: "Project"; id: string; identifier: string }>;
     taskFiles: { __typename?: "TaskFiles"; fileCount: number };
     versionMetadata: {
       __typename?: "Version";
@@ -7837,11 +7829,6 @@ export type VersionQuery = {
       id: string;
       owner: string;
       repo: string;
-      banner?: Maybe<{
-        __typename?: "ProjectBanner";
-        text: string;
-        theme: BannerTheme;
-      }>;
     }>;
     versionTiming?: Maybe<{
       __typename?: "VersionTiming";
