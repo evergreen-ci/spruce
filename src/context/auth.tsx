@@ -50,7 +50,6 @@ const AuthProvider: React.VFC<{ children: React.ReactNode }> = ({
             { username, password },
             {
               withCredentials: true,
-              headers: { "Content-Type": "text/plain" },
             }
           )
           .then((response) => {
