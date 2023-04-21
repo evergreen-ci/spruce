@@ -1,14 +1,24 @@
-import { createPortal } from "react-dom";
-import { SiteBanner, SiteBannerProps } from "./SiteBanner";
+import { useQuery } from "@apollo/client";
+import {
+  ProjectBannerQuery,
+  ProjectBannerQueryVariables,
+} from "gql/generated/types";
+import { GET_PROJECT_BANNER } from "gql/queries";
+import { PortalBanner } from "./PortalBanner";
 
-interface ProjectBannerProps extends SiteBannerProps {}
+interface ProjectBannerProps {
+  projectIdentifier: string;
+}
 export const ProjectBanner: React.FC<ProjectBannerProps> = ({
-  theme,
-  text,
+  projectIdentifier,
 }) => {
-  const bannerContainerEl = document.getElementById("banner-container");
-  return (
-    bannerContainerEl &&
-    createPortal(<SiteBanner text={text} theme={theme} />, bannerContainerEl)
-  );
+  const { data: projectBannerData } = useQuery<
+    ProjectBannerQuery,
+    ProjectBannerQueryVariables
+  >(GET_PROJECT_BANNER, {
+    variables: { identifier: projectIdentifier },
+    skip: !projectIdentifier,
+  });
+  const { theme, text } = projectBannerData?.project.banner || {};
+  return <PortalBanner theme={theme} text={text} />;
 };
