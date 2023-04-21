@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Cookies from "js-cookie";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
+import { ProjectBanner } from "components/Banners/ProjectBanner";
 import FilterBadges, {
   useFilterBadgeQueryParams,
 } from "components/FilterBadges";
@@ -150,6 +151,7 @@ const Commits = () => {
 
   return (
     <PageWrapper>
+      <ProjectBanner projectIdentifier={projectIdentifier} />
       <PageContainer>
         <HeaderWrapper>
           <ElementWrapper width="35">

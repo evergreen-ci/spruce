@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
+import { ProjectBanner } from "components/Banners/ProjectBanner";
 import FilterBadges, {
   useFilterBadgeQueryParams,
 } from "components/FilterBadges";
@@ -67,6 +68,7 @@ const TaskHistoryContents: React.VFC = () => {
 
   return (
     <PageWrapper>
+      <ProjectBanner projectIdentifier={projectIdentifier} />
       <CenterPage>
         <PageHeader>
           <H2>Task Name: {taskName}</H2>
