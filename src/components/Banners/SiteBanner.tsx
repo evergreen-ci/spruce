@@ -15,6 +15,8 @@ export const SiteBanner: React.FC<SiteBannerProps> = ({ text, theme }) => {
   useEffect(() => {
     if (text && Cookies.get(text) === undefined) {
       setShowBanner(true);
+    } else {
+      setShowBanner(false);
     }
   }, [text]);
 
