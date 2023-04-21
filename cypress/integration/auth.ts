@@ -5,8 +5,7 @@ describe("Auth", () => {
     cy.url().should("include", "/login");
   });
 
-  // The dev login page is broken due to EVG-19027.
-  it.skip("Redirects user to My Patches page after logging in.", () => {
+  it("Redirects user to My Patches page after logging in.", () => {
     cy.clearCookie("mci-token");
     cy.visit("/");
     cy.enterLoginCredentials();

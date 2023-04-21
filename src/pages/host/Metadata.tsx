@@ -10,10 +10,10 @@ import {
 import { StyledLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { HostQuery } from "gql/generated/types";
-import { environmentalVariables } from "utils";
+import { environmentVariables } from "utils";
 
 const { gray } = palette;
-const { getUiUrl } = environmentalVariables;
+const { getUiUrl } = environmentVariables;
 
 export const Metadata: React.VFC<{
   loading: boolean;

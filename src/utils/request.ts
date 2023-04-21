@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getLoginDomain } from "./environmentalVariables";
+import { getUiUrl } from "./environmentVariables";
 import { reportError } from "./errorReporting";
 
 type optionsType = {
@@ -11,9 +11,11 @@ export const post = async (
   options: optionsType = {}
 ) => {
   try {
-    const response = await axios.post(getLoginDomain() + url, {
-      body,
-    });
+    const response = await axios.post(
+      getUiUrl() + url,
+      { body },
+      { withCredentials: true }
+    );
     if (isBadResponse(response)) {
       throw new Error(getErrorMessage(response, "POST"));
     }

@@ -1,7 +1,7 @@
 import * as array from "./array";
 import * as color from "./color";
 import * as commits from "./commits";
-import * as environmentalVariables from "./environmentalVariables";
+import * as environmentVariables from "./environmentVariables";
 import * as errorReporting from "./errorReporting";
 import * as numbers from "./numbers";
 import * as queryString from "./queryString";
@@ -15,7 +15,7 @@ export {
   array,
   color,
   commits,
-  environmentalVariables,
+  environmentVariables,
   errorReporting,
   numbers,
   queryString,
