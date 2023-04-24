@@ -64,8 +64,6 @@ export const getFormSchema = (
           branch: {
             type: "string" as "string",
             title: "Branch Name",
-            minLength: getMinLength(projectType, repoData, "branch"),
-            default: "",
           },
           other: {
             type: "object" as "object",
@@ -388,8 +386,6 @@ const getMinLength = (
         return repository?.owner ? 0 : 1;
       case "repo":
         return repository?.repo ? 0 : 1;
-      case "branch":
-        return repoGeneral?.branch ? 0 : 1;
       default:
         return 1;
     }
