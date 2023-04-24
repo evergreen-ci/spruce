@@ -150,7 +150,7 @@ const CommitCopy = ({
         >
           {shortenGithash(v.revision)}
         </StyledRouterLink>{" "}
-        {getDateCopy(v.createTime)}
+        {getDateCopy(v.createTime, { omitTimezone: true })}
       </CommitTitleText>
       {v.upstreamProject && (
         <>
