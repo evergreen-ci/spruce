@@ -29,6 +29,7 @@ import { ProjectType } from "./tabs/utils";
 const defaultToRepoDisabled: Set<WritableTabRoutes> = new Set([
   ProjectSettingsTabRoutes.Notifications,
   ProjectSettingsTabRoutes.Plugins,
+  ProjectSettingsTabRoutes.Containers,
 ]);
 
 interface Props {

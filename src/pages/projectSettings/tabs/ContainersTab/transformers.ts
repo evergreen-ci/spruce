@@ -11,15 +11,15 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
     | RepoSettingsQuery["repoSettings"]
 ) => {
   if (!data) return null;
-
   const { projectRef } = data;
   const { containerSizeDefinitions } = projectRef;
 
-  return {
+  const thingToReturn = {
     containerSizeDefinitions: {
       variables: containerSizeDefinitions,
     },
   };
+  return thingToReturn;
 };
 
 export const formToGql: FormToGqlFunction<Tab> = (
@@ -27,11 +27,11 @@ export const formToGql: FormToGqlFunction<Tab> = (
   id: string
 ) => {
   const { containerSizeDefinitions } = props;
-  console.log("formToGql", { containerSizeDefinitions });
-  return {
+  const thingToReturn = {
     projectRef: {
       id,
       containerSizeDefinitions: containerSizeDefinitions.variables,
     },
   };
+  return thingToReturn;
 };
