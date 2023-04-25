@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
+import { isProduction } from "utils/environmentalVariables";
 import { useProjectSettingsContext } from "./Context";
 import { Header } from "./Header";
 import { ContainersTab } from "./tabs/ContainersTab/ContainersTab";
@@ -177,19 +178,21 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
             />
           }
         />
-        <Route
-          path={ProjectSettingsTabRoutes.Containers}
-          element={
-            <ContainersTab
-              identifier={identifier || repoBranch}
-              projectData={
-                tabData[ProjectSettingsTabRoutes.Containers].projectData
-              }
-              projectType={projectType}
-              repoData={tabData[ProjectSettingsTabRoutes.Containers].repoData}
-            />
-          }
-        />
+        {!isProduction() && (
+          <Route
+            path={ProjectSettingsTabRoutes.Containers}
+            element={
+              <ContainersTab
+                identifier={identifier || repoBranch}
+                projectData={
+                  tabData[ProjectSettingsTabRoutes.Containers].projectData
+                }
+                projectType={projectType}
+                repoData={tabData[ProjectSettingsTabRoutes.Containers].repoData}
+              />
+            }
+          />
+        )}
         <Route
           path={ProjectSettingsTabRoutes.ProjectTriggers}
           element={
