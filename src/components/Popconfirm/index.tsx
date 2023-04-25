@@ -30,9 +30,10 @@ const Popconfirm: React.VFC<PopconfirmProps> = ({
   const setOpen = isControlled ? controlledSetOpen : uncontrolledSetOpen;
 
   const popoverRef = useRef<HTMLDivElement>(null);
-  useOnClickOutside([popoverRef, ...(refEl ? [refEl] : [])], () =>
-    setOpen(false)
-  );
+  useOnClickOutside([popoverRef, ...(refEl ? [refEl] : [])], () => {
+    onClose();
+    setOpen(false);
+  });
 
   return (
     <Tooltip

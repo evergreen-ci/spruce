@@ -1,4 +1,3 @@
-import { popconfirmYesClassName } from "../../utils/popconfirm";
 describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
   it("Visiting the spawn volume page should display the number of free and mounted volumes.", () => {
     cy.visit("/spawn/volume");
@@ -98,7 +97,7 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
     cy.dataCy(
       "detach-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b857"
     ).click();
-    cy.get(popconfirmYesClassName).click();
+    cy.contains("button", "Yes").click();
     cy.validateToast("success");
   });
 
