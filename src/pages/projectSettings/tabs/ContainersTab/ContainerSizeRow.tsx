@@ -11,7 +11,7 @@ export const ContainerSizeRow: React.VFC<
   const [name, memoryMb, cpu] = getFields(properties, formData.isDisabled);
 
   return (
-    <RowContainer>
+    <RowContainer data-cy="container-size-row">
       {name}
       {memoryMb}
       {cpu}

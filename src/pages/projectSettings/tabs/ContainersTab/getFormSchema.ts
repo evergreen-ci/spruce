@@ -8,12 +8,12 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
     type: "object" as "object",
     properties: {
       containerSizeDefinitions: {
-        title: "",
+        title: "Container Configurations",
         type: "object" as "object",
         properties: {
           variables: {
             type: "array" as "array",
-            title: "Container Sizes",
+            title: "",
             items: {
               type: "object" as "object",
               properties: {
@@ -47,8 +47,10 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
         "ui:description": `Specify custom computing resource configurations for running tasks in containers. Memory field denotes the memory (in MB) that will be allocated, and CPU field denotes the number of CPU units that will be allocated. 1024 CPU units is the equivalent of 1vCPU.`,
         "ui:fullWidth": true,
         "ui:orderable": false,
+        "ui:addButtonText": "Add new configuration",
         items: {
           "ui:ObjectFieldTemplate": ContainerSizeRow,
+          "ui:data-cy": "container-size-row",
           name: {
             "ui:data-cy": "var-name-input",
           },

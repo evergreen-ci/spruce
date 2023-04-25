@@ -1,5 +1,6 @@
 import {
   getAccessRoute,
+  getContainersRoute,
   getGeneralRoute,
   getGithubCommitQueueRoute,
   getNotificationsRoute,
@@ -1095,6 +1096,40 @@ describe("Plugins", { testIsolation: false }, () => {
     clickSave();
     cy.visit(patchPage);
     cy.dataCy("external-link").should("not.exist");
+  });
+});
+
+describe.only("Containers", () => {
+  const destination = getContainersRoute("evergreen");
+  beforeEach(() => {
+    cy.visit(destination);
+  });
+  it("shouldn't have any container configurations defined", () => {
+    cy.dataCy("container-size-row").should("not.exist");
+  });
+  it("shouldn't be able to save anything if no changes were made", () => {
+    saveButtonEnabled(false);
+  });
+  it("should be able to add a container configuration and save it", () => {
+    cy.dataCy("add-button").should("be.visible");
+    cy.dataCy("add-button").click({});
+
+    cy.dataCy("container-size-row").should("exist");
+    cy.getInputByLabel("Name").type("test container");
+    cy.getInputByLabel("Memory (MB)").type("1024");
+    cy.getInputByLabel("CPU").type("1024");
+    saveButtonEnabled(true);
+    cy.dataCy("save-settings-button").scrollIntoView();
+    clickSave();
+    cy.validateToast("success", "Successfully updated project");
+  });
+  it("should be able to delete a container configuration", () => {
+    cy.dataCy("container-size-row").should("exist");
+    cy.dataCy("delete-item-button").click();
+    cy.dataCy("container-size-row").should("not.exist");
+    cy.dataCy("save-settings-button").scrollIntoView();
+    clickSave();
+    cy.validateToast("success", "Successfully updated project");
   });
 });
 

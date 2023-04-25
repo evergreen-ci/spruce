@@ -16,6 +16,13 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     owner: "evergreen-ci",
     repo: "evergreen",
     branch: null,
+    containerSizeDefinitions: [
+      {
+        name: "default",
+        cpu: 1024,
+        memoryMb: 1024,
+      },
+    ],
     displayName: null,
     notifyOnBuildFailure: null,
     batchTime: 0,
