@@ -1,8 +1,11 @@
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
+import { SpruceConfig } from "gql/generated/types";
 import { GetFormSchema } from "../types";
 import { ContainerSizeRow } from "./ContainerSizeRow";
 
-export const getFormSchema = (): ReturnType<GetFormSchema> => ({
+export const getFormSchema = (
+  ecsConfig: SpruceConfig["providers"]["aws"]["pod"]["ecs"]
+): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
     type: "object" as "object",
@@ -27,11 +30,15 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
                   type: "number" as "number",
                   title: "Memory (MB)",
                   minLength: 1,
+                  minimum: 1,
+                  maximum: ecsConfig.maxMemoryMb,
                 },
                 cpu: {
                   type: "number" as "number",
                   title: "CPU",
                   minLength: 1,
+                  minimum: 1,
+                  maximum: ecsConfig.maxCPU,
                 },
               },
             },

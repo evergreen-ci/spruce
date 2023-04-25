@@ -25,6 +25,12 @@ export type Scalars = {
 export type AwsConfig = {
   __typename?: "AWSConfig";
   maxVolumeSizePerUser?: Maybe<Scalars["Int"]>;
+  pod?: Maybe<AwsPodConfig>;
+};
+
+export type AwsPodConfig = {
+  __typename?: "AWSPodConfig";
+  ecs?: Maybe<EcsConfig>;
 };
 
 export type AbortInfo = {
@@ -248,6 +254,12 @@ export type DistroInfo = {
   isWindows?: Maybe<Scalars["Boolean"]>;
   user?: Maybe<Scalars["String"]>;
   workDir?: Maybe<Scalars["String"]>;
+};
+
+export type EcsConfig = {
+  __typename?: "ECSConfig";
+  maxCPU: Scalars["Int"];
+  maxMemoryMb: Scalars["Int"];
 };
 
 /**
@@ -7105,6 +7117,14 @@ export type GetSpruceConfigQuery = {
       aws?: Maybe<{
         __typename?: "AWSConfig";
         maxVolumeSizePerUser?: Maybe<number>;
+        pod?: Maybe<{
+          __typename?: "AWSPodConfig";
+          ecs?: Maybe<{
+            __typename?: "ECSConfig";
+            maxCPU: number;
+            maxMemoryMb: number;
+          }>;
+        }>;
       }>;
     }>;
     slack?: Maybe<{ __typename?: "SlackConfig"; name?: Maybe<string> }>;
