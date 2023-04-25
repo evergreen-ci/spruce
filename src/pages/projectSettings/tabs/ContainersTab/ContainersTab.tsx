@@ -10,10 +10,13 @@ import { TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Containers;
 
-export const ContainersTab: React.VFC<TabProps> = ({ projectData }) => {
+export const ContainersTab: React.VFC<TabProps> = ({
+  projectData,
+  repoData,
+}) => {
   const { getTab, updateForm } = useProjectSettingsContext();
   const { formData } = getTab(tab);
-  const initialFormState = projectData;
+  const initialFormState = projectData || repoData;
   usePopulateForm(initialFormState, tab);
 
   const onChange = updateForm(tab);
