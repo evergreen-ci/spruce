@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { MenuItem } from "@leafygreen-ui/menu";
 import TextInput from "@leafygreen-ui/text-input";
@@ -28,6 +28,7 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
   const [priority, setPriority] = useState<number>(0);
   const [open, setOpen] = useState(false);
   const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
+  const menuItemRef = useRef<HTMLDivElement>(null);
 
   const [setPatchPriority, { loading: loadingSetPatchPriority }] = useMutation<
     SetPatchPriorityMutation,
@@ -53,40 +54,43 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
   }, [inputRef]);
 
   return (
-    <Popconfirm
-      data-cy="set-patch-priority-popconfirm"
-      align="left"
-      confirmText="Set"
-      onConfirm={onConfirm}
-      open={open}
-      setOpen={setOpen}
-      trigger={
-        <div>
-          <MenuItem
-            data-cy="prioritize-patch"
-            disabled={disabled || loadingSetPatchPriority}
-          >
-            Set priority
-          </MenuItem>
-        </div>
-      }
-    >
-      <TextInput
-        ref={(el) => setInputRef(el)}
-        data-cy="patch-priority-input"
-        label="Set new priority"
-        min={-1}
-        onChange={(e) => setPriority(parseInt(e.target.value, 10))}
-        onKeyPress={(e) => {
-          if (e.key === "Enter") {
-            onConfirm();
-            setOpen(false);
-          }
-        }}
-        size={16}
-        type="number"
-        value={priority.toString()}
-      />
-    </Popconfirm>
+    <>
+      <div ref={menuItemRef}>
+        <MenuItem
+          active={open}
+          data-cy="prioritize-patch"
+          disabled={disabled || loadingSetPatchPriority}
+          onClick={() => setOpen(!open)}
+        >
+          Set priority
+        </MenuItem>
+      </div>
+      <Popconfirm
+        align="left"
+        data-cy="set-patch-priority-popconfirm"
+        confirmText="Set"
+        onConfirm={onConfirm}
+        open={open}
+        refEl={menuItemRef}
+        setOpen={setOpen}
+      >
+        <TextInput
+          ref={(el) => setInputRef(el)}
+          data-cy="patch-priority-input"
+          label="Set new priority"
+          min={-1}
+          onChange={(e) => setPriority(parseInt(e.target.value, 10))}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              onConfirm();
+              setOpen(false);
+            }
+          }}
+          size={16}
+          type="number"
+          value={priority.toString()}
+        />
+      </Popconfirm>
+    </>
   );
 };

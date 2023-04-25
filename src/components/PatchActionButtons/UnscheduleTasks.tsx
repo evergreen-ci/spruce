@@ -1,12 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { Body } from "@leafygreen-ui/typography";
 import { useVersionAnalytics } from "analytics";
 import Popconfirm from "components/Popconfirm";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   UnschedulePatchTasksMutation,
@@ -28,6 +26,8 @@ export const UnscheduleTasks: React.VFC<props> = ({
   const { sendEvent } = useVersionAnalytics(patchId);
 
   const [abort, setAbort] = useState(true);
+  const [open, setOpen] = useState(false);
+  const menuItemRef = useRef<HTMLDivElement>(null);
 
   const [unschedulePatchTasks, { loading: loadingUnschedulePatchTasks }] =
     useMutation<
@@ -54,36 +54,33 @@ export const UnscheduleTasks: React.VFC<props> = ({
   };
 
   return (
-    <Popconfirm
-      align="left"
-      data-cy="unschedule-patch-popconfirm"
-      onConfirm={onConfirm}
-      trigger={
-        <div>
-          <MenuItem
-            data-cy="unschedule-patch"
-            disabled={disabled || loadingUnschedulePatchTasks}
-          >
-            Unschedule all tasks
-          </MenuItem>
-        </div>
-      }
-    >
-      <>
-        <StyledBody>Unschedule all tasks?</StyledBody>
+    <>
+      <div ref={menuItemRef}>
+        <MenuItem
+          active={open}
+          data-cy="unschedule-patch"
+          disabled={disabled || loadingUnschedulePatchTasks}
+          onClick={() => setOpen(!open)}
+        >
+          Unschedule all tasks
+        </MenuItem>
+      </div>
+      <Popconfirm
+        align="left"
+        data-cy="unschedule-patch-popconfirm"
+        onConfirm={onConfirm}
+        open={open}
+        refEl={menuItemRef}
+        setOpen={setOpen}
+      >
+        <Body weight="medium">Unschedule all tasks?</Body>
         <Checkbox
           data-cy="abort-checkbox"
           label="Abort tasks that have already started"
           onChange={() => setAbort(!abort)}
           checked={abort}
-          bold={false}
         />
-      </>
-    </Popconfirm>
+      </Popconfirm>
+    </>
   );
 };
-
-const StyledBody = styled(Body)`
-  padding-bottom: ${size.xs};
-  padding-right: ${size.xs};
-`;

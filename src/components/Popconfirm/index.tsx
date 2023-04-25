@@ -4,6 +4,7 @@ import Button from "@leafygreen-ui/button";
 import Tooltip, { TooltipProps } from "@leafygreen-ui/tooltip";
 import { wordBreakCss } from "components/styles";
 import { size, zIndex } from "constants/tokens";
+import { useOnClickOutside } from "hooks";
 
 type PopconfirmProps = TooltipProps & {
   confirmDisabled?: boolean;
@@ -19,15 +20,19 @@ const Popconfirm: React.VFC<PopconfirmProps> = ({
   onClose = () => {},
   onConfirm = () => {},
   open: controlledOpen,
+  refEl,
   setOpen: controlledSetOpen,
   ...props
 }) => {
-  const isControlled = controlledOpen !== undefined && controlledSetOpen;
+  const isControlled = !!(controlledOpen !== undefined && controlledSetOpen);
   const [uncontrolledOpen, uncontrolledSetOpen] = useState(false);
   const open = isControlled ? controlledOpen : uncontrolledOpen;
   const setOpen = isControlled ? controlledSetOpen : uncontrolledSetOpen;
 
   const popoverRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside([popoverRef, ...(refEl ? [refEl] : [])], () =>
+    setOpen(false)
+  );
 
   return (
     <Tooltip
@@ -35,6 +40,7 @@ const Popconfirm: React.VFC<PopconfirmProps> = ({
       triggerEvent="click"
       open={open}
       onClose={onClose}
+      refEl={refEl}
       setOpen={setOpen}
       {...props}
     >
