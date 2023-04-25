@@ -14,12 +14,11 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
   const { projectRef } = data;
   const { containerSizeDefinitions } = projectRef;
 
-  const thingToReturn = {
+  return {
     containerSizeDefinitions: {
       variables: containerSizeDefinitions,
     },
   };
-  return thingToReturn;
 };
 
 export const formToGql: FormToGqlFunction<Tab> = (
@@ -27,11 +26,10 @@ export const formToGql: FormToGqlFunction<Tab> = (
   id: string
 ) => {
   const { containerSizeDefinitions } = props;
-  const thingToReturn = {
+  return {
     projectRef: {
       id,
       containerSizeDefinitions: containerSizeDefinitions.variables,
     },
   };
-  return thingToReturn;
 };

@@ -38,37 +38,6 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
           },
         },
       },
-      containerCredentials: {
-        type: "object" as "object",
-        title: "",
-        properties: {
-          variables: {
-            title: "Container Credentials",
-            type: "array" as "array",
-            items: {
-              type: "object" as "object",
-              properties: {
-                varName: {
-                  type: "string" as "string",
-                  title: "Name",
-                  default: "",
-                  minLength: 1,
-                },
-                varUsername: {
-                  type: "string" as "string",
-                  title: "Username",
-                  minLength: 1,
-                },
-                varPassword: {
-                  type: "string" as "string",
-                  title: "Password",
-                  minLength: 1,
-                },
-              },
-            },
-          },
-        },
-      },
     },
   },
   uiSchema: {
@@ -88,27 +57,6 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
           },
           cpu: {
             "ui:data-cy": "var-cpu-input",
-          },
-        },
-      },
-    },
-    containerCredentials: {
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      variables: {
-        "ui:description":
-          "Set credentials to be used for authentication when interacting with private image repositories.",
-        "ui:fullWidth": true,
-        items: {
-          "ui:ObjectFieldTemplate": ContainerSizeRow,
-          varName: {
-            "ui:data-cy": "var-name-input",
-          },
-
-          varUsername: {
-            "ui:data-cy": "var-username-input",
-          },
-          varPassword: {
-            "ui:data-cy": "var-password-input",
           },
         },
       },
