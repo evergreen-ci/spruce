@@ -300,12 +300,16 @@ exports[`storybook Storyshots components/Table/TasksTable Base Task Table 1`] = 
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ixbeze"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id"
                       >
-                        Running
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ixbeze"
+                          data-cy="task-status-badge"
+                        >
+                          Running
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"
@@ -357,12 +361,16 @@ exports[`storybook Storyshots components/Table/TasksTable Base Task Table 1`] = 
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id_2"
                       >
-                        Succeeded
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                          data-cy="task-status-badge"
+                        >
+                          Succeeded
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"
@@ -414,12 +422,16 @@ exports[`storybook Storyshots components/Table/TasksTable Base Task Table 1`] = 
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id_3"
                       >
-                        Succeeded
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                          data-cy="task-status-badge"
+                        >
+                          Succeeded
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"
@@ -766,12 +778,16 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ixbeze"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id"
                       >
-                        Running
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ixbeze"
+                          data-cy="task-status-badge"
+                        >
+                          Running
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"
@@ -832,12 +848,16 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id_2"
                       >
-                        Succeeded
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                          data-cy="task-status-badge"
+                        >
+                          Succeeded
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"
@@ -898,12 +918,16 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id_3"
                       >
-                        Succeeded
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                          data-cy="task-status-badge"
+                        >
+                          Succeeded
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"
@@ -964,12 +988,16 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id_4"
                       >
-                        Succeeded
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                          data-cy="task-status-badge"
+                        >
+                          Succeeded
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"

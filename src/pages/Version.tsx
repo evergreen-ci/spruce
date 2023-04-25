@@ -159,8 +159,8 @@ export const VersionPage: React.VFC = () => {
 
   return (
     <PageWrapper data-cy="version-page">
-      {errors.length > 0 && <ErrorBanner errors={errors} />}
-      {warnings.length > 0 && <WarningBanner warnings={warnings} />}
+      {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
+      {warnings && warnings.length > 0 && <WarningBanner warnings={warnings} />}
       {version && (
         <VersionPageBreadcrumbs
           patchNumber={patchNumber}
