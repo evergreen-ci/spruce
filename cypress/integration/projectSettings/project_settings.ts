@@ -1099,7 +1099,7 @@ describe("Plugins", { testIsolation: false }, () => {
   });
 });
 
-describe.only("Containers", () => {
+describe("Containers", () => {
   const destination = getContainersRoute("evergreen");
   beforeEach(() => {
     cy.visit(destination);
