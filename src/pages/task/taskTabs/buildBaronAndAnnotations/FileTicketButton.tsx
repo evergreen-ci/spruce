@@ -29,7 +29,7 @@ const FileTicketButton: React.VFC<FileTicketProps> = ({
     BbCreateTicketMutationVariables
   >(FILE_JIRA_TICKET, {
     onCompleted: () => {
-      setButtonText("FILE ANOTHER TICKET");
+      setButtonText("File another ticket");
       dispatchToast.success(`Ticket successfully created for this task.`);
     },
     onError(error) {
@@ -39,7 +39,7 @@ const FileTicketButton: React.VFC<FileTicketProps> = ({
     },
   });
 
-  const [buttonText, setButtonText] = useState<string>("FILE TICKET");
+  const [buttonText, setButtonText] = useState<string>("File ticket");
   const annotationAnalytics = useAnnotationAnalytics();
   const onClickFile = () => {
     annotationAnalytics.sendEvent({ name: "Build Baron File Ticket" });
@@ -50,9 +50,9 @@ const FileTicketButton: React.VFC<FileTicketProps> = ({
     <Container>
       <Popconfirm
         align="right"
-        onConfirm={onClickFile}
-        confirmText="File Ticket"
         confirmDisabled={loadingFileJiraTicket}
+        data-cy="file-ticket-popconfirm"
+        onConfirm={onClickFile}
         trigger={
           <ButtonWrapper>
             <Button

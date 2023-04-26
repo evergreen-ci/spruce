@@ -97,7 +97,7 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
                 disabled={!userCanModify}
                 leftGlyph={<Icon glyph={isIssue ? "ArrowDown" : "ArrowUp"} />}
               >
-                Move To {isIssue ? "Suspected Issues" : "Issues"}
+                Move to {isIssue ? "suspected issues" : "issues"}
               </Button>
             ),
           })}
