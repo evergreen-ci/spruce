@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { IconProps } from "@leafygreen-ui/icon";
 import Tooltip from "@leafygreen-ui/tooltip";
 import Icon from "components/Icon";
+import { zIndex } from "constants/tokens";
 
 export type IconTooltipProps = IconProps & {
   ["data-cy"]?: string;
@@ -17,6 +18,7 @@ const IconTooltip: React.VFC<IconTooltipProps> = ({
     align="top"
     justify="middle"
     triggerEvent="hover"
+    popoverZIndex={zIndex.tooltip}
     trigger={
       <IconWrapper data-cy={dataCy}>
         <Icon {...rest} />

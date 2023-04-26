@@ -78,7 +78,11 @@ export const TaskDurationRow: React.VFC<RowProps> = forwardRef(
               <TaskLink taskId={t.id} taskName={t.displayName} />
             </TaskNameCell>
             <StatusCell>
-              <TaskStatusBadge status={t.status} />
+              <TaskStatusBadge
+                status={t.status}
+                id={t.id}
+                execution={t.execution}
+              />
             </StatusCell>
             <BuildVariantCell>{t.buildVariantDisplayName}</BuildVariantCell>
             <DurationCell>
