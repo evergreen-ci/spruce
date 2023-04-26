@@ -13,6 +13,10 @@ export const ExecutionTasksTable: StoryObj<typeof TasksTable> = {
   render: () => <TasksTable isPatch tasks={nestedTasks} />,
 };
 
+export const VersionTasksTable: StoryObj<typeof TasksTable> = {
+  render: () => <TasksTable isPatch={false} tasks={tasks} />,
+};
+
 const tasks = [
   {
     id: "some_id",
