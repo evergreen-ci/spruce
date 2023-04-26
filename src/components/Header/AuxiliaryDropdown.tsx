@@ -7,10 +7,10 @@ import {
   getTaskQueueRoute,
   getCommitQueueRoute,
 } from "constants/routes";
-import { environmentalVariables } from "utils";
+import { environmentVariables } from "utils";
 import { NavDropdown } from "./NavDropdown";
 
-const { getUiUrl } = environmentalVariables;
+const { getUiUrl } = environmentVariables;
 
 interface AuxiliaryDropdownProps {
   projectIdentifier: string;

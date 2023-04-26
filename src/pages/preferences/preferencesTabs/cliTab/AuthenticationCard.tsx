@@ -61,9 +61,9 @@ ui_server_host: "${config.ui_server_host}"
       </CodeContainer>
       <ButtonGroup>
         <Button variant={Variant.Primary} onClick={downloadFile}>
-          Download File
+          Download file
         </Button>
-        <Button onClick={resetKey}>Reset Key</Button>
+        <Button onClick={resetKey}>Reset key</Button>
       </ButtonGroup>
     </PreferencesCard>
   );

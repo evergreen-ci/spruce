@@ -1,7 +1,7 @@
 import { LogTypes } from "types/task";
-import { environmentalVariables } from "utils";
+import { environmentVariables } from "utils";
 
-const { getLobsterURL, getParsleyUrl, getUiUrl } = environmentalVariables;
+const { getLobsterURL, getParsleyUrl, getUiUrl } = environmentVariables;
 
 const wikiBaseUrl = "https://docs.devprod.prod.corp.mongodb.com/evergreen";
 
