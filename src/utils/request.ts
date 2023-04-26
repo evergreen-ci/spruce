@@ -12,7 +12,7 @@ export const post = async (
 ) => {
   try {
     const response = await axios.post(
-      getUiUrl() + url,
+      `${getUiUrl()}${url}`,
       { body },
       { withCredentials: true }
     );

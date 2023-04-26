@@ -5,7 +5,7 @@ describe("Auth", () => {
     cy.url().should("include", "/login");
   });
 
-  it("Redirects user to My Patches page after logging in.", () => {
+  it("Redirects user to My Patches page after logging in", () => {
     cy.clearCookie("mci-token");
     cy.visit("/");
     cy.enterLoginCredentials();

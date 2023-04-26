@@ -48,9 +48,7 @@ const AuthProvider: React.VFC<{ children: React.ReactNode }> = ({
           .post(
             `${getUiUrl()}/login`,
             { username, password },
-            {
-              withCredentials: true,
-            }
+            { withCredentials: true }
           )
           .then((response) => {
             if (response.status === 200) {

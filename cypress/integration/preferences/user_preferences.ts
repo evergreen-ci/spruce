@@ -16,12 +16,12 @@ describe("user preferences pages", () => {
     cy.dataCy("preferences-tab-title").should("have.text", "Notifications");
   });
   it("should be able to reset Evergreen API key", () => {
-    const apiKey = "abb623665fdbf368a1db980dde6ee0f0";
+    const defaultApiKey = "abb623665fdbf368a1db980dde6ee0f0";
     cy.visit(`${baseRoute}${tabNames.cli}`);
     cy.contains("Download the authentication file.").scrollIntoView();
-    cy.contains(apiKey).should("be.visible");
+    cy.contains(defaultApiKey).should("be.visible");
     cy.contains("button", "Reset key").click();
-    cy.contains(apiKey).should("not.exist");
+    cy.contains(defaultApiKey).should("not.exist");
   });
   it("updating a field should enable the submit button", () => {
     cy.visit(`${baseRoute}${tabNames.notifications}`);
