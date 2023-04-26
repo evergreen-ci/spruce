@@ -40,6 +40,7 @@ export const TaskTabs: React.VFC<TaskTabProps> = ({ isDisplayTask, task }) => {
     status,
     taskFiles,
     totalTestCount,
+    versionMetadata,
   } = task ?? {};
   const { fileCount } = taskFiles ?? {};
 
@@ -90,6 +91,7 @@ export const TaskTabs: React.VFC<TaskTabProps> = ({ isDisplayTask, task }) => {
         <ExecutionTasksTable
           execution={execution}
           executionTasksFull={executionTasksFull}
+          isPatch={versionMetadata?.isPatch}
         />
       </Tab>
     ),

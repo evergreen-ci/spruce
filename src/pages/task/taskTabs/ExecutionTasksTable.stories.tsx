@@ -16,13 +16,18 @@ export default {
 
 export const SingleExecution: StoryObj<typeof ExecutionTasksTable> = {
   render: () => (
-    <ExecutionTasksTable executionTasksFull={singleExecution} execution={5} />
+    <ExecutionTasksTable
+      isPatch
+      executionTasksFull={singleExecution}
+      execution={5}
+    />
   ),
 };
 
 export const MultipleExecutions: StoryObj<typeof ExecutionTasksTable> = {
   render: () => (
     <ExecutionTasksTable
+      isPatch
       executionTasksFull={multipleExecutions}
       execution={14}
     />

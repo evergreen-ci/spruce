@@ -6,11 +6,11 @@ export default {
 };
 
 export const BaseTaskTable: StoryObj<typeof TasksTable> = {
-  render: () => <TasksTable tasks={tasks} />,
+  render: () => <TasksTable isPatch tasks={tasks} />,
 };
 
 export const ExecutionTasksTable: StoryObj<typeof TasksTable> = {
-  render: () => <TasksTable tasks={nestedTasks} />,
+  render: () => <TasksTable isPatch tasks={nestedTasks} />,
 };
 
 const tasks = [
