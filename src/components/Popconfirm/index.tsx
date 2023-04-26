@@ -61,8 +61,8 @@ const Popconfirm: React.VFC<PopconfirmProps> = ({
             disabled={confirmDisabled}
             size="small"
             variant="primary"
-            onClick={() => {
-              onConfirm();
+            onClick={(e) => {
+              onConfirm(e);
               setOpen(false);
             }}
           >
