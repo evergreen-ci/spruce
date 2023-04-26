@@ -52,7 +52,8 @@ export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
         const optionText = `Execution ${formatZeroIndexForDisplay(
           singleExecution.execution
         )} - ${getDateCopy(
-          singleExecution.activatedTime ?? singleExecution.ingestTime
+          singleExecution.activatedTime ?? singleExecution.ingestTime,
+          { omitTimezone: true }
         )}`;
 
         return (

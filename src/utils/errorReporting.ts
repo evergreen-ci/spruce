@@ -1,5 +1,5 @@
 import Bugsnag, { Event, BreadcrumbType } from "@bugsnag/js";
-import { isProductionBuild } from "utils/environmentalVariables";
+import { isProductionBuild } from "utils/environmentVariables";
 
 interface reportErrorResult {
   severe: () => void;

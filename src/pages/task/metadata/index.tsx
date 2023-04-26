@@ -122,7 +122,10 @@ export const Metadata: React.VFC<Props> = ({
 
       {submittedTime && (
         <MetadataItem data-cy="task-metadata-submitted-at">
-          Submitted at: {getDateCopy(submittedTime)}
+          Submitted at:{" "}
+          <span title={getDateCopy(submittedTime)}>
+            {getDateCopy(submittedTime, { omitSeconds: true })}
+          </span>
         </MetadataItem>
       )}
       {generatedBy && (
@@ -147,14 +150,19 @@ export const Metadata: React.VFC<Props> = ({
       {startTime && (
         <MetadataItem>
           Started:{" "}
-          <span data-cy="task-metadata-started">{getDateCopy(startTime)}</span>
+          <span data-cy="task-metadata-started" title={getDateCopy(startTime)}>
+            {getDateCopy(startTime, { omitSeconds: true })}
+          </span>
         </MetadataItem>
       )}
       {finishTime && (
         <MetadataItem>
           Finished:{" "}
-          <span data-cy="task-metadata-finished">
-            {getDateCopy(finishTime)}
+          <span
+            data-cy="task-metadata-finished"
+            title={getDateCopy(finishTime)}
+          >
+            {getDateCopy(finishTime, { omitSeconds: true })}
           </span>
         </MetadataItem>
       )}
