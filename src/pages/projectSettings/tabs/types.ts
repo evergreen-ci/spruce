@@ -58,6 +58,6 @@ export type FormToGqlFunction<T extends WritableTabRoutes> = (
 
 export const readOnlyTabs = [ProjectSettingsTabRoutes.EventLog] as const;
 
-type ReadOnlyTabs = typeof readOnlyTabs[number];
+type ReadOnlyTabs = (typeof readOnlyTabs)[number];
 
 export type WritableTabRoutes = Exclude<ProjectSettingsTabRoutes, ReadOnlyTabs>;

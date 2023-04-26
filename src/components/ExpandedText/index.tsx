@@ -8,7 +8,7 @@ const { blue } = palette;
 
 interface ExpandedTextProps {
   message: string;
-  triggerEvent?: typeof TriggerEvent[keyof typeof TriggerEvent];
+  triggerEvent?: (typeof TriggerEvent)[keyof typeof TriggerEvent];
   popoverZIndex?: number;
   ["data-cy"]?: string;
 }
