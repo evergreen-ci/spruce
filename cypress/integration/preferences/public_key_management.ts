@@ -1,5 +1,3 @@
-import { popconfirmYesClassName } from "../../utils/popconfirm";
-
 describe("Public Key Management Page", { testIsolation: false }, () => {
   const route = "/preferences/publickeys";
 
@@ -14,14 +12,14 @@ describe("Public Key Management Page", { testIsolation: false }, () => {
     });
     it("Removes a public key from the table after deletion", () => {
       cy.dataCy("delete-btn").first().click();
-      cy.get(popconfirmYesClassName).click();
+      cy.contains("button", "Yes").click();
       cy.dataCy("table-key-name").should("have.length", 1);
       cy.dataCy("table-key-name").first().should("not.contain", keyName1);
       cy.dataCy("table-key-name").first().contains(keyName2);
     });
     it('Displays "No keys saved. Add a new key to populate the list." when no keys are available', () => {
       cy.dataCy("delete-btn").first().click();
-      cy.get(popconfirmYesClassName).click();
+      cy.contains("button", "Yes").click();
       cy.contains("No keys saved. Add a new key to populate the list.");
     });
   });

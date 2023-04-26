@@ -1,9 +1,10 @@
 import { createContext, useContext, useMemo, useReducer } from "react";
 import axios from "axios";
-import { environmentalVariables } from "utils";
+import { environmentVariables } from "utils";
 import { leaveBreadcrumb } from "utils/errorReporting";
 
-const { getLoginDomain } = environmentalVariables;
+const { getUiUrl, getLoginDomain } = environmentVariables;
+
 interface AuthState {
   isAuthenticated: boolean;
 }
@@ -12,7 +13,7 @@ type Action = { type: "authenticated" } | { type: "deauthenticated" };
 
 type LoginCreds = { username: string; password: string };
 interface DispatchContext {
-  login: (creds: LoginCreds) => void;
+  devLogin: (creds: LoginCreds) => void;
   logoutAndRedirect: () => void;
   dispatchAuthenticated: () => void;
 }
@@ -41,14 +42,24 @@ const AuthProvider: React.VFC<{ children: React.ReactNode }> = ({
 
   const dispatchContext: DispatchContext = useMemo(
     () => ({
-      login: async ({ username, password }) => {
-        await axios.post(`${getLoginDomain()}/login`, { username, password });
-        dispatch({ type: "authenticated" });
+      // This function is only used in local development.
+      devLogin: async ({ username, password }) => {
+        await axios
+          .post(
+            `${getUiUrl()}/login`,
+            { username, password },
+            { withCredentials: true }
+          )
+          .then((response) => {
+            if (response.status === 200) {
+              dispatch({ type: "authenticated" });
+            }
+          });
       },
       logoutAndRedirect: async () => {
         // attempt log out and redirect to login page
         try {
-          await axios.get(`${getLoginDomain()}/logout`);
+          await axios.get(`${getUiUrl()}/logout`);
         } catch {}
         dispatch({ type: "deauthenticated" });
         window.location.href = `${getLoginDomain()}/login`;

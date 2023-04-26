@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import get from "lodash/get";
 import { matchPath, useLocation } from "react-router-dom";
 import { routes } from "constants/routes";
-import { environmentalVariables } from "utils";
+import { environmentVariables } from "utils";
 
-const { getUiUrl } = environmentalVariables;
+const { getUiUrl } = environmentVariables;
+
 export const useLegacyUIURL = (): string | null => {
   const [id, setId] = useState("");
   const [legacyUIUrl, setLegacyUIUrl] = useState(null);

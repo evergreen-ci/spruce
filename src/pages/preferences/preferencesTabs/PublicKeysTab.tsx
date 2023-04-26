@@ -3,9 +3,10 @@ import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
-import { Table, Skeleton, Popconfirm } from "antd";
+import { Table, Skeleton } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { PlusButton } from "components/Buttons";
+import Popconfirm from "components/Popconfirm";
 import { WordBreak } from "components/styles";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -84,22 +85,22 @@ export const PublicKeysTab: React.VFC = () => {
             }}
           />
           <Popconfirm
-            icon={null}
-            placement="topRight"
-            title="Delete this public key?"
+            align="right"
             onConfirm={() => {
               sendEvent({ name: "Delete public key" });
               removePublicKey({ variables: { keyName: name } });
             }}
-            okText="Yes"
-            cancelText="Cancel"
+            trigger={
+              <StyledButton
+                size="small"
+                data-cy="delete-btn"
+                disabled={loadingRemovePublicKey}
+              >
+                <Icon glyph="Trash" />
+              </StyledButton>
+            }
           >
-            <StyledButton
-              size="small"
-              data-cy="delete-btn"
-              leftGlyph={<Icon glyph="Trash" />}
-              disabled={loadingRemovePublicKey}
-            />
+            Delete this public key?
           </Popconfirm>
         </BtnContainer>
       ),
