@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
-import { Popconfirm } from "antd";
 import { useAnnotationAnalytics } from "analytics";
+import Popconfirm from "components/Popconfirm";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -29,7 +29,7 @@ const FileTicketButton: React.VFC<FileTicketProps> = ({
     BbCreateTicketMutationVariables
   >(FILE_JIRA_TICKET, {
     onCompleted: () => {
-      setButtonText("FILE ANOTHER TICKET");
+      setButtonText("File another ticket");
       dispatchToast.success(`Ticket successfully created for this task.`);
     },
     onError(error) {
@@ -39,7 +39,7 @@ const FileTicketButton: React.VFC<FileTicketProps> = ({
     },
   });
 
-  const [buttonText, setButtonText] = useState<string>("FILE TICKET");
+  const [buttonText, setButtonText] = useState<string>("File ticket");
   const annotationAnalytics = useAnnotationAnalytics();
   const onClickFile = () => {
     annotationAnalytics.sendEvent({ name: "Build Baron File Ticket" });
@@ -49,23 +49,23 @@ const FileTicketButton: React.VFC<FileTicketProps> = ({
   return (
     <Container>
       <Popconfirm
-        title="Do you want to create a failure ticket for this task?"
+        align="right"
+        confirmDisabled={loadingFileJiraTicket}
+        data-cy="file-ticket-popconfirm"
         onConfirm={onClickFile}
-        icon={null}
-        placement="right"
-        okText="File Ticket"
-        okButtonProps={{ loading: loadingFileJiraTicket }}
-        cancelButtonProps={{ disabled: loadingFileJiraTicket }}
+        trigger={
+          <ButtonWrapper>
+            <Button
+              data-cy="file-ticket-button"
+              variant={Variant.Primary}
+              size={Size.XSmall}
+            >
+              {buttonText}
+            </Button>
+          </ButtonWrapper>
+        }
       >
-        <ButtonWrapper>
-          <Button
-            data-cy="file-ticket-button"
-            variant={Variant.Primary}
-            size={Size.XSmall}
-          >
-            {buttonText}
-          </Button>
-        </ButtonWrapper>
+        Do you want to create a failure ticket for this task?
       </Popconfirm>
     </Container>
   );

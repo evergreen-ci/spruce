@@ -23,12 +23,12 @@ exports[`storybook Storyshots Pages/Task/Metadata Containerized Task 1`] = `
         Build Variant:
          
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="build-variant-link"
           href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=%5Eubuntu1604%24"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             Ubuntu 16.04
           </span>
@@ -41,12 +41,12 @@ exports[`storybook Storyshots Pages/Task/Metadata Containerized Task 1`] = `
         Project:
          
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="project-link"
           href="/project/spruce/patches"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             spruce
           </span>
@@ -81,12 +81,12 @@ exports[`storybook Storyshots Pages/Task/Metadata Containerized Task 1`] = `
         Base commit:
          
         <a
-          class="lg-ui-0000 leafygreen-ui-hvznge"
+          class="lg-ui-0002 leafygreen-ui-hvznge"
           data-cy="base-task-link"
           href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         >
           <code
-            class="leafygreen-ui-zbywgk"
+            class="leafygreen-ui-y846ok"
           >
             e0ece5a
           </code>
@@ -98,13 +98,13 @@ exports[`storybook Storyshots Pages/Task/Metadata Containerized Task 1`] = `
         Container:
          
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="task-pod-link"
           href="/container/pod_id"
           target="_self"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             pod_id
           </span>
@@ -138,12 +138,12 @@ exports[`storybook Storyshots Pages/Task/Metadata Default 1`] = `
         Build Variant:
          
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="build-variant-link"
           href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=%5Eubuntu1604%24"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             Ubuntu 16.04
           </span>
@@ -156,12 +156,12 @@ exports[`storybook Storyshots Pages/Task/Metadata Default 1`] = `
         Project:
          
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="project-link"
           href="/project/spruce/patches"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             spruce
           </span>
@@ -196,12 +196,12 @@ exports[`storybook Storyshots Pages/Task/Metadata Default 1`] = `
         Base commit:
          
         <a
-          class="lg-ui-0000 leafygreen-ui-hvznge"
+          class="lg-ui-0002 leafygreen-ui-hvznge"
           data-cy="base-task-link"
           href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         >
           <code
-            class="leafygreen-ui-zbywgk"
+            class="leafygreen-ui-y846ok"
           >
             e0ece5a
           </code>
@@ -213,13 +213,13 @@ exports[`storybook Storyshots Pages/Task/Metadata Default 1`] = `
         Distro:
          
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="task-distro-link"
           href="/distros##ubuntu1604-small"
           target="_self"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             ubuntu1604-small
           </span>
@@ -238,13 +238,13 @@ exports[`storybook Storyshots Pages/Task/Metadata Default 1`] = `
         Host:
          
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="task-host-link"
           href="/host/i-0e0e62799806e037d"
           target="_self"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             i-0e0e62799806e037d
           </span>
@@ -254,12 +254,12 @@ exports[`storybook Storyshots Pages/Task/Metadata Default 1`] = `
         class="css-1tu2ym0-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
       >
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="task-spawn-host-link"
           href="/spawn/host?distroId=ubuntu1604-small&spawnHost=True&taskId=someTaskId"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             Spawn host
           </span>
@@ -293,12 +293,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
         Build Variant:
          
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="build-variant-link"
           href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=%5Eubuntu1604%24"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             Ubuntu 16.04
           </span>
@@ -311,12 +311,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
         Project:
          
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="project-link"
           href="/project/spruce/patches"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             spruce
           </span>
@@ -351,12 +351,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
         Base commit:
          
         <a
-          class="lg-ui-0000 leafygreen-ui-hvznge"
+          class="lg-ui-0002 leafygreen-ui-hvznge"
           data-cy="base-task-link"
           href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         >
           <code
-            class="leafygreen-ui-zbywgk"
+            class="leafygreen-ui-y846ok"
           >
             e0ece5a
           </code>
@@ -368,13 +368,13 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
         Distro:
          
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="task-distro-link"
           href="/distros##ubuntu1604-small"
           target="_self"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             ubuntu1604-small
           </span>
@@ -393,13 +393,13 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
         Host:
          
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="task-host-link"
           href="/host/i-0e0e62799806e037d"
           target="_self"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             i-0e0e62799806e037d
           </span>
@@ -409,12 +409,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
         class="css-1tu2ym0-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
       >
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="task-spawn-host-link"
           href="/spawn/host?distroId=ubuntu1604-small&spawnHost=True&taskId=someTaskId"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             Spawn host
           </span>
@@ -448,12 +448,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
         Build Variant:
          
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="build-variant-link"
           href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=%5Eubuntu1604%24"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             Ubuntu 16.04
           </span>
@@ -466,12 +466,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
         Project:
          
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="project-link"
           href="/project/spruce/patches"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             spruce
           </span>
@@ -506,12 +506,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
         Base commit:
          
         <a
-          class="lg-ui-0000 leafygreen-ui-hvznge"
+          class="lg-ui-0002 leafygreen-ui-hvznge"
           data-cy="base-task-link"
           href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         >
           <code
-            class="leafygreen-ui-zbywgk"
+            class="leafygreen-ui-y846ok"
           >
             e0ece5a
           </code>
@@ -523,13 +523,13 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
         Distro:
          
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="task-distro-link"
           href="/distros##ubuntu1604-small"
           target="_self"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             ubuntu1604-small
           </span>
@@ -548,13 +548,13 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
         Host:
          
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="task-host-link"
           href="/host/i-0e0e62799806e037d"
           target="_self"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             i-0e0e62799806e037d
           </span>
@@ -564,12 +564,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
         class="css-1tu2ym0-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
       >
         <a
-          class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="task-spawn-host-link"
           href="/spawn/host?distroId=ubuntu1604-small&spawnHost=True&taskId=someTaskId"
         >
           <span
-            class="leafygreen-ui-1ewnca3"
+            class="leafygreen-ui-baoi4d"
           >
             Spawn host
           </span>
@@ -610,12 +610,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
             class="css-19njn6m-RightContainer e1dgw5p62"
           >
             <a
-              class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+              class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="depends-on-link"
               href="/task/some_task_id_1"
             >
               <span
-                class="leafygreen-ui-1ewnca3"
+                class="leafygreen-ui-baoi4d"
               >
                 Some dep
               </span>
@@ -661,12 +661,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
             class="css-19njn6m-RightContainer e1dgw5p62"
           >
             <a
-              class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+              class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="depends-on-link"
               href="/task/some_task_id_2"
             >
               <span
-                class="leafygreen-ui-1ewnca3"
+                class="leafygreen-ui-baoi4d"
               >
                 Some dep
               </span>
@@ -712,12 +712,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
             class="css-19njn6m-RightContainer e1dgw5p62"
           >
             <a
-              class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+              class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="depends-on-link"
               href="/task/some_task_id_3"
             >
               <span
-                class="leafygreen-ui-1ewnca3"
+                class="leafygreen-ui-baoi4d"
               >
                 Some dep
               </span>
@@ -761,12 +761,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
             class="css-19njn6m-RightContainer e1dgw5p62"
           >
             <a
-              class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+              class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="depends-on-link"
               href="/task/some_task_id_4"
             >
               <span
-                class="leafygreen-ui-1ewnca3"
+                class="leafygreen-ui-baoi4d"
               >
                 Some dep
               </span>
