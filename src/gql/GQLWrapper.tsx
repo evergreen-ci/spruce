@@ -9,11 +9,11 @@ import { onError } from "@apollo/client/link/error";
 import { RetryLink } from "@apollo/client/link/retry";
 import { routes } from "constants/routes";
 import { useAuthDispatchContext } from "context/auth";
-import { environmentalVariables, errorReporting } from "utils";
+import { environmentVariables, errorReporting } from "utils";
 
 const { reportError, leaveBreadcrumb } = errorReporting;
 
-const { getGQLUrl } = environmentalVariables;
+const { getGQLUrl } = environmentVariables;
 
 const GQLWrapper: React.VFC<{ children: React.ReactNode }> = ({ children }) => {
   const { logoutAndRedirect, dispatchAuthenticated } = useAuthDispatchContext();

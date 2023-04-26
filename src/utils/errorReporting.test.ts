@@ -1,10 +1,10 @@
 import Bugsnag from "@bugsnag/js";
-import { mockEnvironmentalVariables } from "test_utils/utils";
+import { mockEnvironmentVariables } from "test_utils/utils";
 import { errorReporting } from "utils";
 
 const { reportError } = errorReporting;
 
-const { mockEnv, cleanup } = mockEnvironmentalVariables();
+const { mockEnv, cleanup } = mockEnvironmentVariables();
 const err = new Error("test error");
 
 describe("error reporting", () => {
