@@ -9,7 +9,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
       Distro Projects
     </h3>
     <div
-      class="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
+      class="css-133ss97-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
     >
       <form
         class="rjsf"
@@ -170,7 +170,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                               >
                                 <label
                                   class="leafygreen-ui-gr5280"
-                                  for="textinput-16"
+                                  for="textinput-10"
                                 >
                                   key
                                 </label>
@@ -183,7 +183,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                                   aria-label="key"
                                   autocomplete="on"
                                   class="leafygreen-ui-6i61vl"
-                                  id="textinput-16"
+                                  id="textinput-10"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -214,7 +214,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                               >
                                 <label
                                   class="leafygreen-ui-gr5280"
-                                  for="textinput-17"
+                                  for="textinput-11"
                                 >
                                   value
                                 </label>
@@ -227,7 +227,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                                   aria-label="value"
                                   autocomplete="on"
                                   class="leafygreen-ui-6i61vl"
-                                  id="textinput-17"
+                                  id="textinput-11"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -321,7 +321,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
       Admin Options
     </h3>
     <div
-      class="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
+      class="css-133ss97-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
     >
       <form
         class="rjsf"
@@ -651,7 +651,7 @@ exports[`storybook Storyshots components/SpruceForm Example 3 1`] = `
       UI Options
     </h3>
     <div
-      class="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
+      class="css-133ss97-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
     >
       <form
         class="rjsf"
