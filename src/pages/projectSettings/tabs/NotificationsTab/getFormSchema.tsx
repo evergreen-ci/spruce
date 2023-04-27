@@ -44,23 +44,6 @@ export const getFormSchema = (
             },
           },
         },
-        subscriptions: {
-          type: "array" as "array",
-          title: "Subscriptions",
-          items: {
-            type: "object" as "object",
-            properties: {
-              subscriptionData: {
-                type: "object" as "object",
-                title: "",
-                properties: {
-                  event: eventSchema,
-                  notification: notificationSchema,
-                },
-              },
-            },
-          },
-        },
         ...(projectType !== ProjectType.Repo && {
           banner: {
             type: "object" as "object",
@@ -108,6 +91,23 @@ export const getFormSchema = (
             },
           },
         }),
+        subscriptions: {
+          type: "array" as "array",
+          title: "Subscriptions",
+          items: {
+            type: "object" as "object",
+            properties: {
+              subscriptionData: {
+                type: "object" as "object",
+                title: "",
+                properties: {
+                  event: eventSchema,
+                  notification: notificationSchema,
+                },
+              },
+            },
+          },
+        },
       },
     },
     uiSchema: {
@@ -118,20 +118,6 @@ export const getFormSchema = (
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
             "Send notification of build breaks to admins of a project if the commit author is not signed up to receive notifications.",
-        },
-      },
-      subscriptions: {
-        "ui:placeholder": "No subscriptions are defined.",
-        "ui:descriptionNode": <HelpText />,
-        "ui:addButtonText": "Add Subscription",
-        "ui:orderable": false,
-        "ui:useExpandableCard": true,
-        items: {
-          "ui:displayTitle": "New Subscription",
-          subscriptionData: {
-            event: eventUiSchema,
-            notification: notificationUiSchema,
-          },
         },
       },
       ...(projectType !== ProjectType.Repo && {
@@ -149,6 +135,20 @@ export const getFormSchema = (
           },
         },
       }),
+      subscriptions: {
+        "ui:placeholder": "No subscriptions are defined.",
+        "ui:descriptionNode": <HelpText />,
+        "ui:addButtonText": "Add Subscription",
+        "ui:orderable": false,
+        "ui:useExpandableCard": true,
+        items: {
+          "ui:displayTitle": "New Subscription",
+          subscriptionData: {
+            event: eventUiSchema,
+            notification: notificationUiSchema,
+          },
+        },
+      },
     },
   };
 };
