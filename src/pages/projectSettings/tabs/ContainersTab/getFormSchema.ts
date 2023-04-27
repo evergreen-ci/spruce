@@ -1,7 +1,9 @@
-import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
+import {
+  CardFieldTemplate,
+  FieldRow,
+} from "components/SpruceForm/FieldTemplates";
 import { SpruceConfig } from "gql/generated/types";
 import { GetFormSchema } from "../types";
-import { FieldRow } from "./FieldRow";
 
 export const getFormSchema = (
   ecsConfig: SpruceConfig["providers"]["aws"]["pod"]["ecs"]

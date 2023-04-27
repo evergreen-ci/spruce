@@ -3,6 +3,7 @@ import Banner from "@leafygreen-ui/banner";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
 import { Accordion } from "components/Accordion";
+import { getFields } from "components/SpruceForm/utils";
 import { fontSize, size } from "constants/tokens";
 import { SpruceFormContainer } from "../../Container";
 
@@ -95,6 +96,25 @@ export const AccordionFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
     </Accordion>
   );
 };
+
+/**
+ * `FieldRow` is a custom ObjectFieldTemplate that renders the fields in a row.
+ */
+export const FieldRow: React.VFC<
+  Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">
+> = ({ properties, uiSchema }) => {
+  const dataCy = uiSchema?.["ui:data-cy"];
+  const fields = getFields(properties, false);
+
+  return <RowContainer data-cy={dataCy}>{fields}</RowContainer>;
+};
+
+const RowContainer = styled.div`
+  display: flex;
+  margin-bottom: ${size.s};
+  justify-content: space-between;
+  gap: ${size.s};
+`;
 
 /* @ts-expect-error  */
 const AccordionTitle = styled(Subtitle)`
