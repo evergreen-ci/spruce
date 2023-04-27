@@ -1115,7 +1115,13 @@ describe("Containers", () => {
     cy.dataCy("add-button").click();
 
     cy.dataCy("container-size-row").should("exist");
+
+    // Test validation for empty fields
     cy.getInputByLabel("Name").type("test container");
+    cy.getInputByLabel("Memory (MB)").clear();
+    cy.getInputByLabel("CPU").clear();
+    saveButtonEnabled(false);
+
     cy.getInputByLabel("Memory (MB)").type("1024");
     cy.getInputByLabel("CPU").type("1024");
     saveButtonEnabled(true);
@@ -1136,6 +1142,10 @@ describe("Containers", () => {
   });
 });
 
+/**
+ * `saveButtonEnabled` checks if the save button is enabled or disabled.
+ * @param isEnabled - if true, the save button should be enabled. If false, the save button should be disabled.
+ */
 const saveButtonEnabled = (isEnabled: boolean = true) => {
   cy.dataCy("save-settings-button").should(
     isEnabled ? "not.have.attr" : "have.attr",
