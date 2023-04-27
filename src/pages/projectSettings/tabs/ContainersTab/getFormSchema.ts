@@ -33,6 +33,7 @@ export const getFormSchema = (
                   title: "Memory (MB)",
                   minLength: 1,
                   minimum: 1,
+                  default: 100,
                   maximum: ecsConfig.maxMemoryMb,
                 },
                 cpu: {
@@ -40,6 +41,7 @@ export const getFormSchema = (
                   title: "CPU",
                   minLength: 1,
                   minimum: 1,
+                  default: 1,
                   maximum: ecsConfig.maxCPU,
                 },
               },
@@ -53,7 +55,7 @@ export const getFormSchema = (
     containerSizeDefinitions: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       variables: {
-        "ui:description": `Specify custom computing resource configurations for running tasks in containers. Memory field denotes the memory (in MB) that will be allocated, and CPU field denotes the number of CPU units that will be allocated. 1024 CPU units is the equivalent of 1vCPU.`,
+        "ui:description": `Specify custom computing resource configurations for running tasks in containers. The Memory field denotes the memory (in MB) that will be allocated, and the CPU field denotes the number of CPU units that will be allocated. 1024 CPU units is the equivalent of 1vCPU.`,
         "ui:fullWidth": true,
         "ui:orderable": false,
         "ui:addButtonText": "Add new configuration",

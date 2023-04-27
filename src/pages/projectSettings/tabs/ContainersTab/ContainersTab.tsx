@@ -20,7 +20,7 @@ export const ContainersTab: React.VFC<TabProps> = ({
   const initialFormState = projectData || repoData;
   usePopulateForm(initialFormState, tab);
 
-  const { providers } = useSpruceConfig();
+  const { providers } = useSpruceConfig() || {};
   const { aws } = providers || {};
   const { pod } = aws || {};
   const { ecs } = pod || {};
@@ -28,7 +28,7 @@ export const ContainersTab: React.VFC<TabProps> = ({
 
   const { fields, schema, uiSchema } = useMemo(() => getFormSchema(ecs), [ecs]);
 
-  if (!formData) return null;
+  if (!formData || !ecs) return null;
 
   return (
     <SpruceForm
