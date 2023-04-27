@@ -1112,7 +1112,7 @@ describe("Containers", () => {
   });
   it("should be able to add a container configuration and save it", () => {
     cy.dataCy("add-button").should("be.visible");
-    cy.dataCy("add-button").click({});
+    cy.dataCy("add-button").click();
 
     cy.dataCy("container-size-row").should("exist");
     cy.getInputByLabel("Name").type("test container");
