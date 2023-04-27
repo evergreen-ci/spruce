@@ -232,6 +232,9 @@ const ArrayItemRow = styled.div<{ border: boolean; index: number }>`
   }
 `;
 
+/**
+ * `ArrayFieldTemplate` is a custom field template for arrays that renders an array of fields.
+ */
 export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
   canAdd,
   DescriptionField,
@@ -355,6 +358,9 @@ const DeleteButtonWrapper = styled(ElementWrapper)`
     topAlignDelete ? "0px" : labelOffset};
 `;
 
+/**
+ * `CardFieldTemplate` is a custom ObjectFieldTemplate that renders a card with a title and a list of properties.
+ */
 export const CardFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
   idSchema,
   properties,
@@ -369,6 +375,10 @@ export const CardFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
     {properties.map((prop) => prop.content)}
   </SpruceFormContainer>
 );
+
+/**
+ * `AccordionFieldTemplate` is a custom ObjectFieldTemplate that renders an accordion with a title and a list of properties.
+ */
 export const AccordionFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
   disabled,
   idSchema,
