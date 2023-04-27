@@ -72,7 +72,7 @@ export const getFormSchema = (
                 type: "object" as "object",
                 title: "Project Banner",
                 description:
-                  "Add a banner to pages that represent data from this project.",
+                  "Add a banner to pages that represent data from this project. JIRA tickets will be linked automatically.",
                 properties: {
                   theme: {
                     type: "string" as "string",
