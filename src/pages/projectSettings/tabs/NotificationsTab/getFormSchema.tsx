@@ -1,10 +1,8 @@
-import styled from "@emotion/styled";
 import { InlineCode, Description } from "@leafygreen-ui/typography";
 import {
   getEventSchema,
   getNotificationSchema,
 } from "components/Notifications/form";
-import { formComponentSpacingCSS } from "components/SpruceForm/Container";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { projectTriggers } from "constants/triggers";
@@ -123,9 +121,7 @@ export const getFormSchema = (
         },
       },
       subscriptions: {
-        "ui:placeholder": (
-          <Placeholder>No subscriptions are defined.</Placeholder>
-        ),
+        "ui:placeholder": "No subscriptions are defined.",
         "ui:descriptionNode": <HelpText />,
         "ui:addButtonText": "Add Subscription",
         "ui:orderable": false,
@@ -173,7 +169,3 @@ const HelpText: React.VFC = () => {
     </Description>
   );
 };
-
-const Placeholder = styled.div`
-  ${formComponentSpacingCSS}
-`;

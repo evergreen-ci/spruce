@@ -14,7 +14,7 @@ import { PlusButton } from "components/Buttons";
 import Icon from "components/Icon";
 import { fontSize, size } from "constants/tokens";
 import { Unpacked } from "types/utils";
-import { SpruceFormContainer } from "./Container";
+import { SpruceFormContainer, formComponentSpacingCSS } from "./Container";
 import { TitleField as CustomTitleField } from "./CustomFields";
 import ElementWrapper from "./ElementWrapper";
 
@@ -300,7 +300,7 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
         hasChildren={!!items?.length}
       >
         {items.length === 0 ? (
-          <Body>{placeholder}</Body>
+          <Placeholder>{placeholder}</Placeholder>
         ) : (
           items.map((p, i) => (
             <ArrayItem
@@ -400,4 +400,8 @@ export const AccordionFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
 const AccordionTitle = styled(Subtitle)`
   font-size: ${fontSize.l};
   margin: ${size.xs} 0;
+`;
+
+const Placeholder = styled(Body)`
+  ${formComponentSpacingCSS}
 `;
