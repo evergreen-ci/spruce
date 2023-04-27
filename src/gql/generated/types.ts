@@ -60,6 +60,13 @@ export type Annotation = {
   webhookConfigured: Scalars["Boolean"];
 };
 
+export enum BannerTheme {
+  Announcement = "ANNOUNCEMENT",
+  Important = "IMPORTANT",
+  Information = "INFORMATION",
+  Warning = "WARNING",
+}
+
 export type Build = {
   __typename?: "Build";
   actualMakespan: Scalars["Duration"];
@@ -1171,6 +1178,7 @@ export type PodEvents = {
 export type Project = {
   __typename?: "Project";
   admins?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  banner?: Maybe<ProjectBanner>;
   batchTime: Scalars["Int"];
   branch: Scalars["String"];
   buildBaronSettings: BuildBaronSettings;
@@ -1244,6 +1252,17 @@ export type ProjectAliasInput = {
   variantTags: Array<Scalars["String"]>;
 };
 
+export type ProjectBanner = {
+  __typename?: "ProjectBanner";
+  text: Scalars["String"];
+  theme: BannerTheme;
+};
+
+export type ProjectBannerInput = {
+  text: Scalars["String"];
+  theme: BannerTheme;
+};
+
 export type ProjectBuildVariant = {
   __typename?: "ProjectBuildVariant";
   displayName: Scalars["String"];
@@ -1282,6 +1301,7 @@ export type ProjectEvents = {
 
 export type ProjectInput = {
   admins?: InputMaybe<Array<Scalars["String"]>>;
+  banner?: InputMaybe<ProjectBannerInput>;
   batchTime?: InputMaybe<Scalars["Int"]>;
   branch?: InputMaybe<Scalars["String"]>;
   buildBaronSettings?: InputMaybe<BuildBaronSettingsInput>;

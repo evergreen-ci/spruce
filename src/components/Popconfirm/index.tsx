@@ -1,51 +1,49 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { palette } from "@leafygreen-ui/palette";
-import Popover, { Align, Justify } from "@leafygreen-ui/popover";
+import Tooltip, { TooltipProps } from "@leafygreen-ui/tooltip";
+import { wordBreakCss } from "components/styles";
 import { size, zIndex } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
 
-const { white } = palette;
-
-interface PopconfirmProps {
-  active: boolean;
-  align?: Align;
-  justify?: Justify;
-  "data-cy"?: string;
-  children: React.ReactNode;
+type PopconfirmProps = TooltipProps & {
+  confirmDisabled?: boolean;
   confirmText?: string;
-  refEl?: React.RefObject<HTMLElement>;
-  onCancel?: () => void;
-  onConfirm?: () => void;
-  setActive: (open: boolean) => void;
-}
+  "data-cy"?: string;
+  onConfirm?: (e?: React.MouseEvent) => void;
+};
 
 const Popconfirm: React.VFC<PopconfirmProps> = ({
-  active,
-  align = "top",
-  justify = "middle",
-  "data-cy": dataCy,
   children,
+  confirmDisabled = false,
   confirmText = "Yes",
-  refEl,
-  onCancel = () => {},
+  onClose = () => {},
   onConfirm = () => {},
-  setActive,
+  open: controlledOpen,
+  refEl,
+  setOpen: controlledSetOpen,
+  ...props
 }) => {
+  const isControlled = !!(controlledOpen !== undefined && controlledSetOpen);
+  const [uncontrolledOpen, uncontrolledSetOpen] = useState(false);
+  const open = isControlled ? controlledOpen : uncontrolledOpen;
+  const setOpen = isControlled ? controlledSetOpen : uncontrolledSetOpen;
+
   const popoverRef = useRef<HTMLDivElement>(null);
-  useOnClickOutside([popoverRef, ...(refEl ? [refEl] : [])], () =>
-    setActive(false)
-  );
+  useOnClickOutside([popoverRef, ...(refEl ? [refEl] : [])], () => {
+    onClose();
+    setOpen(false);
+  });
 
   return (
-    <Popover
-      data-cy={dataCy}
-      align={align}
-      justify={justify}
-      active={active}
-      refEl={refEl}
+    <Tooltip
       popoverZIndex={zIndex.popover}
+      triggerEvent="click"
+      open={open}
+      onClose={onClose}
+      refEl={refEl}
+      setOpen={setOpen}
+      {...props}
     >
       <ContentWrapper ref={popoverRef}>
         {children}
@@ -53,37 +51,35 @@ const Popconfirm: React.VFC<PopconfirmProps> = ({
           <Button
             size="small"
             onClick={() => {
-              onCancel();
-              setActive(false);
+              onClose();
+              setOpen(false);
             }}
           >
             Cancel
           </Button>
           <Button
+            disabled={confirmDisabled}
             size="small"
             variant="primary"
-            onClick={() => {
-              onConfirm();
-              setActive(false);
+            onClick={(e) => {
+              onConfirm(e);
+              setOpen(false);
             }}
           >
             {confirmText}
           </Button>
         </ButtonWrapper>
       </ContentWrapper>
-    </Popover>
+    </Tooltip>
   );
 };
 
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${white};
-  max-width: 300px;
-  // The following properties have been lifted from other LeafyGreen styles.
-  border-radius: ${size.s};
-  padding: 12px 16px;
-  box-shadow: 0px 2px 4px -1px rgba(0, 30, 43, 0.15);
+  gap: ${size.xs};
+
+  ${wordBreakCss}
 `;
 
 const ButtonWrapper = styled.div`
