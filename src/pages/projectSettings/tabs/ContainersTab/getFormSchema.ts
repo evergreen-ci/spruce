@@ -34,7 +34,7 @@ export const getFormSchema = (
                   minLength: 1,
                   minimum: 1,
                   default: 100,
-                  maximum: ecsConfig.maxMemoryMb,
+                  maximum: ecsConfig?.maxMemoryMb || 1024,
                 },
                 cpu: {
                   type: "number" as "number",
@@ -42,7 +42,7 @@ export const getFormSchema = (
                   minLength: 1,
                   minimum: 1,
                   default: 1,
-                  maximum: ecsConfig.maxCPU,
+                  maximum: ecsConfig?.maxCPU || 1024,
                 },
               },
             },
