@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import {
-  SpruceConfigBanner,
+  AdminBanner,
   ConnectivityBanner,
   SlackNotificationBanner,
   GithubUsernameBanner,
@@ -17,7 +17,7 @@ export const Header: React.VFC = () => {
     <StyledHeader>
       <Navbar />
       <BannerContainer id="banner-container">
-        <SpruceConfigBanner />
+        <AdminBanner />
         <ConnectivityBanner />
         <GithubUsernameBanner />
         <SlackNotificationBanner />
