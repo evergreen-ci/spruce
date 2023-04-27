@@ -180,7 +180,7 @@ export const formToGql: FormToGqlFunction<Tab> = (
   const projectRef: ProjectInput = {
     id: projectId,
     notifyOnBuildFailure: buildBreakSettings.notifyOnBuildFailure,
-    ...(banner && { banner: { ...banner.bannerData } }),
+    ...(banner && { banner: banner.bannerData }),
   };
   const transformedSubscriptions: SubscriptionInput[] = subscriptions.map(
     getGqlPayload(projectId)
