@@ -2538,13 +2538,19 @@ export type WebhookInput = {
 export type WebhookSubscriber = {
   __typename?: "WebhookSubscriber";
   headers: Array<Maybe<WebhookHeader>>;
+  minDelayMs: Scalars["Int"];
+  retries: Scalars["Int"];
   secret: Scalars["String"];
+  timeoutMs: Scalars["Int"];
   url: Scalars["String"];
 };
 
 export type WebhookSubscriberInput = {
   headers: Array<InputMaybe<WebhookHeaderInput>>;
+  minDelayMs?: InputMaybe<Scalars["Int"]>;
+  retries?: InputMaybe<Scalars["Int"]>;
   secret: Scalars["String"];
+  timeoutMs?: InputMaybe<Scalars["Int"]>;
   url: Scalars["String"];
 };
 
@@ -3167,7 +3173,10 @@ export type ProjectSettingsFragment = {
           }>;
           webhookSubscriber?: Maybe<{
             __typename?: "WebhookSubscriber";
+            minDelayMs: number;
+            retries: number;
             secret: string;
+            timeoutMs: number;
             url: string;
             headers: Array<
               Maybe<{
@@ -3360,7 +3369,10 @@ export type RepoSettingsFragment = {
           }>;
           webhookSubscriber?: Maybe<{
             __typename?: "WebhookSubscriber";
+            minDelayMs: number;
+            retries: number;
             secret: string;
+            timeoutMs: number;
             url: string;
             headers: Array<
               Maybe<{
@@ -3433,7 +3445,10 @@ export type SubscriptionsFragment = {
       }>;
       webhookSubscriber?: Maybe<{
         __typename?: "WebhookSubscriber";
+        minDelayMs: number;
+        retries: number;
         secret: string;
+        timeoutMs: number;
         url: string;
         headers: Array<
           Maybe<{ __typename?: "WebhookHeader"; key: string; value: string }>
@@ -3750,7 +3765,10 @@ export type ProjectEventSettingsFragment = {
           }>;
           webhookSubscriber?: Maybe<{
             __typename?: "WebhookSubscriber";
+            minDelayMs: number;
+            retries: number;
             secret: string;
+            timeoutMs: number;
             url: string;
             headers: Array<
               Maybe<{
@@ -5956,7 +5974,10 @@ export type ProjectEventLogsQuery = {
                 }>;
                 webhookSubscriber?: Maybe<{
                   __typename?: "WebhookSubscriber";
+                  minDelayMs: number;
+                  retries: number;
                   secret: string;
+                  timeoutMs: number;
                   url: string;
                   headers: Array<
                     Maybe<{
@@ -6162,7 +6183,10 @@ export type ProjectEventLogsQuery = {
                 }>;
                 webhookSubscriber?: Maybe<{
                   __typename?: "WebhookSubscriber";
+                  minDelayMs: number;
+                  retries: number;
                   secret: string;
+                  timeoutMs: number;
                   url: string;
                   headers: Array<
                     Maybe<{
@@ -6377,7 +6401,10 @@ export type ProjectSettingsQuery = {
             }>;
             webhookSubscriber?: Maybe<{
               __typename?: "WebhookSubscriber";
+              minDelayMs: number;
+              retries: number;
               secret: string;
+              timeoutMs: number;
               url: string;
               headers: Array<
                 Maybe<{
@@ -6628,7 +6655,10 @@ export type RepoEventLogsQuery = {
                 }>;
                 webhookSubscriber?: Maybe<{
                   __typename?: "WebhookSubscriber";
+                  minDelayMs: number;
+                  retries: number;
                   secret: string;
+                  timeoutMs: number;
                   url: string;
                   headers: Array<
                     Maybe<{
@@ -6834,7 +6864,10 @@ export type RepoEventLogsQuery = {
                 }>;
                 webhookSubscriber?: Maybe<{
                   __typename?: "WebhookSubscriber";
+                  minDelayMs: number;
+                  retries: number;
                   secret: string;
+                  timeoutMs: number;
                   url: string;
                   headers: Array<
                     Maybe<{
@@ -7044,7 +7077,10 @@ export type RepoSettingsQuery = {
             }>;
             webhookSubscriber?: Maybe<{
               __typename?: "WebhookSubscriber";
+              minDelayMs: number;
+              retries: number;
               secret: string;
+              timeoutMs: number;
               url: string;
               headers: Array<
                 Maybe<{

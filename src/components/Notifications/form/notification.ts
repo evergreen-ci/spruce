@@ -99,6 +99,24 @@ export const getNotificationSchema = (
                     type: "string" as "string",
                     title: "Webhook Secret",
                   },
+                  retryInput: {
+                    type: "number" as "number",
+                    title: "Retry count",
+                    minimum: 0,
+                    maximum: 10,
+                  },
+                  minDelayInput: {
+                    type: "number" as "number",
+                    title: "Minimum delay (ms)",
+                    minimum: 0,
+                    maximum: 10000,
+                  },
+                  timeoutInput: {
+                    type: "number" as "number",
+                    title: "Max timeout (ms)",
+                    minimum: 0,
+                    maximum: 30000,
+                  },
                   httpHeaders: {
                     type: "array" as "array",
                     title: "HTTP Headers",
@@ -188,6 +206,21 @@ export const getNotificationSchema = (
         "ui:placeholder":
           "The secret will be shown upon saving the subscription.",
         "ui:data-cy": "secret-input",
+      },
+      retryInput: {
+        "ui:data-cy": "retry-input",
+        "ui:placeholder": "Defaults to 0 if unset.",
+        "ui:optional": true,
+      },
+      minDelayInput: {
+        "ui:data-cy": "min-delay-input",
+        "ui:placeholder": "Defaults to 500 if unset.",
+        "ui:optional": true,
+      },
+      timeoutInput: {
+        "ui:data-cy": "timeout-input",
+        "ui:placeholder": "Defaults to 10000 if unset.",
+        "ui:optional": true,
       },
       httpHeaders: {
         "ui:addToEnd": true,
