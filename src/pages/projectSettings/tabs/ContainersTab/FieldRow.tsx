@@ -5,18 +5,13 @@ import { form } from "../utils";
 
 const { getFields } = form;
 
-export const ContainerSizeRow: React.VFC<
+export const FieldRow: React.VFC<
   Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">
-> = ({ formData, properties }) => {
-  const [name, memoryMb, cpu] = getFields(properties, formData.isDisabled);
+> = ({ properties, uiSchema }) => {
+  const dataCy = uiSchema?.["ui:data-cy"] satisfies string;
+  const fields = getFields(properties, false);
 
-  return (
-    <RowContainer data-cy="container-size-row">
-      {name}
-      {memoryMb}
-      {cpu}
-    </RowContainer>
-  );
+  return <RowContainer data-cy={dataCy}>{fields}</RowContainer>;
 };
 
 const RowContainer = styled.div`
