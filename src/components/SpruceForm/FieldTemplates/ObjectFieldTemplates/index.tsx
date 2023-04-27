@@ -102,9 +102,9 @@ export const AccordionFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
  */
 export const FieldRow: React.VFC<
   Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">
-> = ({ properties, uiSchema }) => {
+> = ({ formData, properties, uiSchema }) => {
   const dataCy = uiSchema?.["ui:data-cy"];
-  const fields = getFields(properties, false);
+  const fields = getFields(properties, formData.isDisabled);
 
   return <RowContainer data-cy={dataCy}>{fields}</RowContainer>;
 };
