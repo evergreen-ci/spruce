@@ -1,4 +1,8 @@
-import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
+import {
+  BannerTheme,
+  ProjectSettingsQuery,
+  RepoSettingsQuery,
+} from "gql/generated/types";
 
 const projectBase: ProjectSettingsQuery["projectSettings"] = {
   githubWebhooksEnabled: true,
@@ -9,6 +13,10 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
         urlTemplate: "https:/a-link-template-{version_id}.com",
       },
     ],
+    banner: {
+      text: "",
+      theme: BannerTheme.Announcement,
+    },
     id: "project",
     identifier: "project",
     repoRefId: "repo",

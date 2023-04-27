@@ -1,19 +1,41 @@
 import { BannerTheme, ProjectSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
+import { ProjectType } from "../utils";
 import { formToGql, gqlToForm } from "./transformers";
 import { FormState } from "./types";
 
 const { projectBase } = data;
 
 describe("project data", () => {
-  it("correctly converts from GQL to a form", () => {
-    expect(gqlToForm(projectBase)).toStrictEqual(projectFormBase);
+  it("correctly converts from GQL to a form for project type", () => {
+    expect(
+      gqlToForm(projectBase, { projectType: ProjectType.Project })
+    ).toStrictEqual({ ...projectFormBase, banner });
   });
 
-  it("correctly converts from a form to GQL", () => {
+  it("correctly converts from GQL to a form for repo type", () => {
+    expect(
+      gqlToForm(projectBase, { projectType: ProjectType.Repo })
+    ).toStrictEqual(projectFormBase);
+  });
+
+  it("correctly converts from a form to GQL when a banner value exists in the form", () => {
+    expect(formToGql({ ...projectFormBase, banner }, "spruce")).toStrictEqual({
+      ...projectResultBase,
+      projectRef: {
+        ...projectResultBase.projectRef,
+        banner: banner.bannerData,
+      },
+    });
+  });
+
+  it("correctly converts from a form to GQL when the subscriptions field is empty", () => {
     expect(formToGql(projectFormBase, "spruce")).toStrictEqual(
       projectResultBase
     );
+  });
+
+  it("correctly converts from a form to GQL when the subscriptions field is populated", () => {
     const projectForm = {
       ...projectFormBase,
       subscriptions: [
@@ -68,6 +90,7 @@ describe("project data", () => {
 
     expect(formToGql(projectForm, "spruce")).toStrictEqual(projectResult);
   });
+
   it("handles jira issue subscriptions", () => {
     const projectForm = {
       ...projectFormBase,
@@ -210,17 +233,14 @@ const projectFormBase: FormState = {
     notifyOnBuildFailure: null,
   },
   subscriptions: [],
-  banner: { bannerData: { text: "", theme: BannerTheme.Announcement } },
 };
 
 const projectResultBase: ProjectSettingsInput = {
   projectRef: {
     id: "spruce",
     notifyOnBuildFailure: null,
-    banner: {
-      text: "",
-      theme: BannerTheme.Announcement,
-    },
   },
   subscriptions: [],
 };
+
+const banner = { bannerData: { text: "", theme: BannerTheme.Announcement } };

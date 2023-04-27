@@ -33,7 +33,7 @@ export interface FormState {
       notification: Notification;
     };
   }> | null;
-  banner: {
+  banner?: {
     bannerData: {
       text: string;
       theme: BannerTheme;
