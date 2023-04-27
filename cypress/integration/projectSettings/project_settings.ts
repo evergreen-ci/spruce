@@ -1125,7 +1125,7 @@ describe("Containers", () => {
   });
   it("should be able to delete a container configuration", () => {
     cy.dataCy("container-size-row").should("exist");
-    cy.dataCy("delete-item-button").click();
+    cy.dataCy("delete-item-button").click({ force: true });
     cy.dataCy("container-size-row").should("not.exist");
     cy.dataCy("save-settings-button").scrollIntoView();
     clickSave();
