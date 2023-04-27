@@ -1,5 +1,3 @@
-import { popconfirmYesClassName } from "../../utils/popconfirm";
-
 describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
   it("Visiting the spawn volume page should display the number of free and mounted volumes.", () => {
     cy.visit("/spawn/volume");
@@ -47,8 +45,8 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
     cy.visit("/spawn/volume");
     cy.dataRowKey("vol-0c66e16459646704d").should("exist");
     cy.dataCy("trash-vol-0c66e16459646704d").click();
-    cy.get(".ant-popover").should("be.visible");
-    cy.get(".ant-popover").within(($el) => {
+    cy.dataCy("delete-volume-popconfirm").should("be.visible");
+    cy.dataCy("delete-volume-popconfirm").within(($el) => {
       cy.wrap($el)
         .contains("Yes")
         .should("be.visible")
@@ -68,15 +66,15 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
     cy.dataCy(
       "trash-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     ).click();
-    cy.get(".ant-popover").should("be.visible");
-    cy.get(".ant-popover").within(($el) => {
+    cy.dataCy("delete-volume-popconfirm").should("be.visible");
+    cy.dataCy("delete-volume-popconfirm").within(($el) => {
       cy.wrap($el)
         .getInputByLabel(
           "I understand this volume is currently mounted to a host."
         )
         .should("not.be.checked");
       cy.wrap($el).contains("Yes");
-      cy.wrap($el).contains("Yes").should("be.disabled");
+      cy.wrap($el).contains("Yes").should("have.attr", "aria-disabled", "true");
       cy.wrap($el)
         .getInputByLabel(
           "I understand this volume is currently mounted to a host."
@@ -99,7 +97,7 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
     cy.dataCy(
       "detach-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b857"
     ).click();
-    cy.get(popconfirmYesClassName).click();
+    cy.contains("button", "Yes").click();
     cy.validateToast("success");
   });
 

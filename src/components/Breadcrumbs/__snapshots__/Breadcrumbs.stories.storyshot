@@ -9,11 +9,11 @@ exports[`storybook Storyshots components/Breadcrumbs Default 1`] = `
       class="leafygreen-ui-cssveg"
     >
       <a
-        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
         href="/commits/spruce"
       >
         <span
-          class="leafygreen-ui-1ewnca3"
+          class="leafygreen-ui-baoi4d"
         >
           spruce
         </span>

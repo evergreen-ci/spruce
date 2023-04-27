@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { MenuItem } from "@leafygreen-ui/menu";
 import TextInput from "@leafygreen-ui/text-input";
@@ -26,7 +26,7 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
   const dispatchToast = useToastContext();
 
   const [priority, setPriority] = useState<number>(0);
-  const [active, setActive] = useState(false);
+  const [open, setOpen] = useState(false);
   const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
   const menuItemRef = useRef<HTMLDivElement>(null);
 
@@ -57,22 +57,22 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
     <>
       <div ref={menuItemRef}>
         <MenuItem
-          active={active}
+          active={open}
           data-cy="prioritize-patch"
           disabled={disabled || loadingSetPatchPriority}
-          onClick={() => setActive(!active)}
+          onClick={() => setOpen(!open)}
         >
           Set priority
         </MenuItem>
       </div>
       <Popconfirm
-        active={active}
-        data-cy="set-patch-priority-popconfirm"
         align="left"
-        refEl={menuItemRef}
+        data-cy="set-patch-priority-popconfirm"
         confirmText="Set"
         onConfirm={onConfirm}
-        setActive={setActive}
+        open={open}
+        refEl={menuItemRef}
+        setOpen={setOpen}
       >
         <TextInput
           ref={(el) => setInputRef(el)}
@@ -83,7 +83,7 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
           onKeyPress={(e) => {
             if (e.key === "Enter") {
               onConfirm();
-              setActive(false);
+              setOpen(false);
             }
           }}
           size={16}
