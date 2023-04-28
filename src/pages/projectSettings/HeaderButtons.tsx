@@ -29,6 +29,7 @@ import { ProjectType } from "./tabs/utils";
 const defaultToRepoDisabled: Set<WritableTabRoutes> = new Set([
   ProjectSettingsTabRoutes.Notifications,
   ProjectSettingsTabRoutes.Plugins,
+  ProjectSettingsTabRoutes.Containers,
 ]);
 
 interface Props {
@@ -170,6 +171,7 @@ const mapRouteToSection: Record<WritableTabRoutes, ProjectSettingsSection> = {
   [ProjectSettingsTabRoutes.PeriodicBuilds]:
     ProjectSettingsSection.PeriodicBuilds,
   [ProjectSettingsTabRoutes.Plugins]: ProjectSettingsSection.Plugins,
+  [ProjectSettingsTabRoutes.Containers]: ProjectSettingsSection.Containers,
 };
 
 const ButtonRow = styled.div`

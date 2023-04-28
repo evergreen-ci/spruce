@@ -16,7 +16,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
         novalidate=""
       >
         <div
-          class="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm9"
+          class="form-group field field-object css-ejwhfc-DefaultFieldContainer eny4k1v0"
           id=" root"
         >
           <fieldset
@@ -24,7 +24,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
             id="root"
           >
             <div
-              class="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm9"
+              class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
               id=" root_cloneMethod"
             >
               <div
@@ -92,7 +92,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
               </div>
             </div>
             <div
-              class="form-group field field-array css-ejwhfc-DefaultFieldContainer e7smmlm9"
+              class="form-group field field-array css-ejwhfc-DefaultFieldContainer eny4k1v0"
               id=" root_expansions"
             >
               <h6
@@ -102,7 +102,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                 Expansions
               </h6>
               <div
-                class="css-y5jij6-ElementWrapper-AddButtonContainer e7smmlm4"
+                class="css-y5jij6-ElementWrapper-AddButtonContainer e1jxkcec6"
               >
                 <button
                   aria-disabled="false"
@@ -139,13 +139,13 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                 </button>
               </div>
               <div
-                class="css-uocgfp-ArrayContainer e7smmlm3"
+                class="css-uocgfp-ArrayContainer e1jxkcec5"
               >
                 <div
-                  class="css-nbhfvd-ArrayItemRow e7smmlm5"
+                  class="css-nbhfvd-ArrayItemRow e1jxkcec7"
                 >
                   <div
-                    class="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm9"
+                    class="form-group field field-object css-ejwhfc-DefaultFieldContainer eny4k1v0"
                     id=" root_expansions_0"
                   >
                     <fieldset
@@ -153,7 +153,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                       id="root_expansions_0"
                     >
                       <div
-                        class="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm9"
+                        class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
                         id=" root_expansions_0_key"
                       >
                         <div
@@ -197,7 +197,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                         </div>
                       </div>
                       <div
-                        class="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm9"
+                        class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
                         id=" root_expansions_0_value"
                       >
                         <div
@@ -243,7 +243,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                     </fieldset>
                   </div>
                   <div
-                    class="css-oex5ed-ElementWrapper-DeleteButtonWrapper e7smmlm2"
+                    class="css-oex5ed-ElementWrapper-DeleteButtonWrapper e1jxkcec4"
                   >
                     <button
                       aria-disabled="false"
@@ -281,7 +281,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
               </div>
             </div>
             <div
-              class="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm9"
+              class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
               id=" root_validProjects"
             >
               <div
@@ -328,7 +328,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
         novalidate=""
       >
         <div
-          class="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm9"
+          class="form-group field field-object css-ejwhfc-DefaultFieldContainer eny4k1v0"
           id=" root"
         >
           <fieldset
@@ -336,7 +336,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
             id="root"
           >
             <div
-              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm9"
+              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer eny4k1v0"
               id=" root_distroIsCluster"
             >
               <div
@@ -393,7 +393,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
               </div>
             </div>
             <div
-              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm9"
+              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer eny4k1v0"
               id=" root_disableShallowClone"
             >
               <div
@@ -450,7 +450,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
               </div>
             </div>
             <div
-              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm9"
+              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer eny4k1v0"
               id=" root_disableQueue"
             >
               <div
@@ -507,7 +507,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
               </div>
             </div>
             <div
-              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm9"
+              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer eny4k1v0"
               id=" root_decommissionHosts"
             >
               <div
@@ -565,7 +565,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
               </div>
             </div>
             <div
-              class="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm9"
+              class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
               id=" root_reprovisionMethod"
             >
               <div
@@ -658,7 +658,7 @@ exports[`storybook Storyshots components/SpruceForm Example 3 1`] = `
         novalidate=""
       >
         <div
-          class="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm9"
+          class="form-group field field-object css-ejwhfc-DefaultFieldContainer eny4k1v0"
           id=" root"
         >
           <fieldset
@@ -666,7 +666,7 @@ exports[`storybook Storyshots components/SpruceForm Example 3 1`] = `
             id="root"
           >
             <div
-              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm9"
+              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer eny4k1v0"
               id=" root_visible"
             >
               <div

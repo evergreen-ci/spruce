@@ -28,7 +28,9 @@ exports[`storybook Storyshots components/Accordion Default 1`] = `
       </span>
     </div>
     <div
+      aria-expanded="false"
       class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+      data-cy="accordion-collapse-container"
     >
       <div
         class="css-1nylm8s-ContentsContainer ev0bopr1"
@@ -73,7 +75,9 @@ exports[`storybook Storyshots components/Accordion With Subtitle 1`] = `
       Subtitle
     </div>
     <div
+      aria-expanded="false"
       class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+      data-cy="accordion-collapse-container"
     >
       <div
         class="css-1nylm8s-ContentsContainer ev0bopr1"

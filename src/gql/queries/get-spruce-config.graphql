@@ -8,6 +8,12 @@ query GetSpruceConfig {
     providers {
       aws {
         maxVolumeSizePerUser
+        pod {
+          ecs {
+            maxCPU
+            maxMemoryMb
+          }
+        }
       }
     }
     slack {
