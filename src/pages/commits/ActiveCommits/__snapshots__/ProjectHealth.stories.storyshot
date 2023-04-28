@@ -34,7 +34,9 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
           </span>
         </div>
         <div
+          aria-expanded="true"
           class="css-n5l1wu-AnimatedAccordion ev0bopr2"
+          data-cy="accordion-collapse-container"
         >
           <div
             class="css-1ds08bm-ContentsContainer ev0bopr1"
@@ -230,7 +232,9 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                     </span>
                   </div>
                   <div
+                    aria-expanded="true"
                     class="css-n5l1wu-AnimatedAccordion ev0bopr2"
+                    data-cy="accordion-collapse-container"
                   >
                     <div
                       class="css-1nylm8s-ContentsContainer ev0bopr1"
