@@ -184,7 +184,7 @@ const getColumnDefs = ({
     }),
   },
   {
-    title: "Base Status",
+    title: `${isPatch ? "Base" : "Previous"} Status`,
     dataIndex: ["baseTask", "status"],
     key: TaskSortCategory.BaseStatus,
     onHeaderCell: () => ({

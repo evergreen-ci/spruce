@@ -1196,7 +1196,7 @@ exports[`storybook Storyshots components/Table/TasksTable Version Tasks Table 1`
                         <span
                           class="ant-table-column-title"
                         >
-                          Base Status
+                          Previous Status
                         </span>
                         <span
                           class="ant-table-column-sorter ant-table-column-sorter-full"
