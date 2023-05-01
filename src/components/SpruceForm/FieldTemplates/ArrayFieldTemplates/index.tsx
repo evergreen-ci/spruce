@@ -1,124 +1,19 @@
 import styled from "@emotion/styled";
-import Banner from "@leafygreen-ui/banner";
 import Button from "@leafygreen-ui/button";
 import ExpandableCard from "@leafygreen-ui/expandable-card";
 import { palette } from "@leafygreen-ui/palette";
-import { Body, Subtitle } from "@leafygreen-ui/typography";
-import {
-  ArrayFieldTemplateProps,
-  FieldTemplateProps,
-  ObjectFieldTemplateProps,
-} from "@rjsf/core";
-import { Accordion } from "components/Accordion";
+import { Body } from "@leafygreen-ui/typography";
+import { ArrayFieldTemplateProps } from "@rjsf/core";
 import { PlusButton } from "components/Buttons";
 import Icon from "components/Icon";
-import { fontSize, size } from "constants/tokens";
+import { size } from "constants/tokens";
 import { Unpacked } from "types/utils";
-import { SpruceFormContainer } from "./Container";
-import { TitleField as CustomTitleField } from "./CustomFields";
-import ElementWrapper from "./ElementWrapper";
+import ElementWrapper from "../../ElementWrapper";
 
 const { gray } = palette;
-
 // Total pixel count above a text field with a label. Used to align buttons to the
 // top of the text box itself.
 const labelOffset = size.m;
-
-// Extract index of the current field via its ID
-const getIndex = (id: string): number => {
-  if (!id) return null;
-
-  const stringIndex = id.substring(id.lastIndexOf("_") + 1);
-  const index = Number(stringIndex);
-  return Number.isInteger(index) ? index : null;
-};
-
-export const ObjectFieldTemplate = ({
-  DescriptionField,
-  description,
-  TitleField,
-  title,
-  properties,
-  required,
-  uiSchema,
-  idSchema,
-}: ObjectFieldTemplateProps) => {
-  const errors = uiSchema["ui:errors"] ?? [];
-  const warnings = uiSchema["ui:warnings"] ?? [];
-  return (
-    <fieldset css={uiSchema["ui:fieldSetCSS"]} id={idSchema.$id}>
-      {(uiSchema["ui:title"] || title) && (
-        <TitleField
-          id={`${idSchema.$id}__title`}
-          title={title || uiSchema["ui:title"]}
-          required={required}
-        />
-      )}
-      {description && (
-        <DescriptionField
-          id={`${idSchema.$id}__description`}
-          description={description}
-        />
-      )}
-      {!!errors.length && (
-        <StyledBanner variant="danger" data-cy="error-banner">
-          {errors.join(", ")}
-        </StyledBanner>
-      )}
-      {!!warnings.length && (
-        <StyledBanner variant="warning" data-cy="warning-banner">
-          {warnings.join(", ")}
-        </StyledBanner>
-      )}
-      {properties.map((prop) => prop.content)}
-    </fieldset>
-  );
-};
-
-const StyledBanner = styled(Banner)`
-  margin-bottom: ${size.s};
-`;
-
-// Custom field template that does not render fields' titles, as this is handled by LeafyGreen widgets
-export const DefaultFieldTemplate: React.VFC<FieldTemplateProps> = ({
-  classNames,
-  children,
-  description,
-  hidden,
-  id,
-  label,
-  schema,
-  uiSchema,
-}) => {
-  const isNullType = schema.type === "null";
-  const sectionId = uiSchema["ui:sectionId"] ?? "";
-  const border = uiSchema["ui:border"];
-  const showLabel = uiSchema["ui:showLabel"] ?? true;
-  return (
-    !hidden && (
-      <>
-        {isNullType && showLabel && (
-          <CustomTitleField id={id} title={label} uiSchema={uiSchema} />
-        )}
-        {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
-        {isNullType && <>{description}</>}
-        <DefaultFieldContainer
-          id={`${sectionId} ${id}`}
-          className={classNames}
-          border={border}
-        >
-          {children}
-        </DefaultFieldContainer>
-      </>
-    )
-  );
-};
-
-const DefaultFieldContainer = styled.div<{ border?: "top" | "bottom" }>`
-  ${({ border }) =>
-    border &&
-    `border-${border}: 1px solid ${gray.light1}; padding-${border}: ${size.s};`}
-`;
 
 const ArrayItem: React.VFC<
   {
@@ -197,25 +92,6 @@ const ArrayItem: React.VFC<
   );
 };
 
-const TitleWrapper = styled.span`
-  margin-right: ${size.s};
-`;
-
-const StyledExpandableCard = styled(ExpandableCard)`
-  margin-bottom: ${size.l};
-`;
-
-const OrderControls = styled.div<{ topAlignDelete: boolean }>`
-  display: flex;
-  flex-direction: column;
-  margin-right: ${size.s};
-  margin-top: ${({ topAlignDelete }) => (topAlignDelete ? "0px" : labelOffset)};
-
-  > :not(:last-of-type) {
-    margin-bottom: ${size.xs};
-  }
-`;
-
 const ArrayItemRow = styled.div<{ border: boolean; index: number }>`
   display: flex;
   ${({ border, index }) =>
@@ -232,6 +108,9 @@ const ArrayItemRow = styled.div<{ border: boolean; index: number }>`
   }
 `;
 
+/**
+ * `ArrayFieldTemplate` is a custom field template for arrays that renders an array of fields.
+ */
 export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
   canAdd,
   DescriptionField,
@@ -355,49 +234,21 @@ const DeleteButtonWrapper = styled(ElementWrapper)`
     topAlignDelete ? "0px" : labelOffset};
 `;
 
-export const CardFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
-  idSchema,
-  properties,
-  title,
-  uiSchema: { "ui:title": uiTitle, "ui:data-cy": dataCy },
-}) => (
-  <SpruceFormContainer
-    title={uiTitle || title}
-    id={`${idSchema.$id}__title`}
-    data-cy={dataCy}
-  >
-    {properties.map((prop) => prop.content)}
-  </SpruceFormContainer>
-);
-export const AccordionFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
-  disabled,
-  idSchema,
-  properties,
-  readonly,
-  title,
-  uiSchema,
-}) => {
-  const isDisabled = disabled || readonly;
-  const defaultOpen = uiSchema["ui:defaultOpen"] ?? !isDisabled;
-  const displayTitle = uiSchema["ui:displayTitle"];
-  const numberedTitle = uiSchema["ui:numberedTitle"];
-  const index = getIndex(idSchema.$id);
+const StyledExpandableCard = styled(ExpandableCard)`
+  margin-bottom: ${size.l};
+`;
 
-  return (
-    <Accordion
-      defaultOpen={defaultOpen}
-      title={
-        numberedTitle ? `${numberedTitle} ${index + 1}` : displayTitle || title
-      }
-      titleTag={AccordionTitle}
-    >
-      {properties.map(({ content }) => content)}
-    </Accordion>
-  );
-};
+const OrderControls = styled.div<{ topAlignDelete: boolean }>`
+  display: flex;
+  flex-direction: column;
+  margin-right: ${size.s};
+  margin-top: ${({ topAlignDelete }) => (topAlignDelete ? "0px" : labelOffset)};
 
-/* @ts-expect-error  */
-const AccordionTitle = styled(Subtitle)`
-  font-size: ${fontSize.l};
-  margin: ${size.xs} 0;
+  > :not(:last-of-type) {
+    margin-bottom: ${size.xs};
+  }
+`;
+
+const TitleWrapper = styled.span`
+  margin-right: ${size.s};
 `;

@@ -8,7 +8,7 @@ import {
   DefaultFieldTemplate,
   ObjectFieldTemplate,
 } from "./FieldTemplates";
-import { SpruceFormProps } from "./types";
+import { SpruceFormProps, ValidateProps } from "./types";
 import widgets from "./Widgets";
 
 export const SpruceForm: React.VFC<SpruceFormProps> = ({
@@ -48,3 +48,4 @@ export const SpruceForm: React.VFC<SpruceFormProps> = ({
 );
 
 export { SpruceFormContainer };
+export type { ValidateProps };

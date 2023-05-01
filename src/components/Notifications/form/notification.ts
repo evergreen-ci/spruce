@@ -1,9 +1,9 @@
+import { FieldRow } from "components/SpruceForm/FieldTemplates";
 import { SpruceFormProps } from "components/SpruceForm/types";
 import {
   SubscriptionMethodOption,
   NotificationMethods,
 } from "types/subscription";
-import { HTTPHeaderRow } from "./HTTPHeaderRow";
 
 /**
  * getNotificationSchema returns the schema and uiSchema for the notification section of subscriptions.
@@ -227,7 +227,7 @@ export const getNotificationSchema = (
         "ui:orderable": false,
         "ui:addButtonText": "Add HTTP Header",
         items: {
-          "ui:ObjectFieldTemplate": HTTPHeaderRow,
+          "ui:ObjectFieldTemplate": FieldRow,
         },
       },
     },

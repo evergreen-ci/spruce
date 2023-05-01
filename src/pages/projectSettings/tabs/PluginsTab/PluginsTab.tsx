@@ -1,6 +1,5 @@
 import { useMemo } from "react";
-import { SpruceForm } from "components/SpruceForm";
-import { ValidateProps } from "components/SpruceForm/types";
+import { SpruceForm, ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   usePopulateForm,
@@ -48,7 +47,7 @@ export const PluginsTab: React.VFC<TabProps> = ({
 };
 
 /* Display an error and prevent saving if a user enters something invalid. */
-const validate: ValidateProps<FormState> = (formData, errors) => {
+const validate = ((formData, errors) => {
   const {
     buildBaronSettings: { ticketSearchProjects },
     externalLinks: { patchMetadataPanelLink },
@@ -86,4 +85,4 @@ const validate: ValidateProps<FormState> = (formData, errors) => {
   }
 
   return errors;
-};
+}) satisfies ValidateProps<FormState>;
