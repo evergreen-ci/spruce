@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { SpruceForm } from "components/SpruceForm";
+import { SpruceForm, ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   usePopulateForm,
@@ -7,7 +7,7 @@ import {
 } from "pages/projectSettings/Context";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
-import { TabProps } from "./types";
+import { FormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.General;
 
@@ -67,6 +67,27 @@ export const GeneralTab: React.VFC<TabProps> = ({
       onChange={onChange}
       schema={schema}
       uiSchema={uiSchema}
+      validate={validate(projectType) as any}
     />
   );
 };
+
+const validate = (projectType: ProjectType) =>
+  ((formData, errors) => {
+    const {
+      generalConfiguration: { enabled, branch },
+    } = formData;
+
+    // Repos don't use the enabled field and are always considered enabled, so don't check for it.
+    const invalidRepoBranch = projectType === ProjectType.Repo && !branch;
+    const invalidProjectBranch =
+      projectType === ProjectType.Project && enabled && !branch;
+
+    if (invalidRepoBranch || invalidProjectBranch) {
+      errors.generalConfiguration.branch.addError(
+        "A branch is required for enabled projects."
+      );
+    }
+
+    return errors;
+  }) satisfies ValidateProps<FormState>;

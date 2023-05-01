@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import Button, { Size } from "@leafygreen-ui/button";
-import { SpruceForm } from "components/SpruceForm";
+import { SpruceForm, ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   usePopulateForm,
@@ -9,7 +9,7 @@ import {
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { PromoteVariablesModal } from "./PromoteVariablesModal";
-import { TabProps } from "./types";
+import { FormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Variables;
 
@@ -81,14 +81,14 @@ export const VariablesTab: React.VFC<TabProps> = ({
         onChange={onChange}
         schema={schema}
         uiSchema={uiSchema}
-        validate={validate}
+        validate={validate as any}
       />
     </>
   );
 };
 
 /* Display an error and prevent saving if a user enters a variable name that already appears in the project. */
-const validate = (formData, errors) => {
+const validate = ((formData, errors) => {
   const duplicateIndices = formData.vars
     .map((e) => e.varName)
     .map((e, i, arr) => arr.indexOf(e) !== i && i)
@@ -101,4 +101,4 @@ const validate = (formData, errors) => {
   });
 
   return errors;
-};
+}) satisfies ValidateProps<FormState>;
