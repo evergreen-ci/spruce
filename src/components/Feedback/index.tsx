@@ -1,54 +1,31 @@
-import { useState } from "react";
-import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
-import Cookies from "js-cookie";
+import Tooltip from "@leafygreen-ui/tooltip";
 import Icon from "components/Icon";
-import { StyledLink as Link } from "components/styles";
-import { HIDE_FEEDBACK } from "constants/cookies";
-import { size } from "constants/tokens";
-import { useSpruceConfig } from "hooks";
+import { StyledLink } from "components/styles";
+import { jiraBugUrl, jiraImprovementUrl } from "constants/externalResources";
 
 const { green } = palette;
 
-export const Feedback: React.VFC = () => {
-  const spruceConfig = useSpruceConfig();
-
-  const userVoiceUrl = spruceConfig?.ui?.userVoice;
-
-  const hideFeeback =
-    Cookies.get(HIDE_FEEDBACK) !== undefined
-      ? Cookies.get(HIDE_FEEDBACK) === "true"
-      : false;
-  const [isHidden, setIsHidden] = useState(hideFeeback);
-  return (
-    <div>
-      {!isHidden && (
-        <StyledLink target="_blank" href={userVoiceUrl}>
-          Feature Requests/Feedback
-        </StyledLink>
-      )}
-      <IconButton
-        onClick={() => {
-          Cookies.set(HIDE_FEEDBACK, `${!isHidden}`, { expires: 365 });
-          setIsHidden(!isHidden);
-        }}
-        aria-label="Show Feedback form"
-      >
-        <StyledIcon glyph="Megaphone" color={green.dark1} />
+export const Feedback: React.VFC = () => (
+  <Tooltip
+    align="left"
+    justify="end"
+    trigger={
+      <IconButton aria-label="Show Feedback form">
+        <Icon glyph="Megaphone" color={green.dark1} />
       </IconButton>
-    </div>
-  );
-};
-
-const StyledIcon = styled(Icon)`
-  cursor: pointer;
-`;
-const StyledLink = styled(Link)`
-  margin-top: ${size.xxs};
-  margin-right: ${size.xs};
-  position: fixed;
-  background-color: ${palette.white};
-  white-space: nowrap;
-  right: ${size.l};
-`;
+    }
+    triggerEvent="click"
+  >
+    Feedback for the Evergreen team?{" "}
+    <StyledLink target="_blank" href={jiraImprovementUrl}>
+      Suggest an improvement
+    </StyledLink>{" "}
+    or
+    <StyledLink target="_blank" href={jiraBugUrl}>
+      report a bug
+    </StyledLink>
+    .
+  </Tooltip>
+);

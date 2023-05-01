@@ -13,13 +13,6 @@ export const getBugsnagApiKey: () => string = () =>
   process.env.REACT_APP_BUGSNAG_API_KEY || "i-am-a-fake-key";
 
 /**
- * `getUserVoiceKey()` - Get the USER VOICE forum KEY from the environment variables
- * @returns {string} - The UserVoice forum key
- */
-export const getUserVoiceKey: () => string = () =>
-  process.env.REACT_APP_USER_VOICE_KEY || "fake-user-voice-forum";
-
-/**
  * `getUiUrl()` - Get the backing evergreen URL from the environment variables
  * @returns {string} - Returns the backing evergreen url
  */

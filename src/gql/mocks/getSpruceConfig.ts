@@ -19,7 +19,6 @@ export const getSpruceConfigMock: ApolloMock<
         bannerTheme: "warning",
         banner: "",
         ui: {
-          userVoice: "https://feedback.mongodb.com/forums/930019-evergreen",
           defaultProject: "evergreen",
           __typename: "UIConfig",
         },

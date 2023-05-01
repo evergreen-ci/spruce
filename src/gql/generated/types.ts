@@ -7154,11 +7154,7 @@ export type GetSpruceConfigQuery = {
       unexpirableHostsPerUser: number;
       unexpirableVolumesPerUser: number;
     };
-    ui?: Maybe<{
-      __typename?: "UIConfig";
-      defaultProject: string;
-      userVoice?: Maybe<string>;
-    }>;
+    ui?: Maybe<{ __typename?: "UIConfig"; defaultProject: string }>;
   }>;
 };
 
