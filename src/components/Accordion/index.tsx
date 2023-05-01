@@ -50,6 +50,8 @@ export const Accordion: React.VFC<AccordionProps> = ({
         <AnimatedAccordion
           hide={!isAccordionDisplayed}
           disableAnimation={disableAnimation}
+          aria-expanded={isAccordionDisplayed}
+          data-cy="accordion-collapse-container"
         >
           {children}
         </AnimatedAccordion>
@@ -71,6 +73,8 @@ export const Accordion: React.VFC<AccordionProps> = ({
         <AnimatedAccordion
           hide={!isAccordionDisplayed}
           disableAnimation={disableAnimation}
+          aria-expanded={isAccordionDisplayed}
+          data-cy="accordion-collapse-container"
         >
           <ContentsContainer indent={showCaret && useIndent}>
             {children}
