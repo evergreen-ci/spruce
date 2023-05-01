@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   VersionTasksQuery,
@@ -69,6 +71,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   const { tasks } = version || {};
   const { data: tasksData = [], count = 0 } = tasks || {};
 
+  const shouldShowBottomTableControl = tasksData.length > 10;
   return (
     <>
       <TableControl
@@ -83,6 +86,21 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
         tasks={tasksData}
         loading={tasksData.length === 0 && loading}
       />
+      {shouldShowBottomTableControl && (
+        <TableControlWrapper>
+          <TableControl
+            filteredCount={count}
+            taskCount={taskCount}
+            limit={limit}
+            page={page}
+            onClear={clearQueryParams}
+          />
+        </TableControlWrapper>
+      )}
     </>
   );
 };
+
+const TableControlWrapper = styled.div`
+  padding-top: ${size.xs};
+`;
