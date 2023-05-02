@@ -64,7 +64,11 @@ export const getColumnsTemplate = ({
     }),
   },
   {
-    title: <span data-cy="base-status-column">Base Status</span>,
+    title: (
+      <span data-cy="base-status-column">
+        {task.versionMetadata.isPatch ? "Base" : "Previous"} Status
+      </span>
+    ),
     dataIndex: "baseStatus",
     key: TestSortCategory.BaseStatus,
     onHeaderCell: () => ({
