@@ -2538,13 +2538,19 @@ export type WebhookInput = {
 export type WebhookSubscriber = {
   __typename?: "WebhookSubscriber";
   headers: Array<Maybe<WebhookHeader>>;
+  minDelayMs: Scalars["Int"];
+  retries: Scalars["Int"];
   secret: Scalars["String"];
+  timeoutMs: Scalars["Int"];
   url: Scalars["String"];
 };
 
 export type WebhookSubscriberInput = {
   headers: Array<InputMaybe<WebhookHeaderInput>>;
+  minDelayMs?: InputMaybe<Scalars["Int"]>;
+  retries?: InputMaybe<Scalars["Int"]>;
   secret: Scalars["String"];
+  timeoutMs?: InputMaybe<Scalars["Int"]>;
   url: Scalars["String"];
 };
 
@@ -7488,6 +7494,7 @@ export type GetTaskQuery = {
       execution: number;
       id: string;
       timeTaken?: Maybe<number>;
+      versionMetadata: { __typename?: "Version"; id: string; revision: string };
     }>;
     dependsOn?: Maybe<
       Array<{

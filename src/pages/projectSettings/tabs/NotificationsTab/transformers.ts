@@ -1,9 +1,9 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { projectTriggers } from "constants/triggers";
 import {
-  Subscriber,
   ProjectInput,
   SubscriptionInput,
+  ProjectSettingsQuery,
 } from "gql/generated/types";
 import { NotificationMethods } from "types/subscription";
 import { TriggerType } from "types/triggers";
@@ -16,7 +16,10 @@ type Tab = ProjectSettingsTabRoutes.Notifications;
 
 const { toSentenceCase } = string;
 
-const getSubscriberText = (subscriberType: string, subscriber: Subscriber) => {
+const getSubscriberText = (
+  subscriberType: string,
+  subscriber: ProjectSettingsQuery["projectSettings"]["subscriptions"][0]["subscriber"]["subscriber"]
+) => {
   switch (subscriberType) {
     case NotificationMethods.JIRA_COMMENT:
       return subscriber.jiraCommentSubscriber;
