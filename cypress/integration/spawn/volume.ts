@@ -1,4 +1,4 @@
-describe("Navigating to Spawn Volume page", () => {
+describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
   it("Visiting the spawn volume page should display the number of free and mounted volumes.", () => {
     cy.visit("/spawn/volume");
     cy.dataCy("mounted-badge").contains("9 Mounted");
@@ -45,8 +45,8 @@ describe("Navigating to Spawn Volume page", () => {
     cy.visit("/spawn/volume");
     cy.dataRowKey("vol-0c66e16459646704d").should("exist");
     cy.dataCy("trash-vol-0c66e16459646704d").click();
-    cy.get(".ant-popover").should("be.visible");
-    cy.get(".ant-popover").within(($el) => {
+    cy.dataCy("delete-volume-popconfirm").should("be.visible");
+    cy.dataCy("delete-volume-popconfirm").within(($el) => {
       cy.wrap($el)
         .contains("Yes")
         .should("be.visible")
@@ -66,15 +66,15 @@ describe("Navigating to Spawn Volume page", () => {
     cy.dataCy(
       "trash-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     ).click();
-    cy.get(".ant-popover").should("be.visible");
-    cy.get(".ant-popover").within(($el) => {
+    cy.dataCy("delete-volume-popconfirm").should("be.visible");
+    cy.dataCy("delete-volume-popconfirm").within(($el) => {
       cy.wrap($el)
         .getInputByLabel(
           "I understand this volume is currently mounted to a host."
         )
         .should("not.be.checked");
       cy.wrap($el).contains("Yes");
-      cy.wrap($el).contains("Yes").should("be.disabled");
+      cy.wrap($el).contains("Yes").should("have.attr", "aria-disabled", "true");
       cy.wrap($el)
         .getInputByLabel(
           "I understand this volume is currently mounted to a host."
@@ -82,25 +82,24 @@ describe("Navigating to Spawn Volume page", () => {
         .check({ force: true });
       cy.wrap($el)
         .contains("Yes")
-        .should("not.have.attr", "aria-disabled", "true");
+        .should("not.have.attr", "aria-disabled", "true")
+        .click();
     });
-    // TODO: fix in EVG-16481 This should assert what happens when we click Yes above
-    // cy.dataRowKey(
-    //   "1de2728dd9de82efc02dc21f6ca046eaa559462414d28e0b6bba6436436ac873"
-    // ).should("not.exist");
-    // cy.dataCy("mounted-badge").contains("8 Mounted");
-    // cy.dataCy("free-badge").contains("3 Free");
+    cy.dataRowKey(
+      "1de2728dd9de82efc02dc21f6ca046eaa559462414d28e0b6bba6436436ac873"
+    ).should("not.exist");
+    cy.dataCy("mounted-badge").contains("8 Mounted");
+    cy.dataCy("free-badge").contains("3 Free");
   });
 
-  // Confirm what the appropriate behavior is why would an error toast appear?
-  // it("Clicking on unmount should result in a new error toast appearing.", () => {
-  //   cy.contains(errorBannerCopy).should("not.exist");
-  //   cy.dataCy(
-  //     "detach-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b835"
-  //   ).click();
-  //   cy.get(popconfirmYesClassName).click();
-  // cy.contains(errorBannerCopy).should("exist");
-  // });
+  it("Clicking on unmount should result in a success toast appearing.", () => {
+    cy.visit("/spawn/volume");
+    cy.dataCy(
+      "detach-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b857"
+    ).click();
+    cy.contains("button", "Yes").click();
+    cy.validateToast("success");
+  });
 
   it("Clicking on 'Spawn Volume' should open the Spawn Volume Modal", () => {
     cy.visit("/spawn/volume");
@@ -144,7 +143,7 @@ describe("Navigating to Spawn Volume page", () => {
         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
       );
       cy.dataCy("date-picker").should("have.value", "2020-06-06");
-      cy.dataCy("time-picker").should("have.value", "05:48:18");
+      cy.dataCy("time-picker").should("have.value", "15:48:18"); // Defaults to UTC
     });
 
     it("Reopening the edit volume modal should reset form input fields.", () => {
@@ -278,11 +277,9 @@ describe("Navigating to Spawn Volume page", () => {
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b859",
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b825",
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b857",
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b856",
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b835",
-    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b857",
     "vol-0ae8720b445b771b6",
   ];
-  // const errorBannerCopy =
-  //  "Error detaching volume: 'can't detach volume '8191ed590dc4668fcc65029eb332134be9de44e742098b6ee1a0723aec175784': unable to fetch host: b700d10f21a5386c827251a029dd931b5ea910377e0bb93f3393b17fb9bdbd08'";
 });

@@ -17,7 +17,7 @@ export const Login: React.VFC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const { login } = useAuthDispatchContext();
+  const { devLogin } = useAuthDispatchContext();
   const { isAuthenticated } = useAuthStateContext();
 
   // this top-level query is required for authentication to work
@@ -26,7 +26,7 @@ export const Login: React.VFC = () => {
   useQuery<GetUserQuery, GetUserQueryVariables>(GET_USER);
 
   const loginHandler = (): void => {
-    login({ username, password });
+    devLogin({ username, password });
   };
 
   const inputChangeHandler =

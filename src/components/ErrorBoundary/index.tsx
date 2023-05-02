@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import Bugsnag, { Event } from "@bugsnag/js";
 import BugsnagPluginReact from "@bugsnag/plugin-react";
-import { environmentalVariables } from "utils";
+import { environmentVariables } from "utils";
 import ErrorFallback from "./ErrorFallback";
 
 const { getBugsnagApiKey, isProductionBuild, getAppVersion, getReleaseStage } =
-  environmentalVariables;
+  environmentVariables;
 
 let bugsnagStarted = false;
 

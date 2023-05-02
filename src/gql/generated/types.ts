@@ -25,6 +25,12 @@ export type Scalars = {
 export type AwsConfig = {
   __typename?: "AWSConfig";
   maxVolumeSizePerUser?: Maybe<Scalars["Int"]>;
+  pod?: Maybe<AwsPodConfig>;
+};
+
+export type AwsPodConfig = {
+  __typename?: "AWSPodConfig";
+  ecs?: Maybe<EcsConfig>;
 };
 
 export type AbortInfo = {
@@ -53,6 +59,13 @@ export type Annotation = {
   taskId: Scalars["String"];
   webhookConfigured: Scalars["Boolean"];
 };
+
+export enum BannerTheme {
+  Announcement = "ANNOUNCEMENT",
+  Important = "IMPORTANT",
+  Information = "INFORMATION",
+  Warning = "WARNING",
+}
 
 export type Build = {
   __typename?: "Build";
@@ -248,6 +261,12 @@ export type DistroInfo = {
   isWindows?: Maybe<Scalars["Boolean"]>;
   user?: Maybe<Scalars["String"]>;
   workDir?: Maybe<Scalars["String"]>;
+};
+
+export type EcsConfig = {
+  __typename?: "ECSConfig";
+  maxCPU: Scalars["Int"];
+  maxMemoryMb: Scalars["Int"];
 };
 
 /**
@@ -1159,6 +1178,7 @@ export type PodEvents = {
 export type Project = {
   __typename?: "Project";
   admins?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  banner?: Maybe<ProjectBanner>;
   batchTime: Scalars["Int"];
   branch: Scalars["String"];
   buildBaronSettings: BuildBaronSettings;
@@ -1232,6 +1252,17 @@ export type ProjectAliasInput = {
   variantTags: Array<Scalars["String"]>;
 };
 
+export type ProjectBanner = {
+  __typename?: "ProjectBanner";
+  text: Scalars["String"];
+  theme: BannerTheme;
+};
+
+export type ProjectBannerInput = {
+  text: Scalars["String"];
+  theme: BannerTheme;
+};
+
 export type ProjectBuildVariant = {
   __typename?: "ProjectBuildVariant";
   displayName: Scalars["String"];
@@ -1270,6 +1301,7 @@ export type ProjectEvents = {
 
 export type ProjectInput = {
   admins?: InputMaybe<Array<Scalars["String"]>>;
+  banner?: InputMaybe<ProjectBannerInput>;
   batchTime?: InputMaybe<Scalars["Int"]>;
   branch?: InputMaybe<Scalars["String"]>;
   buildBaronSettings?: InputMaybe<BuildBaronSettingsInput>;
@@ -2815,6 +2847,30 @@ export type AliasFragment = {
   variantTags: Array<string>;
 };
 
+export type ProjectContainerSettingsFragment = {
+  __typename?: "Project";
+  containerSizeDefinitions?: Maybe<
+    Array<{
+      __typename?: "ContainerResources";
+      cpu: number;
+      memoryMb: number;
+      name: string;
+    }>
+  >;
+};
+
+export type RepoContainerSettingsFragment = {
+  __typename?: "RepoRef";
+  containerSizeDefinitions?: Maybe<
+    Array<{
+      __typename?: "ContainerResources";
+      cpu: number;
+      memoryMb: number;
+      name: string;
+    }>
+  >;
+};
+
 export type ProjectGeneralSettingsFragment = {
   __typename?: "Project";
   batchTime: number;
@@ -3006,6 +3062,14 @@ export type ProjectSettingsFragment = {
     gitTagVersionsEnabled?: Maybe<boolean>;
     manualPrTestingEnabled?: Maybe<boolean>;
     prTestingEnabled?: Maybe<boolean>;
+    containerSizeDefinitions?: Maybe<
+      Array<{
+        __typename?: "ContainerResources";
+        cpu: number;
+        memoryMb: number;
+        name: string;
+      }>
+    >;
     taskSync: {
       __typename?: "TaskSyncOptions";
       configEnabled?: Maybe<boolean>;
@@ -3201,6 +3265,14 @@ export type RepoSettingsFragment = {
     gitTagVersionsEnabled: boolean;
     manualPrTestingEnabled: boolean;
     prTestingEnabled: boolean;
+    containerSizeDefinitions?: Maybe<
+      Array<{
+        __typename?: "ContainerResources";
+        cpu: number;
+        memoryMb: number;
+        name: string;
+      }>
+    >;
     taskSync: {
       __typename?: "RepoTaskSyncOptions";
       configEnabled: boolean;
@@ -6208,6 +6280,14 @@ export type ProjectSettingsQuery = {
       gitTagVersionsEnabled?: Maybe<boolean>;
       manualPrTestingEnabled?: Maybe<boolean>;
       prTestingEnabled?: Maybe<boolean>;
+      containerSizeDefinitions?: Maybe<
+        Array<{
+          __typename?: "ContainerResources";
+          cpu: number;
+          memoryMb: number;
+          name: string;
+        }>
+      >;
       taskSync: {
         __typename?: "TaskSyncOptions";
         configEnabled?: Maybe<boolean>;
@@ -6877,6 +6957,14 @@ export type RepoSettingsQuery = {
       gitTagVersionsEnabled: boolean;
       manualPrTestingEnabled: boolean;
       prTestingEnabled: boolean;
+      containerSizeDefinitions?: Maybe<
+        Array<{
+          __typename?: "ContainerResources";
+          cpu: number;
+          memoryMb: number;
+          name: string;
+        }>
+      >;
       taskSync: {
         __typename?: "RepoTaskSyncOptions";
         configEnabled: boolean;
@@ -7049,6 +7137,14 @@ export type GetSpruceConfigQuery = {
       aws?: Maybe<{
         __typename?: "AWSConfig";
         maxVolumeSizePerUser?: Maybe<number>;
+        pod?: Maybe<{
+          __typename?: "AWSPodConfig";
+          ecs?: Maybe<{
+            __typename?: "ECSConfig";
+            maxCPU: number;
+            maxMemoryMb: number;
+          }>;
+        }>;
       }>;
     }>;
     slack?: Maybe<{ __typename?: "SlackConfig"; name?: Maybe<string> }>;
@@ -7727,6 +7823,11 @@ export type VersionQuery = {
           projectIdentifier: string;
           status: string;
           taskCount?: Maybe<number>;
+          parameters: Array<{
+            __typename?: "Parameter";
+            key: string;
+            value: string;
+          }>;
           versionFull?: Maybe<{
             __typename?: "Version";
             id: string;

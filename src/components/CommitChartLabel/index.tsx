@@ -58,7 +58,9 @@ const CommitChartLabel: React.VFC<Props> = ({
         >
           {shortenGithash(githash)}
         </StyledRouterLink>{" "}
-        <b>{getDateCopy(createDate, { omitSeconds: true })}</b>
+        <b>
+          {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
+        </b>
       </LabelText>
       {upstreamProject && (
         <LabelText>

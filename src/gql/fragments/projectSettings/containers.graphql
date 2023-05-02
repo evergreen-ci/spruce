@@ -1,0 +1,15 @@
+fragment projectContainerSettings on Project {
+  containerSizeDefinitions {
+    cpu
+    memoryMb
+    name
+  }
+}
+
+fragment repoContainerSettings on RepoRef {
+  containerSizeDefinitions {
+    cpu
+    memoryMb
+    name
+  }
+}

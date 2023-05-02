@@ -283,11 +283,11 @@ exports[`storybook Storyshots components/Table/TasksTable Base Task Table 1`] = 
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/task/some_id"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           <span
                             class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
@@ -300,12 +300,16 @@ exports[`storybook Storyshots components/Table/TasksTable Base Task Table 1`] = 
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ixbeze"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id"
                       >
-                        Running
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ixbeze"
+                          data-cy="task-status-badge"
+                        >
+                          Running
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"
@@ -321,11 +325,11 @@ exports[`storybook Storyshots components/Table/TasksTable Base Task Table 1`] = 
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/variant-history/undefined/ubuntu1604"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           Ubuntu 16.04
                         </span>
@@ -340,11 +344,11 @@ exports[`storybook Storyshots components/Table/TasksTable Base Task Table 1`] = 
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/task/some_id_2"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           <span
                             class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
@@ -357,12 +361,16 @@ exports[`storybook Storyshots components/Table/TasksTable Base Task Table 1`] = 
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id_2"
                       >
-                        Succeeded
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                          data-cy="task-status-badge"
+                        >
+                          Succeeded
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"
@@ -378,11 +386,11 @@ exports[`storybook Storyshots components/Table/TasksTable Base Task Table 1`] = 
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/variant-history/undefined/ubuntu1604"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           Ubuntu 16.04
                         </span>
@@ -397,11 +405,11 @@ exports[`storybook Storyshots components/Table/TasksTable Base Task Table 1`] = 
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/task/some_id_3"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           <span
                             class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
@@ -414,12 +422,16 @@ exports[`storybook Storyshots components/Table/TasksTable Base Task Table 1`] = 
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id_3"
                       >
-                        Succeeded
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                          data-cy="task-status-badge"
+                        >
+                          Succeeded
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"
@@ -435,11 +447,11 @@ exports[`storybook Storyshots components/Table/TasksTable Base Task Table 1`] = 
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           Windows 97
                         </span>
@@ -749,11 +761,11 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                         type="button"
                       />
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/task/some_id"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           <span
                             class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
@@ -766,12 +778,16 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ixbeze"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id"
                       >
-                        Running
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ixbeze"
+                          data-cy="task-status-badge"
+                        >
+                          Running
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"
@@ -787,11 +803,11 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/variant-history/undefined/ubuntu1604"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           Ubuntu 16.04
                         </span>
@@ -815,11 +831,11 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                         type="button"
                       />
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/task/some_id_2"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           <span
                             class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
@@ -832,12 +848,16 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id_2"
                       >
-                        Succeeded
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                          data-cy="task-status-badge"
+                        >
+                          Succeeded
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"
@@ -853,11 +873,11 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/variant-history/undefined/ubuntu1604"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           Ubuntu 16.04
                         </span>
@@ -881,11 +901,11 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                         type="button"
                       />
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/task/some_id_3"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           <span
                             class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
@@ -898,12 +918,16 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id_3"
                       >
-                        Succeeded
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                          data-cy="task-status-badge"
+                        >
+                          Succeeded
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"
@@ -919,11 +943,11 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           Windows 97
                         </span>
@@ -947,11 +971,11 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                         type="button"
                       />
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/task/some_id_4"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           <span
                             class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
@@ -964,12 +988,16 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id_4"
                       >
-                        Succeeded
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                          data-cy="task-status-badge"
+                        >
+                          Succeeded
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"
@@ -985,11 +1013,11 @@ exports[`storybook Storyshots components/Table/TasksTable Execution Tasks Table 
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           Windows 97
                         </span>

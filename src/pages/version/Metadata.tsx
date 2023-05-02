@@ -90,13 +90,28 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
         Time taken: {timeTaken && msToDuration(timeTaken)}
       </MetadataItem>
       <MetadataItem>
-        Submitted at: {createTime && getDateCopy(createTime)}
+        Submitted at:{" "}
+        {createTime && (
+          <span title={getDateCopy(createTime)}>
+            {getDateCopy(createTime, { omitSeconds: true })}
+          </span>
+        )}
       </MetadataItem>
       <MetadataItem>
-        Started: {startTime && getDateCopy(startTime)}
+        Started:{" "}
+        {startTime && (
+          <span title={getDateCopy(startTime)}>
+            {getDateCopy(startTime, { omitSeconds: true })}
+          </span>
+        )}
       </MetadataItem>
       {finishTime && (
-        <MetadataItem>Finished: {getDateCopy(finishTime)}</MetadataItem>
+        <MetadataItem>
+          Finished:{" "}
+          <span title={getDateCopy(finishTime)}>
+            {getDateCopy(finishTime, { omitSeconds: true })}
+          </span>
+        </MetadataItem>
       )}
       <MetadataItem>{`Submitted by: ${author}`}</MetadataItem>
       {isPatch ? (
@@ -161,7 +176,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
         </MetadataItem>
       )}
       <ParametersModal parameters={parameters} />
-      {url && displayName && (
+      {url && displayName && isPatch && (
         <MetadataItem>
           <StyledLink data-cy="external-link" href={url}>
             {displayName}

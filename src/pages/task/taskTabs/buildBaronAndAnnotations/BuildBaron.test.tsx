@@ -77,8 +77,10 @@ describe("buildBaronContent", () => {
       path: "/task/:id",
     });
     userEvent.click(screen.queryByDataCy("file-ticket-button"));
-    expect(screen.getByText("File Ticket")).toBeInTheDocument();
-    userEvent.click(screen.getByText("File Ticket"));
+    await waitFor(() => {
+      expect(screen.getByDataCy("file-ticket-popconfirm")).toBeVisible();
+    });
+    userEvent.click(screen.getByText("Yes"));
 
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledWith(

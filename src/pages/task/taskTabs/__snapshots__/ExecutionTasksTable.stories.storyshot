@@ -284,11 +284,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/task/some_id_5?execution=14"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           <span
                             class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
@@ -307,12 +307,16 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS ant-table-column-sort"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id_5?execution=14"
                       >
-                        Succeeded
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                          data-cy="task-status-badge"
+                        >
+                          Succeeded
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"
@@ -321,11 +325,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           Windows 97
                         </span>
@@ -340,11 +344,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/task/some_id_6?execution=12"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           <span
                             class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
@@ -363,12 +367,16 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS ant-table-column-sort"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id_6?execution=12"
                       >
-                        Succeeded
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                          data-cy="task-status-badge"
+                        >
+                          Succeeded
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"
@@ -377,11 +385,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           Windows 97
                         </span>
@@ -683,11 +691,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/task/some_id_5?execution=5"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           <span
                             class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
@@ -700,12 +708,16 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS ant-table-column-sort"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id_5?execution=5"
                       >
-                        Succeeded
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                          data-cy="task-status-badge"
+                        >
+                          Succeeded
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"
@@ -714,11 +726,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           Windows 97
                         </span>
@@ -733,11 +745,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/task/some_id_6?execution=5"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           <span
                             class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
@@ -750,12 +762,16 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                     <td
                       class="ant-table-cell cy-task-table-col-STATUS ant-table-column-sort"
                     >
-                      <div
-                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                        data-cy="task-status-badge"
+                      <a
+                        href="/task/some_id_6?execution=5"
                       >
-                        Succeeded
-                      </div>
+                        <div
+                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                          data-cy="task-status-badge"
+                        >
+                          Succeeded
+                        </div>
+                      </a>
                     </td>
                     <td
                       class="ant-table-cell cy-task-table-col-BASE_STATUS"
@@ -764,11 +780,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           Windows 97
                         </span>

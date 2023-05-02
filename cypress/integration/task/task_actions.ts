@@ -1,4 +1,4 @@
-describe("Task Action Buttons", () => {
+describe("Task Action Buttons", { testIsolation: false }, () => {
   describe("Based on the state of the task, some buttons should be disabled and others should be clickable. Clicking on buttons produces banners messaging if the action succeeded or failed.", () => {
     it("Schedule button should be disabled on a completed task", () => {
       cy.visit(tasks[1]);

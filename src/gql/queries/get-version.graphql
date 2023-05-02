@@ -37,6 +37,10 @@ query Version($id: String!) {
       childPatches {
         githash
         id
+        parameters {
+          key
+          value
+        }
         projectIdentifier
         status
         taskCount

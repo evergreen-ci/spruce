@@ -1,6 +1,4 @@
-import { ObjectFieldTemplateProps } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm/types";
-import { Unpacked } from "types/utils";
 
 export const insertIf = (condition, ...elements) => (condition ? elements : []);
 
@@ -95,24 +93,3 @@ export const placeholderIf = (element: string | number) =>
   element && {
     "ui:placeholder": `${element} (Default from repo)`,
   };
-
-// Modify a field such that its internal disabled prop is true.
-const disableField = (
-  property: Unpacked<ObjectFieldTemplateProps["properties"]>
-): Unpacked<ObjectFieldTemplateProps["properties"]>["content"] => ({
-  ...property.content,
-  props: {
-    ...property.content.props,
-    disabled: true,
-  },
-});
-
-// Return child fields to be rendered
-// Conditionally disable based on whether it has been flagged as such (i.e. is a private variable that has already been saved).
-export const getFields = (
-  properties: ObjectFieldTemplateProps["properties"],
-  isDisabled: boolean
-): Array<Unpacked<ObjectFieldTemplateProps["properties"]>["content"]> =>
-  isDisabled
-    ? properties.map(disableField)
-    : properties.map(({ content }) => content);

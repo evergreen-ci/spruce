@@ -122,7 +122,10 @@ export const Metadata: React.VFC<Props> = ({
 
       {submittedTime && (
         <MetadataItem data-cy="task-metadata-submitted-at">
-          Submitted at: {getDateCopy(submittedTime)}
+          Submitted at:{" "}
+          <span title={getDateCopy(submittedTime)}>
+            {getDateCopy(submittedTime, { omitSeconds: true })}
+          </span>
         </MetadataItem>
       )}
       {generatedBy && (
@@ -147,14 +150,19 @@ export const Metadata: React.VFC<Props> = ({
       {startTime && (
         <MetadataItem>
           Started:{" "}
-          <span data-cy="task-metadata-started">{getDateCopy(startTime)}</span>
+          <span data-cy="task-metadata-started" title={getDateCopy(startTime)}>
+            {getDateCopy(startTime, { omitSeconds: true })}
+          </span>
         </MetadataItem>
       )}
       {finishTime && (
         <MetadataItem>
           Finished:{" "}
-          <span data-cy="task-metadata-finished">
-            {getDateCopy(finishTime)}
+          <span
+            data-cy="task-metadata-finished"
+            title={getDateCopy(finishTime)}
+          >
+            {getDateCopy(finishTime, { omitSeconds: true })}
           </span>
         </MetadataItem>
       )}
@@ -184,7 +192,8 @@ export const Metadata: React.VFC<Props> = ({
       )}
       {details?.status === TaskStatus.Failed && (
         <MetadataItem>
-          Failing command: {processFailingCommand(details?.description)}
+          Failing command:{" "}
+          {processFailingCommand(details?.description, isContainerTask)}
         </MetadataItem>
       )}
       {details?.timeoutType && details?.timeoutType !== "" && (
@@ -222,7 +231,7 @@ export const Metadata: React.VFC<Props> = ({
       {ami && (
         <MetadataItem data-cy="task-metadata-ami">AMI: {ami}</MetadataItem>
       )}
-      {!isContainerTask && (
+      {!isContainerTask && hostId && (
         <MetadataItem>
           Host:{" "}
           <StyledLink
@@ -328,12 +337,22 @@ export const Metadata: React.VFC<Props> = ({
   );
 };
 
-const processFailingCommand = (description: string): string => {
+const processFailingCommand = (
+  description: string,
+  isContainerTask: boolean
+): string => {
   if (description === "stranded") {
-    return "Task failed because spot host was unexpectedly terminated by AWS.";
+    return isContainerTask
+      ? containerTaskStrandedMessage
+      : hostTaskStrandedMessage;
   }
   return description;
 };
+
+const containerTaskStrandedMessage =
+  "Task failed because the container was stranded by the ECS agent.";
+const hostTaskStrandedMessage =
+  "Task failed because spot host was unexpectedly terminated by AWS.";
 
 const DependsOnContainer = styled.div`
   margin-top: ${size.s};

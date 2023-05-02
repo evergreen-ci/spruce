@@ -29,7 +29,7 @@ export const getFormSchema = (
       },
       buildBaronSettings: {
         type: "object" as "object",
-        title: "Build Baron and Task Annotations",
+        title: "Ticket Creation",
         properties: {
           taskAnnotationSettings: {
             title: "",
@@ -61,7 +61,7 @@ export const getFormSchema = (
           useBuildBaron: {
             type: "boolean" as "boolean",
             oneOf: radioBoxOptions([
-              "Build Baron Ticket Search and Create",
+              "JIRA Ticket Search and Create",
               "Custom Ticket Creation",
             ]),
           },
@@ -142,7 +142,7 @@ export const getFormSchema = (
             type: "object" as "object",
             title: "",
             description:
-              "Add a URL to the patch/version metadata panel with the corresponding display name. Include {version_id} in the URL template and it will be replaced by an actual version ID.",
+              "Add a URL to the patch metadata panel to share a custom link with anyone viewing a patch from this project. Include {version_id} in the URL template and it will be replaced by an actual version ID.",
             properties: {
               displayName: {
                 type: "string" as "string",

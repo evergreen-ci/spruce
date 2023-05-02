@@ -2,8 +2,11 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
+import { Link } from "react-router-dom";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
+import { getTaskRoute } from "constants/routes";
 import { taskStatusToCopy } from "constants/task";
-import { TaskStatus } from "types/task";
+import { TaskStatus, TaskTab } from "types/task";
 import { statuses, errorReporting } from "utils";
 
 const { reportError } = errorReporting;
@@ -30,8 +33,14 @@ const StyledBadge = styled(Badge)<BadgeColorProps>`
 
 interface TaskStatusBadgeProps {
   status: string;
+  id?: string;
+  execution?: number;
 }
-const TaskStatusBadge: React.VFC<TaskStatusBadgeProps> = ({ status }) => {
+const TaskStatusBadge: React.VFC<TaskStatusBadgeProps> = ({
+  status,
+  id,
+  execution,
+}) => {
   if (!status) {
     return null;
   }
@@ -47,14 +56,31 @@ const TaskStatusBadge: React.VFC<TaskStatusBadgeProps> = ({ status }) => {
 
   if (status in mapTaskStatusToBadgeVariant) {
     return (
-      <StyledBadge
-        data-cy="task-status-badge"
-        key={status}
-        variant={mapTaskStatusToBadgeVariant[status]}
-        css={badgeWidthMaxContent}
+      <ConditionalWrapper
+        condition={!!id}
+        wrapper={(children) => (
+          <Link
+            to={getTaskRoute(id, {
+              execution,
+              tab:
+                status === TaskStatus.KnownIssue
+                  ? TaskTab.Annotations
+                  : undefined,
+            })}
+          >
+            {children}
+          </Link>
+        )}
       >
-        {displayStatus}
-      </StyledBadge>
+        <StyledBadge
+          data-cy="task-status-badge"
+          key={status}
+          variant={mapTaskStatusToBadgeVariant[status]}
+          css={badgeWidthMaxContent}
+        >
+          {displayStatus}
+        </StyledBadge>
+      </ConditionalWrapper>
     );
   }
 

@@ -24,6 +24,7 @@ import {
 import { GET_PROJECT_SETTINGS, GET_REPO_SETTINGS } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { validators } from "utils";
+import { isProduction } from "utils/environmentVariables";
 import { ProjectSettingsProvider } from "./Context";
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
 import { getTabTitle } from "./getTabTitle";
@@ -155,6 +156,12 @@ const ProjectSettings: React.VFC = () => {
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.VirtualWorkstation}
           />
+          {!isProduction() && (
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.Containers}
+            />
+          )}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.ProjectTriggers}

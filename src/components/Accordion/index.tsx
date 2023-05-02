@@ -16,6 +16,7 @@ interface AccordionProps {
   toggledTitle?: React.ReactNode;
   toggleFromBottom?: boolean;
   useIndent?: boolean;
+  subtitle?: React.ReactNode;
 }
 export const Accordion: React.VFC<AccordionProps> = ({
   children,
@@ -30,6 +31,7 @@ export const Accordion: React.VFC<AccordionProps> = ({
   toggledTitle,
   toggleFromBottom = false,
   useIndent = true,
+  subtitle,
 }) => {
   const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(defaultOpen);
   const toggleAccordionHandler = (): void => {
@@ -41,12 +43,15 @@ export const Accordion: React.VFC<AccordionProps> = ({
   const titleComp = (
     <TitleTag>{toggledTitle ? showToggledTitle : title}</TitleTag>
   );
+
   return (
     <div className={className} data-cy={dataCy}>
       {toggleFromBottom && (
         <AnimatedAccordion
           hide={!isAccordionDisplayed}
           disableAnimation={disableAnimation}
+          aria-expanded={isAccordionDisplayed}
+          data-cy="accordion-collapse-container"
         >
           {children}
         </AnimatedAccordion>
@@ -54,16 +59,22 @@ export const Accordion: React.VFC<AccordionProps> = ({
       <AccordionToggle
         data-cy="accordion-toggle"
         onClick={toggleAccordionHandler}
+        role="button"
       >
         {showCaret && (
           <Icon glyph={isAccordionDisplayed ? "CaretDown" : "CaretRight"} />
         )}
         {titleComp}
       </AccordionToggle>
+      {subtitle && (
+        <SubtitleContainer showCaret={showCaret}>{subtitle}</SubtitleContainer>
+      )}
       {!toggleFromBottom && (
         <AnimatedAccordion
           hide={!isAccordionDisplayed}
           disableAnimation={disableAnimation}
+          aria-expanded={isAccordionDisplayed}
+          data-cy="accordion-collapse-container"
         >
           <ContentsContainer indent={showCaret && useIndent}>
             {children}
@@ -74,9 +85,6 @@ export const Accordion: React.VFC<AccordionProps> = ({
   );
 };
 
-export const AccordionWrapper = styled.div`
-  padding: 12px 0;
-`;
 const AccordionToggle = styled.div`
   display: flex;
   align-items: center;
@@ -104,4 +112,8 @@ const AnimatedAccordion = styled.div<{
 const ContentsContainer = styled.div`
   margin-left: ${(props: { indent: boolean }): string =>
     props.indent && size.s};
+`;
+
+const SubtitleContainer = styled.div<{ showCaret: boolean }>`
+  ${({ showCaret }): string => showCaret && `margin-left: ${size.s};`}
 `;

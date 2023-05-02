@@ -5,7 +5,9 @@ describe("Auth", () => {
     cy.url().should("include", "/login");
   });
 
-  it("Redirects user to My Patches page after logging in.", () => {
+  it("Redirects user to My Patches page after logging in", () => {
+    cy.clearCookie("mci-token");
+    cy.visit("/");
     cy.enterLoginCredentials();
     cy.url().should("include", "/user/admin/patches");
   });
@@ -16,7 +18,6 @@ describe("Auth", () => {
   });
 
   it("Redirects user to their patches page if they are already logged in and visit login page", () => {
-    cy.login();
     cy.visit("/login");
     cy.url().should("include", "/user/admin/patches");
   });

@@ -166,7 +166,10 @@ const getColumnDefs = ({
       multiple: 4,
     },
     className: "cy-task-table-col-STATUS",
-    render: (status: string) => status && <TaskStatusBadge status={status} />,
+    render: (status: string, { id, execution }) =>
+      status && (
+        <TaskStatusBadge status={status} id={id} execution={execution} />
+      ),
     ...(statusSelectorProps && {
       ...getColumnTreeSelectFilterProps({
         ...statusSelectorProps,
@@ -188,7 +191,14 @@ const getColumnDefs = ({
       multiple: 4,
     },
     className: "cy-task-table-col-BASE_STATUS",
-    render: (status: string) => status && <TaskStatusBadge status={status} />,
+    render: (status: string, { baseTask }) =>
+      status && (
+        <TaskStatusBadge
+          status={status}
+          id={baseTask.id}
+          execution={baseTask.execution}
+        />
+      ),
     ...(baseStatusSelectorProps && {
       ...getColumnTreeSelectFilterProps({
         ...baseStatusSelectorProps,

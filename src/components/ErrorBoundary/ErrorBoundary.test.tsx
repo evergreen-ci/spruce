@@ -1,11 +1,12 @@
 import Bugsnag from "@bugsnag/js";
 import BugsnagPluginReact from "@bugsnag/plugin-react";
 import { render, screen } from "test_utils";
-import { mockEnvironmentalVariables } from "test_utils/utils";
-import * as environmentalVariables from "utils/environmentalVariables";
+import { mockEnvironmentVariables } from "test_utils/utils";
+import * as environmentVariables from "utils/environmentVariables";
 import { resetBugsnag, initializeBugsnag, ErrorBoundary } from ".";
 
-const { cleanup, mockEnv } = mockEnvironmentalVariables();
+const { cleanup, mockEnv } = mockEnvironmentVariables();
+
 describe("initializeBugsnag", () => {
   afterEach(() => {
     jest.restoreAllMocks();
@@ -16,7 +17,7 @@ describe("initializeBugsnag", () => {
     const mockBugsnag = jest.fn();
     jest.spyOn(Bugsnag, "start").mockImplementation(mockBugsnag);
     jest
-      .spyOn(environmentalVariables, "isDevelopmentBuild")
+      .spyOn(environmentVariables, "isDevelopmentBuild")
       .mockReturnValue(true);
     mockEnv("REACT_APP_VERSION", "1.0.0");
     initializeBugsnag();
