@@ -4,6 +4,7 @@ query VersionTasks(
 ) {
   version(id: $versionId) {
     id
+    isPatch
     tasks(options: $taskFilterOptions) {
       count
       data {

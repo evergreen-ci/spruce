@@ -23,6 +23,10 @@ query GetTask($taskId: String!, $execution: Int) {
       execution
       id
       timeTaken
+      versionMetadata {
+        id
+        revision
+      }
     }
     blocked
     canAbort

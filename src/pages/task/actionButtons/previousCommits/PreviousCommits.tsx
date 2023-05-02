@@ -168,7 +168,7 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
         disabled={!versionMetadata?.baseVersion}
       >
         <Option value={CommitType.Base}>
-          Go to {versionMetadata?.isPatch ? "base commit" : "parent commit"}
+          Go to {versionMetadata?.isPatch ? "base" : "previous"} commit
         </Option>
         <Option value={CommitType.LastPassing}>
           Go to last passing version
