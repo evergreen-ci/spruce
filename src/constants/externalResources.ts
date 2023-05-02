@@ -7,7 +7,7 @@ const wikiBaseUrl = "https://docs.devprod.prod.corp.mongodb.com/evergreen";
 
 const wikiUrl = `${wikiBaseUrl}/Home`;
 
-const projectDistroSettingsDocumentationUrl = `${wikiBaseUrl}/Test%20with%20Evergreen/Configure%20a%20Project/Project-and-Distro-Settings`;
+const projectDistroSettingsDocumentationUrl = `${wikiBaseUrl}/Configure%20a%20Project/Project-and-Distro-Settings`;
 
 const versionControlDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#version-control`;
 
@@ -21,7 +21,7 @@ const gitTagAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#
 
 const githubChecksAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#github-checks-aliases`;
 
-const cliDocumentationUrl = `${wikiBaseUrl}/Test%20with%20Evergreen/Using-the-Command-Line-Tool`;
+const cliDocumentationUrl = `${wikiBaseUrl}/Using-the-Command-Line-Tool`;
 
 const windowsPasswordRulesURL =
   "https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc786468(v=ws.10)?redirectedfrom=MSDN";
