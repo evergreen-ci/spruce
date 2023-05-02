@@ -83,7 +83,7 @@ export const Metadata: React.VFC<Props> = ({
     timeTaken: baseTaskDuration,
     versionMetadata: baseTaskVersionMetadata,
   } = baseTask ?? {};
-  const baseCommit = shortenGithash(baseTaskVersionMetadata.revision);
+  const baseCommit = shortenGithash(baseTaskVersionMetadata?.revision);
   const projectIdentifier = project?.identifier;
   const { author, id: versionID } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;
