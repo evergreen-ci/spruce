@@ -7552,6 +7552,7 @@ export type GetTaskQuery = {
       execution: number;
       id: string;
       timeTaken?: Maybe<number>;
+      versionMetadata: { __typename?: "Version"; id: string; revision: string };
     }>;
     dependsOn?: Maybe<
       Array<{
@@ -7787,6 +7788,7 @@ export type VersionTasksQuery = {
   version: {
     __typename?: "Version";
     id: string;
+    isPatch: boolean;
     tasks: {
       __typename?: "VersionTasks";
       count: number;
