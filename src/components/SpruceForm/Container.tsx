@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
+import styled, { StyledComponent } from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
-import { H3 } from "@leafygreen-ui/typography";
+import { H3, H3Props } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 
 interface ContainerProps {
@@ -24,7 +24,7 @@ export const SpruceFormContainer: React.VFC<ContainerProps> = ({
 
 const StyledH3 = styled(H3)`
   margin: ${size.m} 0;
-`;
+` as StyledComponent<H3Props>;
 
 const StyledCard = styled(Card)`
   margin-bottom: 48px;

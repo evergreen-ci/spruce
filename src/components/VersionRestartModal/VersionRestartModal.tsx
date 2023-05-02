@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
+import styled, { StyledComponent } from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { palette } from "@leafygreen-ui/palette";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
@@ -258,7 +258,7 @@ const getTaskIds = (selectedTasks: versionSelectedTasks) =>
 const ConfirmationMessage = styled(Body)`
   padding-top: ${size.s};
   padding-bottom: ${size.s};
-`;
+` as StyledComponent<BodyProps>;
 
 const Row = styled.div`
   display: flex;

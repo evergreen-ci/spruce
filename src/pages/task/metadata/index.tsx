@@ -2,6 +2,7 @@ import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
+import { Link } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import {
   MetadataCard,
@@ -180,11 +181,12 @@ export const Metadata: React.VFC<Props> = ({
         <MetadataItem>
           Base commit:{" "}
           <InlineCode
+            as={Link}
             data-cy="base-task-link"
-            href={getTaskRoute(baseTaskId)}
             onClick={() =>
               taskAnalytics.sendEvent({ name: "Click Base Commit" })
             }
+            to={getTaskRoute(baseTaskId)}
           >
             {baseCommit}
           </InlineCode>

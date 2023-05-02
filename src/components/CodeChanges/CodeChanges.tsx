@@ -1,7 +1,12 @@
 import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled";
+import styled, { StyledComponent } from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { Body, Description, Subtitle } from "@leafygreen-ui/typography";
+import {
+  Body,
+  Description,
+  Subtitle,
+  SubtitleProps,
+} from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
 import { CodeChangesBadge } from "components/CodeChangesBadge";
@@ -117,7 +122,7 @@ const Title = styled(Subtitle)`
   font-weight: normal;
   margin-right: ${size.s};
   margin-bottom: ${size.s};
-`;
+` as StyledComponent<SubtitleProps>;
 
 const TitleContainer = styled.div`
   align-items: baseline;

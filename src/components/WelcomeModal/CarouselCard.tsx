@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import { Body, Subtitle } from "@leafygreen-ui/typography";
+import styled, { StyledComponent } from "@emotion/styled";
+import { Body, BodyProps, Subtitle } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 import { CardType } from "./types";
 
@@ -76,9 +76,10 @@ const CardContainer = styled.div`
 
 const StyledBody = styled(Body)`
   margin-bottom: ${size.s};
-`;
+` as StyledComponent<BodyProps>;
 
 const StyledTitle = styled(Subtitle)`
   margin-bottom: ${size.s};
 `;
+
 export default CarouselCard;
