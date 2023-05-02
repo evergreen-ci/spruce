@@ -16,10 +16,10 @@ const zIndex = {
 
   // Set these values to 1 to utilize LeafyGreen's built-in stacking context
   modal: 1,
+  popover: 1,
   sideNav: 1,
 
   tooltip: 20,
-  popover: 30,
   toast: 40,
   dropdown: 50,
   max_do_not_use: 1000, // should only be used for things like the welcome modal that need to overlay EVERYTHING

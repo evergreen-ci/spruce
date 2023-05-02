@@ -16,6 +16,9 @@ export const getAccessRoute = (identifier: string) =>
 export const getPluginsRoute = (identifier: string) =>
   `${getSettingsRoute(identifier)}/plugins`;
 
+export const getContainersRoute = (identifier: string) =>
+  `${getSettingsRoute(identifier)}/containers`;
+
 export const project = "spruce";
 export const projectUseRepoEnabled = "evergreen";
 export const repo = "602d70a2b2373672ee493184";
