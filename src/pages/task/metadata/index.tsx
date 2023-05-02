@@ -231,7 +231,7 @@ export const Metadata: React.VFC<Props> = ({
       {ami && (
         <MetadataItem data-cy="task-metadata-ami">AMI: {ami}</MetadataItem>
       )}
-      {!isContainerTask && (
+      {!isContainerTask && hostId && (
         <MetadataItem>
           Host:{" "}
           <StyledLink
