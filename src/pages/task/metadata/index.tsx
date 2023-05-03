@@ -70,7 +70,6 @@ export const Metadata: React.VFC<Props> = ({
     project,
     pod,
     resetWhenFinished,
-    revision,
     spawnHostLink,
     startTime,
     status,
@@ -78,9 +77,13 @@ export const Metadata: React.VFC<Props> = ({
     versionMetadata,
   } = task || {};
 
-  const baseCommit = shortenGithash(revision);
   const submittedTime = activatedTime ?? ingestTime;
-  const { id: baseTaskId, timeTaken: baseTaskDuration } = baseTask ?? {};
+  const {
+    id: baseTaskId,
+    timeTaken: baseTaskDuration,
+    versionMetadata: baseTaskVersionMetadata,
+  } = baseTask ?? {};
+  const baseCommit = shortenGithash(baseTaskVersionMetadata?.revision);
   const projectIdentifier = project?.identifier;
   const { author, id: versionID } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;
