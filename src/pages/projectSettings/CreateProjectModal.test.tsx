@@ -156,8 +156,6 @@ describe("createProjectField", () => {
     ).toBeEnabled();
 
     userEvent.click(screen.queryByText("Create Project"));
-
-    console.log(router.state.location);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
     expect(router.state.location.pathname).toBe(
