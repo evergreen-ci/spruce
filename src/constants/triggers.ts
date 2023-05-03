@@ -10,7 +10,7 @@ import {
   ProjectTriggers,
 } from "types/triggers";
 
-export const RenotifyDefaultTime = "48";
+export const renotifyDefaultTime = "48";
 export const regexDisplayName = "display-name";
 export const regexBuildVariant = "build-variant";
 
@@ -276,7 +276,7 @@ export const projectTriggers: Trigger = {
         fieldType: "input",
         key: ExtraFieldKey.RENOTIFY_INTERVAL,
         format: "number",
-        default: RenotifyDefaultTime,
+        default: renotifyDefaultTime,
       },
       failureTypeSubscriberConfig,
     ],
@@ -299,7 +299,7 @@ export const projectTriggers: Trigger = {
         fieldType: "input",
         key: ExtraFieldKey.RENOTIFY_INTERVAL,
         format: "number",
-        default: RenotifyDefaultTime,
+        default: renotifyDefaultTime,
       },
       failureTypeSubscriberConfig,
     ],

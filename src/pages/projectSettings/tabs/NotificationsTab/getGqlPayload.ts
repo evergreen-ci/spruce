@@ -38,6 +38,9 @@ const webhookFormToGql = (webhookInput: Notification["webhookInput"]) => {
         key: keyInput,
         value: valueInput,
       })) ?? [],
+    retries: webhookInput.retryInput ?? 0,
+    minDelayMs: webhookInput.minDelayInput ?? 0,
+    timeoutMs: webhookInput.timeoutInput ?? 0,
   };
 };
 
