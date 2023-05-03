@@ -60,23 +60,21 @@ const Layout = () => {
   }
 
   return (
-    <>
+    <PageGrid>
       <Header />
-      <PageGrid>
-        <Outlet />
-        {!hasUsedSpruceBefore && (
-          <WelcomeModal
-            title="Welcome to the New Evergreen UI!"
-            param="hasUsedSpruceBefore"
-            carouselCards={newSpruceUser}
-          />
-        )}
-        <FloatingContent>
-          <TaskStatusIconLegend />
-          <Feedback />
-        </FloatingContent>
-      </PageGrid>
-    </>
+      <Outlet />
+      {!hasUsedSpruceBefore && (
+        <WelcomeModal
+          title="Welcome to the New Evergreen UI!"
+          param="hasUsedSpruceBefore"
+          carouselCards={newSpruceUser}
+        />
+      )}
+      <FloatingContent>
+        <TaskStatusIconLegend />
+        <Feedback />
+      </FloatingContent>
+    </PageGrid>
   );
 };
 
