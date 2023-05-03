@@ -152,7 +152,7 @@ export const DownstreamProjectAccordion: React.VFC<
   usePolling({ startPolling, stopPolling, refetch });
   const showSkeleton = !data;
   const { version } = data || {};
-  const { tasks } = version || {};
+  const { tasks, isPatch } = version || {};
   const { data: tasksData = [], count = 0 } = tasks || {};
 
   const variantTitle = (
@@ -227,19 +227,20 @@ export const DownstreamProjectAccordion: React.VFC<
               <Skeleton active title={false} paragraph={{ rows: 8 }} />
             ) : (
               <TasksTable
-                sorts={sorts}
-                tableChangeHandler={tableChangeHandler}
-                tasks={tasksData}
-                statusSelectorProps={statusSelectorProps}
                 baseStatusSelectorProps={baseStatusSelectorProps}
-                taskNameInputProps={taskNameInputProps}
-                variantInputProps={variantInputProps}
+                isPatch={isPatch}
                 onColumnHeaderClick={(sortField) =>
                   sendEvent({
                     name: "Sort Downstream Tasks Table",
                     sortBy: sortField,
                   })
                 }
+                sorts={sorts}
+                statusSelectorProps={statusSelectorProps}
+                tableChangeHandler={tableChangeHandler}
+                taskNameInputProps={taskNameInputProps}
+                tasks={tasksData}
+                variantInputProps={variantInputProps}
               />
             )}
           </TableWrapper>

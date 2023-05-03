@@ -12,6 +12,7 @@ const { parseQueryString, parseSortString, toSortString } = queryString;
 interface Props {
   execution: number;
   executionTasksFull: GetTaskQuery["task"]["executionTasksFull"];
+  isPatch: boolean;
 }
 
 const useSorts = () => {
@@ -24,6 +25,7 @@ const useSorts = () => {
 export const ExecutionTasksTable: React.VFC<Props> = ({
   execution,
   executionTasksFull,
+  isPatch,
 }) => {
   const taskAnalytics = useTaskAnalytics();
   const updateQueryParams = useUpdateURLQueryParams();
@@ -48,6 +50,7 @@ export const ExecutionTasksTable: React.VFC<Props> = ({
   ]);
   return (
     <TasksTable
+      isPatch={isPatch}
       showTaskExecutionLabel={uniqueExecutions.size > 1}
       sorts={sorts}
       tableChangeHandler={tableChangeHandler}

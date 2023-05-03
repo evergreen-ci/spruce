@@ -20,6 +20,11 @@ export const taskQuery: GetTaskQuery = {
     aborted: false,
     ami: "ami-0c83bb0a9f48c15bf",
     baseTask: {
+      versionMetadata: {
+        __typename: "Version",
+        id: "spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
+        revision: "e0ece5ad52ad01630bdf29f55b9382a26d6256b3",
+      },
       id: "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
       execution: 1,
       timeTaken: null,
