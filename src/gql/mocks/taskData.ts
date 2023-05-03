@@ -45,6 +45,7 @@ export const taskQuery: GetTaskQuery = {
     displayName: "e2e_test",
     distroId: "ubuntu1604-small",
     estimatedStart: 1000,
+    pod: null,
     execution: 0,
     expectedDuration: 123,
     failedTestCount: 0,

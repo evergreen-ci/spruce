@@ -19,7 +19,11 @@ describe("groupedTaskStatusBadgeIcon", () => {
         status={TaskStatus.SystemFailureUmbrella}
         onClick={onClick}
         versionId={versionId}
-      />
+      />,
+      {
+        path: "/version/:versionId/:tab",
+        route: `/version/${versionId}/tasks`,
+      }
     );
     const badge = screen.queryByDataCy("grouped-task-status-badge");
     expect(badge).toBeInTheDocument();
