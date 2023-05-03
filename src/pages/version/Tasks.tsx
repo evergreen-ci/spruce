@@ -66,7 +66,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   });
   usePolling({ startPolling, stopPolling, refetch });
   const { version } = data || {};
-  const { tasks } = version || {};
+  const { tasks, isPatch } = version || {};
   const { data: tasksData = [], count = 0 } = tasks || {};
 
   return (
@@ -79,6 +79,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
         onClear={clearQueryParams}
       />
       <PatchTasksTable
+        isPatch={isPatch}
         sorts={sorts}
         tasks={tasksData}
         loading={tasksData.length === 0 && loading}
