@@ -320,6 +320,18 @@ export type FileDiff = {
   fileName: Scalars["String"];
 };
 
+export type GenericSubscription = {
+  __typename?: "GenericSubscription";
+  id: Scalars["String"];
+  ownerType: Scalars["String"];
+  regexSelectors: Array<Selector>;
+  resourceType: Scalars["String"];
+  selectors: Array<Selector>;
+  subscriber?: Maybe<SubscriberWrapper>;
+  trigger: Scalars["String"];
+  triggerData?: Maybe<Scalars["StringMap"]>;
+};
+
 export type GithubCheckSubscriber = {
   __typename?: "GithubCheckSubscriber";
   owner: Scalars["String"];
@@ -1283,7 +1295,7 @@ export type ProjectEventSettings = {
   aliases?: Maybe<Array<ProjectAlias>>;
   githubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<Project>;
-  subscriptions?: Maybe<Array<ProjectSubscription>>;
+  subscriptions?: Maybe<Array<GenericSubscription>>;
   vars?: Maybe<ProjectVars>;
 };
 
@@ -1349,7 +1361,7 @@ export type ProjectSettings = {
   aliases?: Maybe<Array<ProjectAlias>>;
   githubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<Project>;
-  subscriptions?: Maybe<Array<ProjectSubscription>>;
+  subscriptions?: Maybe<Array<GenericSubscription>>;
   vars?: Maybe<ProjectVars>;
 };
 
@@ -1384,28 +1396,6 @@ export enum ProjectSettingsSection {
   Variables = "VARIABLES",
   Workstation = "WORKSTATION",
 }
-
-/**
- * ProjectSubscriber defines the subscriptions for a given Project. For example, a project could have Slack notifications
- * enabled that trigger whenever any version finishes.
- */
-export type ProjectSubscriber = {
-  __typename?: "ProjectSubscriber";
-  subscriber: Subscriber;
-  type: Scalars["String"];
-};
-
-export type ProjectSubscription = {
-  __typename?: "ProjectSubscription";
-  id: Scalars["String"];
-  ownerType: Scalars["String"];
-  regexSelectors: Array<Selector>;
-  resourceType: Scalars["String"];
-  selectors: Array<Selector>;
-  subscriber?: Maybe<ProjectSubscriber>;
-  trigger: Scalars["String"];
-  triggerData?: Maybe<Scalars["StringMap"]>;
-};
 
 export type ProjectVars = {
   __typename?: "ProjectVars";
@@ -1717,7 +1707,7 @@ export type RepoSettings = {
   aliases?: Maybe<Array<ProjectAlias>>;
   githubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<RepoRef>;
-  subscriptions?: Maybe<Array<ProjectSubscription>>;
+  subscriptions?: Maybe<Array<GenericSubscription>>;
   vars?: Maybe<ProjectVars>;
 };
 
@@ -1881,6 +1871,12 @@ export type SubscriberInput = {
   target: Scalars["String"];
   type: Scalars["String"];
   webhookSubscriber?: InputMaybe<WebhookSubscriberInput>;
+};
+
+export type SubscriberWrapper = {
+  __typename?: "SubscriberWrapper";
+  subscriber: Subscriber;
+  type: Scalars["String"];
 };
 
 /**
@@ -2338,6 +2334,7 @@ export type User = {
   emailAddress: Scalars["String"];
   patches: Patches;
   permissions: Permissions;
+  subscriptions?: Maybe<Array<GenericSubscription>>;
   userId: Scalars["String"];
 };
 
@@ -3165,7 +3162,7 @@ export type ProjectSettingsFragment = {
   }>;
   subscriptions?: Maybe<
     Array<{
-      __typename?: "ProjectSubscription";
+      __typename?: "GenericSubscription";
       id: string;
       ownerType: string;
       resourceType: string;
@@ -3178,7 +3175,7 @@ export type ProjectSettingsFragment = {
       }>;
       selectors: Array<{ __typename?: "Selector"; data: string; type: string }>;
       subscriber?: Maybe<{
-        __typename?: "ProjectSubscriber";
+        __typename?: "SubscriberWrapper";
         type: string;
         subscriber: {
           __typename?: "Subscriber";
@@ -3369,7 +3366,7 @@ export type RepoSettingsFragment = {
   }>;
   subscriptions?: Maybe<
     Array<{
-      __typename?: "ProjectSubscription";
+      __typename?: "GenericSubscription";
       id: string;
       ownerType: string;
       resourceType: string;
@@ -3382,7 +3379,7 @@ export type RepoSettingsFragment = {
       }>;
       selectors: Array<{ __typename?: "Selector"; data: string; type: string }>;
       subscriber?: Maybe<{
-        __typename?: "ProjectSubscriber";
+        __typename?: "SubscriberWrapper";
         type: string;
         subscriber: {
           __typename?: "Subscriber";
@@ -3445,7 +3442,7 @@ export type RepoNotificationSettingsFragment = {
 };
 
 export type SubscriptionsFragment = {
-  __typename?: "ProjectSubscription";
+  __typename?: "GenericSubscription";
   id: string;
   ownerType: string;
   resourceType: string;
@@ -3458,7 +3455,7 @@ export type SubscriptionsFragment = {
   }>;
   selectors: Array<{ __typename?: "Selector"; data: string; type: string }>;
   subscriber?: Maybe<{
-    __typename?: "ProjectSubscriber";
+    __typename?: "SubscriberWrapper";
     type: string;
     subscriber: {
       __typename?: "Subscriber";
@@ -3765,7 +3762,7 @@ export type ProjectEventSettingsFragment = {
   }>;
   subscriptions?: Maybe<
     Array<{
-      __typename?: "ProjectSubscription";
+      __typename?: "GenericSubscription";
       id: string;
       ownerType: string;
       resourceType: string;
@@ -3778,7 +3775,7 @@ export type ProjectEventSettingsFragment = {
       }>;
       selectors: Array<{ __typename?: "Selector"; data: string; type: string }>;
       subscriber?: Maybe<{
-        __typename?: "ProjectSubscriber";
+        __typename?: "SubscriberWrapper";
         type: string;
         subscriber: {
           __typename?: "Subscriber";
@@ -5970,7 +5967,7 @@ export type ProjectEventLogsQuery = {
         }>;
         subscriptions?: Maybe<
           Array<{
-            __typename?: "ProjectSubscription";
+            __typename?: "GenericSubscription";
             id: string;
             ownerType: string;
             resourceType: string;
@@ -5987,7 +5984,7 @@ export type ProjectEventLogsQuery = {
               type: string;
             }>;
             subscriber?: Maybe<{
-              __typename?: "ProjectSubscriber";
+              __typename?: "SubscriberWrapper";
               type: string;
               subscriber: {
                 __typename?: "Subscriber";
@@ -6179,7 +6176,7 @@ export type ProjectEventLogsQuery = {
         }>;
         subscriptions?: Maybe<
           Array<{
-            __typename?: "ProjectSubscription";
+            __typename?: "GenericSubscription";
             id: string;
             ownerType: string;
             resourceType: string;
@@ -6196,7 +6193,7 @@ export type ProjectEventLogsQuery = {
               type: string;
             }>;
             subscriber?: Maybe<{
-              __typename?: "ProjectSubscriber";
+              __typename?: "SubscriberWrapper";
               type: string;
               subscriber: {
                 __typename?: "Subscriber";
@@ -6405,7 +6402,7 @@ export type ProjectSettingsQuery = {
     }>;
     subscriptions?: Maybe<
       Array<{
-        __typename?: "ProjectSubscription";
+        __typename?: "GenericSubscription";
         id: string;
         ownerType: string;
         resourceType: string;
@@ -6422,7 +6419,7 @@ export type ProjectSettingsQuery = {
           type: string;
         }>;
         subscriber?: Maybe<{
-          __typename?: "ProjectSubscriber";
+          __typename?: "SubscriberWrapper";
           type: string;
           subscriber: {
             __typename?: "Subscriber";
@@ -6659,7 +6656,7 @@ export type RepoEventLogsQuery = {
         }>;
         subscriptions?: Maybe<
           Array<{
-            __typename?: "ProjectSubscription";
+            __typename?: "GenericSubscription";
             id: string;
             ownerType: string;
             resourceType: string;
@@ -6676,7 +6673,7 @@ export type RepoEventLogsQuery = {
               type: string;
             }>;
             subscriber?: Maybe<{
-              __typename?: "ProjectSubscriber";
+              __typename?: "SubscriberWrapper";
               type: string;
               subscriber: {
                 __typename?: "Subscriber";
@@ -6868,7 +6865,7 @@ export type RepoEventLogsQuery = {
         }>;
         subscriptions?: Maybe<
           Array<{
-            __typename?: "ProjectSubscription";
+            __typename?: "GenericSubscription";
             id: string;
             ownerType: string;
             resourceType: string;
@@ -6885,7 +6882,7 @@ export type RepoEventLogsQuery = {
               type: string;
             }>;
             subscriber?: Maybe<{
-              __typename?: "ProjectSubscriber";
+              __typename?: "SubscriberWrapper";
               type: string;
               subscriber: {
                 __typename?: "Subscriber";
@@ -7089,7 +7086,7 @@ export type RepoSettingsQuery = {
     }>;
     subscriptions?: Maybe<
       Array<{
-        __typename?: "ProjectSubscription";
+        __typename?: "GenericSubscription";
         id: string;
         ownerType: string;
         resourceType: string;
@@ -7106,7 +7103,7 @@ export type RepoSettingsQuery = {
           type: string;
         }>;
         subscriber?: Maybe<{
-          __typename?: "ProjectSubscriber";
+          __typename?: "SubscriberWrapper";
           type: string;
           subscriber: {
             __typename?: "Subscriber";
@@ -8126,5 +8123,78 @@ export type UserPatchesQuery = {
         }>;
       }>;
     };
+  };
+};
+
+export type UserSubscriptionsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UserSubscriptionsQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    subscriptions?: Maybe<
+      Array<{
+        __typename?: "GenericSubscription";
+        id: string;
+        ownerType: string;
+        resourceType: string;
+        trigger: string;
+        triggerData?: Maybe<{ [key: string]: any }>;
+        regexSelectors: Array<{
+          __typename?: "Selector";
+          data: string;
+          type: string;
+        }>;
+        selectors: Array<{
+          __typename?: "Selector";
+          data: string;
+          type: string;
+        }>;
+        subscriber?: Maybe<{
+          __typename?: "SubscriberWrapper";
+          type: string;
+          subscriber: {
+            __typename?: "Subscriber";
+            emailSubscriber?: Maybe<string>;
+            jiraCommentSubscriber?: Maybe<string>;
+            slackSubscriber?: Maybe<string>;
+            githubCheckSubscriber?: Maybe<{
+              __typename?: "GithubCheckSubscriber";
+              owner: string;
+              ref: string;
+              repo: string;
+            }>;
+            githubPRSubscriber?: Maybe<{
+              __typename?: "GithubPRSubscriber";
+              owner: string;
+              prNumber?: Maybe<number>;
+              ref: string;
+              repo: string;
+            }>;
+            jiraIssueSubscriber?: Maybe<{
+              __typename?: "JiraIssueSubscriber";
+              issueType: string;
+              project: string;
+            }>;
+            webhookSubscriber?: Maybe<{
+              __typename?: "WebhookSubscriber";
+              minDelayMs: number;
+              retries: number;
+              secret: string;
+              timeoutMs: number;
+              url: string;
+              headers: Array<
+                Maybe<{
+                  __typename?: "WebhookHeader";
+                  key: string;
+                  value: string;
+                }>
+              >;
+            }>;
+          };
+        }>;
+      }>
+    >;
   };
 };

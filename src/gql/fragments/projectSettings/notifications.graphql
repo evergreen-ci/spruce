@@ -6,7 +6,7 @@ fragment repoNotificationSettings on RepoRef {
   notifyOnBuildFailure
 }
 
-fragment subscriptions on ProjectSubscription {
+fragment subscriptions on GenericSubscription {
   id
   ownerType
   regexSelectors {

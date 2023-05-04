@@ -1,0 +1,54 @@
+query UserSubscriptions {
+  user {
+    subscriptions {
+      id
+      ownerType
+      regexSelectors {
+        data
+        type
+      }
+      resourceType
+      selectors {
+        data
+        type
+      }
+      subscriber {
+        subscriber {
+          emailSubscriber
+          githubCheckSubscriber {
+            owner
+            ref
+            repo
+          }
+          githubPRSubscriber {
+            owner
+            prNumber
+            ref
+            repo
+          }
+          jiraCommentSubscriber
+          jiraIssueSubscriber {
+            issueType
+            project
+          }
+          slackSubscriber
+          webhookSubscriber {
+            headers {
+              key
+              value
+            }
+            minDelayMs
+            retries
+            secret
+            timeoutMs
+            url
+          }
+        }
+        type
+      }
+      trigger
+      triggerData
+    }
+    userId
+  }
+}

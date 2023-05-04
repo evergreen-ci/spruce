@@ -18,6 +18,7 @@ import { PreferencesCard } from "pages/preferences/Card";
 import { string } from "utils";
 import { ClearSubscriptionsCard } from "./notificationTab/ClearSubscriptionsCard";
 import { NotificationField } from "./notificationTab/NotificationField";
+import { UserSubscriptions } from "./notificationTab/UserSubscriptions";
 
 const { omitTypename } = string;
 
@@ -114,6 +115,7 @@ export const NotificationsTab: React.VFC = () => {
           Save Changes
         </Button>
       </PreferencesCard>
+      <UserSubscriptions />
       <ClearSubscriptionsCard />
     </>
   );

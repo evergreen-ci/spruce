@@ -1,11 +1,7 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
+import { getSubscriberText } from "constants/subscription";
 import { projectTriggers } from "constants/triggers";
-import {
-  ProjectInput,
-  SubscriptionInput,
-  ProjectSettingsQuery,
-} from "gql/generated/types";
-import { NotificationMethods } from "types/subscription";
+import { ProjectInput, SubscriptionInput } from "gql/generated/types";
 import { TriggerType } from "types/triggers";
 import { string } from "utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
@@ -15,26 +11,6 @@ import { FormState } from "./types";
 type Tab = ProjectSettingsTabRoutes.Notifications;
 
 const { toSentenceCase } = string;
-
-const getSubscriberText = (
-  subscriberType: string,
-  subscriber: ProjectSettingsQuery["projectSettings"]["subscriptions"][0]["subscriber"]["subscriber"]
-) => {
-  switch (subscriberType) {
-    case NotificationMethods.JIRA_COMMENT:
-      return subscriber.jiraCommentSubscriber;
-    case NotificationMethods.SLACK:
-      return subscriber.slackSubscriber;
-    case NotificationMethods.EMAIL:
-      return subscriber.emailSubscriber;
-    case NotificationMethods.WEBHOOK:
-      return subscriber.webhookSubscriber.url;
-    case NotificationMethods.JIRA_ISSUE:
-      return subscriber.jiraIssueSubscriber.project;
-    default:
-      return "";
-  }
-};
 
 const convertFamilyTrigger = (trigger: string) => {
   switch (trigger) {
@@ -125,10 +101,7 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
               jiraIssueSubscriber,
               webhookSubscriber,
             } = subscribers;
-            const subscriberText = getSubscriberText(
-              subscriberType,
-              subscribers
-            );
+            const subscriberText = getSubscriberText(subscriber);
 
             return {
               displayTitle: `${triggerText} - ${subscriberText}`,

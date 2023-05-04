@@ -70,7 +70,7 @@ const cache = new InMemoryCache({
     Project: {
       keyFields: false,
     },
-    ProjectSubscription: {
+    GenericSubscription: {
       keyFields: false,
     },
     User: {
