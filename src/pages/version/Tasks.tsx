@@ -103,4 +103,5 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
 
 const TableControlWrapper = styled.div`
   padding-top: ${size.xs};
+  margin-bottom: ${size.l};
 `;
