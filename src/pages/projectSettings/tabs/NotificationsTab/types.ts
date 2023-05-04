@@ -15,6 +15,9 @@ export type Notification = Partial<{
     urlInput: string;
     secretInput: string;
     httpHeaders: { [key: string]: string }[];
+    retryInput: number;
+    minDelayInput: number;
+    timeoutInput: number;
   };
 }>;
 

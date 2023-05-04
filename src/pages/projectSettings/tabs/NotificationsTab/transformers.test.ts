@@ -176,6 +176,9 @@ describe("project data", () => {
                     valueInput: "application/json",
                   },
                 ],
+                retryInput: 0,
+                minDelayInput: 100,
+                timeoutInput: 1000,
               },
             },
           },
@@ -208,6 +211,9 @@ describe("project data", () => {
             webhookSubscriber: {
               url: "https://example.com",
               secret: "webhook_secret",
+              retries: 0,
+              minDelayMs: 100,
+              timeoutMs: 1000,
               headers: [
                 {
                   key: "Content-Type",

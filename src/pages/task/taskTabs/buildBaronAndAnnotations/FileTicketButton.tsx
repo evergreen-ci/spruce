@@ -30,7 +30,7 @@ const FileTicketButton: React.VFC<FileTicketProps> = ({
   >(FILE_JIRA_TICKET, {
     onCompleted: () => {
       setButtonText("File another ticket");
-      dispatchToast.success(`Ticket successfully created for this task.`);
+      dispatchToast.success(`Successfully requested ticket`);
     },
     onError(error) {
       dispatchToast.error(
