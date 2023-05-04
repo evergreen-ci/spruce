@@ -1,10 +1,10 @@
 #import "../fragments/annotations/issueLink.graphql"
 
-query GetCustomCreatedIssues($taskId: String!, $execution: Int) {
+query CustomCreatedIssues($taskId: String!, $execution: Int) {
   task(taskId: $taskId, execution: $execution) {
     annotation {
       createdIssues {
-        ...issueLink
+        ...IssueLink
       }
       id
     }

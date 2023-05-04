@@ -28,6 +28,6 @@ mutation EditSpawnHost(
       savePublicKey: $savePublicKey
     }
   ) {
-    ...baseSpawnHost
+    ...BaseSpawnHost
   }
 }

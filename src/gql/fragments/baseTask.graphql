@@ -1,4 +1,4 @@
-fragment baseTask on Task {
+fragment BaseTask on Task {
   buildVariant
   buildVariantDisplayName
   displayName

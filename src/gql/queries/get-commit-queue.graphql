@@ -14,7 +14,7 @@ query CommitQueue($projectIdentifier: String!) {
         description
         id
         moduleCodeChanges {
-          ...moduleCodeChange
+          ...ModuleCodeChange
         }
         versionFull {
           id

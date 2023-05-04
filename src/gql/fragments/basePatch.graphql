@@ -1,4 +1,4 @@
-fragment basePatch on Patch {
+fragment BasePatch on Patch {
   activated
   alias
   author

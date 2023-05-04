@@ -1,4 +1,4 @@
-query GetBaseVersionAndTask($taskId: String!) {
+query BaseVersionAndTask($taskId: String!) {
   task(taskId: $taskId) {
     baseTask {
       execution

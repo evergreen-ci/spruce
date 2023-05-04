@@ -10,55 +10,56 @@
 #import "./projectTriggers.graphql"
 #import "./periodicBuilds.graphql"
 #import "./containers.graphql"
-fragment projectSettings on ProjectSettings {
+
+fragment ProjectSettings on ProjectSettings {
   aliases {
-    ...alias
+    ...Alias
   }
-  ...projectGithubCommitQueue
+  ...ProjectGithubCommitQueue
   projectRef {
     id
     identifier
-    ...projectAccessSettings
-    ...projectContainerSettings
-    ...projectGeneralSettings
-    ...projectNotificationSettings
-    ...projectPatchAliasSettings
-    ...projectPeriodicBuildsSettings
-    ...projectPluginsSettings
-    ...projectTriggersSettings
-    ...projectVirtualWorkstationSettings
+    ...ProjectAccessSettings
+    ...ProjectContainerSettings
+    ...ProjectGeneralSettings
+    ...ProjectNotificationSettings
+    ...ProjectPatchAliasSettings
+    ...ProjectPeriodicBuildsSettings
+    ...ProjectPluginsSettings
+    ...ProjectTriggersSettings
+    ...ProjectVirtualWorkstationSettings
     repoRefId
   }
   subscriptions {
-    ...subscriptions
+    ...Subscriptions
   }
   vars {
-    ...variables
+    ...Variables
   }
 }
 
-fragment repoSettings on RepoSettings {
+fragment RepoSettings on RepoSettings {
   aliases {
-    ...alias
+    ...Alias
   }
   projectRef {
     displayName
     id
-    ...repoAccessSettings
-    ...repoContainerSettings
-    ...repoGeneralSettings
-    ...repoNotificationSettings
-    ...repoPatchAliasSettings
-    ...repoPeriodicBuildsSettings
-    ...repoPluginsSettings
-    ...repoTriggersSettings
-    ...repoVirtualWorkstationSettings
+    ...RepoAccessSettings
+    ...RepoContainerSettings
+    ...RepoGeneralSettings
+    ...RepoNotificationSettings
+    ...RepoPatchAliasSettings
+    ...RepoPeriodicBuildsSettings
+    ...RepoPluginsSettings
+    ...RepoTriggersSettings
+    ...RepoVirtualWorkstationSettings
   }
-  ...repoGithubCommitQueue
+  ...RepoGithubCommitQueue
   subscriptions {
-    ...subscriptions
+    ...Subscriptions
   }
   vars {
-    ...variables
+    ...Variables
   }
 }

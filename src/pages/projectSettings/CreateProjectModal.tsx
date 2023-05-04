@@ -10,7 +10,7 @@ import { useToastContext } from "context/toast";
 import {
   CreateProjectMutation,
   CreateProjectMutationVariables,
-  GetGithubOrgsQuery,
+  GithubOrgsQuery,
 } from "gql/generated/types";
 import { CREATE_PROJECT } from "gql/mutations";
 import { GET_GITHUB_ORGS } from "gql/queries";
@@ -42,7 +42,7 @@ export const CreateProjectModal: React.VFC<Props> = ({
   });
   const [hasError, setHasError] = useState(true);
 
-  const { data: gitOrgs } = useQuery<GetGithubOrgsQuery>(GET_GITHUB_ORGS, {
+  const { data: gitOrgs } = useQuery<GithubOrgsQuery>(GET_GITHUB_ORGS, {
     skip: !open,
   });
   const { spruceConfig: { githubOrgs = [] } = {} } = gitOrgs ?? {};

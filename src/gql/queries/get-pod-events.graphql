@@ -1,4 +1,4 @@
-query podEvents($id: String!, $limit: Int, $page: Int) {
+query PodEvents($id: String!, $limit: Int, $page: Int) {
   pod(podId: $id) {
     events(page: $page, limit: $limit) {
       count

@@ -1,4 +1,4 @@
-fragment projectPluginsSettings on Project {
+fragment ProjectPluginsSettings on Project {
   buildBaronSettings {
     ticketCreateProject
     ticketSearchProjects
@@ -20,7 +20,7 @@ fragment projectPluginsSettings on Project {
   }
 }
 
-fragment repoPluginsSettings on RepoRef {
+fragment RepoPluginsSettings on RepoRef {
   buildBaronSettings {
     ticketCreateProject
     ticketSearchProjects

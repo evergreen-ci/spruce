@@ -2,10 +2,10 @@ import { MockedProvider } from "@apollo/client/testing";
 import { getCommitsRoute, getProjectSettingsRoute } from "constants/routes";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
-  GetProjectsQuery,
-  GetProjectsQueryVariables,
-  GetViewableProjectRefsQuery,
-  GetViewableProjectRefsQueryVariables,
+  ProjectsQuery,
+  ProjectsQueryVariables,
+  ViewableProjectRefsQuery,
+  ViewableProjectRefsQueryVariables,
 } from "gql/generated/types";
 import { GET_PROJECTS, GET_VIEWABLE_PROJECTS } from "gql/queries";
 import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
@@ -247,9 +247,7 @@ describe("projectSelect", () => {
   });
 });
 
-const getProjectsMock: [
-  ApolloMock<GetProjectsQuery, GetProjectsQueryVariables>
-] = [
+const getProjectsMock: [ApolloMock<ProjectsQuery, ProjectsQueryVariables>] = [
   {
     request: {
       query: GET_PROJECTS,
@@ -337,7 +335,7 @@ const getProjectsMock: [
 ];
 
 const getViewableProjectsMock: [
-  ApolloMock<GetViewableProjectRefsQuery, GetViewableProjectRefsQueryVariables>
+  ApolloMock<ViewableProjectRefsQuery, ViewableProjectRefsQueryVariables>
 ] = [
   {
     request: {
@@ -411,7 +409,7 @@ const getViewableProjectsMock: [
 ];
 
 const noDisabledProjectsMock: [
-  ApolloMock<GetViewableProjectRefsQuery, GetViewableProjectRefsQueryVariables>
+  ApolloMock<ViewableProjectRefsQuery, ViewableProjectRefsQueryVariables>
 ] = [
   {
     request: {

@@ -2,7 +2,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
-import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
+import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
 import { cache } from "gql/GQLWrapper";
 import { taskQuery } from "gql/mocks/taskData";
 import { GET_TASK } from "gql/queries";
@@ -35,7 +35,7 @@ describe("useKonamiCode", () => {
     );
     window.HTMLMediaElement.prototype.play = audioPlayMock;
 
-    cache.writeQuery<GetTaskQuery, GetTaskQueryVariables>({
+    cache.writeQuery<TaskQuery, TaskQueryVariables>({
       query: GET_TASK,
       data: {
         ...taskQuery,
@@ -83,7 +83,7 @@ describe("useKonamiCode", () => {
     );
     window.HTMLMediaElement.prototype.play = audioPlayMock;
 
-    cache.writeQuery<GetTaskQuery, GetTaskQueryVariables>({
+    cache.writeQuery<TaskQuery, TaskQueryVariables>({
       query: GET_TASK,
       data: {
         ...taskQuery,
@@ -127,7 +127,7 @@ describe("useKonamiCode", () => {
     );
     window.HTMLMediaElement.prototype.play = audioPlayMock;
 
-    cache.writeQuery<GetTaskQuery, GetTaskQueryVariables>({
+    cache.writeQuery<TaskQuery, TaskQueryVariables>({
       query: GET_TASK,
       data: {
         ...taskQuery,

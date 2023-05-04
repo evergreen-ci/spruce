@@ -1,4 +1,4 @@
-fragment projectGithubSettings on Project {
+fragment ProjectGithubSettings on Project {
   commitQueue {
     enabled
     mergeMethod
@@ -13,7 +13,7 @@ fragment projectGithubSettings on Project {
   prTestingEnabled
 }
 
-fragment repoGithubSettings on RepoRef {
+fragment RepoGithubSettings on RepoRef {
   commitQueue {
     enabled
     mergeMethod
@@ -28,26 +28,26 @@ fragment repoGithubSettings on RepoRef {
   prTestingEnabled
 }
 
-fragment projectGithubCommitQueue on ProjectSettings {
+fragment ProjectGithubCommitQueue on ProjectSettings {
   githubWebhooksEnabled
 
   projectRef {
-    ...projectGithubSettings
+    ...ProjectGithubSettings
   }
 }
 
-fragment repoGithubCommitQueue on RepoSettings {
+fragment RepoGithubCommitQueue on RepoSettings {
   githubWebhooksEnabled
 
   projectRef {
-    ...repoGithubSettings
+    ...RepoGithubSettings
   }
 }
 
-fragment projectEventGithubCommitQueue on ProjectEventSettings {
+fragment ProjectEventGithubCommitQueue on ProjectEventSettings {
   githubWebhooksEnabled
 
   projectRef {
-    ...projectGithubSettings
+    ...ProjectGithubSettings
   }
 }

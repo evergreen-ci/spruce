@@ -2,12 +2,12 @@ import { MockedProvider } from "@apollo/client/testing";
 import MatchMediaMock from "jest-matchmedia-mock";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
-  BbCreateTicketMutation,
-  BbCreateTicketMutationVariables,
+  BuildBaronCreateTicketMutation,
+  BuildBaronCreateTicketMutationVariables,
   BuildBaronQuery,
   BuildBaronQueryVariables,
-  GetCreatedTicketsQuery,
-  GetCreatedTicketsQueryVariables,
+  CreatedTicketsQuery,
+  CreatedTicketsQueryVariables,
 } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { getUserMock } from "gql/mocks/getUser";
@@ -203,8 +203,8 @@ const getBuildBaronMock: ApolloMock<BuildBaronQuery, BuildBaronQueryVariables> =
   };
 
 const fileJiraTicketMock: ApolloMock<
-  BbCreateTicketMutation,
-  BbCreateTicketMutationVariables
+  BuildBaronCreateTicketMutation,
+  BuildBaronCreateTicketMutationVariables
 > = {
   request: {
     query: FILE_JIRA_TICKET,
@@ -220,8 +220,8 @@ const fileJiraTicketMock: ApolloMock<
   },
 };
 const getJiraTicketsMock: ApolloMock<
-  GetCreatedTicketsQuery,
-  GetCreatedTicketsQueryVariables
+  CreatedTicketsQuery,
+  CreatedTicketsQueryVariables
 > = {
   request: {
     query: GET_CREATED_TICKETS,

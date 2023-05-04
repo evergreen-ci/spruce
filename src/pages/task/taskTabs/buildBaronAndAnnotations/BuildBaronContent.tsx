@@ -6,10 +6,10 @@ import { useToastContext } from "context/toast";
 import {
   BuildBaron,
   Annotation,
-  GetCustomCreatedIssuesQuery,
-  GetCustomCreatedIssuesQueryVariables,
-  GetCreatedTicketsQuery,
-  GetCreatedTicketsQueryVariables,
+  CustomCreatedIssuesQuery,
+  CustomCreatedIssuesQueryVariables,
+  CreatedTicketsQuery,
+  CreatedTicketsQueryVariables,
 } from "gql/generated/types";
 import {
   GET_CREATED_TICKETS,
@@ -41,8 +41,8 @@ const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
   const dispatchToast = useToastContext();
 
   const { data: customCreatedTickets } = useQuery<
-    GetCustomCreatedIssuesQuery,
-    GetCustomCreatedIssuesQueryVariables
+    CustomCreatedIssuesQuery,
+    CustomCreatedIssuesQueryVariables
   >(GET_JIRA_CUSTOM_CREATED_ISSUES, {
     variables: { taskId, execution },
     onError: (err) => {
@@ -53,8 +53,8 @@ const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
   });
 
   const { data: bbCreatedTickets } = useQuery<
-    GetCreatedTicketsQuery,
-    GetCreatedTicketsQueryVariables
+    CreatedTicketsQuery,
+    CreatedTicketsQueryVariables
   >(GET_CREATED_TICKETS, {
     variables: { taskId },
     onError(error) {

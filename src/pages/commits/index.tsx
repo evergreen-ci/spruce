@@ -19,8 +19,8 @@ import { size } from "constants/tokens";
 import { newMainlineCommitsUser } from "constants/welcomeModalProps";
 import { useToastContext } from "context/toast";
 import {
-  GetSpruceConfigQuery,
-  GetSpruceConfigQueryVariables,
+  SpruceConfigQuery,
+  SpruceConfigQueryVariables,
   MainlineCommitsQuery,
   MainlineCommitsQueryVariables,
 } from "gql/generated/types";
@@ -64,8 +64,8 @@ const Commits = () => {
   // Push default project to URL if there isn't a project in
   // the URL already and an mci-project-cookie does not exist.
   const { data: spruceData } = useQuery<
-    GetSpruceConfigQuery,
-    GetSpruceConfigQueryVariables
+    SpruceConfigQuery,
+    SpruceConfigQueryVariables
   >(GET_SPRUCE_CONFIG, {
     skip: !!projectIdentifier || !!recentlySelectedProject,
   });

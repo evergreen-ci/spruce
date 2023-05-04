@@ -1,5 +1,5 @@
-mutation SpawnHost($SpawnHostInput: SpawnHostInput) {
-  spawnHost(spawnHostInput: $SpawnHostInput) {
+mutation SpawnHost($spawnHostInput: SpawnHostInput) {
+  spawnHost(spawnHostInput: $spawnHostInput) {
     id
     status
   }

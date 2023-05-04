@@ -49,7 +49,7 @@ export const AttachDetachModal: React.VFC<ModalProps> = ({
     refetchQueries: [
       "ProjectSettings",
       "RepoSettings",
-      "GetViewableProjectRefs",
+      "ViewableProjectRefs",
       "GithubProjectConflicts",
     ],
   });
@@ -67,11 +67,7 @@ export const AttachDetachModal: React.VFC<ModalProps> = ({
         `There was an error detaching the project: ${err.message}`
       );
     },
-    refetchQueries: [
-      "ProjectSettings",
-      "RepoSettings",
-      "GetViewableProjectRefs",
-    ],
+    refetchQueries: ["ProjectSettings", "RepoSettings", "ViewableProjectRefs"],
   });
 
   return (
