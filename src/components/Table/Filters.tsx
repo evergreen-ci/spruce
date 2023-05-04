@@ -13,7 +13,7 @@ import {
 } from "components/TreeSelect";
 import { fontSize } from "constants/tokens";
 
-const { blue, gray } = palette;
+const { black, gray } = palette;
 const defaultColor = gray.light1;
 
 export interface InputFilterProps {
@@ -86,7 +86,7 @@ export const getColumnSearchFilterProps = ({
     <StyledFilterWrapper>
       <Icon
         glyph="MagnifyingGlass"
-        fill={value.length > 0 ? blue.light1 : defaultColor}
+        fill={value.length > 0 ? black : defaultColor}
         data-cy={dataCy}
       />
     </StyledFilterWrapper>
@@ -111,7 +111,7 @@ export const getColumnTreeSelectFilterProps = ({
     <StyledFilterWrapper>
       <Icon
         glyph="Filter"
-        fill={state.length > 0 ? blue.light1 : defaultColor}
+        fill={state.length > 0 ? black : defaultColor}
         data-cy={dataCy}
       />
     </StyledFilterWrapper>
@@ -157,7 +157,7 @@ export const getColumnCheckboxFilterProps = ({
     <StyledFilterWrapper>
       <Icon
         glyph="Filter"
-        fill={value.length > 0 ? blue.light1 : defaultColor}
+        fill={value.length > 0 ? black : defaultColor}
         data-cy={dataCy}
       />
     </StyledFilterWrapper>
