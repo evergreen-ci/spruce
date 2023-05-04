@@ -3021,7 +3021,7 @@ export type ProjectEventGithubCommitQueueFragment = {
   }>;
 };
 
-export type ProjectSettingsFragment = {
+export type ProjectSettingsFieldsFragment = {
   __typename?: "ProjectSettings";
   githubWebhooksEnabled: boolean;
   aliases?: Maybe<
@@ -3230,7 +3230,7 @@ export type ProjectSettingsFragment = {
   }>;
 };
 
-export type RepoSettingsFragment = {
+export type RepoSettingsFieldsFragment = {
   __typename?: "RepoSettings";
   githubWebhooksEnabled: boolean;
   aliases?: Maybe<

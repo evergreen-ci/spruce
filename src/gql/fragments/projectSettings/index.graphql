@@ -11,7 +11,7 @@
 #import "./periodicBuilds.graphql"
 #import "./containers.graphql"
 
-fragment ProjectSettings on ProjectSettings {
+fragment ProjectSettingsFields on ProjectSettings {
   aliases {
     ...Alias
   }
@@ -38,7 +38,7 @@ fragment ProjectSettings on ProjectSettings {
   }
 }
 
-fragment RepoSettings on RepoSettings {
+fragment RepoSettingsFields on RepoSettings {
   aliases {
     ...Alias
   }
