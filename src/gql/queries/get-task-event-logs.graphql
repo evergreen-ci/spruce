@@ -8,6 +8,7 @@ query TaskEventLogs($id: String!, $execution: Int) {
           hostId
           jiraIssue
           jiraLink
+          podId
           priority
           status
           timestamp
