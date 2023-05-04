@@ -98,7 +98,7 @@ export const EventLogTab: React.VFC<TabProps> = ({
           Load more events
         </Button>
       )}
-      {allEventsFetched && events.length && (
+      {allEventsFetched && events.length === 0 && (
         <Subtitle>No more events to show.</Subtitle>
       )}
     </Container>
