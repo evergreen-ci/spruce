@@ -43,7 +43,10 @@ fragment subscriptions on ProjectSubscription {
           key
           value
         }
+        minDelayMs
+        retries
         secret
+        timeoutMs
         url
       }
     }
