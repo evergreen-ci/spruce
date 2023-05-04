@@ -42,7 +42,7 @@ import { UserPatches } from "pages/UserPatches";
 import { VariantHistory } from "pages/VariantHistory";
 import { VersionPage } from "pages/Version";
 
-const { white } = palette;
+const { gray, white } = palette;
 
 const Layout = () => (
   <>
@@ -150,10 +150,18 @@ const tab = ":tab";
 const FloatingContent = styled.div`
   background-color: ${white};
   border-radius: ${size.s};
-  transition: opacity 0.2s ease-in-out;
+  bottom: 0;
+  margin-bottom: ${size.s};
+  margin-right: ${size.s};
   opacity: 0.2;
+  padding: ${size.xs};
+  position: fixed;
+  right: 0;
+  transition: opacity 0.2s ease-in-out;
+
   :hover {
-    transition: opacity 0.2s ease-in-out;
+    box-shadow: 0 3px 4px ${gray.base};
     opacity: 1;
+    transition: all 0.2s ease-in-out;
   }
 `;
