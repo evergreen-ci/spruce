@@ -47,11 +47,11 @@ export const getFormSchema = (
         ...(projectType !== ProjectType.Repo && {
           banner: {
             type: "object" as "object",
-            title: "",
+            title: "Project Banner",
             properties: {
               bannerData: {
                 type: "object" as "object",
-                title: "Project Banner",
+                title: "",
                 description:
                   "Add a banner to pages that represent data from this project. JIRA tickets will be linked automatically.",
                 properties: {
