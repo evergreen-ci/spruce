@@ -1100,7 +1100,7 @@ describe("Plugins", { testIsolation: false }, () => {
 });
 
 describe("Containers", () => {
-  const destination = getContainersRoute("evergreen");
+  const destination = getContainersRoute("spruce");
   beforeEach(() => {
     cy.visit(destination);
   });
