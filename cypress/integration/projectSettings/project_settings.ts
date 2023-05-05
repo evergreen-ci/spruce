@@ -1103,6 +1103,8 @@ describe("Containers", () => {
   const destination = getContainersRoute("spruce");
   beforeEach(() => {
     cy.visit(destination);
+    // Wait for page content to load.
+    cy.dataCy("project-settings-loading-skeleton").should("not.exist");
   });
   it("shouldn't have any container configurations defined", () => {
     cy.dataCy("container-size-row").should("not.exist");

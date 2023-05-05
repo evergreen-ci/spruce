@@ -188,7 +188,7 @@ const ProjectSettings: React.VFC = () => {
             repoData={repoData?.repoSettings}
           />
         ) : (
-          <Skeleton />
+          <Skeleton data-cy="project-settings-loading-skeleton" />
         )}
       </PageWrapper>
     </ProjectSettingsProvider>
