@@ -3808,16 +3808,7 @@
   resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.4.0.tgz#08d6c5e20cf7e4cc02fd181c4b0c225cd31dbb60"
   integrity sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==
 
-"@leafygreen-ui/a11y@^1.3.4":
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/a11y/-/a11y-1.3.4.tgz#aa145719db5457103c6339017304c3eae42c7085"
-  integrity sha512-KZxxoUqqOM5yjOgs3Tzy2MsNgWmlt9lJSazvOhUK2OzxsReTaqZsy58v6n5cTWxjjx63m41GYfT2MbKJIl9qsg==
-  dependencies:
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/lib" "^10.0.0"
-
-"@leafygreen-ui/a11y@^1.4.0":
+"@leafygreen-ui/a11y@^1.3.4", "@leafygreen-ui/a11y@^1.4.0":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/a11y/-/a11y-1.4.1.tgz#cb5f28483d1e9500ad719086ae3c90c13c24db9c"
   integrity sha512-vYjIorEFOWLFhs2WPmCg5wYYWq9CmScQ2CkqtJhixkgzXP/Q36TEfkJ2BuReyLir8XZG/QIWBSSO7dR5sQLDPA==
@@ -4042,14 +4033,7 @@
     focus-trap-react "^10.0.0"
     polished "^4.2.2"
 
-"@leafygreen-ui/hooks@^7.3.3", "@leafygreen-ui/hooks@^7.4.0":
-  version "7.4.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-7.4.0.tgz#1b4a11cae74b156fb823faa81097dc363ce7dd65"
-  integrity sha512-oIYqq3lmi3BDjdNf9zWg9PGgWWLOyrdDUAOvOhY+wlcG0U1ZTB38PB6es5vXnVzDGXQurTdIV/GDh4x3QcwZRg==
-  dependencies:
-    lodash "^4.17.21"
-
-"@leafygreen-ui/hooks@^7.5.0":
+"@leafygreen-ui/hooks@^7.3.3", "@leafygreen-ui/hooks@^7.4.0", "@leafygreen-ui/hooks@^7.5.0":
   version "7.6.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-7.6.0.tgz#bf53b95706f27d81d055be3bac19a7f10d48b36e"
   integrity sha512-/VFuuaeaNq0XHC0g6R2IpESKQwa7VUK3I6fEH+nh1QL1unu7t+j0Yuah8cWtqYqv6pXPy+IXw7Elw4JwFUTDOg==
@@ -4265,23 +4249,7 @@
     "@leafygreen-ui/tokens" "^2.0.0"
     react-transition-group "^4.4.1"
 
-"@leafygreen-ui/portal@^4.0.7":
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/portal/-/portal-4.0.7.tgz#af1db0bb81a825e9461c9d455cc676e4e7deb4c3"
-  integrity sha512-n4KHnIAbRsuj6a8LDrKilq9ita4S3dNsZ5nRt5hnPpkW7mrnrgyGOo6ciRsdIkUJo9+rkO+c+Nvl3A6htCiNKg==
-  dependencies:
-    "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/lib" "^10.0.0"
-
-"@leafygreen-ui/portal@^4.0.9":
-  version "4.0.9"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/portal/-/portal-4.0.9.tgz#e5127d74b8aca5f7cc31ec0a776389ead057ab80"
-  integrity sha512-pYFMGUvZSX0k6PgRJY1EKXqXZ6ZVNrCslcOzD1JURnHvqO+SalsAqGVjajhniDZIHW/n3jOnw9EtmT33J97NZQ==
-  dependencies:
-    "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/lib" "^10.0.0"
-
-"@leafygreen-ui/portal@^4.1.0":
+"@leafygreen-ui/portal@^4.0.7", "@leafygreen-ui/portal@^4.0.9", "@leafygreen-ui/portal@^4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/portal/-/portal-4.1.0.tgz#6cd9c6a754754a85951bb3f174190f4ced55e4c1"
   integrity sha512-zEt1s9/4WD2Q4eZqcRnOYDLhk6LcUkcAxcv22hhBMp2YPkKpbJi8lvU8TZaRFJxIdQdrQFKBYpqTsmkkazqypA==
@@ -4400,19 +4368,19 @@
     polished "^4.2.2"
     react-transition-group "^4.4.1"
 
-"@leafygreen-ui/tabs@11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tabs/-/tabs-11.0.1.tgz#3dd1114dfe2328122fcaf89fbdf2b8520ceb7e92"
-  integrity sha512-4rg7PnnGwMWtIUW6jb4gjZu2ojjvo7tKy12h5h4DWLmlCvfK7ROylZf0Ni6Tp4zclZTDZjw4Xbrwaxm+szwImw==
+"@leafygreen-ui/tabs@11.0.4":
+  version "11.0.4"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tabs/-/tabs-11.0.4.tgz#581f1c2f10f5d4330508021e511e70f109638892"
+  integrity sha512-KOugGF9xb8NZ7q8TPsw7jJKoPaUN1qW4Tyyiv8+OQCnkikChnwVvdo+W0AJ3k5HBGKHR83OWXA2icyK47j9eyg==
   dependencies:
     "@leafygreen-ui/a11y" "^1.3.4"
     "@leafygreen-ui/box" "^3.1.1"
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/portal" "^4.0.7"
-    "@leafygreen-ui/tokens" "^1.4.0"
+    "@leafygreen-ui/lib" "^10.1.0"
+    "@leafygreen-ui/palette" "^3.4.7"
+    "@leafygreen-ui/portal" "^4.0.9"
+    "@leafygreen-ui/tokens" "^2.0.0"
 
 "@leafygreen-ui/text-area@8.0.4":
   version "8.0.4"
