@@ -2018,6 +2018,7 @@ export type TaskEventLogData = {
   hostId?: Maybe<Scalars["String"]>;
   jiraIssue?: Maybe<Scalars["String"]>;
   jiraLink?: Maybe<Scalars["String"]>;
+  podId?: Maybe<Scalars["String"]>;
   priority?: Maybe<Scalars["Int"]>;
   status?: Maybe<Scalars["String"]>;
   timestamp?: Maybe<Scalars["Time"]>;
