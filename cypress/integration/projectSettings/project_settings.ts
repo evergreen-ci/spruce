@@ -1134,7 +1134,7 @@ describe("Containers", () => {
     cy.dataCy("container-size-row").should("exist");
     cy.dataCy("delete-item-button").should("be.visible");
     cy.dataCy("delete-item-button").should("not.be.disabled");
-    cy.dataCy("delete-item-button").click();
+    cy.dataCy("delete-item-button").trigger("mouseover").click();
 
     cy.dataCy("container-size-row").should("not.exist");
     cy.dataCy("save-settings-button").scrollIntoView();
