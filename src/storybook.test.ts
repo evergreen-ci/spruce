@@ -37,18 +37,20 @@ describe("storybook", () => {
     test: ({ story, context, stories2snapsConverter, done }) => {
       const snapshotFileName =
         stories2snapsConverter.getSnapshotFileName(context);
+
       // eslint-disable-next-line testing-library/render-result-naming-convention
-      const component = story.render();
-      const { container } = render(component);
-      // Mount components asynchronously to allow for initial state to be set
+      const jsx = story.render();
+      const { unmount, container } = render(jsx);
+
+      // Mount components asynchronously to allow for initial state to be set.
       // Some components have a loading state that is set on mount we should wait for it to finish
-      // before taking a snapshot
+      // before taking a snapshot.
       const waitTime = 1;
       setTimeout(() => {
         if (snapshotFileName) {
           expect(container).toMatchSpecificSnapshot(snapshotFileName);
         }
-
+        unmount();
         done?.();
       }, waitTime);
     },
