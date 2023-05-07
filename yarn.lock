@@ -5779,10 +5779,10 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-5.1.2.tgz#07508b45797cb81ec3f273011b054cd0755eddca"
   integrity sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==
 
-"@types/new-relic-browser@0.1118.0":
-  version "0.1118.0"
-  resolved "https://registry.yarnpkg.com/@types/new-relic-browser/-/new-relic-browser-0.1118.0.tgz#7ed70448fb99dbfa4b278d6c0f2b959d169c78bb"
-  integrity sha512-Sz2N7HiD9yJvtBCWV9i+7kzBY/mjG0TdoeZm2ZbloS5nTpkcqdy5QmIijzA3BUDzv+gkwZmpQg5TVhdC4SiR5g==
+"@types/new-relic-browser@0.1212.2":
+  version "0.1212.2"
+  resolved "https://registry.yarnpkg.com/@types/new-relic-browser/-/new-relic-browser-0.1212.2.tgz#3409836f618bdd4961cc0efad546968f28b3bf97"
+  integrity sha512-SI9Zwlbtk522vbDyBCkpGrqFf+QDWkBWM9zOd+/hHX8WvsvUuoqa5aFjbT1jfES8l2Kb6rO6M6I6NcEO+Qrt1g==
 
 "@types/node-fetch@^2.5.7":
   version "2.6.2"
