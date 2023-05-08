@@ -3097,6 +3097,11 @@ export type ProjectSettingsFragment = {
       configEnabled?: Maybe<boolean>;
       patchEnabled?: Maybe<boolean>;
     };
+    banner?: Maybe<{
+      __typename?: "ProjectBanner";
+      text: string;
+      theme: BannerTheme;
+    }>;
     patchTriggerAliases?: Maybe<
       Array<{
         __typename?: "PatchTriggerAlias";
@@ -3221,7 +3226,10 @@ export type ProjectSettingsFragment = {
           }>;
           webhookSubscriber?: Maybe<{
             __typename?: "WebhookSubscriber";
+            minDelayMs: number;
+            retries: number;
             secret: string;
+            timeoutMs: number;
             url: string;
             headers: Array<
               Maybe<{
@@ -3422,7 +3430,10 @@ export type RepoSettingsFragment = {
           }>;
           webhookSubscriber?: Maybe<{
             __typename?: "WebhookSubscriber";
+            minDelayMs: number;
+            retries: number;
             secret: string;
+            timeoutMs: number;
             url: string;
             headers: Array<
               Maybe<{
@@ -3447,6 +3458,11 @@ export type RepoSettingsFragment = {
 export type ProjectNotificationSettingsFragment = {
   __typename?: "Project";
   notifyOnBuildFailure?: Maybe<boolean>;
+  banner?: Maybe<{
+    __typename?: "ProjectBanner";
+    text: string;
+    theme: BannerTheme;
+  }>;
 };
 
 export type RepoNotificationSettingsFragment = {
@@ -3495,7 +3511,10 @@ export type SubscriptionsFragment = {
       }>;
       webhookSubscriber?: Maybe<{
         __typename?: "WebhookSubscriber";
+        minDelayMs: number;
+        retries: number;
         secret: string;
+        timeoutMs: number;
         url: string;
         headers: Array<
           Maybe<{ __typename?: "WebhookHeader"; key: string; value: string }>
@@ -3688,6 +3707,11 @@ export type ProjectEventSettingsFragment = {
       configEnabled?: Maybe<boolean>;
       patchEnabled?: Maybe<boolean>;
     };
+    banner?: Maybe<{
+      __typename?: "ProjectBanner";
+      text: string;
+      theme: BannerTheme;
+    }>;
     patchTriggerAliases?: Maybe<
       Array<{
         __typename?: "PatchTriggerAlias";
@@ -3812,7 +3836,10 @@ export type ProjectEventSettingsFragment = {
           }>;
           webhookSubscriber?: Maybe<{
             __typename?: "WebhookSubscriber";
+            minDelayMs: number;
+            retries: number;
             secret: string;
+            timeoutMs: number;
             url: string;
             headers: Array<
               Maybe<{
@@ -5654,6 +5681,7 @@ export type ConfigurePatchQuery = {
   __typename?: "Query";
   patch: {
     __typename?: "Patch";
+    projectIdentifier: string;
     activated: boolean;
     alias?: Maybe<string>;
     author: string;
@@ -5818,6 +5846,23 @@ export type PodQuery = {
   };
 };
 
+export type ProjectBannerQueryVariables = Exact<{
+  identifier: Scalars["String"];
+}>;
+
+export type ProjectBannerQuery = {
+  __typename?: "Query";
+  project: {
+    __typename?: "Project";
+    id: string;
+    banner?: Maybe<{
+      __typename?: "ProjectBanner";
+      text: string;
+      theme: BannerTheme;
+    }>;
+  };
+};
+
 export type ProjectEventLogsQueryVariables = Exact<{
   identifier: Scalars["String"];
   limit?: InputMaybe<Scalars["Int"]>;
@@ -5886,6 +5931,11 @@ export type ProjectEventLogsQuery = {
             configEnabled?: Maybe<boolean>;
             patchEnabled?: Maybe<boolean>;
           };
+          banner?: Maybe<{
+            __typename?: "ProjectBanner";
+            text: string;
+            theme: BannerTheme;
+          }>;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -6018,7 +6068,10 @@ export type ProjectEventLogsQuery = {
                 }>;
                 webhookSubscriber?: Maybe<{
                   __typename?: "WebhookSubscriber";
+                  minDelayMs: number;
+                  retries: number;
                   secret: string;
+                  timeoutMs: number;
                   url: string;
                   headers: Array<
                     Maybe<{
@@ -6092,6 +6145,11 @@ export type ProjectEventLogsQuery = {
             configEnabled?: Maybe<boolean>;
             patchEnabled?: Maybe<boolean>;
           };
+          banner?: Maybe<{
+            __typename?: "ProjectBanner";
+            text: string;
+            theme: BannerTheme;
+          }>;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -6224,7 +6282,10 @@ export type ProjectEventLogsQuery = {
                 }>;
                 webhookSubscriber?: Maybe<{
                   __typename?: "WebhookSubscriber";
+                  minDelayMs: number;
+                  retries: number;
                   secret: string;
+                  timeoutMs: number;
                   url: string;
                   headers: Array<
                     Maybe<{
@@ -6315,6 +6376,11 @@ export type ProjectSettingsQuery = {
         configEnabled?: Maybe<boolean>;
         patchEnabled?: Maybe<boolean>;
       };
+      banner?: Maybe<{
+        __typename?: "ProjectBanner";
+        text: string;
+        theme: BannerTheme;
+      }>;
       patchTriggerAliases?: Maybe<
         Array<{
           __typename?: "PatchTriggerAlias";
@@ -6447,7 +6513,10 @@ export type ProjectSettingsQuery = {
             }>;
             webhookSubscriber?: Maybe<{
               __typename?: "WebhookSubscriber";
+              minDelayMs: number;
+              retries: number;
               secret: string;
+              timeoutMs: number;
               url: string;
               headers: Array<
                 Maybe<{
@@ -6566,6 +6635,11 @@ export type RepoEventLogsQuery = {
             configEnabled?: Maybe<boolean>;
             patchEnabled?: Maybe<boolean>;
           };
+          banner?: Maybe<{
+            __typename?: "ProjectBanner";
+            text: string;
+            theme: BannerTheme;
+          }>;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -6698,7 +6772,10 @@ export type RepoEventLogsQuery = {
                 }>;
                 webhookSubscriber?: Maybe<{
                   __typename?: "WebhookSubscriber";
+                  minDelayMs: number;
+                  retries: number;
                   secret: string;
+                  timeoutMs: number;
                   url: string;
                   headers: Array<
                     Maybe<{
@@ -6772,6 +6849,11 @@ export type RepoEventLogsQuery = {
             configEnabled?: Maybe<boolean>;
             patchEnabled?: Maybe<boolean>;
           };
+          banner?: Maybe<{
+            __typename?: "ProjectBanner";
+            text: string;
+            theme: BannerTheme;
+          }>;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -6904,7 +6986,10 @@ export type RepoEventLogsQuery = {
                 }>;
                 webhookSubscriber?: Maybe<{
                   __typename?: "WebhookSubscriber";
+                  minDelayMs: number;
+                  retries: number;
                   secret: string;
+                  timeoutMs: number;
                   url: string;
                   headers: Array<
                     Maybe<{
@@ -7122,7 +7207,10 @@ export type RepoSettingsQuery = {
             }>;
             webhookSubscriber?: Maybe<{
               __typename?: "WebhookSubscriber";
+              minDelayMs: number;
+              retries: number;
               secret: string;
+              timeoutMs: number;
               url: string;
               headers: Array<
                 Maybe<{
@@ -7246,6 +7334,7 @@ export type TaskEventLogsQuery = {
           hostId?: Maybe<string>;
           jiraIssue?: Maybe<string>;
           jiraLink?: Maybe<string>;
+          podId?: Maybe<string>;
           priority?: Maybe<number>;
           status?: Maybe<string>;
           timestamp?: Maybe<Date>;

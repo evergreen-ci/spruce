@@ -1,4 +1,8 @@
 fragment projectNotificationSettings on Project {
+  banner {
+    text
+    theme
+  }
   notifyOnBuildFailure
 }
 
@@ -43,7 +47,10 @@ fragment subscriptions on ProjectSubscription {
           key
           value
         }
+        minDelayMs
+        retries
         secret
+        timeoutMs
         url
       }
     }

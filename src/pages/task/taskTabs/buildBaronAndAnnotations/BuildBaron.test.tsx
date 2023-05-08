@@ -84,7 +84,7 @@ describe("buildBaronContent", () => {
 
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledWith(
-        "Ticket successfully created for this task."
+        "Successfully requested ticket"
       );
     });
   });

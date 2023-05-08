@@ -4,15 +4,19 @@ import Cookies from "js-cookie";
 import { useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 
-export const SiteBanner = () => {
+export interface SiteBannerProps {
+  text: string;
+  theme: string;
+}
+export const SiteBanner: React.FC<SiteBannerProps> = ({ text, theme }) => {
   const spruceConfig = useSpruceConfig();
-  const text = spruceConfig?.banner ?? "";
-  const theme = spruceConfig?.bannerTheme ?? "";
   const jiraHost = spruceConfig?.jira?.host;
   const [showBanner, setShowBanner] = useState(false);
   useEffect(() => {
-    if (text !== "" && Cookies.get(text) === undefined) {
+    if (text && Cookies.get(text) === undefined) {
       setShowBanner(true);
+    } else {
+      setShowBanner(false);
     }
   }, [text]);
 
@@ -23,7 +27,7 @@ export const SiteBanner = () => {
     Cookies.set(text, "viewed", { expires: 7 });
   };
 
-  const variant = mapThemeToVariant[theme] ?? Variant.Info;
+  const variant = mapThemeToVariant[theme?.toLowerCase()] ?? Variant.Info;
   return showBanner ? (
     <Banner
       data-cy={`sitewide-banner-${variant}`}

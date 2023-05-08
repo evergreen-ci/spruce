@@ -1,12 +1,5 @@
 import { useEffect } from "react";
-import NewRelicAPI from "new-relic-browser";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
-
-declare global {
-  interface Window {
-    newrelic: typeof NewRelicAPI; // eslint-disable-line no-undef
-  }
-}
 
 export const useAnalyticsAttributes = () => {
   const userId = useGetUserQuery();

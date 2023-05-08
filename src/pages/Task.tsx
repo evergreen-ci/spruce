@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
+import { ProjectBanner } from "components/Banners";
 import { PageTitle } from "components/PageTitle";
 import {
   PageWrapper,
@@ -79,8 +80,10 @@ export const Task = () => {
   if (error) {
     return <PageDoesNotExist />;
   }
+
   return (
     <PageWrapper>
+      <ProjectBanner projectIdentifier={versionMetadata?.projectIdentifier} />
       {task && (
         <TaskPageBreadcrumbs
           taskName={displayName}
