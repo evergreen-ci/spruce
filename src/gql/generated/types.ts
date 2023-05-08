@@ -7276,6 +7276,7 @@ export type TaskEventLogsQuery = {
           hostId?: Maybe<string>;
           jiraIssue?: Maybe<string>;
           jiraLink?: Maybe<string>;
+          podId?: Maybe<string>;
           priority?: Maybe<number>;
           status?: Maybe<string>;
           timestamp?: Maybe<Date>;
