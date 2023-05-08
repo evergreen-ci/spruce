@@ -28,7 +28,8 @@
     "types": [
       "node",
       "jest",
-      "@testing-library/jest-dom"
+      "@testing-library/jest-dom",
+      "new-relic-browser"
     ],
     "baseUrl": "src",
     "noFallthroughCasesInSwitch": true,

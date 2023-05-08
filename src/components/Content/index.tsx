@@ -154,4 +154,10 @@ const FloatingContent = styled.div`
   background-color: white;
   padding: ${size.xs};
   border-radius: ${size.s};
+  transition: opacity 0.2s ease-in-out;
+  opacity: 0.2;
+  :hover {
+    transition: opacity 0.2s ease-in-out;
+    opacity: 1;
+  }
 `;
