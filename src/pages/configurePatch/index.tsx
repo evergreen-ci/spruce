@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useParams, Navigate } from "react-router-dom";
+import { ProjectBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageWrapper } from "components/styles";
 import { commitQueueAlias } from "constants/patch";
@@ -49,6 +50,7 @@ const ConfigurePatch: React.VFC = () => {
 
   return (
     <PageWrapper>
+      <ProjectBanner projectIdentifier={patch?.projectIdentifier} />
       <ConfigurePatchCore patch={patch} />
     </PageWrapper>
   );

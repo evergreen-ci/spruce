@@ -101,3 +101,21 @@ export enum TaskStatus {
   UndispatchedUmbrella = "undispatched-umbrella",
   ScheduledUmbrella = "scheduled-umbrella",
 }
+
+export enum TaskEventType {
+  TaskFinished = "TASK_FINISHED",
+  TaskStarted = "TASK_STARTED",
+  TaskDispatched = "TASK_DISPATCHED",
+  TaskUndispatched = "TASK_UNDISPATCHED",
+  TaskCreated = "TASK_CREATED",
+  TaskRestarted = "TASK_RESTARTED",
+  TaskActivated = "TASK_ACTIVATED",
+  TaskJiraAlertCreated = "TASK_JIRA_ALERT_CREATED",
+  TaskDeactivated = "TASK_DEACTIVATED",
+  TaskAbortRequest = "TASK_ABORT_REQUEST",
+  TaskScheduled = "TASK_SCHEDULED",
+  TaskPriorityChanged = "TASK_PRIORITY_CHANGED",
+  TaskDependenciesOverridden = "TASK_DEPENDENCIES_OVERRIDDEN",
+  MergeTaskUnscheduled = "MERGE_TASK_UNSCHEDULED",
+  ContainerAllocated = "CONTAINER_ALLOCATED",
+}

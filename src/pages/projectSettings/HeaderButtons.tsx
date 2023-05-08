@@ -83,7 +83,7 @@ export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
       },
     }) =>
       identifier === newIdentifier
-        ? ["ProjectSettings", "ViewableProjectRefs"]
+        ? ["ProjectSettings", "ViewableProjectRefs", "ProjectBanner"]
         : [],
   });
 
