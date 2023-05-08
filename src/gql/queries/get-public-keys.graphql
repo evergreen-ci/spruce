@@ -1,4 +1,4 @@
-query GetMyPublicKeys {
+query MyPublicKeys {
   myPublicKeys {
     key
     name

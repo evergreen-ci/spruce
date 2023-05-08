@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 import { useQuery } from "@apollo/client";
 import {
-  GetTaskTestSampleQuery,
-  GetTaskTestSampleQueryVariables,
+  TaskTestSampleQuery,
+  TaskTestSampleQueryVariables,
   TaskTestResultSample,
 } from "gql/generated/types";
 import { GET_TASK_TEST_SAMPLE } from "gql/queries";
@@ -29,8 +29,8 @@ const useTestResults = (index: number) => {
   }
   const hasDataToQuery = taskIds.length > 0;
   const { loading } = useQuery<
-    GetTaskTestSampleQuery,
-    GetTaskTestSampleQueryVariables
+    TaskTestSampleQuery,
+    TaskTestSampleQueryVariables
   >(GET_TASK_TEST_SAMPLE, {
     variables: {
       tasks: taskIds,

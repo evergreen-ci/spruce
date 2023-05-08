@@ -10,8 +10,8 @@ import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getTaskRoute } from "constants/routes";
 import { size, zIndex } from "constants/tokens";
 import {
-  GetFailedTaskStatusIconTooltipQuery,
-  GetFailedTaskStatusIconTooltipQueryVariables,
+  FailedTaskStatusIconTooltipQuery,
+  FailedTaskStatusIconTooltipQueryVariables,
 } from "gql/generated/types";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import { isFailedTaskStatus } from "utils/statuses";
@@ -42,8 +42,8 @@ export const WaterfallTaskStatusIcon: React.VFC<
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const [enabled, setEnabled] = useState(false);
   const [loadData, { data, loading }] = useLazyQuery<
-    GetFailedTaskStatusIconTooltipQuery,
-    GetFailedTaskStatusIconTooltipQueryVariables
+    FailedTaskStatusIconTooltipQuery,
+    FailedTaskStatusIconTooltipQueryVariables
   >(GET_FAILED_TASK_STATUS_ICON_TOOLTIP, { variables: { taskId } });
   const { testResults, filteredTestCount } = data?.taskTests ?? {};
   const failedTestDifference = filteredTestCount - (testResults ?? []).length;

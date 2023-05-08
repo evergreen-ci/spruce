@@ -1,5 +1,5 @@
 import {
-  GetMyPublicKeysQuery,
+  MyPublicKeysQuery,
   EditSpawnHostMutationVariables,
 } from "gql/generated/types";
 import { string } from "utils";
@@ -9,7 +9,7 @@ const { stripNewLines } = string;
 
 interface Props {
   hostId: string;
-  myPublicKeys: GetMyPublicKeysQuery["myPublicKeys"];
+  myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
   formData: FormState;
   oldUserTags: { key: string; value: string }[];
 }

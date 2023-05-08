@@ -1,16 +1,13 @@
 import { useQuery } from "@apollo/client";
 import { getUserPatchesRoute } from "constants/routes";
-import {
-  GetOtherUserQuery,
-  GetOtherUserQueryVariables,
-} from "gql/generated/types";
+import { OtherUserQuery, OtherUserQueryVariables } from "gql/generated/types";
 import { GET_OTHER_USER } from "gql/queries";
 
 export const useGetUserPatchesPageTitleAndLink = (
   userId: string,
   skip: boolean = false
 ) => {
-  const { data } = useQuery<GetOtherUserQuery, GetOtherUserQueryVariables>(
+  const { data } = useQuery<OtherUserQuery, OtherUserQueryVariables>(
     GET_OTHER_USER,
     { variables: { userId }, skip }
   );

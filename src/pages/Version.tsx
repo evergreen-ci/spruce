@@ -19,8 +19,8 @@ import {
   VersionQueryVariables,
   IsPatchConfiguredQuery,
   IsPatchConfiguredQueryVariables,
-  GetHasVersionQuery,
-  GetHasVersionQueryVariables,
+  HasVersionQuery,
+  HasVersionQueryVariables,
 } from "gql/generated/types";
 import {
   GET_VERSION,
@@ -76,8 +76,8 @@ export const VersionPage: React.VFC = () => {
   });
 
   const { error: hasVersionError } = useQuery<
-    GetHasVersionQuery,
-    GetHasVersionQueryVariables
+    HasVersionQuery,
+    HasVersionQueryVariables
   >(GET_HAS_VERSION, {
     variables: { id },
     onCompleted: ({ hasVersion }) => {

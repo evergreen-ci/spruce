@@ -2,6 +2,6 @@
 
 mutation ScheduleTasks($taskIds: [String!]!) {
   scheduleTasks(taskIds: $taskIds) {
-    ...baseTask
+    ...BaseTask
   }
 }

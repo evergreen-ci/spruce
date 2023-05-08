@@ -1,4 +1,4 @@
-query GetProjects {
+query Projects {
   projects {
     groupDisplayName
     projects {

@@ -1,4 +1,4 @@
-fragment projectContainerSettings on Project {
+fragment ProjectContainerSettings on Project {
   containerSizeDefinitions {
     cpu
     memoryMb
@@ -6,7 +6,7 @@ fragment projectContainerSettings on Project {
   }
 }
 
-fragment repoContainerSettings on RepoRef {
+fragment RepoContainerSettings on RepoRef {
   containerSizeDefinitions {
     cpu
     memoryMb

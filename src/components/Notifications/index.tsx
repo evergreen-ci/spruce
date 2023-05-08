@@ -13,9 +13,9 @@ import { size } from "constants/tokens";
 import { regexDisplayName, regexBuildVariant } from "constants/triggers";
 import { useToastContext } from "context/toast";
 import {
-  SaveSubscriptionMutation,
-  SaveSubscriptionMutationVariables,
-  GetUserQuery,
+  SaveSubscriptionForUserMutation,
+  SaveSubscriptionForUserMutationVariables,
+  UserQuery,
 } from "gql/generated/types";
 import { SAVE_SUBSCRIPTION } from "gql/mutations";
 import { GET_USER } from "gql/queries";
@@ -31,7 +31,7 @@ interface NotificationModalProps {
   onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   resourceId: string;
   sendAnalyticsEvent: (
-    subscription: SaveSubscriptionMutationVariables["subscription"]
+    subscription: SaveSubscriptionForUserMutationVariables["subscription"]
   ) => void;
   subscriptionMethods: SubscriptionMethodOption[];
   triggers: Trigger;
@@ -51,8 +51,8 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
 }) => {
   const dispatchToast = useToastContext();
   const [saveSubscription] = useMutation<
-    SaveSubscriptionMutation,
-    SaveSubscriptionMutationVariables
+    SaveSubscriptionForUserMutation,
+    SaveSubscriptionForUserMutationVariables
   >(SAVE_SUBSCRIPTION, {
     onCompleted: () => {
       dispatchToast.success("Your subscription has been added");
@@ -65,7 +65,7 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
   // Fetch user Slack and email information.
   const { userSettings } = useUserSettings();
   const { slackUsername } = userSettings || {};
-  const { data: userData } = useQuery<GetUserQuery>(GET_USER);
+  const { data: userData } = useQuery<UserQuery>(GET_USER);
   const { user } = userData || {};
   const { emailAddress } = user || {};
 

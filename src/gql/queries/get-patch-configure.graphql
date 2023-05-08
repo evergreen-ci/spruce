@@ -2,7 +2,7 @@
 
 query ConfigurePatch($id: String!) {
   patch(id: $id) {
-    ...basePatch
+    ...BasePatch
     childPatchAliases {
       alias
       patchId

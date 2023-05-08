@@ -4,8 +4,8 @@ import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import {
-  GetMyPublicKeysQuery,
-  GetSpawnTaskQuery,
+  MyPublicKeysQuery,
+  SpawnTaskQuery,
   MyVolumesQuery,
 } from "gql/generated/types";
 import { shortenGithash } from "utils/string";
@@ -23,8 +23,8 @@ interface Props {
   distroIdQueryParam?: string;
   isVirtualWorkstation: boolean;
   noExpirationCheckboxTooltip: string;
-  myPublicKeys: GetMyPublicKeysQuery["myPublicKeys"];
-  spawnTaskData?: GetSpawnTaskQuery["task"];
+  myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
+  spawnTaskData?: SpawnTaskQuery["task"];
   userAwsRegion?: string;
   volumes: MyVolumesQuery["myVolumes"];
   isMigration: boolean;

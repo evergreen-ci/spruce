@@ -23,7 +23,7 @@ import {
   TestSortCategory,
   TestResult,
   TaskTestResult,
-  GetTaskQuery,
+  TaskQuery,
 } from "gql/generated/types";
 import { GET_TASK_TESTS } from "gql/queries";
 import {
@@ -45,7 +45,7 @@ export interface UpdateQueryArg {
 }
 
 interface TestsTableProps {
-  task: GetTaskQuery["task"];
+  task: TaskQuery["task"];
 }
 export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
   const { pathname, search } = useLocation();

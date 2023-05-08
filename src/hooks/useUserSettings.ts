@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import {
-  GetUserSettingsQuery,
-  GetUserSettingsQueryVariables,
+  UserSettingsQuery,
+  UserSettingsQueryVariables,
 } from "gql/generated/types";
 import { GET_USER_SETTINGS } from "gql/queries";
 
@@ -11,8 +11,8 @@ type UseUserSettingsOptions = {
 
 export const useUserSettings = (options?: UseUserSettingsOptions) => {
   const { data, loading } = useQuery<
-    GetUserSettingsQuery,
-    GetUserSettingsQueryVariables
+    UserSettingsQuery,
+    UserSettingsQueryVariables
   >(GET_USER_SETTINGS, {
     onError(err) {
       options?.onError?.(err);

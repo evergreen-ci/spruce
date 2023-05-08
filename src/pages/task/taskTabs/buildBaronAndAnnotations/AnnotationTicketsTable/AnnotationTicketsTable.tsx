@@ -145,7 +145,7 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
         `There was an error removing the ${issueString}: ${error.message}`
       );
     },
-    refetchQueries: ["GetSuspectedIssues", "GetIssues"],
+    refetchQueries: ["SuspectedIssues", "Issues"],
   });
 
   const [moveAnnotation] = useMutation<
@@ -164,7 +164,7 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
         `There was an error moving the ${issueString}: ${error.message}`
       );
     },
-    refetchQueries: ["GetSuspectedIssues", "GetIssues"],
+    refetchQueries: ["SuspectedIssues", "Issues"],
   });
 
   const handleRemove = (url: string, issueKey: string): void => {

@@ -12,7 +12,7 @@ import { wikiUrl } from "constants/externalResources";
 import { getCommitsRoute, getUserPatchesRoute, routes } from "constants/routes";
 import { size } from "constants/tokens";
 import { useAuthStateContext } from "context/auth";
-import { GetUserQuery, GetSpruceConfigQuery } from "gql/generated/types";
+import { UserQuery, SpruceConfigQuery } from "gql/generated/types";
 import { GET_USER, GET_SPRUCE_CONFIG } from "gql/queries";
 import { useLegacyUIURL } from "hooks";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
@@ -25,7 +25,7 @@ export const Navbar: React.VFC = () => {
   const legacyURL = useLegacyUIURL();
   const { sendEvent } = useNavbarAnalytics();
 
-  const { data: userData } = useQuery<GetUserQuery>(GET_USER);
+  const { data: userData } = useQuery<UserQuery>(GET_USER);
   const { user } = userData || {};
   const { userId } = user || {};
 
@@ -43,12 +43,9 @@ export const Navbar: React.VFC = () => {
 
   const currProject = projectFromUrl ?? Cookies.get(CURRENT_PROJECT);
 
-  const { data: configData } = useQuery<GetSpruceConfigQuery>(
-    GET_SPRUCE_CONFIG,
-    {
-      skip: currProject !== undefined,
-    }
-  );
+  const { data: configData } = useQuery<SpruceConfigQuery>(GET_SPRUCE_CONFIG, {
+    skip: currProject !== undefined,
+  });
 
   const projectIdentifier =
     currProject || configData?.spruceConfig?.ui?.defaultProject;

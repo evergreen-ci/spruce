@@ -3,7 +3,7 @@ import Button from "@leafygreen-ui/button";
 import { useTaskAnalytics } from "analytics";
 import { getTaskHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
-import { TestResult, GetTaskQuery } from "gql/generated/types";
+import { TestResult, TaskQuery } from "gql/generated/types";
 import { TestStatus } from "types/test";
 import { string } from "utils";
 import { TaskHistoryTestsButton } from "./logsColumn/TaskHistoryTestsButton";
@@ -11,7 +11,7 @@ import { TaskHistoryTestsButton } from "./logsColumn/TaskHistoryTestsButton";
 const { escapeRegex } = string;
 interface Props {
   testResult: TestResult;
-  task: GetTaskQuery["task"];
+  task: TaskQuery["task"];
 }
 
 export const LogsColumn: React.VFC<Props> = ({ testResult, task }) => {

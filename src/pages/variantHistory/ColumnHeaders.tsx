@@ -6,8 +6,8 @@ import { variantHistoryMaxLength as maxLength } from "constants/history";
 import { getTaskHistoryRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
-  GetTaskNamesForBuildVariantQuery,
-  GetTaskNamesForBuildVariantQueryVariables,
+  TaskNamesForBuildVariantQuery,
+  TaskNamesForBuildVariantQueryVariables,
 } from "gql/generated/types";
 import { GET_TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
 import { array, string, errorReporting } from "utils";
@@ -34,8 +34,8 @@ const ColumnHeaders: React.VFC<ColumnHeadersProps> = ({
 
   // Fetch the column headers from the same query used on the dropdown.
   const { data: columnData, loading } = useQuery<
-    GetTaskNamesForBuildVariantQuery,
-    GetTaskNamesForBuildVariantQueryVariables
+    TaskNamesForBuildVariantQuery,
+    TaskNamesForBuildVariantQueryVariables
   >(GET_TASK_NAMES_FOR_BUILD_VARIANT, {
     variables: {
       projectIdentifier,
