@@ -1100,9 +1100,11 @@ describe("Plugins", { testIsolation: false }, () => {
 });
 
 describe("Containers", () => {
-  const destination = getContainersRoute("evergreen");
+  const destination = getContainersRoute("spruce");
   beforeEach(() => {
     cy.visit(destination);
+    // Wait for page content to load.
+    cy.contains("Container Configurations").should("exist");
   });
   it("shouldn't have any container configurations defined", () => {
     cy.dataCy("container-size-row").should("not.exist");
@@ -1112,8 +1114,7 @@ describe("Containers", () => {
   });
   it("should be able to add a container configuration and save it", () => {
     cy.dataCy("add-button").should("be.visible");
-    cy.dataCy("add-button").click();
-
+    cy.dataCy("add-button").trigger("mouseover").click();
     cy.dataCy("container-size-row").should("exist");
 
     // Test validation for empty fields
@@ -1133,7 +1134,7 @@ describe("Containers", () => {
     cy.dataCy("container-size-row").should("exist");
     cy.dataCy("delete-item-button").should("be.visible");
     cy.dataCy("delete-item-button").should("not.be.disabled");
-    cy.dataCy("delete-item-button").click();
+    cy.dataCy("delete-item-button").trigger("mouseover").click();
 
     cy.dataCy("container-size-row").should("not.exist");
     cy.dataCy("save-settings-button").scrollIntoView();
