@@ -1,13 +1,6 @@
-import NewRelicAPI from "new-relic-browser";
 import { queryString } from "utils";
 
 const { parseQueryString } = queryString;
-
-declare global {
-  interface Window {
-    newrelic: typeof NewRelicAPI; // eslint-disable-line no-undef
-  }
-}
 
 export interface Analytics<Action> {
   sendEvent: (action: Action) => void;
