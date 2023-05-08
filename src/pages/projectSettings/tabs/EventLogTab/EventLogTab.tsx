@@ -37,6 +37,8 @@ export const EventLogTab: React.VFC<TabProps> = ({
 
   const lastEventTimestamp = events[events.length - 1]?.timestamp;
 
+  const allEventsFetchedCopy =
+    events.length > 0 ? "No more events to show." : "No events to show.";
   return (
     <Container data-cy="event-log">
       {events.map(({ user, timestamp, before, after }) => (
@@ -98,9 +100,7 @@ export const EventLogTab: React.VFC<TabProps> = ({
           Load more events
         </Button>
       )}
-      {allEventsFetched && events.length && (
-        <Subtitle>No more events to show.</Subtitle>
-      )}
+      {allEventsFetched && <Subtitle>{allEventsFetchedCopy}</Subtitle>}
     </Container>
   );
 };
