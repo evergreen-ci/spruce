@@ -3097,6 +3097,11 @@ export type ProjectSettingsFragment = {
       configEnabled?: Maybe<boolean>;
       patchEnabled?: Maybe<boolean>;
     };
+    banner?: Maybe<{
+      __typename?: "ProjectBanner";
+      text: string;
+      theme: BannerTheme;
+    }>;
     patchTriggerAliases?: Maybe<
       Array<{
         __typename?: "PatchTriggerAlias";
@@ -3453,6 +3458,11 @@ export type RepoSettingsFragment = {
 export type ProjectNotificationSettingsFragment = {
   __typename?: "Project";
   notifyOnBuildFailure?: Maybe<boolean>;
+  banner?: Maybe<{
+    __typename?: "ProjectBanner";
+    text: string;
+    theme: BannerTheme;
+  }>;
 };
 
 export type RepoNotificationSettingsFragment = {
@@ -3697,6 +3707,11 @@ export type ProjectEventSettingsFragment = {
       configEnabled?: Maybe<boolean>;
       patchEnabled?: Maybe<boolean>;
     };
+    banner?: Maybe<{
+      __typename?: "ProjectBanner";
+      text: string;
+      theme: BannerTheme;
+    }>;
     patchTriggerAliases?: Maybe<
       Array<{
         __typename?: "PatchTriggerAlias";
@@ -5666,6 +5681,7 @@ export type ConfigurePatchQuery = {
   __typename?: "Query";
   patch: {
     __typename?: "Patch";
+    projectIdentifier: string;
     activated: boolean;
     alias?: Maybe<string>;
     author: string;
@@ -5830,6 +5846,23 @@ export type PodQuery = {
   };
 };
 
+export type ProjectBannerQueryVariables = Exact<{
+  identifier: Scalars["String"];
+}>;
+
+export type ProjectBannerQuery = {
+  __typename?: "Query";
+  project: {
+    __typename?: "Project";
+    id: string;
+    banner?: Maybe<{
+      __typename?: "ProjectBanner";
+      text: string;
+      theme: BannerTheme;
+    }>;
+  };
+};
+
 export type ProjectEventLogsQueryVariables = Exact<{
   identifier: Scalars["String"];
   limit?: InputMaybe<Scalars["Int"]>;
@@ -5898,6 +5931,11 @@ export type ProjectEventLogsQuery = {
             configEnabled?: Maybe<boolean>;
             patchEnabled?: Maybe<boolean>;
           };
+          banner?: Maybe<{
+            __typename?: "ProjectBanner";
+            text: string;
+            theme: BannerTheme;
+          }>;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -6107,6 +6145,11 @@ export type ProjectEventLogsQuery = {
             configEnabled?: Maybe<boolean>;
             patchEnabled?: Maybe<boolean>;
           };
+          banner?: Maybe<{
+            __typename?: "ProjectBanner";
+            text: string;
+            theme: BannerTheme;
+          }>;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -6333,6 +6376,11 @@ export type ProjectSettingsQuery = {
         configEnabled?: Maybe<boolean>;
         patchEnabled?: Maybe<boolean>;
       };
+      banner?: Maybe<{
+        __typename?: "ProjectBanner";
+        text: string;
+        theme: BannerTheme;
+      }>;
       patchTriggerAliases?: Maybe<
         Array<{
           __typename?: "PatchTriggerAlias";
@@ -6587,6 +6635,11 @@ export type RepoEventLogsQuery = {
             configEnabled?: Maybe<boolean>;
             patchEnabled?: Maybe<boolean>;
           };
+          banner?: Maybe<{
+            __typename?: "ProjectBanner";
+            text: string;
+            theme: BannerTheme;
+          }>;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";
@@ -6796,6 +6849,11 @@ export type RepoEventLogsQuery = {
             configEnabled?: Maybe<boolean>;
             patchEnabled?: Maybe<boolean>;
           };
+          banner?: Maybe<{
+            __typename?: "ProjectBanner";
+            text: string;
+            theme: BannerTheme;
+          }>;
           patchTriggerAliases?: Maybe<
             Array<{
               __typename?: "PatchTriggerAlias";

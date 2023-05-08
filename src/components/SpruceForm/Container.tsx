@@ -27,7 +27,8 @@ const StyledH3 = styled<H3Type>(H3)`
   margin: ${size.m} 0;
 `;
 
+export const formComponentSpacingCSS = "margin-bottom: 48px;";
 const StyledCard = styled(Card)`
-  margin-bottom: 48px;
+  ${formComponentSpacingCSS}
   padding: ${size.m};
 `;
