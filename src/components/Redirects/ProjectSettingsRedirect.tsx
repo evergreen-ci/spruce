@@ -5,15 +5,15 @@ import {
   ProjectSettingsTabRoutes,
 } from "constants/routes";
 import {
-  GetViewableProjectRefsQuery,
-  GetViewableProjectRefsQueryVariables,
+  ViewableProjectRefsQuery,
+  ViewableProjectRefsQueryVariables,
 } from "gql/generated/types";
 import { GET_VIEWABLE_PROJECTS } from "gql/queries";
 
 export const ProjectSettingsRedirect: React.VFC = () => {
   const { data } = useQuery<
-    GetViewableProjectRefsQuery,
-    GetViewableProjectRefsQueryVariables
+    ViewableProjectRefsQuery,
+    ViewableProjectRefsQueryVariables
   >(GET_VIEWABLE_PROJECTS);
 
   if (data) {

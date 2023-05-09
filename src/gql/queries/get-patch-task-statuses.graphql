@@ -1,4 +1,4 @@
-query GetPatchTaskStatuses($id: String!) {
+query PatchTaskStatuses($id: String!) {
   patch(id: $id) {
     baseTaskStatuses
     id

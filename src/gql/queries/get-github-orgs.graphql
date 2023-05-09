@@ -1,4 +1,4 @@
-query GetGithubOrgs {
+query GithubOrgs {
   spruceConfig {
     githubOrgs
   }

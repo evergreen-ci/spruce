@@ -1,9 +1,9 @@
 #import "../fragments/annotation.graphql"
 
-query GetAnnotationEventData($taskId: String!, $execution: Int) {
+query AnnotationEventData($taskId: String!, $execution: Int) {
   task(taskId: $taskId, execution: $execution) {
     annotation {
-      ...annotation
+      ...Annotation
     }
     execution
     id

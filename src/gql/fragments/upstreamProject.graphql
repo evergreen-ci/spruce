@@ -1,4 +1,4 @@
-fragment upstreamProject on Version {
+fragment UpstreamProject on Version {
   upstreamProject {
     project
     repo

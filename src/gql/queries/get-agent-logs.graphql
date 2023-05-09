@@ -6,7 +6,7 @@ query AgentLogs($id: String!, $execution: Int) {
     id
     taskLogs {
       agentLogs {
-        ...logMessage
+        ...LogMessage
       }
     }
   }

@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import {
-  GetMyPublicKeysQuery,
-  GetMyPublicKeysQueryVariables,
+  MyPublicKeysQuery,
+  MyPublicKeysQueryVariables,
   InstanceTypesQuery,
   InstanceTypesQueryVariables,
   MyVolumesQuery,
@@ -31,8 +31,8 @@ export const useLoadFormData = (host: MyHost) => {
 
   // QUERY public keys
   const { data: publicKeysData } = useQuery<
-    GetMyPublicKeysQuery,
-    GetMyPublicKeysQueryVariables
+    MyPublicKeysQuery,
+    MyPublicKeysQueryVariables
   >(GET_MY_PUBLIC_KEYS);
 
   const spruceConfig = useSpruceConfig();

@@ -58,7 +58,7 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
       );
       dispatch({ type: "resetPage" });
     },
-    refetchQueries: ["MyHosts", "MyVolumes", "GetMyPublicKeys"],
+    refetchQueries: ["MyHosts", "MyVolumes", "MyPublicKeys"],
   });
 
   const distros = useMemo(

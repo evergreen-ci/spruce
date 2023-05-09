@@ -8,8 +8,8 @@ import {
   AttachProjectToRepoMutationVariables,
   DetachProjectFromRepoMutation,
   DetachProjectFromRepoMutationVariables,
-  GetGithubOrgsQuery,
-  GetGithubOrgsQueryVariables,
+  GithubOrgsQuery,
+  GithubOrgsQueryVariables,
 } from "gql/generated/types";
 import {
   ATTACH_PROJECT_TO_REPO,
@@ -367,18 +367,16 @@ const detachProjectFromRepoMock: ApolloMock<
   },
 };
 
-const getGithubOrgsMock: ApolloMock<
-  GetGithubOrgsQuery,
-  GetGithubOrgsQueryVariables
-> = {
-  request: {
-    query: GET_GITHUB_ORGS,
-  },
-  result: {
-    data: {
-      spruceConfig: {
-        githubOrgs: ["evergreen-ci", "10gen"],
+const getGithubOrgsMock: ApolloMock<GithubOrgsQuery, GithubOrgsQueryVariables> =
+  {
+    request: {
+      query: GET_GITHUB_ORGS,
+    },
+    result: {
+      data: {
+        spruceConfig: {
+          githubOrgs: ["evergreen-ci", "10gen"],
+        },
       },
     },
-  },
-};
+  };

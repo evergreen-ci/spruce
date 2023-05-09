@@ -1,6 +1,6 @@
 import {
-  GetMyPublicKeysQuery,
-  GetSpawnTaskQuery,
+  MyPublicKeysQuery,
+  SpawnTaskQuery,
   SpawnHostMutationVariables,
 } from "gql/generated/types";
 import { stripNewLines } from "utils/string";
@@ -10,8 +10,8 @@ import { validateTask } from "./utils";
 
 interface Props {
   formData: FormState;
-  myPublicKeys: GetMyPublicKeysQuery["myPublicKeys"];
-  spawnTaskData?: GetSpawnTaskQuery["task"];
+  myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
+  spawnTaskData?: SpawnTaskQuery["task"];
   migrateVolumeId?: string;
 }
 export const formToGql = ({
@@ -19,7 +19,7 @@ export const formToGql = ({
   myPublicKeys,
   spawnTaskData,
   migrateVolumeId,
-}: Props): SpawnHostMutationVariables["SpawnHostInput"] => {
+}: Props): SpawnHostMutationVariables["spawnHostInput"] => {
   const {
     expirationDetails,
     homeVolumeDetails,

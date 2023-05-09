@@ -18,7 +18,7 @@ import { redirectRoutes, routes } from "constants/routes";
 import { size } from "constants/tokens";
 import { newSpruceUser } from "constants/welcomeModalProps";
 import { useAuthStateContext } from "context/auth";
-import { GetUserQuery, GetUserQueryVariables } from "gql/generated/types";
+import { UserQuery, UserQueryVariables } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
 import { useUserSettings } from "hooks";
 import { useAnnouncementToast } from "hooks/useAnnouncementToast";
@@ -57,7 +57,7 @@ export const Content: React.VFC = () => {
   // this top-level query is required for authentication to work
   // afterware is used at apollo link level to authenticate or deauthenticate user based on response to query
   // therefore this could be any query as long as it is top-level
-  const { data } = useQuery<GetUserQuery, GetUserQueryVariables>(GET_USER);
+  const { data } = useQuery<UserQuery, UserQueryVariables>(GET_USER);
   localStorage.setItem("userId", data?.user?.userId ?? "");
   const { userSettings } = useUserSettings();
 

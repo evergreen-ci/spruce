@@ -9,8 +9,8 @@ import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import {
-  GetBuildVariantStatsQuery,
-  GetBuildVariantStatsQueryVariables,
+  BuildVariantStatsQuery,
+  BuildVariantStatsQueryVariables,
   StatusCount,
 } from "gql/generated/types";
 import { GET_BUILD_VARIANTS_STATS } from "gql/queries";
@@ -25,8 +25,8 @@ export const BuildVariants: React.VFC = () => {
   const { id } = useParams<{ id: string }>();
 
   const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
-    GetBuildVariantStatsQuery,
-    GetBuildVariantStatsQueryVariables
+    BuildVariantStatsQuery,
+    BuildVariantStatsQueryVariables
   >(GET_BUILD_VARIANTS_STATS, {
     variables: { id },
     pollInterval: DEFAULT_POLL_INTERVAL,
