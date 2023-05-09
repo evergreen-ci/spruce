@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { palette } from "@leafygreen-ui/palette";
 import { Outlet, Route, Routes } from "react-router-dom";
 import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
@@ -14,7 +15,7 @@ import { PageGrid } from "components/styles/Layout";
 import { TaskStatusIconLegend } from "components/TaskStatusIconLegend";
 import WelcomeModal from "components/WelcomeModal";
 import { redirectRoutes, routes } from "constants/routes";
-import { zIndex, size } from "constants/tokens";
+import { size } from "constants/tokens";
 import { newSpruceUser } from "constants/welcomeModalProps";
 import { useAuthStateContext } from "context/auth";
 import { UserQuery, UserQueryVariables } from "gql/generated/types";
@@ -40,6 +41,8 @@ import { TaskQueue } from "pages/TaskQueue";
 import { UserPatches } from "pages/UserPatches";
 import { VariantHistory } from "pages/VariantHistory";
 import { VersionPage } from "pages/Version";
+
+const { gray, white } = palette;
 
 const Layout = () => (
   <>
@@ -145,19 +148,20 @@ export const Content: React.VFC = () => {
 
 const tab = ":tab";
 const FloatingContent = styled.div`
-  position: fixed;
-  z-index: ${zIndex.tooltip};
-  bottom: 0;
-  right: 0;
-  margin-left: ${size.l};
-  margin-bottom: ${size.s};
-  background-color: white;
-  padding: ${size.xs};
+  background-color: ${white};
   border-radius: ${size.s};
-  transition: opacity 0.2s ease-in-out;
+  bottom: 0;
+  margin-bottom: ${size.s};
+  margin-right: ${size.s};
   opacity: 0.2;
+  padding: ${size.xs};
+  position: fixed;
+  right: 0;
+  transition: opacity 0.2s ease-in-out;
+
   :hover {
-    transition: opacity 0.2s ease-in-out;
+    box-shadow: 0 3px 4px ${gray.base};
     opacity: 1;
+    transition: all 0.2s ease-in-out;
   }
 `;
