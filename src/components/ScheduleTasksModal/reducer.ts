@@ -1,4 +1,4 @@
-import { GetUndispatchedTasksQuery } from "gql/generated/types";
+import { UndispatchedTasksQuery } from "gql/generated/types";
 
 interface BVGroupEntry {
   tasks: { id: string; displayName: string }[];
@@ -15,7 +15,7 @@ interface State {
 }
 
 type Action =
-  | { type: "ingestData"; taskData?: GetUndispatchedTasksQuery }
+  | { type: "ingestData"; taskData?: UndispatchedTasksQuery }
   | { type: "toggleTask"; taskId: string }
   | { type: "toggleBuildVariant"; buildVariant: string }
   | { type: "reset" }
@@ -67,7 +67,7 @@ export const initialState: State = {
 };
 
 const getSortedBuildVariantGroups = (
-  data?: GetUndispatchedTasksQuery
+  data?: UndispatchedTasksQuery
 ): BVGroupEntry[] => {
   const bvGroups: BVGroupsInterface = data?.version?.tasks?.data.reduce(
     (acc, task) => {

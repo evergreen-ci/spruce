@@ -38,6 +38,7 @@ import GET_PATCH_TASK_STATUSES from "./get-patch-task-statuses.graphql";
 import GET_PATCH from "./get-patch.graphql";
 import GET_POD_EVENTS from "./get-pod-events.graphql";
 import GET_POD from "./get-pod.graphql";
+import GET_PROJECT_BANNER from "./get-project-banner.graphql";
 import GET_PROJECT_EVENT_LOGS from "./get-project-event-logs.graphql";
 import GET_PROJECT_SETTINGS from "./get-project-settings.graphql";
 import GET_PROJECTS from "./get-projects.graphql";
@@ -116,6 +117,7 @@ export {
   GET_PATCH,
   GET_POD_EVENTS,
   GET_POD,
+  GET_PROJECT_BANNER,
   GET_PROJECT_EVENT_LOGS,
   GET_PROJECT_PATCHES,
   GET_PROJECT_SETTINGS,

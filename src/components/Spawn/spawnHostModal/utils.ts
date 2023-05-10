@@ -1,7 +1,7 @@
-import { GetSpawnTaskQuery } from "gql/generated/types";
+import { SpawnTaskQuery } from "gql/generated/types";
 import { FormState } from "./types";
 
-export const validateTask = (taskData: GetSpawnTaskQuery["task"]) => {
+export const validateTask = (taskData: SpawnTaskQuery["task"]) => {
   const {
     displayName: taskDisplayName,
     buildVariant,

@@ -1,4 +1,4 @@
-query GetTaskNamesForBuildVariant(
+query TaskNamesForBuildVariant(
   $projectIdentifier: String!
   $buildVariant: String!
 ) {

@@ -1,4 +1,4 @@
-query GetLastMainlineCommit(
+query LastMainlineCommit(
   $projectIdentifier: String!
   $skipOrderNumber: Int!
   $buildVariantOptions: BuildVariantOptions!

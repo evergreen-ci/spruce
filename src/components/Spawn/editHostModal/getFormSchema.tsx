@@ -5,7 +5,7 @@ import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import { InputLabel, StyledLink } from "components/styles";
 import { windowsPasswordRulesURL } from "constants/externalResources";
-import { GetMyPublicKeysQuery, MyVolumesQuery } from "gql/generated/types";
+import { MyPublicKeysQuery, MyVolumesQuery } from "gql/generated/types";
 import { ExpirationRow } from "../ExpirationRow";
 import { getDefaultExpiration } from "../utils";
 import { UserTagRow } from "./FieldTemplates/UserTagRow";
@@ -16,7 +16,7 @@ interface Props {
   canEditSshKeys: boolean;
   disableExpirationCheckbox: boolean;
   instanceTypes: string[];
-  myPublicKeys: GetMyPublicKeysQuery["myPublicKeys"];
+  myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
   noExpirationCheckboxTooltip: string;
   volumes: MyVolumesQuery["myVolumes"];
 }

@@ -3,7 +3,7 @@
 query Host($id: String!) {
   host(hostId: $id) {
     ami
-    ...baseHost
+    ...BaseHost
     distro {
       bootstrapMethod
       id

@@ -1,4 +1,4 @@
-query GetBuildBaronConfigured($taskId: String!, $execution: Int!) {
+query BuildBaronConfigured($taskId: String!, $execution: Int!) {
   buildBaron(taskId: $taskId, execution: $execution) {
     buildBaronConfigured
   }

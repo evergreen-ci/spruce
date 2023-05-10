@@ -11,8 +11,8 @@ import { WordBreak } from "components/styles";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
-  GetMyPublicKeysQuery,
-  GetMyPublicKeysQueryVariables,
+  MyPublicKeysQuery,
+  MyPublicKeysQueryVariables,
   RemovePublicKeyMutation,
   RemovePublicKeyMutationVariables,
 } from "gql/generated/types";
@@ -33,8 +33,8 @@ export const PublicKeysTab: React.VFC = () => {
     setEditModalProps(defaultEditModalProps);
   };
   const { data: myKeysData, loading: loadingMyPublicKeys } = useQuery<
-    GetMyPublicKeysQuery,
-    GetMyPublicKeysQueryVariables
+    MyPublicKeysQuery,
+    MyPublicKeysQueryVariables
   >(GET_MY_PUBLIC_KEYS, {
     onError(error) {
       dispatchToast.error(
@@ -53,7 +53,7 @@ export const PublicKeysTab: React.VFC = () => {
       );
     },
     update(cache, { data }) {
-      cache.writeQuery<GetMyPublicKeysQuery, GetMyPublicKeysQueryVariables>({
+      cache.writeQuery<MyPublicKeysQuery, MyPublicKeysQueryVariables>({
         query: GET_MY_PUBLIC_KEYS,
         data: { myPublicKeys: [...data.removePublicKey] },
       });

@@ -1,8 +1,8 @@
 import { Table } from "antd";
-import { GetCreatedTicketsQuery } from "gql/generated/types";
+import { CreatedTicketsQuery } from "gql/generated/types";
 import { JiraTicketRow } from "../BBComponents";
 
-type CreatedTickets = GetCreatedTicketsQuery["bbGetCreatedTickets"];
+type CreatedTickets = CreatedTicketsQuery["bbGetCreatedTickets"];
 
 const columns = [
   {

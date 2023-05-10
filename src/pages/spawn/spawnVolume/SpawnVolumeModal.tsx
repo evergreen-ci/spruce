@@ -55,7 +55,7 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
       params: mutationInput,
     });
     spawnVolumeMutation({
-      variables: { SpawnVolumeInput: mutationInput },
+      variables: { spawnVolumeInput: mutationInput },
     });
   };
 

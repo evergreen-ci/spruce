@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import {
-  GetTaskNamesForBuildVariantQuery,
-  GetTaskNamesForBuildVariantQueryVariables,
+  TaskNamesForBuildVariantQuery,
+  TaskNamesForBuildVariantQueryVariables,
 } from "gql/generated/types";
 import { GET_TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
 import { useQueryParam } from "hooks/useQueryParam";
@@ -27,8 +27,8 @@ const TaskSelector: React.VFC<TaskSelectorProps> = ({
   );
 
   const { data, loading } = useQuery<
-    GetTaskNamesForBuildVariantQuery,
-    GetTaskNamesForBuildVariantQueryVariables
+    TaskNamesForBuildVariantQuery,
+    TaskNamesForBuildVariantQueryVariables
   >(GET_TASK_NAMES_FOR_BUILD_VARIANT, {
     variables: {
       projectIdentifier,

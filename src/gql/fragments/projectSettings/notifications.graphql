@@ -1,12 +1,16 @@
-fragment projectNotificationSettings on Project {
+fragment ProjectNotificationSettings on Project {
+  banner {
+    text
+    theme
+  }
   notifyOnBuildFailure
 }
 
-fragment repoNotificationSettings on RepoRef {
+fragment RepoNotificationSettings on RepoRef {
   notifyOnBuildFailure
 }
 
-fragment subscriptions on GenericSubscription {
+fragment Subscriptions on ProjectSubscription {
   id
   ownerType
   regexSelectors {

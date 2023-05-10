@@ -74,7 +74,7 @@ export const NotificationsTab: React.VFC = () => {
     try {
       await updateUserSettings({
         variables,
-        refetchQueries: ["GetUserSettings"],
+        refetchQueries: ["UserSettings"],
       });
     } catch (err) {}
   };
