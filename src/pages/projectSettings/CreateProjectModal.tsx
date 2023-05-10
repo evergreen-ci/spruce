@@ -126,7 +126,7 @@ export const CreateProjectModal: React.VFC<Props> = ({
           uiSchema={form.uiSchema}
         />
       ) : (
-        <Skeleton paragraph={{ rows: 11 }} />
+        <Skeleton paragraph={{ rows: 11 }} data-cy="loading-skeleton" />
       )}
     </ConfirmationModal>
   );

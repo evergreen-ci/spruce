@@ -43,6 +43,15 @@ const NewProjectModal = ({
   </MockedProvider>
 );
 
+const waitForModalLoad = async () => {
+  await waitFor(() =>
+    expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
+  );
+  await waitFor(() =>
+    expect(screen.queryByDataCy("loading-skeleton")).toBeNull()
+  );
+};
+
 describe("createProjectField", () => {
   afterEach(() => {
     jest.restoreAllMocks();
@@ -63,9 +72,7 @@ describe("createProjectField", () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
 
-    await waitFor(() =>
-      expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-    );
+    await waitForModalLoad();
 
     expect(
       screen.getByRole("button", {
@@ -77,10 +84,7 @@ describe("createProjectField", () => {
   it("pre-fills the owner and repo", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
-
-    await waitFor(() =>
-      expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-    );
+    await waitForModalLoad();
 
     expect(screen.queryByDataCy("new-owner-select")).toHaveTextContent(
       defaultOwner
@@ -91,10 +95,8 @@ describe("createProjectField", () => {
   it("disables the confirm button when repo field is missing", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
+    await waitForModalLoad();
 
-    await waitFor(() =>
-      expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-    );
     userEvent.type(
       screen.queryByDataCy("project-name-input"),
       "new-project-name-input"
@@ -110,10 +112,8 @@ describe("createProjectField", () => {
   it("disables the confirm button when project name field is missing", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
+    await waitForModalLoad();
 
-    await waitFor(() =>
-      expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-    );
     expect(screen.queryByDataCy("project-name-input")).toHaveValue("");
     expect(
       screen.getByRole("button", {
@@ -125,10 +125,8 @@ describe("createProjectField", () => {
   it("disables the confirm button when project name contains a space", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
+    await waitForModalLoad();
 
-    await waitFor(() =>
-      expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-    );
     userEvent.type(screen.queryByDataCy("project-name-input"), "my test");
     expect(
       screen.getByRole("button", {
@@ -141,11 +139,8 @@ describe("createProjectField", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <NewProjectModal />
     );
-    const { history } = render(<Component />);
-
-    await waitFor(() =>
-      expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-    );
+    const { router } = render(<Component />);
+    await waitForModalLoad();
 
     await selectLGOption("new-owner-select", "10gen");
     userEvent.clear(screen.queryByDataCy("new-repo-input"));
@@ -163,7 +158,7 @@ describe("createProjectField", () => {
     userEvent.click(screen.queryByText("Create Project"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
-    expect(history.location.pathname).toBe(
+    expect(router.state.location.pathname).toBe(
       "/project/new-project-name/settings"
     );
   });
@@ -197,11 +192,9 @@ describe("createProjectField", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <NewProjectModal mock={mockWithId} />
     );
-    const { history } = render(<Component />);
+    const { router } = render(<Component />);
+    await waitForModalLoad();
 
-    await waitFor(() =>
-      expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-    );
     userEvent.type(
       screen.queryByDataCy("project-name-input"),
       "new-project-name"
@@ -230,7 +223,7 @@ describe("createProjectField", () => {
     userEvent.click(screen.queryByText("Create Project"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
-    expect(history.location.pathname).toBe(
+    expect(router.state.location.pathname).toBe(
       "/project/new-project-name/settings"
     );
   });
@@ -250,6 +243,7 @@ describe("createProjectField", () => {
       result: {
         data: {
           createProject: {
+            id: "new-project-id",
             identifier: "new-project-name",
           },
         },
@@ -259,11 +253,9 @@ describe("createProjectField", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <NewProjectModal mock={mockWithWarn} />
     );
-    const { history } = render(<Component />);
+    const { router } = render(<Component />);
+    await waitForModalLoad();
 
-    await waitFor(() =>
-      expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-    );
     userEvent.type(
       screen.queryByDataCy("project-name-input"),
       "new-project-name"
@@ -282,7 +274,7 @@ describe("createProjectField", () => {
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
-    expect(history.location.pathname).toBe(
+    expect(router.state.location.pathname).toBe(
       "/project/new-project-name/settings"
     );
   });
