@@ -1,24 +1,24 @@
 describe("Viewing a patch", () => {
-  describe("Viewing a users own patch", () => {
+  describe("Viewing a user's own patch", () => {
     beforeEach(() => {
       cy.visit(
-        "/task/mci_ubuntu1604_display_asdf_patch_a1d2c8f70bf5c543de8b9641ac1ec08def1ddb26_5f74d99ab2373627c047c5e5_20_09_30_19_16_47"
+        "/task/mci_ubuntu1604_test_command_patch_a1d2c8f70bf5c543de8b9641ac1ec08def1ddb26_5f74d99ab2373627c047c5e5_20_09_30_19_16_47"
       );
     });
-    it("Clicking on the patch message breadcrumb from a task should take you to that version", () => {
-      cy.dataCy("bc-message").should(
-        "include.text",
-        "Patch 234 - mai…message (#4048)"
+    it("Clicking on the display task breadcrumb should take you to that task", () => {
+      cy.dataCy("bc-display-task").should("include.text", "asdf");
+      cy.dataCy("bc-display-task").click();
+      cy.url().should(
+        "include",
+        "/task/mci_ubuntu1604_display_asdf_patch_a1d2c8f70bf5c543de8b9641ac1ec08def1ddb26_5f74d99ab2373627c047c5e5_20_09_30_19_16_47"
       );
-      cy.dataCy("bc-message").click();
-      cy.url().should("include", "/version/5f74d99ab2373627c047c5e5");
     });
     it("Clicking the 'My Patches' breadcrumb goes to the logged in user's Patches Page when the current patch belongs to the logged in user", () => {
       cy.contains("My Patches").click();
       cy.url().should("include", "/user/admin/patches");
     });
   });
-  describe("Viewing another users patch", () => {
+  describe("Viewing another user's patch", () => {
     beforeEach(() => {
       cy.visit(
         "/task/evergreen_ubuntu1604_dist_patch_33016573166a36bd5f46b4111151899d5c4e95b1_5ecedafb562343215a7ff297_20_05_27_21_39_46"
