@@ -1,4 +1,4 @@
-import { GetBaseVersionAndTaskQuery } from "gql/generated/types";
+import { BaseVersionAndTaskQuery } from "gql/generated/types";
 
 export enum CommitType {
   Base = "base",
@@ -6,4 +6,4 @@ export enum CommitType {
   LastExecuted = "lastExecuted",
 }
 
-export type CommitTask = GetBaseVersionAndTaskQuery["task"]["baseTask"];
+export type CommitTask = BaseVersionAndTaskQuery["task"]["baseTask"];

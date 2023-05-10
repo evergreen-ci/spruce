@@ -1,4 +1,4 @@
-query GetFailedTaskStatusIconTooltip($taskId: String!) {
+query FailedTaskStatusIconTooltip($taskId: String!) {
   taskTests(taskId: $taskId, statuses: ["fail"], limit: 5) {
     filteredTestCount
     testResults {

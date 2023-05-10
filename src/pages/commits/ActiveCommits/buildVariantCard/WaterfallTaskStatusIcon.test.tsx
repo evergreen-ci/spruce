@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import {
-  GetFailedTaskStatusIconTooltipQuery,
-  GetFailedTaskStatusIconTooltipQueryVariables,
+  FailedTaskStatusIconTooltipQuery,
+  FailedTaskStatusIconTooltipQueryVariables,
 } from "gql/generated/types";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import {
@@ -99,8 +99,8 @@ describe("waterfallTaskStatusIcon", () => {
 });
 
 const getTooltipQueryMock: ApolloMock<
-  GetFailedTaskStatusIconTooltipQuery,
-  GetFailedTaskStatusIconTooltipQueryVariables
+  FailedTaskStatusIconTooltipQuery,
+  FailedTaskStatusIconTooltipQueryVariables
 > = {
   request: {
     query: GET_FAILED_TASK_STATUS_ICON_TOOLTIP,

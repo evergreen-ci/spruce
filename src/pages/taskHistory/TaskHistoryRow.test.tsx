@@ -4,8 +4,8 @@ import { HistoryTableReducerState } from "components/HistoryTable/historyTableCo
 import { mainlineCommitData } from "components/HistoryTable/testData";
 import { rowType, CommitRowType } from "components/HistoryTable/types";
 import {
-  GetTaskTestSampleQuery,
-  GetTaskTestSampleQueryVariables,
+  TaskTestSampleQuery,
+  TaskTestSampleQueryVariables,
 } from "gql/generated/types";
 import { GET_TASK_TEST_SAMPLE } from "gql/queries";
 import {
@@ -339,8 +339,8 @@ const taskRow: CommitRowType = {
 };
 
 const noFilterData: ApolloMock<
-  GetTaskTestSampleQuery,
-  GetTaskTestSampleQueryVariables
+  TaskTestSampleQuery,
+  TaskTestSampleQueryVariables
 > = {
   request: {
     query: GET_TASK_TEST_SAMPLE,
@@ -372,8 +372,8 @@ const noFilterData: ApolloMock<
 };
 
 const withMatchingFilter: ApolloMock<
-  GetTaskTestSampleQuery,
-  GetTaskTestSampleQueryVariables
+  TaskTestSampleQuery,
+  TaskTestSampleQueryVariables
 > = {
   request: {
     query: GET_TASK_TEST_SAMPLE,
@@ -407,8 +407,8 @@ const withMatchingFilter: ApolloMock<
 };
 
 const withNonMatchingFilter: ApolloMock<
-  GetTaskTestSampleQuery,
-  GetTaskTestSampleQueryVariables
+  TaskTestSampleQuery,
+  TaskTestSampleQueryVariables
 > = {
   request: {
     query: GET_TASK_TEST_SAMPLE,

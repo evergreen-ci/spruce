@@ -1,4 +1,4 @@
-fragment jiraTicket on JiraTicket {
+fragment JiraTicket on JiraTicket {
   fields {
     assignedTeam
     assigneeDisplayName

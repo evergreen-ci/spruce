@@ -72,7 +72,7 @@ query Version($id: String!) {
     startTime
     status
     taskCount
-    ...upstreamProject
+    ...UpstreamProject
     versionTiming {
       makespan
       timeTaken

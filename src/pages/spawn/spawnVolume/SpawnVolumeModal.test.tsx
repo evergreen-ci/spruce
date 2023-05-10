@@ -75,7 +75,7 @@ describe("spawnVolumeModal", () => {
       request: {
         query: SPAWN_VOLUME,
         variables: {
-          SpawnVolumeInput: {
+          spawnVolumeInput: {
             availabilityZone: "us-east-1a",
             size: 500,
             type: "gp2",
@@ -117,7 +117,7 @@ describe("spawnVolumeModal", () => {
       request: {
         query: SPAWN_VOLUME,
         variables: {
-          SpawnVolumeInput: {
+          spawnVolumeInput: {
             availabilityZone: "us-east-1c",
             size: 24,
             type: "st1",

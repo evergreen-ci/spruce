@@ -4,8 +4,8 @@ import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   CreateProjectMutation,
   CreateProjectMutationVariables,
-  GetGithubOrgsQuery,
-  GetGithubOrgsQueryVariables,
+  GithubOrgsQuery,
+  GithubOrgsQueryVariables,
 } from "gql/generated/types";
 import { CREATE_PROJECT } from "gql/mutations";
 import { GET_GITHUB_ORGS } from "gql/queries";
@@ -305,18 +305,16 @@ const createProjectMock: ApolloMock<
   },
 };
 
-const getGithubOrgsMock: ApolloMock<
-  GetGithubOrgsQuery,
-  GetGithubOrgsQueryVariables
-> = {
-  request: {
-    query: GET_GITHUB_ORGS,
-  },
-  result: {
-    data: {
-      spruceConfig: {
-        githubOrgs: ["evergreen-ci", "10gen"],
+const getGithubOrgsMock: ApolloMock<GithubOrgsQuery, GithubOrgsQueryVariables> =
+  {
+    request: {
+      query: GET_GITHUB_ORGS,
+    },
+    result: {
+      data: {
+        spruceConfig: {
+          githubOrgs: ["evergreen-ci", "10gen"],
+        },
       },
     },
-  },
-};
+  };

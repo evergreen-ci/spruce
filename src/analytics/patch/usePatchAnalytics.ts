@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { addPageAction, Properties, Analytics } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 import {
-  SaveSubscriptionMutationVariables,
+  SaveSubscriptionForUserMutationVariables,
   PatchQuery,
   PatchQueryVariables,
   TaskSortCategory,
@@ -42,7 +42,7 @@ type Action =
   | { name: "Clear all filter" }
   | {
       name: "Add Notification";
-      subscription: SaveSubscriptionMutationVariables["subscription"];
+      subscription: SaveSubscriptionForUserMutationVariables["subscription"];
     }
   | { name: "Toggle Display Task Dropdown"; expanded: boolean }
   | { name: "Click Base Commit Link" }

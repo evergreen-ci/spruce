@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Cookies from "js-cookie";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
+import { ProjectBanner } from "components/Banners";
 import FilterBadges, {
   useFilterBadgeQueryParams,
 } from "components/FilterBadges";
@@ -19,8 +20,8 @@ import { size } from "constants/tokens";
 import { newMainlineCommitsUser } from "constants/welcomeModalProps";
 import { useToastContext } from "context/toast";
 import {
-  GetSpruceConfigQuery,
-  GetSpruceConfigQueryVariables,
+  SpruceConfigQuery,
+  SpruceConfigQueryVariables,
   MainlineCommitsQuery,
   MainlineCommitsQueryVariables,
 } from "gql/generated/types";
@@ -64,8 +65,8 @@ const Commits = () => {
   // Push default project to URL if there isn't a project in
   // the URL already and an mci-project-cookie does not exist.
   const { data: spruceData } = useQuery<
-    GetSpruceConfigQuery,
-    GetSpruceConfigQueryVariables
+    SpruceConfigQuery,
+    SpruceConfigQueryVariables
   >(GET_SPRUCE_CONFIG, {
     skip: !!projectIdentifier || !!recentlySelectedProject,
   });
@@ -150,6 +151,7 @@ const Commits = () => {
 
   return (
     <PageWrapper>
+      <ProjectBanner projectIdentifier={projectIdentifier} />
       <PageContainer>
         <HeaderWrapper>
           <ElementWrapper width="35">

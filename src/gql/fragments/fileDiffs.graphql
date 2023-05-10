@@ -1,4 +1,4 @@
-fragment fileDiffs on FileDiff {
+fragment FileDiffs on FileDiff {
   additions
   deletions
   description

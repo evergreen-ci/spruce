@@ -1,6 +1,6 @@
-import { GetTaskQuery } from "gql/generated/types";
+import { TaskQuery } from "gql/generated/types";
 
-export const taskQuery: GetTaskQuery = {
+export const taskQuery: TaskQuery = {
   task: {
     __typename: "Task",
     id: "someTaskId",

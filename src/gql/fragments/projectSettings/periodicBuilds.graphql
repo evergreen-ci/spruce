@@ -1,4 +1,4 @@
-fragment projectPeriodicBuildsSettings on Project {
+fragment ProjectPeriodicBuildsSettings on Project {
   periodicBuilds {
     alias
     configFile
@@ -9,7 +9,7 @@ fragment projectPeriodicBuildsSettings on Project {
   }
 }
 
-fragment repoPeriodicBuildsSettings on RepoRef {
+fragment RepoPeriodicBuildsSettings on RepoRef {
   periodicBuilds {
     alias
     configFile

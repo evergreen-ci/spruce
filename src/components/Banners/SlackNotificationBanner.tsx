@@ -12,7 +12,7 @@ import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
-  GetUserSettingsQuery,
+  UserSettingsQuery,
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { GET_USER_SETTINGS } from "gql/queries";
@@ -37,12 +37,12 @@ export const SlackNotificationBanner = () => {
       onError: (err) => {
         dispatchToast.error(`Error while saving settings: '${err.message}'`);
       },
-      refetchQueries: ["GetUserSettings"],
+      refetchQueries: ["UserSettings"],
     });
 
   // USER SETTINGS QUERY
   const { data: userSettingsData } =
-    useQuery<GetUserSettingsQuery>(GET_USER_SETTINGS);
+    useQuery<UserSettingsQuery>(GET_USER_SETTINGS);
   const { userSettings } = userSettingsData || {};
   const { slackUsername: defaultSlackUsername, notifications } =
     userSettings || {};

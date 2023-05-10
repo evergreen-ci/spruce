@@ -16,8 +16,8 @@ import { useToastContext } from "context/toast";
 import {
   SpawnHostMutation,
   SpawnHostMutationVariables,
-  GetSpawnTaskQuery,
-  GetSpawnTaskQueryVariables,
+  SpawnTaskQuery,
+  SpawnTaskQueryVariables,
 } from "gql/generated/types";
 import { SPAWN_HOST } from "gql/mutations";
 import { GET_SPAWN_TASK } from "gql/queries";
@@ -42,8 +42,8 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   const taskIdQueryParam = getString(queryParams.taskId);
   const distroIdQueryParam = getString(queryParams.distroId);
   const { data: spawnTaskData } = useQuery<
-    GetSpawnTaskQuery,
-    GetSpawnTaskQueryVariables
+    SpawnTaskQuery,
+    SpawnTaskQueryVariables
   >(GET_SPAWN_TASK, {
     skip: !(taskIdQueryParam && distroIdQueryParam),
     variables: { taskId: taskIdQueryParam },
@@ -65,7 +65,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
         `There was an error while spawning your host: ${err.message}`
       );
     },
-    refetchQueries: ["MyHosts", "MyVolumes", "GetMyPublicKeys"],
+    refetchQueries: ["MyHosts", "MyVolumes", "MyPublicKeys"],
   });
 
   const [formState, setFormState] = useState<FormState>({});
@@ -106,7 +106,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       ]),
     });
     spawnHostMutation({
-      variables: { SpawnHostInput: mutationInput },
+      variables: { spawnHostInput: mutationInput },
     });
   };
 

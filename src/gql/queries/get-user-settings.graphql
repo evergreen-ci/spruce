@@ -1,4 +1,4 @@
-query GetUserSettings {
+query UserSettings {
   userSettings {
     dateFormat
     githubUser {

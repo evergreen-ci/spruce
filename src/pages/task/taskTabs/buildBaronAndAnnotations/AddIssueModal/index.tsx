@@ -69,7 +69,7 @@ export const AddIssueModal: React.VFC<Props> = ({
         `There was an error adding the issue: ${error.message}`
       );
     },
-    refetchQueries: ["GetAnnotationEventData"],
+    refetchQueries: ["AnnotationEventData"],
   });
 
   const spruceConfig = useSpruceConfig();

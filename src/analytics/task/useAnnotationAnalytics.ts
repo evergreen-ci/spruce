@@ -6,8 +6,8 @@ import { useGetUserQuery } from "analytics/useGetUserQuery";
 import {
   BuildBaronQuery,
   BuildBaronQueryVariables,
-  GetAnnotationEventDataQuery,
-  GetAnnotationEventDataQueryVariables,
+  AnnotationEventDataQuery,
+  AnnotationEventDataQueryVariables,
 } from "gql/generated/types";
 import { GET_ANNOTATION_EVENT_DATA, GET_BUILD_BARON } from "gql/queries";
 import { RequiredQueryParams } from "types/task";
@@ -42,8 +42,8 @@ export const useAnnotationAnalytics = (): AnnotationAnalytics => {
   const parsed = parseQueryString(location.search);
   const execution = Number(parsed[RequiredQueryParams.Execution]);
   const { data: eventData } = useQuery<
-    GetAnnotationEventDataQuery,
-    GetAnnotationEventDataQueryVariables
+    AnnotationEventDataQuery,
+    AnnotationEventDataQueryVariables
   >(GET_ANNOTATION_EVENT_DATA, {
     variables: { taskId: id, execution },
     fetchPolicy: "cache-first",

@@ -21,7 +21,7 @@ query MainlineCommits(
         message
         order
         revision
-        ...upstreamProject
+        ...UpstreamProject
       }
       version {
         author
@@ -58,7 +58,7 @@ query MainlineCommits(
           }
           eta
         }
-        ...upstreamProject
+        ...UpstreamProject
       }
     }
   }

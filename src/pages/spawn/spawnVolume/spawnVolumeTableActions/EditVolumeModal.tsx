@@ -69,7 +69,7 @@ export const EditVolumeModal: React.VFC<Props> = ({
       params: mutationInput,
     });
     updateVolumeMutation({
-      variables: { UpdateVolumeInput: mutationInput },
+      variables: { updateVolumeInput: mutationInput },
     });
   };
 

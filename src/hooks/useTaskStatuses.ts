@@ -4,8 +4,8 @@ import { TreeDataEntry } from "components/TreeSelect";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { taskStatusesFilterTreeData } from "constants/task";
 import {
-  GetTaskStatusesQuery,
-  GetTaskStatusesQueryVariables,
+  TaskStatusesQuery,
+  TaskStatusesQueryVariables,
 } from "gql/generated/types";
 import { GET_TASK_STATUSES } from "gql/queries";
 import { usePolling } from "hooks";
@@ -24,8 +24,8 @@ export const useTaskStatuses = ({
   versionId,
 }: UseTaskStatusesProps): UseTaskStatusesResult => {
   const { data, refetch, startPolling, stopPolling } = useQuery<
-    GetTaskStatusesQuery,
-    GetTaskStatusesQueryVariables
+    TaskStatusesQuery,
+    TaskStatusesQueryVariables
   >(GET_TASK_STATUSES, {
     variables: { id: versionId },
     pollInterval: DEFAULT_POLL_INTERVAL,

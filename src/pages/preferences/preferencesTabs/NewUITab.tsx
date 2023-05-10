@@ -49,7 +49,7 @@ export const NewUITab: React.VFC = () => {
           },
         },
       },
-      refetchQueries: ["GetUserSettings"],
+      refetchQueries: ["UserSettings"],
     });
   };
 
