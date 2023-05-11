@@ -108,14 +108,21 @@ const getTooltipQueryMock: ApolloMock<
   },
   result: {
     data: {
-      taskTests: {
-        filteredTestCount: 3,
-        testResults: [
-          {
-            id: "83ca0a6b4c73f32e53f3dcbbe727842c",
-            testFile: "jstests/multiVersion/remove_invalid_index_options.js",
-          },
-        ],
+      task: {
+        __typename: "Task",
+        id: "task_1",
+        execution: 0,
+        tests: {
+          __typename: "TaskTestResult",
+          filteredTestCount: 3,
+          testResults: [
+            {
+              __typename: "TestResult",
+              id: "83ca0a6b4c73f32e53f3dcbbe727842c",
+              testFile: "jstests/multiVersion/remove_invalid_index_options.js",
+            },
+          ],
+        },
       },
     },
   },

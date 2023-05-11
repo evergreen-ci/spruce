@@ -1,37 +1,39 @@
 query TaskTests(
-  $dir: SortDirection
   $id: String!
-  $cat: TestSortCategory
   $pageNum: Int
   $limitNum: Int
   $statusList: [String!]!
+  $sort: [TestSortOptions!]
   $testName: String!
   $execution: Int
 ) {
-  taskTests(
-    taskId: $id
-    sortCategory: $cat
-    sortDirection: $dir
-    page: $pageNum
-    limit: $limitNum
-    statuses: $statusList
-    testName: $testName
-    execution: $execution
-  ) {
-    filteredTestCount
-    testResults {
-      baseStatus
-      duration
-      id
-      logs {
-        url
-        urlLobster
-        urlParsley
-        urlRaw
+  task(taskId: $id, execution: $execution) {
+    execution
+    id
+    tests(
+      opts: {
+        sort: $sort
+        page: $pageNum
+        limit: $limitNum
+        statuses: $statusList
+        testName: $testName
       }
-      status
-      testFile
+    ) {
+      filteredTestCount
+      testResults {
+        baseStatus
+        duration
+        id
+        logs {
+          url
+          urlLobster
+          urlParsley
+          urlRaw
+        }
+        status
+        testFile
+      }
+      totalTestCount
     }
-    totalTestCount
   }
 }
