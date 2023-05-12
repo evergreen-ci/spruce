@@ -45,7 +45,8 @@ export const WaterfallTaskStatusIcon: React.VFC<
     FailedTaskStatusIconTooltipQuery,
     FailedTaskStatusIconTooltipQueryVariables
   >(GET_FAILED_TASK_STATUS_ICON_TOOLTIP, { variables: { taskId } });
-  const { testResults, filteredTestCount } = data?.taskTests ?? {};
+
+  const { testResults, filteredTestCount } = data?.task?.tests ?? {};
   const failedTestDifference = filteredTestCount - (testResults ?? []).length;
 
   useEffect(() => {
