@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import { FullPageLoad } from "components/Loading/FullPageLoad";
 
 export const loadable = <
   C extends React.ComponentType<
@@ -11,7 +12,7 @@ export const loadable = <
 > => {
   const LoadableComponent = lazy(() => loadableComponent());
   const Loadable = (props) => (
-    <Suspense fallback="Loading...">
+    <Suspense fallback={<FullPageLoad />}>
       <LoadableComponent {...props} />
     </Suspense>
   );
