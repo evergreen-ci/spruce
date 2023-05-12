@@ -20,7 +20,7 @@ import {
   getPodRoute,
 } from "constants/routes";
 import { size } from "constants/tokens";
-import { GetTaskQuery } from "gql/generated/types";
+import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { TaskStatus } from "types/task";
 import { string } from "utils";
@@ -34,7 +34,7 @@ const { red } = palette;
 interface Props {
   taskId: string;
   loading: boolean;
-  task: GetTaskQuery["task"];
+  task: TaskQuery["task"];
   error: ApolloError;
 }
 

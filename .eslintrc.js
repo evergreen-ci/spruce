@@ -226,14 +226,13 @@ module.exports = {
       files: ["src/gql/**/*.graphql"],
       extends: "plugin:@graphql-eslint/operations-recommended",
       rules: {
-        "@graphql-eslint/naming-convention": OFF, // This line should be removed as part of EVG-19316.
         "@graphql-eslint/selection-set-depth": OFF,
         "@graphql-eslint/no-deprecated": WARN,
         "@graphql-eslint/alphabetize": [
           ERROR,
           { selections: ["OperationDefinition", "FragmentDefinition"] },
         ],
-        // Following two rules can possibly be removed after ESLint updates.
+        // Allows importing fragments without lint errors.
         "spaced-comment": OFF,
         "@typescript-eslint/spaced-comment": OFF,
       },

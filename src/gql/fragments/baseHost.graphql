@@ -1,4 +1,4 @@
-fragment baseHost on Host {
+fragment BaseHost on Host {
   hostUrl
   id
   provider

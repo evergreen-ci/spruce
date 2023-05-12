@@ -1,4 +1,4 @@
-mutation editAnnotationNote(
+mutation EditAnnotationNote(
   $taskId: String!
   $execution: Int!
   $originalMessage: String!

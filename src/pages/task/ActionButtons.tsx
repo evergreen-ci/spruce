@@ -24,7 +24,7 @@ import {
   UnscheduleTaskMutationVariables,
   OverrideTaskDependenciesMutation,
   OverrideTaskDependenciesMutationVariables,
-  GetTaskQuery,
+  TaskQuery,
 } from "gql/generated/types";
 import {
   ABORT_TASK,
@@ -45,7 +45,7 @@ interface Props {
   initialPriority?: number;
   isDisplayTask: boolean;
   isExecutionTask: boolean;
-  task: GetTaskQuery["task"];
+  task: TaskQuery["task"];
 }
 
 export const ActionButtons: React.VFC<Props> = ({

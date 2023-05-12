@@ -1067,6 +1067,69 @@ describe("Notifications", { testIsolation: false }, () => {
     cy.dataCy("save-settings-button").scrollIntoView();
     saveButtonEnabled(false);
   });
+  it("Setting a project banner displays the banner on the correct pages and unsetting is removes it", () => {
+    cy.visit(destination);
+    const bannerText = "This is a project banner!";
+
+    // set banner
+    cy.dataCy("banner-text").clear().type(bannerText);
+    clickSave();
+    cy.validateToast("success", "Successfully updated project");
+
+    // ensure banner is displayed
+    cy.contains(bannerText).should("be.visible");
+
+    const taskRoute =
+      "task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
+    cy.visit(taskRoute);
+    cy.contains(bannerText).should("be.visible");
+
+    const configureRoute = "patch/5e6bb9e23066155a993e0f1b/configure/tasks";
+    cy.visit(configureRoute);
+    cy.contains(bannerText).should("be.visible");
+
+    const versionRoute = "version/5e4ff3abe3c3317e352062e4";
+    cy.visit(versionRoute);
+    cy.contains(bannerText).should("be.visible");
+
+    const projectHealthRoute = "commits/evergreen";
+    cy.visit(projectHealthRoute);
+    cy.contains(bannerText).should("be.visible");
+
+    const variantHistoryRoute = "/variant-history/evergreen/ubuntu1604";
+    cy.visit(variantHistoryRoute);
+    cy.contains(bannerText).should("be.visible");
+
+    const taskHistoryRoute = "task-history/evergreen/test-cloud";
+    cy.visit(taskHistoryRoute);
+    cy.contains(bannerText).should("be.visible");
+
+    // clear banner
+    cy.visit(destination);
+    cy.dataCy("banner-text").clear();
+    clickSave();
+
+    // ensure banner is not displayed
+    cy.contains(bannerText).should("not.exist");
+
+    cy.visit(taskRoute);
+    cy.contains(bannerText).should("not.exist");
+
+    cy.visit(configureRoute);
+    cy.contains(bannerText).should("not.exist");
+
+    cy.visit(versionRoute);
+    cy.contains(bannerText).should("not.exist");
+
+    cy.visit(projectHealthRoute);
+    cy.contains(bannerText).should("not.exist");
+
+    cy.visit(variantHistoryRoute);
+    cy.contains(bannerText).should("not.exist");
+
+    cy.visit(taskHistoryRoute);
+    cy.contains(bannerText).should("not.exist");
+  });
 });
 
 describe("Plugins", { testIsolation: false }, () => {

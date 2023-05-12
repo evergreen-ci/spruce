@@ -1,4 +1,4 @@
-query GetViewableProjectRefs {
+query ViewableProjectRefs {
   viewableProjectRefs {
     groupDisplayName
     projects {

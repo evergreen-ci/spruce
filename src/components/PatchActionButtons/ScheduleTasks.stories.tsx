@@ -1,8 +1,8 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { StoryObj } from "@storybook/react";
 import {
-  GetUndispatchedTasksQuery,
-  GetUndispatchedTasksQueryVariables,
+  UndispatchedTasksQuery,
+  UndispatchedTasksQueryVariables,
 } from "gql/generated/types";
 import { GET_UNSCHEDULED_TASKS } from "gql/queries";
 import WithToastContext from "test_utils/toast-decorator";
@@ -30,8 +30,8 @@ export const ScheduleTasksEmpty: StoryObj<typeof ScheduleTasks> = {
 };
 
 const mocks: ApolloMock<
-  GetUndispatchedTasksQuery,
-  GetUndispatchedTasksQueryVariables
+  UndispatchedTasksQuery,
+  UndispatchedTasksQueryVariables
 >[] = [
   {
     request: {

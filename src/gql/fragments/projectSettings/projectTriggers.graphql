@@ -1,4 +1,4 @@
-fragment projectTriggersSettings on Project {
+fragment ProjectTriggersSettings on Project {
   triggers {
     alias
     buildVariantRegex
@@ -11,7 +11,7 @@ fragment projectTriggersSettings on Project {
   }
 }
 
-fragment repoTriggersSettings on RepoRef {
+fragment RepoTriggersSettings on RepoRef {
   triggers {
     alias
     buildVariantRegex

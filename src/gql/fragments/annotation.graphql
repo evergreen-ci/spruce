@@ -1,4 +1,4 @@
-fragment annotation on Annotation {
+fragment Annotation on Annotation {
   createdIssues {
     issueKey
     source {

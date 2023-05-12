@@ -1,4 +1,4 @@
-fragment logMessage on LogMessage {
+fragment LogMessage on LogMessage {
   message
   severity
   timestamp

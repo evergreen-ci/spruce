@@ -1,6 +1,6 @@
-import { GetTaskQuery } from "gql/generated/types";
+import { TaskQuery } from "gql/generated/types";
 
-export const taskQuery: GetTaskQuery = {
+export const taskQuery: TaskQuery = {
   task: {
     __typename: "Task",
     id: "someTaskId",
@@ -45,6 +45,7 @@ export const taskQuery: GetTaskQuery = {
     displayName: "e2e_test",
     distroId: "ubuntu1604-small",
     estimatedStart: 1000,
+    pod: null,
     execution: 0,
     expectedDuration: 123,
     failedTestCount: 0,

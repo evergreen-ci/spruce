@@ -1,4 +1,4 @@
-query GetUserConfig {
+query UserConfig {
   userConfig {
     api_key
     api_server_host

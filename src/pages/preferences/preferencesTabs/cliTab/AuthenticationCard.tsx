@@ -7,10 +7,7 @@ import { Skeleton } from "antd";
 import get from "lodash/get";
 import { usePreferencesAnalytics } from "analytics";
 import { size } from "constants/tokens";
-import {
-  GetUserConfigQuery,
-  GetUserConfigQueryVariables,
-} from "gql/generated/types";
+import { UserConfigQuery, UserConfigQueryVariables } from "gql/generated/types";
 import { GET_USER_CONFIG } from "gql/queries";
 import { PreferencesCard } from "pages/preferences/Card";
 import { request } from "utils";
@@ -19,8 +16,8 @@ const { post } = request;
 
 export const AuthenticationCard = () => {
   const { data, loading, refetch } = useQuery<
-    GetUserConfigQuery,
-    GetUserConfigQueryVariables
+    UserConfigQuery,
+    UserConfigQueryVariables
   >(GET_USER_CONFIG);
   const { sendEvent } = usePreferencesAnalytics();
   if (loading) {

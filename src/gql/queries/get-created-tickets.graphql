@@ -1,4 +1,4 @@
-query GetCreatedTickets($taskId: String!) {
+query CreatedTickets($taskId: String!) {
   bbGetCreatedTickets(taskId: $taskId) {
     fields {
       assigneeDisplayName

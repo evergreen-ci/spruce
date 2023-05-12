@@ -5,8 +5,8 @@ import { Select } from "antd";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { fontSize, size } from "constants/tokens";
 import {
-  GetTaskAllExecutionsQuery,
-  GetTaskAllExecutionsQueryVariables,
+  TaskAllExecutionsQuery,
+  TaskAllExecutionsQueryVariables,
 } from "gql/generated/types";
 import { GET_TASK_ALL_EXECUTIONS } from "gql/queries";
 import { useDateFormat } from "hooks";
@@ -26,8 +26,8 @@ export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
   updateExecution,
 }) => {
   const allExecutionsResult = useQuery<
-    GetTaskAllExecutionsQuery,
-    GetTaskAllExecutionsQueryVariables
+    TaskAllExecutionsQuery,
+    TaskAllExecutionsQueryVariables
   >(GET_TASK_ALL_EXECUTIONS, {
     variables: { taskId: id },
   });

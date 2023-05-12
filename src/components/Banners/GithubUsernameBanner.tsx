@@ -7,7 +7,7 @@ import {
   PreferencesTabRoutes,
   routes,
 } from "constants/routes";
-import { GetUserSettingsQuery } from "gql/generated/types";
+import { UserSettingsQuery } from "gql/generated/types";
 import { GET_USER_SETTINGS } from "gql/queries";
 
 export const GithubUsernameBanner = () => {
@@ -16,7 +16,7 @@ export const GithubUsernameBanner = () => {
   const isPatchesPage = !!matchedPath;
 
   // USER SETTINGS QUERY
-  const { data: userSettingsData } = useQuery<GetUserSettingsQuery>(
+  const { data: userSettingsData } = useQuery<UserSettingsQuery>(
     GET_USER_SETTINGS,
     { skip: !isPatchesPage }
   );

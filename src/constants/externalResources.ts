@@ -3,56 +3,66 @@ import { environmentVariables } from "utils";
 
 const { getLobsterURL, getParsleyUrl, getUiUrl } = environmentVariables;
 
-const wikiBaseUrl = "https://docs.devprod.prod.corp.mongodb.com/evergreen";
+export const wikiBaseUrl =
+  "https://docs.devprod.prod.corp.mongodb.com/evergreen";
 
-const wikiUrl = `${wikiBaseUrl}/Home`;
+export const wikiUrl = `${wikiBaseUrl}/Home`;
 
-const projectDistroSettingsDocumentationUrl = `${wikiBaseUrl}/Configure%20a%20Project/Project-and-Distro-Settings`;
+export const projectDistroSettingsDocumentationUrl = `${wikiBaseUrl}/Configure-a-Project/Project-and-Distro-Settings`;
 
-const versionControlDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#version-control`;
+export const versionControlDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#version-control`;
 
-const patchAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#patch-aliases`;
+export const patchAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#patch-aliases`;
 
-const pullRequestAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#pr-aliases`;
+export const pullRequestAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#pr-aliases`;
 
-const commitQueueAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#commit-queue-aliases`;
+export const commitQueueAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#commit-queue-aliases`;
 
-const gitTagAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#git-tag-aliases`;
+export const gitTagAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#git-tag-aliases`;
 
-const githubChecksAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#github-checks-aliases`;
+export const githubChecksAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#github-checks-aliases`;
 
-const cliDocumentationUrl = `${wikiBaseUrl}/Using-the-Command-Line-Tool`;
+export const cliDocumentationUrl = `${wikiBaseUrl}/Using-the-Command-Line-Tool`;
 
-const windowsPasswordRulesURL =
+export const windowsPasswordRulesURL =
   "https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc786468(v=ws.10)?redirectedfrom=MSDN";
 
-const konamiSoundTrackUrl =
+export const getJiraBugUrl = (jiraHost: string) =>
+  `https://${jiraHost}/secure/CreateIssueDetails!init.jspa?pid=12787&issuetype=1&priority=4&labels=user-feedback&description=Please%20note%20browser%20and%20OS%20when%20describing%20your%20issue.`;
+
+export const getJiraImprovementUrl = (jiraHost: string) =>
+  `https://${jiraHost}/secure/CreateIssueDetails!init.jspa?pid=12787&issuetype=4&priority=4&labels=user-feedback`;
+
+export const konamiSoundTrackUrl =
   "https://www.myinstants.com/media/sounds/mvssf-win.mp3";
 
-const legacyRoutes = {
+export const legacyRoutes = {
   distros: "/distros",
   hosts: "/spawn",
   projects: "/projects",
 };
 
-const getIdeUrl = (hostId: string) => `${getUiUrl()}/host/${hostId}/ide`;
+export const getIdeUrl = (hostId: string) => `${getUiUrl()}/host/${hostId}/ide`;
 
-const getJiraSearchUrl = (jiraHost: string, jqlEscaped: string) =>
+export const getJiraSearchUrl = (jiraHost: string, jqlEscaped: string) =>
   `https://${jiraHost}/secure/IssueNavigator.jspa?jql=${jqlEscaped}`;
 
-const getJiraTicketUrl = (jiraHost: string, jiraKey: string) =>
+export const getJiraTicketUrl = (jiraHost: string, jiraKey: string) =>
   `https://${jiraHost}/browse/${jiraKey}`;
 
-const getGithubPullRequestUrl = (
+export const getGithubPullRequestUrl = (
   owner: string,
   repo: string,
   issue: number | string
 ) => `https://github.com/${owner}/${repo}/pull/${issue}`;
 
-const getGithubCommitUrl = (owner: string, repo: string, githash: string) =>
-  `https://github.com/${owner}/${repo}/commit/${githash}`;
+export const getGithubCommitUrl = (
+  owner: string,
+  repo: string,
+  githash: string
+) => `https://github.com/${owner}/${repo}/commit/${githash}`;
 
-const getParsleyTaskLogLink = (
+export const getParsleyTaskLogLink = (
   logType: LogTypes,
   taskId: string,
   execution: number
@@ -65,7 +75,7 @@ interface GetLobsterTestLogCompleteUrlParams {
   lineNum?: number;
 }
 
-const getLobsterTestLogCompleteUrl = ({
+export const getLobsterTestLogCompleteUrl = ({
   taskId,
   execution,
   groupId,
@@ -77,44 +87,18 @@ const getLobsterTestLogCompleteUrl = ({
       }${lineNum ? `#shareLine=${lineNum}` : ""}`
     : "";
 
-const getLobsterTaskLink = (
+export const getLobsterTaskLink = (
   logType: LogTypes,
   taskId: string,
   execution: number
 ) =>
   `${getLobsterURL()}/lobster/evergreen/task/${taskId}/${execution}/${logType}`;
 
-const getParsleyTestLogURL = (buildId: string, testId: string) =>
+export const getParsleyTestLogURL = (buildId: string, testId: string) =>
   `${getParsleyUrl()}/resmoke/${buildId}/test/${testId}`;
 
-const getParsleyBuildLogURL = (buildId: string) =>
+export const getParsleyBuildLogURL = (buildId: string) =>
   `${getParsleyUrl()}/resmoke/${buildId}/all`;
 
-const getDistroPageUrl = (distroId: string) =>
+export const getDistroPageUrl = (distroId: string) =>
   `${getUiUrl()}/distros##${distroId}`;
-
-export {
-  cliDocumentationUrl,
-  commitQueueAliasesDocumentationUrl,
-  getDistroPageUrl,
-  getGithubCommitUrl,
-  getGithubPullRequestUrl,
-  getIdeUrl,
-  getJiraSearchUrl,
-  getJiraTicketUrl,
-  getLobsterTaskLink,
-  getLobsterTestLogCompleteUrl,
-  getParsleyBuildLogURL,
-  getParsleyTaskLogLink,
-  getParsleyTestLogURL,
-  githubChecksAliasesDocumentationUrl,
-  gitTagAliasesDocumentationUrl,
-  konamiSoundTrackUrl,
-  legacyRoutes,
-  patchAliasesDocumentationUrl,
-  projectDistroSettingsDocumentationUrl,
-  pullRequestAliasesDocumentationUrl,
-  versionControlDocumentationUrl,
-  wikiUrl,
-  windowsPasswordRulesURL,
-};

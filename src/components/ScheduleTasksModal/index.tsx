@@ -9,8 +9,8 @@ import { ConfirmationModal } from "components/ConfirmationModal";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
-  GetUndispatchedTasksQuery,
-  GetUndispatchedTasksQueryVariables,
+  UndispatchedTasksQuery,
+  UndispatchedTasksQueryVariables,
   ScheduleTasksMutation,
   ScheduleTasksMutationVariables,
 } from "gql/generated/types";
@@ -55,12 +55,12 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
   const [
     loadTaskData,
     { data: taskData, loading: loadingTaskData, called: calledTaskData },
-  ] = useLazyQuery<
-    GetUndispatchedTasksQuery,
-    GetUndispatchedTasksQueryVariables
-  >(GET_UNSCHEDULED_TASKS, {
-    variables: { versionId },
-  });
+  ] = useLazyQuery<UndispatchedTasksQuery, UndispatchedTasksQueryVariables>(
+    GET_UNSCHEDULED_TASKS,
+    {
+      variables: { versionId },
+    }
+  );
   useEffect(() => {
     if (open && !calledTaskData) {
       loadTaskData();

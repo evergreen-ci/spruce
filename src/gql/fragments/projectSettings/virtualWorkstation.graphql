@@ -1,4 +1,4 @@
-fragment projectVirtualWorkstationSettings on Project {
+fragment ProjectVirtualWorkstationSettings on Project {
   workstationConfig {
     gitClone
     setupCommands {
@@ -8,7 +8,7 @@ fragment projectVirtualWorkstationSettings on Project {
   }
 }
 
-fragment repoVirtualWorkstationSettings on RepoRef {
+fragment RepoVirtualWorkstationSettings on RepoRef {
   workstationConfig {
     gitClone
     setupCommands {

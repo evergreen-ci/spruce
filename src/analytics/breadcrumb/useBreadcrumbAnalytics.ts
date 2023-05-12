@@ -7,7 +7,7 @@ import { useGetUserQuery } from "analytics/useGetUserQuery";
 
 type Action = {
   name: "Click Link";
-  link: "myPatches" | "patch" | "version" | "waterfall";
+  link: "myPatches" | "patch" | "version" | "waterfall" | "displayTask";
 };
 
 interface P extends Properties {}

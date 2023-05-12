@@ -2,7 +2,7 @@
 
 mutation SchedulePatch($patchId: String!, $configure: PatchConfigure!) {
   schedulePatch(patchId: $patchId, configure: $configure) {
-    ...basePatch
+    ...BasePatch
     tasks
     variants
     versionFull {
