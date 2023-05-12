@@ -21,7 +21,7 @@ interface BreadcrumbsProps {
 const Breadcrumbs: React.VFC<BreadcrumbsProps> = ({ breadcrumbs }) => (
   <Container>
     {breadcrumbs.map((bc, index) => (
-      <Fragment key={`breadCrumb-${bc.text}`}>
+      <Fragment key={`breadcrumb-${bc.text}`}>
         <BreadcrumbFragment breadcrumb={bc} />
         {breadcrumbs.length - 1 !== index && (
           <PaddedIcon
