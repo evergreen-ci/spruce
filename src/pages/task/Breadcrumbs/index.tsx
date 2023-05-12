@@ -1,12 +1,17 @@
 import { useBreadcrumbAnalytics } from "analytics";
 import Breadcrumbs, { Breadcrumb } from "components/Breadcrumbs";
-import { getVersionRoute } from "constants/routes";
+import { getTaskRoute, getVersionRoute } from "constants/routes";
 import { useBreadcrumbRoot } from "hooks";
 import { shortenGithash } from "utils/string";
 
 interface TaskPageBreadcrumbsProps {
-  taskName: string;
+  displayTask?: {
+    displayName: string;
+    execution: number;
+    id: string;
+  };
   patchNumber?: number;
+  taskName: string;
   versionMetadata?: {
     id: string;
     revision: string;
@@ -18,9 +23,10 @@ interface TaskPageBreadcrumbsProps {
   };
 }
 const TaskPageBreadcrumbs: React.VFC<TaskPageBreadcrumbsProps> = ({
-  versionMetadata,
+  displayTask,
   patchNumber,
   taskName,
+  versionMetadata,
 }) => {
   const { isPatch, author, projectIdentifier, id, message, revision } =
     versionMetadata ?? {};
@@ -43,6 +49,24 @@ const TaskPageBreadcrumbs: React.VFC<TaskPageBreadcrumbsProps> = ({
     "data-cy": "bc-message",
   };
 
+  const displayTaskBreadcrumb = displayTask
+    ? [
+        {
+          to: getTaskRoute(displayTask.id, {
+            execution: displayTask.execution,
+          }),
+          text: displayTask.displayName,
+          onClick: () => {
+            breadcrumbAnalytics.sendEvent({
+              name: "Click Link",
+              link: "displayTask",
+            });
+          },
+          "data-cy": "bc-display-task",
+        },
+      ]
+    : [];
+
   const taskBreadcrumb = {
     text: taskName,
     "data-cy": "bc-task",
@@ -51,6 +75,7 @@ const TaskPageBreadcrumbs: React.VFC<TaskPageBreadcrumbsProps> = ({
   const breadcrumbs: Breadcrumb[] = [
     breadcrumbRoot,
     messageBreadcrumb,
+    ...displayTaskBreadcrumb,
     taskBreadcrumb,
   ];
 
