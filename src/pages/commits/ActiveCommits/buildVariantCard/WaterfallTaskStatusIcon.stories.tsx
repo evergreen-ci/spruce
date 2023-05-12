@@ -15,11 +15,6 @@ export default {
   component: WaterfallTaskStatusIcon,
   decorators: [
     (Story: () => JSX.Element) => (
-      <Container>
-        <Story />
-      </Container>
-    ),
-    (Story: () => JSX.Element) => (
       <MockedProvider mocks={[getTooltipQueryMock]}>
         <Story />
       </MockedProvider>
@@ -28,7 +23,11 @@ export default {
 };
 
 export const Default: StoryObj<typeof WaterfallTaskStatusIcon> = {
-  render: (args) => <WaterfallTaskStatusIcon {...args} />,
+  render: (args) => (
+    <Container>
+      <WaterfallTaskStatusIcon {...args} />
+    </Container>
+  ),
   args: {
     displayName: "multiversion",
     timeTaken: 2754729,
@@ -69,7 +68,7 @@ const getTooltipQueryMock: ApolloMock<
         execution: 0,
         tests: {
           __typename: "TaskTestResult",
-          filteredTestCount: 2,
+          filteredTestCount: 5,
           testResults: [
             {
               __typename: "TestResult",

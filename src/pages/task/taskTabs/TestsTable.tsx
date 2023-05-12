@@ -18,11 +18,11 @@ import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { testStatusesFilterTreeData } from "constants/test";
 import {
   TaskTestsQuery,
+  TaskTestsQueryVariables,
   SortDirection,
   TestSortCategory,
   TestResult,
   TaskQuery,
-  TaskTestsQueryVariables,
 } from "gql/generated/types";
 import { GET_TASK_TESTS } from "gql/queries";
 import {

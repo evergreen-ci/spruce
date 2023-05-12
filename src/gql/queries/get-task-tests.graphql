@@ -1,11 +1,11 @@
 query TaskTests(
   $id: String!
+  $execution: Int
   $pageNum: Int
   $limitNum: Int
   $statusList: [String!]!
   $sort: [TestSortOptions!]
   $testName: String!
-  $execution: Int
 ) {
   task(taskId: $id, execution: $execution) {
     execution

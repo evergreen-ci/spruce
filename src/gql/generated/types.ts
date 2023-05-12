@@ -7438,12 +7438,12 @@ export type TaskTestSampleQuery = {
 
 export type TaskTestsQueryVariables = Exact<{
   id: Scalars["String"];
+  execution?: InputMaybe<Scalars["Int"]>;
   pageNum?: InputMaybe<Scalars["Int"]>;
   limitNum?: InputMaybe<Scalars["Int"]>;
   statusList: Array<Scalars["String"]>;
   sort?: InputMaybe<Array<TestSortOptions>>;
   testName: Scalars["String"];
-  execution?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type TaskTestsQuery = {
