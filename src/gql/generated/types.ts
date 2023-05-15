@@ -1030,6 +1030,7 @@ export type Patch = {
   description: Scalars["String"];
   duration?: Maybe<PatchDuration>;
   githash: Scalars["String"];
+  hidden: Scalars["Boolean"];
   id: Scalars["ID"];
   moduleCodeChanges: Array<ModuleCodeChange>;
   parameters: Array<Parameter>;
@@ -1304,7 +1305,7 @@ export type ProjectEventSettings = {
   projectRef?: Maybe<Project>;
   /** @deprecated Use subscriptions instead */
   projectSubscriptions?: Maybe<Array<ProjectSubscription>>;
-  subscriptions?: Maybe<Array<ProjectSubscription>>;
+  subscriptions?: Maybe<Array<GeneralSubscription>>;
   vars?: Maybe<ProjectVars>;
 };
 
@@ -1372,7 +1373,7 @@ export type ProjectSettings = {
   projectRef?: Maybe<Project>;
   /** @deprecated Use subscriptions instead */
   projectSubscriptions?: Maybe<Array<ProjectSubscription>>;
-  subscriptions?: Maybe<Array<ProjectSubscription>>;
+  subscriptions?: Maybe<Array<GeneralSubscription>>;
   vars?: Maybe<ProjectVars>;
 };
 
@@ -1732,7 +1733,7 @@ export type RepoSettings = {
   projectRef?: Maybe<RepoRef>;
   /** @deprecated Use subscriptions instead */
   projectSubscriptions?: Maybe<Array<ProjectSubscription>>;
-  subscriptions?: Maybe<Array<ProjectSubscription>>;
+  subscriptions?: Maybe<Array<GeneralSubscription>>;
   vars?: Maybe<ProjectVars>;
 };
 
