@@ -147,7 +147,7 @@ const eventLogEntry: ProjectEventLogsQuery["projectEvents"]["eventLogEntries"][0
           __typename: "CommitQueueParams",
         },
       },
-      subscriptions: [],
+      projectSubscriptions: [],
       vars: {
         vars: {
           node_path: "/opt/axstarst$PATH",
@@ -228,7 +228,7 @@ const eventLogEntry: ProjectEventLogsQuery["projectEvents"]["eventLogEntries"][0
           __typename: "CommitQueueParams",
         },
       },
-      subscriptions: [],
+      projectSubscriptions: [],
       vars: {
         vars: {},
         privateVars: [],
