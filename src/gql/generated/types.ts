@@ -715,6 +715,8 @@ export type Mutation = {
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"];
   setPatchPriority?: Maybe<Scalars["String"]>;
+  /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
+  setPatchVisibility: Array<Patch>;
   setTaskPriority: Task;
   spawnHost: Host;
   spawnVolume: Scalars["Boolean"];
@@ -916,6 +918,11 @@ export type MutationSetAnnotationMetadataLinksArgs = {
 export type MutationSetPatchPriorityArgs = {
   patchId: Scalars["String"];
   priority: Scalars["Int"];
+};
+
+export type MutationSetPatchVisibilityArgs = {
+  hidden: Scalars["Boolean"];
+  patchIds: Array<Scalars["String"]>;
 };
 
 export type MutationSetTaskPriorityArgs = {
@@ -4482,6 +4489,16 @@ export type SetPatchPriorityMutationVariables = Exact<{
 export type SetPatchPriorityMutation = {
   __typename?: "Mutation";
   setPatchPriority?: Maybe<string>;
+};
+
+export type SetPatchVisibilityMutationVariables = Exact<{
+  patchIds: Array<Scalars["String"]>;
+  hidden: Scalars["Boolean"];
+}>;
+
+export type SetPatchVisibilityMutation = {
+  __typename?: "Mutation";
+  setPatchVisibility: Array<{ __typename?: "Patch"; id: string }>;
 };
 
 export type SetTaskPriorityMutationVariables = Exact<{
