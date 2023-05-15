@@ -58,7 +58,7 @@ const NotificationMethod = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: ${size.xs};
-  gap: ${size.m};
+  gap: ${size.l};
   grid-column: 2;
   grid-row: 1;
 `;
