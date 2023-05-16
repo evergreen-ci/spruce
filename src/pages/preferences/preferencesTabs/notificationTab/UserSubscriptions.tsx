@@ -17,27 +17,17 @@ import {
 } from "@leafygreen-ui/table/new";
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
 import { StyledRouterLink } from "components/styles";
-import {
-  getCommitQueueRoute,
-  getHostRoute,
-  getPatchRoute,
-  getTaskRoute,
-  getVersionRoute,
-} from "constants/routes";
 import { getSubscriberText } from "constants/subscription";
-import { size } from "constants/tokens";
 import {
   GeneralSubscription,
+  Selector,
   UserSubscriptionsQuery,
   UserSubscriptionsQueryVariables,
 } from "gql/generated/types";
 import { USER_SUBSCRIPTIONS } from "gql/queries";
 import { notificationMethodToCopy } from "types/subscription";
-import {
-  ResourceType,
-  resourceTypeToCopy,
-  triggerToCopy,
-} from "types/triggers";
+import { resourceTypeToCopy, triggerToCopy } from "types/triggers";
+import { getResourceRoute, processSubscriptionData } from "./utils";
 
 export const UserSubscriptions: React.VFC<{}> = () => {
   const { data } = useQuery<
@@ -46,26 +36,7 @@ export const UserSubscriptions: React.VFC<{}> = () => {
   >(USER_SUBSCRIPTIONS);
 
   const subscriptions = useMemo(
-    () =>
-      // Filter out a user's global subscriptions for tasks, spawn hosts, etc.
-      data?.user?.subscriptions
-        ?.filter((subscription) =>
-          subscription?.selectors?.find(
-            (s) =>
-              s.type !== "object" &&
-              (s.type === "id" || s.type.startsWith("in-"))
-          )
-        )
-        .map((subscription) => ({
-          ...subscription,
-          ...(Object.entries(subscription?.triggerData ?? {}).length > 0 && {
-            renderExpandedContent: (row) => (
-              <TriggerDataBlock>
-                {JSON.stringify(row.original.triggerData, null, 2)}
-              </TriggerDataBlock>
-            ),
-          }),
-        })),
+    () => processSubscriptionData(data?.user?.subscriptions),
     [data]
   );
 
@@ -77,7 +48,6 @@ export const UserSubscriptions: React.VFC<{}> = () => {
   });
 
   if (!subscriptions) return null;
-  // console.log(subscriptions);
 
   const { rows } = table.getRowModel();
 
@@ -141,8 +111,10 @@ const columns = [
       },
     }) => {
       const selectors = getValue();
-      const selectorId = selectors.find((s) => s.type !== "object")?.data;
-      const route = getRoute(resourceType, selectorId);
+      const selectorId = selectors.find(
+        (s: Selector) => s.type !== "object"
+      )?.data;
+      const route = getResourceRoute(resourceType, selectorId);
 
       return route ? <IdLink to={route}>{selectorId}</IdLink> : selectorId;
     },
@@ -170,36 +142,10 @@ const columns = [
   },
 ];
 
-const getRoute = (resourceType: ResourceType, id: string) => {
-  if (!id) {
-    return "";
-  }
-
-  switch (resourceType) {
-    case ResourceType.Build:
-    case ResourceType.Version:
-      return getVersionRoute(id);
-    case ResourceType.Patch:
-      return getPatchRoute(id, { configure: false });
-    case ResourceType.Task:
-      return getTaskRoute(id);
-    case ResourceType.Host:
-      return getHostRoute(id);
-    case ResourceType.CommitQueue:
-      return getCommitQueueRoute(id);
-    default:
-      return "";
-  }
-};
-
 const IdLink = styled(StyledRouterLink)`
   span {
     max-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-`;
-
-const TriggerDataBlock = styled.pre`
-  padding: ${size.s} ${size.l};
 `;
