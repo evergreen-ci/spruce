@@ -293,7 +293,5 @@ const StyledButton = styled(Button)`
 const FlexRow = styled.div`
   display: flex;
   flex-direction: row;
-  gap: ${size.m};
-  /* Fill the entire container width */
-  width: 100%;
+  gap: ${size.s};
 `;
