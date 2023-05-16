@@ -56,7 +56,6 @@ import GET_TASK_STATUSES from "./get-task-statuses.graphql";
 import GET_TASK_TEST_SAMPLE from "./get-task-test-sample.graphql";
 import GET_TASK_TESTS from "./get-task-tests.graphql";
 import GET_TASK from "./get-task.graphql";
-import GET_TESTS from "./get-tests.graphql";
 import GET_UNSCHEDULED_TASKS from "./get-undispatched-tasks.graphql";
 import GET_USER_CONFIG from "./get-user-config.graphql";
 import GET_USER_PERMISSIONS from "./get-user-permissions.graphql";
@@ -138,7 +137,6 @@ export {
   GET_TASK_TEST_SAMPLE,
   GET_TASK_TESTS,
   GET_TASK,
-  GET_TESTS,
   GET_UNSCHEDULED_TASKS,
   GET_USER_CONFIG,
   GET_USER_PATCHES,

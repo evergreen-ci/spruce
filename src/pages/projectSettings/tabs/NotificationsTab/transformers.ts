@@ -2,9 +2,9 @@ import { ProjectSettingsTabRoutes } from "constants/routes";
 import { getSubscriberText } from "constants/subscription";
 import { projectTriggers } from "constants/triggers";
 import {
+  BannerTheme,
   ProjectInput,
   SubscriptionInput,
-  BannerTheme,
 } from "gql/generated/types";
 import { TriggerType } from "types/triggers";
 import { string } from "utils";

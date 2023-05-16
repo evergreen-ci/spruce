@@ -244,18 +244,19 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                       >
                         <div
                           aria-label="chart-select"
-                          class="css-1ny7bse-StyledRadioGroup e1d5uzqe2"
+                          class="leafygreen-ui-14o8ny9 css-fmpatj-StyledRadioGroup e1d5uzqe2"
                           role="group"
                         >
                           <div
-                            class="leafygreen-ui-3n5lp7"
+                            class="leafygreen-ui-jpwlig"
                           >
                             <label
-                              class="leafygreen-ui-1oju0e3"
+                              class="leafygreen-ui-1465lnm"
                               for="chart-radio-absolute"
                             >
                               <input
                                 aria-checked="true"
+                                aria-describedby="undefined-undefined"
                                 aria-disabled="false"
                                 checked=""
                                 class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
@@ -272,19 +273,18 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                                   class="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
                                 />
                               </div>
-                              <div>
-                                Absolute Number
-                              </div>
+                              Absolute Number
                             </label>
                           </div>
                           <div
-                            class="leafygreen-ui-3n5lp7"
+                            class="leafygreen-ui-jpwlig"
                           >
                             <label
-                              class="leafygreen-ui-1oju0e3"
+                              class="leafygreen-ui-1465lnm"
                               for="chart-radio-percent"
                             >
                               <input
+                                aria-describedby="undefined-undefined"
                                 aria-disabled="false"
                                 class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                                 data-cy="cy-chart-percent-radio"
@@ -300,9 +300,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                                   class="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
                                 />
                               </div>
-                              <div>
-                                Percentage
-                              </div>
+                              Percentage
                             </label>
                           </div>
                         </div>
@@ -374,7 +372,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                  add ssh key to EditSpawnHos...
               </p>
               <small
-                class="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
+                class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
               >
                 more
               </small>
@@ -419,7 +417,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 Triggered From Git Tag 'v2.11.1': v2....
               </p>
               <small
-                class="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
+                class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
               >
                 more
               </small>
@@ -497,7 +495,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                  Correctly visit configure p...
               </p>
               <small
-                class="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
+                class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
               >
                 more
               </small>
@@ -542,7 +540,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 Remove navigation announcement toast ...
               </p>
               <small
-                class="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
+                class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
               >
                 more
               </small>
@@ -587,7 +585,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 Triggered From Git Tag 'v2.11.0': v2....
               </p>
               <small
-                class="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
+                class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
               >
                 more
               </small>

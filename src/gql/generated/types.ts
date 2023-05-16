@@ -1297,7 +1297,7 @@ export type ProjectEventSettings = {
   projectRef?: Maybe<Project>;
   /** @deprecated Use subscriptions instead */
   projectSubscriptions?: Maybe<Array<ProjectSubscription>>;
-  subscriptions?: Maybe<Array<ProjectSubscription>>;
+  subscriptions?: Maybe<Array<GeneralSubscription>>;
   vars?: Maybe<ProjectVars>;
 };
 
@@ -1365,7 +1365,7 @@ export type ProjectSettings = {
   projectRef?: Maybe<Project>;
   /** @deprecated Use subscriptions instead */
   projectSubscriptions?: Maybe<Array<ProjectSubscription>>;
-  subscriptions?: Maybe<Array<ProjectSubscription>>;
+  subscriptions?: Maybe<Array<GeneralSubscription>>;
   vars?: Maybe<ProjectVars>;
 };
 
@@ -1725,7 +1725,7 @@ export type RepoSettings = {
   projectRef?: Maybe<RepoRef>;
   /** @deprecated Use subscriptions instead */
   projectSubscriptions?: Maybe<Array<ProjectSubscription>>;
-  subscriptions?: Maybe<Array<ProjectSubscription>>;
+  subscriptions?: Maybe<Array<GeneralSubscription>>;
   vars?: Maybe<ProjectVars>;
 };
 
@@ -3794,7 +3794,7 @@ export type ProjectEventSettingsFragment = {
       message: string;
     };
   }>;
-  subscriptions?: Maybe<
+  projectSubscriptions?: Maybe<
     Array<{
       __typename?: "ProjectSubscription";
       id: string;
@@ -4621,15 +4621,20 @@ export type FailedTaskStatusIconTooltipQueryVariables = Exact<{
 
 export type FailedTaskStatusIconTooltipQuery = {
   __typename?: "Query";
-  taskTests: {
-    __typename?: "TaskTestResult";
-    filteredTestCount: number;
-    testResults: Array<{
-      __typename?: "TestResult";
-      id: string;
-      testFile: string;
-    }>;
-  };
+  task?: Maybe<{
+    __typename?: "Task";
+    execution: number;
+    id: string;
+    tests: {
+      __typename?: "TaskTestResult";
+      filteredTestCount: number;
+      testResults: Array<{
+        __typename?: "TestResult";
+        id: string;
+        testFile: string;
+      }>;
+    };
+  }>;
 };
 
 export type AgentLogsQueryVariables = Exact<{
@@ -6022,7 +6027,7 @@ export type ProjectEventLogsQuery = {
             message: string;
           };
         }>;
-        subscriptions?: Maybe<
+        projectSubscriptions?: Maybe<
           Array<{
             __typename?: "ProjectSubscription";
             id: string;
@@ -6236,7 +6241,7 @@ export type ProjectEventLogsQuery = {
             message: string;
           };
         }>;
-        subscriptions?: Maybe<
+        projectSubscriptions?: Maybe<
           Array<{
             __typename?: "ProjectSubscription";
             id: string;
@@ -6726,7 +6731,7 @@ export type RepoEventLogsQuery = {
             message: string;
           };
         }>;
-        subscriptions?: Maybe<
+        projectSubscriptions?: Maybe<
           Array<{
             __typename?: "ProjectSubscription";
             id: string;
@@ -6940,7 +6945,7 @@ export type RepoEventLogsQuery = {
             message: string;
           };
         }>;
-        subscriptions?: Maybe<
+        projectSubscriptions?: Maybe<
           Array<{
             __typename?: "ProjectSubscription";
             id: string;
@@ -7432,38 +7437,42 @@ export type TaskTestSampleQuery = {
 };
 
 export type TaskTestsQueryVariables = Exact<{
-  dir?: InputMaybe<SortDirection>;
   id: Scalars["String"];
-  cat?: InputMaybe<TestSortCategory>;
+  execution?: InputMaybe<Scalars["Int"]>;
   pageNum?: InputMaybe<Scalars["Int"]>;
   limitNum?: InputMaybe<Scalars["Int"]>;
   statusList: Array<Scalars["String"]>;
+  sort?: InputMaybe<Array<TestSortOptions>>;
   testName: Scalars["String"];
-  execution?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type TaskTestsQuery = {
   __typename?: "Query";
-  taskTests: {
-    __typename?: "TaskTestResult";
-    filteredTestCount: number;
-    totalTestCount: number;
-    testResults: Array<{
-      __typename?: "TestResult";
-      baseStatus?: Maybe<string>;
-      duration?: Maybe<number>;
-      id: string;
-      status: string;
-      testFile: string;
-      logs: {
-        __typename?: "TestLog";
-        url?: Maybe<string>;
-        urlLobster?: Maybe<string>;
-        urlParsley?: Maybe<string>;
-        urlRaw?: Maybe<string>;
-      };
-    }>;
-  };
+  task?: Maybe<{
+    __typename?: "Task";
+    execution: number;
+    id: string;
+    tests: {
+      __typename?: "TaskTestResult";
+      filteredTestCount: number;
+      totalTestCount: number;
+      testResults: Array<{
+        __typename?: "TestResult";
+        baseStatus?: Maybe<string>;
+        duration?: Maybe<number>;
+        id: string;
+        status: string;
+        testFile: string;
+        logs: {
+          __typename?: "TestLog";
+          url?: Maybe<string>;
+          urlLobster?: Maybe<string>;
+          urlParsley?: Maybe<string>;
+          urlRaw?: Maybe<string>;
+        };
+      }>;
+    };
+  }>;
 };
 
 export type TaskQueryVariables = Exact<{
@@ -7661,33 +7670,6 @@ export type TaskQuery = {
       revision: string;
     };
   }>;
-};
-
-export type TestsQueryVariables = Exact<{
-  execution?: InputMaybe<Scalars["Int"]>;
-  groupId?: InputMaybe<Scalars["String"]>;
-  taskId: Scalars["String"];
-  pageNum?: InputMaybe<Scalars["Int"]>;
-  limitNum?: InputMaybe<Scalars["Int"]>;
-  testName?: InputMaybe<Scalars["String"]>;
-}>;
-
-export type TestsQuery = {
-  __typename?: "Query";
-  taskTests: {
-    __typename?: "TaskTestResult";
-    filteredTestCount: number;
-    testResults: Array<{
-      __typename?: "TestResult";
-      id: string;
-      testFile: string;
-      logs: {
-        __typename?: "TestLog";
-        url?: Maybe<string>;
-        urlParsley?: Maybe<string>;
-      };
-    }>;
-  };
 };
 
 export type UndispatchedTasksQueryVariables = Exact<{

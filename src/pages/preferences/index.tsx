@@ -1,5 +1,5 @@
 import Icon from "@leafygreen-ui/icon";
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { usePreferencesAnalytics } from "analytics";
 import {
   SideNav,
@@ -15,14 +15,7 @@ const Preferences: React.VFC = () => {
   usePageTitle("Preferences");
   const { tab } = useParams<{ tab: string }>();
   const { sendEvent } = usePreferencesAnalytics();
-  if (!tabRouteValues.includes(tab as PreferencesTabRoutes)) {
-    return (
-      <Navigate
-        replace
-        to={getPreferencesRoute(PreferencesTabRoutes.Profile)}
-      />
-    );
-  }
+
   return (
     <>
       <SideNav aria-label="Preferences">
@@ -105,7 +98,5 @@ const Preferences: React.VFC = () => {
     </>
   );
 };
-
-const tabRouteValues = Object.values(PreferencesTabRoutes);
 
 export default Preferences;

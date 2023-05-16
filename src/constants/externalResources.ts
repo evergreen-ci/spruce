@@ -8,7 +8,7 @@ export const wikiBaseUrl =
 
 export const wikiUrl = `${wikiBaseUrl}/Home`;
 
-export const projectDistroSettingsDocumentationUrl = `${wikiBaseUrl}/Configure%20a%20Project/Project-and-Distro-Settings`;
+export const projectDistroSettingsDocumentationUrl = `${wikiBaseUrl}/Configure-a-Project/Project-and-Distro-Settings`;
 
 export const versionControlDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#version-control`;
 

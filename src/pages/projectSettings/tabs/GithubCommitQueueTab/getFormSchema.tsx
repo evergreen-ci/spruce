@@ -559,8 +559,8 @@ const PRAliasesDescription = (
     <StyledLink href={pullRequestAliasesDocumentationUrl}>
       may be defined
     </StyledLink>{" "}
-    in this project&rsquo;s config YAML instead, and will be active if no
-    aliases are defined on the project or repo page.
+    in this project&rsquo;s config YAML instead if Version Control is enabled
+    and no aliases are defined on the project or repo page.
   </>
 );
 
@@ -571,8 +571,8 @@ const CommitQueueAliasesDescription = (
     <StyledLink href={commitQueueAliasesDocumentationUrl}>
       may be defined
     </StyledLink>{" "}
-    in this project&rsquo;s config YAML instead, and will be active if no
-    aliases are defined on the project or repo page.
+    in this project&rsquo;s config YAML instead if Version Control is enabled
+    and no aliases are defined on the project or repo page.
   </>
 );
 
@@ -584,8 +584,8 @@ const GitTagAliasesDescription = (
     for one or more of them, the version is ambiguous and no version will be
     created. These aliases{" "}
     <StyledLink href={gitTagAliasesDocumentationUrl}>may be defined</StyledLink>{" "}
-    in this project&rsquo;s config YAML instead, and will be active if no
-    aliases are defined on the project or repo page.
+    in this project&rsquo;s config YAML instead if Version Control is enabled
+    and no aliases are defined on the project or repo page.
   </>
 );
 
@@ -597,7 +597,7 @@ const GitHubChecksAliasesDescription = (
     <StyledLink href={githubChecksAliasesDocumentationUrl}>
       may be defined
     </StyledLink>{" "}
-    in this project&rsquo;s config YAML instead, and will be active if no
-    aliases are defined on the project or repo page.
+    in this project&rsquo;s config YAML instead if Version Control is enabled
+    and no aliases are defined on the project or repo page.
   </>
 );

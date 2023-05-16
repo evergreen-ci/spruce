@@ -52,7 +52,12 @@ const Spawn: React.VFC = () => {
         <Routes>
           <Route path={SpawnTab.Host} element={<SpawnHost />} />
           <Route path={SpawnTab.Volume} element={<SpawnVolume />} />
-          <Route path="*" element={<Navigate to={SpawnTab.Host} replace />} />
+          <Route
+            path="*"
+            element={
+              <Navigate to={`${routes.spawn}/${SpawnTab.Host}`} replace />
+            }
+          />
         </Routes>
       </PageWrapper>
     </>

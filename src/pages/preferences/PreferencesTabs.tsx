@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Body, H2 } from "@leafygreen-ui/typography";
 import { Route, Routes, useParams, Navigate } from "react-router-dom";
-import { PreferencesTabRoutes } from "constants/routes";
+import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { CliTab } from "./preferencesTabs/CliTab";
 import { NewUITab } from "./preferencesTabs/NewUITab";
@@ -62,7 +62,12 @@ export const PreferencesTabs: React.VFC = () => {
         />
         <Route
           path="*"
-          element={<Navigate to={PreferencesTabRoutes.Profile} replace />}
+          element={
+            <Navigate
+              to={getPreferencesRoute(PreferencesTabRoutes.Profile)}
+              replace
+            />
+          }
         />
       </Routes>
     </>

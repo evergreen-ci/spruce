@@ -86,8 +86,9 @@ export const Task = () => {
       <ProjectBanner projectIdentifier={versionMetadata?.projectIdentifier} />
       {task && (
         <TaskPageBreadcrumbs
-          taskName={displayName}
+          displayTask={displayTask}
           patchNumber={patchNumber}
+          taskName={displayName}
           versionMetadata={versionMetadata}
         />
       )}
