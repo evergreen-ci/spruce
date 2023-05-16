@@ -29,6 +29,19 @@ describe("Configure Patch Page", () => {
         .should("have.attr", "data-selected", "true");
     });
 
+    it("should allow canceling a configured patch", () => {
+      cy.visit(`/patch/5ecedafb562343215a7ff297/configure/tasks`);
+      cy.dataCy("cancel-button").should("exist");
+      cy.dataCy("cancel-button").click();
+      cy.location().should((loc) =>
+        expect(loc.pathname).to.eq(`/version/5ecedafb562343215a7ff297/tasks`)
+      );
+    });
+    it("should not allow canceling an unconfigured patch", () => {
+      cy.visit(`/patch/${unactivatedPatchId}/configure/tasks`);
+      cy.dataCy("cancel-button").should("not.exist");
+    });
+
     describe("Visiting configure page from a redirect", () => {
       it("should default to the tasks tab when there isn't one in the url", () => {
         cy.visit(`/patch/${unactivatedPatchId}/configure`);
