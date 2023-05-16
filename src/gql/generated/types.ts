@@ -1297,7 +1297,7 @@ export type ProjectEventSettings = {
   projectRef?: Maybe<Project>;
   /** @deprecated Use subscriptions instead */
   projectSubscriptions?: Maybe<Array<ProjectSubscription>>;
-  subscriptions?: Maybe<Array<ProjectSubscription>>;
+  subscriptions?: Maybe<Array<GeneralSubscription>>;
   vars?: Maybe<ProjectVars>;
 };
 
@@ -1365,7 +1365,7 @@ export type ProjectSettings = {
   projectRef?: Maybe<Project>;
   /** @deprecated Use subscriptions instead */
   projectSubscriptions?: Maybe<Array<ProjectSubscription>>;
-  subscriptions?: Maybe<Array<ProjectSubscription>>;
+  subscriptions?: Maybe<Array<GeneralSubscription>>;
   vars?: Maybe<ProjectVars>;
 };
 
@@ -1725,7 +1725,7 @@ export type RepoSettings = {
   projectRef?: Maybe<RepoRef>;
   /** @deprecated Use subscriptions instead */
   projectSubscriptions?: Maybe<Array<ProjectSubscription>>;
-  subscriptions?: Maybe<Array<ProjectSubscription>>;
+  subscriptions?: Maybe<Array<GeneralSubscription>>;
   vars?: Maybe<ProjectVars>;
 };
 

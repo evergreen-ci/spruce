@@ -57,6 +57,7 @@ const GridContainer = styled.div`
 const NotificationMethod = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: ${size.xs};
   gap: ${size.l};
   grid-column: 2;
   grid-row: 1;
@@ -64,15 +65,15 @@ const NotificationMethod = styled.div`
 
 const NotificationEvent = styled.span<{ row: number }>`
   font-size: ${fontSize.m};
-  margin-top: ${size.xs};
+  margin-bottom: ${size.s};
   grid-column: 1;
   grid-row: ${({ row }) => row + 2};
 `;
 
 const StyledRadioGroup = styled(RadioGroup)<{ row: number }>`
   display: flex;
+  flex-direction: row;
   gap: ${size.l};
-  align-items: baseline;
   grid-column: 2;
   grid-row: ${({ row }) => row + 2};
 `;
