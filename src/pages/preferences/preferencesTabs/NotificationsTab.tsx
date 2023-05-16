@@ -6,6 +6,7 @@ import TextInput from "@leafygreen-ui/text-input";
 import { Skeleton } from "antd";
 import isEqual from "lodash.isequal";
 import { usePreferencesAnalytics } from "analytics";
+import { SettingsCard } from "components/SettingsCard";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -14,7 +15,6 @@ import {
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettings } from "hooks";
-import { PreferencesCard } from "pages/preferences/Card";
 import { string } from "utils";
 import { ClearSubscriptionsCard } from "./notificationTab/ClearSubscriptionsCard";
 import { NotificationField } from "./notificationTab/NotificationField";
@@ -87,7 +87,7 @@ export const NotificationsTab: React.VFC = () => {
   const newPayload = omitTypename(notificationStatus);
   return (
     <>
-      <PreferencesCard>
+      <SettingsCard>
         <StyledTextInput
           label="Slack Username"
           onChange={handleFieldUpdate(setSlackUsernameField)}
@@ -114,7 +114,7 @@ export const NotificationsTab: React.VFC = () => {
         >
           Save Changes
         </Button>
-      </PreferencesCard>
+      </SettingsCard>
       <UserSubscriptions />
       <ClearSubscriptionsCard />
     </>

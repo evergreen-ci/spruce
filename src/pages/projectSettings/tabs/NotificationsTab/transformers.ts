@@ -76,7 +76,7 @@ const getHttpHeaders = (headers: { key: string; value: string }[]) =>
 
 export const gqlToForm: GqlToFormFunction<Tab> = (data, { projectType }) => {
   if (!data) return null;
-  const { projectRef, subscriptions } = data;
+  const { projectRef, projectSubscriptions: subscriptions } = data;
   return {
     ...(projectType !== ProjectType.Repo &&
       "banner" in projectRef && {

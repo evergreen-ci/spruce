@@ -11,6 +11,7 @@ import {
 import { Skeleton } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
+import { SettingsCard } from "components/SettingsCard";
 import { StyledLink } from "components/styles";
 import { cliDocumentationUrl } from "constants/externalResources";
 import { size, fontSize } from "constants/tokens";
@@ -20,7 +21,6 @@ import {
   ClientBinary,
 } from "gql/generated/types";
 import { GET_CLIENT_CONFIG } from "gql/queries";
-import { PreferencesCard } from "pages/preferences/Card";
 import { CardType, SubtitleType } from "types/leafygreen";
 
 export const DownloadCard = () => {
@@ -40,7 +40,7 @@ export const DownloadCard = () => {
   );
 
   return (
-    <PreferencesCard>
+    <SettingsCard>
       <Subtitle>Command-Line Client</Subtitle>
       <CardDescription>
         <Body>
@@ -66,7 +66,7 @@ export const DownloadCard = () => {
       <Accordion title="Show More" toggledTitle="Show Less">
         <ExpandableLinkContents clientBinaries={otherBinaries} />
       </Accordion>
-    </PreferencesCard>
+    </SettingsCard>
   );
 };
 

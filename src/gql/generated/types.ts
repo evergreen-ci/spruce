@@ -3184,7 +3184,7 @@ export type ProjectSettingsFieldsFragment = {
       message: string;
     };
   }>;
-  subscriptions?: Maybe<
+  projectSubscriptions?: Maybe<
     Array<{
       __typename?: "ProjectSubscription";
       id: string;
@@ -3388,7 +3388,7 @@ export type RepoSettingsFieldsFragment = {
       message: string;
     };
   }>;
-  subscriptions?: Maybe<
+  projectSubscriptions?: Maybe<
     Array<{
       __typename?: "ProjectSubscription";
       id: string;
@@ -6467,7 +6467,7 @@ export type ProjectSettingsQuery = {
         message: string;
       };
     }>;
-    subscriptions?: Maybe<
+    projectSubscriptions?: Maybe<
       Array<{
         __typename?: "ProjectSubscription";
         id: string;
@@ -7161,7 +7161,7 @@ export type RepoSettingsQuery = {
         message: string;
       };
     }>;
-    subscriptions?: Maybe<
+    projectSubscriptions?: Maybe<
       Array<{
         __typename?: "ProjectSubscription";
         id: string;

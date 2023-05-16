@@ -37,3 +37,12 @@ export const projectSubscriptionMethods = [
     label: "Create a JIRA Issue",
   },
 ];
+
+// Map a NotificationMethods enum to its label
+export const notificationMethodToCopy = projectSubscriptionMethods.reduce(
+  (obj, { label, value }) => ({
+    ...obj,
+    [value]: label,
+  }),
+  {}
+);
