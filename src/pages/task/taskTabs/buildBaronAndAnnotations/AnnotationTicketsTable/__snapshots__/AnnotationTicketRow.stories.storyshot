@@ -6,13 +6,13 @@ exports[`storybook Storyshots Pages/Task/BuildBaron/AnnotationTicketRow Default 
     data-cy="annotation-ticket-row"
   >
     <a
-      class="lg-ui-0003 ekm0eth2 css-8qzidg-StyledLink-JiraSummaryLink leafygreen-ui-1cn1hqb"
+      class="lg-ui-0001 ekm0eth2 css-8qzidg-StyledLink-JiraSummaryLink leafygreen-ui-abeqz2"
       data-cy="EVG-123"
       href="https://www.google.com"
       target="_blank"
     >
       <span
-        class="leafygreen-ui-baoi4d"
+        class="leafygreen-ui-1ewnca3"
       >
         EVG-123
         : summary
@@ -36,24 +36,24 @@ exports[`storybook Storyshots Pages/Task/BuildBaron/AnnotationTicketRow Default 
       data-cy="EVG-123-metadata"
     >
       <small
-        class="leafygreen-ui-ppjyot"
+        class="leafygreen-ui-6flbwy"
       >
         Created: 
         Jan 2, 2020
       </small>
       <small
-        class="leafygreen-ui-ppjyot"
+        class="leafygreen-ui-6flbwy"
       >
         Updated: 
         Jan 2, 2020
       </small>
       <small
-        class="leafygreen-ui-ppjyot"
+        class="leafygreen-ui-6flbwy"
       >
         Assignee: mohamed.khelif
       </small>
       <small
-        class="leafygreen-ui-ppjyot"
+        class="leafygreen-ui-6flbwy"
       >
         Assigned Team: 
         evg-ui

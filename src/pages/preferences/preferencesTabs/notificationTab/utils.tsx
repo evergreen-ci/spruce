@@ -38,16 +38,22 @@ export const processSubscriptionData = (
               renderExpandedContent: (
                 row: LeafyGreenTableRow<GeneralSubscription>
               ) => (
-                <TriggerDataBlock>
-                  {hasTriggerData &&
-                    JSON.stringify(row.original.triggerData, null, 2)}
-                  {hasRegexSelectors &&
-                    JSON.stringify(
-                      formatRegexSelectors(row.original.regexSelectors),
-                      null,
-                      2
-                    )}
-                </TriggerDataBlock>
+                <ExpandedBlock data-cy="expanded-block">
+                  {hasTriggerData && (
+                    <div data-cy="trigger-data">
+                      {JSON.stringify(row.original.triggerData, null, 2)}
+                    </div>
+                  )}
+                  {hasRegexSelectors && (
+                    <div data-cy="regex-selectors">
+                      {JSON.stringify(
+                        formatRegexSelectors(row.original.regexSelectors),
+                        null,
+                        2
+                      )}
+                    </div>
+                  )}
+                </ExpandedBlock>
               ),
             }
           : subscription;
@@ -55,7 +61,7 @@ export const processSubscriptionData = (
   );
 };
 
-const TriggerDataBlock = styled.pre`
+const ExpandedBlock = styled.pre`
   padding: ${size.s} ${size.l};
 `;
 

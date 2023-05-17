@@ -29,7 +29,7 @@ exports[`storybook Storyshots components/TaskStatusIconLegend Legend Only 1`] = 
         class="css-wx7pa1-LabelContainer e1yp16pl2"
       >
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           Succeeded
         </small>
@@ -54,7 +54,7 @@ exports[`storybook Storyshots components/TaskStatusIconLegend Legend Only 1`] = 
         class="css-wx7pa1-LabelContainer e1yp16pl2"
       >
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           Failed
         </small>
@@ -80,7 +80,7 @@ exports[`storybook Storyshots components/TaskStatusIconLegend Legend Only 1`] = 
         class="css-wx7pa1-LabelContainer e1yp16pl2"
       >
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           Known Issue
         </small>
@@ -117,7 +117,7 @@ exports[`storybook Storyshots components/TaskStatusIconLegend Legend Only 1`] = 
         class="css-wx7pa1-LabelContainer e1yp16pl2"
       >
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           Setup Failed
         </small>
@@ -146,12 +146,12 @@ exports[`storybook Storyshots components/TaskStatusIconLegend Legend Only 1`] = 
         class="css-wx7pa1-LabelContainer e1yp16pl2"
       >
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           Test Timed Out
         </small>
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           Task Timed Out
         </small>
@@ -179,12 +179,12 @@ exports[`storybook Storyshots components/TaskStatusIconLegend Legend Only 1`] = 
         class="css-wx7pa1-LabelContainer e1yp16pl2"
       >
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           Dispatched
         </small>
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           Running
         </small>
@@ -214,17 +214,17 @@ exports[`storybook Storyshots components/TaskStatusIconLegend Legend Only 1`] = 
         class="css-wx7pa1-LabelContainer e1yp16pl2"
       >
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           Will Run
         </small>
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           Pending
         </small>
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           Unstarted
         </small>
@@ -254,17 +254,17 @@ exports[`storybook Storyshots components/TaskStatusIconLegend Legend Only 1`] = 
         class="css-wx7pa1-LabelContainer e1yp16pl2"
       >
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           System Unresponsive
         </small>
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           System Timed Out
         </small>
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           System Failed
         </small>
@@ -301,27 +301,27 @@ exports[`storybook Storyshots components/TaskStatusIconLegend Legend Only 1`] = 
         class="css-wx7pa1-LabelContainer e1yp16pl2"
       >
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           Aborted
         </small>
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           Blocked
         </small>
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           Unscheduled
         </small>
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           Inactive
         </small>
         <small
-          class="leafygreen-ui-ppjyot"
+          class="leafygreen-ui-6flbwy"
         >
           Undispatched
         </small>

@@ -74,7 +74,7 @@ export const UserSubscriptions: React.VFC<{}> = () => {
           </TableHead>
           <TableBody>
             {rows.map((row: LeafyGreenTableRow<GeneralSubscription>) => (
-              <Row key={row.id} row={row}>
+              <Row key={row.id} row={row} data-cy="subscription-row">
                 {row.getVisibleCells().map((cell) => (
                   <Cell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

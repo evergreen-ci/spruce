@@ -4,12 +4,12 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
 <div>
   <div>
     <h3
-      class="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
+      class="css-1d9n1kx-SettingsCardTitle e1h7idos1 leafygreen-ui-feh85s"
     >
       Distro Projects
     </h3>
     <div
-      class="css-133ss97-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
+      class="css-soq0i3-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
     >
       <form
         class="rjsf"
@@ -96,7 +96,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
               id=" root_expansions"
             >
               <h6
-                class="css-ho1tq1-StyledSubtitle e63qz861 leafygreen-ui-41zalo"
+                class="css-ho1tq1-StyledSubtitle e63qz861 leafygreen-ui-19p3n10"
                 id="root_expansions__title"
               >
                 Expansions
@@ -169,8 +169,8 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                                 class="leafygreen-ui-a533bt"
                               >
                                 <label
-                                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
-                                  for="textinput-10"
+                                  class="leafygreen-ui-gr5280"
+                                  for="textinput-16"
                                 >
                                   key
                                 </label>
@@ -183,7 +183,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                                   aria-label="key"
                                   autocomplete="on"
                                   class="leafygreen-ui-6i61vl"
-                                  id="textinput-10"
+                                  id="textinput-16"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -213,8 +213,8 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                                 class="leafygreen-ui-a533bt"
                               >
                                 <label
-                                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
-                                  for="textinput-11"
+                                  class="leafygreen-ui-gr5280"
+                                  for="textinput-17"
                                 >
                                   value
                                 </label>
@@ -227,7 +227,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                                   aria-label="value"
                                   autocomplete="on"
                                   class="leafygreen-ui-6i61vl"
-                                  id="textinput-11"
+                                  id="textinput-17"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -316,12 +316,12 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
 <div>
   <div>
     <h3
-      class="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
+      class="css-1d9n1kx-SettingsCardTitle e1h7idos1 leafygreen-ui-feh85s"
     >
       Admin Options
     </h3>
     <div
-      class="css-133ss97-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
+      class="css-soq0i3-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
     >
       <form
         class="rjsf"
@@ -645,12 +645,12 @@ exports[`storybook Storyshots components/SpruceForm Example 3 1`] = `
 <div>
   <div>
     <h3
-      class="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
+      class="css-1d9n1kx-SettingsCardTitle e1h7idos1 leafygreen-ui-feh85s"
     >
       UI Options
     </h3>
     <div
-      class="css-133ss97-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
+      class="css-soq0i3-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
     >
       <form
         class="rjsf"
