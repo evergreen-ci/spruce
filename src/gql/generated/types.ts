@@ -715,6 +715,8 @@ export type Mutation = {
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"];
   setPatchPriority?: Maybe<Scalars["String"]>;
+  /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
+  setPatchVisibility: Array<Patch>;
   setTaskPriority: Task;
   spawnHost: Host;
   spawnVolume: Scalars["Boolean"];
@@ -918,6 +920,11 @@ export type MutationSetPatchPriorityArgs = {
   priority: Scalars["Int"];
 };
 
+export type MutationSetPatchVisibilityArgs = {
+  hidden: Scalars["Boolean"];
+  patchIds: Array<Scalars["String"]>;
+};
+
 export type MutationSetTaskPriorityArgs = {
   priority: Scalars["Int"];
   taskId: Scalars["String"];
@@ -1023,6 +1030,7 @@ export type Patch = {
   description: Scalars["String"];
   duration?: Maybe<PatchDuration>;
   githash: Scalars["String"];
+  hidden: Scalars["Boolean"];
   id: Scalars["ID"];
   moduleCodeChanges: Array<ModuleCodeChange>;
   parameters: Array<Parameter>;
@@ -1475,7 +1483,6 @@ export type Query = {
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]>>;
   taskQueueDistros: Array<TaskQueueDistro>;
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
-  taskTests: TaskTestResult;
   user: User;
   userConfig?: Maybe<UserConfig>;
   userSettings?: Maybe<UserSettings>;
@@ -1598,18 +1605,6 @@ export type QueryTaskNamesForBuildVariantArgs = {
 export type QueryTaskTestSampleArgs = {
   filters: Array<TestFilter>;
   tasks: Array<Scalars["String"]>;
-};
-
-export type QueryTaskTestsArgs = {
-  execution?: InputMaybe<Scalars["Int"]>;
-  groupId?: InputMaybe<Scalars["String"]>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  page?: InputMaybe<Scalars["Int"]>;
-  sortCategory?: InputMaybe<TestSortCategory>;
-  sortDirection?: InputMaybe<SortDirection>;
-  statuses?: Array<Scalars["String"]>;
-  taskId: Scalars["String"];
-  testName?: InputMaybe<Scalars["String"]>;
 };
 
 export type QueryUserArgs = {
@@ -2178,7 +2173,7 @@ export type TaskSyncOptionsInput = {
 };
 
 /**
- * TaskTestResult is the return value for the taskTests query.
+ * TaskTestResult is the return value for the task.Tests resolver.
  * It contains the test results for a task. For example, if there is a task to run all unit tests, then the test results
  * could be the result of each individual unit test.
  */
