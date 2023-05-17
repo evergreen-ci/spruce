@@ -17,13 +17,12 @@ const testSharedSubscriptionModalFunctionality = (
       cy.selectLGOption("Notification Method", "JIRA issue");
 
       cy.dataCy("jira-comment-input").type("EVG-2000");
-      cy.contains("button", "Save").should("not.be.disabled");
       cy.contains("button", "Save").click();
       cy.validateToast("success", successText);
     });
 
     describe("Disables save button and displays an error message when populating form with invalid values", () => {
-      before(() => {
+      beforeEach(() => {
         openSubscriptionModal(route, dataCyToggleModalButton);
         cy.dataCy(dataCyModal).should("be.visible");
       });
@@ -33,9 +32,9 @@ const testSharedSubscriptionModalFunctionality = (
         cy.dataCy("percent-change-input").clear().type("-100");
         cy.dataCy("jira-comment-input").type("EVG-2000");
         cy.contains(errorTextPercent).should("exist");
-        cy.contains("button", "Save").should("be.disabled");
+        saveButtonEnabled(false);
         cy.dataCy("percent-change-input").clear().type("100");
-        cy.contains("button", "Save").should("not.be.disabled");
+        saveButtonEnabled();
         cy.dataCy("jira-comment-input").clear();
       });
       it("has an invalid duration value", () => {
@@ -43,34 +42,34 @@ const testSharedSubscriptionModalFunctionality = (
         cy.dataCy("duration-secs-input").clear().type("-100");
         cy.dataCy("jira-comment-input").type("EVG-2000");
         cy.contains(errorTextDuration).should("exist");
-        cy.contains("button", "Save").should("be.disabled");
+        saveButtonEnabled(false);
         cy.dataCy("duration-secs-input").clear().type("100");
-        cy.contains("button", "Save").should("not.be.disabled");
+        saveButtonEnabled();
         cy.dataCy("jira-comment-input").clear();
       });
       it("has an invalid jira ticket", () => {
         cy.dataCy("jira-comment-input").type("E");
-        cy.contains("button", "Save").should("be.disabled");
+        saveButtonEnabled(false);
         cy.dataCy("jira-comment-input").type("EVG-100");
-        cy.contains("button", "Save").should("not.be.disabled");
+        saveButtonEnabled();
         cy.dataCy("jira-comment-input").clear();
       });
       it("has an invalid email", () => {
         cy.selectLGOption("Notification Method", "Email");
         cy.dataCy("email-input").clear();
         cy.dataCy("email-input").type("arst");
-        cy.contains("button", "Save").should("be.disabled");
+        saveButtonEnabled(false);
         cy.dataCy("email-input").type("rat@rast.com");
-        cy.contains("button", "Save").should("not.be.disabled");
+        saveButtonEnabled();
       });
       it("has an invalid slack username", () => {
         cy.selectLGOption("Notification Method", "Slack message");
         cy.dataCy("slack-input").clear();
         cy.dataCy("slack-input").type("sa rt");
-        cy.contains("button", "Save").should("be.disabled");
+        saveButtonEnabled(false);
         cy.dataCy("slack-input").clear();
         cy.dataCy("slack-input").type("@sart");
-        cy.contains("button", "Save").should("not.be.disabled");
+        saveButtonEnabled();
       });
     });
 
@@ -139,7 +138,7 @@ describe("Waterfall subscription modal", () => {
   const errorTextRegex = "Value should be a valid regex expression.";
   const successText = "Your subscription has been added";
 
-  before(() => {
+  beforeEach(() => {
     cy.visit(route);
   });
   it("Displays success toast after submitting a valid form and request succeeds", () => {
@@ -151,7 +150,7 @@ describe("Waterfall subscription modal", () => {
     cy.selectLGOption("Notification Method", "JIRA issue");
 
     cy.dataCy("jira-comment-input").type("EVG-2000");
-    cy.contains("button", "Save").should("not.be.disabled");
+    saveButtonEnabled();
     cy.contains("button", "Save").click();
     cy.validateToast("success", successText);
   });
@@ -163,15 +162,14 @@ describe("Waterfall subscription modal", () => {
 
     cy.selectLGOption("Event", "Any Build Finishes");
     cy.dataCy("add-button").click();
-    cy.contains("button", "Save").should("be.disabled");
+    saveButtonEnabled(false);
 
     cy.dataCy("jira-comment-input").type("EVG-2000");
     cy.dataCy("regex-input").type("*.notValidRegex");
     cy.contains(errorTextRegex).should("exist");
-    cy.contains("button", "Save").should("be.disabled");
+    saveButtonEnabled(false);
 
     cy.dataCy("regex-input").clear().type("validRegex");
-    cy.contains("button", "Save").should("not.be.disabled");
     cy.contains("button", "Save").click();
     cy.validateToast("success", successText);
   });
@@ -216,3 +214,11 @@ describe("Waterfall subscription modal", () => {
     cy.clearCookie(triggerCookie);
   });
 });
+
+const saveButtonEnabled = (isEnabled: boolean = true) => {
+  cy.contains("button", "Save").should(
+    isEnabled ? "not.have.attr" : "have.attr",
+    "aria-disabled",
+    "true"
+  );
+};

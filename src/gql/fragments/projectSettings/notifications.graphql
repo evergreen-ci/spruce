@@ -1,54 +1,61 @@
-fragment projectNotificationSettings on Project {
-  notifyOnBuildFailure
-}
-
-fragment repoNotificationSettings on RepoRef {
-  notifyOnBuildFailure
-}
-
-fragment subscriptions on ProjectSubscription {
-  id
-  resourceType
-  trigger
-  selectors {
-    type
-    data
+fragment ProjectNotificationSettings on Project {
+  banner {
+    text
+    theme
   }
+  notifyOnBuildFailure
+}
+
+fragment RepoNotificationSettings on RepoRef {
+  notifyOnBuildFailure
+}
+
+fragment Subscriptions on ProjectSubscription {
+  id
+  ownerType
   regexSelectors {
-    type
     data
+    type
+  }
+  resourceType
+  selectors {
+    data
+    type
   }
   subscriber {
-    type
     subscriber {
-      githubPRSubscriber {
-        owner
-        repo
-        ref
-        prNumber
-      }
+      emailSubscriber
       githubCheckSubscriber {
         owner
-        repo
         ref
+        repo
       }
+      githubPRSubscriber {
+        owner
+        prNumber
+        ref
+        repo
+      }
+      jiraCommentSubscriber
+      jiraIssueSubscriber {
+        issueType
+        project
+      }
+      slackSubscriber
       webhookSubscriber {
-        url
-        secret
         headers {
           key
           value
         }
+        minDelayMs
+        retries
+        secret
+        timeoutMs
+        url
       }
-      jiraIssueSubscriber {
-        project
-        issueType
-      }
-      jiraCommentSubscriber
-      emailSubscriber
-      slackSubscriber
     }
+    type
   }
-  ownerType
+  trigger
   triggerData
 }

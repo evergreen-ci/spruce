@@ -4,10 +4,9 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Field } from "@rjsf/core";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { SpruceForm } from "components/SpruceForm";
 import { size, zIndex } from "constants/tokens";
-import { GetGithubOrgsQuery } from "gql/generated/types";
+import { GithubOrgsQuery } from "gql/generated/types";
 import { GET_GITHUB_ORGS } from "gql/queries";
 import { ProjectType } from "../../utils";
 import { AttachDetachModal } from "./AttachDetachModal";
@@ -37,7 +36,7 @@ export const RepoConfigField: Field = ({
   const ownerOrRepoHasChanges =
     formData.owner !== initialOwner || formData.repo !== initialRepo;
 
-  const { data } = useQuery<GetGithubOrgsQuery>(GET_GITHUB_ORGS);
+  const { data } = useQuery<GithubOrgsQuery>(GET_GITHUB_ORGS);
   const { spruceConfig: { githubOrgs = [] } = {} } = data ?? {};
 
   return (
@@ -71,23 +70,14 @@ export const RepoConfigField: Field = ({
                 />
               </>
             )}
-            <ConditionalWrapper
-              condition={ownerOrRepoHasChanges}
-              wrapper={(children) => (
-                <Tooltip
-                  align="top"
-                  data-cy="attach-repo-disabled-tooltip"
-                  justify="middle"
-                  popoverZIndex={zIndex.popover}
-                  triggerEvent="hover"
-                  trigger={children}
-                >
-                  Project must be saved with new owner/repo before it can be
-                  attached.
-                </Tooltip>
-              )}
-            >
-              <ButtonWrapper data-cy="attach-repo-button-wrapper">
+            <Tooltip
+              align="top"
+              data-cy="attach-repo-disabled-tooltip"
+              enabled={ownerOrRepoHasChanges}
+              justify="middle"
+              popoverZIndex={zIndex.popover}
+              triggerEvent="hover"
+              trigger={
                 <Button
                   size="small"
                   onClick={() => setAttachModalOpen(true)}
@@ -98,8 +88,11 @@ export const RepoConfigField: Field = ({
                     ? "Detach from Current Repo"
                     : "Attach to Current Repo"}
                 </Button>
-              </ButtonWrapper>
-            </ConditionalWrapper>
+              }
+            >
+              Project must be saved with new owner/repo before it can be
+              attached.
+            </Tooltip>
           </ButtonRow>
           <AttachDetachModal
             handleClose={() => setAttachModalOpen(false)}
@@ -121,10 +114,6 @@ const ButtonRow = styled.div`
   > :not(:last-child) {
     margin-right: ${size.xs};
   }
-`;
-
-const ButtonWrapper = styled.div`
-  width: fit-content;
 `;
 
 const Container = styled.div<{ hasButtons: boolean }>`

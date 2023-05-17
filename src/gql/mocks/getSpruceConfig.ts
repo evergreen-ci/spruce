@@ -1,6 +1,14 @@
+import {
+  SpruceConfigQuery,
+  SpruceConfigQueryVariables,
+} from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
+import { ApolloMock } from "types/gql";
 
-export const getSpruceConfigMock = {
+export const getSpruceConfigMock: ApolloMock<
+  SpruceConfigQuery,
+  SpruceConfigQueryVariables
+> = {
   request: {
     query: GET_SPRUCE_CONFIG,
     variables: {},
@@ -11,7 +19,6 @@ export const getSpruceConfigMock = {
         bannerTheme: "warning",
         banner: "",
         ui: {
-          userVoice: "https://feedback.mongodb.com/forums/930019-evergreen",
           defaultProject: "evergreen",
           __typename: "UIConfig",
         },

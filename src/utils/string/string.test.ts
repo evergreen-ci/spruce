@@ -231,30 +231,30 @@ describe("omitTypename", () => {
 
 describe("getDateCopy", () => {
   it("converts strings to a date with no options", () => {
-    expect(getDateCopy("08/31/1996")).toBe("Aug 31, 1996, 12:00:00 AM");
-    expect(getDateCopy("12-23-2014")).toBe("Dec 23, 2014, 12:00:00 AM");
+    expect(getDateCopy("08/31/1996")).toBe("Aug 31, 1996, 12:00:00 AM UTC");
+    expect(getDateCopy("12-23-2014")).toBe("Dec 23, 2014, 12:00:00 AM UTC");
     expect(getDateCopy("2020-11-16T22:17:29")).toBe(
-      "Nov 16, 2020, 10:17:29 PM"
+      "Nov 16, 2020, 10:17:29 PM UTC"
     );
   });
   it("converts strings with a supplied timezone to the users timezone", () => {
     expect(getDateCopy("2020-11-16T22:17:29z")).toBe(
-      "Nov 16, 2020, 10:17:29 PM"
+      "Nov 16, 2020, 10:17:29 PM UTC"
     );
   });
   it("converts date objects to a formatted date with no options", () => {
     expect(getDateCopy(new Date("2020-11-16T22:17:29z"))).toBe(
-      "Nov 16, 2020, 10:17:29 PM"
+      "Nov 16, 2020, 10:17:29 PM UTC"
     );
   });
   it("converts date objects to a supplied timezone", () => {
     expect(getDateCopy("2020-11-16T22:17:29", { tz: "America/New_York" })).toBe(
-      "Nov 16, 2020, 5:17:29 PM"
+      "Nov 16, 2020, 5:17:29 PM EST"
     );
   });
   it("doesn't return seconds when omitSeconds option is true", () => {
     expect(getDateCopy("2020-11-16T22:17:29", { omitSeconds: true })).toBe(
-      "Nov 16, 2020, 10:17 PM"
+      "Nov 16, 2020, 10:17 PM UTC"
     );
   });
   it("returns date only when supplied with the option", () => {

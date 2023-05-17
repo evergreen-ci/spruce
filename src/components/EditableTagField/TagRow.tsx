@@ -2,7 +2,6 @@ import { useReducer, useMemo } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import TextInput from "@leafygreen-ui/text-input";
-import { v4 as uuid } from "uuid";
 import { PlusButton } from "components/Buttons";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
@@ -29,7 +28,7 @@ export const TagRow: React.VFC<TagRowProps> = ({
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState(tag, isNewTag));
 
-  const tagId = useMemo(() => uuid(), []);
+  const tagId = useMemo(() => crypto.randomUUID(), []);
   const { key, value, canSave, isInputValid, shouldShowNewTag } = state;
 
   return (

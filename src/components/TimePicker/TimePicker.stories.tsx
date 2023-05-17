@@ -1,11 +1,13 @@
-import TimePicker from ".";
+import { StoryObj } from "@storybook/react";
+import TimePicker, { TimePickerProps } from ".";
 
 export default {
-  title: "Components/TimePicker",
   component: TimePicker,
+};
+
+export const Default: StoryObj<TimePickerProps> = {
+  render: (args) => <TimePicker {...args} onChange={() => {}} />,
   args: {
     disabled: false,
   },
 };
-
-export const Default = (args) => <TimePicker {...args} onChange={() => {}} />;

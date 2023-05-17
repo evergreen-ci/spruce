@@ -1,202 +1,203 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Pages/Spawn/Spawn Host Card Spawn Host Card Story 1`] = `
-<div
-  className="css-9bhcvs-SiderCard-CardContainer e9wutqn0 leafygreen-ui-1v4ednr"
-  data-cy="spawn-host-card"
->
+exports[`storybook Storyshots Pages/Spawn/Spawn Host Card Default 1`] = `
+<div>
   <div
-    className="css-7hzhkt-FieldContainer e9wutqn2"
+    class="css-9bhcvs-SiderCard-CardContainer e9wutqn0 leafygreen-ui-1v4ednr"
+    data-cy="spawn-host-card"
   >
     <div
-      className="css-o728yg-FieldName e9wutqn1"
+      class="css-7hzhkt-FieldContainer e9wutqn2"
     >
-      ID
+      <div
+        class="css-o728yg-FieldName e9wutqn1"
+      >
+        ID
+      </div>
+      <div>
+        <span>
+          i-04ade558e1e26b0ad
+        </span>
+      </div>
     </div>
-    <div>
-      <span>
-        i-04ade558e1e26b0ad
-      </span>
-    </div>
-  </div>
-  <div
-    className="css-7hzhkt-FieldContainer e9wutqn2"
-  >
     <div
-      className="css-o728yg-FieldName e9wutqn1"
+      class="css-7hzhkt-FieldContainer e9wutqn2"
     >
-      Created at
+      <div
+        class="css-o728yg-FieldName e9wutqn1"
+      >
+        Created at
+      </div>
+      <div>
+        <span>
+          Jun 15, 2020, 11:10:44 AM UTC
+        </span>
+      </div>
     </div>
-    <div>
-      <span>
-        Jun 15, 2020, 11:10:44 AM
-      </span>
-    </div>
-  </div>
-  <div
-    className="css-7hzhkt-FieldContainer e9wutqn2"
-  >
     <div
-      className="css-o728yg-FieldName e9wutqn1"
+      class="css-7hzhkt-FieldContainer e9wutqn2"
     >
-      Started at
+      <div
+        class="css-o728yg-FieldName e9wutqn1"
+      >
+        Started at
+      </div>
+      <div>
+        <span>
+          Jun 15, 2020, 11:10:44 AM UTC
+        </span>
+      </div>
     </div>
-    <div>
-      <span>
-        Jun 15, 2020, 11:10:44 AM
-      </span>
-    </div>
-  </div>
-  <div
-    className="css-7hzhkt-FieldContainer e9wutqn2"
-  >
     <div
-      className="css-o728yg-FieldName e9wutqn1"
+      class="css-7hzhkt-FieldContainer e9wutqn2"
     >
-      Expires at
+      <div
+        class="css-o728yg-FieldName e9wutqn1"
+      >
+        Expires at
+      </div>
+      <div>
+        <span>
+          Does not expire
+        </span>
+      </div>
     </div>
-    <div>
-      <span>
-        Does not expire
-      </span>
-    </div>
-  </div>
-  <div
-    className="css-7hzhkt-FieldContainer e9wutqn2"
-  >
     <div
-      className="css-o728yg-FieldName e9wutqn1"
+      class="css-7hzhkt-FieldContainer e9wutqn2"
     >
-      SSH User
+      <div
+        class="css-o728yg-FieldName e9wutqn1"
+      >
+        SSH User
+      </div>
+      <div>
+        <span>
+          ubuntu
+        </span>
+      </div>
     </div>
-    <div>
-      <span>
-        ubuntu
-      </span>
-    </div>
-  </div>
-  <div
-    className="css-7hzhkt-FieldContainer e9wutqn2"
-  >
     <div
-      className="css-o728yg-FieldName e9wutqn1"
+      class="css-7hzhkt-FieldContainer e9wutqn2"
     >
-      DNS Name
+      <div
+        class="css-o728yg-FieldName e9wutqn1"
+      >
+        DNS Name
+      </div>
+      <div>
+        <span>
+          ec2-54-242-162-135.compute-1.amazonaws.com
+        </span>
+      </div>
     </div>
-    <div>
-      <span>
-        ec2-54-242-162-135.compute-1.amazonaws.com
-      </span>
-    </div>
-  </div>
-  <div
-    className="css-7hzhkt-FieldContainer e9wutqn2"
-  >
     <div
-      className="css-o728yg-FieldName e9wutqn1"
+      class="css-7hzhkt-FieldContainer e9wutqn2"
     >
-      Working Directory
+      <div
+        class="css-o728yg-FieldName e9wutqn1"
+      >
+        Working Directory
+      </div>
+      <div>
+        <span>
+          /home/ubuntu
+        </span>
+      </div>
     </div>
-    <div>
-      <span>
-        /home/ubuntu
-      </span>
-    </div>
-  </div>
-  <div
-    className="css-7hzhkt-FieldContainer e9wutqn2"
-  >
     <div
-      className="css-o728yg-FieldName e9wutqn1"
+      class="css-7hzhkt-FieldContainer e9wutqn2"
     >
-      Availability Zone
+      <div
+        class="css-o728yg-FieldName e9wutqn1"
+      >
+        Availability Zone
+      </div>
+      <div>
+        <span />
+      </div>
     </div>
-    <div>
-      <span />
-    </div>
-  </div>
-  <div
-    className="css-7hzhkt-FieldContainer e9wutqn2"
-  >
     <div
-      className="css-o728yg-FieldName e9wutqn1"
+      class="css-7hzhkt-FieldContainer e9wutqn2"
     >
-      User Tags
+      <div
+        class="css-o728yg-FieldName e9wutqn1"
+      >
+        User Tags
+      </div>
+      <div>
+        <span />
+      </div>
     </div>
-    <div>
-      <span />
-    </div>
-  </div>
-  <div
-    className="css-7hzhkt-FieldContainer e9wutqn2"
-  >
     <div
-      className="css-o728yg-FieldName e9wutqn1"
+      class="css-7hzhkt-FieldContainer e9wutqn2"
     >
-      Instance Type
+      <div
+        class="css-o728yg-FieldName e9wutqn1"
+      >
+        Instance Type
+      </div>
+      <div>
+        <span>
+          m5.xlarge
+        </span>
+      </div>
     </div>
-    <div>
-      <span>
-        m5.xlarge
-      </span>
-    </div>
-  </div>
-  <div
-    className="css-7hzhkt-FieldContainer e9wutqn2"
-  >
     <div
-      className="css-o728yg-FieldName e9wutqn1"
+      class="css-7hzhkt-FieldContainer e9wutqn2"
     >
-      Mounted Volumes
+      <div
+        class="css-o728yg-FieldName e9wutqn1"
+      >
+        Mounted Volumes
+      </div>
+      <div />
     </div>
-    <div />
-  </div>
-  <div
-    className="css-7hzhkt-FieldContainer e9wutqn2"
-  >
     <div
-      className="css-o728yg-FieldName e9wutqn1"
+      class="css-7hzhkt-FieldContainer e9wutqn2"
     >
-      Home Volume
-    </div>
-    <div>
-      <span>
-        <a
-          className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
-          href="/spawn/volume?volume=vol-0ea662ac92f611ed4"
-          onClick={[Function]}
-        >
-          <span
-            className="leafygreen-ui-1ewnca3"
+      <div
+        class="css-o728yg-FieldName e9wutqn1"
+      >
+        Home Volume
+      </div>
+      <div>
+        <span>
+          <a
+            class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+            href="/spawn/volume?volume=vol-0ea662ac92f611ed4"
           >
-            vol-0ea662ac92f611ed4
-          </span>
-        </a>
-      </span>
+            <span
+              class="leafygreen-ui-baoi4d"
+            >
+              vol-0ea662ac92f611ed4
+            </span>
+          </a>
+        </span>
+      </div>
     </div>
-  </div>
-  <div
-    className="css-7hzhkt-FieldContainer e9wutqn2"
-  >
     <div
-      className="css-o728yg-FieldName e9wutqn1"
+      class="css-7hzhkt-FieldContainer e9wutqn2"
     >
-      IDE
-    </div>
-    <div>
-      <span>
-        <a
-          className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
-          href="/host/i-04ade558e1e26b0ad/ide"
-          target="_self"
-        >
-          <span
-            className="leafygreen-ui-1ewnca3"
+      <div
+        class="css-o728yg-FieldName e9wutqn1"
+      >
+        IDE
+      </div>
+      <div>
+        <span>
+          <a
+            class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+            href="/host/i-04ade558e1e26b0ad/ide"
+            target="_self"
           >
-            Open IDE
-          </span>
-        </a>
-      </span>
+            <span
+              class="leafygreen-ui-baoi4d"
+            >
+              Open IDE
+            </span>
+          </a>
+        </span>
+      </div>
     </div>
   </div>
 </div>

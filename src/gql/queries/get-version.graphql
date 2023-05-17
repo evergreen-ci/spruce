@@ -2,71 +2,81 @@
 
 query Version($id: String!) {
   version(id: $id) {
-    id
-    createTime
-    startTime
-    finishTime
-    revision
-    author
-    status
-    order
-    repo
-    project
     activated
-    message
-    isPatch
-    taskCount
-    project
+    author
     baseVersion {
       id
     }
-    projectIdentifier
-    versionTiming {
-      makespan
-      timeTaken
+    createTime
+    errors
+    externalLinksForMetadata {
+      displayName
+      url
     }
+    finishTime
+    id
+    isPatch
+    manifest {
+      branch
+      id
+      isBase
+      moduleOverrides
+      modules
+      project
+      revision
+    }
+    message
+    order
     parameters {
       key
       value
     }
-    manifest {
+    patch {
+      alias
+      canEnqueueToCommitQueue
+      childPatches {
+        githash
+        id
+        parameters {
+          key
+          value
+        }
+        projectIdentifier
+        status
+        taskCount
+        versionFull {
+          baseVersion {
+            id
+          }
+          id
+          status
+        }
+      }
+      commitQueuePosition
       id
-      revision
-      project
-      branch
-      isBase
-      moduleOverrides
-      modules
+      patchNumber
     }
     previousVersion {
       id
       revision
     }
+    project
+    projectIdentifier
     projectMetadata {
-      repo
-      owner
-    }
-    patch {
       id
-      patchNumber
-      alias
-      commitQueuePosition
-      canEnqueueToCommitQueue
-      childPatches {
-        id
-        githash
-        projectIdentifier
-        taskCount
-        status
-        versionFull {
-          id
-          baseVersion {
-            id
-          }
-          status
-        }
-      }
+      owner
+      repo
     }
-    ...upstreamProject
+    repo
+    revision
+    startTime
+    status
+    taskCount
+    ...UpstreamProject
+    versionTiming {
+      makespan
+      timeTaken
+    }
+    warnings
   }
 }

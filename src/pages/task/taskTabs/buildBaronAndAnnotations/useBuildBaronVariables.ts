@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import {
-  GetBuildBaronConfiguredQuery,
-  GetBuildBaronConfiguredQueryVariables,
+  BuildBaronConfiguredQuery,
+  BuildBaronConfiguredQueryVariables,
 } from "gql/generated/types";
 import { GET_BUILD_BARON_CONFIGURED } from "gql/queries";
 import { statuses } from "utils";
@@ -20,8 +20,8 @@ const useBuildBaronVariables = ({ task }: UseBuildBaronVariablesType) => {
   const { id, execution, status, hasAnnotation, canModifyAnnotation } = task;
   const isFailedTask = isFailedTaskStatus(status);
   const { data: buildBaronData } = useQuery<
-    GetBuildBaronConfiguredQuery,
-    GetBuildBaronConfiguredQueryVariables
+    BuildBaronConfiguredQuery,
+    BuildBaronConfiguredQueryVariables
   >(GET_BUILD_BARON_CONFIGURED, {
     variables: {
       taskId: id,

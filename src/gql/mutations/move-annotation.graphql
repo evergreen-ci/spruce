@@ -1,14 +1,13 @@
-
-  mutation MoveAnnotationIssue(
-    $taskId: String!
-    $execution: Int!
-    $apiIssue: IssueLinkInput!
-    $isIssue: Boolean!
-  ) {
-    moveAnnotationIssue(
-      taskId: $taskId
-      execution: $execution
-      apiIssue: $apiIssue
-      isIssue: $isIssue
-    )
-  }
+mutation MoveAnnotationIssue(
+  $taskId: String!
+  $execution: Int!
+  $apiIssue: IssueLinkInput!
+  $isIssue: Boolean!
+) {
+  moveAnnotationIssue(
+    taskId: $taskId
+    execution: $execution
+    apiIssue: $apiIssue
+    isIssue: $isIssue
+  )
+}

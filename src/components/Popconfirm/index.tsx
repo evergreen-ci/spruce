@@ -1,72 +1,92 @@
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import styled from "@emotion/styled";
-import Checkbox from "@leafygreen-ui/checkbox";
-import { Popconfirm as AntPopconfirm } from "antd";
-import { size } from "constants/tokens";
+import Button from "@leafygreen-ui/button";
+import Tooltip, { TooltipProps } from "@leafygreen-ui/tooltip";
+import { wordBreakCss } from "components/styles";
+import { size, zIndex } from "constants/tokens";
+import { useOnClickOutside } from "hooks";
 
-interface Props extends React.ComponentProps<typeof AntPopconfirm> {
-  children: React.ReactNode;
-}
+type PopconfirmProps = TooltipProps & {
+  confirmDisabled?: boolean;
+  confirmText?: string;
+  "data-cy"?: string;
+  onConfirm?: (e?: React.MouseEvent) => void;
+};
 
-export const Popconfirm: React.VFC<Props> = ({ children, ...props }) => (
-  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-  <span
-    onClick={(e) => {
-      e.stopPropagation(); // Stop click propagation for clicks on Popconfirm popup body.
-    }}
-  >
-    <AntPopconfirm {...props}>{children}</AntPopconfirm>
-  </span>
-);
-
-interface PopconfirmWithCheckboxProps {
-  onConfirm: (e: React.MouseEvent) => void;
-  title: string;
-  checkboxLabel?: string;
-  children: React.ReactNode;
-}
-
-export const PopconfirmWithCheckbox: React.VFC<PopconfirmWithCheckboxProps> = ({
-  checkboxLabel, // truthiness determines if checkbox is rendered
+const Popconfirm: React.VFC<PopconfirmProps> = ({
   children,
-  onConfirm,
-  title,
+  confirmDisabled = false,
+  confirmText = "Yes",
+  onClose = () => {},
+  onConfirm = () => {},
+  open: controlledOpen,
+  refEl,
+  setOpen: controlledSetOpen,
+  ...props
 }) => {
-  const [checked, setChecked] = useState(!checkboxLabel);
-  useEffect(() => {
-    setChecked(!checkboxLabel);
-  }, [checkboxLabel]);
+  const isControlled = !!(controlledOpen !== undefined && controlledSetOpen);
+  const [uncontrolledOpen, uncontrolledSetOpen] = useState(false);
+  const open = isControlled ? controlledOpen : uncontrolledOpen;
+  const setOpen = isControlled ? controlledSetOpen : uncontrolledSetOpen;
+
+  const popoverRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside([popoverRef, ...(refEl ? [refEl] : [])], () => {
+    onClose();
+    setOpen(false);
+  });
+
   return (
-    <Popconfirm
-      icon={null}
-      placement="topRight"
-      title={
-        <>
-          {title}
-          {checkboxLabel && (
-            <CheckboxContainer>
-              <Checkbox
-                data-cy="popconfirm-checkbox"
-                className="cy-checkbox"
-                onChange={() => setChecked(!checked)}
-                label={checkboxLabel}
-                checked={checked}
-                bold={false}
-              />
-            </CheckboxContainer>
-          )}
-        </>
-      }
-      onConfirm={onConfirm}
-      okText="Yes"
-      cancelText="Cancel"
-      okButtonProps={{ disabled: !checked }}
+    <Tooltip
+      popoverZIndex={zIndex.popover}
+      triggerEvent="click"
+      open={open}
+      onClose={onClose}
+      refEl={refEl}
+      setOpen={setOpen}
+      {...props}
     >
-      {children}
-    </Popconfirm>
+      <ContentWrapper ref={popoverRef}>
+        {children}
+        <ButtonWrapper>
+          <Button
+            size="small"
+            onClick={() => {
+              onClose();
+              setOpen(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            disabled={confirmDisabled}
+            size="small"
+            variant="primary"
+            onClick={(e) => {
+              onConfirm(e);
+              setOpen(false);
+            }}
+          >
+            {confirmText}
+          </Button>
+        </ButtonWrapper>
+      </ContentWrapper>
+    </Tooltip>
   );
 };
 
-const CheckboxContainer = styled.div`
-  padding-top: ${size.xs};
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xs};
+
+  ${wordBreakCss}
 `;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  align-self: flex-end;
+  margin-top: ${size.xs};
+  gap: ${size.xxs};
+`;
+
+export default Popconfirm;

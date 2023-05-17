@@ -4,13 +4,18 @@ import { COMMIT_HEIGHT } from "components/HistoryTable/constants";
 import { HistoryTableReducerState } from "components/HistoryTable/historyTableContextReducer";
 import { mainlineCommitData } from "components/HistoryTable/testData";
 import { CommitRowType } from "components/HistoryTable/types";
+import {
+  TaskTestSampleQuery,
+  TaskTestSampleQueryVariables,
+} from "gql/generated/types";
 import { GET_TASK_TEST_SAMPLE } from "gql/queries";
 import {
-  fireEvent,
   renderWithRouterMatch as render,
   screen,
+  userEvent,
   waitFor,
 } from "test_utils";
+import { ApolloMock } from "types/gql";
 import { TestStatus } from "types/history";
 import VariantHistoryRow from "./VariantHistoryRow";
 
@@ -154,7 +159,7 @@ describe("variantHistoryRow", () => {
       );
     });
 
-    fireEvent.mouseEnter(screen.queryByDataCy("history-table-icon"));
+    userEvent.hover(screen.queryByDataCy("history-table-icon"));
 
     await waitFor(() => {
       expect(screen.queryByText("TestJiraIntegration")).toBeVisible();
@@ -200,7 +205,7 @@ describe("variantHistoryRow", () => {
     });
 
     expect(screen.queryByText("1 / 1 Failing Tests")).toBeVisible();
-    fireEvent.mouseEnter(screen.queryByDataCy("history-table-icon"));
+    userEvent.hover(screen.queryByDataCy("history-table-icon"));
     await waitFor(() => {
       expect(screen.queryByText("TestJiraIntegration")).toBeVisible();
     });
@@ -300,7 +305,10 @@ const taskRow: CommitRowType = {
   selected: false,
 };
 
-const noFilterData = {
+const noFilterData: ApolloMock<
+  TaskTestSampleQuery,
+  TaskTestSampleQueryVariables
+> = {
   request: {
     query: GET_TASK_TEST_SAMPLE,
     variables: {
@@ -331,7 +339,10 @@ const noFilterData = {
   },
 };
 
-const withMatchingFilter = {
+const withMatchingFilter: ApolloMock<
+  TaskTestSampleQuery,
+  TaskTestSampleQueryVariables
+> = {
   request: {
     query: GET_TASK_TEST_SAMPLE,
     variables: {
@@ -364,7 +375,10 @@ const withMatchingFilter = {
   },
 };
 
-const withNonMatchingFilter = {
+const withNonMatchingFilter: ApolloMock<
+  TaskTestSampleQuery,
+  TaskTestSampleQueryVariables
+> = {
   request: {
     query: GET_TASK_TEST_SAMPLE,
     variables: {

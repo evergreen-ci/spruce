@@ -4,35 +4,36 @@ query VersionTasks(
 ) {
   version(id: $versionId) {
     id
+    isPatch
     tasks(options: $taskFilterOptions) {
       count
       data {
-        id
         aborted
         baseTask {
-          id
           execution
+          id
           status
         }
+        blocked
         buildVariant
         buildVariantDisplayName
-        blocked
         displayName
         execution
         executionTasksFull {
-          id
           baseTask {
-            id
             execution
+            id
             status
           }
           buildVariant
           buildVariantDisplayName
           displayName
           execution
+          id
           projectIdentifier
           status
         }
+        id
         projectIdentifier
         status
       }

@@ -1,5 +1,3 @@
-import { popconfirmYesClassName } from "../../../utils/popconfirm";
-
 const patchWithoutVersion = "test meee";
 const patchWithVersion = "main: EVG-7823 add a commit queue message (#4048)";
 const patchWithVersionOnCommitQueue =
@@ -8,7 +6,7 @@ const patchWithVersionOnCommitQueue =
 const getPatchCardByDescription = (description: string) =>
   cy.dataCy("patch-card").filter(`:contains(${description})`);
 
-describe("Dropdown Menu of Patch Actions", () => {
+describe("Dropdown Menu of Patch Actions", { testIsolation: false }, () => {
   beforeEach(() => {
     cy.visit("/");
   });
@@ -54,9 +52,9 @@ describe("Dropdown Menu of Patch Actions", () => {
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.dataCy("unschedule-patch").click({ force: true });
-    cy.get(popconfirmYesClassName).contains("Yes").should("be.visible");
-    cy.contains("Cancel").click();
-    cy.get(popconfirmYesClassName).should("not.be.visible");
+    cy.dataCy("unschedule-patch-popconfirm").should("be.visible");
+    cy.contains("button", "Cancel").click();
+    cy.dataCy("unschedule-patch-popconfirm").should("not.exist");
   });
 
   it("'Unschedule' link is disabled for unfinalized patch", () => {

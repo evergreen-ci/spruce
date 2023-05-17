@@ -1,11 +1,13 @@
 #import "../fragments/logMessage.graphql"
 
 query SystemLogs($id: String!, $execution: Int) {
-  taskLogs(taskId: $id, execution: $execution) {
+  task(taskId: $id, execution: $execution) {
     execution
-    taskId
-    systemLogs {
-      ...logMessage
+    id
+    taskLogs {
+      systemLogs {
+        ...LogMessage
+      }
     }
   }
 }

@@ -46,6 +46,7 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
     },
     onError: (err) => {
       reportError(err).warning();
+      setVisible(false);
     },
   });
 
@@ -59,7 +60,7 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
             },
           },
         },
-        refetchQueries: ["GetUserSettings"],
+        refetchQueries: ["UserSettings"],
       });
     } catch (e) {}
   };

@@ -5,9 +5,9 @@ import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import { InputLabel, StyledLink } from "components/styles";
 import { windowsPasswordRulesURL } from "constants/externalResources";
-import { GetMyPublicKeysQuery, MyVolumesQuery } from "gql/generated/types";
+import { MyPublicKeysQuery, MyVolumesQuery } from "gql/generated/types";
+import { ExpirationRow } from "../ExpirationRow";
 import { getDefaultExpiration } from "../utils";
-import { ExpirationRow } from "./FieldTemplates/ExpirationRow";
 import { UserTagRow } from "./FieldTemplates/UserTagRow";
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
   canEditSshKeys: boolean;
   disableExpirationCheckbox: boolean;
   instanceTypes: string[];
-  myPublicKeys: GetMyPublicKeysQuery["myPublicKeys"];
+  myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
   noExpirationCheckboxTooltip: string;
   volumes: MyVolumesQuery["myVolumes"];
 }
@@ -85,7 +85,7 @@ export const getFormSchema = ({
       instanceType: {
         title: "Change Instance Type",
         type: "string" as "string",
-        default: "m4.xlarge",
+        default: "",
         oneOf: instanceTypes.map((it) => ({
           type: "string" as "string",
           title: it,
@@ -96,11 +96,18 @@ export const getFormSchema = ({
         title: "Add Volume",
         type: "string" as "string",
         default: "",
-        oneOf: volumes.map((v) => ({
-          type: "string" as "string",
-          title: `(${v.size}GB) ${v.displayName || v.id}`,
-          enum: [v.id],
-        })),
+        oneOf: [
+          {
+            type: "string" as "string",
+            title: "Select volume…",
+            enum: [""],
+          },
+          ...volumes.map((v) => ({
+            type: "string" as "string",
+            title: `(${v.size}GB) ${v.displayName || v.id}`,
+            enum: [v.id],
+          })),
+        ],
       },
       ...(canEditRdpPassword && {
         rdpPassword: {
@@ -162,12 +169,18 @@ export const getFormSchema = ({
                     title: "Choose key",
                     type: "string" as "string",
                     default: "",
-                    oneOf:
-                      myPublicKeys?.map((d) => ({
+                    oneOf: [
+                      {
+                        type: "string" as "string",
+                        title: "Select public key…",
+                        enum: [""],
+                      },
+                      ...myPublicKeys.map((d) => ({
                         type: "string" as "string",
                         title: d.name,
                         enum: [d.name],
-                      })) || [],
+                      })),
+                    ],
                   },
                 },
               },
@@ -228,16 +241,16 @@ export const getFormSchema = ({
       },
     },
     instanceType: {
-      "ui:description":
-        "Instance type can only be changed when the host is stopped.",
+      "ui:description": !canEditInstanceType
+        ? "Instance type can only be changed when the host is stopped."
+        : "",
       "ui:disabled": !canEditInstanceType,
       "ui:allowDeselect": false,
     },
     volume: {
       "ui:allowDeselect": false,
       "ui:disabled": volumes.length === 0,
-      "ui:placeholder":
-        volumes.length === 0 ? "No Volumes Available" : undefined,
+      "ui:description": volumes.length === 0 ? "No volumes available." : "",
     },
     rdpPassword: {
       // Console error should be resolved by https://jira.mongodb.org/browse/LG-2342.
@@ -261,13 +274,18 @@ export const getFormSchema = ({
     publicKeySection: {
       useExisting: {
         "ui:widget": widgets.RadioBoxWidget,
-        "ui:description":
-          "SSH keys can only be added when the host is running.",
+        "ui:description": !canEditSshKeys
+          ? "SSH keys can only be added when the host is running."
+          : "",
         "ui:disabled": !canEditSshKeys,
       },
       publicKeyNameDropdown: {
-        "ui:valuePlaceholder": "Select a key",
-        "ui:disabled": !canEditSshKeys,
+        "ui:allowDeselect": false,
+        "ui:disabled": !canEditSshKeys || myPublicKeys.length === 0,
+        "ui:description":
+          canEditSshKeys && myPublicKeys.length === 0
+            ? "No keys available."
+            : "",
       },
       newPublicKey: {
         "ui:widget": LeafyGreenTextArea,

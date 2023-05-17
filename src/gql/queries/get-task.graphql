@@ -1,9 +1,8 @@
 #import "../fragments/baseTask.graphql"
 #import "../fragments/annotation.graphql"
 
-query GetTask($taskId: String!, $execution: Int) {
+query Task($taskId: String!, $execution: Int) {
   task(taskId: $taskId, execution: $execution) {
-    ...baseTask
     aborted
     abortInfo {
       buildVariantDisplayName
@@ -17,13 +16,18 @@ query GetTask($taskId: String!, $execution: Int) {
     activatedTime
     ami
     annotation {
-      ...annotation
+      ...Annotation
     }
     baseTask {
-      id
       execution
+      id
       timeTaken
+      versionMetadata {
+        id
+        revision
+      }
     }
+    ...BaseTask
     blocked
     canAbort
     canDisable
@@ -52,19 +56,19 @@ query GetTask($taskId: String!, $execution: Int) {
       type
     }
     displayTask {
-      id
       displayName
       execution
+      id
     }
     distroId
     estimatedStart
     executionTasksFull {
-      id
       baseStatus
       buildVariant
       buildVariantDisplayName
       displayName
       execution
+      id
       status
     }
     expectedDuration
@@ -77,8 +81,8 @@ query GetTask($taskId: String!, $execution: Int) {
     isPerfPluginEnabled
     latestExecution
     logs {
-      allLogLink
       agentLogLink
+      allLogLink
       eventLogLink
       systemLogLink
       taskLogLink
@@ -86,12 +90,16 @@ query GetTask($taskId: String!, $execution: Int) {
     minQueuePosition
     order
     patchNumber
+    pod {
+      id
+    }
     priority
     project {
+      id
       identifier
     }
-    resetWhenFinished
     requester
+    resetWhenFinished
     spawnHostLink
     startTime
     taskFiles {
@@ -100,13 +108,13 @@ query GetTask($taskId: String!, $execution: Int) {
     timeTaken
     totalTestCount
     versionMetadata {
-      id
       author
+      id
       isPatch
-      project
-      projectIdentifier
       message
       order
+      project
+      projectIdentifier
       revision
     }
   }

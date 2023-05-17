@@ -1,7 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { fireEvent } from "@testing-library/react";
-import { renderHook } from "@testing-library/react-hooks/dom";
-import { GET_USER } from "gql/queries";
+import { act, renderHook } from "@testing-library/react-hooks/dom";
+import { getUserMock } from "gql/mocks/getUser";
 import { useNetworkStatus } from "hooks";
 
 const Provider = ({ children }) => (
@@ -9,6 +8,12 @@ const Provider = ({ children }) => (
 );
 
 describe("useNetworkStatus", () => {
+  const updateNetworkStatus = (status: string) => {
+    act(() => {
+      window.dispatchEvent(new window.Event(status));
+    });
+  };
+
   it("useNetworkStatus should return true when the user's browser is online", () => {
     const { result } = renderHook(() => useNetworkStatus(), {
       wrapper: Provider,
@@ -20,23 +25,7 @@ describe("useNetworkStatus", () => {
     const { result } = renderHook(() => useNetworkStatus(), {
       wrapper: Provider,
     });
-    fireEvent(window, new Event("offline"));
+    updateNetworkStatus("offline");
     expect(result.current).toBe(false);
   });
 });
-
-const getUserMock = {
-  request: {
-    query: GET_USER,
-  },
-  result: {
-    data: {
-      user: {
-        userId: "",
-        displayName: "",
-        emailAddress: "fake.user@mongodb.com",
-        __typename: "User",
-      },
-    },
-  },
-};

@@ -1,6 +1,5 @@
 import { useMemo } from "react";
-import { SpruceForm } from "components/SpruceForm";
-import { ValidateProps } from "components/SpruceForm/types";
+import { SpruceForm, ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { invalidProjectTriggerSubscriptionCombinations } from "constants/triggers";
 import {
@@ -29,7 +28,8 @@ export const NotificationsTab: React.VFC<TabProps> = ({
   const { fields, schema, uiSchema } = useMemo(
     () =>
       getFormSchema(
-        projectType === ProjectType.AttachedProject ? repoData : null
+        projectType === ProjectType.AttachedProject ? repoData : null,
+        projectType
       ),
     [projectType, repoData]
   );
@@ -42,12 +42,12 @@ export const NotificationsTab: React.VFC<TabProps> = ({
       onChange={onChange}
       schema={schema}
       uiSchema={uiSchema}
-      validate={validator as any}
+      validate={validate as any}
     />
   );
 };
 
-const validator: ValidateProps<FormState> = (formData, errors) => {
+const validate = ((formData, errors) => {
   const { subscriptions } = formData;
 
   for (let i = 0; i < subscriptions.length; i++) {
@@ -73,4 +73,4 @@ const validator: ValidateProps<FormState> = (formData, errors) => {
     );
   }
   return errors;
-};
+}) satisfies ValidateProps<FormState>;

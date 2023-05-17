@@ -6,7 +6,7 @@ import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { getTaskRoute } from "constants/routes";
-import { GetTaskQuery } from "gql/generated/types";
+import { TaskQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
 import { TaskTab } from "types/task";
 import { queryString } from "utils";
@@ -20,7 +20,7 @@ import { TestsTable } from "./taskTabs/TestsTable";
 const { parseQueryString } = queryString;
 interface TaskTabProps {
   isDisplayTask: boolean;
-  task: GetTaskQuery["task"];
+  task: TaskQuery["task"];
 }
 export const TaskTabs: React.VFC<TaskTabProps> = ({ isDisplayTask, task }) => {
   const { tab: urlTab } = useParams<{ id: string; tab: TaskTab | null }>();
@@ -40,6 +40,7 @@ export const TaskTabs: React.VFC<TaskTabProps> = ({ isDisplayTask, task }) => {
     status,
     taskFiles,
     totalTestCount,
+    versionMetadata,
   } = task ?? {};
   const { fileCount } = taskFiles ?? {};
 
@@ -90,6 +91,7 @@ export const TaskTabs: React.VFC<TaskTabProps> = ({ isDisplayTask, task }) => {
         <ExecutionTasksTable
           execution={execution}
           executionTasksFull={executionTasksFull}
+          isPatch={versionMetadata?.isPatch}
         />
       </Tab>
     ),

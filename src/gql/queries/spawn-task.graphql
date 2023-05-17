@@ -1,10 +1,11 @@
 #import "../fragments/baseTask.graphql"
 
-query GetSpawnTask($taskId: String!) {
+query SpawnTask($taskId: String!) {
   task(taskId: $taskId, execution: 0) {
-    ...baseTask
+    ...BaseTask
     canSync
     project {
+      id
       spawnHostScriptPath
     }
   }

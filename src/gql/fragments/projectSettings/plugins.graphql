@@ -1,35 +1,43 @@
-fragment projectPluginsSettings on Project {
+fragment ProjectPluginsSettings on Project {
   buildBaronSettings {
     ticketCreateProject
     ticketSearchProjects
   }
+  externalLinks {
+    displayName
+    urlTemplate
+  }
+  perfEnabled
   taskAnnotationSettings {
-    jiraCustomFields {
-      field
-      displayText
-    }
     fileTicketWebhook {
       endpoint
       secret
     }
+    jiraCustomFields {
+      displayText
+      field
+    }
   }
-  perfEnabled
 }
 
-fragment repoPluginsSettings on RepoRef {
+fragment RepoPluginsSettings on RepoRef {
   buildBaronSettings {
     ticketCreateProject
     ticketSearchProjects
   }
+  externalLinks {
+    displayName
+    urlTemplate
+  }
+  perfEnabled
   taskAnnotationSettings {
-    jiraCustomFields {
-      field
-      displayText
-    }
     fileTicketWebhook {
       endpoint
       secret
     }
+    jiraCustomFields {
+      displayText
+      field
+    }
   }
-  perfEnabled
 }

@@ -1,25 +1,25 @@
-fragment projectTriggersSettings on Project {
+fragment ProjectTriggersSettings on Project {
   triggers {
-    project
-    level
-    buildVariantRegex
-    taskRegex
-    status
-    dateCutoff
-    configFile
     alias
+    buildVariantRegex
+    configFile
+    dateCutoff
+    level
+    project
+    status
+    taskRegex
   }
 }
 
-fragment repoTriggersSettings on RepoRef {
+fragment RepoTriggersSettings on RepoRef {
   triggers {
-    project
-    level
-    buildVariantRegex
-    taskRegex
-    status
-    dateCutoff
-    configFile
     alias
+    buildVariantRegex
+    configFile
+    dateCutoff
+    level
+    project
+    status
+    taskRegex
   }
 }

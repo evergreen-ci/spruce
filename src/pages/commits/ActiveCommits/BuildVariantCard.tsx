@@ -14,6 +14,7 @@ type taskList = {
   status: string;
   displayName: string;
   timeTaken?: number;
+  failedTestCount?: number;
 }[];
 interface Props {
   variant: string;
@@ -87,7 +88,7 @@ interface RenderTaskIconsProps {
 const RenderTaskIcons: React.VFC<RenderTaskIconsProps> = ({ tasks, variant }) =>
   tasks.length ? (
     <IconContainer>
-      {tasks.map(({ id, status, displayName, timeTaken }) => (
+      {tasks.map(({ id, status, displayName, timeTaken, failedTestCount }) => (
         <WaterfallTaskStatusIcon
           key={id}
           taskId={id}
@@ -95,13 +96,15 @@ const RenderTaskIcons: React.VFC<RenderTaskIconsProps> = ({ tasks, variant }) =>
           displayName={displayName}
           timeTaken={timeTaken}
           identifier={`${variant}-${displayName}`}
+          failedTestCount={failedTestCount}
         />
       ))}
     </IconContainer>
   ) : null;
 
 const Label = styled(StyledRouterLink)`
-  word-break: break-word;
+  word-break: normal;
+  overflow-wrap: anywhere;
 `;
 
 const IconContainer = styled.div`

@@ -1,102 +1,90 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/History Table/HistoryTableTestSearch Test Search 1`] = `
-<div
-  style={
-    Object {
-      "display": "flex",
-      "flexDirection": "column",
-    }
-  }
->
+exports[`storybook Storyshots Components/HistoryTable/HistoryTableTestSearch Default 1`] = `
+<div>
   <div
-    className="css-1o8n2af-ContentWrapper e8i7li40"
+    style="display: flex; flex-direction: column;"
   >
     <div
-      className="css-mk4qpy-TextInputWrapper e13gwrw81"
+      class="css-1o8n2af-ContentWrapper e8i7li40"
     >
       <div
-        className="leafygreen-ui-xtefr5"
+        class="css-mk4qpy-TextInputWrapper e13gwrw81"
       >
         <div
-          className="leafygreen-ui-a533bt"
-        >
-          <label
-            className="leafygreen-ui-gr5280"
-            htmlFor="textinput-15"
-          >
-            Filter by Failed Tests
-          </label>
-        </div>
-        <div
-          className="leafygreen-ui-lzja97"
-        >
-          <input
-            aria-invalid={false}
-            aria-label="history-table-test-search-input"
-            autoComplete="on"
-            className="leafygreen-ui-6i61vl"
-            disabled={false}
-            id="textinput-15"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onKeyPress={[Function]}
-            placeholder="Search test name regex"
-            required={true}
-            type="search"
-            value=""
-          />
-          <div
-            className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
-          />
-        </div>
-      </div>
-      <div
-        className="css-4bamt4-IconWrapper e13gwrw80"
-      >
-        <button
-          aria-disabled={false}
-          aria-label="Select plus button"
-          className="leafygreen-ui-6obv0c"
-          onClick={[Function]}
-          tabIndex={0}
+          class="leafygreen-ui-xtefr5"
         >
           <div
-            className="leafygreen-ui-xhlipt"
+            class="leafygreen-ui-a533bt"
           >
-            <svg
-              aria-label="Plus Icon"
-              className=""
-              data-cy="tuple-select-button"
-              fill="none"
-              height={16}
-              role="img"
-              viewBox="0 0 16 16"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
+            <label
+              class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
+              for="textinput-9"
             >
-              <path
-                clipRule="evenodd"
-                d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
-                fill="currentColor"
-                fillRule="evenodd"
-              />
-            </svg>
+              Filter by Failed Tests
+            </label>
           </div>
-        </button>
+          <div
+            class="leafygreen-ui-lzja97"
+          >
+            <input
+              aria-invalid="false"
+              aria-label="history-table-test-search-input"
+              autocomplete="on"
+              class="leafygreen-ui-6i61vl"
+              id="textinput-9"
+              placeholder="Search test name regex"
+              required=""
+              type="search"
+              value=""
+            />
+            <div
+              class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+            />
+          </div>
+        </div>
+        <div
+          class="css-4bamt4-IconWrapper e13gwrw80"
+        >
+          <button
+            aria-disabled="false"
+            aria-label="Select plus button"
+            class="leafygreen-ui-1xt2asn"
+            tabindex="0"
+          >
+            <div
+              class="leafygreen-ui-xhlipt"
+            >
+              <svg
+                aria-label="Plus Icon"
+                class=""
+                data-cy="tuple-select-button"
+                fill="none"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    style={
-      Object {
-        "paddingTop": "16px",
-      }
-    }
-  >
     <div
-      className="css-19f1xe2-Container e3qndfh0"
-    />
+      style="padding-top: 16px;"
+    >
+      <div
+        class="css-19f1xe2-Container e3qndfh0"
+      />
+    </div>
   </div>
 </div>
 `;

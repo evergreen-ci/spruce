@@ -1,7 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { renderHook } from "@testing-library/react-hooks";
-import { GET_USER, GET_OTHER_USER } from "gql/queries";
+import { OtherUserQuery, OtherUserQueryVariables } from "gql/generated/types";
+import { getUserMock } from "gql/mocks/getUser";
+import { GET_OTHER_USER } from "gql/queries";
 import { useBreadcrumbRoot } from "hooks";
+import { ApolloMock } from "types/gql";
 
 const SameUserProvider = ({ children }) => (
   <MockedProvider mocks={[getUserMock, sameUserMock]}>
@@ -50,23 +53,7 @@ describe("useBreadcrumbRoot", () => {
   });
 });
 
-const getUserMock = {
-  request: {
-    query: GET_USER,
-    variables: {},
-  },
-  result: {
-    data: {
-      user: {
-        userId: "admin",
-        displayName: "admin",
-        emailAddress: "admin@admin.com",
-      },
-    },
-  },
-};
-
-const sameUserMock = {
+const sameUserMock: ApolloMock<OtherUserQuery, OtherUserQueryVariables> = {
   request: {
     query: GET_OTHER_USER,
     variables: {
@@ -85,7 +72,7 @@ const sameUserMock = {
   },
 };
 
-const otherUserMock = {
+const otherUserMock: ApolloMock<OtherUserQuery, OtherUserQueryVariables> = {
   request: {
     query: GET_OTHER_USER,
     variables: {

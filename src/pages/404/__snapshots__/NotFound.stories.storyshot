@@ -1,18 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Pages/404/Not Found Default 404 1`] = `
-<div
-  style={
-    Object {
-      "height": "100%",
-      "width": "100%",
-    }
-  }
->
-  <img
-    alt="Page not found"
-    data-cy="404"
-    src="notFound.svg"
-  />
+exports[`storybook Storyshots pages/404/NotFound Default 404 1`] = `
+<div>
+  <div
+    style="height: 100%; width: 100%;"
+  >
+    <img
+      alt="Page not found"
+      data-cy="404"
+      src="notFound.svg"
+    />
+  </div>
 </div>
 `;

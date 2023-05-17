@@ -7,9 +7,9 @@ import {
 } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 import {
-  SaveSubscriptionMutationVariables,
-  GetTaskQuery,
-  GetTaskQueryVariables,
+  SaveSubscriptionForUserMutationVariables,
+  TaskQuery,
+  TaskQueryVariables,
   TaskSortCategory,
   TestSortCategory,
 } from "gql/generated/types";
@@ -49,14 +49,16 @@ type Action =
   | { name: "Change Execution" }
   | { name: "Click Logs Button"; logType: LogTypes; logViewer: LogViewer }
   | { name: "Click Test Logs Button"; logViewer: LogViewer; testStatus: string }
+  | { name: "Click Annotation Link"; linkText: string }
   | { name: "Select Logs Type"; logType: LogTypes }
   | { name: "Open Notification Modal" }
   | {
       name: "Add Notification";
-      subscription: SaveSubscriptionMutationVariables["subscription"];
+      subscription: SaveSubscriptionForUserMutationVariables["subscription"];
     }
   | { name: "Click Base Commit" }
   | { name: "Click Host Link" }
+  | { name: "Click Pod Link" }
   | { name: "Click Spawn Host" }
   | { name: "Click Distro Link" }
   | { name: "Click Build Variant Link" }
@@ -82,7 +84,7 @@ export const useTaskAnalytics = (): Analytics => {
 
   const parsed = parseQueryString(location.search);
   const execution = Number(parsed[RequiredQueryParams.Execution]);
-  const { data: eventData } = useQuery<GetTaskQuery, GetTaskQueryVariables>(
+  const { data: eventData } = useQuery<TaskQuery, TaskQueryVariables>(
     GET_TASK,
     {
       variables: { taskId: id, execution },

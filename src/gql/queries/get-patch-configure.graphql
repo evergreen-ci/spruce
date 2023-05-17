@@ -2,16 +2,10 @@
 
 query ConfigurePatch($id: String!) {
   patch(id: $id) {
-    ...basePatch
-    time {
-      submittedAt
-    }
-    project {
-      variants {
-        name
-        displayName
-        tasks
-      }
+    ...BasePatch
+    childPatchAliases {
+      alias
+      patchId
     }
     childPatches {
       id
@@ -30,9 +24,16 @@ query ConfigurePatch($id: String!) {
         tasks
       }
     }
-    childPatchAliases {
-      alias
-      patchId
+    project {
+      variants {
+        displayName
+        name
+        tasks
+      }
+    }
+    projectIdentifier
+    time {
+      submittedAt
     }
   }
 }

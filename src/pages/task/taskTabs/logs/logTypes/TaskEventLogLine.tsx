@@ -1,62 +1,58 @@
 import styled from "@emotion/styled";
 import { StyledLink, StyledRouterLink } from "components/styles";
-import { getHostRoute } from "constants/routes";
+import { getHostRoute, getPodRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { TaskEventLogEntry } from "gql/generated/types";
 import { useDateFormat } from "hooks";
+import { TaskEventType } from "types/task";
 
 export const TaskEventLogLine: React.VFC<TaskEventLogEntry> = ({
-  timestamp,
-  eventType,
   data,
+  eventType,
+  timestamp,
 }) => {
   const getDateCopy = useDateFormat();
-  const { hostId, status, userId, jiraIssue, jiraLink, priority } = data;
-  const hostLink = getHostRoute(hostId);
+  const { hostId, podId, status, userId, jiraIssue, jiraLink, priority } = data;
+  const route = podId ? getPodRoute(podId) : getHostRoute(hostId);
+  const containerOrHostCopy = podId ? "container" : "host";
   let message: JSX.Element;
-
   switch (eventType) {
-    case "TASK_FINISHED":
+    case TaskEventType.TaskFinished:
       message = (
         <>
           Completed with status: <b>{status}</b>
         </>
       );
       break;
-    case "TASK_STARTED":
+    case TaskEventType.TaskStarted:
       message = <>Marked as &quot;started&quot;</>;
       break;
-    case "TASK_DISPATCHED":
+    case TaskEventType.TaskDispatched:
       message = (
         <>
-          Dispatched to host{" "}
-          <StyledRouterLink to={hostLink}>{hostId}</StyledRouterLink>
+          Dispatched to {containerOrHostCopy}{" "}
+          <StyledRouterLink to={route}>{hostId}</StyledRouterLink>
         </>
       );
       break;
-    case "TASK_UNDISPATCHED":
+    case TaskEventType.TaskUndispatched:
       message = (
         <>
-          Undispatched from host{" "}
-          <StyledRouterLink to={hostLink}>{hostId}</StyledRouterLink>
+          Undispatched from {containerOrHostCopy}{" "}
+          <StyledRouterLink to={route}>{hostId}</StyledRouterLink>
         </>
       );
       break;
-    case "TASK_CREATED":
-      message = (
-        <>
-          Undispatched from host{" "}
-          <StyledRouterLink to={hostLink}>{hostId}</StyledRouterLink>
-        </>
-      );
+    case TaskEventType.TaskCreated:
+      message = <>Task created</>;
       break;
-    case "TASK_RESTARTED":
+    case TaskEventType.TaskRestarted:
       message = <>Restarted by {userId}</>;
       break;
-    case "TASK_ACTIVATED":
+    case TaskEventType.TaskActivated:
       message = <>Activated by {userId}</>;
       break;
-    case "TASK_JIRA_ALERT_CREATED":
+    case TaskEventType.TaskJiraAlertCreated:
       message = (
         <>
           Created Jira Alert{" "}
@@ -66,28 +62,34 @@ export const TaskEventLogLine: React.VFC<TaskEventLogEntry> = ({
         </>
       );
       break;
-    case "TASK_DEACTIVATED":
+    case TaskEventType.TaskDeactivated:
       message = <>Deactivated by user {userId}</>;
       break;
-    case "TASK_ABORT_REQUEST":
+    case TaskEventType.TaskAbortRequest:
       message = <>Marked to abort by user {userId}</>;
       break;
-    case "TASK_SCHEDULED":
+    case TaskEventType.TaskScheduled:
       message = (
         <span className="cy-event-scheduled">
           Scheduled at {getDateCopy(timestamp)}
         </span>
       );
       break;
-    case "TASK_PRIORITY_CHANGED":
+    case TaskEventType.TaskPriorityChanged:
       message = (
         <>
           Priority Changed to {priority} by {userId}
         </>
       );
       break;
-    case "TASK_DEPENDENCIES_OVERRIDDEN":
+    case TaskEventType.TaskDependenciesOverridden:
       message = <>Dependencies overridden by user {userId}.</>;
+      break;
+    case TaskEventType.MergeTaskUnscheduled:
+      message = <>Merge task unscheduled by user {userId}.</>;
+      break;
+    case TaskEventType.ContainerAllocated:
+      message = <>Container allocated for task.</>;
       break;
     default:
       message = null;

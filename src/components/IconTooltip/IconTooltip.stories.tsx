@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
+import { StoryObj } from "@storybook/react";
 import { Size, glyphs } from "components/Icon";
 import { size } from "constants/tokens";
-import IconTooltip from ".";
+import IconTooltip, { IconTooltipProps } from ".";
 
 const Sizes = {
   [Size.Small]: 14,
@@ -11,32 +12,36 @@ const Sizes = {
 };
 
 export default {
-  title: "Components/Icons/Tooltip",
+  title: "Components/Icon/Tooltip",
   component: IconTooltip,
+};
+
+export const Icons: StoryObj<IconTooltipProps> = {
+  render: ({ children, size: s, ...rest }) => (
+    <Container>
+      {Object.keys(glyphs).map((name) => (
+        <IconContainer key={name}>
+          <IconTooltip glyph={name} size={s} {...rest}>
+            {children}
+          </IconTooltip>
+          <span>{name}</span>
+        </IconContainer>
+      ))}
+    </Container>
+  ),
   args: {
     color: "#000000",
     size: Sizes[Size.Default],
-    text: "Tooltip Text",
+    children: "Tooltip Text",
   },
   argTypes: {
+    color: { control: "color" },
     size: {
-      control: { type: "select", options: Sizes },
+      options: Object.values(Sizes),
+      control: { type: "select" },
     },
   },
 };
-
-export const Icons = ({ text, size: s, ...rest }) => (
-  <Container>
-    {Object.keys(glyphs).map((name) => (
-      <IconContainer key={name}>
-        <IconTooltip glyph={name} size={s} {...rest}>
-          {text}
-        </IconTooltip>
-        <span>{name}</span>
-      </IconContainer>
-    ))}
-  </Container>
-);
 
 const Container = styled.div`
   display: flex;

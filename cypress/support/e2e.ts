@@ -111,17 +111,15 @@ declare global {
   }
 }
 
-// Login before each test and remove banner cookies
-// We can disable the necessary cookies for tests that need the banners
-before(() => {
-  cy.login();
-});
 beforeEach(() => {
+  cy.login();
   cy.setCookie(BANNER_COOKIE, "true");
   cy.setCookie(SLACK_BANNER_COOKIE, "true");
   cy.setCookie(SEEN_LOBSTER_MOVED_GUIDE_CUE, "true");
+  cy.setCookie(konamiCookie, "true");
 });
 
 const BANNER_COOKIE = "This is an important notification";
 const SLACK_BANNER_COOKIE = "has-closed-slack-banner";
+const konamiCookie = "seen-konami-code";
 const SEEN_LOBSTER_MOVED_GUIDE_CUE = "seen-lobster-moved-guide-cue";

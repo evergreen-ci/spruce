@@ -45,4 +45,20 @@ const formatZeroIndexForDisplay = (value: number): number => value + 1;
 const roundDecimal = (value: number, decimalPlaces: number = 0): number =>
   parseFloat(value.toFixed(decimalPlaces));
 
-export { toDecimal, toPercent, formatZeroIndexForDisplay, roundDecimal };
+/**
+ * cryptoRandom is a replacement for Math.random() using the web crypto API.
+ * cryptoRandom generates a number between 0 (inclusive) and 1 (exclusive).
+ */
+const cryptoRandom = () => {
+  const arr = new Uint32Array(1);
+  const randomNumber = crypto.getRandomValues(arr)[0];
+  return randomNumber / 2 ** 32;
+};
+
+export {
+  toDecimal,
+  toPercent,
+  formatZeroIndexForDisplay,
+  roundDecimal,
+  cryptoRandom,
+};

@@ -9,6 +9,10 @@ modules:
     repo: git@github.com:evergreen-ci/evergreen.git
     branch: main
     auto_update: true
+  - name: logkeeper
+    repo: git@github.com:evergreen-ci/logkeeper.git
+    branch: main
+    auto_update: true
 
 pre:
   - func: get-project
@@ -37,7 +41,7 @@ functions:
       type: setup
       params:
         env:
-          gobin: /opt/golang/go1.16/bin/go
+          gobin: ${goroot}/bin/go
           MONGODB_URL: ${mongodb_url_2004}
           DECOMPRESS: ${decompress}
         working_dir: spruce/evergreen
@@ -89,11 +93,12 @@ functions:
       background: true
       env:
         SETTINGS_OVERRIDE: file
-        GOROOT: /opt/golang/go1.16
+        GOROOT: ${goroot}
 
   wait-for-evergreen:
     command: shell.exec
     type: setup
+    exec_timeout_secs: 600
     params:
       working_dir: spruce
       script: ./scripts/wait-for-evergreen.sh
@@ -105,6 +110,28 @@ functions:
       shell: bash
       script: |
         ln -s evergreen/graphql/schema sdlschema
+
+  run-logkeeper:
+    command: shell.exec
+    params:
+      working_dir: spruce/logkeeper
+      background: true
+      script: go run main/logkeeper.go --localPath _bucketdata
+      shell: bash
+      env:
+        GOROOT: ${goroot}
+        PATH: ${goroot}/bin:$PATH
+        LK_CORS_ORIGINS: http:\/\/localhost:\d+
+
+  seed-logkeeper:
+    command: s3.get
+    type: setup
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      extract_to: spruce/logkeeper
+      remote_file: _bucketdata.tar.gz
+      bucket: parsley-test
 
   yarn-serve:
     command: shell.exec
@@ -192,14 +219,6 @@ functions:
         ${PREPARE_SHELL}
         yarn cy:run --record --key ${cypress_record_key} --reporter junit
         
-  copy-cmdrc:
-    command: shell.exec
-    params:
-      working_dir: spruce
-      shell: bash
-      script: |
-        cp env/.cmdrc_sample.json env/.cmdrc.json
-
   attach-test-results:
     command: attach.xunit_results
     params:
@@ -298,6 +317,18 @@ functions:
         content_type: text/css
         permissions: public-read
         preserve_path: true
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${aws_key}
+        aws_secret: ${aws_secret}
+        local_files_include_filter:
+          ["spruce/storybook-static/**/*.json"]
+        remote_file: spruce/${task_id}/storybook/
+        bucket: mciuploads
+        content_type: application/json
+        permissions: public-read
+        preserve_path: true
   
   attach-codegen-diff:
     command: s3.put
@@ -330,14 +361,6 @@ functions:
 
         echo "Done populating"
 
-  deploy-to-prod:
-    command: shell.exec
-    params:
-      working_dir: spruce
-      script: |
-        ${PREPARE_SHELL}
-        BUCKET=${bucket} AWS_ACCESS_KEY_ID=${aws_key} AWS_SECRET_ACCESS_KEY=${aws_secret}  yarn deploy; yarn upload-source-maps;
-
   build-prod:
     command: shell.exec
     params:
@@ -349,6 +372,15 @@ functions:
         echo "Building Production version: $REACT_APP_VERSION"
         yarn build:prod
   
+  upload-to-prod-s3:
+    command: shell.exec
+    params:
+      working_dir: spruce
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        REACT_APP_BUGSNAG_API_KEY=${REACT_APP_BUGSNAG_API_KEY} BUCKET=${bucket} AWS_ACCESS_KEY_ID=${aws_key} AWS_SECRET_ACCESS_KEY=${aws_secret}  yarn deploy:do-not-use;
+
   send-email:
     command: shell.exec
     params:
@@ -367,7 +399,6 @@ functions:
 tasks:
   - name: compile
     commands:
-      - func: copy-cmdrc
       - func: sym-link
       - func: yarn-build
 
@@ -396,11 +427,12 @@ tasks:
   - name: e2e_test
     commands:
       - func: setup-mongodb
-      - func: copy-cmdrc
       - func: run-make-background
         vars:
           target: local-evergreen
       - func: sym-link
+      - func: seed-logkeeper
+      - func: run-logkeeper
       - func: yarn-build
       - func: yarn-serve
       - func: wait-for-evergreen
@@ -416,7 +448,7 @@ tasks:
       - func: setup-credentials
       - func: sym-link
       - func: build-prod
-      - func: deploy-to-prod
+      - func: upload-to-prod-s3
       - func: send-email
 
 buildvariants:
@@ -425,10 +457,12 @@ buildvariants:
     run_on:
       - ubuntu2004-large
     expansions:
+      goroot: /opt/golang/go1.19
       mongodb_url_2004: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-5.0.14.tgz
       node_version: 16.17.0
     modules:
       - evergreen
+      - logkeeper
     tasks:
       - name: compile
       - name: test

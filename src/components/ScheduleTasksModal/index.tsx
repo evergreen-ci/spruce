@@ -4,12 +4,13 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
-import { Accordion, AccordionWrapper } from "components/Accordion";
+import { Accordion } from "components/Accordion";
 import { ConfirmationModal } from "components/ConfirmationModal";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
-  GetUndispatchedTasksQuery,
-  GetUndispatchedTasksQueryVariables,
+  UndispatchedTasksQuery,
+  UndispatchedTasksQueryVariables,
   ScheduleTasksMutation,
   ScheduleTasksMutationVariables,
 } from "gql/generated/types";
@@ -54,12 +55,12 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
   const [
     loadTaskData,
     { data: taskData, loading: loadingTaskData, called: calledTaskData },
-  ] = useLazyQuery<
-    GetUndispatchedTasksQuery,
-    GetUndispatchedTasksQueryVariables
-  >(GET_UNSCHEDULED_TASKS, {
-    variables: { versionId },
-  });
+  ] = useLazyQuery<UndispatchedTasksQuery, UndispatchedTasksQueryVariables>(
+    GET_UNSCHEDULED_TASKS,
+    {
+      variables: { versionId },
+    }
+  );
   useEffect(() => {
     if (open && !calledTaskData) {
       loadTaskData();
@@ -85,7 +86,7 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
     >
       <ContentWrapper>
         {loadingTaskData ? (
-          <Skeleton />
+          <Skeleton data-cy="loading-skeleton" />
         ) : (
           <>
             {sortedBuildVariantGroups.length ? (
@@ -114,12 +115,8 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
                   selectedTasks.has(id)
                 );
                 return (
-                  <AccordionWrapper
-                    key={buildVariant}
-                    data-cy="variant-accordion"
-                  >
+                  <Wrapper key={buildVariant}>
                     <Accordion
-                      allowToggleFromTitle={false}
                       title={
                         <Checkbox
                           data-cy={`${buildVariant}-variant-checkbox`}
@@ -136,6 +133,7 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
                           }}
                         />
                       }
+                      data-cy="build-variant-accordion"
                     >
                       {tasks.map(({ id, displayName }) => (
                         <Checkbox
@@ -155,7 +153,7 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
                         />
                       ))}
                     </Accordion>
-                  </AccordionWrapper>
+                  </Wrapper>
                 );
               }
             )}
@@ -173,4 +171,8 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
 const ContentWrapper = styled.div`
   max-height: calc(100vh - 307px);
   overflow-y: auto;
+`;
+
+const Wrapper = styled.div`
+  margin: ${size.xs} 0;
 `;

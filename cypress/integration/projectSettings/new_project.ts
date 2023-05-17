@@ -3,12 +3,8 @@ import { getGeneralRoute, project } from "./constants";
 describe("Duplicating a project", () => {
   const destination = getGeneralRoute(project);
 
-  before(() => {
-    cy.login();
-    cy.visit(destination);
-  });
-
   it("Successfully duplicates a project with warnings", () => {
+    cy.visit(destination);
     cy.dataCy("new-project-button").click();
     cy.dataCy("new-project-menu").should("be.visible");
     cy.dataCy("copy-project-button").click();
@@ -26,12 +22,8 @@ describe("Duplicating a project", () => {
 describe("Creating a new project", () => {
   const destination = getGeneralRoute(project);
 
-  before(() => {
-    cy.login();
-    cy.visit(destination);
-  });
-
   it("Successfully creates a new project", () => {
+    cy.visit(destination);
     cy.dataCy("new-project-button").click();
     cy.dataCy("new-project-menu").should("be.visible");
     cy.dataCy("create-project-button").click();

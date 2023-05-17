@@ -34,6 +34,11 @@ export const transformErrors = (errors: AjvError[]) =>
             ...error,
             message: Errors.Invisible,
           };
+        case "oneOf":
+          return {
+            ...error,
+            message: "Please select one of the available options.",
+          };
         case "format":
           switch (error.params.format) {
             case "noSpaces":
@@ -76,6 +81,11 @@ export const transformErrors = (errors: AjvError[]) =>
                 ...error,
                 message:
                   "Value should be a valid Slack member ID, Slack username or channel.",
+              };
+            case "validURLTemplate":
+              return {
+                ...error,
+                message: "Value should be a valid URL template.",
               };
             case "validURL":
               return {

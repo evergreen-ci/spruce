@@ -1,34 +1,60 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { PlusButton } from "components/Buttons";
-import { size } from "constants/tokens";
-import { useSpruceConfig } from "hooks";
-import { SpawnVolumeModal } from "./spawnVolumeButton/SpawnVolumeModal";
+import { size, zIndex } from "constants/tokens";
+import { SpawnVolumeModal } from "./SpawnVolumeModal";
 
-export const SpawnVolumeButton: React.VFC = () => {
+interface SpawnVolumeButtonProps {
+  maxSpawnableLimit: number;
+  volumeLimit: number;
+}
+
+export const SpawnVolumeButton: React.VFC<SpawnVolumeButtonProps> = ({
+  maxSpawnableLimit,
+  volumeLimit,
+}) => {
   const [openModal, setOpenModal] = useState(false);
   const spawnAnalytics = useSpawnAnalytics();
-  const spruceConfig = useSpruceConfig();
-  const volumeLimit = spruceConfig?.providers?.aws?.maxVolumeSizePerUser;
+
+  const reachedMaxVolumeSize = maxSpawnableLimit === 0;
+
   return (
     <PaddedContainer>
-      <PlusButton
-        data-cy="spawn-volume-btn"
-        onClick={() => {
-          setOpenModal(true);
-          spawnAnalytics.sendEvent({ name: "Opened the Spawn Volume Modal" });
-        }}
+      <Tooltip
+        align="top"
+        justify="middle"
+        triggerEvent="hover"
+        popoverZIndex={zIndex.tooltip}
+        trigger={
+          <PlusButton
+            data-cy="spawn-volume-btn"
+            disabled={reachedMaxVolumeSize}
+            onClick={() => {
+              setOpenModal(true);
+              spawnAnalytics.sendEvent({
+                name: "Opened the Spawn Volume Modal",
+              });
+            }}
+          >
+            Spawn a volume
+          </PlusButton>
+        }
+        enabled={reachedMaxVolumeSize}
       >
-        Spawn a Volume
-      </PlusButton>
+        {`You have reached the max volume limit (${volumeLimit} GiB). Delete some volumes to spawn more.`}
+      </Tooltip>
       <Info>Limit {volumeLimit} GiB per User</Info>
-      <SpawnVolumeModal
-        visible={openModal}
-        onCancel={() => setOpenModal(false)}
-      />
+      {openModal && (
+        <SpawnVolumeModal
+          visible={openModal}
+          onCancel={() => setOpenModal(false)}
+          maxSpawnableLimit={maxSpawnableLimit}
+        />
+      )}
     </PaddedContainer>
   );
 };

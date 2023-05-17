@@ -6,11 +6,7 @@ import {
   getColumnTreeSelectFilterProps,
 } from "components/Table/Filters";
 import { TreeSelectProps } from "components/TreeSelect";
-import {
-  TestSortCategory,
-  TestResult,
-  GetTaskQuery,
-} from "gql/generated/types";
+import { TestSortCategory, TestResult, TaskQuery } from "gql/generated/types";
 import { string } from "utils";
 import { LogsColumn } from "./LogsColumn";
 import { TestStatusBadge } from "./TestStatusBadge";
@@ -21,7 +17,7 @@ interface GetColumnsTemplateParams {
   onColumnHeaderClick?: (sortField) => void;
   statusSelectorProps: TreeSelectProps;
   testNameInputProps: InputFilterProps;
-  task: GetTaskQuery["task"];
+  task: TaskQuery["task"];
 }
 
 export const getColumnsTemplate = ({
@@ -64,7 +60,11 @@ export const getColumnsTemplate = ({
     }),
   },
   {
-    title: <span data-cy="base-status-column">Base Status</span>,
+    title: (
+      <span data-cy="base-status-column">
+        {task.versionMetadata.isPatch ? "Base" : "Previous"} Status
+      </span>
+    ),
     dataIndex: "baseStatus",
     key: TestSortCategory.BaseStatus,
     onHeaderCell: () => ({

@@ -1,8 +1,8 @@
-query GetUserPermissions {
+query UserPermissions {
   user {
-    userId
     permissions {
       canCreateProject
     }
+    userId
   }
 }

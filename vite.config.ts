@@ -58,12 +58,15 @@ export default defineConfig({
         ],
         manualChunks: {
           vendor: [
-            "node_modules/react/index.js",
-            "node_modules/react-dom/index.js",
+            "react",
+            "react-router-dom",
+            "react-dom",
+            "react-router",
+            "lodash",
+            "date-fns",
+            "antd",
+            "date-fns/esm/locale",
           ],
-          lodash: ["node_modules/lodash/index.js"],
-          antd: ["node_modules/antd/es/index.js"],
-          "date-fns": ["node_modules/date-fns/esm/index.js"],
         },
       },
     },
@@ -107,11 +110,14 @@ export default defineConfig({
           libName: "lodash",
           libDirectory: "",
           camel2DashComponentName: false,
-          style: (name) => `lodash/${name}`,
+          style: (name) => {
+            console.log(name);
+            return `lodash/${name}`;
+          },
         },
         {
           libName: "date-fns",
-          libDirectory: "",
+          libDirectory: "esm",
           style: (name) => `date-fns/esm/${name}`,
           camel2DashComponentName: false,
         },

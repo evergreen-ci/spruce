@@ -2,8 +2,6 @@ import { Fragment } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Body } from "@leafygreen-ui/typography";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
 import Icon from "components/Icon";
 import { StyledRouterLink } from "components/styles";
 import { size } from "constants/tokens";
@@ -15,6 +13,7 @@ export interface Breadcrumb {
   text: string;
   to?: string;
   onClick?: () => void;
+  "data-cy"?: string;
 }
 interface BreadcrumbsProps {
   breadcrumbs: Breadcrumb[];
@@ -22,7 +21,7 @@ interface BreadcrumbsProps {
 const Breadcrumbs: React.VFC<BreadcrumbsProps> = ({ breadcrumbs }) => (
   <Container>
     {breadcrumbs.map((bc, index) => (
-      <Fragment key={`breadCrumb-${bc.text}`}>
+      <Fragment key={`breadcrumb-${bc.text}`}>
         <BreadcrumbFragment breadcrumb={bc} />
         {breadcrumbs.length - 1 !== index && (
           <PaddedIcon
@@ -43,34 +42,30 @@ interface BreadcrumbFragmentProps {
 const BreadcrumbFragment: React.VFC<BreadcrumbFragmentProps> = ({
   breadcrumb,
 }) => {
-  const { text = "", to, onClick, ...rest } = breadcrumb;
+  const { text = "", to, onClick, "data-cy": dataCy } = breadcrumb;
   const shouldTrimMessage = text.length > 30;
   const message = trimStringFromMiddle(text, 30);
   return (
-    <ConditionalWrapper
-      condition={shouldTrimMessage}
-      wrapper={(children) => (
-        <Tooltip
-          align="top"
-          justify="middle"
-          trigger={children}
-          triggerEvent="hover"
-          data-cy="breadcrumb-tooltip"
-        >
-          {text}
-        </Tooltip>
-      )}
+    <Tooltip
+      align="top"
+      data-cy="breadcrumb-tooltip"
+      justify="middle"
+      enabled={shouldTrimMessage}
+      trigger={
+        to ? (
+          <div data-cy={dataCy}>
+            <StyledRouterLink to={to} onClick={onClick}>
+              {message}
+            </StyledRouterLink>
+          </div>
+        ) : (
+          <div data-cy={dataCy}>{message}</div>
+        )
+      }
+      triggerEvent="hover"
     >
-      {to ? (
-        <Body {...rest}>
-          <StyledRouterLink to={to} onClick={onClick}>
-            {message}
-          </StyledRouterLink>
-        </Body>
-      ) : (
-        <Body {...rest}>{message}</Body>
-      )}
-    </ConditionalWrapper>
+      {text}
+    </Tooltip>
   );
 };
 

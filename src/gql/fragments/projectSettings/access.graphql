@@ -1,11 +1,9 @@
-fragment projectAccessSettings on Project {
-  private
-  restricted
+fragment ProjectAccessSettings on Project {
   admins
+  restricted
 }
 
-fragment repoAccessSettings on RepoRef {
-  private
-  restricted
+fragment RepoAccessSettings on RepoRef {
   admins
+  restricted
 }

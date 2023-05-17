@@ -1,14 +1,13 @@
 import { hasOperationName, GQL_URL } from "../../../utils/graphql-test-utils";
 import { mockErrorResponse } from "../../../utils/mockErrorResponse";
 
-const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
-const patchWithDisplayTasks = "5e6bb9e23066155a993e0f1b";
 describe("Configure Patch Page", () => {
+  const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
+  const patchWithDisplayTasks = "5e6bb9e23066155a993e0f1b";
+
   describe("Initial state reflects patch data", () => {
-    before(() => {
-      cy.visit(`/version/${unactivatedPatchId}`);
-    });
     it("Should Redirect to configure page for unconfigured patches", () => {
+      cy.visit(`/version/${unactivatedPatchId}`);
       cy.location().should((loc) =>
         expect(loc.pathname).to.eq(
           `/patch/${unactivatedPatchId}/configure/tasks`
@@ -16,6 +15,7 @@ describe("Configure Patch Page", () => {
       );
     });
     it("Patch name input field value is patch description", () => {
+      cy.visit(`/version/${unactivatedPatchId}`);
       cy.dataCy("patch-name-input")
         .invoke("val")
         .then((text) => {
@@ -23,10 +23,12 @@ describe("Configure Patch Page", () => {
         });
     });
     it("First build variant in list is selected by default", () => {
+      cy.visit(`/version/${unactivatedPatchId}`);
       cy.dataCy("build-variant-list-item")
         .first()
         .should("have.attr", "data-selected", "true");
     });
+
     describe("Visiting configure page from a redirect", () => {
       it("should default to the tasks tab when there isn't one in the url", () => {
         cy.visit(`/patch/${unactivatedPatchId}/configure`);
@@ -38,14 +40,14 @@ describe("Configure Patch Page", () => {
         cy.dataCy("tasks-tab").should("be.visible");
       });
     });
+
     describe("Visiting a configure page with display tasks", () => {
-      before(() => {
-        cy.visit(`patch/${patchWithDisplayTasks}/configure/tasks`);
-      });
       it("should show display tasks if there are any", () => {
+        cy.visit(`patch/${patchWithDisplayTasks}/configure/tasks`);
         cy.contains("display_task");
       });
     });
+
     it("Required tasks should be auto selected", () => {
       cy.visit(`patch/${patchWithDisplayTasks}/configure/tasks`);
       cy.getInputByLabel("test-graphql").should("be.checked");
@@ -53,7 +55,7 @@ describe("Configure Patch Page", () => {
   });
 
   describe("Switching tabs", () => {
-    before(() => {
+    beforeEach(() => {
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
     });
     it("Should be able to switch between tabs", () => {
@@ -86,11 +88,9 @@ describe("Configure Patch Page", () => {
 
   describe("Patch Parameters", () => {
     describe("Unactivated Patch", () => {
-      before(() => {
+      it("Adding a parameter is reflected on the page", () => {
         cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
         cy.get('button[data-cy="parameters-tab"]').click();
-      });
-      it("Adding a parameter is reflected on the page", () => {
         cy.dataCy("add-tag-button").click();
         cy.dataCy("user-tag-key-field").type("testKey");
         cy.dataCy("user-tag-value-field").type("testValue");
@@ -99,11 +99,9 @@ describe("Configure Patch Page", () => {
       });
     });
     describe("Activated Patch", () => {
-      before(() => {
+      it("Parameters cannot be added once activated", () => {
         cy.visit(`patch/5ecedafb562343215a7ff297/configure/tasks`);
         cy.get('button[data-cy="parameters-tab"]').click();
-      });
-      it("Parameters cannot be added once activated", () => {
         cy.dataCy("add-tag-button").should("not.exist");
         cy.dataCy("parameters-disclaimer").should("exist");
         cy.dataCy("badge-this-is-a-parameter").should("exist");
@@ -112,7 +110,7 @@ describe("Configure Patch Page", () => {
     });
   });
 
-  describe("Configuring a patch", () => {
+  describe("Configuring a patch", { testIsolation: false }, () => {
     before(() => {
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
     });
@@ -123,7 +121,7 @@ describe("Configure Patch Page", () => {
     });
     it("Schedule button should be disabled when no tasks are selected and enabled when they are", () => {
       cy.dataCy("task-checkbox").should("not.be.checked");
-      cy.dataCy("schedule-patch").should("be.disabled");
+      cy.dataCy("schedule-patch").should("have.attr", "aria-disabled", "true");
       cy.dataCy("task-checkbox").check({ force: true });
 
       cy.dataCy("schedule-patch").should("not.be.disabled");
@@ -345,13 +343,13 @@ describe("Configure Patch Page", () => {
             .contains("RHEL 7.2 zLinux")
             .click();
 
-          cy.dataCy("task-checkbox").its("length").as("variant1TaskCount");
+          cy.dataCy("task-checkbox").as("variant1Task");
 
           cy.dataCy("build-variant-list-item")
             .contains("RHEL 7.1 POWER8")
             .click();
 
-          cy.dataCy("task-checkbox").its("length").as("variant2TaskCount");
+          cy.dataCy("task-checkbox").as("variant2Task");
 
           cy.get("body").type("{meta}", {
             release: false,
@@ -367,15 +365,20 @@ describe("Configure Patch Page", () => {
             cy.wrap($el).should("be.checked");
           });
 
-          cy.get("@variant1TaskCount").then((variant1TaskCount) => {
-            cy.get("@variant2TaskCount").then((variant2TaskCount) => {
-              cy.dataCy("selected-task-disclaimer").contains(
-                `${
-                  variant1TaskCount + variant2TaskCount
-                } tasks across 2 build variants`
-              );
+          cy.get("@variant1Task")
+            .its("length")
+            .then((variant1TaskCount) => {
+              cy.get("@variant2Task")
+                .its("length")
+                .then((variant2TaskCount) => {
+                  cy.dataCy("selected-task-disclaimer").contains(
+                    `${
+                      variant1TaskCount + variant2TaskCount
+                    } tasks across 2 build variants`
+                  );
+                });
             });
-          });
+
           cy.get("body").type("{meta}", {
             release: true,
           });
@@ -501,7 +504,7 @@ describe("Configure Patch Page", () => {
     });
   });
 
-  //   Using mocked responses because we are unable to schedule a patch because of a missing github token
+  // Using mocked responses because we are unable to schedule a patch because of a missing github token
   describe("Scheduling a patch", () => {
     beforeEach(() => {
       cy.visit(`/patch/${unactivatedPatchId}`);

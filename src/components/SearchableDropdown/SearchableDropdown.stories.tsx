@@ -1,61 +1,39 @@
 import { useState } from "react";
-import SearchableDropdown from ".";
+import { StoryObj } from "@storybook/react";
+import SearchableDropdown, { SearchableDropdownProps } from ".";
 
 export default {
-  title: "Components/Searchable Dropdown",
   component: SearchableDropdown,
 };
 
-export const Default = () => {
-  const [value, setValue] = useState("");
-
-  return (
-    <SearchableDropdown
-      label="standard select"
-      value={value}
-      onChange={setValue}
-      options={["1", "2", "3"]}
-    />
-  );
+export const Default: StoryObj<SearchableDropdownProps<string>> = {
+  render: (args) => <Dropdown options={["1", "2", "3"]} {...args} />,
+  args: {
+    allowMultiSelect: false,
+    disabled: false,
+    label: "Searchable Dropdown",
+  },
 };
 
-export const Multiselect = () => {
-  const [value, setValue] = useState([]);
-
-  return (
-    <SearchableDropdown
-      label="multi select"
-      value={value}
-      onChange={setValue}
-      options={["1", "2", "3"]}
-      allowMultiSelect
-    />
-  );
-};
-
-export const CustomOption = () => {
-  const [value, setValue] = useState([]);
-  const options = [
-    {
-      label: "Option 1",
-      value: "1",
-    },
-    {
-      label: "Option 2",
-      value: "2",
-    },
-    {
-      label: "Option 3",
-      value: "3",
-    },
-  ];
-  return (
-    <SearchableDropdown
-      label="Custom option select"
-      value={value}
-      onChange={setValue}
-      options={options}
-      allowMultiSelect
+export const CustomOption: StoryObj<
+  SearchableDropdownProps<{ label: string; value: string }>
+> = {
+  render: (args) => (
+    <Dropdown
+      options={[
+        {
+          label: "Option 1",
+          value: "1",
+        },
+        {
+          label: "Option 2",
+          value: "2",
+        },
+        {
+          label: "Option 3",
+          value: "3",
+        },
+      ]}
       optionRenderer={(option, onClick, isChecked) => (
         <button
           onClick={() => onClick(option.value)}
@@ -66,6 +44,14 @@ export const CustomOption = () => {
           {option.label}
         </button>
       )}
+      allowMultiSelect
+      label="Custom option select"
+      {...args}
     />
-  );
+  ),
+};
+
+const Dropdown = (props) => {
+  const [value, setValue] = useState([]);
+  return <SearchableDropdown {...props} value={value} onChange={setValue} />;
 };

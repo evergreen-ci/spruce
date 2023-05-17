@@ -23,7 +23,7 @@ type Action =
       name: "Spawned a host";
       isMigration: boolean;
       params: Omit<
-        SpawnHostMutationVariables["SpawnHostInput"],
+        SpawnHostMutationVariables["spawnHostInput"],
         "publicKey" | "userDataScript" | "setUpScript"
       >;
     }
@@ -33,9 +33,13 @@ type Action =
   | { name: "Unmount volume"; volumeId: string }
   | {
       name: "Spawned a volume";
-      params: SpawnVolumeMutationVariables;
+      params: SpawnVolumeMutationVariables["spawnVolumeInput"];
     }
-  | { name: "Edited a Spawn Volume"; params: UpdateVolumeMutationVariables };
+  | {
+      name: "Edited a Spawn Volume";
+      params: UpdateVolumeMutationVariables["updateVolumeInput"];
+    }
+  | { name: "Opened IDE" };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
@@ -52,3 +56,5 @@ export const useSpawnAnalytics = (): Analytics => {
 
   return { sendEvent };
 };
+
+export type { Analytics };

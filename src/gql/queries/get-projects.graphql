@@ -1,13 +1,13 @@
-query GetProjects {
+query Projects {
   projects {
     groupDisplayName
     projects {
+      displayName
       id
       identifier
-      repo
-      owner
-      displayName
       isFavorite
+      owner
+      repo
     }
   }
 }

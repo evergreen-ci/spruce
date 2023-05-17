@@ -1,19 +1,41 @@
-import { ProjectSettingsInput } from "gql/generated/types";
+import { BannerTheme, ProjectSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
+import { ProjectType } from "../utils";
 import { formToGql, gqlToForm } from "./transformers";
 import { FormState } from "./types";
 
 const { projectBase } = data;
 
 describe("project data", () => {
-  it("correctly converts from GQL to a form", () => {
-    expect(gqlToForm(projectBase)).toStrictEqual(projectFormBase);
+  it("correctly converts from GQL to a form for project type", () => {
+    expect(
+      gqlToForm(projectBase, { projectType: ProjectType.Project })
+    ).toStrictEqual({ ...projectFormBase, banner });
   });
 
-  it("correctly converts from a form to GQL", () => {
+  it("correctly converts from GQL to a form for repo type", () => {
+    expect(
+      gqlToForm(projectBase, { projectType: ProjectType.Repo })
+    ).toStrictEqual(projectFormBase);
+  });
+
+  it("correctly converts from a form to GQL when a banner value exists in the form", () => {
+    expect(formToGql({ ...projectFormBase, banner }, "spruce")).toStrictEqual({
+      ...projectResultBase,
+      projectRef: {
+        ...projectResultBase.projectRef,
+        banner: banner.bannerData,
+      },
+    });
+  });
+
+  it("correctly converts from a form to GQL when the subscriptions field is empty", () => {
     expect(formToGql(projectFormBase, "spruce")).toStrictEqual(
       projectResultBase
     );
+  });
+
+  it("correctly converts from a form to GQL when the subscriptions field is populated", () => {
     const projectForm = {
       ...projectFormBase,
       subscriptions: [
@@ -68,6 +90,7 @@ describe("project data", () => {
 
     expect(formToGql(projectForm, "spruce")).toStrictEqual(projectResult);
   });
+
   it("handles jira issue subscriptions", () => {
     const projectForm = {
       ...projectFormBase,
@@ -146,13 +169,16 @@ describe("project data", () => {
               notificationSelect: "evergreen-webhook",
               webhookInput: {
                 urlInput: "https://example.com",
-                secretInput: "",
+                secretInput: "webhook_secret",
                 httpHeaders: [
                   {
                     keyInput: "Content-Type",
                     valueInput: "application/json",
                   },
                 ],
+                retryInput: 0,
+                minDelayInput: 100,
+                timeoutInput: 1000,
               },
             },
           },
@@ -184,7 +210,10 @@ describe("project data", () => {
             jiraIssueSubscriber: undefined,
             webhookSubscriber: {
               url: "https://example.com",
-              secret: "",
+              secret: "webhook_secret",
+              retries: 0,
+              minDelayMs: 100,
+              timeoutMs: 1000,
               headers: [
                 {
                   key: "Content-Type",
@@ -219,3 +248,5 @@ const projectResultBase: ProjectSettingsInput = {
   },
   subscriptions: [],
 };
+
+const banner = { bannerData: { text: "", theme: BannerTheme.Announcement } };

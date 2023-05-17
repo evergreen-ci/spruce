@@ -15,15 +15,17 @@ import { queryString } from "utils";
 const { toSortString } = queryString;
 
 interface Props {
+  isPatch: boolean;
   tasks: VersionTasksQuery["version"]["tasks"]["data"];
   sorts: SortOrder[];
   loading: boolean;
 }
 
 export const PatchTasksTable: React.VFC<Props> = ({
-  tasks,
-  sorts,
+  isPatch,
   loading,
+  sorts,
+  tasks,
 }) => {
   const { id: versionId } = useParams<{ id: string }>();
   const updateQueryParams = useUpdateURLQueryParams();
@@ -86,6 +88,7 @@ export const PatchTasksTable: React.VFC<Props> = ({
 
   return (
     <TasksTable
+      isPatch={isPatch}
       sorts={sorts}
       tableChangeHandler={tableChangeHandler}
       tasks={tasks}

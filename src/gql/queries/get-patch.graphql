@@ -2,11 +2,11 @@
 
 query Patch($id: String!) {
   patch(id: $id) {
-    ...basePatch
-    projectID
-    projectIdentifier
+    ...BasePatch
     githash
     patchNumber
+    projectID
+    projectIdentifier
     versionFull {
       id
     }

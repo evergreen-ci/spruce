@@ -1,757 +1,731 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
+exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
 <div>
-  <h3
-    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
-  >
-    Distro Projects
-  </h3>
-  <div
-    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
-  >
-    <form
-      className="rjsf"
-      noValidate={true}
-      onSubmit={[Function]}
+  <div>
+    <h3
+      class="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
     >
-      <div
-        className="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm8"
-        id=" root"
+      Distro Projects
+    </h3>
+    <div
+      class="css-133ss97-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
+    >
+      <form
+        class="rjsf"
+        novalidate=""
       >
-        <fieldset
-          className="css-enw7dc-ObjectFieldTemplate"
-          id="root"
+        <div
+          class="form-group field field-object css-ejwhfc-DefaultFieldContainer eny4k1v0"
+          id=" root"
         >
-          <div
-            className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm8"
-            id=" root_cloneMethod"
+          <fieldset
+            class="css-enw7dc-ObjectFieldTemplate"
+            id="root"
           >
             <div
-              className="css-1ik0alb-ElementWrapper-LeafyGreenSelect ee4bs9n0"
+              class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              id=" root_cloneMethod"
             >
               <div
-                className="css-12pm1mq-MaxWidthContainer eevpusu0"
+                class="css-1ik0alb-ElementWrapper-LeafyGreenSelect ee4bs9n0"
               >
                 <div
-                  className="leafygreen-ui-1nkq8lt"
+                  class="css-12pm1mq-MaxWidthContainer eevpusu0"
                 >
-                  <label
-                    className="leafygreen-ui-1wkudkc"
-                    htmlFor="select-6"
-                    id="select-5-label"
+                  <div
+                    class="leafygreen-ui-1nkq8lt"
                   >
-                    Project Cloning Method
-                  </label>
-                  <button
-                    aria-controls="select-5-menu"
-                    aria-describedby="select-5-description"
-                    aria-disabled={false}
-                    aria-expanded={false}
-                    aria-invalid={false}
-                    aria-labelledby="select-5-label"
-                    className="lg-ui-button-0000 leafygreen-ui-sedrjd"
-                    data-testid="leafygreen-ui-select-menubutton"
-                    disabled={false}
-                    id="select-6"
-                    onClick={[Function]}
-                    type="button"
-                    value="legacy-ssh"
-                  >
-                    <div
-                      className="leafygreen-ui-v038xi"
-                    />
-                    <div
-                      className="leafygreen-ui-1qmzz4y"
+                    <label
+                      class="leafygreen-ui-vg7131"
+                      for="select-8"
+                      id="select-7-label"
+                    >
+                      Project Cloning Method
+                    </label>
+                    <button
+                      aria-controls="select-7-menu"
+                      aria-describedby="select-7-description"
+                      aria-disabled="false"
+                      aria-expanded="false"
+                      aria-invalid="false"
+                      aria-labelledby="select-7-label"
+                      class="lg-ui-button-0001 leafygreen-ui-3qrx9g"
+                      data-testid="leafygreen-ui-select-menubutton"
+                      id="select-8"
+                      type="button"
+                      value="legacy-ssh"
                     >
                       <div
-                        className="leafygreen-ui-obh8q1"
+                        class="leafygreen-ui-v038xi"
+                      />
+                      <div
+                        class="leafygreen-ui-1qmzz4y"
                       >
                         <div
-                          className="leafygreen-ui-17aj16e"
+                          class="leafygreen-ui-obh8q1"
                         >
-                          Legacy SSH
+                          <div
+                            class="leafygreen-ui-17aj16e"
+                          >
+                            Legacy SSH
+                          </div>
                         </div>
+                        <svg
+                          alt=""
+                          aria-hidden="true"
+                          class="leafygreen-ui-866818"
+                          height="16"
+                          role="presentation"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <path
+                            d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                            fill="currentColor"
+                          />
+                        </svg>
                       </div>
-                      <svg
-                        alt=""
-                        aria-hidden={true}
-                        className="leafygreen-ui-866818"
-                        height={16}
-                        role="presentation"
-                        viewBox="0 0 16 16"
-                        width={16}
-                      >
-                        <path
-                          d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    </div>
-                  </button>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div
-            className="form-group field field-array css-ejwhfc-DefaultFieldContainer e7smmlm8"
-            id=" root_expansions"
-          >
-            <h6
-              className="css-ho1tq1-StyledSubtitle e63qz861 leafygreen-ui-41zalo"
-              id="root_expansions__title"
-            >
-              Expansions
-            </h6>
             <div
-              className="css-y5jij6-ElementWrapper-AddButtonContainer e7smmlm3"
+              class="form-group field field-array css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              id=" root_expansions"
             >
-              <button
-                aria-disabled={false}
-                className="lg-ui-button-0000 leafygreen-ui-1t94nwe"
-                data-cy="add-button"
-                disabled={false}
-                onClick={[Function]}
-                type="button"
+              <h6
+                class="css-ho1tq1-StyledSubtitle e63qz861 leafygreen-ui-41zalo"
+                id="root_expansions__title"
+              >
+                Expansions
+              </h6>
+              <div
+                class="css-y5jij6-ElementWrapper-AddButtonContainer e1jxkcec6"
+              >
+                <button
+                  aria-disabled="false"
+                  class="lg-ui-button-0000 leafygreen-ui-1kt1vpf"
+                  data-cy="add-button"
+                  type="button"
+                >
+                  <div
+                    class="leafygreen-ui-v038xi"
+                  />
+                  <div
+                    class="leafygreen-ui-1qmzz4y"
+                  >
+                    <svg
+                      alt=""
+                      aria-hidden="true"
+                      class="leafygreen-ui-6juzfh"
+                      fill="none"
+                      height="16"
+                      role="presentation"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                    Add
+                  </div>
+                </button>
+              </div>
+              <div
+                class="css-uocgfp-ArrayContainer e1jxkcec5"
               >
                 <div
-                  className="leafygreen-ui-v038xi"
-                />
-                <div
-                  className="leafygreen-ui-1qmzz4y"
+                  class="css-nbhfvd-ArrayItemRow e1jxkcec7"
                 >
-                  <svg
-                    alt=""
-                    aria-hidden={true}
-                    className="leafygreen-ui-6juzfh"
-                    fill="none"
-                    height={16}
-                    role="presentation"
-                    viewBox="0 0 16 16"
-                    width={16}
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    class="form-group field field-object css-ejwhfc-DefaultFieldContainer eny4k1v0"
+                    id=" root_expansions_0"
                   >
-                    <path
-                      clipRule="evenodd"
-                      d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
-                      fill="currentColor"
-                      fillRule="evenodd"
-                    />
-                  </svg>
-                  Add
+                    <fieldset
+                      class="css-enw7dc-ObjectFieldTemplate"
+                      id="root_expansions_0"
+                    >
+                      <div
+                        class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
+                        id=" root_expansions_0_key"
+                      >
+                        <div
+                          class="css-1kjj8dy-ElementWrapper-LeafyGreenTextInput ee4bs9n0"
+                        >
+                          <div
+                            class="css-12pm1mq-MaxWidthContainer eevpusu0"
+                          >
+                            <div
+                              class="css-1kbcljo-StyledTextInput eevpusu7 leafygreen-ui-xtefr5"
+                            >
+                              <div
+                                class="leafygreen-ui-a533bt"
+                              >
+                                <label
+                                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
+                                  for="textinput-10"
+                                >
+                                  key
+                                </label>
+                              </div>
+                              <div
+                                class="leafygreen-ui-lzja97"
+                              >
+                                <input
+                                  aria-invalid="false"
+                                  aria-label="key"
+                                  autocomplete="on"
+                                  class="leafygreen-ui-6i61vl"
+                                  id="textinput-10"
+                                  required=""
+                                  type="text"
+                                  value="Sample Input"
+                                />
+                                <div
+                                  class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
+                        id=" root_expansions_0_value"
+                      >
+                        <div
+                          class="css-1kjj8dy-ElementWrapper-LeafyGreenTextInput ee4bs9n0"
+                        >
+                          <div
+                            class="css-12pm1mq-MaxWidthContainer eevpusu0"
+                          >
+                            <div
+                              class="css-1kbcljo-StyledTextInput eevpusu7 leafygreen-ui-xtefr5"
+                            >
+                              <div
+                                class="leafygreen-ui-a533bt"
+                              >
+                                <label
+                                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
+                                  for="textinput-11"
+                                >
+                                  value
+                                </label>
+                              </div>
+                              <div
+                                class="leafygreen-ui-lzja97"
+                              >
+                                <input
+                                  aria-invalid="false"
+                                  aria-label="value"
+                                  autocomplete="on"
+                                  class="leafygreen-ui-6i61vl"
+                                  id="textinput-11"
+                                  required=""
+                                  type="text"
+                                  value="Sample Input"
+                                />
+                                <div
+                                  class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div
+                    class="css-oex5ed-ElementWrapper-DeleteButtonWrapper e1jxkcec4"
+                  >
+                    <button
+                      aria-disabled="false"
+                      class="lg-ui-button-0000 leafygreen-ui-1kt1vpf"
+                      data-cy="delete-item-button"
+                      type="button"
+                    >
+                      <div
+                        class="leafygreen-ui-v038xi"
+                      />
+                      <div
+                        class="leafygreen-ui-1qmzz4y"
+                      >
+                        <svg
+                          aria-label="Trash Icon"
+                          class="leafygreen-ui-ui6c7f"
+                          fill="none"
+                          height="16"
+                          role="img"
+                          viewBox="0 0 16 16"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            clip-rule="evenodd"
+                            d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                    </button>
+                  </div>
                 </div>
-              </button>
+              </div>
             </div>
             <div
-              className="css-uocgfp-ArrayContainer e7smmlm2"
+              class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              id=" root_validProjects"
             >
               <div
-                className="css-nbhfvd-ArrayItemRow e7smmlm4"
+                class="css-odleto-ElementWrapper-LeafyGreenTextArea ee4bs9n0"
               >
                 <div
-                  className="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm8"
-                  id=" root_expansions_0"
+                  class="leafygreen-ui-1iyoj2o"
                 >
-                  <fieldset
-                    className="css-enw7dc-ObjectFieldTemplate"
-                    id="root_expansions_0"
+                  <label
+                    class="leafygreen-ui-591fuk"
+                    for="textarea-1"
                   >
-                    <div
-                      className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm8"
-                      id=" root_expansions_0_key"
-                    >
-                      <div
-                        className="css-1kjj8dy-ElementWrapper-LeafyGreenTextInput ee4bs9n0"
-                      >
-                        <div
-                          className="css-12pm1mq-MaxWidthContainer eevpusu0"
-                        >
-                          <div
-                            className="css-1kbcljo-StyledTextInput eevpusu7 leafygreen-ui-xtefr5"
-                          >
-                            <div
-                              className="leafygreen-ui-a533bt"
-                            >
-                              <label
-                                className="leafygreen-ui-gr5280"
-                                htmlFor="textinput-16"
-                              >
-                                key
-                              </label>
-                            </div>
-                            <div
-                              className="leafygreen-ui-lzja97"
-                            >
-                              <input
-                                aria-invalid={false}
-                                aria-label="key"
-                                autoComplete="on"
-                                className="leafygreen-ui-6i61vl"
-                                disabled={false}
-                                id="textinput-16"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                required={true}
-                                type="text"
-                                value="Sample Input"
-                              />
-                              <div
-                                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm8"
-                      id=" root_expansions_0_value"
-                    >
-                      <div
-                        className="css-1kjj8dy-ElementWrapper-LeafyGreenTextInput ee4bs9n0"
-                      >
-                        <div
-                          className="css-12pm1mq-MaxWidthContainer eevpusu0"
-                        >
-                          <div
-                            className="css-1kbcljo-StyledTextInput eevpusu7 leafygreen-ui-xtefr5"
-                          >
-                            <div
-                              className="leafygreen-ui-a533bt"
-                            >
-                              <label
-                                className="leafygreen-ui-gr5280"
-                                htmlFor="textinput-17"
-                              >
-                                value
-                              </label>
-                            </div>
-                            <div
-                              className="leafygreen-ui-lzja97"
-                            >
-                              <input
-                                aria-invalid={false}
-                                aria-label="value"
-                                autoComplete="on"
-                                className="leafygreen-ui-6i61vl"
-                                disabled={false}
-                                id="textinput-17"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                required={true}
-                                type="text"
-                                value="Sample Input"
-                              />
-                              <div
-                                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </fieldset>
+                    Valid Projects
+                  </label>
+                  <textarea
+                    class="leafygreen-ui-j9hxzb"
+                    id="textarea-1"
+                    title="Valid Projects"
+                  />
                 </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
+<div>
+  <div>
+    <h3
+      class="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
+    >
+      Admin Options
+    </h3>
+    <div
+      class="css-133ss97-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
+    >
+      <form
+        class="rjsf"
+        novalidate=""
+      >
+        <div
+          class="form-group field field-object css-ejwhfc-DefaultFieldContainer eny4k1v0"
+          id=" root"
+        >
+          <fieldset
+            class="css-enw7dc-ObjectFieldTemplate"
+            id="root"
+          >
+            <div
+              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              id=" root_distroIsCluster"
+            >
+              <div
+                class="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
+              >
                 <div
-                  className="css-oex5ed-ElementWrapper-DeleteButtonWrapper e7smmlm1"
+                  class="leafygreen-ui-55kazc"
                 >
-                  <button
-                    aria-disabled={false}
-                    className="lg-ui-button-0000 leafygreen-ui-1t94nwe"
-                    data-cy="delete-item-button"
-                    disabled={false}
-                    onClick={[Function]}
-                    type="button"
+                  <label
+                    class="leafygreen-ui-rae0jp"
+                    for="checkbox-1"
+                    id="checkbox-1-label"
                   >
-                    <div
-                      className="leafygreen-ui-v038xi"
+                    <input
+                      aria-checked="false"
+                      aria-disabled="false"
+                      aria-label="checkbox"
+                      aria-labelledby="checkbox-1-label"
+                      class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                      id="checkbox-1"
+                      type="checkbox"
                     />
                     <div
-                      className="leafygreen-ui-1qmzz4y"
+                      class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
                     >
                       <svg
-                        aria-label="Trash Icon"
-                        className="leafygreen-ui-ui6c7f"
+                        class="leafygreen-ui-6caof5"
                         fill="none"
-                        height={16}
-                        role="img"
-                        viewBox="0 0 16 16"
-                        width={16}
+                        height="10"
+                        stroke="#FFFFFF"
+                        viewBox="0 0 10 10"
+                        width="10"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          clipRule="evenodd"
-                          d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
-                          fill="currentColor"
-                          fillRule="evenodd"
+                          d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                          stroke="#FFFFFF"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
                         />
                       </svg>
                     </div>
-                  </button>
+                    <div
+                      class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+                    />
+                    <span
+                      class="leafygreen-ui-1wmrjan"
+                    >
+                      Mark distro as a cluster (jobs are not run on this host, used for special purposes).
+                    </span>
+                  </label>
                 </div>
               </div>
             </div>
-          </div>
-          <div
-            className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm8"
-            id=" root_validProjects"
-          >
             <div
-              className="css-odleto-ElementWrapper-LeafyGreenTextArea ee4bs9n0"
+              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              id=" root_disableShallowClone"
             >
               <div
-                className="leafygreen-ui-1iyoj2o"
-              >
-                <label
-                  className="leafygreen-ui-1k5mcru"
-                  htmlFor="textarea-1"
-                >
-                  Valid Projects
-                </label>
-                <textarea
-                  className="leafygreen-ui-1or2ez7"
-                  disabled={false}
-                  id="textarea-1"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  title="Valid Projects"
-                  value=""
-                />
-              </div>
-            </div>
-          </div>
-        </fieldset>
-      </div>
-    </form>
-  </div>
-</div>
-`;
-
-exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
-<div>
-  <h3
-    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
-  >
-    Admin Options
-  </h3>
-  <div
-    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
-  >
-    <form
-      className="rjsf"
-      noValidate={true}
-      onSubmit={[Function]}
-    >
-      <div
-        className="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm8"
-        id=" root"
-      >
-        <fieldset
-          className="css-enw7dc-ObjectFieldTemplate"
-          id="root"
-        >
-          <div
-            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm8"
-            id=" root_distroIsCluster"
-          >
-            <div
-              className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
-            >
-              <div
-                className="leafygreen-ui-55kazc"
-              >
-                <label
-                  className="leafygreen-ui-rae0jp"
-                  htmlFor="checkbox-1"
-                  id="checkbox-1-label"
-                >
-                  <input
-                    aria-checked={false}
-                    aria-disabled={false}
-                    aria-label="checkbox"
-                    aria-labelledby="checkbox-1-label"
-                    checked={false}
-                    className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                    disabled={false}
-                    id="checkbox-1"
-                    onChange={[Function]}
-                    onClick={[Function]}
-                    type="checkbox"
-                  />
-                  <div
-                    className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
-                  >
-                    <svg
-                      className="leafygreen-ui-6caof5"
-                      fill="none"
-                      height="10"
-                      stroke="#FFFFFF"
-                      viewBox="0 0 10 10"
-                      width="10"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
-                        stroke="#FFFFFF"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                      />
-                    </svg>
-                  </div>
-                  <div
-                    className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
-                  />
-                  <span
-                    className="leafygreen-ui-1wmrjan"
-                  >
-                    Mark distro as a cluster (jobs are not run on this host, used for special purposes).
-                  </span>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div
-            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm8"
-            id=" root_disableShallowClone"
-          >
-            <div
-              className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
-            >
-              <div
-                className="leafygreen-ui-55kazc"
-              >
-                <label
-                  className="leafygreen-ui-rae0jp"
-                  htmlFor="checkbox-2"
-                  id="checkbox-2-label"
-                >
-                  <input
-                    aria-checked={false}
-                    aria-disabled={false}
-                    aria-label="checkbox"
-                    aria-labelledby="checkbox-2-label"
-                    checked={false}
-                    className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                    disabled={false}
-                    id="checkbox-2"
-                    onChange={[Function]}
-                    onClick={[Function]}
-                    type="checkbox"
-                  />
-                  <div
-                    className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
-                  >
-                    <svg
-                      className="leafygreen-ui-6caof5"
-                      fill="none"
-                      height="10"
-                      stroke="#FFFFFF"
-                      viewBox="0 0 10 10"
-                      width="10"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
-                        stroke="#FFFFFF"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                      />
-                    </svg>
-                  </div>
-                  <div
-                    className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
-                  />
-                  <span
-                    className="leafygreen-ui-1wmrjan"
-                  >
-                    Disable shallow clone for this distro.
-                  </span>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div
-            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm8"
-            id=" root_disableQueue"
-          >
-            <div
-              className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
-            >
-              <div
-                className="leafygreen-ui-55kazc"
-              >
-                <label
-                  className="leafygreen-ui-rae0jp"
-                  htmlFor="checkbox-3"
-                  id="checkbox-3-label"
-                >
-                  <input
-                    aria-checked={false}
-                    aria-disabled={false}
-                    aria-label="checkbox"
-                    aria-labelledby="checkbox-3-label"
-                    checked={false}
-                    className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                    disabled={false}
-                    id="checkbox-3"
-                    onChange={[Function]}
-                    onClick={[Function]}
-                    type="checkbox"
-                  />
-                  <div
-                    className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
-                  >
-                    <svg
-                      className="leafygreen-ui-6caof5"
-                      fill="none"
-                      height="10"
-                      stroke="#FFFFFF"
-                      viewBox="0 0 10 10"
-                      width="10"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
-                        stroke="#FFFFFF"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                      />
-                    </svg>
-                  </div>
-                  <div
-                    className="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
-                  />
-                  <span
-                    className="leafygreen-ui-1wmrjan"
-                  >
-                    Disable queueing this distro. Tasks already in the task queue will be removed.
-                  </span>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div
-            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm8"
-            id=" root_decommissionHosts"
-          >
-            <div
-              className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
-            >
-              <div
-                className="leafygreen-ui-55kazc"
-              >
-                <label
-                  className="leafygreen-ui-rae0jp"
-                  htmlFor="checkbox-4"
-                  id="checkbox-4-label"
-                >
-                  <input
-                    aria-checked={true}
-                    aria-disabled={false}
-                    aria-label="checkbox"
-                    aria-labelledby="checkbox-4-label"
-                    checked={true}
-                    className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                    disabled={false}
-                    id="checkbox-4"
-                    onChange={[Function]}
-                    onClick={[Function]}
-                    type="checkbox"
-                  />
-                  <div
-                    className="lg-ui-check-wrapper-0000 leafygreen-ui-1mf205r"
-                  >
-                    <svg
-                      className="leafygreen-ui-1degv9q"
-                      fill="none"
-                      height="10"
-                      stroke="#FFFFFF"
-                      viewBox="0 0 10 10"
-                      width="10"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
-                        stroke="#FFFFFF"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                      />
-                    </svg>
-                  </div>
-                  <div
-                    className="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
-                  />
-                  <span
-                    className="leafygreen-ui-1wmrjan"
-                  >
-                    Decommission hosts of this distro for this update
-                  </span>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div
-            className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm8"
-            id=" root_reprovisionMethod"
-          >
-            <div
-              className="css-1ik0alb-ElementWrapper-LeafyGreenSelect ee4bs9n0"
-            >
-              <div
-                className="css-12pm1mq-MaxWidthContainer eevpusu0"
+                class="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
               >
                 <div
-                  className="leafygreen-ui-1nkq8lt"
+                  class="leafygreen-ui-55kazc"
                 >
-                  
-                  <button
-                    aria-controls="select-9-menu"
-                    aria-describedby="select-9-description"
-                    aria-disabled={false}
-                    aria-expanded={false}
-                    aria-invalid={false}
-                    aria-labelledby="select-9-label"
-                    className="lg-ui-button-0000 leafygreen-ui-1bn2bfe"
-                    data-testid="leafygreen-ui-select-menubutton"
-                    disabled={false}
-                    id="select-10"
-                    onClick={[Function]}
-                    type="button"
-                    value=""
+                  <label
+                    class="leafygreen-ui-rae0jp"
+                    for="checkbox-2"
+                    id="checkbox-2-label"
                   >
-                    <div
-                      className="leafygreen-ui-v038xi"
+                    <input
+                      aria-checked="false"
+                      aria-disabled="false"
+                      aria-label="checkbox"
+                      aria-labelledby="checkbox-2-label"
+                      class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                      id="checkbox-2"
+                      type="checkbox"
                     />
                     <div
-                      className="leafygreen-ui-1qmzz4y"
+                      class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
                     >
-                      <div
-                        className="leafygreen-ui-obh8q1"
-                      >
-                        <div
-                          className="leafygreen-ui-17aj16e"
-                        >
-                          
-                        </div>
-                      </div>
                       <svg
-                        alt=""
-                        aria-hidden={true}
-                        className="leafygreen-ui-866818"
-                        height={16}
-                        role="presentation"
-                        viewBox="0 0 16 16"
-                        width={16}
+                        class="leafygreen-ui-6caof5"
+                        fill="none"
+                        height="10"
+                        stroke="#FFFFFF"
+                        viewBox="0 0 10 10"
+                        width="10"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
-                          fill="currentColor"
+                          d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                          stroke="#FFFFFF"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
                         />
                       </svg>
                     </div>
-                  </button>
+                    <div
+                      class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+                    />
+                    <span
+                      class="leafygreen-ui-1wmrjan"
+                    >
+                      Disable shallow clone for this distro.
+                    </span>
+                  </label>
                 </div>
               </div>
             </div>
-          </div>
-        </fieldset>
-      </div>
-    </form>
+            <div
+              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              id=" root_disableQueue"
+            >
+              <div
+                class="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
+              >
+                <div
+                  class="leafygreen-ui-55kazc"
+                >
+                  <label
+                    class="leafygreen-ui-rae0jp"
+                    for="checkbox-3"
+                    id="checkbox-3-label"
+                  >
+                    <input
+                      aria-checked="false"
+                      aria-disabled="false"
+                      aria-label="checkbox"
+                      aria-labelledby="checkbox-3-label"
+                      class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                      id="checkbox-3"
+                      type="checkbox"
+                    />
+                    <div
+                      class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+                    >
+                      <svg
+                        class="leafygreen-ui-6caof5"
+                        fill="none"
+                        height="10"
+                        stroke="#FFFFFF"
+                        viewBox="0 0 10 10"
+                        width="10"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                          stroke="#FFFFFF"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+                    />
+                    <span
+                      class="leafygreen-ui-1wmrjan"
+                    >
+                      Disable queueing this distro. Tasks already in the task queue will be removed.
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div
+              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              id=" root_decommissionHosts"
+            >
+              <div
+                class="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
+              >
+                <div
+                  class="leafygreen-ui-55kazc"
+                >
+                  <label
+                    class="leafygreen-ui-rae0jp"
+                    for="checkbox-4"
+                    id="checkbox-4-label"
+                  >
+                    <input
+                      aria-checked="true"
+                      aria-disabled="false"
+                      aria-label="checkbox"
+                      aria-labelledby="checkbox-4-label"
+                      checked=""
+                      class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                      id="checkbox-4"
+                      type="checkbox"
+                    />
+                    <div
+                      class="lg-ui-check-wrapper-0000 leafygreen-ui-1mf205r"
+                    >
+                      <svg
+                        class="leafygreen-ui-1degv9q"
+                        fill="none"
+                        height="10"
+                        stroke="#FFFFFF"
+                        viewBox="0 0 10 10"
+                        width="10"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                          stroke="#FFFFFF"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
+                    />
+                    <span
+                      class="leafygreen-ui-1wmrjan"
+                    >
+                      Decommission hosts of this distro for this update
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div
+              class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              id=" root_reprovisionMethod"
+            >
+              <div
+                class="css-kuac4f-ElementWrapper-LeafyGreenRadio ee4bs9n0"
+              >
+                <div
+                  aria-label="radio-group-1"
+                  class="leafygreen-ui-14o8ny9"
+                  role="group"
+                >
+                  <div
+                    class="leafygreen-ui-jpwlig"
+                  >
+                    <label
+                      class="leafygreen-ui-1465lnm"
+                      for="radio-group-1-0"
+                    >
+                      <input
+                        aria-checked="false"
+                        aria-describedby="undefined-undefined"
+                        aria-disabled="false"
+                        class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
+                        id="radio-group-1-0"
+                        name="radio-group-1"
+                        type="radio"
+                        value="restartJasper"
+                      />
+                      <div
+                        class="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
+                      >
+                        <div
+                          class="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
+                        />
+                      </div>
+                      Restart Jasper service on running hosts of this distro for this update
+                    </label>
+                  </div>
+                  <div
+                    class="leafygreen-ui-jpwlig"
+                  >
+                    <label
+                      class="leafygreen-ui-1465lnm"
+                      for="radio-group-1-1"
+                    >
+                      <input
+                        aria-checked="false"
+                        aria-describedby="undefined-undefined"
+                        aria-disabled="false"
+                        class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
+                        id="radio-group-1-1"
+                        name="radio-group-1"
+                        type="radio"
+                        value="reprovisionHosts"
+                      />
+                      <div
+                        class="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
+                      >
+                        <div
+                          class="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
+                        />
+                      </div>
+                      Reprovision running hosts of this distro for this update
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 `;
 
-exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
+exports[`storybook Storyshots components/SpruceForm Example 3 1`] = `
 <div>
-  <h3
-    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
-  >
-    UI Options
-  </h3>
-  <div
-    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
-  >
-    <form
-      className="rjsf"
-      noValidate={true}
-      onSubmit={[Function]}
+  <div>
+    <h3
+      class="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
     >
-      <div
-        className="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm8"
-        id=" root"
+      UI Options
+    </h3>
+    <div
+      class="css-133ss97-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
+    >
+      <form
+        class="rjsf"
+        novalidate=""
       >
-        <fieldset
-          className="css-enw7dc-ObjectFieldTemplate"
-          id="root"
+        <div
+          class="form-group field field-object css-ejwhfc-DefaultFieldContainer eny4k1v0"
+          id=" root"
         >
-          <div
-            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm8"
-            id=" root_visible"
+          <fieldset
+            class="css-enw7dc-ObjectFieldTemplate"
+            id="root"
           >
             <div
-              className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
+              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              id=" root_visible"
             >
               <div
-                className="leafygreen-ui-55kazc"
+                class="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
               >
-                <label
-                  className="leafygreen-ui-rae0jp"
-                  htmlFor="checkbox-5"
-                  id="checkbox-5-label"
+                <div
+                  class="leafygreen-ui-55kazc"
                 >
-                  <input
-                    aria-checked={true}
-                    aria-disabled={false}
-                    aria-label="checkbox"
-                    aria-labelledby="checkbox-5-label"
-                    checked={true}
-                    className="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                    disabled={false}
-                    id="checkbox-5"
-                    onChange={[Function]}
-                    onClick={[Function]}
-                    type="checkbox"
-                  />
-                  <div
-                    className="lg-ui-check-wrapper-0000 leafygreen-ui-1mf205r"
+                  <label
+                    class="leafygreen-ui-rae0jp"
+                    for="checkbox-5"
+                    id="checkbox-5-label"
                   >
-                    <svg
-                      className="leafygreen-ui-1degv9q"
-                      fill="none"
-                      height="10"
-                      stroke="#FFFFFF"
-                      viewBox="0 0 10 10"
-                      width="10"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <input
+                      aria-checked="true"
+                      aria-disabled="false"
+                      aria-label="checkbox"
+                      aria-labelledby="checkbox-5-label"
+                      checked=""
+                      class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                      id="checkbox-5"
+                      type="checkbox"
+                    />
+                    <div
+                      class="lg-ui-check-wrapper-0000 leafygreen-ui-1mf205r"
                     >
-                      <path
-                        d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                      <svg
+                        class="leafygreen-ui-1degv9q"
+                        fill="none"
+                        height="10"
                         stroke="#FFFFFF"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                      />
-                    </svg>
-                  </div>
-                  <div
-                    className="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
-                  />
-                  <span
-                    className="leafygreen-ui-1wmrjan"
-                  >
-                    This is the only visible page element
-                  </span>
-                </label>
+                        viewBox="0 0 10 10"
+                        width="10"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                          stroke="#FFFFFF"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
+                    />
+                    <span
+                      class="leafygreen-ui-1wmrjan"
+                    >
+                      This is the only visible page element
+                    </span>
+                  </label>
+                </div>
               </div>
             </div>
-          </div>
-        </fieldset>
-      </div>
-    </form>
+          </fieldset>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 `;

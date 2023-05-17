@@ -3,10 +3,10 @@ import { useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import SearchableDropdown from "components/SearchableDropdown";
 import {
-  GetProjectsQuery,
-  GetProjectsQueryVariables,
-  GetViewableProjectRefsQuery,
-  GetViewableProjectRefsQueryVariables,
+  ProjectsQuery,
+  ProjectsQueryVariables,
+  ViewableProjectRefsQuery,
+  ViewableProjectRefsQueryVariables,
 } from "gql/generated/types";
 import { GET_PROJECTS, GET_VIEWABLE_PROJECTS } from "gql/queries";
 import { Unpacked } from "types/utils";
@@ -28,14 +28,14 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
   const navigate = useNavigate();
 
   const { data: projectsData, loading: projectsLoading } = useQuery<
-    GetProjectsQuery,
-    GetProjectsQueryVariables
+    ProjectsQuery,
+    ProjectsQueryVariables
   >(GET_PROJECTS, {
     skip: isProjectSettingsPage,
   });
 
   const { data: viewableProjectsData, loading: viewableProjectsLoading } =
-    useQuery<GetViewableProjectRefsQuery, GetViewableProjectRefsQueryVariables>(
+    useQuery<ViewableProjectRefsQuery, ViewableProjectRefsQueryVariables>(
       GET_VIEWABLE_PROJECTS,
       {
         skip: !isProjectSettingsPage,
@@ -64,7 +64,6 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
   const handleSearch = (options: typeof allProjects, value: string) => {
     // iterate through options and remove any groups that have no matching projects
     const filteredProjects = options.reduce((acc, g) => {
-      // @ts-expect-error
       const { groupDisplayName, projects: pg, repo } = g;
 
       const newProjects = pg.filter(
@@ -120,16 +119,13 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
   );
 };
 
-const getFavoriteProjects = (
-  projectGroups: Array<{
-    projects: Array<{ isFavorite: boolean }>;
-  }>
-) => projectGroups?.flatMap((g) => g.projects.filter((p) => p.isFavorite));
+const getFavoriteProjects = (projectGroups: ProjectsQuery["projects"]) =>
+  projectGroups?.flatMap((g) => g.projects.filter((p) => p.isFavorite));
 
 // Split a list of projects into two arrays, one of enabled projects and one of disabled projects
 const filterDisabledProjects = (
   projects: Unpacked<
-    GetViewableProjectRefsQuery["viewableProjectRefs"]
+    ViewableProjectRefsQuery["viewableProjectRefs"]
   >["projects"]
 ) =>
   projects.reduce(
@@ -140,10 +136,24 @@ const filterDisabledProjects = (
     [[], []]
   );
 
-const getProjects = (
-  projectsData: GetProjectsQuery,
-  viewableProjectsData: GetViewableProjectRefsQuery,
+type ViewableProjectRef = Unpacked<
+  ViewableProjectRefsQuery["viewableProjectRefs"]
+>;
+interface GetProjectsResult {
+  groupDisplayName: ViewableProjectRef["groupDisplayName"];
+  projects: ViewableProjectRef["projects"];
+  repo?: ViewableProjectRef["repo"];
+}
+type GetProjectsType = (
+  projectsData: ProjectsQuery,
+  viewableProjectsData: ViewableProjectRefsQuery,
   isProjectSettingsPage: boolean
+) => GetProjectsResult[];
+
+const getProjects: GetProjectsType = (
+  projectsData,
+  viewableProjectsData,
+  isProjectSettingsPage
 ) => {
   if (!isProjectSettingsPage) {
     const projectGroups = projectsData?.projects ?? [];

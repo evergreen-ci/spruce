@@ -29,44 +29,42 @@ export const ChartToggle: React.VFC<{
     });
   };
   return (
-    <AccordionContainer>
-      <Accordion
-        title="View options"
-        defaultOpen={defaultOpenAccordion}
-        onToggle={onToggleAccordion}
-      >
-        <ToggleWrapper>
-          <StyledRadioGroup
-            onChange={onChange}
-            value={currentChartType}
-            name="chart-select"
+    <StyledAccordion
+      title="View options"
+      defaultOpen={defaultOpenAccordion}
+      onToggle={onToggleAccordion}
+    >
+      <ToggleWrapper>
+        <StyledRadioGroup
+          onChange={onChange}
+          value={currentChartType}
+          name="chart-select"
+        >
+          <Radio
+            data-cy="cy-chart-absolute-radio"
+            id="chart-radio-absolute"
+            value={ChartTypes.Absolute}
           >
-            <Radio
-              data-cy="cy-chart-absolute-radio"
-              id="chart-radio-absolute"
-              value={ChartTypes.Absolute}
-            >
-              Absolute Number
-            </Radio>
-            <Radio
-              data-cy="cy-chart-percent-radio"
-              id="chart-radio-percent"
-              value={ChartTypes.Percentage}
-            >
-              Percentage
-            </Radio>
-          </StyledRadioGroup>
-        </ToggleWrapper>
-      </Accordion>
-    </AccordionContainer>
+            Absolute Number
+          </Radio>
+          <Radio
+            data-cy="cy-chart-percent-radio"
+            id="chart-radio-percent"
+            value={ChartTypes.Percentage}
+          >
+            Percentage
+          </Radio>
+        </StyledRadioGroup>
+      </ToggleWrapper>
+    </StyledAccordion>
   );
 };
 
 const StyledRadioGroup = styled(RadioGroup)`
   display: flex;
-  align-items: baseline;
+  flex-direction: row;
   gap: ${size.xs};
-  margin-bottom: ${size.xs};
+  margin: ${size.xs} 0;
 `;
 
 const ToggleWrapper = styled.div`
@@ -77,7 +75,7 @@ const ToggleWrapper = styled.div`
   box-shadow: 0px ${size.xxs} ${size.xs} -${size.xxs} rgba(0, 0, 0, 0.3);
 `;
 
-const AccordionContainer = styled.div`
+const StyledAccordion = styled(Accordion)`
   display: flex;
   flex-direction: column;
   align-items: flex-end;

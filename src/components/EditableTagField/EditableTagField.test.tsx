@@ -1,8 +1,5 @@
-import { fireEvent, mockUUID, render, screen } from "test_utils";
+import { render, screen, userEvent } from "test_utils";
 import { EditableTagField } from ".";
-
-// Must mock uuid for this test since getRandomValues() is not supported in CI
-jest.mock("uuid");
 
 const editableTags = [
   { key: "keyA", value: "valueA" },
@@ -18,10 +15,6 @@ const editableTags = [
 
 const defaultData = [...editableTags];
 describe("editableTagField", () => {
-  beforeAll(() => {
-    mockUUID();
-  });
-
   afterAll(() => jest.restoreAllMocks());
 
   it("renders editable tags", async () => {
@@ -60,13 +53,14 @@ describe("editableTagField", () => {
     expect(data).toStrictEqual(defaultData);
     expect(screen.queryAllByDataCy("user-tag-trash-icon")[0]).toBeVisible();
 
-    fireEvent.change(screen.queryAllByDataCy("user-tag-value-field")[0], {
-      target: { value: "new value" },
-    });
+    userEvent.clear(screen.queryAllByDataCy("user-tag-value-field")[0]);
+    userEvent.type(
+      screen.queryAllByDataCy("user-tag-value-field")[0],
+      "new value"
+    );
 
     expect(screen.queryAllByDataCy("user-tag-edit-icon")[0]).toBeVisible();
-
-    fireEvent.click(screen.queryAllByDataCy("user-tag-edit-icon")[0]);
+    userEvent.click(screen.queryAllByDataCy("user-tag-edit-icon")[0]);
 
     expect(updateData).toHaveBeenCalledWith([
       { key: "keyA", value: "new value" },
@@ -95,7 +89,7 @@ describe("editableTagField", () => {
     expect(data).toStrictEqual(defaultData);
     expect(screen.queryAllByDataCy("user-tag-trash-icon")[0]).toBeVisible();
 
-    fireEvent.click(screen.queryAllByDataCy("user-tag-trash-icon")[0]);
+    userEvent.click(screen.queryAllByDataCy("user-tag-trash-icon")[0]);
 
     expect(updateData).toHaveBeenCalledWith([...defaultData.slice(1, 3)]);
     expect(data).toStrictEqual([...defaultData.slice(1, 3)]);
@@ -119,13 +113,11 @@ describe("editableTagField", () => {
     expect(data).toStrictEqual(defaultData);
     expect(screen.queryAllByDataCy("user-tag-trash-icon")[0]).toBeVisible();
 
-    fireEvent.change(screen.queryAllByDataCy("user-tag-key-field")[0], {
-      target: { value: "new key" },
-    });
+    userEvent.clear(screen.queryAllByDataCy("user-tag-key-field")[0]);
+    userEvent.type(screen.queryAllByDataCy("user-tag-key-field")[0], "new key");
 
     expect(screen.queryAllByDataCy("user-tag-edit-icon")[0]).toBeVisible();
-
-    fireEvent.click(screen.queryAllByDataCy("user-tag-edit-icon")[0]);
+    userEvent.click(screen.queryAllByDataCy("user-tag-edit-icon")[0]);
 
     expect(updateData).toHaveBeenCalledWith([
       { ...defaultData[0], key: "new key" },
@@ -155,26 +147,23 @@ describe("editableTagField", () => {
     expect(screen.queryAllByDataCy("user-tag-row")).toHaveLength(3);
     expect(screen.queryByDataCy("add-tag-button")).toBeVisible();
 
-    fireEvent.click(screen.queryByDataCy("add-tag-button"));
+    userEvent.click(screen.queryByDataCy("add-tag-button"));
 
     expect(screen.queryByDataCy("add-tag-button")).toBeNull();
     expect(screen.queryAllByDataCy("user-tag-trash-icon")[3]).toBeVisible();
     expect(screen.queryAllByDataCy("user-tag-row")).toHaveLength(4);
-    expect(screen.queryAllByDataCy("user-tag-key-field")[3]).toBeVisible();
 
-    fireEvent.change(screen.queryAllByDataCy("user-tag-key-field")[3], {
-      target: { value: "new key" },
-    });
+    userEvent.clear(screen.queryAllByDataCy("user-tag-key-field")[3]);
+    userEvent.type(screen.queryAllByDataCy("user-tag-key-field")[3], "new key");
 
-    expect(screen.queryAllByDataCy("user-tag-value-field")[3]).toBeVisible();
-
-    fireEvent.change(screen.queryAllByDataCy("user-tag-value-field")[3], {
-      target: { value: "new value" },
-    });
+    userEvent.clear(screen.queryAllByDataCy("user-tag-value-field")[3]);
+    userEvent.type(
+      screen.queryAllByDataCy("user-tag-value-field")[3],
+      "new value"
+    );
 
     expect(screen.queryAllByDataCy("user-tag-edit-icon")).toHaveLength(1);
-
-    fireEvent.click(screen.queryAllByDataCy("user-tag-edit-icon")[0]);
+    userEvent.click(screen.queryAllByDataCy("user-tag-edit-icon")[0]);
 
     expect(updateData).toHaveBeenCalledTimes(1);
     expect(data).toStrictEqual([

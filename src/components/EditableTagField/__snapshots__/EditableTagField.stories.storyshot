@@ -1,432 +1,411 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field View 1`] = `
-<div
-  className="css-1l8756f-FlexColumnContainer e1zn6k0"
->
+exports[`storybook Storyshots components/EditableTagField Default 1`] = `
+<div>
   <div
-    className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
-    data-cy="user-tag-row"
+    class="css-1l8756f-FlexColumnContainer e1zn6k0"
   >
     <div
-      className="css-w1f0xx-FlexContainer e161fbrp3"
+      class="css-1lpxfqd-FlexColumnContainer e161fbrp2"
+      data-cy="user-tag-row"
     >
       <div
-        className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
+        class="css-w1f0xx-FlexContainer e161fbrp3"
       >
         <div
-          className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
+          class="css-1lpxfqd-FlexColumnContainer e161fbrp2"
         >
           <div
-            className="leafygreen-ui-xtefr5"
+            class="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
           >
             <div
-              className="leafygreen-ui-a533bt"
+              class="leafygreen-ui-xtefr5"
             >
-              <label
-                className="leafygreen-ui-gr5280"
-                htmlFor="tag_key_undefined"
-              >
-                Key
-              </label>
-            </div>
-            <div
-              className="leafygreen-ui-lzja97"
-            >
-              <input
-                aria-invalid={false}
-                autoComplete="on"
-                className="leafygreen-ui-6i61vl"
-                data-cy="user-tag-key-field"
-                disabled={false}
-                id="tag_key_undefined"
-                onBlur={[Function]}
-                onChange={[Function]}
-                required={true}
-                type="text"
-                value="keyA"
-              />
               <div
-                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
-              />
+                class="leafygreen-ui-a533bt"
+              >
+                <label
+                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
+                  for="tag_key_1"
+                >
+                  Key
+                </label>
+              </div>
+              <div
+                class="leafygreen-ui-lzja97"
+              >
+                <input
+                  aria-invalid="false"
+                  autocomplete="on"
+                  class="leafygreen-ui-6i61vl"
+                  data-cy="user-tag-key-field"
+                  id="tag_key_1"
+                  required=""
+                  type="text"
+                  value="keyA"
+                />
+                <div
+                  class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div
-        className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
-      >
         <div
-          className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
+          class="css-1lpxfqd-FlexColumnContainer e161fbrp2"
         >
           <div
-            className="leafygreen-ui-xtefr5"
+            class="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
           >
             <div
-              className="leafygreen-ui-a533bt"
+              class="leafygreen-ui-xtefr5"
             >
-              <label
-                className="leafygreen-ui-gr5280"
-                htmlFor="tag_value_undefined"
-              >
-                Value
-              </label>
-            </div>
-            <div
-              className="leafygreen-ui-lzja97"
-            >
-              <input
-                aria-invalid={false}
-                autoComplete="on"
-                className="leafygreen-ui-6i61vl"
-                data-cy="user-tag-value-field"
-                disabled={false}
-                id="tag_value_undefined"
-                onBlur={[Function]}
-                onChange={[Function]}
-                required={true}
-                type="text"
-                value="valueA"
-              />
               <div
-                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
-              />
+                class="leafygreen-ui-a533bt"
+              >
+                <label
+                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
+                  for="tag_value_1"
+                >
+                  Value
+                </label>
+              </div>
+              <div
+                class="leafygreen-ui-lzja97"
+              >
+                <input
+                  aria-invalid="false"
+                  autocomplete="on"
+                  class="leafygreen-ui-6i61vl"
+                  data-cy="user-tag-value-field"
+                  id="tag_value_1"
+                  required=""
+                  type="text"
+                  value="valueA"
+                />
+                <div
+                  class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                />
+              </div>
             </div>
           </div>
         </div>
+        <div
+          class="css-17vcddu-IconButtonContainer e161fbrp0"
+        >
+          <button
+            aria-disabled="false"
+            aria-label="Delete Tag"
+            class="leafygreen-ui-1xt2asn"
+            tabindex="0"
+          >
+            <div
+              class="leafygreen-ui-xhlipt"
+            >
+              <svg
+                aria-label="Trash Icon"
+                class=""
+                data-cy="user-tag-trash-icon"
+                fill="none"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </button>
+        </div>
       </div>
+    </div>
+    <div
+      class="css-1lpxfqd-FlexColumnContainer e161fbrp2"
+      data-cy="user-tag-row"
+    >
       <div
-        className="css-17vcddu-IconButtonContainer e161fbrp0"
+        class="css-w1f0xx-FlexContainer e161fbrp3"
+      >
+        <div
+          class="css-1lpxfqd-FlexColumnContainer e161fbrp2"
+        >
+          <div
+            class="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
+          >
+            <div
+              class="leafygreen-ui-xtefr5"
+            >
+              <div
+                class="leafygreen-ui-a533bt"
+              >
+                <label
+                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
+                  for="tag_key_2"
+                >
+                  Key
+                </label>
+              </div>
+              <div
+                class="leafygreen-ui-lzja97"
+              >
+                <input
+                  aria-invalid="false"
+                  autocomplete="on"
+                  class="leafygreen-ui-6i61vl"
+                  data-cy="user-tag-key-field"
+                  id="tag_key_2"
+                  required=""
+                  type="text"
+                  value="keyB"
+                />
+                <div
+                  class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="css-1lpxfqd-FlexColumnContainer e161fbrp2"
+        >
+          <div
+            class="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
+          >
+            <div
+              class="leafygreen-ui-xtefr5"
+            >
+              <div
+                class="leafygreen-ui-a533bt"
+              >
+                <label
+                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
+                  for="tag_value_2"
+                >
+                  Value
+                </label>
+              </div>
+              <div
+                class="leafygreen-ui-lzja97"
+              >
+                <input
+                  aria-invalid="false"
+                  autocomplete="on"
+                  class="leafygreen-ui-6i61vl"
+                  data-cy="user-tag-value-field"
+                  id="tag_value_2"
+                  required=""
+                  type="text"
+                  value="valueB"
+                />
+                <div
+                  class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="css-17vcddu-IconButtonContainer e161fbrp0"
+        >
+          <button
+            aria-disabled="false"
+            aria-label="Delete Tag"
+            class="leafygreen-ui-1xt2asn"
+            tabindex="0"
+          >
+            <div
+              class="leafygreen-ui-xhlipt"
+            >
+              <svg
+                aria-label="Trash Icon"
+                class=""
+                data-cy="user-tag-trash-icon"
+                fill="none"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="css-1lpxfqd-FlexColumnContainer e161fbrp2"
+      data-cy="user-tag-row"
+    >
+      <div
+        class="css-w1f0xx-FlexContainer e161fbrp3"
+      >
+        <div
+          class="css-1lpxfqd-FlexColumnContainer e161fbrp2"
+        >
+          <div
+            class="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
+          >
+            <div
+              class="leafygreen-ui-xtefr5"
+            >
+              <div
+                class="leafygreen-ui-a533bt"
+              >
+                <label
+                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
+                  for="tag_key_3"
+                >
+                  Key
+                </label>
+              </div>
+              <div
+                class="leafygreen-ui-lzja97"
+              >
+                <input
+                  aria-invalid="false"
+                  autocomplete="on"
+                  class="leafygreen-ui-6i61vl"
+                  data-cy="user-tag-key-field"
+                  id="tag_key_3"
+                  required=""
+                  type="text"
+                  value="keyC"
+                />
+                <div
+                  class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="css-1lpxfqd-FlexColumnContainer e161fbrp2"
+        >
+          <div
+            class="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
+          >
+            <div
+              class="leafygreen-ui-xtefr5"
+            >
+              <div
+                class="leafygreen-ui-a533bt"
+              >
+                <label
+                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
+                  for="tag_value_3"
+                >
+                  Value
+                </label>
+              </div>
+              <div
+                class="leafygreen-ui-lzja97"
+              >
+                <input
+                  aria-invalid="false"
+                  autocomplete="on"
+                  class="leafygreen-ui-6i61vl"
+                  data-cy="user-tag-value-field"
+                  id="tag_value_3"
+                  required=""
+                  type="text"
+                  value="valueC"
+                />
+                <div
+                  class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="css-17vcddu-IconButtonContainer e161fbrp0"
+        >
+          <button
+            aria-disabled="false"
+            aria-label="Delete Tag"
+            class="leafygreen-ui-1xt2asn"
+            tabindex="0"
+          >
+            <div
+              class="leafygreen-ui-xhlipt"
+            >
+              <svg
+                aria-label="Trash Icon"
+                class=""
+                data-cy="user-tag-trash-icon"
+                fill="none"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="css-1lpxfqd-FlexColumnContainer e161fbrp2"
+      data-cy="add-tag-button-row"
+    >
+      <div
+        class="css-pylksp-ButtonContainer e161fbrp4"
       >
         <button
-          aria-disabled={false}
-          aria-label="Delete Tag"
-          className="leafygreen-ui-6obv0c"
-          tabIndex={0}
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-10g1wb5"
+          data-cy="add-tag-button"
+          type="button"
         >
           <div
-            className="leafygreen-ui-xhlipt"
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-1qmzz4y"
           >
             <svg
-              aria-label="Trash Icon"
-              className=""
-              data-cy="user-tag-trash-icon"
+              alt=""
+              aria-hidden="true"
+              class="leafygreen-ui-6juzfh"
               fill="none"
-              height={16}
-              onClick={[Function]}
-              role="img"
+              height="16"
+              role="presentation"
               viewBox="0 0 16 16"
-              width={16}
+              width="16"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                clipRule="evenodd"
-                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                clip-rule="evenodd"
+                d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
                 fill="currentColor"
-                fillRule="evenodd"
+                fill-rule="evenodd"
               />
             </svg>
+            Add Tag
           </div>
         </button>
       </div>
-    </div>
-  </div>
-  <div
-    className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
-    data-cy="user-tag-row"
-  >
-    <div
-      className="css-w1f0xx-FlexContainer e161fbrp3"
-    >
-      <div
-        className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
-      >
-        <div
-          className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
-        >
-          <div
-            className="leafygreen-ui-xtefr5"
-          >
-            <div
-              className="leafygreen-ui-a533bt"
-            >
-              <label
-                className="leafygreen-ui-gr5280"
-                htmlFor="tag_key_undefined"
-              >
-                Key
-              </label>
-            </div>
-            <div
-              className="leafygreen-ui-lzja97"
-            >
-              <input
-                aria-invalid={false}
-                autoComplete="on"
-                className="leafygreen-ui-6i61vl"
-                data-cy="user-tag-key-field"
-                disabled={false}
-                id="tag_key_undefined"
-                onBlur={[Function]}
-                onChange={[Function]}
-                required={true}
-                type="text"
-                value="keyB"
-              />
-              <div
-                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
-      >
-        <div
-          className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
-        >
-          <div
-            className="leafygreen-ui-xtefr5"
-          >
-            <div
-              className="leafygreen-ui-a533bt"
-            >
-              <label
-                className="leafygreen-ui-gr5280"
-                htmlFor="tag_value_undefined"
-              >
-                Value
-              </label>
-            </div>
-            <div
-              className="leafygreen-ui-lzja97"
-            >
-              <input
-                aria-invalid={false}
-                autoComplete="on"
-                className="leafygreen-ui-6i61vl"
-                data-cy="user-tag-value-field"
-                disabled={false}
-                id="tag_value_undefined"
-                onBlur={[Function]}
-                onChange={[Function]}
-                required={true}
-                type="text"
-                value="valueB"
-              />
-              <div
-                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="css-17vcddu-IconButtonContainer e161fbrp0"
-      >
-        <button
-          aria-disabled={false}
-          aria-label="Delete Tag"
-          className="leafygreen-ui-6obv0c"
-          tabIndex={0}
-        >
-          <div
-            className="leafygreen-ui-xhlipt"
-          >
-            <svg
-              aria-label="Trash Icon"
-              className=""
-              data-cy="user-tag-trash-icon"
-              fill="none"
-              height={16}
-              onClick={[Function]}
-              role="img"
-              viewBox="0 0 16 16"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                clipRule="evenodd"
-                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
-                fill="currentColor"
-                fillRule="evenodd"
-              />
-            </svg>
-          </div>
-        </button>
-      </div>
-    </div>
-  </div>
-  <div
-    className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
-    data-cy="user-tag-row"
-  >
-    <div
-      className="css-w1f0xx-FlexContainer e161fbrp3"
-    >
-      <div
-        className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
-      >
-        <div
-          className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
-        >
-          <div
-            className="leafygreen-ui-xtefr5"
-          >
-            <div
-              className="leafygreen-ui-a533bt"
-            >
-              <label
-                className="leafygreen-ui-gr5280"
-                htmlFor="tag_key_undefined"
-              >
-                Key
-              </label>
-            </div>
-            <div
-              className="leafygreen-ui-lzja97"
-            >
-              <input
-                aria-invalid={false}
-                autoComplete="on"
-                className="leafygreen-ui-6i61vl"
-                data-cy="user-tag-key-field"
-                disabled={false}
-                id="tag_key_undefined"
-                onBlur={[Function]}
-                onChange={[Function]}
-                required={true}
-                type="text"
-                value="keyC"
-              />
-              <div
-                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
-      >
-        <div
-          className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
-        >
-          <div
-            className="leafygreen-ui-xtefr5"
-          >
-            <div
-              className="leafygreen-ui-a533bt"
-            >
-              <label
-                className="leafygreen-ui-gr5280"
-                htmlFor="tag_value_undefined"
-              >
-                Value
-              </label>
-            </div>
-            <div
-              className="leafygreen-ui-lzja97"
-            >
-              <input
-                aria-invalid={false}
-                autoComplete="on"
-                className="leafygreen-ui-6i61vl"
-                data-cy="user-tag-value-field"
-                disabled={false}
-                id="tag_value_undefined"
-                onBlur={[Function]}
-                onChange={[Function]}
-                required={true}
-                type="text"
-                value="valueC"
-              />
-              <div
-                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="css-17vcddu-IconButtonContainer e161fbrp0"
-      >
-        <button
-          aria-disabled={false}
-          aria-label="Delete Tag"
-          className="leafygreen-ui-6obv0c"
-          tabIndex={0}
-        >
-          <div
-            className="leafygreen-ui-xhlipt"
-          >
-            <svg
-              aria-label="Trash Icon"
-              className=""
-              data-cy="user-tag-trash-icon"
-              fill="none"
-              height={16}
-              onClick={[Function]}
-              role="img"
-              viewBox="0 0 16 16"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                clipRule="evenodd"
-                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
-                fill="currentColor"
-                fillRule="evenodd"
-              />
-            </svg>
-          </div>
-        </button>
-      </div>
-    </div>
-  </div>
-  <div
-    className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
-    data-cy="add-tag-button-row"
-  >
-    <div
-      className="css-pylksp-ButtonContainer e161fbrp4"
-    >
-      <button
-        aria-disabled={false}
-        className="lg-ui-button-0000 leafygreen-ui-n2d19n"
-        data-cy="add-tag-button"
-        disabled={false}
-        onClick={[Function]}
-        type="button"
-      >
-        <div
-          className="leafygreen-ui-v038xi"
-        />
-        <div
-          className="leafygreen-ui-1qmzz4y"
-        >
-          <svg
-            alt=""
-            aria-hidden={true}
-            className="leafygreen-ui-6juzfh"
-            fill="none"
-            height={16}
-            role="presentation"
-            viewBox="0 0 16 16"
-            width={16}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              clipRule="evenodd"
-              d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
-              fill="currentColor"
-              fillRule="evenodd"
-            />
-          </svg>
-          Add Tag
-        </div>
-      </button>
     </div>
   </div>
 </div>

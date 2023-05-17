@@ -1,5 +1,5 @@
 describe("Host page restart jasper, reprovision, and update host status buttons", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit("/host/i-0d0ae8b83366d22be");
   });
   it("Should show a toast when jasper restarted", () => {
@@ -21,7 +21,11 @@ describe("Host page restart jasper, reprovision, and update host status buttons"
     cy.dataCy("host-status-select").click();
     cy.dataCy("decommissioned-option").click();
     cy.dataCy("update-host-status-modal").within(() => {
-      cy.contains("button", "Update").should("not.be.disabled");
+      cy.contains("button", "Update").should(
+        "not.have.attr",
+        "aria-disabled",
+        "true"
+      );
       cy.contains("button", "Update").click({ force: true });
     });
 

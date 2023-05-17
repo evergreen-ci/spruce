@@ -1,9 +1,18 @@
 import { MockedProvider } from "@apollo/client/testing";
-import userEvent from "@testing-library/user-event";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
+import {
+  AddAnnotationIssueMutation,
+  AddAnnotationIssueMutationVariables,
+} from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { ADD_ANNOTATION } from "gql/mutations";
-import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+  waitFor,
+} from "test_utils";
+import { ApolloMock } from "types/gql";
 import { AddIssueModal as AddIssueModalToTest } from ".";
 
 const AddIssueModal = (
@@ -42,7 +51,7 @@ describe("addIssueModal", () => {
       screen.getByRole("button", {
         name: "Add issue",
       })
-    ).toBeDisabled();
+    ).toHaveAttribute("aria-disabled", "true");
   });
 
   it("entering values should enable the submit button", async () => {
@@ -68,7 +77,7 @@ describe("addIssueModal", () => {
       screen.getByRole("button", {
         name: "Add issue",
       })
-    ).not.toBeDisabled();
+    ).not.toHaveAttribute("aria-disabled", "true");
   });
 
   it("entering an invalid confidence score should disable the submit button", async () => {
@@ -96,15 +105,15 @@ describe("addIssueModal", () => {
     });
 
     userEvent.type(screen.queryByDataCy("confidence-level"), "not a number");
-    expect(confirmButton).toBeDisabled();
+    expect(confirmButton).toHaveAttribute("aria-disabled", "true");
 
     userEvent.clear(screen.queryByDataCy("confidence-level"));
     userEvent.type(screen.queryByDataCy("confidence-level"), "110");
-    expect(confirmButton).toBeDisabled();
+    expect(confirmButton).toHaveAttribute("aria-disabled", "true");
 
     userEvent.clear(screen.queryByDataCy("confidence-level"));
     userEvent.type(screen.queryByDataCy("confidence-level"), "80");
-    expect(confirmButton).not.toBeDisabled();
+    expect(confirmButton).not.toHaveAttribute("aria-disabled", "true");
   });
 
   it("should be able to successfully add annotation", async () => {
@@ -131,7 +140,7 @@ describe("addIssueModal", () => {
     const confirmButton = screen.getByRole("button", {
       name: "Add issue",
     });
-    expect(confirmButton).not.toBeDisabled();
+    expect(confirmButton).not.toHaveAttribute("aria-disabled", "true");
     userEvent.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     expect(setSelectedRowKey).toHaveBeenCalledWith("EVG-123");
@@ -144,7 +153,10 @@ const checkModalVisibility = () => {
   expect(screen.getByDataCy("confidence-level")).toBeVisible();
 };
 
-const addAnnotationMock = {
+const addAnnotationMock: ApolloMock<
+  AddAnnotationIssueMutation,
+  AddAnnotationIssueMutationVariables
+> = {
   request: {
     query: ADD_ANNOTATION,
     variables: {

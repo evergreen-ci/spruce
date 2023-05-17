@@ -1,10 +1,10 @@
 #import "./fileDiffs.graphql"
 
-fragment moduleCodeChange on ModuleCodeChange {
-  rawLink
+fragment ModuleCodeChange on ModuleCodeChange {
   branchName
-  htmlLink
   fileDiffs {
-    ...fileDiffs
+    ...FileDiffs
   }
+  htmlLink
+  rawLink
 }

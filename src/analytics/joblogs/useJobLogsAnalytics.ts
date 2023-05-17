@@ -9,7 +9,8 @@ type Action =
   | { name: "Filter Job Logs"; filterBy: string }
   | { name: "Clicked lobster testlog url"; testId: string }
   | { name: "Clicked HTML testlog url"; testId: string }
-  | { name: "Clicked complete logs link"; taskId: string };
+  | { name: "Clicked complete logs link"; buildId: string }
+  | { name: "Clicked Parsley test log link"; buildId: string };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}

@@ -1,3 +1,4 @@
+import { BannerTheme } from "gql/generated/types";
 import { Unpacked } from "types/utils";
 import { ProjectType } from "../utils/types";
 
@@ -14,6 +15,9 @@ export type Notification = Partial<{
     urlInput: string;
     secretInput: string;
     httpHeaders: { [key: string]: string }[];
+    retryInput: number;
+    minDelayInput: number;
+    timeoutInput: number;
   };
 }>;
 
@@ -32,6 +36,12 @@ export interface FormState {
       notification: Notification;
     };
   }> | null;
+  banner?: {
+    bannerData: {
+      text: string;
+      theme: BannerTheme;
+    };
+  };
 }
 
 // This utils file contains functions used to process the form state.

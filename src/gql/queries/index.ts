@@ -27,6 +27,7 @@ import GET_JIRA_CUSTOM_CREATED_ISSUES from "./get-jira-custom-created-issues.gra
 import GET_JIRA_ISSUES from "./get-jira-issues.graphql";
 import GET_JIRA_SUSPECTED_ISSUES from "./get-jira-suspected-issues.graphql";
 import GET_LAST_MAINLINE_COMMIT from "./get-last-mainline-commit.graphql";
+import GET_LOGKEEPER_BUILD_METADATA from "./get-logkeeper-build-metadata.graphql";
 import GET_MAINLINE_COMMITS_FOR_HISTORY from "./get-mainline-commits-for-history.graphql";
 import GET_MAINLINE_COMMITS from "./get-mainline-commits.graphql";
 import GET_MY_HOSTS from "./get-my-hosts.graphql";
@@ -35,6 +36,9 @@ import GET_OTHER_USER from "./get-other-user.graphql";
 import GET_PATCH_CONFIGURE from "./get-patch-configure.graphql";
 import GET_PATCH_TASK_STATUSES from "./get-patch-task-statuses.graphql";
 import GET_PATCH from "./get-patch.graphql";
+import GET_POD_EVENTS from "./get-pod-events.graphql";
+import GET_POD from "./get-pod.graphql";
+import GET_PROJECT_BANNER from "./get-project-banner.graphql";
 import GET_PROJECT_EVENT_LOGS from "./get-project-event-logs.graphql";
 import GET_PROJECT_SETTINGS from "./get-project-settings.graphql";
 import GET_PROJECTS from "./get-projects.graphql";
@@ -52,7 +56,6 @@ import GET_TASK_STATUSES from "./get-task-statuses.graphql";
 import GET_TASK_TEST_SAMPLE from "./get-task-test-sample.graphql";
 import GET_TASK_TESTS from "./get-task-tests.graphql";
 import GET_TASK from "./get-task.graphql";
-import GET_TESTS from "./get-tests.graphql";
 import GET_UNSCHEDULED_TASKS from "./get-undispatched-tasks.graphql";
 import GET_USER_CONFIG from "./get-user-config.graphql";
 import GET_USER_PERMISSIONS from "./get-user-permissions.graphql";
@@ -100,6 +103,7 @@ export {
   GET_JIRA_ISSUES,
   GET_JIRA_SUSPECTED_ISSUES,
   GET_LAST_MAINLINE_COMMIT,
+  GET_LOGKEEPER_BUILD_METADATA,
   GET_MAINLINE_COMMITS_FOR_HISTORY,
   GET_MAINLINE_COMMITS,
   GET_MY_HOSTS,
@@ -109,6 +113,9 @@ export {
   GET_PATCH_CONFIGURE,
   GET_PATCH_TASK_STATUSES,
   GET_PATCH,
+  GET_POD_EVENTS,
+  GET_POD,
+  GET_PROJECT_BANNER,
   GET_PROJECT_EVENT_LOGS,
   GET_PROJECT_PATCHES,
   GET_PROJECT_SETTINGS,
@@ -129,7 +136,6 @@ export {
   GET_TASK_TEST_SAMPLE,
   GET_TASK_TESTS,
   GET_TASK,
-  GET_TESTS,
   GET_UNSCHEDULED_TASKS,
   GET_USER_CONFIG,
   GET_USER_PATCHES,

@@ -7,7 +7,7 @@ import { Skeleton } from "antd";
 import { TableProps } from "antd/es/table";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
-import { Accordion, AccordionWrapper } from "components/Accordion";
+import { Accordion } from "components/Accordion";
 import PageSizeSelector from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
@@ -18,6 +18,7 @@ import { getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
+  Parameter,
   SortDirection,
   SortOrder,
   Task,
@@ -29,6 +30,7 @@ import { GET_VERSION_TASKS } from "gql/queries";
 import { usePolling, useTaskStatuses } from "hooks";
 import { PatchStatus } from "types/patch";
 import { queryString, string } from "utils";
+import { ParametersModal } from "../ParametersModal";
 import { reducer } from "./reducer";
 
 const { parseSortString, toSortString } = queryString;
@@ -41,6 +43,7 @@ interface DownstreamProjectAccordionProps {
   status: string;
   taskCount: number;
   childPatchId: string;
+  parameters: Parameter[];
 }
 
 export const DownstreamProjectAccordion: React.VFC<
@@ -52,6 +55,7 @@ export const DownstreamProjectAccordion: React.VFC<
   projectName,
   status,
   taskCount,
+  parameters,
 }) => {
   const dispatchToast = useToastContext();
 
@@ -148,7 +152,7 @@ export const DownstreamProjectAccordion: React.VFC<
   usePolling({ startPolling, stopPolling, refetch });
   const showSkeleton = !data;
   const { version } = data || {};
-  const { tasks } = version || {};
+  const { tasks, isPatch } = version || {};
   const { data: tasksData = [], count = 0 } = tasks || {};
 
   const variantTitle = (
@@ -167,22 +171,20 @@ export const DownstreamProjectAccordion: React.VFC<
     });
 
   return (
-    <AccordionWrapper data-cy="project-accordion">
+    <Wrapper data-cy="project-accordion">
       <Accordion
         defaultOpen={status === PatchStatus.Failed}
         title={variantTitle}
         titleTag={FlexContainer}
+        subtitle={
+          <DownstreamMetadata
+            baseVersionID={baseVersionID}
+            githash={githash}
+            parameters={parameters}
+          />
+        }
       >
         <AccordionContents>
-          <p>
-            Base commit:{" "}
-            <InlineCode
-              data-cy="downstream-base-commit"
-              href={getVersionRoute(baseVersionID)}
-            >
-              {shortenGithash(githash)}
-            </InlineCode>
-          </p>
           <TableWrapper>
             <TableControlOuterRow>
               <FlexContainer>
@@ -225,28 +227,55 @@ export const DownstreamProjectAccordion: React.VFC<
               <Skeleton active title={false} paragraph={{ rows: 8 }} />
             ) : (
               <TasksTable
-                sorts={sorts}
-                tableChangeHandler={tableChangeHandler}
-                tasks={tasksData}
-                statusSelectorProps={statusSelectorProps}
                 baseStatusSelectorProps={baseStatusSelectorProps}
-                taskNameInputProps={taskNameInputProps}
-                variantInputProps={variantInputProps}
+                isPatch={isPatch}
                 onColumnHeaderClick={(sortField) =>
                   sendEvent({
                     name: "Sort Downstream Tasks Table",
                     sortBy: sortField,
                   })
                 }
+                sorts={sorts}
+                statusSelectorProps={statusSelectorProps}
+                tableChangeHandler={tableChangeHandler}
+                taskNameInputProps={taskNameInputProps}
+                tasks={tasksData}
+                variantInputProps={variantInputProps}
               />
             )}
           </TableWrapper>
         </AccordionContents>
       </Accordion>
-    </AccordionWrapper>
+    </Wrapper>
   );
 };
+interface DownstreamMetadataProps {
+  baseVersionID: string;
+  githash: string;
+  parameters: Parameter[];
+}
+const DownstreamMetadata: React.VFC<DownstreamMetadataProps> = ({
+  baseVersionID,
+  githash,
+  parameters,
+}) => (
+  <FlexRow>
+    <PaddedText>
+      Base commit:{" "}
+      <InlineCode
+        data-cy="downstream-base-commit"
+        href={getVersionRoute(baseVersionID)}
+      >
+        {shortenGithash(githash)}
+      </InlineCode>
+    </PaddedText>
+    <ParametersModal parameters={parameters} />
+  </FlexRow>
+);
 
+const PaddedText = styled.p`
+  margin-right: ${size.xs};
+`;
 const ProjectTitleWrapper = styled.div`
   margin-right: ${size.xs};
   font-weight: bold;
@@ -267,4 +296,14 @@ const FlexContainer = styled.div`
 
 const PaddedButton = styled(Button)`
   margin-left: ${size.s};
+`;
+
+const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const Wrapper = styled.div`
+  margin: ${size.xs} 0;
 `;

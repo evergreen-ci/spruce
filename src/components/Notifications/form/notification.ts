@@ -1,10 +1,9 @@
+import { FieldRow } from "components/SpruceForm/FieldTemplates";
 import { SpruceFormProps } from "components/SpruceForm/types";
-import { generateWebhookSecret } from "pages/projectSettings/tabs/NotificationsTab/utils";
 import {
   SubscriptionMethodOption,
   NotificationMethods,
 } from "types/subscription";
-import { HTTPHeaderRow } from "./HTTPHeaderRow";
 
 /**
  * getNotificationSchema returns the schema and uiSchema for the notification section of subscriptions.
@@ -99,7 +98,24 @@ export const getNotificationSchema = (
                   secretInput: {
                     type: "string" as "string",
                     title: "Webhook Secret",
-                    default: generateWebhookSecret(),
+                  },
+                  retryInput: {
+                    type: "number" as "number",
+                    title: "Retry count",
+                    minimum: 0,
+                    maximum: 10,
+                  },
+                  minDelayInput: {
+                    type: "number" as "number",
+                    title: "Minimum delay (ms)",
+                    minimum: 0,
+                    maximum: 10000,
+                  },
+                  timeoutInput: {
+                    type: "number" as "number",
+                    title: "Max timeout (ms)",
+                    minimum: 0,
+                    maximum: 30000,
                   },
                   httpHeaders: {
                     type: "array" as "array",
@@ -187,14 +203,31 @@ export const getNotificationSchema = (
       },
       secretInput: {
         "ui:readonly": true,
+        "ui:placeholder":
+          "The secret will be shown upon saving the subscription.",
         "ui:data-cy": "secret-input",
+      },
+      retryInput: {
+        "ui:data-cy": "retry-input",
+        "ui:placeholder": "Defaults to 0 if unset.",
+        "ui:optional": true,
+      },
+      minDelayInput: {
+        "ui:data-cy": "min-delay-input",
+        "ui:placeholder": "Defaults to 500 if unset.",
+        "ui:optional": true,
+      },
+      timeoutInput: {
+        "ui:data-cy": "timeout-input",
+        "ui:placeholder": "Defaults to 10000 if unset.",
+        "ui:optional": true,
       },
       httpHeaders: {
         "ui:addToEnd": true,
         "ui:orderable": false,
         "ui:addButtonText": "Add HTTP Header",
         items: {
-          "ui:ObjectFieldTemplate": HTTPHeaderRow,
+          "ui:ObjectFieldTemplate": FieldRow,
         },
       },
     },

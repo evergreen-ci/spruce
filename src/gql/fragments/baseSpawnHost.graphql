@@ -1,27 +1,28 @@
 #import "./baseHost.graphql"
 
-fragment baseSpawnHost on Host {
-  ...baseHost
+fragment BaseSpawnHost on Host {
   availabilityZone
+  ...BaseHost
   displayName
   distro {
-    isVirtualWorkStation
     id
+    isVirtualWorkStation
+    isWindows
     user
     workDir
-    isWindows
   }
   expiration
-  homeVolumeID
   homeVolume {
     displayName
+    id
   }
-  instanceType
+  homeVolumeID
   instanceTags {
+    canBeModified
     key
     value
-    canBeModified
   }
+  instanceType
   noExpiration
   volumes {
     displayName

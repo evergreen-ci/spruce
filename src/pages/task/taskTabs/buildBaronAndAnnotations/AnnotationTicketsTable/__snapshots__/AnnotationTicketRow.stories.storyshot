@@ -1,63 +1,64 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`storybook Storyshots Pages/Task/BuildBaron/AnnotationTicketRow Default 1`] = `
-<div
-  data-cy="annotation-ticket-row"
->
-  <a
-    className="lg-ui-0001 ekm0eth2 css-8qzidg-StyledLink-JiraSummaryLink leafygreen-ui-1cn1hqb"
-    data-cy="EVG-123"
-    href="https://www.google.com"
-    onClick={[Function]}
-    target="_blank"
-  >
-    <span
-      className="leafygreen-ui-1ewnca3"
-    >
-      EVG-123
-      : summary
-    </span>
-  </a>
+<div>
   <div
-    className="css-39fn8m-StyledBadge ekm0eth1 leafygreen-ui-1q59p9a"
-    data-cy="EVG-123-badge"
+    data-cy="annotation-ticket-row"
   >
-    status
-  </div>
-  <div
-    className="css-39fn8m-StyledBadge ekm0eth1 leafygreen-ui-z8wldb"
-    data-cy="EVG-123-confidence-badge"
-  >
-    50
-    % Confident in suggestion
-  </div>
-  <div
-    className="css-vrtzhq-BottomMetaDataWrapper ekm0eth0"
-    data-cy="EVG-123-metadata"
-  >
-    <small
-      className="leafygreen-ui-ppjyot"
+    <a
+      class="lg-ui-0003 ekm0eth2 css-8qzidg-StyledLink-JiraSummaryLink leafygreen-ui-1cn1hqb"
+      data-cy="EVG-123"
+      href="https://www.google.com"
+      target="_blank"
     >
-      Created: 
-      Jan 2, 2020
-    </small>
-    <small
-      className="leafygreen-ui-ppjyot"
+      <span
+        class="leafygreen-ui-baoi4d"
+      >
+        EVG-123
+        : summary
+      </span>
+    </a>
+    <div
+      class="css-39fn8m-StyledBadge ekm0eth1 leafygreen-ui-ohl2hc"
+      data-cy="EVG-123-badge"
     >
-      Updated: 
-      Jan 2, 2020
-    </small>
-    <small
-      className="leafygreen-ui-ppjyot"
+      status
+    </div>
+    <div
+      class="css-39fn8m-StyledBadge ekm0eth1 leafygreen-ui-1qtf7xy"
+      data-cy="EVG-123-confidence-badge"
     >
-      Assignee: mohamed.khelif
-    </small>
-    <small
-      className="leafygreen-ui-ppjyot"
+      50
+      % Confident in suggestion
+    </div>
+    <div
+      class="css-vrtzhq-BottomMetaDataWrapper ekm0eth0"
+      data-cy="EVG-123-metadata"
     >
-      Assigned Team: 
-      evg-ui
-    </small>
+      <small
+        class="leafygreen-ui-ppjyot"
+      >
+        Created: 
+        Jan 2, 2020
+      </small>
+      <small
+        class="leafygreen-ui-ppjyot"
+      >
+        Updated: 
+        Jan 2, 2020
+      </small>
+      <small
+        class="leafygreen-ui-ppjyot"
+      >
+        Assignee: mohamed.khelif
+      </small>
+      <small
+        class="leafygreen-ui-ppjyot"
+      >
+        Assigned Team: 
+        evg-ui
+      </small>
+    </div>
   </div>
 </div>
 `;

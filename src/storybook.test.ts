@@ -1,17 +1,13 @@
-import initStoryshots, {
-  snapshotWithOptions,
-} from "@storybook/addon-storyshots";
+import initStoryshots from "@storybook/addon-storyshots";
+import { render } from "@testing-library/react";
 import MatchMediaMock from "jest-matchmedia-mock";
-import { mockUUID } from "test_utils";
-
-// Must mock uuid for this test since getRandomValues() is not supported in CI
-jest.mock("uuid");
 
 let matchMedia;
 describe("storybook", () => {
+  jest.setTimeout(10000);
+
   beforeAll(() => {
     matchMedia = new MatchMediaMock();
-    mockUUID();
   });
   beforeEach(() => {
     const mockIntersectionObserver = jest.fn((callback) => {
@@ -35,17 +31,30 @@ describe("storybook", () => {
     matchMedia.clear();
     jest.restoreAllMocks();
   });
+
   // eslint-disable-next-line jest/require-hook
   initStoryshots({
-    test: ({ story, context, renderTree, stories2snapsConverter }) => {
+    renderer: render,
+    asyncJest: true,
+    test: ({ story, context, stories2snapsConverter, done }) => {
       const snapshotFileName =
         stories2snapsConverter.getSnapshotFileName(context);
-      return snapshotWithOptions({})({
-        story,
-        context,
-        renderTree,
-        snapshotFileName: snapshotFileName.replace("src", "."),
-      });
+
+      // eslint-disable-next-line testing-library/render-result-naming-convention
+      const jsx = story.render();
+      const { unmount, container } = render(jsx);
+
+      // Mount components asynchronously to allow for initial state to be set.
+      // Some components have a loading state that is set on mount we should wait for it to finish
+      // before taking a snapshot.
+      const waitTime = 1;
+      setTimeout(() => {
+        if (snapshotFileName) {
+          expect(container).toMatchSpecificSnapshot(snapshotFileName);
+        }
+        unmount();
+        done?.();
+      }, waitTime);
     },
   });
 });

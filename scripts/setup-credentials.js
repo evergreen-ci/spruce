@@ -1,8 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 
-const file = path.join(__dirname, "../env", ".cmdrc.json");
-const prod = {
+const file = path.join(__dirname, "../", ".env-cmdrc.json");
+const production = {
   REACT_APP_SIGNAL_PROCESSING_URL:
     "https://performance-monitoring-and-analysis.server-tig.prod.corp.mongodb.com",
   REACT_APP_API_URL: "https://evergreen.mongodb.com/api",
@@ -20,7 +20,7 @@ const prod = {
   REACT_APP_NEW_RELIC_TRUST_KEY: process.env.REACT_APP_NEW_RELIC_TRUST_KEY,
   REACT_APP_DEPLOYS_EMAIL: process.env.REACT_APP_DEPLOYS_EMAIL,
 };
-fs.writeFile(file, JSON.stringify({ prod }), (err) => {
+fs.writeFile(file, JSON.stringify({ production }), (err) => {
   if (err) {
     return console.error(err);
   }

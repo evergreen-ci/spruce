@@ -1,12 +1,14 @@
 import { LogTypes } from "types/task";
-import { environmentalVariables } from "utils";
-import { getParsleyUrl } from "utils/environmentalVariables";
+import { environmentVariables } from "utils";
 
-const { getUiUrl } = environmentalVariables;
+const { getParsleyUrl, getUiUrl } = environmentVariables;
 
-export const wikiUrl = "https://github.com/evergreen-ci/evergreen/wiki";
+export const wikiBaseUrl =
+  "https://docs.devprod.prod.corp.mongodb.com/evergreen";
 
-export const projectDistroSettingsDocumentationUrl = `${wikiUrl}/Project-and-Distro-Settings`;
+export const wikiUrl = `${wikiBaseUrl}/Home`;
+
+export const projectDistroSettingsDocumentationUrl = `${wikiBaseUrl}/Configure-a-Project/Project-and-Distro-Settings`;
 
 export const versionControlDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#version-control`;
 
@@ -20,11 +22,19 @@ export const gitTagAliasesDocumentationUrl = `${projectDistroSettingsDocumentati
 
 export const githubChecksAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#github-checks-aliases`;
 
-export const cliDocumentationUrl =
-  "https://github.com/evergreen-ci/evergreen/wiki/Using-the-Command-Line-Tool";
+export const cliDocumentationUrl = `${wikiBaseUrl}/Using-the-Command-Line-Tool`;
 
 export const windowsPasswordRulesURL =
   "https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc786468(v=ws.10)?redirectedfrom=MSDN";
+
+export const getJiraBugUrl = (jiraHost: string) =>
+  `https://${jiraHost}/secure/CreateIssueDetails!init.jspa?pid=12787&issuetype=1&priority=4&labels=user-feedback&description=Please%20note%20browser%20and%20OS%20when%20describing%20your%20issue.`;
+
+export const getJiraImprovementUrl = (jiraHost: string) =>
+  `https://${jiraHost}/secure/CreateIssueDetails!init.jspa?pid=12787&issuetype=4&priority=4&labels=user-feedback`;
+
+export const konamiSoundTrackUrl =
+  "https://www.myinstants.com/media/sounds/mvssf-win.mp3";
 
 export const legacyRoutes = {
   distros: "/distros",
@@ -57,3 +67,12 @@ export const getParsleyTaskLogLink = (
   taskId: string,
   execution: number
 ) => `${getParsleyUrl()}/evergreen/${taskId}/${execution}/${logType}`;
+
+export const getParsleyTestLogURL = (buildId: string, testId: string) =>
+  `${getParsleyUrl()}/resmoke/${buildId}/test/${testId}`;
+
+export const getParsleyBuildLogURL = (buildId: string) =>
+  `${getParsleyUrl()}/resmoke/${buildId}/all`;
+
+export const getDistroPageUrl = (distroId: string) =>
+  `${getUiUrl()}/distros##${distroId}`;

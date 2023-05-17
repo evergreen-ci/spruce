@@ -1,30 +1,64 @@
+import { MockedProvider } from "@apollo/client/testing";
+import { StoryObj } from "@storybook/react";
 import { getCommitsRoute } from "constants/routes";
+import {
+  AddFavoriteProjectMutation,
+  AddFavoriteProjectMutationVariables,
+  ProjectsQuery,
+  ProjectsQueryVariables,
+  ViewableProjectRefsQuery,
+  ViewableProjectRefsQueryVariables,
+  RemoveFavoriteProjectMutation,
+  RemoveFavoriteProjectMutationVariables,
+} from "gql/generated/types";
 import { ADD_FAVORITE_PROJECT, REMOVE_FAVORITE_PROJECT } from "gql/mutations";
 import { GET_PROJECTS, GET_VIEWABLE_PROJECTS } from "gql/queries";
 import WithToastContext from "test_utils/toast-decorator";
+import { ApolloMock } from "types/gql";
 import { ProjectSelect } from ".";
 
 export default {
-  title: "Components/ProjectSelect",
   component: ProjectSelect,
-  decorators: [(story) => WithToastContext(story)],
+  decorators: [
+    (Story: () => JSX.Element) => WithToastContext(Story),
+    (Story: () => JSX.Element) => (
+      <MockedProvider
+        mocks={[
+          getProjectsMock,
+          viewableProjectsMock,
+          addFavoriteMock,
+          removeFavoriteMock,
+        ]}
+      >
+        <Story />
+      </MockedProvider>
+    ),
+  ],
 };
 
-export const WithClickableHeader = () => (
-  <ProjectSelect
-    selectedProjectIdentifier="evergreen"
-    getRoute={getCommitsRoute}
-    isProjectSettingsPage
-  />
-);
+export const Default: StoryObj<typeof ProjectSelect> = {
+  render: () => (
+    <ProjectSelect
+      selectedProjectIdentifier="evergreen"
+      getRoute={getCommitsRoute}
+    />
+  ),
+};
 
-export const Default = () => (
-  <ProjectSelect
-    selectedProjectIdentifier="evergreen"
-    getRoute={getCommitsRoute}
-  />
-);
-const addFavoriteMock = {
+export const WithClickableHeader: StoryObj<typeof ProjectSelect> = {
+  render: () => (
+    <ProjectSelect
+      selectedProjectIdentifier="evergreen"
+      getRoute={getCommitsRoute}
+      isProjectSettingsPage
+    />
+  ),
+};
+
+const addFavoriteMock: ApolloMock<
+  AddFavoriteProjectMutation,
+  AddFavoriteProjectMutationVariables
+> = {
   request: {
     query: ADD_FAVORITE_PROJECT,
     variables: { identifier: "evergreen" },
@@ -42,14 +76,17 @@ const addFavoriteMock = {
     },
   },
 };
-const removeFavoriteMock = {
+const removeFavoriteMock: ApolloMock<
+  RemoveFavoriteProjectMutation,
+  RemoveFavoriteProjectMutationVariables
+> = {
   request: {
     query: REMOVE_FAVORITE_PROJECT,
     variables: { identifier: "evergreen" },
   },
   result: {
     data: {
-      addFavoriteProject: {
+      removeFavoriteProject: {
         id: "evergreen",
         identifier: "evergreen",
         repo: "evergreen",
@@ -61,7 +98,7 @@ const removeFavoriteMock = {
   },
 };
 
-const getProjectsMock = {
+const getProjectsMock: ApolloMock<ProjectsQuery, ProjectsQueryVariables> = {
   request: {
     query: GET_PROJECTS,
   },
@@ -146,7 +183,10 @@ const getProjectsMock = {
   },
 };
 
-const viewableProjectsMock = {
+const viewableProjectsMock: ApolloMock<
+  ViewableProjectRefsQuery,
+  ViewableProjectRefsQueryVariables
+> = {
   request: {
     query: GET_VIEWABLE_PROJECTS,
   },
@@ -160,12 +200,15 @@ const viewableProjectsMock = {
               id: "evergreen",
               identifier: "evergreen",
               repo: "evergreen",
-              repoRefId: "evergreen",
               owner: "evergreen-ci",
               displayName: "evergreen smoke test",
               isFavorite: false,
+              enabled: true,
             },
           ],
+          repo: {
+            id: "634d56d3850e610cacfe7e0b",
+          },
         },
         {
           groupDisplayName: "mongodb/mongodb-test",
@@ -174,31 +217,17 @@ const viewableProjectsMock = {
               id: "mongodb-mongo-test",
               identifier: "mongodb-mongo-test",
               repo: "mongodb-test",
-              repoRefId: "mongodb-test",
               owner: "mongodb",
               displayName: "mongo-test",
               isFavorite: false,
+              enabled: true,
             },
           ],
+          repo: {
+            id: "6320b3d7850e613ee5b3bf8e",
+          },
         },
       ],
     },
-  },
-};
-
-Default.parameters = {
-  apolloClient: {
-    mocks: [getProjectsMock, addFavoriteMock, removeFavoriteMock],
-  },
-};
-
-WithClickableHeader.parameters = {
-  apolloClient: {
-    mocks: [
-      getProjectsMock,
-      viewableProjectsMock,
-      addFavoriteMock,
-      removeFavoriteMock,
-    ],
   },
 };

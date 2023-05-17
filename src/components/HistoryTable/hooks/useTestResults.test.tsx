@@ -1,5 +1,10 @@
 import { act, renderHook } from "@testing-library/react-hooks";
+import {
+  TaskTestSampleQuery,
+  TaskTestSampleQueryVariables,
+} from "gql/generated/types";
 import { GET_TASK_TEST_SAMPLE } from "gql/queries";
+import { ApolloMock } from "types/gql";
 import { TestStatus } from "types/history";
 import { useHistoryTable } from "../HistoryTableContext";
 import { mainlineCommitData } from "../testData";
@@ -231,7 +236,10 @@ describe("useMergedHookRender - sanity check", () => {
   });
 });
 
-const noFilterData = {
+const noFilterData: ApolloMock<
+  TaskTestSampleQuery,
+  TaskTestSampleQueryVariables
+> = {
   request: {
     query: GET_TASK_TEST_SAMPLE,
     variables: {
@@ -260,7 +268,10 @@ const noFilterData = {
   },
 };
 
-const withMatchingFilter = {
+const withMatchingFilter: ApolloMock<
+  TaskTestSampleQuery,
+  TaskTestSampleQueryVariables
+> = {
   request: {
     query: GET_TASK_TEST_SAMPLE,
     variables: {
@@ -291,7 +302,10 @@ const withMatchingFilter = {
   },
 };
 
-const withNonMatchingFilter = {
+const withNonMatchingFilter: ApolloMock<
+  TaskTestSampleQuery,
+  TaskTestSampleQueryVariables
+> = {
   request: {
     query: GET_TASK_TEST_SAMPLE,
     variables: {

@@ -17,14 +17,6 @@ export const getFormSchema = (
         type: "object" as "object",
         title: "Access Settings",
         properties: {
-          private: {
-            type: ["boolean", "null"],
-            title: "General Access",
-            oneOf: radioBoxOptions(
-              ["Private", "Public"],
-              repoData?.accessSettings?.private
-            ),
-          },
           restricted: {
             type: ["boolean", "null"],
             title: "Internal Access",
@@ -56,11 +48,6 @@ export const getFormSchema = (
     accessSettings: {
       "ui:rootFieldId": "access",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
-      private: {
-        "ui:description":
-          "Private projects can only be accessed by logged-in users.",
-        "ui:widget": widgets.RadioBoxWidget,
-      },
       restricted: {
         "ui:description":
           "Logged-in users by default will not be able to access this project. Access must be granted via MANA.",
@@ -81,11 +68,13 @@ export const getFormSchema = (
 });
 
 const getAdminsDescription = (projectType: ProjectType): string => {
-  if (projectType === ProjectType.Repo) {
-    return "Admins for this repo will be able to edit repo settings and any attached branches’ settings.";
-  }
-  if (projectType === ProjectType.AttachedProject) {
-    return "Admins for this branch will be able to edit branch settings and view repo settings.";
-  }
-  return "Admins for this branch will be able to edit branch settings.";
+  const descriptions = {
+    [ProjectType.Repo]:
+      "Admins for this repo will be able to edit repo settings and any attached branches’ settings.",
+    [ProjectType.AttachedProject]:
+      "Admins for this branch will be able to edit branch settings and view repo settings.",
+    default: "Admins for this branch will be able to edit branch settings.",
+  };
+  const description = descriptions[projectType] || descriptions.default;
+  return `${description} All admins will have access to create new projects on Evergreen.`;
 };

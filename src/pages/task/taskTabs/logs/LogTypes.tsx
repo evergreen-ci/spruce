@@ -3,7 +3,6 @@ import { useQuery, ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
-import get from "lodash/get";
 import { useParams, useLocation } from "react-router-dom";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { size, fontSize } from "constants/tokens";
@@ -63,9 +62,13 @@ export const AllLog: React.VFC<Props> = (props) => {
   });
   usePolling({ startPolling, stopPolling, refetch });
 
+  const { task } = data || {};
+  const { taskLogs } = task || {};
+  const { allLogs } = taskLogs || {};
+
   // All logs includes task, system, and agent logs. Event logs are not included.
   return useRenderBody({
-    data: get(data, "taskLogs.allLogs", []),
+    data: allLogs || [],
     loading,
     error,
     ...props,
@@ -86,8 +89,12 @@ export const EventLog: React.VFC<Props> = (props) => {
   });
   usePolling({ startPolling, stopPolling, refetch });
 
+  const { task } = data || {};
+  const { taskLogs } = task || {};
+  const { eventLogs } = taskLogs || {};
+
   return useRenderBody({
-    data: get(data, "taskLogs.eventLogs", []).map((v: TaskEventLogEntry) => ({
+    data: (eventLogs || []).map((v: TaskEventLogEntry) => ({
       ...v,
       kind: "taskEventLogEntry",
     })),
@@ -112,8 +119,12 @@ export const SystemLog: React.VFC<Props> = (props) => {
   });
   usePolling({ startPolling, stopPolling, refetch });
 
+  const { task } = data || {};
+  const { taskLogs } = task || {};
+  const { systemLogs } = taskLogs || {};
+
   return useRenderBody({
-    data: get(data, "taskLogs.systemLogs", []),
+    data: systemLogs || [],
     loading,
     error,
     ...props,
@@ -134,8 +145,12 @@ export const AgentLog: React.VFC<Props> = (props) => {
   });
   usePolling({ startPolling, stopPolling, refetch });
 
+  const { task } = data || {};
+  const { taskLogs } = task || {};
+  const { agentLogs } = taskLogs || {};
+
   return useRenderBody({
-    data: get(data, "taskLogs.agentLogs", []),
+    data: agentLogs || [],
     loading,
     error,
     ...props,
@@ -156,8 +171,11 @@ export const TaskLog: React.VFC<Props> = (props) => {
   });
   usePolling({ startPolling, stopPolling, refetch });
 
+  const { task } = data || {};
+  const { taskLogs } = task || {};
+
   return useRenderBody({
-    data: get(data, "taskLogs.taskLogs", []),
+    data: taskLogs?.taskLogs || [],
     loading,
     error,
     ...props,
@@ -212,6 +230,6 @@ const StyledPre = styled.pre`
   border: 1px solid ${gray.light2};
   border-radius: ${size.xxs};
   font-size: ${fontSize.m};
-  overflow-x: scroll;
+  overflow: scroll hidden;
   padding: ${size.xs};
 `;

@@ -11,7 +11,6 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
   const { projectRef } = data;
   return {
     accessSettings: {
-      private: projectRef.private,
       restricted: projectRef.restricted,
     },
     admin: {
@@ -26,7 +25,6 @@ export const formToGql: FormToGqlFunction<Tab> = (
 ) => {
   const projectRef: ProjectInput = {
     id,
-    private: accessSettings.private,
     restricted: accessSettings.restricted,
     admins: admin.admins,
   };

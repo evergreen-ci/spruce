@@ -1,13 +1,22 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { renderHook } from "@testing-library/react-hooks";
+import {
+  MyHostsQuery,
+  MyHostsQueryVariables,
+  MyVolumesQuery,
+  MyVolumesQueryVariables,
+} from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { GET_MY_VOLUMES, GET_MY_HOSTS } from "gql/queries";
+import { ApolloMock } from "types/gql";
 import { useDisableSpawnExpirationCheckbox } from "..";
 
-const getProvider =
-  (mocks) =>
-  ({ children }) =>
-    <MockedProvider mocks={mocks}>{children}</MockedProvider>;
+const getProvider = (mocks) => {
+  const mockedProvider = ({ children }) => (
+    <MockedProvider mocks={mocks}>{children}</MockedProvider>
+  );
+  return mockedProvider;
+};
 
 describe("useDisableSpawnExpirationCheckbox", () => {
   it("should return true when the user already has the maximum unexpirable volumes and a target item is not supplied.", async () => {
@@ -89,14 +98,16 @@ describe("useDisableSpawnExpirationCheckbox", () => {
   });
 });
 
-const myVolumesBase = {
+const myVolumesBase: Omit<
+  MyVolumesQuery["myVolumes"][0],
+  "noExpiration" | "id"
+> = {
   displayName: "",
   createdBy: "arjrsatun.psratatel",
   type: "gp2",
   availabilityZone: "us-east-1d",
   size: 200,
-  expiration: "2020-11-12T18:19:39Z",
-  noExpiration: false,
+  expiration: new Date("2020-11-12T18:19:39Z"),
   deviceName: null,
   hostID: "i-0d5d29bf2e7ee342d",
   host: {
@@ -106,42 +117,43 @@ const myVolumesBase = {
     __typename: "Host",
   },
   homeVolume: false,
-  creationTime: "2020-11-05T18:19:39Z",
+  creationTime: new Date("2020-11-05T18:19:39Z"),
   migrating: false,
 };
-const myVolumesQueryMock = {
-  request: { query: GET_MY_VOLUMES, variables: {} },
-  result: {
-    data: {
-      myVolumes: [
-        {
-          ...myVolumesBase,
-          noExpiration: false,
-          id: "vol-0a7fa1af4c970e824",
-          __typename: "Volume",
-        },
-        {
-          ...myVolumesBase,
-          noExpiration: false,
-          id: "vol-0270933468cf4712a",
-          __typename: "Volume",
-        },
-        {
-          ...myVolumesBase,
-          noExpiration: true,
-          id: "vol-04f4e0b9c13b4d0ad",
-          __typename: "Volume",
-        },
-        {
-          ...myVolumesBase,
-          noExpiration: true,
-          id: "vol-094dab1409b72c64a",
-          __typename: "Volume",
-        },
-      ],
+const myVolumesQueryMock: ApolloMock<MyVolumesQuery, MyVolumesQueryVariables> =
+  {
+    request: { query: GET_MY_VOLUMES, variables: {} },
+    result: {
+      data: {
+        myVolumes: [
+          {
+            ...myVolumesBase,
+            noExpiration: false,
+            id: "vol-0a7fa1af4c970e824",
+            __typename: "Volume",
+          },
+          {
+            ...myVolumesBase,
+            noExpiration: false,
+            id: "vol-0270933468cf4712a",
+            __typename: "Volume",
+          },
+          {
+            ...myVolumesBase,
+            noExpiration: true,
+            id: "vol-04f4e0b9c13b4d0ad",
+            __typename: "Volume",
+          },
+          {
+            ...myVolumesBase,
+            noExpiration: true,
+            id: "vol-094dab1409b72c64a",
+            __typename: "Volume",
+          },
+        ],
+      },
     },
-  },
-};
+  };
 
 const host = {
   expiration: new Date("2020-08-21T14:00:07-04:00"),
@@ -202,8 +214,8 @@ const volume = {
   migrating: false,
 };
 
-const myHostBase = {
-  expiration: "2021-10-28T22:37:40Z",
+const myHostBase: Omit<MyHostsQuery["myHosts"][0], "noExpiration" | "id"> = {
+  expiration: new Date("2021-10-28T22:37:40Z"),
   distro: {
     isVirtualWorkStation: true,
     id: "ubuntu1804-workstation",
@@ -215,24 +227,23 @@ const myHostBase = {
   hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
   homeVolumeID: "vol-07fa9f6b5c2067e34",
   homeVolume: {
+    id: "home-volume-id",
     displayName: "",
   },
-  id: "i-00b212e96b3f91079",
   instanceType: "m5.xlarge",
   instanceTags: [],
   volumes: [],
-  noExpiration: false,
   provider: "ec2-ondemand",
   status: "running",
-  startedBy: "arjun.patel",
+  startedBy: "ta.arst",
   tag: "evg-ubuntu1804-workstation-20201014223740-6478743249380995507",
   user: "ubuntu",
-  uptime: "2020-10-14T22:37:40Z",
+  uptime: new Date("2020-10-14T22:37:40Z"),
   displayName: "",
   availabilityZone: "us-east-1c",
   __typename: "Host",
 };
-const myHostsMock = {
+const myHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
   request: {
     query: GET_MY_HOSTS,
     variables: {},

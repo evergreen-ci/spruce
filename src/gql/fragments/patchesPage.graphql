@@ -1,28 +1,28 @@
 fragment PatchesPagePatches on Patches {
+  filteredPatchCount
   patches {
-    id
     author
     authorDisplayName
-    projectIdentifier
-    description
-    status
-    createTime
+    canEnqueueToCommitQueue
     commitQueuePosition
+    createTime
+    description
+    id
+    projectIdentifier
+    projectMetadata {
+      owner
+      repo
+    }
+    status
     versionFull {
       id
+      status
       taskStatusStats(options: {}) {
         counts {
-          status
           count
+          status
         }
       }
-      status
-      projectMetadata {
-        owner
-        repo
-      }
     }
-    canEnqueueToCommitQueue
   }
-  filteredPatchCount
 }

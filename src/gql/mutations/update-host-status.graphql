@@ -1,8 +1,7 @@
-
-  mutation UpdateHostStatus(
-    $hostIds: [String!]!
-    $status: String!
-    $notes: String
-  ) {
-    updateHostStatus(hostIds: $hostIds, status: $status, notes: $notes)
-  }
+mutation UpdateHostStatus(
+  $hostIds: [String!]!
+  $status: String!
+  $notes: String
+) {
+  updateHostStatus(hostIds: $hostIds, status: $status, notes: $notes)
+}

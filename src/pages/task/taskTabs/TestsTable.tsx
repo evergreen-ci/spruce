@@ -22,8 +22,7 @@ import {
   SortDirection,
   TestSortCategory,
   TestResult,
-  TaskTestResult,
-  GetTaskQuery,
+  TaskQuery,
 } from "gql/generated/types";
 import { GET_TASK_TESTS } from "gql/queries";
 import {
@@ -40,12 +39,8 @@ import { getColumnsTemplate } from "./testsTable/getColumnsTemplate";
 const { getPageFromSearch, getLimitFromSearch } = url;
 const { parseQueryString, queryParamAsNumber } = queryString;
 
-export interface UpdateQueryArg {
-  taskTests: TaskTestResult;
-}
-
 interface TestsTableProps {
-  task: GetTaskQuery["task"];
+  task: TaskQuery["task"];
 }
 export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
   const { pathname, search } = useLocation();
@@ -55,7 +50,10 @@ export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
     taskAnalytics.sendEvent({ name: "Filter Tests", filterBy });
 
   const queryVariables = getQueryVariables(search, task.id);
-  const { cat, dir, pageNum, limitNum } = queryVariables;
+  const { sort, pageNum, limitNum } = queryVariables;
+  const cat = sort?.[0]?.sortBy;
+  const dir = sort?.[0]?.direction;
+
   const setPageSize = usePageSizeSelector();
   const appliedDefaultSort = useRef(null);
   useEffect(() => {
@@ -147,8 +145,9 @@ export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
     taskAnalytics.sendEvent({ name: "Change Page Size" });
   };
 
-  const { taskTests } = data ?? {};
-  const { filteredTestCount, totalTestCount, testResults } = taskTests ?? {};
+  const { task: taskData } = data ?? {};
+  const { tests } = taskData ?? {};
+  const { filteredTestCount, totalTestCount, testResults } = tests ?? {};
 
   return (
     <>
@@ -197,21 +196,28 @@ const getQueryVariables = (
   taskId: string
 ): TaskTestsQueryVariables => {
   const parsed = parseQueryString(search);
-  const category = (parsed[RequiredQueryParams.Category] ?? "")
+
+  // Detemining sort category
+  const parsedCategory = (parsed[RequiredQueryParams.Category] ?? "")
     .toString()
     .toUpperCase();
-
   const TestSortCategories = Object.keys(TestSortCategory).map(
     (k) => TestSortCategory[k]
   );
-  const cat = TestSortCategories.includes(category)
-    ? (category as TestSortCategory)
+  const sortBy = TestSortCategories.includes(parsedCategory)
+    ? (parsedCategory as TestSortCategory)
     : undefined;
+
+  // Determining sort direction
+  const parsedDirection = (parsed[RequiredQueryParams.Sort] ?? "").toString();
+  const direction =
+    parsedDirection === SortDirection.Desc
+      ? SortDirection.Desc
+      : SortDirection.Asc;
+
+  const sort = sortBy && direction ? [{ sortBy, direction }] : [];
+
   const testName = (parsed[RequiredQueryParams.TestName] ?? "").toString();
-  const sort = (parsed[RequiredQueryParams.Sort] ?? "").toString();
-  const dir =
-    cat &&
-    (sort === SortDirection.Desc ? SortDirection.Desc : SortDirection.Asc);
   const rawStatuses = parsed[RequiredQueryParams.Statuses];
   const statusList = (
     Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses]
@@ -219,12 +225,11 @@ const getQueryVariables = (
   const execution = parsed[RequiredQueryParams.Execution];
   return {
     id: taskId,
-    cat,
-    dir,
+    execution: queryParamAsNumber(execution),
+    sort,
     limitNum: getLimitFromSearch(search),
     statusList,
     testName,
     pageNum: getPageFromSearch(search),
-    execution: queryParamAsNumber(execution),
   };
 };

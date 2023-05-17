@@ -1,16 +1,15 @@
 import { mockErrorResponse } from "../../utils/mockErrorResponse";
-import { popconfirmYesClassName } from "../../utils/popconfirm";
-
-const patch = "5ecedafb562343215a7ff297";
-const mainlineCommit = "5e4ff3abe3c3317e352062e4";
-const versionPath = (id) => `/version/${id}`;
 
 describe("Action Buttons", () => {
+  const patch = "5ecedafb562343215a7ff297";
+  const mainlineCommit = "5e4ff3abe3c3317e352062e4";
+  const versionPath = (id: string) => `/version/${id}`;
+
   describe("When viewing a patch build", () => {
-    before(() => {
+    beforeEach(() => {
       cy.visit(versionPath(patch));
     });
-    it("Clicking 'Schedule' button shows modal and clicking on 'Cancel' closes it.", () => {
+    it("Clicking 'Schedule' button shows modal and clicking on 'Cancel' closes it", () => {
       cy.dataCy("schedule-patch").click();
       cy.dataCy("schedule-tasks-modal").should("be.visible");
       cy.contains("Cancel").click();
@@ -25,63 +24,61 @@ describe("Action Buttons", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("not.exist");
     });
-    describe("Version dropdown options", () => {
-      beforeEach(() => {
-        cy.dataCy("ellipsis-btn").click();
-        cy.dataCy("card-dropdown").should("be.visible");
-      });
+  });
 
-      it("Error unscheduling a version shows error toast", () => {
-        cy.dataCy("unschedule-patch").click();
-        mockErrorResponse({
-          errorMessage: "There was an error unscheduling tasks",
-        });
-        cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-        cy.validateToast("error");
-      });
+  describe("Version dropdown options", { testIsolation: true }, () => {
+    beforeEach(() => {
+      cy.visit(versionPath(patch));
+      cy.dataCy("ellipsis-btn").click();
+      cy.dataCy("card-dropdown").should("be.visible");
+    });
 
-      it("Clicking 'Unschedule' button show popconfirm with abort checkbox and a toast on success", () => {
-        cy.dataCy("unschedule-patch").click();
-        cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-        cy.validateToast("success");
+    it("Error unscheduling a version shows error toast", () => {
+      cy.dataCy("unschedule-patch").click();
+      mockErrorResponse({
+        errorMessage: "There was an error unscheduling tasks",
       });
+      cy.contains("button", "Yes").click({ force: true });
+      cy.validateToast("error");
+    });
 
-      it("Clicking 'Set Priority' button shows popconfirm with input and toast on success", () => {
-        const priority = "99";
-        cy.dataCy("prioritize-patch").click();
-        cy.dataCy("patch-priority-input").clear().type(priority);
-        cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
-        cy.validateToast("success", priority);
-      });
+    it("Clicking 'Unschedule' button show popconfirm with abort checkbox and a toast on success", () => {
+      cy.dataCy("unschedule-patch").click();
+      cy.contains("button", "Yes").click({ force: true });
+      cy.validateToast("success");
+    });
 
-      it("Error setting priority shows error toast", () => {
-        cy.dataCy("prioritize-patch").click();
-        cy.dataCy("patch-priority-input").clear().type("88");
-        mockErrorResponse({
-          errorMessage: "There was an error setting priority",
-        });
-        cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
-        cy.validateToast("error");
+    it("Clicking 'Set Priority' button shows popconfirm with input and toast on success", () => {
+      const priority = "99";
+      cy.dataCy("prioritize-patch").click();
+      cy.dataCy("patch-priority-input").type(priority).type("{enter}");
+      cy.validateToast("success", priority);
+    });
+
+    it("Error setting priority shows error toast", () => {
+      cy.dataCy("prioritize-patch").click();
+      cy.dataCy("patch-priority-input").type("88");
+      mockErrorResponse({
+        errorMessage: "There was an error setting priority",
       });
-      it("Should be able to reconfigure the patch", () => {
-        cy.dataCy("reconfigure-link").should("not.be.disabled");
-        cy.dataCy("reconfigure-link").click();
-        cy.location("pathname").should("include", "configure");
-        cy.visit(versionPath(patch));
-      });
+      cy.dataCy("patch-priority-input").type("{enter}");
+      cy.validateToast("error");
+    });
+    it("Should be able to reconfigure the patch", () => {
+      cy.dataCy("reconfigure-link").should("not.be.disabled");
+      cy.dataCy("reconfigure-link").click();
+      cy.location("pathname").should("include", "configure");
+      cy.visit(versionPath(patch));
     });
   });
 
   describe("When viewing a mainline commit", () => {
     describe("Version dropdown options", () => {
-      before(() => {
+      beforeEach(() => {
         cy.visit(versionPath(mainlineCommit));
         cy.dataCy("ellipsis-btn").click();
-      });
-      beforeEach(() => {
         cy.dataCy("card-dropdown").should("be.visible");
       });
-
       it("Reconfigure link is disabled for mainline commits", () => {
         cy.dataCy("reconfigure-link").should("have.attr", "disabled");
       });

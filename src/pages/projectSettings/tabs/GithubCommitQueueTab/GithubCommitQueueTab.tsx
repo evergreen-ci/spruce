@@ -1,8 +1,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import Banner from "@leafygreen-ui/banner";
-import { SpruceForm } from "components/SpruceForm";
-import { ValidateProps } from "components/SpruceForm/types";
+import { SpruceForm, ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   GithubProjectConflictsQuery,
@@ -111,12 +110,12 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
   );
 };
 
-const validate: (
+const validate = (
   projectType: ProjectType,
   repoData: FormState,
   versionControlEnabled: boolean
-) => ValidateProps<FormState> =
-  (projectType, repoData, versionControlEnabled) => (formData, errors) => {
+) =>
+  ((formData, errors) => {
     const {
       github: {
         prTestingEnabled,
@@ -180,4 +179,4 @@ const validate: (
     }
 
     return errors;
-  };
+  }) satisfies ValidateProps<FormState>;

@@ -1,7 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { fireEvent } from "@testing-library/react";
-import { renderHook, act } from "@testing-library/react-hooks/dom";
-import { GET_USER } from "gql/queries";
+import { act, renderHook } from "@testing-library/react-hooks/dom";
+import { getUserMock } from "gql/mocks/getUser";
 import { usePageVisibility } from "hooks";
 
 const Provider = ({ children }) => (
@@ -9,6 +8,15 @@ const Provider = ({ children }) => (
 );
 
 describe("usePageVisibility", () => {
+  const updatePageVisibility = (status: string) => {
+    act(() => {
+      Object.defineProperty(document, "visibilityState", {
+        value: status,
+      });
+      document.dispatchEvent(new window.Event("visibilitychange"));
+    });
+  };
+
   it("usePageVisibility should return true when user is viewing document", () => {
     const { result } = renderHook(() => usePageVisibility(), {
       wrapper: Provider,
@@ -20,28 +28,7 @@ describe("usePageVisibility", () => {
     const { result } = renderHook(() => usePageVisibility(), {
       wrapper: Provider,
     });
-    act(() => {
-      Object.defineProperty(document, "visibilityState", {
-        value: "hidden",
-      });
-    });
-    fireEvent(document, new Event("visibilitychange"));
+    updatePageVisibility("hidden");
     expect(result.current).toBe(false);
   });
 });
-
-const getUserMock = {
-  request: {
-    query: GET_USER,
-  },
-  result: {
-    data: {
-      user: {
-        userId: "",
-        displayName: "",
-        emailAddress: "fake.user@mongodb.com",
-        __typename: "User",
-      },
-    },
-  },
-};

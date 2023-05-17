@@ -1,10 +1,8 @@
-import { popconfirmYesClassName } from "../../utils/popconfirm";
-
-describe("Task Action Buttons", () => {
+describe("Task Action Buttons", { testIsolation: false }, () => {
   describe("Based on the state of the task, some buttons should be disabled and others should be clickable. Clicking on buttons produces banners messaging if the action succeeded or failed.", () => {
     it("Schedule button should be disabled on a completed task", () => {
       cy.visit(tasks[1]);
-      cy.dataCy("schedule-task").should("be.disabled");
+      cy.dataCy("schedule-task").should("have.attr", "aria-disabled", "true");
     });
 
     it("Clicking Restart button should restart a task and display a success toast", () => {
@@ -31,8 +29,7 @@ describe("Task Action Buttons", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("prioritize-task").click();
-      cy.dataCy("task-priority-input").clear().type("99");
-      cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
+      cy.dataCy("task-priority-input").type("99").type("{enter}");
       cy.validateToast("success", prioritySuccessBannerText);
     });
 

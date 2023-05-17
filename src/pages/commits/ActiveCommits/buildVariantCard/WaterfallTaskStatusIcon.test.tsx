@@ -1,7 +1,16 @@
 import { MockedProvider } from "@apollo/client/testing";
-import userEvent from "@testing-library/user-event";
+import {
+  FailedTaskStatusIconTooltipQuery,
+  FailedTaskStatusIconTooltipQueryVariables,
+} from "gql/generated/types";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
-import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+  waitFor,
+} from "test_utils";
+import { ApolloMock } from "types/gql";
 import { injectGlobalStyle, removeGlobalStyle } from "../utils";
 import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
 
@@ -14,14 +23,24 @@ const props = {
 
 jest.mock("../utils");
 
-const Content = ({ status }: { status: string }) => (
+const Content = ({
+  status,
+  failedTestCount = 0,
+}: {
+  status: string;
+  failedTestCount?: number;
+}) => (
   <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>
-    <WaterfallTaskStatusIcon {...props} status={status} />
+    <WaterfallTaskStatusIcon
+      {...props}
+      status={status}
+      failedTestCount={failedTestCount}
+    />
   </MockedProvider>
 );
 describe("waterfallTaskStatusIcon", () => {
   it("tooltip should contain task name, duration, list of failing test names and additonal test count", async () => {
-    render(<Content status="failed" />);
+    render(<Content status="failed" failedTestCount={1} />);
     userEvent.hover(screen.queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(
@@ -65,7 +84,7 @@ describe("waterfallTaskStatusIcon", () => {
     );
     (removeGlobalStyle as jest.Mock).mockImplementationOnce(() => {});
 
-    render(<Content status="failed" />);
+    render(<Content status="failed" failedTestCount={1} />);
     userEvent.hover(screen.queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(injectGlobalStyle).toHaveBeenCalledTimes(1);
@@ -79,21 +98,31 @@ describe("waterfallTaskStatusIcon", () => {
   });
 });
 
-const getTooltipQueryMock = {
+const getTooltipQueryMock: ApolloMock<
+  FailedTaskStatusIconTooltipQuery,
+  FailedTaskStatusIconTooltipQueryVariables
+> = {
   request: {
     query: GET_FAILED_TASK_STATUS_ICON_TOOLTIP,
     variables: { taskId: "task" },
   },
   result: {
     data: {
-      taskTests: {
-        filteredTestCount: 3,
-        testResults: [
-          {
-            id: "83ca0a6b4c73f32e53f3dcbbe727842c",
-            testFile: "jstests/multiVersion/remove_invalid_index_options.js",
-          },
-        ],
+      task: {
+        __typename: "Task",
+        id: "task",
+        execution: 0,
+        tests: {
+          __typename: "TaskTestResult",
+          filteredTestCount: 3,
+          testResults: [
+            {
+              __typename: "TestResult",
+              id: "83ca0a6b4c73f32e53f3dcbbe727842c",
+              testFile: "jstests/multiVersion/remove_invalid_index_options.js",
+            },
+          ],
+        },
       },
     },
   },

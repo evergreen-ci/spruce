@@ -192,60 +192,75 @@ export const getFormSchema = (
                 repoData?.commitQueue?.enabled
               ),
             },
-            requireSigned: {
-              type: ["boolean", "null"],
-              title: "Require Signed Commits on Pull Request Merges",
-              oneOf: radioBoxOptions(
-                ["Enabled", "Disabled"],
-                repoData?.commitQueue?.requireSigned
-              ),
-            },
-            requiredApprovalCount: {
-              type: ["number", "null"],
-              title: "Required Number of Approvals on Pull Request Merges",
-              minimum: 0,
-            },
-            message: {
-              type: "string" as "string",
-              title: "Commit Queue Message",
-            },
-            mergeMethod: {
-              type: "string" as "string",
-              title: "Merge Method",
+          },
+          dependencies: {
+            enabled: {
               oneOf: [
                 {
-                  type: "string" as "string",
-                  title: "Squash",
-                  enum: ["squash"],
+                  properties: {
+                    enabled: {
+                      enum: [false],
+                    },
+
+                    message: {
+                      type: "string" as "string",
+                      title: "Commit Queue Message",
+                    },
+                  },
                 },
                 {
-                  type: "string" as "string",
-                  title: "Merge",
-                  enum: ["merge"],
+                  properties: {
+                    enabled: {
+                      enum: [true],
+                    },
+                    message: {
+                      type: "string" as "string",
+                      title: "Commit Queue Message",
+                    },
+                    mergeMethod: {
+                      type: "string" as "string",
+                      title: "Merge Method",
+                      oneOf: [
+                        {
+                          type: "string" as "string",
+                          title: "Squash",
+                          enum: ["squash"],
+                        },
+                        {
+                          type: "string" as "string",
+                          title: "Merge",
+                          enum: ["merge"],
+                        },
+                        {
+                          type: "string" as "string",
+                          title: "Rebase",
+                          enum: ["rebase"],
+                        },
+                        ...insertIf(
+                          projectType === ProjectType.AttachedProject,
+                          {
+                            type: "string" as "string",
+                            title: `Default to Repo (${repoData?.commitQueue?.mergeMethod})`,
+                            enum: [""],
+                          }
+                        ),
+                      ],
+                    },
+                    patchDefinitions: {
+                      type: "object" as "object",
+                      title: "Commit Queue Patch Definitions",
+                      ...overrideRadioBox(
+                        "commitQueueAliases",
+                        [
+                          "Override Repo Patch Definition",
+                          "Default to Repo Patch Definition",
+                        ],
+                        aliasArray.schema
+                      ),
+                    },
+                  },
                 },
-                {
-                  type: "string" as "string",
-                  title: "Rebase",
-                  enum: ["rebase"],
-                },
-                ...insertIf(projectType === ProjectType.AttachedProject, {
-                  type: "string" as "string",
-                  title: `Default to Repo (${repoData?.commitQueue?.mergeMethod})`,
-                  enum: [""],
-                }),
               ],
-            },
-            patchDefinitions: {
-              type: "object" as "object",
-              title: "Commit Queue Patch Definitions",
-              ...overrideRadioBox(
-                "commitQueueAliases",
-                [
-                  "Override Repo Patch Definition",
-                  "Default to Repo Patch Definition",
-                ],
-                aliasArray.schema
-              ),
             },
           },
         },
@@ -438,24 +453,6 @@ export const getFormSchema = (
             "the Commit Queue"
           ),
         },
-        requireSigned: {
-          "ui:data-cy": "require-signed-radio-box",
-          "ui:widget": widgets.RadioBoxWidget,
-          ...((formData?.commitQueue?.enabled === false ||
-            !!githubProjectConflicts?.commitQueueIdentifiers?.length) && {
-            "ui:hide": true,
-          }),
-        },
-        requiredApprovalCount: {
-          "ui:data-cy": "required-approval-count-input",
-          ...hideIf(
-            fieldDisabled(
-              formData?.commitQueue?.enabled,
-              repoData?.commitQueue?.enabled
-            ) || !!githubProjectConflicts?.commitQueueIdentifiers?.length
-          ),
-          ...placeholderIf(repoData?.commitQueue?.requiredApprovalCount),
-        },
         message: {
           "ui:description": "Shown in commit queue CLI commands & web UI",
           "ui:data-cy": "cq-message-input",
@@ -464,20 +461,8 @@ export const getFormSchema = (
         mergeMethod: {
           "ui:allowDeselect": false,
           "ui:data-cy": "merge-method-select",
-          ...hideIf(
-            fieldDisabled(
-              formData?.commitQueue?.enabled,
-              repoData?.commitQueue?.enabled
-            )
-          ),
         },
         patchDefinitions: {
-          ...hideIf(
-            fieldDisabled(
-              formData?.commitQueue?.enabled,
-              repoData?.commitQueue?.enabled
-            )
-          ),
           ...errorStyling(
             formData?.commitQueue?.enabled,
             formData?.commitQueue?.patchDefinitions?.commitQueueAliasesOverride,
@@ -574,8 +559,8 @@ const PRAliasesDescription = (
     <StyledLink href={pullRequestAliasesDocumentationUrl}>
       may be defined
     </StyledLink>{" "}
-    in this project&rsquo;s config YAML instead, and will be active if no
-    aliases are defined on the project or repo page.
+    in this project&rsquo;s config YAML instead if Version Control is enabled
+    and no aliases are defined on the project or repo page.
   </>
 );
 
@@ -586,8 +571,8 @@ const CommitQueueAliasesDescription = (
     <StyledLink href={commitQueueAliasesDocumentationUrl}>
       may be defined
     </StyledLink>{" "}
-    in this project&rsquo;s config YAML instead, and will be active if no
-    aliases are defined on the project or repo page.
+    in this project&rsquo;s config YAML instead if Version Control is enabled
+    and no aliases are defined on the project or repo page.
   </>
 );
 
@@ -599,8 +584,8 @@ const GitTagAliasesDescription = (
     for one or more of them, the version is ambiguous and no version will be
     created. These aliases{" "}
     <StyledLink href={gitTagAliasesDocumentationUrl}>may be defined</StyledLink>{" "}
-    in this project&rsquo;s config YAML instead, and will be active if no
-    aliases are defined on the project or repo page.
+    in this project&rsquo;s config YAML instead if Version Control is enabled
+    and no aliases are defined on the project or repo page.
   </>
 );
 
@@ -612,7 +597,7 @@ const GitHubChecksAliasesDescription = (
     <StyledLink href={githubChecksAliasesDocumentationUrl}>
       may be defined
     </StyledLink>{" "}
-    in this project&rsquo;s config YAML instead, and will be active if no
-    aliases are defined on the project or repo page.
+    in this project&rsquo;s config YAML instead if Version Control is enabled
+    and no aliases are defined on the project or repo page.
   </>
 );

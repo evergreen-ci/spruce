@@ -1,4 +1,3 @@
-
-  mutation SaveSubscription($subscription: SubscriptionInput!) {
-    saveSubscription(subscription: $subscription)
-  }
+mutation SaveSubscriptionForUser($subscription: SubscriptionInput!) {
+  saveSubscription(subscription: $subscription)
+}

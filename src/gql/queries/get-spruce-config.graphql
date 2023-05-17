@@ -1,26 +1,31 @@
-query GetSpruceConfig {
+query SpruceConfig {
   spruceConfig {
-    bannerTheme
     banner
-    ui {
-      userVoice
-      defaultProject
-    }
+    bannerTheme
     jira {
       host
     }
     providers {
       aws {
         maxVolumeSizePerUser
+        pod {
+          ecs {
+            maxCPU
+            maxMemoryMb
+          }
+        }
       }
+    }
+    slack {
+      name
     }
     spawnHost {
       spawnHostsPerUser
       unexpirableHostsPerUser
       unexpirableVolumesPerUser
     }
-    slack {
-      name
+    ui {
+      defaultProject
     }
   }
 }

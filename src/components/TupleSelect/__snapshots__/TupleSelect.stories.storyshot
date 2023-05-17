@@ -1,69 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
-<div
-  style={
-    Object {
-      "width": "40%",
-    }
-  }
->
+exports[`storybook Storyshots components/TupleSelect Default 1`] = `
+<div>
   <div
-    className="css-1ry038z-Container e5gn9hl4"
+    class="css-1ry038z-Container e5gn9hl4"
   >
     <label
-      className="leafygreen-ui-1k5mcru"
-      htmlFor="filter-input"
+      class="leafygreen-ui-1k5mcru"
+      for="filter-input"
     >
       <div
-        className="css-1lh1bx9-LabelContainer e5gn9hl2"
+        class="css-1lh1bx9-LabelContainer e5gn9hl2"
       />
     </label>
     <div
-      className="css-iyur2e-InputGroup e5gn9hl3"
+      class="css-iyur2e-InputGroup e5gn9hl3"
     >
       <div
-        className="leafygreen-ui-1nkq8lt css-1scwv0u-GroupedSelect e5gn9hl1"
+        class="leafygreen-ui-1nkq8lt css-1scwv0u-GroupedSelect e5gn9hl1"
       >
         <button
           aria-controls="select-13-menu"
           aria-describedby="select-13-description"
-          aria-disabled={false}
-          aria-expanded={false}
-          aria-invalid={false}
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-invalid="false"
           aria-labelledby="Tuple Select"
-          className="lg-ui-button-0000 leafygreen-ui-sedrjd"
+          class="lg-ui-button-0001 leafygreen-ui-3qrx9g"
           data-cy="tuple-select-dropdown"
           data-testid="leafygreen-ui-select-menubutton"
-          disabled={false}
           id="select-14"
-          onClick={[Function]}
           type="button"
           value="build_variant"
         >
           <div
-            className="leafygreen-ui-v038xi"
+            class="leafygreen-ui-v038xi"
           />
           <div
-            className="leafygreen-ui-1qmzz4y"
+            class="leafygreen-ui-1qmzz4y"
           >
             <div
-              className="leafygreen-ui-obh8q1"
+              class="leafygreen-ui-obh8q1"
             >
               <div
-                className="leafygreen-ui-17aj16e"
+                class="leafygreen-ui-17aj16e"
               >
                 Build Variant
               </div>
             </div>
             <svg
               alt=""
-              aria-hidden={true}
-              className="leafygreen-ui-866818"
-              height={16}
+              aria-hidden="true"
+              class="leafygreen-ui-866818"
+              height="16"
               role="presentation"
               viewBox="0 0 16 16"
-              width={16}
+              width="16"
             >
               <path
                 d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
@@ -74,64 +66,59 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
         </button>
       </div>
       <div
-        className="css-mk4qpy-TextInputWrapper e13gwrw81"
+        class="css-mk4qpy-TextInputWrapper e13gwrw81"
       >
         <div
-          className="css-1f1bh8e-GroupedTextInput e5gn9hl0 leafygreen-ui-xtefr5"
+          class="css-1f1bh8e-GroupedTextInput e5gn9hl0 leafygreen-ui-xtefr5"
         >
           <div
-            className="leafygreen-ui-lzja97"
+            class="leafygreen-ui-lzja97"
           >
             <input
-              aria-invalid={false}
+              aria-invalid="false"
               aria-label="Build Variant"
-              autoComplete="on"
-              className="leafygreen-ui-6i61vl"
+              autocomplete="on"
+              class="leafygreen-ui-6i61vl"
               data-cy="tuple-select-input"
-              disabled={false}
               id="filter-input"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onKeyPress={[Function]}
               placeholder="Search Build Variant names"
-              required={true}
+              required=""
               type="search"
               value=""
             />
             <div
-              className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+              class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
             />
           </div>
         </div>
         <div
-          className="css-4bamt4-IconWrapper e13gwrw80"
+          class="css-4bamt4-IconWrapper e13gwrw80"
         >
           <button
-            aria-disabled={false}
+            aria-disabled="false"
             aria-label="Select plus button"
-            className="leafygreen-ui-6obv0c"
-            onClick={[Function]}
-            tabIndex={0}
+            class="leafygreen-ui-1xt2asn"
+            tabindex="0"
           >
             <div
-              className="leafygreen-ui-xhlipt"
+              class="leafygreen-ui-xhlipt"
             >
               <svg
                 aria-label="Plus Icon"
-                className=""
+                class=""
                 data-cy="tuple-select-button"
                 fill="none"
-                height={16}
+                height="16"
                 role="img"
                 viewBox="0 0 16 16"
-                width={16}
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  clipRule="evenodd"
+                  clip-rule="evenodd"
                   d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
                   fill="currentColor"
-                  fillRule="evenodd"
+                  fill-rule="evenodd"
                 />
               </svg>
             </div>
@@ -141,7 +128,7 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
     </div>
   </div>
   <small
-    className="leafygreen-ui-ppjyot"
+    class="leafygreen-ui-ppjyot"
   >
     The word \`bad\` will fail validation
   </small>

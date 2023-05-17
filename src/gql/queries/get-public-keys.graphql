@@ -1,7 +1,6 @@
-
-  query GetMyPublicKeys {
-    myPublicKeys {
-      name
-      key
-    }
+query MyPublicKeys {
+  myPublicKeys {
+    key
+    name
   }
+}

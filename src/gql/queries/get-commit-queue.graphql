@@ -2,25 +2,25 @@
 
 query CommitQueue($projectIdentifier: String!) {
   commitQueue(projectIdentifier: $projectIdentifier) {
-    projectId
     message
     owner
-    repo
+    projectId
     queue {
-      issue
       enqueueTime
+      issue
       patch {
-        id
+        activated
         author
         description
+        id
+        moduleCodeChanges {
+          ...ModuleCodeChange
+        }
         versionFull {
           id
         }
-        activated
-        moduleCodeChanges {
-          ...moduleCodeChange
-        }
       }
     }
+    repo
   }
 }

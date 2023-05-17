@@ -1,8 +1,17 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
-import userEvent from "@testing-library/user-event";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
+import {
+  UserPermissionsQuery,
+  UserPermissionsQueryVariables,
+} from "gql/generated/types";
 import { GET_USER_PERMISSIONS } from "gql/queries";
-import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+  waitFor,
+} from "test_utils";
+import { ApolloMock } from "types/gql";
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
 import { ProjectType } from "./tabs/utils";
 
@@ -29,7 +38,10 @@ const Button = ({
 
 describe("createDuplicateProjectField", () => {
   it("does not show button when user lacks permissions", async () => {
-    const lacksPersmissionsMock = {
+    const lacksPermissionsMock: ApolloMock<
+      UserPermissionsQuery,
+      UserPermissionsQueryVariables
+    > = {
       request: {
         query: GET_USER_PERMISSIONS,
         variables: {},
@@ -46,7 +58,7 @@ describe("createDuplicateProjectField", () => {
       },
     };
     const { Component } = RenderFakeToastContext(
-      <Button mock={lacksPersmissionsMock} />
+      <Button mock={lacksPermissionsMock} />
     );
     render(<Component />);
 
@@ -115,7 +127,10 @@ describe("createDuplicateProjectField", () => {
   });
 });
 
-const userPermissionsMock = {
+const userPermissionsMock: ApolloMock<
+  UserPermissionsQuery,
+  UserPermissionsQueryVariables
+> = {
   request: {
     query: GET_USER_PERMISSIONS,
     variables: {},

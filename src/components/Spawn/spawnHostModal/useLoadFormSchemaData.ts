@@ -4,9 +4,9 @@ import {
   DistrosQueryVariables,
   AwsRegionsQuery,
   AwsRegionsQueryVariables,
-  GetUserSettingsQuery,
-  GetMyPublicKeysQuery,
-  GetMyPublicKeysQueryVariables,
+  UserSettingsQuery,
+  MyPublicKeysQuery,
+  MyPublicKeysQueryVariables,
   MyVolumesQuery,
   MyHostsQueryVariables,
 } from "gql/generated/types";
@@ -39,14 +39,14 @@ export const useLoadFormSchemaData = (p?: Props) => {
   });
 
   const { data: publicKeysData, loading: publicKeyLoading } = useQuery<
-    GetMyPublicKeysQuery,
-    GetMyPublicKeysQueryVariables
+    MyPublicKeysQuery,
+    MyPublicKeysQueryVariables
   >(GET_MY_PUBLIC_KEYS);
 
   const spruceConfig = useSpruceConfig();
 
   const { data: userSettingsData } =
-    useQuery<GetUserSettingsQuery>(GET_USER_SETTINGS);
+    useQuery<UserSettingsQuery>(GET_USER_SETTINGS);
   const { region: userAwsRegion } = userSettingsData?.userSettings ?? {};
 
   const { data: volumesData, loading: volumesLoading } = useQuery<

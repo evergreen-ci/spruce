@@ -1,15 +1,25 @@
 import { MockedProvider } from "@apollo/client/testing";
 import MatchMediaMock from "jest-matchmedia-mock";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
-import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import { FILE_JIRA_TICKET } from "gql/mutations";
-import { GET_BUILD_BARON, GET_USER, GET_CREATED_TICKETS } from "gql/queries";
 import {
-  fireEvent,
+  BuildBaronCreateTicketMutation,
+  BuildBaronCreateTicketMutationVariables,
+  BuildBaronQuery,
+  BuildBaronQueryVariables,
+  CreatedTicketsQuery,
+  CreatedTicketsQueryVariables,
+} from "gql/generated/types";
+import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import { getUserMock } from "gql/mocks/getUser";
+import { FILE_JIRA_TICKET } from "gql/mutations";
+import { GET_BUILD_BARON, GET_CREATED_TICKETS } from "gql/queries";
+import {
   renderWithRouterMatch as render,
   screen,
+  userEvent,
   waitFor,
 } from "test_utils";
+import { ApolloMock } from "types/gql";
 import BuildBaronContent from "./BuildBaronContent";
 
 const taskId =
@@ -66,13 +76,15 @@ describe("buildBaronContent", () => {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
-    fireEvent.click(screen.queryByDataCy("file-ticket-button"));
-    expect(screen.getByText("File Ticket")).toBeInTheDocument();
-    fireEvent.click(screen.getByText("File Ticket"));
+    userEvent.click(screen.queryByDataCy("file-ticket-button"));
+    await waitFor(() => {
+      expect(screen.getByDataCy("file-ticket-popconfirm")).toBeVisible();
+    });
+    userEvent.click(screen.getByText("Yes"));
 
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledWith(
-        "Ticket successfully created for this task."
+        "Successfully requested ticket"
       );
     });
   });
@@ -176,8 +188,7 @@ const buildBaronQuery = {
     },
   },
 };
-
-const buildBaronMocks = [
+const getBuildBaronMock: ApolloMock<BuildBaronQuery, BuildBaronQueryVariables> =
   {
     request: {
       query: GET_BUILD_BARON,
@@ -189,47 +200,46 @@ const buildBaronMocks = [
     result: {
       data: buildBaronQuery,
     },
-  },
-  {
-    request: {
-      query: FILE_JIRA_TICKET,
-      variables: {
-        taskId,
-        execution,
-      },
-    },
-    result: {
-      data: {
-        bbCreateTicket: true,
-      },
+  };
+
+const fileJiraTicketMock: ApolloMock<
+  BuildBaronCreateTicketMutation,
+  BuildBaronCreateTicketMutationVariables
+> = {
+  request: {
+    query: FILE_JIRA_TICKET,
+    variables: {
+      taskId,
+      execution,
     },
   },
-  {
-    request: {
-      query: GET_CREATED_TICKETS,
-      variables: {
-        taskId,
-      },
-    },
-    result: {
-      data: {
-        bbGetCreatedTickets: [],
-      },
+  result: {
+    data: {
+      bbCreateTicket: true,
     },
   },
-  {
-    request: {
-      query: GET_USER,
-    },
-    result: {
-      data: {
-        user: {
-          userId: "mohamed.khelif",
-          displayName: "Mohamed Khelif",
-          emailAddress: "a@mongodb.com",
-        },
-      },
+};
+const getJiraTicketsMock: ApolloMock<
+  CreatedTicketsQuery,
+  CreatedTicketsQueryVariables
+> = {
+  request: {
+    query: GET_CREATED_TICKETS,
+    variables: {
+      taskId,
     },
   },
+  result: {
+    data: {
+      bbGetCreatedTickets: [],
+    },
+  },
+};
+
+const buildBaronMocks = [
+  getBuildBaronMock,
+  fileJiraTicketMock,
+  getJiraTicketsMock,
+  getUserMock,
   getSpruceConfigMock,
 ];

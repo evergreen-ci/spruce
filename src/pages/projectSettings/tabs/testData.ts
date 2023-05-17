@@ -1,15 +1,36 @@
-import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
+import {
+  BannerTheme,
+  ProjectSettingsQuery,
+  RepoSettingsQuery,
+} from "gql/generated/types";
 
 const projectBase: ProjectSettingsQuery["projectSettings"] = {
   githubWebhooksEnabled: true,
   projectRef: {
+    externalLinks: [
+      {
+        displayName: "a link display name",
+        urlTemplate: "https:/a-link-template-{version_id}.com",
+      },
+    ],
+    banner: {
+      text: "",
+      theme: BannerTheme.Announcement,
+    },
     id: "project",
     identifier: "project",
     repoRefId: "repo",
-    enabled: null,
+    enabled: false,
     owner: "evergreen-ci",
     repo: "evergreen",
     branch: null,
+    containerSizeDefinitions: [
+      {
+        name: "default",
+        cpu: 1024,
+        memoryMb: 1024,
+      },
+    ],
     displayName: null,
     notifyOnBuildFailure: null,
     batchTime: 0,
@@ -26,7 +47,6 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       patchEnabled: null,
     },
     disabledStatsCache: null,
-    private: null,
     restricted: true,
     admins: [],
     prTestingEnabled: null,
@@ -38,8 +58,6 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     gitTagAuthorizedTeams: [],
     commitQueue: {
       enabled: null,
-      requireSigned: null,
-      requiredApprovalCount: null,
       mergeMethod: "",
       message: "",
     },
@@ -109,10 +127,14 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
 
 const repoBase: RepoSettingsQuery["repoSettings"] = {
   githubWebhooksEnabled: true,
-
   projectRef: {
+    externalLinks: [
+      {
+        displayName: "a link display name",
+        urlTemplate: "https:/a-link-template-{version_id}.com",
+      },
+    ],
     id: "123",
-    enabled: true,
     owner: "evergreen-ci",
     repo: "spruce",
     branch: "main",
@@ -132,7 +154,6 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       patchEnabled: true,
     },
     disabledStatsCache: false,
-    private: false,
     restricted: true,
     admins: ["admin"],
     prTestingEnabled: false,
@@ -144,8 +165,6 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     gitTagAuthorizedTeams: [],
     commitQueue: {
       enabled: true,
-      requireSigned: true,
-      requiredApprovalCount: 1,
       mergeMethod: "squash",
       message: "Commit Queue Message",
     },

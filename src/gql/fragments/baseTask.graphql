@@ -1,8 +1,9 @@
-fragment baseTask on Task {
-    id
-    execution
-    buildVariant
-    displayName
-    revision
-    status
+fragment BaseTask on Task {
+  buildVariant
+  buildVariantDisplayName
+  displayName
+  execution
+  id
+  revision
+  status
 }

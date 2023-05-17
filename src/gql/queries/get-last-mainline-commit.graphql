@@ -1,4 +1,4 @@
-query GetLastMainlineCommit(
+query LastMainlineCommit(
   $projectIdentifier: String!
   $skipOrderNumber: Int!
   $buildVariantOptions: BuildVariantOptions!
@@ -14,14 +14,14 @@ query GetLastMainlineCommit(
   ) {
     versions {
       version {
-        id
         buildVariants(options: $buildVariantOptions) {
           tasks {
-            id
             execution
+            id
             status
           }
         }
+        id
       }
     }
   }

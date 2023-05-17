@@ -34,13 +34,12 @@ export const getFormSchema = (
         title: "General Configuration",
         required: ["branch"],
         properties: {
-          enabled: {
-            type: ["boolean", "null"],
-            oneOf: radioBoxOptions(
-              ["Enabled", "Disabled"],
-              repoData?.generalConfiguration?.enabled
-            ),
-          },
+          ...(projectType !== ProjectType.Repo && {
+            enabled: {
+              type: "boolean" as "boolean",
+              oneOf: radioBoxOptions(["Enabled", "Disabled"]),
+            },
+          }),
           repositoryInfo: {
             type: "object" as "object",
             title: "Repository Info",
@@ -65,8 +64,6 @@ export const getFormSchema = (
           branch: {
             type: "string" as "string",
             title: "Branch Name",
-            minLength: getMinLength(projectType, repoData, "branch"),
-            default: "",
           },
           other: {
             type: "object" as "object",
@@ -389,8 +386,6 @@ const getMinLength = (
         return repository?.owner ? 0 : 1;
       case "repo":
         return repository?.repo ? 0 : 1;
-      case "branch":
-        return repoGeneral?.branch ? 0 : 1;
       default:
         return 1;
     }

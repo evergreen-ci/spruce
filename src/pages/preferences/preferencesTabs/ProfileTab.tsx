@@ -40,7 +40,7 @@ export const ProfileTab: React.VFC = () => {
     onError: (err) => {
       dispatchToast.error(`Error while saving settings: '${err.message}'`);
     },
-    refetchQueries: ["GetUserSettings"],
+    refetchQueries: ["UserSettings"],
   });
 
   const [hasErrors, setHasErrors] = useState(false);

@@ -1,57 +1,53 @@
-fragment projectGithubSettings on Project {
-  prTestingEnabled
-  manualPrTestingEnabled
-  githubChecksEnabled
-  githubTriggerAliases
-  gitTagVersionsEnabled
-  gitTagAuthorizedUsers
-  gitTagAuthorizedTeams
+fragment ProjectGithubSettings on Project {
   commitQueue {
     enabled
-    requireSigned
-    requiredApprovalCount
     mergeMethod
     message
   }
-}
-
-fragment repoGithubSettings on RepoRef {
-  prTestingEnabled
-  manualPrTestingEnabled
   githubChecksEnabled
   githubTriggerAliases
-  gitTagVersionsEnabled
-  gitTagAuthorizedUsers
   gitTagAuthorizedTeams
+  gitTagAuthorizedUsers
+  gitTagVersionsEnabled
+  manualPrTestingEnabled
+  prTestingEnabled
+}
+
+fragment RepoGithubSettings on RepoRef {
   commitQueue {
     enabled
-    requireSigned
-    requiredApprovalCount
     mergeMethod
     message
   }
+  githubChecksEnabled
+  githubTriggerAliases
+  gitTagAuthorizedTeams
+  gitTagAuthorizedUsers
+  gitTagVersionsEnabled
+  manualPrTestingEnabled
+  prTestingEnabled
 }
 
-fragment projectGithubCommitQueue on ProjectSettings {
+fragment ProjectGithubCommitQueue on ProjectSettings {
   githubWebhooksEnabled
 
   projectRef {
-    ...projectGithubSettings
+    ...ProjectGithubSettings
   }
 }
 
-fragment repoGithubCommitQueue on RepoSettings {
+fragment RepoGithubCommitQueue on RepoSettings {
   githubWebhooksEnabled
 
   projectRef {
-    ...repoGithubSettings
+    ...RepoGithubSettings
   }
 }
 
-fragment projectEventGithubCommitQueue on ProjectEventSettings {
+fragment ProjectEventGithubCommitQueue on ProjectEventSettings {
   githubWebhooksEnabled
 
   projectRef {
-    ...projectGithubSettings
+    ...ProjectGithubSettings
   }
 }

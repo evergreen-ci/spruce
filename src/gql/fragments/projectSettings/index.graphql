@@ -9,54 +9,57 @@
 #import "./virtualWorkstation.graphql"
 #import "./projectTriggers.graphql"
 #import "./periodicBuilds.graphql"
+#import "./containers.graphql"
 
-fragment projectSettings on ProjectSettings {
+fragment ProjectSettingsFields on ProjectSettings {
+  aliases {
+    ...Alias
+  }
+  ...ProjectGithubCommitQueue
   projectRef {
     id
     identifier
+    ...ProjectAccessSettings
+    ...ProjectContainerSettings
+    ...ProjectGeneralSettings
+    ...ProjectNotificationSettings
+    ...ProjectPatchAliasSettings
+    ...ProjectPeriodicBuildsSettings
+    ...ProjectPluginsSettings
+    ...ProjectTriggersSettings
+    ...ProjectVirtualWorkstationSettings
     repoRefId
-    ...projectGeneralSettings
-    ...projectAccessSettings
-    ...projectPluginsSettings
-    ...projectNotificationSettings
-    ...projectPatchAliasSettings
-    ...projectVirtualWorkstationSettings
-    ...projectTriggersSettings
-    ...projectPeriodicBuildsSettings
   }
-  subscriptions {
-    ...subscriptions
+  projectSubscriptions {
+    ...Subscriptions
   }
   vars {
-    ...variables
-  }
-  ...projectGithubCommitQueue
-  aliases {
-    ...alias
+    ...Variables
   }
 }
 
-fragment repoSettings on RepoSettings {
-  projectRef {
-    id
-    displayName
-    ...repoGeneralSettings
-    ...repoAccessSettings
-    ...repoPluginsSettings
-    ...repoNotificationSettings
-    ...repoPatchAliasSettings
-    ...repoVirtualWorkstationSettings
-    ...repoTriggersSettings
-    ...repoPeriodicBuildsSettings
-  }
-  vars {
-    ...variables
-  }
-  subscriptions {
-    ...subscriptions
-  }
-  ...repoGithubCommitQueue
+fragment RepoSettingsFields on RepoSettings {
   aliases {
-    ...alias
+    ...Alias
+  }
+  projectRef {
+    displayName
+    id
+    ...RepoAccessSettings
+    ...RepoContainerSettings
+    ...RepoGeneralSettings
+    ...RepoNotificationSettings
+    ...RepoPatchAliasSettings
+    ...RepoPeriodicBuildsSettings
+    ...RepoPluginsSettings
+    ...RepoTriggersSettings
+    ...RepoVirtualWorkstationSettings
+  }
+  projectSubscriptions {
+    ...Subscriptions
+  }
+  ...RepoGithubCommitQueue
+  vars {
+    ...Variables
   }
 }

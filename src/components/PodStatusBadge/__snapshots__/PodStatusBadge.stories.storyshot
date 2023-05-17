@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots components/PodStatusBadge Default 1`] = `
+<div>
+  <div
+    class="css-o6c4dw-Container e1enphh91"
+  >
+    <div
+      class="css-11yt18y-Wrapper e1enphh90"
+    >
+      <div
+        class="css-c3r44f-PodStatusWrapper e19l1his0"
+      >
+        <div
+          class="leafygreen-ui-ixbeze"
+        >
+          Starting
+        </div>
+      </div>
+    </div>
+    <div
+      class="css-11yt18y-Wrapper e1enphh90"
+    >
+      <div
+        class="css-c3r44f-PodStatusWrapper e19l1his0"
+      >
+        <div
+          class="leafygreen-ui-n4itms"
+        >
+          Running
+        </div>
+      </div>
+    </div>
+    <div
+      class="css-11yt18y-Wrapper e1enphh90"
+    >
+      <div
+        class="css-c3r44f-PodStatusWrapper e19l1his0"
+      >
+        <div
+          class="leafygreen-ui-ohl2hc"
+        >
+          Initializing
+        </div>
+      </div>
+    </div>
+    <div
+      class="css-11yt18y-Wrapper e1enphh90"
+    >
+      <div
+        class="css-c3r44f-PodStatusWrapper e19l1his0"
+      >
+        <div
+          class="leafygreen-ui-ohl2hc"
+        >
+          Decommissioned
+        </div>
+      </div>
+    </div>
+    <div
+      class="css-11yt18y-Wrapper e1enphh90"
+    >
+      <div
+        class="css-c3r44f-PodStatusWrapper e19l1his0"
+      >
+        <div
+          class="leafygreen-ui-ud6teo"
+        >
+          Terminated
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

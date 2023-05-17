@@ -1,8 +1,8 @@
 import { defaultHostsFirstPage } from "./hosts_page_default";
 
-const tableRow = "tr.ant-table-row";
-
 describe("Hosts Page", () => {
+  const tableRow = "tr.ant-table-row";
+
   it("URL query parameters determine pagination values", () => {
     cy.visit("/hosts?limit=10&page=1");
 

@@ -9,11 +9,11 @@ import { onError } from "@apollo/client/link/error";
 import { RetryLink } from "@apollo/client/link/retry";
 import { routes } from "constants/routes";
 import { useAuthDispatchContext } from "context/auth";
-import { environmentalVariables, errorReporting } from "utils";
+import { environmentVariables, errorReporting } from "utils";
 
 const { reportError, leaveBreadcrumb } = errorReporting;
 
-const { getGQLUrl } = environmentalVariables;
+const { getGQLUrl } = environmentVariables;
 
 const GQLWrapper: React.VFC<{ children: React.ReactNode }> = ({ children }) => {
   const { logoutAndRedirect, dispatchAuthenticated } = useAuthDispatchContext();
@@ -76,15 +76,17 @@ const cache = new InMemoryCache({
     User: {
       keyFields: ["userId"],
     },
-    TaskLogs: {
-      keyFields: ["execution", "taskId"],
-    },
     Task: {
       keyFields: ["execution", "id"],
       fields: {
         annotation: {
           merge(existing, incoming, { mergeObjects }) {
             return mergeObjects(existing, incoming);
+          },
+        },
+        taskLogs: {
+          merge(_, incoming) {
+            return incoming;
           },
         },
       },
@@ -192,4 +194,5 @@ const getGQLClient = ({
   return client;
 };
 
+export { cache };
 export default GQLWrapper;

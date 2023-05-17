@@ -3,7 +3,7 @@ const versions = {
   1: "i-dont-exist", // non existent patch
   2: "52a630633ff1227909000021", // patch 2
   3: "5e6bb9e23066155a993e0f1a", // unconfigured patch
-  4: "5e94c2dfe3c3312519b59480", // unactivated patch on commit queue
+  4: "642de18d2a60edf48b34a8c7", // unactivated patch on commit queue
   5: "evergreen_33016573166a36bd5f46b4111151899d5c4e95b1", // basecommit for versions[0]
   6: "5e4ff3abe3c3317e352062e4",
 };
@@ -31,10 +31,8 @@ describe("Version route", () => {
   });
 
   describe("Metadata", () => {
-    before(() => {
-      cy.visit(versionRoute(versions[0]));
-    });
     it("Shows patch parameters if they exist", () => {
+      cy.visit(versionRoute(versions[0]));
       cy.dataCy("parameters-modal").should("not.exist");
       cy.dataCy("parameters-link").click();
       cy.dataCy("parameters-modal").should("be.visible");
@@ -42,6 +40,7 @@ describe("Version route", () => {
       cy.dataCy("parameters-modal").should("not.exist");
     });
     it("'Base commit' link in metadata links to version page", () => {
+      cy.visit(versionRoute(versions[0]));
       cy.dataCy("patch-base-commit")
         .should("have.attr", "href")
         .and("include", `/version/${versions[5]}`);
@@ -54,7 +53,7 @@ describe("Version route", () => {
   });
 
   describe("Build Variants", () => {
-    before(() => {
+    beforeEach(() => {
       cy.visit(versionRoute(versions[0]));
     });
 
@@ -185,7 +184,7 @@ describe("Version route", () => {
   });
 
   describe("Page title", () => {
-    before(() => {
+    beforeEach(() => {
       cy.visit(versionRoute(versions[6]));
     });
     it("Should include a link to Jira", () => {

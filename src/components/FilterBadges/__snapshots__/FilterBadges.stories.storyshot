@@ -1,144 +1,135 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
+exports[`storybook Storyshots components/FilterBadges Default 1`] = `
 <div>
-  <div
-    className="css-19f1xe2-Container e3qndfh0"
-  >
-    <div
-      className="css-1p0v37z-PaddedBadge e1vs77ku2 leafygreen-ui-1q59p9a"
-      data-cy="filter-badge"
-    >
-      <div
-        className="css-1i7u60d-BadgeContent e1vs77ku1"
-      >
-        test
-        : 
-        test
-      </div>
-      <svg
-        aria-label="X Icon"
-        className="css-1e9bhvr-ClickableIcon e1vs77ku3"
-        data-cy="close-badge"
-        fill="none"
-        height={16}
-        onClick={[Function]}
-        role="img"
-        viewBox="0 0 16 16"
-        width={16}
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          clipRule="evenodd"
-          d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
-          fill="currentColor"
-          fillRule="evenodd"
-        />
-      </svg>
-    </div>
-    <button
-      aria-disabled={false}
-      className="lg-ui-button-0000 leafygreen-ui-m55msn"
-      data-cy="clear-all-filters"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
-    >
-      <div
-        className="leafygreen-ui-v038xi"
-      />
-      <div
-        className="leafygreen-ui-1hhc9ms"
-      >
-        CLEAR ALL FILTERS
-      </div>
-    </button>
-  </div>
   <div>
     <div
-      className="leafygreen-ui-xtefr5"
+      class="css-19f1xe2-Container e3qndfh0"
     >
       <div
-        className="leafygreen-ui-a533bt"
+        class="css-1p0v37z-PaddedBadge e1vs77ku2 leafygreen-ui-ohl2hc"
+        data-cy="filter-badge"
       >
-        <label
-          className="leafygreen-ui-gr5280"
-          htmlFor="textinput-13"
+        <div
+          class="css-1i7u60d-BadgeContent e1vs77ku1"
         >
-          key
-        </label>
+          test
+          : 
+          test
+        </div>
+        <svg
+          aria-label="X Icon"
+          class="css-1e9bhvr-ClickableIcon e1vs77ku3"
+          data-cy="close-badge"
+          fill="none"
+          height="16"
+          role="img"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+        </svg>
       </div>
-      <div
-        className="leafygreen-ui-lzja97"
+      <button
+        aria-disabled="false"
+        class="lg-ui-button-0000 leafygreen-ui-iff687"
+        data-cy="clear-all-filters"
+        type="button"
       >
-        <input
-          aria-invalid={false}
-          autoComplete="on"
-          className="leafygreen-ui-6i61vl"
-          disabled={false}
-          id="textinput-13"
-          onBlur={[Function]}
-          onChange={[Function]}
-          placeholder="key"
-          required={true}
-          type="text"
-          value=""
+        <div
+          class="leafygreen-ui-v038xi"
         />
         <div
-          className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
-        />
-      </div>
-    </div>
-    <div
-      className="leafygreen-ui-xtefr5"
-    >
-      <div
-        className="leafygreen-ui-a533bt"
-      >
-        <label
-          className="leafygreen-ui-gr5280"
-          htmlFor="textinput-14"
+          class="leafygreen-ui-1hhc9ms"
         >
-          value
-        </label>
+          CLEAR ALL FILTERS
+        </div>
+      </button>
+    </div>
+    <div>
+      <div
+        class="leafygreen-ui-xtefr5"
+      >
+        <div
+          class="leafygreen-ui-a533bt"
+        >
+          <label
+            class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
+            for="textinput-7"
+          >
+            key
+          </label>
+        </div>
+        <div
+          class="leafygreen-ui-lzja97"
+        >
+          <input
+            aria-invalid="false"
+            autocomplete="on"
+            class="leafygreen-ui-6i61vl"
+            id="textinput-7"
+            placeholder="key"
+            required=""
+            type="text"
+            value=""
+          />
+          <div
+            class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+          />
+        </div>
       </div>
       <div
-        className="leafygreen-ui-lzja97"
+        class="leafygreen-ui-xtefr5"
       >
-        <input
-          aria-invalid={false}
-          autoComplete="on"
-          className="leafygreen-ui-6i61vl"
-          disabled={false}
-          id="textinput-14"
-          onBlur={[Function]}
-          onChange={[Function]}
-          placeholder="value"
-          required={true}
-          type="text"
-          value=""
+        <div
+          class="leafygreen-ui-a533bt"
+        >
+          <label
+            class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
+            for="textinput-8"
+          >
+            value
+          </label>
+        </div>
+        <div
+          class="leafygreen-ui-lzja97"
+        >
+          <input
+            aria-invalid="false"
+            autocomplete="on"
+            class="leafygreen-ui-6i61vl"
+            id="textinput-8"
+            placeholder="value"
+            required=""
+            type="text"
+            value=""
+          />
+          <div
+            class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+          />
+        </div>
+      </div>
+      <button
+        aria-disabled="false"
+        class="lg-ui-button-0000 leafygreen-ui-10g1wb5 css-1ck35jk-StyledButton eqgjs5q0"
+        type="button"
+      >
+        <div
+          class="leafygreen-ui-v038xi"
         />
         <div
-          className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
-        />
-      </div>
+          class="leafygreen-ui-1qmzz4y"
+        >
+          Add
+        </div>
+      </button>
     </div>
-    <button
-      aria-disabled={false}
-      className="lg-ui-button-0000 leafygreen-ui-n2d19n css-1ck35jk-StyledButton eqgjs5q0"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
-    >
-      <div
-        className="leafygreen-ui-v038xi"
-      />
-      <div
-        className="leafygreen-ui-1qmzz4y"
-      >
-        Add
-      </div>
-    </button>
   </div>
 </div>
 `;

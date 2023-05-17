@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { useToastContext } from "context/toast";
 import {
-  GetIssuesQuery,
-  GetIssuesQueryVariables,
+  IssuesQuery,
+  IssuesQueryVariables,
   Annotation,
 } from "gql/generated/types";
 import { GET_JIRA_ISSUES } from "gql/queries";
@@ -27,7 +27,7 @@ const Issues: React.VFC<IssuesProps> = ({
 }) => {
   const dispatchToast = useToastContext();
   // Query Jira ticket data
-  const { data, loading } = useQuery<GetIssuesQuery, GetIssuesQueryVariables>(
+  const { data, loading } = useQuery<IssuesQuery, IssuesQueryVariables>(
     GET_JIRA_ISSUES,
     {
       variables: { taskId, execution },

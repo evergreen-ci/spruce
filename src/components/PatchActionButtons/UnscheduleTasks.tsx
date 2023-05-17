@@ -1,12 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { MenuItem } from "@leafygreen-ui/menu";
 import { Body } from "@leafygreen-ui/typography";
-import { Popconfirm } from "antd";
 import { useVersionAnalytics } from "analytics";
-import { DropdownItem } from "components/ButtonDropdown";
-import { size } from "constants/tokens";
+import Popconfirm from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
   UnschedulePatchTasksMutation,
@@ -25,7 +23,12 @@ export const UnscheduleTasks: React.VFC<props> = ({
   disabled,
 }) => {
   const dispatchToast = useToastContext();
+  const { sendEvent } = useVersionAnalytics(patchId);
+
   const [abort, setAbort] = useState(true);
+  const [open, setOpen] = useState(false);
+  const menuItemRef = useRef<HTMLDivElement>(null);
+
   const [unschedulePatchTasks, { loading: loadingUnschedulePatchTasks }] =
     useMutation<
       UnschedulePatchTasksMutation,
@@ -45,42 +48,39 @@ export const UnscheduleTasks: React.VFC<props> = ({
       refetchQueries,
     });
 
-  const { sendEvent } = useVersionAnalytics(patchId);
+  const onConfirm = () => {
+    unschedulePatchTasks({ variables: { patchId, abort } });
+    sendEvent({ name: "Unschedule", abort });
+  };
 
   return (
-    <Popconfirm
-      icon={null}
-      placement="left"
-      title={
-        <>
-          <StyledBody>Unschedule all tasks?</StyledBody>
-          <Checkbox
-            data-cy="abort-checkbox"
-            label="Abort tasks that have already started"
-            onChange={() => setAbort(!abort)}
-            checked={abort}
-            bold={false}
-          />
-        </>
-      }
-      onConfirm={() => {
-        unschedulePatchTasks({ variables: { patchId, abort } });
-        sendEvent({ name: "Unschedule", abort });
-      }}
-      okText="Yes"
-      cancelText="Cancel"
-    >
-      <DropdownItem
-        data-cy="unschedule-patch"
-        disabled={loadingUnschedulePatchTasks || disabled}
+    <>
+      <div ref={menuItemRef}>
+        <MenuItem
+          active={open}
+          data-cy="unschedule-patch"
+          disabled={disabled || loadingUnschedulePatchTasks}
+          onClick={() => setOpen(!open)}
+        >
+          Unschedule all tasks
+        </MenuItem>
+      </div>
+      <Popconfirm
+        align="left"
+        data-cy="unschedule-patch-popconfirm"
+        onConfirm={onConfirm}
+        open={open}
+        refEl={menuItemRef}
+        setOpen={setOpen}
       >
-        Unschedule all tasks
-      </DropdownItem>
-    </Popconfirm>
+        <Body weight="medium">Unschedule all tasks?</Body>
+        <Checkbox
+          data-cy="abort-checkbox"
+          label="Abort tasks that have already started"
+          onChange={() => setAbort(!abort)}
+          checked={abort}
+        />
+      </Popconfirm>
+    </>
   );
 };
-
-const StyledBody = styled(Body)`
-  padding-bottom: ${size.xs};
-  padding-right: ${size.xs};
-`;

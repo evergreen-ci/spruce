@@ -1,5 +1,12 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { GraphQLError } from "graphql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
+import {
+  CreateProjectMutation,
+  CreateProjectMutationVariables,
+  GithubOrgsQuery,
+  GithubOrgsQueryVariables,
+} from "gql/generated/types";
 import { CREATE_PROJECT } from "gql/mutations";
 import { GET_GITHUB_ORGS } from "gql/queries";
 import {
@@ -9,6 +16,7 @@ import {
   waitFor,
 } from "test_utils";
 import { selectLGOption } from "test_utils/utils";
+import { ApolloMock } from "types/gql";
 import { CreateProjectModal } from "./CreateProjectModal";
 
 const defaultOwner = "evergreen-ci";
@@ -35,6 +43,15 @@ const NewProjectModal = ({
   </MockedProvider>
 );
 
+const waitForModalLoad = async () => {
+  await waitFor(() =>
+    expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
+  );
+  await waitFor(() =>
+    expect(screen.queryByDataCy("loading-skeleton")).toBeNull()
+  );
+};
+
 describe("createProjectField", () => {
   afterEach(() => {
     jest.restoreAllMocks();
@@ -55,24 +72,19 @@ describe("createProjectField", () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
 
-    await waitFor(() =>
-      expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-    );
+    await waitForModalLoad();
 
     expect(
       screen.getByRole("button", {
         name: "Create Project",
       })
-    ).toBeDisabled();
+    ).toHaveAttribute("aria-disabled", "true");
   });
 
   it("pre-fills the owner and repo", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
-
-    await waitFor(() =>
-      expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-    );
+    await waitForModalLoad();
 
     expect(screen.queryByDataCy("new-owner-select")).toHaveTextContent(
       defaultOwner
@@ -83,10 +95,8 @@ describe("createProjectField", () => {
   it("disables the confirm button when repo field is missing", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
+    await waitForModalLoad();
 
-    await waitFor(() =>
-      expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-    );
     userEvent.type(
       screen.queryByDataCy("project-name-input"),
       "new-project-name-input"
@@ -96,48 +106,41 @@ describe("createProjectField", () => {
       screen.getByRole("button", {
         name: "Create Project",
       })
-    ).toBeDisabled();
+    ).toHaveAttribute("aria-disabled", "true");
   });
 
   it("disables the confirm button when project name field is missing", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
+    await waitForModalLoad();
 
-    await waitFor(() =>
-      expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-    );
     expect(screen.queryByDataCy("project-name-input")).toHaveValue("");
     expect(
       screen.getByRole("button", {
         name: "Create Project",
       })
-    ).toBeDisabled();
+    ).toHaveAttribute("aria-disabled", "true");
   });
 
   it("disables the confirm button when project name contains a space", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
+    await waitForModalLoad();
 
-    await waitFor(() =>
-      expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-    );
     userEvent.type(screen.queryByDataCy("project-name-input"), "my test");
     expect(
       screen.getByRole("button", {
         name: "Create Project",
       })
-    ).toBeDisabled();
+    ).toHaveAttribute("aria-disabled", "true");
   });
 
   it("enables the confirm button if the optional project id is empty", async () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <NewProjectModal />
     );
-    const { history } = render(<Component />);
-
-    await waitFor(() =>
-      expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-    );
+    const { router } = render(<Component />);
+    await waitForModalLoad();
 
     await selectLGOption("new-owner-select", "10gen");
     userEvent.clear(screen.queryByDataCy("new-repo-input"));
@@ -155,13 +158,16 @@ describe("createProjectField", () => {
     userEvent.click(screen.queryByText("Create Project"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
-    expect(history.location.pathname).toBe(
+    expect(router.state.location.pathname).toBe(
       "/project/new-project-name/settings"
     );
   });
 
   it("form submission succeeds when all fields are updated", async () => {
-    const mockWithId = {
+    const mockWithId: ApolloMock<
+      CreateProjectMutation,
+      CreateProjectMutationVariables
+    > = {
       request: {
         query: CREATE_PROJECT,
         variables: {
@@ -177,6 +183,7 @@ describe("createProjectField", () => {
       result: {
         data: {
           createProject: {
+            id: "new-project-id",
             identifier: "new-project-name",
           },
         },
@@ -185,11 +192,9 @@ describe("createProjectField", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <NewProjectModal mock={mockWithId} />
     );
-    const { history } = render(<Component />);
+    const { router } = render(<Component />);
+    await waitForModalLoad();
 
-    await waitFor(() =>
-      expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-    );
     userEvent.type(
       screen.queryByDataCy("project-name-input"),
       "new-project-name"
@@ -218,13 +223,67 @@ describe("createProjectField", () => {
     userEvent.click(screen.queryByText("Create Project"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
-    expect(history.location.pathname).toBe(
+    expect(router.state.location.pathname).toBe(
+      "/project/new-project-name/settings"
+    );
+  });
+  it("shows a warning toast when an error and data are returned", async () => {
+    const mockWithWarn = {
+      request: {
+        query: CREATE_PROJECT,
+        variables: {
+          project: {
+            identifier: "new-project-name",
+            owner: "10gen",
+            repo: "new-repo-name",
+          },
+          requestS3Creds: false,
+        },
+      },
+      result: {
+        data: {
+          createProject: {
+            id: "new-project-id",
+            identifier: "new-project-name",
+          },
+        },
+        errors: [new GraphQLError("There was an error creating the project")],
+      },
+    };
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <NewProjectModal mock={mockWithWarn} />
+    );
+    const { router } = render(<Component />);
+    await waitForModalLoad();
+
+    userEvent.type(
+      screen.queryByDataCy("project-name-input"),
+      "new-project-name"
+    );
+    await selectLGOption("new-owner-select", "10gen");
+    userEvent.clear(screen.queryByDataCy("new-repo-input"));
+    userEvent.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
+
+    expect(
+      screen.getByRole("button", {
+        name: "Create Project",
+      })
+    ).toBeEnabled();
+
+    userEvent.click(screen.queryByText("Create Project"));
+    await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
+    await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
+    expect(router.state.location.pathname).toBe(
       "/project/new-project-name/settings"
     );
   });
 });
 
-const createProjectMock = {
+const createProjectMock: ApolloMock<
+  CreateProjectMutation,
+  CreateProjectMutationVariables
+> = {
   request: {
     query: CREATE_PROJECT,
     variables: {
@@ -239,21 +298,23 @@ const createProjectMock = {
   result: {
     data: {
       createProject: {
+        id: "new-project-id",
         identifier: "new-project-name",
       },
     },
   },
 };
 
-const getGithubOrgsMock = {
-  request: {
-    query: GET_GITHUB_ORGS,
-  },
-  result: {
-    data: {
-      spruceConfig: {
-        githubOrgs: ["evergreen-ci", "10gen"],
+const getGithubOrgsMock: ApolloMock<GithubOrgsQuery, GithubOrgsQueryVariables> =
+  {
+    request: {
+      query: GET_GITHUB_ORGS,
+    },
+    result: {
+      data: {
+        spruceConfig: {
+          githubOrgs: ["evergreen-ci", "10gen"],
+        },
       },
     },
-  },
-};
+  };

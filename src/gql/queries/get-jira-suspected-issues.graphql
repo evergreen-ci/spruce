@@ -1,13 +1,14 @@
 #import "../fragments/annotations/issueLink.graphql"
 
-query GetSuspectedIssues($taskId: String!, $execution: Int) {
+query SuspectedIssues($taskId: String!, $execution: Int) {
   task(taskId: $taskId, execution: $execution) {
-    id
-    execution
     annotation {
+      id
       suspectedIssues {
-        ...issueLink
+        ...IssueLink
       }
     }
+    execution
+    id
   }
 }

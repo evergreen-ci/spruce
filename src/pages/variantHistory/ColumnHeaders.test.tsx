@@ -1,14 +1,18 @@
 import { ProviderWrapper } from "components/HistoryTable/hooks/test-utils";
 import { variantHistoryMaxLength as maxLength } from "constants/history";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
-import { GetTaskNamesForBuildVariantQuery } from "gql/generated/types";
+import {
+  TaskNamesForBuildVariantQuery,
+  TaskNamesForBuildVariantQueryVariables,
+} from "gql/generated/types";
 import { GET_TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
 import {
-  fireEvent,
   renderWithRouterMatch as render,
   screen,
+  userEvent,
   waitFor,
 } from "test_utils";
+import { ApolloMock } from "types/gql";
 import { string } from "utils";
 import ColumnHeaders from "./ColumnHeaders";
 
@@ -131,7 +135,7 @@ describe("columnHeaders (Variant History)", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
-    fireEvent.mouseEnter(screen.queryByText(trimmedTaskName));
+    userEvent.hover(screen.queryByText(trimmedTaskName));
     await waitFor(() => {
       expect(screen.queryByText(longTaskName)).toBeVisible();
     });
@@ -139,8 +143,11 @@ describe("columnHeaders (Variant History)", () => {
 });
 
 const mock = (
-  taskNames: GetTaskNamesForBuildVariantQuery["taskNamesForBuildVariant"]
-) => ({
+  taskNames: TaskNamesForBuildVariantQuery["taskNamesForBuildVariant"]
+): ApolloMock<
+  TaskNamesForBuildVariantQuery,
+  TaskNamesForBuildVariantQueryVariables
+> => ({
   request: {
     query: GET_TASK_NAMES_FOR_BUILD_VARIANT,
     variables: {
