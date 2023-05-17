@@ -6,7 +6,7 @@ exports[`storybook Storyshots Components/TupleSelect With Conditional 1`] = `
     class="css-1ry038z-Container e5gn9hl4"
   >
     <label
-      class="leafygreen-ui-591fuk"
+      class="leafygreen-ui-1k5mcru"
       for="filter-input"
     >
       <div
@@ -207,7 +207,7 @@ exports[`storybook Storyshots Components/TupleSelect With Conditional 1`] = `
     </div>
   </div>
   <small
-    class="leafygreen-ui-6flbwy"
+    class="leafygreen-ui-ppjyot"
   >
     The word \`bad\` will fail validation
   </small>

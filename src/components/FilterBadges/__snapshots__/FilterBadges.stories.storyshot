@@ -60,8 +60,8 @@ exports[`storybook Storyshots components/FilterBadges Default 1`] = `
           class="leafygreen-ui-a533bt"
         >
           <label
-            class="leafygreen-ui-gr5280"
-            for="textinput-13"
+            class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
+            for="textinput-7"
           >
             key
           </label>
@@ -73,7 +73,7 @@ exports[`storybook Storyshots components/FilterBadges Default 1`] = `
             aria-invalid="false"
             autocomplete="on"
             class="leafygreen-ui-6i61vl"
-            id="textinput-13"
+            id="textinput-7"
             placeholder="key"
             required=""
             type="text"
@@ -91,8 +91,8 @@ exports[`storybook Storyshots components/FilterBadges Default 1`] = `
           class="leafygreen-ui-a533bt"
         >
           <label
-            class="leafygreen-ui-gr5280"
-            for="textinput-14"
+            class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
+            for="textinput-8"
           >
             value
           </label>
@@ -104,7 +104,7 @@ exports[`storybook Storyshots components/FilterBadges Default 1`] = `
             aria-invalid="false"
             autocomplete="on"
             class="leafygreen-ui-6i61vl"
-            id="textinput-14"
+            id="textinput-8"
             placeholder="value"
             required=""
             type="text"

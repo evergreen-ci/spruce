@@ -6,7 +6,7 @@ exports[`storybook Storyshots components/ProjectSelect Default 1`] = `
     class="css-1ry038z-Container e17dnzmx0"
   >
     <label
-      class="leafygreen-ui-591fuk"
+      class="leafygreen-ui-1k5mcru"
       for="searchable-dropdown-Project"
     >
       Project
@@ -37,7 +37,7 @@ exports[`storybook Storyshots components/ProjectSelect Default 1`] = `
                 class="css-soeq2u-LabelWrapper e1yw4j303"
               >
                 <p
-                  class="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-16m3jpq"
+                  class="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1yli3c0"
                   data-cy="dropdown-value"
                 >
                   evergreen smoke test
@@ -76,7 +76,7 @@ exports[`storybook Storyshots components/ProjectSelect With Clickable Header 1`]
     class="css-1ry038z-Container e17dnzmx0"
   >
     <label
-      class="leafygreen-ui-591fuk"
+      class="leafygreen-ui-1k5mcru"
       for="searchable-dropdown-Project"
     >
       Project
@@ -107,7 +107,7 @@ exports[`storybook Storyshots components/ProjectSelect With Clickable Header 1`]
                 class="css-soeq2u-LabelWrapper e1yw4j303"
               >
                 <p
-                  class="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-16m3jpq"
+                  class="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1yli3c0"
                   data-cy="dropdown-value"
                 >
                   evergreen smoke test

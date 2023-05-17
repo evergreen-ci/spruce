@@ -25,7 +25,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
                 class="leafygreen-ui-a533bt"
               >
                 <label
-                  class="leafygreen-ui-gr5280"
+                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
                   for="tag_key_1"
                 >
                   Key
@@ -64,7 +64,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
                 class="leafygreen-ui-a533bt"
               >
                 <label
-                  class="leafygreen-ui-gr5280"
+                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
                   for="tag_value_1"
                 >
                   Value
@@ -145,7 +145,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
                 class="leafygreen-ui-a533bt"
               >
                 <label
-                  class="leafygreen-ui-gr5280"
+                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
                   for="tag_key_2"
                 >
                   Key
@@ -184,7 +184,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
                 class="leafygreen-ui-a533bt"
               >
                 <label
-                  class="leafygreen-ui-gr5280"
+                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
                   for="tag_value_2"
                 >
                   Value
@@ -265,7 +265,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
                 class="leafygreen-ui-a533bt"
               >
                 <label
-                  class="leafygreen-ui-gr5280"
+                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
                   for="tag_key_3"
                 >
                   Key
@@ -304,7 +304,7 @@ exports[`storybook Storyshots components/EditableTagField Default 1`] = `
                 class="leafygreen-ui-a533bt"
               >
                 <label
-                  class="leafygreen-ui-gr5280"
+                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
                   for="tag_value_3"
                 >
                   Value

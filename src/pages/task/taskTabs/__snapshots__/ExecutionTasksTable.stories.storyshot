@@ -284,11 +284,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-abeqz2"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/task/some_id_5?execution=14"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           <span
                             class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
@@ -296,7 +296,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                             Some fancy execution task
                           </span>
                           <p
-                            class="leafygreen-ui-16m3jpq"
+                            class="leafygreen-ui-1yli3c0"
                           >
                             Execution 
                             15
@@ -325,11 +325,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-abeqz2"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           Windows 97
                         </span>
@@ -344,11 +344,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-abeqz2"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/task/some_id_6?execution=12"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           <span
                             class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
@@ -356,7 +356,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                             Another execution task
                           </span>
                           <p
-                            class="leafygreen-ui-16m3jpq"
+                            class="leafygreen-ui-1yli3c0"
                           >
                             Execution 
                             13
@@ -385,11 +385,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-abeqz2"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           Windows 97
                         </span>
@@ -691,11 +691,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-abeqz2"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/task/some_id_5?execution=5"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           <span
                             class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
@@ -726,11 +726,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-abeqz2"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           Windows 97
                         </span>
@@ -745,11 +745,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-abeqz2"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/task/some_id_6?execution=5"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           <span
                             class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
@@ -780,11 +780,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-abeqz2"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-1ewnca3"
+                          class="leafygreen-ui-baoi4d"
                         >
                           Windows 97
                         </span>

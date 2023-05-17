@@ -12,13 +12,13 @@ exports[`storybook Storyshots Pages/Preferences/Node List Node Element 1`] = `
         class="css-1ivxpad-Circle e1k5prvz5"
       >
         <h6
-          class="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-19p3n10"
+          class="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-41zalo"
         >
           1
         </h6>
       </div>
       <h6
-        class="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-19p3n10"
+        class="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-41zalo"
       >
         Download the Command-Line Client.
       </h6>
@@ -54,13 +54,13 @@ exports[`storybook Storyshots Pages/Preferences/Node List Node List Full 1`] = `
             class="css-1ivxpad-Circle e1k5prvz5"
           >
             <h6
-              class="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-19p3n10"
+              class="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-41zalo"
             >
               1
             </h6>
           </div>
           <h6
-            class="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-19p3n10"
+            class="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-41zalo"
           >
             Download the Command-Line Client.
           </h6>
@@ -85,13 +85,13 @@ exports[`storybook Storyshots Pages/Preferences/Node List Node List Full 1`] = `
             class="css-1ivxpad-Circle e1k5prvz5"
           >
             <h6
-              class="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-19p3n10"
+              class="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-41zalo"
             >
               2
             </h6>
           </div>
           <h6
-            class="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-19p3n10"
+            class="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-41zalo"
           >
             Move the command-line client to somewhere in your PATH. On many systems this will be /usr/local/bin.
           </h6>
