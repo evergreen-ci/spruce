@@ -76,21 +76,25 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   const { data: tasksData = [], count = 0 } = tasks || {};
 
   const shouldShowBottomTableControl = tasksData.length > 10;
+
+  const tableControls = (
+    <TableControl
+      filteredCount={count}
+      totalCount={taskCount}
+      limit={limit}
+      page={page}
+      label="tasks"
+      onClear={clearQueryParams}
+      onPageSizeChange={() => {
+        versionAnalytics.sendEvent({
+          name: "Change Page Size",
+        });
+      }}
+    />
+  );
   return (
     <>
-      <TableControl
-        filteredCount={count}
-        totalCount={taskCount}
-        limit={limit}
-        page={page}
-        label="tasks"
-        onClear={clearQueryParams}
-        onPageSizeChange={() => {
-          versionAnalytics.sendEvent({
-            name: "Change Page Size",
-          });
-        }}
-      />
+      {tableControls}
       <PatchTasksTable
         isPatch={isPatch}
         sorts={sorts}
@@ -98,21 +102,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
         loading={tasksData.length === 0 && loading}
       />
       {shouldShowBottomTableControl && (
-        <TableControlWrapper>
-          <TableControl
-            filteredCount={count}
-            totalCount={taskCount}
-            limit={limit}
-            page={page}
-            label="tasks"
-            onClear={clearQueryParams}
-            onPageSizeChange={() => {
-              versionAnalytics.sendEvent({
-                name: "Change Page Size",
-              });
-            }}
-          />
-        </TableControlWrapper>
+        <TableControlWrapper>{tableControls}</TableControlWrapper>
       )}
     </>
   );
