@@ -189,8 +189,8 @@ export const DownstreamProjectAccordion: React.VFC<
             <TableControlOuterRow>
               <FlexContainer>
                 <ResultCountLabel
-                  dataCyNumerator="current-task-count"
-                  dataCyDenominator="total-task-count"
+                  dataCyNumerator="filtered-count"
+                  dataCyDenominator="total-count"
                   label="tasks"
                   numerator={count}
                   denominator={taskCount}

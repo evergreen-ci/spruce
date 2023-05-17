@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
+import { useVersionAnalytics } from "analytics";
+import TableControl from "components/Table/TableControl";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -14,7 +16,6 @@ import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
 import { queryString } from "utils";
-import { TableControl } from "./TableControl";
 import { PatchTasksTable } from "./tasks/PatchTasksTable";
 import { useQueryVariables } from "./useQueryVariables";
 
@@ -30,7 +31,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   const { id } = useParams<{ id: string }>();
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
-
+  const versionAnalytics = useVersionAnalytics(id);
   const queryVariables = useQueryVariables(search, id);
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
   const { sorts, limit, page } = queryVariables.taskFilterOptions;
@@ -51,6 +52,9 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
       [PatchTasksQueryParams.Page]: undefined,
       [PatchTasksQueryParams.Duration]: undefined,
       [PatchTasksQueryParams.Sorts]: defaultSortMethod,
+    });
+    versionAnalytics.sendEvent({
+      name: "Clear all filter",
     });
   };
 
@@ -76,10 +80,16 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
     <>
       <TableControl
         filteredCount={count}
-        taskCount={taskCount}
+        totalCount={taskCount}
         limit={limit}
         page={page}
+        label="tasks"
         onClear={clearQueryParams}
+        onPageSizeChange={() => {
+          versionAnalytics.sendEvent({
+            name: "Change Page Size",
+          });
+        }}
       />
       <PatchTasksTable
         isPatch={isPatch}
@@ -91,10 +101,16 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
         <TableControlWrapper>
           <TableControl
             filteredCount={count}
-            taskCount={taskCount}
+            totalCount={taskCount}
             limit={limit}
             page={page}
+            label="tasks"
             onClear={clearQueryParams}
+            onPageSizeChange={() => {
+              versionAnalytics.sendEvent({
+                name: "Change Page Size",
+              });
+            }}
           />
         </TableControlWrapper>
       )}

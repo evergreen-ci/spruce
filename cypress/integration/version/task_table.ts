@@ -65,7 +65,7 @@ describe("Task table", () => {
 
   it("Task count displays total tasks", () => {
     cy.visit(pathTasks);
-    cy.dataCy("total-task-count").contains("50");
+    cy.dataCy("total-count").contains("50");
   });
 
   it("Sort buttons are disabled when fetching data", () => {

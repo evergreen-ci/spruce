@@ -54,7 +54,7 @@ describe("Tasks filters", () => {
         search: variantInputValue,
       });
       waitForTable();
-      cy.dataCy("current-task-count").should("contain.text", 2);
+      cy.dataCy("filtered-count").should("contain.text", 2);
 
       cy.toggleTableFilter(4);
       cy.dataCy("variant-input-wrapper")
@@ -69,7 +69,7 @@ describe("Tasks filters", () => {
         search: null,
       });
       waitForTable();
-      cy.dataCy("current-task-count").should("contain.text", 50);
+      cy.dataCy("filtered-count").should("contain.text", 50);
     });
   });
 
@@ -92,7 +92,7 @@ describe("Tasks filters", () => {
         search: taskNameInputValue,
       });
       waitForTable();
-      cy.dataCy("current-task-count").should("contain.text", 2);
+      cy.dataCy("filtered-count").should("contain.text", 2);
 
       cy.toggleTableFilter(1);
       cy.dataCy("taskname-input-wrapper")
@@ -107,7 +107,7 @@ describe("Tasks filters", () => {
         search: null,
       });
       waitForTable();
-      cy.dataCy("current-task-count").should("contain.text", 50);
+      cy.dataCy("filtered-count").should("contain.text", 50);
     });
   });
 
@@ -120,7 +120,7 @@ describe("Tasks filters", () => {
     });
 
     it("Clicking on a status filter filters the tasks to only those statuses", () => {
-      cy.dataCy("current-task-count")
+      cy.dataCy("filtered-count")
         .invoke("text")
         .then((preFilterCount) => {
           selectCheckboxOption("Failed", true);
@@ -130,14 +130,14 @@ describe("Tasks filters", () => {
             search: "failed",
           });
           waitForTable();
-          cy.dataCy("current-task-count")
+          cy.dataCy("filtered-count")
             .invoke("text")
             .should("have.length.greaterThan", 0);
 
-          cy.dataCy("current-task-count")
+          cy.dataCy("filtered-count")
             .invoke("text")
             .then((postFilterCount) => {
-              cy.dataCy("current-task-count").should(
+              cy.dataCy("filtered-count").should(
                 "not.have.text",
                 preFilterCount
               );
@@ -148,7 +148,7 @@ describe("Tasks filters", () => {
                 search: "failed-umbrella,failed,known-issue,success",
               });
               waitForTable();
-              cy.dataCy("current-task-count").should(
+              cy.dataCy("filtered-count").should(
                 "not.have.text",
                 postFilterCount
               );
@@ -198,7 +198,7 @@ describe("Tasks filters", () => {
 
     it("Clicking on a base status filter filters the tasks to only those base statuses", () => {
       // All tasks have a base status of succeeded for this version.
-      cy.dataCy("current-task-count")
+      cy.dataCy("filtered-count")
         .invoke("text")
         .then((preFilterCount) => {
           selectCheckboxOption("Succeeded", true);
@@ -208,17 +208,14 @@ describe("Tasks filters", () => {
             search: "success",
           });
           waitForTable();
-          cy.dataCy("current-task-count")
+          cy.dataCy("filtered-count")
             .invoke("text")
             .should("have.length.greaterThan", 0);
 
-          cy.dataCy("current-task-count")
+          cy.dataCy("filtered-count")
             .invoke("text")
             .then((postFilterCount) => {
-              cy.dataCy("current-task-count").should(
-                "have.text",
-                preFilterCount
-              );
+              cy.dataCy("filtered-count").should("have.text", preFilterCount);
               selectCheckboxOption("Succeeded", false);
               urlSearchParamsAreUpdated({
                 pathname: pathTasks,
@@ -226,10 +223,7 @@ describe("Tasks filters", () => {
                 search: null,
               });
               waitForTable();
-              cy.dataCy("current-task-count").should(
-                "have.text",
-                postFilterCount
-              );
+              cy.dataCy("filtered-count").should("have.text", postFilterCount);
             });
         });
     });
