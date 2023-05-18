@@ -169,7 +169,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                                 class="leafygreen-ui-a533bt"
                               >
                                 <label
-                                  class="leafygreen-ui-gr5280"
+                                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
                                   for="textinput-10"
                                 >
                                   key
@@ -213,7 +213,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                                 class="leafygreen-ui-a533bt"
                               >
                                 <label
-                                  class="leafygreen-ui-gr5280"
+                                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
                                   for="textinput-11"
                                 >
                                   value
@@ -573,17 +573,19 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
               >
                 <div
                   aria-label="radio-group-1"
+                  class="leafygreen-ui-14o8ny9"
                   role="group"
                 >
                   <div
-                    class="leafygreen-ui-3n5lp7"
+                    class="leafygreen-ui-jpwlig"
                   >
                     <label
-                      class="leafygreen-ui-1oju0e3"
+                      class="leafygreen-ui-1465lnm"
                       for="radio-group-1-0"
                     >
                       <input
                         aria-checked="false"
+                        aria-describedby="undefined-undefined"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                         id="radio-group-1-0"
@@ -598,20 +600,19 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
                           class="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
                         />
                       </div>
-                      <div>
-                        Restart Jasper service on running hosts of this distro for this update
-                      </div>
+                      Restart Jasper service on running hosts of this distro for this update
                     </label>
                   </div>
                   <div
-                    class="leafygreen-ui-3n5lp7"
+                    class="leafygreen-ui-jpwlig"
                   >
                     <label
-                      class="leafygreen-ui-1oju0e3"
+                      class="leafygreen-ui-1465lnm"
                       for="radio-group-1-1"
                     >
                       <input
                         aria-checked="false"
+                        aria-describedby="undefined-undefined"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                         id="radio-group-1-1"
@@ -626,9 +627,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
                           class="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
                         />
                       </div>
-                      <div>
-                        Reprovision running hosts of this distro for this update
-                      </div>
+                      Reprovision running hosts of this distro for this update
                     </label>
                   </div>
                 </div>

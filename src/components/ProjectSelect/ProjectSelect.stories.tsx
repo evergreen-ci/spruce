@@ -203,6 +203,7 @@ const viewableProjectsMock: ApolloMock<
               owner: "evergreen-ci",
               displayName: "evergreen smoke test",
               isFavorite: false,
+              enabled: true,
             },
           ],
           repo: {
@@ -219,6 +220,7 @@ const viewableProjectsMock: ApolloMock<
               owner: "mongodb",
               displayName: "mongo-test",
               isFavorite: false,
+              enabled: true,
             },
           ],
           repo: {
