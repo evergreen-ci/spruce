@@ -14,7 +14,7 @@ import {
 import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { getVersionRoute } from "constants/routes";
-import { size } from "constants/tokens";
+import { fontSize, size } from "constants/tokens";
 
 import { useToastContext } from "context/toast";
 import {
@@ -34,7 +34,6 @@ import {
   VariantTasksState,
   useConfigurePatch,
 } from "hooks/useConfigurePatch";
-import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { ParametersContent } from "pages/configurePatch/ParametersContent";
 import { ConfigureBuildVariants } from "./configurePatchCore/ConfigureBuildVariants";
 import { ConfigureTasks } from "./configurePatchCore/ConfigureTasks";
@@ -120,8 +119,6 @@ export const ConfigurePatchCore: React.VFC<Props> = ({ patch }) => {
     });
   };
 
-  const Link = useLGButtonRouterLink(getVersionRoute(id));
-
   if (variants.length === 0) {
     return (
       // TODO: Full page error
@@ -141,11 +138,10 @@ export const ConfigurePatchCore: React.VFC<Props> = ({ patch }) => {
           label="Patch Name"
           data-cy="patch-name-input"
           value={description}
-          style={{ fontWeight: "bold", fontSize: "16px" }}
           onChange={(e) => setDescription(e.target.value)}
         />
         {activated && (
-          <StyledButton data-cy="cancel-button" as={Link}>
+          <StyledButton data-cy="cancel-button" onClick={() => navigate(-1)}>
             Cancel
           </StyledButton>
         )}
@@ -282,6 +278,8 @@ const filterAliases = (
 };
 
 const StyledInput = styled(TextInput)`
+  font-weight: bold;
+  font-size: ${fontSize.m};
   margin-bottom: ${size.s};
   width: 100%;
 `;
