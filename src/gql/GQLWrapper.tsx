@@ -50,6 +50,9 @@ const cache = new InMemoryCache({
         },
       },
     },
+    GeneralSubscription: {
+      keyFields: false,
+    },
     ProjectEvents: {
       fields: {
         count: {
@@ -68,9 +71,6 @@ const cache = new InMemoryCache({
       keyFields: false,
     },
     Project: {
-      keyFields: false,
-    },
-    ProjectSubscription: {
       keyFields: false,
     },
     User: {

@@ -339,7 +339,7 @@ const projectSettingsMock: ApolloMock<
             __typename: "CommitQueueParams",
           },
         },
-        projectSubscriptions: [],
+        subscriptions: [],
         vars: {
           vars: {},
           privateVars: [],

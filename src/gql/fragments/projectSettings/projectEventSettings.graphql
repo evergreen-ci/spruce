@@ -30,7 +30,7 @@ fragment ProjectEventSettings on ProjectEventSettings {
     tracksPushEvents
     versionControlEnabled
   }
-  projectSubscriptions {
+  subscriptions {
     ...Subscriptions
   }
   vars {

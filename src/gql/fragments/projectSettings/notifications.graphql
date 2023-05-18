@@ -10,7 +10,7 @@ fragment RepoNotificationSettings on RepoRef {
   notifyOnBuildFailure
 }
 
-fragment Subscriptions on ProjectSubscription {
+fragment Subscriptions on GeneralSubscription {
   id
   ownerType
   regexSelectors {
