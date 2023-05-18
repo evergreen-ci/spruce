@@ -12,7 +12,7 @@ import { RestartJasper } from "components/Hosts/RestartJasper";
 import PageSizeSelector, {
   usePageSizeSelector,
 } from "components/PageSizeSelector";
-import { Pagination } from "components/Pagination";
+import Pagination from "components/Pagination";
 import {
   TableContainer,
   TableControlOuterRow,

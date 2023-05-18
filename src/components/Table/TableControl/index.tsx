@@ -3,7 +3,7 @@ import Button from "@leafygreen-ui/button";
 import PageSizeSelector, {
   usePageSizeSelector,
 } from "components/PageSizeSelector";
-import { Pagination } from "components/Pagination";
+import Pagination from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { size } from "constants/tokens";

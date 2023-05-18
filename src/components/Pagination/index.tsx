@@ -16,7 +16,7 @@ interface Props {
   useLeafygreen?: boolean;
 }
 
-export const Pagination: React.VFC<Props> = ({
+const Pagination: React.VFC<Props> = ({
   value,
   totalResults,
   numPages,
@@ -86,3 +86,5 @@ const Container = styled.div`
   display: flex;
   flex-shrink: 0;
 `;
+
+export default Pagination;

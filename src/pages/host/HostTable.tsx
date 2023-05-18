@@ -7,7 +7,7 @@ import { useHostsTableAnalytics } from "analytics";
 import PageSizeSelector, {
   usePageSizeSelector,
 } from "components/PageSizeSelector";
-import { Pagination } from "components/Pagination";
+import Pagination from "components/Pagination";
 import { size } from "constants/tokens";
 import { HostEventsQuery, HostEventLogEntry } from "gql/generated/types";
 import { useDateFormat } from "hooks";

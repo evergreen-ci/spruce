@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import PageSizeSelector from "components/PageSizeSelector";
-import { Pagination } from "components/Pagination";
+import Pagination from "components/Pagination";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
