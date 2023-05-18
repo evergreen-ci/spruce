@@ -27,7 +27,7 @@ export const SetPatchVisibility: React.VFC<Props> = ({
     SetPatchVisibilityMutationVariables
   >(SET_PATCH_VISIBILITY, {
     onCompleted: () => {
-      dispatchToast.success(`This patch was successfully hidden`);
+      dispatchToast.success("This patch was successfully hidden");
     },
     onError: (err) => {
       dispatchToast.error(`Unable to hide this patch: ${err.message}`);
@@ -38,12 +38,8 @@ export const SetPatchVisibility: React.VFC<Props> = ({
   return (
     <>
       <div ref={menuItemRef}>
-        <MenuItem
-          active={open}
-          data-cy="disable"
-          onClick={() => setOpen(!open)}
-        >
-          Hide Patch
+        <MenuItem active={open} onClick={() => setOpen(!open)}>
+          Hide patch
         </MenuItem>
       </div>
       <Popconfirm
@@ -57,10 +53,10 @@ export const SetPatchVisibility: React.VFC<Props> = ({
         refEl={menuItemRef}
         setOpen={setOpen}
       >
-        <Body weight="medium">Hide Patch?</Body>
+        <Body weight="medium">Hide patch?</Body>
         <Body>
-          Hiding this patch will prevent it from being displayed in the my
-          patches page. This can not be undone!
+          Hiding this patch will prevent it from being displayed in the patches
+          pages. This cannot be undone!
         </Body>
       </Popconfirm>
     </>
