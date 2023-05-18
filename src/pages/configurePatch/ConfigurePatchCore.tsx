@@ -141,7 +141,14 @@ export const ConfigurePatchCore: React.VFC<Props> = ({ patch }) => {
           onChange={(e) => setDescription(e.target.value)}
         />
         {activated && (
-          <StyledButton data-cy="cancel-button" onClick={() => navigate(-1)}>
+          <StyledButton
+            data-cy="cancel-button"
+            onClick={() =>
+              window.history.state.idx > 0
+                ? navigate(-1)
+                : navigate(getVersionRoute(id))
+            }
+          >
             Cancel
           </StyledButton>
         )}
