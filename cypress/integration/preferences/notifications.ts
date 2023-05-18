@@ -2,7 +2,7 @@ const pageRoute = "/preferences/notifications";
 
 describe("global subscription settings", () => {
   it("updating a field should enable the submit button", () => {
-    cy.visit(`${pageRoute}`);
+    cy.visit(pageRoute);
     cy.dataCy("save-profile-changes-button").should(
       "have.attr",
       "aria-disabled",
@@ -16,16 +16,16 @@ describe("global subscription settings", () => {
     );
   });
   it("saving changes to a field should work", () => {
-    cy.visit(`${pageRoute}`);
+    cy.visit(pageRoute);
     cy.dataCy("slack-username-field").clear().type("slack.user");
     cy.dataCy("save-profile-changes-button").click();
     cy.validateToast("success", "Your changes have successfully been saved.");
   });
 });
 
-describe.only("user subscriptions table", () => {
+describe("user subscriptions table", () => {
   it("shows all of a user's subscriptions and expands with details", () => {
-    cy.visit(`${pageRoute}`);
+    cy.visit(pageRoute);
     cy.dataCy("subscription-row").should("have.length", 3);
 
     cy.dataCy("regex-selectors").should("not.be.visible");
