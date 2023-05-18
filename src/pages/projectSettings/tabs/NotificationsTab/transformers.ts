@@ -1,10 +1,10 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { projectTriggers } from "constants/triggers";
 import {
-  ProjectInput,
-  SubscriptionInput,
   BannerTheme,
-  ProjectSettingsQuery,
+  ProjectInput,
+  Subscriber,
+  SubscriptionInput,
 } from "gql/generated/types";
 import { NotificationMethods } from "types/subscription";
 import { TriggerType } from "types/triggers";
@@ -18,10 +18,7 @@ type Tab = ProjectSettingsTabRoutes.Notifications;
 
 const { toSentenceCase } = string;
 
-const getSubscriberText = (
-  subscriberType: string,
-  subscriber: ProjectSettingsQuery["projectSettings"]["subscriptions"][0]["subscriber"]["subscriber"]
-) => {
+const getSubscriberText = (subscriberType: string, subscriber: Subscriber) => {
   switch (subscriberType) {
     case NotificationMethods.JIRA_COMMENT:
       return subscriber.jiraCommentSubscriber;
@@ -97,7 +94,7 @@ const getHttpHeaders = (headers: { key: string; value: string }[]) =>
 
 export const gqlToForm: GqlToFormFunction<Tab> = (data, { projectType }) => {
   if (!data) return null;
-  const { projectRef, subscriptions } = data;
+  const { projectRef, projectSubscriptions: subscriptions } = data;
   return {
     ...(projectType !== ProjectType.Repo &&
       "banner" in projectRef && {

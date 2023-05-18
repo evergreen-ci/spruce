@@ -35,9 +35,9 @@ export const BuildVariants: React.VFC = () => {
   const { version } = data || {};
 
   return (
-    <MetadataCard error={error} loading={loading}>
+    <StickyMetadataCard error={error} loading={loading}>
       <MetadataTitle>Build Variants</MetadataTitle>
-      <div data-cy="build-variants">
+      <ScrollableBuildVariantStatsContainer data-cy="build-variants">
         {version?.buildVariantStats?.map(
           ({ displayName, statusCounts, variant }) => (
             <VariantTaskGroup
@@ -49,11 +49,20 @@ export const BuildVariants: React.VFC = () => {
             />
           )
         )}
-      </div>
-    </MetadataCard>
+      </ScrollableBuildVariantStatsContainer>
+    </StickyMetadataCard>
   );
 };
 
+const StickyMetadataCard = styled(MetadataCard)`
+  position: sticky;
+  top: 0;
+`;
+
+const ScrollableBuildVariantStatsContainer = styled.div`
+  max-height: 55vh;
+  overflow-y: auto;
+`;
 interface VariantTaskGroupProps {
   displayName: string;
   statusCounts: StatusCount[];

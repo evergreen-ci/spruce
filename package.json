@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.75",
+  "version": "3.0.79",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -82,7 +82,7 @@
     "@leafygreen-ui/palette": "3.4.4",
     "@leafygreen-ui/popover": "11.0.1",
     "@leafygreen-ui/radio-box-group": "12.0.1",
-    "@leafygreen-ui/radio-group": "10.0.5",
+    "@leafygreen-ui/radio-group": "10.1.1",
     "@leafygreen-ui/search-input": "1.0.2",
     "@leafygreen-ui/segmented-control": "7.0.2",
     "@leafygreen-ui/select": "10.2.0",
@@ -161,7 +161,7 @@
     "@types/react-window-infinite-loader": "^1.0.6",
     "@typescript-eslint/eslint-plugin": "5.57.1",
     "@typescript-eslint/parser": "5.57.1",
-    "@vitejs/plugin-react": "3.1.0",
+    "@vitejs/plugin-react": "4.0.0",
     "babel-jest": "29.5.0",
     "babel-loader": "^8.2.5",
     "babel-plugin-import": "^1.13.6",
@@ -201,11 +201,11 @@
     "serve-handler": "^6.1.5",
     "storybook": "7.0.0-rc.5",
     "typescript": "5.0.3",
-    "vite": "4.1.1",
-    "vite-plugin-checker": "0.5.5",
+    "vite": "4.3.7",
+    "vite-plugin-checker": "0.6.0",
     "vite-plugin-env-compatible": "1.1.1",
-    "vite-plugin-imp": "2.3.1",
-    "vite-tsconfig-paths": "4.0.5"
+    "vite-plugin-imp": "2.4.0",
+    "vite-tsconfig-paths": "4.2.0"
   },
   "resolutions": {
     "has-symbols": "^1.0.2"
