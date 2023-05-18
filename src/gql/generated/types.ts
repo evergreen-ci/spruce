@@ -1229,6 +1229,7 @@ export type Project = {
   periodicBuilds?: Maybe<Array<PeriodicBuild>>;
   prTestingEnabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
+  projectHealthView: ProjectHealthView;
   remotePath: Scalars["String"];
   repo: Scalars["String"];
   repoRefId: Scalars["String"];
@@ -1320,6 +1321,11 @@ export type ProjectEvents = {
   count: Scalars["Int"];
   eventLogEntries: Array<ProjectEventLogEntry>;
 };
+
+export enum ProjectHealthView {
+  ProjectHealthViewAll = "PROJECT_HEALTH_VIEW_ALL",
+  ProjectHealthViewFailed = "PROJECT_HEALTH_VIEW_FAILED",
+}
 
 export type ProjectInput = {
   admins?: InputMaybe<Array<Scalars["String"]>>;
