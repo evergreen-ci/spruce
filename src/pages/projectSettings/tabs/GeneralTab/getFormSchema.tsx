@@ -6,6 +6,7 @@ import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
 import {
   DeactivateStepbackTaskField,
+  DeleteProjectField,
   RepoConfigField,
   RepotrackerField,
 } from "./Fields";
@@ -23,6 +24,7 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {
     deactivateStepbackTask: DeactivateStepbackTaskField,
+    deleteProjectField: DeleteProjectField,
     repoConfigField: RepoConfigField,
     repotrackerField: RepotrackerField,
   },
@@ -219,6 +221,17 @@ export const getFormSchema = (
           },
         },
       },
+      ...(projectType === ProjectType.AttachedProject && {
+        deleteProject: {
+          type: "object" as "object",
+          title: "Delete Project",
+          properties: {
+            deleteProject: {
+              type: "null" as "null",
+            },
+          },
+        },
+      }),
     },
   },
   uiSchema: {
@@ -356,6 +369,15 @@ export const getFormSchema = (
         "ui:widget": widgets.RadioBoxWidget,
         "ui:description":
           "Task execution statistics aggregated by project, build variant, distro, task name, and task creation date.",
+      },
+    },
+    deleteProject: {
+      "ui:rootFieldId": "removeProject",
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      deleteProject: {
+        "ui:field": "deleteProjectField",
+        "ui:showLabel": false,
+        options: { projectId },
       },
     },
   },

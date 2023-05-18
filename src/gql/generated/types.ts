@@ -687,6 +687,7 @@ export type Mutation = {
   createPublicKey: Array<PublicKey>;
   deactivateStepbackTask: Scalars["Boolean"];
   defaultSectionToRepo?: Maybe<Scalars["String"]>;
+  deleteProject: Scalars["Boolean"];
   detachProjectFromRepo: Project;
   detachVolumeFromHost: Scalars["Boolean"];
   editAnnotationNote: Scalars["Boolean"];
@@ -782,6 +783,10 @@ export type MutationDeactivateStepbackTaskArgs = {
 export type MutationDefaultSectionToRepoArgs = {
   projectId: Scalars["String"];
   section: ProjectSettingsSection;
+};
+
+export type MutationDeleteProjectArgs = {
+  projectId: Scalars["String"];
 };
 
 export type MutationDetachProjectFromRepoArgs = {
@@ -4083,6 +4088,15 @@ export type DefaultSectionToRepoMutationVariables = Exact<{
 export type DefaultSectionToRepoMutation = {
   __typename?: "Mutation";
   defaultSectionToRepo?: Maybe<string>;
+};
+
+export type DeleteProjectMutationVariables = Exact<{
+  projectId: Scalars["String"];
+}>;
+
+export type DeleteProjectMutation = {
+  __typename?: "Mutation";
+  deleteProject: boolean;
 };
 
 export type DetachProjectFromRepoMutationVariables = Exact<{
