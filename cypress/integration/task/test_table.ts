@@ -10,11 +10,11 @@ describe("Tests Table", () => {
 
     cy.contains(TABLE_SORT_SELECTOR, "Name").click();
 
-    cy.dataCy("filtered-test-count")
+    cy.dataCy("filtered-count")
       .as("filtered-count")
       .invoke("text")
       .should("eq", "20");
-    cy.dataCy("total-test-count")
+    cy.dataCy("total-count")
       .as("total-count")
       .invoke("text")
       .should("eq", "20");
