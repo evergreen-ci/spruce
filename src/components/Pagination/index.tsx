@@ -7,7 +7,7 @@ import { size } from "constants/tokens";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 
 interface Props {
-  value: number;
+  currentPage: number;
   totalResults?: number;
   numPages?: number;
   onChange?: (i: number) => void;
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const Pagination: React.VFC<Props> = ({
-  value,
+  currentPage,
   totalResults,
   numPages,
   onChange,
@@ -30,16 +30,16 @@ const Pagination: React.VFC<Props> = ({
     onChange || ((p) => updateQueryParams({ page: `${p - 1}` }));
 
   const handlePrevClick = () => {
-    updateQueryParams({ page: `${value - 1}` });
+    handleChange(currentPage + 1);
   };
   const handleNextClick = () => {
-    updateQueryParams({ page: `${value + 1}` });
+    handleChange(currentPage + 1);
   };
 
   return useLeafygreen ? (
     <Container>
       <StyledButton
-        disabled={value === 0}
+        disabled={currentPage === 0}
         size="small"
         data-cy="prev-page-button"
         onClick={handlePrevClick}
@@ -47,11 +47,11 @@ const Pagination: React.VFC<Props> = ({
       />
       <PageLabel>
         <Disclaimer>
-          {value + 1} / {numPages}
+          {currentPage + 1} / {numPages}
         </Disclaimer>
       </PageLabel>
       <StyledButton
-        disabled={value === numPages - 1}
+        disabled={currentPage === numPages - 1}
         data-cy="next-page-button"
         size="small"
         onClick={handleNextClick}
@@ -63,7 +63,7 @@ const Pagination: React.VFC<Props> = ({
       data-cy={dataCy}
       simple
       pageSize={pageSize}
-      current={value + 1}
+      current={currentPage + 1}
       total={totalResults}
       onChange={handleChange}
     />
