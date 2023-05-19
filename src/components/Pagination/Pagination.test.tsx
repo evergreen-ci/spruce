@@ -26,15 +26,31 @@ describe("pagination", () => {
       "true"
     );
   });
-  it("paginating should update the url with the current page number by default", () => {
-    const { router, rerender } = renderWithRouterMatch(
+  it("paginating forward should update the url with the new page number by default", () => {
+    const { router } = renderWithRouterMatch(
       <Pagination currentPage={0} numPages={2} />
     );
+
     expect(router.state.location.search).toBe("");
     screen.getByDataCy("next-page-button").click();
     expect(router.state.location.search).toBe("?page=1");
-    rerender(<Pagination currentPage={1} numPages={2} />);
+  });
+  it("paginating backward should update the url with the new page number by default", () => {
+    const { router } = renderWithRouterMatch(
+      <Pagination currentPage={1} numPages={2} />
+    );
+
+    expect(router.state.location.search).toBe("");
     screen.getByDataCy("prev-page-button").click();
     expect(router.state.location.search).toBe("?page=0");
+  });
+
+  it("should call the onChange callback when the page changes", () => {
+    const onChange = jest.fn();
+    renderWithRouterMatch(
+      <Pagination currentPage={0} numPages={2} onChange={onChange} />
+    );
+    screen.getByDataCy("next-page-button").click();
+    expect(onChange).toHaveBeenCalledWith(1);
   });
 });
