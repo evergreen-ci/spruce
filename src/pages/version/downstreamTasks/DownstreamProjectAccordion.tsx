@@ -1,18 +1,14 @@
 import { useReducer } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { TableProps } from "antd/es/table";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
-import PageSizeSelector from "components/PageSizeSelector";
-import Pagination from "components/Pagination";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
-import { ResultCountLabel } from "components/ResultCountLabel";
-import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
+import TableControl from "components/Table/TableControl";
 import { TasksTable } from "components/Table/TasksTable";
 import { getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
@@ -186,42 +182,21 @@ export const DownstreamProjectAccordion: React.VFC<
       >
         <AccordionContents>
           <TableWrapper>
-            <TableControlOuterRow>
-              <FlexContainer>
-                <ResultCountLabel
-                  dataCyNumerator="filtered-count"
-                  dataCyDenominator="total-count"
-                  label="tasks"
-                  numerator={count}
-                  denominator={taskCount}
-                />
-                <PaddedButton
-                  onClick={() => {
-                    dispatch({ type: "clearAllFilters" });
-                  }}
-                  data-cy="clear-all-filters"
-                >
-                  Clear All Filters
-                </PaddedButton>
-              </FlexContainer>
-              <TableControlInnerRow>
-                <Pagination
-                  data-cy="downstream-table-pagination"
-                  onChange={(p) =>
-                    dispatch({ type: "onChangePagination", page: p - 1 })
-                  }
-                  numPages={Math.ceil(count / limit)}
-                  currentPage={page}
-                />
-                <PageSizeSelector
-                  data-cy="tasks-table-page-size-selector"
-                  value={limit}
-                  onChange={(l) =>
-                    dispatch({ type: "onChangeLimit", limit: l })
-                  }
-                />
-              </TableControlInnerRow>
-            </TableControlOuterRow>
+            <TableControl
+              filteredCount={count}
+              totalCount={taskCount}
+              label="tasks"
+              onClear={() => dispatch({ type: "clearAllFilters" })}
+              onPageChange={(p) => {
+                dispatch({ type: "onChangePagination", page: p });
+              }}
+              onPageSizeChange={(l) => {
+                dispatch({ type: "onChangeLimit", limit: l });
+              }}
+              limit={limit}
+              page={page}
+            />
+
             {showSkeleton ? (
               <Skeleton active title={false} paragraph={{ rows: 8 }} />
             ) : (
@@ -291,10 +266,6 @@ const AccordionContents = styled.div`
 const FlexContainer = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const PaddedButton = styled(Button)`
-  margin-left: ${size.s};
 `;
 
 const FlexRow = styled.div`

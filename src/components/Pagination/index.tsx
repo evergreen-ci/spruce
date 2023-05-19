@@ -47,7 +47,7 @@ const Pagination: React.VFC<Props> = ({ currentPage, onChange, numPages }) => {
         </Disclaimer>
       </PageLabel>
       <StyledButton
-        disabled={currentPage === numPages - 1}
+        disabled={numPages === 0 || currentPage === numPages - 1}
         data-cy="next-page-button"
         size="small"
         onClick={handleNextClick}

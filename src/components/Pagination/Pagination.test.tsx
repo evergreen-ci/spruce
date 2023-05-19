@@ -53,4 +53,26 @@ describe("pagination", () => {
     screen.getByDataCy("next-page-button").click();
     expect(onChange).toHaveBeenCalledWith(1);
   });
+  it("should disable pagination if there  is only one page", () => {
+    renderWithRouterMatch(<Pagination currentPage={0} numPages={1} />);
+    expect(screen.queryByDataCy("prev-page-button")).toHaveAttribute(
+      "aria-disabled",
+      "true"
+    );
+    expect(screen.queryByDataCy("next-page-button")).toHaveAttribute(
+      "aria-disabled",
+      "true"
+    );
+  });
+  it("should disable pagination if there are no pages", () => {
+    renderWithRouterMatch(<Pagination currentPage={0} numPages={0} />);
+    expect(screen.queryByDataCy("prev-page-button")).toHaveAttribute(
+      "aria-disabled",
+      "true"
+    );
+    expect(screen.queryByDataCy("next-page-button")).toHaveAttribute(
+      "aria-disabled",
+      "true"
+    );
+  });
 });

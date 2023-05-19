@@ -16,6 +16,7 @@ interface Props {
   label: string;
   onClear: () => void;
   onPageSizeChange?: (pageSize: number) => void;
+  onPageChange?: (page: number) => void;
 }
 
 const TableControl: React.VFC<Props> = ({
@@ -26,6 +27,7 @@ const TableControl: React.VFC<Props> = ({
   label,
   onClear,
   onPageSizeChange,
+  onPageChange,
 }) => {
   const setPageSize = usePageSizeSelector();
 
@@ -60,6 +62,7 @@ const TableControl: React.VFC<Props> = ({
           data-cy="tasks-table-pagination"
           currentPage={page}
           numPages={Math.ceil(filteredCount / limit)}
+          onChange={onPageChange}
         />
         <PageSizeSelector
           data-cy="tasks-table-page-size-selector"
