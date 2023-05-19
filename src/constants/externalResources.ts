@@ -8,7 +8,7 @@ export const wikiBaseUrl =
 
 export const wikiUrl = `${wikiBaseUrl}/Home`;
 
-export const projectDistroSettingsDocumentationUrl = `${wikiBaseUrl}/Configure-a-Project/Project-and-Distro-Settings`;
+export const projectDistroSettingsDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Project-and-Distro-Settings`;
 
 export const versionControlDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#version-control`;
 
@@ -22,7 +22,7 @@ export const gitTagAliasesDocumentationUrl = `${projectDistroSettingsDocumentati
 
 export const githubChecksAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#github-checks-aliases`;
 
-export const cliDocumentationUrl = `${wikiBaseUrl}/Using-the-Command-Line-Tool`;
+export const cliDocumentationUrl = `${wikiBaseUrl}/CLI`;
 
 export const windowsPasswordRulesURL =
   "https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc786468(v=ws.10)?redirectedfrom=MSDN";
