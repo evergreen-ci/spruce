@@ -9,7 +9,7 @@ import {
 import { SET_PATCH_PRIORITY, SET_TASK_PRIORITY } from "gql/mutations";
 import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
-import { SetPriority } from ".";
+import SetPriority from ".";
 
 describe("setPriority", () => {
   describe("patch priority", () => {

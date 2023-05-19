@@ -9,7 +9,7 @@ import {
   DisableTasks,
   ScheduleUndispatchedBaseTasks,
 } from "components/PatchActionButtons";
-import { SetPriority } from "components/SetPriority";
+import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
 
 interface ActionButtonProps {

@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { MenuItem } from "@leafygreen-ui/menu";
+import { NumberInput } from "@leafygreen-ui/number-input";
 import { palette } from "@leafygreen-ui/palette";
 import { useVersionAnalytics, useTaskAnalytics } from "analytics";
 import Icon from "components/Icon";
 import Popconfirm from "components/Popconfirm";
-import TextInputWithGlyph from "components/TextInputWithGlyph";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   SetPatchPriorityMutation,
@@ -18,14 +19,21 @@ import { SET_PATCH_PRIORITY, SET_TASK_PRIORITY } from "gql/mutations";
 
 const { yellow } = palette;
 
-interface SetPriorityProps {
-  taskId?: string;
-  patchId?: string;
-  disabled?: boolean;
+type SetPriorityProps = (
+  | {
+      patchId: string;
+      taskId?: never;
+    }
+  | {
+      taskId: string;
+      patchId?: never;
+    }
+) & {
   initialPriority?: number;
-}
+  disabled?: boolean;
+};
 
-export const SetPriority: React.VFC<SetPriorityProps> = ({
+const SetPriority: React.VFC<SetPriorityProps> = ({
   taskId,
   patchId,
   disabled,
@@ -79,7 +87,6 @@ export const SetPriority: React.VFC<SetPriorityProps> = ({
   };
 
   useEffect(() => {
-    inputRef?.focus();
     inputRef?.select();
   }, [inputRef]);
 
@@ -109,15 +116,10 @@ export const SetPriority: React.VFC<SetPriorityProps> = ({
         refEl={menuItemRef}
         setOpen={setOpen}
       >
-        <Container>
-          <TextInput
+        <PriorityInput>
+          <NumberInput
             ref={(el) => setInputRef(el)}
             data-cy={`${dataCy}-priority-input`}
-            icon={
-              showWarning ? (
-                <Icon glyph="ImportantWithCircle" fill={yellow.base} />
-              ) : null
-            }
             label="Set new priority"
             min={-1}
             onChange={(e) => setPriority(parseInt(e.target.value, 10))}
@@ -127,33 +129,35 @@ export const SetPriority: React.VFC<SetPriorityProps> = ({
                 setOpen(false);
               }
             }}
-            size={16}
-            warning={showWarning}
-            type="number"
             value={priority.toString()}
           />
           {showWarning && (
             <Warning data-cy="priority-warning">
-              Please ensure this is a high priority change.
+              <WarningIcon glyph="ImportantWithCircle" fill={yellow.base} />
+              <span>Please ensure that this is a high priority change.</span>
             </Warning>
           )}
-        </Container>
+        </PriorityInput>
       </Popconfirm>
     </>
   );
 };
 
-const Container = styled.div`
-  width: 180px;
+const PriorityInput = styled.div`
+  width: 200px;
 `;
 
-const TextInput = styled(TextInputWithGlyph)<{ warning: boolean }>`
-  input[type="number"] {
-    appearance: textfield; // Remove spinners as they conflict with icon.
-    ${({ warning }) => warning && `border-color: ${yellow.base};`}
-  }
-`;
-
-const Warning = styled.p`
+const Warning = styled.div`
+  display: flex;
+  gap: ${size.xxs};
+  align-items: flex-start;
+  margin-top: ${size.xs};
   color: ${yellow.base};
 `;
+
+const WarningIcon = styled(Icon)`
+  flex-shrink: 0;
+  margin-top: 2px;
+`;
+
+export default SetPriority;
