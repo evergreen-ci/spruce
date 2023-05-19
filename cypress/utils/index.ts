@@ -40,9 +40,9 @@ export const clickOnPageBtnAndAssertURLandTableResults = (
   tableDisplayNames: string[],
   pageQueryParamValue: number
 ) => {
-  cy.get(dataCyPageBtn).should("be.visible");
-  cy.get(dataCyPageBtn).should("not.be.disabled");
-  cy.get(dataCyPageBtn).click({ force: true });
+  cy.dataCy(dataCyPageBtn).first().should("be.visible");
+  cy.dataCy(dataCyPageBtn).first().should("not.be.disabled");
+  cy.dataCy(dataCyPageBtn).first().click({ force: true });
   tableDisplayNames.forEach((displayName) => {
     cy.contains(displayName);
   });

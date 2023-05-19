@@ -45,10 +45,8 @@ const EventsTable: React.VFC<{}> = () => {
         <StyledSubtitle>Recent Events</StyledSubtitle>
         <TableControlInnerRow>
           <Pagination
-            pageSize={limit}
-            value={page}
-            totalResults={count ?? 0}
-            data-cy="my-patches-pagination"
+            currentPage={page}
+            numPages={Math.ceil((count ?? 0) / limit)}
           />
           <PageSizeSelector
             data-cy="pod-events-page-size-selector"

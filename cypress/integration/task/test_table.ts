@@ -10,20 +10,14 @@ describe("Tests Table", () => {
 
     cy.contains(TABLE_SORT_SELECTOR, "Name").click();
 
-    cy.dataCy("filtered-count")
-      .as("filtered-count")
-      .invoke("text")
-      .should("eq", "20");
-    cy.dataCy("total-count")
-      .as("total-count")
-      .invoke("text")
-      .should("eq", "20");
+    cy.dataCy("filtered-count").contains(20);
+    cy.dataCy("total-count").contains(20);
 
     cy.toggleTableFilter(2);
 
     cy.get(".cy-checkbox").contains("Fail").click({ force: true });
-    cy.get("@filtered-count").invoke("text").should("eq", "1");
-    cy.get("@total-count").invoke("text").should("eq", "20");
+    cy.dataCy("filtered-count").contains(1);
+    cy.dataCy("total-count").contains(20);
 
     cy.toggleTableFilter(1);
     cy.dataCy("testname-input-wrapper")
@@ -32,8 +26,8 @@ describe("Tests Table", () => {
       .type("hello")
       .type("{enter}");
 
-    cy.get("@filtered-count").invoke("text").should("eq", "0");
-    cy.get("@total-count").invoke("text").should("eq", "20");
+    cy.dataCy("filtered-count").contains(0);
+    cy.dataCy("total-count").contains(20);
   });
 
   it("Adjusts query params when table headers are clicked", () => {
@@ -129,7 +123,7 @@ describe("Tests Table", () => {
   describe("Changing page number", () => {
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
       cy.visit(`${TESTS_ROUTE}?limit=10`);
-      cy.get(".ant-pagination-simple-pager").should("contain.text", "/2");
+      cy.dataCy("pagination").first().should("contain.text", "1 / 2");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyNextPage,
         secondPageDisplayNames,
@@ -139,7 +133,7 @@ describe("Tests Table", () => {
 
     it("Does not update results or URL when right arrow is clicked and next page does not exist", () => {
       cy.visit(`${TESTS_ROUTE}?limit=10&page=1`);
-      cy.get(".ant-pagination-simple-pager").should("contain.text", "/2");
+      cy.dataCy("pagination").first().should("contain.text", "2 / 2");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyNextPage,
         secondPageDisplayNames,
@@ -149,7 +143,7 @@ describe("Tests Table", () => {
 
     it("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", () => {
       cy.visit(`${TESTS_ROUTE}?limit=10&page=1`);
-      cy.get(".ant-pagination-simple-pager").should("contain.text", "/2");
+      cy.dataCy("pagination").first().should("contain.text", "2 / 2");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyPrevPage,
         firstPageDisplayNames,
@@ -159,7 +153,7 @@ describe("Tests Table", () => {
 
     it("Does not update results or URL when left arrow is clicked and previous page does not exist", () => {
       cy.visit(`${TESTS_ROUTE}?limit=10&page=0`);
-      cy.get(".ant-pagination-simple-pager").should("contain.text", "/2");
+      cy.dataCy("pagination").first().should("contain.text", "1 / 2");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyPrevPage,
         firstPageDisplayNames,
@@ -214,7 +208,5 @@ const secondPageDisplayNames = [
   "TestCreateIntermediateProjectRequirements",
 ];
 
-const dataCyNextPage =
-  "[data-cy=tests-table-pagination] > .ant-pagination-next";
-const dataCyPrevPage =
-  "[data-cy=tests-table-pagination] > .ant-pagination-prev";
+const dataCyNextPage = "next-page-button";
+const dataCyPrevPage = "prev-page-button";

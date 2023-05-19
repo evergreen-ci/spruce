@@ -1,43 +1,39 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { Pagination as AntPagination } from "antd";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 
 interface Props {
   currentPage: number;
-  totalResults?: number;
-  numPages?: number;
   onChange?: (i: number) => void;
-  pageSize?: number;
-  "data-cy"?: string;
-  useLeafygreen?: boolean;
+  numPages: number;
 }
 
-const Pagination: React.VFC<Props> = ({
-  currentPage,
-  totalResults,
-  numPages,
-  onChange,
-  pageSize,
-  "data-cy": dataCy,
-  useLeafygreen = false,
-}) => {
+/**
+ * Pagination component for navigating between pages of data
+ * By default it will update the page query param in the URL
+ *
+ * @param currentPage - 0 indexed current page
+ * @param onChange - optional callback for when the page changes (Will override the default behavior of updating the URL query param)
+ * @param numPages - total number of pages
+ */
+const Pagination: React.VFC<Props> = ({ currentPage, onChange, numPages }) => {
   const updateQueryParams = useUpdateURLQueryParams();
   const handleChange =
-    onChange || ((p) => updateQueryParams({ page: `${p - 1}` }));
+    onChange ||
+    ((page: number) => updateQueryParams({ page: page.toString() }));
 
   const handlePrevClick = () => {
-    handleChange(currentPage + 1);
+    handleChange(currentPage - 1);
   };
   const handleNextClick = () => {
     handleChange(currentPage + 1);
   };
 
-  return useLeafygreen ? (
-    <Container>
+  return (
+    <Container data-cy="pagination">
       <StyledButton
         disabled={currentPage === 0}
         size="small"
@@ -58,15 +54,6 @@ const Pagination: React.VFC<Props> = ({
         leftGlyph={<Icon glyph="ChevronRight" size="small" />}
       />
     </Container>
-  ) : (
-    <AntPagination
-      data-cy={dataCy}
-      simple
-      pageSize={pageSize}
-      current={currentPage + 1}
-      total={totalResults}
-      onChange={handleChange}
-    />
   );
 };
 

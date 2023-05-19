@@ -46,91 +46,84 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
     <div
       class="css-ltjmsx-TableControlInnerRow e1xf068s5"
     >
-      <ul
-        class="ant-pagination ant-pagination-simple"
-        data-cy="tasks-table-pagination"
+      <div
+        class="css-37flum-Container e4w46hm0"
+        data-cy="pagination"
       >
-        <li
+        <button
           aria-disabled="true"
-          class="ant-pagination-prev ant-pagination-disabled"
-          title="Previous Page"
+          class="lg-ui-button-0000 leafygreen-ui-14bp7j2 css-mze5ol-StyledButton e4w46hm2"
+          data-cy="prev-page-button"
+          type="button"
         >
-          <button
-            class="ant-pagination-item-link"
-            disabled=""
-            tabindex="-1"
-            type="button"
-          >
-            <span
-              aria-label="left"
-              class="anticon anticon-left"
-              role="img"
-            >
-              <svg
-                aria-hidden="true"
-                data-icon="left"
-                fill="currentColor"
-                focusable="false"
-                height="1em"
-                viewBox="64 64 896 896"
-                width="1em"
-              >
-                <path
-                  d="M724 218.3V141c0-6.7-7.7-10.4-12.9-6.3L260.3 486.8a31.86 31.86 0 000 50.3l450.8 352.1c5.3 4.1 12.9.4 12.9-6.3v-77.3c0-4.9-2.3-9.6-6.1-12.6l-360-281 360-281.1c3.8-3 6.1-7.7 6.1-12.6z"
-                />
-              </svg>
-            </span>
-          </button>
-        </li>
-        <li
-          class="ant-pagination-simple-pager"
-          title="1/1"
-        >
-          <input
-            size="3"
-            type="text"
-            value="1"
+          <div
+            class="leafygreen-ui-v038xi"
           />
-          <span
-            class="ant-pagination-slash"
+          <div
+            class="leafygreen-ui-1qmzz4y"
           >
-            /
-          </span>
-          1
-        </li>
-        <li
-          aria-disabled="true"
-          class="ant-pagination-next ant-pagination-disabled"
-          title="Next Page"
-        >
-          <button
-            class="ant-pagination-item-link"
-            disabled=""
-            tabindex="-1"
-            type="button"
-          >
-            <span
-              aria-label="right"
-              class="anticon anticon-right"
+            <svg
+              aria-label="Chevron Left Icon"
+              class="leafygreen-ui-1g8rtil"
+              fill="none"
+              height="14"
               role="img"
+              viewBox="0 0 16 16"
+              width="14"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                aria-hidden="true"
-                data-icon="right"
+              <path
+                clip-rule="evenodd"
+                d="M10.778 1.636a1 1 0 00-1.414 0l-4.95 4.95-.707.707a1 1 0 000 1.414l.707.707 4.95 4.95a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L7.243 8l4.242-4.243a1 1 0 000-1.414l-.707-.707z"
                 fill="currentColor"
-                focusable="false"
-                height="1em"
-                viewBox="64 64 896 896"
-                width="1em"
-              >
-                <path
-                  d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
-                />
-              </svg>
-            </span>
-          </button>
-        </li>
-      </ul>
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+        <div
+          class="css-ob08n2-PageLabel e4w46hm1"
+        >
+          <small
+            class="leafygreen-ui-ppjyot"
+          >
+            1
+             / 
+            1
+          </small>
+        </div>
+        <button
+          aria-disabled="true"
+          class="lg-ui-button-0000 leafygreen-ui-14bp7j2 css-mze5ol-StyledButton e4w46hm2"
+          data-cy="next-page-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-1qmzz4y"
+          >
+            <svg
+              aria-label="Chevron Right Icon"
+              class="leafygreen-ui-1g8rtil"
+              fill="none"
+              height="14"
+              role="img"
+              viewBox="0 0 16 16"
+              width="14"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M5.364 14.364a1 1 0 001.414 0l4.95-4.95.707-.707a1 1 0 000-1.414l-.707-.707-4.95-4.95a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L8.899 8l-4.242 4.243a1 1 0 000 1.414l.707.707z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
       <div
         class="leafygreen-ui-1nkq8lt css-5krlfz-StyledSelect ekttol50"
       >

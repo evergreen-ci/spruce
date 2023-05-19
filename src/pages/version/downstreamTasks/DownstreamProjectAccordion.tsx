@@ -210,9 +210,8 @@ export const DownstreamProjectAccordion: React.VFC<
                   onChange={(p) =>
                     dispatch({ type: "onChangePagination", page: p - 1 })
                   }
-                  pageSize={limit}
-                  totalResults={count}
-                  value={page}
+                  numPages={Math.ceil(count / limit)}
+                  currentPage={page}
                 />
                 <PageSizeSelector
                   data-cy="tasks-table-page-size-selector"
