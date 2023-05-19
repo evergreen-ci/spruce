@@ -95,7 +95,7 @@ describe("My Patches Page", () => {
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
       cy.visit(`${MY_PATCHES_ROUTE}?limit=10`);
       cy.dataCy("patch-card").should("exist");
-      cy.dataCy(dataCyNextPage).should("not.be.disabled");
+      cy.dataCy(dataCyNextPage).should("have.attr", "aria-disabled", "false");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyNextPage,
         secondPageDisplayNames,
@@ -106,7 +106,7 @@ describe("My Patches Page", () => {
     it("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", () => {
       cy.visit(`${MY_PATCHES_ROUTE}?limit=10&page=1`);
       cy.dataCy("patch-card").should("exist");
-      cy.dataCy(dataCyPrevPage).should("not.be.disabled");
+      cy.dataCy(dataCyPrevPage).should("have.attr", "aria-disabled", "false");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyPrevPage,
         firstPageDisplayNames,
@@ -117,11 +117,11 @@ describe("My Patches Page", () => {
     it("Should disable pagination when there are no more pages", () => {
       cy.visit(`${MY_PATCHES_ROUTE}?limit=10`);
       cy.dataCy("patch-card").should("exist");
-      cy.dataCy(dataCyPrevPage).should("be.disabled");
+      cy.dataCy(dataCyPrevPage).should("have.attr", "aria-disabled", "true");
 
       cy.visit(`${MY_PATCHES_ROUTE}?page=2`);
       cy.dataCy("patch-card").should("exist");
-      cy.dataCy(dataCyNextPage).should("be.disabled");
+      cy.dataCy(dataCyNextPage).should("have.attr", "aria-disabled", "true");
     });
   });
 
