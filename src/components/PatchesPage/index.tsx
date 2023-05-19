@@ -96,7 +96,7 @@ export const PatchesPage: React.VFC<Props> = ({
       <PaginationRow>
         <Pagination
           currentPage={page}
-          numPages={Math.ceil(patches?.filteredPatchCount ?? 0 / limit)}
+          numPages={Math.ceil((patches?.filteredPatchCount ?? 0) / limit)}
         />
         <PageSizeSelector
           data-cy="my-patches-page-size-selector"
