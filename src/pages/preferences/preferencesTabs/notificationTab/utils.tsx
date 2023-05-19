@@ -1,12 +1,6 @@
 import styled from "@emotion/styled";
 import { LeafyGreenTableRow } from "@leafygreen-ui/table/new";
-import {
-  getCommitQueueRoute,
-  getHostRoute,
-  getPatchRoute,
-  getTaskRoute,
-  getVersionRoute,
-} from "constants/routes";
+import { getPatchRoute, getTaskRoute, getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { GeneralSubscription, Selector } from "gql/generated/types";
 import { ResourceType } from "types/triggers";
@@ -78,10 +72,6 @@ export const getResourceRoute = (resourceType: ResourceType, id: string) => {
       return getPatchRoute(id, { configure: false });
     case ResourceType.Task:
       return getTaskRoute(id);
-    case ResourceType.Host:
-      return getHostRoute(id);
-    case ResourceType.CommitQueue:
-      return getCommitQueueRoute(id);
     default:
       return "";
   }

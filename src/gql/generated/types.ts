@@ -8224,39 +8224,6 @@ export type UserSubscriptionsQuery = {
             emailSubscriber?: Maybe<string>;
             jiraCommentSubscriber?: Maybe<string>;
             slackSubscriber?: Maybe<string>;
-            githubCheckSubscriber?: Maybe<{
-              __typename?: "GithubCheckSubscriber";
-              owner: string;
-              ref: string;
-              repo: string;
-            }>;
-            githubPRSubscriber?: Maybe<{
-              __typename?: "GithubPRSubscriber";
-              owner: string;
-              prNumber?: Maybe<number>;
-              ref: string;
-              repo: string;
-            }>;
-            jiraIssueSubscriber?: Maybe<{
-              __typename?: "JiraIssueSubscriber";
-              issueType: string;
-              project: string;
-            }>;
-            webhookSubscriber?: Maybe<{
-              __typename?: "WebhookSubscriber";
-              minDelayMs: number;
-              retries: number;
-              secret: string;
-              timeoutMs: number;
-              url: string;
-              headers: Array<
-                Maybe<{
-                  __typename?: "WebhookHeader";
-                  key: string;
-                  value: string;
-                }>
-              >;
-            }>;
           };
         }>;
       }>
