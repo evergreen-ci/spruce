@@ -30,7 +30,7 @@ fragment ProjectSettingsFields on ProjectSettings {
     ...ProjectVirtualWorkstationSettings
     repoRefId
   }
-  projectSubscriptions {
+  subscriptions {
     ...Subscriptions
   }
   vars {
@@ -55,10 +55,10 @@ fragment RepoSettingsFields on RepoSettings {
     ...RepoTriggersSettings
     ...RepoVirtualWorkstationSettings
   }
-  projectSubscriptions {
+  ...RepoGithubCommitQueue
+  subscriptions {
     ...Subscriptions
   }
-  ...RepoGithubCommitQueue
   vars {
     ...Variables
   }

@@ -103,4 +103,17 @@ describe("Dropdown Menu of Patch Actions", { testIsolation: false }, () => {
     });
     cy.dataCy("enqueue-patch").should("be.disabled");
   });
+  it("hiding a patch should remove it from the page", () => {
+    cy.dataCy("patch-card").should("exist");
+    cy.dataCy("patch-card").contains("testtest").should("exist");
+    cy.dataCy("patch-card").eq(6).should("contain.text", "testtest");
+    getPatchCardByDescription("testtest").within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
+    cy.contains("Hide patch").should("exist");
+    cy.contains("Hide patch").click();
+    cy.contains("button", "Yes").click({ force: true });
+    cy.validateToast("success");
+    cy.dataCy("patch-card").contains("testtest").should("not.exist");
+  });
 });
