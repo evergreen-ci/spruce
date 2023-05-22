@@ -13,6 +13,7 @@ import { fontSize, size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { Unpacked } from "types/utils";
+import { isPatchUnconfigured } from "utils/patch";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
 
 import { DropdownMenu } from "./patchCard/DropdownMenu";
@@ -34,6 +35,8 @@ interface Props extends PatchProps {
 }
 
 export const PatchCard: React.VFC<Props> = ({
+  activated,
+  alias,
   analyticsObject,
   author,
   authorDisplayName,
@@ -54,7 +57,7 @@ export const PatchCard: React.VFC<Props> = ({
   const { stats } = groupStatusesByUmbrellaStatus(
     taskStatusStats?.counts ?? []
   );
-
+  const isUnconfigured = isPatchUnconfigured({ alias, activated });
   let patchProject = null;
   if (pageType === "project") {
     patchProject = (
@@ -107,6 +110,7 @@ export const PatchCard: React.VFC<Props> = ({
       <Center>
         <PatchBadgeContainer>
           <PatchStatusBadge status={versionFull?.status ?? status} />
+          {isUnconfigured && <PatchStatusBadge status="unconfigured" />}
         </PatchBadgeContainer>
         <TaskBadgeContainer>{badges}</TaskBadgeContainer>
       </Center>
@@ -161,7 +165,9 @@ const DescriptionLink = styled(StyledRouterLink)`
 `;
 
 const PatchBadgeContainer = styled.div`
-  margin-right: ${size.m};
+  > div {
+    margin-right: ${size.m};
+  }
   min-width: ${size.xxl};
 `;
 
