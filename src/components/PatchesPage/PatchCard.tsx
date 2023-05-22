@@ -34,19 +34,19 @@ interface Props extends PatchProps {
 }
 
 export const PatchCard: React.VFC<Props> = ({
-  id,
-  description,
-  createTime,
+  analyticsObject,
   author,
   authorDisplayName,
-  projectIdentifier,
-  status,
-  pageType,
   canEnqueueToCommitQueue,
+  createTime,
+  description,
+  id,
   isPatchOnCommitQueue,
-  analyticsObject,
-  versionFull,
+  pageType,
+  projectIdentifier,
   projectMetadata,
+  status,
+  versionFull,
 }) => {
   const createDate = new Date(createTime);
   const getDateCopy = useDateFormat();
