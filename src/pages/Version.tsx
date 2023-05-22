@@ -29,6 +29,7 @@ import {
 } from "gql/queries";
 import { useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/404";
+import { isPatchUnconfigured } from "utils/patch";
 import { shortenGithash, githubPRLinkify } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 import { WarningBanner, ErrorBanner } from "./version/Banners";
@@ -99,7 +100,7 @@ export const VersionPage: React.VFC = () => {
     if (patchData) {
       const { patch } = patchData;
       const { activated, alias, projectID } = patch;
-      if (!activated && alias !== commitQueueAlias) {
+      if (isPatchUnconfigured({ alias, activated })) {
         setRedirectURL(getPatchRoute(id, { configure: true }));
         setIsLoadingData(false);
       } else if (!activated && alias === commitQueueAlias) {
