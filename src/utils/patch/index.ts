@@ -9,4 +9,4 @@ export const isPatchUnconfigured = ({
   alias,
   activated,
 }: IsPatchUnconfiguredParams): boolean =>
-  activated && alias !== commitQueueAlias;
+  !activated && alias !== commitQueueAlias;
