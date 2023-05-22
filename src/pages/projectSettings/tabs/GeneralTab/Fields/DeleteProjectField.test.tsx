@@ -56,7 +56,7 @@ describe("deleteProject", () => {
 
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledWith(
-        "The project “evergreen” was deleted."
+        "The project “evergreen” was deleted. Please refresh the page."
       );
     });
   });
