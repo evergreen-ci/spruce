@@ -31,7 +31,9 @@ const Modal: React.VFC<ModalProps> = ({ closeModal, open, projectId }) => {
     DeleteProjectMutationVariables
   >(DELETE_PROJECT, {
     onCompleted() {
-      dispatchToast.success(`The project “${identifier}” was deleted.`);
+      dispatchToast.success(
+        `The project “${identifier}” was deleted. Please refresh the page.`
+      );
     },
     onError(err) {
       dispatchToast.error(
@@ -71,14 +73,11 @@ export const DeleteProjectField: Field = ({ uiSchema }) => {
 
   return (
     <>
-      {open && (
-        <Modal
-          closeModal={() => setOpen(false)}
-          open={open}
-          projectId={projectId}
-        />
-      )}
-
+      <Modal
+        closeModal={() => setOpen(false)}
+        open={open}
+        projectId={projectId}
+      />
       <Description>
         Patches and tasks belonging to this project will continue to be viewable
         after deletion.
