@@ -687,6 +687,7 @@ export type Mutation = {
   createPublicKey: Array<PublicKey>;
   deactivateStepbackTask: Scalars["Boolean"];
   defaultSectionToRepo?: Maybe<Scalars["String"]>;
+  deleteProject: Scalars["Boolean"];
   detachProjectFromRepo: Project;
   detachVolumeFromHost: Scalars["Boolean"];
   editAnnotationNote: Scalars["Boolean"];
@@ -784,6 +785,10 @@ export type MutationDeactivateStepbackTaskArgs = {
 export type MutationDefaultSectionToRepoArgs = {
   projectId: Scalars["String"];
   section: ProjectSettingsSection;
+};
+
+export type MutationDeleteProjectArgs = {
+  projectId: Scalars["String"];
 };
 
 export type MutationDetachProjectFromRepoArgs = {
@@ -1013,6 +1018,19 @@ export type ParameterInput = {
   value: Scalars["String"];
 };
 
+export type ParsleyFilter = {
+  __typename?: "ParsleyFilter";
+  caseSensitive: Scalars["Boolean"];
+  exactMatch: Scalars["Boolean"];
+  expression: Scalars["String"];
+};
+
+export type ParsleyFilterInput = {
+  caseSensitive: Scalars["Boolean"];
+  exactMatch: Scalars["Boolean"];
+  expression: Scalars["String"];
+};
+
 /** Patch is a manually initiated version submitted to test local code changes. */
 export type Patch = {
   __typename?: "Patch";
@@ -1222,6 +1240,7 @@ export type Project = {
   manualPrTestingEnabled?: Maybe<Scalars["Boolean"]>;
   notifyOnBuildFailure?: Maybe<Scalars["Boolean"]>;
   owner: Scalars["String"];
+  parsleyFilters?: Maybe<Array<ParsleyFilter>>;
   patchTriggerAliases?: Maybe<Array<PatchTriggerAlias>>;
   patches: Patches;
   patchingDisabled?: Maybe<Scalars["Boolean"]>;
@@ -1304,8 +1323,6 @@ export type ProjectEventSettings = {
   aliases?: Maybe<Array<ProjectAlias>>;
   githubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<Project>;
-  /** @deprecated Use subscriptions instead */
-  projectSubscriptions?: Maybe<Array<ProjectSubscription>>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
   vars?: Maybe<ProjectVars>;
 };
@@ -1351,6 +1368,7 @@ export type ProjectInput = {
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]>;
   notifyOnBuildFailure?: InputMaybe<Scalars["Boolean"]>;
   owner?: InputMaybe<Scalars["String"]>;
+  parsleyFilters?: InputMaybe<Array<ParsleyFilterInput>>;
   patchTriggerAliases?: InputMaybe<Array<PatchTriggerAliasInput>>;
   patchingDisabled?: InputMaybe<Scalars["Boolean"]>;
   perfEnabled?: InputMaybe<Scalars["Boolean"]>;
@@ -1377,8 +1395,6 @@ export type ProjectSettings = {
   aliases?: Maybe<Array<ProjectAlias>>;
   githubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<Project>;
-  /** @deprecated Use subscriptions instead */
-  projectSubscriptions?: Maybe<Array<ProjectSubscription>>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
   vars?: Maybe<ProjectVars>;
 };
@@ -1412,20 +1428,9 @@ export enum ProjectSettingsSection {
   Plugins = "PLUGINS",
   Triggers = "TRIGGERS",
   Variables = "VARIABLES",
+  ViewsAndFilters = "VIEWS_AND_FILTERS",
   Workstation = "WORKSTATION",
 }
-
-export type ProjectSubscription = {
-  __typename?: "ProjectSubscription";
-  id: Scalars["String"];
-  ownerType: Scalars["String"];
-  regexSelectors: Array<Selector>;
-  resourceType: Scalars["String"];
-  selectors: Array<Selector>;
-  subscriber?: Maybe<SubscriberWrapper>;
-  trigger: Scalars["String"];
-  triggerData?: Maybe<Scalars["StringMap"]>;
-};
 
 export type ProjectVars = {
   __typename?: "ProjectVars";
@@ -1724,8 +1729,6 @@ export type RepoSettings = {
   aliases?: Maybe<Array<ProjectAlias>>;
   githubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<RepoRef>;
-  /** @deprecated Use subscriptions instead */
-  projectSubscriptions?: Maybe<Array<ProjectSubscription>>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
   vars?: Maybe<ProjectVars>;
 };
