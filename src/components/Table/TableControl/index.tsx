@@ -61,7 +61,8 @@ const TableControl: React.VFC<Props> = ({
         <Pagination
           data-cy="tasks-table-pagination"
           currentPage={page}
-          numPages={Math.ceil(filteredCount / limit)}
+          totalResults={filteredCount}
+          pageSize={limit}
           onChange={onPageChange}
         />
         <PageSizeSelector

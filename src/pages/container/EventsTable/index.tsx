@@ -46,7 +46,8 @@ const EventsTable: React.VFC<{}> = () => {
         <TableControlInnerRow>
           <Pagination
             currentPage={page}
-            numPages={Math.ceil((count ?? 0) / limit)}
+            totalResults={count ?? 0}
+            pageSize={limit}
           />
           <PageSizeSelector
             data-cy="pod-events-page-size-selector"

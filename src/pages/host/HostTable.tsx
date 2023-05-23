@@ -61,7 +61,8 @@ export const HostTable: React.VFC<{
           <Pagination
             data-cy="host-event-table-pagination"
             currentPage={page}
-            numPages={Math.ceil(eventsCount / limit)}
+            totalResults={eventsCount}
+            pageSize={limit}
           />
           <PageSizeSelector
             data-cy="host-event-table-page-size-selector"

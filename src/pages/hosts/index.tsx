@@ -129,9 +129,8 @@ const Hosts: React.VFC = () => {
           <Pagination
             data-cy="hosts-table-pagination"
             currentPage={page}
-            numPages={Math.ceil(
-              (hasFilters ? filteredHostCount : totalHostsCount) / limit
-            )}
+            totalResults={hasFilters ? filteredHostCount : totalHostsCount}
+            pageSize={limit}
           />
           <PageSizeSelector
             data-cy="hosts-table-page-size-selector"

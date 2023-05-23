@@ -8,7 +8,8 @@ import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 interface Props {
   currentPage: number;
   onChange?: (i: number) => void;
-  numPages: number;
+  totalResults: number;
+  pageSize: number;
 }
 
 /**
@@ -17,13 +18,20 @@ interface Props {
  *
  * @param currentPage - 0 indexed current page
  * @param onChange - optional callback for when the page changes (Will override the default behavior of updating the URL query param)
- * @param numPages - total number of pages
+ * @param totalResults - total number of results
+ * @param pageSize - maximum number of results per page
  */
-const Pagination: React.VFC<Props> = ({ currentPage, onChange, numPages }) => {
+const Pagination: React.VFC<Props> = ({
+  currentPage,
+  onChange,
+  totalResults,
+  pageSize,
+}) => {
   const updateQueryParams = useUpdateURLQueryParams();
   const handleChange =
     onChange ||
     ((page: number) => updateQueryParams({ page: page.toString() }));
+  const numPages = Math.ceil(totalResults / pageSize);
 
   const handlePrevClick = () => {
     handleChange(currentPage - 1);
@@ -43,7 +51,7 @@ const Pagination: React.VFC<Props> = ({ currentPage, onChange, numPages }) => {
       />
       <PageLabel>
         <Disclaimer>
-          {currentPage + 1} / {numPages}
+          {numPages > 0 ? currentPage + 1 : 0} / {numPages}
         </Disclaimer>
       </PageLabel>
       <StyledButton
