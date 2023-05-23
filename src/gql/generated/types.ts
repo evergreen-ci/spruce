@@ -1024,6 +1024,19 @@ export type ParameterInput = {
   value: Scalars["String"];
 };
 
+export type ParsleyFilter = {
+  __typename?: "ParsleyFilter";
+  caseSensitive: Scalars["Boolean"];
+  exactMatch: Scalars["Boolean"];
+  expression: Scalars["String"];
+};
+
+export type ParsleyFilterInput = {
+  caseSensitive: Scalars["Boolean"];
+  exactMatch: Scalars["Boolean"];
+  expression: Scalars["String"];
+};
+
 /** Patch is a manually initiated version submitted to test local code changes. */
 export type Patch = {
   __typename?: "Patch";
@@ -1233,6 +1246,7 @@ export type Project = {
   manualPrTestingEnabled?: Maybe<Scalars["Boolean"]>;
   notifyOnBuildFailure?: Maybe<Scalars["Boolean"]>;
   owner: Scalars["String"];
+  parsleyFilters?: Maybe<Array<ParsleyFilter>>;
   patchTriggerAliases?: Maybe<Array<PatchTriggerAlias>>;
   patches: Patches;
   patchingDisabled?: Maybe<Scalars["Boolean"]>;
@@ -1360,6 +1374,7 @@ export type ProjectInput = {
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]>;
   notifyOnBuildFailure?: InputMaybe<Scalars["Boolean"]>;
   owner?: InputMaybe<Scalars["String"]>;
+  parsleyFilters?: InputMaybe<Array<ParsleyFilterInput>>;
   patchTriggerAliases?: InputMaybe<Array<PatchTriggerAliasInput>>;
   patchingDisabled?: InputMaybe<Scalars["Boolean"]>;
   perfEnabled?: InputMaybe<Scalars["Boolean"]>;
@@ -1419,6 +1434,7 @@ export enum ProjectSettingsSection {
   Plugins = "PLUGINS",
   Triggers = "TRIGGERS",
   Variables = "VARIABLES",
+  ViewsAndFilters = "VIEWS_AND_FILTERS",
   Workstation = "WORKSTATION",
 }
 
