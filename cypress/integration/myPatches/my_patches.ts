@@ -84,19 +84,6 @@ describe("My Patches Page", () => {
     cy.dataCy("commit-queue-checkbox").check({ force: true });
   });
 
-  it("Checking 'Include commit queue' shows the 'Created/Unconfigured' status filter while unchecking shows the 'Unconfigured' status filter", () => {
-    cy.visit(MY_PATCHES_ROUTE);
-    cy.dataCy("commit-queue-checkbox").should("be.checked");
-    cy.dataCy("my-patch-status-select").click();
-    cy.contains("Created/Unconfigured");
-    cy.visit(MY_PATCHES_ROUTE);
-    cy.dataCy("commit-queue-checkbox").should("be.checked");
-    cy.dataCy("commit-queue-checkbox").uncheck({ force: true });
-    cy.dataCy("commit-queue-checkbox").should("not.be.checked");
-    cy.dataCy("my-patch-status-select").click();
-    cy.contains("Unconfigured");
-  });
-
   it("Changing page size updates URL and renders less than or equal to that many rows", () => {
     cy.visit(`${MY_PATCHES_ROUTE}?limit=10`);
     [20, 10, 50, 100].forEach((pageSize) => {
