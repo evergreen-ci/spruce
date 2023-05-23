@@ -54,7 +54,7 @@ const TableControl: React.VFC<Props> = ({
           data-cy="clear-all-filters"
           size="small"
         >
-          Clear All Filters
+          Clear all filters
         </PaddedButton>
       </FlexContainer>
       <TableControlInnerRow>
