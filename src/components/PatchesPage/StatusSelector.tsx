@@ -13,13 +13,13 @@ import {
 export const StatusSelector: React.VFC = () => {
   const { inputValue: statusVal, setAndSubmitInputValue: statusValOnChange } =
     useStatusesFilter({ urlParam: PatchPageQueryParams.Statuses });
-  const [isCommitQueueCheckboxChecked] = useQueryParam(
+  const [includeCommitQueue] = useQueryParam(
     PatchPageQueryParams.CommitQueue,
     true
   );
   const treeData = useMemo(
-    () => getTreeData(isCommitQueueCheckboxChecked),
-    [isCommitQueueCheckboxChecked]
+    () => getTreeData(includeCommitQueue),
+    [includeCommitQueue]
   );
   return (
     <Dropdown
@@ -38,14 +38,14 @@ export const StatusSelector: React.VFC = () => {
   );
 };
 
-const getTreeData = (commitQueueOnly: boolean) => [
+const getTreeData = (includeCommitQueue: boolean) => [
   {
     title: "All",
     value: ALL_PATCH_STATUS,
     key: ALL_PATCH_STATUS,
   },
   {
-    title: commitQueueOnly ? "Created" : "Created/Unconfigured",
+    title: includeCommitQueue ? "Created/Unconfigured" : "Unconfigured",
     value: PatchStatus.Created,
     key: PatchStatus.Created,
   },
