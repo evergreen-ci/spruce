@@ -16,7 +16,9 @@ export const StatusSelector: React.VFC = () => {
     <Dropdown
       data-cy="my-patch-status-select"
       buttonText={`Patch Status: ${
-        statusVal.length ? statusVal.join(", ") : noFilterMessage
+        statusVal.length
+          ? statusVal.map((v) => statusValToCopy[v]).join(", ")
+          : noFilterMessage
       }`}
     >
       <TreeSelect
@@ -29,29 +31,37 @@ export const StatusSelector: React.VFC = () => {
   );
 };
 
+const statusValToCopy = {
+  [ALL_PATCH_STATUS]: "All",
+  [PatchStatus.Created]: "Created/Unconfigured",
+  [PatchStatus.Failed]: "Failed",
+  [PatchStatus.Started]: "Running",
+  [PatchStatus.Success]: "Succeeded",
+};
+
 const treeData = [
   {
-    title: "All",
+    title: statusValToCopy[ALL_PATCH_STATUS],
     value: ALL_PATCH_STATUS,
     key: ALL_PATCH_STATUS,
   },
   {
-    title: "Created/Unconfigured",
+    title: statusValToCopy[PatchStatus.Created],
     value: PatchStatus.Created,
     key: PatchStatus.Created,
   },
   {
-    title: "Running",
+    title: statusValToCopy[PatchStatus.Started],
     value: PatchStatus.Started,
     key: PatchStatus.Started,
   },
   {
-    title: "Succeeded",
+    title: statusValToCopy[PatchStatus.Success],
     value: PatchStatus.Success,
     key: PatchStatus.Success,
   },
   {
-    title: "Failed",
+    title: statusValToCopy[PatchStatus.Failed],
     value: PatchStatus.Failed,
     key: PatchStatus.Failed,
   },
