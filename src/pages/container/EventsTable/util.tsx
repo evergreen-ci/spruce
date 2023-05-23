@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { getTaskRoute } from "constants/routes";
 import { PodEventsQuery } from "gql/generated/types";
@@ -12,9 +13,14 @@ export const getEventCopy = (
 ) => {
   const { eventType, data } = event;
   const taskLink = (
-    <Link to={getTaskRoute(data.taskID, { execution: data.taskExecution })}>
-      {data.task?.displayName}
-    </Link>
+    <LinkWrapper>
+      <StyledLink
+        title={data.taskID}
+        to={getTaskRoute(data.taskID, { execution: data.taskExecution })}
+      >
+        {data.taskID}
+      </StyledLink>
+    </LinkWrapper>
   );
   switch (eventType) {
     case PodEvent.StatusChange:
@@ -41,3 +47,15 @@ export const getEventCopy = (
       return null;
   }
 };
+
+const LinkWrapper = styled.span`
+  position: relative;
+  top: 5px;
+`;
+const StyledLink = styled(Link)`
+  max-width: 300px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+`;
