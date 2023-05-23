@@ -47,7 +47,7 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
       class="css-ltjmsx-TableControlInnerRow e1xf068s5"
     >
       <div
-        class="css-37flum-Container e4w46hm0"
+        class="css-o7pwgi-Container e4w46hm0"
         data-cy="pagination"
       >
         <button

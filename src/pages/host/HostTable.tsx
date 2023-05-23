@@ -99,6 +99,5 @@ const TableTitle = styled.div`
 
 const PaginationWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
   align-items: center;
 `;

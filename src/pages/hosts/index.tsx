@@ -14,7 +14,6 @@ import PageSizeSelector, {
 } from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import {
-  TableContainer,
   TableControlOuterRow,
   TableControlInnerRow,
   PageWrapper,
@@ -139,20 +138,18 @@ const Hosts: React.VFC = () => {
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
-      <TableContainer hide={false}>
-        <HostsTable
-          hosts={hostItems}
-          sortBy={sortBy}
-          sortDir={sortDir}
-          selectedHostIds={selectedHostIds}
-          setSelectedHostIds={setSelectedHostIds}
-          setCanRestartJasper={setCanRestartJasper}
-          setRestartJasperError={setRestartJasperError}
-          setCanReprovision={setCanReprovision}
-          setReprovisionError={setReprovisionError}
-          loading={loading}
-        />
-      </TableContainer>
+      <HostsTable
+        hosts={hostItems}
+        sortBy={sortBy}
+        sortDir={sortDir}
+        selectedHostIds={selectedHostIds}
+        setSelectedHostIds={setSelectedHostIds}
+        setCanRestartJasper={setCanRestartJasper}
+        setRestartJasperError={setRestartJasperError}
+        setCanReprovision={setCanReprovision}
+        setReprovisionError={setReprovisionError}
+        loading={loading}
+      />
       <UpdateStatusModal
         data-cy="update-host-status-modal"
         hostIds={selectedHostIds}

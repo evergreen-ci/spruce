@@ -76,7 +76,6 @@ const PageLabel = styled.div`
 `;
 
 const Container = styled.div`
-  align-self: flex-end;
   align-items: center;
   display: flex;
   flex-shrink: 0;

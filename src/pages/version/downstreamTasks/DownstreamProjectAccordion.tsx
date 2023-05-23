@@ -9,7 +9,8 @@ import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import TableControl from "components/Table/TableControl";
-import { TasksTable } from "components/Table/TasksTable";
+import TableWrapper from "components/Table/TableWrapper";
+import TasksTable from "components/TasksTable";
 import { getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -181,22 +182,24 @@ export const DownstreamProjectAccordion: React.VFC<
         }
       >
         <AccordionContents>
-          <TableWrapper>
-            <TableControl
-              filteredCount={count}
-              totalCount={taskCount}
-              label="tasks"
-              onClear={() => dispatch({ type: "clearAllFilters" })}
-              onPageChange={(p) => {
-                dispatch({ type: "onChangePagination", page: p });
-              }}
-              onPageSizeChange={(l) => {
-                dispatch({ type: "onChangeLimit", limit: l });
-              }}
-              limit={limit}
-              page={page}
-            />
-
+          <TableWrapper
+            controls={
+              <TableControl
+                filteredCount={count}
+                totalCount={taskCount}
+                label="tasks"
+                onClear={() => dispatch({ type: "clearAllFilters" })}
+                onPageChange={(p) => {
+                  dispatch({ type: "onChangePagination", page: p });
+                }}
+                onPageSizeChange={(l) => {
+                  dispatch({ type: "onChangeLimit", limit: l });
+                }}
+                limit={limit}
+                page={page}
+              />
+            }
+          >
             {showSkeleton ? (
               <Skeleton active title={false} paragraph={{ rows: 8 }} />
             ) : (
@@ -253,10 +256,6 @@ const PaddedText = styled.p`
 const ProjectTitleWrapper = styled.div`
   margin-right: ${size.xs};
   font-weight: bold;
-`;
-
-const TableWrapper = styled.div`
-  padding: ${size.s} 0;
 `;
 
 const AccordionContents = styled.div`

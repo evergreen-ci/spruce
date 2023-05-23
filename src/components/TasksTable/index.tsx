@@ -50,7 +50,7 @@ interface TasksTableProps {
   variantInputProps?: InputFilterProps;
 }
 
-export const TasksTable: React.VFC<TasksTableProps> = ({
+const TasksTable: React.VFC<TasksTableProps> = ({
   baseStatusSelectorProps,
   isPatch,
   loading = false,
@@ -305,3 +305,5 @@ const getColumnDefsWithSort = ({
 };
 
 const rowKey = ({ id }: { id: string }): string => id;
+
+export default TasksTable;

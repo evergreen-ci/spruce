@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import TableControl from "components/Table/TableControl";
+import TableWrapper from "components/Table/TableWrapper";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   VersionTasksQuery,
@@ -75,40 +74,31 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   const { tasks, isPatch } = version || {};
   const { data: tasksData = [], count = 0 } = tasks || {};
 
-  const shouldShowBottomTableControl = tasksData.length > 10;
-
-  const tableControls = (
-    <TableControl
-      filteredCount={count}
-      totalCount={taskCount}
-      limit={limit}
-      page={page}
-      label="tasks"
-      onClear={clearQueryParams}
-      onPageSizeChange={() => {
-        versionAnalytics.sendEvent({
-          name: "Change Page Size",
-        });
-      }}
-    />
-  );
   return (
-    <>
-      {tableControls}
+    <TableWrapper
+      controls={
+        <TableControl
+          filteredCount={count}
+          totalCount={taskCount}
+          limit={limit}
+          page={page}
+          label="tasks"
+          onClear={clearQueryParams}
+          onPageSizeChange={() => {
+            versionAnalytics.sendEvent({
+              name: "Change Page Size",
+            });
+          }}
+        />
+      }
+      shouldShowBottomTableControl={tasksData.length > 10}
+    >
       <PatchTasksTable
         isPatch={isPatch}
         sorts={sorts}
         tasks={tasksData}
         loading={tasksData.length === 0 && loading}
       />
-      {shouldShowBottomTableControl && (
-        <TableControlWrapper>{tableControls}</TableControlWrapper>
-      )}
-    </>
+    </TableWrapper>
   );
 };
-
-const TableControlWrapper = styled.div`
-  padding-top: ${size.xs};
-  margin-bottom: ${size.l};
-`;

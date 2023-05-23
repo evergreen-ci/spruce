@@ -1,15 +1,13 @@
 import { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled";
 import { Table } from "antd";
 import { SortOrder } from "antd/es/table/interface";
 import { useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import { TableContainer } from "components/styles";
 import TableControl from "components/Table/TableControl";
+import TableWrapper from "components/Table/TableWrapper";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { testStatusesFilterTreeData } from "constants/test";
-import { size } from "constants/tokens";
 import {
   TaskTestsQuery,
   TaskTestsQueryVariables,
@@ -147,40 +145,35 @@ export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
   const { task: taskData } = data ?? {};
   const { tests } = taskData ?? {};
   const { filteredTestCount, totalTestCount, testResults } = tests ?? {};
-  const shouldShowBottomTableControl = filteredTestCount > 10;
 
-  const tableControls = (
-    <TableControl
-      filteredCount={filteredTestCount}
-      totalCount={totalTestCount}
-      limit={limitNum}
-      page={pageNum}
-      label="tests"
-      onClear={clearQueryParams}
-      onPageSizeChange={() => {
-        taskAnalytics.sendEvent({ name: "Change Page Size" });
-      }}
-    />
-  );
   return (
-    <>
-      {tableControls}
-      <TableContainer>
-        <Table
-          data-test-id="tests-table"
-          rowKey={rowKey}
-          pagination={false}
-          columns={columns}
-          dataSource={testResults}
-          getPopupContainer={(trigger: HTMLElement) => trigger}
-          onChange={tableChangeHandler}
-          loading={loading}
+    <TableWrapper
+      controls={
+        <TableControl
+          filteredCount={filteredTestCount}
+          totalCount={totalTestCount}
+          limit={limitNum}
+          page={pageNum}
+          label="tests"
+          onClear={clearQueryParams}
+          onPageSizeChange={() => {
+            taskAnalytics.sendEvent({ name: "Change Page Size" });
+          }}
         />
-      </TableContainer>
-      {shouldShowBottomTableControl && (
-        <TableControlWrapper>{tableControls}</TableControlWrapper>
-      )}
-    </>
+      }
+      shouldShowBottomTableControl={filteredTestCount > 10}
+    >
+      <Table
+        data-test-id="tests-table"
+        rowKey={rowKey}
+        pagination={false}
+        columns={columns}
+        dataSource={testResults}
+        getPopupContainer={(trigger: HTMLElement) => trigger}
+        onChange={tableChangeHandler}
+        loading={loading}
+      />
+    </TableWrapper>
   );
 };
 
@@ -228,8 +221,3 @@ const getQueryVariables = (
     pageNum: getPageFromSearch(search),
   };
 };
-
-const TableControlWrapper = styled.div`
-  padding-top: ${size.xs};
-  margin-bottom: ${size.l};
-`;
