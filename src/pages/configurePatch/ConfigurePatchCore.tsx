@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import { Tab } from "@leafygreen-ui/tabs";
 import TextInput from "@leafygreen-ui/text-input";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +14,7 @@ import {
 import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { getVersionRoute } from "constants/routes";
-import { size } from "constants/tokens";
+import { fontSize, size } from "constants/tokens";
 
 import { useToastContext } from "context/toast";
 import {
@@ -132,13 +133,26 @@ export const ConfigurePatchCore: React.VFC<Props> = ({ patch }) => {
 
   return (
     <>
-      <StyledInput
-        label="Patch Name"
-        data-cy="patch-name-input"
-        value={description}
-        style={{ fontWeight: "bold", fontSize: "16px" }}
-        onChange={(e) => setDescription(e.target.value)}
-      />
+      <FlexRow>
+        <StyledInput
+          label="Patch Name"
+          data-cy="patch-name-input"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        {activated && (
+          <StyledButton
+            data-cy="cancel-button"
+            onClick={() =>
+              window.history.state.idx > 0
+                ? navigate(-1)
+                : navigate(getVersionRoute(id))
+            }
+          >
+            Cancel
+          </StyledButton>
+        )}
+      </FlexRow>
       <PageLayout>
         <PageSider>
           <MetadataCard error={null}>
@@ -271,5 +285,18 @@ const filterAliases = (
 };
 
 const StyledInput = styled(TextInput)`
+  font-weight: bold;
+  font-size: ${fontSize.m};
   margin-bottom: ${size.s};
+  width: 100%;
+`;
+
+const StyledButton = styled(Button)`
+  margin-top: ${size.m};
+`;
+
+const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: ${size.s};
 `;
