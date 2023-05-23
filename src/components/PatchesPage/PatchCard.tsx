@@ -109,7 +109,9 @@ export const PatchCard: React.VFC<Props> = ({
       </Left>
       <Center>
         <PatchBadgeContainer>
-          <PatchStatusBadge status={versionFull?.status ?? status} />
+          {!isUnconfigured && (
+            <PatchStatusBadge status={versionFull?.status ?? status} />
+          )}
           {isUnconfigured && <PatchStatusBadge status="unconfigured" />}
         </PatchBadgeContainer>
         <TaskBadgeContainer>{badges}</TaskBadgeContainer>
