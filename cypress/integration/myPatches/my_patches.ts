@@ -88,13 +88,13 @@ describe("My Patches Page", () => {
     cy.visit(MY_PATCHES_ROUTE);
     cy.dataCy("commit-queue-checkbox").should("be.checked");
     cy.dataCy("my-patch-status-select").click();
-    cy.contains("Unconfigured");
+    cy.contains("Created/Unconfigured");
     cy.visit(MY_PATCHES_ROUTE);
     cy.dataCy("commit-queue-checkbox").should("be.checked");
     cy.dataCy("commit-queue-checkbox").uncheck({ force: true });
     cy.dataCy("commit-queue-checkbox").should("not.be.checked");
     cy.dataCy("my-patch-status-select").click();
-    cy.contains("Created/Unconfigured");
+    cy.contains("Unconfigured");
   });
 
   it("Changing page size updates URL and renders less than or equal to that many rows", () => {
