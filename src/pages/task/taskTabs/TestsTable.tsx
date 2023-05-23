@@ -133,9 +133,6 @@ export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
     }
     updateQueryParams(queryParams);
   };
-  const handlePageSizeChange = () => {
-    taskAnalytics.sendEvent({ name: "Change Page Size" });
-  };
 
   const clearQueryParams = () => {
     updateQueryParams({
@@ -160,7 +157,9 @@ export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
       page={pageNum}
       label="tests"
       onClear={clearQueryParams}
-      onPageSizeChange={handlePageSizeChange}
+      onPageSizeChange={() => {
+        taskAnalytics.sendEvent({ name: "Change Page Size" });
+      }}
     />
   );
   return (

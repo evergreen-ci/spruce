@@ -97,6 +97,11 @@ const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
             label="tasks"
             page={page}
             onClear={clearQueryParams}
+            onPageSizeChange={() => {
+              versionAnalytics.sendEvent({
+                name: "Change Page Size",
+              });
+            }}
           />
         </TableControlWrapper>
       )}
