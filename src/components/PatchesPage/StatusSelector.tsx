@@ -1,9 +1,7 @@
-import { useMemo } from "react";
 import Dropdown from "components/Dropdown";
 import { TreeSelect } from "components/TreeSelect";
 import { noFilterMessage } from "constants/strings";
 import { useStatusesFilter } from "hooks";
-import { useQueryParam } from "hooks/useQueryParam";
 import {
   PatchPageQueryParams,
   PatchStatus,
@@ -13,14 +11,7 @@ import {
 export const StatusSelector: React.VFC = () => {
   const { inputValue: statusVal, setAndSubmitInputValue: statusValOnChange } =
     useStatusesFilter({ urlParam: PatchPageQueryParams.Statuses });
-  const [includeCommitQueue] = useQueryParam(
-    PatchPageQueryParams.CommitQueue,
-    true
-  );
-  const treeData = useMemo(
-    () => getTreeData(includeCommitQueue),
-    [includeCommitQueue]
-  );
+
   return (
     <Dropdown
       data-cy="my-patch-status-select"
@@ -38,14 +29,14 @@ export const StatusSelector: React.VFC = () => {
   );
 };
 
-const getTreeData = (includeCommitQueue: boolean) => [
+const treeData = [
   {
     title: "All",
     value: ALL_PATCH_STATUS,
     key: ALL_PATCH_STATUS,
   },
   {
-    title: includeCommitQueue ? "Created/Unconfigured" : "Unconfigured",
+    title: "Created/Unconfigured",
     value: PatchStatus.Created,
     key: PatchStatus.Created,
   },
