@@ -6,7 +6,8 @@ import { GeneralSubscription, Selector } from "gql/generated/types";
 import { ResourceType } from "types/triggers";
 
 export const processSubscriptionData = (
-  subscriptions: GeneralSubscription[]
+  subscriptions: GeneralSubscription[],
+  globalSubscriptionIds: Set<string>
 ) => {
   if (!subscriptions || !subscriptions.length) {
     return;
@@ -15,12 +16,7 @@ export const processSubscriptionData = (
   return (
     subscriptions
       // Filter out a user's global subscriptions for tasks, spawn hosts, etc.
-      .filter((subscription) =>
-        subscription.selectors.find(
-          (s) =>
-            s.type !== "object" && (s.type === "id" || s.type.startsWith("in-"))
-        )
-      )
+      .filter(({ id }) => !globalSubscriptionIds.has(id))
       // For subscriptions that contain regex selectors or additional trigger data, append an expandable section
       .map((subscription) => {
         const hasTriggerData = !!Object.entries(subscription.triggerData ?? {})
@@ -78,7 +74,7 @@ export const getResourceRoute = (resourceType: ResourceType, id: string) => {
 };
 
 export const formatRegexSelectors = (regexSelectors: Selector[]) => ({
-  "regex-selectors": regexSelectors.reduce(
+  "regex-selectors": regexSelectors.reduce<Record<string, string>>(
     (obj, { data, type }) => ({
       ...obj,
       [type]: data,

@@ -25,4 +25,14 @@ query UserSubscriptions {
     }
     userId
   }
+  userSettings {
+    notifications {
+      buildBreakId
+      commitQueueId
+      patchFinishId
+      patchFirstFailureId
+      spawnHostExpirationId
+      spawnHostOutcomeId
+    }
+  }
 }

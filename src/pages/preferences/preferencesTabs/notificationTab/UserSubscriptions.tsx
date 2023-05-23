@@ -35,9 +35,29 @@ export const UserSubscriptions: React.VFC<{}> = () => {
     UserSubscriptionsQueryVariables
   >(USER_SUBSCRIPTIONS);
 
+  const globalSubscriptionIds = useMemo(() => {
+    const {
+      buildBreakId,
+      commitQueueId,
+      patchFinishId,
+      patchFirstFailureId,
+      spawnHostExpirationId,
+      spawnHostOutcomeId,
+    } = data?.userSettings?.notifications ?? {};
+    return new Set([
+      buildBreakId,
+      commitQueueId,
+      patchFinishId,
+      patchFirstFailureId,
+      spawnHostExpirationId,
+      spawnHostOutcomeId,
+    ]);
+  }, [data?.userSettings?.notifications]);
+
   const subscriptions = useMemo(
-    () => processSubscriptionData(data?.user?.subscriptions),
-    [data]
+    () =>
+      processSubscriptionData(data?.user?.subscriptions, globalSubscriptionIds),
+    [data?.user?.subscriptions, globalSubscriptionIds]
   );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
@@ -47,46 +67,51 @@ export const UserSubscriptions: React.VFC<{}> = () => {
     data: subscriptions ?? [],
   });
 
-  if (!subscriptions) return null;
-
   const { rows } = table.getRowModel();
 
   return (
     <>
       <SettingsCardTitle>Manage subscriptions</SettingsCardTitle>
       <SettingsCard>
-        <Table table={table} ref={tableContainerRef} shouldAlternateRowColor>
-          <TableHead>
-            {table
-              .getHeaderGroups()
-              .map((headerGroup: HeaderGroup<GeneralSubscription>) => (
-                <HeaderRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <HeaderCell key={header.id} header={header}>
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                    </HeaderCell>
-                  ))}
-                </HeaderRow>
-              ))}
-          </TableHead>
-          <TableBody>
-            {rows.map((row: LeafyGreenTableRow<GeneralSubscription>) => (
-              <Row key={row.id} row={row} data-cy="subscription-row">
-                {row.getVisibleCells().map((cell) => (
-                  <Cell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </Cell>
+        {!subscriptions?.length ? (
+          "No subscriptions found."
+        ) : (
+          <Table table={table} ref={tableContainerRef} shouldAlternateRowColor>
+            <TableHead>
+              {table
+                .getHeaderGroups()
+                .map((headerGroup: HeaderGroup<GeneralSubscription>) => (
+                  <HeaderRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <HeaderCell key={header.id} header={header}>
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                      </HeaderCell>
+                    ))}
+                  </HeaderRow>
                 ))}
-                {row.original.renderExpandedContent && (
-                  <ExpandedContent row={row} />
-                )}
-              </Row>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {rows.map((row: LeafyGreenTableRow<GeneralSubscription>) => (
+                <Row key={row.id} row={row} data-cy="subscription-row">
+                  {row.getVisibleCells().map((cell) => (
+                    <Cell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </Cell>
+                  ))}
+                  {row.original.renderExpandedContent && (
+                    <ExpandedContent row={row} />
+                  )}
+                </Row>
+              ))}
+            </TableBody>
+          </Table>
+        )}
       </SettingsCard>
     </>
   );

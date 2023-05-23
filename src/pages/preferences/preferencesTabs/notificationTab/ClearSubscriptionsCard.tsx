@@ -23,6 +23,7 @@ export const ClearSubscriptionsCard: React.VFC = () => {
     ClearMySubscriptionsMutation,
     ClearMySubscriptionsMutationVariables
   >(CLEAR_MY_SUBSCRIPTIONS, {
+    refetchQueries: ["UserSubscriptions"],
     onCompleted: (result) => {
       setShowModal(false);
       dispatchToast.success(
