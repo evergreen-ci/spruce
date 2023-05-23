@@ -50,7 +50,7 @@ export const getEventCopy = (
 
 const LinkWrapper = styled.span`
   position: relative;
-  top: 5px;
+  top: 6px;
 `;
 const StyledLink = styled(Link)`
   max-width: 300px;
