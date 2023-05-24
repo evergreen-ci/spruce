@@ -3190,9 +3190,9 @@ export type ProjectSettingsFieldsFragment = {
       message: string;
     };
   }>;
-  projectSubscriptions?: Maybe<
+  subscriptions?: Maybe<
     Array<{
-      __typename?: "ProjectSubscription";
+      __typename?: "GeneralSubscription";
       id: string;
       ownerType: string;
       resourceType: string;
@@ -3394,9 +3394,9 @@ export type RepoSettingsFieldsFragment = {
       message: string;
     };
   }>;
-  projectSubscriptions?: Maybe<
+  subscriptions?: Maybe<
     Array<{
-      __typename?: "ProjectSubscription";
+      __typename?: "GeneralSubscription";
       id: string;
       ownerType: string;
       resourceType: string;
@@ -3477,7 +3477,7 @@ export type RepoNotificationSettingsFragment = {
 };
 
 export type SubscriptionsFragment = {
-  __typename?: "ProjectSubscription";
+  __typename?: "GeneralSubscription";
   id: string;
   ownerType: string;
   resourceType: string;
@@ -3800,9 +3800,9 @@ export type ProjectEventSettingsFragment = {
       message: string;
     };
   }>;
-  projectSubscriptions?: Maybe<
+  subscriptions?: Maybe<
     Array<{
-      __typename?: "ProjectSubscription";
+      __typename?: "GeneralSubscription";
       id: string;
       ownerType: string;
       resourceType: string;
@@ -4497,6 +4497,16 @@ export type SetPatchPriorityMutationVariables = Exact<{
 export type SetPatchPriorityMutation = {
   __typename?: "Mutation";
   setPatchPriority?: Maybe<string>;
+};
+
+export type SetPatchVisibilityMutationVariables = Exact<{
+  patchIds: Array<Scalars["String"]>;
+  hidden: Scalars["Boolean"];
+}>;
+
+export type SetPatchVisibilityMutation = {
+  __typename?: "Mutation";
+  setPatchVisibility: Array<{ __typename?: "Patch"; id: string }>;
 };
 
 export type SetTaskPriorityMutationVariables = Exact<{
@@ -6042,9 +6052,9 @@ export type ProjectEventLogsQuery = {
             message: string;
           };
         }>;
-        projectSubscriptions?: Maybe<
+        subscriptions?: Maybe<
           Array<{
-            __typename?: "ProjectSubscription";
+            __typename?: "GeneralSubscription";
             id: string;
             ownerType: string;
             resourceType: string;
@@ -6256,9 +6266,9 @@ export type ProjectEventLogsQuery = {
             message: string;
           };
         }>;
-        projectSubscriptions?: Maybe<
+        subscriptions?: Maybe<
           Array<{
-            __typename?: "ProjectSubscription";
+            __typename?: "GeneralSubscription";
             id: string;
             ownerType: string;
             resourceType: string;
@@ -6487,9 +6497,9 @@ export type ProjectSettingsQuery = {
         message: string;
       };
     }>;
-    projectSubscriptions?: Maybe<
+    subscriptions?: Maybe<
       Array<{
-        __typename?: "ProjectSubscription";
+        __typename?: "GeneralSubscription";
         id: string;
         ownerType: string;
         resourceType: string;
@@ -6746,9 +6756,9 @@ export type RepoEventLogsQuery = {
             message: string;
           };
         }>;
-        projectSubscriptions?: Maybe<
+        subscriptions?: Maybe<
           Array<{
-            __typename?: "ProjectSubscription";
+            __typename?: "GeneralSubscription";
             id: string;
             ownerType: string;
             resourceType: string;
@@ -6960,9 +6970,9 @@ export type RepoEventLogsQuery = {
             message: string;
           };
         }>;
-        projectSubscriptions?: Maybe<
+        subscriptions?: Maybe<
           Array<{
-            __typename?: "ProjectSubscription";
+            __typename?: "GeneralSubscription";
             id: string;
             ownerType: string;
             resourceType: string;
@@ -7181,9 +7191,9 @@ export type RepoSettingsQuery = {
         message: string;
       };
     }>;
-    projectSubscriptions?: Maybe<
+    subscriptions?: Maybe<
       Array<{
-        __typename?: "ProjectSubscription";
+        __typename?: "GeneralSubscription";
         id: string;
         ownerType: string;
         resourceType: string;
