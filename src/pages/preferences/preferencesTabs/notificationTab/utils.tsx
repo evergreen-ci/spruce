@@ -1,6 +1,11 @@
 import styled from "@emotion/styled";
 import { LeafyGreenTableRow } from "@leafygreen-ui/table/new";
-import { getPatchRoute, getTaskRoute, getVersionRoute } from "constants/routes";
+import {
+  getCommitsRoute,
+  getPatchRoute,
+  getTaskRoute,
+  getVersionRoute,
+} from "constants/routes";
 import { size } from "constants/tokens";
 import { GeneralSubscription, Selector } from "gql/generated/types";
 import { ResourceType } from "types/triggers";
@@ -55,15 +60,24 @@ const ExpandedBlock = styled.pre`
   padding: ${size.s} ${size.l};
 `;
 
-export const getResourceRoute = (resourceType: ResourceType, id: string) => {
+export const getResourceRoute = (
+  resourceType: ResourceType,
+  selector: Selector
+) => {
+  const { data: id, type } = selector;
+
   if (!id) {
     return "";
   }
 
   switch (resourceType) {
     case ResourceType.Build:
-    case ResourceType.Version:
+    case ResourceType.Version: {
+      if (type === "project") {
+        return getCommitsRoute(id);
+      }
       return getVersionRoute(id);
+    }
     case ResourceType.Patch:
       return getPatchRoute(id, { configure: false });
     case ResourceType.Task:

@@ -136,10 +136,11 @@ const columns = [
       },
     }) => {
       const selectors = getValue();
-      const selectorId = selectors.find(
-        (s: Selector) => s.type !== "object"
-      )?.data;
-      const route = getResourceRoute(resourceType, selectorId);
+      const resourceSelector = selectors.find(
+        (s: Selector) => s.type !== "object" && s.type !== "requester"
+      );
+      const { data: selectorId } = resourceSelector ?? {};
+      const route = getResourceRoute(resourceType, resourceSelector);
 
       return route ? <IdLink to={route}>{selectorId}</IdLink> : selectorId;
     },
