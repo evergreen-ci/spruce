@@ -167,9 +167,7 @@ const DescriptionLink = styled(StyledRouterLink)`
 `;
 
 const PatchBadgeContainer = styled.div`
-  > div {
-    margin-right: ${size.m};
-  }
+  margin-right: ${size.m};
   min-width: ${size.xxl};
 `;
 
