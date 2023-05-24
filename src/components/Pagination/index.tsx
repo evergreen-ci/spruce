@@ -1,45 +1,49 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { Pagination as AntPagination } from "antd";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 
 interface Props {
-  value: number;
-  totalResults?: number;
-  numPages?: number;
+  currentPage: number;
   onChange?: (i: number) => void;
-  pageSize?: number;
-  "data-cy"?: string;
-  useLeafygreen?: boolean;
+  totalResults: number;
+  pageSize: number;
 }
 
-export const Pagination: React.VFC<Props> = ({
-  value,
-  totalResults,
-  numPages,
+/**
+ * Pagination component for navigating between pages of data
+ * By default it will update the page query param in the URL
+ *
+ * @param currentPage - 0 indexed current page
+ * @param onChange - optional callback for when the page changes (Will override the default behavior of updating the URL query param)
+ * @param totalResults - total number of results
+ * @param pageSize - maximum number of results per page
+ */
+const Pagination: React.VFC<Props> = ({
+  currentPage,
   onChange,
+  totalResults,
   pageSize,
-  "data-cy": dataCy,
-  useLeafygreen = false,
 }) => {
   const updateQueryParams = useUpdateURLQueryParams();
   const handleChange =
-    onChange || ((p) => updateQueryParams({ page: `${p - 1}` }));
+    onChange ||
+    ((page: number) => updateQueryParams({ page: page.toString() }));
+  const numPages = Math.ceil(totalResults / pageSize);
 
   const handlePrevClick = () => {
-    updateQueryParams({ page: `${value - 1}` });
+    handleChange(currentPage - 1);
   };
   const handleNextClick = () => {
-    updateQueryParams({ page: `${value + 1}` });
+    handleChange(currentPage + 1);
   };
 
-  return useLeafygreen ? (
-    <Container>
+  return (
+    <Container data-cy="pagination">
       <StyledButton
-        disabled={value === 0}
+        disabled={currentPage === 0}
         size="small"
         data-cy="prev-page-button"
         onClick={handlePrevClick}
@@ -47,26 +51,17 @@ export const Pagination: React.VFC<Props> = ({
       />
       <PageLabel>
         <Disclaimer>
-          {value + 1} / {numPages}
+          {numPages > 0 ? currentPage + 1 : 0} / {numPages}
         </Disclaimer>
       </PageLabel>
       <StyledButton
-        disabled={value === numPages - 1}
+        disabled={numPages === 0 || currentPage === numPages - 1}
         data-cy="next-page-button"
         size="small"
         onClick={handleNextClick}
         leftGlyph={<Icon glyph="ChevronRight" size="small" />}
       />
     </Container>
-  ) : (
-    <AntPagination
-      data-cy={dataCy}
-      simple
-      pageSize={pageSize}
-      current={value + 1}
-      total={totalResults}
-      onChange={handleChange}
-    />
   );
 };
 
@@ -81,8 +76,9 @@ const PageLabel = styled.div`
 `;
 
 const Container = styled.div`
-  align-self: flex-end;
   align-items: center;
   display: flex;
   flex-shrink: 0;
 `;
+
+export default Pagination;

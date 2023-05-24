@@ -7,7 +7,7 @@ import { useHostsTableAnalytics } from "analytics";
 import PageSizeSelector, {
   usePageSizeSelector,
 } from "components/PageSizeSelector";
-import { Pagination } from "components/Pagination";
+import Pagination from "components/Pagination";
 import { size } from "constants/tokens";
 import { HostEventsQuery, HostEventLogEntry } from "gql/generated/types";
 import { useDateFormat } from "hooks";
@@ -60,9 +60,9 @@ export const HostTable: React.VFC<{
         <PaginationWrapper>
           <Pagination
             data-cy="host-event-table-pagination"
-            pageSize={limit}
-            value={page}
+            currentPage={page}
             totalResults={eventsCount}
+            pageSize={limit}
           />
           <PageSizeSelector
             data-cy="host-event-table-page-size-selector"
@@ -99,6 +99,5 @@ const TableTitle = styled.div`
 
 const PaginationWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
   align-items: center;
 `;

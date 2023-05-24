@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { InputFilterProps } from "components/Table/Filters";
-import { TasksTable } from "components/Table/TasksTable";
+import TasksTable from "components/TasksTable";
 import { Task, VersionTasksQuery, SortOrder } from "gql/generated/types";
 import {
   useTaskStatuses,

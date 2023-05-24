@@ -4095,6 +4095,15 @@ export type DefaultSectionToRepoMutation = {
   defaultSectionToRepo?: Maybe<string>;
 };
 
+export type DeleteProjectMutationVariables = Exact<{
+  projectId: Scalars["String"];
+}>;
+
+export type DeleteProjectMutation = {
+  __typename?: "Mutation";
+  deleteProject: boolean;
+};
+
 export type DetachProjectFromRepoMutationVariables = Exact<{
   projectId: Scalars["String"];
 }>;

@@ -1,42 +1,41 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { useParams } from "react-router-dom";
-import { useVersionAnalytics } from "analytics";
 import PageSizeSelector, {
   usePageSizeSelector,
 } from "components/PageSizeSelector";
-import { Pagination } from "components/Pagination";
+import Pagination from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { size } from "constants/tokens";
 
 interface Props {
   filteredCount: number;
-  taskCount: number;
+  totalCount: number;
   limit: number;
   page: number;
+  label: string;
   onClear: () => void;
+  onPageSizeChange?: (pageSize: number) => void;
+  onPageChange?: (page: number) => void;
 }
 
-export const TableControl: React.VFC<Props> = ({
+const TableControl: React.VFC<Props> = ({
   filteredCount,
-  taskCount,
+  totalCount,
   limit,
   page,
+  label,
   onClear,
+  onPageSizeChange,
+  onPageChange,
 }) => {
-  const { id: versionId } = useParams<{ id: string }>();
-  const versionAnalytics = useVersionAnalytics(versionId);
   const setPageSize = usePageSizeSelector();
 
   const handlePageSizeChange = (pageSize: number) => {
     setPageSize(pageSize);
-    versionAnalytics.sendEvent({
-      name: "Change Page Size",
-    });
+    onPageSizeChange?.(pageSize);
   };
   const onClearAll = () => {
-    versionAnalytics.sendEvent({ name: "Clear all filter" });
     onClear();
   };
 
@@ -44,26 +43,27 @@ export const TableControl: React.VFC<Props> = ({
     <TableControlOuterRow>
       <FlexContainer>
         <ResultCountLabel
-          dataCyNumerator="current-task-count"
-          dataCyDenominator="total-task-count"
-          label="tasks"
+          dataCyNumerator="filtered-count"
+          dataCyDenominator="total-count"
+          label={label}
           numerator={filteredCount}
-          denominator={taskCount}
+          denominator={totalCount}
         />
         <PaddedButton
           onClick={onClearAll}
           data-cy="clear-all-filters"
           size="small"
         >
-          Clear All Filters
+          Clear all filters
         </PaddedButton>
       </FlexContainer>
       <TableControlInnerRow>
         <Pagination
           data-cy="tasks-table-pagination"
-          pageSize={limit}
-          value={page}
+          currentPage={page}
           totalResults={filteredCount}
+          pageSize={limit}
+          onChange={onPageChange}
         />
         <PageSizeSelector
           data-cy="tasks-table-page-size-selector"
@@ -83,3 +83,5 @@ const FlexContainer = styled.div`
 const PaddedButton = styled(Button)`
   margin-left: ${size.m};
 `;
+
+export default TableControl;
