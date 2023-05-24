@@ -1381,6 +1381,7 @@ export type ProjectInput = {
   periodicBuilds?: InputMaybe<Array<PeriodicBuildInput>>;
   prTestingEnabled?: InputMaybe<Scalars["Boolean"]>;
   private?: InputMaybe<Scalars["Boolean"]>;
+  projectHealthView?: InputMaybe<ProjectHealthView>;
   remotePath?: InputMaybe<Scalars["String"]>;
   repo?: InputMaybe<Scalars["String"]>;
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]>;
