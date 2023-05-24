@@ -40,3 +40,33 @@ describe("Creating a new project", () => {
     cy.url().should("include", "my-new-project");
   });
 });
+
+describe("Deleting a project", () => {
+  const destination = getGeneralRoute("my-new-project");
+
+  it("Successfully deletes a project", () => {
+    cy.visit(destination);
+    cy.dataCy("attach-repo-button").click();
+    cy.dataCy("attach-repo-modal")
+      .find("button")
+      .contains("Attach")
+      .parent()
+      .click();
+    cy.validateToast("success", "Successfully attached to repo");
+
+    cy.dataCy("delete-project-button").scrollIntoView();
+    cy.dataCy("delete-project-button").click();
+    cy.dataCy("delete-project-modal")
+      .find("button")
+      .contains("Delete")
+      .parent()
+      .click();
+    cy.validateToast("success");
+
+    cy.reload();
+    cy.validateToast(
+      "error",
+      "Could not find project with identifier: my-new-project"
+    );
+  });
+});
