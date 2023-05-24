@@ -87,10 +87,10 @@ const SetPriority: React.VFC<SetPriorityProps> = ({
   };
 
   useEffect(() => {
+    inputRef?.focus();
     inputRef?.select();
   }, [inputRef]);
 
-  const showWarning = priority > 50;
   const dataCy = taskId ? "task" : "patch";
 
   return (
@@ -116,42 +116,46 @@ const SetPriority: React.VFC<SetPriorityProps> = ({
         refEl={menuItemRef}
         setOpen={setOpen}
       >
-        <PriorityInput>
-          <NumberInput
-            ref={(el) => setInputRef(el)}
-            data-cy={`${dataCy}-priority-input`}
-            label="Set new priority"
-            min={-1}
-            onChange={(e) => setPriority(parseInt(e.target.value, 10))}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                onConfirm();
-                setOpen(false);
-              }
-            }}
-            value={priority.toString()}
-          />
-          {showWarning && (
-            <Warning data-cy="priority-warning">
-              <WarningIcon glyph="ImportantWithCircle" fill={yellow.base} />
-              <span>Please ensure that this is a high priority change.</span>
-            </Warning>
-          )}
-        </PriorityInput>
+        <PriorityInput
+          ref={(el) => setInputRef(el)}
+          data-cy={`${dataCy}-priority-input`}
+          inputClassName="priority-input"
+          label="Set new priority"
+          min={-1}
+          onChange={(e) => setPriority(parseInt(e.target.value, 10))}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              onConfirm();
+              setOpen(false);
+            }
+          }}
+          value={priority.toString()}
+        />
+        {priority > 50 && (
+          <Warning data-cy="priority-warning">
+            <WarningIcon glyph="ImportantWithCircle" fill={yellow.base} />
+            <span>Please ensure that this is a high priority change.</span>
+          </Warning>
+        )}
       </Popconfirm>
     </>
   );
 };
 
-const PriorityInput = styled.div`
-  width: 200px;
+const inputWidth = "180px";
+
+const PriorityInput = styled(NumberInput)`
+  .priority-input {
+    width: ${inputWidth};
+  }
 `;
 
 const Warning = styled.div`
+  width: ${inputWidth};
   display: flex;
-  gap: ${size.xxs};
   align-items: flex-start;
-  margin-top: ${size.xs};
+  gap: ${size.xxs};
+  margin-top: ${size.xxs};
   color: ${yellow.base};
 `;
 

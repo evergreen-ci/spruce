@@ -47,11 +47,7 @@ describe("setPriority", () => {
         ).toBeVisible();
       });
       userEvent.type(screen.queryByDataCy("patch-priority-input"), "99");
-
-      const confirmButton = screen.getByRole("button", {
-        name: "Set",
-      });
-      userEvent.click(confirmButton);
+      userEvent.click(screen.getByRole("button", { name: "Set" }));
       await waitFor(() =>
         expect(dispatchToast.success).toHaveBeenCalledTimes(1)
       );
@@ -110,11 +106,7 @@ describe("setPriority", () => {
         ).toBeVisible();
       });
       userEvent.type(screen.queryByDataCy("task-priority-input"), "99");
-
-      const confirmButton = screen.getByRole("button", {
-        name: "Set",
-      });
-      userEvent.click(confirmButton);
+      userEvent.click(screen.getByRole("button", { name: "Set" }));
       await waitFor(() =>
         expect(dispatchToast.success).toHaveBeenCalledTimes(1)
       );
@@ -131,7 +123,9 @@ const setPatchPriority: ApolloMock<
     variables: { patchId: "patch_id", priority: 99 },
   },
   result: {
-    data: {},
+    data: {
+      setPatchPriority: "patch_id",
+    },
   },
 };
 
