@@ -6,9 +6,7 @@ import {
   ExpandedContent,
   flexRender,
   HeaderCell,
-  HeaderGroup,
   HeaderRow,
-  LeafyGreenTableRow,
   Row,
   Table,
   TableBody,
@@ -61,7 +59,7 @@ export const UserSubscriptions: React.VFC<{}> = () => {
   );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  const table = useLeafyGreenTable<GeneralSubscription | any>({
+  const table = useLeafyGreenTable<GeneralSubscription>({
     columns,
     containerRef: tableContainerRef,
     data: subscriptions ?? [],
@@ -78,23 +76,21 @@ export const UserSubscriptions: React.VFC<{}> = () => {
         ) : (
           <Table table={table} ref={tableContainerRef} shouldAlternateRowColor>
             <TableHead>
-              {table
-                .getHeaderGroups()
-                .map((headerGroup: HeaderGroup<GeneralSubscription>) => (
-                  <HeaderRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <HeaderCell key={header.id} header={header}>
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                      </HeaderCell>
-                    ))}
-                  </HeaderRow>
-                ))}
+              {table.getHeaderGroups().map((headerGroup) => (
+                <HeaderRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <HeaderCell key={header.id} header={header}>
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                    </HeaderCell>
+                  ))}
+                </HeaderRow>
+              ))}
             </TableHead>
             <TableBody>
-              {rows.map((row: LeafyGreenTableRow<GeneralSubscription>) => (
+              {rows.map((row) => (
                 <Row key={row.id} row={row} data-cy="subscription-row">
                   {row.getVisibleCells().map((cell) => (
                     <Cell key={cell.id}>

@@ -38,7 +38,7 @@ export const projectSubscriptionMethods = [
   },
 ];
 
-// Map a NotificationMethods enum to its label
+/** Map a NotificationMethods enum to its label */
 export const notificationMethodToCopy = projectSubscriptionMethods.reduce(
   (obj, { label, value }) => ({
     ...obj,
