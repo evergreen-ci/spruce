@@ -39,7 +39,7 @@ import SCHEDULE_TASKS from "./schedule-tasks.graphql";
 import SCHEDULE_UNDISPATCHED_BASE_TASKS from "./schedule-undispatched-base-tasks.graphql";
 import SET_PATCH_PRIORITY from "./set-patch-priority.graphql";
 import SET_PATCH_VISIBILITY from "./set-patch-visibility.graphql";
-import SET_TASK_PRIORTY from "./set-task-priority.graphql";
+import SET_TASK_PRIORITY from "./set-task-priority.graphql";
 import SPAWN_HOST from "./spawn-host.graphql";
 import SPAWN_VOLUME from "./spawn-volume.graphql";
 import UNSCHEDULE_PATCH_TASKS from "./unschedule-patch-tasks.graphql";
@@ -91,7 +91,7 @@ export {
   SCHEDULE_UNDISPATCHED_BASE_TASKS,
   SET_PATCH_PRIORITY,
   SET_PATCH_VISIBILITY,
-  SET_TASK_PRIORTY,
+  SET_TASK_PRIORITY,
   SPAWN_HOST,
   SPAWN_VOLUME,
   UNSCHEDULE_PATCH_TASKS,
