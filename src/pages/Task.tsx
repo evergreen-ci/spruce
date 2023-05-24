@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
@@ -67,15 +68,17 @@ export const Task = () => {
   const attributed = annotation?.issues?.length > 0;
   const isDisplayTask = executionTasksFull != null;
 
-  if (
-    id === task?.id &&
-    Number.isNaN(selectedExecution) &&
-    latestExecution !== undefined
-  ) {
-    updateQueryParams({
-      execution: `${latestExecution}`,
-    });
-  }
+  useEffect(() => {
+    if (
+      id === task?.id &&
+      Number.isNaN(selectedExecution) &&
+      latestExecution !== undefined
+    ) {
+      updateQueryParams({
+        execution: `${latestExecution}`,
+      });
+    }
+  }, [id, selectedExecution, latestExecution, updateQueryParams, task?.id]);
 
   if (error) {
     return <PageDoesNotExist />;
