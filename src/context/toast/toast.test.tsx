@@ -197,23 +197,6 @@ describe("toast", () => {
       // Reset to use real timers.
       jest.useRealTimers();
     });
-
-    it("should close the toast when hide() is called", async () => {
-      const { Component, hook } = renderComponentWithHook();
-      render(<Component />, {
-        wrapper,
-      });
-      act(() => {
-        hook.current.info("test string", true);
-      });
-      expect(screen.getByDataCy("toast")).toBeInTheDocument();
-      act(() => {
-        hook.current.hide();
-      });
-      await waitFor(() => {
-        expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
-      });
-    });
   });
 });
 
