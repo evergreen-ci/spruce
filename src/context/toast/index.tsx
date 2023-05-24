@@ -6,10 +6,12 @@ import {
   useMemo,
   useState,
 } from "react";
-import styled from "@emotion/styled";
-import Toast, { Variant } from "@leafygreen-ui/toast";
+import {
+  Toast,
+  Variant,
+  ToastProvider as LGToastProvider,
+} from "@leafygreen-ui/toast";
 import { WordBreak } from "components/styles";
-import { zIndex } from "constants/tokens";
 import {
   mapVariantToTitle,
   mapToastToLeafyGreenVariant,
@@ -132,30 +134,28 @@ const ToastProvider: React.VFC<{ children: React.ReactNode }> = ({
 
   return (
     <ToastContext.Provider value={toastContext}>
-      {children}
-      <StyledToast
-        body={<WordBreak>{visibleToast.message}</WordBreak>}
-        close={
-          visibleToast.closable
-            ? () => {
-                visibleToast.onClose();
-                setToastOpen(false);
-              }
-            : undefined
-        }
-        data-cy="toast"
-        data-variant={mapLeafyGreenVariantToToast[visibleToast.variant]}
-        open={toastOpen}
-        progress={visibleToast.progress}
-        title={visibleToast.title || mapVariantToTitle[visibleToast.variant]}
-        variant={visibleToast.variant}
-      />
+      <LGToastProvider>
+        {children}
+        <Toast
+          description={<WordBreak>{visibleToast.message}</WordBreak>}
+          onClose={
+            visibleToast.closable
+              ? () => {
+                  visibleToast.onClose();
+                  setToastOpen(false);
+                }
+              : undefined
+          }
+          data-cy="toast"
+          data-variant={mapLeafyGreenVariantToToast[visibleToast.variant]}
+          open={toastOpen}
+          progress={visibleToast.progress}
+          title={visibleToast.title || mapVariantToTitle[visibleToast.variant]}
+          variant={visibleToast.variant}
+        />
+      </LGToastProvider>
     </ToastContext.Provider>
   );
 };
-
-const StyledToast = styled(Toast)`
-  z-index: ${zIndex.toast};
-`;
 
 export { ToastProvider, useToastContext };
