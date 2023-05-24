@@ -34,7 +34,6 @@ export const getFormSchema = (
       generalConfiguration: {
         type: "object" as "object",
         title: "General Configuration",
-        required: ["branch"],
         properties: {
           ...(projectType !== ProjectType.Repo && {
             enabled: {
@@ -63,10 +62,12 @@ export const getFormSchema = (
               },
             },
           },
-          branch: {
-            type: "string" as "string",
-            title: "Branch Name",
-          },
+          ...(projectType !== ProjectType.Repo && {
+            branch: {
+              type: "string" as "string",
+              title: "Branch Name",
+            },
+          }),
           other: {
             type: "object" as "object",
             title: "Other",
