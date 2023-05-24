@@ -6,7 +6,7 @@ import { Analytics } from "analytics/addPageAction";
 import PageSizeSelector, {
   usePageSizeSelector,
 } from "components/PageSizeSelector";
-import { Pagination } from "components/Pagination";
+import Pagination from "components/Pagination";
 import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
 import { size } from "constants/tokens";
 import { PatchesPagePatchesFragment, PatchesInput } from "gql/generated/types";
@@ -95,10 +95,9 @@ export const PatchesPage: React.VFC<Props> = ({
       </FiltersWrapperSpaceBetween>
       <PaginationRow>
         <Pagination
-          pageSize={limit}
-          value={page}
+          currentPage={page}
           totalResults={patches?.filteredPatchCount ?? 0}
-          data-cy="my-patches-pagination"
+          pageSize={limit}
         />
         <PageSizeSelector
           data-cy="my-patches-page-size-selector"

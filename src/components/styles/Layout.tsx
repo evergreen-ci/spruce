@@ -49,10 +49,6 @@ export const PageTitle = styled(H2)`
   margin-bottom: ${size.s};
 ` as typeof H2;
 
-export const TableContainer = styled.div`
-  ${(props: { hide?: boolean }): string => props.hide && "display:none;"}
-`;
-
 export const TableControlInnerRow = styled.div`
   display: flex;
   justify-content: space-between;

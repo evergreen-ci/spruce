@@ -11,7 +11,6 @@ import {
   PageSider,
   PageTitle,
   PageWrapper,
-  TableContainer,
   TableControlInnerRow,
   TableControlOuterRow,
 } from "./Layout";
@@ -39,7 +38,6 @@ export {
   SiderCard,
   StyledLink,
   StyledRouterLink,
-  TableContainer,
   TableControlInnerRow,
   TableControlOuterRow,
   WordBreak,

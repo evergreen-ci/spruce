@@ -1,0 +1,179 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
+<div>
+  <div
+    class="css-1p8q5g-TableControlInnerRow-TableControlOuterRow e1xf068s4"
+  >
+    <div
+      class="css-1mx1jed-FlexContainer et5phr01"
+    >
+      <p
+        class="leafygreen-ui-1yli3c0"
+      >
+        <span
+          data-cy="filtered-count"
+        >
+          10
+        </span>
+        /
+        <span
+          data-cy="total-count"
+        >
+          100
+        </span>
+        <span>
+           
+          tasks
+        </span>
+      </p>
+      <button
+        aria-disabled="false"
+        class="lg-ui-button-0000 leafygreen-ui-1kt1vpf css-vvan06-PaddedButton et5phr00"
+        data-cy="clear-all-filters"
+        type="button"
+      >
+        <div
+          class="leafygreen-ui-v038xi"
+        />
+        <div
+          class="leafygreen-ui-1qmzz4y"
+        >
+          Clear all filters
+        </div>
+      </button>
+    </div>
+    <div
+      class="css-ltjmsx-TableControlInnerRow e1xf068s5"
+    >
+      <div
+        class="css-o7pwgi-Container e4w46hm0"
+        data-cy="pagination"
+      >
+        <button
+          aria-disabled="true"
+          class="lg-ui-button-0000 leafygreen-ui-14bp7j2 css-mze5ol-StyledButton e4w46hm2"
+          data-cy="prev-page-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-1qmzz4y"
+          >
+            <svg
+              aria-label="Chevron Left Icon"
+              class="leafygreen-ui-1g8rtil"
+              fill="none"
+              height="14"
+              role="img"
+              viewBox="0 0 16 16"
+              width="14"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M10.778 1.636a1 1 0 00-1.414 0l-4.95 4.95-.707.707a1 1 0 000 1.414l.707.707 4.95 4.95a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L7.243 8l4.242-4.243a1 1 0 000-1.414l-.707-.707z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+        <div
+          class="css-ob08n2-PageLabel e4w46hm1"
+        >
+          <small
+            class="leafygreen-ui-ppjyot"
+          >
+            1
+             / 
+            1
+          </small>
+        </div>
+        <button
+          aria-disabled="true"
+          class="lg-ui-button-0000 leafygreen-ui-14bp7j2 css-mze5ol-StyledButton e4w46hm2"
+          data-cy="next-page-button"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-1qmzz4y"
+          >
+            <svg
+              aria-label="Chevron Right Icon"
+              class="leafygreen-ui-1g8rtil"
+              fill="none"
+              height="14"
+              role="img"
+              viewBox="0 0 16 16"
+              width="14"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M5.364 14.364a1 1 0 001.414 0l4.95-4.95.707-.707a1 1 0 000-1.414l-.707-.707-4.95-4.95a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L8.899 8l-4.242 4.243a1 1 0 000 1.414l.707.707z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+      <div
+        class="leafygreen-ui-1nkq8lt css-5krlfz-StyledSelect ekttol50"
+      >
+        <button
+          aria-controls="select-13-menu"
+          aria-describedby="select-13-description"
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-invalid="false"
+          aria-labelledby="page-size-select"
+          class="lg-ui-button-0001 leafygreen-ui-18vk81h"
+          data-cy="tasks-table-page-size-selector"
+          data-testid="leafygreen-ui-select-menubutton"
+          id="select-14"
+          type="button"
+          value="10"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-1qmzz4y"
+          >
+            <div
+              class="leafygreen-ui-obh8q1"
+            >
+              <div
+                class="leafygreen-ui-17aj16e"
+              >
+                10 / page
+              </div>
+            </div>
+            <svg
+              alt=""
+              aria-hidden="true"
+              class="leafygreen-ui-866818"
+              height="16"
+              role="presentation"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <path
+                d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
