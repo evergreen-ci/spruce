@@ -85,7 +85,7 @@ describe("Task Duration Tab", () => {
       // default sorting.
       cy.get(`[aria-label="sort"]`).dblclick();
       cy.location("search").should("include", `duration=ASC&page=0`);
-      cy.contains("Clear All Filters").click();
+      cy.contains("Clear all filters").click();
       cy.location("search").should("include", `duration=DESC`);
     });
 
