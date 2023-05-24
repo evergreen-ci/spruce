@@ -48,15 +48,14 @@ describe("deleteProject", () => {
     await waitFor(() => {
       expect(screen.getByDataCy("delete-project-modal")).toBeInTheDocument();
     });
-    const confirmButton = screen.getByRole("button", {
-      name: "Confirm",
+    const deleteButton = screen.getByRole("button", {
+      name: "Delete",
     });
-    expect(confirmButton).toBeEnabled();
-    userEvent.click(confirmButton);
-
+    expect(deleteButton).toBeEnabled();
+    userEvent.click(deleteButton);
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledWith(
-        "The project “evergreen” was deleted. Please refresh the page."
+        "The project “evergreen” was deleted. Future visits to this page will result in an error."
       );
     });
   });

@@ -58,7 +58,7 @@ describe("Deleting a project", () => {
     cy.dataCy("delete-project-button").click();
     cy.dataCy("delete-project-modal")
       .find("button")
-      .contains("Confirm")
+      .contains("Delete")
       .parent()
       .click();
     cy.validateToast("success");

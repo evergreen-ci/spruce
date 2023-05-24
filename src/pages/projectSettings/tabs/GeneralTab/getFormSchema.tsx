@@ -222,7 +222,7 @@ export const getFormSchema = (
         },
       },
       ...(projectType === ProjectType.AttachedProject && {
-        deleteProject: {
+        delete: {
           type: "object" as "object",
           title: "Delete Project",
           properties: {
@@ -371,7 +371,7 @@ export const getFormSchema = (
           "Task execution statistics aggregated by project, build variant, distro, task name, and task creation date.",
       },
     },
-    deleteProject: {
+    delete: {
       "ui:rootFieldId": "removeProject",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       deleteProject: {

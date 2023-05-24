@@ -32,7 +32,7 @@ const Modal: React.VFC<ModalProps> = ({ closeModal, open, projectId }) => {
   >(DELETE_PROJECT, {
     onCompleted() {
       dispatchToast.success(
-        `The project “${identifier}” was deleted. Please refresh the page.`
+        `The project “${identifier}” was deleted. Future visits to this page will result in an error.`
       );
     },
     onError(err) {
@@ -50,7 +50,7 @@ const Modal: React.VFC<ModalProps> = ({ closeModal, open, projectId }) => {
 
   return (
     <ConfirmationModal
-      buttonText="Confirm"
+      buttonText="Delete"
       variant="danger"
       onCancel={closeModal}
       onConfirm={onConfirm}
