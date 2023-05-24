@@ -4,16 +4,8 @@ import { Table } from "antd";
 import { SortOrder } from "antd/es/table/interface";
 import { useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import PageSizeSelector, {
-  usePageSizeSelector,
-} from "components/PageSizeSelector";
-import { Pagination } from "components/Pagination";
-import { ResultCountLabel } from "components/ResultCountLabel";
-import {
-  TableContainer,
-  TableControlOuterRow,
-  TableControlInnerRow,
-} from "components/styles";
+import TableControl from "components/Table/TableControl";
+import TableWrapper from "components/Table/TableWrapper";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { testStatusesFilterTreeData } from "constants/test";
 import {
@@ -54,7 +46,6 @@ export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
   const cat = sort?.[0]?.sortBy;
   const dir = sort?.[0]?.direction;
 
-  const setPageSize = usePageSizeSelector();
   const appliedDefaultSort = useRef(null);
   useEffect(() => {
     if (
@@ -140,9 +131,15 @@ export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
     }
     updateQueryParams(queryParams);
   };
-  const handlePageSizeChange = (pageSize: number) => {
-    setPageSize(pageSize);
-    taskAnalytics.sendEvent({ name: "Change Page Size" });
+
+  const clearQueryParams = () => {
+    updateQueryParams({
+      [RequiredQueryParams.Category]: undefined,
+      [RequiredQueryParams.Sort]: undefined,
+      [RequiredQueryParams.Page]: "0",
+      [RequiredQueryParams.TestName]: undefined,
+      [RequiredQueryParams.Statuses]: undefined,
+    });
   };
 
   const { task: taskData } = data ?? {};
@@ -150,42 +147,33 @@ export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
   const { filteredTestCount, totalTestCount, testResults } = tests ?? {};
 
   return (
-    <>
-      <TableControlOuterRow>
-        <ResultCountLabel
-          dataCyNumerator="filtered-test-count"
-          dataCyDenominator="total-test-count"
+    <TableWrapper
+      controls={
+        <TableControl
+          filteredCount={filteredTestCount}
+          totalCount={totalTestCount}
+          limit={limitNum}
+          page={pageNum}
           label="tests"
-          numerator={filteredTestCount}
-          denominator={totalTestCount}
+          onClear={clearQueryParams}
+          onPageSizeChange={() => {
+            taskAnalytics.sendEvent({ name: "Change Page Size" });
+          }}
         />
-        <TableControlInnerRow>
-          <Pagination
-            pageSize={limitNum}
-            value={pageNum}
-            totalResults={filteredTestCount}
-            data-cy="tests-table-pagination"
-          />
-          <PageSizeSelector
-            data-cy="tests-table-page-size-selector"
-            value={limitNum}
-            onChange={handlePageSizeChange}
-          />
-        </TableControlInnerRow>
-      </TableControlOuterRow>
-      <TableContainer>
-        <Table
-          data-test-id="tests-table"
-          rowKey={rowKey}
-          pagination={false}
-          columns={columns}
-          dataSource={testResults}
-          getPopupContainer={(trigger: HTMLElement) => trigger}
-          onChange={tableChangeHandler}
-          loading={loading}
-        />
-      </TableContainer>
-    </>
+      }
+      shouldShowBottomTableControl={filteredTestCount > 10}
+    >
+      <Table
+        data-test-id="tests-table"
+        rowKey={rowKey}
+        pagination={false}
+        columns={columns}
+        dataSource={testResults}
+        getPopupContainer={(trigger: HTMLElement) => trigger}
+        onChange={tableChangeHandler}
+        loading={loading}
+      />
+    </TableWrapper>
   );
 };
 

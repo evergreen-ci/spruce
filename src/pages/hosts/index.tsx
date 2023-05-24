@@ -12,9 +12,8 @@ import { RestartJasper } from "components/Hosts/RestartJasper";
 import PageSizeSelector, {
   usePageSizeSelector,
 } from "components/PageSizeSelector";
-import { Pagination } from "components/Pagination";
+import Pagination from "components/Pagination";
 import {
-  TableContainer,
   TableControlOuterRow,
   TableControlInnerRow,
   PageWrapper,
@@ -128,9 +127,9 @@ const Hosts: React.VFC = () => {
         <TableControlInnerRow>
           <Pagination
             data-cy="hosts-table-pagination"
-            pageSize={limit}
-            value={page}
+            currentPage={page}
             totalResults={hasFilters ? filteredHostCount : totalHostsCount}
+            pageSize={limit}
           />
           <PageSizeSelector
             data-cy="hosts-table-page-size-selector"
@@ -139,20 +138,18 @@ const Hosts: React.VFC = () => {
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
-      <TableContainer hide={false}>
-        <HostsTable
-          hosts={hostItems}
-          sortBy={sortBy}
-          sortDir={sortDir}
-          selectedHostIds={selectedHostIds}
-          setSelectedHostIds={setSelectedHostIds}
-          setCanRestartJasper={setCanRestartJasper}
-          setRestartJasperError={setRestartJasperError}
-          setCanReprovision={setCanReprovision}
-          setReprovisionError={setReprovisionError}
-          loading={loading}
-        />
-      </TableContainer>
+      <HostsTable
+        hosts={hostItems}
+        sortBy={sortBy}
+        sortDir={sortDir}
+        selectedHostIds={selectedHostIds}
+        setSelectedHostIds={setSelectedHostIds}
+        setCanRestartJasper={setCanRestartJasper}
+        setRestartJasperError={setRestartJasperError}
+        setCanReprovision={setCanReprovision}
+        setReprovisionError={setReprovisionError}
+        loading={loading}
+      />
       <UpdateStatusModal
         data-cy="update-host-status-modal"
         hostIds={selectedHostIds}
