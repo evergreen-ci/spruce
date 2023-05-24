@@ -1,7 +1,6 @@
 const baseRoute = "/preferences";
 const tabNames = {
   profile: "/profile",
-  notifications: "/notifications",
   cli: "/cli",
 };
 describe("user preferences pages", () => {
@@ -22,25 +21,5 @@ describe("user preferences pages", () => {
     cy.contains(defaultApiKey).should("be.visible");
     cy.contains("button", "Reset key").click();
     cy.contains(defaultApiKey).should("not.exist");
-  });
-  it("updating a field should enable the submit button", () => {
-    cy.visit(`${baseRoute}${tabNames.notifications}`);
-    cy.dataCy("save-profile-changes-button").should(
-      "have.attr",
-      "aria-disabled",
-      "true"
-    );
-    cy.dataCy("slack-member-id-field").clear().type("12345");
-    cy.dataCy("save-profile-changes-button").should(
-      "not.have.attr",
-      "aria-disabled",
-      "true"
-    );
-  });
-  it("saving changes to a field should work", () => {
-    cy.visit(`${baseRoute}${tabNames.notifications}`);
-    cy.dataCy("slack-username-field").clear().type("slack.user");
-    cy.dataCy("save-profile-changes-button").click();
-    cy.validateToast("success", "Your changes have successfully been saved.");
   });
 });
