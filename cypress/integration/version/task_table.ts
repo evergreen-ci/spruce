@@ -65,7 +65,7 @@ describe("Task table", () => {
 
   it("Task count displays total tasks", () => {
     cy.visit(pathTasks);
-    cy.dataCy("total-task-count").contains("50");
+    cy.dataCy("total-count").first().contains("50");
   });
 
   it("Sort buttons are disabled when fetching data", () => {
@@ -80,7 +80,7 @@ describe("Task table", () => {
 
   ["NAME", "STATUS", "BASE_STATUS", "VARIANT"].forEach((sortBy) => {
     // TODO: This test doesn't work bc of issues with assertCorrectRequestVariables
-    it(`Fetches tasks sorted by ${sortBy} when ${sortBy} header is clicked`, () => {
+    it.skip(`Fetches tasks sorted by ${sortBy} when ${sortBy} header is clicked`, () => {
       // clickSorterAndAssertTasksAreFetched(sortBy);
     });
   });
@@ -91,7 +91,7 @@ describe("Task table", () => {
       cy.visit(`${pathTasks}?page=0`);
       cy.contains("test-cloud");
       const firstPageRows = tableRowToText(dataCyTableRows);
-      cy.get(dataCyNextPage).click();
+      cy.dataCy(dataCyNextPage).click();
       cy.contains("js-test");
       const secondPageRows = tableRowToText(dataCyTableRows);
 
@@ -102,7 +102,7 @@ describe("Task table", () => {
       cy.visit(`${pathTasks}?page=1`);
       cy.contains("js-test");
       const secondPageRows = tableRowToText(dataCyTableRows);
-      cy.get(dataCyPrevPage).click();
+      cy.dataCy(dataCyPrevPage).click();
       cy.contains("test-cloud");
       const firstPageRows = tableRowToText(dataCyTableRows);
       expect(firstPageRows).to.not.eq(secondPageRows);
@@ -110,12 +110,12 @@ describe("Task table", () => {
 
     it("Does not update results or URL when left arrow is clicked and previous page does not exist", () => {
       cy.visit(`${pathTasks}?page=0`);
-      cy.get(dataCyPrevPage).should("have.attr", "aria-disabled", "true");
+      cy.dataCy(dataCyPrevPage).should("have.attr", "aria-disabled", "true");
     });
 
     it("Does not update results or URL when right arrow is clicked and next page does not exist", () => {
       cy.visit(`${pathTasks}?page=4`);
-      cy.get(dataCyNextPage).should("have.attr", "aria-disabled", "true");
+      cy.dataCy(dataCyNextPage).should("have.attr", "aria-disabled", "true");
     });
   });
 
@@ -141,8 +141,8 @@ const dataCyTableRows = ".ant-table-cell.cy-task-table-col-NAME";
 
 const TABLE_SORT_SELECTOR = ".ant-table-column-sorters";
 
-const dataCyNextPage = ".ant-pagination-next";
-const dataCyPrevPage = ".ant-pagination-prev";
+const dataCyNextPage = "next-page-button";
+const dataCyPrevPage = "prev-page-button";
 
 const tableRowToText = (selector: string) =>
   new Cypress.Promise((resolve) => {
