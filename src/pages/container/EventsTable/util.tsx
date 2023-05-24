@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
+import { StyledRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { PodEventsQuery } from "gql/generated/types";
 import { PodEvent } from "types/pod";
@@ -13,14 +13,12 @@ export const getEventCopy = (
 ) => {
   const { eventType, data } = event;
   const taskLink = (
-    <LinkWrapper>
-      <StyledLink
-        title={data.taskID}
-        to={getTaskRoute(data.taskID, { execution: data.taskExecution })}
-      >
-        {data.taskID}
-      </StyledLink>
-    </LinkWrapper>
+    <StyledLink
+      title={data.taskID}
+      to={getTaskRoute(data.taskID, { execution: data.taskExecution })}
+    >
+      {data.taskID}
+    </StyledLink>
   );
   switch (eventType) {
     case PodEvent.StatusChange:
@@ -48,14 +46,10 @@ export const getEventCopy = (
   }
 };
 
-const LinkWrapper = styled.span`
-  position: relative;
-  top: 6px;
-`;
-const StyledLink = styled(Link)`
-  max-width: 300px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  display: inline-block;
+const StyledLink = styled(StyledRouterLink)`
+  span {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
