@@ -6,10 +6,10 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import get from "lodash/get";
 import { usePreferencesAnalytics } from "analytics";
+import { SettingsCard } from "components/SettingsCard";
 import { size } from "constants/tokens";
 import { UserConfigQuery, UserConfigQueryVariables } from "gql/generated/types";
 import { GET_USER_CONFIG } from "gql/queries";
-import { PreferencesCard } from "pages/preferences/Card";
 import { request } from "utils";
 
 const { post } = request;
@@ -51,7 +51,7 @@ ui_server_host: "${config.ui_server_host}"
     document.body.removeChild(element);
   };
   return (
-    <PreferencesCard>
+    <SettingsCard>
       <Subtitle>Authentication</Subtitle>
       <CodeContainer>
         <Code language="yaml">{authCode}</Code>
@@ -62,7 +62,7 @@ ui_server_host: "${config.ui_server_host}"
         </Button>
         <Button onClick={resetKey}>Reset key</Button>
       </ButtonGroup>
-    </PreferencesCard>
+    </SettingsCard>
   );
 };
 

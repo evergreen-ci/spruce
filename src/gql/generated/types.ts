@@ -1381,6 +1381,7 @@ export type ProjectInput = {
   periodicBuilds?: InputMaybe<Array<PeriodicBuildInput>>;
   prTestingEnabled?: InputMaybe<Scalars["Boolean"]>;
   private?: InputMaybe<Scalars["Boolean"]>;
+  projectHealthView?: InputMaybe<ProjectHealthView>;
   remotePath?: InputMaybe<Scalars["String"]>;
   repo?: InputMaybe<Scalars["String"]>;
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]>;
@@ -8207,4 +8208,56 @@ export type UserPatchesQuery = {
       }>;
     };
   };
+};
+
+export type UserSubscriptionsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UserSubscriptionsQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    subscriptions?: Maybe<
+      Array<{
+        __typename?: "GeneralSubscription";
+        id: string;
+        ownerType: string;
+        resourceType: string;
+        trigger: string;
+        triggerData?: Maybe<{ [key: string]: any }>;
+        regexSelectors: Array<{
+          __typename?: "Selector";
+          data: string;
+          type: string;
+        }>;
+        selectors: Array<{
+          __typename?: "Selector";
+          data: string;
+          type: string;
+        }>;
+        subscriber?: Maybe<{
+          __typename?: "SubscriberWrapper";
+          type: string;
+          subscriber: {
+            __typename?: "Subscriber";
+            emailSubscriber?: Maybe<string>;
+            jiraCommentSubscriber?: Maybe<string>;
+            slackSubscriber?: Maybe<string>;
+          };
+        }>;
+      }>
+    >;
+  };
+  userSettings?: Maybe<{
+    __typename?: "UserSettings";
+    notifications?: Maybe<{
+      __typename?: "Notifications";
+      buildBreakId?: Maybe<string>;
+      commitQueueId?: Maybe<string>;
+      patchFinishId?: Maybe<string>;
+      patchFirstFailureId?: Maybe<string>;
+      spawnHostExpirationId?: Maybe<string>;
+      spawnHostOutcomeId?: Maybe<string>;
+    }>;
+  }>;
 };
