@@ -42,10 +42,19 @@ functions:
       params:
         env:
           gobin: ${goroot}/bin/go
-          MONGODB_URL: ${mongodb_url_2004}
-          DECOMPRESS: ${decompress}
+          MONGODB_URL: ${mongodb_url_2204}
+          MONGODB_DECOMPRESS: ${decompress}
         working_dir: spruce/evergreen
         command: make get-mongodb
+    - command: subprocess.exec
+      type: setup
+      params:
+        env:
+          gobin: ${goroot}/bin/go
+          MONGOSH_URL: ${mongosh_url_2204}
+          MONGOSH_DECOMPRESS: ${decompress}
+        working_dir: spruce/evergreen
+        command: make get-mongosh
     - command: subprocess.exec
       type: setup
       params:
@@ -452,13 +461,14 @@ tasks:
       - func: send-email
 
 buildvariants:
-  - name: ubuntu2004
-    display_name: Ubuntu 20.04
+  - name: ubuntu2204
+    display_name: Ubuntu 22.04
     run_on:
-      - ubuntu2004-large
+      - ubuntu2204-large
     expansions:
-      goroot: /opt/golang/go1.19
-      mongodb_url_2004: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2004-5.0.14.tgz
+      goroot: /opt/golang/go1.20
+      mongodb_url_2204: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-6.0.6.tgz
+      mongosh_url_2204: https://downloads.mongodb.com/compass/mongosh-1.9.0-linux-x64.tgz
       node_version: 16.17.0
     modules:
       - evergreen

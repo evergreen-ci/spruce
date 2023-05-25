@@ -4,12 +4,12 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
 <div>
   <div>
     <h3
-      class="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
+      class="css-1d9n1kx-SettingsCardTitle e1h7idos1 leafygreen-ui-376vw8"
     >
       Distro Projects
     </h3>
     <div
-      class="css-133ss97-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
+      class="css-soq0i3-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
     >
       <form
         class="rjsf"
@@ -316,12 +316,12 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
 <div>
   <div>
     <h3
-      class="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
+      class="css-1d9n1kx-SettingsCardTitle e1h7idos1 leafygreen-ui-376vw8"
     >
       Admin Options
     </h3>
     <div
-      class="css-133ss97-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
+      class="css-soq0i3-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
     >
       <form
         class="rjsf"
@@ -645,12 +645,12 @@ exports[`storybook Storyshots components/SpruceForm Example 3 1`] = `
 <div>
   <div>
     <h3
-      class="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
+      class="css-1d9n1kx-SettingsCardTitle e1h7idos1 leafygreen-ui-376vw8"
     >
       UI Options
     </h3>
     <div
-      class="css-133ss97-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
+      class="css-soq0i3-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
     >
       <form
         class="rjsf"

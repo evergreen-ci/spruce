@@ -12,6 +12,7 @@ export const PatchStatusBadge: React.VFC<Props> = ({ status }) => (
 );
 
 const statusToBadgeVariant = {
+  unconfigured: Variant.LightGray,
   [PatchStatus.Created]: Variant.LightGray,
   [PatchStatus.Failed]: Variant.Red,
   [PatchStatus.Started]: Variant.Yellow,
@@ -20,6 +21,7 @@ const statusToBadgeVariant = {
 };
 
 const patchStatusToCopy = {
+  unconfigured: "Unconfigured",
   [PatchStatus.Created]: "Created",
   [PatchStatus.Failed]: "Failed",
   [PatchStatus.Started]: "Running",

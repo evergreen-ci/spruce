@@ -4,12 +4,12 @@ import {
   ScheduleTasks,
   RestartPatch,
   UnscheduleTasks,
-  SetPatchPriority,
   EnqueuePatch,
   AddNotification,
   DisableTasks,
   ScheduleUndispatchedBaseTasks,
 } from "components/PatchActionButtons";
+import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
 
 interface ActionButtonProps {
@@ -42,7 +42,7 @@ export const ActionButtons: React.VFC<ActionButtonProps> = ({
       patchId={versionId}
       disabled={!isPatch}
     />,
-    <SetPatchPriority patchId={versionId} key="priority" />,
+    <SetPriority patchId={versionId} key="priority" />,
     <EnqueuePatch
       patchId={versionId}
       commitMessage={patchDescription}
