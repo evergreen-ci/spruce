@@ -32,9 +32,20 @@ export const getHostEventString = (
   data: HostEventLogData
 ) => {
   const succeededString = "succeeded";
+  const failedString = "failed";
+
   switch (eventType) {
     case HostEvent.Created:
-      return <span data-cy="created">Host created</span>;
+      return (
+        <div data-cy="created">
+          Host creation {data.successful ? succeededString : failedString}
+          {data.logs ? (
+            <HostEventLog title="Attached logs" logs={data.logs} isCode />
+          ) : (
+            ""
+          )}
+        </div>
+      );
     case HostEvent.AgentDeployFailed:
       return <span data-cy="agent-deploy-failed">New agent deploy failed</span>;
     case HostEvent.ProvisionError:
@@ -45,21 +56,36 @@ export const getHostEventString = (
       );
     case HostEvent.Started:
       return (
-        <span data-cy="started">
-          Host start attempt {data.successful ? succeededString : ""}
-        </span>
+        <div data-cy="started">
+          Host start attempt {data.successful ? succeededString : failedString}
+          {data.logs ? (
+            <HostEventLog title="Attached logs" logs={data.logs} isCode />
+          ) : (
+            ""
+          )}
+        </div>
       );
     case HostEvent.Stopped:
       return (
-        <span data-cy="stopped">
-          Host stop attempt {data.successful ? succeededString : ""}
-        </span>
+        <div data-cy="stopped">
+          Host stop attempt {data.successful ? succeededString : failedString}
+          {data.logs ? (
+            <HostEventLog title="Attached logs" logs={data.logs} isCode />
+          ) : (
+            ""
+          )}
+        </div>
       );
     case HostEvent.Modified:
       return (
-        <span data-cy="modified">
-          Host modify attempt {data.successful ? succeededString : ""}
-        </span>
+        <div data-cy="modified">
+          Host modify attempt {data.successful ? succeededString : failedString}
+          {data.logs ? (
+            <HostEventLog title="Attached logs" logs={data.logs} isCode />
+          ) : (
+            ""
+          )}
+        </div>
       );
     case HostEvent.Fallback:
       return (
@@ -70,20 +96,16 @@ export const getHostEventString = (
     case HostEvent.AgentDeployed:
       return (
         <div data-cy="agent-deployed">
-          {" "}
           Agent deployed {data.agentRevision ? "with revision" : ""}{" "}
           <b>{data.agentRevision}</b> {data.agentBuild ? " from " : ""}
-          <b>{data.agentBuild}</b>{" "}
+          <b>{data.agentBuild}</b>
         </div>
       );
     case HostEvent.AgentMonitorDeployed:
       return (
         <div data-cy="agent-monitor-deployed">
-          {" "}
-          Agent monitor deployed {data.agentRevision
-            ? "with revision"
-            : ""}{" "}
-          <b>{data.agentRevision}</b>{" "}
+          Agent monitor deployed {data.agentRevision ? "with revision" : ""}{" "}
+          <b>{data.agentRevision}</b>
         </div>
       );
     case HostEvent.AgentMonitorDeployFailed:
@@ -95,24 +117,19 @@ export const getHostEventString = (
     case HostEvent.HostJasperRestarting:
       return (
         <div data-cy="host-jasper-restarting">
-          {" "}
           Jasper service marked as restarting {data.user ? "by" : ""}{" "}
-          <b>{data.user}</b>{" "}
+          <b>{data.user}</b>
         </div>
       );
     case HostEvent.HostJasperRestarted:
       return (
         <div data-cy="host-jasper-restarted">
-          {" "}
-          Jasper service restarted with revision<b>
-            {data.jasperRevision}
-          </b>{" "}
+          Jasper service restarted with revision<b>{data.jasperRevision}</b>
         </div>
       );
     case HostEvent.HostJasperRestartError:
       return (
         <div data-cy="host-jasper-restart-error">
-          {" "}
           Host encountered error when restarting Jasper service
           {data.logs ? (
             <HostEventLog title="Provisioning logs" logs={data.logs} isCode />
@@ -151,7 +168,6 @@ export const getHostEventString = (
     case HostEvent.HostStatusChanged:
       return (
         <div data-cy="host-status-changed">
-          {" "}
           Status changed from <b>{data.oldStatus}</b> to <b>{data.newStatus}</b>{" "}
           {data.user ? "by" : ""} <b>{data.user}</b>{" "}
           {data.logs ? (
@@ -168,14 +184,12 @@ export const getHostEventString = (
     case HostEvent.HostDNSNameSet:
       return (
         <div data-cy="host-dns-name-set">
-          {" "}
-          DNS Name set to <b>{data.hostname}</b>{" "}
+          DNS Name set to <b>{data.hostname}</b>
         </div>
       );
     case HostEvent.HostScriptExecuted:
       return (
         <div data-cy="host-script-executed">
-          {" "}
           Executed script on host
           {data.logs ? (
             <HostEventLog title="Script logs" logs={data.logs} isCode />
@@ -187,7 +201,6 @@ export const getHostEventString = (
     case HostEvent.HostScriptExecuteFailed:
       return (
         <div data-cy="host-script-execute-failed">
-          {" "}
           Failed to execute script on host
           {data.logs ? (
             <HostEventLog title="Script logs" logs={data.logs} isCode />
@@ -205,7 +218,6 @@ export const getHostEventString = (
     case HostEvent.HostRunningTaskSet:
       return (
         <div data-cy="host-running-task-set">
-          {" "}
           Assigned to run task{" "}
           <StyledRouterLink
             data-cy="host-running-task-set-link"
@@ -218,7 +230,6 @@ export const getHostEventString = (
     case HostEvent.HostRunningTaskCleared:
       return (
         <div data-cy="host-running-task-cleared">
-          {" "}
           Current running task cleared (was:
           <StyledRouterLink
             data-cy="host-running-task-cleared-link"
@@ -232,7 +243,6 @@ export const getHostEventString = (
     case HostEvent.HostMonitorFlag:
       return (
         <div data-cy="host-monitor-flag">
-          {" "}
           Flagged for termination because:{" "}
           <b>{getTerminationString(data.monitorOp)}</b>
         </div>
@@ -240,7 +250,6 @@ export const getHostEventString = (
     case HostEvent.HostProvisionFailed:
       return (
         <div data-cy="host-provision-failed">
-          {" "}
           Provisioning failed{" "}
           {data.logs ? (
             <HostEventLog title="Provisioning logs" logs={data.logs} isCode />
@@ -252,12 +261,7 @@ export const getHostEventString = (
     case HostEvent.HostTeardown:
       return (
         <div data-cy="host-teardown">
-          {" "}
-          Teardown script {data.successful ? (
-            "ran successfully"
-          ) : (
-            <b>failed</b>
-          )}{" "}
+          Teardown script {data.successful ? "ran successfully" : <b>failed</b>}{" "}
           in {stringifyNanoseconds(data.duration, true, true)}
           {data.logs ? (
             <HostEventLog title="Teardown logs" logs={data.logs} isCode />
@@ -269,7 +273,6 @@ export const getHostEventString = (
     case HostEvent.HostTaskFinished:
       return (
         <div data-cy="host-task-finished">
-          {" "}
           Task{" "}
           <StyledRouterLink
             data-cy="host-task-finished-link"

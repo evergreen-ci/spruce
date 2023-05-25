@@ -25,7 +25,7 @@ describe("Host events", () => {
       },
       {
         hostType: "stopped",
-        text: "Host stop attempt",
+        text: "Host stop attempt failed",
       },
       {
         hostType: "started",
@@ -41,7 +41,7 @@ describe("Host events", () => {
       },
       {
         hostType: "created",
-        text: "Host created",
+        text: "Host creation succeeded",
       },
       {
         hostType: "agent-monitor-deploy-failed",
@@ -57,7 +57,7 @@ describe("Host events", () => {
       },
       {
         hostType: "modified",
-        text: "Host modify attempt",
+        text: "Host modify attempt failed",
       },
       {
         hostType: "host-jasper-restarting",
@@ -145,6 +145,16 @@ describe("Host events", () => {
         hostType: "host-status-changed",
         text: "Status changed from running to unreachable by chaya.malik",
         logsTitle: "Additional details",
+      },
+      {
+        hostType: "stopped",
+        text: "Host stop attempt failed",
+        logsTitle: "Attached logs",
+      },
+      {
+        hostType: "modified",
+        text: "Host modify attempt failed",
+        logsTitle: "Attached logs",
       },
     ];
     cy.visit(pathWithEvents);
