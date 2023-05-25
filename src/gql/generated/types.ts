@@ -2828,6 +2828,8 @@ export type PatchesPagePatchesFragment = {
   filteredPatchCount: number;
   patches: Array<{
     __typename?: "Patch";
+    activated: boolean;
+    alias?: Maybe<string>;
     author: string;
     authorDisplayName: string;
     canEnqueueToCommitQueue: boolean;
@@ -8067,6 +8069,8 @@ export type ProjectPatchesQuery = {
       filteredPatchCount: number;
       patches: Array<{
         __typename?: "Patch";
+        activated: boolean;
+        alias?: Maybe<string>;
         author: string;
         authorDisplayName: string;
         canEnqueueToCommitQueue: boolean;
@@ -8173,6 +8177,8 @@ export type UserPatchesQuery = {
       filteredPatchCount: number;
       patches: Array<{
         __typename?: "Patch";
+        activated: boolean;
+        alias?: Maybe<string>;
         author: string;
         authorDisplayName: string;
         canEnqueueToCommitQueue: boolean;
