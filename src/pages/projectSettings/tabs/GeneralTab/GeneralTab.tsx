@@ -74,16 +74,16 @@ export const GeneralTab: React.VFC<TabProps> = ({
 
 const validate = (projectType: ProjectType) =>
   ((formData, errors) => {
+    // Ensure that both attached and unattached projects have a branch specified if they are enabled.
+    if (projectType === ProjectType.Repo) {
+      return errors;
+    }
+
     const {
       generalConfiguration: { enabled, branch },
     } = formData;
 
-    // Repos don't use the enabled field and are always considered enabled, so don't check for it.
-    const invalidRepoBranch = projectType === ProjectType.Repo && !branch;
-    const invalidProjectBranch =
-      projectType === ProjectType.Project && enabled && !branch;
-
-    if (invalidRepoBranch || invalidProjectBranch) {
+    if (enabled && !branch) {
       errors.generalConfiguration.branch.addError(
         "A branch is required for enabled projects."
       );
