@@ -12,6 +12,7 @@ import {
 import { fontSize, size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useDateFormat } from "hooks";
+import { PatchStatus } from "types/patch";
 import { Unpacked } from "types/utils";
 import { isPatchUnconfigured } from "utils/patch";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
@@ -109,10 +110,13 @@ export const PatchCard: React.VFC<Props> = ({
       </Left>
       <Center>
         <PatchBadgeContainer>
-          {!isUnconfigured && (
-            <PatchStatusBadge status={versionFull?.status ?? status} />
-          )}
-          {isUnconfigured && <PatchStatusBadge status="unconfigured" />}
+          <PatchStatusBadge
+            status={
+              isUnconfigured
+                ? PatchStatus.Unconfigured
+                : versionFull?.status ?? status
+            }
+          />
         </PatchBadgeContainer>
         <TaskBadgeContainer>{badges}</TaskBadgeContainer>
       </Center>
