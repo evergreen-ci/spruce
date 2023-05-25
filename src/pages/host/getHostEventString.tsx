@@ -124,7 +124,7 @@ export const getHostEventString = (
     case HostEvent.HostJasperRestarted:
       return (
         <div data-cy="host-jasper-restarted">
-          Jasper service restarted with revision<b>{data.jasperRevision}</b>
+          Jasper service restarted with revision <b>{data.jasperRevision}</b>
         </div>
       );
     case HostEvent.HostJasperRestartError:
