@@ -1,6 +1,8 @@
 fragment PatchesPagePatches on Patches {
   filteredPatchCount
   patches {
+    activated
+    alias
     author
     authorDisplayName
     canEnqueueToCommitQueue

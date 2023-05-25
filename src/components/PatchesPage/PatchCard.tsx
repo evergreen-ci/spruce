@@ -12,7 +12,9 @@ import {
 import { fontSize, size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useDateFormat } from "hooks";
+import { PatchStatus } from "types/patch";
 import { Unpacked } from "types/utils";
+import { isPatchUnconfigured } from "utils/patch";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
 
 import { DropdownMenu } from "./patchCard/DropdownMenu";
@@ -34,19 +36,21 @@ interface Props extends PatchProps {
 }
 
 export const PatchCard: React.VFC<Props> = ({
-  id,
-  description,
-  createTime,
+  activated,
+  alias,
+  analyticsObject,
   author,
   authorDisplayName,
-  projectIdentifier,
-  status,
-  pageType,
   canEnqueueToCommitQueue,
+  createTime,
+  description,
+  id,
   isPatchOnCommitQueue,
-  analyticsObject,
-  versionFull,
+  pageType,
+  projectIdentifier,
   projectMetadata,
+  status,
+  versionFull,
 }) => {
   const createDate = new Date(createTime);
   const getDateCopy = useDateFormat();
@@ -54,7 +58,7 @@ export const PatchCard: React.VFC<Props> = ({
   const { stats } = groupStatusesByUmbrellaStatus(
     taskStatusStats?.counts ?? []
   );
-
+  const isUnconfigured = isPatchUnconfigured({ alias, activated });
   let patchProject = null;
   if (pageType === "project") {
     patchProject = (
@@ -106,7 +110,13 @@ export const PatchCard: React.VFC<Props> = ({
       </Left>
       <Center>
         <PatchBadgeContainer>
-          <PatchStatusBadge status={versionFull?.status ?? status} />
+          <PatchStatusBadge
+            status={
+              isUnconfigured
+                ? PatchStatus.Unconfigured
+                : versionFull?.status ?? status
+            }
+          />
         </PatchBadgeContainer>
         <TaskBadgeContainer>{badges}</TaskBadgeContainer>
       </Center>
