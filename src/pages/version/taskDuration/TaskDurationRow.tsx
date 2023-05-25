@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Row, Cell } from "@leafygreen-ui/table";
 import { Description } from "@leafygreen-ui/typography";
-import { TaskLink } from "components/Table/TaskLink";
+import { TaskLink } from "components/TasksTable/TaskLink";
 import TaskStatusBadge from "components/TaskStatusBadge";
 import {
   mapTaskToBarchartColor,

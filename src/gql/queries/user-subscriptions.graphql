@@ -1,0 +1,38 @@
+query UserSubscriptions {
+  user {
+    subscriptions {
+      id
+      ownerType
+      regexSelectors {
+        data
+        type
+      }
+      resourceType
+      selectors {
+        data
+        type
+      }
+      subscriber {
+        subscriber {
+          emailSubscriber
+          jiraCommentSubscriber
+          slackSubscriber
+        }
+        type
+      }
+      trigger
+      triggerData
+    }
+    userId
+  }
+  userSettings {
+    notifications {
+      buildBreakId
+      commitQueueId
+      patchFinishId
+      patchFirstFailureId
+      spawnHostExpirationId
+      spawnHostOutcomeId
+    }
+  }
+}

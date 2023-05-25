@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
 import { usePreferencesAnalytics } from "analytics";
+import { SettingsCard } from "components/SettingsCard";
 import { SpruceForm } from "components/SpruceForm";
 import { timeZones, dateFormats } from "constants/fieldMaps";
 import { useToastContext } from "context/toast";
@@ -16,7 +17,6 @@ import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { GET_AWS_REGIONS } from "gql/queries";
 import { useUserSettings } from "hooks";
 import { omitTypename } from "utils/string";
-import { PreferencesCard } from "../Card";
 
 export const ProfileTab: React.VFC = () => {
   const { sendEvent } = usePreferencesAnalytics();
@@ -88,7 +88,7 @@ export const ProfileTab: React.VFC = () => {
   }
 
   return (
-    <PreferencesCard>
+    <SettingsCard>
       <ContentWrapper>
         <SpruceForm
           onChange={({ formData, errors }) => {
@@ -162,7 +162,7 @@ export const ProfileTab: React.VFC = () => {
           Save Changes
         </Button>
       </ContentWrapper>
-    </PreferencesCard>
+    </SettingsCard>
   );
 };
 

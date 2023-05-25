@@ -1,5 +1,5 @@
 import { StoryObj } from "@storybook/react";
-import { TasksTable } from "./TasksTable";
+import TasksTable from ".";
 
 export default {
   component: TasksTable,

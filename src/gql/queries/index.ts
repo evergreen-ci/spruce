@@ -72,6 +72,7 @@ import GET_SPAWN_TASK from "./spawn-task.graphql";
 import GET_SUBNET_AVAILABILITY_ZONES from "./subnet-availability-zones.graphql";
 import TASK_QUEUE_DISTROS from "./task-queue-distros.graphql";
 import GET_USER_PATCHES from "./user-patches.graphql";
+import USER_SUBSCRIPTIONS from "./user-subscriptions.graphql";
 
 export {
   DISTRO_TASK_QUEUE,
@@ -148,4 +149,5 @@ export {
   GET_VIEWABLE_PROJECTS,
   HOSTS,
   TASK_QUEUE_DISTROS,
+  USER_SUBSCRIPTIONS,
 };
