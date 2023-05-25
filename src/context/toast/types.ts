@@ -2,7 +2,7 @@ import { Variant } from "@leafygreen-ui/toast";
 
 type ToastVariant = "success" | "warning" | "error" | "info" | "progress";
 
-type VisibleToast = {
+type ToastParams = {
   variant: Variant;
   message: string;
   closable: boolean;
@@ -34,8 +34,8 @@ type DispatchToastWithProgress = (
 ) => void;
 
 export type {
-  ToastVariant,
-  VisibleToast,
   DispatchToast,
   DispatchToastWithProgress,
+  ToastVariant,
+  ToastParams,
 };
