@@ -39,10 +39,8 @@ export const getHostEventString = (
       return (
         <div data-cy="created">
           Host creation {data.successful ? succeededString : failedString}
-          {data.logs ? (
-            <HostEventLog title="Attached logs" logs={data.logs} isCode />
-          ) : (
-            ""
+          {data.logs && (
+            <HostEventLog title="Additional details" logs={data.logs} isCode />
           )}
         </div>
       );
@@ -58,10 +56,8 @@ export const getHostEventString = (
       return (
         <div data-cy="started">
           Host start attempt {data.successful ? succeededString : failedString}
-          {data.logs ? (
-            <HostEventLog title="Attached logs" logs={data.logs} isCode />
-          ) : (
-            ""
+          {data.logs && (
+            <HostEventLog title="Additional details" logs={data.logs} isCode />
           )}
         </div>
       );
@@ -69,10 +65,8 @@ export const getHostEventString = (
       return (
         <div data-cy="stopped">
           Host stop attempt {data.successful ? succeededString : failedString}
-          {data.logs ? (
-            <HostEventLog title="Attached logs" logs={data.logs} isCode />
-          ) : (
-            ""
+          {data.logs && (
+            <HostEventLog title="Additional details" logs={data.logs} isCode />
           )}
         </div>
       );
@@ -80,10 +74,8 @@ export const getHostEventString = (
       return (
         <div data-cy="modified">
           Host modify attempt {data.successful ? succeededString : failedString}
-          {data.logs ? (
-            <HostEventLog title="Attached logs" logs={data.logs} isCode />
-          ) : (
-            ""
+          {data.logs && (
+            <HostEventLog title="Additional details" logs={data.logs} isCode />
           )}
         </div>
       );
@@ -131,10 +123,8 @@ export const getHostEventString = (
       return (
         <div data-cy="host-jasper-restart-error">
           Host encountered error when restarting Jasper service
-          {data.logs ? (
+          {data.logs && (
             <HostEventLog title="Provisioning logs" logs={data.logs} isCode />
-          ) : (
-            ""
           )}
         </div>
       );
@@ -158,10 +148,8 @@ export const getHostEventString = (
       return (
         <div data-cy="host-converting-provisioning-error">
           Host encountered error when converting reprovisioning
-          {data.logs ? (
+          {data.logs && (
             <HostEventLog title="Provisioning logs" logs={data.logs} isCode />
-          ) : (
-            ""
           )}
         </div>
       );
@@ -170,14 +158,12 @@ export const getHostEventString = (
         <div data-cy="host-status-changed">
           Status changed from <b>{data.oldStatus}</b> to <b>{data.newStatus}</b>{" "}
           {data.user ? "by" : ""} <b>{data.user}</b>{" "}
-          {data.logs ? (
+          {data.logs && (
             <HostEventLog
               title="Additional details"
               logs={data.logs}
               isCode={false}
             />
-          ) : (
-            ""
           )}
         </div>
       );
@@ -191,10 +177,8 @@ export const getHostEventString = (
       return (
         <div data-cy="host-script-executed">
           Executed script on host
-          {data.logs ? (
+          {data.logs && (
             <HostEventLog title="Script logs" logs={data.logs} isCode />
-          ) : (
-            ""
           )}
         </div>
       );
@@ -202,10 +186,8 @@ export const getHostEventString = (
       return (
         <div data-cy="host-script-execute-failed">
           Failed to execute script on host
-          {data.logs ? (
+          {data.logs && (
             <HostEventLog title="Script logs" logs={data.logs} isCode />
-          ) : (
-            ""
           )}
         </div>
       );
@@ -251,10 +233,8 @@ export const getHostEventString = (
       return (
         <div data-cy="host-provision-failed">
           Provisioning failed{" "}
-          {data.logs ? (
+          {data.logs && (
             <HostEventLog title="Provisioning logs" logs={data.logs} isCode />
-          ) : (
-            ""
           )}
         </div>
       );
@@ -263,10 +243,8 @@ export const getHostEventString = (
         <div data-cy="host-teardown">
           Teardown script {data.successful ? "ran successfully" : <b>failed</b>}{" "}
           in {stringifyNanoseconds(data.duration, true, true)}
-          {data.logs ? (
+          {data.logs && (
             <HostEventLog title="Teardown logs" logs={data.logs} isCode />
-          ) : (
-            ""
           )}
         </div>
       );

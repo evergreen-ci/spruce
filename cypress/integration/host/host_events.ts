@@ -149,12 +149,12 @@ describe("Host events", () => {
       {
         hostType: "stopped",
         text: "Host stop attempt failed",
-        logsTitle: "Attached logs",
+        logsTitle: "Additional details",
       },
       {
         hostType: "modified",
         text: "Host modify attempt failed",
-        logsTitle: "Attached logs",
+        logsTitle: "Additional details",
       },
     ];
     cy.visit(pathWithEvents);
