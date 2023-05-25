@@ -22,7 +22,6 @@ fragment ProjectGeneralSettings on Project {
 
 fragment RepoGeneralSettings on RepoRef {
   batchTime
-  branch
   deactivatePrevious
   disabledStatsCache
   dispatchingDisabled

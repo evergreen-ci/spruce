@@ -7,6 +7,7 @@ export enum PatchPageQueryParams {
 }
 
 export enum PatchStatus {
+  Unconfigured = "unconfigured",
   Created = "created",
   Failed = "failed",
   Started = "started",

@@ -137,7 +137,6 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     id: "123",
     owner: "evergreen-ci",
     repo: "spruce",
-    branch: "main",
     displayName: "",
     batchTime: 12,
     remotePath: "evergreen.yml",

@@ -43,7 +43,6 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
 
   const projectId = projectData?.projectRef?.id;
   const repoId = repoData?.projectRef?.id;
-  const repoBranch = repoData?.projectRef?.branch;
   const identifier = projectData?.projectRef?.identifier;
 
   const tabData = useMemo(
@@ -91,7 +90,7 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
           path={ProjectSettingsTabRoutes.Variables}
           element={
             <VariablesTab
-              identifier={identifier || repoBranch}
+              identifier={identifier || repoId}
               projectData={
                 tabData[ProjectSettingsTabRoutes.Variables].projectData
               }
@@ -108,7 +107,7 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
                 projectData?.githubWebhooksEnabled ||
                 repoData?.githubWebhooksEnabled
               }
-              identifier={identifier || repoBranch}
+              identifier={identifier || repoId}
               projectData={
                 tabData[ProjectSettingsTabRoutes.GithubCommitQueue].projectData
               }
@@ -167,7 +166,7 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
           path={ProjectSettingsTabRoutes.VirtualWorkstation}
           element={
             <VirtualWorkstationTab
-              identifier={identifier || repoBranch}
+              identifier={identifier || repoId}
               projectData={
                 tabData[ProjectSettingsTabRoutes.VirtualWorkstation].projectData
               }
@@ -183,7 +182,7 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
             path={ProjectSettingsTabRoutes.Containers}
             element={
               <ContainersTab
-                identifier={identifier || repoBranch}
+                identifier={identifier || repoId}
                 projectData={
                   tabData[ProjectSettingsTabRoutes.Containers].projectData
                 }

@@ -133,7 +133,7 @@ describe("My Patches Page", () => {
     });
 
     const statuses = [
-      { display: "Created", key: "created" },
+      { display: "Created/Unconfigured", key: "created" },
       { display: "Running", key: "started" },
       { display: "Succeeded", key: "succeeded" },
       { display: "Failed", key: "failed" },

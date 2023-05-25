@@ -29,7 +29,10 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
         owner: projectRef.owner,
         repo: projectRef.repo,
       },
-      branch: projectRef.branch,
+      ...(projectType !== ProjectType.Repo &&
+        "branch" in projectRef && {
+          branch: projectRef.branch,
+        }),
       other: {
         displayName: projectRef.displayName,
         ...(projectType !== ProjectType.Repo &&
@@ -82,7 +85,9 @@ export const formToGql: FormToGqlFunction<Tab> = (
     }),
     owner: generalConfiguration.repositoryInfo.owner,
     repo: generalConfiguration.repositoryInfo.repo,
-    branch: generalConfiguration.branch,
+    ...("branch" in generalConfiguration && {
+      branch: generalConfiguration.branch,
+    }),
     displayName: generalConfiguration.other.displayName,
     ...(generalConfiguration.other.identifier && {
       identifier: generalConfiguration.other.identifier,
