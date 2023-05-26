@@ -1,5 +1,4 @@
-import styled from "@emotion/styled";
-import { StyledRouterLink } from "components/styles";
+import { AbbreviatedRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { PodEventsQuery } from "gql/generated/types";
 import { PodEvent } from "types/pod";
@@ -13,12 +12,12 @@ export const getEventCopy = (
 ) => {
   const { eventType, data } = event;
   const taskLink = (
-    <StyledLink
+    <AbbreviatedRouterLink
       title={data.taskID}
       to={getTaskRoute(data.taskID, { execution: data.taskExecution })}
     >
       {data.taskID}
-    </StyledLink>
+    </AbbreviatedRouterLink>
   );
   switch (eventType) {
     case PodEvent.StatusChange:
@@ -45,11 +44,3 @@ export const getEventCopy = (
       return null;
   }
 };
-
-const StyledLink = styled(StyledRouterLink)`
-  span {
-    max-width: 300px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-`;
