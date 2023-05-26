@@ -431,7 +431,7 @@ export const gitTagArray = {
         gitTag: gitTag.schema,
         specifier: {
           type: "string" as "string",
-          title: "Specify Via",
+          title: "",
           default: GitTagSpecifier.ConfigFile,
           oneOf: [
             {
