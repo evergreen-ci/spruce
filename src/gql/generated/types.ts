@@ -688,6 +688,7 @@ export type Mutation = {
   deactivateStepbackTask: Scalars["Boolean"];
   defaultSectionToRepo?: Maybe<Scalars["String"]>;
   deleteProject: Scalars["Boolean"];
+  deleteSubscriptions: Scalars["Int"];
   detachProjectFromRepo: Project;
   detachVolumeFromHost: Scalars["Boolean"];
   editAnnotationNote: Scalars["Boolean"];
@@ -789,6 +790,10 @@ export type MutationDefaultSectionToRepoArgs = {
 
 export type MutationDeleteProjectArgs = {
   projectId: Scalars["String"];
+};
+
+export type MutationDeleteSubscriptionsArgs = {
+  subscriptionIds: Array<Scalars["String"]>;
 };
 
 export type MutationDetachProjectFromRepoArgs = {
@@ -1150,6 +1155,7 @@ export type PeriodicBuild = {
   __typename?: "PeriodicBuild";
   alias: Scalars["String"];
   configFile: Scalars["String"];
+  cron: Scalars["String"];
   id: Scalars["String"];
   intervalHours: Scalars["Int"];
   message: Scalars["String"];
@@ -1159,6 +1165,7 @@ export type PeriodicBuild = {
 export type PeriodicBuildInput = {
   alias: Scalars["String"];
   configFile: Scalars["String"];
+  cron?: InputMaybe<Scalars["String"]>;
   id: Scalars["String"];
   intervalHours: Scalars["Int"];
   message: Scalars["String"];
@@ -1649,7 +1656,6 @@ export type RepoRef = {
   __typename?: "RepoRef";
   admins: Array<Scalars["String"]>;
   batchTime: Scalars["Int"];
-  branch: Scalars["String"];
   buildBaronSettings: BuildBaronSettings;
   commitQueue: RepoCommitQueueParams;
   containerSizeDefinitions?: Maybe<Array<ContainerResources>>;
@@ -1691,7 +1697,6 @@ export type RepoRef = {
 export type RepoRefInput = {
   admins?: InputMaybe<Array<Scalars["String"]>>;
   batchTime?: InputMaybe<Scalars["Int"]>;
-  branch?: InputMaybe<Scalars["String"]>;
   buildBaronSettings?: InputMaybe<BuildBaronSettingsInput>;
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
   containerSizeDefinitions?: InputMaybe<Array<ContainerResourcesInput>>;
