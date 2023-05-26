@@ -8,6 +8,7 @@ query HostEvents($id: String!, $tag: String!, $limit: Int, $page: Int) {
         duration
         execution
         hostname
+        jasperRevision
         logs
         monitorOp
         newStatus
