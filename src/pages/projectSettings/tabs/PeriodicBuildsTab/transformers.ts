@@ -13,7 +13,9 @@ const { omitTypename } = string;
 
 type Tab = ProjectSettingsTabRoutes.PeriodicBuilds;
 
-const getTitle = (definition: PeriodicBuild) => {
+const getTitle = (
+  definition: Pick<PeriodicBuild, "message" | "intervalHours">
+) => {
   if (!definition) {
     return "";
   }
