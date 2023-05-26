@@ -30,6 +30,9 @@ export const getTabTitle = (
       [ProjectSettingsTabRoutes.Containers]: {
         title: "Containers",
       },
+      [ProjectSettingsTabRoutes.ViewsAndFilters]: {
+        title: "Views & Filters",
+      },
       [ProjectSettingsTabRoutes.ProjectTriggers]: {
         title: "Project Triggers",
       },
