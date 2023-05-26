@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import { Link as LGLink } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 
@@ -20,3 +21,11 @@ export const StyledLink = (props) => (
 );
 
 export const StyledRouterLink = (props) => <StyledLink as={Link} {...props} />;
+
+export const AbbreviatedRouterLink = styled(StyledRouterLink)`
+  span {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
