@@ -64,7 +64,7 @@ export const gqlToForm = ((
                 }
               : {
                   specifier: IntervalSpecifier.Cron,
-                  intervalHours: 0,
+                  intervalHours: null,
                   cron,
                 },
         })
