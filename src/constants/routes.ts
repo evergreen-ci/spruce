@@ -37,6 +37,7 @@ export enum ProjectSettingsTabRoutes {
   Plugins = "plugins",
   EventLog = "event-log",
   Containers = "containers",
+  ViewsAndFilters = "views-and-filters",
 }
 
 const paths = {

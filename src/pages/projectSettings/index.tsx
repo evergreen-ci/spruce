@@ -164,6 +164,13 @@ const ProjectSettings: React.VFC = () => {
               tab={ProjectSettingsTabRoutes.Containers}
             />
           )}
+          {/* Views and filters are not available at the repo level at this time. */}
+          {!isProduction() && projectType !== ProjectType.Repo && (
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.ViewsAndFilters}
+            />
+          )}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.ProjectTriggers}
