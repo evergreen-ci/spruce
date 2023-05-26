@@ -11,6 +11,10 @@ import { HeaderButtons } from "./HeaderButtons";
 import { readOnlyTabs, WritableTabRoutes } from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
 
+const notAvailableAtRepoLevel: Set<ProjectSettingsTabRoutes> = new Set([
+  ProjectSettingsTabRoutes.ViewsAndFilters,
+]);
+
 interface Props {
   attachedRepoId?: string;
   id: string;
@@ -26,12 +30,13 @@ export const Header: React.VFC<Props> = ({
 }) => {
   const { title } = getTabTitle(tab);
   const saveable = !(readOnlyTabs as ReadonlyArray<string>).includes(tab);
+  const showRepoLink = !notAvailableAtRepoLevel.has(tab);
 
   return (
     <Container>
       <TitleContainer>
         <H2 data-cy="project-settings-tab-title">{title}</H2>
-        {projectType === ProjectType.AttachedProject && (
+        {projectType === ProjectType.AttachedProject && showRepoLink && (
           <StyledRouterLink
             to={getProjectSettingsRoute(attachedRepoId, tab)}
             data-cy="attached-repo-link"

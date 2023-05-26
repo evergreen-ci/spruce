@@ -6,9 +6,9 @@ import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { isProduction } from "utils/environmentVariables";
 import { useProjectSettingsContext } from "./Context";
 import { Header } from "./Header";
-import { ContainersTab } from "./tabs/ContainersTab/ContainersTab";
 import {
   AccessTab,
+  ContainersTab,
   EventLogTab,
   GeneralTab,
   GithubCommitQueueTab,
@@ -18,6 +18,7 @@ import {
   ProjectTriggersTab,
   VariablesTab,
   PluginsTab,
+  ViewsAndFiltersTab,
   VirtualWorkstationTab,
 } from "./tabs/index";
 import { gqlToFormMap } from "./tabs/transformers";
@@ -188,6 +189,20 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
                 }
                 projectType={projectType}
                 repoData={tabData[ProjectSettingsTabRoutes.Containers].repoData}
+              />
+            }
+          />
+        )}
+        {!isProduction() && (
+          <Route
+            path={ProjectSettingsTabRoutes.ViewsAndFilters}
+            element={
+              <ViewsAndFiltersTab
+                identifier={identifier}
+                projectData={
+                  tabData[ProjectSettingsTabRoutes.ViewsAndFilters].projectData
+                }
+                projectType={projectType}
               />
             }
           />

@@ -17,6 +17,7 @@ import * as plugins from "./PluginsTab/types";
 import * as projectTriggers from "./ProjectTriggersTab/types";
 import { ProjectType } from "./utils";
 import * as variables from "./VariablesTab/types";
+import * as viewsAndFilters from "./ViewsAndFiltersTab/types";
 import * as virtualWorkstation from "./VirtualWorkstationTab/types";
 
 export type FormStateMap = {
@@ -31,6 +32,7 @@ export type FormStateMap = {
   [ProjectSettingsTabRoutes.ProjectTriggers]: projectTriggers.FormState;
   [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.FormState;
   [ProjectSettingsTabRoutes.Containers]: containers.FormState;
+  [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.FormState;
 };
 
 export type GetFormSchema = (...any) => {
