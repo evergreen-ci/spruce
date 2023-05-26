@@ -259,7 +259,7 @@ export const getHostEventString = (
             {shortenString(data.taskId, false, 50, "...")}
           </StyledRouterLink>{" "}
           completed with status:
-          <b> {data.taskStatus}</b>{" "}
+          <b> {data.taskStatus}</b>
         </div>
       );
     case HostEvent.HostExpirationWarningSet:
