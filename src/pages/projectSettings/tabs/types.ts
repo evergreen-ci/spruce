@@ -65,3 +65,7 @@ export const readOnlyTabs = [ProjectSettingsTabRoutes.EventLog] as const;
 type ReadOnlyTabs = (typeof readOnlyTabs)[number];
 
 export type WritableTabRoutes = Exclude<ProjectSettingsTabRoutes, ReadOnlyTabs>;
+
+export const projectOnlyTabs: Set<ProjectSettingsTabRoutes> = new Set([
+  ProjectSettingsTabRoutes.ViewsAndFilters,
+]);

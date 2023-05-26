@@ -6,5 +6,4 @@ export type TabProps = {
   identifier: string;
   projectData?: FormState;
   projectType: ProjectType;
-  repoData?: FormState;
 };

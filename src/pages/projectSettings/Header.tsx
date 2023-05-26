@@ -8,12 +8,8 @@ import {
 import { size } from "constants/tokens";
 import { getTabTitle } from "./getTabTitle";
 import { HeaderButtons } from "./HeaderButtons";
-import { readOnlyTabs, WritableTabRoutes } from "./tabs/types";
+import { projectOnlyTabs, readOnlyTabs, WritableTabRoutes } from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
-
-const notAvailableAtRepoLevel: Set<ProjectSettingsTabRoutes> = new Set([
-  ProjectSettingsTabRoutes.ViewsAndFilters,
-]);
 
 interface Props {
   attachedRepoId?: string;
@@ -30,7 +26,7 @@ export const Header: React.VFC<Props> = ({
 }) => {
   const { title } = getTabTitle(tab);
   const saveable = !(readOnlyTabs as ReadonlyArray<string>).includes(tab);
-  const showRepoLink = !notAvailableAtRepoLevel.has(tab);
+  const showRepoLink = !projectOnlyTabs.has(tab);
 
   return (
     <Container>
