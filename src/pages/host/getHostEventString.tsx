@@ -1,12 +1,12 @@
 import Code from "@leafygreen-ui/code";
 import { Accordion } from "components/Accordion";
-import { StyledRouterLink } from "components/styles";
+import { AbbreviatedRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { HostEventLogData } from "gql/generated/types";
 import { HostEvent, HostMonitorOp } from "types/host";
 import { string } from "utils";
 
-const { stringifyNanoseconds, shortenString } = string;
+const { stringifyNanoseconds } = string;
 
 const getTerminationString = (monitorOp: string) => {
   switch (monitorOp) {
@@ -27,6 +27,19 @@ const getTerminationString = (monitorOp: string) => {
   }
 };
 
+interface TaskLinkProps {
+  "data-cy": string;
+  taskId: string;
+}
+const TaskLink: React.VFC<TaskLinkProps> = ({ "data-cy": dataCy, taskId }) => (
+  <AbbreviatedRouterLink
+    data-cy={dataCy}
+    title={taskId}
+    to={getTaskRoute(taskId)}
+  >
+    {taskId}
+  </AbbreviatedRouterLink>
+);
 export const getHostEventString = (
   eventType: string,
   data: HostEventLogData
@@ -105,6 +118,7 @@ export const getHostEventString = (
         <div data-cy="host-jasper-restarted">
           {" "}
           Jasper service restarted with revision<b>
+            {" "}
             {data.jasperRevision}
           </b>{" "}
         </div>
@@ -207,25 +221,18 @@ export const getHostEventString = (
         <div data-cy="host-running-task-set">
           {" "}
           Assigned to run task{" "}
-          <StyledRouterLink
-            data-cy="host-running-task-set-link"
-            to={getTaskRoute(data.taskId)}
-          >
-            {shortenString(data.taskId, false, 50, "...")}
-          </StyledRouterLink>
+          <TaskLink taskId={data.taskId} data-cy="host-running-task-set-link" />
         </div>
       );
     case HostEvent.HostRunningTaskCleared:
       return (
         <div data-cy="host-running-task-cleared">
           {" "}
-          Current running task cleared (was:
-          <StyledRouterLink
+          Current running task cleared (was:{" "}
+          <TaskLink
+            taskId={data.taskId}
             data-cy="host-running-task-cleared-link"
-            to={getTaskRoute(data.taskId)}
-          >
-            {shortenString(data.taskId, false, 50, "...")}
-          </StyledRouterLink>
+          />
           )
         </div>
       );
@@ -271,12 +278,10 @@ export const getHostEventString = (
         <div data-cy="host-task-finished">
           {" "}
           Task{" "}
-          <StyledRouterLink
+          <TaskLink
+            taskId={data.taskId}
             data-cy="host-task-finished-link"
-            to={getTaskRoute(data.taskId)}
-          >
-            {shortenString(data.taskId, false, 50, "...")}
-          </StyledRouterLink>{" "}
+          />{" "}
           completed with status:
           <b> {data.taskStatus}</b>{" "}
         </div>
