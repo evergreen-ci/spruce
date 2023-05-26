@@ -14,6 +14,7 @@ import {
   WritableTabRoutes,
 } from "./types";
 import * as variables from "./VariablesTab/transformers";
+import * as viewsAndFilters from "./ViewsAndFiltersTab/transformers";
 import * as virtualWorkstation from "./VirtualWorkstationTab/transformers";
 
 export const gqlToFormMap: {
@@ -30,6 +31,7 @@ export const gqlToFormMap: {
   [ProjectSettingsTabRoutes.ProjectTriggers]: projectTriggers.gqlToForm,
   [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.gqlToForm,
   [ProjectSettingsTabRoutes.Containers]: containers.gqlToForm,
+  [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.gqlToForm,
 };
 
 export const formToGqlMap: {
@@ -46,4 +48,5 @@ export const formToGqlMap: {
   [ProjectSettingsTabRoutes.ProjectTriggers]: projectTriggers.formToGql,
   [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.formToGql,
   [ProjectSettingsTabRoutes.Containers]: containers.formToGql,
+  [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.formToGql,
 };

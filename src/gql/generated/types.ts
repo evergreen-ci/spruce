@@ -2933,7 +2933,6 @@ export type ProjectGeneralSettingsFragment = {
 export type RepoGeneralSettingsFragment = {
   __typename?: "RepoRef";
   batchTime: number;
-  branch: string;
   deactivatePrevious: boolean;
   disabledStatsCache: boolean;
   dispatchingDisabled: boolean;
@@ -3287,7 +3286,6 @@ export type RepoSettingsFieldsFragment = {
     admins: Array<string>;
     restricted: boolean;
     batchTime: number;
-    branch: string;
     deactivatePrevious: boolean;
     disabledStatsCache: boolean;
     dispatchingDisabled: boolean;
@@ -7081,7 +7079,6 @@ export type RepoSettingsQuery = {
       admins: Array<string>;
       restricted: boolean;
       batchTime: number;
-      branch: string;
       deactivatePrevious: boolean;
       disabledStatsCache: boolean;
       dispatchingDisabled: boolean;

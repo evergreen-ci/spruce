@@ -6,9 +6,9 @@ import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { isProduction } from "utils/environmentVariables";
 import { useProjectSettingsContext } from "./Context";
 import { Header } from "./Header";
-import { ContainersTab } from "./tabs/ContainersTab/ContainersTab";
 import {
   AccessTab,
+  ContainersTab,
   EventLogTab,
   GeneralTab,
   GithubCommitQueueTab,
@@ -18,6 +18,7 @@ import {
   ProjectTriggersTab,
   VariablesTab,
   PluginsTab,
+  ViewsAndFiltersTab,
   VirtualWorkstationTab,
 } from "./tabs/index";
 import { gqlToFormMap } from "./tabs/transformers";
@@ -43,7 +44,6 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
 
   const projectId = projectData?.projectRef?.id;
   const repoId = repoData?.projectRef?.id;
-  const repoBranch = repoData?.projectRef?.branch;
   const identifier = projectData?.projectRef?.identifier;
 
   const tabData = useMemo(
@@ -91,7 +91,7 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
           path={ProjectSettingsTabRoutes.Variables}
           element={
             <VariablesTab
-              identifier={identifier || repoBranch}
+              identifier={identifier || repoId}
               projectData={
                 tabData[ProjectSettingsTabRoutes.Variables].projectData
               }
@@ -108,7 +108,7 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
                 projectData?.githubWebhooksEnabled ||
                 repoData?.githubWebhooksEnabled
               }
-              identifier={identifier || repoBranch}
+              identifier={identifier || repoId}
               projectData={
                 tabData[ProjectSettingsTabRoutes.GithubCommitQueue].projectData
               }
@@ -167,7 +167,7 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
           path={ProjectSettingsTabRoutes.VirtualWorkstation}
           element={
             <VirtualWorkstationTab
-              identifier={identifier || repoBranch}
+              identifier={identifier || repoId}
               projectData={
                 tabData[ProjectSettingsTabRoutes.VirtualWorkstation].projectData
               }
@@ -183,12 +183,26 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
             path={ProjectSettingsTabRoutes.Containers}
             element={
               <ContainersTab
-                identifier={identifier || repoBranch}
+                identifier={identifier || repoId}
                 projectData={
                   tabData[ProjectSettingsTabRoutes.Containers].projectData
                 }
                 projectType={projectType}
                 repoData={tabData[ProjectSettingsTabRoutes.Containers].repoData}
+              />
+            }
+          />
+        )}
+        {!isProduction() && (
+          <Route
+            path={ProjectSettingsTabRoutes.ViewsAndFilters}
+            element={
+              <ViewsAndFiltersTab
+                identifier={identifier}
+                projectData={
+                  tabData[ProjectSettingsTabRoutes.ViewsAndFilters].projectData
+                }
+                projectType={projectType}
               />
             }
           />
