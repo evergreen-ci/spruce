@@ -1,41 +1,30 @@
 import { Variant } from "@leafygreen-ui/toast";
-import { InvertedObject } from "types/utils";
 import { ToastVariant } from "./types";
 
-const mapToastToLeafyGreenVariant: {
-  [key in ToastVariant]: Variant;
-} = {
-  success: Variant.Success,
-  warning: Variant.Important,
-  error: Variant.Warning,
-  info: Variant.Note,
-  progress: Variant.Progress,
+type VariantMapping<P> = {
+  [K in (typeof Variant)[keyof typeof Variant]]: P;
 };
-
-const mapLeafyGreenVariantToToast: InvertedObject<
-  typeof mapToastToLeafyGreenVariant
-> = {
-  [Variant.Success]: "success",
+const mapLeafyGreenVariantToToast: VariantMapping<ToastVariant> = {
   [Variant.Important]: "warning",
-  [Variant.Warning]: "error",
   [Variant.Note]: "info",
   [Variant.Progress]: "progress",
+  [Variant.Success]: "success",
+  [Variant.Warning]: "error",
 };
 
-const mapVariantToTitle = {
-  [Variant.Success]: "Success!",
+const mapLeafyGreenVariantToTitle: VariantMapping<string> = {
   [Variant.Important]: "Warning!",
-  [Variant.Warning]: "Error!",
   [Variant.Note]: "Something Happened!",
   [Variant.Progress]: "Loading...",
+  [Variant.Success]: "Success!",
+  [Variant.Warning]: "Error!",
 };
 
 const SECOND = 1000;
 const TOAST_TIMEOUT = 30 * SECOND;
 
 export {
-  mapToastToLeafyGreenVariant,
   mapLeafyGreenVariantToToast,
-  mapVariantToTitle,
+  mapLeafyGreenVariantToTitle,
   TOAST_TIMEOUT,
 };

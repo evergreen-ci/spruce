@@ -4692,19 +4692,20 @@
     "@leafygreen-ui/tokens" "^2.0.0"
     "@leafygreen-ui/typography" "^16.0.0"
 
-"@leafygreen-ui/toast@4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/toast/-/toast-4.0.1.tgz#586104255f772cc5ef092da172b4f4bed5c2b807"
-  integrity sha512-5Gi/5mgjEXd4vlfNTFxyU7tKctHcBnVY/osJJpjzpxJnc82xUZePWQC/m9bH7n0tArrfaV/oayKKOeOlIr2pcg==
+"@leafygreen-ui/toast@6.1.4":
+  version "6.1.4"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/toast/-/toast-6.1.4.tgz#9fb3258cd38b71d4e3649189c1d05c7007dcb43a"
+  integrity sha512-v9FN8N10VJV2/c7g+XUtT3cfuCXZ9AGr8ollkqIaB66GAlTKD0It2U7BjheAZbxxoauxrD7ZG1WWsPa03s5BHg==
   dependencies:
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/icon" "^11.12.1"
-    "@leafygreen-ui/icon-button" "^15.0.1"
-    "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/portal" "^4.0.7"
-    "@leafygreen-ui/tokens" "^1.4.0"
-    "@leafygreen-ui/typography" "^15.1.0"
+    "@leafygreen-ui/emotion" "^4.0.4"
+    "@leafygreen-ui/hooks" "^7.7.3"
+    "@leafygreen-ui/icon" "^11.15.0"
+    "@leafygreen-ui/icon-button" "^15.0.10"
+    "@leafygreen-ui/lib" "^10.3.3"
+    "@leafygreen-ui/palette" "^4.0.4"
+    "@leafygreen-ui/portal" "^4.1.2"
+    "@leafygreen-ui/tokens" "^2.1.0"
+    "@leafygreen-ui/typography" "^16.4.0"
     lodash "^4.17.21"
     polished "^4.2.2"
     react-transition-group "^4.4.1"
