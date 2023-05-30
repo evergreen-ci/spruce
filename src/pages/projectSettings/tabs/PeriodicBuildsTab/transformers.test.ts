@@ -52,7 +52,7 @@ const repoForm: FormState = {
       interval: {
         specifier: IntervalSpecifier.Hours,
         intervalHours: 24,
-        cron: "abcd",
+        cron: "",
       },
       message: "",
       nextRunTime:
@@ -65,7 +65,7 @@ const repoForm: FormState = {
       id: "456",
       interval: {
         specifier: IntervalSpecifier.Cron,
-        intervalHours: 0,
+        intervalHours: null,
         cron: "*/5 * * * *",
       },
       message: "Build Message",
@@ -92,7 +92,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
       {
         alias: "test",
         configFile: "evergreen.yml",
-        cron: "",
+        cron: "*/5 * * * *",
         id: "456",
         intervalHours: 0,
         message: "Build Message",
