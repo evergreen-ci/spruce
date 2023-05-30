@@ -127,7 +127,6 @@
     "react-window-infinite-loader": "^1.0.8"
   },
   "devDependencies": {
-    "@babel/core": "7.21.8",
     "@babel/plugin-proposal-private-property-in-object": "^7.17.12",
     "@babel/preset-react": "^7.12.13",
     "@bugsnag/source-maps": "^2.3.0",
