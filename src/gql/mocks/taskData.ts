@@ -1,6 +1,6 @@
-import { GetTaskQuery } from "gql/generated/types";
+import { TaskQuery } from "gql/generated/types";
 
-export const taskQuery: GetTaskQuery = {
+export const taskQuery: TaskQuery = {
   task: {
     __typename: "Task",
     id: "someTaskId",
@@ -20,6 +20,11 @@ export const taskQuery: GetTaskQuery = {
     aborted: false,
     ami: "ami-0c83bb0a9f48c15bf",
     baseTask: {
+      versionMetadata: {
+        __typename: "Version",
+        id: "spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
+        revision: "e0ece5ad52ad01630bdf29f55b9382a26d6256b3",
+      },
       id: "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
       execution: 1,
       timeTaken: null,
@@ -40,6 +45,7 @@ export const taskQuery: GetTaskQuery = {
     displayName: "e2e_test",
     distroId: "ubuntu1604-small",
     estimatedStart: 1000,
+    pod: null,
     execution: 0,
     expectedDuration: 123,
     failedTestCount: 0,

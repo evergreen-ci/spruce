@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
+import { useVersionAnalytics } from "analytics";
+import TableControl from "components/Table/TableControl";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   VersionTaskDurationsQuery,
@@ -12,7 +16,6 @@ import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
 import { queryString } from "utils";
-import { TableControl } from "./TableControl";
 import { TaskDurationTable } from "./taskDuration/TaskDurationTable";
 import { useQueryVariables } from "./useQueryVariables";
 
@@ -26,8 +29,9 @@ const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
   const { id } = useParams<{ id: string }>();
   const { search } = useLocation();
-  const updateQueryParams = useUpdateURLQueryParams();
 
+  const updateQueryParams = useUpdateURLQueryParams();
+  const versionAnalytics = useVersionAnalytics(id);
   const queryVariables = useQueryVariables(search, id);
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
   const { limit, page } = queryVariables.taskFilterOptions;
@@ -66,19 +70,47 @@ const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
   const { version } = data || {};
   const { tasks } = version || {};
   const { data: tasksData = [], count = 0 } = tasks || {};
+  const shouldShowBottomTableControl = tasksData.length > 10;
 
   return (
     <>
       <TableControl
         filteredCount={count}
-        taskCount={taskCount}
+        totalCount={taskCount}
         limit={limit}
         page={page}
+        label="tasks"
         onClear={clearQueryParams}
+        onPageSizeChange={() => {
+          versionAnalytics.sendEvent({
+            name: "Change Page Size",
+          });
+        }}
       />
       <TaskDurationTable tasks={tasksData} loading={loading} />
+      {shouldShowBottomTableControl && (
+        <TableControlWrapper>
+          <TableControl
+            filteredCount={count}
+            totalCount={taskCount}
+            limit={limit}
+            label="tasks"
+            page={page}
+            onClear={clearQueryParams}
+            onPageSizeChange={() => {
+              versionAnalytics.sendEvent({
+                name: "Change Page Size",
+              });
+            }}
+          />
+        </TableControlWrapper>
+      )}
     </>
   );
 };
+const TableControlWrapper = styled.div`
+  padding-top: ${size.xs};
+  margin-bottom: ${size.l};
+`;
 
 export default TaskDuration;

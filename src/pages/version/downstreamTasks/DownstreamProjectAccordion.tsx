@@ -1,19 +1,16 @@
 import { useReducer } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { TableProps } from "antd/es/table";
 import { Link, useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
-import PageSizeSelector from "components/PageSizeSelector";
-import { Pagination } from "components/Pagination";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
-import { ResultCountLabel } from "components/ResultCountLabel";
-import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
-import { TasksTable } from "components/Table/TasksTable";
+import TableControl from "components/Table/TableControl";
+import TableWrapper from "components/Table/TableWrapper";
+import TasksTable from "components/TasksTable";
 import { getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -152,7 +149,7 @@ export const DownstreamProjectAccordion: React.VFC<
   usePolling({ startPolling, stopPolling, refetch });
   const showSkeleton = !data;
   const { version } = data || {};
-  const { tasks } = version || {};
+  const { tasks, isPatch } = version || {};
   const { data: tasksData = [], count = 0 } = tasks || {};
 
   const variantTitle = (
@@ -185,61 +182,42 @@ export const DownstreamProjectAccordion: React.VFC<
         }
       >
         <AccordionContents>
-          <TableWrapper>
-            <TableControlOuterRow>
-              <FlexContainer>
-                <ResultCountLabel
-                  dataCyNumerator="current-task-count"
-                  dataCyDenominator="total-task-count"
-                  label="tasks"
-                  numerator={count}
-                  denominator={taskCount}
-                />
-                <PaddedButton
-                  onClick={() => {
-                    dispatch({ type: "clearAllFilters" });
-                  }}
-                  data-cy="clear-all-filters"
-                >
-                  Clear All Filters
-                </PaddedButton>
-              </FlexContainer>
-              <TableControlInnerRow>
-                <Pagination
-                  data-cy="downstream-table-pagination"
-                  onChange={(p) =>
-                    dispatch({ type: "onChangePagination", page: p - 1 })
-                  }
-                  pageSize={limit}
-                  totalResults={count}
-                  value={page}
-                />
-                <PageSizeSelector
-                  data-cy="tasks-table-page-size-selector"
-                  value={limit}
-                  onChange={(l) =>
-                    dispatch({ type: "onChangeLimit", limit: l })
-                  }
-                />
-              </TableControlInnerRow>
-            </TableControlOuterRow>
+          <TableWrapper
+            controls={
+              <TableControl
+                filteredCount={count}
+                totalCount={taskCount}
+                label="tasks"
+                onClear={() => dispatch({ type: "clearAllFilters" })}
+                onPageChange={(p) => {
+                  dispatch({ type: "onChangePagination", page: p });
+                }}
+                onPageSizeChange={(l) => {
+                  dispatch({ type: "onChangeLimit", limit: l });
+                }}
+                limit={limit}
+                page={page}
+              />
+            }
+          >
             {showSkeleton ? (
               <Skeleton active title={false} paragraph={{ rows: 8 }} />
             ) : (
               <TasksTable
-                sorts={sorts}
-                tableChangeHandler={tableChangeHandler}
-                tasks={tasksData}
-                statusSelectorProps={statusSelectorProps}
                 baseStatusSelectorProps={baseStatusSelectorProps}
-                taskNameInputProps={taskNameInputProps}
-                variantInputProps={variantInputProps}
+                isPatch={isPatch}
                 onColumnHeaderClick={(sortField) =>
                   sendEvent({
                     name: "Sort Downstream Tasks Table",
                     sortBy: sortField,
                   })
                 }
+                sorts={sorts}
+                statusSelectorProps={statusSelectorProps}
+                tableChangeHandler={tableChangeHandler}
+                taskNameInputProps={taskNameInputProps}
+                tasks={tasksData}
+                variantInputProps={variantInputProps}
               />
             )}
           </TableWrapper>
@@ -281,10 +259,6 @@ const ProjectTitleWrapper = styled.div`
   font-weight: bold;
 `;
 
-const TableWrapper = styled.div`
-  padding: ${size.s} 0;
-`;
-
 const AccordionContents = styled.div`
   margin: ${size.s} 0;
 `;
@@ -292,10 +266,6 @@ const AccordionContents = styled.div`
 const FlexContainer = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const PaddedButton = styled(Button)`
-  margin-left: ${size.s};
 `;
 
 const FlexRow = styled.div`

@@ -1,4 +1,4 @@
-fragment projectGeneralSettings on Project {
+fragment ProjectGeneralSettings on Project {
   batchTime
   branch
   deactivatePrevious
@@ -20,9 +20,8 @@ fragment projectGeneralSettings on Project {
   versionControlEnabled
 }
 
-fragment repoGeneralSettings on RepoRef {
+fragment RepoGeneralSettings on RepoRef {
   batchTime
-  branch
   deactivatePrevious
   disabledStatsCache
   dispatchingDisabled

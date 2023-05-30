@@ -18,7 +18,7 @@ query MainlineCommitsForHistory(
         message
         order
         revision
-        ...upstreamProject
+        ...UpstreamProject
       }
       version {
         author
@@ -37,7 +37,7 @@ query MainlineCommitsForHistory(
         message
         order
         revision
-        ...upstreamProject
+        ...UpstreamProject
       }
     }
   }

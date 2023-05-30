@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Body, H2 } from "@leafygreen-ui/typography";
 import { Route, Routes, useParams, Navigate } from "react-router-dom";
-import { PreferencesTabRoutes } from "constants/routes";
+import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { CliTab } from "./preferencesTabs/CliTab";
 import { NewUITab } from "./preferencesTabs/NewUITab";
@@ -14,29 +14,63 @@ export const PreferencesTabs: React.VFC = () => {
 
   const { title, subtitle } = getTitle(tab as PreferencesTabRoutes);
   return (
-    <Container>
+    <>
       <TitleContainer>
         <H2 data-cy="preferences-tab-title">{title}</H2>
         {subtitle && <Subtitle>{subtitle}</Subtitle>}
       </TitleContainer>
       <Routes>
-        <Route path={PreferencesTabRoutes.Profile} element={<ProfileTab />} />
+        <Route
+          path={PreferencesTabRoutes.Profile}
+          element={
+            <Container>
+              <ProfileTab />
+            </Container>
+          }
+        />
         <Route
           path={PreferencesTabRoutes.Notifications}
-          element={<NotificationsTab />}
+          element={
+            <WideContainer>
+              <NotificationsTab />
+            </WideContainer>
+          }
         />
-        <Route path={PreferencesTabRoutes.CLI} element={<CliTab />} />
-        <Route path={PreferencesTabRoutes.NewUI} element={<NewUITab />} />
+        <Route
+          path={PreferencesTabRoutes.CLI}
+          element={
+            <Container>
+              <CliTab />
+            </Container>
+          }
+        />
+        <Route
+          path={PreferencesTabRoutes.NewUI}
+          element={
+            <Container>
+              <NewUITab />
+            </Container>
+          }
+        />
         <Route
           path={PreferencesTabRoutes.PublicKeys}
-          element={<PublicKeysTab />}
+          element={
+            <Container>
+              <PublicKeysTab />
+            </Container>
+          }
         />
         <Route
           path="*"
-          element={<Navigate to={PreferencesTabRoutes.Profile} replace />}
+          element={
+            <Navigate
+              to={getPreferencesRoute(PreferencesTabRoutes.Profile)}
+              replace
+            />
+          }
         />
       </Routes>
-    </Container>
+    </>
   );
 };
 
@@ -66,9 +100,14 @@ const getTitle = (
   );
 };
 
-const Container = styled.div`
+const Container = styled.main`
   min-width: 600px;
   width: 60%;
+`;
+
+const WideContainer = styled.main`
+  min-width: 600px;
+  width: 90%;
 `;
 
 const TitleContainer = styled.div`

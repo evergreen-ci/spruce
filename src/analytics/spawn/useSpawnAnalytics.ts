@@ -23,7 +23,7 @@ type Action =
       name: "Spawned a host";
       isMigration: boolean;
       params: Omit<
-        SpawnHostMutationVariables["SpawnHostInput"],
+        SpawnHostMutationVariables["spawnHostInput"],
         "publicKey" | "userDataScript" | "setUpScript"
       >;
     }
@@ -33,11 +33,11 @@ type Action =
   | { name: "Unmount volume"; volumeId: string }
   | {
       name: "Spawned a volume";
-      params: SpawnVolumeMutationVariables["SpawnVolumeInput"];
+      params: SpawnVolumeMutationVariables["spawnVolumeInput"];
     }
   | {
       name: "Edited a Spawn Volume";
-      params: UpdateVolumeMutationVariables["UpdateVolumeInput"];
+      params: UpdateVolumeMutationVariables["updateVolumeInput"];
     }
   | { name: "Opened IDE" };
 

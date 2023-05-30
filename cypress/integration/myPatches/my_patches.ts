@@ -95,7 +95,7 @@ describe("My Patches Page", () => {
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
       cy.visit(`${MY_PATCHES_ROUTE}?limit=10`);
       cy.dataCy("patch-card").should("exist");
-      cy.get(dataCyNextPage).should("not.be.disabled");
+      cy.dataCy(dataCyNextPage).should("have.attr", "aria-disabled", "false");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyNextPage,
         secondPageDisplayNames,
@@ -106,7 +106,7 @@ describe("My Patches Page", () => {
     it("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", () => {
       cy.visit(`${MY_PATCHES_ROUTE}?limit=10&page=1`);
       cy.dataCy("patch-card").should("exist");
-      cy.get(dataCyPrevPage).should("not.be.disabled");
+      cy.dataCy(dataCyPrevPage).should("have.attr", "aria-disabled", "false");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyPrevPage,
         firstPageDisplayNames,
@@ -117,11 +117,11 @@ describe("My Patches Page", () => {
     it("Should disable pagination when there are no more pages", () => {
       cy.visit(`${MY_PATCHES_ROUTE}?limit=10`);
       cy.dataCy("patch-card").should("exist");
-      cy.get(dataCyPrevPage).should("be.disabled");
+      cy.dataCy(dataCyPrevPage).should("have.attr", "aria-disabled", "true");
 
       cy.visit(`${MY_PATCHES_ROUTE}?page=2`);
       cy.dataCy("patch-card").should("exist");
-      cy.get(dataCyNextPage).should("be.disabled");
+      cy.dataCy(dataCyNextPage).should("have.attr", "aria-disabled", "true");
     });
   });
 
@@ -133,7 +133,7 @@ describe("My Patches Page", () => {
     });
 
     const statuses = [
-      { display: "Created", key: "created" },
+      { display: "Created/Unconfigured", key: "created" },
       { display: "Running", key: "started" },
       { display: "Succeeded", key: "succeeded" },
       { display: "Failed", key: "failed" },
@@ -161,10 +161,8 @@ describe("My Patches Page", () => {
   });
 });
 
-const dataCyNextPage =
-  "[data-cy=my-patches-pagination] > .ant-pagination-next > button";
-const dataCyPrevPage =
-  "[data-cy=my-patches-pagination] > .ant-pagination-prev > button";
+const dataCyNextPage = "next-page-button";
+const dataCyPrevPage = "prev-page-button";
 const dataCyTableRows = "[data-cy=patch-card]";
 
 const patchOnCommitQueue =

@@ -1,4 +1,4 @@
-query GetTaskAllExecutions($taskId: String!) {
+query TaskAllExecutions($taskId: String!) {
   taskAllExecutions(taskId: $taskId) {
     activatedTime
     execution

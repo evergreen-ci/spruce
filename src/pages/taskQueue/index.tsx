@@ -8,7 +8,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
 import SearchableDropdown from "components/SearchableDropdown";
 import {
-  TableContainer,
   TableControlOuterRow,
   PageWrapper,
   StyledRouterLink,
@@ -113,9 +112,7 @@ const TaskQueue = () => {
             )
           }
 
-          <TableContainer hide={false}>
-            <TaskQueueTable />
-          </TableContainer>
+          <TaskQueueTable />
         </>
       )}
     </PageWrapper>

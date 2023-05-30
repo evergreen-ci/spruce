@@ -5,10 +5,10 @@ query ProjectEventLogs($identifier: String!, $limit: Int, $before: Time) {
     count
     eventLogEntries {
       after {
-        ...projectEventSettings
+        ...ProjectEventSettings
       }
       before {
-        ...projectEventSettings
+        ...ProjectEventSettings
       }
       timestamp
       user

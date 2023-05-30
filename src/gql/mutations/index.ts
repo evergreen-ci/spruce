@@ -10,6 +10,7 @@ import CREATE_PROJECT from "./create-project.graphql";
 import CREATE_PUBLIC_KEY from "./create-public-key.graphql";
 import DEACTIVATE_STEPBACK_TASK from "./deactivate-stepback-task.graphql";
 import DEFAULT_SECTION_TO_REPO from "./default-section-to-repo.graphql";
+import DELETE_PROJECT from "./delete-project.graphql";
 import DETACH_PROJECT_FROM_REPO from "./detach-project-from-repo.graphql";
 import DETACH_VOLUME from "./detach-volume.graphql";
 import EDIT_ANNOTATION_NOTE from "./edit-annotation-note.graphql";
@@ -37,7 +38,8 @@ import SCHEDULE_PATCH from "./schedule-patch.graphql";
 import SCHEDULE_TASKS from "./schedule-tasks.graphql";
 import SCHEDULE_UNDISPATCHED_BASE_TASKS from "./schedule-undispatched-base-tasks.graphql";
 import SET_PATCH_PRIORITY from "./set-patch-priority.graphql";
-import SET_TASK_PRIORTY from "./set-task-priority.graphql";
+import SET_PATCH_VISIBILITY from "./set-patch-visibility.graphql";
+import SET_TASK_PRIORITY from "./set-task-priority.graphql";
 import SPAWN_HOST from "./spawn-host.graphql";
 import SPAWN_VOLUME from "./spawn-volume.graphql";
 import UNSCHEDULE_PATCH_TASKS from "./unschedule-patch-tasks.graphql";
@@ -61,6 +63,7 @@ export {
   CREATE_PUBLIC_KEY,
   DEACTIVATE_STEPBACK_TASK,
   DEFAULT_SECTION_TO_REPO,
+  DELETE_PROJECT,
   DETACH_PROJECT_FROM_REPO,
   DETACH_VOLUME,
   EDIT_ANNOTATION_NOTE,
@@ -87,7 +90,8 @@ export {
   SCHEDULE_TASKS,
   SCHEDULE_UNDISPATCHED_BASE_TASKS,
   SET_PATCH_PRIORITY,
-  SET_TASK_PRIORTY,
+  SET_PATCH_VISIBILITY,
+  SET_TASK_PRIORITY,
   SPAWN_HOST,
   SPAWN_VOLUME,
   UNSCHEDULE_PATCH_TASKS,

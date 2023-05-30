@@ -1,9 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { renderHook } from "@testing-library/react-hooks";
-import {
-  GetOtherUserQuery,
-  GetOtherUserQueryVariables,
-} from "gql/generated/types";
+import { OtherUserQuery, OtherUserQueryVariables } from "gql/generated/types";
 import { getUserMock } from "gql/mocks/getUser";
 import { GET_OTHER_USER } from "gql/queries";
 import { useBreadcrumbRoot } from "hooks";
@@ -56,43 +53,41 @@ describe("useBreadcrumbRoot", () => {
   });
 });
 
-const sameUserMock: ApolloMock<GetOtherUserQuery, GetOtherUserQueryVariables> =
-  {
-    request: {
-      query: GET_OTHER_USER,
-      variables: {
+const sameUserMock: ApolloMock<OtherUserQuery, OtherUserQueryVariables> = {
+  request: {
+    query: GET_OTHER_USER,
+    variables: {
+      userId: "admin",
+    },
+  },
+  result: {
+    data: {
+      otherUser: {
+        userId: "admin",
+        displayName: "Evergreen Admin",
+        __typename: "User",
+      },
+      currentUser: { userId: "admin", __typename: "User" },
+    },
+  },
+};
+
+const otherUserMock: ApolloMock<OtherUserQuery, OtherUserQueryVariables> = {
+  request: {
+    query: GET_OTHER_USER,
+    variables: {
+      userId: "john.doe",
+    },
+  },
+  result: {
+    data: {
+      otherUser: {
+        userId: "john.doe",
+        displayName: "John Doe",
+      },
+      currentUser: {
         userId: "admin",
       },
     },
-    result: {
-      data: {
-        otherUser: {
-          userId: "admin",
-          displayName: "Evergreen Admin",
-          __typename: "User",
-        },
-        currentUser: { userId: "admin", __typename: "User" },
-      },
-    },
-  };
-
-const otherUserMock: ApolloMock<GetOtherUserQuery, GetOtherUserQueryVariables> =
-  {
-    request: {
-      query: GET_OTHER_USER,
-      variables: {
-        userId: "john.doe",
-      },
-    },
-    result: {
-      data: {
-        otherUser: {
-          userId: "john.doe",
-          displayName: "John Doe",
-        },
-        currentUser: {
-          userId: "admin",
-        },
-      },
-    },
-  };
+  },
+};

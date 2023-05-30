@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
+import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
 import { commitQueueRequester } from "constants/patch";
 import { getTaskHistoryRoute } from "constants/routes";
@@ -24,28 +25,27 @@ import {
   UnscheduleTaskMutationVariables,
   OverrideTaskDependenciesMutation,
   OverrideTaskDependenciesMutationVariables,
-  GetTaskQuery,
+  TaskQuery,
 } from "gql/generated/types";
 import {
   ABORT_TASK,
   OVERRIDE_TASK_DEPENDENCIES,
   RESTART_TASK,
   SCHEDULE_TASKS,
-  SET_TASK_PRIORTY,
+  SET_TASK_PRIORITY,
   UNSCHEDULE_TASK,
 } from "gql/mutations";
 import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { useQueryParam } from "hooks/useQueryParam";
 import { TaskStatus } from "types/task";
 import { PreviousCommits } from "./actionButtons/previousCommits/PreviousCommits";
-import { SetTaskPriority } from "./actionButtons/SetTaskPriority";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
   initialPriority?: number;
   isDisplayTask: boolean;
   isExecutionTask: boolean;
-  task: GetTaskQuery["task"];
+  task: TaskQuery["task"];
 }
 
 export const ActionButtons: React.VFC<Props> = ({
@@ -141,7 +141,7 @@ export const ActionButtons: React.VFC<Props> = ({
   const [setTaskPriority, { loading: loadingSetPriority }] = useMutation<
     SetTaskPriorityMutation,
     SetTaskPriorityMutationVariables
-  >(SET_TASK_PRIORTY, {
+  >(SET_TASK_PRIORITY, {
     onCompleted: (data) => {
       dispatchToast.success(
         data.setTaskPriority.priority >= 0
@@ -223,7 +223,7 @@ export const ActionButtons: React.VFC<Props> = ({
     >
       {initialPriority < 0 ? "Enable" : "Disable"}
     </DropdownItem>,
-    <SetTaskPriority
+    <SetPriority
       key="set-task-priority"
       taskId={taskId}
       disabled={disabled || !canSetPriority}

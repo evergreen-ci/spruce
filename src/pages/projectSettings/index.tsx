@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams, Link, Navigate } from "react-router-dom";
+import { ProjectBanner } from "components/Banners";
 import { ProjectSelect } from "components/ProjectSelect";
 import {
   SideNav,
@@ -111,6 +112,7 @@ const ProjectSettings: React.VFC = () => {
 
   return (
     <ProjectSettingsProvider>
+      <ProjectBanner projectIdentifier={identifier} />
       <SideNav aria-label="Project Settings" widthOverride={250}>
         <ButtonsContainer>
           <ProjectSelect
@@ -160,6 +162,13 @@ const ProjectSettings: React.VFC = () => {
             <ProjectSettingsNavItem
               {...sharedProps}
               tab={ProjectSettingsTabRoutes.Containers}
+            />
+          )}
+          {/* Views and filters are not available at the repo level at this time. */}
+          {!isProduction() && projectType !== ProjectType.Repo && (
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.ViewsAndFilters}
             />
           )}
           <ProjectSettingsNavItem

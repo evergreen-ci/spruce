@@ -1,12 +1,16 @@
-fragment projectNotificationSettings on Project {
+fragment ProjectNotificationSettings on Project {
+  banner {
+    text
+    theme
+  }
   notifyOnBuildFailure
 }
 
-fragment repoNotificationSettings on RepoRef {
+fragment RepoNotificationSettings on RepoRef {
   notifyOnBuildFailure
 }
 
-fragment subscriptions on ProjectSubscription {
+fragment Subscriptions on GeneralSubscription {
   id
   ownerType
   regexSelectors {
@@ -43,7 +47,10 @@ fragment subscriptions on ProjectSubscription {
           key
           value
         }
+        minDelayMs
+        retries
         secret
+        timeoutMs
         url
       }
     }

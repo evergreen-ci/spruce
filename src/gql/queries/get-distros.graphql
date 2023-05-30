@@ -1,4 +1,4 @@
-query distros($onlySpawnable: Boolean!) {
+query Distros($onlySpawnable: Boolean!) {
   distros(onlySpawnable: $onlySpawnable) {
     isVirtualWorkStation
     name

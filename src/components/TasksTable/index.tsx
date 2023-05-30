@@ -36,6 +36,7 @@ type TaskTableInfo = {
 
 interface TasksTableProps {
   baseStatusSelectorProps?: TreeSelectProps;
+  isPatch: boolean;
   loading?: boolean;
   onClickTaskLink?: (taskId: string) => void;
   onColumnHeaderClick?: (sortField) => void;
@@ -49,8 +50,9 @@ interface TasksTableProps {
   variantInputProps?: InputFilterProps;
 }
 
-export const TasksTable: React.VFC<TasksTableProps> = ({
+const TasksTable: React.VFC<TasksTableProps> = ({
   baseStatusSelectorProps,
+  isPatch,
   loading = false,
   onClickTaskLink = () => {},
   onColumnHeaderClick,
@@ -72,22 +74,24 @@ export const TasksTable: React.VFC<TasksTableProps> = ({
     columns={
       sorts
         ? getColumnDefsWithSort({
-            sorts,
+            baseStatusSelectorProps,
+            isPatch,
             onClickTaskLink,
             onColumnHeaderClick,
-            baseStatusSelectorProps,
+            showTaskExecutionLabel,
+            sorts,
             statusSelectorProps,
             taskNameInputProps,
             variantInputProps,
-            showTaskExecutionLabel,
           })
         : getColumnDefs({
+            baseStatusSelectorProps,
+            isPatch,
             onClickTaskLink,
             onColumnHeaderClick,
-            baseStatusSelectorProps,
+            showTaskExecutionLabel,
             statusSelectorProps,
             taskNameInputProps,
-            showTaskExecutionLabel,
             variantInputProps,
           })
     }
@@ -105,6 +109,7 @@ export const TasksTable: React.VFC<TasksTableProps> = ({
 
 interface GetColumnDefsParams {
   baseStatusSelectorProps?: TreeSelectProps;
+  isPatch: boolean;
   onClickTaskLink: (s: string) => void;
   onColumnHeaderClick?: (sortField) => void;
   showTaskExecutionLabel?: boolean;
@@ -115,6 +120,7 @@ interface GetColumnDefsParams {
 
 const getColumnDefs = ({
   baseStatusSelectorProps,
+  isPatch,
   onClickTaskLink,
   onColumnHeaderClick = () => undefined,
   showTaskExecutionLabel,
@@ -153,7 +159,7 @@ const getColumnDefs = ({
       })),
   },
   {
-    title: "Patch Status",
+    title: `${isPatch ? "Patch" : "Version"} Status`,
     dataIndex: "status",
     key: TaskSortCategory.Status,
     onHeaderCell: () => ({
@@ -178,7 +184,7 @@ const getColumnDefs = ({
     }),
   },
   {
-    title: "Base Status",
+    title: `${isPatch ? "Base" : "Previous"} Status`,
     dataIndex: ["baseTask", "status"],
     key: TaskSortCategory.BaseStatus,
     onHeaderCell: () => ({
@@ -259,6 +265,7 @@ interface GetColumnDefsWithSort extends GetColumnDefsParams {
 
 const getColumnDefsWithSort = ({
   baseStatusSelectorProps,
+  isPatch,
   onClickTaskLink,
   onColumnHeaderClick,
   showTaskExecutionLabel,
@@ -284,6 +291,7 @@ const getColumnDefsWithSort = ({
 
   return getColumnDefs({
     baseStatusSelectorProps,
+    isPatch,
     onClickTaskLink,
     onColumnHeaderClick,
     showTaskExecutionLabel,
@@ -297,3 +305,5 @@ const getColumnDefsWithSort = ({
 };
 
 const rowKey = ({ id }: { id: string }): string => id;
+
+export default TasksTable;

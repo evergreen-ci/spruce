@@ -1,7 +1,7 @@
 #import "../fragments/baseTask.graphql"
 #import "../fragments/annotation.graphql"
 
-query GetTask($taskId: String!, $execution: Int) {
+query Task($taskId: String!, $execution: Int) {
   task(taskId: $taskId, execution: $execution) {
     aborted
     abortInfo {
@@ -16,14 +16,18 @@ query GetTask($taskId: String!, $execution: Int) {
     activatedTime
     ami
     annotation {
-      ...annotation
+      ...Annotation
     }
-    ...baseTask
     baseTask {
       execution
       id
       timeTaken
+      versionMetadata {
+        id
+        revision
+      }
     }
+    ...BaseTask
     blocked
     canAbort
     canDisable

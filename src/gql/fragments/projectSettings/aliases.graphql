@@ -1,4 +1,4 @@
-fragment alias on ProjectAlias {
+fragment Alias on ProjectAlias {
   alias
   gitTag
   id

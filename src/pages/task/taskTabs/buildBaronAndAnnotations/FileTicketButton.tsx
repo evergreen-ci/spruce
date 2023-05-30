@@ -7,8 +7,8 @@ import Popconfirm from "components/Popconfirm";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
-  BbCreateTicketMutation,
-  BbCreateTicketMutationVariables,
+  BuildBaronCreateTicketMutation,
+  BuildBaronCreateTicketMutationVariables,
 } from "gql/generated/types";
 import { FILE_JIRA_TICKET } from "gql/mutations";
 import { ButtonWrapper } from "./BBComponents";
@@ -25,12 +25,12 @@ const FileTicketButton: React.VFC<FileTicketProps> = ({
   const dispatchToast = useToastContext();
 
   const [fileJiraTicket, { loading: loadingFileJiraTicket }] = useMutation<
-    BbCreateTicketMutation,
-    BbCreateTicketMutationVariables
+    BuildBaronCreateTicketMutation,
+    BuildBaronCreateTicketMutationVariables
   >(FILE_JIRA_TICKET, {
     onCompleted: () => {
       setButtonText("File another ticket");
-      dispatchToast.success(`Ticket successfully created for this task.`);
+      dispatchToast.success(`Successfully requested ticket`);
     },
     onError(error) {
       dispatchToast.error(

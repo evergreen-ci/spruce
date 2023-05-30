@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
+import { ProjectBanner } from "components/Banners";
 import { PageTitle } from "components/PageTitle";
 import {
   PageWrapper,
@@ -12,7 +14,7 @@ import {
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
-import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
+import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
 import { GET_TASK } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
@@ -38,8 +40,8 @@ export const Task = () => {
 
   // Query task data
   const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
-    GetTaskQuery,
-    GetTaskQueryVariables
+    TaskQuery,
+    TaskQueryVariables
   >(GET_TASK, {
     variables: { taskId: id, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
@@ -66,25 +68,30 @@ export const Task = () => {
   const attributed = annotation?.issues?.length > 0;
   const isDisplayTask = executionTasksFull != null;
 
-  if (
-    id === task?.id &&
-    Number.isNaN(selectedExecution) &&
-    latestExecution !== undefined
-  ) {
-    updateQueryParams({
-      execution: `${latestExecution}`,
-    });
-  }
+  useEffect(() => {
+    if (
+      id === task?.id &&
+      Number.isNaN(selectedExecution) &&
+      latestExecution !== undefined
+    ) {
+      updateQueryParams({
+        execution: `${latestExecution}`,
+      });
+    }
+  }, [id, selectedExecution, latestExecution, updateQueryParams, task?.id]);
 
   if (error) {
     return <PageDoesNotExist />;
   }
+
   return (
     <PageWrapper>
+      <ProjectBanner projectIdentifier={versionMetadata?.projectIdentifier} />
       {task && (
         <TaskPageBreadcrumbs
-          taskName={displayName}
+          displayTask={displayTask}
           patchNumber={patchNumber}
+          taskName={displayName}
           versionMetadata={versionMetadata}
         />
       )}

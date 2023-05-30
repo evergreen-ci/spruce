@@ -61,6 +61,9 @@ describe("getGqlPayload", () => {
         webhookSubscriber: {
           secret: "webhook_secret",
           url: "https://fake-website.com",
+          retries: 0,
+          minDelayMs: 0,
+          timeoutMs: 0,
           headers: [],
         },
         jiraIssueSubscriber: undefined,
@@ -93,6 +96,9 @@ describe("getGqlPayload", () => {
         webhookSubscriber: {
           secret: "my_generated_secret",
           url: "https://fake-website.com",
+          retries: 1,
+          minDelayMs: 100,
+          timeoutMs: 1000,
           headers: [],
         },
         jiraIssueSubscriber: undefined,
@@ -202,6 +208,9 @@ const webhookSubscriptionWithSecret = {
       webhookInput: {
         secretInput: "webhook_secret",
         urlInput: "https://fake-website.com",
+        retryInput: undefined,
+        minDelayInput: undefined,
+        timeoutInput: undefined,
         httpHeaders: undefined,
       },
       notificationSelect: "evergreen-webhook",
@@ -222,6 +231,9 @@ const webhookSubscriptionWithoutSecret = {
       webhookInput: {
         secretInput: "",
         urlInput: "https://fake-website.com",
+        retryInput: 1,
+        minDelayInput: 100,
+        timeoutInput: 1000,
         httpHeaders: undefined,
       },
       notificationSelect: "evergreen-webhook",

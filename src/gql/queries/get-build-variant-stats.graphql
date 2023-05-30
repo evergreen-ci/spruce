@@ -1,4 +1,4 @@
-query GetBuildVariantStats($id: String!) {
+query BuildVariantStats($id: String!) {
   version(id: $id) {
     buildVariantStats(options: {}) {
       displayName

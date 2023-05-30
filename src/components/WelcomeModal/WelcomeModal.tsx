@@ -60,7 +60,7 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
             },
           },
         },
-        refetchQueries: ["GetUserSettings"],
+        refetchQueries: ["UserSettings"],
       });
     } catch (e) {}
   };

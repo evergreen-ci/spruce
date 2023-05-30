@@ -9,10 +9,10 @@ import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { finishedTaskStatuses } from "constants/task";
 import { size } from "constants/tokens";
 import {
-  GetBaseVersionAndTaskQuery,
-  GetBaseVersionAndTaskQueryVariables,
-  GetLastMainlineCommitQuery,
-  GetLastMainlineCommitQueryVariables,
+  BaseVersionAndTaskQuery,
+  BaseVersionAndTaskQueryVariables,
+  LastMainlineCommitQuery,
+  LastMainlineCommitQueryVariables,
 } from "gql/generated/types";
 import {
   GET_BASE_VERSION_AND_TASK,
@@ -48,15 +48,15 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
   ] = useReducer(reducer, initialState);
 
   const { data: taskData } = useQuery<
-    GetBaseVersionAndTaskQuery,
-    GetBaseVersionAndTaskQueryVariables
+    BaseVersionAndTaskQuery,
+    BaseVersionAndTaskQueryVariables
   >(GET_BASE_VERSION_AND_TASK, {
     variables: { taskId },
   });
 
   const [fetchParentTask, { loading: parentLoading }] = useLazyQuery<
-    GetLastMainlineCommitQuery,
-    GetLastMainlineCommitQueryVariables
+    LastMainlineCommitQuery,
+    LastMainlineCommitQueryVariables
   >(GET_LAST_MAINLINE_COMMIT, {
     onCompleted: (data) => {
       dispatch({
@@ -67,8 +67,8 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
   });
 
   const [fetchLastPassing, { loading: passingLoading }] = useLazyQuery<
-    GetLastMainlineCommitQuery,
-    GetLastMainlineCommitQueryVariables
+    LastMainlineCommitQuery,
+    LastMainlineCommitQueryVariables
   >(GET_LAST_MAINLINE_COMMIT, {
     onCompleted: (data) => {
       dispatch({
@@ -79,8 +79,8 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
   });
 
   const [fetchLastExecuted, { loading: executedLoading }] = useLazyQuery<
-    GetLastMainlineCommitQuery,
-    GetLastMainlineCommitQueryVariables
+    LastMainlineCommitQuery,
+    LastMainlineCommitQueryVariables
   >(GET_LAST_MAINLINE_COMMIT, {
     onCompleted: (data) => {
       dispatch({
@@ -168,7 +168,7 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
         disabled={!versionMetadata?.baseVersion}
       >
         <Option value={CommitType.Base}>
-          Go to {versionMetadata?.isPatch ? "base commit" : "parent commit"}
+          Go to {versionMetadata?.isPatch ? "base" : "previous"} commit
         </Option>
         <Option value={CommitType.LastPassing}>
           Go to last passing version
@@ -218,7 +218,7 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
 // The return value from GetLastMainlineCommitQuery has a lot of nested fields that may or may
 // not exist. The logic to extract the task from it is written in this function.
 const getTaskFromMainlineCommitsQuery = (
-  data: GetLastMainlineCommitQuery
+  data: LastMainlineCommitQuery
 ): CommitTask => {
   const buildVariants =
     data?.mainlineCommits.versions.find(({ version }) => version)?.version

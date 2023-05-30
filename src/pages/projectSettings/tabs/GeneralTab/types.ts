@@ -7,7 +7,7 @@ export interface FormState {
       owner: string;
       repo: string;
     };
-    branch: string;
+    branch?: string;
     other: {
       displayName: string;
       identifier?: string;

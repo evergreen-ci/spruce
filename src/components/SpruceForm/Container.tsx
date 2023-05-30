@@ -1,7 +1,4 @@
-import styled, { StyledComponent } from "@emotion/styled";
-import Card from "@leafygreen-ui/card";
-import { H3, H3Props } from "@leafygreen-ui/typography";
-import { size } from "constants/tokens";
+import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
 
 interface ContainerProps {
   title?: string;
@@ -17,16 +14,7 @@ export const SpruceFormContainer: React.VFC<ContainerProps> = ({
   title,
 }) => (
   <div>
-    {title && <StyledH3 id={id}>{title}</StyledH3>}
-    <StyledCard data-cy={dataCy}>{children}</StyledCard>
+    {title && <SettingsCardTitle id={id}>{title}</SettingsCardTitle>}
+    <SettingsCard data-cy={dataCy}>{children}</SettingsCard>
   </div>
 );
-
-const StyledH3 = styled(H3)`
-  margin: ${size.m} 0;
-` as StyledComponent<H3Props>;
-
-const StyledCard = styled(Card)`
-  margin-bottom: 48px;
-  padding: ${size.m};
-`;

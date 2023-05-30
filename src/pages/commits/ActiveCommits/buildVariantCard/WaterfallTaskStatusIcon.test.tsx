@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import {
-  GetFailedTaskStatusIconTooltipQuery,
-  GetFailedTaskStatusIconTooltipQueryVariables,
+  FailedTaskStatusIconTooltipQuery,
+  FailedTaskStatusIconTooltipQueryVariables,
 } from "gql/generated/types";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import {
@@ -99,8 +99,8 @@ describe("waterfallTaskStatusIcon", () => {
 });
 
 const getTooltipQueryMock: ApolloMock<
-  GetFailedTaskStatusIconTooltipQuery,
-  GetFailedTaskStatusIconTooltipQueryVariables
+  FailedTaskStatusIconTooltipQuery,
+  FailedTaskStatusIconTooltipQueryVariables
 > = {
   request: {
     query: GET_FAILED_TASK_STATUS_ICON_TOOLTIP,
@@ -108,14 +108,21 @@ const getTooltipQueryMock: ApolloMock<
   },
   result: {
     data: {
-      taskTests: {
-        filteredTestCount: 3,
-        testResults: [
-          {
-            id: "83ca0a6b4c73f32e53f3dcbbe727842c",
-            testFile: "jstests/multiVersion/remove_invalid_index_options.js",
-          },
-        ],
+      task: {
+        __typename: "Task",
+        id: "task",
+        execution: 0,
+        tests: {
+          __typename: "TaskTestResult",
+          filteredTestCount: 3,
+          testResults: [
+            {
+              __typename: "TestResult",
+              id: "83ca0a6b4c73f32e53f3dcbbe727842c",
+              testFile: "jstests/multiVersion/remove_invalid_index_options.js",
+            },
+          ],
+        },
       },
     },
   },

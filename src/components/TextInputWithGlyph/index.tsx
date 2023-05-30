@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import TextInput, { TextInputProps } from "@leafygreen-ui/text-input";
 import { size } from "constants/tokens";
@@ -6,16 +7,21 @@ type TextInputWithGlyphProps = {
   icon: React.ReactElement;
 } & TextInputProps;
 
-const TextInputWithGlyph: React.VFC<TextInputWithGlyphProps> = (props) => {
-  const { icon, ...rest } = props;
+const TextInputWithGlyph: React.FC<TextInputWithGlyphProps> = forwardRef(
+  (props, ref) => {
+    const { icon, ...rest } = props;
 
-  return (
-    <TextInputWrapper>
-      <TextInput {...rest} />
-      <IconWrapper>{icon}</IconWrapper>
-    </TextInputWrapper>
-  );
-};
+    return (
+      <TextInputWrapper>
+        <TextInput ref={ref} {...rest} />
+        <IconWrapper>{icon}</IconWrapper>
+      </TextInputWrapper>
+    );
+  }
+);
+
+TextInputWithGlyph.displayName = "TextInputWithGlyph";
+
 const TextInputWrapper = styled.div`
   position: relative;
   width: 100%;

@@ -4,12 +4,12 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
 <div>
   <div>
     <h3
-      class="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
+      class="css-1d9n1kx-SettingsCardTitle e1h7idos1 leafygreen-ui-376vw8"
     >
       Distro Projects
     </h3>
     <div
-      class="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
+      class="css-soq0i3-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
     >
       <form
         class="rjsf"
@@ -102,7 +102,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                 Expansions
               </h6>
               <div
-                class="css-y5jij6-ElementWrapper-AddButtonContainer e1jxkcec5"
+                class="css-y5jij6-ElementWrapper-AddButtonContainer e1jxkcec6"
               >
                 <button
                   aria-disabled="false"
@@ -139,10 +139,10 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                 </button>
               </div>
               <div
-                class="css-uocgfp-ArrayContainer e1jxkcec4"
+                class="css-uocgfp-ArrayContainer e1jxkcec5"
               >
                 <div
-                  class="css-nbhfvd-ArrayItemRow e1jxkcec6"
+                  class="css-nbhfvd-ArrayItemRow e1jxkcec7"
                 >
                   <div
                     class="form-group field field-object css-ejwhfc-DefaultFieldContainer eny4k1v0"
@@ -169,8 +169,8 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                                 class="leafygreen-ui-a533bt"
                               >
                                 <label
-                                  class="leafygreen-ui-gr5280"
-                                  for="textinput-16"
+                                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
+                                  for="textinput-10"
                                 >
                                   key
                                 </label>
@@ -183,7 +183,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                                   aria-label="key"
                                   autocomplete="on"
                                   class="leafygreen-ui-6i61vl"
-                                  id="textinput-16"
+                                  id="textinput-10"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -213,8 +213,8 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                                 class="leafygreen-ui-a533bt"
                               >
                                 <label
-                                  class="leafygreen-ui-gr5280"
-                                  for="textinput-17"
+                                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
+                                  for="textinput-11"
                                 >
                                   value
                                 </label>
@@ -227,7 +227,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                                   aria-label="value"
                                   autocomplete="on"
                                   class="leafygreen-ui-6i61vl"
-                                  id="textinput-17"
+                                  id="textinput-11"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -243,7 +243,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                     </fieldset>
                   </div>
                   <div
-                    class="css-oex5ed-ElementWrapper-DeleteButtonWrapper e1jxkcec3"
+                    class="css-oex5ed-ElementWrapper-DeleteButtonWrapper e1jxkcec4"
                   >
                     <button
                       aria-disabled="false"
@@ -316,12 +316,12 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
 <div>
   <div>
     <h3
-      class="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
+      class="css-1d9n1kx-SettingsCardTitle e1h7idos1 leafygreen-ui-376vw8"
     >
       Admin Options
     </h3>
     <div
-      class="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
+      class="css-soq0i3-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
     >
       <form
         class="rjsf"
@@ -573,17 +573,19 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
               >
                 <div
                   aria-label="radio-group-1"
+                  class="leafygreen-ui-14o8ny9"
                   role="group"
                 >
                   <div
-                    class="leafygreen-ui-3n5lp7"
+                    class="leafygreen-ui-jpwlig"
                   >
                     <label
-                      class="leafygreen-ui-1oju0e3"
+                      class="leafygreen-ui-1465lnm"
                       for="radio-group-1-0"
                     >
                       <input
                         aria-checked="false"
+                        aria-describedby="undefined-undefined"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                         id="radio-group-1-0"
@@ -598,20 +600,19 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
                           class="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
                         />
                       </div>
-                      <div>
-                        Restart Jasper service on running hosts of this distro for this update
-                      </div>
+                      Restart Jasper service on running hosts of this distro for this update
                     </label>
                   </div>
                   <div
-                    class="leafygreen-ui-3n5lp7"
+                    class="leafygreen-ui-jpwlig"
                   >
                     <label
-                      class="leafygreen-ui-1oju0e3"
+                      class="leafygreen-ui-1465lnm"
                       for="radio-group-1-1"
                     >
                       <input
                         aria-checked="false"
+                        aria-describedby="undefined-undefined"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                         id="radio-group-1-1"
@@ -626,9 +627,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
                           class="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
                         />
                       </div>
-                      <div>
-                        Reprovision running hosts of this distro for this update
-                      </div>
+                      Reprovision running hosts of this distro for this update
                     </label>
                   </div>
                 </div>
@@ -646,12 +645,12 @@ exports[`storybook Storyshots components/SpruceForm Example 3 1`] = `
 <div>
   <div>
     <h3
-      class="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
+      class="css-1d9n1kx-SettingsCardTitle e1h7idos1 leafygreen-ui-376vw8"
     >
       UI Options
     </h3>
     <div
-      class="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
+      class="css-soq0i3-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
     >
       <form
         class="rjsf"

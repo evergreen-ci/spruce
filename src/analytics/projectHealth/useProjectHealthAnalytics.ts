@@ -3,7 +3,7 @@ import {
   Properties,
   Analytics as A,
 } from "analytics/addPageAction";
-import { SaveSubscriptionMutationVariables } from "gql/generated/types";
+import { SaveSubscriptionForUserMutationVariables } from "gql/generated/types";
 
 type pageType = "Commit chart" | "Task history" | "Variant history";
 type Action =
@@ -41,7 +41,7 @@ type Action =
   | { name: "Open Notification Modal" }
   | {
       name: "Add Notification";
-      subscription: SaveSubscriptionMutationVariables["subscription"];
+      subscription: SaveSubscriptionForUserMutationVariables["subscription"];
     };
 
 interface P extends Properties {}

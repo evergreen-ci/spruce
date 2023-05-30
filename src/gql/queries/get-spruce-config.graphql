@@ -1,4 +1,4 @@
-query GetSpruceConfig {
+query SpruceConfig {
   spruceConfig {
     banner
     bannerTheme
@@ -26,7 +26,6 @@ query GetSpruceConfig {
     }
     ui {
       defaultProject
-      userVoice
     }
   }
 }

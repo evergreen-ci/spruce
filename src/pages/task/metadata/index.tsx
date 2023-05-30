@@ -21,7 +21,7 @@ import {
   getPodRoute,
 } from "constants/routes";
 import { size } from "constants/tokens";
-import { GetTaskQuery } from "gql/generated/types";
+import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { TaskStatus } from "types/task";
 import { string } from "utils";
@@ -35,7 +35,7 @@ const { red } = palette;
 interface Props {
   taskId: string;
   loading: boolean;
-  task: GetTaskQuery["task"];
+  task: TaskQuery["task"];
   error: ApolloError;
 }
 
@@ -71,7 +71,6 @@ export const Metadata: React.VFC<Props> = ({
     project,
     pod,
     resetWhenFinished,
-    revision,
     spawnHostLink,
     startTime,
     status,
@@ -79,9 +78,13 @@ export const Metadata: React.VFC<Props> = ({
     versionMetadata,
   } = task || {};
 
-  const baseCommit = shortenGithash(revision);
   const submittedTime = activatedTime ?? ingestTime;
-  const { id: baseTaskId, timeTaken: baseTaskDuration } = baseTask ?? {};
+  const {
+    id: baseTaskId,
+    timeTaken: baseTaskDuration,
+    versionMetadata: baseTaskVersionMetadata,
+  } = baseTask ?? {};
+  const baseCommit = shortenGithash(baseTaskVersionMetadata?.revision);
   const projectIdentifier = project?.identifier;
   const { author, id: versionID } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;

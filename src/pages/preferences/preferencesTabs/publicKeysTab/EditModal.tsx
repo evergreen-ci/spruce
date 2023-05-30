@@ -9,10 +9,10 @@ import { ErrorMessage } from "components/styles";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
-  GetMyPublicKeysQuery,
+  MyPublicKeysQuery,
   UpdatePublicKeyMutation,
   UpdatePublicKeyMutationVariables,
-  GetMyPublicKeysQueryVariables,
+  MyPublicKeysQueryVariables,
   CreatePublicKeyMutation,
   CreatePublicKeyMutationVariables,
 } from "gql/generated/types";
@@ -38,8 +38,8 @@ export const EditModal: React.VFC<EditModalProps> = ({
   onCancel,
 }) => {
   const { data: myKeysData } = useQuery<
-    GetMyPublicKeysQuery,
-    GetMyPublicKeysQueryVariables
+    MyPublicKeysQuery,
+    MyPublicKeysQueryVariables
   >(GET_MY_PUBLIC_KEYS, { fetchPolicy: "cache-only" });
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
@@ -55,7 +55,7 @@ export const EditModal: React.VFC<EditModalProps> = ({
     },
     onCompleted() {},
     update(cache, { data }) {
-      cache.writeQuery<GetMyPublicKeysQuery, GetMyPublicKeysQueryVariables>({
+      cache.writeQuery<MyPublicKeysQuery, MyPublicKeysQueryVariables>({
         query: GET_MY_PUBLIC_KEYS,
         data: { myPublicKeys: [...data.updatePublicKey] },
       });
@@ -72,7 +72,7 @@ export const EditModal: React.VFC<EditModalProps> = ({
     },
     onCompleted() {},
     update(cache, { data }) {
-      cache.writeQuery<GetMyPublicKeysQuery, GetMyPublicKeysQueryVariables>({
+      cache.writeQuery<MyPublicKeysQuery, MyPublicKeysQueryVariables>({
         query: GET_MY_PUBLIC_KEYS,
         data: { myPublicKeys: [...data.createPublicKey] },
       });

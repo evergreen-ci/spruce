@@ -6,6 +6,7 @@ import {
   RestartPatch,
   EnqueuePatch,
   ScheduleTasks,
+  SetPatchVisibility,
 } from "components/PatchActionButtons";
 
 interface Props {
@@ -52,6 +53,11 @@ export const DropdownMenu: React.VFC<Props> = ({
       commitMessage={patchDescription}
       disabled={!canEnqueueToCommitQueue || !hasVersion}
       refetchQueries={refetchQueries}
+    />,
+    <SetPatchVisibility
+      key="hide"
+      patchId={patchId}
+      refetchQueries={["UserPatches", "ProjectPatches"]}
     />,
   ];
 

@@ -1,4 +1,4 @@
-query hostEvents($id: String!, $tag: String!, $limit: Int, $page: Int) {
+query HostEvents($id: String!, $tag: String!, $limit: Int, $page: Int) {
   hostEvents(hostId: $id, hostTag: $tag, limit: $limit, page: $page) {
     count
     eventLogEntries {

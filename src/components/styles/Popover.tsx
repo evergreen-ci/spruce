@@ -9,6 +9,5 @@ export const PopoverContainer = styled.div`
   flex-direction: column;
   background-color: ${white};
   padding: ${size.s};
-  box-shadow: 0 ${size.xxs} ${size.xs} 0 ${gray.light2},
-    0 ${size.xxs} ${size.l} ${size.xxs} ${gray.light2};
+  box-shadow: 0px 2px 4px -1px ${gray.base};
 `;

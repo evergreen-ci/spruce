@@ -30,6 +30,7 @@ const defaultToRepoDisabled: Set<WritableTabRoutes> = new Set([
   ProjectSettingsTabRoutes.Notifications,
   ProjectSettingsTabRoutes.Plugins,
   ProjectSettingsTabRoutes.Containers,
+  ProjectSettingsTabRoutes.ViewsAndFilters,
 ]);
 
 interface Props {
@@ -83,7 +84,7 @@ export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
       },
     }) =>
       identifier === newIdentifier
-        ? ["ProjectSettings", "GetViewableProjectRefs"]
+        ? ["ProjectSettings", "ViewableProjectRefs", "ProjectBanner"]
         : [],
   });
 
@@ -98,7 +99,7 @@ export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
     onError(err) {
       dispatchToast.error(`There was an error saving the repo: ${err.message}`);
     },
-    refetchQueries: ["RepoSettings", "GetViewableProjectRefs"],
+    refetchQueries: ["RepoSettings", "ViewableProjectRefs"],
   });
 
   const onClick = () => {
@@ -172,6 +173,8 @@ const mapRouteToSection: Record<WritableTabRoutes, ProjectSettingsSection> = {
     ProjectSettingsSection.PeriodicBuilds,
   [ProjectSettingsTabRoutes.Plugins]: ProjectSettingsSection.Plugins,
   [ProjectSettingsTabRoutes.Containers]: ProjectSettingsSection.Containers,
+  [ProjectSettingsTabRoutes.ViewsAndFilters]:
+    ProjectSettingsSection.ViewsAndFilters,
 };
 
 const ButtonRow = styled.div`

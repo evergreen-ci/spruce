@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { useParams, Navigate } from "react-router-dom";
+import { ProjectBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageTitle } from "components/PageTitle";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
@@ -18,8 +19,8 @@ import {
   VersionQueryVariables,
   IsPatchConfiguredQuery,
   IsPatchConfiguredQueryVariables,
-  GetHasVersionQuery,
-  GetHasVersionQueryVariables,
+  HasVersionQuery,
+  HasVersionQueryVariables,
 } from "gql/generated/types";
 import {
   GET_VERSION,
@@ -28,6 +29,7 @@ import {
 } from "gql/queries";
 import { useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/404";
+import { isPatchUnconfigured } from "utils/patch";
 import { shortenGithash, githubPRLinkify } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 import { WarningBanner, ErrorBanner } from "./version/Banners";
@@ -75,8 +77,8 @@ export const VersionPage: React.VFC = () => {
   });
 
   const { error: hasVersionError } = useQuery<
-    GetHasVersionQuery,
-    GetHasVersionQueryVariables
+    HasVersionQuery,
+    HasVersionQueryVariables
   >(GET_HAS_VERSION, {
     variables: { id },
     onCompleted: ({ hasVersion }) => {
@@ -98,7 +100,7 @@ export const VersionPage: React.VFC = () => {
     if (patchData) {
       const { patch } = patchData;
       const { activated, alias, projectID } = patch;
-      if (!activated && alias !== commitQueueAlias) {
+      if (isPatchUnconfigured({ alias, activated })) {
         setRedirectURL(getPatchRoute(id, { configure: true }));
         setIsLoadingData(false);
       } else if (!activated && alias === commitQueueAlias) {
@@ -136,9 +138,17 @@ export const VersionPage: React.VFC = () => {
 
   // If it's a version, proceed with loading the version page.
   const { version } = versionData || {};
-  const { status, patch, isPatch, revision, message, order, warnings, errors } =
-    version || {};
-
+  const {
+    errors,
+    isPatch,
+    message,
+    order,
+    patch,
+    projectIdentifier,
+    revision,
+    status,
+    warnings,
+  } = version || {};
   const {
     commitQueuePosition = null,
     patchNumber,
@@ -159,6 +169,7 @@ export const VersionPage: React.VFC = () => {
 
   return (
     <PageWrapper data-cy="version-page">
+      <ProjectBanner projectIdentifier={projectIdentifier} />
       {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
       {warnings && warnings.length > 0 && <WarningBanner warnings={warnings} />}
       {version && (

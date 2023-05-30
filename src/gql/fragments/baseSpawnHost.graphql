@@ -1,8 +1,8 @@
 #import "./baseHost.graphql"
 
-fragment baseSpawnHost on Host {
+fragment BaseSpawnHost on Host {
   availabilityZone
-  ...baseHost
+  ...BaseHost
   displayName
   distro {
     id

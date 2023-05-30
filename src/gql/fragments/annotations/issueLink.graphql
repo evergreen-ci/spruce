@@ -1,10 +1,10 @@
 #import "./jiraTicket.graphql"
 
-fragment issueLink on IssueLink {
+fragment IssueLink on IssueLink {
   confidenceScore
   issueKey
   jiraTicket {
-    ...jiraTicket
+    ...JiraTicket
   }
   source {
     author

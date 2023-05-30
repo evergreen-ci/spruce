@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useLocation, useParams } from "react-router-dom";
 import { useProjectPatchesAnalytics } from "analytics/patches/useProjectPatchesAnalytics";
+import { ProjectBanner } from "components/Banners";
 import { PatchesPage, usePatchesInputFromSearch } from "components/PatchesPage";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
@@ -47,12 +48,15 @@ export const ProjectPatches = () => {
   usePolling({ startPolling, stopPolling, refetch });
   const { displayName, patches } = data?.project ?? {};
   return (
-    <PatchesPage
-      analyticsObject={analyticsObject}
-      pageTitle={`${displayName ?? ""} Patches`}
-      loading={loading}
-      pageType="project"
-      patches={patches}
-    />
+    <>
+      <ProjectBanner projectIdentifier={projectIdentifier} />
+      <PatchesPage
+        analyticsObject={analyticsObject}
+        pageTitle={`${displayName ?? ""} Patches`}
+        loading={loading}
+        pageType="project"
+        patches={patches}
+      />
+    </>
   );
 };

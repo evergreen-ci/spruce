@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { InputFilterProps } from "components/Table/Filters";
-import { TasksTable } from "components/Table/TasksTable";
+import TasksTable from "components/TasksTable";
 import { Task, VersionTasksQuery, SortOrder } from "gql/generated/types";
 import {
   useTaskStatuses,
@@ -15,15 +15,17 @@ import { queryString } from "utils";
 const { toSortString } = queryString;
 
 interface Props {
+  isPatch: boolean;
   tasks: VersionTasksQuery["version"]["tasks"]["data"];
   sorts: SortOrder[];
   loading: boolean;
 }
 
 export const PatchTasksTable: React.VFC<Props> = ({
-  tasks,
-  sorts,
+  isPatch,
   loading,
+  sorts,
+  tasks,
 }) => {
   const { id: versionId } = useParams<{ id: string }>();
   const updateQueryParams = useUpdateURLQueryParams();
@@ -86,6 +88,7 @@ export const PatchTasksTable: React.VFC<Props> = ({
 
   return (
     <TasksTable
+      isPatch={isPatch}
       sorts={sorts}
       tableChangeHandler={tableChangeHandler}
       tasks={tasks}

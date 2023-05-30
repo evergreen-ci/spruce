@@ -1,37 +1,21 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
+import { getSubscriberText } from "constants/subscription";
 import { projectTriggers } from "constants/triggers";
 import {
-  Subscriber,
+  BannerTheme,
   ProjectInput,
   SubscriptionInput,
 } from "gql/generated/types";
-import { NotificationMethods } from "types/subscription";
 import { TriggerType } from "types/triggers";
 import { string } from "utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
+import { ProjectType } from "../utils";
 import { getGqlPayload } from "./getGqlPayload";
 import { FormState } from "./types";
 
 type Tab = ProjectSettingsTabRoutes.Notifications;
 
 const { toSentenceCase } = string;
-
-const getSubscriberText = (subscriberType: string, subscriber: Subscriber) => {
-  switch (subscriberType) {
-    case NotificationMethods.JIRA_COMMENT:
-      return subscriber.jiraCommentSubscriber;
-    case NotificationMethods.SLACK:
-      return subscriber.slackSubscriber;
-    case NotificationMethods.EMAIL:
-      return subscriber.emailSubscriber;
-    case NotificationMethods.WEBHOOK:
-      return subscriber.webhookSubscriber.url;
-    case NotificationMethods.JIRA_ISSUE:
-      return subscriber.jiraIssueSubscriber.project;
-    default:
-      return "";
-  }
-};
 
 const convertFamilyTrigger = (trigger: string) => {
   switch (trigger) {
@@ -90,11 +74,19 @@ const getHttpHeaders = (headers: { key: string; value: string }[]) =>
       }))
     : [];
 
-export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
+export const gqlToForm: GqlToFormFunction<Tab> = (data, { projectType }) => {
   if (!data) return null;
   const { projectRef, subscriptions } = data;
-
   return {
+    ...(projectType !== ProjectType.Repo &&
+      "banner" in projectRef && {
+        banner: {
+          bannerData: {
+            text: projectRef.banner?.text,
+            theme: projectRef.banner?.theme || BannerTheme.Announcement,
+          },
+        },
+      }),
     buildBreakSettings: {
       notifyOnBuildFailure: projectRef.notifyOnBuildFailure,
     },
@@ -122,10 +114,7 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
               jiraIssueSubscriber,
               webhookSubscriber,
             } = subscribers;
-            const subscriberText = getSubscriberText(
-              subscriberType,
-              subscribers
-            );
+            const subscriberText = getSubscriberText(subscriber);
 
             return {
               displayTitle: `${triggerText} - ${subscriberText}`,
@@ -152,6 +141,9 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
                     urlInput: webhookSubscriber?.url ?? undefined,
                     secretInput: webhookSubscriber?.secret,
                     httpHeaders: getHttpHeaders(webhookSubscriber?.headers),
+                    retryInput: webhookSubscriber?.retries || undefined,
+                    minDelayInput: webhookSubscriber?.minDelayMs || undefined,
+                    timeoutInput: webhookSubscriber?.timeoutMs || undefined,
                   },
                 },
               },
@@ -166,10 +158,11 @@ export const formToGql: FormToGqlFunction<Tab> = (
   formState: FormState,
   projectId
 ) => {
-  const { buildBreakSettings, subscriptions } = formState;
+  const { buildBreakSettings, subscriptions, banner } = formState;
   const projectRef: ProjectInput = {
     id: projectId,
     notifyOnBuildFailure: buildBreakSettings.notifyOnBuildFailure,
+    ...(banner && { banner: banner.bannerData }),
   };
   const transformedSubscriptions: SubscriptionInput[] = subscriptions.map(
     getGqlPayload(projectId)

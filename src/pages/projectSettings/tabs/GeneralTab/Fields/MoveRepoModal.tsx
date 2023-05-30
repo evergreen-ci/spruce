@@ -54,7 +54,7 @@ export const MoveRepoModal: React.VFC<ModalProps> = ({
     refetchQueries: [
       "ProjectSettings",
       "RepoSettings",
-      "GetViewableProjectRefs",
+      "ViewableProjectRefs",
       "GithubProjectConflicts",
     ],
   });

@@ -48,7 +48,7 @@ const AnnotationNote: React.VFC<Props> = ({
         `There was an error updating this note: ${error.message}`
       );
     },
-    refetchQueries: ["GetAnnotationEventData"],
+    refetchQueries: ["AnnotationEventData"],
   });
   const saveAnnotationNote = () => {
     updateAnnotationNote({

@@ -34,7 +34,6 @@ const repoForm: FormState = {
       owner: "evergreen-ci",
       repo: "spruce",
     },
-    branch: "main",
     other: {
       displayName: "",
       batchTime: 12,
@@ -72,7 +71,6 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
     id: "repo",
     owner: "evergreen-ci",
     repo: "spruce",
-    branch: "main",
     displayName: "",
     batchTime: 12,
     remotePath: "evergreen.yml",

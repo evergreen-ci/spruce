@@ -5,6 +5,7 @@ import { Label } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import Cookies from "js-cookie";
 import { usePreferencesAnalytics } from "analytics";
+import { SettingsCard } from "components/SettingsCard";
 import { DISABLE_QUERY_POLLING } from "constants/cookies";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -14,7 +15,6 @@ import {
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettings } from "hooks";
-import { PreferencesCard } from "../Card";
 
 export const NewUITab: React.VFC = () => {
   const { sendEvent } = usePreferencesAnalytics();
@@ -49,7 +49,7 @@ export const NewUITab: React.VFC = () => {
           },
         },
       },
-      refetchQueries: ["GetUserSettings"],
+      refetchQueries: ["UserSettings"],
     });
   };
 
@@ -64,7 +64,7 @@ export const NewUITab: React.VFC = () => {
   };
 
   return (
-    <PreferencesCard>
+    <SettingsCard>
       <PreferenceItem>
         <Toggle
           checked={spruceV1}
@@ -91,7 +91,7 @@ export const NewUITab: React.VFC = () => {
           Allow background polling for active tabs in the current browser.
         </Label>
       </PreferenceItem>
-    </PreferencesCard>
+    </SettingsCard>
   );
 };
 

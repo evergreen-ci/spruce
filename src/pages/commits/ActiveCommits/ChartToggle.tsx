@@ -62,9 +62,9 @@ export const ChartToggle: React.VFC<{
 
 const StyledRadioGroup = styled(RadioGroup)`
   display: flex;
-  align-items: baseline;
+  flex-direction: row;
   gap: ${size.xs};
-  margin-bottom: ${size.xs};
+  margin: ${size.xs} 0;
 `;
 
 const ToggleWrapper = styled.div`

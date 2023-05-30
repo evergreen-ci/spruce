@@ -9,8 +9,8 @@ import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import {
-  GetBuildVariantStatsQuery,
-  GetBuildVariantStatsQueryVariables,
+  BuildVariantStatsQuery,
+  BuildVariantStatsQueryVariables,
   StatusCount,
 } from "gql/generated/types";
 import { GET_BUILD_VARIANTS_STATS } from "gql/queries";
@@ -25,8 +25,8 @@ export const BuildVariants: React.VFC = () => {
   const { id } = useParams<{ id: string }>();
 
   const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
-    GetBuildVariantStatsQuery,
-    GetBuildVariantStatsQueryVariables
+    BuildVariantStatsQuery,
+    BuildVariantStatsQueryVariables
   >(GET_BUILD_VARIANTS_STATS, {
     variables: { id },
     pollInterval: DEFAULT_POLL_INTERVAL,
@@ -35,9 +35,9 @@ export const BuildVariants: React.VFC = () => {
   const { version } = data || {};
 
   return (
-    <MetadataCard error={error} loading={loading}>
+    <StickyMetadataCard error={error} loading={loading}>
       <MetadataTitle>Build Variants</MetadataTitle>
-      <div data-cy="build-variants">
+      <ScrollableBuildVariantStatsContainer data-cy="build-variants">
         {version?.buildVariantStats?.map(
           ({ displayName, statusCounts, variant }) => (
             <VariantTaskGroup
@@ -49,11 +49,20 @@ export const BuildVariants: React.VFC = () => {
             />
           )
         )}
-      </div>
-    </MetadataCard>
+      </ScrollableBuildVariantStatsContainer>
+    </StickyMetadataCard>
   );
 };
 
+const StickyMetadataCard = styled(MetadataCard)`
+  position: sticky;
+  top: 0;
+`;
+
+const ScrollableBuildVariantStatsContainer = styled.div`
+  max-height: 55vh;
+  overflow-y: auto;
+`;
 interface VariantTaskGroupProps {
   displayName: string;
   statusCounts: StatusCount[];

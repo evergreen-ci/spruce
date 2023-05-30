@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import { TasksTable } from "components/Table/TasksTable";
-import { GetTaskQuery, Task } from "gql/generated/types";
+import TasksTable from "components/TasksTable";
+import { TaskQuery, Task } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { RequiredQueryParams, TableOnChange } from "types/task";
 import { queryString } from "utils";
@@ -11,7 +11,8 @@ const { parseQueryString, parseSortString, toSortString } = queryString;
 
 interface Props {
   execution: number;
-  executionTasksFull: GetTaskQuery["task"]["executionTasksFull"];
+  executionTasksFull: TaskQuery["task"]["executionTasksFull"];
+  isPatch: boolean;
 }
 
 const useSorts = () => {
@@ -24,6 +25,7 @@ const useSorts = () => {
 export const ExecutionTasksTable: React.VFC<Props> = ({
   execution,
   executionTasksFull,
+  isPatch,
 }) => {
   const taskAnalytics = useTaskAnalytics();
   const updateQueryParams = useUpdateURLQueryParams();
@@ -48,6 +50,7 @@ export const ExecutionTasksTable: React.VFC<Props> = ({
   ]);
   return (
     <TasksTable
+      isPatch={isPatch}
       showTaskExecutionLabel={uniqueExecutions.size > 1}
       sorts={sorts}
       tableChangeHandler={tableChangeHandler}

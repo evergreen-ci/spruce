@@ -16,8 +16,9 @@ export const MetadataCard: React.VFC<Props> = ({
   children,
   error,
   loading,
+  ...rest
 }) => (
-  <SiderCard>
+  <SiderCard {...rest}>
     {loading && !error && (
       <Skeleton active title={false} paragraph={{ rows: 4 }} />
     )}

@@ -6,6 +6,7 @@ import { Body } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
 import { PlusButton } from "components/Buttons";
 import Icon from "components/Icon";
+import { formComponentSpacingCSS } from "components/SettingsCard";
 import { size } from "constants/tokens";
 import { Unpacked } from "types/utils";
 import ElementWrapper from "../../ElementWrapper";
@@ -179,7 +180,7 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
         hasChildren={!!items?.length}
       >
         {items.length === 0 ? (
-          <Body>{placeholder}</Body>
+          <Placeholder>{placeholder}</Placeholder>
         ) : (
           items.map((p, i) => (
             <ArrayItem
@@ -251,4 +252,8 @@ const OrderControls = styled.div<{ topAlignDelete: boolean }>`
 
 const TitleWrapper = styled.span`
   margin-right: ${size.s};
+`;
+
+const Placeholder = styled(Body)`
+  ${formComponentSpacingCSS}
 `;

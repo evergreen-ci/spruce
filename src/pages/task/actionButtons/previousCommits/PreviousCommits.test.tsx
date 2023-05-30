@@ -1,9 +1,9 @@
 import { MockedProvider } from "@apollo/client/testing";
 import {
-  GetBaseVersionAndTaskQuery,
-  GetBaseVersionAndTaskQueryVariables,
-  GetLastMainlineCommitQuery,
-  GetLastMainlineCommitQueryVariables,
+  BaseVersionAndTaskQuery,
+  BaseVersionAndTaskQueryVariables,
+  LastMainlineCommitQuery,
+  LastMainlineCommitQueryVariables,
 } from "gql/generated/types";
 import {
   GET_BASE_VERSION_AND_TASK,
@@ -18,8 +18,8 @@ const selectLabel = "Previous commits for this task";
 
 describe("previous commits", () => {
   // Patch and mainline commit behavior only have a significant difference when it comes to determining
-  // the base or parent task. Patch gets the base task directly from GET_BASE_VERSION_AND_TASK, while
-  // mainline commits needs to run another query GET_LAST_MAINLINE_COMMIT to get parent task.
+  // the base or previous task. Patch gets the base task directly from GET_BASE_VERSION_AND_TASK, while
+  // mainline commits needs to run another query GET_LAST_MAINLINE_COMMIT to get previous task.
   describe("patch specific", () => {
     it("the GO button is disabled when there is no base task", async () => {
       renderWithRouterMatch(
@@ -67,8 +67,8 @@ describe("previous commits", () => {
           "false"
         );
       });
-      // Should say "parent" for versions
-      expect(screen.getByText("Go to parent commit")).toBeInTheDocument();
+      // Should say "previous" for versions
+      expect(screen.getByText("Go to previous commit")).toBeInTheDocument();
     });
 
     it("the GO button is disabled when getParentTask returns an error", async () => {
@@ -92,8 +92,8 @@ describe("previous commits", () => {
           "false"
         );
       });
-      // Should say "parent" for versions
-      expect(screen.getByText("Go to parent commit")).toBeInTheDocument();
+      // Should say "previous" for versions
+      expect(screen.getByText("Go to previous commit")).toBeInTheDocument();
     });
   });
 
@@ -224,8 +224,8 @@ const baseTaskId =
 const baseTaskHref = `/task/${baseTaskId}`;
 
 const getPatchTaskWithSuccessfulBaseTask: ApolloMock<
-  GetBaseVersionAndTaskQuery,
-  GetBaseVersionAndTaskQueryVariables
+  BaseVersionAndTaskQuery,
+  BaseVersionAndTaskQueryVariables
 > = {
   request: {
     query: GET_BASE_VERSION_AND_TASK,
@@ -264,8 +264,8 @@ const getPatchTaskWithSuccessfulBaseTask: ApolloMock<
 };
 
 const getPatchTaskWithRunningBaseTask: ApolloMock<
-  GetBaseVersionAndTaskQuery,
-  GetBaseVersionAndTaskQueryVariables
+  BaseVersionAndTaskQuery,
+  BaseVersionAndTaskQueryVariables
 > = {
   request: {
     query: GET_BASE_VERSION_AND_TASK,
@@ -304,8 +304,8 @@ const getPatchTaskWithRunningBaseTask: ApolloMock<
 };
 
 const getPatchTaskWithFailingBaseTask: ApolloMock<
-  GetBaseVersionAndTaskQuery,
-  GetBaseVersionAndTaskQueryVariables
+  BaseVersionAndTaskQuery,
+  BaseVersionAndTaskQueryVariables
 > = {
   request: {
     query: GET_BASE_VERSION_AND_TASK,
@@ -344,8 +344,8 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
 };
 
 const getPatchTaskWithNoBaseVersion: ApolloMock<
-  GetBaseVersionAndTaskQuery,
-  GetBaseVersionAndTaskQueryVariables
+  BaseVersionAndTaskQuery,
+  BaseVersionAndTaskQueryVariables
 > = {
   request: {
     query: GET_BASE_VERSION_AND_TASK,
@@ -374,8 +374,8 @@ const getPatchTaskWithNoBaseVersion: ApolloMock<
 };
 
 const getLastPassingVersion: ApolloMock<
-  GetLastMainlineCommitQuery,
-  GetLastMainlineCommitQueryVariables
+  LastMainlineCommitQuery,
+  LastMainlineCommitQueryVariables
 > = {
   request: {
     query: GET_LAST_MAINLINE_COMMIT,
@@ -421,8 +421,8 @@ const getLastPassingVersion: ApolloMock<
 };
 
 const getLastExecutedVersion: ApolloMock<
-  GetLastMainlineCommitQuery,
-  GetLastMainlineCommitQueryVariables
+  LastMainlineCommitQuery,
+  LastMainlineCommitQueryVariables
 > = {
   request: {
     query: GET_LAST_MAINLINE_COMMIT,
@@ -479,8 +479,8 @@ const getLastExecutedVersion: ApolloMock<
 
 // patch specific
 const getPatchTaskWithNoBaseTask: ApolloMock<
-  GetBaseVersionAndTaskQuery,
-  GetBaseVersionAndTaskQueryVariables
+  BaseVersionAndTaskQuery,
+  BaseVersionAndTaskQueryVariables
 > = {
   request: {
     query: GET_BASE_VERSION_AND_TASK,
@@ -515,8 +515,8 @@ const getPatchTaskWithNoBaseTask: ApolloMock<
 
 // Mainline commits specific
 const getMainlineTaskWithBaseVersion: ApolloMock<
-  GetBaseVersionAndTaskQuery,
-  GetBaseVersionAndTaskQueryVariables
+  BaseVersionAndTaskQuery,
+  BaseVersionAndTaskQueryVariables
 > = {
   request: {
     query: GET_BASE_VERSION_AND_TASK,
@@ -550,8 +550,8 @@ const getMainlineTaskWithBaseVersion: ApolloMock<
 };
 
 const getNullParentTask: ApolloMock<
-  GetLastMainlineCommitQuery,
-  GetLastMainlineCommitQueryVariables
+  LastMainlineCommitQuery,
+  LastMainlineCommitQueryVariables
 > = {
   request: {
     query: GET_LAST_MAINLINE_COMMIT,
@@ -569,8 +569,8 @@ const getNullParentTask: ApolloMock<
 };
 
 const getParentTaskWithError: ApolloMock<
-  GetLastMainlineCommitQuery,
-  GetLastMainlineCommitQueryVariables
+  LastMainlineCommitQuery,
+  LastMainlineCommitQueryVariables
 > = {
   request: {
     query: GET_LAST_MAINLINE_COMMIT,

@@ -1,4 +1,4 @@
-fragment projectPatchAliasSettings on Project {
+fragment ProjectPatchAliasSettings on Project {
   githubTriggerAliases
   patchTriggerAliases {
     alias
@@ -13,7 +13,7 @@ fragment projectPatchAliasSettings on Project {
   }
 }
 
-fragment repoPatchAliasSettings on RepoRef {
+fragment RepoPatchAliasSettings on RepoRef {
   githubTriggerAliases
   patchTriggerAliases {
     alias

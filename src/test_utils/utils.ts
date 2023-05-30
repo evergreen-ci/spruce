@@ -19,6 +19,7 @@ const mockEnvironmentVariables = () => {
 
   return { mockEnv, cleanup };
 };
+
 const selectLGOption = async (dataCy: string, option: string) => {
   expect(screen.queryByDataCy(dataCy)).not.toBeDisabled();
   userEvent.click(screen.queryByDataCy(dataCy));

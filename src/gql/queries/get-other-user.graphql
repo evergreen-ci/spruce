@@ -1,4 +1,4 @@
-query GetOtherUser($userId: String) {
+query OtherUser($userId: String) {
   currentUser: user {
     userId
   }

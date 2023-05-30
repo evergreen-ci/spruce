@@ -6,7 +6,7 @@ import { useLocation, useParams } from "react-router-dom";
 import PageSizeSelector, {
   usePageSizeSelector,
 } from "components/PageSizeSelector";
-import { Pagination } from "components/Pagination";
+import Pagination from "components/Pagination";
 import { SiderCard, TableControlInnerRow } from "components/styles";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -44,10 +44,9 @@ const EventsTable: React.VFC<{}> = () => {
         <StyledSubtitle>Recent Events</StyledSubtitle>
         <TableControlInnerRow>
           <Pagination
-            pageSize={limit}
-            value={page}
+            currentPage={page}
             totalResults={count ?? 0}
-            data-cy="my-patches-pagination"
+            pageSize={limit}
           />
           <PageSizeSelector
             data-cy="pod-events-page-size-selector"

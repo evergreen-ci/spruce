@@ -10,7 +10,7 @@ import {
   ProjectTriggers,
 } from "types/triggers";
 
-export const RenotifyDefaultTime = "48";
+export const renotifyDefaultTime = "48";
 export const regexDisplayName = "display-name";
 export const regexBuildVariant = "build-variant";
 
@@ -71,37 +71,37 @@ export const taskTriggers: Trigger = {
   [TaskTriggers.TASK_STARTS]: {
     trigger: TriggerType.TASK_STARTED,
     label: "This task starts",
-    resourceType: ResourceType.TASK,
+    resourceType: ResourceType.Task,
     payloadResourceIdKey: "id",
   },
   [TaskTriggers.TASK_FINISHES]: {
     trigger: TriggerType.OUTCOME,
     label: "This task finishes",
-    resourceType: ResourceType.TASK,
+    resourceType: ResourceType.Task,
     payloadResourceIdKey: "id",
   },
   [TaskTriggers.TASK_FAILS]: {
     trigger: TriggerType.FAILURE,
     label: "This task fails",
-    resourceType: ResourceType.TASK,
+    resourceType: ResourceType.Task,
     payloadResourceIdKey: "id",
   },
   [TaskTriggers.TASK_FAILS_OR_BLOCKED]: {
     trigger: TriggerType.TASK_FAILED_OR_BLOCKED,
     label: "This task fails or is blocked",
-    resourceType: ResourceType.TASK,
+    resourceType: ResourceType.Task,
     payloadResourceIdKey: "id",
   },
   [TaskTriggers.TASK_SUCCEEDS]: {
     trigger: TriggerType.SUCCESS,
     label: "This task succeeds",
-    resourceType: ResourceType.TASK,
+    resourceType: ResourceType.Task,
     payloadResourceIdKey: "id",
   },
   [TaskTriggers.TASK_EXCEEDS_DURATION]: {
     trigger: TriggerType.EXCEEDS_DURATION,
     label: "The runtime for this task exceeds some duration",
-    resourceType: ResourceType.TASK,
+    resourceType: ResourceType.Task,
     payloadResourceIdKey: "id",
     extraFields: [
       {
@@ -116,7 +116,7 @@ export const taskTriggers: Trigger = {
   [TaskTriggers.TASK_RUNTIME_CHANGE]: {
     trigger: TriggerType.RUNTIME_CHANGE,
     label: "This task succeeds and its runtime changes by some percentage",
-    resourceType: ResourceType.TASK,
+    resourceType: ResourceType.Task,
     payloadResourceIdKey: "id",
     extraFields: [
       {
@@ -135,25 +135,25 @@ export const versionTriggers: Trigger = {
   [VersionTriggers.VERSION_FINISHES]: {
     trigger: TriggerType.FAMILY_OUTCOME,
     label: "This version finishes",
-    resourceType: ResourceType.VERSION,
+    resourceType: ResourceType.Version,
     payloadResourceIdKey: "id",
   },
   [VersionTriggers.VERSION_FAILS]: {
     trigger: TriggerType.FAMILY_FAILURE,
     label: "This version fails",
-    resourceType: ResourceType.VERSION,
+    resourceType: ResourceType.Version,
     payloadResourceIdKey: "id",
   },
   [VersionTriggers.VERSION_SUCCEEDS]: {
     trigger: TriggerType.FAMILY_SUCCESS,
     label: "This version succeeds",
-    resourceType: ResourceType.VERSION,
+    resourceType: ResourceType.Version,
     payloadResourceIdKey: "id",
   },
   [VersionTriggers.VERSION_EXCEEDS_DURATION]: {
     trigger: TriggerType.EXCEEDS_DURATION,
     label: "The runtime for this version exceeds some duration",
-    resourceType: ResourceType.VERSION,
+    resourceType: ResourceType.Version,
     payloadResourceIdKey: "id",
     extraFields: [
       {
@@ -168,7 +168,7 @@ export const versionTriggers: Trigger = {
   [VersionTriggers.VERSION_RUNTIME_CHANGE]: {
     trigger: TriggerType.RUNTIME_CHANGE,
     label: "The runtime for this version changes by some percentage",
-    resourceType: ResourceType.VERSION,
+    resourceType: ResourceType.Version,
     payloadResourceIdKey: "id",
     extraFields: [
       {
@@ -182,21 +182,21 @@ export const versionTriggers: Trigger = {
   },
   [VersionTriggers.BUILD_VARIANT_FINISHES]: {
     trigger: TriggerType.OUTCOME,
-    resourceType: ResourceType.BUILD,
+    resourceType: ResourceType.Build,
     payloadResourceIdKey: "in-version",
     label: "A build-variant in this version finishes",
     regexSelectors: buildRegexSelectors,
   },
   [VersionTriggers.BUILD_VARIANT_FAILS]: {
     trigger: TriggerType.FAILURE,
-    resourceType: ResourceType.BUILD,
+    resourceType: ResourceType.Build,
     payloadResourceIdKey: "in-version",
     label: "A build-variant in this version fails",
     regexSelectors: buildRegexSelectors,
   },
   [VersionTriggers.BUILD_VARIANT_SUCCEEDS]: {
     trigger: TriggerType.SUCCESS,
-    resourceType: ResourceType.BUILD,
+    resourceType: ResourceType.Build,
     payloadResourceIdKey: "in-version",
     label: "A build-variant in this version succeeds",
     regexSelectors: buildRegexSelectors,
@@ -206,68 +206,68 @@ export const versionTriggers: Trigger = {
 export const projectTriggers: Trigger = {
   [ProjectTriggers.ANY_VERSION_FINISHES]: {
     trigger: TriggerType.FAMILY_OUTCOME,
-    resourceType: ResourceType.VERSION,
+    resourceType: ResourceType.Version,
     label: "Any Version Finishes",
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_VERSION_FAILS]: {
     trigger: TriggerType.FAMILY_FAILURE,
-    resourceType: ResourceType.VERSION,
+    resourceType: ResourceType.Version,
     label: "Any Version Fails",
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_BUILD_FINISHES]: {
     trigger: TriggerType.OUTCOME,
-    resourceType: ResourceType.BUILD,
+    resourceType: ResourceType.Build,
     label: "Any Build Finishes",
     regexSelectors: buildRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_BUILD_FAILS]: {
     trigger: TriggerType.FAILURE,
-    resourceType: ResourceType.BUILD,
+    resourceType: ResourceType.Build,
     label: "Any Build Fails",
     regexSelectors: buildRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_TASK_FINISHES]: {
     trigger: TriggerType.OUTCOME,
-    resourceType: ResourceType.TASK,
+    resourceType: ResourceType.Task,
     label: "Any Task Finishes",
     regexSelectors: taskRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_TASK_FAILS]: {
     trigger: TriggerType.FAILURE,
-    resourceType: ResourceType.TASK,
+    resourceType: ResourceType.Task,
     label: "Any Task Fails",
     regexSelectors: taskRegexSelectors,
     extraFields: [failureTypeSubscriberConfig, requesterSubscriberConfig],
   },
   [ProjectTriggers.FIRST_FAILURE_VERSION]: {
     trigger: TriggerType.FIRST_FAILURE_VERSION,
-    resourceType: ResourceType.TASK,
+    resourceType: ResourceType.Task,
     label: "The First Failure In a Version Occurs",
     regexSelectors: taskRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.FIRST_FAILURE_BUILD]: {
     trigger: TriggerType.FIRST_FAILURE_BUILD,
-    resourceType: ResourceType.TASK,
+    resourceType: ResourceType.Task,
     label: "The First Failure In Each Build Occurs",
     regexSelectors: taskRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.FIRST_FAILURE_TASK]: {
     trigger: TriggerType.FIRST_FAILURE_VERSION_NAME,
-    resourceType: ResourceType.TASK,
+    resourceType: ResourceType.Task,
     label: "The First Failure In Each Version For Each Task Name Occurs",
     regexSelectors: taskRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.PREVIOUS_PASSING_TASK_FAILS]: {
     trigger: TriggerType.REGRESSION,
-    resourceType: ResourceType.TASK,
+    resourceType: ResourceType.Task,
     label: "A Previously Passing Task Fails",
     regexSelectors: taskRegexSelectors,
     extraFields: [
@@ -276,14 +276,14 @@ export const projectTriggers: Trigger = {
         fieldType: "input",
         key: ExtraFieldKey.RENOTIFY_INTERVAL,
         format: "number",
-        default: RenotifyDefaultTime,
+        default: renotifyDefaultTime,
       },
       failureTypeSubscriberConfig,
     ],
   },
   [ProjectTriggers.PREVIOUS_PASSING_TEST_FAILS]: {
     trigger: TriggerType.TEST_REGRESSION,
-    resourceType: ResourceType.TASK,
+    resourceType: ResourceType.Task,
     label: "A Previously Passing Test In a Task Fails",
     regexSelectors: taskRegexSelectors,
     extraFields: [
@@ -299,14 +299,14 @@ export const projectTriggers: Trigger = {
         fieldType: "input",
         key: ExtraFieldKey.RENOTIFY_INTERVAL,
         format: "number",
-        default: RenotifyDefaultTime,
+        default: renotifyDefaultTime,
       },
       failureTypeSubscriberConfig,
     ],
   },
   [ProjectTriggers.TASK_EXCEEDS_DURATION]: {
     trigger: TriggerType.EXCEEDS_DURATION,
-    resourceType: ResourceType.TASK,
+    resourceType: ResourceType.Task,
     label: "The Runtime For a Task Exceeds Some Duration",
     regexSelectors: taskRegexSelectors,
     extraFields: [
@@ -321,7 +321,7 @@ export const projectTriggers: Trigger = {
   },
   [ProjectTriggers.SUCCESSFUL_TASK_RUNTIME_CHANGES]: {
     trigger: TriggerType.RUNTIME_CHANGE,
-    resourceType: ResourceType.TASK,
+    resourceType: ResourceType.Task,
     label: "The Runtime For a Successful Task Changes By Some Percentage",
     regexSelectors: taskRegexSelectors,
     extraFields: [
@@ -339,39 +339,39 @@ export const projectTriggers: Trigger = {
 export const waterfallTriggers: Trigger = {
   [ProjectTriggers.ANY_VERSION_FINISHES]: {
     trigger: TriggerType.FAMILY_OUTCOME,
-    resourceType: ResourceType.VERSION,
+    resourceType: ResourceType.Version,
     label: "Any Version Finishes",
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_VERSION_FAILS]: {
     trigger: TriggerType.FAMILY_FAILURE,
-    resourceType: ResourceType.VERSION,
+    resourceType: ResourceType.Version,
     label: "Any Version Fails",
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_VERSION_SUCCEEDS]: {
     trigger: TriggerType.FAMILY_SUCCESS,
-    resourceType: ResourceType.VERSION,
+    resourceType: ResourceType.Version,
     label: "Any Version Succeeds",
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_BUILD_FINISHES]: {
     trigger: TriggerType.OUTCOME,
-    resourceType: ResourceType.BUILD,
+    resourceType: ResourceType.Build,
     label: "Any Build Finishes",
     regexSelectors: buildRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_BUILD_FAILS]: {
     trigger: TriggerType.FAILURE,
-    resourceType: ResourceType.BUILD,
+    resourceType: ResourceType.Build,
     label: "Any Build Fails",
     regexSelectors: buildRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_BUILD_SUCCEEDS]: {
     trigger: TriggerType.SUCCESS,
-    resourceType: ResourceType.BUILD,
+    resourceType: ResourceType.Build,
     label: "Any Build Succeeds",
     regexSelectors: buildRegexSelectors,
     extraFields: [requesterSubscriberConfig],
