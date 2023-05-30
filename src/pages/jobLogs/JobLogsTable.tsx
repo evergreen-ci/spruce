@@ -1,4 +1,11 @@
-import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
+import {
+  V10Table as Table,
+  V10TableHeader as TableHeader,
+  V10HeaderRow as HeaderRow,
+  V10Row as Row,
+  V10Cell as Cell,
+  V11Adapter,
+} from "@leafygreen-ui/table/new";
 import { Link } from "@leafygreen-ui/typography";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
@@ -17,29 +24,35 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
   const { sendEvent } = useJobLogsAnalytics();
   return (
     <>
-      <Table
-        data={tests}
-        columns={[<TableHeader key="test-name" label="Test Name" />]}
-      >
-        {({ datum }) => (
-          <Row key={datum.id} data-cy="job-logs-table-row">
-            <Cell>
-              <Link
-                href={getParsleyTestLogURL(buildId, datum.id)}
-                onClick={() => {
-                  sendEvent({
-                    name: "Clicked Parsley test log link",
-                    buildId,
-                  });
-                }}
-                hideExternalIcon
-              >
-                {datum.name}
-              </Link>
-            </Cell>
-          </Row>
-        )}
-      </Table>
+      <V11Adapter>
+        <Table
+          data={tests}
+          columns={
+            <HeaderRow>
+              <TableHeader key="test-name" label="Test Name" />
+            </HeaderRow>
+          }
+        >
+          {({ datum }) => (
+            <Row key={datum.id} data-cy="job-logs-table-row">
+              <Cell>
+                <Link
+                  href={getParsleyTestLogURL(buildId, datum.id)}
+                  onClick={() => {
+                    sendEvent({
+                      name: "Clicked Parsley test log link",
+                      buildId,
+                    });
+                  }}
+                  hideExternalIcon
+                >
+                  {datum.name}
+                </Link>
+              </Cell>
+            </Row>
+          )}
+        </Table>
+      </V11Adapter>
       {tests.length === 0 && (
         <TablePlaceholder message="No test results found." />
       )}
