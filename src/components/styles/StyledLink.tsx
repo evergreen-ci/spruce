@@ -22,9 +22,11 @@ export const StyledLink = (props) => (
 
 export const StyledRouterLink = (props) => <StyledLink as={Link} {...props} />;
 
-export const AbbreviatedRouterLink = styled(StyledRouterLink)`
+export const AbbreviatedRouterLink = styled(StyledRouterLink)<{
+  width?: number;
+}>`
   span {
-    max-width: 200px;
+    max-width: ${({ width }) => `${width ?? 200}px`};
     overflow: hidden;
     text-overflow: ellipsis;
   }
