@@ -62,7 +62,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
   } = upstreamProject || {};
 
   const { repo, owner } = projectMetadata || {};
-  const { url, displayName } = externalLinksForMetadata[0] || {};
+  const { url, displayName } = externalLinksForMetadata?.[0] || {};
   return (
     <MetadataCard loading={loading} error={null}>
       <MetadataTitle>
@@ -117,7 +117,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
       <MetadataItem>{`Submitted by: ${author}`}</MetadataItem>
       {isPatch ? (
         <MetadataItem>
-          Base commit:
+          Base commit:{" "}
           <InlineCode
             as={Link}
             data-cy="patch-base-commit"
@@ -144,10 +144,9 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
         <MetadataItem>
           GitHub commit:{" "}
           <InlineCode
-            as={Link}
             data-cy="version-github-commit"
             onClick={() => sendEvent({ name: "Click Github Commit Link" })}
-            to={getGithubCommitUrl(owner, repo, revision)}
+            href={getGithubCommitUrl(owner, repo, revision)}
           >
             {shortenGithash(revision)}
           </InlineCode>

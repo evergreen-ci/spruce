@@ -4806,17 +4806,17 @@
     lodash "^4.17.21"
     polished "^4.2.2"
 
-"@leafygreen-ui/typography@16.3.0", "@leafygreen-ui/typography@^16.0.0", "@leafygreen-ui/typography@^16.0.1", "@leafygreen-ui/typography@^16.1.0", "@leafygreen-ui/typography@^16.2.1", "@leafygreen-ui/typography@^16.3.0":
-  version "16.3.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-16.3.0.tgz#b11ec3727089901626f79491127ffed256d785e7"
-  integrity sha512-ddCK3TsRFmTv0533zyCsT7fEaJ1FJb0wErQzKMpAnA1Q9/ZUUf72pJLJLxmk8jKlUdPfWKp2NE5mNRBf31skew==
+"@leafygreen-ui/typography@16.4.1":
+  version "16.4.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-16.4.1.tgz#0f5f124dfb02c58b67f70b64f74503dc5813b16e"
+  integrity sha512-UKvuAiCPa5jv8QNZHZDfVqfCzEPodNX5tpOVFeSLzt5hs8IBTCsxXqxPgzzapRHR+5NzebpyNmZEou5ZKtpa0Q==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.4"
-    "@leafygreen-ui/icon" "^11.13.1"
+    "@leafygreen-ui/icon" "^11.14.0"
     "@leafygreen-ui/lib" "^10.3.3"
     "@leafygreen-ui/palette" "^4.0.4"
     "@leafygreen-ui/polymorphic" "^1.3.1"
-    "@leafygreen-ui/tokens" "^2.0.3"
+    "@leafygreen-ui/tokens" "^2.1.0"
 
 "@leafygreen-ui/typography@^15.0.0", "@leafygreen-ui/typography@^15.1.0":
   version "15.1.0"
@@ -4829,6 +4829,18 @@
     "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
     "@leafygreen-ui/tokens" "^1.4.0"
+
+"@leafygreen-ui/typography@^16.0.0", "@leafygreen-ui/typography@^16.0.1", "@leafygreen-ui/typography@^16.1.0", "@leafygreen-ui/typography@^16.2.1", "@leafygreen-ui/typography@^16.3.0":
+  version "16.3.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-16.3.0.tgz#b11ec3727089901626f79491127ffed256d785e7"
+  integrity sha512-ddCK3TsRFmTv0533zyCsT7fEaJ1FJb0wErQzKMpAnA1Q9/ZUUf72pJLJLxmk8jKlUdPfWKp2NE5mNRBf31skew==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.4"
+    "@leafygreen-ui/icon" "^11.13.1"
+    "@leafygreen-ui/lib" "^10.3.3"
+    "@leafygreen-ui/palette" "^4.0.4"
+    "@leafygreen-ui/polymorphic" "^1.3.1"
+    "@leafygreen-ui/tokens" "^2.0.3"
 
 "@leafygreen-ui/typography@^16.4.0":
   version "16.4.0"
