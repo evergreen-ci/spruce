@@ -1,6 +1,5 @@
 import { useMemo, useRef } from "react";
 import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled";
 import {
   Cell,
   ExpandedContent,
@@ -14,7 +13,7 @@ import {
   useLeafyGreenTable,
 } from "@leafygreen-ui/table/new";
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
-import { StyledRouterLink } from "components/styles";
+import { ShortenedRouterLink } from "components/styles";
 import { getSubscriberText } from "constants/subscription";
 import {
   GeneralSubscription,
@@ -138,7 +137,11 @@ const columns = [
       const { data: selectorId } = resourceSelector ?? {};
       const route = getResourceRoute(resourceType, resourceSelector);
 
-      return route ? <IdLink to={route}>{selectorId}</IdLink> : selectorId;
+      return route ? (
+        <ShortenedRouterLink to={route}>{selectorId}</ShortenedRouterLink>
+      ) : (
+        selectorId
+      );
     },
   },
   {
@@ -163,11 +166,3 @@ const columns = [
     cell: ({ getValue }) => getSubscriberText(getValue()),
   },
 ];
-
-const IdLink = styled(StyledRouterLink)`
-  span {
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-`;

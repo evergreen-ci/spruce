@@ -5177,6 +5177,7 @@ export type HostEventsQuery = {
         duration: number;
         execution: string;
         hostname: string;
+        jasperRevision: string;
         logs: string;
         monitorOp: string;
         newStatus: string;
