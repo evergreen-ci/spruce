@@ -17,14 +17,14 @@ import {
 import { SideNav, SideNavGroup, SideNavItem } from "./SideNav";
 import { SiderCard } from "./SiderCard";
 import {
-  AbbreviatedRouterLink,
+  ShortenedRouterLink,
   StyledLink,
   StyledRouterLink,
 } from "./StyledLink";
 import { WordBreak, wordBreakCss } from "./Typography";
 
 export {
-  AbbreviatedRouterLink,
+  ShortenedRouterLink,
   Divider,
   ErrorMessage,
   FiltersWrapper,

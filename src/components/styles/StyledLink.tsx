@@ -22,7 +22,7 @@ export const StyledLink = (props) => (
 
 export const StyledRouterLink = (props) => <StyledLink as={Link} {...props} />;
 
-export const AbbreviatedRouterLink = styled(StyledRouterLink)<{
+export const ShortenedRouterLink = styled(StyledRouterLink)<{
   width?: number;
 }>`
   span {

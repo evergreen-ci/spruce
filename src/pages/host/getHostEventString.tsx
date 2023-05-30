@@ -1,6 +1,6 @@
 import Code from "@leafygreen-ui/code";
 import { Accordion } from "components/Accordion";
-import { AbbreviatedRouterLink } from "components/styles";
+import { ShortenedRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { HostEventLogData } from "gql/generated/types";
 import { HostEvent, HostMonitorOp } from "types/host";
@@ -32,13 +32,13 @@ interface TaskLinkProps {
   taskId: string;
 }
 const TaskLink: React.VFC<TaskLinkProps> = ({ "data-cy": dataCy, taskId }) => (
-  <AbbreviatedRouterLink
+  <ShortenedRouterLink
     data-cy={dataCy}
     title={taskId}
     to={getTaskRoute(taskId)}
   >
     {taskId}
-  </AbbreviatedRouterLink>
+  </ShortenedRouterLink>
 );
 export const getHostEventString = (
   eventType: string,

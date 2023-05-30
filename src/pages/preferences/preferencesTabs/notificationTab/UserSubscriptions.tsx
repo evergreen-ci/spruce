@@ -13,7 +13,7 @@ import {
   useLeafyGreenTable,
 } from "@leafygreen-ui/table/new";
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
-import { AbbreviatedRouterLink } from "components/styles";
+import { ShortenedRouterLink } from "components/styles";
 import { getSubscriberText } from "constants/subscription";
 import {
   GeneralSubscription,
@@ -138,7 +138,7 @@ const columns = [
       const route = getResourceRoute(resourceType, resourceSelector);
 
       return route ? (
-        <AbbreviatedRouterLink to={route}>{selectorId}</AbbreviatedRouterLink>
+        <ShortenedRouterLink to={route}>{selectorId}</ShortenedRouterLink>
       ) : (
         selectorId
       );
