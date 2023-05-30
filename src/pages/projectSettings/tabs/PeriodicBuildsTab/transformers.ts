@@ -23,7 +23,7 @@ const getTitle = (
   return intervalHours ? `Every ${intervalHours} hours` : cron;
 };
 
-export const gqlToForm = ((
+export const gqlToForm: GqlToFormFunction<Tab> = (
   data:
     | ProjectSettingsQuery["projectSettings"]
     | RepoSettingsQuery["repoSettings"],
@@ -70,9 +70,9 @@ export const gqlToForm = ((
         })
       ) ?? [],
   };
-}) satisfies GqlToFormFunction<Tab>;
+};
 
-export const formToGql = ((
+export const formToGql: FormToGqlFunction<Tab> = (
   { periodicBuildsOverride, periodicBuilds }: FormState,
   projectId
 ) => ({
@@ -99,4 +99,4 @@ export const formToGql = ((
         )
       : null,
   },
-})) satisfies FormToGqlFunction<Tab>;
+});
