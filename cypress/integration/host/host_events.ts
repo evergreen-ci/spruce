@@ -97,7 +97,11 @@ describe("Host events", () => {
       },
       {
         hostType: "host-running-task-cleared",
-        text: "Current running task cleared (was: evergreen_ubuntu1604_test_command_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48)",
+        text: "Current running task cleared (was: ",
+      },
+      {
+        hostType: "host-running-task-cleared",
+        text: "evergreen_ubuntu1604_test_command_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
       },
       {
         hostType: "host-task-finished",
