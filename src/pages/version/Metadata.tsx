@@ -145,8 +145,8 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
           GitHub commit:{" "}
           <InlineCode
             data-cy="version-github-commit"
-            onClick={() => sendEvent({ name: "Click Github Commit Link" })}
             href={getGithubCommitUrl(owner, repo, revision)}
+            onClick={() => sendEvent({ name: "Click Github Commit Link" })}
           >
             {shortenGithash(revision)}
           </InlineCode>

@@ -284,7 +284,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
                         href="/task/some_id_5?execution=14"
                       >
                         <span
@@ -296,7 +296,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                             Some fancy execution task
                           </span>
                           <p
-                            class="leafygreen-ui-1yli3c0"
+                            class="leafygreen-ui-1tb6tuo"
                           >
                             Execution 
                             15
@@ -325,7 +325,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
@@ -344,7 +344,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
                         href="/task/some_id_6?execution=12"
                       >
                         <span
@@ -356,7 +356,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                             Another execution task
                           </span>
                           <p
-                            class="leafygreen-ui-1yli3c0"
+                            class="leafygreen-ui-1tb6tuo"
                           >
                             Execution 
                             13
@@ -385,7 +385,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
@@ -691,7 +691,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
                         href="/task/some_id_5?execution=5"
                       >
                         <span
@@ -726,7 +726,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
@@ -745,7 +745,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
                         href="/task/some_id_6?execution=5"
                       >
                         <span
@@ -780,7 +780,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
