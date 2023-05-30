@@ -220,7 +220,6 @@ export const getHostEventString = (
     case HostEvent.HostRunningTaskCleared:
       return (
         <div data-cy="host-running-task-cleared">
-          {" "}
           Current running task cleared (was:{" "}
           <TaskLink
             taskId={data.taskId}
