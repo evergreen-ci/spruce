@@ -203,6 +203,21 @@ const usePopulateForm = <T extends WritableTabRoutes>(
   }, [formData]); // eslint-disable-line react-hooks/exhaustive-deps
 };
 
+const useHasUnsavedTab = (): {
+  hasUnsaved: boolean;
+  unsavedTabs: ProjectSettingsTabRoutes[];
+} => {
+  const { tabs } = useProjectSettingsContext();
+  const unsavedTabs = Object.entries(tabs)
+    .filter(([, tabData]) => tabData.hasChanges)
+    .map(([tab]) => tab as ProjectSettingsTabRoutes);
+
+  return {
+    unsavedTabs,
+    hasUnsaved: !!unsavedTabs.length,
+  };
+};
+
 const getDefaultTabState = <T extends unknown>(
   defaultValue: T
 ): Record<WritableTabRoutes, T> =>
@@ -213,4 +228,9 @@ const getDefaultTabState = <T extends unknown>(
     }))
   );
 
-export { ProjectSettingsProvider, usePopulateForm, useProjectSettingsContext };
+export {
+  ProjectSettingsProvider,
+  useHasUnsavedTab,
+  usePopulateForm,
+  useProjectSettingsContext,
+};
