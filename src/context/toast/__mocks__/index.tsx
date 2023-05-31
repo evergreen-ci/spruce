@@ -29,7 +29,6 @@ const RenderFakeToastContext = (Component?: React.ReactElement) => {
     info: jest.fn(),
     warning: jest.fn(),
     progress: jest.fn(),
-    hide: jest.fn(),
   };
 
   const useToastContextSpied = jest
