@@ -16,7 +16,7 @@ describe("Project Patches Page", () => {
     cy.dataCy("patch-card").should("exist");
   });
 
-  it.only("Project dropdown navigates to another project patches page upon selection", () => {
+  it("Project dropdown navigates to another project patches page upon selection", () => {
     cy.visit(evergreenPatchesRoute);
     cy.dataCy("project-select").click();
     cy.dataCy("project-display-name").contains("Spruce").click();
