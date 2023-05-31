@@ -3,7 +3,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { palette } from "@leafygreen-ui/palette";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
@@ -255,7 +255,7 @@ const getTaskIds = (selectedTasks: versionSelectedTasks) =>
     taskIds: selectedArray(tasks),
   }));
 
-const ConfirmationMessage = styled(Body)`
+const ConfirmationMessage = styled(Body)<BodyProps>`
   padding-top: ${size.s};
   padding-bottom: ${size.s};
 `;

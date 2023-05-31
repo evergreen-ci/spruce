@@ -1,5 +1,11 @@
 import styled from "@emotion/styled";
-import { Description, H3, Subtitle } from "@leafygreen-ui/typography";
+import {
+  Description,
+  H3,
+  H3Props,
+  Subtitle,
+  SubtitleProps,
+} from "@leafygreen-ui/typography";
 import { Field, FieldProps } from "@rjsf/core";
 import { size } from "constants/tokens";
 
@@ -12,20 +18,15 @@ export const TitleField: React.VFC<TitleFieldProps> = ({
 }) => {
   const isSectionTitle = uiSchema?.["ui:sectionTitle"] ?? false;
   const Component = isSectionTitle ? StyledH3 : StyledSubtitle;
-  return (
-    /* @ts-expect-error */
-    <Component id={id}>{title}</Component>
-  );
+  return <Component id={id}>{title}</Component>;
 };
 
-/* @ts-expect-error  */
-const StyledH3 = styled(H3)`
+const StyledH3 = styled(H3)<H3Props>`
   margin-top: ${size.m};
   margin-bottom: 12px;
 `;
 
-/* @ts-expect-error  */
-const StyledSubtitle = styled(Subtitle)`
+const StyledSubtitle = styled(Subtitle)<SubtitleProps>`
   margin-top: ${size.s};
   margin-bottom: 12px;
 `;

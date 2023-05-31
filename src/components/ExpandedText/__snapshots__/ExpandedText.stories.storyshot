@@ -3,7 +3,7 @@
 exports[`storybook Storyshots components/ExpandedText Default 1`] = `
 <div>
   <small
-    class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
+    class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-6flbwy"
   >
     more
   </small>

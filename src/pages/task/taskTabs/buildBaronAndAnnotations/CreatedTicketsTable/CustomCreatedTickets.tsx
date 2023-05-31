@@ -16,14 +16,12 @@ const CustomCreatedTickets: React.VFC<CustomCreatedTicketProps> = ({
 }) => (
   <>
     <NonTableWrapper>
-      {/* @ts-expect-error */}
       <TicketsTitle>Create a New Ticket</TicketsTitle>
       <FileTicketButton taskId={taskId} execution={execution} />
     </NonTableWrapper>
     {tickets?.length > 0 && (
       <>
         <NonTableWrapper>
-          {/* @ts-expect-error */}
           <TicketsTitle>Tickets Created From This Task</TicketsTitle>
         </NonTableWrapper>
         <CustomCreatedTicketsTable tickets={tickets} />

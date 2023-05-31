@@ -12,12 +12,12 @@ exports[`storybook Storyshots components/ErrorBoundary/ErrorFallback Default Err
         class="css-1ow8p7h-Text e1n39ls31"
       >
         <h1
-          class="css-15usbh5-StyledHeader e1n39ls34 leafygreen-ui-a01oan"
+          class="css-15usbh5-StyledHeader e1n39ls34 leafygreen-ui-yk169t"
         >
           Error
         </h1>
         <h2
-          class="css-15lzim1-StyledSubtitle e1n39ls33 leafygreen-ui-1wgcd7w"
+          class="css-15lzim1-StyledSubtitle e1n39ls33 leafygreen-ui-oaqrgz"
         >
           Ouch! That's gotta hurt,
           <br />

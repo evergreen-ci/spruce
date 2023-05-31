@@ -163,7 +163,7 @@ exports[`storybook Storyshots Pages/Spawn/Spawn Host Card Default 1`] = `
       <div>
         <span>
           <a
-            class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+            class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
             href="/spawn/volume?volume=vol-0ea662ac92f611ed4"
           >
             <span
@@ -186,7 +186,7 @@ exports[`storybook Storyshots Pages/Spawn/Spawn Host Card Default 1`] = `
       <div>
         <span>
           <a
-            class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+            class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
             href="/host/i-04ade558e1e26b0ad/ide"
             target="_self"
           >

@@ -9,7 +9,7 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
       class="css-1mx1jed-FlexContainer et5phr01"
     >
       <p
-        class="leafygreen-ui-1yli3c0"
+        class="leafygreen-ui-1tb6tuo"
       >
         <span
           data-cy="filtered-count"
@@ -85,7 +85,7 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
           class="css-ob08n2-PageLabel e4w46hm1"
         >
           <small
-            class="leafygreen-ui-ppjyot"
+            class="leafygreen-ui-6flbwy"
           >
             1
              / 
