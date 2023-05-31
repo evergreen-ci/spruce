@@ -37,7 +37,7 @@ describe("Restarting a patch", { testIsolation: false }, () => {
     cy.dataCy("task-status-badge").should("contain.text", "1 of 1 Selected");
   });
 
-  it("Selecting on the patch status filter should toggle the tasks that have matching statuses to it", () => {
+  it("Selecting on the task status filter should toggle the tasks that have matching statuses to it", () => {
     cy.dataCy("task-status-filter").click();
     cy.getInputByLabel("All").check({ force: true });
     cy.dataCy("task-status-filter").click();

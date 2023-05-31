@@ -103,7 +103,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                         <span
                           class="ant-table-column-title"
                         >
-                          Patch Status
+                          Task Status
                         </span>
                         <span
                           class="ant-table-column-sorter ant-table-column-sorter-full"
@@ -510,7 +510,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                         <span
                           class="ant-table-column-title"
                         >
-                          Patch Status
+                          Task Status
                         </span>
                         <span
                           class="ant-table-column-sorter ant-table-column-sorter-full"
