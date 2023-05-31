@@ -1,5 +1,5 @@
 import { ApolloError } from "@apollo/client";
-import styled, { StyledComponent } from "@emotion/styled";
+import styled from "@emotion/styled";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { ErrorWrapper } from "components/ErrorWrapper";
@@ -48,9 +48,9 @@ export const MetadataItem: React.VFC<ItemProps> = ({
   "data-cy": dataCy,
 }) => <Item data-cy={dataCy}>{children}</Item>;
 
-const Title = styled(Body)`
+const Title = styled(Body)<BodyProps>`
   font-size: 15px;
-` as StyledComponent<BodyProps>;
+`;
 
 const Item = styled(Body)`
   ${wordBreakCss}

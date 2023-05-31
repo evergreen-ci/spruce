@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import styled, { StyledComponent } from "@emotion/styled";
+import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { palette } from "@leafygreen-ui/palette";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
@@ -255,10 +255,10 @@ const getTaskIds = (selectedTasks: versionSelectedTasks) =>
     taskIds: selectedArray(tasks),
   }));
 
-const ConfirmationMessage = styled(Body)`
+const ConfirmationMessage = styled(Body)<BodyProps>`
   padding-top: ${size.s};
   padding-bottom: ${size.s};
-` as StyledComponent<BodyProps>;
+`;
 
 const Row = styled.div`
   display: flex;

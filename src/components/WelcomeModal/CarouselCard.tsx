@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import { css } from "@emotion/react";
-import styled, { StyledComponent } from "@emotion/styled";
+import styled from "@emotion/styled";
 import { Body, BodyProps, Subtitle } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 import { CardType } from "./types";
@@ -74,9 +74,9 @@ const CardContainer = styled.div`
   cursor: default;
 `;
 
-const StyledBody = styled(Body)`
+const StyledBody = styled(Body)<BodyProps>`
   margin-bottom: ${size.s};
-` as StyledComponent<BodyProps>;
+`;
 
 const StyledTitle = styled(Subtitle)`
   margin-bottom: ${size.s};

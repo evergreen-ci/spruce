@@ -1,4 +1,4 @@
-import styled, { StyledComponent } from "@emotion/styled";
+import styled from "@emotion/styled";
 import {
   Description,
   H3,
@@ -21,15 +21,15 @@ export const TitleField: React.VFC<TitleFieldProps> = ({
   return <Component id={id}>{title}</Component>;
 };
 
-const StyledH3 = styled(H3)`
+const StyledH3 = styled(H3)<H3Props>`
   margin-top: ${size.m};
   margin-bottom: 12px;
-` as StyledComponent<H3Props>;
+`;
 
-const StyledSubtitle = styled(Subtitle)`
+const StyledSubtitle = styled(Subtitle)<SubtitleProps>`
   margin-top: ${size.s};
   margin-bottom: 12px;
-` as StyledComponent<SubtitleProps>;
+`;
 
 export const DescriptionField: Field = ({ id, description }) =>
   description ? (

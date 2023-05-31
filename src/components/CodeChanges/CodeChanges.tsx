@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import styled, { StyledComponent } from "@emotion/styled";
+import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import {
   Body,
@@ -118,11 +118,11 @@ const StyledButton = styled(Button)`
   margin-right: ${size.xs};
 `;
 
-const Title = styled(Subtitle)`
+const Title = styled(Subtitle)<SubtitleProps>`
   font-weight: normal;
   margin-right: ${size.s};
   margin-bottom: ${size.s};
-` as StyledComponent<SubtitleProps>;
+`;
 
 const TitleContainer = styled.div`
   align-items: baseline;
