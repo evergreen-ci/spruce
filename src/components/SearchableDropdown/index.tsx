@@ -23,7 +23,7 @@ export interface SearchableDropdownProps<T> {
   buttonRenderer?: (option: T | T[]) => ReactNode;
   ["data-cy"]?: string;
   disabled?: boolean;
-  label: string | ReactNode;
+  label?: ReactNode;
   onChange: (value: T | T[]) => void;
   options?: T[] | string[];
   optionRenderer?: (
@@ -144,7 +144,7 @@ const SearchableDropdown = <T extends {}>({
 
   return (
     <Container>
-      <Label htmlFor={`searchable-dropdown-${label}`}>{label}</Label>
+      {label && <Label htmlFor={`searchable-dropdown-${label}`}>{label}</Label>}
       <Wrapper>
         <Dropdown
           id={`searchable-dropdown-${label}`}
