@@ -1,7 +1,12 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { Body, Description, Subtitle } from "@leafygreen-ui/typography";
+import {
+  Body,
+  Description,
+  Subtitle,
+  SubtitleProps,
+} from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
 import { CodeChangesBadge } from "components/CodeChangesBadge";
@@ -13,7 +18,6 @@ import {
   FileDiffsFragment,
 } from "gql/generated/types";
 import { GET_CODE_CHANGES } from "gql/queries";
-import { SubtitleType } from "types/leafygreen";
 import { commits } from "utils";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 
@@ -114,8 +118,7 @@ const StyledButton = styled(Button)`
   margin-right: ${size.xs};
 `;
 
-// @ts-expect-error
-const Title: SubtitleType = styled(Subtitle)`
+const Title = styled(Subtitle)<SubtitleProps>`
   font-weight: normal;
   margin-right: ${size.s};
   margin-bottom: ${size.s};

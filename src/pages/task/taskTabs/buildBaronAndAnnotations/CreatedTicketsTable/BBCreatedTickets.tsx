@@ -19,7 +19,6 @@ const BBCreatedTickets: React.VFC<CreatedTicketsProps> = ({
   <>
     {buildBaronConfigured && (
       <NonTableWrapper>
-        {/* @ts-expect-error */}
         <TicketsTitle>Create a New Ticket</TicketsTitle>
         <FileTicketButton taskId={taskId} execution={execution} />
       </NonTableWrapper>
@@ -27,7 +26,6 @@ const BBCreatedTickets: React.VFC<CreatedTicketsProps> = ({
     {tickets?.length > 0 && (
       <>
         <NonTableWrapper>
-          {/* @ts-expect-error */}
           <TicketsTitle>Tickets Created From This Task </TicketsTitle>
         </NonTableWrapper>{" "}
         <BuildBaronTable jiraIssues={tickets} />
