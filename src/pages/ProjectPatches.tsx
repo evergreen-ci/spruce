@@ -3,7 +3,9 @@ import { useLocation, useParams } from "react-router-dom";
 import { useProjectPatchesAnalytics } from "analytics/patches/useProjectPatchesAnalytics";
 import { ProjectBanner } from "components/Banners";
 import { PatchesPage, usePatchesInputFromSearch } from "components/PatchesPage";
+import { ProjectSelect } from "components/ProjectSelect";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import { getProjectPatchesRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
   ProjectPatchesQuery,
@@ -52,9 +54,16 @@ export const ProjectPatches = () => {
       <ProjectBanner projectIdentifier={projectIdentifier} />
       <PatchesPage
         analyticsObject={analyticsObject}
-        pageTitle={`${displayName ?? ""} Patches`}
         loading={loading}
+        pageTitle={`${displayName ?? ""} Patches`}
         pageType="project"
+        filterComp={
+          <ProjectSelect
+            getRoute={getProjectPatchesRoute}
+            selectedProjectIdentifier={projectIdentifier}
+            showLabel={false}
+          />
+        }
         patches={patches}
       />
     </>
