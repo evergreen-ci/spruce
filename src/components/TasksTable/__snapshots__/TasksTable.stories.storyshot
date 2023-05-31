@@ -102,7 +102,7 @@ exports[`storybook Storyshots components/TasksTable Base Task Table 1`] = `
                         <span
                           class="ant-table-column-title"
                         >
-                          Patch Status
+                          Task Status
                         </span>
                         <span
                           class="ant-table-column-sorter ant-table-column-sorter-full"
@@ -571,7 +571,7 @@ exports[`storybook Storyshots components/TasksTable Execution Tasks Table 1`] = 
                         <span
                           class="ant-table-column-title"
                         >
-                          Patch Status
+                          Task Status
                         </span>
                         <span
                           class="ant-table-column-sorter ant-table-column-sorter-full"
@@ -1137,7 +1137,7 @@ exports[`storybook Storyshots components/TasksTable Version Tasks Table 1`] = `
                         <span
                           class="ant-table-column-title"
                         >
-                          Version Status
+                          Task Status
                         </span>
                         <span
                           class="ant-table-column-sorter ant-table-column-sorter-full"
