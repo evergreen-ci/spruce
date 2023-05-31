@@ -116,7 +116,6 @@ const RowContainer = styled.div`
   gap: ${size.s};
 `;
 
-/* @ts-expect-error  */
 const AccordionTitle = styled(Subtitle)`
   font-size: ${fontSize.l};
   margin: ${size.xs} 0;

@@ -61,7 +61,6 @@ const TaskQueue = () => {
 
   return (
     <PageWrapper>
-      {/* @ts-expect-error  */}
       <StyledH2>Task Queue</StyledH2>
 
       {selectedDistro === null ? (
@@ -103,7 +102,6 @@ const TaskQueue = () => {
             /* Only show name & link if distro exists. */
             selectedDistro && (
               <TableHeader>
-                {/* @ts-expect-error  */}
                 <StyledH3> {selectedDistro.id} </StyledH3>
                 <StyledRouterLink
                   to={getAllHostsRoute({ distroId: selectedDistro.id })}
@@ -141,11 +139,9 @@ const TableHeader = styled.div`
   align-items: flex-end;
   margin: ${size.m} 0 ${size.s} 0;
 `;
-/* @ts-expect-error  */
 const StyledH2 = styled(H2)`
   margin-bottom: ${size.xs};
 `;
-/* @ts-expect-error  */
 const StyledH3 = styled(H3)`
   margin-right: ${size.s};
 `;

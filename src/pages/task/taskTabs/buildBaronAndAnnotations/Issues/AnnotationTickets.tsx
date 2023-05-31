@@ -46,7 +46,6 @@ const AnnotationTickets: React.VFC<AnnotationTicketsProps> = ({
   return (
     <>
       <NonTableWrapper>
-        {/* @ts-expect-error */}
         <TicketsTitle>{title}</TicketsTitle>
         <Tooltip
           trigger={

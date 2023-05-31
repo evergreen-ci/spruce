@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { TableProps } from "antd/es/table";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
@@ -240,8 +240,9 @@ const DownstreamMetadata: React.VFC<DownstreamMetadataProps> = ({
     <PaddedText>
       Base commit:{" "}
       <InlineCode
+        as={Link}
         data-cy="downstream-base-commit"
-        href={getVersionRoute(baseVersionID)}
+        to={getVersionRoute(baseVersionID)}
       >
         {shortenGithash(githash)}
       </InlineCode>

@@ -1,4 +1,5 @@
 import { InlineCode } from "@leafygreen-ui/typography";
+import { Link } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import {
   MetadataCard,
@@ -61,7 +62,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
   } = upstreamProject || {};
 
   const { repo, owner } = projectMetadata || {};
-  const { url, displayName } = externalLinksForMetadata[0] || {};
+  const { url, displayName } = externalLinksForMetadata?.[0] || {};
   return (
     <MetadataCard loading={loading} error={null}>
       <MetadataTitle>
@@ -118,9 +119,10 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
         <MetadataItem>
           Base commit:{" "}
           <InlineCode
+            as={Link}
             data-cy="patch-base-commit"
-            href={getVersionRoute(baseVersion?.id)}
             onClick={() => sendEvent({ name: "Click Base Commit Link" })}
+            to={getVersionRoute(baseVersion?.id)}
           >
             {shortenGithash(revision)}
           </InlineCode>
@@ -129,9 +131,10 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
         <MetadataItem>
           Previous commit:{" "}
           <InlineCode
+            as={Link}
             data-cy="version-previous-commit"
-            href={getVersionRoute(previousVersion?.id)}
             onClick={() => sendEvent({ name: "Click Previous Version Link" })}
+            to={getVersionRoute(previousVersion?.id)}
           >
             {shortenGithash(previousVersion?.revision)}
           </InlineCode>
