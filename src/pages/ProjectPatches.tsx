@@ -62,6 +62,9 @@ export const ProjectPatches = () => {
             getRoute={getProjectPatchesRoute}
             selectedProjectIdentifier={projectIdentifier}
             showLabel={false}
+            onSubmit={() => {
+              analyticsObject.sendEvent({ name: "Change Project" });
+            }}
           />
         }
         patches={patches}
