@@ -11,7 +11,7 @@
     "build:staging": "env-cmd -e staging yarn build",
     "build": "GIT_SHA=`git rev-parse HEAD` vite build",
     "check-types": "tsc -p tsconfig.json --noEmit",
-    "codegen": "graphql-codegen --config codegen.yml",
+    "codegen": "graphql-codegen --config codegen.ts",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:test": "cypress run --spec",
