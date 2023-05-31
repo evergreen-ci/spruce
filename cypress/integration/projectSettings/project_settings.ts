@@ -8,6 +8,8 @@ import {
   project,
   projectUseRepoEnabled,
   repo,
+  saveButtonEnabled,
+  clickSave,
 } from "./constants";
 
 describe("Access page", { testIsolation: false }, () => {
@@ -1205,21 +1207,3 @@ describe("Containers", () => {
     cy.validateToast("success", "Successfully updated project");
   });
 });
-
-/**
- * `saveButtonEnabled` checks if the save button is enabled or disabled.
- * @param isEnabled - if true, the save button should be enabled. If false, the save button should be disabled.
- */
-const saveButtonEnabled = (isEnabled: boolean = true) => {
-  cy.dataCy("save-settings-button").should(
-    isEnabled ? "not.have.attr" : "have.attr",
-    "aria-disabled",
-    "true"
-  );
-};
-
-const clickSave = () => {
-  cy.dataCy("save-settings-button")
-    .should("not.have.attr", "aria-disabled", "true")
-    .click();
-};

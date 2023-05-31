@@ -367,6 +367,7 @@ export const LeafyGreenSegmentedControl: React.VFC<EnumSpruceWidgetProps> = ({
   const {
     "aria-controls": ariaControls,
     "data-cy": dataCy,
+    sizeVariant,
     enumDisabled,
     enumOptions,
     elementWrapperCSS,
@@ -382,6 +383,8 @@ export const LeafyGreenSegmentedControl: React.VFC<EnumSpruceWidgetProps> = ({
         value={value}
         onChange={onChange}
         aria-controls={ariaControls?.join(" ")}
+        // @ts-expect-error
+        size={sizeVariant}
       >
         {enumOptions.map((o) => {
           const optionDisabled = enumDisabled?.includes(o.value) ?? false;
