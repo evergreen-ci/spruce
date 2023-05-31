@@ -3122,6 +3122,7 @@ export type ProjectSettingsFieldsFragment = {
       __typename?: "PeriodicBuild";
       alias: string;
       configFile: string;
+      cron: string;
       id: string;
       intervalHours: number;
       message: string;
@@ -3309,6 +3310,7 @@ export type RepoSettingsFieldsFragment = {
       __typename?: "PeriodicBuild";
       alias: string;
       configFile: string;
+      cron: string;
       id: string;
       intervalHours: number;
       message: string;
@@ -3540,6 +3542,7 @@ export type ProjectPeriodicBuildsSettingsFragment = {
     __typename?: "PeriodicBuild";
     alias: string;
     configFile: string;
+    cron: string;
     id: string;
     intervalHours: number;
     message: string;
@@ -3553,6 +3556,7 @@ export type RepoPeriodicBuildsSettingsFragment = {
     __typename?: "PeriodicBuild";
     alias: string;
     configFile: string;
+    cron: string;
     id: string;
     intervalHours: number;
     message: string;
@@ -3689,6 +3693,7 @@ export type ProjectEventSettingsFragment = {
       __typename?: "PeriodicBuild";
       alias: string;
       configFile: string;
+      cron: string;
       id: string;
       intervalHours: number;
       message: string;
@@ -5828,6 +5833,7 @@ export type ProjectEventLogsQuery = {
             __typename?: "PeriodicBuild";
             alias: string;
             configFile: string;
+            cron: string;
             id: string;
             intervalHours: number;
             message: string;
@@ -6022,6 +6028,7 @@ export type ProjectEventLogsQuery = {
             __typename?: "PeriodicBuild";
             alias: string;
             configFile: string;
+            cron: string;
             id: string;
             intervalHours: number;
             message: string;
@@ -6231,6 +6238,7 @@ export type ProjectSettingsQuery = {
         __typename?: "PeriodicBuild";
         alias: string;
         configFile: string;
+        cron: string;
         id: string;
         intervalHours: number;
         message: string;
@@ -6464,6 +6472,7 @@ export type RepoEventLogsQuery = {
             __typename?: "PeriodicBuild";
             alias: string;
             configFile: string;
+            cron: string;
             id: string;
             intervalHours: number;
             message: string;
@@ -6658,6 +6667,7 @@ export type RepoEventLogsQuery = {
             __typename?: "PeriodicBuild";
             alias: string;
             configFile: string;
+            cron: string;
             id: string;
             intervalHours: number;
             message: string;
@@ -6858,6 +6868,7 @@ export type RepoSettingsQuery = {
         __typename?: "PeriodicBuild";
         alias: string;
         configFile: string;
+        cron: string;
         id: string;
         intervalHours: number;
         message: string;

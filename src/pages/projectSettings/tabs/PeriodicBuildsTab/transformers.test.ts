@@ -2,7 +2,7 @@ import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { ProjectType } from "../utils";
 import { formToGql, gqlToForm } from "./transformers";
-import { FormState } from "./types";
+import { FormState, IntervalSpecifier } from "./types";
 
 const { projectBase, repoBase } = data;
 
@@ -49,7 +49,11 @@ const repoForm: FormState = {
       alias: "",
       configFile: "evergreen.yml",
       id: "123",
-      intervalHours: 24,
+      interval: {
+        specifier: IntervalSpecifier.Hours,
+        intervalHours: 24,
+        cron: "",
+      },
       message: "",
       nextRunTime:
         "Wed Mar 30 2022 17:07:10 GMT+0000 (Coordinated Universal Time)",
@@ -59,7 +63,11 @@ const repoForm: FormState = {
       alias: "test",
       configFile: "evergreen.yml",
       id: "456",
-      intervalHours: 12,
+      interval: {
+        specifier: IntervalSpecifier.Cron,
+        intervalHours: null,
+        cron: "*/5 * * * *",
+      },
       message: "Build Message",
       nextRunTime:
         "Wed Mar 30 2022 17:07:10 GMT+0000 (Coordinated Universal Time)",
@@ -75,6 +83,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
       {
         alias: "",
         configFile: "evergreen.yml",
+        cron: "",
         id: "123",
         intervalHours: 24,
         message: "",
@@ -83,8 +92,9 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
       {
         alias: "test",
         configFile: "evergreen.yml",
+        cron: "*/5 * * * *",
         id: "456",
-        intervalHours: 12,
+        intervalHours: 0,
         message: "Build Message",
         nextRunTime: new Date("2022-03-30T17:07:10.000Z"),
       },

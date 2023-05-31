@@ -2,6 +2,7 @@ import widgets from "components/SpruceForm/Widgets";
 import { timeZones } from "constants/fieldMaps";
 import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
+import { IntervalSpecifier } from "./types";
 
 const { overrideRadioBox } = form;
 
@@ -26,11 +27,58 @@ export const getFormSchema = (
         items: {
           type: "object" as "object",
           properties: {
-            intervalHours: {
-              type: "number" as "number",
-              title: "Interval",
-              minimum: 1,
-              default: 24,
+            interval: {
+              type: "object" as "object",
+              title: "Interval Specifier",
+              properties: {
+                specifier: {
+                  type: "string" as "string",
+                  title: "",
+                  default: IntervalSpecifier.Hours,
+                  oneOf: [
+                    {
+                      type: "string" as "string",
+                      title: "Hours",
+                      enum: [IntervalSpecifier.Hours],
+                    },
+                    {
+                      type: "string" as "string",
+                      title: "Cron",
+                      enum: [IntervalSpecifier.Cron],
+                    },
+                  ],
+                },
+              },
+              dependencies: {
+                specifier: {
+                  oneOf: [
+                    {
+                      properties: {
+                        specifier: {
+                          enum: [IntervalSpecifier.Hours],
+                        },
+                        intervalHours: {
+                          type: "number" as "number",
+                          title: "Interval",
+                          minimum: 1,
+                          default: 24,
+                        },
+                      },
+                    },
+                    {
+                      properties: {
+                        specifier: {
+                          enum: [IntervalSpecifier.Cron],
+                        },
+                        cron: {
+                          type: "string" as "string",
+                          title: "Cron Expression",
+                        },
+                      },
+                    },
+                  ],
+                },
+              },
             },
             configFile: {
               type: "string" as "string",
@@ -71,7 +119,6 @@ export const getFormSchema = (
               default: new Date().toString(),
             },
           },
-          required: ["intervalHours"],
         },
       }
     ),
@@ -91,9 +138,14 @@ export const getFormSchema = (
       "ui:useExpandableCard": true,
       items: {
         "ui:displayTitle": "New Periodic Build",
-        intervalHours: {
-          "ui:data-cy": "interval-input",
-          "ui:description": "Number of hours between runs.",
+        interval: {
+          specifier: {
+            "ui:widget": widgets.SegmentedControlWidget,
+          },
+          intervalHours: {
+            "ui:data-cy": "interval-input",
+            "ui:description": "Number of hours between runs.",
+          },
         },
         configFile: {
           "ui:data-cy": "config-file-input",

@@ -4,25 +4,23 @@ import {
   ProjectSettingsQuery,
   RepoSettingsQuery,
 } from "gql/generated/types";
-import { string } from "utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { ProjectType } from "../utils";
-import { FormState } from "./types";
-
-const { omitTypename } = string;
+import { FormState, IntervalSpecifier } from "./types";
 
 type Tab = ProjectSettingsTabRoutes.PeriodicBuilds;
 
 const getTitle = (
-  definition: Pick<PeriodicBuild, "message" | "intervalHours">
+  definition: Pick<PeriodicBuild, "cron" | "intervalHours" | "message">
 ) => {
   if (!definition) {
     return "";
   }
-  if (definition.message) {
-    return definition.message;
+  const { cron, intervalHours, message } = definition;
+  if (message) {
+    return message;
   }
-  return `Every ${definition.intervalHours} hours`;
+  return intervalHours ? `Every ${intervalHours} hours` : cron;
 };
 
 export const gqlToForm: GqlToFormFunction<Tab> = (
@@ -41,11 +39,34 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
     periodicBuildsOverride:
       projectType !== ProjectType.AttachedProject || !!periodicBuilds,
     periodicBuilds:
-      periodicBuilds?.map((definition) =>
-        omitTypename({
-          ...definition,
-          nextRunTime: definition.nextRunTime.toString(),
-          displayTitle: getTitle(definition),
+      periodicBuilds?.map(
+        ({
+          alias,
+          configFile,
+          id,
+          intervalHours,
+          cron,
+          message,
+          nextRunTime,
+        }) => ({
+          alias,
+          configFile,
+          id,
+          message,
+          nextRunTime: nextRunTime.toString(),
+          displayTitle: getTitle({ cron, intervalHours, message }),
+          interval:
+            cron === ""
+              ? {
+                  specifier: IntervalSpecifier.Hours,
+                  cron: "",
+                  intervalHours,
+                }
+              : {
+                  specifier: IntervalSpecifier.Cron,
+                  intervalHours: null,
+                  cron,
+                },
         })
       ) ?? [],
   };
@@ -58,14 +79,24 @@ export const formToGql: FormToGqlFunction<Tab> = (
   projectRef: {
     id: projectId,
     periodicBuilds: periodicBuildsOverride
-      ? periodicBuilds.map((build) => ({
-          alias: build.alias,
-          configFile: build.configFile,
-          id: build.id || "",
-          intervalHours: build.intervalHours,
-          message: build.message,
-          nextRunTime: new Date(build.nextRunTime),
-        }))
+      ? periodicBuilds.map(
+          ({ alias, configFile, id, interval, message, nextRunTime }) => ({
+            alias,
+            configFile,
+            id: id || "",
+            message,
+            nextRunTime: new Date(nextRunTime),
+            ...(interval.specifier === IntervalSpecifier.Cron
+              ? {
+                  cron: interval.cron,
+                  intervalHours: 0,
+                }
+              : {
+                  cron: "",
+                  intervalHours: interval.intervalHours,
+                }),
+          })
+        )
       : null,
   },
 });
