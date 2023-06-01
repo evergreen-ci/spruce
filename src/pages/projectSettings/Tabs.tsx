@@ -6,6 +6,7 @@ import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { isProduction } from "utils/environmentVariables";
 import { useProjectSettingsContext } from "./Context";
 import { Header } from "./Header";
+import { NavigationModal } from "./NavigationModal";
 import {
   AccessTab,
   ContainersTab,
@@ -57,6 +58,7 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
 
   return (
     <Container>
+      <NavigationModal />
       <Header
         attachedRepoId={projectData?.projectRef?.repoRefId}
         id={projectId || repoId}
