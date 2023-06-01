@@ -14107,10 +14107,10 @@ react-virtual@^2.10.4:
   dependencies:
     "@reach/observe-rect" "^1.1.0"
 
-react-virtualized-auto-sizer@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/react-virtualized-auto-sizer/-/react-virtualized-auto-sizer-1.0.6.tgz#66c5b1c9278064c5ef1699ed40a29c11518f97ca"
-  integrity sha512-7tQ0BmZqfVF6YYEWcIGuoR3OdYe8I/ZFbNclFlGOC3pMqunkYF/oL30NCjSGl9sMEb17AnzixDz98Kqc3N76HQ==
+react-virtualized-auto-sizer@^1.0.19:
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/react-virtualized-auto-sizer/-/react-virtualized-auto-sizer-1.0.19.tgz#1117147dbec3f23db94ded1f0ddd9f1fd0692aef"
+  integrity sha512-jAPNLjG1DBnLQUMZz1py/5z7/wC8Gn8G+WAXQplDdVr9zO/xdTWLtDM3aPHm8e2gLT2xQxMql507IMuLA6himw==
 
 react-window-infinite-loader@^1.0.8:
   version "1.0.8"
