@@ -45,6 +45,7 @@ type Action =
       subscription: SaveSubscriptionForUserMutationVariables["subscription"];
     }
   | { name: "Toggle Display Task Dropdown"; expanded: boolean }
+  | { name: "Set Patch Visibility"; hidden: boolean }
   | { name: "Click Base Commit Link" }
   | { name: "Open Schedule Tasks Modal" };
 

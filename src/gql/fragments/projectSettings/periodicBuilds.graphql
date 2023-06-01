@@ -2,6 +2,7 @@ fragment ProjectPeriodicBuildsSettings on Project {
   periodicBuilds {
     alias
     configFile
+    cron
     id
     intervalHours
     message
@@ -13,6 +14,7 @@ fragment RepoPeriodicBuildsSettings on RepoRef {
   periodicBuilds {
     alias
     configFile
+    cron
     id
     intervalHours
     message

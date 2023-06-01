@@ -4,7 +4,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
 <div>
   <div>
     <h3
-      class="css-1d9n1kx-SettingsCardTitle e1h7idos1 leafygreen-ui-376vw8"
+      class="css-1d9n1kx-SettingsCardTitle e1h7idos1 leafygreen-ui-feh85s"
     >
       Distro Projects
     </h3>
@@ -96,7 +96,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
               id=" root_expansions"
             >
               <h6
-                class="css-ho1tq1-StyledSubtitle e63qz861 leafygreen-ui-41zalo"
+                class="css-ho1tq1-StyledSubtitle e63qz861 leafygreen-ui-19p3n10"
                 id="root_expansions__title"
               >
                 Expansions
@@ -169,7 +169,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                                 class="leafygreen-ui-a533bt"
                               >
                                 <label
-                                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
+                                  class="leafygreen-ui-gr5280"
                                   for="textinput-10"
                                 >
                                   key
@@ -213,7 +213,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                                 class="leafygreen-ui-a533bt"
                               >
                                 <label
-                                  class="leafygreen-ui-1vn1hji leafygreen-ui-1k5mcru"
+                                  class="leafygreen-ui-gr5280"
                                   for="textinput-11"
                                 >
                                   value
@@ -316,7 +316,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
 <div>
   <div>
     <h3
-      class="css-1d9n1kx-SettingsCardTitle e1h7idos1 leafygreen-ui-376vw8"
+      class="css-1d9n1kx-SettingsCardTitle e1h7idos1 leafygreen-ui-feh85s"
     >
       Admin Options
     </h3>
@@ -645,7 +645,7 @@ exports[`storybook Storyshots components/SpruceForm Example 3 1`] = `
 <div>
   <div>
     <h3
-      class="css-1d9n1kx-SettingsCardTitle e1h7idos1 leafygreen-ui-376vw8"
+      class="css-1d9n1kx-SettingsCardTitle e1h7idos1 leafygreen-ui-feh85s"
     >
       UI Options
     </h3>

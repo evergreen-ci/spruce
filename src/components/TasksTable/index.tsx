@@ -159,7 +159,7 @@ const getColumnDefs = ({
       })),
   },
   {
-    title: `${isPatch ? "Patch" : "Version"} Status`,
+    title: "Task Status",
     dataIndex: "status",
     key: TaskSortCategory.Status,
     onHeaderCell: () => ({

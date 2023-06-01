@@ -18,7 +18,6 @@ const JiraIssueTable: React.VFC<JiraIssueTableProps> = ({ bbData }) => {
   return (
     <>
       <NonTableWrapper>
-        {/* @ts-expect-error */}
         <TicketsTitle>
           Related tickets from Jira
           <StyledLink data-cy="jira-search-link" href={jiraSearchLink}>
