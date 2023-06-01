@@ -7,6 +7,7 @@ import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import {
   SegmentedControl,
   SegmentedControlOption,
+  SegmentedControlProps,
 } from "@leafygreen-ui/segmented-control";
 import { Option, Select } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
@@ -383,8 +384,7 @@ export const LeafyGreenSegmentedControl: React.VFC<EnumSpruceWidgetProps> = ({
         value={value}
         onChange={onChange}
         aria-controls={ariaControls?.join(" ")}
-        // @ts-expect-error
-        size={sizeVariant}
+        size={sizeVariant as SegmentedControlProps["size"]}
       >
         {enumOptions.map((o) => {
           const optionDisabled = enumDisabled?.includes(o.value) ?? false;

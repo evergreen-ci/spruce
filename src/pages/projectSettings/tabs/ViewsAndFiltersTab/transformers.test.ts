@@ -1,7 +1,7 @@
 import { ProjectSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
-import { FormState, CaseSensitivity, MatchType } from "./types";
+import { FormState } from "./types";
 
 const { projectBase } = data;
 
@@ -20,14 +20,14 @@ const projectForm: FormState = {
     {
       expression: "filter_1",
       displayTitle: "filter_1",
-      caseSensitivity: CaseSensitivity.Sensitive,
-      matchType: MatchType.Exact,
+      caseSensitive: true,
+      exactMatch: true,
     },
     {
       expression: "filter_2",
       displayTitle: "filter_2",
-      caseSensitivity: CaseSensitivity.Insensitive,
-      matchType: MatchType.Inverse,
+      caseSensitive: false,
+      exactMatch: false,
     },
   ],
 };

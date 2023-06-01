@@ -15,7 +15,7 @@ describe("Views & filters page", () => {
   });
 
   it("does not allow saving with invalid regular expression or empty expression", () => {
-    cy.contains("button", "Add new filter").should("be.visible").click();
+    cy.contains("button", "Add filter").should("be.visible").click();
     cy.dataCy("filter-expression").first().type("*");
     saveButtonEnabled(false);
     cy.contains("Value should be a valid regex expression.");
@@ -24,14 +24,14 @@ describe("Views & filters page", () => {
   });
 
   it("does not allow saving with duplicate filter expressions", () => {
-    cy.contains("button", "Add new filter").should("be.visible").click();
+    cy.contains("button", "Add filter").should("be.visible").click();
     cy.dataCy("filter-expression").first().type("filter_1");
     saveButtonEnabled(false);
     cy.contains("Filter expression already appears in this project.");
   });
 
   it("can successfully save and delete filter", () => {
-    cy.contains("button", "Add new filter").should("be.visible").click();
+    cy.contains("button", "Add filter").should("be.visible").click();
     cy.dataCy("filter-expression").first().type("my_filter");
     saveButtonEnabled(true);
     clickSave();

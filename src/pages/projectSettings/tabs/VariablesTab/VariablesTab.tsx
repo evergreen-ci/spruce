@@ -6,7 +6,7 @@ import {
   usePopulateForm,
   useProjectSettingsContext,
 } from "pages/projectSettings/Context";
-import { ProjectType } from "../utils";
+import { ProjectType, findDuplicateIndices } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { PromoteVariablesModal } from "./PromoteVariablesModal";
 import { FormState, TabProps } from "./types";
@@ -89,11 +89,7 @@ export const VariablesTab: React.VFC<TabProps> = ({
 
 /* Display an error and prevent saving if a user enters a variable name that already appears in the project. */
 const validate = ((formData, errors) => {
-  const duplicateIndices = formData.vars
-    .map((e) => e.varName)
-    .map((e, i, arr) => arr.indexOf(e) !== i && i)
-    .filter((obj) => formData.vars[obj]);
-
+  const duplicateIndices = findDuplicateIndices(formData.vars, "varName");
   duplicateIndices.forEach((i) => {
     errors.vars?.[i]?.varName?.addError(
       "Value already appears in project variables."

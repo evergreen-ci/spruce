@@ -5,6 +5,7 @@ import {
   usePopulateForm,
   useProjectSettingsContext,
 } from "pages/projectSettings/Context";
+import { findDuplicateIndices } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { TabProps, FormState } from "./types";
 
@@ -37,11 +38,10 @@ export const ViewsAndFiltersTab: React.VFC<TabProps> = ({ projectData }) => {
 
 /* Display an error and prevent saving if a user enters a Parsley filter expression that already appears in the project. */
 const validate = ((formData, errors) => {
-  const duplicateIndices = formData.parsleyFilters
-    .map((p) => p.expression)
-    .map((exp, i, arr) => exp !== "" && arr.lastIndexOf(exp) !== i && i)
-    .filter((i) => formData.parsleyFilters[i]);
-
+  const duplicateIndices = findDuplicateIndices(
+    formData.parsleyFilters,
+    "expression"
+  );
   duplicateIndices.forEach((i) => {
     errors.parsleyFilters?.[i]?.expression?.addError(
       "Filter expression already appears in this project."

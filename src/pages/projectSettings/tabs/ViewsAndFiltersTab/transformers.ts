@@ -1,7 +1,7 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectSettingsQuery } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { FormState, CaseSensitivity, MatchType } from "./types";
+import { FormState } from "./types";
 
 type Tab = ProjectSettingsTabRoutes.ViewsAndFilters;
 
@@ -19,10 +19,8 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
       parsleyFilters?.map(({ expression, caseSensitive, exactMatch }) => ({
         displayTitle: expression,
         expression,
-        caseSensitivity: caseSensitive
-          ? CaseSensitivity.Sensitive
-          : CaseSensitivity.Insensitive,
-        matchType: exactMatch ? MatchType.Exact : MatchType.Inverse,
+        caseSensitive,
+        exactMatch,
       })) ?? [],
   };
 };
@@ -34,10 +32,10 @@ export const formToGql: FormToGqlFunction<Tab> = (
   projectRef: {
     id,
     parsleyFilters: parsleyFilters.map(
-      ({ expression, caseSensitivity, matchType }) => ({
+      ({ expression, caseSensitive, exactMatch }) => ({
         expression,
-        caseSensitive: caseSensitivity === CaseSensitivity.Sensitive,
-        exactMatch: matchType === MatchType.Exact,
+        caseSensitive,
+        exactMatch,
       })
     ),
   },
