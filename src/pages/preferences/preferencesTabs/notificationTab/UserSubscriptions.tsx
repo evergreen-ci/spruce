@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import {
@@ -31,11 +31,14 @@ import {
   triggerTreeData,
 } from "constants/triggers";
 import {
+  DeleteSubscriptionsMutation,
+  DeleteSubscriptionsMutationVariables,
   GeneralSubscription,
   Selector,
   UserSubscriptionsQuery,
   UserSubscriptionsQueryVariables,
 } from "gql/generated/types";
+import { DELETE_SUBSCRIPTIONS } from "gql/mutations";
 import { USER_SUBSCRIPTIONS } from "gql/queries";
 import { notificationMethodToCopy } from "types/subscription";
 import { getResourceRoute, processSubscriptionData } from "./utils";
@@ -45,6 +48,11 @@ export const UserSubscriptions: React.VFC<{}> = () => {
     UserSubscriptionsQuery,
     UserSubscriptionsQueryVariables
   >(USER_SUBSCRIPTIONS);
+
+  const [deleteSubscriptions] = useMutation<
+    DeleteSubscriptionsMutation,
+    DeleteSubscriptionsMutationVariables
+  >(DELETE_SUBSCRIPTIONS, { refetchQueries: ["UserSubscriptions"] });
 
   const globalSubscriptionIds = useMemo(() => {
     const {
@@ -92,6 +100,18 @@ export const UserSubscriptions: React.VFC<{}> = () => {
 
   const { rows } = table.getRowModel();
 
+  const onDeleteSubscriptions = () => {
+    const subscriptionIds = table
+      .getSelectedRowModel()
+      .rows.map(({ original }) => original.id);
+
+    deleteSubscriptions({
+      variables: { subscriptionIds },
+    });
+
+    table.resetRowSelection();
+  };
+
   return (
     <>
       <SettingsCardTitle>Manage subscriptions</SettingsCardTitle>
@@ -103,8 +123,9 @@ export const UserSubscriptions: React.VFC<{}> = () => {
             <InteractiveWrapper>
               <Button
                 disabled={Object.entries(rowSelection).length === 0}
-                size="small"
                 leftGlyph={<Icon glyph="Trash" />}
+                onClick={onDeleteSubscriptions}
+                size="small"
               >
                 Delete
               </Button>
