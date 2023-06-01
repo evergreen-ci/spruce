@@ -208,9 +208,13 @@ const useHasUnsavedTab = (): {
   unsavedTabs: ProjectSettingsTabRoutes[];
 } => {
   const { tabs } = useProjectSettingsContext();
-  const unsavedTabs = Object.entries(tabs)
-    .filter(([, tabData]) => tabData.hasChanges)
-    .map(([tab]) => tab as ProjectSettingsTabRoutes);
+  const unsavedTabs = useMemo(
+    () =>
+      Object.entries(tabs)
+        .filter(([, tabData]) => tabData.hasChanges)
+        .map(([tab]) => tab as ProjectSettingsTabRoutes),
+    [tabs]
+  );
 
   return {
     unsavedTabs,
