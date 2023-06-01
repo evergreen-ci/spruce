@@ -28,17 +28,17 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
             caseSensitive: {
               type: "boolean" as "boolean",
               title: "Case",
-              default: true,
+              default: false,
               oneOf: [
                 {
                   type: "boolean" as "boolean",
                   title: "Insensitive",
-                  enum: [true],
+                  enum: [false],
                 },
                 {
                   type: "boolean" as "boolean",
                   title: "Sensitive",
-                  enum: [false],
+                  enum: [true],
                 },
               ],
             },
