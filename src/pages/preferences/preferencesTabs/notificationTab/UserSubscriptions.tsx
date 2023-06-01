@@ -1,5 +1,7 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import {
   Cell,
   ExpandedContent,
@@ -12,9 +14,22 @@ import {
   TableHead,
   useLeafyGreenTable,
 } from "@leafygreen-ui/table/new";
+import {
+  getFacetedUniqueValues,
+  getFilteredRowModel,
+} from "@tanstack/react-table";
+import Icon from "components/Icon";
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
 import { ShortenedRouterLink } from "components/styles";
+import { getColumnTreeSelectFilterProps } from "components/Table/LGFilters";
 import { getSubscriberText } from "constants/subscription";
+import { size } from "constants/tokens";
+import {
+  resourceTypeToCopy,
+  resourceTypeTreeData,
+  triggerToCopy,
+  triggerTreeData,
+} from "constants/triggers";
 import {
   GeneralSubscription,
   Selector,
@@ -23,7 +38,6 @@ import {
 } from "gql/generated/types";
 import { USER_SUBSCRIPTIONS } from "gql/queries";
 import { notificationMethodToCopy } from "types/subscription";
-import { resourceTypeToCopy, triggerToCopy } from "types/triggers";
 import { getResourceRoute, processSubscriptionData } from "./utils";
 
 export const UserSubscriptions: React.VFC<{}> = () => {
@@ -57,11 +71,23 @@ export const UserSubscriptions: React.VFC<{}> = () => {
     [data?.user?.subscriptions, globalSubscriptionIds]
   );
 
+  const [columnFilters, setColumnFilters] = useState([]);
+  const [rowSelection, setRowSelection] = useState({});
+
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<GeneralSubscription>({
     columns,
     containerRef: tableContainerRef,
     data: subscriptions ?? [],
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+    getFilteredRowModel: getFilteredRowModel(),
+    hasSelectableRows: true,
+    onColumnFiltersChange: setColumnFilters,
+    onRowSelectionChange: setRowSelection,
+    state: {
+      columnFilters,
+      rowSelection,
+    },
   });
 
   const { rows } = table.getRowModel();
@@ -73,39 +99,55 @@ export const UserSubscriptions: React.VFC<{}> = () => {
         {!subscriptions?.length ? (
           "No subscriptions found."
         ) : (
-          <Table table={table} ref={tableContainerRef} shouldAlternateRowColor>
-            <TableHead>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <HeaderRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <HeaderCell key={header.id} header={header}>
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                    </HeaderCell>
-                  ))}
-                </HeaderRow>
-              ))}
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <Row key={row.id} row={row} data-cy="subscription-row">
-                  {row.getVisibleCells().map((cell) => (
-                    <Cell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </Cell>
-                  ))}
-                  {row.original.renderExpandedContent && (
-                    <ExpandedContent row={row} />
-                  )}
-                </Row>
-              ))}
-            </TableBody>
-          </Table>
+          <>
+            <InteractiveWrapper>
+              <Button
+                disabled={Object.entries(rowSelection).length === 0}
+                size="small"
+                leftGlyph={<Icon glyph="Trash" />}
+              >
+                Delete
+              </Button>
+            </InteractiveWrapper>
+
+            <Table
+              table={table}
+              ref={tableContainerRef}
+              shouldAlternateRowColor
+            >
+              <TableHead>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <HeaderRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <HeaderCell key={header.id} header={header}>
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                      </HeaderCell>
+                    ))}
+                  </HeaderRow>
+                ))}
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <Row key={row.id} row={row} data-cy="subscription-row">
+                    {row.getVisibleCells().map((cell) => (
+                      <Cell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </Cell>
+                    ))}
+                    {row.original.renderExpandedContent && (
+                      <ExpandedContent row={row} />
+                    )}
+                  </Row>
+                ))}
+              </TableBody>
+            </Table>
+          </>
         )}
       </SettingsCard>
     </>
@@ -114,12 +156,16 @@ export const UserSubscriptions: React.VFC<{}> = () => {
 
 const columns = [
   {
-    header: "Type",
     accessorKey: "resourceType",
     cell: ({ getValue }) => {
       const resourceType = getValue();
       return resourceTypeToCopy?.[resourceType] ?? resourceType;
     },
+    ...getColumnTreeSelectFilterProps({
+      "data-cy": "status-filter-popover",
+      tData: resourceTypeTreeData,
+      title: "Type",
+    }),
   },
   {
     header: "ID",
@@ -145,8 +191,12 @@ const columns = [
     },
   },
   {
-    header: "Event",
     accessorKey: "trigger",
+    ...getColumnTreeSelectFilterProps({
+      "data-cy": "trigger-filter-popover",
+      tData: triggerTreeData,
+      title: "Event",
+    }),
     cell: ({ getValue }) => {
       const trigger = getValue();
       return triggerToCopy?.[trigger] ?? trigger;
@@ -166,3 +216,7 @@ const columns = [
     cell: ({ getValue }) => getSubscriberText(getValue()),
   },
 ];
+
+const InteractiveWrapper = styled.div`
+  margin-bottom: ${size.s};
+`;

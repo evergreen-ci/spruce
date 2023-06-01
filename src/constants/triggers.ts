@@ -1,3 +1,4 @@
+import { TreeDataEntry } from "components/TreeSelect";
 import {
   ExtraField,
   ExtraFieldKey,
@@ -389,6 +390,34 @@ export const invalidProjectTriggerSubscriptionCombinations = {
   ],
 };
 
+export const triggerToCopy = {
+  [TriggerType.OUTCOME]: "Outcome",
+  [TriggerType.FAILURE]: "Failure",
+  [TriggerType.SUCCESS]: "Success",
+  [TriggerType.FAMILY_OUTCOME]: "Outcome",
+  [TriggerType.FAMILY_FAILURE]: "Failure",
+  [TriggerType.FAMILY_SUCCESS]: "Success",
+  [TriggerType.RUNTIME_CHANGE]: "Runtime changes by %",
+  [TriggerType.EXCEEDS_DURATION]: "Runtime exceeds duration",
+  [TriggerType.TASK_STARTED]: "Task started",
+  [TriggerType.TASK_FAILED_OR_BLOCKED]: "Task failed or blocked",
+  [TriggerType.REGRESSION]: "Regression",
+  [TriggerType.TEST_REGRESSION]: "Test regression",
+  [TriggerType.FIRST_FAILURE_BUILD]: "First failure",
+  [TriggerType.FIRST_FAILURE_BUILD]: "First failure in build",
+  [TriggerType.FIRST_FAILURE_VERSION]: "First failure in version",
+  [TriggerType.FIRST_FAILURE_VERSION_NAME]:
+    "First failure in version with name",
+};
+
+export const triggerTreeData: TreeDataEntry[] = Object.entries(
+  triggerToCopy
+).map(([key, value]) => ({
+  title: value,
+  value: key,
+  key,
+}));
+
 export const allowedSelectors = new Set([
   "object",
   "id",
@@ -401,3 +430,20 @@ export const allowedSelectors = new Set([
   "in-version",
   "in-build",
 ]);
+
+export const resourceTypeToCopy = {
+  [ResourceType.Build]: "Build",
+  [ResourceType.CommitQueue]: "Commit Queue",
+  [ResourceType.Host]: "Host",
+  [ResourceType.Patch]: "Patch",
+  [ResourceType.Task]: "Task",
+  [ResourceType.Version]: "Version",
+};
+
+export const resourceTypeTreeData: TreeDataEntry[] = Object.entries(
+  resourceTypeToCopy
+).map(([key, value]) => ({
+  title: value,
+  value: key,
+  key,
+}));
