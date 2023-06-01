@@ -603,9 +603,12 @@ describe(
         cy.dataCy("display-name-input").should("not.have.attr", "placeholder");
       });
 
-      it.skip("Shows a navigation warning modal when navigating away from project settings", () => {
+      it("Shows a navigation warning modal that lists the general page when navigating away from project settings", () => {
         cy.contains("My Patches").click();
         cy.dataCy("navigation-warning-modal").should("be.visible");
+        cy.dataCy("unsaved-pages").within(() => {
+          cy.get("li").should("have.length", 1);
+        });
         cy.get("body").type("{esc}");
       });
 
