@@ -21,7 +21,7 @@ import {
   ClientBinary,
 } from "gql/generated/types";
 import { GET_CLIENT_CONFIG } from "gql/queries";
-import { CardType, SubtitleType } from "types/leafygreen";
+import { CardType } from "types/leafygreen";
 
 export const DownloadCard = () => {
   const { data, loading } = useQuery<
@@ -161,7 +161,7 @@ const CliDownloadButton = styled(Button)`
   margin-top: ${size.xs};
 `;
 
-const CliDownloadTitle = styled<SubtitleType>(Subtitle)`
+const CliDownloadTitle = styled(Subtitle)`
   font-weight: bold;
 `;
 

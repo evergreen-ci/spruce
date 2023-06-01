@@ -16,10 +16,15 @@ import {
 } from "./Layout";
 import { SideNav, SideNavGroup, SideNavItem } from "./SideNav";
 import { SiderCard } from "./SiderCard";
-import { StyledLink, StyledRouterLink } from "./StyledLink";
+import {
+  ShortenedRouterLink,
+  StyledLink,
+  StyledRouterLink,
+} from "./StyledLink";
 import { WordBreak, wordBreakCss } from "./Typography";
 
 export {
+  ShortenedRouterLink,
   Divider,
   ErrorMessage,
   FiltersWrapper,

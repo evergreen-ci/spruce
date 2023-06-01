@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { useMutation } from "@apollo/client";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { Body } from "@leafygreen-ui/typography";
+import { usePatchAnalytics } from "analytics";
 import Popconfirm from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
@@ -21,7 +22,7 @@ export const SetPatchVisibility: React.VFC<Props> = ({
   const dispatchToast = useToastContext();
   const [open, setOpen] = useState(false);
   const menuItemRef = useRef<HTMLDivElement>(null);
-
+  const { sendEvent } = usePatchAnalytics(patchId);
   const [setPatchVisibility] = useMutation<
     SetPatchVisibilityMutation,
     SetPatchVisibilityMutationVariables
@@ -45,6 +46,7 @@ export const SetPatchVisibility: React.VFC<Props> = ({
       <Popconfirm
         align="left"
         onConfirm={() => {
+          sendEvent({ name: "Set Patch Visibility", hidden: true });
           setPatchVisibility({
             variables: { patchIds: [patchId], hidden: true },
           });

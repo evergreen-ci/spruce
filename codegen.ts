@@ -1,0 +1,26 @@
+import type { CodegenConfig } from "@graphql-codegen/cli";
+
+const config: CodegenConfig = {
+  schema: "sdlschema/**/*.graphql",
+  documents: ["./src/**/*.ts", "./src/**/*.graphql", "./src/**/*.gql"],
+  hooks: {
+    afterAllFileWrite: ["prettier --write"],
+  },
+  overwrite: true,
+  generates: {
+    "./src/gql/generated/types.ts": {
+      plugins: ["typescript", "typescript-operations"],
+      config: {
+        preResolveTypes: true,
+        arrayInputCoercion: false,
+        scalars: {
+          StringMap: "{ [key: string]: any }",
+          Time: "Date",
+          Duration: "number",
+        },
+      },
+    },
+  },
+};
+
+export default config;

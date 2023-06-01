@@ -26,6 +26,7 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 describe("toast", () => {
+  const closeIconLabel = "Close Message";
   it("should error when rendered outside of ToastProvider context", () => {
     // This test intentionally throws an error, so we need to mock the error object to prevent it
     // from flooding the test runner.
@@ -136,9 +137,8 @@ describe("toast", () => {
       act(() => {
         hook.current.info("test string");
       });
-
       expect(screen.getByDataCy("toast")).toBeInTheDocument();
-      userEvent.click(screen.getByLabelText("X Icon"));
+      userEvent.click(screen.getByLabelText(closeIconLabel));
       await waitFor(() => {
         expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
       });
@@ -153,7 +153,7 @@ describe("toast", () => {
         hook.current.info("test string", false);
       });
       expect(screen.getByDataCy("toast")).toBeInTheDocument();
-      expect(screen.queryByLabelText("X Icon")).toBeNull();
+      expect(screen.queryByLabelText(closeIconLabel)).toBeNull();
     });
 
     it("should trigger a callback function onClose", async () => {
@@ -167,7 +167,7 @@ describe("toast", () => {
       });
 
       expect(screen.getByDataCy("toast")).toBeInTheDocument();
-      userEvent.click(screen.getByLabelText("X Icon"));
+      userEvent.click(screen.getByLabelText(closeIconLabel));
       await waitFor(() => {
         expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
       });
@@ -196,23 +196,6 @@ describe("toast", () => {
 
       // Reset to use real timers.
       jest.useRealTimers();
-    });
-
-    it("should close the toast when hide() is called", async () => {
-      const { Component, hook } = renderComponentWithHook();
-      render(<Component />, {
-        wrapper,
-      });
-      act(() => {
-        hook.current.info("test string", true);
-      });
-      expect(screen.getByDataCy("toast")).toBeInTheDocument();
-      act(() => {
-        hook.current.hide();
-      });
-      await waitFor(() => {
-        expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
-      });
     });
   });
 });

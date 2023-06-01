@@ -1,6 +1,6 @@
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import { SiderCard, wordBreakCss } from "components/styles";
@@ -48,7 +48,7 @@ export const MetadataItem: React.VFC<ItemProps> = ({
   "data-cy": dataCy,
 }) => <Item data-cy={dataCy}>{children}</Item>;
 
-const Title = styled(Body)`
+const Title = styled(Body)<BodyProps>`
   font-size: 15px;
 `;
 

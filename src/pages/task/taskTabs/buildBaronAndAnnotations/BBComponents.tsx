@@ -60,7 +60,6 @@ export const JiraTicketRow: React.VFC<JiraTicketRowProps> = ({
   );
 };
 
-// @ts-expect-error
 export const TicketsTitle = styled(Subtitle)<TitleProps>`
   margin-bottom: ${(props) => (props.margin ? size.s : size.xxs)};
   margin-top: ${(props) => (props.margin ? size.m : size.l)};

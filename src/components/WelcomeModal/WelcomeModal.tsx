@@ -82,7 +82,6 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
           size="large"
           initialFocus=".slick-active"
         >
-          {/* @ts-expect-error */}
           {title && <CardTitle>{title}</CardTitle>}
           <Carousel
             dots={false}
@@ -134,7 +133,6 @@ const StyledLink = styled(Link)`
   margin-right: ${size.s};
 `;
 
-// @ts-expect-error
 const CardTitle = styled(Subtitle)`
   display: flex;
   justify-content: center;
