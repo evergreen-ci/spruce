@@ -40,6 +40,7 @@ import {
   Metadata,
   VersionTabs,
 } from "./version/index";
+import { NameChangeModal } from "./version/NameChangeModal";
 
 export const VersionPage: React.VFC = () => {
   const spruceConfig = useSpruceConfig();
@@ -193,7 +194,11 @@ export const VersionPage: React.VFC = () => {
         loading={false}
         pageTitle={pageTitle}
         title={linkifiedMessage || `Version ${order}`}
-      />
+      >
+        {isPatch && (
+          <NameChangeModal patchId={id} originalPatchName={message} />
+        )}
+      </PageTitle>
       <PageLayout>
         <PageSider>
           <Metadata loading={false} version={version} />
