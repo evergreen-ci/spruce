@@ -92,7 +92,7 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
 
   return (
     <SearchableDropdown
-      label={showLabel ? "Project" : ""}
+      label={showLabel ? "Project" : null}
       value={
         selectedProject?.displayName ||
         selectedProject?.identifier ||
