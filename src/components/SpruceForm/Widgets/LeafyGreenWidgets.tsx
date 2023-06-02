@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import Checkbox from "@leafygreen-ui/checkbox";
@@ -338,10 +339,21 @@ export const LeafyGreenTextArea: React.VFC<SpruceWidgetProps> = ({
   const { "data-cy": dataCy, emptyValue = "", elementWrapperCSS } = options;
 
   const { errors, hasError } = processErrors(rawErrors);
+  const el = useRef<HTMLTextAreaElement>();
+
+  useEffect(() => {
+    const textarea = el.current;
+    if (textarea) {
+      textarea.focus();
+      textarea.selectionStart = textarea.value.length;
+      textarea.selectionEnd = textarea.value.length;
+    }
+  }, []);
 
   return (
     <ElementWrapper css={elementWrapperCSS}>
       <TextArea
+        ref={el}
         data-cy={dataCy}
         label={label}
         disabled={disabled || readonly}
