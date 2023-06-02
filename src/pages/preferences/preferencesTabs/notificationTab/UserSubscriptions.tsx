@@ -2,6 +2,7 @@ import { useMemo, useRef, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import Pagination from "@leafygreen-ui/pagination";
 import {
   Cell,
   ExpandedContent,
@@ -96,6 +97,7 @@ export const UserSubscriptions: React.VFC<{}> = () => {
       columnFilters,
       rowSelection,
     },
+    withPagination: true,
   });
 
   const { rows } = table.getRowModel();
@@ -129,6 +131,21 @@ export const UserSubscriptions: React.VFC<{}> = () => {
               >
                 Delete
               </Button>
+              <PaginationWrapper>
+                <Pagination
+                  itemsPerPage={table.getState().pagination.pageSize}
+                  onItemsPerPageOptionChange={(value: string) => {
+                    table.setPageSize(Number(value));
+                  }}
+                  numTotalItems={subscriptions.length}
+                  currentPage={table.getState().pagination.pageIndex + 1}
+                  onCurrentPageOptionChange={(value: string) => {
+                    table.setPageIndex(Number(value) - 1);
+                  }}
+                  onBackArrowClick={() => table.previousPage()}
+                  onForwardArrowClick={() => table.nextPage()}
+                />
+              </PaginationWrapper>
             </InteractiveWrapper>
 
             <Table
@@ -239,5 +256,11 @@ const columns = [
 ];
 
 const InteractiveWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
   margin-bottom: ${size.s};
+`;
+
+const PaginationWrapper = styled.div`
+  width: 50%;
 `;

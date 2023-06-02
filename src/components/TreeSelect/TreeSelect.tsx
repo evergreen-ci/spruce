@@ -136,12 +136,11 @@ const renderCheckboxesHelper = ({
   state: string[];
   tData: TreeDataEntry[];
 }): void => {
-  const ParentCheckboxWrapper = getCheckboxWrapper(0);
   // push parent
   const onChangeFn = (): void =>
     handleOnChange({ state, value: data.value, onChange, tData });
   rows.push(
-    <ParentCheckboxWrapper key={data.key}>
+    <CheckboxWrapper key={data.key} level={0} isAll={data.value === ALL_VALUE}>
       <Checkbox
         className="cy-checkbox"
         onChange={onChangeFn}
@@ -150,16 +149,19 @@ const renderCheckboxesHelper = ({
         bold={false}
         data-cy="checkbox"
       />
-    </ParentCheckboxWrapper>
+    </CheckboxWrapper>
   );
   // then examine children
-  const ChildCheckboxWrapper = getCheckboxWrapper(1);
   if (data.children) {
     data.children.forEach((child) => {
       const onChangeChildFn = (): void =>
         handleOnChange({ state, value: child.value, onChange, tData });
       rows.push(
-        <ChildCheckboxWrapper key={`${data.key}-${child.key}`}>
+        <CheckboxWrapper
+          key={`${data.key}-${child.key}`}
+          level={1}
+          isAll={child.value === ALL_VALUE}
+        >
           <Checkbox
             className="cy-checkbox"
             onChange={onChangeChildFn}
@@ -168,7 +170,7 @@ const renderCheckboxesHelper = ({
             bold={false}
             data-cy="checkbox"
           />
-        </ChildCheckboxWrapper>
+        </CheckboxWrapper>
       );
     });
   }
@@ -317,15 +319,11 @@ const getAllValues = (tData: TreeDataEntry[]): string[] =>
     return accum.concat([currNode.value]).concat(childrenValues);
   }, []);
 
-const getCheckboxWrapper = (
-  level: number
-): React.VFC<{ children: React.ReactNode }> => styled.div`
-  padding-left: ${level}em;
+const CheckboxWrapper = styled.div<{ level: number; isAll: boolean }>`
+  padding-left: ${({ level }) => `${level}em`};
   padding-top: ${size.xxs};
   padding-bottom: ${size.xxs};
-  :first-of-type {
-    border-bottom: 1px solid ${gray.light2};
-  }
+  ${({ isAll }) => isAll && `border-bottom: 1px solid ${gray.light2};`}
 `;
 
 const OptionsWrapper = styled.div`
