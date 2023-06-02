@@ -47,12 +47,13 @@ export const NameChangeModal: React.VFC<NameChangeModalProps> = ({
     setIsDisabled(
       newPatchName === originalPatchName || hasFormError || loading
     );
-  }, [newPatchName, loading, originalPatchName]);
+  }, [newPatchName, loading, originalPatchName, hasFormError]);
 
   return (
     <>
       <StyledIconButton
         onClick={() => setIsOpen(true)}
+        data-cy="name-change-modal-trigger"
         aria-label="name-change-modal-trigger"
       >
         <Icon glyph="Edit" />
