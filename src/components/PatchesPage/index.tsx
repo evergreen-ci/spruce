@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import SearchInput from "@leafygreen-ui/search-input";
@@ -31,7 +30,7 @@ interface Props {
         variantIconStatus: string;
       }
   >;
-  filterComp?: ReactNode;
+  filterComp?: React.ReactNode;
   loading: boolean;
   pageTitle: string;
   pageType: "project" | "user";
