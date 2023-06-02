@@ -10,7 +10,7 @@ describe("project data", () => {
     expect(gqlToForm(projectBase)).toStrictEqual(projectForm);
   });
 
-  it("correctly converts from a form to GQL and omits empty strings", () => {
+  it("correctly converts from a form to GQL", () => {
     expect(formToGql(projectForm, "project")).toStrictEqual(projectResult);
   });
 });
@@ -18,14 +18,14 @@ describe("project data", () => {
 const projectForm: FormState = {
   parsleyFilters: [
     {
-      expression: "filter_1",
       displayTitle: "filter_1",
+      expression: "filter_1",
       caseSensitive: true,
       exactMatch: true,
     },
     {
-      expression: "filter_2",
       displayTitle: "filter_2",
+      expression: "filter_2",
       caseSensitive: false,
       exactMatch: false,
     },

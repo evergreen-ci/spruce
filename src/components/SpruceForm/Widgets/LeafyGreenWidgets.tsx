@@ -368,10 +368,10 @@ export const LeafyGreenSegmentedControl: React.VFC<EnumSpruceWidgetProps> = ({
   const {
     "aria-controls": ariaControls,
     "data-cy": dataCy,
-    sizeVariant,
     enumDisabled,
     enumOptions,
     elementWrapperCSS,
+    sizeVariant,
   } = options;
 
   const isDisabled = disabled || readonly;

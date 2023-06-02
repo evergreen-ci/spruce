@@ -9,10 +9,9 @@ export const findDuplicateIndices = <T = { [key: string]: any }>(
   key: keyof T
 ) => {
   const duplicateIndices = array
-    .map((a) => a[key])
+    .map((item) => item[key])
     .map(
-      (field, index, arr) =>
-        field !== "" && arr.lastIndexOf(field) !== index && index
+      (val, index, arr) => val !== "" && arr.lastIndexOf(val) !== index && index
     )
     .filter((index) => array[index]);
   return duplicateIndices;

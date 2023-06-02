@@ -2,10 +2,10 @@ import { ProjectType } from "../utils";
 
 export interface FormState {
   parsleyFilters: {
-    displayTitle?: string;
-    expression: string;
     caseSensitive: boolean;
+    displayTitle?: string;
     exactMatch: boolean;
+    expression: string;
   }[];
 }
 
