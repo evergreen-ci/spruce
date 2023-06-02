@@ -141,6 +141,8 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
   const addButtonSize = uiSchema["ui:addButtonSize"] || "small";
   const addButtonText = uiSchema["ui:addButtonText"] || "Add";
   const secondaryButton = uiSchema["ui:secondaryButton"];
+  const arrayDataCy = uiSchema["ui:data-cy"];
+
   // Override RJSF's default array behavior; add new elements to beginning of array unless otherwise specified.
   const addToEnd = uiSchema["ui:addToEnd"] ?? false;
   const handleAddClick =
@@ -178,6 +180,7 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
       <ArrayContainer
         fullWidth={fullWidth || useExpandableCard}
         hasChildren={!!items?.length}
+        data-cy={arrayDataCy}
       >
         {items.length === 0 ? (
           <Placeholder>{placeholder}</Placeholder>

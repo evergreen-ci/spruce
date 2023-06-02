@@ -362,7 +362,6 @@ const basicForm = {
     },
     users: {
       "ui:addButtonText": "New User",
-      "ui:data-cy": "new-user-input",
       items: {
         "ui:ariaLabelledBy": "root_access",
         "ui:data-cy": "new-user-input",
