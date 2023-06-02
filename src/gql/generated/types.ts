@@ -716,6 +716,7 @@ export type Mutation = {
   scheduleTasks: Array<Task>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"];
+  setPatchDescription: Patch;
   setPatchPriority?: Maybe<Scalars["String"]>;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
@@ -923,6 +924,11 @@ export type MutationSetAnnotationMetadataLinksArgs = {
   execution: Scalars["Int"];
   metadataLinks: Array<MetadataLinkInput>;
   taskId: Scalars["String"];
+};
+
+export type MutationSetPatchDescriptionArgs = {
+  description: Scalars["String"];
+  patchId: Scalars["String"];
 };
 
 export type MutationSetPatchPriorityArgs = {
@@ -4509,6 +4515,31 @@ export type UpdateHostStatusMutationVariables = Exact<{
 export type UpdateHostStatusMutation = {
   __typename?: "Mutation";
   updateHostStatus: number;
+};
+
+export type UpdatePatchDescriptionMutationVariables = Exact<{
+  patchId: Scalars["String"];
+  description: Scalars["String"];
+}>;
+
+export type UpdatePatchDescriptionMutation = {
+  __typename?: "Mutation";
+  schedulePatch: {
+    __typename?: "Patch";
+    activated: boolean;
+    alias?: string | null;
+    author: string;
+    commitQueuePosition?: number | null;
+    description: string;
+    id: string;
+    status: string;
+    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+    variantsTasks: Array<{
+      __typename?: "VariantTask";
+      name: string;
+      tasks: Array<string>;
+    } | null>;
+  };
 };
 
 export type UpdatePublicKeyMutationVariables = Exact<{
