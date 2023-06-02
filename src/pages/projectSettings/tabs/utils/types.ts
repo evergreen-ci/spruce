@@ -9,6 +9,6 @@ export enum ProjectType {
 
 export const PatchTriggerAliasStatus = {
   "*": "Any completed status",
-  succeeded: "Success",
+  success: "Success",
   failed: "Failure",
 } as const;

@@ -80,7 +80,7 @@ const repoForm: FormState = {
       {
         alias: "alias1",
         childProjectIdentifier: "spruce",
-        status: "succeeded",
+        status: "success",
         displayTitle: "alias1",
         parentAsModule: "",
         isGithubTriggerAlias: true,

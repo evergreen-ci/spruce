@@ -39,7 +39,6 @@ export const getFormSchema = (
         : "hidden",
     "ui:showLabel": false,
   };
-
   const errorStyling = sectionHasError(versionControlEnabled, projectType);
 
   return {
