@@ -22,9 +22,10 @@ export const NameChangeModal: React.VFC<NameChangeModalProps> = ({
   originalPatchName,
   patchId,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(true);
   const [formState, setFormState] = useState<{ newPatchName?: string }>({});
+  const [hasFormError, setHasFormError] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const { schema, uiSchema } = getFormSchema(originalPatchName);
   const dispatchToast = useToastContext();
   const [updateDescription, { loading }] = useMutation<
@@ -44,7 +45,7 @@ export const NameChangeModal: React.VFC<NameChangeModalProps> = ({
   const { newPatchName } = formState;
   useEffect(() => {
     setIsDisabled(
-      !newPatchName || newPatchName === originalPatchName || loading
+      newPatchName === originalPatchName || hasFormError || loading
     );
   }, [newPatchName, loading, originalPatchName]);
 
@@ -72,7 +73,8 @@ export const NameChangeModal: React.VFC<NameChangeModalProps> = ({
           schema={schema}
           uiSchema={uiSchema}
           formData={formState}
-          onChange={({ formData }) => {
+          onChange={({ formData, errors }) => {
+            setHasFormError(!!errors.length);
             setFormState(formData);
           }}
         />

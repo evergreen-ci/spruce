@@ -14,6 +14,8 @@ export const getFormSchema = (
         title: "New patch name",
         type: "string" as "string",
         default: name,
+        maxLength: 300,
+        minLength: 1,
       },
     },
   },
