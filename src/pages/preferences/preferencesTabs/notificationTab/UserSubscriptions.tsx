@@ -22,6 +22,7 @@ import {
   triggerToCopy,
   triggerTreeData,
 } from "constants/triggers";
+import { useToastContext } from "context/toast";
 import {
   DeleteSubscriptionsMutation,
   DeleteSubscriptionsMutationVariables,
@@ -36,10 +37,26 @@ import { getResourceRoute, useSubscriptionData } from "./utils";
 const { gray } = palette;
 
 export const UserSubscriptions: React.VFC<{}> = () => {
+  const dispatchToast = useToastContext();
+
   const [deleteSubscriptions] = useMutation<
     DeleteSubscriptionsMutation,
     DeleteSubscriptionsMutationVariables
-  >(DELETE_SUBSCRIPTIONS, { refetchQueries: ["UserSubscriptions"] });
+  >(DELETE_SUBSCRIPTIONS, {
+    refetchQueries: ["UserSubscriptions"],
+    onCompleted: (result) => {
+      dispatchToast.success(
+        `Deleted ${result.deleteSubscriptions} subscription${
+          result.deleteSubscriptions === 1 ? "" : "s"
+        }.`
+      );
+    },
+    onError: (e) => {
+      dispatchToast.error(
+        `Error attempting to delete subscriptions: ${e.message}`
+      );
+    },
+  });
 
   const subscriptions = useSubscriptionData();
 
@@ -68,9 +85,7 @@ export const UserSubscriptions: React.VFC<{}> = () => {
       .getSelectedRowModel()
       .rows.map(({ original }) => original.id);
 
-    deleteSubscriptions({
-      variables: { subscriptionIds },
-    });
+    deleteSubscriptions({ variables: { subscriptionIds } });
 
     table.resetRowSelection();
   };
@@ -85,6 +100,7 @@ export const UserSubscriptions: React.VFC<{}> = () => {
           <>
             <InteractiveWrapper>
               <Button
+                data-cy="delete-some-button"
                 disabled={Object.entries(rowSelection).length === 0}
                 leftGlyph={<Icon glyph="Trash" />}
                 onClick={onDeleteSubscriptions}
@@ -111,7 +127,11 @@ export const UserSubscriptions: React.VFC<{}> = () => {
                 />
               </PaginationWrapper>
             </InteractiveWrapper>
-            <BaseTable table={table} shouldAlternateRowColor />
+            <BaseTable
+              data-cy-row="subscription-row"
+              table={table}
+              shouldAlternateRowColor
+            />
             <TableFooter>
               <ClearSubscriptions />
             </TableFooter>

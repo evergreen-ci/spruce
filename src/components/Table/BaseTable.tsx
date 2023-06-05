@@ -12,11 +12,18 @@ import {
   TableHead,
 } from "@leafygreen-ui/table/new";
 
+type SpruceTableProps = {
+  "data-cy-row"?: string;
+  "data-cy-table"?: string;
+};
+
 export const BaseTable = <T extends LGRowData>({
+  "data-cy-row": dataCyRow,
+  "data-cy-table": dataCyTable,
   table,
   ...args
-}: TableProps<T>) => (
-  <Table table={table} {...args}>
+}: SpruceTableProps & TableProps<T>) => (
+  <Table data-cy={dataCyTable} table={table} {...args}>
     <TableHead>
       {table.getHeaderGroups().map((headerGroup) => (
         <HeaderRow key={headerGroup.id}>
@@ -30,7 +37,7 @@ export const BaseTable = <T extends LGRowData>({
     </TableHead>
     <TableBody>
       {table.getRowModel().rows.map((row) => (
-        <Row key={row.id} row={row} data-cy="subscription-row">
+        <Row key={row.id} row={row} data-cy={dataCyRow}>
           {row.getVisibleCells().map((cell) => (
             <Cell key={cell.id}>
               {flexRender(cell.column.columnDef.cell, cell.getContext())}

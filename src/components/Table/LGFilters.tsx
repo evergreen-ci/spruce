@@ -15,8 +15,8 @@ export const getColumnTreeSelectFilterProps = ({
 }: TreeSelectFilterProps) => ({
   header: ({ column }) => {
     // Only present options that appear in the table
-    const options = tData.filter(({ value }) =>
-      column.getFacetedUniqueValues().get(value)
+    const options = tData.filter(
+      ({ value }) => !!column.getFacetedUniqueValues().get(value)
     );
     return (
       <>
@@ -37,6 +37,7 @@ export const getColumnTreeSelectFilterProps = ({
     columnId: string,
     filterValue: string[]
   ) => {
+    // If no filter is specified, show all rows
     if (!filterValue.length) {
       return true;
     }
