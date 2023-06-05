@@ -20,7 +20,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
                 title: "Default view",
                 enum: [ProjectHealthView.Failed],
                 description:
-                  "Displays only task failures by default, making it easier to identify them, and groups tasks by status if they don't match any search criteria. Consider using it for troubleshooting specific issues.",
+                  "Displays only task failures, making it easier to identify them, and groups tasks by status if they don't match any search criteria. Consider using it for troubleshooting specific issues.",
               },
               {
                 type: "string" as "string",
