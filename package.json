@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.85",
+  "version": "3.0.86",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "@apollo/client": "3.6.9",
-    "@bugsnag/js": "7.18.0",
+    "@bugsnag/js": "7.20.2",
     "@bugsnag/plugin-react": "7.18.0",
     "@emotion/css": "11.11.0",
     "@emotion/react": "11.11.0",
@@ -95,7 +95,7 @@
     "@leafygreen-ui/text-input": "12.1.0",
     "@leafygreen-ui/toast": "6.1.4",
     "@leafygreen-ui/toggle": "10.0.1",
-    "@leafygreen-ui/tokens": "1.4.1",
+    "@leafygreen-ui/tokens": "2.1.0",
     "@leafygreen-ui/tooltip": "9.1.6",
     "@leafygreen-ui/typography": "16.4.1",
     "@rjsf/core": "4.2.0",

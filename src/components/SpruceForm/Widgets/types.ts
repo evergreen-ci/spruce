@@ -16,6 +16,7 @@ export interface SpruceWidgetProps extends WidgetProps {
     inputType: TextInputType;
     warnings: string[];
     customLabel: string;
+    sizeVariant: string;
   }>;
 }
 
