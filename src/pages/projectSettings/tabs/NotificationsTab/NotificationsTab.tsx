@@ -50,8 +50,7 @@ export const NotificationsTab: React.VFC<TabProps> = ({
 const validate = ((formData, errors) => {
   const { subscriptions } = formData;
 
-  for (let i = 0; i < subscriptions.length; i++) {
-    const subscription = subscriptions[i];
+  subscriptions.forEach((subscription, i) => {
     const { subscriptionData } = subscription;
     const { event, notification } = subscriptionData;
     const { notificationSelect } = notification;
@@ -65,12 +64,12 @@ const validate = ((formData, errors) => {
             errors.subscriptions[
               i
             ].subscriptionData?.notification?.notificationSelect?.addError(
-              "JIRA comment subscription not allowed for tasks in a project"
+              "Subscription type not allowed for tasks in a project"
             );
           }
         }
       }
     );
-  }
+  });
   return errors;
 }) satisfies ValidateProps<FormState>;
