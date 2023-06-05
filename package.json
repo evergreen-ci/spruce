@@ -132,7 +132,7 @@
     "@emotion/babel-plugin": "11.11.0",
     "@emotion/eslint-plugin": "11.11.0",
     "@emotion/jest": "11.11.0",
-    "@graphql-codegen/cli": "3.2.2",
+    "@graphql-codegen/cli": "4.0.1",
     "@graphql-codegen/typescript": "3.0.2",
     "@graphql-codegen/typescript-operations": "3.0.2",
     "@graphql-eslint/eslint-plugin": "3.18.0",
