@@ -31,7 +31,7 @@ const projectForm: FormState = {
     },
   ],
   view: {
-    projectHealthView: ProjectHealthView.All,
+    projectHealthView: ProjectHealthView.Failed,
   },
 };
 
@@ -50,6 +50,6 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
         exactMatch: false,
       },
     ],
-    projectHealthView: ProjectHealthView.All,
+    projectHealthView: ProjectHealthView.Failed,
   },
 };
