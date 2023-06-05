@@ -64,7 +64,7 @@ const validate = ((formData, errors) => {
             errors.subscriptions[
               i
             ].subscriptionData?.notification?.notificationSelect?.addError(
-              "Subscription type not allowed for tasks in a project"
+              "Subscription type not allowed for tasks in a project."
             );
           }
         }
