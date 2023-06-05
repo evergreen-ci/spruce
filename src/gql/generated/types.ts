@@ -1353,8 +1353,8 @@ export type ProjectEvents = {
 };
 
 export enum ProjectHealthView {
-  ProjectHealthViewAll = "PROJECT_HEALTH_VIEW_ALL",
-  ProjectHealthViewFailed = "PROJECT_HEALTH_VIEW_FAILED",
+  All = "ALL",
+  Failed = "FAILED",
 }
 
 export type ProjectInput = {
@@ -3083,6 +3083,7 @@ export type ProjectSettingsFieldsFragment = {
     notifyOnBuildFailure?: boolean | null;
     githubTriggerAliases?: Array<string> | null;
     perfEnabled?: boolean | null;
+    projectHealthView: ProjectHealthView;
     githubChecksEnabled?: boolean | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
@@ -3857,6 +3858,7 @@ export type VariablesFragment = {
 
 export type ProjectViewsAndFiltersSettingsFragment = {
   __typename?: "Project";
+  projectHealthView: ProjectHealthView;
   parsleyFilters?: Array<{
     __typename?: "ParsleyFilter";
     caseSensitive: boolean;
@@ -6215,6 +6217,7 @@ export type ProjectSettingsQuery = {
       notifyOnBuildFailure?: boolean | null;
       githubTriggerAliases?: Array<string> | null;
       perfEnabled?: boolean | null;
+      projectHealthView: ProjectHealthView;
       githubChecksEnabled?: boolean | null;
       gitTagAuthorizedTeams?: Array<string> | null;
       gitTagAuthorizedUsers?: Array<string> | null;

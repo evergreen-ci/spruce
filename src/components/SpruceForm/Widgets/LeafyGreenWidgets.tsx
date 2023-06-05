@@ -233,11 +233,13 @@ export const LeafyGreenRadio: React.VFC<EnumSpruceWidgetProps> = ({
       >
         {enumOptions.map((o) => {
           const optionDisabled = enumDisabled?.includes(o.value) ?? false;
+          const { description } = o.schema;
           return (
             <Radio
               key={o.value}
               value={o.value}
               disabled={disabled || optionDisabled}
+              description={description}
             >
               {o.label}
             </Radio>

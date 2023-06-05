@@ -1,4 +1,4 @@
-import { ProjectSettingsInput } from "gql/generated/types";
+import { ProjectHealthView, ProjectSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
 import { FormState } from "./types";
@@ -30,6 +30,9 @@ const projectForm: FormState = {
       exactMatch: false,
     },
   ],
+  view: {
+    projectHealthView: ProjectHealthView.All,
+  },
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
@@ -47,5 +50,6 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
         exactMatch: false,
       },
     ],
+    projectHealthView: ProjectHealthView.All,
   },
 };
