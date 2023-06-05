@@ -1,20 +1,10 @@
-import { useMemo, useRef, useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useRef, useState } from "react";
+import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Pagination from "@leafygreen-ui/pagination";
-import {
-  Cell,
-  ExpandedContent,
-  flexRender,
-  HeaderCell,
-  HeaderRow,
-  Row,
-  Table,
-  TableBody,
-  TableHead,
-  useLeafyGreenTable,
-} from "@leafygreen-ui/table/new";
+import { palette } from "@leafygreen-ui/palette";
+import { useLeafyGreenTable } from "@leafygreen-ui/table/new";
 import {
   getFacetedUniqueValues,
   getFilteredRowModel,
@@ -22,6 +12,7 @@ import {
 import Icon from "components/Icon";
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
 import { ShortenedRouterLink } from "components/styles";
+import { BaseTable } from "components/Table/BaseTable";
 import { getColumnTreeSelectFilterProps } from "components/Table/LGFilters";
 import { getSubscriberText } from "constants/subscription";
 import { size } from "constants/tokens";
@@ -36,49 +27,21 @@ import {
   DeleteSubscriptionsMutationVariables,
   GeneralSubscription,
   Selector,
-  UserSubscriptionsQuery,
-  UserSubscriptionsQueryVariables,
 } from "gql/generated/types";
 import { DELETE_SUBSCRIPTIONS } from "gql/mutations";
-import { USER_SUBSCRIPTIONS } from "gql/queries";
 import { notificationMethodToCopy } from "types/subscription";
-import { getResourceRoute, processSubscriptionData } from "./utils";
+import { ClearSubscriptions } from "./ClearSubscriptions";
+import { getResourceRoute, useSubscriptionData } from "./utils";
+
+const { gray } = palette;
 
 export const UserSubscriptions: React.VFC<{}> = () => {
-  const { data } = useQuery<
-    UserSubscriptionsQuery,
-    UserSubscriptionsQueryVariables
-  >(USER_SUBSCRIPTIONS);
-
   const [deleteSubscriptions] = useMutation<
     DeleteSubscriptionsMutation,
     DeleteSubscriptionsMutationVariables
   >(DELETE_SUBSCRIPTIONS, { refetchQueries: ["UserSubscriptions"] });
 
-  const globalSubscriptionIds = useMemo(() => {
-    const {
-      buildBreakId,
-      commitQueueId,
-      patchFinishId,
-      patchFirstFailureId,
-      spawnHostExpirationId,
-      spawnHostOutcomeId,
-    } = data?.userSettings?.notifications ?? {};
-    return new Set([
-      buildBreakId,
-      commitQueueId,
-      patchFinishId,
-      patchFirstFailureId,
-      spawnHostExpirationId,
-      spawnHostOutcomeId,
-    ]);
-  }, [data?.userSettings?.notifications]);
-
-  const subscriptions = useMemo(
-    () =>
-      processSubscriptionData(data?.user?.subscriptions, globalSubscriptionIds),
-    [data?.user?.subscriptions, globalSubscriptionIds]
-  );
+  const subscriptions = useSubscriptionData();
 
   const [columnFilters, setColumnFilters] = useState([]);
   const [rowSelection, setRowSelection] = useState({});
@@ -99,8 +62,6 @@ export const UserSubscriptions: React.VFC<{}> = () => {
     },
     withPagination: true,
   });
-
-  const { rows } = table.getRowModel();
 
   const onDeleteSubscriptions = () => {
     const subscriptionIds = table
@@ -130,6 +91,9 @@ export const UserSubscriptions: React.VFC<{}> = () => {
                 size="small"
               >
                 Delete
+                {Object.entries(rowSelection).length
+                  ? ` (${Object.entries(rowSelection).length})`
+                  : ""}
               </Button>
               <PaginationWrapper>
                 <Pagination
@@ -147,44 +111,10 @@ export const UserSubscriptions: React.VFC<{}> = () => {
                 />
               </PaginationWrapper>
             </InteractiveWrapper>
-
-            <Table
-              table={table}
-              ref={tableContainerRef}
-              shouldAlternateRowColor
-            >
-              <TableHead>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <HeaderRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <HeaderCell key={header.id} header={header}>
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                      </HeaderCell>
-                    ))}
-                  </HeaderRow>
-                ))}
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <Row key={row.id} row={row} data-cy="subscription-row">
-                    {row.getVisibleCells().map((cell) => (
-                      <Cell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </Cell>
-                    ))}
-                    {row.original.renderExpandedContent && (
-                      <ExpandedContent row={row} />
-                    )}
-                  </Row>
-                ))}
-              </TableBody>
-            </Table>
+            <BaseTable table={table} shouldAlternateRowColor />
+            <TableFooter>
+              <ClearSubscriptions />
+            </TableFooter>
           </>
         )}
       </SettingsCard>
@@ -263,4 +193,12 @@ const InteractiveWrapper = styled.div`
 
 const PaginationWrapper = styled.div`
   width: 50%;
+`;
+
+const TableFooter = styled.div`
+  box-shadow: 0 -4px ${gray.light2};
+  display: flex;
+  justify-content: flex-end;
+  margin-top: ${size.s};
+  padding-top: ${size.s};
 `;
