@@ -15,4 +15,11 @@ describe("Project Patches Page", () => {
     cy.location("pathname").should("eq", adminPatchesRoute);
     cy.dataCy("patch-card").should("exist");
   });
+
+  it("Project dropdown navigates to another project patches page upon selection", () => {
+    cy.visit(evergreenPatchesRoute);
+    cy.dataCy("project-select").click();
+    cy.dataCy("project-display-name").contains("Spruce").click();
+    cy.location("pathname").should("eq", "/project/spruce/patches");
+  });
 });

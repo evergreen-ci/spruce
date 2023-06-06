@@ -1,6 +1,10 @@
+import { ProjectHealthView } from "gql/generated/types";
 import { ProjectType } from "../utils";
 
 export interface FormState {
+  view: {
+    projectHealthView: ProjectHealthView;
+  };
   parsleyFilters: {
     caseSensitive: boolean;
     displayTitle?: string;

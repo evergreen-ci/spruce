@@ -11,7 +11,7 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
   if (!data) return null;
 
   const {
-    projectRef: { parsleyFilters },
+    projectRef: { parsleyFilters, projectHealthView },
   } = data;
 
   return {
@@ -22,11 +22,14 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
         caseSensitive,
         exactMatch,
       })) ?? [],
+    view: {
+      projectHealthView,
+    },
   };
 };
 
 export const formToGql: FormToGqlFunction<Tab> = (
-  { parsleyFilters }: FormState,
+  { parsleyFilters, view }: FormState,
   id: string
 ) => ({
   projectRef: {
@@ -38,5 +41,6 @@ export const formToGql: FormToGqlFunction<Tab> = (
         exactMatch,
       })
     ),
+    projectHealthView: view.projectHealthView,
   },
 });
