@@ -1,6 +1,5 @@
 import {
   ChangeEvent,
-  ReactNode,
   useState,
   PropsWithChildren,
   useRef,
@@ -20,17 +19,17 @@ const { gray, blue } = palette;
 
 export interface SearchableDropdownProps<T> {
   allowMultiSelect?: boolean;
-  buttonRenderer?: (option: T | T[]) => ReactNode;
+  buttonRenderer?: (option: T | T[]) => React.ReactNode;
   ["data-cy"]?: string;
   disabled?: boolean;
-  label: string | ReactNode;
+  label?: React.ReactNode;
   onChange: (value: T | T[]) => void;
   options?: T[] | string[];
   optionRenderer?: (
     option: T,
     onClick: (selectedV) => void,
     isChecked: (selectedV) => boolean
-  ) => ReactNode;
+  ) => React.ReactNode;
   searchFunc?: (options: T[], match: string) => T[];
   searchPlaceholder?: string;
   value: T | T[];
@@ -144,7 +143,7 @@ const SearchableDropdown = <T extends {}>({
 
   return (
     <Container>
-      <Label htmlFor={`searchable-dropdown-${label}`}>{label}</Label>
+      {label && <Label htmlFor={`searchable-dropdown-${label}`}>{label}</Label>}
       <Wrapper>
         <Dropdown
           id={`searchable-dropdown-${label}`}
