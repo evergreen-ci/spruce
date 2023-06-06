@@ -1,4 +1,10 @@
-import { useContext, createContext, useReducer, useMemo } from "react";
+import {
+  useContext,
+  createContext,
+  useReducer,
+  useMemo,
+  useCallback,
+} from "react";
 import {
   MainlineCommitsForHistoryQuery,
   TestFilter,
@@ -89,6 +95,9 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
   const getItemHeight = (index: number) =>
     processedCommits[index]?.rowHeight || LOADING_HEIGHT;
 
+  const onChangeTableWidth = useCallback((width: number) => {
+    dispatch({ type: "onChangeTableWidth", width });
+  }, []);
   const historyTableState = useMemo(
     () => ({
       columnLimit,
@@ -115,8 +124,7 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
       markSelectedRowVisited: () =>
         dispatch({ type: "markSelectedRowVisited" }),
       nextPage: () => dispatch({ type: "nextPageColumns" }),
-      onChangeTableWidth: (width: number): void =>
-        dispatch({ type: "onChangeTableWidth", width }),
+      onChangeTableWidth,
       previousPage: () => dispatch({ type: "prevPageColumns" }),
       setSelectedCommit: (order: number) =>
         dispatch({ type: "setSelectedCommit", order }),

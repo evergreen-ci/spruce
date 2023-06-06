@@ -31,6 +31,7 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
     processedCommits,
     onChangeTableWidth,
   } = useHistoryTable();
+
   const ref = useRef<HTMLDivElement>(null);
   const size = useDimensions(ref);
   const throttledOnChangeTableWidth = useMemo(
@@ -42,13 +43,12 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
     if (size) {
       throttledOnChangeTableWidth(size.width);
     }
-  });
+  }, [size, throttledOnChangeTableWidth]);
 
   useEffect(() => {
     if (recentlyFetchedCommits) {
       ingestNewCommits(recentlyFetchedCommits);
     }
-    // Remove ingestNewCommits from the effect list to avoid infinite loop
   }, [recentlyFetchedCommits?.nextPageOrderNumber]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const Component = children;
@@ -59,7 +59,7 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
         data={processedCommits}
         itemContent={(index, data) => <Component index={index} data={data} />}
         atBottomStateChange={(isAtBottom) => {
-          if (isAtBottom) {
+          if (isAtBottom && !loading) {
             loadMoreItems();
           }
         }}
