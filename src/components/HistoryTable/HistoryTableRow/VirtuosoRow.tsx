@@ -1,4 +1,5 @@
 import CommitChartLabel from "components/CommitChartLabel";
+import { types } from "..";
 import { LabelCellContainer } from "../Cell/Cell";
 import { useHistoryTable } from "../HistoryTableContext";
 import { rowType } from "../types";
@@ -19,7 +20,7 @@ interface RowProps {
   onClickUpstreamProject: () => void;
   onToggleFoldedCommit: (s: { isVisible: boolean }) => void;
   index: number;
-  data: any;
+  data: types.CommitRowType;
 }
 const VirtuosoRow: React.VFC<RowProps> = ({
   columns,
@@ -35,8 +36,7 @@ const VirtuosoRow: React.VFC<RowProps> = ({
   onClickFoldedUpstreamProject,
   onToggleFoldedCommit,
 }) => {
-  console.log(data);
-  const { isItemLoaded, getItem, columnLimit } = useHistoryTable();
+  const { isItemLoaded, columnLimit } = useHistoryTable();
   if (!isItemLoaded(index)) {
     return (
       <RowContainer>
@@ -44,11 +44,11 @@ const VirtuosoRow: React.VFC<RowProps> = ({
       </RowContainer>
     );
   }
-  const commit = getItem(index);
-  if (commit.type === rowType.DATE_SEPARATOR) {
-    return <DateSeparator date={commit.date} />;
+
+  if (data.type === rowType.DATE_SEPARATOR) {
+    return <DateSeparator date={data.date} />;
   }
-  if (commit.type === rowType.COMMIT && commit.commit) {
+  if (data.type === rowType.COMMIT && data.commit) {
     const {
       revision,
       createTime,
@@ -56,7 +56,7 @@ const VirtuosoRow: React.VFC<RowProps> = ({
       message,
       id: versionId,
       upstreamProject,
-    } = commit.commit;
+    } = data.commit;
 
     return (
       <RowContainer data-selected={selected} selected={selected}>
@@ -77,17 +77,18 @@ const VirtuosoRow: React.VFC<RowProps> = ({
       </RowContainer>
     );
   }
-  if (commit.type === rowType.FOLDED_COMMITS) {
+  if (data.type === rowType.FOLDED_COMMITS) {
     return (
       <FoldedCommit
         index={index}
-        rolledUpCommits={commit.rolledUpCommits}
-        toggleRowSize={data.toggleRowSize}
+        rolledUpCommits={data.rolledUpCommits}
         numVisibleCols={numVisibleCols || columnLimit}
         selected={selected}
         onClickGithash={onClickFoldedGithash}
         onClickJiraTicket={onClickFoldedJiraTicket}
-        onToggleFoldedCommit={onToggleFoldedCommit}
+        onToggleFoldedCommit={({ isVisible }) => {
+          onToggleFoldedCommit({ isVisible });
+        }}
         onClickUpstreamProject={onClickFoldedUpstreamProject}
       />
     );

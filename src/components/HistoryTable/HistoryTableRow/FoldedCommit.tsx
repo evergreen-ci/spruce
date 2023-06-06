@@ -17,10 +17,13 @@ interface FoldedCommitProps {
   rolledUpCommits: Unpacked<
     MainlineCommitsForHistoryQuery["mainlineCommits"]["versions"]
   >["rolledUpVersions"];
-  toggleRowSize: (idx: number, numCommits: number) => void;
   numVisibleCols: number;
   selected: boolean;
-  onToggleFoldedCommit?: (s: { isVisible: boolean }) => void;
+  onToggleFoldedCommit: (s: {
+    isVisible: boolean;
+    index: number;
+    numCommits: number;
+  }) => void;
   onClickJiraTicket?: () => void;
   onClickGithash?: () => void;
   onClickUpstreamProject?: () => void;
@@ -29,7 +32,6 @@ export const FoldedCommit = memo<FoldedCommitProps>(
   ({
     index,
     rolledUpCommits,
-    toggleRowSize,
     numVisibleCols,
     selected,
     onToggleFoldedCommit = () => {},
@@ -71,8 +73,7 @@ export const FoldedCommit = memo<FoldedCommitProps>(
           toggledTitle={`Collapse ${numCommits} inactive`}
           titleTag={AccordionTitle}
           onToggle={({ isVisible }) => {
-            onToggleFoldedCommit({ isVisible });
-            toggleRowSize(index, numCommits);
+            onToggleFoldedCommit({ isVisible, index, numCommits });
           }}
           useIndent={false}
           defaultOpen={defaultOpen}
