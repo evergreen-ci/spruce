@@ -14112,6 +14112,11 @@ react-virtualized-auto-sizer@^1.0.6:
   resolved "https://registry.yarnpkg.com/react-virtualized-auto-sizer/-/react-virtualized-auto-sizer-1.0.6.tgz#66c5b1c9278064c5ef1699ed40a29c11518f97ca"
   integrity sha512-7tQ0BmZqfVF6YYEWcIGuoR3OdYe8I/ZFbNclFlGOC3pMqunkYF/oL30NCjSGl9sMEb17AnzixDz98Kqc3N76HQ==
 
+react-virtuoso@^4.3.8:
+  version "4.3.8"
+  resolved "https://registry.yarnpkg.com/react-virtuoso/-/react-virtuoso-4.3.8.tgz#eeeb4112d8477b02bec56d55c8030073302ad465"
+  integrity sha512-hoZj8Dl1R9fYqtUwA5LjCii1djO4ZNtoYkYsR52ZjdJzdXh2hec1IQ2O+1MZNjLTb4v8ff3hbt34StiHTVDdlg==
+
 react-window-infinite-loader@^1.0.8:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/react-window-infinite-loader/-/react-window-infinite-loader-1.0.8.tgz#f88b1444829e732a3f4c5ae861644815329ddd88"
