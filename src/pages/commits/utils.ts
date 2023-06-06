@@ -1,4 +1,7 @@
-import { MainlineCommitsQueryVariables } from "gql/generated/types";
+import {
+  MainlineCommitsQueryVariables,
+  ProjectHealthView,
+} from "gql/generated/types";
 import { TaskStatus } from "types/task";
 import { array } from "utils";
 
@@ -9,6 +12,7 @@ interface FilterState {
   tasks: string[];
   variants: string[];
   requesters: string[];
+  view: ProjectHealthView;
 }
 interface MainlineCommitOptions {
   projectIdentifier: string;
@@ -73,7 +77,9 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
 
   let shouldShowTaskIcons = true;
   let statusesToShow = [];
-  if (hasTasks) {
+  if (filterState.view === ProjectHealthView.All) {
+    // preserve the above states if "All" view enabled
+  } else if (hasTasks) {
     statusesToShow = filterState.statuses;
   } else if (hasStatuses) {
     const onlyHasNonFailingStatuses =

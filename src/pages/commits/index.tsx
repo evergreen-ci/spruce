@@ -24,6 +24,7 @@ import {
   SpruceConfigQueryVariables,
   MainlineCommitsQuery,
   MainlineCommitsQueryVariables,
+  ProjectHealthView,
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
 import {
@@ -87,6 +88,7 @@ const Commits = () => {
   const statusFilters = toArray(parsed[ProjectFilterOptions.Status]);
   const variantFilters = toArray(parsed[ProjectFilterOptions.BuildVariant]);
   const taskFilters = toArray(parsed[ProjectFilterOptions.Task]);
+  const viewFilter = parsed[ProjectFilterOptions.View] as ProjectHealthView;
   const requesterFilters = toArray(
     parsed[MainlineCommitQueryParams.Requester]
   ).filter((r) => r !== ALL_VALUE);
@@ -99,6 +101,7 @@ const Commits = () => {
     variants: variantFilters,
     tasks: taskFilters,
     requesters: requesterFilters,
+    view: viewFilter,
   };
   const variables = getMainlineCommitsQueryVariables({
     mainlineCommitOptions: {
