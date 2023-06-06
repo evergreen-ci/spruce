@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { StoryObj } from "@storybook/react";
-import TaskHistoryRow from "pages/taskHistory/TaskHistoryRow";
-import VirtuosoTaskHistoryRow from "pages/taskHistory/VirtuosoTaskHistoryRow";
-import VariantHistoryRow from "pages/variantHistory/VariantHistoryRow";
+import TaskHistoryRow from "pages/taskHistory/VirtuosoTaskHistoryRow";
+import VariantHistoryRow from "pages/variantHistory/VirtuosoVariantHistoryRow";
 import HistoryTable, { context } from ".";
 import { mainlineCommitData } from "./testData";
 import VirtuosoHistoryTable from "./VirtuosoHistoryTable";
@@ -70,7 +69,7 @@ const VirtuosoHistoryTableWrapper: React.VFC<HistoryTableWrapperProps> = ({
         loadMoreItems={loadMore}
         loading={false}
       >
-        {VirtuosoTaskHistoryRow}
+        {TaskHistoryRow}
       </VirtuosoHistoryTable>
     </div>
   );

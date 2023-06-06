@@ -82,6 +82,7 @@ export const processCommits = ({
             date: firstRolledUpVersion.createTime,
             rowHeight: FOLDED_COMMITS_HEIGHT,
             selected,
+            open: false,
           });
         } else {
           processedCommits.push({
@@ -95,6 +96,7 @@ export const processCommits = ({
             date: firstRolledUpVersion.createTime,
             rowHeight: FOLDED_COMMITS_HEIGHT,
             selected,
+            open: false,
           });
         }
         if (selected) {

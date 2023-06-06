@@ -5,15 +5,14 @@ import { FoldedCommit } from "./FoldedCommit";
 
 const Content = () => {
   // The params are ignored because they're only needed in the context of the History Table.
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const toggleRowSize = (idx: number, numCommits: number) => {};
+  const toggleRowSize = jest.fn();
 
   return (
     <MockedProvider mocks={[getSpruceConfigMock]}>
       <FoldedCommit
         index={0}
         rolledUpCommits={rolledUpCommits}
-        toggleRowSize={toggleRowSize}
+        onToggleFoldedCommit={toggleRowSize}
         numVisibleCols={5}
         selected={false}
       />

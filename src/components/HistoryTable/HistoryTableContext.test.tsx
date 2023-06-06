@@ -217,6 +217,7 @@ describe("historyTableContext", () => {
       rolledUpCommits: rolledUpVersions,
       rowHeight: FOLDED_COMMITS_HEIGHT,
       selected: false,
+      open: false,
     });
     expect(result.current.isItemLoaded(4)).toBe(false);
     // Now trigger a size update to the folded commit
@@ -232,6 +233,7 @@ describe("historyTableContext", () => {
       rolledUpCommits: rolledUpVersions,
       rowHeight: expandedRowHeight,
       selected: false,
+      open: true,
     });
   });
   it("should deduplicate passed in versions", () => {

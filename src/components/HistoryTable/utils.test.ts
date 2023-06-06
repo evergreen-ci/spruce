@@ -138,6 +138,7 @@ describe("historyTable utils", () => {
             type: rowType.FOLDED_COMMITS,
             rowHeight: FOLDED_COMMITS_HEIGHT,
             selected: false,
+            open: false,
           },
         ]);
       });
@@ -184,6 +185,7 @@ describe("historyTable utils", () => {
             type: rowType.FOLDED_COMMITS,
             rowHeight: FOLDED_COMMITS_HEIGHT,
             selected: false,
+            open: false,
           },
         ]);
       });
