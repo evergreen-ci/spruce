@@ -7,7 +7,6 @@ export type CommitRowType =
       rolledUpCommits: Unpacked<
         mainlineCommits["versions"]
       >["rolledUpVersions"];
-      rowHeight: number;
       date: Date;
       selected: boolean;
       open: boolean;
@@ -15,7 +14,6 @@ export type CommitRowType =
   | {
       type: rowType.DATE_SEPARATOR;
       date: Date;
-      rowHeight: number;
       selected?: boolean;
     }
   | {
@@ -23,7 +21,6 @@ export type CommitRowType =
       commit: Unpacked<mainlineCommits["versions"]>["version"];
       date: Date;
       selected: boolean;
-      rowHeight: number;
     };
 
 export type mainlineCommits = MainlineCommitsForHistoryQuery["mainlineCommits"];

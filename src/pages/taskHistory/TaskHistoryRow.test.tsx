@@ -1,5 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
-import { context, constants } from "components/HistoryTable";
+import { context } from "components/HistoryTable";
 import { HistoryTableReducerState } from "components/HistoryTable/historyTableContextReducer";
 import { mainlineCommitData } from "components/HistoryTable/testData";
 import { rowType, CommitRowType } from "components/HistoryTable/types";
@@ -19,7 +19,6 @@ import { TestStatus } from "types/history";
 import TaskHistoryRow from "./VirtuosoTaskHistoryRow";
 
 const { HistoryTableProvider } = context;
-const { COMMIT_HEIGHT } = constants;
 
 const initialState: HistoryTableReducerState = {
   loadedCommits: [],
@@ -238,7 +237,6 @@ describe("taskHistoryRow", () => {
 
 const taskRow: CommitRowType = {
   type: rowType.COMMIT,
-  rowHeight: COMMIT_HEIGHT,
   selected: false,
   commit: {
     id: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",

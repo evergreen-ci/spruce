@@ -9,7 +9,7 @@ import {
   MainlineCommitsForHistoryQuery,
   TestFilter,
 } from "gql/generated/types";
-import { DEFAULT_COLUMN_LIMIT, LOADING_HEIGHT } from "./constants";
+import { DEFAULT_COLUMN_LIMIT } from "./constants";
 
 import {
   HistoryTableReducerState,
@@ -36,7 +36,6 @@ interface HistoryTableState {
   visibleColumns: string[];
   addColumns: (columns: string[]) => void;
   getItem: (index: number) => CommitRowType;
-  getItemHeight: (index: number) => number;
   ingestNewCommits: (data: mainlineCommits) => void;
   isItemLoaded: (index: number) => boolean;
   markSelectedRowVisited: () => void;
@@ -45,7 +44,6 @@ interface HistoryTableState {
   previousPage: () => void;
   setHistoryTableFilters: (filters: TestFilter[]) => void;
   setSelectedCommit: (order: number) => void;
-  toggleRowSizeAtIndex: (index: number, numCommits: number) => void;
 }
 
 const HistoryTableDispatchContext = createContext<HistoryTableState | null>(
@@ -92,9 +90,6 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
 
   const getItem = (index: number) => processedCommits[index];
 
-  const getItemHeight = (index: number) =>
-    processedCommits[index]?.rowHeight || LOADING_HEIGHT;
-
   const onChangeTableWidth = useCallback((width: number) => {
     dispatch({ type: "onChangeTableWidth", width });
   }, []);
@@ -104,7 +99,6 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
       commitCount,
       currentPage,
       getItem,
-      getItemHeight,
       hasNextPage: currentPage < pageCount - 1,
       hasPreviousPage: currentPage > 0,
       historyTableFilters,
@@ -116,8 +110,6 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
       visibleColumns,
       addColumns: (columns: string[]) =>
         dispatch({ type: "addColumns", columns }),
-      toggleRowSizeAtIndex: (index: number, numCommits: number) =>
-        dispatch({ type: "toggleRowSizeAtIndex", index, numCommits }),
       ingestNewCommits: (
         commits: MainlineCommitsForHistoryQuery["mainlineCommits"]
       ) => dispatch({ type: "ingestNewCommits", commits }),

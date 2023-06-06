@@ -222,7 +222,6 @@ describe("useMergedHookRender - sanity check", () => {
       visibleColumns: [],
       addColumns: expect.any(Function),
       getItem: expect.any(Function),
-      getItemHeight: expect.any(Function),
       ingestNewCommits: expect.any(Function),
       isItemLoaded: expect.any(Function),
       toggleRowSizeAtIndex: expect.any(Function),

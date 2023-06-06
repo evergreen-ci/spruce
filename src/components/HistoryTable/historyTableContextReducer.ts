@@ -1,10 +1,6 @@
 import { TestFilter } from "gql/generated/types";
 import { CommitRowType, mainlineCommits, rowType } from "./types";
-import {
-  calcColumnLimitFromWidth,
-  processCommits,
-  toggleRowSizeAtIndex,
-} from "./utils";
+import { calcColumnLimitFromWidth, processCommits } from "./utils";
 
 type Action =
   | { type: "ingestNewCommits"; commits: mainlineCommits }
@@ -15,8 +11,7 @@ type Action =
   | { type: "setHistoryTableFilters"; filters: TestFilter[] }
   | { type: "markSelectedRowVisited" }
   | { type: "onChangeTableWidth"; width: number }
-  | { type: "setSelectedCommit"; order: number }
-  | { type: "toggleRowSizeAtIndex"; index: number; numCommits: number };
+  | { type: "setSelectedCommit"; order: number };
 
 type cacheShape = Map<
   number,
@@ -187,17 +182,7 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         },
       };
     }
-    case "toggleRowSizeAtIndex": {
-      const newProcessedCommits = toggleRowSizeAtIndex(
-        state.processedCommits,
-        action.numCommits,
-        action.index
-      );
-      return {
-        ...state,
-        processedCommits: newProcessedCommits,
-      };
-    }
+
     default:
       throw new Error(`Unknown reducer action ${action}`);
   }

@@ -1,6 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { context, types } from "components/HistoryTable";
-import { COMMIT_HEIGHT } from "components/HistoryTable/constants";
 import { HistoryTableReducerState } from "components/HistoryTable/historyTableContextReducer";
 import { mainlineCommitData } from "components/HistoryTable/testData";
 import { CommitRowType } from "components/HistoryTable/types";
@@ -241,7 +240,6 @@ describe("variantHistoryRow", () => {
 
 const taskRow: CommitRowType = {
   type: rowType.COMMIT,
-  rowHeight: COMMIT_HEIGHT,
   commit: {
     id: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
     author: "Malik Hadjri",
