@@ -3,14 +3,14 @@ import { MockedProvider } from "@apollo/client/testing";
 import { StoryObj } from "@storybook/react";
 import TaskHistoryRow from "pages/taskHistory/VirtuosoTaskHistoryRow";
 import VariantHistoryRow from "pages/variantHistory/VirtuosoVariantHistoryRow";
-import HistoryTable, { context } from ".";
+import { context } from ".";
 import { mainlineCommitData } from "./testData";
 import VirtuosoHistoryTable from "./VirtuosoHistoryTable";
 
 const { HistoryTableProvider, useHistoryTable } = context;
 
 export default {
-  component: HistoryTable,
+  component: VirtuosoHistoryTable,
   decorators: [
     (Story: () => JSX.Element) => (
       <MockedProvider>
@@ -20,7 +20,7 @@ export default {
   ],
 };
 
-export const TaskHistoryTable: StoryObj<typeof HistoryTable> = {
+export const TaskHistoryTable: StoryObj<typeof VirtuosoHistoryTable> = {
   render: () => (
     <HistoryTableProvider>
       <HistoryTableWrapper type="task" />
@@ -28,7 +28,7 @@ export const TaskHistoryTable: StoryObj<typeof HistoryTable> = {
   ),
 };
 
-export const VariantHistoryTable: StoryObj<typeof HistoryTable> = {
+export const VariantHistoryTable: StoryObj<typeof VirtuosoHistoryTable> = {
   render: () => (
     <HistoryTableProvider>
       <HistoryTableWrapper type="variant" />
@@ -89,12 +89,13 @@ const HistoryTableWrapper: React.VFC<HistoryTableWrapperProps> = ({ type }) => {
 
   return (
     <div style={{ height: 800, width: "100%" }}>
-      <HistoryTable
+      <VirtuosoHistoryTable
         recentlyFetchedCommits={commitData}
         loadMoreItems={loadMore}
+        loading={false}
       >
         {type === "task" ? TaskHistoryRow : VariantHistoryRow}
-      </HistoryTable>
+      </VirtuosoHistoryTable>
     </div>
   );
 };

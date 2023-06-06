@@ -1,7 +1,5 @@
-import { memo } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { areEqual } from "react-window";
 import { Accordion } from "components/Accordion";
 import CommitChartLabel from "components/CommitChartLabel";
 import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
@@ -28,63 +26,60 @@ interface FoldedCommitProps {
   onClickGithash?: () => void;
   onClickUpstreamProject?: () => void;
 }
-export const FoldedCommit = memo<FoldedCommitProps>(
-  ({
-    index,
-    rolledUpCommits,
-    numVisibleCols,
-    selected,
-    onToggleFoldedCommit = () => {},
-    onClickGithash,
-    onClickJiraTicket,
-    onClickUpstreamProject,
-  }: FoldedCommitProps) => {
-    const defaultOpen = false;
-    const numCommits = rolledUpCommits.length;
+export const FoldedCommit: React.VFC<FoldedCommitProps> = ({
+  index,
+  rolledUpCommits,
+  numVisibleCols,
+  selected,
+  onToggleFoldedCommit = () => {},
+  onClickGithash,
+  onClickJiraTicket,
+  onClickUpstreamProject,
+}) => {
+  const defaultOpen = false;
+  const numCommits = rolledUpCommits.length;
 
-    const columns = Array.from(Array(numVisibleCols)).map((_, idx) => (
-      <EmptyCell key={`loading_row_${idx}`} /> // eslint-disable-line react/no-array-index-key
-    ));
+  const columns = Array.from(Array(numVisibleCols)).map((_, idx) => (
+    <EmptyCell key={`loading_row_${idx}`} /> // eslint-disable-line react/no-array-index-key
+  ));
 
-    const commits = rolledUpCommits.map((commit) => (
-      <StyledRowContainer key={commit.id}>
-        <LabelCellContainer>
-          <CommitChartLabel
-            versionId={commit.id}
-            githash={commit.revision}
-            createTime={commit.createTime}
-            author={commit.author}
-            message={commit.message}
-            onClickGithash={onClickGithash}
-            onClickJiraTicket={onClickJiraTicket}
-            upstreamProject={commit.upstreamProject}
-            onClickUpstreamProject={onClickUpstreamProject}
-          />
-        </LabelCellContainer>
-        {columns}
-      </StyledRowContainer>
-    ));
+  const commits = rolledUpCommits.map((commit) => (
+    <StyledRowContainer key={commit.id}>
+      <LabelCellContainer>
+        <CommitChartLabel
+          versionId={commit.id}
+          githash={commit.revision}
+          createTime={commit.createTime}
+          author={commit.author}
+          message={commit.message}
+          onClickGithash={onClickGithash}
+          onClickJiraTicket={onClickJiraTicket}
+          upstreamProject={commit.upstreamProject}
+          onClickUpstreamProject={onClickUpstreamProject}
+        />
+      </LabelCellContainer>
+      {columns}
+    </StyledRowContainer>
+  ));
 
-    return (
-      <Column selected={selected}>
-        <Accordion
-          disableAnimation
-          title={`Expand ${numCommits} inactive`}
-          toggledTitle={`Collapse ${numCommits} inactive`}
-          titleTag={AccordionTitle}
-          onToggle={({ isVisible }) => {
-            onToggleFoldedCommit({ isVisible, index, numCommits });
-          }}
-          useIndent={false}
-          defaultOpen={defaultOpen}
-        >
-          {commits}
-        </Accordion>
-      </Column>
-    );
-  },
-  areEqual
-);
+  return (
+    <Column selected={selected}>
+      <Accordion
+        disableAnimation
+        title={`Expand ${numCommits} inactive`}
+        toggledTitle={`Collapse ${numCommits} inactive`}
+        titleTag={AccordionTitle}
+        onToggle={({ isVisible }) => {
+          onToggleFoldedCommit({ isVisible, index, numCommits });
+        }}
+        useIndent={false}
+        defaultOpen={defaultOpen}
+      >
+        {commits}
+      </Accordion>
+    </Column>
+  );
+};
 
 const Column = styled.div<{ selected: boolean }>`
   display: flex;
