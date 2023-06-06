@@ -1,16 +1,7 @@
-import { CSSProperties } from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { renderWithRouterMatch as render, screen } from "test_utils";
-import { FOLDED_COMMITS_HEIGHT } from "../constants";
 import { FoldedCommit } from "./FoldedCommit";
-
-const style: CSSProperties = {
-  top: 0,
-  left: 0,
-  position: "absolute",
-  height: FOLDED_COMMITS_HEIGHT,
-};
 
 const Content = () => {
   // The params are ignored because they're only needed in the context of the History Table.
@@ -24,7 +15,6 @@ const Content = () => {
         rolledUpCommits={rolledUpCommits}
         toggleRowSize={toggleRowSize}
         numVisibleCols={5}
-        style={style}
         selected={false}
       />
     </MockedProvider>
