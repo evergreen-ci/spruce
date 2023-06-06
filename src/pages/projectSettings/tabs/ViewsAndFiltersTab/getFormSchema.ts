@@ -11,6 +11,8 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       view: {
         title: "Project Health View",
         type: "object" as "object",
+        description:
+          "This setting will define the default behavior of the Project Health page for all viewers of this project. Users can still toggle between views.",
         properties: {
           projectHealthView: {
             type: "string" as "string",
