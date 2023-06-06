@@ -1353,8 +1353,8 @@ export type ProjectEvents = {
 };
 
 export enum ProjectHealthView {
-  ProjectHealthViewAll = "PROJECT_HEALTH_VIEW_ALL",
-  ProjectHealthViewFailed = "PROJECT_HEALTH_VIEW_FAILED",
+  All = "ALL",
+  Failed = "FAILED",
 }
 
 export type ProjectInput = {
