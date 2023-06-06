@@ -410,6 +410,19 @@ export const triggerToCopy = {
     "First failure in version with name",
 };
 
+export const convertFamilyTrigger = (trigger: string) => {
+  switch (trigger) {
+    case TriggerType.FAMILY_OUTCOME:
+      return TriggerType.OUTCOME;
+    case TriggerType.FAMILY_FAILURE:
+      return TriggerType.FAILURE;
+    case TriggerType.FAMILY_SUCCESS:
+      return TriggerType.SUCCESS;
+    default:
+      return trigger;
+  }
+};
+
 export const triggerTreeData: TreeDataEntry[] = Object.entries(
   triggerToCopy
 ).map(([key, value]) => ({

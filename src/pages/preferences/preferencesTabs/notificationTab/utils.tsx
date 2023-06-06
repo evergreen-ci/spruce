@@ -9,6 +9,7 @@ import {
   getVersionRoute,
 } from "constants/routes";
 import { size } from "constants/tokens";
+import { convertFamilyTrigger } from "constants/triggers";
 import {
   GeneralSubscription,
   Selector,
@@ -64,6 +65,11 @@ const processSubscriptionData = (
     subscriptions
       // Filter out a user's global subscriptions for tasks, spawn hosts, etc.
       .filter(({ id }) => !globalSubscriptionIds.has(id))
+      // For this table's purposes, FAMILY_TRIGGER = TRIGGER. Convert all family triggers to their base type.
+      .map(({ trigger, ...subscription }) => ({
+        ...subscription,
+        trigger: convertFamilyTrigger(trigger),
+      }))
       // For subscriptions that contain regex selectors or additional trigger data, append an expandable section
       .map((subscription) => {
         const hasTriggerData = !!Object.entries(subscription.triggerData ?? {})
