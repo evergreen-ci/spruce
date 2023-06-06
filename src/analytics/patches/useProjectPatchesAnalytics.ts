@@ -7,11 +7,12 @@ import {
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 
 type Action =
-  | { name: "Filter Patches"; filterBy: string }
-  | { name: "Filter Commit Queue" }
   | { name: "Change Page Size" }
+  | { name: "Change Project" }
   | { name: "Click Patch Link" }
-  | { name: "Click Variant Icon"; variantIconStatus: string };
+  | { name: "Click Variant Icon"; variantIconStatus: string }
+  | { name: "Filter Commit Queue" }
+  | { name: "Filter Patches"; filterBy: string };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}

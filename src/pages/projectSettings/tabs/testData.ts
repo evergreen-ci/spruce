@@ -1,5 +1,6 @@
 import {
   BannerTheme,
+  ProjectHealthView,
   ProjectSettingsQuery,
   RepoSettingsQuery,
 } from "gql/generated/types";
@@ -97,6 +98,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
         exactMatch: false,
       },
     ],
+    projectHealthView: ProjectHealthView.Failed,
   },
   vars: {
     vars: { test_name: "", test_two: "val" },

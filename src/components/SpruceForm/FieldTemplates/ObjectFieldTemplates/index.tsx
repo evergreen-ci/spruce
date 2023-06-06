@@ -53,19 +53,36 @@ export const ObjectFieldTemplate = ({
  * `CardFieldTemplate` is a custom ObjectFieldTemplate that renders a card with a title and a list of properties.
  */
 export const CardFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
+  DescriptionField,
   idSchema,
   properties,
+  schema,
   title,
-  uiSchema: { "ui:title": uiTitle, "ui:data-cy": dataCy },
-}) => (
-  <SpruceFormContainer
-    title={uiTitle || title}
-    id={`${idSchema.$id}__title`}
-    data-cy={dataCy}
-  >
-    {properties.map((prop) => prop.content)}
-  </SpruceFormContainer>
-);
+  uiSchema: {
+    "ui:data-cy": dataCy,
+    "ui:description": uiDescription,
+    "ui:title": uiTitle,
+  },
+}) => {
+  const description = uiDescription || schema.description;
+  return (
+    <SpruceFormContainer
+      title={uiTitle || title}
+      id={`${idSchema.$id}__title`}
+      data-cy={dataCy}
+      description={
+        description && (
+          <DescriptionField
+            id={`${idSchema.$id}__description`}
+            description={description}
+          />
+        )
+      }
+    >
+      {properties.map((prop) => prop.content)}
+    </SpruceFormContainer>
+  );
+};
 
 /**
  * `AccordionFieldTemplate` is a custom ObjectFieldTemplate that renders an accordion with a title and a list of properties.

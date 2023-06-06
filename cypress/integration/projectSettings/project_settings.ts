@@ -1058,9 +1058,9 @@ describe("Notifications", { testIsolation: false }, () => {
     cy.selectLGOption("Event", "Any Task Finishes");
     cy.selectLGOption("Notification Method", "Comment on a JIRA issue");
     cy.getInputByLabel("JIRA Issue").type("JIRA-123");
-    cy.contains(
-      "JIRA comment subscription not allowed for tasks in a project"
-    ).should("exist");
+    cy.contains("Subscription type not allowed for tasks in a project.").should(
+      "exist"
+    );
     cy.dataCy("save-settings-button").scrollIntoView();
     saveButtonEnabled(false);
   });
