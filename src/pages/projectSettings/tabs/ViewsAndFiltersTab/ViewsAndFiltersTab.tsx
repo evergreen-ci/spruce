@@ -1,12 +1,13 @@
 import { useMemo } from "react";
-import { SpruceForm } from "components/SpruceForm";
+import { SpruceForm, ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   usePopulateForm,
   useProjectSettingsContext,
 } from "pages/projectSettings/Context";
+import { findDuplicateIndices } from "../utils";
 import { getFormSchema } from "./getFormSchema";
-import { TabProps } from "./types";
+import { TabProps, FormState } from "./types";
 
 const tab = ProjectSettingsTabRoutes.ViewsAndFilters;
 
@@ -30,6 +31,22 @@ export const ViewsAndFiltersTab: React.VFC<TabProps> = ({ projectData }) => {
       onChange={onChange}
       schema={schema}
       uiSchema={uiSchema}
+      validate={validate as any}
     />
   );
 };
+
+/* Display an error and prevent saving if a user enters a Parsley filter expression that already appears in the project. */
+const validate = ((formData, errors) => {
+  const duplicateIndices = findDuplicateIndices(
+    formData.parsleyFilters,
+    "expression"
+  );
+  duplicateIndices.forEach((i) => {
+    errors.parsleyFilters?.[i]?.expression?.addError(
+      "Filter expression already appears in this project."
+    );
+  });
+
+  return errors;
+}) satisfies ValidateProps<FormState>;

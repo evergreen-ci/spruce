@@ -1359,8 +1359,8 @@ export type ProjectEvents = {
 };
 
 export enum ProjectHealthView {
-  ProjectHealthViewAll = "PROJECT_HEALTH_VIEW_ALL",
-  ProjectHealthViewFailed = "PROJECT_HEALTH_VIEW_FAILED",
+  All = "ALL",
+  Failed = "FAILED",
 }
 
 export type ProjectInput = {
@@ -3168,6 +3168,12 @@ export type ProjectSettingsFieldsFragment = {
       status: string;
       taskRegex: string;
     }> | null;
+    parsleyFilters?: Array<{
+      __typename?: "ParsleyFilter";
+      caseSensitive: boolean;
+      exactMatch: boolean;
+      expression: string;
+    }> | null;
     workstationConfig: {
       __typename?: "WorkstationConfig";
       gitClone?: boolean | null;
@@ -3853,6 +3859,16 @@ export type VariablesFragment = {
   adminOnlyVars: Array<string>;
   privateVars: Array<string>;
   vars?: { [key: string]: any } | null;
+};
+
+export type ProjectViewsAndFiltersSettingsFragment = {
+  __typename?: "Project";
+  parsleyFilters?: Array<{
+    __typename?: "ParsleyFilter";
+    caseSensitive: boolean;
+    exactMatch: boolean;
+    expression: string;
+  }> | null;
 };
 
 export type ProjectVirtualWorkstationSettingsFragment = {
@@ -6308,6 +6324,12 @@ export type ProjectSettingsQuery = {
         project: string;
         status: string;
         taskRegex: string;
+      }> | null;
+      parsleyFilters?: Array<{
+        __typename?: "ParsleyFilter";
+        caseSensitive: boolean;
+        exactMatch: boolean;
+        expression: string;
       }> | null;
       workstationConfig: {
         __typename?: "WorkstationConfig";

@@ -10,6 +10,7 @@
 #import "./projectTriggers.graphql"
 #import "./periodicBuilds.graphql"
 #import "./containers.graphql"
+#import "./viewsAndFilters.graphql"
 
 fragment ProjectSettingsFields on ProjectSettings {
   aliases {
@@ -27,6 +28,7 @@ fragment ProjectSettingsFields on ProjectSettings {
     ...ProjectPeriodicBuildsSettings
     ...ProjectPluginsSettings
     ...ProjectTriggersSettings
+    ...ProjectViewsAndFiltersSettings
     ...ProjectVirtualWorkstationSettings
     repoRefId
   }

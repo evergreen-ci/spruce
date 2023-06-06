@@ -85,6 +85,18 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     },
     triggers: [],
     periodicBuilds: [],
+    parsleyFilters: [
+      {
+        expression: "filter_1",
+        caseSensitive: true,
+        exactMatch: true,
+      },
+      {
+        expression: "filter_2",
+        caseSensitive: false,
+        exactMatch: false,
+      },
+    ],
   },
   vars: {
     vars: { test_name: "", test_two: "val" },
