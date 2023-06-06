@@ -328,25 +328,32 @@ const StyledRadioBox = styled(RadioBox)`
 `;
 
 export const LeafyGreenTextArea: React.VFC<SpruceWidgetProps> = ({
-  label,
   disabled,
-  value,
+  label,
   onChange,
   options,
   rawErrors,
   readonly,
+  value,
 }) => {
-  const { "data-cy": dataCy, emptyValue = "", elementWrapperCSS } = options;
+  const {
+    "data-cy": dataCy,
+    elementWrapperCSS,
+    emptyValue = "",
+    focusOnMount,
+  } = options;
 
   const { errors, hasError } = processErrors(rawErrors);
   const el = useRef<HTMLTextAreaElement>();
 
   useEffect(() => {
-    const textarea = el.current;
-    if (textarea) {
-      textarea.focus();
-      textarea.selectionStart = textarea.value.length;
-      textarea.selectionEnd = textarea.value.length;
+    if (focusOnMount) {
+      const textarea = el.current;
+      if (textarea) {
+        textarea.focus();
+        textarea.selectionStart = textarea.value.length;
+        textarea.selectionEnd = textarea.value.length;
+      }
     }
   }, []);
 
