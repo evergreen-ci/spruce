@@ -21,7 +21,7 @@ export const getFormSchema = (
   },
   uiSchema: {
     newPatchName: {
-      "ui:widget": LeafyGreenTextArea,
+      "ui:widget": "textarea",
       "ui:focusOnMount": true,
     },
   },
