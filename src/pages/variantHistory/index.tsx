@@ -8,13 +8,14 @@ import { ProjectBanner } from "components/Banners";
 import FilterBadges, {
   useFilterBadgeQueryParams,
 } from "components/FilterBadges";
-import HistoryTable, {
+import {
   context,
   ColumnPaginationButtons,
   HistoryTableTestSearch,
   hooks,
   constants,
 } from "components/HistoryTable";
+import HistoryTable from "components/HistoryTable/VirtuosoHistoryTable";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
 import {
@@ -26,7 +27,7 @@ import { usePageTitle } from "hooks";
 import { string } from "utils";
 import ColumnHeaders from "./ColumnHeaders";
 import TaskSelector from "./TaskSelector";
-import VariantHistoryRow from "./VariantHistoryRow";
+import VariantHistoryRow from "./VirtuosoVariantHistoryRow";
 
 const { HistoryTableProvider } = context;
 const { useTestFilters, useJumpToCommit } = hooks;
@@ -45,7 +46,7 @@ const VariantHistoryContents: React.VFC = () => {
   const { badges, handleOnRemove, handleClearAll } = useFilterBadgeQueryParams(
     constants.queryParamsToDisplay
   );
-  const { data, error } = useQuery<
+  const { data, loading } = useQuery<
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
   >(GET_MAINLINE_COMMITS_FOR_HISTORY, {
@@ -114,19 +115,17 @@ const VariantHistoryContents: React.VFC = () => {
             variantName={variantName}
           />
           <TableWrapper>
-            {error && <div>Failed to retrieve mainline commit history.</div>}
-            {!error && (
-              <HistoryTable
-                recentlyFetchedCommits={mainlineCommits}
-                loadMoreItems={() => {
-                  if (mainlineCommits) {
-                    setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
-                  }
-                }}
-              >
-                {VariantHistoryRow}
-              </HistoryTable>
-            )}
+            <HistoryTable
+              recentlyFetchedCommits={mainlineCommits}
+              loadMoreItems={() => {
+                if (mainlineCommits) {
+                  setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
+                }
+              }}
+              loading={loading}
+            >
+              {VariantHistoryRow}
+            </HistoryTable>
           </TableWrapper>
         </div>
       </CenterPage>
@@ -162,7 +161,7 @@ const BadgeWrapper = styled.div`
 `;
 
 const TableWrapper = styled.div`
-  height: 80vh;
+  height: 50vh;
 `;
 
 const CenterPage = styled.div`

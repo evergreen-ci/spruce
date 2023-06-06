@@ -8,13 +8,14 @@ import { ProjectBanner } from "components/Banners";
 import FilterBadges, {
   useFilterBadgeQueryParams,
 } from "components/FilterBadges";
-import HistoryTable, {
+import {
   context,
   ColumnPaginationButtons,
   HistoryTableTestSearch,
   hooks,
   constants,
 } from "components/HistoryTable";
+import HistoryTable from "components/HistoryTable/VirtuosoHistoryTable";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
 import {
@@ -26,7 +27,7 @@ import { usePageTitle } from "hooks";
 import { string } from "utils";
 import BuildVariantSelector from "./BuildVariantSelector";
 import ColumnHeaders from "./ColumnHeaders";
-import TaskHistoryRow from "./TaskHistoryRow";
+import TaskHistoryRow from "./VirtuosoTaskHistoryRow";
 
 const { HistoryTableProvider } = context;
 const { applyStrictRegex } = string;
@@ -46,7 +47,7 @@ const TaskHistoryContents: React.VFC = () => {
   const { badges, handleOnRemove, handleClearAll } = useFilterBadgeQueryParams(
     constants.queryParamsToDisplay
   );
-  const { data, error } = useQuery<
+  const { data, loading, error } = useQuery<
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
   >(GET_MAINLINE_COMMITS_FOR_HISTORY, {
@@ -125,6 +126,7 @@ const TaskHistoryContents: React.VFC = () => {
                     setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
                   }
                 }}
+                loading={loading}
               >
                 {TaskHistoryRow}
               </HistoryTable>
@@ -165,7 +167,7 @@ const BadgeWrapper = styled.div`
 `;
 
 const TableWrapper = styled.div`
-  height: 80vh;
+  height: 50vh;
 `;
 
 const CenterPage = styled.div`

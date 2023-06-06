@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { StoryObj } from "@storybook/react";
 import TaskHistoryRow from "pages/taskHistory/TaskHistoryRow";
+import VirtuosoTaskHistoryRow from "pages/taskHistory/VirtuosoTaskHistoryRow";
 import VariantHistoryRow from "pages/variantHistory/VariantHistoryRow";
 import HistoryTable, { context } from ".";
 import { mainlineCommitData } from "./testData";
+import VirtuosoHistoryTable from "./VirtuosoHistoryTable";
 
 const { HistoryTableProvider, useHistoryTable } = context;
 
@@ -35,9 +37,44 @@ export const VariantHistoryTable: StoryObj<typeof HistoryTable> = {
   ),
 };
 
+export const VirtuosoTaskHistoryTable: StoryObj<typeof VirtuosoHistoryTable> = {
+  render: () => (
+    <HistoryTableProvider>
+      <VirtuosoHistoryTableWrapper type="task" />
+    </HistoryTableProvider>
+  ),
+};
+
 interface HistoryTableWrapperProps {
   type?: "variant" | "task";
 }
+const VirtuosoHistoryTableWrapper: React.VFC<HistoryTableWrapperProps> = ({
+  type,
+}) => {
+  const { addColumns } = useHistoryTable();
+  const [commitData, setCommitData] = useState(mainlineCommitData);
+  useEffect(() => {
+    const taskColumns = ["ubuntu1604", "race-detector", "lint"];
+    const variantColumns = ["Lint", "test-model-distro", "dist"];
+    addColumns(type === "task" ? taskColumns : variantColumns);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const loadMore = () => {
+    setCommitData(ingestNewCommitData(commitData));
+  };
+
+  return (
+    <div style={{ height: 800, width: "100%" }}>
+      <VirtuosoHistoryTable
+        recentlyFetchedCommits={commitData}
+        loadMoreItems={loadMore}
+        loading={false}
+      >
+        {VirtuosoTaskHistoryRow}
+      </VirtuosoHistoryTable>
+    </div>
+  );
+};
 const HistoryTableWrapper: React.VFC<HistoryTableWrapperProps> = ({ type }) => {
   const { addColumns } = useHistoryTable();
   const [commitData, setCommitData] = useState(mainlineCommitData);

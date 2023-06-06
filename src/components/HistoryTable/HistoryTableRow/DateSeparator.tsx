@@ -1,4 +1,3 @@
-import { CSSProperties } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
@@ -7,17 +6,13 @@ import { useDateFormat } from "hooks";
 
 const { gray } = palette;
 interface DateSeparatorProps {
-  style: CSSProperties;
   date: Date;
 }
 
-export const DateSeparator: React.VFC<DateSeparatorProps> = ({
-  style,
-  date,
-}) => {
+export const DateSeparator: React.VFC<DateSeparatorProps> = ({ date }) => {
   const getDateCopy = useDateFormat();
   return (
-    <Container style={style}>
+    <Container>
       <DateWrapper>{getDateCopy(date, { dateOnly: true })}</DateWrapper>
       <Line />
     </Container>

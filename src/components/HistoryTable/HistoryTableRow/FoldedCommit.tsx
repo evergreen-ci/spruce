@@ -1,4 +1,4 @@
-import { CSSProperties, memo } from "react";
+import { memo } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { areEqual } from "react-window";
@@ -7,11 +7,7 @@ import CommitChartLabel from "components/CommitChartLabel";
 import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
 import { Unpacked } from "types/utils";
 import { EmptyCell, LabelCellContainer } from "../Cell/Cell";
-import {
-  FOLDED_COMMITS_HEIGHT,
-  COMMIT_HEIGHT,
-  LOADING_HEIGHT,
-} from "../constants";
+import { FOLDED_COMMITS_HEIGHT, COMMIT_HEIGHT } from "../constants";
 import { RowContainer } from "./styles";
 
 const { blue } = palette;
@@ -23,7 +19,6 @@ interface FoldedCommitProps {
   >["rolledUpVersions"];
   toggleRowSize: (idx: number, numCommits: number) => void;
   numVisibleCols: number;
-  style?: CSSProperties;
   selected: boolean;
   onToggleFoldedCommit?: (s: { isVisible: boolean }) => void;
   onClickJiraTicket?: () => void;
@@ -36,21 +31,13 @@ export const FoldedCommit = memo<FoldedCommitProps>(
     rolledUpCommits,
     toggleRowSize,
     numVisibleCols,
-    style,
     selected,
     onToggleFoldedCommit = () => {},
     onClickGithash,
     onClickJiraTicket,
     onClickUpstreamProject,
   }: FoldedCommitProps) => {
-    const { height } = style;
-
-    // The virtualized table will unmount the row when it is scrolled out of view but it will cache its height in memory.
-    // This means we can't rely on the state of the row to determine if it is expanded or not.
-    // So we instead look at its height which is cached by the table and determine if it is expanded or not.
-    // It will be expanded if the height is not one of the 2 default values.
-    const defaultOpen =
-      height !== FOLDED_COMMITS_HEIGHT && height !== LOADING_HEIGHT;
+    const defaultOpen = false;
     const numCommits = rolledUpCommits.length;
 
     const columns = Array.from(Array(numVisibleCols)).map((_, idx) => (
@@ -77,7 +64,7 @@ export const FoldedCommit = memo<FoldedCommitProps>(
     ));
 
     return (
-      <Column style={style} selected={selected}>
+      <Column selected={selected}>
         <Accordion
           disableAnimation
           title={`Expand ${numCommits} inactive`}
