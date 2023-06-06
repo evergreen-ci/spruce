@@ -306,6 +306,54 @@ describe("spruce form", () => {
         ).toHaveStyle("cursor: not-allowed");
       });
     });
+
+    describe("radio group", () => {
+      it("renders 3 inputs with the specified default selected", () => {
+        const { formData, schema, uiSchema } = radioGroup;
+        const onChange = jest.fn();
+        render(
+          <SpruceForm
+            schema={schema}
+            formData={formData}
+            onChange={onChange}
+            uiSchema={uiSchema}
+          />
+        );
+
+        expect(screen.getAllByRole("radio")).toHaveLength(3);
+        expect(screen.getByLabelText("New York")).toBeChecked();
+      });
+
+      it("disables options in enumDisabled", () => {
+        const { formData, schema, uiSchema } = radioGroup;
+        const onChange = jest.fn();
+        render(
+          <SpruceForm
+            schema={schema}
+            formData={formData}
+            onChange={onChange}
+            uiSchema={uiSchema}
+          />
+        );
+
+        expect(screen.getByLabelText("Connecticut")).toBeDisabled();
+      });
+
+      it("shows option descriptions", () => {
+        const { formData, schema, uiSchema } = radioGroup;
+        const onChange = jest.fn();
+        render(
+          <SpruceForm
+            schema={schema}
+            formData={formData}
+            onChange={onChange}
+            uiSchema={uiSchema}
+          />
+        );
+
+        expect(screen.getByText("The Garden State")).toBeVisible();
+      });
+    });
   });
 });
 
@@ -445,6 +493,44 @@ const select = {
   uiSchema: {
     iceCream: {
       "ui:enumDisabled": ["strawberry"],
+    },
+  },
+};
+
+const radioGroup = {
+  formData: {},
+  schema: {
+    type: "object" as "object",
+    properties: {
+      states: {
+        type: "string" as "string",
+        title: "Tri-state Area",
+        default: "ny",
+        oneOf: [
+          {
+            type: "string" as "string",
+            title: "New York",
+            enum: ["ny"],
+          },
+          {
+            type: "string" as "string",
+            title: "New Jersey",
+            description: "The Garden State",
+            enum: ["nj"],
+          },
+          {
+            type: "string" as "string",
+            title: "Connecticut",
+            enum: ["ct"],
+          },
+        ],
+      },
+    },
+  },
+  uiSchema: {
+    states: {
+      "ui:enumDisabled": ["ct"],
+      "ui:widget": "radio",
     },
   },
 };
