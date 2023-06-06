@@ -30,18 +30,20 @@ interface Props {
         variantIconStatus: string;
       }
   >;
-  pageTitle: string;
-  patches?: PatchesPagePatchesFragment;
+  filterComp?: React.ReactNode;
   loading: boolean;
+  pageTitle: string;
   pageType: "project" | "user";
+  patches?: PatchesPagePatchesFragment;
 }
 
 export const PatchesPage: React.VFC<Props> = ({
   analyticsObject,
-  pageTitle,
-  patches,
+  filterComp,
   loading,
+  pageTitle,
   pageType,
+  patches,
 }) => {
   const { search } = useLocation();
   const setPageSize = usePageSizeSelector();
@@ -71,7 +73,7 @@ export const PatchesPage: React.VFC<Props> = ({
   return (
     <PageWrapper>
       <PageTitle data-cy="patches-page-title">{pageTitle}</PageTitle>
-      <FiltersWrapperSpaceBetween>
+      <FiltersWrapperSpaceBetween hasAdditionalFilterComp={!!filterComp}>
         <SearchInput
           aria-label="Search patch descriptions"
           placeholder="Patch description regex"
@@ -80,6 +82,7 @@ export const PatchesPage: React.VFC<Props> = ({
           data-cy="patch-description-input"
         />
         <StatusSelector />
+        {filterComp}
         <CheckboxContainer>
           <Checkbox
             data-cy="commit-queue-checkbox"
@@ -135,9 +138,16 @@ const PaginationRow = styled.div`
   justify-content: flex-end;
   align-items: center;
 `;
-const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
+const FiltersWrapperSpaceBetween = styled(FiltersWrapper)<{
+  hasAdditionalFilterComp: boolean;
+}>`
   display: grid;
-  grid-template-columns: repeat(2, 1fr) 2fr;
+  grid-template-columns:
+    repeat(
+      ${({ hasAdditionalFilterComp }) => (hasAdditionalFilterComp ? 3 : 2)},
+      1fr
+    )
+    2fr;
   grid-column-gap: ${size.s};
 `;
 

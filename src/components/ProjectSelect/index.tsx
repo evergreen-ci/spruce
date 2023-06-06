@@ -13,17 +13,19 @@ import { Unpacked } from "types/utils";
 import { ProjectOptionGroup } from "./ProjectOptionGroup";
 
 interface ProjectSelectProps {
-  selectedProjectIdentifier: string;
-  isProjectSettingsPage?: boolean;
   getRoute: (projectIdentifier: string) => string;
+  isProjectSettingsPage?: boolean;
   onSubmit?: (projectIdentifier: string) => void;
+  selectedProjectIdentifier: string;
+  showLabel?: boolean;
 }
 
 export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
-  selectedProjectIdentifier,
-  isProjectSettingsPage = false,
   getRoute,
+  isProjectSettingsPage = false,
   onSubmit = () => {},
+  selectedProjectIdentifier,
+  showLabel = true,
 }) => {
   const navigate = useNavigate();
 
@@ -90,7 +92,7 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
 
   return (
     <SearchableDropdown
-      label="Project"
+      label={showLabel ? "Project" : null}
       value={
         selectedProject?.displayName ||
         selectedProject?.identifier ||

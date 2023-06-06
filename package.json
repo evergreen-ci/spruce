@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.87",
+  "version": "3.0.88",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -202,7 +202,7 @@
     "serve-handler": "^6.1.5",
     "storybook": "7.0.0-rc.5",
     "typescript": "5.0.3",
-    "vite": "4.3.7",
+    "vite": "4.3.9",
     "vite-plugin-checker": "0.6.0",
     "vite-plugin-env-compatible": "1.1.1",
     "vite-plugin-imp": "2.4.0",

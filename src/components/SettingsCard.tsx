@@ -4,7 +4,7 @@ import { H3, H3Props } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 
 export const SettingsCardTitle = styled(H3)<H3Props>`
-  margin: ${size.m} 0;
+  margin: ${size.m} 0 ${size.s} 0;
 `;
 
 export const formComponentSpacingCSS = "margin-bottom: 48px;";
