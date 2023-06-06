@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Skeleton } from "antd";
+import throttle from "lodash.throttle";
 import { Virtuoso } from "react-virtuoso";
 import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
+import { useDimensions } from "hooks/useDimensions";
 import { types } from ".";
 import { useHistoryTable } from "./HistoryTableContext";
 
@@ -25,16 +27,22 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
 }) => {
   const {
     processedCommitCount,
-
     ingestNewCommits,
-
     processedCommits,
+    onChangeTableWidth,
   } = useHistoryTable();
+  const ref = useRef<HTMLDivElement>(null);
+  const size = useDimensions(ref);
+  const throttledOnChangeTableWidth = useMemo(
+    () => throttle(onChangeTableWidth, 400),
+    [onChangeTableWidth]
+  );
 
-  // const throttledOnChangeTableWidth = useMemo(
-  //   () => throttle(onChangeTableWidth, 400),
-  //   [onChangeTableWidth]
-  // );
+  useEffect(() => {
+    if (size) {
+      throttledOnChangeTableWidth(size.width);
+    }
+  });
 
   useEffect(() => {
     if (recentlyFetchedCommits) {
@@ -43,25 +51,24 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
     // Remove ingestNewCommits from the effect list to avoid infinite loop
   }, [recentlyFetchedCommits?.nextPageOrderNumber]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // const toggleRowSize = (index: number, numCommits: number) => {
-  //   toggleRowSizeAtIndex(index, numCommits);
-  // };
-  console.log(processedCommits);
   const Component = children;
   return (
-    <Virtuoso
-      totalCount={processedCommitCount}
-      data={processedCommits}
-      itemContent={(index, data) => <Component index={index} data={data} />}
-      atBottomStateChange={(isAtBottom) => {
-        if (isAtBottom) {
-          loadMoreItems();
-        }
-      }}
-      components={{
-        Footer: () => (loading ? <Skeleton active /> : <div>End of list</div>),
-      }}
-    />
+    <div ref={ref} style={{ height: "100%" }}>
+      <Virtuoso
+        totalCount={processedCommitCount}
+        data={processedCommits}
+        itemContent={(index, data) => <Component index={index} data={data} />}
+        atBottomStateChange={(isAtBottom) => {
+          if (isAtBottom) {
+            loadMoreItems();
+          }
+        }}
+        components={{
+          Footer: () =>
+            loading ? <Skeleton active /> : <div>End of list</div>,
+        }}
+      />
+    </div>
   );
 };
 
