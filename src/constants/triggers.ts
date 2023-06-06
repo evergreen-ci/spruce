@@ -1,3 +1,4 @@
+import { NotificationMethods } from "types/subscription";
 import {
   ExtraField,
   ExtraFieldKey,
@@ -379,7 +380,15 @@ export const waterfallTriggers: Trigger = {
 };
 
 export const invalidProjectTriggerSubscriptionCombinations = {
-  "jira-comment": [
+  [NotificationMethods.JIRA_COMMENT]: [
+    ProjectTriggers.FIRST_FAILURE_TASK,
+    ProjectTriggers.ANY_TASK_FAILS,
+    ProjectTriggers.ANY_TASK_FINISHES,
+    ProjectTriggers.PREVIOUS_PASSING_TASK_FAILS,
+    ProjectTriggers.PREVIOUS_PASSING_TEST_FAILS,
+    ProjectTriggers.SUCCESSFUL_TASK_RUNTIME_CHANGES,
+  ],
+  [NotificationMethods.JIRA_ISSUE]: [
     ProjectTriggers.FIRST_FAILURE_TASK,
     ProjectTriggers.ANY_TASK_FAILS,
     ProjectTriggers.ANY_TASK_FINISHES,
