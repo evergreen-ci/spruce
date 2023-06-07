@@ -1,3 +1,4 @@
+import { InMemoryCache } from "@apollo/client";
 import { MockedProvider } from "@apollo/client/testing";
 import { renderHook } from "@testing-library/react-hooks";
 import { OtherUserQuery, OtherUserQueryVariables } from "gql/generated/types";
@@ -6,14 +7,22 @@ import { GET_OTHER_USER } from "gql/queries";
 import { useBreadcrumbRoot } from "hooks";
 import { ApolloMock } from "types/gql";
 
+const cache = new InMemoryCache({
+  typePolicies: {
+    User: {
+      keyFields: ["userId"],
+    },
+  },
+});
+
 const SameUserProvider = ({ children }) => (
-  <MockedProvider mocks={[getUserMock, sameUserMock]}>
+  <MockedProvider mocks={[getUserMock, sameUserMock]} cache={cache}>
     {children}
   </MockedProvider>
 );
 
 const OtherUserProvider = ({ children }) => (
-  <MockedProvider mocks={[getUserMock, otherUserMock]}>
+  <MockedProvider mocks={[getUserMock, otherUserMock]} cache={cache}>
     {children}
   </MockedProvider>
 );
@@ -41,12 +50,11 @@ describe("useBreadcrumbRoot", () => {
     expect(result.current.text).toBe("John Doe's Patches");
   });
 
-  it("returns the correct breadcrumb root when the version is a commit", async () => {
-    const { result, waitForNextUpdate } = renderHook(
+  it("returns the correct breadcrumb root when the version is a commit", () => {
+    const { result } = renderHook(
       () => useBreadcrumbRoot(false, "admin", "spruce"),
       { wrapper: SameUserProvider }
     );
-    await waitForNextUpdate();
 
     expect(result.current.to).toBe("/commits/spruce");
     expect(result.current.text).toBe("spruce");
@@ -63,11 +71,11 @@ const sameUserMock: ApolloMock<OtherUserQuery, OtherUserQueryVariables> = {
   result: {
     data: {
       otherUser: {
+        __typename: "User",
         userId: "admin",
         displayName: "Evergreen Admin",
-        __typename: "User",
       },
-      currentUser: { userId: "admin", __typename: "User" },
+      currentUser: getUserMock.result.data.user,
     },
   },
 };
@@ -82,12 +90,11 @@ const otherUserMock: ApolloMock<OtherUserQuery, OtherUserQueryVariables> = {
   result: {
     data: {
       otherUser: {
+        __typename: "User",
         userId: "john.doe",
         displayName: "John Doe",
       },
-      currentUser: {
-        userId: "admin",
-      },
+      currentUser: getUserMock.result.data.user,
     },
   },
 };
