@@ -1,15 +1,14 @@
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
+import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { Table } from "antd";
-import { ColumnProps } from "antd/es/table";
 import { useHostsTableAnalytics } from "analytics";
 import PageSizeSelector, {
   usePageSizeSelector,
 } from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import { size } from "constants/tokens";
-import { HostEventsQuery, HostEventLogEntry } from "gql/generated/types";
+import { HostEventsQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { getHostEventString } from "pages/host/getHostEventString";
 import { HostCard } from "pages/host/HostCard";
@@ -28,24 +27,6 @@ export const HostTable: React.VFC<{
   const getDateCopy = useDateFormat();
   const hostEvents = eventData?.hostEvents;
   const logEntries = hostEvents?.eventLogEntries;
-  const columnsTemplate: Array<ColumnProps<HostEventLogEntry>> = [
-    {
-      title: "Date",
-      dataIndex: "timestamp",
-      width: "25%",
-      render: (_, { eventType, timestamp }: HostEventLogEntry): JSX.Element => (
-        <div data-cy={`${eventType}-time`}>{getDateCopy(timestamp)}</div>
-      ),
-    },
-    {
-      title: "Event",
-      dataIndex: "data",
-      width: "75%",
-      render: (_, { eventType, data }: HostEventLogEntry): JSX.Element => (
-        <div>{getHostEventString(eventType, data)}</div>
-      ),
-    },
-  ];
 
   const handlePageSizeChange = (pageSize: number): void => {
     setPageSize(pageSize);
@@ -55,7 +36,6 @@ export const HostTable: React.VFC<{
   return (
     <HostCard error={error} loading={loading} metaData={false}>
       <TableTitle>
-        {/* @ts-expect-error */}
         <StyledSubtitle>Recent Events </StyledSubtitle>
         <PaginationWrapper>
           <Pagination
@@ -71,21 +51,27 @@ export const HostTable: React.VFC<{
           />
         </PaginationWrapper>
       </TableTitle>
-
       <Table
         data-cy="host-events-table"
-        dataSource={logEntries}
-        rowKey={rowKey}
-        columns={columnsTemplate}
-        pagination={false}
-      />
+        data={logEntries}
+        columns={[
+          <TableHeader key="date" dataType="date" label="Date" />,
+          <TableHeader key="event" label="Event" />,
+        ]}
+      >
+        {({ datum }) => (
+          <Row data-cy={`event-type-${datum.eventType}`} key={datum.id}>
+            <Cell data-cy={`${datum.eventType}-time`}>
+              {getDateCopy(datum.timestamp)}
+            </Cell>
+            <Cell>{getHostEventString(datum.eventType, datum.data)}</Cell>
+          </Row>
+        )}
+      </Table>
     </HostCard>
   );
 };
 
-const rowKey = (record: HostEventLogEntry): string => `${record.id}`;
-
-// @ts-expect-error
 const StyledSubtitle = styled(Subtitle)`
   margin-bottom: 20px;
   margin-top: ${size.s};

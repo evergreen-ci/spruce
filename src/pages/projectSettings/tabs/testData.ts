@@ -1,5 +1,6 @@
 import {
   BannerTheme,
+  ProjectHealthView,
   ProjectSettingsQuery,
   RepoSettingsQuery,
 } from "gql/generated/types";
@@ -85,6 +86,19 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     },
     triggers: [],
     periodicBuilds: [],
+    parsleyFilters: [
+      {
+        expression: "filter_1",
+        caseSensitive: true,
+        exactMatch: true,
+      },
+      {
+        expression: "filter_2",
+        caseSensitive: false,
+        exactMatch: false,
+      },
+    ],
+    projectHealthView: ProjectHealthView.Failed,
   },
   vars: {
     vars: { test_name: "", test_two: "val" },
@@ -226,6 +240,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
         configFile: "evergreen.yml",
         id: "123",
         intervalHours: 24,
+        cron: "",
         message: "",
         nextRunTime: new Date("2022-03-30T17:07:10.942Z"),
       },
@@ -233,7 +248,8 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
         alias: "test",
         configFile: "evergreen.yml",
         id: "456",
-        intervalHours: 12,
+        intervalHours: 0,
+        cron: "*/5 * * * *",
         message: "Build Message",
         nextRunTime: new Date("2022-03-30T17:07:10.942Z"),
       },

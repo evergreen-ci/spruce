@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Body, Subtitle } from "@leafygreen-ui/typography";
+import { Body, BodyProps, Subtitle } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 import { CardType } from "./types";
 
@@ -28,7 +28,6 @@ const CarouselCard: React.VFC<CarouselCardProps> = ({ card, visible }) => {
   }, [visible]);
   return (
     <CardContainer>
-      {/* @ts-expect-error */}
       {title && <StyledTitle>{title}</StyledTitle>}
       {subtitle && <StyledBody weight="medium">{subtitle}</StyledBody>}
       <Body>{description}</Body>
@@ -75,12 +74,12 @@ const CardContainer = styled.div`
   cursor: default;
 `;
 
-const StyledBody = styled(Body)`
+const StyledBody = styled(Body)<BodyProps>`
   margin-bottom: ${size.s};
 `;
 
-// @ts-expect-error
 const StyledTitle = styled(Subtitle)`
   margin-bottom: ${size.s};
 `;
+
 export default CarouselCard;

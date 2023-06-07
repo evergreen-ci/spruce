@@ -8,6 +8,8 @@ import {
   project,
   projectUseRepoEnabled,
   repo,
+  saveButtonEnabled,
+  clickSave,
 } from "./constants";
 
 describe("Access page", { testIsolation: false }, () => {
@@ -603,9 +605,12 @@ describe(
         cy.dataCy("display-name-input").should("not.have.attr", "placeholder");
       });
 
-      it.skip("Shows a navigation warning modal when navigating away from project settings", () => {
+      it("Shows a navigation warning modal that lists the general page when navigating away from project settings", () => {
         cy.contains("My Patches").click();
         cy.dataCy("navigation-warning-modal").should("be.visible");
+        cy.dataCy("unsaved-pages").within(() => {
+          cy.get("li").should("have.length", 1);
+        });
         cy.get("body").type("{esc}");
       });
 
@@ -1053,9 +1058,9 @@ describe("Notifications", { testIsolation: false }, () => {
     cy.selectLGOption("Event", "Any Task Finishes");
     cy.selectLGOption("Notification Method", "Comment on a JIRA issue");
     cy.getInputByLabel("JIRA Issue").type("JIRA-123");
-    cy.contains(
-      "JIRA comment subscription not allowed for tasks in a project"
-    ).should("exist");
+    cy.contains("Subscription type not allowed for tasks in a project.").should(
+      "exist"
+    );
     cy.dataCy("save-settings-button").scrollIntoView();
     saveButtonEnabled(false);
   });
@@ -1205,21 +1210,3 @@ describe("Containers", () => {
     cy.validateToast("success", "Successfully updated project");
   });
 });
-
-/**
- * `saveButtonEnabled` checks if the save button is enabled or disabled.
- * @param isEnabled - if true, the save button should be enabled. If false, the save button should be disabled.
- */
-const saveButtonEnabled = (isEnabled: boolean = true) => {
-  cy.dataCy("save-settings-button").should(
-    isEnabled ? "not.have.attr" : "have.attr",
-    "aria-disabled",
-    "true"
-  );
-};
-
-const clickSave = () => {
-  cy.dataCy("save-settings-button")
-    .should("not.have.attr", "aria-disabled", "true")
-    .click();
-};

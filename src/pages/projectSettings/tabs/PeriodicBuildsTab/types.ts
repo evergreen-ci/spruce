@@ -1,8 +1,17 @@
 import { ProjectType } from "../utils";
 
+export enum IntervalSpecifier {
+  Hours = "HOURS",
+  Cron = "CRON",
+}
+
 type FormPeriodicBuild = {
   id: string;
-  intervalHours: number;
+  interval: {
+    specifier: IntervalSpecifier;
+    intervalHours: number;
+    cron: string;
+  };
   configFile: string;
   displayTitle?: string;
   alias: string;

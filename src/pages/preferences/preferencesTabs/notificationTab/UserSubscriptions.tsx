@@ -1,71 +1,94 @@
-import { useMemo, useRef } from "react";
-import { useQuery } from "@apollo/client";
+import { useRef, useState } from "react";
+import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
+import Pagination from "@leafygreen-ui/pagination";
+import { palette } from "@leafygreen-ui/palette";
+import { useLeafyGreenTable } from "@leafygreen-ui/table/new";
 import {
-  Cell,
-  ExpandedContent,
-  flexRender,
-  HeaderCell,
-  HeaderRow,
-  Row,
-  Table,
-  TableBody,
-  TableHead,
-  useLeafyGreenTable,
-} from "@leafygreen-ui/table/new";
+  getFacetedUniqueValues,
+  getFilteredRowModel,
+} from "@tanstack/react-table";
+import Icon from "components/Icon";
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
-import { StyledRouterLink } from "components/styles";
+import { ShortenedRouterLink } from "components/styles";
+import { BaseTable } from "components/Table/BaseTable";
+import { getColumnTreeSelectFilterProps } from "components/Table/LGFilters";
 import { getSubscriberText } from "constants/subscription";
+import { size } from "constants/tokens";
 import {
+  resourceTypeToCopy,
+  resourceTypeTreeData,
+  triggerToCopy,
+  triggerTreeData,
+} from "constants/triggers";
+import { useToastContext } from "context/toast";
+import {
+  DeleteSubscriptionsMutation,
+  DeleteSubscriptionsMutationVariables,
   GeneralSubscription,
   Selector,
-  UserSubscriptionsQuery,
-  UserSubscriptionsQueryVariables,
 } from "gql/generated/types";
-import { USER_SUBSCRIPTIONS } from "gql/queries";
+import { DELETE_SUBSCRIPTIONS } from "gql/mutations";
 import { notificationMethodToCopy } from "types/subscription";
-import { resourceTypeToCopy, triggerToCopy } from "types/triggers";
-import { getResourceRoute, processSubscriptionData } from "./utils";
+import { ClearSubscriptions } from "./ClearSubscriptions";
+import { getResourceRoute, useSubscriptionData } from "./utils";
+
+const { gray } = palette;
 
 export const UserSubscriptions: React.VFC<{}> = () => {
-  const { data } = useQuery<
-    UserSubscriptionsQuery,
-    UserSubscriptionsQueryVariables
-  >(USER_SUBSCRIPTIONS);
+  const dispatchToast = useToastContext();
 
-  const globalSubscriptionIds = useMemo(() => {
-    const {
-      buildBreakId,
-      commitQueueId,
-      patchFinishId,
-      patchFirstFailureId,
-      spawnHostExpirationId,
-      spawnHostOutcomeId,
-    } = data?.userSettings?.notifications ?? {};
-    return new Set([
-      buildBreakId,
-      commitQueueId,
-      patchFinishId,
-      patchFirstFailureId,
-      spawnHostExpirationId,
-      spawnHostOutcomeId,
-    ]);
-  }, [data?.userSettings?.notifications]);
+  const [deleteSubscriptions] = useMutation<
+    DeleteSubscriptionsMutation,
+    DeleteSubscriptionsMutationVariables
+  >(DELETE_SUBSCRIPTIONS, {
+    refetchQueries: ["UserSubscriptions"],
+    onCompleted: (result) => {
+      dispatchToast.success(
+        `Deleted ${result.deleteSubscriptions} subscription${
+          result.deleteSubscriptions === 1 ? "" : "s"
+        }.`
+      );
+    },
+    onError: (e) => {
+      dispatchToast.error(
+        `Error attempting to delete subscriptions: ${e.message}`
+      );
+    },
+  });
 
-  const subscriptions = useMemo(
-    () =>
-      processSubscriptionData(data?.user?.subscriptions, globalSubscriptionIds),
-    [data?.user?.subscriptions, globalSubscriptionIds]
-  );
+  const subscriptions = useSubscriptionData();
+
+  const [columnFilters, setColumnFilters] = useState([]);
+  const [rowSelection, setRowSelection] = useState({});
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<GeneralSubscription>({
     columns,
     containerRef: tableContainerRef,
     data: subscriptions ?? [],
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+    getFilteredRowModel: getFilteredRowModel(),
+    hasSelectableRows: true,
+    onColumnFiltersChange: setColumnFilters,
+    onRowSelectionChange: setRowSelection,
+    state: {
+      columnFilters,
+      rowSelection,
+    },
+    withPagination: true,
   });
 
-  const { rows } = table.getRowModel();
+  const onDeleteSubscriptions = () => {
+    const subscriptionIds = table
+      .getSelectedRowModel()
+      .rows.map(({ original }) => original.id);
+
+    deleteSubscriptions({ variables: { subscriptionIds } });
+
+    table.resetRowSelection();
+  };
 
   return (
     <>
@@ -74,39 +97,45 @@ export const UserSubscriptions: React.VFC<{}> = () => {
         {!subscriptions?.length ? (
           "No subscriptions found."
         ) : (
-          <Table table={table} ref={tableContainerRef} shouldAlternateRowColor>
-            <TableHead>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <HeaderRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <HeaderCell key={header.id} header={header}>
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                    </HeaderCell>
-                  ))}
-                </HeaderRow>
-              ))}
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <Row key={row.id} row={row} data-cy="subscription-row">
-                  {row.getVisibleCells().map((cell) => (
-                    <Cell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </Cell>
-                  ))}
-                  {row.original.renderExpandedContent && (
-                    <ExpandedContent row={row} />
-                  )}
-                </Row>
-              ))}
-            </TableBody>
-          </Table>
+          <>
+            <InteractiveWrapper>
+              <Button
+                data-cy="delete-some-button"
+                disabled={Object.entries(rowSelection).length === 0}
+                leftGlyph={<Icon glyph="Trash" />}
+                onClick={onDeleteSubscriptions}
+                size="small"
+              >
+                Delete
+                {Object.entries(rowSelection).length
+                  ? ` (${Object.entries(rowSelection).length})`
+                  : ""}
+              </Button>
+              <PaginationWrapper>
+                <Pagination
+                  itemsPerPage={table.getState().pagination.pageSize}
+                  onItemsPerPageOptionChange={(value: string) => {
+                    table.setPageSize(Number(value));
+                  }}
+                  numTotalItems={subscriptions.length}
+                  currentPage={table.getState().pagination.pageIndex + 1}
+                  onCurrentPageOptionChange={(value: string) => {
+                    table.setPageIndex(Number(value) - 1);
+                  }}
+                  onBackArrowClick={() => table.previousPage()}
+                  onForwardArrowClick={() => table.nextPage()}
+                />
+              </PaginationWrapper>
+            </InteractiveWrapper>
+            <BaseTable
+              data-cy-row="subscription-row"
+              table={table}
+              shouldAlternateRowColor
+            />
+            <TableFooter>
+              <ClearSubscriptions />
+            </TableFooter>
+          </>
         )}
       </SettingsCard>
     </>
@@ -115,12 +144,16 @@ export const UserSubscriptions: React.VFC<{}> = () => {
 
 const columns = [
   {
-    header: "Type",
     accessorKey: "resourceType",
     cell: ({ getValue }) => {
       const resourceType = getValue();
       return resourceTypeToCopy?.[resourceType] ?? resourceType;
     },
+    ...getColumnTreeSelectFilterProps({
+      "data-cy": "status-filter-popover",
+      tData: resourceTypeTreeData,
+      title: "Type",
+    }),
   },
   {
     header: "ID",
@@ -138,12 +171,20 @@ const columns = [
       const { data: selectorId } = resourceSelector ?? {};
       const route = getResourceRoute(resourceType, resourceSelector);
 
-      return route ? <IdLink to={route}>{selectorId}</IdLink> : selectorId;
+      return route ? (
+        <ShortenedRouterLink to={route}>{selectorId}</ShortenedRouterLink>
+      ) : (
+        selectorId
+      );
     },
   },
   {
-    header: "Event",
     accessorKey: "trigger",
+    ...getColumnTreeSelectFilterProps({
+      "data-cy": "trigger-filter-popover",
+      tData: triggerTreeData,
+      title: "Event",
+    }),
     cell: ({ getValue }) => {
       const trigger = getValue();
       return triggerToCopy?.[trigger] ?? trigger;
@@ -164,10 +205,20 @@ const columns = [
   },
 ];
 
-const IdLink = styled(StyledRouterLink)`
-  span {
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+const InteractiveWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: ${size.s};
+`;
+
+const PaginationWrapper = styled.div`
+  width: 50%;
+`;
+
+const TableFooter = styled.div`
+  box-shadow: 0 -4px ${gray.light2};
+  display: flex;
+  justify-content: flex-end;
+  margin-top: ${size.s};
+  padding-top: ${size.s};
 `;

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import Checkbox from "@leafygreen-ui/checkbox";
@@ -7,6 +8,7 @@ import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import {
   SegmentedControl,
   SegmentedControlOption,
+  SegmentedControlProps,
 } from "@leafygreen-ui/segmented-control";
 import { Option, Select } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
@@ -232,11 +234,13 @@ export const LeafyGreenRadio: React.VFC<EnumSpruceWidgetProps> = ({
       >
         {enumOptions.map((o) => {
           const optionDisabled = enumDisabled?.includes(o.value) ?? false;
+          const { description } = o.schema ?? {};
           return (
             <Radio
               key={o.value}
               value={o.value}
               disabled={disabled || optionDisabled}
+              description={description}
             >
               {o.label}
             </Radio>
@@ -327,21 +331,39 @@ const StyledRadioBox = styled(RadioBox)`
 `;
 
 export const LeafyGreenTextArea: React.VFC<SpruceWidgetProps> = ({
-  label,
   disabled,
-  value,
+  label,
   onChange,
   options,
   rawErrors,
   readonly,
+  value,
 }) => {
-  const { "data-cy": dataCy, emptyValue = "", elementWrapperCSS } = options;
+  const {
+    "data-cy": dataCy,
+    elementWrapperCSS,
+    emptyValue = "",
+    focusOnMount,
+  } = options;
 
   const { errors, hasError } = processErrors(rawErrors);
+  const el = useRef<HTMLTextAreaElement>();
+
+  useEffect(() => {
+    if (focusOnMount) {
+      const textarea = el.current;
+      if (textarea) {
+        textarea.focus();
+        textarea.selectionStart = textarea.value.length;
+        textarea.selectionEnd = textarea.value.length;
+      }
+    }
+  }, [focusOnMount]);
 
   return (
     <ElementWrapper css={elementWrapperCSS}>
       <TextArea
+        ref={el}
         data-cy={dataCy}
         label={label}
         disabled={disabled || readonly}
@@ -370,6 +392,7 @@ export const LeafyGreenSegmentedControl: React.VFC<EnumSpruceWidgetProps> = ({
     enumDisabled,
     enumOptions,
     elementWrapperCSS,
+    sizeVariant,
   } = options;
 
   const isDisabled = disabled || readonly;
@@ -382,6 +405,7 @@ export const LeafyGreenSegmentedControl: React.VFC<EnumSpruceWidgetProps> = ({
         value={value}
         onChange={onChange}
         aria-controls={ariaControls?.join(" ")}
+        size={sizeVariant as SegmentedControlProps["size"]}
       >
         {enumOptions.map((o) => {
           const optionDisabled = enumDisabled?.includes(o.value) ?? false;

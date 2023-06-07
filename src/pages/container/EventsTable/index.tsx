@@ -48,7 +48,6 @@ const EventsTable: React.VFC<{}> = () => {
   return (
     <SiderCard>
       <TableTitle>
-        {/* @ts-expect-error */}
         <StyledSubtitle>Recent Events</StyledSubtitle>
         <TableControlInnerRow>
           <Pagination
@@ -89,7 +88,6 @@ const EventsTable: React.VFC<{}> = () => {
   );
 };
 
-// @ts-expect-error
 const StyledSubtitle = styled(Subtitle)`
   margin: ${size.s} 0;
 `;

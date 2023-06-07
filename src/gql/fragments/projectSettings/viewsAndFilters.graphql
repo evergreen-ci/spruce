@@ -1,0 +1,8 @@
+fragment ProjectViewsAndFiltersSettings on Project {
+  parsleyFilters {
+    caseSensitive
+    exactMatch
+    expression
+  }
+  projectHealthView
+}
