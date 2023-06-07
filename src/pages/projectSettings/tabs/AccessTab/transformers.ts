@@ -1,11 +1,10 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectInput } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { FormState } from "./types";
 
 type Tab = ProjectSettingsTabRoutes.Access;
 
-export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
+export const gqlToForm = ((data) => {
   if (!data) return null;
 
   const { projectRef } = data;
@@ -17,12 +16,9 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
       admins: projectRef.admins ?? [],
     },
   };
-};
+}) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql: FormToGqlFunction<Tab> = (
-  { accessSettings, admin }: FormState,
-  id: string
-) => {
+export const formToGql = (({ accessSettings, admin }, id) => {
   const projectRef: ProjectInput = {
     id,
     restricted: accessSettings.restricted,
@@ -30,4 +26,4 @@ export const formToGql: FormToGqlFunction<Tab> = (
   };
 
   return { projectRef };
-};
+}) satisfies FormToGqlFunction<Tab>;

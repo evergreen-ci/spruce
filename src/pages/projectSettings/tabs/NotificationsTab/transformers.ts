@@ -10,7 +10,6 @@ import { string } from "utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { ProjectType } from "../utils";
 import { getGqlPayload } from "./getGqlPayload";
-import { FormState } from "./types";
 
 type Tab = ProjectSettingsTabRoutes.Notifications;
 
@@ -60,7 +59,7 @@ const getHttpHeaders = (headers: { key: string; value: string }[]) =>
       }))
     : [];
 
-export const gqlToForm: GqlToFormFunction<Tab> = (data, { projectType }) => {
+export const gqlToForm = ((data, { projectType }) => {
   if (!data) return null;
   const { projectRef, subscriptions } = data;
   return {
@@ -138,12 +137,9 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data, { projectType }) => {
         )
       : [],
   };
-};
+}) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql: FormToGqlFunction<Tab> = (
-  formState: FormState,
-  projectId
-) => {
+export const formToGql = ((formState, projectId) => {
   const { buildBreakSettings, subscriptions, banner } = formState;
   const projectRef: ProjectInput = {
     id: projectId,
@@ -157,4 +153,4 @@ export const formToGql: FormToGqlFunction<Tab> = (
     projectRef,
     subscriptions: transformedSubscriptions,
   };
-};
+}) satisfies FormToGqlFunction<Tab>;
