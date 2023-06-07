@@ -11,7 +11,7 @@ export const getFormSchema = (
     type: "object" as "object",
     properties: {
       newPatchName: {
-        title: "New patch name",
+        title: "New Patch Name",
         type: "string" as "string",
         default: name,
         maxLength: 300,
