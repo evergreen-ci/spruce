@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef } from "react";
 import { Skeleton } from "antd";
 import throttle from "lodash.throttle";
-import { Virtuoso } from "react-virtuoso";
+import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
 import { useDimensions } from "hooks/useDimensions";
+import { leaveBreadcrumb } from "utils/errorReporting";
 import { types } from ".";
 import { useHistoryTable } from "./HistoryTableContext";
 
@@ -22,10 +23,15 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
   children,
   loading,
 }) => {
-  const { processedCommitCount, processedCommits, onChangeTableWidth } =
-    useHistoryTable();
+  const {
+    processedCommitCount,
+    processedCommits,
+    onChangeTableWidth,
+    selectedCommit,
+  } = useHistoryTable();
 
   const ref = useRef<HTMLDivElement>(null);
+  const listRef = useRef<VirtuosoHandle>(null);
   const size = useDimensions(ref);
   const throttledOnChangeTableWidth = useMemo(
     () => throttle(onChangeTableWidth, 400),
@@ -38,18 +44,43 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
     }
   }, [size, throttledOnChangeTableWidth]);
 
-  // // Process newly
-  // useEffect(() => {
-  //   if (recentlyFetchedCommits) {
-  //     ingestNewCommits(recentlyFetchedCommits);
-  //   }
-  // }, [recentlyFetchedCommits?.nextPageOrderNumber]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (selectedCommit?.loaded && listRef.current) {
+      leaveBreadcrumb(
+        "scrolling to selected commit",
+        {
+          selectedCommit,
+        },
+        "process"
+      );
+      listRef.current.scrollToIndex(selectedCommit.rowIndex);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCommit?.loaded]);
 
-  useEffect(() => {});
+  // In order to jump to the selected commit, we need to first load the necessary amount of commits
+  useEffect(() => {
+    if (selectedCommit) {
+      if (!selectedCommit.loaded) {
+        leaveBreadcrumb(
+          "selectedCommit not loaded, loading more items",
+          {
+            selectedCommit,
+            processedCommitCount,
+          },
+          "process"
+        );
+        loadMoreItems();
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [processedCommitCount]);
+
   const Component = children;
   return (
     <div ref={ref} style={{ height: "100%" }}>
       <Virtuoso
+        ref={listRef}
         totalCount={processedCommitCount}
         data={processedCommits}
         itemContent={(index, data) => <Component index={index} data={data} />}
