@@ -1,12 +1,8 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
-import { Body } from "@leafygreen-ui/typography";
 import { usePreferencesAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { SettingsCard } from "components/SettingsCard";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   ClearMySubscriptionsMutation,
@@ -14,7 +10,7 @@ import {
 } from "gql/generated/types";
 import { CLEAR_MY_SUBSCRIPTIONS } from "gql/mutations";
 
-export const ClearSubscriptionsCard: React.VFC = () => {
+export const ClearSubscriptions: React.VFC = () => {
   const [showModal, setShowModal] = useState(false);
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
@@ -42,19 +38,13 @@ export const ClearSubscriptionsCard: React.VFC = () => {
 
   return (
     <>
-      <SettingsCard>
-        <Body>
-          Clear all subscriptions you have made on individual Version and Task
-          pages:
-        </Body>
-        <StyledClearSubscriptionButton
-          data-cy="clear-subscriptions-button"
-          variant={Variant.Danger}
-          onClick={() => setShowModal(true)}
-        >
-          Clear all previous subscriptions
-        </StyledClearSubscriptionButton>
-      </SettingsCard>
+      <Button
+        data-cy="clear-subscriptions-button"
+        variant={Variant.Danger}
+        onClick={() => setShowModal(true)}
+      >
+        Clear all previous subscriptions
+      </Button>
       <ConfirmationModal
         open={showModal}
         title="Clear All Subscriptions"
@@ -70,12 +60,8 @@ export const ClearSubscriptionsCard: React.VFC = () => {
         submitDisabled={loading}
       >
         Are you sure you want to clear all subscriptions you have made on
-        individual Version and Task pages?
+        individual version, task, and project pages?
       </ConfirmationModal>
     </>
   );
 };
-
-const StyledClearSubscriptionButton = styled(Button)`
-  margin-top: ${size.m};
-`;
