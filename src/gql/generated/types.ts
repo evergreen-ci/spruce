@@ -1285,6 +1285,7 @@ export type ProjectPatchesArgs = {
 export type ProjectAlias = {
   __typename?: "ProjectAlias";
   alias: Scalars["String"];
+  description?: Maybe<Scalars["String"]>;
   gitTag: Scalars["String"];
   id: Scalars["String"];
   remotePath: Scalars["String"];
@@ -1296,6 +1297,7 @@ export type ProjectAlias = {
 
 export type ProjectAliasInput = {
   alias: Scalars["String"];
+  description?: InputMaybe<Scalars["String"]>;
   gitTag: Scalars["String"];
   id: Scalars["String"];
   remotePath: Scalars["String"];
@@ -2872,6 +2874,7 @@ export type RepoAccessSettingsFragment = {
 export type AliasFragment = {
   __typename?: "ProjectAlias";
   alias: string;
+  description?: string | null;
   gitTag: string;
   id: string;
   remotePath: string;
@@ -3050,6 +3053,7 @@ export type ProjectSettingsFieldsFragment = {
   aliases?: Array<{
     __typename?: "ProjectAlias";
     alias: string;
+    description?: string | null;
     gitTag: string;
     id: string;
     remotePath: string;
@@ -3254,6 +3258,7 @@ export type RepoSettingsFieldsFragment = {
   aliases?: Array<{
     __typename?: "ProjectAlias";
     alias: string;
+    description?: string | null;
     gitTag: string;
     id: string;
     remotePath: string;
@@ -3633,6 +3638,7 @@ export type ProjectEventSettingsFragment = {
   aliases?: Array<{
     __typename?: "ProjectAlias";
     alias: string;
+    description?: string | null;
     gitTag: string;
     id: string;
     remotePath: string;
@@ -5818,6 +5824,7 @@ export type ProjectEventLogsQuery = {
         aliases?: Array<{
           __typename?: "ProjectAlias";
           alias: string;
+          description?: string | null;
           gitTag: string;
           id: string;
           remotePath: string;
@@ -6013,6 +6020,7 @@ export type ProjectEventLogsQuery = {
         aliases?: Array<{
           __typename?: "ProjectAlias";
           alias: string;
+          description?: string | null;
           gitTag: string;
           id: string;
           remotePath: string;
@@ -6218,6 +6226,7 @@ export type ProjectSettingsQuery = {
     aliases?: Array<{
       __typename?: "ProjectAlias";
       alias: string;
+      description?: string | null;
       gitTag: string;
       id: string;
       remotePath: string;
@@ -6464,6 +6473,7 @@ export type RepoEventLogsQuery = {
         aliases?: Array<{
           __typename?: "ProjectAlias";
           alias: string;
+          description?: string | null;
           gitTag: string;
           id: string;
           remotePath: string;
@@ -6659,6 +6669,7 @@ export type RepoEventLogsQuery = {
         aliases?: Array<{
           __typename?: "ProjectAlias";
           alias: string;
+          description?: string | null;
           gitTag: string;
           id: string;
           remotePath: string;
@@ -6864,6 +6875,7 @@ export type RepoSettingsQuery = {
     aliases?: Array<{
       __typename?: "ProjectAlias";
       alias: string;
+      description?: string | null;
       gitTag: string;
       id: string;
       remotePath: string;
