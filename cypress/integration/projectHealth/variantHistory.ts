@@ -25,7 +25,7 @@ describe(
         "/variant-history/spruce/ubuntu1604"
       );
       cy.location("search").should("eq", "?selectedCommit=1236");
-      cy.contains("Triggered From Git Tag").should("be.visible");
+      cy.contains("v2.28.5").should("be.visible");
       cy.get("[data-selected='true']").should("exist");
       cy.get("[data-selected='true']").should("contain.text", "v2.28.5");
     });

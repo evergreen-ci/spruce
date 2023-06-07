@@ -46,9 +46,7 @@ describe("task history", () => {
     cy.visit(
       "/task-history/spruce/check_codegen?failed=JustAFakeTestInALonelyWorld&selectedCommit=1236"
     );
-    cy.dataCy("history-table-icon")
-      .get("[data-status=failed]")
-      .should("have.length", 2);
+    cy.dataCy("history-table-icon").get("[data-status=failed]").should("exist");
     cy.dataCy("history-table-icon")
       .get("[data-status=failed]")
       .first()

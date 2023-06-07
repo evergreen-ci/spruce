@@ -174,7 +174,7 @@ const BadgeWrapper = styled.div`
 `;
 
 const TableWrapper = styled.div`
-  height: 50vh;
+  height: 80vh;
 `;
 
 const CenterPage = styled.div`
