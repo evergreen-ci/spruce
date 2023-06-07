@@ -1,0 +1,10 @@
+#import "../fragments/basePatch.graphql"
+
+mutation UpdatePatchDescription($patchId: String!, $description: String!) {
+  schedulePatch(
+    patchId: $patchId
+    configure: { variantsTasks: [], description: $description }
+  ) {
+    ...BasePatch
+  }
+}

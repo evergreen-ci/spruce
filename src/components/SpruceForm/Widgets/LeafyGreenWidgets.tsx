@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import Checkbox from "@leafygreen-ui/checkbox";
@@ -330,21 +331,39 @@ const StyledRadioBox = styled(RadioBox)`
 `;
 
 export const LeafyGreenTextArea: React.VFC<SpruceWidgetProps> = ({
-  label,
   disabled,
-  value,
+  label,
   onChange,
   options,
   rawErrors,
   readonly,
+  value,
 }) => {
-  const { "data-cy": dataCy, emptyValue = "", elementWrapperCSS } = options;
+  const {
+    "data-cy": dataCy,
+    elementWrapperCSS,
+    emptyValue = "",
+    focusOnMount,
+  } = options;
 
   const { errors, hasError } = processErrors(rawErrors);
+  const el = useRef<HTMLTextAreaElement>();
+
+  useEffect(() => {
+    if (focusOnMount) {
+      const textarea = el.current;
+      if (textarea) {
+        textarea.focus();
+        textarea.selectionStart = textarea.value.length;
+        textarea.selectionEnd = textarea.value.length;
+      }
+    }
+  }, [focusOnMount]);
 
   return (
     <ElementWrapper css={elementWrapperCSS}>
       <TextArea
+        ref={el}
         data-cy={dataCy}
         label={label}
         disabled={disabled || readonly}

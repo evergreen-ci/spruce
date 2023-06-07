@@ -4538,6 +4538,31 @@ export type UpdateHostStatusMutation = {
   updateHostStatus: number;
 };
 
+export type UpdatePatchDescriptionMutationVariables = Exact<{
+  patchId: Scalars["String"];
+  description: Scalars["String"];
+}>;
+
+export type UpdatePatchDescriptionMutation = {
+  __typename?: "Mutation";
+  schedulePatch: {
+    __typename?: "Patch";
+    activated: boolean;
+    alias?: string | null;
+    author: string;
+    commitQueuePosition?: number | null;
+    description: string;
+    id: string;
+    status: string;
+    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+    variantsTasks: Array<{
+      __typename?: "VariantTask";
+      name: string;
+      tasks: Array<string>;
+    } | null>;
+  };
+};
+
 export type UpdatePublicKeyMutationVariables = Exact<{
   targetKeyName: Scalars["String"];
   updateInfo: PublicKeyInput;
