@@ -51,14 +51,14 @@ const wrapper: React.VFC<wrapperProps> = ({ children, mocks = [], state }) => (
 
 describe("taskHistoryRow", () => {
   it("renders an initial loading row with 7 cells when there is no data", () => {
-    render(<TaskHistoryRow index={0} data={undefined} />, {
+    render(<TaskHistoryRow index={0} data={taskRow} />, {
       wrapper,
     });
     expect(screen.queryAllByDataCy("loading-cell")).toHaveLength(7);
   });
 
   it("renders a row when there is data", () => {
-    render(<TaskHistoryRow index={0} data={undefined} />, {
+    render(<TaskHistoryRow index={0} data={taskRow} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -85,7 +85,7 @@ describe("taskHistoryRow", () => {
   });
 
   it("amount of cells rendered should correspond to the amount of visibleColumns", () => {
-    render(<TaskHistoryRow index={0} data={undefined} />, {
+    render(<TaskHistoryRow index={0} data={taskRow} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -103,7 +103,7 @@ describe("taskHistoryRow", () => {
   });
 
   it("renders a blank cell when there isn't a matching variant for that row", () => {
-    render(<TaskHistoryRow index={0} data={undefined} />, {
+    render(<TaskHistoryRow index={0} data={taskRow} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -122,7 +122,7 @@ describe("taskHistoryRow", () => {
   });
 
   it("should show failing tests when you hover over a failing task cell and there are no filters applied", async () => {
-    render(<TaskHistoryRow index={0} data={undefined} />, {
+    render(<TaskHistoryRow index={0} data={taskRow} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -163,7 +163,7 @@ describe("taskHistoryRow", () => {
   });
 
   it("should show a matching test label when looking at a task cell with filters applied", async () => {
-    render(<TaskHistoryRow index={0} data={undefined} />, {
+    render(<TaskHistoryRow index={0} data={taskRow} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -208,7 +208,7 @@ describe("taskHistoryRow", () => {
   });
 
   it("should disable a task cell when there are test filters applied and it does not match the task filters", () => {
-    render(<TaskHistoryRow index={0} data={undefined} />, {
+    render(<TaskHistoryRow index={0} data={taskRow} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>

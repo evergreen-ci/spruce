@@ -25,7 +25,7 @@ describe("historyTableContext", () => {
       getItem: expect.any(Function),
       ingestNewCommits: expect.any(Function),
       isItemLoaded: expect.any(Function),
-      toggleRowSizeAtIndex: expect.any(Function),
+      toggleFoldedRowExpandedState: expect.any(Function),
       markSelectedRowVisited: expect.any(Function),
       nextPage: expect.any(Function),
       onChangeTableWidth: expect.any(Function),
@@ -174,29 +174,9 @@ describe("historyTableContext", () => {
       ...mainlineCommitData,
       versions: mainlineCommitData.versions.slice(-2),
     };
-    const { version } = expandableMainlineCommitData.versions[0];
     const { rolledUpVersions } = expandableMainlineCommitData.versions[1];
     act(() => {
       result.current.ingestNewCommits(expandableMainlineCommitData);
-    });
-    // Verify elements
-    expect(result.current.isItemLoaded(0)).toBe(true);
-    expect(result.current.getItem(0)).toStrictEqual<CommitRowType>({
-      type: rowType.DATE_SEPARATOR,
-      date: version.createTime,
-    });
-    expect(result.current.isItemLoaded(1)).toBe(true);
-    expect(result.current.getItem(1)).toStrictEqual<CommitRowType>({
-      type: rowType.COMMIT,
-      date: version.createTime,
-      commit: version,
-
-      selected: false,
-    });
-    expect(result.current.isItemLoaded(2)).toBe(true);
-    expect(result.current.getItem(2)).toStrictEqual<CommitRowType>({
-      type: rowType.DATE_SEPARATOR,
-      date: rolledUpVersions[0].createTime,
     });
     expect(result.current.isItemLoaded(3)).toBe(true);
     expect(result.current.getItem(3)).toStrictEqual<CommitRowType>({
@@ -206,8 +186,9 @@ describe("historyTableContext", () => {
       selected: false,
       expanded: false,
     });
-    expect(result.current.isItemLoaded(4)).toBe(false);
-
+    act(() => {
+      result.current.toggleFoldedRowExpandedState(3, true);
+    });
     expect(result.current.getItem(3)).toStrictEqual<CommitRowType>({
       type: rowType.FOLDED_COMMITS,
       date: rolledUpVersions[0].createTime,

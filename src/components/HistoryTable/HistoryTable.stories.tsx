@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { StoryObj } from "@storybook/react";
+import { VirtuosoMockContext } from "react-virtuoso";
 import TaskHistoryRow from "pages/taskHistory/VirtuosoTaskHistoryRow";
 import VariantHistoryRow from "pages/variantHistory/VirtuosoVariantHistoryRow";
 import { context } from ".";
+import { COMMIT_HEIGHT } from "./constants";
 import { mainlineCommitData } from "./testData";
 import VirtuosoHistoryTable from "./VirtuosoHistoryTable";
 
@@ -14,7 +16,12 @@ export default {
   decorators: [
     (Story: () => JSX.Element) => (
       <MockedProvider>
-        <Story />
+        <VirtuosoMockContext.Provider
+          // eslint-disable-next-line react/jsx-no-constructed-context-values
+          value={{ viewportHeight: 500, itemHeight: COMMIT_HEIGHT }}
+        >
+          <Story />
+        </VirtuosoMockContext.Provider>
       </MockedProvider>
     ),
   ],
@@ -36,40 +43,9 @@ export const VariantHistoryTable: StoryObj<typeof VirtuosoHistoryTable> = {
   ),
 };
 
-export const VirtuosoTaskHistoryTable: StoryObj<typeof VirtuosoHistoryTable> = {
-  render: () => (
-    <HistoryTableProvider>
-      <VirtuosoHistoryTableWrapper type="task" />
-    </HistoryTableProvider>
-  ),
-};
-
 interface HistoryTableWrapperProps {
   type?: "variant" | "task";
 }
-const VirtuosoHistoryTableWrapper: React.VFC<HistoryTableWrapperProps> = ({
-  type,
-}) => {
-  const { addColumns } = useHistoryTable();
-  const [commitData, setCommitData] = useState(mainlineCommitData);
-  useEffect(() => {
-    const taskColumns = ["ubuntu1604", "race-detector", "lint"];
-    const variantColumns = ["Lint", "test-model-distro", "dist"];
-    addColumns(type === "task" ? taskColumns : variantColumns);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const loadMore = () => {
-    setCommitData(ingestNewCommitData(commitData));
-  };
-
-  return (
-    <div style={{ height: 800, width: "100%" }}>
-      <VirtuosoHistoryTable loadMoreItems={loadMore} loading={false}>
-        {TaskHistoryRow}
-      </VirtuosoHistoryTable>
-    </div>
-  );
-};
 const HistoryTableWrapper: React.VFC<HistoryTableWrapperProps> = ({ type }) => {
   const { addColumns } = useHistoryTable();
   const [commitData, setCommitData] = useState(mainlineCommitData);

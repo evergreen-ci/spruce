@@ -224,7 +224,7 @@ describe("useMergedHookRender - sanity check", () => {
       getItem: expect.any(Function),
       ingestNewCommits: expect.any(Function),
       isItemLoaded: expect.any(Function),
-      toggleRowSizeAtIndex: expect.any(Function),
+      toggleFoldedRowExpandedState: expect.any(Function),
       markSelectedRowVisited: expect.any(Function),
       nextPage: expect.any(Function),
       onChangeTableWidth: expect.any(Function),
