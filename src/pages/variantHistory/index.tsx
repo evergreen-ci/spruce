@@ -14,8 +14,8 @@ import {
   hooks,
   constants,
 } from "components/HistoryTable";
+import HistoryTable from "components/HistoryTable/HistoryTable";
 import { useHistoryTable } from "components/HistoryTable/HistoryTableContext";
-import HistoryTable from "components/HistoryTable/VirtuosoHistoryTable";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -28,7 +28,7 @@ import { usePageTitle } from "hooks";
 import { string } from "utils";
 import ColumnHeaders from "./ColumnHeaders";
 import TaskSelector from "./TaskSelector";
-import VariantHistoryRow from "./VirtuosoVariantHistoryRow";
+import VariantHistoryRow from "./VariantHistoryRow";
 
 const { HistoryTableProvider } = context;
 const { useTestFilters, useJumpToCommit } = hooks;

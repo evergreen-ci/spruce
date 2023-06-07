@@ -22,7 +22,7 @@ interface RowProps {
   index: number;
   data: types.CommitRowType;
 }
-const VirtuosoRow: React.VFC<RowProps> = ({
+const BaseRow: React.VFC<RowProps> = ({
   columns,
   numVisibleCols,
   index,
@@ -99,4 +99,4 @@ const VirtuosoRow: React.VFC<RowProps> = ({
   }
 };
 
-export default VirtuosoRow;
+export default BaseRow;

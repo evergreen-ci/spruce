@@ -16,7 +16,7 @@ import {
 } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { TestStatus } from "types/history";
-import VariantHistoryRow from "./VirtuosoVariantHistoryRow";
+import VariantHistoryRow from "./VariantHistoryRow";
 
 const { HistoryTableProvider } = context;
 const { rowType } = types;

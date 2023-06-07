@@ -1,6 +1,6 @@
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { context, Cell, types, hooks } from "components/HistoryTable";
-import VirtuosoRow from "components/HistoryTable/HistoryTableRow/VirtuosoRow";
+import BaseRow from "components/HistoryTable/HistoryTableRow/BaseRow";
 import { array } from "utils";
 
 const { convertArrayToObject } = array;
@@ -13,8 +13,8 @@ interface Props {
   index: number;
   data: types.CommitRowType;
 }
-const TaskHistoryRow: React.VFC<Props> = ({ index, data }) => {
-  const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
+const VariantHistoryRow: React.VFC<Props> = ({ index, data }) => {
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
   let orderedColumns = [];
   const { visibleColumns } = useHistoryTable();
 
@@ -22,17 +22,13 @@ const TaskHistoryRow: React.VFC<Props> = ({ index, data }) => {
 
   if (data && data.type === rowType.COMMIT && data.commit) {
     const { buildVariants } = data.commit;
-    const buildVariantMap = convertArrayToObject(buildVariants, "variant");
     orderedColumns = visibleColumns.map((c) => {
-      if (buildVariants) {
-        const foundVariant = buildVariantMap[c];
-        if (foundVariant) {
-          const { tasks } = foundVariant;
-          // the tasks array should in theory only have one item in it so we should always use it.
-          const t = tasks[0];
-          const { inactive, failingTests, label, loading } = getTaskMetadata(
-            t.id
-          );
+      if (buildVariants && buildVariants.length > 0) {
+        const { tasks } = buildVariants[0];
+        const taskMap = convertArrayToObject(tasks, "displayName");
+        const t = taskMap[c];
+        if (t) {
+          const { inactive, failingTests, label } = getTaskMetadata(t.id);
           return (
             <TaskCell
               onClick={({ taskStatus }) => {
@@ -46,29 +42,35 @@ const TaskHistoryRow: React.VFC<Props> = ({ index, data }) => {
               task={t}
               failingTests={failingTests}
               label={label}
-              loading={loading}
             />
           );
         }
       }
-      // Returned if the build variant did not run for this commit
-      return <EmptyCell key={`empty_variant_${c}`} />;
+      // Returned if the task did not run for this commit
+      return <EmptyCell key={`empty_task_${c}`} />;
     });
   }
   return (
-    <VirtuosoRow
+    <BaseRow
       data={data}
       index={index}
       columns={orderedColumns}
       numVisibleCols={visibleColumns.length}
       selected={data?.selected}
-      onClickGithash={() => {
+      onClickGithash={() =>
         sendEvent({
           name: "Click commit label",
           link: "githash",
           commitType: "active",
-        });
-      }}
+        })
+      }
+      onClickFoldedGithash={() =>
+        sendEvent({
+          name: "Click commit label",
+          link: "githash",
+          commitType: "inactive",
+        })
+      }
       onClickUpstreamProject={() => {
         sendEvent({
           name: "Click commit label",
@@ -76,10 +78,10 @@ const TaskHistoryRow: React.VFC<Props> = ({ index, data }) => {
           commitType: "active",
         });
       }}
-      onClickFoldedGithash={() => {
+      onClickFoldedUpstreamProject={() => {
         sendEvent({
           name: "Click commit label",
-          link: "githash",
+          link: "upstream project",
           commitType: "inactive",
         });
       }}
@@ -97,13 +99,6 @@ const TaskHistoryRow: React.VFC<Props> = ({ index, data }) => {
           commitType: "inactive",
         });
       }}
-      onClickFoldedUpstreamProject={() => {
-        sendEvent({
-          name: "Click commit label",
-          link: "upstream project",
-          commitType: "inactive",
-        });
-      }}
       onToggleFoldedCommit={({ isVisible }) => {
         sendEvent({
           name: "Toggle folded commit",
@@ -114,4 +109,4 @@ const TaskHistoryRow: React.VFC<Props> = ({ index, data }) => {
   );
 };
 
-export default TaskHistoryRow;
+export default VariantHistoryRow;

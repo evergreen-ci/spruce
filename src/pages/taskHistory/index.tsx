@@ -14,8 +14,8 @@ import {
   hooks,
   constants,
 } from "components/HistoryTable";
+import HistoryTable from "components/HistoryTable/HistoryTable";
 import { useHistoryTable } from "components/HistoryTable/HistoryTableContext";
-import HistoryTable from "components/HistoryTable/VirtuosoHistoryTable";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -28,7 +28,7 @@ import { usePageTitle } from "hooks";
 import { string } from "utils";
 import BuildVariantSelector from "./BuildVariantSelector";
 import ColumnHeaders from "./ColumnHeaders";
-import TaskHistoryRow from "./VirtuosoTaskHistoryRow";
+import TaskHistoryRow from "./TaskHistoryRow";
 
 const { HistoryTableProvider } = context;
 const { applyStrictRegex } = string;
