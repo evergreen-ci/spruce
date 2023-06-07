@@ -1,5 +1,4 @@
 import { SpruceFormProps } from "components/SpruceForm/types";
-import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 
 export const getFormSchema = (
   name: string

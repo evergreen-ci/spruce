@@ -358,7 +358,7 @@ export const LeafyGreenTextArea: React.VFC<SpruceWidgetProps> = ({
         textarea.selectionEnd = textarea.value.length;
       }
     }
-  }, []);
+  }, [focusOnMount]);
 
   return (
     <ElementWrapper css={elementWrapperCSS}>
