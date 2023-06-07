@@ -8,8 +8,9 @@ describe(
     it("shows an error message if mainline commit history could not be retrieved", () => {
       cy.visit("/variant-history/bogus-project/bogus-variant");
       cy.dataCy("loading-cell").should("have.length", 0);
-      cy.contains("Failed to retrieve mainline commit history.").should(
-        "be.visible"
+      cy.validateToast(
+        "error",
+        "Error loading task history: Could not find project with id: bogus-project"
       );
     });
 

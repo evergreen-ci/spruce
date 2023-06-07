@@ -18,6 +18,7 @@ import { useHistoryTable } from "components/HistoryTable/HistoryTableContext";
 import HistoryTable from "components/HistoryTable/VirtuosoHistoryTable";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
+import { useToastContext } from "context/toast";
 import {
   MainlineCommitsForHistoryQuery,
   MainlineCommitsForHistoryQueryVariables,
@@ -40,6 +41,7 @@ const VariantHistoryContents: React.VFC = () => {
   }>();
   const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
   const { ingestNewCommits } = useHistoryTable();
+  const dispatchToast = useToastContext();
   usePageTitle(`Variant History | ${projectIdentifier} | ${variantName}`);
   useJumpToCommit();
   useTestFilters();
@@ -64,6 +66,11 @@ const VariantHistoryContents: React.VFC = () => {
     fetchPolicy: "no-cache", // This is because we already cache the data in the history table
     onCompleted({ mainlineCommits }) {
       ingestNewCommits(mainlineCommits);
+    },
+    onError(err) {
+      dispatchToast.error(
+        `There was an error loading the variant history: ${err.message}`
+      );
     },
   });
 

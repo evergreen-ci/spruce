@@ -18,6 +18,7 @@ import { useHistoryTable } from "components/HistoryTable/HistoryTableContext";
 import HistoryTable from "components/HistoryTable/VirtuosoHistoryTable";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
+import { useToastContext } from "context/toast";
 import {
   MainlineCommitsForHistoryQuery,
   MainlineCommitsForHistoryQueryVariables,
@@ -47,6 +48,8 @@ const TaskHistoryContents: React.VFC = () => {
   const { badges, handleOnRemove, handleClearAll } = useFilterBadgeQueryParams(
     constants.queryParamsToDisplay
   );
+  const dispatchToast = useToastContext();
+
   const { data, loading, refetch } = useQuery<
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
@@ -65,6 +68,9 @@ const TaskHistoryContents: React.VFC = () => {
     fetchPolicy: "no-cache", // This is because we already cache the data in the history table
     onCompleted({ mainlineCommits }) {
       ingestNewCommits(mainlineCommits);
+    },
+    onError(err) {
+      dispatchToast.error(`Error loading task history: ${err.message}`);
     },
   });
 
@@ -133,7 +139,6 @@ const TaskHistoryContents: React.VFC = () => {
             projectIdentifier={projectIdentifier}
             taskName={taskName}
           />
-
           <TableWrapper>
             <HistoryTable loadMoreItems={handleLoadMore} loading={loading}>
               {TaskHistoryRow}
