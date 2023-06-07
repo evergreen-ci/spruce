@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
@@ -24,7 +24,6 @@ export const NameChangeModal: React.VFC<NameChangeModalProps> = ({
 }) => {
   const [formState, setFormState] = useState<{ newPatchName?: string }>({});
   const [hasFormError, setHasFormError] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const { schema, uiSchema } = getFormSchema(originalPatchName);
   const dispatchToast = useToastContext();
@@ -43,11 +42,6 @@ export const NameChangeModal: React.VFC<NameChangeModalProps> = ({
   });
 
   const { newPatchName } = formState;
-  useEffect(() => {
-    setIsDisabled(
-      newPatchName === originalPatchName || hasFormError || loading
-    );
-  }, [newPatchName, loading, originalPatchName, hasFormError]);
 
   return (
     <>
@@ -63,12 +57,14 @@ export const NameChangeModal: React.VFC<NameChangeModalProps> = ({
         onCancel={() => setIsOpen(false)}
         onConfirm={() => {
           updateDescription({
-            variables: { patchId, description: formState.newPatchName },
+            variables: { patchId, description: newPatchName },
           });
         }}
         open={isOpen}
         title="Update Patch Name"
-        submitDisabled={isDisabled}
+        submitDisabled={
+          newPatchName === originalPatchName || hasFormError || loading
+        }
       >
         <SpruceForm
           schema={schema}
