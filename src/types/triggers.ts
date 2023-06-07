@@ -7,15 +7,6 @@ export enum ResourceType {
   Version = "VERSION",
 }
 
-export const resourceTypeToCopy = {
-  [ResourceType.Build]: "Build",
-  [ResourceType.CommitQueue]: "Commit Queue",
-  [ResourceType.Host]: "Host",
-  [ResourceType.Patch]: "Patch",
-  [ResourceType.Task]: "Task",
-  [ResourceType.Version]: "Version",
-};
-
 export enum ProjectTriggerLevel {
   TASK = "task",
   BUILD = "build",
@@ -38,26 +29,6 @@ export enum TriggerType {
   FIRST_FAILURE_VERSION = "first-failure-in-version",
   FIRST_FAILURE_VERSION_NAME = "first-failure-in-version-with-name",
 }
-
-export const triggerToCopy = {
-  [TriggerType.OUTCOME]: "Outcome",
-  [TriggerType.FAILURE]: "Failure",
-  [TriggerType.SUCCESS]: "Success",
-  [TriggerType.FAMILY_OUTCOME]: "Outcome",
-  [TriggerType.FAMILY_FAILURE]: "Failure",
-  [TriggerType.FAMILY_SUCCESS]: "Success",
-  [TriggerType.RUNTIME_CHANGE]: "Runtime changes by %",
-  [TriggerType.EXCEEDS_DURATION]: "Runtime exceeds duration",
-  [TriggerType.TASK_STARTED]: "Task started",
-  [TriggerType.TASK_FAILED_OR_BLOCKED]: "Task failed or blocked",
-  [TriggerType.REGRESSION]: "Regression",
-  [TriggerType.TEST_REGRESSION]: "Test regression",
-  [TriggerType.FIRST_FAILURE_BUILD]: "First failure",
-  [TriggerType.FIRST_FAILURE_BUILD]: "First failure in build",
-  [TriggerType.FIRST_FAILURE_VERSION]: "First failure in version",
-  [TriggerType.FIRST_FAILURE_VERSION_NAME]:
-    "First failure in version with name",
-};
 
 export enum TaskTriggers {
   TASK_STARTS = "task-starts",

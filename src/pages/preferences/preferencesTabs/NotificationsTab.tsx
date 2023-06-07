@@ -16,7 +16,6 @@ import {
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettings } from "hooks";
 import { string } from "utils";
-import { ClearSubscriptionsCard } from "./notificationTab/ClearSubscriptionsCard";
 import { NotificationField } from "./notificationTab/NotificationField";
 import { UserSubscriptions } from "./notificationTab/UserSubscriptions";
 
@@ -116,7 +115,6 @@ export const NotificationsTab: React.VFC = () => {
         </Button>
       </SettingsCard>
       <UserSubscriptions />
-      <ClearSubscriptionsCard />
     </>
   );
 };

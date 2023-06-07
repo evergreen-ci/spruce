@@ -4259,7 +4259,7 @@
     "@leafygreen-ui/palette" "^4.0.0"
     "@leafygreen-ui/tokens" "^2.0.1"
 
-"@leafygreen-ui/icon-button@^15.0.10":
+"@leafygreen-ui/icon-button@^15.0.10", "@leafygreen-ui/icon-button@^15.0.9":
   version "15.0.10"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-15.0.10.tgz#eda3ee2b799452d907c374806232dd7fd2bfc019"
   integrity sha512-GbMxbPLEIUVOSmzJkVJrpQAfvrKjTgjkM9TSkL06sJ0f7ghcIO6mOpoonML6BLFqOTFXuyUZ/3C0jQQDvO+Glw==
@@ -4439,6 +4439,21 @@
     "@leafygreen-ui/select" "^10.3.4"
     "@leafygreen-ui/tokens" "^2.1.0"
     "@leafygreen-ui/tooltip" "^10.0.1"
+    "@leafygreen-ui/typography" "^16.4.0"
+    lodash "^4.17.21"
+
+"@leafygreen-ui/pagination@1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/pagination/-/pagination-1.0.7.tgz#2edb56416b8affa1a6a794aff6d20309e053e063"
+  integrity sha512-3UPXd185AowfmoYPj2aen8CFVeDULCcwcKoP6XZ0zM5VO5wIaFEvXjpcnTvtV5SdAQRMvWqP3vggpg4f8kwVyw==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.4"
+    "@leafygreen-ui/hooks" "^7.7.3"
+    "@leafygreen-ui/icon" "^11.15.0"
+    "@leafygreen-ui/icon-button" "^15.0.9"
+    "@leafygreen-ui/lib" "^10.3.2"
+    "@leafygreen-ui/select" "^10.3.4"
+    "@leafygreen-ui/tokens" "^2.1.0"
     "@leafygreen-ui/typography" "^16.4.0"
     lodash "^4.17.21"
 

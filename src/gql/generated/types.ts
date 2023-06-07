@@ -4057,6 +4057,15 @@ export type DeleteProjectMutation = {
   deleteProject: boolean;
 };
 
+export type DeleteSubscriptionsMutationVariables = Exact<{
+  subscriptionIds: Array<Scalars["String"]>;
+}>;
+
+export type DeleteSubscriptionsMutation = {
+  __typename?: "Mutation";
+  deleteSubscriptions: number;
+};
+
 export type DetachProjectFromRepoMutationVariables = Exact<{
   projectId: Scalars["String"];
 }>;
