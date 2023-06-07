@@ -12,13 +12,13 @@ describe("Name change modal", () => {
     cy.contains("Confirm").click();
     cy.get("textarea").should("not.exist");
     cy.contains(newName);
-    cy.validateToast("success", "Patch name has successfully updated.", true);
+    cy.validateToast("success", "Patch name was successfully updated.", true);
     // revert name change
     cy.dataCy("name-change-modal-trigger").click();
     cy.get("textarea").clear().type(originalName);
     cy.contains("Confirm").click();
     cy.get("textarea").should("not.exist");
-    cy.validateToast("success", "Patch name has successfully updated.", true);
+    cy.validateToast("success", "Patch name was successfully updated.", true);
     cy.contains(originalName);
   });
 
