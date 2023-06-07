@@ -143,7 +143,7 @@
     "@storybook/addon-interactions": "7.0.0-rc.5",
     "@storybook/addon-links": "7.0.0-rc.5",
     "@storybook/addon-storyshots": "7.0.0-rc.5",
-    "@storybook/react": "7.0.0-rc.5",
+    "@storybook/react": "7.0.18",
     "@storybook/react-vite": "7.0.0-rc.5",
     "@storybook/testing-library": "0.0.14-next.1",
     "@styled/typescript-styled-plugin": "1.0.0",
