@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
@@ -15,6 +14,7 @@ import {
   hooks,
   constants,
 } from "components/HistoryTable";
+import { useHistoryTable } from "components/HistoryTable/HistoryTableContext";
 import HistoryTable from "components/HistoryTable/VirtuosoHistoryTable";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
@@ -39,15 +39,15 @@ const TaskHistoryContents: React.VFC = () => {
     projectIdentifier: string;
     taskName: string;
   }>();
+  const { ingestNewCommits } = useHistoryTable();
   usePageTitle(`Task History | ${projectIdentifier} | ${taskName}`);
-  const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
   useTestFilters();
   useJumpToCommit();
 
   const { badges, handleOnRemove, handleClearAll } = useFilterBadgeQueryParams(
     constants.queryParamsToDisplay
   );
-  const { data, loading, error } = useQuery<
+  const { data, loading, refetch } = useQuery<
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
   >(GET_MAINLINE_COMMITS_FOR_HISTORY, {
@@ -55,7 +55,6 @@ const TaskHistoryContents: React.VFC = () => {
       mainlineCommitsOptions: {
         projectIdentifier,
         limit: 10,
-        skipOrderNumber: nextPageOrderNumber,
         shouldCollapse: true,
       },
       buildVariantOptions: {
@@ -63,9 +62,28 @@ const TaskHistoryContents: React.VFC = () => {
         includeBaseTasks: false,
       },
     },
+    fetchPolicy: "no-cache", // This is because we already cache the data in the history table
+    onCompleted({ mainlineCommits }) {
+      ingestNewCommits(mainlineCommits);
+    },
   });
 
-  const { mainlineCommits } = data || {};
+  const handleLoadMore = () => {
+    if (data) {
+      refetch({
+        mainlineCommitsOptions: {
+          projectIdentifier,
+          limit: 10,
+          skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
+          shouldCollapse: true,
+        },
+        buildVariantOptions: {
+          tasks: [applyStrictRegex(taskName)],
+          includeBaseTasks: false,
+        },
+      });
+    }
+  };
 
   return (
     <PageWrapper>
@@ -117,20 +135,9 @@ const TaskHistoryContents: React.VFC = () => {
           />
 
           <TableWrapper>
-            {error && <div>Failed to retrieve mainline commit history.</div>}
-            {!error && (
-              <HistoryTable
-                recentlyFetchedCommits={mainlineCommits}
-                loadMoreItems={() => {
-                  if (mainlineCommits) {
-                    setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
-                  }
-                }}
-                loading={loading}
-              >
-                {TaskHistoryRow}
-              </HistoryTable>
-            )}
+            <HistoryTable loadMoreItems={handleLoadMore} loading={loading}>
+              {TaskHistoryRow}
+            </HistoryTable>
           </TableWrapper>
         </div>
       </CenterPage>

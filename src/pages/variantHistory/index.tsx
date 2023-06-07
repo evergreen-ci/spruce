@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
@@ -15,6 +14,7 @@ import {
   hooks,
   constants,
 } from "components/HistoryTable";
+import { useHistoryTable } from "components/HistoryTable/HistoryTableContext";
 import HistoryTable from "components/HistoryTable/VirtuosoHistoryTable";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
@@ -39,14 +39,14 @@ const VariantHistoryContents: React.VFC = () => {
     variantName: string;
   }>();
   const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
+  const { ingestNewCommits } = useHistoryTable();
   usePageTitle(`Variant History | ${projectIdentifier} | ${variantName}`);
-  const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
   useJumpToCommit();
   useTestFilters();
   const { badges, handleOnRemove, handleClearAll } = useFilterBadgeQueryParams(
     constants.queryParamsToDisplay
   );
-  const { data, loading } = useQuery<
+  const { data, loading, refetch } = useQuery<
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
   >(GET_MAINLINE_COMMITS_FOR_HISTORY, {
@@ -54,7 +54,6 @@ const VariantHistoryContents: React.VFC = () => {
       mainlineCommitsOptions: {
         projectIdentifier,
         limit: 10,
-        skipOrderNumber: nextPageOrderNumber,
         shouldCollapse: true,
       },
       buildVariantOptions: {
@@ -62,9 +61,28 @@ const VariantHistoryContents: React.VFC = () => {
         includeBaseTasks: false,
       },
     },
+    fetchPolicy: "no-cache", // This is because we already cache the data in the history table
+    onCompleted({ mainlineCommits }) {
+      ingestNewCommits(mainlineCommits);
+    },
   });
 
-  const { mainlineCommits } = data || {};
+  const handleLoadMore = () => {
+    if (data) {
+      refetch({
+        mainlineCommitsOptions: {
+          projectIdentifier,
+          limit: 10,
+          skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
+          shouldCollapse: true,
+        },
+        buildVariantOptions: {
+          variants: [applyStrictRegex(variantName)],
+          includeBaseTasks: false,
+        },
+      });
+    }
+  };
 
   return (
     <PageWrapper>
@@ -115,15 +133,7 @@ const VariantHistoryContents: React.VFC = () => {
             variantName={variantName}
           />
           <TableWrapper>
-            <HistoryTable
-              recentlyFetchedCommits={mainlineCommits}
-              loadMoreItems={() => {
-                if (mainlineCommits) {
-                  setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
-                }
-              }}
-              loading={loading}
-            >
+            <HistoryTable loadMoreItems={handleLoadMore} loading={loading}>
               {VariantHistoryRow}
             </HistoryTable>
           </TableWrapper>

@@ -64,11 +64,7 @@ const VirtuosoHistoryTableWrapper: React.VFC<HistoryTableWrapperProps> = ({
 
   return (
     <div style={{ height: 800, width: "100%" }}>
-      <VirtuosoHistoryTable
-        recentlyFetchedCommits={commitData}
-        loadMoreItems={loadMore}
-        loading={false}
-      >
+      <VirtuosoHistoryTable loadMoreItems={loadMore} loading={false}>
         {TaskHistoryRow}
       </VirtuosoHistoryTable>
     </div>
@@ -89,11 +85,7 @@ const HistoryTableWrapper: React.VFC<HistoryTableWrapperProps> = ({ type }) => {
 
   return (
     <div style={{ height: 800, width: "100%" }}>
-      <VirtuosoHistoryTable
-        recentlyFetchedCommits={commitData}
-        loadMoreItems={loadMore}
-        loading={false}
-      >
+      <VirtuosoHistoryTable loadMoreItems={loadMore} loading={false}>
         {type === "task" ? TaskHistoryRow : VariantHistoryRow}
       </VirtuosoHistoryTable>
     </div>

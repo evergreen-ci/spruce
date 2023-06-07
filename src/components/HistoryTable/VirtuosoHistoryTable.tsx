@@ -2,14 +2,12 @@ import { useEffect, useMemo, useRef } from "react";
 import { Skeleton } from "antd";
 import throttle from "lodash.throttle";
 import { Virtuoso } from "react-virtuoso";
-import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
 import { useDimensions } from "hooks/useDimensions";
 import { types } from ".";
 import { useHistoryTable } from "./HistoryTableContext";
 
 interface HistoryTableProps {
   loadMoreItems: () => void;
-  recentlyFetchedCommits: MainlineCommitsForHistoryQuery["mainlineCommits"];
   children: ({
     index,
     data,
@@ -21,16 +19,11 @@ interface HistoryTableProps {
 }
 const HistoryTable: React.VFC<HistoryTableProps> = ({
   loadMoreItems,
-  recentlyFetchedCommits,
   children,
   loading,
 }) => {
-  const {
-    processedCommitCount,
-    ingestNewCommits,
-    processedCommits,
-    onChangeTableWidth,
-  } = useHistoryTable();
+  const { processedCommitCount, processedCommits, onChangeTableWidth } =
+    useHistoryTable();
 
   const ref = useRef<HTMLDivElement>(null);
   const size = useDimensions(ref);
@@ -45,12 +38,14 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
     }
   }, [size, throttledOnChangeTableWidth]);
 
-  useEffect(() => {
-    if (recentlyFetchedCommits) {
-      ingestNewCommits(recentlyFetchedCommits);
-    }
-  }, [recentlyFetchedCommits?.nextPageOrderNumber]); // eslint-disable-line react-hooks/exhaustive-deps
+  // // Process newly
+  // useEffect(() => {
+  //   if (recentlyFetchedCommits) {
+  //     ingestNewCommits(recentlyFetchedCommits);
+  //   }
+  // }, [recentlyFetchedCommits?.nextPageOrderNumber]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {});
   const Component = children;
   return (
     <div ref={ref} style={{ height: "100%" }}>
