@@ -716,7 +716,6 @@ export type Mutation = {
   scheduleTasks: Array<Task>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"];
-  setPatchDescription: Patch;
   setPatchPriority?: Maybe<Scalars["String"]>;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
@@ -924,11 +923,6 @@ export type MutationSetAnnotationMetadataLinksArgs = {
   execution: Scalars["Int"];
   metadataLinks: Array<MetadataLinkInput>;
   taskId: Scalars["String"];
-};
-
-export type MutationSetPatchDescriptionArgs = {
-  description: Scalars["String"];
-  patchId: Scalars["String"];
 };
 
 export type MutationSetPatchPriorityArgs = {
