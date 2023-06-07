@@ -36,6 +36,7 @@ const statusValToCopy = {
   [PatchStatus.Created]: "Created/Unconfigured",
   [PatchStatus.Failed]: "Failed",
   [PatchStatus.Started]: "Running",
+  [PatchStatus.LegacySuccess]: "Succeeded",
   [PatchStatus.Success]: "Succeeded",
 };
 
