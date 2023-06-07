@@ -34,7 +34,7 @@ export const NameChangeModal: React.VFC<NameChangeModalProps> = ({
   >(UPDATE_PATCH_DESCRIPTION, {
     onCompleted() {
       setIsOpen(false);
-      dispatchToast.success("Patch name has successfully updated.");
+      dispatchToast.success("Patch name was successfully updated.");
     },
     onError({ message }) {
       dispatchToast.error(`Error updating patch name: ${message}.`);
