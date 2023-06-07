@@ -44,6 +44,7 @@ interface HistoryTableState {
   previousPage: () => void;
   setHistoryTableFilters: (filters: TestFilter[]) => void;
   setSelectedCommit: (order: number) => void;
+  toggleFoldedRowExpandedState: (rowIndex: number, expanded: boolean) => void;
 }
 
 const HistoryTableDispatchContext = createContext<HistoryTableState | null>(
@@ -122,6 +123,13 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
         dispatch({ type: "setSelectedCommit", order }),
       setHistoryTableFilters: (filters: TestFilter[]) =>
         dispatch({ type: "setHistoryTableFilters", filters }),
+      toggleFoldedRowExpandedState: (rowIndex: number, expanded: boolean) => {
+        dispatch({
+          type: "toggleFoldedRowExpandedState",
+          rowIndex,
+          expanded,
+        });
+      },
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [visibleColumns, processedCommitCount, historyTableFilters]

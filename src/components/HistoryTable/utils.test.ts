@@ -125,7 +125,7 @@ describe("historyTable utils", () => {
             date: foldedUpCommits.rolledUpVersions[0].createTime,
             type: rowType.FOLDED_COMMITS,
             selected: false,
-            open: false,
+            expanded: false,
           },
         ]);
       });
@@ -166,7 +166,7 @@ describe("historyTable utils", () => {
             date: foldedUpCommits.rolledUpVersions[0].createTime,
             type: rowType.FOLDED_COMMITS,
             selected: false,
-            open: false,
+            expanded: false,
           },
         ]);
       });

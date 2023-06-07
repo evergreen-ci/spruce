@@ -203,9 +203,8 @@ describe("historyTableContext", () => {
       type: rowType.FOLDED_COMMITS,
       date: rolledUpVersions[0].createTime,
       rolledUpCommits: rolledUpVersions,
-
       selected: false,
-      open: false,
+      expanded: false,
     });
     expect(result.current.isItemLoaded(4)).toBe(false);
 
@@ -214,7 +213,7 @@ describe("historyTableContext", () => {
       date: rolledUpVersions[0].createTime,
       rolledUpCommits: rolledUpVersions,
       selected: false,
-      open: true,
+      expanded: true,
     });
   });
   it("should deduplicate passed in versions", () => {

@@ -11,7 +11,12 @@ type Action =
   | { type: "setHistoryTableFilters"; filters: TestFilter[] }
   | { type: "markSelectedRowVisited" }
   | { type: "onChangeTableWidth"; width: number }
-  | { type: "setSelectedCommit"; order: number };
+  | { type: "setSelectedCommit"; order: number }
+  | {
+      type: "toggleFoldedRowExpandedState";
+      rowIndex: number;
+      expanded: boolean;
+    };
 
 type cacheShape = Map<
   number,
@@ -180,6 +185,23 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
           visited: false,
           loaded,
         },
+      };
+    }
+    case "toggleFoldedRowExpandedState": {
+      const updatedProcessedCommits = state.processedCommits;
+      const row = updatedProcessedCommits[action.rowIndex];
+      if (row.type !== rowType.FOLDED_COMMITS) {
+        throw new Error(
+          `Cannot expand row of type ${
+            updatedProcessedCommits[action.rowIndex].type
+          }`
+        );
+      } else {
+        row.expanded = action.expanded;
+      }
+      return {
+        ...state,
+        processedCommits: updatedProcessedCommits,
       };
     }
 

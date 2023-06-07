@@ -2,23 +2,20 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Accordion } from "components/Accordion";
 import CommitChartLabel from "components/CommitChartLabel";
-import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
-import { Unpacked } from "types/utils";
 import { EmptyCell, LabelCellContainer } from "../Cell/Cell";
 import { FOLDED_COMMITS_HEIGHT, COMMIT_HEIGHT } from "../constants";
+import { FoldedCommitsRow } from "../types";
 import { RowContainer } from "./styles";
 
 const { blue } = palette;
 
 interface FoldedCommitProps {
   index: number;
-  rolledUpCommits: Unpacked<
-    MainlineCommitsForHistoryQuery["mainlineCommits"]["versions"]
-  >["rolledUpVersions"];
   numVisibleCols: number;
   selected: boolean;
+  data: FoldedCommitsRow;
   onToggleFoldedCommit: (s: {
-    isVisible: boolean;
+    expanded: boolean;
     index: number;
     numCommits: number;
   }) => void;
@@ -28,15 +25,16 @@ interface FoldedCommitProps {
 }
 export const FoldedCommit: React.VFC<FoldedCommitProps> = ({
   index,
-  rolledUpCommits,
   numVisibleCols,
   selected,
+  data,
   onToggleFoldedCommit = () => {},
   onClickGithash,
   onClickJiraTicket,
   onClickUpstreamProject,
 }) => {
-  const defaultOpen = false;
+  const { rolledUpCommits, expanded } = data;
+  const defaultOpen = expanded;
   const numCommits = rolledUpCommits.length;
 
   const columns = Array.from(Array(numVisibleCols)).map((_, idx) => (
@@ -70,7 +68,7 @@ export const FoldedCommit: React.VFC<FoldedCommitProps> = ({
         toggledTitle={`Collapse ${numCommits} inactive`}
         titleTag={AccordionTitle}
         onToggle={({ isVisible }) => {
-          onToggleFoldedCommit({ isVisible, index, numCommits });
+          onToggleFoldedCommit({ expanded: isVisible, index, numCommits });
         }}
         useIndent={false}
         defaultOpen={defaultOpen}

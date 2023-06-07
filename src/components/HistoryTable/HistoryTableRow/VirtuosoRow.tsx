@@ -36,7 +36,8 @@ const VirtuosoRow: React.VFC<RowProps> = ({
   onClickFoldedUpstreamProject,
   onToggleFoldedCommit,
 }) => {
-  const { isItemLoaded, columnLimit } = useHistoryTable();
+  const { isItemLoaded, columnLimit, toggleFoldedRowExpandedState } =
+    useHistoryTable();
   if (!isItemLoaded(index)) {
     return (
       <RowContainer>
@@ -45,53 +46,56 @@ const VirtuosoRow: React.VFC<RowProps> = ({
     );
   }
 
-  if (data.type === rowType.DATE_SEPARATOR) {
-    return <DateSeparator date={data.date} />;
-  }
-  if (data.type === rowType.COMMIT && data.commit) {
-    const {
-      revision,
-      createTime,
-      author,
-      message,
-      id: versionId,
-      upstreamProject,
-    } = data.commit;
+  switch (data.type) {
+    case rowType.DATE_SEPARATOR:
+      return <DateSeparator date={data.date} />;
+    case rowType.COMMIT: {
+      const {
+        revision,
+        createTime,
+        author,
+        message,
+        id: versionId,
+        upstreamProject,
+      } = data.commit;
 
-    return (
-      <RowContainer data-selected={selected} selected={selected}>
-        <LabelCellContainer>
-          <CommitChartLabel
-            versionId={versionId}
-            githash={revision}
-            createTime={createTime}
-            author={author}
-            message={message}
-            onClickGithash={onClickGithash}
-            onClickJiraTicket={onClickJiraTicket}
-            upstreamProject={upstreamProject}
-            onClickUpstreamProject={onClickUpstreamProject}
-          />
-        </LabelCellContainer>
-        {columns}
-      </RowContainer>
-    );
-  }
-  if (data.type === rowType.FOLDED_COMMITS) {
-    return (
-      <FoldedCommit
-        index={index}
-        rolledUpCommits={data.rolledUpCommits}
-        numVisibleCols={numVisibleCols || columnLimit}
-        selected={selected}
-        onClickGithash={onClickFoldedGithash}
-        onClickJiraTicket={onClickFoldedJiraTicket}
-        onToggleFoldedCommit={({ isVisible }) => {
-          onToggleFoldedCommit({ isVisible });
-        }}
-        onClickUpstreamProject={onClickFoldedUpstreamProject}
-      />
-    );
+      return (
+        <RowContainer data-selected={selected} selected={selected}>
+          <LabelCellContainer>
+            <CommitChartLabel
+              versionId={versionId}
+              githash={revision}
+              createTime={createTime}
+              author={author}
+              message={message}
+              onClickGithash={onClickGithash}
+              onClickJiraTicket={onClickJiraTicket}
+              upstreamProject={upstreamProject}
+              onClickUpstreamProject={onClickUpstreamProject}
+            />
+          </LabelCellContainer>
+          {columns}
+        </RowContainer>
+      );
+    }
+    case rowType.FOLDED_COMMITS:
+      return (
+        <FoldedCommit
+          index={index}
+          data={data}
+          selected={selected}
+          numVisibleCols={numVisibleCols || columnLimit}
+          onClickGithash={onClickFoldedGithash}
+          onClickJiraTicket={onClickFoldedJiraTicket}
+          onToggleFoldedCommit={({ expanded, index: rowIndex }) => {
+            onToggleFoldedCommit({ isVisible: expanded });
+            toggleFoldedRowExpandedState(rowIndex, expanded);
+          }}
+          onClickUpstreamProject={onClickFoldedUpstreamProject}
+        />
+      );
+    default:
+      return null;
   }
 };
 
