@@ -4,4 +4,5 @@ fragment ProjectViewsAndFiltersSettings on Project {
     exactMatch
     expression
   }
+  projectHealthView
 }

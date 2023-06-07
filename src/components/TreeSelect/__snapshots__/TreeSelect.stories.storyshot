@@ -7,7 +7,7 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
     data-cy="tree-select-options"
   >
     <div
-      class="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
+      class="css-j2ntgf-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -60,7 +60,7 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
       </div>
     </div>
     <div
-      class="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
+      class="css-6y9iv7-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -113,7 +113,7 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
       </div>
     </div>
     <div
-      class="css-1i6181l-getCheckboxWrapper e1mpj03z3"
+      class="css-154o89o-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -166,7 +166,7 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
       </div>
     </div>
     <div
-      class="css-1i6181l-getCheckboxWrapper e1mpj03z3"
+      class="css-154o89o-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -219,7 +219,7 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
       </div>
     </div>
     <div
-      class="css-1i6181l-getCheckboxWrapper e1mpj03z3"
+      class="css-154o89o-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -272,7 +272,7 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
       </div>
     </div>
     <div
-      class="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
+      class="css-6y9iv7-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -325,7 +325,7 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
       </div>
     </div>
     <div
-      class="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
+      class="css-6y9iv7-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -378,7 +378,7 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
       </div>
     </div>
     <div
-      class="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
+      class="css-6y9iv7-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -431,7 +431,7 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
       </div>
     </div>
     <div
-      class="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
+      class="css-6y9iv7-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"

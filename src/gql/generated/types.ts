@@ -1353,8 +1353,8 @@ export type ProjectEvents = {
 };
 
 export enum ProjectHealthView {
-  ProjectHealthViewAll = "PROJECT_HEALTH_VIEW_ALL",
-  ProjectHealthViewFailed = "PROJECT_HEALTH_VIEW_FAILED",
+  All = "ALL",
+  Failed = "FAILED",
 }
 
 export type ProjectInput = {
@@ -3083,6 +3083,7 @@ export type ProjectSettingsFieldsFragment = {
     notifyOnBuildFailure?: boolean | null;
     githubTriggerAliases?: Array<string> | null;
     perfEnabled?: boolean | null;
+    projectHealthView: ProjectHealthView;
     githubChecksEnabled?: boolean | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
@@ -3857,6 +3858,7 @@ export type VariablesFragment = {
 
 export type ProjectViewsAndFiltersSettingsFragment = {
   __typename?: "Project";
+  projectHealthView: ProjectHealthView;
   parsleyFilters?: Array<{
     __typename?: "ParsleyFilter";
     caseSensitive: boolean;
@@ -4053,6 +4055,15 @@ export type DeleteProjectMutationVariables = Exact<{
 export type DeleteProjectMutation = {
   __typename?: "Mutation";
   deleteProject: boolean;
+};
+
+export type DeleteSubscriptionsMutationVariables = Exact<{
+  subscriptionIds: Array<Scalars["String"]>;
+}>;
+
+export type DeleteSubscriptionsMutation = {
+  __typename?: "Mutation";
+  deleteSubscriptions: number;
 };
 
 export type DetachProjectFromRepoMutationVariables = Exact<{
@@ -4525,6 +4536,31 @@ export type UpdateHostStatusMutationVariables = Exact<{
 export type UpdateHostStatusMutation = {
   __typename?: "Mutation";
   updateHostStatus: number;
+};
+
+export type UpdatePatchDescriptionMutationVariables = Exact<{
+  patchId: Scalars["String"];
+  description: Scalars["String"];
+}>;
+
+export type UpdatePatchDescriptionMutation = {
+  __typename?: "Mutation";
+  schedulePatch: {
+    __typename?: "Patch";
+    activated: boolean;
+    alias?: string | null;
+    author: string;
+    commitQueuePosition?: number | null;
+    description: string;
+    id: string;
+    status: string;
+    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+    variantsTasks: Array<{
+      __typename?: "VariantTask";
+      name: string;
+      tasks: Array<string>;
+    } | null>;
+  };
 };
 
 export type UpdatePublicKeyMutationVariables = Exact<{
@@ -6215,6 +6251,7 @@ export type ProjectSettingsQuery = {
       notifyOnBuildFailure?: boolean | null;
       githubTriggerAliases?: Array<string> | null;
       perfEnabled?: boolean | null;
+      projectHealthView: ProjectHealthView;
       githubChecksEnabled?: boolean | null;
       gitTagAuthorizedTeams?: Array<string> | null;
       gitTagAuthorizedUsers?: Array<string> | null;

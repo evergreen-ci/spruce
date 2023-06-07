@@ -4,6 +4,7 @@ import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   CopyProjectMutation,
   CopyProjectMutationVariables,
+  ProjectHealthView,
   ProjectSettingsQuery,
   ProjectSettingsQueryVariables,
   RepoSettingsQuery,
@@ -326,6 +327,7 @@ const projectSettingsMock: ApolloMock<
             },
           ],
           periodicBuilds: [],
+          projectHealthView: ProjectHealthView.Failed,
           prTestingEnabled: true,
           manualPrTestingEnabled: null,
           githubChecksEnabled: false,
