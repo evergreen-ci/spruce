@@ -34,7 +34,7 @@ const TaskQueue = () => {
   const { data: distrosData } = useQuery<
     TaskQueueDistrosQuery,
     TaskQueueDistrosQueryVariables
-  >(TASK_QUEUE_DISTROS);
+  >(TASK_QUEUE_DISTROS, { fetchPolicy: "cache-and-network" });
 
   const distros = useMemo(
     () => distrosData?.taskQueueDistros ?? [],
