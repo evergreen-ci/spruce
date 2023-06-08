@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots components/HistoryTable/DateSeparator Date Separator Story 1`] = `
+<div>
+  <div
+    class="css-1x7x41w-Container e1rsykg32"
+  >
+    <p
+      class="css-1u3gbq9-DateWrapper e1rsykg31 leafygreen-ui-1tb6tuo"
+    >
+      Jan 1, 2021
+    </p>
+    <div
+      class="css-m9ly71-Line e1rsykg30"
+    />
+  </div>
+</div>
+`;
