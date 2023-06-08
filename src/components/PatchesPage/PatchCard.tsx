@@ -4,6 +4,7 @@ import { Analytics } from "analytics/addPageAction";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { StyledRouterLink } from "components/styles";
+import { unlinkedPRUsers } from "constants/patch";
 import {
   getProjectPatchesRoute,
   getVersionRoute,
@@ -21,6 +22,7 @@ import { DropdownMenu } from "./patchCard/DropdownMenu";
 
 type P = Unpacked<PatchesPagePatchesFragment["patches"]>;
 type PatchProps = Omit<P, "commitQueuePosition">;
+
 const { gray } = palette;
 
 interface Props extends PatchProps {
@@ -61,7 +63,9 @@ export const PatchCard: React.VFC<Props> = ({
   const isUnconfigured = isPatchUnconfigured({ alias, activated });
   let patchProject = null;
   if (pageType === "project") {
-    patchProject = (
+    patchProject = unlinkedPRUsers.has(author) ? (
+      authorDisplayName
+    ) : (
       <StyledRouterLink
         to={getUserPatchesRoute(author)}
         data-cy="user-patches-link"
