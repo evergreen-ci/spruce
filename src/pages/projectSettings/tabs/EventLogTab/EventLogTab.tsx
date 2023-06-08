@@ -51,7 +51,7 @@ export const EventLogTab: React.VFC<TabProps> = ({
       {events.map(({ user, timestamp, before, after }) => (
         <EventLogCard key={`event_log_${timestamp}`} data-cy="event-log-card">
           <EventLogHeader user={user} timestamp={timestamp} />
-          <V11Adapter>
+          <V11Adapter shouldAlternateRowColor>
             <Table
               data={getEventDiffLines(before, after)}
               columns={

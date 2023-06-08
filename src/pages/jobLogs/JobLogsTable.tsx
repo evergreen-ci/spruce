@@ -24,7 +24,7 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
   const { sendEvent } = useJobLogsAnalytics();
   return (
     <>
-      <V11Adapter>
+      <V11Adapter shouldAlternateRowColor>
         <Table
           data={tests}
           columns={

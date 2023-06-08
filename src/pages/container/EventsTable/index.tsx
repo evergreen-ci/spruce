@@ -63,7 +63,7 @@ const EventsTable: React.VFC<{}> = () => {
         </TableControlInnerRow>
       </TableTitle>
 
-      <V11Adapter>
+      <V11Adapter shouldAlternateRowColor>
         <Table
           data-cy="container-events"
           data={eventLogEntries}
