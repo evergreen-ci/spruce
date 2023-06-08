@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import {
@@ -44,7 +45,12 @@ const EventsTable: React.VFC<{}> = () => {
       );
     },
   });
-  const { count, eventLogEntries } = podEventsData?.pod.events ?? {};
+
+  const { eventLogEntries, count } = useMemo(
+    () => podEventsData?.pod.events ?? { eventLogEntries: [], count: 0 },
+    [podEventsData?.pod?.events]
+  );
+
   return (
     <SiderCard>
       <TableTitle>
