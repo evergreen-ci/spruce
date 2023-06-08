@@ -49,7 +49,7 @@ export const gqlToForm = ((data) => {
 
 export const formToGql = ((
   { performanceSettings, buildBaronSettings, externalLinks },
-  id: string
+  id
 ) => {
   const projectRef: ProjectInput = {
     id,
