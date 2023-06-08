@@ -1,15 +1,13 @@
 #!/bin/bash
 
-WAIT_TIME=10
+WAIT_TIME=9
 GITHUB_REMOTE=https://github.com/evergreen-ci/spruce
 
 git push $GITHUB_REMOTE
 
-echo -n "Waiting ${WAIT_TIME}s for Evergreen to pick up the version"
-
-i=0
-while [ $i -lt $WAIT_TIME ]
-  do echo -n .; sleep 1; i=$((i+1))
+i=$WAIT_TIME
+while [ $i -gt 0 ]
+  do echo -en "Waiting ${i}s for Evergreen to pick up the version\r"; sleep 1; i=$((i-1))
 done
 echo ""
 
