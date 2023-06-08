@@ -24,7 +24,7 @@ type PatchProps = Omit<P, "commitQueuePosition">;
 
 const { gray } = palette;
 
-const githubPrUser = "github_pull_request";
+const unlinkedPRUsers = new Set(["github_pull_request", "parent_patch"]);
 
 interface Props extends PatchProps {
   pageType: "project" | "user";
@@ -64,17 +64,16 @@ export const PatchCard: React.VFC<Props> = ({
   const isUnconfigured = isPatchUnconfigured({ alias, activated });
   let patchProject = null;
   if (pageType === "project") {
-    patchProject =
-      author === githubPrUser ? (
-        authorDisplayName
-      ) : (
-        <StyledRouterLink
-          to={getUserPatchesRoute(author)}
-          data-cy="user-patches-link"
-        >
-          <strong>{authorDisplayName}</strong>
-        </StyledRouterLink>
-      );
+    patchProject = unlinkedPRUsers.has(author) ? (
+      authorDisplayName
+    ) : (
+      <StyledRouterLink
+        to={getUserPatchesRoute(author)}
+        data-cy="user-patches-link"
+      >
+        <strong>{authorDisplayName}</strong>
+      </StyledRouterLink>
+    );
   } else {
     patchProject = projectIdentifier ? (
       <StyledRouterLink
