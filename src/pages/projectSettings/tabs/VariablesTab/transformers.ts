@@ -1,10 +1,9 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { FormState } from "./types";
 
 type Tab = ProjectSettingsTabRoutes.Variables;
 
-export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
+export const gqlToForm = ((data) => {
   if (!data) return null;
 
   const {
@@ -20,12 +19,9 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
       isDisabled: privateVars.includes(varName),
     })),
   };
-};
+}) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql: FormToGqlFunction<Tab> = (
-  { vars: varsData }: FormState,
-  id
-) => {
+export const formToGql = (({ vars: varsData }, id) => {
   const vars = varsData.reduce(
     (acc, { varName, varValue, isPrivate, isAdminOnly, isDisabled }) => {
       if (!varName || !varValue) return acc;
@@ -52,4 +48,4 @@ export const formToGql: FormToGqlFunction<Tab> = (
     projectRef: { id },
     vars,
   };
-};
+}) satisfies FormToGqlFunction<Tab>;
