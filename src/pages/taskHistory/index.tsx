@@ -70,7 +70,9 @@ const TaskHistoryContents: React.VFC = () => {
       ingestNewCommits(mainlineCommits);
     },
     onError(err) {
-      dispatchToast.error(`Error loading task history: ${err.message}`);
+      dispatchToast.error(
+        `There was an error loading the task history: ${err.message}`
+      );
     },
   });
 

@@ -10,7 +10,7 @@ describe(
       cy.dataCy("loading-cell").should("have.length", 0);
       cy.validateToast(
         "error",
-        "Error loading task history: Could not find project with id: bogus-project"
+        "There was an error loading the variant history: Could not find project with id: bogus-project"
       );
     });
 
