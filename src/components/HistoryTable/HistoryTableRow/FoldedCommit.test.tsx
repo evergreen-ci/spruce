@@ -6,13 +6,13 @@ import { FoldedCommit } from "./FoldedCommit";
 
 describe("foldedCommit", () => {
   it("displays the number of inactive commits but not the individual commits on render", () => {
-    const data = {
+    const data: FoldedCommitsRow = {
       rolledUpCommits,
       expanded: false,
       type: rowType.FOLDED_COMMITS,
       selected: false,
       date: new Date("2023-06-06"),
-    } satisfies FoldedCommitsRow;
+    };
     const onToggleFoldedCommit = jest.fn(({ expanded }) => {
       data.expanded = expanded;
     });
