@@ -37,6 +37,7 @@ export const UserPatches = () => {
         includeCommitQueue: isCommitQueueCheckboxChecked,
       },
     },
+    fetchPolicy: "cache-and-network",
     pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (err) => {
       dispatchToast.error(`Error while fetching user patches: ${err.message}`);
@@ -49,7 +50,7 @@ export const UserPatches = () => {
     <PatchesPage
       analyticsObject={analyticsObject}
       pageTitle={pageTitle}
-      loading={loading}
+      loading={loading && !data?.user.patches}
       pageType="user"
       patches={data?.user.patches}
     />
