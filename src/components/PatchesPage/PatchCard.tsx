@@ -4,6 +4,7 @@ import { Analytics } from "analytics/addPageAction";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { StyledRouterLink } from "components/styles";
+import { unlinkedPRUsers } from "constants/patch";
 import {
   getProjectPatchesRoute,
   getVersionRoute,
@@ -23,8 +24,6 @@ type P = Unpacked<PatchesPagePatchesFragment["patches"]>;
 type PatchProps = Omit<P, "commitQueuePosition">;
 
 const { gray } = palette;
-
-const unlinkedPRUsers = new Set(["github_pull_request", "parent_patch"]);
 
 interface Props extends PatchProps {
   pageType: "project" | "user";
