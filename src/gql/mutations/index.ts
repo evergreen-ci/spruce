@@ -46,6 +46,7 @@ import SPAWN_VOLUME from "./spawn-volume.graphql";
 import UNSCHEDULE_PATCH_TASKS from "./unschedule-patch-tasks.graphql";
 import UNSCHEDULE_TASK from "./unschedule-task.graphql";
 import UPDATE_HOST_STATUS from "./update-host-status.graphql";
+import UPDATE_PATCH_DESCRIPTION from "./update-patch-description.graphql";
 import UPDATE_PUBLIC_KEY from "./update-public-key.graphql";
 import UPDATE_SPAWN_HOST_STATUS from "./update-spawn-host-status.graphql";
 import UPDATE_SPAWN_VOLUME from "./update-spawn-volume.graphql";
@@ -73,6 +74,7 @@ export {
   ENQUEUE_PATCH,
   FILE_JIRA_TICKET,
   FORCE_REPOTRACKER_RUN,
+  MIGRATE_VOLUME,
   MOVE_ANNOTATION,
   OVERRIDE_TASK_DEPENDENCIES,
   PROMOTE_VARS_TO_REPO,
@@ -81,8 +83,8 @@ export {
   REMOVE_ITEM_FROM_COMMIT_QUEUE,
   REMOVE_PUBLIC_KEY,
   REMOVE_VOLUME,
-  RESTART_JASPER,
   REPROVISION_TO_NEW,
+  RESTART_JASPER,
   RESTART_TASK,
   RESTART_VERSIONS,
   SAVE_PROJECT_SETTINGS_FOR_SECTION,
@@ -99,9 +101,9 @@ export {
   UNSCHEDULE_PATCH_TASKS,
   UNSCHEDULE_TASK,
   UPDATE_HOST_STATUS,
+  UPDATE_PATCH_DESCRIPTION,
   UPDATE_PUBLIC_KEY,
   UPDATE_SPAWN_HOST_STATUS,
   UPDATE_SPAWN_VOLUME,
   UPDATE_USER_SETTINGS,
-  MIGRATE_VOLUME,
 };

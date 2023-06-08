@@ -36,6 +36,7 @@ export const TaskQueueTable = () => {
     {
       variables: { distroId: distro },
       errorPolicy: "ignore",
+      fetchPolicy: "cache-and-network",
     }
   );
 
@@ -163,7 +164,7 @@ export const TaskQueueTable = () => {
       }}
       pagination={false}
       dataSource={taskQueueItems}
-      loading={loading}
+      loading={loading && taskQueueItems.length === 0}
     />
   );
 };
