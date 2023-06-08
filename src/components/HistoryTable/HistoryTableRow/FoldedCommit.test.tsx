@@ -33,13 +33,13 @@ describe("foldedCommit", () => {
   });
 
   it("can be expanded to show all of the commits", () => {
-    const data = {
+    const data: FoldedCommitsRow = {
       rolledUpCommits,
       expanded: false,
       type: rowType.FOLDED_COMMITS,
       selected: false,
       date: new Date("2023-06-06"),
-    } satisfies FoldedCommitsRow;
+    };
     const onToggleFoldedCommit = jest.fn(({ expanded }) => {
       data.expanded = expanded;
     });
