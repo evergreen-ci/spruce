@@ -1,11 +1,10 @@
 import CommitChartLabel from "components/CommitChartLabel";
-import { types } from "..";
-import { LabelCellContainer } from "../Cell/Cell";
-import { useHistoryTable } from "../HistoryTableContext";
-import { rowType } from "../types";
-import { DateSeparator } from "./DateSeparator";
-import { FoldedCommit } from "./FoldedCommit";
-import { LoadingRow } from "./LoadingRow";
+import { types } from "../..";
+import { LabelCellContainer } from "../../Cell";
+import { useHistoryTable } from "../../HistoryTableContext";
+import { rowType } from "../../types";
+import DateSeparator from "./DateSeperator";
+import FoldedCommit from "./FoldedCommit";
 import { RowContainer } from "./styles";
 
 interface RowProps {
@@ -36,15 +35,7 @@ const BaseRow: React.VFC<RowProps> = ({
   onClickFoldedUpstreamProject,
   onToggleFoldedCommit,
 }) => {
-  const { isItemLoaded, columnLimit, toggleFoldedRowExpandedState } =
-    useHistoryTable();
-  if (!isItemLoaded(index)) {
-    return (
-      <RowContainer>
-        <LoadingRow numVisibleCols={numVisibleCols || columnLimit} />
-      </RowContainer>
-    );
-  }
+  const { columnLimit, toggleFoldedRowExpandedState } = useHistoryTable();
 
   switch (data.type) {
     case rowType.DATE_SEPARATOR:

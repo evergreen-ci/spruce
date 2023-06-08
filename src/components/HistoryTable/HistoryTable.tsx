@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef } from "react";
-import { Skeleton } from "antd";
 import throttle from "lodash.throttle";
 import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
 import { useDimensions } from "hooks/useDimensions";
 import { leaveBreadcrumb } from "utils/errorReporting";
 import { types } from ".";
 import { useHistoryTable } from "./HistoryTableContext";
+import LoadingRow from "./HistoryTableRow/LoadingRow";
 
 interface HistoryTableProps {
   loadMoreItems: () => void;
@@ -28,6 +28,7 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
     processedCommits,
     onChangeTableWidth,
     selectedCommit,
+    visibleColumns,
   } = useHistoryTable();
 
   const ref = useRef<HTMLDivElement>(null);
@@ -91,7 +92,11 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
         }}
         components={{
           Footer: () =>
-            loading ? <Skeleton active /> : <div>End of list</div>,
+            loading ? (
+              <LoadingRow numVisibleCols={visibleColumns.length} />
+            ) : (
+              <div>End of list</div>
+            ),
         }}
       />
     </div>

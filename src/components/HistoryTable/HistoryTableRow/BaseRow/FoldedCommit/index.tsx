@@ -2,10 +2,13 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Accordion } from "components/Accordion";
 import CommitChartLabel from "components/CommitChartLabel";
-import { EmptyCell, LabelCellContainer } from "../Cell/Cell";
-import { FOLDED_COMMITS_HEIGHT, COMMIT_HEIGHT } from "../constants";
-import { FoldedCommitsRow } from "../types";
-import { RowContainer } from "./styles";
+import { EmptyCell, LabelCellContainer } from "components/HistoryTable/Cell";
+import {
+  FOLDED_COMMITS_HEIGHT,
+  COMMIT_HEIGHT,
+} from "components/HistoryTable/constants";
+import { FoldedCommitsRow } from "components/HistoryTable/types";
+import { RowContainer } from "../styles";
 
 const { blue } = palette;
 
@@ -23,7 +26,7 @@ interface FoldedCommitProps {
   onClickGithash?: () => void;
   onClickUpstreamProject?: () => void;
 }
-export const FoldedCommit: React.VFC<FoldedCommitProps> = ({
+const FoldedCommit: React.VFC<FoldedCommitProps> = ({
   index,
   numVisibleCols,
   selected,
@@ -96,3 +99,5 @@ const StyledRowContainer = styled(RowContainer)`
   height: ${COMMIT_HEIGHT}px;
   opacity: 60%;
 `;
+
+export default FoldedCommit;

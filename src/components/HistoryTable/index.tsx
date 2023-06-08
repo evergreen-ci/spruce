@@ -1,4 +1,4 @@
-import * as Cell from "./Cell/Cell";
+import * as Cell from "./Cell";
 import ColumnPaginationButtons from "./ColumnPaginationButtons";
 import * as constants from "./constants";
 import * as context from "./HistoryTableContext";

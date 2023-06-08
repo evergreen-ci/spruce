@@ -9,7 +9,7 @@ interface DateSeparatorProps {
   date: Date;
 }
 
-export const DateSeparator: React.VFC<DateSeparatorProps> = ({ date }) => {
+const DateSeparator: React.VFC<DateSeparatorProps> = ({ date }) => {
   const getDateCopy = useDateFormat();
   return (
     <Container>
@@ -41,3 +41,5 @@ const Line = styled.div`
   background-size: ${size.s} 2px, 100% 2px;
   width: 100%;
 `;
+
+export default DateSeparator;

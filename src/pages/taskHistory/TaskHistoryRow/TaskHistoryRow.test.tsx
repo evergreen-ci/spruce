@@ -16,7 +16,7 @@ import {
 } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { TestStatus } from "types/history";
-import TaskHistoryRow from "./TaskHistoryRow";
+import TaskHistoryRow from ".";
 
 const { HistoryTableProvider } = context;
 
