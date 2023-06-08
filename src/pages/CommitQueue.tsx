@@ -28,6 +28,7 @@ export const CommitQueue: React.VFC = () => {
     CommitQueueQueryVariables
   >(GET_COMMIT_QUEUE, {
     variables: { projectIdentifier },
+    fetchPolicy: "cache-and-network",
     onError: (err) => {
       dispatchToast.error(
         `There was an error loading the commit queue: ${err.message}`
