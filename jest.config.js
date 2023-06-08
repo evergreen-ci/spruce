@@ -5,7 +5,7 @@ module.exports = {
     "!<rootDir>/src/{index.tsx,react-app-env.d.ts}",
   ],
   coverageReporters: ["text"],
-  moduleFileExtensions: ["json", "js", "jsx", "ts", "tsx"],
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
   moduleNameMapper: {
     "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
     "^nanoid$": "<rootDir>/node_modules/nanoid/index.cjs",
