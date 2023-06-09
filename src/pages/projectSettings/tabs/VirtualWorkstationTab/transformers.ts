@@ -1,20 +1,13 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { string } from "utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { ProjectType } from "../utils";
-import { FormState } from "./types";
 
 const { omitTypename } = string;
 
 type Tab = ProjectSettingsTabRoutes.VirtualWorkstation;
 
-export const gqlToForm: GqlToFormFunction<Tab> = (
-  data:
-    | ProjectSettingsQuery["projectSettings"]
-    | RepoSettingsQuery["repoSettings"],
-  options: { projectType: ProjectType }
-) => {
+export const gqlToForm = ((data, options) => {
   if (!data) return null;
 
   const {
@@ -32,11 +25,11 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
       setupCommands: setupCommands?.map(omitTypename) ?? [],
     },
   };
-};
+}) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql: FormToGqlFunction<Tab> = (
-  { gitClone, commands: { setupCommandsOverride, setupCommands } }: FormState,
-  id: string
+export const formToGql = ((
+  { gitClone, commands: { setupCommandsOverride, setupCommands } },
+  id
 ) => ({
   projectRef: {
     id,
@@ -45,4 +38,4 @@ export const formToGql: FormToGqlFunction<Tab> = (
       setupCommands: setupCommandsOverride ? setupCommands : null,
     },
   },
-});
+})) satisfies FormToGqlFunction<Tab>;

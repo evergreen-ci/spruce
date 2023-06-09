@@ -1285,6 +1285,7 @@ export type ProjectPatchesArgs = {
 export type ProjectAlias = {
   __typename?: "ProjectAlias";
   alias: Scalars["String"];
+  description?: Maybe<Scalars["String"]>;
   gitTag: Scalars["String"];
   id: Scalars["String"];
   remotePath: Scalars["String"];
@@ -1296,6 +1297,7 @@ export type ProjectAlias = {
 
 export type ProjectAliasInput = {
   alias: Scalars["String"];
+  description?: InputMaybe<Scalars["String"]>;
   gitTag: Scalars["String"];
   id: Scalars["String"];
   remotePath: Scalars["String"];
@@ -4057,6 +4059,15 @@ export type DeleteProjectMutation = {
   deleteProject: boolean;
 };
 
+export type DeleteSubscriptionsMutationVariables = Exact<{
+  subscriptionIds: Array<Scalars["String"]>;
+}>;
+
+export type DeleteSubscriptionsMutation = {
+  __typename?: "Mutation";
+  deleteSubscriptions: number;
+};
+
 export type DetachProjectFromRepoMutationVariables = Exact<{
   projectId: Scalars["String"];
 }>;
@@ -4527,6 +4538,31 @@ export type UpdateHostStatusMutationVariables = Exact<{
 export type UpdateHostStatusMutation = {
   __typename?: "Mutation";
   updateHostStatus: number;
+};
+
+export type UpdatePatchDescriptionMutationVariables = Exact<{
+  patchId: Scalars["String"];
+  description: Scalars["String"];
+}>;
+
+export type UpdatePatchDescriptionMutation = {
+  __typename?: "Mutation";
+  schedulePatch: {
+    __typename?: "Patch";
+    activated: boolean;
+    alias?: string | null;
+    author: string;
+    commitQueuePosition?: number | null;
+    description: string;
+    id: string;
+    status: string;
+    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+    variantsTasks: Array<{
+      __typename?: "VariantTask";
+      name: string;
+      tasks: Array<string>;
+    } | null>;
+  };
 };
 
 export type UpdatePublicKeyMutationVariables = Exact<{

@@ -78,6 +78,7 @@ const Hosts: React.VFC = () => {
     HostsQueryVariables
   >(HOSTS, {
     variables: queryVariables,
+    fetchPolicy: "cache-and-network",
   });
 
   const hosts = hostsData?.hosts;
@@ -148,7 +149,7 @@ const Hosts: React.VFC = () => {
         setRestartJasperError={setRestartJasperError}
         setCanReprovision={setCanReprovision}
         setReprovisionError={setReprovisionError}
-        loading={loading}
+        loading={loading && hostItems.length === 0}
       />
       <UpdateStatusModal
         data-cy="update-host-status-modal"

@@ -1,34 +1,19 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { getSubscriberText } from "constants/subscription";
-import { projectTriggers } from "constants/triggers";
+import { convertFamilyTrigger, projectTriggers } from "constants/triggers";
 import {
   BannerTheme,
   ProjectInput,
   SubscriptionInput,
 } from "gql/generated/types";
-import { TriggerType } from "types/triggers";
 import { string } from "utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { ProjectType } from "../utils";
 import { getGqlPayload } from "./getGqlPayload";
-import { FormState } from "./types";
 
 type Tab = ProjectSettingsTabRoutes.Notifications;
 
 const { toSentenceCase } = string;
-
-const convertFamilyTrigger = (trigger: string) => {
-  switch (trigger) {
-    case TriggerType.FAMILY_OUTCOME:
-      return TriggerType.OUTCOME;
-    case TriggerType.FAMILY_FAILURE:
-      return TriggerType.FAILURE;
-    case TriggerType.FAMILY_SUCCESS:
-      return TriggerType.SUCCESS;
-    default:
-      return trigger;
-  }
-};
 
 const getTriggerText = (trigger: string, resourceType: string) => {
   const convertedTrigger = convertFamilyTrigger(trigger);
@@ -74,7 +59,7 @@ const getHttpHeaders = (headers: { key: string; value: string }[]) =>
       }))
     : [];
 
-export const gqlToForm: GqlToFormFunction<Tab> = (data, { projectType }) => {
+export const gqlToForm = ((data, { projectType }) => {
   if (!data) return null;
   const { projectRef, subscriptions } = data;
   return {
@@ -152,12 +137,9 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data, { projectType }) => {
         )
       : [],
   };
-};
+}) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql: FormToGqlFunction<Tab> = (
-  formState: FormState,
-  projectId
-) => {
+export const formToGql = ((formState, projectId) => {
   const { buildBreakSettings, subscriptions, banner } = formState;
   const projectRef: ProjectInput = {
     id: projectId,
@@ -171,4 +153,4 @@ export const formToGql: FormToGqlFunction<Tab> = (
     projectRef,
     subscriptions: transformedSubscriptions,
   };
-};
+}) satisfies FormToGqlFunction<Tab>;

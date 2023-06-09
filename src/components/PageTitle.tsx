@@ -32,7 +32,8 @@ const TitleTypography: React.VFC<TitleTypographyProps> = ({
   }
 };
 
-export const PageTitle: React.VFC<Props> = ({
+export const PageTitle: React.FC<Props> = ({
+  children,
   loading,
   title,
   badge,
@@ -54,6 +55,7 @@ export const PageTitle: React.VFC<Props> = ({
           <TitleWrapper size={size}>
             <TitleTypography size={size}>
               <span data-cy="page-title">{title}</span>
+              {children}
               <BadgeWrapper size={size}>{badge}</BadgeWrapper>
             </TitleTypography>
           </TitleWrapper>

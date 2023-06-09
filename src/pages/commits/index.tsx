@@ -119,6 +119,7 @@ const Commits = () => {
     MainlineCommitsQueryVariables
   >(GET_MAINLINE_COMMITS, {
     skip: !projectIdentifier || isResizing,
+    fetchPolicy: "cache-and-network",
     variables,
     pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (e) =>
@@ -207,7 +208,9 @@ const Commits = () => {
           <CommitsWrapper
             versions={versions}
             error={error}
-            isLoading={loading || !projectIdentifier || isResizing}
+            isLoading={
+              (loading && !versions) || !projectIdentifier || isResizing
+            }
             hasTaskFilter={hasTasks}
             hasFilters={hasFilters}
           />

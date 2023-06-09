@@ -8,16 +8,17 @@ export interface SpruceWidgetProps extends WidgetProps {
     "aria-controls": string[];
     "data-cy": string;
     ariaLabelledBy: string;
+    customLabel: string;
     description: string;
     elementWrapperCSS: SerializedStyles;
     emptyValue: string | null;
     errors: string[];
-    showLabel: boolean;
-    tooltipDescription: string;
+    focusOnMount: boolean;
     inputType: TextInputType;
-    warnings: string[];
-    customLabel: string;
+    showLabel: boolean;
     sizeVariant: string;
+    tooltipDescription: string;
+    warnings: string[];
   }>;
 }
 
