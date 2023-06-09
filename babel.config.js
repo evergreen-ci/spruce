@@ -8,6 +8,7 @@ module.exports = {
         importSource: "@emotion/react",
       },
     ],
+    "@babel/preset-typescript",
   ],
   plugins: [
     [

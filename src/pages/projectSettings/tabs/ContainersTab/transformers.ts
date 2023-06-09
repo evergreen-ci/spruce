@@ -1,15 +1,9 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { FormState } from "./types";
 
 type Tab = ProjectSettingsTabRoutes.Containers;
 
-export const gqlToForm: GqlToFormFunction<Tab> = (
-  data:
-    | ProjectSettingsQuery["projectSettings"]
-    | RepoSettingsQuery["repoSettings"]
-) => {
+export const gqlToForm = ((data) => {
   if (!data) return null;
   const { projectRef } = data;
   const { containerSizeDefinitions } = projectRef;
@@ -19,12 +13,9 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
       variables: containerSizeDefinitions,
     },
   };
-};
+}) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql: FormToGqlFunction<Tab> = (
-  formState: FormState,
-  id: string
-) => {
+export const formToGql = ((formState, id) => {
   const { containerSizeDefinitions } = formState;
   return {
     projectRef: {
@@ -32,4 +23,4 @@ export const formToGql: FormToGqlFunction<Tab> = (
       containerSizeDefinitions: containerSizeDefinitions.variables,
     },
   };
-};
+}) satisfies FormToGqlFunction<Tab>;
