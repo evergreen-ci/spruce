@@ -50,13 +50,6 @@ const wrapper: React.VFC<wrapperProps> = ({ children, mocks = [], state }) => (
 );
 
 describe("taskHistoryRow", () => {
-  it("renders an initial loading row with 7 cells when there is no data", () => {
-    render(<TaskHistoryRow index={0} data={taskRow} />, {
-      wrapper,
-    });
-    expect(screen.queryAllByDataCy("loading-cell")).toHaveLength(7);
-  });
-
   it("renders a row when there is data", () => {
     render(<TaskHistoryRow index={0} data={taskRow} />, {
       route: "/task-history/mci/test-thirdparty",

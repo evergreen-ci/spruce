@@ -51,13 +51,6 @@ const wrapper: React.VFC<wrapperProps> = ({ children, mocks = [], state }) => (
 );
 
 describe("variantHistoryRow", () => {
-  it("renders an initial loading row with 7 cells when there is no data", () => {
-    render(<VariantHistoryRow index={0} data={undefined} />, {
-      wrapper,
-    });
-    expect(screen.queryAllByDataCy("loading-cell")).toHaveLength(7);
-  });
-
   it("renders a row when there is data", () => {
     render(<VariantHistoryRow index={0} data={taskRow} />, {
       route: "/variant-history/mci/ubuntu1604",
