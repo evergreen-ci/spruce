@@ -29,8 +29,14 @@ import {
   MainlineCommitsQuery,
   MainlineCommitsQueryVariables,
   ProjectHealthView,
+  ProjectHealthViewQuery,
+  ProjectHealthViewQueryVariables,
 } from "gql/generated/types";
-import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
+import {
+  GET_MAINLINE_COMMITS,
+  GET_SPRUCE_CONFIG,
+  PROJECT_HEALTH_VIEW,
+} from "gql/queries";
 import {
   usePageTitle,
   usePolling,
@@ -89,6 +95,21 @@ const Commits = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectIdentifier, spruceData]);
+
+  const [view, setView] = useQueryParam(
+    ProjectFilterOptions.View,
+    ProjectHealthView.Failed
+  );
+
+  useQuery<ProjectHealthViewQuery, ProjectHealthViewQueryVariables>(
+    PROJECT_HEALTH_VIEW,
+    {
+      variables: { identifier: projectIdentifier },
+      onCompleted: ({ projectSettings }) => {
+        setView(projectSettings?.projectRef?.projectHealthView);
+      },
+    }
+  );
 
   const statusFilters = toArray(parsed[ProjectFilterOptions.Status]);
   const variantFilters = toArray(parsed[ProjectFilterOptions.BuildVariant]);
@@ -158,11 +179,6 @@ const Commits = () => {
     }
   };
 
-  const [view, setView] = useQueryParam(
-    ProjectFilterOptions.View,
-    data?.projectSettings?.projectRef?.projectHealthView
-  );
-
   return (
     <PageWrapper>
       <ProjectBanner projectIdentifier={projectIdentifier} />
@@ -210,10 +226,16 @@ const Commits = () => {
         </BadgeWrapper>
         <PaginationWrapper>
           <SegmentedControl label="Icon View" value={view} onChange={setView}>
-            <SegmentedControlOption value={ProjectHealthView.Failed}>
+            <SegmentedControlOption
+              data-cy="view-failed"
+              value={ProjectHealthView.Failed}
+            >
               Default
             </SegmentedControlOption>
-            <SegmentedControlOption value={ProjectHealthView.All}>
+            <SegmentedControlOption
+              data-cy="view-all"
+              value={ProjectHealthView.All}
+            >
               All Tasks
             </SegmentedControlOption>
           </SegmentedControl>

@@ -36,7 +36,6 @@ const getMainlineCommitsQueryVariables = (
       generateBuildVariantOptionsForGroupedTasksFromState(state),
     buildVariantOptionsForTaskIcons:
       generateBuildVariantOptionsForTaskIconsFromState(state),
-    projectIdentifier: state.mainlineCommitOptions.projectIdentifier,
   };
   return variables;
 };

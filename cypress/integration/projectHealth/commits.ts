@@ -20,6 +20,22 @@ describe("commits page", () => {
     );
     cy.dataCy("grouped-task-status-badge").should("not.exist");
   });
+
+  it("shows all icons when toggled", () => {
+    cy.dataCy("waterfall-task-status-icon").should("exist");
+
+    cy.dataCy("view-all").click();
+    cy.dataCy("waterfall-task-status-icon")
+      .should("be.visible")
+      .should("have.length", 50);
+    cy.location("search").should("contain", "view=ALL");
+
+    cy.dataCy("view-failed").click();
+    cy.dataCy("waterfall-task-status-icon")
+      .should("be.visible")
+      .should("have.length", 2);
+  });
+
   it("should be able to collapse/expand commit graph which retains state when paginating", () => {
     cy.dataCy("commit-chart-container").should("exist");
     cy.dataCy("commit-chart-container").should("be.visible");

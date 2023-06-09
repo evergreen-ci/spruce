@@ -5437,7 +5437,6 @@ export type MainlineCommitsQueryVariables = Exact<{
   buildVariantOptionsForGraph: BuildVariantOptions;
   buildVariantOptionsForTaskIcons: BuildVariantOptions;
   buildVariantOptionsForGroupedTasks: BuildVariantOptions;
-  projectIdentifier: Scalars["String"];
 }>;
 
 export type MainlineCommitsQuery = {
@@ -5520,14 +5519,6 @@ export type MainlineCommitsQuery = {
       } | null;
     }>;
   } | null;
-  projectSettings: {
-    __typename?: "ProjectSettings";
-    projectRef?: {
-      __typename?: "Project";
-      id: string;
-      projectHealthView: ProjectHealthView;
-    } | null;
-  };
 };
 
 export type MyHostsQueryVariables = Exact<{ [key: string]: never }>;
@@ -7819,6 +7810,22 @@ export type HostsQuery = {
         name?: string | null;
       } | null;
     }>;
+  };
+};
+
+export type ProjectHealthViewQueryVariables = Exact<{
+  identifier: Scalars["String"];
+}>;
+
+export type ProjectHealthViewQuery = {
+  __typename?: "Query";
+  projectSettings: {
+    __typename?: "ProjectSettings";
+    projectRef?: {
+      __typename?: "Project";
+      id: string;
+      projectHealthView: ProjectHealthView;
+    } | null;
   };
 };
 
