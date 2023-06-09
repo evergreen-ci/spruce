@@ -38,6 +38,11 @@ const validateURLTemplate = (url: string): boolean => {
   return validateURL(formattedURL);
 };
 
+/**
+ * `validateSSHPublicKey` tests if a provided string is a valid ssh public key
+ * @param v - the ssh public key to test
+ * @returns - true if the provided string is a valid ssh public key, false otherwise
+ */
 const validateSSHPublicKey = (v: string): boolean => {
   const validSSHKey = /^(ssh-rsa|ssh-dss|ssh-ed25519|ecdsa-sha2-nistp256) /;
   return validSSHKey.test(v);
@@ -51,6 +56,11 @@ const validatePercentage = (percent: string) => {
   return true;
 };
 
+/**
+ *
+ * @param v - the slack channel, user, or id to validate
+ * @returns - true if the provided string is a valid slack channel, user, or id, false otherwise
+ */
 const validateSlack = (v: string): boolean => {
   const validTarget = /(^\S+$)/;
   return validTarget.test(v);
@@ -58,8 +68,8 @@ const validateSlack = (v: string): boolean => {
 
 /**
  *  validateObjectId tests if a provided id is a mongo objectId indicating that it likely belongs to a patch and not a version
- *  @param  {string} id - the id to test
- *  @return {boolean} - true if it is a mongo objectId, false otherwise
+ *  @param id - the id to test
+ *  @returns - true if it is a mongo objectId, false otherwise
  */
 //
 const validateObjectId = (id: string): boolean => {
@@ -69,8 +79,9 @@ const validateObjectId = (id: string): boolean => {
 };
 
 /**
- * validateRegexp tests if a provided string is a valid regular expression
+ * `validateRegexp` tests if a provided string is a valid regular expression
  * @param regexp - the regexp to test
+ * @returns - true if it is a valid regexp, false otherwise
  */
 const validateRegexp = (regexp: string): boolean => {
   try {

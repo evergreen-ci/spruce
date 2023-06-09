@@ -7,6 +7,7 @@ type useNetworkStatusType = {
 
 /**
  * This hook sets an eventListener to monitor if the browser is online or offline.
+ * @param sendAnalytics - whether or not to send an analytics event when the browser goes online
  * @returns boolean - true if online, false if offline
  */
 export const useNetworkStatus: useNetworkStatusType = (

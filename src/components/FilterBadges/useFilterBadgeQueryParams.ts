@@ -8,6 +8,11 @@ const { parseQueryString } = queryString;
 
 /**
  * useFilterBadgeQueryParams is used alongside the FilterBadges component to tie its state to query params
+ * @param validQueryParams - a set of valid query params that the FilterBadges component can use
+ * @returns - an object with the following properties:
+ * `queryParamsList` - a list of badges that are currently in the query params
+ * `handleClearAll` - a function that clears all badges from the query params
+ * `handleOnRemove` - a function that removes a badge from the query params
  */
 const useFilterBadgeQueryParams = (validQueryParams: Set<string>) => {
   const updateQueryParams = useUpdateURLQueryParams();

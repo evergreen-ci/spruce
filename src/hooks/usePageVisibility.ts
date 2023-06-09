@@ -7,6 +7,7 @@ type usePageVisibilityType = {
 
 /**
  * This hook sets an eventListener to monitor if the tab is visible or hidden.
+ * @param sendAnalytics - whether or not to send an analytics event when the tab goes visible
  * @returns boolean - true if visible, false if hidden
  */
 export const usePageVisibility: usePageVisibilityType = (

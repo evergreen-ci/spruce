@@ -15,11 +15,12 @@ interface Props {
 /**
  * Pagination component for navigating between pages of data
  * By default it will update the page query param in the URL
- *
- * @param currentPage - 0 indexed current page
- * @param onChange - optional callback for when the page changes (Will override the default behavior of updating the URL query param)
- * @param totalResults - total number of results
- * @param pageSize - maximum number of results per page
+ * @param props - React props passed to the component
+ * @param props.currentPage - the current page
+ * @param props.onChange - optional callback for when the page changes (Will override the default behavior of updating the URL query param)
+ * @param props.totalResults - total number of results
+ * @param props.pageSize - maximum number of results per page
+ * @returns The Pagination component
  */
 const Pagination: React.VFC<Props> = ({
   currentPage,
