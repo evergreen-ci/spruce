@@ -1,13 +1,10 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectSettingsQuery } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { FormState } from "./types";
 
 type Tab = ProjectSettingsTabRoutes.ViewsAndFilters;
 
-export const gqlToForm: GqlToFormFunction<Tab> = (
-  data: ProjectSettingsQuery["projectSettings"]
-) => {
+export const gqlToForm = ((data: ProjectSettingsQuery["projectSettings"]) => {
   if (!data) return null;
 
   const {
@@ -26,12 +23,9 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
       projectHealthView,
     },
   };
-};
+}) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql: FormToGqlFunction<Tab> = (
-  { parsleyFilters, view }: FormState,
-  id: string
-) => ({
+export const formToGql = (({ parsleyFilters, view }, id) => ({
   projectRef: {
     id,
     parsleyFilters: parsleyFilters.map(
@@ -43,4 +37,4 @@ export const formToGql: FormToGqlFunction<Tab> = (
     ),
     projectHealthView: view.projectHealthView,
   },
-});
+})) satisfies FormToGqlFunction<Tab>;

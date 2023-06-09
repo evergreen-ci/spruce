@@ -1,12 +1,8 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import {
-  PeriodicBuild,
-  ProjectSettingsQuery,
-  RepoSettingsQuery,
-} from "gql/generated/types";
+import { PeriodicBuild } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { ProjectType } from "../utils";
-import { FormState, IntervalSpecifier } from "./types";
+import { IntervalSpecifier } from "./types";
 
 type Tab = ProjectSettingsTabRoutes.PeriodicBuilds;
 
@@ -23,12 +19,7 @@ const getTitle = (
   return intervalHours ? `Every ${intervalHours} hours` : cron;
 };
 
-export const gqlToForm: GqlToFormFunction<Tab> = (
-  data:
-    | ProjectSettingsQuery["projectSettings"]
-    | RepoSettingsQuery["repoSettings"],
-  { projectType }: { projectType: ProjectType }
-) => {
+export const gqlToForm = ((data, { projectType }) => {
   if (!data) return null;
 
   const {
@@ -70,10 +61,10 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
         })
       ) ?? [],
   };
-};
+}) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql: FormToGqlFunction<Tab> = (
-  { periodicBuildsOverride, periodicBuilds }: FormState,
+export const formToGql = ((
+  { periodicBuildsOverride, periodicBuilds },
   projectId
 ) => ({
   projectRef: {
@@ -99,4 +90,4 @@ export const formToGql: FormToGqlFunction<Tab> = (
         )
       : null,
   },
-});
+})) satisfies FormToGqlFunction<Tab>;

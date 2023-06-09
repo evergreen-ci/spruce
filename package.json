@@ -34,7 +34,7 @@
     "test:watch": "node scripts/test.js  --verbose",
     "test": "node scripts/test.js  --watchAll=false",
     "upload-source-maps": "env-cmd -e production node ./scripts/upload-bugsnag-sourcemaps",
-    "postversion": "git push upstream && git push upstream --tags && git push && git push --tags"
+    "postversion": "scripts/push-version.sh"
   },
   "browserslist": {
     "production": [
@@ -128,6 +128,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.17.12",
     "@babel/preset-react": "^7.12.13",
+    "@babel/preset-typescript": "7.21.5",
     "@bugsnag/source-maps": "^2.3.0",
     "@emotion/babel-plugin": "11.11.0",
     "@emotion/eslint-plugin": "11.11.0",

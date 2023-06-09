@@ -1285,6 +1285,7 @@ export type ProjectPatchesArgs = {
 export type ProjectAlias = {
   __typename?: "ProjectAlias";
   alias: Scalars["String"];
+  description?: Maybe<Scalars["String"]>;
   gitTag: Scalars["String"];
   id: Scalars["String"];
   remotePath: Scalars["String"];
@@ -1296,6 +1297,7 @@ export type ProjectAlias = {
 
 export type ProjectAliasInput = {
   alias: Scalars["String"];
+  description?: InputMaybe<Scalars["String"]>;
   gitTag: Scalars["String"];
   id: Scalars["String"];
   remotePath: Scalars["String"];

@@ -1,19 +1,13 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { alias as aliasUtils, ProjectType } from "../utils";
-import { FormState, TaskSpecifier } from "./types";
+import { TaskSpecifier } from "./types";
 
 const { sortAliases, transformAliases } = aliasUtils;
 
 type Tab = ProjectSettingsTabRoutes.PatchAliases;
 
-export const gqlToForm: GqlToFormFunction<Tab> = (
-  data:
-    | ProjectSettingsQuery["projectSettings"]
-    | RepoSettingsQuery["repoSettings"],
-  options: { projectType: ProjectType }
-) => {
+export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
   if (!data) return null;
 
   const {
@@ -52,10 +46,10 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
         })) ?? [],
     },
   };
-};
+}) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql: FormToGqlFunction<Tab> = (
-  { patchAliases, patchTriggerAliases: ptaData }: FormState,
+export const formToGql = ((
+  { patchAliases, patchTriggerAliases: ptaData },
   id
 ) => {
   const aliases = transformAliases(
@@ -97,4 +91,4 @@ export const formToGql: FormToGqlFunction<Tab> = (
     projectRef: { id, patchTriggerAliases, githubTriggerAliases },
     aliases,
   };
-};
+}) satisfies FormToGqlFunction<Tab>;
