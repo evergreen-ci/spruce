@@ -36,6 +36,7 @@ const getMainlineCommitsQueryVariables = (
       generateBuildVariantOptionsForGroupedTasksFromState(state),
     buildVariantOptionsForTaskIcons:
       generateBuildVariantOptionsForTaskIconsFromState(state),
+    projectIdentifier: state.mainlineCommitOptions.projectIdentifier,
   };
   return variables;
 };
@@ -77,20 +78,25 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
 
   let shouldShowTaskIcons = true;
   let statusesToShow = [];
-  if (filterState.view === ProjectHealthView.All) {
-    // preserve the above states if "All" view enabled
-  } else if (hasTasks) {
-    statusesToShow = filterState.statuses;
-  } else if (hasStatuses) {
-    const onlyHasNonFailingStatuses =
-      arrayIntersection(filterState.statuses, FAILED_STATUSES).length === 0;
-    if (onlyHasNonFailingStatuses) {
-      shouldShowTaskIcons = false;
+
+  // Don't filter icons if "All" view is applied
+  if (filterState.view === ProjectHealthView.Failed) {
+    if (hasTasks) {
+      statusesToShow = filterState.statuses;
+    } else if (hasStatuses) {
+      const onlyHasNonFailingStatuses =
+        arrayIntersection(filterState.statuses, FAILED_STATUSES).length === 0;
+      if (onlyHasNonFailingStatuses) {
+        shouldShowTaskIcons = false;
+      } else {
+        statusesToShow = arrayIntersection(
+          filterState.statuses,
+          FAILED_STATUSES
+        );
+      }
     } else {
-      statusesToShow = arrayIntersection(filterState.statuses, FAILED_STATUSES);
+      statusesToShow = FAILED_STATUSES;
     }
-  } else {
-    statusesToShow = FAILED_STATUSES;
   }
 
   const buildVariantOptions = {

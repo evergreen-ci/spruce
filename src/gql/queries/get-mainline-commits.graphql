@@ -6,6 +6,7 @@ query MainlineCommits(
   $buildVariantOptionsForGraph: BuildVariantOptions!
   $buildVariantOptionsForTaskIcons: BuildVariantOptions!
   $buildVariantOptionsForGroupedTasks: BuildVariantOptions!
+  $projectIdentifier: String!
 ) {
   mainlineCommits(
     options: $mainlineCommitsOptions
@@ -60,6 +61,12 @@ query MainlineCommits(
         }
         ...UpstreamProject
       }
+    }
+  }
+  projectSettings(identifier: $projectIdentifier) {
+    projectRef {
+      id
+      projectHealthView
     }
   }
 }

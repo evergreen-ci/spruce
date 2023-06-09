@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import {
+  SegmentedControl,
+  SegmentedControlOption,
+} from "@leafygreen-ui/segmented-control";
 import Cookies from "js-cookie";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
@@ -33,6 +37,7 @@ import {
   useUpsertQueryParams,
   useUserSettings,
 } from "hooks";
+import { useQueryParam } from "hooks/useQueryParam";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString, validators } from "utils";
 import { CommitsWrapper } from "./CommitsWrapper";
@@ -153,6 +158,11 @@ const Commits = () => {
     }
   };
 
+  const [view, setView] = useQueryParam(
+    ProjectFilterOptions.View,
+    data?.projectSettings?.projectRef?.projectHealthView
+  );
+
   return (
     <PageWrapper>
       <ProjectBanner projectIdentifier={projectIdentifier} />
@@ -199,6 +209,14 @@ const Commits = () => {
           />
         </BadgeWrapper>
         <PaginationWrapper>
+          <SegmentedControl label="Icon View" value={view} onChange={setView}>
+            <SegmentedControlOption value={ProjectHealthView.Failed}>
+              Default
+            </SegmentedControlOption>
+            <SegmentedControlOption value={ProjectHealthView.All}>
+              All Tasks
+            </SegmentedControlOption>
+          </SegmentedControl>
           <PaginationButtons
             prevPageOrderNumber={prevPageOrderNumber}
             nextPageOrderNumber={nextPageOrderNumber}
@@ -242,6 +260,7 @@ const BadgeWrapper = styled.div`
 `;
 const PaginationWrapper = styled.div`
   display: flex;
+  gap: ${size.xs};
   justify-content: flex-end;
   padding-bottom: ${size.xs};
 `;
