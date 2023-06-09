@@ -354,6 +354,7 @@ const projectSettingsMock: ApolloMock<
           {
             id: "arst",
             alias: "arst",
+            description: "desc",
             gitTag: "v[0-9]+\\.[0-9]+\\.[0-9]+",
             variant: "ubuntu[0-9]+04",
             task: "arst",

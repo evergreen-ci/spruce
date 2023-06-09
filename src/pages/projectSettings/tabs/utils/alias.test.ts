@@ -32,6 +32,7 @@ describe("transformAliases", () => {
       {
         id: "123",
         alias: "__github",
+        description: "",
         variantTags: [],
         taskTags: [],
         variant: ".*",
@@ -81,6 +82,7 @@ describe("transformAliases", () => {
       {
         id: "456",
         alias: "__commit_queue",
+        description: "",
         variantTags: ["new"],
         taskTags: ["test"],
         variant: "",
@@ -98,6 +100,7 @@ describe("transformAliases", () => {
           {
             id: "",
             alias: "myAlias",
+            description: "myDescription",
             variants: {
               specifier: VariantTaskSpecifier.Tags,
               variant: "",
@@ -116,6 +119,7 @@ describe("transformAliases", () => {
       {
         id: "",
         alias: "myAlias",
+        description: "myDescription",
         variantTags: ["hello"],
         taskTags: ["goodbye"],
         variant: "",
@@ -155,6 +159,7 @@ describe("transformAliases", () => {
         {
           id: "",
           alias: "__git_tag",
+          description: "",
           gitTag: "test",
           remotePath: "evergreen.yml",
           variantTags: [],
@@ -193,6 +198,7 @@ describe("transformAliases", () => {
         {
           id: "",
           alias: "__git_tag",
+          description: "",
           gitTag: "test",
           remotePath: "",
           variantTags: ["hello"],

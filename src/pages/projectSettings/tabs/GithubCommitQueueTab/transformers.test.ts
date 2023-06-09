@@ -276,6 +276,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
     {
       id: "2",
       alias: "__github_checks",
+      description: "",
       gitTag: "",
       remotePath: "",
       task: "",

@@ -169,6 +169,7 @@ export const transformAliases = (
             ? {
                 id: id || "",
                 alias: aliasName,
+                description: "",
                 gitTag,
                 remotePath,
                 variant: "",
@@ -179,6 +180,7 @@ export const transformAliases = (
             : {
                 id: id || "",
                 alias: aliasName,
+                description: "",
                 gitTag,
                 remotePath: "",
                 ...(variants && transformVariants(variants)),
@@ -188,7 +190,7 @@ export const transformAliases = (
         return {
           id: id || "",
           alias: alias || aliasName,
-          description,
+          description: description || "",
           ...(variants && transformVariants(variants)),
           ...(tasks && transformTasks(tasks)),
           gitTag: "",
