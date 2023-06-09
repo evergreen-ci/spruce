@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
-import { LoadingCell, LabelCellContainer } from "../../Cell";
+import { LoadingCell, LabelCellContainer } from "components/HistoryTable/Cell";
 
 interface LoadingRowProps {
   numVisibleCols: number;

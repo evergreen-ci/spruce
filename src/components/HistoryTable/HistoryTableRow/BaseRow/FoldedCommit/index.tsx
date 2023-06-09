@@ -41,7 +41,7 @@ const FoldedCommit: React.VFC<FoldedCommitProps> = ({
   const numCommits = rolledUpCommits.length;
 
   const columns = Array.from(Array(numVisibleCols)).map((_, idx) => (
-    <EmptyCell key={`loading_row_${idx}`} /> // eslint-disable-line react/no-array-index-key
+    <EmptyCell key={`empty_cell_${idx}`} /> // eslint-disable-line react/no-array-index-key
   ));
 
   const commits = rolledUpCommits.map((commit) => (
