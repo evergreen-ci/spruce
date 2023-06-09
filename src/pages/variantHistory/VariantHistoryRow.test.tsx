@@ -100,7 +100,7 @@ describe("variantHistoryRow", () => {
     expect(screen.queryAllByDataCy("task-cell")).toHaveLength(3);
   });
 
-  it("renders a blank cell when there isn't a matching variant for that row", () => {
+  it("renders a blank cell when there isn't a matching variant for that column", () => {
     render(<VariantHistoryRow index={0} data={taskRow} />, {
       route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",

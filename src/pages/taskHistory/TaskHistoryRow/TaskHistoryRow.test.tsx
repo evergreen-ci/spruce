@@ -95,7 +95,7 @@ describe("taskHistoryRow", () => {
     expect(screen.queryAllByDataCy("task-cell")).toHaveLength(3);
   });
 
-  it("renders a blank cell when there isn't a matching variant for that row", () => {
+  it("renders a blank cell when there isn't a matching variant for that column", () => {
     render(<TaskHistoryRow index={0} data={taskRow} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
