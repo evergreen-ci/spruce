@@ -1,16 +1,17 @@
 import styled from "@emotion/styled";
-import { useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { wordBreakCss, StyledRouterLink } from "components/styles";
 import { getVersionRoute } from "constants/routes";
+import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { size } from "constants/tokens";
 import { StatusCount } from "gql/generated/types";
-
-import { queryString, string, statuses } from "utils";
+import { useQueryParam } from "hooks/useQueryParam";
+import { PatchTasksQueryParams, TaskStatus } from "types/task";
+import { string, statuses } from "utils";
+import { arraySymmetricDifference } from "utils/array";
 
 const { groupStatusesByUmbrellaStatus } = statuses;
-const { parseQueryString } = queryString;
 const { applyStrictRegex } = string;
 
 interface VariantTaskGroupProps {
@@ -26,11 +27,19 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
   versionId,
 }) => {
   const { sendEvent } = useVersionAnalytics(versionId);
-  const { search } = useLocation();
-  const queryParams = parseQueryString(search);
+
+  const [variantSearch] = useQueryParam<string | null>(
+    PatchTasksQueryParams.Variant,
+    undefined
+  );
+  const [sorts] = useQueryParam(PatchTasksQueryParams.Sorts, undefined);
+  const [statusSearch] = useQueryParam<string[] | null>(
+    PatchTasksQueryParams.Statuses,
+    []
+  );
 
   const versionRouteParams = {
-    sorts: queryParams.sorts,
+    sorts,
     page: 0,
     variant: applyStrictRegex(variant),
   };
@@ -42,7 +51,7 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
     });
   };
 
-  const areAnyVariantsSelected = !!queryParams.variant;
+  const areAnyVariantsSelected = !!variantSearch;
   const { stats } = groupStatusesByUmbrellaStatus(statusCounts ?? []);
 
   return (
@@ -73,15 +82,37 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
               status={umbrellaStatus}
               statusCounts={groupedStatusCounts}
               versionId={versionId}
-              isVariantActive={
+              isActive={
                 !areAnyVariantsSelected ||
-                queryParams.variant === applyStrictRegex(variant)
+                (variantSearch === applyStrictRegex(variant) &&
+                  isUmbrellaStatusSet(umbrellaStatus, statusSearch))
               }
             />
           )
         )}
       </TaskBadgeContainer>
     </div>
+  );
+};
+
+const isUmbrellaStatusSet = (
+  status: TaskStatus,
+  activeStatusSearch: string[]
+) => {
+  console.log({
+    activeStatusSearch,
+    umbrellaStatus: mapUmbrellaStatusToQueryParam[status],
+    diff: arraySymmetricDifference(
+      mapUmbrellaStatusToQueryParam[status],
+      activeStatusSearch
+    ),
+  });
+
+  return (
+    arraySymmetricDifference(
+      mapUmbrellaStatusToQueryParam[status],
+      activeStatusSearch
+    ).length === 0
   );
 };
 

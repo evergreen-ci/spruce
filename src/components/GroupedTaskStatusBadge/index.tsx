@@ -19,7 +19,7 @@ interface GroupedTaskStatusBadgeProps {
   statusCounts?: { [key: string]: number };
   versionId: string;
   queryParamsToPreserve?: GetVersionRouteOptions;
-  isVariantActive?: boolean;
+  isActive?: boolean;
 }
 
 export const GroupedTaskStatusBadge: React.VFC<GroupedTaskStatusBadgeProps> = ({
@@ -29,7 +29,7 @@ export const GroupedTaskStatusBadge: React.VFC<GroupedTaskStatusBadgeProps> = ({
   statusCounts,
   versionId,
   queryParamsToPreserve = {},
-  isVariantActive = true,
+  isActive,
 }) => {
   const href = getVersionRoute(versionId, {
     ...queryParamsToPreserve,
@@ -54,10 +54,10 @@ export const GroupedTaskStatusBadge: React.VFC<GroupedTaskStatusBadgeProps> = ({
             data-cy="grouped-task-status-badge"
           >
             <BadgeContainer
-              fill={isVariantActive ? fill : hexToRGBA(fill, 0.2)}
+              fill={fill}
               border={border}
               text={text}
-              active={isVariantActive}
+              isActive={isActive}
             >
               <Number>{count}</Number>
               <Status>{taskStatusToCopy[status]}</Status>
@@ -87,7 +87,7 @@ interface BadgeColorProps {
   border?: string;
   fill?: string;
   text?: string;
-  active?: boolean;
+  isActive?: boolean;
 }
 
 const BadgeContainer = styled.div<BadgeColorProps>`
@@ -101,9 +101,16 @@ const BadgeContainer = styled.div<BadgeColorProps>`
   align-items: center;
   line-height: normal;
   ${({ border }) => border && `border-color: ${border};`}
-  ${({ fill }) => fill && `background-color: ${fill};`}
+  ${({ fill, isActive }) =>
+    fill &&
+    `background-color: ${isActive === false ? hexToRGBA(fill, 0.2) : fill};`}
   ${({ text }) => text && `color: ${text};`}
-  ${({ active }) => active && `font-weight: bold;`}
+  ${({ isActive }) => isActive && `border-width: 2px;`}
+
+  :hover {
+    ${({ isActive, fill }) =>
+      `background-color: ${isActive === false ? fill : hexToRGBA(fill, 0.2)};`}
+  }
 `;
 
 const Row = styled.div`
@@ -125,5 +132,4 @@ const Status = styled.span`
 
 const Count = styled.span`
   font-weight: bold;
-  margin-left: ${size.xxs};
 `;

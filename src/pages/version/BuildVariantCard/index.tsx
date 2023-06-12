@@ -1,10 +1,8 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
-
 import { MetadataCard, MetadataTitle } from "components/MetadataCard";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-
 import {
   BuildVariantStatsQuery,
   BuildVariantStatsQueryVariables,
