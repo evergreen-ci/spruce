@@ -22,7 +22,6 @@ export const useLegacyUIURL = (): string | null => {
       [routes.spawnHost]: `${uiURL}/spawn#?resourcetype=hosts`,
       [routes.spawnVolume]: `${uiURL}/spawn#?resourcetype=volumes`,
       [`${routes.commits}/:id`]: `${uiURL}/waterfall/${id}`,
-      [`${routes.projectSettings}/*`]: `${uiURL}/projects##${id}`,
       [routes.hosts]: `${uiURL}/hosts`,
       [routes.host]: `${uiURL}/host/${id}`,
     };
