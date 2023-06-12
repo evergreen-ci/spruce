@@ -14,6 +14,9 @@ export const useLegacyUIURL = (): string | null => {
   const uiURL = getUiUrl();
 
   useEffect(() => {
+    setId("");
+    setLegacyUIUrl(null);
+
     const legacyUIMap = {
       [`${routes.version}/*`]: `${uiURL}/version/${id}`,
       [`${routes.configurePatch}/*`]: `${uiURL}/patch/${id}`,
