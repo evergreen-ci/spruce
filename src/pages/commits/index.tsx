@@ -1,10 +1,6 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import {
-  SegmentedControl,
-  SegmentedControlOption,
-} from "@leafygreen-ui/segmented-control";
 import Cookies from "js-cookie";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
@@ -29,32 +25,27 @@ import {
   MainlineCommitsQuery,
   MainlineCommitsQueryVariables,
   ProjectHealthView,
-  ProjectHealthViewQuery,
-  ProjectHealthViewQueryVariables,
 } from "gql/generated/types";
-import {
-  GET_MAINLINE_COMMITS,
-  GET_SPRUCE_CONFIG,
-  PROJECT_HEALTH_VIEW,
-} from "gql/queries";
+import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
 import {
   usePageTitle,
   usePolling,
   useUpsertQueryParams,
   useUserSettings,
 } from "hooks";
-import { useQueryParam } from "hooks/useQueryParam";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
-import { array, queryString, validators } from "utils";
+import { array, environmentVariables, queryString, validators } from "utils";
 import { CommitsWrapper } from "./CommitsWrapper";
 import CommitTypeSelect from "./commitTypeSelect";
 import { useCommitLimit } from "./hooks/useCommitLimit";
 import { PaginationButtons } from "./PaginationButtons";
 import { StatusSelect } from "./StatusSelect";
 import { getMainlineCommitsQueryVariables, getFilterStatus } from "./utils";
+import { ViewToggle } from "./ViewToggle";
 import { WaterfallMenu } from "./WaterfallMenu";
 
 const { toArray } = array;
+const { isProduction } = environmentVariables;
 const { parseQueryString, getString } = queryString;
 const { validateRegexp } = validators;
 
@@ -138,23 +129,6 @@ const Commits = () => {
   });
   usePolling({ startPolling, stopPolling, refetch });
 
-  const [view, setView] = useQueryParam(
-    ProjectFilterOptions.View,
-    ProjectHealthView.Failed
-  );
-
-  useQuery<ProjectHealthViewQuery, ProjectHealthViewQueryVariables>(
-    PROJECT_HEALTH_VIEW,
-    {
-      variables: { identifier: projectIdentifier },
-      onCompleted: ({ projectSettings }) => {
-        if (!viewFilter) {
-          setView(projectSettings?.projectRef?.projectHealthView);
-        }
-      },
-    }
-  );
-
   const { mainlineCommits } = data || {};
   const { versions, nextPageOrderNumber, prevPageOrderNumber } =
     mainlineCommits || {};
@@ -227,20 +201,12 @@ const Commits = () => {
           />
         </BadgeWrapper>
         <PaginationWrapper>
-          <SegmentedControl label="Icon View" value={view} onChange={setView}>
-            <SegmentedControlOption
-              data-cy="view-failed"
-              value={ProjectHealthView.Failed}
-            >
-              Default
-            </SegmentedControlOption>
-            <SegmentedControlOption
-              data-cy="view-all"
-              value={ProjectHealthView.All}
-            >
-              All Tasks
-            </SegmentedControlOption>
-          </SegmentedControl>
+          {!isProduction() && (
+            <ViewToggle
+              identifier={projectIdentifier}
+              viewFilter={viewFilter}
+            />
+          )}
           <PaginationButtons
             prevPageOrderNumber={prevPageOrderNumber}
             nextPageOrderNumber={nextPageOrderNumber}
