@@ -1,68 +1,18 @@
-import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
-import { MetadataCard, MetadataTitle } from "components/MetadataCard";
 import { wordBreakCss, StyledRouterLink } from "components/styles";
-import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
-import {
-  BuildVariantStatsQuery,
-  BuildVariantStatsQueryVariables,
-  StatusCount,
-} from "gql/generated/types";
-import { GET_BUILD_VARIANTS_STATS } from "gql/queries";
-import { usePolling } from "hooks";
+import { StatusCount } from "gql/generated/types";
+
 import { queryString, string, statuses } from "utils";
 
 const { groupStatusesByUmbrellaStatus } = statuses;
 const { parseQueryString } = queryString;
 const { applyStrictRegex } = string;
 
-export const BuildVariants: React.VFC = () => {
-  const { id } = useParams<{ id: string }>();
-
-  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
-    BuildVariantStatsQuery,
-    BuildVariantStatsQueryVariables
-  >(GET_BUILD_VARIANTS_STATS, {
-    variables: { id },
-    pollInterval: DEFAULT_POLL_INTERVAL,
-  });
-  usePolling({ startPolling, stopPolling, refetch });
-  const { version } = data || {};
-
-  return (
-    <StickyMetadataCard error={error} loading={loading}>
-      <MetadataTitle>Build Variants</MetadataTitle>
-      <ScrollableBuildVariantStatsContainer data-cy="build-variants">
-        {version?.buildVariantStats?.map(
-          ({ displayName, statusCounts, variant }) => (
-            <VariantTaskGroup
-              key={`buildVariant_${displayName}_${variant}`}
-              displayName={displayName}
-              statusCounts={statusCounts}
-              variant={variant}
-              versionId={id}
-            />
-          )
-        )}
-      </ScrollableBuildVariantStatsContainer>
-    </StickyMetadataCard>
-  );
-};
-
-const StickyMetadataCard = styled(MetadataCard)`
-  position: sticky;
-  top: 0;
-`;
-
-const ScrollableBuildVariantStatsContainer = styled.div`
-  max-height: 55vh;
-  overflow-y: auto;
-`;
 interface VariantTaskGroupProps {
   displayName: string;
   statusCounts: StatusCount[];
@@ -92,6 +42,7 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
     });
   };
 
+  const areAnyVariantsSelected = !!queryParams.variant;
   const { stats } = groupStatusesByUmbrellaStatus(statusCounts ?? []);
 
   return (
@@ -122,6 +73,10 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
               status={umbrellaStatus}
               statusCounts={groupedStatusCounts}
               versionId={versionId}
+              isVariantActive={
+                !areAnyVariantsSelected ||
+                queryParams.variant === applyStrictRegex(variant)
+              }
             />
           )
         )}
@@ -138,3 +93,5 @@ const TaskBadgeContainer = styled.div`
   margin-top: ${size.xs};
   margin-bottom: ${size.xs};
 `;
+
+export default VariantTaskGroup;
