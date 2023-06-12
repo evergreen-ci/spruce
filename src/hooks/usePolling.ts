@@ -23,7 +23,7 @@ type usePollingType = {
  * This hook uses determines polling status based on browser status and page visibility.
  * Depending on these values, it calls start and stop polling functions supplied from an
  * Apollo useQuery hook.
- * @param props - Object containing the following:
+ * @param props  - Object containing the following:
  * @param props.stopPolling - Function from useQuery that is called when offline or not visible
  * @param props.refetch - Optional function from useQuery that can be used to refetch data.
  * @param props.shouldPollFaster - Optional boolean to enable increased poll rate.

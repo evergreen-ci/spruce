@@ -2,6 +2,12 @@ import { TreeDataEntry } from "components/TreeSelect";
 
 const allKey = "all";
 
+/**
+ * `getCurrentStatuses` returns a list of statuses that are currently selected in a TreeSelect tree.
+ * @param statuses - list of statuses to filter
+ * @param treeData - treeData to filter by
+ * @returns - a list of statuses that are currently selected in the TreeSelect.
+ */
 export const getCurrentStatuses = (
   statuses: string[],
   treeData: TreeDataEntry[]

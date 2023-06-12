@@ -3,36 +3,6 @@ import get from "lodash/get";
 
 export { githubPRLinkify } from "./githubPRLinkify";
 
-// shortenString takes a string and shortens it
-// Useful for displaying part of a long string, such as a long taskId
-export const shortenString = (
-  value: string,
-  wordwise: boolean,
-  max: number,
-  tail: string
-): string => {
-  if (!value) {
-    return "";
-  }
-
-  if (!max) {
-    return value;
-  }
-  if (value.length <= max) {
-    return value;
-  }
-
-  let valueSubstring = value.substr(0, max);
-  if (wordwise) {
-    const lastspace = valueSubstring.lastIndexOf(" ");
-    if (lastspace !== -1) {
-      valueSubstring = valueSubstring.substr(0, lastspace);
-    }
-  }
-
-  return valueSubstring + (tail || " …");
-};
-
 /**
  * `msToDuration` converts a number of milliseconds to a string representing the duration
  * @param ms - milliseconds
