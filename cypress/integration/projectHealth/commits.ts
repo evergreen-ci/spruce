@@ -36,6 +36,13 @@ describe("commits page", () => {
       .should("have.length", 2);
   });
 
+  it("shows all icons when loaded with the view all query param", () => {
+    cy.visit(`/commits/spruce?view=ALL`);
+    cy.dataCy("waterfall-task-status-icon")
+      .should("be.visible")
+      .should("have.length", 50);
+  });
+
   it("should be able to collapse/expand commit graph which retains state when paginating", () => {
     cy.dataCy("commit-chart-container").should("exist");
     cy.dataCy("commit-chart-container").should("be.visible");

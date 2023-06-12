@@ -96,21 +96,6 @@ const Commits = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectIdentifier, spruceData]);
 
-  const [view, setView] = useQueryParam(
-    ProjectFilterOptions.View,
-    ProjectHealthView.Failed
-  );
-
-  useQuery<ProjectHealthViewQuery, ProjectHealthViewQueryVariables>(
-    PROJECT_HEALTH_VIEW,
-    {
-      variables: { identifier: projectIdentifier },
-      onCompleted: ({ projectSettings }) => {
-        setView(projectSettings?.projectRef?.projectHealthView);
-      },
-    }
-  );
-
   const statusFilters = toArray(parsed[ProjectFilterOptions.Status]);
   const variantFilters = toArray(parsed[ProjectFilterOptions.BuildVariant]);
   const taskFilters = toArray(parsed[ProjectFilterOptions.Task]);
@@ -152,6 +137,23 @@ const Commits = () => {
       dispatchToast.error(`There was an error loading the page: ${e.message}`),
   });
   usePolling({ startPolling, stopPolling, refetch });
+
+  const [view, setView] = useQueryParam(
+    ProjectFilterOptions.View,
+    ProjectHealthView.Failed
+  );
+
+  useQuery<ProjectHealthViewQuery, ProjectHealthViewQueryVariables>(
+    PROJECT_HEALTH_VIEW,
+    {
+      variables: { identifier: projectIdentifier },
+      onCompleted: ({ projectSettings }) => {
+        if (!viewFilter) {
+          setView(projectSettings?.projectRef?.projectHealthView);
+        }
+      },
+    }
+  );
 
   const { mainlineCommits } = data || {};
   const { versions, nextPageOrderNumber, prevPageOrderNumber } =
