@@ -10,6 +10,7 @@ import {
 } from "constants/task";
 import { fontSize, size, zIndex } from "constants/tokens";
 import { TaskStatus } from "types/task";
+import { hexToRGBA } from "utils/color";
 
 interface GroupedTaskStatusBadgeProps {
   count: number;
@@ -18,6 +19,7 @@ interface GroupedTaskStatusBadgeProps {
   statusCounts?: { [key: string]: number };
   versionId: string;
   queryParamsToPreserve?: GetVersionRouteOptions;
+  isVariantActive?: boolean;
 }
 
 export const GroupedTaskStatusBadge: React.VFC<GroupedTaskStatusBadgeProps> = ({
@@ -27,12 +29,14 @@ export const GroupedTaskStatusBadge: React.VFC<GroupedTaskStatusBadgeProps> = ({
   statusCounts,
   versionId,
   queryParamsToPreserve = {},
+  isVariantActive = true,
 }) => {
   const href = getVersionRoute(versionId, {
     ...queryParamsToPreserve,
     statuses: mapUmbrellaStatusToQueryParam[status],
   });
 
+  // If already on the version page
   const { fill, border, text } = mapUmbrellaStatusColors[status];
 
   return (
@@ -49,7 +53,12 @@ export const GroupedTaskStatusBadge: React.VFC<GroupedTaskStatusBadgeProps> = ({
             onClick={() => onClick()}
             data-cy="grouped-task-status-badge"
           >
-            <BadgeContainer fill={fill} border={border} text={text}>
+            <BadgeContainer
+              fill={isVariantActive ? fill : hexToRGBA(fill, 0.2)}
+              border={border}
+              text={text}
+              active={isVariantActive}
+            >
               <Number>{count}</Number>
               <Status>{taskStatusToCopy[status]}</Status>
             </BadgeContainer>
@@ -78,6 +87,7 @@ interface BadgeColorProps {
   border?: string;
   fill?: string;
   text?: string;
+  active?: boolean;
 }
 
 const BadgeContainer = styled.div<BadgeColorProps>`
@@ -93,6 +103,7 @@ const BadgeContainer = styled.div<BadgeColorProps>`
   ${({ border }) => border && `border-color: ${border};`}
   ${({ fill }) => fill && `background-color: ${fill};`}
   ${({ text }) => text && `color: ${text};`}
+  ${({ active }) => active && `font-weight: bold;`}
 `;
 
 const Row = styled.div`
