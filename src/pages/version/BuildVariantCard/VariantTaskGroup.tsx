@@ -38,10 +38,11 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
     []
   );
 
+  const isVariantSelected = variantSearch === applyStrictRegex(variant);
   const versionRouteParams = {
     sorts,
     page: 0,
-    variant: applyStrictRegex(variant),
+    variant: isVariantSelected ? undefined : applyStrictRegex(variant),
   };
 
   const callBack = (taskSquareStatuses: string[]) => () => {
@@ -84,7 +85,7 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
               versionId={versionId}
               isActive={
                 !areAnyVariantsSelected ||
-                (variantSearch === applyStrictRegex(variant) &&
+                (isVariantSelected &&
                   isUmbrellaStatusSet(umbrellaStatus, statusSearch))
               }
             />
