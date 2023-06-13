@@ -7,8 +7,11 @@ import { queryString } from "utils";
 const { parseQueryString } = queryString;
 /**
  * Status filter state management hook.
- * @param {FilterHookParams}
- * @return {FilterHookResult<string[]>}
+ * @param props - filter hook params
+ * @param props.urlParam - the url param to update
+ * @param props.resetPage - whether or not to reset the page to 0 when the input value changes
+ * @param props.sendAnalyticsEvent - callback to send analytics event when input value changes
+ * @returns - the status filter state and its state management functions
  */
 export const useStatusesFilter = ({
   urlParam,
@@ -60,13 +63,12 @@ export const useStatusesFilter = ({
 };
 
 /**
- * @typedef   {Object} FilterHookResult - Provides filter input state and state management util functions
- * @template  {T}
- * @property  {T} inputValue - Represents input value
- * @property  {(newValue: T) => void} setAndSubmitInputValue - Sets input value and updates URL query param
- * @property  {(newValue: T) => void} setInputValue - Sets input value
- * @property  {() => void} submitInputValue - Updates URL query param with current input value
- * @property  {() => void} reset - Clears input value and URL query param
+ * FilterHookResult - Provides filter input state and state management util functions
+ * inputValue - Represents input value
+ * setAndSubmitInputValue - Sets input value and updates URL query param
+ * setInputValue - Sets input value
+ * submitInputValue - Updates URL query param with current input value
+ * reset - Clears input value and URL query param
  */
 export interface FilterHookResult<T> {
   inputValue: T;
@@ -77,10 +79,9 @@ export interface FilterHookResult<T> {
 }
 
 /**
- * @typedef {Object} FilterHookParams
- * @property {string} urlParam Represents URL query param name
- * @property {boolean} [resetPage] When true, page URL query paramter is set to 0 upon value submission
- * @property {(filterBy: string, filterValue?: string[]) => void} [sendAnalyticsEvent] A side effect executed upon value submission
+ * urlParam - Represents URL query param name
+ * resetPage - When true, page URL query paramter is set to 0 upon value submission
+ * sendAnalyticsEvent - A side effect executed upon value submission
  */
 export interface FilterHookParams {
   urlParam: string;

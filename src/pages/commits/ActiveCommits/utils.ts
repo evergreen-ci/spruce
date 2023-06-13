@@ -110,7 +110,14 @@ export const constructBuildVariantDict = (
   return buildVariantDict;
 };
 
-// Used in Commit Chart Component to calculate bar heights
+/**
+ * `calculateBarHeight` calculates the height of a single bar in a bar chart.
+ * @param value - the value of the bar to calculate the height of
+ * @param max - the largest value in the bar chart
+ * @param total - the total amount of values in the bar chart
+ * @param chartType - the type of chart (percentage or absolute)
+ * @returns the percentage height of the bar
+ */
 export function calculateBarHeight(
   value: number,
   max: number,
