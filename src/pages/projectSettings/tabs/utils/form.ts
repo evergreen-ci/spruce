@@ -10,10 +10,10 @@ const radioBoxOption = (title: string, value: boolean) => ({
 
 /**
  * Generate the options for a radio box group that conditionally includes a third option to "Default to repo".
- *
- * @param {options} string array representing the primary two radio box labels.
- * @param {field} value upon which the default box should be conditionally shown.
- * @param {invert} specify whether or not the field represents an "inverted" value; i.e. the field indicates a feature is disabled rather than enabled. invert ensures that the form represents values consistently regardless of whether a boolean field represents enabled or disabled.
+ * @param options - array of strings representing the primary two radio box labels.
+ * @param field - The field value for which the option should be shown.
+ * @param invert - Whether or not the field represents an "inverted" value; i.e. the field indicates a feature is disabled rather than enabled. invert ensures that the form represents values consistently regardless of whether a boolean field represents enabled or disabled.
+ * @returns - An array of schema objects representing the radio box options.
  */
 export const radioBoxOptions = (
   options: [string, string],

@@ -12,6 +12,10 @@ interface TupleSelectWithRegexConditionalProps
 
 /**
  * TupleSelectWithRegexConditional is a wrapper around TupleSelect that allows the user to toggle between regex and exact match
+ * @param props - TupleSelectWithRegexConditionalProps
+ * @param props.onSubmit - callback function that is called when the user submits a new input
+ * @param props.validator - function that is called to validate the value of the input
+ * @returns The TupleSelectWithRegexConditional component
  */
 const TupleSelectWithRegexConditional: React.VFC<
   TupleSelectWithRegexConditionalProps

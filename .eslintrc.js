@@ -25,6 +25,7 @@ module.exports = {
     "airbnb",
     // Airbnb includes some helpful rules for ESLint and React that aren't covered by recommended.
     // See https://github.com/airbnb/javascript/tree/master/packages for specific rules.
+    "plugin:jsdoc/recommended-typescript-error",
     "plugin:prettier/recommended", // Note: prettier must ALWAYS be the last extension.
   ],
   ignorePatterns: ["!.storybook"],

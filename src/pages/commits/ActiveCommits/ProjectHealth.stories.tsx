@@ -76,8 +76,9 @@ const RenderCommitsWrapper = ({
 
 /**
  * `generateBuildVariants` generates an array of build variants
- * @param count number of build variants to generate
- * @returns
+ * @param buildVariantCount - number of build variants to generate
+ * @param taskCount - number of tasks to generate per build variant
+ * @returns an array of build variants
  */
 const generateBuildVariants = (buildVariantCount: number, taskCount: number) =>
   new Array(buildVariantCount).fill(undefined).map((_, index) => ({
@@ -89,7 +90,7 @@ const generateBuildVariants = (buildVariantCount: number, taskCount: number) =>
 /**
  * `generateTasks` generates an array of tasks with random statuses
  * @param count number of tasks to generate
- * @returns
+ * @returns an array of tasks
  */
 const generateTasks = (count: number) =>
   Array(count)
@@ -104,8 +105,8 @@ const generateTasks = (count: number) =>
 
 /**
  * randomStatus returns a random status from the TaskStatus enum in a round robin fashion
- * @param index
- * @returns
+ * @param index - the index of the task
+ * @returns a random TaskStatus
  */
 const randomStatus = (index: number) => {
   const TaskStatusWithoutUmbrella = Object.values(TaskStatus).filter(
@@ -174,9 +175,8 @@ const populateVersion = (
 
 /**
  * `groupTasksByStatus` groups tasks by status and returns an array of objects with the status and count
- * @param tasks
- * @returns
- *
+ * @param tasks - an array of tasks
+ * @returns an array of objects with the status and count
  */
 const groupTasksByStatus = (tasks: { status: string }[]) => {
   const taskStatusCounts = tasks.reduce((acc, task) => {

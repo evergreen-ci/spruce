@@ -1,7 +1,10 @@
 import { RECENT_PAGE_SIZE_KEY } from "constants/index";
 import { useQueryParams } from "hooks/useQueryParam";
 
-/** usePageSizeSelector updates the page size query param and saves the page size to local storage */
+/**
+ * `usePageSizeSelector` updates the page size query param and saves the page size to local storage
+ * @returns - a function that updates the page size query param
+ */
 const usePageSizeSelector = () => {
   const [, setQueryParams] = useQueryParams();
   const setPageSize = (pageSize: number) => {
