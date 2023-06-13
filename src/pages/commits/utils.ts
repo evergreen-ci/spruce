@@ -37,7 +37,7 @@ const getMainlineCommitsQueryVariables = (
 };
 
 /**
- * getFilterStatus returns an object containing booleans that describe what filters have been applied.
+ * `getFilterStatus` returns an object containing booleans that describe what filters have been applied.
  * @param state - the state of the commits page filters
  * @returns an object containing booleans that describe what filters have been applied
  */

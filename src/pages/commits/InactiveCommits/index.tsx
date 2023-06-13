@@ -124,7 +124,7 @@ interface CommitCopyProps {
  * If isTooltip is true, the commit message is truncated.
  * @param props - CommitCopyProps
  * @param props.v - rolled up version
- * @param props.isTooltip -boolean to indicate if used in tooltip
+ * @param props.isTooltip - boolean to indicate if used in tooltip
  * @returns CommitCopy component
  */
 const CommitCopy: React.VFC<CommitCopyProps> = ({ v, isTooltip }) => {

@@ -111,7 +111,7 @@ export const constructBuildVariantDict = (
 };
 
 /**
- * Calculates the height of a bar in a bar chart
+ * `calculateBarHeight` calculates the height of a single bar in a bar chart.
  * @param value - the value of the bar to calculate the height of
  * @param max - the largest value in the bar chart
  * @param total - the total amount of values in the bar chart

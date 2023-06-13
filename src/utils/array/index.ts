@@ -3,8 +3,8 @@ import { Unpacked } from "types/utils";
 /**
  * `toggleArray` takes in an array of values regardless of type and a new value and safely inserts the value if it doesn't exist in the array.
  * It removes the value from the array if it already exists
- * @param value The value to insert or remove into the array.
- * @param array The array to insert the value into.
+ * @param value - The value to insert or remove into the array.
+ * @param array - The array to insert the value into.
  * @returns The new array with the value inserted.
  * @example
  * const array = [1, 2, 3];
@@ -31,8 +31,8 @@ export const toggleArray = <T>(value: T, array: T[]) => {
 /**
  * `deduplicatedAppend` takes in an array of values regardless of type and a new value and safely inserts the value if it doesn't exist in the array.
  * if it does exist it will do nothing
- * @param value The value to insert into the array.
- * @param array The array to insert the value into.
+ * @param value - The value to insert into the array.
+ * @param array - The array to insert the value into.
  * @returns The new array with the value inserted.
  * @example
  * const array = [1, 2, 3];
@@ -50,8 +50,8 @@ export const deduplicatedAppend = <T>(value: T, array: T[]) => {
 /**
  * `convertArrayToObject` takes an array of objects and a key
  * and returns an object using the provided value of the key as a key and the rest of the object as the value
- * @param array The array of objects to convert to an object
- * @param key The key to use as the key of the object
+ * @param array - The array of objects to convert to an object
+ * @param key - The key to use as the key of the object
  * @returns The object created from the array
  */
 export const convertArrayToObject = <T = { [key: string]: any }>(
@@ -78,7 +78,7 @@ export const convertArrayToObject = <T = { [key: string]: any }>(
 /**
  * `convertObjectToArray` takes an object and returns an array with each of the entries in the object as a value in the array
  * If the entry is an array it will also split up the indices of the array into the array
- * @param obj The object to convert to an array
+ * @param obj - The object to convert to an array
  * @returns The array created from the object
  * @example
  * const obj = {
@@ -109,8 +109,8 @@ type KeyValue<T> = {
 
 /**
  * `mapStringArrayToObject` takes an array of strings and a value and returns an object with a string as the key and the value as the value
- * @param array The string array to convert to an object
- * @param v The value to use as the value of the object or a function that generates a value from the key
+ * @param array - The string array to convert to an object
+ * @param v - The value to use as the value of the object or a function that generates a value from the key
  * @returns The object created from the array
  * @example
  * const array = ['a', 'b', 'c']
@@ -139,7 +139,7 @@ export const mapStringArrayToObject = <T>(
 
 /**
  * `toArray` takes a value and converts it into an array if it is not already
- * @param value The value to convert to an array
+ * @param value - The value to convert to an array
  * @returns The array created from the value
  */
 export const toArray = <T>(value: T | T[]): T[] => {
@@ -150,9 +150,9 @@ export const toArray = <T>(value: T | T[]): T[] => {
 };
 
 /**
- * arrayIntersection takes in two arrays and returns the intersecting elements of the two arrays
- * @param a The first array
- * @param b The second array
+ * `arrayIntersection` takes in two arrays and returns the intersecting elements of the two arrays
+ * @param a - The first array
+ * @param b - The second array
  * @returns The intersecting elements of the two arrays
  * @example arrayIntersection([1, 2, 3], [2, 3, 4]) // [2, 3]
  */
@@ -167,9 +167,9 @@ export const arrayIntersection = <T>(a: T[], b: T[]) => {
 };
 
 /**
- * arraySymmetricDifference takes in two arrays and returns only the elements not in common between the two arrays
- * @param a The first array
- * @param b The second array
+ * `arraySymmetricDifference` takes in two arrays and returns only the elements not in common between the two arrays
+ * @param a - The first array
+ * @param b - The second array
  * @returns The elements not in common between the two arrays
  * @example arraySymmetricDifference([1, 2, 3], [2, 3, 4]) // [1, 4]
  */
@@ -187,9 +187,9 @@ export const arraySymmetricDifference = <T>(a: T[], b: T[]) => {
 };
 
 /**
- * arraySetDifference returns the elements in a that are not in b
- * @param a The first array
- * @param b The second array
+ * `arraySetDifference` returns the elements in a that are not in b
+ * @param a - The first array
+ * @param b - The second array
  * @returns The elements in a that are not in b
  * @example arraySetDifference([1, 2, 3], [2, 3, 4]) // [1]
  */
@@ -206,10 +206,10 @@ export const arraySetDifference = <T>(a: T[], b: T[]) => {
 type SortFunction<T> = (a: T, b: T) => number;
 
 /**
- * arrayUnion takes in two arrays and returns the union of the two arrays it also takes in an optional sort function
- * @param a The first array
- * @param b The second array
- * @param sort An optional sort function to sort the union
+ * `arrayUnion` takes in two arrays and returns the union of the two arrays it also takes in an optional sort function
+ * @param a - The first array
+ * @param b - The second array
+ * @param sort - An optional sort function to sort the union
  * @returns The union of the two arrays
  * @example arrayUnion([1, 2, 3], [2, 3, 4]) // [1, 2, 3, 4]
  * @example arrayUnion([1, 2, 3], [2, 3, 4], (a, b) => b - a) // [4, 3, 2, 1]
@@ -227,12 +227,12 @@ export const arrayUnion = <T>(a: T[], b: T[], sort?: SortFunction<T>) => {
 };
 
 /**
- * Function that works like Python range function. Returns an array that starts at the START value,
+ * `range` works like the Python range function. Returns an array that starts at the START value,
  * incrementing by the STEP value, and stopping once the STOP value has been reached or surpassed.
  * START & STOP are inclusive.
- * @param start The starting value
- * @param stop The stopping value
- * @param step The incrementing value
+ * @param start - The starting value
+ * @param stop - The stopping value
+ * @param step - The incrementing value
  * @returns The array of numbers
  * @example range(0, 10, 2) = [0, 2, 4, 6, 8, 10]
  * Taken from official docs:
@@ -247,8 +247,8 @@ export const range = (start: number, stop: number, step?: number): number[] => {
 /**
  * `conditionalToArray` takes in a generic value and transforms it into an array if shouldBeArray is true.
  * The value remains unchanged if it is already an array, or if shouldBeArray is false.
- * @param value The value to transform into an array
- * @param shouldBeArray Whether or not the value should be transformed into an array
+ * @param value - The value to transform into an array
+ * @param shouldBeArray - Whether or not the value should be transformed into an array
  * @returns The value as an array if shouldBeArray is true, otherwise the value is returned unchanged
  * @example conditionalToArray(1, true) // [1]
  * @example conditionalToArray([1], true) // [1]

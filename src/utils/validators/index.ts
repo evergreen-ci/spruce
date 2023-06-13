@@ -38,7 +38,7 @@ const validateJira = (v: string) => new RegExp(jiraTicketNumberRegex).test(v);
 
 /**
  * `validateJiraURL` tests if a provided url is a valid jira url
- * @param jiraURL - the jira url to test
+ * @param jiraURL - the jira host url
  * @param url - the url to test
  * @returns - true if the provided url is a valid jira url, false otherwise
  */
@@ -106,7 +106,7 @@ const validateSlack = (v: string): boolean => {
 };
 
 /**
- *  validateObjectId tests if a provided id is a mongo objectId indicating that it likely belongs to a patch and not a version
+ *  `validateObjectId` tests if a provided id is a mongo objectId indicating that it likely belongs to a patch and not a version
  *  @param id - the id to test
  *  @returns - true if it is a mongo objectId, false otherwise
  */
