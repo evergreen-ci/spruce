@@ -79,9 +79,9 @@ export interface FilterHookResult<T> {
 }
 
 /**
- * urlParam Represents URL query param name
- * [resetPage] When true, page URL query paramter is set to 0 upon value submission
- * [sendAnalyticsEvent] A side effect executed upon value submission
+ * urlParam - Represents URL query param name
+ * resetPage - When true, page URL query paramter is set to 0 upon value submission
+ * sendAnalyticsEvent - A side effect executed upon value submission
  */
 export interface FilterHookParams {
   urlParam: string;

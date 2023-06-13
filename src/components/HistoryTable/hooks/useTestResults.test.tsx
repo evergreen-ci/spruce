@@ -187,7 +187,7 @@ type UseMergedTestHookType = (args: Parameters<typeof useTestResults>[0]) => {
   historyTable: ReturnType<typeof useHistoryTable>;
 };
 /**
- * useMergedTestHook combines the useTestResults and useHistoryTable hooks together
+ * `useMergedTestHook` combines the useTestResults and useHistoryTable hooks together
  * and combines them into a shared hook which can be rendered under the same wrapper context
  * and can be used together
  * @param rowIndex - the row index to use for the useTestResults hook
