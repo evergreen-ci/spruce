@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots Pages/Version/BuildVariantCard Default 1`] = `
+<div>
+  <div>
+    Failed to render component.
+  </div>
+</div>
+`;

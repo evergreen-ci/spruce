@@ -13,7 +13,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/version/some_version/tasks?statuses=success"
       >
         <div
-          class="css-psxlfl-BadgeContainer emc61an4"
+          class="css-qtz1fi-BadgeContainer emc61an4"
           fill="#E3FCF7"
         >
           <span
@@ -37,7 +37,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/version/some_version/tasks?statuses=success"
       >
         <div
-          class="css-psxlfl-BadgeContainer emc61an4"
+          class="css-qtz1fi-BadgeContainer emc61an4"
           fill="#E3FCF7"
         >
           <span
@@ -61,7 +61,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/version/some_version/tasks?statuses=failed-umbrella,failed,task-timed-out,test-timed-out,known-issue"
       >
         <div
-          class="css-rwfayv-BadgeContainer emc61an4"
+          class="css-1kl4a18-BadgeContainer emc61an4"
           fill="#FFEAE5"
         >
           <span
@@ -85,7 +85,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/version/some_version/tasks?statuses=running-umbrella,started,dispatched"
       >
         <div
-          class="css-14n6im6-BadgeContainer emc61an4"
+          class="css-cmtd0u-BadgeContainer emc61an4"
           fill="#FEF7DB"
         >
           <span
@@ -109,7 +109,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/version/some_version/tasks?statuses=system-failure-umbrella,system-failed,system-timed-out,system-unresponsive"
       >
         <div
-          class="css-18t4h9x-BadgeContainer emc61an4"
+          class="css-1a2mzzd-BadgeContainer emc61an4"
           fill="#5E0C9E"
         >
           <span
@@ -133,7 +133,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/version/some_version/tasks?statuses=setup-failed"
       >
         <div
-          class="css-iqdvq7-BadgeContainer emc61an4"
+          class="css-1nurxz6-BadgeContainer emc61an4"
           fill="#F1D4FD"
         >
           <span
@@ -157,7 +157,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/version/some_version/tasks?statuses=setup-failed"
       >
         <div
-          class="css-iqdvq7-BadgeContainer emc61an4"
+          class="css-1nurxz6-BadgeContainer emc61an4"
           fill="#F1D4FD"
         >
           <span
@@ -181,7 +181,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/version/some_version/tasks?statuses=undispatched-umbrella,unscheduled,aborted,blocked"
       >
         <div
-          class="css-9qhujy-BadgeContainer emc61an4"
+          class="css-u7w0li-BadgeContainer emc61an4"
           fill="#F9FBFA"
         >
           <span
@@ -205,7 +205,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/version/some_version/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted"
       >
         <div
-          class="css-15tkksr-BadgeContainer emc61an4"
+          class="css-xr4fqt-BadgeContainer emc61an4"
           fill="#5C6C75"
         >
           <span

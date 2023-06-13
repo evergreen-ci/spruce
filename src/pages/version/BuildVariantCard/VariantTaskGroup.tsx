@@ -98,23 +98,11 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
 const isUmbrellaStatusSet = (
   status: TaskStatus,
   activeStatusSearch: string[]
-) => {
-  console.log({
-    activeStatusSearch,
-    umbrellaStatus: mapUmbrellaStatusToQueryParam[status],
-    diff: arraySymmetricDifference(
-      mapUmbrellaStatusToQueryParam[status],
-      activeStatusSearch
-    ),
-  });
-
-  return (
-    arraySymmetricDifference(
-      mapUmbrellaStatusToQueryParam[status],
-      activeStatusSearch
-    ).length === 0
-  );
-};
+) =>
+  arraySymmetricDifference(
+    mapUmbrellaStatusToQueryParam[status],
+    activeStatusSearch
+  ).length === 0;
 
 const TaskBadgeContainer = styled.div`
   display: flex;
