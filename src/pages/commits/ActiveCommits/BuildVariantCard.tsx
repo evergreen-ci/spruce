@@ -8,6 +8,7 @@ import { size } from "constants/tokens";
 import { StatusCount } from "gql/generated/types";
 import { TASK_ICON_PADDING } from "../constants";
 import { WaterfallTaskStatusIcon } from "./buildVariantCard/WaterfallTaskStatusIcon";
+import { injectGlobalStyle, removeGlobalStyle } from "./utils";
 
 type taskList = {
   id: string;
@@ -87,7 +88,10 @@ interface RenderTaskIconsProps {
 
 const RenderTaskIcons: React.VFC<RenderTaskIconsProps> = ({ tasks, variant }) =>
   tasks.length ? (
-    <IconContainer>
+    <IconContainer
+      onMouseEnter={() => injectGlobalStyle()}
+      onMouseLeave={() => removeGlobalStyle()}
+    >
       {tasks.map(({ id, status, displayName, timeTaken, failedTestCount }) => (
         <WaterfallTaskStatusIcon
           key={id}

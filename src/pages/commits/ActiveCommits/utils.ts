@@ -168,14 +168,14 @@ export const removeGlobalStyle = () => {
   document.getElementById(taskIconStyle)?.remove();
 };
 
-export const injectGlobalStyle = (taskIdentifier: string) => {
+export const injectGlobalStyle = () => {
   // Remove style here again because hovering over LG tooltips triggers two consecutive mouseenter events.
   removeGlobalStyle();
 
   const hoverStyle = document.createElement("style");
   hoverStyle.id = taskIconStyle;
   hoverStyle.innerHTML = `
-    div[data-task-icon]:not([data-task-icon="${taskIdentifier}"]) {
+    div[data-task-icon] {
         opacity: 0.25;
     }
   `;

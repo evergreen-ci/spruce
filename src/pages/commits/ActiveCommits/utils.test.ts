@@ -527,20 +527,13 @@ describe("roundMax", () => {
 describe("injectGlobalStyle", () => {
   it("should properly inject global style using the task identifier", () => {
     const taskIconStyle = "task-icon-style";
-    const taskIdentifier = "ubuntu1604-test_util";
     expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
       taskIconStyle
-    );
-    expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
-      taskIdentifier
     );
 
-    injectGlobalStyle("ubuntu1604-test_util");
+    injectGlobalStyle();
     expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
       taskIconStyle
-    );
-    expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
-      taskIdentifier
     );
   });
 });
@@ -548,22 +541,15 @@ describe("injectGlobalStyle", () => {
 describe("removeGlobalStyle", () => {
   it("should properly remove global style", () => {
     const taskIconStyle = "task-icon-style";
-    const taskIdentifier = "ubuntu1604-test_util";
 
     // Styles should persist from previous test.
     expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
       taskIconStyle
     );
-    expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
-      taskIdentifier
-    );
 
     removeGlobalStyle();
     expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
       taskIconStyle
-    );
-    expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
-      taskIdentifier
     );
   });
 });
