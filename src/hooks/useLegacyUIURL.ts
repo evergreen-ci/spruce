@@ -14,6 +14,9 @@ export const useLegacyUIURL = (): string | null => {
   const uiURL = getUiUrl();
 
   useEffect(() => {
+    setId("");
+    setLegacyUIUrl(null);
+
     const legacyUIMap = {
       [`${routes.version}/*`]: `${uiURL}/version/${id}`,
       [`${routes.configurePatch}/*`]: `${uiURL}/patch/${id}`,
@@ -22,7 +25,6 @@ export const useLegacyUIURL = (): string | null => {
       [routes.spawnHost]: `${uiURL}/spawn#?resourcetype=hosts`,
       [routes.spawnVolume]: `${uiURL}/spawn#?resourcetype=volumes`,
       [`${routes.commits}/:id`]: `${uiURL}/waterfall/${id}`,
-      [`${routes.projectSettings}/*`]: `${uiURL}/projects##${id}`,
       [routes.hosts]: `${uiURL}/hosts`,
       [routes.host]: `${uiURL}/host/${id}`,
     };
