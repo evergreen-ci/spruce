@@ -82,14 +82,12 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
   let shouldShowTaskIcons = true;
   let statusesToShow = [];
 
-  if (hasTasks) {
+  if (hasTasks || filterState.view === ProjectHealthView.All) {
     statusesToShow = filterState.statuses;
   } else if (hasStatuses) {
     const onlyHasNonFailingStatuses =
       arrayIntersection(filterState.statuses, FAILED_STATUSES).length === 0;
-    if (filterState.view === ProjectHealthView.All) {
-      statusesToShow = filterState.statuses;
-    } else if (onlyHasNonFailingStatuses) {
+    if (onlyHasNonFailingStatuses) {
       shouldShowTaskIcons = false;
     } else {
       statusesToShow = arrayIntersection(filterState.statuses, FAILED_STATUSES);

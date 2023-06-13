@@ -6,6 +6,7 @@ import {
 } from "@leafygreen-ui/segmented-control";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
 import {
@@ -22,6 +23,7 @@ type Props = {
 };
 
 export const ViewToggle: React.VFC<Props> = ({ identifier }) => {
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const [view, setView] = useQueryParam(
     ProjectFilterOptions.View,
     "" as ProjectHealthView
@@ -40,6 +42,14 @@ export const ViewToggle: React.VFC<Props> = ({ identifier }) => {
       },
     }
   );
+
+  const onChange = (value: ProjectHealthView) => {
+    setView(value);
+    sendEvent({
+      name: "Toggle view",
+      toggle: value,
+    });
+  };
 
   return (
     <SegmentedControl
@@ -69,7 +79,7 @@ export const ViewToggle: React.VFC<Props> = ({ identifier }) => {
         </>
       }
       value={view || ProjectHealthView.Failed}
-      onChange={setView}
+      onChange={onChange}
     >
       <SegmentedControlOption
         data-cy="view-failed"
