@@ -58,6 +58,7 @@ const repoForm: FormState = {
       {
         id: "4",
         alias: "my alias name",
+        description: "my description",
         displayTitle: "my alias name",
         gitTag: "",
         remotePath: "",
@@ -132,6 +133,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
     {
       id: "4",
       alias: "my alias name",
+      description: "my description",
       gitTag: "",
       variant: "",
       task: "",

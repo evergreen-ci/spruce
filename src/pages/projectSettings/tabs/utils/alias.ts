@@ -28,6 +28,7 @@ export enum VariantTaskSpecifier {
 export type AliasFormType = {
   id: string;
   alias: string;
+  description: string;
   displayTitle?: string;
   specifier?: GitTagSpecifier;
   gitTag: string;
@@ -47,6 +48,7 @@ export type AliasFormType = {
 const aliasToForm = ({
   id,
   alias,
+  description,
   gitTag,
   remotePath,
   variant,
@@ -56,6 +58,7 @@ const aliasToForm = ({
 }: ProjectAlias): AliasFormType => ({
   id,
   alias,
+  description,
   gitTag,
   remotePath,
   variants: {
@@ -151,12 +154,22 @@ export const transformAliases = (
 ): ProjectAliasInput[] =>
   override
     ? aliases.map((a) => {
-        const { id, alias, gitTag, remotePath, specifier, tasks, variants } = a;
+        const {
+          id,
+          alias,
+          description,
+          gitTag,
+          remotePath,
+          specifier,
+          tasks,
+          variants,
+        } = a;
         if (aliasName === AliasNames.GitTag) {
           return specifier === GitTagSpecifier.ConfigFile
             ? {
                 id: id || "",
                 alias: aliasName,
+                description: "",
                 gitTag,
                 remotePath,
                 variant: "",
@@ -167,6 +180,7 @@ export const transformAliases = (
             : {
                 id: id || "",
                 alias: aliasName,
+                description: "",
                 gitTag,
                 remotePath: "",
                 ...(variants && transformVariants(variants)),
@@ -176,6 +190,7 @@ export const transformAliases = (
         return {
           id: id || "",
           alias: alias || aliasName,
+          description: description || "",
           ...(variants && transformVariants(variants)),
           ...(tasks && transformTasks(tasks)),
           gitTag: "",
@@ -194,6 +209,17 @@ export const baseProps = {
     },
     uiSchema: {
       "ui:data-cy": "alias-input",
+    },
+  },
+  description: {
+    schema: {
+      type: "string" as "string",
+      title: "Description",
+      default: "",
+    },
+    uiSchema: {
+      "ui:elementWrapperCSS": textAreaCSS,
+      "ui:widget": "textarea",
     },
   },
   gitTag: {
@@ -304,8 +330,16 @@ export const baseProps = {
   },
 };
 
-const { alias, gitTag, remotePath, task, taskTags, variant, variantTags } =
-  baseProps;
+const {
+  alias,
+  description,
+  gitTag,
+  remotePath,
+  task,
+  taskTags,
+  variant,
+  variantTags,
+} = baseProps;
 
 const variants = {
   schema: {
@@ -538,7 +572,10 @@ export const aliasRowUiSchema = ({
     ...(displayTitle && { "ui:displayTitle": displayTitle }),
     ...(numberedTitle && { "ui:numberedTitle": numberedTitle }),
     "ui:useExpandableCard": useExpandableCard,
-    ...(!aliasHidden && { alias: alias.uiSchema }),
+    ...(!aliasHidden && {
+      alias: alias.uiSchema,
+      description: description.uiSchema,
+    }),
     variants: variants.uiSchema,
     tasks: tasks.uiSchema,
   },
@@ -551,6 +588,7 @@ export const patchAliasArray = {
       type: "object" as "object",
       properties: {
         alias: alias.schema,
+        description: description.schema,
         variants: variants.schema,
         tasks: tasks.schema,
       },
