@@ -24,7 +24,7 @@ interface Props {
   tasks?: taskList;
   versionId: string;
   projectIdentifier: string;
-  groupedVariantStats: {
+  groupedVariantStats?: {
     statusCounts: StatusCount[];
   };
   order: number;
@@ -89,6 +89,7 @@ interface RenderTaskIconsProps {
 const RenderTaskIcons: React.VFC<RenderTaskIconsProps> = ({ tasks, variant }) =>
   tasks.length ? (
     <IconContainer
+      data-cy="build-variant-icon-container"
       onMouseEnter={() => injectGlobalStyle()}
       onMouseLeave={() => removeGlobalStyle()}
     >
