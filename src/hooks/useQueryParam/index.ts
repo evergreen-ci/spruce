@@ -44,13 +44,13 @@ const useQueryParams = () => {
  * `queryParam` - the value of the query param
  * `setQueryParam` - a function that updates the query param
  * @example const [page, setPage] = useQueryParam("page", 0);
- * page === 0;
+ * console.log(page); // 0
  * setPage(1);
- * page === 1;
+ * console.log(page); // 1
  * @example const [search, setSearch] = useQueryParam("search", "word");
- * search === "word";
+ * console.log(search); // "word
  * setSearch("something else");
- * search === "something else";
+ * console.log(search); // "something else"
  */
 const useQueryParam = <T>(
   param: string,
