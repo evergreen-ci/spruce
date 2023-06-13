@@ -45,6 +45,7 @@ const projectForm: FormState = {
         {
           id: "1",
           alias: "__github",
+          description: "",
           gitTag: "",
           remotePath: "",
           variants: {
@@ -81,6 +82,7 @@ const projectForm: FormState = {
         {
           id: "5",
           alias: "__git_tag",
+          description: "",
           specifier: GitTagSpecifier.ConfigFile,
           remotePath: "./evergreen.yml",
           gitTag: "tagName",
@@ -108,6 +110,7 @@ const projectForm: FormState = {
         {
           id: "3",
           alias: "__commit_queue",
+          description: "",
           gitTag: "",
           remotePath: "",
           variants: {
@@ -145,6 +148,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
     {
       id: "1",
       alias: "__github",
+      description: "",
       gitTag: "",
       remotePath: "",
       task: ".*",
@@ -155,6 +159,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
     {
       id: "5",
       alias: "__git_tag",
+      description: "",
       gitTag: "tagName",
       variant: "",
       task: "",
@@ -165,6 +170,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
     {
       id: "3",
       alias: "__commit_queue",
+      description: "",
       gitTag: "",
       variant: "^ubuntu1604$",
       task: "^lint$",
@@ -210,6 +216,7 @@ const repoForm: FormState = {
         {
           id: "2",
           alias: "__github_checks",
+          description: "",
           gitTag: "",
           remotePath: "",
           variants: {
@@ -269,6 +276,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
     {
       id: "2",
       alias: "__github_checks",
+      description: "",
       gitTag: "",
       remotePath: "",
       task: "",
@@ -289,6 +297,7 @@ const mergedForm: FormState = {
         {
           id: "1",
           alias: "__github",
+          description: "",
           gitTag: "",
           remotePath: "",
           variants: {
@@ -319,6 +328,7 @@ const mergedForm: FormState = {
           {
             id: "2",
             alias: "__github_checks",
+            description: "",
             gitTag: "",
             remotePath: "",
             variants: {
@@ -358,6 +368,7 @@ const mergedForm: FormState = {
         {
           id: "5",
           alias: "__git_tag",
+          description: "",
           specifier: GitTagSpecifier.ConfigFile,
           remotePath: "./evergreen.yml",
           gitTag: "tagName",
@@ -389,6 +400,7 @@ const mergedForm: FormState = {
         {
           id: "3",
           alias: "__commit_queue",
+          description: "",
           gitTag: "",
           variants: {
             specifier: VariantTaskSpecifier.Regex,
