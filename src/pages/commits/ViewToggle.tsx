@@ -19,21 +19,22 @@ import { ProjectFilterOptions } from "types/commits";
 
 type Props = {
   identifier: string;
-  viewFilter: ProjectHealthView;
 };
 
-export const ViewToggle: React.VFC<Props> = ({ identifier, viewFilter }) => {
+export const ViewToggle: React.VFC<Props> = ({ identifier }) => {
   const [view, setView] = useQueryParam(
     ProjectFilterOptions.View,
-    ProjectHealthView.Failed
+    "" as ProjectHealthView
   );
 
   useQuery<ProjectHealthViewQuery, ProjectHealthViewQueryVariables>(
     PROJECT_HEALTH_VIEW,
     {
       variables: { identifier },
+      fetchPolicy: "network-only",
+      nextFetchPolicy: "cache-first",
       onCompleted: ({ projectSettings }) => {
-        if (!viewFilter) {
+        if (!view) {
           setView(projectSettings?.projectRef?.projectHealthView);
         }
       },
@@ -57,15 +58,17 @@ export const ViewToggle: React.VFC<Props> = ({ identifier, viewFilter }) => {
             }
             triggerEvent="hover"
           >
-            <Body>Defines which task icons are visible in the base view.</Body>
             <Body>
-              Once any filters are applied, all tasks will be queried regardless
-              of this setting.
+              “Default” only shows failed icons in the base view and groups some
+              filtered results.
+            </Body>
+            <Body>
+              “All Tasks” shows icons for every task without grouping.
             </Body>
           </Tooltip>
         </>
       }
-      value={view}
+      value={view || ProjectHealthView.Failed}
       onChange={setView}
     >
       <SegmentedControlOption

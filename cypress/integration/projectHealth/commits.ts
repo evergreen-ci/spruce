@@ -21,13 +21,14 @@ describe("commits page", () => {
     cy.dataCy("grouped-task-status-badge").should("not.exist");
   });
 
-  it("shows all icons when toggled", () => {
+  it("shows all icons and no badges when the view is toggled", () => {
     cy.dataCy("waterfall-task-status-icon").should("exist");
 
     cy.dataCy("view-all").click();
     cy.dataCy("waterfall-task-status-icon")
       .should("be.visible")
       .should("have.length", 50);
+    cy.dataCy("grouped-task-status-badge").should("have.length", 0);
     cy.location("search").should("contain", "view=ALL");
 
     cy.dataCy("view-failed").click();

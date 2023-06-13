@@ -352,6 +352,31 @@ describe("getMainlineCommitsQueryVariables", () => {
         includeBaseTasks: false,
       });
     });
+
+    it("should return all task icons when there are no filters applied using the 'All' view", () => {
+      expect(
+        getMainlineCommitsQueryVariables({
+          mainlineCommitOptions: {
+            projectIdentifier: "projectIdentifier",
+            limit: 5,
+            skipOrderNumber: 0,
+          },
+          filterState: {
+            statuses: [],
+            tasks: [],
+            variants: [],
+            requesters: [],
+            view: ProjectHealthView.All,
+          },
+        }).buildVariantOptionsForTaskIcons
+      ).toStrictEqual({
+        tasks: [],
+        variants: [],
+        statuses: [],
+        includeBaseTasks: false,
+      });
+    });
+
     it("should not return any task icons when a non failing status filter is applied", () => {
       expect(
         getMainlineCommitsQueryVariables({
@@ -375,6 +400,31 @@ describe("getMainlineCommitsQueryVariables", () => {
         includeBaseTasks: false,
       });
     });
+
+    it("should return any task icons when a non failing status filter is applied using the 'All' view", () => {
+      expect(
+        getMainlineCommitsQueryVariables({
+          mainlineCommitOptions: {
+            projectIdentifier: "projectIdentifier",
+            limit: 5,
+            skipOrderNumber: 0,
+          },
+          filterState: {
+            statuses: [TaskStatus.Succeeded],
+            tasks: [],
+            variants: [],
+            requesters: [],
+            view: ProjectHealthView.All,
+          },
+        }).buildVariantOptionsForTaskIcons
+      ).toStrictEqual({
+        tasks: [],
+        variants: [],
+        statuses: [TaskStatus.Succeeded],
+        includeBaseTasks: false,
+      });
+    });
+
     it("should only show failing task icons when there are multiple statuses with mixed failing and non failing statuses", () => {
       expect(
         getMainlineCommitsQueryVariables({
@@ -490,6 +540,30 @@ describe("getMainlineCommitsQueryVariables", () => {
         variants: [],
       });
     });
+
+    it("should not return any grouped tasks when there are no filters applied using the 'All' view", () => {
+      expect(
+        getMainlineCommitsQueryVariables({
+          mainlineCommitOptions: {
+            projectIdentifier: "projectIdentifier",
+            limit: 5,
+            skipOrderNumber: 0,
+          },
+          filterState: {
+            statuses: [],
+            tasks: [],
+            variants: [],
+            requesters: [],
+            view: ProjectHealthView.All,
+          },
+        }).buildVariantOptionsForGroupedTasks
+      ).toStrictEqual({
+        tasks: [impossibleMatch],
+        statuses: [],
+        variants: [],
+      });
+    });
+
     it("should group statuses when a non failing status filter is applied", () => {
       expect(
         getMainlineCommitsQueryVariables({
@@ -512,6 +586,30 @@ describe("getMainlineCommitsQueryVariables", () => {
         statuses: [TaskStatus.Succeeded],
       });
     });
+
+    it("should not group statuses when a non failing status filter is applied using the 'All' view", () => {
+      expect(
+        getMainlineCommitsQueryVariables({
+          mainlineCommitOptions: {
+            projectIdentifier: "projectIdentifier",
+            limit: 5,
+            skipOrderNumber: 0,
+          },
+          filterState: {
+            statuses: [TaskStatus.Succeeded],
+            tasks: [],
+            variants: [],
+            requesters: [],
+            view: ProjectHealthView.All,
+          },
+        }).buildVariantOptionsForGroupedTasks
+      ).toStrictEqual({
+        tasks: [impossibleMatch],
+        variants: [],
+        statuses: [],
+      });
+    });
+
     it("should not return groupings for failing statuses if there are multiple statuses", () => {
       expect(
         getMainlineCommitsQueryVariables({
