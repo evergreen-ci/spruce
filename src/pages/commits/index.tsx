@@ -203,7 +203,6 @@ const Commits = () => {
         <PaginationWrapper>
           {!isProduction() && (
             <ViewToggle
-              hasFilters={hasFilters}
               identifier={projectIdentifier}
               viewFilter={viewFilter}
             />

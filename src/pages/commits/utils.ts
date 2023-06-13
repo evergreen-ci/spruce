@@ -78,24 +78,20 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
   let shouldShowTaskIcons = true;
   let statusesToShow = [];
 
-  // Don't filter icons if "All" view is applied
-  if (filterState.view === ProjectHealthView.Failed) {
-    if (hasTasks) {
+  if (hasTasks) {
+    statusesToShow = filterState.statuses;
+  } else if (hasStatuses) {
+    const onlyHasNonFailingStatuses =
+      arrayIntersection(filterState.statuses, FAILED_STATUSES).length === 0;
+    if (filterState.view === ProjectHealthView.All) {
       statusesToShow = filterState.statuses;
-    } else if (hasStatuses) {
-      const onlyHasNonFailingStatuses =
-        arrayIntersection(filterState.statuses, FAILED_STATUSES).length === 0;
-      if (onlyHasNonFailingStatuses) {
-        shouldShowTaskIcons = false;
-      } else {
-        statusesToShow = arrayIntersection(
-          filterState.statuses,
-          FAILED_STATUSES
-        );
-      }
+    } else if (onlyHasNonFailingStatuses) {
+      shouldShowTaskIcons = false;
     } else {
-      statusesToShow = FAILED_STATUSES;
+      statusesToShow = arrayIntersection(filterState.statuses, FAILED_STATUSES);
     }
+  } else if (filterState.view === ProjectHealthView.Failed) {
+    statusesToShow = FAILED_STATUSES;
   }
 
   const buildVariantOptions = {
@@ -112,6 +108,15 @@ const generateBuildVariantOptionsForGroupedTasksFromState = (
 ): MainlineCommitsQueryVariables["buildVariantOptionsForGroupedTasks"] => {
   const { filterState } = state;
   const { hasTasks, hasFilters, hasStatuses } = getFilterStatus(filterState);
+
+  // If "All" view is enabled, don't group any tasks.
+  if (filterState.view === ProjectHealthView.All) {
+    return {
+      tasks: [impossibleMatch],
+      variants: [],
+      statuses: [],
+    };
+  }
 
   let statusesToShow = [];
   let shouldShowGroupedTaskIcons = true;

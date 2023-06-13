@@ -18,16 +18,11 @@ import { useQueryParam } from "hooks/useQueryParam";
 import { ProjectFilterOptions } from "types/commits";
 
 type Props = {
-  hasFilters: boolean;
   identifier: string;
   viewFilter: ProjectHealthView;
 };
 
-export const ViewToggle: React.VFC<Props> = ({
-  hasFilters,
-  identifier,
-  viewFilter,
-}) => {
+export const ViewToggle: React.VFC<Props> = ({ identifier, viewFilter }) => {
   const [view, setView] = useQueryParam(
     ProjectFilterOptions.View,
     ProjectHealthView.Failed
@@ -75,16 +70,11 @@ export const ViewToggle: React.VFC<Props> = ({
     >
       <SegmentedControlOption
         data-cy="view-failed"
-        disabled={hasFilters}
         value={ProjectHealthView.Failed}
       >
         Default
       </SegmentedControlOption>
-      <SegmentedControlOption
-        data-cy="view-all"
-        disabled={hasFilters}
-        value={ProjectHealthView.All}
-      >
+      <SegmentedControlOption data-cy="view-all" value={ProjectHealthView.All}>
         All Tasks
       </SegmentedControlOption>
     </SegmentedControl>
