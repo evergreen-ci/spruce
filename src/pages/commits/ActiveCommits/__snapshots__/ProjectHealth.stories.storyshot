@@ -338,7 +338,11 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                   <span
                     class="leafygreen-ui-baoi4d"
                   >
-                    987bf57
+                    <code
+                      class="leafygreen-ui-12e1uma"
+                    >
+                      987bf57
+                    </code>
                   </span>
                 </a>
                  
@@ -397,7 +401,11 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                   <span
                     class="leafygreen-ui-baoi4d"
                   >
-                    a77bd39
+                    <code
+                      class="leafygreen-ui-12e1uma"
+                    >
+                      a77bd39
+                    </code>
                   </span>
                 </a>
                  
@@ -461,7 +469,11 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                   <span
                     class="leafygreen-ui-baoi4d"
                   >
-                    9c1d1eb
+                    <code
+                      class="leafygreen-ui-12e1uma"
+                    >
+                      9c1d1eb
+                    </code>
                   </span>
                 </a>
                  
@@ -520,7 +532,11 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                   <span
                     class="leafygreen-ui-baoi4d"
                   >
-                    f7f7f1a
+                    <code
+                      class="leafygreen-ui-12e1uma"
+                    >
+                      f7f7f1a
+                    </code>
                   </span>
                 </a>
                  
@@ -565,7 +581,11 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                   <span
                     class="leafygreen-ui-baoi4d"
                   >
-                    211b3a0
+                    <code
+                      class="leafygreen-ui-12e1uma"
+                    >
+                      211b3a0
+                    </code>
                   </span>
                 </a>
                  

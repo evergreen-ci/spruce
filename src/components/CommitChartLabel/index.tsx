@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, InlineCode } from "@leafygreen-ui/typography";
 import ExpandedText from "components/ExpandedText";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute, getTaskRoute } from "constants/routes";
@@ -56,7 +56,7 @@ const CommitChartLabel: React.VFC<Props> = ({
           onClick={onClickGithash}
           to={getVersionRoute(versionId)}
         >
-          {shortenGithash(githash)}
+          <InlineCode>{shortenGithash(githash)}</InlineCode>
         </StyledRouterLink>{" "}
         <b>
           {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
