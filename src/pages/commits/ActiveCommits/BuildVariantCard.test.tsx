@@ -6,7 +6,7 @@ import {
   waitFor,
 } from "test_utils";
 import { BuildVariantCard } from "./BuildVariantCard";
-import { injectGlobalStyle, removeGlobalStyle } from "./utils";
+import { injectGlobalDimStyle, removeGlobalDimStyle } from "./utils";
 
 jest.mock("./utils");
 
@@ -26,12 +26,12 @@ describe("buildVariantCard", () => {
 
     // @ts-expect-error
     window.IntersectionObserver = mockIntersectionObserver;
-    (injectGlobalStyle as jest.Mock).mockImplementationOnce(
+    (injectGlobalDimStyle as jest.Mock).mockImplementationOnce(
       (taskIdentifier: string) => {
         Promise.resolve(taskIdentifier);
       }
     );
-    (removeGlobalStyle as jest.Mock).mockImplementationOnce(() => {});
+    (removeGlobalDimStyle as jest.Mock).mockImplementationOnce(() => {});
 
     render(
       <MockedProvider mocks={[]} addTypename={false}>
@@ -49,12 +49,12 @@ describe("buildVariantCard", () => {
 
     userEvent.hover(screen.queryByDataCy("build-variant-icon-container"));
     await waitFor(() => {
-      expect(injectGlobalStyle).toHaveBeenCalledTimes(1);
+      expect(injectGlobalDimStyle).toHaveBeenCalledTimes(1);
     });
 
     userEvent.unhover(screen.queryByDataCy("build-variant-icon-container"));
     await waitFor(() => {
-      expect(removeGlobalStyle).toHaveBeenCalledTimes(1);
+      expect(removeGlobalDimStyle).toHaveBeenCalledTimes(1);
     });
   });
 });

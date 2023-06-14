@@ -12,8 +12,8 @@ import {
   getStatusesWithZeroCount,
   constructBuildVariantDict,
   roundMax,
-  removeGlobalStyle,
-  injectGlobalStyle,
+  removeGlobalDimStyle,
+  injectGlobalDimStyle,
 } from "./utils";
 
 const { red, green, yellow, gray, purple } = palette;
@@ -524,30 +524,30 @@ describe("roundMax", () => {
   });
 });
 
-describe("injectGlobalStyle", () => {
+describe("injectGlobalDimStyle", () => {
   it("should properly inject global style using the task identifier", () => {
-    const taskIconStyle = "task-icon-style";
+    const taskIconStyle = "dim-icon-style";
     expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
       taskIconStyle
     );
 
-    injectGlobalStyle();
+    injectGlobalDimStyle();
     expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
       taskIconStyle
     );
   });
 });
 
-describe("removeGlobalStyle", () => {
+describe("removeGlobalDimStyle", () => {
   it("should properly remove global style", () => {
-    const taskIconStyle = "task-icon-style";
+    const taskIconStyle = "dim-icon-style";
 
     // Styles should persist from previous test.
     expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
       taskIconStyle
     );
 
-    removeGlobalStyle();
+    removeGlobalDimStyle();
     expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
       taskIconStyle
     );

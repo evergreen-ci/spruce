@@ -11,6 +11,10 @@ import {
   waitFor,
 } from "test_utils";
 import { ApolloMock } from "types/gql";
+import {
+  injectGlobalHighlightStyle,
+  removeGlobalHighlightStyle,
+} from "../utils";
 import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
 
 const props = {
@@ -72,6 +76,27 @@ describe("waterfallTaskStatusIcon", () => {
       expect(
         screen.queryByDataCy("waterfall-task-status-icon")
       ).toHaveAttribute("href", "/task/task");
+    });
+  });
+
+  it("should call the appropriate functions on hover and unhover", async () => {
+    (injectGlobalHighlightStyle as jest.Mock).mockImplementationOnce(
+      (taskIdentifier: string) => {
+        Promise.resolve(taskIdentifier);
+      }
+    );
+    (removeGlobalHighlightStyle as jest.Mock).mockImplementationOnce(() => {});
+
+    render(<Content status="failed" failedTestCount={1} />);
+    userEvent.hover(screen.queryByDataCy("waterfall-task-status-icon"));
+    await waitFor(() => {
+      expect(injectGlobalHighlightStyle).toHaveBeenCalledTimes(1);
+    });
+    expect(injectGlobalHighlightStyle).toHaveBeenCalledWith(props.identifier);
+
+    userEvent.unhover(screen.queryByDataCy("waterfall-task-status-icon"));
+    await waitFor(() => {
+      expect(removeGlobalHighlightStyle).toHaveBeenCalledTimes(1);
     });
   });
 });
