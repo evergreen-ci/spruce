@@ -9,31 +9,31 @@ import { RowContainer } from "./styles";
 
 interface RowProps {
   columns: React.ReactNode[];
+  data: types.CommitRowType;
+  index: number;
   numVisibleCols: number;
-  selected: boolean;
-  onClickGithash: () => void;
-  onClickJiraTicket: () => void;
   onClickFoldedGithash: () => void;
   onClickFoldedJiraTicket: () => void;
   onClickFoldedUpstreamProject: () => void;
+  onClickGithash: () => void;
+  onClickJiraTicket: () => void;
   onClickUpstreamProject: () => void;
   onToggleFoldedCommit: (s: { isVisible: boolean }) => void;
-  index: number;
-  data: types.CommitRowType;
+  selected: boolean;
 }
 const BaseRow: React.VFC<RowProps> = ({
   columns,
-  numVisibleCols,
-  index,
-  selected,
   data,
-  onClickGithash,
-  onClickJiraTicket,
-  onClickUpstreamProject,
+  index,
+  numVisibleCols,
   onClickFoldedGithash,
   onClickFoldedJiraTicket,
   onClickFoldedUpstreamProject,
+  onClickGithash,
+  onClickJiraTicket,
+  onClickUpstreamProject,
   onToggleFoldedCommit,
+  selected,
 }) => {
   const { columnLimit, toggleFoldedRowExpandedState } = useHistoryTable();
 

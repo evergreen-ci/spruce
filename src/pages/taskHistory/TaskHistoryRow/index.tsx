@@ -20,7 +20,7 @@ const TaskHistoryRow: React.VFC<Props> = ({ index, data }) => {
 
   const { getTaskMetadata } = useTestResults(index);
 
-  if (data && data.type === rowType.COMMIT && data.commit) {
+  if (data?.type === rowType.COMMIT && data.commit) {
     const { buildVariants } = data.commit;
     const buildVariantMap = convertArrayToObject(buildVariants, "variant");
     orderedColumns = visibleColumns.map((c) => {

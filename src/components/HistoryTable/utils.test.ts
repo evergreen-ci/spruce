@@ -38,7 +38,6 @@ describe("historyTable utils", () => {
           commit: firstCommit.version,
           date: firstCommit.version.createTime,
           type: rowType.COMMIT,
-
           selected: false,
         },
       ]);
@@ -63,14 +62,12 @@ describe("historyTable utils", () => {
             commit: firstCommit.version,
             date: firstCommit.version.createTime,
             type: rowType.COMMIT,
-
             selected: false,
           },
           {
             commit: secondCommit.version,
             date: secondCommit.version.createTime,
             type: rowType.COMMIT,
-
             selected: false,
           },
         ]);
