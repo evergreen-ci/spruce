@@ -30,6 +30,20 @@ describe("variantTaskGroup", () => {
       2
     );
   });
+  it("all status badges should be active if no status/variant filters are set", () => {
+    render(<Component />, {
+      wrapper: Wrapper,
+      route: "/version/1",
+      path: "/version/:id",
+    });
+    expect(screen.getByText("Some Variant")).toBeDefined();
+    expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
+      2
+    );
+    screen.queryAllByDataCy("grouped-task-status-badge").forEach((badge) => {
+      expect(badge).toHaveAttribute("aria-selected", "true");
+    });
+  });
   it("status badges should be active if both the status and variant exist in the url", () => {
     render(<Component />, {
       wrapper: Wrapper,

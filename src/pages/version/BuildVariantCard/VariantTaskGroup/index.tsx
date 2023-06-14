@@ -39,11 +39,7 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
   );
 
   const isVariantSelected = variantSearch === applyStrictRegex(variant);
-  const versionRouteParams = {
-    sorts,
-    page: 0,
-    variant: isVariantSelected ? undefined : applyStrictRegex(variant),
-  };
+  const hasAnyStatusAndVariantFilters = variantSearch && statusSearch;
 
   const callBack = (taskSquareStatuses: string[]) => () => {
     sendEvent({
@@ -53,7 +49,11 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
   };
 
   const { stats } = groupStatusesByUmbrellaStatus(statusCounts ?? []);
-
+  const versionRouteParams = {
+    sorts,
+    page: 0,
+    variant: isVariantSelected ? undefined : applyStrictRegex(variant),
+  };
   return (
     <div data-cy="patch-build-variant">
       <StyledRouterLink
@@ -73,31 +73,32 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
 
       <TaskBadgeContainer>
         {stats.map(
-          ({ umbrellaStatus, count, statusCounts: groupedStatusCounts }) => (
-            <GroupedTaskStatusBadge
-              key={`${versionId}_${variant}_${umbrellaStatus}`}
-              count={count}
-              onClick={callBack(Object.keys(groupedStatusCounts))}
-              status={umbrellaStatus}
-              statusCounts={groupedStatusCounts}
-              // If the badge is active it should reset the page.
-              href={getVersionRoute(
-                versionId,
-                isVariantSelected &&
-                  isUmbrellaStatusSet(umbrellaStatus, statusSearch)
-                  ? { ...versionRouteParams }
-                  : {
-                      ...versionRouteParams,
-                      variant: applyStrictRegex(variant),
-                      statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
-                    }
-              )}
-              isActive={
-                isVariantSelected &&
-                isUmbrellaStatusSet(umbrellaStatus, statusSearch)
-              }
-            />
-          )
+          ({ umbrellaStatus, count, statusCounts: groupedStatusCounts }) => {
+            const isBadgeActive =
+              isVariantSelected &&
+              isUmbrellaStatusSet(umbrellaStatus, statusSearch);
+            return (
+              <GroupedTaskStatusBadge
+                key={`${versionId}_${variant}_${umbrellaStatus}`}
+                count={count}
+                onClick={callBack(Object.keys(groupedStatusCounts))}
+                status={umbrellaStatus}
+                statusCounts={groupedStatusCounts}
+                // If the badge is active it should reset the page.
+                href={getVersionRoute(
+                  versionId,
+                  isBadgeActive
+                    ? { ...versionRouteParams }
+                    : {
+                        ...versionRouteParams,
+                        variant: applyStrictRegex(variant),
+                        statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
+                      }
+                )}
+                isActive={hasAnyStatusAndVariantFilters ? isBadgeActive : true}
+              />
+            );
+          }
         )}
       </TaskBadgeContainer>
     </div>
