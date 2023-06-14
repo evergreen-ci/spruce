@@ -13,8 +13,13 @@ type CustomQueriesType = typeof customQueries;
 
 type CustomRenderType = CustomQueriesType & QueriesType;
 type customRenderOptions = RenderOptions<CustomRenderType>;
-/** `customRender` or `render` takes an instance of react-testing-library's render method
- *  and adds additional selectors for querying your components in tests  */
+/**
+ * `customRender` or `render` takes an instance of react-testing-library's render method
+ *  and adds additional selectors for querying components in tests.
+ * @param ui - React Component to render
+ * @param options - Options to pass to render
+ * @returns RenderResult with custom queries bound to screen
+ */
 const customRender = (ui: React.ReactElement, options?: customRenderOptions) =>
   render(ui, {
     queries: { ...queries, ...customQueries },
@@ -30,8 +35,12 @@ interface renderWithRouterMatchOptions extends customRenderOptions {
   path?: string;
 }
 
-/** `renderWithRouterMatch` implements the `customRender` method and wraps a passed in component
- *  with an instance of `react-router`'s `<Router />` component.
+/**
+ * `renderWithRouterMatch` implements the `customRender` method and wraps a component
+ * with an instance of `react-router`'s `<Router />` component.
+ * @param ui - React Component to render
+ * @param options - Options to pass to render
+ * @returns RenderResult with custom queries bound to screen
  */
 const renderWithRouterMatch = (
   ui: React.ReactElement,

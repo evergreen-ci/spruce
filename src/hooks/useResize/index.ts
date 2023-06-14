@@ -6,6 +6,7 @@ type UseResizeOptions = {
 
 /**
  * `useResize` determines if the window is currently being resized or not.
+ * @param options - An optional object containing options for the hook.
  * @param options.onResize - An optional callback function that will be called during a resize event.
  * @returns a boolean indicating whether the window is being resized or not
  */

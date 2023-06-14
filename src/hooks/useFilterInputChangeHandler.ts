@@ -9,8 +9,11 @@ const { parseQueryString } = queryString;
 
 /**
  * Filter input state management hook.
- * @param {FilterHookParams}
- * @return {FilterHookResult<string>}
+ * @param params - filter hook params
+ * @param params.urlParam - the url param to update
+ * @param params.resetPage - whether or not to reset the page to 0 when the input value changes
+ * @param params.sendAnalyticsEvent - callback to send analytics event when input value changes
+ * @returns - the filter input state and its state management functions
  */
 export const useFilterInputChangeHandler = ({
   urlParam,

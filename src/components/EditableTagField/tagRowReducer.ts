@@ -26,7 +26,8 @@ export const getInitialState = (tag: Tag, isNewTag: boolean) => ({
   isInputValid: true,
   shouldShowNewTag: !isNewTag,
 });
-export function reducer(state: State, action: Action) {
+
+export const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case "newTag":
       return {
@@ -55,4 +56,4 @@ export function reducer(state: State, action: Action) {
     default:
       throw new Error("Unknown action type");
   }
-}
+};

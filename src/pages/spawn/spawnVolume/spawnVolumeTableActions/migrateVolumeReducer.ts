@@ -12,7 +12,7 @@ interface State {
 
 export const initialState = { page: Page.First, form: {} };
 
-export function reducer(state: State, action: Action): State {
+export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "goToNextPage":
       return {
@@ -28,7 +28,7 @@ export function reducer(state: State, action: Action): State {
     default:
       throw new Error(`Unknown reducer action ${action}`);
   }
-}
+};
 
 type Action =
   | { type: "goToNextPage" }

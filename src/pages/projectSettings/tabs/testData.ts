@@ -109,6 +109,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     {
       id: "1",
       alias: "__github",
+      description: "",
       gitTag: "",
       variant: ".*",
       task: ".*",
@@ -119,6 +120,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     {
       id: "3",
       alias: "__commit_queue",
+      description: "",
       gitTag: "",
       variant: "^ubuntu1604$",
       task: "^lint$",
@@ -129,6 +131,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     {
       id: "5",
       alias: "__git_tag",
+      description: "",
       gitTag: "tagName",
       variant: "",
       task: "",
@@ -264,6 +267,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     {
       id: "2",
       alias: "__github_checks",
+      description: "",
       gitTag: "",
       variant: "",
       task: "",
@@ -274,6 +278,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     {
       id: "4",
       alias: "my alias name",
+      description: "my description",
       gitTag: "",
       variant: "",
       task: "",

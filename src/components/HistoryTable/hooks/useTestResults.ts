@@ -12,8 +12,12 @@ import { rowType } from "../types";
 
 const { convertArrayToObject } = array;
 
-/** useTestResults is a hook that given an index checks if a commit has been loaded and has test filters applied and then fetches the test results for the given tasks  */
-const useTestResults = (index: number) => {
+/**
+ * useTestResults is a hook that given an index checks if a commit has been loaded and has test filters applied and then fetches the test results for the given tasks
+ * @param rowIndex - the index of the row in the history table
+ * @returns getTaskMetadata - a function that given a task id returns the test results for that task
+ */
+const useTestResults = (rowIndex: number) => {
   const { getItem, historyTableFilters } = useHistoryTable();
   let taskIds: string[] = [];
   const hasTestFilters = historyTableFilters.length > 0;
@@ -21,7 +25,7 @@ const useTestResults = (index: number) => {
     [taskId: string]: TaskTestResultSample;
   }>({});
 
-  const commit = getItem(index);
+  const commit = getItem(rowIndex);
   if (commit && commit.type === rowType.COMMIT && commit.commit) {
     taskIds = commit.commit.buildVariants.flatMap((buildVariant) =>
       buildVariant.tasks.map((task) => task.id)
