@@ -115,11 +115,11 @@ const regexSelector = (
 
 /**
  * getEventSchema returns the schema and uiSchema for the event section of subscriptions.
- *
  * @param regexEnumsToDisable - enums that should not be selectable in the regex selector. Only allow one of each
  * (build-variant, display-name) to be selected
  * @param triggers - an object containing information about available triggers. The available triggers differ between task,
  * version, and project subscriptions
+ * @returns schema and uiSchema for the event section of subscriptions
  */
 export const getEventSchema = (
   regexEnumsToDisable: string[],

@@ -3,36 +3,11 @@ import get from "lodash/get";
 
 export { githubPRLinkify } from "./githubPRLinkify";
 
-// shortenString takes a string and shortens it
-// Useful for displaying part of a long string, such as a long taskId
-export const shortenString = (
-  value: string,
-  wordwise: boolean,
-  max: number,
-  tail: string
-): string => {
-  if (!value) {
-    return "";
-  }
-
-  if (!max) {
-    return value;
-  }
-  if (value.length <= max) {
-    return value;
-  }
-
-  let valueSubstring = value.substr(0, max);
-  if (wordwise) {
-    const lastspace = valueSubstring.lastIndexOf(" ");
-    if (lastspace !== -1) {
-      valueSubstring = valueSubstring.substr(0, lastspace);
-    }
-  }
-
-  return valueSubstring + (tail || " …");
-};
-
+/**
+ * `msToDuration` converts a number of milliseconds to a string representing the duration
+ * @param ms - milliseconds
+ * @returns - a string representing the duration in the format of "1d 2h 3m 4s"
+ */
 export const msToDuration = (ms: number): string => {
   const days = Math.floor(ms / (24 * 60 * 60 * 1000));
   const daysMilli = ms % (24 * 60 * 60 * 1000);
@@ -55,6 +30,16 @@ export const msToDuration = (ms: number): string => {
   }
 };
 
+/**
+ * `stringifyNanoseconds` converts a number of nanoseconds to a string representing the duration
+ * @param input - nanoseconds
+ * @param skipDayMax - if true, will not display days if the duration is greater than 24 hours
+ * @param skipSecMax - if true, will not display seconds if the duration is greater than 60 seconds
+ * @returns - a string representing the duration in the format of "1d 2h 3m 4s"
+ * @example
+ * stringifyNanoseconds(1000000000000) // "11 days"
+ * stringifyNanoseconds(1000000000000, true) // "11 days"
+ */
 export const stringifyNanoseconds = (
   input: number,
   skipDayMax: boolean,
@@ -93,6 +78,13 @@ export const stringifyNanoseconds = (
   return ">= 1 day";
 };
 
+/**
+ * `omitTypename` removes the __typename property from an object
+ * @param object - the object to remove the __typename property from
+ * @returns - the object without the __typename property
+ * @example
+ * omitTypename({ __typename: "Task", id: "123" }) // { id: "123" }
+ */
 export const omitTypename = (object) =>
   JSON.parse(JSON.stringify(object), (key, value) =>
     key === "__typename" ? undefined : value
@@ -106,7 +98,17 @@ export type DateCopyOptions = {
   dateFormat?: string;
 };
 
-// Will return a time in the users local timezone when one is not provided
+/**
+ * `getDateCopy` converts a date to a string in the format of "MMM d, yyyy h:mm:ss a z"
+ * @param time - a string, number, or Date object
+ * @param options - an object with options for formatting the date
+ * @param options.tz - a timezone string, such as "America/Los_Angeles"
+ * @param options.dateOnly - if true, will only return the date, not the time
+ * @param options.omitSeconds - if true, will not return the seconds
+ * @param options.omitTimezone - if true, will not return the timezone
+ * @param options.dateFormat - a date format string, such as "MMM d, yyyy"
+ * @returns - a string representing the date in the format of "MMM d, yyyy h:mm:ss a z"
+ */
 export const getDateCopy = (
   time: string | number | Date,
   options?: DateCopyOptions
@@ -133,11 +135,26 @@ export const getDateCopy = (
   return format(new Date(time), finalDateFormat);
 };
 
+/**
+ * `copyToClipboard` copies a string to the clipboard
+ * @param textToCopy - the string to copy to the clipboard
+ */
 export const copyToClipboard = (textToCopy: string) => {
   navigator.clipboard.writeText(textToCopy);
 };
 
-export const sortFunctionString = (a, b, key) => {
+/**
+ * `sortFunctionString` is a helper function for sorting an array of objects by a string key
+ * @param a - the first object to compare
+ * @param b - the second object to compare
+ * @param key - the key to sort by
+ * @returns - a number representing the sort order
+ * @example
+ * const arr = [{ name: "b" }, { name: "a" }];
+ * arr.sort((a, b) => sortFunctionString(a, b, "name"));
+ * // [{ name: "a" }, { name: "b" }]
+ */
+export const sortFunctionString = <T>(a: T, b: T, key: string) => {
   const nameA = get(a, key).toUpperCase();
   const nameB = get(b, key).toUpperCase();
   if (nameA < nameB) {
@@ -149,44 +166,55 @@ export const sortFunctionString = (a, b, key) => {
   return 0;
 };
 
-export const sortFunctionDate = (a, b, key) => {
-  let dateA;
-  let dateB;
+/**
+ * `sortFunctionDate` is a helper function for sorting an array of objects by a date key
+ * @param a - the first object to compare
+ * @param b - the second object to compare
+ * @param key - the key to sort by
+ * @returns - a number representing the sort order
+ * @example
+ * const arr = [{ date: "2021-01-01" }, { date: "2021-01-02" }];
+ * arr.sort((a, b) => sortFunctionDate(a, b, "date"));
+ * // [{ date: "2021-01-01" }, { date: "2021-01-02" }]
+ */
+export const sortFunctionDate = <T>(a: T, b: T, key: string) => {
+  let dateA: Date;
+  let dateB: Date;
   try {
     dateA = new Date(get(a, key));
     dateB = new Date(get(b, key));
   } catch (e) {
     throw Error(`Could not convert ${key} to date`);
   }
-  return dateA - dateB;
+  return dateA.getTime() - dateB.getTime();
 };
 
 /**
- * @param {string}  str - A string that does not contain regex operators.
- * @return {string} A regex that strictly matches on the input.
+ * @param  str - A string that does not contain regex operators.
+ * @returns A regex that strictly matches on the input.
  */
 export const applyStrictRegex = (str: string) => `^${str}$`;
 
 /**
  *
  * @param str - A string that may contain regex operators.
- * @return {string} A regex that matches on the input.
+ * @returns A regex that matches on the input.
  */
 export const escapeRegex = (str: string) =>
   str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 /**
  * @param str - A string that represents a githash
- * @return {string} A shortenend version of the input string.
+ * @returns A shortenend version of the input string.
  */
 export const shortenGithash = (str: string) => str?.substring(0, 7);
 
 /**
  * Function that trims the middle portion of a string. ex: "EvergreenUI" -> "Ev...UI"
  * The resulting length, if trimmed, is maxLength + 1 (due to ellipsis length).
- * @param {string} str - Text to trim
- * @param {number} maxLength - Max length before trimming text
- * @return {string} The original or trimmed text.
+ * @param str - Text to trim
+ * @param maxLength - Max length before trimming text
+ * @returns The original or trimmed text.
  */
 export const trimStringFromMiddle = (str: string, maxLength: number) => {
   const ellipsis = "…";
@@ -210,9 +238,9 @@ export const trimStringFromMiddle = (str: string, maxLength: number) => {
 /**
  * Convert an array of strings into a string that lists them, separated by commas and with a coordinating conjunction (i.e. "and" or "or") preceding the last word.
  * E.g. joinWithConjunction(["spruce", "app", "plt"], "and") => "spruce, app, and plt"
- * @param {string[]} array - List of words.
- * @param {string} conjunction - Word such as "and" or "or" that should precede the last list item.
- * @return {string} List items joined by a comma with the coordinating conjunction
+ * @param array - List of words.
+ * @param conjunction - Word such as "and" or "or" that should precede the last list item.
+ * @returns List items joined by a comma with the coordinating conjunction
  */
 export const joinWithConjunction = (array: string[], conjunction: string) => {
   if (array.length === 0) {
@@ -229,11 +257,19 @@ export const joinWithConjunction = (array: string[], conjunction: string) => {
 
 /**
  * Given a string, strips new line characters.
- * @param {string} str - string to remove new lines from
- * @return {string} string with new lines removed
+ * @param str - string to remove new lines from
+ * @returns string with new lines removed
  */
 export const stripNewLines = (str: string) => str.replace(/\n/g, "");
 
+/**
+ * Given a string, converts it to sentence case.
+ * @param string - string to convert to sentence case
+ * @returns string in sentence case
+ * @example
+ * toSentenceCase("hello world") => "Hello world"
+ * toSentenceCase("HELLO WORLD") => "Hello world"
+ */
 export const toSentenceCase = (string: string) => {
   if (string === undefined || string.length === 0) {
     return "";

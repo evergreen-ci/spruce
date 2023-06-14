@@ -2874,6 +2874,7 @@ export type RepoAccessSettingsFragment = {
 export type AliasFragment = {
   __typename?: "ProjectAlias";
   alias: string;
+  description?: string | null;
   gitTag: string;
   id: string;
   remotePath: string;
@@ -3052,6 +3053,7 @@ export type ProjectSettingsFieldsFragment = {
   aliases?: Array<{
     __typename?: "ProjectAlias";
     alias: string;
+    description?: string | null;
     gitTag: string;
     id: string;
     remotePath: string;
@@ -3256,6 +3258,7 @@ export type RepoSettingsFieldsFragment = {
   aliases?: Array<{
     __typename?: "ProjectAlias";
     alias: string;
+    description?: string | null;
     gitTag: string;
     id: string;
     remotePath: string;
@@ -3635,6 +3638,7 @@ export type ProjectEventSettingsFragment = {
   aliases?: Array<{
     __typename?: "ProjectAlias";
     alias: string;
+    description?: string | null;
     gitTag: string;
     id: string;
     remotePath: string;
@@ -5820,6 +5824,7 @@ export type ProjectEventLogsQuery = {
         aliases?: Array<{
           __typename?: "ProjectAlias";
           alias: string;
+          description?: string | null;
           gitTag: string;
           id: string;
           remotePath: string;
@@ -6015,6 +6020,7 @@ export type ProjectEventLogsQuery = {
         aliases?: Array<{
           __typename?: "ProjectAlias";
           alias: string;
+          description?: string | null;
           gitTag: string;
           id: string;
           remotePath: string;
@@ -6220,6 +6226,7 @@ export type ProjectSettingsQuery = {
     aliases?: Array<{
       __typename?: "ProjectAlias";
       alias: string;
+      description?: string | null;
       gitTag: string;
       id: string;
       remotePath: string;
@@ -6466,6 +6473,7 @@ export type RepoEventLogsQuery = {
         aliases?: Array<{
           __typename?: "ProjectAlias";
           alias: string;
+          description?: string | null;
           gitTag: string;
           id: string;
           remotePath: string;
@@ -6661,6 +6669,7 @@ export type RepoEventLogsQuery = {
         aliases?: Array<{
           __typename?: "ProjectAlias";
           alias: string;
+          description?: string | null;
           gitTag: string;
           id: string;
           remotePath: string;
@@ -6866,6 +6875,7 @@ export type RepoSettingsQuery = {
     aliases?: Array<{
       __typename?: "ProjectAlias";
       alias: string;
+      description?: string | null;
       gitTag: string;
       id: string;
       remotePath: string;
@@ -7810,6 +7820,22 @@ export type HostsQuery = {
         name?: string | null;
       } | null;
     }>;
+  };
+};
+
+export type ProjectHealthViewQueryVariables = Exact<{
+  identifier: Scalars["String"];
+}>;
+
+export type ProjectHealthViewQuery = {
+  __typename?: "Query";
+  projectSettings: {
+    __typename?: "ProjectSettings";
+    projectRef?: {
+      __typename?: "Project";
+      id: string;
+      projectHealthView: ProjectHealthView;
+    } | null;
   };
 };
 

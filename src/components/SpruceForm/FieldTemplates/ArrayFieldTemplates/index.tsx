@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/valid-types */
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import ExpandableCard from "@leafygreen-ui/expandable-card";
@@ -111,6 +112,21 @@ const ArrayItemRow = styled.div<{ border: boolean; index: number }>`
 
 /**
  * `ArrayFieldTemplate` is a custom field template for arrays that renders an array of fields.
+ * @param props ArrayFieldTemplateProps
+ * @param props.canAdd - Whether or not the user can add new items to the array.
+ * @param props.DescriptionField - A custom field for rendering the array's description.
+ * @param props.disabled - Whether or not the field is disabled.
+ * @param props.formData - The form's data.
+ * @param props.idSchema - The field's ID schema.
+ * @param props.items - An array of items to render.
+ * @param props.onAddClick - A callback function for when the user clicks the add button.
+ * @param props.readonly - Whether or not the field is readonly. // jsdoc/valid-types is disabled for this file due to // https://github.com/jsdoc-type-pratt-parser/jsdoc-type-pratt-parser/issues/104
+ * @param props.required - Whether or not the field is required.
+ * @param props.schema - The field's schema.
+ * @param props.title - The field's title.
+ * @param props.TitleField - A custom field for rendering the array's title.
+ * @param props.uiSchema - The field's UI schema.
+ * @returns JSX.Element
  */
 export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
   canAdd,

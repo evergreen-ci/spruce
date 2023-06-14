@@ -82,8 +82,9 @@ interface DropdownWithRefProps
 interface DropdownWithRefState {
   isOpen: boolean;
 }
-/** DropdownWithRef is a class component that allows the implementer
- *  to control its internal state methods with a ref in order to trigger state updates */
+/**
+ * DropdownWithRef is a class component that allows the implementer to control its internal state methods with a ref in order to trigger state updates
+ */
 class DropdownWithRef extends Component<
   DropdownWithRefProps,
   DropdownWithRefState
