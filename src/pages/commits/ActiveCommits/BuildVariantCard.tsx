@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { StyledRouterLink } from "components/styles";
-import { VariantGroupedTaskStatusBadges } from "components/VariantGroupedTaskStatusBadges";
 import VisibilityContainer from "components/VisibilityContainer";
 import { getVariantHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { StatusCount } from "gql/generated/types";
+import { VariantGroupedTaskStatusBadges } from "pages/commits/ActiveCommits/buildVariantCard/VariantGroupedTaskStatusBadges";
 import { TASK_ICON_PADDING } from "../constants";
 import { WaterfallTaskStatusIcon } from "./buildVariantCard/WaterfallTaskStatusIcon";
 
