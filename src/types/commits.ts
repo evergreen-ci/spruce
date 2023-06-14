@@ -6,6 +6,7 @@ export enum ProjectFilterOptions {
   Task = "taskNames",
   Status = "statuses",
   Test = "tests",
+  View = "view",
 }
 
 export enum ChartToggleQueryParams {

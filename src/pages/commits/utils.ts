@@ -1,4 +1,7 @@
-import { MainlineCommitsQueryVariables } from "gql/generated/types";
+import {
+  MainlineCommitsQueryVariables,
+  ProjectHealthView,
+} from "gql/generated/types";
 import { TaskStatus } from "types/task";
 import { array } from "utils";
 
@@ -9,6 +12,7 @@ interface FilterState {
   tasks: string[];
   variants: string[];
   requesters: string[];
+  view: ProjectHealthView;
 }
 interface MainlineCommitOptions {
   projectIdentifier: string;
@@ -77,7 +81,8 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
 
   let shouldShowTaskIcons = true;
   let statusesToShow = [];
-  if (hasTasks) {
+
+  if (hasTasks || filterState.view === ProjectHealthView.All) {
     statusesToShow = filterState.statuses;
   } else if (hasStatuses) {
     const onlyHasNonFailingStatuses =
@@ -87,7 +92,7 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
     } else {
       statusesToShow = arrayIntersection(filterState.statuses, FAILED_STATUSES);
     }
-  } else {
+  } else if (filterState.view === ProjectHealthView.Failed) {
     statusesToShow = FAILED_STATUSES;
   }
 
@@ -105,6 +110,15 @@ const generateBuildVariantOptionsForGroupedTasksFromState = (
 ): MainlineCommitsQueryVariables["buildVariantOptionsForGroupedTasks"] => {
   const { filterState } = state;
   const { hasTasks, hasFilters, hasStatuses } = getFilterStatus(filterState);
+
+  // If "All" view is enabled, don't group any tasks.
+  if (filterState.view === ProjectHealthView.All) {
+    return {
+      tasks: [impossibleMatch],
+      variants: [],
+      statuses: [],
+    };
+  }
 
   let statusesToShow = [];
   let shouldShowGroupedTaskIcons = true;

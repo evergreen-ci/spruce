@@ -66,6 +66,7 @@ import GET_VERSION_TASKS from "./get-version-tasks.graphql";
 import GET_VERSION from "./get-version.graphql";
 import GET_VIEWABLE_PROJECTS from "./get-viewable-projects.graphql";
 import HOSTS from "./hosts.graphql";
+import PROJECT_HEALTH_VIEW from "./project-health-view.graphql";
 import GET_PROJECT_PATCHES from "./project-patches.graphql";
 import GET_SPAWN_EXPIRATION_INFO from "./spawn-expiration.graphql";
 import GET_SPAWN_TASK from "./spawn-task.graphql";
@@ -148,6 +149,7 @@ export {
   GET_VERSION,
   GET_VIEWABLE_PROJECTS,
   HOSTS,
+  PROJECT_HEALTH_VIEW,
   TASK_QUEUE_DISTROS,
   USER_SUBSCRIPTIONS,
 };
