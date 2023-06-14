@@ -80,11 +80,12 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
               onClick={callBack(Object.keys(groupedStatusCounts))}
               status={umbrellaStatus}
               statusCounts={groupedStatusCounts}
+              // If the badge is active it should reset the page.
               href={getVersionRoute(
                 versionId,
                 isVariantSelected &&
                   isUmbrellaStatusSet(umbrellaStatus, statusSearch)
-                  ? { ...versionRouteParams, variant: undefined }
+                  ? { ...versionRouteParams }
                   : {
                       ...versionRouteParams,
                       variant: applyStrictRegex(variant),
