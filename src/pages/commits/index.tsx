@@ -24,6 +24,7 @@ import {
   SpruceConfigQueryVariables,
   MainlineCommitsQuery,
   MainlineCommitsQueryVariables,
+  ProjectHealthView,
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
 import {
@@ -32,17 +33,20 @@ import {
   useUpsertQueryParams,
   useUserSettings,
 } from "hooks";
+import { useQueryParam } from "hooks/useQueryParam";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
-import { array, queryString, validators } from "utils";
+import { array, environmentVariables, queryString, validators } from "utils";
 import { CommitsWrapper } from "./CommitsWrapper";
 import CommitTypeSelect from "./commitTypeSelect";
 import { useCommitLimit } from "./hooks/useCommitLimit";
 import { PaginationButtons } from "./PaginationButtons";
 import { StatusSelect } from "./StatusSelect";
 import { getMainlineCommitsQueryVariables, getFilterStatus } from "./utils";
+import { ViewToggle } from "./ViewToggle";
 import { WaterfallMenu } from "./WaterfallMenu";
 
 const { toArray } = array;
+const { isProduction } = environmentVariables;
 const { parseQueryString, getString } = queryString;
 const { validateRegexp } = validators;
 
@@ -87,6 +91,10 @@ const Commits = () => {
   const statusFilters = toArray(parsed[ProjectFilterOptions.Status]);
   const variantFilters = toArray(parsed[ProjectFilterOptions.BuildVariant]);
   const taskFilters = toArray(parsed[ProjectFilterOptions.Task]);
+  const [viewFilter] = useQueryParam(
+    ProjectFilterOptions.View,
+    "" as ProjectHealthView
+  );
   const requesterFilters = toArray(
     parsed[MainlineCommitQueryParams.Requester]
   ).filter((r) => r !== ALL_VALUE);
@@ -99,6 +107,7 @@ const Commits = () => {
     variants: variantFilters,
     tasks: taskFilters,
     requesters: requesterFilters,
+    view: viewFilter || ProjectHealthView.Failed,
   };
   const variables = getMainlineCommitsQueryVariables({
     mainlineCommitOptions: {
@@ -196,6 +205,7 @@ const Commits = () => {
           />
         </BadgeWrapper>
         <PaginationWrapper>
+          {!isProduction() && <ViewToggle identifier={projectIdentifier} />}
           <PaginationButtons
             prevPageOrderNumber={prevPageOrderNumber}
             nextPageOrderNumber={nextPageOrderNumber}
@@ -238,7 +248,9 @@ const BadgeWrapper = styled.div`
   margin: ${size.s} 0;
 `;
 const PaginationWrapper = styled.div`
+  align-items: center;
   display: flex;
+  gap: ${size.xs};
   justify-content: flex-end;
   padding-bottom: ${size.xs};
 `;

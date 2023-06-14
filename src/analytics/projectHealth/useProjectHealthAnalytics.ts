@@ -3,7 +3,10 @@ import {
   Properties,
   Analytics as A,
 } from "analytics/addPageAction";
-import { SaveSubscriptionForUserMutationVariables } from "gql/generated/types";
+import {
+  ProjectHealthView,
+  SaveSubscriptionForUserMutationVariables,
+} from "gql/generated/types";
 
 type pageType = "Commit chart" | "Task history" | "Variant history";
 type Action =
@@ -42,7 +45,8 @@ type Action =
   | {
       name: "Add Notification";
       subscription: SaveSubscriptionForUserMutationVariables["subscription"];
-    };
+    }
+  | { name: "Toggle view"; toggle: ProjectHealthView };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
