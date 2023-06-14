@@ -42,8 +42,7 @@ describe(
       cy.visit("/variant-history/spruce/ubuntu1604");
       // Expand
       cy.contains("EVG-16356").should("not.exist");
-      cy.contains("Expand 1 inactive").should("exist");
-      cy.contains("Expand 1 inactive").scrollIntoView();
+      cy.contains("Expand 1 inactive").should("exist").scrollIntoView();
       cy.contains("Expand 1 inactive").click();
       cy.contains("EVG-16356").should("be.visible");
 
