@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import {
@@ -29,19 +30,18 @@ export const ViewToggle: React.VFC<Props> = ({ identifier }) => {
     "" as ProjectHealthView
   );
 
-  useQuery<ProjectHealthViewQuery, ProjectHealthViewQueryVariables>(
-    PROJECT_HEALTH_VIEW,
-    {
-      variables: { identifier },
-      fetchPolicy: "network-only",
-      nextFetchPolicy: "cache-first",
-      onCompleted: ({ projectSettings }) => {
-        if (!view) {
-          setView(projectSettings?.projectRef?.projectHealthView);
-        }
-      },
+  const { data } = useQuery<
+    ProjectHealthViewQuery,
+    ProjectHealthViewQueryVariables
+  >(PROJECT_HEALTH_VIEW, {
+    variables: { identifier },
+  });
+
+  useEffect(() => {
+    if (!view) {
+      setView(data?.projectSettings?.projectRef?.projectHealthView);
     }
-  );
+  }, [data, setView, view]);
 
   const onChange = (value: ProjectHealthView) => {
     setView(value);
