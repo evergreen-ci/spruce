@@ -3,7 +3,7 @@ import { types } from "../..";
 import { LabelCellContainer } from "../../Cell";
 import { useHistoryTable } from "../../HistoryTableContext";
 import { rowType } from "../../types";
-import DateSeparator from "./DateSeperator";
+import DateSeparator from "./DateSeparator";
 import FoldedCommit from "./FoldedCommit";
 import { RowContainer } from "./styles";
 
