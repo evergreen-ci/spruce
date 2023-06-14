@@ -116,6 +116,7 @@ const IconContainer = styled.div`
   display: flex;
   padding: ${TASK_ICON_PADDING}px 0;
   flex-wrap: wrap;
+  width: fit-content;
 `;
 
 const Container = styled.div`
