@@ -14,6 +14,13 @@ export const TaskCellStory: StoryObj<typeof TaskCell> = {
       status: "success",
     },
   },
+  parameters: {
+    reactRouter: {
+      path: "/task/:id",
+      route: "/task/task-1",
+      params: { id: "task" },
+    },
+  },
 };
 
 export const EmptyCellStory: StoryObj<typeof EmptyCell> = {
