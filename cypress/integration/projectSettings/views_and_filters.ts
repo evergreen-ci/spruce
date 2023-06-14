@@ -47,11 +47,17 @@ describe("Views & filters page", () => {
   });
 
   describe("project view", () => {
-    it("updates field to 'all' view and back to 'default'", () => {
+    it("updates field to 'all' view, which shows all icons on the waterfall, and back to 'default'", () => {
       cy.getInputByLabel("All tasks view").click({ force: true });
       clickSave();
       cy.validateToast("success", "Successfully updated project");
       cy.getInputByLabel("All tasks view").should("be.checked");
+
+      cy.visit("/commits/sys-perf");
+      cy.dataCy("waterfall-task-status-icon")
+        .should("be.visible")
+        .should("have.length", 2);
+      cy.visit(destination);
 
       cy.getInputByLabel("Default view").click({ force: true });
       clickSave();

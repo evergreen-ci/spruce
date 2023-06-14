@@ -7823,6 +7823,22 @@ export type HostsQuery = {
   };
 };
 
+export type ProjectHealthViewQueryVariables = Exact<{
+  identifier: Scalars["String"];
+}>;
+
+export type ProjectHealthViewQuery = {
+  __typename?: "Query";
+  projectSettings: {
+    __typename?: "ProjectSettings";
+    projectRef?: {
+      __typename?: "Project";
+      id: string;
+      projectHealthView: ProjectHealthView;
+    } | null;
+  };
+};
+
 export type ProjectPatchesQueryVariables = Exact<{
   projectIdentifier: Scalars["String"];
   patchesInput: PatchesInput;
