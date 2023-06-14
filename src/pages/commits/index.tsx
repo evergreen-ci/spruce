@@ -248,6 +248,7 @@ const BadgeWrapper = styled.div`
   margin: ${size.s} 0;
 `;
 const PaginationWrapper = styled.div`
+  align-items: center;
   display: flex;
   gap: ${size.xs};
   justify-content: flex-end;

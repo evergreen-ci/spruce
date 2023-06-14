@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { palette } from "@leafygreen-ui/palette";
 import {
   SegmentedControl,
   SegmentedControlOption,
 } from "@leafygreen-ui/segmented-control";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, Overline } from "@leafygreen-ui/typography";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
@@ -19,15 +20,17 @@ import { PROJECT_HEALTH_VIEW } from "gql/queries";
 import { useQueryParam } from "hooks/useQueryParam";
 import { ProjectFilterOptions } from "types/commits";
 
+const { gray } = palette;
+
 type Props = {
   identifier: string;
 };
 
 export const ViewToggle: React.VFC<Props> = ({ identifier }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
-  const [view, setView] = useQueryParam(
+  const [view, setView] = useQueryParam<ProjectHealthView | null>(
     ProjectFilterOptions.View,
-    "" as ProjectHealthView
+    null
   );
 
   const { data } = useQuery<
@@ -52,47 +55,52 @@ export const ViewToggle: React.VFC<Props> = ({ identifier }) => {
   };
 
   return (
-    <SegmentedControl
-      aria-controls="[data-cy='waterfall-task-status-icon']"
-      /* @ts-expect-error */
-      label={
-        <>
-          Icon View
-          <Tooltip
-            align="bottom"
-            justify="middle"
-            trigger={
-              <IconContainer>
-                <Icon glyph="InfoWithCircle" size="small" />
-              </IconContainer>
-            }
-            triggerEvent="hover"
-          >
-            <Body>
-              “Default” only shows failed icons in the base view and groups some
-              filtered results.
-            </Body>
-            <Body>
-              “All Tasks” shows icons for every task without grouping.
-            </Body>
-          </Tooltip>
-        </>
-      }
-      value={view || ProjectHealthView.Failed}
-      onChange={onChange}
-    >
-      <SegmentedControlOption
-        data-cy="view-failed"
-        value={ProjectHealthView.Failed}
+    <>
+      <StyledOverline>
+        Icon View
+        <Tooltip
+          align="bottom"
+          justify="middle"
+          trigger={
+            <IconContainer>
+              <Icon glyph="InfoWithCircle" size="small" />
+            </IconContainer>
+          }
+          triggerEvent="hover"
+        >
+          <Body>
+            “Default” only shows failed icons in the base view and groups some
+            filtered results.
+          </Body>
+          <Body>“All Tasks” shows icons for every task without grouping.</Body>
+        </Tooltip>
+      </StyledOverline>
+      <SegmentedControl
+        aria-controls="[data-cy='waterfall-task-status-icon']"
+        name="Icon Tooltip"
+        onChange={onChange}
+        value={view || ProjectHealthView.Failed}
       >
-        Default
-      </SegmentedControlOption>
-      <SegmentedControlOption data-cy="view-all" value={ProjectHealthView.All}>
-        All Tasks
-      </SegmentedControlOption>
-    </SegmentedControl>
+        <SegmentedControlOption
+          data-cy="view-failed"
+          value={ProjectHealthView.Failed}
+        >
+          Default
+        </SegmentedControlOption>
+        <SegmentedControlOption
+          data-cy="view-all"
+          value={ProjectHealthView.All}
+        >
+          All Tasks
+        </SegmentedControlOption>
+      </SegmentedControl>
+    </>
   );
 };
+
+const StyledOverline = styled(Overline)`
+  color: ${gray.dark1};
+`;
 
 const IconContainer = styled.span`
   margin-left: ${size.xxs};
