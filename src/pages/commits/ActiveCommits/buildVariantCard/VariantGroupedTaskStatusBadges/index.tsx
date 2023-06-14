@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
+import { getVersionRoute } from "constants/routes";
+import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { size } from "constants/tokens";
 import { StatusCount } from "gql/generated/types";
 import {
@@ -25,7 +27,6 @@ const VariantGroupedTaskStatusBadges: React.VFC<Props> = ({
   onClick = () => () => {},
 }) => {
   const { stats } = groupStatusesByUmbrellaStatus(statusCounts ?? []);
-  const queryParamsToPreserve = { variant: applyStrictRegex(variant) };
 
   return (
     <VariantTasks>
@@ -35,10 +36,11 @@ const VariantGroupedTaskStatusBadges: React.VFC<Props> = ({
             key={`${versionId}_${variant}_${umbrellaStatus}`}
             count={count}
             onClick={onClick(Object.keys(groupedStatusCounts))}
-            queryParamsToPreserve={queryParamsToPreserve}
+            href={getVersionRoute(versionId, {
+              variant: applyStrictRegex(variant),
+              statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
+            })}
             status={umbrellaStatus}
-            statusCounts={groupedStatusCounts}
-            versionId={versionId}
           />
         )
       )}

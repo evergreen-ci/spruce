@@ -10,6 +10,7 @@ import {
   getVersionRoute,
   getUserPatchesRoute,
 } from "constants/routes";
+import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { fontSize, size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useDateFormat } from "hooks";
@@ -91,7 +92,9 @@ export const PatchCard: React.VFC<Props> = ({
       status={umbrellaStatus}
       count={count}
       statusCounts={statusCounts}
-      versionId={versionId}
+      href={getVersionRoute(versionId, {
+        statuses: mapUmbrellaStatusToQueryParam[status],
+      })}
       key={`${versionId}_${umbrellaStatus}`}
     />
   ));

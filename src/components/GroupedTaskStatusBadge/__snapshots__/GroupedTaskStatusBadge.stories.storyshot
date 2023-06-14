@@ -10,7 +10,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
     >
       <a
         data-cy="grouped-task-status-badge"
-        href="/version/some_version/tasks?statuses=success"
+        href="/test"
       >
         <div
           class="css-qtz1fi-BadgeContainer emc61an4"
@@ -34,7 +34,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
     >
       <a
         data-cy="grouped-task-status-badge"
-        href="/version/some_version/tasks?statuses=success"
+        href="/test"
       >
         <div
           class="css-qtz1fi-BadgeContainer emc61an4"
@@ -58,7 +58,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
     >
       <a
         data-cy="grouped-task-status-badge"
-        href="/version/some_version/tasks?statuses=failed-umbrella,failed,task-timed-out,test-timed-out,known-issue"
+        href="/test"
       >
         <div
           class="css-1kl4a18-BadgeContainer emc61an4"
@@ -82,7 +82,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
     >
       <a
         data-cy="grouped-task-status-badge"
-        href="/version/some_version/tasks?statuses=running-umbrella,started,dispatched"
+        href="/test"
       >
         <div
           class="css-cmtd0u-BadgeContainer emc61an4"
@@ -106,7 +106,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
     >
       <a
         data-cy="grouped-task-status-badge"
-        href="/version/some_version/tasks?statuses=system-failure-umbrella,system-failed,system-timed-out,system-unresponsive"
+        href="/test"
       >
         <div
           class="css-1a2mzzd-BadgeContainer emc61an4"
@@ -130,7 +130,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
     >
       <a
         data-cy="grouped-task-status-badge"
-        href="/version/some_version/tasks?statuses=setup-failed"
+        href="/test"
       >
         <div
           class="css-1nurxz6-BadgeContainer emc61an4"
@@ -154,7 +154,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
     >
       <a
         data-cy="grouped-task-status-badge"
-        href="/version/some_version/tasks?statuses=setup-failed"
+        href="/test"
       >
         <div
           class="css-1nurxz6-BadgeContainer emc61an4"
@@ -178,7 +178,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
     >
       <a
         data-cy="grouped-task-status-badge"
-        href="/version/some_version/tasks?statuses=undispatched-umbrella,unscheduled,aborted,blocked"
+        href="/test"
       >
         <div
           class="css-u7w0li-BadgeContainer emc61an4"
@@ -202,7 +202,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
     >
       <a
         data-cy="grouped-task-status-badge"
-        href="/version/some_version/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted"
+        href="/test"
       >
         <div
           class="css-xr4fqt-BadgeContainer emc61an4"

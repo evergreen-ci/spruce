@@ -79,10 +79,19 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
               key={`${versionId}_${variant}_${umbrellaStatus}`}
               count={count}
               onClick={callBack(Object.keys(groupedStatusCounts))}
-              queryParamsToPreserve={versionRouteParams}
               status={umbrellaStatus}
               statusCounts={groupedStatusCounts}
-              versionId={versionId}
+              href={getVersionRoute(
+                versionId,
+                isVariantSelected &&
+                  isUmbrellaStatusSet(umbrellaStatus, statusSearch)
+                  ? { ...versionRouteParams, variant: undefined }
+                  : {
+                      ...versionRouteParams,
+                      variant: applyStrictRegex(variant),
+                      statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
+                    }
+              )}
               isActive={
                 !areAnyVariantsSelected ||
                 (isVariantSelected &&

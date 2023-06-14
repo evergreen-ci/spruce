@@ -2,12 +2,7 @@ import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
-import { GetVersionRouteOptions, getVersionRoute } from "constants/routes";
-import {
-  taskStatusToCopy,
-  mapUmbrellaStatusColors,
-  mapUmbrellaStatusToQueryParam,
-} from "constants/task";
+import { taskStatusToCopy, mapUmbrellaStatusColors } from "constants/task";
 import { fontSize, size, zIndex } from "constants/tokens";
 import { TaskStatus } from "types/task";
 import { hexToRGBA } from "utils/color";
@@ -17,8 +12,7 @@ interface GroupedTaskStatusBadgeProps {
   onClick?: () => void;
   status: TaskStatus;
   statusCounts?: { [key: string]: number };
-  versionId: string;
-  queryParamsToPreserve?: GetVersionRouteOptions;
+  href: string;
   isActive?: boolean;
 }
 
@@ -27,16 +21,9 @@ export const GroupedTaskStatusBadge: React.VFC<GroupedTaskStatusBadgeProps> = ({
   onClick = () => undefined,
   status,
   statusCounts,
-  versionId,
-  queryParamsToPreserve = {},
+  href,
   isActive,
 }) => {
-  const href = getVersionRoute(versionId, {
-    ...queryParamsToPreserve,
-    statuses: mapUmbrellaStatusToQueryParam[status],
-  });
-
-  // If already on the version page
   const { fill, border, text } = mapUmbrellaStatusColors[status];
 
   return (
