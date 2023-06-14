@@ -13,7 +13,7 @@ type Action =
   | { type: "onChangeTableWidth"; width: number }
   | { type: "setSelectedCommit"; order: number }
   | {
-      type: "toggleFoldedRowExpandedState";
+      type: "toggleRowExpansion";
       rowIndex: number;
       expanded: boolean;
     };
@@ -187,7 +187,7 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         },
       };
     }
-    case "toggleFoldedRowExpandedState": {
+    case "toggleRowExpansion": {
       const updatedProcessedCommits = state.processedCommits;
       const row = updatedProcessedCommits[action.rowIndex];
       if (row.type !== rowType.FOLDED_COMMITS) {

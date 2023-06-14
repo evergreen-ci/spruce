@@ -35,7 +35,7 @@ const BaseRow: React.VFC<RowProps> = ({
   onToggleFoldedCommit,
   selected,
 }) => {
-  const { columnLimit, toggleFoldedRowExpandedState } = useHistoryTable();
+  const { columnLimit, toggleRowExpansion } = useHistoryTable();
 
   switch (data.type) {
     case rowType.DATE_SEPARATOR:
@@ -80,7 +80,7 @@ const BaseRow: React.VFC<RowProps> = ({
           onClickJiraTicket={onClickFoldedJiraTicket}
           onToggleFoldedCommit={({ expanded, index: rowIndex }) => {
             onToggleFoldedCommit({ isVisible: expanded });
-            toggleFoldedRowExpandedState(rowIndex, expanded);
+            toggleRowExpansion(rowIndex, expanded);
           }}
           onClickUpstreamProject={onClickFoldedUpstreamProject}
         />
