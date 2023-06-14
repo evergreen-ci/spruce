@@ -52,7 +52,6 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
     });
   };
 
-  const areAnyVariantsSelected = !!variantSearch;
   const { stats } = groupStatusesByUmbrellaStatus(statusCounts ?? []);
 
   return (
@@ -93,9 +92,8 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
                     }
               )}
               isActive={
-                !areAnyVariantsSelected ||
-                (isVariantSelected &&
-                  isUmbrellaStatusSet(umbrellaStatus, statusSearch))
+                isVariantSelected &&
+                isUmbrellaStatusSet(umbrellaStatus, statusSearch)
               }
             />
           )

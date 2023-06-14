@@ -39,6 +39,7 @@ export const GroupedTaskStatusBadge: React.VFC<GroupedTaskStatusBadgeProps> = ({
             to={href}
             onClick={() => onClick()}
             data-cy="grouped-task-status-badge"
+            aria-selected={isActive}
           >
             <BadgeContainer
               fill={fill}
