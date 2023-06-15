@@ -221,6 +221,7 @@ describe("useMergedHookRender - sanity check", () => {
       hasNextPage: false,
       hasPreviousPage: false,
       historyTableFilters: [],
+      hasMoreCommits: true,
       pageCount: 0,
       processedCommitCount: 0,
       processedCommits: [],

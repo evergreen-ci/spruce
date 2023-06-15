@@ -25,6 +25,7 @@ const initialState: HistoryTableReducerState = {
   processedCommits: [],
   processedCommitCount: 0,
   commitCache: new Map(),
+  hasMoreCommits: true,
   visibleColumns: [],
   currentPage: 0,
   pageCount: 0,

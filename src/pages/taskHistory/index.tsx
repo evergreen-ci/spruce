@@ -57,7 +57,7 @@ const TaskHistoryContents: React.VFC = () => {
     variables: {
       mainlineCommitsOptions: {
         projectIdentifier,
-        limit: 10,
+        limit: 20,
         shouldCollapse: true,
       },
       buildVariantOptions: {
