@@ -61,18 +61,16 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
 
   // In order to jump to the selected commit, we need to first load the necessary amount of commits
   useEffect(() => {
-    if (selectedCommit) {
-      if (!selectedCommit.loaded) {
-        leaveBreadcrumb(
-          "selectedCommit not loaded, loading more items",
-          {
-            selectedCommit,
-            processedCommitCount,
-          },
-          "process"
-        );
-        loadMoreItems();
-      }
+    if (selectedCommit && !selectedCommit.loaded) {
+      leaveBreadcrumb(
+        "selectedCommit not loaded, loading more items",
+        {
+          selectedCommit,
+          processedCommitCount,
+        },
+        "process"
+      );
+      loadMoreItems();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [processedCommitCount]);

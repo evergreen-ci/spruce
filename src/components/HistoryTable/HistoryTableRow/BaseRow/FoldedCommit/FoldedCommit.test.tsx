@@ -56,9 +56,10 @@ describe("foldedCommit", () => {
       numCommits: 5,
     });
 
+    const foldedCommits = screen.queryAllByDataCy("folded-commit");
     for (let i = 0; i < foldedCommitData.rolledUpCommits.length; i++) {
       const commit = foldedCommitData.rolledUpCommits[i];
-      expect(screen.queryByText(commit.message)).toBeVisible();
+      expect(foldedCommits[i]).toHaveTextContent(commit.message);
     }
   });
 });

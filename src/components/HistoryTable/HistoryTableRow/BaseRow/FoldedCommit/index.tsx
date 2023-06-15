@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Accordion } from "components/Accordion";
@@ -40,12 +41,16 @@ const FoldedCommit: React.VFC<FoldedCommitProps> = ({
   const defaultOpen = expanded;
   const numCommits = rolledUpCommits.length;
 
-  const columns = Array.from(Array(numVisibleCols)).map((_, idx) => (
-    <EmptyCell key={`empty_cell_${idx}`} /> // eslint-disable-line react/no-array-index-key
-  ));
+  const columns = useMemo(
+    () =>
+      Array.from(Array(numVisibleCols)).map((_, idx) => (
+        <EmptyCell key={`empty_cell_${idx}`} /> // eslint-disable-line react/no-array-index-key
+      )),
+    [numVisibleCols]
+  );
 
   const commits = rolledUpCommits.map((commit) => (
-    <StyledRowContainer key={commit.id}>
+    <StyledRowContainer key={commit.id} data-cy="folded-commit">
       <LabelCellContainer>
         <CommitChartLabel
           versionId={commit.id}
