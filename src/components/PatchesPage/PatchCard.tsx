@@ -93,7 +93,7 @@ export const PatchCard: React.VFC<Props> = ({
       count={count}
       statusCounts={statusCounts}
       href={getVersionRoute(versionId, {
-        statuses: mapUmbrellaStatusToQueryParam[status],
+        statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
       })}
       key={`${versionId}_${umbrellaStatus}`}
     />

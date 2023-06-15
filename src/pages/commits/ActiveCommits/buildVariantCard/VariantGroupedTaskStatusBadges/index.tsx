@@ -40,6 +40,7 @@ const VariantGroupedTaskStatusBadges: React.VFC<Props> = ({
               variant: applyStrictRegex(variant),
               statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
             })}
+            statusCounts={groupedStatusCounts}
             status={umbrellaStatus}
           />
         )
