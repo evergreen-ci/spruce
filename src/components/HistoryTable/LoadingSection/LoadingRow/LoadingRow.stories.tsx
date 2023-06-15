@@ -3,7 +3,7 @@ import LoadingRow from ".";
 
 export default {
   component: LoadingRow,
-  title: "components/HistoryTable/LoadingRow",
+  title: "components/HistoryTable/LoadingSection/LoadingRow",
 };
 
 export const LoadingRowStory: StoryObj<typeof LoadingRow> = {

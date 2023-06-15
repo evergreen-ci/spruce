@@ -6,7 +6,7 @@ import { leaveBreadcrumb } from "utils/errorReporting";
 import { types } from ".";
 import { useHistoryTable } from "./HistoryTableContext";
 import EndOfHistoryRow from "./HistoryTableRow/EndOfHistoryRow";
-import LoadingRow from "./HistoryTableRow/LoadingRow";
+import LoadingSection from "./LoadingSection";
 
 interface HistoryTableProps {
   loadMoreItems: () => void;
@@ -94,7 +94,10 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
         components={{
           Footer: () =>
             loading ? (
-              <LoadingRow numVisibleCols={visibleColumns.length} />
+              <LoadingSection
+                numVisibleCols={visibleColumns.length}
+                numLoadingRows={10}
+              />
             ) : (
               <EndOfHistoryRow>{finalRowCopy}</EndOfHistoryRow>
             ),

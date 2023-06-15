@@ -64,7 +64,8 @@ const HistoryTableWrapper: React.VFC<HistoryTableWrapperProps> = ({ type }) => {
       ingestNewCommits(newData);
       setOldData(newData);
     }, 600);
-  }, [oldData, ingestNewCommits]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [oldData]);
 
   return (
     <div style={{ height: 600, width: "100%", border: "red 1px solid" }}>

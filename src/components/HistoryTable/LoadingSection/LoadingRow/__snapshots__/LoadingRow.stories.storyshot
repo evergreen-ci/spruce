@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/HistoryTable/LoadingRow Loading Row Story 1`] = `
+exports[`storybook Storyshots components/HistoryTable/LoadingSection/LoadingRow Loading Row Story 1`] = `
 <div>
   <div
-    class="css-4c6myl-Container e4uajo40"
+    class="css-4c6myl-Container eubivai0"
   >
     <div
       class="css-167wnfc-LabelCellContainer e1bcz5i60"
