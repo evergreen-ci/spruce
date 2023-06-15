@@ -142,7 +142,11 @@ const TaskHistoryContents: React.VFC = () => {
             taskName={taskName}
           />
           <TableWrapper>
-            <HistoryTable loadMoreItems={handleLoadMore} loading={loading}>
+            <HistoryTable
+              loadMoreItems={handleLoadMore}
+              loading={loading}
+              finalRowCopy="End of task history"
+            >
               {TaskHistoryRow}
             </HistoryTable>
           </TableWrapper>

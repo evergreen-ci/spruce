@@ -5,6 +5,7 @@ import { useDimensions } from "hooks/useDimensions";
 import { leaveBreadcrumb } from "utils/errorReporting";
 import { types } from ".";
 import { useHistoryTable } from "./HistoryTableContext";
+import EndOfHistoryRow from "./HistoryTableRow/EndOfHistoryRow";
 import LoadingRow from "./HistoryTableRow/LoadingRow";
 
 interface HistoryTableProps {
@@ -16,12 +17,14 @@ interface HistoryTableProps {
     index: number;
     data: types.CommitRowType;
   }) => React.ReactElement;
+  finalRowCopy?: string;
   loading: boolean;
 }
 const HistoryTable: React.VFC<HistoryTableProps> = ({
   loadMoreItems,
   children,
   loading,
+  finalRowCopy,
 }) => {
   const {
     processedCommitCount,
@@ -93,7 +96,7 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
             loading ? (
               <LoadingRow numVisibleCols={visibleColumns.length} />
             ) : (
-              <div>End of list</div>
+              <EndOfHistoryRow>{finalRowCopy}</EndOfHistoryRow>
             ),
         }}
       />

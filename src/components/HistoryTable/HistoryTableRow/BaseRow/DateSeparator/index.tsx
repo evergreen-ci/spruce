@@ -3,6 +3,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 import { useDateFormat } from "hooks";
+import { DashedLine } from "../styles";
 
 const { gray } = palette;
 interface DateSeparatorProps {
@@ -14,7 +15,7 @@ const DateSeparator: React.VFC<DateSeparatorProps> = ({ date }) => {
   return (
     <Container>
       <DateWrapper>{getDateCopy(date, { dateOnly: true })}</DateWrapper>
-      <Line />
+      <DashedLine />
     </Container>
   );
 };
@@ -31,15 +32,6 @@ const DateWrapper = styled(Body)`
   padding-right: ${size.m};
   text-transform: uppercase;
   color: ${gray.dark2};
-`;
-
-const Line = styled.div`
-  margin-top: 2px;
-  height: 1px;
-  background: linear-gradient(to right, transparent 50%, white 50%),
-    linear-gradient(to right, ${gray.light1}, ${gray.light1});
-  background-size: ${size.s} 2px, 100% 2px;
-  width: 100%;
 `;
 
 export default DateSeparator;

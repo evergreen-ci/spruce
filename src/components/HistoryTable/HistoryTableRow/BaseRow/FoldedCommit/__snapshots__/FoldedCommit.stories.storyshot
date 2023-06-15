@@ -42,6 +42,7 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
         >
           <div
             class="css-1xyi9yw-RowContainer-StyledRowContainer eg8pw9k0"
+            data-cy="folded-commit"
           >
             <div
               class="css-167wnfc-LabelCellContainer e1bcz5i60"
@@ -129,6 +130,7 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
           </div>
           <div
             class="css-1xyi9yw-RowContainer-StyledRowContainer eg8pw9k0"
+            data-cy="folded-commit"
           >
             <div
               class="css-167wnfc-LabelCellContainer e1bcz5i60"
@@ -216,6 +218,7 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
           </div>
           <div
             class="css-1xyi9yw-RowContainer-StyledRowContainer eg8pw9k0"
+            data-cy="folded-commit"
           >
             <div
               class="css-167wnfc-LabelCellContainer e1bcz5i60"
@@ -303,6 +306,7 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
           </div>
           <div
             class="css-1xyi9yw-RowContainer-StyledRowContainer eg8pw9k0"
+            data-cy="folded-commit"
           >
             <div
               class="css-167wnfc-LabelCellContainer e1bcz5i60"
@@ -390,6 +394,7 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
           </div>
           <div
             class="css-1xyi9yw-RowContainer-StyledRowContainer eg8pw9k0"
+            data-cy="folded-commit"
           >
             <div
               class="css-167wnfc-LabelCellContainer e1bcz5i60"

@@ -140,7 +140,11 @@ const VariantHistoryContents: React.VFC = () => {
             variantName={variantName}
           />
           <TableWrapper>
-            <HistoryTable loadMoreItems={handleLoadMore} loading={loading}>
+            <HistoryTable
+              loadMoreItems={handleLoadMore}
+              loading={loading}
+              finalRowCopy="End of variant history"
+            >
               {VariantHistoryRow}
             </HistoryTable>
           </TableWrapper>
