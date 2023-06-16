@@ -39,6 +39,7 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
   );
   const hasStatusFilter = statusSearch.length > 0;
   const hasVariantFilter = variantSearch !== undefined;
+
   const isVariantSelected = variantSearch === applyStrictRegex(variant);
   const hasAnyStatusOrVariantFilters = hasVariantFilter || hasStatusFilter;
 
@@ -70,15 +71,20 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
       <TaskBadgeContainer>
         {stats.map(
           ({ umbrellaStatus, count, statusCounts: groupedStatusCounts }) => {
-            // If the variant is selected and there are no status filters, the badge should be active.
-            // If the variant is selected and there are status filters, the badge should be active if the umbrella status is set.
-            // If the variant is not selected, the badge should be active if the umbrella status is set.
+            const hasStatusFilterForUmbrellaStatus = isUmbrellaStatusSet(
+              umbrellaStatus,
+              statusSearch
+            );
+            // A badge is active if the variant is selected and the status is selected
+            // or if the variant is selected and there are no status filters
+            // or if there are no variant filters
             const isBadgeActive =
+              (isVariantSelected && hasStatusFilterForUmbrellaStatus) ||
               (isVariantSelected && !hasStatusFilter) ||
-              (isVariantSelected &&
-                hasStatusFilter &&
-                isUmbrellaStatusSet(umbrellaStatus, statusSearch));
-
+              !hasVariantFilter;
+            const shouldLinkToVariant = !(
+              isBadgeActive && hasStatusFilterForUmbrellaStatus
+            );
             return (
               <GroupedTaskStatusBadge
                 key={`${versionId}_${variant}_${umbrellaStatus}`}
@@ -94,13 +100,13 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
                 // If the badge is active it should reset the page.
                 href={getVersionRoute(
                   versionId,
-                  isBadgeActive
-                    ? { ...versionRouteParams }
-                    : {
+                  shouldLinkToVariant
+                    ? {
                         ...versionRouteParams,
                         variant: applyStrictRegex(variant),
                         statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
                       }
+                    : { ...versionRouteParams }
                 )}
                 isActive={hasAnyStatusOrVariantFilters ? isBadgeActive : true}
               />
