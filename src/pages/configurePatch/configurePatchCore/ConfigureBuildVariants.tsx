@@ -149,7 +149,7 @@ const Card: React.VFC<CardProps> = ({
             onClick={onClick(name)}
           >
             <VariantName>
-              <Body weight={isSelected ? "medium" : "regular"}>
+              <Body weight={isSelected || taskCount > 0 ? "medium" : "regular"}>
                 {displayName}
               </Body>
             </VariantName>
