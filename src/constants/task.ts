@@ -195,49 +195,58 @@ type ColorScheme = {
   text: string;
 };
 
-export const mapUmbrellaStatusColors: Partial<Record<TaskStatus, ColorScheme>> =
-  {
-    [TaskStatus.UndispatchedUmbrella]: {
-      fill: gray.light3,
-      border: gray.light2,
-      text: gray.dark1,
-    },
-    [TaskStatus.RunningUmbrella]: {
-      fill: yellow.light3,
-      border: yellow.light2,
-      text: yellow.dark2,
-    },
-    [TaskStatus.SystemFailureUmbrella]: {
-      fill: purple.dark2,
-      border: purple.dark3,
-      text: purple.light3,
-    },
-    [TaskStatus.UndispatchedUmbrella]: {
-      fill: gray.light3,
-      border: gray.light2,
-      text: gray.dark1,
-    },
-    [TaskStatus.ScheduledUmbrella]: {
-      fill: gray.dark1,
-      border: gray.dark2,
-      text: gray.light3,
-    },
-    [TaskStatus.FailedUmbrella]: {
-      fill: red.light3,
-      border: red.light2,
-      text: red.dark2,
-    },
-    [TaskStatus.Succeeded]: {
-      fill: green.light3,
-      border: green.light2,
-      text: green.dark2,
-    },
-    [TaskStatus.SetupFailed]: {
-      fill: purple.light2,
-      border: purple.base,
-      text: purple.dark2,
-    },
-  };
+export const mapUmbrellaStatusColors: Pick<
+  Record<TaskStatus, ColorScheme>,
+  | TaskStatus.UndispatchedUmbrella
+  | TaskStatus.RunningUmbrella
+  | TaskStatus.FailedUmbrella
+  | TaskStatus.SystemFailureUmbrella
+  | TaskStatus.UndispatchedUmbrella
+  | TaskStatus.ScheduledUmbrella
+  | TaskStatus.Succeeded
+  | TaskStatus.SetupFailed
+> = {
+  [TaskStatus.UndispatchedUmbrella]: {
+    fill: gray.light3,
+    border: gray.light2,
+    text: gray.dark1,
+  },
+  [TaskStatus.RunningUmbrella]: {
+    fill: yellow.light3,
+    border: yellow.light2,
+    text: yellow.dark2,
+  },
+  [TaskStatus.SystemFailureUmbrella]: {
+    fill: purple.dark2,
+    border: purple.dark3,
+    text: purple.light3,
+  },
+  [TaskStatus.UndispatchedUmbrella]: {
+    fill: gray.light3,
+    border: gray.light2,
+    text: gray.dark1,
+  },
+  [TaskStatus.ScheduledUmbrella]: {
+    fill: gray.dark1,
+    border: gray.dark2,
+    text: gray.light3,
+  },
+  [TaskStatus.FailedUmbrella]: {
+    fill: red.light3,
+    border: red.light2,
+    text: red.dark2,
+  },
+  [TaskStatus.Succeeded]: {
+    fill: green.light3,
+    border: green.light2,
+    text: green.dark2,
+  },
+  [TaskStatus.SetupFailed]: {
+    fill: purple.light2,
+    border: purple.base,
+    text: purple.dark2,
+  },
+};
 
 export const mapTaskToBarchartColor = {
   [TaskStatus.UndispatchedUmbrella]: gray.dark1,
