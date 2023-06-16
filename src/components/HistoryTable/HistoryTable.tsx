@@ -22,7 +22,7 @@ interface HistoryTableProps {
 }
 const HistoryTable: React.VFC<HistoryTableProps> = ({
   loadMoreItems,
-  children,
+  children: Component,
   loading,
   finalRowCopy,
 }) => {
@@ -78,7 +78,6 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [processedCommitCount]);
 
-  const Component = children;
   return (
     <div ref={ref} style={{ height: "100%" }}>
       <Virtuoso

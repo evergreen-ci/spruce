@@ -7,34 +7,41 @@ import DateSeparator from "./DateSeparator";
 import FoldedCommit from "./FoldedCommit";
 import { RowContainer } from "./styles";
 
+type BaseRowEventHandlers = {
+  onClickGithash: () => void;
+  onClickFoldedGithash: () => void;
+  onClickUpstreamProject: () => void;
+  onClickFoldedUpstreamProject: () => void;
+  onClickJiraTicket: () => void;
+  onClickFoldedJiraTicket: () => void;
+  onToggleFoldedCommit: (s: { isVisible: boolean }) => void;
+};
 interface RowProps {
   columns: React.ReactNode[];
   data: types.CommitRowType;
   index: number;
   numVisibleCols: number;
-  onClickFoldedGithash: () => void;
-  onClickFoldedJiraTicket: () => void;
-  onClickFoldedUpstreamProject: () => void;
-  onClickGithash: () => void;
-  onClickJiraTicket: () => void;
-  onClickUpstreamProject: () => void;
-  onToggleFoldedCommit: (s: { isVisible: boolean }) => void;
+  eventHandlers: BaseRowEventHandlers;
   selected: boolean;
 }
+
 const BaseRow: React.VFC<RowProps> = ({
   columns,
   data,
   index,
   numVisibleCols,
-  onClickFoldedGithash,
-  onClickFoldedJiraTicket,
-  onClickFoldedUpstreamProject,
-  onClickGithash,
-  onClickJiraTicket,
-  onClickUpstreamProject,
-  onToggleFoldedCommit,
+  eventHandlers,
   selected,
 }) => {
+  const {
+    onClickFoldedGithash,
+    onClickFoldedJiraTicket,
+    onClickFoldedUpstreamProject,
+    onClickGithash,
+    onClickJiraTicket,
+    onClickUpstreamProject,
+    onToggleFoldedCommit,
+  } = eventHandlers;
   const { columnLimit, toggleRowExpansion } = useHistoryTable();
 
   switch (data.type) {
