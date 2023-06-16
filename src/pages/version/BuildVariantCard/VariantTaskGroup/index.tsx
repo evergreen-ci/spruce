@@ -42,13 +42,6 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
   const isVariantSelected = variantSearch === applyStrictRegex(variant);
   const hasAnyStatusOrVariantFilters = hasVariantFilter || hasStatusFilter;
 
-  const callBack = (taskSquareStatuses: string[]) => () => {
-    sendEvent({
-      name: "Click Grouped Task Square",
-      taskSquareStatuses,
-    });
-  };
-
   const { stats } = groupStatusesByUmbrellaStatus(statusCounts ?? []);
 
   const versionRouteParams = {
@@ -90,7 +83,12 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
               <GroupedTaskStatusBadge
                 key={`${versionId}_${variant}_${umbrellaStatus}`}
                 count={count}
-                onClick={callBack(Object.keys(groupedStatusCounts))}
+                onClick={() => {
+                  sendEvent({
+                    name: "Click Grouped Task Square",
+                    taskSquareStatuses: Object.keys(groupedStatusCounts),
+                  });
+                }}
                 status={umbrellaStatus}
                 statusCounts={groupedStatusCounts}
                 // If the badge is active it should reset the page.
