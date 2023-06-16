@@ -50,17 +50,19 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
   };
 
   const { stats } = groupStatusesByUmbrellaStatus(statusCounts ?? []);
+
   const versionRouteParams = {
     sorts,
     page: 0,
-    variant: isVariantSelected ? undefined : applyStrictRegex(variant),
   };
+
   return (
     <div data-cy="patch-build-variant">
       <StyledRouterLink
         css={wordBreakCss}
         to={getVersionRoute(versionId, {
           ...versionRouteParams,
+          variant: isVariantSelected ? undefined : applyStrictRegex(variant),
         })}
         onClick={() =>
           sendEvent({
