@@ -106,7 +106,13 @@ describe("variantTaskGroup", () => {
       route: `/version/1?variant=${applyStrictRegex("some_variant")}`,
       path: "/version/:id",
     });
-
+    expect(screen.getByText("Some Variant")).toBeDefined();
+    expect(screen.queryByDataCy("build-variant-display-name")).toHaveAttribute(
+      "href",
+      getVersionRoute("1", {
+        page: 0,
+      })
+    );
     screen.queryAllByDataCy("grouped-task-status-badge").forEach((badge) => {
       expect(badge).toHaveAttribute("aria-selected", "true");
     });
