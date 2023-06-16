@@ -37,9 +37,10 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
     PatchTasksQueryParams.Statuses,
     []
   );
-
+  const hasStatusFilter = statusSearch.length > 0;
+  const hasVariantFilter = variantSearch !== undefined;
   const isVariantSelected = variantSearch === applyStrictRegex(variant);
-  const hasAnyStatusAndVariantFilters = variantSearch && statusSearch;
+  const hasAnyStatusOrVariantFilters = hasVariantFilter || hasStatusFilter;
 
   const callBack = (taskSquareStatuses: string[]) => () => {
     sendEvent({
@@ -74,9 +75,15 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
       <TaskBadgeContainer>
         {stats.map(
           ({ umbrellaStatus, count, statusCounts: groupedStatusCounts }) => {
+            // If the variant is selected and there are no status filters, the badge should be active.
+            // If the variant is selected and there are status filters, the badge should be active if the umbrella status is set.
+            // If the variant is not selected, the badge should be active if the umbrella status is set.
             const isBadgeActive =
-              isVariantSelected &&
-              isUmbrellaStatusSet(umbrellaStatus, statusSearch);
+              (isVariantSelected && !hasStatusFilter) ||
+              (isVariantSelected &&
+                hasStatusFilter &&
+                isUmbrellaStatusSet(umbrellaStatus, statusSearch));
+
             return (
               <GroupedTaskStatusBadge
                 key={`${versionId}_${variant}_${umbrellaStatus}`}
@@ -95,7 +102,7 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
                         statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
                       }
                 )}
-                isActive={hasAnyStatusAndVariantFilters ? isBadgeActive : true}
+                isActive={hasAnyStatusOrVariantFilters ? isBadgeActive : true}
               />
             );
           }
