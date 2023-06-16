@@ -56,12 +56,13 @@ const CommitChartLabel: React.VFC<Props> = ({
           as={Link}
           onClick={onClickGithash}
           to={getVersionRoute(versionId)}
+          data-cy="githash-link"
         >
           {shortenGithash(githash)}
-        </InlineCode>
+        </InlineCode>{" "}
         <b>
           {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
-        </b>
+        </b>{" "}
       </LabelText>
       {upstreamProject && (
         <LabelText>

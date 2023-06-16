@@ -25,7 +25,7 @@ const TaskHistoryRow: React.VFC<Props> = ({ index, data }) => {
         ? generateColumns(data, visibleColumns, getTaskMetadata, sendEvent)
         : [],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [visibleColumns]
+    [visibleColumns, getTaskMetadata]
   );
   const eventHandlers = useMemo(
     () => ({
