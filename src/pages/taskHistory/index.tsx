@@ -26,6 +26,7 @@ import {
 import { GET_MAINLINE_COMMITS_FOR_HISTORY } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { string } from "utils";
+import { leaveBreadcrumb } from "utils/errorReporting";
 import BuildVariantSelector from "./BuildVariantSelector";
 import ColumnHeaders from "./ColumnHeaders";
 import TaskHistoryRow from "./TaskHistoryRow";
@@ -65,8 +66,18 @@ const TaskHistoryContents: React.VFC = () => {
         includeBaseTasks: false,
       },
     },
+    notifyOnNetworkStatusChange: true, // This is so that we can show the loading state
     fetchPolicy: "no-cache", // This is because we already cache the data in the history table
     onCompleted({ mainlineCommits }) {
+      leaveBreadcrumb(
+        "Loaded more commits for task history",
+        {
+          projectIdentifier,
+          taskName,
+          numCommits: mainlineCommits.versions.length,
+        },
+        "process"
+      );
       ingestNewCommits(mainlineCommits);
     },
     onError(err) {
@@ -78,6 +89,15 @@ const TaskHistoryContents: React.VFC = () => {
 
   const handleLoadMore = () => {
     if (data) {
+      leaveBreadcrumb(
+        "Requesting more task history",
+        {
+          projectIdentifier,
+          taskName,
+          skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
+        },
+        "process"
+      );
       refetch({
         mainlineCommitsOptions: {
           projectIdentifier,

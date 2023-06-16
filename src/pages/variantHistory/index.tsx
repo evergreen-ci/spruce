@@ -26,6 +26,7 @@ import {
 import { GET_MAINLINE_COMMITS_FOR_HISTORY } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { string } from "utils";
+import { leaveBreadcrumb } from "utils/errorReporting";
 import ColumnHeaders from "./ColumnHeaders";
 import TaskSelector from "./TaskSelector";
 import VariantHistoryRow from "./VariantHistoryRow";
@@ -63,8 +64,19 @@ const VariantHistoryContents: React.VFC = () => {
         includeBaseTasks: false,
       },
     },
+    notifyOnNetworkStatusChange: true, // This is so that we can show the loading state
     fetchPolicy: "no-cache", // This is because we already cache the data in the history table
     onCompleted({ mainlineCommits }) {
+      console.log("calling on complete");
+      leaveBreadcrumb(
+        "Loaded more commits for variant history",
+        {
+          projectIdentifier,
+          variantName,
+          numCommits: mainlineCommits.versions.length,
+        },
+        "process"
+      );
       ingestNewCommits(mainlineCommits);
     },
     onError(err) {
@@ -76,6 +88,15 @@ const VariantHistoryContents: React.VFC = () => {
 
   const handleLoadMore = () => {
     if (data) {
+      leaveBreadcrumb(
+        "Requesting more variant history",
+        {
+          projectIdentifier,
+          variantName,
+          skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
+        },
+        "process"
+      );
       refetch({
         mainlineCommitsOptions: {
           projectIdentifier,
@@ -91,6 +112,7 @@ const VariantHistoryContents: React.VFC = () => {
     }
   };
 
+  console.log({ loading });
   return (
     <PageWrapper>
       <ProjectBanner projectIdentifier={projectIdentifier} />
