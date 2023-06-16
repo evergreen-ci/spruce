@@ -10,7 +10,6 @@ const initialState: HistoryTableReducerState = {
   currentPage: 0,
   pageCount: 0,
   columns: [],
-  hasMoreCommits: true,
   historyTableFilters: [],
   commitCount: 10,
   visibleColumns: [],

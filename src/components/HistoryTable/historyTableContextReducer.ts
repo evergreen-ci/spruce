@@ -41,7 +41,6 @@ export interface HistoryTableReducerState {
     loaded: boolean;
   };
   visibleColumns: string[];
-  hasMoreCommits: boolean;
 }
 
 export const reducer = (state: HistoryTableReducerState, action: Action) => {
@@ -96,7 +95,6 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
           processedCommits,
           processedCommitCount: processedCommits.length,
           commitCount,
-          hasMoreCommits: action.commits.nextPageOrderNumber != null,
         };
       }
       return state;

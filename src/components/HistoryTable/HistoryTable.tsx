@@ -30,7 +30,6 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
     processedCommitCount,
     processedCommits,
     onChangeTableWidth,
-    hasMoreCommits,
     selectedCommit,
     visibleColumns,
   } = useHistoryTable();
@@ -88,7 +87,7 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
         data={processedCommits}
         itemContent={(index, data) => <Component index={index} data={data} />}
         endReached={() => {
-          if (!loading && hasMoreCommits) {
+          if (!loading) {
             loadMoreItems();
           }
         }}

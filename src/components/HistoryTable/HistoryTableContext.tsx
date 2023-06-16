@@ -23,7 +23,6 @@ interface HistoryTableState {
   currentPage: number;
   hasNextPage: boolean;
   hasPreviousPage: boolean;
-  hasMoreCommits: boolean;
   historyTableFilters: TestFilter[];
   pageCount: number;
   processedCommitCount: number;
@@ -64,7 +63,6 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
     commitCache: new Map(),
     commitCount: 10,
     currentPage: 0,
-    hasMoreCommits: true,
     historyTableFilters: [],
     loadedCommits: [],
     processedCommits: [],
@@ -76,14 +74,13 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
 }) => {
   const [
     {
-      columnLimit,
       commitCount,
+      columnLimit,
       currentPage,
-      hasMoreCommits,
       historyTableFilters,
       pageCount,
-      processedCommitCount,
       processedCommits,
+      processedCommitCount,
       selectedCommit,
       visibleColumns,
     },
@@ -104,7 +101,6 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
       currentPage,
       getItem,
       hasNextPage: currentPage < pageCount - 1,
-      hasMoreCommits,
       hasPreviousPage: currentPage > 0,
       historyTableFilters,
       isItemLoaded,
