@@ -331,21 +331,15 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
-                  data-cy="githash-link"
+                  class="lg-ui-0002 leafygreen-ui-hvznge"
                   href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks"
                 >
-                  <span
-                    class="leafygreen-ui-baoi4d"
+                  <code
+                    class="leafygreen-ui-7u0nmx"
                   >
-                    <code
-                      class="leafygreen-ui-12e1uma"
-                    >
-                      987bf57
-                    </code>
-                  </span>
+                    987bf57
+                  </code>
                 </a>
-                 
                 <b>
                   Jul 16, 2021, 3:53 PM
                 </b>
@@ -394,21 +388,15 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
-                  data-cy="githash-link"
+                  class="lg-ui-0002 leafygreen-ui-hvznge"
                   href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks"
                 >
-                  <span
-                    class="leafygreen-ui-baoi4d"
+                  <code
+                    class="leafygreen-ui-7u0nmx"
                   >
-                    <code
-                      class="leafygreen-ui-12e1uma"
-                    >
-                      a77bd39
-                    </code>
-                  </span>
+                    a77bd39
+                  </code>
                 </a>
-                 
                 <b>
                   Jul 13, 2021, 2:51 PM
                 </b>
@@ -462,21 +450,15 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
-                  data-cy="githash-link"
+                  class="lg-ui-0002 leafygreen-ui-hvznge"
                   href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks"
                 >
-                  <span
-                    class="leafygreen-ui-baoi4d"
+                  <code
+                    class="leafygreen-ui-7u0nmx"
                   >
-                    <code
-                      class="leafygreen-ui-12e1uma"
-                    >
-                      9c1d1eb
-                    </code>
-                  </span>
+                    9c1d1eb
+                  </code>
                 </a>
-                 
                 <b>
                   Jul 13, 2021, 2:51 PM
                 </b>
@@ -525,21 +507,15 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
-                  data-cy="githash-link"
+                  class="lg-ui-0002 leafygreen-ui-hvznge"
                   href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks"
                 >
-                  <span
-                    class="leafygreen-ui-baoi4d"
+                  <code
+                    class="leafygreen-ui-7u0nmx"
                   >
-                    <code
-                      class="leafygreen-ui-12e1uma"
-                    >
-                      f7f7f1a
-                    </code>
-                  </span>
+                    f7f7f1a
+                  </code>
                 </a>
-                 
                 <b>
                   Jul 13, 2021, 2:51 PM
                 </b>
@@ -574,21 +550,15 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
-                  data-cy="githash-link"
+                  class="lg-ui-0002 leafygreen-ui-hvznge"
                   href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks"
                 >
-                  <span
-                    class="leafygreen-ui-baoi4d"
+                  <code
+                    class="leafygreen-ui-7u0nmx"
                   >
-                    <code
-                      class="leafygreen-ui-12e1uma"
-                    >
-                      211b3a0
-                    </code>
-                  </span>
+                    211b3a0
+                  </code>
                 </a>
-                 
                 <b>
                   Jul 13, 2021, 2:51 PM
                 </b>

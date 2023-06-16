@@ -106,10 +106,7 @@ const generateNewCommitData = (oldData: typeof mainlineCommitData) => {
     }
     return newVersion;
   });
-  console.log({
-    ...commitData,
-    versions: updatedVersions,
-  });
+
   return {
     ...commitData,
     versions: updatedVersions,

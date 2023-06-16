@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 import { DashedLine } from "../BaseRow/styles";
 
@@ -12,7 +12,7 @@ interface EndOfHistoryRowProps {
 const EndOfHistoryRow: React.FC<EndOfHistoryRowProps> = ({ children }) => (
   <Row>
     <DashedLine />
-    <StyledBody>{children}</StyledBody>
+    <StyledBody weight="medium">{children}</StyledBody>
     <DashedLine />
   </Row>
 );
@@ -25,7 +25,7 @@ const Row = styled.div`
   gap: ${size.l};
 `;
 
-const StyledBody = styled(Body)`
+const StyledBody = styled(Body)<BodyProps>`
   white-space: nowrap;
   color: ${gray.dark2};
   text-transform: uppercase;

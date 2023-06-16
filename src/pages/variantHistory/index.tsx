@@ -67,7 +67,6 @@ const VariantHistoryContents: React.VFC = () => {
     notifyOnNetworkStatusChange: true, // This is so that we can show the loading state
     fetchPolicy: "no-cache", // This is because we already cache the data in the history table
     onCompleted({ mainlineCommits }) {
-      console.log("calling on complete");
       leaveBreadcrumb(
         "Loaded more commits for variant history",
         {
@@ -112,7 +111,6 @@ const VariantHistoryContents: React.VFC = () => {
     }
   };
 
-  console.log({ loading });
   return (
     <PageWrapper>
       <ProjectBanner projectIdentifier={projectIdentifier} />
