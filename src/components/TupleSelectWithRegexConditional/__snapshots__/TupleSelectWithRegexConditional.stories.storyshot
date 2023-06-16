@@ -99,16 +99,16 @@ exports[`storybook Storyshots Components/TupleSelect With Conditional 1`] = `
         class="leafygreen-ui-1nkq8lt css-1scwv0u-GroupedSelect e5gn9hl1"
       >
         <button
-          aria-controls="select-13-menu"
-          aria-describedby="select-13-description"
+          aria-controls="select-25-menu"
+          aria-describedby="select-25-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
           aria-labelledby="Tuple Select"
-          class="lg-ui-button-0000 leafygreen-ui-3qrx9g"
+          class="lg-ui-button-0001 leafygreen-ui-3qrx9g"
           data-cy="tuple-select-dropdown"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-14"
+          id="select-26"
           type="button"
           value="build_variant"
         >
