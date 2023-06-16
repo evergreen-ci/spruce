@@ -56,6 +56,7 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
                 >
                   <a
                     class="lg-ui-0002 leafygreen-ui-hvznge"
+                    data-cy="githash-link"
                     href="/version/1/tasks"
                   >
                     <code
@@ -64,9 +65,11 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
                       ca3a8b4
                     </code>
                   </a>
+                   
                   <b>
                     Sep 22, 2021, 7:33 PM
                   </b>
+                   
                 </p>
                 <p
                   class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
@@ -138,6 +141,7 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
                 >
                   <a
                     class="lg-ui-0002 leafygreen-ui-hvznge"
+                    data-cy="githash-link"
                     href="/version/2/tasks"
                   >
                     <code
@@ -146,9 +150,11 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
                       ca3a8b4
                     </code>
                   </a>
+                   
                   <b>
                     Sep 23, 2021, 7:33 PM
                   </b>
+                   
                 </p>
                 <p
                   class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
@@ -220,6 +226,7 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
                 >
                   <a
                     class="lg-ui-0002 leafygreen-ui-hvznge"
+                    data-cy="githash-link"
                     href="/version/3/tasks"
                   >
                     <code
@@ -228,9 +235,11 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
                       ca3a8b4
                     </code>
                   </a>
+                   
                   <b>
                     Sep 24, 2021, 7:33 PM
                   </b>
+                   
                 </p>
                 <p
                   class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
@@ -302,6 +311,7 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
                 >
                   <a
                     class="lg-ui-0002 leafygreen-ui-hvznge"
+                    data-cy="githash-link"
                     href="/version/4/tasks"
                   >
                     <code
@@ -310,9 +320,11 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
                       ca3a8b4
                     </code>
                   </a>
+                   
                   <b>
                     Sep 25, 2021, 7:33 PM
                   </b>
+                   
                 </p>
                 <p
                   class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
@@ -384,6 +396,7 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
                 >
                   <a
                     class="lg-ui-0002 leafygreen-ui-hvznge"
+                    data-cy="githash-link"
                     href="/version/5/tasks"
                   >
                     <code
@@ -392,9 +405,11 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
                       ca3a8b4
                     </code>
                   </a>
+                   
                   <b>
                     Sep 26, 2021, 7:33 PM
                   </b>
+                   
                 </p>
                 <p
                   class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
