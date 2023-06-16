@@ -1,4 +1,3 @@
-import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { getVersionRoute } from "constants/routes";
 import { renderWithRouterMatch as render, screen } from "test_utils";

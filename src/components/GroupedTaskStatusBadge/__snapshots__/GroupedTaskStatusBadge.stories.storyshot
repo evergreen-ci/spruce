@@ -13,7 +13,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/test"
       >
         <div
-          class="css-qtz1fi-BadgeContainer emc61an4"
+          class="css-1d7t73j-BadgeContainer emc61an4"
           fill="#E3FCF7"
         >
           <span
@@ -37,7 +37,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/test"
       >
         <div
-          class="css-qtz1fi-BadgeContainer emc61an4"
+          class="css-1d7t73j-BadgeContainer emc61an4"
           fill="#E3FCF7"
         >
           <span
@@ -61,7 +61,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/test"
       >
         <div
-          class="css-1kl4a18-BadgeContainer emc61an4"
+          class="css-1s2ykav-BadgeContainer emc61an4"
           fill="#FFEAE5"
         >
           <span
@@ -85,7 +85,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/test"
       >
         <div
-          class="css-cmtd0u-BadgeContainer emc61an4"
+          class="css-16matd4-BadgeContainer emc61an4"
           fill="#FEF7DB"
         >
           <span
@@ -109,7 +109,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/test"
       >
         <div
-          class="css-1a2mzzd-BadgeContainer emc61an4"
+          class="css-8wyaho-BadgeContainer emc61an4"
           fill="#5E0C9E"
         >
           <span
@@ -133,7 +133,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/test"
       >
         <div
-          class="css-1nurxz6-BadgeContainer emc61an4"
+          class="css-5wnuy6-BadgeContainer emc61an4"
           fill="#F1D4FD"
         >
           <span
@@ -157,7 +157,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/test"
       >
         <div
-          class="css-1nurxz6-BadgeContainer emc61an4"
+          class="css-5wnuy6-BadgeContainer emc61an4"
           fill="#F1D4FD"
         >
           <span
@@ -181,7 +181,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/test"
       >
         <div
-          class="css-u7w0li-BadgeContainer emc61an4"
+          class="css-1wx1xli-BadgeContainer emc61an4"
           fill="#F9FBFA"
         >
           <span
@@ -205,7 +205,7 @@ exports[`storybook Storyshots components/GroupedTaskStatusBadge Default 1`] = `
         href="/test"
       >
         <div
-          class="css-xr4fqt-BadgeContainer emc61an4"
+          class="css-1hkjlfn-BadgeContainer emc61an4"
           fill="#5C6C75"
         >
           <span

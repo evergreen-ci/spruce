@@ -5,7 +5,6 @@ import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { taskStatusToCopy, mapUmbrellaStatusColors } from "constants/task";
 import { fontSize, size, zIndex } from "constants/tokens";
 import { TaskStatus } from "types/task";
-import { hexToRGBA } from "utils/color";
 
 interface GroupedTaskStatusBadgeProps {
   count: number;
@@ -89,16 +88,9 @@ const BadgeContainer = styled.div<BadgeColorProps>`
   align-items: center;
   line-height: normal;
   ${({ border }) => border && `border-color: ${border};`}
-  ${({ fill, isActive }) =>
-    fill &&
-    `background-color: ${isActive === false ? hexToRGBA(fill, 0.2) : fill};`}
+  ${({ fill }) => fill && `background-color: ${fill};`}
   ${({ text }) => text && `color: ${text};`}
-  ${({ isActive }) => isActive && `border-width: 2px;`}
-
-  :hover {
-    ${({ isActive, fill }) =>
-      `background-color: ${isActive === false ? fill : hexToRGBA(fill, 0.2)};`}
-  }
+  ${({ isActive }) => isActive === false && `opacity: 0.4`}
 `;
 
 const Row = styled.div`
