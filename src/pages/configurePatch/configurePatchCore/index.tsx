@@ -34,9 +34,9 @@ import {
   VariantTasksState,
   useConfigurePatch,
 } from "hooks/useConfigurePatch";
-import { ParametersContent } from "pages/configurePatch/ParametersContent";
-import { ConfigureBuildVariants } from "./configurePatchCore/ConfigureBuildVariants";
-import { ConfigureTasks } from "./configurePatchCore/ConfigureTasks";
+import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
+import { ConfigureTasks } from "./ConfigureTasks";
+import { ParametersContent } from "./ParametersContent";
 
 interface Props {
   patch: ConfigurePatchQuery["patch"];
