@@ -1,5 +1,6 @@
 import Checkbox from "@leafygreen-ui/checkbox";
-import { H4, Tasks } from "./styles";
+import { Body } from "@leafygreen-ui/typography";
+import { TaskLayoutGrid } from "./styles";
 import { CheckboxState } from "./types";
 
 interface VariantTasksListProps {
@@ -16,8 +17,8 @@ const VariantTasksList: React.VFC<VariantTasksListProps> = ({
   tasks,
 }) => (
   <>
-    <H4>{name}</H4>
-    <Tasks>
+    <Body>{name}</Body>
+    <TaskLayoutGrid>
       {tasks.map((taskName) => (
         <Checkbox
           data-cy={dataCy}
@@ -27,7 +28,7 @@ const VariantTasksList: React.VFC<VariantTasksListProps> = ({
           disabled
         />
       ))}
-    </Tasks>
+    </TaskLayoutGrid>
   </>
 );
 

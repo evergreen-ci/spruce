@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Disclaimer } from "@leafygreen-ui/typography";
+import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
 import { LoadingButton } from "components/Buttons";
 import Icon from "components/Icon";
@@ -14,7 +14,7 @@ import {
   PatchTriggerAlias,
   VariantTasksState,
 } from "hooks/useConfigurePatch";
-import { H4, Tasks } from "./styles";
+import { TaskLayoutGrid } from "./styles";
 import { CheckboxState } from "./types";
 import VariantTasksList from "./VariantTasksList";
 
@@ -189,7 +189,7 @@ export const ConfigureTasks: React.VFC<Props> = ({
       <StyledDisclaimer data-cy="selected-task-disclaimer">
         {selectedTaskDisclaimerCopy}
       </StyledDisclaimer>
-      <Tasks data-cy="configurePatch-tasks">
+      <TaskLayoutGrid data-cy="configurePatch-tasks">
         {sortedCurrentTasks.map(([name, status]) => (
           <Checkbox
             data-cy="task-checkbox"
@@ -200,11 +200,11 @@ export const ConfigureTasks: React.VFC<Props> = ({
             checked={status === CheckboxState.CHECKED}
           />
         ))}
-      </Tasks>
+      </TaskLayoutGrid>
       {shorthandChildPatchesAndAliases && (
         <>
-          <H4>Downstream Tasks</H4>
-          <Tasks>
+          <Body>Downstream Tasks</Body>
+          <TaskLayoutGrid>
             {Object.entries(currentAliases).map(([name, status]) => (
               <Checkbox
                 data-cy="alias-checkbox"
@@ -226,7 +226,7 @@ export const ConfigureTasks: React.VFC<Props> = ({
                 checked
               />
             ))}
-          </Tasks>
+          </TaskLayoutGrid>
         </>
       )}
       {enumerateChildPatchTasks && (

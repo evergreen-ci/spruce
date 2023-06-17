@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { size } from "constants/tokens";
 
-const Tasks = styled.div`
+const TaskLayoutGrid = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: auto auto;
@@ -13,8 +13,4 @@ const Tasks = styled.div`
   max-height: 60vh;
 `;
 
-const H4 = styled.h4`
-  margin-top: ${size.s};
-`;
-
-export { Tasks, H4 };
+export { TaskLayoutGrid };
