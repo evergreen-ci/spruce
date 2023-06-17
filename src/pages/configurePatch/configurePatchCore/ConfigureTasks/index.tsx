@@ -14,12 +14,10 @@ import {
   PatchTriggerAlias,
   VariantTasksState,
 } from "hooks/useConfigurePatch";
+import { H4, Tasks } from "./styles";
+import { CheckboxState } from "./types";
+import VariantTasksList from "./VariantTasksList";
 
-enum CheckboxState {
-  CHECKED = "CHECKED",
-  INDETERMINITE = "INDETERMINITE",
-  UNCHECKED = "UNCHECKED",
-}
 interface Props {
   selectedBuildVariants: string[];
   selectedBuildVariantTasks: VariantTasksState;
@@ -262,35 +260,6 @@ export const ConfigureTasks: React.VFC<Props> = ({
   );
 };
 
-interface VariantTasksListProps {
-  "data-cy": string;
-  name: string;
-  status: CheckboxState;
-  tasks: string[];
-}
-
-const VariantTasksList: React.VFC<VariantTasksListProps> = ({
-  "data-cy": dataCy,
-  name,
-  status,
-  tasks,
-}) => (
-  <>
-    <H4>{name}</H4>
-    <Tasks>
-      {tasks.map((taskName) => (
-        <Checkbox
-          data-cy={dataCy}
-          key={`${name}-${taskName}`}
-          label={taskName}
-          checked={status === CheckboxState.CHECKED}
-          disabled
-        />
-      ))}
-    </Tasks>
-  </>
-);
-
 const getSelectAllCheckboxState = (
   buildVariants: {
     [task: string]: CheckboxState;
@@ -403,17 +372,7 @@ const Actions = styled.div`
     margin-right: ${size.m};
   }
 `;
-const Tasks = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: auto auto;
-  grid-template-areas: "a a";
-  grid-auto-rows: auto;
-  column-gap: ${size.l};
-  row-gap: ${size.xs};
-  overflow: scroll;
-  max-height: 60vh;
-`;
+
 const StyledDisclaimer = styled(Disclaimer)`
   margin-bottom: ${size.xs};
 `;
@@ -424,9 +383,7 @@ const cardSidePadding = css`
 const TabContentWrapper = styled.div`
   ${cardSidePadding}
 `;
-const H4 = styled.h4`
-  margin-top: ${size.s};
-`;
+
 const IconContainer = styled.span`
   margin-left: ${size.xs};
 `;
