@@ -15,6 +15,7 @@ const Provider = ({ children }) => (
 );
 
 describe("usePolling", () => {
+  const noop = () => {};
   const updateNetworkStatus = (status: string) => {
     act(() => {
       window.dispatchEvent(new window.Event(status));
@@ -66,8 +67,9 @@ describe("usePolling", () => {
         () =>
           usePolling({
             shouldPollFaster: false,
-            startPolling: undefined,
-            stopPolling: undefined,
+            startPolling: noop,
+            stopPolling: noop,
+            refetch: noop,
           }),
         {
           wrapper: Provider,
@@ -83,8 +85,9 @@ describe("usePolling", () => {
         () =>
           usePolling({
             shouldPollFaster: true,
-            startPolling: undefined,
-            stopPolling: undefined,
+            startPolling: noop,
+            stopPolling: noop,
+            refetch: noop,
           }),
         {
           wrapper: Provider,
@@ -97,6 +100,7 @@ describe("usePolling", () => {
     it("usePolling should not call the functions when polling is disabled", async () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
+      const refetch = jest.fn();
       mockedGet.mockImplementation(() => "true");
       let shouldPollFaster = true;
       const { waitForNextUpdate, rerender } = renderHook(
@@ -105,6 +109,7 @@ describe("usePolling", () => {
             startPolling,
             stopPolling,
             shouldPollFaster,
+            refetch,
           }),
         { wrapper: Provider }
       );
@@ -131,9 +136,10 @@ describe("usePolling", () => {
     it("usePolling should stop polling when user's browser is offline", async () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
+      const refetch = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling({ startPolling, stopPolling }),
+        () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -142,15 +148,17 @@ describe("usePolling", () => {
       updateNetworkStatus("offline");
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
+      expect(refetch).toHaveBeenCalledTimes(0);
       expect(result.current).toBe(false);
     });
 
-    it("usePolling should stop polling when user is not viewing document", async () => {
+    it("usePolling should call stopPolling when user is not viewing document", async () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
+      const refetch = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling({ startPolling, stopPolling }),
+        () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -165,9 +173,10 @@ describe("usePolling", () => {
     it("usePolling should only call stopPolling once if first user goes offline, then stops viewing document", async () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
+      const refetch = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling({ startPolling, stopPolling }),
+        () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -177,21 +186,23 @@ describe("usePolling", () => {
       updateNetworkStatus("offline");
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
+      expect(refetch).toHaveBeenCalledTimes(0);
       expect(result.current).toBe(false);
 
       // document hidden
       updatePageVisibility("hidden");
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
+      expect(refetch).toHaveBeenCalledTimes(0);
       expect(result.current).toBe(false);
     });
 
     it("usePolling should only call stopPolling once if first user stops viewing document, then goes offline", async () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
-
+      const refetch = jest.fn();
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling({ startPolling, stopPolling }),
+        () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -201,6 +212,7 @@ describe("usePolling", () => {
       updatePageVisibility("hidden");
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
+      expect(refetch).toHaveBeenCalledTimes(0);
       expect(result.current).toBe(false);
 
       // go offline
@@ -212,12 +224,13 @@ describe("usePolling", () => {
   });
 
   describe("startPolling", () => {
-    it("usePolling should only restart polling when the browser is online AND document is visible", async () => {
+    it("usePolling should only restart polling when the browser is online, the page is visible and polling is inactive", async () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
+      const refetch = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling({ startPolling, stopPolling }),
+        () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -246,6 +259,7 @@ describe("usePolling", () => {
       /* eslint-disable jest/max-expects */
       expect(startPolling).toHaveBeenCalledTimes(1);
       expect(stopPolling).toHaveBeenCalledTimes(1);
+      expect(refetch).toHaveBeenCalledTimes(1);
       expect(result.current).toBe(true);
       /* eslint-enable jest/max-expects */
     });
@@ -259,7 +273,8 @@ describe("usePolling", () => {
         () =>
           usePolling({
             startPolling,
-            stopPolling: undefined,
+            stopPolling: noop,
+            refetch: noop,
             shouldPollFaster,
           }),
         { wrapper: Provider }
@@ -274,7 +289,7 @@ describe("usePolling", () => {
   });
 
   describe("refetch", () => {
-    it("usePolling calls refetch function when starting to poll again", async () => {
+    it("usePolling calls refetch function when the browser is online, the page is visible and polling is inactive", async () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
       const refetch = jest.fn();

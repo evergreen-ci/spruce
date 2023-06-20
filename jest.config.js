@@ -13,7 +13,7 @@ module.exports = {
   },
   modulePaths: ["<rootDir>/src"],
   resetMocks: true,
-  setupFiles: ["react-app-polyfill/jsdom"],
+  setupFiles: ["react-app-polyfill/jsdom", "jest-canvas-mock"],
   setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
   snapshotSerializers: ["@emotion/jest/serializer"],
   testEnvironment: "jsdom",
