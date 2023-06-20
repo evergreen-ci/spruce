@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
@@ -83,10 +83,10 @@ export const ConfigureTasks: React.VFC<Props> = ({
     selectedBuildVariants
   );
 
-  // Show a child patch's variants/tasks iff it is the only menu item selected
+  // Show a child patch's variants/tasks if it is the only menu item selected
   const enumerateChildPatchTasks =
     currentChildPatches.length === 1 && selectedBuildVariants.length === 1;
-  // Show an alias's variants/tasks iff it is the only menu item selected
+  // Show an alias's variants/tasks if it is the only menu item selected
   const enumerateAliasTasks =
     currentAliasTasks.length === 1 && selectedBuildVariants.length === 1;
 
@@ -96,19 +96,20 @@ export const ConfigureTasks: React.VFC<Props> = ({
       currentChildPatches.length > 0) &&
     selectedBuildVariants.length > 1;
 
-  const onClickCheckbox = (taskName: string) => (e) => {
-    const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
-    const selectedAliasesCopy = { ...selectedAliases };
-    selectedBuildVariants.forEach((v) => {
-      if (selectedBuildVariantsCopy?.[v]?.[taskName] !== undefined) {
-        selectedBuildVariantsCopy[v][taskName] = e.target.checked;
-      } else if (selectedAliasesCopy?.[v] !== undefined) {
-        selectedAliasesCopy[v] = e.target.checked;
-      }
-    });
-    setSelectedBuildVariantTasks(selectedBuildVariantsCopy);
-    setSelectedAliases(selectedAliasesCopy);
-  };
+  const onClickCheckbox =
+    (taskName: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
+      const selectedAliasesCopy = { ...selectedAliases };
+      selectedBuildVariants.forEach((v) => {
+        if (selectedBuildVariantsCopy?.[v]?.[taskName] !== undefined) {
+          selectedBuildVariantsCopy[v][taskName] = e.target.checked;
+        } else if (selectedAliasesCopy?.[v] !== undefined) {
+          selectedAliasesCopy[v] = e.target.checked;
+        }
+      });
+      setSelectedBuildVariantTasks(selectedBuildVariantsCopy);
+      setSelectedAliases(selectedAliasesCopy);
+    };
 
   const onClickSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
@@ -231,31 +232,18 @@ export const ConfigureTasks: React.VFC<Props> = ({
         </>
       )}
       {enumerateChildPatchTasks && (
-        <>
-          {currentChildPatches[0].variantsTasks.map((variantTasks) => (
-            <VariantTasksList
-              {...variantTasks}
-              key={variantTasks.name}
-              data-cy="child-patch-task-checkbox"
-              status={CheckboxState.CHECKED}
-            />
-          ))}
-        </>
+        <VariantTasksList
+          data-cy="child-patch-task-checkbox"
+          status={CheckboxState.CHECKED}
+          variantTasks={currentChildPatches[0].variantsTasks}
+        />
       )}
       {enumerateAliasTasks && (
-        <>
-          {currentAliasTasks[0].variantsTasks.map(
-            ({ name, tasks: aliasTasks }) => (
-              <VariantTasksList
-                key={name}
-                data-cy="alias-task-checkbox"
-                name={name}
-                status={currentAliases[currentAliasTasks[0].alias]}
-                tasks={aliasTasks}
-              />
-            )
-          )}
-        </>
+        <VariantTasksList
+          data-cy="alias-task-checkbox"
+          status={currentAliases[currentAliasTasks[0].alias]}
+          variantTasks={currentAliasTasks[0].variantsTasks}
+        />
       )}
     </TabContentWrapper>
   );
