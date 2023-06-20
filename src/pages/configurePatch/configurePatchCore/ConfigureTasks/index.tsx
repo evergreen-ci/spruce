@@ -162,7 +162,7 @@ export const ConfigureTasks: React.VFC<Props> = ({
           <InlineCheckbox
             data-cy="select-all-checkbox"
             indeterminate={
-              selectAllCheckboxState === CheckboxState.INDETERMINITE
+              selectAllCheckboxState === CheckboxState.INDETERMINATE
             }
             onChange={onClickSelectAll}
             label={selectAllCheckboxCopy}
@@ -197,7 +197,7 @@ export const ConfigureTasks: React.VFC<Props> = ({
             key={name}
             onChange={onClickCheckbox(name)}
             label={name}
-            indeterminate={status === CheckboxState.INDETERMINITE}
+            indeterminate={status === CheckboxState.INDETERMINATE}
             checked={status === CheckboxState.CHECKED}
           />
         ))}
@@ -212,7 +212,7 @@ export const ConfigureTasks: React.VFC<Props> = ({
                 key={name}
                 onChange={onClickCheckbox(name)}
                 label={name}
-                indeterminate={status === CheckboxState.INDETERMINITE}
+                indeterminate={status === CheckboxState.INDETERMINATE}
                 checked={status === CheckboxState.CHECKED}
                 disabled={activated}
               />
@@ -289,7 +289,7 @@ const getSelectAllCheckboxState = (
   } else if (!hasSelectedTasks && hasUnselectedTasks) {
     state = CheckboxState.UNCHECKED;
   } else {
-    state = CheckboxState.INDETERMINITE;
+    state = CheckboxState.INDETERMINATE;
   }
 
   return state;
@@ -338,16 +338,16 @@ const deduplicateTasks = (
         case CheckboxState.UNCHECKED:
           // If a task is UNCHECKED and the next task of the same name is CHECKED it is INDETERMINATE
           visibleTasks[taskName] = value
-            ? CheckboxState.INDETERMINITE
+            ? CheckboxState.INDETERMINATE
             : CheckboxState.UNCHECKED;
           break;
         case CheckboxState.CHECKED:
           // If a task is CHECKED and the next task of the same name is UNCHECKED it is INDETERMINATE
           visibleTasks[taskName] = value
             ? CheckboxState.CHECKED
-            : CheckboxState.INDETERMINITE;
+            : CheckboxState.INDETERMINATE;
           break;
-        case CheckboxState.INDETERMINITE:
+        case CheckboxState.INDETERMINATE:
           // If a task is INDETERMINATE because of previous task statuses
           // it wouldn't change when subsequent statuses are considered
           break;
