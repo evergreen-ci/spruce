@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
@@ -110,7 +110,7 @@ export const ConfigureTasks: React.VFC<Props> = ({
     setSelectedAliases(selectedAliasesCopy);
   };
 
-  const onClickSelectAll = (e) => {
+  const onClickSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
     const selectedAliasesCopy = { ...selectedAliases };
     selectedBuildVariants.forEach((v) => {
@@ -137,6 +137,7 @@ export const ConfigureTasks: React.VFC<Props> = ({
       : `Select all tasks in ${
           selectedBuildVariants.length > 1 ? "these variants" : "this variant"
         }`;
+
   const selectedTaskDisclaimerCopy = `${taskCount} task${
     taskCount !== 1 ? "s" : ""
   } across ${buildVariantCount} build variant${
