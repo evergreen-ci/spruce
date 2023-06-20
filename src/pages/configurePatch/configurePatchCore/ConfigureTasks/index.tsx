@@ -5,6 +5,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
+import pluralize from "pluralize";
 import { LoadingButton } from "components/Buttons";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
@@ -52,7 +53,9 @@ export const ConfigureTasks: React.VFC<Props> = ({
   const buildVariantCount = Object.values(selectedBuildVariantTasks).reduce(
     (count, taskOb) =>
       count +
-      (every(Object.values(taskOb), (isSelected) => !isSelected) ? 0 : 1),
+      (every(Object.values(taskOb), (isSelected: boolean) => !isSelected)
+        ? 0
+        : 1),
     0
   );
   const taskCount = Object.values(selectedBuildVariantTasks).reduce(
@@ -134,18 +137,20 @@ export const ConfigureTasks: React.VFC<Props> = ({
   );
   const selectAllCheckboxCopy =
     sortedCurrentTasks.length === 0
-      ? `Add alias${selectedBuildVariants.length > 1 ? "es" : ""} to patch`
-      : `Select all tasks in ${
-          selectedBuildVariants.length > 1 ? "these variants" : "this variant"
-        }`;
+      ? `Add ${pluralize("alias", selectedBuildVariants.length)} to patch`
+      : `Select all tasks in ${pluralize(
+          "this",
+          selectedBuildVariants.length
+        )} ${pluralize("variant", selectedBuildVariants.length)}`;
 
-  const selectedTaskDisclaimerCopy = `${taskCount} task${
-    taskCount !== 1 ? "s" : ""
-  } across ${buildVariantCount} build variant${
-    buildVariantCount !== 1 ? "s" : ""
-  }, ${downstreamTaskCount} trigger alias${
-    downstreamTaskCount !== 1 ? "es" : ""
-  }`;
+  const selectedTaskDisclaimerCopy = `${taskCount} ${pluralize(
+    "task",
+    taskCount
+  )} across ${buildVariantCount} build ${pluralize(
+    "variant",
+    buildVariantCount
+  )}
+  , ${downstreamTaskCount} trigger ${pluralize("alias", aliasCount)}`;
 
   return (
     <TabContentWrapper>
