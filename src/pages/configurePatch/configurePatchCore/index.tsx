@@ -5,7 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { Tab } from "@leafygreen-ui/tabs";
 import TextInput from "@leafygreen-ui/text-input";
 import { useNavigate } from "react-router-dom";
-import { CodeChanges } from "components/CodeChanges/CodeChanges";
+import { CodeChanges } from "components/CodeChanges";
 import {
   MetadataCard,
   MetadataItem,

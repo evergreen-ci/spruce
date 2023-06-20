@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useReducer } from "react";
+import { useEffect, useMemo, useReducer } from "react";
 import styled from "@emotion/styled";
 import { inactiveElementStyle } from "components/styles";
 import { array } from "utils";

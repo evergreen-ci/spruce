@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
-import { CodeChanges } from "components/CodeChanges/CodeChanges";
+import { CodeChanges } from "components/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { getVersionRoute, DEFAULT_PATCH_TAB } from "constants/routes";
