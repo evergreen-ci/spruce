@@ -24,13 +24,14 @@ describe("buildVariantCard", () => {
       };
     });
 
-    // @ts-expect-error
-    window.IntersectionObserver = mockIntersectionObserver;
-    (injectGlobalDimStyle as jest.Mock).mockImplementationOnce(
-      (taskIdentifier: string) => {
-        Promise.resolve(taskIdentifier);
-      }
-    );
+    Object.defineProperty(window, "IntersectionObserver", {
+      writable: true,
+      value: mockIntersectionObserver,
+    });
+    (injectGlobalDimStyle as jest.Mock).mockImplementationOnce(() => {
+      Promise.resolve();
+    });
+
     (removeGlobalDimStyle as jest.Mock).mockImplementationOnce(() => {});
 
     render(
@@ -67,12 +68,12 @@ const tasks = [
   },
   {
     id: "2",
-    status: "succeeded",
+    status: "success",
     displayName: "Two",
   },
   {
     id: "3",
-    status: "succeeded",
+    status: "success",
     displayName: "Three",
   },
 ];
