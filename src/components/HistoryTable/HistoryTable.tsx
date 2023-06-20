@@ -1,113 +1,108 @@
-import { useEffect, useRef, ComponentType, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import throttle from "lodash.throttle";
-import AutoSizer from "react-virtualized-auto-sizer";
-import {
-  VariableSizeList as List,
-  ListChildComponentProps,
-} from "react-window";
-import InfiniteLoader from "react-window-infinite-loader";
-import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
+import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
+import { useDimensions } from "hooks/useDimensions";
+import { leaveBreadcrumb } from "utils/errorReporting";
+import { types } from ".";
 import { useHistoryTable } from "./HistoryTableContext";
+import EndOfHistoryRow from "./HistoryTableRow/EndOfHistoryRow";
+import LoadingSection from "./LoadingSection";
 
 interface HistoryTableProps {
   loadMoreItems: () => void;
-  recentlyFetchedCommits: MainlineCommitsForHistoryQuery["mainlineCommits"];
-  children: ComponentType<ListChildComponentProps<any>>;
+  children: ({
+    index,
+    data,
+  }: {
+    index: number;
+    data: types.CommitRowType;
+  }) => React.ReactElement;
+  finalRowCopy?: string;
+  loading: boolean;
 }
 const HistoryTable: React.VFC<HistoryTableProps> = ({
   loadMoreItems,
-  recentlyFetchedCommits,
-  children,
+  children: Component,
+  loading,
+  finalRowCopy,
 }) => {
   const {
-    commitCount,
     processedCommitCount,
-    selectedCommit,
-    getItemHeight,
-    ingestNewCommits,
-    isItemLoaded,
-    markSelectedRowVisited,
+    processedCommits,
     onChangeTableWidth,
-    toggleRowSizeAtIndex,
+    selectedCommit,
+    visibleColumns,
   } = useHistoryTable();
 
+  const ref = useRef<HTMLDivElement>(null);
+  const listRef = useRef<VirtuosoHandle>(null);
+  const size = useDimensions(ref);
   const throttledOnChangeTableWidth = useMemo(
     () => throttle(onChangeTableWidth, 400),
     [onChangeTableWidth]
   );
 
-  const listRef = useRef<List>(null);
   useEffect(() => {
-    if (recentlyFetchedCommits) {
-      ingestNewCommits(recentlyFetchedCommits);
+    if (size) {
+      throttledOnChangeTableWidth(size.width);
     }
-    // Remove ingestNewCommits from the effect list to avoid infinite loop
-  }, [recentlyFetchedCommits]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [size, throttledOnChangeTableWidth]);
 
-  // When we fetch new commits we need to tell react-window to re-render the list and update the heights for each of the rows since they will have changed based off of the new commits
   useEffect(() => {
-    if (processedCommitCount > 0) {
-      if (listRef.current) {
-        listRef.current.resetAfterIndex(0);
-      }
+    if (selectedCommit?.loaded && listRef.current) {
+      leaveBreadcrumb(
+        "scrolling to selected commit",
+        {
+          selectedCommit,
+        },
+        "process"
+      );
+      listRef.current.scrollToIndex(selectedCommit.rowIndex);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCommit?.loaded]);
+
+  // In order to jump to the selected commit, we need to first load the necessary amount of commits
+  useEffect(() => {
+    if (selectedCommit && !selectedCommit.loaded) {
+      leaveBreadcrumb(
+        "selectedCommit not loaded, loading more items",
+        {
+          selectedCommit,
+          processedCommitCount,
+        },
+        "process"
+      );
+      loadMoreItems();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [processedCommitCount]);
 
-  // This useEffect handles the jump to row functionality
-  useEffect(() => {
-    if (selectedCommit) {
-      const { rowIndex, visited, loaded } = selectedCommit;
-      if (rowIndex && !visited && listRef.current) {
-        listRef.current.scrollToItem(selectedCommit.rowIndex, "center");
-        // We mark the selected commit as visited so that we don't keep trying to scroll to it.
-        markSelectedRowVisited();
-        // If we have not loaded the commit yet we need to keep fetching rows until we do.
-      } else if (!loaded) {
-        loadMoreItems();
-      }
-    }
-  }, [
-    processedCommitCount,
-    selectedCommit,
-    markSelectedRowVisited,
-    loadMoreItems,
-  ]);
-
-  const toggleRowSize = (index: number, numCommits: number) => {
-    toggleRowSizeAtIndex(index, numCommits);
-    if (listRef.current) {
-      listRef.current.resetAfterIndex(index);
-    }
-  };
-
   return (
-    <AutoSizer onResize={({ width }) => throttledOnChangeTableWidth(width)}>
-      {({ height, width }) => (
-        <InfiniteLoader
-          isItemLoaded={isItemLoaded}
-          itemCount={commitCount}
-          loadMoreItems={loadMoreItems}
-        >
-          {({ onItemsRendered, ref }) => (
-            <List
-              height={height}
-              itemCount={commitCount}
-              itemSize={getItemHeight}
-              onItemsRendered={onItemsRendered}
-              ref={(list) => {
-                // @ts-ignore next-line
-                ref?.(list); // This is the syntax recommended by react-window's creator https://github.com/bvaughn/react-window/issues/324#issuecomment-528887341
-                listRef.current = list;
-              }}
-              width={width}
-              itemData={{ toggleRowSize }}
-            >
-              {children}
-            </List>
-          )}
-        </InfiniteLoader>
-      )}
-    </AutoSizer>
+    <div ref={ref} style={{ height: "100%" }}>
+      <Virtuoso
+        ref={listRef}
+        totalCount={processedCommitCount}
+        data={processedCommits}
+        itemContent={(index, data) => <Component index={index} data={data} />}
+        endReached={() => {
+          if (!loading) {
+            loadMoreItems();
+          }
+        }}
+        components={{
+          Footer: () =>
+            loading ? (
+              <LoadingSection
+                numVisibleCols={visibleColumns.length}
+                numLoadingRows={10}
+              />
+            ) : (
+              <EndOfHistoryRow>{finalRowCopy}</EndOfHistoryRow>
+            ),
+        }}
+      />
+    </div>
   );
 };
 

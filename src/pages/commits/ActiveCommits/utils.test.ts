@@ -8,12 +8,14 @@ import {
   GROUPED_BADGE_PADDING,
 } from "../constants";
 import {
+  constructBuildVariantDict,
   getAllTaskStatsGroupedByColor,
   getStatusesWithZeroCount,
-  constructBuildVariantDict,
+  injectGlobalDimStyle,
+  injectGlobalHighlightStyle,
   roundMax,
-  removeGlobalStyle,
-  injectGlobalStyle,
+  removeGlobalDimStyle,
+  removeGlobalHighlightStyle,
 } from "./utils";
 
 const { red, green, yellow, gray, purple } = palette;
@@ -526,6 +528,36 @@ describe("roundMax", () => {
 
 describe("injectGlobalStyle", () => {
   it("should properly inject global style using the task identifier", () => {
+    const dimIconStyle = "dim-icon-style";
+    expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
+      dimIconStyle
+    );
+
+    injectGlobalDimStyle();
+    expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
+      dimIconStyle
+    );
+  });
+});
+
+describe("removeGlobalDimStyle", () => {
+  it("should properly remove global style", () => {
+    const dimIconStyle = "dim-icon-style";
+
+    // Styles should persist from previous test.
+    expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
+      dimIconStyle
+    );
+
+    removeGlobalDimStyle();
+    expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
+      dimIconStyle
+    );
+  });
+});
+
+describe("injectGlobalHighlightStyle", () => {
+  it("should properly inject global style using the task identifier", () => {
     const taskIconStyle = "task-icon-style";
     const taskIdentifier = "ubuntu1604-test_util";
     expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
@@ -535,7 +567,7 @@ describe("injectGlobalStyle", () => {
       taskIdentifier
     );
 
-    injectGlobalStyle("ubuntu1604-test_util");
+    injectGlobalHighlightStyle("ubuntu1604-test_util");
     expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
       taskIconStyle
     );
@@ -545,7 +577,7 @@ describe("injectGlobalStyle", () => {
   });
 });
 
-describe("removeGlobalStyle", () => {
+describe("removeGlobalHighlightStyle", () => {
   it("should properly remove global style", () => {
     const taskIconStyle = "task-icon-style";
     const taskIdentifier = "ubuntu1604-test_util";
@@ -558,7 +590,7 @@ describe("removeGlobalStyle", () => {
       taskIdentifier
     );
 
-    removeGlobalStyle();
+    removeGlobalHighlightStyle();
     expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
       taskIconStyle
     );

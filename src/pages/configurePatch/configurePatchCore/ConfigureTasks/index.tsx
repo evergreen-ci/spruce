@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Disclaimer } from "@leafygreen-ui/typography";
+import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
 import { LoadingButton } from "components/Buttons";
 import Icon from "components/Icon";
@@ -14,12 +14,10 @@ import {
   PatchTriggerAlias,
   VariantTasksState,
 } from "hooks/useConfigurePatch";
+import { TaskLayoutGrid } from "./styles";
+import { CheckboxState } from "./types";
+import VariantTasksList from "./VariantTasksList";
 
-enum CheckboxState {
-  CHECKED = "CHECKED",
-  INDETERMINITE = "INDETERMINITE",
-  UNCHECKED = "UNCHECKED",
-}
 interface Props {
   selectedBuildVariants: string[];
   selectedBuildVariantTasks: VariantTasksState;
@@ -112,7 +110,7 @@ export const ConfigureTasks: React.VFC<Props> = ({
     setSelectedAliases(selectedAliasesCopy);
   };
 
-  const onClickSelectAll = (e) => {
+  const onClickSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
     const selectedAliasesCopy = { ...selectedAliases };
     selectedBuildVariants.forEach((v) => {
@@ -139,6 +137,7 @@ export const ConfigureTasks: React.VFC<Props> = ({
       : `Select all tasks in ${
           selectedBuildVariants.length > 1 ? "these variants" : "this variant"
         }`;
+
   const selectedTaskDisclaimerCopy = `${taskCount} task${
     taskCount !== 1 ? "s" : ""
   } across ${buildVariantCount} build variant${
@@ -163,7 +162,7 @@ export const ConfigureTasks: React.VFC<Props> = ({
           <InlineCheckbox
             data-cy="select-all-checkbox"
             indeterminate={
-              selectAllCheckboxState === CheckboxState.INDETERMINITE
+              selectAllCheckboxState === CheckboxState.INDETERMINATE
             }
             onChange={onClickSelectAll}
             label={selectAllCheckboxCopy}
@@ -191,29 +190,29 @@ export const ConfigureTasks: React.VFC<Props> = ({
       <StyledDisclaimer data-cy="selected-task-disclaimer">
         {selectedTaskDisclaimerCopy}
       </StyledDisclaimer>
-      <Tasks data-cy="configurePatch-tasks">
+      <TaskLayoutGrid data-cy="configurePatch-tasks">
         {sortedCurrentTasks.map(([name, status]) => (
           <Checkbox
             data-cy="task-checkbox"
             key={name}
             onChange={onClickCheckbox(name)}
             label={name}
-            indeterminate={status === CheckboxState.INDETERMINITE}
+            indeterminate={status === CheckboxState.INDETERMINATE}
             checked={status === CheckboxState.CHECKED}
           />
         ))}
-      </Tasks>
+      </TaskLayoutGrid>
       {shorthandChildPatchesAndAliases && (
         <>
-          <H4>Downstream Tasks</H4>
-          <Tasks>
+          <Body>Downstream Tasks</Body>
+          <TaskLayoutGrid>
             {Object.entries(currentAliases).map(([name, status]) => (
               <Checkbox
                 data-cy="alias-checkbox"
                 key={name}
                 onChange={onClickCheckbox(name)}
                 label={name}
-                indeterminate={status === CheckboxState.INDETERMINITE}
+                indeterminate={status === CheckboxState.INDETERMINATE}
                 checked={status === CheckboxState.CHECKED}
                 disabled={activated}
               />
@@ -228,7 +227,7 @@ export const ConfigureTasks: React.VFC<Props> = ({
                 checked
               />
             ))}
-          </Tasks>
+          </TaskLayoutGrid>
         </>
       )}
       {enumerateChildPatchTasks && (
@@ -262,35 +261,6 @@ export const ConfigureTasks: React.VFC<Props> = ({
   );
 };
 
-interface VariantTasksListProps {
-  "data-cy": string;
-  name: string;
-  status: CheckboxState;
-  tasks: string[];
-}
-
-const VariantTasksList: React.VFC<VariantTasksListProps> = ({
-  "data-cy": dataCy,
-  name,
-  status,
-  tasks,
-}) => (
-  <>
-    <H4>{name}</H4>
-    <Tasks>
-      {tasks.map((taskName) => (
-        <Checkbox
-          data-cy={dataCy}
-          key={`${name}-${taskName}`}
-          label={taskName}
-          checked={status === CheckboxState.CHECKED}
-          disabled
-        />
-      ))}
-    </Tasks>
-  </>
-);
-
 const getSelectAllCheckboxState = (
   buildVariants: {
     [task: string]: CheckboxState;
@@ -319,7 +289,7 @@ const getSelectAllCheckboxState = (
   } else if (!hasSelectedTasks && hasUnselectedTasks) {
     state = CheckboxState.UNCHECKED;
   } else {
-    state = CheckboxState.INDETERMINITE;
+    state = CheckboxState.INDETERMINATE;
   }
 
   return state;
@@ -368,16 +338,16 @@ const deduplicateTasks = (
         case CheckboxState.UNCHECKED:
           // If a task is UNCHECKED and the next task of the same name is CHECKED it is INDETERMINATE
           visibleTasks[taskName] = value
-            ? CheckboxState.INDETERMINITE
+            ? CheckboxState.INDETERMINATE
             : CheckboxState.UNCHECKED;
           break;
         case CheckboxState.CHECKED:
           // If a task is CHECKED and the next task of the same name is UNCHECKED it is INDETERMINATE
           visibleTasks[taskName] = value
             ? CheckboxState.CHECKED
-            : CheckboxState.INDETERMINITE;
+            : CheckboxState.INDETERMINATE;
           break;
-        case CheckboxState.INDETERMINITE:
+        case CheckboxState.INDETERMINATE:
           // If a task is INDETERMINATE because of previous task statuses
           // it wouldn't change when subsequent statuses are considered
           break;
@@ -403,17 +373,7 @@ const Actions = styled.div`
     margin-right: ${size.m};
   }
 `;
-const Tasks = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: auto auto;
-  grid-template-areas: "a a";
-  grid-auto-rows: auto;
-  column-gap: ${size.l};
-  row-gap: ${size.xs};
-  overflow: scroll;
-  max-height: 60vh;
-`;
+
 const StyledDisclaimer = styled(Disclaimer)`
   margin-bottom: ${size.xs};
 `;
@@ -424,9 +384,7 @@ const cardSidePadding = css`
 const TabContentWrapper = styled.div`
   ${cardSidePadding}
 `;
-const H4 = styled.h4`
-  margin-top: ${size.s};
-`;
+
 const IconContainer = styled.span`
   margin-left: ${size.xs};
 `;

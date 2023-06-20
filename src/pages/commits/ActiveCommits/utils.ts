@@ -162,22 +162,43 @@ export const getStatusesWithZeroCount = (colors: ColorCount[]) => {
 };
 
 // Functions for injecting and removing style for hovering on task icons
+const dimIconStyle = "dim-icon-style";
+
+export const removeGlobalDimStyle = () => {
+  document.getElementById(dimIconStyle)?.remove();
+};
+
+export const injectGlobalDimStyle = () => {
+  // Remove style here again because hovering over LG tooltips triggers two consecutive mouseenter events.
+  removeGlobalDimStyle();
+
+  const hoverStyle = document.createElement("style");
+  hoverStyle.id = dimIconStyle;
+  hoverStyle.innerHTML = `
+    div[data-task-icon] {
+        opacity: 0.25;
+    }
+  `;
+  document.getElementsByTagName("head")[0].appendChild(hoverStyle);
+};
+
+// Functions for injecting and removing style for hovering on task icons
 const taskIconStyle = "task-icon-style";
 
-export const removeGlobalStyle = () => {
+export const removeGlobalHighlightStyle = () => {
   document.getElementById(taskIconStyle)?.remove();
 };
 
-export const injectGlobalStyle = (taskIdentifier: string) => {
+export const injectGlobalHighlightStyle = (taskIdentifier: string) => {
   // Remove style here again because hovering over LG tooltips triggers two consecutive mouseenter events.
-  removeGlobalStyle();
+  removeGlobalHighlightStyle();
 
   const hoverStyle = document.createElement("style");
   hoverStyle.id = taskIconStyle;
   hoverStyle.innerHTML = `
-    div[data-task-icon]:not([data-task-icon="${taskIdentifier}"]) {
-        opacity: 0.25;
-    }
-  `;
+     [data-task-icon="${taskIdentifier}"] {
+         opacity: 1 !important;
+     }
+   `;
   document.getElementsByTagName("head")[0].appendChild(hoverStyle);
 };

@@ -5,7 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { Tab } from "@leafygreen-ui/tabs";
 import TextInput from "@leafygreen-ui/text-input";
 import { useNavigate } from "react-router-dom";
-import { CodeChanges } from "components/CodeChanges/CodeChanges";
+import { CodeChanges } from "components/CodeChanges";
 import {
   MetadataCard,
   MetadataItem,
@@ -34,9 +34,9 @@ import {
   VariantTasksState,
   useConfigurePatch,
 } from "hooks/useConfigurePatch";
-import { ParametersContent } from "pages/configurePatch/ParametersContent";
-import { ConfigureBuildVariants } from "./configurePatchCore/ConfigureBuildVariants";
-import { ConfigureTasks } from "./configurePatchCore/ConfigureTasks";
+import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
+import { ConfigureTasks } from "./ConfigureTasks";
+import { ParametersContent } from "./ParametersContent";
 
 interface Props {
   patch: ConfigurePatchQuery["patch"];
