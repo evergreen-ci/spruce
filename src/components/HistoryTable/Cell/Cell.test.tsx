@@ -1,6 +1,6 @@
 import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { TaskStatus } from "types/task";
-import { TaskCell } from "./Cell";
+import { TaskCell } from ".";
 
 describe("taskCell", () => {
   it("should render a task cell corresponding to a passed in status", () => {

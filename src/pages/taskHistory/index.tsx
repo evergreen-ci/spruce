@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
@@ -8,15 +7,18 @@ import { ProjectBanner } from "components/Banners";
 import FilterBadges, {
   useFilterBadgeQueryParams,
 } from "components/FilterBadges";
-import HistoryTable, {
+import {
   context,
   ColumnPaginationButtons,
   HistoryTableTestSearch,
   hooks,
   constants,
 } from "components/HistoryTable";
+import HistoryTable from "components/HistoryTable/HistoryTable";
+import { useHistoryTable } from "components/HistoryTable/HistoryTableContext";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
+import { useToastContext } from "context/toast";
 import {
   MainlineCommitsForHistoryQuery,
   MainlineCommitsForHistoryQueryVariables,
@@ -24,6 +26,7 @@ import {
 import { GET_MAINLINE_COMMITS_FOR_HISTORY } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { string } from "utils";
+import { leaveBreadcrumb } from "utils/errorReporting";
 import BuildVariantSelector from "./BuildVariantSelector";
 import ColumnHeaders from "./ColumnHeaders";
 import TaskHistoryRow from "./TaskHistoryRow";
@@ -38,15 +41,17 @@ const TaskHistoryContents: React.VFC = () => {
     projectIdentifier: string;
     taskName: string;
   }>();
+  const { ingestNewCommits } = useHistoryTable();
   usePageTitle(`Task History | ${projectIdentifier} | ${taskName}`);
-  const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
   useTestFilters();
   useJumpToCommit();
 
   const { badges, handleOnRemove, handleClearAll } = useFilterBadgeQueryParams(
     constants.queryParamsToDisplay
   );
-  const { data, error } = useQuery<
+  const dispatchToast = useToastContext();
+
+  const { data, loading, refetch } = useQuery<
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
   >(GET_MAINLINE_COMMITS_FOR_HISTORY, {
@@ -54,7 +59,6 @@ const TaskHistoryContents: React.VFC = () => {
       mainlineCommitsOptions: {
         projectIdentifier,
         limit: 10,
-        skipOrderNumber: nextPageOrderNumber,
         shouldCollapse: true,
       },
       buildVariantOptions: {
@@ -62,9 +66,52 @@ const TaskHistoryContents: React.VFC = () => {
         includeBaseTasks: false,
       },
     },
+    notifyOnNetworkStatusChange: true, // This is so that we can show the loading state
+    fetchPolicy: "no-cache", // This is because we already cache the data in the history table
+    onCompleted({ mainlineCommits }) {
+      leaveBreadcrumb(
+        "Loaded more commits for task history",
+        {
+          projectIdentifier,
+          taskName,
+          numCommits: mainlineCommits.versions.length,
+        },
+        "process"
+      );
+      ingestNewCommits(mainlineCommits);
+    },
+    onError(err) {
+      dispatchToast.error(
+        `There was an error loading the task history: ${err.message}`
+      );
+    },
   });
 
-  const { mainlineCommits } = data || {};
+  const handleLoadMore = () => {
+    if (data) {
+      leaveBreadcrumb(
+        "Requesting more task history",
+        {
+          projectIdentifier,
+          taskName,
+          skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
+        },
+        "process"
+      );
+      refetch({
+        mainlineCommitsOptions: {
+          projectIdentifier,
+          limit: 10,
+          skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
+          shouldCollapse: true,
+        },
+        buildVariantOptions: {
+          tasks: [applyStrictRegex(taskName)],
+          includeBaseTasks: false,
+        },
+      });
+    }
+  };
 
   return (
     <PageWrapper>
@@ -114,21 +161,14 @@ const TaskHistoryContents: React.VFC = () => {
             projectIdentifier={projectIdentifier}
             taskName={taskName}
           />
-
           <TableWrapper>
-            {error && <div>Failed to retrieve mainline commit history.</div>}
-            {!error && (
-              <HistoryTable
-                recentlyFetchedCommits={mainlineCommits}
-                loadMoreItems={() => {
-                  if (mainlineCommits) {
-                    setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
-                  }
-                }}
-              >
-                {TaskHistoryRow}
-              </HistoryTable>
-            )}
+            <HistoryTable
+              loadMoreItems={handleLoadMore}
+              loading={loading}
+              finalRowCopy="End of task history"
+            >
+              {TaskHistoryRow}
+            </HistoryTable>
           </TableWrapper>
         </div>
       </CenterPage>

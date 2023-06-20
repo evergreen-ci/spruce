@@ -1,9 +1,15 @@
-import { useContext, createContext, useReducer, useMemo } from "react";
+import {
+  useContext,
+  createContext,
+  useReducer,
+  useMemo,
+  useCallback,
+} from "react";
 import {
   MainlineCommitsForHistoryQuery,
   TestFilter,
 } from "gql/generated/types";
-import { DEFAULT_COLUMN_LIMIT, LOADING_HEIGHT } from "./constants";
+import { DEFAULT_COLUMN_LIMIT } from "./constants";
 
 import {
   HistoryTableReducerState,
@@ -30,7 +36,6 @@ interface HistoryTableState {
   visibleColumns: string[];
   addColumns: (columns: string[]) => void;
   getItem: (index: number) => CommitRowType;
-  getItemHeight: (index: number) => number;
   ingestNewCommits: (data: mainlineCommits) => void;
   isItemLoaded: (index: number) => boolean;
   markSelectedRowVisited: () => void;
@@ -39,7 +44,7 @@ interface HistoryTableState {
   previousPage: () => void;
   setHistoryTableFilters: (filters: TestFilter[]) => void;
   setSelectedCommit: (order: number) => void;
-  toggleRowSizeAtIndex: (index: number, numCommits: number) => void;
+  toggleRowExpansion: (rowIndex: number, expanded: boolean) => void;
 }
 
 const HistoryTableDispatchContext = createContext<HistoryTableState | null>(
@@ -86,16 +91,15 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
 
   const getItem = (index: number) => processedCommits[index];
 
-  const getItemHeight = (index: number) =>
-    processedCommits[index]?.rowHeight || LOADING_HEIGHT;
-
+  const onChangeTableWidth = useCallback((width: number) => {
+    dispatch({ type: "onChangeTableWidth", width });
+  }, []);
   const historyTableState = useMemo(
     () => ({
       columnLimit,
       commitCount,
       currentPage,
       getItem,
-      getItemHeight,
       hasNextPage: currentPage < pageCount - 1,
       hasPreviousPage: currentPage > 0,
       historyTableFilters,
@@ -107,21 +111,25 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
       visibleColumns,
       addColumns: (columns: string[]) =>
         dispatch({ type: "addColumns", columns }),
-      toggleRowSizeAtIndex: (index: number, numCommits: number) =>
-        dispatch({ type: "toggleRowSizeAtIndex", index, numCommits }),
       ingestNewCommits: (
         commits: MainlineCommitsForHistoryQuery["mainlineCommits"]
       ) => dispatch({ type: "ingestNewCommits", commits }),
       markSelectedRowVisited: () =>
         dispatch({ type: "markSelectedRowVisited" }),
       nextPage: () => dispatch({ type: "nextPageColumns" }),
-      onChangeTableWidth: (width: number): void =>
-        dispatch({ type: "onChangeTableWidth", width }),
+      onChangeTableWidth,
       previousPage: () => dispatch({ type: "prevPageColumns" }),
       setSelectedCommit: (order: number) =>
         dispatch({ type: "setSelectedCommit", order }),
       setHistoryTableFilters: (filters: TestFilter[]) =>
         dispatch({ type: "setHistoryTableFilters", filters }),
+      toggleRowExpansion: (rowIndex: number, expanded: boolean) => {
+        dispatch({
+          type: "toggleRowExpansion",
+          rowIndex,
+          expanded,
+        });
+      },
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [visibleColumns, processedCommitCount, historyTableFilters]

@@ -32,16 +32,20 @@ export const decorators: Decorator[] = [
       <Story />
     </>
   ),
-  (Story: () => JSX.Element) => {
+  (Story: () => JSX.Element, context) => {
+    const { parameters: storyParameters } = context;
+    const { reactRouter } = storyParameters;
+    const { path, params, route } = reactRouter || {};
     const routes = [
       {
-        path: "/",
+        path: path || "/",
+        parameters: params || {},
         element: <Story />,
         errorElement: <div>Failed to render component.</div>,
       },
     ];
     const memoryRouter = createMemoryRouter(routes, {
-      initialEntries: ["/"],
+      initialEntries: [route || "/"],
     });
     return <RouterProvider router={memoryRouter} />;
   },

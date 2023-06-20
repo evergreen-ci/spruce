@@ -1,11 +1,5 @@
 import { Unpacked } from "types/utils";
-import {
-  FOLDED_COMMITS_HEIGHT,
-  COMMIT_HEIGHT,
-  DATE_SEPARATOR_HEIGHT,
-  COLUMN_LABEL_WIDTH,
-  ROW_LABEL_WIDTH,
-} from "./constants";
+import { COLUMN_LABEL_WIDTH, ROW_LABEL_WIDTH } from "./constants";
 import { mainlineCommits, CommitRowType, rowType } from "./types";
 
 // Processed commits are the order of commits in the table.
@@ -44,20 +38,17 @@ export const processCommits = ({
             commit: version,
             date: version.createTime,
             selected,
-            rowHeight: COMMIT_HEIGHT,
           });
         } else {
           processedCommits.push({
             type: rowType.DATE_SEPARATOR,
             date: version.createTime,
-            rowHeight: DATE_SEPARATOR_HEIGHT,
           });
           processedCommits.push({
             type: rowType.COMMIT,
             commit: version,
             date: version.createTime,
             selected,
-            rowHeight: COMMIT_HEIGHT,
           });
         }
         if (selected) {
@@ -80,21 +71,20 @@ export const processCommits = ({
             type: rowType.FOLDED_COMMITS,
             rolledUpCommits: rolledUpVersions,
             date: firstRolledUpVersion.createTime,
-            rowHeight: FOLDED_COMMITS_HEIGHT,
             selected,
+            expanded: false,
           });
         } else {
           processedCommits.push({
             type: rowType.DATE_SEPARATOR,
             date: firstRolledUpVersion.createTime,
-            rowHeight: DATE_SEPARATOR_HEIGHT,
           });
           processedCommits.push({
             type: rowType.FOLDED_COMMITS,
             rolledUpCommits: rolledUpVersions,
             date: firstRolledUpVersion.createTime,
-            rowHeight: FOLDED_COMMITS_HEIGHT,
             selected,
+            expanded: false,
           });
         }
         if (selected) {
@@ -141,23 +131,6 @@ const hasSelectedCommit = (
   return rolledUpUpVersions.some(
     (version) => version.order === selectedCommitOrder
   );
-};
-export const toggleRowSizeAtIndex = (
-  processedCommits: CommitRowType[],
-  numCommits: number,
-  idx: number
-): CommitRowType[] => {
-  const newCommits = [...processedCommits];
-  const expandedHeight = FOLDED_COMMITS_HEIGHT + COMMIT_HEIGHT * numCommits;
-  const collapsedHeight = FOLDED_COMMITS_HEIGHT;
-
-  // If size does not equal expandedHeight, that means it can be expanded. Otherwise it should be collapsed.
-  if (newCommits[idx].rowHeight !== expandedHeight) {
-    newCommits[idx].rowHeight = expandedHeight;
-  } else {
-    newCommits[idx].rowHeight = collapsedHeight;
-  }
-  return newCommits;
 };
 
 export const calcColumnLimitFromWidth = (tableWidth: number) => {

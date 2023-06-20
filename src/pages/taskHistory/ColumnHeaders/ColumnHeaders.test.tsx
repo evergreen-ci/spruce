@@ -14,7 +14,7 @@ import {
 } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { string } from "utils";
-import ColumnHeaders from "./ColumnHeaders";
+import ColumnHeaders from ".";
 
 const { trimStringFromMiddle } = string;
 const longVariantName =

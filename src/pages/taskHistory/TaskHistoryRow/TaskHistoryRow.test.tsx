@@ -1,5 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
-import { context, constants } from "components/HistoryTable";
+import { context } from "components/HistoryTable";
 import { HistoryTableReducerState } from "components/HistoryTable/historyTableContextReducer";
 import { mainlineCommitData } from "components/HistoryTable/testData";
 import { rowType, CommitRowType } from "components/HistoryTable/types";
@@ -16,10 +16,9 @@ import {
 } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { TestStatus } from "types/history";
-import TaskHistoryRow from "./TaskHistoryRow";
+import TaskHistoryRow from ".";
 
 const { HistoryTableProvider } = context;
-const { COMMIT_HEIGHT } = constants;
 
 const initialState: HistoryTableReducerState = {
   loadedCommits: [],
@@ -51,15 +50,8 @@ const wrapper: React.VFC<wrapperProps> = ({ children, mocks = [], state }) => (
 );
 
 describe("taskHistoryRow", () => {
-  it("renders an initial loading row with 7 cells when there is no data", () => {
-    render(<TaskHistoryRow index={0} style={{}} data={undefined} />, {
-      wrapper,
-    });
-    expect(screen.queryAllByDataCy("loading-cell")).toHaveLength(7);
-  });
-
   it("renders a row when there is data", () => {
-    render(<TaskHistoryRow index={0} style={{}} data={undefined} />, {
+    render(<TaskHistoryRow index={0} data={taskRow} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -86,7 +78,7 @@ describe("taskHistoryRow", () => {
   });
 
   it("amount of cells rendered should correspond to the amount of visibleColumns", () => {
-    render(<TaskHistoryRow index={0} style={{}} data={undefined} />, {
+    render(<TaskHistoryRow index={0} data={taskRow} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -103,8 +95,8 @@ describe("taskHistoryRow", () => {
     expect(screen.queryAllByDataCy("task-cell")).toHaveLength(3);
   });
 
-  it("renders a blank cell when there isn't a matching variant for that row", () => {
-    render(<TaskHistoryRow index={0} style={{}} data={undefined} />, {
+  it("renders a blank cell when there isn't a matching variant for that column", () => {
+    render(<TaskHistoryRow index={0} data={taskRow} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -123,7 +115,7 @@ describe("taskHistoryRow", () => {
   });
 
   it("should show failing tests when you hover over a failing task cell and there are no filters applied", async () => {
-    render(<TaskHistoryRow index={0} style={{}} data={undefined} />, {
+    render(<TaskHistoryRow index={0} data={taskRow} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -164,7 +156,7 @@ describe("taskHistoryRow", () => {
   });
 
   it("should show a matching test label when looking at a task cell with filters applied", async () => {
-    render(<TaskHistoryRow index={0} style={{}} data={undefined} />, {
+    render(<TaskHistoryRow index={0} data={taskRow} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -209,7 +201,7 @@ describe("taskHistoryRow", () => {
   });
 
   it("should disable a task cell when there are test filters applied and it does not match the task filters", () => {
-    render(<TaskHistoryRow index={0} style={{}} data={undefined} />, {
+    render(<TaskHistoryRow index={0} data={taskRow} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -238,7 +230,6 @@ describe("taskHistoryRow", () => {
 
 const taskRow: CommitRowType = {
   type: rowType.COMMIT,
-  rowHeight: COMMIT_HEIGHT,
   selected: false,
   commit: {
     id: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",

@@ -14,8 +14,8 @@ interface Props {
   index: number;
   data: types.CommitRowType;
 }
-const VariantHistoryRow: React.VFC<Props> = ({ index, data }) => {
-  const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
+const TaskHistoryRow: React.VFC<Props> = ({ index, data }) => {
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
   const { visibleColumns } = useHistoryTable();
 
   const { getTaskMetadata } = useTestResults(index);
@@ -99,13 +99,17 @@ const generateColumns = (
   sendEvent: ReturnType<typeof useProjectHealthAnalytics>["sendEvent"]
 ) => {
   const { buildVariants } = data.commit;
+  const buildVariantMap = convertArrayToObject(buildVariants, "variant");
   return visibleColumns.map((c) => {
-    if (buildVariants && buildVariants.length > 0) {
-      const { tasks } = buildVariants[0];
-      const taskMap = convertArrayToObject(tasks, "displayName");
-      const t = taskMap[c];
-      if (t) {
-        const { inactive, failingTests, label } = getTaskMetadata(t.id);
+    if (buildVariants) {
+      const foundVariant = buildVariantMap[c];
+      if (foundVariant) {
+        const { tasks } = foundVariant;
+        // the tasks array should in theory only have one item in it so we should always use it.
+        const t = tasks[0];
+        const { inactive, failingTests, label, loading } = getTaskMetadata(
+          t.id
+        );
         return (
           <TaskCell
             onClick={({ taskStatus }) => {
@@ -119,13 +123,13 @@ const generateColumns = (
             task={t}
             failingTests={failingTests}
             label={label}
+            loading={loading}
           />
         );
       }
     }
-    // Returned if the task did not run for this commit
-    return <EmptyCell key={`empty_task_${c}`} />;
+    // Returned if the build variant did not run for this commit
+    return <EmptyCell key={`empty_variant_${c}`} />;
   });
 };
-
-export default VariantHistoryRow;
+export default TaskHistoryRow;
