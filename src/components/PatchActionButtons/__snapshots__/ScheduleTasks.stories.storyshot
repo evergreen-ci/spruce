@@ -4,7 +4,7 @@ exports[`storybook Storyshots components/PatchActionButtons/ScheduleTasks Schedu
 <div>
   <button
     aria-disabled="false"
-    class="lg-ui-button-0000 leafygreen-ui-1kt1vpf"
+    class="lg-ui-button-0000 leafygreen-ui-pt6pqu"
     data-cy="schedule-patch"
     type="button"
   >
@@ -12,7 +12,7 @@ exports[`storybook Storyshots components/PatchActionButtons/ScheduleTasks Schedu
       class="leafygreen-ui-v038xi"
     />
     <div
-      class="leafygreen-ui-1qmzz4y"
+      class="leafygreen-ui-v95oty"
     >
       Schedule
     </div>
@@ -24,7 +24,7 @@ exports[`storybook Storyshots components/PatchActionButtons/ScheduleTasks Schedu
 <div>
   <button
     aria-disabled="false"
-    class="lg-ui-button-0000 leafygreen-ui-1kt1vpf"
+    class="lg-ui-button-0000 leafygreen-ui-pt6pqu"
     data-cy="schedule-patch"
     type="button"
   >
@@ -32,7 +32,7 @@ exports[`storybook Storyshots components/PatchActionButtons/ScheduleTasks Schedu
       class="leafygreen-ui-v038xi"
     />
     <div
-      class="leafygreen-ui-1qmzz4y"
+      class="leafygreen-ui-v95oty"
     >
       Schedule
     </div>

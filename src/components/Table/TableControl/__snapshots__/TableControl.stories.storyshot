@@ -29,7 +29,7 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
       </p>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-1kt1vpf css-vvan06-PaddedButton et5phr00"
+        class="lg-ui-button-0000 leafygreen-ui-pt6pqu css-vvan06-PaddedButton et5phr00"
         data-cy="clear-all-filters"
         type="button"
       >
@@ -37,7 +37,7 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
           class="leafygreen-ui-v038xi"
         />
         <div
-          class="leafygreen-ui-1qmzz4y"
+          class="leafygreen-ui-v95oty"
         >
           Clear all filters
         </div>
@@ -52,7 +52,7 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
       >
         <button
           aria-disabled="true"
-          class="lg-ui-button-0000 leafygreen-ui-14bp7j2 css-mze5ol-StyledButton e4w46hm2"
+          class="lg-ui-button-0000 leafygreen-ui-14b4nbp css-mze5ol-StyledButton e4w46hm2"
           data-cy="prev-page-button"
           type="button"
         >
@@ -60,11 +60,11 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
             class="leafygreen-ui-v038xi"
           />
           <div
-            class="leafygreen-ui-1qmzz4y"
+            class="leafygreen-ui-v95oty"
           >
             <svg
               aria-label="Chevron Left Icon"
-              class="leafygreen-ui-1g8rtil"
+              class="leafygreen-ui-2opl5u"
               fill="none"
               height="14"
               role="img"
@@ -94,7 +94,7 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
         </div>
         <button
           aria-disabled="true"
-          class="lg-ui-button-0000 leafygreen-ui-14bp7j2 css-mze5ol-StyledButton e4w46hm2"
+          class="lg-ui-button-0000 leafygreen-ui-14b4nbp css-mze5ol-StyledButton e4w46hm2"
           data-cy="next-page-button"
           type="button"
         >
@@ -102,11 +102,11 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
             class="leafygreen-ui-v038xi"
           />
           <div
-            class="leafygreen-ui-1qmzz4y"
+            class="leafygreen-ui-v95oty"
           >
             <svg
               aria-label="Chevron Right Icon"
-              class="leafygreen-ui-1g8rtil"
+              class="leafygreen-ui-2opl5u"
               fill="none"
               height="14"
               role="img"
