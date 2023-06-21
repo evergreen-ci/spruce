@@ -4,6 +4,11 @@ import { CheckboxState } from "./types";
 interface DeduplicateTasksResult {
   [task: string]: CheckboxState;
 }
+/**
+ * `deduplicateTasks` takes an array of objects containing the tasks for each build variant
+ * @param currentTasks - an array of objects containing the tasks for each build variant
+ * @returns - an object containing the deduplicated tasks for each build variant
+ */
 const deduplicateTasks = (
   currentTasks: {
     [task: string]: boolean;
@@ -40,6 +45,18 @@ const deduplicateTasks = (
   return visibleTasks;
 };
 
+/**
+ * `getSelectAllCheckboxState` takes the current state of the tasks and aliases and returns the state of the select all checkbox
+ * @param buildVariants - an object containing the current state of the tasks for each build variant
+ * @param aliases - an object containing the current state of the aliases
+ * @param shouldShowChildPatchTasks - a boolean indicating whether the child patch tasks should be shown
+ * @returns - the state of the select all checkbox
+ * - The select all checkbox is checked if all tasks and aliases are checked
+ * - The select all checkbox is unchecked if all tasks and aliases are unchecked
+ * - The select all checkbox is indeterminate if some tasks and aliases are checked
+ * - The select all checkbox is checked by default if a child patch is selected
+ * - The select all checkbox is checked if all aliases are checked and the child patch tasks are shown
+ */
 const getSelectAllCheckboxState = (
   buildVariants: {
     [task: string]: CheckboxState;
@@ -74,6 +91,12 @@ const getSelectAllCheckboxState = (
   return state;
 };
 
+/**
+ * `getVisibleAliases` takes the current state of the aliases and returns the state of the aliases that are visible
+ * @param selectedAliases - an object containing the current state of the aliases
+ * @param selectedBuildVariants - an array containing the selected build variants
+ * @returns - an object containing the state of the aliases that are visible
+ */
 const getVisibleAliases = (
   selectedAliases: AliasState,
   selectedBuildVariants: string[]
@@ -89,6 +112,14 @@ const getVisibleAliases = (
   return visiblePatches;
 };
 
+/**
+ * `getVisibleChildPatches` takes the current state of the child patches and returns the state of the child patches that are visible
+ * @param childPatches - an array containing the current state of the child patches
+ * @param selectedBuildVariants - an array containing the selected build variants
+ * @returns - an array containing the state of the child patches that are visible
+ * - The child patch is visible if the alias is in the selected build variants
+ * - The child patch is checked if the alias is in the selected build variants and the child patch is checked
+ */
 const getVisibleChildPatches = (
   childPatches: ChildPatchAliased[],
   selectedBuildVariants: string[]
