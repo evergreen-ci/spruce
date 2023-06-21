@@ -23,7 +23,17 @@ interface Props {
   childPatches: VersionQuery["version"]["patch"]["childPatches"];
 }
 
-const tabMap = ({ taskCount, childPatches, numFailedChildPatches }) => ({
+const tabMap = ({
+  taskCount,
+  childPatches,
+  numFailedChildPatches,
+  patchId,
+}: {
+  taskCount: number;
+  childPatches: VersionQuery["version"]["patch"]["childPatches"];
+  numFailedChildPatches: number;
+  patchId: string;
+}) => ({
   [PatchTab.Tasks]: (
     <Tab name="Tasks" id="task-tab" data-cy="task-tab" key="tasks-tab">
       <Tasks taskCount={taskCount} />
@@ -46,7 +56,7 @@ const tabMap = ({ taskCount, childPatches, numFailedChildPatches }) => ({
       data-cy="changes-tab"
       key="changes-tab"
     >
-      <CodeChanges />
+      <CodeChanges patchId={patchId} />
     </Tab>
   ),
   [PatchTab.Downstream]: (
@@ -95,8 +105,13 @@ export const VersionTabs: React.VFC<Props> = ({
     const numFailedChildPatches = childPatches
       ? childPatches.filter((c) => c.status === PatchStatus.Failed).length
       : 0;
-    return tabMap({ taskCount, childPatches, numFailedChildPatches });
-  }, [taskCount, childPatches]);
+    return tabMap({
+      taskCount,
+      childPatches,
+      numFailedChildPatches,
+      patchId: id,
+    });
+  }, [taskCount, childPatches, id]);
 
   const activeTabs = useMemo(
     () => Object.keys(allTabs).filter((t) => tabIsActive[t] as PatchTab[]),
