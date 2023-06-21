@@ -9,6 +9,8 @@ import pluralize from "pluralize";
 import { LoadingButton } from "components/Buttons";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
+import { VariantTask } from "gql/generated/types";
+import { mapStringArrayToObject } from "utils/array";
 import {
   AliasState,
   ChildPatchAliased,
@@ -23,6 +25,7 @@ import {
   getSelectAllCheckboxState,
   getVisibleAliases,
   getVisibleChildPatches,
+  isCheckboxDisabled,
 } from "./utils";
 
 interface Props {
@@ -31,6 +34,7 @@ interface Props {
   setSelectedBuildVariantTasks: (vt: VariantTasksState) => void;
   activated: boolean;
   loading: boolean;
+  previouslyActivatedVariantTasks?: VariantTask[];
   onClickSchedule: () => void;
   selectedAliases: AliasState;
   setSelectedAliases: (aliases: AliasState) => void;
@@ -45,6 +49,7 @@ const ConfigureTasks: React.VFC<Props> = ({
   activated,
   loading,
   onClickSchedule,
+  previouslyActivatedVariantTasks,
   selectedAliases,
   setSelectedAliases,
   childPatches,
@@ -69,11 +74,23 @@ const ConfigureTasks: React.VFC<Props> = ({
     0
   );
   const currentTasks = useMemo(() => {
-    const tasks = selectedBuildVariants.map(
+    const bvTasks = selectedBuildVariants.map(
       (bv) => selectedBuildVariantTasks[bv] || {}
     );
-    return deduplicateTasks(tasks);
-  }, [selectedBuildVariantTasks, selectedBuildVariants]);
+    const previouslyActivatedBVTasks = selectedBuildVariants.map((bv) =>
+      mapStringArrayToObject(
+        (previouslyActivatedVariantTasks || []).find((t) => t.name === bv)
+          ?.tasks,
+        true
+      )
+    );
+
+    return deduplicateTasks(bvTasks, previouslyActivatedBVTasks);
+  }, [
+    selectedBuildVariantTasks,
+    selectedBuildVariants,
+    previouslyActivatedVariantTasks,
+  ]);
 
   const sortedCurrentTasks = useMemo(
     () => Object.entries(currentTasks).sort((a, b) => a[0].localeCompare(b[0])),
@@ -212,9 +229,34 @@ const ConfigureTasks: React.VFC<Props> = ({
             data-cy="task-checkbox"
             key={name}
             onChange={onClickCheckbox(name)}
-            label={name}
-            indeterminate={status === CheckboxState.INDETERMINATE}
-            checked={status === CheckboxState.CHECKED}
+            label={
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                {name}
+                {isCheckboxDisabled(status) && (
+                  <Tooltip
+                    justify="middle"
+                    triggerEvent="hover"
+                    trigger={
+                      <IconContainer>
+                        <Icon glyph="InfoWithCircle" />
+                      </IconContainer>
+                    }
+                  >
+                    This task has previously been activated and cannot be
+                    edited.
+                  </Tooltip>
+                )}
+              </div>
+            }
+            indeterminate={[
+              CheckboxState.DISABLED_INDETERMINATE,
+              CheckboxState.INDETERMINATE,
+            ].includes(status)}
+            checked={[
+              CheckboxState.CHECKED,
+              CheckboxState.DISABLED_CHECKED,
+            ].includes(status)}
+            disabled={isCheckboxDisabled(status)}
           />
         ))}
       </TaskLayoutGrid>

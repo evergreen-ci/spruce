@@ -53,6 +53,7 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
     childPatches,
     patchTriggerAliases,
     childPatchAliases,
+    variantsTasks,
   } = patch;
   const { variants } = project;
 
@@ -186,6 +187,7 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
                   childPatches={childPatchesWithAliases}
                   loading={loadingScheduledPatch}
                   onClickSchedule={onClickSchedule}
+                  previouslyActivatedVariantTasks={variantsTasks}
                   selectableAliases={selectableAliases}
                   selectedAliases={selectedAliases}
                   selectedBuildVariants={selectedBuildVariants}

@@ -4,18 +4,25 @@ import { CheckboxState } from "./types";
 interface DeduplicateTasksResult {
   [task: string]: CheckboxState;
 }
+
+type VariantTaskArray = {
+  [task: string]: boolean;
+}[];
+
 /**
- * `deduplicateTasks` takes an array of objects containing the tasks for each build variant
- * @param currentTasks - an array of objects containing the tasks for each build variant
- * @returns - an object containing the deduplicated tasks for each build variant
+ * `deduplicateTasks` takes an array of objects containing the tasks for each build variant and the tasks from the previously configured patch
+ * @param currentBVTasks - an array of objects containing the tasks for each build variant
+ * @param previousActivatedBVTasks - an array of objects containing the tasks for each build variant from the previously configured patch
+ * @returns - an object containing the deduplicated tasks for each build variant and the state of each task
+ * - If a task has been previously configured and is present in the current build variant it is disabled
  */
 const deduplicateTasks = (
-  currentTasks: {
-    [task: string]: boolean;
-  }[]
+  currentBVTasks: VariantTaskArray,
+  previousActivatedBVTasks?: VariantTaskArray
 ): DeduplicateTasksResult => {
   const visibleTasks: DeduplicateTasksResult = {};
-  currentTasks.forEach((bv) => {
+  currentBVTasks.forEach((bv, bvIndex) => {
+    const previousBuildVariantTasks = previousActivatedBVTasks?.[bvIndex] || {};
     Object.entries(bv).forEach(([taskName, value]) => {
       switch (visibleTasks[taskName]) {
         case CheckboxState.UNCHECKED:
@@ -30,15 +37,28 @@ const deduplicateTasks = (
             ? CheckboxState.CHECKED
             : CheckboxState.INDETERMINATE;
           break;
-        case CheckboxState.INDETERMINATE:
-          // If a task is INDETERMINATE because of previous task statuses
+        case (CheckboxState.INDETERMINATE,
+        CheckboxState.DISABLED_INDETERMINATE):
+          // If a task is INDETERMINATE or DISABLED_INDETERMINATE because of previous task statuses
           // it wouldn't change when subsequent statuses are considered
           break;
+        case CheckboxState.DISABLED_CHECKED:
+          // If a task is DISABLED_CHECKED and the next task of the same name is UNCHECKED it is DISABLED_INDETERMINATE
+          visibleTasks[taskName] = value
+            ? CheckboxState.DISABLED_CHECKED
+            : CheckboxState.DISABLED_INDETERMINATE;
+          break;
+
         default:
           visibleTasks[taskName] = value
             ? CheckboxState.CHECKED
             : CheckboxState.UNCHECKED;
           break;
+      }
+      if (previousBuildVariantTasks[taskName]) {
+        visibleTasks[taskName] = isCheckboxIndeterminate(visibleTasks[taskName])
+          ? CheckboxState.DISABLED_INDETERMINATE
+          : CheckboxState.DISABLED_CHECKED;
       }
     });
   });
@@ -132,8 +152,26 @@ const getVisibleChildPatches = (
     selectedBuildVariants.includes(alias)
   );
 };
+/**
+ * `isCheckboxDisabled` takes the state of the checkbox and returns a boolean indicating whether the checkbox is disabled
+ * @param state - the state of the checkbox
+ * @returns - a boolean indicating whether the checkbox is disabled
+ */
+const isCheckboxDisabled = (state: CheckboxState): boolean =>
+  state === CheckboxState.DISABLED_CHECKED ||
+  state === CheckboxState.DISABLED_INDETERMINATE;
+
+/**
+ * `isCheckboxIndeterminate` takes the state of the checkbox and returns a boolean indicating whether the checkbox is indeterminate
+ * @param state - the state of the checkbox
+ * @returns - a boolean indicating whether the checkbox is indeterminate
+ */
+const isCheckboxIndeterminate = (state: CheckboxState): boolean =>
+  state === CheckboxState.INDETERMINATE ||
+  state === CheckboxState.DISABLED_INDETERMINATE;
 
 export {
+  isCheckboxDisabled,
   deduplicateTasks,
   getSelectAllCheckboxState,
   getVisibleAliases,

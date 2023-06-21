@@ -7,45 +7,83 @@ import {
 } from "./utils";
 
 describe("deduplicateTasks", () => {
-  it("should print all tasks for one variant", () => {
-    const tasks = [{ task1: false, task2: false }];
-    expect(deduplicateTasks(tasks)).toStrictEqual({
-      task1: CheckboxState.UNCHECKED,
-      task2: CheckboxState.UNCHECKED,
+  describe("unactivated patch", () => {
+    it("should print all tasks for one variant", () => {
+      const tasks = [{ task1: false, task2: false }];
+      expect(deduplicateTasks(tasks)).toStrictEqual({
+        task1: CheckboxState.UNCHECKED,
+        task2: CheckboxState.UNCHECKED,
+      });
+    });
+    it("should print all tasks for multiple variants", () => {
+      const tasks = [
+        { task1: false, task2: false },
+        { task3: false, task4: true },
+      ];
+      expect(deduplicateTasks(tasks)).toStrictEqual({
+        task1: CheckboxState.UNCHECKED,
+        task2: CheckboxState.UNCHECKED,
+        task3: CheckboxState.UNCHECKED,
+        task4: CheckboxState.CHECKED,
+      });
+    });
+    it("should deduplicate tasks across multiple variants", () => {
+      const tasks = [
+        { task1: false, task2: false },
+        { task2: false, task3: false },
+      ];
+      expect(deduplicateTasks(tasks)).toStrictEqual({
+        task1: CheckboxState.UNCHECKED,
+        task2: CheckboxState.UNCHECKED,
+        task3: CheckboxState.UNCHECKED,
+      });
+    });
+    it("should deduplicate tasks across multiple variants with different states", () => {
+      const tasks = [
+        { task1: false, task2: false },
+        { task2: true, task3: false },
+      ];
+      expect(deduplicateTasks(tasks)).toStrictEqual({
+        task1: CheckboxState.UNCHECKED,
+        task2: CheckboxState.INDETERMINATE,
+        task3: CheckboxState.UNCHECKED,
+      });
     });
   });
-  it("should print all tasks for multiple variants", () => {
-    const tasks = [
-      { task1: false, task2: false },
-      { task3: false, task4: true },
-    ];
-    expect(deduplicateTasks(tasks)).toStrictEqual({
-      task1: CheckboxState.UNCHECKED,
-      task2: CheckboxState.UNCHECKED,
-      task3: CheckboxState.UNCHECKED,
-      task4: CheckboxState.CHECKED,
+  describe("activated patch", () => {
+    it("should print all tasks for one variant", () => {
+      const currentPatchTasks = [{ task1: false, task2: false }];
+      const previousPatchTasks = [undefined];
+      expect(
+        deduplicateTasks(currentPatchTasks, previousPatchTasks)
+      ).toStrictEqual({
+        task1: CheckboxState.UNCHECKED,
+        task2: CheckboxState.UNCHECKED,
+      });
     });
-  });
-  it("should deduplicate tasks across multiple variants", () => {
-    const tasks = [
-      { task1: false, task2: false },
-      { task2: false, task3: false },
-    ];
-    expect(deduplicateTasks(tasks)).toStrictEqual({
-      task1: CheckboxState.UNCHECKED,
-      task2: CheckboxState.UNCHECKED,
-      task3: CheckboxState.UNCHECKED,
+    it("should disable and check a previously activated task on the same variant", () => {
+      const currentPatchTasks = [{ task1: false, task2: true }];
+      const previousPatchTasks = [{ task1: false, task2: true }];
+      expect(
+        deduplicateTasks(currentPatchTasks, previousPatchTasks)
+      ).toStrictEqual({
+        task1: CheckboxState.UNCHECKED,
+        task2: CheckboxState.DISABLED_CHECKED,
+      });
     });
-  });
-  it("should deduplicate tasks across multiple variants with different states", () => {
-    const tasks = [
-      { task1: false, task2: false },
-      { task2: true, task3: false },
-    ];
-    expect(deduplicateTasks(tasks)).toStrictEqual({
-      task1: CheckboxState.UNCHECKED,
-      task2: CheckboxState.INDETERMINATE,
-      task3: CheckboxState.UNCHECKED,
+    it("should deduplicate tasks across multiple variants with different states", () => {
+      const currentPatchTasks = [
+        { task1: false, task2: true },
+        { task2: false, task3: false },
+      ];
+      const previousPatchTasks = [{ task1: false, task2: true }, undefined];
+      expect(
+        deduplicateTasks(currentPatchTasks, previousPatchTasks)
+      ).toStrictEqual({
+        task1: CheckboxState.UNCHECKED,
+        task2: CheckboxState.DISABLED_INDETERMINATE,
+        task3: CheckboxState.UNCHECKED,
+      });
     });
   });
 });
