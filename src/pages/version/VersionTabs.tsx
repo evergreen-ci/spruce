@@ -8,6 +8,7 @@ import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { getVersionRoute, DEFAULT_PATCH_TAB } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
+import { useTabShortcut } from "hooks/useTabShortcut";
 import { DownstreamTasks } from "pages/version/DownstreamTasks";
 import { Tasks } from "pages/version/Tasks";
 import { PatchStatus, PatchTab } from "types/patch";
@@ -136,7 +137,11 @@ export const VersionTabs: React.VFC<Props> = ({
     }
     setSelectedTab(newTabIndex);
   };
-
+  useTabShortcut({
+    currentTab: selectedTab,
+    numTabs: activeTabs.length,
+    setSelectedTab: selectNewTab,
+  });
   return (
     <StyledTabs
       selected={selectedTab}
