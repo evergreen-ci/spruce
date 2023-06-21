@@ -2,12 +2,7 @@ import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
-import { GetVersionRouteOptions, getVersionRoute } from "constants/routes";
-import {
-  taskStatusToCopy,
-  mapUmbrellaStatusColors,
-  mapUmbrellaStatusToQueryParam,
-} from "constants/task";
+import { taskStatusToCopy, mapUmbrellaStatusColors } from "constants/task";
 import { fontSize, size, zIndex } from "constants/tokens";
 import { TaskStatus } from "types/task";
 
@@ -16,8 +11,8 @@ interface GroupedTaskStatusBadgeProps {
   onClick?: () => void;
   status: TaskStatus;
   statusCounts?: { [key: string]: number };
-  versionId: string;
-  queryParamsToPreserve?: GetVersionRouteOptions;
+  href: string;
+  isActive?: boolean;
 }
 
 export const GroupedTaskStatusBadge: React.VFC<GroupedTaskStatusBadgeProps> = ({
@@ -25,14 +20,9 @@ export const GroupedTaskStatusBadge: React.VFC<GroupedTaskStatusBadgeProps> = ({
   onClick = () => undefined,
   status,
   statusCounts,
-  versionId,
-  queryParamsToPreserve = {},
+  href,
+  isActive,
 }) => {
-  const href = getVersionRoute(versionId, {
-    ...queryParamsToPreserve,
-    statuses: mapUmbrellaStatusToQueryParam[status],
-  });
-
   const { fill, border, text } = mapUmbrellaStatusColors[status];
 
   return (
@@ -48,8 +38,14 @@ export const GroupedTaskStatusBadge: React.VFC<GroupedTaskStatusBadgeProps> = ({
             to={href}
             onClick={() => onClick()}
             data-cy="grouped-task-status-badge"
+            aria-selected={isActive}
           >
-            <BadgeContainer fill={fill} border={border} text={text}>
+            <BadgeContainer
+              fill={fill}
+              border={border}
+              text={text}
+              isActive={isActive}
+            >
               <Number>{count}</Number>
               <Status>{taskStatusToCopy[status]}</Status>
             </BadgeContainer>
@@ -78,6 +74,7 @@ interface BadgeColorProps {
   border?: string;
   fill?: string;
   text?: string;
+  isActive?: boolean;
 }
 
 const BadgeContainer = styled.div<BadgeColorProps>`
@@ -93,6 +90,7 @@ const BadgeContainer = styled.div<BadgeColorProps>`
   ${({ border }) => border && `border-color: ${border};`}
   ${({ fill }) => fill && `background-color: ${fill};`}
   ${({ text }) => text && `color: ${text};`}
+  ${({ isActive }) => isActive === false && `opacity: 0.4`}
 `;
 
 const Row = styled.div`
@@ -114,5 +112,4 @@ const Status = styled.span`
 
 const Count = styled.span`
   font-weight: bold;
-  margin-left: ${size.xxs};
 `;

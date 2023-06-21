@@ -13,7 +13,7 @@ export const Default: StoryObj<typeof GroupedTaskStatusBadge> = {
     <Container>
       {groupedTaskStats.map((item) => (
         <GroupedTaskStatusBadge
-          versionId="some_version"
+          href="/test"
           status={item.status}
           count={item.count}
           key={item.status}

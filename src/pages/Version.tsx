@@ -34,12 +34,8 @@ import { shortenGithash, githubPRLinkify } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 import { WarningBanner, ErrorBanner } from "./version/Banners";
 import VersionPageBreadcrumbs from "./version/Breadcrumbs";
-import {
-  ActionButtons,
-  BuildVariants,
-  Metadata,
-  VersionTabs,
-} from "./version/index";
+import BuildVariantCard from "./version/BuildVariantCard";
+import { ActionButtons, Metadata, VersionTabs } from "./version/index";
 import { NameChangeModal } from "./version/NameChangeModal";
 
 export const VersionPage: React.VFC = () => {
@@ -202,7 +198,7 @@ export const VersionPage: React.VFC = () => {
       <PageLayout>
         <PageSider>
           <Metadata loading={false} version={version} />
-          <BuildVariants />
+          <BuildVariantCard />
         </PageSider>
         <PageLayout>
           <PageContent>
