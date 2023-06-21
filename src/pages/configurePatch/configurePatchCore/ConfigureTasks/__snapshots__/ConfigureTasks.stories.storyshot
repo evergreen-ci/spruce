@@ -1,0 +1,441 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots pages/configurePatch/configurePatchCore/ConfigureTasks Configure Tasks Default 1`] = `
+<div>
+  <div
+    class="css-17881ib-TabContentWrapper-cardSidePadding eoqkpw12"
+  >
+    <div
+      class="css-1ln61zq-Actions eoqkpw14"
+    >
+      <button
+        aria-disabled="true"
+        class="lg-ui-button-0000 leafygreen-ui-ipsf7h"
+        data-cy="schedule-patch"
+        type="button"
+      >
+        <div
+          class="leafygreen-ui-v038xi"
+        />
+        <div
+          class="leafygreen-ui-v95oty"
+        >
+          Schedule
+        </div>
+      </button>
+      <div
+        class="leafygreen-ui-55kazc css-1oxhyic-InlineCheckbox eoqkpw10"
+      >
+        <label
+          class="leafygreen-ui-rae0jp"
+          for="checkbox-15"
+          id="checkbox-15-label"
+        >
+          <input
+            aria-checked="false"
+            aria-disabled="false"
+            aria-label="checkbox"
+            aria-labelledby="checkbox-15-label"
+            class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+            data-cy="select-all-checkbox"
+            id="checkbox-15"
+            type="checkbox"
+          />
+          <div
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+          >
+            <svg
+              class="leafygreen-ui-6caof5"
+              fill="none"
+              height="10"
+              stroke="#FFFFFF"
+              viewBox="0 0 10 10"
+              width="10"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                stroke="#FFFFFF"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div
+            class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+          />
+          <span
+            class="leafygreen-ui-1wmrjan"
+          >
+            <div
+              style="display: flex; align-items: center;"
+            >
+              Select all tasks in this variant
+               
+            </div>
+          </span>
+        </label>
+      </div>
+    </div>
+    <small
+      class="css-xwgr3h-StyledDisclaimer eoqkpw13 leafygreen-ui-6flbwy"
+      data-cy="selected-task-disclaimer"
+    >
+      0 tasks across 0 build variants
+  , 0 trigger aliases
+    </small>
+    <div
+      class="css-1t9ftr3-TaskLayoutGrid ew7x3ml0"
+      data-cy="configurePatch-tasks"
+    >
+      <div
+        class="leafygreen-ui-55kazc"
+      >
+        <label
+          class="leafygreen-ui-rae0jp"
+          for="checkbox-17"
+          id="checkbox-17-label"
+        >
+          <input
+            aria-checked="false"
+            aria-disabled="false"
+            aria-label="checkbox"
+            aria-labelledby="checkbox-17-label"
+            class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+            data-cy="task-checkbox"
+            id="checkbox-17"
+            type="checkbox"
+          />
+          <div
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+          >
+            <svg
+              class="leafygreen-ui-6caof5"
+              fill="none"
+              height="10"
+              stroke="#FFFFFF"
+              viewBox="0 0 10 10"
+              width="10"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                stroke="#FFFFFF"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div
+            class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+          />
+          <span
+            class="leafygreen-ui-1wmrjan"
+          >
+            e2e_test
+          </span>
+        </label>
+      </div>
+      <div
+        class="leafygreen-ui-55kazc"
+      >
+        <label
+          class="leafygreen-ui-rae0jp"
+          for="checkbox-18"
+          id="checkbox-18-label"
+        >
+          <input
+            aria-checked="false"
+            aria-disabled="false"
+            aria-label="checkbox"
+            aria-labelledby="checkbox-18-label"
+            class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+            data-cy="task-checkbox"
+            id="checkbox-18"
+            type="checkbox"
+          />
+          <div
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+          >
+            <svg
+              class="leafygreen-ui-6caof5"
+              fill="none"
+              height="10"
+              stroke="#FFFFFF"
+              viewBox="0 0 10 10"
+              width="10"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                stroke="#FFFFFF"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div
+            class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+          />
+          <span
+            class="leafygreen-ui-1wmrjan"
+          >
+            test
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div
+    class="css-1bkk7r-ControlContainer e1xu6f4r0"
+  >
+    <div
+      class="css-1d1fod7-ComboboxContainer e1xu6f4r1"
+    >
+      <div
+        class="leafygreen-ui-3tlx81"
+        data-cy="bv-selector"
+      >
+        <div
+          class="leafygreen-ui-1oavcwl"
+        >
+          <label
+            class="leafygreen-ui-591fuk"
+            for="combobox-input-1"
+            id="combobox-label-1"
+          >
+            Build Variant Selector
+          </label>
+        </div>
+        <div
+          aria-controls="combobox-menu-1"
+          aria-expanded="false"
+          aria-owns="combobox-menu-1"
+          class="leafygreen-ui-1p5ysno"
+          role="combobox"
+          tabindex="-1"
+        >
+          <div
+            class="leafygreen-ui-b8bh9x"
+          >
+            <span
+              aria-selected="false"
+              class="lg-ui-combobox-chip-0000 leafygreen-ui-s274up"
+              data-testid="lg-combobox-chip"
+              role="option"
+              tabindex="-1"
+            >
+              <span
+                class="leafygreen-ui-rt7ft5"
+              >
+                Ubuntu 20.04
+              </span>
+              <button
+                aria-disabled="false"
+                aria-label="Deselect Ubuntu 20.04"
+                class="leafygreen-ui-1ted48h"
+              >
+                <svg
+                  aria-label="X Icon"
+                  class=""
+                  fill="none"
+                  height="16"
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </span>
+            <input
+              aria-autocomplete="list"
+              aria-controls="combobox-menu-1"
+              aria-label="Build Variant Selector"
+              aria-labelledby="combobox-label-1"
+              autocomplete="off"
+              class="leafygreen-ui-1yv07ml"
+              id="combobox-input-1"
+              value=""
+            />
+          </div>
+          <button
+            aria-disabled="false"
+            aria-label="Clear selection"
+            class="leafygreen-ui-11bcegm"
+            tabindex="0"
+          >
+            <div
+              class="leafygreen-ui-xhlipt"
+            >
+              <svg
+                aria-label="XWith Circle Icon"
+                class=""
+                fill="none"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M8 15A7 7 0 108 1a7 7 0 000 14zm1.414-9.828a1 1 0 111.414 1.414L9.414 8l1.414 1.414a1 1 0 11-1.414 1.414L8 9.414l-1.414 1.414a1 1 0 11-1.414-1.414L6.586 8 5.172 6.586a1 1 0 011.414-1.414L8 6.586l1.414-1.414z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </button>
+          <svg
+            aria-label="Caret Down Icon"
+            class="leafygreen-ui-p4abnw"
+            fill="none"
+            height="16"
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8.679 10.796a.554.554 0 01-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="css-1d1fod7-ComboboxContainer e1xu6f4r1"
+    >
+      <div
+        class="leafygreen-ui-3tlx81"
+        data-cy="alias-selector"
+      >
+        <div
+          class="leafygreen-ui-1oavcwl"
+        >
+          <label
+            class="leafygreen-ui-591fuk"
+            for="combobox-input-2"
+            id="combobox-label-2"
+          >
+            Alias Selector
+          </label>
+        </div>
+        <div
+          aria-controls="combobox-menu-2"
+          aria-expanded="false"
+          aria-owns="combobox-menu-2"
+          class="leafygreen-ui-1p5ysno"
+          role="combobox"
+          tabindex="-1"
+        >
+          <div
+            class="leafygreen-ui-b8bh9x"
+          >
+            <span
+              aria-selected="false"
+              class="lg-ui-combobox-chip-0000 leafygreen-ui-s274up"
+              data-testid="lg-combobox-chip"
+              role="option"
+              tabindex="-1"
+            >
+              <span
+                class="leafygreen-ui-rt7ft5"
+              >
+                spruce
+              </span>
+              <button
+                aria-disabled="false"
+                aria-label="Deselect spruce"
+                class="leafygreen-ui-1ted48h"
+              >
+                <svg
+                  aria-label="X Icon"
+                  class=""
+                  fill="none"
+                  height="16"
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </span>
+            <input
+              aria-autocomplete="list"
+              aria-controls="combobox-menu-2"
+              aria-label="Alias Selector"
+              aria-labelledby="combobox-label-2"
+              autocomplete="off"
+              class="leafygreen-ui-1yv07ml"
+              id="combobox-input-2"
+              value=""
+            />
+          </div>
+          <button
+            aria-disabled="false"
+            aria-label="Clear selection"
+            class="leafygreen-ui-11bcegm"
+            tabindex="0"
+          >
+            <div
+              class="leafygreen-ui-xhlipt"
+            >
+              <svg
+                aria-label="XWith Circle Icon"
+                class=""
+                fill="none"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M8 15A7 7 0 108 1a7 7 0 000 14zm1.414-9.828a1 1 0 111.414 1.414L9.414 8l1.414 1.414a1 1 0 11-1.414 1.414L8 9.414l-1.414 1.414a1 1 0 11-1.414-1.414L6.586 8 5.172 6.586a1 1 0 011.414-1.414L8 6.586l1.414-1.414z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </button>
+          <svg
+            aria-label="Caret Down Icon"
+            class="leafygreen-ui-p4abnw"
+            fill="none"
+            height="16"
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8.679 10.796a.554.554 0 01-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
