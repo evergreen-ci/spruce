@@ -15,7 +15,6 @@ import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { getVersionRoute } from "constants/routes";
 import { fontSize, size } from "constants/tokens";
-
 import { useToastContext } from "context/toast";
 import {
   SchedulePatchMutation,
@@ -35,7 +34,7 @@ import {
   useConfigurePatch,
 } from "hooks/useConfigurePatch";
 import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
-import { ConfigureTasks } from "./ConfigureTasks";
+import ConfigureTasks from "./ConfigureTasks";
 import { ParametersContent } from "./ParametersContent";
 
 interface Props {
@@ -183,16 +182,16 @@ export const ConfigurePatchCore: React.VFC<Props> = ({ patch }) => {
             >
               <Tab data-cy="tasks-tab" name="Configure">
                 <ConfigureTasks
-                  selectedBuildVariants={selectedBuildVariants}
-                  selectedBuildVariantTasks={selectedBuildVariantTasks}
-                  setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
                   activated={activated}
+                  childPatches={childPatchesWithAliases}
                   loading={loadingScheduledPatch}
                   onClickSchedule={onClickSchedule}
-                  selectedAliases={selectedAliases}
-                  setSelectedAliases={setSelectedAliases}
-                  childPatches={childPatchesWithAliases}
                   selectableAliases={selectableAliases}
+                  selectedAliases={selectedAliases}
+                  selectedBuildVariants={selectedBuildVariants}
+                  selectedBuildVariantTasks={selectedBuildVariantTasks}
+                  setSelectedAliases={setSelectedAliases}
+                  setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
                 />
               </Tab>
               <Tab data-cy="changes-tab" name="Changes">

@@ -32,7 +32,7 @@ interface Props {
   selectableAliases: PatchTriggerAlias[];
 }
 
-export const ConfigureTasks: React.VFC<Props> = ({
+const ConfigureTasks: React.VFC<Props> = ({
   selectedBuildVariants,
   selectedBuildVariantTasks,
   setSelectedBuildVariantTasks,
@@ -392,3 +392,5 @@ const IconContainer = styled.div`
 const InlineCheckbox = styled(Checkbox)`
   display: inline-flex;
 `;
+
+export default ConfigureTasks;
