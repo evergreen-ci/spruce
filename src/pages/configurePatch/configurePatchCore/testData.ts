@@ -20,12 +20,12 @@ export const patchQuery: ConfigurePatchQuery = {
     },
     patchTriggerAliases: [
       {
-        alias: "spruce",
-        childProjectId: "spruce",
-        childProjectIdentifier: "spruce",
+        alias: "evergreen",
+        childProjectId: "evergreen",
+        childProjectIdentifier: "evergreen",
         variantsTasks: [
           {
-            name: "spruce",
+            name: "evergreen",
             tasks: ["gqlgen", "lint"],
           },
         ],
