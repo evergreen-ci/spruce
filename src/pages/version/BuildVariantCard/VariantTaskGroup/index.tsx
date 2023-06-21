@@ -41,7 +41,6 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
   const hasVariantFilter = variantSearch !== undefined;
 
   const isVariantSelected = variantSearch === applyStrictRegex(variant);
-  const hasAnyStatusOrVariantFilters = hasVariantFilter || hasStatusFilter;
 
   const { stats } = groupStatusesByUmbrellaStatus(statusCounts ?? []);
 
@@ -108,7 +107,7 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
                       }
                     : { ...versionRouteParams }
                 )}
-                isActive={hasAnyStatusOrVariantFilters ? isBadgeActive : true}
+                isActive={isBadgeActive}
               />
             );
           }
