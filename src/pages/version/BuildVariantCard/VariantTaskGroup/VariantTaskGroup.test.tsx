@@ -132,7 +132,7 @@ describe("variantTaskGroup", () => {
       it("should link to the variant filter if there is no variant selected", () => {
         render(<Component />, {
           wrapper: Wrapper,
-          route: `/version/1`,
+          route: "/version/1",
           path: "/version/:id",
         });
         const variantLink = screen.queryByDataCy("build-variant-display-name");
@@ -184,7 +184,7 @@ describe("variantTaskGroup", () => {
       it("should link to the variant and status filter if there is no variant selected", () => {
         render(<Component />, {
           wrapper: Wrapper,
-          route: `/version/1`,
+          route: "/version/1",
           path: "/version/:id",
         });
         expect(screen.getByText("Some Variant")).toBeDefined();
