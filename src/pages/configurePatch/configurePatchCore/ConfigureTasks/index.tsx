@@ -73,6 +73,7 @@ const ConfigureTasks: React.VFC<Props> = ({
     (count, taskObj) => count + Object.values(taskObj).filter((v) => v).length,
     0
   );
+
   const currentTasks = useMemo(() => {
     const bvTasks = selectedBuildVariants.map(
       (bv) => selectedBuildVariantTasks[bv] || {}
@@ -144,7 +145,9 @@ const ConfigureTasks: React.VFC<Props> = ({
     selectedBuildVariants.forEach((v) => {
       if (selectedBuildVariantsCopy?.[v] !== undefined) {
         Object.keys(selectedBuildVariantsCopy[v]).forEach((task) => {
-          selectedBuildVariantsCopy[v][task] = e.target.checked;
+          if (canEditTask(sortedCurrentTasks, task)) {
+            selectedBuildVariantsCopy[v][task] = e.target.checked;
+          }
         });
       } else if (selectedAliasesCopy?.[v] !== undefined) {
         selectedAliasesCopy[v] = e.target.checked;
@@ -208,6 +211,20 @@ const ConfigureTasks: React.VFC<Props> = ({
                   Aliases specified via CLI cannot be edited.
                 </Tooltip>
               )}
+              {true && (
+                <Tooltip
+                  justify="middle"
+                  triggerEvent="hover"
+                  trigger={
+                    <IconContainer>
+                      <Icon glyph="InfoWithCircle" />
+                    </IconContainer>
+                  }
+                >
+                  Some of the tasks in this variant have previously been
+                  activated and cannot be edited.
+                </Tooltip>
+              )}
             </div>
           }
           checked={selectAllCheckboxState === CheckboxState.CHECKED}
@@ -219,7 +236,7 @@ const ConfigureTasks: React.VFC<Props> = ({
       </Actions>
 
       <StyledDisclaimer data-cy="selected-task-disclaimer">
-        {selectedTaskDisclaimerCopy}
+        {selectedTaskDisclaimerCopy}{" "}
       </StyledDisclaimer>
 
       {/* Tasks */}
@@ -306,6 +323,9 @@ const ConfigureTasks: React.VFC<Props> = ({
     </TabContentWrapper>
   );
 };
+
+const canEditTask = (visibleTasks: [string, CheckboxState][], task: string) =>
+  !isCheckboxDisabled(visibleTasks.find(([name]) => name === task)[1]);
 
 const Actions = styled.div`
   margin-bottom: ${size.xs};
