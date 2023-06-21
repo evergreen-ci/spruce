@@ -4,13 +4,13 @@ import { VariantTask } from "gql/generated/types";
 import { TaskLayoutGrid } from "../styles";
 import { CheckboxState } from "../types";
 
-interface VariantTasksListProps {
+interface DisabledVariantTasksListProps {
   "data-cy": string;
   status: CheckboxState;
   variantTasks: VariantTask[];
 }
 
-const VariantTasksList: React.VFC<VariantTasksListProps> = ({
+const DisabledVariantTasksList: React.VFC<DisabledVariantTasksListProps> = ({
   "data-cy": dataCy,
   status,
   variantTasks,
@@ -35,4 +35,4 @@ const VariantTasksList: React.VFC<VariantTasksListProps> = ({
   </>
 );
 
-export default VariantTasksList;
+export default DisabledVariantTasksList;

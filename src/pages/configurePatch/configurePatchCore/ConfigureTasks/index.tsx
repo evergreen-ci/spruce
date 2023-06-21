@@ -15,9 +15,9 @@ import {
   PatchTriggerAlias,
   VariantTasksState,
 } from "hooks/useConfigurePatch";
+import DisabledVariantTasksList from "./DisabledVariantTasksList";
 import { TaskLayoutGrid } from "./styles";
 import { CheckboxState } from "./types";
-import VariantTasksList from "./VariantTasksList";
 
 interface Props {
   selectedBuildVariants: string[];
@@ -242,14 +242,14 @@ const ConfigureTasks: React.VFC<Props> = ({
         </>
       )}
       {shouldShowChildPatchTasks && (
-        <VariantTasksList
+        <DisabledVariantTasksList
           data-cy="child-patch-task-checkbox"
           status={CheckboxState.CHECKED}
           variantTasks={currentChildPatches[0].variantsTasks}
         />
       )}
       {shouldShowAliasTasks && (
-        <VariantTasksList
+        <DisabledVariantTasksList
           data-cy="alias-task-checkbox"
           status={currentAliases[currentAliasTasks[0].alias]}
           variantTasks={currentAliasTasks[0].variantsTasks}
