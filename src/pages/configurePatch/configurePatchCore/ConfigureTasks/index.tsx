@@ -144,14 +144,14 @@ const ConfigureTasks: React.VFC<Props> = ({
           "this",
           selectedBuildVariants.length
         )} ${pluralize("variant", selectedBuildVariants.length)}`;
+
   const selectedTaskDisclaimerCopy = `${taskCount} ${pluralize(
     "task",
     taskCount
   )} across ${buildVariantCount} build ${pluralize(
     "variant",
     buildVariantCount
-  )}
-  , ${downstreamTaskCount} trigger ${pluralize("alias", aliasCount)}`;
+  )}, ${downstreamTaskCount} trigger ${pluralize("alias", aliasCount)}`;
 
   return (
     <TabContentWrapper>
