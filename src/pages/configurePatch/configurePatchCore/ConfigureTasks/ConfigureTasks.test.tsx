@@ -191,6 +191,38 @@ describe("configureTasks", () => {
         ubuntu1804: { compile: true, lint: false },
       });
     });
+    it("selecting all tasks should call setSelectedBuildVariantTasks with the correct arguments selecting all of the visible tasks in multiple variants", () => {
+      const selectedBuildVariants = ["ubuntu2004", "ubuntu1804"];
+      const setSelectedBuildVariantTasks = jest.fn();
+      render(
+        <ConfigureTasks
+          selectedBuildVariants={selectedBuildVariants}
+          selectedBuildVariantTasks={{
+            ubuntu2004: { compile: false, test: false },
+            ubuntu1804: { compile: false, lint: false },
+          }}
+          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          selectableAliases={[]}
+          selectedAliases={{}}
+          loading={false}
+          onClickSchedule={() => {}}
+          childPatches={[]}
+          activated={false}
+          setSelectedAliases={() => {}}
+        />
+      );
+      const checkbox = screen.getByLabelText(
+        "Select all tasks in these variants"
+      );
+      expect(checkbox).toBeInTheDocument();
+      expect(checkbox).not.toBeChecked();
+      expect(setSelectedBuildVariantTasks).not.toHaveBeenCalled();
+      checkbox.click();
+      expect(setSelectedBuildVariantTasks).toHaveBeenCalledWith({
+        ubuntu2004: { compile: true, test: true },
+        ubuntu1804: { compile: true, lint: true },
+      });
+    });
   });
   describe("downstream tasks and aliases", () => {
     it("should render alias variant and tasks if they are selected", () => {
