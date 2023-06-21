@@ -17,7 +17,7 @@ const VariantTasksList: React.VFC<VariantTasksListProps> = ({
 }) => (
   <>
     {variantTasks.map(({ name, tasks }) => (
-      <>
+      <div key={`variant_${name}`}>
         <Body>{name}</Body>
         <TaskLayoutGrid>
           {tasks.map((taskName) => (
@@ -30,7 +30,7 @@ const VariantTasksList: React.VFC<VariantTasksListProps> = ({
             />
           ))}
         </TaskLayoutGrid>
-      </>
+      </div>
     ))}
   </>
 );
