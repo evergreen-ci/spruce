@@ -189,8 +189,23 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
   },
   ...taskStatuses,
 ];
+type ColorScheme = {
+  fill: string;
+  border: string;
+  text: string;
+};
 
-export const mapUmbrellaStatusColors = {
+export const mapUmbrellaStatusColors: Pick<
+  Record<TaskStatus, ColorScheme>,
+  | TaskStatus.UndispatchedUmbrella
+  | TaskStatus.RunningUmbrella
+  | TaskStatus.FailedUmbrella
+  | TaskStatus.SystemFailureUmbrella
+  | TaskStatus.UndispatchedUmbrella
+  | TaskStatus.ScheduledUmbrella
+  | TaskStatus.Succeeded
+  | TaskStatus.SetupFailed
+> = {
   [TaskStatus.UndispatchedUmbrella]: {
     fill: gray.light3,
     border: gray.light2,
