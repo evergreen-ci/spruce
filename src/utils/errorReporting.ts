@@ -1,14 +1,13 @@
-import Bugsnag, { Event, BreadcrumbType } from "@bugsnag/js";
+import Bugsnag, { BreadcrumbType } from "@bugsnag/js";
+import { CustomBugsnagError } from "components/ErrorHandling";
+import { sendError as bugsnagSendError } from "components/ErrorHandling/Bugsnag";
+import { sendError as sentrySendError } from "components/ErrorHandling/Sentry";
 import { isProductionBuild } from "utils/environmentVariables";
 
 interface reportErrorResult {
   severe: () => void;
   warning: () => void;
 }
-
-type CustomBugsnagError = Error & {
-  metadata?: any;
-};
 
 const reportError = (err: CustomBugsnagError): reportErrorResult => {
   if (!isProductionBuild()) {
@@ -24,29 +23,14 @@ const reportError = (err: CustomBugsnagError): reportErrorResult => {
 
   return {
     severe: () => {
-      sendError(err, "error");
+      bugsnagSendError(err, "error");
+      sentrySendError(err, "error");
     },
     warning: () => {
-      sendError(err, "warning");
+      bugsnagSendError(err, "warning");
+      sentrySendError(err, "warning");
     },
   };
-};
-
-const sendError = (err: CustomBugsnagError, severity: Event["severity"]) => {
-  const userId = localStorage.getItem("userId");
-  let metadata;
-  if (err.metadata) {
-    metadata = err.metadata;
-  }
-  Bugsnag.notify(err, (event) => {
-    // reassigning param is recommended usage in bugsnag docs
-    // eslint-disable-next-line no-param-reassign
-    event.severity = severity;
-    event.setUser(userId);
-    if (metadata) {
-      event.addMetadata("metadata", { ...metadata });
-    }
-  });
 };
 
 const leaveBreadcrumb = (

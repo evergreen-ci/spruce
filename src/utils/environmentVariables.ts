@@ -13,6 +13,13 @@ export const getBugsnagApiKey: () => string = () =>
   process.env.REACT_APP_BUGSNAG_API_KEY || "i-am-a-fake-key";
 
 /**
+ * `getSentryDSN()` - Get the Sentry Data Source Name (SENTRY_DSN) from the environment variables
+ * @returns - The application's DSN
+ */
+export const getSentryDSN: () => string = () =>
+  process.env.REACT_APP_SENTRY_DSN || "fake-sentry-key";
+
+/**
  * `getUiUrl()` - Get the backing evergreen URL from the environment variables
  * @returns - Returns the backing evergreen url
  */
@@ -93,7 +100,7 @@ export const getParsleyUrl = (): string =>
 
 /**
  * `getAppVersion()` - Get the app release version from the environment variables
- * @returns - Returns the lobster URL.
+ * @returns - Returns the release version.
  */
 export const getAppVersion = () => process.env.REACT_APP_VERSION || "";
 

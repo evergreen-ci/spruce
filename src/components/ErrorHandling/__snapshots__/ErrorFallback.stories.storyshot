@@ -1,30 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/ErrorBoundary/ErrorFallback Default Error 1`] = `
+exports[`storybook Storyshots components/ErrorHandling/ErrorFallback Default Error 1`] = `
 <div>
   <div
     style="height: 100%; width: 100%;"
   >
     <div
-      class="css-73tbsm-Center e1n39ls30"
+      class="css-73tbsm-Center e1rdiix0"
     >
       <div
-        class="css-1ow8p7h-Text e1n39ls31"
+        class="css-1ow8p7h-Text e1rdiix1"
       >
         <h1
-          class="css-15usbh5-StyledHeader e1n39ls34 leafygreen-ui-yk169t"
+          class="css-15usbh5-StyledHeader e1rdiix4 leafygreen-ui-yk169t"
         >
           Error
         </h1>
         <h2
-          class="css-15lzim1-StyledSubtitle e1n39ls33 leafygreen-ui-oaqrgz"
+          class="css-15lzim1-StyledSubtitle e1rdiix3 leafygreen-ui-oaqrgz"
         >
           Ouch! That's gotta hurt,
           <br />
            sorry about that!
         </h2>
         <a
-          class="css-137t5xh-StyledLink e1n39ls32"
+          class="css-137t5xh-StyledLink e1rdiix2"
         >
           Back To Home
         </a>
