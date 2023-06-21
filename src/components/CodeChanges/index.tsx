@@ -8,7 +8,6 @@ import {
   SubtitleProps,
 } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
-import { useParams } from "react-router-dom";
 import { CodeChangesBadge } from "components/CodeChangesBadge";
 import { CodeChangesTable } from "components/CodeChangesTable";
 import { size } from "constants/tokens";
@@ -23,13 +22,15 @@ import { formatZeroIndexForDisplay } from "utils/numbers";
 
 const { bucketByCommit, shouldPreserveCommits } = commits;
 
-export const CodeChanges: React.VFC = () => {
-  const { id } = useParams<{ id: string }>();
+interface CodeChangesProps {
+  patchId: string;
+}
+export const CodeChanges: React.VFC<CodeChangesProps> = ({ patchId }) => {
   const { data, loading, error } = useQuery<
     CodeChangesQuery,
     CodeChangesQueryVariables
   >(GET_CODE_CHANGES, {
-    variables: { id },
+    variables: { id: patchId },
   });
   const { moduleCodeChanges } = data?.patch ?? {};
 

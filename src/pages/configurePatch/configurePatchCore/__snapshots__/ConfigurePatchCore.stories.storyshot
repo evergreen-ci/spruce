@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure Tasks Default 1`] = `
+<div>
+  <div>
+    Failed to render component.
+  </div>
+</div>
+`;

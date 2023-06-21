@@ -14,7 +14,7 @@ import { GET_PATCH_CONFIGURE } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { validateObjectId } from "utils/validators";
-import { ConfigurePatchCore } from "./configurePatchCore";
+import ConfigurePatchCore from "./configurePatchCore";
 
 const ConfigurePatch: React.VFC = () => {
   const { id } = useParams<{ id: string }>();

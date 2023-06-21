@@ -1,10 +1,11 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
+import pluralize from "pluralize";
 import { LoadingButton } from "components/Buttons";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
@@ -14,9 +15,9 @@ import {
   PatchTriggerAlias,
   VariantTasksState,
 } from "hooks/useConfigurePatch";
+import DisabledVariantTasksList from "./DisabledVariantTasksList";
 import { TaskLayoutGrid } from "./styles";
 import { CheckboxState } from "./types";
-import VariantTasksList from "./VariantTasksList";
 
 interface Props {
   selectedBuildVariants: string[];
@@ -31,7 +32,7 @@ interface Props {
   selectableAliases: PatchTriggerAlias[];
 }
 
-export const ConfigureTasks: React.VFC<Props> = ({
+const ConfigureTasks: React.VFC<Props> = ({
   selectedBuildVariants,
   selectedBuildVariantTasks,
   setSelectedBuildVariantTasks,
@@ -52,7 +53,9 @@ export const ConfigureTasks: React.VFC<Props> = ({
   const buildVariantCount = Object.values(selectedBuildVariantTasks).reduce(
     (count, taskOb) =>
       count +
-      (every(Object.values(taskOb), (isSelected) => !isSelected) ? 0 : 1),
+      (every(Object.values(taskOb), (isSelected: boolean) => !isSelected)
+        ? 0
+        : 1),
     0
   );
   const taskCount = Object.values(selectedBuildVariantTasks).reduce(
@@ -83,32 +86,34 @@ export const ConfigureTasks: React.VFC<Props> = ({
     selectedBuildVariants
   );
 
-  // Show a child patch's variants/tasks iff it is the only menu item selected
-  const enumerateChildPatchTasks =
+  // Show a child patch's variants/tasks if it is the only menu item selected
+  const shouldShowChildPatchTasks =
     currentChildPatches.length === 1 && selectedBuildVariants.length === 1;
-  // Show an alias's variants/tasks iff it is the only menu item selected
-  const enumerateAliasTasks =
+
+  // Show an alias's variants/tasks if it is the only menu item selected
+  const shouldShowAliasTasks =
     currentAliasTasks.length === 1 && selectedBuildVariants.length === 1;
 
   // Only show name of alias or child patch (no variants/tasks) if other build variants are also selected
-  const shorthandChildPatchesAndAliases =
+  const shouldShowChildPatchesAndAliases =
     (Object.entries(currentAliases).length > 0 ||
       currentChildPatches.length > 0) &&
     selectedBuildVariants.length > 1;
 
-  const onClickCheckbox = (taskName: string) => (e) => {
-    const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
-    const selectedAliasesCopy = { ...selectedAliases };
-    selectedBuildVariants.forEach((v) => {
-      if (selectedBuildVariantsCopy?.[v]?.[taskName] !== undefined) {
-        selectedBuildVariantsCopy[v][taskName] = e.target.checked;
-      } else if (selectedAliasesCopy?.[v] !== undefined) {
-        selectedAliasesCopy[v] = e.target.checked;
-      }
-    });
-    setSelectedBuildVariantTasks(selectedBuildVariantsCopy);
-    setSelectedAliases(selectedAliasesCopy);
-  };
+  const onClickCheckbox =
+    (taskName: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
+      const selectedAliasesCopy = { ...selectedAliases };
+      selectedBuildVariants.forEach((v) => {
+        if (selectedBuildVariantsCopy?.[v]?.[taskName] !== undefined) {
+          selectedBuildVariantsCopy[v][taskName] = e.target.checked;
+        } else if (selectedAliasesCopy?.[v] !== undefined) {
+          selectedAliasesCopy[v] = e.target.checked;
+        }
+      });
+      setSelectedBuildVariantTasks(selectedBuildVariantsCopy);
+      setSelectedAliases(selectedAliasesCopy);
+    };
 
   const onClickSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
@@ -129,22 +134,24 @@ export const ConfigureTasks: React.VFC<Props> = ({
   const selectAllCheckboxState = getSelectAllCheckboxState(
     currentTasks,
     currentAliases,
-    enumerateChildPatchTasks
+    shouldShowChildPatchTasks
   );
+
   const selectAllCheckboxCopy =
     sortedCurrentTasks.length === 0
-      ? `Add alias${selectedBuildVariants.length > 1 ? "es" : ""} to patch`
-      : `Select all tasks in ${
-          selectedBuildVariants.length > 1 ? "these variants" : "this variant"
-        }`;
+      ? `Add ${pluralize("alias", selectedBuildVariants.length)} to patch`
+      : `Select all tasks in ${pluralize(
+          "this",
+          selectedBuildVariants.length
+        )} ${pluralize("variant", selectedBuildVariants.length)}`;
 
-  const selectedTaskDisclaimerCopy = `${taskCount} task${
-    taskCount !== 1 ? "s" : ""
-  } across ${buildVariantCount} build variant${
-    buildVariantCount !== 1 ? "s" : ""
-  }, ${downstreamTaskCount} trigger alias${
-    downstreamTaskCount !== 1 ? "es" : ""
-  }`;
+  const selectedTaskDisclaimerCopy = `${taskCount} ${pluralize(
+    "task",
+    taskCount
+  )} across ${buildVariantCount} build ${pluralize(
+    "variant",
+    buildVariantCount
+  )}, ${downstreamTaskCount} trigger ${pluralize("alias", aliasCount)}`;
 
   return (
     <TabContentWrapper>
@@ -158,38 +165,41 @@ export const ConfigureTasks: React.VFC<Props> = ({
         >
           Schedule
         </LoadingButton>
-        <div>
-          <InlineCheckbox
-            data-cy="select-all-checkbox"
-            indeterminate={
-              selectAllCheckboxState === CheckboxState.INDETERMINATE
-            }
-            onChange={onClickSelectAll}
-            label={selectAllCheckboxCopy}
-            checked={selectAllCheckboxState === CheckboxState.CHECKED}
-            disabled={
-              (activated && Object.entries(currentAliases).length > 0) ||
-              enumerateChildPatchTasks
-            }
-          />
-          {enumerateChildPatchTasks && (
-            <Tooltip
-              justify="middle"
-              triggerEvent="hover"
-              trigger={
-                <IconContainer>
-                  <Icon glyph="InfoWithCircle" />
-                </IconContainer>
-              }
-            >
-              Aliases specified via CLI cannot be edited.
-            </Tooltip>
-          )}
-        </div>
+        <InlineCheckbox
+          data-cy="select-all-checkbox"
+          indeterminate={selectAllCheckboxState === CheckboxState.INDETERMINATE}
+          onChange={onClickSelectAll}
+          label={
+            <div style={{ display: "flex", alignItems: "center" }}>
+              {selectAllCheckboxCopy}{" "}
+              {shouldShowChildPatchTasks && (
+                <Tooltip
+                  justify="middle"
+                  triggerEvent="hover"
+                  trigger={
+                    <IconContainer>
+                      <Icon glyph="InfoWithCircle" />
+                    </IconContainer>
+                  }
+                >
+                  Aliases specified via CLI cannot be edited.
+                </Tooltip>
+              )}
+            </div>
+          }
+          checked={selectAllCheckboxState === CheckboxState.CHECKED}
+          disabled={
+            (activated && Object.entries(currentAliases).length > 0) ||
+            shouldShowChildPatchTasks
+          }
+        />
       </Actions>
+
       <StyledDisclaimer data-cy="selected-task-disclaimer">
         {selectedTaskDisclaimerCopy}
       </StyledDisclaimer>
+
+      {/* Tasks */}
       <TaskLayoutGrid data-cy="configurePatch-tasks">
         {sortedCurrentTasks.map(([name, status]) => (
           <Checkbox
@@ -202,7 +212,8 @@ export const ConfigureTasks: React.VFC<Props> = ({
           />
         ))}
       </TaskLayoutGrid>
-      {shorthandChildPatchesAndAliases && (
+
+      {shouldShowChildPatchesAndAliases && (
         <>
           <Body>Downstream Tasks</Body>
           <TaskLayoutGrid>
@@ -230,32 +241,19 @@ export const ConfigureTasks: React.VFC<Props> = ({
           </TaskLayoutGrid>
         </>
       )}
-      {enumerateChildPatchTasks && (
-        <>
-          {currentChildPatches[0].variantsTasks.map((variantTasks) => (
-            <VariantTasksList
-              {...variantTasks}
-              key={variantTasks.name}
-              data-cy="child-patch-task-checkbox"
-              status={CheckboxState.CHECKED}
-            />
-          ))}
-        </>
+      {shouldShowChildPatchTasks && (
+        <DisabledVariantTasksList
+          data-cy="child-patch-task-checkbox"
+          status={CheckboxState.CHECKED}
+          variantTasks={currentChildPatches[0].variantsTasks}
+        />
       )}
-      {enumerateAliasTasks && (
-        <>
-          {currentAliasTasks[0].variantsTasks.map(
-            ({ name, tasks: aliasTasks }) => (
-              <VariantTasksList
-                key={name}
-                data-cy="alias-task-checkbox"
-                name={name}
-                status={currentAliases[currentAliasTasks[0].alias]}
-                tasks={aliasTasks}
-              />
-            )
-          )}
-        </>
+      {shouldShowAliasTasks && (
+        <DisabledVariantTasksList
+          data-cy="alias-task-checkbox"
+          status={currentAliases[currentAliasTasks[0].alias]}
+          variantTasks={currentAliasTasks[0].variantsTasks}
+        />
       )}
     </TabContentWrapper>
   );
@@ -268,9 +266,9 @@ const getSelectAllCheckboxState = (
   aliases: {
     [alias: string]: CheckboxState;
   },
-  enumerateChildPatchTasks: boolean
+  shouldShowChildPatchTasks: boolean
 ): CheckboxState => {
-  if (enumerateChildPatchTasks) {
+  if (shouldShowChildPatchTasks) {
     return CheckboxState.CHECKED;
   }
 
@@ -385,10 +383,14 @@ const TabContentWrapper = styled.div`
   ${cardSidePadding}
 `;
 
-const IconContainer = styled.span`
+const IconContainer = styled.div`
   margin-left: ${size.xs};
+  align-self: center;
+  display: flex;
 `;
 // @ts-expect-error
 const InlineCheckbox = styled(Checkbox)`
   display: inline-flex;
 `;
+
+export default ConfigureTasks;
