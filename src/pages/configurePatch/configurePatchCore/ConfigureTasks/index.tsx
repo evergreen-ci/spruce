@@ -211,7 +211,7 @@ const ConfigureTasks: React.VFC<Props> = ({
                   Aliases specified via CLI cannot be edited.
                 </Tooltip>
               )}
-              {true && (
+              {hasDisabledTasks(sortedCurrentTasks) && (
                 <Tooltip
                   justify="middle"
                   triggerEvent="hover"
@@ -221,8 +221,10 @@ const ConfigureTasks: React.VFC<Props> = ({
                     </IconContainer>
                   }
                 >
-                  Some of the tasks in this variant have previously been
-                  activated and cannot be edited.
+                  Some of the tasks in{" "}
+                  {pluralize("this", selectedBuildVariants.length)}{" "}
+                  {pluralize("variant", selectedBuildVariants.length)} have
+                  previously been activated and cannot be edited.
                 </Tooltip>
               )}
             </div>
@@ -326,6 +328,9 @@ const ConfigureTasks: React.VFC<Props> = ({
 
 const canEditTask = (visibleTasks: [string, CheckboxState][], task: string) =>
   !isCheckboxDisabled(visibleTasks.find(([name]) => name === task)[1]);
+
+const hasDisabledTasks = (visibleTasks: [string, CheckboxState][]) =>
+  visibleTasks.some(([, status]) => isCheckboxDisabled(status));
 
 const Actions = styled.div`
   margin-bottom: ${size.xs};
