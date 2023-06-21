@@ -7,9 +7,13 @@ import {
   VariantTask,
 } from "gql/generated/types";
 import { useTabShortcut } from "hooks/useTabShortcut";
+import {
+  AliasState,
+  PatchTriggerAlias,
+  VariantTasksState,
+} from "pages/configurePatch/configurePatchCore/types";
 import { PatchTab } from "types/patch";
 import { array, queryString, string } from "utils";
-import { AliasState, PatchTriggerAlias, VariantTasksState } from "./types";
 
 const { convertArrayToObject, mapStringArrayToObject } = array;
 const { parseQueryString } = queryString;
@@ -64,7 +68,9 @@ const reducer = (state: ConfigurePatchState, action: Action) => {
     case "setSelectedBuildVariants":
       return {
         ...state,
-        selectedBuildVariants: action.buildVariants,
+        selectedBuildVariants: action.buildVariants.sort((a, b) =>
+          b.localeCompare(a)
+        ),
       };
     case "setSelectedBuildVariantTasks":
       return {

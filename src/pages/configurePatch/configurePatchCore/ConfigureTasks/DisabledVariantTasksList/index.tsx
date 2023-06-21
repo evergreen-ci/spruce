@@ -1,8 +1,8 @@
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Body } from "@leafygreen-ui/typography";
 import { VariantTask } from "gql/generated/types";
+import { CheckboxState } from "pages/configurePatch/configurePatchCore/types";
 import { TaskLayoutGrid } from "../styles";
-import { CheckboxState } from "../types";
 
 interface DisabledVariantTasksListProps {
   "data-cy": string;

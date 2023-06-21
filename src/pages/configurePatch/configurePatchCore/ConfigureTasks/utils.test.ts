@@ -1,4 +1,4 @@
-import { CheckboxState } from "./types";
+import { CheckboxState } from "../types";
 import {
   deduplicateTasks,
   getSelectAllCheckboxState,

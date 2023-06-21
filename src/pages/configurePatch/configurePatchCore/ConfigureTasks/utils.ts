@@ -1,5 +1,8 @@
-import { AliasState, ChildPatchAliased } from "hooks/useConfigurePatch";
-import { CheckboxState } from "./types";
+import {
+  AliasState,
+  ChildPatchAliased,
+  CheckboxState,
+} from "pages/configurePatch/configurePatchCore/types";
 
 interface DeduplicateTasksResult {
   [task: string]: CheckboxState;

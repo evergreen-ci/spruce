@@ -16,10 +16,10 @@ import {
   ChildPatchAliased,
   PatchTriggerAlias,
   VariantTasksState,
-} from "../useConfigurePatch/types";
+  CheckboxState,
+} from "../types";
 import DisabledVariantTasksList from "./DisabledVariantTasksList";
 import { TaskLayoutGrid } from "./styles";
-import { CheckboxState } from "./types";
 import {
   deduplicateTasks,
   getSelectAllCheckboxState,
