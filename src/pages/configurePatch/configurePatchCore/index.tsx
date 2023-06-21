@@ -37,10 +37,10 @@ import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
 import ConfigureTasks from "./ConfigureTasks";
 import { ParametersContent } from "./ParametersContent";
 
-interface Props {
+interface ConfigurePatchCoreProps {
   patch: ConfigurePatchQuery["patch"];
 }
-export const ConfigurePatchCore: React.VFC<Props> = ({ patch }) => {
+const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
   const navigate = useNavigate();
   const dispatchToast = useToastContext();
 
@@ -195,7 +195,7 @@ export const ConfigurePatchCore: React.VFC<Props> = ({ patch }) => {
                 />
               </Tab>
               <Tab data-cy="changes-tab" name="Changes">
-                <CodeChanges />
+                <CodeChanges patchId={id} />
               </Tab>
               <Tab data-cy="parameters-tab" name="Parameters">
                 <ParametersContent
@@ -299,3 +299,5 @@ const FlexRow = styled.div`
   flex-direction: row;
   gap: ${size.s};
 `;
+
+export default ConfigurePatchCore;
