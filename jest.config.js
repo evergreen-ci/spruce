@@ -17,7 +17,10 @@ module.exports = {
   setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
   snapshotSerializers: ["@emotion/jest/serializer"],
   testEnvironment: "jsdom",
-  testMatch: ["<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"],
+  testMatch: [
+    "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}",
+    "<rootDir>/scripts/deploy-production.test.js",
+  ],
   testRunner: "<rootDir>/node_modules/jest-circus/runner.js",
   transform: {
     "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "babel-jest",
