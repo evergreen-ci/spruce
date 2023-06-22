@@ -79,7 +79,7 @@ well and you can refer to those before creating your own.
 
 ### Using code generation
 
-- From within the spruce folder run `yarn run codegen`
+- From within the spruce folder run `yarn codegen`
 - As long as your queries are declared correctly the types should generate
 
 ### Code generation troubleshooting and tips
@@ -90,6 +90,14 @@ well and you can refer to those before creating your own.
 - Since query analysis for type generation occurs statically we cant place
   dynamic variables with in query strings we instead have to hard code the
   variable in the query or pass it in as query variable.
+
+### Common errors
+
+- Sometimes you may run into an error where a dependency is out of date or in a
+  broken state. If you run into this issue try running `yarn install` to
+  reinstall all dependencies. If that does not work try deleting your
+  `node_modules` folder and running `yarn install` again. You can use the
+  `yarn clean` command to do this for you.
 
 ## Testing
 

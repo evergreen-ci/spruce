@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.96",
+  "version": "3.0.97",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -11,6 +11,7 @@
     "build:staging": "env-cmd -e staging yarn build",
     "build": "GIT_SHA=`git rev-parse HEAD` vite build",
     "check-types": "tsc -p tsconfig.json --noEmit",
+    "clean": "rm -rf node_modules && rm -rf build && yarn install",
     "codegen": "graphql-codegen --config codegen.ts",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
