@@ -173,8 +173,18 @@ const isCheckboxIndeterminate = (state: CheckboxState): boolean =>
   state === CheckboxState.INDETERMINATE ||
   state === CheckboxState.DISABLED_INDETERMINATE;
 
+/**
+ * `isCheckboxChecked` takes the state of the checkbox and returns a boolean indicating whether the checkbox is checked
+ * @param state - the state of the checkbox
+ * @returns - a boolean indicating whether the checkbox is checked
+ */
+const isCheckboxChecked = (state: CheckboxState): boolean =>
+  state === CheckboxState.CHECKED || state === CheckboxState.DISABLED_CHECKED;
+
 export {
   isCheckboxDisabled,
+  isCheckboxChecked,
+  isCheckboxIndeterminate,
   deduplicateTasks,
   getSelectAllCheckboxState,
   getVisibleAliases,

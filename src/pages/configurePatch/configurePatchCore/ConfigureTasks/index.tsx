@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Body, Disclaimer } from "@leafygreen-ui/typography";
+import { Body, BodyProps, Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
 import pluralize from "pluralize";
 import { LoadingButton } from "components/Buttons";
@@ -25,7 +25,9 @@ import {
   getSelectAllCheckboxState,
   getVisibleAliases,
   getVisibleChildPatches,
+  isCheckboxChecked,
   isCheckboxDisabled,
+  isCheckboxIndeterminate,
 } from "./utils";
 
 interface Props {
@@ -267,14 +269,8 @@ const ConfigureTasks: React.VFC<Props> = ({
                 )}
               </div>
             }
-            indeterminate={[
-              CheckboxState.DISABLED_INDETERMINATE,
-              CheckboxState.INDETERMINATE,
-            ].includes(status)}
-            checked={[
-              CheckboxState.CHECKED,
-              CheckboxState.DISABLED_CHECKED,
-            ].includes(status)}
+            indeterminate={isCheckboxIndeterminate(status)}
+            checked={isCheckboxChecked(status)}
             disabled={isCheckboxDisabled(status)}
           />
         ))}
@@ -282,7 +278,7 @@ const ConfigureTasks: React.VFC<Props> = ({
 
       {shouldShowChildPatchesAndAliases && (
         <>
-          <Body>Downstream Tasks</Body>
+          <StyledBody weight="medium">Downstream Tasks</StyledBody>
           <TaskLayoutGrid>
             {Object.entries(currentAliases).map(([name, status]) => (
               <Checkbox
@@ -290,8 +286,8 @@ const ConfigureTasks: React.VFC<Props> = ({
                 key={name}
                 onChange={onClickCheckbox(name)}
                 label={name}
-                indeterminate={status === CheckboxState.INDETERMINATE}
-                checked={status === CheckboxState.CHECKED}
+                indeterminate={isCheckboxIndeterminate(status)}
+                checked={isCheckboxChecked(status)}
                 disabled={activated}
               />
             ))}
@@ -308,6 +304,7 @@ const ConfigureTasks: React.VFC<Props> = ({
           </TaskLayoutGrid>
         </>
       )}
+
       {shouldShowChildPatchTasks && (
         <DisabledVariantTasksList
           data-cy="child-patch-task-checkbox"
@@ -315,6 +312,7 @@ const ConfigureTasks: React.VFC<Props> = ({
           variantTasks={currentChildPatches[0].variantsTasks}
         />
       )}
+
       {shouldShowAliasTasks && (
         <DisabledVariantTasksList
           data-cy="alias-task-checkbox"
@@ -326,9 +324,20 @@ const ConfigureTasks: React.VFC<Props> = ({
   );
 };
 
+/**
+ * `canEditTask` returns true if the given task is not disabled.
+ * @param visibleTasks - the tasks that are visible in the UI
+ * @param task - the task to check
+ * @returns - true if the task is disabled, false otherwise
+ */
 const canEditTask = (visibleTasks: [string, CheckboxState][], task: string) =>
   !isCheckboxDisabled(visibleTasks.find(([name]) => name === task)[1]);
 
+/**
+ * `hasDisabledTasks` returns true if any of the tasks in the given list are disabled.
+ * @param visibleTasks - the tasks that are visible in the UI
+ * @returns - true if any of the tasks are disabled, false otherwise
+ */
 const hasDisabledTasks = (visibleTasks: [string, CheckboxState][]) =>
   visibleTasks.some(([, status]) => isCheckboxDisabled(status));
 
@@ -363,6 +372,10 @@ const IconContainer = styled.div`
 // @ts-expect-error
 const InlineCheckbox = styled(Checkbox)`
   display: inline-flex;
+`;
+
+const StyledBody = styled(Body)<BodyProps>`
+  margin: ${size.xs} 0;
 `;
 
 export default ConfigureTasks;
