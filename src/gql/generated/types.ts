@@ -263,6 +263,13 @@ export type DistroInfo = {
   workDir?: Maybe<Scalars["String"]>;
 };
 
+export enum DistroSettingsAccess {
+  Admin = "ADMIN",
+  Create = "CREATE",
+  Edit = "EDIT",
+  View = "VIEW",
+}
+
 export type EcsConfig = {
   __typename?: "ECSConfig";
   maxCPU: Scalars["Int"];

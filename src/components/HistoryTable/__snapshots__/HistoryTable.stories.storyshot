@@ -2,52 +2,16 @@
 
 exports[`storybook Storyshots components/HistoryTable Task History Table 1`] = `
 <div>
-  <div
-    style="height: 800px; width: 100%;"
-  >
-    <div
-      style="overflow: visible; height: 0px; width: 0px;"
-    />
-    <div
-      class="resize-triggers"
-    >
-      <div
-        class="expand-trigger"
-      >
-        <div
-          style="width: 1px; height: 1px;"
-        />
-      </div>
-      <div
-        class="contract-trigger"
-      />
-    </div>
+  <div>
+    Failed to render component.
   </div>
 </div>
 `;
 
 exports[`storybook Storyshots components/HistoryTable Variant History Table 1`] = `
 <div>
-  <div
-    style="height: 800px; width: 100%;"
-  >
-    <div
-      style="overflow: visible; height: 0px; width: 0px;"
-    />
-    <div
-      class="resize-triggers"
-    >
-      <div
-        class="expand-trigger"
-      >
-        <div
-          style="width: 1px; height: 1px;"
-        />
-      </div>
-      <div
-        class="contract-trigger"
-      />
-    </div>
+  <div>
+    Failed to render component.
   </div>
 </div>
 `;

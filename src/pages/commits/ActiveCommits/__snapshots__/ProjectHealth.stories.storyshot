@@ -331,20 +331,21 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                  class="lg-ui-0002 leafygreen-ui-hvznge"
                   data-cy="githash-link"
                   href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks"
                 >
-                  <span
-                    class="leafygreen-ui-baoi4d"
+                  <code
+                    class="leafygreen-ui-7u0nmx"
                   >
                     987bf57
-                  </span>
+                  </code>
                 </a>
                  
                 <b>
                   Jul 16, 2021, 3:53 PM
                 </b>
+                 
               </p>
               <p
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
@@ -390,20 +391,21 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                  class="lg-ui-0002 leafygreen-ui-hvznge"
                   data-cy="githash-link"
                   href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks"
                 >
-                  <span
-                    class="leafygreen-ui-baoi4d"
+                  <code
+                    class="leafygreen-ui-7u0nmx"
                   >
                     a77bd39
-                  </span>
+                  </code>
                 </a>
                  
                 <b>
                   Jul 13, 2021, 2:51 PM
                 </b>
+                 
               </p>
               <p
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
@@ -454,20 +456,21 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                  class="lg-ui-0002 leafygreen-ui-hvznge"
                   data-cy="githash-link"
                   href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks"
                 >
-                  <span
-                    class="leafygreen-ui-baoi4d"
+                  <code
+                    class="leafygreen-ui-7u0nmx"
                   >
                     9c1d1eb
-                  </span>
+                  </code>
                 </a>
                  
                 <b>
                   Jul 13, 2021, 2:51 PM
                 </b>
+                 
               </p>
               <p
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
@@ -513,20 +516,21 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                  class="lg-ui-0002 leafygreen-ui-hvznge"
                   data-cy="githash-link"
                   href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks"
                 >
-                  <span
-                    class="leafygreen-ui-baoi4d"
+                  <code
+                    class="leafygreen-ui-7u0nmx"
                   >
                     f7f7f1a
-                  </span>
+                  </code>
                 </a>
                  
                 <b>
                   Jul 13, 2021, 2:51 PM
                 </b>
+                 
               </p>
               <p
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
@@ -558,20 +562,21 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                  class="lg-ui-0002 leafygreen-ui-hvznge"
                   data-cy="githash-link"
                   href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks"
                 >
-                  <span
-                    class="leafygreen-ui-baoi4d"
+                  <code
+                    class="leafygreen-ui-7u0nmx"
                   >
                     211b3a0
-                  </span>
+                  </code>
                 </a>
                  
                 <b>
                   Jul 13, 2021, 2:51 PM
                 </b>
+                 
               </p>
               <p
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
@@ -623,7 +628,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 <div>
                   <div
-                    class="css-1uxzogm-VariantTasks e35ih1y0"
+                    class="css-1uxzogm-VariantTasks ev4gupa0"
                   >
                     <div
                       class="leafygreen-ui-cssveg"
@@ -633,7 +638,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                         href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
                       >
                         <div
-                          class="css-15tkksr-BadgeContainer emc61an4"
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
                           fill="#5C6C75"
                         >
                           <span
@@ -673,7 +678,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 <div>
                   <div
-                    class="css-1uxzogm-VariantTasks e35ih1y0"
+                    class="css-1uxzogm-VariantTasks ev4gupa0"
                   >
                     <div
                       class="leafygreen-ui-cssveg"
@@ -683,7 +688,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                         href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
                       >
                         <div
-                          class="css-15tkksr-BadgeContainer emc61an4"
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
                           fill="#5C6C75"
                         >
                           <span
@@ -723,7 +728,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 <div>
                   <div
-                    class="css-1uxzogm-VariantTasks e35ih1y0"
+                    class="css-1uxzogm-VariantTasks ev4gupa0"
                   >
                     <div
                       class="leafygreen-ui-cssveg"
@@ -733,7 +738,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                         href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
                       >
                         <div
-                          class="css-15tkksr-BadgeContainer emc61an4"
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
                           fill="#5C6C75"
                         >
                           <span
@@ -782,7 +787,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 <div>
                   <div
-                    class="css-1uxzogm-VariantTasks e35ih1y0"
+                    class="css-1uxzogm-VariantTasks ev4gupa0"
                   >
                     <div
                       class="leafygreen-ui-cssveg"
@@ -792,7 +797,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                         href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
                       >
                         <div
-                          class="css-15tkksr-BadgeContainer emc61an4"
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
                           fill="#5C6C75"
                         >
                           <span
@@ -832,7 +837,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 <div>
                   <div
-                    class="css-1uxzogm-VariantTasks e35ih1y0"
+                    class="css-1uxzogm-VariantTasks ev4gupa0"
                   >
                     <div
                       class="leafygreen-ui-cssveg"
@@ -842,7 +847,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                         href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
                       >
                         <div
-                          class="css-15tkksr-BadgeContainer emc61an4"
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
                           fill="#5C6C75"
                         >
                           <span
@@ -882,7 +887,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 <div>
                   <div
-                    class="css-1uxzogm-VariantTasks e35ih1y0"
+                    class="css-1uxzogm-VariantTasks ev4gupa0"
                   >
                     <div
                       class="leafygreen-ui-cssveg"
@@ -892,7 +897,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                         href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
                       >
                         <div
-                          class="css-15tkksr-BadgeContainer emc61an4"
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
                           fill="#5C6C75"
                         >
                           <span
@@ -945,7 +950,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 <div>
                   <div
-                    class="css-1uxzogm-VariantTasks e35ih1y0"
+                    class="css-1uxzogm-VariantTasks ev4gupa0"
                   >
                     <div
                       class="leafygreen-ui-cssveg"
@@ -955,7 +960,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                         href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
                       >
                         <div
-                          class="css-15tkksr-BadgeContainer emc61an4"
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
                           fill="#5C6C75"
                         >
                           <span
@@ -995,7 +1000,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 <div>
                   <div
-                    class="css-1uxzogm-VariantTasks e35ih1y0"
+                    class="css-1uxzogm-VariantTasks ev4gupa0"
                   >
                     <div
                       class="leafygreen-ui-cssveg"
@@ -1005,7 +1010,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                         href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
                       >
                         <div
-                          class="css-15tkksr-BadgeContainer emc61an4"
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
                           fill="#5C6C75"
                         >
                           <span
@@ -1045,7 +1050,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 <div>
                   <div
-                    class="css-1uxzogm-VariantTasks e35ih1y0"
+                    class="css-1uxzogm-VariantTasks ev4gupa0"
                   >
                     <div
                       class="leafygreen-ui-cssveg"
@@ -1055,7 +1060,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                         href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
                       >
                         <div
-                          class="css-15tkksr-BadgeContainer emc61an4"
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
                           fill="#5C6C75"
                         >
                           <span
@@ -1104,7 +1109,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 <div>
                   <div
-                    class="css-1uxzogm-VariantTasks e35ih1y0"
+                    class="css-1uxzogm-VariantTasks ev4gupa0"
                   >
                     <div
                       class="leafygreen-ui-cssveg"
@@ -1114,7 +1119,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                         href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
                       >
                         <div
-                          class="css-15tkksr-BadgeContainer emc61an4"
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
                           fill="#5C6C75"
                         >
                           <span
@@ -1154,7 +1159,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 <div>
                   <div
-                    class="css-1uxzogm-VariantTasks e35ih1y0"
+                    class="css-1uxzogm-VariantTasks ev4gupa0"
                   >
                     <div
                       class="leafygreen-ui-cssveg"
@@ -1164,7 +1169,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                         href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
                       >
                         <div
-                          class="css-15tkksr-BadgeContainer emc61an4"
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
                           fill="#5C6C75"
                         >
                           <span
@@ -1204,7 +1209,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 <div>
                   <div
-                    class="css-1uxzogm-VariantTasks e35ih1y0"
+                    class="css-1uxzogm-VariantTasks ev4gupa0"
                   >
                     <div
                       class="leafygreen-ui-cssveg"
@@ -1214,7 +1219,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                         href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
                       >
                         <div
-                          class="css-15tkksr-BadgeContainer emc61an4"
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
                           fill="#5C6C75"
                         >
                           <span
@@ -1263,7 +1268,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 <div>
                   <div
-                    class="css-1uxzogm-VariantTasks e35ih1y0"
+                    class="css-1uxzogm-VariantTasks ev4gupa0"
                   >
                     <div
                       class="leafygreen-ui-cssveg"
@@ -1273,7 +1278,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                         href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
                       >
                         <div
-                          class="css-15tkksr-BadgeContainer emc61an4"
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
                           fill="#5C6C75"
                         >
                           <span
@@ -1313,7 +1318,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 <div>
                   <div
-                    class="css-1uxzogm-VariantTasks e35ih1y0"
+                    class="css-1uxzogm-VariantTasks ev4gupa0"
                   >
                     <div
                       class="leafygreen-ui-cssveg"
@@ -1323,7 +1328,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                         href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
                       >
                         <div
-                          class="css-15tkksr-BadgeContainer emc61an4"
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
                           fill="#5C6C75"
                         >
                           <span
@@ -1363,7 +1368,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 <div>
                   <div
-                    class="css-1uxzogm-VariantTasks e35ih1y0"
+                    class="css-1uxzogm-VariantTasks ev4gupa0"
                   >
                     <div
                       class="leafygreen-ui-cssveg"
@@ -1373,7 +1378,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                         href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
                       >
                         <div
-                          class="css-15tkksr-BadgeContainer emc61an4"
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
                           fill="#5C6C75"
                         >
                           <span

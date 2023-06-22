@@ -1,3 +1,4 @@
+import { getVersionRoute } from "constants/routes";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -5,10 +6,7 @@ import {
   waitFor,
 } from "test_utils";
 import { TaskStatus } from "types/task";
-import { string } from "utils";
 import { GroupedTaskStatusBadge } from ".";
-
-const { applyStrictRegex } = string;
 
 describe("groupedTaskStatusBadgeIcon", () => {
   it("clicking on badge performs an action", () => {
@@ -18,7 +16,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
         count={400}
         status={TaskStatus.SystemFailureUmbrella}
         onClick={onClick}
-        versionId={versionId}
+        href={`/version/${versionId}`}
       />,
       {
         path: "/version/:versionId/:tab",
@@ -36,39 +34,26 @@ describe("groupedTaskStatusBadgeIcon", () => {
       <GroupedTaskStatusBadge
         count={400}
         status={TaskStatus.SystemFailureUmbrella}
-        versionId={versionId}
+        href={`/version/${versionId}`}
       />
     );
     expect(screen.getByText("System Failed")).toBeInTheDocument();
     expect(screen.getByText("400")).toBeInTheDocument();
   });
 
-  it("should link to version page with correct status filters when variant prop is not supplied", () => {
+  it("should link to the passed in page", () => {
     render(
       <GroupedTaskStatusBadge
         count={400}
         status={TaskStatus.SystemFailureUmbrella}
-        versionId={versionId}
+        href={getVersionRoute(versionId, {
+          statuses: [TaskStatus.SystemFailed],
+        })}
       />
     );
     expect(screen.queryByDataCy("grouped-task-status-badge")).toHaveAttribute(
       "href",
-      `/version/${versionId}/tasks?statuses=system-failure-umbrella,system-failed,system-timed-out,system-unresponsive`
-    );
-  });
-
-  it("should link to version page with correct status and variant filters when variant prop is supplied", () => {
-    render(
-      <GroupedTaskStatusBadge
-        count={400}
-        status={TaskStatus.SystemFailureUmbrella}
-        versionId={versionId}
-        queryParamsToPreserve={{ variant: applyStrictRegex("some_variant") }}
-      />
-    );
-    expect(screen.queryByDataCy("grouped-task-status-badge")).toHaveAttribute(
-      "href",
-      `/version/${versionId}/tasks?statuses=system-failure-umbrella,system-failed,system-timed-out,system-unresponsive&variant=%5Esome_variant%24`
+      `/version/${versionId}/tasks?statuses=system-failed`
     );
   });
 
@@ -82,7 +67,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
       <GroupedTaskStatusBadge
         count={400}
         status={TaskStatus.SystemFailureUmbrella}
-        versionId={versionId}
+        href={`/version/${versionId}`}
         statusCounts={statusCounts}
       />
     );

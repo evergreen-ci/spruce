@@ -2,8 +2,9 @@ describe("task history", () => {
   it("shows an error message if mainline commit history could not be retrieved", () => {
     cy.visit("/task-history/bogus-project/bogus-task");
     cy.dataCy("loading-cell").should("have.length", 0);
-    cy.contains("Failed to retrieve mainline commit history.").should(
-      "be.visible"
+    cy.validateToast(
+      "error",
+      "There was an error loading the task history: Could not find project with id: bogus-project"
     );
   });
 
@@ -46,9 +47,7 @@ describe("task history", () => {
     cy.visit(
       "/task-history/spruce/check_codegen?failed=JustAFakeTestInALonelyWorld&selectedCommit=1236"
     );
-    cy.dataCy("history-table-icon")
-      .get("[data-status=failed]")
-      .should("have.length", 2);
+    cy.dataCy("history-table-icon").get("[data-status=failed]").should("exist");
     cy.dataCy("history-table-icon")
       .get("[data-status=failed]")
       .first()

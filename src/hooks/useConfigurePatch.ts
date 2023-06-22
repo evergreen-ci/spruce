@@ -9,6 +9,7 @@ import {
 import { PatchTab } from "types/patch";
 import { Unpacked } from "types/utils";
 import { array, queryString, string } from "utils";
+import { useTabShortcut } from "./useTabShortcut";
 
 const { convertArrayToObject, mapStringArrayToObject } = array;
 const { parseQueryString } = queryString;
@@ -206,6 +207,12 @@ export const useConfigurePatch = (
     dispatch({ type: "setSelectedTab", tabIndex: i });
   const setPatchParams = (params) =>
     dispatch({ type: "setPatchParams", params });
+
+  useTabShortcut({
+    currentTab: selectedTab,
+    numTabs: indexToTabMap.length,
+    setSelectedTab,
+  });
 
   return {
     ...state,

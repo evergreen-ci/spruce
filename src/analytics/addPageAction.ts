@@ -6,32 +6,33 @@ export interface Analytics<Action> {
   sendEvent: (action: Action) => void;
 }
 
-type AnalyticsObject =
-  | "April Fools"
-  | "Patch"
-  | "Version"
-  | "Task"
+export type AnalyticsObject =
   | "Annotations"
-  | "Navbar"
+  | "April Fools"
   | "Breadcrumb"
-  | "UserPatches"
   | "CommitQueue"
   | "Configure"
-  | "HostsTable"
   | "HostPage"
-  | "TaskQueue"
-  | "SpawnPages"
-  | "PreferencesPages"
-  | "ProjectPatches"
+  | "HostsTable"
   | "JobLogs"
+  | "Navbar"
+  | "Patch"
   | "Polling"
+  | "PreferencesPages"
   | "ProjectHealthPages"
-  | "ProjectSettings";
-
+  | "ProjectPatches"
+  | "ProjectSettings"
+  | "Shortcut"
+  | "SpawnPages"
+  | "Task"
+  | "TaskQueue"
+  | "UserPatches"
+  | "Version";
 interface RequiredProperties {
   object: AnalyticsObject;
 }
-interface ActionType {
+
+export interface ActionType {
   name: string;
 }
 

@@ -8,8 +8,9 @@ describe(
     it("shows an error message if mainline commit history could not be retrieved", () => {
       cy.visit("/variant-history/bogus-project/bogus-variant");
       cy.dataCy("loading-cell").should("have.length", 0);
-      cy.contains("Failed to retrieve mainline commit history.").should(
-        "be.visible"
+      cy.validateToast(
+        "error",
+        "There was an error loading the variant history: Could not find project with id: bogus-project"
       );
     });
 
@@ -25,7 +26,7 @@ describe(
         "/variant-history/spruce/ubuntu1604"
       );
       cy.location("search").should("eq", "?selectedCommit=1236");
-      cy.contains("Triggered From Git Tag").should("be.visible");
+      cy.contains("v2.28.5").should("be.visible");
       cy.get("[data-selected='true']").should("exist");
       cy.get("[data-selected='true']").should("contain.text", "v2.28.5");
     });
@@ -41,7 +42,7 @@ describe(
       cy.visit("/variant-history/spruce/ubuntu1604");
       // Expand
       cy.contains("EVG-16356").should("not.exist");
-      cy.contains("Expand 1 inactive").should("exist");
+      cy.contains("Expand 1 inactive").should("exist").scrollIntoView();
       cy.contains("Expand 1 inactive").click();
       cy.contains("EVG-16356").should("be.visible");
 
