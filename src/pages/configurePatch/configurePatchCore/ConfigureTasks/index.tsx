@@ -195,7 +195,7 @@ const ConfigureTasks: React.VFC<Props> = ({
         </LoadingButton>
         <InlineCheckbox
           data-cy="select-all-checkbox"
-          indeterminate={selectAllCheckboxState === CheckboxState.INDETERMINATE}
+          indeterminate={selectAllCheckboxState === CheckboxState.Indeterminate}
           onChange={onClickSelectAll}
           label={
             <div style={{ display: "flex", alignItems: "center" }}>
@@ -231,7 +231,7 @@ const ConfigureTasks: React.VFC<Props> = ({
               )}
             </div>
           }
-          checked={selectAllCheckboxState === CheckboxState.CHECKED}
+          checked={selectAllCheckboxState === CheckboxState.Checked}
           disabled={
             (activated && Object.entries(currentAliases).length > 0) ||
             shouldShowChildPatchTasks
@@ -308,7 +308,7 @@ const ConfigureTasks: React.VFC<Props> = ({
       {shouldShowChildPatchTasks && (
         <DisabledVariantTasksList
           data-cy="child-patch-task-checkbox"
-          status={CheckboxState.CHECKED}
+          status={CheckboxState.Checked}
           variantTasks={currentChildPatches[0].variantsTasks}
         />
       )}

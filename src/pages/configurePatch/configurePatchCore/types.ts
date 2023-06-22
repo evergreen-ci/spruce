@@ -22,9 +22,9 @@ export type VariantTasksState = {
 };
 
 export enum CheckboxState {
-  CHECKED = "CHECKED",
-  INDETERMINATE = "INDETERMINATE",
-  UNCHECKED = "UNCHECKED",
-  DISABLED_CHECKED = "DISABLED_CHECKED",
-  DISABLED_INDETERMINATE = "DISABLED_INDETERMINATE",
+  Checked = "CHECKED",
+  Indeterminate = "INDETERMINATE",
+  Unchecked = "UNCHECKED",
+  DisabledChecked = "DISABLED_CHECKED",
+  DisabledIndeterminate = "DISABLED_INDETERMINATE",
 }

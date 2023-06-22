@@ -28,40 +28,39 @@ const deduplicateTasks = (
     const previousBuildVariantTasks = previousActivatedBVTasks?.[bvIndex] || {};
     Object.entries(bv).forEach(([taskName, value]) => {
       switch (visibleTasks[taskName]) {
-        case CheckboxState.UNCHECKED:
+        case CheckboxState.Unchecked:
           // If a task is UNCHECKED and the next task of the same name is CHECKED it is INDETERMINATE
           visibleTasks[taskName] = value
-            ? CheckboxState.INDETERMINATE
-            : CheckboxState.UNCHECKED;
+            ? CheckboxState.Indeterminate
+            : CheckboxState.Unchecked;
           break;
-        case CheckboxState.CHECKED:
+        case CheckboxState.Checked:
           // If a task is CHECKED and the next task of the same name is UNCHECKED it is INDETERMINATE
           visibleTasks[taskName] = value
-            ? CheckboxState.CHECKED
-            : CheckboxState.INDETERMINATE;
+            ? CheckboxState.Checked
+            : CheckboxState.Indeterminate;
           break;
-        case (CheckboxState.INDETERMINATE,
-        CheckboxState.DISABLED_INDETERMINATE):
+        case (CheckboxState.Indeterminate, CheckboxState.DisabledIndeterminate):
           // If a task is INDETERMINATE or DISABLED_INDETERMINATE because of previous task statuses
           // it wouldn't change when subsequent statuses are considered
           break;
-        case CheckboxState.DISABLED_CHECKED:
+        case CheckboxState.DisabledChecked:
           // If a task is DISABLED_CHECKED and the next task of the same name is UNCHECKED it is DISABLED_INDETERMINATE
           visibleTasks[taskName] = value
-            ? CheckboxState.DISABLED_CHECKED
-            : CheckboxState.DISABLED_INDETERMINATE;
+            ? CheckboxState.DisabledChecked
+            : CheckboxState.DisabledIndeterminate;
           break;
 
         default:
           visibleTasks[taskName] = value
-            ? CheckboxState.CHECKED
-            : CheckboxState.UNCHECKED;
+            ? CheckboxState.Checked
+            : CheckboxState.Unchecked;
           break;
       }
       if (previousBuildVariantTasks[taskName]) {
         visibleTasks[taskName] = isCheckboxIndeterminate(visibleTasks[taskName])
-          ? CheckboxState.DISABLED_INDETERMINATE
-          : CheckboxState.DISABLED_CHECKED;
+          ? CheckboxState.DisabledIndeterminate
+          : CheckboxState.DisabledChecked;
       }
     });
   });
@@ -90,7 +89,7 @@ const getSelectAllCheckboxState = (
   shouldShowChildPatchTasks: boolean
 ): CheckboxState => {
   if (shouldShowChildPatchTasks) {
-    return CheckboxState.CHECKED;
+    return CheckboxState.Checked;
   }
 
   let state: CheckboxState;
@@ -98,17 +97,17 @@ const getSelectAllCheckboxState = (
   const allAliasStatuses = Object.values(aliases);
 
   const hasSelectedTasks =
-    allTaskStatuses.includes(CheckboxState.CHECKED) ||
-    allAliasStatuses.includes(CheckboxState.CHECKED);
+    allTaskStatuses.includes(CheckboxState.Checked) ||
+    allAliasStatuses.includes(CheckboxState.Checked);
   const hasUnselectedTasks =
-    allTaskStatuses.includes(CheckboxState.UNCHECKED) ||
-    allAliasStatuses.includes(CheckboxState.UNCHECKED);
+    allTaskStatuses.includes(CheckboxState.Unchecked) ||
+    allAliasStatuses.includes(CheckboxState.Unchecked);
   if (hasSelectedTasks && !hasUnselectedTasks) {
-    state = CheckboxState.CHECKED;
+    state = CheckboxState.Checked;
   } else if (!hasSelectedTasks && hasUnselectedTasks) {
-    state = CheckboxState.UNCHECKED;
+    state = CheckboxState.Unchecked;
   } else {
-    state = CheckboxState.INDETERMINATE;
+    state = CheckboxState.Indeterminate;
   }
 
   return state;
@@ -128,8 +127,8 @@ const getVisibleAliases = (
   Object.entries(selectedAliases).forEach(([alias]) => {
     if (selectedBuildVariants.includes(alias)) {
       visiblePatches[alias] = selectedAliases[alias]
-        ? CheckboxState.CHECKED
-        : CheckboxState.UNCHECKED;
+        ? CheckboxState.Checked
+        : CheckboxState.Unchecked;
     }
   });
   return visiblePatches;
@@ -161,8 +160,8 @@ const getVisibleChildPatches = (
  * @returns - a boolean indicating whether the checkbox is disabled
  */
 const isCheckboxDisabled = (state: CheckboxState): boolean =>
-  state === CheckboxState.DISABLED_CHECKED ||
-  state === CheckboxState.DISABLED_INDETERMINATE;
+  state === CheckboxState.DisabledChecked ||
+  state === CheckboxState.DisabledIndeterminate;
 
 /**
  * `isCheckboxIndeterminate` takes the state of the checkbox and returns a boolean indicating whether the checkbox is indeterminate
@@ -170,8 +169,8 @@ const isCheckboxDisabled = (state: CheckboxState): boolean =>
  * @returns - a boolean indicating whether the checkbox is indeterminate
  */
 const isCheckboxIndeterminate = (state: CheckboxState): boolean =>
-  state === CheckboxState.INDETERMINATE ||
-  state === CheckboxState.DISABLED_INDETERMINATE;
+  state === CheckboxState.Indeterminate ||
+  state === CheckboxState.DisabledIndeterminate;
 
 /**
  * `isCheckboxChecked` takes the state of the checkbox and returns a boolean indicating whether the checkbox is checked
@@ -179,7 +178,7 @@ const isCheckboxIndeterminate = (state: CheckboxState): boolean =>
  * @returns - a boolean indicating whether the checkbox is checked
  */
 const isCheckboxChecked = (state: CheckboxState): boolean =>
-  state === CheckboxState.CHECKED || state === CheckboxState.DISABLED_CHECKED;
+  state === CheckboxState.Checked || state === CheckboxState.DisabledChecked;
 
 export {
   isCheckboxDisabled,
