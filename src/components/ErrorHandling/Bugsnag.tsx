@@ -3,7 +3,6 @@ import Bugsnag, { Event } from "@bugsnag/js";
 import BugsnagPluginReact from "@bugsnag/plugin-react";
 import { environmentVariables } from "utils";
 import ErrorFallback from "./ErrorFallback";
-import type { CustomBugsnagError } from "./types";
 
 const { getBugsnagApiKey, getAppVersion, getReleaseStage } =
   environmentVariables;
@@ -46,19 +45,19 @@ const ErrorBoundary: React.VFC<{ children: React.ReactNode }> = ({
   );
 };
 
-const sendError = (err: CustomBugsnagError, severity: Event["severity"]) => {
+const sendError = (
+  err: Error,
+  severity: Event["severity"],
+  metadata?: { [key: string]: any }
+) => {
   const userId = localStorage.getItem("userId");
-  let metadata;
-  if (err.metadata) {
-    metadata = err.metadata;
-  }
   Bugsnag.notify(err, (event) => {
     // reassigning param is recommended usage in bugsnag docs
     // eslint-disable-next-line no-param-reassign
     event.severity = severity;
     event.setUser(userId);
     if (metadata) {
-      event.addMetadata("metadata", { ...metadata });
+      event.addMetadata("metadata", metadata);
     }
   });
 };

@@ -32,6 +32,8 @@ describe("should initialize error handlers according to release stage", () => {
     mockEnv("NODE_ENV", "production");
     mockEnv("REACT_APP_VERSION", "1.0.0");
     mockEnv("REACT_APP_RELEASE_STAGE", "production");
+    mockEnv("REACT_APP_BUGSNAG_API_KEY", "i-am-a-fake-key");
+    mockEnv("REACT_APP_SENTRY_DSN", "fake-sentry-key");
     initializeErrorHandling();
 
     expect(Bugsnag.start).toHaveBeenCalledWith({
@@ -53,6 +55,8 @@ describe("should initialize error handlers according to release stage", () => {
     mockEnv("REACT_APP_RELEASE_STAGE", "beta");
     mockEnv("NODE_ENV", "production");
     mockEnv("REACT_APP_VERSION", "1.0.0");
+    mockEnv("REACT_APP_BUGSNAG_API_KEY", "i-am-a-fake-key");
+    mockEnv("REACT_APP_SENTRY_DSN", "fake-sentry-key");
     initializeErrorHandling();
 
     expect(Bugsnag.start).toHaveBeenCalledWith({
@@ -74,6 +78,8 @@ describe("should initialize error handlers according to release stage", () => {
     mockEnv("NODE_ENV", "production");
     mockEnv("REACT_APP_VERSION", "1.0.0");
     mockEnv("REACT_APP_RELEASE_STAGE", "staging");
+    mockEnv("REACT_APP_BUGSNAG_API_KEY", "i-am-a-fake-key");
+    mockEnv("REACT_APP_SENTRY_DSN", "fake-sentry-key");
     initializeErrorHandling();
 
     expect(Bugsnag.start).toHaveBeenCalledWith({

@@ -8,7 +8,6 @@ import type { Scope, SeverityLevel } from "@sentry/react";
 import type { Extras } from "@sentry/types";
 import { environmentVariables } from "utils";
 import ErrorFallback from "./ErrorFallback";
-import { CustomBugsnagError } from "./types";
 
 const { getReleaseStage, getSentryDSN, isProduction } = environmentVariables;
 
@@ -39,16 +38,15 @@ const isInitialized = () => {
   );
 };
 
-const sendError = (err: CustomBugsnagError, severity: SeverityLevel) => {
-  let metadata;
-  if (err.metadata) {
-    metadata = err.metadata;
-  }
-
+const sendError = (
+  err: Error,
+  severity: SeverityLevel,
+  metadata?: { [key: string]: any }
+) => {
   withScope((scope) => {
-    setScope(scope, { level: severity, extras: { metadata } });
+    setScope(scope, { level: severity });
 
-    captureException(err);
+    captureException(err, metadata);
   });
 };
 
@@ -57,12 +55,11 @@ type ScopeOptions = {
   extras?: Extras;
 };
 
-const setScope = (scope: Scope, { level, extras }: ScopeOptions = {}) => {
+const setScope = (scope: Scope, { level }: ScopeOptions = {}) => {
   const userId = localStorage.getItem("userId") ?? undefined;
   scope.setUser({ id: userId });
 
   if (level) scope.setLevel(level);
-  if (extras) scope.setExtras({ extras });
 };
 
 const ErrorBoundary: React.VFC<{ children: React.ReactNode }> = ({

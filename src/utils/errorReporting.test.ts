@@ -1,12 +1,9 @@
 import Bugsnag from "@bugsnag/js";
 import * as Sentry from "@sentry/react";
 import { mockEnvironmentVariables } from "test_utils/utils";
-import { errorReporting } from "utils";
-
-const { reportError } = errorReporting;
+import { reportError } from "utils/errorReporting";
 
 const { mockEnv, cleanup } = mockEnvironmentVariables();
-const err = new Error("test error");
 
 describe("error reporting", () => {
   beforeEach(() => {
@@ -19,7 +16,8 @@ describe("error reporting", () => {
     jest.restoreAllMocks();
   });
 
-  it("should log errors into console instead of to bugsnag when not in production", () => {
+  it("should log errors into console when not in production", () => {
+    const err = new Error("test error");
     const result = reportError(err);
     result.severe();
     expect(console.error).toHaveBeenCalledWith({
@@ -35,15 +33,34 @@ describe("error reporting", () => {
     expect(Sentry.captureException).not.toHaveBeenCalled();
   });
 
-  it("should report errors to bugsnag when in production", () => {
+  it("should report errors to Bugsnag and Sentry when in production", () => {
     mockEnv("NODE_ENV", "production");
     jest.spyOn(Bugsnag, "notify").mockImplementation(jest.fn());
     jest.spyOn(Sentry, "captureException").mockImplementation(jest.fn());
 
+    const err = new Error("test error");
     const result = reportError(err);
     result.severe();
     expect(Bugsnag.notify).toHaveBeenCalledWith(err, expect.any(Function));
-    expect(Sentry.captureException).toHaveBeenCalledWith(err);
+    expect(Sentry.captureException).toHaveBeenCalledWith(err, undefined);
+    result.warning();
+    expect(Bugsnag.notify).toHaveBeenLastCalledWith(err, expect.any(Function));
+  });
+
+  it("should include metadata in errors", () => {
+    mockEnv("NODE_ENV", "production");
+    jest.spyOn(Bugsnag, "notify").mockImplementation(jest.fn());
+    jest.spyOn(Sentry, "captureException").mockImplementation(jest.fn());
+    const err = {
+      message: "GraphQL Error",
+      name: "Error Name",
+    };
+
+    const metadata = { customField: "foo" };
+    const result = reportError(err, metadata);
+    result.severe();
+    expect(Bugsnag.notify).toHaveBeenCalledWith(err, expect.any(Function));
+    expect(Sentry.captureException).toHaveBeenCalledWith(err, metadata);
     result.warning();
     expect(Bugsnag.notify).toHaveBeenLastCalledWith(err, expect.any(Function));
   });

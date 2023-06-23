@@ -1,34 +1,36 @@
 import Bugsnag, { BreadcrumbType } from "@bugsnag/js";
-import { CustomBugsnagError } from "components/ErrorHandling";
 import { sendError as bugsnagSendError } from "components/ErrorHandling/Bugsnag";
 import { sendError as sentrySendError } from "components/ErrorHandling/Sentry";
-import { isProductionBuild } from "utils/environmentVariables";
+import { isProductionBuild } from "./environmentVariables";
 
 interface reportErrorResult {
   severe: () => void;
   warning: () => void;
 }
 
-const reportError = (err: CustomBugsnagError): reportErrorResult => {
+const reportError = (
+  err: Error,
+  metadata?: { [key: string]: any }
+): reportErrorResult => {
   if (!isProductionBuild()) {
     return {
       severe: () => {
-        console.error({ err, severity: "severe" });
+        console.error({ err, severity: "severe", metadata });
       },
       warning: () => {
-        console.error({ err, severity: "warning" });
+        console.error({ err, severity: "warning", metadata });
       },
     };
   }
 
   return {
     severe: () => {
-      bugsnagSendError(err, "error");
-      sentrySendError(err, "error");
+      bugsnagSendError(err, "error", metadata);
+      sentrySendError(err, "error", metadata);
     },
     warning: () => {
-      bugsnagSendError(err, "warning");
-      sentrySendError(err, "warning");
+      bugsnagSendError(err, "warning", metadata);
+      sentrySendError(err, "warning", metadata);
     },
   };
 };

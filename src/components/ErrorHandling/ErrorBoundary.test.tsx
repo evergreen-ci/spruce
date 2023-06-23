@@ -1,4 +1,5 @@
 import Bugsnag from "@bugsnag/js";
+import * as Sentry from "@sentry/react";
 import { render, screen } from "test_utils";
 import { mockEnvironmentVariables } from "test_utils/utils";
 import { ErrorBoundary } from "./ErrorBoundary";
@@ -9,6 +10,7 @@ describe("default error boundary", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     jest.spyOn(Bugsnag, "notify");
+    jest.spyOn(Sentry, "captureException");
   });
   afterEach(() => {
     cleanup();
@@ -44,5 +46,6 @@ describe("default error boundary", () => {
       }),
     });
     expect(Bugsnag.notify).not.toHaveBeenCalled();
+    expect(Sentry.captureException).not.toHaveBeenCalled();
   });
 });

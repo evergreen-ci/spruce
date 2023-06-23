@@ -10,14 +10,14 @@ export const getApiUrl: () => string = () =>
  * @returns - The API KEY
  */
 export const getBugsnagApiKey: () => string = () =>
-  process.env.REACT_APP_BUGSNAG_API_KEY || "i-am-a-fake-key";
+  process.env.REACT_APP_BUGSNAG_API_KEY;
 
 /**
  * `getSentryDSN()` - Get the Sentry Data Source Name (SENTRY_DSN) from the environment variables
  * @returns - The application's DSN
  */
 export const getSentryDSN: () => string = () =>
-  process.env.REACT_APP_SENTRY_DSN || "fake-sentry-key";
+  process.env.REACT_APP_SENTRY_DSN;
 
 /**
  * `getUiUrl()` - Get the backing evergreen URL from the environment variables
