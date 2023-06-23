@@ -164,6 +164,10 @@ const ConfigureTasks: React.VFC<Props> = ({
     shouldShowChildPatchTasks
   );
 
+  const variantHasDisabledTasks = sortedVisibleTasks.some((t) =>
+    isTaskCheckboxDisabled(t[1])
+  );
+
   return (
     <TabContentWrapper>
       <Actions>
@@ -183,7 +187,7 @@ const ConfigureTasks: React.VFC<Props> = ({
           indeterminate={selectAllCheckboxState === CheckboxState.Indeterminate}
           onChange={onClickSelectAll}
           label={
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <LabelContainer>
               {sortedVisibleTasks.length === 0
                 ? `Add ${pluralize(
                     "alias",
@@ -209,7 +213,24 @@ const ConfigureTasks: React.VFC<Props> = ({
                   Aliases specified via CLI cannot be edited.
                 </Tooltip>
               )}
-            </div>
+              {variantHasDisabledTasks && (
+                <Tooltip
+                  justify="middle"
+                  triggerEvent="hover"
+                  trigger={
+                    <IconContainer>
+                      <Icon glyph="InfoWithCircle" />
+                    </IconContainer>
+                  }
+                >
+                  Some Tasks in{" "}
+                  {pluralize("this", selectedBuildVariants.length)}{" "}
+                  {pluralize("variant", selectedBuildVariants.length)} have
+                  already been activated. They are not editable. To disable them
+                  visit the patch page.
+                </Tooltip>
+              )}
+            </LabelContainer>
           }
           checked={selectAllCheckboxState === CheckboxState.Checked}
           disabled={
@@ -259,10 +280,7 @@ const ConfigureTasks: React.VFC<Props> = ({
             }
             indeterminate={isTaskCheckboxIndeterminate(state)}
             checked={isTaskCheckboxChecked(state)}
-            disabled={
-              !isTaskCheckboxIndeterminate(state) &&
-              isTaskCheckboxDisabled(state)
-            }
+            disabled={isTaskCheckboxDisabled(state)}
           />
         ))}
       </TaskLayoutGrid>
