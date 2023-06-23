@@ -4,11 +4,8 @@ import { palette } from "@leafygreen-ui/palette";
 import { Accordion } from "components/Accordion";
 import CommitChartLabel from "components/CommitChartLabel";
 import { EmptyCell, LabelCellContainer } from "components/HistoryTable/Cell";
-import {
-  FOLDED_COMMITS_HEIGHT,
-  COMMIT_HEIGHT,
-} from "components/HistoryTable/constants";
 import { FoldedCommitsRow } from "components/HistoryTable/types";
+import { size } from "constants/tokens";
 import { RowContainer } from "../styles";
 
 const { blue } = palette;
@@ -55,6 +52,7 @@ const FoldedCommit: React.VFC<FoldedCommitProps> = ({
         <CommitChartLabel
           versionId={commit.id}
           githash={commit.revision}
+          gitTags={commit.gitTags}
           createTime={commit.createTime}
           author={commit.author}
           message={commit.message}
@@ -70,7 +68,7 @@ const FoldedCommit: React.VFC<FoldedCommitProps> = ({
 
   return (
     <Column selected={selected}>
-      <Accordion
+      <StyledAccordion
         disableAnimation
         title={`Expand ${numCommits} inactive`}
         toggledTitle={`Collapse ${numCommits} inactive`}
@@ -82,7 +80,7 @@ const FoldedCommit: React.VFC<FoldedCommitProps> = ({
         defaultOpen={defaultOpen}
       >
         {commits}
-      </Accordion>
+      </StyledAccordion>
     </Column>
   );
 };
@@ -93,15 +91,17 @@ const Column = styled.div<{ selected: boolean }>`
   ${({ selected }) => selected && `background-color: ${blue.light3}`};
 `;
 
+const StyledAccordion = styled(Accordion)`
+  margin-bottom: ${size.s};
+`;
+
 const AccordionTitle = styled.div`
   display: flex;
   align-items: center;
-  height: ${FOLDED_COMMITS_HEIGHT}px;
   cursor: pointer;
 `;
 
 const StyledRowContainer = styled(RowContainer)`
-  height: ${COMMIT_HEIGHT}px;
   opacity: 60%;
 `;
 

@@ -46,6 +46,10 @@ query MainlineCommits(
           variant
         }
         createTime
+        gitTags {
+          pusher
+          tag
+        }
         id
         message
         order

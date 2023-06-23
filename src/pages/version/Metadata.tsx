@@ -1,4 +1,4 @@
-import { InlineCode } from "@leafygreen-ui/typography";
+import { InlineCode, Disclaimer } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import {
@@ -50,6 +50,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
     upstreamProject,
     projectMetadata,
     externalLinksForMetadata,
+    gitTags,
   } = version || {};
   const { sendEvent } = useVersionAnalytics(id);
   const { commitQueuePosition } = patch || {};
@@ -150,6 +151,15 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
           >
             {shortenGithash(revision)}
           </InlineCode>
+        </MetadataItem>
+      )}
+      {gitTags && (
+        <MetadataItem>
+          {gitTags.map((g) => (
+            <Disclaimer key={g.tag}>
+              Tag {g.tag} pushed by {g.pusher}
+            </Disclaimer>
+          ))}
         </MetadataItem>
       )}
       {isPatch && commitQueuePosition !== null && (
