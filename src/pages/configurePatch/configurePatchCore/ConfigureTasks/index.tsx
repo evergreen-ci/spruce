@@ -62,13 +62,11 @@ const ConfigureTasks: React.VFC<Props> = ({
   );
   const childPatchCount = childPatches?.length || 0;
   const downstreamTaskCount = aliasCount + childPatchCount;
-
   const totalSelectedBuildVariantCount = Object.values(
     selectedBuildVariantTasks
   ).reduce(
     (count, tasks) =>
-      count +
-      (Object.values(tasks).some((isSelected: boolean) => isSelected) ? 1 : 0),
+      count + (Object.values(tasks).some((isSelected) => isSelected) ? 1 : 0),
     0
   );
 
@@ -108,22 +106,23 @@ const ConfigureTasks: React.VFC<Props> = ({
     selectedBuildVariants
   );
 
-  const currentAliasTasks = selectableAliases.filter(({ alias }) =>
+  /**
+   * Surfaces all tasks for a given alias, If it is selected.
+   */
+  const viewableAliasTasks = selectableAliases.filter(({ alias }) =>
     selectedBuildVariants.includes(alias)
   );
+  // Show an alias's variants/tasks if it is the only menu item selected
+  const shouldShowAliasTasks =
+    viewableAliasTasks.length === 1 && selectedBuildVariants.length === 1;
 
   const currentChildPatches = getVisibleChildPatches(
     childPatches,
     selectedBuildVariants
   );
-
   // Show a child patch's variants/tasks if it is the only menu item selected
   const shouldShowChildPatchTasks =
     currentChildPatches.length === 1 && selectedBuildVariants.length === 1;
-
-  // Show an alias's variants/tasks if it is the only menu item selected
-  const shouldShowAliasTasks =
-    currentAliasTasks.length === 1 && selectedBuildVariants.length === 1;
 
   // Only show name of alias or child patch (no variants/tasks) if other build variants are also selected
   const shouldShowChildPatchesAndAliases =
@@ -172,22 +171,6 @@ const ConfigureTasks: React.VFC<Props> = ({
     shouldShowChildPatchTasks
   );
 
-  const selectAllCheckboxCopy =
-    sortedCurrentTasks.length === 0
-      ? `Add ${pluralize("alias", selectedBuildVariants.length)} to patch`
-      : `Select all tasks in ${pluralize(
-          "this",
-          selectedBuildVariants.length
-        )} ${pluralize("variant", selectedBuildVariants.length)}`;
-
-  const selectedTaskDisclaimerCopy = `${totalSelectedTaskCount} ${pluralize(
-    "task",
-    totalSelectedTaskCount
-  )} across ${totalSelectedBuildVariantCount} build ${pluralize(
-    "variant",
-    totalSelectedBuildVariantCount
-  )}, ${downstreamTaskCount} trigger ${pluralize("alias", aliasCount)}`;
-
   return (
     <TabContentWrapper>
       <Actions>
@@ -208,7 +191,9 @@ const ConfigureTasks: React.VFC<Props> = ({
           onChange={onClickSelectAll}
           label={
             <div style={{ display: "flex", alignItems: "center" }}>
-              {selectAllCheckboxCopy}{" "}
+              Select all tasks in{" "}
+              {pluralize("this", selectedBuildVariants.length)}{" "}
+              {pluralize("variant", selectedBuildVariants.length)}
               {shouldShowChildPatchTasks && (
                 <Tooltip
                   justify="middle"
@@ -249,7 +234,10 @@ const ConfigureTasks: React.VFC<Props> = ({
       </Actions>
 
       <StyledDisclaimer data-cy="selected-task-disclaimer">
-        {selectedTaskDisclaimerCopy}{" "}
+        {totalSelectedTaskCount} {pluralize("task", totalSelectedTaskCount)}{" "}
+        across {totalSelectedBuildVariantCount} build{" "}
+        {pluralize("variant", totalSelectedBuildVariantCount)},{" "}
+        {downstreamTaskCount} trigger {pluralize("alias", aliasCount)}
       </StyledDisclaimer>
 
       {/* Tasks */}
@@ -325,8 +313,8 @@ const ConfigureTasks: React.VFC<Props> = ({
       {shouldShowAliasTasks && (
         <DisabledVariantTasksList
           data-cy="alias-task-checkbox"
-          status={currentAliases[currentAliasTasks[0].alias]}
-          variantTasks={currentAliasTasks[0].variantsTasks}
+          status={currentAliases[viewableAliasTasks[0].alias]}
+          variantTasks={viewableAliasTasks[0].variantsTasks}
         />
       )}
     </TabContentWrapper>
