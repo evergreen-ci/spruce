@@ -19,7 +19,7 @@ module.exports = {
   testEnvironment: "jsdom",
   testMatch: [
     "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}",
-    "<rootDir>/scripts/deploy-production.test.js",
+    "<rootDir>/scripts/**/*.{spec,test}.{js,jsx,ts,tsx}",
   ],
   testRunner: "<rootDir>/node_modules/jest-circus/runner.js",
   transform: {

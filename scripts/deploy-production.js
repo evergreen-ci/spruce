@@ -73,6 +73,7 @@ const evergreenDeploy = async () => {
   return;
 };
 
+/* Deploy by generating a production build locally and pushing it directly to S3. */
 const localDeploy = async () => {
   const response = await prompts({
     type: "confirm",
