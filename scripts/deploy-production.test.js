@@ -103,7 +103,8 @@ describe("evergreen deploy", () => {
       expect(deployUtils.getCommitMessages).toHaveBeenCalledWith();
       expect(prompts).toHaveBeenCalledWith({
         initial: false,
-        message: "No new commits. Do you want to deploy anyway?",
+        message:
+          "No new commits. Do you want to deploy the most recent existing tag?",
         name: "value",
         type: "confirm",
       });
@@ -128,7 +129,8 @@ describe("evergreen deploy", () => {
       expect(deployUtils.getCommitMessages).toHaveBeenCalledWith();
       expect(prompts).toHaveBeenCalledWith({
         initial: false,
-        message: "No new commits. Do you want to deploy anyway?",
+        message:
+          "No new commits. Do you want to deploy the most recent existing tag?",
         name: "value",
         type: "confirm",
       });
@@ -157,7 +159,8 @@ describe("evergreen deploy", () => {
       expect(deployUtils.getCommitMessages).toHaveBeenCalledWith();
       expect(prompts).toHaveBeenCalledWith({
         initial: false,
-        message: "No new commits. Do you want to deploy anyway?",
+        message:
+          "No new commits. Do you want to deploy the most recent existing tag?",
         name: "value",
         type: "confirm",
       });
@@ -191,7 +194,8 @@ describe("evergreen deploy", () => {
       expect(deployUtils.getCommitMessages).toHaveBeenCalledWith();
       expect(prompts).toHaveBeenCalledWith({
         initial: false,
-        message: "No new commits. Do you want to deploy anyway?",
+        message:
+          "No new commits. Do you want to deploy the most recent existing tag?",
         name: "value",
         type: "confirm",
       });

@@ -29,7 +29,8 @@ const evergreenDeploy = async () => {
     const response = await prompts({
       type: "confirm",
       name: "value",
-      message: "No new commits. Do you want to deploy anyway?",
+      message:
+        "No new commits. Do you want to deploy the most recent existing tag?",
       initial: false,
     });
 
