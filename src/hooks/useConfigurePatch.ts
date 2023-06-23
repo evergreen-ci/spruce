@@ -146,15 +146,14 @@ interface HookResult extends ConfigurePatchState {
 }
 
 export const useConfigurePatch = (
-  patch: ConfigurePatchQuery["patch"],
-  variants: ConfigurePatchQuery["patch"]["project"]["variants"]
+  patch: ConfigurePatchQuery["patch"]
 ): HookResult => {
   const navigate = useNavigate();
   const location = useLocation();
   const { tab } = useParams<{ tab: PatchTab | null }>();
 
-  const { id } = patch;
-
+  const { id, project } = patch;
+  const { variants } = project;
   const [state, dispatch] = useReducer(
     reducer,
     initialState({
