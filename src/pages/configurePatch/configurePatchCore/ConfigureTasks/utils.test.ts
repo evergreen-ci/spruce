@@ -10,8 +10,8 @@ describe("deduplicateTasks", () => {
   it("should print all tasks for one variant", () => {
     const tasks = [{ task1: false, task2: false }];
     expect(deduplicateTasks(tasks)).toStrictEqual({
-      task1: CheckboxState.UNCHECKED,
-      task2: CheckboxState.UNCHECKED,
+      task1: CheckboxState.Unchecked,
+      task2: CheckboxState.Unchecked,
     });
   });
   it("should print all tasks for multiple variants", () => {
@@ -20,10 +20,10 @@ describe("deduplicateTasks", () => {
       { task3: false, task4: true },
     ];
     expect(deduplicateTasks(tasks)).toStrictEqual({
-      task1: CheckboxState.UNCHECKED,
-      task2: CheckboxState.UNCHECKED,
-      task3: CheckboxState.UNCHECKED,
-      task4: CheckboxState.CHECKED,
+      task1: CheckboxState.Unchecked,
+      task2: CheckboxState.Unchecked,
+      task3: CheckboxState.Unchecked,
+      task4: CheckboxState.Checked,
     });
   });
   it("should deduplicate tasks across multiple variants", () => {
@@ -32,9 +32,9 @@ describe("deduplicateTasks", () => {
       { task2: false, task3: false },
     ];
     expect(deduplicateTasks(tasks)).toStrictEqual({
-      task1: CheckboxState.UNCHECKED,
-      task2: CheckboxState.UNCHECKED,
-      task3: CheckboxState.UNCHECKED,
+      task1: CheckboxState.Unchecked,
+      task2: CheckboxState.Unchecked,
+      task3: CheckboxState.Unchecked,
     });
   });
   it("should deduplicate tasks across multiple variants with different states", () => {
@@ -43,9 +43,9 @@ describe("deduplicateTasks", () => {
       { task2: true, task3: false },
     ];
     expect(deduplicateTasks(tasks)).toStrictEqual({
-      task1: CheckboxState.UNCHECKED,
-      task2: CheckboxState.INDETERMINATE,
-      task3: CheckboxState.UNCHECKED,
+      task1: CheckboxState.Unchecked,
+      task2: CheckboxState.Indeterminate,
+      task3: CheckboxState.Unchecked,
     });
   });
 });
@@ -53,108 +53,108 @@ describe("deduplicateTasks", () => {
 describe("getSelectAllCheckboxState", () => {
   it("should return checked if all tasks are checked", () => {
     const tasks = {
-      task1: CheckboxState.CHECKED,
-      task2: CheckboxState.CHECKED,
+      task1: CheckboxState.Checked,
+      task2: CheckboxState.Checked,
     };
     expect(getSelectAllCheckboxState(tasks, {}, false)).toStrictEqual(
-      CheckboxState.CHECKED
+      CheckboxState.Checked
     );
   });
   it("should return unchecked if all tasks are unchecked", () => {
     const tasks = {
-      task1: CheckboxState.UNCHECKED,
-      task2: CheckboxState.UNCHECKED,
+      task1: CheckboxState.Unchecked,
+      task2: CheckboxState.Unchecked,
     };
     expect(getSelectAllCheckboxState(tasks, {}, false)).toStrictEqual(
-      CheckboxState.UNCHECKED
+      CheckboxState.Unchecked
     );
   });
   it("should return indeterminate if some tasks are checked", () => {
     const tasks = {
-      task1: CheckboxState.CHECKED,
-      task2: CheckboxState.UNCHECKED,
+      task1: CheckboxState.Checked,
+      task2: CheckboxState.Unchecked,
     };
     expect(getSelectAllCheckboxState(tasks, {}, false)).toStrictEqual(
-      CheckboxState.INDETERMINATE
+      CheckboxState.Indeterminate
     );
   });
   it("should return checked if all aliases are checked", () => {
     const aliases = {
-      alias1: CheckboxState.CHECKED,
-      alias2: CheckboxState.CHECKED,
+      alias1: CheckboxState.Checked,
+      alias2: CheckboxState.Checked,
     };
     expect(getSelectAllCheckboxState({}, aliases, false)).toStrictEqual(
-      CheckboxState.CHECKED
+      CheckboxState.Checked
     );
   });
   it("should return unchecked if all aliases are unchecked", () => {
     const aliases = {
-      alias1: CheckboxState.UNCHECKED,
-      alias2: CheckboxState.UNCHECKED,
+      alias1: CheckboxState.Unchecked,
+      alias2: CheckboxState.Unchecked,
     };
     expect(getSelectAllCheckboxState({}, aliases, false)).toStrictEqual(
-      CheckboxState.UNCHECKED
+      CheckboxState.Unchecked
     );
   });
   it("should return indeterminate if some aliases are checked", () => {
     const aliases = {
-      alias1: CheckboxState.CHECKED,
-      alias2: CheckboxState.UNCHECKED,
+      alias1: CheckboxState.Checked,
+      alias2: CheckboxState.Unchecked,
     };
     expect(getSelectAllCheckboxState({}, aliases, false)).toStrictEqual(
-      CheckboxState.INDETERMINATE
+      CheckboxState.Indeterminate
     );
   });
   it("should return checked if all tasks and aliases are checked", () => {
     const tasks = {
-      task1: CheckboxState.CHECKED,
-      task2: CheckboxState.CHECKED,
+      task1: CheckboxState.Checked,
+      task2: CheckboxState.Checked,
     };
     const aliases = {
-      alias1: CheckboxState.CHECKED,
-      alias2: CheckboxState.CHECKED,
+      alias1: CheckboxState.Checked,
+      alias2: CheckboxState.Checked,
     };
     expect(getSelectAllCheckboxState(tasks, aliases, false)).toStrictEqual(
-      CheckboxState.CHECKED
+      CheckboxState.Checked
     );
   });
   it("should return unchecked if all tasks and aliases are unchecked", () => {
     const tasks = {
-      task1: CheckboxState.UNCHECKED,
-      task2: CheckboxState.UNCHECKED,
+      task1: CheckboxState.Unchecked,
+      task2: CheckboxState.Unchecked,
     };
     const aliases = {
-      alias1: CheckboxState.UNCHECKED,
-      alias2: CheckboxState.UNCHECKED,
+      alias1: CheckboxState.Unchecked,
+      alias2: CheckboxState.Unchecked,
     };
     expect(getSelectAllCheckboxState(tasks, aliases, false)).toStrictEqual(
-      CheckboxState.UNCHECKED
+      CheckboxState.Unchecked
     );
   });
   it("should return indeterminate if some tasks and aliases are checked", () => {
     const tasks = {
-      task1: CheckboxState.CHECKED,
-      task2: CheckboxState.UNCHECKED,
+      task1: CheckboxState.Checked,
+      task2: CheckboxState.Unchecked,
     };
     const aliases = {
-      alias1: CheckboxState.CHECKED,
-      alias2: CheckboxState.UNCHECKED,
+      alias1: CheckboxState.Checked,
+      alias2: CheckboxState.Unchecked,
     };
     expect(getSelectAllCheckboxState(tasks, aliases, false)).toStrictEqual(
-      CheckboxState.INDETERMINATE
+      CheckboxState.Indeterminate
     );
   });
   it("should be checked by default if a child patch is selected", () => {
     const tasks = {
-      task1: CheckboxState.CHECKED,
-      task2: CheckboxState.UNCHECKED,
+      task1: CheckboxState.Checked,
+      task2: CheckboxState.Unchecked,
     };
     const aliases = {
-      alias1: CheckboxState.CHECKED,
-      alias2: CheckboxState.UNCHECKED,
+      alias1: CheckboxState.Checked,
+      alias2: CheckboxState.Unchecked,
     };
     expect(getSelectAllCheckboxState(tasks, aliases, true)).toStrictEqual(
-      CheckboxState.CHECKED
+      CheckboxState.Checked
     );
   });
 });
@@ -173,14 +173,14 @@ describe("getVisibleAliases", () => {
       alias2: false,
     };
     expect(getVisibleAliases(aliases, ["alias1"])).toStrictEqual({
-      alias1: CheckboxState.CHECKED,
+      alias1: CheckboxState.Checked,
     });
     aliases = {
       alias1: false,
       alias2: false,
     };
     expect(getVisibleAliases(aliases, ["alias1"])).toStrictEqual({
-      alias1: CheckboxState.UNCHECKED,
+      alias1: CheckboxState.Unchecked,
     });
   });
 });

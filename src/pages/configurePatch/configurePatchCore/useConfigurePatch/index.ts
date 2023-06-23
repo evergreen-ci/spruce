@@ -6,6 +6,7 @@ import { useTabShortcut } from "hooks/useTabShortcut";
 import { PatchTab } from "types/patch";
 import { queryString, string } from "utils";
 import { AliasState, VariantTasksState } from "./types";
+import { initializeAliasState, initializeTaskState } from "./utils";
 
 const { parseQueryString } = queryString;
 const { omitTypename } = string;

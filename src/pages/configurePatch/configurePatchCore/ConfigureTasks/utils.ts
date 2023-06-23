@@ -18,26 +18,26 @@ const deduplicateTasks = (
   currentTasks.forEach((bv) => {
     Object.entries(bv).forEach(([taskName, value]) => {
       switch (visibleTasks[taskName]) {
-        case CheckboxState.UNCHECKED:
-          // If a task is UNCHECKED and the next task of the same name is CHECKED it is INDETERMINATE
+        case CheckboxState.Unchecked:
+          // If a task is Unchecked and the next task of the same name is Checked it is Indeterminate
           visibleTasks[taskName] = value
-            ? CheckboxState.INDETERMINATE
-            : CheckboxState.UNCHECKED;
+            ? CheckboxState.Indeterminate
+            : CheckboxState.Unchecked;
           break;
-        case CheckboxState.CHECKED:
-          // If a task is CHECKED and the next task of the same name is UNCHECKED it is INDETERMINATE
+        case CheckboxState.Checked:
+          // If a task is Checked and the next task of the same name is Unchecked it is Indeterminate
           visibleTasks[taskName] = value
-            ? CheckboxState.CHECKED
-            : CheckboxState.INDETERMINATE;
+            ? CheckboxState.Checked
+            : CheckboxState.Indeterminate;
           break;
-        case CheckboxState.INDETERMINATE:
-          // If a task is INDETERMINATE because of previous task statuses
+        case CheckboxState.Indeterminate:
+          // If a task is Indeterminate because of previous task statuses
           // it wouldn't change when subsequent statuses are considered
           break;
         default:
           visibleTasks[taskName] = value
-            ? CheckboxState.CHECKED
-            : CheckboxState.UNCHECKED;
+            ? CheckboxState.Checked
+            : CheckboxState.Unchecked;
           break;
       }
     });
@@ -51,11 +51,11 @@ const deduplicateTasks = (
  * @param aliases - an object containing the current state of the aliases
  * @param shouldShowChildPatchTasks - a boolean indicating whether the child patch tasks should be shown
  * @returns - the state of the select all checkbox
- * - The select all checkbox is checked if all tasks and aliases are checked
- * - The select all checkbox is unchecked if all tasks and aliases are unchecked
- * - The select all checkbox is indeterminate if some tasks and aliases are checked
- * - The select all checkbox is checked by default if a child patch is selected
- * - The select all checkbox is checked if all aliases are checked and the child patch tasks are shown
+ * - The select all checkbox is Checked if all tasks and aliases are Checked
+ * - The select all checkbox is Unchecked if all tasks and aliases are Unchecked
+ * - The select all checkbox is Indeterminate if some tasks and aliases are checked
+ * - The select all checkbox is Checked by default if a child patch is selected
+ * - The select all checkbox is Checked if all aliases are Checked and the child patch tasks are shown
  */
 const getSelectAllCheckboxState = (
   buildVariants: {
@@ -67,7 +67,7 @@ const getSelectAllCheckboxState = (
   shouldShowChildPatchTasks: boolean
 ): CheckboxState => {
   if (shouldShowChildPatchTasks) {
-    return CheckboxState.CHECKED;
+    return CheckboxState.Checked;
   }
 
   let state: CheckboxState;
@@ -75,17 +75,17 @@ const getSelectAllCheckboxState = (
   const allAliasStatuses = Object.values(aliases);
 
   const hasSelectedTasks =
-    allTaskStatuses.includes(CheckboxState.CHECKED) ||
-    allAliasStatuses.includes(CheckboxState.CHECKED);
+    allTaskStatuses.includes(CheckboxState.Checked) ||
+    allAliasStatuses.includes(CheckboxState.Checked);
   const hasUnselectedTasks =
-    allTaskStatuses.includes(CheckboxState.UNCHECKED) ||
-    allAliasStatuses.includes(CheckboxState.UNCHECKED);
+    allTaskStatuses.includes(CheckboxState.Unchecked) ||
+    allAliasStatuses.includes(CheckboxState.Unchecked);
   if (hasSelectedTasks && !hasUnselectedTasks) {
-    state = CheckboxState.CHECKED;
+    state = CheckboxState.Checked;
   } else if (!hasSelectedTasks && hasUnselectedTasks) {
-    state = CheckboxState.UNCHECKED;
+    state = CheckboxState.Unchecked;
   } else {
-    state = CheckboxState.INDETERMINATE;
+    state = CheckboxState.Indeterminate;
   }
 
   return state;
@@ -105,8 +105,8 @@ const getVisibleAliases = (
   Object.entries(selectedAliases).forEach(([alias]) => {
     if (selectedBuildVariants.includes(alias)) {
       visiblePatches[alias] = selectedAliases[alias]
-        ? CheckboxState.CHECKED
-        : CheckboxState.UNCHECKED;
+        ? CheckboxState.Checked
+        : CheckboxState.Unchecked;
     }
   });
   return visiblePatches;
@@ -134,9 +134,9 @@ const getVisibleChildPatches = (
 };
 
 /**
- * `isCheckboxIndeterminate` takes the state of the checkbox and returns a boolean indicating whether the checkbox is indeterminate
+ * `isCheckboxIndeterminate` takes the state of the checkbox and returns a boolean indicating whether the checkbox is Indeterminate
  * @param state - the state of the checkbox
- * @returns - a boolean indicating whether the checkbox is indeterminate
+ * @returns - a boolean indicating whether the checkbox is Indeterminate
  */
 const isCheckboxIndeterminate = (state: CheckboxState): boolean =>
   state === CheckboxState.Indeterminate;
