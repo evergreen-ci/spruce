@@ -195,6 +195,15 @@ describe("getSelectAllCheckboxState", () => {
       CheckboxState.Checked
     );
   });
+  it("should be checked if all tasks are checked and there are some disabled indeterminate tasks", () => {
+    const tasks = {
+      task1: CheckboxState.DisabledIndeterminate,
+      task2: CheckboxState.Checked,
+    };
+    expect(getSelectAllCheckboxState(tasks, {}, false)).toStrictEqual(
+      CheckboxState.Checked
+    );
+  });
 });
 
 describe("getVisibleAliases", () => {

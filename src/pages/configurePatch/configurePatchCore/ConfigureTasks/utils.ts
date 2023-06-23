@@ -100,11 +100,11 @@ const getSelectAllCheckboxState = (
     allAliasStatuses.some((s) => isCheckboxChecked(s));
 
   const hasUnselectedTasks =
-    allTaskStatuses.some((s) => !isCheckboxChecked(s)) ||
-    allAliasStatuses.some((s) => !isCheckboxChecked(s));
+    allTaskStatuses.some((s) => isCheckboxUnchecked(s)) ||
+    allAliasStatuses.some((s) => isCheckboxUnchecked(s));
 
-  const hasIndeterminateTasks = allTaskStatuses.some((s) =>
-    isCheckboxIndeterminate(s)
+  const hasIndeterminateTasks = allTaskStatuses.some(
+    (s) => s === CheckboxState.Indeterminate
   );
 
   if (hasIndeterminateTasks || (hasSelectedTasks && hasUnselectedTasks)) {
@@ -185,9 +185,13 @@ const isCheckboxIndeterminate = (state: CheckboxState): boolean =>
 const isCheckboxChecked = (state: CheckboxState): boolean =>
   state === CheckboxState.Checked || state === CheckboxState.DisabledChecked;
 
+const isCheckboxUnchecked = (state: CheckboxState): boolean =>
+  state === CheckboxState.Unchecked;
+
 export {
   isCheckboxDisabled,
   isCheckboxChecked,
+  isCheckboxUnchecked,
   isCheckboxIndeterminate,
   deduplicateTasks,
   getSelectAllCheckboxState,
