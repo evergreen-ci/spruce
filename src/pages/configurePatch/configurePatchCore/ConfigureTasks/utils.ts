@@ -1,8 +1,12 @@
 import { AliasState, ChildPatchAliased } from "hooks/useConfigurePatch";
 import { CheckboxState } from "./types";
 
+type TaskState = {
+  checkboxState: CheckboxState;
+  disabled: boolean;
+};
 interface DeduplicateTasksResult {
-  [task: string]: CheckboxState;
+  [task: string]: TaskState;
 }
 /**
  * `deduplicateTasks` takes an array of objects containing the tasks for each build variant
@@ -17,16 +21,16 @@ const deduplicateTasks = (
   const visibleTasks: DeduplicateTasksResult = {};
   currentTasks.forEach((bv) => {
     Object.entries(bv).forEach(([taskName, value]) => {
-      switch (visibleTasks[taskName]) {
+      switch (visibleTasks[taskName]?.checkboxState) {
         case CheckboxState.Unchecked:
           // If a task is Unchecked and the next task of the same name is Checked it is Indeterminate
-          visibleTasks[taskName] = value
+          visibleTasks[taskName].checkboxState = value
             ? CheckboxState.Indeterminate
             : CheckboxState.Unchecked;
           break;
         case CheckboxState.Checked:
           // If a task is Checked and the next task of the same name is Unchecked it is Indeterminate
-          visibleTasks[taskName] = value
+          visibleTasks[taskName].checkboxState = value
             ? CheckboxState.Checked
             : CheckboxState.Indeterminate;
           break;
@@ -35,9 +39,12 @@ const deduplicateTasks = (
           // it wouldn't change when subsequent statuses are considered
           break;
         default:
-          visibleTasks[taskName] = value
-            ? CheckboxState.Checked
-            : CheckboxState.Unchecked;
+          visibleTasks[taskName] = {
+            checkboxState: value
+              ? CheckboxState.Checked
+              : CheckboxState.Unchecked,
+            disabled: false,
+          };
           break;
       }
     });
@@ -59,7 +66,7 @@ const deduplicateTasks = (
  */
 const getSelectAllCheckboxState = (
   buildVariants: {
-    [task: string]: CheckboxState;
+    [task: string]: TaskState;
   },
   aliases: {
     [alias: string]: CheckboxState;
@@ -75,11 +82,12 @@ const getSelectAllCheckboxState = (
   const allAliasStatuses = Object.values(aliases);
 
   const hasSelectedTasks =
-    allTaskStatuses.includes(CheckboxState.Checked) ||
+    allTaskStatuses.some((t) => isTaskCheckboxChecked(t)) ||
     allAliasStatuses.includes(CheckboxState.Checked);
   const hasUnselectedTasks =
-    allTaskStatuses.includes(CheckboxState.Unchecked) ||
+    allTaskStatuses.some((t) => isTaskCheckboxUnchecked(t)) ||
     allAliasStatuses.includes(CheckboxState.Unchecked);
+
   if (hasSelectedTasks && !hasUnselectedTasks) {
     state = CheckboxState.Checked;
   } else if (!hasSelectedTasks && hasUnselectedTasks) {
@@ -134,24 +142,40 @@ const getVisibleChildPatches = (
 };
 
 /**
- * `isCheckboxIndeterminate` takes the state of the checkbox and returns a boolean indicating whether the checkbox is Indeterminate
- * @param state - the state of the checkbox
+ * `isTaskCheckboxIndeterminate` takes the state of the checkbox and returns a boolean indicating whether the checkbox is Indeterminate
+ * @param task - the state of the checkbox
  * @returns - a boolean indicating whether the checkbox is Indeterminate
  */
-const isCheckboxIndeterminate = (state: CheckboxState): boolean =>
-  state === CheckboxState.Indeterminate;
+const isTaskCheckboxIndeterminate = (task: TaskState): boolean =>
+  task.checkboxState === CheckboxState.Indeterminate;
 
 /**
- * `isCheckboxChecked` takes the state of the checkbox and returns a boolean indicating whether the checkbox is checked
- * @param state - the state of the checkbox
+ * `isTaskCheckboxChecked` takes the state of the checkbox and returns a boolean indicating whether the checkbox is checked
+ * @param task - the state of the checkbox
  * @returns - a boolean indicating whether the checkbox is checked
  */
-const isCheckboxChecked = (state: CheckboxState): boolean =>
-  state === CheckboxState.Checked;
+const isTaskCheckboxChecked = (task: TaskState): boolean =>
+  task.checkboxState === CheckboxState.Checked;
+
+/**
+ * `isTaskCheckboxUnchecked` takes the state of the checkbox and returns a boolean indicating whether the checkbox is checked
+ * @param task - the state of the checkbox
+ * @returns - a boolean indicating whether the checkbox is checked
+ */
+const isTaskCheckboxUnchecked = (task: TaskState): boolean =>
+  task.checkboxState === CheckboxState.Unchecked;
+
+/**
+ * `isTaskCheckboxDisabled` takes the state of the checkbox and returns a boolean indicating whether the checkbox is disabled
+ * @param task - the state of the checkbox
+ * @returns - a boolean indicating whether the checkbox is disabled
+ */
+const isTaskCheckboxDisabled = (task: TaskState): boolean => task.disabled;
 
 export {
-  isCheckboxChecked,
-  isCheckboxIndeterminate,
+  isTaskCheckboxIndeterminate,
+  isTaskCheckboxChecked,
+  isTaskCheckboxDisabled,
   deduplicateTasks,
   getSelectAllCheckboxState,
   getVisibleAliases,

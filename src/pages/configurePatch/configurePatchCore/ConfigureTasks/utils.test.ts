@@ -10,8 +10,14 @@ describe("deduplicateTasks", () => {
   it("should print all tasks for one variant", () => {
     const tasks = [{ task1: false, task2: false }];
     expect(deduplicateTasks(tasks)).toStrictEqual({
-      task1: CheckboxState.Unchecked,
-      task2: CheckboxState.Unchecked,
+      task1: {
+        checkboxState: CheckboxState.Unchecked,
+        disabled: false,
+      },
+      task2: {
+        checkboxState: CheckboxState.Unchecked,
+        disabled: false,
+      },
     });
   });
   it("should print all tasks for multiple variants", () => {
@@ -20,10 +26,22 @@ describe("deduplicateTasks", () => {
       { task3: false, task4: true },
     ];
     expect(deduplicateTasks(tasks)).toStrictEqual({
-      task1: CheckboxState.Unchecked,
-      task2: CheckboxState.Unchecked,
-      task3: CheckboxState.Unchecked,
-      task4: CheckboxState.Checked,
+      task1: {
+        checkboxState: CheckboxState.Unchecked,
+        disabled: false,
+      },
+      task2: {
+        checkboxState: CheckboxState.Unchecked,
+        disabled: false,
+      },
+      task3: {
+        checkboxState: CheckboxState.Unchecked,
+        disabled: false,
+      },
+      task4: {
+        checkboxState: CheckboxState.Checked,
+        disabled: false,
+      },
     });
   });
   it("should deduplicate tasks across multiple variants", () => {
@@ -32,9 +50,18 @@ describe("deduplicateTasks", () => {
       { task2: false, task3: false },
     ];
     expect(deduplicateTasks(tasks)).toStrictEqual({
-      task1: CheckboxState.Unchecked,
-      task2: CheckboxState.Unchecked,
-      task3: CheckboxState.Unchecked,
+      task1: {
+        checkboxState: CheckboxState.Unchecked,
+        disabled: false,
+      },
+      task2: {
+        checkboxState: CheckboxState.Unchecked,
+        disabled: false,
+      },
+      task3: {
+        checkboxState: CheckboxState.Unchecked,
+        disabled: false,
+      },
     });
   });
   it("should deduplicate tasks across multiple variants with different states", () => {
@@ -43,9 +70,18 @@ describe("deduplicateTasks", () => {
       { task2: true, task3: false },
     ];
     expect(deduplicateTasks(tasks)).toStrictEqual({
-      task1: CheckboxState.Unchecked,
-      task2: CheckboxState.Indeterminate,
-      task3: CheckboxState.Unchecked,
+      task1: {
+        checkboxState: CheckboxState.Unchecked,
+        disabled: false,
+      },
+      task2: {
+        checkboxState: CheckboxState.Indeterminate,
+        disabled: false,
+      },
+      task3: {
+        checkboxState: CheckboxState.Unchecked,
+        disabled: false,
+      },
     });
   });
 });
@@ -53,8 +89,11 @@ describe("deduplicateTasks", () => {
 describe("getSelectAllCheckboxState", () => {
   it("should return checked if all tasks are checked", () => {
     const tasks = {
-      task1: CheckboxState.Checked,
-      task2: CheckboxState.Checked,
+      task1: {
+        checkboxState: CheckboxState.Checked,
+        disabled: false,
+      },
+      task2: { checkboxState: CheckboxState.Checked, disabled: false },
     };
     expect(getSelectAllCheckboxState(tasks, {}, false)).toStrictEqual(
       CheckboxState.Checked
@@ -62,8 +101,11 @@ describe("getSelectAllCheckboxState", () => {
   });
   it("should return unchecked if all tasks are unchecked", () => {
     const tasks = {
-      task1: CheckboxState.Unchecked,
-      task2: CheckboxState.Unchecked,
+      task1: {
+        checkboxState: CheckboxState.Unchecked,
+        disabled: false,
+      },
+      task2: { checkboxState: CheckboxState.Unchecked, disabled: false },
     };
     expect(getSelectAllCheckboxState(tasks, {}, false)).toStrictEqual(
       CheckboxState.Unchecked
@@ -71,8 +113,11 @@ describe("getSelectAllCheckboxState", () => {
   });
   it("should return indeterminate if some tasks are checked", () => {
     const tasks = {
-      task1: CheckboxState.Checked,
-      task2: CheckboxState.Unchecked,
+      task1: {
+        checkboxState: CheckboxState.Checked,
+        disabled: false,
+      },
+      task2: { checkboxState: CheckboxState.Indeterminate, disabled: false },
     };
     expect(getSelectAllCheckboxState(tasks, {}, false)).toStrictEqual(
       CheckboxState.Indeterminate
@@ -107,8 +152,14 @@ describe("getSelectAllCheckboxState", () => {
   });
   it("should return checked if all tasks and aliases are checked", () => {
     const tasks = {
-      task1: CheckboxState.Checked,
-      task2: CheckboxState.Checked,
+      task1: {
+        checkboxState: CheckboxState.Checked,
+        disabled: false,
+      },
+      task2: {
+        checkboxState: CheckboxState.Checked,
+        disabled: false,
+      },
     };
     const aliases = {
       alias1: CheckboxState.Checked,
@@ -120,8 +171,14 @@ describe("getSelectAllCheckboxState", () => {
   });
   it("should return unchecked if all tasks and aliases are unchecked", () => {
     const tasks = {
-      task1: CheckboxState.Unchecked,
-      task2: CheckboxState.Unchecked,
+      task1: {
+        checkboxState: CheckboxState.Unchecked,
+        disabled: false,
+      },
+      task2: {
+        checkboxState: CheckboxState.Unchecked,
+        disabled: false,
+      },
     };
     const aliases = {
       alias1: CheckboxState.Unchecked,
@@ -133,8 +190,14 @@ describe("getSelectAllCheckboxState", () => {
   });
   it("should return indeterminate if some tasks and aliases are checked", () => {
     const tasks = {
-      task1: CheckboxState.Checked,
-      task2: CheckboxState.Unchecked,
+      task1: {
+        checkboxState: CheckboxState.Unchecked,
+        disabled: false,
+      },
+      task2: {
+        checkboxState: CheckboxState.Checked,
+        disabled: false,
+      },
     };
     const aliases = {
       alias1: CheckboxState.Checked,
@@ -146,8 +209,14 @@ describe("getSelectAllCheckboxState", () => {
   });
   it("should be checked by default if a child patch is selected", () => {
     const tasks = {
-      task1: CheckboxState.Checked,
-      task2: CheckboxState.Unchecked,
+      task1: {
+        checkboxState: CheckboxState.Checked,
+        disabled: false,
+      },
+      task2: {
+        checkboxState: CheckboxState.Unchecked,
+        disabled: false,
+      },
     };
     const aliases = {
       alias1: CheckboxState.Checked,
