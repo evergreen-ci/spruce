@@ -195,7 +195,7 @@ const ConfigureTasks: React.VFC<Props> = ({
         </LoadingButton>
         <InlineCheckbox
           data-cy="select-all-checkbox"
-          indeterminate={selectAllCheckboxState === CheckboxState.Indeterminate}
+          indeterminate={isCheckboxIndeterminate(selectAllCheckboxState)}
           onChange={onClickSelectAll}
           label={
             <div style={{ display: "flex", alignItems: "center" }}>

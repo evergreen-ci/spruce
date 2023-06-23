@@ -92,25 +92,32 @@ const getSelectAllCheckboxState = (
     return CheckboxState.Checked;
   }
 
-  let state: CheckboxState;
   const allTaskStatuses = Object.values(buildVariants);
   const allAliasStatuses = Object.values(aliases);
 
   const hasSelectedTasks =
-    allTaskStatuses.includes(CheckboxState.Checked) ||
-    allAliasStatuses.includes(CheckboxState.Checked);
-  const hasUnselectedTasks =
-    allTaskStatuses.includes(CheckboxState.Unchecked) ||
-    allAliasStatuses.includes(CheckboxState.Unchecked);
-  if (hasSelectedTasks && !hasUnselectedTasks) {
-    state = CheckboxState.Checked;
-  } else if (!hasSelectedTasks && hasUnselectedTasks) {
-    state = CheckboxState.Unchecked;
-  } else {
-    state = CheckboxState.Indeterminate;
-  }
+    allTaskStatuses.some((s) => isCheckboxChecked(s)) ||
+    allAliasStatuses.some((s) => isCheckboxChecked(s));
 
-  return state;
+  const hasUnselectedTasks =
+    allTaskStatuses.some((s) => !isCheckboxChecked(s)) ||
+    allAliasStatuses.some((s) => !isCheckboxChecked(s));
+
+  const hasIndeterminateTasks = allTaskStatuses.some((s) =>
+    isCheckboxIndeterminate(s)
+  );
+
+  console.log({ hasSelectedTasks, hasUnselectedTasks, hasIndeterminateTasks });
+
+  if (hasIndeterminateTasks || (hasSelectedTasks && hasUnselectedTasks)) {
+    return CheckboxState.Indeterminate;
+  }
+  if (hasSelectedTasks && !hasUnselectedTasks) {
+    return CheckboxState.Checked;
+  }
+  if (hasUnselectedTasks && !hasSelectedTasks) {
+    return CheckboxState.Unchecked;
+  }
 };
 
 /**
