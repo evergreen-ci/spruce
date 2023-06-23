@@ -33,7 +33,7 @@ export const ContainersTab: React.VFC<TabProps> = ({
 
   return (
     <>
-      <Banner data-cy="disabled-webhook-banner" variant="warning">
+      <Banner variant="warning">
         Running tasks on containers is currently in beta, and is only available
         to a select group of initial candidates. If you have any questions about
         container tasks or are interested in exploring how this feature could
