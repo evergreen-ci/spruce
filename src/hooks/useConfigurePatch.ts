@@ -64,7 +64,9 @@ const reducer = (state: ConfigurePatchState, action: Action) => {
     case "setSelectedBuildVariants":
       return {
         ...state,
-        selectedBuildVariants: action.buildVariants,
+        selectedBuildVariants: action.buildVariants.sort((a, b) =>
+          b.localeCompare(a)
+        ),
       };
     case "setSelectedBuildVariantTasks":
       return {
@@ -188,11 +190,11 @@ export const useConfigurePatch = (
     }
   }, [patch, variants]);
 
-  const setDescription = (description) =>
+  const setDescription = (description: string) =>
     dispatch({ type: "setDescription", description });
   const setSelectedBuildVariants = (buildVariants: string[]) =>
     dispatch({ type: "setSelectedBuildVariants", buildVariants });
-  const setSelectedBuildVariantTasks = (variantTasks) =>
+  const setSelectedBuildVariantTasks = (variantTasks: VariantTasksState) =>
     dispatch({
       type: "setSelectedBuildVariantTasks",
       variantTasks,
@@ -202,9 +204,9 @@ export const useConfigurePatch = (
       type: "setSelectedAliases",
       aliases,
     });
-  const setSelectedTab = (i) =>
+  const setSelectedTab = (i: number) =>
     dispatch({ type: "setSelectedTab", tabIndex: i });
-  const setPatchParams = (params) =>
+  const setPatchParams = (params: ParameterInput[]) =>
     dispatch({ type: "setPatchParams", params });
 
   useTabShortcut({
