@@ -47,8 +47,7 @@ const evergreenDeploy = async () => {
   }
 
   // Print all commits between the last tag and the current commit
-  console.log("Commit messages:");
-  console.log(commitMessages);
+  console.log("Commit messages:\n" + commitMessages);
 
   const response = await prompts({
     type: "confirm",
@@ -96,9 +95,9 @@ const localDeploy = async () => {
 };
 
 const deleteAndPushLatestTag = async () => {
-  const latestTag = await getLatestTag();
-  console.log("Deleting and re-pushing latest tag (" + latestTag + ")");
   try {
+    const latestTag = await getLatestTag();
+    console.log("Deleting and re-pushing latest tag (" + latestTag + ")");
     console.log(await deleteTag(latestTag));
     console.log(await pushTags());
   } catch (err) {

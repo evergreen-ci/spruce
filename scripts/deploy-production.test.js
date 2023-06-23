@@ -2,6 +2,16 @@ import prompts from "prompts";
 import { evergreenDeploy, localDeploy } from "./deploy-production";
 import deployUtils from "./deploy-utils";
 
+const createNewTagResolveValue = "createNewTagResolveValue";
+const deleteTagRejectedValue = new Error("deleteTagRejectedValue");
+const deleteTagResolveValue = "deleteTagResolveValue";
+const getCommitMessagesResolveValue = "getCommitMessagesResolveValue";
+const getLatestTagResolveValue = "getLatestTagResolveValue";
+const pushTagsRejectValue = new Error("pushTagsRejectValue");
+const pushTagsResolveValue = "pushTagsResolveValue";
+const runLocalDeployRejectValue = "runLocalDeployRejectValue";
+const runLocalDeployResolveValue = "runLocalDeployResolveValue";
+
 jest.mock("./deploy-utils");
 jest.mock("prompts");
 
@@ -38,31 +48,33 @@ describe("evergreen deploy", () => {
     jest.spyOn(deployUtils, "isWorkingDirectoryClean").mockResolvedValue(true);
     jest
       .spyOn(deployUtils, "getCommitMessages")
-      .mockResolvedValue("new commit messages");
+      .mockResolvedValue(getCommitMessagesResolveValue);
     prompts.mockReturnValue({ value: true });
     jest
       .spyOn(deployUtils, "createNewTag")
-      .mockResolvedValue("<yarn version goes here>");
+      .mockResolvedValue(createNewTagResolveValue);
 
     await expect(evergreenDeploy()).resolves.toBeUndefined();
-    expect(console.log).toHaveBeenNthCalledWith(1, "Commit messages:");
-    expect(console.log).toHaveBeenNthCalledWith(2, "new commit messages");
+    expect(console.log).toHaveBeenNthCalledWith(
+      1,
+      "Commit messages:\ngetCommitMessagesResolveValue"
+    );
 
     expect(prompts).toHaveBeenCalledWith({
       message: "Are you sure you want to deploy to production?",
       name: "value",
       type: "confirm",
     });
-    expect(console.log).toHaveBeenNthCalledWith(3, "<yarn version goes here>");
+    expect(console.log).toHaveBeenNthCalledWith(2, createNewTagResolveValue);
     expect(console.log).toHaveBeenNthCalledWith(
-      4,
+      3,
       "Pushed to remote. Should be deploying soon..."
     );
     expect(console.log).toHaveBeenNthCalledWith(
-      5,
+      4,
       "Track deploy progress at https://spruce.mongodb.com/commits/spruce?requester=git_tag_request"
     );
-    expect(console.log).toHaveBeenCalledTimes(5);
+    expect(console.log).toHaveBeenCalledTimes(4);
   });
 
   it("terminates if user cancels when commits are found", async () => {
@@ -70,19 +82,21 @@ describe("evergreen deploy", () => {
     jest.spyOn(deployUtils, "isWorkingDirectoryClean").mockResolvedValue(true);
     jest
       .spyOn(deployUtils, "getCommitMessages")
-      .mockResolvedValue("new commit messages");
+      .mockResolvedValue(getCommitMessagesResolveValue);
     prompts.mockReturnValue({ value: false });
 
     await expect(evergreenDeploy()).resolves.toBeUndefined();
-    expect(console.log).toHaveBeenNthCalledWith(1, "Commit messages:");
-    expect(console.log).toHaveBeenNthCalledWith(2, "new commit messages");
+    expect(console.log).toHaveBeenNthCalledWith(
+      1,
+      "Commit messages:\ngetCommitMessagesResolveValue"
+    );
 
     expect(prompts).toHaveBeenCalledWith({
       message: "Are you sure you want to deploy to production?",
       name: "value",
       type: "confirm",
     });
-    expect(console.log).toHaveBeenCalledTimes(2);
+    expect(console.log).toHaveBeenCalledTimes(1);
     expect(deployUtils.createNewTag).not.toHaveBeenCalled();
   });
 
@@ -117,13 +131,15 @@ describe("evergreen deploy", () => {
 
     it("deletes and pushes tag if no commits found", async () => {
       prompts.mockReturnValue({ value: true });
-      jest.spyOn(deployUtils, "getLatestTag").mockResolvedValue("v0.0.0");
+      jest
+        .spyOn(deployUtils, "getLatestTag")
+        .mockResolvedValue(getLatestTagResolveValue);
       jest
         .spyOn(deployUtils, "deleteTag")
-        .mockResolvedValue("git push --delete remote v0.0.0");
+        .mockResolvedValue(deleteTagResolveValue);
       jest
         .spyOn(deployUtils, "pushTags")
-        .mockResolvedValue("git push --tags remote");
+        .mockResolvedValue(pushTagsResolveValue);
 
       await expect(evergreenDeploy()).resolves.toBeUndefined();
       expect(deployUtils.getCommitMessages).toHaveBeenCalledWith();
@@ -135,25 +151,27 @@ describe("evergreen deploy", () => {
         type: "confirm",
       });
       expect(console.log).toHaveBeenCalledWith(
-        "Deleting and re-pushing latest tag (v0.0.0)"
+        "Deleting and re-pushing latest tag (getLatestTagResolveValue)"
       );
       expect(deployUtils.getLatestTag).toHaveBeenCalledTimes(1);
-      expect(deployUtils.deleteTag).toHaveBeenCalledWith("v0.0.0");
-      expect(console.log).toHaveBeenCalledWith(
-        "git push --delete remote v0.0.0"
+      expect(deployUtils.deleteTag).toHaveBeenCalledWith(
+        getLatestTagResolveValue
       );
+      expect(console.log).toHaveBeenCalledWith(deleteTagResolveValue);
       expect(deployUtils.pushTags).toHaveBeenCalledWith();
-      expect(console.log).toHaveBeenCalledWith("git push --tags remote");
+      expect(console.log).toHaveBeenCalledWith(pushTagsResolveValue);
       expect(console.log).toHaveBeenCalledTimes(3);
     });
 
     it("aborts if deleting tag fails", async () => {
       jest.spyOn(console, "error").mockImplementation();
       prompts.mockReturnValue({ value: true });
-      jest.spyOn(deployUtils, "getLatestTag").mockResolvedValue("v0.0.0");
+      jest
+        .spyOn(deployUtils, "getLatestTag")
+        .mockResolvedValue(getLatestTagResolveValue);
       jest
         .spyOn(deployUtils, "deleteTag")
-        .mockRejectedValue(new Error("GitHub could not be reached"));
+        .mockRejectedValue(deleteTagRejectedValue);
 
       await expect(evergreenDeploy()).resolves.toBeUndefined();
       expect(deployUtils.getCommitMessages).toHaveBeenCalledWith();
@@ -165,13 +183,13 @@ describe("evergreen deploy", () => {
         type: "confirm",
       });
       expect(console.log).toHaveBeenCalledWith(
-        "Deleting and re-pushing latest tag (v0.0.0)"
+        "Deleting and re-pushing latest tag (getLatestTagResolveValue)"
       );
       expect(deployUtils.getLatestTag).toHaveBeenCalledTimes(1);
-      expect(deployUtils.deleteTag).toHaveBeenCalledWith("v0.0.0");
-      expect(console.error).toHaveBeenCalledWith(
-        new Error("GitHub could not be reached")
+      expect(deployUtils.deleteTag).toHaveBeenCalledWith(
+        getLatestTagResolveValue
       );
+      expect(console.error).toHaveBeenCalledWith(deleteTagRejectedValue);
       expect(console.error).toHaveBeenCalledWith(
         "Deleting and pushing tag failed. Aborting."
       );
@@ -182,13 +200,15 @@ describe("evergreen deploy", () => {
     it("aborts if pushing tag fails", async () => {
       jest.spyOn(console, "error").mockImplementation();
       prompts.mockReturnValue({ value: true });
-      jest.spyOn(deployUtils, "getLatestTag").mockResolvedValue("v0.0.0");
+      jest
+        .spyOn(deployUtils, "getLatestTag")
+        .mockResolvedValue(getLatestTagResolveValue);
       jest
         .spyOn(deployUtils, "deleteTag")
-        .mockResolvedValue("git push --delete remote v0.0.0");
+        .mockResolvedValue(deleteTagResolveValue);
       jest
         .spyOn(deployUtils, "pushTags")
-        .mockRejectedValue(new Error("Conflict pushing tags"));
+        .mockRejectedValue(pushTagsRejectValue);
 
       await expect(evergreenDeploy()).resolves.toBeUndefined();
       expect(deployUtils.getCommitMessages).toHaveBeenCalledWith();
@@ -200,18 +220,15 @@ describe("evergreen deploy", () => {
         type: "confirm",
       });
       expect(console.log).toHaveBeenCalledWith(
-        "Deleting and re-pushing latest tag (v0.0.0)"
+        "Deleting and re-pushing latest tag (getLatestTagResolveValue)"
       );
       expect(deployUtils.getLatestTag).toHaveBeenCalledTimes(1);
-      expect(deployUtils.deleteTag).toHaveBeenCalledWith("v0.0.0");
-      expect(console.log).toHaveBeenCalledWith(
-        "git push --delete remote v0.0.0"
+      expect(deployUtils.deleteTag).toHaveBeenCalledWith(
+        getLatestTagResolveValue
       );
+      expect(console.log).toHaveBeenCalledWith(deleteTagResolveValue);
       expect(deployUtils.pushTags).toHaveBeenCalledWith();
-      expect(console.error).toHaveBeenNthCalledWith(
-        1,
-        new Error("Conflict pushing tags")
-      );
+      expect(console.error).toHaveBeenNthCalledWith(1, pushTagsRejectValue);
       expect(console.error).toHaveBeenNthCalledWith(
         2,
         "Deleting and pushing tag failed. Aborting."
@@ -249,7 +266,7 @@ describe("local deploy", () => {
     prompts.mockReturnValue({ value: true });
     jest
       .spyOn(deployUtils, "runLocalDeploy")
-      .mockResolvedValue("yarn command to build locally and push to S3");
+      .mockResolvedValue(runLocalDeployResolveValue);
 
     await expect(localDeploy()).resolves.toBeUndefined();
     expect(prompts).toHaveBeenCalledWith({
@@ -258,9 +275,7 @@ describe("local deploy", () => {
       name: "value",
       type: "confirm",
     });
-    expect(console.log).toHaveBeenCalledWith(
-      "yarn command to build locally and push to S3"
-    );
+    expect(console.log).toHaveBeenCalledWith(runLocalDeployResolveValue);
     expect(console.log).toHaveBeenCalledTimes(1);
   });
 
@@ -269,7 +284,7 @@ describe("local deploy", () => {
     prompts.mockReturnValue({ value: true });
     jest
       .spyOn(deployUtils, "runLocalDeploy")
-      .mockRejectedValue("yarn failed local build");
+      .mockRejectedValue(runLocalDeployRejectValue);
 
     await expect(localDeploy()).resolves.toBeUndefined();
     expect(prompts).toHaveBeenCalledWith({
@@ -278,7 +293,7 @@ describe("local deploy", () => {
       name: "value",
       type: "confirm",
     });
-    expect(console.error).toHaveBeenCalledWith("yarn failed local build");
+    expect(console.error).toHaveBeenCalledWith(runLocalDeployRejectValue);
     expect(console.error).toHaveBeenCalledWith(
       "Local deploy failed. Aborting."
     );
