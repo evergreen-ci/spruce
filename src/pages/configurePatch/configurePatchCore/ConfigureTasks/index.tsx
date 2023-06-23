@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, BodyProps, Disclaimer } from "@leafygreen-ui/typography";
-import every from "lodash.every";
 import pluralize from "pluralize";
 import { LoadingButton } from "components/Buttons";
 import Icon from "components/Icon";
@@ -63,15 +62,19 @@ const ConfigureTasks: React.VFC<Props> = ({
   );
   const childPatchCount = childPatches?.length || 0;
   const downstreamTaskCount = aliasCount + childPatchCount;
-  const buildVariantCount = Object.values(selectedBuildVariantTasks).reduce(
-    (count, taskOb) =>
+
+  const totalSelectedBuildVariantCount = Object.values(
+    selectedBuildVariantTasks
+  ).reduce(
+    (count, tasks) =>
       count +
-      (every(Object.values(taskOb), (isSelected: boolean) => !isSelected)
-        ? 0
-        : 1),
+      (Object.values(tasks).some((isSelected: boolean) => isSelected) ? 1 : 0),
     0
   );
-  const taskCount = Object.values(selectedBuildVariantTasks).reduce(
+
+  const totalSelectedTaskCount = Object.values(
+    selectedBuildVariantTasks
+  ).reduce(
     (count, taskObj) => count + Object.values(taskObj).filter((v) => v).length,
     0
   );
@@ -104,9 +107,11 @@ const ConfigureTasks: React.VFC<Props> = ({
     selectedAliases,
     selectedBuildVariants
   );
+
   const currentAliasTasks = selectableAliases.filter(({ alias }) =>
     selectedBuildVariants.includes(alias)
   );
+
   const currentChildPatches = getVisibleChildPatches(
     childPatches,
     selectedBuildVariants
@@ -130,6 +135,7 @@ const ConfigureTasks: React.VFC<Props> = ({
     (taskName: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
       const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
       const selectedAliasesCopy = { ...selectedAliases };
+
       selectedBuildVariants.forEach((v) => {
         if (selectedBuildVariantsCopy?.[v]?.[taskName] !== undefined) {
           selectedBuildVariantsCopy[v][taskName] = e.target.checked;
@@ -137,6 +143,7 @@ const ConfigureTasks: React.VFC<Props> = ({
           selectedAliasesCopy[v] = e.target.checked;
         }
       });
+
       setSelectedBuildVariantTasks(selectedBuildVariantsCopy);
       setSelectedAliases(selectedAliasesCopy);
     };
@@ -173,12 +180,12 @@ const ConfigureTasks: React.VFC<Props> = ({
           selectedBuildVariants.length
         )} ${pluralize("variant", selectedBuildVariants.length)}`;
 
-  const selectedTaskDisclaimerCopy = `${taskCount} ${pluralize(
+  const selectedTaskDisclaimerCopy = `${totalSelectedTaskCount} ${pluralize(
     "task",
-    taskCount
-  )} across ${buildVariantCount} build ${pluralize(
+    totalSelectedTaskCount
+  )} across ${totalSelectedBuildVariantCount} build ${pluralize(
     "variant",
-    buildVariantCount
+    totalSelectedBuildVariantCount
   )}, ${downstreamTaskCount} trigger ${pluralize("alias", aliasCount)}`;
 
   return (
@@ -188,7 +195,9 @@ const ConfigureTasks: React.VFC<Props> = ({
           data-cy="schedule-patch"
           variant="primary"
           onClick={onClickSchedule}
-          disabled={(taskCount === 0 && aliasCount === 0) || loading}
+          disabled={
+            (totalSelectedTaskCount === 0 && aliasCount === 0) || loading
+          }
           loading={loading}
         >
           Schedule
