@@ -139,7 +139,16 @@ const ConfigureTasks: React.VFC<Props> = ({
     selectedBuildVariants.forEach((v) => {
       if (selectedBuildVariantsCopy?.[v] !== undefined) {
         Object.keys(selectedBuildVariantsCopy[v]).forEach((task) => {
-          selectedBuildVariantsCopy[v][task] = e.target.checked;
+          if (!visibleTasks[task].disabled) {
+            selectedBuildVariantsCopy[v][task] = e.target.checked;
+          } else {
+            const taskExists = activatedVariants
+              .find((vt) => vt.name === v)
+              ?.tasks?.find((t) => t === task);
+            if (taskExists === undefined) {
+              selectedBuildVariantsCopy[v][task] = e.target.checked;
+            }
+          }
         });
       } else if (selectedAliasesCopy?.[v] !== undefined) {
         selectedAliasesCopy[v] = e.target.checked;
@@ -230,10 +239,30 @@ const ConfigureTasks: React.VFC<Props> = ({
             data-cy="task-checkbox"
             key={name}
             onChange={onClickCheckbox(name)}
-            label={name}
+            label={
+              <LabelContainer>
+                {name}{" "}
+                {isTaskCheckboxDisabled(state) && (
+                  <Tooltip
+                    justify="middle"
+                    triggerEvent="hover"
+                    trigger={
+                      <IconContainer>
+                        <Icon glyph="InfoWithCircle" />
+                      </IconContainer>
+                    }
+                  >
+                    This task has been activated and cannot be edited.
+                  </Tooltip>
+                )}
+              </LabelContainer>
+            }
             indeterminate={isTaskCheckboxIndeterminate(state)}
             checked={isTaskCheckboxChecked(state)}
-            disabled={isTaskCheckboxDisabled(state)}
+            disabled={
+              !isTaskCheckboxIndeterminate(state) &&
+              isTaskCheckboxDisabled(state)
+            }
           />
         ))}
       </TaskLayoutGrid>
@@ -296,6 +325,11 @@ const Actions = styled.div`
   }
 `;
 
+const LabelContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 const StyledDisclaimer = styled(Disclaimer)`
   margin-bottom: ${size.xs};
 `;
