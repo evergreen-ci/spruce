@@ -8,10 +8,8 @@ const {
   isOnMainBranch,
   isWorkingDirectoryClean,
   pushTags,
+  runLocalDeploy,
 } = require("./deploy-utils");
-
-const localDeployScript =
-  "yarn build:prod && env-cmd -e production yarn deploy:do-not-use && env-cmd -e production ./scripts/email.sh";
 
 /* Deploy by pushing a git tag, to be picked up and pushed to S3 by Evergreen. */
 const evergreenDeploy = async () => {
@@ -74,6 +72,27 @@ const evergreenDeploy = async () => {
   return;
 };
 
+const localDeploy = async () => {
+  const response = await prompts({
+    type: "confirm",
+    name: "value",
+    message:
+      "Are you sure you'd like to build Spruce locally and push directly to S3?",
+  });
+
+  if (response.value) {
+    try {
+      const localDeployOutput = await runLocalDeploy();
+      console.log(localDeployOutput);
+    } catch (err) {
+      console.error(err);
+      console.error("Local deploy failed. Aborting.");
+    }
+  }
+
+  return;
+};
+
 const deleteAndPushLatestTag = async () => {
   const latestTag = await getLatestTag();
   console.log("Deleting and re-pushing latest tag (" + latestTag + ")");
@@ -87,4 +106,4 @@ const deleteAndPushLatestTag = async () => {
   return;
 };
 
-module.exports = { evergreenDeploy };
+module.exports = { evergreenDeploy, localDeploy };

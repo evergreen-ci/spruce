@@ -1,6 +1,8 @@
 const { exec } = require("child_process");
 
 const githubRemote = "https://github.com/evergreen-ci/spruce";
+const localDeployScript =
+  "yarn build:prod && env-cmd -e production yarn deploy:do-not-use && env-cmd -e production ./scripts/email.sh";
 
 const createNewTag = () =>
   new Promise((resolve, reject) => {
@@ -103,4 +105,5 @@ module.exports = {
   isOnMainBranch,
   isWorkingDirectoryClean,
   pushTags,
+  runLocalDeploy,
 };
