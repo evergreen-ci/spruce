@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import Banner from "@leafygreen-ui/banner";
 import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { useSpruceConfig } from "hooks";
@@ -31,12 +32,20 @@ export const ContainersTab: React.VFC<TabProps> = ({
   if (!formData || !ecs) return null;
 
   return (
-    <SpruceForm
-      fields={fields}
-      formData={formData}
-      onChange={onChange}
-      schema={schema}
-      uiSchema={uiSchema}
-    />
+    <>
+      <Banner variant="warning">
+        Running tasks on containers is currently in beta, and is only available
+        to a select group of initial candidates. If you have any questions about
+        container tasks or are interested in exploring how this feature could
+        benefit your project, please reach out to us in #evergreen-users
+      </Banner>
+      <SpruceForm
+        fields={fields}
+        formData={formData}
+        onChange={onChange}
+        schema={schema}
+        uiSchema={uiSchema}
+      />
+    </>
   );
 };
