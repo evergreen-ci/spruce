@@ -265,3 +265,5 @@ Run one of the following commands to deploy to the appropriate environment
 2. `yarn deploy:staging` = deploy to https://spruce-staging.corp.mongodb.com
 3. `yarn deploy:beta` = deploy to https://spruce-beta.corp.mongodb.com (Beta
    connects to the production backend)
+
+In case of emergency (i.e. Evergreen, GitHub, or other systems are down), a production deploy can be pushed directly to S3 with `yarn deploy:prod --local`.
