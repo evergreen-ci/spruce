@@ -88,7 +88,7 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
     setSelectedBuildVariants,
     setSelectedBuildVariantTasks,
     setSelectedTab,
-  } = useConfigurePatch(initialPatch, variants);
+  } = useConfigurePatch(initialPatch);
 
   const [schedulePatch, { loading: loadingScheduledPatch }] = useMutation<
     SchedulePatchMutation,

@@ -107,8 +107,6 @@ const getSelectAllCheckboxState = (
     isCheckboxIndeterminate(s)
   );
 
-  console.log({ hasSelectedTasks, hasUnselectedTasks, hasIndeterminateTasks });
-
   if (hasIndeterminateTasks || (hasSelectedTasks && hasUnselectedTasks)) {
     return CheckboxState.Indeterminate;
   }
