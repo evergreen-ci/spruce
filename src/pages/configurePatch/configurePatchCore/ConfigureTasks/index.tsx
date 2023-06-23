@@ -191,9 +191,15 @@ const ConfigureTasks: React.VFC<Props> = ({
           onChange={onClickSelectAll}
           label={
             <div style={{ display: "flex", alignItems: "center" }}>
-              Select all tasks in{" "}
-              {pluralize("this", selectedBuildVariants.length)}{" "}
-              {pluralize("variant", selectedBuildVariants.length)}
+              {sortedCurrentTasks.length === 0
+                ? `Add ${pluralize(
+                    "alias",
+                    selectedBuildVariants.length
+                  )} to patch`
+                : `Select all tasks in ${pluralize(
+                    "this",
+                    selectedBuildVariants.length
+                  )} ${pluralize("variant", selectedBuildVariants.length)}`}
               {shouldShowChildPatchTasks && (
                 <Tooltip
                   justify="middle"
