@@ -133,7 +133,25 @@ const getVisibleChildPatches = (
   );
 };
 
+/**
+ * `isCheckboxIndeterminate` takes the state of the checkbox and returns a boolean indicating whether the checkbox is indeterminate
+ * @param state - the state of the checkbox
+ * @returns - a boolean indicating whether the checkbox is indeterminate
+ */
+const isCheckboxIndeterminate = (state: CheckboxState): boolean =>
+  state === CheckboxState.Indeterminate;
+
+/**
+ * `isCheckboxChecked` takes the state of the checkbox and returns a boolean indicating whether the checkbox is checked
+ * @param state - the state of the checkbox
+ * @returns - a boolean indicating whether the checkbox is checked
+ */
+const isCheckboxChecked = (state: CheckboxState): boolean =>
+  state === CheckboxState.Checked;
+
 export {
+  isCheckboxChecked,
+  isCheckboxIndeterminate,
   deduplicateTasks,
   getSelectAllCheckboxState,
   getVisibleAliases,
