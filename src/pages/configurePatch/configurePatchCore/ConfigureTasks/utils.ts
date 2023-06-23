@@ -1,3 +1,4 @@
+import { VariantTask } from "gql/generated/types";
 import { AliasState, ChildPatchAliased } from "hooks/useConfigurePatch";
 import { CheckboxState } from "./types";
 
@@ -11,15 +12,18 @@ interface DeduplicateTasksResult {
 /**
  * `deduplicateTasks` takes an array of objects containing the tasks for each build variant
  * @param currentTasks - an array of objects containing the tasks for each build variant
+ * @param previouslyActivatedBuildvariants - an array of objects containing the tasks for each build variant that were previously activated
  * @returns - an object containing the deduplicated tasks for each build variant
  */
 const deduplicateTasks = (
   currentTasks: {
     [task: string]: boolean;
-  }[]
+  }[],
+  previouslyActivatedBuildvariants: VariantTask[]
 ): DeduplicateTasksResult => {
   const visibleTasks: DeduplicateTasksResult = {};
-  currentTasks.forEach((bv) => {
+  currentTasks.forEach((bv, i) => {
+    const previouslyActivatedTasks = previouslyActivatedBuildvariants[i]?.tasks;
     Object.entries(bv).forEach(([taskName, value]) => {
       switch (visibleTasks[taskName]?.checkboxState) {
         case CheckboxState.Unchecked:
@@ -46,6 +50,9 @@ const deduplicateTasks = (
             disabled: false,
           };
           break;
+      }
+      if (previouslyActivatedTasks?.includes(taskName)) {
+        visibleTasks[taskName].disabled = true;
       }
     });
   });

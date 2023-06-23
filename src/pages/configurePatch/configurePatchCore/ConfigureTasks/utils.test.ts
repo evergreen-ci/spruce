@@ -9,7 +9,7 @@ import {
 describe("deduplicateTasks", () => {
   it("should print all tasks for one variant", () => {
     const tasks = [{ task1: false, task2: false }];
-    expect(deduplicateTasks(tasks)).toStrictEqual({
+    expect(deduplicateTasks(tasks, [])).toStrictEqual({
       task1: {
         checkboxState: CheckboxState.Unchecked,
         disabled: false,
@@ -25,7 +25,7 @@ describe("deduplicateTasks", () => {
       { task1: false, task2: false },
       { task3: false, task4: true },
     ];
-    expect(deduplicateTasks(tasks)).toStrictEqual({
+    expect(deduplicateTasks(tasks, [])).toStrictEqual({
       task1: {
         checkboxState: CheckboxState.Unchecked,
         disabled: false,
@@ -49,7 +49,7 @@ describe("deduplicateTasks", () => {
       { task1: false, task2: false },
       { task2: false, task3: false },
     ];
-    expect(deduplicateTasks(tasks)).toStrictEqual({
+    expect(deduplicateTasks(tasks, [])).toStrictEqual({
       task1: {
         checkboxState: CheckboxState.Unchecked,
         disabled: false,
@@ -69,7 +69,7 @@ describe("deduplicateTasks", () => {
       { task1: false, task2: false },
       { task2: true, task3: false },
     ];
-    expect(deduplicateTasks(tasks)).toStrictEqual({
+    expect(deduplicateTasks(tasks, [])).toStrictEqual({
       task1: {
         checkboxState: CheckboxState.Unchecked,
         disabled: false,
@@ -81,6 +81,32 @@ describe("deduplicateTasks", () => {
       task3: {
         checkboxState: CheckboxState.Unchecked,
         disabled: false,
+      },
+    });
+  });
+  it("should disable tasks that have been already activated", () => {
+    const tasks = [
+      { task1: true, task2: false },
+      { task2: true, task3: false },
+    ];
+    const previouslyActivatedBuildvariants = [
+      { tasks: ["task1"], name: "variant1" },
+      { tasks: ["task3"], name: "variant2" },
+    ];
+    expect(
+      deduplicateTasks(tasks, previouslyActivatedBuildvariants)
+    ).toStrictEqual({
+      task1: {
+        checkboxState: CheckboxState.Checked,
+        disabled: true,
+      },
+      task2: {
+        checkboxState: CheckboxState.Indeterminate,
+        disabled: false,
+      },
+      task3: {
+        checkboxState: CheckboxState.Unchecked,
+        disabled: true,
       },
     });
   });

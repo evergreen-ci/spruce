@@ -8,6 +8,7 @@ import pluralize from "pluralize";
 import { LoadingButton } from "components/Buttons";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
+import { VariantTask } from "gql/generated/types";
 import {
   AliasState,
   ChildPatchAliased,
@@ -23,6 +24,7 @@ import {
   getVisibleAliases,
   getVisibleChildPatches,
   isTaskCheckboxChecked,
+  isTaskCheckboxDisabled,
   isTaskCheckboxIndeterminate,
 } from "./utils";
 
@@ -30,6 +32,7 @@ interface Props {
   selectedBuildVariants: string[];
   selectedBuildVariantTasks: VariantTasksState;
   setSelectedBuildVariantTasks: (vt: VariantTasksState) => void;
+  activatedVariants?: VariantTask[];
   activated: boolean;
   loading: boolean;
   onClickSchedule: () => void;
@@ -44,6 +47,7 @@ const ConfigureTasks: React.VFC<Props> = ({
   selectedBuildVariantTasks,
   setSelectedBuildVariantTasks,
   activated,
+  activatedVariants,
   loading,
   onClickSchedule,
   selectedAliases,
@@ -77,8 +81,11 @@ const ConfigureTasks: React.VFC<Props> = ({
     const tasks = selectedBuildVariants.map(
       (bv) => selectedBuildVariantTasks[bv] || {}
     );
-    return deduplicateTasks(tasks);
-  }, [selectedBuildVariantTasks, selectedBuildVariants]);
+    const previouslySelectedVariants = selectedBuildVariants.map(
+      (bv) => activatedVariants.find((vt) => vt.name === bv) || undefined
+    );
+    return deduplicateTasks(tasks, previouslySelectedVariants);
+  }, [selectedBuildVariantTasks, selectedBuildVariants, activatedVariants]);
 
   // Sort tasks alphabetically
   const sortedVisibleTasks = useMemo(
@@ -226,6 +233,7 @@ const ConfigureTasks: React.VFC<Props> = ({
             label={name}
             indeterminate={isTaskCheckboxIndeterminate(state)}
             checked={isTaskCheckboxChecked(state)}
+            disabled={isTaskCheckboxDisabled(state)}
           />
         ))}
       </TaskLayoutGrid>
