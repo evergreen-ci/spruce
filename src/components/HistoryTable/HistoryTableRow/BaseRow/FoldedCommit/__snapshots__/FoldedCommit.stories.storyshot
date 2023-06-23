@@ -3,9 +3,11 @@
 exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit Story 1`] = `
 <div>
   <div
-    class="css-42nnqo-Column eg8pw9k2"
+    class="css-42nnqo-Column eg8pw9k3"
   >
-    <div>
+    <div
+      class="css-1oxvsoo-StyledAccordion eg8pw9k2"
+    >
       <div
         class="css-58nl5l-AccordionToggle ev0bopr3"
         data-cy="accordion-toggle"
@@ -27,7 +29,7 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
           />
         </svg>
         <div
-          class="css-1rg9gkb-AccordionTitle eg8pw9k1"
+          class="css-1fd23ns-AccordionTitle eg8pw9k1"
         >
           Expand 5 inactive
         </div>
@@ -41,7 +43,7 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
           class="css-1ds08bm-ContentsContainer ev0bopr1"
         >
           <div
-            class="css-1xyi9yw-RowContainer-StyledRowContainer eg8pw9k0"
+            class="css-j8qvcg-RowContainer-StyledRowContainer eg8pw9k0"
             data-cy="folded-commit"
           >
             <div
@@ -126,7 +128,7 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
             </div>
           </div>
           <div
-            class="css-1xyi9yw-RowContainer-StyledRowContainer eg8pw9k0"
+            class="css-j8qvcg-RowContainer-StyledRowContainer eg8pw9k0"
             data-cy="folded-commit"
           >
             <div
@@ -211,7 +213,7 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
             </div>
           </div>
           <div
-            class="css-1xyi9yw-RowContainer-StyledRowContainer eg8pw9k0"
+            class="css-j8qvcg-RowContainer-StyledRowContainer eg8pw9k0"
             data-cy="folded-commit"
           >
             <div
@@ -296,7 +298,7 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
             </div>
           </div>
           <div
-            class="css-1xyi9yw-RowContainer-StyledRowContainer eg8pw9k0"
+            class="css-j8qvcg-RowContainer-StyledRowContainer eg8pw9k0"
             data-cy="folded-commit"
           >
             <div
@@ -381,7 +383,7 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
             </div>
           </div>
           <div
-            class="css-1xyi9yw-RowContainer-StyledRowContainer eg8pw9k0"
+            class="css-j8qvcg-RowContainer-StyledRowContainer eg8pw9k0"
             data-cy="folded-commit"
           >
             <div
