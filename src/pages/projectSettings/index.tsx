@@ -158,12 +158,10 @@ const ProjectSettings: React.VFC = () => {
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.VirtualWorkstation}
           />
-          {!isProduction() && (
-            <ProjectSettingsNavItem
-              {...sharedProps}
-              tab={ProjectSettingsTabRoutes.Containers}
-            />
-          )}
+          <ProjectSettingsNavItem
+            {...sharedProps}
+            tab={ProjectSettingsTabRoutes.Containers}
+          />
           {/* Views and filters are not available at the repo level at this time. */}
           {!isProduction() && projectType !== ProjectType.Repo && (
             <ProjectSettingsNavItem

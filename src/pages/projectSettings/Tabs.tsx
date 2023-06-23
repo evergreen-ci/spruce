@@ -180,21 +180,19 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
             />
           }
         />
-        {!isProduction() && (
-          <Route
-            path={ProjectSettingsTabRoutes.Containers}
-            element={
-              <ContainersTab
-                identifier={identifier || repoId}
-                projectData={
-                  tabData[ProjectSettingsTabRoutes.Containers].projectData
-                }
-                projectType={projectType}
-                repoData={tabData[ProjectSettingsTabRoutes.Containers].repoData}
-              />
-            }
-          />
-        )}
+        <Route
+          path={ProjectSettingsTabRoutes.Containers}
+          element={
+            <ContainersTab
+              identifier={identifier || repoId}
+              projectData={
+                tabData[ProjectSettingsTabRoutes.Containers].projectData
+              }
+              projectType={projectType}
+              repoData={tabData[ProjectSettingsTabRoutes.Containers].repoData}
+            />
+          }
+        />
         {!isProduction() && (
           <Route
             path={ProjectSettingsTabRoutes.ViewsAndFilters}
