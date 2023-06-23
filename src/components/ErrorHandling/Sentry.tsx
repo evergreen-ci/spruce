@@ -5,7 +5,6 @@ import {
   withScope,
 } from "@sentry/react";
 import type { Scope, SeverityLevel } from "@sentry/react";
-import type { Extras } from "@sentry/types";
 import { environmentVariables } from "utils";
 import ErrorFallback from "./ErrorFallback";
 
@@ -17,6 +16,7 @@ const initializeSentry = () => {
     init({
       dsn: getSentryDSN(),
       debug: !isProduction(),
+      normalizeDepth: 5,
       release: APP_VERSION,
       environment: releaseStage,
     });
@@ -44,22 +44,23 @@ const sendError = (
   metadata?: { [key: string]: any }
 ) => {
   withScope((scope) => {
-    setScope(scope, { level: severity });
+    setScope(scope, { level: severity, context: metadata });
 
-    captureException(err, metadata);
+    captureException(err);
   });
 };
 
 type ScopeOptions = {
   level?: SeverityLevel;
-  extras?: Extras;
+  context?: { [key: string]: any };
 };
 
-const setScope = (scope: Scope, { level }: ScopeOptions = {}) => {
+const setScope = (scope: Scope, { level, context }: ScopeOptions = {}) => {
   const userId = localStorage.getItem("userId") ?? undefined;
   scope.setUser({ id: userId });
 
   if (level) scope.setLevel(level);
+  if (context) scope.setContext("metadata", context);
 };
 
 const ErrorBoundary: React.VFC<{ children: React.ReactNode }> = ({

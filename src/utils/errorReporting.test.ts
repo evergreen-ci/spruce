@@ -42,12 +42,12 @@ describe("error reporting", () => {
     const result = reportError(err);
     result.severe();
     expect(Bugsnag.notify).toHaveBeenCalledWith(err, expect.any(Function));
-    expect(Sentry.captureException).toHaveBeenCalledWith(err, undefined);
+    expect(Sentry.captureException).toHaveBeenCalledWith(err);
     result.warning();
     expect(Bugsnag.notify).toHaveBeenLastCalledWith(err, expect.any(Function));
   });
 
-  it("should include metadata in errors", () => {
+  it("supports metadata field", () => {
     mockEnv("NODE_ENV", "production");
     jest.spyOn(Bugsnag, "notify").mockImplementation(jest.fn());
     jest.spyOn(Sentry, "captureException").mockImplementation(jest.fn());
@@ -60,7 +60,7 @@ describe("error reporting", () => {
     const result = reportError(err, metadata);
     result.severe();
     expect(Bugsnag.notify).toHaveBeenCalledWith(err, expect.any(Function));
-    expect(Sentry.captureException).toHaveBeenCalledWith(err, metadata);
+    expect(Sentry.captureException).toHaveBeenCalledWith(err);
     result.warning();
     expect(Bugsnag.notify).toHaveBeenLastCalledWith(err, expect.any(Function));
   });

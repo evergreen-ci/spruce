@@ -46,6 +46,7 @@ describe("should initialize error handlers according to release stage", () => {
     expect(Sentry.init).toHaveBeenCalledWith({
       dsn: "fake-sentry-key",
       debug: false,
+      normalizeDepth: 5,
       release: APP_VERSION,
       environment: "production",
     });
@@ -69,6 +70,7 @@ describe("should initialize error handlers according to release stage", () => {
     expect(Sentry.init).toHaveBeenCalledWith({
       dsn: "fake-sentry-key",
       debug: true,
+      normalizeDepth: 5,
       release: APP_VERSION,
       environment: "beta",
     });
@@ -92,6 +94,7 @@ describe("should initialize error handlers according to release stage", () => {
     expect(Sentry.init).toHaveBeenCalledWith({
       dsn: "fake-sentry-key",
       debug: true,
+      normalizeDepth: 5,
       release: APP_VERSION,
       environment: "staging",
     });

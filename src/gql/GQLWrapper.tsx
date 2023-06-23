@@ -124,7 +124,6 @@ const logErrorsLink = onError(({ graphQLErrors, operation }) => {
           message: "GraphQL Error",
           name: gqlErr.message,
         },
-
         {
           gqlErr,
           operationName: operation.operationName,
