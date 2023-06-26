@@ -53,6 +53,7 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
     childPatches,
     patchTriggerAliases,
     childPatchAliases,
+    variantsTasks,
   } = patch;
   const { variants } = project;
 
@@ -87,7 +88,7 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
     setSelectedBuildVariants,
     setSelectedBuildVariantTasks,
     setSelectedTab,
-  } = useConfigurePatch(initialPatch, variants);
+  } = useConfigurePatch(initialPatch);
 
   const [schedulePatch, { loading: loadingScheduledPatch }] = useMutation<
     SchedulePatchMutation,
@@ -192,6 +193,7 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
                   selectedBuildVariantTasks={selectedBuildVariantTasks}
                   setSelectedAliases={setSelectedAliases}
                   setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+                  activatedVariants={variantsTasks}
                 />
               </Tab>
               <Tab data-cy="changes-tab" name="Changes">
