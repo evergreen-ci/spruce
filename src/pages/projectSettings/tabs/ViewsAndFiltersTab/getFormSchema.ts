@@ -35,8 +35,12 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
           },
         },
       },
-      parsleyFilters: {
+      parsleyFiltersTitle: {
+        type: "null",
         title: "Parsley Filters",
+      },
+      parsleyFilters: {
+        title: "",
         type: "array" as "array",
         default: [],
         items: {
@@ -94,6 +98,9 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       projectHealthView: {
         "ui:widget": "radio",
       },
+    },
+    parsleyFiltersTitle: {
+      "ui:sectionTitle": true,
     },
     parsleyFilters: {
       "ui:addButtonText": "Add filter",

@@ -25,7 +25,6 @@ import {
 import { GET_PROJECT_SETTINGS, GET_REPO_SETTINGS } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { validators } from "utils";
-import { isProduction } from "utils/environmentVariables";
 import { ProjectSettingsProvider } from "./Context";
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
 import { getTabTitle } from "./getTabTitle";
@@ -163,7 +162,7 @@ const ProjectSettings: React.VFC = () => {
             tab={ProjectSettingsTabRoutes.Containers}
           />
           {/* Views and filters are not available at the repo level at this time. */}
-          {!isProduction() && projectType !== ProjectType.Repo && (
+          {projectType !== ProjectType.Repo && (
             <ProjectSettingsNavItem
               {...sharedProps}
               tab={ProjectSettingsTabRoutes.ViewsAndFilters}
