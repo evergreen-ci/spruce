@@ -24,7 +24,7 @@ import {
   getVisibleAliases,
   getVisibleChildPatches,
   isTaskCheckboxChecked,
-  isTaskCheckboxDisabled,
+  isTaskCheckboxActivated,
   isTaskCheckboxIndeterminate,
 } from "./utils";
 
@@ -155,8 +155,8 @@ const ConfigureTasks: React.VFC<Props> = ({
     shouldShowChildPatchTasks
   );
 
-  const variantHasDisabledTasks = sortedVisibleTasks.some((t) =>
-    isTaskCheckboxDisabled(t[1])
+  const variantHasActivatedTasks = sortedVisibleTasks.some((t) =>
+    isTaskCheckboxActivated(t[1])
   );
 
   return (
@@ -204,7 +204,7 @@ const ConfigureTasks: React.VFC<Props> = ({
                   Aliases specified via CLI cannot be edited.
                 </Tooltip>
               )}
-              {variantHasDisabledTasks && (
+              {variantHasActivatedTasks && (
                 <Tooltip
                   justify="middle"
                   triggerEvent="hover"
@@ -217,8 +217,7 @@ const ConfigureTasks: React.VFC<Props> = ({
                   Some Tasks in{" "}
                   {pluralize("this", selectedBuildVariants.length)}{" "}
                   {pluralize("variant", selectedBuildVariants.length)} have
-                  already been activated. They are not editable. To disable them
-                  visit the patch page.
+                  already been activated. To disable them visit the patch page.
                 </Tooltip>
               )}
             </LabelContainer>
@@ -251,26 +250,7 @@ const ConfigureTasks: React.VFC<Props> = ({
             data-cy="task-checkbox"
             key={name}
             onChange={onClickCheckbox(name)}
-            label={
-              <LabelContainer>
-                {name}{" "}
-                {isTaskCheckboxDisabled(state) && (
-                  <Tooltip
-                    justify="middle"
-                    triggerEvent="hover"
-                    trigger={
-                      <IconContainer>
-                        <Icon glyph="InfoWithCircle" />
-                      </IconContainer>
-                    }
-                  >
-                    {selectedBuildVariants.length > 1
-                      ? "A task in the selected variants has already been activated and unselecting will have no effect."
-                      : "This task has already been activated and unselecting will have no effect."}
-                  </Tooltip>
-                )}
-              </LabelContainer>
-            }
+            label={name}
             indeterminate={isTaskCheckboxIndeterminate(state)}
             checked={isTaskCheckboxChecked(state)}
           />

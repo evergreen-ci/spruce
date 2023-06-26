@@ -4,7 +4,7 @@ import { CheckboxState } from "./types";
 
 type TaskState = {
   checkboxState: CheckboxState;
-  disabled: boolean;
+  activated: boolean;
 };
 interface DeduplicateTasksResult {
   [task: string]: TaskState;
@@ -47,12 +47,12 @@ const deduplicateTasks = (
             checkboxState: value
               ? CheckboxState.Checked
               : CheckboxState.Unchecked,
-            disabled: false,
+            activated: false,
           };
           break;
       }
       if (previouslyActivatedTasks?.includes(taskName)) {
-        visibleTasks[taskName].disabled = true;
+        visibleTasks[taskName].activated = true;
       }
     });
   });
@@ -173,16 +173,16 @@ const isTaskCheckboxUnchecked = (task: TaskState): boolean =>
   task.checkboxState === CheckboxState.Unchecked;
 
 /**
- * `isTaskCheckboxDisabled` takes the state of the checkbox and returns a boolean indicating whether the checkbox is disabled
+ * `isTaskCheckboxActivated` takes the state of the checkbox and returns a boolean indicating whether the task checkbox is already activated
  * @param task - the state of the checkbox
- * @returns - a boolean indicating whether the checkbox is disabled
+ * @returns - a boolean indicating whether the checkbox is already activated
  */
-const isTaskCheckboxDisabled = (task: TaskState): boolean => task.disabled;
+const isTaskCheckboxActivated = (task: TaskState): boolean => task.activated;
 
 export {
   isTaskCheckboxIndeterminate,
   isTaskCheckboxChecked,
-  isTaskCheckboxDisabled,
+  isTaskCheckboxActivated,
   deduplicateTasks,
   getSelectAllCheckboxState,
   getVisibleAliases,
