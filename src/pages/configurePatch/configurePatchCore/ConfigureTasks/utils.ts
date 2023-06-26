@@ -95,9 +95,16 @@ const getSelectAllCheckboxState = (
     allTaskStatuses.some((t) => isTaskCheckboxUnchecked(t)) ||
     allAliasStatuses.includes(CheckboxState.Unchecked);
 
-  if (hasSelectedTasks && !hasUnselectedTasks) {
+  const hasIndeterminateTasks = allTaskStatuses.some((t) =>
+    isTaskCheckboxIndeterminate(t)
+  );
+  if (hasSelectedTasks && !hasUnselectedTasks && !hasIndeterminateTasks) {
     state = CheckboxState.Checked;
-  } else if (!hasSelectedTasks && hasUnselectedTasks) {
+  } else if (
+    !hasSelectedTasks &&
+    hasUnselectedTasks &&
+    !hasIndeterminateTasks
+  ) {
     state = CheckboxState.Unchecked;
   } else {
     state = CheckboxState.Indeterminate;

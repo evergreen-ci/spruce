@@ -60,7 +60,9 @@ const reducer = (state: ConfigurePatchState, action: Action) => {
     case "setSelectedBuildVariants":
       return {
         ...state,
-        selectedBuildVariants: action.buildVariants,
+        selectedBuildVariants: action.buildVariants.sort((a, b) =>
+          a.localeCompare(b)
+        ),
       };
     case "setSelectedBuildVariantTasks":
       return {

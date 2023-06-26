@@ -137,7 +137,19 @@ describe("getSelectAllCheckboxState", () => {
       CheckboxState.Unchecked
     );
   });
-  it("should return indeterminate if some tasks are checked", () => {
+  it("should return indeterminate if some tasks are checked and unchecked", () => {
+    const tasks = {
+      task1: {
+        checkboxState: CheckboxState.Checked,
+        activated: false,
+      },
+      task2: { checkboxState: CheckboxState.Unchecked, activated: false },
+    };
+    expect(getSelectAllCheckboxState(tasks, {}, false)).toStrictEqual(
+      CheckboxState.Indeterminate
+    );
+  });
+  it("should return indeterminate if some tasks are indeterminate", () => {
     const tasks = {
       task1: {
         checkboxState: CheckboxState.Checked,

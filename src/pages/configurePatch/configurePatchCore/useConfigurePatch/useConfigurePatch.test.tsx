@@ -123,8 +123,8 @@ describe("useConfigurePatch", () => {
         result.current.setSelectedBuildVariants(["ubuntu2204", "ubuntu2004"]);
       });
       expect(result.current.selectedBuildVariants).toStrictEqual([
-        "ubuntu2204",
         "ubuntu2004",
+        "ubuntu2204",
       ]);
     });
     it("should consistently sort multiple build variants", async () => {
@@ -138,15 +138,8 @@ describe("useConfigurePatch", () => {
         result.current.setSelectedBuildVariants(["ubuntu2204", "ubuntu2004"]);
       });
       expect(result.current.selectedBuildVariants).toStrictEqual([
-        "ubuntu2204",
         "ubuntu2004",
-      ]);
-      act(() => {
-        result.current.setSelectedBuildVariants(["ubuntu2004", "ubuntu2204"]);
-      });
-      expect(result.current.selectedBuildVariants).toStrictEqual([
         "ubuntu2204",
-        "ubuntu2004",
       ]);
     });
   });

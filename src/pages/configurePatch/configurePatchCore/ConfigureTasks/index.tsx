@@ -47,7 +47,7 @@ const ConfigureTasks: React.VFC<Props> = ({
   selectedBuildVariantTasks,
   setSelectedBuildVariantTasks,
   activated,
-  activatedVariants,
+  activatedVariants = [],
   loading,
   onClickSchedule,
   selectedAliases,
