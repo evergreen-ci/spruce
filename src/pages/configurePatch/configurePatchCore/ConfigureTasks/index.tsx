@@ -159,6 +159,21 @@ const ConfigureTasks: React.VFC<Props> = ({
     isTaskCheckboxActivated(t[1])
   );
 
+  const taskDisclaimerCopy = `${totalSelectedTaskCount} ${pluralize(
+    "task",
+    totalSelectedTaskCount
+  )} across ${totalSelectedBuildVariantCount} build ${pluralize(
+    "variant",
+    totalSelectedBuildVariantCount
+  )}, ${totalDownstreamTaskCount} trigger ${pluralize("alias", aliasCount)}`;
+
+  const selectAllCheckboxCopy =
+    sortedVisibleTasks.length === 0
+      ? `Add ${pluralize("alias", selectedBuildVariants.length)} to patch`
+      : `Select all tasks in ${pluralize(
+          "this",
+          selectedBuildVariants.length
+        )} ${pluralize("variant", selectedBuildVariants.length)}`;
   return (
     <TabContentWrapper>
       <Actions>
@@ -179,18 +194,7 @@ const ConfigureTasks: React.VFC<Props> = ({
           onChange={onClickSelectAll}
           label={
             <LabelContainer>
-              {sortedVisibleTasks.length === 0
-                ? `Add ${pluralize(
-                    "alias",
-                    selectedBuildVariants.length
-                  )} to patch`
-                : `Select all tasks in ${pluralize(
-                    "this",
-                    selectedBuildVariants.length
-                  )} ${pluralize(
-                    "variant",
-                    selectedBuildVariants.length
-                  )}`}{" "}
+              {selectAllCheckboxCopy}
               {shouldShowChildPatchTasks && (
                 <Tooltip
                   justify="middle"
@@ -231,16 +235,7 @@ const ConfigureTasks: React.VFC<Props> = ({
       </Actions>
 
       <StyledDisclaimer data-cy="selected-task-disclaimer">
-        {`${totalSelectedTaskCount} ${pluralize(
-          "task",
-          totalSelectedTaskCount
-        )} across ${totalSelectedBuildVariantCount} build ${pluralize(
-          "variant",
-          totalSelectedBuildVariantCount
-        )}, ${totalDownstreamTaskCount} trigger ${pluralize(
-          "alias",
-          aliasCount
-        )}`}
+        {taskDisclaimerCopy}
       </StyledDisclaimer>
 
       {/* Tasks */}
