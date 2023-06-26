@@ -139,16 +139,7 @@ const ConfigureTasks: React.VFC<Props> = ({
     selectedBuildVariants.forEach((v) => {
       if (selectedBuildVariantsCopy?.[v] !== undefined) {
         Object.keys(selectedBuildVariantsCopy[v]).forEach((task) => {
-          if (!visibleTasks[task].disabled) {
-            selectedBuildVariantsCopy[v][task] = e.target.checked;
-          } else {
-            const taskExists = activatedVariants
-              .find((vt) => vt.name === v)
-              ?.tasks?.find((t) => t === task);
-            if (taskExists === undefined) {
-              selectedBuildVariantsCopy[v][task] = e.target.checked;
-            }
-          }
+          selectedBuildVariantsCopy[v][task] = e.target.checked;
         });
       } else if (selectedAliasesCopy?.[v] !== undefined) {
         selectedAliasesCopy[v] = e.target.checked;
@@ -273,14 +264,15 @@ const ConfigureTasks: React.VFC<Props> = ({
                       </IconContainer>
                     }
                   >
-                    This task has been activated and cannot be edited.
+                    {selectedBuildVariants.length > 1
+                      ? "A task in the selected variants has already been activated and unselecting will have no effect."
+                      : "This task has already been activated and unselecting will have no effect."}
                   </Tooltip>
                 )}
               </LabelContainer>
             }
             indeterminate={isTaskCheckboxIndeterminate(state)}
             checked={isTaskCheckboxChecked(state)}
-            disabled={isTaskCheckboxDisabled(state)}
           />
         ))}
       </TaskLayoutGrid>
