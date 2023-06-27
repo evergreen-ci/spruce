@@ -225,7 +225,6 @@ describe("configureTasks", () => {
     });
     it("applying a search should filter the tasks", () => {
       const selectedBuildVariants = ["ubuntu2004", "ubuntu1804"];
-      const setSelectedBuildVariantTasks = jest.fn();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
@@ -233,7 +232,7 @@ describe("configureTasks", () => {
             ubuntu2004: { compile: false, test: false },
             ubuntu1804: { compile: false, lint: false },
           }}
-          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          setSelectedBuildVariantTasks={() => {}}
           selectableAliases={[]}
           selectedAliases={{}}
           totalSelectedTaskCount={0}
