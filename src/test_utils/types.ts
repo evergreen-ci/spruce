@@ -23,7 +23,7 @@ type CustomStoryObj<T extends any> = StoryObj<T> & {
 };
 
 type CustomMeta<T extends any> = Meta<T> & {
-  parameters: CustomStorybookParams;
+  parameters?: CustomStorybookParams;
 };
 
 export type { CustomStoryObj, CustomMeta };
