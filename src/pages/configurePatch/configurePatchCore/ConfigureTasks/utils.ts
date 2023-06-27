@@ -13,18 +13,23 @@ interface DeduplicateTasksResult {
  * `deduplicateTasks` takes an array of objects containing the tasks for each build variant
  * @param currentTasks - an array of objects containing the tasks for each build variant
  * @param previouslyActivatedBuildvariants - an array of objects containing the tasks for each build variant that were previously activated
+ * @param filterTerm - a string to filter the tasks by
  * @returns - an object containing the deduplicated tasks for each build variant
  */
 const deduplicateTasks = (
   currentTasks: {
     [task: string]: boolean;
   }[],
-  previouslyActivatedBuildvariants: VariantTask[]
+  previouslyActivatedBuildvariants: VariantTask[],
+  filterTerm: string
 ): DeduplicateTasksResult => {
   const visibleTasks: DeduplicateTasksResult = {};
   currentTasks.forEach((bv, i) => {
     const previouslyActivatedTasks = previouslyActivatedBuildvariants[i]?.tasks;
     Object.entries(bv).forEach(([taskName, value]) => {
+      if (filterTerm && !taskName.includes(filterTerm)) {
+        return;
+      }
       switch (visibleTasks[taskName]?.checkboxState) {
         case CheckboxState.Unchecked:
           // If a task is Unchecked and the next task of the same name is Checked it is Indeterminate
@@ -98,6 +103,7 @@ const getSelectAllCheckboxState = (
   const hasIndeterminateTasks = allTaskStatuses.some((t) =>
     isTaskCheckboxIndeterminate(t)
   );
+
   if (hasSelectedTasks && !hasUnselectedTasks && !hasIndeterminateTasks) {
     state = CheckboxState.Checked;
   } else if (

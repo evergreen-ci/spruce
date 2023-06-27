@@ -1,4 +1,4 @@
-import { render, screen } from "test_utils";
+import { render, screen, userEvent } from "test_utils";
 import ConfigureTasks from ".";
 
 describe("configureTasks", () => {
@@ -15,8 +15,8 @@ describe("configureTasks", () => {
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
           selectableAliases={[]}
           selectedAliases={{}}
-          loading={false}
-          onClickSchedule={() => {}}
+          totalSelectedTaskCount={0}
+          aliasCount={0}
           childPatches={[]}
           activated={false}
           setSelectedAliases={() => {}}
@@ -39,8 +39,8 @@ describe("configureTasks", () => {
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
           selectableAliases={[]}
           selectedAliases={{}}
-          loading={false}
-          onClickSchedule={() => {}}
+          totalSelectedTaskCount={0}
+          aliasCount={0}
           childPatches={[]}
           activated={false}
           setSelectedAliases={() => {}}
@@ -62,11 +62,11 @@ describe("configureTasks", () => {
             ubuntu2004: { compile: true, test: true },
             ubuntu1804: { compile: true, lint: true },
           }}
+          totalSelectedTaskCount={3}
+          aliasCount={0}
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
           selectableAliases={[]}
           selectedAliases={{}}
-          loading={false}
-          onClickSchedule={() => {}}
           childPatches={[]}
           activated={false}
           setSelectedAliases={() => {}}
@@ -90,8 +90,8 @@ describe("configureTasks", () => {
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
           selectableAliases={[]}
           selectedAliases={{}}
-          loading={false}
-          onClickSchedule={() => {}}
+          totalSelectedTaskCount={1}
+          aliasCount={0}
           childPatches={[]}
           activated={false}
           setSelectedAliases={() => {}}
@@ -113,8 +113,8 @@ describe("configureTasks", () => {
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
           selectableAliases={[]}
           selectedAliases={{}}
-          loading={false}
-          onClickSchedule={() => {}}
+          totalSelectedTaskCount={0}
+          aliasCount={0}
           childPatches={[]}
           activated={false}
           setSelectedAliases={() => {}}
@@ -142,8 +142,8 @@ describe("configureTasks", () => {
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
           selectableAliases={[]}
           selectedAliases={{}}
-          loading={false}
-          onClickSchedule={() => {}}
+          totalSelectedTaskCount={0}
+          aliasCount={0}
           childPatches={[]}
           activated={false}
           setSelectedAliases={() => {}}
@@ -174,8 +174,8 @@ describe("configureTasks", () => {
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
           selectableAliases={[]}
           selectedAliases={{}}
-          loading={false}
-          onClickSchedule={() => {}}
+          totalSelectedTaskCount={0}
+          aliasCount={0}
           childPatches={[]}
           activated={false}
           setSelectedAliases={() => {}}
@@ -204,8 +204,8 @@ describe("configureTasks", () => {
           setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
           selectableAliases={[]}
           selectedAliases={{}}
-          loading={false}
-          onClickSchedule={() => {}}
+          totalSelectedTaskCount={0}
+          aliasCount={0}
           childPatches={[]}
           activated={false}
           setSelectedAliases={() => {}}
@@ -222,6 +222,31 @@ describe("configureTasks", () => {
         ubuntu2004: { compile: true, test: true },
         ubuntu1804: { compile: true, lint: true },
       });
+    });
+    it("applying a search should filter the tasks", () => {
+      const selectedBuildVariants = ["ubuntu2004", "ubuntu1804"];
+      const setSelectedBuildVariantTasks = jest.fn();
+      render(
+        <ConfigureTasks
+          selectedBuildVariants={selectedBuildVariants}
+          selectedBuildVariantTasks={{
+            ubuntu2004: { compile: false, test: false },
+            ubuntu1804: { compile: false, lint: false },
+          }}
+          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          selectableAliases={[]}
+          selectedAliases={{}}
+          totalSelectedTaskCount={0}
+          aliasCount={0}
+          childPatches={[]}
+          activated={false}
+          setSelectedAliases={() => {}}
+        />
+      );
+
+      userEvent.type(screen.getByDataCy("task-filter-input"), "compile");
+      expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(1);
+      expect(screen.getByDataCy("task-checkbox")).toHaveTextContent("compile");
     });
   });
   describe("downstream tasks and aliases", () => {
@@ -251,8 +276,8 @@ describe("configureTasks", () => {
             },
           ]}
           selectedAliases={{}}
-          loading={false}
-          onClickSchedule={() => {}}
+          totalSelectedTaskCount={3}
+          aliasCount={0}
           childPatches={[]}
           activated={false}
           setSelectedAliases={setSelectedAliases}
@@ -288,8 +313,8 @@ describe("configureTasks", () => {
             },
           ]}
           selectedAliases={{}}
-          loading={false}
-          onClickSchedule={() => {}}
+          totalSelectedTaskCount={1}
+          aliasCount={0}
           childPatches={[]}
           activated={false}
           setSelectedAliases={setSelectedAliases}
@@ -326,8 +351,8 @@ describe("configureTasks", () => {
             },
           ]}
           selectedAliases={{ parsley: true }}
-          loading={false}
-          onClickSchedule={() => {}}
+          totalSelectedTaskCount={1}
+          aliasCount={1}
           childPatches={[]}
           activated={false}
           setSelectedAliases={setSelectedAliases}
@@ -364,8 +389,8 @@ describe("configureTasks", () => {
             },
           ]}
           selectedAliases={{ parsley: true }}
-          loading={false}
-          onClickSchedule={() => {}}
+          totalSelectedTaskCount={0}
+          aliasCount={1}
           childPatches={[]}
           activated={false}
           setSelectedAliases={setSelectedAliases}
@@ -403,8 +428,8 @@ describe("configureTasks", () => {
           selectedAliases={{
             parsley: false,
           }}
-          loading={false}
-          onClickSchedule={() => {}}
+          totalSelectedTaskCount={0}
+          aliasCount={0}
           childPatches={[]}
           activated={false}
           setSelectedAliases={setSelectedAliases}

@@ -1,14 +1,16 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
+import TextInput from "@leafygreen-ui/text-input";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
-import { LoadingButton } from "components/Buttons";
 import Icon from "components/Icon";
+import { CharKey, ModifierKey } from "constants/keys";
 import { size } from "constants/tokens";
 import { VariantTask } from "gql/generated/types";
+import useKeyboardShortcut from "hooks/useKeyboardShortcut";
 import {
   AliasState,
   ChildPatchAliased,
@@ -34,31 +36,39 @@ interface Props {
   setSelectedBuildVariantTasks: (vt: VariantTasksState) => void;
   activatedVariants?: VariantTask[];
   activated: boolean;
-  loading: boolean;
-  onClickSchedule: () => void;
   selectedAliases: AliasState;
   setSelectedAliases: (aliases: AliasState) => void;
   childPatches: ChildPatchAliased[];
   selectableAliases: PatchTriggerAlias[];
+  totalSelectedTaskCount: number;
+  aliasCount: number;
 }
 
 const ConfigureTasks: React.VFC<Props> = ({
-  selectedBuildVariants,
-  selectedBuildVariantTasks,
-  setSelectedBuildVariantTasks,
   activated,
   activatedVariants = [],
-  loading,
-  onClickSchedule,
-  selectedAliases,
-  setSelectedAliases,
+  aliasCount,
   childPatches,
   selectableAliases,
+  selectedAliases,
+  selectedBuildVariants,
+  selectedBuildVariantTasks,
+  setSelectedAliases,
+  setSelectedBuildVariantTasks,
+  totalSelectedTaskCount,
 }) => {
-  const aliasCount = Object.values(selectedAliases).reduce(
-    (count, alias) => count + (alias ? 1 : 0),
-    0
+  const [search, setSearch] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
+  useKeyboardShortcut(
+    {
+      charKey: CharKey.F,
+      modifierKeys: [ModifierKey.Control],
+    },
+    () => {
+      searchRef.current?.focus();
+    }
   );
+
   const childPatchCount = childPatches?.length || 0;
   const totalDownstreamTaskCount = aliasCount + childPatchCount;
 
@@ -67,12 +77,6 @@ const ConfigureTasks: React.VFC<Props> = ({
   ).reduce(
     (count, tasks) =>
       count + (Object.values(tasks).some((isSelected) => isSelected) ? 1 : 0),
-    0
-  );
-  const totalSelectedTaskCount = Object.values(
-    selectedBuildVariantTasks
-  ).reduce(
-    (count, taskObj) => count + Object.values(taskObj).filter((v) => v).length,
     0
   );
 
@@ -84,8 +88,13 @@ const ConfigureTasks: React.VFC<Props> = ({
     const previouslySelectedVariants = selectedBuildVariants.map(
       (bv) => activatedVariants.find((vt) => vt.name === bv) || undefined
     );
-    return deduplicateTasks(tasks, previouslySelectedVariants);
-  }, [selectedBuildVariantTasks, selectedBuildVariants, activatedVariants]);
+    return deduplicateTasks(tasks, previouslySelectedVariants, search);
+  }, [
+    selectedBuildVariantTasks,
+    selectedBuildVariants,
+    activatedVariants,
+    search,
+  ]);
 
   // Sort tasks alphabetically
   const sortedVisibleTasks = useMemo(
@@ -139,6 +148,7 @@ const ConfigureTasks: React.VFC<Props> = ({
     selectedBuildVariants.forEach((v) => {
       if (selectedBuildVariantsCopy?.[v] !== undefined) {
         Object.keys(selectedBuildVariantsCopy[v]).forEach((task) => {
+          if (search !== "" && !task.includes(search)) return;
           selectedBuildVariantsCopy[v][task] = e.target.checked;
         });
       } else if (selectedAliasesCopy?.[v] !== undefined) {
@@ -167,27 +177,22 @@ const ConfigureTasks: React.VFC<Props> = ({
     totalSelectedBuildVariantCount
   )}, ${totalDownstreamTaskCount} trigger ${pluralize("alias", aliasCount)}`;
 
-  const selectAllCheckboxCopy =
-    sortedVisibleTasks.length === 0
-      ? `Add ${pluralize("alias", selectedBuildVariants.length)} to patch`
-      : `Select all tasks in ${pluralize(
-          "this",
-          selectedBuildVariants.length
-        )} ${pluralize("variant", selectedBuildVariants.length)}`;
+  const selectAllCheckboxCopy = getSelectAllCheckboxCopy(
+    selectedBuildVariants.length,
+    sortedVisibleTasks.length,
+    search.length > 0
+  );
   return (
     <TabContentWrapper>
       <Actions>
-        <LoadingButton
-          data-cy="schedule-patch"
-          variant="primary"
-          onClick={onClickSchedule}
-          disabled={
-            (totalSelectedTaskCount === 0 && aliasCount === 0) || loading
-          }
-          loading={loading}
-        >
-          Schedule
-        </LoadingButton>
+        <StyledTextInput
+          aria-labelledby="search-tasks"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search tasks"
+          ref={searchRef}
+          data-cy="task-filter-input"
+        />
         <InlineCheckbox
           data-cy="select-all-checkbox"
           indeterminate={selectAllCheckboxState === CheckboxState.Indeterminate}
@@ -298,6 +303,22 @@ const ConfigureTasks: React.VFC<Props> = ({
   );
 };
 
+const getSelectAllCheckboxCopy = (
+  selectedBuildVariantsCount: number,
+  sortedVisibleTaskCount: number,
+  hasFilter: boolean
+) => {
+  if (hasFilter) {
+    return "Select all tasks in view";
+  }
+
+  return sortedVisibleTaskCount === 0
+    ? `Add ${pluralize("alias", selectedBuildVariantsCount)} to patch`
+    : `Select all tasks in ${pluralize(
+        "this",
+        selectedBuildVariantsCount
+      )} ${pluralize("variant", selectedBuildVariantsCount)}`;
+};
 const Actions = styled.div`
   margin-bottom: ${size.xs};
   display: flex;
@@ -317,6 +338,9 @@ const LabelContainer = styled.div`
 `;
 const StyledDisclaimer = styled(Disclaimer)`
   margin-bottom: ${size.xs};
+`;
+const StyledTextInput = styled(TextInput)`
+  width: 300px;
 `;
 const cardSidePadding = css`
   padding-left: ${size.xs};
