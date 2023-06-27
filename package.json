@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.98",
+  "version": "3.0.99",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
