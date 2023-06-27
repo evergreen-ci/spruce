@@ -193,8 +193,9 @@ describe("Configure Patch Page", () => {
       );
     });
 
-    describe("Task filter input", () => {
+    describe.only("Task filter input", () => {
       it("Updating the task filter input filters tasks in view", () => {
+        cy.visit(`/version/${unactivatedPatchId}`);
         cy.contains("Ubuntu 16.04").click();
         cy.dataCy("task-checkbox").should("have.length", 45);
         cy.dataCy("selected-task-disclaimer").contains(
@@ -208,6 +209,7 @@ describe("Configure Patch Page", () => {
         );
       });
       it("The task filter input works across multiple build variants", () => {
+        cy.visit(`/version/${unactivatedPatchId}`);
         cy.get("body").type("{meta}", {
           release: false,
         });
@@ -228,6 +230,7 @@ describe("Configure Patch Page", () => {
         cy.dataCy("selected-task-disclaimer").contains(
           "4 tasks across 2 build variants"
         );
+        cy.dataCy("task-filter-input").clear();
       });
     });
 
