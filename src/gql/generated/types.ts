@@ -339,6 +339,12 @@ export type GeneralSubscription = {
   triggerData?: Maybe<Scalars["StringMap"]>;
 };
 
+export type GitTag = {
+  __typename?: "GitTag";
+  pusher: Scalars["String"];
+  tag: Scalars["String"];
+};
+
 export type GithubCheckSubscriber = {
   __typename?: "GithubCheckSubscriber";
   owner: Scalars["String"];
@@ -2461,6 +2467,7 @@ export type Version = {
   errors: Array<Scalars["String"]>;
   externalLinksForMetadata: Array<ExternalLinkForMetadata>;
   finishTime?: Maybe<Scalars["Time"]>;
+  gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"];
   isPatch: Scalars["Boolean"];
   manifest?: Maybe<Manifest>;

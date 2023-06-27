@@ -9,3 +9,7 @@ export const COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION =
   "commit-chart-view-options-accordion";
 export const DISABLE_QUERY_POLLING = "disable-query-polling";
 export const SEEN_MIGRATE_GUIDE_CUE = "seen-migrate-guide-cue";
+export const INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES =
+  "include-commit-queue-project-patches";
+export const INCLUDE_COMMIT_QUEUE_USER_PATCHES =
+  "include-commit-queue-user-patches";
