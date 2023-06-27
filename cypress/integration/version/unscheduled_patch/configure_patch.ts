@@ -193,7 +193,7 @@ describe("Configure Patch Page", () => {
       );
     });
 
-    describe.only("Task filter input", () => {
+    describe("Task filter input", () => {
       it("Updating the task filter input filters tasks in view", () => {
         cy.visit(`/version/${unactivatedPatchId}`);
         cy.contains("Ubuntu 16.04").click();
