@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+
 import SearchableDropdown, { SearchableDropdownProps } from ".";
 
 export default {
   component: SearchableDropdown,
-};
+} satisfies CustomMeta<typeof SearchableDropdown>;
 
-export const Default: StoryObj<SearchableDropdownProps<string>> = {
+export const Default: CustomStoryObj<SearchableDropdownProps<string>> = {
   render: (args) => <Dropdown options={["1", "2", "3"]} {...args} />,
   args: {
     allowMultiSelect: false,
@@ -15,7 +16,7 @@ export const Default: StoryObj<SearchableDropdownProps<string>> = {
   },
 };
 
-export const CustomOption: StoryObj<
+export const CustomOption: CustomStoryObj<
   SearchableDropdownProps<{ label: string; value: string }>
 > = {
   render: (args) => (

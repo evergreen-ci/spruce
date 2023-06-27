@@ -1,12 +1,12 @@
 import { action } from "@storybook/addon-actions";
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { EditableTagField } from "./index";
 
 export default {
   component: EditableTagField,
-};
+} satisfies CustomMeta<typeof EditableTagField>;
 
-export const Default: StoryObj<typeof EditableTagField> = {
+export const Default: CustomStoryObj<typeof EditableTagField> = {
   render: () => (
     <EditableTagField
       inputTags={instanceTags}

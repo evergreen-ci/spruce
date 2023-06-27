@@ -1,5 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { StoryObj } from "@storybook/react";
+
 import { getCommitsRoute } from "constants/routes";
 import {
   AddFavoriteProjectMutation,
@@ -14,6 +14,7 @@ import {
 import { ADD_FAVORITE_PROJECT, REMOVE_FAVORITE_PROJECT } from "gql/mutations";
 import { GET_PROJECTS, GET_VIEWABLE_PROJECTS } from "gql/queries";
 import WithToastContext from "test_utils/toast-decorator";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { ApolloMock } from "types/gql";
 import { ProjectSelect } from ".";
 
@@ -34,9 +35,9 @@ export default {
       </MockedProvider>
     ),
   ],
-};
+} satisfies CustomMeta<typeof ProjectSelect>;
 
-export const Default: StoryObj<typeof ProjectSelect> = {
+export const Default: CustomStoryObj<typeof ProjectSelect> = {
   render: () => (
     <ProjectSelect
       selectedProjectIdentifier="evergreen"
@@ -45,7 +46,7 @@ export const Default: StoryObj<typeof ProjectSelect> = {
   ),
 };
 
-export const WithClickableHeader: StoryObj<typeof ProjectSelect> = {
+export const WithClickableHeader: CustomStoryObj<typeof ProjectSelect> = {
   render: () => (
     <ProjectSelect
       selectedProjectIdentifier="evergreen"

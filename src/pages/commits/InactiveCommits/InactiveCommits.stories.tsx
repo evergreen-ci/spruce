@@ -1,11 +1,11 @@
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { InactiveCommitButton as InactiveCommits } from ".";
 
 export default {
   component: InactiveCommits,
-};
+} satisfies CustomMeta<typeof InactiveCommits>;
 
-export const Default: StoryObj<typeof InactiveCommits> = {
+export const Default: CustomStoryObj<typeof InactiveCommits> = {
   render: (args) => <InactiveCommits rolledUpVersions={versions} {...args} />,
   args: {
     hasFilters: false,

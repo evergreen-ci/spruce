@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { StoryObj } from "@storybook/react";
 import { SpawnHostCard } from "pages/spawn/spawnHost/SpawnHostCard";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 
 export default {
   title: "Pages/Spawn/Spawn Host Card",
@@ -12,9 +12,9 @@ export default {
       </MockedProvider>
     ),
   ],
-};
+} satisfies CustomMeta<typeof SpawnHostCard>;
 
-export const Default: StoryObj<typeof SpawnHostCard> = {
+export const Default: CustomStoryObj<typeof SpawnHostCard> = {
   render: () => <SpawnHostCard host={host} />,
 };
 

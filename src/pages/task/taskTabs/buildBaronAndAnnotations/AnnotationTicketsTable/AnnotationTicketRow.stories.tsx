@@ -1,5 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { AnnotationTicketRow } from "./AnnotationTicketRow";
 
 export default {
@@ -12,9 +12,9 @@ export default {
       </MockedProvider>
     ),
   ],
-};
+} satisfies CustomMeta<typeof AnnotationTicketRow>;
 
-export const Default: StoryObj<typeof AnnotationTicketRow> = {
+export const Default: CustomStoryObj<typeof AnnotationTicketRow> = {
   render: (args) => (
     <AnnotationTicketRow
       issueKey="EVG-123"

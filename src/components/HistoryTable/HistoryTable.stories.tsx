@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { MockedProvider } from "@apollo/client/testing";
-import { StoryObj } from "@storybook/react";
+
 import TaskHistoryRow from "pages/taskHistory/TaskHistoryRow";
 import VariantHistoryRow from "pages/variantHistory/VariantHistoryRow";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { context } from ".";
 import HistoryTable from "./HistoryTable";
 import { mainlineCommitData } from "./testData";
@@ -11,16 +11,9 @@ const { HistoryTableProvider, useHistoryTable } = context;
 
 export default {
   component: HistoryTable,
-  decorators: [
-    (Story: () => JSX.Element) => (
-      <MockedProvider>
-        <Story />
-      </MockedProvider>
-    ),
-  ],
-};
+} satisfies CustomMeta<typeof HistoryTable>;
 
-export const TaskHistoryTable: StoryObj<typeof HistoryTable> = {
+export const TaskHistoryTable: CustomStoryObj<typeof HistoryTable> = {
   render: () => (
     <HistoryTableProvider>
       <HistoryTableWrapper type="task" />
@@ -28,7 +21,7 @@ export const TaskHistoryTable: StoryObj<typeof HistoryTable> = {
   ),
 };
 
-export const VariantHistoryTable: StoryObj<typeof HistoryTable> = {
+export const VariantHistoryTable: CustomStoryObj<typeof HistoryTable> = {
   render: () => (
     <HistoryTableProvider>
       <HistoryTableWrapper type="variant" />

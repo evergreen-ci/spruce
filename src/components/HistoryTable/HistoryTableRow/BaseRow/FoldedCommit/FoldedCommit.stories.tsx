@@ -1,15 +1,16 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { StoryObj } from "@storybook/react";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+
 import FoldedCommit from ".";
 import { foldedCommitData } from "./testData";
 
 export default {
   component: FoldedCommit,
   title: "components/HistoryTable/FoldedCommit",
-};
+} satisfies CustomMeta<typeof FoldedCommit>;
 
-export const FoldedCommitStory: StoryObj<typeof FoldedCommit> = {
+export const FoldedCommitStory: CustomStoryObj<typeof FoldedCommit> = {
   render: (args) => <FoldedCommit {...args} />,
   args: {
     index: 0,

@@ -1,5 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { TaskDurationTable } from "./TaskDurationTable";
 
 export default {
@@ -12,9 +12,9 @@ export default {
       </MockedProvider>
     ),
   ],
-};
+} satisfies CustomMeta<typeof TaskDurationTable>;
 
-export const Default: StoryObj<typeof TaskDurationTable> = {
+export const Default: CustomStoryObj<typeof TaskDurationTable> = {
   render: () => <TaskDurationTable tasks={props.tasks} loading={false} />,
 };
 
