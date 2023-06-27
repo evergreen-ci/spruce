@@ -1,4 +1,3 @@
-import { MockedProvider } from "@apollo/client/testing";
 import {
   newSpruceUser,
   newMainlineCommitsUser,
@@ -14,13 +13,6 @@ export default {
       disable: true,
     },
   },
-  decorators: [
-    (Story: () => JSX.Element) => (
-      <MockedProvider>
-        <Story />
-      </MockedProvider>
-    ),
-  ],
 } satisfies CustomMeta<typeof WelcomeModal>;
 
 export const NewSpruceUser: CustomStoryObj<typeof WelcomeModal> = {

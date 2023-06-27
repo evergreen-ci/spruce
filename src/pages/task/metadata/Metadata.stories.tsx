@@ -1,4 +1,3 @@
-import { MockedProvider } from "@apollo/client/testing";
 import styled from "@emotion/styled";
 import { MetStatus, RequiredStatus } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
@@ -8,13 +7,6 @@ import { Metadata } from "./index";
 export default {
   title: "Pages/Task/Metadata",
   component: Metadata,
-  decorators: [
-    (Story: () => JSX.Element) => (
-      <MockedProvider>
-        <Story />
-      </MockedProvider>
-    ),
-  ],
 } satisfies CustomMeta<typeof Metadata>;
 
 export const Default: CustomStoryObj<typeof Metadata> = {

@@ -1,4 +1,3 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { Commit, Commits } from "types/commits";
 import { TaskStatus } from "types/task";
@@ -8,13 +7,6 @@ import { CommitsWrapper, CommitsWrapperProps } from "../CommitsWrapper";
 export default {
   component: CommitsWrapper,
   title: "Pages/Commits/Project Health Page",
-  decorators: [
-    (Story: () => JSX.Element) => (
-      <MockedProvider>
-        <Story />
-      </MockedProvider>
-    ),
-  ],
 } satisfies CustomMeta<typeof CommitsWrapper>;
 
 type RenderProps = {

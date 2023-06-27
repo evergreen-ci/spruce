@@ -1,4 +1,3 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { getUserMock } from "gql/mocks/getUser";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 
@@ -14,11 +13,9 @@ export const DateSeparatorStory: CustomStoryObj<typeof DateSeparator> = {
   args: {
     date: new Date("2021-01-01"),
   },
-  decorators: [
-    (Story: () => JSX.Element) => (
-      <MockedProvider mocks={[getUserMock]}>
-        <Story />
-      </MockedProvider>
-    ),
-  ],
+  parameters: {
+    apolloClient: {
+      mocks: [getUserMock],
+    },
+  },
 };

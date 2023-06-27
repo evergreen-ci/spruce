@@ -1,17 +1,9 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { SpawnHostCard } from "pages/spawn/spawnHost/SpawnHostCard";
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
 
 export default {
   title: "Pages/Spawn/Spawn Host Card",
   component: SpawnHostCard,
-  decorators: [
-    (Story: () => JSX.Element) => (
-      <MockedProvider>
-        <Story />
-      </MockedProvider>
-    ),
-  ],
 } satisfies CustomMeta<typeof SpawnHostCard>;
 
 export const Default: CustomStoryObj<typeof SpawnHostCard> = {

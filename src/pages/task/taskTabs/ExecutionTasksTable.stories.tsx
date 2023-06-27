@@ -1,4 +1,3 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
 
 import { ExecutionTasksTable } from "./ExecutionTasksTable";
@@ -6,13 +5,6 @@ import { ExecutionTasksTable } from "./ExecutionTasksTable";
 export default {
   title: "Pages/Task/Table/Execution Tasks Table",
   component: ExecutionTasksTable,
-  decorators: [
-    (Story: () => JSX.Element) => (
-      <MockedProvider>
-        <Story />
-      </MockedProvider>
-    ),
-  ],
 } satisfies CustomMeta<typeof ExecutionTasksTable>;
 
 export const SingleExecution: CustomStoryObj<typeof ExecutionTasksTable> = {

@@ -1,4 +1,3 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
 
@@ -18,11 +17,9 @@ export const FoldedCommitStory: CustomStoryObj<typeof FoldedCommit> = {
     numVisibleCols: 5,
     selected: false,
   },
-  decorators: [
-    (Story: () => JSX.Element) => (
-      <MockedProvider mocks={[getSpruceConfigMock]}>
-        <Story />
-      </MockedProvider>
-    ),
-  ],
+  parameters: {
+    apolloClient: {
+      mocks: [getSpruceConfigMock],
+    },
+  },
 };

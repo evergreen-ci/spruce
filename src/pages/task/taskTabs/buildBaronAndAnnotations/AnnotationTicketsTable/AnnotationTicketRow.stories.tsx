@@ -1,17 +1,9 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { AnnotationTicketRow } from "./AnnotationTicketRow";
 
 export default {
   title: "Pages/Task/BuildBaron/AnnotationTicketRow",
   component: AnnotationTicketRow,
-  decorators: [
-    (Story: () => JSX.Element) => (
-      <MockedProvider>
-        <Story />
-      </MockedProvider>
-    ),
-  ],
 } satisfies CustomMeta<typeof AnnotationTicketRow>;
 
 export const Default: CustomStoryObj<typeof AnnotationTicketRow> = {
