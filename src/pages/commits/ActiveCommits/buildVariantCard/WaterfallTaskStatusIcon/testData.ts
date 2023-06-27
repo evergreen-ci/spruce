@@ -1,56 +1,9 @@
-import { MockedProvider } from "@apollo/client/testing";
-import styled from "@emotion/styled";
 import {
   FailedTaskStatusIconTooltipQuery,
   FailedTaskStatusIconTooltipQueryVariables,
 } from "gql/generated/types";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { ApolloMock } from "types/gql";
-import { TaskStatus } from "types/task";
-import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
-
-export default {
-  title: "Pages/Commits/WaterfallIcon",
-  component: WaterfallTaskStatusIcon,
-  decorators: [
-    (Story: () => JSX.Element) => (
-      <MockedProvider mocks={[getTooltipQueryMock]}>
-        <Story />
-      </MockedProvider>
-    ),
-  ],
-} satisfies CustomMeta<typeof WaterfallTaskStatusIcon>;
-
-export const Default: CustomStoryObj<typeof WaterfallTaskStatusIcon> = {
-  render: (args) => (
-    <Container>
-      <WaterfallTaskStatusIcon {...args} />
-    </Container>
-  ),
-  args: {
-    displayName: "multiversion",
-    timeTaken: 2754729,
-    taskId: "task-id",
-    identifier: "ubuntu1604",
-    status: "failed",
-    failedTestCount: 5,
-  },
-  argTypes: {
-    status: {
-      options: TaskStatus,
-      control: { type: "select" },
-    },
-  },
-};
-
-const Container = styled.div`
-  width: fit-content;
-  display: flex;
-  justify-content: center;
-  margin-right: auto;
-  margin-left: auto;
-`;
 
 const getTooltipQueryMock: ApolloMock<
   FailedTaskStatusIconTooltipQuery,
@@ -88,3 +41,5 @@ const getTooltipQueryMock: ApolloMock<
     },
   },
 };
+
+export { getTooltipQueryMock };
