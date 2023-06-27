@@ -246,7 +246,8 @@ describe("configureTasks", () => {
 
       userEvent.type(screen.getByDataCy("task-filter-input"), "compile");
       expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(1);
-      expect(screen.getByDataCy("task-checkbox")).toHaveTextContent("compile");
+      const checkbox = screen.getByLabelText("compile");
+      expect(checkbox).toBeInTheDocument();
     });
   });
   describe("downstream tasks and aliases", () => {
