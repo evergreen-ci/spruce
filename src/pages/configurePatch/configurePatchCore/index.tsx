@@ -90,6 +90,18 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
     setSelectedTab,
   } = useConfigurePatch(initialPatch);
 
+  const totalSelectedTaskCount = Object.values(
+    selectedBuildVariantTasks
+  ).reduce(
+    (count, taskObj) => count + Object.values(taskObj).filter((v) => v).length,
+    0
+  );
+
+  const aliasCount = Object.values(selectedAliases).reduce(
+    (count, alias) => count + (alias ? 1 : 0),
+    0
+  );
+
   const [schedulePatch, { loading: loadingScheduledPatch }] = useMutation<
     SchedulePatchMutation,
     SchedulePatchMutationVariables
@@ -152,6 +164,15 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
             Cancel
           </StyledButton>
         )}
+        <StyledButton
+          data-cy="schedule-button"
+          onClick={onClickSchedule}
+          isLoading={loadingScheduledPatch}
+          variant="primary"
+          disabled={totalSelectedTaskCount === 0 && aliasCount === 0}
+        >
+          Schedule
+        </StyledButton>
       </FlexRow>
       <PageLayout>
         <PageSider>
@@ -185,8 +206,8 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
                 <ConfigureTasks
                   activated={activated}
                   childPatches={childPatchesWithAliases}
-                  loading={loadingScheduledPatch}
-                  onClickSchedule={onClickSchedule}
+                  totalSelectedTaskCount={totalSelectedTaskCount}
+                  aliasCount={aliasCount}
                   selectableAliases={selectableAliases}
                   selectedAliases={selectedAliases}
                   selectedBuildVariants={selectedBuildVariants}
