@@ -5,8 +5,8 @@ import {
   userEvent,
   waitFor,
 } from "test_utils";
-import { BuildVariantCard } from "./BuildVariantCard";
-import { injectGlobalDimStyle, removeGlobalDimStyle } from "./utils";
+import { BuildVariantCard } from ".";
+import { injectGlobalDimStyle, removeGlobalDimStyle } from "../utils";
 
 jest.mock("./utils");
 

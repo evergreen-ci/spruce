@@ -2,7 +2,7 @@ import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { Commit, Commits } from "types/commits";
 import { TaskStatus } from "types/task";
 import { isFailedTaskStatus } from "utils/statuses";
-import { CommitsWrapper, CommitsWrapperProps } from "../CommitsWrapper";
+import { CommitsWrapper, CommitsWrapperProps } from "./CommitsWrapper";
 
 export default {
   component: CommitsWrapper,
