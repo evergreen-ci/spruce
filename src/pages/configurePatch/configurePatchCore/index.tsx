@@ -165,7 +165,7 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
           </StyledButton>
         )}
         <StyledButton
-          data-cy="schedule-button"
+          data-cy="schedule-patch"
           onClick={onClickSchedule}
           isLoading={loadingScheduledPatch}
           variant="primary"
