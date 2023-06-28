@@ -3,6 +3,7 @@ import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   ProjectEventLogsQuery,
   ProjectEventLogsQueryVariables,
+  ProjectHealthView,
 } from "gql/generated/types";
 import { GET_PROJECT_EVENT_LOGS } from "gql/queries";
 import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
@@ -146,6 +147,8 @@ const eventLogEntry: ProjectEventLogsQuery["projectEvents"]["eventLogEntries"][0
           message: "",
           __typename: "CommitQueueParams",
         },
+        parsleyFilters: [],
+        projectHealthView: ProjectHealthView.All,
       },
       subscriptions: [],
       vars: {
@@ -227,6 +230,8 @@ const eventLogEntry: ProjectEventLogsQuery["projectEvents"]["eventLogEntries"][0
           message: "",
           __typename: "CommitQueueParams",
         },
+        parsleyFilters: [],
+        projectHealthView: ProjectHealthView.Failed,
       },
       subscriptions: [],
       vars: {

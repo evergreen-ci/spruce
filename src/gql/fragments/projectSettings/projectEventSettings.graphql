@@ -9,6 +9,7 @@
 #import "./virtualWorkstation.graphql"
 #import "./projectTriggers.graphql"
 #import "./periodicBuilds.graphql"
+#import "./viewsAndFilters.graphql"
 
 fragment ProjectEventSettings on ProjectEventSettings {
   aliases {
@@ -25,6 +26,7 @@ fragment ProjectEventSettings on ProjectEventSettings {
     ...ProjectPeriodicBuildsSettings
     ...ProjectPluginsSettings
     ...ProjectTriggersSettings
+    ...ProjectViewsAndFiltersSettings
     ...ProjectVirtualWorkstationSettings
     repoRefId
     tracksPushEvents
