@@ -5412,6 +5412,11 @@ export type MainlineCommitsForHistoryQuery = {
         message: string;
         order: number;
         revision: string;
+        gitTags?: Array<{
+          __typename?: "GitTag";
+          pusher: string;
+          tag: string;
+        }> | null;
         upstreamProject?: {
           __typename?: "UpstreamProject";
           project: string;
@@ -5442,6 +5447,11 @@ export type MainlineCommitsForHistoryQuery = {
             status: string;
           } | null> | null;
         } | null> | null;
+        gitTags?: Array<{
+          __typename?: "GitTag";
+          pusher: string;
+          tag: string;
+        }> | null;
         upstreamProject?: {
           __typename?: "UpstreamProject";
           project: string;
@@ -5522,6 +5532,11 @@ export type MainlineCommitsQuery = {
             count: number;
             status: string;
           }>;
+        }> | null;
+        gitTags?: Array<{
+          __typename?: "GitTag";
+          pusher: string;
+          tag: string;
         }> | null;
         taskStatusStats?: {
           __typename?: "TaskStats";
@@ -7740,6 +7755,11 @@ export type VersionQuery = {
       displayName: string;
       url: string;
     }>;
+    gitTags?: Array<{
+      __typename?: "GitTag";
+      pusher: string;
+      tag: string;
+    }> | null;
     manifest?: {
       __typename?: "Manifest";
       branch: string;

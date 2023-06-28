@@ -55,21 +55,23 @@ const BaseRow: React.VFC<RowProps> = ({
         message,
         id: versionId,
         upstreamProject,
+        gitTags,
       } = data.commit;
 
       return (
         <RowContainer data-selected={selected} selected={selected}>
           <LabelCellContainer>
             <CommitChartLabel
-              versionId={versionId}
-              githash={revision}
-              createTime={createTime}
               author={author}
+              createTime={createTime}
+              gitTags={gitTags}
+              githash={revision}
               message={message}
               onClickGithash={onClickGithash}
               onClickJiraTicket={onClickJiraTicket}
-              upstreamProject={upstreamProject}
               onClickUpstreamProject={onClickUpstreamProject}
+              upstreamProject={upstreamProject}
+              versionId={versionId}
             />
           </LabelCellContainer>
           {columns}

@@ -12,6 +12,10 @@ const RenderCommitChartLabel = ({ version }) => (
       createTime={version.createTime}
       author={version.author}
       message={version.message}
+      gitTags={[
+        { tag: "v1.2.3", pusher: "release-bot" },
+        { tag: "v1.2.3-rc0", pusher: "release-bot" },
+      ]}
     />
   </MockedProvider>
 );
@@ -26,7 +30,6 @@ describe("commitChartLabel", () => {
 
   it("githash links to version page", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
-
     expect(screen.queryByDataCy("githash-link")).toHaveAttribute(
       "href",
       "/version/123/tasks"
@@ -74,6 +77,12 @@ describe("commitChartLabel", () => {
     ).toHaveTextContent(
       "SERVER-57332 Create skeleton InternalDocumentSourceDensify"
     );
+  });
+
+  it("displays git tags", () => {
+    renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
+    expect(screen.getByText(/v1.2.3/)).toBeInTheDocument();
+    expect(screen.getByText(/v1.2.3-rc0/)).toBeInTheDocument();
   });
 });
 
