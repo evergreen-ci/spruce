@@ -53,6 +53,7 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
     childPatches,
     patchTriggerAliases,
     childPatchAliases,
+    variantsTasks,
   } = patch;
   const { variants } = project;
 
@@ -87,7 +88,19 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
     setSelectedBuildVariants,
     setSelectedBuildVariantTasks,
     setSelectedTab,
-  } = useConfigurePatch(initialPatch, variants);
+  } = useConfigurePatch(initialPatch);
+
+  const totalSelectedTaskCount = Object.values(
+    selectedBuildVariantTasks
+  ).reduce(
+    (count, taskObj) => count + Object.values(taskObj).filter((v) => v).length,
+    0
+  );
+
+  const aliasCount = Object.values(selectedAliases).reduce(
+    (count, alias) => count + (alias ? 1 : 0),
+    0
+  );
 
   const [schedulePatch, { loading: loadingScheduledPatch }] = useMutation<
     SchedulePatchMutation,
@@ -151,6 +164,15 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
             Cancel
           </StyledButton>
         )}
+        <StyledButton
+          data-cy="schedule-patch"
+          onClick={onClickSchedule}
+          isLoading={loadingScheduledPatch}
+          variant="primary"
+          disabled={totalSelectedTaskCount === 0 && aliasCount === 0}
+        >
+          Schedule
+        </StyledButton>
       </FlexRow>
       <PageLayout>
         <PageSider>
@@ -184,14 +206,15 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
                 <ConfigureTasks
                   activated={activated}
                   childPatches={childPatchesWithAliases}
-                  loading={loadingScheduledPatch}
-                  onClickSchedule={onClickSchedule}
+                  totalSelectedTaskCount={totalSelectedTaskCount}
+                  aliasCount={aliasCount}
                   selectableAliases={selectableAliases}
                   selectedAliases={selectedAliases}
                   selectedBuildVariants={selectedBuildVariants}
                   selectedBuildVariantTasks={selectedBuildVariantTasks}
                   setSelectedAliases={setSelectedAliases}
                   setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+                  activatedVariants={variantsTasks}
                 />
               </Tab>
               <Tab data-cy="changes-tab" name="Changes">
