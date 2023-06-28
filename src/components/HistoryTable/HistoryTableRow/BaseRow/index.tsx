@@ -62,16 +62,16 @@ const BaseRow: React.VFC<RowProps> = ({
         <RowContainer data-selected={selected} selected={selected}>
           <LabelCellContainer>
             <CommitChartLabel
-              versionId={versionId}
+              author={author}
+              createTime={createTime}
               gitTags={gitTags}
               githash={revision}
-              createTime={createTime}
-              author={author}
               message={message}
               onClickGithash={onClickGithash}
               onClickJiraTicket={onClickJiraTicket}
-              upstreamProject={upstreamProject}
               onClickUpstreamProject={onClickUpstreamProject}
+              upstreamProject={upstreamProject}
+              versionId={versionId}
             />
           </LabelCellContainer>
           {columns}

@@ -50,16 +50,16 @@ const FoldedCommit: React.VFC<FoldedCommitProps> = ({
     <StyledRowContainer key={commit.id} data-cy="folded-commit">
       <LabelCellContainer>
         <CommitChartLabel
-          versionId={commit.id}
+          author={commit.author}
+          createTime={commit.createTime}
           githash={commit.revision}
           gitTags={commit.gitTags}
-          createTime={commit.createTime}
-          author={commit.author}
           message={commit.message}
           onClickGithash={onClickGithash}
           onClickJiraTicket={onClickJiraTicket}
-          upstreamProject={commit.upstreamProject}
           onClickUpstreamProject={onClickUpstreamProject}
+          upstreamProject={commit.upstreamProject}
+          versionId={commit.id}
         />
       </LabelCellContainer>
       {columns}
@@ -92,7 +92,7 @@ const Column = styled.div<{ selected: boolean }>`
 `;
 
 const StyledAccordion = styled(Accordion)`
-  margin-bottom: ${size.s};
+  margin: ${size.xs} 0;
 `;
 
 const AccordionTitle = styled.div`
