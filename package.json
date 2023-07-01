@@ -110,7 +110,7 @@
     "graphql": "16.6.0",
     "html-react-parser": "3.0.16",
     "js-cookie": "3.0.1",
-    "linkify-html": "4.1.0",
+    "linkify-html": "4.1.1",
     "linkifyjs": "4.1.0",
     "lodash.debounce": "4.0.8",
     "lodash.get": "4.4.2",
