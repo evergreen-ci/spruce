@@ -182,12 +182,14 @@ export type CommitQueueParams = {
   __typename?: "CommitQueueParams";
   enabled?: Maybe<Scalars["Boolean"]>;
   mergeMethod: Scalars["String"];
+  mergeQueue: MergeQueue;
   message: Scalars["String"];
 };
 
 export type CommitQueueParamsInput = {
   enabled?: InputMaybe<Scalars["Boolean"]>;
   mergeMethod?: InputMaybe<Scalars["String"]>;
+  mergeQueue?: InputMaybe<MergeQueue>;
   message?: InputMaybe<Scalars["String"]>;
 };
 
@@ -641,6 +643,11 @@ export type Manifest = {
   project: Scalars["String"];
   revision: Scalars["String"];
 };
+
+export enum MergeQueue {
+  Evergreen = "EVERGREEN",
+  Github = "GITHUB",
+}
 
 export enum MetStatus {
   Met = "MET",
@@ -1659,6 +1666,7 @@ export type RepoCommitQueueParams = {
   __typename?: "RepoCommitQueueParams";
   enabled: Scalars["Boolean"];
   mergeMethod: Scalars["String"];
+  mergeQueue: MergeQueue;
   message: Scalars["String"];
 };
 
@@ -2055,6 +2063,7 @@ export type TaskEndDetail = {
   status: Scalars["String"];
   timedOut?: Maybe<Scalars["Boolean"]>;
   timeoutType?: Maybe<Scalars["String"]>;
+  traceID?: Maybe<Scalars["String"]>;
   type: Scalars["String"];
 };
 
@@ -2977,6 +2986,7 @@ export type ProjectGithubSettingsFragment = {
     __typename?: "CommitQueueParams";
     enabled?: boolean | null;
     mergeMethod: string;
+    mergeQueue: MergeQueue;
     message: string;
   };
 };
@@ -2994,6 +3004,7 @@ export type RepoGithubSettingsFragment = {
     __typename?: "RepoCommitQueueParams";
     enabled: boolean;
     mergeMethod: string;
+    mergeQueue: MergeQueue;
     message: string;
   };
 };
@@ -3014,6 +3025,7 @@ export type ProjectGithubCommitQueueFragment = {
       __typename?: "CommitQueueParams";
       enabled?: boolean | null;
       mergeMethod: string;
+      mergeQueue: MergeQueue;
       message: string;
     };
   } | null;
@@ -3035,6 +3047,7 @@ export type RepoGithubCommitQueueFragment = {
       __typename?: "RepoCommitQueueParams";
       enabled: boolean;
       mergeMethod: string;
+      mergeQueue: MergeQueue;
       message: string;
     };
   } | null;
@@ -3056,6 +3069,7 @@ export type ProjectEventGithubCommitQueueFragment = {
       __typename?: "CommitQueueParams";
       enabled?: boolean | null;
       mergeMethod: string;
+      mergeQueue: MergeQueue;
       message: string;
     };
   } | null;
@@ -3200,6 +3214,7 @@ export type ProjectSettingsFieldsFragment = {
       __typename?: "CommitQueueParams";
       enabled?: boolean | null;
       mergeMethod: string;
+      mergeQueue: MergeQueue;
       message: string;
     };
   } | null;
@@ -3389,6 +3404,7 @@ export type RepoSettingsFieldsFragment = {
       __typename?: "RepoCommitQueueParams";
       enabled: boolean;
       mergeMethod: string;
+      mergeQueue: MergeQueue;
       message: string;
     };
   } | null;
@@ -3780,6 +3796,7 @@ export type ProjectEventSettingsFragment = {
       __typename?: "CommitQueueParams";
       enabled?: boolean | null;
       mergeMethod: string;
+      mergeQueue: MergeQueue;
       message: string;
     };
   } | null;
@@ -5988,6 +6005,7 @@ export type ProjectEventLogsQuery = {
             __typename?: "CommitQueueParams";
             enabled?: boolean | null;
             mergeMethod: string;
+            mergeQueue: MergeQueue;
             message: string;
           };
         } | null;
@@ -6191,6 +6209,7 @@ export type ProjectEventLogsQuery = {
             __typename?: "CommitQueueParams";
             enabled?: boolean | null;
             mergeMethod: string;
+            mergeQueue: MergeQueue;
             message: string;
           };
         } | null;
@@ -6409,6 +6428,7 @@ export type ProjectSettingsQuery = {
         __typename?: "CommitQueueParams";
         enabled?: boolean | null;
         mergeMethod: string;
+        mergeQueue: MergeQueue;
         message: string;
       };
     } | null;
@@ -6651,6 +6671,7 @@ export type RepoEventLogsQuery = {
             __typename?: "CommitQueueParams";
             enabled?: boolean | null;
             mergeMethod: string;
+            mergeQueue: MergeQueue;
             message: string;
           };
         } | null;
@@ -6854,6 +6875,7 @@ export type RepoEventLogsQuery = {
             __typename?: "CommitQueueParams";
             enabled?: boolean | null;
             mergeMethod: string;
+            mergeQueue: MergeQueue;
             message: string;
           };
         } | null;
@@ -7056,6 +7078,7 @@ export type RepoSettingsQuery = {
         __typename?: "RepoCommitQueueParams";
         enabled: boolean;
         mergeMethod: string;
+        mergeQueue: MergeQueue;
         message: string;
       };
     } | null;

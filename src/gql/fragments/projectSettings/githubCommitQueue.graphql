@@ -2,6 +2,7 @@ fragment ProjectGithubSettings on Project {
   commitQueue {
     enabled
     mergeMethod
+    mergeQueue
     message
   }
   githubChecksEnabled
@@ -17,6 +18,7 @@ fragment RepoGithubSettings on RepoRef {
   commitQueue {
     enabled
     mergeMethod
+    mergeQueue
     message
   }
   githubChecksEnabled
