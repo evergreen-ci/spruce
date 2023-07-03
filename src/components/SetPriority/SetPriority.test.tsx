@@ -27,7 +27,7 @@ describe("setPriority", () => {
           screen.queryByDataCy("set-patch-priority-popconfirm")
         ).toBeVisible();
       });
-      expect(screen.queryByDataCy("priority-default-message")).toBeNull();
+      expect(screen.queryByDataCy("priority-default-message")).toBeVisible();
       userEvent.type(screen.queryByDataCy("patch-priority-input"), "9");
       expect(screen.queryByDataCy("priority-default-message")).toBeVisible();
     });
@@ -124,7 +124,7 @@ describe("setPriority", () => {
           screen.queryByDataCy("set-task-priority-popconfirm")
         ).toBeVisible();
       });
-      expect(screen.queryByDataCy("priority-default-message")).toBeNull();
+      expect(screen.queryByDataCy("priority-default-message")).toBeVisible();
       userEvent.type(screen.queryByDataCy("task-priority-input"), "9");
       expect(screen.queryByDataCy("priority-default-message")).toBeVisible();
     });
