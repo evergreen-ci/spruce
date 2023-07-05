@@ -41,7 +41,7 @@ const getLatestTag = () =>
   });
 
 const deleteTag = (tag) => {
-  const deleteCommand = "git push --delete " + githubRemote + " " + tag;
+  const deleteCommand = `git push --delete ${githubRemote} ${tag}`;
   return new Promise((resolve, reject) => {
     exec(deleteCommand, (err, stdout) => {
       if (err) {
@@ -55,7 +55,7 @@ const deleteTag = (tag) => {
 
 const pushTags = () =>
   new Promise((resolve, reject) => {
-    exec("git push --tags " + githubRemote, (err, stdout) => {
+    exec(`git push --tags ${githubRemote}`, (err, stdout) => {
       if (err) {
         reject(err);
         return;

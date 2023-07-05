@@ -1,5 +1,4 @@
 const prompts = require("prompts");
-const { exec } = require("child_process");
 const {
   createNewTag,
   deleteTag,
@@ -47,7 +46,7 @@ const evergreenDeploy = async () => {
   }
 
   // Print all commits between the last tag and the current commit
-  console.log("Commit messages:\n" + commitMessages);
+  console.log(`Commit messages:\n${commitMessages}`);
 
   const response = await prompts({
     type: "confirm",
@@ -68,8 +67,6 @@ const evergreenDeploy = async () => {
       console.log("Creating tag failed. Aborting.");
     }
   }
-
-  return;
 };
 
 /* Deploy by generating a production build locally and pushing it directly to S3. */
@@ -99,21 +96,18 @@ const localDeploy = async () => {
       console.error("Local deploy failed. Aborting.");
     }
   }
-
-  return;
 };
 
 const deleteAndPushLatestTag = async () => {
   try {
     const latestTag = await getLatestTag();
-    console.log("Deleting and re-pushing latest tag (" + latestTag + ")");
+    console.log(`Deleting and re-pushing latest tag (${latestTag})`);
     console.log(await deleteTag(latestTag));
     console.log(await pushTags());
   } catch (err) {
     console.error(err);
     console.error("Deleting and pushing tag failed. Aborting.");
   }
-  return;
 };
 
 module.exports = { evergreenDeploy, localDeploy };

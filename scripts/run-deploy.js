@@ -1,4 +1,4 @@
-const { evergreenDeploy, localDeploy } = require("./deploy-production.js");
+const { evergreenDeploy, localDeploy } = require("./deploy-production");
 
 const main = async () => {
   if (process.argv.includes("--local")) {
