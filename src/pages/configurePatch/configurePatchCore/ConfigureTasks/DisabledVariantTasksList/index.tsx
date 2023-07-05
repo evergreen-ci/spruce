@@ -25,7 +25,7 @@ const DisabledVariantTasksList: React.VFC<DisabledVariantTasksListProps> = ({
               data-cy={dataCy}
               key={`${name}-${taskName}`}
               label={taskName}
-              checked={status === CheckboxState.CHECKED}
+              checked={status === CheckboxState.Checked}
               disabled
             />
           ))}
