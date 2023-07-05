@@ -25,7 +25,8 @@ describe("Update Status Modal", () => {
       cy.contains("button", "Update").click({ force: true });
     });
     cy.dataCy("update-host-status-modal").should("not.exist");
-    cy.validateToast("success");
+    // Because the static hosts that exists in the dev environment cannot be decommissioned, we should expect an error.
+    cy.validateToast("error");
 
     // MODAL FORM VALUES SHOULD BE CLEARED AFTER MUTATION
     cy.dataCy("update-status-button").click();

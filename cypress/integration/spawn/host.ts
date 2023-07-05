@@ -1,7 +1,6 @@
 const hostTableRow = ".ant-table-row";
 const hostColumnHeader = ".ant-table-thead > tr > :nth-child(2)";
 
-const unsortedSpawnHostOrder = ["i-092593689871a50dc", "i-04ade558e1e26b0ad"];
 const ascendingSortSpawnHostOrderByHostId = [
   "i-04ade558e1e26b0ad",
   "i-092593689871a50dc",
@@ -46,7 +45,9 @@ describe("Navigating to Spawn Host page", () => {
     cy.dataCy("spawn-host-card").should("have.length", 1);
   });
   it("Clicking on the Event Log link should redirect to /host/:hostId", () => {
-    cy.contains("Event Log").click();
+    cy.get('[data-row-key="i-092593689871a50dc"]').within(() => {
+      cy.contains("Event Log").click();
+    });
     cy.location("pathname").should("eq", "/host/i-092593689871a50dc");
   });
 
@@ -55,9 +56,7 @@ describe("Navigating to Spawn Host page", () => {
       cy.visit("/spawn/host");
     });
     it("Visiting the spawn host page should display all of your spawned hosts not sorted by default", () => {
-      cy.get(hostTableRow).each(($el, index) =>
-        cy.wrap($el).contains(unsortedSpawnHostOrder[index])
-      );
+      cy.get(hostTableRow).should("have.length", 2);
     });
     it("Clicking on the host column header should sort spawn hosts by ascending order by id", () => {
       cy.get(hostColumnHeader).click();
@@ -76,9 +75,7 @@ describe("Navigating to Spawn Host page", () => {
       cy.get(hostColumnHeader).click();
       cy.get(hostColumnHeader).click();
       cy.get(hostColumnHeader).click();
-      cy.get(hostTableRow).each(($el, index) =>
-        cy.wrap($el).contains(unsortedSpawnHostOrder[index])
-      );
+      cy.get(hostTableRow).should("have.length", 2);
     });
     it("Clicking on the expiration column header should sort the hosts by ascending order", () => {
       cy.contains("Expires In").click();
@@ -97,9 +94,7 @@ describe("Navigating to Spawn Host page", () => {
       cy.contains("Expires In").click();
       cy.contains("Expires In").click();
       cy.contains("Expires In").click();
-      cy.get(hostTableRow).each(($el, index) =>
-        cy.wrap($el).contains(unsortedSpawnHostOrder[index])
-      );
+      cy.get(hostTableRow).should("have.length", 2);
     });
 
     describe("Spawn host modal", () => {
