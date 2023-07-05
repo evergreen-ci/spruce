@@ -1,17 +1,13 @@
 import { useEffect, useReducer } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { getPatchRoute } from "constants/routes";
-import {
-  ConfigurePatchQuery,
-  ParameterInput,
-  VariantTask,
-} from "gql/generated/types";
+import { ConfigurePatchQuery, ParameterInput } from "gql/generated/types";
+import { useTabShortcut } from "hooks/useTabShortcut";
 import { PatchTab } from "types/patch";
-import { Unpacked } from "types/utils";
-import { array, queryString, string } from "utils";
-import { useTabShortcut } from "./useTabShortcut";
+import { queryString, string } from "utils";
+import { AliasState, VariantTasksState } from "./types";
+import { initializeAliasState, initializeTaskState } from "./utils";
 
-const { convertArrayToObject, mapStringArrayToObject } = array;
 const { parseQueryString } = queryString;
 const { omitTypename } = string;
 
@@ -65,7 +61,7 @@ const reducer = (state: ConfigurePatchState, action: Action) => {
       return {
         ...state,
         selectedBuildVariants: action.buildVariants.sort((a, b) =>
-          b.localeCompare(a)
+          a.localeCompare(b)
         ),
       };
     case "setSelectedBuildVariantTasks":
@@ -118,26 +114,6 @@ const tabToIndexMap = {
   [PatchTab.Parameters]: 2,
 };
 
-// Extract the type of a child patch and append alias field
-export interface ChildPatchAliased
-  extends Unpacked<ConfigurePatchQuery["patch"]["childPatches"]> {
-  alias: string;
-}
-
-export type PatchTriggerAlias = Unpacked<
-  ConfigurePatchQuery["patch"]["patchTriggerAliases"]
->;
-
-export type AliasState = {
-  [alias: string]: boolean;
-};
-export type TasksState = {
-  [task: string]: boolean;
-};
-export type VariantTasksState = {
-  [variant: string]: TasksState;
-};
-
 interface HookResult extends ConfigurePatchState {
   setDescription: (description: string) => void;
   setPatchParams: (patchParams: ParameterInput[]) => void;
@@ -146,16 +122,14 @@ interface HookResult extends ConfigurePatchState {
   setSelectedAliases: (aliases: AliasState) => void;
   setSelectedTab: React.Dispatch<React.SetStateAction<number>>;
 }
-
-export const useConfigurePatch = (
-  patch: ConfigurePatchQuery["patch"]
-): HookResult => {
+const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
   const navigate = useNavigate();
   const location = useLocation();
   const { tab } = useParams<{ tab: PatchTab | null }>();
 
   const { id, project } = patch;
   const { variants } = project;
+
   const [state, dispatch] = useReducer(
     reducer,
     initialState({
@@ -206,7 +180,7 @@ export const useConfigurePatch = (
     });
   const setSelectedTab = (i: number) =>
     dispatch({ type: "setSelectedTab", tabIndex: i });
-  const setPatchParams = (params: ParameterInput[]) =>
+  const setPatchParams = (params) =>
     dispatch({ type: "setPatchParams", params });
 
   useTabShortcut({
@@ -226,32 +200,4 @@ export const useConfigurePatch = (
   };
 };
 
-// Takes in variant tasks and default selected tasks and returns an object
-// With merged variant and default selected tasks auto selected.
-const initializeTaskState = (
-  variantTasks: ConfigurePatchQuery["patch"]["project"]["variants"],
-  defaultSelectedTasks: VariantTask[]
-) => {
-  const defaultTasks = convertArrayToObject(defaultSelectedTasks, "name");
-  return variantTasks.reduce(
-    (prev, { name: variant, tasks }) => ({
-      ...prev,
-      [variant]: {
-        ...mapStringArrayToObject(tasks, false),
-        ...(defaultTasks[variant]
-          ? mapStringArrayToObject(defaultTasks[variant].tasks, true)
-          : {}),
-      },
-    }),
-    {}
-  );
-};
-
-const initializeAliasState = (patchTriggerAliases: PatchTriggerAlias[]) =>
-  patchTriggerAliases.reduce(
-    (prev, { alias }) => ({
-      ...prev,
-      [alias]: false,
-    }),
-    {}
-  );
+export default useConfigurePatch;

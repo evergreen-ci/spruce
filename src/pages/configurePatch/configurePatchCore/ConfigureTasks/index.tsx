@@ -1,77 +1,105 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
+import TextInput from "@leafygreen-ui/text-input";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
-import every from "lodash.every";
 import pluralize from "pluralize";
-import { LoadingButton } from "components/Buttons";
 import Icon from "components/Icon";
+import { CharKey, ModifierKey } from "constants/keys";
 import { size } from "constants/tokens";
+import { VariantTask } from "gql/generated/types";
+import useKeyboardShortcut from "hooks/useKeyboardShortcut";
 import {
   AliasState,
   ChildPatchAliased,
   PatchTriggerAlias,
   VariantTasksState,
-} from "hooks/useConfigurePatch";
+} from "../useConfigurePatch/types";
 import DisabledVariantTasksList from "./DisabledVariantTasksList";
 import { TaskLayoutGrid } from "./styles";
 import { CheckboxState } from "./types";
+import {
+  deduplicateTasks,
+  getSelectAllCheckboxState,
+  getVisibleAliases,
+  getVisibleChildPatches,
+  isTaskCheckboxChecked,
+  isTaskCheckboxActivated,
+  isTaskCheckboxIndeterminate,
+} from "./utils";
 
 interface Props {
   selectedBuildVariants: string[];
   selectedBuildVariantTasks: VariantTasksState;
   setSelectedBuildVariantTasks: (vt: VariantTasksState) => void;
+  activatedVariants?: VariantTask[];
   activated: boolean;
-  loading: boolean;
-  onClickSchedule: () => void;
   selectedAliases: AliasState;
   setSelectedAliases: (aliases: AliasState) => void;
   childPatches: ChildPatchAliased[];
   selectableAliases: PatchTriggerAlias[];
+  totalSelectedTaskCount: number;
+  aliasCount: number;
 }
 
 const ConfigureTasks: React.VFC<Props> = ({
-  selectedBuildVariants,
-  selectedBuildVariantTasks,
-  setSelectedBuildVariantTasks,
   activated,
-  loading,
-  onClickSchedule,
-  selectedAliases,
-  setSelectedAliases,
+  activatedVariants = [],
+  aliasCount,
   childPatches,
   selectableAliases,
+  selectedAliases,
+  selectedBuildVariants,
+  selectedBuildVariantTasks,
+  setSelectedAliases,
+  setSelectedBuildVariantTasks,
+  totalSelectedTaskCount,
 }) => {
-  const aliasCount = Object.values(selectedAliases).reduce(
-    (count, alias) => count + (alias ? 1 : 0),
-    0
+  const [search, setSearch] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
+  useKeyboardShortcut(
+    {
+      charKey: CharKey.F,
+      modifierKeys: [ModifierKey.Control],
+    },
+    () => {
+      searchRef.current?.focus();
+    }
   );
+
   const childPatchCount = childPatches?.length || 0;
-  const downstreamTaskCount = aliasCount + childPatchCount;
-  const buildVariantCount = Object.values(selectedBuildVariantTasks).reduce(
-    (count, taskOb) =>
-      count +
-      (every(Object.values(taskOb), (isSelected: boolean) => !isSelected)
-        ? 0
-        : 1),
+  const totalDownstreamTaskCount = aliasCount + childPatchCount;
+
+  const totalSelectedBuildVariantCount = Object.values(
+    selectedBuildVariantTasks
+  ).reduce(
+    (count, tasks) =>
+      count + (Object.values(tasks).some((isSelected) => isSelected) ? 1 : 0),
     0
   );
-  const taskCount = Object.values(selectedBuildVariantTasks).reduce(
-    (count, taskObj) => count + Object.values(taskObj).filter((v) => v).length,
-    0
-  );
-  const currentTasks = useMemo(() => {
+
+  // Deduplicate tasks across selected build variants
+  const visibleTasks = useMemo(() => {
     const tasks = selectedBuildVariants.map(
       (bv) => selectedBuildVariantTasks[bv] || {}
     );
-    return deduplicateTasks(tasks);
-  }, [selectedBuildVariantTasks, selectedBuildVariants]);
+    const previouslySelectedVariants = selectedBuildVariants.map(
+      (bv) => activatedVariants.find((vt) => vt.name === bv) || undefined
+    );
+    return deduplicateTasks(tasks, previouslySelectedVariants, search);
+  }, [
+    selectedBuildVariantTasks,
+    selectedBuildVariants,
+    activatedVariants,
+    search,
+  ]);
 
-  const sortedCurrentTasks = useMemo(
-    () => Object.entries(currentTasks).sort((a, b) => a[0].localeCompare(b[0])),
-    [currentTasks]
+  // Sort tasks alphabetically
+  const sortedVisibleTasks = useMemo(
+    () => Object.entries(visibleTasks).sort((a, b) => a[0].localeCompare(b[0])),
+    [visibleTasks]
   );
 
   const currentAliases = getVisibleAliases(
@@ -81,18 +109,17 @@ const ConfigureTasks: React.VFC<Props> = ({
   const currentAliasTasks = selectableAliases.filter(({ alias }) =>
     selectedBuildVariants.includes(alias)
   );
+  // Show an alias's variants/tasks if it is the only menu item selected
+  const shouldShowAliasTasks =
+    currentAliasTasks.length === 1 && selectedBuildVariants.length === 1;
+
   const currentChildPatches = getVisibleChildPatches(
     childPatches,
     selectedBuildVariants
   );
-
   // Show a child patch's variants/tasks if it is the only menu item selected
   const shouldShowChildPatchTasks =
     currentChildPatches.length === 1 && selectedBuildVariants.length === 1;
-
-  // Show an alias's variants/tasks if it is the only menu item selected
-  const shouldShowAliasTasks =
-    currentAliasTasks.length === 1 && selectedBuildVariants.length === 1;
 
   // Only show name of alias or child patch (no variants/tasks) if other build variants are also selected
   const shouldShowChildPatchesAndAliases =
@@ -121,6 +148,7 @@ const ConfigureTasks: React.VFC<Props> = ({
     selectedBuildVariants.forEach((v) => {
       if (selectedBuildVariantsCopy?.[v] !== undefined) {
         Object.keys(selectedBuildVariantsCopy[v]).forEach((task) => {
+          if (search !== "" && !task.includes(search)) return;
           selectedBuildVariantsCopy[v][task] = e.target.checked;
         });
       } else if (selectedAliasesCopy?.[v] !== undefined) {
@@ -132,46 +160,46 @@ const ConfigureTasks: React.VFC<Props> = ({
   };
 
   const selectAllCheckboxState = getSelectAllCheckboxState(
-    currentTasks,
+    visibleTasks,
     currentAliases,
     shouldShowChildPatchTasks
   );
 
-  const selectAllCheckboxCopy =
-    sortedCurrentTasks.length === 0
-      ? `Add ${pluralize("alias", selectedBuildVariants.length)} to patch`
-      : `Select all tasks in ${pluralize(
-          "this",
-          selectedBuildVariants.length
-        )} ${pluralize("variant", selectedBuildVariants.length)}`;
+  const variantHasActivatedTasks = sortedVisibleTasks.some((t) =>
+    isTaskCheckboxActivated(t[1])
+  );
 
-  const selectedTaskDisclaimerCopy = `${taskCount} ${pluralize(
+  const taskDisclaimerCopy = `${totalSelectedTaskCount} ${pluralize(
     "task",
-    taskCount
-  )} across ${buildVariantCount} build ${pluralize(
+    totalSelectedTaskCount
+  )} across ${totalSelectedBuildVariantCount} build ${pluralize(
     "variant",
-    buildVariantCount
-  )}, ${downstreamTaskCount} trigger ${pluralize("alias", aliasCount)}`;
+    totalSelectedBuildVariantCount
+  )}, ${totalDownstreamTaskCount} trigger ${pluralize("alias", aliasCount)}`;
 
+  const selectAllCheckboxCopy = getSelectAllCheckboxCopy(
+    selectedBuildVariants.length,
+    sortedVisibleTasks.length,
+    search.length > 0
+  );
   return (
     <TabContentWrapper>
       <Actions>
-        <LoadingButton
-          data-cy="schedule-patch"
-          variant="primary"
-          onClick={onClickSchedule}
-          disabled={(taskCount === 0 && aliasCount === 0) || loading}
-          loading={loading}
-        >
-          Schedule
-        </LoadingButton>
+        <StyledTextInput
+          aria-labelledby="search-tasks"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search tasks"
+          ref={searchRef}
+          data-cy="task-filter-input"
+        />
         <InlineCheckbox
           data-cy="select-all-checkbox"
-          indeterminate={selectAllCheckboxState === CheckboxState.INDETERMINATE}
+          indeterminate={selectAllCheckboxState === CheckboxState.Indeterminate}
           onChange={onClickSelectAll}
           label={
-            <div style={{ display: "flex", alignItems: "center" }}>
-              {selectAllCheckboxCopy}{" "}
+            <LabelContainer>
+              {selectAllCheckboxCopy}
               {shouldShowChildPatchTasks && (
                 <Tooltip
                   justify="middle"
@@ -185,9 +213,25 @@ const ConfigureTasks: React.VFC<Props> = ({
                   Aliases specified via CLI cannot be edited.
                 </Tooltip>
               )}
-            </div>
+              {variantHasActivatedTasks && (
+                <Tooltip
+                  justify="middle"
+                  triggerEvent="hover"
+                  trigger={
+                    <IconContainer>
+                      <Icon glyph="InfoWithCircle" />
+                    </IconContainer>
+                  }
+                >
+                  Some Tasks in{" "}
+                  {pluralize("this", selectedBuildVariants.length)}{" "}
+                  {pluralize("variant", selectedBuildVariants.length)} have
+                  already been activated. To disable them visit the patch page.
+                </Tooltip>
+              )}
+            </LabelContainer>
           }
-          checked={selectAllCheckboxState === CheckboxState.CHECKED}
+          checked={selectAllCheckboxState === CheckboxState.Checked}
           disabled={
             (activated && Object.entries(currentAliases).length > 0) ||
             shouldShowChildPatchTasks
@@ -196,19 +240,19 @@ const ConfigureTasks: React.VFC<Props> = ({
       </Actions>
 
       <StyledDisclaimer data-cy="selected-task-disclaimer">
-        {selectedTaskDisclaimerCopy}
+        {taskDisclaimerCopy}
       </StyledDisclaimer>
 
       {/* Tasks */}
       <TaskLayoutGrid data-cy="configurePatch-tasks">
-        {sortedCurrentTasks.map(([name, status]) => (
+        {sortedVisibleTasks.map(([name, state]) => (
           <Checkbox
             data-cy="task-checkbox"
             key={name}
             onChange={onClickCheckbox(name)}
             label={name}
-            indeterminate={status === CheckboxState.INDETERMINATE}
-            checked={status === CheckboxState.CHECKED}
+            indeterminate={isTaskCheckboxIndeterminate(state)}
+            checked={isTaskCheckboxChecked(state)}
           />
         ))}
       </TaskLayoutGrid>
@@ -223,8 +267,8 @@ const ConfigureTasks: React.VFC<Props> = ({
                 key={name}
                 onChange={onClickCheckbox(name)}
                 label={name}
-                indeterminate={status === CheckboxState.INDETERMINATE}
-                checked={status === CheckboxState.CHECKED}
+                indeterminate={status === CheckboxState.Indeterminate}
+                checked={status === CheckboxState.Checked}
                 disabled={activated}
               />
             ))}
@@ -244,7 +288,7 @@ const ConfigureTasks: React.VFC<Props> = ({
       {shouldShowChildPatchTasks && (
         <DisabledVariantTasksList
           data-cy="child-patch-task-checkbox"
-          status={CheckboxState.CHECKED}
+          status={CheckboxState.Checked}
           variantTasks={currentChildPatches[0].variantsTasks}
         />
       )}
@@ -259,107 +303,22 @@ const ConfigureTasks: React.VFC<Props> = ({
   );
 };
 
-const getSelectAllCheckboxState = (
-  buildVariants: {
-    [task: string]: CheckboxState;
-  },
-  aliases: {
-    [alias: string]: CheckboxState;
-  },
-  shouldShowChildPatchTasks: boolean
-): CheckboxState => {
-  if (shouldShowChildPatchTasks) {
-    return CheckboxState.CHECKED;
+const getSelectAllCheckboxCopy = (
+  selectedBuildVariantsCount: number,
+  sortedVisibleTaskCount: number,
+  hasFilter: boolean
+) => {
+  if (hasFilter) {
+    return "Select all tasks in view";
   }
 
-  let state;
-  const allTaskStatuses = Object.values(buildVariants);
-  const allAliasStatuses = Object.values(aliases);
-
-  const hasSelectedTasks =
-    allTaskStatuses.includes(CheckboxState.CHECKED) ||
-    allAliasStatuses.includes(CheckboxState.CHECKED);
-  const hasUnselectedTasks =
-    allTaskStatuses.includes(CheckboxState.UNCHECKED) ||
-    allAliasStatuses.includes(CheckboxState.UNCHECKED);
-  if (hasSelectedTasks && !hasUnselectedTasks) {
-    state = CheckboxState.CHECKED;
-  } else if (!hasSelectedTasks && hasUnselectedTasks) {
-    state = CheckboxState.UNCHECKED;
-  } else {
-    state = CheckboxState.INDETERMINATE;
-  }
-
-  return state;
+  return sortedVisibleTaskCount === 0
+    ? `Add ${pluralize("alias", selectedBuildVariantsCount)} to patch`
+    : `Select all tasks in ${pluralize(
+        "this",
+        selectedBuildVariantsCount
+      )} ${pluralize("variant", selectedBuildVariantsCount)}`;
 };
-
-const getVisibleAliases = (
-  selectedAliases: AliasState,
-  selectedBuildVariants: string[]
-): { [key: string]: CheckboxState } => {
-  const visiblePatches = {};
-  Object.entries(selectedAliases).forEach(([alias]) => {
-    if (selectedBuildVariants.includes(alias)) {
-      visiblePatches[alias] = selectedAliases[alias]
-        ? CheckboxState.CHECKED
-        : CheckboxState.UNCHECKED;
-    }
-  });
-  return visiblePatches;
-};
-
-const getVisibleChildPatches = (
-  childPatches: ChildPatchAliased[],
-  selectedBuildVariants: string[]
-): ChildPatchAliased[] => {
-  if (!childPatches) {
-    return [];
-  }
-
-  return childPatches.filter(({ alias }) =>
-    selectedBuildVariants.includes(alias)
-  );
-};
-
-interface DeduplicateTasksResult {
-  [task: string]: CheckboxState;
-}
-const deduplicateTasks = (
-  currentTasks: {
-    [task: string]: boolean;
-  }[]
-): DeduplicateTasksResult => {
-  const visibleTasks: DeduplicateTasksResult = {};
-  currentTasks.forEach((bv) => {
-    Object.entries(bv).forEach(([taskName, value]) => {
-      switch (visibleTasks[taskName]) {
-        case CheckboxState.UNCHECKED:
-          // If a task is UNCHECKED and the next task of the same name is CHECKED it is INDETERMINATE
-          visibleTasks[taskName] = value
-            ? CheckboxState.INDETERMINATE
-            : CheckboxState.UNCHECKED;
-          break;
-        case CheckboxState.CHECKED:
-          // If a task is CHECKED and the next task of the same name is UNCHECKED it is INDETERMINATE
-          visibleTasks[taskName] = value
-            ? CheckboxState.CHECKED
-            : CheckboxState.INDETERMINATE;
-          break;
-        case CheckboxState.INDETERMINATE:
-          // If a task is INDETERMINATE because of previous task statuses
-          // it wouldn't change when subsequent statuses are considered
-          break;
-        default:
-          visibleTasks[taskName] = value
-            ? CheckboxState.CHECKED
-            : CheckboxState.UNCHECKED;
-          break;
-      }
-    });
-  });
-  return visibleTasks;
-};
-
 const Actions = styled.div`
   margin-bottom: ${size.xs};
   display: flex;
@@ -372,8 +331,16 @@ const Actions = styled.div`
   }
 `;
 
+const LabelContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 const StyledDisclaimer = styled(Disclaimer)`
   margin-bottom: ${size.xs};
+`;
+const StyledTextInput = styled(TextInput)`
+  width: 300px;
 `;
 const cardSidePadding = css`
   padding-left: ${size.xs};

@@ -35,7 +35,7 @@ import {
 } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
-import { array, environmentVariables, queryString, validators } from "utils";
+import { array, queryString, validators } from "utils";
 import { CommitsWrapper } from "./CommitsWrapper";
 import CommitTypeSelect from "./commitTypeSelect";
 import { useCommitLimit } from "./hooks/useCommitLimit";
@@ -46,7 +46,6 @@ import { ViewToggle } from "./ViewToggle";
 import { WaterfallMenu } from "./WaterfallMenu";
 
 const { toArray } = array;
-const { isProduction } = environmentVariables;
 const { parseQueryString, getString } = queryString;
 const { validateRegexp } = validators;
 
@@ -205,7 +204,7 @@ const Commits = () => {
           />
         </BadgeWrapper>
         <PaginationWrapper>
-          {!isProduction() && <ViewToggle identifier={projectIdentifier} />}
+          <ViewToggle identifier={projectIdentifier} />
           <PaginationButtons
             prevPageOrderNumber={prevPageOrderNumber}
             nextPageOrderNumber={nextPageOrderNumber}

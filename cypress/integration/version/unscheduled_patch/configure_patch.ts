@@ -189,8 +189,49 @@ describe("Configure Patch Page", () => {
         .find('[data-cy="task-count-badge"]')
         .should("not.exist");
       cy.dataCy("selected-task-disclaimer").contains(
-        `0 tasks across 0 build variants`
+        "0 tasks across 0 build variants"
       );
+    });
+
+    describe("Task filter input", () => {
+      it("Updating the task filter input filters tasks in view", () => {
+        cy.visit(`/version/${unactivatedPatchId}`);
+        cy.contains("Ubuntu 16.04").click();
+        cy.dataCy("task-checkbox").should("have.length", 45);
+        cy.dataCy("selected-task-disclaimer").contains(
+          `0 tasks across 0 build variants`
+        );
+        cy.dataCy("task-filter-input").type("dist");
+        cy.dataCy("task-checkbox").should("have.length", 2);
+        cy.contains("Select all tasks in view").click();
+        cy.dataCy("selected-task-disclaimer").contains(
+          "2 tasks across 1 build variant"
+        );
+      });
+      it("The task filter input works across multiple build variants", () => {
+        cy.visit(`/version/${unactivatedPatchId}`);
+        cy.get("body").type("{meta}", {
+          release: false,
+        });
+        cy.dataCy("build-variant-list-item").contains("Ubuntu 16.04").click();
+        cy.dataCy("build-variant-list-item")
+          .contains("Ubuntu 16.04 (Docker)")
+          .click();
+        cy.get("body").type("{meta}", {
+          release: true,
+        });
+        cy.dataCy("task-checkbox").should("have.length", 46);
+        cy.dataCy("selected-task-disclaimer").contains(
+          `0 tasks across 0 build variants`
+        );
+        cy.dataCy("task-filter-input").type("dist");
+        cy.dataCy("task-checkbox").should("have.length", 2);
+        cy.contains("Select all tasks in view").click();
+        cy.dataCy("selected-task-disclaimer").contains(
+          "4 tasks across 2 build variants"
+        );
+        cy.dataCy("task-filter-input").clear();
+      });
     });
 
     describe("Select/Deselect All buttons", () => {

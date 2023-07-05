@@ -24,7 +24,11 @@ export const getSpruceConfigMock: ApolloMock<
         },
         jira: { host: "jira.mongodb.org", __typename: "JiraConfig" },
         providers: {
-          aws: { maxVolumeSizePerUser: 1500, __typename: "AWSConfig" },
+          aws: {
+            maxVolumeSizePerUser: 1500,
+            pod: null,
+            __typename: "AWSConfig",
+          },
           __typename: "CloudProviderConfig",
         },
         slack: {

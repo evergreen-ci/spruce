@@ -1,7 +1,7 @@
 enum CheckboxState {
-  CHECKED = "CHECKED",
-  INDETERMINATE = "INDETERMINATE",
-  UNCHECKED = "UNCHECKED",
+  Checked = "CHECKED",
+  Indeterminate = "INDETERMINATE",
+  Unchecked = "UNCHECKED",
 }
 
 export { CheckboxState };
