@@ -2055,6 +2055,7 @@ export type TaskEndDetail = {
   status: Scalars["String"];
   timedOut?: Maybe<Scalars["Boolean"]>;
   timeoutType?: Maybe<Scalars["String"]>;
+  traceID?: Maybe<Scalars["String"]>;
   type: Scalars["String"];
 };
 
