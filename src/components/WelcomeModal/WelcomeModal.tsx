@@ -15,12 +15,10 @@ import {
   UseSpruceOptionsInput,
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
-import { errorReporting } from "utils";
+import { reportError } from "utils/errorReporting";
 import CarouselCard from "./CarouselCard";
 import CarouselDots from "./CarouselDots";
 import { CardType } from "./types";
-
-const { reportError } = errorReporting;
 
 interface WelcomeModalProps {
   param: keyof UseSpruceOptionsInput;
