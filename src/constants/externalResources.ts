@@ -36,6 +36,9 @@ export const getJiraImprovementUrl = (jiraHost: string) =>
 export const konamiSoundTrackUrl =
   "https://www.myinstants.com/media/sounds/mvssf-win.mp3";
 
+export const githubMergeQueueUrl =
+  "https://github.blog/changelog/2023-02-08-pull-request-merge-queue-public-beta";
+
 export const legacyRoutes = {
   distros: "/distros",
   hosts: "/spawn",

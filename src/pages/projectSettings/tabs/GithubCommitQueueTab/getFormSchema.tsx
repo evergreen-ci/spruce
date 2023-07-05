@@ -9,6 +9,7 @@ import {
   pullRequestAliasesDocumentationUrl,
   gitTagAliasesDocumentationUrl,
   githubChecksAliasesDocumentationUrl,
+  githubMergeQueueUrl,
 } from "constants/externalResources";
 import {
   getProjectSettingsRoute,
@@ -225,8 +226,6 @@ export const getFormSchema = (
                         title: "Merge Queue",
                         type: "null",
                       },
-                    }),
-                    ...(!isProduction() && {
                       mergeQueue: {
                         type: "string" as "string",
                         oneOf: [
@@ -241,11 +240,23 @@ export const getFormSchema = (
                             type: "string" as "string",
                             title: (
                               <span>
-                                GitHub <BetaBadge>BETA</BetaBadge>
+                                GitHub <BetaBadge>Beta</BetaBadge>
                               </span>
                             ),
                             enum: [MergeQueue.Github],
-                            description: "Use the GitHub merge queue.",
+                            description: (
+                              <span>
+                                Use the GitHub merge queue. Read the
+                                documentation{" "}
+                                <StyledLink
+                                  target="_blank"
+                                  href={githubMergeQueueUrl}
+                                >
+                                  here
+                                </StyledLink>
+                                .
+                              </span>
+                            ),
                           },
                         ],
                       },
@@ -648,5 +659,6 @@ const BetaBadge = styled.span`
   border-radius: ${size.s};
   padding: 0 ${size.xxs};
   font-size: 11px;
+  text-transform: uppercase;
   vertical-align: bottom;
 `;
