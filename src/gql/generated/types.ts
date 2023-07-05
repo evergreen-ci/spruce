@@ -3687,6 +3687,7 @@ export type ProjectEventSettingsFragment = {
     notifyOnBuildFailure?: boolean | null;
     githubTriggerAliases?: Array<string> | null;
     perfEnabled?: boolean | null;
+    projectHealthView: ProjectHealthView;
     githubChecksEnabled?: boolean | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
@@ -3759,6 +3760,12 @@ export type ProjectEventSettingsFragment = {
       project: string;
       status: string;
       taskRegex: string;
+    }> | null;
+    parsleyFilters?: Array<{
+      __typename?: "ParsleyFilter";
+      caseSensitive: boolean;
+      exactMatch: boolean;
+      expression: string;
     }> | null;
     workstationConfig: {
       __typename?: "WorkstationConfig";
@@ -5405,6 +5412,11 @@ export type MainlineCommitsForHistoryQuery = {
         message: string;
         order: number;
         revision: string;
+        gitTags?: Array<{
+          __typename?: "GitTag";
+          pusher: string;
+          tag: string;
+        }> | null;
         upstreamProject?: {
           __typename?: "UpstreamProject";
           project: string;
@@ -5435,6 +5447,11 @@ export type MainlineCommitsForHistoryQuery = {
             status: string;
           } | null> | null;
         } | null> | null;
+        gitTags?: Array<{
+          __typename?: "GitTag";
+          pusher: string;
+          tag: string;
+        }> | null;
         upstreamProject?: {
           __typename?: "UpstreamProject";
           project: string;
@@ -5515,6 +5532,11 @@ export type MainlineCommitsQuery = {
             count: number;
             status: string;
           }>;
+        }> | null;
+        gitTags?: Array<{
+          __typename?: "GitTag";
+          pusher: string;
+          tag: string;
         }> | null;
         taskStatusStats?: {
           __typename?: "TaskStats";
@@ -5873,6 +5895,7 @@ export type ProjectEventLogsQuery = {
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
+          projectHealthView: ProjectHealthView;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
           gitTagAuthorizedUsers?: Array<string> | null;
@@ -5945,6 +5968,12 @@ export type ProjectEventLogsQuery = {
             project: string;
             status: string;
             taskRegex: string;
+          }> | null;
+          parsleyFilters?: Array<{
+            __typename?: "ParsleyFilter";
+            caseSensitive: boolean;
+            exactMatch: boolean;
+            expression: string;
           }> | null;
           workstationConfig: {
             __typename?: "WorkstationConfig";
@@ -6069,6 +6098,7 @@ export type ProjectEventLogsQuery = {
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
+          projectHealthView: ProjectHealthView;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
           gitTagAuthorizedUsers?: Array<string> | null;
@@ -6141,6 +6171,12 @@ export type ProjectEventLogsQuery = {
             project: string;
             status: string;
             taskRegex: string;
+          }> | null;
+          parsleyFilters?: Array<{
+            __typename?: "ParsleyFilter";
+            caseSensitive: boolean;
+            exactMatch: boolean;
+            expression: string;
           }> | null;
           workstationConfig: {
             __typename?: "WorkstationConfig";
@@ -6522,6 +6558,7 @@ export type RepoEventLogsQuery = {
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
+          projectHealthView: ProjectHealthView;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
           gitTagAuthorizedUsers?: Array<string> | null;
@@ -6594,6 +6631,12 @@ export type RepoEventLogsQuery = {
             project: string;
             status: string;
             taskRegex: string;
+          }> | null;
+          parsleyFilters?: Array<{
+            __typename?: "ParsleyFilter";
+            caseSensitive: boolean;
+            exactMatch: boolean;
+            expression: string;
           }> | null;
           workstationConfig: {
             __typename?: "WorkstationConfig";
@@ -6718,6 +6761,7 @@ export type RepoEventLogsQuery = {
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
+          projectHealthView: ProjectHealthView;
           githubChecksEnabled?: boolean | null;
           gitTagAuthorizedTeams?: Array<string> | null;
           gitTagAuthorizedUsers?: Array<string> | null;
@@ -6790,6 +6834,12 @@ export type RepoEventLogsQuery = {
             project: string;
             status: string;
             taskRegex: string;
+          }> | null;
+          parsleyFilters?: Array<{
+            __typename?: "ParsleyFilter";
+            caseSensitive: boolean;
+            exactMatch: boolean;
+            expression: string;
           }> | null;
           workstationConfig: {
             __typename?: "WorkstationConfig";
@@ -7705,6 +7755,11 @@ export type VersionQuery = {
       displayName: string;
       url: string;
     }>;
+    gitTags?: Array<{
+      __typename?: "GitTag";
+      pusher: string;
+      tag: string;
+    }> | null;
     manifest?: {
       __typename?: "Manifest";
       branch: string;

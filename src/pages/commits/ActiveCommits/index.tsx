@@ -47,6 +47,7 @@ export const ActiveCommitLabel: React.VFC<ActiveCommitLabelProps> = ({
     <CommitChartLabel
       versionId={version.id}
       githash={shortenGithash(version.revision)}
+      gitTags={version.gitTags}
       createTime={version.createTime}
       author={version.author}
       message={version.message}
