@@ -24,7 +24,7 @@ const props = {
   identifier: "ubuntu1604-multiversion",
 };
 
-jest.mock("../utils");
+jest.mock("../../utils");
 
 const Content = ({
   status,

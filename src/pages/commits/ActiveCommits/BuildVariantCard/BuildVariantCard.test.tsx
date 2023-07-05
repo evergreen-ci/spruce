@@ -8,7 +8,7 @@ import {
 import { BuildVariantCard } from ".";
 import { injectGlobalDimStyle, removeGlobalDimStyle } from "../utils";
 
-jest.mock("./utils");
+jest.mock("../utils");
 
 describe("buildVariantCard", () => {
   it("should call the appropriate functions on hover and unhover", async () => {
