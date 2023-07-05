@@ -39,7 +39,7 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
     <button
       aria-disabled="true"
       class="lg-ui-button-0000 leafygreen-ui-ipsf7h css-10cfexx-StyledButton ek3m3u41"
-      data-cy="schedule-button"
+      data-cy="schedule-patch"
       type="button"
     >
       <div
