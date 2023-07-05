@@ -245,7 +245,7 @@ export const getFormSchema = (
                             ),
                             enum: [MergeQueue.Github],
                             description: (
-                              <span>
+                              <>
                                 Use the GitHub merge queue. Read the
                                 documentation{" "}
                                 <StyledLink
@@ -255,7 +255,7 @@ export const getFormSchema = (
                                   here
                                 </StyledLink>
                                 .
-                              </span>
+                              </>
                             ),
                           },
                         ],
