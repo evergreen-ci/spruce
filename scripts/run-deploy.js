@@ -6,7 +6,6 @@ const main = async () => {
     return;
   }
   await evergreenDeploy();
-  return;
 };
 
 main();

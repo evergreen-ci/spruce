@@ -248,14 +248,35 @@ describe("local deploy", () => {
     jest.restoreAllMocks();
   });
 
+  it("returns when not on main branch", async () => {
+    jest.spyOn(deployUtils, "isOnMainBranch").mockResolvedValue(false);
+
+    await expect(localDeploy()).resolves.toBeUndefined();
+    expect(console.log).toHaveBeenCalledWith(
+      "You must be on the main branch to deploy!"
+    );
+  });
+
+  it("returns when on main branch with unclean working directory", async () => {
+    jest.spyOn(deployUtils, "isOnMainBranch").mockResolvedValue(true);
+    jest.spyOn(deployUtils, "isWorkingDirectoryClean").mockResolvedValue(false);
+
+    await expect(localDeploy()).resolves.toBeUndefined();
+    expect(console.log).toHaveBeenCalledWith(
+      "You must have a clean working directory to deploy"
+    );
+  });
+
   it("aborts the local deploy when user declines", async () => {
+    jest.spyOn(deployUtils, "isOnMainBranch").mockResolvedValue(true);
+    jest.spyOn(deployUtils, "isWorkingDirectoryClean").mockResolvedValue(true);
     prompts.mockReturnValue({ value: false });
 
     await expect(localDeploy()).resolves.toBeUndefined();
     expect(deployUtils.runLocalDeploy).not.toHaveBeenCalled();
     expect(prompts).toHaveBeenCalledWith({
       message:
-        "Are you sure you'd like to build Spruce locally and push directly to S3?",
+        "Are you sure you'd like to build Spruce locally and push directly to S3? This is a high-risk operation that requires a correctly configured local environment.",
       name: "value",
       type: "confirm",
     });
@@ -263,6 +284,8 @@ describe("local deploy", () => {
   });
 
   it("runs the local deploy when user confirms", async () => {
+    jest.spyOn(deployUtils, "isOnMainBranch").mockResolvedValue(true);
+    jest.spyOn(deployUtils, "isWorkingDirectoryClean").mockResolvedValue(true);
     prompts.mockReturnValue({ value: true });
     jest
       .spyOn(deployUtils, "runLocalDeploy")
@@ -271,7 +294,7 @@ describe("local deploy", () => {
     await expect(localDeploy()).resolves.toBeUndefined();
     expect(prompts).toHaveBeenCalledWith({
       message:
-        "Are you sure you'd like to build Spruce locally and push directly to S3?",
+        "Are you sure you'd like to build Spruce locally and push directly to S3? This is a high-risk operation that requires a correctly configured local environment.",
       name: "value",
       type: "confirm",
     });
@@ -280,6 +303,8 @@ describe("local deploy", () => {
   });
 
   it("displays an error if the local deploy fails", async () => {
+    jest.spyOn(deployUtils, "isOnMainBranch").mockResolvedValue(true);
+    jest.spyOn(deployUtils, "isWorkingDirectoryClean").mockResolvedValue(true);
     jest.spyOn(console, "error").mockImplementation();
     prompts.mockReturnValue({ value: true });
     jest
@@ -289,7 +314,7 @@ describe("local deploy", () => {
     await expect(localDeploy()).resolves.toBeUndefined();
     expect(prompts).toHaveBeenCalledWith({
       message:
-        "Are you sure you'd like to build Spruce locally and push directly to S3?",
+        "Are you sure you'd like to build Spruce locally and push directly to S3? This is a high-risk operation that requires a correctly configured local environment.",
       name: "value",
       type: "confirm",
     });
