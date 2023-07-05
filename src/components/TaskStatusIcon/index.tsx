@@ -2,9 +2,8 @@ import { IconProps } from "@leafygreen-ui/icon";
 import { palette } from "@leafygreen-ui/palette";
 import Icon from "components/Icon";
 import { TaskStatus } from "types/task";
-import { errorReporting } from "utils";
+import { reportError } from "utils/errorReporting";
 
-const { reportError } = errorReporting;
 const { green, red, yellow, gray, purple } = palette;
 
 export interface TaskStatusIconProps

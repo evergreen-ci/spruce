@@ -1,52 +1,38 @@
-import Bugsnag, { Event, BreadcrumbType } from "@bugsnag/js";
-import { isProductionBuild } from "utils/environmentVariables";
+import Bugsnag, { BreadcrumbType } from "@bugsnag/js";
+import { sendError as bugsnagSendError } from "components/ErrorHandling/Bugsnag";
+import { sendError as sentrySendError } from "components/ErrorHandling/Sentry";
+import { isProductionBuild } from "./environmentVariables";
 
 interface reportErrorResult {
   severe: () => void;
   warning: () => void;
 }
 
-type CustomBugsnagError = Error & {
-  metadata?: any;
-};
-
-const reportError = (err: CustomBugsnagError): reportErrorResult => {
+const reportError = (
+  err: Error,
+  metadata?: { [key: string]: any }
+): reportErrorResult => {
   if (!isProductionBuild()) {
     return {
       severe: () => {
-        console.error({ err, severity: "severe" });
+        console.error({ err, severity: "severe", metadata });
       },
       warning: () => {
-        console.error({ err, severity: "warning" });
+        console.error({ err, severity: "warning", metadata });
       },
     };
   }
 
   return {
     severe: () => {
-      sendError(err, "error");
+      bugsnagSendError(err, "error", metadata);
+      sentrySendError(err, "error", metadata);
     },
     warning: () => {
-      sendError(err, "warning");
+      bugsnagSendError(err, "warning", metadata);
+      sentrySendError(err, "warning", metadata);
     },
   };
-};
-
-const sendError = (err: CustomBugsnagError, severity: Event["severity"]) => {
-  const userId = localStorage.getItem("userId");
-  let metadata;
-  if (err.metadata) {
-    metadata = err.metadata;
-  }
-  Bugsnag.notify(err, (event) => {
-    // reassigning param is recommended usage in bugsnag docs
-    // eslint-disable-next-line no-param-reassign
-    event.severity = severity;
-    event.setUser(userId);
-    if (metadata) {
-      event.addMetadata("metadata", { ...metadata });
-    }
-  });
 };
 
 const leaveBreadcrumb = (
