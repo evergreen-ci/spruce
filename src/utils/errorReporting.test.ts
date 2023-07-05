@@ -45,6 +45,7 @@ describe("error reporting", () => {
     expect(Sentry.captureException).toHaveBeenCalledWith(err);
     result.warning();
     expect(Bugsnag.notify).toHaveBeenLastCalledWith(err, expect.any(Function));
+    expect(Sentry.captureException).toHaveBeenCalledWith(err);
   });
 
   it("supports metadata field", () => {
@@ -63,5 +64,6 @@ describe("error reporting", () => {
     expect(Sentry.captureException).toHaveBeenCalledWith(err);
     result.warning();
     expect(Bugsnag.notify).toHaveBeenLastCalledWith(err, expect.any(Function));
+    expect(Sentry.captureException).toHaveBeenCalledWith(err);
   });
 });

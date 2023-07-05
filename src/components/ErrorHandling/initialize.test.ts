@@ -122,11 +122,9 @@ describe("should not initialize if the client is already running", () => {
   });
 
   it("does not initialize Sentry twice", () => {
-    // @ts-expect-error
-    // eslint-disable-next-line no-underscore-dangle
-    window.__SENTRY__ = {
-      hub: { getClient: () => true },
-    };
+    const mockClient = { getClient: jest.fn(() => true) };
+    // @ts-expect-error - Type error occurs because the entire return value of getCurrentHub is not mocked
+    jest.spyOn(Sentry, "getCurrentHub").mockReturnValue(mockClient);
     initializeErrorHandling();
     expect(Bugsnag.start).toHaveBeenCalledTimes(1);
     expect(Sentry.init).not.toHaveBeenCalled();

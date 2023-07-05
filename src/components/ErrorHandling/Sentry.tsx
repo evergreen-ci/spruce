@@ -1,7 +1,8 @@
 import {
-  ErrorBoundary as SentryErrorBoundary,
-  init,
   captureException,
+  ErrorBoundary as SentryErrorBoundary,
+  getCurrentHub,
+  init,
   withScope,
 } from "@sentry/react";
 import type { Scope, SeverityLevel } from "@sentry/react";
@@ -25,18 +26,7 @@ const initializeSentry = () => {
   }
 };
 
-const isInitialized = () => {
-  // @ts-expect-error
-  const globalSentry = window.__SENTRY__; // eslint-disable-line no-underscore-dangle
-
-  // If there is a global __SENTRY__ that means that in any of the callbacks init() was already invoked
-  // https://github.com/getsentry/sentry-javascript/blob/e5e6a6bd8ab2bbec59879971595a7248fa132826/packages/browser/src/loader.js#L116-L121
-  return (
-    !(typeof globalSentry === "undefined") &&
-    globalSentry.hub &&
-    globalSentry.hub.getClient()
-  );
-};
+const isInitialized = () => !!getCurrentHub().getClient();
 
 const sendError = (
   err: Error,
