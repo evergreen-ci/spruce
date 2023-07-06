@@ -16,6 +16,10 @@ const path = require("path");
 
 const argv = process.argv.slice(2);
 
+/**
+ * isInGitRepository identifies whether the current working directory uses git.
+ * @returns - A boolean indicating whether the current directory uses git.
+ */
 function isInGitRepository() {
   try {
     execSync("git rev-parse --is-inside-work-tree", { stdio: "ignore" });

@@ -17,7 +17,7 @@ module.exports = {
   setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
   snapshotSerializers: ["@emotion/jest/serializer"],
   testEnvironment: "jsdom",
-  testMatch: ["<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"],
+  testMatch: ["<rootDir>/{src,scripts}/**/*.{spec,test}.{js,jsx,ts,tsx}"],
   testRunner: "<rootDir>/node_modules/jest-circus/runner.js",
   transform: {
     "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "babel-jest",
@@ -40,4 +40,7 @@ module.exports = {
     "jest-watch-typeahead/testname",
   ],
   globalSetup: "<rootDir>/global-setup.js",
+  globals: {
+    APP_VERSION: JSON.stringify(process.env.npm_package_version),
+  },
 };

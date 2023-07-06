@@ -6,7 +6,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { Content } from "components/Content";
-import { ErrorBoundary } from "components/ErrorBoundary";
+import { ErrorBoundary } from "components/ErrorHandling";
 import { GlobalStyles } from "components/styles/GlobalStyles";
 import { routes } from "constants/routes";
 import { ContextProviders } from "context/Providers";

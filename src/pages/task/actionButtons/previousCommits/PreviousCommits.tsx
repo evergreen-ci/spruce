@@ -20,12 +20,12 @@ import {
 } from "gql/queries";
 import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { TaskStatus } from "types/task";
-import { errorReporting, string } from "utils";
+import { string } from "utils";
+import { reportError } from "utils/errorReporting";
 import { initialState, reducer } from "./reducer";
 import { CommitTask, CommitType } from "./types";
 
 const { applyStrictRegex } = string;
-const { reportError } = errorReporting;
 
 interface PreviousCommitsProps {
   taskId: string;
