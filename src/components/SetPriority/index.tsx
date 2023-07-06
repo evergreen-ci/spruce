@@ -135,8 +135,7 @@ const SetPriority: React.VFC<SetPriorityProps> = ({
           <Message data-cy="priority-default-message" type="default">
             <StyledIcon glyph="InfoWithCircle" />
             <span>
-              Use for tasks you&apos;re actively waiting on. Use with
-              discretion.
+              Use with discretion for tasks you&apos;re actively waiting on.
             </span>
           </Message>
         )}
@@ -167,7 +166,7 @@ const PriorityInput = styled(NumberInput)`
   }
 `;
 
-const Message = styled.div<{ type: string }>`
+const Message = styled.div<{ type: "default" | "warning" | "admin" }>`
   width: ${inputWidth};
   display: flex;
   align-items: flex-start;
