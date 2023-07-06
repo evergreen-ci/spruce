@@ -17,7 +17,7 @@ import {
 } from "gql/generated/types";
 import { SET_PATCH_PRIORITY, SET_TASK_PRIORITY } from "gql/mutations";
 
-const { yellow } = palette;
+const { yellow, red, gray } = palette;
 
 type SetPriorityProps = (
   | {
@@ -131,11 +131,27 @@ const SetPriority: React.VFC<SetPriorityProps> = ({
           }}
           value={priority.toString()}
         />
-        {priority > 50 && (
-          <Warning data-cy="priority-warning">
-            <WarningIcon glyph="ImportantWithCircle" fill={yellow.base} />
+        {priority >= 0 && priority < 50 && (
+          <Message data-cy="priority-default-message" type="default">
+            <StyledIcon glyph="InfoWithCircle" />
+            <span>
+              Use with discretion for tasks you&apos;re actively waiting on.
+            </span>
+          </Message>
+        )}
+        {priority >= 50 && priority < 100 && (
+          <Message data-cy="priority-warning-message" type="warning">
+            <StyledIcon glyph="ImportantWithCircle" />
             <span>Please ensure that this is a high priority change.</span>
-          </Warning>
+          </Message>
+        )}
+        {priority >= 100 && (
+          <Message data-cy="priority-admin-message" type="admin">
+            <StyledIcon glyph="Warning" />
+            <span>
+              This is admin-restricted and should only be used in emergencies.
+            </span>
+          </Message>
         )}
       </Popconfirm>
     </>
@@ -150,16 +166,19 @@ const PriorityInput = styled(NumberInput)`
   }
 `;
 
-const Warning = styled.div`
+const Message = styled.div<{ type: "default" | "warning" | "admin" }>`
   width: ${inputWidth};
   display: flex;
   align-items: flex-start;
   gap: ${size.xxs};
   margin-top: ${size.xxs};
-  color: ${yellow.base};
+
+  color: ${({ type }) => type === "default" && gray.light1};
+  color: ${({ type }) => type === "warning" && yellow.base};
+  color: ${({ type }) => type === "admin" && red.light1};
 `;
 
-const WarningIcon = styled(Icon)`
+const StyledIcon = styled(Icon)`
   flex-shrink: 0;
   margin-top: 2px;
 `;
