@@ -8,10 +8,8 @@ export default {
   title: "Pages/Commits/WaterfallIcon",
   component: WaterfallTaskStatusIcon,
   parameters: {
-    mockApolloProvider: {
-      apolloClient: {
-        mocks: [getTooltipQueryMock],
-      },
+    apolloClient: {
+      mocks: [getTooltipQueryMock],
     },
   },
 } satisfies CustomMeta<typeof WaterfallTaskStatusIcon>;

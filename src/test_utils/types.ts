@@ -6,16 +6,13 @@ type CustomStorybookReactRouterParams = {
   path?: string;
   route?: string;
 };
-
 type CustomStorybookMockApolloProviderParams = {
-  apolloClient: {
-    mocks: ApolloMock<any, any>[];
-  };
+  mocks: ApolloMock<any, any>[];
 };
 
 type CustomStorybookParams = {
   reactRouter?: CustomStorybookReactRouterParams;
-  mockApolloProvider?: CustomStorybookMockApolloProviderParams;
+  apolloClient?: CustomStorybookMockApolloProviderParams;
 };
 
 type CustomStoryObj<T extends any> = StoryObj<T> & {
