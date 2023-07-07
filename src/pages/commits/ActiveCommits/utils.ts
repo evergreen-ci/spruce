@@ -1,6 +1,7 @@
 import { mapTaskStatusToUmbrellaStatus } from "constants/task";
 import { ColorCount } from "pages/commits/types";
 import { ChartTypes } from "types/commits";
+import { roundMax } from "utils/numbers";
 
 /**
  * `calculateBarHeight` calculates the height of a single bar in a bar chart.
@@ -21,27 +22,6 @@ const calculateBarHeight = (
   }
   const roundedMax = roundMax(max);
   return `${(value / roundedMax) * 100}%`;
-};
-
-const roundMax = (max: number) => {
-  if (max < 100) {
-    // Round up to nearest 10
-    return Math.ceil(max / 10) * 10;
-  }
-  if (max < 500) {
-    // Round up to nearest 50
-    return Math.ceil(max / 50) * 50;
-  }
-  if (max < 1000) {
-    // Round up to nearest 100
-    return Math.ceil(max / 100) * 100;
-  }
-  if (max < 5000) {
-    // Round up to nearest 500
-    return Math.ceil(max / 500) * 500;
-  }
-  // Else round up to nearest 1000
-  return Math.ceil(max / 1000) * 1000;
 };
 
 // Find zero count statuses for commit chart tooltip
@@ -102,5 +82,4 @@ export {
   injectGlobalHighlightStyle,
   removeGlobalDimStyle,
   removeGlobalHighlightStyle,
-  roundMax,
 };

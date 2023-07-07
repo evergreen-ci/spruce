@@ -61,10 +61,32 @@ const cryptoRandom = () => {
   return randomNumber / 2 ** 32;
 };
 
+const roundMax = (max: number) => {
+  if (max < 100) {
+    // Round up to nearest 10
+    return Math.ceil(max / 10) * 10;
+  }
+  if (max < 500) {
+    // Round up to nearest 50
+    return Math.ceil(max / 50) * 50;
+  }
+  if (max < 1000) {
+    // Round up to nearest 100
+    return Math.ceil(max / 100) * 100;
+  }
+  if (max < 5000) {
+    // Round up to nearest 500
+    return Math.ceil(max / 500) * 500;
+  }
+  // Else round up to nearest 1000
+  return Math.ceil(max / 1000) * 1000;
+};
+
 export {
   toDecimal,
   toPercent,
   formatZeroIndexForDisplay,
   roundDecimal,
   cryptoRandom,
+  roundMax,
 };

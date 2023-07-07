@@ -6,19 +6,19 @@ import { COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION } from "constants/cookies";
 import { size } from "constants/tokens";
 import { useQueryParam } from "hooks/useQueryParam";
 import { ChartTypes, Commits, ChartToggleQueryParams } from "types/commits";
-import { ChartToggle } from "./ActiveCommits/ChartToggle";
-import { Grid, SolidLine } from "./ActiveCommits/Grid";
-import { GridLabel } from "./ActiveCommits/GridLabel";
 import {
   getCommitKey,
   getCommitWidth,
   RenderCommitsChart,
-} from "./RenderCommit";
-import { FlexRowContainer, CommitWrapper } from "./styles";
+} from "../RenderCommit";
+import { FlexRowContainer, CommitWrapper } from "../styles";
 import {
   findMaxGroupedTaskStats,
   getAllTaskStatsGroupedByColor,
-} from "./utils";
+} from "../utils";
+import { ChartToggle } from "./ChartToggle";
+import { Grid, SolidLine } from "./Grid";
+import { GridLabel } from "./GridLabel";
 
 const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
 const DEFAULT_OPEN_STATE = true;
@@ -29,7 +29,7 @@ interface Props {
   hasError?: boolean;
 }
 
-export const CommitsChart: React.VFC<Props> = ({
+export const CommitChart: React.VFC<Props> = ({
   versions,
   hasTaskFilter,
   hasError = false,

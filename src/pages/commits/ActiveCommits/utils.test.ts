@@ -4,7 +4,6 @@ import {
   getStatusesWithZeroCount,
   injectGlobalDimStyle,
   injectGlobalHighlightStyle,
-  roundMax,
   removeGlobalDimStyle,
   removeGlobalHighlightStyle,
 } from "./utils";
@@ -32,16 +31,6 @@ describe("getStatusesWithZeroCount", () => {
       TaskStatus.UndispatchedUmbrella,
       TaskStatus.SetupFailed,
     ]);
-  });
-});
-
-describe("roundMax", () => {
-  it("properly rounds numbers", () => {
-    expect(roundMax(8)).toBe(10); // 0 <= x < 100
-    expect(roundMax(147)).toBe(150); // 100 <= x < 500
-    expect(roundMax(712)).toBe(800); // 500 <= x < 1000
-    expect(roundMax(1320)).toBe(1500); // 1000 <= x < 5000
-    expect(roundMax(6430)).toBe(7000); // 5000 <= x
   });
 });
 
