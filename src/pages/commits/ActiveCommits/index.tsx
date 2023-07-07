@@ -6,7 +6,7 @@ import { ColorCount } from "pages/commits/types";
 import { ChartTypes, CommitVersion, BuildVariantDict } from "types/commits";
 import { array, string } from "utils";
 import { BuildVariantCard } from "./BuildVariantCard";
-import { CommitChart } from "./CommitChart";
+import { CommitBarChart } from "./CommitBarChart";
 
 const { convertArrayToObject, arrayUnion } = array;
 const { shortenGithash } = string;
@@ -25,7 +25,7 @@ export const ActiveCommitChart: React.VFC<ActiveCommitChartProps> = ({
   chartType,
   eta,
 }) => (
-  <CommitChart
+  <CommitBarChart
     groupedTaskStats={groupedTaskStats}
     total={total}
     max={max}

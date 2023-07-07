@@ -5,18 +5,18 @@ import {
   getAllTaskStatsGroupedByColor,
 } from "pages/commits/utils";
 import { ChartTypes, Commits } from "types/commits";
-import { CommitChart } from ".";
+import { CommitBarChart } from ".";
 
 export default {
-  title: "Pages/Commits/Charts",
-  component: CommitChart,
+  title: "Pages/Commits/Charts/ActiveCommit/CommitBarChart",
+  component: CommitBarChart,
 };
 
-export const Default: StoryObj<typeof CommitChart> = {
+export const Default: StoryObj<typeof CommitBarChart> = {
   render: ({ chartType }) => (
     <FlexRowContainer>
       {versions.map((item) => (
-        <CommitChart
+        <CommitBarChart
           key={item.version.id}
           groupedTaskStats={groupedTaskData[item.version.id].stats}
           total={groupedTaskData[item.version.id].total}
