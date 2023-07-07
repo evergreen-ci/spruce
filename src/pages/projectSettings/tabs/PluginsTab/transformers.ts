@@ -40,6 +40,7 @@ export const gqlToForm = ((data) => {
     },
     externalLinks: {
       patchMetadataPanelLink: {
+        requesters: projectRef?.externalLinks?.[0].requesters ?? [],
         displayName: projectRef?.externalLinks?.[0].displayName ?? "",
         urlTemplate: projectRef?.externalLinks?.[0].urlTemplate ?? "",
       },

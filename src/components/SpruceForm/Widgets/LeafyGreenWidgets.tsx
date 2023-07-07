@@ -429,6 +429,6 @@ const StyledSegmentedControl = styled(SegmentedControl)`
   margin-bottom: ${size.s};
 `;
 
-const MaxWidthContainer = styled.div`
+export const MaxWidthContainer = styled.div`
   max-width: 400px;
 `;

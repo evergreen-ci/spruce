@@ -74,14 +74,24 @@ const validate = ((formData, errors) => {
 
   const displayNameDefined = patchMetadataPanelLink.displayName.trim() !== "";
   const urlTemplateDefined = patchMetadataPanelLink.urlTemplate.trim() !== "";
-  if (displayNameDefined && !urlTemplateDefined) {
-    errors.externalLinks.patchMetadataPanelLink.urlTemplate.addError(
-      "You must specify a URL template or exclude display name."
-    );
-  } else if (!displayNameDefined && urlTemplateDefined) {
-    errors.externalLinks.patchMetadataPanelLink.displayName.addError(
-      "You must specify a display name or exclude URL template."
-    );
+  const requestersDefined = patchMetadataPanelLink.requesters.length > 0;
+
+  if (displayNameDefined || urlTemplateDefined || requestersDefined) {
+    if (!displayNameDefined) {
+      errors.externalLinks.patchMetadataPanelLink.displayName.addError(
+        "You must specify a display name."
+      );
+    }
+    if (!urlTemplateDefined) {
+      errors.externalLinks.patchMetadataPanelLink.urlTemplate.addError(
+        "You must specify a URL template."
+      );
+    }
+    if (!requestersDefined) {
+      errors.externalLinks.patchMetadataPanelLink.requesters.addError(
+        "You must specify requesters."
+      );
+    }
   }
 
   return errors;

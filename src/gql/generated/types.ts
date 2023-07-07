@@ -350,6 +350,7 @@ export type Expansion = {
 export type ExternalLink = {
   __typename?: "ExternalLink";
   displayName: Scalars["String"];
+  requesters: Array<Scalars["String"]>;
   urlTemplate: Scalars["String"];
 };
 
@@ -361,6 +362,7 @@ export type ExternalLinkForMetadata = {
 
 export type ExternalLinkInput = {
   displayName: Scalars["String"];
+  requesters?: InputMaybe<Array<Scalars["String"]>>;
   urlTemplate: Scalars["String"];
 };
 
@@ -3268,6 +3270,7 @@ export type ProjectSettingsFieldsFragment = {
     externalLinks?: Array<{
       __typename?: "ExternalLink";
       displayName: string;
+      requesters: Array<string>;
       urlTemplate: string;
     }> | null;
     taskAnnotationSettings: {
@@ -3463,6 +3466,7 @@ export type RepoSettingsFieldsFragment = {
     externalLinks?: Array<{
       __typename?: "ExternalLink";
       displayName: string;
+      requesters: Array<string>;
       urlTemplate: string;
     }> | null;
     taskAnnotationSettings: {
@@ -3714,6 +3718,7 @@ export type ProjectPluginsSettingsFragment = {
   externalLinks?: Array<{
     __typename?: "ExternalLink";
     displayName: string;
+    requesters: Array<string>;
     urlTemplate: string;
   }> | null;
   taskAnnotationSettings: {
@@ -3742,6 +3747,7 @@ export type RepoPluginsSettingsFragment = {
   externalLinks?: Array<{
     __typename?: "ExternalLink";
     displayName: string;
+    requesters: Array<string>;
     urlTemplate: string;
   }> | null;
   taskAnnotationSettings: {
@@ -3848,6 +3854,7 @@ export type ProjectEventSettingsFragment = {
     externalLinks?: Array<{
       __typename?: "ExternalLink";
       displayName: string;
+      requesters: Array<string>;
       urlTemplate: string;
     }> | null;
     taskAnnotationSettings: {
@@ -6056,6 +6063,7 @@ export type ProjectEventLogsQuery = {
           externalLinks?: Array<{
             __typename?: "ExternalLink";
             displayName: string;
+            requesters: Array<string>;
             urlTemplate: string;
           }> | null;
           taskAnnotationSettings: {
@@ -6259,6 +6267,7 @@ export type ProjectEventLogsQuery = {
           externalLinks?: Array<{
             __typename?: "ExternalLink";
             displayName: string;
+            requesters: Array<string>;
             urlTemplate: string;
           }> | null;
           taskAnnotationSettings: {
@@ -6477,6 +6486,7 @@ export type ProjectSettingsQuery = {
       externalLinks?: Array<{
         __typename?: "ExternalLink";
         displayName: string;
+        requesters: Array<string>;
         urlTemplate: string;
       }> | null;
       taskAnnotationSettings: {
@@ -6719,6 +6729,7 @@ export type RepoEventLogsQuery = {
           externalLinks?: Array<{
             __typename?: "ExternalLink";
             displayName: string;
+            requesters: Array<string>;
             urlTemplate: string;
           }> | null;
           taskAnnotationSettings: {
@@ -6922,6 +6933,7 @@ export type RepoEventLogsQuery = {
           externalLinks?: Array<{
             __typename?: "ExternalLink";
             displayName: string;
+            requesters: Array<string>;
             urlTemplate: string;
           }> | null;
           taskAnnotationSettings: {
@@ -7130,6 +7142,7 @@ export type RepoSettingsQuery = {
       externalLinks?: Array<{
         __typename?: "ExternalLink";
         displayName: string;
+        requesters: Array<string>;
         urlTemplate: string;
       }> | null;
       taskAnnotationSettings: {
