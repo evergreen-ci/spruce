@@ -52,12 +52,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                   width="200"
                 >
                   <div
-                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1c02xpx1"
                     data-cy="commit-chart-container"
                     data-type="absolute"
                   >
                     <div
-                      class="css-12xroym-Bar e1tzsy280"
+                      class="css-12xroym-Bar e1c02xpx0"
                       color="#889397"
                       data-cy="commit-chart-bar"
                       height="30%"
@@ -69,12 +69,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                   width="200"
                 >
                   <div
-                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1c02xpx1"
                     data-cy="commit-chart-container"
                     data-type="absolute"
                   >
                     <div
-                      class="css-12xroym-Bar e1tzsy280"
+                      class="css-12xroym-Bar e1c02xpx0"
                       color="#889397"
                       data-cy="commit-chart-bar"
                       height="30%"
@@ -98,12 +98,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                   width="200"
                 >
                   <div
-                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1c02xpx1"
                     data-cy="commit-chart-container"
                     data-type="absolute"
                   >
                     <div
-                      class="css-12xroym-Bar e1tzsy280"
+                      class="css-12xroym-Bar e1c02xpx0"
                       color="#889397"
                       data-cy="commit-chart-bar"
                       height="30%"
@@ -115,12 +115,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                   width="200"
                 >
                   <div
-                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1c02xpx1"
                     data-cy="commit-chart-container"
                     data-type="absolute"
                   >
                     <div
-                      class="css-12xroym-Bar e1tzsy280"
+                      class="css-12xroym-Bar e1c02xpx0"
                       color="#889397"
                       data-cy="commit-chart-bar"
                       height="30%"
@@ -132,12 +132,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                   width="200"
                 >
                   <div
-                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1c02xpx1"
                     data-cy="commit-chart-container"
                     data-type="absolute"
                   >
                     <div
-                      class="css-12xroym-Bar e1tzsy280"
+                      class="css-12xroym-Bar e1c02xpx0"
                       color="#889397"
                       data-cy="commit-chart-bar"
                       height="30%"
