@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
+import { ColorCount } from "pages/commits/types";
 import { ChartTypes } from "types/commits";
 import { commitChartHeight } from "../constants";
-import { ColorCount } from "../utils";
 import { CommitChartTooltip } from "./CommitChartTooltip";
 import { calculateBarHeight } from "./utils";
 

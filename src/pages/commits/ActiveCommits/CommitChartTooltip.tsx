@@ -6,9 +6,9 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import { inactiveElementStyle } from "components/styles";
 import { taskStatusToCopy, mapTaskToBarchartColor } from "constants/task";
 import { size, zIndex } from "constants/tokens";
+import { ColorCount } from "pages/commits/types";
 import { TaskStatus } from "types/task";
 import { msToDuration } from "utils/string";
-import { ColorCount } from "../utils";
 import { getStatusesWithZeroCount } from "./utils";
 
 const { gray } = palette;

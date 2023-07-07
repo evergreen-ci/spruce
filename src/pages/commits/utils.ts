@@ -6,6 +6,7 @@ import { Commits } from "types/commits";
 import { TaskStatus } from "types/task";
 import { array } from "utils";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
+import { GroupedResult } from "./types";
 
 const { arraySetDifference, arrayIntersection } = array;
 
@@ -189,19 +190,6 @@ const FAILED_STATUSES = [
   TaskStatus.SystemUnresponsive,
   TaskStatus.Aborted,
 ];
-
-export type ColorCount = {
-  count: number;
-  statuses: string[];
-  color: string;
-  umbrellaStatus: string;
-};
-
-export type GroupedResult = {
-  stats: ColorCount[];
-  max: number;
-  total: number;
-};
 
 export const findMaxGroupedTaskStats = (groupedTaskStats: {
   [id: string]: GroupedResult;

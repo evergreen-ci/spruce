@@ -1,4 +1,5 @@
 import { mapTaskStatusToUmbrellaStatus } from "constants/task";
+import { ColorCount } from "pages/commits/types";
 import { ChartTypes, Commits, BuildVariantDict } from "types/commits";
 import {
   TASK_ICONS_PER_ROW,
@@ -8,11 +9,8 @@ import {
   GROUPED_BADGE_HEIGHT,
   GROUPED_BADGE_PADDING,
 } from "../constants";
-import { ColorCount } from "../utils";
 
-export const constructBuildVariantDict = (
-  versions: Commits
-): BuildVariantDict => {
+const constructBuildVariantDict = (versions: Commits): BuildVariantDict => {
   const buildVariantDict: BuildVariantDict = {};
 
   for (let i = 0; i < versions.length; i++) {
@@ -81,20 +79,20 @@ export const constructBuildVariantDict = (
  * @param chartType - the type of chart (percentage or absolute)
  * @returns the percentage height of the bar
  */
-export function calculateBarHeight(
+const calculateBarHeight = (
   value: number,
   max: number,
   total: number,
   chartType: string
-) {
+) => {
   if (chartType === ChartTypes.Percentage) {
     return `${(value / total) * 100}%`;
   }
   const roundedMax = roundMax(max);
   return `${(value / roundedMax) * 100}%`;
-}
+};
 
-export const roundMax = (max: number) => {
+const roundMax = (max: number) => {
   if (max < 100) {
     // Round up to nearest 10
     return Math.ceil(max / 10) * 10;
@@ -116,7 +114,7 @@ export const roundMax = (max: number) => {
 };
 
 // Find zero count statuses for commit chart tooltip
-export const getStatusesWithZeroCount = (colors: ColorCount[]) => {
+const getStatusesWithZeroCount = (colors: ColorCount[]) => {
   const availableStatuses = colors.map(({ umbrellaStatus }) => umbrellaStatus);
   const allStatuses = Object.values(mapTaskStatusToUmbrellaStatus);
   return Array.from(
@@ -127,11 +125,11 @@ export const getStatusesWithZeroCount = (colors: ColorCount[]) => {
 // Functions for injecting and removing style for hovering on task icons
 const dimIconStyle = "dim-icon-style";
 
-export const removeGlobalDimStyle = () => {
+const removeGlobalDimStyle = () => {
   document.getElementById(dimIconStyle)?.remove();
 };
 
-export const injectGlobalDimStyle = () => {
+const injectGlobalDimStyle = () => {
   // Remove style here again because hovering over LG tooltips triggers two consecutive mouseenter events.
   removeGlobalDimStyle();
 
@@ -148,11 +146,11 @@ export const injectGlobalDimStyle = () => {
 // Functions for injecting and removing style for hovering on task icons
 const taskIconStyle = "task-icon-style";
 
-export const removeGlobalHighlightStyle = () => {
+const removeGlobalHighlightStyle = () => {
   document.getElementById(taskIconStyle)?.remove();
 };
 
-export const injectGlobalHighlightStyle = (taskIdentifier: string) => {
+const injectGlobalHighlightStyle = (taskIdentifier: string) => {
   // Remove style here again because hovering over LG tooltips triggers two consecutive mouseenter events.
   removeGlobalHighlightStyle();
 
@@ -164,4 +162,15 @@ export const injectGlobalHighlightStyle = (taskIdentifier: string) => {
      }
    `;
   document.getElementsByTagName("head")[0].appendChild(hoverStyle);
+};
+
+export {
+  calculateBarHeight,
+  constructBuildVariantDict,
+  getStatusesWithZeroCount,
+  injectGlobalDimStyle,
+  injectGlobalHighlightStyle,
+  removeGlobalDimStyle,
+  removeGlobalHighlightStyle,
+  roundMax,
 };

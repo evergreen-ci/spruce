@@ -2,9 +2,9 @@ import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import CommitChartLabel from "components/CommitChartLabel";
+import { ColorCount } from "pages/commits/types";
 import { ChartTypes, CommitVersion, BuildVariantDict } from "types/commits";
 import { array, string } from "utils";
-import { ColorCount } from "../utils";
 import { BuildVariantCard } from "./BuildVariantCard";
 import { CommitChart } from "./CommitChart";
 
