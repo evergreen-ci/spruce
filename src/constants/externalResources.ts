@@ -129,6 +129,7 @@ export const getHoneycombSystemMetricsUrl = (
     filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
     start_time: getUnixTime(new Date(startTs)),
     end_time: getUnixTime(new Date(endTs)),
+    granularity: 15,
   };
 
   return `${honeycombBaseURL}/datasets/evergreen?query=${JSON.stringify(
