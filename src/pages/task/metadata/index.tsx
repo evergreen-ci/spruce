@@ -16,8 +16,8 @@ import { StyledLink, StyledRouterLink } from "components/styles";
 import { SEEN_HONEYCOMB_GUIDE_CUE } from "constants/cookies";
 import {
   getDistroPageUrl,
-  getTaskTraceUrl,
-  getTaskSystemMetricsUrl,
+  getHoneycombTraceUrl,
+  getHoneycombSystemMetricsUrl,
 } from "constants/externalResources";
 import {
   getTaskQueueRoute,
@@ -372,7 +372,7 @@ export const Metadata: React.VFC<Props> = ({
           <StyledLink
             ref={triggerRef}
             data-cy="task-trace-link"
-            href={getTaskTraceUrl(taskTrace, startTime)}
+            href={getHoneycombTraceUrl(taskTrace, startTime)}
             onClick={() => {
               onHideCue();
               taskAnalytics.sendEvent({ name: "Click Trace Link" });
@@ -383,7 +383,7 @@ export const Metadata: React.VFC<Props> = ({
           </StyledLink>
           <StyledLink
             data-cy="task-metrics-link"
-            href={getTaskSystemMetricsUrl(taskId, startTime, finishTime)}
+            href={getHoneycombSystemMetricsUrl(taskId, startTime, finishTime)}
             onClick={() => {
               onHideCue();
               taskAnalytics.sendEvent({ name: "Click Trace Metrics Link" });

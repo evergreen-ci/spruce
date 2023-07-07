@@ -2,8 +2,8 @@ import {
   getLobsterTestLogCompleteUrl,
   getParsleyBuildLogURL,
   getParsleyTestLogURL,
-  getTaskTraceUrl,
-  getTaskSystemMetricsUrl,
+  getHoneycombTraceUrl,
+  getHoneycombSystemMetricsUrl,
 } from "./externalResources";
 
 describe("getLobsterTestLogCompleteUrl", () => {
@@ -53,7 +53,9 @@ describe("getParsleyBuildLogURL", () => {
 
 describe("getTaskTraceUrl", () => {
   it("generates the correct url", () => {
-    expect(getTaskTraceUrl("abcdef", new Date("2023-07-07T19:08:41"))).toBe(
+    expect(
+      getHoneycombTraceUrl("abcdef", new Date("2023-07-07T19:08:41"))
+    ).toBe(
       "https://ui.honeycomb.io/mongodb-4b/environments/staging/datasets/evergreen-agent/trace?trace_id=abcdef&trace_start_ts=1688756921"
     );
   });
@@ -62,7 +64,7 @@ describe("getTaskTraceUrl", () => {
 describe("getTaskSystemMetricsUrl", () => {
   it("generates the correct url", () => {
     expect(
-      getTaskSystemMetricsUrl(
+      getHoneycombSystemMetricsUrl(
         "task_12345",
         new Date("2023-07-07T19:08:41"),
         new Date("2023-07-07T20:00:00")

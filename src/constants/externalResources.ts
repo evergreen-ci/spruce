@@ -109,12 +109,12 @@ export const honeycombBaseURL = `https://ui.honeycomb.io/mongodb-4b/environments
   isProduction() ? "production" : "staging"
 }`;
 
-export const getTaskTraceUrl = (traceId: string, startTs: Date) =>
+export const getHoneycombTraceUrl = (traceId: string, startTs: Date) =>
   `${honeycombBaseURL}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(
     new Date(startTs)
   )}`;
 
-export const getTaskSystemMetricsUrl = (
+export const getHoneycombSystemMetricsUrl = (
   taskId: string,
   startTs: Date,
   endTs: Date
