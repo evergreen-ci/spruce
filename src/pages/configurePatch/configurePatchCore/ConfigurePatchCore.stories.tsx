@@ -1,5 +1,5 @@
-import { StoryObj } from "@storybook/react";
 import WithToastContext from "test_utils/toast-decorator";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import ConfigurePatchCore from ".";
 import { patchQuery, mocks } from "./testData";
 
@@ -17,11 +17,12 @@ export default {
       route: `/patch/${patchQuery.patch.id}/configure/tasks`,
     },
   },
-};
+} satisfies CustomMeta<typeof ConfigurePatchCore>;
 
-export const ConfigureTasksDefault: StoryObj<typeof ConfigurePatchCore> = {
-  render: (args) => <ConfigurePatchCore {...args} />,
-  args: {
-    patch: patchQuery.patch,
-  },
-};
+export const ConfigureTasksDefault: CustomStoryObj<typeof ConfigurePatchCore> =
+  {
+    render: (args) => <ConfigurePatchCore {...args} />,
+    args: {
+      patch: patchQuery.patch,
+    },
+  };

@@ -14,13 +14,13 @@ import {
   FailedTaskStatusIconTooltipQueryVariables,
 } from "gql/generated/types";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
-import { isFailedTaskStatus } from "utils/statuses";
-import { msToDuration } from "utils/string";
-import { TASK_ICON_HEIGHT } from "../../constants";
 import {
   injectGlobalHighlightStyle,
   removeGlobalHighlightStyle,
-} from "../utils";
+} from "pages/commits/ActiveCommits/utils";
+import { TASK_ICON_HEIGHT } from "pages/commits/constants";
+import { isFailedTaskStatus } from "utils/statuses";
+import { msToDuration } from "utils/string";
 
 interface WaterfallTaskStatusIconProps {
   taskId: string;

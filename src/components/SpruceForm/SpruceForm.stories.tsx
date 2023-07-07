@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { action } from "@storybook/addon-actions";
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+
 import { SpruceForm, SpruceFormContainer } from ".";
 
 export default {
   component: SpruceForm,
-};
+} satisfies CustomMeta<typeof SpruceForm>;
 
-export const Example1: StoryObj<typeof SpruceForm> = {
+export const Example1: CustomStoryObj<typeof SpruceForm> = {
   render: () => (
     <BaseForm
       title="Distro Projects"
@@ -18,7 +19,7 @@ export const Example1: StoryObj<typeof SpruceForm> = {
   ),
 };
 
-export const Example2: StoryObj<typeof SpruceForm> = {
+export const Example2: CustomStoryObj<typeof SpruceForm> = {
   render: () => (
     <BaseForm
       title="Admin Options"
@@ -29,7 +30,7 @@ export const Example2: StoryObj<typeof SpruceForm> = {
   ),
 };
 
-export const Example3: StoryObj<typeof SpruceForm> = {
+export const Example3: CustomStoryObj<typeof SpruceForm> = {
   render: () => (
     <BaseForm
       title="UI Options"

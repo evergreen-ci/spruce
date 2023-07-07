@@ -1,14 +1,15 @@
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+
 import { TaskStatusIconLegend, LegendContent } from ".";
 
 export default {
   component: TaskStatusIconLegend,
-};
+} satisfies CustomMeta<typeof TaskStatusIconLegend>;
 
-export const LegendWithButton: StoryObj<typeof TaskStatusIconLegend> = {
+export const LegendWithButton: CustomStoryObj<typeof TaskStatusIconLegend> = {
   render: () => <TaskStatusIconLegend />,
 };
 
-export const LegendOnly: StoryObj<typeof LegendContent> = {
+export const LegendOnly: CustomStoryObj<typeof LegendContent> = {
   render: () => <LegendContent />,
 };

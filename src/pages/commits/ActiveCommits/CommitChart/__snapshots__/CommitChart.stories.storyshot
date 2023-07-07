@@ -1,0 +1,172 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots Pages/Commits/Charts Default 1`] = `
+<div>
+  <div
+    class="css-1e93osx-FlexRowContainer e1tn6qi20"
+  >
+    <div
+      class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1c02xpx1"
+      data-cy="commit-chart-container"
+      data-type="absolute"
+    >
+      <div
+        class="css-po9rgx-Bar e1c02xpx0"
+        color="#00A35C"
+        data-cy="commit-chart-bar"
+        height="30%"
+      />
+      <div
+        class="css-1gm3hw0-Bar e1c02xpx0"
+        color="#DB3030"
+        data-cy="commit-chart-bar"
+        height="10%"
+      />
+      <div
+        class="css-f22ma1-Bar e1c02xpx0"
+        color="#FFC010"
+        data-cy="commit-chart-bar"
+        height="45%"
+      />
+      <div
+        class="css-92mrym-Bar e1c02xpx0"
+        color="#889397"
+        data-cy="commit-chart-bar"
+        height="10%"
+      />
+    </div>
+    <div
+      class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1c02xpx1"
+      data-cy="commit-chart-container"
+      data-type="absolute"
+    >
+      <div
+        class="css-1gm3hw0-Bar e1c02xpx0"
+        color="#DB3030"
+        data-cy="commit-chart-bar"
+        height="10%"
+      />
+      <div
+        class="css-io4c7i-Bar e1c02xpx0"
+        color="#5C6C75"
+        data-cy="commit-chart-bar"
+        height="35%"
+      />
+    </div>
+    <div
+      class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1c02xpx1"
+      data-cy="commit-chart-container"
+      data-type="absolute"
+    >
+      <div
+        class="css-11vky5j-Bar e1c02xpx0"
+        color="#00A35C"
+        data-cy="commit-chart-bar"
+        height="20%"
+      />
+      <div
+        class="css-1d5hu4b-Bar e1c02xpx0"
+        color="#889397"
+        data-cy="commit-chart-bar"
+        height="25%"
+      />
+      <div
+        class="css-8a7mm5-Bar e1c02xpx0"
+        color="#5C6C75"
+        data-cy="commit-chart-bar"
+        height="10%"
+      />
+    </div>
+    <div
+      class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1c02xpx1"
+      data-cy="commit-chart-container"
+      data-type="absolute"
+    >
+      <div
+        class="css-1gm3hw0-Bar e1c02xpx0"
+        color="#DB3030"
+        data-cy="commit-chart-bar"
+        height="10%"
+      />
+      <div
+        class="css-io4c7i-Bar e1c02xpx0"
+        color="#5C6C75"
+        data-cy="commit-chart-bar"
+        height="35%"
+      />
+    </div>
+    <div
+      class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1c02xpx1"
+      data-cy="commit-chart-container"
+      data-type="absolute"
+    >
+      <div
+        class="css-ljh5ef-Bar e1c02xpx0"
+        color="#F1D4FD"
+        data-cy="commit-chart-bar"
+        height="20%"
+      />
+      <div
+        class="css-7g4ljd-Bar e1c02xpx0"
+        color="#889397"
+        data-cy="commit-chart-bar"
+        height="35%"
+      />
+    </div>
+    <div
+      class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1c02xpx1"
+      data-cy="commit-chart-container"
+      data-type="absolute"
+    >
+      <div
+        class="css-y6r5at-Bar e1c02xpx0"
+        color="#DB3030"
+        data-cy="commit-chart-bar"
+        height="30%"
+      />
+      <div
+        class="css-18b4a7j-Bar e1c02xpx0"
+        color="#5E0C9E"
+        data-cy="commit-chart-bar"
+        height="30%"
+      />
+      <div
+        class="css-92mrym-Bar e1c02xpx0"
+        color="#889397"
+        data-cy="commit-chart-bar"
+        height="10%"
+      />
+      <div
+        class="css-1nk3h8z-Bar e1c02xpx0"
+        color="#5C6C75"
+        data-cy="commit-chart-bar"
+        height="60%"
+      />
+    </div>
+    <div
+      class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1c02xpx1"
+      data-cy="commit-chart-container"
+      data-type="absolute"
+    >
+      <div
+        class="css-16uzpp1-Bar e1c02xpx0"
+        color="#5E0C9E"
+        data-cy="commit-chart-bar"
+        height="35%"
+      />
+      <div
+        class="css-xw3892-Bar e1c02xpx0"
+        color="#F1D4FD"
+        data-cy="commit-chart-bar"
+        height="25%"
+      />
+      <div
+        class="css-8a7mm5-Bar e1c02xpx0"
+        color="#5C6C75"
+        data-cy="commit-chart-bar"
+        height="10%"
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -1,9 +1,8 @@
-import { MockedProvider } from "@apollo/client/testing";
-import { StoryObj } from "@storybook/react";
 import {
   newSpruceUser,
   newMainlineCommitsUser,
 } from "constants/welcomeModalProps";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import CarouselCard from "./CarouselCard";
 import WelcomeModal from "./WelcomeModal";
 
@@ -14,16 +13,9 @@ export default {
       disable: true,
     },
   },
-  decorators: [
-    (Story: () => JSX.Element) => (
-      <MockedProvider>
-        <Story />
-      </MockedProvider>
-    ),
-  ],
-};
+} satisfies CustomMeta<typeof WelcomeModal>;
 
-export const NewSpruceUser: StoryObj<typeof WelcomeModal> = {
+export const NewSpruceUser: CustomStoryObj<typeof WelcomeModal> = {
   render: () => (
     <WelcomeModal
       title="Welcome to the New Evergreen UI!"
@@ -33,7 +25,7 @@ export const NewSpruceUser: StoryObj<typeof WelcomeModal> = {
   ),
 };
 
-export const NewMainlineCommitsUser: StoryObj<typeof WelcomeModal> = {
+export const NewMainlineCommitsUser: CustomStoryObj<typeof WelcomeModal> = {
   render: () => (
     <WelcomeModal
       param="hasUsedMainlineCommitsBefore"
@@ -42,7 +34,7 @@ export const NewMainlineCommitsUser: StoryObj<typeof WelcomeModal> = {
   ),
 };
 
-export const MovieCard: StoryObj<typeof CarouselCard> = {
+export const MovieCard: CustomStoryObj<typeof CarouselCard> = {
   render: () => (
     <CarouselCard
       card={{
@@ -56,7 +48,7 @@ export const MovieCard: StoryObj<typeof CarouselCard> = {
   ),
 };
 
-export const ImageCard: StoryObj<typeof CarouselCard> = {
+export const ImageCard: CustomStoryObj<typeof CarouselCard> = {
   render: () => (
     <CarouselCard
       card={{

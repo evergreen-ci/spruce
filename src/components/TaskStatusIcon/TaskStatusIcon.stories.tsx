@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import { StoryObj } from "@storybook/react";
 import { Size } from "components/Icon";
 import { size } from "constants/tokens";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { TaskStatus } from "types/task";
 import { TaskStatusIcon, TaskStatusIconProps } from ".";
 
@@ -15,9 +15,9 @@ const Sizes = {
 export default {
   title: "Components/Icon/Task Status",
   component: TaskStatusIcon,
-};
+} satisfies CustomMeta<typeof TaskStatusIcon>;
 
-export const Default: StoryObj<TaskStatusIconProps> = {
+export const Default: CustomStoryObj<TaskStatusIconProps> = {
   render: ({ size: s }) => {
     // filter out umbrella statuses
     const taskStatuses = Object.keys(TaskStatus).filter(

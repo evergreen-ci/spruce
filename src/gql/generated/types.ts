@@ -197,12 +197,14 @@ export type CommitQueueParams = {
   __typename?: "CommitQueueParams";
   enabled?: Maybe<Scalars["Boolean"]>;
   mergeMethod: Scalars["String"];
+  mergeQueue: MergeQueue;
   message: Scalars["String"];
 };
 
 export type CommitQueueParamsInput = {
   enabled?: InputMaybe<Scalars["Boolean"]>;
   mergeMethod?: InputMaybe<Scalars["String"]>;
+  mergeQueue?: InputMaybe<MergeQueue>;
   message?: InputMaybe<Scalars["String"]>;
 };
 
@@ -721,6 +723,11 @@ export type Manifest = {
   project: Scalars["String"];
   revision: Scalars["String"];
 };
+
+export enum MergeQueue {
+  Evergreen = "EVERGREEN",
+  Github = "GITHUB",
+}
 
 export enum MetStatus {
   Met = "MET",
@@ -1762,6 +1769,7 @@ export type RepoCommitQueueParams = {
   __typename?: "RepoCommitQueueParams";
   enabled: Scalars["Boolean"];
   mergeMethod: Scalars["String"];
+  mergeQueue: MergeQueue;
   message: Scalars["String"];
 };
 

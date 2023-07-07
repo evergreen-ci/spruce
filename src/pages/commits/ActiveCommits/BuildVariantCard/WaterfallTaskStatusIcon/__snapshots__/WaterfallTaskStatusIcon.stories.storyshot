@@ -3,7 +3,7 @@
 exports[`storybook Storyshots Pages/Commits/WaterfallIcon Default 1`] = `
 <div>
   <div
-    class="css-1qyc0mz-Container ea06lk60"
+    class="css-1qyc0mz-Container e10m6vua0"
   >
     <a
       aria-label="failed icon"
@@ -12,7 +12,7 @@ exports[`storybook Storyshots Pages/Commits/WaterfallIcon Default 1`] = `
       href="/task/task-id"
     >
       <div
-        class="css-h1k2k-TaskStatusWrapper enafhlo0"
+        class="css-h1k2k-TaskStatusWrapper errfpw30"
         data-task-icon="ubuntu1604"
       >
         <svg
