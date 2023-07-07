@@ -8,7 +8,7 @@ import {
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import { ApolloMock } from "types/gql";
 import { TaskStatus } from "types/task";
-import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
+import { WaterfallTaskStatusIcon } from ".";
 
 export default {
   title: "Pages/Commits/WaterfallIcon",
