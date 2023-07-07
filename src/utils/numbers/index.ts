@@ -61,6 +61,11 @@ const cryptoRandom = () => {
   return randomNumber / 2 ** 32;
 };
 
+/**
+ * `roundMax` rounds up a given maximum value to the nearest specified increment.
+ * @param max - The maximum value to be rounded up.
+ * @returns The rounded up value based on the specified increments.
+ */
 const roundMax = (max: number) => {
   if (max < 100) {
     // Round up to nearest 10
