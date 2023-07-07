@@ -251,6 +251,7 @@ export const getFormSchema = (
       patchMetadataPanelLink: {
         requesters: {
           "ui:widget": MultiSelect,
+          "ui:data-cy": "requesters-input",
         },
         urlTemplate: {
           "ui:placeholder": "https://example.com/{version_id}",
