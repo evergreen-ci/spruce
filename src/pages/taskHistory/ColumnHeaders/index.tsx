@@ -10,9 +10,8 @@ import {
   BuildVariantsForTaskNameQueryVariables,
 } from "gql/generated/types";
 import { GET_BUILD_VARIANTS_FOR_TASK_NAME } from "gql/queries";
-import { array, string, errorReporting } from "utils";
-
-const { reportError } = errorReporting;
+import { array, string } from "utils";
+import { reportError } from "utils/errorReporting";
 
 const { useColumns } = hooks;
 const { convertArrayToObject } = array;

@@ -7,9 +7,9 @@ import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { getTaskRoute } from "constants/routes";
 import { taskStatusToCopy } from "constants/task";
 import { TaskStatus, TaskTab } from "types/task";
-import { statuses, errorReporting } from "utils";
+import { statuses } from "utils";
+import { reportError } from "utils/errorReporting";
 
-const { reportError } = errorReporting;
 const { purple } = palette;
 const { getStatusBadgeCopy } = statuses;
 

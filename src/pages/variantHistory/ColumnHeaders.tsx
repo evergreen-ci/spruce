@@ -10,9 +10,8 @@ import {
   TaskNamesForBuildVariantQueryVariables,
 } from "gql/generated/types";
 import { GET_TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
-import { array, string, errorReporting } from "utils";
-
-const { reportError } = errorReporting;
+import { array, string } from "utils";
+import { reportError } from "utils/errorReporting";
 
 const { mapStringArrayToObject } = array;
 const { LoadingCell, ColumnHeaderCell, LabelCellContainer } = Cell;

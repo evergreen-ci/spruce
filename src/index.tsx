@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom";
 import App from "App";
-import { initializeBugsnag } from "components/ErrorBoundary";
+import { initializeErrorHandling } from "components/ErrorHandling";
 
-initializeBugsnag();
+initializeErrorHandling();
+
 ReactDOM.render(<App />, document.getElementById("root"));
