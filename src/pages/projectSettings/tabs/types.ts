@@ -6,7 +6,7 @@ import {
   ProjectSettingsQuery,
   RepoSettingsQuery,
 } from "gql/generated/types";
-import * as access from "./AccessTab/types";
+// import * as access from "./AccessTab/types";
 import * as containers from "./ContainersTab/types";
 import * as general from "./GeneralTab/types";
 import * as githubCommitQueue from "./GithubCommitQueueTab/types";
@@ -20,9 +20,9 @@ import * as variables from "./VariablesTab/types";
 import * as viewsAndFilters from "./ViewsAndFiltersTab/types";
 import * as virtualWorkstation from "./VirtualWorkstationTab/types";
 
-export type FormStateMap = {
+export interface FormStateMap extends Record<WritableTabRoutes, any> {
   [ProjectSettingsTabRoutes.General]: general.FormState;
-  [ProjectSettingsTabRoutes.Access]: access.FormState;
+  // [ProjectSettingsTabRoutes.Access]: access.FormState;
   [ProjectSettingsTabRoutes.Plugins]: plugins.FormState;
   [ProjectSettingsTabRoutes.Variables]: variables.FormState;
   [ProjectSettingsTabRoutes.GithubCommitQueue]: githubCommitQueue.FormState;
@@ -33,7 +33,7 @@ export type FormStateMap = {
   [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.FormState;
   [ProjectSettingsTabRoutes.Containers]: containers.FormState;
   [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.FormState;
-};
+}
 
 export type GetFormSchema = (...any) => {
   fields: Record<string, Field>;
@@ -63,6 +63,9 @@ export type FormToGqlFunction<T extends WritableTabRoutes> = (
 export const readOnlyTabs = [ProjectSettingsTabRoutes.EventLog] as const;
 
 type ReadOnlyTabs = (typeof readOnlyTabs)[number];
+
+const { EventLog, ...Writable } = ProjectSettingsTabRoutes;
+export { Writable };
 
 export type WritableTabRoutes = Exclude<ProjectSettingsTabRoutes, ReadOnlyTabs>;
 
