@@ -1,0 +1,1407 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
+<div>
+  <div
+    style="height: 500px;"
+  >
+    <div
+      class="css-1htrvjs-ChartContainer ech0nhv3"
+    >
+      <div>
+        <div
+          class="css-58nl5l-AccordionToggle ev0bopr3"
+          data-cy="accordion-toggle"
+          role="button"
+        >
+          <svg
+            aria-label="Caret Down Icon"
+            class=""
+            fill="none"
+            height="16"
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8.679 10.796a.554.554 0 01-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82z"
+              fill="currentColor"
+            />
+          </svg>
+          <span>
+            Project Health
+          </span>
+        </div>
+        <div
+          aria-expanded="true"
+          class="css-n5l1wu-AnimatedAccordion ev0bopr2"
+          data-cy="accordion-collapse-container"
+        >
+          <div
+            class="css-1ds08bm-ContentsContainer ev0bopr1"
+          >
+            <div
+              class="css-j6oyur-ChartWrapper exoryc51"
+            >
+              <div
+                class="css-gnwyka-FlexRowContainer eq4i7ol1"
+              >
+                <div
+                  class="css-mgqp2w-CommitWrapper eq4i7ol0"
+                  width="200"
+                >
+                  <div
+                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e12jd04i1"
+                    data-cy="commit-chart-container"
+                    data-type="absolute"
+                  >
+                    <div
+                      class="css-12xroym-Bar e12jd04i0"
+                      color="#889397"
+                      data-cy="commit-chart-bar"
+                      height="30%"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="css-mgqp2w-CommitWrapper eq4i7ol0"
+                  width="200"
+                >
+                  <div
+                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e12jd04i1"
+                    data-cy="commit-chart-container"
+                    data-type="absolute"
+                  >
+                    <div
+                      class="css-12xroym-Bar e12jd04i0"
+                      color="#889397"
+                      data-cy="commit-chart-bar"
+                      height="30%"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="css-11x1fi4-CommitWrapper eq4i7ol0"
+                  width="64"
+                >
+                  <div
+                    class="css-316fn7-InactiveCommitContainer ezzuvrx10"
+                  >
+                    <div
+                      class="css-1e8x40o-InactiveCommitLine ezzuvrx9"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="css-mgqp2w-CommitWrapper eq4i7ol0"
+                  width="200"
+                >
+                  <div
+                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e12jd04i1"
+                    data-cy="commit-chart-container"
+                    data-type="absolute"
+                  >
+                    <div
+                      class="css-12xroym-Bar e12jd04i0"
+                      color="#889397"
+                      data-cy="commit-chart-bar"
+                      height="30%"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="css-mgqp2w-CommitWrapper eq4i7ol0"
+                  width="200"
+                >
+                  <div
+                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e12jd04i1"
+                    data-cy="commit-chart-container"
+                    data-type="absolute"
+                  >
+                    <div
+                      class="css-12xroym-Bar e12jd04i0"
+                      color="#889397"
+                      data-cy="commit-chart-bar"
+                      height="30%"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="css-mgqp2w-CommitWrapper eq4i7ol0"
+                  width="200"
+                >
+                  <div
+                    class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e12jd04i1"
+                    data-cy="commit-chart-container"
+                    data-type="absolute"
+                  >
+                    <div
+                      class="css-12xroym-Bar e12jd04i0"
+                      color="#889397"
+                      data-cy="commit-chart-bar"
+                      height="30%"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="css-fbf73e-GridLabelContainer e1mupc661"
+              >
+                <div
+                  class="css-1dwm295-YAxisValue e1mupc660"
+                >
+                  10
+                </div>
+                <div
+                  class="css-1dwm295-YAxisValue e1mupc660"
+                >
+                  8
+                </div>
+                <div
+                  class="css-1dwm295-YAxisValue e1mupc660"
+                >
+                  6
+                </div>
+                <div
+                  class="css-1dwm295-YAxisValue e1mupc660"
+                >
+                  4
+                </div>
+                <div
+                  class="css-1dwm295-YAxisValue e1mupc660"
+                >
+                  2
+                </div>
+                <div
+                  class="css-1dwm295-YAxisValue e1mupc660"
+                >
+                  0
+                </div>
+              </div>
+              <div
+                class="css-1kwm5h2-ColumnContainer e16ztcaj2"
+              >
+                <div
+                  class="css-2g8xyl-DashedLine e16ztcaj1"
+                />
+                <div
+                  class="css-2g8xyl-DashedLine e16ztcaj1"
+                />
+                <div
+                  class="css-2g8xyl-DashedLine e16ztcaj1"
+                />
+                <div
+                  class="css-2g8xyl-DashedLine e16ztcaj1"
+                />
+                <div
+                  class="css-2g8xyl-DashedLine e16ztcaj1"
+                />
+                <div
+                  class="css-16mwmlj-SolidLine e16ztcaj0"
+                />
+              </div>
+              <div
+                class="css-7yxj8m-AbsoluteContainer exoryc52"
+              >
+                <div
+                  class="css-3jftg7-StyledAccordion eyebzpj0"
+                >
+                  <div
+                    class="css-58nl5l-AccordionToggle ev0bopr3"
+                    data-cy="accordion-toggle"
+                    role="button"
+                  >
+                    <svg
+                      aria-label="Caret Down Icon"
+                      class=""
+                      fill="none"
+                      height="16"
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8.679 10.796a.554.554 0 01-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span>
+                      View options
+                    </span>
+                  </div>
+                  <div
+                    aria-expanded="true"
+                    class="css-n5l1wu-AnimatedAccordion ev0bopr2"
+                    data-cy="accordion-collapse-container"
+                  >
+                    <div
+                      class="css-1nylm8s-ContentsContainer ev0bopr1"
+                    >
+                      <div
+                        class="css-xetfur-ToggleWrapper eyebzpj1"
+                      >
+                        <div
+                          aria-label="chart-select"
+                          class="leafygreen-ui-14o8ny9 css-fmpatj-StyledRadioGroup eyebzpj2"
+                          role="group"
+                        >
+                          <div
+                            class="leafygreen-ui-jpwlig"
+                          >
+                            <label
+                              class="leafygreen-ui-1465lnm"
+                              for="chart-radio-absolute"
+                            >
+                              <input
+                                aria-checked="true"
+                                aria-describedby="undefined-undefined"
+                                aria-disabled="false"
+                                checked=""
+                                class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
+                                data-cy="cy-chart-absolute-radio"
+                                id="chart-radio-absolute"
+                                name="chart-select"
+                                type="radio"
+                                value="absolute"
+                              />
+                              <div
+                                class="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
+                              >
+                                <div
+                                  class="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
+                                />
+                              </div>
+                              Absolute Number
+                            </label>
+                          </div>
+                          <div
+                            class="leafygreen-ui-jpwlig"
+                          >
+                            <label
+                              class="leafygreen-ui-1465lnm"
+                              for="chart-radio-percent"
+                            >
+                              <input
+                                aria-describedby="undefined-undefined"
+                                aria-disabled="false"
+                                class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
+                                data-cy="cy-chart-percent-radio"
+                                id="chart-radio-percent"
+                                name="chart-select"
+                                type="radio"
+                                value="percentage"
+                              />
+                              <div
+                                class="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
+                              >
+                                <div
+                                  class="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
+                                />
+                              </div>
+                              Percentage
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="css-1nsrvm5-StickyContainer ech0nhv2"
+      >
+        <div
+          class="css-gnwyka-FlexRowContainer eq4i7ol1"
+        >
+          <div
+            class="css-mgqp2w-CommitWrapper eq4i7ol0"
+            width="200"
+          >
+            <div
+              class="css-42v5yq-LabelContainer e1cz15301"
+              data-cy="commit-label"
+            >
+              <p
+                class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+              >
+                <a
+                  class="lg-ui-0002 leafygreen-ui-hvznge"
+                  data-cy="githash-link"
+                  href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks"
+                >
+                  <code
+                    class="leafygreen-ui-7u0nmx"
+                  >
+                    987bf57
+                  </code>
+                </a>
+                 
+                <b>
+                  Jul 16, 2021, 3:53 PM
+                </b>
+                 
+              </p>
+              <p
+                class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+              >
+                Jonathan Brill
+                 -
+              </p>
+              <p
+                class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+              >
+                
+                <a
+                  class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                  data-cy="jira-link"
+                  href="https://undefined/browse/EVG-14901"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <span
+                    class="leafygreen-ui-baoi4d"
+                  >
+                    EVG-14901
+                  </span>
+                </a>
+                 add ssh key to EditSpawnHos...
+              </p>
+              <small
+                class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-6flbwy"
+              >
+                more
+              </small>
+            </div>
+          </div>
+          <div
+            class="css-mgqp2w-CommitWrapper eq4i7ol0"
+            width="200"
+          >
+            <div
+              class="css-42v5yq-LabelContainer e1cz15301"
+              data-cy="commit-label"
+            >
+              <p
+                class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+              >
+                <a
+                  class="lg-ui-0002 leafygreen-ui-hvznge"
+                  data-cy="githash-link"
+                  href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks"
+                >
+                  <code
+                    class="leafygreen-ui-7u0nmx"
+                  >
+                    a77bd39
+                  </code>
+                </a>
+                 
+                <b>
+                  Jul 13, 2021, 2:51 PM
+                </b>
+                 
+              </p>
+              <p
+                class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+              >
+                Mohamed Khelif
+                 -
+              </p>
+              <p
+                class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+              >
+                Triggered From Git Tag 'v2.11.1': v2....
+              </p>
+              <small
+                class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-6flbwy"
+              >
+                more
+              </small>
+            </div>
+          </div>
+          <div
+            class="css-11x1fi4-CommitWrapper eq4i7ol0"
+            width="64"
+          >
+            <div
+              class="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx7"
+              role="button"
+            >
+              <small
+                class="css-t2ltce-ButtonText ezzuvrx6 leafygreen-ui-6flbwy"
+                data-cy="inactive-commits-button"
+              >
+                <div>
+                  1
+                </div>
+                Inactive
+              </small>
+            </div>
+          </div>
+          <div
+            class="css-mgqp2w-CommitWrapper eq4i7ol0"
+            width="200"
+          >
+            <div
+              class="css-42v5yq-LabelContainer e1cz15301"
+              data-cy="commit-label"
+            >
+              <p
+                class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+              >
+                <a
+                  class="lg-ui-0002 leafygreen-ui-hvznge"
+                  data-cy="githash-link"
+                  href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks"
+                >
+                  <code
+                    class="leafygreen-ui-7u0nmx"
+                  >
+                    9c1d1eb
+                  </code>
+                </a>
+                 
+                <b>
+                  Jul 13, 2021, 2:51 PM
+                </b>
+                 
+              </p>
+              <p
+                class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+              >
+                Mohamed Khelif
+                 -
+              </p>
+              <p
+                class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+              >
+                
+                <a
+                  class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                  data-cy="jira-link"
+                  href="https://undefined/browse/EVG-14799"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <span
+                    class="leafygreen-ui-baoi4d"
+                  >
+                    EVG-14799
+                  </span>
+                </a>
+                 Correctly visit configure p...
+              </p>
+              <small
+                class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-6flbwy"
+              >
+                more
+              </small>
+            </div>
+          </div>
+          <div
+            class="css-mgqp2w-CommitWrapper eq4i7ol0"
+            width="200"
+          >
+            <div
+              class="css-42v5yq-LabelContainer e1cz15301"
+              data-cy="commit-label"
+            >
+              <p
+                class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+              >
+                <a
+                  class="lg-ui-0002 leafygreen-ui-hvznge"
+                  data-cy="githash-link"
+                  href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks"
+                >
+                  <code
+                    class="leafygreen-ui-7u0nmx"
+                  >
+                    f7f7f1a
+                  </code>
+                </a>
+                 
+                <b>
+                  Jul 13, 2021, 2:51 PM
+                </b>
+                 
+              </p>
+              <p
+                class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+              >
+                Sophie Stadler
+                 -
+              </p>
+              <p
+                class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+              >
+                Remove navigation announcement toast ...
+              </p>
+              <small
+                class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-6flbwy"
+              >
+                more
+              </small>
+            </div>
+          </div>
+          <div
+            class="css-mgqp2w-CommitWrapper eq4i7ol0"
+            width="200"
+          >
+            <div
+              class="css-42v5yq-LabelContainer e1cz15301"
+              data-cy="commit-label"
+            >
+              <p
+                class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+              >
+                <a
+                  class="lg-ui-0002 leafygreen-ui-hvznge"
+                  data-cy="githash-link"
+                  href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks"
+                >
+                  <code
+                    class="leafygreen-ui-7u0nmx"
+                  >
+                    211b3a0
+                  </code>
+                </a>
+                 
+                <b>
+                  Jul 13, 2021, 2:51 PM
+                </b>
+                 
+              </p>
+              <p
+                class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+              >
+                Chaya Malik
+                 -
+              </p>
+              <p
+                class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+              >
+                Triggered From Git Tag 'v2.11.0': v2....
+              </p>
+              <small
+                class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-6flbwy"
+              >
+                more
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="css-gnwyka-FlexRowContainer eq4i7ol1"
+      >
+        <div
+          class="css-mgqp2w-CommitWrapper eq4i7ol0"
+          width="200"
+        >
+          <div
+            class="css-ygh2q6-ColumnContainer e1s1lwa10"
+          >
+            <div
+              class="css-8bv1t4-Container e1e552r21"
+            >
+              <a
+                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                data-cy="variant-header"
+                href="/variant-history/spruce/bv_000?selectedCommit=929"
+              >
+                <span
+                  class="leafygreen-ui-baoi4d"
+                >
+                  Build Variant 0
+                </span>
+              </a>
+              <div
+                class="css-16zj0ph-Content e1e552r20"
+                height="64px"
+              >
+                <div>
+                  <div
+                    class="css-1uxzogm-VariantTasks emd75rc0"
+                  >
+                    <div
+                      class="leafygreen-ui-cssveg"
+                    >
+                      <a
+                        data-cy="grouped-task-status-badge"
+                        href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
+                      >
+                        <div
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
+                          fill="#5C6C75"
+                        >
+                          <span
+                            class="css-1f81ztl-Number emc61an2"
+                          >
+                            1
+                          </span>
+                          <span
+                            class="css-oqj204-Status emc61an1"
+                          >
+                            Scheduled
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="css-8bv1t4-Container e1e552r21"
+            >
+              <a
+                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                data-cy="variant-header"
+                href="/variant-history/spruce/bv_001?selectedCommit=929"
+              >
+                <span
+                  class="leafygreen-ui-baoi4d"
+                >
+                  Build Variant 1
+                </span>
+              </a>
+              <div
+                class="css-16zj0ph-Content e1e552r20"
+                height="64px"
+              >
+                <div>
+                  <div
+                    class="css-1uxzogm-VariantTasks emd75rc0"
+                  >
+                    <div
+                      class="leafygreen-ui-cssveg"
+                    >
+                      <a
+                        data-cy="grouped-task-status-badge"
+                        href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
+                      >
+                        <div
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
+                          fill="#5C6C75"
+                        >
+                          <span
+                            class="css-1f81ztl-Number emc61an2"
+                          >
+                            1
+                          </span>
+                          <span
+                            class="css-oqj204-Status emc61an1"
+                          >
+                            Scheduled
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="css-8bv1t4-Container e1e552r21"
+            >
+              <a
+                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                data-cy="variant-header"
+                href="/variant-history/spruce/bv_002?selectedCommit=929"
+              >
+                <span
+                  class="leafygreen-ui-baoi4d"
+                >
+                  Build Variant 2
+                </span>
+              </a>
+              <div
+                class="css-16zj0ph-Content e1e552r20"
+                height="64px"
+              >
+                <div>
+                  <div
+                    class="css-1uxzogm-VariantTasks emd75rc0"
+                  >
+                    <div
+                      class="leafygreen-ui-cssveg"
+                    >
+                      <a
+                        data-cy="grouped-task-status-badge"
+                        href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
+                      >
+                        <div
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
+                          fill="#5C6C75"
+                        >
+                          <span
+                            class="css-1f81ztl-Number emc61an2"
+                          >
+                            1
+                          </span>
+                          <span
+                            class="css-oqj204-Status emc61an1"
+                          >
+                            Scheduled
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="css-mgqp2w-CommitWrapper eq4i7ol0"
+          width="200"
+        >
+          <div
+            class="css-ygh2q6-ColumnContainer e1s1lwa10"
+          >
+            <div
+              class="css-8bv1t4-Container e1e552r21"
+            >
+              <a
+                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                data-cy="variant-header"
+                href="/variant-history/spruce/bv_000?selectedCommit=928"
+              >
+                <span
+                  class="leafygreen-ui-baoi4d"
+                >
+                  Build Variant 0
+                </span>
+              </a>
+              <div
+                class="css-16zj0ph-Content e1e552r20"
+                height="64px"
+              >
+                <div>
+                  <div
+                    class="css-1uxzogm-VariantTasks emd75rc0"
+                  >
+                    <div
+                      class="leafygreen-ui-cssveg"
+                    >
+                      <a
+                        data-cy="grouped-task-status-badge"
+                        href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
+                      >
+                        <div
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
+                          fill="#5C6C75"
+                        >
+                          <span
+                            class="css-1f81ztl-Number emc61an2"
+                          >
+                            1
+                          </span>
+                          <span
+                            class="css-oqj204-Status emc61an1"
+                          >
+                            Scheduled
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="css-8bv1t4-Container e1e552r21"
+            >
+              <a
+                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                data-cy="variant-header"
+                href="/variant-history/spruce/bv_001?selectedCommit=928"
+              >
+                <span
+                  class="leafygreen-ui-baoi4d"
+                >
+                  Build Variant 1
+                </span>
+              </a>
+              <div
+                class="css-16zj0ph-Content e1e552r20"
+                height="64px"
+              >
+                <div>
+                  <div
+                    class="css-1uxzogm-VariantTasks emd75rc0"
+                  >
+                    <div
+                      class="leafygreen-ui-cssveg"
+                    >
+                      <a
+                        data-cy="grouped-task-status-badge"
+                        href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
+                      >
+                        <div
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
+                          fill="#5C6C75"
+                        >
+                          <span
+                            class="css-1f81ztl-Number emc61an2"
+                          >
+                            1
+                          </span>
+                          <span
+                            class="css-oqj204-Status emc61an1"
+                          >
+                            Scheduled
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="css-8bv1t4-Container e1e552r21"
+            >
+              <a
+                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                data-cy="variant-header"
+                href="/variant-history/spruce/bv_002?selectedCommit=928"
+              >
+                <span
+                  class="leafygreen-ui-baoi4d"
+                >
+                  Build Variant 2
+                </span>
+              </a>
+              <div
+                class="css-16zj0ph-Content e1e552r20"
+                height="64px"
+              >
+                <div>
+                  <div
+                    class="css-1uxzogm-VariantTasks emd75rc0"
+                  >
+                    <div
+                      class="leafygreen-ui-cssveg"
+                    >
+                      <a
+                        data-cy="grouped-task-status-badge"
+                        href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
+                      >
+                        <div
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
+                          fill="#5C6C75"
+                        >
+                          <span
+                            class="css-1f81ztl-Number emc61an2"
+                          >
+                            1
+                          </span>
+                          <span
+                            class="css-oqj204-Status emc61an1"
+                          >
+                            Scheduled
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="css-11x1fi4-CommitWrapper eq4i7ol0"
+          width="64"
+        />
+        <div
+          class="css-mgqp2w-CommitWrapper eq4i7ol0"
+          width="200"
+        >
+          <div
+            class="css-ygh2q6-ColumnContainer e1s1lwa10"
+          >
+            <div
+              class="css-8bv1t4-Container e1e552r21"
+            >
+              <a
+                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                data-cy="variant-header"
+                href="/variant-history/spruce/bv_000?selectedCommit=926"
+              >
+                <span
+                  class="leafygreen-ui-baoi4d"
+                >
+                  Build Variant 0
+                </span>
+              </a>
+              <div
+                class="css-16zj0ph-Content e1e552r20"
+                height="64px"
+              >
+                <div>
+                  <div
+                    class="css-1uxzogm-VariantTasks emd75rc0"
+                  >
+                    <div
+                      class="leafygreen-ui-cssveg"
+                    >
+                      <a
+                        data-cy="grouped-task-status-badge"
+                        href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
+                      >
+                        <div
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
+                          fill="#5C6C75"
+                        >
+                          <span
+                            class="css-1f81ztl-Number emc61an2"
+                          >
+                            1
+                          </span>
+                          <span
+                            class="css-oqj204-Status emc61an1"
+                          >
+                            Scheduled
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="css-8bv1t4-Container e1e552r21"
+            >
+              <a
+                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                data-cy="variant-header"
+                href="/variant-history/spruce/bv_001?selectedCommit=926"
+              >
+                <span
+                  class="leafygreen-ui-baoi4d"
+                >
+                  Build Variant 1
+                </span>
+              </a>
+              <div
+                class="css-16zj0ph-Content e1e552r20"
+                height="64px"
+              >
+                <div>
+                  <div
+                    class="css-1uxzogm-VariantTasks emd75rc0"
+                  >
+                    <div
+                      class="leafygreen-ui-cssveg"
+                    >
+                      <a
+                        data-cy="grouped-task-status-badge"
+                        href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
+                      >
+                        <div
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
+                          fill="#5C6C75"
+                        >
+                          <span
+                            class="css-1f81ztl-Number emc61an2"
+                          >
+                            1
+                          </span>
+                          <span
+                            class="css-oqj204-Status emc61an1"
+                          >
+                            Scheduled
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="css-8bv1t4-Container e1e552r21"
+            >
+              <a
+                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                data-cy="variant-header"
+                href="/variant-history/spruce/bv_002?selectedCommit=926"
+              >
+                <span
+                  class="leafygreen-ui-baoi4d"
+                >
+                  Build Variant 2
+                </span>
+              </a>
+              <div
+                class="css-16zj0ph-Content e1e552r20"
+                height="64px"
+              >
+                <div>
+                  <div
+                    class="css-1uxzogm-VariantTasks emd75rc0"
+                  >
+                    <div
+                      class="leafygreen-ui-cssveg"
+                    >
+                      <a
+                        data-cy="grouped-task-status-badge"
+                        href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
+                      >
+                        <div
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
+                          fill="#5C6C75"
+                        >
+                          <span
+                            class="css-1f81ztl-Number emc61an2"
+                          >
+                            1
+                          </span>
+                          <span
+                            class="css-oqj204-Status emc61an1"
+                          >
+                            Scheduled
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="css-mgqp2w-CommitWrapper eq4i7ol0"
+          width="200"
+        >
+          <div
+            class="css-ygh2q6-ColumnContainer e1s1lwa10"
+          >
+            <div
+              class="css-8bv1t4-Container e1e552r21"
+            >
+              <a
+                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                data-cy="variant-header"
+                href="/variant-history/spruce/bv_000?selectedCommit=925"
+              >
+                <span
+                  class="leafygreen-ui-baoi4d"
+                >
+                  Build Variant 0
+                </span>
+              </a>
+              <div
+                class="css-16zj0ph-Content e1e552r20"
+                height="64px"
+              >
+                <div>
+                  <div
+                    class="css-1uxzogm-VariantTasks emd75rc0"
+                  >
+                    <div
+                      class="leafygreen-ui-cssveg"
+                    >
+                      <a
+                        data-cy="grouped-task-status-badge"
+                        href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
+                      >
+                        <div
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
+                          fill="#5C6C75"
+                        >
+                          <span
+                            class="css-1f81ztl-Number emc61an2"
+                          >
+                            1
+                          </span>
+                          <span
+                            class="css-oqj204-Status emc61an1"
+                          >
+                            Scheduled
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="css-8bv1t4-Container e1e552r21"
+            >
+              <a
+                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                data-cy="variant-header"
+                href="/variant-history/spruce/bv_001?selectedCommit=925"
+              >
+                <span
+                  class="leafygreen-ui-baoi4d"
+                >
+                  Build Variant 1
+                </span>
+              </a>
+              <div
+                class="css-16zj0ph-Content e1e552r20"
+                height="64px"
+              >
+                <div>
+                  <div
+                    class="css-1uxzogm-VariantTasks emd75rc0"
+                  >
+                    <div
+                      class="leafygreen-ui-cssveg"
+                    >
+                      <a
+                        data-cy="grouped-task-status-badge"
+                        href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
+                      >
+                        <div
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
+                          fill="#5C6C75"
+                        >
+                          <span
+                            class="css-1f81ztl-Number emc61an2"
+                          >
+                            1
+                          </span>
+                          <span
+                            class="css-oqj204-Status emc61an1"
+                          >
+                            Scheduled
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="css-8bv1t4-Container e1e552r21"
+            >
+              <a
+                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                data-cy="variant-header"
+                href="/variant-history/spruce/bv_002?selectedCommit=925"
+              >
+                <span
+                  class="leafygreen-ui-baoi4d"
+                >
+                  Build Variant 2
+                </span>
+              </a>
+              <div
+                class="css-16zj0ph-Content e1e552r20"
+                height="64px"
+              >
+                <div>
+                  <div
+                    class="css-1uxzogm-VariantTasks emd75rc0"
+                  >
+                    <div
+                      class="leafygreen-ui-cssveg"
+                    >
+                      <a
+                        data-cy="grouped-task-status-badge"
+                        href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
+                      >
+                        <div
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
+                          fill="#5C6C75"
+                        >
+                          <span
+                            class="css-1f81ztl-Number emc61an2"
+                          >
+                            1
+                          </span>
+                          <span
+                            class="css-oqj204-Status emc61an1"
+                          >
+                            Scheduled
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="css-mgqp2w-CommitWrapper eq4i7ol0"
+          width="200"
+        >
+          <div
+            class="css-ygh2q6-ColumnContainer e1s1lwa10"
+          >
+            <div
+              class="css-8bv1t4-Container e1e552r21"
+            >
+              <a
+                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                data-cy="variant-header"
+                href="/variant-history/spruce/bv_000?selectedCommit=924"
+              >
+                <span
+                  class="leafygreen-ui-baoi4d"
+                >
+                  Build Variant 0
+                </span>
+              </a>
+              <div
+                class="css-16zj0ph-Content e1e552r20"
+                height="64px"
+              >
+                <div>
+                  <div
+                    class="css-1uxzogm-VariantTasks emd75rc0"
+                  >
+                    <div
+                      class="leafygreen-ui-cssveg"
+                    >
+                      <a
+                        data-cy="grouped-task-status-badge"
+                        href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
+                      >
+                        <div
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
+                          fill="#5C6C75"
+                        >
+                          <span
+                            class="css-1f81ztl-Number emc61an2"
+                          >
+                            1
+                          </span>
+                          <span
+                            class="css-oqj204-Status emc61an1"
+                          >
+                            Scheduled
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="css-8bv1t4-Container e1e552r21"
+            >
+              <a
+                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                data-cy="variant-header"
+                href="/variant-history/spruce/bv_001?selectedCommit=924"
+              >
+                <span
+                  class="leafygreen-ui-baoi4d"
+                >
+                  Build Variant 1
+                </span>
+              </a>
+              <div
+                class="css-16zj0ph-Content e1e552r20"
+                height="64px"
+              >
+                <div>
+                  <div
+                    class="css-1uxzogm-VariantTasks emd75rc0"
+                  >
+                    <div
+                      class="leafygreen-ui-cssveg"
+                    >
+                      <a
+                        data-cy="grouped-task-status-badge"
+                        href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
+                      >
+                        <div
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
+                          fill="#5C6C75"
+                        >
+                          <span
+                            class="css-1f81ztl-Number emc61an2"
+                          >
+                            1
+                          </span>
+                          <span
+                            class="css-oqj204-Status emc61an1"
+                          >
+                            Scheduled
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="css-8bv1t4-Container e1e552r21"
+            >
+              <a
+                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                data-cy="variant-header"
+                href="/variant-history/spruce/bv_002?selectedCommit=924"
+              >
+                <span
+                  class="leafygreen-ui-baoi4d"
+                >
+                  Build Variant 2
+                </span>
+              </a>
+              <div
+                class="css-16zj0ph-Content e1e552r20"
+                height="64px"
+              >
+                <div>
+                  <div
+                    class="css-1uxzogm-VariantTasks emd75rc0"
+                  >
+                    <div
+                      class="leafygreen-ui-cssveg"
+                    >
+                      <a
+                        data-cy="grouped-task-status-badge"
+                        href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
+                      >
+                        <div
+                          class="css-1hkjlfn-BadgeContainer emc61an4"
+                          fill="#5C6C75"
+                        >
+                          <span
+                            class="css-1f81ztl-Number emc61an2"
+                          >
+                            1
+                          </span>
+                          <span
+                            class="css-oqj204-Status emc61an1"
+                          >
+                            Scheduled
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
