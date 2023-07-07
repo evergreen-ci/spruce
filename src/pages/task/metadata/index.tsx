@@ -355,38 +355,32 @@ export const Metadata: React.VFC<Props> = ({
           ))}
         </DependsOnContainer>
       ) : null}
-      <MetadataItem>
-        {taskTrace && startTime && (
-          <>
-            <GuideCue
-              data-cy="migrate-cue"
-              open={openGuideCue}
-              setOpen={setOpenGuideCue}
-              title="Honeycomb!"
-              refEl={triggerRef}
-              numberOfSteps={1}
-              currentStep={1}
-              onPrimaryButtonClick={onHideCue}
-            >
-              Finished tasks link to Honeycomb.
-            </GuideCue>
-            <StyledLink
-              ref={triggerRef}
-              data-cy="task-trace-link"
-              href={getTaskTraceUrl(taskTrace, startTime)}
-              onClick={() => {
-                onHideCue();
-                taskAnalytics.sendEvent({ name: "Click Trace Link" });
-              }}
-              hideExternalIcon={false}
-            >
-              Honeycomb Trace
-            </StyledLink>
-          </>
-        )}
-      </MetadataItem>
-      <MetadataItem>
-        {startTime && finishTime && (
+      {taskTrace && startTime && finishTime && (
+        <MetadataItem>
+          <GuideCue
+            data-cy="migrate-cue"
+            open={openGuideCue}
+            setOpen={setOpenGuideCue}
+            title="Honeycomb!"
+            refEl={triggerRef}
+            numberOfSteps={1}
+            currentStep={1}
+            onPrimaryButtonClick={onHideCue}
+          >
+            Finished tasks link to Honeycomb.
+          </GuideCue>
+          <StyledLink
+            ref={triggerRef}
+            data-cy="task-trace-link"
+            href={getTaskTraceUrl(taskTrace, startTime)}
+            onClick={() => {
+              onHideCue();
+              taskAnalytics.sendEvent({ name: "Click Trace Link" });
+            }}
+            hideExternalIcon={false}
+          >
+            Honeycomb Trace
+          </StyledLink>
           <StyledLink
             data-cy="task-metrics-link"
             href={getTaskSystemMetricsUrl(taskId, startTime, finishTime)}
@@ -398,8 +392,8 @@ export const Metadata: React.VFC<Props> = ({
           >
             Honeycomb System Metrics
           </StyledLink>
-        )}
-      </MetadataItem>
+        </MetadataItem>
+      )}
     </MetadataCard>
   );
 };
