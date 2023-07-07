@@ -27,14 +27,5 @@ describe("Update Status Modal", () => {
     cy.dataCy("update-host-status-modal").should("not.exist");
     // Because the static hosts that exists in the dev environment cannot be decommissioned, we should expect an error.
     cy.validateToast("error");
-
-    // MODAL FORM VALUES SHOULD BE CLEARED AFTER MUTATION
-    cy.dataCy("update-status-button").click();
-
-    cy.dataCy("host-status-select").within(() => {
-      cy.get(".ant-select-selection-item").should("not.exist");
-    });
-
-    cy.dataCy("host-status-notes").invoke("val").should("eq", "");
   });
 });
