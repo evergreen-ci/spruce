@@ -2,8 +2,10 @@ import {
   MainlineCommitsQueryVariables,
   ProjectHealthView,
 } from "gql/generated/types";
+import { Commits } from "types/commits";
 import { TaskStatus } from "types/task";
 import { array } from "utils";
+import { groupStatusesByUmbrellaStatus } from "utils/statuses";
 
 const { arraySetDifference, arrayIntersection } = array;
 
@@ -187,6 +189,43 @@ const FAILED_STATUSES = [
   TaskStatus.SystemUnresponsive,
   TaskStatus.Aborted,
 ];
+
+export type ColorCount = {
+  count: number;
+  statuses: string[];
+  color: string;
+  umbrellaStatus: string;
+};
+
+export type GroupedResult = {
+  stats: ColorCount[];
+  max: number;
+  total: number;
+};
+
+export const findMaxGroupedTaskStats = (groupedTaskStats: {
+  [id: string]: GroupedResult;
+}) => {
+  if (Object.keys(groupedTaskStats).length === 0) {
+    return { max: 0 };
+  }
+  return Object.values(groupedTaskStats).reduce((prev, curr) =>
+    prev.max > curr.max ? prev : curr
+  );
+};
+
+export const getAllTaskStatsGroupedByColor = (versions: Commits) => {
+  const idToGroupedTaskStats: { [id: string]: GroupedResult } = {};
+  versions.forEach(({ version }) => {
+    if (version != null) {
+      idToGroupedTaskStats[version.id] = groupStatusesByUmbrellaStatus(
+        version.taskStatusStats?.counts
+      );
+    }
+  });
+
+  return idToGroupedTaskStats;
+};
 
 const ALL_STATUSES = Object.values(TaskStatus);
 const ALL_NON_FAILING_STATUSES = arraySetDifference(

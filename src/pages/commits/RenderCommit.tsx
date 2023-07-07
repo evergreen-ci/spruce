@@ -4,8 +4,8 @@ import {
   ActiveCommitLabel,
   BuildVariantContainer,
 } from "./ActiveCommits";
-import { GroupedResult } from "./ActiveCommits/utils";
 import { InactiveCommitsLine, InactiveCommitButton } from "./InactiveCommits";
+import { GroupedResult } from "./utils";
 
 type ActiveCommitProps = {
   groupedResult: { [key: string]: GroupedResult };

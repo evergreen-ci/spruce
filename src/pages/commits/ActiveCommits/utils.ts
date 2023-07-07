@@ -1,6 +1,5 @@
 import { mapTaskStatusToUmbrellaStatus } from "constants/task";
 import { ChartTypes, Commits, BuildVariantDict } from "types/commits";
-import { groupStatusesByUmbrellaStatus } from "utils/statuses";
 import {
   TASK_ICONS_PER_ROW,
   TASK_ICON_HEIGHT,
@@ -9,43 +8,7 @@ import {
   GROUPED_BADGE_HEIGHT,
   GROUPED_BADGE_PADDING,
 } from "../constants";
-
-export type ColorCount = {
-  count: number;
-  statuses: string[];
-  color: string;
-  umbrellaStatus: string;
-};
-
-export type GroupedResult = {
-  stats: ColorCount[];
-  max: number;
-  total: number;
-};
-
-export const findMaxGroupedTaskStats = (groupedTaskStats: {
-  [id: string]: GroupedResult;
-}) => {
-  if (Object.keys(groupedTaskStats).length === 0) {
-    return { max: 0 };
-  }
-  return Object.values(groupedTaskStats).reduce((prev, curr) =>
-    prev.max > curr.max ? prev : curr
-  );
-};
-
-export const getAllTaskStatsGroupedByColor = (versions: Commits) => {
-  const idToGroupedTaskStats: { [id: string]: GroupedResult } = {};
-  versions.forEach(({ version }) => {
-    if (version != null) {
-      idToGroupedTaskStats[version.id] = groupStatusesByUmbrellaStatus(
-        version.taskStatusStats?.counts
-      );
-    }
-  });
-
-  return idToGroupedTaskStats;
-};
+import { ColorCount } from "../utils";
 
 export const constructBuildVariantDict = (
   versions: Commits

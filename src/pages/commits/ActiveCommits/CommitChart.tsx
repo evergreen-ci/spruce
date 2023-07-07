@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import { ChartTypes } from "types/commits";
 import { commitChartHeight } from "../constants";
+import { ColorCount } from "../utils";
 import { CommitChartTooltip } from "./CommitChartTooltip";
-import { ColorCount, calculateBarHeight } from "./utils";
+import { calculateBarHeight } from "./utils";
 
 interface Props {
   groupedTaskStats: ColorCount[];

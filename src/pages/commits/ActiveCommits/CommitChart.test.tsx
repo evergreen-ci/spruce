@@ -1,10 +1,10 @@
 import { render, screen, userEvent, waitFor } from "test_utils";
 import { ChartTypes } from "types/commits";
-import { CommitChart } from "./CommitChart";
 import {
   findMaxGroupedTaskStats,
   getAllTaskStatsGroupedByColor,
-} from "./utils";
+} from "../utils";
+import { CommitChart } from "./CommitChart";
 
 describe("commitChart", () => {
   afterEach(() => {

@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { StoryObj } from "@storybook/react";
 import { ChartTypes, Commits } from "types/commits";
-import { CommitChart } from "./CommitChart";
 import {
   findMaxGroupedTaskStats,
   getAllTaskStatsGroupedByColor,
-} from "./utils";
+} from "../utils";
+import { CommitChart } from "./CommitChart";
 
 export default {
   title: "Pages/Commits/Charts",

@@ -4,9 +4,9 @@ import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHea
 import CommitChartLabel from "components/CommitChartLabel";
 import { ChartTypes, CommitVersion, BuildVariantDict } from "types/commits";
 import { array, string } from "utils";
+import { ColorCount } from "../utils";
 import { BuildVariantCard } from "./BuildVariantCard";
 import { CommitChart } from "./CommitChart";
-import { ColorCount } from "./utils";
 
 const { convertArrayToObject, arrayUnion } = array;
 const { shortenGithash } = string;

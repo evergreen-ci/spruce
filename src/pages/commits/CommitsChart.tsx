@@ -10,15 +10,15 @@ import { ChartToggle } from "./ActiveCommits/ChartToggle";
 import { Grid, SolidLine } from "./ActiveCommits/Grid";
 import { GridLabel } from "./ActiveCommits/GridLabel";
 import {
-  getAllTaskStatsGroupedByColor,
-  findMaxGroupedTaskStats,
-} from "./ActiveCommits/utils";
-import {
   getCommitKey,
   getCommitWidth,
   RenderCommitsChart,
 } from "./RenderCommit";
 import { FlexRowContainer, CommitWrapper } from "./styles";
+import {
+  findMaxGroupedTaskStats,
+  getAllTaskStatsGroupedByColor,
+} from "./utils";
 
 const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
 const DEFAULT_OPEN_STATE = true;
