@@ -1,28 +1,22 @@
-import { MockedProvider } from "@apollo/client/testing";
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { Commit, Commits } from "types/commits";
 import { TaskStatus } from "types/task";
 import { isFailedTaskStatus } from "utils/statuses";
-import { CommitsWrapper, CommitsWrapperProps } from "./CommitsWrapper";
+import { CommitsWrapper } from "./CommitsWrapper";
 
 export default {
   component: CommitsWrapper,
   title: "Pages/Commits/Project Health Page",
-  decorators: [
-    (Story: () => JSX.Element) => (
-      <MockedProvider>
-        <Story />
-      </MockedProvider>
-    ),
-  ],
-};
+} satisfies CustomMeta<typeof CommitsWrapper>;
 
 type RenderProps = {
   buildVariantCount: number;
   taskCount: number;
 };
 
-export const Default: StoryObj<RenderProps & CommitsWrapperProps> = {
+export const Default: CustomStoryObj<
+  RenderProps & React.ComponentProps<typeof CommitsWrapper>
+> = {
   render: (args) => <RenderCommitsWrapper {...args} />,
   args: {
     buildVariantCount: 3,

@@ -1,20 +1,13 @@
-import { MockedProvider } from "@apollo/client/testing";
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+
 import { ExecutionTasksTable } from "./ExecutionTasksTable";
 
 export default {
   title: "Pages/Task/Table/Execution Tasks Table",
   component: ExecutionTasksTable,
-  decorators: [
-    (Story: () => JSX.Element) => (
-      <MockedProvider>
-        <Story />
-      </MockedProvider>
-    ),
-  ],
-};
+} satisfies CustomMeta<typeof ExecutionTasksTable>;
 
-export const SingleExecution: StoryObj<typeof ExecutionTasksTable> = {
+export const SingleExecution: CustomStoryObj<typeof ExecutionTasksTable> = {
   render: () => (
     <ExecutionTasksTable
       isPatch
@@ -24,7 +17,7 @@ export const SingleExecution: StoryObj<typeof ExecutionTasksTable> = {
   ),
 };
 
-export const MultipleExecutions: StoryObj<typeof ExecutionTasksTable> = {
+export const MultipleExecutions: CustomStoryObj<typeof ExecutionTasksTable> = {
   render: () => (
     <ExecutionTasksTable
       isPatch

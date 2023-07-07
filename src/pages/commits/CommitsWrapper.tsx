@@ -17,7 +17,7 @@ import { constructBuildVariantDict } from "./utils";
 
 const { white } = palette;
 
-export interface CommitsWrapperProps {
+interface CommitsWrapperProps {
   versions: Commits;
   error?: ApolloError;
   isLoading: boolean;

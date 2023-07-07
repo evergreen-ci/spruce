@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import { StoryObj } from "@storybook/react";
 import { Size, glyphs } from "components/Icon";
 import { size } from "constants/tokens";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import IconTooltip, { IconTooltipProps } from ".";
 
 const Sizes = {
@@ -14,9 +14,9 @@ const Sizes = {
 export default {
   title: "Components/Icon/Tooltip",
   component: IconTooltip,
-};
+} satisfies CustomMeta<typeof IconTooltip>;
 
-export const Icons: StoryObj<IconTooltipProps> = {
+export const Icons: CustomStoryObj<IconTooltipProps> = {
   render: ({ children, size: s, ...rest }) => (
     <Container>
       {Object.keys(glyphs).map((name) => (
