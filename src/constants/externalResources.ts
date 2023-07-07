@@ -1,7 +1,9 @@
+import { getUnixTime } from "date-fns";
 import { LogTypes } from "types/task";
 import { environmentVariables } from "utils";
 
-const { getLobsterURL, getParsleyUrl, getUiUrl } = environmentVariables;
+const { getLobsterURL, getParsleyUrl, getUiUrl, isProduction } =
+  environmentVariables;
 
 export const wikiBaseUrl =
   "https://docs.devprod.prod.corp.mongodb.com/evergreen";
@@ -102,3 +104,10 @@ export const getParsleyBuildLogURL = (buildId: string) =>
 
 export const getDistroPageUrl = (distroId: string) =>
   `${getUiUrl()}/distros##${distroId}`;
+
+export const getTaskTraceUrl = (traceId: string, startTs: Date): string => {
+  const environment = isProduction() ? "production" : "staging";
+  return `https://ui.honeycomb.io/mongodb-4b/environments/${environment}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(
+    new Date(startTs)
+  )}`;
+};

@@ -10,7 +10,7 @@ import {
   MetadataTitle,
 } from "components/MetadataCard";
 import { StyledLink, StyledRouterLink } from "components/styles";
-import { getDistroPageUrl } from "constants/externalResources";
+import { getDistroPageUrl, getTaskTraceUrl } from "constants/externalResources";
 import {
   getTaskQueueRoute,
   getTaskRoute,
@@ -88,6 +88,7 @@ export const Metadata: React.VFC<Props> = ({
   const projectIdentifier = project?.identifier;
   const { author, id: versionID } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;
+  const taskTrace = details?.traceID;
   const { id: podId } = pod ?? {};
   const isContainerTask = !!podId;
   const { metadataLinks } = annotation ?? {};
@@ -338,6 +339,20 @@ export const Metadata: React.VFC<Props> = ({
           ))}
         </DependsOnContainer>
       ) : null}
+      <MetadataItem>
+        {taskTrace && startTime && (
+          <StyledLink
+            data-cy="task-trace-link"
+            href={getTaskTraceUrl(taskTrace, startTime)}
+            onClick={() =>
+              taskAnalytics.sendEvent({ name: "Click Trace Link" })
+            }
+            hideExternalIcon={false}
+          >
+            Task Trace
+          </StyledLink>
+        )}
+      </MetadataItem>
     </MetadataCard>
   );
 };
