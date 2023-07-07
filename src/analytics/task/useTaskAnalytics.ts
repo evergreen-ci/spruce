@@ -67,6 +67,7 @@ type Action =
   | { name: "Click Project Link" }
   | { name: "Click See History Button" }
   | { name: "Click Trace Link" }
+  | { name: "Click Trace Metrics Link" }
   | { name: "Submit Previous Commit Selector"; type: CommitType };
 
 interface P extends Properties {

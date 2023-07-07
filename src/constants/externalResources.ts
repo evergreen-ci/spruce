@@ -105,9 +105,33 @@ export const getParsleyBuildLogURL = (buildId: string) =>
 export const getDistroPageUrl = (distroId: string) =>
   `${getUiUrl()}/distros##${distroId}`;
 
-export const getTaskTraceUrl = (traceId: string, startTs: Date): string => {
-  const environment = isProduction() ? "production" : "staging";
-  return `https://ui.honeycomb.io/mongodb-4b/environments/${environment}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(
+export const honeycombBaseURL = `https://ui.honeycomb.io/mongodb-4b/environments/${
+  isProduction() ? "production" : "staging"
+}`;
+
+export const getTaskTraceUrl = (traceId: string, startTs: Date) =>
+  `${honeycombBaseURL}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(
     new Date(startTs)
   )}`;
+
+export const getTaskSystemMetricsUrl = (
+  taskId: string,
+  startTs: Date,
+  endTs: Date
+): string => {
+  const query = {
+    calculations: [
+      { op: "AVG", column: "system.memory.usage.used" },
+      { op: "AVG", column: "system.cpu.utilization" },
+      { op: "AVG", column: "system.network.io.transmit" },
+      { op: "AVG", column: "system.network.io.receive" },
+    ],
+    filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
+    start_time: getUnixTime(new Date(startTs)),
+    end_time: getUnixTime(new Date(endTs)),
+  };
+
+  return `${honeycombBaseURL}/datasets/evergreen?query=${JSON.stringify(
+    query
+  )}&omitMissingValues`;
 };

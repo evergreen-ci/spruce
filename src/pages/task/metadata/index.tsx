@@ -10,7 +10,11 @@ import {
   MetadataTitle,
 } from "components/MetadataCard";
 import { StyledLink, StyledRouterLink } from "components/styles";
-import { getDistroPageUrl, getTaskTraceUrl } from "constants/externalResources";
+import {
+  getDistroPageUrl,
+  getTaskTraceUrl,
+  getTaskSystemMetricsUrl,
+} from "constants/externalResources";
 import {
   getTaskQueueRoute,
   getTaskRoute,
@@ -350,6 +354,20 @@ export const Metadata: React.VFC<Props> = ({
             hideExternalIcon={false}
           >
             Task Trace
+          </StyledLink>
+        )}
+      </MetadataItem>
+      <MetadataItem>
+        {startTime && finishTime && (
+          <StyledLink
+            data-cy="task-metrics-link"
+            href={getTaskSystemMetricsUrl(taskId, startTime, finishTime)}
+            onClick={() =>
+              taskAnalytics.sendEvent({ name: "Click Trace Metrics Link" })
+            }
+            hideExternalIcon={false}
+          >
+            System Metrics
           </StyledLink>
         )}
       </MetadataItem>
