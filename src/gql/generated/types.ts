@@ -7497,6 +7497,7 @@ export type TaskQuery = {
       timedOut?: boolean | null;
       timeoutType?: string | null;
       type: string;
+      traceID?: string | null;
       oomTracker: {
         __typename?: "OomTrackerInfo";
         detected: boolean;

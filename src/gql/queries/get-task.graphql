@@ -53,6 +53,7 @@ query Task($taskId: String!, $execution: Int) {
       status
       timedOut
       timeoutType
+      traceID
       type
     }
     displayTask {
