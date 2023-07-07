@@ -2,6 +2,7 @@ import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import { Parameters, Decorator } from "@storybook/react";
+// This is required for storyshots https://github.com/lifeiscontent/storybook-addon-apollo-client/issues/16
 import { WithApolloClient } from "storybook-addon-apollo-client/dist/decorators";
 import { GlobalStyles } from "../src/components/styles/GlobalStyles";
 
