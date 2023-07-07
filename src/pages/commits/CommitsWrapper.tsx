@@ -5,7 +5,6 @@ import { palette } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
 import { size } from "constants/tokens";
 import { Commits } from "types/commits";
-import { constructBuildVariantDict } from "./ActiveCommits/utils";
 import { CommitsChart } from "./CommitsChart";
 import {
   getCommitKey,
@@ -14,6 +13,7 @@ import {
   RenderCommitsBuildVariants,
 } from "./RenderCommit";
 import { FlexRowContainer, CommitWrapper } from "./styles";
+import { constructBuildVariantDict } from "./utils";
 
 const { white } = palette;
 

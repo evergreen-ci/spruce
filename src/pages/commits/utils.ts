@@ -2,13 +2,23 @@ import {
   MainlineCommitsQueryVariables,
   ProjectHealthView,
 } from "gql/generated/types";
-import { Commits } from "types/commits";
-import { TaskStatus } from "types/task";
+import { BuildVariantDict, Commits } from "types/commits";
 import { array } from "utils";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
+import {
+  ALL_NON_FAILING_STATUSES,
+  FAILED_STATUSES,
+  GROUPED_BADGES_PER_ROW,
+  GROUPED_BADGE_HEIGHT,
+  GROUPED_BADGE_PADDING,
+  TASK_ICONS_PER_ROW,
+  TASK_ICON_HEIGHT,
+  TASK_ICON_PADDING,
+  impossibleMatch,
+} from "./constants";
 import { GroupedResult } from "./types";
 
-const { arraySetDifference, arrayIntersection } = array;
+const { arrayIntersection } = array;
 
 interface FilterState {
   statuses: string[];
@@ -179,19 +189,7 @@ const generateMainlineCommitOptionsFromState = (
   };
 };
 
-const FAILED_STATUSES = [
-  TaskStatus.Failed,
-  TaskStatus.TaskTimedOut,
-  TaskStatus.TestTimedOut,
-  TaskStatus.KnownIssue,
-  TaskStatus.SetupFailed,
-  TaskStatus.SystemFailed,
-  TaskStatus.SystemTimedOut,
-  TaskStatus.SystemUnresponsive,
-  TaskStatus.Aborted,
-];
-
-export const findMaxGroupedTaskStats = (groupedTaskStats: {
+const findMaxGroupedTaskStats = (groupedTaskStats: {
   [id: string]: GroupedResult;
 }) => {
   if (Object.keys(groupedTaskStats).length === 0) {
@@ -202,7 +200,7 @@ export const findMaxGroupedTaskStats = (groupedTaskStats: {
   );
 };
 
-export const getAllTaskStatsGroupedByColor = (versions: Commits) => {
+const getAllTaskStatsGroupedByColor = (versions: Commits) => {
   const idToGroupedTaskStats: { [id: string]: GroupedResult } = {};
   versions.forEach(({ version }) => {
     if (version != null) {
@@ -215,18 +213,71 @@ export const getAllTaskStatsGroupedByColor = (versions: Commits) => {
   return idToGroupedTaskStats;
 };
 
-const ALL_STATUSES = Object.values(TaskStatus);
-const ALL_NON_FAILING_STATUSES = arraySetDifference(
-  ALL_STATUSES,
-  FAILED_STATUSES
-);
-const impossibleMatch = "^\b$"; // this will never match anything
+const constructBuildVariantDict = (versions: Commits): BuildVariantDict => {
+  const buildVariantDict: BuildVariantDict = {};
+
+  for (let i = 0; i < versions.length; i++) {
+    const { version } = versions[i];
+
+    // skip if inactive/unmatching
+    if (version) {
+      // Deduplicate build variants and build variant stats by consolidating into a single object.
+      const allBuildVariants = [
+        ...version.buildVariants,
+        ...version.buildVariantStats,
+      ].reduce((acc, curr) => {
+        const { variant } = curr;
+        acc[variant] = { ...acc[variant], ...curr };
+        return acc;
+      }, {});
+
+      // Construct build variant dict which will contain information needed for rendering.
+      Object.values(allBuildVariants).reduce(
+        (acc, { tasks, statusCounts, variant }) => {
+          // Determine height to allocate for icons.
+          let iconHeight = 0;
+          if (tasks) {
+            const numRows = Math.ceil(tasks.length / TASK_ICONS_PER_ROW);
+            const iconContainerHeight = numRows * TASK_ICON_HEIGHT;
+            const iconContainerPadding = TASK_ICON_PADDING * 2;
+            iconHeight = iconContainerHeight + iconContainerPadding;
+          }
+
+          // Determine height to allocate for grouped badges.
+          let badgeHeight = 0;
+          if (statusCounts) {
+            const numRows = Math.ceil(
+              statusCounts.length / GROUPED_BADGES_PER_ROW
+            );
+            const badgeContainerHeight = numRows * GROUPED_BADGE_HEIGHT;
+            const badgeContainerPadding = GROUPED_BADGE_PADDING * 2;
+            badgeHeight = badgeContainerHeight + badgeContainerPadding;
+          }
+
+          if (acc[variant]) {
+            if (iconHeight > acc[variant].iconHeight) {
+              acc[variant].iconHeight = iconHeight;
+            }
+            if (badgeHeight > acc[variant].badgeHeight) {
+              acc[variant].badgeHeight = badgeHeight;
+            }
+            acc[variant].priority += 1;
+          } else {
+            acc[variant] = { priority: 1, iconHeight, badgeHeight };
+          }
+          return acc;
+        },
+        buildVariantDict
+      );
+    }
+  }
+  return buildVariantDict;
+};
 
 export {
-  impossibleMatch,
   getFilterStatus,
   getMainlineCommitsQueryVariables,
-  FAILED_STATUSES,
-  ALL_STATUSES,
-  ALL_NON_FAILING_STATUSES,
+  constructBuildVariantDict,
+  findMaxGroupedTaskStats,
+  getAllTaskStatsGroupedByColor,
 };

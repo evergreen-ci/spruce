@@ -2,14 +2,21 @@ import { palette } from "@leafygreen-ui/palette";
 import { taskStatusToCopy } from "constants/task";
 import { ProjectHealthView } from "gql/generated/types";
 import { TaskStatus } from "types/task";
+import {
+  ALL_NON_FAILING_STATUSES,
+  FAILED_STATUSES,
+  GROUPED_BADGE_HEIGHT,
+  GROUPED_BADGE_PADDING,
+  TASK_ICON_HEIGHT,
+  TASK_ICON_PADDING,
+  impossibleMatch,
+} from "./constants";
 import { versions } from "./testData";
 import {
   getMainlineCommitsQueryVariables,
   getFilterStatus,
-  impossibleMatch,
-  FAILED_STATUSES,
-  ALL_NON_FAILING_STATUSES,
   getAllTaskStatsGroupedByColor,
+  constructBuildVariantDict,
 } from "./utils";
 
 const { red, green, yellow, gray, purple } = palette;
@@ -916,6 +923,28 @@ describe("getAllTaskStatsGroupedByColor", () => {
         ],
         max: 7,
         total: 25,
+      },
+    });
+  });
+});
+
+describe("constructBuildVariantDict", () => {
+  it("correctly determines priority, iconHeight, and badgeHeight", () => {
+    expect(constructBuildVariantDict(versions)).toStrictEqual({
+      "enterprise-macos-cxx20": {
+        iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING * 2,
+        badgeHeight: GROUPED_BADGE_HEIGHT * 2 + GROUPED_BADGE_PADDING * 2,
+        priority: 4,
+      },
+      "enterprise-windows-benchmarks": {
+        iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING * 2,
+        badgeHeight: 0,
+        priority: 2,
+      },
+      "enterprise-rhel-80-64-bit-inmem": {
+        iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING * 2,
+        badgeHeight: 0,
+        priority: 1,
       },
     });
   });

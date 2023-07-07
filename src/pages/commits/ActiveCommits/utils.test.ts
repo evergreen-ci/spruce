@@ -1,13 +1,6 @@
 import { TaskStatus } from "types/task";
+import { groupedTaskStats, groupedTaskStatsAll } from "../testData";
 import {
-  TASK_ICON_HEIGHT,
-  TASK_ICON_PADDING,
-  GROUPED_BADGE_HEIGHT,
-  GROUPED_BADGE_PADDING,
-} from "../constants";
-import { groupedTaskStats, groupedTaskStatsAll, versions } from "../testData";
-import {
-  constructBuildVariantDict,
   getStatusesWithZeroCount,
   injectGlobalDimStyle,
   injectGlobalHighlightStyle,
@@ -39,28 +32,6 @@ describe("getStatusesWithZeroCount", () => {
       TaskStatus.UndispatchedUmbrella,
       TaskStatus.SetupFailed,
     ]);
-  });
-});
-
-describe("constructBuildVariantDict", () => {
-  it("correctly determines priority, iconHeight, and badgeHeight", () => {
-    expect(constructBuildVariantDict(versions)).toStrictEqual({
-      "enterprise-macos-cxx20": {
-        iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING * 2,
-        badgeHeight: GROUPED_BADGE_HEIGHT * 2 + GROUPED_BADGE_PADDING * 2,
-        priority: 4,
-      },
-      "enterprise-windows-benchmarks": {
-        iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING * 2,
-        badgeHeight: 0,
-        priority: 2,
-      },
-      "enterprise-rhel-80-64-bit-inmem": {
-        iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING * 2,
-        badgeHeight: 0,
-        priority: 1,
-      },
-    });
   });
 });
 
