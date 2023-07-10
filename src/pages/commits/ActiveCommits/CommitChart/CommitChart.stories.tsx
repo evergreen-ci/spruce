@@ -1,18 +1,18 @@
 import styled from "@emotion/styled";
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { ChartTypes, Commits } from "types/commits";
-import { CommitChart } from "./CommitChart";
+import { CommitChart } from ".";
 import {
   findMaxGroupedTaskStats,
   getAllTaskStatsGroupedByColor,
-} from "./utils";
+} from "../utils";
 
 export default {
   title: "Pages/Commits/Charts",
   component: CommitChart,
-};
+} satisfies CustomMeta<typeof CommitChart>;
 
-export const Default: StoryObj<typeof CommitChart> = {
+export const Default: CustomStoryObj<typeof CommitChart> = {
   render: ({ chartType }) => (
     <FlexRowContainer>
       {versions.map((item) => (

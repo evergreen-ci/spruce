@@ -1,4 +1,4 @@
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import BuildVariantCard from ".";
 import { mocks } from "./testData";
 
@@ -12,11 +12,10 @@ export default {
     reactRouter: {
       path: "/version/:id",
       route: "/version/version",
-      params: { id: "version" },
     },
   },
-};
+} satisfies CustomMeta<typeof BuildVariantCard>;
 
-export const Default: StoryObj<typeof BuildVariantCard> = {
+export const Default: CustomStoryObj<typeof BuildVariantCard> = {
   render: (args) => <BuildVariantCard {...args} />,
 };
