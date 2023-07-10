@@ -105,7 +105,7 @@ export const Metadata: React.VFC<Props> = ({
   );
   const triggerRef = useRef(null);
   const onHideCue = () => {
-    Cookies.set(SEEN_HONEYCOMB_GUIDE_CUE, "true");
+    Cookies.set(SEEN_HONEYCOMB_GUIDE_CUE, "true", { expires: 365 });
     setOpenGuideCue(false);
   };
 
