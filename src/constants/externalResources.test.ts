@@ -56,7 +56,7 @@ describe("getTaskTraceUrl", () => {
     expect(
       getHoneycombTraceUrl("abcdef", new Date("2023-07-07T19:08:41"))
     ).toBe(
-      "https://ui.honeycomb.io/mongodb-4b/environments/staging/datasets/evergreen-agent/trace?trace_id=abcdef&trace_start_ts=1688756921"
+      "/datasets/evergreen-agent/trace?trace_id=abcdef&trace_start_ts=1688756921"
     );
   });
 });
@@ -70,7 +70,7 @@ describe("getTaskSystemMetricsUrl", () => {
         new Date("2023-07-07T20:00:00")
       )
     ).toBe(
-      `https://ui.honeycomb.io/mongodb-4b/environments/staging/datasets/evergreen?query={"calculations":[{"op":"AVG","column":"system.memory.usage.used"},{"op":"AVG","column":"system.cpu.utilization"},{"op":"AVG","column":"system.network.io.transmit"},{"op":"AVG","column":"system.network.io.receive"}],"filters":[{"op":"=","column":"evergreen.task.id","value":"task_12345"}],"start_time":1688756921,"end_time":1688760000,"granularity":15}&omitMissingValues`
+      `/datasets/evergreen?query={"calculations":[{"op":"AVG","column":"system.memory.usage.used"},{"op":"AVG","column":"system.cpu.utilization"},{"op":"AVG","column":"system.network.io.transmit"},{"op":"AVG","column":"system.network.io.receive"}],"filters":[{"op":"=","column":"evergreen.task.id","value":"task_12345"}],"start_time":1688756921,"end_time":1688760000,"granularity":15}&omitMissingValues`
     );
   });
 });

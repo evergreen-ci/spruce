@@ -2,7 +2,7 @@ import { getUnixTime } from "date-fns";
 import { LogTypes } from "types/task";
 import { environmentVariables } from "utils";
 
-const { getLobsterURL, getParsleyUrl, getUiUrl, isProduction } =
+const { getLobsterURL, getParsleyUrl, getUiUrl, getHoneycombBaseURL } =
   environmentVariables;
 
 export const wikiBaseUrl =
@@ -105,12 +105,8 @@ export const getParsleyBuildLogURL = (buildId: string) =>
 export const getDistroPageUrl = (distroId: string) =>
   `${getUiUrl()}/distros##${distroId}`;
 
-export const honeycombBaseURL = `https://ui.honeycomb.io/mongodb-4b/environments/${
-  isProduction() ? "production" : "staging"
-}`;
-
 export const getHoneycombTraceUrl = (traceId: string, startTs: Date) =>
-  `${honeycombBaseURL}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(
+  `${getHoneycombBaseURL()}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(
     new Date(startTs)
   )}`;
 
@@ -132,7 +128,7 @@ export const getHoneycombSystemMetricsUrl = (
     granularity: 15,
   };
 
-  return `${honeycombBaseURL}/datasets/evergreen?query=${JSON.stringify(
+  return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(
     query
   )}&omitMissingValues`;
 };
