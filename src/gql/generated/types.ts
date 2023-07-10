@@ -67,6 +67,21 @@ export enum BannerTheme {
   Warning = "WARNING",
 }
 
+export type BootstrapSettings = {
+  __typename?: "BootstrapSettings";
+  clientDir?: Maybe<Scalars["String"]>;
+  communication?: Maybe<Scalars["String"]>;
+  env: Array<EnvVar>;
+  jasperBinaryDir?: Maybe<Scalars["String"]>;
+  jasperCredentialsPath?: Maybe<Scalars["String"]>;
+  method?: Maybe<Scalars["String"]>;
+  preconditionScripts: Array<PreconditionScript>;
+  resourceLimits?: Maybe<ResourceLimits>;
+  rootDir?: Maybe<Scalars["String"]>;
+  serviceUser?: Maybe<Scalars["String"]>;
+  shellPath?: Maybe<Scalars["String"]>;
+};
+
 export type Build = {
   __typename?: "Build";
   actualMakespan: Scalars["Duration"];
@@ -182,12 +197,14 @@ export type CommitQueueParams = {
   __typename?: "CommitQueueParams";
   enabled?: Maybe<Scalars["Boolean"]>;
   mergeMethod: Scalars["String"];
+  mergeQueue: MergeQueue;
   message: Scalars["String"];
 };
 
 export type CommitQueueParamsInput = {
   enabled?: InputMaybe<Scalars["Boolean"]>;
   mergeMethod?: InputMaybe<Scalars["String"]>;
+  mergeQueue?: InputMaybe<MergeQueue>;
   message?: InputMaybe<Scalars["String"]>;
 };
 
@@ -235,21 +252,47 @@ export type Dependency = {
   taskId: Scalars["String"];
 };
 
+export type DispatcherSettings = {
+  __typename?: "DispatcherSettings";
+  version?: Maybe<Scalars["String"]>;
+};
+
 export type DisplayTask = {
   ExecTasks: Array<Scalars["String"]>;
   Name: Scalars["String"];
 };
 
-/**
- * Distro[] is the return value for the distros query.
- * It models an environment configuration for a host.
- */
+/** Distro models an environment configuration for a host. */
 export type Distro = {
   __typename?: "Distro";
+  aliases: Array<Scalars["String"]>;
+  arch?: Maybe<Scalars["String"]>;
+  authorizedKeysFile?: Maybe<Scalars["String"]>;
+  bootstrapSettings: BootstrapSettings;
+  cloneMethod?: Maybe<Scalars["String"]>;
+  containerPool?: Maybe<Scalars["String"]>;
+  disableShallowClone: Scalars["Boolean"];
+  disabled: Scalars["Boolean"];
+  dispatcherSettings: DispatcherSettings;
+  expansions: Array<Expansion>;
+  finderSettings: FinderSettings;
+  homeVolumeSettings: HomeVolumeSettings;
+  hostAllocatorSettings: HostAllocatorSettings;
+  iceCreamSettings: IceCreamSettings;
+  isCluster: Scalars["Boolean"];
   isVirtualWorkStation: Scalars["Boolean"];
   name?: Maybe<Scalars["String"]>;
+  note?: Maybe<Scalars["String"]>;
+  plannerSettings: PlannerSettings;
+  provider?: Maybe<Scalars["String"]>;
+  providerSettingsList: Array<Scalars["Map"]>;
+  setup?: Maybe<Scalars["String"]>;
+  setupAsSudo: Scalars["Boolean"];
+  sshKey?: Maybe<Scalars["String"]>;
+  sshOptions: Array<Scalars["String"]>;
   user?: Maybe<Scalars["String"]>;
-  userSpawnAllowed?: Maybe<Scalars["Boolean"]>;
+  userSpawnAllowed: Scalars["Boolean"];
+  validProjects: Array<Maybe<Scalars["String"]>>;
   workDir?: Maybe<Scalars["String"]>;
 };
 
@@ -294,6 +337,18 @@ export type EditSpawnHostInput = {
   volume?: InputMaybe<Scalars["String"]>;
 };
 
+export type EnvVar = {
+  __typename?: "EnvVar";
+  key?: Maybe<Scalars["String"]>;
+  value?: Maybe<Scalars["String"]>;
+};
+
+export type Expansion = {
+  __typename?: "Expansion";
+  key?: Maybe<Scalars["String"]>;
+  value?: Maybe<Scalars["String"]>;
+};
+
 export type ExternalLink = {
   __typename?: "ExternalLink";
   displayName: Scalars["String"];
@@ -325,6 +380,11 @@ export type FileDiff = {
   description: Scalars["String"];
   diffLink: Scalars["String"];
   fileName: Scalars["String"];
+};
+
+export type FinderSettings = {
+  __typename?: "FinderSettings";
+  version?: Maybe<Scalars["String"]>;
 };
 
 export type GeneralSubscription = {
@@ -412,6 +472,11 @@ export type GroupedTaskStatusCount = {
   variant: Scalars["String"];
 };
 
+export type HomeVolumeSettings = {
+  __typename?: "HomeVolumeSettings";
+  formatCommand?: Maybe<Scalars["String"]>;
+};
+
 /** Host models a host, which are used for things like running tasks or as virtual workstations. */
 export type Host = {
   __typename?: "Host";
@@ -439,6 +504,17 @@ export type Host = {
   uptime?: Maybe<Scalars["Time"]>;
   user?: Maybe<Scalars["String"]>;
   volumes: Array<Volume>;
+};
+
+export type HostAllocatorSettings = {
+  __typename?: "HostAllocatorSettings";
+  acceptableHostIdleTime?: Maybe<Scalars["Duration"]>;
+  feedbackRule?: Maybe<Scalars["String"]>;
+  hostsOverallocatedRule?: Maybe<Scalars["String"]>;
+  maximumHosts: Scalars["Int"];
+  minimumHosts: Scalars["Int"];
+  roundingRule?: Maybe<Scalars["String"]>;
+  version?: Maybe<Scalars["String"]>;
 };
 
 export type HostEventLogData = {
@@ -502,6 +578,12 @@ export type HostsResponse = {
   filteredHostsCount?: Maybe<Scalars["Int"]>;
   hosts: Array<Host>;
   totalHostsCount: Scalars["Int"];
+};
+
+export type IceCreamSettings = {
+  __typename?: "IceCreamSettings";
+  configPath?: Maybe<Scalars["String"]>;
+  schedulerHost?: Maybe<Scalars["String"]>;
 };
 
 export type InstanceTag = {
@@ -641,6 +723,11 @@ export type Manifest = {
   project: Scalars["String"];
   revision: Scalars["String"];
 };
+
+export enum MergeQueue {
+  Evergreen = "EVERGREEN",
+  Github = "GITHUB",
+}
 
 export enum MetStatus {
   Met = "MET",
@@ -1191,6 +1278,18 @@ export type Permissions = {
   userId: Scalars["String"];
 };
 
+export type PlannerSettings = {
+  __typename?: "PlannerSettings";
+  expectedRuntimeFactor?: Maybe<Scalars["Int"]>;
+  generateTaskFactor?: Maybe<Scalars["Int"]>;
+  groupVersions?: Maybe<Scalars["Boolean"]>;
+  mainlineTimeInQueueFactor?: Maybe<Scalars["Int"]>;
+  patchFactor?: Maybe<Scalars["Int"]>;
+  patchTimeInQueueFactor?: Maybe<Scalars["Int"]>;
+  targetTime?: Maybe<Scalars["Duration"]>;
+  version?: Maybe<Scalars["String"]>;
+};
+
 export type Pod = {
   __typename?: "Pod";
   events: PodEvents;
@@ -1236,6 +1335,12 @@ export type PodEvents = {
   __typename?: "PodEvents";
   count: Scalars["Int"];
   eventLogEntries: Array<PodEventLogEntry>;
+};
+
+export type PreconditionScript = {
+  __typename?: "PreconditionScript";
+  path?: Maybe<Scalars["String"]>;
+  script?: Maybe<Scalars["String"]>;
 };
 
 /** Project models single repository on GitHub. */
@@ -1495,6 +1600,7 @@ export type Query = {
   buildVariantsForTaskName?: Maybe<Array<Maybe<BuildVariantTuple>>>;
   clientConfig?: Maybe<ClientConfig>;
   commitQueue: CommitQueue;
+  distro?: Maybe<Distro>;
   distroTaskQueue: Array<TaskQueueItem>;
   distros: Array<Maybe<Distro>>;
   githubProjectConflicts: GithubProjectConflicts;
@@ -1546,6 +1652,10 @@ export type QueryBuildVariantsForTaskNameArgs = {
 
 export type QueryCommitQueueArgs = {
   projectIdentifier: Scalars["String"];
+};
+
+export type QueryDistroArgs = {
+  distroId: Scalars["String"];
 };
 
 export type QueryDistroTaskQueueArgs = {
@@ -1659,6 +1769,7 @@ export type RepoCommitQueueParams = {
   __typename?: "RepoCommitQueueParams";
   enabled: Scalars["Boolean"];
   mergeMethod: Scalars["String"];
+  mergeQueue: MergeQueue;
   message: Scalars["String"];
 };
 
@@ -1790,6 +1901,15 @@ export enum RequiredStatus {
   MustFinish = "MUST_FINISH",
   MustSucceed = "MUST_SUCCEED",
 }
+
+export type ResourceLimits = {
+  __typename?: "ResourceLimits";
+  lockedMemoryKb?: Maybe<Scalars["Int"]>;
+  numFiles?: Maybe<Scalars["Int"]>;
+  numProcesses?: Maybe<Scalars["Int"]>;
+  numTasks?: Maybe<Scalars["Int"]>;
+  virtualMemoryKb?: Maybe<Scalars["Int"]>;
+};
 
 export type SearchReturnInfo = {
   __typename?: "SearchReturnInfo";

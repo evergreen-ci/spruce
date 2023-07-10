@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { action } from "@storybook/addon-actions";
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+
 import VisibilityContainer from ".";
 
 export default {
   component: VisibilityContainer,
-};
+} satisfies CustomMeta<typeof VisibilityContainer>;
 
-export const Default: StoryObj<typeof VisibilityContainer> = {
+export const Default: CustomStoryObj<typeof VisibilityContainer> = {
   render: () => (
     <>
       Scroll the below container out of view and observe the component mounting

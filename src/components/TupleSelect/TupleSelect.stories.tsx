@@ -1,13 +1,14 @@
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { action } from "@storybook/addon-actions";
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+
 import TupleSelect from ".";
 
 export default {
   component: TupleSelect,
-};
+} satisfies CustomMeta<typeof TupleSelect>;
 
-export const Default: StoryObj<typeof TupleSelect> = {
+export const Default: CustomStoryObj<typeof TupleSelect> = {
   render: () => (
     <>
       <TupleSelect

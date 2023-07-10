@@ -1,13 +1,13 @@
-import { StoryObj } from "@storybook/react";
 import { NodeList } from "pages/preferences/preferencesTabs/cliTab/NodeList";
 import { Node } from "pages/preferences/preferencesTabs/cliTab/nodeList/Node";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 
 export default {
   title: "Pages/Preferences/Node List",
   component: NodeList,
-};
+} satisfies CustomMeta<typeof NodeList>;
 
-export const NodeElement: StoryObj<typeof Node> = {
+export const NodeElement: CustomStoryObj<typeof Node> = {
   render: () => (
     <Node
       title="Download the Command-Line Client."
@@ -33,7 +33,7 @@ const list = [
   },
 ];
 
-export const NodeListFull: StoryObj<typeof NodeList> = {
+export const NodeListFull: CustomStoryObj<typeof NodeList> = {
   render: () => (
     <div style={{ position: "relative" }}>
       <NodeList list={list} />
