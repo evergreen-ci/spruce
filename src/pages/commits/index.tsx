@@ -37,7 +37,7 @@ import { useQueryParam } from "hooks/useQueryParam";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString, validators } from "utils";
 import { CommitsWrapper } from "./CommitsWrapper";
-import CommitTypeSelect from "./commitTypeSelect";
+import CommitTypeSelector from "./CommitTypeSelector";
 import { useCommitLimit } from "./hooks/useCommitLimit";
 import { PaginationButtons } from "./PaginationButtons";
 import { StatusSelect } from "./StatusSelect";
@@ -175,7 +175,7 @@ const Commits = () => {
             <StatusSelect />
           </ElementWrapper>
           <ElementWrapper width="20">
-            <CommitTypeSelect />
+            <CommitTypeSelector />
           </ElementWrapper>
           <ElementWrapper width="25">
             <ProjectSelect
