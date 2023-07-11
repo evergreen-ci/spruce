@@ -6,10 +6,8 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import { inactiveElementStyle } from "components/styles";
 import { taskStatusToCopy, mapTaskToBarchartColor } from "constants/task";
 import { size, zIndex } from "constants/tokens";
-import {
-  ColorCount,
-  getStatusesWithZeroCount,
-} from "pages/commits/ActiveCommits/utils";
+import { getStatusesWithZeroCount } from "pages/commits/ActiveCommits/utils";
+import { ColorCount } from "pages/commits/types";
 import { TaskStatus } from "types/task";
 import { msToDuration } from "utils/string";
 
