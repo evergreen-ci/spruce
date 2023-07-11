@@ -3,6 +3,7 @@ import {
   ProjectHealthView,
   ProjectSettingsQuery,
   RepoSettingsQuery,
+  MergeQueue,
 } from "gql/generated/types";
 
 const projectBase: ProjectSettingsQuery["projectSettings"] = {
@@ -60,6 +61,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     commitQueue: {
       enabled: null,
       mergeMethod: "",
+      mergeQueue: MergeQueue.Evergreen,
       message: "",
     },
     perfEnabled: true,
@@ -182,6 +184,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     commitQueue: {
       enabled: true,
       mergeMethod: "squash",
+      mergeQueue: MergeQueue.Github,
       message: "Commit Queue Message",
     },
     perfEnabled: true,

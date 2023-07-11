@@ -1,12 +1,15 @@
 import { MockedProvider } from "@apollo/client/testing";
 import {
+  injectGlobalDimStyle,
+  removeGlobalDimStyle,
+} from "pages/commits/ActiveCommits/utils";
+import {
   renderWithRouterMatch as render,
   screen,
   userEvent,
   waitFor,
 } from "test_utils";
 import { BuildVariantCard } from ".";
-import { injectGlobalDimStyle, removeGlobalDimStyle } from "../utils";
 
 jest.mock("../utils");
 

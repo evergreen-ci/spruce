@@ -1,4 +1,7 @@
-import { ProjectPatchAliasSettingsFragment } from "gql/generated/types";
+import {
+  ProjectPatchAliasSettingsFragment,
+  MergeQueue,
+} from "gql/generated/types";
 import { AliasFormType, ProjectType } from "../utils";
 
 export interface FormState {
@@ -52,6 +55,7 @@ export interface FormState {
   commitQueue: {
     enabled: boolean | null;
     mergeMethod: string;
+    mergeQueue: MergeQueue;
     message: string;
     patchDefinitions: {
       commitQueueAliasesOverride: boolean;

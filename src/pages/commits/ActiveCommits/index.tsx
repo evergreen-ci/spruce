@@ -2,37 +2,12 @@ import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import CommitChartLabel from "components/CommitChartLabel";
-import { ChartTypes, CommitVersion, BuildVariantDict } from "types/commits";
+import { CommitVersion, BuildVariantDict } from "types/commits";
 import { array, string } from "utils";
 import { BuildVariantCard } from "./BuildVariantCard";
-import { CommitChart } from "./CommitChart";
-import { ColorCount } from "./utils";
 
 const { convertArrayToObject, arrayUnion } = array;
 const { shortenGithash } = string;
-interface ActiveCommitChartProps {
-  groupedTaskStats: ColorCount[];
-  max: number;
-  total: number;
-  chartType: ChartTypes;
-  eta?: Date;
-}
-
-export const ActiveCommitChart: React.VFC<ActiveCommitChartProps> = ({
-  groupedTaskStats,
-  max,
-  total,
-  chartType,
-  eta,
-}) => (
-  <CommitChart
-    groupedTaskStats={groupedTaskStats}
-    total={total}
-    max={max}
-    chartType={chartType}
-    eta={eta}
-  />
-);
 
 interface ActiveCommitLabelProps {
   version: CommitVersion;

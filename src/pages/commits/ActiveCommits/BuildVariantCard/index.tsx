@@ -5,12 +5,12 @@ import VisibilityContainer from "components/VisibilityContainer";
 import { getVariantHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { StatusCount } from "gql/generated/types";
+import { VariantGroupedTaskStatusBadges } from "pages/commits/ActiveCommits/BuildVariantCard/VariantGroupedTaskStatusBadges";
 import {
   injectGlobalDimStyle,
   removeGlobalDimStyle,
 } from "pages/commits/ActiveCommits/utils";
 import { TASK_ICON_PADDING } from "pages/commits/constants";
-import { VariantGroupedTaskStatusBadges } from "./VariantGroupedTaskStatusBadges";
 import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
 
 type taskList = {

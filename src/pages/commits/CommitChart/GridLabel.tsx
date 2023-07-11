@@ -3,10 +3,9 @@ import { palette } from "@leafygreen-ui/palette";
 import { zIndex, size } from "constants/tokens";
 import { gridHeight } from "pages/commits/constants";
 import { ChartTypes } from "types/commits";
-import { array } from "utils";
-import { roundMax } from "./utils";
+import { range } from "utils/array";
+import { roundMax } from "utils/numbers";
 
-const { range } = array;
 const { gray } = palette;
 
 const percentages = [100, 80, 60, 40, 20, 0];
