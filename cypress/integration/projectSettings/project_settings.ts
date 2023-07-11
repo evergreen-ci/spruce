@@ -211,7 +211,7 @@ describe("Repo Settings", { testIsolation: false }, () => {
 
       countCQFields(2);
       cy.dataCy("cq-enabled-radio-box").children().first().click();
-      countCQFields(4);
+      countCQFields(7);
 
       cy.dataCy("error-banner")
         .contains(
