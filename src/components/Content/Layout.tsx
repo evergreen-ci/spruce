@@ -22,7 +22,7 @@ import { isProduction } from "utils/environmentVariables";
 
 const { gray, white } = palette;
 
-const disableForTest =
+const shouldDisableForTest =
   !isProduction() && Cookies.get(CY_DISABLE_NEW_USER_WELCOME_MODAL) === "true";
 
 export const Layout: React.VFC = () => {
@@ -47,7 +47,7 @@ export const Layout: React.VFC = () => {
     <PageGrid>
       <Header />
       <Outlet />
-      {!disableForTest && !hasUsedSpruceBefore && (
+      {!shouldDisableForTest && !hasUsedSpruceBefore && (
         <WelcomeModal
           title="Welcome to the New Evergreen UI!"
           param="hasUsedSpruceBefore"

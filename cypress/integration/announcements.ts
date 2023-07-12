@@ -1,7 +1,7 @@
 import {
   CY_DISABLE_NEW_USER_WELCOME_MODAL,
   CY_DISABLE_COMMITS_WELCOME_MODAL,
-} from "../../src/constants/cookies";
+} from "constants/cookies";
 
 describe("Announcement overlays", () => {
   beforeEach(() => {

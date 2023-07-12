@@ -53,7 +53,7 @@ const { toArray } = array;
 const { parseQueryString, getString } = queryString;
 const { validateRegexp } = validators;
 
-const disableForTest =
+const shouldDisableForTest =
   !isProduction() && Cookies.get(CY_DISABLE_COMMITS_WELCOME_MODAL) === "true";
 
 const Commits = () => {
@@ -229,7 +229,7 @@ const Commits = () => {
           />
         </div>
       </PageContainer>
-      {!disableForTest && !hasUsedMainlineCommitsBefore && (
+      {!shouldDisableForTest && !hasUsedMainlineCommitsBefore && (
         <WelcomeModal
           param="hasUsedMainlineCommitsBefore"
           carouselCards={newMainlineCommitsUser}
