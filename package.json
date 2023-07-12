@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.106",
+  "version": "3.0.107",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -173,7 +173,7 @@
     "babel-plugin-import-graphql": "^2.8.1",
     "babel-preset-react-app": "^10.0.1",
     "camelcase": "^6.1.0",
-    "cypress": "12.7.0",
+    "cypress": "12.17.1",
     "eslint": "8.19.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "8.8.0",
