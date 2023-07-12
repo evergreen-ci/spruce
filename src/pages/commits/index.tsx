@@ -13,7 +13,10 @@ import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
 import TupleSelectWithRegexConditional from "components/TupleSelectWithRegexConditional";
 import WelcomeModal from "components/WelcomeModal";
-import { CURRENT_PROJECT } from "constants/cookies";
+import {
+  CURRENT_PROJECT,
+  CY_DISABLE_COMMITS_WELCOME_MODAL,
+} from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getCommitsRoute } from "constants/routes";
 import { size } from "constants/tokens";
@@ -48,6 +51,8 @@ import { WaterfallMenu } from "./WaterfallMenu";
 const { toArray } = array;
 const { parseQueryString, getString } = queryString;
 const { validateRegexp } = validators;
+
+const disableForTest = Cookies.get(CY_DISABLE_COMMITS_WELCOME_MODAL) === "true";
 
 const Commits = () => {
   const dispatchToast = useToastContext();
@@ -222,7 +227,7 @@ const Commits = () => {
           />
         </div>
       </PageContainer>
-      {!hasUsedMainlineCommitsBefore && (
+      {!disableForTest && !hasUsedMainlineCommitsBefore && (
         <WelcomeModal
           param="hasUsedMainlineCommitsBefore"
           carouselCards={newMainlineCommitsUser}
