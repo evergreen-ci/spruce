@@ -39,6 +39,7 @@ import {
 import { useQueryParam } from "hooks/useQueryParam";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString, validators } from "utils";
+import { isProduction } from "utils/environmentVariables";
 import { CommitsWrapper } from "./CommitsWrapper";
 import CommitTypeSelector from "./CommitTypeSelector";
 import { useCommitLimit } from "./hooks/useCommitLimit";
@@ -52,7 +53,8 @@ const { toArray } = array;
 const { parseQueryString, getString } = queryString;
 const { validateRegexp } = validators;
 
-const disableForTest = Cookies.get(CY_DISABLE_COMMITS_WELCOME_MODAL) === "true";
+const disableForTest =
+  !isProduction() && Cookies.get(CY_DISABLE_COMMITS_WELCOME_MODAL) === "true";
 
 const Commits = () => {
   const dispatchToast = useToastContext();
