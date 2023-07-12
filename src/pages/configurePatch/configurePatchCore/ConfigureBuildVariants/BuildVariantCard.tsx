@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, Description } from "@leafygreen-ui/typography";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { size } from "constants/tokens";
@@ -28,6 +28,9 @@ const BuildVariantCard: React.VFC<BuildVariantCardProps> = ({
   <StyledSiderCard>
     <Container>
       <Body weight="medium">{title}</Body>
+      <Description>
+        Use Shift + Click to edit multiple variants simultaneously.
+      </Description>
       <Divider />
     </Container>
     <ScrollableBuildVariantContainer>
