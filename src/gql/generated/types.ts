@@ -352,6 +352,7 @@ export type Expansion = {
 export type ExternalLink = {
   __typename?: "ExternalLink";
   displayName: Scalars["String"];
+  requesters: Array<Scalars["String"]>;
   urlTemplate: Scalars["String"];
 };
 
@@ -363,6 +364,7 @@ export type ExternalLinkForMetadata = {
 
 export type ExternalLinkInput = {
   displayName: Scalars["String"];
+  requesters?: InputMaybe<Array<Scalars["String"]>>;
   urlTemplate: Scalars["String"];
 };
 
