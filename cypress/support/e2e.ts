@@ -19,7 +19,7 @@ import {
   CY_DISABLE_COMMITS_WELCOME_MODAL,
   CY_DISABLE_NEW_USER_WELCOME_MODAL,
   SLACK_NOTIFICATION_BANNER,
-} from "../../src/constants/cookies";
+} from "constants/cookies";
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
