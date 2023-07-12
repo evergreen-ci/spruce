@@ -11,6 +11,7 @@ const pushTagsRejectValue = new Error("pushTagsRejectValue");
 const pushTagsResolveValue = "pushTagsResolveValue";
 const runLocalDeployRejectValue = "runLocalDeployRejectValue";
 const runLocalDeployResolveValue = "runLocalDeployResolveValue";
+const getCurrentDeployedCommitResolveValue = "v1.0.0";
 
 jest.mock("./deploy-utils");
 jest.mock("prompts");
@@ -56,7 +57,7 @@ describe("evergreen deploy", () => {
 
     await expect(evergreenDeploy()).resolves.toBeUndefined();
     expect(console.log).toHaveBeenNthCalledWith(
-      1,
+      2,
       "Commit messages:\ngetCommitMessagesResolveValue"
     );
 
@@ -65,16 +66,16 @@ describe("evergreen deploy", () => {
       name: "value",
       type: "confirm",
     });
-    expect(console.log).toHaveBeenNthCalledWith(2, createNewTagResolveValue);
+    expect(console.log).toHaveBeenNthCalledWith(3, createNewTagResolveValue);
     expect(console.log).toHaveBeenNthCalledWith(
-      3,
+      4,
       "Pushed to remote. Should be deploying soon..."
     );
     expect(console.log).toHaveBeenNthCalledWith(
-      4,
+      5,
       "Track deploy progress at https://spruce.mongodb.com/commits/spruce?requester=git_tag_request"
     );
-    expect(console.log).toHaveBeenCalledTimes(4);
+    expect(console.log).toHaveBeenCalledTimes(5);
   });
 
   it("terminates if user cancels when commits are found", async () => {
@@ -87,7 +88,7 @@ describe("evergreen deploy", () => {
 
     await expect(evergreenDeploy()).resolves.toBeUndefined();
     expect(console.log).toHaveBeenNthCalledWith(
-      1,
+      2,
       "Commit messages:\ngetCommitMessagesResolveValue"
     );
 
@@ -96,7 +97,7 @@ describe("evergreen deploy", () => {
       name: "value",
       type: "confirm",
     });
-    expect(console.log).toHaveBeenCalledTimes(1);
+    expect(console.log).toHaveBeenCalledTimes(2);
     expect(deployUtils.createNewTag).not.toHaveBeenCalled();
   });
 
@@ -108,13 +109,16 @@ describe("evergreen deploy", () => {
         .spyOn(deployUtils, "isWorkingDirectoryClean")
         .mockResolvedValue(true);
       jest.spyOn(deployUtils, "getCommitMessages").mockResolvedValue("");
+      jest
+        .spyOn(deployUtils, "getCurrentlyDeployedCommit")
+        .mockResolvedValue(getCurrentDeployedCommitResolveValue);
     });
 
     it("terminates if user cancels when no commits are found", async () => {
       prompts.mockReturnValue({ value: false });
 
       await expect(evergreenDeploy()).resolves.toBeUndefined();
-      expect(deployUtils.getCommitMessages).toHaveBeenCalledWith();
+      expect(deployUtils.getCommitMessages).toHaveBeenCalledWith("v1.0.0");
       expect(prompts).toHaveBeenCalledWith({
         initial: false,
         message:
@@ -142,7 +146,9 @@ describe("evergreen deploy", () => {
         .mockResolvedValue(pushTagsResolveValue);
 
       await expect(evergreenDeploy()).resolves.toBeUndefined();
-      expect(deployUtils.getCommitMessages).toHaveBeenCalledWith();
+      expect(deployUtils.getCommitMessages).toHaveBeenCalledWith(
+        getCurrentDeployedCommitResolveValue
+      );
       expect(prompts).toHaveBeenCalledWith({
         initial: false,
         message:
@@ -160,7 +166,7 @@ describe("evergreen deploy", () => {
       expect(console.log).toHaveBeenCalledWith(deleteTagResolveValue);
       expect(deployUtils.pushTags).toHaveBeenCalledWith();
       expect(console.log).toHaveBeenCalledWith(pushTagsResolveValue);
-      expect(console.log).toHaveBeenCalledTimes(3);
+      expect(console.log).toHaveBeenCalledTimes(4);
     });
 
     it("aborts if deleting tag fails", async () => {
@@ -173,8 +179,13 @@ describe("evergreen deploy", () => {
         .spyOn(deployUtils, "deleteTag")
         .mockRejectedValue(deleteTagRejectedValue);
 
+      jest
+        .spyOn(deployUtils, "getCurrentlyDeployedCommit")
+        .mockResolvedValue("v1.0.0");
       await expect(evergreenDeploy()).resolves.toBeUndefined();
-      expect(deployUtils.getCommitMessages).toHaveBeenCalledWith();
+      expect(deployUtils.getCommitMessages).toHaveBeenCalledWith(
+        getCurrentDeployedCommitResolveValue
+      );
       expect(prompts).toHaveBeenCalledWith({
         initial: false,
         message:
@@ -193,7 +204,7 @@ describe("evergreen deploy", () => {
       expect(console.error).toHaveBeenCalledWith(
         "Deleting and pushing tag failed. Aborting."
       );
-      expect(console.log).toHaveBeenCalledTimes(1);
+      expect(console.log).toHaveBeenCalledTimes(2);
       expect(console.error).toHaveBeenCalledTimes(2);
     });
 
@@ -211,7 +222,9 @@ describe("evergreen deploy", () => {
         .mockRejectedValue(pushTagsRejectValue);
 
       await expect(evergreenDeploy()).resolves.toBeUndefined();
-      expect(deployUtils.getCommitMessages).toHaveBeenCalledWith();
+      expect(deployUtils.getCommitMessages).toHaveBeenCalledWith(
+        getCurrentDeployedCommitResolveValue
+      );
       expect(prompts).toHaveBeenCalledWith({
         initial: false,
         message:
@@ -233,7 +246,7 @@ describe("evergreen deploy", () => {
         2,
         "Deleting and pushing tag failed. Aborting."
       );
-      expect(console.log).toHaveBeenCalledTimes(2);
+      expect(console.log).toHaveBeenCalledTimes(3);
       expect(console.error).toHaveBeenCalledTimes(2);
     });
   });
