@@ -1,6 +1,5 @@
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import MultiSelect from "components/SpruceForm/Widgets/MultiSelect";
 import { GetFormSchema } from "../types";
 import { form } from "../utils";
 import { FormState } from "./types";
@@ -250,7 +249,7 @@ export const getFormSchema = (
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       metadataPanelLink: {
         requesters: {
-          "ui:widget": MultiSelect,
+          "ui:widget": widgets.MultiSelectWidget,
           "ui:data-cy": "requesters-input",
         },
         urlTemplate: {
