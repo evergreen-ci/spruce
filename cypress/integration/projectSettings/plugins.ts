@@ -1,6 +1,6 @@
 import { getPluginsRoute, projectUseRepoEnabled, clickSave } from "./constants";
 
-describe("Plugins", { testIsolation: false }, () => {
+describe("Plugins", () => {
   const patchPage = "version/5ecedafb562343215a7ff297";
   beforeEach(() => {
     cy.visit(getPluginsRoute(projectUseRepoEnabled));
