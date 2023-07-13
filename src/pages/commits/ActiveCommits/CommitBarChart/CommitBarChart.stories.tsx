@@ -1,22 +1,22 @@
 import styled from "@emotion/styled";
 import { StoryObj } from "@storybook/react";
-import { ChartTypes, Commits } from "types/commits";
-import { CommitChart } from "./CommitChart";
 import {
   findMaxGroupedTaskStats,
   getAllTaskStatsGroupedByColor,
-} from "./utils";
+} from "pages/commits/utils";
+import { ChartTypes, Commits } from "types/commits";
+import { CommitBarChart } from ".";
 
 export default {
-  title: "Pages/Commits/Charts",
-  component: CommitChart,
+  title: "Pages/Commits/Charts/ActiveCommit/CommitBarChart",
+  component: CommitBarChart,
 };
 
-export const Default: StoryObj<typeof CommitChart> = {
+export const Default: StoryObj<typeof CommitBarChart> = {
   render: ({ chartType }) => (
     <FlexRowContainer>
       {versions.map((item) => (
-        <CommitChart
+        <CommitBarChart
           key={item.version.id}
           groupedTaskStats={groupedTaskData[item.version.id].stats}
           total={groupedTaskData[item.version.id].total}

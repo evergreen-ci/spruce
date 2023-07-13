@@ -1,10 +1,10 @@
-import { render, screen, userEvent, waitFor } from "test_utils";
-import { ChartTypes } from "types/commits";
-import { CommitChart } from "./CommitChart";
 import {
   findMaxGroupedTaskStats,
   getAllTaskStatsGroupedByColor,
-} from "./utils";
+} from "pages/commits/utils";
+import { render, screen, userEvent, waitFor } from "test_utils";
+import { ChartTypes } from "types/commits";
+import { CommitBarChart } from ".";
 
 describe("commitChart", () => {
   afterEach(() => {
@@ -14,7 +14,7 @@ describe("commitChart", () => {
 
   it("display right amount of bars", () => {
     render(
-      <CommitChart
+      <CommitBarChart
         key={versions[0].version.id}
         groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
         total={groupedTaskData[versions[0].version.id].total}
@@ -27,7 +27,7 @@ describe("commitChart", () => {
 
   it("hovering over the chart should open a tooltip", async () => {
     render(
-      <CommitChart
+      <CommitBarChart
         key={versions[0].version.id}
         groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
         total={groupedTaskData[versions[0].version.id].total}
@@ -45,7 +45,7 @@ describe("commitChart", () => {
 
   it("should show all umbrella statuses (normal and dimmed) and their counts", async () => {
     render(
-      <CommitChart
+      <CommitBarChart
         key={versions[0].version.id}
         groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
         total={groupedTaskData[versions[0].version.id].total}

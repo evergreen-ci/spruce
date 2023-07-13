@@ -1,14 +1,17 @@
 import { MockedProvider } from "@apollo/client/testing";
 import {
+  injectGlobalDimStyle,
+  removeGlobalDimStyle,
+} from "pages/commits/ActiveCommits/utils";
+import {
   renderWithRouterMatch as render,
   screen,
   userEvent,
   waitFor,
 } from "test_utils";
-import { BuildVariantCard } from "./BuildVariantCard";
-import { injectGlobalDimStyle, removeGlobalDimStyle } from "./utils";
+import { BuildVariantCard } from ".";
 
-jest.mock("./utils");
+jest.mock("../utils");
 
 describe("buildVariantCard", () => {
   it("should call the appropriate functions on hover and unhover", async () => {

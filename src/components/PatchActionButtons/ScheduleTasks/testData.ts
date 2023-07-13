@@ -1,33 +1,9 @@
-import { MockedProvider } from "@apollo/client/testing";
-import { StoryObj } from "@storybook/react";
 import {
   UndispatchedTasksQuery,
   UndispatchedTasksQueryVariables,
 } from "gql/generated/types";
 import { GET_UNSCHEDULED_TASKS } from "gql/queries";
-import WithToastContext from "test_utils/toast-decorator";
 import { ApolloMock } from "types/gql";
-import { ScheduleTasks } from ".";
-
-export default {
-  component: ScheduleTasks,
-  decorators: [
-    (Story: () => JSX.Element) => WithToastContext(Story),
-    (Story: () => JSX.Element) => (
-      <MockedProvider mocks={mocks}>
-        <Story />
-      </MockedProvider>
-    ),
-  ],
-};
-
-export const ScheduleTasksPopulated: StoryObj<typeof ScheduleTasks> = {
-  render: () => <ScheduleTasks isButton versionId="version" />,
-};
-
-export const ScheduleTasksEmpty: StoryObj<typeof ScheduleTasks> = {
-  render: () => <ScheduleTasks isButton versionId="emptyVersion" />,
-};
 
 const mocks: ApolloMock<
   UndispatchedTasksQuery,
@@ -165,3 +141,5 @@ const mocks: ApolloMock<
     },
   },
 ];
+
+export { mocks };

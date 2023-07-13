@@ -1,19 +1,20 @@
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+
 import TasksTable from ".";
 
 export default {
   component: TasksTable,
-};
+} satisfies CustomMeta<typeof TasksTable>;
 
-export const BaseTaskTable: StoryObj<typeof TasksTable> = {
+export const BaseTaskTable: CustomStoryObj<typeof TasksTable> = {
   render: () => <TasksTable isPatch tasks={tasks} />,
 };
 
-export const ExecutionTasksTable: StoryObj<typeof TasksTable> = {
+export const ExecutionTasksTable: CustomStoryObj<typeof TasksTable> = {
   render: () => <TasksTable isPatch tasks={nestedTasks} />,
 };
 
-export const VersionTasksTable: StoryObj<typeof TasksTable> = {
+export const VersionTasksTable: CustomStoryObj<typeof TasksTable> = {
   render: () => <TasksTable isPatch={false} tasks={tasks} />,
 };
 

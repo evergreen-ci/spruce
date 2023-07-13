@@ -5,8 +5,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
 import { size } from "constants/tokens";
 import { Commits } from "types/commits";
-import { constructBuildVariantDict } from "./ActiveCommits/utils";
-import { CommitsChart } from "./CommitsChart";
+import { CommitChart } from "./CommitChart";
 import {
   getCommitKey,
   getCommitWidth,
@@ -14,10 +13,11 @@ import {
   RenderCommitsBuildVariants,
 } from "./RenderCommit";
 import { FlexRowContainer, CommitWrapper } from "./styles";
+import { constructBuildVariantDict } from "./utils";
 
 const { white } = palette;
 
-export interface CommitsWrapperProps {
+interface CommitsWrapperProps {
   versions: Commits;
   error?: ApolloError;
   isLoading: boolean;
@@ -39,7 +39,7 @@ export const CommitsWrapper: React.VFC<CommitsWrapperProps> = ({
   }, [versions]);
 
   if (error) {
-    return <CommitsChart hasError />;
+    return <CommitChart hasError />;
   }
   if (isLoading) {
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
@@ -47,7 +47,7 @@ export const CommitsWrapper: React.VFC<CommitsWrapperProps> = ({
   if (versions) {
     return (
       <ChartContainer>
-        <CommitsChart versions={versions} hasTaskFilter={hasTaskFilter} />
+        <CommitChart versions={versions} hasTaskFilter={hasTaskFilter} />
         <StickyContainer>
           <FlexRowContainer>
             {versions.map((commit) => (

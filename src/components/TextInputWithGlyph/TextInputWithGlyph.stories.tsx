@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { StoryObj } from "@storybook/react";
 import Icon from "components/Icon";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+
 import TextInputWithGlyph from ".";
 
 export default {
   component: TextInputWithGlyph,
-};
+} satisfies CustomMeta<typeof TextInputWithGlyph>;
 
-export const Default: StoryObj<typeof TextInputWithGlyph> = {
+export const Default: CustomStoryObj<typeof TextInputWithGlyph> = {
   render: (args) => <Input {...args} />,
   args: {
     label: "Some search field",

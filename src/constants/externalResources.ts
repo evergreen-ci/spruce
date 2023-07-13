@@ -1,7 +1,9 @@
+import { getUnixTime } from "date-fns";
 import { LogTypes } from "types/task";
 import { environmentVariables } from "utils";
 
-const { getLobsterURL, getParsleyUrl, getUiUrl } = environmentVariables;
+const { getLobsterURL, getParsleyUrl, getUiUrl, getHoneycombBaseURL } =
+  environmentVariables;
 
 export const wikiBaseUrl =
   "https://docs.devprod.prod.corp.mongodb.com/evergreen";
@@ -35,6 +37,9 @@ export const getJiraImprovementUrl = (jiraHost: string) =>
 
 export const konamiSoundTrackUrl =
   "https://www.myinstants.com/media/sounds/mvssf-win.mp3";
+
+export const githubMergeQueueUrl =
+  "https://github.blog/changelog/2023-02-08-pull-request-merge-queue-public-beta";
 
 export const legacyRoutes = {
   distros: "/distros",
@@ -102,3 +107,30 @@ export const getParsleyBuildLogURL = (buildId: string) =>
 
 export const getDistroPageUrl = (distroId: string) =>
   `${getUiUrl()}/distros##${distroId}`;
+
+export const getHoneycombTraceUrl = (traceId: string, startTs: Date) =>
+  `${getHoneycombBaseURL()}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(
+    new Date(startTs)
+  )}`;
+
+export const getHoneycombSystemMetricsUrl = (
+  taskId: string,
+  startTs: Date,
+  endTs: Date
+): string => {
+  const query = {
+    calculations: [
+      { op: "AVG", column: "system.memory.usage.used" },
+      { op: "AVG", column: "system.cpu.utilization" },
+      { op: "RATE_AVG", column: "system.network.io.transmit" },
+      { op: "RATE_AVG", column: "system.network.io.receive" },
+    ],
+    filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
+    start_time: getUnixTime(new Date(startTs)),
+    end_time: getUnixTime(new Date(endTs)),
+  };
+
+  return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(
+    query
+  )}&omitMissingValues`;
+};

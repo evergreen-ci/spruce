@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { StoryObj } from "@storybook/react";
 import Dropdown from "components/Dropdown";
 import { TreeSelect, TreeSelectProps } from "components/TreeSelect";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 
 export default {
   component: TreeSelect,
-};
+} satisfies CustomMeta<typeof TreeSelect>;
 
-export const Default: StoryObj<TreeSelectProps> = {
+export const Default: CustomStoryObj<typeof TreeSelect> = {
   render: (args) => <BaseTreeSelect {...args} />,
 };
 
-export const WithDropdown: StoryObj<TreeSelectProps> = {
+export const WithDropdown: CustomStoryObj<typeof TreeSelect> = {
   render: (args) => (
     <Dropdown buttonText="Select">
       <BaseTreeSelect isDropdown {...args} />
@@ -19,7 +19,7 @@ export const WithDropdown: StoryObj<TreeSelectProps> = {
   ),
 };
 
-const BaseTreeSelect = (props) => {
+const BaseTreeSelect = (props: TreeSelectProps) => {
   const [value, setValue] = useState([]);
   return (
     <TreeSelect tData={treeData} state={value} onChange={setValue} {...props} />

@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
+import Cookies from "js-cookie";
 import { Outlet } from "react-router-dom";
 import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
@@ -9,6 +10,7 @@ import { FullPageLoad } from "components/Loading/FullPageLoad";
 import { PageGrid } from "components/styles/Layout";
 import { TaskStatusIconLegend } from "components/TaskStatusIconLegend";
 import WelcomeModal from "components/WelcomeModal";
+import { CY_DISABLE_NEW_USER_WELCOME_MODAL } from "constants/cookies";
 import { size } from "constants/tokens";
 import { newSpruceUser } from "constants/welcomeModalProps";
 import { useAuthStateContext } from "context/auth";
@@ -16,8 +18,12 @@ import { UserQuery, UserQueryVariables } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
 import { useUserSettings } from "hooks";
 import { useAnnouncementToast } from "hooks/useAnnouncementToast";
+import { isProduction } from "utils/environmentVariables";
 
 const { gray, white } = palette;
+
+const shouldDisableForTest =
+  !isProduction() && Cookies.get(CY_DISABLE_NEW_USER_WELCOME_MODAL) === "true";
 
 export const Layout: React.VFC = () => {
   const { isAuthenticated } = useAuthStateContext();
@@ -41,7 +47,7 @@ export const Layout: React.VFC = () => {
     <PageGrid>
       <Header />
       <Outlet />
-      {!hasUsedSpruceBefore && (
+      {!shouldDisableForTest && !hasUsedSpruceBefore && (
         <WelcomeModal
           title="Welcome to the New Evergreen UI!"
           param="hasUsedSpruceBefore"
