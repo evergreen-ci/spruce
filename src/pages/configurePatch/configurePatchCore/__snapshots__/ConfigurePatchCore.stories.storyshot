@@ -104,6 +104,11 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
                 >
                   Select Build Variants and Tasks
                 </p>
+                <p
+                  class="leafygreen-ui-110o31d"
+                >
+                  Use Shift + Click to edit multiple variants simultaneously.
+                </p>
                 <hr
                   class="css-qqg5h5-Divider eyj3qof0"
                 />
@@ -153,6 +158,11 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
                   class="leafygreen-ui-1miy0xp"
                 >
                   Select Downstream Tasks
+                </p>
+                <p
+                  class="leafygreen-ui-110o31d"
+                >
+                  Use Shift + Click to edit multiple variants simultaneously.
                 </p>
                 <hr
                   class="css-qqg5h5-Divider eyj3qof0"
