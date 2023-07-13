@@ -1,12 +1,12 @@
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { TaskCell, EmptyCell, LoadingCell, ColumnHeaderCell } from ".";
 
 export default {
   component: TaskCell,
   title: "components/HistoryTable/Cell",
-};
+} satisfies CustomMeta<typeof TaskCell>;
 
-export const TaskCellStory: StoryObj<typeof TaskCell> = {
+export const TaskCellStory: CustomStoryObj<typeof TaskCell> = {
   render: (args) => <TaskCell {...args} />,
   args: {
     task: {
@@ -18,22 +18,21 @@ export const TaskCellStory: StoryObj<typeof TaskCell> = {
     reactRouter: {
       path: "/task/:id",
       route: "/task/task-1",
-      params: { id: "task" },
     },
   },
 };
 
-export const EmptyCellStory: StoryObj<typeof EmptyCell> = {
+export const EmptyCellStory: CustomStoryObj<typeof EmptyCell> = {
   render: () => <EmptyCell />,
   args: {},
 };
 
-export const LoadingCellStory: StoryObj<typeof LoadingCell> = {
+export const LoadingCellStory: CustomStoryObj<typeof LoadingCell> = {
   render: (args) => <LoadingCell {...args} />,
   args: {},
 };
 
-export const ColumnHeaderCellStory: StoryObj<typeof ColumnHeaderCell> = {
+export const ColumnHeaderCellStory: CustomStoryObj<typeof ColumnHeaderCell> = {
   render: (args) => <ColumnHeaderCell {...args} />,
   args: {
     link: "https://spruce.mongodb.com",

@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+
 import PageSizeSelector from ".";
 
 export default {
   component: PageSizeSelector,
-};
+} satisfies CustomMeta<typeof PageSizeSelector>;
 
-export const Default: StoryObj<typeof PageSizeSelector> = {
+export const Default: CustomStoryObj<typeof PageSizeSelector> = {
   render: () => <PageSize />,
 };
 

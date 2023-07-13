@@ -5,17 +5,17 @@ import {
 } from "gql/generated/types";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import {
+  injectGlobalHighlightStyle,
+  removeGlobalHighlightStyle,
+} from "pages/commits/ActiveCommits/utils";
+import {
   renderWithRouterMatch as render,
   screen,
   userEvent,
   waitFor,
 } from "test_utils";
 import { ApolloMock } from "types/gql";
-import {
-  injectGlobalHighlightStyle,
-  removeGlobalHighlightStyle,
-} from "../utils";
-import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
+import { WaterfallTaskStatusIcon } from ".";
 
 const props = {
   displayName: "multiversion",
@@ -24,7 +24,7 @@ const props = {
   identifier: "ubuntu1604-multiversion",
 };
 
-jest.mock("../utils");
+jest.mock("../../utils");
 
 const Content = ({
   status,

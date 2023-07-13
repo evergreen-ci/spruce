@@ -1,14 +1,15 @@
 import styled from "@emotion/styled";
-import { StoryObj } from "@storybook/react";
 import { size } from "constants/tokens";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+
 import { PodStatus } from "types/pod";
 import PodStatusBadge from ".";
 
 export default {
   component: PodStatusBadge,
-};
+} satisfies CustomMeta<typeof PodStatusBadge>;
 
-export const Default: StoryObj<typeof PodStatusBadge> = {
+export const Default: CustomStoryObj<typeof PodStatusBadge> = {
   render: () => (
     <Container>
       {Object.keys(PodStatus).map((status) => (

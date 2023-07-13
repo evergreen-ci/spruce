@@ -1,7 +1,10 @@
+import { useState, useRef } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
+import { GuideCue } from "@leafygreen-ui/guide-cue";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
+import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import {
@@ -10,7 +13,12 @@ import {
   MetadataTitle,
 } from "components/MetadataCard";
 import { StyledLink, StyledRouterLink } from "components/styles";
-import { getDistroPageUrl } from "constants/externalResources";
+import { SEEN_HONEYCOMB_GUIDE_CUE } from "constants/cookies";
+import {
+  getDistroPageUrl,
+  getHoneycombTraceUrl,
+  getHoneycombSystemMetricsUrl,
+} from "constants/externalResources";
 import {
   getTaskQueueRoute,
   getTaskRoute,
@@ -88,9 +96,18 @@ export const Metadata: React.VFC<Props> = ({
   const projectIdentifier = project?.identifier;
   const { author, id: versionID } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;
+  const taskTrace = details?.traceID;
   const { id: podId } = pod ?? {};
   const isContainerTask = !!podId;
   const { metadataLinks } = annotation ?? {};
+  const [openGuideCue, setOpenGuideCue] = useState(
+    Cookies.get(SEEN_HONEYCOMB_GUIDE_CUE) !== "true"
+  );
+  const triggerRef = useRef(null);
+  const onHideCue = () => {
+    Cookies.set(SEEN_HONEYCOMB_GUIDE_CUE, "true", { expires: 365 });
+    setOpenGuideCue(false);
+  };
 
   return (
     <MetadataCard error={error} loading={loading}>
@@ -338,6 +355,45 @@ export const Metadata: React.VFC<Props> = ({
           ))}
         </DependsOnContainer>
       ) : null}
+      {taskTrace && startTime && finishTime && (
+        <MetadataItem>
+          <GuideCue
+            data-cy="migrate-cue"
+            open={openGuideCue}
+            setOpen={setOpenGuideCue}
+            title="Honeycomb!"
+            refEl={triggerRef}
+            numberOfSteps={1}
+            currentStep={1}
+            onPrimaryButtonClick={onHideCue}
+          >
+            Finished tasks link to Honeycomb.
+          </GuideCue>
+          <StyledLink
+            ref={triggerRef}
+            data-cy="task-trace-link"
+            href={getHoneycombTraceUrl(taskTrace, startTime)}
+            onClick={() => {
+              onHideCue();
+              taskAnalytics.sendEvent({ name: "Click Trace Link" });
+            }}
+            hideExternalIcon={false}
+          >
+            Honeycomb Trace
+          </StyledLink>
+          <StyledLink
+            data-cy="task-metrics-link"
+            href={getHoneycombSystemMetricsUrl(taskId, startTime, finishTime)}
+            onClick={() => {
+              onHideCue();
+              taskAnalytics.sendEvent({ name: "Click Trace Metrics Link" });
+            }}
+            hideExternalIcon={false}
+          >
+            Honeycomb System Metrics
+          </StyledLink>
+        </MetadataItem>
+      )}
     </MetadataCard>
   );
 };

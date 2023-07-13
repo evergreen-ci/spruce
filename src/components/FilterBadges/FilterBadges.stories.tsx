@@ -2,16 +2,17 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";
-import { StoryObj } from "@storybook/react";
 import { size } from "constants/tokens";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+
 import FilterBadges from ".";
 import { FilterBadgeType } from "./FilterBadge";
 
 export default {
   component: FilterBadges,
-};
+} satisfies CustomMeta<typeof FilterBadges>;
 
-export const Default: StoryObj<typeof FilterBadges> = {
+export const Default: CustomStoryObj<typeof FilterBadges> = {
   render: () => <BadgeContainer />,
 };
 

@@ -21,6 +21,7 @@ const production = {
   REACT_APP_NEW_RELIC_LICENSE_KEY: process.env.REACT_APP_NEW_RELIC_LICENSE_KEY,
   REACT_APP_NEW_RELIC_TRUST_KEY: process.env.REACT_APP_NEW_RELIC_TRUST_KEY,
   REACT_APP_DEPLOYS_EMAIL: process.env.REACT_APP_DEPLOYS_EMAIL,
+  REACT_APP_HONEYCOMB_BASE_URL: process.env.REACT_APP_HONEYCOMB_BASE_URL,
 };
 fs.writeFile(file, JSON.stringify({ production }), (err) => {
   if (err) {

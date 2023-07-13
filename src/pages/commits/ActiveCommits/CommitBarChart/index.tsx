@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
+import { commitChartHeight } from "pages/commits/constants";
+import { ColorCount } from "pages/commits/types";
 import { ChartTypes } from "types/commits";
-import { commitChartHeight } from "../constants";
+import { calculateBarHeight } from "../utils";
 import { CommitChartTooltip } from "./CommitChartTooltip";
-import { ColorCount, calculateBarHeight } from "./utils";
 
 interface Props {
   groupedTaskStats: ColorCount[];
@@ -12,7 +13,7 @@ interface Props {
   eta?: Date;
 }
 
-export const CommitChart: React.VFC<Props> = ({
+export const CommitBarChart: React.VFC<Props> = ({
   max,
   chartType,
   groupedTaskStats,

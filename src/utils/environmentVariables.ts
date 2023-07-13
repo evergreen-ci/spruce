@@ -111,6 +111,13 @@ export const getAppVersion = () => process.env.REACT_APP_VERSION || "";
 export const getReleaseStage = () => process.env.REACT_APP_RELEASE_STAGE || "";
 
 /**
+ * `getHoneycombBaseURL()` - Get the base Honeycomb URL from the environment variables
+ * @returns - Returns the base Honeycomb URL
+ */
+export const getHoneycombBaseURL = () =>
+  process.env.REACT_APP_HONEYCOMB_BASE_URL || "";
+
+/**
  * `getLoginDomain()` - Get the login domain depending on the release stage
  * @returns - Returns the login domain
  * in development, the dev server on port 3000 proxies the local evergreen server on port 9090

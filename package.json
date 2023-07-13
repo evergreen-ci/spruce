@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.104",
+  "version": "3.0.108",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -125,7 +125,7 @@
     "react-dom": "17.0.1",
     "react-router-dom": "6.11.1",
     "react-string-replace": "1.1.1",
-    "react-virtuoso": "^4.3.8",
+    "react-virtuoso": "^4.3.11",
     "react-window": "^1.8.9"
   },
   "devDependencies": {
@@ -173,7 +173,7 @@
     "babel-plugin-import-graphql": "^2.8.1",
     "babel-preset-react-app": "^10.0.1",
     "camelcase": "^6.1.0",
-    "cypress": "12.7.0",
+    "cypress": "12.17.1",
     "eslint": "8.19.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "8.8.0",

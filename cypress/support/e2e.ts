@@ -15,7 +15,11 @@
 
 // Import commands.js using ES2015 syntax:
 import "./commands";
-
+import {
+  CY_DISABLE_COMMITS_WELCOME_MODAL,
+  CY_DISABLE_NEW_USER_WELCOME_MODAL,
+  SLACK_NOTIFICATION_BANNER,
+} from "constants/cookies";
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
@@ -112,10 +116,11 @@ declare global {
 beforeEach(() => {
   cy.login();
   cy.setCookie(bannerCookie, "true");
-  cy.setCookie(slackBannerCookie, "true");
+  cy.setCookie(CY_DISABLE_COMMITS_WELCOME_MODAL, "true");
+  cy.setCookie(CY_DISABLE_NEW_USER_WELCOME_MODAL, "true");
   cy.setCookie(konamiCookie, "true");
+  cy.setCookie(SLACK_NOTIFICATION_BANNER, "true");
 });
 
 const bannerCookie = "This is an important notification";
-const slackBannerCookie = "has-closed-slack-banner";
 const konamiCookie = "seen-konami-code";

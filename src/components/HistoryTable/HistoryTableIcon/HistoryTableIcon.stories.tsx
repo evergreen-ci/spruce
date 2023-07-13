@@ -1,15 +1,15 @@
 import styled from "@emotion/styled";
 import { action } from "@storybook/addon-actions";
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { TaskStatus } from "types/task";
 import { HistoryTableIcon } from "./index";
 
 export default {
   title: "Components/HistoryTable/Icons",
   component: HistoryTableIcon,
-};
+} satisfies CustomMeta<typeof HistoryTableIcon>;
 
-export const ActiveIcons: StoryObj<typeof HistoryTableIcon> = {
+export const ActiveIcons: CustomStoryObj<typeof HistoryTableIcon> = {
   render: () => (
     <Container>
       {data.map(({ status, label }) => (
@@ -26,7 +26,7 @@ export const ActiveIcons: StoryObj<typeof HistoryTableIcon> = {
   ),
 };
 
-export const InactiveIcons: StoryObj<typeof HistoryTableIcon> = {
+export const InactiveIcons: CustomStoryObj<typeof HistoryTableIcon> = {
   render: () => (
     <Container>
       {data.map(({ status }) => (

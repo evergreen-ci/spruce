@@ -1,11 +1,8 @@
 import { ChartTypes, Commit, BuildVariantDict } from "types/commits";
-import {
-  ActiveCommitChart,
-  ActiveCommitLabel,
-  BuildVariantContainer,
-} from "./ActiveCommits";
-import { GroupedResult } from "./ActiveCommits/utils";
+import { ActiveCommitLabel, BuildVariantContainer } from "./ActiveCommits";
+import { CommitBarChart } from "./ActiveCommits/CommitBarChart";
 import { InactiveCommitsLine, InactiveCommitButton } from "./InactiveCommits";
+import { GroupedResult } from "./types";
 
 type ActiveCommitProps = {
   groupedResult: { [key: string]: GroupedResult };
@@ -28,7 +25,7 @@ const RenderCommitsChart: React.VFC<RenderCommitsChartProps> = ({
 
   if (version) {
     return (
-      <ActiveCommitChart
+      <CommitBarChart
         chartType={chartType}
         total={groupedResult[version.id].total}
         groupedTaskStats={groupedResult[version.id].stats}
