@@ -50,7 +50,7 @@ export const PluginsTab: React.VFC<TabProps> = ({
 const validate = ((formData, errors) => {
   const {
     buildBaronSettings: { ticketSearchProjects },
-    externalLinks: { patchMetadataPanelLink },
+    externalLinks: { metadataPanelLink },
   } = formData;
 
   // if a search project is defined, a create project must be defined, and vice versa
@@ -72,23 +72,23 @@ const validate = ((formData, errors) => {
     );
   }
 
-  const displayNameDefined = patchMetadataPanelLink.displayName.trim() !== "";
-  const urlTemplateDefined = patchMetadataPanelLink.urlTemplate.trim() !== "";
-  const requestersDefined = patchMetadataPanelLink.requesters.length > 0;
+  const displayNameDefined = metadataPanelLink.displayName.trim() !== "";
+  const urlTemplateDefined = metadataPanelLink.urlTemplate.trim() !== "";
+  const requestersDefined = metadataPanelLink.requesters.length > 0;
 
   if (displayNameDefined || urlTemplateDefined || requestersDefined) {
     if (!displayNameDefined) {
-      errors.externalLinks.patchMetadataPanelLink.displayName.addError(
+      errors.externalLinks.metadataPanelLink.displayName.addError(
         "You must specify a display name."
       );
     }
     if (!urlTemplateDefined) {
-      errors.externalLinks.patchMetadataPanelLink.urlTemplate.addError(
+      errors.externalLinks.metadataPanelLink.urlTemplate.addError(
         "You must specify a URL template."
       );
     }
     if (!requestersDefined) {
-      errors.externalLinks.patchMetadataPanelLink.requesters.addError(
+      errors.externalLinks.metadataPanelLink.requesters.addError(
         "You must specify requesters."
       );
     }

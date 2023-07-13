@@ -12,12 +12,12 @@ export const MultiSelect: React.VFC<EnumSpruceWidgetProps> = ({
   label,
   onChange,
   options,
-  value,
   rawErrors,
+  value,
 }) => {
   const { "data-cy": dataCy, elementWrapperCSS, enumOptions } = options;
 
-  const processedOptions = [
+  const dropdownOptions = [
     {
       title: "All",
       key: ALL_VALUE,
@@ -35,8 +35,8 @@ export const MultiSelect: React.VFC<EnumSpruceWidgetProps> = ({
     onChange(selected.filter((s) => s !== ALL_VALUE));
   };
 
-  const isAllSelected = value.length === enumOptions.length;
-  const selectedOptions = [...value, ...(isAllSelected ? [ALL_VALUE] : [])];
+  const includeAll = value.length === enumOptions.length;
+  const selectedOptions = [...value, ...(includeAll ? [ALL_VALUE] : [])];
 
   return (
     <ElementWrapper css={elementWrapperCSS}>
@@ -53,7 +53,7 @@ export const MultiSelect: React.VFC<EnumSpruceWidgetProps> = ({
           >
             <TreeSelect
               onChange={handleChange}
-              tData={processedOptions}
+              tData={dropdownOptions}
               state={selectedOptions}
               hasStyling={false}
             />

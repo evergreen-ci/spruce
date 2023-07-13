@@ -162,11 +162,11 @@ export const getFormSchema = (
         type: "object" as "object",
         title: "Metadata Link",
         properties: {
-          patchMetadataPanelLink: {
+          metadataPanelLink: {
             type: "object" as "object",
             title: "",
             description:
-              "Add a URL to the metadata panel for versions with the specified requester in this project. Include {version_id} in the URL template and it will be replaced by an actual version ID.",
+              "Add a URL to the metadata panel for versions with the specified requester. Include {version_id} in the URL template and it will be replaced by an actual version ID.",
             properties: {
               requesters: {
                 type: "array" as "array",
@@ -248,7 +248,7 @@ export const getFormSchema = (
     externalLinks: {
       "ui:rootFieldId": "externalLinks",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
-      patchMetadataPanelLink: {
+      metadataPanelLink: {
         requesters: {
           "ui:widget": MultiSelect,
           "ui:data-cy": "requesters-input",

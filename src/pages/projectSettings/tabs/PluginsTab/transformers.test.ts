@@ -45,7 +45,7 @@ const projectForm: FormState = {
     },
   },
   externalLinks: {
-    patchMetadataPanelLink: {
+    metadataPanelLink: {
       requesters: ["gitter_request", "patch_request"],
       displayName: "a link display name",
       urlTemplate: "https:/a-link-template-{version_id}.com",
@@ -102,7 +102,7 @@ const repoForm: FormState = {
     },
   },
   externalLinks: {
-    patchMetadataPanelLink: {
+    metadataPanelLink: {
       requesters: ["gitter_request", "patch_request"],
       displayName: "a link display name",
       urlTemplate: "https:/a-link-template-{version_id}.com",
