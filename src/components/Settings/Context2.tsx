@@ -11,23 +11,31 @@ import debounce from "lodash.debounce";
 import isEqual from "lodash.isequal";
 import { SpruceFormProps } from "components/SpruceForm/types";
 import { formToGqlMap } from "pages/projectSettings/tabs/transformers";
+
 import {
+  FormStateMap,
   FormToGqlFunction,
   TabDataProps,
 } from "pages/projectSettings/tabs/types";
-import { SettingsRoutes, FormStateMap } from "./types";
+import { SettingsRoutes } from "./types";
 
 type OnChangeParams<T extends SettingsRoutes> = Pick<
   Parameters<SpruceFormProps<FormStateMap[T]>["onChange"]>[0],
   "formData" | "errors"
 >;
 
-type TabState<T extends SettingsRoutes> = {
+// TypeScript has a bug preventing the formData type mapping from working correctly!
+// https://github.com/microsoft/TypeScript/issues/24085
+// For now, leave as-is and assert form state types when errors are thrown.
+export type TabState<
+  T extends SettingsRoutes,
+  U extends Record<T, any> = FormStateMap
+> = {
   [K in T]: {
     hasChanges: boolean;
     hasError: boolean;
     initialData: ReturnType<FormToGqlFunction<K>>;
-    formData: FormStateMap[K];
+    formData: U[K];
   };
 };
 
@@ -115,7 +123,9 @@ interface SettingsState<T extends SettingsRoutes> {
 const createSettingsContext = <T extends SettingsRoutes>() =>
   createContext<SettingsState<T> | null>(null);
 
-const useSettingsState = <T extends SettingsRoutes>(routes: T[]) => {
+const useSettingsState = <T extends SettingsRoutes>(
+  routes: T[]
+): SettingsState<T> => {
   const [state, dispatch] = useReducer(
     reducer,
     getDefaultTabState(routes, {
@@ -216,3 +226,4 @@ export {
   populateForm,
   useSettingsState,
 };
+export type { SettingsState };

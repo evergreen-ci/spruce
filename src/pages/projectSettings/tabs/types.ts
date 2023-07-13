@@ -6,34 +6,36 @@ import {
   ProjectSettingsQuery,
   RepoSettingsQuery,
 } from "gql/generated/types";
-// import * as access from "./AccessTab/types";
-import * as containers from "./ContainersTab/types";
-import * as general from "./GeneralTab/types";
-import * as githubCommitQueue from "./GithubCommitQueueTab/types";
-import * as notifications from "./NotificationsTab/types";
-import * as patchAliases from "./PatchAliasesTab/types";
-import * as periodicBuilds from "./PeriodicBuildsTab/types";
-import * as plugins from "./PluginsTab/types";
-import * as projectTriggers from "./ProjectTriggersTab/types";
+import { AccessFormState } from "./AccessTab/types";
+import { ContainersFormState } from "./ContainersTab/types";
+import { GeneralFormState } from "./GeneralTab/types";
+import { GCQFormState } from "./GithubCommitQueueTab/types";
+import { NotificationsFormState } from "./NotificationsTab/types";
+import { PatchAliasesFormState } from "./PatchAliasesTab/types";
+import { PeriodicBuildsFormState } from "./PeriodicBuildsTab/types";
+import { PluginsFormState } from "./PluginsTab/types";
+import { ProjectTriggersFormState } from "./ProjectTriggersTab/types";
 import { ProjectType } from "./utils";
-import * as variables from "./VariablesTab/types";
-import * as viewsAndFilters from "./ViewsAndFiltersTab/types";
-import * as virtualWorkstation from "./VirtualWorkstationTab/types";
+import { VariablesFormState } from "./VariablesTab/types";
+import { ViewsFormState } from "./ViewsAndFiltersTab/types";
+import { VWFormState } from "./VirtualWorkstationTab/types";
 
-export interface FormStateMap extends Record<WritableTabRoutes, any> {
-  [ProjectSettingsTabRoutes.General]: general.FormState;
-  // [ProjectSettingsTabRoutes.Access]: access.FormState;
-  [ProjectSettingsTabRoutes.Plugins]: plugins.FormState;
-  [ProjectSettingsTabRoutes.Variables]: variables.FormState;
-  [ProjectSettingsTabRoutes.GithubCommitQueue]: githubCommitQueue.FormState;
-  [ProjectSettingsTabRoutes.Notifications]: notifications.FormState;
-  [ProjectSettingsTabRoutes.PatchAliases]: patchAliases.FormState;
-  [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.FormState;
-  [ProjectSettingsTabRoutes.ProjectTriggers]: projectTriggers.FormState;
-  [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.FormState;
-  [ProjectSettingsTabRoutes.Containers]: containers.FormState;
-  [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.FormState;
-}
+export type FormStateMap = {
+  [T in WritableTabRoutes]: {
+    [ProjectSettingsTabRoutes.Access]: AccessFormState;
+    [ProjectSettingsTabRoutes.Containers]: ContainersFormState;
+    [ProjectSettingsTabRoutes.General]: GeneralFormState;
+    [ProjectSettingsTabRoutes.GithubCommitQueue]: GCQFormState;
+    [ProjectSettingsTabRoutes.Notifications]: NotificationsFormState;
+    [ProjectSettingsTabRoutes.PatchAliases]: PatchAliasesFormState;
+    [ProjectSettingsTabRoutes.PeriodicBuilds]: PeriodicBuildsFormState;
+    [ProjectSettingsTabRoutes.Plugins]: PluginsFormState;
+    [ProjectSettingsTabRoutes.ProjectTriggers]: ProjectTriggersFormState;
+    [ProjectSettingsTabRoutes.Variables]: VariablesFormState;
+    [ProjectSettingsTabRoutes.ViewsAndFilters]: ViewsFormState;
+    [ProjectSettingsTabRoutes.VirtualWorkstation]: VWFormState;
+  }[T];
+};
 
 export type GetFormSchema = (...any) => {
   fields: Record<string, Field>;

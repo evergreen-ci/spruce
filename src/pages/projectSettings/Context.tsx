@@ -3,6 +3,7 @@ import {
   createSettingsContext,
   hasUnsavedTab,
   populateForm,
+  SettingsState,
   useSettingsState,
 } from "components/Settings/Context2";
 import { Writable, WritableTabRoutes } from "./tabs/types";
@@ -12,7 +13,7 @@ const Context = createSettingsContext<WritableTabRoutes>();
 
 const ProjectSettingsProvider = ({ children }) => {
   const { getTab, saveTab, setInitialData, tabs, updateForm } =
-    useSettingsState(routes);
+    useSettingsState<WritableTabRoutes>(routes);
 
   return (
     <Context.Provider
@@ -30,7 +31,7 @@ const ProjectSettingsProvider = ({ children }) => {
   );
 };
 
-const useProjectSettingsContext = () => {
+const useProjectSettingsContext = (): SettingsState<WritableTabRoutes> => {
   const context = useContext(Context);
   if (context === undefined) {
     throw new Error(

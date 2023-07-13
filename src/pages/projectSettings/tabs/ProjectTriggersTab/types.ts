@@ -12,7 +12,7 @@ type FormTrigger = {
   displayTitle?: string;
 };
 
-export type FormState = {
+export type ProjectTriggersFormState = {
   triggersOverride: boolean;
   triggers: FormTrigger[];
   repoData?: {
@@ -22,7 +22,7 @@ export type FormState = {
 };
 
 export type TabProps = {
-  projectData?: FormState;
+  projectData?: ProjectTriggersFormState;
   projectType: ProjectType;
-  repoData?: FormState;
+  repoData?: ProjectTriggersFormState;
 };

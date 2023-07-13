@@ -1,6 +1,6 @@
 import { ProjectType } from "../utils";
 
-export interface FormState {
+export interface ContainersFormState {
   containerSizeDefinitions: {
     variables: {
       cpu: number;
@@ -12,7 +12,7 @@ export interface FormState {
 
 export type TabProps = {
   identifier: string;
-  projectData?: FormState;
+  projectData?: ContainersFormState;
   projectType: ProjectType;
-  repoData?: FormState;
+  repoData?: ContainersFormState;
 };

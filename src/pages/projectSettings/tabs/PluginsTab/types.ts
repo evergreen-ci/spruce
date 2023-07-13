@@ -1,6 +1,6 @@
 import { ProjectType } from "../utils";
 
-export interface FormState {
+export interface PluginsFormState {
   performanceSettings: {
     perfEnabled: boolean | null;
   };
@@ -30,7 +30,7 @@ export interface FormState {
 }
 
 export type TabProps = {
-  projectData?: FormState;
+  projectData?: PluginsFormState;
   projectType: ProjectType;
-  repoData?: FormState;
+  repoData?: PluginsFormState;
 };

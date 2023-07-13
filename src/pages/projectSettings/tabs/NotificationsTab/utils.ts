@@ -1,6 +1,6 @@
 import { NotificationMethods } from "types/subscription";
 import { Unpacked } from "types/utils";
-import { FormState, Notification } from "./types";
+import { NotificationsFormState, Notification } from "./types";
 
 export const getTargetForMethod = (
   method: string,
@@ -23,7 +23,7 @@ export const getTargetForMethod = (
 };
 
 export const hasInitialError = (
-  subscription: Unpacked<FormState["subscriptions"]>
+  subscription: Unpacked<NotificationsFormState["subscriptions"]>
 ) => {
   const { subscriptionData } = subscription;
   const trigger = subscriptionData.event.eventSelect;

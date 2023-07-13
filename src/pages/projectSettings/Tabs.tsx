@@ -46,7 +46,7 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
   const repoId = repoData?.projectRef?.id;
   const identifier = projectData?.projectRef?.identifier;
 
-  const tabData = useMemo(
+  const tabData: TabDataProps = useMemo(
     () => getTabData(projectData, projectType, repoData),
     [projectData, projectType, repoData]
   );

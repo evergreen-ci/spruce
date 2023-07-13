@@ -9,11 +9,11 @@ import {
 import { ProjectType, findDuplicateIndices } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { PromoteVariablesModal } from "./PromoteVariablesModal";
-import { FormState, TabProps } from "./types";
+import { VariablesFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Variables;
 
-const getInitialFormState = (projectData, repoData) => {
+const getInitialFormState = (projectData, repoData): VariablesFormState => {
   if (!projectData) return repoData;
   if (repoData) return { ...projectData, repoData };
   return projectData;
@@ -26,7 +26,10 @@ export const VariablesTab: React.VFC<TabProps> = ({
   repoData,
 }) => {
   const { getTab, updateForm } = useProjectSettingsContext();
-  const { formData } = getTab(tab);
+  // @ts-expect-error - see TabState for details.
+  const { formData }: { formData: VariablesFormState } = getTab(
+    ProjectSettingsTabRoutes.Variables
+  );
   const [modalOpen, setModalOpen] = useState(false);
 
   const initialFormState = useMemo(
@@ -97,4 +100,4 @@ const validate = ((formData, errors) => {
   });
 
   return errors;
-}) satisfies ValidateProps<FormState>;
+}) satisfies ValidateProps<VariablesFormState>;
