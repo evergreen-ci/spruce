@@ -11,6 +11,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
   projectRef: {
     externalLinks: [
       {
+        requesters: ["gitter_request", "patch_request"],
         displayName: "a link display name",
         urlTemplate: "https:/a-link-template-{version_id}.com",
       },
@@ -149,6 +150,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
   projectRef: {
     externalLinks: [
       {
+        requesters: ["gitter_request", "patch_request"],
         displayName: "a link display name",
         urlTemplate: "https:/a-link-template-{version_id}.com",
       },

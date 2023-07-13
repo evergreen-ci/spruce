@@ -152,6 +152,7 @@ const menuButtonStyleOverrides = css`
 
 const StyledButton = styled<ButtonType>(Button)`
   ${menuButtonStyleOverrides}
+  background: white;
   width: 100%;
 `;
 
