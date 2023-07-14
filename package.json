@@ -208,6 +208,7 @@
     "serve-handler": "^6.1.5",
     "storybook": "7.0.21",
     "storybook-addon-apollo-client": "^4.1.4",
+    "ts-node": "10.9.1",
     "typescript": "5.0.3",
     "vite": "4.3.9",
     "vite-plugin-checker": "0.6.0",

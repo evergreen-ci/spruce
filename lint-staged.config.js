@@ -7,4 +7,6 @@ module.exports = {
     "yarn prettier --parser graphql",
   ], // For GraphQL files, run eslint and prettier
   "*.{ts,tsx}": () => "tsc -p tsconfig.json --noEmit", // For TypeScript files, run tsc
+  "*": () =>
+    "./node_modules/.bin/ts-node ./scripts/download-generate-and-diff-latest-schema-types.ts",
 };
