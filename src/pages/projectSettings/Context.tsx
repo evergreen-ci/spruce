@@ -9,14 +9,17 @@ import { formToGqlMap } from "./tabs/transformers";
 import { FormStateMap, Writable, WritableTabRoutes } from "./tabs/types";
 
 const routes = Object.values(Writable);
-const Context = createSettingsContext<WritableTabRoutes, FormStateMap>();
+const ProjectSettingsContext = createSettingsContext<
+  WritableTabRoutes,
+  FormStateMap
+>();
 
 const ProjectSettingsProvider = ({ children }) => {
   const { getTab, saveTab, setInitialData, tabs, updateForm } =
     useSettingsState(routes, formToGqlMap);
 
   return (
-    <Context.Provider
+    <ProjectSettingsContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         getTab,
@@ -27,22 +30,22 @@ const ProjectSettingsProvider = ({ children }) => {
       }}
     >
       {children}
-    </Context.Provider>
+    </ProjectSettingsContext.Provider>
   );
 };
 
 const useProjectSettingsContext = () => {
-  const context = useContext(Context);
+  const context = useContext(ProjectSettingsContext);
   if (context === undefined) {
     throw new Error(
-      "useSettingsContext must be used within a ProjectSettingsProvider"
+      "useProjectSettingsContext must be used within a ProjectSettingsProvider"
     );
   }
   return context;
 };
 
-const useHasUnsavedTab = hasUnsavedTab(Context);
-const usePopulateForm = populateForm(Context);
+const useHasUnsavedTab = hasUnsavedTab(ProjectSettingsContext);
+const usePopulateForm = populateForm(ProjectSettingsContext);
 
 export {
   ProjectSettingsProvider,

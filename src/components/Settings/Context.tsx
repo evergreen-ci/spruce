@@ -12,47 +12,55 @@ import isEqual from "lodash.isequal";
 import { SpruceFormProps } from "components/SpruceForm/types";
 import { FormToGqlFunction, SettingsRoutes } from "./types";
 
-type OnChangeParams<T extends SettingsRoutes, U extends Record<T, any>> = Pick<
-  Parameters<SpruceFormProps<U[T]>["onChange"]>[0],
+type OnChangeParams<
+  T extends SettingsRoutes,
+  FormStateMap extends Record<T, any>
+> = Pick<
+  Parameters<SpruceFormProps<FormStateMap[T]>["onChange"]>[0],
   "formData" | "errors"
 >;
 
 // TypeScript has a bug preventing the formData type mapping from working correctly.
 // https://github.com/microsoft/TypeScript/issues/24085
 // For now, leave as-is and assert form state types when errors are thrown.
-export type TabState<T extends SettingsRoutes, U extends Record<T, any>> = {
+export type TabState<
+  T extends SettingsRoutes,
+  FormStateMap extends Record<T, any>
+> = {
   [K in T]: {
     hasChanges: boolean;
     hasError: boolean;
     initialData: ReturnType<FormToGqlFunction<K>>;
-    formData: U[K];
+    formData: FormStateMap[K];
   };
 };
 
-type Action<T extends SettingsRoutes, U extends Record<T, any>> =
+type Action<T extends SettingsRoutes, FormStateMap extends Record<T, any>> =
   | {
       type: "updateForm";
       tab: T;
-      formData: OnChangeParams<T, U>["formData"];
-      errors: OnChangeParams<T, U>["errors"];
+      formData: OnChangeParams<T, FormStateMap>["formData"];
+      errors: OnChangeParams<T, FormStateMap>["errors"];
     }
   | { type: "saveTab"; tab: T }
   | {
       type: "setHasChanges";
       tab: T;
-      formData: U[T];
+      formData: FormStateMap[T];
     }
   | {
       type: "setInitialData";
-      // TODO: Why won't T work instead of string?
-      tabData: Record<string, TabState<T, U>[T]["formData"]>;
+      tabData: Record<T, TabState<T, FormStateMap>[T]["formData"]>;
     };
 
 const reducer =
-  <T extends SettingsRoutes, U extends Record<T, any>>(
-    getTransformer: Record<T, (...any) => any>
+  <T extends SettingsRoutes, FormStateMap extends Record<T, any>>(
+    getTransformer: Record<T, FormToGqlFunction<T>>
   ) =>
-  (state: TabState<T, U>, action: Action<T, U>): TabState<T, U> => {
+  (
+    state: TabState<T, FormStateMap>,
+    action: Action<T, FormStateMap>
+  ): TabState<T, FormStateMap> => {
     switch (action.type) {
       case "saveTab":
         return state[action.tab].hasChanges
@@ -103,23 +111,31 @@ const reducer =
     }
   };
 
-interface SettingsState<T extends SettingsRoutes, U extends Record<T, any>> {
-  tabs: TabState<T, U>;
+interface SettingsState<
+  T extends SettingsRoutes,
+  FormStateMap extends Record<T, any>
+> {
+  tabs: TabState<T, FormStateMap>;
   saveTab: (tab: T) => void;
-  getTab: (tab: T) => TabState<T, U>[T];
-  updateForm: (tab: T) => (e: OnChangeParams<T, U>) => void;
-  setInitialData: (tabData: Record<T, TabState<T, U>[T]["formData"]>) => void;
+  getTab: (tab: T) => TabState<T, FormStateMap>[T];
+  updateForm: (tab: T) => (e: OnChangeParams<T, FormStateMap>) => void;
+  setInitialData: (
+    tabData: Record<T, TabState<T, FormStateMap>[T]["formData"]>
+  ) => void;
 }
 
 const createSettingsContext = <
   T extends SettingsRoutes,
-  U extends Record<T, any>
->() => createContext<SettingsState<T, U> | null>(null);
+  FormStateMap extends Record<T, any>
+>() => createContext<SettingsState<T, FormStateMap> | null>(null);
 
-const useSettingsState = <T extends SettingsRoutes, U extends Record<T, any>>(
+const useSettingsState = <
+  T extends SettingsRoutes,
+  FormStateMap extends Record<T, any>
+>(
   routes: T[],
   getTransformer: Record<T, (...any) => any>
-): SettingsState<T, U> => {
+): SettingsState<T, FormStateMap> => {
   const [state, dispatch] = useReducer(
     reducer(getTransformer),
     getDefaultTabState(routes, {
@@ -139,20 +155,23 @@ const useSettingsState = <T extends SettingsRoutes, U extends Record<T, any>>(
   );
 
   const updateForm = ((tab) =>
-    ({ formData, errors = [] }: OnChangeParams<T, U>) => {
+    ({ formData, errors = [] }: OnChangeParams<T, FormStateMap>) => {
       setHasChanges(tab, formData);
       dispatch({ type: "updateForm", tab, formData, errors });
-    }) satisfies SettingsState<T, U>["updateForm"];
+    }) satisfies SettingsState<T, FormStateMap>["updateForm"];
 
   const saveTab = ((tab) => {
     dispatch({ type: "saveTab", tab });
-  }) satisfies SettingsState<T, U>["saveTab"];
+  }) satisfies SettingsState<T, FormStateMap>["saveTab"];
 
-  const getTab = ((tab) => state[tab]) satisfies SettingsState<T, U>["getTab"];
+  const getTab = ((tab) => state[tab]) satisfies SettingsState<
+    T,
+    FormStateMap
+  >["getTab"];
 
   const setInitialData = useCallback((tabData) => {
     dispatch({ type: "setInitialData", tabData });
-  }, []) satisfies SettingsState<T, U>["setInitialData"];
+  }, []) satisfies SettingsState<T, FormStateMap>["setInitialData"];
 
   return {
     updateForm,
@@ -163,10 +182,13 @@ const useSettingsState = <T extends SettingsRoutes, U extends Record<T, any>>(
   };
 };
 
-const populateForm = <T extends SettingsRoutes, U extends Record<T, any>>(
-  context: Context<SettingsState<T, U>>
+const populateForm = <
+  T extends SettingsRoutes,
+  FormStateMap extends Record<T, any>
+>(
+  context: Context<SettingsState<T, FormStateMap>>
 ) =>
-  function usePopulateForm(formData: U[T], tab: T): void {
+  function usePopulateForm(formData: FormStateMap[T], tab: T): void {
     const { getTab, saveTab, updateForm } = useContext(context);
     const { hasChanges } = getTab(tab);
 
@@ -180,8 +202,11 @@ const populateForm = <T extends SettingsRoutes, U extends Record<T, any>>(
     }, [formData]); // eslint-disable-line react-hooks/exhaustive-deps
   };
 
-const hasUnsavedTab = <T extends SettingsRoutes, U extends Record<T, any>>(
-  context: Context<SettingsState<T, U>>
+const hasUnsavedTab = <
+  T extends SettingsRoutes,
+  FormStateMap extends Record<T, any>
+>(
+  context: Context<SettingsState<T, FormStateMap>>
 ) =>
   function useHasUnsavedTab(): {
     hasUnsaved: boolean;
@@ -191,7 +216,10 @@ const hasUnsavedTab = <T extends SettingsRoutes, U extends Record<T, any>>(
     const unsavedTabs = useMemo(
       () =>
         Object.entries(tabs)
-          .filter(([, tabData]) => (tabData as TabState<T, U>[T]).hasChanges)
+          .filter(
+            ([, tabData]) =>
+              (tabData as TabState<T, FormStateMap>[T]).hasChanges
+          )
           .map(([tab]) => tab as T),
       [tabs]
     );
@@ -202,10 +230,13 @@ const hasUnsavedTab = <T extends SettingsRoutes, U extends Record<T, any>>(
     };
   };
 
-const getDefaultTabState = <T extends SettingsRoutes, U extends Record<T, any>>(
+const getDefaultTabState = <
+  T extends SettingsRoutes,
+  FormStateMap extends Record<T, any>
+>(
   routes: SettingsRoutes[],
-  defaultValue: unknown
-): TabState<T, U> =>
+  defaultValue: TabState<T, FormStateMap>[T]
+): TabState<T, FormStateMap> =>
   Object.assign(
     {},
     ...Object.values(routes).map((route) => ({
