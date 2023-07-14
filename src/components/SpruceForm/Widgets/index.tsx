@@ -8,6 +8,7 @@ import {
   LeafyGreenCheckBox,
   LeafyGreenSegmentedControl,
 } from "./LeafyGreenWidgets";
+import { MultiSelect } from "./MultiSelect";
 
 const widgets = {
   DateTimeWidget: DateTimePicker,
@@ -18,6 +19,7 @@ const widgets = {
   SelectWidget: LeafyGreenSelect,
   RadioWidget: LeafyGreenRadio,
   RadioBoxWidget: LeafyGreenRadioBox,
+  MultiSelectWidget: MultiSelect,
 };
 
 export default widgets;

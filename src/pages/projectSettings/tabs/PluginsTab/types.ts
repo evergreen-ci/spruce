@@ -22,7 +22,8 @@ export interface PluginsFormState {
     };
   };
   externalLinks: {
-    patchMetadataPanelLink: {
+    metadataPanelLink: {
+      requesters: string[];
       displayName: string;
       urlTemplate: string;
     };
