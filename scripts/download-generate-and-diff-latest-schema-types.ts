@@ -99,35 +99,31 @@ const downloadAndGenerate = async () => {
 const diffTypes = async () => {
   try {
     const latestGeneratedTypesFileName = await downloadAndGenerate();
-    [latestGeneratedTypesFileName, localGeneratedTypesFileName].forEach(
-      (fileName) => {
-        if (!fs.existsSync(fileName)) {
-          console.error(
-            `Types file located at ${fileName} does not exist. Validation failed.`
-          );
-          process.exit(1);
-        }
+    const filenames = [
+      latestGeneratedTypesFileName,
+      localGeneratedTypesFileName,
+    ];
+    filenames.forEach((filename) => {
+      if (!fs.existsSync(filename)) {
+        console.error(
+          `Types file located at ${filename} does not exist. Validation failed.`
+        );
+        process.exit(1);
       }
+    });
+    const [file1, file2] = filenames.map((filename) =>
+      fs.readFileSync(filename)
     );
-    const localGeneratedTypesFileContents = fs.readFileSync(
-      localGeneratedTypesFileName
-    );
-    const latestGeneratedTypesFileContents = fs.readFileSync(
-      latestGeneratedTypesFileName
-    );
-    if (
-      !localGeneratedTypesFileContents.equals(latestGeneratedTypesFileContents)
-    ) {
+    if (!file1.equals(file2)) {
       console.error(
         "The codegen task will fail in CI. Run 'yarn codegen' against the latest Evergreen code."
       );
       process.exit(1);
-    } else {
-      process.exit(0);
     }
-  } catch (e) {
+    process.exit(0);
+  } catch (error) {
     console.error(
-      `An issue occured validating the generated GQL types file: ${e}`
+      `An issue occured validating the generated GQL types file: ${error}`
     );
     process.exit(1);
   }
