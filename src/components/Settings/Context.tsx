@@ -10,7 +10,6 @@ import {
 import debounce from "lodash.debounce";
 import isEqual from "lodash.isequal";
 import { SpruceFormProps } from "components/SpruceForm/types";
-import { TabDataProps } from "pages/projectSettings/tabs/types";
 import { FormToGqlFunction, SettingsRoutes } from "./types";
 
 type OnChangeParams<T extends SettingsRoutes, U extends Record<T, any>> = Pick<
@@ -45,11 +44,14 @@ type Action<T extends SettingsRoutes, U extends Record<T, any>> =
     }
   | {
       type: "setInitialData";
-      tabData: TabDataProps;
+      // TODO: Why won't T work instead of string?
+      tabData: Record<string, TabState<T, U>[T]["formData"]>;
     };
 
 const reducer =
-  <T extends SettingsRoutes, U extends Record<T, any>>(getTransformer) =>
+  <T extends SettingsRoutes, U extends Record<T, any>>(
+    getTransformer: Record<T, (...any) => any>
+  ) =>
   (state: TabState<T, U>, action: Action<T, U>): TabState<T, U> => {
     switch (action.type) {
       case "saveTab":
@@ -91,9 +93,7 @@ const reducer =
             ...s,
             [tab]: {
               ...s[tab],
-              initialData: getTransformer[tab](
-                data.projectData ?? data.repoData
-              ),
+              initialData: getTransformer[tab](data),
             },
           }),
           state
@@ -108,7 +108,7 @@ interface SettingsState<T extends SettingsRoutes, U extends Record<T, any>> {
   saveTab: (tab: T) => void;
   getTab: (tab: T) => TabState<T, U>[T];
   updateForm: (tab: T) => (e: OnChangeParams<T, U>) => void;
-  setInitialData: (tabData: TabDataProps) => void;
+  setInitialData: (tabData: Record<T, TabState<T, U>[T]["formData"]>) => void;
 }
 
 const createSettingsContext = <
@@ -138,22 +138,21 @@ const useSettingsState = <T extends SettingsRoutes, U extends Record<T, any>>(
     []
   );
 
-  const updateForm =
-    (tab: T) =>
+  const updateForm = ((tab) =>
     ({ formData, errors = [] }: OnChangeParams<T, U>) => {
       setHasChanges(tab, formData);
       dispatch({ type: "updateForm", tab, formData, errors });
-    };
+    }) satisfies SettingsState<T, U>["updateForm"];
 
-  const saveTab = (tab: T) => {
+  const saveTab = ((tab) => {
     dispatch({ type: "saveTab", tab });
-  };
+  }) satisfies SettingsState<T, U>["saveTab"];
 
-  const getTab = (tab: T) => state[tab];
+  const getTab = ((tab) => state[tab]) satisfies SettingsState<T, U>["getTab"];
 
-  const setInitialData = useCallback((tabData: TabDataProps) => {
+  const setInitialData = useCallback((tabData) => {
     dispatch({ type: "setInitialData", tabData });
-  }, []);
+  }, []) satisfies SettingsState<T, U>["setInitialData"];
 
   return {
     updateForm,
@@ -163,6 +162,7 @@ const useSettingsState = <T extends SettingsRoutes, U extends Record<T, any>>(
     tabs: state,
   };
 };
+
 const populateForm = <T extends SettingsRoutes, U extends Record<T, any>>(
   context: Context<SettingsState<T, U>>
 ) =>

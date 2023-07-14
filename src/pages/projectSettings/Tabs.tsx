@@ -22,7 +22,7 @@ import {
   VirtualWorkstationTab,
 } from "./tabs/index";
 import { gqlToFormMap } from "./tabs/transformers";
-import { TabDataProps } from "./tabs/types";
+import { FormStateMap, TabDataProps, WritableTabRoutes } from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
 
 type ProjectSettings = ProjectSettingsQuery["projectSettings"];
@@ -52,7 +52,17 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
   );
 
   useEffect(() => {
-    setInitialData(tabData);
+    const projectOrRepoData: {
+      [T in WritableTabRoutes]: FormStateMap[T];
+    } = Object.entries(tabData).reduce(
+      (obj, [route, val]) => ({
+        ...obj,
+        [route]: val.projectData ?? val.repoData,
+      }),
+      {} as Record<WritableTabRoutes, any>
+    );
+
+    setInitialData(projectOrRepoData);
   }, [setInitialData, tabData]);
 
   return (

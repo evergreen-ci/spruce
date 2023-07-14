@@ -1,7 +1,7 @@
 import { AjvError } from "@rjsf/core";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { TabDataProps } from "pages/projectSettings/tabs/types";
+import { WritableTabRoutes } from "pages/projectSettings/tabs/types";
 import { ProjectSettingsProvider, useProjectSettingsContext } from "./Context";
 
 describe("projectSettingsContext", () => {
@@ -26,10 +26,9 @@ describe("projectSettingsContext", () => {
     act(() => {
       result.current.setInitialData({
         [ProjectSettingsTabRoutes.Variables]: {
-          projectData: { vars: [] },
-          repoData: null,
+          vars: [],
         },
-      } as TabDataProps);
+      } as Record<WritableTabRoutes, any>);
     });
 
     act(() => {
@@ -66,20 +65,17 @@ describe("projectSettingsContext", () => {
     act(() => {
       result.current.setInitialData({
         [ProjectSettingsTabRoutes.Variables]: {
-          projectData: null,
-          repoData: {
-            vars: [
-              {
-                varName: "test_name",
-                varValue: "test_value",
-                isPrivate: false,
-                isDisabled: false,
-                isAdminOnly: false,
-              },
-            ],
-          },
+          vars: [
+            {
+              varName: "test_name",
+              varValue: "test_value",
+              isPrivate: false,
+              isDisabled: false,
+              isAdminOnly: false,
+            },
+          ],
         },
-      } as TabDataProps);
+      } as Record<WritableTabRoutes, any>);
     });
 
     act(() => {
@@ -116,10 +112,9 @@ describe("projectSettingsContext", () => {
     act(() => {
       result.current.setInitialData({
         [ProjectSettingsTabRoutes.Variables]: {
-          projectData: { vars: [] },
-          repoData: null,
+          vars: [],
         },
-      } as TabDataProps);
+      } as Record<WritableTabRoutes, any>);
     });
 
     act(() => {
