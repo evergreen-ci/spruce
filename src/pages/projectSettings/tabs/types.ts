@@ -62,14 +62,10 @@ export type FormToGqlFunction<T extends WritableTabRoutes> = (
   id?: string
 ) => ProjectSettingsInput;
 
-export const readOnlyTabs = [ProjectSettingsTabRoutes.EventLog] as const;
-
-type ReadOnlyTabs = (typeof readOnlyTabs)[number];
-
 const { EventLog, ...Writable } = ProjectSettingsTabRoutes;
 export { Writable };
 
-export type WritableTabRoutes = Exclude<ProjectSettingsTabRoutes, ReadOnlyTabs>;
+export type WritableTabRoutes = (typeof Writable)[keyof typeof Writable];
 
 export const projectOnlyTabs: Set<ProjectSettingsTabRoutes> = new Set([
   ProjectSettingsTabRoutes.ViewsAndFilters,

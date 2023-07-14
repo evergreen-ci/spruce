@@ -34,9 +34,7 @@ export const gqlToFormMap: {
   [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.gqlToForm,
 };
 
-export const formToGqlMap: {
-  [T in WritableTabRoutes]: FormToGqlFunction<T>;
-} = {
+export const formToGqlMap = {
   [ProjectSettingsTabRoutes.General]: general.formToGql,
   [ProjectSettingsTabRoutes.Access]: access.formToGql,
   [ProjectSettingsTabRoutes.Plugins]: plugins.formToGql,

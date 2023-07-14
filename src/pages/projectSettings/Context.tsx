@@ -3,17 +3,17 @@ import {
   createSettingsContext,
   hasUnsavedTab,
   populateForm,
-  SettingsState,
   useSettingsState,
-} from "components/Settings/Context2";
-import { Writable, WritableTabRoutes } from "./tabs/types";
+} from "components/Settings/Context";
+import { formToGqlMap } from "./tabs/transformers";
+import { FormStateMap, Writable, WritableTabRoutes } from "./tabs/types";
 
 const routes = Object.values(Writable);
-const Context = createSettingsContext<WritableTabRoutes>();
+const Context = createSettingsContext<WritableTabRoutes, FormStateMap>();
 
 const ProjectSettingsProvider = ({ children }) => {
   const { getTab, saveTab, setInitialData, tabs, updateForm } =
-    useSettingsState<WritableTabRoutes>(routes);
+    useSettingsState(routes, formToGqlMap);
 
   return (
     <Context.Provider
@@ -31,7 +31,7 @@ const ProjectSettingsProvider = ({ children }) => {
   );
 };
 
-const useProjectSettingsContext = (): SettingsState<WritableTabRoutes> => {
+const useProjectSettingsContext = () => {
   const context = useContext(Context);
   if (context === undefined) {
     throw new Error(

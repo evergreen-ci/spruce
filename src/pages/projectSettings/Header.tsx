@@ -8,7 +8,11 @@ import {
 import { size } from "constants/tokens";
 import { getTabTitle } from "./getTabTitle";
 import { HeaderButtons } from "./HeaderButtons";
-import { projectOnlyTabs, readOnlyTabs, WritableTabRoutes } from "./tabs/types";
+import {
+  projectOnlyTabs,
+  Writable,
+  WritableTabRoutes,
+} from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
 
 interface Props {
@@ -25,7 +29,7 @@ export const Header: React.VFC<Props> = ({
   tab,
 }) => {
   const { title } = getTabTitle(tab);
-  const saveable = !(readOnlyTabs as ReadonlyArray<string>).includes(tab);
+  const saveable = Object.values(Writable).includes(tab as WritableTabRoutes);
   const showRepoLink = !projectOnlyTabs.has(tab);
 
   return (

@@ -1,6 +1,6 @@
-/* import {
+import {
+  Context,
   createContext,
-  Reducer,
   useCallback,
   useContext,
   useEffect,
@@ -10,128 +10,119 @@
 import debounce from "lodash.debounce";
 import isEqual from "lodash.isequal";
 import { SpruceFormProps } from "components/SpruceForm/types";
-import { ProjectSettingsTabRoutes } from "constants/routes";
-import { formToGqlMap } from "pages/projectSettings/tabs/transformers";
-import {
-  FormStateMap,
-  FormToGqlFunction,
-  TabDataProps,
-  WritableTabRoutes,
-} from "pages/projectSettings/tabs/types";
+import { TabDataProps } from "pages/projectSettings/tabs/types";
+import { FormToGqlFunction, SettingsRoutes } from "./types";
 
-type SettingsRoutes = WritableTabRoutes;
-
-type OnChangeParams<T extends SettingsRoutes> = Pick<
-  Parameters<SpruceFormProps<FormStateMap[T]>["onChange"]>[0],
+type OnChangeParams<T extends SettingsRoutes, U extends Record<T, any>> = Pick<
+  Parameters<SpruceFormProps<U[T]>["onChange"]>[0],
   "formData" | "errors"
 >;
 
-type TabState<T extends SettingsRoutes> = {
+// TypeScript has a bug preventing the formData type mapping from working correctly.
+// https://github.com/microsoft/TypeScript/issues/24085
+// For now, leave as-is and assert form state types when errors are thrown.
+export type TabState<T extends SettingsRoutes, U extends Record<T, any>> = {
   [K in T]: {
     hasChanges: boolean;
     hasError: boolean;
-    initialData: ReturnType<FormToGqlFunction<T>> | null;
-    formData: FormStateMap[K] | null;
+    initialData: ReturnType<FormToGqlFunction<K>>;
+    formData: U[K];
   };
 };
 
-type Action<T extends SettingsRoutes> =
+type Action<T extends SettingsRoutes, U extends Record<T, any>> =
   | {
       type: "updateForm";
       tab: T;
-      formData: OnChangeParams<T>["formData"];
-      errors: OnChangeParams<T>["errors"];
+      formData: OnChangeParams<T, U>["formData"];
+      errors: OnChangeParams<T, U>["errors"];
     }
   | { type: "saveTab"; tab: T }
   | {
       type: "setHasChanges";
       tab: T;
-      formData: FormStateMap[T];
+      formData: U[T];
     }
   | {
       type: "setInitialData";
       tabData: TabDataProps;
     };
 
-const reducer = <T extends SettingsRoutes>(
-  state: TabState<T>,
-  action: Action<T>
-): TabState<T> => {
-  switch (action.type) {
-    case "saveTab":
-      return state[action.tab].hasChanges
-        ? {
-            ...state,
-            [action.tab]: {
-              ...state[action.tab],
-              hasChanges: false,
-              hasError: false,
-            },
-          }
-        : state;
-    case "updateForm":
-      return {
-        ...state,
-        [action.tab]: {
-          ...state[action.tab],
-          formData: action.formData,
-          hasError: !!action.errors.length,
-        },
-      };
-    case "setHasChanges": {
-      const formToGql: FormToGqlFunction<T> = formToGqlMap[action.tab];
-      return {
-        ...state,
-        [action.tab]: {
-          ...state[action.tab],
-          hasChanges: !isEqual(
-            state[action.tab].initialData,
-            formToGql(action.formData)
-          ),
-        },
-      };
-    }
-    case "setInitialData":
-      return Object.entries(action.tabData).reduce(
-        (s, [tab, data]) => ({
-          ...s,
-          [tab]: {
-            ...s[tab],
-            initialData: formToGqlMap[tab](data.projectData ?? data.repoData),
+const reducer =
+  <T extends SettingsRoutes, U extends Record<T, any>>(getTransformer) =>
+  (state: TabState<T, U>, action: Action<T, U>): TabState<T, U> => {
+    switch (action.type) {
+      case "saveTab":
+        return state[action.tab].hasChanges
+          ? {
+              ...state,
+              [action.tab]: {
+                ...state[action.tab],
+                hasChanges: false,
+                hasError: false,
+              },
+            }
+          : state;
+      case "updateForm":
+        return {
+          ...state,
+          [action.tab]: {
+            ...state[action.tab],
+            formData: action.formData,
+            hasError: !!action.errors.length,
           },
-        }),
-        state
-      );
-    default:
-      throw new Error("Unknown action type");
-  }
-};
+        };
+      case "setHasChanges": {
+        const formToGql = getTransformer[action.tab];
+        return {
+          ...state,
+          [action.tab]: {
+            ...state[action.tab],
+            hasChanges: !isEqual(
+              state[action.tab].initialData,
+              formToGql(action.formData)
+            ),
+          },
+        };
+      }
+      case "setInitialData":
+        return Object.entries(action.tabData).reduce(
+          (s, [tab, data]) => ({
+            ...s,
+            [tab]: {
+              ...s[tab],
+              initialData: getTransformer[tab](
+                data.projectData ?? data.repoData
+              ),
+            },
+          }),
+          state
+        );
+      default:
+        throw new Error("Unknown action type");
+    }
+  };
 
-interface ProjectSettingsState<T extends SettingsRoutes> {
-  tabs: TabState<T>;
+interface SettingsState<T extends SettingsRoutes, U extends Record<T, any>> {
+  tabs: TabState<T, U>;
   saveTab: (tab: T) => void;
-  getTab: (tab: T) => TabState<T>[T];
-  updateForm: (tab: T) => (e: OnChangeParams<T>) => void;
+  getTab: (tab: T) => TabState<T, U>[T];
+  updateForm: (tab: T) => (e: OnChangeParams<T, U>) => void;
   setInitialData: (tabData: TabDataProps) => void;
 }
 
-export const createSettingsContext = <T extends SettingsRoutes>() =>
-  createContext<ProjectSettingsState<T> | null>(null);
+const createSettingsContext = <
+  T extends SettingsRoutes,
+  U extends Record<T, any>
+>() => createContext<SettingsState<T, U> | null>(null);
 
-const ProjectSettingsContext = createSettingsContext();
-
-type ProviderProps<T> = {
-  children: React.ReactNode;
-  routes: T;
-};
-
-const SettingsProvider = <T extends SettingsRoutes>({
-  children,
-  routes,
-}: ProviderProps<T>) => {
+const useSettingsState = <T extends SettingsRoutes, U extends Record<T, any>>(
+  routes: T[],
+  getTransformer: Record<T, (...any) => any>
+): SettingsState<T, U> => {
   const [state, dispatch] = useReducer(
-    reducer,
-    getDefaultTabState<T>(routes, {
+    reducer(getTransformer),
+    getDefaultTabState(routes, {
       hasChanges: false,
       hasError: false,
       initialData: null,
@@ -149,7 +140,7 @@ const SettingsProvider = <T extends SettingsRoutes>({
 
   const updateForm =
     (tab: T) =>
-    ({ formData, errors = [] }: OnChangeParams<T>) => {
+    ({ formData, errors = [] }: OnChangeParams<T, U>) => {
       setHasChanges(tab, formData);
       dispatch({ type: "updateForm", tab, formData, errors });
     };
@@ -164,84 +155,69 @@ const SettingsProvider = <T extends SettingsRoutes>({
     dispatch({ type: "setInitialData", tabData });
   }, []);
 
-  return (
-    <ProjectSettingsContext.Provider
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={{
-        updateForm,
-        saveTab,
-        getTab,
-        setInitialData,
-        tabs: state,
-      }}
-    >
-      {children}
-    </ProjectSettingsContext.Provider>
-  );
-};
-
-const useProjectSettingsContext = <
-  T extends SettingsRoutes
->(): ProjectSettingsState<T> => {
-  const context = useContext(ProjectSettingsContext);
-  if (context === undefined) {
-    throw new Error(
-      "useProjectSettingsContext must be used within a ProjectSettingsProvider"
-    );
-  }
-  return context;
-};
-
-const usePopulateForm = <T extends SettingsRoutes>(
-  formData: FormStateMap[T],
-  tab: T
-): void => {
-  const { getTab, saveTab, updateForm } = useProjectSettingsContext();
-  const { hasChanges } = getTab(tab);
-
-  useEffect(() => {
-    // Ensure form does not have unsaved changes before writing.
-    // This preserves the unsaved form state when switching between project settings tabs.
-    if (!hasChanges) {
-      updateForm(tab)({ formData, errors: [] });
-      saveTab(tab);
-    }
-  }, [formData]); // eslint-disable-line react-hooks/exhaustive-deps
-};
-
-const useHasUnsavedTab = (): {
-  hasUnsaved: boolean;
-  unsavedTabs: ProjectSettingsTabRoutes[];
-} => {
-  const { tabs } = useProjectSettingsContext();
-  const unsavedTabs = useMemo(
-    () =>
-      Object.entries(tabs)
-        .filter(([, tabData]) => tabData.hasChanges)
-        .map(([tab]) => tab as ProjectSettingsTabRoutes),
-    [tabs]
-  );
-
   return {
-    unsavedTabs,
-    hasUnsaved: !!unsavedTabs.length,
+    updateForm,
+    saveTab,
+    getTab,
+    setInitialData,
+    tabs: state,
   };
 };
+const populateForm = <T extends SettingsRoutes, U extends Record<T, any>>(
+  context: Context<SettingsState<T, U>>
+) =>
+  function usePopulateForm(formData: U[T], tab: T): void {
+    const { getTab, saveTab, updateForm } = useContext(context);
+    const { hasChanges } = getTab(tab);
 
-const getDefaultTabState = <T extends SettingsRoutes>(
-  routes: T,
-  defaultValue: TabState<T>[T]
-): TabState<T> =>
+    useEffect(() => {
+      // Ensure form does not have unsaved changes before writing.
+      // This preserves the unsaved form state when switching between project settings tabs.
+      if (!hasChanges) {
+        updateForm(tab)({ formData, errors: [] });
+        saveTab(tab);
+      }
+    }, [formData]); // eslint-disable-line react-hooks/exhaustive-deps
+  };
+
+const hasUnsavedTab = <T extends SettingsRoutes, U extends Record<T, any>>(
+  context: Context<SettingsState<T, U>>
+) =>
+  function useHasUnsavedTab(): {
+    hasUnsaved: boolean;
+    unsavedTabs: T[];
+  } {
+    const { tabs } = useContext(context);
+    const unsavedTabs = useMemo(
+      () =>
+        Object.entries(tabs)
+          .filter(([, tabData]) => (tabData as TabState<T, U>[T]).hasChanges)
+          .map(([tab]) => tab as T),
+      [tabs]
+    );
+
+    return {
+      unsavedTabs,
+      hasUnsaved: !!unsavedTabs.length,
+    };
+  };
+
+const getDefaultTabState = <T extends SettingsRoutes, U extends Record<T, any>>(
+  routes: SettingsRoutes[],
+  defaultValue: unknown
+): TabState<T, U> =>
   Object.assign(
     {},
-    ...Object.values(routes).map((route: T) => ({
+    ...Object.values(routes).map((route) => ({
       [route]: defaultValue,
     }))
   );
 
 export {
-  SettingsProvider,
-  useHasUnsavedTab,
-  usePopulateForm,
-  useProjectSettingsContext,
-}; */
+  createSettingsContext,
+  getDefaultTabState,
+  hasUnsavedTab,
+  populateForm,
+  useSettingsState,
+};
+export type { SettingsState };
