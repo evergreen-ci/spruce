@@ -29,7 +29,6 @@ import { ProjectSettingsProvider } from "./Context";
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
 import { getTabTitle } from "./getTabTitle";
 import { ProjectSettingsTabs } from "./Tabs";
-import { Writable } from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
 
 const { validateObjectId } = validators;

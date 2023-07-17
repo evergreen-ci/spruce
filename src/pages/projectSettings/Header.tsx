@@ -8,11 +8,7 @@ import {
 import { size } from "constants/tokens";
 import { getTabTitle } from "./getTabTitle";
 import { HeaderButtons } from "./HeaderButtons";
-import {
-  projectOnlyTabs,
-  Writable,
-  WritableTabRoutes,
-} from "./tabs/types";
+import { projectOnlyTabs, Writable, WritableTabRoutes } from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
 
 interface Props {
