@@ -48,6 +48,8 @@ export const getFormSchema = (
     "ui:showLabel": false,
   };
 
+  const isCQTestProject = identifier === "github-merge-queue-sandbox";
+
   const errorStyling = sectionHasError(versionControlEnabled, projectType);
 
   return {
@@ -221,7 +223,7 @@ export const getFormSchema = (
                     enabled: {
                       enum: [true],
                     },
-                    ...(!isProduction() && {
+                    ...((!isProduction() || isCQTestProject) && {
                       mergeQueueTitle: {
                         title: "Merge Queue",
                         type: "null",
