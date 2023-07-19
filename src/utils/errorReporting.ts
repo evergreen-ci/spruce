@@ -1,4 +1,5 @@
 import Bugsnag, { BreadcrumbType } from "@bugsnag/js";
+import { addBreadcrumb } from "@sentry/react";
 import { sendError as bugsnagSendError } from "components/ErrorHandling/Bugsnag";
 import { sendError as sentrySendError } from "components/ErrorHandling/Sentry";
 import { isProductionBuild } from "./environmentVariables";
@@ -44,6 +45,11 @@ const leaveBreadcrumb = (
     console.debug({ message, metadata, type });
   } else {
     Bugsnag.leaveBreadcrumb(message, metadata, type);
+    addBreadcrumb({
+      message,
+      type,
+      data: metadata,
+    });
   }
 };
 
