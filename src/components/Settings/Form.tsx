@@ -10,6 +10,7 @@ type FormProps<
   T extends SettingsRoutes,
   FormStateMap extends Record<T, any>
 > = {
+  disabled?: boolean;
   formSchema: ReturnType<GetFormSchema>;
   state: SettingsState<T, FormStateMap>;
   tab: T;
@@ -20,6 +21,7 @@ export const Form = <
   T extends SettingsRoutes,
   FormStateMap extends Record<T, any>
 >({
+  disabled,
   formSchema,
   state,
   tab,
@@ -33,6 +35,7 @@ export const Form = <
 
   return (
     <SpruceForm
+      disabled={disabled}
       fields={fields}
       formData={formData}
       onChange={updateForm(tab)}

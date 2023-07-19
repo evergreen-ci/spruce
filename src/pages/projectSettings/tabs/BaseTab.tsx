@@ -4,6 +4,7 @@ import { usePopulateForm, useProjectSettingsContext } from "../Context";
 import { FormStateMap, WritableProjectSettingsType } from "./types";
 
 type BaseTabProps<T extends WritableProjectSettingsType> = {
+  disabled?: boolean;
   initialFormState: FormStateMap[T];
   formSchema: ReturnType<GetFormSchema>;
   tab: T;
@@ -12,19 +13,17 @@ type BaseTabProps<T extends WritableProjectSettingsType> = {
 
 export const BaseTab = <T extends WritableProjectSettingsType>({
   initialFormState,
-  formSchema,
   tab,
-  validate,
+  ...rest
 }: BaseTabProps<T>) => {
   const state = useProjectSettingsContext();
   usePopulateForm(initialFormState, tab);
 
   return (
     <Form<WritableProjectSettingsType, FormStateMap>
-      formSchema={formSchema}
+      {...rest}
       state={state}
       tab={tab}
-      validate={validate}
     />
   );
 };

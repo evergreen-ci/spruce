@@ -92,6 +92,7 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
         </Banner>
       )}
       <BaseTab
+        disabled={!githubWebhooksEnabled}
         formSchema={formSchema}
         initialFormState={initialFormState}
         tab={tab}
