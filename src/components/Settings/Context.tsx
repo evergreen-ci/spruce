@@ -182,7 +182,7 @@ const useSettingsState = <
   };
 };
 
-const populateForm = <
+const getUsePopulateForm = <
   T extends SettingsRoutes,
   FormStateMap extends Record<T, any>
 >(
@@ -202,7 +202,7 @@ const populateForm = <
     }, [formData]); // eslint-disable-line react-hooks/exhaustive-deps
   };
 
-const hasUnsavedTab = <
+const getUseHasUnsavedTab = <
   T extends SettingsRoutes,
   FormStateMap extends Record<T, any>
 >(
@@ -234,12 +234,12 @@ const getDefaultTabState = <
   T extends SettingsRoutes,
   FormStateMap extends Record<T, any>
 >(
-  routes: SettingsRoutes[],
+  routes: T[],
   defaultValue: TabState<T, FormStateMap>[T]
 ): TabState<T, FormStateMap> =>
   Object.assign(
     {},
-    ...Object.values(routes).map((route) => ({
+    ...routes.map((route) => ({
       [route]: defaultValue,
     }))
   );
@@ -247,8 +247,8 @@ const getDefaultTabState = <
 export {
   createSettingsContext,
   getDefaultTabState,
-  hasUnsavedTab,
-  populateForm,
+  getUsePopulateForm,
+  getUseHasUnsavedTab,
   useSettingsState,
 };
 export type { SettingsState };

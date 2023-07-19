@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import {
   createSettingsContext,
-  hasUnsavedTab,
-  populateForm,
+  getUseHasUnsavedTab,
+  getUsePopulateForm,
+  SettingsState,
   useSettingsState,
 } from "components/Settings/Context";
 import { formToGqlMap } from "./tabs/transformers";
@@ -38,7 +39,10 @@ const ProjectSettingsProvider = ({ children }) => {
   );
 };
 
-const useProjectSettingsContext = () => {
+const useProjectSettingsContext = (): SettingsState<
+  WritableProjectSettingsType,
+  FormStateMap
+> => {
   const context = useContext(ProjectSettingsContext);
   if (context === undefined) {
     throw new Error(
@@ -48,8 +52,8 @@ const useProjectSettingsContext = () => {
   return context;
 };
 
-const useHasUnsavedTab = hasUnsavedTab(ProjectSettingsContext);
-const usePopulateForm = populateForm(ProjectSettingsContext);
+const useHasUnsavedTab = getUseHasUnsavedTab(ProjectSettingsContext);
+const usePopulateForm = getUsePopulateForm(ProjectSettingsContext);
 
 export {
   ProjectSettingsProvider,
