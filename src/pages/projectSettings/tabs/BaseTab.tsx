@@ -1,4 +1,5 @@
-import { SpruceForm, ValidateProps } from "components/SpruceForm";
+import { Form } from "components/Settings/Form";
+import { ValidateProps } from "components/SpruceForm";
 import { usePopulateForm, useProjectSettingsContext } from "../Context";
 import {
   FormStateMap,
@@ -19,24 +20,14 @@ export const BaseTab = <T extends WritableProjectSettingsType>({
   tab,
   validate,
 }: BaseTabProps<T>) => {
-  const { getTab, updateForm } = useProjectSettingsContext();
-  const { formData } = getTab(tab);
-
+  const state = useProjectSettingsContext();
   usePopulateForm(initialFormState, tab);
-
-  const onChange = updateForm(tab);
-
-  const { fields, schema, uiSchema } = formSchema;
-  if (!formData) return null;
-
   return (
-    <SpruceForm
-      fields={fields}
-      formData={formData}
-      onChange={onChange}
-      schema={schema}
-      uiSchema={uiSchema}
-      validate={validate as any}
+    <Form<WritableProjectSettingsType, FormStateMap>
+      formSchema={formSchema}
+      state={state}
+      tab={tab}
+      validate={validate}
     />
   );
 };
