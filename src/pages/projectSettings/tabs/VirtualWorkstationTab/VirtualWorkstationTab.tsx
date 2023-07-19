@@ -1,10 +1,6 @@
 import { useMemo } from "react";
-import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import {
-  usePopulateForm,
-  useProjectSettingsContext,
-} from "pages/projectSettings/Context";
+import { BaseTab } from "../BaseTab";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";
@@ -31,18 +27,12 @@ export const VirtualWorkstationTab: React.VFC<TabProps> = ({
   projectType,
   repoData,
 }) => {
-  const { getTab, updateForm } = useProjectSettingsContext();
-  const { formData } = getTab(tab);
-
   const initialFormState = useMemo(
     () => getInitialFormState(projectData, repoData),
     [projectData, repoData]
   );
-  usePopulateForm(initialFormState, tab);
 
-  const onChange = updateForm(tab);
-
-  const { fields, schema, uiSchema } = useMemo(
+  const formSchema = useMemo(
     () =>
       getFormSchema(
         identifier,
@@ -52,15 +42,11 @@ export const VirtualWorkstationTab: React.VFC<TabProps> = ({
     [identifier, projectType, repoData]
   );
 
-  if (!formData) return null;
-
   return (
-    <SpruceForm
-      fields={fields}
-      formData={formData}
-      onChange={onChange}
-      schema={schema}
-      uiSchema={uiSchema}
+    <BaseTab
+      formSchema={formSchema}
+      initialFormState={initialFormState}
+      tab={tab}
     />
   );
 };

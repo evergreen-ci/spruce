@@ -1,11 +1,8 @@
 import { useMemo } from "react";
-import { SpruceForm, ValidateProps } from "components/SpruceForm";
+import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { invalidProjectTriggerSubscriptionCombinations } from "constants/triggers";
-import {
-  usePopulateForm,
-  useProjectSettingsContext,
-} from "pages/projectSettings/Context";
+import { BaseTab } from "../BaseTab";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { NotificationsFormState, TabProps } from "./types";
@@ -17,15 +14,9 @@ export const NotificationsTab: React.VFC<TabProps> = ({
   projectType,
   repoData,
 }) => {
-  const { getTab, updateForm } = useProjectSettingsContext();
-  const { formData } = getTab(tab);
-
   const initialFormState = projectData || repoData;
-  usePopulateForm(initialFormState, tab);
 
-  const onChange = updateForm(tab);
-
-  const { fields, schema, uiSchema } = useMemo(
+  const formSchema = useMemo(
     () =>
       getFormSchema(
         projectType === ProjectType.AttachedProject ? repoData : null,
@@ -33,16 +24,13 @@ export const NotificationsTab: React.VFC<TabProps> = ({
       ),
     [projectType, repoData]
   );
-  if (!formData) return null;
 
   return (
-    <SpruceForm
-      fields={fields}
-      formData={formData}
-      onChange={onChange}
-      schema={schema}
-      uiSchema={uiSchema}
-      validate={validate as any}
+    <BaseTab
+      formSchema={formSchema}
+      initialFormState={initialFormState}
+      tab={tab}
+      validate={validate}
     />
   );
 };

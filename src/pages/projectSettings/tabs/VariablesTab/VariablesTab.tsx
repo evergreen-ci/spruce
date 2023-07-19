@@ -1,11 +1,9 @@
 import { useMemo, useState } from "react";
 import Button, { Size } from "@leafygreen-ui/button";
-import { SpruceForm, ValidateProps } from "components/SpruceForm";
+import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import {
-  usePopulateForm,
-  useProjectSettingsContext,
-} from "pages/projectSettings/Context";
+import { useProjectSettingsContext } from "pages/projectSettings/Context";
+import { BaseTab } from "../BaseTab";
 import { ProjectType, findDuplicateIndices } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { PromoteVariablesModal } from "./PromoteVariablesModal";
@@ -25,7 +23,7 @@ export const VariablesTab: React.VFC<TabProps> = ({
   projectType,
   repoData,
 }) => {
-  const { getTab, updateForm } = useProjectSettingsContext();
+  const { getTab } = useProjectSettingsContext();
   // @ts-expect-error - see TabState for details.
   const { formData }: { formData: VariablesFormState } = getTab(
     ProjectSettingsTabRoutes.Variables
@@ -36,31 +34,25 @@ export const VariablesTab: React.VFC<TabProps> = ({
     () => getInitialFormState(projectData, repoData),
     [projectData, repoData]
   );
-  usePopulateForm(initialFormState, tab);
 
-  const onChange = updateForm(tab);
-
-  const ModalButton: React.VFC = () => (
-    <Button
-      data-cy="promote-vars-button"
-      onClick={() => setModalOpen(true)}
-      size={Size.Small}
-    >
-      Move variables to repo
-    </Button>
-  );
-
-  const { fields, schema, uiSchema } = useMemo(
+  const formSchema = useMemo(
     () =>
       getFormSchema(
         projectType,
         projectType === ProjectType.AttachedProject ? repoData : null,
-        projectType === ProjectType.AttachedProject ? <ModalButton /> : null
+        projectType === ProjectType.AttachedProject ? (
+          <Button
+            data-cy="promote-vars-button"
+            disabled={!formData.vars.length}
+            onClick={() => setModalOpen(true)}
+            size={Size.Small}
+          >
+            Move variables to repo
+          </Button>
+        ) : null
       ),
-    [projectType, repoData]
+    [formData.vars, projectType, repoData]
   );
-
-  if (!formData) return null;
 
   return (
     <>
@@ -78,13 +70,11 @@ export const VariablesTab: React.VFC<TabProps> = ({
           }))}
         />
       )}
-      <SpruceForm
-        fields={fields}
-        formData={formData}
-        onChange={onChange}
-        schema={schema}
-        uiSchema={uiSchema}
-        validate={validate as any}
+      <BaseTab
+        formSchema={formSchema}
+        initialFormState={initialFormState}
+        tab={tab}
+        validate={validate}
       />
     </>
   );
