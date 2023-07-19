@@ -35,23 +35,24 @@ export const VariablesTab: React.VFC<TabProps> = ({
     [projectData, repoData]
   );
 
+  const ModalButton: React.VFC = () => (
+    <Button
+      data-cy="promote-vars-button"
+      onClick={() => setModalOpen(true)}
+      size={Size.Small}
+    >
+      Move variables to repo
+    </Button>
+  );
+
   const formSchema = useMemo(
     () =>
       getFormSchema(
         projectType,
         projectType === ProjectType.AttachedProject ? repoData : null,
-        projectType === ProjectType.AttachedProject ? (
-          <Button
-            data-cy="promote-vars-button"
-            disabled={!formData.vars.length}
-            onClick={() => setModalOpen(true)}
-            size={Size.Small}
-          >
-            Move variables to repo
-          </Button>
-        ) : null
+        projectType === ProjectType.AttachedProject ? <ModalButton /> : null
       ),
-    [formData.vars, projectType, repoData]
+    [projectType, repoData]
   );
 
   return (

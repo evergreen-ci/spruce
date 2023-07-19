@@ -27,17 +27,15 @@ export const Form = <
 }: FormProps<T, FormStateMap>) => {
   const { getTab, updateForm } = state;
   const { formData } = getTab(tab);
-
-  const onChange = updateForm(tab);
-
   const { fields, schema, uiSchema } = formSchema;
+
   if (!formData) return null;
 
   return (
     <SpruceForm
       fields={fields}
       formData={formData}
-      onChange={onChange}
+      onChange={updateForm(tab)}
       schema={schema}
       uiSchema={uiSchema}
       validate={validate as any}
