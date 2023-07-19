@@ -384,7 +384,7 @@ export type ExternalLinkForMetadata = {
 
 export type ExternalLinkInput = {
   displayName: Scalars["String"];
-  requesters?: InputMaybe<Array<Scalars["String"]>>;
+  requesters: Array<Scalars["String"]>;
   urlTemplate: Scalars["String"];
 };
 
