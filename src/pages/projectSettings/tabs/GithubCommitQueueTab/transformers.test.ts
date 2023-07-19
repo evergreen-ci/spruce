@@ -6,7 +6,7 @@ import {
 import { data } from "../testData";
 import { alias, ProjectType } from "../utils";
 import { formToGql, gqlToForm, mergeProjectRepo } from "./transformers";
-import { FormState } from "./types";
+import { GCQFormState } from "./types";
 
 const { GitTagSpecifier, VariantTaskSpecifier } = alias;
 const { projectBase, repoBase } = data;
@@ -39,7 +39,7 @@ describe("project data", () => {
   });
 });
 
-const projectForm: FormState = {
+const projectForm: GCQFormState = {
   github: {
     prTestingEnabled: null,
     manualPrTestingEnabled: null,
@@ -187,7 +187,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
   ],
 };
 
-const repoForm: FormState = {
+const repoForm: GCQFormState = {
   github: {
     prTestingEnabled: false,
     manualPrTestingEnabled: false,
@@ -295,7 +295,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
   ],
 };
 
-const mergedForm: FormState = {
+const mergedForm: GCQFormState = {
   github: {
     prTestingEnabled: null,
     manualPrTestingEnabled: null,

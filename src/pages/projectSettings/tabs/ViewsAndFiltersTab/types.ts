@@ -1,7 +1,7 @@
 import { ProjectHealthView } from "gql/generated/types";
 import { ProjectType } from "../utils";
 
-export interface FormState {
+export interface ViewsFormState {
   view: {
     projectHealthView: ProjectHealthView;
   };
@@ -15,6 +15,6 @@ export interface FormState {
 
 export type TabProps = {
   identifier: string;
-  projectData?: FormState;
+  projectData?: ViewsFormState;
   projectType: ProjectType;
 };

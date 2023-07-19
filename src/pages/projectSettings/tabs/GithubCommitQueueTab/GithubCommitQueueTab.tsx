@@ -16,14 +16,14 @@ import { ProjectType } from "../utils";
 import { ErrorType, getVersionControlError } from "./getErrors";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";
-import { FormState, TabProps } from "./types";
+import { GCQFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.GithubCommitQueue;
 
 const getInitialFormState = (
-  projectData: FormState,
-  repoData: FormState
-): FormState => {
+  projectData: GCQFormState,
+  repoData: GCQFormState
+): GCQFormState => {
   if (!projectData) return repoData;
   if (repoData) {
     return mergeProjectRepo(projectData, repoData);
@@ -41,7 +41,8 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
   versionControlEnabled,
 }) => {
   const { getTab, updateForm } = useProjectSettingsContext();
-  const { formData } = getTab(tab);
+  // @ts-expect-error - see TabState for details.
+  const { formData }: { formData: GCQFormState } = getTab(tab);
 
   const { data } = useQuery<
     GithubProjectConflictsQuery,
@@ -112,7 +113,7 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
 
 const validate = (
   projectType: ProjectType,
-  repoData: FormState,
+  repoData: GCQFormState,
   versionControlEnabled: boolean
 ) =>
   ((formData, errors) => {
@@ -179,4 +180,4 @@ const validate = (
     }
 
     return errors;
-  }) satisfies ValidateProps<FormState>;
+  }) satisfies ValidateProps<GCQFormState>;

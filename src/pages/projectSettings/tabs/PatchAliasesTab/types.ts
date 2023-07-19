@@ -5,7 +5,7 @@ export enum TaskSpecifier {
   VariantTask = "VARIANT_TASK",
 }
 
-export interface FormState {
+export interface PatchAliasesFormState {
   patchAliases: {
     aliasesOverride: boolean;
     aliases: AliasFormType[];
@@ -30,7 +30,7 @@ export interface FormState {
 }
 
 export type TabProps = {
-  projectData?: FormState;
+  projectData?: PatchAliasesFormState;
   projectType: ProjectType;
-  repoData?: FormState;
+  repoData?: PatchAliasesFormState;
 };

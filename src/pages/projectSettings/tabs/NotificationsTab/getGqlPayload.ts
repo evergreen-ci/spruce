@@ -4,7 +4,7 @@ import { NotificationMethods } from "types/subscription";
 import { ExtraField } from "types/triggers";
 import { Unpacked } from "types/utils";
 import {
-  FormState,
+  NotificationsFormState,
   Notification,
   FormExtraFields,
   FormRegexSelector,
@@ -70,7 +70,9 @@ const extraFieldsFormToGql = (
 
 export const getGqlPayload =
   (projectId: string) =>
-  (subscription: Unpacked<FormState["subscriptions"]>): SubscriptionInput => {
+  (
+    subscription: Unpacked<NotificationsFormState["subscriptions"]>
+  ): SubscriptionInput => {
     const { subscriptionData } = subscription;
     const event = projectTriggers[subscriptionData.event.eventSelect];
     const {

@@ -23,7 +23,7 @@ import { GetFormSchema } from "../types";
 import { alias, form, ProjectType } from "../utils";
 import { githubConflictErrorStyling, sectionHasError } from "./getErrors";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
-import { FormState } from "./types";
+import { GCQFormState } from "./types";
 
 const { green } = palette;
 
@@ -35,10 +35,10 @@ export const getFormSchema = (
   identifier: string,
   projectType: ProjectType,
   githubWebhooksEnabled: boolean,
-  formData: FormState,
+  formData: GCQFormState,
   githubProjectConflicts: GithubProjectConflicts,
   versionControlEnabled: boolean,
-  repoData?: FormState
+  repoData?: GCQFormState
 ): ReturnType<GetFormSchema> => {
   const overrideStyling = {
     "ui:widget":
