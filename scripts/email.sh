@@ -73,7 +73,7 @@ fi
 # If this is a revert, then only include the currently deployed commit
 if [ "$IS_REVERT" == 'true' ]
 then
-  echo "parsley-$(git rev-parse HEAD)" > body.txt
+  echo "spruce-$(git rev-parse HEAD)" > body.txt
 else
   if [ "$PREVIOUS_DEPLOYED_COMMIT" == '' ]
   then
@@ -111,7 +111,7 @@ esac
 echo "Commits Deployed:"
 cat body.txt
 
-TITLE="Parsley Deploy to $CURRENT_COMMIT_HASH"
+TITLE="Spruce Deploy to $CURRENT_COMMIT_HASH"
 BODY_HTML=$(cat body.txt)"<br /> <br /><b> To revert to previous version rerun task from previous release tag ($PREVIOUS_TAG)</b>"
 DATE=$(date +'%Y-%m-%d')
 
