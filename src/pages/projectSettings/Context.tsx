@@ -6,11 +6,15 @@ import {
   useSettingsState,
 } from "components/Settings/Context";
 import { formToGqlMap } from "./tabs/transformers";
-import { FormStateMap, Writable, WritableTabRoutes } from "./tabs/types";
+import {
+  FormStateMap,
+  WritableProjectSettingsTabs,
+  WritableProjectSettingsType,
+} from "./tabs/types";
 
-const routes = Object.values(Writable);
+const routes = Object.values(WritableProjectSettingsTabs);
 const ProjectSettingsContext = createSettingsContext<
-  WritableTabRoutes,
+  WritableProjectSettingsType,
   FormStateMap
 >();
 

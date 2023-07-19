@@ -1,7 +1,7 @@
 import { AjvError } from "@rjsf/core";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { WritableTabRoutes } from "pages/projectSettings/tabs/types";
+import { WritableProjectSettingsType } from "pages/projectSettings/tabs/types";
 import { ProjectSettingsProvider, useProjectSettingsContext } from "./Context";
 
 describe("projectSettingsContext", () => {
@@ -28,7 +28,7 @@ describe("projectSettingsContext", () => {
         [ProjectSettingsTabRoutes.Variables]: {
           vars: [],
         },
-      } as Record<WritableTabRoutes, any>);
+      } as Record<WritableProjectSettingsType, any>);
     });
 
     act(() => {
@@ -75,7 +75,7 @@ describe("projectSettingsContext", () => {
             },
           ],
         },
-      } as Record<WritableTabRoutes, any>);
+      } as Record<WritableProjectSettingsType, any>);
     });
 
     act(() => {
@@ -114,7 +114,7 @@ describe("projectSettingsContext", () => {
         [ProjectSettingsTabRoutes.Variables]: {
           vars: [],
         },
-      } as Record<WritableTabRoutes, any>);
+      } as Record<WritableProjectSettingsType, any>);
     });
 
     act(() => {

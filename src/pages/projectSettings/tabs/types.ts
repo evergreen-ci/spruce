@@ -21,7 +21,7 @@ import { ViewsFormState } from "./ViewsAndFiltersTab/types";
 import { VWFormState } from "./VirtualWorkstationTab/types";
 
 export type FormStateMap = {
-  [T in WritableTabRoutes]: {
+  [T in WritableProjectSettingsType]: {
     [ProjectSettingsTabRoutes.Access]: AccessFormState;
     [ProjectSettingsTabRoutes.Containers]: ContainersFormState;
     [ProjectSettingsTabRoutes.General]: GeneralFormState;
@@ -44,28 +44,29 @@ export type GetFormSchema = (...any) => {
 };
 
 export type TabDataProps = {
-  [T in WritableTabRoutes]: {
+  [T in WritableProjectSettingsType]: {
     projectData: FormStateMap[T];
     repoData: FormStateMap[T];
   };
 };
 
-export type GqlToFormFunction<T extends WritableTabRoutes> = (
+export type GqlToFormFunction<T extends WritableProjectSettingsType> = (
   data:
     | ProjectSettingsQuery["projectSettings"]
     | RepoSettingsQuery["repoSettings"],
   options?: { projectType?: ProjectType }
 ) => FormStateMap[T];
 
-export type FormToGqlFunction<T extends WritableTabRoutes> = (
+export type FormToGqlFunction<T extends WritableProjectSettingsType> = (
   form: FormStateMap[T],
   id?: string
 ) => ProjectSettingsInput;
 
-const { EventLog, ...Writable } = ProjectSettingsTabRoutes;
-export { Writable };
+const { EventLog, ...WritableProjectSettingsTabs } = ProjectSettingsTabRoutes;
+export { WritableProjectSettingsTabs };
 
-export type WritableTabRoutes = (typeof Writable)[keyof typeof Writable];
+export type WritableProjectSettingsType =
+  (typeof WritableProjectSettingsTabs)[keyof typeof WritableProjectSettingsTabs];
 
 export const projectOnlyTabs: Set<ProjectSettingsTabRoutes> = new Set([
   ProjectSettingsTabRoutes.ViewsAndFilters,
