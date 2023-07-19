@@ -1,11 +1,7 @@
 import { Form } from "components/Settings/Form";
-import { ValidateProps } from "components/SpruceForm";
+import { GetFormSchema, ValidateProps } from "components/SpruceForm";
 import { usePopulateForm, useProjectSettingsContext } from "../Context";
-import {
-  FormStateMap,
-  GetFormSchema,
-  WritableProjectSettingsType,
-} from "./types";
+import { FormStateMap, WritableProjectSettingsType } from "./types";
 
 type BaseTabProps<T extends WritableProjectSettingsType> = {
   initialFormState: FormStateMap[T];
@@ -22,6 +18,7 @@ export const BaseTab = <T extends WritableProjectSettingsType>({
 }: BaseTabProps<T>) => {
   const state = useProjectSettingsContext();
   usePopulateForm(initialFormState, tab);
+
   return (
     <Form<WritableProjectSettingsType, FormStateMap>
       formSchema={formSchema}

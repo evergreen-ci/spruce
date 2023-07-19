@@ -1,5 +1,8 @@
-import { SpruceForm, ValidateProps } from "components/SpruceForm";
-import { GetFormSchema } from "components/SpruceForm/types";
+import {
+  SpruceForm,
+  ValidateProps,
+  GetFormSchema,
+} from "components/SpruceForm";
 import { SettingsState } from "./Context";
 import { SettingsRoutes } from "./types";
 

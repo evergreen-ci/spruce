@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Description } from "@leafygreen-ui/typography";
+import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { StyledRouterLink, StyledLink } from "components/styles";
@@ -19,7 +20,6 @@ import { size } from "constants/tokens";
 import { GithubProjectConflicts, MergeQueue } from "gql/generated/types";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
 import { environmentVariables } from "utils";
-import { GetFormSchema } from "../types";
 import { alias, form, ProjectType } from "../utils";
 import { githubConflictErrorStyling, sectionHasError } from "./getErrors";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
