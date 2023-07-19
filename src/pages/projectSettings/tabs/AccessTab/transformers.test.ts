@@ -1,7 +1,7 @@
 import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
-import { FormState } from "./types";
+import { AccessFormState } from "./types";
 
 const { projectBase, repoBase } = data;
 
@@ -25,7 +25,7 @@ describe("project data", () => {
   });
 });
 
-const projectForm: FormState = {
+const projectForm: AccessFormState = {
   accessSettings: {
     restricted: true,
   },
@@ -42,7 +42,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
   },
 };
 
-const repoForm: FormState = {
+const repoForm: AccessFormState = {
   accessSettings: {
     restricted: true,
   },

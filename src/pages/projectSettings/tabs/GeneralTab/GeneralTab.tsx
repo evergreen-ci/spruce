@@ -7,7 +7,7 @@ import {
 } from "pages/projectSettings/Context";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
-import { FormState, TabProps } from "./types";
+import { GeneralFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.General;
 
@@ -18,7 +18,11 @@ export const GeneralTab: React.VFC<TabProps> = ({
   repoData,
 }) => {
   const { getTab, updateForm } = useProjectSettingsContext();
-  const { formData, initialData } = getTab(tab);
+  const tabData = getTab(tab);
+
+  // @ts-expect-error - see TabState for details.
+  const { formData }: { formData: GeneralFormState } = tabData;
+  const { initialData } = tabData;
 
   const initialFormState = projectData || repoData;
   usePopulateForm(initialFormState, tab);
@@ -90,4 +94,4 @@ const validate = (projectType: ProjectType) =>
     }
 
     return errors;
-  }) satisfies ValidateProps<FormState>;
+  }) satisfies ValidateProps<GeneralFormState>;

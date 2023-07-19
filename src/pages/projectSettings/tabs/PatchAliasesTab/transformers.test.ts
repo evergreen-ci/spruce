@@ -2,7 +2,7 @@ import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { alias, ProjectType } from "../utils";
 import { formToGql, gqlToForm } from "./transformers";
-import { FormState, TaskSpecifier } from "./types";
+import { PatchAliasesFormState, TaskSpecifier } from "./types";
 
 const { VariantTaskSpecifier } = alias;
 const { projectBase, repoBase } = data;
@@ -31,7 +31,7 @@ describe("project data", () => {
   });
 });
 
-const projectForm: FormState = {
+const projectForm: PatchAliasesFormState = {
   patchAliases: {
     aliasesOverride: false,
     aliases: [],
@@ -51,7 +51,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
   aliases: [],
 };
 
-const repoForm: FormState = {
+const repoForm: PatchAliasesFormState = {
   patchAliases: {
     aliasesOverride: true,
     aliases: [

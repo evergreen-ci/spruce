@@ -1,6 +1,6 @@
 import { ProjectType } from "../utils";
 
-export interface FormState {
+export interface VWFormState {
   gitClone: boolean | null;
   commands: {
     setupCommandsOverride: boolean;
@@ -13,7 +13,7 @@ export interface FormState {
 
 export type TabProps = {
   identifier: string;
-  projectData?: FormState;
+  projectData?: VWFormState;
   projectType: ProjectType;
-  repoData?: FormState;
+  repoData?: VWFormState;
 };
