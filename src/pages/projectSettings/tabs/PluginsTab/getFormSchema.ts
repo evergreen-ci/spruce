@@ -6,6 +6,29 @@ import { FormState } from "./types";
 
 const { placeholderIf, radioBoxOptions } = form;
 
+const requesters = [
+  {
+    label: "Commits",
+    value: "gitter_request",
+  },
+  {
+    label: "Patches",
+    value: "patch_request",
+  },
+  {
+    label: "GitHub Pull Requests",
+    value: "github_pull_request",
+  },
+  {
+    label: "Commit Queue Merge",
+    value: "merge_test",
+  },
+  {
+    label: "Periodic Builds",
+    value: "ad_hoc",
+  },
+];
+
 export const getFormSchema = (
   repoData?: FormState
 ): ReturnType<GetFormSchema> => ({
@@ -136,14 +159,27 @@ export const getFormSchema = (
       },
       externalLinks: {
         type: "object" as "object",
-        title: "Patch Metadata Link",
+        title: "Metadata Link",
         properties: {
-          patchMetadataPanelLink: {
+          metadataPanelLink: {
             type: "object" as "object",
             title: "",
             description:
-              "Add a URL to the patch metadata panel to share a custom link with anyone viewing a patch from this project. Include {version_id} in the URL template and it will be replaced by an actual version ID.",
+              "Add a URL to the metadata panel for versions with the specified requester. Include {version_id} in the URL template and it will be replaced by an actual version ID.",
             properties: {
+              requesters: {
+                type: "array" as "array",
+                title: "Requesters",
+                uniqueItems: true,
+                items: {
+                  type: "string" as "string",
+                  anyOf: requesters.map((r) => ({
+                    type: "string" as "string",
+                    title: r.label,
+                    enum: [r.value],
+                  })),
+                },
+              },
               displayName: {
                 type: "string" as "string",
                 title: "Display name",
@@ -211,7 +247,11 @@ export const getFormSchema = (
     externalLinks: {
       "ui:rootFieldId": "externalLinks",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
-      patchMetadataPanelLink: {
+      metadataPanelLink: {
+        requesters: {
+          "ui:widget": widgets.MultiSelectWidget,
+          "ui:data-cy": "requesters-input",
+        },
         urlTemplate: {
           "ui:placeholder": "https://example.com/{version_id}",
           "ui:data-cy": "url-template-input",

@@ -222,6 +222,15 @@ export type ContainerResourcesInput = {
 };
 
 /**
+ * CopyDistroInput is the input to the copyDistro mutation.
+ * It contains information about a distro to be duplicated.
+ */
+export type CopyDistroInput = {
+  distroIdToCopy: Scalars["String"];
+  newDistroId: Scalars["String"];
+};
+
+/**
  * CopyProjectInput is the input to the copyProject mutation.
  * It contains information about a project to be duplicated.
  */
@@ -306,6 +315,17 @@ export type DistroInfo = {
   workDir?: Maybe<Scalars["String"]>;
 };
 
+export type DistroPermissions = {
+  __typename?: "DistroPermissions";
+  admin: Scalars["Boolean"];
+  edit: Scalars["Boolean"];
+  view: Scalars["Boolean"];
+};
+
+export type DistroPermissionsOptions = {
+  distroId: Scalars["String"];
+};
+
 export enum DistroSettingsAccess {
   Admin = "ADMIN",
   Create = "CREATE",
@@ -364,7 +384,7 @@ export type ExternalLinkForMetadata = {
 
 export type ExternalLinkInput = {
   displayName: Scalars["String"];
-  requesters?: InputMaybe<Array<Scalars["String"]>>;
+  requesters: Array<Scalars["String"]>;
   urlTemplate: Scalars["String"];
 };
 
@@ -784,6 +804,7 @@ export type Mutation = {
   attachVolumeToHost: Scalars["Boolean"];
   bbCreateTicket: Scalars["Boolean"];
   clearMySubscriptions: Scalars["Int"];
+  copyDistro: NewDistroPayload;
   copyProject: Project;
   createProject: Project;
   createPublicKey: Array<PublicKey>;
@@ -863,6 +884,10 @@ export type MutationAttachVolumeToHostArgs = {
 export type MutationBbCreateTicketArgs = {
   execution?: InputMaybe<Scalars["Int"]>;
   taskId: Scalars["String"];
+};
+
+export type MutationCopyDistroArgs = {
+  opts: CopyDistroInput;
 };
 
 export type MutationCopyProjectArgs = {
@@ -1083,6 +1108,12 @@ export type MutationUpdateVolumeArgs = {
   updateVolumeInput: UpdateVolumeInput;
 };
 
+/** Return type representing whether a distro was created and any validation errors */
+export type NewDistroPayload = {
+  __typename?: "NewDistroPayload";
+  newDistroId: Scalars["String"];
+};
+
 export type Note = {
   __typename?: "Note";
   message: Scalars["String"];
@@ -1276,8 +1307,14 @@ export type PeriodicBuildInput = {
 
 export type Permissions = {
   __typename?: "Permissions";
+  canCreateDistro: Scalars["Boolean"];
   canCreateProject: Scalars["Boolean"];
+  distroPermissions: DistroPermissions;
   userId: Scalars["String"];
+};
+
+export type PermissionsDistroPermissionsArgs = {
+  options: DistroPermissionsOptions;
 };
 
 export type PlannerSettings = {
@@ -3283,6 +3320,7 @@ export type ProjectSettingsFieldsFragment = {
     externalLinks?: Array<{
       __typename?: "ExternalLink";
       displayName: string;
+      requesters: Array<string>;
       urlTemplate: string;
     }> | null;
     taskAnnotationSettings: {
@@ -3479,6 +3517,7 @@ export type RepoSettingsFieldsFragment = {
     externalLinks?: Array<{
       __typename?: "ExternalLink";
       displayName: string;
+      requesters: Array<string>;
       urlTemplate: string;
     }> | null;
     taskAnnotationSettings: {
@@ -3731,6 +3770,7 @@ export type ProjectPluginsSettingsFragment = {
   externalLinks?: Array<{
     __typename?: "ExternalLink";
     displayName: string;
+    requesters: Array<string>;
     urlTemplate: string;
   }> | null;
   taskAnnotationSettings: {
@@ -3759,6 +3799,7 @@ export type RepoPluginsSettingsFragment = {
   externalLinks?: Array<{
     __typename?: "ExternalLink";
     displayName: string;
+    requesters: Array<string>;
     urlTemplate: string;
   }> | null;
   taskAnnotationSettings: {
@@ -3865,6 +3906,7 @@ export type ProjectEventSettingsFragment = {
     externalLinks?: Array<{
       __typename?: "ExternalLink";
       displayName: string;
+      requesters: Array<string>;
       urlTemplate: string;
     }> | null;
     taskAnnotationSettings: {
@@ -6074,6 +6116,7 @@ export type ProjectEventLogsQuery = {
           externalLinks?: Array<{
             __typename?: "ExternalLink";
             displayName: string;
+            requesters: Array<string>;
             urlTemplate: string;
           }> | null;
           taskAnnotationSettings: {
@@ -6278,6 +6321,7 @@ export type ProjectEventLogsQuery = {
           externalLinks?: Array<{
             __typename?: "ExternalLink";
             displayName: string;
+            requesters: Array<string>;
             urlTemplate: string;
           }> | null;
           taskAnnotationSettings: {
@@ -6497,6 +6541,7 @@ export type ProjectSettingsQuery = {
       externalLinks?: Array<{
         __typename?: "ExternalLink";
         displayName: string;
+        requesters: Array<string>;
         urlTemplate: string;
       }> | null;
       taskAnnotationSettings: {
@@ -6740,6 +6785,7 @@ export type RepoEventLogsQuery = {
           externalLinks?: Array<{
             __typename?: "ExternalLink";
             displayName: string;
+            requesters: Array<string>;
             urlTemplate: string;
           }> | null;
           taskAnnotationSettings: {
@@ -6944,6 +6990,7 @@ export type RepoEventLogsQuery = {
           externalLinks?: Array<{
             __typename?: "ExternalLink";
             displayName: string;
+            requesters: Array<string>;
             urlTemplate: string;
           }> | null;
           taskAnnotationSettings: {
@@ -7153,6 +7200,7 @@ export type RepoSettingsQuery = {
       externalLinks?: Array<{
         __typename?: "ExternalLink";
         displayName: string;
+        requesters: Array<string>;
         urlTemplate: string;
       }> | null;
       taskAnnotationSettings: {

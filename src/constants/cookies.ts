@@ -14,3 +14,7 @@ export const INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES =
   "include-commit-queue-project-patches";
 export const INCLUDE_COMMIT_QUEUE_USER_PATCHES =
   "include-commit-queue-user-patches";
+export const CY_DISABLE_NEW_USER_WELCOME_MODAL =
+  "cy-disable-new-user-welcome-modal";
+export const CY_DISABLE_COMMITS_WELCOME_MODAL =
+  "cy-disable-commits-welcome-modal";

@@ -20,7 +20,7 @@ exports[`storybook Storyshots components/SearchableDropdown Custom Option 1`] = 
       >
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-18d58v3 css-129de3f-StyledButton-menuButtonStyleOverrides e1yw4j302"
+          class="lg-ui-button-0000 leafygreen-ui-18d58v3 css-1dntq6k-StyledButton-menuButtonStyleOverrides e1yw4j302"
           data-cy="searchable-dropdown"
           type="button"
         >
@@ -90,7 +90,7 @@ exports[`storybook Storyshots components/SearchableDropdown Default 1`] = `
       >
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-18d58v3 css-129de3f-StyledButton-menuButtonStyleOverrides e1yw4j302"
+          class="lg-ui-button-0000 leafygreen-ui-18d58v3 css-1dntq6k-StyledButton-menuButtonStyleOverrides e1yw4j302"
           data-cy="searchable-dropdown"
           type="button"
         >

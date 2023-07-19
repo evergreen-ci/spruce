@@ -13,7 +13,10 @@ import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
 import TupleSelectWithRegexConditional from "components/TupleSelectWithRegexConditional";
 import WelcomeModal from "components/WelcomeModal";
-import { CURRENT_PROJECT } from "constants/cookies";
+import {
+  CURRENT_PROJECT,
+  CY_DISABLE_COMMITS_WELCOME_MODAL,
+} from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getCommitsRoute } from "constants/routes";
 import { size } from "constants/tokens";
@@ -36,6 +39,7 @@ import {
 import { useQueryParam } from "hooks/useQueryParam";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString, validators } from "utils";
+import { isProduction } from "utils/environmentVariables";
 import { CommitsWrapper } from "./CommitsWrapper";
 import CommitTypeSelector from "./CommitTypeSelector";
 import { useCommitLimit } from "./hooks/useCommitLimit";
@@ -48,6 +52,9 @@ import { WaterfallMenu } from "./WaterfallMenu";
 const { toArray } = array;
 const { parseQueryString, getString } = queryString;
 const { validateRegexp } = validators;
+
+const shouldDisableForTest =
+  !isProduction() && Cookies.get(CY_DISABLE_COMMITS_WELCOME_MODAL) === "true";
 
 const Commits = () => {
   const dispatchToast = useToastContext();
@@ -222,7 +229,7 @@ const Commits = () => {
           />
         </div>
       </PageContainer>
-      {!hasUsedMainlineCommitsBefore && (
+      {!shouldDisableForTest && !hasUsedMainlineCommitsBefore && (
         <WelcomeModal
           param="hasUsedMainlineCommitsBefore"
           carouselCards={newMainlineCommitsUser}
