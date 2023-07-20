@@ -69,7 +69,7 @@ describe("Tasks filters", () => {
         search: null,
       });
       waitForTable();
-      cy.dataCy("filtered-count").should("contain.text", 50);
+      cy.dataCy("filtered-count").should("contain.text", 48);
     });
   });
 
@@ -107,7 +107,7 @@ describe("Tasks filters", () => {
         search: null,
       });
       waitForTable();
-      cy.dataCy("filtered-count").should("contain.text", 50);
+      cy.dataCy("filtered-count").should("contain.text", 48);
     });
   });
 
@@ -165,6 +165,7 @@ describe("Tasks filters", () => {
         "Succeeded",
         "Running",
         "Will Run",
+        "Dispatched",
         "Undispatched",
         "Aborted",
         "Blocked",
@@ -208,28 +209,21 @@ describe("Tasks filters", () => {
             search: "success",
           });
           waitForTable();
-          cy.dataCy("filtered-count")
-            .invoke("text")
-            .should("have.length.greaterThan", 0);
 
-          cy.dataCy("filtered-count")
-            .invoke("text")
-            .then((postFilterCount) => {
-              cy.dataCy("filtered-count").should("have.text", preFilterCount);
-              selectCheckboxOption("Succeeded", false);
-              urlSearchParamsAreUpdated({
-                pathname: pathTasks,
-                paramName: urlParam,
-                search: null,
-              });
-              waitForTable();
-              cy.dataCy("filtered-count").should("have.text", postFilterCount);
-            });
+          cy.dataCy("filtered-count").should("have.text", 0);
+          selectCheckboxOption("Succeeded", false);
+          urlSearchParamsAreUpdated({
+            pathname: pathTasks,
+            paramName: urlParam,
+            search: null,
+          });
+          waitForTable();
+          cy.dataCy("filtered-count").should("have.text", preFilterCount);
         });
     });
 
     it("Clicking on 'All' checkbox adds all the base statuses and clicking again removes them", () => {
-      const taskStatuses = ["All", "Succeeded"];
+      const taskStatuses = ["All", "Succeeded", "Running"];
       selectCheckboxOption("All", true);
       assertChecked(taskStatuses, true);
       urlSearchParamsAreUpdated({
