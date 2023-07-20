@@ -1,5 +1,5 @@
 import Bugsnag, { BreadcrumbType } from "@bugsnag/js";
-import { addBreadcrumb } from "@sentry/react";
+import { addBreadcrumb, Breadcrumb } from "@sentry/react";
 import { sendError as bugsnagSendError } from "components/ErrorHandling/Bugsnag";
 import { sendError as sentrySendError } from "components/ErrorHandling/Sentry";
 import { isProductionBuild } from "./environmentVariables";
@@ -36,21 +36,99 @@ const reportError = (
   };
 };
 
+type Metadata = {
+  [key: string]: any;
+};
+
 const leaveBreadcrumb = (
   message: string,
-  metadata: { [key: string]: any },
+  metadata: Metadata,
   type: BreadcrumbType
 ) => {
   if (!isProductionBuild()) {
     console.debug({ message, metadata, type });
   } else {
     Bugsnag.leaveBreadcrumb(message, metadata, type);
-    addBreadcrumb({
-      message,
-      type,
-      data: metadata,
-    });
+    addBreadcrumb(convertToSentryBreadcrumb(message, metadata, type));
   }
+};
+
+/**
+ * Convert a Bugsnag breadcrumb to Sentry's type.
+ * @param message - a string indicating details about the breadcrumb
+ * @param metadata - additional fields
+ * @param type - the type of Bugsnag breadcrumb to be sent
+ * @returns a Sentry breadcrumb
+ */
+const convertToSentryBreadcrumb = (
+  message: string,
+  metadata: Metadata,
+  type: BreadcrumbType
+): Breadcrumb => ({
+  message,
+  data: convertMetadata(metadata),
+  type: convertBreadcrumbType(type),
+});
+
+// The "type" field for Sentry breadcrumbs is just "string", but we can approximate the types listed here:
+// https://develop.sentry.dev/sdk/event-payloads/breadcrumbs/#breadcrumb-types
+enum SentryBreadcrumb {
+  Default = "default",
+  Debug = "debug",
+  Error = "error",
+  Navigation = "navigation",
+  HTTP = "http",
+  Info = "info",
+  Query = "query",
+  Transaction = "transaction",
+  UI = "ui",
+  User = "user",
+}
+
+/**
+ * Convert a Bugsnag breadcrumb type to one of our custom Sentry types.
+ * @param breadcrumbType - the type of Bugsnag breadcrumb to be sent
+ * @returns a custom Sentry breadcrumb type
+ */
+const convertBreadcrumbType = (
+  breadcrumbType: BreadcrumbType
+): SentryBreadcrumb => {
+  switch (breadcrumbType) {
+    case "error":
+      return SentryBreadcrumb.Error;
+    case "navigation":
+      return SentryBreadcrumb.Navigation;
+    case "process":
+      return SentryBreadcrumb.UI;
+    case "request":
+      return SentryBreadcrumb.HTTP;
+    case "user":
+      return SentryBreadcrumb.User;
+    case "log":
+      return SentryBreadcrumb.Info;
+    case "manual":
+    case "state":
+    default:
+      return SentryBreadcrumb.Default;
+  }
+};
+
+/**
+ * Convert a Bugsnag metadata field to use Sentry's key names.
+ * https://develop.sentry.dev/sdk/event-payloads/breadcrumbs/#breadcrumb-types
+ * @param bugsnagMetadata - Metadata object using Bugsnag-specific key names
+ * @returns an object with the key names converted to Sentry's names.
+ */
+const convertMetadata = (bugsnagMetadata: Metadata): Metadata => {
+  // Convert statusCode => status_code
+  if (bugsnagMetadata.statusCode) {
+    const { statusCode, ...rest } = bugsnagMetadata;
+    return {
+      ...rest,
+      status_code: statusCode,
+    };
+  }
+  return bugsnagMetadata;
 };
 
 export { leaveBreadcrumb, reportError };

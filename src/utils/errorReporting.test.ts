@@ -1,7 +1,7 @@
 import Bugsnag from "@bugsnag/js";
 import * as Sentry from "@sentry/react";
 import { mockEnvironmentVariables } from "test_utils/utils";
-import { reportError } from "utils/errorReporting";
+import { leaveBreadcrumb, reportError } from "utils/errorReporting";
 
 const { mockEnv, cleanup } = mockEnvironmentVariables();
 
@@ -65,5 +65,54 @@ describe("error reporting", () => {
     result.warning();
     expect(Bugsnag.notify).toHaveBeenLastCalledWith(err, expect.any(Function));
     expect(Sentry.captureException).toHaveBeenCalledWith(err);
+  });
+});
+
+describe("breadcrumbs", () => {
+  beforeEach(() => {
+    jest.spyOn(console, "debug").mockImplementation(() => {});
+    jest.spyOn(Bugsnag, "leaveBreadcrumb");
+    jest.spyOn(Sentry, "addBreadcrumb");
+  });
+  afterEach(() => {
+    cleanup();
+    jest.restoreAllMocks();
+  });
+
+  it("should log errors into console when not in production", () => {
+    const message = "my message";
+    const type = "error";
+    const metadata = { foo: "bar" };
+
+    leaveBreadcrumb(message, metadata, type);
+    expect(console.debug).toHaveBeenLastCalledWith({
+      message,
+      metadata,
+      type,
+    });
+    expect(Bugsnag.leaveBreadcrumb).not.toHaveBeenCalled();
+    expect(Sentry.addBreadcrumb).not.toHaveBeenCalled();
+  });
+
+  it("should report errors to Bugsnag and Sentry when in production and convert Sentry errors", () => {
+    mockEnv("NODE_ENV", "production");
+    jest.spyOn(Bugsnag, "leaveBreadcrumb").mockImplementation(jest.fn());
+    jest.spyOn(Sentry, "addBreadcrumb").mockImplementation(jest.fn());
+
+    const message = "my message";
+    const type = "log";
+    const metadata = { statusCode: 401 };
+
+    leaveBreadcrumb(message, metadata, type);
+    expect(Bugsnag.leaveBreadcrumb).toHaveBeenCalledWith(
+      message,
+      metadata,
+      type
+    );
+    expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
+      message,
+      type: "info",
+      data: { status_code: 401 },
+    });
   });
 });
