@@ -11,14 +11,14 @@ import * as projectTriggers from "./ProjectTriggersTab/transformers";
 import {
   FormToGqlFunction,
   GqlToFormFunction,
-  WritableTabRoutes,
+  WritableProjectSettingsType,
 } from "./types";
 import * as variables from "./VariablesTab/transformers";
 import * as viewsAndFilters from "./ViewsAndFiltersTab/transformers";
 import * as virtualWorkstation from "./VirtualWorkstationTab/transformers";
 
 export const gqlToFormMap: {
-  [T in WritableTabRoutes]: GqlToFormFunction<T>;
+  [T in WritableProjectSettingsType]: GqlToFormFunction<T>;
 } = {
   [ProjectSettingsTabRoutes.General]: general.gqlToForm,
   [ProjectSettingsTabRoutes.Access]: access.gqlToForm,
@@ -35,7 +35,7 @@ export const gqlToFormMap: {
 };
 
 export const formToGqlMap: {
-  [T in WritableTabRoutes]: FormToGqlFunction<T>;
+  [T in WritableProjectSettingsType]: FormToGqlFunction<T>;
 } = {
   [ProjectSettingsTabRoutes.General]: general.formToGql,
   [ProjectSettingsTabRoutes.Access]: access.formToGql,

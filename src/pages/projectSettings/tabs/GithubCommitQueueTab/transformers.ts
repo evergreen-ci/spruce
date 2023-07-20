@@ -2,22 +2,22 @@ import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectInput } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { alias as aliasUtils, ProjectType } from "../utils";
-import { FormState } from "./types";
+import { GCQFormState } from "./types";
 
 const { AliasNames, sortAliases, transformAliases } = aliasUtils;
 
 type Tab = ProjectSettingsTabRoutes.GithubCommitQueue;
 
 export const mergeProjectRepo = (
-  projectData: FormState,
-  repoData: FormState
-): FormState => {
+  projectData: GCQFormState,
+  repoData: GCQFormState
+): GCQFormState => {
   // Merge project and repo objects so that repo config can be displayed on project pages
   const {
     github: { prTesting, githubChecks, users, teams, gitTags },
     commitQueue: { patchDefinitions },
   } = repoData;
-  const mergedObject: FormState = projectData;
+  const mergedObject: GCQFormState = projectData;
   mergedObject.github.prTesting.repoData = prTesting;
   mergedObject.github.githubChecks.repoData = githubChecks;
   mergedObject.github.users.repoData = users;

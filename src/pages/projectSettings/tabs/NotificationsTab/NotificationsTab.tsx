@@ -8,7 +8,7 @@ import {
 } from "pages/projectSettings/Context";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
-import { FormState, TabProps } from "./types";
+import { NotificationsFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Notifications;
 
@@ -72,4 +72,4 @@ const validate = ((formData, errors) => {
     );
   });
   return errors;
-}) satisfies ValidateProps<FormState>;
+}) satisfies ValidateProps<NotificationsFormState>;

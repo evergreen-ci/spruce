@@ -1,6 +1,6 @@
 import { ProjectType } from "../utils";
 
-export interface FormState {
+export interface VariablesFormState {
   vars: Array<{
     varName: string;
     varValue: string;
@@ -12,7 +12,7 @@ export interface FormState {
 
 export type TabProps = {
   identifier: string;
-  projectData?: FormState;
+  projectData?: VariablesFormState;
   projectType: ProjectType;
-  repoData?: FormState;
+  repoData?: VariablesFormState;
 };

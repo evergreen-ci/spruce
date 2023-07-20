@@ -1,7 +1,7 @@
 import { ProjectHealthView, ProjectSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
-import { FormState } from "./types";
+import { ViewsFormState } from "./types";
 
 const { projectBase } = data;
 
@@ -15,7 +15,7 @@ describe("project data", () => {
   });
 });
 
-const projectForm: FormState = {
+const projectForm: ViewsFormState = {
   parsleyFilters: [
     {
       displayTitle: "filter_1",

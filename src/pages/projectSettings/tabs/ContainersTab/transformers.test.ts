@@ -1,7 +1,7 @@
 import { ProjectSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { gqlToForm, formToGql } from "./transformers";
-import { FormState } from "./types";
+import { ContainersFormState } from "./types";
 
 const { projectBase } = data;
 
@@ -16,7 +16,7 @@ describe("containers", () => {
   });
 });
 
-const projectFormBase: FormState = {
+const projectFormBase: ContainersFormState = {
   containerSizeDefinitions: {
     variables: [
       {

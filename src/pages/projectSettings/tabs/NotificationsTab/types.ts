@@ -21,7 +21,7 @@ export type Notification = Partial<{
   };
 }>;
 
-export interface FormState {
+export interface NotificationsFormState {
   buildBreakSettings: {
     notifyOnBuildFailure: boolean | null;
   };
@@ -46,13 +46,13 @@ export interface FormState {
 
 // This utils file contains functions used to process the form state.
 export type SubscriptionData = Unpacked<
-  FormState["subscriptions"]
+  NotificationsFormState["subscriptions"]
 >["subscriptionData"];
 
 export type TabProps = {
-  projectData?: FormState;
+  projectData?: NotificationsFormState;
   projectType: ProjectType;
-  repoData?: FormState;
+  repoData?: NotificationsFormState;
   id?: string;
 };
 
