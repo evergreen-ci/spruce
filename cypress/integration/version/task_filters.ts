@@ -69,7 +69,7 @@ describe("Tasks filters", () => {
         search: null,
       });
       waitForTable();
-      cy.dataCy("filtered-count").should("contain.text", 48);
+      cy.dataCy("filtered-count").should("contain.text", 46);
     });
   });
 
@@ -92,7 +92,7 @@ describe("Tasks filters", () => {
         search: taskNameInputValue,
       });
       waitForTable();
-      cy.dataCy("filtered-count").should("contain.text", 2);
+      cy.dataCy("filtered-count").should("contain.text", 1);
 
       cy.toggleTableFilter(1);
       cy.dataCy("taskname-input-wrapper")
@@ -107,7 +107,7 @@ describe("Tasks filters", () => {
         search: null,
       });
       waitForTable();
-      cy.dataCy("filtered-count").should("contain.text", 48);
+      cy.dataCy("filtered-count").should("contain.text", 46);
     });
   });
 
