@@ -14,7 +14,7 @@ import { array, string } from "utils";
 import { reportError } from "utils/errorReporting";
 
 const { mapStringArrayToObject } = array;
-const { LoadingCell, ColumnHeaderCell, LabelCellContainer } = Cell;
+const { ColumnHeaderCell, LabelCellContainer, LoadingCell } = Cell;
 const { useHistoryTable } = context;
 const { useColumns } = hooks;
 const { trimStringFromMiddle } = string;
@@ -51,7 +51,7 @@ const ColumnHeaders: React.VFC<ColumnHeadersProps> = ({
   });
 
   const { taskNamesForBuildVariant } = columnData || {};
-  const { visibleColumns, columnLimit } = useHistoryTable();
+  const { columnLimit, visibleColumns } = useHistoryTable();
 
   const columnMap = mapStringArrayToObject(visibleColumns, "name");
   const activeColumns = useColumns(taskNamesForBuildVariant, (c) => c);

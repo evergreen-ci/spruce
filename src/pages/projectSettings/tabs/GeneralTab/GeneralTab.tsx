@@ -83,7 +83,7 @@ const validate = (projectType: ProjectType) =>
     }
 
     const {
-      generalConfiguration: { enabled, branch },
+      generalConfiguration: { branch, enabled },
     } = formData;
 
     // Ensure that both attached and unattached projects have a branch specified if they are enabled.

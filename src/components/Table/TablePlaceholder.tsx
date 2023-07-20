@@ -13,8 +13,8 @@ interface Props {
 }
 
 export const TablePlaceholder: React.VFC<Props> = ({
-  message,
   glyph = "CurlyBraces",
+  message,
   spin = false,
 }) => (
   <PlaceholderWrapper>

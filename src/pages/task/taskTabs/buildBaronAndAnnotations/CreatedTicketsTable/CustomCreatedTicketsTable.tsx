@@ -17,10 +17,10 @@ const CustomCreatedTicketsTable: React.VFC<CreatedTicketsProps> = ({
     {
       title: "Ticket",
       render: ({
-        issueKey,
-        url,
         confidenceScore,
+        issueKey,
         jiraTicket,
+        url,
       }: AnnotationTicket): JSX.Element => (
         <AnnotationTicketRow
           issueKey={issueKey}

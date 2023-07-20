@@ -23,15 +23,15 @@ interface DropdownProps {
   onClose?: () => void;
 }
 const Dropdown: React.VFC<DropdownProps> = ({
-  "data-cy": dataCy = "dropdown-button",
-  id,
-  disabled = false,
-  buttonText,
   buttonRenderer,
+  buttonText,
   children,
+  "data-cy": dataCy = "dropdown-button",
+  disabled = false,
+  id,
   isOpen,
-  setIsOpen,
   onClose = () => {},
+  setIsOpen,
 }) => {
   const listMenuRef = useRef(null);
   const menuButtonRef = useRef(null);

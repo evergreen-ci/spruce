@@ -69,7 +69,7 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
 
       <TaskBadgeContainer>
         {stats.map(
-          ({ umbrellaStatus, count, statusCounts: groupedStatusCounts }) => {
+          ({ count, statusCounts: groupedStatusCounts, umbrellaStatus }) => {
             const hasStatusFilterForUmbrellaStatus = isUmbrellaStatusSet(
               umbrellaStatus,
               statusSearch

@@ -28,9 +28,9 @@ interface RowProps {
 const BaseRow: React.VFC<RowProps> = ({
   columns,
   data,
+  eventHandlers,
   index,
   numVisibleCols,
-  eventHandlers,
   selected,
 }) => {
   const {
@@ -49,13 +49,13 @@ const BaseRow: React.VFC<RowProps> = ({
       return <DateSeparator date={data.date} />;
     case rowType.COMMIT: {
       const {
-        revision,
-        createTime,
         author,
-        message,
-        id: versionId,
-        upstreamProject,
+        createTime,
         gitTags,
+        id: versionId,
+        message,
+        revision,
+        upstreamProject,
       } = data.commit;
 
       return (

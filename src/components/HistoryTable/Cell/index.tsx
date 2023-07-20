@@ -27,12 +27,12 @@ interface TaskCellProps {
 }
 
 const TaskCell: React.VFC<TaskCellProps> = ({
-  task,
-  inactive,
   failingTests,
+  inactive,
   label,
   loading = false,
   onClick = () => {},
+  task,
 }) => (
   <Cell inactive={inactive} aria-disabled={inactive} data-cy="task-cell">
     <Link
@@ -79,10 +79,10 @@ interface ColumnHeaderCellProps {
   onClick?: () => void;
 }
 const ColumnHeaderCell: React.VFC<ColumnHeaderCellProps> = ({
-  link,
-  trimmedDisplayName,
   fullDisplayName,
+  link,
   onClick,
+  trimmedDisplayName,
 }) => (
   <HeaderCell data-cy="header-cell">
     <ConditionalWrapper

@@ -11,7 +11,7 @@ interface CarouselCardProps {
 }
 
 const CarouselCard: React.VFC<CarouselCardProps> = ({ card, visible }) => {
-  const { img, video, subtitle, title, description, alt } = card;
+  const { alt, description, img, subtitle, title, video } = card;
   const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     if (visible && videoRef.current) {

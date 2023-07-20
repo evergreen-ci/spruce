@@ -49,10 +49,10 @@ export const DownstreamProjectAccordion: React.VFC<
   baseVersionID,
   childPatchId,
   githash,
+  parameters,
   projectName,
   status,
   taskCount,
-  parameters,
 }) => {
   const dispatchToast = useToastContext();
 
@@ -95,7 +95,7 @@ export const DownstreamProjectAccordion: React.VFC<
   };
 
   const { baseStatusesInputVal, currentStatusesInputVal } = state;
-  const { currentStatuses, baseStatuses: currentBaseStatuses } =
+  const { baseStatuses: currentBaseStatuses, currentStatuses } =
     useTaskStatuses({
       versionId: childPatchId,
     });
@@ -149,8 +149,8 @@ export const DownstreamProjectAccordion: React.VFC<
   usePolling({ startPolling, stopPolling, refetch });
   const showSkeleton = !data;
   const { version } = data || {};
-  const { tasks, isPatch } = version || {};
-  const { data: tasksData = [], count = 0 } = tasks || {};
+  const { isPatch, tasks } = version || {};
+  const { count = 0, data: tasksData = [] } = tasks || {};
 
   const variantTitle = (
     <>

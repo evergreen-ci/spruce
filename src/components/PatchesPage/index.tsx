@@ -22,7 +22,7 @@ import { url } from "utils";
 import { ListArea } from "./ListArea";
 import { StatusSelector } from "./StatusSelector";
 
-const { getPageFromSearch, getLimitFromSearch } = url;
+const { getLimitFromSearch, getPageFromSearch } = url;
 
 interface Props {
   analyticsObject: Analytics<

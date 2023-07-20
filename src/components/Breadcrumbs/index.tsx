@@ -42,7 +42,7 @@ interface BreadcrumbFragmentProps {
 const BreadcrumbFragment: React.VFC<BreadcrumbFragmentProps> = ({
   breadcrumb,
 }) => {
-  const { text = "", to, onClick, "data-cy": dataCy } = breadcrumb;
+  const { "data-cy": dataCy, onClick, text = "", to } = breadcrumb;
   const shouldTrimMessage = text.length > 30;
   const message = trimStringFromMiddle(text, 30);
   return (

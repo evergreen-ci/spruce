@@ -48,9 +48,9 @@ interface Props {
 }
 
 export const Metadata: React.VFC<Props> = ({
+  error,
   loading,
   task,
-  error,
   taskId,
 }) => {
   const taskAnalytics = useTaskAnalytics();
@@ -75,9 +75,9 @@ export const Metadata: React.VFC<Props> = ({
     hostId,
     ingestTime,
     minQueuePosition: taskQueuePosition,
+    pod,
     priority,
     project,
-    pod,
     resetWhenFinished,
     spawnHostLink,
     startTime,

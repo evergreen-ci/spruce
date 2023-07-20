@@ -37,11 +37,11 @@ interface Props {
   refetchQueries: string[];
 }
 const VersionRestartModal: React.VFC<Props> = ({
-  visible,
-  onOk,
   onCancel,
-  versionId,
+  onOk,
   refetchQueries,
+  versionId,
+  visible,
 }) => {
   const dispatchToast = useToastContext();
   const [shouldAbortInProgressTasks, setShouldAbortInProgressTasks] =
@@ -72,12 +72,12 @@ const VersionRestartModal: React.VFC<Props> = ({
   const { version } = data || {};
   const { buildVariants, childVersions } = version || {};
   const {
-    selectedTasks,
-    versionStatusFilterTerm,
     baseStatusFilterTerm,
-    toggleSelectedTask,
-    setVersionStatusFilterTerm,
+    selectedTasks,
     setBaseStatusFilterTerm,
+    setVersionStatusFilterTerm,
+    toggleSelectedTask,
+    versionStatusFilterTerm,
   } = useVersionTaskStatusSelect(buildVariants, versionId, childVersions);
 
   const setVersionStatus = (childVersionId) => (selectedFilters: string[]) => {
@@ -194,12 +194,12 @@ interface VersionTasksProps {
 }
 
 const VersionTasks: React.VFC<VersionTasksProps> = ({
-  version,
+  baseStatusFilterTerm,
   selectedTasks,
   setBaseStatusFilterTerm,
   setVersionStatusFilterTerm,
   toggleSelectedTask,
-  baseStatusFilterTerm,
+  version,
   versionStatusFilterTerm,
 }) => {
   const { buildVariants } = version || {};

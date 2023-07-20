@@ -3,7 +3,7 @@ import * as Sentry from "@sentry/react";
 import { mockEnvironmentVariables } from "test_utils/utils";
 import { reportError } from "utils/errorReporting";
 
-const { mockEnv, cleanup } = mockEnvironmentVariables();
+const { cleanup, mockEnv } = mockEnvironmentVariables();
 
 describe("error reporting", () => {
   beforeEach(() => {

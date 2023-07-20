@@ -5,7 +5,7 @@ import { H2, Body } from "@leafygreen-ui/typography";
 import { Layout } from "antd";
 import { size, fontSize } from "constants/tokens";
 
-const { gray, white, red } = palette;
+const { gray, red, white } = palette;
 const { Content, Sider } = Layout;
 
 const whiteBackground = css`

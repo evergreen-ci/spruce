@@ -12,15 +12,15 @@ import { SpruceFormProps, ValidateProps } from "./types";
 import widgets from "./Widgets";
 
 export const SpruceForm: React.VFC<SpruceFormProps> = ({
-  schema,
-  onChange,
-  uiSchema,
-  formData,
-  fields,
-  tagName,
-  validate,
-  disabled,
   customFormatFields,
+  disabled,
+  fields,
+  formData,
+  onChange,
+  schema,
+  tagName,
+  uiSchema,
+  validate,
 }) => (
   <Form
     fields={{ ...baseFields, ...fields }}

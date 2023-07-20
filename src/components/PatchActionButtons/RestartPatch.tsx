@@ -11,8 +11,8 @@ interface RestartPatchProps {
   visibilityControl?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 export const RestartPatch: React.VFC<RestartPatchProps> = ({
-  isButton,
   disabled = false,
+  isButton,
   patchId,
   refetchQueries,
   visibilityControl,

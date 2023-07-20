@@ -46,7 +46,7 @@ const renderWithRouterMatch = (
   ui: React.ReactElement,
   options: renderWithRouterMatchOptions = {}
 ) => {
-  const { route = "/", path = "/", wrapper: TestWrapper, ...rest } = options;
+  const { path = "/", route = "/", wrapper: TestWrapper, ...rest } = options;
 
   const getMemoryRouter = (element: React.ReactElement) => {
     const routes = [

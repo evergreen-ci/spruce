@@ -6,8 +6,8 @@ interface LoadingSectionProps {
 }
 
 const LoadingSection: React.VFC<LoadingSectionProps> = ({
-  numVisibleCols,
   numLoadingRows,
+  numVisibleCols,
 }) => (
   <>
     {Array.from(Array(numLoadingRows)).map((_, index) => (

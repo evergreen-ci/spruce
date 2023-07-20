@@ -1,10 +1,10 @@
 // used to test status and base status dropdown filters
 export const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
   checkboxDisplayName,
-  pathname,
-  paramName,
-  search,
   openFilter,
+  paramName,
+  pathname,
+  search,
 }) => {
   if (openFilter) {
     openFilter();
@@ -18,7 +18,7 @@ export const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
   urlSearchParamsAreUpdated({ pathname, paramName, search: null });
 };
 
-export const urlSearchParamsAreUpdated = ({ pathname, paramName, search }) => {
+export const urlSearchParamsAreUpdated = ({ paramName, pathname, search }) => {
   cy.location().should((loc) => {
     expect(loc.pathname).to.equal(pathname);
     if (search === null) {

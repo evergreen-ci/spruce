@@ -23,7 +23,7 @@ export const gqlToForm = ((data) => {
 
 export const formToGql = (({ vars: varsData }, id) => {
   const vars = varsData.reduce(
-    (acc, { varName, varValue, isPrivate, isAdminOnly, isDisabled }) => {
+    (acc, { isAdminOnly, isDisabled, isPrivate, varName, varValue }) => {
       if (!varName || !varValue) return acc;
 
       let val = varValue;

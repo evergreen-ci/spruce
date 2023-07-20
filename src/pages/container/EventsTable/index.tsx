@@ -16,7 +16,7 @@ import { useDateFormat } from "hooks";
 import { url } from "utils";
 import { getEventCopy } from "./util";
 
-const { getPageFromSearch, getLimitFromSearch } = url;
+const { getLimitFromSearch, getPageFromSearch } = url;
 
 const EventsTable: React.VFC<{}> = () => {
   const getDateCopy = useDateFormat();

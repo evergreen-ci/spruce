@@ -12,8 +12,8 @@ interface NotificationFieldProps {
 }
 
 export const NotificationField: React.VFC<NotificationFieldProps> = ({
-  notifications,
   notificationStatus,
+  notifications,
   setNotificationStatus,
 }) => (
   <GridContainer>

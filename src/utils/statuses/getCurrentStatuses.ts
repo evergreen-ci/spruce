@@ -14,7 +14,7 @@ export const getCurrentStatuses = (
 ): TreeDataEntry[] => {
   const currentStatuses = [];
   treeData.forEach((status) => {
-    const { key, children } = status;
+    const { children, key } = status;
     if (key === allKey) {
       currentStatuses.push(status);
     }

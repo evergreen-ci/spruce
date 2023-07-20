@@ -24,10 +24,10 @@ interface Props {
 }
 
 const tabMap = ({
-  taskCount,
   childPatches,
   numFailedChildPatches,
   patchId,
+  taskCount,
 }: {
   taskCount: number;
   childPatches: VersionQuery["version"]["patch"]["childPatches"];
@@ -82,9 +82,9 @@ const tabMap = ({
   ),
 });
 export const VersionTabs: React.VFC<Props> = ({
-  taskCount,
   childPatches,
   isPatch,
+  taskCount,
 }) => {
   const { id, tab } = useParams<{ id: string; tab: PatchTab }>();
   const { search } = useLocation();

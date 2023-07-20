@@ -82,7 +82,7 @@ export const useVersionTaskStatusSelect = (
   childVersions: ChildVersions
 ): HookResult => {
   const [
-    { baseStatusFilterTerm, versionStatusFilterTerm, selectedTasks },
+    { baseStatusFilterTerm, selectedTasks, versionStatusFilterTerm },
     dispatch,
   ] = useReducer(reducer, {
     baseStatusFilterTerm: {},
@@ -199,11 +199,11 @@ type reduceInput = {
 
 const reduceBuildVariants = (filterDetails: reduceInput) => {
   const {
-    parentTasksChanged,
-    buildVariants,
-    versionStatusFilterTerm,
     baseStatusFilterTerm,
+    buildVariants,
+    parentTasksChanged,
     selectedTasks,
+    versionStatusFilterTerm,
   } = filterDetails;
 
   const statuses = new Set(versionStatusFilterTerm);

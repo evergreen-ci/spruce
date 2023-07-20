@@ -2,7 +2,7 @@ import { getUnixTime } from "date-fns";
 import { LogTypes } from "types/task";
 import { environmentVariables } from "utils";
 
-const { getLobsterURL, getParsleyUrl, getUiUrl, getHoneycombBaseURL } =
+const { getHoneycombBaseURL, getLobsterURL, getParsleyUrl, getUiUrl } =
   environmentVariables;
 
 export const wikiBaseUrl =
@@ -81,10 +81,10 @@ interface GetLobsterTestLogCompleteUrlParams {
 }
 
 export const getLobsterTestLogCompleteUrl = ({
-  taskId,
   execution,
   groupId,
   lineNum,
+  taskId,
 }: GetLobsterTestLogCompleteUrlParams) =>
   taskId && Number.isFinite(execution)
     ? `${getLobsterURL()}/lobster/evergreen/complete-test/${taskId}/${execution}${

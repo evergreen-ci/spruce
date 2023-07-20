@@ -14,7 +14,7 @@ import VariantTaskGroup from "./VariantTaskGroup";
 const BuildVariantCard: React.VFC = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     BuildVariantStatsQuery,
     BuildVariantStatsQueryVariables
   >(GET_BUILD_VARIANTS_STATS, {

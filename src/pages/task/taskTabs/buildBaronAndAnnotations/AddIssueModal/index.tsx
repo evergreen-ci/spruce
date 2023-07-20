@@ -28,12 +28,12 @@ interface Props {
 }
 
 export const AddIssueModal: React.VFC<Props> = ({
-  visible,
   closeModal,
-  setSelectedRowKey,
-  taskId,
   execution,
   isIssue,
+  setSelectedRowKey,
+  taskId,
+  visible,
   ...rest
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
@@ -105,7 +105,7 @@ export const AddIssueModal: React.VFC<Props> = ({
           schema={addIssueModalSchema.schema}
           uiSchema={addIssueModalSchema.uiSchema}
           formData={formState}
-          onChange={({ formData, errors }) => {
+          onChange={({ errors, formData }) => {
             setFormState(formData);
             setCanSubmit(errors.length === 0);
           }}

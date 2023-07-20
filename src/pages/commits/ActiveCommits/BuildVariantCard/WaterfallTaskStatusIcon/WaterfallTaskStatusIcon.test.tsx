@@ -27,8 +27,8 @@ const props = {
 jest.mock("../../utils");
 
 const Content = ({
-  status,
   failedTestCount = 0,
+  status,
 }: {
   status: string;
   failedTestCount?: number;

@@ -33,7 +33,7 @@ import TaskHistoryRow from "./TaskHistoryRow";
 
 const { HistoryTableProvider } = context;
 const { applyStrictRegex } = string;
-const { useTestFilters, useJumpToCommit } = hooks;
+const { useJumpToCommit, useTestFilters } = hooks;
 
 const TaskHistoryContents: React.VFC = () => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
@@ -46,7 +46,7 @@ const TaskHistoryContents: React.VFC = () => {
   useTestFilters();
   useJumpToCommit();
 
-  const { badges, handleOnRemove, handleClearAll } = useFilterBadgeQueryParams(
+  const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
     constants.queryParamsToDisplay
   );
   const dispatchToast = useToastContext();

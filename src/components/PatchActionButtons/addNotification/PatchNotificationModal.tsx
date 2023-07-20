@@ -10,8 +10,8 @@ interface ModalProps {
 }
 
 export const PatchNotificationModal: React.VFC<ModalProps> = ({
-  visible,
   onCancel,
+  visible,
 }) => {
   const { id: patchId } = useParams<{ id: string }>();
   const { sendEvent } = useVersionAnalytics(patchId);

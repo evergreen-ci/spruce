@@ -81,7 +81,7 @@ export const TaskQueueTable = () => {
       key: "displayName",
       className: "cy-task-queue-col-task",
       width: "30%",
-      render: (_, { displayName, id, project, buildVariant }) => (
+      render: (_, { buildVariant, displayName, id, project }) => (
         <TaskCell>
           <Body>
             <StyledRouterLink

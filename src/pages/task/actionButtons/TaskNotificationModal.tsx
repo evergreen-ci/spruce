@@ -10,8 +10,8 @@ interface ModalProps {
 }
 
 export const TaskNotificationModal: React.VFC<ModalProps> = ({
-  visible,
   onCancel,
+  visible,
 }) => {
   const { id: taskId } = useParams<{ id: string }>();
   const taskAnalytics = useTaskAnalytics();

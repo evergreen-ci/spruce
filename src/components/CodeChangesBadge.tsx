@@ -23,7 +23,7 @@ interface FileDiffTextProps {
   value: number;
 }
 
-export const FileDiffText: React.VFC<FileDiffTextProps> = ({ value, type }) => {
+export const FileDiffText: React.VFC<FileDiffTextProps> = ({ type, value }) => {
   const hasValue = value > 0;
   return (
     <FileDiffTextContainer hasValue={hasValue} type={type}>
