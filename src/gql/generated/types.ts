@@ -252,9 +252,19 @@ export type CreateProjectInput = {
   repoRefId?: InputMaybe<Scalars["String"]>;
 };
 
+/** DeleteDistroInput is the input to the deleteDistro mutation. */
+export type DeleteDistroInput = {
+  distroId: Scalars["String"];
+};
+
+/** Return type representing whether a distro was deleted. */
+export type DeleteDistroPayload = {
+  __typename?: "DeleteDistroPayload";
+  deletedDistroId: Scalars["String"];
+};
+
 export type Dependency = {
   __typename?: "Dependency";
-  buildVariant: Scalars["String"];
   metStatus: MetStatus;
   name: Scalars["String"];
   requiredStatus: RequiredStatus;
@@ -384,7 +394,7 @@ export type ExternalLinkForMetadata = {
 
 export type ExternalLinkInput = {
   displayName: Scalars["String"];
-  requesters?: InputMaybe<Array<Scalars["String"]>>;
+  requesters: Array<Scalars["String"]>;
   urlTemplate: Scalars["String"];
 };
 
@@ -810,6 +820,7 @@ export type Mutation = {
   createPublicKey: Array<PublicKey>;
   deactivateStepbackTask: Scalars["Boolean"];
   defaultSectionToRepo?: Maybe<Scalars["String"]>;
+  deleteDistro: DeleteDistroPayload;
   deleteProject: Scalars["Boolean"];
   deleteSubscriptions: Scalars["Int"];
   detachProjectFromRepo: Project;
@@ -913,6 +924,10 @@ export type MutationDeactivateStepbackTaskArgs = {
 export type MutationDefaultSectionToRepoArgs = {
   projectId: Scalars["String"];
   section: ProjectSettingsSection;
+};
+
+export type MutationDeleteDistroArgs = {
+  opts: DeleteDistroInput;
 };
 
 export type MutationDeleteProjectArgs = {

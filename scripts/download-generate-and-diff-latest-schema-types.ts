@@ -1,5 +1,4 @@
 import fs from "fs";
-import https from "https";
 import os from "os";
 import path from "path";
 import { generate } from "@graphql-codegen/cli";
@@ -7,88 +6,104 @@ import {
   getConfig,
   generatedFileName as localGeneratedTypesFileName,
 } from "../codegen";
+const { execSync } = require("child_process");
+import process from "process";
 
 const GITHUB_API = "https://api.github.com";
-const INITIAL_PATH = "graphql/schema";
-const REPO = "/repos/evergreen-ci/evergreen/contents/";
+const GQL_DIR = "graphql/schema";
+const REPO = "/repos/evergreen-ci/evergreen";
+const REPO_CONTENTS = `${REPO}/contents/`;
 const USER_AGENT = "Mozilla/5.0";
+const LOCAL_SCHEMA = "sdlschema";
 
-const downloadFile = (url: string, savePath: string) =>
-  new Promise((resolve, reject) => {
-    https
-      .get(url, (res) => {
-        const writeStream = fs.createWriteStream(savePath);
-        res.pipe(writeStream);
+async function getRemoteLatestCommitSha() {
+  const url = `${GITHUB_API}${REPO}/commits?path=${GQL_DIR}&sha=main`;
+  console.log(url);
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url}. Status: ${response.status}`);
+  }
 
-        writeStream.on("finish", () => {
-          writeStream.close();
-          resolve(true);
-        });
+  const commits = await response.json();
 
-        writeStream.on("error", reject);
-      })
-      .on("error", reject);
+  if (commits.length > 0) {
+    return commits[0].sha;
+  } else {
+    throw new Error(`No commits found for this path: ${url}`);
+  }
+}
+const checkIsAncestor = async () => {
+  const remoteSha = await getRemoteLatestCommitSha();
+  const localSchemaSymlink = fs.readlinkSync(LOCAL_SCHEMA);
+
+  try {
+    process.chdir(localSchemaSymlink);
+    console.log(process.cwd());
+    execSync(`git merge-base --is-ancestor ${remoteSha} HEAD`);
+    // If the command was successful without errors, then the commit is an ancestor
+    return true;
+  } catch (error) {
+    if (error.status === 1) {
+      // git merge-base --is-ancestor returns exit code 1 if not an ancestor, which is not an "error" in traditional sense
+      return false;
+    }
+    throw new Error(`Error executing command: ${error.message}`);
+  }
+};
+
+const downloadAndSaveFile = async (url: string, savePath: string) => {
+  const response = await fetch(url, {
+    headers: {
+      "User-Agent": USER_AGENT,
+    },
+  });
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url}. Status: ${response.status}`);
+  }
+  const data = await response.arrayBuffer();
+  fs.writeFileSync(savePath, Buffer.from(data));
+};
+
+const fetchFiles = async (repoPath: string, localPath: string) => {
+  const response = await fetch(`${GITHUB_API}${repoPath}`, {
+    headers: {
+      "User-Agent": USER_AGENT,
+    },
   });
 
-const fetchAndDownloadFiles = (repoPath: string, localPath: string) =>
-  new Promise((resolve, reject) => {
-    https
-      .get(
-        `${GITHUB_API}${repoPath}`,
-        {
-          headers: {
-            "User-Agent": USER_AGENT,
-          },
-        },
-        (res) => {
-          let data = "";
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch ${GITHUB_API}${repoPath}. Status: ${response.status}`
+    );
+  }
 
-          res.on("data", (chunk) => {
-            data += chunk;
-          });
-
-          res.on("end", async () => {
-            const files = JSON.parse(data);
-            const promises = files.map((file) => {
-              const fileSavePath = path.join(localPath, file.name);
-              if (file.type === "file") {
-                return downloadFile(file.download_url, fileSavePath);
-              } else if (file.type === "dir") {
-                if (!fs.existsSync(fileSavePath)) {
-                  fs.mkdirSync(fileSavePath, { recursive: true });
-                }
-                return fetchAndDownloadFiles(
-                  `${REPO}${file.path}`,
-                  fileSavePath
-                );
-              }
-            });
-
-            try {
-              await Promise.all(promises);
-              resolve(true);
-            } catch (error) {
-              reject(error);
-            }
-          });
-
-          res.on("error", reject);
-        }
-      )
-      .on("error", reject);
+  const files = await response.json();
+  const promises = files.map((file) => {
+    const fileSavePath = path.join(localPath, file.name);
+    if (file.type === "file") {
+      return downloadAndSaveFile(file.download_url, fileSavePath);
+    } else if (file.type === "dir") {
+      if (!fs.existsSync(fileSavePath)) {
+        fs.mkdirSync(fileSavePath, { recursive: true });
+      }
+      return fetchFiles(`${REPO_CONTENTS}${file.path}`, fileSavePath);
+    }
   });
+
+  await Promise.all(promises);
+};
 
 const downloadAndGenerate = async () => {
   const tempDir = os.tmpdir();
   fs.mkdirSync(tempDir, { recursive: true });
-  await fetchAndDownloadFiles(
-    path.join(REPO, INITIAL_PATH),
-    path.join(tempDir, INITIAL_PATH)
+  await fetchFiles(
+    path.join(REPO_CONTENTS, GQL_DIR),
+    path.join(tempDir, GQL_DIR)
   );
   const latestGeneratedTypesFileName = `${tempDir}/types.ts`;
   await generate(
     getConfig({
-      schema: `${tempDir}/${INITIAL_PATH}/**/*.graphql`,
+      schema: `${tempDir}/${GQL_DIR}/**/*.graphql`,
       generatedFileName: latestGeneratedTypesFileName,
     }),
     true
@@ -98,6 +113,7 @@ const downloadAndGenerate = async () => {
 
 const diffTypes = async () => {
   try {
+    await checkIsAncestor();
     const latestGeneratedTypesFileName = await downloadAndGenerate();
     const filenames = [
       latestGeneratedTypesFileName,
