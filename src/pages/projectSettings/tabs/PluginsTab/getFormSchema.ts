@@ -2,7 +2,7 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { GetFormSchema } from "../types";
 import { form } from "../utils";
-import { FormState } from "./types";
+import { PluginsFormState } from "./types";
 
 const { placeholderIf, radioBoxOptions } = form;
 
@@ -30,7 +30,7 @@ const requesters = [
 ];
 
 export const getFormSchema = (
-  repoData?: FormState
+  repoData?: PluginsFormState
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {

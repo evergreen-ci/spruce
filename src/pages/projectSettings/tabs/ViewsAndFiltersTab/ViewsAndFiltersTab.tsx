@@ -7,7 +7,7 @@ import {
 } from "pages/projectSettings/Context";
 import { findDuplicateIndices } from "../utils";
 import { getFormSchema } from "./getFormSchema";
-import { TabProps, FormState } from "./types";
+import { TabProps, ViewsFormState } from "./types";
 
 const tab = ProjectSettingsTabRoutes.ViewsAndFilters;
 
@@ -49,4 +49,4 @@ const validate = ((formData, errors) => {
   });
 
   return errors;
-}) satisfies ValidateProps<FormState>;
+}) satisfies ValidateProps<ViewsFormState>;

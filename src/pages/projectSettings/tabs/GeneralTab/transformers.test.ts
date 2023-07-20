@@ -2,7 +2,7 @@ import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { ProjectType } from "../utils";
 import { formToGql, gqlToForm } from "./transformers";
-import { FormState } from "./types";
+import { GeneralFormState } from "./types";
 
 const { projectBase, repoBase } = data;
 
@@ -28,7 +28,7 @@ describe("project data", () => {
   });
 });
 
-const repoForm: FormState = {
+const repoForm: GeneralFormState = {
   generalConfiguration: {
     repositoryInfo: {
       owner: "evergreen-ci",
@@ -89,7 +89,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
   },
 };
 
-const projectForm: FormState = {
+const projectForm: GeneralFormState = {
   generalConfiguration: {
     enabled: false,
     repositoryInfo: {

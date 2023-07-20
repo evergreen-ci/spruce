@@ -7,7 +7,7 @@ import {
 } from "pages/projectSettings/Context";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
-import { FormState, TabProps } from "./types";
+import { PluginsFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Plugins;
 
@@ -95,4 +95,4 @@ const validate = ((formData, errors) => {
   }
 
   return errors;
-}) satisfies ValidateProps<FormState>;
+}) satisfies ValidateProps<PluginsFormState>;
