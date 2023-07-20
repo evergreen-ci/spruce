@@ -32,10 +32,7 @@ const Modal = ({
   mock?: MockedResponse;
   open?: boolean;
 }) => (
-  <MockedProvider
-    mocks={[mock, projectSettingsMock, repoSettingsMock]}
-    addTypename={false}
-  >
+  <MockedProvider mocks={[mock, projectSettingsMock, repoSettingsMock]}>
     <CopyProjectModal
       handleClose={() => {}}
       id={projectIdToCopy}
@@ -264,6 +261,7 @@ const projectSettingsMock: ApolloMock<
     data: {
       projectSettings: {
         projectRef: {
+          __typename: "Project",
           externalLinks: [],
           id: "asrt",
           identifier: "asrt",
@@ -288,7 +286,6 @@ const projectSettingsMock: ApolloMock<
             __typename: "TaskSyncOptions",
           },
           disabledStatsCache: false,
-          __typename: "Project",
           restricted: false,
           admins: ["admin"],
           buildBaronSettings: {
@@ -381,5 +378,9 @@ const repoSettingsMock: ApolloMock<
       repoId: newProjectIdentifier,
     },
   },
-  result: { data: { repoSettings: { githubWebhooksEnabled: true } } },
+  result: {
+    data: {
+      repoSettings: { githubWebhooksEnabled: true, __typename: "RepoSettings" },
+    },
+  },
 };
