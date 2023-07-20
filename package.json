@@ -185,6 +185,7 @@
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react": "7.30.1",
     "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-sort-destructure-keys": "^1.5.0",
     "eslint-plugin-storybook": "0.6.12",
     "eslint-plugin-testing-library": "^5.10.1",
     "http-proxy": "^1.18.1",
