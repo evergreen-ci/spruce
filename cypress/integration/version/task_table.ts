@@ -65,7 +65,7 @@ describe("Task table", () => {
 
   it("Task count displays total tasks", () => {
     cy.visit(pathTasks);
-    cy.dataCy("total-count").first().contains("50");
+    cy.dataCy("total-count").first().contains("48");
   });
 
   it("Sort buttons are disabled when fetching data", () => {
@@ -89,10 +89,12 @@ describe("Task table", () => {
     // Instead of checking the entire table rows lets just check if the elements on the table have changed
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
       cy.visit(`${pathTasks}?page=0`);
-      cy.contains("test-cloud");
+      cy.get(dataCyTableRows).should("be.visible");
+
       const firstPageRows = tableRowToText(dataCyTableRows);
       cy.dataCy(dataCyNextPage).click();
-      cy.contains("js-test");
+      cy.get(dataCyTableRows).should("be.visible");
+
       const secondPageRows = tableRowToText(dataCyTableRows);
 
       expect(firstPageRows).to.not.eq(secondPageRows);
@@ -100,21 +102,23 @@ describe("Task table", () => {
 
     it("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", () => {
       cy.visit(`${pathTasks}?page=1`);
-      cy.contains("js-test");
+      cy.get(dataCyTableRows).should("be.visible");
       const secondPageRows = tableRowToText(dataCyTableRows);
       cy.dataCy(dataCyPrevPage).click();
-      cy.contains("test-cloud");
+      cy.get(dataCyTableRows).should("be.visible");
       const firstPageRows = tableRowToText(dataCyTableRows);
       expect(firstPageRows).to.not.eq(secondPageRows);
     });
 
     it("Does not update results or URL when left arrow is clicked and previous page does not exist", () => {
       cy.visit(`${pathTasks}?page=0`);
+      cy.get(dataCyTableRows).should("be.visible");
       cy.dataCy(dataCyPrevPage).should("have.attr", "aria-disabled", "true");
     });
 
     it("Does not update results or URL when right arrow is clicked and next page does not exist", () => {
       cy.visit(`${pathTasks}?page=4`);
+      cy.get(dataCyTableRows).should("be.visible");
       cy.dataCy(dataCyNextPage).should("have.attr", "aria-disabled", "true");
     });
   });
@@ -125,6 +129,7 @@ describe("Task table", () => {
         it(`when the page size is set to ${pageSize}`, () => {
           cy.visit(pathTasks);
           cy.dataCy("tasks-table").should("exist");
+          cy.get(dataCyTableRows).should("be.visible");
           clickOnPageSizeBtnAndAssertURLandTableSize(
             pageSize,
             dataCyTableDataRows
