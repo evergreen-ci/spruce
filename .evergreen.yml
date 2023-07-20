@@ -405,7 +405,7 @@ functions:
       working_dir: spruce
       script: |
         export AUTHOR_EMAIL=${author_email}
-        export REACT_APP_DEPLOYS_EMAIL=${REACT_APP_DEPLOYS_EMAIL}
+        export DEPLOYS_EMAIL=${DEPLOYS_EMAIL}
         export EXECUTION=${execution}
         bash scripts/email.sh
 
