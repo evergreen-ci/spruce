@@ -3,6 +3,7 @@ const {
   createNewTag,
   deleteTag,
   getCommitMessages,
+  getCurrentlyDeployedCommit,
   getLatestTag,
   isOnMainBranch,
   isWorkingDirectoryClean,
@@ -21,7 +22,10 @@ const evergreenDeploy = async () => {
     return;
   }
 
-  const commitMessages = await getCommitMessages();
+  const currentlyDeployedCommit = await getCurrentlyDeployedCommit();
+  console.log(`Currently Deployed Commit: ${currentlyDeployedCommit}`);
+
+  const commitMessages = await getCommitMessages(currentlyDeployedCommit);
 
   // If there are no commit messages, ask the user if they want to delete and re-push the latest tag, thereby forcing a deploy with no new commits.
   if (commitMessages.length === 0) {
