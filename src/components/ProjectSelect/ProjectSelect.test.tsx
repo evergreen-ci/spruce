@@ -271,6 +271,7 @@ const getProjectsMock: [ApolloMock<ProjectsQuery, ProjectsQueryVariables>] = [
             ],
           },
           {
+            __typename: "GroupedProjects",
             groupDisplayName: "logkeeper/logkeeper",
             projects: [
               {

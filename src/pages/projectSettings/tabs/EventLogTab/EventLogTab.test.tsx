@@ -80,6 +80,7 @@ const projectEventsQuery: ProjectEventLogsQuery = {
         timestamp: new Date("2023-01-04T18:32:56.046Z"),
         user: "art.oeinf",
         before: {
+          __typename: "ProjectEventSettings",
           projectRef: {
             __typename: "Project",
             banner: null,
@@ -161,10 +162,10 @@ const projectEventsQuery: ProjectEventLogsQuery = {
             __typename: "ProjectVars",
           },
           githubWebhooksEnabled: true,
-          __typename: "ProjectEventSettings",
           aliases: [],
         },
         after: {
+          __typename: "ProjectEventSettings",
           projectRef: {
             __typename: "Project",
             banner: null,
@@ -244,7 +245,6 @@ const projectEventsQuery: ProjectEventLogsQuery = {
             __typename: "ProjectVars",
           },
           githubWebhooksEnabled: true,
-          __typename: "ProjectEventSettings",
           aliases: [],
         },
       },

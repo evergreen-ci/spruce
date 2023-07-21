@@ -108,6 +108,7 @@ describe("copyProjectField", () => {
       result: {
         data: {
           copyProject: {
+            __typename: "Project",
             id: newProjectIdentifier,
             identifier: newProjectIdentifier,
           },
@@ -154,6 +155,7 @@ describe("copyProjectField", () => {
       result: {
         data: {
           copyProject: {
+            __typename: "Project",
             id: newProjectIdentifier,
             identifier: newProjectIdentifier,
           },
@@ -240,6 +242,7 @@ const copyProjectMock: ApolloMock<
   result: {
     data: {
       copyProject: {
+        __typename: "Project",
         id: newProjectIdentifier,
         identifier: newProjectIdentifier,
       },

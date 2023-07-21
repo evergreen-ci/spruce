@@ -183,6 +183,7 @@ describe("createProjectField", () => {
       result: {
         data: {
           createProject: {
+            __typename: "Project",
             id: "new-project-id",
             identifier: "new-project-name",
           },
