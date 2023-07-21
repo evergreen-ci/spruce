@@ -157,7 +157,7 @@ describe("Repo Settings", { testIsolation: false }, () => {
         .contains(
           "A GitHub Patch Definition must be specified for this feature to run."
         )
-        .should("exist");
+        .should("be.visible");
     });
 
     it("Shows an error banner when Commit Checks are enabled", () => {
@@ -168,10 +168,7 @@ describe("Repo Settings", { testIsolation: false }, () => {
         .contains(
           "A Commit Check Definition must be specified for this feature to run."
         )
-        .should("exist");
-    });
-
-    it("Hides error banner when Commit Checks are disabled", () => {
+        .should("be.visible");
       cy.dataCy("github-checks-enabled-radio-box").within(($el) => {
         cy.wrap($el).getInputByLabel("Disabled").parent().click();
       });
@@ -190,10 +187,8 @@ describe("Repo Settings", { testIsolation: false }, () => {
     });
 
     it("Updates a patch definition", () => {
-      cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
-
+      cy.contains("button", "Add Patch Definition").click();
       cy.dataCy("variant-tags-input").first().type("vtag");
-
       cy.dataCy("task-tags-input").first().type("ttag");
     });
 
@@ -214,9 +209,10 @@ describe("Repo Settings", { testIsolation: false }, () => {
 
       cy.dataCy("error-banner")
         .contains(
-          "A Commit Check Definition must be specified for this feature to run."
+          "A Commit Queue Patch Definition must be specified for this feature to run."
         )
-        .should("not.exist");
+        .scrollIntoView()
+        .should("be.visible");
     });
 
     it("Presents three options for merge method", () => {
@@ -239,15 +235,14 @@ describe("Repo Settings", { testIsolation: false }, () => {
     });
 
     it("Adds a commit queue definition", () => {
-      cy.dataCy("add-button")
-        .contains("Add Commit Queue Patch Definition")
-        .parent()
-        .click();
+      cy.contains("button", "Add Commit Queue Patch Definition").click();
       cy.dataCy("variant-tags-input").last().type("cqvtag");
       cy.dataCy("task-tags-input").last().type("cqttag");
     });
 
     it("Successfully saves the page", () => {
+      cy.dataCy("warning-banner").should("not.exist");
+      cy.dataCy("error-banner").should("not.exist");
       clickSave();
       cy.validateToast("success", "Successfully updated repo");
     });

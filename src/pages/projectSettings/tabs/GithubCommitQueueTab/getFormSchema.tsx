@@ -7,7 +7,6 @@ import {
   pullRequestAliasesDocumentationUrl,
   gitTagAliasesDocumentationUrl,
   githubChecksAliasesDocumentationUrl,
-  githubMergeQueueUrl,
 } from "constants/externalResources";
 import {
   getProjectSettingsRoute,
@@ -195,7 +194,6 @@ export const getFormSchema = (
             },
           },
           dependencies: {
-            // @ts-expect-error - Allow React element in Radio description
             enabled: {
               oneOf: [
                 {
@@ -232,18 +230,7 @@ export const getFormSchema = (
                           type: "string" as "string",
                           title: "GitHub",
                           enum: [MergeQueue.Github],
-                          description: (
-                            <>
-                              Use the GitHub merge queue. Read the documentation{" "}
-                              <StyledLink
-                                target="_blank"
-                                href={githubMergeQueueUrl}
-                              >
-                                here
-                              </StyledLink>
-                              .
-                            </>
-                          ),
+                          description: "Use the GitHub merge queue.",
                         },
                       ],
                     },
