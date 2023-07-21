@@ -130,9 +130,7 @@ describe("Tasks filters", () => {
             search: "failed",
           });
           waitForTable();
-          cy.dataCy("filtered-count")
-            .invoke("text")
-            .should("have.length.greaterThan", 0);
+          cy.dataCy("filtered-count").contains(2);
 
           cy.dataCy("filtered-count")
             .invoke("text")
@@ -210,7 +208,7 @@ describe("Tasks filters", () => {
           });
           waitForTable();
 
-          cy.dataCy("filtered-count").should("have.text", 0);
+          cy.dataCy("filtered-count").should("have.text", 44);
           selectCheckboxOption("Succeeded", false);
           urlSearchParamsAreUpdated({
             pathname: pathTasks,
