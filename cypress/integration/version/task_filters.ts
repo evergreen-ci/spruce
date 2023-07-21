@@ -130,7 +130,7 @@ describe("Tasks filters", () => {
             search: "failed",
           });
           waitForTable();
-          cy.dataCy("filtered-count").contains(2);
+          cy.dataCy("filtered-count").should("have.text", 2);
 
           cy.dataCy("filtered-count")
             .invoke("text")
