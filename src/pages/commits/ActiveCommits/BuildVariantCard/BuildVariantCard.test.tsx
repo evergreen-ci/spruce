@@ -38,7 +38,7 @@ describe("buildVariantCard", () => {
     (removeGlobalDimStyle as jest.Mock).mockImplementationOnce(() => {});
 
     render(
-      <MockedProvider mocks={[]} addTypename={false}>
+      <MockedProvider>
         <BuildVariantCard
           variant="ubuntu-2204"
           height={100}
