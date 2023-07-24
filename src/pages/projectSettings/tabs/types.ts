@@ -1,5 +1,3 @@
-import { Field } from "@rjsf/core";
-import { SpruceFormProps } from "components/SpruceForm/types";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   ProjectSettingsInput,
@@ -35,12 +33,6 @@ export type FormStateMap = {
     [ProjectSettingsTabRoutes.ViewsAndFilters]: ViewsFormState;
     [ProjectSettingsTabRoutes.VirtualWorkstation]: VWFormState;
   }[T];
-};
-
-export type GetFormSchema = (...any) => {
-  fields: Record<string, Field>;
-  schema: SpruceFormProps["schema"];
-  uiSchema: SpruceFormProps["uiSchema"];
 };
 
 export type TabDataProps = {

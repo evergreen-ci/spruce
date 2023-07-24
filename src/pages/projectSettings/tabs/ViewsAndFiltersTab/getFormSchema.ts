@@ -1,7 +1,7 @@
+import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { ProjectHealthView } from "gql/generated/types";
-import { GetFormSchema } from "../types";
 
 export const getFormSchema = (): ReturnType<GetFormSchema> => ({
   fields: {},

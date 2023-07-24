@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import {
   createSettingsContext,
   getUseHasUnsavedTab,
@@ -19,21 +19,25 @@ const ProjectSettingsContext = createSettingsContext<
   FormStateMap
 >();
 
-const ProjectSettingsProvider = ({ children }) => {
+const ProjectSettingsProvider: React.VFC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const { getTab, saveTab, setInitialData, tabs, updateForm } =
     useSettingsState(routes, formToGqlMap);
 
+  const contextValue = useMemo(
+    () => ({
+      getTab,
+      saveTab,
+      setInitialData,
+      tabs,
+      updateForm,
+    }),
+    [getTab, saveTab, setInitialData, tabs, updateForm]
+  );
+
   return (
-    <ProjectSettingsContext.Provider
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={{
-        getTab,
-        saveTab,
-        setInitialData,
-        tabs,
-        updateForm,
-      }}
-    >
+    <ProjectSettingsContext.Provider value={contextValue}>
       {children}
     </ProjectSettingsContext.Provider>
   );

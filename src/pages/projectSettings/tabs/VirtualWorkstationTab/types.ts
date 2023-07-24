@@ -8,6 +8,13 @@ export interface VWFormState {
       command: string;
       directory: string;
     }>;
+    repoData?: {
+      setupCommandsOverride: boolean;
+      setupCommands: Array<{
+        command: string;
+        directory: string;
+      }>;
+    };
   };
 }
 
