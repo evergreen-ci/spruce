@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import {
   createSettingsContext,
   getUseHasUnsavedTab,
@@ -35,19 +35,19 @@ const TestProvider = ({ children }) => {
   const { getTab, saveTab, setInitialData, tabs, updateForm } =
     useSettingsState(["foo", "bar"], formToGqlMap);
 
+  const contextValue = useMemo(
+    () => ({
+      getTab,
+      saveTab,
+      setInitialData,
+      tabs,
+      updateForm,
+    }),
+    [getTab, saveTab, setInitialData, tabs, updateForm]
+  );
+
   return (
-    <TestContext.Provider
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={{
-        getTab,
-        saveTab,
-        setInitialData,
-        tabs,
-        updateForm,
-      }}
-    >
-      {children}
-    </TestContext.Provider>
+    <TestContext.Provider value={contextValue}>{children}</TestContext.Provider>
   );
 };
 
