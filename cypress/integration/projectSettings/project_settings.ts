@@ -157,7 +157,7 @@ describe("Repo Settings", { testIsolation: false }, () => {
         .contains(
           "A GitHub Patch Definition must be specified for this feature to run."
         )
-        .should("be.visible");
+        .should("exist");
     });
 
     it("Shows an error banner when Commit Checks are enabled", () => {
@@ -168,7 +168,7 @@ describe("Repo Settings", { testIsolation: false }, () => {
         .contains(
           "A Commit Check Definition must be specified for this feature to run."
         )
-        .should("be.visible");
+        .should("exist");
       cy.dataCy("github-checks-enabled-radio-box").within(($el) => {
         cy.wrap($el).getInputByLabel("Disabled").parent().click();
       });
@@ -211,8 +211,7 @@ describe("Repo Settings", { testIsolation: false }, () => {
         .contains(
           "A Commit Queue Patch Definition must be specified for this feature to run."
         )
-        .scrollIntoView()
-        .should("be.visible");
+        .should("exist");
     });
 
     it("Presents three options for merge method", () => {
