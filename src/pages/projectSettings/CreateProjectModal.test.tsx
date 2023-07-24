@@ -135,6 +135,19 @@ describe("createProjectField", () => {
     ).toHaveAttribute("aria-disabled", "true");
   });
 
+  it("disables the confirm button when project name contains a question mark", async () => {
+    const { Component } = RenderFakeToastContext(<NewProjectModal />);
+    render(<Component />);
+    await waitForModalLoad();
+
+    userEvent.type(screen.queryByDataCy("project-name-input"), "my?test");
+    expect(
+      screen.getByRole("button", {
+        name: "Create Project",
+      })
+    ).toHaveAttribute("aria-disabled", "true");
+  });
+
   it("enables the confirm button if the optional project id is empty", async () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <NewProjectModal />
@@ -161,6 +174,26 @@ describe("createProjectField", () => {
     expect(router.state.location.pathname).toBe(
       "/project/new-project-name/settings"
     );
+  });
+
+  it("disables the confirm button if the optional project id contains a question mark", async () => {
+    const { Component } = RenderFakeToastContext(<NewProjectModal />);
+    render(<Component />);
+    await waitForModalLoad();
+
+    await selectLGOption("new-owner-select", "10gen");
+    userEvent.clear(screen.queryByDataCy("new-repo-input"));
+    userEvent.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
+    userEvent.type(
+      screen.queryByDataCy("project-name-input"),
+      "new-project-name"
+    );
+    userEvent.type(screen.queryByDataCy("project-id-input"), "invalid?");
+    expect(
+      screen.getByRole("button", {
+        name: "Create Project",
+      })
+    ).toHaveAttribute("aria-disabled", "true");
   });
 
   it("form submission succeeds when all fields are updated", async () => {

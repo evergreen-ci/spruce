@@ -3,7 +3,7 @@ export const projectName = {
     type: "string" as "string",
     title: "Project Name",
     minLength: 1,
-    format: "noSpaces",
+    format: "noSpacesNorQuestionMarks",
   },
   uiSchema: {
     "ui:data-cy": "project-name-input",
@@ -14,7 +14,7 @@ export const projectId = {
   schema: {
     type: "string" as "string",
     title: "Project ID",
-    format: "noSpaces",
+    format: "noSpacesNorQuestionMarks",
   },
   uiSchema: {
     "ui:data-cy": "project-id-input",
