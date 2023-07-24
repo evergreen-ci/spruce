@@ -1,28 +1,27 @@
 import { matchPath, useParams } from "react-router-dom";
 import { NavigationWarningModal } from "components/Settings";
-import { getProjectSettingsRoute, routes } from "constants/routes";
+import { getDistroSettingsRoute, routes } from "constants/routes";
 import { useHasUnsavedTab } from "./Context";
 import { getTabTitle } from "./getTabTitle";
 
 export const NavigationModal: React.VFC = () => {
   const { hasUnsaved, unsavedTabs } = useHasUnsavedTab();
-  const { projectIdentifier } = useParams();
+  const { distroId } = useParams();
 
   const shouldConfirmNavigation = ({ nextLocation }): boolean => {
-    const isProjectSettingsRoute =
-      nextLocation &&
-      !!matchPath(`${routes.projectSettings}/*`, nextLocation.pathname);
-    if (!isProjectSettingsRoute) {
+    const isDistroSettingsRoute =
+      nextLocation && !!matchPath(`${routes.distro}/*`, nextLocation.pathname);
+    if (!isDistroSettingsRoute) {
       return hasUnsaved;
     }
 
-    /* Identify if the user is navigating to a new project's settings via project select dropdown */
-    const currentProjectRoute = getProjectSettingsRoute(projectIdentifier);
-    const isNewProjectSettingsRoute = !matchPath(
-      `${currentProjectRoute}/*`,
+    /* Identify if the user is navigating to a new distro's settings via distro select dropdown */
+    const currentDistroRoute = getDistroSettingsRoute(distroId);
+    const isNewDistroSettingsRoute = !matchPath(
+      `${currentDistroRoute}/*`,
       nextLocation.pathname
     );
-    if (isNewProjectSettingsRoute) {
+    if (isNewDistroSettingsRoute) {
       return hasUnsaved;
     }
 
