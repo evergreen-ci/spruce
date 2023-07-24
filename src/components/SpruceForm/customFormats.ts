@@ -15,7 +15,6 @@ const {
 export const customFormats = (jiraHost: string) => ({
   // Permit empty string but disallow whitespace
   noSpaces: /^$|^\S+$/,
-  noSpacesNorQuestionMarks: /^[^ ?]*$/,
   // Permit url
   validURL: validateURL,
   validURLTemplate: validateURLTemplate,
