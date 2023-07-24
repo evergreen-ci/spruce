@@ -6,7 +6,7 @@ import {
 import { SettingsState } from "./Context";
 import { SettingsRoutes } from "./types";
 
-type FormProps<
+export type FormProps<
   T extends SettingsRoutes,
   FormStateMap extends Record<T, any>
 > = {

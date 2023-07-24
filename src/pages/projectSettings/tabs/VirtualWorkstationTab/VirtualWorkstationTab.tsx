@@ -3,11 +3,14 @@ import { ProjectSettingsTabRoutes } from "constants/routes";
 import { BaseTab } from "../BaseTab";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
-import { TabProps } from "./types";
+import { TabProps, VWFormState } from "./types";
 
 const tab = ProjectSettingsTabRoutes.VirtualWorkstation;
 
-const getInitialFormState = (projectData, repoData) => {
+const getInitialFormState = (
+  projectData: TabProps["projectData"],
+  repoData: TabProps["repoData"]
+): VWFormState => {
   if (!projectData) return repoData;
   if (repoData) {
     return {

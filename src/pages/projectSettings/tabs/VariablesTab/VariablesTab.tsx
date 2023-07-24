@@ -11,7 +11,10 @@ import { VariablesFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Variables;
 
-const getInitialFormState = (projectData, repoData): VariablesFormState => {
+const getInitialFormState = (
+  projectData: TabProps["projectData"],
+  repoData: TabProps["repoData"]
+): VariablesFormState => {
   if (!projectData) return repoData;
   if (repoData) return { ...projectData, repoData };
   return projectData;

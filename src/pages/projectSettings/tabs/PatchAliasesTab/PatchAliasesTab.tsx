@@ -2,11 +2,14 @@ import { useMemo } from "react";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { BaseTab } from "../BaseTab";
 import { getFormSchema } from "./getFormSchema";
-import { TabProps } from "./types";
+import { PatchAliasesFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.PatchAliases;
 
-const getInitialFormState = (projectData, repoData) => {
+const getInitialFormState = (
+  projectData: TabProps["projectData"],
+  repoData: TabProps["repoData"]
+): PatchAliasesFormState => {
   if (!projectData) return repoData;
   if (repoData) {
     return {
