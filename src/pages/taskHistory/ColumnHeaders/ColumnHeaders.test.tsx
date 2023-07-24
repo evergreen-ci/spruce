@@ -205,7 +205,11 @@ const mock = (
   },
   result: {
     data: {
-      buildVariantsForTaskName: buildVariants,
+      buildVariantsForTaskName: buildVariants.map((bv) => ({
+        __typename: "BuildVariantTuple",
+        buildVariant: bv.buildVariant,
+        displayName: bv.displayName,
+      })),
     },
   },
 });
