@@ -64,11 +64,16 @@ const convertToSentryBreadcrumb = (
   message: string,
   metadata: Metadata,
   type: BreadcrumbType
-): Breadcrumb => ({
-  message,
-  data: convertMetadata(metadata),
-  type: convertBreadcrumbType(type),
-});
+): Breadcrumb => {
+  const breadcrumbType = convertBreadcrumbType(type);
+  return {
+    message,
+    data: convertMetadata(metadata, breadcrumbType),
+    // Divide date by 1000 because Sentry wants the timestamp in RFC 3339, or seconds (not milliseconds!) since the Unix epoch.
+    timestamp: new Date().getTime() / 1000,
+    type: breadcrumbType,
+  };
+};
 
 // The "type" field for Sentry breadcrumbs is just "string", but we can approximate the types listed here:
 // https://develop.sentry.dev/sdk/event-payloads/breadcrumbs/#breadcrumb-types
@@ -114,12 +119,16 @@ const convertBreadcrumbType = (
 };
 
 /**
- * Convert a Bugsnag metadata field to use Sentry's key names.
+ * Convert a Bugsnag metadata field to use Sentry's key names and warn about missing fields.
  * https://develop.sentry.dev/sdk/event-payloads/breadcrumbs/#breadcrumb-types
  * @param bugsnagMetadata - Metadata object using Bugsnag-specific key names
+ * @param breadcrumbType - Sentry breadcrumb type
  * @returns an object with the key names converted to Sentry's names.
  */
-const convertMetadata = (bugsnagMetadata: Metadata): Metadata => {
+const convertMetadata = (
+  bugsnagMetadata: Metadata,
+  breadcrumbType: SentryBreadcrumb
+): Metadata => {
   // Convert statusCode => status_code
   if (bugsnagMetadata.statusCode) {
     const { statusCode, ...rest } = bugsnagMetadata;
@@ -128,6 +137,20 @@ const convertMetadata = (bugsnagMetadata: Metadata): Metadata => {
       status_code: statusCode,
     };
   }
+
+  if (breadcrumbType === SentryBreadcrumb.Navigation) {
+    if (!bugsnagMetadata.from) {
+      console.warn(
+        "Navigation breadcrumbs should include a 'from' metadata field."
+      );
+    }
+    if (!bugsnagMetadata.to) {
+      console.warn(
+        "Navigation breadcrumbs should include a 'to' metadata field."
+      );
+    }
+  }
+
   return bugsnagMetadata;
 };
 

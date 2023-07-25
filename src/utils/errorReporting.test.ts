@@ -79,7 +79,7 @@ describe("breadcrumbs", () => {
     jest.restoreAllMocks();
   });
 
-  it("should log errors into console when not in production", () => {
+  it("should log breadcrumbs into console when not in production", () => {
     const message = "my message";
     const type = "error";
     const metadata = { foo: "bar" };
@@ -94,7 +94,8 @@ describe("breadcrumbs", () => {
     expect(Sentry.addBreadcrumb).not.toHaveBeenCalled();
   });
 
-  it("should report errors to Bugsnag and Sentry when in production and convert Sentry errors", () => {
+  it("should report breadcrumbs to Bugsnag and Sentry when in production and convert Sentry breadcrumbs", () => {
+    jest.useFakeTimers().setSystemTime(new Date("2020-01-01"));
     mockEnv("NODE_ENV", "production");
     jest.spyOn(Bugsnag, "leaveBreadcrumb").mockImplementation(jest.fn());
     jest.spyOn(Sentry, "addBreadcrumb").mockImplementation(jest.fn());
@@ -112,7 +113,41 @@ describe("breadcrumbs", () => {
     expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
       message,
       type: "info",
+      timestamp: 1577836800,
       data: { status_code: 401 },
+    });
+  });
+
+  it("warns when 'from' or 'to' fields are missing with a navigation breadcrumb", () => {
+    jest.useFakeTimers().setSystemTime(new Date("2020-01-01"));
+    jest.spyOn(console, "warn").mockImplementation(() => {});
+    mockEnv("NODE_ENV", "production");
+    jest.spyOn(Bugsnag, "leaveBreadcrumb").mockImplementation(jest.fn());
+    jest.spyOn(Sentry, "addBreadcrumb").mockImplementation(jest.fn());
+
+    const message = "navigation message";
+    const type = "navigation";
+    const metadata = {};
+
+    leaveBreadcrumb(message, metadata, type);
+    expect(console.warn).toHaveBeenNthCalledWith(
+      1,
+      "Navigation breadcrumbs should include a 'from' metadata field."
+    );
+    expect(console.warn).toHaveBeenNthCalledWith(
+      2,
+      "Navigation breadcrumbs should include a 'to' metadata field."
+    );
+    expect(Bugsnag.leaveBreadcrumb).toHaveBeenCalledWith(
+      message,
+      metadata,
+      type
+    );
+    expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
+      message,
+      type,
+      timestamp: 1577836800,
+      data: {},
     });
   });
 });
