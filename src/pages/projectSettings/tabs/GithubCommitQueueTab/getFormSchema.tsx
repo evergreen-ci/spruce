@@ -1,5 +1,3 @@
-import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
 import { Description } from "@leafygreen-ui/typography";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
@@ -10,24 +8,18 @@ import {
   pullRequestAliasesDocumentationUrl,
   gitTagAliasesDocumentationUrl,
   githubChecksAliasesDocumentationUrl,
-  githubMergeQueueUrl,
 } from "constants/externalResources";
 import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
 } from "constants/routes";
-import { size } from "constants/tokens";
 import { GithubProjectConflicts, MergeQueue } from "gql/generated/types";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
-import { environmentVariables } from "utils";
 import { alias, form, ProjectType } from "../utils";
 import { githubConflictErrorStyling, sectionHasError } from "./getErrors";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
 import { GCQFormState } from "./types";
 
-const { green } = palette;
-
-const { isProduction } = environmentVariables;
 const { aliasArray, aliasRowUiSchema, gitTagArray } = alias;
 const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 
@@ -47,8 +39,6 @@ export const getFormSchema = (
         : "hidden",
     "ui:showLabel": false,
   };
-
-  const isCQTestProject = identifier === "github-merge-queue-sandbox";
 
   const errorStyling = sectionHasError(versionControlEnabled, projectType);
 
@@ -204,7 +194,6 @@ export const getFormSchema = (
             },
           },
           dependencies: {
-            // @ts-expect-error - Allow the BETA badge in Radio Button widget title.
             enabled: {
               oneOf: [
                 {
@@ -223,46 +212,28 @@ export const getFormSchema = (
                     enabled: {
                       enum: [true],
                     },
-                    ...((!isProduction() || isCQTestProject) && {
-                      mergeQueueTitle: {
-                        title: "Merge Queue",
-                        type: "null",
-                      },
-                      mergeQueue: {
-                        type: "string" as "string",
-                        oneOf: [
-                          {
-                            type: "string" as "string",
-                            title: "Evergreen",
-                            enum: [MergeQueue.Evergreen],
-                            description:
-                              "Use the standard commit queue owned and maintained by Evergreen.",
-                          },
-                          {
-                            type: "string" as "string",
-                            title: (
-                              <span>
-                                GitHub <BetaBadge>Beta</BetaBadge>
-                              </span>
-                            ),
-                            enum: [MergeQueue.Github],
-                            description: (
-                              <>
-                                Use the GitHub merge queue. Read the
-                                documentation{" "}
-                                <StyledLink
-                                  target="_blank"
-                                  href={githubMergeQueueUrl}
-                                >
-                                  here
-                                </StyledLink>
-                                .
-                              </>
-                            ),
-                          },
-                        ],
-                      },
-                    }),
+                    mergeQueueTitle: {
+                      title: "Merge Queue",
+                      type: "null",
+                    },
+                    mergeQueue: {
+                      type: "string" as "string",
+                      oneOf: [
+                        {
+                          type: "string" as "string",
+                          title: "Evergreen",
+                          enum: [MergeQueue.Evergreen],
+                          description:
+                            "Use the standard commit queue owned and maintained by Evergreen.",
+                        },
+                        {
+                          type: "string" as "string",
+                          title: "GitHub",
+                          enum: [MergeQueue.Github],
+                          description: "Use the GitHub merge queue.",
+                        },
+                      ],
+                    },
                     message: {
                       type: "string" as "string",
                       title: "Commit Queue Message",
@@ -654,13 +625,3 @@ const GitHubChecksAliasesDescription = (
     and no aliases are defined on the project or repo page.
   </>
 );
-
-const BetaBadge = styled.span`
-  color: ${green.dark1};
-  border: 1px solid ${green.dark1};
-  border-radius: ${size.s};
-  padding: 0 ${size.xxs};
-  font-size: 11px;
-  text-transform: uppercase;
-  vertical-align: bottom;
-`;
