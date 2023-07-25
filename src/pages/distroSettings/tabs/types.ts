@@ -7,6 +7,7 @@ export { WritableDistroSettingsTabs };
 export type WritableDistroSettingsType =
   (typeof WritableDistroSettingsTabs)[keyof typeof WritableDistroSettingsTabs];
 
+// TODO: Specify type as tabs are added.
 export type FormStateMap = {
   [T in WritableDistroSettingsType]: {
     [DistroSettingsTabRoutes.General]: any;
@@ -20,7 +21,7 @@ export type FormStateMap = {
 export type FormToGqlFunction<T extends WritableDistroSettingsType> = (
   form: FormStateMap[T],
   id?: string
-) => SaveDistroInput; // TODO: Remove | null
+) => SaveDistroInput;
 
 export type GqlToFormFunction<T extends WritableDistroSettingsType> = (
   data: DistroQuery["distro"]

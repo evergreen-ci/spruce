@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import {
   createSettingsContext,
   getUseHasUnsavedTab,
@@ -25,16 +25,21 @@ const DistroSettingsProvider: React.VFC<{ children: React.ReactNode }> = ({
   const { getTab, saveTab, setInitialData, tabs, updateForm } =
     useSettingsState(routes, formToGqlMap);
 
+  const contextValue = useMemo(
+    () => ({
+      getTab,
+      saveTab,
+      setInitialData,
+      tabs,
+      updateForm,
+    }),
+    [getTab, saveTab, setInitialData, tabs, updateForm]
+  );
+
   return (
     <DistroSettingsContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={{
-        getTab,
-        saveTab,
-        setInitialData,
-        tabs,
-        updateForm,
-      }}
+      value={contextValue}
     >
       {children}
     </DistroSettingsContext.Provider>

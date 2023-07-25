@@ -19,7 +19,7 @@ export const DistroSettingsTabs: React.VFC<Props> = ({ distro }) => {
   const tabData = useMemo(() => getTabData(distro), [distro]);
 
   useEffect(() => {
-    // @ts-expect-error TODO: Remove and type when all tabs have been implemented
+    // @ts-expect-error TODO: Type when all tabs have been implemented
     setInitialData(tabData);
   }, [setInitialData, tabData]);
 

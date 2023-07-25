@@ -1,5 +1,4 @@
 import { useQuery } from "@apollo/client";
-import { Skeleton } from "antd";
 import { useParams, Link, Navigate } from "react-router-dom";
 import {
   SideNav,
@@ -65,11 +64,7 @@ const ProjectSettings: React.VFC = () => {
         </SideNavGroup>
       </SideNav>
       <PageWrapper data-cy="project-settings-page">
-        {loading || !data.distro ? (
-          <Skeleton />
-        ) : (
-          <DistroSettingsTabs distro={data.distro} />
-        )}
+        {!loading && data.distro && <DistroSettingsTabs distro={data.distro} />}
       </PageWrapper>
     </DistroSettingsProvider>
   );
