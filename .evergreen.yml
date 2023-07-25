@@ -491,6 +491,6 @@ buildvariants:
       - name: check_codegen
       - name: snapshots
       - name: deploy_to_prod
-        # git_tag_only: true
-        # patchable: false
+        git_tag_only: true
+        patchable: false
         priority: 100
