@@ -1,13 +1,14 @@
 const { exec } = require("child_process");
 
 const githubRemote = "https://github.com/evergreen-ci/spruce";
-const localDeployScript =
+const deployScript =
   "yarn build:prod && env-cmd -e production yarn deploy:do-not-use && env-cmd -e production ./scripts/email.sh";
 
 const createNewTag = () =>
   new Promise((resolve, reject) => {
     exec("yarn version --new-version patch", (err, stdout) => {
       if (err) {
+        console.error(stdout);
         reject(err);
         return;
       }
@@ -21,6 +22,7 @@ const getCommitMessages = (currentlyDeployedCommit) =>
       `git log ${currentlyDeployedCommit}..HEAD --oneline`,
       (err, stdout) => {
         if (err) {
+          console.error(stdout);
           reject(err);
           return;
         }
@@ -33,7 +35,7 @@ const getCurrentlyDeployedCommit = () =>
   new Promise((resolve, reject) => {
     exec("bash scripts/get-current-deployed-commit.sh", (err, stdout) => {
       if (err) {
-        console.log(err);
+        console.error(stdout);
         reject(err);
         return;
       }
@@ -62,6 +64,7 @@ const getLatestTag = () =>
   new Promise((resolve, reject) => {
     exec("git describe --tags --abbrev=0", (err, stdout) => {
       if (err) {
+        console.error(stdout);
         reject(err);
         return;
       }
@@ -74,6 +77,7 @@ const deleteTag = (tag) => {
   return new Promise((resolve, reject) => {
     exec(deleteCommand, (err, stdout) => {
       if (err) {
+        console.error(stdout);
         reject(err);
         return;
       }
@@ -93,10 +97,11 @@ const pushTags = () =>
     });
   });
 
-const runLocalDeploy = () =>
+const runDeploy = () =>
   new Promise((resolve, reject) => {
-    exec(localDeployScript, (err, stdout) => {
+    exec(deployScript, (err, stdout) => {
       if (err) {
+        console.error(stdout);
         reject(err);
         return;
       }
@@ -108,6 +113,7 @@ const isOnMainBranch = () =>
   new Promise((resolve, reject) => {
     exec("git branch --show-current", (err, stdout) => {
       if (err) {
+        console.error(stdout);
         reject(err);
         return;
       }
@@ -119,6 +125,7 @@ const isWorkingDirectoryClean = () =>
   new Promise((resolve, reject) => {
     exec("git status --porcelain", (err, stdout) => {
       if (err) {
+        console.error(stdout);
         reject(err);
         return;
       }
@@ -126,14 +133,30 @@ const isWorkingDirectoryClean = () =>
     });
   });
 
+const deleteAndPushLatestTag = async () => {
+  try {
+    const latestTag = await getLatestTag();
+    console.log(`Deleting and re-pushing latest tag (${latestTag})`);
+    console.log(await deleteTag(latestTag));
+    console.log(await pushTags());
+  } catch (err) {
+    console.error(err);
+    console.error("Deleting and pushing tag failed. Aborting.");
+  }
+};
+
+const isRunningOnCI = () => process.env.CI === "true";
+
 module.exports = {
   createNewTag,
+  deleteAndPushLatestTag,
   deleteTag,
   getCommitMessages,
   getCurrentlyDeployedCommit,
   getLatestTag,
   isOnMainBranch,
+  isRunningOnCI,
   isWorkingDirectoryClean,
   pushTags,
-  runLocalDeploy,
+  runDeploy,
 };

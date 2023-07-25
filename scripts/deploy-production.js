@@ -1,14 +1,13 @@
 const prompts = require("prompts");
 const {
   createNewTag,
-  deleteTag,
   getCommitMessages,
   getCurrentlyDeployedCommit,
-  getLatestTag,
   isOnMainBranch,
   isWorkingDirectoryClean,
-  pushTags,
-  runLocalDeploy,
+  deleteAndPushLatestTag,
+  isRunningOnCI,
+  runDeploy,
 } = require("./deploy-utils");
 
 /* Deploy by pushing a git tag, to be picked up and built by Evergreen, and deployed to S3. */
@@ -68,7 +67,7 @@ const evergreenDeploy = async () => {
       );
     } catch (err) {
       console.log(err);
-      console.log("Creating tag failed. Aborting.");
+      throw new Error("Creating tag failed. Aborting.");
     }
   }
 };
@@ -93,25 +92,29 @@ const localDeploy = async () => {
 
   if (response.value) {
     try {
-      const localDeployOutput = await runLocalDeploy();
+      const localDeployOutput = await runDeploy();
       console.log(localDeployOutput);
     } catch (err) {
-      console.error(err);
       console.error("Local deploy failed. Aborting.");
+      throw new Error(err);
     }
   }
 };
 
-const deleteAndPushLatestTag = async () => {
+const ciDeploy = async () => {
+  if (!(await isOnMainBranch())) {
+    throw new Error("You must be on the main branch to deploy!");
+  }
+  if (!isRunningOnCI()) {
+    throw new Error("Not running on CI");
+  }
   try {
-    const latestTag = await getLatestTag();
-    console.log(`Deleting and re-pushing latest tag (${latestTag})`);
-    console.log(await deleteTag(latestTag));
-    console.log(await pushTags());
+    const ciDeployOutput = await runDeploy();
+    console.log(ciDeployOutput);
   } catch (err) {
-    console.error(err);
-    console.error("Deleting and pushing tag failed. Aborting.");
+    console.error("CI deploy failed. Aborting.");
+    throw new Error(err);
   }
 };
 
-module.exports = { evergreenDeploy, localDeploy };
+module.exports = { evergreenDeploy, localDeploy, ciDeploy };
