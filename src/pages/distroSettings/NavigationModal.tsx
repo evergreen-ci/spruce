@@ -30,7 +30,7 @@ export const NavigationModal: React.VFC = () => {
 
   return (
     <NavigationWarningModal
-      shouldConfirmNavigation={shouldConfirmNavigation}
+      shouldBlock={shouldConfirmNavigation}
       unsavedTabs={unsavedTabs.map((tab) => ({
         title: getTabTitle(tab).title,
         value: tab,

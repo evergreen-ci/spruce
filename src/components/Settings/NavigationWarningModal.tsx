@@ -5,19 +5,19 @@ import {
 } from "react-router-dom";
 import { ConfirmationModal } from "components/ConfirmationModal";
 
-type Props = {
-  shouldConfirmNavigation: BlockerFunction;
+export type NavigationModalProps = {
+  shouldBlock: boolean | BlockerFunction;
   unsavedTabs: Array<{
     title: string;
     value: string;
   }>;
 };
 
-export const NavigationWarningModal: React.VFC<Props> = ({
-  shouldConfirmNavigation,
+export const NavigationWarningModal: React.VFC<NavigationModalProps> = ({
+  shouldBlock,
   unsavedTabs,
 }) => {
-  const blocker = useBlocker(shouldConfirmNavigation);
+  const blocker = useBlocker(shouldBlock);
 
   return (
     blocker.state === "blocked" && (
