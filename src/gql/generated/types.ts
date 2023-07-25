@@ -82,6 +82,20 @@ export type BootstrapSettings = {
   shellPath?: Maybe<Scalars["String"]>;
 };
 
+export type BootstrapSettingsInput = {
+  clientDir?: InputMaybe<Scalars["String"]>;
+  communication?: InputMaybe<Scalars["String"]>;
+  env?: InputMaybe<Array<EnvVarInput>>;
+  jasperBinaryDir?: InputMaybe<Scalars["String"]>;
+  jasperCredentialsPath?: InputMaybe<Scalars["String"]>;
+  method?: InputMaybe<Scalars["String"]>;
+  preconditionScripts?: InputMaybe<Array<PreconditionScriptInput>>;
+  resourceLimits?: InputMaybe<ResourceLimitsInput>;
+  rootDir?: InputMaybe<Scalars["String"]>;
+  serviceUser?: InputMaybe<Scalars["String"]>;
+  shellPath?: InputMaybe<Scalars["String"]>;
+};
+
 export type Build = {
   __typename?: "Build";
   actualMakespan: Scalars["Duration"];
@@ -240,6 +254,11 @@ export type CopyProjectInput = {
   projectIdToCopy: Scalars["String"];
 };
 
+/** CreateDistroInput is the input to the createDistro mutation. */
+export type CreateDistroInput = {
+  newDistroId: Scalars["String"];
+};
+
 /**
  * CreateProjectInput is the input to the createProject mutation.
  * It contains information about a new project to be created.
@@ -275,6 +294,10 @@ export type Dependency = {
 export type DispatcherSettings = {
   __typename?: "DispatcherSettings";
   version?: Maybe<Scalars["String"]>;
+};
+
+export type DispatcherSettingsInput = {
+  version?: InputMaybe<Scalars["String"]>;
 };
 
 export type DisplayTask = {
@@ -326,6 +349,45 @@ export type DistroInfo = {
   workDir?: Maybe<Scalars["String"]>;
 };
 
+export type DistroInput = {
+  aliases?: InputMaybe<Array<Scalars["String"]>>;
+  arch?: InputMaybe<Scalars["String"]>;
+  authorizedKeysFile?: InputMaybe<Scalars["String"]>;
+  bootstrapSettings?: InputMaybe<BootstrapSettingsInput>;
+  cloneMethod?: InputMaybe<Scalars["String"]>;
+  containerPool?: InputMaybe<Scalars["String"]>;
+  disableShallowClone?: InputMaybe<Scalars["Boolean"]>;
+  disabled?: InputMaybe<Scalars["Boolean"]>;
+  dispatcherSettings?: InputMaybe<DispatcherSettingsInput>;
+  expansions?: InputMaybe<Array<ExpansionInput>>;
+  finderSettings?: InputMaybe<FinderSettingsInput>;
+  homeVolumeSettings?: InputMaybe<HomeVolumeSettingsInput>;
+  hostAllocatorSettings?: InputMaybe<HostAllocatorSettingsInput>;
+  iceCreamSettings?: InputMaybe<IceCreamSettingsInput>;
+  isCluster?: InputMaybe<Scalars["Boolean"]>;
+  isVirtualWorkStation?: InputMaybe<Scalars["Boolean"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  note?: InputMaybe<Scalars["String"]>;
+  plannerSettings?: InputMaybe<PlannerSettingsInput>;
+  provider?: InputMaybe<Scalars["String"]>;
+  providerSettingsList?: InputMaybe<Array<Scalars["Map"]>>;
+  setup?: InputMaybe<Scalars["String"]>;
+  setupAsSudo?: InputMaybe<Scalars["Boolean"]>;
+  sshKey?: InputMaybe<Scalars["String"]>;
+  sshOptions?: InputMaybe<Array<Scalars["String"]>>;
+  user?: InputMaybe<Scalars["String"]>;
+  userSpawnAllowed?: InputMaybe<Scalars["Boolean"]>;
+  validProjects?: InputMaybe<Array<Scalars["String"]>>;
+  workDir?: InputMaybe<Scalars["String"]>;
+};
+
+export enum DistroOnSaveOperation {
+  Decommission = "DECOMMISSION",
+  None = "NONE",
+  Reprovision = "REPROVISION",
+  RestartJasper = "RESTART_JASPER",
+}
+
 export type DistroPermissions = {
   __typename?: "DistroPermissions";
   admin: Scalars["Boolean"];
@@ -342,6 +404,14 @@ export enum DistroSettingsAccess {
   Create = "CREATE",
   Edit = "EDIT",
   View = "VIEW",
+}
+
+export enum DistroSettingsSection {
+  General = "GENERAL",
+  Host = "HOST",
+  Project = "PROJECT",
+  Provider = "PROVIDER",
+  Task = "TASK",
 }
 
 export type EcsConfig = {
@@ -374,10 +444,20 @@ export type EnvVar = {
   value?: Maybe<Scalars["String"]>;
 };
 
+export type EnvVarInput = {
+  key?: InputMaybe<Scalars["String"]>;
+  value?: InputMaybe<Scalars["String"]>;
+};
+
 export type Expansion = {
   __typename?: "Expansion";
   key?: Maybe<Scalars["String"]>;
   value?: Maybe<Scalars["String"]>;
+};
+
+export type ExpansionInput = {
+  key?: InputMaybe<Scalars["String"]>;
+  value?: InputMaybe<Scalars["String"]>;
 };
 
 export type ExternalLink = {
@@ -418,6 +498,10 @@ export type FileDiff = {
 export type FinderSettings = {
   __typename?: "FinderSettings";
   version?: Maybe<Scalars["String"]>;
+};
+
+export type FinderSettingsInput = {
+  version?: InputMaybe<Scalars["String"]>;
 };
 
 export type GeneralSubscription = {
@@ -510,6 +594,10 @@ export type HomeVolumeSettings = {
   formatCommand?: Maybe<Scalars["String"]>;
 };
 
+export type HomeVolumeSettingsInput = {
+  formatCommand?: InputMaybe<Scalars["String"]>;
+};
+
 /** Host models a host, which are used for things like running tasks or as virtual workstations. */
 export type Host = {
   __typename?: "Host";
@@ -548,6 +636,16 @@ export type HostAllocatorSettings = {
   minimumHosts: Scalars["Int"];
   roundingRule?: Maybe<Scalars["String"]>;
   version?: Maybe<Scalars["String"]>;
+};
+
+export type HostAllocatorSettingsInput = {
+  acceptableHostIdleTime?: InputMaybe<Scalars["Duration"]>;
+  feedbackRule?: InputMaybe<Scalars["String"]>;
+  hostsOverallocatedRule?: InputMaybe<Scalars["String"]>;
+  maximumHosts?: InputMaybe<Scalars["Int"]>;
+  minimumHosts?: InputMaybe<Scalars["Int"]>;
+  roundingRule?: InputMaybe<Scalars["String"]>;
+  version?: InputMaybe<Scalars["String"]>;
 };
 
 export type HostEventLogData = {
@@ -617,6 +715,11 @@ export type IceCreamSettings = {
   __typename?: "IceCreamSettings";
   configPath?: Maybe<Scalars["String"]>;
   schedulerHost?: Maybe<Scalars["String"]>;
+};
+
+export type IceCreamSettingsInput = {
+  configPath?: InputMaybe<Scalars["String"]>;
+  schedulerHost?: InputMaybe<Scalars["String"]>;
 };
 
 export type InstanceTag = {
@@ -817,6 +920,7 @@ export type Mutation = {
   clearMySubscriptions: Scalars["Int"];
   copyDistro: NewDistroPayload;
   copyProject: Project;
+  createDistro: NewDistroPayload;
   createProject: Project;
   createPublicKey: Array<PublicKey>;
   deactivateStepbackTask: Scalars["Boolean"];
@@ -843,6 +947,7 @@ export type Mutation = {
   restartJasper: Scalars["Int"];
   restartTask: Task;
   restartVersions?: Maybe<Array<Version>>;
+  saveDistroSection: SaveDistroSectionPayload;
   saveProjectSettingsForSection: ProjectSettings;
   saveRepoSettingsForSection: RepoSettings;
   saveSubscription: Scalars["Boolean"];
@@ -905,6 +1010,10 @@ export type MutationCopyDistroArgs = {
 export type MutationCopyProjectArgs = {
   project: CopyProjectInput;
   requestS3Creds?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type MutationCreateDistroArgs = {
+  opts: CreateDistroInput;
 };
 
 export type MutationCreateProjectArgs = {
@@ -1029,6 +1138,10 @@ export type MutationRestartVersionsArgs = {
   abort: Scalars["Boolean"];
   versionId: Scalars["String"];
   versionsToRestart: Array<VersionToRestart>;
+};
+
+export type MutationSaveDistroSectionArgs = {
+  opts: SaveDistroInput;
 };
 
 export type MutationSaveProjectSettingsForSectionArgs = {
@@ -1345,6 +1458,17 @@ export type PlannerSettings = {
   version?: Maybe<Scalars["String"]>;
 };
 
+export type PlannerSettingsInput = {
+  expectedRuntimeFactor?: InputMaybe<Scalars["Int"]>;
+  generateTaskFactor?: InputMaybe<Scalars["Int"]>;
+  groupVersions?: InputMaybe<Scalars["Boolean"]>;
+  mainlineTimeInQueueFactor?: InputMaybe<Scalars["Int"]>;
+  patchFactor?: InputMaybe<Scalars["Int"]>;
+  patchTimeInQueueFactor?: InputMaybe<Scalars["Int"]>;
+  targetTime?: InputMaybe<Scalars["Duration"]>;
+  version?: InputMaybe<Scalars["String"]>;
+};
+
 export type Pod = {
   __typename?: "Pod";
   events: PodEvents;
@@ -1396,6 +1520,11 @@ export type PreconditionScript = {
   __typename?: "PreconditionScript";
   path?: Maybe<Scalars["String"]>;
   script?: Maybe<Scalars["String"]>;
+};
+
+export type PreconditionScriptInput = {
+  path?: InputMaybe<Scalars["String"]>;
+  script?: InputMaybe<Scalars["String"]>;
 };
 
 /** Project models single repository on GitHub. */
@@ -1964,6 +2093,28 @@ export type ResourceLimits = {
   numProcesses?: Maybe<Scalars["Int"]>;
   numTasks?: Maybe<Scalars["Int"]>;
   virtualMemoryKb?: Maybe<Scalars["Int"]>;
+};
+
+export type ResourceLimitsInput = {
+  lockedMemoryKb?: InputMaybe<Scalars["Int"]>;
+  numFiles?: InputMaybe<Scalars["Int"]>;
+  numProcesses?: InputMaybe<Scalars["Int"]>;
+  numTasks?: InputMaybe<Scalars["Int"]>;
+  virtualMemoryKb?: InputMaybe<Scalars["Int"]>;
+};
+
+export type SaveDistroInput = {
+  changes?: InputMaybe<DistroInput>;
+  distroId: Scalars["String"];
+  onSave: DistroOnSaveOperation;
+  section: DistroSettingsSection;
+};
+
+/** Return type representing the updated distro and the number of hosts that were updated. */
+export type SaveDistroSectionPayload = {
+  __typename?: "SaveDistroSectionPayload";
+  distro: Distro;
+  hostCount: Scalars["Int"];
 };
 
 export type SearchReturnInfo = {

@@ -1,6 +1,6 @@
+import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
 import { CommandRow } from "./CommandRow";
 import { VWFormState } from "./types";

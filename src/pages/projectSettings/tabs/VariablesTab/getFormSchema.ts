@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
+import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { GetFormSchema } from "../types";
 import { ProjectType } from "../utils";
 import { VariablesFormState } from "./types";
 import { VariableRow } from "./VariableRow";

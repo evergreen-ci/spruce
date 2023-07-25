@@ -6,9 +6,7 @@ import { renderWithRouterMatch as render, screen } from "test_utils";
 import { Metadata } from "./index";
 
 const wrapper = ({ children }) => (
-  <MockedProvider mocks={[getUserMock]} addTypename={false}>
-    {children}
-  </MockedProvider>
+  <MockedProvider mocks={[getUserMock]}>{children}</MockedProvider>
 );
 describe("metadata", () => {
   it("renders the metadata card with a pending status", () => {

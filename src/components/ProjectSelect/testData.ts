@@ -23,6 +23,7 @@ const addFavoriteMock: ApolloMock<
   result: {
     data: {
       addFavoriteProject: {
+        __typename: "Project",
         id: "evergreen",
         identifier: "evergreen",
         repo: "evergreen",
@@ -44,6 +45,7 @@ const removeFavoriteMock: ApolloMock<
   result: {
     data: {
       removeFavoriteProject: {
+        __typename: "Project",
         id: "evergreen",
         identifier: "evergreen",
         repo: "evergreen",
@@ -63,9 +65,11 @@ const getProjectsMock: ApolloMock<ProjectsQuery, ProjectsQueryVariables> = {
     data: {
       projects: [
         {
+          __typename: "GroupedProjects",
           groupDisplayName: "evergreen-ci/evergreen",
           projects: [
             {
+              __typename: "Project",
               id: "evergreen",
               identifier: "evergreen",
               repo: "evergreen",
@@ -76,9 +80,11 @@ const getProjectsMock: ApolloMock<ProjectsQuery, ProjectsQueryVariables> = {
           ],
         },
         {
+          __typename: "GroupedProjects",
           groupDisplayName: "logkeeper/logkeeper",
           projects: [
             {
+              __typename: "Project",
               id: "logkeeper",
               identifier: "logkeeper",
               repo: "logkeeper",
@@ -89,9 +95,11 @@ const getProjectsMock: ApolloMock<ProjectsQuery, ProjectsQueryVariables> = {
           ],
         },
         {
+          __typename: "GroupedProjects",
           groupDisplayName: "mongodb/mongo",
           projects: [
             {
+              __typename: "Project",
               id: "sys-perf",
               identifier: "sys-perf",
               repo: "mongo",
@@ -100,6 +108,7 @@ const getProjectsMock: ApolloMock<ProjectsQuery, ProjectsQueryVariables> = {
               isFavorite: false,
             },
             {
+              __typename: "Project",
               id: "performance",
               identifier: "performance",
               repo: "mongo",
@@ -110,9 +119,11 @@ const getProjectsMock: ApolloMock<ProjectsQuery, ProjectsQueryVariables> = {
           ],
         },
         {
+          __typename: "GroupedProjects",
           groupDisplayName: "mongodb/mongodb",
           projects: [
             {
+              __typename: "Project",
               id: "mongodb-mongo-master",
               identifier: "mongodb-mongo-master",
               repo: "mongodb",
@@ -123,9 +134,11 @@ const getProjectsMock: ApolloMock<ProjectsQuery, ProjectsQueryVariables> = {
           ],
         },
         {
+          __typename: "GroupedProjects",
           groupDisplayName: "mongodb/mongodb-test",
           projects: [
             {
+              __typename: "Project",
               id: "mongodb-mongo-test",
               identifier: "mongodb-mongo-test",
               repo: "mongodb-test",
@@ -151,9 +164,11 @@ const viewableProjectsMock: ApolloMock<
     data: {
       viewableProjectRefs: [
         {
+          __typename: "GroupedProjects",
           groupDisplayName: "evergreen-ci/evergreen",
           projects: [
             {
+              __typename: "Project",
               id: "evergreen",
               identifier: "evergreen",
               repo: "evergreen",
@@ -164,13 +179,16 @@ const viewableProjectsMock: ApolloMock<
             },
           ],
           repo: {
+            __typename: "RepoRef",
             id: "634d56d3850e610cacfe7e0b",
           },
         },
         {
+          __typename: "GroupedProjects",
           groupDisplayName: "mongodb/mongodb-test",
           projects: [
             {
+              __typename: "Project",
               id: "mongodb-mongo-test",
               identifier: "mongodb-mongo-test",
               repo: "mongodb-test",
@@ -181,6 +199,7 @@ const viewableProjectsMock: ApolloMock<
             },
           ],
           repo: {
+            __typename: "RepoRef",
             id: "6320b3d7850e613ee5b3bf8e",
           },
         },
