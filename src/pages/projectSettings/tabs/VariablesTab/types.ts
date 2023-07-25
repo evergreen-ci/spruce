@@ -1,13 +1,18 @@
 import { ProjectType } from "../utils";
 
+type Variable = {
+  varName: string;
+  varValue: string;
+  isPrivate: boolean;
+  isAdminOnly: boolean;
+  isDisabled: boolean;
+};
+
 export interface VariablesFormState {
-  vars: Array<{
-    varName: string;
-    varValue: string;
-    isPrivate: boolean;
-    isAdminOnly: boolean;
-    isDisabled: boolean;
-  }>;
+  vars: Array<Variable>;
+  repoData?: {
+    vars: Array<Variable>;
+  };
 }
 
 export type TabProps = {

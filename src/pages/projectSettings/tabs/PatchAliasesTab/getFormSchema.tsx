@@ -1,8 +1,8 @@
+import { GetFormSchema } from "components/SpruceForm";
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { StyledLink } from "components/styles";
 import { patchAliasesDocumentationUrl } from "constants/externalResources";
-import { GetFormSchema } from "../types";
 import { alias, form, PatchTriggerAliasStatus, ProjectType } from "../utils";
 import { TaskSpecifier } from "./types";
 
