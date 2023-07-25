@@ -102,9 +102,9 @@ const localDeploy = async () => {
 };
 
 const ciDeploy = async () => {
-  // if (!(await isOnMainBranch())) {
-  //   throw new Error("You must be on the main branch to deploy!");
-  // }
+  if (!(await isOnMainBranch())) {
+    throw new Error("You must be on the main branch to deploy!");
+  }
   if (!isRunningOnCI()) {
     throw new Error("Not running on CI");
   }
