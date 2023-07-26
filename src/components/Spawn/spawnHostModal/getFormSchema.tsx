@@ -138,11 +138,19 @@ export const getFormSchema = ({
                         ? myPublicKeys[0]?.name
                         : "",
                       oneOf:
-                        myPublicKeys?.map((d) => ({
-                          type: "string" as "string",
-                          title: d.name,
-                          enum: [d.name],
-                        })) || [],
+                        myPublicKeys?.length > 0
+                          ? myPublicKeys.map((d) => ({
+                              type: "string" as "string",
+                              title: d.name,
+                              enum: [d.name],
+                            }))
+                          : [
+                              {
+                                type: "string" as "string",
+                                title: "No keys available.",
+                                enum: [""],
+                              },
+                            ],
                     },
                   },
                 },
@@ -304,6 +312,11 @@ export const getFormSchema = ({
               type: "boolean" as "boolean",
               title: "Never expire",
             },
+            expiration: {
+              type: "string" as "string",
+              title: "Expiration",
+              default: getDefaultExpiration(),
+            },
           },
           dependencies: {
             noExpiration: {
@@ -314,9 +327,7 @@ export const getFormSchema = ({
                       enum: [false],
                     },
                     expiration: {
-                      type: "string" as "string",
-                      title: "Expiration",
-                      default: getDefaultExpiration(),
+                      readOnly: false,
                     },
                   },
                 },
@@ -324,6 +335,9 @@ export const getFormSchema = ({
                   properties: {
                     noExpiration: {
                       enum: [true],
+                    },
+                    expiration: {
+                      readOnly: true,
                     },
                   },
                 },
@@ -365,12 +379,21 @@ export const getFormSchema = ({
                       volumeSelect: {
                         title: "Volume",
                         type: "string" as "string",
-                        default: availableVolumes[0]?.id,
-                        oneOf: availableVolumes.map((v) => ({
-                          type: "string" as "string",
-                          title: `(${v.size}GB) ${v.displayName || v.id}`,
-                          enum: [v.id],
-                        })),
+                        default: availableVolumes[0]?.id ?? "",
+                        oneOf:
+                          availableVolumes.length > 0
+                            ? availableVolumes.map((v) => ({
+                                type: "string" as "string",
+                                title: `(${v.size}GB) ${v.displayName || v.id}`,
+                                enum: [v.id],
+                              }))
+                            : [
+                                {
+                                  type: "string" as "string",
+                                  title: "No volumes available.",
+                                  enum: [""],
+                                },
+                              ],
                       },
                     },
                   },
@@ -436,8 +459,6 @@ export const getFormSchema = ({
         },
         publicKeyNameDropdown: {
           "ui:elementWrapperCSS": dropdownWrapperClassName,
-          "ui:placeholder":
-            myPublicKeys?.length > 0 ? "Select a key" : "No keys available",
           "ui:data-cy": "key-select",
           "ui:allowDeselect": false,
           "ui:disabled": myPublicKeys?.length === 0,
@@ -479,64 +500,54 @@ export const getFormSchema = ({
           "ui:elementWrapperCSS": datePickerCSS,
         },
       },
-      ...(hasValidTask && {
-        loadData: {
-          "ui:fieldSetCSS": loadDataFieldSetCSS,
-          loadDataOntoHostAtStartup: {
-            "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
-            "ui:customLabel": (
-              <>
-                Load data for <b>{taskDisplayName}</b> on <b>{buildVariant}</b>{" "}
-                @ <b>{shortenGithash(revision)}</b> onto host at startup
-              </>
-            ),
-            "ui:elementWrapperCSS": dropMarginBottomCSS,
-            "ui:data-cy": "load-data-checkbox",
-          },
-          runProjectSpecificSetupScript: {
-            "ui:widget":
-              hasValidTask && project?.spawnHostScriptPath
-                ? widgets.CheckboxWidget
-                : "hidden",
-            "ui:disabled": useSetupScript,
-            "ui:data-cy": "project-setup-script-checkbox",
-            "ui:elementWrapperCSS": childCheckboxCSS,
-          },
-          taskSync: {
-            "ui:widget":
-              hasValidTask && canSync ? widgets.CheckboxWidget : "hidden",
-            "ui:elementWrapperCSS": childCheckboxCSS,
-          },
-          startHosts: {
-            "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
-            "ui:elementWrapperCSS": childCheckboxCSS,
-          },
+      loadData: {
+        "ui:fieldSetCSS": loadDataFieldSetCSS,
+        loadDataOntoHostAtStartup: {
+          "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
+          "ui:customLabel": (
+            <>
+              Load data for <b>{taskDisplayName}</b> on <b>{buildVariant}</b> @{" "}
+              <b>{shortenGithash(revision)}</b> onto host at startup
+            </>
+          ),
+          "ui:elementWrapperCSS": dropMarginBottomCSS,
+          "ui:data-cy": "load-data-checkbox",
         },
-      }),
-      ...(shouldRenderVolumeSelection && {
-        homeVolumeDetails: {
-          selectExistingVolume: {
-            "ui:widget": isVirtualWorkstation
-              ? widgets.RadioBoxWidget
+        runProjectSpecificSetupScript: {
+          "ui:widget":
+            hasValidTask && project?.spawnHostScriptPath
+              ? widgets.CheckboxWidget
               : "hidden",
-          },
-          volumeSelect: {
-            "ui:allowDeselect": false,
-            "ui:data-cy": "volume-select",
-            "ui:disabled": availableVolumes?.length === 0,
-            "ui:placeholder":
-              availableVolumes?.length === 0
-                ? "No Volumes Available"
-                : undefined,
-            "ui:enumDisabled": (volumes || [])
-              .filter((v) => !!v.hostID)
-              .map((v) => v.id),
-          },
-          volumeSize: {
-            "ui:inputType": "number",
-          },
+          "ui:disabled": useSetupScript,
+          "ui:data-cy": "project-setup-script-checkbox",
+          "ui:elementWrapperCSS": childCheckboxCSS,
         },
-      }),
+        taskSync: {
+          "ui:widget":
+            hasValidTask && canSync ? widgets.CheckboxWidget : "hidden",
+          "ui:elementWrapperCSS": childCheckboxCSS,
+        },
+        startHosts: {
+          "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
+          "ui:elementWrapperCSS": childCheckboxCSS,
+        },
+      },
+      homeVolumeDetails: {
+        selectExistingVolume: {
+          "ui:widget": isVirtualWorkstation ? widgets.RadioBoxWidget : "hidden",
+        },
+        volumeSelect: {
+          "ui:allowDeselect": false,
+          "ui:data-cy": "volume-select",
+          "ui:disabled": availableVolumes?.length === 0,
+          "ui:enumDisabled": (volumes || [])
+            .filter((v) => !!v.hostID)
+            .map((v) => v.id),
+        },
+        volumeSize: {
+          "ui:inputType": "number",
+        },
+      },
     },
   };
 };

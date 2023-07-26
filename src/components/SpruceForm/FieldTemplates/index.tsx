@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { FieldTemplateProps } from "@rjsf/core";
+import { FieldTemplateProps } from "@rjsf/utils";
 import { size } from "constants/tokens";
 import { TitleField as CustomTitleField } from "../CustomFields";
 
@@ -18,7 +18,7 @@ export const DefaultFieldTemplate: React.VFC<FieldTemplateProps> = ({
   id,
   label,
   schema,
-  uiSchema,
+  uiSchema = {},
 }) => {
   const isNullType = schema.type === "null";
   const sectionId = uiSchema["ui:sectionId"] ?? "";

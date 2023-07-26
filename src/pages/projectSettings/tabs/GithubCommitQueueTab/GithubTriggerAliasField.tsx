@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import InlineDefinition from "@leafygreen-ui/inline-definition";
 import { Body, InlineCode } from "@leafygreen-ui/typography";
-import { Field } from "@rjsf/core";
+import { Field } from "@rjsf/utils";
 import { size } from "constants/tokens";
 import { PatchTriggerAliasStatus } from "../utils";
 

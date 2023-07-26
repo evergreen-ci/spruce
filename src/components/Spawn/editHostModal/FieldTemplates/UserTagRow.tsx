@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import { SpruceFormProps } from "components/SpruceForm/types";
+import { ObjectFieldTemplateProps } from "@rjsf/utils";
 import { size } from "constants/tokens";
 
-export const UserTagRow: SpruceFormProps["ObjectFieldTemplate"] = ({
+export const UserTagRow: React.VFC<ObjectFieldTemplateProps> = ({
   properties,
 }) => {
   const [key, value] = properties;

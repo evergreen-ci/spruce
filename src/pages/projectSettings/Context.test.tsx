@@ -1,4 +1,4 @@
-import { AjvError } from "@rjsf/core";
+import { RJSFValidationError } from "@rjsf/utils";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { WritableProjectSettingsType } from "pages/projectSettings/tabs/types";
@@ -122,7 +122,7 @@ describe("projectSettingsContext", () => {
         formData: {
           vars: [],
         },
-        errors: [{ name: "err" } as AjvError],
+        errors: [{ name: "err" } as RJSFValidationError],
       });
     });
 

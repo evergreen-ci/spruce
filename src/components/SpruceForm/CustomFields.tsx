@@ -6,12 +6,12 @@ import {
   Subtitle,
   SubtitleProps,
 } from "@leafygreen-ui/typography";
-import { Field, FieldProps } from "@rjsf/core";
+import { DescriptionFieldProps, TitleFieldProps } from "@rjsf/utils";
 import { size } from "constants/tokens";
 
-type TitleFieldProps = Pick<FieldProps, "id" | "title" | "uiSchema">;
+type CustomTitleFieldProps = Pick<TitleFieldProps, "id" | "title" | "uiSchema">;
 
-export const TitleField: React.VFC<TitleFieldProps> = ({
+export const TitleField: React.VFC<CustomTitleFieldProps> = ({
   id,
   title,
   uiSchema,
@@ -31,7 +31,10 @@ const StyledSubtitle = styled(Subtitle)<SubtitleProps>`
   margin-bottom: 12px;
 `;
 
-export const DescriptionField: Field = ({ id, description }) =>
+export const DescriptionField: React.VFC<DescriptionFieldProps> = ({
+  id,
+  description,
+}) =>
   description ? (
     <StyledDescription id={id}>{description}</StyledDescription>
   ) : null;

@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import { SpruceFormProps } from "components/SpruceForm/types";
+import { ObjectFieldTemplateProps } from "@rjsf/utils";
 import { size } from "constants/tokens";
 
-export const ExpirationRow: SpruceFormProps["ObjectFieldTemplate"] = ({
+export const ExpirationRow: React.VFC<ObjectFieldTemplateProps> = ({
   properties,
 }) => {
   const [expiration, noExpiration] = properties;

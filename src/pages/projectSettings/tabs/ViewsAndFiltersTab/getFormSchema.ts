@@ -44,6 +44,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
         type: "array" as "array",
         default: [],
         items: {
+          title: "",
           type: "object" as "object",
           properties: {
             expression: {

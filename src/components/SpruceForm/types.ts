@@ -1,4 +1,5 @@
-import { FieldValidation, FormProps, Field } from "@rjsf/core";
+import { FormProps } from "@rjsf/core";
+import { FieldValidation, Field } from "@rjsf/utils";
 
 // typescript utility to recursively iterate through an object and add a method called addError to each property
 type RecursivelyAddError<T> = T extends object

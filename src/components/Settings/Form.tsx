@@ -41,7 +41,7 @@ export const Form = <
       onChange={updateForm(tab)}
       schema={schema}
       uiSchema={uiSchema}
-      validate={validate as any}
+      customValidate={validate as any}
     />
   );
 };

@@ -62,6 +62,7 @@ export const getFormSchema = (
                 type: "array" as "array",
                 title: "Custom JIRA Fields",
                 items: {
+                  title: "",
                   type: "object" as "object",
                   properties: {
                     field: {
@@ -105,6 +106,7 @@ export const getFormSchema = (
                     type: "array" as "array",
                     title: "Ticket Search Projects",
                     items: {
+                      title: "",
                       type: "object" as "object",
                       properties: {
                         searchProject: {

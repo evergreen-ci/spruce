@@ -2,24 +2,28 @@
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { ObjectFieldTemplateProps } from "@rjsf/core";
+import { ObjectFieldTemplateProps, getTemplate } from "@rjsf/utils";
 import { Accordion } from "components/Accordion";
 import { getFields } from "components/SpruceForm/utils";
 import { fontSize, size } from "constants/tokens";
 import { SpruceFormContainer } from "../../Container";
 
 export const ObjectFieldTemplate = ({
-  DescriptionField,
   description,
-  TitleField,
   title,
   properties,
   required,
   uiSchema,
   idSchema,
+  schema,
+  registry,
 }: ObjectFieldTemplateProps) => {
   const errors = uiSchema["ui:errors"] ?? [];
   const warnings = uiSchema["ui:warnings"] ?? [];
+
+  const TitleField = getTemplate("TitleFieldTemplate", registry);
+  const DescriptionField = getTemplate("DescriptionFieldTemplate", registry);
+
   return (
     <fieldset css={uiSchema["ui:fieldSetCSS"]} id={idSchema.$id}>
       {(uiSchema["ui:title"] || title) && (
@@ -27,12 +31,16 @@ export const ObjectFieldTemplate = ({
           id={`${idSchema.$id}__title`}
           title={title || uiSchema["ui:title"]}
           required={required}
+          schema={schema}
+          registry={registry}
         />
       )}
       {description && (
         <DescriptionField
           id={`${idSchema.$id}__description`}
           description={description}
+          schema={schema}
+          registry={registry}
         />
       )}
       {!!errors.length && (
@@ -53,7 +61,6 @@ export const ObjectFieldTemplate = ({
 /**
  * `CardFieldTemplate` is a custom ObjectFieldTemplate that renders a card with a title and a list of properties.
  * @param props - ObjectFieldTemplateProps
- * @param props.DescriptionField - DescriptionField
  * @param props.idSchema - idSchema
  * @param props.properties - properties
  * @param props.schema - schema
@@ -62,10 +69,10 @@ export const ObjectFieldTemplate = ({
  * @param props.uiSchema."ui:data-cy" - data-cy
  * @param props.uiSchema."ui:description" - description
  * @param props.uiSchema."ui:title" - title
+ * @param props.registry - registry
  * @returns JSX.Element
  */
 export const CardFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
-  DescriptionField,
   idSchema,
   properties,
   schema,
@@ -75,8 +82,11 @@ export const CardFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
     "ui:description": uiDescription,
     "ui:title": uiTitle,
   },
+  registry,
 }) => {
   const description = uiDescription || schema.description;
+  const DescriptionField = getTemplate("DescriptionFieldTemplate", registry);
+
   return (
     <SpruceFormContainer
       title={uiTitle || title}
@@ -87,6 +97,8 @@ export const CardFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
           <DescriptionField
             id={`${idSchema.$id}__description`}
             description={description}
+            schema={schema}
+            registry={registry}
           />
         )
       }

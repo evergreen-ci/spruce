@@ -8,15 +8,15 @@ export const getTargetForMethod = (
 ) => {
   switch (method) {
     case NotificationMethods.JIRA_COMMENT:
-      return notification.jiraCommentInput;
+      return notification?.jiraCommentInput;
     case NotificationMethods.SLACK:
-      return notification.slackInput;
+      return notification?.slackInput;
     case NotificationMethods.EMAIL:
-      return notification.emailInput;
+      return notification?.emailInput;
     case NotificationMethods.WEBHOOK:
-      return notification.webhookInput.urlInput;
+      return notification?.webhookInput?.urlInput;
     case NotificationMethods.JIRA_ISSUE:
-      return notification.jiraIssueInput.projectInput;
+      return notification?.jiraIssueInput?.projectInput;
     default:
       return "";
   }
@@ -25,10 +25,10 @@ export const getTargetForMethod = (
 export const hasInitialError = (
   subscription: Unpacked<NotificationsFormState["subscriptions"]>
 ) => {
-  const { subscriptionData } = subscription;
-  const trigger = subscriptionData.event.eventSelect;
-  const method = subscriptionData.notification.notificationSelect;
-  const target = getTargetForMethod(method, subscriptionData.notification);
+  const { subscriptionData } = subscription || {};
+  const trigger = subscriptionData?.event?.eventSelect;
+  const method = subscriptionData?.notification?.notificationSelect;
+  const target = getTargetForMethod(method, subscriptionData?.notification);
   return !trigger || !method || !target;
 };
 

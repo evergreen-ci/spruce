@@ -61,7 +61,7 @@ describe("spruce form", () => {
     describe("text input", () => {
       describe("invisible errors", () => {
         it("should work with validate function", () => {
-          let formErrors = {};
+          let formErrors = [];
           const onChange = jest.fn((x) => {
             const { errors } = x;
             formErrors = errors;
@@ -76,7 +76,7 @@ describe("spruce form", () => {
                 formData={formData}
                 onChange={onChange}
                 uiSchema={uiSchema}
-                validate={validate}
+                customValidate={validate}
               />
             </SpruceFormContainer>
           );
@@ -85,7 +85,7 @@ describe("spruce form", () => {
           expect(screen.queryByDataCy("text-input")).toHaveValue("");
 
           // Invisible errors should be in the form error state but not visible on the page.
-          expect(formErrors).toStrictEqual([{ stack: "textInput: invisible" }]);
+          expect(formErrors[0].message).toBe("invisible");
           expect(screen.queryByText("invisible")).toBeNull();
         });
       });
@@ -148,7 +148,7 @@ describe("spruce form", () => {
     describe("text area", () => {
       describe("invisible errors", () => {
         it("should work with validate function", () => {
-          let formErrors = {};
+          let formErrors = [];
           const onChange = jest.fn((x) => {
             const { errors } = x;
             formErrors = errors;
@@ -163,7 +163,7 @@ describe("spruce form", () => {
                 formData={formData}
                 onChange={onChange}
                 uiSchema={uiSchema}
-                validate={validate}
+                customValidate={validate}
               />
             </SpruceFormContainer>
           );
@@ -172,7 +172,7 @@ describe("spruce form", () => {
           expect(screen.queryByDataCy("text-area")).toHaveValue("");
 
           // Invisible errors should be in the form error state but not visible on the page.
-          expect(formErrors).toStrictEqual([{ stack: "textArea: invisible" }]);
+          expect(formErrors[0].message).toBe("invisible");
           expect(screen.queryByText("invisible")).toBeNull();
         });
       });

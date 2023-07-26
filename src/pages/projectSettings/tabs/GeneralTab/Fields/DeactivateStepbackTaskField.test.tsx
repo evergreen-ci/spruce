@@ -1,5 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { FieldProps } from "@rjsf/core";
+import { FieldProps } from "@rjsf/utils";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   DeactivateStepbackTaskMutation,

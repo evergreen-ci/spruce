@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { ObjectFieldTemplateProps } from "@rjsf/core";
+import { ObjectFieldTemplateProps } from "@rjsf/utils";
 import Icon from "components/Icon";
 import { getFields } from "components/SpruceForm/utils";
 import { size } from "constants/tokens";

@@ -1,10 +1,10 @@
-import { AjvError } from "@rjsf/core";
+import { RJSFValidationError } from "@rjsf/utils";
 
 export enum Errors {
   Invisible = "invisible",
 }
 
-export const transformErrors = (errors: AjvError[]) =>
+export const transformErrors = (errors: RJSFValidationError[]) =>
   errors
     .map((error) => {
       switch (error.name) {
@@ -33,6 +33,11 @@ export const transformErrors = (errors: AjvError[]) =>
           return {
             ...error,
             message: Errors.Invisible,
+          };
+        case "maxLength":
+          return {
+            ...error,
+            message: `Value cannot exceed ${error.params.limit} characters.`,
           };
         case "oneOf":
           return {

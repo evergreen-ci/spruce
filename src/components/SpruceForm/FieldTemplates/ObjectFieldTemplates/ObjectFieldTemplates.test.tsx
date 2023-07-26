@@ -38,7 +38,7 @@ describe("objectFieldTemplates", () => {
       render(
         <SpruceForm
           schema={ObjectSchema}
-          formData={{}}
+          formData={{ person: { name: "", age: "" } }}
           onChange={onChange}
           uiSchema={uiSchema}
         />
@@ -50,7 +50,7 @@ describe("objectFieldTemplates", () => {
       render(
         <SpruceForm
           schema={ObjectSchema}
-          formData={{}}
+          formData={{ person: { name: "", age: "" } }}
           onChange={onChange}
           uiSchema={uiSchema}
         />
@@ -58,7 +58,6 @@ describe("objectFieldTemplates", () => {
       expect(screen.getByDataCy("name")).toBeInTheDocument();
       expect(screen.getByDataCy("age")).toBeInTheDocument();
     });
-
     it("calls onChange when a field is changed", () => {
       let data;
       const onChange = jest.fn(({ formData }) => {
@@ -67,7 +66,7 @@ describe("objectFieldTemplates", () => {
       render(
         <SpruceForm
           schema={ObjectSchema}
-          formData={{}}
+          formData={{ person: { name: "", age: "" } }}
           onChange={onChange}
           uiSchema={uiSchema}
         />

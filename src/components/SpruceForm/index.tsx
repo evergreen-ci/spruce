@@ -1,4 +1,5 @@
 import Form from "@rjsf/core";
+import { customizeValidator } from "@rjsf/validator-ajv8";
 import { SpruceFormContainer } from "./Container";
 import { customFormats } from "./customFormats";
 import { transformErrors } from "./errors";
@@ -18,26 +19,32 @@ export const SpruceForm: React.VFC<SpruceFormProps> = ({
   formData,
   fields,
   tagName,
-  validate,
+  customValidate,
   disabled,
   customFormatFields,
 }) => (
   <Form
-    fields={{ ...baseFields, ...fields }}
+    fields={fields}
     schema={schema}
     onChange={onChange}
     widgets={widgets}
     uiSchema={uiSchema}
     formData={formData}
     tagName={tagName}
-    ArrayFieldTemplate={ArrayFieldTemplate}
-    FieldTemplate={DefaultFieldTemplate}
-    ObjectFieldTemplate={ObjectFieldTemplate}
+    templates={{
+      ArrayFieldTemplate,
+      FieldTemplate: DefaultFieldTemplate,
+      ObjectFieldTemplate,
+      DescriptionFieldTemplate: baseFields.DescriptionField,
+      TitleFieldTemplate: baseFields.TitleField,
+    }}
     transformErrors={transformErrors}
     showErrorList={false}
-    validate={validate}
+    customValidate={customValidate}
     disabled={disabled}
-    customFormats={customFormats(customFormatFields?.jiraHost)}
+    validator={customizeValidator({
+      customFormats: customFormats(customFormatFields?.jiraHost),
+    })}
     liveValidate
     noHtml5Validate
   >

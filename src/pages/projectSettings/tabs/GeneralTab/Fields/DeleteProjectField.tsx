@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Description } from "@leafygreen-ui/typography";
-import { Field } from "@rjsf/core";
+import { Field } from "@rjsf/utils";
 import { useParams } from "react-router-dom";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { size } from "constants/tokens";

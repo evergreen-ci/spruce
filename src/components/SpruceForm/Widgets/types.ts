@@ -1,6 +1,6 @@
 import { SerializedStyles } from "@emotion/react";
 import { TextInputType } from "@leafygreen-ui/text-input";
-import { WidgetProps } from "@rjsf/core";
+import { WidgetProps } from "@rjsf/utils";
 import { SpruceFormProps } from "components/SpruceForm/types";
 
 export interface SpruceWidgetProps extends WidgetProps {

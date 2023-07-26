@@ -73,8 +73,8 @@ export const getGqlPayload =
   (
     subscription: Unpacked<NotificationsFormState["subscriptions"]>
   ): SubscriptionInput => {
-    const { subscriptionData } = subscription;
-    const event = projectTriggers[subscriptionData.event.eventSelect];
+    const { subscriptionData } = subscription || {};
+    const event = projectTriggers[subscriptionData?.event?.eventSelect];
     const {
       resourceType = "",
       trigger,
@@ -84,15 +84,15 @@ export const getGqlPayload =
 
     const triggerData = extraFieldsFormToGql(
       extraFields,
-      subscriptionData.event.extraFields
+      subscriptionData?.event?.extraFields
     );
 
     const regexData = regexFormToGql(
       !!regexSelectors,
-      subscriptionData.event.regexSelector
+      subscriptionData?.event?.regexSelector
     );
 
-    const method = subscriptionData.notification.notificationSelect;
+    const method = subscriptionData?.notification?.notificationSelect;
     const subscriber = getTargetForMethod(
       method,
       subscriptionData?.notification
@@ -116,11 +116,11 @@ export const getGqlPayload =
         target: subscriber,
         webhookSubscriber:
           method === NotificationMethods.WEBHOOK
-            ? webhookFormToGql(subscriptionData.notification?.webhookInput)
+            ? webhookFormToGql(subscriptionData?.notification?.webhookInput)
             : undefined,
         jiraIssueSubscriber:
           method === NotificationMethods.JIRA_ISSUE
-            ? jiraFormToGql(subscriptionData.notification?.jiraIssueInput)
+            ? jiraFormToGql(subscriptionData?.notification?.jiraIssueInput)
             : undefined,
       },
       trigger,

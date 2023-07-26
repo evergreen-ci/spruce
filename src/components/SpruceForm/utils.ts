@@ -1,4 +1,4 @@
-import { ObjectFieldTemplateProps } from "@rjsf/core";
+import { ObjectFieldTemplateProps } from "@rjsf/utils";
 import { Unpacked } from "types/utils";
 
 // Modify a field such that its internal disabled prop is true.

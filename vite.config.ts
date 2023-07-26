@@ -35,6 +35,7 @@ export default defineConfig({
       // Enable esbuild polyfill plugins
       plugins: [esbuildCommonjs(["antd"])],
     },
+    exclude: ["ajv", "ajv-formats"],
   },
   build: {
     sourcemap: true,
