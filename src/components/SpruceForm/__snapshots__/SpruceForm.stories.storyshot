@@ -23,6 +23,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
             class="css-0"
             id="root"
           >
+            
             <div
               class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
               id=" root_cloneMethod"
@@ -152,6 +153,12 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                       class="css-0"
                       id="root_expansions_0"
                     >
+                      <h6
+                        class="css-ho1tq1-StyledSubtitle e63qz861 leafygreen-ui-19p3n10"
+                        id="root_expansions_0__title"
+                      >
+                        expansions-0
+                      </h6>
                       <div
                         class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
                         id=" root_expansions_0_key"
@@ -335,6 +342,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
             class="css-0"
             id="root"
           >
+            
             <div
               class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer eny4k1v0"
               id=" root_distroIsCluster"
@@ -664,6 +672,7 @@ exports[`storybook Storyshots components/SpruceForm Example 3 1`] = `
             class="css-0"
             id="root"
           >
+            
             <div
               class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer eny4k1v0"
               id=" root_visible"
