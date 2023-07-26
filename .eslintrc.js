@@ -29,7 +29,7 @@ module.exports = {
     "plugin:prettier/recommended", // Note: prettier must ALWAYS be the last extension.
   ],
   ignorePatterns: ["!.storybook"],
-  plugins: ["@typescript-eslint"],
+  plugins: ["@typescript-eslint", "sort-destructure-keys"],
   settings: {
     react: {
       version: "detect",
@@ -103,14 +103,7 @@ module.exports = {
     {
       files: ["src/**/*.ts", "src/**/*.tsx"],
       extends: ["plugin:react/recommended"],
-      plugins: [
-        "jsx-a11y",
-        "react",
-        "react-hooks",
-        "@emotion",
-        "sort-keys-plus",
-        "sort-destructure-keys",
-      ],
+      plugins: ["jsx-a11y", "react", "react-hooks", "@emotion"],
       rules: {
         // Rules for emotion.
         "@emotion/import-from-emotion": ERROR,
@@ -188,16 +181,6 @@ module.exports = {
           { order: ["everything-else", "render"] },
         ],
         "react/no-unstable-nested-components": OFF, // This rule should be removed as part of EVG-17265.
-
-        "sort-destructure-keys/sort-destructure-keys": [
-          errorIfStrict,
-          { caseSensitive: true },
-        ],
-        "sort-keys-plus/sort-keys": [
-          errorIfStrict,
-          "asc",
-          { allowLineSeparatedGroups: true, natural: true },
-        ],
       },
       parserOptions: {
         project: ["./tsconfig.json"],
