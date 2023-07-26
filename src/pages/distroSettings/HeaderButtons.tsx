@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { DistroSettingsTabRoutes } from "constants/routes";
 import { DistroSettingsSection } from "gql/generated/types";
@@ -14,16 +13,14 @@ export const HeaderButtons: React.VFC<Props> = ({ tab }) => {
   const { hasChanges, hasError } = getTab(tab);
 
   return (
-    <ButtonRow>
-      <Button
-        data-cy="save-settings-button"
-        variant="primary"
-        onClick={() => {}}
-        disabled={hasError || !hasChanges}
-      >
-        Save changes on page
-      </Button>
-    </ButtonRow>
+    <Button
+      data-cy="save-settings-button"
+      variant="primary"
+      onClick={() => {}}
+      disabled={hasError || !hasChanges}
+    >
+      Save changes on page
+    </Button>
   );
 };
 
@@ -38,12 +35,3 @@ const mapRouteToSection: Record<
   [DistroSettingsTabRoutes.Provider]: DistroSettingsSection.Provider,
   [DistroSettingsTabRoutes.Task]: DistroSettingsSection.Task,
 };
-
-const ButtonRow = styled.div`
-  display: flex;
-  justify-content: flex-end;
-
-  > :not(:last-child) {
-    margin-right: 12px;
-  }
-`;

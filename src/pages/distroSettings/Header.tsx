@@ -22,7 +22,7 @@ export const Header: React.VFC<Props> = ({ tab }) => {
   return (
     <Container>
       <TitleContainer>
-        <H2 data-cy="project-settings-tab-title">{title}</H2>
+        <H2 data-cy="distro-settings-tab-title">{title}</H2>
       </TitleContainer>
       {saveable && <HeaderButtons tab={tab as WritableDistroSettingsType} />}
     </Container>

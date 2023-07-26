@@ -37,10 +37,7 @@ const DistroSettingsProvider: React.VFC<{ children: React.ReactNode }> = ({
   );
 
   return (
-    <DistroSettingsContext.Provider
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={contextValue}
-    >
+    <DistroSettingsContext.Provider value={contextValue}>
       {children}
     </DistroSettingsContext.Provider>
   );

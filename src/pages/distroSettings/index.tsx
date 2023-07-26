@@ -14,11 +14,12 @@ import { useToastContext } from "context/toast";
 import { DistroQuery, DistroQueryVariables } from "gql/generated/types";
 import { DISTRO } from "gql/queries";
 import { usePageTitle } from "hooks";
+import { isProduction } from "utils/environmentVariables";
 import { DistroSettingsProvider } from "./Context";
 import { getTabTitle } from "./getTabTitle";
 import { DistroSettingsTabs } from "./Tabs";
 
-const ProjectSettings: React.VFC = () => {
+const DistroSettings: React.VFC = () => {
   usePageTitle("Distro Settings");
   const dispatchToast = useToastContext();
   const { distroId, tab: currentTab } = useParams<{
@@ -38,6 +39,14 @@ const ProjectSettings: React.VFC = () => {
     }
   );
 
+  if (isProduction()) {
+    return (
+      <PageWrapper>
+        <h1>Coming Soon 🌱⚙️</h1>
+      </PageWrapper>
+    );
+  }
+
   if (!Object.values(DistroSettingsTabRoutes).includes(currentTab)) {
     return (
       <Navigate
@@ -48,7 +57,7 @@ const ProjectSettings: React.VFC = () => {
 
   return (
     <DistroSettingsProvider>
-      <SideNav aria-label="Project Settings" widthOverride={250}>
+      <SideNav aria-label="Distro Settings" widthOverride={250}>
         <SideNavGroup>
           {Object.values(DistroSettingsTabRoutes).map((tab) => (
             <SideNavItem
@@ -63,11 +72,11 @@ const ProjectSettings: React.VFC = () => {
           ))}
         </SideNavGroup>
       </SideNav>
-      <PageWrapper data-cy="project-settings-page">
+      <PageWrapper data-cy="distro-settings-page">
         {!loading && data.distro && <DistroSettingsTabs distro={data.distro} />}
       </PageWrapper>
     </DistroSettingsProvider>
   );
 };
 
-export default ProjectSettings;
+export default DistroSettings;
