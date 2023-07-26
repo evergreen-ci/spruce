@@ -40,7 +40,6 @@ const ProjectSettings: React.VFC = () => {
     projectIdentifier: string;
     tab: ProjectSettingsTabRoutes;
   }>();
-
   // If the path includes an Object ID, this page represents a repo and we should not attempt to fetch a project.
   const isRepo = validateObjectId(identifier);
 

@@ -208,7 +208,9 @@ export const getSpawnVolumeRoute = (volume: string) => {
 };
 
 export const getProjectPatchesRoute = (projectIdentifier: string) =>
-  `${paths.project}/${projectIdentifier}/${PageNames.Patches}`;
+  `${paths.project}/${encodeURIComponent(projectIdentifier)}/${
+    PageNames.Patches
+  }`;
 
 export const getProjectSettingsRoute = (
   projectId: string,
@@ -222,10 +224,10 @@ export const getProjectSettingsRoute = (
 };
 
 export const getCommitQueueRoute = (projectIdentifier: string) =>
-  `${paths.commitQueue}/${projectIdentifier}`;
+  `${paths.commitQueue}/${encodeURIComponent(projectIdentifier)}`;
 
 export const getCommitsRoute = (projectIdentifier: string = "") =>
-  `${paths.commits}/${projectIdentifier}`;
+  `${paths.commits}/${encodeURIComponent(projectIdentifier)}`;
 
 const getHistoryRoute = (
   basePath: string,
@@ -261,7 +263,9 @@ export const getVariantHistoryRoute = (
 ) => {
   const { filters, selectedCommit } = options || {};
   return getHistoryRoute(
-    `${paths.variantHistory}/${projectIdentifier}/${variantName}`,
+    `${paths.variantHistory}/${encodeURIComponent(
+      projectIdentifier
+    )}/${variantName}`,
     filters,
     selectedCommit
   );
@@ -281,7 +285,7 @@ export const getTaskHistoryRoute = (
   const { filters, selectedCommit } = options || {};
 
   return getHistoryRoute(
-    `${paths.taskHistory}/${projectIdentifier}/${taskName}`,
+    `${paths.taskHistory}/${encodeURIComponent(projectIdentifier)}/${taskName}`,
     filters,
     selectedCommit
   );

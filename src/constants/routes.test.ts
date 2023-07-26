@@ -7,7 +7,37 @@ import {
   getPatchRoute,
   getTaskHistoryRoute,
   getVariantHistoryRoute,
+  getProjectPatchesRoute,
+  getCommitQueueRoute,
+  getCommitsRoute,
 } from "./routes";
+
+const identifierWithSpecialCharacters = "!?identifier@";
+const escapedIdentifier = "!%3Fidentifier%40";
+
+describe("getProjectPatchesRoute", () => {
+  it("escapes special characters projectIdentifier", () => {
+    expect(getProjectPatchesRoute(identifierWithSpecialCharacters)).toBe(
+      `/project/${escapedIdentifier}/patches`
+    );
+  });
+});
+
+describe("getCommitQueueRoute", () => {
+  it("escapes special characters projectIdentifier", () => {
+    expect(getCommitQueueRoute(identifierWithSpecialCharacters)).toBe(
+      `/commit-queue/${escapedIdentifier}`
+    );
+  });
+});
+
+describe("getCommitsRoute", () => {
+  it("escapes special characters projectIdentifier", () => {
+    expect(getCommitsRoute(identifierWithSpecialCharacters)).toBe(
+      `/commits/${escapedIdentifier}`
+    );
+  });
+});
 
 describe("getTaskRoute", () => {
   it("generates a test route with only an id", () => {
@@ -96,6 +126,11 @@ describe("getTaskHistoryRoute", () => {
       "/task-history/someProject/someTaskId"
     );
   });
+  it("escapes special characters projectIdentifier", () => {
+    expect(
+      getTaskHistoryRoute(identifierWithSpecialCharacters, "someTaskId")
+    ).toBe(`/task-history/${escapedIdentifier}/someTaskId`);
+  });
   it("generates a link with failing or passing tests", () => {
     expect(
       getTaskHistoryRoute("someProject", "someTaskId", {
@@ -172,11 +207,17 @@ describe("getTaskHistoryRoute", () => {
     );
   });
 });
+
 describe("getVariantHistoryRoute", () => {
   it("generates a link to the variant history page", () => {
     expect(getVariantHistoryRoute("someProject", "someVariantId")).toBe(
       "/variant-history/someProject/someVariantId"
     );
+  });
+  it("escapes special characters projectIdentifier", () => {
+    expect(
+      getVariantHistoryRoute(identifierWithSpecialCharacters, "someVariantId")
+    ).toBe(`/variant-history/${escapedIdentifier}/someVariantId`);
   });
   it("generates a link with failing or passing tests", () => {
     expect(

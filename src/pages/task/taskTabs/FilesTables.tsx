@@ -1,7 +1,7 @@
 import { Fragment, useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import SearchInput from "@leafygreen-ui/search-input";
+import { SearchInput } from "@leafygreen-ui/search-input";
 import { Body, Subtitle } from "@leafygreen-ui/typography";
 import { Table, Skeleton } from "antd";
 import { SortOrder } from "antd/es/table/interface";
