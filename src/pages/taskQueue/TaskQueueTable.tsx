@@ -5,7 +5,6 @@ import Badge from "@leafygreen-ui/badge";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
-import { useParams } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
 import { StyledRouterLink, WordBreak } from "components/styles";
 import {
@@ -23,11 +22,16 @@ import { DISTRO_TASK_QUEUE } from "gql/queries";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 import { msToDuration } from "utils/string";
 
-export const TaskQueueTable = () => {
+interface TaskQueueTableProps {
+  distro: string;
+  taskId: string;
+}
+
+export const TaskQueueTable: React.VFC<TaskQueueTableProps> = ({
+  distro,
+  taskId,
+}) => {
   const taskQueueAnalytics = useTaskQueueAnalytics();
-
-  const { distro, taskId } = useParams<{ distro: string; taskId?: string }>();
-
   const { data: taskQueueItemsData, loading } = useQuery<
     DistroTaskQueueQuery,
     DistroTaskQueueQueryVariables
@@ -49,7 +53,7 @@ export const TaskQueueTable = () => {
     }
   }, [taskId]);
 
-  const columns: Array<ColumnProps<TaskQueueItem>> = [
+  const columns: ColumnProps<TaskQueueItem>[] = [
     {
       title: "",
       dataIndex: "number",
@@ -63,7 +67,7 @@ export const TaskQueueTable = () => {
       dataIndex: "displayName",
       key: "displayName",
       width: "25%",
-      render: (_, { displayName, id, project, buildVariant }) => (
+      render: (_, { buildVariant, displayName, id, project }) => (
         <TaskCell>
           <Body>
             <StyledRouterLink
@@ -152,7 +156,7 @@ export const TaskQueueTable = () => {
       data-cy="task-queue-table"
       columns={columns}
       tableLayout="fixed"
-      rowKey={({ id }: { id: string }): string => id}
+      rowKey={({ id }) => id}
       rowSelection={{
         hideSelectAll: true,
         selectedRowKeys: [taskId],

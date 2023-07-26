@@ -111,7 +111,7 @@ const TaskQueue = () => {
             )
           }
 
-          <TaskQueueTable />
+          <TaskQueueTable distro={distro} taskId={taskId} />
         </>
       )}
     </PageWrapper>
