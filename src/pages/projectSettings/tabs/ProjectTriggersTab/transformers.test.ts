@@ -2,7 +2,7 @@ import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { ProjectType } from "../utils";
 import { formToGql, gqlToForm } from "./transformers";
-import { FormState } from "./types";
+import { ProjectTriggersFormState } from "./types";
 
 const { projectBase, repoBase } = data;
 
@@ -30,7 +30,7 @@ describe("repo data", () => {
   });
 });
 
-const projectForm: FormState = {
+const projectForm: ProjectTriggersFormState = {
   triggersOverride: true,
   triggers: [],
 };
@@ -42,7 +42,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
   },
 };
 
-const repoForm: FormState = {
+const repoForm: ProjectTriggersFormState = {
   triggersOverride: true,
   triggers: [
     {

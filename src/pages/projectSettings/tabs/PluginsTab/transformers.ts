@@ -39,7 +39,8 @@ export const gqlToForm = ((data) => {
       },
     },
     externalLinks: {
-      patchMetadataPanelLink: {
+      metadataPanelLink: {
+        requesters: projectRef?.externalLinks?.[0].requesters ?? [],
         displayName: projectRef?.externalLinks?.[0].displayName ?? "",
         urlTemplate: projectRef?.externalLinks?.[0].urlTemplate ?? "",
       },
@@ -65,7 +66,7 @@ export const formToGql = ((
           .map(({ field, displayText }) => ({ field, displayText }))
           .filter((str) => !!str),
     },
-    externalLinks: [externalLinks.patchMetadataPanelLink],
+    externalLinks: [externalLinks.metadataPanelLink],
   };
 
   return { projectRef };

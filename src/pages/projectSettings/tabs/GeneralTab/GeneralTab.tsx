@@ -1,13 +1,11 @@
 import { useMemo } from "react";
-import { SpruceForm, ValidateProps } from "components/SpruceForm";
+import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import {
-  usePopulateForm,
-  useProjectSettingsContext,
-} from "pages/projectSettings/Context";
+import { useProjectSettingsContext } from "pages/projectSettings/Context";
+import { BaseTab } from "../BaseTab";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
-import { FormState, TabProps } from "./types";
+import { GeneralFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.General;
 
@@ -17,13 +15,14 @@ export const GeneralTab: React.VFC<TabProps> = ({
   projectType,
   repoData,
 }) => {
-  const { getTab, updateForm } = useProjectSettingsContext();
-  const { formData, initialData } = getTab(tab);
+  const { getTab } = useProjectSettingsContext();
+  const tabData = getTab(tab);
+
+  // @ts-expect-error - see TabState for details.
+  const { formData }: { formData: GeneralFormState } = tabData;
+  const { initialData } = tabData;
 
   const initialFormState = projectData || repoData;
-  usePopulateForm(initialFormState, tab);
-
-  const onChange = updateForm(tab);
 
   const {
     projectRef: {
@@ -38,7 +37,7 @@ export const GeneralTab: React.VFC<TabProps> = ({
       initialIdentifier !== formData?.generalConfiguration?.other?.identifier,
     [initialIdentifier, formData?.generalConfiguration?.other?.identifier]
   );
-  const { fields, schema, uiSchema } = useMemo(
+  const formSchema = useMemo(
     () =>
       getFormSchema(
         projectId,
@@ -58,16 +57,12 @@ export const GeneralTab: React.VFC<TabProps> = ({
     ]
   );
 
-  if (!formData) return null;
-
   return (
-    <SpruceForm
-      fields={fields}
-      formData={formData}
-      onChange={onChange}
-      schema={schema}
-      uiSchema={uiSchema}
-      validate={validate(projectType) as any}
+    <BaseTab
+      initialFormState={initialFormState}
+      formSchema={formSchema}
+      tab={tab}
+      validate={validate(projectType)}
     />
   );
 };
@@ -90,4 +85,4 @@ const validate = (projectType: ProjectType) =>
     }
 
     return errors;
-  }) satisfies ValidateProps<FormState>;
+  }) satisfies ValidateProps<GeneralFormState>;

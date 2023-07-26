@@ -161,7 +161,7 @@ checked out and all the dependencies installed by yarn:
 
 1. Start the evergreen back-end with the sample local test data. You can do this
    by typing `make local-evergreen` in your evergreen folder.
-2. Start the Spruce dev server by typing `yarn dev` in this repo.
+2. Start the Spruce local server by typing `yarn build:local && yarn serve` in this repo.
 3. Run Cypress by typing one of the following:
    - `yarn cy:open` - opens the Cypress app in interactive mode. You can select
      tests to run from here in the Cypress browser.

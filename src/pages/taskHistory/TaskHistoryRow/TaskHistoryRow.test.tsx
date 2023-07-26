@@ -352,6 +352,7 @@ const noFilterData: ApolloMock<
     data: {
       taskTestSample: [
         {
+          __typename: "TaskTestResultSample",
           taskId: "some_id_5",
           execution: 0,
           matchingFailedTestNames: ["TestJiraIntegration"],
@@ -387,6 +388,7 @@ const withMatchingFilter: ApolloMock<
     data: {
       taskTestSample: [
         {
+          __typename: "TaskTestResultSample",
           taskId: "some_id_5",
           execution: 0,
           matchingFailedTestNames: ["TestJiraIntegration"],
@@ -420,6 +422,7 @@ const withNonMatchingFilter: ApolloMock<
     data: {
       taskTestSample: [
         {
+          __typename: "TaskTestResultSample",
           taskId: "some_id_5",
           execution: 0,
           matchingFailedTestNames: [],

@@ -3,19 +3,19 @@ import {
   getEventSchema,
   getNotificationSchema,
 } from "components/Notifications/form";
+import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { projectTriggers } from "constants/triggers";
 import { BannerTheme } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
 import { projectSubscriptionMethods as subscriptionMethods } from "types/subscription";
-import { GetFormSchema } from "../types";
 import { ProjectType, form } from "../utils";
-import { FormState } from "./types";
+import { NotificationsFormState } from "./types";
 
 const { radioBoxOptions } = form;
 export const getFormSchema = (
-  repoData: FormState | null,
+  repoData: NotificationsFormState | null,
   projectType: ProjectType
 ): ReturnType<GetFormSchema> => {
   const { schema: eventSchema, uiSchema: eventUiSchema } = getEventSchema(

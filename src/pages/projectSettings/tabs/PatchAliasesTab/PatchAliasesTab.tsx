@@ -1,16 +1,15 @@
 import { useMemo } from "react";
-import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import {
-  usePopulateForm,
-  useProjectSettingsContext,
-} from "pages/projectSettings/Context";
+import { BaseTab } from "../BaseTab";
 import { getFormSchema } from "./getFormSchema";
-import { TabProps } from "./types";
+import { PatchAliasesFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.PatchAliases;
 
-const getInitialFormState = (projectData, repoData) => {
+const getInitialFormState = (
+  projectData: TabProps["projectData"],
+  repoData: TabProps["repoData"]
+): PatchAliasesFormState => {
   if (!projectData) return repoData;
   if (repoData) {
     return {
@@ -32,31 +31,18 @@ export const PatchAliasesTab: React.VFC<TabProps> = ({
   projectType,
   repoData,
 }) => {
-  const { getTab, updateForm } = useProjectSettingsContext();
-  const { formData } = getTab(tab);
-
   const initialFormState = useMemo(
     () => getInitialFormState(projectData, repoData),
     [projectData, repoData]
   );
-  usePopulateForm(initialFormState, tab);
 
-  const onChange = updateForm(tab);
-
-  const { fields, schema, uiSchema } = useMemo(
-    () => getFormSchema(projectType),
-    [projectType]
-  );
-
-  if (!formData) return null;
+  const formSchema = useMemo(() => getFormSchema(projectType), [projectType]);
 
   return (
-    <SpruceForm
-      fields={fields}
-      formData={formData}
-      onChange={onChange}
-      schema={schema}
-      uiSchema={uiSchema}
+    <BaseTab
+      formSchema={formSchema}
+      initialFormState={initialFormState}
+      tab={tab}
     />
   );
 };

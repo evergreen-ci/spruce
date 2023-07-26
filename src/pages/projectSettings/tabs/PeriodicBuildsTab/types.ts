@@ -19,7 +19,7 @@ type FormPeriodicBuild = {
   nextRunTime: string;
 };
 
-export interface FormState {
+export interface PeriodicBuildsFormState {
   periodicBuildsOverride: boolean;
   periodicBuilds: FormPeriodicBuild[];
   repoData?: {
@@ -29,7 +29,7 @@ export interface FormState {
 }
 
 export type TabProps = {
-  projectData?: FormState;
+  projectData?: PeriodicBuildsFormState;
   projectType: ProjectType;
-  repoData?: FormState;
+  repoData?: PeriodicBuildsFormState;
 };

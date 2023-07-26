@@ -1,16 +1,16 @@
+import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
 import { CommandRow } from "./CommandRow";
-import { FormState } from "./types";
+import { VWFormState } from "./types";
 
 const { overrideRadioBox, radioBoxOptions } = form;
 
 export const getFormSchema = (
   identifier: string,
   projectType: ProjectType,
-  repoData?: FormState
+  repoData?: VWFormState
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {

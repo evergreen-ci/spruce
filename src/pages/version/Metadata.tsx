@@ -180,7 +180,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
         </MetadataItem>
       )}
       <ParametersModal parameters={parameters} />
-      {url && displayName && isPatch && (
+      {url && displayName && (
         <MetadataItem>
           <StyledLink data-cy="external-link" href={url}>
             {displayName}
