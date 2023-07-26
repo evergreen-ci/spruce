@@ -18,10 +18,10 @@ export const DateTimePicker: React.VFC<
 > = ({ disabled, id, label, onChange, options, readonly, value = "" }) => {
   const {
     description,
-    disableBefore,
     disableAfter,
-    showLabel,
+    disableBefore,
     elementWrapperCSS,
+    showLabel,
   } = options;
 
   const timezone = useUserTimeZone();

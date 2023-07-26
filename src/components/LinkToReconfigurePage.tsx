@@ -7,7 +7,7 @@ export const LinkToReconfigurePage: React.VFC<{
   patchId: string;
   disabled?: boolean;
   hasVersion?: boolean;
-}> = ({ patchId, disabled, hasVersion = true }) => {
+}> = ({ disabled, hasVersion = true, patchId }) => {
   const { sendEvent } = (hasVersion ? useVersionAnalytics : usePatchAnalytics)(
     patchId
   );

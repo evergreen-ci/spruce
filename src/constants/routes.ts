@@ -130,7 +130,7 @@ export const getPatchRoute = (
   patchId: string,
   options: GetPatchRouteOptions
 ) => {
-  const { tab, configure, ...rest } = options || {};
+  const { configure, tab, ...rest } = options || {};
   const queryParams = stringifyQuery({
     ...rest,
   });
@@ -188,8 +188,8 @@ interface GetSpawnHostRouteParam {
 export const getSpawnHostRoute = ({
   distroId,
   host,
-  taskId,
   spawnHost,
+  taskId,
 }: GetSpawnHostRouteParam) => {
   const queryParams = stringifyQuery({
     ...(spawnHost && { spawnHost: "True" }),

@@ -13,14 +13,14 @@ const Metadata: React.VFC<{
   loading: boolean;
   pod: PodQuery["pod"];
   error: ApolloError;
-}> = ({ loading, pod, error }) => {
-  const { taskContainerCreationOpts, type, task } = pod ?? {};
+}> = ({ error, loading, pod }) => {
+  const { task, taskContainerCreationOpts, type } = pod ?? {};
   const { arch, cpu, memoryMB, os, workingDir } =
     taskContainerCreationOpts ?? {};
   const {
-    id: runningTaskId,
-    execution: runningTaskExecution,
     displayName: runningTaskDisplayName,
+    execution: runningTaskExecution,
+    id: runningTaskId,
   } = task ?? {};
 
   const taskLink = getTaskRoute(runningTaskId, {

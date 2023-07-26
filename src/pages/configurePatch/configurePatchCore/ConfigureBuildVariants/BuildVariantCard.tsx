@@ -20,8 +20,8 @@ interface BuildVariantCardProps {
 
 const BuildVariantCard: React.VFC<BuildVariantCardProps> = ({
   "data-cy": dataCy,
-  onClick,
   menuItems,
+  onClick,
   selectedMenuItems,
   title,
 }) => (

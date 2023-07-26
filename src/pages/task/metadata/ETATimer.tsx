@@ -9,8 +9,8 @@ interface ETATimerProps {
   expectedDuration: number;
 }
 export const ETATimer: React.VFC<ETATimerProps> = ({
-  startTime,
   expectedDuration,
+  startTime,
 }) => {
   const parsedStartTime = new Date(startTime);
   const estimatedCompletionTime = addMilliseconds(

@@ -20,8 +20,8 @@ interface ExecutionSelectProps {
 }
 
 export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
-  id,
   currentExecution,
+  id,
   latestExecution,
   updateExecution,
 }) => {

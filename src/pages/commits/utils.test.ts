@@ -19,7 +19,7 @@ import {
   constructBuildVariantDict,
 } from "./utils";
 
-const { red, green, yellow, gray, purple } = palette;
+const { gray, green, purple, red, yellow } = palette;
 
 describe("getFilterStatus", () => {
   it("should return an object containing booleans that describe what filters have been applied", () => {

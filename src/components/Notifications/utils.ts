@@ -57,11 +57,11 @@ export const getGqlPayload = (
 ) => {
   const event = triggers[formState.event.eventSelect];
   const {
+    extraFields,
     payloadResourceIdKey,
+    regexSelectors,
     resourceType,
     trigger,
-    extraFields,
-    regexSelectors,
   } = event;
 
   const triggerData = extraFieldsFormToGql(

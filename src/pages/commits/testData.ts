@@ -1,7 +1,7 @@
 import { palette } from "@leafygreen-ui/palette";
 import { TaskStatus } from "types/task";
 
-const { red, green, yellow, gray, purple } = palette;
+const { gray, green, purple, red, yellow } = palette;
 
 const buildVariant1 = {
   displayName: "Enterprise macOS C++20 DEBUG",

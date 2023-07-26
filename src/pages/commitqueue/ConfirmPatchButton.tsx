@@ -9,9 +9,9 @@ interface ConfirmPatchButtonProps {
   commitTitle: string;
 }
 export const ConfirmPatchButton: React.VFC<ConfirmPatchButtonProps> = ({
+  commitTitle,
   disabled,
   onConfirm,
-  commitTitle,
 }) => {
   const [open, setOpen] = useState(false);
 

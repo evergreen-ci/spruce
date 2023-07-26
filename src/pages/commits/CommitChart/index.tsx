@@ -30,9 +30,9 @@ interface Props {
 }
 
 export const CommitChart: React.VFC<Props> = ({
-  versions,
-  hasTaskFilter,
   hasError = false,
+  hasTaskFilter,
+  versions,
 }) => {
   const [chartOpen, setChartOpen] = useQueryParam(
     ChartToggleQueryParams.chartOpen,

@@ -46,15 +46,15 @@ export type AliasFormType = {
 };
 
 const aliasToForm = ({
-  id,
   alias,
   description,
   gitTag,
+  id,
   remotePath,
-  variant,
-  variantTags,
   task,
   taskTags,
+  variant,
+  variantTags,
 }: ProjectAlias): AliasFormType => ({
   id,
   alias,
@@ -155,10 +155,10 @@ export const transformAliases = (
   override
     ? aliases.map((a) => {
         const {
-          id,
           alias,
           description,
           gitTag,
+          id,
           remotePath,
           specifier,
           tasks,

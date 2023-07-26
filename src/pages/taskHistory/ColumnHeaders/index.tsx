@@ -17,7 +17,7 @@ const { useColumns } = hooks;
 const { convertArrayToObject } = array;
 const { trimStringFromMiddle } = string;
 const { useHistoryTable } = context;
-const { LoadingCell, ColumnHeaderCell, LabelCellContainer } = Cell;
+const { ColumnHeaderCell, LabelCellContainer, LoadingCell } = Cell;
 
 interface ColumnHeadersProps {
   projectIdentifier: string;
@@ -50,7 +50,7 @@ const ColumnHeaders: React.VFC<ColumnHeadersProps> = ({
     },
   });
 
-  const { visibleColumns, columnLimit } = useHistoryTable();
+  const { columnLimit, visibleColumns } = useHistoryTable();
   const { buildVariantsForTaskName } = columnData || {};
 
   const activeColumns = useColumns(

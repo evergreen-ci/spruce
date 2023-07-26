@@ -17,15 +17,15 @@ interface JiraTicketRowProps {
   fields: TicketFields;
 }
 export const JiraTicketRow: React.VFC<JiraTicketRowProps> = ({
-  jiraKey,
   fields,
+  jiraKey,
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
   const getDateCopy = useDateFormat();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const url = getJiraTicketUrl(jiraHost, jiraKey);
-  const { created, assigneeDisplayName, updated, status, summary } =
+  const { assigneeDisplayName, created, status, summary, updated } =
     fields ?? {};
   return (
     <div>

@@ -11,8 +11,8 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
   if (!data) return null;
 
   const {
-    projectRef: { patchTriggerAliases, githubTriggerAliases },
     aliases,
+    projectRef: { githubTriggerAliases, patchTriggerAliases },
   } = data;
   const { projectType } = options;
   const isAttachedProject = projectType === ProjectType.AttachedProject;

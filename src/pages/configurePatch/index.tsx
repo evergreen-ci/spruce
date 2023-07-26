@@ -19,7 +19,7 @@ import ConfigurePatchCore from "./configurePatchCore";
 const ConfigurePatch: React.VFC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatchToast = useToastContext();
-  const { data, loading, error } = useQuery<
+  const { data, error, loading } = useQuery<
     ConfigurePatchQuery,
     ConfigurePatchQueryVariables
   >(GET_PATCH_CONFIGURE, {

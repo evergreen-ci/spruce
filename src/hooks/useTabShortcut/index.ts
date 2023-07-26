@@ -8,9 +8,9 @@ interface Props {
 }
 
 export const useTabShortcut = ({
-  setSelectedTab,
   currentTab,
   numTabs,
+  setSelectedTab,
 }: Props) => {
   useKeyboardShortcut({ charKey: CharKey.J }, () => {
     const nextTab = currentTab + 1 < numTabs ? currentTab + 1 : 0;

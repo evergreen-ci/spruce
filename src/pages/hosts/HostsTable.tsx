@@ -41,15 +41,15 @@ type HostsUrlParam = keyof HostsQueryVariables;
 
 export const HostsTable: React.VFC<Props> = ({
   hosts,
+  loading,
+  selectedHostIds,
+  setCanReprovision,
+  setCanRestartJasper,
+  setReprovisionError,
+  setRestartJasperError,
+  setSelectedHostIds,
   sortBy,
   sortDir,
-  selectedHostIds,
-  setSelectedHostIds,
-  setCanRestartJasper,
-  setRestartJasperError,
-  setCanReprovision,
-  setReprovisionError,
-  loading,
 }) => {
   const hostsTableAnalytics = useHostsTableAnalytics();
 

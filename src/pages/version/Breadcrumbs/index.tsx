@@ -17,10 +17,10 @@ interface VersionPageBreadcrumbsProps {
 }
 
 const VersionPageBreadcrumbs: React.VFC<VersionPageBreadcrumbsProps> = ({
-  versionMetadata,
   patchNumber,
+  versionMetadata,
 }) => {
-  const { isPatch, author, projectIdentifier, revision } =
+  const { author, isPatch, projectIdentifier, revision } =
     versionMetadata ?? {};
   const breadcrumbRoot = useBreadcrumbRoot(isPatch, author, projectIdentifier);
   const breadcrumbAnalytics = useBreadcrumbAnalytics();

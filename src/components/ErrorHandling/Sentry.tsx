@@ -45,7 +45,7 @@ type ScopeOptions = {
   context?: { [key: string]: any };
 };
 
-const setScope = (scope: Scope, { level, context }: ScopeOptions = {}) => {
+const setScope = (scope: Scope, { context, level }: ScopeOptions = {}) => {
   const userId = localStorage.getItem("userId") ?? undefined;
   scope.setUser({ id: userId });
 

@@ -13,7 +13,7 @@ export const useUpdateUrlSortParamOnTableChange = <T extends unknown>({
 
   const tableChangeHandler: TableOnChange<T> = (...[, , sorter]) => {
     sendAnalyticsEvents();
-    const { order, columnKey } = Array.isArray(sorter) ? sorter[0] : sorter;
+    const { columnKey, order } = Array.isArray(sorter) ? sorter[0] : sorter;
     const nextQueryParams = {
       ...queryParams,
       [PatchTasksQueryParams.SortDir]: mapTableSortDirectionToQueryParam(order),

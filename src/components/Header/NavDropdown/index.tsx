@@ -25,8 +25,8 @@ interface NavDropdownItemType extends MenuItemType {
 }
 
 const NavDropdownItem: React.VFC<NavDropdownItemType> = ({
-  "data-cy": itemDataCy,
   closeMenu,
+  "data-cy": itemDataCy,
   href,
   text,
   to,

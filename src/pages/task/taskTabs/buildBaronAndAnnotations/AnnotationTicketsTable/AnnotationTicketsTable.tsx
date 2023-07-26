@@ -32,14 +32,14 @@ interface AnnotationTicketsProps {
 }
 
 const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
-  jiraIssues,
-  taskId,
   execution,
-  userCanModify,
   isIssue,
+  jiraIssues,
+  loading,
   selectedRowKey,
   setSelectedRowKey,
-  loading,
+  taskId,
+  userCanModify,
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
   const dispatchToast = useToastContext();
@@ -50,10 +50,10 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
       title: "Ticket",
       width: "65%",
       render: ({
-        issueKey,
-        url,
-        jiraTicket,
         confidenceScore,
+        issueKey,
+        jiraTicket,
+        url,
       }: AnnotationTicket): JSX.Element => (
         <AnnotationTicketRow
           issueKey={issueKey}
@@ -66,9 +66,9 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
     },
     {
       render: ({
+        confidenceScore,
         issueKey,
         url,
-        confidenceScore,
       }: AnnotationTicket): JSX.Element => (
         <ButtonContainer>
           {ConditionalWrapper({

@@ -14,11 +14,11 @@ interface Props {
 }
 
 export const CommitBarChart: React.VFC<Props> = ({
-  max,
   chartType,
-  groupedTaskStats,
-  total,
   eta,
+  groupedTaskStats,
+  max,
+  total,
 }) => (
   <CommitChartTooltip
     groupedTaskStats={groupedTaskStats}

@@ -41,7 +41,7 @@ export const EventLogTab: React.VFC<TabProps> = ({
     events.length > 0 ? "No more events to show." : "No events to show.";
   return (
     <Container data-cy="event-log">
-      {events.map(({ user, timestamp, before, after }) => (
+      {events.map(({ after, before, timestamp, user }) => (
         <EventLogCard key={`event_log_${timestamp}`} data-cy="event-log-card">
           <EventLogHeader user={user} timestamp={timestamp} />
           <Table
@@ -110,7 +110,7 @@ interface Props {
   user: string;
 }
 
-const EventLogHeader: React.VFC<Props> = ({ user, timestamp }) => {
+const EventLogHeader: React.VFC<Props> = ({ timestamp, user }) => {
   const getDateCopy = useDateFormat();
   return (
     <StyledHeader>
