@@ -6,15 +6,15 @@ import {
   getConfig,
   generatedFileName as localGeneratedTypesFileName,
 } from "../codegen";
-const { execSync } = require("child_process");
+import { execSync } from "child_process";
 import process from "process";
 
 const GITHUB_API = "https://api.github.com";
 const GQL_DIR = "graphql/schema";
+const LOCAL_SCHEMA = "sdlschema";
 const REPO = "/repos/evergreen-ci/evergreen";
 const REPO_CONTENTS = `${REPO}/contents/`;
 const USER_AGENT = "Mozilla/5.0";
-const LOCAL_SCHEMA = "sdlschema";
 
 // Get the latest commit that was made to the GQL folder.
 async function getRemoteLatestCommitSha() {

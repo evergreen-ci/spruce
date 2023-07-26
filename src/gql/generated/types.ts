@@ -391,7 +391,6 @@ export enum DistroOnSaveOperation {
 export type DistroPermissions = {
   __typename?: "DistroPermissions";
   admin: Scalars["Boolean"];
-  edit: Scalars["Boolean"];
   view: Scalars["Boolean"];
 };
 
