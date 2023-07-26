@@ -15,7 +15,7 @@ interface TaskStatusCheckboxContainerProps {
 }
 export const TaskStatusCheckboxContainer: React.VFC<
   TaskStatusCheckboxContainerProps
-> = ({ versionId, tasks, selectedTasks, toggleSelectedTask }) => {
+> = ({ selectedTasks, tasks, toggleSelectedTask, versionId }) => {
   const possibleListHeight = tasks.length * itemSize;
   const listHeight =
     possibleListHeight < maxListHeight ? possibleListHeight : maxListHeight;
@@ -35,8 +35,8 @@ export const TaskStatusCheckboxContainer: React.VFC<
         itemData={tasks}
         width="100%"
       >
-        {({ style, data, index }) => {
-          const { id: taskId, status, baseStatus, displayName } = data[index];
+        {({ data, index, style }) => {
+          const { baseStatus, displayName, id: taskId, status } = data[index];
           const checked = !!selectedTasks[taskId];
           return (
             <TaskStatusCheckbox

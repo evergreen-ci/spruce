@@ -11,8 +11,8 @@ import LoadingSection from "./LoadingSection";
 interface HistoryTableProps {
   loadMoreItems: () => void;
   children: ({
-    index,
     data,
+    index,
   }: {
     index: number;
     data: types.CommitRowType;
@@ -21,15 +21,15 @@ interface HistoryTableProps {
   loading: boolean;
 }
 const HistoryTable: React.VFC<HistoryTableProps> = ({
-  loadMoreItems,
   children: Component,
-  loading,
   finalRowCopy,
+  loadMoreItems,
+  loading,
 }) => {
   const {
+    onChangeTableWidth,
     processedCommitCount,
     processedCommits,
-    onChangeTableWidth,
     selectedCommit,
     visibleColumns,
   } = useHistoryTable();

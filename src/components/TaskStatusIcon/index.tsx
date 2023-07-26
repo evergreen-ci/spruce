@@ -4,7 +4,7 @@ import Icon from "components/Icon";
 import { TaskStatus } from "types/task";
 import { reportError } from "utils/errorReporting";
 
-const { green, red, yellow, gray, purple } = palette;
+const { gray, green, purple, red, yellow } = palette;
 
 export interface TaskStatusIconProps
   extends Omit<IconProps, "glyph" | "fill" | "size"> {
@@ -13,8 +13,8 @@ export interface TaskStatusIconProps
 }
 
 export const TaskStatusIcon: React.VFC<TaskStatusIconProps> = ({
-  status,
   size = 16,
+  status,
   ...rest
 }) => {
   switch (status) {

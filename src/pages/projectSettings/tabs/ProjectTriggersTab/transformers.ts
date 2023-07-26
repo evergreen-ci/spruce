@@ -37,7 +37,7 @@ export const gqlToForm = ((data, { projectType }) => {
   };
 }) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql = (({ triggersOverride, triggers }, projectId) => ({
+export const formToGql = (({ triggers, triggersOverride }, projectId) => ({
   projectRef: {
     id: projectId,
     triggers: triggersOverride

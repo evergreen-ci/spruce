@@ -27,25 +27,25 @@ const { yellow } = palette;
 export const LeafyGreenTextInput: React.VFC<
   { options: { optional?: boolean } } & SpruceWidgetProps
 > = ({
-  value,
-  label,
-  placeholder,
-  onChange,
   disabled,
+  label,
+  onChange,
   options,
+  placeholder,
   rawErrors,
   readonly,
   schema,
+  value,
 }) => {
   const {
     ariaLabelledBy,
     "data-cy": dataCy,
     description,
-    emptyValue = "",
     elementWrapperCSS,
+    emptyValue = "",
+    inputType,
     optional,
     warnings,
-    inputType,
   } = options;
 
   const { errors, hasError } = processErrors(rawErrors);
@@ -100,18 +100,18 @@ const WarningText = styled.p`
 `;
 
 export const LeafyGreenCheckBox: React.VFC<SpruceWidgetProps> = ({
-  value,
+  disabled,
   label,
   onChange,
-  disabled,
   options,
   readonly,
+  value,
 }) => {
   const {
-    "data-cy": dataCy,
-    tooltipDescription,
-    elementWrapperCSS,
     customLabel,
+    "data-cy": dataCy,
+    elementWrapperCSS,
+    tooltipDescription,
   } = options;
   return (
     <ElementWrapper css={elementWrapperCSS}>
@@ -155,21 +155,21 @@ export const LeafyGreenSelect: React.VFC<
 > = ({
   disabled,
   label,
+  onChange,
   options,
   placeholder,
+  rawErrors,
   readonly,
   value,
-  onChange,
-  rawErrors,
 }) => {
   const {
     allowDeselect,
     ariaLabelledBy,
+    "data-cy": dataCy,
     description,
+    elementWrapperCSS,
     enumDisabled,
     enumOptions,
-    "data-cy": dataCy,
-    elementWrapperCSS,
   } = options;
   const { hasError } = processErrors(rawErrors);
 
@@ -212,17 +212,17 @@ export const LeafyGreenSelect: React.VFC<
 };
 
 export const LeafyGreenRadio: React.VFC<EnumSpruceWidgetProps> = ({
+  disabled,
   label,
+  onChange,
   options,
   value,
-  onChange,
-  disabled,
 }) => {
   const {
     "data-cy": dataCy,
+    elementWrapperCSS,
     enumDisabled,
     enumOptions,
-    elementWrapperCSS,
   } = options;
   return (
     <ElementWrapper css={elementWrapperCSS}>
@@ -253,7 +253,7 @@ export const LeafyGreenRadio: React.VFC<EnumSpruceWidgetProps> = ({
 
 export const LeafyGreenRadioBox: React.VFC<
   { options: { description: string | JSX.Element } } & EnumSpruceWidgetProps
-> = ({ id, label, options, value, onChange, disabled, uiSchema }) => {
+> = ({ disabled, id, label, onChange, options, uiSchema, value }) => {
   const {
     "data-cy": dataCy,
     description,
@@ -389,9 +389,9 @@ export const LeafyGreenSegmentedControl: React.VFC<EnumSpruceWidgetProps> = ({
   const {
     "aria-controls": ariaControls,
     "data-cy": dataCy,
+    elementWrapperCSS,
     enumDisabled,
     enumOptions,
-    elementWrapperCSS,
     sizeVariant,
   } = options;
 

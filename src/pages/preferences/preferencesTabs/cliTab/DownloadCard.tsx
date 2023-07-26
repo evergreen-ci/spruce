@@ -76,9 +76,9 @@ interface CliDownloadBoxProps {
   description?: string;
 }
 const CliDownloadBox: React.VFC<CliDownloadBoxProps> = ({
-  title,
   description,
   link,
+  title,
 }) => {
   const { sendEvent } = usePreferencesAnalytics();
   return (

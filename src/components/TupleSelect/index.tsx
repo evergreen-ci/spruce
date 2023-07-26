@@ -24,11 +24,11 @@ interface TupleSelectProps {
   label?: React.ReactNode;
 }
 const TupleSelect: React.VFC<TupleSelectProps> = ({
-  options,
+  label,
   onSubmit = () => {},
+  options,
   validator = () => true,
   validatorErrorMessage = "Invalid Input",
-  label,
 }) => {
   const [input, setInput] = useState("");
   const [selected, setSelected] = useState(options[0].value);

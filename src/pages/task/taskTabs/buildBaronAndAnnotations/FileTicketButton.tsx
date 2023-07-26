@@ -19,8 +19,8 @@ interface FileTicketProps {
 }
 
 const FileTicketButton: React.VFC<FileTicketProps> = ({
-  taskId,
   execution,
+  taskId,
 }) => {
   const dispatchToast = useToastContext();
 

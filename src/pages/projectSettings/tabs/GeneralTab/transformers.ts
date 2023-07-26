@@ -64,8 +64,8 @@ export const gqlToForm = ((data, options = {}) => {
 export const formToGql = ((
   {
     generalConfiguration,
-    projectFlags,
     historicalTaskDataCaching: { disabledStatsCache },
+    projectFlags,
   },
   id
 ) => {

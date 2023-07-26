@@ -13,7 +13,7 @@ export const gqlToForm = ((data: ProjectSettingsQuery["projectSettings"]) => {
 
   return {
     parsleyFilters:
-      parsleyFilters?.map(({ expression, caseSensitive, exactMatch }) => ({
+      parsleyFilters?.map(({ caseSensitive, exactMatch, expression }) => ({
         displayTitle: expression,
         expression,
         caseSensitive,
@@ -29,7 +29,7 @@ export const formToGql = (({ parsleyFilters, view }, id) => ({
   projectRef: {
     id,
     parsleyFilters: parsleyFilters.map(
-      ({ expression, caseSensitive, exactMatch }) => ({
+      ({ caseSensitive, exactMatch, expression }) => ({
         expression,
         caseSensitive,
         exactMatch,

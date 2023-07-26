@@ -14,10 +14,10 @@ interface ExpandedTextProps {
 }
 
 const ExpandedText: React.VFC<ExpandedTextProps> = ({
-  message,
-  triggerEvent = TriggerEvent.Hover,
-  popoverZIndex = zIndex.popover,
   "data-cy": dataCy,
+  message,
+  popoverZIndex = zIndex.popover,
+  triggerEvent = TriggerEvent.Hover,
 }) => (
   <Tooltip
     trigger={<ButtonText>more</ButtonText>}

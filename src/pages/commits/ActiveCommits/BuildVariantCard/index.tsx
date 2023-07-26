@@ -34,13 +34,13 @@ interface Props {
 }
 export const BuildVariantCard: React.VFC<Props> = ({
   buildVariantDisplayName,
-  height,
-  variant,
-  tasks,
-  versionId,
-  projectIdentifier,
   groupedVariantStats,
+  height,
   order,
+  projectIdentifier,
+  tasks,
+  variant,
+  versionId,
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   let render = null;
@@ -96,7 +96,7 @@ const RenderTaskIcons: React.VFC<RenderTaskIconsProps> = ({ tasks, variant }) =>
       onMouseEnter={() => injectGlobalDimStyle()}
       onMouseLeave={() => removeGlobalDimStyle()}
     >
-      {tasks.map(({ id, status, displayName, timeTaken, failedTestCount }) => (
+      {tasks.map(({ displayName, failedTestCount, id, status, timeTaken }) => (
         <WaterfallTaskStatusIcon
           key={id}
           taskId={id}

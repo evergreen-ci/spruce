@@ -15,8 +15,8 @@ interface OptionProps {
 }
 const ProjectOption: React.VFC<OptionProps> = ({
   displayName,
-  isFavorite,
   identifier,
+  isFavorite,
   onClick,
 }) => (
   <ProjectContainer role="button" onClick={() => onClick(identifier)}>
@@ -37,11 +37,11 @@ interface OptionGroupProps {
   onClick: (identifier: string) => void;
 }
 export const ProjectOptionGroup: React.VFC<OptionGroupProps> = ({
-  name,
-  projects,
-  onClick,
-  repoIdentifier,
   canClickOnRepoGroup = false,
+  name,
+  onClick,
+  projects,
+  repoIdentifier,
 }) => (
   <OptionGroupContainer>
     {/* if it's the project settings page and it's not the "" group, make the header clickable */}

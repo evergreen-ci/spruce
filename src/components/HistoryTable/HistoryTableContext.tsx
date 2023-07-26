@@ -74,13 +74,13 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
 }) => {
   const [
     {
-      commitCount,
       columnLimit,
+      commitCount,
       currentPage,
       historyTableFilters,
       pageCount,
-      processedCommits,
       processedCommitCount,
+      processedCommits,
       selectedCommit,
       visibleColumns,
     },

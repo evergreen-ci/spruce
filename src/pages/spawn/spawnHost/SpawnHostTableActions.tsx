@@ -32,7 +32,7 @@ export const CopySSHCommandButton: React.VFC<{
   user: string;
   hostUrl: string;
   hostStatus: string;
-}> = ({ user, hostUrl, hostStatus }) => {
+}> = ({ hostStatus, hostUrl, user }) => {
   const sshCommand = `ssh ${user}@${hostUrl}`;
   const spawnAnalytics = useSpawnAnalytics();
 

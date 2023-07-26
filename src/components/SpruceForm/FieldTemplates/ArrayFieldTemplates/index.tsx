@@ -129,8 +129,9 @@ const ArrayItemRow = styled.div<{ border: boolean; index: number }>`
  * @returns JSX.Element
  */
 export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
-  canAdd,
   DescriptionField,
+  TitleField,
+  canAdd,
   disabled,
   formData,
   idSchema,
@@ -140,7 +141,6 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
   required,
   schema,
   title,
-  TitleField,
   uiSchema,
 }) => {
   const id = idSchema.$id;

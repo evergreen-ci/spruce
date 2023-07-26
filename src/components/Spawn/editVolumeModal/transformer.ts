@@ -11,7 +11,7 @@ export const formToGql = (
     expirationDetails = {} as FormState["expirationDetails"],
     name = "",
   } = updatedFields;
-  const { noExpiration, expiration } = expirationDetails;
+  const { expiration, noExpiration } = expirationDetails;
 
   return {
     ...(noExpiration && { noExpiration }),

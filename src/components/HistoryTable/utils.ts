@@ -10,8 +10,8 @@ import { mainlineCommits, CommitRowType, rowType } from "./types";
 // The processed commits are used to calculate the height of each row in the table.
 // They are ordered by the order of the commits in the table.
 export const processCommits = ({
-  newCommits,
   existingCommits,
+  newCommits,
   selectedCommitOrder,
 }: {
   newCommits: mainlineCommits["versions"];

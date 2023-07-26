@@ -4,7 +4,7 @@ import { CharKey, ModifierKey } from "constants/keys";
 import { render, screen, userEvent } from "test_utils";
 import useKeyboardShortcut from ".";
 
-const { type, click } = userEvent;
+const { click, type } = userEvent;
 
 describe("useKeyboardShortcut", () => {
   describe("multiple keys", () => {

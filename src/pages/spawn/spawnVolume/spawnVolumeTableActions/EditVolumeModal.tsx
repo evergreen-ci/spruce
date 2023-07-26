@@ -25,8 +25,8 @@ interface Props {
 }
 
 export const EditVolumeModal: React.VFC<Props> = ({
-  visible,
   onCancel,
+  visible,
   volume,
 }) => {
   const dispatchToast = useToastContext();
@@ -101,7 +101,7 @@ export const EditVolumeModal: React.VFC<Props> = ({
         schema={schema}
         uiSchema={uiSchema}
         formData={formState}
-        onChange={({ formData, errors }) => {
+        onChange={({ errors, formData }) => {
           setFormState(formData);
           setFormErrors(errors);
         }}

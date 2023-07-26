@@ -93,7 +93,7 @@ describe("Hosts page filtering from table filters", () => {
   });
 
   filterTests.forEach(
-    ({ param, filterIconDataCy, filterValue, filterUrlParam, expectedIds }) => {
+    ({ expectedIds, filterIconDataCy, filterUrlParam, filterValue, param }) => {
       it(`Filters hosts using table filter dropdowns for ${param}`, () => {
         cy.dataCy(filterIconDataCy).should("be.visible");
         cy.dataCy(filterIconDataCy).click();

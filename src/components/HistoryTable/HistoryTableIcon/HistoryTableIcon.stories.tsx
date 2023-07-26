@@ -12,7 +12,7 @@ export default {
 export const ActiveIcons: CustomStoryObj<typeof HistoryTableIcon> = {
   render: () => (
     <Container>
-      {data.map(({ status, label }) => (
+      {data.map(({ label, status }) => (
         <HistoryTableIcon
           key={`${status}_history_table`}
           status={status}

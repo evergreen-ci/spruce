@@ -156,7 +156,7 @@ const taskStatuses: TreeDataEntry[] = [
 
 export const mapTaskStatusToUmbrellaStatus: {
   [key: string]: string;
-} = taskStatuses.reduce((accum, { value: parentValue, children }) => {
+} = taskStatuses.reduce((accum, { children, value: parentValue }) => {
   const childrenParentMapping = children
     ? children.reduce(
         (cAccum, child) => ({ ...cAccum, [child.value]: parentValue }),
@@ -171,7 +171,7 @@ export const mapTaskStatusToUmbrellaStatus: {
 
 export const mapUmbrellaStatusToQueryParam: {
   [key: string]: string[];
-} = taskStatuses.reduce((accum, { value, children }) => {
+} = taskStatuses.reduce((accum, { children, value }) => {
   if (children) {
     return {
       ...accum,

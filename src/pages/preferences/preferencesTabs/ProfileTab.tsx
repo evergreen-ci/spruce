@@ -22,8 +22,8 @@ export const ProfileTab: React.VFC = () => {
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
 
-  const { userSettings, loading } = useUserSettings();
-  const { githubUser, timezone, region, dateFormat } = userSettings ?? {};
+  const { loading, userSettings } = useUserSettings();
+  const { dateFormat, githubUser, region, timezone } = userSettings ?? {};
   const lastKnownAs = githubUser?.lastKnownAs || "";
 
   const { data: awsRegionData, loading: awsRegionLoading } =
@@ -91,7 +91,7 @@ export const ProfileTab: React.VFC = () => {
     <SettingsCard>
       <ContentWrapper>
         <SpruceForm
-          onChange={({ formData, errors }) => {
+          onChange={({ errors, formData }) => {
             setHasErrors(errors.length > 0);
             setFormState(formData);
           }}

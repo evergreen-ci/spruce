@@ -76,10 +76,10 @@ export const getGqlPayload =
     const { subscriptionData } = subscription;
     const event = projectTriggers[subscriptionData.event.eventSelect];
     const {
-      resourceType = "",
-      trigger,
       extraFields,
       regexSelectors,
+      resourceType = "",
+      trigger,
     } = event || {};
 
     const triggerData = extraFieldsFormToGql(
