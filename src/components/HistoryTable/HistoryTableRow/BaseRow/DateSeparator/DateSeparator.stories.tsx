@@ -9,6 +9,7 @@ export default {
 } satisfies CustomMeta<typeof DateSeparator>;
 
 export const DateSeparatorStory: CustomStoryObj<typeof DateSeparator> = {
+  render: (args) => <DateSeparator {...args} />,
   args: {
     date: new Date("2021-01-01"),
   },
@@ -17,5 +18,4 @@ export const DateSeparatorStory: CustomStoryObj<typeof DateSeparator> = {
       mocks: [getUserMock],
     },
   },
-  render: (args) => <DateSeparator {...args} />,
 };

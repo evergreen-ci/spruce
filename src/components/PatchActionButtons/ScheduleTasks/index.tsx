@@ -17,11 +17,11 @@ export const ScheduleTasks: React.VFC<ScheduleTasksProps> = ({
   const [open, setOpen] = useState(false);
   const { sendEvent } = useVersionAnalytics(versionId);
   const props = {
-    "data-cy": "schedule-patch",
     onClick: () => {
       sendEvent({ name: "Open Schedule Tasks Modal" });
       setOpen(true);
     },
+    "data-cy": "schedule-patch",
   };
 
   const modalOpenerComp = isButton ? (

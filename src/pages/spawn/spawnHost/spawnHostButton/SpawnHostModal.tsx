@@ -71,9 +71,9 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   const [formState, setFormState] = useState<FormState>({});
 
   useVirtualWorkstationDefaultExpiration({
-    disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
-    formState,
     setFormState,
+    formState,
+    disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
   });
 
   const { schema, uiSchema } = getFormSchema({
@@ -82,8 +82,8 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     isMigration: false,
     isVirtualWorkstation: !!formState?.distro?.isVirtualWorkstation,
     spawnTaskData: spawnTaskData?.task,
-    useProjectSetupScript: !!formState?.loadData?.runProjectSpecificSetupScript,
     useSetupScript: !!formState?.setupScriptSection?.defineSetupScriptCheckbox,
+    useProjectSetupScript: !!formState?.loadData?.runProjectSpecificSetupScript,
   });
 
   if (loadingFormData) {
@@ -97,8 +97,8 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       spawnTaskData: spawnTaskData?.task,
     });
     spawnAnalytics.sendEvent({
-      isMigration: false,
       name: "Spawned a host",
+      isMigration: false,
       params: omit(mutationInput, [
         "publicKey",
         "userDataScript",

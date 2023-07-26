@@ -9,8 +9,8 @@ export const useDateFormat = () => {
 
   return (date: string | number | Date, options: DateCopyOptions = {}) =>
     getDateCopy(date, {
-      dateFormat,
       tz: timezone,
+      dateFormat,
       ...options,
     });
 };

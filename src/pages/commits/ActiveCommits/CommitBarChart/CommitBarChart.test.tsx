@@ -69,26 +69,26 @@ describe("commitChart", () => {
 
 const versions = [
   {
-    rolledUpVersions: null,
     version: {
-      author: "Mohamed Khelif",
-      createTime: new Date("2021-06-16T23:38:13Z"),
       id: "123",
+      projectIdentifier: "mongodb-mongo-master",
+      createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
       order: 123,
-      projectIdentifier: "mongodb-mongo-master",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
+      author: "Mohamed Khelif",
       taskStatusStats: {
-        counts: [
-          { count: 6, status: "success" },
-          { count: 2, status: "failed" },
-          { count: 4, status: "dispatched" },
-          { count: 5, status: "started" },
-          { count: 2, status: "will-run" },
-        ],
         eta: null,
+        counts: [
+          { status: "success", count: 6 },
+          { status: "failed", count: 2 },
+          { status: "dispatched", count: 4 },
+          { status: "started", count: 5 },
+          { status: "will-run", count: 2 },
+        ],
       },
     },
+    rolledUpVersions: null,
   },
 ];
 

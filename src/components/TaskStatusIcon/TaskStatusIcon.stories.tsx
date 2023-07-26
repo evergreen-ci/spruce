@@ -13,21 +13,11 @@ const Sizes = {
 };
 
 export default {
-  component: TaskStatusIcon,
   title: "Components/Icon/Task Status",
+  component: TaskStatusIcon,
 } satisfies CustomMeta<typeof TaskStatusIcon>;
 
 export const Default: CustomStoryObj<TaskStatusIconProps> = {
-  argTypes: {
-    size: {
-      control: { type: "select" },
-      options: Object.values(Sizes),
-    },
-  },
-  args: {
-    color: "#000000",
-    size: Sizes[Size.Default],
-  },
   render: ({ size: s }) => {
     // filter out umbrella statuses
     const taskStatuses = Object.keys(TaskStatus).filter(
@@ -43,6 +33,16 @@ export const Default: CustomStoryObj<TaskStatusIconProps> = {
         ))}
       </Container>
     );
+  },
+  args: {
+    color: "#000000",
+    size: Sizes[Size.Default],
+  },
+  argTypes: {
+    size: {
+      options: Object.values(Sizes),
+      control: { type: "select" },
+    },
   },
 };
 

@@ -11,7 +11,7 @@ export const stringifyQueryAsValue = (
 ) =>
   queryString.stringify(object, {
     arrayFormat: "comma",
-    skipEmptyString: true,
     skipNull: true,
+    skipEmptyString: true,
     ...options,
   });

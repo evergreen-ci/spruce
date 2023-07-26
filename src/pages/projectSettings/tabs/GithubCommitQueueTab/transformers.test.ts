@@ -40,107 +40,122 @@ describe("project data", () => {
 });
 
 const projectForm: GCQFormState = {
+  github: {
+    prTestingEnabled: null,
+    manualPrTestingEnabled: null,
+    prTesting: {
+      githubPrAliasesOverride: true,
+      githubPrAliases: [
+        {
+          id: "1",
+          alias: "__github",
+          description: "",
+          gitTag: "",
+          remotePath: "",
+          variants: {
+            specifier: VariantTaskSpecifier.Regex,
+            variant: ".*",
+            variantTags: [],
+          },
+          tasks: {
+            specifier: VariantTaskSpecifier.Regex,
+            task: ".*",
+            taskTags: [],
+          },
+        },
+      ],
+    },
+    githubTriggerAliases: [],
+    githubChecksEnabled: null,
+    githubChecks: {
+      githubCheckAliasesOverride: false,
+      githubCheckAliases: [],
+    },
+    gitTagVersionsEnabled: null,
+    users: {
+      gitTagAuthorizedUsersOverride: true,
+      gitTagAuthorizedUsers: ["privileged"],
+    },
+    teams: {
+      gitTagAuthorizedTeamsOverride: true,
+      gitTagAuthorizedTeams: [],
+    },
+    gitTags: {
+      gitTagAliasesOverride: true,
+      gitTagAliases: [
+        {
+          id: "5",
+          alias: "__git_tag",
+          description: "",
+          specifier: GitTagSpecifier.ConfigFile,
+          remotePath: "./evergreen.yml",
+          gitTag: "tagName",
+          variants: {
+            specifier: VariantTaskSpecifier.Tags,
+            variant: "",
+            variantTags: [],
+          },
+          tasks: {
+            specifier: VariantTaskSpecifier.Tags,
+            task: "",
+            taskTags: [],
+          },
+        },
+      ],
+    },
+  },
   commitQueue: {
     enabled: null,
     mergeMethod: "",
     mergeQueue: MergeQueue.Evergreen,
     message: "",
     patchDefinitions: {
+      commitQueueAliasesOverride: true,
       commitQueueAliases: [
         {
+          id: "3",
           alias: "__commit_queue",
           description: "",
           gitTag: "",
-          id: "3",
           remotePath: "",
-          tasks: {
-            specifier: VariantTaskSpecifier.Regex,
-            task: "^lint$",
-            taskTags: [],
-          },
           variants: {
             specifier: VariantTaskSpecifier.Regex,
             variant: "^ubuntu1604$",
             variantTags: [],
           },
-        },
-      ],
-      commitQueueAliasesOverride: true,
-    },
-  },
-  github: {
-    gitTagVersionsEnabled: null,
-    gitTags: {
-      gitTagAliases: [
-        {
-          alias: "__git_tag",
-          description: "",
-          gitTag: "tagName",
-          id: "5",
-          remotePath: "./evergreen.yml",
-          specifier: GitTagSpecifier.ConfigFile,
-          tasks: {
-            specifier: VariantTaskSpecifier.Tags,
-            task: "",
-            taskTags: [],
-          },
-          variants: {
-            specifier: VariantTaskSpecifier.Tags,
-            variant: "",
-            variantTags: [],
-          },
-        },
-      ],
-      gitTagAliasesOverride: true,
-    },
-    githubChecks: {
-      githubCheckAliases: [],
-      githubCheckAliasesOverride: false,
-    },
-    githubChecksEnabled: null,
-    githubTriggerAliases: [],
-    manualPrTestingEnabled: null,
-    prTesting: {
-      githubPrAliases: [
-        {
-          alias: "__github",
-          description: "",
-          gitTag: "",
-          id: "1",
-          remotePath: "",
           tasks: {
             specifier: VariantTaskSpecifier.Regex,
-            task: ".*",
+            task: "^lint$",
             taskTags: [],
-          },
-          variants: {
-            specifier: VariantTaskSpecifier.Regex,
-            variant: ".*",
-            variantTags: [],
           },
         },
       ],
-      githubPrAliasesOverride: true,
-    },
-    prTestingEnabled: null,
-    teams: {
-      gitTagAuthorizedTeams: [],
-      gitTagAuthorizedTeamsOverride: true,
-    },
-    users: {
-      gitTagAuthorizedUsers: ["privileged"],
-      gitTagAuthorizedUsersOverride: true,
     },
   },
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
+  projectRef: {
+    id: "project",
+    prTestingEnabled: null,
+    manualPrTestingEnabled: null,
+    githubChecksEnabled: null,
+    gitTagVersionsEnabled: null,
+    gitTagAuthorizedUsers: ["privileged"],
+    gitTagAuthorizedTeams: [],
+    commitQueue: {
+      enabled: null,
+      mergeMethod: "",
+      mergeQueue: MergeQueue.Evergreen,
+      message: "",
+    },
+  },
   aliases: [
     {
+      id: "1",
       alias: "__github",
       description: "",
       gitTag: "",
-      id: "1",
       remotePath: "",
       task: ".*",
       taskTags: [],
@@ -148,91 +163,42 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
       variantTags: [],
     },
     {
+      id: "5",
       alias: "__git_tag",
       description: "",
       gitTag: "tagName",
-      id: "5",
-      remotePath: "./evergreen.yml",
-      task: "",
-      taskTags: [],
       variant: "",
+      task: "",
+      remotePath: "./evergreen.yml",
       variantTags: [],
+      taskTags: [],
     },
     {
+      id: "3",
       alias: "__commit_queue",
       description: "",
       gitTag: "",
-      id: "3",
-      remotePath: "",
-      task: "^lint$",
-      taskTags: [],
       variant: "^ubuntu1604$",
+      task: "^lint$",
+      remotePath: "",
       variantTags: [],
+      taskTags: [],
     },
   ],
-  projectRef: {
-    commitQueue: {
-      enabled: null,
-      mergeMethod: "",
-      mergeQueue: MergeQueue.Evergreen,
-      message: "",
-    },
-    gitTagAuthorizedTeams: [],
-    gitTagAuthorizedUsers: ["privileged"],
-    gitTagVersionsEnabled: null,
-    githubChecksEnabled: null,
-    id: "project",
-    manualPrTestingEnabled: null,
-    prTestingEnabled: null,
-  },
 };
 
 const repoForm: GCQFormState = {
-  commitQueue: {
-    enabled: true,
-    mergeMethod: "squash",
-    mergeQueue: MergeQueue.Github,
-    message: "Commit Queue Message",
-    patchDefinitions: {
-      commitQueueAliases: [],
-      commitQueueAliasesOverride: true,
-    },
-  },
   github: {
-    gitTagVersionsEnabled: false,
-    gitTags: {
-      gitTagAliases: [],
-      gitTagAliasesOverride: true,
+    prTestingEnabled: false,
+    manualPrTestingEnabled: false,
+    prTesting: {
+      githubPrAliasesOverride: true,
+      githubPrAliases: [],
     },
-    githubChecks: {
-      githubCheckAliases: [
-        {
-          alias: "__github_checks",
-          description: "",
-          gitTag: "",
-          id: "2",
-          remotePath: "",
-          tasks: {
-            specifier: VariantTaskSpecifier.Tags,
-            task: "",
-            taskTags: ["tTag"],
-          },
-          variants: {
-            specifier: VariantTaskSpecifier.Tags,
-            variant: "",
-            variantTags: ["vTag"],
-          },
-        },
-      ],
-      githubCheckAliasesOverride: true,
-    },
-    githubChecksEnabled: true,
     githubTriggerAliases: [
       {
         alias: "alias1",
         childProjectIdentifier: "spruce",
-        parentAsModule: "",
-        status: "succeeded",
         taskSpecifiers: [
           {
             patchAlias: "alias2",
@@ -245,32 +211,81 @@ const repoForm: GCQFormState = {
             variantRegex: ".*",
           },
         ],
+        status: "succeeded",
+        parentAsModule: "",
       },
     ],
-    manualPrTestingEnabled: false,
-    prTesting: {
-      githubPrAliases: [],
-      githubPrAliasesOverride: true,
+    githubChecksEnabled: true,
+    githubChecks: {
+      githubCheckAliasesOverride: true,
+      githubCheckAliases: [
+        {
+          id: "2",
+          alias: "__github_checks",
+          description: "",
+          gitTag: "",
+          remotePath: "",
+          variants: {
+            specifier: VariantTaskSpecifier.Tags,
+            variant: "",
+            variantTags: ["vTag"],
+          },
+          tasks: {
+            specifier: VariantTaskSpecifier.Tags,
+            task: "",
+            taskTags: ["tTag"],
+          },
+        },
+      ],
     },
-    prTestingEnabled: false,
-    teams: {
-      gitTagAuthorizedTeams: [],
-      gitTagAuthorizedTeamsOverride: true,
-    },
+    gitTagVersionsEnabled: false,
     users: {
-      gitTagAuthorizedUsers: ["admin"],
       gitTagAuthorizedUsersOverride: true,
+      gitTagAuthorizedUsers: ["admin"],
+    },
+    teams: {
+      gitTagAuthorizedTeamsOverride: true,
+      gitTagAuthorizedTeams: [],
+    },
+    gitTags: {
+      gitTagAliasesOverride: true,
+      gitTagAliases: [],
+    },
+  },
+  commitQueue: {
+    enabled: true,
+    mergeMethod: "squash",
+    mergeQueue: MergeQueue.Github,
+    message: "Commit Queue Message",
+    patchDefinitions: {
+      commitQueueAliasesOverride: true,
+      commitQueueAliases: [],
     },
   },
 };
 
 const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
+  projectRef: {
+    id: "repo",
+    prTestingEnabled: false,
+    manualPrTestingEnabled: false,
+    githubChecksEnabled: true,
+    gitTagVersionsEnabled: false,
+    gitTagAuthorizedUsers: ["admin"],
+    gitTagAuthorizedTeams: [],
+    commitQueue: {
+      enabled: true,
+      mergeMethod: "squash",
+      mergeQueue: MergeQueue.Github,
+      message: "Commit Queue Message",
+    },
+  },
   aliases: [
     {
+      id: "2",
       alias: "__github_checks",
       description: "",
       gitTag: "",
-      id: "2",
       remotePath: "",
       task: "",
       taskTags: ["tTag"],
@@ -278,155 +293,140 @@ const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
       variantTags: ["vTag"],
     },
   ],
-  projectRef: {
-    commitQueue: {
-      enabled: true,
-      mergeMethod: "squash",
-      mergeQueue: MergeQueue.Github,
-      message: "Commit Queue Message",
-    },
-    gitTagAuthorizedTeams: [],
-    gitTagAuthorizedUsers: ["admin"],
-    gitTagVersionsEnabled: false,
-    githubChecksEnabled: true,
-    id: "repo",
-    manualPrTestingEnabled: false,
-    prTestingEnabled: false,
-  },
 };
 
 const mergedForm: GCQFormState = {
+  github: {
+    prTestingEnabled: null,
+    manualPrTestingEnabled: null,
+    prTesting: {
+      githubPrAliasesOverride: true,
+      githubPrAliases: [
+        {
+          id: "1",
+          alias: "__github",
+          description: "",
+          gitTag: "",
+          remotePath: "",
+          variants: {
+            specifier: VariantTaskSpecifier.Regex,
+            variant: ".*",
+            variantTags: [],
+          },
+          tasks: {
+            specifier: VariantTaskSpecifier.Regex,
+            task: ".*",
+            taskTags: [],
+          },
+        },
+      ],
+      repoData: {
+        githubPrAliasesOverride: true,
+        githubPrAliases: [],
+      },
+    },
+    githubTriggerAliases: [],
+    githubChecksEnabled: null,
+    githubChecks: {
+      githubCheckAliasesOverride: false,
+      githubCheckAliases: [],
+      repoData: {
+        githubCheckAliasesOverride: true,
+        githubCheckAliases: [
+          {
+            id: "2",
+            alias: "__github_checks",
+            description: "",
+            gitTag: "",
+            remotePath: "",
+            variants: {
+              specifier: VariantTaskSpecifier.Tags,
+              variant: "",
+              variantTags: ["vTag"],
+            },
+            tasks: {
+              specifier: VariantTaskSpecifier.Tags,
+              task: "",
+              taskTags: ["tTag"],
+            },
+          },
+        ],
+      },
+    },
+    gitTagVersionsEnabled: null,
+    users: {
+      gitTagAuthorizedUsersOverride: true,
+      gitTagAuthorizedUsers: ["privileged"],
+      repoData: {
+        gitTagAuthorizedUsersOverride: true,
+        gitTagAuthorizedUsers: ["admin"],
+      },
+    },
+    teams: {
+      gitTagAuthorizedTeamsOverride: true,
+      gitTagAuthorizedTeams: [],
+      repoData: {
+        gitTagAuthorizedTeamsOverride: true,
+        gitTagAuthorizedTeams: [],
+      },
+    },
+    gitTags: {
+      gitTagAliasesOverride: true,
+      gitTagAliases: [
+        {
+          id: "5",
+          alias: "__git_tag",
+          description: "",
+          specifier: GitTagSpecifier.ConfigFile,
+          remotePath: "./evergreen.yml",
+          gitTag: "tagName",
+          variants: {
+            specifier: VariantTaskSpecifier.Tags,
+            variant: "",
+            variantTags: [],
+          },
+          tasks: {
+            specifier: VariantTaskSpecifier.Tags,
+            task: "",
+            taskTags: [],
+          },
+        },
+      ],
+      repoData: {
+        gitTagAliasesOverride: true,
+        gitTagAliases: [],
+      },
+    },
+  },
   commitQueue: {
     enabled: null,
     mergeMethod: "",
     mergeQueue: MergeQueue.Evergreen,
     message: "",
     patchDefinitions: {
+      commitQueueAliasesOverride: true,
       commitQueueAliases: [
         {
+          id: "3",
           alias: "__commit_queue",
           description: "",
           gitTag: "",
-          id: "3",
-          remotePath: "",
-          tasks: {
-            specifier: VariantTaskSpecifier.Regex,
-            task: "^lint$",
-            taskTags: [],
-          },
           variants: {
             specifier: VariantTaskSpecifier.Regex,
             variant: "^ubuntu1604$",
             variantTags: [],
           },
-        },
-      ],
-      commitQueueAliasesOverride: true,
-      repoData: {
-        commitQueueAliases: [],
-        commitQueueAliasesOverride: true,
-      },
-    },
-  },
-  github: {
-    gitTagVersionsEnabled: null,
-    gitTags: {
-      gitTagAliases: [
-        {
-          alias: "__git_tag",
-          description: "",
-          gitTag: "tagName",
-          id: "5",
-          remotePath: "./evergreen.yml",
-          specifier: GitTagSpecifier.ConfigFile,
           tasks: {
-            specifier: VariantTaskSpecifier.Tags,
-            task: "",
+            specifier: VariantTaskSpecifier.Regex,
+            task: "^lint$",
             taskTags: [],
           },
-          variants: {
-            specifier: VariantTaskSpecifier.Tags,
-            variant: "",
-            variantTags: [],
-          },
-        },
-      ],
-      gitTagAliasesOverride: true,
-      repoData: {
-        gitTagAliases: [],
-        gitTagAliasesOverride: true,
-      },
-    },
-    githubChecks: {
-      githubCheckAliases: [],
-      githubCheckAliasesOverride: false,
-      repoData: {
-        githubCheckAliases: [
-          {
-            alias: "__github_checks",
-            description: "",
-            gitTag: "",
-            id: "2",
-            remotePath: "",
-            tasks: {
-              specifier: VariantTaskSpecifier.Tags,
-              task: "",
-              taskTags: ["tTag"],
-            },
-            variants: {
-              specifier: VariantTaskSpecifier.Tags,
-              variant: "",
-              variantTags: ["vTag"],
-            },
-          },
-        ],
-        githubCheckAliasesOverride: true,
-      },
-    },
-    githubChecksEnabled: null,
-    githubTriggerAliases: [],
-    manualPrTestingEnabled: null,
-    prTesting: {
-      githubPrAliases: [
-        {
-          alias: "__github",
-          description: "",
-          gitTag: "",
-          id: "1",
           remotePath: "",
-          tasks: {
-            specifier: VariantTaskSpecifier.Regex,
-            task: ".*",
-            taskTags: [],
-          },
-          variants: {
-            specifier: VariantTaskSpecifier.Regex,
-            variant: ".*",
-            variantTags: [],
-          },
         },
       ],
-      githubPrAliasesOverride: true,
       repoData: {
-        githubPrAliases: [],
-        githubPrAliasesOverride: true,
-      },
-    },
-    prTestingEnabled: null,
-    teams: {
-      gitTagAuthorizedTeams: [],
-      gitTagAuthorizedTeamsOverride: true,
-      repoData: {
-        gitTagAuthorizedTeams: [],
-        gitTagAuthorizedTeamsOverride: true,
-      },
-    },
-    users: {
-      gitTagAuthorizedUsers: ["privileged"],
-      gitTagAuthorizedUsersOverride: true,
-      repoData: {
-        gitTagAuthorizedUsers: ["admin"],
-        gitTagAuthorizedUsersOverride: true,
+        commitQueueAliasesOverride: true,
+        commitQueueAliases: [],
       },
     },
   },

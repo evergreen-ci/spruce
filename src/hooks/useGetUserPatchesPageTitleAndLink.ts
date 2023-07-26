@@ -9,7 +9,7 @@ export const useGetUserPatchesPageTitleAndLink = (
 ) => {
   const { data } = useQuery<OtherUserQuery, OtherUserQueryVariables>(
     GET_OTHER_USER,
-    { skip, variables: { userId } }
+    { variables: { userId }, skip }
   );
 
   if (!data) {

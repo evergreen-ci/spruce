@@ -22,14 +22,14 @@ describe("buildVariantCard", () => {
         },
       ]);
       return {
-        disconnect: jest.fn(),
         observe: jest.fn(),
+        disconnect: jest.fn(),
       };
     });
 
     Object.defineProperty(window, "IntersectionObserver", {
-      value: mockIntersectionObserver,
       writable: true,
+      value: mockIntersectionObserver,
     });
     (injectGlobalDimStyle as jest.Mock).mockImplementationOnce(() => {
       Promise.resolve();
@@ -65,18 +65,18 @@ describe("buildVariantCard", () => {
 
 const tasks = [
   {
-    displayName: "One",
     id: "1",
     status: "failed",
+    displayName: "One",
   },
   {
-    displayName: "Two",
     id: "2",
     status: "success",
+    displayName: "Two",
   },
   {
-    displayName: "Three",
     id: "3",
     status: "success",
+    displayName: "Three",
   },
 ];

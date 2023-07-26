@@ -129,7 +129,7 @@ const getColumnDefs = ({
   variantInputProps,
 }: GetColumnDefsParams): ColumnProps<Task>[] => [
   {
-    className: "cy-task-table-col-NAME",
+    title: "Name",
     dataIndex: "displayName",
     key: TaskSortCategory.Name,
     onHeaderCell: () => ({
@@ -137,6 +137,12 @@ const getColumnDefs = ({
         onColumnHeaderClick(TaskSortCategory.Name);
       },
     }),
+    sorter: {
+      compare: (a, b) => a.displayName.localeCompare(b.displayName),
+      multiple: 4,
+    },
+    width: "40%",
+    className: "cy-task-table-col-NAME",
     render: (name: string, { execution, id }: Task): JSX.Element => (
       <TaskLink
         execution={execution}
@@ -146,12 +152,6 @@ const getColumnDefs = ({
         taskName={name}
       />
     ),
-    sorter: {
-      compare: (a, b) => a.displayName.localeCompare(b.displayName),
-      multiple: 4,
-    },
-    title: "Name",
-    width: "40%",
     ...(taskNameInputProps &&
       getColumnSearchFilterProps({
         ...taskNameInputProps,
@@ -159,7 +159,7 @@ const getColumnDefs = ({
       })),
   },
   {
-    className: "cy-task-table-col-STATUS",
+    title: "Task Status",
     dataIndex: "status",
     key: TaskSortCategory.Status,
     onHeaderCell: () => ({
@@ -167,15 +167,15 @@ const getColumnDefs = ({
         onColumnHeaderClick(TaskSortCategory.Status);
       },
     }),
-    render: (status: string, { execution, id }) =>
-      status && (
-        <TaskStatusBadge status={status} id={id} execution={execution} />
-      ),
     sorter: {
       compare: (a, b) => sortTasks(a.status, b.status),
       multiple: 4,
     },
-    title: "Task Status",
+    className: "cy-task-table-col-STATUS",
+    render: (status: string, { execution, id }) =>
+      status && (
+        <TaskStatusBadge status={status} id={id} execution={execution} />
+      ),
     ...(statusSelectorProps && {
       ...getColumnTreeSelectFilterProps({
         ...statusSelectorProps,
@@ -184,7 +184,7 @@ const getColumnDefs = ({
     }),
   },
   {
-    className: "cy-task-table-col-BASE_STATUS",
+    title: `${isPatch ? "Base" : "Previous"} Status`,
     dataIndex: ["baseTask", "status"],
     key: TaskSortCategory.BaseStatus,
     onHeaderCell: () => ({
@@ -192,6 +192,11 @@ const getColumnDefs = ({
         onColumnHeaderClick(TaskSortCategory.BaseStatus);
       },
     }),
+    sorter: {
+      compare: (a, b) => sortTasks(a?.baseTask?.status, b?.baseTask?.status),
+      multiple: 4,
+    },
+    className: "cy-task-table-col-BASE_STATUS",
     render: (status: string, { baseTask }) =>
       status && (
         <TaskStatusBadge
@@ -200,11 +205,6 @@ const getColumnDefs = ({
           execution={baseTask.execution}
         />
       ),
-    sorter: {
-      compare: (a, b) => sortTasks(a?.baseTask?.status, b?.baseTask?.status),
-      multiple: 4,
-    },
-    title: `${isPatch ? "Base" : "Previous"} Status`,
     ...(baseStatusSelectorProps && {
       ...getColumnTreeSelectFilterProps({
         ...baseStatusSelectorProps,
@@ -213,7 +213,7 @@ const getColumnDefs = ({
     }),
   },
   {
-    className: "cy-task-table-col-VARIANT",
+    title: "Variant",
     dataIndex: "buildVariantDisplayName",
     key: TaskSortCategory.Variant,
     onHeaderCell: () => ({
@@ -225,7 +225,7 @@ const getColumnDefs = ({
       compare: (a, b) => a.buildVariant.localeCompare(b.buildVariant),
       multiple: 4,
     },
-    title: "Variant",
+    className: "cy-task-table-col-VARIANT",
     ...(variantInputProps &&
       getColumnSearchFilterProps({
         ...variantInputProps,

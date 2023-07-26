@@ -11,108 +11,125 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
+    type: "object" as "object",
     description:
       "Configure upstream projects to cause tasks in this project to run.",
-    type: "object" as "object",
     ...overrideRadioBox(
       "triggers",
       ["Override Repo Triggers", "Default to Repo Triggers"],
       {
+        type: "array" as "array",
         default: [],
         items: {
+          type: "object" as "object",
           properties: {
-            alias: {
-              default: "",
-              title: "Alias",
+            project: {
               type: "string" as "string",
-            },
-            buildVariantRegex: {
-              default: "",
-              title: "Variant Regex",
-              type: "string" as "string",
-            },
-            configFile: {
+              title: "Project",
               default: "",
               minLength: 1,
-              title: "Config File",
-              type: "string" as "string",
             },
-            dateCutoff: {
-              minimum: 0,
-              title: "Date Cutoff",
-              type: ["number", "null"],
+            configFile: {
+              type: "string" as "string",
+              title: "Config File",
+              default: "",
+              minLength: 1,
             },
             level: {
+              type: "string" as "string",
+              title: "Level",
               default: ProjectTriggerLevel.TASK,
               oneOf: [
                 {
-                  enum: [ProjectTriggerLevel.TASK],
-                  title: "Task",
                   type: "string" as "string",
+                  title: "Task",
+                  enum: [ProjectTriggerLevel.TASK],
                 },
                 {
-                  enum: [ProjectTriggerLevel.BUILD],
-                  title: "Build",
                   type: "string" as "string",
+                  title: "Build",
+                  enum: [ProjectTriggerLevel.BUILD],
                 },
               ],
-              title: "Level",
-              type: "string" as "string",
-            },
-            project: {
-              default: "",
-              minLength: 1,
-              title: "Project",
-              type: "string" as "string",
             },
             status: {
+              type: "string" as "string",
+              title: "Status",
               default: "",
               oneOf: [
                 {
-                  enum: [""],
+                  type: "string" as "string",
                   title: "All",
-                  type: "string" as "string",
+                  enum: [""],
                 },
                 {
-                  enum: [TaskStatus.Succeeded],
+                  type: "string" as "string",
                   title: "Success",
-                  type: "string" as "string",
+                  enum: [TaskStatus.Succeeded],
                 },
                 {
-                  enum: [TaskStatus.Failed],
-                  title: "Failure",
                   type: "string" as "string",
+                  title: "Failure",
+                  enum: [TaskStatus.Failed],
                 },
               ],
-              title: "Status",
+            },
+            dateCutoff: {
+              type: ["number", "null"],
+              title: "Date Cutoff",
+              minimum: 0,
+            },
+            buildVariantRegex: {
               type: "string" as "string",
+              title: "Variant Regex",
+              default: "",
             },
             taskRegex: {
-              default: "",
-              title: "Task Regex",
               type: "string" as "string",
+              title: "Task Regex",
+              default: "",
+            },
+            alias: {
+              type: "string" as "string",
+              title: "Alias",
+              default: "",
             },
           },
-          type: "object" as "object",
         },
-        type: "array" as "array",
       }
     ),
   },
   uiSchema: {
-    repoData: {
-      triggers: {
-        "ui:showLabel": false,
-        "ui:useExpandableCard": true,
-      },
-      "ui:orderable": false,
-      "ui:readonly": true,
+    triggersOverride: {
+      "ui:widget":
+        projectType === ProjectType.AttachedProject
+          ? widgets.RadioBoxWidget
+          : "hidden",
+      "ui:showLabel": false,
     },
     triggers: {
+      "ui:addButtonText": "Add Project Trigger",
+      "ui:orderable": false,
+      "ui:showLabel": false,
+      "ui:useExpandableCard": true,
       items: {
-        alias: {
+        "ui:displayTitle": "New Project Trigger",
+        project: {
+          "ui:data-cy": "project-input",
+        },
+        configFile: {
+          "ui:data-cy": "config-file-input",
+          "ui:placeholder": ".evergreen.yml",
+        },
+        level: {
+          "ui:allowDeselect": false,
+        },
+        status: {
+          "ui:allowDeselect": false,
+        },
+        dateCutoff: {
           "ui:description":
-            "Patch alias to filter variants/tasks in this project.",
+            "Commits older than this number of days will not invoke trigger.",
           "ui:optional": true,
         },
         buildVariantRegex: {
@@ -120,42 +137,25 @@ export const getFormSchema = (
             "Only matching variants in the upstream project will invoke trigger.",
           "ui:optional": true,
         },
-        configFile: {
-          "ui:data-cy": "config-file-input",
-          "ui:placeholder": ".evergreen.yml",
-        },
-        dateCutoff: {
-          "ui:description":
-            "Commits older than this number of days will not invoke trigger.",
-          "ui:optional": true,
-        },
-        level: {
-          "ui:allowDeselect": false,
-        },
-        project: {
-          "ui:data-cy": "project-input",
-        },
-        status: {
-          "ui:allowDeselect": false,
-        },
         taskRegex: {
           "ui:description":
             "Only matching tasks in the upstream project will invoke trigger.",
           "ui:optional": true,
         },
-        "ui:displayTitle": "New Project Trigger",
+        alias: {
+          "ui:description":
+            "Patch alias to filter variants/tasks in this project.",
+          "ui:optional": true,
+        },
       },
-      "ui:addButtonText": "Add Project Trigger",
-      "ui:orderable": false,
-      "ui:showLabel": false,
-      "ui:useExpandableCard": true,
     },
-    triggersOverride: {
-      "ui:showLabel": false,
-      "ui:widget":
-        projectType === ProjectType.AttachedProject
-          ? widgets.RadioBoxWidget
-          : "hidden",
+    repoData: {
+      "ui:orderable": false,
+      "ui:readonly": true,
+      triggers: {
+        "ui:showLabel": false,
+        "ui:useExpandableCard": true,
+      },
     },
   },
 });

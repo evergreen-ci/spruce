@@ -79,10 +79,10 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
       regexSelector: [],
     },
     notification: {
-      emailInput: emailAddress ?? "",
-      jiraCommentInput: "",
       notificationSelect: Cookies.get(SUBSCRIPTION_METHOD) ?? "jira-comment",
+      jiraCommentInput: "",
       slackInput: slackUsername ? `@${slackUsername}` : "",
+      emailInput: emailAddress ?? "",
     },
   });
   const [hasError, setHasError] = useState(hasInitialError(formState));

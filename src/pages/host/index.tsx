@@ -40,12 +40,12 @@ const Host: React.VFC = () => {
     error,
     loading: hostMetaDataLoading,
   } = useQuery<HostQuery, HostQueryVariables>(GET_HOST, {
+    variables: { id },
     onError: (err) => {
       dispatchToast.error(
         `There was an error loading the host: ${err.message}`
       );
     },
-    variables: { id },
   });
 
   const host = hostData?.host;
@@ -64,7 +64,7 @@ const Host: React.VFC = () => {
     HostEventsQuery,
     HostEventsQueryVariables
   >(GET_HOST_EVENTS, {
-    variables: { id, limit, page, tag },
+    variables: { id, tag, page, limit },
   });
 
   const hostEvents = hostEventData?.hostEvents;

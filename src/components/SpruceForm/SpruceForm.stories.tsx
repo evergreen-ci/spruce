@@ -61,20 +61,20 @@ const BaseForm = ({ data, schema, title, uiSchema }) => {
 };
 
 const example1Def = {
-  formData: {
-    cloneMethod: "legacy-ssh",
-    expansions: [{ key: "Sample Input", value: "Sample Input" }],
-  },
   schema: {
+    type: "object" as "object",
     properties: {
       cloneMethod: {
+        type: "string" as "string",
+        title: "Project Cloning Method",
         enum: ["legacy-ssh", "oath-token"],
         enumNames: ["Legacy SSH", "Oath Token"],
-        title: "Project Cloning Method",
-        type: "string" as "string",
       },
       expansions: {
+        type: "array" as "array",
+        title: "Expansions",
         items: {
+          type: "object" as "object",
           properties: {
             key: {
               type: "string" as "string",
@@ -83,114 +83,114 @@ const example1Def = {
               type: "string" as "string",
             },
           },
-          type: "object" as "object",
         },
-        title: "Expansions",
-        type: "array" as "array",
       },
       validProjects: {
-        placeholder: "Sample input",
-        title: "Valid Projects",
         type: "string" as "string",
+        title: "Valid Projects",
+        placeholder: "Sample input",
       },
     },
-    type: "object" as "object",
   },
   uiSchema: {
+    validProjects: {
+      "ui:widget": "textarea",
+      "ui:options": {
+        rows: 5,
+        label: false,
+      },
+    },
     cloneMethod: {
       "ui:options": {
         label: false,
       },
     },
-    validProjects: {
-      "ui:options": {
-        label: false,
-        rows: 5,
-      },
-      "ui:widget": "textarea",
-    },
+  },
+  formData: {
+    cloneMethod: "legacy-ssh",
+    expansions: [{ key: "Sample Input", value: "Sample Input" }],
   },
 };
 
 const example2Def = {
-  formData: {
-    decommissionHosts: true,
-    disableQueue: false,
-    disableShallowClone: false,
-    distroIsCluster: false,
-  },
   schema: {
+    type: "object" as "object",
     properties: {
-      decommissionHosts: {
-        title: "Decommission hosts of this distro for this update",
-        type: "boolean" as "boolean",
-      },
-      disableQueue: {
-        title:
-          "Disable queueing this distro. Tasks already in the task queue will be removed.",
-        type: "boolean" as "boolean",
-      },
-      disableShallowClone: {
-        title: "Disable shallow clone for this distro.",
-        type: "boolean" as "boolean",
-      },
       distroIsCluster: {
+        type: "boolean" as "boolean",
         title:
           "Mark distro as a cluster (jobs are not run on this host, used for special purposes).",
+      },
+      disableShallowClone: {
         type: "boolean" as "boolean",
+        title: "Disable shallow clone for this distro.",
+      },
+      disableQueue: {
+        type: "boolean" as "boolean",
+        title:
+          "Disable queueing this distro. Tasks already in the task queue will be removed.",
+      },
+      decommissionHosts: {
+        type: "boolean" as "boolean",
+        title: "Decommission hosts of this distro for this update",
       },
       reprovisionMethod: {
+        title: "",
+        type: "string" as "string",
         enum: ["restartJasper", "reprovisionHosts"],
         enumNames: [
           "Restart Jasper service on running hosts of this distro for this update",
           "Reprovision running hosts of this distro for this update",
         ],
-        title: "",
-        type: "string" as "string",
       },
     },
-    type: "object" as "object",
   },
   uiSchema: {
     reprovisionMethod: {
+      "ui:widget": "radio",
       "ui:options": {
         label: false,
       },
-      "ui:widget": "radio",
     },
     "ui:options": {
       label: false,
     },
   },
+  formData: {
+    distroIsCluster: false,
+    disableShallowClone: false,
+    disableQueue: false,
+    decommissionHosts: true,
+  },
 };
 
 const example3Def = {
-  formData: {
-    visible: true,
-  },
   schema: {
+    type: "object" as "object",
     properties: {
       invisible: {
+        type: "object" as "object",
+        title: "Invisible",
         description: "This field should be invisible",
         properties: {
           child: {
-            title: "And so should its children",
             type: "string" as "string",
+            title: "And so should its children",
           },
         },
-        title: "Invisible",
-        type: "object" as "object",
       },
       visible: {
         title: "This is the only visible page element",
         type: "boolean" as "boolean",
       },
     },
-    type: "object" as "object",
   },
   uiSchema: {
     invisible: {
       "ui:widget": "hidden",
     },
+  },
+  formData: {
+    visible: true,
   },
 };

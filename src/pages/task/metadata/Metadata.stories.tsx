@@ -5,8 +5,8 @@ import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { Metadata } from "./index";
 
 export default {
-  component: Metadata,
   title: "Pages/Task/Metadata",
+  component: Metadata,
 } satisfies CustomMeta<typeof Metadata>;
 
 export const Default: CustomStoryObj<typeof Metadata> = {
@@ -70,6 +70,23 @@ export const WithDependencies: CustomStoryObj<typeof Metadata> = {
 export const WithAbortMessage: CustomStoryObj<
   { abortInfoSelection: string } & React.ComponentProps<typeof Metadata>
 > = {
+  render: ({ abortInfoSelection, ...args }) => (
+    <Container>
+      <Metadata
+        {...args}
+        task={{
+          ...taskQuery.task,
+          aborted: true,
+          abortInfo: abortInfoMap[abortInfoSelection],
+        }}
+        taskId={taskQuery.task.id}
+        error={null}
+      />
+    </Container>
+  ),
+  args: {
+    abortInfoSelection: "NoUser",
+  },
   argTypes: {
     abortInfoSelection: {
       control: "select",
@@ -81,23 +98,6 @@ export const WithAbortMessage: CustomStoryObj<
       ],
     },
   },
-  args: {
-    abortInfoSelection: "NoUser",
-  },
-  render: ({ abortInfoSelection, ...args }) => (
-    <Container>
-      <Metadata
-        {...args}
-        task={{
-          ...taskQuery.task,
-          abortInfo: abortInfoMap[abortInfoSelection],
-          aborted: true,
-        }}
-        taskId={taskQuery.task.id}
-        error={null}
-      />
-    </Container>
-  ),
 };
 
 export const ContainerizedTask: CustomStoryObj<typeof Metadata> = {
@@ -107,9 +107,9 @@ export const ContainerizedTask: CustomStoryObj<typeof Metadata> = {
         {...args}
         task={{
           ...taskQuery.task,
+          hostId: null,
           ami: null,
           distroId: null,
-          hostId: null,
           pod: {
             id: "pod_id",
           },
@@ -127,6 +127,14 @@ const Container = styled.div`
 `;
 
 const abortInfoMap = {
+  NoUser: {
+    buildVariantDisplayName: "~ Commit Queue",
+    newVersion: null,
+    prClosed: false,
+    taskDisplayName: "api-task-server",
+    taskID: "abc",
+    user: null,
+  },
   AbortedBecauseOfFailingTask: {
     buildVariantDisplayName: "~ Commit Queue",
     newVersion: null,
@@ -150,13 +158,5 @@ const abortInfoMap = {
     taskDisplayName: null,
     taskID: null,
     user: "apiserver",
-  },
-  NoUser: {
-    buildVariantDisplayName: "~ Commit Queue",
-    newVersion: null,
-    prClosed: false,
-    taskDisplayName: "api-task-server",
-    taskID: "abc",
-    user: null,
   },
 };

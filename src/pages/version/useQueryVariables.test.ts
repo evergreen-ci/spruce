@@ -10,21 +10,21 @@ describe("useQueryVariables", () => {
 
     const { result } = renderHook(() => useQueryVariables(search, versionId));
     expect(result.current).toStrictEqual({
+      versionId,
       taskFilterOptions: {
-        baseStatuses: [],
-        limit: 20,
-        page: 0,
-        sorts: [
-          { Direction: SortDirection.Asc, Key: TaskSortCategory.Name },
-          { Direction: SortDirection.Asc, Key: TaskSortCategory.Status },
-          { Direction: SortDirection.Desc, Key: TaskSortCategory.BaseStatus },
-          { Direction: SortDirection.Asc, Key: TaskSortCategory.Variant },
-        ],
-        statuses: ["success"],
         taskName: "generate",
         variant: "",
+        statuses: ["success"],
+        baseStatuses: [],
+        sorts: [
+          { Key: TaskSortCategory.Name, Direction: SortDirection.Asc },
+          { Key: TaskSortCategory.Status, Direction: SortDirection.Asc },
+          { Key: TaskSortCategory.BaseStatus, Direction: SortDirection.Desc },
+          { Key: TaskSortCategory.Variant, Direction: SortDirection.Asc },
+        ],
+        page: 0,
+        limit: 20,
       },
-      versionId,
     });
   });
 });

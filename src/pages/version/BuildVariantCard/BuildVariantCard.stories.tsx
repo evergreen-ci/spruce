@@ -3,6 +3,7 @@ import BuildVariantCard from ".";
 import { mocks } from "./testData";
 
 export default {
+  title: "Pages/Version/BuildVariantCard",
   component: BuildVariantCard,
   parameters: {
     apolloClient: {
@@ -13,7 +14,6 @@ export default {
       route: "/version/version",
     },
   },
-  title: "Pages/Version/BuildVariantCard",
 } satisfies CustomMeta<typeof BuildVariantCard>;
 
 export const Default: CustomStoryObj<typeof BuildVariantCard> = {

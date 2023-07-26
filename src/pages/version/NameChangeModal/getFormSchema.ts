@@ -7,21 +7,21 @@ export const getFormSchema = (
   uiSchema: SpruceFormProps["uiSchema"];
 } => ({
   schema: {
+    type: "object" as "object",
     properties: {
       newPatchName: {
+        title: "New Patch Name",
+        type: "string" as "string",
         default: name,
         maxLength: 300,
         minLength: 1,
-        title: "New Patch Name",
-        type: "string" as "string",
       },
     },
-    type: "object" as "object",
   },
   uiSchema: {
     newPatchName: {
-      "ui:focusOnMount": true,
       "ui:widget": "textarea",
+      "ui:focusOnMount": true,
     },
   },
 });

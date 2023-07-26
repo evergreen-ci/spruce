@@ -58,16 +58,16 @@ interface HistoryTableProviderProps {
 const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
   children,
   initialState = {
-    columnLimit: DEFAULT_COLUMN_LIMIT,
     columns: [],
+    columnLimit: DEFAULT_COLUMN_LIMIT,
     commitCache: new Map(),
     commitCount: 10,
     currentPage: 0,
     historyTableFilters: [],
     loadedCommits: [],
-    pageCount: 0,
-    processedCommitCount: 0,
     processedCommits: [],
+    processedCommitCount: 0,
+    pageCount: 0,
     selectedCommit: null,
     visibleColumns: [],
   },
@@ -96,8 +96,6 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
   }, []);
   const historyTableState = useMemo(
     () => ({
-      addColumns: (columns: string[]) =>
-        dispatch({ columns, type: "addColumns" }),
       columnLimit,
       commitCount,
       currentPage,
@@ -105,31 +103,33 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
       hasNextPage: currentPage < pageCount - 1,
       hasPreviousPage: currentPage > 0,
       historyTableFilters,
+      isItemLoaded,
+      pageCount,
+      processedCommitCount,
+      processedCommits,
+      selectedCommit,
+      visibleColumns,
+      addColumns: (columns: string[]) =>
+        dispatch({ type: "addColumns", columns }),
       ingestNewCommits: (
         commits: MainlineCommitsForHistoryQuery["mainlineCommits"]
-      ) => dispatch({ commits, type: "ingestNewCommits" }),
-      isItemLoaded,
+      ) => dispatch({ type: "ingestNewCommits", commits }),
       markSelectedRowVisited: () =>
         dispatch({ type: "markSelectedRowVisited" }),
       nextPage: () => dispatch({ type: "nextPageColumns" }),
       onChangeTableWidth,
-      pageCount,
       previousPage: () => dispatch({ type: "prevPageColumns" }),
-      processedCommitCount,
-      processedCommits,
-      selectedCommit,
-      setHistoryTableFilters: (filters: TestFilter[]) =>
-        dispatch({ filters, type: "setHistoryTableFilters" }),
       setSelectedCommit: (order: number) =>
-        dispatch({ order, type: "setSelectedCommit" }),
+        dispatch({ type: "setSelectedCommit", order }),
+      setHistoryTableFilters: (filters: TestFilter[]) =>
+        dispatch({ type: "setHistoryTableFilters", filters }),
       toggleRowExpansion: (rowIndex: number, expanded: boolean) => {
         dispatch({
-          expanded,
-          rowIndex,
           type: "toggleRowExpansion",
+          rowIndex,
+          expanded,
         });
       },
-      visibleColumns,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [visibleColumns, processedCommitCount, historyTableFilters]

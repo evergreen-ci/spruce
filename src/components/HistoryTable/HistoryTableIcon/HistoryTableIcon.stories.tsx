@@ -5,8 +5,8 @@ import { TaskStatus } from "types/task";
 import { HistoryTableIcon } from "./index";
 
 export default {
-  component: HistoryTableIcon,
   title: "Components/HistoryTable/Icons",
+  component: HistoryTableIcon,
 } satisfies CustomMeta<typeof HistoryTableIcon>;
 
 export const ActiveIcons: CustomStoryObj<typeof HistoryTableIcon> = {
@@ -51,13 +51,13 @@ const failingTests = [
 
 const data = [
   { status: TaskStatus.Succeeded },
-  { label: "5/10 failing tests", status: TaskStatus.Failed },
-  { label: "1/2 failing tests", status: TaskStatus.KnownIssue },
+  { status: TaskStatus.Failed, label: "5/10 failing tests" },
+  { status: TaskStatus.KnownIssue, label: "1/2 failing tests" },
   { status: TaskStatus.Dispatched },
-  { label: "5/10 failing tests", status: TaskStatus.SetupFailed },
-  { label: "5/10 failing tests", status: TaskStatus.SystemUnresponsive },
-  { label: "5/10 failing tests", status: TaskStatus.TestTimedOut },
-  { label: "5/10 failing tests", status: TaskStatus.Aborted },
+  { status: TaskStatus.SetupFailed, label: "5/10 failing tests" },
+  { status: TaskStatus.SystemUnresponsive, label: "5/10 failing tests" },
+  { status: TaskStatus.TestTimedOut, label: "5/10 failing tests" },
+  { status: TaskStatus.Aborted, label: "5/10 failing tests" },
   { status: TaskStatus.WillRun },
   { status: TaskStatus.Inactive },
 ];

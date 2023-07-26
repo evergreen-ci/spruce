@@ -13,11 +13,11 @@ type DispatchToast = ReturnType<typeof useToastContext>;
  */
 const RenderFakeToastContext = (Component?: React.ReactElement) => {
   const dispatchToast: DispatchToast = {
+    success: jest.fn(),
     error: jest.fn(),
     info: jest.fn(),
-    progress: jest.fn(),
-    success: jest.fn(),
     warning: jest.fn(),
+    progress: jest.fn(),
   };
 
   const useToastContextSpied = jest
@@ -28,8 +28,8 @@ const RenderFakeToastContext = (Component?: React.ReactElement) => {
 
   return {
     Component: () => Component,
-    dispatchToast,
     useToastContext: useToastContextSpied,
+    dispatchToast,
   };
 };
 

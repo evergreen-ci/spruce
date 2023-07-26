@@ -5,8 +5,8 @@ const Content = () => <HistoryTableTestSearch />;
 describe("historyTableTestSearch", () => {
   it("renders normally and doesn't affect the url", () => {
     render(<Content />, {
-      path: "/variant-history/:projectId/:variantName",
       route: `/variant-history/evergreen/lint`,
+      path: "/variant-history/:projectId/:variantName",
     });
     const input = screen.getByPlaceholderText(
       "Search test name regex"
@@ -17,8 +17,8 @@ describe("historyTableTestSearch", () => {
 
   it("should clear input when a value is submitted", () => {
     render(<Content />, {
-      path: "/variant-history/:projectId/:variantName",
       route: `/variant-history/evergreen/lint`,
+      path: "/variant-history/:projectId/:variantName",
     });
     const input = screen.getByPlaceholderText(
       "Search test name regex"
@@ -33,8 +33,8 @@ describe("historyTableTestSearch", () => {
 
   it("should add input query params to the url", () => {
     const { router } = render(<Content />, {
-      path: "/variant-history/:projectId/:variantName",
       route: `/variant-history/evergreen/lint`,
+      path: "/variant-history/:projectId/:variantName",
     });
     const input = screen.getByPlaceholderText(
       "Search test name regex"
@@ -50,8 +50,8 @@ describe("historyTableTestSearch", () => {
 
   it("should add multiple input filters to the same key as query params", () => {
     const { router } = render(<Content />, {
-      path: "/variant-history/:projectId/:variantName",
       route: `/variant-history/evergreen/lint`,
+      path: "/variant-history/:projectId/:variantName",
     });
     const input = screen.getByPlaceholderText(
       "Search test name regex"
@@ -70,8 +70,8 @@ describe("historyTableTestSearch", () => {
 
   it("should not allow duplicate input filters for the same key as query params", () => {
     const { router } = render(<Content />, {
-      path: "/variant-history/:projectId/:variantName",
       route: `/variant-history/evergreen/lint`,
+      path: "/variant-history/:projectId/:variantName",
     });
     const input = screen.getByPlaceholderText(
       "Search test name regex"

@@ -3,8 +3,8 @@ import { Node } from "pages/preferences/preferencesTabs/cliTab/nodeList/Node";
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
 
 export default {
-  component: NodeList,
   title: "Pages/Preferences/Node List",
+  component: NodeList,
 } satisfies CustomMeta<typeof NodeList>;
 
 export const NodeElement: CustomStoryObj<typeof Node> = {
@@ -18,18 +18,18 @@ export const NodeElement: CustomStoryObj<typeof Node> = {
 };
 
 const Child = () => (
-  <div style={{ backgroundColor: "red", height: 300, width: 500 }}>Test</div>
+  <div style={{ width: 500, height: 300, backgroundColor: "red" }}>Test</div>
 );
 
 const list = [
   {
-    child: <Child />,
     title: "Download the Command-Line Client.",
+    child: <Child />,
   },
   {
-    child: <Child />,
     title:
       "Move the command-line client to somewhere in your PATH. On many systems this will be /usr/local/bin.",
+    child: <Child />,
   },
 ];
 

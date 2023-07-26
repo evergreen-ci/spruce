@@ -116,16 +116,16 @@ const customBadgeColors = (status: string) => {
   switch (status) {
     case TaskStatus.SetupFailed:
       return {
-        border: purple.base,
         fill: purple.light2,
+        border: purple.base,
         text: purple.dark2,
       };
     case TaskStatus.SystemFailed:
     case TaskStatus.SystemUnresponsive:
     case TaskStatus.SystemTimedOut:
       return {
-        border: purple.dark3,
         fill: purple.dark2,
+        border: purple.dark3,
         text: purple.light3,
       };
 

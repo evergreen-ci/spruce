@@ -27,15 +27,15 @@ export const Default: CustomStoryObj<typeof GroupedTaskStatusBadge> = {
 };
 
 const groupedTaskStats = [
-  { count: 20, status: TaskStatus.Succeeded },
-  { count: 1, status: TaskStatus.Succeeded },
-  { count: 1, status: TaskStatus.FailedUmbrella },
-  { count: 2, status: TaskStatus.RunningUmbrella },
-  { count: 3, status: TaskStatus.SystemFailureUmbrella },
-  { count: 4, status: TaskStatus.SetupFailed },
-  { count: 1, status: TaskStatus.SetupFailed },
-  { count: 5, status: TaskStatus.UndispatchedUmbrella },
-  { count: 5, status: TaskStatus.ScheduledUmbrella },
+  { status: TaskStatus.Succeeded, count: 20 },
+  { status: TaskStatus.Succeeded, count: 1 },
+  { status: TaskStatus.FailedUmbrella, count: 1 },
+  { status: TaskStatus.RunningUmbrella, count: 2 },
+  { status: TaskStatus.SystemFailureUmbrella, count: 3 },
+  { status: TaskStatus.SetupFailed, count: 4 },
+  { status: TaskStatus.SetupFailed, count: 1 },
+  { status: TaskStatus.UndispatchedUmbrella, count: 5 },
+  { status: TaskStatus.ScheduledUmbrella, count: 5 },
 ];
 
 const Container = styled.div`

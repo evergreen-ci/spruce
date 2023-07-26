@@ -39,16 +39,16 @@ describe("should initialize error handlers according to release stage", () => {
     expect(Bugsnag.start).toHaveBeenCalledWith({
       apiKey: "i-am-a-fake-key",
       appVersion: "1.0.0",
-      plugins: [new BugsnagPluginReact()],
       releaseStage: "production",
+      plugins: [new BugsnagPluginReact()],
     });
 
     expect(Sentry.init).toHaveBeenCalledWith({
-      debug: false,
       dsn: "fake-sentry-key",
-      environment: "production",
+      debug: false,
       normalizeDepth: 5,
       release: APP_VERSION,
+      environment: "production",
     });
   });
 
@@ -63,16 +63,16 @@ describe("should initialize error handlers according to release stage", () => {
     expect(Bugsnag.start).toHaveBeenCalledWith({
       apiKey: "i-am-a-fake-key",
       appVersion: "1.0.0",
-      plugins: [new BugsnagPluginReact()],
       releaseStage: "beta",
+      plugins: [new BugsnagPluginReact()],
     });
 
     expect(Sentry.init).toHaveBeenCalledWith({
-      debug: true,
       dsn: "fake-sentry-key",
-      environment: "beta",
+      debug: true,
       normalizeDepth: 5,
       release: APP_VERSION,
+      environment: "beta",
     });
   });
 
@@ -87,16 +87,16 @@ describe("should initialize error handlers according to release stage", () => {
     expect(Bugsnag.start).toHaveBeenCalledWith({
       apiKey: "i-am-a-fake-key",
       appVersion: "1.0.0",
-      plugins: [new BugsnagPluginReact()],
       releaseStage: "staging",
+      plugins: [new BugsnagPluginReact()],
     });
 
     expect(Sentry.init).toHaveBeenCalledWith({
-      debug: true,
       dsn: "fake-sentry-key",
-      environment: "staging",
+      debug: true,
       normalizeDepth: 5,
       release: APP_VERSION,
+      environment: "staging",
     });
   });
 });

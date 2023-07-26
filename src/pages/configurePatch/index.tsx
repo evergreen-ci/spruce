@@ -23,10 +23,10 @@ const ConfigurePatch: React.VFC = () => {
     ConfigurePatchQuery,
     ConfigurePatchQueryVariables
   >(GET_PATCH_CONFIGURE, {
+    variables: { id },
     onError(err) {
       dispatchToast.error(err.message);
     },
-    variables: { id },
   });
 
   const { patch } = data || {};

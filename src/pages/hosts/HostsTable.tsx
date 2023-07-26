@@ -68,27 +68,27 @@ export const HostsTable: React.VFC<Props> = ({
   };
 
   const sendHostsTableFilterEvent = (filterBy: string) =>
-    hostsTableAnalytics.sendEvent({ filterBy, name: "Filter Hosts" });
+    hostsTableAnalytics.sendEvent({ name: "Filter Hosts", filterBy });
 
   // HOST ID URL PARAM
   const [hostIdValue, onChangeHostId, updateHostIdUrlParam] =
     useTableInputFilter<HostsUrlParam>({
-      sendAnalyticsEvent: sendHostsTableFilterEvent,
       urlSearchParam: "hostId",
+      sendAnalyticsEvent: sendHostsTableFilterEvent,
     });
 
   // STATUSES URL PARAM
   const [statusesValue, onChangeStatuses] =
     useTableCheckboxFilter<HostsUrlParam>({
-      sendAnalyticsEvent: sendHostsTableFilterEvent,
       urlSearchParam: "statuses",
+      sendAnalyticsEvent: sendHostsTableFilterEvent,
     });
 
   // DISTRO URL PARAM
   const [distroIdValue, onChangeDistroId, updateDistroIdUrlParam] =
     useTableInputFilter<HostsUrlParam>({
-      sendAnalyticsEvent: sendHostsTableFilterEvent,
       urlSearchParam: "distroId",
+      sendAnalyticsEvent: sendHostsTableFilterEvent,
     });
 
   // CURRENT TASK ID URL PARAM
@@ -97,76 +97,79 @@ export const HostsTable: React.VFC<Props> = ({
     onChangeCurrentTaskId,
     updateCurrentTaskIdUrlParam,
   ] = useTableInputFilter<HostsUrlParam>({
-    sendAnalyticsEvent: sendHostsTableFilterEvent,
     urlSearchParam: "currentTaskId",
+    sendAnalyticsEvent: sendHostsTableFilterEvent,
   });
 
   // OWNER URL PARAM
   const [ownerValue, onChangeOwner, updateOwnerUrlParam] =
     useTableInputFilter<HostsUrlParam>({
-      sendAnalyticsEvent: sendHostsTableFilterEvent,
       urlSearchParam: "startedBy",
+      sendAnalyticsEvent: sendHostsTableFilterEvent,
     });
 
   // TABLE COLUMNS
   const columnsTemplate: Array<ColumnProps<Host>> = [
     {
-      className: "cy-hosts-table-col-ID",
+      title: "ID",
       dataIndex: "id",
-      defaultSortOrder: getDefaultSortOrder(HostSortBy.Id),
       key: HostSortBy.Id,
+      sorter: true,
+      className: "cy-hosts-table-col-ID",
+      defaultSortOrder: getDefaultSortOrder(HostSortBy.Id),
+      width: "17%",
       render: (_, { id }: Host): JSX.Element => (
         <StyledRouterLink data-cy="host-id-link" to={getHostRoute(id)}>
           {id}
         </StyledRouterLink>
       ),
-      sorter: true,
-      title: "ID",
-      width: "17%",
       ...getColumnSearchFilterProps({
-        "data-cy": "host-id-filter",
-        onChange: onChangeHostId,
-        onFilter: updateHostIdUrlParam,
         placeholder: "Search ID",
         value: hostIdValue,
+        onChange: onChangeHostId,
+        "data-cy": "host-id-filter",
+        onFilter: updateHostIdUrlParam,
       }),
     },
     {
-      className: "cy-task-table-col-DISTRO",
+      title: "Distro",
       dataIndex: "distroId",
       defaultSortOrder: getDefaultSortOrder(HostSortBy.Distro),
       key: HostSortBy.Distro,
       sorter: true,
-      title: "Distro",
       width: "15%",
+      className: "cy-task-table-col-DISTRO",
       ...getColumnSearchFilterProps({
-        "data-cy": "distro-id-filter",
-        onChange: onChangeDistroId,
-        onFilter: updateDistroIdUrlParam,
         placeholder: "Search distro regex",
         value: distroIdValue,
+        onChange: onChangeDistroId,
+        "data-cy": "distro-id-filter",
+        onFilter: updateDistroIdUrlParam,
       }),
     },
     {
-      className: "cy-task-table-col-STATUS",
-      dataIndex: "status",
-      defaultSortOrder: getDefaultSortOrder(HostSortBy.Status),
-      key: HostSortBy.Status,
-      sorter: true,
       title: "Status",
+      dataIndex: "status",
+      key: HostSortBy.Status,
+      defaultSortOrder: getDefaultSortOrder(HostSortBy.Status),
+      sorter: true,
       width: "10%",
+      className: "cy-task-table-col-STATUS",
       ...getColumnCheckboxFilterProps({
-        dataCy: "statuses-filter",
-        onChange: onChangeStatuses,
-        statuses: hostStatuses,
         value: statusesValue,
+        onChange: onChangeStatuses,
+        dataCy: "statuses-filter",
+        statuses: hostStatuses,
       }),
     },
     {
-      className: "cy-task-table-col-CURRENT-TASK",
+      title: "Current Task",
       dataIndex: "currentTask",
-      defaultSortOrder: getDefaultSortOrder(HostSortBy.CurrentTask),
       key: HostSortBy.CurrentTask,
+      defaultSortOrder: getDefaultSortOrder(HostSortBy.CurrentTask),
+      sorter: true,
+      width: "18%",
+      className: "cy-task-table-col-CURRENT-TASK",
       render: (_, { runningTask }: Host) =>
         runningTask?.id !== null ? (
           <StyledRouterLink
@@ -178,67 +181,64 @@ export const HostsTable: React.VFC<Props> = ({
         ) : (
           ""
         ),
-      sorter: true,
-      title: "Current Task",
-      width: "18%",
       ...getColumnSearchFilterProps({
-        "data-cy": "current-task-id-filter",
-        onChange: onChangeCurrentTaskId,
-        onFilter: updateCurrentTaskIdUrlParam,
         placeholder: "Search Current Task ID",
         value: currentTaskIdValue,
+        onChange: onChangeCurrentTaskId,
+        "data-cy": "current-task-id-filter",
+        onFilter: updateCurrentTaskIdUrlParam,
       }),
     },
     {
-      className: "cy-task-table-col-ELAPSED",
+      title: "Elapsed",
       dataIndex: "elapsed",
       defaultSortOrder: getDefaultSortOrder(HostSortBy.Elapsed),
       key: HostSortBy.Elapsed,
+      sorter: true,
+      className: "cy-task-table-col-ELAPSED",
+      width: "10%",
       render: (_, { elapsed }) =>
         elapsed ? formatDistanceToNow(new Date(elapsed)) : "N/A",
-      sorter: true,
-      title: "Elapsed",
-      width: "10%",
     },
     {
-      className: "cy-task-table-col-UPTIME",
+      title: "Uptime",
       dataIndex: "uptime",
       defaultSortOrder: getDefaultSortOrder(HostSortBy.Uptime),
       key: HostSortBy.Uptime,
+      sorter: true,
+      width: "10%",
+      className: "cy-task-table-col-UPTIME",
       render: (_, { uptime }) =>
         uptime ? formatDistanceToNow(new Date(uptime)) : "N/A",
-      sorter: true,
-      title: "Uptime",
-      width: "10%",
     },
     {
-      className: "cy-task-table-col-IDLE-TIME",
+      title: "Idle Time",
       dataIndex: "totalIdleTime",
       defaultSortOrder: getDefaultSortOrder(HostSortBy.IdleTime),
       key: HostSortBy.IdleTime,
+      sorter: true,
+      width: "10%",
+      className: "cy-task-table-col-IDLE-TIME",
       render: (_, { totalIdleTime }) =>
         totalIdleTime
           ? formatDistanceToNow(new Date(Date.now() - totalIdleTime))
           : "N/A",
-      sorter: true,
-      title: "Idle Time",
-      width: "10%",
     },
     {
-      className: "cy-task-table-col-OWNER",
+      title: "Owner",
       dataIndex: "startedBy",
       defaultSortOrder: getDefaultSortOrder(HostSortBy.Owner),
       key: HostSortBy.Owner,
-      render: (owner) => <WordBreak>{owner}</WordBreak>,
       sorter: true,
-      title: "Owner",
       width: "10%",
+      render: (owner) => <WordBreak>{owner}</WordBreak>,
+      className: "cy-task-table-col-OWNER",
       ...getColumnSearchFilterProps({
-        "data-cy": "owner-filter",
-        onChange: onChangeOwner,
-        onFilter: updateOwnerUrlParam,
         placeholder: "Search Owner",
         value: ownerValue,
+        onChange: onChangeOwner,
+        "data-cy": "owner-filter",
+        onFilter: updateOwnerUrlParam,
       }),
     },
   ];
@@ -289,9 +289,9 @@ export const HostsTable: React.VFC<Props> = ({
       columns={columnsTemplate}
       dataSource={hosts}
       rowSelection={{
+        type: "checkbox",
         onChange: onSelectChange,
         selectedRowKeys: selectedHostIds,
-        type: "checkbox",
       }}
       getPopupContainer={(trigger: HTMLElement) => trigger}
       onChange={tableChangeHandler}

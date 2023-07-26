@@ -3,9 +3,9 @@ import { SpruceFormProps } from "components/SpruceForm/types";
 export const insertIf = (condition, ...elements) => (condition ? elements : []);
 
 const radioBoxOption = (title: string, value: boolean) => ({
-  enum: [value],
-  title,
   type: ["boolean", "null"],
+  title,
+  enum: [value],
 });
 
 /**
@@ -41,6 +41,23 @@ export const overrideRadioBox = (
 ): SpruceFormProps["schema"] => {
   const propertyNameOverride = `${propertyName}Override`;
   return {
+    properties: {
+      [propertyNameOverride]: {
+        type: "boolean" as "boolean",
+        oneOf: [
+          {
+            type: "boolean" as "boolean",
+            title: buttonText[0],
+            enum: [true],
+          },
+          {
+            type: "boolean" as "boolean",
+            title: buttonText[1],
+            enum: [false],
+          },
+        ],
+      },
+    },
     dependencies: {
       [propertyNameOverride]: {
         oneOf: [
@@ -50,40 +67,23 @@ export const overrideRadioBox = (
                 enum: [false],
               },
               repoData: {
+                type: "object" as "object",
+                title: "",
                 properties: {
                   [propertyName]: overrideSchema,
                 },
-                title: "",
-                type: "object" as "object",
               },
             },
           },
           {
             properties: {
-              [propertyName]: overrideSchema,
               [propertyNameOverride]: {
                 enum: [true],
               },
+              [propertyName]: overrideSchema,
             },
           },
         ],
-      },
-    },
-    properties: {
-      [propertyNameOverride]: {
-        oneOf: [
-          {
-            enum: [true],
-            title: buttonText[0],
-            type: "boolean" as "boolean",
-          },
-          {
-            enum: [false],
-            title: buttonText[1],
-            type: "boolean" as "boolean",
-          },
-        ],
-        type: "boolean" as "boolean",
       },
     },
   };

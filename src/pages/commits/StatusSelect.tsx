@@ -11,13 +11,13 @@ import { PatchTasksQueryParams } from "types/task";
 export const StatusSelect = () => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const { inputValue, setAndSubmitInputValue } = useStatusesFilter({
+    urlParam: PatchTasksQueryParams.Statuses,
     sendAnalyticsEvent: (_, filterValue: string[]) => {
       sendEvent({
         name: "Filter by task status",
         statuses: filterValue,
       });
     },
-    urlParam: PatchTasksQueryParams.Statuses,
   });
   return (
     <Container>

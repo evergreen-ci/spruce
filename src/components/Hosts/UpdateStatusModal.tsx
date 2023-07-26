@@ -70,7 +70,7 @@ export const UpdateStatusModal: React.VFC<Props> = ({
 
   const onClickUpdate = () => {
     hostsTableAnalytics.sendEvent({ name: "Update Status", status });
-    updateHostStatus({ variables: { hostIds, notes, status } });
+    updateHostStatus({ variables: { hostIds, status, notes } });
   };
 
   const onClickCancel = () => {
@@ -126,28 +126,28 @@ interface Status {
 
 const hostStatuses: Status[] = [
   {
-    key: UpdateHostStatus.Decommissioned,
     title: "Decommissioned",
     value: UpdateHostStatus.Decommissioned,
+    key: UpdateHostStatus.Decommissioned,
   },
   {
-    key: UpdateHostStatus.Quarantined,
     title: "Quarantined",
     value: UpdateHostStatus.Quarantined,
+    key: UpdateHostStatus.Quarantined,
   },
   {
-    key: UpdateHostStatus.Running,
     title: "Running",
     value: UpdateHostStatus.Running,
+    key: UpdateHostStatus.Running,
   },
   {
-    key: UpdateHostStatus.Terminated,
     title: "Terminated",
     value: UpdateHostStatus.Terminated,
+    key: UpdateHostStatus.Terminated,
   },
   {
-    key: UpdateHostStatus.Stopped,
     title: "Stopped",
     value: UpdateHostStatus.Stopped,
+    key: UpdateHostStatus.Stopped,
   },
 ];

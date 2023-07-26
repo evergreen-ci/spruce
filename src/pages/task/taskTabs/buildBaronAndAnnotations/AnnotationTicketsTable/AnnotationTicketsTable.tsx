@@ -47,6 +47,8 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
 
   const columns = [
     {
+      title: "Ticket",
+      width: "65%",
       render: ({
         confidenceScore,
         issueKey,
@@ -61,8 +63,6 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
           loading={loading}
         />
       ),
-      title: "Ticket",
-      width: "65%",
     },
     {
       render: ({
@@ -72,6 +72,19 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
       }: AnnotationTicket): JSX.Element => (
         <ButtonContainer>
           {ConditionalWrapper({
+            condition: userCanModify,
+            wrapper: (children: JSX.Element) => (
+              <Popconfirm
+                align="right"
+                onConfirm={() => {
+                  handleMove({ url, issueKey, confidenceScore });
+                }}
+                trigger={children}
+              >
+                Do you want to move this {issueString} to{" "}
+                {isIssue ? "suspected issues" : "issues"}?
+              </Popconfirm>
+            ),
             altWrapper: (children: JSX.Element) => (
               <Tooltip trigger={children}>
                 You are not authorized to edit failure details
@@ -87,21 +100,20 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
                 Move to {isIssue ? "suspected issues" : "issues"}
               </Button>
             ),
+          })}
+          {ConditionalWrapper({
             condition: userCanModify,
             wrapper: (children: JSX.Element) => (
               <Popconfirm
                 align="right"
                 onConfirm={() => {
-                  handleMove({ confidenceScore, issueKey, url });
+                  handleRemove(url, issueKey);
                 }}
                 trigger={children}
               >
-                Do you want to move this {issueString} to{" "}
-                {isIssue ? "suspected issues" : "issues"}?
+                Do you want to delete this {issueString}?
               </Popconfirm>
             ),
-          })}
-          {ConditionalWrapper({
             altWrapper: (children: JSX.Element) => (
               <Tooltip trigger={children}>
                 You are not authorized to edit failure details
@@ -114,18 +126,6 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
                 leftGlyph={<Icon glyph="Trash" />}
                 disabled={!userCanModify}
               />
-            ),
-            condition: userCanModify,
-            wrapper: (children: JSX.Element) => (
-              <Popconfirm
-                align="right"
-                onConfirm={() => {
-                  handleRemove(url, issueKey);
-                }}
-                trigger={children}
-              >
-                Do you want to delete this {issueString}?
-              </Popconfirm>
             ),
           })}
         </ButtonContainer>
@@ -169,10 +169,10 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
 
   const handleRemove = (url: string, issueKey: string): void => {
     const apiIssue = {
-      issueKey,
       url,
+      issueKey,
     };
-    removeAnnotation({ variables: { apiIssue, execution, isIssue, taskId } });
+    removeAnnotation({ variables: { taskId, execution, apiIssue, isIssue } });
     const analyticsType = isIssue
       ? "Remove Annotation Issue"
       : "Remove Annotation Suspected Issue";
@@ -186,7 +186,7 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
     issueKey: string;
     confidenceScore: number;
   }): void => {
-    moveAnnotation({ variables: { apiIssue, execution, isIssue, taskId } });
+    moveAnnotation({ variables: { taskId, execution, apiIssue, isIssue } });
     const analyticsType = isIssue
       ? "Move Annotation Issue"
       : "Move Annotation Suspected Issue";
@@ -220,10 +220,10 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
       pagination={false}
       showHeader={false}
       rowSelection={{
-        columnWidth: 0,
         renderCell: (_, record) =>
           record.issueKey === selectedRowKey && <span ref={rowRef} />,
         selectedRowKeys: [selectedRowKey],
+        columnWidth: 0,
       }}
     />
   );

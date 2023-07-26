@@ -30,12 +30,12 @@ const Issues: React.VFC<IssuesProps> = ({
   const { data, loading } = useQuery<IssuesQuery, IssuesQueryVariables>(
     GET_JIRA_ISSUES,
     {
+      variables: { taskId, execution },
       onError: (err) => {
         dispatchToast.error(
           `There was an error loading the ticket information from Jira: ${err.message}`
         );
       },
-      variables: { execution, taskId },
     }
   );
   return (

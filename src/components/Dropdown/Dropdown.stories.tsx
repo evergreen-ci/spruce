@@ -7,17 +7,17 @@ export default {
 } satisfies CustomMeta<typeof Dropdown>;
 
 export const Default: CustomStoryObj<typeof Dropdown> = {
+  render: (args) => <Dropdown {...args}>Some Children</Dropdown>,
   args: {
     disabled: false,
   },
-  render: (args) => <Dropdown {...args}>Some Children</Dropdown>,
 };
 
 export const CustomButtonRender: CustomStoryObj<typeof Dropdown> = {
-  args: Default.args,
   render: (args) => (
     <Dropdown {...args} buttonRenderer={() => <b>Some Magic Button</b>}>
       Some Children
     </Dropdown>
   ),
+  args: Default.args,
 };

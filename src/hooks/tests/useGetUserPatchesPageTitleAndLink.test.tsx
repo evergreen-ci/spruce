@@ -15,12 +15,12 @@ const mocks: ApolloMock<OtherUserQuery, OtherUserQueryVariables>[] = [
     },
     result: {
       data: {
-        currentUser: { __typename: "User", userId: "admin" },
         otherUser: {
-          __typename: "User",
-          displayName: "Evergreen Admin",
           userId: "admin",
+          displayName: "Evergreen Admin",
+          __typename: "User",
         },
+        currentUser: { userId: "admin", __typename: "User" },
       },
     },
   },
@@ -33,12 +33,12 @@ const mocks: ApolloMock<OtherUserQuery, OtherUserQueryVariables>[] = [
     },
     result: {
       data: {
-        currentUser: { __typename: "User", userId: "admin" },
         otherUser: {
-          __typename: "User",
-          displayName: "Justin Mathew",
           userId: "justin.mathew",
+          displayName: "Justin Mathew",
+          __typename: "User",
         },
+        currentUser: { userId: "admin", __typename: "User" },
       },
     },
   },
@@ -51,12 +51,12 @@ const mocks: ApolloMock<OtherUserQuery, OtherUserQueryVariables>[] = [
     },
     result: {
       data: {
-        currentUser: { __typename: "User", userId: "admin" },
         otherUser: {
-          __typename: "User",
-          displayName: "Justin Mathews",
           userId: "justin.mathews",
+          displayName: "Justin Mathews",
+          __typename: "User",
         },
+        currentUser: { userId: "admin", __typename: "User" },
       },
     },
   },

@@ -18,8 +18,8 @@ describe("metadata", () => {
         error={undefined}
       />,
       {
-        path: "/task/:id",
         route: `/task/${taskId}`,
+        path: "/task/:id",
         wrapper,
       }
     );
@@ -39,8 +39,8 @@ describe("metadata", () => {
         error={undefined}
       />,
       {
-        path: "/task/:id",
         route: `/task/${taskId}`,
+        path: "/task/:id",
         wrapper,
       }
     );
@@ -61,8 +61,8 @@ describe("metadata", () => {
         error={undefined}
       />,
       {
-        path: "/task/:id",
         route: `/task/${taskId}`,
+        path: "/task/:id",
         wrapper,
       }
     );
@@ -97,8 +97,8 @@ const taskStarted = {
 const taskSucceeded = {
   task: {
     ...taskStarted.task,
-    details: { ...taskStarted.task.details, traceID: "trace_abcde" },
     finishTime: addMilliseconds(new Date(), 1228078),
     status: "succeeded",
+    details: { ...taskStarted.task.details, traceID: "trace_abcde" },
   },
 };

@@ -68,8 +68,8 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
       leaveBreadcrumb(
         "selectedCommit not loaded, loading more items",
         {
-          processedCommitCount,
           selectedCommit,
+          processedCommitCount,
         },
         "process"
       );

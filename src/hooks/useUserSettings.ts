@@ -19,5 +19,5 @@ export const useUserSettings = (options?: UseUserSettingsOptions) => {
     },
   });
   const { userSettings } = data || {};
-  return { loading, userSettings };
+  return { userSettings, loading };
 };

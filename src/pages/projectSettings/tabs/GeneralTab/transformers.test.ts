@@ -30,128 +30,128 @@ describe("project data", () => {
 
 const repoForm: GeneralFormState = {
   generalConfiguration: {
-    other: {
-      batchTime: 12,
-      displayName: "",
-      remotePath: "evergreen.yml",
-      spawnHostScriptPath: "/test/path",
-      versionControlEnabled: false,
-    },
     repositoryInfo: {
       owner: "evergreen-ci",
       repo: "spruce",
     },
-  },
-  historicalTaskDataCaching: {
-    disabledStatsCache: false,
+    other: {
+      displayName: "",
+      batchTime: 12,
+      remotePath: "evergreen.yml",
+      spawnHostScriptPath: "/test/path",
+      versionControlEnabled: false,
+    },
   },
   projectFlags: {
     dispatchingDisabled: true,
-    patch: {
-      patchingDisabled: false,
-    },
-    repotracker: {
-      forceRun: null,
-      repotrackerDisabled: false,
-    },
     scheduling: {
       deactivatePrevious: true,
-      deactivateStepback: null,
       stepbackDisabled: true,
+      deactivateStepback: null,
+    },
+    repotracker: {
+      repotrackerDisabled: false,
+      forceRun: null,
+    },
+    patch: {
+      patchingDisabled: false,
     },
     taskSync: {
       configEnabled: true,
       patchEnabled: true,
     },
+  },
+  historicalTaskDataCaching: {
+    disabledStatsCache: false,
   },
 };
 
 const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
   projectRef: {
-    batchTime: 12,
-    deactivatePrevious: true,
-    disabledStatsCache: false,
-    dispatchingDisabled: true,
-    displayName: "",
     id: "repo",
     owner: "evergreen-ci",
-    patchingDisabled: false,
-    remotePath: "evergreen.yml",
     repo: "spruce",
-    repotrackerDisabled: false,
+    displayName: "",
+    batchTime: 12,
+    remotePath: "evergreen.yml",
     spawnHostScriptPath: "/test/path",
+    versionControlEnabled: false,
+    dispatchingDisabled: true,
+    deactivatePrevious: true,
+    repotrackerDisabled: false,
+    patchingDisabled: false,
     stepbackDisabled: true,
     taskSync: {
       configEnabled: true,
       patchEnabled: true,
     },
-    versionControlEnabled: false,
+    disabledStatsCache: false,
   },
 };
 
 const projectForm: GeneralFormState = {
   generalConfiguration: {
-    branch: null,
     enabled: false,
+    repositoryInfo: {
+      owner: "evergreen-ci",
+      repo: "evergreen",
+    },
+    branch: null,
     other: {
-      batchTime: null,
       displayName: null,
       identifier: "project",
+      batchTime: null,
       remotePath: null,
       spawnHostScriptPath: null,
       versionControlEnabled: true,
     },
-    repositoryInfo: {
-      owner: "evergreen-ci",
-      repo: "evergreen",
+  },
+  projectFlags: {
+    dispatchingDisabled: null,
+    scheduling: {
+      deactivatePrevious: null,
+      stepbackDisabled: null,
+      deactivateStepback: null,
+    },
+    repotracker: {
+      repotrackerDisabled: null,
+      forceRun: null,
+    },
+    patch: {
+      patchingDisabled: null,
+    },
+    taskSync: {
+      configEnabled: null,
+      patchEnabled: null,
     },
   },
   historicalTaskDataCaching: {
     disabledStatsCache: null,
   },
-  projectFlags: {
-    dispatchingDisabled: null,
-    patch: {
-      patchingDisabled: null,
-    },
-    repotracker: {
-      forceRun: null,
-      repotrackerDisabled: null,
-    },
-    scheduling: {
-      deactivatePrevious: null,
-      deactivateStepback: null,
-      stepbackDisabled: null,
-    },
-    taskSync: {
-      configEnabled: null,
-      patchEnabled: null,
-    },
-  },
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
   projectRef: {
-    batchTime: 0,
-    branch: null,
-    deactivatePrevious: null,
-    disabledStatsCache: null,
-    dispatchingDisabled: null,
-    displayName: null,
-    enabled: false,
     id: "project",
-    identifier: "project",
+    enabled: false,
     owner: "evergreen-ci",
-    patchingDisabled: null,
-    remotePath: null,
     repo: "evergreen",
-    repotrackerDisabled: null,
+    branch: null,
+    displayName: null,
+    identifier: "project",
+    batchTime: 0,
+    remotePath: null,
     spawnHostScriptPath: null,
+    versionControlEnabled: true,
+    dispatchingDisabled: null,
+    deactivatePrevious: null,
+    repotrackerDisabled: null,
+    patchingDisabled: null,
     stepbackDisabled: null,
     taskSync: {
       configEnabled: null,
       patchEnabled: null,
     },
-    versionControlEnabled: true,
+    disabledStatsCache: null,
   },
 };

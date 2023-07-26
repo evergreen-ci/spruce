@@ -15,6 +15,7 @@ const CustomCreatedTicketsTable: React.VFC<CreatedTicketsProps> = ({
 }) => {
   const columns = [
     {
+      title: "Ticket",
       render: ({
         confidenceScore,
         issueKey,
@@ -28,7 +29,6 @@ const CustomCreatedTicketsTable: React.VFC<CreatedTicketsProps> = ({
           jiraTicket={jiraTicket}
         />
       ),
-      title: "Ticket",
     },
   ];
 

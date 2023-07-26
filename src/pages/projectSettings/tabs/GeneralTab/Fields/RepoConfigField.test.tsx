@@ -56,10 +56,10 @@ const Field = ({
         options: {
           initialOwner: "evergreen-ci",
           initialRepo: "logkeeper",
-          projectId: "evergreen",
-          projectType,
           repoName: "evergreen",
           repoOwner: "evergreen-ci",
+          projectId: "evergreen",
+          projectType,
         },
       }}
     />
@@ -317,9 +317,9 @@ const attachProjectToNewRepoMock: ApolloMock<
     query: ATTACH_PROJECT_TO_NEW_REPO,
     variables: {
       project: {
+        projectId: "evergreen",
         newOwner: "evergreen-ci",
         newRepo: "logkeeper",
-        projectId: "evergreen",
       },
     },
   },

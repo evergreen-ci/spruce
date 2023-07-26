@@ -5,35 +5,35 @@ import { WaterfallTaskStatusIcon } from ".";
 import { getTooltipQueryMock } from "./testData";
 
 export default {
+  title: "Pages/Commits/WaterfallIcon",
   component: WaterfallTaskStatusIcon,
   parameters: {
     apolloClient: {
       mocks: [getTooltipQueryMock],
     },
   },
-  title: "Pages/Commits/WaterfallIcon",
 } satisfies CustomMeta<typeof WaterfallTaskStatusIcon>;
 
 export const Default: CustomStoryObj<typeof WaterfallTaskStatusIcon> = {
-  argTypes: {
-    status: {
-      control: { type: "select" },
-      options: TaskStatus,
-    },
-  },
-  args: {
-    displayName: "multiversion",
-    failedTestCount: 5,
-    identifier: "ubuntu1604",
-    status: "failed",
-    taskId: "task-id",
-    timeTaken: 2754729,
-  },
   render: (args) => (
     <Container>
       <WaterfallTaskStatusIcon {...args} />
     </Container>
   ),
+  args: {
+    displayName: "multiversion",
+    timeTaken: 2754729,
+    taskId: "task-id",
+    identifier: "ubuntu1604",
+    status: "failed",
+    failedTestCount: 5,
+  },
+  argTypes: {
+    status: {
+      options: TaskStatus,
+      control: { type: "select" },
+    },
+  },
 };
 
 const Container = styled.div`

@@ -13,28 +13,28 @@ export enum NotificationMethods {
 
 export const subscriptionMethods: SubscriptionMethodOption[] = [
   {
-    label: "Comment on a JIRA issue",
     value: NotificationMethods.JIRA_COMMENT,
+    label: "Comment on a JIRA issue",
   },
   {
-    label: "Slack message",
     value: NotificationMethods.SLACK,
+    label: "Slack message",
   },
   {
-    label: "Email",
     value: NotificationMethods.EMAIL,
+    label: "Email",
   },
 ];
 
 export const projectSubscriptionMethods = [
   ...subscriptionMethods,
   {
-    label: "Webhook",
     value: NotificationMethods.WEBHOOK,
+    label: "Webhook",
   },
   {
-    label: "Create a JIRA Issue",
     value: NotificationMethods.JIRA_ISSUE,
+    label: "Create a JIRA Issue",
   },
 ];
 

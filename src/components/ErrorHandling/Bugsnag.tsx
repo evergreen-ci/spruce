@@ -11,8 +11,8 @@ const initializeBugsnag = () => {
   try {
     Bugsnag.start({
       apiKey: getBugsnagApiKey(),
-      appVersion: getAppVersion(),
       plugins: [new BugsnagPluginReact()],
+      appVersion: getAppVersion(),
       releaseStage: getReleaseStage(),
     });
   } catch (e) {

@@ -8,12 +8,12 @@ export default {
 } satisfies CustomMeta<typeof SearchableDropdown>;
 
 export const Default: CustomStoryObj<SearchableDropdownProps<string>> = {
+  render: (args) => <Dropdown options={["1", "2", "3"]} {...args} />,
   args: {
     allowMultiSelect: false,
     disabled: false,
     label: "Searchable Dropdown",
   },
-  render: (args) => <Dropdown options={["1", "2", "3"]} {...args} />,
 };
 
 export const CustomOption: CustomStoryObj<

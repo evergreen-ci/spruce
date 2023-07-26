@@ -55,10 +55,10 @@ export const useStatusesFilter = ({
 
   return {
     inputValue,
-    reset,
     setAndSubmitInputValue,
     setInputValue,
     submitInputValue,
+    reset,
   };
 };
 

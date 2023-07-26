@@ -29,7 +29,7 @@ export const Login: React.VFC = () => {
   useQuery<UserQuery, UserQueryVariables>(GET_USER);
 
   const loginHandler = (): void => {
-    devLogin({ password, username });
+    devLogin({ username, password });
   };
 
   const inputChangeHandler =

@@ -93,8 +93,8 @@ const deactivateStepbackTaskMock: ApolloMock<
   request: {
     query: DEACTIVATE_STEPBACK_TASK,
     variables: {
-      buildVariantName: "ubuntu1604",
       projectId: "evergreen",
+      buildVariantName: "ubuntu1604",
       taskName: "js-test",
     },
   },

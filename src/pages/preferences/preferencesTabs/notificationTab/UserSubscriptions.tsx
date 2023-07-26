@@ -43,6 +43,7 @@ export const UserSubscriptions: React.VFC<{}> = () => {
     DeleteSubscriptionsMutation,
     DeleteSubscriptionsMutationVariables
   >(DELETE_SUBSCRIPTIONS, {
+    refetchQueries: ["UserSubscriptions"],
     onCompleted: (result) => {
       dispatchToast.success(
         `Deleted ${result.deleteSubscriptions} subscription${
@@ -55,7 +56,6 @@ export const UserSubscriptions: React.VFC<{}> = () => {
         `Error attempting to delete subscriptions: ${e.message}`
       );
     },
-    refetchQueries: ["UserSubscriptions"],
   });
 
   const subscriptions = useSubscriptionData();
@@ -156,6 +156,7 @@ const columns = [
     }),
   },
   {
+    header: "ID",
     accessorKey: "selectors",
     cell: ({
       getValue,
@@ -176,7 +177,6 @@ const columns = [
         selectorId
       );
     },
-    header: "ID",
   },
   {
     accessorKey: "trigger",
@@ -191,17 +191,17 @@ const columns = [
     },
   },
   {
+    header: "Notify by",
     accessorKey: "subscriber.type",
     cell: ({ getValue }) => {
       const subscriberType = getValue();
       return notificationMethodToCopy[subscriberType] ?? subscriberType;
     },
-    header: "Notify by",
   },
   {
+    header: "Target",
     accessorKey: "subscriber",
     cell: ({ getValue }) => getSubscriberText(getValue()),
-    header: "Target",
   },
 ];
 

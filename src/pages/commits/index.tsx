@@ -109,19 +109,19 @@ const Commits = () => {
   );
   const skipOrderNumber = parseInt(skipOrderNumberParam, 10) || undefined;
   const filterState = {
-    requesters: requesterFilters,
     statuses: statusFilters,
-    tasks: taskFilters,
     variants: variantFilters,
+    tasks: taskFilters,
+    requesters: requesterFilters,
     view: viewFilter || ProjectHealthView.Failed,
   };
   const variables = getMainlineCommitsQueryVariables({
-    filterState,
     mainlineCommitOptions: {
-      limit,
       projectIdentifier,
       skipOrderNumber,
+      limit,
     },
+    filterState,
   });
 
   const { hasFilters, hasTasks } = getFilterStatus(filterState);
@@ -130,14 +130,14 @@ const Commits = () => {
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
   >(GET_MAINLINE_COMMITS, {
+    skip: !projectIdentifier || isResizing,
     fetchPolicy: "cache-and-network",
+    variables,
+    pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (e) =>
       dispatchToast.error(`There was an error loading the page: ${e.message}`),
-    pollInterval: DEFAULT_POLL_INTERVAL,
-    skip: !projectIdentifier || isResizing,
-    variables,
   });
-  usePolling({ refetch, startPolling, stopPolling });
+  usePolling({ startPolling, stopPolling, refetch });
 
   const { mainlineCommits } = data || {};
   const { nextPageOrderNumber, prevPageOrderNumber, versions } =
@@ -263,14 +263,14 @@ const PaginationWrapper = styled.div`
 
 const tupleSelectOptions = [
   {
+    value: ProjectFilterOptions.BuildVariant,
     displayName: "Build Variant",
     placeHolderText: "Search build variants",
-    value: ProjectFilterOptions.BuildVariant,
   },
   {
+    value: ProjectFilterOptions.Task,
     displayName: "Task",
     placeHolderText: "Search task names",
-    value: ProjectFilterOptions.Task,
   },
 ];
 

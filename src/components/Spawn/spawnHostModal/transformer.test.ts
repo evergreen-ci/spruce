@@ -18,111 +18,111 @@ describe("spawn host modal", () => {
       expect(
         formToGql({
           formData,
-          migrateVolumeId,
           myPublicKeys,
           spawnTaskData: null,
+          migrateVolumeId,
         })
       ).toStrictEqual({
         ...mutationInput,
-        homeVolumeSize: null,
         volumeId: migrateVolumeId,
+        homeVolumeSize: null,
       });
     });
   });
-  const myPublicKeys = [{ key: "key value", name: "a_key" }];
+  const myPublicKeys = [{ name: "a_key", key: "key value" }];
   const data = [
     {
       formData: {
         distro: {
-          isVirtualWorkstation: true,
           value: "ubuntu1804-workstation",
+          isVirtualWorkstation: true,
         },
-        expirationDetails: {
-          expiration:
-            "Thu Dec 08 2022 14:52:51 GMT-0500 (Eastern Standard Time)",
-          noExpiration: false,
-        },
-        homeVolumeDetails: {
-          selectExistingVolume: false,
-          volumeSelect: "",
-          volumeSize: 504,
-        },
+        region: "us-east-1",
         publicKeySection: {
+          useExisting: false,
           newPublicKey: "blah blahsart",
-          newPublicKeyName: "a name woo",
           publicKeyNameDropdown:
             "a loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong name",
           savePublicKey: true,
-          useExisting: false,
-        },
-        region: "us-east-1",
-        setupScriptSection: {
-          defineSetupScriptCheckbox: true,
-          setupScript: "setup!!!",
+          newPublicKeyName: "a name woo",
         },
         userdataScriptSection: {
           runUserdataScript: true,
           userdataScript: "a user data script",
         },
+        setupScriptSection: {
+          defineSetupScriptCheckbox: true,
+          setupScript: "setup!!!",
+        },
+        expirationDetails: {
+          noExpiration: false,
+          expiration:
+            "Thu Dec 08 2022 14:52:51 GMT-0500 (Eastern Standard Time)",
+        },
+        homeVolumeDetails: {
+          selectExistingVolume: false,
+          volumeSize: 504,
+          volumeSelect: "",
+        },
       },
       mutationInput: {
-        distroId: "ubuntu1804-workstation",
-        expiration: new Date("2022-12-08T19:52:51.000Z"),
-        homeVolumeSize: 504,
         isVirtualWorkStation: true,
+        userDataScript: "a user data script",
+        expiration: new Date("2022-12-08T19:52:51.000Z"),
         noExpiration: false,
+        volumeId: null,
+        homeVolumeSize: 504,
         publicKey: {
-          key: "blah blahsart",
           name: "a name woo",
+          key: "blah blahsart",
         },
-        region: "us-east-1",
         savePublicKey: true,
+        distroId: "ubuntu1804-workstation",
+        region: "us-east-1",
+        taskId: null,
+        useProjectSetupScript: false,
         setUpScript: "setup!!!",
         spawnHostsStartedByTask: false,
-        taskId: null,
         taskSync: false,
-        useProjectSetupScript: false,
-        userDataScript: "a user data script",
-        volumeId: null,
       },
     },
     {
       formData: {
-        distro: { isVirtualWorkstation: false, value: "rhel71-power8-large" },
+        distro: { value: "rhel71-power8-large", isVirtualWorkstation: false },
+        region: "rofl-east",
+        publicKeySection: {
+          useExisting: true,
+          publicKeyNameDropdown: "a_key",
+          newPublicKey: "",
+        },
+        userdataScriptSection: { runUserdataScript: false },
+        setupScriptSection: { defineSetupScriptCheckbox: false },
         expirationDetails: {
+          noExpiration: true,
           expiration:
             "Wed Oct 19 2022 08:56:42 GMT-0400 (Eastern Daylight Time)",
-          noExpiration: true,
         },
         homeVolumeDetails: { selectExistingVolume: true, volumeSelect: "" },
-        publicKeySection: {
-          newPublicKey: "",
-          publicKeyNameDropdown: "a_key",
-          useExisting: true,
-        },
-        region: "rofl-east",
-        setupScriptSection: { defineSetupScriptCheckbox: false },
-        userdataScriptSection: { runUserdataScript: false },
       },
       mutationInput: {
-        distroId: "rhel71-power8-large",
-        expiration: null,
-        homeVolumeSize: null,
         isVirtualWorkStation: false,
+        userDataScript: null,
+        expiration: null,
         noExpiration: true,
+        volumeId: null,
+        homeVolumeSize: null,
         publicKey: {
           key: "key value",
           name: "a_key",
         },
-        region: "rofl-east",
         savePublicKey: false,
+        distroId: "rhel71-power8-large",
+        region: "rofl-east",
+        taskId: null,
+        useProjectSetupScript: false,
         setUpScript: null,
         spawnHostsStartedByTask: false,
-        taskId: null,
         taskSync: false,
-        useProjectSetupScript: false,
-        userDataScript: null,
-        volumeId: null,
       },
     },
   ];

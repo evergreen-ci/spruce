@@ -33,11 +33,11 @@ export const UnmountButton: React.VFC<Props> = ({ volume }) => {
     DetachVolumeFromHostMutation,
     DetachVolumeFromHostMutationVariables
   >(DETACH_VOLUME, {
+    onError: (err) =>
+      dispatchToast.error(`Error detaching volume: '${err.message}'`),
     onCompleted: () => {
       dispatchToast.success("Successfully unmounted the volume.");
     },
-    onError: (err) =>
-      dispatchToast.error(`Error detaching volume: '${err.message}'`),
     refetchQueries: ["MyVolumes", "MyHosts"],
   });
 

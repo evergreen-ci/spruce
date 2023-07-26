@@ -23,11 +23,11 @@ const useBuildBaronVariables = ({ task }: UseBuildBaronVariablesType) => {
     BuildBaronConfiguredQuery,
     BuildBaronConfiguredQueryVariables
   >(GET_BUILD_BARON_CONFIGURED, {
-    skip: !isFailedTask && (!hasAnnotation || !canModifyAnnotation),
     variables: {
-      execution,
       taskId: id,
+      execution,
     },
+    skip: !isFailedTask && (!hasAnnotation || !canModifyAnnotation),
   });
 
   const buildBaronConfigured =

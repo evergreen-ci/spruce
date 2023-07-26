@@ -22,24 +22,24 @@ const Content = () => {
 describe("filterBadges - queryParams", () => {
   it("should not render any badges if there are no query params", () => {
     render(<Content />, {
-      path: "/commits/:projectId",
       route: "/commits/evergreen",
+      path: "/commits/:projectId",
     });
     expect(screen.queryByDataCy("filter-badge")).not.toBeInTheDocument();
   });
 
   it("should render a singular filter badge if there is only one query param", () => {
     render(<Content />, {
-      path: "/commits/:projectId",
       route: "/commits/evergreen?buildVariants=variant1",
+      path: "/commits/:projectId",
     });
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(1);
   });
 
   it("should render multiple filter badges with the same key but different values", () => {
     render(<Content />, {
-      path: "/commits/:projectId",
       route: "/commits/evergreen?buildVariants=variant1,variant2",
+      path: "/commits/:projectId",
     });
     const badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(2);
@@ -49,8 +49,8 @@ describe("filterBadges - queryParams", () => {
 
   it("should render multiple filter badges with the different keys and different values", () => {
     render(<Content />, {
-      path: "/commits/:projectId",
       route: "/commits/evergreen?buildVariants=variant1&tests=test1",
+      path: "/commits/:projectId",
     });
     const badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(2);
@@ -60,8 +60,8 @@ describe("filterBadges - queryParams", () => {
 
   it("closing out a badge should remove it from the url", () => {
     const { router } = render(<Content />, {
-      path: "/commits/:projectId",
       route: "/commits/evergreen?buildVariants=variant1",
+      path: "/commits/:projectId",
     });
 
     const badge = screen.queryByDataCy("filter-badge");
@@ -76,8 +76,8 @@ describe("filterBadges - queryParams", () => {
 
   it("should only remove one badge from the url if it is closed and more remain", () => {
     const { router } = render(<Content />, {
-      path: "/commits/:projectId",
       route: "/commits/evergreen?buildVariants=variant1,variant2",
+      path: "/commits/:projectId",
     });
 
     let badges = screen.queryAllByDataCy("filter-badge");
@@ -95,9 +95,9 @@ describe("filterBadges - queryParams", () => {
 
   it("should remove all badges when clicking on clear all button", () => {
     const { router } = render(<Content />, {
-      path: "/commits/:projectId",
       route:
         "/commits/evergreen?buildVariants=variant1,variant2&tests=test1,test2",
+      path: "/commits/:projectId",
     });
 
     let badges = screen.queryAllByDataCy("filter-badge");
@@ -112,9 +112,9 @@ describe("filterBadges - queryParams", () => {
 
   it("should only remove query params for displayable badges when clear all is pressed", () => {
     const { router } = render(<Content />, {
-      path: "/commits/:projectId",
       route:
         "/commits/evergreen?buildVariants=variant1,variant2&tests=test1,test2&notRelated=notRelated",
+      path: "/commits/:projectId",
     });
 
     let badges = screen.queryAllByDataCy("filter-badge");

@@ -63,190 +63,140 @@ export const getFormSchema = ({
   return {
     fields: {},
     schema: {
-      dependencies: {
-        runUserdataScript: {
-          oneOf: [
-            {
-              properties: {
-                runUserdataScript: {
-                  enum: [true],
-                },
-                userdataScript: {
-                  title: "Userdata Script",
-                  type: "string" as "string",
-                },
-              },
-            },
-            {
-              properties: {
-                runUserdataScript: {
-                  enum: [false],
-                },
-              },
-            },
-          ],
-        },
-      },
+      type: "object" as "object",
       properties: {
+        requiredHostInformationTitle: {
+          title: "Required Host Information",
+          type: "null",
+        },
         distro: {
+          type: "string" as "string",
+          title: "Distro",
           default: distroIdQueryParam
             ? {
+                value: distroIdQueryParam,
                 isVirtualWorkstation: !!distros?.find(
                   (v) => v.name === distroIdQueryParam && v.isVirtualWorkStation
                 ),
-                value: distroIdQueryParam,
               }
             : null,
           oneOf: [
             ...(distros?.map((d) => ({
+              type: "string" as "string",
+              title: d.name,
               enum: [d.name],
               isVirtualWorkstation: d.isVirtualWorkStation,
-              title: d.name,
-              type: "string" as "string",
             })) || []),
           ],
-          title: "Distro",
-          type: "string" as "string",
         },
-        optionalInformationTitle: {
-          title: "Optional Host Details",
-          type: "null",
+        region: {
+          type: "string" as "string",
+          title: "Region",
+          default: userAwsRegion || (awsRegions?.length && awsRegions[0]),
+          oneOf: [
+            ...(awsRegions?.map((r) => ({
+              type: "string" as "string",
+              title: r,
+              enum: [r],
+            })) || []),
+          ],
         },
         publicKeySection: {
+          title: "",
+          type: "object",
+          properties: {
+            useExisting: {
+              title: "Key selection",
+              default: true,
+              type: "boolean" as "boolean",
+              oneOf: [
+                {
+                  type: "boolean" as "boolean",
+                  title: "Use existing key",
+                  enum: [true],
+                },
+                {
+                  type: "boolean" as "boolean",
+                  title: "Add new key",
+                  enum: [false],
+                },
+              ],
+            },
+          },
           dependencies: {
             useExisting: {
               oneOf: [
                 {
                   properties: {
+                    useExisting: {
+                      enum: [true],
+                    },
                     publicKeyNameDropdown: {
+                      title: "Choose key",
+                      type: "string" as "string",
                       default: myPublicKeys?.length
                         ? myPublicKeys[0]?.name
                         : "",
                       oneOf:
                         myPublicKeys?.map((d) => ({
-                          enum: [d.name],
-                          title: d.name,
                           type: "string" as "string",
+                          title: d.name,
+                          enum: [d.name],
                         })) || [],
-                      title: "Choose key",
-                      type: "string" as "string",
-                    },
-                    useExisting: {
-                      enum: [true],
                     },
                   },
                 },
                 {
+                  properties: {
+                    useExisting: {
+                      enum: [false],
+                    },
+                    newPublicKey: {
+                      title: "Public key",
+                      type: "string" as "string",
+                      default: "",
+                    },
+                    savePublicKey: {
+                      title: "Save Public Key",
+                      type: "boolean" as "boolean",
+                      default: false,
+                    },
+                  },
                   dependencies: {
                     savePublicKey: {
                       oneOf: [
                         {
                           properties: {
+                            savePublicKey: {
+                              enum: [true],
+                            },
                             newPublicKeyName: {
                               title: "Key name",
                               type: "string" as "string",
-                            },
-                            savePublicKey: {
-                              enum: [true],
                             },
                           },
                         },
                       ],
                     },
                   },
-                  properties: {
-                    newPublicKey: {
-                      default: "",
-                      title: "Public key",
-                      type: "string" as "string",
-                    },
-                    savePublicKey: {
-                      default: false,
-                      title: "Save Public Key",
-                      type: "boolean" as "boolean",
-                    },
-                    useExisting: {
-                      enum: [false],
-                    },
-                  },
                 },
               ],
             },
           },
-          properties: {
-            useExisting: {
-              default: true,
-              oneOf: [
-                {
-                  enum: [true],
-                  title: "Use existing key",
-                  type: "boolean" as "boolean",
-                },
-                {
-                  enum: [false],
-                  title: "Add new key",
-                  type: "boolean" as "boolean",
-                },
-              ],
-              title: "Key selection",
-              type: "boolean" as "boolean",
-            },
-          },
-          title: "",
-          type: "object",
         },
-        region: {
-          default: userAwsRegion || (awsRegions?.length && awsRegions[0]),
-          oneOf: [
-            ...(awsRegions?.map((r) => ({
-              enum: [r],
-              title: r,
-              type: "string" as "string",
-            })) || []),
-          ],
-          title: "Region",
-          type: "string" as "string",
-        },
-        requiredHostInformationTitle: {
-          title: "Required Host Information",
+        optionalInformationTitle: {
+          title: "Optional Host Details",
           type: "null",
         },
-        setupScriptSection: {
-          dependencies: {
-            defineSetupScriptCheckbox: {
-              oneOf: [
-                {
-                  properties: {
-                    defineSetupScriptCheckbox: {
-                      enum: [true],
-                    },
-                    setupScript: {
-                      title: "Setup Script",
-                      type: "string" as "string",
-                    },
-                  },
-                },
-                {
-                  properties: {
-                    runUserdataScript: {
-                      enum: [false],
-                    },
-                  },
-                },
-              ],
-            },
-          },
+        userdataScriptSection: {
+          type: "object" as "object",
+          title: "",
           properties: {
-            defineSetupScriptCheckbox: {
-              title:
-                "Define setup script to run after host is configured (i.e. task data and artifacts are loaded)",
+            runUserdataScript: {
+              title: "Run Userdata script on start",
               type: "boolean",
             },
           },
-          title: "",
-          type: "object" as "object",
-        },
-        userdataScriptSection: {
           dependencies: {
             runUserdataScript: {
               oneOf: [
@@ -271,17 +221,52 @@ export const getFormSchema = ({
               ],
             },
           },
+        },
+        setupScriptSection: {
+          type: "object" as "object",
+          title: "",
           properties: {
-            runUserdataScript: {
-              title: "Run Userdata script on start",
+            defineSetupScriptCheckbox: {
+              title:
+                "Define setup script to run after host is configured (i.e. task data and artifacts are loaded)",
               type: "boolean",
             },
           },
-          title: "",
-          type: "object" as "object",
+          dependencies: {
+            defineSetupScriptCheckbox: {
+              oneOf: [
+                {
+                  properties: {
+                    defineSetupScriptCheckbox: {
+                      enum: [true],
+                    },
+                    setupScript: {
+                      title: "Setup Script",
+                      type: "string" as "string",
+                    },
+                  },
+                },
+                {
+                  properties: {
+                    runUserdataScript: {
+                      enum: [false],
+                    },
+                  },
+                },
+              ],
+            },
+          },
         },
         ...(hasValidTask && {
           loadData: {
+            title: "",
+            type: "object" as "object",
+            properties: {
+              loadDataOntoHostAtStartup: {
+                type: "boolean" as "boolean",
+                default: true,
+              },
+            },
             dependencies: {
               loadDataOntoHostAtStartup: {
                 oneOf: [
@@ -291,46 +276,47 @@ export const getFormSchema = ({
                         enum: [true],
                       },
                       runProjectSpecificSetupScript: {
+                        type: "boolean" as "boolean",
                         title: `Use project-specific setup script defined at ${project?.spawnHostScriptPath}`,
-                        type: "boolean" as "boolean",
-                      },
-                      startHosts: {
-                        title:
-                          "Also start any hosts this task started (if applicable)",
-                        type: "boolean" as "boolean",
                       },
                       taskSync: {
-                        title: "Load from task sync",
                         type: "boolean" as "boolean",
+                        title: "Load from task sync",
+                      },
+                      startHosts: {
+                        type: "boolean" as "boolean",
+                        title:
+                          "Also start any hosts this task started (if applicable)",
                       },
                     },
                   },
                 ],
               },
             },
-            properties: {
-              loadDataOntoHostAtStartup: {
-                default: true,
-                type: "boolean" as "boolean",
-              },
-            },
-            title: "",
-            type: "object" as "object",
           },
         }),
         expirationDetails: {
+          title: "",
+          type: "object" as "object",
+          properties: {
+            noExpiration: {
+              default: false,
+              type: "boolean" as "boolean",
+              title: "Never expire",
+            },
+          },
           dependencies: {
             noExpiration: {
               oneOf: [
                 {
                   properties: {
-                    expiration: {
-                      default: getDefaultExpiration(),
-                      title: "Expiration",
-                      type: "string" as "string",
-                    },
                     noExpiration: {
                       enum: [false],
+                    },
+                    expiration: {
+                      type: "string" as "string",
+                      title: "Expiration",
+                      default: getDefaultExpiration(),
                     },
                   },
                 },
@@ -344,18 +330,30 @@ export const getFormSchema = ({
               ],
             },
           },
-          properties: {
-            noExpiration: {
-              default: false,
-              title: "Never expire",
-              type: "boolean" as "boolean",
-            },
-          },
-          title: "",
-          type: "object" as "object",
         },
         ...(shouldRenderVolumeSelection && {
           homeVolumeDetails: {
+            type: "object" as "object",
+            title: "Virtual Workstation",
+            properties: {
+              selectExistingVolume: {
+                title: "Volume selection",
+                type: "boolean" as "boolean",
+                default: true,
+                oneOf: [
+                  {
+                    type: "boolean" as "boolean",
+                    title: "Attach existing volume",
+                    enum: [true],
+                  },
+                  {
+                    type: "boolean" as "boolean",
+                    title: "Attach new volume",
+                    enum: [false],
+                  },
+                ],
+              },
+            },
             dependencies: {
               selectExistingVolume: {
                 oneOf: [
@@ -365,14 +363,14 @@ export const getFormSchema = ({
                         enum: [true],
                       },
                       volumeSelect: {
-                        default: availableVolumes[0]?.id,
-                        oneOf: availableVolumes.map((v) => ({
-                          enum: [v.id],
-                          title: `(${v.size}GB) ${v.displayName || v.id}`,
-                          type: "string" as "string",
-                        })),
                         title: "Volume",
                         type: "string" as "string",
+                        default: availableVolumes[0]?.id,
+                        oneOf: availableVolumes.map((v) => ({
+                          type: "string" as "string",
+                          title: `(${v.size}GB) ${v.displayName || v.id}`,
+                          enum: [v.id],
+                        })),
                       },
                     },
                   },
@@ -382,135 +380,137 @@ export const getFormSchema = ({
                         enum: [false],
                       },
                       volumeSize: {
-                        default: 500,
                         title: "Volume size (GB)",
                         type: "number" as "number",
+                        default: 500,
                       },
                     },
                   },
                 ],
               },
             },
-            properties: {
-              selectExistingVolume: {
-                default: true,
-                oneOf: [
-                  {
-                    enum: [true],
-                    title: "Attach existing volume",
-                    type: "boolean" as "boolean",
-                  },
-                  {
-                    enum: [false],
-                    title: "Attach new volume",
-                    type: "boolean" as "boolean",
-                  },
-                ],
-                title: "Volume selection",
-                type: "boolean" as "boolean",
-              },
-            },
-            title: "Virtual Workstation",
-            type: "object" as "object",
           },
         }),
       },
-      type: "object" as "object",
+      dependencies: {
+        runUserdataScript: {
+          oneOf: [
+            {
+              properties: {
+                runUserdataScript: {
+                  enum: [true],
+                },
+                userdataScript: {
+                  title: "Userdata Script",
+                  type: "string" as "string",
+                },
+              },
+            },
+            {
+              properties: {
+                runUserdataScript: {
+                  enum: [false],
+                },
+              },
+            },
+          ],
+        },
+      },
     },
     uiSchema: {
       distro: {
-        "ui:data-cy": "distro-input",
-        "ui:elementWrapperCSS": dropdownWrapperClassName,
         "ui:widget": DistroDropdown,
-      },
-      expirationDetails: {
-        expiration: {
-          "ui:disableAfter": add(today, { days: 30 }),
-          "ui:disableBefore": add(today, { days: 1 }),
-          "ui:elementWrapperCSS": datePickerCSS,
-          "ui:widget": "date-time",
-        },
-        noExpiration: {
-          "ui:data-cy": "never-expire-checkbox",
-          "ui:disabled": disableExpirationCheckbox,
-          "ui:tooltipDescription": noExpirationCheckboxTooltip ?? "",
-        },
-      },
-      publicKeySection: {
-        newPublicKey: {
-          "ui:data-cy": "key-value-text-area",
-          "ui:elementWrapperCSS": textAreaWrapperClassName,
-          "ui:widget": LeafyGreenTextArea,
-        },
-        publicKeyNameDropdown: {
-          "ui:allowDeselect": false,
-          "ui:data-cy": "key-select",
-          "ui:disabled": myPublicKeys?.length === 0,
-          "ui:elementWrapperCSS": dropdownWrapperClassName,
-          "ui:placeholder":
-            myPublicKeys?.length > 0 ? "Select a key" : "No keys available",
-        },
-        useExisting: {
-          "ui:widget": widgets.RadioBoxWidget,
-        },
+        "ui:elementWrapperCSS": dropdownWrapperClassName,
+        "ui:data-cy": "distro-input",
       },
       region: {
-        "ui:allowDeselect": false,
         "ui:data-cy": "region-select",
         "ui:disabled": isMigration,
         "ui:elementWrapperCSS": dropdownWrapperClassName,
         "ui:placeholder": "Select a region",
+        "ui:allowDeselect": false,
       },
-      setupScriptSection: {
-        defineSetupScriptCheckbox: {
-          "ui:data-cy": "setup-script-checkbox",
-          "ui:disabled": useProjectSetupScript,
+      publicKeySection: {
+        useExisting: {
+          "ui:widget": widgets.RadioBoxWidget,
         },
-        setupScript: {
-          "ui:data-cy": "setup-script-text-area",
-          "ui:elementWrapperCSS": textAreaWrapperClassName,
+        publicKeyNameDropdown: {
+          "ui:elementWrapperCSS": dropdownWrapperClassName,
+          "ui:placeholder":
+            myPublicKeys?.length > 0 ? "Select a key" : "No keys available",
+          "ui:data-cy": "key-select",
+          "ui:allowDeselect": false,
+          "ui:disabled": myPublicKeys?.length === 0,
+        },
+        newPublicKey: {
           "ui:widget": LeafyGreenTextArea,
+          "ui:elementWrapperCSS": textAreaWrapperClassName,
+          "ui:data-cy": "key-value-text-area",
         },
       },
       userdataScriptSection: {
         userdataScript: {
-          "ui:data-cy": "user-data-script-text-area",
-          "ui:elementWrapperCSS": textAreaWrapperClassName,
           "ui:widget": LeafyGreenTextArea,
+          "ui:elementWrapperCSS": textAreaWrapperClassName,
+          "ui:data-cy": "user-data-script-text-area",
+        },
+      },
+      setupScriptSection: {
+        defineSetupScriptCheckbox: {
+          "ui:disabled": useProjectSetupScript,
+          "ui:data-cy": "setup-script-checkbox",
+        },
+        setupScript: {
+          "ui:widget": LeafyGreenTextArea,
+          "ui:elementWrapperCSS": textAreaWrapperClassName,
+          "ui:data-cy": "setup-script-text-area",
+        },
+      },
+      expirationDetails: {
+        noExpiration: {
+          "ui:disabled": disableExpirationCheckbox,
+          "ui:tooltipDescription": noExpirationCheckboxTooltip ?? "",
+          "ui:data-cy": "never-expire-checkbox",
+        },
+        expiration: {
+          "ui:disableBefore": add(today, { days: 1 }),
+          "ui:disableAfter": add(today, { days: 30 }),
+          "ui:widget": "date-time",
+          "ui:elementWrapperCSS": datePickerCSS,
         },
       },
       ...(hasValidTask && {
         loadData: {
+          "ui:fieldSetCSS": loadDataFieldSetCSS,
           loadDataOntoHostAtStartup: {
+            "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
             "ui:customLabel": (
               <>
                 Load data for <b>{taskDisplayName}</b> on <b>{buildVariant}</b>{" "}
                 @ <b>{shortenGithash(revision)}</b> onto host at startup
               </>
             ),
-            "ui:data-cy": "load-data-checkbox",
             "ui:elementWrapperCSS": dropMarginBottomCSS,
-            "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
+            "ui:data-cy": "load-data-checkbox",
           },
           runProjectSpecificSetupScript: {
-            "ui:data-cy": "project-setup-script-checkbox",
-            "ui:disabled": useSetupScript,
-            "ui:elementWrapperCSS": childCheckboxCSS,
             "ui:widget":
               hasValidTask && project?.spawnHostScriptPath
                 ? widgets.CheckboxWidget
                 : "hidden",
-          },
-          startHosts: {
+            "ui:disabled": useSetupScript,
+            "ui:data-cy": "project-setup-script-checkbox",
             "ui:elementWrapperCSS": childCheckboxCSS,
-            "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
           },
           taskSync: {
-            "ui:elementWrapperCSS": childCheckboxCSS,
             "ui:widget":
               hasValidTask && canSync ? widgets.CheckboxWidget : "hidden",
+            "ui:elementWrapperCSS": childCheckboxCSS,
           },
-          "ui:fieldSetCSS": loadDataFieldSetCSS,
+          startHosts: {
+            "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
+            "ui:elementWrapperCSS": childCheckboxCSS,
+          },
         },
       }),
       ...(shouldRenderVolumeSelection && {
@@ -524,13 +524,13 @@ export const getFormSchema = ({
             "ui:allowDeselect": false,
             "ui:data-cy": "volume-select",
             "ui:disabled": availableVolumes?.length === 0,
-            "ui:enumDisabled": (volumes || [])
-              .filter((v) => !!v.hostID)
-              .map((v) => v.id),
             "ui:placeholder":
               availableVolumes?.length === 0
                 ? "No Volumes Available"
                 : undefined,
+            "ui:enumDisabled": (volumes || [])
+              .filter((v) => !!v.hostID)
+              .map((v) => v.id),
           },
           volumeSize: {
             "ui:inputType": "number",

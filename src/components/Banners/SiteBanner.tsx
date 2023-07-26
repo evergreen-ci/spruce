@@ -42,7 +42,7 @@ export const SiteBanner: React.FC<SiteBannerProps> = ({ text, theme }) => {
 
 const mapThemeToVariant: Record<string, Variant> = {
   announcement: Variant.Success,
-  important: Variant.Danger,
   information: Variant.Info,
   warning: Variant.Warning,
+  important: Variant.Danger,
 };

@@ -9,29 +9,29 @@ import { CommitRequesterTypes, MainlineCommitQueryParams } from "types/commits";
 
 const TreeData = [
   {
-    key: ALL_VALUE,
     title: "All",
     value: ALL_VALUE,
+    key: ALL_VALUE,
   },
   {
-    key: CommitRequesterTypes.RepotrackerVersionRequester,
-    title: "Commits",
     value: CommitRequesterTypes.RepotrackerVersionRequester,
+    title: "Commits",
+    key: CommitRequesterTypes.RepotrackerVersionRequester,
   },
   {
-    key: CommitRequesterTypes.GitTagRequester,
-    title: "Git Tags",
     value: CommitRequesterTypes.GitTagRequester,
+    title: "Git Tags",
+    key: CommitRequesterTypes.GitTagRequester,
   },
   {
-    key: CommitRequesterTypes.TriggerRequester,
-    title: "Triggers",
     value: CommitRequesterTypes.TriggerRequester,
+    title: "Triggers",
+    key: CommitRequesterTypes.TriggerRequester,
   },
   {
-    key: CommitRequesterTypes.AdHocRequester,
-    title: "Periodic Builds",
     value: CommitRequesterTypes.AdHocRequester,
+    title: "Periodic Builds",
+    key: CommitRequesterTypes.AdHocRequester,
   },
 ];
 

@@ -53,10 +53,10 @@ const AnnotationNote: React.VFC<Props> = ({
   const saveAnnotationNote = () => {
     updateAnnotationNote({
       variables: {
-        execution,
-        newMessage,
-        originalMessage,
         taskId,
+        execution,
+        originalMessage,
+        newMessage,
       },
     });
     annotationAnalytics.sendEvent({ name: "Save Annotation Note" });

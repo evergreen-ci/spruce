@@ -7,27 +7,27 @@ describe("spawn volume modal", () => {
         formData: formState,
       })
     ).toStrictEqual({
+      size: 200,
       availabilityZone: "us-east-1c",
+      type: "gp3",
+      noExpiration: true,
       expiration: null,
       host: "mount-host-id",
-      noExpiration: true,
-      size: 200,
-      type: "gp3",
     });
   });
 });
 
 const formState = {
+  requiredVolumeInformation: {
+    size: 200,
+    availabilityZone: "us-east-1c",
+    type: "gp3",
+  },
   optionalVolumeInformation: {
     expirationDetails: {
-      expiration: "Wed Oct 19 2022 08:56:42 GMT-0400 (Eastern Daylight Time)",
       noExpiration: true,
+      expiration: "Wed Oct 19 2022 08:56:42 GMT-0400 (Eastern Daylight Time)",
     },
     mountToHost: "mount-host-id",
-  },
-  requiredVolumeInformation: {
-    availabilityZone: "us-east-1c",
-    size: 200,
-    type: "gp3",
   },
 };

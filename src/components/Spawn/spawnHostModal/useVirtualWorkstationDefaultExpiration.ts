@@ -21,8 +21,8 @@ export const useVirtualWorkstationDefaultExpiration = ({
       setFormState({
         ...formState,
         expirationDetails: {
-          expiration: getDefaultExpiration(),
           noExpiration: isVirtualWorkstation && !disableExpirationCheckbox,
+          expiration: getDefaultExpiration(),
         },
       });
     }

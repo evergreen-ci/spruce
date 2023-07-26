@@ -33,8 +33,8 @@ describe("usePolling", () => {
 
   beforeEach(() => {
     Object.defineProperty(document, "visibilityState", {
-      configurable: true,
       value: "visible",
+      configurable: true,
     });
     mockedGet.mockImplementation(() => "false");
   });
@@ -44,7 +44,7 @@ describe("usePolling", () => {
     const stopPolling = jest.fn();
     const refetch = jest.fn();
     const { result, waitForNextUpdate } = renderHook(
-      () => usePolling({ refetch, startPolling, stopPolling }),
+      () => usePolling({ startPolling, stopPolling, refetch }),
       {
         wrapper: Provider,
       }
@@ -66,10 +66,10 @@ describe("usePolling", () => {
       } = renderHook(
         () =>
           usePolling({
-            refetch: noop,
             shouldPollFaster: false,
             startPolling: noop,
             stopPolling: noop,
+            refetch: noop,
           }),
         {
           wrapper: Provider,
@@ -84,10 +84,10 @@ describe("usePolling", () => {
       } = renderHook(
         () =>
           usePolling({
-            refetch: noop,
             shouldPollFaster: true,
             startPolling: noop,
             stopPolling: noop,
+            refetch: noop,
           }),
         {
           wrapper: Provider,
@@ -106,10 +106,10 @@ describe("usePolling", () => {
       const { rerender, waitForNextUpdate } = renderHook(
         () =>
           usePolling({
-            refetch,
-            shouldPollFaster,
             startPolling,
             stopPolling,
+            shouldPollFaster,
+            refetch,
           }),
         { wrapper: Provider }
       );
@@ -139,7 +139,7 @@ describe("usePolling", () => {
       const refetch = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling({ refetch, startPolling, stopPolling }),
+        () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -158,7 +158,7 @@ describe("usePolling", () => {
       const refetch = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling({ refetch, startPolling, stopPolling }),
+        () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -176,7 +176,7 @@ describe("usePolling", () => {
       const refetch = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling({ refetch, startPolling, stopPolling }),
+        () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -202,7 +202,7 @@ describe("usePolling", () => {
       const stopPolling = jest.fn();
       const refetch = jest.fn();
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling({ refetch, startPolling, stopPolling }),
+        () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -230,7 +230,7 @@ describe("usePolling", () => {
       const refetch = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling({ refetch, startPolling, stopPolling }),
+        () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -272,10 +272,10 @@ describe("usePolling", () => {
       const { rerender } = renderHook(
         () =>
           usePolling({
-            refetch: noop,
-            shouldPollFaster,
             startPolling,
             stopPolling: noop,
+            refetch: noop,
+            shouldPollFaster,
           }),
         { wrapper: Provider }
       );
@@ -295,7 +295,7 @@ describe("usePolling", () => {
       const refetch = jest.fn();
 
       const { waitForNextUpdate } = renderHook(
-        () => usePolling({ refetch, startPolling, stopPolling }),
+        () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();

@@ -31,8 +31,8 @@ const TaskSelector: React.VFC<TaskSelectorProps> = ({
     TaskNamesForBuildVariantQueryVariables
   >(GET_TASK_NAMES_FOR_BUILD_VARIANT, {
     variables: {
-      buildVariant,
       projectIdentifier,
+      buildVariant,
     },
   });
 

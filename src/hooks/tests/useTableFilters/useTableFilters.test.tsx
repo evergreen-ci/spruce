@@ -7,8 +7,8 @@ import { queryString } from "utils";
 describe("useTableInputFilter", () => {
   it("accepts an input value", async () => {
     render(<InputFilterTestComponent />, {
-      path: "/hosts",
       route: "/hosts?hostId=123",
+      path: "/hosts",
     });
 
     const input = screen.getByPlaceholderText("Search ID") as HTMLInputElement;
@@ -38,8 +38,8 @@ describe("useTableInputFilter", () => {
 
   it("useTableInputFilter - trims whitespace from input value", () => {
     render(<InputFilterTestComponent />, {
-      path: "/hosts",
       route: "/hosts?hostId=123",
+      path: "/hosts",
     });
 
     const input = screen.getByPlaceholderText("Search ID") as HTMLInputElement;
@@ -53,8 +53,8 @@ describe("useTableInputFilter", () => {
 describe("useTableCheckboxFilter", () => {
   it("useTableCheckboxFilter", async () => {
     render(<CheckboxFilterTestComponent />, {
-      path: "/hosts",
       route: "/hosts?statuses=running,terminated",
+      path: "/hosts",
     });
 
     const runningCheckbox = screen.getByLabelText(
@@ -94,8 +94,8 @@ const hostIdUrlParam = "hostId";
 
 const InputFilterTestComponent = () => {
   const [value, onChange, onFilter] = useTableInputFilter({
-    sendAnalyticsEvent: () => undefined,
     urlSearchParam: hostIdUrlParam,
+    sendAnalyticsEvent: () => undefined,
   });
 
   const { search } = useLocation();
@@ -105,10 +105,10 @@ const InputFilterTestComponent = () => {
       <div>host id from url: {queryParams[hostIdUrlParam] ?? "N/A"}</div>
       <InputFilter
         {...{
-          onChange,
-          onFilter,
           placeholder: "Search ID",
           value,
+          onChange,
+          onFilter,
         }}
       />
     </>
@@ -119,8 +119,8 @@ const statusesUrlParam = "statuses";
 
 const CheckboxFilterTestComponent = () => {
   const [value, onChange] = useTableCheckboxFilter({
-    sendAnalyticsEvent: () => undefined,
     urlSearchParam: statusesUrlParam,
+    sendAnalyticsEvent: () => undefined,
   });
 
   const { search } = useLocation();
@@ -136,9 +136,9 @@ const CheckboxFilterTestComponent = () => {
       <div>statuses from url: {urlValue}</div>
       <CheckboxFilter
         {...{
-          onChange,
           statuses,
           value,
+          onChange,
         }}
       />
     </>
@@ -147,13 +147,13 @@ const CheckboxFilterTestComponent = () => {
 
 const statuses = [
   {
-    key: "running",
     title: "Running",
     value: "running",
+    key: "running",
   },
   {
-    key: "terminated",
     title: "Terminated",
     value: "terminated",
+    key: "terminated",
   },
 ];

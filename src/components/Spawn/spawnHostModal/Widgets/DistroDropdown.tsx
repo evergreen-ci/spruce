@@ -49,14 +49,14 @@ export const DistroDropdown: React.VFC<
       const { isVirtualWorkstation } = schema;
       // Bucketize distros into Workstation and Non-Workstation buckets
       accum[isVirtualWorkstation ? 0 : 1].distros.push({
-        isVirtualWorkstation,
         value,
+        isVirtualWorkstation,
       });
       return accum;
     },
     [
-      { distros: [], title: "Workstation distros" },
-      { distros: [], title: "Other distros" },
+      { title: "Workstation distros", distros: [] },
+      { title: "Other distros", distros: [] },
     ]
   );
   const selectedDistro = rest.value?.value;

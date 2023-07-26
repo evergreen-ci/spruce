@@ -10,6 +10,10 @@ describe("edit spawn host modal", () => {
         oldUserTags,
       })
     ).toStrictEqual({
+      hostId: "host_id",
+      displayName: "new-name",
+      volumeId: "my-volume-id",
+      instanceType: "m4.xlarge",
       addedInstanceTags: [
         { key: "c", value: "e" },
         { key: "newKey", value: "newValue" },
@@ -18,23 +22,19 @@ describe("edit spawn host modal", () => {
         { key: "c", value: "d" },
         { key: "oldKey", value: "oldValue" },
       ],
-      displayName: "new-name",
       expiration: null,
-      hostId: "host_id",
-      instanceType: "m4.xlarge",
       noExpiration: true,
+      servicePassword: "password-123",
       publicKey: {
-        key: "key value",
         name: "a_key",
+        key: "key value",
       },
       savePublicKey: false,
-      servicePassword: "password-123",
-      volumeId: "my-volume-id",
     });
   });
 });
 
-const myPublicKeys = [{ key: "key value", name: "a_key" }];
+const myPublicKeys = [{ name: "a_key", key: "key value" }];
 const oldUserTags = [
   { key: "a", value: "b" },
   { key: "c", value: "d" },
@@ -42,22 +42,22 @@ const oldUserTags = [
 ];
 
 const formState = {
-  expirationDetails: {
-    expiration: "Wed Oct 19 2022 08:56:42 GMT-0400 (Eastern Daylight Time)",
-    noExpiration: true,
-  },
   hostName: "new-name",
-  instanceType: "m4.xlarge",
-  publicKeySection: {
-    newPublicKey: "",
-    publicKeyNameDropdown: "a_key",
-    useExisting: true,
+  expirationDetails: {
+    noExpiration: true,
+    expiration: "Wed Oct 19 2022 08:56:42 GMT-0400 (Eastern Daylight Time)",
   },
+  instanceType: "m4.xlarge",
+  volume: "my-volume-id",
   rdpPassword: "password-123",
   userTags: [
     { key: "a", value: "b" },
     { key: "c", value: "e" },
     { key: "newKey", value: "newValue" },
   ],
-  volume: "my-volume-id",
+  publicKeySection: {
+    useExisting: true,
+    publicKeyNameDropdown: "a_key",
+    newPublicKey: "",
+  },
 };

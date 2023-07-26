@@ -8,164 +8,164 @@ const { gray, green, purple, red, yellow } = palette;
 describe("groupStatusesByUmbrellaStatus", () => {
   it("separates statuses into groups based on umbrella status", () => {
     const tasks = [
-      { count: 6, status: TaskStatus.Succeeded },
-      { count: 2, status: TaskStatus.Failed },
-      { count: 4, status: TaskStatus.Dispatched },
-      { count: 5, status: TaskStatus.Started },
+      { status: TaskStatus.Succeeded, count: 6 },
+      { status: TaskStatus.Failed, count: 2 },
+      { status: TaskStatus.Dispatched, count: 4 },
+      { status: TaskStatus.Started, count: 5 },
     ];
 
     expect(groupStatusesByUmbrellaStatus(tasks)).toStrictEqual({
-      max: 9,
       stats: [
         {
-          color: green.dark1,
           count: 6,
-          statusCounts: { [TaskStatus.Succeeded]: 6 },
           statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
+          color: green.dark1,
           umbrellaStatus: TaskStatus.Succeeded,
+          statusCounts: { [TaskStatus.Succeeded]: 6 },
         },
         {
-          color: red.base,
           count: 2,
-          statusCounts: { failed: 2 },
           statuses: [taskStatusToCopy[TaskStatus.Failed]],
+          color: red.base,
           umbrellaStatus: TaskStatus.FailedUmbrella,
+          statusCounts: { failed: 2 },
         },
         {
-          color: yellow.base,
           count: 9,
-          statusCounts: { [TaskStatus.Dispatched]: 4, [TaskStatus.Started]: 5 },
           statuses: [
             taskStatusToCopy[TaskStatus.Dispatched],
             taskStatusToCopy[TaskStatus.Started],
           ],
+          color: yellow.base,
           umbrellaStatus: TaskStatus.RunningUmbrella,
+          statusCounts: { [TaskStatus.Dispatched]: 4, [TaskStatus.Started]: 5 },
         },
       ],
+      max: 9,
       total: 17,
     });
   });
 
   it("groups different statuses to the same color", () => {
     const tasks = [
-      { count: 6, status: TaskStatus.TestTimedOut },
-      { count: 2, status: TaskStatus.Failed },
-      { count: 4, status: TaskStatus.Dispatched },
-      { count: 2, status: TaskStatus.WillRun },
-      { count: 5, status: TaskStatus.SystemTimedOut },
-      { count: 2, status: TaskStatus.SystemUnresponsive },
+      { status: TaskStatus.TestTimedOut, count: 6 },
+      { status: TaskStatus.Failed, count: 2 },
+      { status: TaskStatus.Dispatched, count: 4 },
+      { status: TaskStatus.WillRun, count: 2 },
+      { status: TaskStatus.SystemTimedOut, count: 5 },
+      { status: TaskStatus.SystemUnresponsive, count: 2 },
     ];
 
     expect(groupStatusesByUmbrellaStatus(tasks)).toStrictEqual({
-      max: 8,
       stats: [
         {
-          color: red.base,
           count: 8,
-          statusCounts: {
-            [TaskStatus.TestTimedOut]: 6,
-            [TaskStatus.Failed]: 2,
-          },
           statuses: [
             taskStatusToCopy[TaskStatus.TestTimedOut],
             taskStatusToCopy[TaskStatus.Failed],
           ],
+          color: red.base,
           umbrellaStatus: TaskStatus.FailedUmbrella,
+          statusCounts: {
+            [TaskStatus.TestTimedOut]: 6,
+            [TaskStatus.Failed]: 2,
+          },
         },
         {
-          color: purple.dark2,
           count: 7,
-          statusCounts: {
-            [TaskStatus.SystemTimedOut]: 5,
-            [TaskStatus.SystemUnresponsive]: 2,
-          },
           statuses: [
             taskStatusToCopy[TaskStatus.SystemTimedOut],
             taskStatusToCopy[TaskStatus.SystemUnresponsive],
           ],
+          color: purple.dark2,
           umbrellaStatus: TaskStatus.SystemFailureUmbrella,
+          statusCounts: {
+            [TaskStatus.SystemTimedOut]: 5,
+            [TaskStatus.SystemUnresponsive]: 2,
+          },
         },
         {
-          color: yellow.base,
           count: 4,
-          statusCounts: { [TaskStatus.Dispatched]: 4 },
           statuses: [taskStatusToCopy[TaskStatus.Dispatched]],
+          color: yellow.base,
           umbrellaStatus: TaskStatus.RunningUmbrella,
+          statusCounts: { [TaskStatus.Dispatched]: 4 },
         },
         {
-          color: gray.base,
           count: 2,
-          statusCounts: { [TaskStatus.WillRun]: 2 },
           statuses: [taskStatusToCopy[TaskStatus.WillRun]],
+          color: gray.base,
           umbrellaStatus: TaskStatus.ScheduledUmbrella,
+          statusCounts: { [TaskStatus.WillRun]: 2 },
         },
       ],
+      max: 8,
       total: 21,
     });
   });
 
   it("returns the overall maximum and total", () => {
     const tasks = [
-      { count: 6, status: TaskStatus.TaskTimedOut },
-      { count: 4, status: TaskStatus.Succeeded },
-      { count: 3, status: TaskStatus.Started },
-      { count: 5, status: TaskStatus.SystemFailed },
-      { count: 2, status: TaskStatus.Unscheduled },
-      { count: 3, status: TaskStatus.SetupFailed },
-      { count: 2, status: TaskStatus.SystemUnresponsive },
+      { status: TaskStatus.TaskTimedOut, count: 6 },
+      { status: TaskStatus.Succeeded, count: 4 },
+      { status: TaskStatus.Started, count: 3 },
+      { status: TaskStatus.SystemFailed, count: 5 },
+      { status: TaskStatus.Unscheduled, count: 2 },
+      { status: TaskStatus.SetupFailed, count: 3 },
+      { status: TaskStatus.SystemUnresponsive, count: 2 },
     ];
     expect(groupStatusesByUmbrellaStatus(tasks)).toStrictEqual({
-      max: 7,
       stats: [
         {
-          color: green.dark1,
           count: 4,
-          statusCounts: { [TaskStatus.Succeeded]: 4 },
           statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
+          color: green.dark1,
           umbrellaStatus: TaskStatus.Succeeded,
+          statusCounts: { [TaskStatus.Succeeded]: 4 },
         },
         {
-          color: red.base,
           count: 6,
-          statusCounts: { [TaskStatus.TaskTimedOut]: 6 },
           statuses: [taskStatusToCopy[TaskStatus.TaskTimedOut]],
+          color: red.base,
           umbrellaStatus: TaskStatus.FailedUmbrella,
+          statusCounts: { [TaskStatus.TaskTimedOut]: 6 },
         },
         {
-          color: purple.dark2,
           count: 7,
-          statusCounts: {
-            [TaskStatus.SystemFailed]: 5,
-            [TaskStatus.SystemUnresponsive]: 2,
-          },
           statuses: [
             taskStatusToCopy[TaskStatus.SystemFailed],
             taskStatusToCopy[TaskStatus.SystemUnresponsive],
           ],
+          color: purple.dark2,
           umbrellaStatus: TaskStatus.SystemFailureUmbrella,
+          statusCounts: {
+            [TaskStatus.SystemFailed]: 5,
+            [TaskStatus.SystemUnresponsive]: 2,
+          },
         },
         {
-          color: purple.light2,
           count: 3,
-          statusCounts: { [TaskStatus.SetupFailed]: 3 },
           statuses: [taskStatusToCopy[TaskStatus.SetupFailed]],
+          color: purple.light2,
           umbrellaStatus: TaskStatus.SetupFailed,
+          statusCounts: { [TaskStatus.SetupFailed]: 3 },
         },
         {
-          color: yellow.base,
           count: 3,
-          statusCounts: { [TaskStatus.Started]: 3 },
           statuses: [taskStatusToCopy[TaskStatus.Started]],
+          color: yellow.base,
           umbrellaStatus: TaskStatus.RunningUmbrella,
+          statusCounts: { [TaskStatus.Started]: 3 },
         },
         {
-          color: gray.dark1,
           count: 2,
-          statusCounts: { [TaskStatus.Unscheduled]: 2 },
           statuses: [taskStatusToCopy[TaskStatus.Unscheduled]],
+          color: gray.dark1,
           umbrellaStatus: TaskStatus.UndispatchedUmbrella,
+          statusCounts: { [TaskStatus.Unscheduled]: 2 },
         },
       ],
+      max: 7,
       total: 25,
     });
   });

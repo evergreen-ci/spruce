@@ -19,12 +19,12 @@ const callSectionHasError = ({
 
 describe("an attached project", () => {
   const baseArgs = {
-    aliases: [],
+    versionControlEnabled: true,
+    projectType: ProjectType.AttachedProject,
     enabled: true,
     override: true,
-    projectType: ProjectType.AttachedProject,
+    aliases: [],
     repoAliases: [],
-    versionControlEnabled: true,
   };
 
   describe("when aliases are not defined for the project", () => {
@@ -79,8 +79,8 @@ describe("an attached project", () => {
       expect(
         callSectionHasError({
           ...baseArgs,
-          override: false,
           versionControlEnabled: false,
+          override: false,
         })
       ).toStrictEqual({
         "ui:warnings": [
@@ -102,12 +102,12 @@ describe("an attached project", () => {
 
 describe("a repo", () => {
   const baseArgs = {
-    aliases: [],
+    versionControlEnabled: true,
+    projectType: ProjectType.Repo,
     enabled: true,
     override: true,
-    projectType: ProjectType.Repo,
+    aliases: [],
     repoAliases: [],
-    versionControlEnabled: true,
   };
 
   it("returns an empty object when an alias is defined", () => {

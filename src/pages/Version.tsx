@@ -50,6 +50,7 @@ export const VersionPage: React.VFC = () => {
     VersionQuery,
     VersionQueryVariables
   >(GET_VERSION, {
+    variables: { id },
     fetchPolicy: "cache-and-network",
     onError: (error) => {
       dispatchToast.error(
@@ -57,26 +58,26 @@ export const VersionPage: React.VFC = () => {
       );
       setIsLoadingData(false);
     },
-    variables: { id },
   });
 
   const [getPatch, { data: patchData, error: patchError }] = useLazyQuery<
     IsPatchConfiguredQuery,
     IsPatchConfiguredQueryVariables
   >(GET_IS_PATCH_CONFIGURED, {
+    variables: { id },
     onError: (error) => {
       dispatchToast.error(
         `There was an error loading this patch: ${error.message}`
       );
       setIsLoadingData(false);
     },
-    variables: { id },
   });
 
   const { error: hasVersionError } = useQuery<
     HasVersionQuery,
     HasVersionQueryVariables
   >(GET_HAS_VERSION, {
+    variables: { id },
     onCompleted: ({ hasVersion }) => {
       if (hasVersion) {
         getVersion({ variables: { id } });
@@ -88,7 +89,6 @@ export const VersionPage: React.VFC = () => {
       dispatchToast.error(error.message);
       setIsLoadingData(false);
     },
-    variables: { id },
   });
 
   // Decide where to redirect the user based off of whether or not the patch has been activated.
@@ -97,7 +97,7 @@ export const VersionPage: React.VFC = () => {
     if (patchData) {
       const { patch } = patchData;
       const { activated, alias, projectID } = patch;
-      if (isPatchUnconfigured({ activated, alias })) {
+      if (isPatchUnconfigured({ alias, activated })) {
         setRedirectURL(getPatchRoute(id, { configure: true }));
         setIsLoadingData(false);
       } else if (!activated && alias === commitQueueAlias) {

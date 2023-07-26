@@ -47,7 +47,7 @@ const AuthProvider: React.VFC<{ children: React.ReactNode }> = ({
         await axios
           .post(
             `${getUiUrl()}/login`,
-            { password, username },
+            { username, password },
             { withCredentials: true }
           )
           .then((response) => {
@@ -56,12 +56,6 @@ const AuthProvider: React.VFC<{ children: React.ReactNode }> = ({
             }
           });
       },
-      dispatchAuthenticated: () => {
-        if (!state.isAuthenticated) {
-          dispatch({ type: "authenticated" });
-          leaveBreadcrumb("Authenticated", {}, "user");
-        }
-      },
       logoutAndRedirect: async () => {
         // attempt log out and redirect to login page
         try {
@@ -69,6 +63,12 @@ const AuthProvider: React.VFC<{ children: React.ReactNode }> = ({
         } catch {}
         dispatch({ type: "deauthenticated" });
         window.location.href = `${getLoginDomain()}/login`;
+      },
+      dispatchAuthenticated: () => {
+        if (!state.isAuthenticated) {
+          dispatch({ type: "authenticated" });
+          leaveBreadcrumb("Authenticated", {}, "user");
+        }
       },
     }),
     [state.isAuthenticated]

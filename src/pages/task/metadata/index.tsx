@@ -307,8 +307,8 @@ export const Metadata: React.VFC<Props> = ({
               href={link.url}
               onClick={() =>
                 taskAnalytics.sendEvent({
-                  linkText: link.text,
                   name: "Click Annotation Link",
+                  linkText: link.text,
                 })
               }
             >

@@ -27,111 +27,111 @@ describe("project data", () => {
 });
 
 const projectForm: PluginsFormState = {
+  performanceSettings: {
+    perfEnabled: true,
+  },
   buildBaronSettings: {
-    fileTicketWebhook: {
-      endpoint: null,
-      secret: null,
-    },
-    taskAnnotationSettings: {
-      jiraCustomFields: [],
-    },
     ticketCreateProject: {
       createProject: null,
     },
     ticketSearchProjects: [],
     useBuildBaron: false,
+    taskAnnotationSettings: {
+      jiraCustomFields: [],
+    },
+    fileTicketWebhook: {
+      endpoint: null,
+      secret: null,
+    },
   },
   externalLinks: {
     metadataPanelLink: {
-      displayName: "a link display name",
       requesters: ["gitter_request", "patch_request"],
+      displayName: "a link display name",
       urlTemplate: "https:/a-link-template-{version_id}.com",
     },
-  },
-  performanceSettings: {
-    perfEnabled: true,
   },
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
   projectRef: {
-    externalLinks: [
-      {
-        displayName: "a link display name",
-        requesters: ["gitter_request", "patch_request"],
-        urlTemplate: "https:/a-link-template-{version_id}.com",
-      },
-    ],
     id: "project",
     perfEnabled: true,
     taskAnnotationSettings: {
+      jiraCustomFields: [],
       fileTicketWebhook: {
         endpoint: null,
         secret: null,
       },
-      jiraCustomFields: [],
     },
+    externalLinks: [
+      {
+        requesters: ["gitter_request", "patch_request"],
+        displayName: "a link display name",
+        urlTemplate: "https:/a-link-template-{version_id}.com",
+      },
+    ],
   },
 };
 
 const repoForm: PluginsFormState = {
+  performanceSettings: {
+    perfEnabled: true,
+  },
   buildBaronSettings: {
-    fileTicketWebhook: {
-      endpoint: "endpoint",
-      secret: "secret",
-    },
-    taskAnnotationSettings: {
-      jiraCustomFields: [
-        {
-          displayText: "Custom Field",
-          field: "customField",
-        },
-      ],
-    },
-    ticketCreateProject: {
-      createProject: "EVG",
-    },
     ticketSearchProjects: [
       {
         searchProject: "EVG",
       },
     ],
+    ticketCreateProject: {
+      createProject: "EVG",
+    },
     useBuildBaron: false,
+    taskAnnotationSettings: {
+      jiraCustomFields: [
+        {
+          field: "customField",
+          displayText: "Custom Field",
+        },
+      ],
+    },
+    fileTicketWebhook: {
+      endpoint: "endpoint",
+      secret: "secret",
+    },
   },
   externalLinks: {
     metadataPanelLink: {
-      displayName: "a link display name",
       requesters: ["gitter_request", "patch_request"],
+      displayName: "a link display name",
       urlTemplate: "https:/a-link-template-{version_id}.com",
     },
-  },
-  performanceSettings: {
-    perfEnabled: true,
   },
 };
 
 const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
   projectRef: {
-    externalLinks: [
-      {
-        displayName: "a link display name",
-        requesters: ["gitter_request", "patch_request"],
-        urlTemplate: "https:/a-link-template-{version_id}.com",
-      },
-    ],
     id: "repo",
     perfEnabled: true,
     taskAnnotationSettings: {
+      jiraCustomFields: [
+        {
+          field: "customField",
+          displayText: "Custom Field",
+        },
+      ],
       fileTicketWebhook: {
         endpoint: "endpoint",
         secret: "secret",
       },
-      jiraCustomFields: [
-        {
-          displayText: "Custom Field",
-          field: "customField",
-        },
-      ],
     },
+    externalLinks: [
+      {
+        requesters: ["gitter_request", "patch_request"],
+        displayName: "a link display name",
+        urlTemplate: "https:/a-link-template-{version_id}.com",
+      },
+    ],
   },
 };

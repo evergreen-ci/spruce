@@ -32,8 +32,8 @@ export const SpawnHostTable: React.VFC<SpawnHostTableProps> = ({ hosts }) => {
         expandedRowRender: (record: MyHost) => <SpawnHostCard host={record} />,
         onExpand: (expanded) => {
           spawnAnalytics.sendEvent({
-            expanded,
             name: "Toggle Spawn Host Details",
+            expanded,
           });
         },
       }}
@@ -44,8 +44,10 @@ export const SpawnHostTable: React.VFC<SpawnHostTableProps> = ({ hosts }) => {
 
 const columns = [
   {
+    title: "Host",
     dataIndex: "id",
     key: "host",
+    sorter: (a: MyHost, b: MyHost) => sortFunctionString(a, b, "id"),
     render: (_, host: MyHost) => (
       <HostNameWrapper>
         {host?.distro?.isVirtualWorkStation ? (
@@ -61,45 +63,43 @@ const columns = [
         </StyledRouterLink>
       </HostNameWrapper>
     ),
-    sorter: (a: MyHost, b: MyHost) => sortFunctionString(a, b, "id"),
-    title: "Host",
   },
   {
+    title: "Distro",
     dataIndex: "distro",
     key: "distro",
-    render: (distro) => <WordBreak>{distro.id}</WordBreak>,
     sorter: (a: MyHost, b: MyHost) => sortFunctionString(a, b, "distro.id"),
-    title: "Distro",
+    render: (distro) => <WordBreak>{distro.id}</WordBreak>,
   },
   {
+    title: "Status",
     dataIndex: "status",
     key: "status",
-    render: (status) => <HostStatusBadge status={status} />,
     sorter: (a: MyHost, b: MyHost) => sortFunctionString(a, b, "status"),
-    title: "Status",
+    render: (status) => <HostStatusBadge status={status} />,
   },
   {
+    title: "Expires In",
     dataIndex: "expiration",
     key: "expiration",
+    sorter: (a: MyHost, b: MyHost) => sortFunctionDate(a, b, "expiration"),
     render: (expiration, host: MyHost) =>
       host?.noExpiration
         ? DoesNotExpire
         : formatDistanceToNow(new Date(expiration)),
-    sorter: (a: MyHost, b: MyHost) => sortFunctionDate(a, b, "expiration"),
-    title: "Expires In",
   },
   {
+    title: "Uptime",
     dataIndex: "uptime",
     key: "uptime",
-    title: "Uptime",
 
-    render: (uptime) => formatDistanceToNow(new Date(uptime)),
     sorter: (a: MyHost, b: MyHost) => sortFunctionDate(a, b, "uptime"),
+    render: (uptime) => formatDistanceToNow(new Date(uptime)),
   },
   {
+    title: "Action",
     key: "action",
     render: (_, host: MyHost) => <SpawnHostTableActions host={host} />,
-    title: "Action",
   },
 ];
 

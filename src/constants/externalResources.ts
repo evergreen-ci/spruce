@@ -117,14 +117,14 @@ export const getHoneycombSystemMetricsUrl = (
 ): string => {
   const query = {
     calculations: [
-      { column: "system.memory.usage.used", op: "AVG" },
-      { column: "system.cpu.utilization", op: "AVG" },
-      { column: "system.network.io.transmit", op: "RATE_AVG" },
-      { column: "system.network.io.receive", op: "RATE_AVG" },
+      { op: "AVG", column: "system.memory.usage.used" },
+      { op: "AVG", column: "system.cpu.utilization" },
+      { op: "RATE_AVG", column: "system.network.io.transmit" },
+      { op: "RATE_AVG", column: "system.network.io.receive" },
     ],
-    end_time: getUnixTime(new Date(endTs)),
-    filters: [{ column: "evergreen.task.id", op: "=", value: taskId }],
+    filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
     start_time: getUnixTime(new Date(startTs)),
+    end_time: getUnixTime(new Date(endTs)),
   };
 
   return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(

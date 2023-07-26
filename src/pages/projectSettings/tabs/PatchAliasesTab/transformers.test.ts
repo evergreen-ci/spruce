@@ -33,100 +33,84 @@ describe("project data", () => {
 
 const projectForm: PatchAliasesFormState = {
   patchAliases: {
-    aliases: [],
     aliasesOverride: false,
+    aliases: [],
   },
   patchTriggerAliases: {
-    aliases: [],
     aliasesOverride: false,
+    aliases: [],
   },
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
-  aliases: [],
   projectRef: {
-    githubTriggerAliases: [],
     id: "project",
     patchTriggerAliases: null,
+    githubTriggerAliases: [],
   },
+  aliases: [],
 };
 
 const repoForm: PatchAliasesFormState = {
   patchAliases: {
+    aliasesOverride: true,
     aliases: [
       {
+        id: "4",
         alias: "my alias name",
         description: "my description",
         displayTitle: "my alias name",
         gitTag: "",
-        id: "4",
         remotePath: "",
-        tasks: {
-          specifier: VariantTaskSpecifier.Tags,
-          task: "",
-          taskTags: ["hi"],
-        },
         variants: {
           specifier: VariantTaskSpecifier.Tags,
           variant: "",
           variantTags: ["okay"],
         },
+        tasks: {
+          specifier: VariantTaskSpecifier.Tags,
+          task: "",
+          taskTags: ["hi"],
+        },
       },
     ],
-    aliasesOverride: true,
   },
   patchTriggerAliases: {
+    aliasesOverride: true,
     aliases: [
       {
         alias: "alias1",
         childProjectIdentifier: "spruce",
-        displayTitle: "alias1",
-        isGithubTriggerAlias: true,
-        parentAsModule: "",
         status: "succeeded",
+        displayTitle: "alias1",
+        parentAsModule: "",
+        isGithubTriggerAlias: true,
         taskSpecifiers: [
           {
-            patchAlias: "alias2",
             specifier: TaskSpecifier.PatchAlias,
+            patchAlias: "alias2",
             taskRegex: "",
             variantRegex: "",
           },
           {
-            patchAlias: "",
             specifier: TaskSpecifier.VariantTask,
+            patchAlias: "",
             taskRegex: ".*",
             variantRegex: ".*",
           },
         ],
       },
     ],
-    aliasesOverride: true,
   },
 };
 
 const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
-  aliases: [
-    {
-      alias: "my alias name",
-      description: "my description",
-      gitTag: "",
-      id: "4",
-      remotePath: "",
-      task: "",
-      taskTags: ["hi"],
-      variant: "",
-      variantTags: ["okay"],
-    },
-  ],
   projectRef: {
-    githubTriggerAliases: ["alias1"],
     id: "repo",
     patchTriggerAliases: [
       {
         alias: "alias1",
         childProjectIdentifier: "spruce",
-        parentAsModule: "",
-        status: "succeeded",
         taskSpecifiers: [
           {
             patchAlias: "alias2",
@@ -139,7 +123,23 @@ const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
             variantRegex: ".*",
           },
         ],
+        status: "succeeded",
+        parentAsModule: "",
       },
     ],
+    githubTriggerAliases: ["alias1"],
   },
+  aliases: [
+    {
+      id: "4",
+      alias: "my alias name",
+      description: "my description",
+      gitTag: "",
+      variant: "",
+      task: "",
+      remotePath: "",
+      variantTags: ["okay"],
+      taskTags: ["hi"],
+    },
+  ],
 };

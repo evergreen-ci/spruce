@@ -76,7 +76,7 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
     disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
     formState: form,
     setFormState: (formState) =>
-      dispatch({ payload: formState, type: "setForm" }),
+      dispatch({ type: "setForm", payload: formState }),
   });
 
   useEffect(() => {
@@ -88,12 +88,12 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
   const migrateVolume = useCallback(() => {
     const mutationInput = formToGql({
       formData: form,
-      migrateVolumeId: volume.id,
       myPublicKeys: formSchemaInput.myPublicKeys,
+      migrateVolumeId: volume.id,
     });
     sendEvent({
-      isMigration: true,
       name: "Spawned a host",
+      isMigration: true,
       params: omit(mutationInput, [
         "publicKey",
         "userDataScript",
@@ -168,7 +168,7 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
           uiSchema={uiSchema}
           formData={form}
           onChange={({ formData }) => {
-            dispatch({ payload: formData, type: "setForm" });
+            dispatch({ type: "setForm", payload: formData });
           }}
         />
       )}

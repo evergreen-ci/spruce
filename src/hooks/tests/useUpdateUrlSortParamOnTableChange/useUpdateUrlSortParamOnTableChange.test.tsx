@@ -18,8 +18,8 @@ describe("useUpdateUrlSortParamOnTableChange", () => {
 
   it("toggles table headers when clicked", () => {
     render(<TestComponent />, {
-      path: "/hosts",
       route: "/hosts",
+      path: "/hosts",
     });
 
     const idHeader = screen.getByText("ID");
@@ -78,39 +78,39 @@ interface Data {
 
 const data = [
   {
-    distro: "osx",
     id: "1",
     status: "passed",
+    distro: "osx",
   },
   {
-    distro: "osx",
     id: "2",
     status: "failed",
+    distro: "osx",
   },
   {
-    distro: "windows",
     id: "3",
     status: "passed",
+    distro: "windows",
   },
 ];
 
 const columnsTemplate: Array<ColumnProps<Data>> = [
   {
+    title: "ID",
     dataIndex: "id",
     key: "ID",
     sorter: true,
-    title: "ID",
   },
   {
+    title: "Status",
     dataIndex: "status",
     key: "STATUS",
     sorter: true,
-    title: "Status",
   },
   {
+    title: "Distro",
     dataIndex: "distro",
     key: "DISTRO",
     sorter: true,
-    title: "Distro",
   },
 ];

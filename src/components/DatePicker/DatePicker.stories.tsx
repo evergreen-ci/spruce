@@ -7,8 +7,8 @@ export default {
 } satisfies CustomMeta<typeof DatePicker>;
 
 export const Default: CustomStoryObj<typeof DatePicker> = {
+  render: (args) => <DatePicker {...args} onChange={() => {}} />,
   args: {
     disabled: false,
   },
-  render: (args) => <DatePicker {...args} onChange={() => {}} />,
 };

@@ -30,6 +30,7 @@ const projectFormBase: ContainersFormState = {
 
 const projectResultBase: ProjectSettingsInput = {
   projectRef: {
+    id: "spruce",
     containerSizeDefinitions: [
       {
         cpu: 1024,
@@ -37,6 +38,5 @@ const projectResultBase: ProjectSettingsInput = {
         name: "default",
       },
     ],
-    id: "spruce",
   },
 };

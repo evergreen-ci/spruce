@@ -78,7 +78,7 @@ const SetPriority: React.VFC<SetPriorityProps> = ({
 
   const onConfirm = () => {
     if (taskId) {
-      setTaskPriority({ variables: { priority, taskId } });
+      setTaskPriority({ variables: { taskId, priority } });
       sendTaskEvent({ name: "Set Priority", priority });
     } else {
       setPatchPriority({ variables: { patchId, priority } });

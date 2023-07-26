@@ -15,10 +15,10 @@ const reportError = (
   if (!isProductionBuild()) {
     return {
       severe: () => {
-        console.error({ err, metadata, severity: "severe" });
+        console.error({ err, severity: "severe", metadata });
       },
       warning: () => {
-        console.error({ err, metadata, severity: "warning" });
+        console.error({ err, severity: "warning", metadata });
       },
     };
   }

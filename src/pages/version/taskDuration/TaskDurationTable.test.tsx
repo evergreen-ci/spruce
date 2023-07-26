@@ -38,33 +38,33 @@ describe("taskDurationTable", () => {
 
 const tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"] = [
   {
-    __typename: "Task",
-    buildVariantDisplayName: "Ubuntu 16.04",
-    displayName: "check_codegen",
+    id: "spruce_ubuntu1604_check_codegen_patch_345da020487255d1b9fb87bed4ceb98397a0c5a5_624af28fa4cf4714c7a6c19a_22_04_04_13_28_48",
     execution: 0,
+    status: "success",
+    displayName: "check_codegen",
+    buildVariantDisplayName: "Ubuntu 16.04",
+    timeTaken: 6000,
     executionTasksFull: [
       {
-        buildVariantDisplayName: "Ubuntu 16.04",
+        id: "spruce_ubuntu1604_check_codegen_patch_345da020487255d1b9fb87bed4ceb98397a0c5a5_624af28fa4cf4714c7a6c19a_22_04_04_13_28_48",
+        execution: 0,
+        status: "success",
         displayName:
           "check_codegen_EXE_really_really_really_really_really_really_really_really_really_really_really_really_really_really_really_really_really_really_really_really_really_really_long_name",
-        execution: 0,
-        id: "spruce_ubuntu1604_check_codegen_patch_345da020487255d1b9fb87bed4ceb98397a0c5a5_624af28fa4cf4714c7a6c19a_22_04_04_13_28_48",
-        status: "success",
+        buildVariantDisplayName: "Ubuntu 16.04",
         timeTaken: 4000,
       },
     ],
-    id: "spruce_ubuntu1604_check_codegen_patch_345da020487255d1b9fb87bed4ceb98397a0c5a5_624af28fa4cf4714c7a6c19a_22_04_04_13_28_48",
-    status: "success",
-    timeTaken: 6000,
+    __typename: "Task",
   },
   {
-    __typename: "Task",
-    buildVariantDisplayName: "Ubuntu 16.04",
-    displayName: "compile",
-    execution: 0,
-    executionTasksFull: null,
     id: "spruce_ubuntu1604_compile_patch_345da020487255d1b9fb87bed4ceb98397a0c5a5_624af28fa4cf4714c7a6c19a_22_04_04_13_28_48",
+    execution: 0,
     status: "success",
+    displayName: "compile",
+    buildVariantDisplayName: "Ubuntu 16.04",
+    executionTasksFull: null,
     timeTaken: 10000,
+    __typename: "Task",
   },
 ];

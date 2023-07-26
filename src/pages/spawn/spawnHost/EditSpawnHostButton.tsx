@@ -38,8 +38,8 @@ export const EditSpawnHostButton: React.VFC<EditSpawnHostButtonProps> = ({
                 e.stopPropagation();
                 setOpenModal(true);
                 spawnAnalytics.sendEvent({
-                  hostId: host.id,
                   name: "Open the Edit Spawn Host Modal",
+                  hostId: host.id,
                   status: host.status,
                 });
               }}

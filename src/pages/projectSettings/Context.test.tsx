@@ -33,18 +33,18 @@ describe("projectSettingsContext", () => {
 
     act(() => {
       result.current.updateForm(ProjectSettingsTabRoutes.Variables)({
-        errors: [],
         formData: {
           vars: [
             {
-              isAdminOnly: false,
-              isDisabled: false,
-              isPrivate: false,
               varName: "test_name",
               varValue: "test_value",
+              isPrivate: false,
+              isDisabled: false,
+              isAdminOnly: false,
             },
           ],
         },
+        errors: [],
       });
     });
 
@@ -67,11 +67,11 @@ describe("projectSettingsContext", () => {
         [ProjectSettingsTabRoutes.Variables]: {
           vars: [
             {
-              isAdminOnly: false,
-              isDisabled: false,
-              isPrivate: false,
               varName: "test_name",
               varValue: "test_value",
+              isPrivate: false,
+              isDisabled: false,
+              isAdminOnly: false,
             },
           ],
         },
@@ -80,18 +80,18 @@ describe("projectSettingsContext", () => {
 
     act(() => {
       result.current.updateForm(ProjectSettingsTabRoutes.Variables)({
-        errors: [],
         formData: {
           vars: [
             {
-              isAdminOnly: false,
-              isDisabled: false,
-              isPrivate: false,
               varName: "test_name",
               varValue: "test_value",
+              isPrivate: false,
+              isDisabled: false,
+              isAdminOnly: false,
             },
           ],
         },
+        errors: [],
       });
     });
 
@@ -119,10 +119,10 @@ describe("projectSettingsContext", () => {
 
     act(() => {
       result.current.updateForm(ProjectSettingsTabRoutes.Variables)({
-        errors: [{ name: "err" } as AjvError],
         formData: {
           vars: [],
         },
+        errors: [{ name: "err" } as AjvError],
       });
     });
 

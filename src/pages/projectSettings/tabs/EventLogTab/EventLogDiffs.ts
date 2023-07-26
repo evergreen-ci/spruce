@@ -51,9 +51,9 @@ export const getEventDiffLines = (
     const formattedKey = formatArrayElements(key);
 
     const line = {
-      after: changedValue,
-      before: previousValue,
       key: formattedKey,
+      before: previousValue,
+      after: changedValue,
     };
 
     return line;

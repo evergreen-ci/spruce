@@ -53,16 +53,16 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
   const publicKeys = publicKeysData?.myPublicKeys ?? [];
 
   const initialFormState = {
+    hostName: host.displayName ?? "",
     expirationDetails: {
       expiration: host.expiration ? host.expiration.toString() : null,
       noExpiration: host.noExpiration,
     },
-    hostName: host.displayName ?? "",
     instanceType: host.instanceType ?? "",
-    publicKeySection: { publicKeyNameDropdown: "", useExisting: true },
+    volume: "",
     rdpPassword: "",
     userTags,
-    volume: "",
+    publicKeySection: { useExisting: true, publicKeyNameDropdown: "" },
   };
 
   const [formState, setFormState] = useState<FormState>(initialFormState);

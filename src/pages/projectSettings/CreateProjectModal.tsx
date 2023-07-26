@@ -35,9 +35,9 @@ export const CreateProjectModal: React.VFC<Props> = ({
 
   const [formState, setFormState] = useState({
     owner: owner ?? "",
-    projectId: "",
-    projectName: "",
     repo: repo ?? "",
+    projectName: "",
+    projectId: "",
     requestS3Creds: false,
   });
   const [hasError, setHasError] = useState(true);
@@ -134,36 +134,36 @@ export const CreateProjectModal: React.VFC<Props> = ({
 
 const modalFormDefinition = (githubOrgs: string[]) => ({
   schema: {
+    type: "object" as "object",
+    required: ["owner", "repo"],
     properties: {
-      owner: {
-        oneOf: githubOrgs.map((org) => ({
-          enum: [org],
-          title: org,
-          type: "string" as "string",
-        })),
-        title: "Owner",
-        type: "string" as "string",
-      },
-      projectId: projectId.schema,
       projectName: projectName.schema,
-      repo: {
-        format: "noSpaces",
-        minLength: 1,
-        title: "Repo",
+      projectId: projectId.schema,
+      owner: {
         type: "string" as "string",
+        title: "Owner",
+        oneOf: githubOrgs.map((org) => ({
+          type: "string" as "string",
+          title: org,
+          enum: [org],
+        })),
+      },
+      repo: {
+        type: "string" as "string",
+        title: "Repo",
+        minLength: 1,
+        format: "noSpaces",
       },
       requestS3Creds: requestS3Creds.schema,
     },
-    required: ["owner", "repo"],
-    type: "object" as "object",
   },
   uiSchema: {
-    owner: {
-      "ui:allowDeselect": false,
-      "ui:data-cy": "new-owner-select",
-    },
-    projectId: projectId.uiSchema,
     projectName: projectName.uiSchema,
+    projectId: projectId.uiSchema,
+    owner: {
+      "ui:data-cy": "new-owner-select",
+      "ui:allowDeselect": false,
+    },
     repo: {
       "ui:data-cy": "new-repo-input",
     },

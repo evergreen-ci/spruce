@@ -15,16 +15,16 @@ describe("useTestContext", () => {
     });
 
     expect(result.current.getTab("foo")).toStrictEqual({
-      formData: null,
-      hasChanges: false,
       hasError: false,
+      hasChanges: false,
       initialData: null,
+      formData: null,
     });
     expect(result.current.getTab("bar")).toStrictEqual({
-      formData: null,
-      hasChanges: false,
       hasError: false,
+      hasChanges: false,
       initialData: null,
+      formData: null,
     });
   });
 
@@ -38,16 +38,16 @@ describe("useTestContext", () => {
     });
 
     expect(result.current.getTab("foo")).toStrictEqual({
-      formData: null,
-      hasChanges: false,
       hasError: false,
+      hasChanges: false,
       initialData: initialData.foo,
+      formData: null,
     });
     expect(result.current.getTab("bar")).toStrictEqual({
-      formData: null,
-      hasChanges: false,
       hasError: false,
+      hasChanges: false,
       initialData: initialData.bar,
+      formData: null,
     });
   });
 
@@ -62,8 +62,8 @@ describe("useTestContext", () => {
 
     act(() => {
       result.current.updateForm("foo")({
-        errors: [],
         formData: { capsLockEnabled: false },
+        errors: [],
       });
     });
 
@@ -85,8 +85,8 @@ describe("useTestContext", () => {
 
     act(() => {
       result.current.updateForm("foo")({
-        errors: [],
         formData: initialData.foo,
+        errors: [],
       });
     });
 
@@ -101,8 +101,8 @@ describe("useTestContext", () => {
 
     act(() => {
       result.current.updateForm("foo")({
-        errors: [{ name: "err" } as AjvError],
         formData: initialData.foo,
+        errors: [{ name: "err" } as AjvError],
       });
     });
 
@@ -134,8 +134,8 @@ describe("useHasUnsavedTab", () => {
 
     act(() => {
       result.current.updateForm("bar")({
+        formData: { name: "Sophie", age: 27 },
         errors: [],
-        formData: { age: 27, name: "Sophie" },
       });
     });
 
@@ -159,16 +159,16 @@ describe("usePopulateForm", () => {
     );
     expect(result.current.hasUnsaved).toBe(false);
     expect(result.current.getTab("foo")).toStrictEqual({
-      formData: { capsLockEnabled: true },
       hasChanges: false,
       hasError: false,
       initialData: null,
+      formData: { capsLockEnabled: true },
     });
     expect(result.current.getTab("bar")).toStrictEqual({
-      formData: null,
       hasChanges: false,
       hasError: false,
       initialData: null,
+      formData: null,
     });
   });
 });

@@ -25,15 +25,15 @@ export const gqlToForm = ((data, { projectType }) => {
   } = data;
 
   return {
+    triggersOverride: projectType !== ProjectType.AttachedProject || !!triggers,
     triggers:
       triggers?.map((trigger) =>
         omitTypename({
           ...trigger,
-          displayTitle: getTitle(trigger),
           level: trigger.level as ProjectTriggerLevel,
+          displayTitle: getTitle(trigger),
         })
       ) ?? [],
-    triggersOverride: projectType !== ProjectType.AttachedProject || !!triggers,
   };
 }) satisfies GqlToFormFunction<Tab>;
 
@@ -42,14 +42,14 @@ export const formToGql = (({ triggers, triggersOverride }, projectId) => ({
     id: projectId,
     triggers: triggersOverride
       ? triggers.map((trigger) => ({
-          alias: trigger.alias,
-          buildVariantRegex: trigger.buildVariantRegex,
-          configFile: trigger.configFile,
-          dateCutoff: trigger.dateCutoff,
-          level: trigger.level,
           project: trigger.project,
-          status: trigger.status,
+          level: trigger.level,
+          buildVariantRegex: trigger.buildVariantRegex,
           taskRegex: trigger.taskRegex,
+          status: trigger.status,
+          dateCutoff: trigger.dateCutoff,
+          configFile: trigger.configFile,
+          alias: trigger.alias,
         }))
       : null,
   },

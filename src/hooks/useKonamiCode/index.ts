@@ -59,44 +59,44 @@ const useKonamiCode = () => {
       //   eslint-disable-next-line no-restricted-syntax
       for (const key of TaskKeys) {
         cache.modify({
-          broadcast: true,
+          id: key,
           fields: {
             status: () => TaskStatus.Succeeded,
           },
-          id: key,
+          broadcast: true,
         });
       }
       //   eslint-disable-next-line no-restricted-syntax
       for (const key of VersionKeys) {
         cache.modify({
-          broadcast: true,
+          id: key,
           fields: {
-            buildVariantStats: (stats) => {
-              const newStats = stats.map((stat) => ({
-                ...stat,
-                statusCounts: [
-                  {
-                    __typename: "StatusCount",
-                    count: 100,
-                    status: TaskStatus.Succeeded,
-                  },
-                ],
-              }));
-              return newStats;
-            },
             status: () => PatchStatus.Success,
             taskStatusStats: (stats) => ({
               ...stats,
               counts: [
                 {
-                  __typename: "StatusCount",
                   count: 100,
                   status: TaskStatus.Succeeded,
+                  __typename: "StatusCount",
                 },
               ],
             }),
+            buildVariantStats: (stats) => {
+              const newStats = stats.map((stat) => ({
+                ...stat,
+                statusCounts: [
+                  {
+                    count: 100,
+                    status: TaskStatus.Succeeded,
+                    __typename: "StatusCount",
+                  },
+                ],
+              }));
+              return newStats;
+            },
           },
-          id: key,
+          broadcast: true,
         });
       }
     }

@@ -60,8 +60,8 @@ export const parseSortString = (sortQuery: string | string[]): SortOrder[] => {
         return;
       }
       sorts = sorts.concat({
-        Direction: parts[1] as SortDirection,
         Key: parts[0] as TaskSortCategory,
+        Direction: parts[1] as SortDirection,
       });
     });
   }

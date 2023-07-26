@@ -12,7 +12,7 @@ describe("stringifyQuery", () => {
   });
 
   it("should handle objects with multiple properties", () => {
-    const result = stringifyQuery({ baz: 42, foo: "bar" });
+    const result = stringifyQuery({ foo: "bar", baz: 42 });
     expect(result).toBe("baz=42&foo=bar");
   });
 
@@ -24,12 +24,12 @@ describe("stringifyQuery", () => {
 
 describe("stringifyQueryAsValue", () => {
   it("should skip null properties", () => {
-    const result = stringifyQueryAsValue({ baz: null, foo: "bar" });
+    const result = stringifyQueryAsValue({ foo: "bar", baz: null });
     expect(result).toBe("foo=bar");
   });
 
   it("should handle objects with multiple properties", () => {
-    const result = stringifyQueryAsValue({ baz: 42, foo: "bar" });
+    const result = stringifyQueryAsValue({ foo: "bar", baz: 42 });
     expect(result).toBe("baz=42&foo=bar");
   });
 
@@ -38,17 +38,17 @@ describe("stringifyQueryAsValue", () => {
     expect(result).toBe("foo=bar,baz");
   });
   it("should skip empty strings", () => {
-    const result = stringifyQueryAsValue({ bar: null, foo: "" });
+    const result = stringifyQueryAsValue({ foo: "", bar: null });
     expect(result).toBe("");
   });
   it("should preserve empty strings if skipEmptyString is passed in", () => {
     let result = stringifyQueryAsValue(
-      { bar: null, foo: "" },
+      { foo: "", bar: null },
       { skipEmptyString: false }
     );
     expect(result).toBe("foo=");
     result = stringifyQueryAsValue(
-      { bar: 21, foo: "" },
+      { foo: "", bar: 21 },
       { skipEmptyString: false }
     );
     expect(result).toBe("bar=21&foo=");

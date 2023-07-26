@@ -60,38 +60,38 @@ export const DownstreamProjectAccordion: React.VFC<
   const { sendEvent } = useVersionAnalytics(id);
 
   const defaultSort: SortOrder = {
-    Direction: SortDirection.Asc,
     Key: TaskSortCategory.Status,
+    Direction: SortDirection.Asc,
   };
 
   const [state, dispatch] = useReducer(reducer, {
     baseStatuses: [],
-    baseStatusesInputVal: [],
-    currentStatusesInputVal: [],
     limit: 10,
     page: 0,
-    sorts: [defaultSort],
     statuses: [],
     taskName: "",
-    taskNameInputVal: "",
     variant: "",
+    baseStatusesInputVal: [],
+    currentStatusesInputVal: [],
+    taskNameInputVal: "",
     variantInputVal: "",
+    sorts: [defaultSort],
   });
 
   const { baseStatuses, limit, page, sorts, statuses, taskName, variant } =
     state;
 
   const variables = {
+    versionId: childPatchId,
     taskFilterOptions: {
-      baseStatuses,
       limit,
       page,
-      sorts,
       statuses,
       taskName,
       variant,
+      sorts,
+      baseStatuses,
     },
-    versionId: childPatchId,
   };
 
   const { baseStatusesInputVal, currentStatusesInputVal } = state;
@@ -101,52 +101,52 @@ export const DownstreamProjectAccordion: React.VFC<
     });
 
   const taskNameInputProps = {
-    onChange: ({ target }) =>
-      dispatch({ task: target.value, type: "onChangeTaskNameInput" }),
-    onFilter: () => dispatch({ type: "onFilterTaskNameInput" }),
     placeholder: "Task name",
     value: state.taskNameInputVal,
+    onChange: ({ target }) =>
+      dispatch({ type: "onChangeTaskNameInput", task: target.value }),
+    onFilter: () => dispatch({ type: "onFilterTaskNameInput" }),
   };
 
   const variantInputProps = {
+    placeholder: "Variant name",
+    value: state.variantInputVal,
     onChange: ({ target }) =>
       dispatch({
         type: "onChangeVariantInput",
         variant: target.value,
       }),
     onFilter: () => dispatch({ type: "onFilterVariantInput" }),
-    placeholder: "Variant name",
-    value: state.variantInputVal,
   };
 
   const baseStatusSelectorProps = {
-    onChange: (s: string[]) =>
-      dispatch({ baseStatuses: s, type: "setAndSubmitBaseStatusesSelector" }),
     state: baseStatusesInputVal,
     tData: currentBaseStatuses,
+    onChange: (s: string[]) =>
+      dispatch({ type: "setAndSubmitBaseStatusesSelector", baseStatuses: s }),
   };
 
   const statusSelectorProps = {
-    onChange: (s: string[]) =>
-      dispatch({
-        statuses: s,
-        type: "setAndSubmitStatusesSelector",
-      }),
     state: currentStatusesInputVal,
     tData: currentStatuses,
+    onChange: (s: string[]) =>
+      dispatch({
+        type: "setAndSubmitStatusesSelector",
+        statuses: s,
+      }),
   };
 
   const { data, refetch, startPolling, stopPolling } = useQuery<
     VersionTasksQuery,
     VersionTasksQueryVariables
   >(GET_VERSION_TASKS, {
+    variables,
     fetchPolicy: "cache-and-network",
     onError: (err) => {
       dispatchToast.error(`Error fetching downstream tasks ${err}`);
     },
-    variables,
   });
-  usePolling({ refetch, startPolling, stopPolling });
+  usePolling({ startPolling, stopPolling, refetch });
   const showSkeleton = !data;
   const { version } = data || {};
   const { isPatch, tasks } = version || {};
@@ -163,8 +163,8 @@ export const DownstreamProjectAccordion: React.VFC<
 
   const tableChangeHandler: TableProps<Task>["onChange"] = (...[, , sorter]) =>
     dispatch({
-      sorts: parseSortString(toSortString(sorter)),
       type: "onSort",
+      sorts: parseSortString(toSortString(sorter)),
     });
 
   return (
@@ -190,10 +190,10 @@ export const DownstreamProjectAccordion: React.VFC<
                 label="tasks"
                 onClear={() => dispatch({ type: "clearAllFilters" })}
                 onPageChange={(p) => {
-                  dispatch({ page: p, type: "onChangePagination" });
+                  dispatch({ type: "onChangePagination", page: p });
                 }}
                 onPageSizeChange={(l) => {
-                  dispatch({ limit: l, type: "onChangeLimit" });
+                  dispatch({ type: "onChangeLimit", limit: l });
                 }}
                 limit={limit}
                 page={page}

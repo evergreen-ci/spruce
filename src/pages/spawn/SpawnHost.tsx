@@ -18,21 +18,21 @@ export const SpawnHost = () => {
     MyHostsQuery,
     MyHostsQueryVariables
   >(GET_MY_HOSTS, {
+    pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (e) => {
       dispatchToast.error(
         `There was an error loading your spawn hosts: ${e.message}`
       );
     },
-    pollInterval: DEFAULT_POLL_INTERVAL,
   });
   const migrationInProcess = !!data?.myHosts.find(
     ({ volumes }) => !!volumes.find(({ migrating }) => migrating)
   );
   usePolling({
-    refetch,
-    shouldPollFaster: migrationInProcess,
     startPolling,
     stopPolling,
+    refetch,
+    shouldPollFaster: migrationInProcess,
   });
 
   usePageTitle("My Hosts");

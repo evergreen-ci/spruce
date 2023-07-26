@@ -71,8 +71,8 @@ const useKeyboardShortcut = (
           }
           cbRef.current();
           sendEvent({
-            keys: getPressedKeysAsString(keys),
             name: "Used Shortcut",
+            keys: getPressedKeysAsString(keys),
           });
         }
       }

@@ -211,7 +211,7 @@ const setTaskPriority: ApolloMock<
 > = {
   request: {
     query: SET_TASK_PRIORITY,
-    variables: { priority: 99, taskId: "task_id" },
+    variables: { taskId: "task_id", priority: 99 },
   },
   result: {
     data: {

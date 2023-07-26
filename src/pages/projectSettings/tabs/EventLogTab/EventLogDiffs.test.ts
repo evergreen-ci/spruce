@@ -102,9 +102,9 @@ describe("should transform event diffs to key, before and after", () => {
     const diffLines = getEventDiffLines(beforeUpdate, afterUpdate);
     expect(diffLines).toStrictEqual([
       {
-        after: "noLongerNewAlias",
-        before: "newAlias",
         key: "projectRef.patchTriggerAliases[0].alias",
+        before: "newAlias",
+        after: "noLongerNewAlias",
       },
     ]);
   });
@@ -112,14 +112,14 @@ describe("should transform event diffs to key, before and after", () => {
     const diffLines = getEventDiffLines(beforeAddition, afterAddition);
     expect(diffLines).toStrictEqual([
       {
-        after: "newAlias",
-        before: undefined,
         key: "projectRef.patchTriggerAliases[0].alias",
+        before: undefined,
+        after: "newAlias",
       },
       {
-        after: "evg",
-        before: undefined,
         key: "projectRef.patchTriggerAliases[0].childProjectIdentifier",
+        before: undefined,
+        after: "evg",
       },
     ]);
   });
@@ -127,9 +127,9 @@ describe("should transform event diffs to key, before and after", () => {
     const diffLines = getEventDiffLines(beforeDeletion, afterDeletion);
     expect(diffLines).toStrictEqual([
       {
-        after: undefined,
-        before: "so new",
         key: "vars.vars.newVariable",
+        before: "so new",
+        after: undefined,
       },
     ]);
   });

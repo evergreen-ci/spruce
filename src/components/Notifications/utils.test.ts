@@ -18,12 +18,12 @@ describe("getGqlPayload", () => {
       regex_selectors: [],
       resource_type: "TASK",
       selectors: [
-        { data: "task", type: "object" },
-        { data: "task_id", type: "id" },
+        { type: "object", data: "task" },
+        { type: "id", data: "task_id" },
       ],
       subscriber: {
-        target: "@fake.user",
         type: "slack",
+        target: "@fake.user",
       },
       trigger: "exceeds-duration",
       trigger_data: { "task-duration-secs": "10" },
@@ -42,12 +42,12 @@ describe("getGqlPayload", () => {
       regex_selectors: [],
       resource_type: "VERSION",
       selectors: [
-        { data: "version", type: "object" },
-        { data: "version_id", type: "id" },
+        { type: "object", data: "version" },
+        { type: "id", data: "version_id" },
       ],
       subscriber: {
-        target: "fake.user@mongodb.com",
         type: "email",
+        target: "fake.user@mongodb.com",
       },
       trigger: "runtime-change",
       trigger_data: { "version-percent-change": "10" },
@@ -65,22 +65,22 @@ describe("getGqlPayload", () => {
       owner_type: "person",
       regex_selectors: [
         {
-          data: "bv_id",
           type: "build-variant",
+          data: "bv_id",
         },
         {
-          data: "bv_name",
           type: "display-name",
+          data: "bv_name",
         },
       ],
       resource_type: "BUILD",
       selectors: [
-        { data: "project_id", type: "project" },
-        { data: "gitter_request", type: "requester" },
+        { type: "project", data: "project_id" },
+        { type: "requester", data: "gitter_request" },
       ],
       subscriber: {
-        target: "FAKE-123",
         type: "jira-comment",
+        target: "FAKE-123",
       },
       trigger: "outcome",
       trigger_data: { requester: "gitter_request" },
@@ -99,12 +99,12 @@ describe("getGqlPayload", () => {
       regex_selectors: [],
       resource_type: "VERSION",
       selectors: [
-        { data: "version", type: "object" },
-        { data: "version_id", type: "id" },
+        { type: "object", data: "version" },
+        { type: "id", data: "version_id" },
       ],
       subscriber: {
-        target: "fake.user@mongodb.com",
         type: "email",
+        target: "fake.user@mongodb.com",
       },
       trigger: "family-outcome",
       trigger_data: {},
@@ -114,58 +114,58 @@ describe("getGqlPayload", () => {
 
 const taskFormState = {
   event: {
-    eventSelect: "task-exceeds-duration",
     extraFields: {
       "task-duration-secs": "10",
     },
+    eventSelect: "task-exceeds-duration",
     regexSelector: [],
   },
   notification: {
-    emailInput: "fake.user@mongodb.com",
-    jiraCommentInput: "",
     notificationSelect: "slack",
+    jiraCommentInput: "",
     slackInput: "@fake.user",
+    emailInput: "fake.user@mongodb.com",
   },
 };
 
 const versionFormState = {
   event: {
-    eventSelect: "version-runtime-change",
     extraFields: {
       "version-percent-change": "10",
     },
     regexSelector: [],
+    eventSelect: "version-runtime-change",
   },
   notification: {
-    emailInput: "fake.user@mongodb.com",
-    jiraCommentInput: "",
     notificationSelect: "email",
+    jiraCommentInput: "",
     slackInput: "@fake.user",
+    emailInput: "fake.user@mongodb.com",
   },
 };
 
 const projectFormState = {
   event: {
-    eventSelect: "any-build-finishes",
     extraFields: {
       requester: "gitter_request",
     },
     regexSelector: [
       {
-        regexInput: "bv_id",
         regexSelect: "build-variant",
+        regexInput: "bv_id",
       },
       {
-        regexInput: "bv_name",
         regexSelect: "display-name",
+        regexInput: "bv_name",
       },
     ],
+    eventSelect: "any-build-finishes",
   },
   notification: {
-    emailInput: "",
-    jiraCommentInput: "FAKE-123",
     notificationSelect: "jira-comment",
+    jiraCommentInput: "FAKE-123",
     slackInput: "",
+    emailInput: "",
   },
 };
 
@@ -173,23 +173,22 @@ const omitFieldsFormState = {
   event: {
     // Neither of these extra fields are applicable to the "version-finishes" event.
     extraFields: {
-      "version-duration-secs": "10",
       "version-percent-change": "10",
+      "version-duration-secs": "10",
     },
-
-    eventSelect: "version-finishes",
     // Regex fields are not applicable to the "version-finishes" event.
     regexSelector: [
       {
-        regexInput: "bv_id",
         regexSelect: "build-variant",
+        regexInput: "bv_id",
       },
     ],
+    eventSelect: "version-finishes",
   },
   notification: {
-    emailInput: "fake.user@mongodb.com",
-    jiraCommentInput: "",
     notificationSelect: "email",
+    jiraCommentInput: "",
     slackInput: "@fake.user",
+    emailInput: "fake.user@mongodb.com",
   },
 };

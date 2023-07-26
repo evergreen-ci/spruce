@@ -39,7 +39,7 @@ export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
   const updateQueryParams = useUpdateURLQueryParams();
   const taskAnalytics = useTaskAnalytics();
   const sendFilterTestsEvent = (filterBy: string) =>
-    taskAnalytics.sendEvent({ filterBy, name: "Filter Tests" });
+    taskAnalytics.sendEvent({ name: "Filter Tests", filterBy });
 
   const queryVariables = getQueryVariables(search, task.id);
   const { limitNum, pageNum, sort } = queryVariables;
@@ -62,38 +62,38 @@ export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
   }, [pathname, updateQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const statusesFilter = useStatusesFilter({
+    urlParam: RequiredQueryParams.Statuses,
     resetPage: false,
     sendAnalyticsEvent: sendFilterTestsEvent,
-    urlParam: RequiredQueryParams.Statuses,
   });
 
   const statusSelectorProps = {
-    onChange: statusesFilter.setAndSubmitInputValue,
     state: statusesFilter.inputValue,
     tData: testStatusesFilterTreeData,
+    onChange: statusesFilter.setAndSubmitInputValue,
   };
 
   const testNameFilterInputChangeHandler = useFilterInputChangeHandler({
+    urlParam: RequiredQueryParams.TestName,
     resetPage: true,
     sendAnalyticsEvent: sendFilterTestsEvent,
-    urlParam: RequiredQueryParams.TestName,
   });
 
   const testNameInputProps = {
     "data-cy": "testname-input",
+    placeholder: "Test name regex",
+    value: testNameFilterInputChangeHandler.inputValue,
     onChange: ({ target }) =>
       testNameFilterInputChangeHandler.setInputValue(target.value),
     onFilter: testNameFilterInputChangeHandler.submitInputValue,
-    placeholder: "Test name regex",
-    value: testNameFilterInputChangeHandler.inputValue,
   };
 
   const columns = getColumnsTemplate({
     onColumnHeaderClick: (sortField) =>
       taskAnalytics.sendEvent({ name: "Sort Tests Table", sortBy: sortField }),
     statusSelectorProps,
-    task,
     testNameInputProps,
+    task,
   }).map((column) => ({
     ...column,
     ...(column.key === cat && {
@@ -107,11 +107,11 @@ export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
     TaskTestsQuery,
     TaskTestsQueryVariables
   >(GET_TASK_TESTS, {
-    pollInterval: DEFAULT_POLL_INTERVAL,
-    skip: queryVariables.execution === null,
     variables: queryVariables,
+    skip: queryVariables.execution === null,
+    pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  usePolling({ refetch, startPolling, stopPolling });
+  usePolling({ startPolling, stopPolling, refetch });
 
   // update url query params when user event triggers change
   const tableChangeHandler: TableOnChange<TestResult> = (...[, , sorter]) => {
@@ -203,7 +203,7 @@ const getQueryVariables = (
       ? SortDirection.Desc
       : SortDirection.Asc;
 
-  const sort = sortBy && direction ? [{ direction, sortBy }] : [];
+  const sort = sortBy && direction ? [{ sortBy, direction }] : [];
 
   const testName = (parsed[RequiredQueryParams.TestName] ?? "").toString();
   const rawStatuses = parsed[RequiredQueryParams.Statuses];
@@ -212,12 +212,12 @@ const getQueryVariables = (
   ).filter((v) => v && v !== TestStatus.All);
   const execution = parsed[RequiredQueryParams.Execution];
   return {
-    execution: queryParamAsNumber(execution),
     id: taskId,
-    limitNum: getLimitFromSearch(search),
-    pageNum: getPageFromSearch(search),
+    execution: queryParamAsNumber(execution),
     sort,
+    limitNum: getLimitFromSearch(search),
     statusList,
     testName,
+    pageNum: getPageFromSearch(search),
   };
 };

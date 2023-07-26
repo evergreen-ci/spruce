@@ -29,269 +29,224 @@ export const getFormSchema = (
     repotrackerField: RepotrackerField,
   },
   schema: {
+    type: "object" as "object",
     properties: {
       generalConfiguration: {
+        type: "object" as "object",
+        title: "General Configuration",
         properties: {
           ...(projectType !== ProjectType.Repo && {
             enabled: {
-              oneOf: radioBoxOptions(["Enabled", "Disabled"]),
               type: "boolean" as "boolean",
+              oneOf: radioBoxOptions(["Enabled", "Disabled"]),
             },
           }),
           repositoryInfo: {
+            type: "object" as "object",
+            title: "Repository Info",
+            required: ["owner", "repo"],
             properties: {
               owner: {
-                default: "",
+                type: "string" as "string",
+                title: "Owner",
                 format: "noSpaces",
                 minLength: getMinLength(projectType, repoData, "owner"),
-                title: "Owner",
-                type: "string" as "string",
+                default: "",
               },
               repo: {
-                default: "",
+                type: "string" as "string",
+                title: "Repository",
                 format: "noSpaces",
                 minLength: getMinLength(projectType, repoData, "repo"),
-                title: "Repository",
-                type: "string" as "string",
+                default: "",
               },
             },
-            required: ["owner", "repo"],
-            title: "Repository Info",
-            type: "object" as "object",
           },
           ...(projectType !== ProjectType.Repo && {
             branch: {
-              title: "Branch Name",
               type: "string" as "string",
+              title: "Branch Name",
             },
           }),
           other: {
+            type: "object" as "object",
+            title: "Other",
             properties: {
               displayName: {
-                title: "Display Name",
                 type: "string" as "string",
+                title: "Display Name",
               },
               ...(projectType !== ProjectType.Repo && {
                 identifier: {
+                  type: "string" as "string",
+                  title: "Identifier",
                   default: "",
                   minLength: 1,
-                  title: "Identifier",
-                  type: "string" as "string",
                 },
               }),
               batchTime: {
-                minimum: 1,
-                title: "Batch Time",
                 type: ["number", "null"],
+                title: "Batch Time",
+                minimum: 1,
               },
               remotePath: {
-                title: "Config File",
                 type: "string" as "string",
+                title: "Config File",
               },
               spawnHostScriptPath: {
-                title: "Spawn Host Script Path",
                 type: "string" as "string",
+                title: "Spawn Host Script Path",
               },
               versionControlEnabled: {
+                type: ["boolean", "null"],
+                title: "Version Control",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
                   repoData?.generalConfiguration?.other?.versionControlEnabled
                 ),
-                title: "Version Control",
-                type: ["boolean", "null"],
               },
             },
-            title: "Other",
-            type: "object" as "object",
           },
         },
-        title: "General Configuration",
-        type: "object" as "object",
-      },
-      historicalTaskDataCaching: {
-        properties: {
-          disabledStatsCache: {
-            oneOf: radioBoxOptions(
-              ["Enabled", "Disabled"],
-              repoData?.historicalTaskDataCaching?.disabledStatsCache,
-              true
-            ),
-            title: "Cache Daily Task Statistics",
-            type: ["boolean", "null"],
-          },
-        },
-        title: "Historical Task Data Caching Info",
-        type: "object" as "object",
       },
       projectFlags: {
+        type: "object" as "object",
+        title: "Project Flags",
         properties: {
           dispatchingDisabled: {
+            type: ["boolean", "null"],
+            title: "Dispatching",
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
               repoData?.projectFlags?.dispatchingDisabled,
               true
             ),
-            title: "Dispatching",
-            type: ["boolean", "null"],
-          },
-          patch: {
-            description:
-              "Sets if users are allowed to create patches for this branch.",
-            properties: {
-              patchingDisabled: {
-                oneOf: radioBoxOptions(
-                  ["Enabled", "Disabled"],
-                  repoData?.projectFlags?.patch?.patchingDisabled,
-                  true
-                ),
-                title: "Patching",
-                type: ["boolean", "null"],
-              },
-            },
-            title: "Patch Settings",
-            type: "object" as "object",
           },
           repotracker: {
+            type: "object" as "object",
+            title: "Repotracker Settings",
             properties: {
-              forceRun: {
-                type: "null" as "null",
-              },
               repotrackerDisabled: {
+                type: ["boolean", "null"],
+                title: "Repotracker",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
                   repoData?.projectFlags?.repotracker?.repotrackerDisabled,
                   true
                 ),
-                title: "Repotracker",
-                type: ["boolean", "null"],
+              },
+              forceRun: {
+                type: "null" as "null",
               },
             },
-            title: "Repotracker Settings",
-            type: "object" as "object",
           },
           scheduling: {
+            type: "object" as "object",
+            title: "Scheduling Settings",
             properties: {
               deactivatePrevious: {
+                type: ["boolean", "null"],
+                title: "Old Task on Success",
                 oneOf: radioBoxOptions(
                   ["Unschedule", "Don't Unschedule"],
                   repoData?.projectFlags?.scheduling?.deactivatePrevious
                 ),
-                title: "Old Task on Success",
-                type: ["boolean", "null"],
-              },
-              deactivateStepback: {
-                type: "null" as "null",
               },
               stepbackDisabled: {
+                type: ["boolean", "null"],
+                title: "Stepback",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
                   repoData?.projectFlags?.scheduling?.stepbackDisabled,
                   true
                 ),
-                title: "Stepback",
-                type: ["boolean", "null"],
+              },
+              deactivateStepback: {
+                type: "null" as "null",
               },
             },
-            title: "Scheduling Settings",
+          },
+          patch: {
             type: "object" as "object",
+            title: "Patch Settings",
+            description:
+              "Sets if users are allowed to create patches for this branch.",
+            properties: {
+              patchingDisabled: {
+                type: ["boolean", "null"],
+                title: "Patching",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  repoData?.projectFlags?.patch?.patchingDisabled,
+                  true
+                ),
+              },
+            },
           },
           taskSync: {
+            type: "object" as "object",
+            title: "Task Sync",
             properties: {
               configEnabled: {
+                type: ["boolean", "null"],
+                title: "Project Config Commands",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
                   repoData?.projectFlags?.taskSync.configEnabled
                 ),
-                title: "Project Config Commands",
-                type: ["boolean", "null"],
               },
               patchEnabled: {
+                type: ["boolean", "null"],
+                title: "Task in Patches",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
                   repoData?.projectFlags?.taskSync.patchEnabled
                 ),
-                title: "Task in Patches",
-                type: ["boolean", "null"],
               },
             },
-            title: "Task Sync",
-            type: "object" as "object",
           },
         },
-        title: "Project Flags",
+      },
+      historicalTaskDataCaching: {
         type: "object" as "object",
+        title: "Historical Task Data Caching Info",
+        properties: {
+          disabledStatsCache: {
+            type: ["boolean", "null"],
+            title: "Cache Daily Task Statistics",
+            oneOf: radioBoxOptions(
+              ["Enabled", "Disabled"],
+              repoData?.historicalTaskDataCaching?.disabledStatsCache,
+              true
+            ),
+          },
+        },
       },
       ...(projectType === ProjectType.AttachedProject && {
         delete: {
+          type: "object" as "object",
+          title: "Delete Project",
           properties: {
             deleteProject: {
               type: "null" as "null",
             },
           },
-          title: "Delete Project",
-          type: "object" as "object",
         },
       }),
     },
-    type: "object" as "object",
   },
   uiSchema: {
-    delete: {
-      deleteProject: {
-        options: { projectId },
-        "ui:field": "deleteProjectField",
-        "ui:showLabel": false,
-      },
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      "ui:rootFieldId": "removeProject",
-    },
     generalConfiguration: {
-      branch: {
-        ...placeholderIf(repoData?.generalConfiguration?.branch),
-      },
+      "ui:rootFieldId": "generalConfiguration",
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
       enabled: {
-        "ui:data-cy": "enabled-radio-box",
-        "ui:showLabel": false,
         "ui:widget": widgets.RadioBoxWidget,
-      },
-      other: {
-        batchTime: {
-          "ui:data-cy": "batch-time-input",
-          "ui:description":
-            "The interval of time (in minutes) that Evergreen should wait in between activating the latest version.",
-          ...placeholderIf(repoData?.generalConfiguration?.other?.batchTime),
-        },
-        displayName: {
-          "ui:data-cy": "display-name-input",
-        },
-        identifier: {
-          "ui:data-cy": "identifier-input",
-          ...(identifierHasChanges && {
-            "ui:warnings": [
-              "Updates made to the project identifier will change the identifier used for the CLI, inter-project dependencies, etc. Project users should be made aware of this change, as the old identifier will no longer work.",
-            ],
-          }),
-        },
-        remotePath: {
-          "ui:description":
-            "Path to yaml file where project tasks, variants, and other settings are defined.",
-          ...placeholderIf(repoData?.generalConfiguration?.other?.remotePath),
-        },
-        spawnHostScriptPath: {
-          "ui:data-cy": "spawn-host-input",
-          "ui:description":
-            "This is the bash setup script to optionally run on spawn hosts created from tasks.",
-          "ui:optional": true,
-          ...placeholderIf(
-            repoData?.generalConfiguration?.other?.spawnHostScriptPath
-          ),
-        },
-        versionControlEnabled: {
-          "ui:description": VersionControlEnabledDescription,
-          "ui:widget": widgets.RadioBoxWidget,
-        },
+        "ui:showLabel": false,
+        "ui:data-cy": "enabled-radio-box",
       },
       repositoryInfo: {
+        "ui:field": "repoConfigField",
+        "ui:disabled": projectType !== ProjectType.Project,
         options: {
           initialOwner,
           initialRepo,
@@ -311,75 +266,120 @@ export const getFormSchema = (
             repoData?.generalConfiguration?.repositoryInfo?.repo
           ),
         },
-        "ui:disabled": projectType !== ProjectType.Project,
-        "ui:field": "repoConfigField",
       },
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      "ui:rootFieldId": "generalConfiguration",
-    },
-    historicalTaskDataCaching: {
-      disabledStatsCache: {
-        "ui:description":
-          "Task execution statistics aggregated by project, build variant, distro, task name, and task creation date.",
-        "ui:widget": widgets.RadioBoxWidget,
+      branch: {
+        ...placeholderIf(repoData?.generalConfiguration?.branch),
       },
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      "ui:rootFieldId": "historicalTaskDataCaching",
+      other: {
+        displayName: {
+          "ui:data-cy": "display-name-input",
+        },
+        identifier: {
+          "ui:data-cy": "identifier-input",
+          ...(identifierHasChanges && {
+            "ui:warnings": [
+              "Updates made to the project identifier will change the identifier used for the CLI, inter-project dependencies, etc. Project users should be made aware of this change, as the old identifier will no longer work.",
+            ],
+          }),
+        },
+        batchTime: {
+          "ui:description":
+            "The interval of time (in minutes) that Evergreen should wait in between activating the latest version.",
+          "ui:data-cy": "batch-time-input",
+          ...placeholderIf(repoData?.generalConfiguration?.other?.batchTime),
+        },
+        remotePath: {
+          "ui:description":
+            "Path to yaml file where project tasks, variants, and other settings are defined.",
+          ...placeholderIf(repoData?.generalConfiguration?.other?.remotePath),
+        },
+        spawnHostScriptPath: {
+          "ui:description":
+            "This is the bash setup script to optionally run on spawn hosts created from tasks.",
+          "ui:data-cy": "spawn-host-input",
+          "ui:optional": true,
+          ...placeholderIf(
+            repoData?.generalConfiguration?.other?.spawnHostScriptPath
+          ),
+        },
+        versionControlEnabled: {
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:description": VersionControlEnabledDescription,
+        },
+      },
     },
     projectFlags: {
+      "ui:rootFieldId": "projectFlags",
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
       dispatchingDisabled: {
-        "ui:description": "Sets if any tasks can be dispatched.",
         "ui:widget": widgets.RadioBoxWidget,
-      },
-      patch: {
-        patchingDisabled: {
-          "ui:showLabel": false,
-          "ui:widget": widgets.RadioBoxWidget,
-        },
+        "ui:description": "Sets if any tasks can be dispatched.",
       },
       repotracker: {
-        forceRun: {
-          options: { projectId },
-          "ui:field": "repotrackerField",
-          "ui:showLabel": false,
-        },
         repotrackerDisabled: {
+          "ui:widget": widgets.RadioBoxWidget,
           "ui:description": `The repotracker will be triggered from GitHub push events sent via webhook. 
             This creates mainline builds for merged commits.`,
-          "ui:widget": widgets.RadioBoxWidget,
+        },
+        forceRun: {
+          "ui:field": "repotrackerField",
+          "ui:showLabel": false,
+          options: { projectId },
         },
       },
       scheduling: {
         deactivatePrevious: {
+          "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
             "When unscheduled, tasks from previous revisions will be unscheduled when the equivalent task in a newer commit finishes successfully.",
-          "ui:widget": widgets.RadioBoxWidget,
-        },
-        deactivateStepback: {
-          options: { projectId },
-          "ui:field": "deactivateStepbackTask",
-          "ui:showLabel": false,
         },
         stepbackDisabled: {
+          "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
             "Disabling this setting will override all enabled stepback settings for the project. Disabling stepback won't cancel any active stepback tasks, but it will prevent any future ones.",
+        },
+        deactivateStepback: {
+          "ui:field": "deactivateStepbackTask",
+          "ui:showLabel": false,
+          options: { projectId },
+        },
+      },
+      patch: {
+        patchingDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
+          "ui:showLabel": false,
         },
       },
       taskSync: {
         configEnabled: {
+          "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
             "Enable commands (e.g. s3.push, s3.pull) to sync the task directory in S3 from the config file.",
-          "ui:widget": widgets.RadioBoxWidget,
         },
         patchEnabled: {
+          "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
             "Users can create patches that sync the task directory to S3 at the end of any task.",
-          "ui:widget": widgets.RadioBoxWidget,
         },
       },
+    },
+    historicalTaskDataCaching: {
+      "ui:rootFieldId": "historicalTaskDataCaching",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
-      "ui:rootFieldId": "projectFlags",
+      disabledStatsCache: {
+        "ui:widget": widgets.RadioBoxWidget,
+        "ui:description":
+          "Task execution statistics aggregated by project, build variant, distro, task name, and task creation date.",
+      },
+    },
+    delete: {
+      "ui:rootFieldId": "removeProject",
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      deleteProject: {
+        "ui:field": "deleteProjectField",
+        "ui:showLabel": false,
+        options: { projectId },
+      },
     },
   },
 });

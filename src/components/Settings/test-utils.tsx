@@ -20,13 +20,13 @@ export type FormStateMap = {
 };
 
 export const initialData = {
-  bar: { age: 26, name: "Sophie" },
   foo: { capsLockEnabled: true },
+  bar: { name: "Sophie", age: 26 },
 };
 
 const formToGqlMap = {
-  bar: (form: FormStateMap["bar"]) => form,
   foo: (form: FormStateMap["foo"]) => form,
+  bar: (form: FormStateMap["bar"]) => form,
 };
 
 const TestContext = createSettingsContext<TestRoutes, FormStateMap>();

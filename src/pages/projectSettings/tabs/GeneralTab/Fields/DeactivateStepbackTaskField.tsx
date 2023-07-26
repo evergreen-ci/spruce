@@ -44,8 +44,8 @@ const Modal: React.VFC<ModalProps> = ({ closeModal, open, projectId }) => {
     const { buildVariantName, taskName } = formState;
     deactivateStepbackTask({
       variables: {
-        buildVariantName,
         projectId,
+        buildVariantName,
         taskName,
       },
     });
@@ -123,22 +123,22 @@ const deactivateStepbackForm = {
     taskName: "",
   },
   schema: {
+    type: "object" as "object",
+    required: ["buildVariantName", "taskName"],
     properties: {
       buildVariantName: {
-        format: "noSpaces",
-        minLength: 1,
-        title: "Build Variant Name",
         type: "string" as "string",
+        title: "Build Variant Name",
+        minLength: 1,
+        format: "noSpaces",
       },
       taskName: {
-        format: "noSpaces",
-        minLength: 1,
-        title: "Task Name",
         type: "string" as "string",
+        title: "Task Name",
+        minLength: 1,
+        format: "noSpaces",
       },
     },
-    required: ["buildVariantName", "taskName"],
-    type: "object" as "object",
   },
   uiSchema: {
     buildVariantName: {

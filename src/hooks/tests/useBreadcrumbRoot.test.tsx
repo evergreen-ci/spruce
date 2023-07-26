@@ -70,12 +70,12 @@ const sameUserMock: ApolloMock<OtherUserQuery, OtherUserQueryVariables> = {
   },
   result: {
     data: {
-      currentUser: getUserMock.result.data.user,
       otherUser: {
         __typename: "User",
-        displayName: "Evergreen Admin",
         userId: "admin",
+        displayName: "Evergreen Admin",
       },
+      currentUser: getUserMock.result.data.user,
     },
   },
 };
@@ -89,12 +89,12 @@ const otherUserMock: ApolloMock<OtherUserQuery, OtherUserQueryVariables> = {
   },
   result: {
     data: {
-      currentUser: getUserMock.result.data.user,
       otherUser: {
         __typename: "User",
-        displayName: "John Doe",
         userId: "john.doe",
+        displayName: "John Doe",
       },
+      currentUser: getUserMock.result.data.user,
     },
   },
 };

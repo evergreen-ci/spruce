@@ -19,13 +19,13 @@ export const MultiSelect: React.VFC<EnumSpruceWidgetProps> = ({
 
   const dropdownOptions = [
     {
-      key: ALL_VALUE,
       title: "All",
+      key: ALL_VALUE,
       value: ALL_VALUE,
     },
     ...enumOptions.map((o) => ({
-      key: o.value,
       title: o.label,
+      key: o.value,
       value: o.value,
     })),
   ];

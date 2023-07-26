@@ -44,7 +44,7 @@ export const TagRow: React.VFC<TagRowProps> = ({
                 id={`tag_key_${tagId}`}
                 value={key}
                 onChange={(e) =>
-                  dispatch({ key: e.target.value, type: "updateTag" })
+                  dispatch({ type: "updateTag", key: e.target.value })
                 }
                 data-cy="user-tag-key-field"
               />

@@ -46,14 +46,17 @@ export const formToGql = ({
   );
 
   return {
+    hostId,
+    displayName: hostName,
+    volumeId: volume,
+    instanceType,
     addedInstanceTags: addedTags,
     deletedInstanceTags: deletedTags,
-    displayName: hostName,
     expiration: noExpiration ? null : new Date(expiration),
-    hostId,
-    instanceType,
     noExpiration,
+    servicePassword: rdpPassword,
     publicKey: {
+      name: useExisting ? publicKeyNameDropdown : newPublicKeyName,
       key: useExisting
         ? (
             myPublicKeys.find(({ name }) => name === publicKeyNameDropdown) ?? {
@@ -61,10 +64,7 @@ export const formToGql = ({
             }
           ).key
         : stripNewLines(newPublicKey),
-      name: useExisting ? publicKeyNameDropdown : newPublicKeyName,
     },
     savePublicKey: !useExisting && savePublicKey,
-    servicePassword: rdpPassword,
-    volumeId: volume,
   };
 };

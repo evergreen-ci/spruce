@@ -5,8 +5,8 @@ import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import TupleSelectWithRegexConditional from ".";
 
 export default {
-  component: TupleSelectWithRegexConditional,
   title: "Components/TupleSelect",
+  component: TupleSelectWithRegexConditional,
 } satisfies CustomMeta<typeof TupleSelectWithRegexConditional>;
 
 export const WithConditional: CustomStoryObj<
@@ -27,13 +27,13 @@ export const WithConditional: CustomStoryObj<
 
 const options = [
   {
+    value: "build_variant",
     displayName: "Build Variant",
     placeHolderText: "Search Build Variant names",
-    value: "build_variant",
   },
   {
+    value: "task",
     displayName: "Task",
     placeHolderText: "Search Task names",
-    value: "task",
   },
 ];

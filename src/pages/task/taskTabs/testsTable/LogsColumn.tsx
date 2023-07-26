@@ -43,8 +43,8 @@ export const LogsColumn: React.VFC<Props> = ({ task, testResult }) => {
           href={urlParsley}
           onClick={() =>
             sendEvent({
-              logViewer: "parsley",
               name: "Click Test Logs Button",
+              logViewer: "parsley",
               testStatus: status,
             })
           }
@@ -61,8 +61,8 @@ export const LogsColumn: React.VFC<Props> = ({ task, testResult }) => {
           href={urlLobster}
           onClick={() =>
             sendEvent({
-              logViewer: "lobster",
               name: "Click Test Logs Button",
+              logViewer: "lobster",
               testStatus: status,
             })
           }
@@ -79,8 +79,8 @@ export const LogsColumn: React.VFC<Props> = ({ task, testResult }) => {
           href={urlHTML}
           onClick={() =>
             sendEvent({
-              logViewer: "html",
               name: "Click Test Logs Button",
+              logViewer: "html",
               testStatus: status,
             })
           }
@@ -97,8 +97,8 @@ export const LogsColumn: React.VFC<Props> = ({ task, testResult }) => {
           href={urlRaw}
           onClick={() =>
             sendEvent({
-              logViewer: "raw",
               name: "Click Test Logs Button",
+              logViewer: "raw",
               testStatus: status,
             })
           }

@@ -42,7 +42,6 @@ export const NewUITab: React.VFC = () => {
       name: c ? "Opt into Spruce" : "Opt out of Spruce",
     });
     updateUserSettings({
-      refetchQueries: ["UserSettings"],
       variables: {
         userSettings: {
           useSpruceOptions: {
@@ -50,6 +49,7 @@ export const NewUITab: React.VFC = () => {
           },
         },
       },
+      refetchQueries: ["UserSettings"],
     });
   };
 

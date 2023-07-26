@@ -17,8 +17,8 @@ const getTooltipQueryMock: ApolloMock<
     data: {
       task: {
         __typename: "Task",
-        execution: 0,
         id: "task-id",
+        execution: 0,
         tests: {
           __typename: "TaskTestResult",
           filteredTestCount: 5,

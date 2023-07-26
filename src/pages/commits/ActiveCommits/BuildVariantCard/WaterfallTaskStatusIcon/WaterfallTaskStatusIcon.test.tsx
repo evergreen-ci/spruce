@@ -19,9 +19,9 @@ import { WaterfallTaskStatusIcon } from ".";
 
 const props = {
   displayName: "multiversion",
-  identifier: "ubuntu1604-multiversion",
-  taskId: "task",
   timeTaken: 2754729,
+  taskId: "task",
+  identifier: "ubuntu1604-multiversion",
 };
 
 jest.mock("../../utils");
@@ -113,8 +113,8 @@ const getTooltipQueryMock: ApolloMock<
     data: {
       task: {
         __typename: "Task",
-        execution: 0,
         id: "task",
+        execution: 0,
         tests: {
           __typename: "TaskTestResult",
           filteredTestCount: 3,

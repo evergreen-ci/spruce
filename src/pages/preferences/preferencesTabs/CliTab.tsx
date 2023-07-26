@@ -19,8 +19,8 @@ const Code = styled(InlineCode)`
 
 const list = [
   {
-    child: <DownloadCard />,
     title: "Download the Command-Line Client.",
+    child: <DownloadCard />,
   },
   {
     title: (
@@ -38,8 +38,8 @@ const list = [
     ),
   },
   {
-    child: <AuthenticationCard />,
     title: "Download the authentication file.",
+    child: <AuthenticationCard />,
   },
   {
     title: (
@@ -49,8 +49,8 @@ const list = [
     ),
   },
   {
-    child: <VerifyCard />,
     title: "Make sure you are good to go!",
+    child: <VerifyCard />,
   },
 ];
 

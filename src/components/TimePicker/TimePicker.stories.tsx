@@ -7,8 +7,8 @@ export default {
 } satisfies CustomMeta<typeof TimePicker>;
 
 export const Default: CustomStoryObj<TimePickerProps> = {
+  render: (args) => <TimePicker {...args} onChange={() => {}} />,
   args: {
     disabled: false,
   },
-  render: (args) => <TimePicker {...args} onChange={() => {}} />,
 };

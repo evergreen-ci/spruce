@@ -41,44 +41,14 @@ const HostExpiration: React.VFC<MyHost> = ({ expiration, noExpiration }) => {
   return <span>{noExpiration ? DoesNotExpire : getDateCopy(expiration)}</span>;
 };
 const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
-  "Availability Zone": (host: MyHost) => <span>{host?.availabilityZone}</span>,
-  "Created at": HostUptime,
-  "DNS Name": (host: MyHost) => <span>{host?.hostUrl}</span>,
-  "Expires at": HostExpiration,
-  "Home Volume": (host: MyHost) => (
-    <span>
-      <StyledRouterLink to={getSpawnVolumeRoute(host?.homeVolumeID)}>
-        {host?.homeVolume?.displayName || host?.homeVolumeID}
-      </StyledRouterLink>
-    </span>
-  ),
   ID: (host: MyHost) => <span>{host?.id}</span>,
-  IDE: (host: MyHost) =>
-    host?.distro?.isVirtualWorkStation &&
-    host?.status === HostStatus.Running ? (
-      <span>
-        <StyledLink
-          href={getIdeUrl(host.id)}
-          onClick={() => sendEvent({ name: "Opened IDE" })}
-        >
-          Open IDE
-        </StyledLink>
-      </span>
-    ) : undefined,
-  "Instance Type": (host: MyHost) => <span>{host?.instanceType}</span>,
-  "Mounted Volumes": (host: MyHost) => (
-    <>
-      {host.volumes.map(({ displayName, id }) => (
-        <div key={`volume_link_${id}`}>
-          <StyledRouterLink to={getSpawnVolumeRoute(id)}>
-            {displayName || id}
-          </StyledRouterLink>
-        </div>
-      ))}
-    </>
-  ),
-  "SSH User": (host: MyHost) => <span>{host?.distro?.user}</span>,
+  "Created at": HostUptime,
   "Started at": HostUptime,
+  "Expires at": HostExpiration,
+  "SSH User": (host: MyHost) => <span>{host?.distro?.user}</span>,
+  "DNS Name": (host: MyHost) => <span>{host?.hostUrl}</span>,
+  "Working Directory": (host: MyHost) => <span>{host?.distro?.workDir}</span>,
+  "Availability Zone": (host: MyHost) => <span>{host?.availabilityZone}</span>,
   "User Tags": (host: MyHost) => (
     <span>
       {host?.instanceTags?.map(
@@ -91,7 +61,37 @@ const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
       )}
     </span>
   ),
-  "Working Directory": (host: MyHost) => <span>{host?.distro?.workDir}</span>,
+  "Instance Type": (host: MyHost) => <span>{host?.instanceType}</span>,
+  "Mounted Volumes": (host: MyHost) => (
+    <>
+      {host.volumes.map(({ displayName, id }) => (
+        <div key={`volume_link_${id}`}>
+          <StyledRouterLink to={getSpawnVolumeRoute(id)}>
+            {displayName || id}
+          </StyledRouterLink>
+        </div>
+      ))}
+    </>
+  ),
+  "Home Volume": (host: MyHost) => (
+    <span>
+      <StyledRouterLink to={getSpawnVolumeRoute(host?.homeVolumeID)}>
+        {host?.homeVolume?.displayName || host?.homeVolumeID}
+      </StyledRouterLink>
+    </span>
+  ),
+  IDE: (host: MyHost) =>
+    host?.distro?.isVirtualWorkStation &&
+    host?.status === HostStatus.Running ? (
+      <span>
+        <StyledLink
+          href={getIdeUrl(host.id)}
+          onClick={() => sendEvent({ name: "Opened IDE" })}
+        >
+          Open IDE
+        </StyledLink>
+      </span>
+    ) : undefined,
 });
 
 const PaddedBadge = styled(Badge)`

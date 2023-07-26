@@ -70,9 +70,9 @@ export const useFilterInputChangeHandler = ({
 
   return {
     inputValue,
-    reset,
     setAndSubmitInputValue,
     setInputValue,
     submitInputValue,
+    reset,
   };
 };

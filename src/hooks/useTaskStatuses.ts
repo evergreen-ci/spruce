@@ -27,11 +27,11 @@ export const useTaskStatuses = ({
     TaskStatusesQuery,
     TaskStatusesQueryVariables
   >(GET_TASK_STATUSES, {
-    pollInterval: DEFAULT_POLL_INTERVAL,
     variables: { id: versionId },
+    pollInterval: DEFAULT_POLL_INTERVAL,
   });
 
-  usePolling({ refetch, startPolling, stopPolling });
+  usePolling({ startPolling, stopPolling, refetch });
 
   const { version } = data || {};
   const { baseTaskStatuses, taskStatuses } = version || {};
@@ -45,5 +45,5 @@ export const useTaskStatuses = ({
     [baseTaskStatuses]
   );
 
-  return { baseStatuses, currentStatuses };
+  return { currentStatuses, baseStatuses };
 };

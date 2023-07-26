@@ -106,10 +106,10 @@ export const VersionTabs: React.VFC<Props> = ({
       ? childPatches.filter((c) => c.status === PatchStatus.Failed).length
       : 0;
     return tabMap({
+      taskCount,
       childPatches,
       numFailedChildPatches,
       patchId: id,
-      taskCount,
     });
   }, [taskCount, childPatches, id]);
 

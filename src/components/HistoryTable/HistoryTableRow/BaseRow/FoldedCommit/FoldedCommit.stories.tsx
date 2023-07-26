@@ -10,9 +10,10 @@ export default {
 } satisfies CustomMeta<typeof FoldedCommit>;
 
 export const FoldedCommitStory: CustomStoryObj<typeof FoldedCommit> = {
+  render: (args) => <FoldedCommit {...args} />,
   args: {
-    data: foldedCommitData,
     index: 0,
+    data: foldedCommitData,
     numVisibleCols: 5,
     selected: false,
   },
@@ -21,5 +22,4 @@ export const FoldedCommitStory: CustomStoryObj<typeof FoldedCommit> = {
       mocks: [getSpruceConfigMock],
     },
   },
-  render: (args) => <FoldedCommit {...args} />,
 };

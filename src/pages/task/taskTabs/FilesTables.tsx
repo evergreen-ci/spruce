@@ -24,8 +24,8 @@ const { parseQueryString, queryParamAsNumber } = queryString;
 
 const columns = [
   {
+    title: "Name",
     dataIndex: "name",
-    defaultSortOrder: "ascend" as SortOrder,
     key: "name",
     render: (text: string, record: File): JSX.Element => (
       <a
@@ -37,8 +37,8 @@ const columns = [
         <WordBreak>{text}</WordBreak>
       </a>
     ),
+    defaultSortOrder: "ascend" as SortOrder,
     sorter: (a: File, b: File): number => a.name.localeCompare(b.name),
-    title: "Name",
   },
 ];
 
@@ -54,8 +54,8 @@ export const FilesTables: React.VFC = () => {
     TaskFilesQueryVariables
   >(GET_TASK_FILES, {
     variables: {
-      execution: initialExecution,
       taskId,
+      execution: initialExecution,
     },
   });
   const [filterStr, setFilterStr] = useState("");
@@ -69,12 +69,12 @@ export const FilesTables: React.VFC = () => {
       debounce(() => {
         if (taskFiles) {
           const nextData = taskFiles.groupedFiles.map((currVal) => ({
+            taskName: currVal.taskName,
             files: filterStr.length
               ? currVal.files.filter(({ name }) =>
                   name.toLowerCase().includes(filterStr.toLowerCase())
                 )
               : currVal.files,
-            taskName: currVal.taskName,
           })) as [GroupedFiles];
           setFilteredData(nextData);
         }

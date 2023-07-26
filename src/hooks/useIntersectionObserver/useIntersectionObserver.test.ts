@@ -10,8 +10,8 @@ describe("useIntersectionObserver", () => {
         },
       ]);
       return {
-        disconnect: jest.fn(),
         observe: jest.fn(),
+        disconnect: jest.fn(),
       };
     });
 
@@ -36,8 +36,8 @@ describe("useIntersectionObserver", () => {
         },
       ]);
       return {
-        disconnect: jest.fn(),
         observe: jest.fn(),
+        disconnect: jest.fn(),
       };
     });
 

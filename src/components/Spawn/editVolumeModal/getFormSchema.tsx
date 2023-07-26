@@ -16,72 +16,72 @@ export const getFormSchema = ({
 }: Props): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
+    type: "object",
     properties: {
+      name: {
+        type: "string",
+        title: "Volume Name",
+        // The back end requires a name if one has previously been set, so prevent users from unsetting a name.
+        ...(hasName && { minLength: 1 }),
+      },
       expirationDetails: {
+        type: "object",
+        properties: {
+          expiration: {
+            type: "string" as "string",
+            title: "Expiration",
+          },
+          noExpiration: {
+            type: "boolean" as "boolean",
+            title: "Never expire",
+          },
+        },
         dependencies: {
           noExpiration: {
             oneOf: [
               {
                 properties: {
-                  expiration: {
-                    readOnly: true,
-                  },
                   noExpiration: {
                     enum: [true],
+                  },
+                  expiration: {
+                    readOnly: true,
                   },
                 },
               },
               {
                 properties: {
-                  expiration: {
-                    readOnly: false,
-                  },
                   noExpiration: {
                     enum: [false],
+                  },
+                  expiration: {
+                    readOnly: false,
                   },
                 },
               },
             ],
           },
         },
-        properties: {
-          expiration: {
-            title: "Expiration",
-            type: "string" as "string",
-          },
-          noExpiration: {
-            title: "Never expire",
-            type: "boolean" as "boolean",
-          },
-        },
-        type: "object",
-      },
-      name: {
-        title: "Volume Name",
-        type: "string",
-        // The back end requires a name if one has previously been set, so prevent users from unsetting a name.
-        ...(hasName && { minLength: 1 }),
       },
     },
-    type: "object",
   },
   uiSchema: {
+    name: {
+      "ui:data-cy": "volume-name-input",
+    },
     expirationDetails: {
+      "ui:ObjectFieldTemplate": ExpirationRow,
       expiration: {
-        "ui:disableAfter": add(today, { days: 30 }),
         "ui:disableBefore": add(today, { days: 1 }),
-        "ui:elementWrapperCSS": datePickerCSS,
+        "ui:disableAfter": add(today, { days: 30 }),
         "ui:widget": "date-time",
+        "ui:elementWrapperCSS": datePickerCSS,
       },
       noExpiration: {
         "ui:disabled": disableExpirationCheckbox,
-        "ui:elementWrapperCSS": checkboxCSS,
         "ui:tooltipDescription": noExpirationCheckboxTooltip ?? "",
+        "ui:elementWrapperCSS": checkboxCSS,
       },
-      "ui:ObjectFieldTemplate": ExpirationRow,
-    },
-    name: {
-      "ui:data-cy": "volume-name-input",
     },
   },
 });

@@ -11,58 +11,58 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
+    type: "object" as "object",
     properties: {
       accessSettings: {
+        type: "object" as "object",
+        title: "Access Settings",
         properties: {
           restricted: {
+            type: ["boolean", "null"],
+            title: "Internal Access",
             oneOf: radioBoxOptions(
               ["Restricted", "Unrestricted"],
               repoData?.accessSettings?.restricted
             ),
-            title: "Internal Access",
-            type: ["boolean", "null"],
           },
         },
-        title: "Access Settings",
-        type: "object" as "object",
       },
       admin: {
+        type: "object" as "object",
+        title: "Admin",
         properties: {
           admins: {
+            type: "array" as "array",
             items: {
+              type: "string" as "string",
+              title: "Username",
               default: "",
               minLength: 1,
-              title: "Username",
-              type: "string" as "string",
             },
-            type: "array" as "array",
           },
         },
-        title: "Admin",
-        type: "object" as "object",
       },
     },
-    type: "object" as "object",
   },
   uiSchema: {
     accessSettings: {
+      "ui:rootFieldId": "access",
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
       restricted: {
         "ui:description":
           "Logged-in users by default will not be able to access this project. Access must be granted via MANA.",
         "ui:widget": widgets.RadioBoxWidget,
       },
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      "ui:rootFieldId": "access",
     },
     admin: {
+      "ui:rootFieldId": "admin",
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
       admins: {
         "ui:addButtonText": "Add Username",
         "ui:description": getAdminsDescription(projectType),
         "ui:orderable": false,
         "ui:showLabel": false,
       },
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      "ui:rootFieldId": "admin",
     },
   },
 });

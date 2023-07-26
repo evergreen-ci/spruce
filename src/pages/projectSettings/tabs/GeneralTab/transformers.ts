@@ -36,27 +36,27 @@ export const gqlToForm = ((data, options = {}) => {
         versionControlEnabled: projectRef.versionControlEnabled,
       },
     },
-    historicalTaskDataCaching: {
-      disabledStatsCache: projectRef.disabledStatsCache,
-    },
     projectFlags: {
       dispatchingDisabled: projectRef.dispatchingDisabled,
-      patch: {
-        patchingDisabled: projectRef.patchingDisabled,
-      },
-      repotracker: {
-        forceRun: null,
-        repotrackerDisabled: projectRef.repotrackerDisabled,
-      },
       scheduling: {
         deactivatePrevious: projectRef.deactivatePrevious,
-        deactivateStepback: null,
         stepbackDisabled: projectRef.stepbackDisabled,
+        deactivateStepback: null,
+      },
+      repotracker: {
+        repotrackerDisabled: projectRef.repotrackerDisabled,
+        forceRun: null,
+      },
+      patch: {
+        patchingDisabled: projectRef.patchingDisabled,
       },
       taskSync: {
         configEnabled: projectRef.taskSync.configEnabled,
         patchEnabled: projectRef.taskSync.patchEnabled,
       },
+    },
+    historicalTaskDataCaching: {
+      disabledStatsCache: projectRef.disabledStatsCache,
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
@@ -84,19 +84,19 @@ export const formToGql = ((
       identifier: generalConfiguration.other.identifier,
     }),
     batchTime: generalConfiguration.other.batchTime ?? 0,
-    deactivatePrevious: projectFlags.scheduling.deactivatePrevious,
-    disabledStatsCache,
-    dispatchingDisabled: projectFlags.dispatchingDisabled,
-    patchingDisabled: projectFlags.patch.patchingDisabled,
     remotePath: generalConfiguration.other.remotePath,
-    repotrackerDisabled: projectFlags.repotracker.repotrackerDisabled,
     spawnHostScriptPath: generalConfiguration.other.spawnHostScriptPath,
+    versionControlEnabled: generalConfiguration.other.versionControlEnabled,
+    dispatchingDisabled: projectFlags.dispatchingDisabled,
+    deactivatePrevious: projectFlags.scheduling.deactivatePrevious,
+    repotrackerDisabled: projectFlags.repotracker.repotrackerDisabled,
     stepbackDisabled: projectFlags.scheduling.stepbackDisabled,
+    patchingDisabled: projectFlags.patch.patchingDisabled,
     taskSync: {
       configEnabled: projectFlags.taskSync.configEnabled,
       patchEnabled: projectFlags.taskSync.patchEnabled,
     },
-    versionControlEnabled: generalConfiguration.other.versionControlEnabled,
+    disabledStatsCache,
   };
 
   return { projectRef };

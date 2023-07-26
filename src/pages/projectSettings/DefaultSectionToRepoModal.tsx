@@ -29,6 +29,7 @@ export const DefaultSectionToRepoModal = ({
     DefaultSectionToRepoMutation,
     DefaultSectionToRepoMutationVariables
   >(DEFAULT_SECTION_TO_REPO, {
+    variables: { projectId, section },
     onCompleted() {
       dispatchToast.success("Successfully defaulted page to repo");
     },
@@ -38,7 +39,6 @@ export const DefaultSectionToRepoModal = ({
       );
     },
     refetchQueries: ["ProjectSettings", "RepoSettings"],
-    variables: { projectId, section },
   });
 
   return (

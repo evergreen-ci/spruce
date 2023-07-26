@@ -24,16 +24,16 @@ const nullLink = "#";
 // Note that the state doesn't include a field for shouldFetchParent / hasFetchedParent as the parent task
 // is always fetched on render.
 export const initialState: State = {
-  disableButton: true,
-  hasFetchedLastExecuted: false,
-  hasFetchedLastPassing: false,
-  lastExecutedTask: null,
-  lastPassingTask: null,
-  link: nullLink,
   parentTask: null,
+  lastPassingTask: null,
+  lastExecutedTask: null,
   selectState: CommitType.Base,
-  shouldFetchLastExecuted: false,
+  disableButton: true,
+  link: nullLink,
   shouldFetchLastPassing: false,
+  hasFetchedLastPassing: false,
+  shouldFetchLastExecuted: false,
+  hasFetchedLastExecuted: false,
 };
 
 type Action =
@@ -56,9 +56,9 @@ export const reducer = (state: State, action: Action): State => {
       if (action.task) {
         return {
           ...state,
-          disableButton: false,
-          link: getTaskRoute(action.task.id),
           parentTask: action.task,
+          link: getTaskRoute(action.task.id),
+          disableButton: false,
         };
       }
       return {
@@ -70,36 +70,36 @@ export const reducer = (state: State, action: Action): State => {
       if (action.task) {
         return {
           ...state,
-          disableButton: false,
-          hasFetchedLastPassing: true,
           lastPassingTask: action.task,
-          link: getTaskRoute(action.task.id),
+          hasFetchedLastPassing: true,
           shouldFetchLastPassing: false,
+          link: getTaskRoute(action.task.id),
+          disableButton: false,
         };
       }
       return {
         ...state,
-        disableButton: true,
         hasFetchedLastPassing: true,
         shouldFetchLastPassing: false,
+        disableButton: true,
       };
     }
     case "setLastExecutedTask": {
       if (action.task) {
         return {
           ...state,
-          disableButton: false,
-          hasFetchedLastExecuted: true,
           lastExecutedTask: action.task,
-          link: getTaskRoute(action.task.id),
+          hasFetchedLastExecuted: true,
           shouldFetchLastExecuted: false,
+          link: getTaskRoute(action.task.id),
+          disableButton: false,
         };
       }
       return {
         ...state,
-        disableButton: true,
         hasFetchedLastExecuted: true,
         shouldFetchLastExecuted: false,
+        disableButton: true,
       };
     }
     case "setSelectState": {
@@ -116,10 +116,10 @@ export const reducer = (state: State, action: Action): State => {
         if (!hasFetchedLastPassing && triggerFetchLastPassing) {
           return {
             ...state,
-            disableButton: true,
-            link: nullLink,
             selectState: newSelectState,
             shouldFetchLastPassing: true,
+            link: nullLink,
+            disableButton: true,
           };
         }
       }
@@ -134,10 +134,10 @@ export const reducer = (state: State, action: Action): State => {
         if (!hasFetchedLastExecuted && triggerFetchLastExecuted) {
           return {
             ...state,
-            disableButton: true,
-            link: nullLink,
             selectState: newSelectState,
             shouldFetchLastExecuted: true,
+            link: nullLink,
+            disableButton: true,
           };
         }
       }
@@ -163,12 +163,12 @@ export const reducer = (state: State, action: Action): State => {
 
       return {
         ...state,
+        selectState: newSelectState,
+        link: newLink,
         disableButton:
           newLink === nullLink ||
           lastPassingTaskDoesNotExist ||
           lastExecutedTaskDoesNotExist,
-        link: newLink,
-        selectState: newSelectState,
       };
     }
     default:

@@ -9,11 +9,11 @@ export default {
 } satisfies CustomMeta<typeof TextInputWithGlyph>;
 
 export const Default: CustomStoryObj<typeof TextInputWithGlyph> = {
+  render: (args) => <Input {...args} />,
   args: {
     label: "Some search field",
     placeholder: "Search",
   },
-  render: (args) => <Input {...args} />,
 };
 
 const Input = (props) => {

@@ -7,12 +7,12 @@ export default {
 } satisfies CustomMeta<typeof TableControl>;
 
 export const Default: CustomStoryObj<typeof TableControl> = {
+  render: (args) => <TableControl {...args} />,
   args: {
     filteredCount: 10,
-    label: "tasks",
+    totalCount: 100,
     limit: 10,
     page: 0,
-    totalCount: 100,
+    label: "tasks",
   },
-  render: (args) => <TableControl {...args} />,
 };

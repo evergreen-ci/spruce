@@ -27,8 +27,8 @@ describe("columnHeaders (Task History)", () => {
       <ColumnHeaders projectIdentifier="evergreen" taskName="some_task" />
     );
     render(<Component />, {
-      path: "/task-history/:projectId/:taskName",
       route: "/task-history/evergreen/some_task",
+      path: "/task-history/:projectId/:taskName",
       wrapper: ProviderWrapper,
     });
     expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(7);
@@ -40,21 +40,21 @@ describe("columnHeaders (Task History)", () => {
     );
 
     render(<Component />, {
-      path: "/task-history/:projectId/:taskName",
       route: "/task-history/evergreen/some_task",
+      path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
-          mocks: [
-            mock([
-              { buildVariant: "variant1", displayName: "variant1" },
-              { buildVariant: "variant2", displayName: "variant2" },
-              { buildVariant: "variant3", displayName: "variant3" },
-            ]),
-          ],
           state: {
             visibleColumns: ["variant1", "variant2", "variant3"],
           },
+          mocks: [
+            mock([
+              { displayName: "variant1", buildVariant: "variant1" },
+              { displayName: "variant2", buildVariant: "variant2" },
+              { displayName: "variant3", buildVariant: "variant3" },
+            ]),
+          ],
         }),
     });
     await waitFor(() => {
@@ -68,23 +68,23 @@ describe("columnHeaders (Task History)", () => {
       <ColumnHeaders projectIdentifier="evergreen" taskName="some_task" />
     );
     render(<Component />, {
-      path: "/task-history/:projectId/:taskName",
       route: "/task-history/evergreen/some_task",
+      path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
+          state: {
+            visibleColumns: ["variant1", "variant2", "variant3", "variant4"],
+            columnLimit: 3,
+          },
           mocks: [
             mock([
-              { buildVariant: "variant1", displayName: "variant1" },
-              { buildVariant: "variant2", displayName: "variant2" },
-              { buildVariant: "variant3", displayName: "variant3" },
-              { buildVariant: "variant4", displayName: "variant4" },
+              { displayName: "variant1", buildVariant: "variant1" },
+              { displayName: "variant2", buildVariant: "variant2" },
+              { displayName: "variant3", buildVariant: "variant3" },
+              { displayName: "variant4", buildVariant: "variant4" },
             ]),
           ],
-          state: {
-            columnLimit: 3,
-            visibleColumns: ["variant1", "variant2", "variant3", "variant4"],
-          },
         }),
     });
     await waitFor(() => {
@@ -98,22 +98,22 @@ describe("columnHeaders (Task History)", () => {
       <ColumnHeaders projectIdentifier="evergreen" taskName="some_task" />
     );
     render(<Component />, {
-      path: "/task-history/:projectId/:taskName",
       route: "/task-history/evergreen/some_task",
+      path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
-          mocks: [
-            mock([
-              {
-                buildVariant: "real-variant-name",
-                displayName: "variant1",
-              },
-            ]),
-          ],
           state: {
             visibleColumns: ["real-variant-name"],
           },
+          mocks: [
+            mock([
+              {
+                displayName: "variant1",
+                buildVariant: "real-variant-name",
+              },
+            ]),
+          ],
         }),
     });
     await waitFor(() => {
@@ -129,23 +129,23 @@ describe("columnHeaders (Task History)", () => {
       <ColumnHeaders projectIdentifier="evergreen" taskName="some_task" />
     );
     render(<Component />, {
-      path: "/task-history/:projectId/:taskName",
       route: "/task-history/evergreen/some_task",
+      path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
-          mocks: [
-            mock([
-              {
-                buildVariant: longVariantName,
-                displayName: longVariantName,
-              },
-              { buildVariant: "variant2", displayName: "variant2" },
-            ]),
-          ],
           state: {
             visibleColumns: [longVariantName, "variant2"],
           },
+          mocks: [
+            mock([
+              {
+                displayName: longVariantName,
+                buildVariant: longVariantName,
+              },
+              { displayName: "variant2", buildVariant: "variant2" },
+            ]),
+          ],
         }),
     });
 
@@ -162,22 +162,22 @@ describe("columnHeaders (Task History)", () => {
       <ColumnHeaders projectIdentifier="evergreen" taskName="some_task" />
     );
     render(<Component />, {
-      path: "/task-history/:projectId/:taskName",
       route: "/task-history/evergreen/some_task",
+      path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
-          mocks: [
-            mock([
-              {
-                buildVariant: longVariantName,
-                displayName: longVariantName,
-              },
-            ]),
-          ],
           state: {
             visibleColumns: [longVariantName],
           },
+          mocks: [
+            mock([
+              {
+                displayName: longVariantName,
+                buildVariant: longVariantName,
+              },
+            ]),
+          ],
         }),
     });
     await waitFor(() => {

@@ -49,10 +49,10 @@ const deduplicateTasks = (
           break;
         default:
           visibleTasks[taskName] = {
-            activated: false,
             checkboxState: value
               ? CheckboxState.Checked
               : CheckboxState.Unchecked,
+            activated: false,
           };
           break;
       }

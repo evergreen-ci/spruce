@@ -23,8 +23,8 @@ export const useProjectPatchesAnalytics = (): Analytics => {
   const sendEvent: Analytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
       object: "ProjectPatches",
-      projectIdentifier,
       userId,
+      projectIdentifier,
     });
   };
 

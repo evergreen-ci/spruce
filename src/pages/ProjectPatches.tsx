@@ -35,21 +35,21 @@ export const ProjectPatches = () => {
     ProjectPatchesQuery,
     ProjectPatchesQueryVariables
   >(GET_PROJECT_PATCHES, {
+    variables: {
+      projectIdentifier,
+      patchesInput: {
+        ...patchesInput,
+        onlyCommitQueue: isCommitQueueCheckboxChecked,
+      },
+    },
+    pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (err) => {
       dispatchToast.error(
         `Error while fetching project patches: ${err.message}`
       );
     },
-    pollInterval: DEFAULT_POLL_INTERVAL,
-    variables: {
-      patchesInput: {
-        ...patchesInput,
-        onlyCommitQueue: isCommitQueueCheckboxChecked,
-      },
-      projectIdentifier,
-    },
   });
-  usePolling({ refetch, startPolling, stopPolling });
+  usePolling({ startPolling, stopPolling, refetch });
   const { displayName, patches } = data?.project ?? {};
   return (
     <>

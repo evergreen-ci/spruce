@@ -46,9 +46,9 @@ export const SetPatchVisibility: React.VFC<Props> = ({
       <Popconfirm
         align="left"
         onConfirm={() => {
-          sendEvent({ hidden: true, name: "Set Patch Visibility" });
+          sendEvent({ name: "Set Patch Visibility", hidden: true });
           setPatchVisibility({
-            variables: { hidden: true, patchIds: [patchId] },
+            variables: { patchIds: [patchId], hidden: true },
           });
         }}
         open={open}

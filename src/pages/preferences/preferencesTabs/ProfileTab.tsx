@@ -50,18 +50,18 @@ export const ProfileTab: React.VFC = () => {
     githubUser: { lastKnownAs?: string };
     dateFormat: string;
   }>({
-    dateFormat,
-    githubUser: { lastKnownAs },
-    region,
     timezone,
+    region,
+    githubUser: { lastKnownAs },
+    dateFormat,
   });
 
   useEffect(() => {
     setFormState({
-      dateFormat,
       githubUser: omitTypename(githubUser || {}),
-      region,
       timezone,
+      region,
+      dateFormat,
     });
   }, [dateFormat, githubUser, region, timezone]);
 
@@ -75,9 +75,9 @@ export const ProfileTab: React.VFC = () => {
       name: "Save Profile Info",
       params: {
         userSettings: {
-          dateFormat: formState.dateFormat,
-          region: formState.region,
           timezone: formState.timezone,
+          region: formState.region,
+          dateFormat: formState.dateFormat,
         },
       },
     });
@@ -97,58 +97,58 @@ export const ProfileTab: React.VFC = () => {
           }}
           formData={formState}
           uiSchema={{
-            dateFormat: {
-              "ui:placeholder": "Select a date format",
+            timezone: {
+              "ui:placeholder": "Select a timezone",
+            },
+            region: {
+              "ui:placeholder": "Select an AWS region",
             },
             githubUser: {
               lastKnownAs: {
                 "ui:placeholder": "Enter your GitHub username",
               },
             },
-            region: {
-              "ui:placeholder": "Select an AWS region",
-            },
-            timezone: {
-              "ui:placeholder": "Select a timezone",
+            dateFormat: {
+              "ui:placeholder": "Select a date format",
             },
           }}
           schema={{
             properties: {
-              dateFormat: {
-                oneOf: [
-                  ...dateFormats.map(({ str, value }) => ({
-                    enum: [value],
-                    title: str,
-                    type: "string" as "string",
-                  })),
-                ],
-                title: "Date Format",
-                type: "string",
-              },
               githubUser: {
+                title: null,
                 properties: {
                   lastKnownAs: {
-                    title: "GitHub Username",
                     type: "string",
+                    title: "GitHub Username",
                   },
                 },
-                title: null,
-              },
-              region: {
-                enum: awsRegions,
-                title: "AWS Region",
-                type: "string",
               },
               timezone: {
+                type: "string",
+                title: "Timezone",
                 oneOf: [
                   ...timeZones.map(({ str, value }) => ({
-                    enum: [value],
-                    title: str,
                     type: "string" as "string",
+                    title: str,
+                    enum: [value],
                   })),
                 ],
-                title: "Timezone",
+              },
+              region: {
                 type: "string",
+                title: "AWS Region",
+                enum: awsRegions,
+              },
+              dateFormat: {
+                type: "string",
+                title: "Date Format",
+                oneOf: [
+                  ...dateFormats.map(({ str, value }) => ({
+                    type: "string" as "string",
+                    title: str,
+                    enum: [value],
+                  })),
+                ],
               },
             },
           }}

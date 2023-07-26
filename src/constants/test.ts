@@ -17,28 +17,28 @@ export const statusCopy = {
 
 export const testStatusesFilterTreeData = [
   {
-    key: TestStatus.All,
     title: "All",
     value: TestStatus.All,
+    key: TestStatus.All,
   },
   {
-    key: TestStatus.Pass,
     title: "Pass",
     value: TestStatus.Pass,
+    key: TestStatus.Pass,
   },
   {
-    key: TestStatus.Fail,
     title: "Fail",
     value: TestStatus.Fail,
+    key: TestStatus.Fail,
   },
   {
-    key: TestStatus.Skip,
     title: "Skip",
     value: TestStatus.Skip,
+    key: TestStatus.Skip,
   },
   {
-    key: TestStatus.SilentFail,
     title: "Silent Fail",
     value: TestStatus.SilentFail,
+    key: TestStatus.SilentFail,
   },
 ];

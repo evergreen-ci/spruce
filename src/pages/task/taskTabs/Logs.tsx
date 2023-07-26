@@ -60,8 +60,8 @@ export const Logs: React.VFC<Props> = ({ execution, logLinks, taskId }) => {
     setCurrentLog(nextLogType);
     updateQueryParams({ [QueryParams.LogType]: nextLogType });
     sendEvent({
-      logType: nextLogType,
       name: "Select Logs Type",
+      logType: nextLogType,
     });
   };
 
@@ -111,9 +111,9 @@ export const Logs: React.VFC<Props> = ({ execution, logLinks, taskId }) => {
                 target="_blank"
                 onClick={() =>
                   sendEvent({
+                    name: "Click Logs Button",
                     logType: currentLog,
                     logViewer: "parsley",
-                    name: "Click Logs Button",
                   })
                 }
               >
@@ -129,9 +129,9 @@ export const Logs: React.VFC<Props> = ({ execution, logLinks, taskId }) => {
                 target="_blank"
                 onClick={() =>
                   sendEvent({
+                    name: "Click Logs Button",
                     logType: currentLog,
                     logViewer: "lobster",
-                    name: "Click Logs Button",
                   })
                 }
               >
@@ -147,9 +147,9 @@ export const Logs: React.VFC<Props> = ({ execution, logLinks, taskId }) => {
                 target="_blank"
                 onClick={() =>
                   sendEvent({
+                    name: "Click Logs Button",
                     logType: currentLog,
                     logViewer: "html",
-                    name: "Click Logs Button",
                   })
                 }
               >
@@ -165,9 +165,9 @@ export const Logs: React.VFC<Props> = ({ execution, logLinks, taskId }) => {
                 target="_blank"
                 onClick={() =>
                   sendEvent({
+                    name: "Click Logs Button",
                     logType: currentLog,
                     logViewer: "raw",
-                    name: "Click Logs Button",
                   })
                 }
               >
@@ -222,8 +222,8 @@ const getLinks = (
   }`;
   return {
     htmlLink,
-    lobsterLink: getLobsterTaskLink(logType, taskId, execution),
     parsleyLink: getParsleyTaskLogLink(logType, taskId, execution),
+    lobsterLink: getLobsterTaskLink(logType, taskId, execution),
     rawLink: `${htmlLink}&text=true`,
   };
 };

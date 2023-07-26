@@ -49,8 +49,8 @@ export const UnscheduleTasks: React.VFC<props> = ({
     });
 
   const onConfirm = () => {
-    unschedulePatchTasks({ variables: { abort, patchId } });
-    sendEvent({ abort, name: "Unschedule" });
+    unschedulePatchTasks({ variables: { patchId, abort } });
+    sendEvent({ name: "Unschedule", abort });
   };
 
   return (

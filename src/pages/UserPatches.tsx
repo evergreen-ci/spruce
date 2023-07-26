@@ -32,20 +32,20 @@ export const UserPatches = () => {
     UserPatchesQuery,
     UserPatchesQueryVariables
   >(GET_USER_PATCHES, {
-    fetchPolicy: "cache-and-network",
-    onError: (err) => {
-      dispatchToast.error(`Error while fetching user patches: ${err.message}`);
-    },
-    pollInterval: DEFAULT_POLL_INTERVAL,
     variables: {
+      userId,
       patchesInput: {
         ...patchesInput,
         includeCommitQueue: isCommitQueueCheckboxChecked,
       },
-      userId,
+    },
+    fetchPolicy: "cache-and-network",
+    pollInterval: DEFAULT_POLL_INTERVAL,
+    onError: (err) => {
+      dispatchToast.error(`Error while fetching user patches: ${err.message}`);
     },
   });
-  usePolling({ refetch, startPolling, stopPolling });
+  usePolling({ startPolling, stopPolling, refetch });
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId) || {};
 
   return (

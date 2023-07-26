@@ -12,11 +12,11 @@ export const gqlToForm = ((data) => {
 
   return {
     vars: Object.entries(vars).map(([varName, varValue]) => ({
-      isAdminOnly: adminOnlyVars.includes(varName),
-      isDisabled: privateVars.includes(varName),
-      isPrivate: privateVars.includes(varName),
       varName,
       varValue: varValue || "{REDACTED}",
+      isPrivate: privateVars.includes(varName),
+      isAdminOnly: adminOnlyVars.includes(varName),
+      isDisabled: privateVars.includes(varName),
     })),
   };
 }) satisfies GqlToFormFunction<Tab>;
@@ -39,9 +39,9 @@ export const formToGql = (({ vars: varsData }, id) => {
       return acc;
     },
     {
-      adminOnlyVarsList: [],
-      privateVarsList: [],
       vars: {},
+      privateVarsList: [],
+      adminOnlyVarsList: [],
     }
   );
   return {

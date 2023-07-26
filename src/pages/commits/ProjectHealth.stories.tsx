@@ -17,32 +17,32 @@ type RenderProps = {
 export const Default: CustomStoryObj<
   RenderProps & React.ComponentProps<typeof CommitsWrapper>
 > = {
+  render: (args) => <RenderCommitsWrapper {...args} />,
+  args: {
+    buildVariantCount: 3,
+    taskCount: 2,
+    isLoading: false,
+    hasTaskFilter: false,
+    hasFilters: false,
+  },
   argTypes: {
     buildVariantCount: {
       control: {
-        max: 50,
-        min: 1,
-        step: 1,
         type: "range",
+        min: 1,
+        max: 50,
+        step: 1,
       },
     },
     taskCount: {
       control: {
-        max: 500,
-        min: 1,
-        step: 1,
         type: "range",
+        min: 1,
+        max: 500,
+        step: 1,
       },
     },
   },
-  args: {
-    buildVariantCount: 3,
-    hasFilters: false,
-    hasTaskFilter: false,
-    isLoading: false,
-    taskCount: 2,
-  },
-  render: (args) => <RenderCommitsWrapper {...args} />,
 };
 
 const RenderCommitsWrapper = ({
@@ -77,8 +77,8 @@ const RenderCommitsWrapper = ({
 const generateBuildVariants = (buildVariantCount: number, taskCount: number) =>
   new Array(buildVariantCount).fill(undefined).map((_, index) => ({
     displayName: `Build Variant ${index}`,
-    tasks: generateTasks(taskCount),
     variant: `bv_${index.toString().padStart(3, "0")}`,
+    tasks: generateTasks(taskCount),
   }));
 
 /**
@@ -91,10 +91,10 @@ const generateTasks = (count: number) =>
     .fill(undefined)
     .map((_, index) => ({
       displayName: `Task ${index}`,
-      execution: 0,
-      failedTestCount: 1,
       id: `task_${index}`,
       status: randomStatus(index),
+      execution: 0,
+      failedTestCount: 1,
     }));
 
 /**
@@ -133,24 +133,24 @@ const populateVersion = (
         (status) => status.status === taskStatus
       );
       if (taskStatusIndex === -1) {
-        acc.push({ count: 1, status: taskStatus });
+        acc.push({ status: taskStatus, count: 1 });
       } else {
         acc[taskStatusIndex].count += 1;
       }
     });
     return acc;
   }, [] as { status: string; count: number }[]);
-  newVersion.version.taskStatusStats = { counts: taskStatusCounts, eta: null };
+  newVersion.version.taskStatusStats = { eta: null, counts: taskStatusCounts };
 
   // Calculate the buildVariantStats
   newVersion.version.buildVariantStats = hasTaskFilter
     ? []
     : buildVariants.map((buildVariant) => ({
         displayName: buildVariant.displayName,
+        variant: buildVariant.variant,
         statusCounts: groupTasksByStatus(
           buildVariant.tasks.filter((t) => !isFailedTaskStatus(t.status))
         ),
-        variant: buildVariant.variant,
       }));
 
   // filter out tasks that are not failed if there is no task filter
@@ -179,7 +179,7 @@ const groupTasksByStatus = (tasks: { status: string }[]) => {
       (status) => status.status === taskStatus
     );
     if (taskStatusIndex === -1) {
-      acc.push({ count: 1, status: taskStatus });
+      acc.push({ status: taskStatus, count: 1 });
     } else {
       acc[taskStatusIndex].count += 1;
     }
@@ -190,107 +190,107 @@ const groupTasksByStatus = (tasks: { status: string }[]) => {
 
 const versions: Commits = [
   {
-    rolledUpVersions: null,
     version: {
-      author: "Jonathan Brill",
-      buildVariantStats: [],
-      buildVariants: [],
-      createTime: new Date("2021-07-16T15:53:25Z"),
       id: "spruce_987bf57eb679c6361322c3961b30a10724a9b001",
+      author: "Jonathan Brill",
+      createTime: new Date("2021-07-16T15:53:25Z"),
       message: "EVG-14901 add ssh key to EditSpawnHostModal (#805)",
+      revision: "987bf57eb679c6361322c3961b30a10724a9b001",
       order: 929,
       projectIdentifier: "spruce",
-      revision: "987bf57eb679c6361322c3961b30a10724a9b001",
       taskStatusStats: {
-        counts: [],
         eta: null,
+        counts: [],
       },
+      buildVariants: [],
+      buildVariantStats: [],
     },
+    rolledUpVersions: null,
   },
   {
-    rolledUpVersions: null,
     version: {
-      author: "Mohamed Khelif",
-      buildVariantStats: [],
-      buildVariants: [],
-      createTime: new Date("2021-07-13T14:51:30Z"),
       id: "spruce_v2.11.1_60eda8722a60ed09bb78a2ff",
+      author: "Mohamed Khelif",
+      createTime: new Date("2021-07-13T14:51:30Z"),
       message: "Triggered From Git Tag 'v2.11.1': v2.11.1",
+      revision: "a77bd39ccf515b63327dc2355a8444955043c66a",
       order: 928,
       projectIdentifier: "spruce",
-      revision: "a77bd39ccf515b63327dc2355a8444955043c66a",
       taskStatusStats: {
-        counts: [],
         eta: null,
+        counts: [],
       },
+      buildVariants: [],
+      buildVariantStats: [],
     },
+    rolledUpVersions: null,
   },
   {
+    version: null,
     rolledUpVersions: [
       {
-        author: "Mohamed Khelif",
-        createTime: new Date("2021-07-13T14:51:30Z"),
         id: "spruce_a77bd39ccf515b63327dc2355a8444955043c66a",
-        message: "v2.11.1",
+        createTime: new Date("2021-07-13T14:51:30Z"),
+        author: "Mohamed Khelif",
         order: 927,
+        message: "v2.11.1",
         revision: "a77bd39ccf515b63327dc2355a8444955043c66a",
       },
     ],
-    version: null,
   },
   {
-    rolledUpVersions: null,
     version: {
-      author: "Mohamed Khelif",
-      buildVariantStats: [],
-      buildVariants: [],
-      createTime: new Date("2021-07-13T14:51:30Z"),
       id: "spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad",
+      author: "Mohamed Khelif",
+      createTime: new Date("2021-07-13T14:51:30Z"),
       message:
         "EVG-14799 Correctly visit configure page when no tab indicated (#810)",
+      revision: "9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad",
       order: 926,
       projectIdentifier: "spruce",
-      revision: "9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad",
       taskStatusStats: {
-        counts: [],
         eta: null,
+        counts: [],
       },
+      buildVariants: [],
+      buildVariantStats: [],
     },
+    rolledUpVersions: null,
   },
   {
-    rolledUpVersions: null,
     version: {
-      author: "Sophie Stadler",
-      buildVariantStats: [],
-      buildVariants: [],
-      createTime: new Date("2021-07-13T14:51:30Z"),
       id: "spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e",
+      author: "Sophie Stadler",
+      createTime: new Date("2021-07-13T14:51:30Z"),
       message: "Remove navigation announcement toast (#808)",
-      order: 925,
-      projectIdentifier: "spruce",
       revision: "f7f7f1a3abdb9897dfc02b7a1de9821651b0916e",
+      projectIdentifier: "spruce",
+      order: 925,
       taskStatusStats: {
-        counts: [],
         eta: null,
+        counts: [],
       },
+      buildVariants: [],
+      buildVariantStats: [],
     },
+    rolledUpVersions: null,
   },
   {
-    rolledUpVersions: null,
     version: {
-      author: "Chaya Malik",
-      buildVariantStats: [],
-      buildVariants: [],
-      createTime: new Date("2021-07-13T14:51:30Z"),
       id: "spruce_v2.11.0_60ec461532f4172d48288274",
+      author: "Chaya Malik",
+      createTime: new Date("2021-07-13T14:51:30Z"),
       message: "Triggered From Git Tag 'v2.11.0': v2.11.0",
-      order: 924,
-      projectIdentifier: "spruce",
       revision: "211b3a06e2948a5afa5dbd61c2322037c300629b",
+      projectIdentifier: "spruce",
+      order: 924,
       taskStatusStats: {
-        counts: [],
         eta: null,
+        counts: [],
       },
+      buildVariants: [],
+      buildVariantStats: [],
     },
+    rolledUpVersions: null,
   },
 ];

@@ -53,18 +53,26 @@ const VariantHistoryContents: React.VFC = () => {
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
   >(GET_MAINLINE_COMMITS_FOR_HISTORY, {
-    // This is so that we can show the loading state
-    fetchPolicy: "no-cache",
-
-    notifyOnNetworkStatusChange: true,
-    // This is because we already cache the data in the history table
+    variables: {
+      mainlineCommitsOptions: {
+        projectIdentifier,
+        limit: 10,
+        shouldCollapse: true,
+      },
+      buildVariantOptions: {
+        variants: [applyStrictRegex(variantName)],
+        includeBaseTasks: false,
+      },
+    },
+    notifyOnNetworkStatusChange: true, // This is so that we can show the loading state
+    fetchPolicy: "no-cache", // This is because we already cache the data in the history table
     onCompleted({ mainlineCommits }) {
       leaveBreadcrumb(
         "Loaded more commits for variant history",
         {
-          numCommits: mainlineCommits.versions.length,
           projectIdentifier,
           variantName,
+          numCommits: mainlineCommits.versions.length,
         },
         "process"
       );
@@ -75,17 +83,6 @@ const VariantHistoryContents: React.VFC = () => {
         `There was an error loading the variant history: ${err.message}`
       );
     },
-    variables: {
-      buildVariantOptions: {
-        includeBaseTasks: false,
-        variants: [applyStrictRegex(variantName)],
-      },
-      mainlineCommitsOptions: {
-        limit: 10,
-        projectIdentifier,
-        shouldCollapse: true,
-      },
-    },
   });
 
   const handleLoadMore = () => {
@@ -94,21 +91,21 @@ const VariantHistoryContents: React.VFC = () => {
         "Requesting more variant history",
         {
           projectIdentifier,
-          skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
           variantName,
+          skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
         },
         "process"
       );
       refetch({
-        buildVariantOptions: {
-          includeBaseTasks: false,
-          variants: [applyStrictRegex(variantName)],
-        },
         mainlineCommitsOptions: {
-          limit: 10,
           projectIdentifier,
-          shouldCollapse: true,
+          limit: 10,
           skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
+          shouldCollapse: true,
+        },
+        buildVariantOptions: {
+          variants: [applyStrictRegex(variantName)],
+          includeBaseTasks: false,
         },
       });
     }
@@ -150,10 +147,10 @@ const VariantHistoryContents: React.VFC = () => {
           </BadgeWrapper>
           <ColumnPaginationButtons
             onClickNext={() =>
-              sendEvent({ direction: "next", name: "Paginate" })
+              sendEvent({ name: "Paginate", direction: "next" })
             }
             onClickPrev={() =>
-              sendEvent({ direction: "previous", name: "Paginate" })
+              sendEvent({ name: "Paginate", direction: "previous" })
             }
           />
         </PaginationFilterWrapper>

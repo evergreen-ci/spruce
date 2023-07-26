@@ -160,14 +160,14 @@ const addAnnotationMock: ApolloMock<
   request: {
     query: ADD_ANNOTATION,
     variables: {
-      apiIssue: {
-        confidenceScore: 0.12,
-        issueKey: "EVG-123",
-        url: "https://jira.mongodb.org/browse/EVG-123",
-      },
-      execution: 0,
-      isIssue: true,
       taskId: "1",
+      execution: 0,
+      apiIssue: {
+        url: "https://jira.mongodb.org/browse/EVG-123",
+        issueKey: "EVG-123",
+        confidenceScore: 0.12,
+      },
+      isIssue: true,
     },
   },
   result: {

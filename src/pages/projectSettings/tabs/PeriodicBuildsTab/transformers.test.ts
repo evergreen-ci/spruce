@@ -31,8 +31,8 @@ describe("repo data", () => {
 });
 
 const projectForm: PeriodicBuildsFormState = {
-  periodicBuilds: [],
   periodicBuildsOverride: true,
+  periodicBuilds: [],
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
@@ -43,37 +43,37 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
 };
 
 const repoForm: PeriodicBuildsFormState = {
+  periodicBuildsOverride: true,
   periodicBuilds: [
     {
       alias: "",
       configFile: "evergreen.yml",
-      displayTitle: "Every 24 hours",
       id: "123",
       interval: {
-        cron: "",
-        intervalHours: 24,
         specifier: IntervalSpecifier.Hours,
+        intervalHours: 24,
+        cron: "",
       },
       message: "",
       nextRunTime:
         "Wed Mar 30 2022 17:07:10 GMT+0000 (Coordinated Universal Time)",
+      displayTitle: "Every 24 hours",
     },
     {
       alias: "test",
       configFile: "evergreen.yml",
-      displayTitle: "Build Message",
       id: "456",
       interval: {
-        cron: "*/5 * * * *",
-        intervalHours: null,
         specifier: IntervalSpecifier.Cron,
+        intervalHours: null,
+        cron: "*/5 * * * *",
       },
       message: "Build Message",
       nextRunTime:
         "Wed Mar 30 2022 17:07:10 GMT+0000 (Coordinated Universal Time)",
+      displayTitle: "Build Message",
     },
   ],
-  periodicBuildsOverride: true,
 };
 
 const repoResult: Pick<RepoSettingsInput, "projectRef"> = {

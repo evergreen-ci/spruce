@@ -60,8 +60,8 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
   >(GET_LAST_MAINLINE_COMMIT, {
     onCompleted: (data) => {
       dispatch({
-        task: getTaskFromMainlineCommitsQuery(data),
         type: "setParentTask",
+        task: getTaskFromMainlineCommitsQuery(data),
       });
     },
   });
@@ -72,8 +72,8 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
   >(GET_LAST_MAINLINE_COMMIT, {
     onCompleted: (data) => {
       dispatch({
-        task: getTaskFromMainlineCommitsQuery(data),
         type: "setLastPassingTask",
+        task: getTaskFromMainlineCommitsQuery(data),
       });
     },
   });
@@ -84,8 +84,8 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
   >(GET_LAST_MAINLINE_COMMIT, {
     onCompleted: (data) => {
       dispatch({
-        task: getTaskFromMainlineCommitsQuery(data),
         type: "setLastExecutedTask",
+        task: getTaskFromMainlineCommitsQuery(data),
       });
     },
   });
@@ -107,15 +107,15 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
       if (!versionMetadata.isPatch) {
         fetchParentTask({
           variables: {
+            projectIdentifier,
+            skipOrderNumber,
             buildVariantOptions: {
               ...bvOptionsBase,
             },
-            projectIdentifier,
-            skipOrderNumber,
           },
         });
       } else {
-        dispatch({ task: baseTask, type: "setParentTask" });
+        dispatch({ type: "setParentTask", task: baseTask });
       }
     }
   }, [versionMetadata]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -125,12 +125,12 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
     if (!hasFetchedLastPassing && shouldFetchLastPassing) {
       fetchLastPassing({
         variables: {
+          projectIdentifier,
+          skipOrderNumber,
           buildVariantOptions: {
             ...bvOptionsBase,
             statuses: [TaskStatus.Succeeded],
           },
-          projectIdentifier,
-          skipOrderNumber,
         },
       });
     }
@@ -141,12 +141,12 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
     if (!hasFetchedLastExecuted && shouldFetchLastExecuted) {
       fetchLastExecuted({
         variables: {
+          projectIdentifier,
+          skipOrderNumber,
           buildVariantOptions: {
             ...bvOptionsBase,
             statuses: finishedTaskStatuses,
           },
-          projectIdentifier,
-          skipOrderNumber,
         },
       });
     }
@@ -162,7 +162,7 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
         label="Previous commits for this task"
         allowDeselect={false}
         onChange={(v: CommitType) =>
-          dispatch({ selectState: v, type: "setSelectState" })
+          dispatch({ type: "setSelectState", selectState: v })
         }
         value={selectState}
         disabled={!versionMetadata?.baseVersion}

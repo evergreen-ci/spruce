@@ -21,12 +21,12 @@ const Container = () => {
   const { data, error, loading } = useQuery<PodQuery, PodQueryVariables>(
     GET_POD,
     {
+      variables: { podId: id },
       onError: (err) => {
         dispatchToast.error(
           `There was an error loading the host: ${err.message}`
         );
       },
-      variables: { podId: id },
     }
   );
   const { pod } = data || {};

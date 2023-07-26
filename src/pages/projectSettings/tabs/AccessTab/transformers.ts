@@ -20,9 +20,9 @@ export const gqlToForm = ((data) => {
 
 export const formToGql = (({ accessSettings, admin }, id) => {
   const projectRef: ProjectInput = {
-    admins: admin.admins,
     id,
     restricted: accessSettings.restricted,
+    admins: admin.admins,
   };
 
   return { projectRef };

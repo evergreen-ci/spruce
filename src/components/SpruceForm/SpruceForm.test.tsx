@@ -52,8 +52,8 @@ describe("spruce form", () => {
     expect(data).toStrictEqual({
       ...basicForm.formData,
       access: null,
-      users: ["new-user", "initial-user"],
       validProjects: "new value",
+      users: ["new-user", "initial-user"],
     });
   });
 
@@ -360,60 +360,60 @@ describe("spruce form", () => {
 const basicForm = {
   formData: {
     cloneMethod: "legacy-ssh",
-    users: ["initial-user"],
     validProjects: "spruce",
+    users: ["initial-user"],
   },
   schema: {
+    type: "object" as "object",
     properties: {
-      access: {
-        title: "Manage Access",
-        type: "null" as "null",
-      },
       cloneMethod: {
+        type: "string" as "string",
+        title: "Project Cloning Method",
         enum: ["legacy-ssh", "oath-token"],
         enumNames: ["Legacy SSH", "Oath Token"],
-        title: "Project Cloning Method",
-        type: "string" as "string",
-      },
-      users: {
-        items: {
-          title: "Username Label",
-          type: "string" as "string",
-        },
-        title: "Users",
-        type: "array" as "array",
       },
       validProjects: {
-        placeholder: "Sample input",
-        title: "Valid Projects",
         type: "string" as "string",
+        title: "Valid Projects",
+        placeholder: "Sample input",
+      },
+      access: {
+        type: "null" as "null",
+        title: "Manage Access",
+      },
+      users: {
+        type: "array" as "array",
+        title: "Users",
+        items: {
+          type: "string" as "string",
+          title: "Username Label",
+        },
       },
     },
-    type: "object" as "object",
   },
   uiSchema: {
-    access: {
-      "ui:rootFieldId": "access",
-      "ui:sectionTitle": true,
-    },
     cloneMethod: {
       "ui:options": {
         label: false,
       },
     },
-    users: {
-      items: {
-        "ui:ariaLabelledBy": "root_access",
-        "ui:data-cy": "new-user-input",
-      },
-      "ui:addButtonText": "New User",
-    },
     validProjects: {
+      "ui:widget": "textarea",
       "ui:options": {
         "data-cy": "valid-projects-input",
         label: false,
       },
-      "ui:widget": "textarea",
+    },
+    access: {
+      "ui:rootFieldId": "access",
+      "ui:sectionTitle": true,
+    },
+    users: {
+      "ui:addButtonText": "New User",
+      items: {
+        "ui:ariaLabelledBy": "root_access",
+        "ui:data-cy": "new-user-input",
+      },
     },
   },
 };
@@ -421,15 +421,15 @@ const basicForm = {
 const textInput = (emptyValue?: string) => ({
   formData: {},
   schema: {
+    type: "object" as "object",
     properties: {
       textInput: {
+        type: "string" as "string",
+        title: "Text Input",
         default: "",
         minLength: 1,
-        title: "Text Input",
-        type: "string" as "string",
       },
     },
-    type: "object" as "object",
   },
   uiSchema: {
     textInput: {
@@ -442,20 +442,20 @@ const textInput = (emptyValue?: string) => ({
 const textArea = (emptyValue?: string) => ({
   formData: {},
   schema: {
+    type: "object" as "object",
     properties: {
       textArea: {
+        type: "string" as "string",
+        title: "Text Area",
         default: "",
         minLength: 1,
-        title: "Text Area",
-        type: "string" as "string",
       },
     },
-    type: "object" as "object",
   },
   uiSchema: {
     textArea: {
-      "ui:data-cy": "text-area",
       "ui:widget": "textarea",
+      "ui:data-cy": "text-area",
       ...(emptyValue && { "ui:emptyValue": emptyValue }),
     },
   },
@@ -464,31 +464,31 @@ const textArea = (emptyValue?: string) => ({
 const select = {
   formData: {},
   schema: {
+    type: "object" as "object",
     properties: {
       iceCream: {
+        type: "string" as "string",
+        title: "Ice Cream",
         default: "vanilla",
         oneOf: [
           {
-            enum: ["vanilla"],
+            type: "string" as "string",
             title: "Vanilla",
-            type: "string" as "string",
+            enum: ["vanilla"],
           },
           {
-            enum: ["chocolate"],
+            type: "string" as "string",
             title: "Chocolate",
-            type: "string" as "string",
+            enum: ["chocolate"],
           },
           {
-            enum: ["strawberry"],
-            title: "Strawberry",
             type: "string" as "string",
+            title: "Strawberry",
+            enum: ["strawberry"],
           },
         ],
-        title: "Ice Cream",
-        type: "string" as "string",
       },
     },
-    type: "object" as "object",
   },
   uiSchema: {
     iceCream: {
@@ -500,32 +500,32 @@ const select = {
 const radioGroup = {
   formData: {},
   schema: {
+    type: "object" as "object",
     properties: {
       states: {
+        type: "string" as "string",
+        title: "Tri-state Area",
         default: "ny",
         oneOf: [
           {
-            enum: ["ny"],
-            title: "New York",
             type: "string" as "string",
+            title: "New York",
+            enum: ["ny"],
           },
           {
+            type: "string" as "string",
+            title: "New Jersey",
             description: "The Garden State",
             enum: ["nj"],
-            title: "New Jersey",
-            type: "string" as "string",
           },
           {
-            enum: ["ct"],
-            title: "Connecticut",
             type: "string" as "string",
+            title: "Connecticut",
+            enum: ["ct"],
           },
         ],
-        title: "Tri-state Area",
-        type: "string" as "string",
       },
     },
-    type: "object" as "object",
   },
   uiSchema: {
     states: {

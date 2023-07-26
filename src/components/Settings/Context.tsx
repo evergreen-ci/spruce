@@ -139,17 +139,17 @@ const useSettingsState = <
   const [state, dispatch] = useReducer(
     reducer(getTransformer),
     getDefaultTabState(routes, {
-      formData: null,
       hasChanges: false,
       hasError: false,
       initialData: null,
+      formData: null,
     })
   );
 
   const setHasChanges = useMemo(
     () =>
       debounce((tab, formData) => {
-        dispatch({ formData, tab, type: "setHasChanges" });
+        dispatch({ type: "setHasChanges", tab, formData });
       }, 400),
     []
   );
@@ -157,11 +157,11 @@ const useSettingsState = <
   const updateForm = ((tab) =>
     ({ errors = [], formData }: OnChangeParams<T, FormStateMap>) => {
       setHasChanges(tab, formData);
-      dispatch({ errors, formData, tab, type: "updateForm" });
+      dispatch({ type: "updateForm", tab, formData, errors });
     }) satisfies SettingsState<T, FormStateMap>["updateForm"];
 
   const saveTab = ((tab) => {
-    dispatch({ tab, type: "saveTab" });
+    dispatch({ type: "saveTab", tab });
   }) satisfies SettingsState<T, FormStateMap>["saveTab"];
 
   const getTab = ((tab) => state[tab]) satisfies SettingsState<
@@ -170,15 +170,15 @@ const useSettingsState = <
   >["getTab"];
 
   const setInitialData = useCallback((tabData) => {
-    dispatch({ tabData, type: "setInitialData" });
+    dispatch({ type: "setInitialData", tabData });
   }, []) satisfies SettingsState<T, FormStateMap>["setInitialData"];
 
   return {
-    getTab,
+    updateForm,
     saveTab,
+    getTab,
     setInitialData,
     tabs: state,
-    updateForm,
   };
 };
 
@@ -196,7 +196,7 @@ const getUsePopulateForm = <
       // Ensure form does not have unsaved changes before writing.
       // This preserves the unsaved form state when switching between project settings tabs.
       if (!hasChanges) {
-        updateForm(tab)({ errors: [], formData });
+        updateForm(tab)({ formData, errors: [] });
         saveTab(tab);
       }
     }, [formData]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -225,8 +225,8 @@ const getUseHasUnsavedTab = <
     );
 
     return {
-      hasUnsaved: !!unsavedTabs.length,
       unsavedTabs,
+      hasUnsaved: !!unsavedTabs.length,
     };
   };
 

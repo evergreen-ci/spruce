@@ -45,8 +45,8 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
   const { stats } = groupStatusesByUmbrellaStatus(statusCounts ?? []);
 
   const versionRouteParams = {
-    page: 0,
     sorts,
+    page: 0,
   };
 
   return (
@@ -102,8 +102,8 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
                   shouldLinkToVariant
                     ? {
                         ...versionRouteParams,
-                        statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
                         variant: applyStrictRegex(variant),
+                        statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
                       }
                     : { ...versionRouteParams }
                 )}

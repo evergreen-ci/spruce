@@ -41,16 +41,16 @@ describe("project data", () => {
       subscriptions: [
         {
           subscriptionData: {
+            id: "xyz",
             event: {
-              eventSelect: "any-version-finishes",
               extraFields: {
                 requester: "gitter_request",
               },
+              eventSelect: "any-version-finishes",
             },
-            id: "xyz",
             notification: {
-              jiraCommentInput: "evg-123",
               notificationSelect: "jira-comment",
+              jiraCommentInput: "evg-123",
             },
           },
         },
@@ -66,18 +66,18 @@ describe("project data", () => {
           resource_type: "VERSION",
           selectors: [
             {
-              data: "spruce",
               type: "project",
+              data: "spruce",
             },
             {
-              data: "gitter_request",
               type: "requester",
+              data: "gitter_request",
             },
           ],
           subscriber: {
-            jiraIssueSubscriber: undefined,
-            target: "evg-123",
             type: "jira-comment",
+            target: "evg-123",
+            jiraIssueSubscriber: undefined,
             webhookSubscriber: undefined,
           },
           trigger: "family-outcome",
@@ -97,19 +97,19 @@ describe("project data", () => {
       subscriptions: [
         {
           subscriptionData: {
+            id: "abc",
             event: {
-              eventSelect: "any-version-finishes",
               extraFields: {
                 requester: "gitter_request",
               },
+              eventSelect: "any-version-finishes",
             },
-            id: "abc",
             notification: {
+              notificationSelect: "jira-issue",
               jiraIssueInput: {
                 issueInput: "Bug",
                 projectInput: "EVG",
               },
-              notificationSelect: "jira-issue",
             },
           },
         },
@@ -126,21 +126,21 @@ describe("project data", () => {
           resource_type: "VERSION",
           selectors: [
             {
-              data: "spruce",
               type: "project",
+              data: "spruce",
             },
             {
-              data: "gitter_request",
               type: "requester",
+              data: "gitter_request",
             },
           ],
           subscriber: {
+            type: "jira-issue",
+            target: "EVG",
             jiraIssueSubscriber: {
               issueType: "Bug",
               project: "EVG",
             },
-            target: "EVG",
-            type: "jira-issue",
             webhookSubscriber: undefined,
           },
           trigger: "family-outcome",
@@ -158,27 +158,27 @@ describe("project data", () => {
       subscriptions: [
         {
           subscriptionData: {
+            id: "def",
             event: {
-              eventSelect: "any-version-finishes",
               extraFields: {
                 requester: "gitter_request",
               },
+              eventSelect: "any-version-finishes",
             },
-            id: "def",
             notification: {
               notificationSelect: "evergreen-webhook",
               webhookInput: {
+                urlInput: "https://example.com",
+                secretInput: "webhook_secret",
                 httpHeaders: [
                   {
                     keyInput: "Content-Type",
                     valueInput: "application/json",
                   },
                 ],
-                minDelayInput: 100,
                 retryInput: 0,
-                secretInput: "webhook_secret",
+                minDelayInput: 100,
                 timeoutInput: 1000,
-                urlInput: "https://example.com",
               },
             },
           },
@@ -196,30 +196,30 @@ describe("project data", () => {
           resource_type: "VERSION",
           selectors: [
             {
-              data: "spruce",
               type: "project",
+              data: "spruce",
             },
             {
-              data: "gitter_request",
               type: "requester",
+              data: "gitter_request",
             },
           ],
           subscriber: {
-            jiraIssueSubscriber: undefined,
-            target: "https://example.com",
             type: "evergreen-webhook",
+            target: "https://example.com",
+            jiraIssueSubscriber: undefined,
             webhookSubscriber: {
+              url: "https://example.com",
+              secret: "webhook_secret",
+              retries: 0,
+              minDelayMs: 100,
+              timeoutMs: 1000,
               headers: [
                 {
                   key: "Content-Type",
                   value: "application/json",
                 },
               ],
-              minDelayMs: 100,
-              retries: 0,
-              secret: "webhook_secret",
-              timeoutMs: 1000,
-              url: "https://example.com",
             },
           },
           trigger: "family-outcome",

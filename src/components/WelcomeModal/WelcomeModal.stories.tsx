@@ -38,9 +38,9 @@ export const MovieCard: CustomStoryObj<typeof CarouselCard> = {
   render: () => (
     <CarouselCard
       card={{
-        description: "A Description",
-        subtitle: "A Subtitle",
         title: "A Title",
+        subtitle: "A Subtitle",
+        description: "A Description",
         video: "mainline_commits/carousel_2_05_4.webm",
       }}
       visible
@@ -52,11 +52,11 @@ export const ImageCard: CustomStoryObj<typeof CarouselCard> = {
   render: () => (
     <CarouselCard
       card={{
-        alt: "First slide gif",
+        title: "A Title",
+        subtitle: "A Subtitle",
         description: "A Description",
         img: "welcome_modal/mypatch_gif_06_10.gif",
-        subtitle: "A Subtitle",
-        title: "A Title",
+        alt: "First slide gif",
       }}
       visible
     />

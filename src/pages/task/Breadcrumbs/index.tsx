@@ -38,38 +38,38 @@ const TaskPageBreadcrumbs: React.VFC<TaskPageBreadcrumbsProps> = ({
     : shortenGithash(revision);
 
   const messageBreadcrumb = {
-    "data-cy": "bc-message",
+    to: getVersionRoute(id),
+    text: `${messagePrefix} - ${message}`,
     onClick: () => {
       breadcrumbAnalytics.sendEvent({
-        link: "version",
         name: "Click Link",
+        link: "version",
       });
     },
-    text: `${messagePrefix} - ${message}`,
-    to: getVersionRoute(id),
+    "data-cy": "bc-message",
   };
 
   const displayTaskBreadcrumb = displayTask
     ? [
         {
-          "data-cy": "bc-display-task",
-          onClick: () => {
-            breadcrumbAnalytics.sendEvent({
-              link: "displayTask",
-              name: "Click Link",
-            });
-          },
-          text: displayTask.displayName,
           to: getTaskRoute(displayTask.id, {
             execution: displayTask.execution,
           }),
+          text: displayTask.displayName,
+          onClick: () => {
+            breadcrumbAnalytics.sendEvent({
+              name: "Click Link",
+              link: "displayTask",
+            });
+          },
+          "data-cy": "bc-display-task",
         },
       ]
     : [];
 
   const taskBreadcrumb = {
-    "data-cy": "bc-task",
     text: taskName,
+    "data-cy": "bc-task",
   };
 
   const breadcrumbs: Breadcrumb[] = [

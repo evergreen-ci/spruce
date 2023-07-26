@@ -66,11 +66,11 @@ export const VariablesTab: React.VFC<TabProps> = ({
           open={modalOpen}
           handleClose={() => setModalOpen(false)}
           variables={formData.vars.map(({ varName }) => ({
+            name: varName,
             inRepo:
               repoData?.vars?.some(
                 ({ varName: repoVar }) => varName === repoVar
               ) ?? false,
-            name: varName,
           }))}
         />
       )}

@@ -19,8 +19,8 @@ export const formToGql = ((formState, id) => {
   const { containerSizeDefinitions } = formState;
   return {
     projectRef: {
-      containerSizeDefinitions: containerSizeDefinitions.variables,
       id,
+      containerSizeDefinitions: containerSizeDefinitions.variables,
     },
   };
 }) satisfies FormToGqlFunction<Tab>;

@@ -19,10 +19,10 @@ const BuildVariantCard: React.VFC = () => {
     BuildVariantStatsQueryVariables
   >(GET_BUILD_VARIANTS_STATS, {
     fetchPolicy: "cache-and-network",
-    pollInterval: DEFAULT_POLL_INTERVAL,
     variables: { id },
+    pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  usePolling({ refetch, startPolling, stopPolling });
+  usePolling({ startPolling, stopPolling, refetch });
   const { version } = data || {};
 
   return (

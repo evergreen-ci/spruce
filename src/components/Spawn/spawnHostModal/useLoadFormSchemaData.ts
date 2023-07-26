@@ -60,8 +60,8 @@ export const useLoadFormSchemaData = (p?: Props) => {
   );
   const noExpirationCheckboxTooltip = getNoExpirationCheckboxTooltipCopy({
     disableExpirationCheckbox,
-    isVolume: false,
     limit: spruceConfig?.spawnHost?.unexpirableHostsPerUser,
+    isVolume: false,
   });
   return {
     formSchemaInput: {

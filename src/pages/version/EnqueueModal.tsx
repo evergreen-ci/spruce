@@ -43,8 +43,8 @@ export const EnqueuePatchModal: React.VFC<EnqueueProps> = ({
     CodeChangesQuery,
     CodeChangesQueryVariables
   >(GET_CODE_CHANGES, {
-    skip: !visible,
     variables: { id: patchId },
+    skip: !visible,
   });
   const { patch } = data ?? previousData ?? {};
   const { moduleCodeChanges = [] } = patch ?? {};
@@ -67,7 +67,7 @@ export const EnqueuePatchModal: React.VFC<EnqueueProps> = ({
 
   const onConfirm = () => {
     enqueuePatch({
-      variables: { commitMessage: commitMessageValue, patchId },
+      variables: { patchId, commitMessage: commitMessageValue },
     });
     sendEvent({ name: "Enqueue" });
     onFinished();

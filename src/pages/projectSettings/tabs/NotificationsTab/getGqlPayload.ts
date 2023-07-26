@@ -20,8 +20,8 @@ const regexFormToGql = (
 ) =>
   hasRegexSelectors && regexForm
     ? regexForm.map((r) => ({
-        data: r.regexInput,
         type: r.regexSelect,
+        data: r.regexInput,
       }))
     : [];
 
@@ -30,18 +30,17 @@ const webhookFormToGql = (webhookInput: Notification["webhookInput"]) => {
     return null;
   }
   return {
+    url: webhookInput.urlInput,
     // Use existing secret if it was already generated, otherwise generate a new secret.
     secret: webhookInput.secretInput || generateWebhookSecret(),
-
     headers:
       webhookInput.httpHeaders?.map(({ keyInput, valueInput }) => ({
         key: keyInput,
         value: valueInput,
       })) ?? [],
-    minDelayMs: webhookInput.minDelayInput ?? 0,
     retries: webhookInput.retryInput ?? 0,
+    minDelayMs: webhookInput.minDelayInput ?? 0,
     timeoutMs: webhookInput.timeoutInput ?? 0,
-    url: webhookInput.urlInput,
   };
 };
 
@@ -50,8 +49,8 @@ const jiraFormToGql = (jiraInput: Notification["jiraIssueInput"]) => {
     return null;
   }
   return {
-    issueType: jiraInput.issueInput,
     project: jiraInput.projectInput,
+    issueType: jiraInput.issueInput,
   };
 };
 
@@ -101,8 +100,8 @@ export const getGqlPayload =
 
     const selectors = Object.entries(triggerData)
       .map(([key, value]) => ({
-        data: value.toString(),
         type: key,
+        data: value.toString(),
       }))
       .filter(({ type }) => allowedSelectors.has(type));
 
@@ -111,17 +110,17 @@ export const getGqlPayload =
       owner_type: "project",
       regex_selectors: regexData,
       resource_type: resourceType,
-      selectors: [{ data: projectId, type: "project" }, ...selectors],
+      selectors: [{ type: "project", data: projectId }, ...selectors],
       subscriber: {
-        jiraIssueSubscriber:
-          method === NotificationMethods.JIRA_ISSUE
-            ? jiraFormToGql(subscriptionData.notification?.jiraIssueInput)
-            : undefined,
-        target: subscriber,
         type: method,
+        target: subscriber,
         webhookSubscriber:
           method === NotificationMethods.WEBHOOK
             ? webhookFormToGql(subscriptionData.notification?.webhookInput)
+            : undefined,
+        jiraIssueSubscriber:
+          method === NotificationMethods.JIRA_ISSUE
+            ? jiraFormToGql(subscriptionData.notification?.jiraIssueInput)
             : undefined,
       },
       trigger,

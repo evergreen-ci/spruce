@@ -36,10 +36,10 @@ describe("useKonamiCode", () => {
     window.HTMLMediaElement.prototype.play = audioPlayMock;
 
     cache.writeQuery<TaskQuery, TaskQueryVariables>({
+      query: GET_TASK,
       data: {
         ...taskQuery,
       },
-      query: GET_TASK,
     });
 
     const { Component, dispatchToast } = RenderFakeToastContext(
@@ -67,8 +67,8 @@ describe("useKonamiCode", () => {
       cache.extract()[
         cache.identify({
           __typename: "Task",
-          execution: taskQuery.task.execution,
           id: taskQuery.task.id,
+          execution: taskQuery.task.execution,
         })
       ].status
     ).toBe("success");
@@ -84,10 +84,10 @@ describe("useKonamiCode", () => {
     window.HTMLMediaElement.prototype.play = audioPlayMock;
 
     cache.writeQuery<TaskQuery, TaskQueryVariables>({
+      query: GET_TASK,
       data: {
         ...taskQuery,
       },
-      query: GET_TASK,
     });
 
     const { Component, dispatchToast } = RenderFakeToastContext(
@@ -111,8 +111,8 @@ describe("useKonamiCode", () => {
       cache.extract()[
         cache.identify({
           __typename: "Task",
-          execution: taskQuery.task.execution,
           id: taskQuery.task.id,
+          execution: taskQuery.task.execution,
         })
       ].status
     ).toBe("pending");
@@ -128,10 +128,10 @@ describe("useKonamiCode", () => {
     window.HTMLMediaElement.prototype.play = audioPlayMock;
 
     cache.writeQuery<TaskQuery, TaskQueryVariables>({
+      query: GET_TASK,
       data: {
         ...taskQuery,
       },
-      query: GET_TASK,
     });
 
     const { Component, dispatchToast } = RenderFakeToastContext(
@@ -155,8 +155,8 @@ describe("useKonamiCode", () => {
       cache.extract()[
         cache.identify({
           __typename: "Task",
-          execution: taskQuery.task.execution,
           id: taskQuery.task.id,
+          execution: taskQuery.task.execution,
         })
       ].status
     ).toBe("pending");

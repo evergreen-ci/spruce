@@ -43,7 +43,7 @@ const FileTicketButton: React.VFC<FileTicketProps> = ({
   const annotationAnalytics = useAnnotationAnalytics();
   const onClickFile = () => {
     annotationAnalytics.sendEvent({ name: "Build Baron File Ticket" });
-    fileJiraTicket({ variables: { execution, taskId } });
+    fileJiraTicket({ variables: { taskId, execution } });
   };
 
   return (

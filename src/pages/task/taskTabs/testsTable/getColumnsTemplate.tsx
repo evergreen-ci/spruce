@@ -27,6 +27,7 @@ export const getColumnsTemplate = ({
   testNameInputProps,
 }: GetColumnsTemplateParams): ColumnProps<TestResult>[] => [
   {
+    title: <span data-cy="name-column">Name</span>,
     dataIndex: "testFile",
     key: TestSortCategory.TestName,
     onHeaderCell: () => ({
@@ -34,14 +35,13 @@ export const getColumnsTemplate = ({
         onColumnHeaderClick(TestSortCategory.TestName);
       },
     }),
+    width: "40%",
     render: (testFile) => <WordBreak>{testFile}</WordBreak>,
     sorter: true,
-    title: <span data-cy="name-column">Name</span>,
-    width: "40%",
     ...getColumnSearchFilterProps(testNameInputProps),
   },
   {
-    className: "data-cy-status-column",
+    title: <span data-cy="status-column">Status</span>,
     dataIndex: "status",
     key: TestSortCategory.Status,
     onHeaderCell: () => ({
@@ -49,17 +49,22 @@ export const getColumnsTemplate = ({
         onColumnHeaderClick(TestSortCategory.Status);
       },
     }),
+    sorter: true,
+    className: "data-cy-status-column",
     render: (status: string): JSX.Element => (
       <TestStatusBadge status={status} />
     ),
-    sorter: true,
-    title: <span data-cy="status-column">Status</span>,
     ...getColumnTreeSelectFilterProps({
       ...statusSelectorProps,
       "data-cy": "status-treeselect",
     }),
   },
   {
+    title: (
+      <span data-cy="base-status-column">
+        {task.versionMetadata.isPatch ? "Base" : "Previous"} Status
+      </span>
+    ),
     dataIndex: "baseStatus",
     key: TestSortCategory.BaseStatus,
     onHeaderCell: () => ({
@@ -67,17 +72,13 @@ export const getColumnsTemplate = ({
         onColumnHeaderClick(TestSortCategory.BaseStatus);
       },
     }),
+    sorter: true,
     render: (status: string): JSX.Element => (
       <TestStatusBadge status={status} />
     ),
-    sorter: true,
-    title: (
-      <span data-cy="base-status-column">
-        {task.versionMetadata.isPatch ? "Base" : "Previous"} Status
-      </span>
-    ),
   },
   {
+    title: <span data-cy="time-column">Time</span>,
     dataIndex: "duration",
     key: TestSortCategory.Duration,
     onHeaderCell: () => ({
@@ -85,19 +86,18 @@ export const getColumnsTemplate = ({
         onColumnHeaderClick(TestSortCategory.Duration);
       },
     }),
+    sorter: true,
     render: (text: number): string => {
       const ms = text * 1000;
       return msToDuration(Math.trunc(ms));
     },
-    sorter: true,
-    title: <span data-cy="time-column">Time</span>,
   },
   {
-    dataIndex: "logs",
-    key: "logs",
-    render: (a, b): JSX.Element => <LogsColumn testResult={b} task={task} />,
-    sorter: false,
     title: <span data-cy="logs-column">Logs</span>,
     width: 230,
+    dataIndex: "logs",
+    key: "logs",
+    sorter: false,
+    render: (a, b): JSX.Element => <LogsColumn testResult={b} task={task} />,
   },
 ];

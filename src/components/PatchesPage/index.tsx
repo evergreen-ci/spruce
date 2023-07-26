@@ -63,10 +63,10 @@ export const PatchesPage: React.VFC<Props> = ({
     );
   const { limit, page } = usePatchesInputFromSearch(search);
   const { inputValue, setAndSubmitInputValue } = useFilterInputChangeHandler({
+    urlParam: PatchPageQueryParams.PatchName,
     resetPage: true,
     sendAnalyticsEvent: (filterBy: string) =>
-      analyticsObject.sendEvent({ filterBy, name: "Filter Patches" }),
-    urlParam: PatchPageQueryParams.PatchName,
+      analyticsObject.sendEvent({ name: "Filter Patches", filterBy }),
   });
   usePageTitle(pageTitle);
 
@@ -138,10 +138,10 @@ export const usePatchesInputFromSearch = (search: string): PatchesInput => {
   );
   const statuses = rawStatuses.filter((v) => v && v !== ALL_PATCH_STATUS);
   return {
-    limit: getLimitFromSearch(search),
-    page: getPageFromSearch(search),
     patchName: `${patchName}`,
     statuses,
+    page: getPageFromSearch(search),
+    limit: getLimitFromSearch(search),
   };
 };
 

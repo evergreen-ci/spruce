@@ -29,44 +29,44 @@ const TaskHistoryRow: React.VFC<Props> = ({ data, index }) => {
   );
   const eventHandlers = useMemo(
     () => ({
+      onClickGithash: () =>
+        sendEvent({
+          name: "Click commit label",
+          link: "githash",
+          commitType: "active",
+        }),
       onClickFoldedGithash: () =>
         sendEvent({
-          commitType: "inactive",
+          name: "Click commit label",
           link: "githash",
-          name: "Click commit label",
-        }),
-      onClickFoldedJiraTicket: () => {
-        sendEvent({
           commitType: "inactive",
-          link: "jira",
+        }),
+      onClickUpstreamProject: () => {
+        sendEvent({
           name: "Click commit label",
+          link: "upstream project",
+          commitType: "active",
         });
       },
       onClickFoldedUpstreamProject: () => {
         sendEvent({
-          commitType: "inactive",
-          link: "upstream project",
           name: "Click commit label",
+          link: "upstream project",
+          commitType: "inactive",
         });
       },
-      onClickGithash: () =>
-        sendEvent({
-          commitType: "active",
-          link: "githash",
-          name: "Click commit label",
-        }),
       onClickJiraTicket: () => {
         sendEvent({
-          commitType: "active",
-          link: "jira",
           name: "Click commit label",
+          link: "jira",
+          commitType: "active",
         });
       },
-      onClickUpstreamProject: () => {
+      onClickFoldedJiraTicket: () => {
         sendEvent({
-          commitType: "active",
-          link: "upstream project",
           name: "Click commit label",
+          link: "jira",
+          commitType: "inactive",
         });
       },
       onToggleFoldedCommit: ({ isVisible }) => {

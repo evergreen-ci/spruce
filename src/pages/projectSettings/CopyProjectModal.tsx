@@ -119,16 +119,16 @@ export const CopyProjectModal: React.VFC<Props> = ({
 
 const modalFormDefinition = {
   schema: {
+    type: "object" as "object",
     properties: {
-      projectId: projectId.schema,
       projectName: projectName.schema,
+      projectId: projectId.schema,
       requestS3Creds: requestS3Creds.schema,
     },
-    type: "object" as "object",
   },
   uiSchema: {
-    projectId: projectId.uiSchema,
     projectName: projectName.uiSchema,
+    projectId: projectId.uiSchema,
     requestS3Creds: requestS3Creds.uiSchema,
   },
 };

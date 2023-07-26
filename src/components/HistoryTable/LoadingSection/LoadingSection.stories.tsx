@@ -8,9 +8,9 @@ export default {
 } satisfies CustomMeta<typeof LoadingSection>;
 
 export const LoadingSectionStory: CustomStoryObj<typeof LoadingSection> = {
-  args: {
-    numLoadingRows: 5,
-    numVisibleCols: 7,
-  },
   render: (args) => <LoadingSection {...args} />,
+  args: {
+    numVisibleCols: 7,
+    numLoadingRows: 5,
+  },
 };
