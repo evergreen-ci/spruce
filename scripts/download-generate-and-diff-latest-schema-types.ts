@@ -16,8 +16,12 @@ const REPO = "/repos/evergreen-ci/evergreen";
 const REPO_CONTENTS = `${REPO}/contents/`;
 const USER_AGENT = "Mozilla/5.0";
 
-// Get the latest commit that was made to the GQL folder.
-async function getRemoteLatestCommitSha() {
+/**
+ * Get the latest commit that was made to the GQL folder.
+ * @returns {Promise<string>} A Promise that resolves to the SHA of the latest commit.
+ * @throws {Error} When failed to fetch commits.
+ */
+async function getRemoteLatestCommitSha(): Promise<string> {
   const url = `${GITHUB_API}${REPO}/commits?path=${GQL_DIR}&sha=main`;
   const response = await fetch(url);
   if (!response.ok) {
@@ -33,14 +37,17 @@ async function getRemoteLatestCommitSha() {
   }
 }
 
-// Return true if your local Evergreen repo contains the latest commit made to the GQL folder and false otherwise.
-const checkIsAncestor = async () => {
+/**
+ * Check if the local Evergreen repo contains the latest commit made to the GQL folder.
+ * @returns {Promise<boolean>} A Promise that resolves to true if local repo contains the latest commit, and false otherwise.
+ * @throws {Error} When an error occurs while executing the command.
+ */
+const checkIsAncestor = async (): Promise<boolean> => {
   const remoteSha = await getRemoteLatestCommitSha();
   const localSchemaSymlink = fs.readlinkSync(LOCAL_SCHEMA);
   const originalDir = process.cwd();
   try {
     process.chdir(localSchemaSymlink);
-    console.log(process.cwd());
     execSync(`git merge-base --is-ancestor ${remoteSha} HEAD`);
     process.chdir(originalDir);
     return true;
@@ -53,8 +60,17 @@ const checkIsAncestor = async () => {
   }
 };
 
-// Download the file at the given url and save it to the given savePath.
-const downloadAndSaveFile = async (url: string, savePath: string) => {
+/**
+ * Download the file at the given url and save it to the given savePath.
+ * @param {string} url - The URL of the file to be downloaded.
+ * @param {string} savePath - The local path where the file should be saved.
+ * @returns {Promise<void>}
+ * @throws {Error} When failed to fetch the file.
+ */
+const downloadAndSaveFile = async (
+  url: string,
+  savePath: string
+): Promise<void> => {
   const response = await fetch(url, {
     headers: {
       "User-Agent": USER_AGENT,
@@ -67,8 +83,17 @@ const downloadAndSaveFile = async (url: string, savePath: string) => {
   fs.writeFileSync(savePath, Buffer.from(data));
 };
 
-// Recursively fetch and save the files at the given github repoPath and save to the given localPath.
-const fetchFiles = async (repoPath: string, localPath: string) => {
+/**
+ * Recursively fetch and save the files at the given github repoPath to the given localPath.
+ * @param {string} repoPath - The path in the GitHub repository.
+ * @param {string} localPath - The local path where the files should be saved.
+ * @returns {Promise<void>}
+ * @throws {Error} When failed to fetch the files.
+ */
+const fetchFiles = async (
+  repoPath: string,
+  localPath: string
+): Promise<void> => {
   const response = await fetch(`${GITHUB_API}${repoPath}`, {
     headers: {
       "User-Agent": USER_AGENT,
@@ -97,8 +122,11 @@ const fetchFiles = async (repoPath: string, localPath: string) => {
   await Promise.all(promises);
 };
 
-// Download GQL files from remote and generate types. Return path to generated file.
-const downloadAndGenerate = async () => {
+/**
+ * Download GQL files from remote and generate types.
+ * @returns {Promise<string>} A Promise that resolves to the path of the generated file.
+ */
+const downloadAndGenerate = async (): Promise<string> => {
   const tempDir = os.tmpdir();
   fs.mkdirSync(tempDir, { recursive: true });
   await fetchFiles(
@@ -116,7 +144,12 @@ const downloadAndGenerate = async () => {
   return latestGeneratedTypesFileName;
 };
 
-const diffTypes = async () => {
+/**
+ * Compare the local generated types with the remote version.
+ * Exit with code 1 if the local schema is outdated or validation fails and 0 otherwise.
+ * @returns {Promise<void>}
+ */
+const diffTypes = async (): Promise<void> => {
   try {
     await checkIsAncestor();
     const latestGeneratedTypesFileName = await downloadAndGenerate();
@@ -144,7 +177,7 @@ const diffTypes = async () => {
     process.exit(0);
   } catch (error) {
     console.error(
-      `An issue occured validating the generated GQL types file: ${error}`
+      `An issue occurred validating the generated GQL types file: ${error}`
     );
     process.exit(1);
   }
