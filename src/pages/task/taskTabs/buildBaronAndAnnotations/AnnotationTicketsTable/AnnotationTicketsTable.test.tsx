@@ -30,7 +30,7 @@ describe("annotationTicketsTable", () => {
 
   it("should display the link and jiraIssue key while waiting for data to fetch", async () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={ticketsTableMocks} addTypename={false}>
+      <MockedProvider mocks={ticketsTableMocks}>
         <AnnotationTicketsTable
           jiraIssues={[
             {

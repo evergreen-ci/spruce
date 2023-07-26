@@ -21,7 +21,7 @@ describe("projectSelect", () => {
   describe("not project settings", () => {
     it("should show the project display name as the dropdown content", async () => {
       const { Component } = RenderFakeToastContext(
-        <MockedProvider mocks={getProjectsMock} addTypename={false}>
+        <MockedProvider mocks={getProjectsMock}>
           <ProjectSelect
             selectedProjectIdentifier="evergreen"
             getRoute={getCommitsRoute}
@@ -36,7 +36,7 @@ describe("projectSelect", () => {
 
     it("should narrow down search results when filtering on projects", async () => {
       const { Component } = RenderFakeToastContext(
-        <MockedProvider mocks={getProjectsMock} addTypename={false}>
+        <MockedProvider mocks={getProjectsMock}>
           <ProjectSelect
             selectedProjectIdentifier="evergreen"
             getRoute={getCommitsRoute}
@@ -64,7 +64,7 @@ describe("projectSelect", () => {
 
     it("should be possible to search for projects by a repo name, which should NOT be clickable", async () => {
       const { Component } = RenderFakeToastContext(
-        <MockedProvider mocks={getProjectsMock} addTypename={false}>
+        <MockedProvider mocks={getProjectsMock}>
           <ProjectSelect
             selectedProjectIdentifier="evergreen"
             getRoute={getCommitsRoute}
@@ -98,7 +98,7 @@ describe("projectSelect", () => {
   describe("project settings", () => {
     it("should show the project display name as the dropdown content", async () => {
       const { Component } = RenderFakeToastContext(
-        <MockedProvider mocks={getViewableProjectsMock} addTypename={false}>
+        <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
             selectedProjectIdentifier="evergreen"
             getRoute={getProjectSettingsRoute}
@@ -114,7 +114,7 @@ describe("projectSelect", () => {
 
     it("should narrow down search results when filtering on projects", async () => {
       const { Component } = RenderFakeToastContext(
-        <MockedProvider mocks={getViewableProjectsMock} addTypename={false}>
+        <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
             selectedProjectIdentifier="evergreen"
             getRoute={getProjectSettingsRoute}
@@ -143,7 +143,7 @@ describe("projectSelect", () => {
 
     it("should be possible to search for projects by a repo name, which should be clickable", async () => {
       const { Component } = RenderFakeToastContext(
-        <MockedProvider mocks={getViewableProjectsMock} addTypename={false}>
+        <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
             selectedProjectIdentifier="evergreen"
             getRoute={getProjectSettingsRoute}
@@ -176,7 +176,7 @@ describe("projectSelect", () => {
 
     it("shows favorited projects twice", async () => {
       const { Component } = RenderFakeToastContext(
-        <MockedProvider mocks={getViewableProjectsMock} addTypename={false}>
+        <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
             selectedProjectIdentifier="evergreen"
             getRoute={getProjectSettingsRoute}
@@ -198,7 +198,7 @@ describe("projectSelect", () => {
 
     it("shows disabled projects at the bottom of the list", async () => {
       const { Component } = RenderFakeToastContext(
-        <MockedProvider mocks={getViewableProjectsMock} addTypename={false}>
+        <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
             selectedProjectIdentifier="evergreen"
             getRoute={getProjectSettingsRoute}
@@ -224,7 +224,7 @@ describe("projectSelect", () => {
 
     it("does not show a heading for disabled projects when all projects are enabled", async () => {
       const { Component } = RenderFakeToastContext(
-        <MockedProvider mocks={noDisabledProjectsMock} addTypename={false}>
+        <MockedProvider mocks={noDisabledProjectsMock}>
           <ProjectSelect
             selectedProjectIdentifier="spruce"
             getRoute={getProjectSettingsRoute}
@@ -256,9 +256,11 @@ const getProjectsMock: [ApolloMock<ProjectsQuery, ProjectsQueryVariables>] = [
       data: {
         projects: [
           {
+            __typename: "GroupedProjects",
             groupDisplayName: "evergreen-ci/evergreen",
             projects: [
               {
+                __typename: "Project",
                 id: "evergreen",
                 identifier: "evergreen",
                 repo: "evergreen",
@@ -269,9 +271,11 @@ const getProjectsMock: [ApolloMock<ProjectsQuery, ProjectsQueryVariables>] = [
             ],
           },
           {
+            __typename: "GroupedProjects",
             groupDisplayName: "logkeeper/logkeeper",
             projects: [
               {
+                __typename: "Project",
                 id: "logkeeper",
                 identifier: "logkeeper",
                 repo: "logkeeper",
@@ -282,9 +286,11 @@ const getProjectsMock: [ApolloMock<ProjectsQuery, ProjectsQueryVariables>] = [
             ],
           },
           {
+            __typename: "GroupedProjects",
             groupDisplayName: "aaa/totally-different-name",
             projects: [
               {
+                __typename: "Project",
                 id: "sys-perf",
                 identifier: "sys-perf",
                 repo: "mongo",
@@ -293,6 +299,7 @@ const getProjectsMock: [ApolloMock<ProjectsQuery, ProjectsQueryVariables>] = [
                 isFavorite: false,
               },
               {
+                __typename: "Project",
                 id: "performance",
                 identifier: "performance",
                 repo: "mongo",
@@ -303,9 +310,11 @@ const getProjectsMock: [ApolloMock<ProjectsQuery, ProjectsQueryVariables>] = [
             ],
           },
           {
+            __typename: "GroupedProjects",
             groupDisplayName: "mongodb/mongodb",
             projects: [
               {
+                __typename: "Project",
                 id: "mongodb-mongo-master",
                 identifier: "mongodb-mongo-master",
                 repo: "mongodb",
@@ -316,9 +325,11 @@ const getProjectsMock: [ApolloMock<ProjectsQuery, ProjectsQueryVariables>] = [
             ],
           },
           {
+            __typename: "GroupedProjects",
             groupDisplayName: "mongodb/mongodb-test",
             projects: [
               {
+                __typename: "Project",
                 id: "mongodb-mongo-test",
                 identifier: "mongodb-mongo-test",
                 repo: "mongodb-test",
@@ -345,12 +356,14 @@ const getViewableProjectsMock: [
       data: {
         viewableProjectRefs: [
           {
+            __typename: "GroupedProjects",
             groupDisplayName: "evergreen-ci/evergreen",
             repo: {
               id: "12345",
             },
             projects: [
               {
+                __typename: "Project",
                 id: "evergreen",
                 identifier: "evergreen",
                 repo: "evergreen",
@@ -360,6 +373,7 @@ const getViewableProjectsMock: [
                 enabled: false,
               },
               {
+                __typename: "Project",
                 id: "spruce",
                 identifier: "spruce",
                 repo: "spruce",
@@ -371,10 +385,12 @@ const getViewableProjectsMock: [
             ],
           },
           {
+            __typename: "GroupedProjects",
             groupDisplayName: "logkeeper/logkeeper",
             repo: null,
             projects: [
               {
+                __typename: "Project",
                 id: "logkeeper",
                 identifier: "logkeeper",
                 repo: "logkeeper",
@@ -386,12 +402,14 @@ const getViewableProjectsMock: [
             ],
           },
           {
+            __typename: "GroupedProjects",
             groupDisplayName: "aaa/totally-different-name",
             repo: {
               id: "56789",
             },
             projects: [
               {
+                __typename: "Project",
                 id: "spruce",
                 identifier: "spruce",
                 repo: "spruce",
@@ -419,10 +437,12 @@ const noDisabledProjectsMock: [
       data: {
         viewableProjectRefs: [
           {
+            __typename: "GroupedProjects",
             groupDisplayName: "evergreen-ci/evergreen",
             repo: null,
             projects: [
               {
+                __typename: "Project",
                 id: "spruce",
                 identifier: "spruce",
                 repo: "spruce",

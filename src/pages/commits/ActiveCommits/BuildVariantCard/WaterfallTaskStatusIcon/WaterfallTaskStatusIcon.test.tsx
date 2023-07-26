@@ -33,7 +33,7 @@ const Content = ({
   status: string;
   failedTestCount?: number;
 }) => (
-  <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>
+  <MockedProvider mocks={[getTooltipQueryMock]}>
     <WaterfallTaskStatusIcon
       {...props}
       status={status}

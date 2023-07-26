@@ -183,6 +183,7 @@ describe("createProjectField", () => {
       result: {
         data: {
           createProject: {
+            __typename: "Project",
             id: "new-project-id",
             identifier: "new-project-name",
           },
@@ -298,6 +299,7 @@ const createProjectMock: ApolloMock<
   result: {
     data: {
       createProject: {
+        __typename: "Project",
         id: "new-project-id",
         identifier: "new-project-name",
       },
@@ -313,6 +315,7 @@ const getGithubOrgsMock: ApolloMock<GithubOrgsQuery, GithubOrgsQueryVariables> =
     result: {
       data: {
         spruceConfig: {
+          __typename: "SpruceConfig",
           githubOrgs: ["evergreen-ci", "10gen"],
         },
       },

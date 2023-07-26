@@ -1,17 +1,15 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import Banner from "@leafygreen-ui/banner";
-import { SpruceForm, ValidateProps } from "components/SpruceForm";
+import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   GithubProjectConflictsQuery,
   GithubProjectConflictsQueryVariables,
 } from "gql/generated/types";
 import { GET_GITHUB_PROJECT_CONFLICTS } from "gql/queries";
-import {
-  usePopulateForm,
-  useProjectSettingsContext,
-} from "pages/projectSettings/Context";
+import { useProjectSettingsContext } from "pages/projectSettings/Context";
+import { BaseTab } from "../BaseTab";
 import { ProjectType } from "../utils";
 import { ErrorType, getVersionControlError } from "./getErrors";
 import { getFormSchema } from "./getFormSchema";
@@ -40,7 +38,7 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
   repoData,
   versionControlEnabled,
 }) => {
-  const { getTab, updateForm } = useProjectSettingsContext();
+  const { getTab } = useProjectSettingsContext();
   // @ts-expect-error - see TabState for details.
   const { formData }: { formData: GCQFormState } = getTab(tab);
 
@@ -56,11 +54,8 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
     () => getInitialFormState(projectData, repoData),
     [projectData, repoData]
   );
-  usePopulateForm(initialFormState, tab);
 
-  const onChange = updateForm(tab);
-
-  const { fields, schema, uiSchema } = useMemo(
+  const formSchema = useMemo(
     () =>
       getFormSchema(
         identifier,
@@ -82,8 +77,6 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
     ]
   );
 
-  if (!formData) return null;
-
   const validateConflicts = validate(
     projectType,
     repoData,
@@ -98,14 +91,12 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
           Webhooks are enabled after saving with a valid owner and repository.
         </Banner>
       )}
-      <SpruceForm
-        fields={fields}
-        formData={formData}
-        onChange={onChange}
-        schema={schema}
-        uiSchema={uiSchema}
+      <BaseTab
         disabled={!githubWebhooksEnabled}
-        validate={validateConflicts as any}
+        formSchema={formSchema}
+        initialFormState={initialFormState}
+        tab={tab}
+        validate={validateConflicts}
       />
     </>
   );

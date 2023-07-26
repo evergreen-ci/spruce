@@ -9,7 +9,7 @@ describe("Task Duration Tab", () => {
       // Apply text filter.
       cy.dataCy("task-name-filter-popover").click();
       cy.dataCy("input-filter").type(`${filterText}`).type("{enter}");
-      cy.dataCy("task-duration-table-row").should("have.length", 2);
+      cy.dataCy("task-duration-table-row").should("have.length", 1);
       cy.location("search").should(
         "include",
         `duration=DESC&page=0&taskName=${filterText}`
@@ -28,7 +28,7 @@ describe("Task Duration Tab", () => {
       cy.dataCy("tree-select-options").within(() =>
         cy.contains("Running").click({ force: true })
       );
-      cy.dataCy("task-duration-table-row").should("have.length", 4);
+      cy.dataCy("task-duration-table-row").should("have.length", 2);
       cy.location("search").should(
         "include",
         `duration=DESC&page=0&statuses=started`

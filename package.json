@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.110",
+  "version": "3.0.114",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -18,7 +18,7 @@
     "cy:test": "cypress run --spec",
     "deploy:beta": "yarn build:beta && env-cmd -e beta yarn deploy:do-not-use",
     "deploy:staging": "yarn build:staging && env-cmd -e staging yarn deploy:do-not-use",
-    "deploy:prod": "node scripts/run-deploy.js",
+    "deploy:prod": "env-cmd -e production node scripts/run-deploy.js",
     "deploy:do-not-use": ". ./scripts/deploy.sh",
     "dev": "env-cmd -e devLocal -r .env-cmdrc.local.json yarn start",
     "eslint:fix": "yarn eslint:strict --fix",

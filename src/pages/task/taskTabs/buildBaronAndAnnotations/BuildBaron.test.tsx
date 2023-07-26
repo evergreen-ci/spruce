@@ -39,7 +39,7 @@ describe("buildBaronContent", () => {
 
   it("the BuildBaron component renders without crashing.", () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={buildBaronMocks} addTypename={false}>
+      <MockedProvider mocks={buildBaronMocks}>
         <BuildBaronContent
           annotation={null}
           taskId={taskId}
@@ -61,7 +61,7 @@ describe("buildBaronContent", () => {
 
   it("clicking on file a new ticket dispatches a toast", async () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <MockedProvider mocks={buildBaronMocks} addTypename={false}>
+      <MockedProvider mocks={buildBaronMocks}>
         <BuildBaronContent
           annotation={null}
           taskId={taskId}
@@ -91,7 +91,7 @@ describe("buildBaronContent", () => {
 
   it("the correct JiraTicket rows are rendered in the component", () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={buildBaronMocks} addTypename={false}>
+      <MockedProvider mocks={buildBaronMocks}>
         <BuildBaronContent
           annotation={null}
           taskId={taskId}
@@ -132,49 +132,60 @@ describe("buildBaronContent", () => {
   });
 });
 
-const buildBaronQuery = {
+const buildBaronQuery: BuildBaronQuery = {
   buildBaron: {
+    __typename: "BuildBaron",
     buildBaronConfigured: true,
     bbTicketCreationDefined: true,
     searchReturnInfo: {
+      __typename: "SearchReturnInfo",
       issues: [
         {
+          __typename: "JiraTicket",
           key: "EVG-12345",
           fields: {
+            __typename: "TicketFields",
             summary: "This is a random Jira ticket title 1",
             assigneeDisplayName: null,
             resolutionName: "Declined",
             created: "2020-09-23T15:31:33.000+0000",
             updated: "2020-09-23T15:33:02.000+0000",
             status: {
+              __typename: "JiraStatus",
               id: "5",
               name: "Resolved",
             },
           },
         },
         {
+          __typename: "JiraTicket",
           key: "EVG-12346",
           fields: {
+            __typename: "TicketFields",
             summary: "This is a random Jira ticket title 2",
             assigneeDisplayName: "Some Name",
             resolutionName: "Declined",
             created: "2020-09-18T16:58:32.000+0000",
             updated: "2020-09-18T19:56:42.000+0000",
             status: {
+              __typename: "JiraStatus",
               id: "6",
               name: "Closed",
             },
           },
         },
         {
+          __typename: "JiraTicket",
           key: "EVG-12347",
           fields: {
+            __typename: "TicketFields",
             summary: "This is a random Jira ticket title 3",
             assigneeDisplayName: "Backlog - Evergreen Team",
             resolutionName: "Declined",
             created: "2020-09-18T17:04:06.000+0000",
             updated: "2020-09-18T19:56:29.000+0000",
             status: {
+              __typename: "JiraStatus",
               id: "1",
               name: "Open",
             },
@@ -188,6 +199,7 @@ const buildBaronQuery = {
     },
   },
 };
+
 const getBuildBaronMock: ApolloMock<BuildBaronQuery, BuildBaronQueryVariables> =
   {
     request: {

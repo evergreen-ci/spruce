@@ -1,8 +1,8 @@
+import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { StyledLink } from "components/styles";
 import { versionControlDocumentationUrl } from "constants/externalResources";
-import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
 import {
   DeactivateStepbackTaskField,
