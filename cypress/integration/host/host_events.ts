@@ -164,7 +164,7 @@ describe("Host events", () => {
     cy.visit(pathWithEvents);
     clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCyTableRows);
 
-    hostTypes.forEach(({ hostType, text, logsTitle }) => {
+    hostTypes.forEach(({ hostType, logsTitle, text }) => {
       cy.dataCy(hostType)
         .contains(text)
         .within(() => {

@@ -68,7 +68,7 @@ const Modal: React.VFC<ModalProps> = ({ closeModal, open, projectId }) => {
       </p>
       <SpruceForm
         formData={formState}
-        onChange={({ formData, errors }) => {
+        onChange={({ errors, formData }) => {
           setHasError(errors.length > 0);
           setFormState(formData);
         }}

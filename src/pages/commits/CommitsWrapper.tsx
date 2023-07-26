@@ -26,11 +26,11 @@ interface CommitsWrapperProps {
 }
 
 export const CommitsWrapper: React.VFC<CommitsWrapperProps> = ({
-  versions,
-  isLoading,
   error,
-  hasTaskFilter,
   hasFilters,
+  hasTaskFilter,
+  isLoading,
+  versions,
 }) => {
   const buildVariantDict = useMemo(() => {
     if (versions) {

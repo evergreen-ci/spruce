@@ -20,11 +20,11 @@ interface TableSearchPopoverProps {
 }
 
 export const TableSearchPopover: React.VFC<TableSearchPopoverProps> = ({
-  value,
+  "data-cy": dataCy,
   onChange,
   onConfirm,
-  "data-cy": dataCy,
   placeholder,
+  value,
 }) => {
   const [active, setActive] = useState(false);
   const iconColor = value === "" ? gray.dark2 : blue.light1;

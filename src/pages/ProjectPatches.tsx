@@ -31,7 +31,7 @@ export const ProjectPatches = () => {
 
   const patchesInput = usePatchesInputFromSearch(search);
 
-  const { data, refetch, startPolling, stopPolling, loading } = useQuery<
+  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     ProjectPatchesQuery,
     ProjectPatchesQueryVariables
   >(GET_PROJECT_PATCHES, {

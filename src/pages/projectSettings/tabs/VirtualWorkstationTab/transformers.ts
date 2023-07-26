@@ -28,7 +28,7 @@ export const gqlToForm = ((data, options) => {
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
-  { gitClone, commands: { setupCommandsOverride, setupCommands } },
+  { commands: { setupCommands, setupCommandsOverride }, gitClone },
   id
 ) => ({
   projectRef: {

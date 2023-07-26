@@ -34,7 +34,7 @@ export const useTaskStatuses = ({
   usePolling({ startPolling, stopPolling, refetch });
 
   const { version } = data || {};
-  const { taskStatuses, baseTaskStatuses } = version || {};
+  const { baseTaskStatuses, taskStatuses } = version || {};
   const currentStatuses = useMemo(
     () => getCurrentStatuses(taskStatuses ?? [], taskStatusesFilterTreeData),
     [taskStatuses]

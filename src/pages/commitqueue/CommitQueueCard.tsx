@@ -38,18 +38,18 @@ interface Props {
 const { gray } = palette;
 
 export const CommitQueueCard: React.VFC<Props> = ({
-  issue,
-  index,
-  title,
-  author,
-  commitTime,
-  patchId,
-  versionId,
-  owner,
-  repo,
-  moduleCodeChanges,
-  commitQueueId,
   activated,
+  author,
+  commitQueueId,
+  commitTime,
+  index,
+  issue,
+  moduleCodeChanges,
+  owner,
+  patchId,
+  repo,
+  title,
+  versionId,
 }) => {
   const dispatchToast = useToastContext();
   const getDateCopy = useDateFormat();

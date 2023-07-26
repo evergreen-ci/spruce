@@ -15,7 +15,7 @@ import { leaveBreadcrumb, reportError } from "utils/errorReporting";
 const { getGQLUrl } = environmentVariables;
 
 const GQLWrapper: React.VFC<{ children: React.ReactNode }> = ({ children }) => {
-  const { logoutAndRedirect, dispatchAuthenticated } = useAuthDispatchContext();
+  const { dispatchAuthenticated, logoutAndRedirect } = useAuthDispatchContext();
   return (
     <ApolloProvider
       client={getGQLClient({
@@ -174,9 +174,9 @@ const retryLink = new RetryLink({
 
 const getGQLClient = ({
   credentials,
+  dispatchAuthenticated,
   gqlURL,
   logoutAndRedirect,
-  dispatchAuthenticated,
 }: ClientLinkParams) => {
   const link = new HttpLink({
     uri: gqlURL,

@@ -37,9 +37,9 @@ interface DetailsCardProps {
 }
 
 export const DetailsCard: React.VFC<DetailsCardProps> = ({
-  type,
   "data-cy": dataCy,
   fieldMaps,
+  type,
 }) => (
   <CardContainer data-cy={dataCy}>
     {Object.keys(fieldMaps).map((key) => (

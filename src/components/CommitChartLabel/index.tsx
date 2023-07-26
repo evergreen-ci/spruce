@@ -28,16 +28,16 @@ interface Props {
 }
 
 const CommitChartLabel: React.VFC<Props> = ({
-  githash,
-  gitTags,
-  createTime,
   author,
+  createTime,
+  gitTags,
+  githash,
   message,
-  versionId,
   onClickGithash = () => {},
   onClickJiraTicket = () => {},
   onClickUpstreamProject = () => {},
   upstreamProject,
+  versionId,
 }) => {
   const getDateCopy = useDateFormat();
   const createDate = new Date(createTime);
@@ -46,9 +46,9 @@ const CommitChartLabel: React.VFC<Props> = ({
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const {
-    triggerType,
     project: upstreamProjectIdentifier,
     task: upstreamTask,
+    triggerType,
     version: upstreamVersion,
   } = upstreamProject || {};
 

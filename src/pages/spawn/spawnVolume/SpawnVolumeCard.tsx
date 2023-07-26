@@ -20,8 +20,8 @@ const VolumeCreationTime: React.VFC<TableVolume> = ({ creationTime }) => {
 };
 
 const VolumeExpiration: React.VFC<TableVolume> = ({
-  noExpiration,
   expiration,
+  noExpiration,
 }) => {
   const getDateCopy = useDateFormat();
   return (

@@ -21,14 +21,14 @@ interface AnnotationTicketsProps {
 }
 
 const AnnotationTickets: React.VFC<AnnotationTicketsProps> = ({
-  tickets,
-  taskId,
   execution,
   isIssue,
-  userCanModify,
+  loading,
   selectedRowKey,
   setSelectedRowKey,
-  loading,
+  taskId,
+  tickets,
+  userCanModify,
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
   const title = isIssue ? "Issues" : "Suspected Issues";

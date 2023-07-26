@@ -36,13 +36,13 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
   const { sendEvent } = useTaskAnalytics();
   const [
     {
-      selectState,
       disableButton,
-      link,
-      shouldFetchLastPassing,
-      shouldFetchLastExecuted,
-      hasFetchedLastPassing,
       hasFetchedLastExecuted,
+      hasFetchedLastPassing,
+      link,
+      selectState,
+      shouldFetchLastExecuted,
+      shouldFetchLastPassing,
     },
     dispatch,
   ] = useReducer(reducer, initialState);
@@ -90,9 +90,9 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
     },
   });
 
-  const { baseTask, versionMetadata, buildVariant, displayName } =
+  const { baseTask, buildVariant, displayName, versionMetadata } =
     taskData?.task ?? {};
-  const { projectIdentifier, order: skipOrderNumber } =
+  const { order: skipOrderNumber, projectIdentifier } =
     versionMetadata?.baseVersion ?? {};
   const bvOptionsBase = {
     tasks: [applyStrictRegex(displayName)],

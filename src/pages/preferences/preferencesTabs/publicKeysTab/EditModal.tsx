@@ -34,8 +34,8 @@ interface EditModalProps extends EditModalPropsState {
 
 export const EditModal: React.VFC<EditModalProps> = ({
   initialPublicKey,
-  visible,
   onCancel,
+  visible,
 }) => {
   const { data: myKeysData } = useQuery<
     MyPublicKeysQuery,

@@ -71,7 +71,7 @@ export const PublicKeysTab: React.VFC = () => {
     },
     {
       title: "Actions",
-      render: (text: string, { name, key }: PublicKey): JSX.Element => (
+      render: (text: string, { key, name }: PublicKey): JSX.Element => (
         <BtnContainer>
           <Button
             size="small"

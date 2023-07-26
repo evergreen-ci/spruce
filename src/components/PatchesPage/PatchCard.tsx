@@ -57,7 +57,7 @@ export const PatchCard: React.VFC<Props> = ({
 }) => {
   const createDate = new Date(createTime);
   const getDateCopy = useDateFormat();
-  const { taskStatusStats, id: versionId } = versionFull || {};
+  const { id: versionId, taskStatusStats } = versionFull || {};
   const { stats } = groupStatusesByUmbrellaStatus(
     taskStatusStats?.counts ?? []
   );
@@ -87,7 +87,7 @@ export const PatchCard: React.VFC<Props> = ({
     );
   }
 
-  const badges = stats?.map(({ count, umbrellaStatus, statusCounts }) => (
+  const badges = stats?.map(({ count, statusCounts, umbrellaStatus }) => (
     <GroupedTaskStatusBadge
       status={umbrellaStatus}
       count={count}

@@ -18,9 +18,9 @@ interface props {
   disabled?: boolean;
 }
 export const UnscheduleTasks: React.VFC<props> = ({
+  disabled,
   patchId,
   refetchQueries = [],
-  disabled,
 }) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useVersionAnalytics(patchId);

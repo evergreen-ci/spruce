@@ -16,12 +16,12 @@ type RenderCommitsChartProps = ActiveCommitProps & {
 };
 
 const RenderCommitsChart: React.VFC<RenderCommitsChartProps> = ({
-  commit,
   chartType,
+  commit,
   groupedResult,
   max,
 }) => {
-  const { version, rolledUpVersions } = commit;
+  const { rolledUpVersions, version } = commit;
 
   if (version) {
     return (
@@ -48,7 +48,7 @@ const RenderCommitsLabel: React.VFC<RenderCommitsLabelProps> = ({
   commit,
   hasFilters,
 }) => {
-  const { version, rolledUpVersions } = commit;
+  const { rolledUpVersions, version } = commit;
 
   if (version) {
     return <ActiveCommitLabel version={version} />;
@@ -70,7 +70,7 @@ interface RenderCommitsBuildVariantProps {
 }
 export const RenderCommitsBuildVariants: React.VFC<
   RenderCommitsBuildVariantProps
-> = ({ commit, buildVariantDict }) => {
+> = ({ buildVariantDict, commit }) => {
   const { version } = commit;
 
   if (version) {
@@ -96,7 +96,7 @@ const getCommitKey = (commit: Commit) => {
 };
 
 const getCommitWidth = (commit: Commit) => {
-  const { version, rolledUpVersions } = commit;
+  const { rolledUpVersions, version } = commit;
   if (version) {
     return 200;
   }

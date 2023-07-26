@@ -79,24 +79,24 @@ export const gqlToForm = ((data, { projectType }) => {
       ? subscriptions?.map(
           ({
             id,
+            regexSelectors,
             resourceType,
+            subscriber,
             trigger,
             triggerData,
-            regexSelectors,
-            subscriber,
           }) => {
             // Find and process information about trigger.
             const triggerEnum = getTriggerEnum(trigger, resourceType);
             const triggerText = getTriggerText(trigger, resourceType);
 
             // Find and process information about subscriber.
-            const { type: subscriberType, subscriber: subscribers } =
+            const { subscriber: subscribers, type: subscriberType } =
               subscriber;
             const {
-              jiraCommentSubscriber,
-              slackSubscriber,
               emailSubscriber,
+              jiraCommentSubscriber,
               jiraIssueSubscriber,
+              slackSubscriber,
               webhookSubscriber,
             } = subscribers;
             const subscriberText = getSubscriberText(subscriber);
@@ -140,7 +140,7 @@ export const gqlToForm = ((data, { projectType }) => {
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((formState, projectId) => {
-  const { buildBreakSettings, subscriptions, banner } = formState;
+  const { banner, buildBreakSettings, subscriptions } = formState;
   const projectRef: ProjectInput = {
     id: projectId,
     notifyOnBuildFailure: buildBreakSettings.notifyOnBuildFailure,

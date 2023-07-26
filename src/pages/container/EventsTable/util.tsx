@@ -8,7 +8,7 @@ import { reportError } from "utils/errorReporting";
 export const getEventCopy = (
   event: Unpacked<PodEventsQuery["pod"]["events"]["eventLogEntries"]>
 ) => {
-  const { eventType, data } = event;
+  const { data, eventType } = event;
   const taskLink = (
     <ShortenedRouterLink
       title={data.taskID}

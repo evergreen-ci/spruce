@@ -39,7 +39,7 @@ export const JobLogs = () => {
   if (!data) return null;
 
   const {
-    logkeeperBuildMetadata: { builder, buildNum, taskExecution, taskId, tests },
+    logkeeperBuildMetadata: { buildNum, builder, taskExecution, taskId, tests },
   } = data;
 
   return (

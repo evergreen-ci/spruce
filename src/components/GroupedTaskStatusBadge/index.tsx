@@ -17,13 +17,13 @@ interface GroupedTaskStatusBadgeProps {
 
 export const GroupedTaskStatusBadge: React.VFC<GroupedTaskStatusBadgeProps> = ({
   count,
+  href,
+  isActive,
   onClick = () => undefined,
   status,
   statusCounts,
-  href,
-  isActive,
 }) => {
-  const { fill, border, text } = mapUmbrellaStatusColors[status];
+  const { border, fill, text } = mapUmbrellaStatusColors[status];
 
   return (
     <Tooltip

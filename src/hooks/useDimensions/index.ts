@@ -18,7 +18,7 @@ export const useDimensions = (ref: MutableRefObject<HTMLElement>) => {
     () =>
       new ResizeObserver((entries) => {
         requestAnimationFrame(() => {
-          const { width, height } = entries[0]?.contentRect ?? {};
+          const { height, width } = entries[0]?.contentRect ?? {};
           setState({ width, height });
         });
       }),

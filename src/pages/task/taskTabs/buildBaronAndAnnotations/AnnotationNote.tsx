@@ -22,9 +22,9 @@ interface Props {
 }
 
 const AnnotationNote: React.VFC<Props> = ({
+  execution,
   note,
   taskId,
-  execution,
   userCanModify,
 }) => {
   const getDateCopy = useDateFormat();

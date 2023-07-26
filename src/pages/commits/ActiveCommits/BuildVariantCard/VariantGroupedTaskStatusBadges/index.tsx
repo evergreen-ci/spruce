@@ -21,17 +21,17 @@ interface Props {
 }
 
 const VariantGroupedTaskStatusBadges: React.VFC<Props> = ({
-  variant,
-  statusCounts,
-  versionId,
   onClick = () => () => {},
+  statusCounts,
+  variant,
+  versionId,
 }) => {
   const { stats } = groupStatusesByUmbrellaStatus(statusCounts ?? []);
 
   return (
     <VariantTasks>
       {stats.map(
-        ({ umbrellaStatus, count, statusCounts: groupedStatusCounts }) => (
+        ({ count, statusCounts: groupedStatusCounts, umbrellaStatus }) => (
           <GroupedTaskStatusBadge
             key={`${versionId}_${variant}_${umbrellaStatus}`}
             count={count}

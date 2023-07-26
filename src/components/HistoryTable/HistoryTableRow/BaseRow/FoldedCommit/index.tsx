@@ -25,16 +25,16 @@ interface FoldedCommitProps {
   onClickUpstreamProject?: () => void;
 }
 const FoldedCommit: React.VFC<FoldedCommitProps> = ({
+  data,
   index,
   numVisibleCols,
-  selected,
-  data,
-  onToggleFoldedCommit = () => {},
   onClickGithash,
   onClickJiraTicket,
   onClickUpstreamProject,
+  onToggleFoldedCommit = () => {},
+  selected,
 }) => {
-  const { rolledUpCommits, expanded } = data;
+  const { expanded, rolledUpCommits } = data;
   const defaultOpen = expanded;
   const numCommits = rolledUpCommits.length;
 

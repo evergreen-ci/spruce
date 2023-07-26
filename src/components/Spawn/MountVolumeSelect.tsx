@@ -24,11 +24,11 @@ interface Props {
 }
 
 export const MountVolumeSelect = ({
-  targetAvailabilityZone,
-  selectedHostId,
-  onChange,
-  label,
   autofill,
+  label,
+  onChange,
+  selectedHostId,
+  targetAvailabilityZone,
 }: Props) => {
   const dispatchToast = useToastContext();
   const [hostOptions, setHostOptions] = useState<HostOption[]>([]); // dropdown option
@@ -56,7 +56,7 @@ export const MountVolumeSelect = ({
           canUpdateHost(status, availabilityZone)
         )
         // Map host to a displayName and ID for the dropdown <Option />
-        .map(({ id, displayName }) => ({
+        .map(({ displayName, id }) => ({
           id,
           displayName: displayName || id,
         }))
@@ -89,7 +89,7 @@ export const MountVolumeSelect = ({
             {" "}
           </Option>
         )}
-        {hostOptions.map(({ id, displayName }) => (
+        {hostOptions.map(({ displayName, id }) => (
           <Option value={id} key={id} data-cy={`${id}-option`}>
             {displayName}
           </Option>

@@ -21,8 +21,8 @@ export const DisplayModal: React.VFC<DisplayModalProps> = ({
   open,
   setOpen,
   size,
-  title,
   subtitle,
+  title,
 }) => (
   <StyledModal data-cy={dataCy} open={open} setOpen={setOpen} size={size}>
     {title && <H3 data-cy="modal-title">{title}</H3>}

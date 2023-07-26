@@ -26,12 +26,12 @@ export const Accordion: React.VFC<AccordionProps> = ({
   disableAnimation = false,
   onToggle = () => {},
   showCaret = true,
+  subtitle,
   title,
   titleTag,
-  toggledTitle,
   toggleFromBottom = false,
+  toggledTitle,
   useIndent = true,
-  subtitle,
 }) => {
   const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(defaultOpen);
   const toggleAccordionHandler = (): void => {

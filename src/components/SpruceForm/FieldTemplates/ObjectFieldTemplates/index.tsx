@@ -10,13 +10,13 @@ import { SpruceFormContainer } from "../../Container";
 
 export const ObjectFieldTemplate = ({
   DescriptionField,
-  description,
   TitleField,
-  title,
+  description,
+  idSchema,
   properties,
   required,
+  title,
   uiSchema,
-  idSchema,
 }: ObjectFieldTemplateProps) => {
   const errors = uiSchema["ui:errors"] ?? [];
   const warnings = uiSchema["ui:warnings"] ?? [];

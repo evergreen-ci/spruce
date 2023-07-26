@@ -106,7 +106,7 @@ export const CopyProjectModal: React.VFC<Props> = ({
     >
       <SpruceForm
         formData={formState}
-        onChange={({ formData, errors }) => {
+        onChange={({ errors, formData }) => {
           setHasError(errors.length > 0);
           setFormState(formData);
         }}

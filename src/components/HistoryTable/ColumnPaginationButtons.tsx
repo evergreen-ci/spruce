@@ -15,12 +15,12 @@ const ColumnPaginationButtons: React.VFC<ColumnPaginationButtonProps> = ({
   onClickPrev = () => {},
 }) => {
   const {
-    nextPage,
-    previousPage,
+    currentPage,
     hasNextPage,
     hasPreviousPage,
+    nextPage,
     pageCount,
-    currentPage,
+    previousPage,
   } = useHistoryTable();
   const handleOnClickNext = () => {
     onClickNext();
