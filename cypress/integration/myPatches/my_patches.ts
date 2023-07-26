@@ -34,7 +34,9 @@ describe("My Patches Page", () => {
   it("Typing in patch description input updates the url, requests patches and renders patches", () => {
     cy.visit(MY_PATCHES_ROUTE);
     const inputVal = "testtest";
-    cy.dataCy("patch-description-input").type(inputVal);
+    cy.dataCy("patch-description-input").within(() => {
+      cy.get("input").type(inputVal);
+    });
     urlSearchParamsAreUpdated({
       pathname: MY_PATCHES_ROUTE,
       paramName: "patchName",
@@ -45,19 +47,27 @@ describe("My Patches Page", () => {
       paramName: "page",
       search: 0,
     });
-    cy.dataCy("patch-description-input").clear();
+    cy.dataCy("patch-description-input").within(() => {
+      cy.get("input").clear();
+    });
   });
 
   it("Inputting a number successfully searches patches", () => {
     cy.visit(MY_PATCHES_ROUTE);
-    cy.dataCy("patch-description-input").type("3186");
+    cy.dataCy("patch-description-input").within(() => {
+      cy.get("input").type("3186");
+    });
     cy.dataCy("patch-card").should("have.length", "1");
-    cy.dataCy("patch-description-input").clear();
+    cy.dataCy("patch-description-input").within(() => {
+      cy.get("input").clear();
+    });
   });
 
   it("Searching for a nonexistent patch shows 'No patches found'", () => {
     cy.visit(MY_PATCHES_ROUTE);
-    cy.dataCy("patch-description-input").type("satenarstharienht");
+    cy.dataCy("patch-description-input").within(() => {
+      cy.get("input").type("satenarstharienht");
+    });
     cy.dataCy("no-patches-found").contains("No patches found");
   });
 
