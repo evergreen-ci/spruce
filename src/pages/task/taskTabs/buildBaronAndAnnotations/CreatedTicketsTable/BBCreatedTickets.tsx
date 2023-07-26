@@ -11,9 +11,9 @@ interface CreatedTicketsProps {
 }
 
 const BBCreatedTickets: React.VFC<CreatedTicketsProps> = ({
-  taskId,
-  execution,
   buildBaronConfigured,
+  execution,
+  taskId,
   tickets,
 }) => (
   <>

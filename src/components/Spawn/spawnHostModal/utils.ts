@@ -3,8 +3,8 @@ import { FormState } from "./types";
 
 export const validateTask = (taskData: SpawnTaskQuery["task"]) => {
   const {
-    displayName: taskDisplayName,
     buildVariant,
+    displayName: taskDisplayName,
     revision,
   } = taskData || {};
   return taskDisplayName && buildVariant && revision;
@@ -13,12 +13,12 @@ export const validateTask = (taskData: SpawnTaskQuery["task"]) => {
 export const validateSpawnHostForm = (
   {
     distro,
-    region,
-    publicKeySection,
-    userdataScriptSection,
-    setupScriptSection,
-    homeVolumeDetails,
     expirationDetails,
+    homeVolumeDetails,
+    publicKeySection,
+    region,
+    setupScriptSection,
+    userdataScriptSection,
   }: FormState,
   isMigration?: boolean
 ) => {

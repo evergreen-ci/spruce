@@ -109,15 +109,15 @@ const validate = (
 ) =>
   ((formData, errors) => {
     const {
+      commitQueue: { enabled, patchDefinitions },
       github: {
-        prTestingEnabled,
-        prTesting,
-        githubChecksEnabled,
-        githubChecks,
         gitTagVersionsEnabled,
         gitTags,
+        githubChecks,
+        githubChecksEnabled,
+        prTesting,
+        prTestingEnabled,
       },
-      commitQueue: { enabled, patchDefinitions },
     } = formData;
 
     // getVersionControlError is a curried function, so save its partial application here to avoid repetition

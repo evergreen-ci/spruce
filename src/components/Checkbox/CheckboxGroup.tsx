@@ -11,8 +11,8 @@ interface CheckboxesProps {
 
 export const CheckboxGroup: React.VFC<CheckboxesProps> = ({
   data,
-  value,
   onChange = () => undefined,
+  value,
 }) => (
   <CheckboxesWrapper>
     {data.map(({ key, title, value: checkboxValue }) => (

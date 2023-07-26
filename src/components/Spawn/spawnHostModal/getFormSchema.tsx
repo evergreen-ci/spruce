@@ -37,22 +37,22 @@ export const getFormSchema = ({
   disableExpirationCheckbox,
   distroIdQueryParam,
   distros,
+  isMigration,
   isVirtualWorkstation,
-  noExpirationCheckboxTooltip,
   myPublicKeys,
+  noExpirationCheckboxTooltip,
   spawnTaskData,
+  useProjectSetupScript = false,
+  useSetupScript = false,
   userAwsRegion,
   volumes,
-  isMigration,
-  useSetupScript = false,
-  useProjectSetupScript = false,
 }: Props): ReturnType<GetFormSchema> => {
   const {
-    displayName: taskDisplayName,
     buildVariant,
-    revision,
-    project,
     canSync,
+    displayName: taskDisplayName,
+    project,
+    revision,
   } = spawnTaskData || {};
   const hasValidTask = validateTask(spawnTaskData);
   const shouldRenderVolumeSelection = !isMigration && isVirtualWorkstation;

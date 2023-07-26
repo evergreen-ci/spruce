@@ -34,9 +34,9 @@ export const gqlToForm = ((data, { projectType }) => {
         ({
           alias,
           configFile,
+          cron,
           id,
           intervalHours,
-          cron,
           message,
           nextRunTime,
         }) => ({
@@ -64,7 +64,7 @@ export const gqlToForm = ((data, { projectType }) => {
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
-  { periodicBuildsOverride, periodicBuilds },
+  { periodicBuilds, periodicBuildsOverride },
   projectId
 ) => ({
   projectRef: {

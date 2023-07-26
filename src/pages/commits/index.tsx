@@ -50,7 +50,7 @@ import { ViewToggle } from "./ViewToggle";
 import { WaterfallMenu } from "./WaterfallMenu";
 
 const { toArray } = array;
-const { parseQueryString, getString } = queryString;
+const { getString, parseQueryString } = queryString;
 const { validateRegexp } = validators;
 
 const shouldDisableForTest =
@@ -124,9 +124,9 @@ const Commits = () => {
     filterState,
   });
 
-  const { hasTasks, hasFilters } = getFilterStatus(filterState);
+  const { hasFilters, hasTasks } = getFilterStatus(filterState);
 
-  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
   >(GET_MAINLINE_COMMITS, {
@@ -140,7 +140,7 @@ const Commits = () => {
   usePolling({ startPolling, stopPolling, refetch });
 
   const { mainlineCommits } = data || {};
-  const { versions, nextPageOrderNumber, prevPageOrderNumber } =
+  const { nextPageOrderNumber, prevPageOrderNumber, versions } =
     mainlineCommits || {};
 
   const queryParamsToDisplay = new Set([
@@ -148,7 +148,7 @@ const Commits = () => {
     ProjectFilterOptions.Task,
   ]);
 
-  const { badges, handleOnRemove, handleClearAll } =
+  const { badges, handleClearAll, handleOnRemove } =
     useFilterBadgeQueryParams(queryParamsToDisplay);
   const onSubmit = useUpsertQueryParams();
 

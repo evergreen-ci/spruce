@@ -30,11 +30,11 @@ interface BuildBaronCoreProps {
 }
 
 const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
+  annotation,
   bbData,
-  taskId,
   execution,
   loading,
-  annotation,
+  taskId,
   userCanModify,
 }) => {
   const [selectedRowKey, setSelectedRowKey] = useState("");

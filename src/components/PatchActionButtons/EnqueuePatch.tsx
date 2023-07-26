@@ -11,9 +11,9 @@ interface EnqueuePatchProps {
 }
 
 export const EnqueuePatch: React.VFC<EnqueuePatchProps> = ({
-  patchId,
   commitMessage,
   disabled,
+  patchId,
   refetchQueries = [],
   visibilityControl,
 }) => {

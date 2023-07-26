@@ -17,12 +17,12 @@ interface HistoryTableIconProps {
 }
 
 export const HistoryTableIcon: React.VFC<HistoryTableIconProps> = ({
-  status,
-  label,
   failingTests = [],
   inactive,
+  label,
   loadingTestResults,
   onClick = () => {},
+  status,
 }) => (
   <ConditionalWrapper
     condition={inactive || failingTests.length > 0}

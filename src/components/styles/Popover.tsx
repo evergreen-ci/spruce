@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { size } from "constants/tokens";
 
-const { white, gray } = palette;
+const { gray, white } = palette;
 
 export const PopoverContainer = styled.div`
   background-color: ${white};

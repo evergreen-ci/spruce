@@ -47,10 +47,10 @@ export const Default: CustomStoryObj<
 
 const RenderCommitsWrapper = ({
   buildVariantCount,
-  taskCount,
-  isLoading,
-  hasTaskFilter,
   hasFilters,
+  hasTaskFilter,
+  isLoading,
+  taskCount,
 }) => {
   const updatedVersions = versions.map((version) =>
     populateVersion(version, buildVariantCount, taskCount, hasTaskFilter)

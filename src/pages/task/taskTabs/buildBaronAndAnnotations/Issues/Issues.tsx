@@ -18,12 +18,12 @@ interface IssuesProps {
 }
 
 const Issues: React.VFC<IssuesProps> = ({
-  taskId,
+  annotation,
   execution,
-  userCanModify,
   selectedRowKey,
   setSelectedRowKey,
-  annotation,
+  taskId,
+  userCanModify,
 }) => {
   const dispatchToast = useToastContext();
   // Query Jira ticket data

@@ -10,8 +10,8 @@ interface CustomCreatedTicketProps {
 }
 
 const CustomCreatedTickets: React.VFC<CustomCreatedTicketProps> = ({
-  taskId,
   execution,
+  taskId,
   tickets,
 }) => (
   <>

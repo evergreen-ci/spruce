@@ -49,7 +49,7 @@ export const FilesTables: React.VFC = () => {
   const initialExecution = queryParamAsNumber(
     parsed[RequiredQueryParams.Execution]
   );
-  const { data, loading, error } = useQuery<
+  const { data, error, loading } = useQuery<
     TaskFilesQuery,
     TaskFilesQueryVariables
   >(GET_TASK_FILES, {
@@ -102,7 +102,7 @@ export const FilesTables: React.VFC = () => {
     if (!filteredFiles.length) {
       return <Body>No files found</Body>;
     }
-    return filteredFiles.map(({ taskName, files }) => (
+    return filteredFiles.map(({ files, taskName }) => (
       <Fragment key={taskName}>
         {filteredData?.length > 1 && <Subtitle>{taskName}</Subtitle>}
         <StyledTable

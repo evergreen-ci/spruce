@@ -30,12 +30,12 @@ export const TaskTabs: React.VFC<TaskTabProps> = ({ isDisplayTask, task }) => {
   const location = useLocation();
   const taskAnalytics = useTaskAnalytics();
   const {
-    id,
     annotation,
     canModifyAnnotation,
     execution,
     executionTasksFull,
     failedTestCount,
+    id,
     isPerfPluginEnabled,
     logs: logLinks,
     status,

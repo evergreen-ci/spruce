@@ -12,7 +12,7 @@ export const TaskEventLogLine: React.VFC<TaskEventLogEntry> = ({
   timestamp,
 }) => {
   const getDateCopy = useDateFormat();
-  const { hostId, podId, status, userId, jiraIssue, jiraLink, priority } = data;
+  const { hostId, jiraIssue, jiraLink, podId, priority, status, userId } = data;
   const route = podId ? getPodRoute(podId) : getHostRoute(hostId);
   const containerOrHostCopy = podId ? "container" : "host";
   let message: JSX.Element;

@@ -10,13 +10,13 @@ import { SpruceFormContainer } from "../../Container";
 
 export const ObjectFieldTemplate = ({
   description,
-  title,
-  properties,
-  required,
-  uiSchema,
   idSchema,
-  schema,
+  properties,
   registry,
+  required,
+  schema,
+  title,
+  uiSchema,
 }: ObjectFieldTemplateProps) => {
   const errors = uiSchema["ui:errors"] ?? [];
   const warnings = uiSchema["ui:warnings"] ?? [];
@@ -75,6 +75,7 @@ export const ObjectFieldTemplate = ({
 export const CardFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
   idSchema,
   properties,
+  registry,
   schema,
   title,
   uiSchema: {
@@ -82,7 +83,6 @@ export const CardFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
     "ui:description": uiDescription,
     "ui:title": uiTitle,
   },
-  registry,
 }) => {
   const description = uiDescription || schema.description;
   const DescriptionField = getTemplate("DescriptionFieldTemplate", registry);

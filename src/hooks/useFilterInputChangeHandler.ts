@@ -16,9 +16,9 @@ const { parseQueryString } = queryString;
  * @returns - the filter input state and its state management functions
  */
 export const useFilterInputChangeHandler = ({
-  urlParam,
   resetPage,
   sendAnalyticsEvent = () => undefined,
+  urlParam,
 }: FilterHookParams): FilterHookResult<string> => {
   const { search } = useLocation();
   const { [urlParam]: rawValue } = parseQueryString(search);

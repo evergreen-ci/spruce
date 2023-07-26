@@ -4,7 +4,7 @@ import { HistoryQueryParams } from "types/history";
 import { queryString } from "utils";
 import { useHistoryTable } from "../HistoryTableContext";
 
-const { parseQueryString, getString } = queryString;
+const { getString, parseQueryString } = queryString;
 
 const useJumpToCommit = () => {
   const { search } = useLocation();

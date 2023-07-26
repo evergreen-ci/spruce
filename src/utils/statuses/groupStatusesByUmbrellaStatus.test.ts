@@ -3,7 +3,7 @@ import { taskStatusToCopy } from "constants/task";
 import { TaskStatus } from "types/task";
 import { groupStatusesByUmbrellaStatus } from "./groupStatusesByUmbrellaStatus";
 
-const { red, green, yellow, gray, purple } = palette;
+const { gray, green, purple, red, yellow } = palette;
 
 describe("groupStatusesByUmbrellaStatus", () => {
   it("separates statuses into groups based on umbrella status", () => {

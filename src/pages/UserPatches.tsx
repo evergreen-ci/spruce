@@ -28,7 +28,7 @@ export const UserPatches = () => {
 
   const patchesInput = usePatchesInputFromSearch(search);
 
-  const { data, refetch, startPolling, stopPolling, loading } = useQuery<
+  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     UserPatchesQuery,
     UserPatchesQueryVariables
   >(GET_USER_PATCHES, {

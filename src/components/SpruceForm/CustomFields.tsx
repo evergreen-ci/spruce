@@ -32,8 +32,8 @@ const StyledSubtitle = styled(Subtitle)<SubtitleProps>`
 `;
 
 export const DescriptionField: React.VFC<DescriptionFieldProps> = ({
-  id,
   description,
+  id,
 }) =>
   description ? (
     <StyledDescription id={id}>{description}</StyledDescription>

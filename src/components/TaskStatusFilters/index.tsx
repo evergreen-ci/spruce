@@ -16,11 +16,11 @@ interface Props {
 export const TaskStatusFilters: React.VFC<Props> = ({
   onChangeBaseStatusFilter,
   onChangeStatusFilter,
-  versionId,
   selectedBaseStatuses,
   selectedStatuses,
+  versionId,
 }) => {
-  const { currentStatuses, baseStatuses } = useTaskStatuses({ versionId });
+  const { baseStatuses, currentStatuses } = useTaskStatuses({ versionId });
   return (
     <>
       <SelectorWrapper>

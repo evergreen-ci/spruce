@@ -5,10 +5,10 @@ interface ConditionalWrapperProps<T = any> {
   children: T;
 }
 export const ConditionalWrapper: React.VFC<ConditionalWrapperProps> = ({
-  condition,
-  wrapper,
   altWrapper,
   children,
+  condition,
+  wrapper,
 }) => {
   if (condition) {
     return wrapper(children);

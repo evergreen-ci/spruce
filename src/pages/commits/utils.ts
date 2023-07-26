@@ -90,7 +90,7 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
   state: CommitsPageReducerState
 ): MainlineCommitsQueryVariables["buildVariantOptions"] => {
   const { filterState } = state;
-  const { hasTasks, hasStatuses } = getFilterStatus(filterState);
+  const { hasStatuses, hasTasks } = getFilterStatus(filterState);
 
   let shouldShowTaskIcons = true;
   let statusesToShow = [];
@@ -122,7 +122,7 @@ const generateBuildVariantOptionsForGroupedTasksFromState = (
   state: CommitsPageReducerState
 ): MainlineCommitsQueryVariables["buildVariantOptionsForGroupedTasks"] => {
   const { filterState } = state;
-  const { hasTasks, hasFilters, hasStatuses } = getFilterStatus(filterState);
+  const { hasFilters, hasStatuses, hasTasks } = getFilterStatus(filterState);
 
   // If "All" view is enabled, don't group any tasks.
   if (filterState.view === ProjectHealthView.All) {
@@ -233,7 +233,7 @@ const constructBuildVariantDict = (versions: Commits): BuildVariantDict => {
 
       // Construct build variant dict which will contain information needed for rendering.
       Object.values(allBuildVariants).reduce(
-        (acc, { tasks, statusCounts, variant }) => {
+        (acc, { statusCounts, tasks, variant }) => {
           // Determine height to allocate for icons.
           let iconHeight = 0;
           if (tasks) {

@@ -32,11 +32,11 @@ type usePollingType = {
  * @returns boolean - true if polling, false if not polling
  */
 export const usePolling: usePollingType = ({
-  startPolling,
-  stopPolling,
+  initialPollingState = true,
   refetch,
   shouldPollFaster,
-  initialPollingState = true,
+  startPolling,
+  stopPolling,
 }) => {
   const [pollRate, setPollRate] = useState(
     initialPollingState ? DEFAULT_POLL_INTERVAL : 0

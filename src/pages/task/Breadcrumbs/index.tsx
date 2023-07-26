@@ -28,7 +28,7 @@ const TaskPageBreadcrumbs: React.VFC<TaskPageBreadcrumbsProps> = ({
   taskName,
   versionMetadata,
 }) => {
-  const { isPatch, author, projectIdentifier, id, message, revision } =
+  const { author, id, isPatch, message, projectIdentifier, revision } =
     versionMetadata ?? {};
   const breadcrumbRoot = useBreadcrumbRoot(isPatch, author, projectIdentifier);
   const breadcrumbAnalytics = useBreadcrumbAnalytics();

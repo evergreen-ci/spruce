@@ -245,11 +245,11 @@ const secondPageDisplayNames = [
 ];
 
 const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
-  selector = ".cy-checkbox",
   checkboxDisplayName,
-  pathname,
   paramName,
+  pathname,
   search,
+  selector = ".cy-checkbox",
 }) => {
   cy.get(selector)
     .contains(checkboxDisplayName)
