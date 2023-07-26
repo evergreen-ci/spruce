@@ -8,7 +8,8 @@ import { useGetUserQuery } from "analytics/useGetUserQuery";
 type Action =
   | { name: "Select Distro"; distro: string }
   | { name: "Click Task Link" }
-  | { name: "Click Version Link" };
+  | { name: "Click Version Link" }
+  | { name: "Click Author Patches Link" };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
