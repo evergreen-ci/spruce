@@ -57,13 +57,13 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
   const { makespan, timeTaken } = versionTiming || {};
   const {
     project: upstreamProjectIdentifier,
-    triggerType,
     task: upstreamTask,
+    triggerType,
     version: upstreamVersion,
   } = upstreamProject || {};
 
-  const { repo, owner } = projectMetadata || {};
-  const { url, displayName } = externalLinksForMetadata?.[0] || {};
+  const { owner, repo } = projectMetadata || {};
+  const { displayName, url } = externalLinksForMetadata?.[0] || {};
   return (
     <MetadataCard loading={loading} error={null}>
       <MetadataTitle>

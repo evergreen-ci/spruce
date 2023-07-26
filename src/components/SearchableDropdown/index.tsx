@@ -15,7 +15,7 @@ import TextInput from "components/TextInputWithGlyph";
 import { size } from "constants/tokens";
 import { toggleArray } from "utils/array";
 
-const { gray, blue } = palette;
+const { blue, gray } = palette;
 
 export interface SearchableDropdownProps<T> {
   allowMultiSelect?: boolean;
@@ -42,8 +42,8 @@ const SearchableDropdown = <T extends {}>({
   disabled = false,
   label,
   onChange,
-  options,
   optionRenderer,
+  options,
   searchFunc,
   searchPlaceholder = "search...",
   value,
@@ -182,10 +182,10 @@ interface SearchableDropdownOptionProps<T> {
   displayName?: string;
 }
 export const SearchableDropdownOption = <T extends {}>({
-  onClick,
-  isChecked,
-  value,
   displayName,
+  isChecked,
+  onClick,
+  value,
 }: PropsWithChildren<SearchableDropdownOptionProps<T>>) => (
   <Option
     onClick={() => onClick(value)}

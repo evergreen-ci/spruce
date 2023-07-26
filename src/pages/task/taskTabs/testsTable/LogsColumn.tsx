@@ -14,15 +14,15 @@ interface Props {
   task: TaskQuery["task"];
 }
 
-export const LogsColumn: React.VFC<Props> = ({ testResult, task }) => {
+export const LogsColumn: React.VFC<Props> = ({ task, testResult }) => {
   const { status, testFile } = testResult;
   const {
     url: urlHTML,
-    urlRaw,
-    urlParsley,
     urlLobster,
+    urlParsley,
+    urlRaw,
   } = testResult.logs ?? {};
-  const { project, displayName, displayTask, order } = task ?? {};
+  const { displayName, displayTask, order, project } = task ?? {};
   const { sendEvent } = useTaskAnalytics();
   const filters =
     status === TestStatus.Fail

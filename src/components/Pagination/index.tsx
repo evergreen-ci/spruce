@@ -25,8 +25,8 @@ interface Props {
 const Pagination: React.VFC<Props> = ({
   currentPage,
   onChange,
-  totalResults,
   pageSize,
+  totalResults,
 }) => {
   const updateQueryParams = useUpdateURLQueryParams();
   const handleChange =

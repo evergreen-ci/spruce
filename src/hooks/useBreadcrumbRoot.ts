@@ -9,7 +9,7 @@ export const useBreadcrumbRoot = (
 ) => {
   const breadcrumbAnalytics = useBreadcrumbAnalytics();
 
-  const { title: userPatchesPageTitle, link: userPatchesPageLink } =
+  const { link: userPatchesPageLink, title: userPatchesPageTitle } =
     useGetUserPatchesPageTitleAndLink(author, !isPatch) ?? {};
 
   return isPatch

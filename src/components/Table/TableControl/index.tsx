@@ -21,13 +21,13 @@ interface Props {
 
 const TableControl: React.VFC<Props> = ({
   filteredCount,
-  totalCount,
-  limit,
-  page,
   label,
+  limit,
   onClear,
-  onPageSizeChange,
   onPageChange,
+  onPageSizeChange,
+  page,
+  totalCount,
 }) => {
   const setPageSize = usePageSizeSelector();
 

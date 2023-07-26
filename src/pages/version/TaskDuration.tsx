@@ -69,7 +69,7 @@ const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
   usePolling({ startPolling, stopPolling, refetch });
   const { version } = data || {};
   const { tasks } = version || {};
-  const { data: tasksData = [], count = 0 } = tasks || {};
+  const { count = 0, data: tasksData = [] } = tasks || {};
   const shouldShowBottomTableControl = tasksData.length > 10;
 
   return (

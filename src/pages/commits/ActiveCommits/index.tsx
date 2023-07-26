@@ -6,7 +6,7 @@ import { CommitVersion, BuildVariantDict } from "types/commits";
 import { array, string } from "utils";
 import { BuildVariantCard } from "./BuildVariantCard";
 
-const { convertArrayToObject, arrayUnion } = array;
+const { arrayUnion, convertArrayToObject } = array;
 const { shortenGithash } = string;
 
 interface ActiveCommitLabelProps {
@@ -57,10 +57,10 @@ interface BuildVariantContainerProps {
   buildVariantDict: BuildVariantDict;
 }
 export const BuildVariantContainer: React.VFC<BuildVariantContainerProps> = ({
-  version,
   buildVariantDict,
+  version,
 }) => {
-  const { buildVariants, buildVariantStats, projectIdentifier, id, order } =
+  const { buildVariantStats, buildVariants, id, order, projectIdentifier } =
     version;
 
   const memoizedBuildVariantCards = useMemo(() => {
@@ -78,7 +78,7 @@ export const BuildVariantContainer: React.VFC<BuildVariantContainerProps> = ({
     );
 
     const buildVariantCards = allBuildVariants.map((v) => {
-      const { iconHeight, badgeHeight } = buildVariantDict[v];
+      const { badgeHeight, iconHeight } = buildVariantDict[v];
       const height = iconHeight + badgeHeight;
 
       const buildVariant = groupedBuildVariants[v];

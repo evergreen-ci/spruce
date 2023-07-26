@@ -26,11 +26,11 @@ export interface InputFilterProps {
 }
 
 export const InputFilter = ({
-  placeholder,
-  value,
+  "data-cy": dataCy,
   onChange,
   onFilter,
-  "data-cy": dataCy,
+  placeholder,
+  value,
   visible,
 }: InputFilterProps) => {
   const inputEl = useRef(null);
@@ -64,10 +64,10 @@ export const InputFilter = ({
 
 export const getColumnSearchFilterProps = ({
   "data-cy": dataCy,
-  placeholder,
-  value,
   onChange,
   onFilter,
+  placeholder,
+  value,
 }: InputFilterProps) => ({
   filterDropdown: ({ confirm, visible }: FilterDropdownProps) => (
     <InputFilter
@@ -94,10 +94,10 @@ export const getColumnSearchFilterProps = ({
 });
 
 export const getColumnTreeSelectFilterProps = ({
-  tData,
-  state,
-  onChange,
   "data-cy": dataCy,
+  onChange,
+  state,
+  tData,
 }: TreeSelectProps) => ({
   filterDropdown: () => (
     <TreeSelect
@@ -126,10 +126,10 @@ export interface CheckboxFilterProps {
 }
 
 export const CheckboxFilter = ({
+  dataCy,
+  onChange,
   statuses,
   value,
-  onChange,
-  dataCy,
 }: CheckboxFilterProps) => (
   <FilterWrapper data-cy={`${dataCy}-wrapper`}>
     <CheckboxGroup value={value} data={statuses} onChange={onChange} />
@@ -137,10 +137,10 @@ export const CheckboxFilter = ({
 );
 
 export const getColumnCheckboxFilterProps = ({
+  dataCy,
+  onChange,
   statuses,
   value,
-  onChange,
-  dataCy,
 }: CheckboxFilterProps) => ({
   filterDropdown: ({ confirm }: FilterDropdownProps) => (
     <CheckboxFilter

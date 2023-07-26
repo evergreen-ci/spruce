@@ -291,7 +291,7 @@ export const HostEventLog: React.VFC<{
   title: string;
   logs: string;
   isCode: boolean;
-}> = ({ title, logs, isCode }) => (
+}> = ({ isCode, logs, title }) => (
   <Accordion data-cy="host-event-log" title={title}>
     <span data-cy="host-event-log-content">
       {isCode ? <Code language="shell">{logs}</Code> : logs}

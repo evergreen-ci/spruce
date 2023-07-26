@@ -12,7 +12,7 @@ import { PublicKeysTab } from "./preferencesTabs/PublicKeysTab";
 export const PreferencesTabs: React.VFC = () => {
   const { tab } = useParams<{ tab: string }>();
 
-  const { title, subtitle } = getTitle(tab as PreferencesTabRoutes);
+  const { subtitle, title } = getTitle(tab as PreferencesTabRoutes);
   return (
     <>
       <TitleContainer>

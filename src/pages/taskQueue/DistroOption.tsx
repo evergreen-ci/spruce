@@ -15,10 +15,10 @@ interface DistroOptionProps {
 }
 
 export const DistroOption: React.VFC<DistroOptionProps> = ({
-  option,
   onClick,
+  option,
 }) => {
-  const { taskCount, hostCount, id } = option;
+  const { hostCount, id, taskCount } = option;
   return (
     <Link to={getTaskQueueRoute(id)} onClick={() => onClick(option)}>
       <OptionWrapper>

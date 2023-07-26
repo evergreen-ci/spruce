@@ -33,7 +33,7 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
   setOpen,
   volume,
 }) => {
-  const [{ page, form }, dispatch] = useReducer(reducer, initialState);
+  const [{ form, page }, dispatch] = useReducer(reducer, initialState);
   const onPageOne = page === Page.First;
 
   const dispatchToast = useToastContext();

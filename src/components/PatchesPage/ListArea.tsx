@@ -15,7 +15,7 @@ export const ListArea: React.VFC<{
   patches?: PatchesPagePatchesFragment;
   pageType: "project" | "user";
   loading: boolean;
-}> = ({ patches, loading, analyticsObject, pageType }) => {
+}> = ({ analyticsObject, loading, pageType, patches }) => {
   if (loading) {
     return <StyledSkeleton active title={false} paragraph={{ rows: 4 }} />;
   }

@@ -33,13 +33,13 @@ const TitleTypography: React.VFC<TitleTypographyProps> = ({
 };
 
 export const PageTitle: React.FC<Props> = ({
-  children,
-  loading,
-  title,
   badge,
   buttons,
-  size = "medium",
+  children,
+  loading,
   pageTitle = "Evergreen",
+  size = "medium",
+  title,
 }) => {
   usePageTitle(pageTitle);
 

@@ -21,11 +21,11 @@ interface BuildVariantAccordionProps {
   ) => void;
 }
 export const BuildVariantAccordion: React.VFC<BuildVariantAccordionProps> = ({
-  versionId,
-  tasks,
   displayName,
   selectedTasks,
+  tasks,
   toggleSelectedTask,
+  versionId,
 }) => {
   const taskLength = tasks.length;
   const matchingTasks = countMatchingTasks(tasks, selectedTasks);

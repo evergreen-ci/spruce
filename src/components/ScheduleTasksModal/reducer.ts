@@ -22,7 +22,7 @@ type Action =
   | { type: "toggleSelectAll" };
 
 export const reducer = (state: State, action: Action): State => {
-  const { selectedTasks, sortedBuildVariantGroups, allTasks } = state;
+  const { allTasks, selectedTasks, sortedBuildVariantGroups } = state;
   switch (action.type) {
     case "ingestData":
       return {

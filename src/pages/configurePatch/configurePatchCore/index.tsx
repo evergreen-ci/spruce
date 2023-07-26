@@ -45,14 +45,14 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
   const dispatchToast = useToastContext();
 
   const {
-    project,
-    id,
-    author,
-    time,
     activated,
-    childPatches,
-    patchTriggerAliases,
+    author,
     childPatchAliases,
+    childPatches,
+    id,
+    patchTriggerAliases,
+    project,
+    time,
     variantsTasks,
   } = patch;
   const { variants } = project;
@@ -79,14 +79,14 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
     disableBuildVariantSelect,
     patchParams,
     selectedAliases,
-    selectedBuildVariants,
     selectedBuildVariantTasks,
+    selectedBuildVariants,
     selectedTab,
     setDescription,
     setPatchParams,
     setSelectedAliases,
-    setSelectedBuildVariants,
     setSelectedBuildVariantTasks,
+    setSelectedBuildVariants,
     setSelectedTab,
   } = useConfigurePatch(initialPatch);
 

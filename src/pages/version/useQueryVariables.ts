@@ -6,8 +6,8 @@ import {
 import { PatchTasksQueryParams } from "types/task";
 import { queryString, url, array } from "utils";
 
-const { parseQueryString, parseSortString, getString } = queryString;
-const { getPageFromSearch, getLimitFromSearch } = url;
+const { getString, parseQueryString, parseSortString } = queryString;
+const { getLimitFromSearch, getPageFromSearch } = url;
 const { toArray } = array;
 
 export const useQueryVariables = (

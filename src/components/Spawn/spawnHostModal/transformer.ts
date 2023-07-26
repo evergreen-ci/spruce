@@ -16,19 +16,19 @@ interface Props {
 }
 export const formToGql = ({
   formData,
+  migrateVolumeId,
   myPublicKeys,
   spawnTaskData,
-  migrateVolumeId,
 }: Props): SpawnHostMutationVariables["spawnHostInput"] => {
   const {
+    distro,
     expirationDetails,
     homeVolumeDetails,
+    loadData,
     publicKeySection,
     region,
-    userdataScriptSection,
-    loadData,
-    distro,
     setupScriptSection,
+    userdataScriptSection,
   } = formData || {};
   const isVirtualWorkStation = !!distro?.isVirtualWorkstation;
   return {

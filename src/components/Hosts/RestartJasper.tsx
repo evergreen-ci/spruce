@@ -19,11 +19,11 @@ interface Props {
 }
 
 export const RestartJasper: React.VFC<Props> = ({
-  selectedHostIds,
+  canRestartJasper,
   hostUrl,
   isSingleHost,
-  canRestartJasper,
   jasperTooltipMessage,
+  selectedHostIds,
 }) => {
   const hostsTableAnalytics = useHostsTableAnalytics(isSingleHost);
   const dispatchToast = useToastContext();

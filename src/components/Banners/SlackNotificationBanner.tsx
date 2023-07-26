@@ -44,7 +44,7 @@ export const SlackNotificationBanner = () => {
   const { data: userSettingsData } =
     useQuery<UserSettingsQuery>(GET_USER_SETTINGS);
   const { userSettings } = userSettingsData || {};
-  const { slackUsername: defaultSlackUsername, notifications } =
+  const { notifications, slackUsername: defaultSlackUsername } =
     userSettings || {};
   const { patchFinish, patchFirstFailure } = notifications || {};
 

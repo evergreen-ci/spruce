@@ -24,9 +24,9 @@ interface SpawnVolumeModalProps {
 }
 
 export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
-  visible,
-  onCancel,
   maxSpawnableLimit,
+  onCancel,
+  visible,
 }) => {
   const spawnAnalytics = useSpawnAnalytics();
   const dispatchToast = useToastContext();
@@ -61,11 +61,11 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
 
   const {
     availabilityZones,
-    types,
-    hosts,
     disableExpirationCheckbox,
-    noExpirationCheckboxTooltip,
+    hosts,
     loadingFormData,
+    noExpirationCheckboxTooltip,
+    types,
   } = useLoadFormData();
 
   const [canSubmit, setCanSubmit] = useState(true);
@@ -78,7 +78,7 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
           formState?.requiredVolumeInformation?.availabilityZone &&
         (status === HostStatus.Running || status === HostStatus.Stopped)
     )
-    .map(({ id, displayName }) => ({ id, displayName }))
+    .map(({ displayName, id }) => ({ id, displayName }))
     .sort((a, b) => a.displayName.localeCompare(b.displayName));
 
   const { schema, uiSchema } = getFormSchema({
@@ -108,7 +108,7 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
         schema={schema}
         uiSchema={uiSchema}
         formData={formState}
-        onChange={({ formData, errors }) => {
+        onChange={({ errors, formData }) => {
           setFormState(formData);
           setCanSubmit(errors.length === 0);
         }}

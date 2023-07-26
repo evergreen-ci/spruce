@@ -103,7 +103,7 @@ describe("usePolling", () => {
       const refetch = jest.fn();
       mockedGet.mockImplementation(() => "true");
       let shouldPollFaster = true;
-      const { waitForNextUpdate, rerender } = renderHook(
+      const { rerender, waitForNextUpdate } = renderHook(
         () =>
           usePolling({
             startPolling,

@@ -33,16 +33,16 @@ export interface TreeDataEntry extends TreeDataChildEntry {
 }
 
 export const TreeSelect: React.VFC<TreeSelectProps> = ({
+  "data-cy": dataCy,
+  hasStyling = true,
   isDropdown = false,
   isVisible = true,
-  hasStyling = true,
   onChange,
+  onFilter,
+  onReset,
   setOptionsLabel = () => undefined,
   state,
   tData,
-  onReset,
-  onFilter,
-  "data-cy": dataCy,
 }) => {
   const allValues = getAllValues(tData);
   // removes values not included in tData
@@ -108,9 +108,9 @@ export const TreeSelect: React.VFC<TreeSelectProps> = ({
 // pushes parent then children to rows array
 // keeps track of level for indentation
 const renderCheckboxes = ({
-  tData,
-  state,
   onChange,
+  state,
+  tData,
 }: {
   tData: TreeDataEntry[];
   state: string[];
@@ -124,9 +124,9 @@ const renderCheckboxes = ({
 };
 
 const renderCheckboxesHelper = ({
-  rows,
   data,
   onChange,
+  rows,
   state,
   tData,
 }: {
@@ -178,10 +178,10 @@ const renderCheckboxesHelper = ({
 
 // Executes when checkbox is clicked
 const handleOnChange = ({
+  onChange,
   state,
+  tData, // callback function
   value,
-  onChange, // callback function
-  tData,
 }: {
   state: string[];
   value: string;
@@ -189,7 +189,7 @@ const handleOnChange = ({
   tData: TreeDataEntry[];
 }): void => {
   const isAlreadyChecked = state.includes(value); // is checkbox already selected
-  const { target, parent, siblings } = findNode({ value, tData });
+  const { parent, siblings, target } = findNode({ value, tData });
   const isParent = target.children;
   const isAll = target.value === ALL_VALUE; // is all button clicked
   if (!target) {
@@ -277,8 +277,8 @@ interface FindNodeResult {
 }
 
 const findNode = ({
-  value,
   tData,
+  value,
 }: {
   value: string;
   tData: TreeDataEntry[];

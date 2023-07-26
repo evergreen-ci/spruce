@@ -17,7 +17,7 @@ import {
 } from "gql/generated/types";
 import { SET_PATCH_PRIORITY, SET_TASK_PRIORITY } from "gql/mutations";
 
-const { yellow, red, gray } = palette;
+const { gray, red, yellow } = palette;
 
 type SetPriorityProps = (
   | {
@@ -34,10 +34,10 @@ type SetPriorityProps = (
 };
 
 const SetPriority: React.VFC<SetPriorityProps> = ({
-  taskId,
-  patchId,
   disabled,
   initialPriority = 0,
+  patchId,
+  taskId,
 }) => {
   const { sendEvent: sendPatchEvent } = useVersionAnalytics(patchId);
   const { sendEvent: sendTaskEvent } = useTaskAnalytics();

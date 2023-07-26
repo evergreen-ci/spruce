@@ -42,8 +42,8 @@ const defaultFormData = {
 };
 
 const Field = ({
-  projectType = ProjectType.AttachedProject,
   formData = defaultFormData,
+  projectType = ProjectType.AttachedProject,
 }: {
   projectType?: ProjectType;
   formData?: { owner: string; repo: string };

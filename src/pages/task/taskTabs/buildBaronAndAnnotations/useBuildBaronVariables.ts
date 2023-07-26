@@ -17,7 +17,7 @@ interface UseBuildBaronVariablesType {
   };
 }
 const useBuildBaronVariables = ({ task }: UseBuildBaronVariablesType) => {
-  const { id, execution, status, hasAnnotation, canModifyAnnotation } = task;
+  const { canModifyAnnotation, execution, hasAnnotation, id, status } = task;
   const isFailedTask = isFailedTaskStatus(status);
   const { data: buildBaronData } = useQuery<
     BuildBaronConfiguredQuery,

@@ -19,9 +19,9 @@ interface Props {
 }
 
 export const CommitChartTooltip: React.VFC<Props> = ({
+  eta,
   groupedTaskStats,
   trigger,
-  eta,
 }) => {
   const zeroCountStatus = getStatusesWithZeroCount(groupedTaskStats);
   return (
@@ -76,11 +76,11 @@ interface TotalCountProps {
   active?: boolean;
 }
 export const TotalCount: React.VFC<TotalCountProps> = ({
+  active = true,
   color,
   count,
-  status,
   eta,
-  active = true,
+  status,
 }) => (
   <TotalCountContainer active={active}>
     <Circle color={color} />

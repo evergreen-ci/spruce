@@ -23,8 +23,8 @@ interface GetColumnsTemplateParams {
 export const getColumnsTemplate = ({
   onColumnHeaderClick = () => undefined,
   statusSelectorProps,
-  testNameInputProps,
   task,
+  testNameInputProps,
 }: GetColumnsTemplateParams): ColumnProps<TestResult>[] => [
   {
     title: <span data-cy="name-column">Name</span>,

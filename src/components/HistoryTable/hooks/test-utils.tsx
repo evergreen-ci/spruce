@@ -24,8 +24,8 @@ interface ProviderProps {
 }
 const ProviderWrapper: React.VFC<ProviderProps> = ({
   children,
-  state = {},
   mocks = [],
+  state = {},
 }) => (
   <MockedProvider mocks={mocks}>
     <HistoryTableProvider initialState={{ ...initialState, ...state }}>

@@ -36,7 +36,7 @@ const HostUptime: React.VFC<MyHost> = ({ uptime }) => {
   return <span>{getDateCopy(uptime)}</span>;
 };
 
-const HostExpiration: React.VFC<MyHost> = ({ noExpiration, expiration }) => {
+const HostExpiration: React.VFC<MyHost> = ({ expiration, noExpiration }) => {
   const getDateCopy = useDateFormat();
   return <span>{noExpiration ? DoesNotExpire : getDateCopy(expiration)}</span>;
 };
@@ -64,7 +64,7 @@ const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
   "Instance Type": (host: MyHost) => <span>{host?.instanceType}</span>,
   "Mounted Volumes": (host: MyHost) => (
     <>
-      {host.volumes.map(({ id, displayName }) => (
+      {host.volumes.map(({ displayName, id }) => (
         <div key={`volume_link_${id}`}>
           <StyledRouterLink to={getSpawnVolumeRoute(id)}>
             {displayName || id}
