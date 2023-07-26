@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import SearchInput from "@leafygreen-ui/search-input";
+import { SearchInput } from "@leafygreen-ui/search-input";
 import Cookies from "js-cookie";
 import { useLocation } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
