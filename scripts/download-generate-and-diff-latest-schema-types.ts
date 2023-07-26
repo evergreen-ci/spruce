@@ -16,9 +16,9 @@ const REPO_CONTENTS = `${REPO}/contents/`;
 const USER_AGENT = "Mozilla/5.0";
 const LOCAL_SCHEMA = "sdlschema";
 
+// Get the latest commit that was made to the GQL folder.
 async function getRemoteLatestCommitSha() {
   const url = `${GITHUB_API}${REPO}/commits?path=${GQL_DIR}&sha=main`;
-  console.log(url);
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Failed to fetch ${url}. Status: ${response.status}`);
@@ -32,25 +32,28 @@ async function getRemoteLatestCommitSha() {
     throw new Error(`No commits found for this path: ${url}`);
   }
 }
+
+// Return true if your local Evergreen repo contains the latest commit made to the GQL folder and false otherwise.
 const checkIsAncestor = async () => {
   const remoteSha = await getRemoteLatestCommitSha();
   const localSchemaSymlink = fs.readlinkSync(LOCAL_SCHEMA);
-
+  const originalDir = process.cwd();
   try {
     process.chdir(localSchemaSymlink);
     console.log(process.cwd());
     execSync(`git merge-base --is-ancestor ${remoteSha} HEAD`);
-    // If the command was successful without errors, then the commit is an ancestor
+    process.chdir(originalDir);
     return true;
   } catch (error) {
+    process.chdir(originalDir);
     if (error.status === 1) {
-      // git merge-base --is-ancestor returns exit code 1 if not an ancestor, which is not an "error" in traditional sense
       return false;
     }
     throw new Error(`Error executing command: ${error.message}`);
   }
 };
 
+// Download the file at the given url and save it to the given savePath.
 const downloadAndSaveFile = async (url: string, savePath: string) => {
   const response = await fetch(url, {
     headers: {
@@ -64,6 +67,7 @@ const downloadAndSaveFile = async (url: string, savePath: string) => {
   fs.writeFileSync(savePath, Buffer.from(data));
 };
 
+// Recursively fetch and save the files at the given github repoPath and save to the given localPath.
 const fetchFiles = async (repoPath: string, localPath: string) => {
   const response = await fetch(`${GITHUB_API}${repoPath}`, {
     headers: {
@@ -93,6 +97,7 @@ const fetchFiles = async (repoPath: string, localPath: string) => {
   await Promise.all(promises);
 };
 
+// Download GQL files from remote and generate types. Return path to generated file.
 const downloadAndGenerate = async () => {
   const tempDir = os.tmpdir();
   fs.mkdirSync(tempDir, { recursive: true });
@@ -130,9 +135,9 @@ const diffTypes = async () => {
     const [file1, file2] = filenames.map((filename) =>
       fs.readFileSync(filename)
     );
-    if (!file1.equals(file2)) {
+    if (!file1.equals(file2) && !(await checkIsAncestor())) {
       console.error(
-        "The codegen task will fail in CI. Run 'yarn codegen' against the latest Evergreen code."
+        "You are developing against an outdated schema and the codegen task will fail in CI. Run 'yarn codegen' against the latest Evergreen code."
       );
       process.exit(1);
     }
