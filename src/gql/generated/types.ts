@@ -2481,6 +2481,7 @@ export type TaskQueueDistro = {
  */
 export type TaskQueueItem = {
   __typename?: "TaskQueueItem";
+  author: Scalars["String"];
   buildVariant: Scalars["String"];
   displayName: Scalars["String"];
   expectedDuration: Scalars["Duration"];
@@ -4987,6 +4988,7 @@ export type DistroTaskQueueQuery = {
   __typename?: "Query";
   distroTaskQueue: Array<{
     __typename?: "TaskQueueItem";
+    author: string;
     buildVariant: string;
     displayName: string;
     expectedDuration: number;
