@@ -41,38 +41,10 @@ const HostExpiration: React.VFC<MyHost> = ({ expiration, noExpiration }) => {
   return <span>{noExpiration ? DoesNotExpire : getDateCopy(expiration)}</span>;
 };
 const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
-  ID: (host: MyHost) => <span>{host?.id}</span>,
-  "Created at": HostUptime,
-  "Started at": HostUptime,
-  "Expires at": HostExpiration,
-  "SSH User": (host: MyHost) => <span>{host?.distro?.user}</span>,
-  "DNS Name": (host: MyHost) => <span>{host?.hostUrl}</span>,
-  "Working Directory": (host: MyHost) => <span>{host?.distro?.workDir}</span>,
   "Availability Zone": (host: MyHost) => <span>{host?.availabilityZone}</span>,
-  "User Tags": (host: MyHost) => (
-    <span>
-      {host?.instanceTags?.map(
-        (tag) =>
-          tag.canBeModified && (
-            <PaddedBadge key={`user_tag_${host.id}_${tag.key}`}>
-              {tag?.key}:{tag?.value}
-            </PaddedBadge>
-          )
-      )}
-    </span>
-  ),
-  "Instance Type": (host: MyHost) => <span>{host?.instanceType}</span>,
-  "Mounted Volumes": (host: MyHost) => (
-    <>
-      {host.volumes.map(({ displayName, id }) => (
-        <div key={`volume_link_${id}`}>
-          <StyledRouterLink to={getSpawnVolumeRoute(id)}>
-            {displayName || id}
-          </StyledRouterLink>
-        </div>
-      ))}
-    </>
-  ),
+  "Created at": HostUptime,
+  "DNS Name": (host: MyHost) => <span>{host?.hostUrl}</span>,
+  "Expires at": HostExpiration,
   "Home Volume": (host: MyHost) => (
     <span>
       <StyledRouterLink to={getSpawnVolumeRoute(host?.homeVolumeID)}>
@@ -80,6 +52,7 @@ const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
       </StyledRouterLink>
     </span>
   ),
+  ID: (host: MyHost) => <span>{host?.id}</span>,
   IDE: (host: MyHost) =>
     host?.distro?.isVirtualWorkStation &&
     host?.status === HostStatus.Running ? (
@@ -92,6 +65,33 @@ const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
         </StyledLink>
       </span>
     ) : undefined,
+  "Instance Type": (host: MyHost) => <span>{host?.instanceType}</span>,
+  "Mounted Volumes": (host: MyHost) => (
+    <>
+      {host.volumes.map(({ displayName, id }) => (
+        <div key={`volume_link_${id}`}>
+          <StyledRouterLink to={getSpawnVolumeRoute(id)}>
+            {displayName || id}
+          </StyledRouterLink>
+        </div>
+      ))}
+    </>
+  ),
+  "SSH User": (host: MyHost) => <span>{host?.distro?.user}</span>,
+  "Started at": HostUptime,
+  "User Tags": (host: MyHost) => (
+    <span>
+      {host?.instanceTags?.map(
+        (tag) =>
+          tag.canBeModified && (
+            <PaddedBadge key={`user_tag_${host.id}_${tag.key}`}>
+              {tag?.key}:{tag?.value}
+            </PaddedBadge>
+          )
+      )}
+    </span>
+  ),
+  "Working Directory": (host: MyHost) => <span>{host?.distro?.workDir}</span>,
 });
 
 const PaddedBadge = styled(Badge)`

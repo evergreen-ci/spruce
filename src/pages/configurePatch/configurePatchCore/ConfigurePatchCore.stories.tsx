@@ -5,7 +5,6 @@ import { patchQuery, mocks } from "./testData";
 
 export default {
   component: ConfigurePatchCore,
-  title: "pages/configurePatch/configurePatchCore",
   decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
   parameters: {
     apolloClient: {
@@ -17,12 +16,13 @@ export default {
       route: `/patch/${patchQuery.patch.id}/configure/tasks`,
     },
   },
+  title: "pages/configurePatch/configurePatchCore",
 } satisfies CustomMeta<typeof ConfigurePatchCore>;
 
 export const ConfigureTasksDefault: CustomStoryObj<typeof ConfigurePatchCore> =
   {
-    render: (args) => <ConfigurePatchCore {...args} />,
     args: {
       patch: patchQuery.patch,
     },
+    render: (args) => <ConfigurePatchCore {...args} />,
   };

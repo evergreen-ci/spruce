@@ -43,15 +43,15 @@ export const Task = () => {
     TaskQuery,
     TaskQueryVariables
   >(GET_TASK, {
-    variables: { taskId: id, execution: selectedExecution },
-    pollInterval: DEFAULT_POLL_INTERVAL,
     fetchPolicy: "network-only",
     onError: (err) =>
       dispatchToast.error(
         `There was an error loading the task: ${err.message}`
       ),
+    pollInterval: DEFAULT_POLL_INTERVAL,
+    variables: { execution: selectedExecution, taskId: id },
   });
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling({ refetch, startPolling, stopPolling });
 
   const { task } = data ?? {};
   const {

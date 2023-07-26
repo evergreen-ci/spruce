@@ -21,17 +21,20 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
 
   return {
     patchAliases: {
-      aliasesOverride: !isAttachedProject || !!patchAliases.length,
       aliases: patchAliases.map((a) => ({
         ...a,
         displayTitle: a.alias,
       })),
+      aliasesOverride: !isAttachedProject || !!patchAliases.length,
     },
     patchTriggerAliases: {
-      aliasesOverride: !isAttachedProject || !!patchTriggerAliases,
       aliases:
         patchTriggerAliases?.map((p) => ({
           ...p,
+          displayTitle: p.alias,
+          isGithubTriggerAlias: githubTriggerAliases?.includes(p.alias),
+          parentAsModule: p.parentAsModule ?? "",
+          status: p.status ?? "",
           taskSpecifiers:
             p.taskSpecifiers?.map((t) => ({
               ...t,
@@ -39,11 +42,8 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
                 ? TaskSpecifier.PatchAlias
                 : TaskSpecifier.VariantTask,
             })) ?? [],
-          status: p.status ?? "",
-          parentAsModule: p.parentAsModule ?? "",
-          isGithubTriggerAlias: githubTriggerAliases?.includes(p.alias),
-          displayTitle: p.alias,
         })) ?? [],
+      aliasesOverride: !isAttachedProject || !!patchTriggerAliases,
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
@@ -66,6 +66,8 @@ export const formToGql = ((
         return {
           alias: a.alias,
           childProjectIdentifier: a.childProjectIdentifier,
+          parentAsModule: a.parentAsModule,
+          status: a.status,
           taskSpecifiers:
             a.taskSpecifiers?.map(
               ({ patchAlias, specifier, taskRegex, variantRegex }) =>
@@ -81,14 +83,12 @@ export const formToGql = ((
                       variantRegex,
                     }
             ) ?? [],
-          status: a.status,
-          parentAsModule: a.parentAsModule,
         };
       })
     : null;
 
   return {
-    projectRef: { id, patchTriggerAliases, githubTriggerAliases },
     aliases,
+    projectRef: { githubTriggerAliases, id, patchTriggerAliases },
   };
 }) satisfies FormToGqlFunction<Tab>;

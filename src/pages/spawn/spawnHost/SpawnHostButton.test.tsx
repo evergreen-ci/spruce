@@ -62,40 +62,40 @@ describe("spawnHostButton", () => {
 });
 
 const baseSpawnHost: Omit<MyHost, "id" | "status"> = {
-  expiration: new Date("2021-10-28T22:37:40Z"),
+  __typename: "Host",
+  availabilityZone: "us-east-1c",
+  displayName: "",
   distro: {
-    isVirtualWorkStation: true,
+    __typename: "DistroInfo",
     id: "ubuntu1804-workstation",
+    isVirtualWorkStation: true,
+    isWindows: false,
     user: "ubuntu",
     workDir: "/home/ubuntu",
-    isWindows: false,
-    __typename: "DistroInfo",
   },
-  hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
-  homeVolumeID: "vol-07fa9f6b5c2067e34",
+  expiration: new Date("2021-10-28T22:37:40Z"),
   homeVolume: {
-    id: "home-volume-id",
     displayName: "",
+    id: "home-volume-id",
   },
-  instanceType: "m5.xlarge",
+  homeVolumeID: "vol-07fa9f6b5c2067e34",
+  hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
   instanceTags: [],
-  volumes: [
-    {
-      displayName: "",
-      id: "vol-0cf616375140c067e",
-      migrating: false,
-      __typename: "Volume",
-    },
-  ],
+  instanceType: "m5.xlarge",
   noExpiration: false,
   provider: "ec2-ondemand",
   startedBy: "stssss.arst",
   tag: "evg-ubuntu1804-workstation-20201014223740-6478743249380995507",
-  user: "ubuntu",
   uptime: new Date("2020-10-14T22:37:40Z"),
-  displayName: "",
-  availabilityZone: "us-east-1c",
-  __typename: "Host",
+  user: "ubuntu",
+  volumes: [
+    {
+      __typename: "Volume",
+      displayName: "",
+      id: "vol-0cf616375140c067e",
+      migrating: false,
+    },
+  ],
 };
 
 const spawnHost1: MyHost = {

@@ -11,15 +11,15 @@ import {
 import { MultiSelect } from "./MultiSelect";
 
 const widgets = {
-  DateTimeWidget: DateTimePicker,
-  TextWidget: LeafyGreenTextInput,
-  TextareaWidget: LeafyGreenTextArea,
   CheckboxWidget: LeafyGreenCheckBox,
+  DateTimeWidget: DateTimePicker,
+  MultiSelectWidget: MultiSelect,
+  RadioBoxWidget: LeafyGreenRadioBox,
+  RadioWidget: LeafyGreenRadio,
   SegmentedControlWidget: LeafyGreenSegmentedControl,
   SelectWidget: LeafyGreenSelect,
-  RadioWidget: LeafyGreenRadio,
-  RadioBoxWidget: LeafyGreenRadioBox,
-  MultiSelectWidget: MultiSelect,
+  TextWidget: LeafyGreenTextInput,
+  TextareaWidget: LeafyGreenTextArea,
 };
 
 export default widgets;

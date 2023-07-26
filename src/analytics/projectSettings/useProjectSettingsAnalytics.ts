@@ -26,8 +26,8 @@ export const useProjectSettingsAnalytics = (): Analytics => {
 
   const sendEvent: Analytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
-      object: "ProjectSettings",
       identifier: projectIdentifier,
+      object: "ProjectSettings",
     });
   };
 

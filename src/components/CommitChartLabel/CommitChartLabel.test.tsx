@@ -13,8 +13,8 @@ const RenderCommitChartLabel = ({ version }) => (
       author={version.author}
       message={version.message}
       gitTags={[
-        { tag: "v1.2.3", pusher: "release-bot" },
-        { tag: "v1.2.3-rc0", pusher: "release-bot" },
+        { pusher: "release-bot", tag: "v1.2.3" },
+        { pusher: "release-bot", tag: "v1.2.3-rc0" },
       ]}
     />
   </MockedProvider>
@@ -87,18 +87,18 @@ describe("commitChartLabel", () => {
 });
 
 const versionShort = {
-  id: "123",
+  author: "Mohamed Khelif",
   createTime: new Date("2021-06-16T23:38:13Z"),
+  id: "123",
   message: "SERVER-57332 Create skeleton Internal",
   order: 39365,
-  author: "Mohamed Khelif",
   revision: "4137c33fa4a0d5c747a1115f0853b5f70e46f112",
 };
 const versionLong = {
-  id: "123",
+  author: "Mohamed Khelif",
   createTime: new Date("2021-06-16T23:38:13Z"),
+  id: "123",
   message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
   order: 39365,
-  author: "Mohamed Khelif",
   revision: "4137c33fa4a0d5c747a1115f0853b5f70e46f112",
 };

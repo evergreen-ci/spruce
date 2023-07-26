@@ -44,8 +44,8 @@ const useEffectDebugger = (
         return {
           ...accum,
           [keyName]: {
-            before: previousDeps[index],
             after: dependency,
+            before: previousDeps[index],
           },
         };
       }

@@ -31,16 +31,16 @@ describe("repo data", () => {
 });
 
 const projectForm: VWFormState = {
-  gitClone: null,
   commands: {
-    setupCommandsOverride: true,
     setupCommands: [
       {
         command: 'echo "hello spruce"',
         directory: "sophie.stadler",
       },
     ],
+    setupCommandsOverride: true,
   },
+  gitClone: null,
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
@@ -59,11 +59,11 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
 };
 
 const repoForm: VWFormState = {
-  gitClone: true,
   commands: {
-    setupCommandsOverride: true,
     setupCommands: [],
+    setupCommandsOverride: true,
   },
+  gitClone: true,
 };
 
 const repoResult: Pick<RepoSettingsInput, "projectRef"> = {

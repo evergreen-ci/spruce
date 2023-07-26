@@ -48,16 +48,16 @@ export const EditModal: React.VFC<EditModalProps> = ({
     UpdatePublicKeyMutation,
     UpdatePublicKeyMutationVariables
   >(UPDATE_PUBLIC_KEY, {
+    onCompleted() {},
     onError(error) {
       dispatchToast.error(
         `There was an error editing the public key: ${error.message}`
       );
     },
-    onCompleted() {},
     update(cache, { data }) {
       cache.writeQuery<MyPublicKeysQuery, MyPublicKeysQueryVariables>({
-        query: GET_MY_PUBLIC_KEYS,
         data: { myPublicKeys: [...data.updatePublicKey] },
+        query: GET_MY_PUBLIC_KEYS,
       });
     },
   });
@@ -65,16 +65,16 @@ export const EditModal: React.VFC<EditModalProps> = ({
     CreatePublicKeyMutation,
     CreatePublicKeyMutationVariables
   >(CREATE_PUBLIC_KEY, {
+    onCompleted() {},
     onError(error) {
       dispatchToast.error(
         `There was an error creating the public key: ${error.message}`
       );
     },
-    onCompleted() {},
     update(cache, { data }) {
       cache.writeQuery<MyPublicKeysQuery, MyPublicKeysQueryVariables>({
-        query: GET_MY_PUBLIC_KEYS,
         data: { myPublicKeys: [...data.createPublicKey] },
+        query: GET_MY_PUBLIC_KEYS,
       });
     },
   });
@@ -115,7 +115,7 @@ export const EditModal: React.VFC<EditModalProps> = ({
   };
 
   const onClickSave = () => {
-    const nextKeyInfo = { name: keyName, key: stripNewLines(keyValue) };
+    const nextKeyInfo = { key: stripNewLines(keyValue), name: keyName };
     if (replaceKeyName) {
       sendEvent({ name: "Update public key" });
       updatePublicKey({

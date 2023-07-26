@@ -17,7 +17,7 @@ const mockEnvironmentVariables = () => {
     });
   };
 
-  return { mockEnv, cleanup };
+  return { cleanup, mockEnv };
 };
 
 const selectLGOption = async (dataCy: string, option: string) => {

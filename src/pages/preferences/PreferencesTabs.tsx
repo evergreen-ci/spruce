@@ -93,8 +93,8 @@ const getTitle = (
         title: "New UI Settings",
       },
       [PreferencesTabRoutes.PublicKeys]: {
-        title: "Manage Public Keys",
         subtitle: "These keys will be used to SSH into spawned hosts.",
+        title: "Manage Public Keys",
       },
     }[tab] ?? defaultTitle
   );

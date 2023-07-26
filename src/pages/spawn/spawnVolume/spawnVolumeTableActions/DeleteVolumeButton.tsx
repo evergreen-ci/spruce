@@ -23,12 +23,12 @@ export const DeleteVolumeButton: React.VFC<Props> = ({ volume }) => {
     RemoveVolumeMutation,
     RemoveVolumeMutationVariables
   >(REMOVE_VOLUME, {
-    refetchQueries: ["MyVolumes", "MyHosts"],
-    onError: (err) =>
-      dispatchToast.error(`Error removing volume: '${err.message}'`),
     onCompleted: () => {
       dispatchToast.success("Successfully deleted the volume.");
     },
+    onError: (err) =>
+      dispatchToast.error(`Error removing volume: '${err.message}'`),
+    refetchQueries: ["MyVolumes", "MyHosts"],
   });
 
   const volumeName = volume.displayName ? volume.displayName : volume.id;

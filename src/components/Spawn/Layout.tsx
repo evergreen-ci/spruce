@@ -30,9 +30,6 @@ export const SpawnTable: React.VFC<React.ComponentProps<typeof Table>> = (
     <Table
       {...{
         ...props,
-        rowKey: (record) => record.id,
-        pagination: false,
-        expandRowByClick: true,
         expandIcon: ({ expanded, onExpand, record }) => {
           const onClick = (e) => {
             onExpand(record, e);
@@ -51,6 +48,9 @@ export const SpawnTable: React.VFC<React.ComponentProps<typeof Table>> = (
             </span>
           );
         },
+        expandRowByClick: true,
+        pagination: false,
+        rowKey: (record) => record.id,
       }}
     />
   </TableContainer>

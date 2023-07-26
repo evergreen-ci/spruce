@@ -11,24 +11,24 @@ describe("getCurrentStatuses", () => {
     ];
     expect(getCurrentStatuses(statuses, statusesTreeData)).toStrictEqual([
       {
+        key: "all",
         title: "All",
         value: "all",
-        key: "all",
       },
       {
+        key: TaskStatus.Failed,
         title: "Failed",
         value: TaskStatus.Failed,
-        key: TaskStatus.Failed,
       },
       {
+        key: TaskStatus.Succeeded,
         title: "Success",
         value: TaskStatus.Succeeded,
-        key: TaskStatus.Succeeded,
       },
       {
+        key: TaskStatus.Dispatched,
         title: "Running",
         value: TaskStatus.Dispatched,
-        key: TaskStatus.Dispatched,
       },
     ]);
   });
@@ -36,9 +36,9 @@ describe("getCurrentStatuses", () => {
   it("returns only All for no statuses", () => {
     expect(getCurrentStatuses([], statusesTreeData)).toStrictEqual([
       {
+        key: "all",
         title: "All",
         value: "all",
-        key: "all",
       },
     ]);
   });
@@ -51,24 +51,24 @@ describe("getCurrentStatuses", () => {
     ];
     expect(getCurrentStatuses(statuses, statusesTreeData)).toStrictEqual([
       {
+        key: "all",
         title: "All",
         value: "all",
-        key: "all",
       },
       {
+        key: TaskStatus.TestTimedOut,
         title: "Test Timed Out",
         value: TaskStatus.TestTimedOut,
-        key: TaskStatus.TestTimedOut,
       },
       {
+        key: TaskStatus.Undispatched,
         title: "Undispatched",
         value: TaskStatus.Undispatched,
-        key: TaskStatus.Undispatched,
       },
       {
+        key: TaskStatus.SystemFailed,
         title: "System Failed",
         value: TaskStatus.SystemFailed,
-        key: TaskStatus.SystemFailed,
       },
     ]);
   });
@@ -77,26 +77,26 @@ describe("getCurrentStatuses", () => {
     const statuses = [TaskStatus.Failed, TaskStatus.TestTimedOut];
     expect(getCurrentStatuses(statuses, statusesTreeData)).toStrictEqual([
       {
+        key: "all",
         title: "All",
         value: "all",
-        key: "all",
       },
       {
-        title: "Failures",
-        value: "all-failures",
-        key: "all-failures",
         children: [
           {
+            key: TaskStatus.Failed,
             title: "Failed",
             value: TaskStatus.Failed,
-            key: TaskStatus.Failed,
           },
           {
+            key: TaskStatus.TestTimedOut,
             title: "Test Timed Out",
             value: TaskStatus.TestTimedOut,
-            key: TaskStatus.TestTimedOut,
           },
         ],
+        key: "all-failures",
+        title: "Failures",
+        value: "all-failures",
       },
     ]);
   });
@@ -104,84 +104,84 @@ describe("getCurrentStatuses", () => {
 
 const statusesTreeData: TreeDataEntry[] = [
   {
+    key: "all",
     title: "All",
     value: "all",
-    key: "all",
   },
   {
-    title: "Failures",
-    value: "all-failures",
-    key: "all-failures",
     children: [
       {
+        key: TaskStatus.Failed,
         title: "Failed",
         value: TaskStatus.Failed,
-        key: TaskStatus.Failed,
       },
       {
+        key: TaskStatus.TestTimedOut,
         title: "Test Timed Out",
         value: TaskStatus.TestTimedOut,
-        key: TaskStatus.TestTimedOut,
       },
     ],
+    key: "all-failures",
+    title: "Failures",
+    value: "all-failures",
   },
   {
+    key: TaskStatus.Succeeded,
     title: "Success",
     value: TaskStatus.Succeeded,
-    key: TaskStatus.Succeeded,
   },
   {
+    key: TaskStatus.Dispatched,
     title: "Running",
     value: TaskStatus.Dispatched,
-    key: TaskStatus.Dispatched,
   },
   {
+    key: TaskStatus.Started,
     title: "Started",
     value: TaskStatus.Started,
-    key: TaskStatus.Started,
   },
   {
-    title: "Scheduled",
-    value: "scheduled",
-    key: "scheduled",
     children: [
       {
+        key: TaskStatus.Unstarted,
         title: "Unstarted",
         value: TaskStatus.Unstarted,
-        key: TaskStatus.Unstarted,
       },
       {
+        key: TaskStatus.Undispatched,
         title: "Undispatched",
         value: TaskStatus.Undispatched,
-        key: TaskStatus.Undispatched,
       },
     ],
+    key: "scheduled",
+    title: "Scheduled",
+    value: "scheduled",
   },
   {
-    title: "System Issues",
-    value: "system-issues",
-    key: "system-issues",
     children: [
       {
+        key: TaskStatus.SystemFailed,
         title: "System Failed",
         value: TaskStatus.SystemFailed,
-        key: TaskStatus.SystemFailed,
       },
     ],
+    key: "system-issues",
+    title: "System Issues",
+    value: "system-issues",
   },
   {
+    key: TaskStatus.SetupFailed,
     title: "Setup Failed",
     value: TaskStatus.SetupFailed,
-    key: TaskStatus.SetupFailed,
   },
   {
+    key: TaskStatus.Blocked,
     title: "Blocked",
     value: TaskStatus.Blocked,
-    key: TaskStatus.Blocked,
   },
   {
+    key: TaskStatus.Inactive,
     title: "Won't Run",
     value: TaskStatus.Inactive,
-    key: TaskStatus.Inactive,
   },
 ];

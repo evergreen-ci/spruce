@@ -14,24 +14,24 @@ describe("getLobsterTestLogCompleteUrl", () => {
   it("generates correct URL based on function params.", () => {
     expect(
       getLobsterTestLogCompleteUrl({
-        taskId,
         execution,
         groupId,
         lineNum,
+        taskId,
       })
     ).toBe("/lobster/evergreen/complete-test/taskId/44/groupId#shareLine=33");
     expect(
       getLobsterTestLogCompleteUrl({
-        taskId,
         execution,
+        taskId,
       })
     ).toBe("/lobster/evergreen/complete-test/taskId/44");
     expect(
       getLobsterTestLogCompleteUrl({
-        taskId,
         execution,
         groupId: "",
         lineNum: 0,
+        taskId,
       })
     ).toBe("/lobster/evergreen/complete-test/taskId/44");
   });

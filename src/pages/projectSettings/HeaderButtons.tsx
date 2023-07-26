@@ -109,20 +109,20 @@ export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
       isRepo
         ? saveRepoSection({
             variables: {
-              section,
               repoSettings: update,
+              section,
             },
           })
         : saveProjectSection({
             variables: {
-              section,
               projectSettings: update,
+              section,
             },
           });
 
     const section = mapRouteToSection[tab];
     save(newData, section);
-    sendEvent({ section, name: isRepo ? "Save repo" : "Save project" });
+    sendEvent({ name: isRepo ? "Save repo" : "Save project", section });
   };
 
   const canDefaultToRepo = !defaultToRepoDisabled.has(tab);

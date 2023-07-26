@@ -49,9 +49,9 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
       return {
         ...state,
         columns: action.columns,
-        visibleColumns: action.columns.slice(0, state.columnLimit),
         currentPage: 0,
         pageCount: Math.ceil(action.columns.length / state.columnLimit),
+        visibleColumns: action.columns.slice(0, state.columnLimit),
       };
     case "ingestNewCommits": {
       // We cache the commits and use this to determine if a new commit was added in this action
@@ -63,8 +63,8 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
       if (updatedObjectCache.size > state.commitCache.size) {
         // Check if our selected commit has been loaded
         const { processedCommits, selectedCommitRowIndex } = processCommits({
-          newCommits: action.commits.versions,
           existingCommits: state.processedCommits,
+          newCommits: action.commits.versions,
           selectedCommitOrder: state.selectedCommit?.order,
         });
         let { commitCount } = state;
@@ -87,14 +87,14 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
           ...(selectedCommitRowIndex !== null && {
             selectedCommit: {
               ...state.selectedCommit,
-              rowIndex: selectedCommitRowIndex,
               loaded: true,
+              rowIndex: selectedCommitRowIndex,
             },
           }),
           commitCache: updatedObjectCache,
-          processedCommits,
-          processedCommitCount: processedCommits.length,
           commitCount,
+          processedCommitCount: processedCommits.length,
+          processedCommits,
         };
       }
       return state;
@@ -130,10 +130,10 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
       }
       return {
         ...state,
-        visibleColumns: state.columns.slice(0, nextColumnLimit),
         columnLimit: nextColumnLimit,
         currentPage: 0,
         pageCount: Math.ceil(state.columns.length / nextColumnLimit),
+        visibleColumns: state.columns.slice(0, nextColumnLimit),
       };
     }
     case "prevPageColumns": {
@@ -180,10 +180,10 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
           processedCommits: updatedProcessedCommits,
         }),
         selectedCommit: {
+          loaded,
           order: action.order,
           rowIndex,
           visited: false,
-          loaded,
         },
       };
     }

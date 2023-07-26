@@ -61,45 +61,45 @@ export const gqlToForm = ((data, options) => {
       ?.filter((a) => a) ?? [];
 
   return {
-    github: {
-      prTestingEnabled,
-      manualPrTestingEnabled,
-      prTesting: {
-        githubPrAliasesOverride: override(githubPrAliases),
-        githubPrAliases,
-      },
-      githubTriggerAliases,
-      githubChecksEnabled,
-      githubChecks: {
-        githubCheckAliasesOverride: override(githubCheckAliases),
-        githubCheckAliases,
-      },
-      gitTagVersionsEnabled,
-      users: {
-        gitTagAuthorizedUsersOverride:
-          projectType !== ProjectType.AttachedProject ||
-          !!gitTagAuthorizedUsers,
-        gitTagAuthorizedUsers: gitTagAuthorizedUsers ?? [],
-      },
-      teams: {
-        gitTagAuthorizedTeamsOverride:
-          projectType !== ProjectType.AttachedProject ||
-          !!gitTagAuthorizedTeams,
-        gitTagAuthorizedTeams: gitTagAuthorizedTeams ?? [],
-      },
-      gitTags: {
-        gitTagAliasesOverride: override(gitTagAliases),
-        gitTagAliases,
-      },
-    },
     commitQueue: {
       enabled: commitQueue.enabled,
       mergeMethod: commitQueue.mergeMethod,
       mergeQueue: commitQueue.mergeQueue,
       message: commitQueue.message,
       patchDefinitions: {
-        commitQueueAliasesOverride: override(commitQueueAliases),
         commitQueueAliases,
+        commitQueueAliasesOverride: override(commitQueueAliases),
+      },
+    },
+    github: {
+      gitTagVersionsEnabled,
+      gitTags: {
+        gitTagAliases,
+        gitTagAliasesOverride: override(gitTagAliases),
+      },
+      githubChecks: {
+        githubCheckAliases,
+        githubCheckAliasesOverride: override(githubCheckAliases),
+      },
+      githubChecksEnabled,
+      githubTriggerAliases,
+      manualPrTestingEnabled,
+      prTesting: {
+        githubPrAliases,
+        githubPrAliasesOverride: override(githubPrAliases),
+      },
+      prTestingEnabled,
+      teams: {
+        gitTagAuthorizedTeams: gitTagAuthorizedTeams ?? [],
+        gitTagAuthorizedTeamsOverride:
+          projectType !== ProjectType.AttachedProject ||
+          !!gitTagAuthorizedTeams,
+      },
+      users: {
+        gitTagAuthorizedUsers: gitTagAuthorizedUsers ?? [],
+        gitTagAuthorizedUsersOverride:
+          projectType !== ProjectType.AttachedProject ||
+          !!gitTagAuthorizedUsers,
       },
     },
   };
@@ -129,23 +129,23 @@ export const formToGql = ((
   id
 ) => {
   const projectRef: ProjectInput = {
-    id,
-    prTestingEnabled,
-    manualPrTestingEnabled,
-    githubChecksEnabled,
-    gitTagVersionsEnabled,
-    gitTagAuthorizedUsers: gitTagAuthorizedUsersOverride
-      ? gitTagAuthorizedUsers
-      : null,
-    gitTagAuthorizedTeams: gitTagAuthorizedTeamsOverride
-      ? gitTagAuthorizedTeams
-      : null,
     commitQueue: {
       enabled,
       mergeMethod,
       mergeQueue,
       message,
     },
+    gitTagAuthorizedTeams: gitTagAuthorizedTeamsOverride
+      ? gitTagAuthorizedTeams
+      : null,
+    gitTagAuthorizedUsers: gitTagAuthorizedUsersOverride
+      ? gitTagAuthorizedUsers
+      : null,
+    gitTagVersionsEnabled,
+    githubChecksEnabled,
+    id,
+    manualPrTestingEnabled,
+    prTestingEnabled,
   };
 
   const githubPrAliases = transformAliases(
@@ -180,7 +180,7 @@ export const formToGql = ((
   ];
 
   return {
-    projectRef,
     aliases,
+    projectRef,
   };
 }) satisfies FormToGqlFunction<Tab>;

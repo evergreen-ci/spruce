@@ -52,7 +52,7 @@ const TaskQueue = () => {
   }, [firstDistroInList, distro, navigate, taskId, distros]);
 
   const onChangeDistroSelection = (val: { id: string }) => {
-    taskQueueAnalytics.sendEvent({ name: "Select Distro", distro: val.id });
+    taskQueueAnalytics.sendEvent({ distro: val.id, name: "Select Distro" });
     navigate(getTaskQueueRoute(val.id), { replace: true });
   };
 

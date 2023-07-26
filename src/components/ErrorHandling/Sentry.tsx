@@ -15,11 +15,11 @@ const initializeSentry = () => {
   const releaseStage = getReleaseStage() || "development";
   try {
     init({
-      dsn: getSentryDSN(),
       debug: !isProduction(),
+      dsn: getSentryDSN(),
+      environment: releaseStage,
       normalizeDepth: 5,
       release: APP_VERSION,
-      environment: releaseStage,
     });
   } catch (e) {
     console.error("Failed to initialize Sentry", e);
@@ -34,7 +34,7 @@ const sendError = (
   metadata?: { [key: string]: any }
 ) => {
   withScope((scope) => {
-    setScope(scope, { level: severity, context: metadata });
+    setScope(scope, { context: metadata, level: severity });
 
     captureException(err);
   });

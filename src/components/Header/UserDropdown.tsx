@@ -14,14 +14,14 @@ export const UserDropdown = () => {
 
   const menuItems = [
     {
+      onClick: () => sendEvent({ name: "Click Preferences Link" }),
       text: "Preferences",
       to: getPreferencesRoute(PreferencesTabRoutes.Profile),
-      onClick: () => sendEvent({ name: "Click Preferences Link" }),
     },
     {
+      onClick: () => sendEvent({ name: "Click Notifications Link" }),
       text: "Notifications",
       to: getPreferencesRoute(PreferencesTabRoutes.Notifications),
-      onClick: () => sendEvent({ name: "Click Notifications Link" }),
     },
   ];
 

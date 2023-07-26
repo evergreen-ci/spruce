@@ -33,11 +33,11 @@ export const getFormSchema = (
   repoData?: GCQFormState
 ): ReturnType<GetFormSchema> => {
   const overrideStyling = {
+    "ui:showLabel": false,
     "ui:widget":
       projectType === ProjectType.AttachedProject
         ? widgets.RadioBoxWidget
         : "hidden",
-    "ui:showLabel": false,
   };
 
   const errorStyling = sectionHasError(versionControlEnabled, projectType);
@@ -47,152 +47,8 @@ export const getFormSchema = (
       githubTriggerAliasField: GithubTriggerAliasField,
     },
     schema: {
-      type: "object" as "object",
       properties: {
-        github: {
-          type: "object" as "object",
-          title: "GitHub",
-          properties: {
-            githubWebhooksEnabled: {
-              type: "null",
-              title: "GitHub Webhooks",
-              description: `GitHub webhooks ${
-                githubWebhooksEnabled ? "are" : "are not"
-              } enabled.`,
-            },
-            prTestingEnabledTitle: {
-              type: "null",
-              title: "GitHub Pull Request Testing",
-              ...(projectType === ProjectType.Repo && {
-                description:
-                  "If enabled, then untracked branches will also use the file patterns defined here for PR testing.",
-              }),
-            },
-            prTestingEnabled: {
-              type: ["boolean", "null"],
-              title: "Automated Testing",
-              oneOf: radioBoxOptions(
-                ["Enabled", "Disabled"],
-                repoData?.github?.prTestingEnabled
-              ),
-            },
-            manualPrTestingEnabled: {
-              type: ["boolean", "null"],
-              title: "Manual Testing",
-              oneOf: radioBoxOptions(
-                ["Enabled", "Disabled"],
-                repoData?.github?.manualPrTestingEnabled
-              ),
-            },
-            prTesting: {
-              type: "object" as "object",
-              title: "GitHub Patch Definitions",
-              ...overrideRadioBox(
-                "githubPrAliases",
-                [
-                  "Override Repo Patch Definition",
-                  "Default to Repo Patch Definition",
-                ],
-                aliasArray.schema
-              ),
-            },
-            githubTriggerAliases: {
-              type: "array" as "array",
-              title: "GitHub Trigger Aliases",
-              items: {
-                type: "object" as "object",
-              },
-            },
-            githubChecksEnabledTitle: {
-              type: "null",
-              title: "GitHub Commit Checks",
-            },
-            githubChecksEnabled: {
-              type: ["boolean", "null"],
-              oneOf: radioBoxOptions(
-                ["Enabled", "Disabled"],
-                repoData?.github?.githubChecksEnabled
-              ),
-            },
-            githubChecks: {
-              title: "Commit Check Definitions",
-              ...overrideRadioBox(
-                "githubCheckAliases",
-                ["Override Repo Definition", "Default to Repo Definition"],
-                aliasArray.schema
-              ),
-            },
-            gitTagVersionsTitle: {
-              type: "null",
-              title: "Trigger Versions With Git Tags",
-              description:
-                "If an authorized user pushes a tag that matches a regex, then a version can be created from this alias.",
-            },
-            gitTagVersionsEnabled: {
-              type: ["boolean", "null"],
-              oneOf: radioBoxOptions(
-                ["Enabled", "Disabled"],
-                repoData?.github?.gitTagVersionsEnabled
-              ),
-            },
-            users: {
-              title: "Authorized Users",
-              description:
-                "MANA entitlements may also be used to manage this authorization.",
-              ...overrideRadioBox(
-                "gitTagAuthorizedUsers",
-                ["Override Repo Users", "Default to Repo Users"],
-                {
-                  type: "array" as "array",
-                  items: {
-                    type: "string" as "string",
-                    title: "Username",
-                    default: "",
-                    minLength: 1,
-                  },
-                }
-              ),
-            },
-            teams: {
-              title: "Authorized Teams",
-              description:
-                "This should be the team slug, i.e. the team name with dashes instead of spaces. For example, the team Evergreen Users would be evergreen-users. MANA entitlements may also be used to manage this authorization.",
-              ...overrideRadioBox(
-                "gitTagAuthorizedTeams",
-                ["Override Repo Teams", "Default to Repo Teams"],
-                {
-                  type: "array" as "array",
-                  items: {
-                    type: "string" as "string",
-                    title: "Team",
-                    default: "",
-                    minLength: 1,
-                  },
-                }
-              ),
-            },
-            gitTags: {
-              title: "Git Tag Version Definitions",
-              ...overrideRadioBox(
-                "gitTagAliases",
-                ["Override Repo Git Tags", "Default to Repo Git Tags"],
-                gitTagArray.schema
-              ),
-            },
-          },
-        },
         commitQueue: {
-          type: "object" as "object",
-          title: "Commit Queue",
-          properties: {
-            enabled: {
-              type: ["boolean", "null"],
-              oneOf: radioBoxOptions(
-                ["Enabled", "Disabled"],
-                repoData?.commitQueue?.enabled
-              ),
-            },
-          },
           dependencies: {
             enabled: {
               oneOf: [
@@ -202,8 +58,8 @@ export const getFormSchema = (
                       enum: [false],
                     },
                     message: {
-                      type: "string" as "string",
                       title: "Commit Queue Message",
+                      type: "string" as "string",
                     },
                   },
                 },
@@ -212,64 +68,64 @@ export const getFormSchema = (
                     enabled: {
                       enum: [true],
                     },
-                    mergeQueueTitle: {
-                      title: "Merge Queue",
-                      type: "null",
-                    },
-                    mergeQueue: {
-                      type: "string" as "string",
-                      oneOf: [
-                        {
-                          type: "string" as "string",
-                          title: "Evergreen",
-                          enum: [MergeQueue.Evergreen],
-                          description:
-                            "Use the standard commit queue owned and maintained by Evergreen.",
-                        },
-                        {
-                          type: "string" as "string",
-                          title: "GitHub",
-                          enum: [MergeQueue.Github],
-                          description: "Use the GitHub merge queue.",
-                        },
-                      ],
-                    },
-                    message: {
-                      type: "string" as "string",
-                      title: "Commit Queue Message",
-                    },
                     mergeMethod: {
-                      type: "string" as "string",
-                      title: "Merge Method",
                       oneOf: [
                         {
-                          type: "string" as "string",
-                          title: "Squash",
                           enum: ["squash"],
+                          title: "Squash",
+                          type: "string" as "string",
                         },
                         {
-                          type: "string" as "string",
-                          title: "Merge",
                           enum: ["merge"],
+                          title: "Merge",
+                          type: "string" as "string",
                         },
                         {
-                          type: "string" as "string",
-                          title: "Rebase",
                           enum: ["rebase"],
+                          title: "Rebase",
+                          type: "string" as "string",
                         },
                         ...insertIf(
                           projectType === ProjectType.AttachedProject,
                           {
-                            type: "string" as "string",
-                            title: `Default to Repo (${repoData?.commitQueue?.mergeMethod})`,
                             enum: [""],
+                            title: `Default to Repo (${repoData?.commitQueue?.mergeMethod})`,
+                            type: "string" as "string",
                           }
                         ),
                       ],
+                      title: "Merge Method",
+                      type: "string" as "string",
+                    },
+                    mergeQueue: {
+                      oneOf: [
+                        {
+                          description:
+                            "Use the standard commit queue owned and maintained by Evergreen.",
+                          enum: [MergeQueue.Evergreen],
+                          title: "Evergreen",
+                          type: "string" as "string",
+                        },
+                        {
+                          description: "Use the GitHub merge queue.",
+                          enum: [MergeQueue.Github],
+                          title: "GitHub",
+                          type: "string" as "string",
+                        },
+                      ],
+                      type: "string" as "string",
+                    },
+                    mergeQueueTitle: {
+                      title: "Merge Queue",
+                      type: "null",
+                    },
+                    message: {
+                      title: "Commit Queue Message",
+                      type: "string" as "string",
                     },
                     patchDefinitions: {
-                      type: "object" as "object",
                       title: "Commit Queue Patch Definitions",
+                      type: "object" as "object",
                       ...overrideRadioBox(
                         "commitQueueAliases",
                         [
@@ -284,31 +140,306 @@ export const getFormSchema = (
               ],
             },
           },
+          properties: {
+            enabled: {
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.commitQueue?.enabled
+              ),
+              type: ["boolean", "null"],
+            },
+          },
+          title: "Commit Queue",
+          type: "object" as "object",
+        },
+        github: {
+          properties: {
+            gitTagVersionsEnabled: {
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.github?.gitTagVersionsEnabled
+              ),
+              type: ["boolean", "null"],
+            },
+            gitTagVersionsTitle: {
+              description:
+                "If an authorized user pushes a tag that matches a regex, then a version can be created from this alias.",
+              title: "Trigger Versions With Git Tags",
+              type: "null",
+            },
+            gitTags: {
+              title: "Git Tag Version Definitions",
+              ...overrideRadioBox(
+                "gitTagAliases",
+                ["Override Repo Git Tags", "Default to Repo Git Tags"],
+                gitTagArray.schema
+              ),
+            },
+            githubChecks: {
+              title: "Commit Check Definitions",
+              ...overrideRadioBox(
+                "githubCheckAliases",
+                ["Override Repo Definition", "Default to Repo Definition"],
+                aliasArray.schema
+              ),
+            },
+            githubChecksEnabled: {
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.github?.githubChecksEnabled
+              ),
+              type: ["boolean", "null"],
+            },
+            githubChecksEnabledTitle: {
+              title: "GitHub Commit Checks",
+              type: "null",
+            },
+            githubTriggerAliases: {
+              items: {
+                type: "object" as "object",
+              },
+              title: "GitHub Trigger Aliases",
+              type: "array" as "array",
+            },
+            githubWebhooksEnabled: {
+              description: `GitHub webhooks ${
+                githubWebhooksEnabled ? "are" : "are not"
+              } enabled.`,
+              title: "GitHub Webhooks",
+              type: "null",
+            },
+            manualPrTestingEnabled: {
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.github?.manualPrTestingEnabled
+              ),
+              title: "Manual Testing",
+              type: ["boolean", "null"],
+            },
+            prTesting: {
+              title: "GitHub Patch Definitions",
+              type: "object" as "object",
+              ...overrideRadioBox(
+                "githubPrAliases",
+                [
+                  "Override Repo Patch Definition",
+                  "Default to Repo Patch Definition",
+                ],
+                aliasArray.schema
+              ),
+            },
+            prTestingEnabled: {
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.github?.prTestingEnabled
+              ),
+              title: "Automated Testing",
+              type: ["boolean", "null"],
+            },
+            prTestingEnabledTitle: {
+              title: "GitHub Pull Request Testing",
+              type: "null",
+              ...(projectType === ProjectType.Repo && {
+                description:
+                  "If enabled, then untracked branches will also use the file patterns defined here for PR testing.",
+              }),
+            },
+            teams: {
+              description:
+                "This should be the team slug, i.e. the team name with dashes instead of spaces. For example, the team Evergreen Users would be evergreen-users. MANA entitlements may also be used to manage this authorization.",
+              title: "Authorized Teams",
+              ...overrideRadioBox(
+                "gitTagAuthorizedTeams",
+                ["Override Repo Teams", "Default to Repo Teams"],
+                {
+                  items: {
+                    default: "",
+                    minLength: 1,
+                    title: "Team",
+                    type: "string" as "string",
+                  },
+                  type: "array" as "array",
+                }
+              ),
+            },
+            users: {
+              description:
+                "MANA entitlements may also be used to manage this authorization.",
+              title: "Authorized Users",
+              ...overrideRadioBox(
+                "gitTagAuthorizedUsers",
+                ["Override Repo Users", "Default to Repo Users"],
+                {
+                  items: {
+                    default: "",
+                    minLength: 1,
+                    title: "Username",
+                    type: "string" as "string",
+                  },
+                  type: "array" as "array",
+                }
+              ),
+            },
+          },
+          title: "GitHub",
+          type: "object" as "object",
         },
       },
+      type: "object" as "object",
     },
     uiSchema: {
-      github: {
+      commitQueue: {
+        enabled: {
+          "ui:data-cy": "cq-enabled-radio-box",
+          "ui:showLabel": false,
+          "ui:widget": widgets.RadioBoxWidget,
+          ...githubConflictErrorStyling(
+            githubProjectConflicts?.commitQueueIdentifiers,
+            formData?.commitQueue?.enabled,
+            repoData?.commitQueue?.enabled,
+            "the Commit Queue"
+          ),
+        },
+        mergeMethod: {
+          "ui:allowDeselect": false,
+          "ui:data-cy": "merge-method-select",
+        },
+        mergeQueue: {
+          "ui:widget": "radio",
+        },
+        message: {
+          "ui:data-cy": "cq-message-input",
+          "ui:description": "Shown in commit queue CLI commands & web UI",
+          ...placeholderIf(repoData?.commitQueue?.message),
+        },
+        patchDefinitions: {
+          ...errorStyling(
+            formData?.commitQueue?.enabled,
+            formData?.commitQueue?.patchDefinitions?.commitQueueAliasesOverride,
+            formData?.commitQueue?.patchDefinitions?.commitQueueAliases,
+            repoData?.commitQueue?.patchDefinitions?.commitQueueAliases,
+            "Commit Queue Patch Definition"
+          ),
+          commitQueueAliases: {
+            ...aliasRowUiSchema({
+              addButtonText: "Add Commit Queue Patch Definition",
+              numberedTitle: "Patch Definition",
+            }),
+          },
+          commitQueueAliasesOverride: {
+            "ui:data-cy": "cq-override-radio-box",
+            ...overrideStyling,
+          },
+          repoData: {
+            commitQueueAliases: {
+              ...aliasRowUiSchema({
+                isRepo: true,
+                numberedTitle: "Repo Patch Definition",
+              }),
+            },
+          },
+          "ui:description": CommitQueueAliasesDescription,
+        },
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        prTestingEnabledTitle: {
+        "ui:data-cy": "cq-card",
+      },
+      github: {
+        gitTagVersionsEnabled: {
+          "ui:data-cy": "git-tag-enabled-radio-box",
+          "ui:showLabel": false,
+          "ui:widget": widgets.RadioBoxWidget,
+        },
+        gitTagVersionsTitle: {
           "ui:sectionTitle": true,
         },
-        prTestingEnabled: {
-          "ui:data-cy": "pr-testing-enabled-radio-box",
+        gitTags: {
+          ...hideIf(
+            fieldDisabled(
+              formData?.github?.gitTagVersionsEnabled,
+              repoData?.github?.gitTagVersionsEnabled
+            )
+          ),
+          ...errorStyling(
+            formData?.github?.gitTagVersionsEnabled,
+            formData?.github?.gitTags?.gitTagAliasesOverride,
+            formData?.github?.gitTags?.gitTagAliases,
+            repoData?.github?.gitTags?.gitTagAliases,
+            "Git Tag Version Definition"
+          ),
+          gitTagAliases: gitTagArray.uiSchema,
+          gitTagAliasesOverride: overrideStyling,
+          repoData: {
+            gitTagAliases: {
+              ...gitTagArray.uiSchema,
+              items: {
+                ...gitTagArray.uiSchema.items,
+                "ui:numberedTitle": "Repo Git Tag",
+              },
+              "ui:readonly": true,
+            },
+          },
+          "ui:description": GitTagAliasesDescription,
+        },
+        githubChecks: {
+          ...hideIf(
+            fieldDisabled(
+              formData?.github?.githubChecksEnabled,
+              repoData?.github?.githubChecksEnabled
+            )
+          ),
+          ...errorStyling(
+            formData?.github?.githubChecksEnabled,
+            formData?.github?.githubChecks?.githubCheckAliasesOverride,
+            formData?.github?.githubChecks?.githubCheckAliases,
+            repoData?.github?.githubChecks?.githubCheckAliases,
+            "Commit Check Definition"
+          ),
+          githubCheckAliases: aliasRowUiSchema({
+            addButtonText: "Add Definition",
+            numberedTitle: "Commit Check Definition",
+          }),
+          githubCheckAliasesOverride: overrideStyling,
+          repoData: {
+            githubCheckAliases: aliasRowUiSchema({
+              isRepo: true,
+              numberedTitle: "Repo Commit Check Definition",
+            }),
+          },
+        },
+        githubChecksEnabled: {
+          "ui:data-cy": "github-checks-enabled-radio-box",
+          "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
 
           ...githubConflictErrorStyling(
-            githubProjectConflicts?.prTestingIdentifiers,
-            formData?.github?.prTestingEnabled,
-            repoData?.github?.prTestingEnabled,
-            "PR Testing"
+            githubProjectConflicts?.commitCheckIdentifiers,
+            formData?.github?.githubChecksEnabled,
+            repoData?.github?.githubChecksEnabled,
+            "Commit Checks"
           ),
+        },
+        githubChecksEnabledTitle: {
+          "ui:description": GitHubChecksAliasesDescription,
+          "ui:sectionTitle": true,
+        },
+        githubTriggerAliases: {
+          items: {
+            "ui:field": "githubTriggerAliasField",
+          },
+          "ui:addable": false,
+          "ui:descriptionNode": (
+            <GithubTriggerAliasDescription identifier={identifier} />
+          ),
+          "ui:orderable": false,
+          "ui:placeholder": "No GitHub Trigger Aliases are defined.",
+          "ui:readonly": true,
+          "ui:removable": false,
         },
         manualPrTestingEnabled: {
           "ui:data-cy": "manual-pr-testing-enabled-radio-box",
-          "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
             "Patches can be run manually by commenting ‘evergreen patch’ on the PR even if automated testing isn't enabled.",
+          "ui:widget": widgets.RadioBoxWidget,
           ...githubConflictErrorStyling(
             githubProjectConflicts?.prTestingIdentifiers,
             formData?.github?.manualPrTestingEnabled,
@@ -334,16 +465,15 @@ export const getFormSchema = (
             repoData?.github?.prTesting?.githubPrAliases,
             "GitHub Patch Definition"
           ),
-          githubPrAliasesOverride: {
-            "ui:data-cy": "pr-testing-override-radio-box",
-            ...overrideStyling,
-          },
-          "ui:description": PRAliasesDescription,
           githubPrAliases: {
             ...aliasRowUiSchema({
               addButtonText: "Add Patch Definition",
               numberedTitle: "Patch Definition",
             }),
+          },
+          githubPrAliasesOverride: {
+            "ui:data-cy": "pr-testing-override-radio-box",
+            ...overrideStyling,
           },
           repoData: {
             githubPrAliases: {
@@ -353,77 +483,22 @@ export const getFormSchema = (
               }),
             },
           },
+          "ui:description": PRAliasesDescription,
         },
-        githubTriggerAliases: {
-          "ui:addable": false,
-          "ui:orderable": false,
-          "ui:placeholder": "No GitHub Trigger Aliases are defined.",
-          "ui:readonly": true,
-          "ui:removable": false,
-          "ui:descriptionNode": (
-            <GithubTriggerAliasDescription identifier={identifier} />
-          ),
-          items: {
-            "ui:field": "githubTriggerAliasField",
-          },
-        },
-        githubChecksEnabledTitle: {
-          "ui:sectionTitle": true,
-          "ui:description": GitHubChecksAliasesDescription,
-        },
-        githubChecksEnabled: {
-          "ui:data-cy": "github-checks-enabled-radio-box",
-          "ui:showLabel": false,
+        prTestingEnabled: {
+          "ui:data-cy": "pr-testing-enabled-radio-box",
           "ui:widget": widgets.RadioBoxWidget,
 
           ...githubConflictErrorStyling(
-            githubProjectConflicts?.commitCheckIdentifiers,
-            formData?.github?.githubChecksEnabled,
-            repoData?.github?.githubChecksEnabled,
-            "Commit Checks"
+            githubProjectConflicts?.prTestingIdentifiers,
+            formData?.github?.prTestingEnabled,
+            repoData?.github?.prTestingEnabled,
+            "PR Testing"
           ),
         },
-        githubChecks: {
-          ...hideIf(
-            fieldDisabled(
-              formData?.github?.githubChecksEnabled,
-              repoData?.github?.githubChecksEnabled
-            )
-          ),
-          ...errorStyling(
-            formData?.github?.githubChecksEnabled,
-            formData?.github?.githubChecks?.githubCheckAliasesOverride,
-            formData?.github?.githubChecks?.githubCheckAliases,
-            repoData?.github?.githubChecks?.githubCheckAliases,
-            "Commit Check Definition"
-          ),
-          githubCheckAliasesOverride: overrideStyling,
-          githubCheckAliases: aliasRowUiSchema({
-            addButtonText: "Add Definition",
-            numberedTitle: "Commit Check Definition",
-          }),
-          repoData: {
-            githubCheckAliases: aliasRowUiSchema({
-              isRepo: true,
-              numberedTitle: "Repo Commit Check Definition",
-            }),
-          },
-        },
-        gitTagVersionsTitle: {
+        prTestingEnabledTitle: {
           "ui:sectionTitle": true,
         },
-        gitTagVersionsEnabled: {
-          "ui:data-cy": "git-tag-enabled-radio-box",
-          "ui:showLabel": false,
-          "ui:widget": widgets.RadioBoxWidget,
-        },
-        users: userTeamStyling(
-          "gitTagAuthorizedUsers",
-          "Add User",
-          repoData?.github?.users?.gitTagAuthorizedUsers === undefined,
-          formData?.github?.gitTagVersionsEnabled,
-          repoData?.github?.gitTagVersionsEnabled
-        ),
         teams: userTeamStyling(
           "gitTagAuthorizedTeams",
           "Add Team",
@@ -431,89 +506,14 @@ export const getFormSchema = (
           formData?.github?.gitTagVersionsEnabled,
           repoData?.github?.gitTagVersionsEnabled
         ),
-        gitTags: {
-          ...hideIf(
-            fieldDisabled(
-              formData?.github?.gitTagVersionsEnabled,
-              repoData?.github?.gitTagVersionsEnabled
-            )
-          ),
-          ...errorStyling(
-            formData?.github?.gitTagVersionsEnabled,
-            formData?.github?.gitTags?.gitTagAliasesOverride,
-            formData?.github?.gitTags?.gitTagAliases,
-            repoData?.github?.gitTags?.gitTagAliases,
-            "Git Tag Version Definition"
-          ),
-          gitTagAliasesOverride: overrideStyling,
-          "ui:description": GitTagAliasesDescription,
-          gitTagAliases: gitTagArray.uiSchema,
-          repoData: {
-            gitTagAliases: {
-              ...gitTagArray.uiSchema,
-              "ui:readonly": true,
-              items: {
-                ...gitTagArray.uiSchema.items,
-                "ui:numberedTitle": "Repo Git Tag",
-              },
-            },
-          },
-        },
-      },
-      commitQueue: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        "ui:data-cy": "cq-card",
-        enabled: {
-          "ui:showLabel": false,
-          "ui:widget": widgets.RadioBoxWidget,
-          "ui:data-cy": "cq-enabled-radio-box",
-          ...githubConflictErrorStyling(
-            githubProjectConflicts?.commitQueueIdentifiers,
-            formData?.commitQueue?.enabled,
-            repoData?.commitQueue?.enabled,
-            "the Commit Queue"
-          ),
-        },
-        mergeQueue: {
-          "ui:widget": "radio",
-        },
-        message: {
-          "ui:description": "Shown in commit queue CLI commands & web UI",
-          "ui:data-cy": "cq-message-input",
-          ...placeholderIf(repoData?.commitQueue?.message),
-        },
-        mergeMethod: {
-          "ui:allowDeselect": false,
-          "ui:data-cy": "merge-method-select",
-        },
-        patchDefinitions: {
-          ...errorStyling(
-            formData?.commitQueue?.enabled,
-            formData?.commitQueue?.patchDefinitions?.commitQueueAliasesOverride,
-            formData?.commitQueue?.patchDefinitions?.commitQueueAliases,
-            repoData?.commitQueue?.patchDefinitions?.commitQueueAliases,
-            "Commit Queue Patch Definition"
-          ),
-          commitQueueAliasesOverride: {
-            "ui:data-cy": "cq-override-radio-box",
-            ...overrideStyling,
-          },
-          "ui:description": CommitQueueAliasesDescription,
-          commitQueueAliases: {
-            ...aliasRowUiSchema({
-              addButtonText: "Add Commit Queue Patch Definition",
-              numberedTitle: "Patch Definition",
-            }),
-          },
-          repoData: {
-            commitQueueAliases: {
-              ...aliasRowUiSchema({
-                numberedTitle: "Repo Patch Definition",
-                isRepo: true,
-              }),
-            },
-          },
-        },
+        users: userTeamStyling(
+          "gitTagAuthorizedUsers",
+          "Add User",
+          repoData?.github?.users?.gitTagAuthorizedUsers === undefined,
+          formData?.github?.gitTagVersionsEnabled,
+          repoData?.github?.gitTagVersionsEnabled
+        ),
       },
     },
   };
@@ -528,8 +528,8 @@ const hideIf = (shouldHide: boolean) =>
   };
 
 const overrideStyling = (isMissingRepoField: boolean) => ({
-  "ui:widget": isMissingRepoField ? "hidden" : widgets.RadioBoxWidget,
   "ui:showLabel": false,
+  "ui:widget": isMissingRepoField ? "hidden" : widgets.RadioBoxWidget,
 });
 
 const userTeamStyling = (

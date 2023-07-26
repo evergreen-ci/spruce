@@ -8,11 +8,20 @@ import { ChartTypes, Commits } from "types/commits";
 import { CommitBarChart } from ".";
 
 export default {
-  title: "Pages/Commits/Charts/ActiveCommit/CommitBarChart",
   component: CommitBarChart,
+  title: "Pages/Commits/Charts/ActiveCommit/CommitBarChart",
 };
 
 export const Default: StoryObj<typeof CommitBarChart> = {
+  argTypes: {
+    chartType: {
+      control: { type: "select" },
+      options: ChartTypes,
+    },
+  },
+  args: {
+    chartType: ChartTypes.Absolute,
+  },
   render: ({ chartType }) => (
     <FlexRowContainer>
       {versions.map((item) => (
@@ -27,15 +36,6 @@ export const Default: StoryObj<typeof CommitBarChart> = {
       ))}
     </FlexRowContainer>
   ),
-  args: {
-    chartType: ChartTypes.Absolute,
-  },
-  argTypes: {
-    chartType: {
-      options: ChartTypes,
-      control: { type: "select" },
-    },
-  },
 };
 
 const FlexRowContainer = styled.div`
@@ -46,153 +46,153 @@ const FlexRowContainer = styled.div`
 `;
 const versions: Commits = [
   {
+    rolledUpVersions: null,
     version: {
-      projectIdentifier: "spruce",
+      author: "Mohamed Khelif",
+      createTime: new Date("2021-06-16T23:38:13Z"),
       id: "123",
-      createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
-      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      author: "Mohamed Khelif",
       order: 25,
+      projectIdentifier: "spruce",
+      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusStats: {
+        counts: [
+          { count: 6, status: "success" },
+          { count: 2, status: "failed" },
+          { count: 4, status: "dispatched" },
+          { count: 5, status: "started" },
+          { count: 2, status: "will-run" },
+        ],
         eta: new Date(Date.now() + 9999999),
-        counts: [
-          { status: "success", count: 6 },
-          { status: "failed", count: 2 },
-          { status: "dispatched", count: 4 },
-          { status: "started", count: 5 },
-          { status: "will-run", count: 2 },
-        ],
       },
     },
-    rolledUpVersions: null,
   },
   {
+    rolledUpVersions: null,
     version: {
-      projectIdentifier: "spruce",
+      author: "Arjun Patel",
+      createTime: new Date("2021-06-16T23:38:13Z"),
       id: "12",
-      createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
-      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      author: "Arjun Patel",
       order: 24,
+      projectIdentifier: "spruce",
+      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusStats: {
-        eta: null,
         counts: [
-          { status: "blocked", count: 4 },
-          { status: "aborted", count: 3 },
-          { status: "undispatched", count: 5 },
-          { status: "test-timed-out", count: 2 },
+          { count: 4, status: "blocked" },
+          { count: 3, status: "aborted" },
+          { count: 5, status: "undispatched" },
+          { count: 2, status: "test-timed-out" },
         ],
+        eta: null,
       },
     },
-    rolledUpVersions: null,
   },
   {
+    rolledUpVersions: null,
     version: {
-      projectIdentifier: "spruce",
-      id: "13",
-      createTime: new Date("2021-06-16T23:38:13Z"),
-      message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
-      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Mohamed Khelif",
-      order: 23,
-      taskStatusStats: {
-        eta: null,
-        counts: [
-          { status: "success", count: 4 },
-          { status: "inactive", count: 3 },
-          { status: "pending", count: 5 },
-          { status: "aborted", count: 2 },
-        ],
-      },
-    },
-    rolledUpVersions: null,
-  },
-  {
-    version: {
-      projectIdentifier: "spruce",
-      id: "14",
       createTime: new Date("2021-06-16T23:38:13Z"),
-      message: "SERVER-57333 Some complicated server commit",
-      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      author: "Arjun Patel",
-      order: 22,
-      taskStatusStats: {
-        eta: null,
-        counts: [
-          { status: "blocked", count: 4 },
-          { status: "aborted", count: 3 },
-          { status: "undispatched", count: 5 },
-          { status: "test-timed-out", count: 2 },
-        ],
-      },
-    },
-    rolledUpVersions: null,
-  },
-  {
-    version: {
-      projectIdentifier: "spruce",
-      id: "15",
-      createTime: new Date("2021-06-16T23:38:13Z"),
+      id: "13",
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
+      order: 23,
+      projectIdentifier: "spruce",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
+      taskStatusStats: {
+        counts: [
+          { count: 4, status: "success" },
+          { count: 3, status: "inactive" },
+          { count: 5, status: "pending" },
+          { count: 2, status: "aborted" },
+        ],
+        eta: null,
+      },
+    },
+  },
+  {
+    rolledUpVersions: null,
+    version: {
+      author: "Arjun Patel",
+      createTime: new Date("2021-06-16T23:38:13Z"),
+      id: "14",
+      message: "SERVER-57333 Some complicated server commit",
+      order: 22,
+      projectIdentifier: "spruce",
+      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
+      taskStatusStats: {
+        counts: [
+          { count: 4, status: "blocked" },
+          { count: 3, status: "aborted" },
+          { count: 5, status: "undispatched" },
+          { count: 2, status: "test-timed-out" },
+        ],
+        eta: null,
+      },
+    },
+  },
+  {
+    rolledUpVersions: null,
+    version: {
       author: "Elena Chen",
+      createTime: new Date("2021-06-16T23:38:13Z"),
+      id: "15",
+      message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
       order: 21,
+      projectIdentifier: "spruce",
+      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusStats: {
-        eta: null,
         counts: [
-          { status: "setup-failed", count: 4 },
-          { status: "inactive", count: 3 },
-          { status: "pending", count: 5 },
-          { status: "unstarted", count: 2 },
+          { count: 4, status: "setup-failed" },
+          { count: 3, status: "inactive" },
+          { count: 5, status: "pending" },
+          { count: 2, status: "unstarted" },
         ],
+        eta: null,
       },
     },
-    rolledUpVersions: null,
   },
   {
+    rolledUpVersions: null,
     version: {
-      projectIdentifier: "spruce",
+      author: "Sophie Stadler",
+      createTime: new Date("2021-06-16T23:38:13Z"),
       id: "16",
-      createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
-      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      author: "Sophie Stadler",
       order: 20,
+      projectIdentifier: "spruce",
+      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusStats: {
-        eta: null,
         counts: [
-          { status: "system-failed", count: 6 },
-          { status: "pending", count: 2 },
-          { status: "known-issue", count: 4 },
-          { status: "unscheduled", count: 12 },
-          { status: "task-timed-out", count: 2 },
+          { count: 6, status: "system-failed" },
+          { count: 2, status: "pending" },
+          { count: 4, status: "known-issue" },
+          { count: 12, status: "unscheduled" },
+          { count: 2, status: "task-timed-out" },
         ],
+        eta: null,
       },
     },
-    rolledUpVersions: null,
   },
   {
+    rolledUpVersions: null,
     version: {
-      projectIdentifier: "spruce",
-      id: "17",
-      createTime: new Date("2021-06-16T23:38:13Z"),
-      message: "SERVER-57333 Some complicated server commit",
-      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Sophie Stadler",
+      createTime: new Date("2021-06-16T23:38:13Z"),
+      id: "17",
+      message: "SERVER-57333 Some complicated server commit",
       order: 19,
+      projectIdentifier: "spruce",
+      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusStats: {
-        eta: null,
         counts: [
-          { status: "system-timed-out", count: 4 },
-          { status: "system-unresponsive", count: 3 },
-          { status: "setup-failed", count: 5 },
-          { status: "unscheduled", count: 2 },
+          { count: 4, status: "system-timed-out" },
+          { count: 3, status: "system-unresponsive" },
+          { count: 5, status: "setup-failed" },
+          { count: 2, status: "unscheduled" },
         ],
+        eta: null,
       },
     },
-    rolledUpVersions: null,
   },
 ];
 

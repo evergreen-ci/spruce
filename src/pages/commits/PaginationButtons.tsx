@@ -18,7 +18,7 @@ export const PaginationButtons: React.VFC<PaginationButtonsProps> = ({
   const updateQueryParams = useUpdateURLQueryParams();
 
   const onNextClick = () => {
-    sendEvent({ name: "Paginate", direction: "next" });
+    sendEvent({ direction: "next", name: "Paginate" });
     updateQueryParams({
       [MainlineCommitQueryParams.SkipOrderNumber]:
         nextPageOrderNumber.toString(),
@@ -26,8 +26,8 @@ export const PaginationButtons: React.VFC<PaginationButtonsProps> = ({
   };
   const onPrevClick = () => {
     sendEvent({
-      name: "Paginate",
       direction: "previous",
+      name: "Paginate",
     });
     // 0 is the first page so we can just omit the query param
     updateQueryParams({

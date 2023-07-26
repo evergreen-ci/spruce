@@ -34,21 +34,21 @@ export const processCommits = ({
         const selected = version.order === selectedCommitOrder;
         if (priorCommit && isSameDay(version.createTime, priorCommit.date)) {
           processedCommits.push({
-            type: rowType.COMMIT,
             commit: version,
             date: version.createTime,
             selected,
+            type: rowType.COMMIT,
           });
         } else {
           processedCommits.push({
-            type: rowType.DATE_SEPARATOR,
             date: version.createTime,
+            type: rowType.DATE_SEPARATOR,
           });
           processedCommits.push({
-            type: rowType.COMMIT,
             commit: version,
             date: version.createTime,
             selected,
+            type: rowType.COMMIT,
           });
         }
         if (selected) {
@@ -68,23 +68,23 @@ export const processCommits = ({
           isSameDay(firstRolledUpVersion.createTime, priorCommit.date)
         ) {
           processedCommits.push({
-            type: rowType.FOLDED_COMMITS,
-            rolledUpCommits: rolledUpVersions,
             date: firstRolledUpVersion.createTime,
-            selected,
             expanded: false,
+            rolledUpCommits: rolledUpVersions,
+            selected,
+            type: rowType.FOLDED_COMMITS,
           });
         } else {
           processedCommits.push({
-            type: rowType.DATE_SEPARATOR,
             date: firstRolledUpVersion.createTime,
+            type: rowType.DATE_SEPARATOR,
           });
           processedCommits.push({
-            type: rowType.FOLDED_COMMITS,
-            rolledUpCommits: rolledUpVersions,
             date: firstRolledUpVersion.createTime,
-            selected,
             expanded: false,
+            rolledUpCommits: rolledUpVersions,
+            selected,
+            type: rowType.FOLDED_COMMITS,
           });
         }
         if (selected) {

@@ -55,8 +55,8 @@ export const reducer = (state: State, action: Action) => {
     case "setAndSubmitBaseStatusesSelector":
       return {
         ...state,
-        baseStatusesInputVal: action.baseStatuses,
         baseStatuses: action.baseStatuses,
+        baseStatusesInputVal: action.baseStatuses,
         ...resetPage,
       };
     case "setAndSubmitStatusesSelector":
@@ -70,14 +70,14 @@ export const reducer = (state: State, action: Action) => {
       return {
         ...state,
         ...resetPage,
+        baseStatuses: [],
+        baseStatusesInputVal: [],
         currentStatusesInputVal: [],
         statuses: [],
-        variantInputVal: "",
-        variant: "",
-        baseStatusesInputVal: [],
-        baseStatuses: [],
-        taskNameInputVal: "",
         taskName: "",
+        taskNameInputVal: "",
+        variant: "",
+        variantInputVal: "",
       };
     case "onSort":
       return {

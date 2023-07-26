@@ -25,10 +25,10 @@ describe("getFilterStatus", () => {
   it("should return an object containing booleans that describe what filters have been applied", () => {
     expect(
       getFilterStatus({
+        requesters: ["requester1"],
         statuses: ["failed"],
         tasks: ["task1"],
         variants: ["variant1"],
-        requesters: ["requester1"],
         view: ProjectHealthView.Failed,
       })
     ).toStrictEqual({
@@ -40,10 +40,10 @@ describe("getFilterStatus", () => {
     });
     expect(
       getFilterStatus({
+        requesters: [],
         statuses: [],
         tasks: [],
         variants: [],
-        requesters: [],
         view: ProjectHealthView.Failed,
       })
     ).toStrictEqual({
@@ -55,10 +55,10 @@ describe("getFilterStatus", () => {
     });
     expect(
       getFilterStatus({
+        requesters: [],
         statuses: [],
         tasks: ["task1"],
         variants: [],
-        requesters: [],
         view: ProjectHealthView.Failed,
       })
     ).toStrictEqual({
@@ -76,115 +76,115 @@ describe("getMainlineCommitsQueryVariables", () => {
     it("default with no filters", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [],
             tasks: [],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).mainlineCommitsOptions
       ).toStrictEqual({
         limit: 5,
         projectIdentifier: "projectIdentifier",
-        skipOrderNumber: 0,
-        shouldCollapse: false,
         requesters: [],
+        shouldCollapse: false,
+        skipOrderNumber: 0,
       });
     });
     it("filters should collapse commits", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [],
             tasks: ["test1"],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).mainlineCommitsOptions
       ).toStrictEqual({
         limit: 5,
         projectIdentifier: "projectIdentifier",
-        skipOrderNumber: 0,
-        shouldCollapse: true,
         requesters: [],
+        shouldCollapse: true,
+        skipOrderNumber: 0,
       });
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [TaskStatus.Succeeded],
             tasks: [],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).mainlineCommitsOptions
       ).toStrictEqual({
         limit: 5,
         projectIdentifier: "projectIdentifier",
-        skipOrderNumber: 0,
-        shouldCollapse: true,
         requesters: [],
+        shouldCollapse: true,
+        skipOrderNumber: 0,
       });
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [],
             tasks: ["test1"],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).mainlineCommitsOptions
       ).toStrictEqual({
         limit: 5,
         projectIdentifier: "projectIdentifier",
-        skipOrderNumber: 0,
-        shouldCollapse: true,
         requesters: [],
+        shouldCollapse: true,
+        skipOrderNumber: 0,
       });
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [],
             tasks: [],
             variants: ["test1"],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).mainlineCommitsOptions
       ).toStrictEqual({
         limit: 5,
         projectIdentifier: "projectIdentifier",
-        skipOrderNumber: 0,
-        shouldCollapse: true,
         requesters: [],
+        shouldCollapse: true,
+        skipOrderNumber: 0,
       });
     });
   });
@@ -192,66 +192,66 @@ describe("getMainlineCommitsQueryVariables", () => {
     it("should always match applied filters", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [],
             tasks: [],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptions
       ).toStrictEqual({
+        includeBaseTasks: false,
+        statuses: [],
         tasks: [],
         variants: [],
-        statuses: [],
-        includeBaseTasks: false,
       });
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [TaskStatus.Failed],
             tasks: [],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptions
       ).toStrictEqual({
+        includeBaseTasks: false,
+        statuses: [TaskStatus.Failed],
         tasks: [],
         variants: [],
-        statuses: [TaskStatus.Failed],
-        includeBaseTasks: false,
       });
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [],
             tasks: ["task1"],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptions
       ).toStrictEqual({
+        includeBaseTasks: false,
+        statuses: [],
         tasks: ["task1"],
         variants: [],
-        statuses: [],
-        includeBaseTasks: false,
       });
     });
   });
@@ -259,85 +259,85 @@ describe("getMainlineCommitsQueryVariables", () => {
     it("should return no task filters by default", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [],
             tasks: [],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForGraph
       ).toStrictEqual({
+        statuses: [],
         tasks: [],
         variants: [],
-        statuses: [],
       });
     });
     it("should apply all filters when they are provided", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [TaskStatus.Failed],
             tasks: [],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForGraph
       ).toStrictEqual({
+        statuses: [TaskStatus.Failed],
         tasks: [],
         variants: [],
-        statuses: [TaskStatus.Failed],
       });
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [],
             tasks: ["task1"],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForGraph
       ).toStrictEqual({
+        statuses: [],
         tasks: ["task1"],
         variants: [],
-        statuses: [],
       });
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [],
             tasks: [],
             variants: ["variant1"],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForGraph
       ).toStrictEqual({
+        statuses: [],
         tasks: [],
         variants: ["variant1"],
-        statuses: [],
       });
     });
   });
@@ -345,187 +345,187 @@ describe("getMainlineCommitsQueryVariables", () => {
     it("should only return failing task icons when there are no filters applied", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [],
             tasks: [],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForTaskIcons
       ).toStrictEqual({
+        includeBaseTasks: false,
+        statuses: FAILED_STATUSES,
         tasks: [],
         variants: [],
-        statuses: FAILED_STATUSES,
-        includeBaseTasks: false,
       });
     });
 
     it("should return all task icons when there are no filters applied using the 'All' view", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [],
             tasks: [],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.All,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForTaskIcons
       ).toStrictEqual({
+        includeBaseTasks: false,
+        statuses: [],
         tasks: [],
         variants: [],
-        statuses: [],
-        includeBaseTasks: false,
       });
     });
 
     it("should not return any task icons when a non failing status filter is applied", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [TaskStatus.Succeeded],
             tasks: [],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForTaskIcons
       ).toStrictEqual({
+        includeBaseTasks: false,
+        statuses: [],
         tasks: [impossibleMatch],
         variants: [],
-        statuses: [],
-        includeBaseTasks: false,
       });
     });
 
     it("should return any task icons when a non failing status filter is applied using the 'All' view", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [TaskStatus.Succeeded],
             tasks: [],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.All,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForTaskIcons
       ).toStrictEqual({
+        includeBaseTasks: false,
+        statuses: [TaskStatus.Succeeded],
         tasks: [],
         variants: [],
-        statuses: [TaskStatus.Succeeded],
-        includeBaseTasks: false,
       });
     });
 
     it("should only show failing task icons when there are multiple statuses with mixed failing and non failing statuses", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [TaskStatus.Failed, TaskStatus.Succeeded],
             tasks: [],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForTaskIcons
       ).toStrictEqual({
+        includeBaseTasks: false,
+        statuses: [TaskStatus.Failed],
         tasks: [],
         variants: [],
-        statuses: [TaskStatus.Failed],
-        includeBaseTasks: false,
       });
     });
     it("should return all matching tasks when a task filter is applied regardless of status", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [],
             tasks: ["task1"],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForTaskIcons
       ).toStrictEqual({
+        includeBaseTasks: false,
+        statuses: [],
         tasks: ["task1"],
         variants: [],
-        statuses: [],
-        includeBaseTasks: false,
       });
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [TaskStatus.Succeeded],
             tasks: ["task1"],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForTaskIcons
       ).toStrictEqual({
+        includeBaseTasks: false,
+        statuses: [TaskStatus.Succeeded],
         tasks: ["task1"],
         variants: [],
-        statuses: [TaskStatus.Succeeded],
-        includeBaseTasks: false,
       });
     });
     it("should only return failing tasks when a variant filter is applied with no other filters", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [],
             tasks: [],
             variants: ["variant1"],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForTaskIcons
       ).toStrictEqual({
+        includeBaseTasks: false,
+        statuses: FAILED_STATUSES,
         tasks: [],
         variants: ["variant1"],
-        statuses: FAILED_STATUSES,
-        includeBaseTasks: false,
       });
     });
   });
@@ -534,22 +534,22 @@ describe("getMainlineCommitsQueryVariables", () => {
     it("should not return any grouped tasks when there are no filters applied", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [],
             tasks: [],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
-        tasks: [impossibleMatch],
         statuses: [],
+        tasks: [impossibleMatch],
         variants: [],
       });
     });
@@ -557,22 +557,22 @@ describe("getMainlineCommitsQueryVariables", () => {
     it("should not return any grouped tasks when there are no filters applied using the 'All' view", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [],
             tasks: [],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.All,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
-        tasks: [impossibleMatch],
         statuses: [],
+        tasks: [impossibleMatch],
         variants: [],
       });
     });
@@ -580,155 +580,155 @@ describe("getMainlineCommitsQueryVariables", () => {
     it("should group statuses when a non failing status filter is applied", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [TaskStatus.Succeeded],
             tasks: [],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
+        statuses: [TaskStatus.Succeeded],
         tasks: [],
         variants: [],
-        statuses: [TaskStatus.Succeeded],
       });
     });
 
     it("should not group statuses when a non failing status filter is applied using the 'All' view", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [TaskStatus.Succeeded],
             tasks: [],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.All,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
+        statuses: [],
         tasks: [impossibleMatch],
         variants: [],
-        statuses: [],
       });
     });
 
     it("should not return groupings for failing statuses if there are multiple statuses", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [TaskStatus.Succeeded, TaskStatus.Failed],
             tasks: [],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
+        statuses: [TaskStatus.Succeeded],
         tasks: [],
         variants: [],
-        statuses: [TaskStatus.Succeeded],
       });
     });
     it("should not return groupings for failing statuses if there are only failing statuses", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [TaskStatus.Failed],
             tasks: [],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
+        statuses: [],
         tasks: [impossibleMatch],
         variants: [],
-        statuses: [],
       });
     });
     it("should not group failing statuses when there are other filters applied", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [],
             tasks: [],
             variants: ["variant1"],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
+        statuses: ALL_NON_FAILING_STATUSES,
         tasks: [],
         variants: ["variant1"],
-        statuses: ALL_NON_FAILING_STATUSES,
       });
     });
     it("should not return any task groupings if there are task filters applied", () => {
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [],
             tasks: ["task1"],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
+        statuses: [],
         tasks: [impossibleMatch],
         variants: [],
-        statuses: [],
       });
       expect(
         getMainlineCommitsQueryVariables({
-          mainlineCommitOptions: {
-            projectIdentifier: "projectIdentifier",
-            limit: 5,
-            skipOrderNumber: 0,
-          },
           filterState: {
+            requesters: [],
             statuses: [TaskStatus.Failed],
             tasks: ["task1"],
             variants: [],
-            requesters: [],
             view: ProjectHealthView.Failed,
+          },
+          mainlineCommitOptions: {
+            limit: 5,
+            projectIdentifier: "projectIdentifier",
+            skipOrderNumber: 0,
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
+        statuses: [],
         tasks: [impossibleMatch],
         variants: [],
-        statuses: [],
       });
     });
   });
@@ -738,190 +738,190 @@ describe("getAllTaskStatsGroupedByColor", () => {
   it("grab the taskStatusStats.statusCounts field from all versions, returns mapping between version id to its {grouped task stats, max, total}", () => {
     expect(getAllTaskStatsGroupedByColor(versions)).toStrictEqual({
       "12": {
+        max: 8,
         stats: [
           {
-            count: 8,
-            statuses: [
-              taskStatusToCopy[TaskStatus.TestTimedOut],
-              taskStatusToCopy[TaskStatus.Failed],
-            ],
             color: red.base,
-            umbrellaStatus: TaskStatus.FailedUmbrella,
+            count: 8,
             statusCounts: {
               [TaskStatus.TestTimedOut]: 6,
               [TaskStatus.Failed]: 2,
             },
+            statuses: [
+              taskStatusToCopy[TaskStatus.TestTimedOut],
+              taskStatusToCopy[TaskStatus.Failed],
+            ],
+            umbrellaStatus: TaskStatus.FailedUmbrella,
           },
           {
-            count: 7,
-            statuses: [
-              taskStatusToCopy[TaskStatus.SystemTimedOut],
-              taskStatusToCopy[TaskStatus.SystemUnresponsive],
-            ],
             color: purple.dark2,
-            umbrellaStatus: TaskStatus.SystemFailureUmbrella,
+            count: 7,
             statusCounts: {
               [TaskStatus.SystemTimedOut]: 5,
               [TaskStatus.SystemUnresponsive]: 2,
             },
+            statuses: [
+              taskStatusToCopy[TaskStatus.SystemTimedOut],
+              taskStatusToCopy[TaskStatus.SystemUnresponsive],
+            ],
+            umbrellaStatus: TaskStatus.SystemFailureUmbrella,
           },
           {
-            count: 4,
-            statuses: [taskStatusToCopy[TaskStatus.Dispatched]],
             color: yellow.base,
-            umbrellaStatus: TaskStatus.RunningUmbrella,
+            count: 4,
             statusCounts: { [TaskStatus.Dispatched]: 4 },
+            statuses: [taskStatusToCopy[TaskStatus.Dispatched]],
+            umbrellaStatus: TaskStatus.RunningUmbrella,
           },
           {
-            count: 2,
-            statuses: [taskStatusToCopy[TaskStatus.WillRun]],
             color: gray.base,
-            umbrellaStatus: TaskStatus.ScheduledUmbrella,
+            count: 2,
             statusCounts: { [TaskStatus.WillRun]: 2 },
+            statuses: [taskStatusToCopy[TaskStatus.WillRun]],
+            umbrellaStatus: TaskStatus.ScheduledUmbrella,
           },
         ],
-        max: 8,
         total: 21,
       },
       "13": {
+        max: 9,
         stats: [
           {
-            count: 6,
-            statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
             color: green.dark1,
-            umbrellaStatus: TaskStatus.Succeeded,
+            count: 6,
             statusCounts: { [TaskStatus.Succeeded]: 6 },
+            statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
+            umbrellaStatus: TaskStatus.Succeeded,
           },
           {
-            count: 2,
-            statuses: [taskStatusToCopy[TaskStatus.Failed]],
             color: red.base,
-            umbrellaStatus: TaskStatus.FailedUmbrella,
+            count: 2,
             statusCounts: { [TaskStatus.Failed]: 2 },
+            statuses: [taskStatusToCopy[TaskStatus.Failed]],
+            umbrellaStatus: TaskStatus.FailedUmbrella,
           },
           {
-            count: 9,
-            statuses: [
-              taskStatusToCopy[TaskStatus.Dispatched],
-              taskStatusToCopy[TaskStatus.Started],
-            ],
             color: yellow.base,
-            umbrellaStatus: TaskStatus.RunningUmbrella,
+            count: 9,
             statusCounts: {
               [TaskStatus.Dispatched]: 4,
               [TaskStatus.Started]: 5,
             },
+            statuses: [
+              taskStatusToCopy[TaskStatus.Dispatched],
+              taskStatusToCopy[TaskStatus.Started],
+            ],
+            umbrellaStatus: TaskStatus.RunningUmbrella,
           },
         ],
-        max: 9,
         total: 17,
       },
       "14": {
+        max: 7,
         stats: [
           {
-            count: 4,
-            statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
             color: green.dark1,
-            umbrellaStatus: TaskStatus.Succeeded,
+            count: 4,
             statusCounts: { [TaskStatus.Succeeded]: 4 },
+            statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
+            umbrellaStatus: TaskStatus.Succeeded,
           },
           {
-            count: 6,
-            statuses: [taskStatusToCopy[TaskStatus.TaskTimedOut]],
             color: red.base,
-            umbrellaStatus: TaskStatus.FailedUmbrella,
+            count: 6,
             statusCounts: { [TaskStatus.TaskTimedOut]: 6 },
+            statuses: [taskStatusToCopy[TaskStatus.TaskTimedOut]],
+            umbrellaStatus: TaskStatus.FailedUmbrella,
           },
           {
-            count: 7,
-            statuses: [
-              taskStatusToCopy[TaskStatus.SystemFailed],
-              taskStatusToCopy[TaskStatus.SystemUnresponsive],
-            ],
             color: purple.dark2,
-            umbrellaStatus: TaskStatus.SystemFailureUmbrella,
+            count: 7,
             statusCounts: {
               [TaskStatus.SystemFailed]: 5,
               [TaskStatus.SystemUnresponsive]: 2,
             },
+            statuses: [
+              taskStatusToCopy[TaskStatus.SystemFailed],
+              taskStatusToCopy[TaskStatus.SystemUnresponsive],
+            ],
+            umbrellaStatus: TaskStatus.SystemFailureUmbrella,
           },
           {
-            count: 3,
-            statuses: [taskStatusToCopy[TaskStatus.SetupFailed]],
             color: purple.light2,
-            umbrellaStatus: TaskStatus.SetupFailed,
-            statusCounts: { [TaskStatus.SetupFailed]: 3 },
-          },
-          {
             count: 3,
-            statuses: [taskStatusToCopy[TaskStatus.Started]],
-            color: yellow.base,
-            umbrellaStatus: TaskStatus.RunningUmbrella,
-            statusCounts: { started: 3 },
+            statusCounts: { [TaskStatus.SetupFailed]: 3 },
+            statuses: [taskStatusToCopy[TaskStatus.SetupFailed]],
+            umbrellaStatus: TaskStatus.SetupFailed,
           },
           {
-            count: 2,
-            statuses: [taskStatusToCopy[TaskStatus.Unscheduled]],
+            color: yellow.base,
+            count: 3,
+            statusCounts: { started: 3 },
+            statuses: [taskStatusToCopy[TaskStatus.Started]],
+            umbrellaStatus: TaskStatus.RunningUmbrella,
+          },
+          {
             color: gray.dark1,
-            umbrellaStatus: TaskStatus.UndispatchedUmbrella,
+            count: 2,
             statusCounts: { [TaskStatus.Unscheduled]: 2 },
+            statuses: [taskStatusToCopy[TaskStatus.Unscheduled]],
+            umbrellaStatus: TaskStatus.UndispatchedUmbrella,
           },
         ],
-        max: 7,
         total: 25,
       },
       "123": {
+        max: 7,
         stats: [
           {
-            count: 4,
-            statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
             color: green.dark1,
-            umbrellaStatus: TaskStatus.Succeeded,
+            count: 4,
             statusCounts: { [TaskStatus.Succeeded]: 4 },
+            statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
+            umbrellaStatus: TaskStatus.Succeeded,
           },
           {
-            count: 6,
-            statuses: [taskStatusToCopy[TaskStatus.TaskTimedOut]],
             color: red.base,
-            umbrellaStatus: TaskStatus.FailedUmbrella,
+            count: 6,
             statusCounts: { [TaskStatus.TaskTimedOut]: 6 },
+            statuses: [taskStatusToCopy[TaskStatus.TaskTimedOut]],
+            umbrellaStatus: TaskStatus.FailedUmbrella,
           },
           {
-            count: 7,
-            statuses: [
-              taskStatusToCopy[TaskStatus.SystemFailed],
-              taskStatusToCopy[TaskStatus.SystemUnresponsive],
-            ],
             color: purple.dark2,
-            umbrellaStatus: TaskStatus.SystemFailureUmbrella,
+            count: 7,
             statusCounts: {
               [TaskStatus.SystemFailed]: 5,
               [TaskStatus.SystemUnresponsive]: 2,
             },
+            statuses: [
+              taskStatusToCopy[TaskStatus.SystemFailed],
+              taskStatusToCopy[TaskStatus.SystemUnresponsive],
+            ],
+            umbrellaStatus: TaskStatus.SystemFailureUmbrella,
           },
           {
-            count: 3,
-            statuses: [taskStatusToCopy[TaskStatus.SetupFailed]],
             color: purple.light2,
-            umbrellaStatus: TaskStatus.SetupFailed,
-            statusCounts: { [TaskStatus.SetupFailed]: 3 },
-          },
-          {
             count: 3,
-            statuses: [taskStatusToCopy[TaskStatus.Started]],
-            color: yellow.base,
-            umbrellaStatus: TaskStatus.RunningUmbrella,
-            statusCounts: { started: 3 },
+            statusCounts: { [TaskStatus.SetupFailed]: 3 },
+            statuses: [taskStatusToCopy[TaskStatus.SetupFailed]],
+            umbrellaStatus: TaskStatus.SetupFailed,
           },
           {
-            count: 2,
-            statuses: [taskStatusToCopy[TaskStatus.Unscheduled]],
+            color: yellow.base,
+            count: 3,
+            statusCounts: { started: 3 },
+            statuses: [taskStatusToCopy[TaskStatus.Started]],
+            umbrellaStatus: TaskStatus.RunningUmbrella,
+          },
+          {
             color: gray.dark1,
-            umbrellaStatus: TaskStatus.UndispatchedUmbrella,
+            count: 2,
             statusCounts: { [TaskStatus.Unscheduled]: 2 },
+            statuses: [taskStatusToCopy[TaskStatus.Unscheduled]],
+            umbrellaStatus: TaskStatus.UndispatchedUmbrella,
           },
         ],
-        max: 7,
         total: 25,
       },
     });
@@ -932,19 +932,19 @@ describe("constructBuildVariantDict", () => {
   it("correctly determines priority, iconHeight, and badgeHeight", () => {
     expect(constructBuildVariantDict(versions)).toStrictEqual({
       "enterprise-macos-cxx20": {
-        iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING * 2,
         badgeHeight: GROUPED_BADGE_HEIGHT * 2 + GROUPED_BADGE_PADDING * 2,
+        iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING * 2,
         priority: 4,
       },
-      "enterprise-windows-benchmarks": {
-        iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING * 2,
-        badgeHeight: 0,
-        priority: 2,
-      },
       "enterprise-rhel-80-64-bit-inmem": {
-        iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING * 2,
         badgeHeight: 0,
+        iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING * 2,
         priority: 1,
+      },
+      "enterprise-windows-benchmarks": {
+        badgeHeight: 0,
+        iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING * 2,
+        priority: 2,
       },
     });
   });

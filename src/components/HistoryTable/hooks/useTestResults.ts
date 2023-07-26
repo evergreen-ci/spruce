@@ -36,17 +36,17 @@ const useTestResults = (rowIndex: number) => {
     TaskTestSampleQuery,
     TaskTestSampleQueryVariables
   >(GET_TASK_TEST_SAMPLE, {
-    variables: {
-      tasks: taskIds,
-      filters: historyTableFilters,
-    },
-    skip: !hasDataToQuery,
     onCompleted: (data) => {
       const { taskTestSample } = data;
       if (taskTestSample != null) {
         const ttm = convertArrayToObject(taskTestSample, "taskId");
         setTaskTestMap(ttm);
       }
+    },
+    skip: !hasDataToQuery,
+    variables: {
+      filters: historyTableFilters,
+      tasks: taskIds,
     },
   });
 
@@ -59,17 +59,17 @@ const useTestResults = (rowIndex: number) => {
           taskTest.matchingFailedTestNames?.length || 0;
         const label = `${matchingTestNameCount} / ${taskTest.totalTestCount} Failing Tests`;
         return {
-          label: hasTestFilters ? label : "",
-          inactive: hasTestFilters && matchingTestNameCount === 0,
-          loading,
           failingTests: taskTest.matchingFailedTestNames,
+          inactive: hasTestFilters && matchingTestNameCount === 0,
+          label: hasTestFilters ? label : "",
+          loading,
         };
       }
       return {
-        label: "",
-        inactive: hasTestFilters,
-        loading,
         failingTests: [],
+        inactive: hasTestFilters,
+        label: "",
+        loading,
       };
     },
     [hasTestFilters, loading, taskTestMap]

@@ -36,12 +36,12 @@ export const MountVolumeSelect = ({
     MyHostsQuery,
     MyHostsQueryVariables
   >(GET_MY_HOSTS, {
-    pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (e) => {
       dispatchToast.error(`There was an error loading hosts: ${e.message}`);
     },
+    pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling({ refetch, startPolling, stopPolling });
 
   // set host dropdown options
   useEffect(() => {
@@ -57,8 +57,8 @@ export const MountVolumeSelect = ({
         )
         // Map host to a displayName and ID for the dropdown <Option />
         .map(({ displayName, id }) => ({
-          id,
           displayName: displayName || id,
+          id,
         }))
         // Sort the dropdown items by display name.
         .sort((a, b) => a.displayName.localeCompare(b.displayName));

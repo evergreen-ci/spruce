@@ -6,18 +6,18 @@ export default {
 } satisfies CustomMeta<typeof Accordion>;
 
 export const Default: CustomStoryObj<typeof Accordion> = {
-  render: (args) => <Accordion {...args} />,
   args: {
-    title: "Accordion",
     children: "Accordion content",
+    title: "Accordion",
   },
+  render: (args) => <Accordion {...args} />,
 };
 
 export const WithSubtitle: CustomStoryObj<typeof Accordion> = {
-  render: (args) => <Accordion {...args} />,
   args: {
-    title: "Accordion",
-    subtitle: "Subtitle",
     children: "Accordion content",
+    subtitle: "Subtitle",
+    title: "Accordion",
   },
+  render: (args) => <Accordion {...args} />,
 };

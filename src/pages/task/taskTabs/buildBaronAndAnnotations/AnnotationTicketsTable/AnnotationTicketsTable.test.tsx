@@ -49,8 +49,8 @@ describe("annotationTicketsTable", () => {
       </MockedProvider>
     );
     render(<Component />, {
-      route: `/task/${taskId}`,
       path: "/task/:id",
+      route: `/task/${taskId}`,
     });
 
     await screen.findByDataCy("loading-annotation-ticket");
@@ -59,8 +59,8 @@ describe("annotationTicketsTable", () => {
 });
 
 const apiIssue = {
-  url: "https://fake-url/EVG-1234567",
   issueKey: "EVG-1234567",
+  url: "https://fake-url/EVG-1234567",
 };
 const moveAnnotationMock: ApolloMock<
   MoveAnnotationIssueMutation,
@@ -68,7 +68,7 @@ const moveAnnotationMock: ApolloMock<
 > = {
   request: {
     query: MOVE_ANNOTATION,
-    variables: { taskId, execution, apiIssue, isIssue: true },
+    variables: { apiIssue, execution, isIssue: true, taskId },
   },
   result: { data: { moveAnnotationIssue: true } },
 };
@@ -78,7 +78,7 @@ const removeAnnotationMock: ApolloMock<
 > = {
   request: {
     query: REMOVE_ANNOTATION,
-    variables: { taskId, execution, apiIssue, isIssue: true },
+    variables: { apiIssue, execution, isIssue: true, taskId },
   },
   result: { data: { removeAnnotationIssue: true } },
 };

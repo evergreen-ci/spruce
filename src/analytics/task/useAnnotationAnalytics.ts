@@ -45,15 +45,15 @@ export const useAnnotationAnalytics = (): AnnotationAnalytics => {
     AnnotationEventDataQuery,
     AnnotationEventDataQueryVariables
   >(GET_ANNOTATION_EVENT_DATA, {
-    variables: { taskId: id, execution },
     fetchPolicy: "cache-first",
+    variables: { execution, taskId: id },
   });
 
   const { data: bbData } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(
     GET_BUILD_BARON,
     {
-      variables: { taskId: id, execution },
       fetchPolicy: "cache-first",
+      variables: { execution, taskId: id },
     }
   );
 
@@ -65,11 +65,11 @@ export const useAnnotationAnalytics = (): AnnotationAnalytics => {
   );
   const sendEvent: AnnotationAnalytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
-      object: "Annotations",
-      userId,
-      taskId: id,
       annotation,
       bbConfigured,
+      object: "Annotations",
+      taskId: id,
+      userId,
     });
   };
 

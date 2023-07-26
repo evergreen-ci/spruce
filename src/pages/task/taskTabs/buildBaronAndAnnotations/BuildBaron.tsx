@@ -24,7 +24,7 @@ const BuildBaron: React.VFC<Props> = ({
   const { data, loading } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(
     GET_BUILD_BARON,
     {
-      variables: { taskId, execution },
+      variables: { execution, taskId },
     }
   );
   return (

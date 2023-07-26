@@ -49,7 +49,7 @@ describe("breadcrumbs", () => {
   });
   it("clicking on a tooltip with a link and event handler should call the event", () => {
     const onClick = jest.fn();
-    const breadcrumbs = [{ text: "test", onClick, to: "/" }];
+    const breadcrumbs = [{ onClick, text: "test", to: "/" }];
     render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
     expect(screen.getByText("test")).toBeInTheDocument();
     expect(screen.getByRole("link")).toHaveAttribute("href", "/");

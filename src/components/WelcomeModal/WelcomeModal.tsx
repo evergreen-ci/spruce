@@ -51,6 +51,7 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
   const handleClosed = () => {
     try {
       updateUserSettings({
+        refetchQueries: ["UserSettings"],
         variables: {
           userSettings: {
             useSpruceOptions: {
@@ -58,7 +59,6 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
             },
           },
         },
-        refetchQueries: ["UserSettings"],
       });
     } catch (e) {}
   };

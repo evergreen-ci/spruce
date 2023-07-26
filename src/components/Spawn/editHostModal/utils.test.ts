@@ -19,62 +19,62 @@ describe("computeDiff", () => {
     expect(hasChanges).toBe(true);
     // eslint-disable-next-line jest/prefer-strict-equal
     expect(mutationParams).toEqual({
-      displayName: "new-display-name",
-      instanceType: "new-instance-type",
       addedInstanceTags: [
         { key: "a", value: " b" },
         { key: "c", value: " d" },
       ],
-      servicePassword: "rdp-password",
+      displayName: "new-display-name",
+      instanceType: "new-instance-type",
       publicKey: {
-        name: "newKeyName",
         key: "newKey",
+        name: "newKeyName",
       },
+      servicePassword: "rdp-password",
     });
   });
 });
 
 const host = {
-  id: "host-id",
   displayName: "",
-  noExpiration: true,
   expiration: new Date("2022-12-06T11:00:05.055Z"),
+  id: "host-id",
   instanceType: "m4.xlarge",
+  noExpiration: true,
 };
 
 const initialEditState: EditSpawnHostMutationVariables = {
-  hostId: host.id,
-  displayName: host.displayName,
-  expiration: null,
-  noExpiration: host.noExpiration,
-  instanceType: host.instanceType,
-  volumeId: "",
   addedInstanceTags: [],
   deletedInstanceTags: [],
-  servicePassword: "",
+  displayName: host.displayName,
+  expiration: null,
+  hostId: host.id,
+  instanceType: host.instanceType,
+  noExpiration: host.noExpiration,
   publicKey: {
-    name: "",
     key: "",
+    name: "",
   },
   savePublicKey: false,
+  servicePassword: "",
+  volumeId: "",
 };
 
 const currEditState: EditSpawnHostMutationVariables = {
-  hostId: host.id,
-  displayName: "new-display-name",
-  expiration: null,
-  noExpiration: host.noExpiration,
-  instanceType: "new-instance-type",
-  volumeId: "",
   addedInstanceTags: [
     { key: "a", value: " b" },
     { key: "c", value: " d" },
   ],
   deletedInstanceTags: [],
-  servicePassword: "rdp-password",
+  displayName: "new-display-name",
+  expiration: null,
+  hostId: host.id,
+  instanceType: "new-instance-type",
+  noExpiration: host.noExpiration,
   publicKey: {
-    name: "newKeyName",
     key: "newKey",
+    name: "newKeyName",
   },
   savePublicKey: false,
+  servicePassword: "rdp-password",
+  volumeId: "",
 };

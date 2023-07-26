@@ -10,9 +10,9 @@ describe("searchableDropdown", () => {
     const onChange = jest.fn();
     render(
       RenderSearchableDropdown({
-        value: "evergreen",
         onChange,
         options: ["evergreen", "spruce"],
+        value: "evergreen",
       })
     );
     expect(screen.getByText("evergreen")).toBeInTheDocument();
@@ -22,9 +22,9 @@ describe("searchableDropdown", () => {
     const onChange = jest.fn();
     render(
       RenderSearchableDropdown({
-        value: "evergreen",
         onChange,
         options: ["evergreen", "spruce"],
+        value: "evergreen",
       })
     );
     expect(
@@ -44,9 +44,9 @@ describe("searchableDropdown", () => {
     const onChange = jest.fn();
     render(
       RenderSearchableDropdown({
-        value: "evergreen",
         onChange,
         options: ["evergreen", "spruce"],
+        value: "evergreen",
       })
     );
     expect(
@@ -75,9 +75,9 @@ describe("searchableDropdown", () => {
     const onChange = jest.fn();
     render(
       RenderSearchableDropdown({
-        value: "evergreen",
         onChange,
         options: ["evergreen", "spruce"],
+        value: "evergreen",
       })
     );
     // use text input to filter and click on document body (which closes the dropdown).
@@ -111,10 +111,10 @@ describe("searchableDropdown", () => {
     );
     render(
       RenderSearchableDropdown({
-        value: ["evergreen"],
         onChange,
         options: ["evergreen", "spruce"],
         searchFunc,
+        value: ["evergreen"],
       })
     );
     userEvent.click(screen.queryByDataCy("searchable-dropdown"));
@@ -138,9 +138,9 @@ describe("searchableDropdown", () => {
       const onChange = jest.fn();
       const { rerender } = render(
         RenderSearchableDropdown({
-          value: "evergreen",
           onChange,
           options: ["evergreen", "spruce"],
+          value: "evergreen",
         })
       );
       expect(
@@ -158,9 +158,9 @@ describe("searchableDropdown", () => {
 
       rerender(
         RenderSearchableDropdown({
-          value: "spruce",
           onChange,
           options: ["evergreen", "spruce"],
+          value: "spruce",
         })
       );
       expect(screen.getByText("spruce")).toBeInTheDocument();
@@ -170,9 +170,9 @@ describe("searchableDropdown", () => {
       const onChange = jest.fn();
       render(
         RenderSearchableDropdown({
-          value: "evergreen",
           onChange,
           options: ["evergreen", "spruce"],
+          value: "evergreen",
         })
       );
       // use text input to filter and select an option.
@@ -205,10 +205,10 @@ describe("searchableDropdown", () => {
       const onChange = jest.fn();
       const { rerender } = render(
         RenderSearchableDropdown({
-          value: [],
+          allowMultiSelect: true,
           onChange,
           options: ["evergreen", "spruce"],
-          allowMultiSelect: true,
+          value: [],
         })
       );
       expect(
@@ -223,10 +223,10 @@ describe("searchableDropdown", () => {
 
       rerender(
         RenderSearchableDropdown({
-          value: ["spruce"],
+          allowMultiSelect: true,
           onChange,
           options: ["evergreen", "spruce"],
-          allowMultiSelect: true,
+          value: ["spruce"],
         })
       );
       expect(
@@ -235,10 +235,10 @@ describe("searchableDropdown", () => {
 
       rerender(
         RenderSearchableDropdown({
-          value: ["spruce"],
+          allowMultiSelect: true,
           onChange,
           options: ["evergreen", "spruce"],
-          allowMultiSelect: true,
+          value: ["spruce"],
         })
       );
       userEvent.click(screen.queryByText("evergreen"));
@@ -249,10 +249,10 @@ describe("searchableDropdown", () => {
       const onChange = jest.fn();
       render(
         RenderSearchableDropdown({
-          value: "evergreen",
+          allowMultiSelect: true,
           onChange,
           options: ["evergreen", "spruce", "sandbox"],
-          allowMultiSelect: true,
+          value: "evergreen",
         })
       );
       // use text input to filter and select an option.
@@ -284,8 +284,16 @@ describe("searchableDropdown", () => {
       const onChange = jest.fn();
       render(
         RenderSearchableDropdown({
-          value: "evergreen",
           onChange,
+          optionRenderer: (option: any, onClick) => (
+            <button
+              type="button"
+              key={option.value}
+              onClick={() => onClick(option.value)}
+            >
+              {option.label}
+            </button>
+          ),
           options: [
             {
               label: "Evergreen",
@@ -296,15 +304,7 @@ describe("searchableDropdown", () => {
               value: "spruce",
             },
           ],
-          optionRenderer: (option: any, onClick) => (
-            <button
-              type="button"
-              key={option.value}
-              onClick={() => onClick(option.value)}
-            >
-              {option.label}
-            </button>
-          ),
+          value: "evergreen",
         })
       );
       userEvent.click(screen.queryByDataCy("searchable-dropdown"));
@@ -318,8 +318,16 @@ describe("searchableDropdown", () => {
       const onChange = jest.fn();
       render(
         RenderSearchableDropdown({
-          value: "evergreen",
           onChange,
+          optionRenderer: (option: any, onClick) => (
+            <button
+              type="button"
+              key={option.value}
+              onClick={() => onClick(option.value)}
+            >
+              {option.label}
+            </button>
+          ),
           options: [
             {
               label: "Evergreen",
@@ -330,15 +338,7 @@ describe("searchableDropdown", () => {
               value: "spruce",
             },
           ],
-          optionRenderer: (option: any, onClick) => (
-            <button
-              type="button"
-              key={option.value}
-              onClick={() => onClick(option.value)}
-            >
-              {option.label}
-            </button>
-          ),
+          value: "evergreen",
         })
       );
       userEvent.click(screen.queryByDataCy("searchable-dropdown"));
@@ -352,10 +352,10 @@ describe("searchableDropdown", () => {
       const onChange = jest.fn();
       render(
         RenderSearchableDropdown({
-          value: "evergreen",
+          buttonRenderer: (option) => <b className="just-a-test">{option}</b>,
           onChange,
           options: ["evergreen", "spruce"],
-          buttonRenderer: (option) => <b className="just-a-test">{option}</b>,
+          value: "evergreen",
         })
       );
       expect(screen.getByText("evergreen")).toBeInTheDocument();

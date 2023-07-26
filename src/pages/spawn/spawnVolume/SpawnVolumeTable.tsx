@@ -60,18 +60,16 @@ const sortByHost = (a: TableVolume, b: TableVolume) =>
 
 const columns: Array<ColumnProps<TableVolume>> = [
   {
-    title: "Volume",
     key: "displayName",
-    sorter: (a: TableVolume, b: TableVolume) =>
-      getVolumeDisplayName(a).localeCompare(getVolumeDisplayName(b)),
     render: (_, volume: TableVolume) => (
       <WordBreak data-cy="vol-name">{getVolumeDisplayName(volume)}</WordBreak>
     ),
+    sorter: (a: TableVolume, b: TableVolume) =>
+      getVolumeDisplayName(a).localeCompare(getVolumeDisplayName(b)),
+    title: "Volume",
   },
   {
-    title: "Mounted On",
     key: "mountedOn",
-    sorter: sortByHost,
     render: (_, volume: TableVolume) => (
       <StyledRouterLink
         data-cy="host-link"
@@ -80,28 +78,30 @@ const columns: Array<ColumnProps<TableVolume>> = [
         <WordBreak>{getHostDisplayName(volume)}</WordBreak>
       </StyledRouterLink>
     ),
-  },
-  {
-    title: "Status",
-    key: "status",
     sorter: sortByHost,
-    defaultSortOrder: "ascend",
-    render: (_, volume: TableVolume) => <VolumeStatusBadge volume={volume} />,
+    title: "Mounted On",
   },
   {
-    title: "Expires In",
+    defaultSortOrder: "ascend",
+    key: "status",
+    render: (_, volume: TableVolume) => <VolumeStatusBadge volume={volume} />,
+    sorter: sortByHost,
+    title: "Status",
+  },
+  {
     dataIndex: "expiration",
-    sorter: (a: TableVolume, b: TableVolume) =>
-      sortFunctionDate(a, b, "expiration"),
     render: (expiration, volume: TableVolume) =>
       volume.noExpiration || !volume.expiration
         ? DoesNotExpire
         : formatDistanceToNow(new Date(expiration)),
+    sorter: (a: TableVolume, b: TableVolume) =>
+      sortFunctionDate(a, b, "expiration"),
+    title: "Expires In",
   },
   {
-    title: "Actions",
     render: (volume: TableVolume) => (
       <SpawnVolumeTableActions volume={volume} />
     ),
+    title: "Actions",
   },
 ];

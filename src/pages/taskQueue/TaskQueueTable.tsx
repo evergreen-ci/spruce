@@ -34,9 +34,9 @@ export const TaskQueueTable = () => {
   } = useQuery<DistroTaskQueueQuery, DistroTaskQueueQueryVariables>(
     DISTRO_TASK_QUEUE,
     {
-      variables: { distroId: distro },
       errorPolicy: "ignore",
       fetchPolicy: "cache-and-network",
+      variables: { distroId: distro },
     }
   );
 
@@ -67,20 +67,18 @@ export const TaskQueueTable = () => {
 
   const columns: Array<ColumnProps<TaskQueueItem>> = [
     {
-      title: "",
+      className: "cy-task-queue-col-index",
       dataIndex: "number",
       key: "number",
-      className: "cy-task-queue-col-index",
       render: (...[, , index]) => (
         <Body weight="medium">{formatZeroIndexForDisplay(index)}</Body>
       ),
+      title: "",
     },
     {
-      title: "Task",
+      className: "cy-task-queue-col-task",
       dataIndex: "displayName",
       key: "displayName",
-      className: "cy-task-queue-col-task",
-      width: "30%",
       render: (_, { buildVariant, displayName, id, project }) => (
         <TaskCell>
           <Body>
@@ -98,21 +96,21 @@ export const TaskQueueTable = () => {
           <Disclaimer>{project}</Disclaimer>
         </TaskCell>
       ),
+      title: "Task",
+      width: "30%",
     },
     {
-      title: "Est. Runtime",
+      className: "cy-task-queue-col-runtime",
       dataIndex: "expectedDuration",
       key: "expectedDuration",
-      className: "cy-task-queue-col-runtime",
-      width: "10%",
       render: (runtimeMilliseconds) => msToDuration(runtimeMilliseconds),
+      title: "Est. Runtime",
+      width: "10%",
     },
     {
-      title: "Version",
+      className: "cy-task-queue-col-version",
       dataIndex: "version",
       key: "version",
-      className: "cy-task-queue-col-version",
-      width: "30%",
       render: (version) => (
         <StyledRouterLink
           to={getVersionRoute(version)}
@@ -123,23 +121,23 @@ export const TaskQueueTable = () => {
           <WordBreak>{version}</WordBreak>
         </StyledRouterLink>
       ),
+      title: "Version",
+      width: "30%",
     },
     {
-      title: "Priority",
+      align: "center",
+      className: "cy-task-queue-col-priority",
       dataIndex: "priority",
       key: "priority",
-      className: "cy-task-queue-col-priority",
-      width: "10%",
-      align: "center",
       render: (priority) => <Badge>{priority}</Badge>,
+      title: "Priority",
+      width: "10%",
     },
     {
-      title: "Task Type",
+      align: "center",
+      className: "cy-task-queue-col-type",
       dataIndex: "requester",
       key: "requester",
-      className: "cy-task-queue-col-type",
-      width: "10%",
-      align: "center",
       render: (type) => {
         const copy = {
           [TaskQueueItemType.Commit]: "Commit",
@@ -147,6 +145,8 @@ export const TaskQueueTable = () => {
         }[type];
         return <Badge>{copy}</Badge>;
       },
+      title: "Task Type",
+      width: "10%",
     },
   ];
 
@@ -158,9 +158,9 @@ export const TaskQueueTable = () => {
       rowKey={({ id }: { id: string }): string => id}
       rowSelection={{
         hideSelectAll: true,
-        selectedRowKeys: [taskId],
         renderCell: (...[, { id }]) =>
           id === taskId ? <div ref={taskRowRef} /> : null,
+        selectedRowKeys: [taskId],
       }}
       pagination={false}
       dataSource={taskQueueItems}

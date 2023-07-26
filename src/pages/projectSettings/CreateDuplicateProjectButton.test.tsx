@@ -50,11 +50,11 @@ describe("createDuplicateProjectField", () => {
         data: {
           user: {
             __typename: "User",
-            userId: "string",
             permissions: {
               __typename: "Permissions",
               canCreateProject: false,
             },
+            userId: "string",
           },
         },
       },
@@ -141,11 +141,11 @@ const userPermissionsMock: ApolloMock<
     data: {
       user: {
         __typename: "User",
-        userId: "string",
         permissions: {
           __typename: "Permissions",
           canCreateProject: true,
         },
+        userId: "string",
       },
     },
   },

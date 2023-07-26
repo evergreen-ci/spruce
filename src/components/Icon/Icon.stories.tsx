@@ -16,6 +16,16 @@ export default {
 } satisfies CustomMeta<typeof Icon>;
 
 export const Icons: CustomStoryObj<typeof Icon> = {
+  argTypes: {
+    size: {
+      control: { type: "select" },
+      options: Object.values(Sizes),
+    },
+  },
+  args: {
+    color: "#000000",
+    size: Sizes[Size.Default],
+  },
   render: ({ size: s, ...rest }) => (
     <Container>
       {Object.keys(glyphs).map((name) => (
@@ -26,16 +36,6 @@ export const Icons: CustomStoryObj<typeof Icon> = {
       ))}
     </Container>
   ),
-  args: {
-    color: "#000000",
-    size: Sizes[Size.Default],
-  },
-  argTypes: {
-    size: {
-      options: Object.values(Sizes),
-      control: { type: "select" },
-    },
-  },
 };
 
 const Container = styled.div`

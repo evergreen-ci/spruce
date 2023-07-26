@@ -24,13 +24,13 @@ export const Default: CustomStoryObj<typeof TupleSelect> = {
 
 const options = [
   {
-    value: "build_variant",
     displayName: "Build Variant",
     placeHolderText: "Search Build Variant names",
+    value: "build_variant",
   },
   {
-    value: "task",
     displayName: "Task",
     placeHolderText: "Search Task names",
+    value: "task",
   },
 ];

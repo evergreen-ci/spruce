@@ -18,12 +18,12 @@ export const gqlToForm = ((data, options) => {
   const { projectType } = options;
 
   return {
-    gitClone,
     commands: {
+      setupCommands: setupCommands?.map(omitTypename) ?? [],
       setupCommandsOverride:
         projectType !== ProjectType.AttachedProject || !!setupCommands,
-      setupCommands: setupCommands?.map(omitTypename) ?? [],
     },
+    gitClone,
   };
 }) satisfies GqlToFormFunction<Tab>;
 

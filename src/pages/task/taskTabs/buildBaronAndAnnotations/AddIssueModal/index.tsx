@@ -46,10 +46,10 @@ export const AddIssueModal: React.VFC<Props> = ({
 
   const [canSubmit, setCanSubmit] = useState(false);
   const [formState, setFormState] = useState({
-    url: "",
     advancedOptions: {
       confidenceScore: null,
     },
+    url: "",
   });
   const issueKey = getTicketFromJiraURL(formState.url);
 
@@ -77,11 +77,11 @@ export const AddIssueModal: React.VFC<Props> = ({
 
   const handleSubmit = () => {
     const apiIssue: IssueLinkInput = {
-      url: formState.url,
-      issueKey,
       confidenceScore: toDecimal(formState.advancedOptions.confidenceScore),
+      issueKey,
+      url: formState.url,
     };
-    addAnnotation({ variables: { taskId, execution, apiIssue, isIssue } });
+    addAnnotation({ variables: { apiIssue, execution, isIssue, taskId } });
   };
 
   const handleCancel = () => {
@@ -120,41 +120,41 @@ export const AddIssueModal: React.VFC<Props> = ({
 
 const addIssueModalSchema: SpruceFormProps = {
   schema: {
-    type: "object" as "object",
     properties: {
-      url: {
-        type: "string" as "string",
-        title: "Ticket URL",
-        minLength: 1,
-        format: "validJiraURL",
-      },
       advancedOptions: {
-        type: "object" as "object",
         properties: {
           confidenceScore: {
-            type: ["number", "null"],
-            title: "Confidence Score",
-            minimum: 0,
             maximum: 100,
+            minimum: 0,
+            title: "Confidence Score",
+            type: ["number", "null"],
           },
         },
+        type: "object" as "object",
+      },
+      url: {
+        format: "validJiraURL",
+        minLength: 1,
+        title: "Ticket URL",
+        type: "string" as "string",
       },
     },
     required: ["url"],
+    type: "object" as "object",
   },
   uiSchema: {
-    url: {
-      "ui:data-cy": "issue-url",
-    },
     advancedOptions: {
-      "ui:ObjectFieldTemplate": AccordionFieldTemplate,
-      "ui:displayTitle": "Advanced Options",
       confidenceScore: {
         "ui:data-cy": "confidence-level",
         "ui:description":
           "The confidence score of the issue. This is a number between 0 and 100 representing a percentage.",
         "ui:optional": true,
       },
+      "ui:ObjectFieldTemplate": AccordionFieldTemplate,
+      "ui:displayTitle": "Advanced Options",
+    },
+    url: {
+      "ui:data-cy": "issue-url",
     },
   },
 };

@@ -13,8 +13,8 @@ describe("visibilityContainer", () => {
         },
       ]);
       return {
-        observe: jest.fn(),
         disconnect: jest.fn(),
+        observe: jest.fn(),
       };
     });
 
@@ -37,8 +37,8 @@ describe("visibilityContainer", () => {
         },
       ]);
       return {
-        observe: jest.fn(),
         disconnect: jest.fn(),
+        observe: jest.fn(),
       };
     });
 

@@ -33,224 +33,240 @@ export const getFormSchema = ({
 }: Props): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as "object",
     properties: {
-      hostName: {
-        title: "Edit Host Name",
-        type: "string",
-        default: "",
-      },
       expirationDetails: {
-        title: "",
-        type: "object" as "object",
-        properties: {
-          expiration: {
-            type: "string" as "string",
-            title: "Edit Expiration",
-            default: getDefaultExpiration(),
-          },
-          noExpiration: {
-            type: "boolean" as "boolean",
-            title: "Never expire",
-            default: false,
-          },
-        },
         dependencies: {
           noExpiration: {
             oneOf: [
               {
                 properties: {
-                  noExpiration: {
-                    enum: [true],
-                  },
                   expiration: {
                     readOnly: true,
                   },
+                  noExpiration: {
+                    enum: [true],
+                  },
                 },
               },
               {
                 properties: {
-                  noExpiration: {
-                    enum: [false],
-                  },
                   expiration: {
                     readOnly: false,
+                  },
+                  noExpiration: {
+                    enum: [false],
                   },
                 },
               },
             ],
           },
         },
+        properties: {
+          expiration: {
+            default: getDefaultExpiration(),
+            title: "Edit Expiration",
+            type: "string" as "string",
+          },
+          noExpiration: {
+            default: false,
+            title: "Never expire",
+            type: "boolean" as "boolean",
+          },
+        },
+        title: "",
+        type: "object" as "object",
+      },
+      hostName: {
+        default: "",
+        title: "Edit Host Name",
+        type: "string",
       },
       instanceType: {
-        title: "Change Instance Type",
-        type: "string" as "string",
         default: "",
         oneOf: instanceTypes.map((it) => ({
-          type: "string" as "string",
-          title: it,
           enum: [it],
+          title: it,
+          type: "string" as "string",
         })),
+        title: "Change Instance Type",
+        type: "string" as "string",
       },
       volume: {
-        title: "Add Volume",
-        type: "string" as "string",
         default: "",
         oneOf: [
           {
-            type: "string" as "string",
-            title: "Select volume…",
             enum: [""],
+            title: "Select volume…",
+            type: "string" as "string",
           },
           ...volumes.map((v) => ({
-            type: "string" as "string",
-            title: `(${v.size}GB) ${v.displayName || v.id}`,
             enum: [v.id],
+            title: `(${v.size}GB) ${v.displayName || v.id}`,
+            type: "string" as "string",
           })),
         ],
+        title: "Add Volume",
+        type: "string" as "string",
       },
       ...(canEditRdpPassword && {
         rdpPassword: {
+          default: "",
           title: "Set New RDP Password",
           type: "string",
-          default: "",
         },
       }),
-      userTags: {
-        title: "",
-        type: "array" as "array",
-        items: {
-          type: "object" as "object",
-          properties: {
-            key: {
-              type: "string" as "string",
-              title: "Key",
-              default: "",
-            },
-            value: {
-              type: "string" as "string",
-              title: "Value",
-              default: "",
-            },
-          },
-        },
-      },
       publicKeySection: {
-        title: "",
-        type: "object",
-        properties: {
-          useExisting: {
-            title: "Add SSH Key",
-            default: true,
-            type: "boolean" as "boolean",
-            oneOf: [
-              {
-                type: "boolean" as "boolean",
-                title: "Use existing key",
-                enum: [true],
-              },
-              {
-                type: "boolean" as "boolean",
-                title: "Add new key",
-                enum: [false],
-              },
-            ],
-          },
-        },
         dependencies: {
           useExisting: {
             oneOf: [
               {
                 properties: {
-                  useExisting: {
-                    enum: [true],
-                  },
                   publicKeyNameDropdown: {
-                    title: "Choose key",
-                    type: "string" as "string",
                     default: "",
                     oneOf: [
                       {
-                        type: "string" as "string",
-                        title: "Select public key…",
                         enum: [""],
+                        title: "Select public key…",
+                        type: "string" as "string",
                       },
                       ...myPublicKeys.map((d) => ({
-                        type: "string" as "string",
-                        title: d.name,
                         enum: [d.name],
+                        title: d.name,
+                        type: "string" as "string",
                       })),
                     ],
+                    title: "Choose key",
+                    type: "string" as "string",
+                  },
+                  useExisting: {
+                    enum: [true],
                   },
                 },
               },
               {
-                properties: {
-                  useExisting: {
-                    enum: [false],
-                  },
-                  newPublicKey: {
-                    title: "Public key",
-                    type: "string" as "string",
-                    default: "",
-                  },
-                  savePublicKey: {
-                    title: "Save Public Key",
-                    type: "boolean" as "boolean",
-                    default: false,
-                  },
-                },
                 dependencies: {
                   savePublicKey: {
                     oneOf: [
                       {
                         properties: {
-                          savePublicKey: {
-                            enum: [true],
-                          },
                           newPublicKeyName: {
+                            default: "",
                             title: "Key name",
                             type: "string" as "string",
-                            default: "",
+                          },
+                          savePublicKey: {
+                            enum: [true],
                           },
                         },
                       },
                     ],
                   },
                 },
+                properties: {
+                  newPublicKey: {
+                    default: "",
+                    title: "Public key",
+                    type: "string" as "string",
+                  },
+                  savePublicKey: {
+                    default: false,
+                    title: "Save Public Key",
+                    type: "boolean" as "boolean",
+                  },
+                  useExisting: {
+                    enum: [false],
+                  },
+                },
               },
             ],
           },
         },
+        properties: {
+          useExisting: {
+            default: true,
+            oneOf: [
+              {
+                enum: [true],
+                title: "Use existing key",
+                type: "boolean" as "boolean",
+              },
+              {
+                enum: [false],
+                title: "Add new key",
+                type: "boolean" as "boolean",
+              },
+            ],
+            title: "Add SSH Key",
+            type: "boolean" as "boolean",
+          },
+        },
+        title: "",
+        type: "object",
+      },
+      userTags: {
+        items: {
+          properties: {
+            key: {
+              default: "",
+              title: "Key",
+              type: "string" as "string",
+            },
+            value: {
+              default: "",
+              title: "Value",
+              type: "string" as "string",
+            },
+          },
+          type: "object" as "object",
+        },
+        title: "",
+        type: "array" as "array",
       },
     },
+    type: "object" as "object",
   },
   uiSchema: {
     expirationDetails: {
-      "ui:ObjectFieldTemplate": ExpirationRow,
       expiration: {
-        "ui:disableBefore": add(today, { days: 1 }),
         "ui:disableAfter": add(today, { days: 30 }),
-        "ui:widget": "date-time",
+        "ui:disableBefore": add(today, { days: 1 }),
         "ui:elementWrapperCSS": datePickerCSS,
+        "ui:widget": "date-time",
       },
       noExpiration: {
         "ui:disabled": disableExpirationCheckbox,
-        "ui:tooltipDescription": noExpirationCheckboxTooltip ?? "",
         "ui:elementWrapperCSS": checkboxCSS,
+        "ui:tooltipDescription": noExpirationCheckboxTooltip ?? "",
       },
+      "ui:ObjectFieldTemplate": ExpirationRow,
     },
     instanceType: {
+      "ui:allowDeselect": false,
       "ui:description": !canEditInstanceType
         ? "Instance type can only be changed when the host is stopped."
         : "",
       "ui:disabled": !canEditInstanceType,
-      "ui:allowDeselect": false,
     },
-    volume: {
-      "ui:allowDeselect": false,
-      "ui:disabled": volumes.length === 0,
-      "ui:description": volumes.length === 0 ? "No volumes available." : "",
+    publicKeySection: {
+      newPublicKey: {
+        "ui:disabled": !canEditSshKeys,
+        "ui:widget": LeafyGreenTextArea,
+      },
+      publicKeyNameDropdown: {
+        "ui:allowDeselect": false,
+        "ui:description":
+          canEditSshKeys && myPublicKeys.length === 0
+            ? "No keys available."
+            : "",
+        "ui:disabled": !canEditSshKeys || myPublicKeys.length === 0,
+      },
+      useExisting: {
+        "ui:description": !canEditSshKeys
+          ? "SSH keys can only be added when the host is running."
+          : "",
+        "ui:disabled": !canEditSshKeys,
+        "ui:widget": widgets.RadioBoxWidget,
+      },
     },
     rdpPassword: {
       // Console error should be resolved by https://jira.mongodb.org/browse/LG-2342.
@@ -264,33 +280,17 @@ export const getFormSchema = ({
       ),
     },
     userTags: {
-      "ui:descriptionNode": <InputLabel>Add User Tags</InputLabel>,
-      "ui:addButtonText": "Add Tag",
-      "ui:orderable": false,
       items: {
         "ui:ObjectFieldTemplate": UserTagRow,
       },
+      "ui:addButtonText": "Add Tag",
+      "ui:descriptionNode": <InputLabel>Add User Tags</InputLabel>,
+      "ui:orderable": false,
     },
-    publicKeySection: {
-      useExisting: {
-        "ui:widget": widgets.RadioBoxWidget,
-        "ui:description": !canEditSshKeys
-          ? "SSH keys can only be added when the host is running."
-          : "",
-        "ui:disabled": !canEditSshKeys,
-      },
-      publicKeyNameDropdown: {
-        "ui:allowDeselect": false,
-        "ui:disabled": !canEditSshKeys || myPublicKeys.length === 0,
-        "ui:description":
-          canEditSshKeys && myPublicKeys.length === 0
-            ? "No keys available."
-            : "",
-      },
-      newPublicKey: {
-        "ui:widget": LeafyGreenTextArea,
-        "ui:disabled": !canEditSshKeys,
-      },
+    volume: {
+      "ui:allowDeselect": false,
+      "ui:description": volumes.length === 0 ? "No volumes available." : "",
+      "ui:disabled": volumes.length === 0,
     },
   },
 });

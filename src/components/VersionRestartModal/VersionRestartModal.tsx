@@ -65,8 +65,8 @@ const VersionRestartModal: React.VFC<Props> = ({
     BuildVariantsWithChildrenQuery,
     BuildVariantsWithChildrenQueryVariables
   >(GET_BUILD_VARIANTS_WITH_CHILDREN, {
-    variables: { id: versionId },
     skip: !visible,
+    variables: { id: versionId },
   });
 
   const { version } = data || {};
@@ -92,14 +92,14 @@ const VersionRestartModal: React.VFC<Props> = ({
 
   const handlePatchRestart = () => {
     sendEvent({
-      name: "Restart",
       abort: shouldAbortInProgressTasks,
+      name: "Restart",
     });
     restartVersions({
       variables: {
+        abort: shouldAbortInProgressTasks,
         versionId: version?.id,
         versionsToRestart: getTaskIds(selectedTasks),
-        abort: shouldAbortInProgressTasks,
       },
     });
   };
@@ -251,8 +251,8 @@ const selectTasksTotal = (selectedTasks: versionSelectedTasks) =>
 
 const getTaskIds = (selectedTasks: versionSelectedTasks) =>
   Object.entries(selectedTasks).map(([versionId, tasks]) => ({
-    versionId,
     taskIds: selectedArray(tasks),
+    versionId,
   }));
 
 const ConfirmationMessage = styled(Body)<BodyProps>`

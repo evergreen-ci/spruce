@@ -33,11 +33,11 @@ export const groupStatusesByUmbrellaStatus = (
       );
     } else {
       counts[umbrellaStatus] = {
-        count: stat.count,
-        statuses: toArray(taskStatusToCopy[stat.status]),
         color: mapTaskToBarchartColor[umbrellaStatus],
-        umbrellaStatus: umbrellaStatus as TaskStatus,
+        count: stat.count,
         statusCounts: {},
+        statuses: toArray(taskStatusToCopy[stat.status]),
+        umbrellaStatus: umbrellaStatus as TaskStatus,
       };
     }
     if (!counts[umbrellaStatus].statusCounts[stat.status]) {
@@ -60,5 +60,5 @@ export const groupStatusesByUmbrellaStatus = (
     }
   });
 
-  return { stats, max, total };
+  return { max, stats, total };
 };

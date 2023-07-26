@@ -63,8 +63,8 @@ export const useVersionAnalytics = (id: string): VersionAnalytics => {
   const { data: eventData } = useQuery<VersionQuery, VersionQueryVariables>(
     GET_VERSION,
     {
-      variables: { id },
       fetchPolicy: "cache-first",
+      variables: { id },
     }
   );
   const { status } = eventData?.version || {};
@@ -73,8 +73,8 @@ export const useVersionAnalytics = (id: string): VersionAnalytics => {
     addPageAction<Action, V>(action, {
       object: "Version",
       userId,
-      versionStatus: status,
       versionId: id,
+      versionStatus: status,
     });
   };
 

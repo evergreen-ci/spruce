@@ -23,143 +23,143 @@ export const getFormSchema = ({
 }: Props): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as "object",
     properties: {
-      requiredVolumeInformation: {
-        type: "object" as "object",
-        title: "Required Volume Information",
-        properties: {
-          size: {
-            title: "Size (GiB)",
-            type: "number" as "number",
-            default: maxSpawnableLimit > 500 ? 500 : maxSpawnableLimit,
-            minimum: 1,
-            maximum: maxSpawnableLimit,
-          },
-          availabilityZone: {
-            title: "Region",
-            type: "string" as "string",
-            default: availabilityZones?.[0] ?? "",
-            oneOf: availabilityZones.map((r) => ({
-              type: "string" as "string",
-              title: r,
-              enum: [r],
-            })),
-          },
-          type: {
-            title: "Type",
-            type: "string" as "string",
-            default: types?.[0] ?? "",
-            oneOf: types.map((t) => ({
-              type: "string" as "string",
-              title: t,
-              enum: [t],
-            })),
-          },
-        },
-      },
       optionalVolumeInformation: {
-        type: "object" as "object",
-        title: "Optional Volume Information",
         properties: {
           expirationDetails: {
-            title: "",
-            type: "object" as "object",
-            properties: {
-              expiration: {
-                type: "string" as "string",
-                title: "Expiration",
-                default: getDefaultExpiration(),
-              },
-              noExpiration: {
-                type: "boolean" as "boolean",
-                title: "Never expire",
-                default: false,
-              },
-            },
             dependencies: {
               noExpiration: {
                 oneOf: [
                   {
                     properties: {
-                      noExpiration: {
-                        enum: [true],
-                      },
                       expiration: {
                         readOnly: true,
+                      },
+                      noExpiration: {
+                        enum: [true],
                       },
                     },
                   },
                   {
                     properties: {
-                      noExpiration: {
-                        enum: [false],
-                      },
                       expiration: {
                         readOnly: false,
+                      },
+                      noExpiration: {
+                        enum: [false],
                       },
                     },
                   },
                 ],
               },
             },
+            properties: {
+              expiration: {
+                default: getDefaultExpiration(),
+                title: "Expiration",
+                type: "string" as "string",
+              },
+              noExpiration: {
+                default: false,
+                title: "Never expire",
+                type: "boolean" as "boolean",
+              },
+            },
+            title: "",
+            type: "object" as "object",
           },
           mountToHost: {
-            title: "Mount to Host",
-            type: "string" as "string",
             default: "",
             oneOf: [
               {
-                type: "string" as "string",
-                title: "Select host…",
                 enum: [""],
+                title: "Select host…",
+                type: "string" as "string",
               },
               ...hosts.map((h) => ({
-                type: "string" as "string",
-                title: h.displayName,
                 enum: [h.id],
+                title: h.displayName,
+                type: "string" as "string",
               })),
             ],
+            title: "Mount to Host",
+            type: "string" as "string",
           },
         },
+        title: "Optional Volume Information",
+        type: "object" as "object",
+      },
+      requiredVolumeInformation: {
+        properties: {
+          availabilityZone: {
+            default: availabilityZones?.[0] ?? "",
+            oneOf: availabilityZones.map((r) => ({
+              enum: [r],
+              title: r,
+              type: "string" as "string",
+            })),
+            title: "Region",
+            type: "string" as "string",
+          },
+          size: {
+            default: maxSpawnableLimit > 500 ? 500 : maxSpawnableLimit,
+            maximum: maxSpawnableLimit,
+            minimum: 1,
+            title: "Size (GiB)",
+            type: "number" as "number",
+          },
+          type: {
+            default: types?.[0] ?? "",
+            oneOf: types.map((t) => ({
+              enum: [t],
+              title: t,
+              type: "string" as "string",
+            })),
+            title: "Type",
+            type: "string" as "string",
+          },
+        },
+        title: "Required Volume Information",
+        type: "object" as "object",
       },
     },
+    type: "object" as "object",
   },
   uiSchema: {
-    requiredVolumeInformation: {
-      size: {
-        "ui:description": `The max spawnable volume size is ${maxSpawnableLimit} GiB.`,
-        "ui:data-cy": "volume-size-input",
+    optionalVolumeInformation: {
+      expirationDetails: {
+        expiration: {
+          "ui:disableAfter": add(today, { days: 30 }),
+          "ui:disableBefore": add(today, { days: 1 }),
+          "ui:elementWrapperCSS": datePickerCSS,
+          "ui:widget": "date-time",
+        },
+        noExpiration: {
+          "ui:disabled": disableExpirationCheckbox,
+          "ui:elementWrapperCSS": checkboxCSS,
+          "ui:tooltipDescription": noExpirationCheckboxTooltip ?? "",
+        },
+        "ui:ObjectFieldTemplate": ExpirationRow,
       },
+      mountToHost: {
+        "ui:allowDeselect": false,
+        "ui:data-cy": "host-select",
+        "ui:description": hosts.length === 0 ? "No hosts available." : "",
+        "ui:disabled": hosts.length === 0,
+      },
+    },
+    requiredVolumeInformation: {
       availabilityZone: {
         "ui:allowDeselect": false,
         "ui:data-cy": "availability-zone-select",
       },
+      size: {
+        "ui:data-cy": "volume-size-input",
+        "ui:description": `The max spawnable volume size is ${maxSpawnableLimit} GiB.`,
+      },
       type: {
         "ui:allowDeselect": false,
         "ui:data-cy": "type-select",
-      },
-    },
-    optionalVolumeInformation: {
-      expirationDetails: {
-        "ui:ObjectFieldTemplate": ExpirationRow,
-        expiration: {
-          "ui:disableBefore": add(today, { days: 1 }),
-          "ui:disableAfter": add(today, { days: 30 }),
-          "ui:widget": "date-time",
-          "ui:elementWrapperCSS": datePickerCSS,
-        },
-        noExpiration: {
-          "ui:disabled": disableExpirationCheckbox,
-          "ui:tooltipDescription": noExpirationCheckboxTooltip ?? "",
-          "ui:elementWrapperCSS": checkboxCSS,
-        },
-      },
-      mountToHost: {
-        "ui:allowDeselect": false,
-        "ui:disabled": hosts.length === 0,
-        "ui:description": hosts.length === 0 ? "No hosts available." : "",
-        "ui:data-cy": "host-select",
       },
     },
   },

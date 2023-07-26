@@ -52,8 +52,8 @@ describe("buildBaronContent", () => {
     );
 
     render(<Component />, {
-      route: `/task/${taskId}`,
       path: "/task/:id",
+      route: `/task/${taskId}`,
     });
     expect(screen.getByDataCy("bb-content")).toBeInTheDocument();
     expect(screen.queryByDataCy("bb-error")).toBeNull();
@@ -73,8 +73,8 @@ describe("buildBaronContent", () => {
       </MockedProvider>
     );
     render(<Component />, {
-      route: `/task/${taskId}`,
       path: "/task/:id",
+      route: `/task/${taskId}`,
     });
     userEvent.click(screen.queryByDataCy("file-ticket-button"));
     await waitFor(() => {
@@ -103,8 +103,8 @@ describe("buildBaronContent", () => {
       </MockedProvider>
     );
     render(<Component />, {
-      route: `/task/${taskId}`,
       path: "/task/:id",
+      route: `/task/${taskId}`,
     });
 
     expect(screen.queryAllByDataCy("jira-ticket-row")).toHaveLength(3);
@@ -135,67 +135,67 @@ describe("buildBaronContent", () => {
 const buildBaronQuery: BuildBaronQuery = {
   buildBaron: {
     __typename: "BuildBaron",
-    buildBaronConfigured: true,
     bbTicketCreationDefined: true,
+    buildBaronConfigured: true,
     searchReturnInfo: {
       __typename: "SearchReturnInfo",
+      featuresURL: "",
       issues: [
         {
           __typename: "JiraTicket",
-          key: "EVG-12345",
           fields: {
             __typename: "TicketFields",
-            summary: "This is a random Jira ticket title 1",
             assigneeDisplayName: null,
-            resolutionName: "Declined",
             created: "2020-09-23T15:31:33.000+0000",
-            updated: "2020-09-23T15:33:02.000+0000",
+            resolutionName: "Declined",
             status: {
               __typename: "JiraStatus",
               id: "5",
               name: "Resolved",
             },
+            summary: "This is a random Jira ticket title 1",
+            updated: "2020-09-23T15:33:02.000+0000",
           },
+          key: "EVG-12345",
         },
         {
           __typename: "JiraTicket",
-          key: "EVG-12346",
           fields: {
             __typename: "TicketFields",
-            summary: "This is a random Jira ticket title 2",
             assigneeDisplayName: "Some Name",
-            resolutionName: "Declined",
             created: "2020-09-18T16:58:32.000+0000",
-            updated: "2020-09-18T19:56:42.000+0000",
+            resolutionName: "Declined",
             status: {
               __typename: "JiraStatus",
               id: "6",
               name: "Closed",
             },
+            summary: "This is a random Jira ticket title 2",
+            updated: "2020-09-18T19:56:42.000+0000",
           },
+          key: "EVG-12346",
         },
         {
           __typename: "JiraTicket",
-          key: "EVG-12347",
           fields: {
             __typename: "TicketFields",
-            summary: "This is a random Jira ticket title 3",
             assigneeDisplayName: "Backlog - Evergreen Team",
-            resolutionName: "Declined",
             created: "2020-09-18T17:04:06.000+0000",
-            updated: "2020-09-18T19:56:29.000+0000",
+            resolutionName: "Declined",
             status: {
               __typename: "JiraStatus",
               id: "1",
               name: "Open",
             },
+            summary: "This is a random Jira ticket title 3",
+            updated: "2020-09-18T19:56:29.000+0000",
           },
+          key: "EVG-12347",
         },
       ],
       search:
         '(project in (EVG)) and ( text~"docker\\\\-cleanup" ) order by updatedDate desc',
       source: "JIRA",
-      featuresURL: "",
     },
   },
 };
@@ -205,8 +205,8 @@ const getBuildBaronMock: ApolloMock<BuildBaronQuery, BuildBaronQueryVariables> =
     request: {
       query: GET_BUILD_BARON,
       variables: {
-        taskId,
         execution,
+        taskId,
       },
     },
     result: {
@@ -221,8 +221,8 @@ const fileJiraTicketMock: ApolloMock<
   request: {
     query: FILE_JIRA_TICKET,
     variables: {
-      taskId,
       execution,
+      taskId,
     },
   },
   result: {

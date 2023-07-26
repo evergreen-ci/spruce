@@ -17,10 +17,10 @@ export const formToGql = ({
 
   return {
     availabilityZone,
-    size,
-    type,
-    noExpiration,
     expiration: noExpiration ? null : new Date(expiration),
     host: mountToHost || null,
+    noExpiration,
+    size,
+    type,
   };
 };

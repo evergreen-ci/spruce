@@ -83,58 +83,58 @@ describe("treeSelect", () => {
 
 const treeData = [
   {
+    key: "all",
     title: "All",
     value: "all",
-    key: "all",
   },
   {
+    key: "pass",
     title: "Pass",
     value: "pass",
-    key: "pass",
   },
   {
+    key: "fail",
     title: "Fail",
     value: "fail",
-    key: "fail",
   },
   {
+    key: "skip",
     title: "Skip",
     value: "skip",
-    key: "skip",
   },
   {
+    key: "silent fail",
     title: "Silent Fail",
     value: "silent fail",
-    key: "silent fail",
   },
 ];
 
 const nestedTreeData = [
   {
+    key: "all",
     title: "All",
     value: "all",
-    key: "all",
   },
   {
-    title: "Failing Umbrella",
-    value: "failing-umbrella",
-    key: "failing-umbrella",
     children: [
       {
+        key: "system-failure",
         title: "System Failure",
         value: "system-failure",
-        key: "system-failure",
       },
       {
+        key: "fail",
         title: "Fail",
         value: "fail",
-        key: "fail",
       },
     ],
+    key: "failing-umbrella",
+    title: "Failing Umbrella",
+    value: "failing-umbrella",
   },
   {
+    key: "pass",
     title: "Pass",
     value: "pass",
-    key: "pass",
   },
 ];

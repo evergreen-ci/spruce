@@ -17,9 +17,9 @@ describe("storybook", () => {
         },
       ]);
       return {
+        disconnect: jest.fn(),
         observe: jest.fn(),
         unobserve: jest.fn(),
-        disconnect: jest.fn(),
       };
     });
 
@@ -34,8 +34,8 @@ describe("storybook", () => {
 
   // eslint-disable-next-line jest/require-hook
   initStoryshots({
-    renderer: render,
     asyncJest: true,
+    renderer: render,
     test: ({ context, done, stories2snapsConverter, story }) => {
       const snapshotFileName =
         stories2snapsConverter.getSnapshotFileName(context);

@@ -32,14 +32,14 @@ const VolumeExpiration: React.VFC<TableVolume> = ({
 };
 
 const spawnVolumeCardFields = {
-  "Created at": VolumeCreationTime,
-  "Expires at": VolumeExpiration,
-  Type: (volume: TableVolume) => <span>{volume.type}</span>,
-  Size: (volume: TableVolume) => <span>{volume.size} GB</span>,
   "Availability Zone": (volume: TableVolume) => (
     <span>{volume.availabilityZone}</span>
   ),
+  "Created at": VolumeCreationTime,
+  "Expires at": VolumeExpiration,
   "Is Home Volume": (volume: TableVolume) => (
     <span>{volume.homeVolume ? "True" : "False"}</span>
   ),
+  Size: (volume: TableVolume) => <span>{volume.size} GB</span>,
+  Type: (volume: TableVolume) => <span>{volume.type}</span>,
 };

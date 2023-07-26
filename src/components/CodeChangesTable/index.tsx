@@ -29,8 +29,6 @@ const columns: (
   showHeader: boolean
 ) => Array<ColumnProps<FileDiffsFragment>> = (showHeader: boolean) => [
   {
-    title: <span data-cy="file-column">File</span>,
-    width: "60%",
     dataIndex: "fileName",
     key: "fileName",
     render: (text: string, record: FileDiffsFragment): JSX.Element => (
@@ -43,23 +41,25 @@ const columns: (
         <WordBreak>{text}</WordBreak>
       </StyledLink>
     ),
+    title: <span data-cy="file-column">File</span>,
+    width: "60%",
   },
   {
-    title: <span data-cy="additions-column">Additions</span>,
     dataIndex: "additions",
     key: "additions",
-    width: !showHeader && 80,
     render: (text: number): JSX.Element => (
       <FileDiffText value={text} type="+" />
     ),
+    title: <span data-cy="additions-column">Additions</span>,
+    width: !showHeader && 80,
   },
   {
-    title: <span data-cy="deletions-column">Deletions</span>,
     dataIndex: "deletions",
     key: "deletions",
-    width: !showHeader && 80,
     render: (text: number): JSX.Element => (
       <FileDiffText value={text} type="-" />
     ),
+    title: <span data-cy="deletions-column">Deletions</span>,
+    width: !showHeader && 80,
   },
 ];

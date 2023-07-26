@@ -27,8 +27,6 @@ export const gqlToForm = ((data, { projectType }) => {
   } = data;
 
   return {
-    periodicBuildsOverride:
-      projectType !== ProjectType.AttachedProject || !!periodicBuilds,
     periodicBuilds:
       periodicBuilds?.map(
         ({
@@ -42,24 +40,26 @@ export const gqlToForm = ((data, { projectType }) => {
         }) => ({
           alias,
           configFile,
-          id,
-          message,
-          nextRunTime: nextRunTime.toString(),
           displayTitle: getTitle({ cron, intervalHours, message }),
+          id,
           interval:
             cron === ""
               ? {
-                  specifier: IntervalSpecifier.Hours,
                   cron: "",
                   intervalHours,
+                  specifier: IntervalSpecifier.Hours,
                 }
               : {
-                  specifier: IntervalSpecifier.Cron,
-                  intervalHours: null,
                   cron,
+                  intervalHours: null,
+                  specifier: IntervalSpecifier.Cron,
                 },
+          message,
+          nextRunTime: nextRunTime.toString(),
         })
       ) ?? [],
+    periodicBuildsOverride:
+      projectType !== ProjectType.AttachedProject || !!periodicBuilds,
   };
 }) satisfies GqlToFormFunction<Tab>;
 

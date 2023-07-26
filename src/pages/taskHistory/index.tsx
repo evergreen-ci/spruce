@@ -55,26 +55,18 @@ const TaskHistoryContents: React.VFC = () => {
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
   >(GET_MAINLINE_COMMITS_FOR_HISTORY, {
-    variables: {
-      mainlineCommitsOptions: {
-        projectIdentifier,
-        limit: 10,
-        shouldCollapse: true,
-      },
-      buildVariantOptions: {
-        tasks: [applyStrictRegex(taskName)],
-        includeBaseTasks: false,
-      },
-    },
-    notifyOnNetworkStatusChange: true, // This is so that we can show the loading state
-    fetchPolicy: "no-cache", // This is because we already cache the data in the history table
+    // This is so that we can show the loading state
+    fetchPolicy: "no-cache",
+
+    notifyOnNetworkStatusChange: true,
+    // This is because we already cache the data in the history table
     onCompleted({ mainlineCommits }) {
       leaveBreadcrumb(
         "Loaded more commits for task history",
         {
+          numCommits: mainlineCommits.versions.length,
           projectIdentifier,
           taskName,
-          numCommits: mainlineCommits.versions.length,
         },
         "process"
       );
@@ -85,6 +77,17 @@ const TaskHistoryContents: React.VFC = () => {
         `There was an error loading the task history: ${err.message}`
       );
     },
+    variables: {
+      buildVariantOptions: {
+        includeBaseTasks: false,
+        tasks: [applyStrictRegex(taskName)],
+      },
+      mainlineCommitsOptions: {
+        limit: 10,
+        projectIdentifier,
+        shouldCollapse: true,
+      },
+    },
   });
 
   const handleLoadMore = () => {
@@ -93,21 +96,21 @@ const TaskHistoryContents: React.VFC = () => {
         "Requesting more task history",
         {
           projectIdentifier,
-          taskName,
           skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
+          taskName,
         },
         "process"
       );
       refetch({
-        mainlineCommitsOptions: {
-          projectIdentifier,
-          limit: 10,
-          skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
-          shouldCollapse: true,
-        },
         buildVariantOptions: {
-          tasks: [applyStrictRegex(taskName)],
           includeBaseTasks: false,
+          tasks: [applyStrictRegex(taskName)],
+        },
+        mainlineCommitsOptions: {
+          limit: 10,
+          projectIdentifier,
+          shouldCollapse: true,
+          skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
         },
       });
     }
@@ -149,10 +152,10 @@ const TaskHistoryContents: React.VFC = () => {
           </BadgeWrapper>
           <ColumnPaginationButtons
             onClickNext={() =>
-              sendEvent({ name: "Paginate", direction: "next" })
+              sendEvent({ direction: "next", name: "Paginate" })
             }
             onClickPrev={() =>
-              sendEvent({ name: "Paginate", direction: "previous" })
+              sendEvent({ direction: "previous", name: "Paginate" })
             }
           />
         </PaginationFilterWrapper>

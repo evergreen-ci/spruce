@@ -91,8 +91,8 @@ export const EventLogTab: React.VFC<TabProps> = ({
           onClick={() => {
             fetchMore({
               variables: {
-                identifier,
                 before: lastEventTimestamp,
+                identifier,
               },
             });
           }}

@@ -11,9 +11,9 @@ export const getUserMock: ApolloMock<UserQuery, UserQueryVariables> = {
     data: {
       user: {
         __typename: "User",
-        userId: "admin",
         displayName: "Evergreen Admin",
         emailAddress: "admin@evergreen.com",
+        userId: "admin",
       },
     },
   },

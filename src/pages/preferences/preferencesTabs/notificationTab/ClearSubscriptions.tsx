@@ -19,7 +19,6 @@ export const ClearSubscriptions: React.VFC = () => {
     ClearMySubscriptionsMutation,
     ClearMySubscriptionsMutationVariables
   >(CLEAR_MY_SUBSCRIPTIONS, {
-    refetchQueries: ["UserSubscriptions"],
     onCompleted: (result) => {
       setShowModal(false);
       dispatchToast.success(
@@ -34,6 +33,7 @@ export const ClearSubscriptions: React.VFC = () => {
         `Error while clearing subscriptions: '${err.message}'`
       );
     },
+    refetchQueries: ["UserSubscriptions"],
   });
 
   return (

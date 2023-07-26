@@ -23,11 +23,11 @@ describe("welcomeModal", () => {
         <WelcomeModal
           carouselCards={[
             {
-              title: "Slide 1",
-              subtitle: "A Subtitle",
+              alt: "evg-logo",
               description: "A Description 1",
               img: "test_img/logo.png",
-              alt: "evg-logo",
+              subtitle: "A Subtitle",
+              title: "Slide 1",
             },
           ]}
           param="spruceV1"
@@ -45,9 +45,9 @@ describe("welcomeModal", () => {
         <WelcomeModal
           carouselCards={[
             {
-              title: "Slide 1",
-              subtitle: "A Subtitle",
               description: "A Description 1",
+              subtitle: "A Subtitle",
+              title: "Slide 1",
               video: "test_img/video.webm",
             },
           ]}
@@ -64,15 +64,15 @@ describe("welcomeModal", () => {
         <WelcomeModal
           carouselCards={[
             {
-              title: "Slide 1",
-              subtitle: "A Subtitle",
               description: "A Description 1",
               img: "test_img/logo.png",
+              subtitle: "A Subtitle",
+              title: "Slide 1",
             },
             {
-              title: "Slide 2",
               description: "A Description 2",
               img: "test_img/logo.png",
+              title: "Slide 2",
             },
           ]}
           param="spruceV1"

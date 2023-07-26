@@ -70,16 +70,16 @@ export const MoveRepoModal: React.VFC<ModalProps> = ({
         attachProjectToNewRepo({
           variables: {
             project: {
-              projectId,
               newOwner,
               newRepo,
+              projectId,
             },
           },
         });
         sendEvent({
           name: "Move project to new repo",
-          repoOwner: newOwner,
           repoName: newRepo,
+          repoOwner: newOwner,
         });
         handleClose();
       }}
@@ -120,30 +120,30 @@ const moveRepoForm = (githubOrgs: string[]) => ({
     repo: "",
   },
   schema: {
-    type: "object" as "object",
-    required: ["owner", "repo"],
     properties: {
       owner: {
-        type: "string" as "string",
-        title: "New Owner",
         oneOf: githubOrgs.map((org) => ({
-          type: "string" as "string",
-          title: org,
           enum: [org],
+          title: org,
+          type: "string" as "string",
         })),
+        title: "New Owner",
+        type: "string" as "string",
       },
       repo: {
-        type: "string" as "string",
-        title: "New Repository Name",
-        minLength: 1,
         format: "noSpaces",
+        minLength: 1,
+        title: "New Repository Name",
+        type: "string" as "string",
       },
     },
+    required: ["owner", "repo"],
+    type: "object" as "object",
   },
   uiSchema: {
     owner: {
-      "ui:data-cy": "new-owner-select",
       "ui:allowDeselect": false,
+      "ui:data-cy": "new-owner-select",
     },
     repo: {
       "ui:data-cy": "new-repo-input",

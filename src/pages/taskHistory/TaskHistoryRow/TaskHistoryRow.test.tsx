@@ -21,18 +21,18 @@ import TaskHistoryRow from ".";
 const { HistoryTableProvider } = context;
 
 const initialState: HistoryTableReducerState = {
-  loadedCommits: [],
-  processedCommits: [],
-  processedCommitCount: 0,
-  commitCache: new Map(),
-  visibleColumns: [],
-  currentPage: 0,
-  pageCount: 0,
-  columns: [],
   columnLimit: 7,
-  historyTableFilters: [],
+  columns: [],
+  commitCache: new Map(),
   commitCount: 10,
+  currentPage: 0,
+  historyTableFilters: [],
+  loadedCommits: [],
+  pageCount: 0,
+  processedCommitCount: 0,
+  processedCommits: [],
   selectedCommit: null,
+  visibleColumns: [],
 };
 
 interface wrapperProps {
@@ -52,15 +52,15 @@ const wrapper: React.VFC<wrapperProps> = ({ children, mocks = [], state }) => (
 describe("taskHistoryRow", () => {
   it("renders a row when there is data", () => {
     render(<TaskHistoryRow index={0} data={taskRow} />, {
-      route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
+      route: "/task-history/mci/test-thirdparty",
       wrapper: ({ children }) =>
         wrapper({
           children,
           state: {
+            loadedCommits: [mainlineCommitData.versions[0].version],
             processedCommitCount: 1,
             processedCommits: [taskRow],
-            loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: [
               "lint",
               "race-detector",
@@ -79,15 +79,15 @@ describe("taskHistoryRow", () => {
 
   it("amount of cells rendered should correspond to the amount of visibleColumns", () => {
     render(<TaskHistoryRow index={0} data={taskRow} />, {
-      route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
+      route: "/task-history/mci/test-thirdparty",
       wrapper: ({ children }) =>
         wrapper({
           children,
           state: {
+            loadedCommits: [mainlineCommitData.versions[0].version],
             processedCommitCount: 1,
             processedCommits: [taskRow],
-            loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: ["lint", "race-detector", "ubuntu1604"],
           },
         }),
@@ -97,15 +97,15 @@ describe("taskHistoryRow", () => {
 
   it("renders a blank cell when there isn't a matching variant for that column", () => {
     render(<TaskHistoryRow index={0} data={taskRow} />, {
-      route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
+      route: "/task-history/mci/test-thirdparty",
       wrapper: ({ children }) =>
         wrapper({
           children,
           state: {
+            loadedCommits: [mainlineCommitData.versions[0].version],
             processedCommitCount: 1,
             processedCommits: [taskRow],
-            loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: ["lint", "DNE"],
           },
         }),
@@ -116,19 +116,19 @@ describe("taskHistoryRow", () => {
 
   it("should show failing tests when you hover over a failing task cell and there are no filters applied", async () => {
     render(<TaskHistoryRow index={0} data={taskRow} />, {
-      route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
+      route: "/task-history/mci/test-thirdparty",
       wrapper: ({ children }) =>
         wrapper({
           children,
+          mocks: [noFilterData],
           state: {
+            historyTableFilters: [],
+            loadedCommits: [mainlineCommitData.versions[0].version],
             processedCommitCount: 1,
             processedCommits: [taskRow],
-            loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: ["ubuntu1804"],
-            historyTableFilters: [],
           },
-          mocks: [noFilterData],
         }),
     });
 
@@ -157,24 +157,24 @@ describe("taskHistoryRow", () => {
 
   it("should show a matching test label when looking at a task cell with filters applied", async () => {
     render(<TaskHistoryRow index={0} data={taskRow} />, {
-      route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
+      route: "/task-history/mci/test-thirdparty",
       wrapper: ({ children }) =>
         wrapper({
           children,
+          mocks: [withMatchingFilter],
           state: {
-            processedCommitCount: 1,
-            processedCommits: [taskRow],
-            loadedCommits: [mainlineCommitData.versions[0].version],
-            visibleColumns: ["ubuntu1804"],
             historyTableFilters: [
               {
                 testName: "TestJiraIntegration",
                 testStatus: TestStatus.Failed,
               },
             ],
+            loadedCommits: [mainlineCommitData.versions[0].version],
+            processedCommitCount: 1,
+            processedCommits: [taskRow],
+            visibleColumns: ["ubuntu1804"],
           },
-          mocks: [withMatchingFilter],
         }),
     });
     expect(screen.queryAllByDataCy("task-cell")).toHaveLength(1);
@@ -202,21 +202,21 @@ describe("taskHistoryRow", () => {
 
   it("should disable a task cell when there are test filters applied and it does not match the task filters", () => {
     render(<TaskHistoryRow index={0} data={taskRow} />, {
-      route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
+      route: "/task-history/mci/test-thirdparty",
       wrapper: ({ children }) =>
         wrapper({
           children,
+          mocks: [withNonMatchingFilter],
           state: {
-            processedCommitCount: 1,
-            processedCommits: [taskRow],
-            loadedCommits: [mainlineCommitData.versions[0].version],
-            visibleColumns: ["ubuntu1804"],
             historyTableFilters: [
               { testName: "NotARealTest", testStatus: TestStatus.Failed },
             ],
+            loadedCommits: [mainlineCommitData.versions[0].version],
+            processedCommitCount: 1,
+            processedCommits: [taskRow],
+            visibleColumns: ["ubuntu1804"],
           },
-          mocks: [withNonMatchingFilter],
         }),
     });
     expect(screen.queryAllByDataCy("task-cell")).toHaveLength(1);
@@ -229,104 +229,104 @@ describe("taskHistoryRow", () => {
 });
 
 const taskRow: CommitRowType = {
-  type: rowType.COMMIT,
-  selected: false,
   commit: {
-    id: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
     author: "Malik Hadjri",
-    createTime: new Date("2021-09-02T14:20:04Z"),
-    message:
-      "EVG-15213: Reference a project’s configuration when interacting with perf plugin configs (#4992)",
-    revision: "d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
-    order: 3399,
     buildVariants: [
       {
         displayName: "Lint",
-        variant: "lint",
         tasks: [
           {
             displayName: "test-thirdparty",
-            id: "some_id_1",
             execution: 0,
+            id: "some_id_1",
             status: "success",
           },
         ],
+        variant: "lint",
       },
       {
         displayName: "Race Detector",
-        variant: "race-detector",
         tasks: [
           {
             displayName: "test-thirdparty",
-            id: "some_id_2",
             execution: 0,
+            id: "some_id_2",
             status: "success",
           },
         ],
+        variant: "race-detector",
       },
       {
         displayName: "Ubuntu 16.04",
-        variant: "ubuntu1604",
         tasks: [
           {
             displayName: "test-thirdparty",
-            id: "some_id_3",
             execution: 0,
+            id: "some_id_3",
             status: "success",
           },
         ],
+        variant: "ubuntu1604",
       },
       {
         displayName: "Ubuntu 17.04",
-        variant: "ubuntu1704",
         tasks: [
           {
             displayName: "test-thirdparty",
-            id: "some_id_4",
             execution: 0,
+            id: "some_id_4",
             status: "success",
           },
         ],
+        variant: "ubuntu1704",
       },
       {
         displayName: "Ubuntu 18.04",
-        variant: "ubuntu1804",
         tasks: [
           {
             displayName: "test-thirdparty",
-            id: "some_id_5",
             execution: 0,
+            id: "some_id_5",
             status: "failed",
           },
         ],
+        variant: "ubuntu1804",
       },
       {
         displayName: "Ubuntu 19.04",
-        variant: "ubuntu1904",
         tasks: [
           {
             displayName: "test-thirdparty",
-            id: "some_id_6",
             execution: 0,
+            id: "some_id_6",
             status: "success",
           },
         ],
+        variant: "ubuntu1904",
       },
       {
         displayName: "Ubuntu 20.04",
-        variant: "ubuntu2004",
         tasks: [
           {
             displayName: "test-thirdparty",
-            id: "some_id_7",
             execution: 0,
+            id: "some_id_7",
             status: "success",
           },
         ],
+        variant: "ubuntu2004",
       },
     ],
+    createTime: new Date("2021-09-02T14:20:04Z"),
+    id: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
+    message:
+      "EVG-15213: Reference a project’s configuration when interacting with perf plugin configs (#4992)",
+    order: 3399,
+    revision: "d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
   },
   date: new Date("2021-09-02T14:20:04Z"),
+  selected: false,
+  type: rowType.COMMIT,
 };
 
 const noFilterData: ApolloMock<
@@ -336,6 +336,7 @@ const noFilterData: ApolloMock<
   request: {
     query: GET_TASK_TEST_SAMPLE,
     variables: {
+      filters: [],
       tasks: [
         "some_id_1",
         "some_id_2",
@@ -345,7 +346,6 @@ const noFilterData: ApolloMock<
         "some_id_6",
         "some_id_7",
       ],
-      filters: [],
     },
   },
   result: {
@@ -353,9 +353,9 @@ const noFilterData: ApolloMock<
       taskTestSample: [
         {
           __typename: "TaskTestResultSample",
-          taskId: "some_id_5",
           execution: 0,
           matchingFailedTestNames: ["TestJiraIntegration"],
+          taskId: "some_id_5",
           totalTestCount: 1,
         },
       ],
@@ -370,6 +370,9 @@ const withMatchingFilter: ApolloMock<
   request: {
     query: GET_TASK_TEST_SAMPLE,
     variables: {
+      filters: [
+        { testName: "TestJiraIntegration", testStatus: TestStatus.Failed },
+      ],
       tasks: [
         "some_id_1",
         "some_id_2",
@@ -379,9 +382,6 @@ const withMatchingFilter: ApolloMock<
         "some_id_6",
         "some_id_7",
       ],
-      filters: [
-        { testName: "TestJiraIntegration", testStatus: TestStatus.Failed },
-      ],
     },
   },
   result: {
@@ -389,9 +389,9 @@ const withMatchingFilter: ApolloMock<
       taskTestSample: [
         {
           __typename: "TaskTestResultSample",
-          taskId: "some_id_5",
           execution: 0,
           matchingFailedTestNames: ["TestJiraIntegration"],
+          taskId: "some_id_5",
           totalTestCount: 1,
         },
       ],
@@ -406,6 +406,7 @@ const withNonMatchingFilter: ApolloMock<
   request: {
     query: GET_TASK_TEST_SAMPLE,
     variables: {
+      filters: [{ testName: "NotARealTest", testStatus: TestStatus.Failed }],
       tasks: [
         "some_id_1",
         "some_id_2",
@@ -415,7 +416,6 @@ const withNonMatchingFilter: ApolloMock<
         "some_id_6",
         "some_id_7",
       ],
-      filters: [{ testName: "NotARealTest", testStatus: TestStatus.Failed }],
     },
   },
   result: {
@@ -423,9 +423,9 @@ const withNonMatchingFilter: ApolloMock<
       taskTestSample: [
         {
           __typename: "TaskTestResultSample",
-          taskId: "some_id_5",
           execution: 0,
           matchingFailedTestNames: [],
+          taskId: "some_id_5",
           totalTestCount: 1,
         },
       ],

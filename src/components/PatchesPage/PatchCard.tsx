@@ -61,7 +61,7 @@ export const PatchCard: React.VFC<Props> = ({
   const { stats } = groupStatusesByUmbrellaStatus(
     taskStatusStats?.counts ?? []
   );
-  const isUnconfigured = isPatchUnconfigured({ alias, activated });
+  const isUnconfigured = isPatchUnconfigured({ activated, alias });
   let patchProject = null;
   if (pageType === "project") {
     patchProject = unlinkedPRUsers.has(author) ? (

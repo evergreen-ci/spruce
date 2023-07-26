@@ -12,14 +12,14 @@ interface DimensionState {
  * @returns An object containing the current height and width of the ref.
  */
 export const useDimensions = (ref: MutableRefObject<HTMLElement>) => {
-  const [state, setState] = useState<DimensionState>({ width: 0, height: 0 });
+  const [state, setState] = useState<DimensionState>({ height: 0, width: 0 });
 
   const observer = useMemo(
     () =>
       new ResizeObserver((entries) => {
         requestAnimationFrame(() => {
           const { height, width } = entries[0]?.contentRect ?? {};
-          setState({ width, height });
+          setState({ height, width });
         });
       }),
     []

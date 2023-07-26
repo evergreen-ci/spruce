@@ -28,8 +28,8 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
                 href={getParsleyTestLogURL(buildId, datum.id)}
                 onClick={() => {
                   sendEvent({
-                    name: "Clicked Parsley test log link",
                     buildId,
+                    name: "Clicked Parsley test log link",
                   });
                 }}
                 hideExternalIcon

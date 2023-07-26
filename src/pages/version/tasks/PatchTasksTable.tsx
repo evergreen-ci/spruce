@@ -33,7 +33,7 @@ export const PatchTasksTable: React.VFC<Props> = ({
   const filterHookProps = {
     resetPage: true,
     sendAnalyticsEvent: (filterBy: string) =>
-      sendEvent({ name: "Filter Tasks", filterBy }),
+      sendEvent({ filterBy, name: "Filter Tasks" }),
   };
   const currentStatusesFilter = useStatusesFilter({
     urlParam: PatchTasksQueryParams.Statuses,
@@ -45,14 +45,14 @@ export const PatchTasksTable: React.VFC<Props> = ({
   });
   const { baseStatuses, currentStatuses } = useTaskStatuses({ versionId });
   const statusSelectorProps = {
+    onChange: currentStatusesFilter.setAndSubmitInputValue,
     state: currentStatusesFilter.inputValue,
     tData: currentStatuses,
-    onChange: currentStatusesFilter.setAndSubmitInputValue,
   };
   const baseStatusSelectorProps = {
+    onChange: baseStatusesFilter.setAndSubmitInputValue,
     state: baseStatusesFilter.inputValue,
     tData: baseStatuses,
-    onChange: baseStatusesFilter.setAndSubmitInputValue,
   };
   const variantFilterInputChangeHandler = useFilterInputChangeHandler({
     urlParam: PatchTasksQueryParams.Variant,
@@ -71,19 +71,19 @@ export const PatchTasksTable: React.VFC<Props> = ({
   };
 
   const variantInputProps: InputFilterProps = {
-    placeholder: "Variant name regex",
-    value: variantFilterInputChangeHandler.inputValue,
     onChange: ({ target }) =>
       variantFilterInputChangeHandler.setInputValue(target.value),
     onFilter: variantFilterInputChangeHandler.submitInputValue,
+    placeholder: "Variant name regex",
+    value: variantFilterInputChangeHandler.inputValue,
   };
 
   const taskNameInputProps: InputFilterProps = {
-    placeholder: "Task name regex",
-    value: taskNameFilterInputChangeHandler.inputValue,
     onChange: ({ target }) =>
       taskNameFilterInputChangeHandler.setInputValue(target.value),
     onFilter: taskNameFilterInputChangeHandler.submitInputValue,
+    placeholder: "Task name regex",
+    value: taskNameFilterInputChangeHandler.inputValue,
   };
 
   return (
@@ -95,8 +95,8 @@ export const PatchTasksTable: React.VFC<Props> = ({
       loading={loading}
       onExpand={(expanded) => {
         sendEvent({
-          name: "Toggle Display Task Dropdown",
           expanded,
+          name: "Toggle Display Task Dropdown",
         });
       }}
       onClickTaskLink={(taskId) =>

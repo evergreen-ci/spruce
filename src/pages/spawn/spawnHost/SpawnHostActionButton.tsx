@@ -36,18 +36,18 @@ export const SpawnHostActionButton: React.VFC<{ host: MyHost }> = ({
     MyHostsQuery,
     MyHostsQueryVariables
   >(GET_MY_HOSTS, {
-    pollInterval: 3000,
     onError: (e) => {
       dispatchToast.error(
         `There was an error loading your spawn hosts: ${e.message}`
       );
     },
+    pollInterval: 3000,
   });
   usePolling({
+    initialPollingState: false,
+    refetch,
     startPolling,
     stopPolling,
-    refetch,
-    initialPollingState: false,
   });
   // Stop polling when we get updated host data
   useEffect(() => {
@@ -81,8 +81,8 @@ export const SpawnHostActionButton: React.VFC<{ host: MyHost }> = ({
     spawnAnalytics.sendEvent({ name: "Change Host Status", status: a });
     updateSpawnHostStatus({
       variables: {
-        hostId: host.id,
         action: a,
+        hostId: host.id,
       },
     });
   };

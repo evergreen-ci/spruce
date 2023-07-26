@@ -3,18 +3,18 @@ import { HistoryTableProvider } from "../HistoryTableContext";
 import { HistoryTableReducerState } from "../historyTableContextReducer";
 
 const initialState: HistoryTableReducerState = {
-  loadedCommits: [],
-  processedCommits: [],
-  processedCommitCount: 0,
-  commitCache: new Map(),
-  currentPage: 0,
-  pageCount: 0,
-  columns: [],
-  historyTableFilters: [],
-  commitCount: 10,
-  visibleColumns: [],
   columnLimit: 7,
+  columns: [],
+  commitCache: new Map(),
+  commitCount: 10,
+  currentPage: 0,
+  historyTableFilters: [],
+  loadedCommits: [],
+  pageCount: 0,
+  processedCommitCount: 0,
+  processedCommits: [],
   selectedCommit: null,
+  visibleColumns: [],
 };
 
 interface ProviderProps {

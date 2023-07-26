@@ -35,7 +35,7 @@ export const TaskDurationTable: React.VFC<Props> = ({ loading, tasks }) => {
   const filterProps = {
     resetPage: true,
     sendAnalyticsEvent: (filterBy: string) =>
-      sendEvent({ name: "Filter Tasks", filterBy }),
+      sendEvent({ filterBy, name: "Filter Tasks" }),
   };
 
   const statusesFilter = useStatusesFilter({

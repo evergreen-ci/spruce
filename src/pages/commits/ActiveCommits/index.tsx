@@ -28,23 +28,23 @@ export const ActiveCommitLabel: React.VFC<ActiveCommitLabelProps> = ({
       message={version.message}
       onClickGithash={() => {
         sendEvent({
-          name: "Click commit label",
           commitType: "active",
           link: "githash",
+          name: "Click commit label",
         });
       }}
       onClickJiraTicket={() => {
         sendEvent({
-          name: "Click commit label",
           commitType: "active",
           link: "jira",
+          name: "Click commit label",
         });
       }}
       onClickUpstreamProject={() => {
         sendEvent({
-          name: "Click commit label",
           commitType: "active",
           link: "upstream project",
+          name: "Click commit label",
         });
       }}
       upstreamProject={version.upstreamProject}

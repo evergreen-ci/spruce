@@ -86,8 +86,8 @@ export const useVersionTaskStatusSelect = (
     dispatch,
   ] = useReducer(reducer, {
     baseStatusFilterTerm: {},
-    versionStatusFilterTerm: {},
     selectedTasks: {},
+    versionStatusFilterTerm: {},
   });
 
   const toggleSelectedTask = (
@@ -114,7 +114,7 @@ export const useVersionTaskStatusSelect = (
         newState[taskVersion][selectedId] = nextCheckedState;
       });
     }
-    dispatch({ type: "setSelectedTasks", data: newState });
+    dispatch({ data: newState, type: "setSelectedTasks" });
   };
 
   // Determine if a task is a selected based on the filter terms and available tasks
@@ -130,28 +130,28 @@ export const useVersionTaskStatusSelect = (
     if (filterTermOrVersionTasksChanged) {
       const parentNextState =
         reduceBuildVariants({
-          parentTasksChanged: versionBuildVariants !== prevVersionBuildVariants,
-          buildVariants: versionBuildVariants,
-          versionStatusFilterTerm: versionStatusFilterTerm[versionId],
           baseStatusFilterTerm: baseStatusFilterTerm[versionId],
+          buildVariants: versionBuildVariants,
+          parentTasksChanged: versionBuildVariants !== prevVersionBuildVariants,
           selectedTasks: selectedTasks[versionId],
+          versionStatusFilterTerm: versionStatusFilterTerm[versionId],
         }) ?? {};
       const newTaskSelect = { [versionId]: parentNextState };
       childVersions?.forEach((cv) => {
         const childId = cv.id;
         const childNextState =
           reduceBuildVariants({
+            baseStatusFilterTerm: baseStatusFilterTerm[childId],
+            buildVariants: cv.buildVariants,
             parentTasksChanged:
               versionBuildVariants !== prevVersionBuildVariants,
-            buildVariants: cv.buildVariants,
-            versionStatusFilterTerm: versionStatusFilterTerm[childId],
-            baseStatusFilterTerm: baseStatusFilterTerm[childId],
             selectedTasks: selectedTasks[childId],
+            versionStatusFilterTerm: versionStatusFilterTerm[childId],
           }) ?? {};
         newTaskSelect[childId] = childNextState;
       });
 
-      dispatch({ type: "setSelectedTasks", data: newTaskSelect });
+      dispatch({ data: newTaskSelect, type: "setSelectedTasks" });
     }
   }, [
     baseStatusFilterTerm,
@@ -170,22 +170,22 @@ export const useVersionTaskStatusSelect = (
 
     const nextState = { ...versionStatusFilterTerm };
     nextState[vId] = statuses[vId];
-    dispatch({ type: "setVersionStatusFilterTerm", data: nextState });
+    dispatch({ data: nextState, type: "setVersionStatusFilterTerm" });
   };
   const setBaseStatusFilterTerm = (statuses: versionFilters) => {
     const vId = Object.keys(statuses)[0];
 
     const nextState = { ...baseStatusFilterTerm };
     nextState[vId] = statuses[vId];
-    dispatch({ type: "setBaseStatusFilterTerm", data: nextState });
+    dispatch({ data: nextState, type: "setBaseStatusFilterTerm" });
   };
   return {
-    selectedTasks,
-    versionStatusFilterTerm,
     baseStatusFilterTerm,
-    toggleSelectedTask,
-    setVersionStatusFilterTerm,
+    selectedTasks,
     setBaseStatusFilterTerm,
+    setVersionStatusFilterTerm,
+    toggleSelectedTask,
+    versionStatusFilterTerm,
   };
 };
 

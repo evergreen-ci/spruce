@@ -6,127 +6,127 @@ import { ProjectHealthView } from "gql/generated/types";
 export const getFormSchema = (): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as "object",
     properties: {
+      parsleyFilters: {
+        default: [],
+        items: {
+          properties: {
+            caseSensitive: {
+              default: false,
+              oneOf: [
+                {
+                  enum: [false],
+                  title: "Insensitive",
+                  type: "boolean" as "boolean",
+                },
+                {
+                  enum: [true],
+                  title: "Sensitive",
+                  type: "boolean" as "boolean",
+                },
+              ],
+              title: "Case",
+              type: "boolean" as "boolean",
+            },
+            exactMatch: {
+              default: true,
+              oneOf: [
+                {
+                  enum: [true],
+                  title: "Exact",
+                  type: "boolean" as "boolean",
+                },
+                {
+                  enum: [false],
+                  title: "Inverse",
+                  type: "boolean" as "boolean",
+                },
+              ],
+              title: "Match",
+              type: "boolean" as "boolean",
+            },
+            expression: {
+              default: "",
+              format: "validRegex",
+              minLength: 1,
+              title: "Filter Expression",
+              type: "string" as "string",
+            },
+          },
+          type: "object" as "object",
+        },
+        title: "",
+        type: "array" as "array",
+      },
+      parsleyFiltersTitle: {
+        title: "Parsley Filters",
+        type: "null",
+      },
       view: {
-        title: "Project Health View",
-        type: "object" as "object",
         description:
           "This setting will define the default behavior of the Project Health page for all viewers of this project. Users can still toggle between views.",
         properties: {
           projectHealthView: {
-            type: "string" as "string",
             oneOf: [
               {
-                type: "string" as "string",
-                title: "Default view",
-                enum: [ProjectHealthView.Failed],
                 description:
                   "Displays only task failures, making it easier to identify them, and groups tasks by status if they don't match any search criteria. Consider using it for troubleshooting specific issues.",
+                enum: [ProjectHealthView.Failed],
+                title: "Default view",
+                type: "string" as "string",
               },
               {
-                type: "string" as "string",
-                title: "All tasks view",
-                enum: [ProjectHealthView.All],
                 description:
                   "Displays all tasks without grouping. This view can be helpful for getting a comprehensive overview of all tasks.",
+                enum: [ProjectHealthView.All],
+                title: "All tasks view",
+                type: "string" as "string",
               },
             ],
+            type: "string" as "string",
           },
         },
-      },
-      parsleyFiltersTitle: {
-        type: "null",
-        title: "Parsley Filters",
-      },
-      parsleyFilters: {
-        title: "",
-        type: "array" as "array",
-        default: [],
-        items: {
-          type: "object" as "object",
-          properties: {
-            expression: {
-              type: "string" as "string",
-              title: "Filter Expression",
-              default: "",
-              minLength: 1,
-              format: "validRegex",
-            },
-            caseSensitive: {
-              type: "boolean" as "boolean",
-              title: "Case",
-              default: false,
-              oneOf: [
-                {
-                  type: "boolean" as "boolean",
-                  title: "Insensitive",
-                  enum: [false],
-                },
-                {
-                  type: "boolean" as "boolean",
-                  title: "Sensitive",
-                  enum: [true],
-                },
-              ],
-            },
-            exactMatch: {
-              type: "boolean" as "boolean",
-              title: "Match",
-              default: true,
-              oneOf: [
-                {
-                  type: "boolean" as "boolean",
-                  title: "Exact",
-                  enum: [true],
-                },
-                {
-                  type: "boolean" as "boolean",
-                  title: "Inverse",
-                  enum: [false],
-                },
-              ],
-            },
-          },
-        },
+        title: "Project Health View",
+        type: "object" as "object",
       },
     },
+    type: "object" as "object",
   },
   uiSchema: {
-    view: {
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      projectHealthView: {
-        "ui:widget": "radio",
+    parsleyFilters: {
+      items: {
+        caseSensitive: {
+          "ui:aria-controls": ["case-insensitive", "case-sensitive"],
+          "ui:data-cy": "parsley-filter-case-sensitivity",
+          "ui:sizeVariant": "small",
+          "ui:widget": widgets.SegmentedControlWidget,
+        },
+        exactMatch: {
+          "ui:aria-controls": ["exact-match", "inverse-match"],
+          "ui:data-cy": "parsley-filter-match-type",
+          "ui:sizeVariant": "small",
+          "ui:widget": widgets.SegmentedControlWidget,
+        },
+        expression: {
+          "ui:data-cy": "parsley-filter-expression",
+        },
+        "ui:displayTitle": "New Parsley Filter",
       },
+      "ui:addButtonText": "Add filter",
+      "ui:data-cy": "parsley-filter-list",
+      "ui:description":
+        "These filters will be available by default in the Parsley log viewer for any logs generated by this project.",
+      "ui:orderable": false,
+      "ui:useExpandableCard": true,
     },
     parsleyFiltersTitle: {
       "ui:sectionTitle": true,
     },
-    parsleyFilters: {
-      "ui:addButtonText": "Add filter",
-      "ui:orderable": false,
-      "ui:description":
-        "These filters will be available by default in the Parsley log viewer for any logs generated by this project.",
-      "ui:useExpandableCard": true,
-      "ui:data-cy": "parsley-filter-list",
-      items: {
-        "ui:displayTitle": "New Parsley Filter",
-        expression: {
-          "ui:data-cy": "parsley-filter-expression",
-        },
-        caseSensitive: {
-          "ui:widget": widgets.SegmentedControlWidget,
-          "ui:aria-controls": ["case-insensitive", "case-sensitive"],
-          "ui:data-cy": "parsley-filter-case-sensitivity",
-          "ui:sizeVariant": "small",
-        },
-        exactMatch: {
-          "ui:widget": widgets.SegmentedControlWidget,
-          "ui:aria-controls": ["exact-match", "inverse-match"],
-          "ui:data-cy": "parsley-filter-match-type",
-          "ui:sizeVariant": "small",
-        },
+    view: {
+      projectHealthView: {
+        "ui:widget": "radio",
       },
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
     },
   },
 });

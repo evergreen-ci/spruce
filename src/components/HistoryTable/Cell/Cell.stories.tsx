@@ -7,7 +7,6 @@ export default {
 } satisfies CustomMeta<typeof TaskCell>;
 
 export const TaskCellStory: CustomStoryObj<typeof TaskCell> = {
-  render: (args) => <TaskCell {...args} />,
   args: {
     task: {
       id: "task-1",
@@ -20,23 +19,24 @@ export const TaskCellStory: CustomStoryObj<typeof TaskCell> = {
       route: "/task/task-1",
     },
   },
+  render: (args) => <TaskCell {...args} />,
 };
 
 export const EmptyCellStory: CustomStoryObj<typeof EmptyCell> = {
-  render: () => <EmptyCell />,
   args: {},
+  render: () => <EmptyCell />,
 };
 
 export const LoadingCellStory: CustomStoryObj<typeof LoadingCell> = {
-  render: (args) => <LoadingCell {...args} />,
   args: {},
+  render: (args) => <LoadingCell {...args} />,
 };
 
 export const ColumnHeaderCellStory: CustomStoryObj<typeof ColumnHeaderCell> = {
-  render: (args) => <ColumnHeaderCell {...args} />,
   args: {
+    fullDisplayName: "LongWindedDisplayName",
     link: "https://spruce.mongodb.com",
     trimmedDisplayName: "displayName",
-    fullDisplayName: "LongWindedDisplayName",
   },
+  render: (args) => <ColumnHeaderCell {...args} />,
 };

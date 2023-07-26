@@ -13,6 +13,17 @@ export const getColumnTreeSelectFilterProps = ({
   tData,
   title,
 }: TreeSelectFilterProps) => ({
+  filterFn: (
+    row: LeafyGreenTableRow<any>,
+    columnId: string,
+    filterValue: string[]
+  ) => {
+    // If no filter is specified, show all rows
+    if (!filterValue.length) {
+      return true;
+    }
+    return filterValue.includes(row.getValue(columnId));
+  },
   header: ({ column }) => {
     // Only present options that appear in the table
     const options = tData.filter(
@@ -31,16 +42,5 @@ export const getColumnTreeSelectFilterProps = ({
         />
       </>
     );
-  },
-  filterFn: (
-    row: LeafyGreenTableRow<any>,
-    columnId: string,
-    filterValue: string[]
-  ) => {
-    // If no filter is specified, show all rows
-    if (!filterValue.length) {
-      return true;
-    }
-    return filterValue.includes(row.getValue(columnId));
   },
 });

@@ -8,8 +8,8 @@ export default {
 } satisfies CustomMeta<typeof LoadingRow>;
 
 export const LoadingRowStory: CustomStoryObj<typeof LoadingRow> = {
-  render: (args) => <LoadingRow {...args} />,
   args: {
     numVisibleCols: 3,
   },
+  render: (args) => <LoadingRow {...args} />,
 };

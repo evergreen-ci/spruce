@@ -16,8 +16,8 @@ export const ProjectBanner: React.FC<ProjectBannerProps> = ({
     ProjectBannerQuery,
     ProjectBannerQueryVariables
   >(GET_PROJECT_BANNER, {
-    variables: { identifier: projectIdentifier },
     skip: !projectIdentifier,
+    variables: { identifier: projectIdentifier },
   });
   const { text, theme } = projectBannerData?.project.banner || {};
   return <PortalBanner theme={theme} text={text} />;

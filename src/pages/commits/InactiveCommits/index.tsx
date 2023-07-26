@@ -141,9 +141,9 @@ const CommitCopy: React.VFC<CommitCopyProps> = ({ isTooltip, v }) => {
         <StyledRouterLink
           onClick={() =>
             sendEvent({
-              name: "Click commit label",
               commitType: "inactive",
               link: "githash",
+              name: "Click commit label",
             })
           }
           to={getVersionRoute(v.id)}
@@ -170,9 +170,9 @@ const CommitCopy: React.VFC<CommitCopyProps> = ({ isTooltip, v }) => {
         {v.author} -{" "}
         {jiraLinkify(message, jiraHost, () => {
           sendEvent({
-            name: "Click commit label",
             commitType: "inactive",
             link: "jira",
+            name: "Click commit label",
           });
         })}{" "}
         (#{v.order})

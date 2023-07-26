@@ -59,14 +59,14 @@ const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
     VersionTaskDurationsQuery,
     VersionTaskDurationsQueryVariables
   >(GET_VERSION_TASK_DURATIONS, {
-    variables: queryVariables,
-    skip: !hasQueryVariables,
-    pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (err) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
+    pollInterval: DEFAULT_POLL_INTERVAL,
+    skip: !hasQueryVariables,
+    variables: queryVariables,
   });
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling({ refetch, startPolling, stopPolling });
   const { version } = data || {};
   const { tasks } = version || {};
   const { count = 0, data: tasksData = [] } = tasks || {};

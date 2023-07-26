@@ -14,64 +14,64 @@ describe("bucketByCommit", () => {
 const input: FileDiffsFragment[] = [
   {
     __typename: "FileDiff",
-    fileName: "src/pages/Task.tsx",
     additions: 3,
     deletions: 0,
+    description: "some other commit",
     diffLink:
       "http://localhost:9090/filediff/5e4ff3abe3c3317e352062e4?file_name=src%2Fpages%2FTask.tsx&patch_number=1",
-    description: "some other commit",
+    fileName: "src/pages/Task.tsx",
   },
   {
     __typename: "FileDiff",
-    fileName: "src/App.tsx",
     additions: 0,
     deletions: 32,
+    description: "crazy cool commit!!!",
     diffLink:
       "http://localhost:9090/filediff/5e4ff3abe3c3317e352062e4?file_name=src%2FApp.tsx&patch_number=1",
-    description: "crazy cool commit!!!",
+    fileName: "src/App.tsx",
   },
   {
     __typename: "FileDiff",
-    fileName: "src/pages/Patch.tsx",
     additions: 55,
     deletions: 22,
+    description: "mega commit",
     diffLink:
       "http://localhost:9090/filediff/5e4ff3abe3c3317e352062e4?file_name=src%2Fpages%2FPatch.tsx&patch_number=1",
-    description: "mega commit",
+    fileName: "src/pages/Patch.tsx",
   },
 ];
 const output = [
   [
     {
       __typename: "FileDiff",
-      fileName: "src/pages/Task.tsx",
       additions: 3,
       deletions: 0,
+      description: "some other commit",
       diffLink:
         "http://localhost:9090/filediff/5e4ff3abe3c3317e352062e4?file_name=src%2Fpages%2FTask.tsx&patch_number=1",
-      description: "some other commit",
+      fileName: "src/pages/Task.tsx",
     },
   ],
   [
     {
       __typename: "FileDiff",
-      fileName: "src/App.tsx",
       additions: 0,
       deletions: 32,
+      description: "crazy cool commit!!!",
       diffLink:
         "http://localhost:9090/filediff/5e4ff3abe3c3317e352062e4?file_name=src%2FApp.tsx&patch_number=1",
-      description: "crazy cool commit!!!",
+      fileName: "src/App.tsx",
     },
   ],
   [
     {
       __typename: "FileDiff",
-      fileName: "src/pages/Patch.tsx",
       additions: 55,
       deletions: 22,
+      description: "mega commit",
       diffLink:
         "http://localhost:9090/filediff/5e4ff3abe3c3317e352062e4?file_name=src%2Fpages%2FPatch.tsx&patch_number=1",
-      description: "mega commit",
+      fileName: "src/pages/Patch.tsx",
     },
   ],
 ];

@@ -9,14 +9,14 @@ const titleWithoutPullRequestURL =
   "'evergreen-ci/spruce' commit queue merge (PR #1000) by github_pull_request: EVG-17230: Show multiple links in commit queue card title";
 
 const baseProps = {
-  index: 0,
   author: "user",
-  commitTime: new Date("2020-08-21T18:00:07Z"),
-  patchId: "123",
-  owner: "evergreen-ci",
-  repo: "spruce",
-  moduleCodeChanges: [],
   commitQueueId: "789",
+  commitTime: new Date("2020-08-21T18:00:07Z"),
+  index: 0,
+  moduleCodeChanges: [],
+  owner: "evergreen-ci",
+  patchId: "123",
+  repo: "spruce",
 };
 
 describe("commit queue entry title", () => {

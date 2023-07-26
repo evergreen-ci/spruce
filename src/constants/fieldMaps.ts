@@ -185,18 +185,18 @@ const listOfDateFormatStrings = [
 ];
 
 export const dateFormats = listOfDateFormatStrings.map((format) => ({
-  value: format,
   str: `${format} - ${getDateCopy("08/31/2022", {
     dateFormat: format,
     dateOnly: true,
   })}`,
+  value: format,
 }));
 
 export const notificationFields = {
-  patchFinish: "Patch finish",
-  patchFirstFailure: "Patch first task failure",
-  spawnHostOutcome: "Spawn host outcome",
-  spawnHostExpiration: "Spawn host expiration",
   buildBreak: "Build break",
   commitQueue: "Commit queue",
+  patchFinish: "Patch finish",
+  patchFirstFailure: "Patch first task failure",
+  spawnHostExpiration: "Spawn host expiration",
+  spawnHostOutcome: "Spawn host outcome",
 };

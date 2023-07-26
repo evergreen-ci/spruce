@@ -102,9 +102,9 @@ describe("initializeAliasState", () => {
     const patchTriggerAliases = [
       {
         alias: "alias1",
-        id: "alias1",
         childProjectId: "childProjectId",
         childProjectIdentifier: "childProjectIdentifier",
+        id: "alias1",
         variantsTasks: [
           {
             name: "variant1",

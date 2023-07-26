@@ -194,8 +194,8 @@ export const getSpawnHostRoute = ({
   const queryParams = stringifyQuery({
     ...(spawnHost && { spawnHost: "True" }),
     distroId,
-    taskId,
     host,
+    taskId,
   });
   return `${routes.spawnHost}?${queryParams}`;
 };

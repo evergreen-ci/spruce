@@ -104,31 +104,31 @@ export const gqlToForm = ((data, { projectType }) => {
             return {
               displayTitle: `${triggerText} - ${subscriberText}`,
               subscriptionData: {
-                id,
                 event: {
                   eventSelect: triggerEnum,
                   extraFields: getExtraFields(triggerEnum, triggerData),
                   regexSelector: regexSelectors.map((r) => ({
-                    regexSelect: r.type,
                     regexInput: r.data,
+                    regexSelect: r.type,
                   })),
                 },
+                id,
                 notification: {
-                  notificationSelect: subscriberType,
-                  jiraCommentInput: jiraCommentSubscriber ?? undefined,
-                  slackInput: slackSubscriber ?? undefined,
                   emailInput: emailSubscriber ?? undefined,
+                  jiraCommentInput: jiraCommentSubscriber ?? undefined,
                   jiraIssueInput: {
-                    projectInput: jiraIssueSubscriber?.project ?? undefined,
                     issueInput: jiraIssueSubscriber?.issueType ?? undefined,
+                    projectInput: jiraIssueSubscriber?.project ?? undefined,
                   },
+                  notificationSelect: subscriberType,
+                  slackInput: slackSubscriber ?? undefined,
                   webhookInput: {
-                    urlInput: webhookSubscriber?.url ?? undefined,
-                    secretInput: webhookSubscriber?.secret,
                     httpHeaders: getHttpHeaders(webhookSubscriber?.headers),
-                    retryInput: webhookSubscriber?.retries || undefined,
                     minDelayInput: webhookSubscriber?.minDelayMs || undefined,
+                    retryInput: webhookSubscriber?.retries || undefined,
+                    secretInput: webhookSubscriber?.secret,
                     timeoutInput: webhookSubscriber?.timeoutMs || undefined,
+                    urlInput: webhookSubscriber?.url ?? undefined,
                   },
                 },
               },

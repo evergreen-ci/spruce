@@ -10,28 +10,28 @@ describe("historyTableContext", () => {
   it("initializes with the default state", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
     expect(result.current).toStrictEqual({
+      addColumns: expect.any(Function),
       columnLimit: 7,
       commitCount: 10,
       currentPage: 0,
+      getItem: expect.any(Function),
       hasNextPage: false,
       hasPreviousPage: false,
       historyTableFilters: [],
-      pageCount: 0,
-      processedCommitCount: 0,
-      processedCommits: [],
-      selectedCommit: null,
-      visibleColumns: [],
-      addColumns: expect.any(Function),
-      getItem: expect.any(Function),
       ingestNewCommits: expect.any(Function),
       isItemLoaded: expect.any(Function),
-      toggleRowExpansion: expect.any(Function),
       markSelectedRowVisited: expect.any(Function),
       nextPage: expect.any(Function),
       onChangeTableWidth: expect.any(Function),
+      pageCount: 0,
       previousPage: expect.any(Function),
+      processedCommitCount: 0,
+      processedCommits: [],
+      selectedCommit: null,
       setHistoryTableFilters: expect.any(Function),
       setSelectedCommit: expect.any(Function),
+      toggleRowExpansion: expect.any(Function),
+      visibleColumns: [],
     });
   });
   it("should process new commits when they are passed in", () => {
@@ -54,14 +54,14 @@ describe("historyTableContext", () => {
     // First element should be the date separator
     expect(result.current.isItemLoaded(0)).toBe(true);
     expect(result.current.getItem(0)).toStrictEqual<CommitRowType>({
-      type: rowType.DATE_SEPARATOR,
       date: splitMainlineCommitDataPart1.versions[0].version.createTime,
+      type: rowType.DATE_SEPARATOR,
     });
     expect(result.current.isItemLoaded(1)).toBe(true);
     expect(result.current.getItem(1)).toStrictEqual<CommitRowType>({
-      type: rowType.COMMIT,
-      date: splitMainlineCommitDataPart1.versions[0].version.createTime,
       commit: splitMainlineCommitDataPart1.versions[0].version,
+      date: splitMainlineCommitDataPart1.versions[0].version.createTime,
+      type: rowType.COMMIT,
 
       selected: false,
     });
@@ -83,8 +83,8 @@ describe("historyTableContext", () => {
     });
     expect(result.current.isItemLoaded(0)).toBeTruthy();
     expect(result.current.getItem(0)).toStrictEqual<CommitRowType>({
-      type: rowType.DATE_SEPARATOR,
       date: splitMainlineCommitDataPart1.versions[0].version.createTime,
+      type: rowType.DATE_SEPARATOR,
     });
     expect(result.current.isItemLoaded(1)).toBeTruthy();
     expect(result.current.isItemLoaded(2)).toBeFalsy();
@@ -95,9 +95,9 @@ describe("historyTableContext", () => {
     });
     expect(result.current.isItemLoaded(2)).toBeTruthy();
     expect(result.current.getItem(2)).toStrictEqual<CommitRowType>({
-      type: rowType.COMMIT,
-      date: splitMainlineCommitDataPart2.versions[0].version.createTime,
       commit: splitMainlineCommitDataPart2.versions[0].version,
+      date: splitMainlineCommitDataPart2.versions[0].version.createTime,
+      type: rowType.COMMIT,
 
       selected: false,
     });
@@ -106,14 +106,14 @@ describe("historyTableContext", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
     const commitDate1 = {
       ...mainlineCommitData,
-      versions: [mainlineCommitData.versions[0]],
       prevPageOrderNumber: null,
+      versions: [mainlineCommitData.versions[0]],
     };
     const commitDate2 = {
       ...mainlineCommitData,
-      versions: [mainlineCommitData.versions[2]],
       nextPageOrderNumber: null,
       prevPageOrderNumber: 6798,
+      versions: [mainlineCommitData.versions[2]],
     };
     act(() => {
       result.current.ingestNewCommits(commitDate1);
@@ -139,14 +139,14 @@ describe("historyTableContext", () => {
     });
     expect(result.current.isItemLoaded(0)).toBeTruthy();
     expect(result.current.getItem(0)).toStrictEqual<CommitRowType>({
-      type: rowType.DATE_SEPARATOR,
       date: commitDate1.versions[0].version.createTime,
+      type: rowType.DATE_SEPARATOR,
     });
     expect(result.current.isItemLoaded(1)).toBeTruthy();
     expect(result.current.getItem(1)).toStrictEqual<CommitRowType>({
-      type: rowType.COMMIT,
-      date: commitDate1.versions[0].version.createTime,
       commit: commitDate1.versions[0].version,
+      date: commitDate1.versions[0].version.createTime,
+      type: rowType.COMMIT,
 
       selected: false,
     });
@@ -156,14 +156,14 @@ describe("historyTableContext", () => {
     });
     expect(result.current.isItemLoaded(2)).toBeTruthy();
     expect(result.current.getItem(2)).toStrictEqual<CommitRowType>({
-      type: rowType.DATE_SEPARATOR,
       date: commitDate2.versions[0].version.createTime,
+      type: rowType.DATE_SEPARATOR,
     });
     expect(result.current.isItemLoaded(3)).toBeTruthy();
     expect(result.current.getItem(3)).toStrictEqual<CommitRowType>({
-      type: rowType.COMMIT,
-      date: commitDate2.versions[0].version.createTime,
       commit: commitDate2.versions[0].version,
+      date: commitDate2.versions[0].version.createTime,
+      type: rowType.COMMIT,
 
       selected: false,
     });
@@ -180,21 +180,21 @@ describe("historyTableContext", () => {
     });
     expect(result.current.isItemLoaded(3)).toBe(true);
     expect(result.current.getItem(3)).toStrictEqual<CommitRowType>({
-      type: rowType.FOLDED_COMMITS,
       date: rolledUpVersions[0].createTime,
+      expanded: false,
       rolledUpCommits: rolledUpVersions,
       selected: false,
-      expanded: false,
+      type: rowType.FOLDED_COMMITS,
     });
     act(() => {
       result.current.toggleRowExpansion(3, true);
     });
     expect(result.current.getItem(3)).toStrictEqual<CommitRowType>({
-      type: rowType.FOLDED_COMMITS,
       date: rolledUpVersions[0].createTime,
+      expanded: true,
       rolledUpCommits: rolledUpVersions,
       selected: false,
-      expanded: true,
+      type: rowType.FOLDED_COMMITS,
     });
   });
   it("should deduplicate passed in versions", () => {

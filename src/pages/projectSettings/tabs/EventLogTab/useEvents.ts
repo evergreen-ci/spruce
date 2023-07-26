@@ -34,14 +34,14 @@ export const useEvents = (
   } = useQuery<ProjectEventLogsQuery, ProjectEventLogsQueryVariables>(
     GET_PROJECT_EVENT_LOGS,
     {
-      variables: { identifier, limit },
       errorPolicy: "all",
-      skip: isRepo,
       notifyOnNetworkStatusChange: true,
       onCompleted: ({ projectEvents: { count } }) => onCompleted(count),
       onError: (e) => {
         dispatchToast.error(`Unable to fetch events for ${identifier}: ${e}`);
       },
+      skip: isRepo,
+      variables: { identifier, limit },
     }
   );
 
@@ -52,14 +52,14 @@ export const useEvents = (
   } = useQuery<RepoEventLogsQuery, RepoEventLogsQueryVariables>(
     GET_REPO_EVENT_LOGS,
     {
-      variables: { id: identifier, limit },
       errorPolicy: "all",
-      skip: !isRepo,
       notifyOnNetworkStatusChange: true,
       onCompleted: ({ repoEvents: { count } }) => onCompleted(count),
       onError: (e) => {
         dispatchToast.error(`Unable to fetch events for ${identifier}: ${e}`);
       },
+      skip: !isRepo,
+      variables: { id: identifier, limit },
     }
   );
 

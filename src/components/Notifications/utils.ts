@@ -26,8 +26,8 @@ const regexFormToGql = (
 ) =>
   hasRegexSelectors && regexForm
     ? regexForm.map((r) => ({
-        type: r.regexSelect,
         data: r.regexInput,
+        type: r.regexSelect,
       }))
     : [];
 
@@ -80,12 +80,12 @@ export const getGqlPayload = (
   const selectors =
     type === "project"
       ? [
-          { type: "project", data: resourceId },
-          { type: "requester", data: triggerData.requester },
+          { data: resourceId, type: "project" },
+          { data: triggerData.requester, type: "requester" },
         ]
       : [
-          { type: "object", data: resourceType.toLowerCase() },
-          { type: payloadResourceIdKey, data: resourceId },
+          { data: resourceType.toLowerCase(), type: "object" },
+          { data: resourceId, type: payloadResourceIdKey },
         ];
 
   return {
@@ -94,8 +94,8 @@ export const getGqlPayload = (
     resource_type: resourceType,
     selectors,
     subscriber: {
-      type: method,
       target: subscriber,
+      type: method,
     },
     trigger,
     trigger_data: triggerData,

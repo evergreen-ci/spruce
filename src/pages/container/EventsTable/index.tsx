@@ -30,12 +30,12 @@ const EventsTable: React.VFC<{}> = () => {
     PodEventsQuery,
     PodEventsQueryVariables
   >(GET_POD_EVENTS, {
-    variables: { id, page, limit },
     onError: (err) => {
       dispatchToast.error(
         `There was an error loading the pod events: ${err.message}`
       );
     },
+    variables: { id, limit, page },
   });
   const { count, eventLogEntries } = podEventsData?.pod.events ?? {};
   return (

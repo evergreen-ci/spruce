@@ -28,12 +28,12 @@ export const JobLogs = () => {
     LogkeeperBuildMetadataQuery,
     LogkeeperBuildMetadataQueryVariables
   >(GET_LOGKEEPER_BUILD_METADATA, {
-    variables: { buildId },
     onError: (err) => {
       dispatchToast.error(
         `There was an error retrieving logs for this build: ${err.message}`
       );
     },
+    variables: { buildId },
   });
 
   if (!data) return null;
@@ -68,7 +68,7 @@ export const JobLogs = () => {
             data-cy="complete-test-logs-link"
             target="_blank"
             onClick={() => {
-              sendEvent({ name: "Clicked complete logs link", buildId });
+              sendEvent({ buildId, name: "Clicked complete logs link" });
             }}
           >
             Complete logs for all tests

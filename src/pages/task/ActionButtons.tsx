@@ -87,40 +87,40 @@ export const ActionButtons: React.VFC<Props> = ({
     ScheduleTasksMutation,
     ScheduleTasksMutationVariables
   >(SCHEDULE_TASKS, {
-    variables: { taskIds: [taskId] },
     onCompleted: () => {
       dispatchToast.success("Task marked as scheduled");
     },
     onError: (err) => {
       dispatchToast.error(`Error scheduling task: ${err.message}`);
     },
+    variables: { taskIds: [taskId] },
   });
 
   const [unscheduleTask, { loading: loadingUnscheduleTask }] = useMutation<
     UnscheduleTaskMutation,
     UnscheduleTaskMutationVariables
   >(UNSCHEDULE_TASK, {
-    variables: { taskId },
     onCompleted: () => {
       dispatchToast.success("Task marked as unscheduled");
     },
     onError: (err) => {
       dispatchToast.error(`Error unscheduling task: ${err.message}`);
     },
+    variables: { taskId },
   });
 
   const [abortTask, { loading: loadingAbortTask }] = useMutation<
     AbortTaskMutation,
     AbortTaskMutationVariables
   >(ABORT_TASK, {
-    variables: {
-      taskId,
-    },
     onCompleted: () => {
       dispatchToast.success("Task aborted");
     },
     onError: (err) => {
       dispatchToast.error(`Error aborting task: ${err.message}`);
+    },
+    variables: {
+      taskId,
     },
   });
 
@@ -212,7 +212,7 @@ export const ActionButtons: React.VFC<Props> = ({
       disabled={disabled || !canDisable}
       onClick={() => {
         setTaskPriority({
-          variables: { taskId, priority: initialPriority < 0 ? 0 : -1 },
+          variables: { priority: initialPriority < 0 ? 0 : -1, taskId },
         });
       }}
       title={
@@ -289,7 +289,7 @@ export const ActionButtons: React.VFC<Props> = ({
           >
             <MenuItem
               onClick={() => {
-                restartTask({ variables: { taskId, failedOnly: false } });
+                restartTask({ variables: { failedOnly: false, taskId } });
                 taskAnalytics.sendEvent({ name: "Restart" });
               }}
             >
@@ -297,7 +297,7 @@ export const ActionButtons: React.VFC<Props> = ({
             </MenuItem>
             <MenuItem
               onClick={() => {
-                restartTask({ variables: { taskId, failedOnly: true } });
+                restartTask({ variables: { failedOnly: true, taskId } });
                 taskAnalytics.sendEvent({ name: "Restart" });
               }}
             >
@@ -312,7 +312,7 @@ export const ActionButtons: React.VFC<Props> = ({
             disabled={disabled || !canRestart || isPatchOnCommitQueue}
             loading={loadingRestartTask}
             onClick={() => {
-              restartTask({ variables: { taskId, failedOnly: false } });
+              restartTask({ variables: { failedOnly: false, taskId } });
               taskAnalytics.sendEvent({ name: "Restart" });
             }}
           >

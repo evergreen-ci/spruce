@@ -44,24 +44,24 @@ const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
     CustomCreatedIssuesQuery,
     CustomCreatedIssuesQueryVariables
   >(GET_JIRA_CUSTOM_CREATED_ISSUES, {
-    variables: { taskId, execution },
     onError: (err) => {
       dispatchToast.error(
         `There was an error loading the ticket information from Jira: ${err.message}`
       );
     },
+    variables: { execution, taskId },
   });
 
   const { data: bbCreatedTickets } = useQuery<
     CreatedTicketsQuery,
     CreatedTicketsQueryVariables
   >(GET_CREATED_TICKETS, {
-    variables: { taskId },
     onError(error) {
       dispatchToast.error(
         `There was an error getting tickets created for this task: ${error.message}`
       );
     },
+    variables: { taskId },
   });
 
   const customTickets = customCreatedTickets?.task?.annotation?.createdIssues;

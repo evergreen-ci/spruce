@@ -59,8 +59,8 @@ describe("groupedTaskStatusBadgeIcon", () => {
 
   it("badge should show tooltip when status counts is provided", async () => {
     const statusCounts = {
-      started: 30,
       failed: 15,
+      started: 30,
       unstarted: 5,
     };
     render(

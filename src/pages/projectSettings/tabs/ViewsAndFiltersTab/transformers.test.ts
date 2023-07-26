@@ -18,16 +18,16 @@ describe("project data", () => {
 const projectForm: ViewsFormState = {
   parsleyFilters: [
     {
-      displayTitle: "filter_1",
-      expression: "filter_1",
       caseSensitive: true,
+      displayTitle: "filter_1",
       exactMatch: true,
+      expression: "filter_1",
     },
     {
-      displayTitle: "filter_2",
-      expression: "filter_2",
       caseSensitive: false,
+      displayTitle: "filter_2",
       exactMatch: false,
+      expression: "filter_2",
     },
   ],
   view: {
@@ -40,14 +40,14 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
     id: "project",
     parsleyFilters: [
       {
-        expression: "filter_1",
         caseSensitive: true,
         exactMatch: true,
+        expression: "filter_1",
       },
       {
-        expression: "filter_2",
         caseSensitive: false,
         exactMatch: false,
+        expression: "filter_2",
       },
     ],
     projectHealthView: ProjectHealthView.Failed,

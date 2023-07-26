@@ -62,7 +62,7 @@ describe("validateSpawnHostForm", () => {
     expect(
       validateSpawnHostForm({
         ...validForm,
-        distro: { value: "", isVirtualWorkstation: false },
+        distro: { isVirtualWorkstation: false, value: "" },
       })
     ).toBe(false);
   });
@@ -78,28 +78,28 @@ describe("validateSpawnHostForm", () => {
     expect(
       validateSpawnHostForm({
         ...validForm,
-        publicKeySection: { useExisting: true, publicKeyNameDropdown: "" },
+        publicKeySection: { publicKeyNameDropdown: "", useExisting: true },
       })
     ).toBe(false);
     expect(
       validateSpawnHostForm({
         ...validForm,
-        publicKeySection: { useExisting: false, newPublicKey: "" },
+        publicKeySection: { newPublicKey: "", useExisting: false },
       })
     ).toBe(false);
     expect(
       validateSpawnHostForm({
         ...validForm,
         publicKeySection: {
-          useExisting: true,
           publicKeyNameDropdown: "key val",
+          useExisting: true,
         },
       })
     ).toBe(true);
     expect(
       validateSpawnHostForm({
         ...validForm,
-        publicKeySection: { useExisting: false, newPublicKey: "key val" },
+        publicKeySection: { newPublicKey: "key val", useExisting: false },
       })
     ).toBe(true);
   });
@@ -108,10 +108,10 @@ describe("validateSpawnHostForm", () => {
       validateSpawnHostForm({
         ...validForm,
         publicKeySection: {
-          useExisting: false,
           newPublicKey: "ssh-rsa new-key",
-          savePublicKey: true,
           newPublicKeyName: "new key",
+          savePublicKey: true,
+          useExisting: false,
         },
       })
     ).toBe(true);
@@ -119,9 +119,9 @@ describe("validateSpawnHostForm", () => {
       validateSpawnHostForm({
         ...validForm,
         publicKeySection: {
-          useExisting: false,
           newPublicKey: "ssh-rsa new-key",
           savePublicKey: true,
+          useExisting: false,
         },
       })
     ).toBe(false);
@@ -171,8 +171,8 @@ describe("validateSpawnHostForm", () => {
       validateSpawnHostForm({
         ...validForm,
         expirationDetails: {
-          noExpiration: false,
           expiration: "2022-10-11T22:08:02.000Z",
+          noExpiration: false,
         },
       })
     ).toBe(true);
@@ -180,8 +180,8 @@ describe("validateSpawnHostForm", () => {
       validateSpawnHostForm({
         ...validForm,
         expirationDetails: {
-          noExpiration: false,
           expiration: "",
+          noExpiration: false,
         },
       })
     ).toBe(false);
@@ -189,32 +189,32 @@ describe("validateSpawnHostForm", () => {
 });
 
 const validForm: FormState = {
-  distro: { value: "ubuntu-workstation", isVirtualWorkstation: true },
-  region: "us-east-1a",
-  publicKeySection: {
-    useExisting: true,
-    publicKeyNameDropdown: "cool key",
+  distro: { isVirtualWorkstation: true, value: "ubuntu-workstation" },
+  expirationDetails: {
+    noExpiration: true,
   },
   homeVolumeDetails: {
     selectExistingVolume: true,
     volumeSelect: "a volume",
   },
-  expirationDetails: {
-    noExpiration: true,
+  publicKeySection: {
+    publicKeyNameDropdown: "cool key",
+    useExisting: true,
   },
+  region: "us-east-1a",
 };
 const validVirtualWorkstationForm: FormState = {
-  distro: { value: "ubuntu-workstation", isVirtualWorkstation: true },
-  region: "us-east-1a",
-  publicKeySection: {
-    useExisting: true,
-    publicKeyNameDropdown: "cool key",
+  distro: { isVirtualWorkstation: true, value: "ubuntu-workstation" },
+  expirationDetails: {
+    noExpiration: true,
   },
   homeVolumeDetails: {
     selectExistingVolume: true,
     volumeSelect: "a volume",
   },
-  expirationDetails: {
-    noExpiration: true,
+  publicKeySection: {
+    publicKeyNameDropdown: "cool key",
+    useExisting: true,
   },
+  region: "us-east-1a",
 };

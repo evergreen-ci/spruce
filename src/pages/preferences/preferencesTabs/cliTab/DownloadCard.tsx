@@ -88,8 +88,8 @@ const CliDownloadBox: React.VFC<CliDownloadBoxProps> = ({
       <CliDownloadButton
         onClick={() => {
           sendEvent({
-            name: "CLI Download Link",
             downloadName: title,
+            name: "CLI Download Link",
           });
         }}
         href={link}
@@ -116,8 +116,8 @@ const ExpandableLinkContents: React.VFC<ExpandableLinkContentsProps> = ({
         <StyledLink
           onClick={() => {
             sendEvent({
-              name: "CLI Download Link",
               downloadName: binary.displayName,
+              name: "CLI Download Link",
             });
           }}
           key={`link_${binary.url}`}
@@ -135,9 +135,9 @@ const descriptions = {
   "OSX ARM 64-bit": "M1 CPU",
 };
 const prettyDisplayNameTop = {
+  "Linux 64-bit": "Linux (64-bit)",
   "OSX ARM 64-bit": "macOS ARM",
   "Windows 64-bit": "Windows",
-  "Linux 64-bit": "Linux (64-bit)",
 };
 
 const filterBinaries = (binary: ClientBinary) =>

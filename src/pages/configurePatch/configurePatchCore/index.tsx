@@ -122,12 +122,12 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
   const onClickSchedule = async (): Promise<void> => {
     const configurePatchParam: PatchConfigure = {
       description,
-      variantsTasks: toGQLVariantTasksType(selectedBuildVariantTasks),
       parameters: patchParams,
       patchTriggerAliases: toGQLAliasType(selectedAliases),
+      variantsTasks: toGQLVariantTasksType(selectedBuildVariantTasks),
     };
     schedulePatch({
-      variables: { patchId: id, configure: configurePatchParam },
+      variables: { configure: configurePatchParam, patchId: id },
     });
   };
 
@@ -285,9 +285,9 @@ const toGQLVariantTasksType = (
         .filter((entry) => entry[1])
         .map((entry) => entry[0]);
       return {
-        variant: variantName,
-        tasks: tasksArr,
         displayTasks: [],
+        tasks: tasksArr,
+        variant: variantName,
       };
     })
     .filter(({ tasks }) => tasks.length);

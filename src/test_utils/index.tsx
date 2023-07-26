@@ -51,13 +51,13 @@ const renderWithRouterMatch = (
   const getMemoryRouter = (element: React.ReactElement) => {
     const routes = [
       {
-        path,
         element: TestWrapper ? <TestWrapper>{element}</TestWrapper> : element,
         errorElement: <div>Failed to render component.</div>,
+        path,
       },
       {
-        path: "*",
         element: <div>Not found</div>,
+        path: "*",
       },
     ];
     return createMemoryRouter(routes, {
@@ -79,8 +79,8 @@ const renderWithRouterMatch = (
   };
 
   return {
-    router: memoryRouter,
     rerender: customRerender,
+    router: memoryRouter,
     ...renderRest,
   };
 };

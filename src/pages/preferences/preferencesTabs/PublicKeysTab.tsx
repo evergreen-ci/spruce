@@ -36,12 +36,12 @@ export const PublicKeysTab: React.VFC = () => {
     MyPublicKeysQuery,
     MyPublicKeysQueryVariables
   >(GET_MY_PUBLIC_KEYS, {
+    onCompleted() {},
     onError(error) {
       dispatchToast.error(
         `There was an error fetching your public keys: ${error.message}`
       );
     },
-    onCompleted() {},
   });
   const [removePublicKey, { loading: loadingRemovePublicKey }] = useMutation<
     RemovePublicKeyMutation,
@@ -54,23 +54,22 @@ export const PublicKeysTab: React.VFC = () => {
     },
     update(cache, { data }) {
       cache.writeQuery<MyPublicKeysQuery, MyPublicKeysQueryVariables>({
-        query: GET_MY_PUBLIC_KEYS,
         data: { myPublicKeys: [...data.removePublicKey] },
+        query: GET_MY_PUBLIC_KEYS,
       });
     },
   });
 
   const columns = [
     {
-      title: "Name",
       dataIndex: "name",
       key: "name",
       render: (text: string): JSX.Element => (
         <WordBreak data-cy="table-key-name">{text}</WordBreak>
       ),
+      title: "Name",
     },
     {
-      title: "Actions",
       render: (text: string, { key, name }: PublicKey): JSX.Element => (
         <BtnContainer>
           <Button
@@ -104,6 +103,7 @@ export const PublicKeysTab: React.VFC = () => {
           </Popconfirm>
         </BtnContainer>
       ),
+      title: "Actions",
     },
   ];
 
@@ -126,8 +126,8 @@ export const PublicKeysTab: React.VFC = () => {
         data-cy="add-key-button"
         onClick={() => {
           setEditModalProps({
-            visible: true,
             initialPublicKey: null,
+            visible: true,
           });
         }}
       >
@@ -151,8 +151,8 @@ interface PublicKey {
 }
 
 const defaultEditModalProps = {
-  visible: false,
   initialPublicKey: null,
+  visible: false,
 };
 
 const TableContainer = styled.div`

@@ -13,20 +13,20 @@ const MockToastProvider: React.VFC<{ children: React.ReactNode }> = ({
 }) => {
   const toastContext = useMemo(
     () => ({
-      success: (message: string, closable: boolean = true) =>
-        action(`Toast Success`)({ message, closable }),
-      warning: (message: string, closable: boolean = true) =>
-        action(`Toast Warning`)({ message, closable }),
       error: (message: string, closable: boolean = true) =>
-        action(`Toast Error`)({ message, closable }),
+        action(`Toast Error`)({ closable, message }),
+      hide: () => action(`Toast Hide`)(),
       info: (message: string, closable: boolean = true) =>
-        action(`Toast Info`)({ message, closable }),
+        action(`Toast Info`)({ closable, message }),
       progress: (
         message: string,
         progress: number = 0.5,
         closable: boolean = true
-      ) => action(`Toast Info`)({ message, progress, closable }),
-      hide: () => action(`Toast Hide`)(),
+      ) => action(`Toast Info`)({ closable, message, progress }),
+      success: (message: string, closable: boolean = true) =>
+        action(`Toast Success`)({ closable, message }),
+      warning: (message: string, closable: boolean = true) =>
+        action(`Toast Warning`)({ closable, message }),
     }),
     []
   );

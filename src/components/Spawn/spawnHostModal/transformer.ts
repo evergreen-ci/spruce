@@ -32,19 +32,10 @@ export const formToGql = ({
   } = formData || {};
   const isVirtualWorkStation = !!distro?.isVirtualWorkstation;
   return {
-    isVirtualWorkStation,
-    userDataScript: userdataScriptSection?.runUserdataScript
-      ? userdataScriptSection.userdataScript
-      : null,
+    distroId: distro?.value,
     expiration: expirationDetails?.noExpiration
       ? null
       : new Date(expirationDetails?.expiration),
-    noExpiration: expirationDetails?.noExpiration,
-    volumeId:
-      migrateVolumeId ||
-      (isVirtualWorkStation && homeVolumeDetails?.selectExistingVolume
-        ? homeVolumeDetails.volumeSelect
-        : null),
     homeVolumeSize:
       !migrateVolumeId &&
       isVirtualWorkStation &&
@@ -52,34 +43,43 @@ export const formToGql = ({
         !homeVolumeDetails?.volumeSelect)
         ? homeVolumeDetails.volumeSize || DEFAULT_VOLUME_SIZE
         : null,
+    isVirtualWorkStation,
+    noExpiration: expirationDetails?.noExpiration,
     publicKey: {
-      name: publicKeySection?.useExisting
-        ? publicKeySection?.publicKeyNameDropdown
-        : publicKeySection?.newPublicKeyName ?? "",
       key: publicKeySection?.useExisting
         ? myPublicKeys.find(
             ({ name }) => name === publicKeySection?.publicKeyNameDropdown
           )?.key
         : stripNewLines(publicKeySection.newPublicKey),
+      name: publicKeySection?.useExisting
+        ? publicKeySection?.publicKeyNameDropdown
+        : publicKeySection?.newPublicKeyName ?? "",
     },
+    region,
     savePublicKey:
       !publicKeySection?.useExisting && !!publicKeySection?.savePublicKey,
-    distroId: distro?.value,
-    region,
-    taskId:
-      loadData?.loadDataOntoHostAtStartup && validateTask(spawnTaskData)
-        ? spawnTaskData.id
-        : null,
-    useProjectSetupScript: !!(
-      loadData?.loadDataOntoHostAtStartup &&
-      loadData?.runProjectSpecificSetupScript
-    ),
     setUpScript: setupScriptSection?.defineSetupScriptCheckbox
       ? setupScriptSection?.setupScript
       : null,
     spawnHostsStartedByTask: !!(
       loadData?.loadDataOntoHostAtStartup && loadData?.startHosts
     ),
+    taskId:
+      loadData?.loadDataOntoHostAtStartup && validateTask(spawnTaskData)
+        ? spawnTaskData.id
+        : null,
     taskSync: !!(loadData?.loadDataOntoHostAtStartup && loadData?.taskSync),
+    useProjectSetupScript: !!(
+      loadData?.loadDataOntoHostAtStartup &&
+      loadData?.runProjectSpecificSetupScript
+    ),
+    userDataScript: userdataScriptSection?.runUserdataScript
+      ? userdataScriptSection.userdataScript
+      : null,
+    volumeId:
+      migrateVolumeId ||
+      (isVirtualWorkStation && homeVolumeDetails?.selectExistingVolume
+        ? homeVolumeDetails.volumeSelect
+        : null),
   };
 };

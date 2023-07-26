@@ -16,31 +16,31 @@ export const getSpruceConfigMock: ApolloMock<
   result: {
     data: {
       spruceConfig: {
-        bannerTheme: "warning",
+        __typename: "SpruceConfig",
         banner: "",
-        ui: {
-          defaultProject: "evergreen",
-          __typename: "UIConfig",
-        },
-        jira: { host: "jira.mongodb.org", __typename: "JiraConfig" },
+        bannerTheme: "warning",
+        jira: { __typename: "JiraConfig", host: "jira.mongodb.org" },
         providers: {
+          __typename: "CloudProviderConfig",
           aws: {
+            __typename: "AWSConfig",
             maxVolumeSizePerUser: 1500,
             pod: null,
-            __typename: "AWSConfig",
           },
-          __typename: "CloudProviderConfig",
         },
         slack: {
           name: "everygreen_slack",
         },
         spawnHost: {
+          __typename: "SpawnHostConfig",
           spawnHostsPerUser: 6,
           unexpirableHostsPerUser: 2,
           unexpirableVolumesPerUser: 1,
-          __typename: "SpawnHostConfig",
         },
-        __typename: "SpruceConfig",
+        ui: {
+          __typename: "UIConfig",
+          defaultProject: "evergreen",
+        },
       },
     },
   },

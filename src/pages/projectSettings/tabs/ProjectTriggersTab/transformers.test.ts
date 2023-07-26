@@ -31,8 +31,8 @@ describe("repo data", () => {
 });
 
 const projectForm: ProjectTriggersFormState = {
-  triggersOverride: true,
   triggers: [],
+  triggersOverride: true,
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
@@ -43,7 +43,6 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
 };
 
 const repoForm: ProjectTriggersFormState = {
-  triggersOverride: true,
   triggers: [
     {
       alias: "my-alias",
@@ -57,6 +56,7 @@ const repoForm: ProjectTriggersFormState = {
       taskRegex: ".*",
     },
   ],
+  triggersOverride: true,
 };
 
 const repoResult: Pick<RepoSettingsInput, "projectRef"> = {

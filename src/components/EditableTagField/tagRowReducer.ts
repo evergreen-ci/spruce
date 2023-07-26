@@ -20,11 +20,11 @@ type Action =
     };
 
 export const getInitialState = (tag: Tag, isNewTag: boolean) => ({
-  key: tag ? tag.key : "",
-  value: tag ? tag.value : "",
   canSave: false,
   isInputValid: true,
+  key: tag ? tag.key : "",
   shouldShowNewTag: !isNewTag,
+  value: tag ? tag.value : "",
 });
 
 export const reducer = (state: State, action: Action) => {
@@ -32,10 +32,10 @@ export const reducer = (state: State, action: Action) => {
     case "newTag":
       return {
         ...state,
-        key: "",
-        value: "",
         canSave: false,
+        key: "",
         shouldShowNewTag: true,
+        value: "",
       };
     case "updateTag": {
       const { type, ...a } = action;

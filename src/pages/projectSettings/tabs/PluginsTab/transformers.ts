@@ -9,41 +9,41 @@ export const gqlToForm = ((data) => {
 
   const { projectRef } = data;
   return {
-    performanceSettings: {
-      perfEnabled: projectRef?.perfEnabled,
-    },
     buildBaronSettings: {
       taskAnnotationSettings: {
         jiraCustomFields:
           projectRef?.taskAnnotationSettings?.jiraCustomFields?.map(
             ({ displayText, field }) => ({
-              field,
               displayText,
+              field,
             })
           ) ?? [],
       },
-      useBuildBaron:
-        projectRef?.taskAnnotationSettings?.fileTicketWebhook?.endpoint === "",
       ticketSearchProjects:
         projectRef?.buildBaronSettings?.ticketSearchProjects?.map(
           (searchProject) => ({ searchProject })
         ) ?? [],
+      useBuildBaron:
+        projectRef?.taskAnnotationSettings?.fileTicketWebhook?.endpoint === "",
 
-      ticketCreateProject: {
-        createProject: projectRef?.buildBaronSettings?.ticketCreateProject,
-      },
       fileTicketWebhook: {
         endpoint:
           projectRef?.taskAnnotationSettings?.fileTicketWebhook?.endpoint,
         secret: projectRef?.taskAnnotationSettings?.fileTicketWebhook?.secret,
       },
+      ticketCreateProject: {
+        createProject: projectRef?.buildBaronSettings?.ticketCreateProject,
+      },
     },
     externalLinks: {
       metadataPanelLink: {
-        requesters: projectRef?.externalLinks?.[0].requesters ?? [],
         displayName: projectRef?.externalLinks?.[0].displayName ?? "",
+        requesters: projectRef?.externalLinks?.[0].requesters ?? [],
         urlTemplate: projectRef?.externalLinks?.[0].urlTemplate ?? "",
       },
+    },
+    performanceSettings: {
+      perfEnabled: projectRef?.perfEnabled,
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
@@ -56,6 +56,7 @@ export const formToGql = ((
     id,
     perfEnabled: performanceSettings.perfEnabled,
     ...buildBaronIf(buildBaronSettings.useBuildBaron, buildBaronSettings),
+    externalLinks: [externalLinks.metadataPanelLink],
     taskAnnotationSettings: {
       ...fileTicketWebhookIf(
         buildBaronSettings.useBuildBaron,
@@ -63,10 +64,9 @@ export const formToGql = ((
       ),
       jiraCustomFields:
         buildBaronSettings.taskAnnotationSettings?.jiraCustomFields
-          .map(({ displayText, field }) => ({ field, displayText }))
+          .map(({ displayText, field }) => ({ displayText, field }))
           .filter((str) => !!str),
     },
-    externalLinks: [externalLinks.metadataPanelLink],
   };
 
   return { projectRef };

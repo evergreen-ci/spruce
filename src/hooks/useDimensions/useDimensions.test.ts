@@ -13,8 +13,8 @@ describe("useDimensions", () => {
     window.ResizeObserver = jest.fn().mockImplementation((l) => {
       listener = l;
       return {
-        observe: () => {},
         disconnect: disconnectSpy,
+        observe: () => {},
         unobserve: () => {},
       };
     });
@@ -23,8 +23,8 @@ describe("useDimensions", () => {
   it("validate default value", () => {
     const { result } = renderHook(() => useDimensions({ current: null }));
     expect(result.current).toMatchObject({
-      width: 0,
       height: 0,
+      width: 0,
     });
   });
 
@@ -42,16 +42,16 @@ describe("useDimensions", () => {
       listener!([
         {
           contentRect: {
-            width: 200,
             height: 200,
+            width: 200,
           },
         },
       ]);
     });
 
     expect(result.current).toMatchObject({
-      width: 200,
       height: 200,
+      width: 200,
     });
   });
 
@@ -64,32 +64,32 @@ describe("useDimensions", () => {
       listener!([
         {
           contentRect: {
-            width: 200,
             height: 200,
+            width: 200,
           },
         },
       ]);
     });
 
     expect(result.current).toMatchObject({
-      width: 200,
       height: 200,
+      width: 200,
     });
 
     act(() => {
       listener!([
         {
           contentRect: {
-            width: 100,
             height: 100,
+            width: 100,
           },
         },
       ]);
     });
 
     expect(result.current).toMatchObject({
-      width: 100,
       height: 100,
+      width: 100,
     });
   });
 

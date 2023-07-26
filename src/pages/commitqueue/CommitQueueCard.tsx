@@ -67,8 +67,8 @@ export const CommitQueueCard: React.VFC<Props> = ({
 
   const handleEnroll = () => {
     removeItemFromCommitQueue({
-      variables: { issue, commitQueueId },
       refetchQueries: ["CommitQueue"],
+      variables: { commitQueueId, issue },
     });
   };
 

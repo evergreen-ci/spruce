@@ -7,8 +7,8 @@ import { TestStatus } from "types/history";
 import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
 
 export default {
-  title: "Components/HistoryTable/HistoryTableTestSearch",
   component: HistoryTableTestSearch,
+  title: "Components/HistoryTable/HistoryTableTestSearch",
 } satisfies CustomMeta<typeof HistoryTableTestSearch>;
 
 export const Default: CustomStoryObj<typeof HistoryTableTestSearch> = {

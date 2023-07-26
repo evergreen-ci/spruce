@@ -89,8 +89,8 @@ export const useTaskAnalytics = (): Analytics => {
   const { data: eventData } = useQuery<TaskQuery, TaskQueryVariables>(
     GET_TASK,
     {
-      variables: { taskId: id, execution },
       fetchPolicy: "cache-first",
+      variables: { execution, taskId: id },
     }
   );
 
@@ -102,13 +102,13 @@ export const useTaskAnalytics = (): Analytics => {
   const isLatestExecution = latestExecution === execution;
   const sendEvent: Analytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
-      object: "Task",
-      userId,
-      taskStatus,
       execution,
-      isLatestExecution: isLatestExecution.toString(),
-      taskId: id,
       failedTestCount,
+      isLatestExecution: isLatestExecution.toString(),
+      object: "Task",
+      taskId: id,
+      taskStatus,
+      userId,
     });
   };
 

@@ -15,44 +15,43 @@ export const getFormSchema = (
   schema: {
     definitions: {
       varsArray: {
-        type: "array" as "array",
         items: {
-          type: "object" as "object",
           properties: {
-            varName: {
-              type: "string" as "string",
-              title: "Variable Name",
-              default: "",
-              minLength: 1,
-            },
-            varValue: {
-              type: "string" as "string",
-              title: "Variable",
-              default: "",
-              minLength: 1,
-            },
-            isPrivate: {
-              type: "boolean" as "boolean",
-              title: "Private",
-            },
             isAdminOnly: {
-              type: "boolean" as "boolean",
               title: "Admin Only",
+              type: "boolean" as "boolean",
             },
             isDisabled: {
               type: "boolean" as "boolean",
             },
+            isPrivate: {
+              title: "Private",
+              type: "boolean" as "boolean",
+            },
+            varName: {
+              default: "",
+              minLength: 1,
+              title: "Variable Name",
+              type: "string" as "string",
+            },
+            varValue: {
+              default: "",
+              minLength: 1,
+              title: "Variable",
+              type: "string" as "string",
+            },
           },
+          type: "object" as "object",
         },
+        type: "array" as "array",
       },
     },
-    type: "object" as "object",
     properties: {
       vars: { $ref: "#/definitions/varsArray" },
       ...(repoData && {
         repoData: {
-          type: "object" as "object",
           title: "Repo Variables",
+          type: "object" as "object",
           ...(repoData.vars.length === 0 && {
             description: "Repo has no variables defined.",
           }),
@@ -62,19 +61,37 @@ export const getFormSchema = (
         },
       }),
     },
+    type: "object" as "object",
   },
   uiSchema: {
+    repoData: {
+      vars: {
+        items: {
+          "ui:ObjectFieldTemplate": VariableRow,
+          varValue: {
+            "ui:widget": widgets.TextareaWidget,
+          },
+        },
+        "ui:fullWidth": true,
+        "ui:readonly": true,
+        "ui:showLabel": false,
+      },
+    },
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     vars: {
-      "ui:addButtonText": "Add variables",
-      "ui:description": getDescription(projectType),
-      "ui:fullWidth": true,
-      "ui:orderable": false,
-      "ui:secondaryButton": modalButton,
-      "ui:showLabel": false,
       items: {
-        "ui:ObjectFieldTemplate": VariableRow,
+        isAdminOnly: {
+          "ui:data-cy": "var-admin-input",
+          "ui:tooltipDescription":
+            "Admin only variables can only be used by project admins.",
+        },
+        isPrivate: {
+          "ui:data-cy": "var-private-input",
+          "ui:tooltipDescription":
+            "Private variables have redacted values on the Project Page and the API and cannot be updated.",
+        },
         options: { repoData },
+        "ui:ObjectFieldTemplate": VariableRow,
         varName: {
           "ui:data-cy": "var-name-input",
         },
@@ -83,30 +100,13 @@ export const getFormSchema = (
           "ui:elementWrapperCSS": varCSS,
           "ui:widget": widgets.TextareaWidget,
         },
-        isPrivate: {
-          "ui:tooltipDescription":
-            "Private variables have redacted values on the Project Page and the API and cannot be updated.",
-          "ui:data-cy": "var-private-input",
-        },
-        isAdminOnly: {
-          "ui:tooltipDescription":
-            "Admin only variables can only be used by project admins.",
-          "ui:data-cy": "var-admin-input",
-        },
       },
-    },
-    repoData: {
-      vars: {
-        "ui:fullWidth": true,
-        "ui:readonly": true,
-        "ui:showLabel": false,
-        items: {
-          "ui:ObjectFieldTemplate": VariableRow,
-          varValue: {
-            "ui:widget": widgets.TextareaWidget,
-          },
-        },
-      },
+      "ui:addButtonText": "Add variables",
+      "ui:description": getDescription(projectType),
+      "ui:fullWidth": true,
+      "ui:orderable": false,
+      "ui:secondaryButton": modalButton,
+      "ui:showLabel": false,
     },
   },
 });

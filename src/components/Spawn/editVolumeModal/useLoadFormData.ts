@@ -10,8 +10,8 @@ export const useLoadFormData = (volume: TableVolume) => {
   );
   const noExpirationCheckboxTooltip = getNoExpirationCheckboxTooltipCopy({
     disableExpirationCheckbox,
-    limit: spruceConfig?.spawnHost?.unexpirableVolumesPerUser,
     isVolume: true,
+    limit: spruceConfig?.spawnHost?.unexpirableVolumesPerUser,
   });
 
   return { disableExpirationCheckbox, noExpirationCheckboxTooltip };

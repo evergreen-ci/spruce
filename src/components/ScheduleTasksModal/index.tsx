@@ -67,7 +67,7 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
     }
   }, [calledTaskData, loadTaskData, open]);
   useEffect(() => {
-    dispatch({ type: "ingestData", taskData });
+    dispatch({ taskData, type: "ingestData" });
   }, [taskData]);
 
   return (
@@ -127,8 +127,8 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
                           indeterminate={!allTasksSelected && someTasksSelected}
                           onClick={() => {
                             dispatch({
-                              type: "toggleBuildVariant",
                               buildVariant,
+                              type: "toggleBuildVariant",
                             });
                           }}
                         />
@@ -148,7 +148,7 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
                           bold={false}
                           checked={selectedTasks.has(id)}
                           onClick={() => {
-                            dispatch({ type: "toggleTask", taskId: id });
+                            dispatch({ taskId: id, type: "toggleTask" });
                           }}
                         />
                       ))}

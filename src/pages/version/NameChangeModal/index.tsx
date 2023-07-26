@@ -57,7 +57,7 @@ export const NameChangeModal: React.VFC<NameChangeModalProps> = ({
         onCancel={() => setIsOpen(false)}
         onConfirm={() => {
           updateDescription({
-            variables: { patchId, description: newPatchName },
+            variables: { description: newPatchName, patchId },
           });
         }}
         open={isOpen}

@@ -24,38 +24,38 @@ export const AuxiliaryDropdown: React.VFC<AuxiliaryDropdownProps> = ({
 
   const menuItems = [
     {
+      onClick: () => sendEvent({ name: "Click All Hosts Link" }),
       text: "All Hosts",
       to: routes.hosts,
-      onClick: () => sendEvent({ name: "Click All Hosts Link" }),
     },
     {
+      onClick: () => sendEvent({ name: "Click Commit Queue Link" }),
       text: "Commit Queue",
       to: getCommitQueueRoute(projectIdentifier),
-      onClick: () => sendEvent({ name: "Click Commit Queue Link" }),
     },
     {
+      onClick: () => sendEvent({ name: "Click Task Queue Link" }),
       text: "Task Queue",
       to: getTaskQueueRoute(""),
-      onClick: () => sendEvent({ name: "Click Task Queue Link" }),
     },
     {
       "data-cy": "legacy_route",
       href: `${uiURL}${legacyRoutes.distros}`,
-      text: "Distros",
       onClick: () => sendEvent({ name: "Click Distros Link" }),
+      text: "Distros",
     },
 
     {
       "data-cy": "auxiliary-dropdown-project-patches",
-      to: getProjectPatchesRoute(projectIdentifier),
-      text: "Project Patches",
       onClick: () => sendEvent({ name: "Click Project Patches Link" }),
+      text: "Project Patches",
+      to: getProjectPatchesRoute(projectIdentifier),
     },
     {
       "data-cy": "auxiliary-dropdown-project-settings",
+      onClick: () => sendEvent({ name: "Click Projects Link" }),
       text: "Project Settings",
       to: getProjectSettingsRoute(projectIdentifier),
-      onClick: () => sendEvent({ name: "Click Projects Link" }),
     },
   ];
 

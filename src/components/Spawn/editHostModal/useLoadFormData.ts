@@ -44,15 +44,15 @@ export const useLoadFormData = (host: MyHost) => {
 
   const noExpirationCheckboxTooltip = getNoExpirationCheckboxTooltipCopy({
     disableExpirationCheckbox,
-    limit: spruceConfig?.spawnHost?.unexpirableHostsPerUser,
     isVolume: false,
+    limit: spruceConfig?.spawnHost?.unexpirableHostsPerUser,
   });
 
   return {
-    instanceTypesData,
-    volumesData,
-    publicKeysData,
     disableExpirationCheckbox,
+    instanceTypesData,
     noExpirationCheckboxTooltip,
+    publicKeysData,
+    volumesData,
   };
 };

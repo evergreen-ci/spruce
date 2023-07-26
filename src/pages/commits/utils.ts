@@ -41,7 +41,6 @@ const getMainlineCommitsQueryVariables = (
   state: CommitsPageReducerState
 ): MainlineCommitsQueryVariables => {
   const variables = {
-    mainlineCommitsOptions: generateMainlineCommitOptionsFromState(state),
     buildVariantOptions: generateBuildVariantOptionsFromState(state),
     buildVariantOptionsForGraph:
       generateBuildVariantOptionsForGraphFromState(state),
@@ -49,6 +48,7 @@ const getMainlineCommitsQueryVariables = (
       generateBuildVariantOptionsForGroupedTasksFromState(state),
     buildVariantOptionsForTaskIcons:
       generateBuildVariantOptionsForTaskIconsFromState(state),
+    mainlineCommitsOptions: generateMainlineCommitOptionsFromState(state),
   };
   return variables;
 };
@@ -77,10 +77,10 @@ const generateBuildVariantOptionsFromState = (
   const { statuses, tasks, variants } = filterState;
 
   const buildVariantOptions = {
+    includeBaseTasks: false,
+    statuses,
     tasks,
     variants,
-    statuses,
-    includeBaseTasks: false,
   };
 
   return buildVariantOptions;
@@ -110,10 +110,10 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
   }
 
   const buildVariantOptions = {
+    includeBaseTasks: false,
+    statuses: statusesToShow,
     tasks: shouldShowTaskIcons ? filterState.tasks : [impossibleMatch],
     variants: filterState.variants,
-    statuses: statusesToShow,
-    includeBaseTasks: false,
   };
   return buildVariantOptions;
 };
@@ -127,9 +127,9 @@ const generateBuildVariantOptionsForGroupedTasksFromState = (
   // If "All" view is enabled, don't group any tasks.
   if (filterState.view === ProjectHealthView.All) {
     return {
+      statuses: [],
       tasks: [impossibleMatch],
       variants: [],
-      statuses: [],
     };
   }
 
@@ -157,9 +157,9 @@ const generateBuildVariantOptionsForGroupedTasksFromState = (
   }
 
   const groupedBuildVariantOptions = {
+    statuses: statusesToShow,
     tasks: shouldShowGroupedTaskIcons ? filterState.tasks : [impossibleMatch],
     variants: filterState.variants,
-    statuses: statusesToShow,
   };
 
   return groupedBuildVariantOptions;
@@ -184,8 +184,8 @@ const generateMainlineCommitOptionsFromState = (
   const { hasFilters } = getFilterStatus(filterState);
   return {
     ...mainlineCommitOptions,
-    shouldCollapse: hasFilters,
     requesters: filterState.requesters,
+    shouldCollapse: hasFilters,
   };
 };
 
@@ -263,7 +263,7 @@ const constructBuildVariantDict = (versions: Commits): BuildVariantDict => {
             }
             acc[variant].priority += 1;
           } else {
-            acc[variant] = { priority: 1, iconHeight, badgeHeight };
+            acc[variant] = { badgeHeight, iconHeight, priority: 1 };
           }
           return acc;
         },

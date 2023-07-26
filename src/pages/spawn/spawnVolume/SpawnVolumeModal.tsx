@@ -78,16 +78,16 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
           formState?.requiredVolumeInformation?.availabilityZone &&
         (status === HostStatus.Running || status === HostStatus.Stopped)
     )
-    .map(({ displayName, id }) => ({ id, displayName }))
+    .map(({ displayName, id }) => ({ displayName, id }))
     .sort((a, b) => a.displayName.localeCompare(b.displayName));
 
   const { schema, uiSchema } = getFormSchema({
-    maxSpawnableLimit,
     availabilityZones,
-    types,
-    hosts: availableHosts,
     disableExpirationCheckbox,
+    hosts: availableHosts,
+    maxSpawnableLimit,
     noExpirationCheckboxTooltip,
+    types,
   });
 
   if (loadingFormData) {

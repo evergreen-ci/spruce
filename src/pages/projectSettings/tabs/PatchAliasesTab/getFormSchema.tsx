@@ -17,7 +17,6 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as "object",
     properties: {
       patchAliases: {
         title: "Patch Aliases",
@@ -36,83 +35,62 @@ export const getFormSchema = (
             "Default to Repo Patch Trigger Aliases",
           ],
           {
-            type: "array" as "array",
             items: {
-              type: "object" as "object",
               properties: {
                 alias: {
-                  type: "string" as "string",
-                  title: "Alias",
                   default: "",
                   minLength: 1,
+                  title: "Alias",
+                  type: "string" as "string",
                 },
                 childProjectIdentifier: {
-                  type: "string" as "string",
-                  title: "Project",
                   default: "",
                   minLength: 1,
+                  title: "Project",
+                  type: "string" as "string",
+                },
+                isGithubTriggerAlias: {
+                  title: "Add to GitHub Trigger Alias",
+                  type: "boolean" as "boolean",
                 },
                 parentAsModule: {
-                  type: "string" as "string",
                   title: "Module",
+                  type: "string" as "string",
                 },
                 status: {
-                  type: "string" as "string",
-                  title: "Wait on",
                   default: "",
                   oneOf: [
                     {
-                      type: "string" as "string",
-                      title: "Select event…",
                       enum: [""],
+                      title: "Select event…",
+                      type: "string" as "string",
                     },
                     ...Object.entries(PatchTriggerAliasStatus).map(
                       ([value, title]) => ({
-                        type: "string" as "string",
-                        title,
                         enum: [value],
+                        title,
+                        type: "string" as "string",
                       })
                     ),
                   ],
+                  title: "Wait on",
+                  type: "string" as "string",
                 },
                 taskSpecifiers: {
-                  type: "array" as "array",
-                  minItems: 1,
                   items: {
-                    type: "object" as "object",
-                    title: "Variant/Task Pair",
-                    properties: {
-                      specifier: {
-                        type: "string" as "string",
-                        title: "Specify Via",
-                        default: TaskSpecifier.PatchAlias,
-                        oneOf: [
-                          {
-                            type: "string" as "string",
-                            title: "Patch Alias",
-                            enum: [TaskSpecifier.PatchAlias],
-                          },
-                          {
-                            type: "string" as "string",
-                            title: "Variant/Task",
-                            enum: [TaskSpecifier.VariantTask],
-                          },
-                        ],
-                      },
-                    },
                     dependencies: {
                       specifier: {
                         oneOf: [
                           {
                             properties: {
-                              specifier: {
-                                enum: [TaskSpecifier.PatchAlias],
-                              },
                               patchAlias: {
-                                type: "string" as "string",
-                                title: "Patch Alias",
                                 default: "",
                                 minLength: 1,
+                                title: "Patch Alias",
+                                type: "string" as "string",
+                              },
+                              specifier: {
+                                enum: [TaskSpecifier.PatchAlias],
                               },
                             },
                           },
@@ -121,52 +99,74 @@ export const getFormSchema = (
                               specifier: {
                                 enum: [TaskSpecifier.VariantTask],
                               },
-                              variantRegex: variant.schema,
                               taskRegex: task.schema,
+                              variantRegex: variant.schema,
                             },
                           },
                         ],
                       },
                     },
+                    properties: {
+                      specifier: {
+                        default: TaskSpecifier.PatchAlias,
+                        oneOf: [
+                          {
+                            enum: [TaskSpecifier.PatchAlias],
+                            title: "Patch Alias",
+                            type: "string" as "string",
+                          },
+                          {
+                            enum: [TaskSpecifier.VariantTask],
+                            title: "Variant/Task",
+                            type: "string" as "string",
+                          },
+                        ],
+                        title: "Specify Via",
+                        type: "string" as "string",
+                      },
+                    },
+                    title: "Variant/Task Pair",
+                    type: "object" as "object",
                   },
-                },
-                isGithubTriggerAlias: {
-                  type: "boolean" as "boolean",
-                  title: "Add to GitHub Trigger Alias",
+                  minItems: 1,
+                  type: "array" as "array",
                 },
               },
+              type: "object" as "object",
             },
+            type: "array" as "array",
           }
         ),
       },
     },
+    type: "object" as "object",
   },
   uiSchema: {
     patchAliases: {
+      aliases: patchAliasArray.uiSchema,
       aliasesOverride: {
+        "ui:data-cy": "patch-aliases-override-radio-box",
+        "ui:showLabel": false,
         "ui:widget":
           projectType === ProjectType.AttachedProject
             ? widgets.RadioBoxWidget
             : "hidden",
-        "ui:showLabel": false,
-        "ui:data-cy": "patch-aliases-override-radio-box",
       },
-      "ui:description": PatchAliasesDescription,
-      aliases: patchAliasArray.uiSchema,
       repoData: {
         aliases: patchAliasArray.repoData.uiSchema,
       },
+      "ui:description": PatchAliasesDescription,
     },
     patchTriggerAliases: {
+      aliases: aliasesUiSchema,
       aliasesOverride: {
+        "ui:data-cy": "patch-trigger-aliases-override-radio-box",
+        "ui:showLabel": false,
         "ui:widget":
           projectType === ProjectType.AttachedProject
             ? widgets.RadioBoxWidget
             : "hidden",
-        "ui:showLabel": false,
-        "ui:data-cy": "patch-trigger-aliases-override-radio-box",
       },
-      aliases: aliasesUiSchema,
       repoData: {
         aliases: {
           ...aliasesUiSchema,
@@ -178,55 +178,55 @@ export const getFormSchema = (
 });
 
 const aliasesUiSchema = {
-  "ui:addButtonText": "Add Patch Trigger Alias",
-  "ui:orderable": false,
-  "ui:showLabel": false,
-  "ui:useExpandableCard": true,
   items: {
-    "ui:displayTitle": "New Patch Trigger Alias",
     alias: {
       "ui:data-cy": "pta-alias-input",
     },
     childProjectIdentifier: {
       "ui:data-cy": "project-input",
     },
+    isGithubTriggerAlias: {
+      "ui:border": "top",
+      "ui:data-cy": "github-trigger-alias-checkbox",
+    },
     parentAsModule: {
-      "ui:optional": true,
       "ui:data-cy": "module-input",
       "ui:description":
         "If you want tests to include the parent project's changes, add the parent project as a module.",
+      "ui:optional": true,
     },
     status: {
       "ui:allowDeselect": false,
     },
     taskSpecifiers: {
-      "ui:addButtonText": "Add Task Regex Pair",
-      "ui:orderable": false,
-      "ui:showLabel": false,
-      "ui:topAlignDelete": true,
       items: {
-        "ui:ObjectFieldTemplate": AccordionFieldTemplate,
-        "ui:defaultOpen": true,
-        specifier: {
-          "ui:widget": widgets.SegmentedControlWidget,
-          "ui:aria-controls": ["patchAlias", "taskRegex", "variantRegex"],
-        },
         patchAlias: {
           "ui:data-cy": "patch-alias-input",
+        },
+        specifier: {
+          "ui:aria-controls": ["patchAlias", "taskRegex", "variantRegex"],
+          "ui:widget": widgets.SegmentedControlWidget,
         },
         taskRegex: {
           "ui:data-cy": "task-regex-input",
         },
+        "ui:ObjectFieldTemplate": AccordionFieldTemplate,
+        "ui:defaultOpen": true,
         variantRegex: {
           "ui:data-cy": "variant-regex-input",
         },
       },
+      "ui:addButtonText": "Add Task Regex Pair",
+      "ui:orderable": false,
+      "ui:showLabel": false,
+      "ui:topAlignDelete": true,
     },
-    isGithubTriggerAlias: {
-      "ui:border": "top",
-      "ui:data-cy": "github-trigger-alias-checkbox",
-    },
+    "ui:displayTitle": "New Patch Trigger Alias",
   },
+  "ui:addButtonText": "Add Patch Trigger Alias",
+  "ui:orderable": false,
+  "ui:showLabel": false,
+  "ui:useExpandableCard": true,
 };
 
 const PatchAliasesDescription = (

@@ -14,25 +14,25 @@ export const useBreadcrumbRoot = (
 
   return isPatch
     ? {
-        to: userPatchesPageLink,
-        text: userPatchesPageTitle,
+        "data-cy": "bc-my-patches",
         onClick: () => {
           breadcrumbAnalytics.sendEvent({
-            name: "Click Link",
             link: "myPatches",
+            name: "Click Link",
           });
         },
-        "data-cy": "bc-my-patches",
+        text: userPatchesPageTitle,
+        to: userPatchesPageLink,
       }
     : {
-        to: getCommitsRoute(projectIdentifier),
-        text: projectIdentifier,
+        "data-cy": "bc-waterfall",
         onClick: () => {
           breadcrumbAnalytics.sendEvent({
-            name: "Click Link",
             link: "waterfall",
+            name: "Click Link",
           });
         },
-        "data-cy": "bc-waterfall",
+        text: projectIdentifier,
+        to: getCommitsRoute(projectIdentifier),
       };
 };

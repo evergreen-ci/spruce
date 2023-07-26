@@ -61,8 +61,8 @@ export const usePatchAnalytics = (id: string): PatchAnalytics => {
   const { data: eventData } = useQuery<PatchQuery, PatchQueryVariables>(
     GET_PATCH,
     {
-      variables: { id },
       fetchPolicy: "cache-first",
+      variables: { id },
     }
   );
   const { status } = eventData?.patch || {};
@@ -70,9 +70,9 @@ export const usePatchAnalytics = (id: string): PatchAnalytics => {
   const sendEvent: PatchAnalytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
       object: "Patch",
-      userId,
-      patchStatus: status,
       patchId: id,
+      patchStatus: status,
+      userId,
     });
   };
 

@@ -36,10 +36,6 @@ const ColumnHeaders: React.VFC<ColumnHeadersProps> = ({
     TaskNamesForBuildVariantQuery,
     TaskNamesForBuildVariantQueryVariables
   >(GET_TASK_NAMES_FOR_BUILD_VARIANT, {
-    variables: {
-      projectIdentifier,
-      buildVariant: variantName,
-    },
     onCompleted: ({ taskNamesForBuildVariant }) => {
       if (!taskNamesForBuildVariant) {
         reportError(
@@ -47,6 +43,10 @@ const ColumnHeaders: React.VFC<ColumnHeadersProps> = ({
         ).severe();
         dispatchToast.error(`No tasks found for buildVariant: ${variantName}}`);
       }
+    },
+    variables: {
+      buildVariant: variantName,
+      projectIdentifier,
     },
   });
 

@@ -61,7 +61,7 @@ const HistoryTableWrapper: React.VFC<HistoryTableWrapperProps> = ({ type }) => {
   }, [oldData]);
 
   return (
-    <div style={{ height: 600, width: "100%", border: "red 1px solid" }}>
+    <div style={{ border: "red 1px solid", height: 600, width: "100%" }}>
       <HistoryTable loadMoreItems={loadMore} loading={isLoading}>
         {type === "task" ? TaskHistoryRow : VariantHistoryRow}
       </HistoryTable>

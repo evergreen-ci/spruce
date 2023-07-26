@@ -27,8 +27,8 @@ export const reducer = (state: State, action: Action): State => {
     case "ingestData":
       return {
         ...state,
-        sortedBuildVariantGroups: getSortedBuildVariantGroups(action.taskData),
         allTasks: action.taskData?.version?.tasks?.data.map(({ id }) => id),
+        sortedBuildVariantGroups: getSortedBuildVariantGroups(action.taskData),
       };
     case "toggleTask":
       return {
@@ -61,9 +61,9 @@ export const reducer = (state: State, action: Action): State => {
 };
 
 export const initialState: State = {
-  sortedBuildVariantGroups: [],
-  selectedTasks: new Set(),
   allTasks: [],
+  selectedTasks: new Set(),
+  sortedBuildVariantGroups: [],
 };
 
 const getSortedBuildVariantGroups = (
@@ -74,12 +74,12 @@ const getSortedBuildVariantGroups = (
       const { buildVariant, buildVariantDisplayName, displayName, id } = task;
       if (!acc[buildVariant]) {
         acc[buildVariant] = {
-          tasks: [{ id, displayName }],
-          buildVariantDisplayName,
           buildVariant,
+          buildVariantDisplayName,
+          tasks: [{ displayName, id }],
         };
       } else {
-        acc[buildVariant].tasks.push({ id, displayName });
+        acc[buildVariant].tasks.push({ displayName, id });
       }
       return acc;
     },

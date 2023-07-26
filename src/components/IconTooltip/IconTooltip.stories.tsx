@@ -12,11 +12,23 @@ const Sizes = {
 };
 
 export default {
-  title: "Components/Icon/Tooltip",
   component: IconTooltip,
+  title: "Components/Icon/Tooltip",
 } satisfies CustomMeta<typeof IconTooltip>;
 
 export const Icons: CustomStoryObj<IconTooltipProps> = {
+  argTypes: {
+    color: { control: "color" },
+    size: {
+      control: { type: "select" },
+      options: Object.values(Sizes),
+    },
+  },
+  args: {
+    children: "Tooltip Text",
+    color: "#000000",
+    size: Sizes[Size.Default],
+  },
   render: ({ children, size: s, ...rest }) => (
     <Container>
       {Object.keys(glyphs).map((name) => (
@@ -29,18 +41,6 @@ export const Icons: CustomStoryObj<IconTooltipProps> = {
       ))}
     </Container>
   ),
-  args: {
-    color: "#000000",
-    size: Sizes[Size.Default],
-    children: "Tooltip Text",
-  },
-  argTypes: {
-    color: { control: "color" },
-    size: {
-      options: Object.values(Sizes),
-      control: { type: "select" },
-    },
-  },
 };
 
 const Container = styled.div`

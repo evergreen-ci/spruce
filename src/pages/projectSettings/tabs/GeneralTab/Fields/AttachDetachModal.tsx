@@ -37,7 +37,6 @@ export const AttachDetachModal: React.VFC<ModalProps> = ({
     AttachProjectToRepoMutation,
     AttachProjectToRepoMutationVariables
   >(ATTACH_PROJECT_TO_REPO, {
-    variables: { projectId },
     onCompleted() {
       dispatchToast.success("Successfully attached to repo");
     },
@@ -52,13 +51,13 @@ export const AttachDetachModal: React.VFC<ModalProps> = ({
       "ViewableProjectRefs",
       "GithubProjectConflicts",
     ],
+    variables: { projectId },
   });
 
   const [detachProjectFromRepo] = useMutation<
     DetachProjectFromRepoMutation,
     DetachProjectFromRepoMutationVariables
   >(DETACH_PROJECT_FROM_REPO, {
-    variables: { projectId },
     onCompleted() {
       dispatchToast.success("Successfully detached from repo");
     },
@@ -68,6 +67,7 @@ export const AttachDetachModal: React.VFC<ModalProps> = ({
       );
     },
     refetchQueries: ["ProjectSettings", "RepoSettings", "ViewableProjectRefs"],
+    variables: { projectId },
   });
 
   return (
@@ -78,10 +78,10 @@ export const AttachDetachModal: React.VFC<ModalProps> = ({
       onConfirm={() => {
         if (shouldAttach) {
           attachProjectToRepo();
-          sendEvent({ name: "Attach project to repo", repoOwner, repoName });
+          sendEvent({ name: "Attach project to repo", repoName, repoOwner });
         } else {
           detachProjectFromRepo();
-          sendEvent({ name: "Detach project from repo", repoOwner, repoName });
+          sendEvent({ name: "Detach project from repo", repoName, repoOwner });
         }
         handleClose();
       }}

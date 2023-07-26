@@ -1,9 +1,9 @@
 export const projectName = {
   schema: {
-    type: "string" as "string",
-    title: "Project Name",
-    minLength: 1,
     format: "noSpaces",
+    minLength: 1,
+    title: "Project Name",
+    type: "string" as "string",
   },
   uiSchema: {
     "ui:data-cy": "project-name-input",
@@ -12,9 +12,9 @@ export const projectName = {
 
 export const projectId = {
   schema: {
-    type: "string" as "string",
-    title: "Project ID",
     format: "noSpaces",
+    title: "Project ID",
+    type: "string" as "string",
   },
   uiSchema: {
     "ui:data-cy": "project-id-input",
@@ -26,9 +26,9 @@ export const projectId = {
 
 export const requestS3Creds = {
   schema: {
-    type: "boolean" as "boolean",
-    title: "Open a JIRA ticket to request an S3 Bucket from the Build team",
     default: false,
+    title: "Open a JIRA ticket to request an S3 Bucket from the Build team",
+    type: "boolean" as "boolean",
   },
   uiSchema: {
     "ui:data-cy": "request-s3-creds",

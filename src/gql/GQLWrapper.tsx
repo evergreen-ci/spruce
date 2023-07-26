@@ -20,9 +20,9 @@ const GQLWrapper: React.VFC<{ children: React.ReactNode }> = ({ children }) => {
     <ApolloProvider
       client={getGQLClient({
         credentials: "include",
+        dispatchAuthenticated,
         gqlURL: getGQLUrl(),
         logoutAndRedirect,
-        dispatchAuthenticated,
       })}
     >
       {children}
@@ -39,17 +39,22 @@ interface ClientLinkParams {
 
 const cache = new InMemoryCache({
   typePolicies: {
-    Query: {
+    GeneralSubscription: {
+      keyFields: false,
+    },
+    Patch: {
       fields: {
-        projectEvents: {
-          keyArgs: ["$identifier"],
-        },
-        repoEvents: {
-          keyArgs: ["$id"],
+        time: {
+          merge(existing, incoming, { mergeObjects }) {
+            return mergeObjects(existing, incoming);
+          },
         },
       },
     },
-    GeneralSubscription: {
+    Project: {
+      keyFields: false,
+    },
+    ProjectAlias: {
       keyFields: false,
     },
     ProjectEvents: {
@@ -66,17 +71,17 @@ const cache = new InMemoryCache({
         },
       },
     },
-    ProjectAlias: {
-      keyFields: false,
-    },
-    Project: {
-      keyFields: false,
-    },
-    User: {
-      keyFields: ["userId"],
+    Query: {
+      fields: {
+        projectEvents: {
+          keyArgs: ["$identifier"],
+        },
+        repoEvents: {
+          keyArgs: ["$id"],
+        },
+      },
     },
     Task: {
-      keyFields: ["execution", "id"],
       fields: {
         annotation: {
           merge(existing, incoming, { mergeObjects }) {
@@ -89,15 +94,10 @@ const cache = new InMemoryCache({
           },
         },
       },
+      keyFields: ["execution", "id"],
     },
-    Patch: {
-      fields: {
-        time: {
-          merge(existing, incoming, { mergeObjects }) {
-            return mergeObjects(existing, incoming);
-          },
-        },
-      },
+    User: {
+      keyFields: ["userId"],
     },
   },
 });
@@ -148,10 +148,10 @@ const authenticateIfSuccessfulLink = (
       leaveBreadcrumb(
         "Graphql Request",
         {
-          operationName: operation.operationName,
-          variables: operation.variables,
-          status: !response.errors ? "OK" : "ERROR",
           errors: response.errors,
+          operationName: operation.operationName,
+          status: !response.errors ? "OK" : "ERROR",
+          variables: operation.variables,
         },
         "request"
       );
@@ -160,15 +160,15 @@ const authenticateIfSuccessfulLink = (
   );
 
 const retryLink = new RetryLink({
-  delay: {
-    initial: 300,
-    max: 3000,
-    jitter: true,
-  },
   attempts: {
     max: 5,
     retryIf: (error): boolean =>
       error && error.response && error.response.status >= 500,
+  },
+  delay: {
+    initial: 300,
+    jitter: true,
+    max: 3000,
   },
 });
 
@@ -179,8 +179,8 @@ const getGQLClient = ({
   logoutAndRedirect,
 }: ClientLinkParams) => {
   const link = new HttpLink({
-    uri: gqlURL,
     credentials,
+    uri: gqlURL,
   });
 
   const client = new ApolloClient({

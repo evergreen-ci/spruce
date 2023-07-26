@@ -77,8 +77,8 @@ const Hosts: React.VFC = () => {
     HostsQuery,
     HostsQueryVariables
   >(HOSTS, {
-    variables: queryVariables,
     fetchPolicy: "cache-and-network",
+    variables: queryVariables,
   });
 
   const hosts = hostsData?.hosts;
@@ -191,15 +191,15 @@ const getQueryVariables = (search: string): HostsQueryVariables => {
   } = parseQueryString(search) as { [key in QueryParam]: string | string[] };
 
   return {
-    hostId: getString(hostId),
-    distroId: getString(distroId),
     currentTaskId: getString(currentTaskId),
-    statuses: toArray(statuses),
-    startedBy: getString(startedBy),
+    distroId: getString(distroId),
+    hostId: getString(hostId),
+    limit: getLimitFromSearch(search),
+    page: getPageFromSearch(search),
     sortBy: getSortBy(sortBy),
     sortDir: getSortDir(sortDir),
-    page: getPageFromSearch(search),
-    limit: getLimitFromSearch(search),
+    startedBy: getString(startedBy),
+    statuses: toArray(statuses),
   };
 };
 

@@ -111,9 +111,9 @@ describe("sortFunctionString", () => {
 describe("omitTypename", () => {
   it("simple object with __typename", () => {
     const obj = {
+      __typename: "simpleObj",
       fieldA: "test",
       fieldB: "test2",
-      __typename: "simpleObj",
     };
     expect(omitTypename(obj)).toStrictEqual({
       fieldA: "test",
@@ -165,8 +165,8 @@ describe("omitTypename", () => {
       fieldA: "test",
       fieldB: "test2",
       someOtherObj: {
-        fieldC: "test3",
         __typename: "someOtherObj",
+        fieldC: "test3",
 
         someDeepObject: {
           __typename: "someDeepObject",
@@ -190,8 +190,8 @@ describe("omitTypename", () => {
       fieldA: "test",
       fieldB: "test2",
       someOtherObj: {
-        fieldC: "test3",
         __typename: "someOtherObj",
+        fieldC: "test3",
         someArray: [
           {
             __typename: "someDeepObject",
@@ -263,8 +263,8 @@ describe("getDateCopy", () => {
     ).toBe("Nov 16, 2020");
     expect(
       getDateCopy("2020-11-16T22:17:29", {
-        tz: "America/New_York",
         dateOnly: true,
+        tz: "America/New_York",
       })
     ).toBe("Nov 16, 2020");
     expect(getDateCopy("08/31/1996", { dateOnly: true })).toBe("Aug 31, 1996");
@@ -279,9 +279,9 @@ describe("getDateCopy", () => {
     ).toBe("11-16-2020");
     expect(
       getDateCopy("2020-11-16T22:17:29", {
-        tz: "America/New_York",
         dateFormat: "dd-MM-yyyy",
         dateOnly: true,
+        tz: "America/New_York",
       })
     ).toBe("16-11-2020");
     expect(

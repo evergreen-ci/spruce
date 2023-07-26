@@ -61,9 +61,9 @@ export const NotificationsTab: React.VFC = () => {
 
     const variables = {
       userSettings: {
-        slackUsername: slackUsernameField,
-        slackMemberId: slackMemberIdField,
         notifications: omitTypename(notificationStatus),
+        slackMemberId: slackMemberIdField,
+        slackUsername: slackUsernameField,
       },
     };
     sendEvent({
@@ -72,8 +72,8 @@ export const NotificationsTab: React.VFC = () => {
     });
     try {
       await updateUserSettings({
-        variables,
         refetchQueries: ["UserSettings"],
+        variables,
       });
     } catch (err) {}
   };

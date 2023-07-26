@@ -26,25 +26,25 @@ const VersionPageBreadcrumbs: React.VFC<VersionPageBreadcrumbsProps> = ({
   const breadcrumbAnalytics = useBreadcrumbAnalytics();
 
   const patchBreadcrumb = {
-    text: `Patch ${patchNumber}`,
+    "data-cy": "bc-patch",
     onClick: () => {
       breadcrumbAnalytics.sendEvent({
-        name: "Click Link",
         link: "version",
+        name: "Click Link",
       });
     },
-    "data-cy": "bc-patch",
+    text: `Patch ${patchNumber}`,
   };
 
   const commitBreadcrumb = {
-    text: shortenGithash(revision),
+    "data-cy": "bc-version",
     onClick: () => {
       breadcrumbAnalytics.sendEvent({
-        name: "Click Link",
         link: "version",
+        name: "Click Link",
       });
     },
-    "data-cy": "bc-version",
+    text: shortenGithash(revision),
   };
 
   const breadcrumbs: Breadcrumb[] = [

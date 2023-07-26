@@ -3,10 +3,10 @@ import { VariableRow } from "./VariableRow";
 
 const mockProperty = {
   content: null,
-  name: "",
   disabled: false,
-  readonly: false,
   hidden: false,
+  name: "",
+  readonly: false,
 };
 const mockProperties = [mockProperty, mockProperty, mockProperty];
 
@@ -15,9 +15,9 @@ const mockUiSchema = {
     repoData: {
       vars: [
         {
+          isPrivate: false,
           varName: "test",
           varValue: "test_value",
-          isPrivate: false,
         },
       ],
     },

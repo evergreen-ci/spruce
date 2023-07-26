@@ -28,51 +28,51 @@ const BaseTreeSelect = (props: TreeSelectProps) => {
 
 const treeData = [
   {
+    key: "all",
     title: "All",
     value: "all",
-    key: "all",
   },
   {
-    title: "Shapes",
-    value: "shapes",
-    key: "shapes",
     children: [
       {
+        key: "rectangle",
         title: "rectangle",
         value: "rectangle",
-        key: "rectangle",
       },
       {
+        key: "circle",
         title: "circle",
         value: "circle",
-        key: "circle",
       },
       {
+        key: "rhombus",
         title: "rhombus",
         value: "rhombus",
-        key: "rhombus",
       },
     ],
+    key: "shapes",
+    title: "Shapes",
+    value: "shapes",
   },
   {
+    key: "pass",
     title: "Pass",
     value: "pass",
-    key: "pass",
   },
   {
+    key: "failed",
     title:
       "REALLY LONG TITLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE!!!!!!!!!!!!!!!!!",
     value: "failed",
-    key: "failed",
   },
   {
+    key: "skip",
     title: "Skip",
     value: "skip",
-    key: "skip",
   },
   {
+    key: "silentfail",
     title: "Silent Fail",
     value: "silentfail",
-    key: "silentfail",
   },
 ];

@@ -48,13 +48,13 @@ const ProjectSettings: React.VFC = () => {
     ProjectSettingsQuery,
     ProjectSettingsQueryVariables
   >(GET_PROJECT_SETTINGS, {
-    skip: isRepo,
-    variables: { identifier },
     onError: (e) => {
       dispatchToast.error(
         `There was an error loading the project ${identifier}: ${e.message}`
       );
     },
+    skip: isRepo,
+    variables: { identifier },
   });
 
   const repoId =
@@ -74,11 +74,11 @@ const ProjectSettings: React.VFC = () => {
     RepoSettingsQuery,
     RepoSettingsQueryVariables
   >(GET_REPO_SETTINGS, {
-    skip: projectLoading || projectType === ProjectType.Project,
-    variables: { repoId },
     onError: (e) => {
       dispatchToast.error(`There was an error loading ${repoId}: ${e.message}`);
     },
+    skip: projectLoading || projectType === ProjectType.Project,
+    variables: { repoId },
   });
 
   if (!tabRouteValues.includes(tab)) {
@@ -93,8 +93,8 @@ const ProjectSettings: React.VFC = () => {
   }
 
   const sharedProps = {
-    identifier,
     currentTab: tab,
+    identifier,
   };
 
   const project =

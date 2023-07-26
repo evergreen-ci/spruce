@@ -61,15 +61,15 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
     VersionTasksQuery,
     VersionTasksQueryVariables
   >(GET_VERSION_TASKS, {
-    variables: queryVariables,
-    pollInterval: DEFAULT_POLL_INTERVAL,
-    skip: !hasQueryVariables,
     fetchPolicy: "cache-and-network",
     onError: (err) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
+    pollInterval: DEFAULT_POLL_INTERVAL,
+    skip: !hasQueryVariables,
+    variables: queryVariables,
   });
-  usePolling({ startPolling, stopPolling, refetch });
+  usePolling({ refetch, startPolling, stopPolling });
   const { version } = data || {};
   const { isPatch, tasks } = version || {};
   const { count = 0, data: tasksData = [] } = tasks || {};

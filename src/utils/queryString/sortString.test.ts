@@ -6,12 +6,12 @@ describe("parseSortString", () => {
   it("should parse a sort string with multiple sorts", () => {
     expect(parseSortString("NAME:ASC;STATUS:DESC")).toStrictEqual([
       {
-        Key: TaskSortCategory.Name,
         Direction: SortDirection.Asc,
+        Key: TaskSortCategory.Name,
       },
       {
-        Key: TaskSortCategory.Status,
         Direction: SortDirection.Desc,
+        Key: TaskSortCategory.Status,
       },
     ]);
   });

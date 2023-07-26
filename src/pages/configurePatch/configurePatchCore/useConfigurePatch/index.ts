@@ -42,12 +42,12 @@ type Action =
 
 const initialState = ({ selectedTab = 0 }: { selectedTab: number }) => ({
   description: "",
-  selectedAliases: {},
-  selectedBuildVariants: [],
-  selectedBuildVariantTasks: {},
-  patchParams: null,
-  selectedTab,
   disableBuildVariantSelect: tabToIndexMap[selectedTab] === PatchTab.Tasks,
+  patchParams: null,
+  selectedAliases: {},
+  selectedBuildVariantTasks: {},
+  selectedBuildVariants: [],
+  selectedTab,
 });
 
 const reducer = (state: ConfigurePatchState, action: Action) => {
@@ -86,19 +86,19 @@ const reducer = (state: ConfigurePatchState, action: Action) => {
       }
       return {
         ...state,
-        selectedTab: tab,
         disableBuildVariantSelect:
           indexToTabMap[action.tabIndex] !== PatchTab.Tasks,
+        selectedTab: tab,
       };
     }
     case "updatePatchData":
       return {
         ...state,
         description: action.description,
-        selectedBuildVariants: action.buildVariants,
         patchParams: omitTypename(action.params),
-        selectedBuildVariantTasks: action.variantTasks,
         selectedAliases: action.aliases,
+        selectedBuildVariantTasks: action.variantTasks,
+        selectedBuildVariants: action.buildVariants,
       };
 
     default:
@@ -154,20 +154,20 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
   useEffect(() => {
     if (patch) {
       dispatch({
-        type: "updatePatchData",
-        description: patch.description,
-        buildVariants: [variants[0]?.name],
-        params: patch.parameters,
-        variantTasks: initializeTaskState(variants, patch.variantsTasks),
         aliases: initializeAliasState(patch.patchTriggerAliases),
+        buildVariants: [variants[0]?.name],
+        description: patch.description,
+        params: patch.parameters,
+        type: "updatePatchData",
+        variantTasks: initializeTaskState(variants, patch.variantsTasks),
       });
     }
   }, [patch, variants]);
 
   const setDescription = (description: string) =>
-    dispatch({ type: "setDescription", description });
+    dispatch({ description, type: "setDescription" });
   const setSelectedBuildVariants = (buildVariants: string[]) =>
-    dispatch({ type: "setSelectedBuildVariants", buildVariants });
+    dispatch({ buildVariants, type: "setSelectedBuildVariants" });
   const setSelectedBuildVariantTasks = (variantTasks: VariantTasksState) =>
     dispatch({
       type: "setSelectedBuildVariantTasks",
@@ -175,13 +175,13 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
     });
   const setSelectedAliases = (aliases: AliasState) =>
     dispatch({
-      type: "setSelectedAliases",
       aliases,
+      type: "setSelectedAliases",
     });
   const setSelectedTab = (i: number) =>
-    dispatch({ type: "setSelectedTab", tabIndex: i });
+    dispatch({ tabIndex: i, type: "setSelectedTab" });
   const setPatchParams = (params) =>
-    dispatch({ type: "setPatchParams", params });
+    dispatch({ params, type: "setPatchParams" });
 
   useTabShortcut({
     currentTab: selectedTab,
@@ -194,8 +194,8 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
     setDescription,
     setPatchParams,
     setSelectedAliases,
-    setSelectedBuildVariants,
     setSelectedBuildVariantTasks,
+    setSelectedBuildVariants,
     setSelectedTab,
   };
 };

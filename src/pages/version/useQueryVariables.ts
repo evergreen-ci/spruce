@@ -35,15 +35,15 @@ export const useQueryVariables = (
   }
 
   return {
-    versionId,
     taskFilterOptions: {
-      variant: getString(variant),
-      taskName: getString(taskName),
-      statuses: toArray(statuses),
       baseStatuses: toArray(baseStatuses),
-      sorts: sortsToApply,
-      page: getPageFromSearch(search),
       limit: getLimitFromSearch(search),
+      page: getPageFromSearch(search),
+      sorts: sortsToApply,
+      statuses: toArray(statuses),
+      taskName: getString(taskName),
+      variant: getString(variant),
     },
+    versionId,
   };
 };

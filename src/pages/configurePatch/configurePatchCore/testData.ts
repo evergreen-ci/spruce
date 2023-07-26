@@ -9,15 +9,18 @@ import { ApolloMock } from "types/gql";
 export const patchQuery: ConfigurePatchQuery = {
   patch: {
     __typename: "Patch",
-    id: "version",
-    description: "test",
-    projectIdentifier: "spruce",
-    author: "mohamed.khelif",
     activated: false,
-    status: "created",
-    time: {
-      submittedAt: "2020-08-28T15:00:17Z",
-    },
+    author: "mohamed.khelif",
+    childPatchAliases: [
+      {
+        alias: "spruce",
+        patchId: "5f4889313627e0544660c800",
+      },
+    ],
+    childPatches: [],
+    description: "test",
+    id: "version",
+    parameters: [],
     patchTriggerAliases: [
       {
         alias: "evergreen",
@@ -31,15 +34,6 @@ export const patchQuery: ConfigurePatchQuery = {
         ],
       },
     ],
-    childPatchAliases: [
-      {
-        alias: "spruce",
-        patchId: "5f4889313627e0544660c800",
-      },
-    ],
-    childPatches: [],
-    parameters: [],
-    variantsTasks: [],
     project: {
       variants: [
         {
@@ -54,6 +48,12 @@ export const patchQuery: ConfigurePatchQuery = {
         },
       ],
     },
+    projectIdentifier: "spruce",
+    status: "created",
+    time: {
+      submittedAt: "2020-08-28T15:00:17Z",
+    },
+    variantsTasks: [],
   },
 };
 
@@ -73,8 +73,6 @@ export const mocks: ApolloMock<CodeChangesQuery, CodeChangesQueryVariables>[] =
               {
                 __typename: "ModuleCodeChange",
                 branchName: "main",
-                htmlLink: "htmlLink",
-                rawLink: "rawLink",
                 fileDiffs: [
                   {
                     __typename: "FileDiff",
@@ -85,6 +83,8 @@ export const mocks: ApolloMock<CodeChangesQuery, CodeChangesQueryVariables>[] =
                     fileName: "diff",
                   },
                 ],
+                htmlLink: "htmlLink",
+                rawLink: "rawLink",
               },
             ],
           },
