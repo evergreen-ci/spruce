@@ -20,6 +20,7 @@ export const getFormSchema = (
             type: "array" as "array",
             title: "",
             items: {
+              title: "",
               type: "object" as "object",
               properties: {
                 name: {

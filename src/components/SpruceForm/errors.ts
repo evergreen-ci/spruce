@@ -34,6 +34,11 @@ export const transformErrors = (errors: AjvError[]) =>
             ...error,
             message: Errors.Invisible,
           };
+        case "maxLength":
+          return {
+            ...error,
+            message: `Value cannot exceed ${error.params.limit} characters.`,
+          };
         case "oneOf":
           return {
             ...error,

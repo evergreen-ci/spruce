@@ -120,6 +120,7 @@ export const getFormSchema = ({
         title: "",
         type: "array" as "array",
         items: {
+          title: "",
           type: "object" as "object",
           properties: {
             key: {

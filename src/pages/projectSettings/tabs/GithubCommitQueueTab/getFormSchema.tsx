@@ -100,6 +100,7 @@ export const getFormSchema = (
               type: "array" as "array",
               title: "GitHub Trigger Aliases",
               items: {
+                title: "",
                 type: "object" as "object",
               },
             },

@@ -74,6 +74,7 @@ const example1Def = {
         type: "array" as "array",
         title: "Expansions",
         items: {
+          title: "",
           type: "object" as "object",
           properties: {
             key: {

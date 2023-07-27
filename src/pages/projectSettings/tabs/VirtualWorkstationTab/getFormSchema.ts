@@ -31,6 +31,7 @@ export const getFormSchema = (
             type: "array" as "array",
             default: [],
             items: {
+              title: "",
               type: "object" as "object",
               properties: {
                 command: {

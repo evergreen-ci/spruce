@@ -86,6 +86,7 @@ const regexSelector = (
   minItems: 0,
   maxItems: 2,
   items: {
+    title: "",
     type: "object" as "object",
     required: ["regexSelect", "regexInput"],
     properties: {
@@ -136,6 +137,7 @@ export const getEventSchema = (
       eventSelect: {
         type: "string" as "string",
         title: "Event",
+        default: "",
         oneOf: [
           ...Object.keys(triggers).map((t) => ({
             type: "string" as "string",

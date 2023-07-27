@@ -17,6 +17,7 @@ export const getFormSchema = (
       varsArray: {
         type: "array" as "array",
         items: {
+          title: "",
           type: "object" as "object",
           properties: {
             varName: {

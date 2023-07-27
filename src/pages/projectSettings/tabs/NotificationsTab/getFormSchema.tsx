@@ -95,6 +95,7 @@ export const getFormSchema = (
           type: "array" as "array",
           title: "Subscriptions",
           items: {
+            title: "",
             type: "object" as "object",
             properties: {
               subscriptionData: {
