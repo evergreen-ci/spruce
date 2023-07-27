@@ -1,27 +1,9 @@
-import {
-  addPageAction,
-  Properties,
-  Analytics as A,
-} from "analytics/addPageAction";
-import { useGetUserQuery } from "analytics/useGetUserQuery";
+import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 
 type Action = {
   name: "Click Link";
   link: "myPatches" | "patch" | "version" | "waterfall" | "displayTask";
 };
 
-interface P extends Properties {}
-export interface Analytics extends A<Action> {}
-
-export const useBreadcrumbAnalytics = (): Analytics => {
-  const userId = useGetUserQuery();
-
-  const sendEvent: Analytics["sendEvent"] = (action) => {
-    addPageAction<Action, P>(action, {
-      object: "Breadcrumb",
-      userId,
-    });
-  };
-
-  return { sendEvent };
-};
+export const useBreadcrumbAnalytics = () =>
+  useAnalyticsRoot<Action>("Breadcrumb");

@@ -1,8 +1,7 @@
 import { useEffect } from "react";
-import { useGetUserQuery } from "analytics/useGetUserQuery";
 
 export const useAnalyticsAttributes = () => {
-  const userId = useGetUserQuery();
+  const userId = localStorage.getItem("userId");
   const { newrelic } = window;
 
   useEffect(() => {

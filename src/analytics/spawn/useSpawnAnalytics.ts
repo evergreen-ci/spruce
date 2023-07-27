@@ -1,9 +1,5 @@
-import {
-  addPageAction,
-  Properties,
-  Analytics as A,
-} from "analytics/addPageAction";
-import { useGetUserQuery } from "analytics/useGetUserQuery";
+import { Analytics } from "analytics/addPageAction";
+import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 import {
   EditSpawnHostMutationVariables,
   SpawnHostMutationVariables,
@@ -41,20 +37,8 @@ type Action =
     }
   | { name: "Opened IDE" };
 
-interface P extends Properties {}
-interface Analytics extends A<Action> {}
+export const useSpawnAnalytics = () => useAnalyticsRoot<Action>("SpawnPages");
 
-export const useSpawnAnalytics = (): Analytics => {
-  const userId = useGetUserQuery();
+type SpawnHostAnalytics = Analytics<Action>;
 
-  const sendEvent: Analytics["sendEvent"] = (action) => {
-    addPageAction<Action, P>(action, {
-      object: "SpawnPages",
-      userId,
-    });
-  };
-
-  return { sendEvent };
-};
-
-export type { Analytics };
+export type { SpawnHostAnalytics as Analytics };

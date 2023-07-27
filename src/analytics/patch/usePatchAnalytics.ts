@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { addPageAction, Properties, Analytics } from "analytics/addPageAction";
-import { useGetUserQuery } from "analytics/useGetUserQuery";
+import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 import {
   SaveSubscriptionForUserMutationVariables,
   PatchQuery,
@@ -49,15 +48,7 @@ type Action =
   | { name: "Click Base Commit Link" }
   | { name: "Open Schedule Tasks Modal" };
 
-interface P extends Properties {
-  patchId: string;
-  patchStatus: string;
-}
-interface PatchAnalytics extends Analytics<Action> {}
-
-export const usePatchAnalytics = (id: string): PatchAnalytics => {
-  const userId = useGetUserQuery();
-
+export const usePatchAnalytics = (id: string) => {
   const { data: eventData } = useQuery<PatchQuery, PatchQueryVariables>(
     GET_PATCH,
     {
@@ -67,14 +58,8 @@ export const usePatchAnalytics = (id: string): PatchAnalytics => {
   );
   const { status } = eventData?.patch || {};
 
-  const sendEvent: PatchAnalytics["sendEvent"] = (action) => {
-    addPageAction<Action, P>(action, {
-      object: "Patch",
-      userId,
-      patchStatus: status,
-      patchId: id,
-    });
-  };
-
-  return { sendEvent };
+  return useAnalyticsRoot<Action>("Patch", {
+    patchStatus: status,
+    patchId: id,
+  });
 };

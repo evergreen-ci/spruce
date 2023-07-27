@@ -1,10 +1,5 @@
 import { useParams } from "react-router-dom";
-import {
-  addPageAction,
-  Properties,
-  Analytics as A,
-} from "analytics/addPageAction";
-import { useGetUserQuery } from "analytics/useGetUserQuery";
+import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 
 type Action =
   | { name: "Change Page Size" }
@@ -14,19 +9,7 @@ type Action =
   | { name: "Filter Commit Queue" }
   | { name: "Filter Patches"; filterBy: string };
 
-interface P extends Properties {}
-interface Analytics extends A<Action> {}
-
-export const useProjectPatchesAnalytics = (): Analytics => {
+export const useProjectPatchesAnalytics = () => {
   const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
-  const userId = useGetUserQuery();
-  const sendEvent: Analytics["sendEvent"] = (action) => {
-    addPageAction<Action, P>(action, {
-      object: "ProjectPatches",
-      userId,
-      projectIdentifier,
-    });
-  };
-
-  return { sendEvent };
+  return useAnalyticsRoot<Action>("ProjectPatches", { projectIdentifier });
 };
