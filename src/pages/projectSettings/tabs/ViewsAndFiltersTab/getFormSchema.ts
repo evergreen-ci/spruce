@@ -44,7 +44,6 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
         type: "array" as "array",
         default: [],
         items: {
-          title: "",
           type: "object" as "object",
           properties: {
             expression: {
@@ -112,6 +111,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       "ui:data-cy": "parsley-filter-list",
       items: {
         "ui:displayTitle": "New Parsley Filter",
+        "ui:label": false,
         expression: {
           "ui:data-cy": "parsley-filter-expression",
         },

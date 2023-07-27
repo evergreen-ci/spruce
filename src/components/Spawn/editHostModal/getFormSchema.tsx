@@ -120,7 +120,6 @@ export const getFormSchema = ({
         title: "",
         type: "array" as "array",
         items: {
-          title: "",
           type: "object" as "object",
           properties: {
             key: {
@@ -270,6 +269,7 @@ export const getFormSchema = ({
       "ui:orderable": false,
       items: {
         "ui:ObjectFieldTemplate": UserTagRow,
+        "ui:label": false,
       },
     },
     publicKeySection: {

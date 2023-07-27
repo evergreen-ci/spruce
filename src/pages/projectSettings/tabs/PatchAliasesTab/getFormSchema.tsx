@@ -38,7 +38,6 @@ export const getFormSchema = (
           {
             type: "array" as "array",
             items: {
-              title: "",
               type: "object" as "object",
               properties: {
                 alias: {
@@ -185,6 +184,7 @@ const aliasesUiSchema = {
   "ui:useExpandableCard": true,
   items: {
     "ui:displayTitle": "New Patch Trigger Alias",
+    "ui:label": false,
     alias: {
       "ui:data-cy": "pta-alias-input",
     },

@@ -20,7 +20,6 @@ export const getFormSchema = (
             type: "array" as "array",
             title: "",
             items: {
-              title: "",
               type: "object" as "object",
               properties: {
                 name: {
@@ -61,6 +60,7 @@ export const getFormSchema = (
         "ui:addButtonText": "Add new configuration",
         items: {
           "ui:ObjectFieldTemplate": FieldRow,
+          "ui:label": false,
           "ui:data-cy": "container-size-row",
           name: {
             "ui:data-cy": "var-name-input",

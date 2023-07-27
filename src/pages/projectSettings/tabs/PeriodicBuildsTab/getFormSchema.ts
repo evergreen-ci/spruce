@@ -25,7 +25,6 @@ export const getFormSchema = (
         type: "array" as "array",
         default: [],
         items: {
-          title: "",
           type: "object" as "object",
           properties: {
             interval: {
@@ -139,6 +138,7 @@ export const getFormSchema = (
       "ui:useExpandableCard": true,
       items: {
         "ui:displayTitle": "New Periodic Build",
+        "ui:label": false,
         interval: {
           specifier: {
             "ui:widget": widgets.SegmentedControlWidget,

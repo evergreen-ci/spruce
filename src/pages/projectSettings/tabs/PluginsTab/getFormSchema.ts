@@ -62,7 +62,6 @@ export const getFormSchema = (
                 type: "array" as "array",
                 title: "Custom JIRA Fields",
                 items: {
-                  title: "",
                   type: "object" as "object",
                   properties: {
                     field: {
@@ -106,7 +105,6 @@ export const getFormSchema = (
                     type: "array" as "array",
                     title: "Ticket Search Projects",
                     items: {
-                      title: "",
                       type: "object" as "object",
                       properties: {
                         searchProject: {
@@ -218,6 +216,9 @@ export const getFormSchema = (
             "Add any custom JIRA fields that you want displayed on any listed JIRA tickets, for example: assigned teams.",
           "ui:addButtonText": "Add Custom JIRA Field",
           "ui:orderable": false,
+          items: {
+            "ui:label": false,
+          },
         },
       },
       useBuildBaron: {
@@ -230,6 +231,9 @@ export const getFormSchema = (
           "Specify an existing JIRA project to search for tickets related to a failing task",
         "ui:addButtonText": "Add Search Project",
         "ui:orderable": false,
+        items: {
+          "ui:label": false,
+        },
       },
       ticketCreateProject: {
         "ui:description":

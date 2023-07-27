@@ -585,7 +585,6 @@ export const patchAliasArray = {
   schema: {
     type: "array" as "array",
     items: {
-      title: "",
       type: "object" as "object",
       properties: {
         alias: alias.schema,

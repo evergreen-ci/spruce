@@ -86,7 +86,6 @@ const regexSelector = (
   minItems: 0,
   maxItems: 2,
   items: {
-    title: "",
     type: "object" as "object",
     required: ["regexSelect", "regexInput"],
     properties: {
@@ -463,6 +462,7 @@ export const getEventSchema = (
       "ui:addButtonText": "Add Additional Criteria",
       items: {
         "ui:ObjectFieldTemplate": RegexSelectorRow,
+        "ui:label": false,
         regexSelect: {
           "ui:data-cy": "regex-select",
           "ui:enumDisabled": regexEnumsToDisable,
