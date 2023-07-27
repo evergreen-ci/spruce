@@ -37,6 +37,7 @@ export const TaskQueueTable: React.VFC<TaskQueueTableProps> = ({
     DistroTaskQueueQueryVariables
   >(DISTRO_TASK_QUEUE, {
     variables: { distroId: distro },
+    fetchPolicy: "cache-and-network",
   });
 
   const taskQueueItems = taskQueueItemsData?.distroTaskQueue ?? [];
