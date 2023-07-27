@@ -14,12 +14,12 @@ interface TaskStatusCheckboxProps {
 }
 
 const CheckboxComponent: React.VFC<TaskStatusCheckboxProps> = ({
-  taskId,
-  status,
   baseStatus,
-  displayName,
   checked,
+  displayName,
+  status,
   style,
+  taskId,
 }) => (
   <Checkbox
     style={style}

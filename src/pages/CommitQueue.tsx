@@ -69,7 +69,7 @@ export const CommitQueue: React.VFC = () => {
 
       <HR />
       {queue ? (
-        queue.map(({ patch, issue, enqueueTime }, i) => (
+        queue.map(({ enqueueTime, issue, patch }, i) => (
           <CommitQueueCard
             key={issue}
             issue={issue}

@@ -20,7 +20,7 @@ export const HostTable: React.VFC<{
   page: number;
   limit: number;
   eventsCount: number;
-}> = ({ loading, eventData, error, page, limit, eventsCount }) => {
+}> = ({ error, eventData, eventsCount, limit, loading, page }) => {
   const isHostPage = true;
   const hostsTableAnalytics = useHostsTableAnalytics(isHostPage);
   const setPageSize = usePageSizeSelector();

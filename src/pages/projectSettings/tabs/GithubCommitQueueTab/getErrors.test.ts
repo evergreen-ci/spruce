@@ -2,12 +2,12 @@ import { AliasFormType, ProjectType } from "../utils";
 import { sectionHasError } from "./getErrors";
 
 const callSectionHasError = ({
-  versionControlEnabled,
-  projectType,
+  aliases,
   enabled,
   override,
-  aliases,
+  projectType,
   repoAliases,
+  versionControlEnabled,
 }) =>
   sectionHasError(versionControlEnabled, projectType)(
     enabled,

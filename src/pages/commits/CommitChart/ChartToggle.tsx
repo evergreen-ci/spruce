@@ -15,8 +15,8 @@ export const ChartToggle: React.VFC<{
   onChangeChartType: (chartType: ChartTypes) => void;
 }> = ({
   currentChartType,
-  onChangeChartType,
   defaultOpenAccordion,
+  onChangeChartType,
   onToggleAccordion,
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });

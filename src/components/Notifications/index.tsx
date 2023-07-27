@@ -132,7 +132,7 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
         schema={schema}
         uiSchema={uiSchema}
         formData={formState}
-        onChange={({ formData, errors }) => {
+        onChange={({ errors, formData }) => {
           // Update event cookie when it changes.
           updateEventCookie(formData.event.eventSelect);
           // Update notification cookie when it changes.

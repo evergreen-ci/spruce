@@ -18,7 +18,7 @@ import Metadata from "./Metadata";
 const Container = () => {
   const dispatchToast = useToastContext();
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery<PodQuery, PodQueryVariables>(
+  const { data, error, loading } = useQuery<PodQuery, PodQueryVariables>(
     GET_POD,
     {
       variables: { podId: id },

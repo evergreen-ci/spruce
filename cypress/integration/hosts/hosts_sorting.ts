@@ -190,7 +190,7 @@ describe("Hosts page sorting", () => {
     });
   });
 
-  sortByTests.forEach(({ sorterName, sortBy, expectedIds }) => {
+  sortByTests.forEach(({ expectedIds, sortBy, sorterName }) => {
     it(`Sorts by ${sorterName} when sortBy = ${sortBy}`, () => {
       cy.visit(`${hostsRoute}?sortBy=${sortBy}&limit=10`);
       cy.get(tableRow).each(($el, index) =>
@@ -199,7 +199,7 @@ describe("Hosts page sorting", () => {
     });
   });
 
-  sortDirectionTests.forEach(({ order, sortDir, expectedIds }) => {
+  sortDirectionTests.forEach(({ expectedIds, order, sortDir }) => {
     it(`Sorts in ${order} order when sortDir = ${sortDir}`, () => {
       cy.visit(
         `${hostsRoute}?page=0&sortBy=CURRENT_TASK&sortDir=${sortDir}&limit=10`

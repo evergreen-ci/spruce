@@ -10,9 +10,9 @@ interface ScheduleTasksProps {
   disabled?: boolean;
 }
 export const ScheduleTasks: React.VFC<ScheduleTasksProps> = ({
-  versionId,
-  isButton,
   disabled = false,
+  isButton,
+  versionId,
 }) => {
   const [open, setOpen] = useState(false);
   const { sendEvent } = useVersionAnalytics(versionId);

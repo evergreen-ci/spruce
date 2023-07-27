@@ -35,12 +35,12 @@ let timeout;
 export const WaterfallTaskStatusIcon: React.VFC<
   WaterfallTaskStatusIconProps
 > = ({
-  taskId,
-  status,
   displayName,
-  timeTaken,
-  identifier,
   failedTestCount,
+  identifier,
+  status,
+  taskId,
+  timeTaken,
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const [enabled, setEnabled] = useState(false);
@@ -49,7 +49,7 @@ export const WaterfallTaskStatusIcon: React.VFC<
     FailedTaskStatusIconTooltipQueryVariables
   >(GET_FAILED_TASK_STATUS_ICON_TOOLTIP, { variables: { taskId } });
 
-  const { testResults, filteredTestCount } = data?.task?.tests ?? {};
+  const { filteredTestCount, testResults } = data?.task?.tests ?? {};
   const failedTestDifference = filteredTestCount - (testResults ?? []).length;
 
   useEffect(() => {

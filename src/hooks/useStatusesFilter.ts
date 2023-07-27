@@ -14,9 +14,9 @@ const { parseQueryString } = queryString;
  * @returns - the status filter state and its state management functions
  */
 export const useStatusesFilter = ({
-  urlParam,
   resetPage,
   sendAnalyticsEvent = () => undefined,
+  urlParam,
 }: FilterHookParams): FilterHookResult<string[]> => {
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();

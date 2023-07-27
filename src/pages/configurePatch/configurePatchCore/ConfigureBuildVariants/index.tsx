@@ -17,11 +17,11 @@ interface Props {
 }
 
 export const ConfigureBuildVariants: React.VFC<Props> = ({
-  variants,
   aliases,
+  disabled,
   selectedBuildVariants,
   setSelectedBuildVariants,
-  disabled,
+  variants,
 }) => {
   const [state, dispatch] = useReducer(buttonPressedReducer, {
     numButtonsPressed: 0,

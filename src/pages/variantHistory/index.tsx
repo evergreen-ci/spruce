@@ -32,7 +32,7 @@ import TaskSelector from "./TaskSelector";
 import VariantHistoryRow from "./VariantHistoryRow";
 
 const { HistoryTableProvider } = context;
-const { useTestFilters, useJumpToCommit } = hooks;
+const { useJumpToCommit, useTestFilters } = hooks;
 const { applyStrictRegex } = string;
 
 const VariantHistoryContents: React.VFC = () => {
@@ -46,7 +46,7 @@ const VariantHistoryContents: React.VFC = () => {
   usePageTitle(`Variant History | ${projectIdentifier} | ${variantName}`);
   useJumpToCommit();
   useTestFilters();
-  const { badges, handleOnRemove, handleClearAll } = useFilterBadgeQueryParams(
+  const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
     constants.queryParamsToDisplay
   );
   const { data, loading, refetch } = useQuery<

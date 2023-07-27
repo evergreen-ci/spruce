@@ -41,7 +41,7 @@ export const Example3: CustomStoryObj<typeof SpruceForm> = {
   ),
 };
 
-const BaseForm = ({ title, data, schema, uiSchema }) => {
+const BaseForm = ({ data, schema, title, uiSchema }) => {
   const [formState, setFormState] = useState(data);
   const onChange = (d) => {
     const { formData } = d;

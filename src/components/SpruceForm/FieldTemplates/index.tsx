@@ -11,8 +11,8 @@ const { gray } = palette;
 
 // Custom field template that does not render fields' titles, as this is handled by LeafyGreen widgets
 export const DefaultFieldTemplate: React.VFC<FieldTemplateProps> = ({
-  classNames,
   children,
+  classNames,
   description,
   hidden,
   id,

@@ -70,7 +70,7 @@ export const NameChangeModal: React.VFC<NameChangeModalProps> = ({
           schema={schema}
           uiSchema={uiSchema}
           formData={formState}
-          onChange={({ formData, errors }) => {
+          onChange={({ errors, formData }) => {
             setHasFormError(!!errors.length);
             setFormState(formData);
           }}

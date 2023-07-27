@@ -155,7 +155,7 @@ const useSettingsState = <
   );
 
   const updateForm = ((tab) =>
-    ({ formData, errors = [] }: OnChangeParams<T, FormStateMap>) => {
+    ({ errors = [], formData }: OnChangeParams<T, FormStateMap>) => {
       setHasChanges(tab, formData);
       dispatch({ type: "updateForm", tab, formData, errors });
     }) satisfies SettingsState<T, FormStateMap>["updateForm"];

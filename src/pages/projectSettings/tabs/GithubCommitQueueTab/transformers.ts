@@ -14,8 +14,8 @@ export const mergeProjectRepo = (
 ): GCQFormState => {
   // Merge project and repo objects so that repo config can be displayed on project pages
   const {
-    github: { prTesting, githubChecks, users, teams, gitTags },
     commitQueue: { patchDefinitions },
+    github: { gitTags, githubChecks, prTesting, teams, users },
   } = repoData;
   const mergedObject: GCQFormState = projectData;
   mergedObject.github.prTesting.repoData = prTesting;
@@ -30,24 +30,24 @@ export const mergeProjectRepo = (
 export const gqlToForm = ((data, options) => {
   if (!data) return null;
 
-  const { projectRef, aliases } = data;
+  const { aliases, projectRef } = data;
   const { projectType } = options;
 
   const {
-    prTestingEnabled,
-    manualPrTestingEnabled,
-    githubChecksEnabled,
-    gitTagVersionsEnabled,
-    gitTagAuthorizedUsers,
-    gitTagAuthorizedTeams,
     commitQueue,
+    gitTagAuthorizedTeams,
+    gitTagAuthorizedUsers,
+    gitTagVersionsEnabled,
+    githubChecksEnabled,
+    manualPrTestingEnabled,
+    prTestingEnabled,
   } = projectRef;
 
   const {
     commitQueueAliases,
-    githubPrAliases,
-    githubCheckAliases,
     gitTagAliases,
+    githubCheckAliases,
+    githubPrAliases,
   } = sortAliases(aliases);
 
   const override = (field: Array<any>) =>
@@ -107,23 +107,23 @@ export const gqlToForm = ((data, options) => {
 
 export const formToGql = ((
   {
-    github: {
-      prTestingEnabled,
-      manualPrTestingEnabled,
-      prTesting,
-      githubChecksEnabled,
-      githubChecks,
-      gitTagVersionsEnabled,
-      users: { gitTagAuthorizedUsers, gitTagAuthorizedUsersOverride },
-      teams: { gitTagAuthorizedTeams, gitTagAuthorizedTeamsOverride },
-      gitTags,
-    },
     commitQueue: {
       enabled,
       mergeMethod,
       mergeQueue,
       message,
       patchDefinitions,
+    },
+    github: {
+      gitTagVersionsEnabled,
+      gitTags,
+      githubChecks,
+      githubChecksEnabled,
+      manualPrTestingEnabled,
+      prTesting,
+      prTestingEnabled,
+      teams: { gitTagAuthorizedTeams, gitTagAuthorizedTeamsOverride },
+      users: { gitTagAuthorizedUsers, gitTagAuthorizedUsersOverride },
     },
   },
   id

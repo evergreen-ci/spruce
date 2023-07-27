@@ -99,7 +99,7 @@ export const MoveRepoModal: React.VFC<ModalProps> = ({
       </StyledBody>
       <SpruceForm
         formData={formState}
-        onChange={({ formData, errors }) => {
+        onChange={({ errors, formData }) => {
           setHasError(errors.length > 0);
           setFormState(formData);
         }}

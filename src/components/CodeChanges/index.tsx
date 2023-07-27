@@ -26,7 +26,7 @@ interface CodeChangesProps {
   patchId: string;
 }
 export const CodeChanges: React.VFC<CodeChangesProps> = ({ patchId }) => {
-  const { data, loading, error } = useQuery<
+  const { data, error, loading } = useQuery<
     CodeChangesQuery,
     CodeChangesQueryVariables
   >(GET_CODE_CHANGES, {
@@ -46,7 +46,7 @@ export const CodeChanges: React.VFC<CodeChangesProps> = ({ patchId }) => {
   return (
     <div data-cy="code-changes">
       {moduleCodeChanges.map((modCodeChange) => {
-        const { fileDiffs, branchName, htmlLink, rawLink } = modCodeChange;
+        const { branchName, fileDiffs, htmlLink, rawLink } = modCodeChange;
 
         const additions = fileDiffs.reduce(
           (total, diff) => total + diff.additions,

@@ -20,8 +20,8 @@ type UseInputFilterReturn = [
 
 // USE FOR FILTERS BUILT INTO TABLE COLUMN HEADERS
 export const useTableInputFilter = <SearchParam extends string>({
-  urlSearchParam,
   sendAnalyticsEvent = () => undefined,
+  urlSearchParam,
 }: Params<SearchParam>): UseInputFilterReturn => {
   const { pathname, search } = useLocation();
   const navigate = useNavigate();
@@ -58,8 +58,8 @@ type UseCheckboxFilterReturn = [
 ];
 
 export const useTableCheckboxFilter = <SearchParam extends string>({
-  urlSearchParam,
   sendAnalyticsEvent = () => undefined,
+  urlSearchParam,
 }: Params<SearchParam>): UseCheckboxFilterReturn => {
   const { pathname, search } = useLocation();
   const navigate = useNavigate();

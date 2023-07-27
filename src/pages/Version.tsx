@@ -147,10 +147,10 @@ export const VersionPage: React.VFC = () => {
     warnings,
   } = version || {};
   const {
-    commitQueuePosition = null,
-    patchNumber,
     canEnqueueToCommitQueue,
     childPatches,
+    commitQueuePosition = null,
+    patchNumber,
   } = patch || {};
   const isPatchOnCommitQueue = commitQueuePosition !== null;
 

@@ -44,11 +44,11 @@ type Action =
 
 export const reducer = (state: State, action: Action): State => {
   const {
-    parentTask,
-    lastPassingTask,
-    lastExecutedTask,
-    hasFetchedLastPassing,
     hasFetchedLastExecuted,
+    hasFetchedLastPassing,
+    lastExecutedTask,
+    lastPassingTask,
+    parentTask,
   } = state;
 
   switch (action.type) {

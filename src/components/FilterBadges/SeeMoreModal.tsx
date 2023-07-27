@@ -15,8 +15,8 @@ interface SeeMoreModalProps {
 export const SeeMoreModal: React.VFC<SeeMoreModalProps> = ({
   badges,
   notVisibleCount,
-  onRemoveBadge,
   onClearAll,
+  onRemoveBadge,
 }) => {
   const [open, setOpen] = useState(false);
   return (

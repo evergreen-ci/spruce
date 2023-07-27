@@ -26,7 +26,7 @@ interface RowProps {
 
 export const TaskDurationRow: React.VFC<RowProps> = forwardRef(
   (
-    { task, maxTimeTaken, children, "data-cy": dataCy, ...rest },
+    { children, "data-cy": dataCy, maxTimeTaken, task, ...rest },
     ref: React.Ref<HTMLTableRowElement>
   ) => {
     const {

@@ -16,7 +16,7 @@ export const gqlToForm = ((data) => {
       taskAnnotationSettings: {
         jiraCustomFields:
           projectRef?.taskAnnotationSettings?.jiraCustomFields?.map(
-            ({ field, displayText }) => ({
+            ({ displayText, field }) => ({
               field,
               displayText,
             })
@@ -49,7 +49,7 @@ export const gqlToForm = ((data) => {
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
-  { performanceSettings, buildBaronSettings, externalLinks },
+  { buildBaronSettings, externalLinks, performanceSettings },
   id
 ) => {
   const projectRef: ProjectInput = {
@@ -63,7 +63,7 @@ export const formToGql = ((
       ),
       jiraCustomFields:
         buildBaronSettings.taskAnnotationSettings?.jiraCustomFields
-          .map(({ field, displayText }) => ({ field, displayText }))
+          .map(({ displayText, field }) => ({ field, displayText }))
           .filter((str) => !!str),
     },
     externalLinks: [externalLinks.metadataPanelLink],

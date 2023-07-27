@@ -1,7 +1,7 @@
 import { Fragment, useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import SearchInput from "@leafygreen-ui/search-input";
+import { SearchInput } from "@leafygreen-ui/search-input";
 import { Body, Subtitle } from "@leafygreen-ui/typography";
 import { Table, Skeleton } from "antd";
 import { SortOrder } from "antd/es/table/interface";
@@ -49,7 +49,7 @@ export const FilesTables: React.VFC = () => {
   const initialExecution = queryParamAsNumber(
     parsed[RequiredQueryParams.Execution]
   );
-  const { data, loading, error } = useQuery<
+  const { data, error, loading } = useQuery<
     TaskFilesQuery,
     TaskFilesQueryVariables
   >(GET_TASK_FILES, {
@@ -102,7 +102,7 @@ export const FilesTables: React.VFC = () => {
     if (!filteredFiles.length) {
       return <Body>No files found</Body>;
     }
-    return filteredFiles.map(({ taskName, files }) => (
+    return filteredFiles.map(({ files, taskName }) => (
       <Fragment key={taskName}>
         {filteredData?.length > 1 && <Subtitle>{taskName}</Subtitle>}
         <StyledTable

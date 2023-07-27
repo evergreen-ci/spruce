@@ -5,7 +5,7 @@ import BaseRow from "components/HistoryTable/HistoryTableRow/BaseRow";
 import { array } from "utils";
 
 const { convertArrayToObject } = array;
-const { TaskCell, EmptyCell } = Cell;
+const { EmptyCell, TaskCell } = Cell;
 const { useHistoryTable } = context;
 const { useTestResults } = hooks;
 const { rowType } = types;
@@ -14,7 +14,7 @@ interface Props {
   index: number;
   data: types.CommitRowType;
 }
-const TaskHistoryRow: React.VFC<Props> = ({ index, data }) => {
+const TaskHistoryRow: React.VFC<Props> = ({ data, index }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
   const { visibleColumns } = useHistoryTable();
 
@@ -107,7 +107,7 @@ const generateColumns = (
         const { tasks } = foundVariant;
         // the tasks array should in theory only have one item in it so we should always use it.
         const t = tasks[0];
-        const { inactive, failingTests, label, loading } = getTaskMetadata(
+        const { failingTests, inactive, label, loading } = getTaskMetadata(
           t.id
         );
         return (

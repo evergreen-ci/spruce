@@ -21,8 +21,8 @@ interface Props {
 }
 
 export const MountVolumeModal: React.VFC<Props> = ({
-  visible,
   onCancel,
+  visible,
   volume,
 }) => {
   const dispatchToast = useToastContext();

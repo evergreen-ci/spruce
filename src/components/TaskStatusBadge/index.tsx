@@ -37,9 +37,9 @@ interface TaskStatusBadgeProps {
   execution?: number;
 }
 const TaskStatusBadge: React.VFC<TaskStatusBadgeProps> = ({
-  status,
-  id,
   execution,
+  id,
+  status,
 }) => {
   if (!status) {
     return null;

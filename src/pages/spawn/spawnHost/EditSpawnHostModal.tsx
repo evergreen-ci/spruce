@@ -26,19 +26,19 @@ interface EditSpawnHostModalProps {
   host: MyHost;
 }
 export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
-  visible = true,
-  onCancel,
   host,
+  onCancel,
+  visible = true,
 }) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useSpawnAnalytics();
 
   const {
-    instanceTypesData,
-    volumesData,
-    publicKeysData,
     disableExpirationCheckbox,
+    instanceTypesData,
     noExpirationCheckboxTooltip,
+    publicKeysData,
+    volumesData,
   } = useLoadFormData(host);
 
   const instanceTypes = instanceTypesData?.instanceTypes ?? [];
