@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import pluralize from "pluralize";
 import { Link } from "react-router-dom";
 import { getTaskQueueRoute } from "constants/routes";
 import { size } from "constants/tokens";
@@ -22,12 +23,8 @@ export const DistroOption: React.VFC<DistroOptionProps> = ({
   return (
     <Link to={getTaskQueueRoute(id)} onClick={() => onClick(option)}>
       <OptionWrapper>
-        <StyledBadge>{`${option.taskCount} ${
-          taskCount === 1 ? "TASK" : "TASKS"
-        }`}</StyledBadge>
-        <StyledBadge>{`${hostCount} ${
-          hostCount === 1 ? "HOST" : "HOSTS"
-        }`}</StyledBadge>
+        <StyledBadge>{`${pluralize("task", taskCount, true)}`}</StyledBadge>
+        <StyledBadge>{`${pluralize("host", hostCount, true)}`}</StyledBadge>
         <DistroName>{id}</DistroName>
       </OptionWrapper>
     </Link>
