@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { palette } from "@leafygreen-ui/palette";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { useVersionAnalytics } from "analytics";
@@ -27,16 +26,15 @@ import {
 } from "hooks/useVersionTaskStatusSelect";
 import { BuildVariantAccordion } from "./BuildVariantAccordion";
 
-const { gray } = palette;
-
-interface Props {
-  visible: boolean;
-  onOk: () => void;
+interface VersionRestartModalProps {
   onCancel: () => void;
-  versionId?: string;
+  onOk: () => void;
   refetchQueries: string[];
+  versionId?: string;
+  visible: boolean;
 }
-const VersionRestartModal: React.VFC<Props> = ({
+
+const VersionRestartModal: React.VFC<VersionRestartModalProps> = ({
   onCancel,
   onOk,
   refetchQueries,
@@ -80,11 +78,12 @@ const VersionRestartModal: React.VFC<Props> = ({
     versionStatusFilterTerm,
   } = useVersionTaskStatusSelect(buildVariants, versionId, childVersions);
 
-  const setVersionStatus = (childVersionId) => (selectedFilters: string[]) => {
-    setVersionStatusFilterTerm({ [childVersionId]: selectedFilters });
-  };
+  const setVersionStatus =
+    (childVersionId: string) => (selectedFilters: string[]) => {
+      setVersionStatusFilterTerm({ [childVersionId]: selectedFilters });
+    };
   const setVersionBaseStatus =
-    (childVersionId) => (selectedFilters: string[]) => {
+    (childVersionId: string) => (selectedFilters: string[]) => {
       setBaseStatusFilterTerm({ [childVersionId]: selectedFilters });
     };
 
@@ -129,7 +128,6 @@ const VersionRestartModal: React.VFC<Props> = ({
             baseStatusFilterTerm={baseStatusFilterTerm[version?.id]}
             versionStatusFilterTerm={versionStatusFilterTerm[version?.id]}
           />
-
           {childVersions && (
             <div data-cy="select-downstream">
               <ConfirmationMessage
@@ -141,11 +139,7 @@ const VersionRestartModal: React.VFC<Props> = ({
               {childVersions?.map((v) => (
                 <Accordion
                   key={v?.id}
-                  title={
-                    <BoldTextStyle>
-                      {v?.projectIdentifier ? v?.projectIdentifier : v?.project}
-                    </BoldTextStyle>
-                  }
+                  title={<b>{v?.projectIdentifier ?? v?.project}</b>}
                 >
                   <TitleContainer>
                     <VersionTasks
@@ -182,14 +176,14 @@ const VersionRestartModal: React.VFC<Props> = ({
 };
 
 interface VersionTasksProps {
-  version: BuildVariantsWithChildrenQuery["version"];
+  baseStatusFilterTerm: string[];
   selectedTasks: versionSelectedTasks;
   setBaseStatusFilterTerm: (statuses: string[]) => void;
   setVersionStatusFilterTerm: (statuses: string[]) => void;
   toggleSelectedTask: (
     taskIds: { [patchId: string]: string } | { [patchId: string]: string[] }
   ) => void;
-  baseStatusFilterTerm: string[];
+  version: BuildVariantsWithChildrenQuery["version"];
   versionStatusFilterTerm: string[];
 }
 
@@ -207,26 +201,25 @@ const VersionTasks: React.VFC<VersionTasksProps> = ({
 
   return buildVariants ? (
     <>
-      <Row>
-        <TaskStatusFilters
-          onChangeBaseStatusFilter={setBaseStatusFilterTerm}
-          onChangeStatusFilter={setVersionStatusFilterTerm}
-          versionId={version?.id}
-          selectedBaseStatuses={baseStatusFilterTerm || []}
-          selectedStatuses={versionStatusFilterTerm || []}
-          filterWidth="50%"
-        />
-      </Row>
-      {buildVariants.map((patchBuildVariant) => (
-        <BuildVariantAccordion
-          versionId={version?.id}
-          key={`accoridan_${patchBuildVariant.variant}`}
-          tasks={patchBuildVariant.tasks}
-          displayName={patchBuildVariant.displayName}
-          selectedTasks={tasks}
-          toggleSelectedTask={toggleSelectedTask}
-        />
-      ))}
+      <TaskStatusFilters
+        onChangeBaseStatusFilter={setBaseStatusFilterTerm}
+        onChangeStatusFilter={setVersionStatusFilterTerm}
+        versionId={version?.id}
+        selectedBaseStatuses={baseStatusFilterTerm || []}
+        selectedStatuses={versionStatusFilterTerm || []}
+      />
+      {[...buildVariants]
+        .sort((a, b) => a.displayName.localeCompare(b.displayName))
+        .map((patchBuildVariant) => (
+          <BuildVariantAccordion
+            versionId={version?.id}
+            key={`accordion_${patchBuildVariant.variant}`}
+            tasks={patchBuildVariant.tasks}
+            displayName={patchBuildVariant.displayName}
+            selectedTasks={tasks}
+            toggleSelectedTask={toggleSelectedTask}
+          />
+        ))}
       <Divider />
     </>
   ) : null;
@@ -256,22 +249,11 @@ const getTaskIds = (selectedTasks: versionSelectedTasks) =>
   }));
 
 const ConfirmationMessage = styled(Body)<BodyProps>`
-  padding-top: ${size.s};
-  padding-bottom: ${size.s};
-`;
-
-const Row = styled.div`
-  display: flex;
+  padding: ${size.s} 0;
 `;
 
 export const TitleContainer = styled.div`
   margin-top: ${size.s};
-  width: 96%;
-`;
-
-const BoldTextStyle = styled.span`
-  font-weight: bold;
-  color: ${gray.dark2}; // theme colors.gray[1]
 `;
 
 export default VersionRestartModal;

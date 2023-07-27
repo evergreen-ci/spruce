@@ -7,18 +7,18 @@ import { selectedStrings } from "hooks/useVersionTaskStatusSelect";
 import { TaskStatusCheckboxContainer } from "./TaskStatusCheckboxContainer";
 
 interface BuildVariantAccordionProps {
-  versionId: string;
+  displayName: string;
+  selectedTasks: selectedStrings;
   tasks: {
     id: string;
     status: string;
     baseStatus?: string;
     displayName: string;
   }[];
-  displayName: string;
-  selectedTasks: selectedStrings;
   toggleSelectedTask: (
     taskIds: { [versionId: string]: string } | { [versionId: string]: string[] }
   ) => void;
+  versionId: string;
 }
 export const BuildVariantAccordion: React.VFC<BuildVariantAccordionProps> = ({
   displayName,
@@ -76,7 +76,7 @@ const countMatchingTasks = (
 };
 
 const BadgeWrapper = styled.div`
-  padding-left: 10px;
+  padding-left: ${size.xs};
 `;
 
 const Wrapper = styled.div`
