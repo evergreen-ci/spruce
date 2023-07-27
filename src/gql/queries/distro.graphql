@@ -1,0 +1,5 @@
+query Distro($distroId: String!) {
+  distro(distroId: $distroId) {
+    name
+  }
+}
