@@ -23,8 +23,8 @@ export const DistroOption: React.VFC<DistroOptionProps> = ({
   return (
     <Link to={getTaskQueueRoute(id)} onClick={() => onClick(option)}>
       <OptionWrapper>
-        <StyledBadge>{`${pluralize("task", taskCount, true)}`}</StyledBadge>
-        <StyledBadge>{`${pluralize("host", hostCount, true)}`}</StyledBadge>
+        <StyledBadge>{pluralize("task", taskCount, true)}</StyledBadge>
+        <StyledBadge>{pluralize("host", hostCount, true)}</StyledBadge>
         <DistroName>{id}</DistroName>
       </OptionWrapper>
     </Link>
