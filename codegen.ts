@@ -2,8 +2,8 @@ import type { CodegenConfig } from "@graphql-codegen/cli";
 import path from "path";
 
 export const getConfig = ({
-  schema,
   generatedFileName,
+  schema,
 }: {
   schema: string;
   generatedFileName: string;
