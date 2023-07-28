@@ -151,7 +151,6 @@ const downloadAndGenerate = async (): Promise<string> => {
  */
 const diffTypes = async (): Promise<void> => {
   try {
-    await checkIsAncestor();
     const latestGeneratedTypesFileName = await downloadAndGenerate();
     const filenames = [
       latestGeneratedTypesFileName,
