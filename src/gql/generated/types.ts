@@ -4998,6 +4998,15 @@ export type DistroTaskQueueQuery = {
   }>;
 };
 
+export type DistroQueryVariables = Exact<{
+  distroId: Scalars["String"];
+}>;
+
+export type DistroQuery = {
+  __typename?: "Query";
+  distro?: { __typename?: "Distro"; name?: string | null } | null;
+};
+
 export type FailedTaskStatusIconTooltipQueryVariables = Exact<{
   taskId: Scalars["String"];
 }>;

@@ -40,10 +40,20 @@ export enum ProjectSettingsTabRoutes {
   ViewsAndFilters = "views-and-filters",
 }
 
+export enum DistroSettingsTabRoutes {
+  General = "general",
+  Provider = "provider",
+  Task = "task",
+  Host = "host",
+  Project = "project",
+  EventLog = "event-log",
+}
+
 const paths = {
   commitQueue: "/commit-queue",
   commits: "/commits",
   container: "/container",
+  distro: "/distro",
   host: "/host",
   hosts: "/hosts",
   jobLogs: "/job-logs",
@@ -72,6 +82,7 @@ export const routes = {
   commits: paths.commits,
   configurePatch: `${paths.patch}/:id/configure`,
   container: `${paths.container}/:id`,
+  distro: `${paths.distro}/:distroId/${PageNames.Settings}`,
   host: `${paths.host}/:id`,
   hosts: paths.hosts,
   jobLogs: `${paths.jobLogs}/:buildId`,
@@ -222,6 +233,14 @@ export const getProjectSettingsRoute = (
 
   return `${paths.project}/${projectId}/${PageNames.Settings}/${tab}`;
 };
+
+export const getDistroSettingsRoute = (
+  distroId: string,
+  tab?: DistroSettingsTabRoutes
+) =>
+  tab
+    ? `${paths.distro}/${distroId}/${PageNames.Settings}/${tab}`
+    : `${paths.distro}/${distroId}/${PageNames.Settings}`;
 
 export const getCommitQueueRoute = (projectIdentifier: string) =>
   `${paths.commitQueue}/${encodeURIComponent(projectIdentifier)}`;
