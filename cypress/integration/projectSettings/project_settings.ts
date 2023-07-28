@@ -82,30 +82,24 @@ describe("Access page", { testIsolation: false }, () => {
   });
 });
 
-describe(
-  "Clicking on The Project Select Dropdown",
-  { testIsolation: false },
-  () => {
-    const destination = getGeneralRoute(project);
+describe("Clicking on The Project Select Dropdown", () => {
+  const destination = getGeneralRoute(project);
 
-    before(() => {
-      cy.visit(destination);
-    });
+  before(() => {
+    cy.visit(destination);
+  });
 
-    it("Headers are clickable", () => {
-      cy.dataCy("project-select").should("be.visible");
-      cy.dataCy("project-select").click();
-      cy.dataCy("project-select-options").should("be.visible");
-      cy.dataCy("project-select-options")
-        .find("div")
-        .contains("evergreen-ci/evergreen")
-        .click();
-      cy.location().should((loc) =>
-        expect(loc.pathname).to.not.eq(destination)
-      );
-    });
-  }
-);
+  it("Headers are clickable", () => {
+    cy.dataCy("project-select").should("be.visible");
+    cy.dataCy("project-select").click();
+    cy.dataCy("project-select-options").should("be.visible");
+    cy.dataCy("project-select-options")
+      .find("div")
+      .contains("evergreen-ci/evergreen")
+      .click();
+    cy.location().should((loc) => expect(loc.pathname).to.not.eq(destination));
+  });
+});
 
 describe("Repo Settings", { testIsolation: false }, () => {
   const destination = getGeneralRoute(repo);

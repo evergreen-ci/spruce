@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
 import { useParams, Link, Navigate } from "react-router-dom";
 import {
   SideNav,
@@ -10,12 +11,14 @@ import {
   DistroSettingsTabRoutes,
   getDistroSettingsRoute,
 } from "constants/routes";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import { DistroQuery, DistroQueryVariables } from "gql/generated/types";
 import { DISTRO } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { isProduction } from "utils/environmentVariables";
 import { DistroSettingsProvider } from "./Context";
+import { DistroSelect } from "./DistroSelect";
 import { getTabTitle } from "./getTabTitle";
 import { DistroSettingsTabs } from "./Tabs";
 
@@ -58,6 +61,13 @@ const DistroSettings: React.VFC = () => {
   return (
     <DistroSettingsProvider>
       <SideNav aria-label="Distro Settings" widthOverride={250}>
+        <ButtonsContainer>
+          <DistroSelect
+            selectedDistro={distroId}
+            getRoute={getDistroSettingsRoute}
+          />
+          {/* EVG-19942: Copy/create button. */}
+        </ButtonsContainer>
         <SideNavGroup>
           {Object.values(DistroSettingsTabRoutes).map((tab) => (
             <SideNavItem
@@ -73,10 +83,19 @@ const DistroSettings: React.VFC = () => {
         </SideNavGroup>
       </SideNav>
       <PageWrapper data-cy="distro-settings-page">
-        {!loading && data.distro && <DistroSettingsTabs distro={data.distro} />}
+        {!loading && data?.distro && (
+          <DistroSettingsTabs distro={data.distro} />
+        )}
       </PageWrapper>
     </DistroSettingsProvider>
   );
 };
+
+const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xs};
+  margin: 0 ${size.s};
+`;
 
 export default DistroSettings;
