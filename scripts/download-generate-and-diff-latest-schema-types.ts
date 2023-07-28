@@ -1,3 +1,4 @@
+import dns from "dns";
 import fs from "fs";
 import os from "os";
 import path from "path";
@@ -15,6 +16,25 @@ const LOCAL_SCHEMA = "sdlschema";
 const REPO = "/repos/evergreen-ci/evergreen";
 const REPO_CONTENTS = `${REPO}/contents/`;
 const USER_AGENT = "Mozilla/5.0";
+
+/**
+ * Checks if a given domain can be resolved.
+ *
+ * @async
+ * @function
+ * @param {string} domain - The domain name to check.
+ * @returns {Promise<boolean>} - Resolves to `true` if the domain can be resolved, `false` otherwise.
+ */
+const canResolveDNS = (domain: string) =>
+  new Promise((resolve) => {
+    dns.lookup(domain, (err) => {
+      if (err) {
+        resolve(false);
+      } else {
+        resolve(true);
+      }
+    });
+  });
 
 /**
  * Get the latest commit that was made to the GQL folder.
@@ -151,6 +171,13 @@ const downloadAndGenerate = async (): Promise<string> => {
  */
 const diffTypes = async (): Promise<void> => {
   try {
+    const hasInternetAccess = await canResolveDNS("github.com");
+    if (!hasInternetAccess) {
+      console.info(
+        "Skipping GQL codegen validation because I can't connect to github.com."
+      );
+      process.exit(0);
+    }
     const latestGeneratedTypesFileName = await downloadAndGenerate();
     const filenames = [
       latestGeneratedTypesFileName,
