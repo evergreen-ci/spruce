@@ -85,7 +85,7 @@ describe("Access page", { testIsolation: false }, () => {
 describe("Clicking on The Project Select Dropdown", () => {
   const destination = getGeneralRoute(project);
 
-  before(() => {
+  beforeEach(() => {
     cy.visit(destination);
   });
 
