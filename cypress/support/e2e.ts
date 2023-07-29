@@ -113,6 +113,14 @@ declare global {
   }
 }
 
+before(() => {
+  cy.exec("yarn evg-ops --restore").then((result) => {
+    if (result.code !== 0) {
+      throw new Error("EVG DB restoration failed during setup.");
+    }
+  });
+});
+
 beforeEach(() => {
   cy.login();
   cy.setCookie(bannerCookie, "true");
