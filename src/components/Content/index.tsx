@@ -10,6 +10,7 @@ import { CommitQueue } from "pages/CommitQueue";
 import { Commits } from "pages/Commits";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Container } from "pages/Container";
+import { Distro } from "pages/Distro";
 import { Host } from "pages/Host";
 import { Hosts } from "pages/Hosts";
 import { JobLogs } from "pages/JobLogs";
@@ -39,6 +40,9 @@ export const Content: React.VFC = () => (
         element={<WaterfallCommitsRedirect />}
       />
       <Route path={routes.configurePatch} element={<ConfigurePatch />}>
+        <Route path={tab} element={null} />
+      </Route>
+      <Route path={`${routes.distro}/*`} element={<Distro />}>
         <Route path={tab} element={null} />
       </Route>
       <Route path={routes.host} element={<Host />} />
