@@ -7,8 +7,6 @@ import { Skeleton } from "antd";
 import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { Divider } from "components/styles/Divider";
-import { TaskStatusFilters } from "components/TaskStatusFilters";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -24,7 +22,7 @@ import {
   versionSelectedTasks,
   selectedStrings,
 } from "hooks/useVersionTaskStatusSelect";
-import { BuildVariantAccordion } from "./BuildVariantAccordion";
+import VersionTasks from "./VersionTasks";
 
 interface VersionRestartModalProps {
   onCancel: () => void;
@@ -173,56 +171,6 @@ const VersionRestartModal: React.VFC<VersionRestartModalProps> = ({
       )}
     </ConfirmationModal>
   );
-};
-
-interface VersionTasksProps {
-  baseStatusFilterTerm: string[];
-  selectedTasks: versionSelectedTasks;
-  setBaseStatusFilterTerm: (statuses: string[]) => void;
-  setVersionStatusFilterTerm: (statuses: string[]) => void;
-  toggleSelectedTask: (
-    taskIds: { [patchId: string]: string } | { [patchId: string]: string[] }
-  ) => void;
-  version: BuildVariantsWithChildrenQuery["version"];
-  versionStatusFilterTerm: string[];
-}
-
-const VersionTasks: React.VFC<VersionTasksProps> = ({
-  baseStatusFilterTerm,
-  selectedTasks,
-  setBaseStatusFilterTerm,
-  setVersionStatusFilterTerm,
-  toggleSelectedTask,
-  version,
-  versionStatusFilterTerm,
-}) => {
-  const { buildVariants } = version || {};
-  const tasks = selectedTasks[version?.id] || {};
-
-  return buildVariants ? (
-    <>
-      <TaskStatusFilters
-        onChangeBaseStatusFilter={setBaseStatusFilterTerm}
-        onChangeStatusFilter={setVersionStatusFilterTerm}
-        versionId={version?.id}
-        selectedBaseStatuses={baseStatusFilterTerm || []}
-        selectedStatuses={versionStatusFilterTerm || []}
-      />
-      {[...buildVariants]
-        .sort((a, b) => a.displayName.localeCompare(b.displayName))
-        .map((patchBuildVariant) => (
-          <BuildVariantAccordion
-            versionId={version?.id}
-            key={`accordion_${patchBuildVariant.variant}`}
-            tasks={patchBuildVariant.tasks}
-            displayName={patchBuildVariant.displayName}
-            selectedTasks={tasks}
-            toggleSelectedTask={toggleSelectedTask}
-          />
-        ))}
-      <Divider />
-    </>
-  ) : null;
 };
 
 const selectedArray = (selected: selectedStrings) => {
