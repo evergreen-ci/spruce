@@ -4361,6 +4361,15 @@ export type ClearMySubscriptionsMutation = {
   clearMySubscriptions: number;
 };
 
+export type CopyDistroMutationVariables = Exact<{
+  opts: CopyDistroInput;
+}>;
+
+export type CopyDistroMutation = {
+  __typename?: "Mutation";
+  copyDistro: { __typename?: "NewDistroPayload"; newDistroId: string };
+};
+
 export type CopyProjectMutationVariables = Exact<{
   project: CopyProjectInput;
   requestS3Creds: Scalars["Boolean"];
@@ -4369,6 +4378,15 @@ export type CopyProjectMutationVariables = Exact<{
 export type CopyProjectMutation = {
   __typename?: "Mutation";
   copyProject: { __typename?: "Project"; id: string; identifier: string };
+};
+
+export type CreateDistroMutationVariables = Exact<{
+  opts: CreateDistroInput;
+}>;
+
+export type CreateDistroMutation = {
+  __typename?: "Mutation";
+  createDistro: { __typename?: "NewDistroPayload"; newDistroId: string };
 };
 
 export type CreateProjectMutationVariables = Exact<{

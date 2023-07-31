@@ -12,6 +12,7 @@ export type AnalyticsObject =
   | "Breadcrumb"
   | "CommitQueue"
   | "Configure"
+  | "DistroSettings"
   | "HostPage"
   | "HostsTable"
   | "JobLogs"

@@ -1,0 +1,5 @@
+mutation CopyDistro($opts: CopyDistroInput!) {
+  copyDistro(opts: $opts) {
+    newDistroId
+  }
+}
