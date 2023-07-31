@@ -1,16 +1,15 @@
 import { useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import SearchableDropdown from "components/SearchableDropdown";
+import { getDistroSettingsRoute } from "constants/routes";
 import { DistrosQuery, DistrosQueryVariables } from "gql/generated/types";
 import { GET_DISTROS } from "gql/queries";
 
 interface DistroSelectProps {
-  getRoute: (distroId: string) => string;
   selectedDistro: string;
 }
 
 export const DistroSelect: React.VFC<DistroSelectProps> = ({
-  getRoute,
   selectedDistro,
 }) => {
   const navigate = useNavigate();
@@ -31,9 +30,8 @@ export const DistroSelect: React.VFC<DistroSelectProps> = ({
       value={selectedDistro}
       options={distros.map((d) => d.name)}
       onChange={(distroId: string) => {
-        navigate(getRoute(distroId));
+        navigate(getDistroSettingsRoute(distroId));
       }}
-      valuePlaceholder="Select a distro"
       data-cy="distro-select"
     />
   );

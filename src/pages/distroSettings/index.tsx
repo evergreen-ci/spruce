@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
 import { useParams, Link, Navigate } from "react-router-dom";
 import {
   SideNav,
@@ -62,10 +63,7 @@ const DistroSettings: React.VFC = () => {
     <DistroSettingsProvider>
       <SideNav aria-label="Distro Settings" widthOverride={250}>
         <ButtonsContainer>
-          <DistroSelect
-            selectedDistro={distroId}
-            getRoute={getDistroSettingsRoute}
-          />
+          <DistroSelect selectedDistro={distroId} />
           {/* EVG-19942: Copy/create button. */}
         </ButtonsContainer>
         <SideNavGroup>
@@ -95,7 +93,7 @@ const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${size.xs};
-  margin: 0 ${size.s};
+  margin: 0 ${sideNavItemSidePadding}px;
 `;
 
 export default DistroSettings;

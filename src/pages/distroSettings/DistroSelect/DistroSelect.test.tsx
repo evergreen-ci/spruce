@@ -16,7 +16,7 @@ const wrapper = ({ children }) => (
 
 describe("distro select", () => {
   it("shows distro name as dropdown content", async () => {
-    render(<DistroSelect selectedDistro="localhost" getRoute={jest.fn()} />, {
+    render(<DistroSelect selectedDistro="localhost" />, {
       wrapper,
     });
     await waitFor(() => {
@@ -25,10 +25,11 @@ describe("distro select", () => {
     expect(screen.getByDataCy("distro-select")).toHaveTextContent("localhost");
   });
 
-  it("selecting a different option will call the getRoute function", async () => {
-    const getRoute = jest.fn();
-    render(<DistroSelect selectedDistro="localhost" getRoute={getRoute} />, {
+  it("selecting a different distro will navigate to the correct URL", async () => {
+    const { router } = render(<DistroSelect selectedDistro="localhost" />, {
       wrapper,
+      route: "/distro/localhost/settings/general",
+      path: "/distro/:distroId/settings/:tab",
     });
     await waitFor(() => {
       expect(screen.getByDataCy("distro-select")).toBeInTheDocument();
@@ -38,13 +39,11 @@ describe("distro select", () => {
     expect(screen.getByDataCy("distro-select-options")).toBeInTheDocument();
     userEvent.click(screen.getByText("abc"));
     expect(screen.queryByDataCy("distro-select-options")).toBeNull();
-
-    expect(getRoute).toHaveBeenCalledTimes(1);
-    expect(getRoute).toHaveBeenCalledWith("abc");
+    expect(router.state.location.pathname).toBe("/distro/abc/settings");
   });
 
   it("typing in the text input will narrow down search results", async () => {
-    render(<DistroSelect selectedDistro="localhost" getRoute={jest.fn()} />, {
+    render(<DistroSelect selectedDistro="localhost" />, {
       wrapper,
     });
     await waitFor(() => {
