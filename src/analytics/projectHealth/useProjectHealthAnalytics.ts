@@ -1,8 +1,4 @@
-import {
-  addPageAction,
-  Properties,
-  Analytics as A,
-} from "analytics/addPageAction";
+import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 import {
   ProjectHealthView,
   SaveSubscriptionForUserMutationVariables,
@@ -48,18 +44,5 @@ type Action =
     }
   | { name: "Toggle view"; toggle: ProjectHealthView };
 
-interface P extends Properties {}
-interface Analytics extends A<Action> {}
-
-export const useProjectHealthAnalytics: (p: {
-  page: pageType;
-}) => Analytics = ({ page }) => {
-  const sendEvent: Analytics["sendEvent"] = (action) => {
-    addPageAction<Action, P>(action, {
-      object: "ProjectHealthPages",
-      page,
-    });
-  };
-
-  return { sendEvent };
-};
+export const useProjectHealthAnalytics = (p: { page: pageType }) =>
+  useAnalyticsRoot<Action>("ProjectHealthPages", { page: p.page });
