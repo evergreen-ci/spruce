@@ -118,20 +118,19 @@ export const TaskQueueTable: React.VFC<TaskQueueTableProps> = ({
       render: (priority) => <Badge>{priority}</Badge>,
     },
     {
-      title: "Author",
-      dataIndex: "author",
-      key: "author",
-      className: "cy-task-queue-col-author",
+      title: "Activated By",
+      dataIndex: "activatedBy",
+      key: "activatedBy",
       width: "10%",
       align: "center",
-      render: (author) => (
+      render: (activatedBy) => (
         <StyledRouterLink
-          to={getUserPatchesRoute(author)}
+          to={getUserPatchesRoute(activatedBy)}
           onClick={() =>
             taskQueueAnalytics.sendEvent({ name: "Click Author Patches Link" })
           }
         >
-          <WordBreak>{author}</WordBreak>
+          <WordBreak>{activatedBy}</WordBreak>
         </StyledRouterLink>
       ),
     },

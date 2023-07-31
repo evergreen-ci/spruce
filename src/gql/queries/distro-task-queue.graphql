@@ -1,6 +1,6 @@
 query DistroTaskQueue($distroId: String!) {
   distroTaskQueue(distroId: $distroId) {
-    author
+    activatedBy
     buildVariant
     displayName
     expectedDuration
