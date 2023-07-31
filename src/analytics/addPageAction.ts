@@ -29,6 +29,7 @@ export type AnalyticsObject =
   | "TaskQueue"
   | "UserPatches"
   | "Version";
+
 interface RequiredProperties {
   object: AnalyticsObject;
 }

@@ -1,5 +1,4 @@
-import { addPageAction, Properties, Analytics } from "analytics/addPageAction";
-import { useGetUserQuery } from "analytics/useGetUserQuery";
+import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 
 type Action =
   | { name: "Filter Hosts"; filterBy: string }
@@ -9,20 +8,5 @@ type Action =
   | { name: "Reprovision Host" }
   | { name: "Update Status"; status: string };
 
-interface P extends Properties {}
-interface HostsAnalytics extends Analytics<Action> {}
-
-export const useHostsTableAnalytics = (
-  isHostPage?: boolean
-): HostsAnalytics => {
-  const userId = useGetUserQuery();
-
-  const sendEvent: HostsAnalytics["sendEvent"] = (action) => {
-    addPageAction<Action, P>(action, {
-      object: isHostPage ? "HostPage" : "HostsTable",
-      userId,
-    });
-  };
-
-  return { sendEvent };
-};
+export const useHostsTableAnalytics = (isHostPage?: boolean) =>
+  useAnalyticsRoot<Action>(isHostPage ? "HostPage" : "HostsTable");
