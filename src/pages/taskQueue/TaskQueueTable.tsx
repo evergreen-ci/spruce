@@ -127,7 +127,7 @@ export const TaskQueueTable: React.VFC<TaskQueueTableProps> = ({
         <StyledRouterLink
           to={getUserPatchesRoute(activatedBy)}
           onClick={() =>
-            taskQueueAnalytics.sendEvent({ name: "Click Author Patches Link" })
+            taskQueueAnalytics.sendEvent({ name: "Click Activated By Link" })
           }
         >
           <WordBreak>{activatedBy}</WordBreak>
