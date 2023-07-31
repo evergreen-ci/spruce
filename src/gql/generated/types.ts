@@ -2481,6 +2481,7 @@ export type TaskQueueDistro = {
  */
 export type TaskQueueItem = {
   __typename?: "TaskQueueItem";
+  activatedBy: Scalars["String"];
   buildVariant: Scalars["String"];
   displayName: Scalars["String"];
   expectedDuration: Scalars["Duration"];
@@ -7959,17 +7960,6 @@ export type UserConfigQuery = {
   } | null;
 };
 
-export type UserPermissionsQueryVariables = Exact<{ [key: string]: never }>;
-
-export type UserPermissionsQuery = {
-  __typename?: "Query";
-  user: {
-    __typename?: "User";
-    userId: string;
-    permissions: { __typename?: "Permissions"; canCreateProject: boolean };
-  };
-};
-
 export type UserSettingsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type UserSettingsQuery = {
@@ -8395,6 +8385,19 @@ export type TaskQueueDistrosQuery = {
   }>;
 };
 
+export type UserDistroSettingsPermissionsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type UserDistroSettingsPermissionsQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    permissions: { __typename?: "Permissions"; canCreateDistro: boolean };
+  };
+};
+
 export type UserPatchesQueryVariables = Exact<{
   userId: Scalars["String"];
   patchesInput: PatchesInput;
@@ -8441,6 +8444,19 @@ export type UserPatchesQuery = {
         } | null;
       }>;
     };
+  };
+};
+
+export type UserProjectSettingsPermissionsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type UserProjectSettingsPermissionsQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    permissions: { __typename?: "Permissions"; canCreateProject: boolean };
   };
 };
 

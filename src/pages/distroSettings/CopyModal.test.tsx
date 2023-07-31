@@ -1,0 +1,170 @@
+import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { GraphQLError } from "graphql";
+import { RenderFakeToastContext } from "context/toast/__mocks__";
+import {
+  CopyDistroMutation,
+  CopyDistroMutationVariables,
+  DistroQuery,
+  DistroQueryVariables,
+} from "gql/generated/types";
+import { COPY_DISTRO } from "gql/mutations";
+import { DISTRO } from "gql/queries";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+  waitFor,
+} from "test_utils";
+import { ApolloMock } from "types/gql";
+import { CopyModal } from "./CopyModal";
+
+const distroIdToCopy = "rhel71-power8-large";
+const newDistroId = "copied-distro";
+
+const Modal = ({
+  copyMock = copyDistroMock,
+  open = true,
+}: {
+  copyMock?: MockedResponse;
+  open?: boolean;
+}) => (
+  <MockedProvider mocks={[copyMock, distroMock]}>
+    <CopyModal handleClose={() => {}} open={open} />
+  </MockedProvider>
+);
+
+describe("copy distro modal", () => {
+  it("does not render the modal when open prop is false", () => {
+    const { Component } = RenderFakeToastContext(<Modal open={false} />);
+    render(<Component />, {
+      path: `/distro/:distroId/settings/general`,
+      route: `/distro/${distroIdToCopy}/settings/general`,
+    });
+
+    expect(screen.queryByDataCy("copy-distro-modal")).not.toBeInTheDocument();
+  });
+
+  it("disables the confirm button on initial render and uses the provided label", () => {
+    const { Component } = RenderFakeToastContext(<Modal />);
+    render(<Component />, {
+      path: `/distro/:distroId/settings/general`,
+      route: `/distro/${distroIdToCopy}/settings/general`,
+    });
+
+    expect(screen.getByDataCy("copy-distro-modal")).toBeVisible();
+    expect(screen.queryByText(`Duplicate “${distroIdToCopy}”`)).toBeVisible();
+
+    const confirmButton = screen.getByRole("button", {
+      name: "Duplicate",
+    });
+    expect(confirmButton).toHaveAttribute("aria-disabled", "true");
+  });
+
+  it("submits the modal when a distro name is provided", async () => {
+    const { Component, dispatchToast } = RenderFakeToastContext(<Modal />);
+    render(<Component />, {
+      path: `/distro/:distroId/settings/general`,
+      route: `/distro/${distroIdToCopy}/settings/general`,
+    });
+
+    userEvent.type(screen.queryByDataCy("distro-id-input"), newDistroId);
+    userEvent.click(screen.queryByText("Duplicate"));
+    await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
+    await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
+  });
+
+  it("disables the duplicate button when project name contains a space", async () => {
+    const { Component } = RenderFakeToastContext(<Modal />);
+    render(<Component />, {
+      path: `/distro/:distroId/settings/general`,
+      route: `/distro/${distroIdToCopy}/settings/general`,
+    });
+
+    userEvent.type(
+      screen.queryByDataCy("distro-id-input"),
+      "string with spaces"
+    );
+    expect(
+      screen.getByRole("button", {
+        name: "Duplicate",
+      })
+    ).toHaveAttribute("aria-disabled", "true");
+  });
+
+  it("shows an error toast when an error is returned", async () => {
+    const mockWithError: ApolloMock<
+      CopyDistroMutation,
+      CopyDistroMutationVariables
+    > = {
+      request: {
+        query: COPY_DISTRO,
+        variables: {
+          opts: {
+            distroIdToCopy,
+            newDistroId,
+          },
+        },
+      },
+      result: {
+        errors: [new GraphQLError("There was an error copying the distro")],
+      },
+    };
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <Modal copyMock={mockWithError} />
+    );
+    render(<Component />, {
+      path: `/distro/:distroId/settings/general`,
+      route: `/distro/${distroIdToCopy}/settings/general`,
+    });
+
+    userEvent.type(screen.queryByDataCy("distro-id-input"), newDistroId);
+
+    const confirmButton = screen.getByRole("button", {
+      name: "Duplicate",
+    });
+    expect(confirmButton).toBeEnabled();
+
+    userEvent.click(screen.queryByText("Duplicate"));
+    await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
+    await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
+    await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(1));
+  });
+});
+
+const copyDistroMock: ApolloMock<
+  CopyDistroMutation,
+  CopyDistroMutationVariables
+> = {
+  request: {
+    query: COPY_DISTRO,
+    variables: {
+      opts: {
+        distroIdToCopy,
+        newDistroId,
+      },
+    },
+  },
+  result: {
+    data: {
+      copyDistro: {
+        __typename: "NewDistroPayload",
+        newDistroId,
+      },
+    },
+  },
+};
+
+const distroMock: ApolloMock<DistroQuery, DistroQueryVariables> = {
+  request: {
+    query: DISTRO,
+    variables: {
+      distroId: newDistroId,
+    },
+  },
+  result: {
+    data: {
+      distro: { name: newDistroId },
+    },
+  },
+};

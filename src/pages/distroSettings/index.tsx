@@ -87,7 +87,7 @@ const DistroSettings: React.VFC = () => {
 };
 
 const ButtonContainer = styled.div`
-  margin: 0 ${sideNavItemSidePadding};
+  margin: 0 ${sideNavItemSidePadding}px;
 
   > :not(:last-child) {
     margin-bottom: ${size.xs};
