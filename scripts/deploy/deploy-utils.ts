@@ -28,33 +28,20 @@ const getCurrentlyDeployedCommit = () => {
     .trim();
   return currentlyDeployedCommit;
 };
-/**
- * `runDeploy` is a helper function that actually performs the deploy.
- * It builds the production bundle, deploys it to the production server, and sends an email.
- */
-const runDeploy = () => {
-  console.log("GETTING CURRENTLY DEPLOYED COMMIT");
-  const currentlyDeployedCommit = getCurrentlyDeployedCommit();
-  console.log(currentlyDeployedCommit);
-  console.log("BUILDING");
-  execSync("yarn build:prod", { stdio: "inherit" });
-  console.log("DEPLOYING");
-  if (!isDryRun) {
-    execSync("yarn deploy:do-not-use", {
-      stdio: "inherit",
-    });
-  }
-  console.log("SENDING EMAIL");
 
-  if (!isDryRun) {
-    execSync("./scripts/email.sh", { stdio: "inherit" });
-  } else {
-    const email = execSync("git config user.email", {
-      encoding: "utf-8",
-    }).toString();
-    console.log(yellow(`Dry run mode enabled. Sending email to ${email}`));
-    execSync(`DEPLOYS_EMAIL=${email} ./scripts/email.sh`, { stdio: "inherit" });
-  }
+/**
+ * `getCurrentCommit` is a helper function that returns the current commit.
+ * This is different from the currently deployed commit. The currently deployed commit is the commit that is currently deployed to production.
+ * The current commit is the commit that is currently checked out on your local machine and will be deployed to production.
+ * @returns - the current commit
+ */
+const getCurrentCommit = () => {
+  const currentCommit = execSync("git rev-parse HEAD", {
+    encoding: "utf-8",
+  })
+    .toString()
+    .trim();
+  return currentCommit;
 };
 
 /**
@@ -85,6 +72,41 @@ const isWorkingDirectoryClean = () => {
 const isRunningOnCI = () => process.env.CI === "true";
 
 const isDryRun = process.argv.includes("--dry-run");
+
+/**
+ * `runDeploy` is a helper function that actually performs the deploy.
+ * It builds the production bundle, deploys it to the production server, and sends an email.
+ */
+const runDeploy = () => {
+  console.log("GETTING CURRENTLY DEPLOYED COMMIT");
+  const currentlyDeployedCommit = getCurrentlyDeployedCommit();
+  console.log(currentlyDeployedCommit);
+  console.log("BUILDING");
+  execSync("yarn build:prod", { stdio: "inherit" });
+  console.log("BUILD COMPLETE");
+  console.log("SAVING CURRENT COMMIT in build/commit.txt");
+  const currentCommit = getCurrentCommit();
+  execSync(`echo ${currentCommit} > build/commit.txt`, {
+    stdio: "inherit",
+  });
+  console.log("DEPLOYING");
+  if (!isDryRun) {
+    execSync("yarn deploy:do-not-use", {
+      stdio: "inherit",
+    });
+  }
+  console.log("SENDING EMAIL");
+
+  if (!isDryRun) {
+    execSync("./scripts/email.sh", { stdio: "inherit" });
+  } else {
+    const email = execSync("git config user.email", {
+      encoding: "utf-8",
+    }).toString();
+    console.log(yellow(`Dry run mode enabled. Sending email to ${email}`));
+    execSync(`DEPLOYS_EMAIL=${email} ./scripts/email.sh`, { stdio: "inherit" });
+  }
+};
 
 export {
   getCommitMessages,
