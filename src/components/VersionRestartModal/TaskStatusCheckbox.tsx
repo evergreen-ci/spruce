@@ -5,35 +5,30 @@ import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { size } from "constants/tokens";
 
 interface TaskStatusCheckboxProps {
+  baseStatus?: string;
+  checked: boolean;
   displayName: string;
+  onClick: () => void;
   status: string;
   taskId: string;
-  checked: boolean;
-  baseStatus?: string;
-  style: React.CSSProperties; // passed in by react-window to handle list virtualization
 }
 
 const CheckboxComponent: React.VFC<TaskStatusCheckboxProps> = ({
   baseStatus,
   checked,
   displayName,
+  onClick,
   status,
-  style,
   taskId,
 }) => (
   <Checkbox
-    style={style}
+    onClick={onClick}
     data-cy="task-status-checkbox"
-    className="task-checkbox"
     name={taskId}
     label={
       <StateItemWrapper>
-        <StyledTaskStatusIcon status={status} />
-        {baseStatus ? (
-          <StyledTaskStatusIcon status={baseStatus} />
-        ) : (
-          <EmptyCell />
-        )}
+        <TaskStatusIcon status={status} />
+        {baseStatus ? <TaskStatusIcon status={baseStatus} /> : <EmptyCell />}
         <div>{displayName}</div>
       </StateItemWrapper>
     }
@@ -44,19 +39,14 @@ const CheckboxComponent: React.VFC<TaskStatusCheckboxProps> = ({
 
 export const TaskStatusCheckbox = memo(CheckboxComponent);
 
-const StateItemWrapper = styled("div")`
+const StateItemWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: ${size.xxs};
   white-space: nowrap;
 `;
 
-const StyledTaskStatusIcon = styled(TaskStatusIcon)`
-  margin-right: ${size.xxs};
-`;
-
-// Wrapping checkboxes with fix width container
-// adjusts alignment.
 const EmptyCell = styled.span`
-  width: 19px;
+  width: ${size.s};
 `;

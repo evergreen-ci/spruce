@@ -14,5 +14,3 @@ export { useTaskAnalytics } from "./task/useTaskAnalytics";
 export { useTaskQueueAnalytics } from "./taskQueue/useTaskQueueAnalytics";
 export { useUserPatchesAnalytics } from "./patches/useUserPatchesAnalytics";
 export { useVersionAnalytics } from "./version/useVersionAnalytics";
-export type { Analytics as BreadcrumbAnalytics } from "./breadcrumb/useBreadcrumbAnalytics";
-export type { Analytics as TaskAnalytics } from "./task/useTaskAnalytics";

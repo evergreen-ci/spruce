@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.115",
+  "version": "3.0.117",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -125,8 +125,7 @@
     "react-dom": "17.0.1",
     "react-router-dom": "6.11.1",
     "react-string-replace": "1.1.1",
-    "react-virtuoso": "^4.3.11",
-    "react-window": "^1.8.9"
+    "react-virtuoso": "^4.3.11"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.17.12",
@@ -163,7 +162,6 @@
     "@types/pluralize": "0.0.29",
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
-    "@types/react-window": "^1.8.5",
     "@typescript-eslint/eslint-plugin": "5.57.1",
     "@typescript-eslint/parser": "5.57.1",
     "@vitejs/plugin-react": "4.0.0",

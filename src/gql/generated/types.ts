@@ -2481,6 +2481,7 @@ export type TaskQueueDistro = {
  */
 export type TaskQueueItem = {
   __typename?: "TaskQueueItem";
+  activatedBy: Scalars["String"];
   buildVariant: Scalars["String"];
   displayName: Scalars["String"];
   expectedDuration: Scalars["Duration"];

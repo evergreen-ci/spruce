@@ -71,11 +71,8 @@ describe("Dropdown Menu of Patch Actions", { testIsolation: false }, () => {
     });
     cy.dataCy("restart-version").click({ force: true });
 
-    cy.dataCy("accordion-toggle").first().click();
-    cy.dataCy("patch-status-selector-container")
-      .children()
-      .first()
-      .click({ force: true });
+    cy.dataCy("variant-accordion").first().click();
+    cy.dataCy("task-status-checkbox").should("exist");
     cy.contains("generate-lint").click();
     cy.dataCy("version-restart-modal").within(() => {
       cy.contains("Restart").click();
