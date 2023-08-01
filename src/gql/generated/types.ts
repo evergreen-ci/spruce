@@ -1590,6 +1590,7 @@ export type ProjectAlias = {
   description?: Maybe<Scalars["String"]>;
   gitTag: Scalars["String"];
   id: Scalars["String"];
+  parameters?: Maybe<Array<Parameter>>;
   remotePath: Scalars["String"];
   task: Scalars["String"];
   taskTags: Array<Scalars["String"]>;
@@ -1602,6 +1603,7 @@ export type ProjectAliasInput = {
   description?: InputMaybe<Scalars["String"]>;
   gitTag: Scalars["String"];
   id: Scalars["String"];
+  parameters?: InputMaybe<Array<ParameterInput>>;
   remotePath: Scalars["String"];
   task: Scalars["String"];
   taskTags: Array<Scalars["String"]>;
@@ -2481,6 +2483,7 @@ export type TaskQueueDistro = {
  */
 export type TaskQueueItem = {
   __typename?: "TaskQueueItem";
+  activatedBy: Scalars["String"];
   buildVariant: Scalars["String"];
   displayName: Scalars["String"];
   expectedDuration: Scalars["Duration"];
@@ -3223,6 +3226,11 @@ export type AliasFragment = {
   taskTags: Array<string>;
   variant: string;
   variantTags: Array<string>;
+  parameters?: Array<{
+    __typename?: "Parameter";
+    key: string;
+    value: string;
+  }> | null;
 };
 
 export type ProjectContainerSettingsFragment = {
@@ -3407,6 +3415,11 @@ export type ProjectSettingsFieldsFragment = {
     taskTags: Array<string>;
     variant: string;
     variantTags: Array<string>;
+    parameters?: Array<{
+      __typename?: "Parameter";
+      key: string;
+      value: string;
+    }> | null;
   }> | null;
   projectRef?: {
     __typename?: "Project";
@@ -3614,6 +3627,11 @@ export type RepoSettingsFieldsFragment = {
     taskTags: Array<string>;
     variant: string;
     variantTags: Array<string>;
+    parameters?: Array<{
+      __typename?: "Parameter";
+      key: string;
+      value: string;
+    }> | null;
   }> | null;
   projectRef?: {
     __typename?: "RepoRef";
@@ -3998,6 +4016,11 @@ export type ProjectEventSettingsFragment = {
     taskTags: Array<string>;
     variant: string;
     variantTags: Array<string>;
+    parameters?: Array<{
+      __typename?: "Parameter";
+      key: string;
+      value: string;
+    }> | null;
   }> | null;
   projectRef?: {
     __typename?: "Project";
@@ -6217,6 +6240,11 @@ export type ProjectEventLogsQuery = {
           taskTags: Array<string>;
           variant: string;
           variantTags: Array<string>;
+          parameters?: Array<{
+            __typename?: "Parameter";
+            key: string;
+            value: string;
+          }> | null;
         }> | null;
         projectRef?: {
           __typename?: "Project";
@@ -6422,6 +6450,11 @@ export type ProjectEventLogsQuery = {
           taskTags: Array<string>;
           variant: string;
           variantTags: Array<string>;
+          parameters?: Array<{
+            __typename?: "Parameter";
+            key: string;
+            value: string;
+          }> | null;
         }> | null;
         projectRef?: {
           __typename?: "Project";
@@ -6637,6 +6670,11 @@ export type ProjectSettingsQuery = {
       taskTags: Array<string>;
       variant: string;
       variantTags: Array<string>;
+      parameters?: Array<{
+        __typename?: "Parameter";
+        key: string;
+        value: string;
+      }> | null;
     }> | null;
     projectRef?: {
       __typename?: "Project";
@@ -6886,6 +6924,11 @@ export type RepoEventLogsQuery = {
           taskTags: Array<string>;
           variant: string;
           variantTags: Array<string>;
+          parameters?: Array<{
+            __typename?: "Parameter";
+            key: string;
+            value: string;
+          }> | null;
         }> | null;
         projectRef?: {
           __typename?: "Project";
@@ -7091,6 +7134,11 @@ export type RepoEventLogsQuery = {
           taskTags: Array<string>;
           variant: string;
           variantTags: Array<string>;
+          parameters?: Array<{
+            __typename?: "Parameter";
+            key: string;
+            value: string;
+          }> | null;
         }> | null;
         projectRef?: {
           __typename?: "Project";
@@ -7306,6 +7354,11 @@ export type RepoSettingsQuery = {
       taskTags: Array<string>;
       variant: string;
       variantTags: Array<string>;
+      parameters?: Array<{
+        __typename?: "Parameter";
+        key: string;
+        value: string;
+      }> | null;
     }> | null;
     projectRef?: {
       __typename?: "RepoRef";
