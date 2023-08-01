@@ -1,10 +1,18 @@
 const {
+  ciDeploy,
   evergreenDeploy,
   localDeploy,
-  ciDeploy,
 } = require("./deploy-production");
 
 const main = async () => {
+  if (!(await isOnMainBranch())) {
+    console.log("You must be on the main branch to deploy!");
+    return;
+  }
+  if (!(await isWorkingDirectoryClean())) {
+    console.log("You must have a clean working directory to deploy");
+    return;
+  }
   if (process.argv.includes("--local")) {
     await localDeploy();
     return;

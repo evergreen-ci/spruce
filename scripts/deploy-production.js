@@ -1,26 +1,15 @@
 const prompts = require("prompts");
 const {
   createNewTag,
+  deleteAndPushLatestTag,
   getCommitMessages,
   getCurrentlyDeployedCommit,
-  isOnMainBranch,
-  isWorkingDirectoryClean,
-  deleteAndPushLatestTag,
   isRunningOnCI,
   runDeploy,
 } = require("./deploy-utils");
 
 /* Deploy by pushing a git tag, to be picked up and built by Evergreen, and deployed to S3. */
 const evergreenDeploy = async () => {
-  if (!(await isOnMainBranch())) {
-    console.log("You must be on the main branch to deploy!");
-    return;
-  }
-  if (!(await isWorkingDirectoryClean())) {
-    console.log("You must have a clean working directory to deploy");
-    return;
-  }
-
   const currentlyDeployedCommit = await getCurrentlyDeployedCommit();
   console.log(`Currently Deployed Commit: ${currentlyDeployedCommit}`);
 
@@ -74,15 +63,6 @@ const evergreenDeploy = async () => {
 
 /* Deploy by generating a production build locally and pushing it directly to S3. */
 const localDeploy = async () => {
-  if (!(await isOnMainBranch())) {
-    console.log("You must be on the main branch to deploy!");
-    return;
-  }
-  if (!(await isWorkingDirectoryClean())) {
-    console.log("You must have a clean working directory to deploy");
-    return;
-  }
-
   const response = await prompts({
     type: "confirm",
     name: "value",
@@ -102,9 +82,6 @@ const localDeploy = async () => {
 };
 
 const ciDeploy = async () => {
-  if (!(await isOnMainBranch())) {
-    throw new Error("You must be on the main branch to deploy!");
-  }
   if (!isRunningOnCI()) {
     throw new Error("Not running on CI");
   }
