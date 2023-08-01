@@ -19,6 +19,7 @@ import { DISTRO } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { isProduction } from "utils/environmentVariables";
 import { DistroSettingsProvider } from "./Context";
+import { DistroSelect } from "./DistroSelect";
 import { getTabTitle } from "./getTabTitle";
 import { NewDistroButton } from "./NewDistroButton";
 import { DistroSettingsTabs } from "./Tabs";
@@ -62,9 +63,10 @@ const DistroSettings: React.VFC = () => {
   return (
     <DistroSettingsProvider>
       <SideNav aria-label="Distro Settings" widthOverride={250}>
-        <ButtonContainer>
+        <ButtonsContainer>
+          <DistroSelect selectedDistro={distroId} />
           <NewDistroButton />
-        </ButtonContainer>
+        </ButtonsContainer>
         <SideNavGroup>
           {Object.values(DistroSettingsTabRoutes).map((tab) => (
             <SideNavItem
@@ -80,18 +82,19 @@ const DistroSettings: React.VFC = () => {
         </SideNavGroup>
       </SideNav>
       <PageWrapper data-cy="distro-settings-page">
-        {!loading && data.distro && <DistroSettingsTabs distro={data.distro} />}
+        {!loading && data?.distro && (
+          <DistroSettingsTabs distro={data.distro} />
+        )}
       </PageWrapper>
     </DistroSettingsProvider>
   );
 };
 
-const ButtonContainer = styled.div`
+const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xs};
   margin: 0 ${sideNavItemSidePadding}px;
-
-  > :not(:last-child) {
-    margin-bottom: ${size.xs};
-  }
 `;
 
 export default DistroSettings;

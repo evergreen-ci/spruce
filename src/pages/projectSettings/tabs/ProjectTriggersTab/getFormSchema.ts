@@ -114,6 +114,7 @@ export const getFormSchema = (
       "ui:useExpandableCard": true,
       items: {
         "ui:displayTitle": "New Project Trigger",
+        "ui:label": false,
         project: {
           "ui:data-cy": "project-input",
         },

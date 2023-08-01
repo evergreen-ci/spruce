@@ -136,6 +136,7 @@ export const getEventSchema = (
       eventSelect: {
         type: "string" as "string",
         title: "Event",
+        default: "",
         oneOf: [
           ...Object.keys(triggers).map((t) => ({
             type: "string" as "string",
@@ -461,6 +462,7 @@ export const getEventSchema = (
       "ui:addButtonText": "Add Additional Criteria",
       items: {
         "ui:ObjectFieldTemplate": RegexSelectorRow,
+        "ui:label": false,
         regexSelect: {
           "ui:data-cy": "regex-select",
           "ui:enumDisabled": regexEnumsToDisable,

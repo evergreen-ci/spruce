@@ -22,7 +22,7 @@ describe("Restarting a patch", { testIsolation: false }, () => {
 
   it("Clicking on a variant should toggle an accordion drop down of tasks", () => {
     cy.dataCy("variant-accordion").first().click();
-    cy.dataCy("patch-status-selector-container").should("exist");
+    cy.dataCy("task-status-checkbox").should("exist");
   });
   it("Clicking on a variant checkbox should toggle its textbox and all the associated tasks", () => {
     cy.dataCy("task-status-badge").should("contain.text", "0 of 1 Selected");
@@ -33,7 +33,6 @@ describe("Restarting a patch", { testIsolation: false }, () => {
   });
   it("Clicking on a task should toggle its check box and select the task", () => {
     cy.dataCy("task-status-checkbox").first().click({ force: true });
-    cy.dataCy("patch-status-selector-container").should("exist");
     cy.dataCy("task-status-badge").should("contain.text", "1 of 1 Selected");
   });
 
