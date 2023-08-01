@@ -3,8 +3,6 @@
 # This script runs the aws cli command to deploy the app to s3
 # It also uploads source maps to bugsnag
 
-REACT_APP_SPRUCE_URL=$REACT_APP_SPRUCE_URL sh scripts/get-current-deployed-commit.sh
-
 # Create a file in build/ that contains the current commit hash
 CURRENT_COMMIT_HASH=$(git rev-parse HEAD)
 echo "$CURRENT_COMMIT_HASH" > build/commit.txt
