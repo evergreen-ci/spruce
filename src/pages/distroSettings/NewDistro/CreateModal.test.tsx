@@ -55,13 +55,16 @@ describe("create distro modal", () => {
 
   it("submits the modal when a distro name is provided", async () => {
     const { Component, dispatchToast } = RenderFakeToastContext(<Modal />);
-    render(<Component />);
+    const { router } = render(<Component />);
 
     userEvent.type(screen.queryByDataCy("distro-id-input"), newDistroId);
     userEvent.click(screen.queryByText("Create"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
+    expect(router.state.location.pathname).toBe(
+      `/distro/${newDistroId}/settings`
+    );
   });
 
   it("disables the create button when project name contains a space", async () => {
@@ -99,7 +102,7 @@ describe("create distro modal", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <Modal createMock={mockWithError} />
     );
-    render(<Component />);
+    const { router } = render(<Component />);
 
     userEvent.type(screen.queryByDataCy("distro-id-input"), newDistroId);
 
@@ -112,6 +115,7 @@ describe("create distro modal", () => {
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(1));
+    expect(router.state.location.pathname).toBe("/");
   });
 });
 
@@ -146,7 +150,10 @@ const distroMock: ApolloMock<DistroQuery, DistroQueryVariables> = {
   },
   result: {
     data: {
-      distro: { name: newDistroId },
+      distro: {
+        __typename: "Distro",
+        name: newDistroId,
+      },
     },
   },
 };

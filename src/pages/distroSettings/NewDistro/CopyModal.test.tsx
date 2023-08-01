@@ -62,7 +62,7 @@ describe("copy distro modal", () => {
 
   it("submits the modal when a distro name is provided", async () => {
     const { Component, dispatchToast } = RenderFakeToastContext(<Modal />);
-    render(<Component />, {
+    const { router } = render(<Component />, {
       path: `/distro/:distroId/settings/general`,
       route: `/distro/${distroIdToCopy}/settings/general`,
     });
@@ -72,6 +72,9 @@ describe("copy distro modal", () => {
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
+    expect(router.state.location.pathname).toBe(
+      `/distro/${newDistroId}/settings`
+    );
   });
 
   it("disables the duplicate button when project name contains a space", async () => {
@@ -113,7 +116,7 @@ describe("copy distro modal", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <Modal copyMock={mockWithError} />
     );
-    render(<Component />, {
+    const { router } = render(<Component />, {
       path: `/distro/:distroId/settings/general`,
       route: `/distro/${distroIdToCopy}/settings/general`,
     });
@@ -129,6 +132,9 @@ describe("copy distro modal", () => {
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(1));
+    expect(router.state.location.pathname).toBe(
+      `/distro/${distroIdToCopy}/settings/general`
+    );
   });
 });
 
@@ -164,7 +170,10 @@ const distroMock: ApolloMock<DistroQuery, DistroQueryVariables> = {
   },
   result: {
     data: {
-      distro: { name: newDistroId },
+      distro: {
+        __typename: "Distro",
+        name: newDistroId,
+      },
     },
   },
 };

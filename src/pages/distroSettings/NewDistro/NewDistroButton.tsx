@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
-import Button, { Size } from "@leafygreen-ui/button";
+import styled from "@emotion/styled";
+import Button, { Size, Variant } from "@leafygreen-ui/button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import Icon from "components/Icon";
 import { zIndex } from "constants/tokens";
@@ -35,13 +36,14 @@ export const NewDistroButton: React.VFC = () => {
         popoverZIndex={zIndex.popover}
         setOpen={setMenuOpen}
         trigger={
-          <Button
+          <StyledButton
             data-cy="new-distro-button"
             leftGlyph={<Icon glyph="Plus" />}
             size={Size.Small}
+            variant={Variant.Primary}
           >
             New distro
-          </Button>
+          </StyledButton>
         }
       >
         <MenuItem
@@ -74,3 +76,7 @@ export const NewDistroButton: React.VFC = () => {
     </>
   );
 };
+
+const StyledButton = styled(Button)`
+  width: fit-content;
+`;

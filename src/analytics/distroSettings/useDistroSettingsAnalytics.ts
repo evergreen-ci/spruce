@@ -1,28 +1,12 @@
 import { useParams } from "react-router-dom";
-import {
-  addPageAction,
-  Properties,
-  Analytics as A,
-} from "analytics/addPageAction";
+import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 
 type Action =
   | { name: "Save distro"; section: string }
-  | { name: "Create new distro" }
-  | { name: "Duplicate distro"; distroIdToCopy: string };
+  | { name: "Create new distro"; newDistroId: string }
+  | { name: "Duplicate distro"; newDistroId: string };
 
-interface P extends Properties {}
-
-export interface Analytics extends A<Action> {}
-
-export const useDistroSettingsAnalytics = (): Analytics => {
+export const useDistroSettingsAnalytics = () => {
   const { distroId } = useParams<{ distroId: string }>();
-
-  const sendEvent: Analytics["sendEvent"] = (action) => {
-    addPageAction<Action, P>(action, {
-      object: "DistroSettings",
-      distroId,
-    });
-  };
-
-  return { sendEvent };
+  return useAnalyticsRoot<Action>("DistroSettings", { distroId });
 };

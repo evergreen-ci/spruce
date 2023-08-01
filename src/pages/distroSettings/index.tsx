@@ -21,7 +21,7 @@ import { isProduction } from "utils/environmentVariables";
 import { DistroSettingsProvider } from "./Context";
 import { DistroSelect } from "./DistroSelect";
 import { getTabTitle } from "./getTabTitle";
-import { NewDistroButton } from "./NewDistroButton";
+import { NewDistroButton } from "./NewDistro/NewDistroButton";
 import { DistroSettingsTabs } from "./Tabs";
 
 const DistroSettings: React.VFC = () => {

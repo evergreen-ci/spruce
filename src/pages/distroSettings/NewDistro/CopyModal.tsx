@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDistroSettingsAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm } from "components/SpruceForm";
 import { getDistroSettingsRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
-  CreateDistroMutation,
-  CreateDistroMutationVariables,
+  CopyDistroMutation,
+  CopyDistroMutationVariables,
 } from "gql/generated/types";
-import { CREATE_DISTRO } from "gql/mutations";
+import { COPY_DISTRO } from "gql/mutations";
 import { modalFormDefinition } from "./newDistroSchema";
 
 const { initialFormData, schema, uiSchema } = modalFormDefinition;
@@ -20,7 +20,8 @@ interface Props {
   open: boolean;
 }
 
-export const CreateModal: React.VFC<Props> = ({ handleClose, open }) => {
+export const CopyModal: React.VFC<Props> = ({ handleClose, open }) => {
+  const { distroId } = useParams<{ distroId: string }>();
   const navigate = useNavigate();
   const dispatchToast = useToastContext();
   const { sendEvent } = useDistroSettingsAnalytics();
@@ -28,40 +29,41 @@ export const CreateModal: React.VFC<Props> = ({ handleClose, open }) => {
   const [formState, setFormState] = useState(initialFormData);
   const [hasError, setHasError] = useState(true);
 
-  const [createDistro] = useMutation<
-    CreateDistroMutation,
-    CreateDistroMutationVariables
-  >(CREATE_DISTRO, {
-    onCompleted({ createDistro: { newDistroId } }) {
+  const [copyDistro] = useMutation<
+    CopyDistroMutation,
+    CopyDistroMutationVariables
+  >(COPY_DISTRO, {
+    onCompleted({ copyDistro: { newDistroId } }) {
       navigate(getDistroSettingsRoute(newDistroId), { replace: true });
       dispatchToast.success(`Created distro “${newDistroId}”`);
     },
     onError(err) {
-      dispatchToast.error(`Creating distro: ${err.message}`);
+      dispatchToast.error(`Duplicating distro: ${err.message}`);
     },
   });
 
   const onConfirm = () => {
-    createDistro({
+    copyDistro({
       variables: {
         opts: {
+          distroIdToCopy: distroId,
           newDistroId: formState.newDistroId,
         },
       },
     });
-    sendEvent({ name: "Create new distro" });
+    sendEvent({ name: "Duplicate distro", newDistroId: formState.newDistroId });
     handleClose();
   };
 
   return (
     <ConfirmationModal
-      buttonText="Create"
-      data-cy="create-distro-modal"
+      buttonText="Duplicate"
+      data-cy="copy-distro-modal"
       onCancel={handleClose}
       onConfirm={onConfirm}
       open={open}
       submitDisabled={hasError}
-      title="Create New Distro"
+      title={`Duplicate “${distroId}”`}
     >
       <SpruceForm
         formData={formState}
