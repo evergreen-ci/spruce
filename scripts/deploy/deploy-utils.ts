@@ -21,7 +21,7 @@ const getCommitMessages = (currentlyDeployedCommit: string) => {
  */
 const getCurrentlyDeployedCommit = () => {
   const currentlyDeployedCommit = execSync(
-    "bash scripts/get-current-deployed-commit.sh",
+    "bash scripts/deploy/get-current-deployed-commit.sh",
     { encoding: "utf-8" }
   )
     .toString()
@@ -98,13 +98,15 @@ const runDeploy = () => {
   console.log("SENDING EMAIL");
 
   if (!isDryRun) {
-    execSync("./scripts/email.sh", { stdio: "inherit" });
+    execSync("./scripts/deploy/email.sh", { stdio: "inherit" });
   } else {
     const email = execSync("git config user.email", {
       encoding: "utf-8",
     }).toString();
     console.log(yellow(`Dry run mode enabled. Sending email to ${email}`));
-    execSync(`DEPLOYS_EMAIL=${email} ./scripts/email.sh`, { stdio: "inherit" });
+    execSync(`DEPLOYS_EMAIL=${email} ./scripts/deploy/email.sh`, {
+      stdio: "inherit",
+    });
   }
 };
 

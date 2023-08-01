@@ -34,7 +34,7 @@
     "storybook": "storybook dev -p 6006",
     "test:watch": "node scripts/test.js  --verbose",
     "test": "node scripts/test.js  --watchAll=false",
-    "upload-source-maps": "env-cmd -e production node ./scripts/upload-bugsnag-sourcemaps",
+    "upload-source-maps": "env-cmd -e production node ./scripts/deploy/upload-bugsnag-sourcemaps",
     "postversion": "scripts/push-version.sh"
   },
   "browserslist": {
