@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Dropdown from "components/Dropdown";
 import { TreeSelect } from "components/TreeSelect";
 import { noFilterMessage } from "constants/strings";
+import { size } from "constants/tokens";
 import { useTaskStatuses } from "hooks";
 
 interface Props {
@@ -10,7 +11,6 @@ interface Props {
   selectedBaseStatuses: string[];
   onChangeStatusFilter: (s: string[]) => void;
   onChangeBaseStatusFilter: (s: string[]) => void;
-  filterWidth?: string;
 }
 
 export const TaskStatusFilters: React.VFC<Props> = ({
@@ -22,7 +22,7 @@ export const TaskStatusFilters: React.VFC<Props> = ({
 }) => {
   const { baseStatuses, currentStatuses } = useTaskStatuses({ versionId });
   return (
-    <>
+    <Container>
       <SelectorWrapper>
         <Dropdown
           data-cy="task-status-filter"
@@ -57,9 +57,15 @@ export const TaskStatusFilters: React.VFC<Props> = ({
           />
         </Dropdown>
       </SelectorWrapper>
-    </>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${size.xxs};
+`;
 
 const SelectorWrapper = styled.div`
   width: 50%;

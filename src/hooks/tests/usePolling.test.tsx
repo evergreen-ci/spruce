@@ -43,13 +43,12 @@ describe("usePolling", () => {
     const startPolling = jest.fn();
     const stopPolling = jest.fn();
     const refetch = jest.fn();
-    const { result, waitForNextUpdate } = renderHook(
+    const { result } = renderHook(
       () => usePolling({ startPolling, stopPolling, refetch }),
       {
         wrapper: Provider,
       }
     );
-    await waitForNextUpdate();
     expect(startPolling).toHaveBeenCalledTimes(0);
     expect(stopPolling).toHaveBeenCalledTimes(0);
     expect(refetch).toHaveBeenCalledTimes(0);
@@ -60,10 +59,7 @@ describe("usePolling", () => {
     it("usePolling evaluates to false when polling is disabled", async () => {
       mockedGet.mockImplementation(() => "true");
 
-      const {
-        result: disabledResult,
-        waitForNextUpdate: disabledWaitForNextUpdate,
-      } = renderHook(
+      const { result: disabledResult } = renderHook(
         () =>
           usePolling({
             shouldPollFaster: false,
@@ -75,13 +71,9 @@ describe("usePolling", () => {
           wrapper: Provider,
         }
       );
-      await disabledWaitForNextUpdate();
       expect(disabledResult.current).toBe(false);
 
-      const {
-        result: enabledResult,
-        waitForNextUpdate: enabledWaitForNextUpdate,
-      } = renderHook(
+      const { result: enabledResult } = renderHook(
         () =>
           usePolling({
             shouldPollFaster: true,
@@ -93,7 +85,6 @@ describe("usePolling", () => {
           wrapper: Provider,
         }
       );
-      await enabledWaitForNextUpdate();
       expect(enabledResult.current).toBe(false);
     });
 
@@ -103,7 +94,7 @@ describe("usePolling", () => {
       const refetch = jest.fn();
       mockedGet.mockImplementation(() => "true");
       let shouldPollFaster = true;
-      const { rerender, waitForNextUpdate } = renderHook(
+      const { rerender } = renderHook(
         () =>
           usePolling({
             startPolling,
@@ -113,7 +104,6 @@ describe("usePolling", () => {
           }),
         { wrapper: Provider }
       );
-      await waitForNextUpdate();
 
       // go offline
       updateNetworkStatus("offline");
@@ -138,11 +128,10 @@ describe("usePolling", () => {
       const stopPolling = jest.fn();
       const refetch = jest.fn();
 
-      const { result, waitForNextUpdate } = renderHook(
+      const { result } = renderHook(
         () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
-      await waitForNextUpdate();
       expect(result.current).toBe(true);
 
       updateNetworkStatus("offline");
@@ -157,11 +146,10 @@ describe("usePolling", () => {
       const stopPolling = jest.fn();
       const refetch = jest.fn();
 
-      const { result, waitForNextUpdate } = renderHook(
+      const { result } = renderHook(
         () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
-      await waitForNextUpdate();
       expect(result.current).toBe(true);
 
       updatePageVisibility("hidden");
@@ -175,11 +163,10 @@ describe("usePolling", () => {
       const stopPolling = jest.fn();
       const refetch = jest.fn();
 
-      const { result, waitForNextUpdate } = renderHook(
+      const { result } = renderHook(
         () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
-      await waitForNextUpdate();
       expect(result.current).toBe(true);
 
       // go offline
@@ -201,11 +188,10 @@ describe("usePolling", () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
       const refetch = jest.fn();
-      const { result, waitForNextUpdate } = renderHook(
+      const { result } = renderHook(
         () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
-      await waitForNextUpdate();
       expect(result.current).toBe(true);
 
       // document hidden
@@ -229,11 +215,10 @@ describe("usePolling", () => {
       const stopPolling = jest.fn();
       const refetch = jest.fn();
 
-      const { result, waitForNextUpdate } = renderHook(
+      const { result } = renderHook(
         () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
-      await waitForNextUpdate();
       expect(result.current).toBe(true);
 
       // go offline
@@ -294,11 +279,9 @@ describe("usePolling", () => {
       const stopPolling = jest.fn();
       const refetch = jest.fn();
 
-      const { waitForNextUpdate } = renderHook(
-        () => usePolling({ startPolling, stopPolling, refetch }),
-        { wrapper: Provider }
-      );
-      await waitForNextUpdate();
+      renderHook(() => usePolling({ startPolling, stopPolling, refetch }), {
+        wrapper: Provider,
+      });
 
       // go offline
       updateNetworkStatus("offline");

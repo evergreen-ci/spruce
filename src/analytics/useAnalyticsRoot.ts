@@ -10,13 +10,19 @@ import {
 interface P extends Properties {}
 
 export const useAnalyticsRoot = <Action extends ActionType>(
-  object: AnalyticsObject
+  object: AnalyticsObject,
+  attributes: { [key: string]: any } = {}
 ): Analytics<Action> => {
   const sendEvent: Analytics<Action>["sendEvent"] = useCallback(
     (action) => {
-      addPageAction<Action, P>(action, { object });
+      const userId = localStorage.getItem("userId");
+      addPageAction<Action, P>(action, {
+        object,
+        userId,
+        ...attributes,
+      });
     },
-    [object]
+    [object, attributes]
   );
 
   return useMemo(() => ({ sendEvent }), [sendEvent]);

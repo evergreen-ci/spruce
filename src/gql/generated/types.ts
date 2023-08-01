@@ -2481,6 +2481,7 @@ export type TaskQueueDistro = {
  */
 export type TaskQueueItem = {
   __typename?: "TaskQueueItem";
+  activatedBy: Scalars["String"];
   buildVariant: Scalars["String"];
   displayName: Scalars["String"];
   expectedDuration: Scalars["Duration"];
@@ -4996,6 +4997,15 @@ export type DistroTaskQueueQuery = {
     requester: TaskQueueItemType;
     version: string;
   }>;
+};
+
+export type DistroQueryVariables = Exact<{
+  distroId: Scalars["String"];
+}>;
+
+export type DistroQuery = {
+  __typename?: "Query";
+  distro?: { __typename?: "Distro"; name?: string | null } | null;
 };
 
 export type FailedTaskStatusIconTooltipQueryVariables = Exact<{
