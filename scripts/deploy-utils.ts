@@ -1,66 +1,47 @@
-import { exec, execSync } from "child_process";
+import { execSync } from "child_process";
 
 const githubRemote = "https://github.com/evergreen-ci/spruce";
 
-const createNewTag = () =>
-  new Promise((resolve, reject) => {
-    exec("yarn version --new-version patch", (err, stdout) => {
-      if (err) {
-        console.error(stdout);
-        reject(err);
-        return;
-      }
-      resolve(stdout);
-    });
-  });
-
-const getLatestTag = () =>
-  new Promise((resolve, reject) => {
-    exec("git describe --tags --abbrev=0", (err, stdout) => {
-      if (err) {
-        console.error(stdout);
-        reject(err);
-        return;
-      }
-      resolve(stdout);
-    });
-  });
-
-const deleteTag = (tag: string) => {
-  const deleteCommand = `git push --delete ${githubRemote} ${tag}`;
-  return new Promise((resolve, reject) => {
-    exec(deleteCommand, (err, stdout) => {
-      if (err) {
-        console.error(stdout);
-        reject(err);
-        return;
-      }
-      resolve(stdout);
-    });
+/**
+ * `createNewTag` is a helper function that creates a new tag.
+ */
+const createNewTag = () => {
+  execSync("yarn version --new-version patch", {
+    encoding: "utf-8",
+    stdio: "inherit",
   });
 };
 
-const pushTags = () =>
-  new Promise((resolve, reject) => {
-    exec(`git push --tags ${githubRemote}`, (err, stdout) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve(stdout);
-    });
-  });
+/**
+ * `getLatestTag` is a helper function that returns the latest tag.
+ * @returns - the latest tag
+ */
+const getLatestTag = () => {
+  const latestTag = execSync("git describe --tags --abbrev=0", {
+    encoding: "utf-8",
+  })
+    .toString()
+    .trim();
+  return latestTag;
+};
 
-const deleteAndPushLatestTag = async () => {
-  try {
-    const latestTag = await getLatestTag();
-    console.log(`Deleting and re-pushing latest tag (${latestTag})`);
-    console.log(await deleteTag(latestTag));
-    console.log(await pushTags());
-  } catch (err) {
-    console.error(err);
-    console.error("Deleting and pushing tag failed. Aborting.");
-  }
+/**
+ * `deleteTag` is a helper function that deletes a tag.
+ * @param tag - the tag to delete
+ */
+const deleteTag = (tag: string) => {
+  const deleteCommand = `git push --delete ${githubRemote} ${tag}`;
+  execSync(deleteCommand, { stdio: "inherit", encoding: "utf-8" });
+};
+
+/**
+ * `pushTags` is a helper function that pushes tags to the remote.
+ */
+const pushTags = () => {
+  execSync(`git push --tags ${githubRemote}`, {
+    stdio: "inherit",
+    encoding: "utf-8",
+  });
 };
 
 /**
@@ -135,7 +116,6 @@ const isRunningOnCI = () => process.env.CI === "true";
 
 export {
   createNewTag,
-  deleteAndPushLatestTag,
   deleteTag,
   getCommitMessages,
   getCurrentlyDeployedCommit,

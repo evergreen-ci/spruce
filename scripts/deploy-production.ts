@@ -1,10 +1,12 @@
 import prompts from "prompts";
 import {
   createNewTag,
-  deleteAndPushLatestTag,
+  deleteTag,
   getCommitMessages,
   getCurrentlyDeployedCommit,
+  getLatestTag,
   isRunningOnCI,
+  pushTags,
   runDeploy,
 } from "./deploy-utils";
 
@@ -17,17 +19,21 @@ const evergreenDeploy = async () => {
 
   // If there are no commit messages, ask the user if they want to delete and re-push the latest tag, thereby forcing a deploy with no new commits.
   if (commitMessages.length === 0) {
+    const latestTag = getLatestTag();
     const response = await prompts({
       type: "confirm",
       name: "value",
-      message:
-        "No new commits. Do you want to deploy the most recent existing tag?",
+      message: `No new commits. Do you want to trigger a deploy on the most recent existing tag? (${latestTag})`,
       initial: false,
     });
 
     const forceDeploy = response.value;
     if (forceDeploy) {
-      await deleteAndPushLatestTag();
+      console.log(`Deleting tag (${latestTag}) from remote...`);
+      deleteTag(latestTag);
+      console.log("Pushing tags...");
+      pushTags();
+      console.log("Check Evergreen for deploy progress.");
       return;
     }
 
@@ -48,7 +54,7 @@ const evergreenDeploy = async () => {
 
   if (response.value) {
     try {
-      const createTagOutput = await createNewTag();
+      const createTagOutput = createNewTag();
       console.log(createTagOutput);
       console.log("Pushed to remote. Should be deploying soon...");
       console.log(
