@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.116",
+  "version": "3.0.118",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -99,7 +99,7 @@
     "@leafygreen-ui/tokens": "2.1.0",
     "@leafygreen-ui/tooltip": "9.1.6",
     "@leafygreen-ui/typography": "16.4.1",
-    "@rjsf/core": "4.2.0",
+    "@rjsf/core": "4.2.3",
     "@sentry/react": "7.56.0",
     "@sentry/types": "7.56.0",
     "ansi_up": "5.1.0",
@@ -125,8 +125,7 @@
     "react-dom": "17.0.1",
     "react-router-dom": "6.11.1",
     "react-string-replace": "1.1.1",
-    "react-virtuoso": "^4.3.11",
-    "react-window": "^1.8.9"
+    "react-virtuoso": "^4.3.11"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.17.12",
@@ -163,7 +162,6 @@
     "@types/pluralize": "0.0.29",
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
-    "@types/react-window": "^1.8.5",
     "@typescript-eslint/eslint-plugin": "5.57.1",
     "@typescript-eslint/parser": "5.57.1",
     "@vitejs/plugin-react": "4.0.0",

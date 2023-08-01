@@ -39,10 +39,10 @@ const validate = ((formData, errors) => {
   const { subscriptions } = formData;
 
   subscriptions.forEach((subscription, i) => {
-    const { subscriptionData } = subscription;
-    const { event, notification } = subscriptionData;
-    const { notificationSelect } = notification;
-    const { eventSelect } = event;
+    const { subscriptionData } = subscription || {};
+    const { event, notification } = subscriptionData || {};
+    const { notificationSelect } = notification || {};
+    const { eventSelect } = event || {};
 
     Object.entries(invalidProjectTriggerSubscriptionCombinations).forEach(
       ([notificationType, eventType]) => {

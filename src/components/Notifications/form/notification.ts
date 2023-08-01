@@ -25,6 +25,7 @@ export const getNotificationSchema = (
       notificationSelect: {
         type: "string" as "string",
         title: "Notification Method",
+        default: "",
         oneOf: [
           ...subscriptionMethods.map(({ label, value }) => ({
             type: "string" as "string",
