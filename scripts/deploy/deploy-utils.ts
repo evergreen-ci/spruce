@@ -25,7 +25,6 @@ const getCurrentlyDeployedCommit = () => {
   )
     .toString()
     .trim();
-  console.log("Currently deployed commit:", currentlyDeployedCommit);
   return currentlyDeployedCommit;
 };
 /**

@@ -6,6 +6,7 @@ import {
   runDeploy,
 } from "./deploy-utils";
 import { createNewTag, deleteTag, getLatestTag, pushTags } from "./tag-utils";
+import { green, underline } from "./colors";
 
 /* Deploy by pushing a git tag, to be picked up and built by Evergreen, and deployed to S3. */
 const evergreenDeploy = async () => {
@@ -51,15 +52,19 @@ const evergreenDeploy = async () => {
 
   if (response.value) {
     try {
-      const createTagOutput = createNewTag();
-      console.log(createTagOutput);
+      createNewTag();
       console.log("Pushed to remote. Should be deploying soon...");
       console.log(
-        "Track deploy progress at https://spruce.mongodb.com/commits/spruce?requester=git_tag_request"
+        green(
+          `Track deploy progress at ${underline(
+            "https://spruce.mongodb.com/commits/spruce?requester=git_tag_request"
+          )}`
+        )
       );
     } catch (err) {
-      console.log(err);
-      throw new Error("Creating tag failed. Aborting.");
+      console.error(err);
+      console.error("Creating tag failed. Aborting.");
+      process.exit(1);
     }
   }
 };
@@ -77,8 +82,9 @@ const localDeploy = async () => {
     try {
       runDeploy();
     } catch (err) {
+      console.error(err);
       console.error("Local deploy failed. Aborting.");
-      throw new Error(err);
+      process.exit(1);
     }
   }
 };
@@ -94,8 +100,9 @@ const ciDeploy = async () => {
     const ciDeployOutput = runDeploy();
     console.log(ciDeployOutput);
   } catch (err) {
+    console.error(err);
     console.error("CI deploy failed. Aborting.");
-    throw new Error(err);
+    process.exit(1);
   }
 };
 
