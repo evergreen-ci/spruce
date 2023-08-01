@@ -10,10 +10,10 @@ const {
 
 /* Deploy by pushing a git tag, to be picked up and built by Evergreen, and deployed to S3. */
 const evergreenDeploy = async () => {
-  const currentlyDeployedCommit = await getCurrentlyDeployedCommit();
+  const currentlyDeployedCommit = getCurrentlyDeployedCommit();
   console.log(`Currently Deployed Commit: ${currentlyDeployedCommit}`);
 
-  const commitMessages = await getCommitMessages(currentlyDeployedCommit);
+  const commitMessages = getCommitMessages(currentlyDeployedCommit);
 
   // If there are no commit messages, ask the user if they want to delete and re-push the latest tag, thereby forcing a deploy with no new commits.
   if (commitMessages.length === 0) {
@@ -72,8 +72,7 @@ const localDeploy = async () => {
 
   if (response.value) {
     try {
-      const localDeployOutput = await runDeploy();
-      console.log(localDeployOutput);
+      runDeploy();
     } catch (err) {
       console.error("Local deploy failed. Aborting.");
       throw new Error(err);
@@ -81,6 +80,9 @@ const localDeploy = async () => {
   }
 };
 
+/**
+ * `ciDeploy` is a special deploy function that is only run on CI. It does the actual deploy to S3.
+ */
 const ciDeploy = async () => {
   if (!isRunningOnCI()) {
     throw new Error("Not running on CI");

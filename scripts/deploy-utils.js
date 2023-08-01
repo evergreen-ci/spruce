@@ -1,8 +1,6 @@
-const { exec } = require("child_process");
+const { exec, execSync } = require("child_process");
 
 const githubRemote = "https://github.com/evergreen-ci/spruce";
-const deployScript =
-  "yarn build:prod && env-cmd -e production yarn deploy:do-not-use && env-cmd -e production ./scripts/email.sh";
 
 const createNewTag = () =>
   new Promise((resolve, reject) => {
@@ -13,50 +11,6 @@ const createNewTag = () =>
         return;
       }
       resolve(stdout);
-    });
-  });
-
-const getCommitMessages = (currentlyDeployedCommit) =>
-  new Promise((resolve, reject) => {
-    exec(
-      `git log ${currentlyDeployedCommit}..HEAD --oneline`,
-      (err, stdout) => {
-        if (err) {
-          console.error(stdout);
-          reject(err);
-          return;
-        }
-        resolve(stdout);
-      }
-    );
-  });
-
-const getCurrentlyDeployedCommit = () =>
-  new Promise((resolve, reject) => {
-    exec("bash scripts/get-current-deployed-commit.sh", (err, stdout) => {
-      if (err) {
-        console.error(stdout);
-        reject(err);
-        return;
-      }
-      console.log(stdout);
-      // Regex for githash
-      const githashRegex = /[a-z0-9]{40}/gm;
-      // Regex for git tag
-      const gitTagRegex = /v[0-9]+\.[0-9]+\.[0-9]+/gm;
-      const githash = stdout.match(githashRegex);
-      const gitTag = stdout.match(gitTagRegex);
-      if (githash) {
-        resolve(githash[0]);
-      } else if (gitTag) {
-        resolve(gitTag[0]);
-      } else {
-        reject(
-          new Error(
-            "Could not find a githash or git tag in the output of get-current-deployed-commit.sh"
-          )
-        );
-      }
     });
   });
 
@@ -97,42 +51,6 @@ const pushTags = () =>
     });
   });
 
-const runDeploy = () =>
-  new Promise((resolve, reject) => {
-    exec(deployScript, (err, stdout) => {
-      if (err) {
-        console.error(stdout);
-        reject(err);
-        return;
-      }
-      resolve(stdout);
-    });
-  });
-
-const isOnMainBranch = () =>
-  new Promise((resolve, reject) => {
-    exec("git branch --show-current", (err, stdout) => {
-      if (err) {
-        console.error(stdout);
-        reject(err);
-        return;
-      }
-      resolve(stdout.trim() === "main");
-    });
-  });
-
-const isWorkingDirectoryClean = () =>
-  new Promise((resolve, reject) => {
-    exec("git status --porcelain", (err, stdout) => {
-      if (err) {
-        console.error(stdout);
-        reject(err);
-        return;
-      }
-      resolve(stdout.trim() === "");
-    });
-  });
-
 const deleteAndPushLatestTag = async () => {
   try {
     const latestTag = await getLatestTag();
@@ -143,6 +61,74 @@ const deleteAndPushLatestTag = async () => {
     console.error(err);
     console.error("Deleting and pushing tag failed. Aborting.");
   }
+};
+
+/**
+ * `getCommitMessages` returns a string of all commit messages between the currently deployed commit and HEAD.
+ * @param currentlyDeployedCommit - the currently deployed commit
+ * @returns - a string of all commit messages between the currently deployed commit and HEAD
+ */
+const getCommitMessages = (currentlyDeployedCommit) => {
+  const commitMessages = execSync(
+    `git log ${currentlyDeployedCommit}..HEAD --oneline`,
+    { encoding: "utf-8" }
+  ).toString();
+  return commitMessages;
+};
+
+/**
+ * `getCurrentlyDeployedCommit` is a helper function that returns the currently deployed commit.
+ * It will call the `get-current-deployed-commit.sh` script, which will return either a git hash or a git tag.
+ * @returns - the currently deployed commit
+ */
+const getCurrentlyDeployedCommit = () => {
+  const currentlyDeployedCommit = execSync(
+    "bash scripts/get-current-deployed-commit.sh",
+    { encoding: "utf-8" }
+  )
+    .toString()
+    .trim();
+  console.log("Currently deployed commit:", currentlyDeployedCommit);
+  return currentlyDeployedCommit;
+};
+/**
+ * `runDeploy` is a helper function that actually performs the deploy.
+ * It builds the production bundle, deploys it to the production server, and sends an email.
+ */
+const runDeploy = () => {
+  console.log("BUILDING");
+  execSync("yarn build:prod", { stdio: "inherit" });
+  console.log("DEPLOYING");
+  execSync("env-cmd -e production yarn deploy:do-not-use", {
+    stdio: "inherit",
+  });
+  console.log("SENDING EMAIL");
+  execSync("env-cmd -e production ./scripts/email.sh", { stdio: "inherit" });
+};
+
+/**
+ * `isOnMainBranch` is a helper function that checks if the current branch is the main branch.
+ * @returns true if the current branch is the main branch
+ */
+const isOnMainBranch = () => {
+  console.log("Checking if you are on the main branch");
+  const result = execSync("git branch --show-current", {
+    encoding: "utf-8",
+  });
+  const isOnMain = result.toString().trim() === "main";
+  if (!isOnMain) {
+    console.log("Currently on branch:", result.toString().trim());
+  }
+  return isOnMain;
+};
+
+/**
+ * `isWorkingDirectoryClean` is a helper function that checks if the working directory is clean (i.e. no uncommitted changes).
+ * @returns true if the working directory is clean
+ */
+const isWorkingDirectoryClean = () => {
+  const result = execSync("git status --porcelain", { encoding: "utf-8" });
+  return result.trim() === "";
 };
 
 const isRunningOnCI = () => process.env.CI === "true";

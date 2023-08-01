@@ -4,12 +4,14 @@ const {
   localDeploy,
 } = require("./deploy-production");
 
+const { isOnMainBranch } = require("./deploy-utils");
+
 const main = async () => {
-  if (!(await isOnMainBranch())) {
+  if (!isOnMainBranch()) {
     console.log("You must be on the main branch to deploy!");
     return;
   }
-  if (!(await isWorkingDirectoryClean())) {
+  if (!isWorkingDirectoryClean()) {
     console.log("You must have a clean working directory to deploy");
     return;
   }
