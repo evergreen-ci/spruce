@@ -152,7 +152,6 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                       class="css-0"
                       id="root_expansions_0"
                     >
-                      
                       <div
                         class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
                         id=" root_expansions_0_key"
