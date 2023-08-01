@@ -19,7 +19,7 @@
     "deploy:beta": "yarn build:beta && env-cmd -e beta yarn deploy:do-not-use",
     "deploy:staging": "yarn build:staging && env-cmd -e staging yarn deploy:do-not-use",
     "deploy:prod": "env-cmd -e production ts-node scripts/deploy/run-deploy",
-    "deploy:do-not-use": ". ./scripts/deploy.sh",
+    "deploy:do-not-use": ". ./scripts/deploy/deploy.sh",
     "dev": "env-cmd -e devLocal -r .env-cmdrc.local.json yarn start",
     "eslint:fix": "yarn eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",

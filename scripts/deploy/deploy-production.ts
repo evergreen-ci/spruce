@@ -1,14 +1,11 @@
 import prompts from "prompts";
 import {
-  createNewTag,
-  deleteTag,
   getCommitMessages,
   getCurrentlyDeployedCommit,
-  getLatestTag,
   isRunningOnCI,
-  pushTags,
   runDeploy,
 } from "./deploy-utils";
+import { createNewTag, deleteTag, getLatestTag, pushTags } from "./tag-utils";
 
 /* Deploy by pushing a git tag, to be picked up and built by Evergreen, and deployed to S3. */
 const evergreenDeploy = async () => {
@@ -94,7 +91,7 @@ const ciDeploy = async () => {
     throw new Error("Not running on CI");
   }
   try {
-    const ciDeployOutput = await runDeploy();
+    const ciDeployOutput = runDeploy();
     console.log(ciDeployOutput);
   } catch (err) {
     console.error("CI deploy failed. Aborting.");

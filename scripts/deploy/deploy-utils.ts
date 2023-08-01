@@ -38,11 +38,13 @@ const runDeploy = () => {
   console.log("BUILDING");
   execSync("yarn build:prod", { stdio: "inherit" });
   console.log("DEPLOYING");
-  execSync("env-cmd -e production yarn deploy:do-not-use", {
-    stdio: "inherit",
-  });
-  console.log("SENDING EMAIL");
-  execSync("env-cmd -e production ./scripts/email.sh", { stdio: "inherit" });
+  if (!isDryRun) {
+    execSync("yarn deploy:do-not-use", {
+      stdio: "inherit",
+    });
+    console.log("SENDING EMAIL");
+    execSync("./scripts/email.sh", { stdio: "inherit" });
+  }
 };
 
 /**
@@ -72,11 +74,14 @@ const isWorkingDirectoryClean = () => {
 
 const isRunningOnCI = () => process.env.CI === "true";
 
+const isDryRun = process.argv.includes("--dry-run");
+
 export {
   getCommitMessages,
   getCurrentlyDeployedCommit,
   isOnMainBranch,
   isRunningOnCI,
+  isDryRun,
   isWorkingDirectoryClean,
   runDeploy,
 };
