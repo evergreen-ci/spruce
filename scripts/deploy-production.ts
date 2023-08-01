@@ -1,12 +1,12 @@
-const prompts = require("prompts");
-const {
+import prompts from "prompts";
+import {
   createNewTag,
   deleteAndPushLatestTag,
   getCommitMessages,
   getCurrentlyDeployedCommit,
   isRunningOnCI,
   runDeploy,
-} = require("./deploy-utils");
+} from "./deploy-utils";
 
 /* Deploy by pushing a git tag, to be picked up and built by Evergreen, and deployed to S3. */
 const evergreenDeploy = async () => {
@@ -96,4 +96,4 @@ const ciDeploy = async () => {
   }
 };
 
-module.exports = { evergreenDeploy, localDeploy, ciDeploy };
+export { evergreenDeploy, localDeploy, ciDeploy };

@@ -1,10 +1,5 @@
-const {
-  ciDeploy,
-  evergreenDeploy,
-  localDeploy,
-} = require("./deploy-production");
-
-const { isOnMainBranch } = require("./deploy-utils");
+import { isOnMainBranch, isWorkingDirectoryClean } from "./deploy-utils";
+import { ciDeploy, evergreenDeploy, localDeploy } from "./deploy-production";
 
 const main = async () => {
   if (!isOnMainBranch()) {

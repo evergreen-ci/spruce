@@ -1,4 +1,4 @@
-const { exec, execSync } = require("child_process");
+import { exec, execSync } from "child_process";
 
 const githubRemote = "https://github.com/evergreen-ci/spruce";
 
@@ -26,7 +26,7 @@ const getLatestTag = () =>
     });
   });
 
-const deleteTag = (tag) => {
+const deleteTag = (tag: string) => {
   const deleteCommand = `git push --delete ${githubRemote} ${tag}`;
   return new Promise((resolve, reject) => {
     exec(deleteCommand, (err, stdout) => {
@@ -68,7 +68,7 @@ const deleteAndPushLatestTag = async () => {
  * @param currentlyDeployedCommit - the currently deployed commit
  * @returns - a string of all commit messages between the currently deployed commit and HEAD
  */
-const getCommitMessages = (currentlyDeployedCommit) => {
+const getCommitMessages = (currentlyDeployedCommit: string) => {
   const commitMessages = execSync(
     `git log ${currentlyDeployedCommit}..HEAD --oneline`,
     { encoding: "utf-8" }
@@ -133,7 +133,7 @@ const isWorkingDirectoryClean = () => {
 
 const isRunningOnCI = () => process.env.CI === "true";
 
-module.exports = {
+export {
   createNewTag,
   deleteAndPushLatestTag,
   deleteTag,
