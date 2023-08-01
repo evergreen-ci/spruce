@@ -52,109 +52,12 @@ export const TaskQueueTable: React.VFC<TaskQueueTableProps> = ({
         block: "start",
       });
     }
-  }, [taskId]);
-
-  const columns: ColumnProps<TaskQueueItem>[] = [
-    {
-      title: "",
-      dataIndex: "number",
-      key: "number",
-      render: (...[, , index]) => (
-        <Body weight="medium">{formatZeroIndexForDisplay(index)}</Body>
-      ),
-    },
-    {
-      title: "Task",
-      dataIndex: "displayName",
-      key: "displayName",
-      width: "25%",
-      render: (_, { buildVariant, displayName, id, project }) => (
-        <TaskCell>
-          <Body>
-            <StyledRouterLink
-              data-cy="current-task-link"
-              to={getTaskRoute(id)}
-              onClick={() =>
-                taskQueueAnalytics.sendEvent({ name: "Click Task Link" })
-              }
-            >
-              <WordBreak>{displayName}</WordBreak>
-            </StyledRouterLink>
-          </Body>
-          <Body>{buildVariant}</Body>
-          <Disclaimer>{project}</Disclaimer>
-        </TaskCell>
-      ),
-    },
-    {
-      title: "Est. Runtime",
-      dataIndex: "expectedDuration",
-      key: "expectedDuration",
-      width: "10%",
-      render: (runtimeMilliseconds) => msToDuration(runtimeMilliseconds),
-    },
-    {
-      title: "Version",
-      dataIndex: "version",
-      key: "version",
-      width: "25%",
-      render: (version) => (
-        <StyledRouterLink
-          to={getVersionRoute(version)}
-          onClick={() =>
-            taskQueueAnalytics.sendEvent({ name: "Click Version Link" })
-          }
-        >
-          <WordBreak>{version}</WordBreak>
-        </StyledRouterLink>
-      ),
-    },
-    {
-      title: "Priority",
-      dataIndex: "priority",
-      key: "priority",
-      width: "10%",
-      align: "center",
-      render: (priority) => <Badge>{priority}</Badge>,
-    },
-    {
-      title: "Activated By",
-      dataIndex: "activatedBy",
-      key: "activatedBy",
-      width: "10%",
-      align: "center",
-      render: (activatedBy) => (
-        <StyledRouterLink
-          to={getUserPatchesRoute(activatedBy)}
-          onClick={() =>
-            taskQueueAnalytics.sendEvent({ name: "Click Activated By Link" })
-          }
-        >
-          <WordBreak>{activatedBy}</WordBreak>
-        </StyledRouterLink>
-      ),
-    },
-    {
-      title: "Task Type",
-      dataIndex: "requester",
-      key: "requester",
-      className: "cy-task-queue-col-type",
-      width: "10%",
-      align: "center",
-      render: (type) => {
-        const copy = {
-          [TaskQueueItemType.Commit]: "Commit",
-          [TaskQueueItemType.Patch]: "Patch",
-        }[type];
-        return <Badge>{copy}</Badge>;
-      },
-    },
-  ];
+  }, [taskId, loading]);
 
   return (
     <Table
       data-cy="task-queue-table"
-      columns={columns}
+      columns={columns(taskQueueAnalytics.sendEvent)}
       tableLayout="fixed"
       rowKey={({ id }) => id}
       rowSelection={{
@@ -174,3 +77,96 @@ const TaskCell = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+const columns = (
+  sendEvent: ReturnType<typeof useTaskQueueAnalytics>["sendEvent"]
+): ColumnProps<TaskQueueItem>[] => [
+  {
+    title: "",
+    dataIndex: "number",
+    key: "number",
+    render: (...[, , index]) => (
+      <Body weight="medium">{formatZeroIndexForDisplay(index)}</Body>
+    ),
+  },
+  {
+    title: "Task",
+    dataIndex: "displayName",
+    key: "displayName",
+    width: "25%",
+    render: (_, { buildVariant, displayName, id, project }) => (
+      <TaskCell>
+        <Body>
+          <StyledRouterLink
+            data-cy="current-task-link"
+            to={getTaskRoute(id)}
+            onClick={() => sendEvent({ name: "Click Task Link" })}
+          >
+            <WordBreak>{displayName}</WordBreak>
+          </StyledRouterLink>
+        </Body>
+        <Body>{buildVariant}</Body>
+        <Disclaimer>{project}</Disclaimer>
+      </TaskCell>
+    ),
+  },
+  {
+    title: "Est. Runtime",
+    dataIndex: "expectedDuration",
+    key: "expectedDuration",
+    width: "10%",
+    render: (runtimeMilliseconds) => msToDuration(runtimeMilliseconds),
+  },
+  {
+    title: "Version",
+    dataIndex: "version",
+    key: "version",
+    width: "25%",
+    render: (version) => (
+      <StyledRouterLink
+        to={getVersionRoute(version)}
+        onClick={() => sendEvent({ name: "Click Version Link" })}
+      >
+        <WordBreak>{version}</WordBreak>
+      </StyledRouterLink>
+    ),
+  },
+  {
+    title: "Priority",
+    dataIndex: "priority",
+    key: "priority",
+    width: "10%",
+    align: "center",
+    render: (priority) => <Badge>{priority}</Badge>,
+  },
+  {
+    title: "Activated By",
+    dataIndex: "activatedBy",
+    key: "activatedBy",
+    width: "10%",
+    align: "center",
+    render: (activatedBy) => (
+      <StyledRouterLink
+        to={getUserPatchesRoute(activatedBy)}
+        onClick={() => sendEvent({ name: "Click Activated By Link" })}
+      >
+        <WordBreak>{activatedBy}</WordBreak>
+      </StyledRouterLink>
+    ),
+  },
+  {
+    title: "Task Type",
+    dataIndex: "requester",
+    key: "requester",
+    className: "cy-task-queue-col-type",
+    width: "10%",
+    align: "center",
+    render: (type) => {
+      const copy = {
+        [TaskQueueItemType.Commit]: "Commit",
+        [TaskQueueItemType.Patch]: "Patch",
+      }[type];
+      return <Badge>{copy}</Badge>;
+    },
+  },
+];
