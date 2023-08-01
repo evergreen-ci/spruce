@@ -77,6 +77,7 @@ const countMatchingTasks = (
 
 const BadgeWrapper = styled.div`
   padding-left: ${size.xs};
+  flex-shrink: 0;
 `;
 
 const Wrapper = styled.div`
