@@ -4988,6 +4988,7 @@ export type DistroTaskQueueQuery = {
   __typename?: "Query";
   distroTaskQueue: Array<{
     __typename?: "TaskQueueItem";
+    activatedBy: string;
     buildVariant: string;
     displayName: string;
     expectedDuration: number;
