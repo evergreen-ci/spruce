@@ -4742,6 +4742,21 @@ export type RestartVersionsMutation = {
   }> | null;
 };
 
+export type SaveDistroSectionMutationVariables = Exact<{
+  distroId: Scalars["String"];
+  changes: DistroInput;
+  onSave: DistroOnSaveOperation;
+  section: DistroSettingsSection;
+}>;
+
+export type SaveDistroSectionMutation = {
+  __typename?: "Mutation";
+  saveDistroSection: {
+    __typename?: "SaveDistroSectionPayload";
+    distro: { __typename?: "Distro"; name?: string | null };
+  };
+};
+
 export type SaveProjectSettingsForSectionMutationVariables = Exact<{
   projectSettings: ProjectSettingsInput;
   section: ProjectSettingsSection;

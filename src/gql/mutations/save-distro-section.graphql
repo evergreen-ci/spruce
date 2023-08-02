@@ -1,0 +1,19 @@
+mutation SaveDistroSection(
+  $distroId: String!
+  $changes: DistroInput!
+  $onSave: DistroOnSaveOperation!
+  $section: DistroSettingsSection!
+) {
+  saveDistroSection(
+    opts: {
+      distroId: $distroId
+      changes: $changes
+      onSave: $onSave
+      section: $section
+    }
+  ) {
+    distro {
+      name
+    }
+  }
+}

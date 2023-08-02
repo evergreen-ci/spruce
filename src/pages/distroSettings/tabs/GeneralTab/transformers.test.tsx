@@ -9,7 +9,7 @@ describe("general tab", () => {
   });
 
   it("correctly converts from a form to GQL", () => {
-    expect(formToGql(generalForm, distroData.name)).toStrictEqual(generalGql);
+    expect(formToGql(generalForm)).toStrictEqual(generalGql);
   });
 });
 

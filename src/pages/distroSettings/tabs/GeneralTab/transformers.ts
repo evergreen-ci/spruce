@@ -27,11 +27,13 @@ export const gqlToForm = ((data) => {
   };
 }) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql = ((
-  { distroAliases, distroName, distroNote, distroOptions },
-  id
-) => ({
-  name: distroName.identifier ?? id,
+export const formToGql = (({
+  distroAliases,
+  distroName,
+  distroNote,
+  distroOptions,
+}) => ({
+  name: distroName.identifier,
   aliases: distroAliases.aliases,
   note: distroNote.note,
   isCluster: distroOptions.isCluster,
