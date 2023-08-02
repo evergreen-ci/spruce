@@ -21,6 +21,7 @@ import { isProduction } from "utils/environmentVariables";
 import { DistroSettingsProvider } from "./Context";
 import { DistroSelect } from "./DistroSelect";
 import { getTabTitle } from "./getTabTitle";
+import { NewDistroButton } from "./NewDistro/NewDistroButton";
 import { DistroSettingsTabs } from "./Tabs";
 
 const DistroSettings: React.VFC = () => {
@@ -64,7 +65,7 @@ const DistroSettings: React.VFC = () => {
       <SideNav aria-label="Distro Settings" widthOverride={250}>
         <ButtonsContainer>
           <DistroSelect selectedDistro={distroId} />
-          {/* EVG-19942: Copy/create button. */}
+          <NewDistroButton />
         </ButtonsContainer>
         <SideNavGroup>
           {Object.values(DistroSettingsTabRoutes).map((tab) => (
