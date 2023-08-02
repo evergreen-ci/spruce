@@ -1,6 +1,6 @@
 import { ciDeploy, evergreenDeploy, localDeploy } from "./deploy-production";
 import { red, yellow } from "../utils/colors";
-import { isDryRun } from "./utils/environment";
+import { isDryRun, isRunningOnCI } from "./utils/environment";
 import { isOnMainBranch, isWorkingDirectoryClean } from "./utils/git";
 
 const main = async () => {
@@ -22,7 +22,7 @@ const main = async () => {
     await localDeploy();
     return;
   }
-  if (process.argv.includes("--ci")) {
+  if (isRunningOnCI()) {
     await ciDeploy();
     return;
   }

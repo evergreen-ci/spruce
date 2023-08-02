@@ -407,7 +407,7 @@ functions:
         EXECUTION=${execution} \
         DEPLOYS_EMAIL=${DEPLOYS_EMAIL} \
         AUTHOR_EMAIL=${author_email} \
-        yarn deploy:prod --ci
+        yarn deploy:prod
 
 
 
