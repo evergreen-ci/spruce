@@ -2,12 +2,13 @@ import prompts from "prompts";
 import {
   getCommitMessages,
   getCurrentlyDeployedCommit,
-  isRunningOnCI,
   runDeploy,
 } from "./deploy-utils";
-import { createNewTag, deleteTag, getLatestTag, pushTags } from "./tag-utils";
+import { tagUtils } from "./utils/tag";
 import { green, underline } from "../utils/colors";
+import { isRunningOnCI } from "./utils/environment";
 
+const { createNewTag, deleteTag, getLatestTag, pushTags } = tagUtils;
 /* Deploy by pushing a git tag, to be picked up and built by Evergreen, and deployed to S3. */
 const evergreenDeploy = async () => {
   const currentlyDeployedCommit = getCurrentlyDeployedCommit();
@@ -52,7 +53,10 @@ const evergreenDeploy = async () => {
 
   if (response.value) {
     try {
+      console.log("Creating new tag...");
       createNewTag();
+      console.log("Pushing tags...");
+      pushTags();
       console.log("Pushed to remote. Should be deploying soon...");
       console.log(
         green(

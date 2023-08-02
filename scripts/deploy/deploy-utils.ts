@@ -1,5 +1,6 @@
 import { execSync } from "child_process";
 import { green, yellow } from "../utils/colors";
+import { isDryRun } from "./utils/environment";
 
 /**
  * `getCommitMessages` returns a string of all commit messages between the currently deployed commit and HEAD.
@@ -69,10 +70,6 @@ const isWorkingDirectoryClean = () => {
   return result.trim() === "";
 };
 
-const isRunningOnCI = () => process.env.CI === "true";
-
-const isDryRun = process.argv.includes("--dry-run");
-
 /**
  * `runDeploy` is a helper function that actually performs the deploy.
  * It builds the production bundle, deploys it to the production server, and sends an email.
@@ -114,7 +111,6 @@ export {
   getCommitMessages,
   getCurrentlyDeployedCommit,
   isOnMainBranch,
-  isRunningOnCI,
   isDryRun,
   isWorkingDirectoryClean,
   runDeploy,
