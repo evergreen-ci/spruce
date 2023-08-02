@@ -5024,7 +5024,15 @@ export type DistroQueryVariables = Exact<{
 
 export type DistroQuery = {
   __typename?: "Query";
-  distro?: { __typename?: "Distro"; name?: string | null } | null;
+  distro?: {
+    __typename?: "Distro";
+    aliases: Array<string>;
+    disabled: boolean;
+    disableShallowClone: boolean;
+    isCluster: boolean;
+    name?: string | null;
+    note?: string | null;
+  } | null;
 };
 
 export type FailedTaskStatusIconTooltipQueryVariables = Exact<{

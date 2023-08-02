@@ -1,5 +1,10 @@
 query Distro($distroId: String!) {
   distro(distroId: $distroId) {
+    aliases
+    disabled
+    disableShallowClone
+    isCluster
     name
+    note
   }
 }

@@ -4,11 +4,8 @@ import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   CopyDistroMutation,
   CopyDistroMutationVariables,
-  DistroQuery,
-  DistroQueryVariables,
 } from "gql/generated/types";
 import { COPY_DISTRO } from "gql/mutations";
-import { DISTRO } from "gql/queries";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -28,7 +25,7 @@ const Modal = ({
   copyMock?: MockedResponse;
   open?: boolean;
 }) => (
-  <MockedProvider mocks={[copyMock, distroMock]}>
+  <MockedProvider mocks={[copyMock]}>
     <CopyModal handleClose={() => {}} open={open} />
   </MockedProvider>
 );
@@ -156,23 +153,6 @@ const copyDistroMock: ApolloMock<
       copyDistro: {
         __typename: "NewDistroPayload",
         newDistroId,
-      },
-    },
-  },
-};
-
-const distroMock: ApolloMock<DistroQuery, DistroQueryVariables> = {
-  request: {
-    query: DISTRO,
-    variables: {
-      distroId: newDistroId,
-    },
-  },
-  result: {
-    data: {
-      distro: {
-        __typename: "Distro",
-        name: newDistroId,
       },
     },
   },

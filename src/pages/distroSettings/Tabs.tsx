@@ -1,11 +1,12 @@
 import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
-import { useParams } from "react-router-dom";
+import { useParams, Routes, Route, Navigate } from "react-router-dom";
 import { DistroSettingsTabRoutes } from "constants/routes";
 import { DistroQuery } from "gql/generated/types";
 import { useDistroSettingsContext } from "./Context";
 import { Header } from "./Header";
 import { NavigationModal } from "./NavigationModal";
+import { GeneralTab } from "./tabs/index";
 import { gqlToFormMap } from "./tabs/transformers";
 
 interface Props {
@@ -27,12 +28,18 @@ export const DistroSettingsTabs: React.VFC<Props> = ({ distro }) => {
     <Container>
       <NavigationModal />
       <Header tab={tab} />
-      {/* <Routes>
+      <Routes>
         <Route
           path="*"
           element={<Navigate to={DistroSettingsTabRoutes.General} replace />}
         />
-      </Routes> */}
+        <Route
+          path={DistroSettingsTabRoutes.General}
+          element={
+            <GeneralTab distroData={tabData[DistroSettingsTabRoutes.General]} />
+          }
+        />
+      </Routes>
     </Container>
   );
 };
