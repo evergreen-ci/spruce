@@ -45,8 +45,12 @@ export const HeaderButtons: React.VFC<Props> = ({ tab }) => {
   // TODO: Add save modal in EVG-20565. Allow the user to specify the on save operation.
   // Disable the button if the user does not have editing permissions.
   const onClick = () => {
-    const formToGql: FormToGqlFunction<WritableDistroSettingsType> =
-      formToGqlMap[tab];
+    // If tab is not a proper value that exists in the map, skip this operation.
+    if (!Object.prototype.hasOwnProperty.call(formToGqlMap, tab)) {
+      return;
+    }
+
+    const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
     const changes = formToGql(formData);
     saveDistroSection({
       variables: {
