@@ -2574,6 +2574,7 @@ export type TestFilter = {
  * It's used to filter, sort, and paginate test results of a task.
  */
 export type TestFilterOptions = {
+  excludeDisplayNames?: InputMaybe<Scalars["Boolean"]>;
   groupID?: InputMaybe<Scalars["String"]>;
   limit?: InputMaybe<Scalars["Int"]>;
   page?: InputMaybe<Scalars["Int"]>;
