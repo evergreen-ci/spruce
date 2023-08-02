@@ -74,6 +74,7 @@ export const getFormSchema = (
       "ui:showLabel": false,
       items: {
         "ui:ObjectFieldTemplate": VariableRow,
+        "ui:label": false,
         options: { repoData },
         varName: {
           "ui:data-cy": "var-name-input",

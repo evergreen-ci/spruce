@@ -184,6 +184,7 @@ const aliasesUiSchema = {
   "ui:useExpandableCard": true,
   items: {
     "ui:displayTitle": "New Patch Trigger Alias",
+    "ui:label": false,
     alias: {
       "ui:data-cy": "pta-alias-input",
     },

@@ -105,6 +105,11 @@ const example1Def = {
         label: false,
       },
     },
+    expansions: {
+      items: {
+        "ui:label": false,
+      },
+    },
   },
   formData: {
     cloneMethod: "legacy-ssh",

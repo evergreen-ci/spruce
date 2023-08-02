@@ -269,6 +269,7 @@ export const getFormSchema = ({
       "ui:orderable": false,
       items: {
         "ui:ObjectFieldTemplate": UserTagRow,
+        "ui:label": false,
       },
     },
     publicKeySection: {

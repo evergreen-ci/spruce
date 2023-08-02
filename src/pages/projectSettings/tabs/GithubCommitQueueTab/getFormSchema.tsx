@@ -365,6 +365,7 @@ export const getFormSchema = (
           ),
           items: {
             "ui:field": "githubTriggerAliasField",
+            "ui:label": false,
           },
         },
         githubChecksEnabledTitle: {
