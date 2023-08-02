@@ -1,12 +1,9 @@
 import prompts from "prompts";
-import {
-  getCommitMessages,
-  getCurrentlyDeployedCommit,
-  runDeploy,
-} from "./deploy-utils";
 import { tagUtils } from "./utils/tag";
 import { green, underline } from "../utils/colors";
 import { isRunningOnCI } from "./utils/environment";
+import { getCommitMessages, getCurrentlyDeployedCommit } from "./utils/git";
+import { runDeploy } from "./utils/deploy";
 
 const { createNewTag, deleteTag, getLatestTag, pushTags } = tagUtils;
 /* Deploy by pushing a git tag, to be picked up and built by Evergreen, and deployed to S3. */
