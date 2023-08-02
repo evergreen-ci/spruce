@@ -4362,6 +4362,15 @@ export type ClearMySubscriptionsMutation = {
   clearMySubscriptions: number;
 };
 
+export type CopyDistroMutationVariables = Exact<{
+  opts: CopyDistroInput;
+}>;
+
+export type CopyDistroMutation = {
+  __typename?: "Mutation";
+  copyDistro: { __typename?: "NewDistroPayload"; newDistroId: string };
+};
+
 export type CopyProjectMutationVariables = Exact<{
   project: CopyProjectInput;
   requestS3Creds: Scalars["Boolean"];
@@ -4370,6 +4379,15 @@ export type CopyProjectMutationVariables = Exact<{
 export type CopyProjectMutation = {
   __typename?: "Mutation";
   copyProject: { __typename?: "Project"; id: string; identifier: string };
+};
+
+export type CreateDistroMutationVariables = Exact<{
+  opts: CreateDistroInput;
+}>;
+
+export type CreateDistroMutation = {
+  __typename?: "Mutation";
+  createDistro: { __typename?: "NewDistroPayload"; newDistroId: string };
 };
 
 export type CreateProjectMutationVariables = Exact<{
@@ -7943,17 +7961,6 @@ export type UserConfigQuery = {
   } | null;
 };
 
-export type UserPermissionsQueryVariables = Exact<{ [key: string]: never }>;
-
-export type UserPermissionsQuery = {
-  __typename?: "Query";
-  user: {
-    __typename?: "User";
-    userId: string;
-    permissions: { __typename?: "Permissions"; canCreateProject: boolean };
-  };
-};
-
 export type UserSettingsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type UserSettingsQuery = {
@@ -8379,6 +8386,19 @@ export type TaskQueueDistrosQuery = {
   }>;
 };
 
+export type UserDistroSettingsPermissionsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type UserDistroSettingsPermissionsQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    permissions: { __typename?: "Permissions"; canCreateDistro: boolean };
+  };
+};
+
 export type UserPatchesQueryVariables = Exact<{
   userId: Scalars["String"];
   patchesInput: PatchesInput;
@@ -8425,6 +8445,19 @@ export type UserPatchesQuery = {
         } | null;
       }>;
     };
+  };
+};
+
+export type UserProjectSettingsPermissionsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type UserProjectSettingsPermissionsQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    permissions: { __typename?: "Permissions"; canCreateProject: boolean };
   };
 };
 
