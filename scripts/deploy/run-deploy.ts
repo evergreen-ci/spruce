@@ -8,6 +8,7 @@ const main = async () => {
   if (isDryRun) {
     console.log(yellow("Dry run mode enabled. No changes will be made."));
   } else {
+    console.log("Checking if you are on the main branch");
     if (!isOnMainBranch()) {
       console.log(red("You must be on the main branch to deploy!"));
       process.exit(1);

@@ -48,7 +48,6 @@ const getCurrentCommit = () => {
  * @returns true if the current branch is the main branch
  */
 const isOnMainBranch = () => {
-  console.log("Checking if you are on the main branch");
   const result = execSync("git branch --show-current", {
     encoding: "utf-8",
   });
