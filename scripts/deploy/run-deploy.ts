@@ -4,7 +4,7 @@ import {
   isWorkingDirectoryClean,
 } from "./deploy-utils";
 import { ciDeploy, evergreenDeploy, localDeploy } from "./deploy-production";
-import { red, yellow } from "./colors";
+import { red, yellow } from "../utils/colors";
 
 const main = async () => {
   // If this is a dry run, disable the safety checks

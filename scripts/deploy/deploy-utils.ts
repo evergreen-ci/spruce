@@ -1,5 +1,5 @@
 import { execSync } from "child_process";
-import { yellow } from "./colors";
+import { green, yellow } from "../utils/colors";
 
 /**
  * `getCommitMessages` returns a string of all commit messages between the currently deployed commit and HEAD.
@@ -78,7 +78,7 @@ const isDryRun = process.argv.includes("--dry-run");
  * It builds the production bundle, deploys it to the production server, and sends an email.
  */
 const runDeploy = () => {
-  console.log("GETTING CURRENTLY DEPLOYED COMMIT");
+  console.log(green("Getting currently deployed commit"));
   const currentlyDeployedCommit = getCurrentlyDeployedCommit();
   console.log(currentlyDeployedCommit);
   console.log("BUILDING");
@@ -89,13 +89,13 @@ const runDeploy = () => {
   execSync(`echo ${currentCommit} > build/commit.txt`, {
     stdio: "inherit",
   });
-  console.log("DEPLOYING");
+  console.log(green("Deploying to production"));
   if (!isDryRun) {
     execSync("yarn deploy:do-not-use", {
       stdio: "inherit",
     });
   }
-  console.log("SENDING EMAIL");
+  console.log(green("Sending email"));
 
   if (!isDryRun) {
     execSync("./scripts/deploy/email.sh", { stdio: "inherit" });

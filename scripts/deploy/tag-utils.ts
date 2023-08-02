@@ -1,7 +1,7 @@
 import { execSync } from "child_process";
 import { githubRemote } from "./constants";
 import { isDryRun } from "./deploy-utils";
-import { yellow } from "./colors";
+import { yellow } from "../utils/colors";
 
 /**
  * `createNewTag` is a helper function that creates a new tag.

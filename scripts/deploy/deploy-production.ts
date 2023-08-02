@@ -6,7 +6,7 @@ import {
   runDeploy,
 } from "./deploy-utils";
 import { createNewTag, deleteTag, getLatestTag, pushTags } from "./tag-utils";
-import { green, underline } from "./colors";
+import { green, underline } from "../utils/colors";
 
 /* Deploy by pushing a git tag, to be picked up and built by Evergreen, and deployed to S3. */
 const evergreenDeploy = async () => {
