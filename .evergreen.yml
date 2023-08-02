@@ -25,6 +25,7 @@ post:
   - func: attach-source-map
   - func: attach-storybook
   - func: attach-test-results
+  - func: attach-email
 
 #######################################
 #              Functions              #
@@ -351,7 +352,20 @@ functions:
       bucket: mciuploads
       content_type: text/plain
       permissions: public-read
-    
+  
+  attach-email:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_files_include_filter:
+        - "spruce/body.txt"
+      remote_file: spruce/${task_id}/
+      bucket: mciuploads
+      content_type: text/plain
+      permissions: public-read
+
   setup-credentials:
     command: shell.exec
     params:
@@ -378,36 +392,23 @@ functions:
         EOF
 
         echo "Done populating"
-
-  build-prod:
-    command: shell.exec
-    params:
-      working_dir: spruce
-      script: |
-        ${PREPARE_SHELL}
-        chmod +x scripts/app-version.sh
-        . ./scripts/app-version.sh
-        echo "Building Production version: $REACT_APP_VERSION"
-        yarn build:prod
   
-  upload-to-prod-s3:
+  prod-deploy:
     command: shell.exec
     params:
       working_dir: spruce
       shell: bash
       script: |
         ${PREPARE_SHELL}
-        REACT_APP_BUGSNAG_API_KEY=${REACT_APP_BUGSNAG_API_KEY} BUCKET=${bucket} AWS_ACCESS_KEY_ID=${aws_key} AWS_SECRET_ACCESS_KEY=${aws_secret}  yarn deploy:do-not-use;
+        REACT_APP_BUGSNAG_API_KEY=${REACT_APP_BUGSNAG_API_KEY} \
+        BUCKET=${bucket} \
+        AWS_ACCESS_KEY_ID=${aws_key} \
+        AWS_SECRET_ACCESS_KEY=${aws_secret} \
+        EXECUTION=${execution} \
+        DEPLOYS_EMAIL=${DEPLOYS_EMAIL} \
+        AUTHOR_EMAIL=${author_email} \
+        yarn deploy:prod
 
-  send-email:
-    command: shell.exec
-    params:
-      working_dir: spruce
-      script: |
-        export AUTHOR_EMAIL=${author_email}
-        export DEPLOYS_EMAIL=${DEPLOYS_EMAIL}
-        export EXECUTION=${execution}
-        bash scripts/email.sh
 
 
 #######################################
@@ -465,9 +466,7 @@ tasks:
     commands:
       - func: setup-credentials
       - func: sym-link
-      - func: build-prod
-      - func: upload-to-prod-s3
-      - func: send-email
+      - func: prod-deploy
 
 buildvariants:
   - name: ubuntu2204
