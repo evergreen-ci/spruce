@@ -164,6 +164,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
       taskTags: [],
       variant: ".*",
       variantTags: [],
+      parameters: [],
     },
     {
       id: "5",
@@ -175,6 +176,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
       remotePath: "./evergreen.yml",
       variantTags: [],
       taskTags: [],
+      parameters: [],
     },
     {
       id: "3",
@@ -186,6 +188,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
       remotePath: "",
       variantTags: [],
       taskTags: [],
+      parameters: [],
     },
   ],
 };
@@ -295,6 +298,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
       taskTags: ["tTag"],
       variant: "",
       variantTags: ["vTag"],
+      parameters: [],
     },
   ],
 };
