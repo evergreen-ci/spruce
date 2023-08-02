@@ -1,4 +1,4 @@
-import { yellow } from "../../../utils/colors";
+import { yellow } from "../../../../utils/colors";
 
 /**
  * `createNewTag` is a helper function that creates a new tag.

@@ -1,5 +1,5 @@
 import prompts from "prompts";
-import { tagUtils } from "./utils/tag";
+import { tagUtils } from "./utils/git/tag";
 import { green, underline } from "../utils/colors";
 import { isRunningOnCI } from "./utils/environment";
 import { getCommitMessages, getCurrentlyDeployedCommit } from "./utils/git";
