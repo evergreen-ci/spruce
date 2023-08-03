@@ -1,11 +1,7 @@
 #!/bin/bash
 
-BASE_URL=$REACT_APP_SPRUCE_URL
-if [ "$BASE_URL" == "" ]
-then
-    echo "BASE_URL not set"
-    exit 1
-fi
+BASE_URL=https://spruce.mongodb.com
+
 
 # First download the currently deployed commit hash from s3
 # If the curl succeeds, and is exactly 40 characters, then use that commit hash

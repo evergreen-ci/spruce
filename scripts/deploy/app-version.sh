@@ -15,4 +15,4 @@ if [[ $HAS_CHANGES == True ]]; then
     REACT_APP_VERSION="${REACT_APP_VERSION}-custom"
 fi
 export REACT_APP_VERSION
-echo $REACT_APP_VERSION
+echo "$REACT_APP_VERSION"
