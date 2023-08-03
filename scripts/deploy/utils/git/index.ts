@@ -64,6 +64,10 @@ const isOnMainBranch = () => {
  */
 const isWorkingDirectoryClean = () => {
   const result = execSync("git status --porcelain", { encoding: "utf-8" });
+  if (result.trim() !== "") {
+    console.log("Uncommitted changes:");
+    console.log(result);
+  }
   return result.trim() === "";
 };
 
