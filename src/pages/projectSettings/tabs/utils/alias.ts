@@ -156,7 +156,7 @@ const transformTasks = ({
       };
 
 /**
- * `transformAliases` transforms alias form data to be safely saved
+ * `transformAliases` transforms alias form data into the format expected by GQL.
  * @param aliases - alias form data
  * @param override - whether to override existing aliases
  * @param aliasName - alias name to override
@@ -496,7 +496,7 @@ const parameters = {
     },
   },
   uiSchema: {
-    "ui:addButtonText": "Add Parameter",
+    "ui:addButtonText": "Add parameter",
     items: {
       "ui:ObjectFieldTemplate": FieldRow,
       "ui:data-cy": "parameter-input",
