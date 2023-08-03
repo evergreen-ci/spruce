@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Body, InlineCode } from "@leafygreen-ui/typography";
+import { Body, BodyProps, InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import ExpandedText from "components/ExpandedText";
 import { StyledRouterLink } from "components/styles";
@@ -115,7 +115,7 @@ const LabelContainer = styled.div`
   overflow-wrap: anywhere;
 `;
 
-const LabelText = styled(Body)`
+const LabelText = styled(Body)<BodyProps>`
   color: ${gray.dark2};
   width: 100%;
   font-size: 12px;

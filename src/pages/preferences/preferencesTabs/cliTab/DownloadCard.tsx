@@ -5,6 +5,7 @@ import Card from "@leafygreen-ui/card";
 import {
   InlineCode,
   Subtitle,
+  SubtitleProps,
   Body,
   Disclaimer,
 } from "@leafygreen-ui/typography";
@@ -161,7 +162,7 @@ const CliDownloadButton = styled(Button)`
   margin-top: ${size.xs};
 `;
 
-const CliDownloadTitle = styled(Subtitle)`
+const CliDownloadTitle = styled(Subtitle)<SubtitleProps>`
   font-weight: bold;
 `;
 

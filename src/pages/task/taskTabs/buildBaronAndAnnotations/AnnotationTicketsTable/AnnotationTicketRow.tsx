@@ -108,6 +108,7 @@ const JiraSummaryLink = styled(StyledLink)`
   margin-right: ${size.s};
 `;
 
+// @ts-expect-error
 const StyledBadge = styled(Badge)`
   margin-right: ${size.s};
 `;

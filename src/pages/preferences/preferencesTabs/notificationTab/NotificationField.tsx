@@ -70,6 +70,7 @@ const NotificationEvent = styled.span<{ row: number }>`
   grid-row: ${({ row }) => row + 2};
 `;
 
+// @ts-expect-error
 const StyledRadioGroup = styled(RadioGroup)<{ row: number }>`
   display: flex;
   flex-direction: row;

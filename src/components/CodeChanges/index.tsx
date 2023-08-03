@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import {
   Body,
+  BodyProps,
   Description,
   Subtitle,
   SubtitleProps,
@@ -130,7 +131,7 @@ const TitleContainer = styled.div`
   display: flex;
 `;
 
-const CommitTitle = styled(Body)`
+const CommitTitle = styled(Body)<BodyProps>`
   flex-shrink: 0;
   font-size: 15px;
   font-weight: bold;

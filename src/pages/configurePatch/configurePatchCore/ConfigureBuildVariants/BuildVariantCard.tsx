@@ -96,6 +96,8 @@ const VariantName = styled.div`
   word-break: break-all;
   white-space: normal;
 `;
+
+// @ts-expect-error
 const StyledBadge = styled(Badge)`
   margin-left: ${size.xs};
 `;

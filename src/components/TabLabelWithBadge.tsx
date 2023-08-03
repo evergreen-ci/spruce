@@ -22,6 +22,7 @@ export const TabLabelWithBadge: React.VFC<Props> = ({
   </>
 );
 
+// @ts-expect-error
 const StyledBadge = styled(Badge)`
   // Fix height to be consistent with text-only tabs
   height: ${size.s};

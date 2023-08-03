@@ -94,6 +94,7 @@ const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
     ) : undefined,
 });
 
+// @ts-expect-error
 const PaddedBadge = styled(Badge)`
   margin-right: ${size.xs};
 `;

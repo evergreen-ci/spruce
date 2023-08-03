@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Modal, { ModalSize } from "@leafygreen-ui/modal";
-import { Body, H3 } from "@leafygreen-ui/typography";
+import { Body, BodyProps, H3 } from "@leafygreen-ui/typography";
 import { size as tokenSize, zIndex } from "constants/tokens";
 
 export interface DisplayModalProps {
@@ -38,6 +38,6 @@ const StyledModal = styled(Modal)`
   z-index: ${zIndex.modal};
 `;
 
-const StyledSubtitle = styled(Body)`
+const StyledSubtitle = styled(Body)<BodyProps>`
   margin-bottom: ${tokenSize.xs};
 `;

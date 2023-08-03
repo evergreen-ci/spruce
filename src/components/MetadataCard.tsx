@@ -52,7 +52,7 @@ const Title = styled(Body)<BodyProps>`
   font-size: 15px;
 `;
 
-const Item = styled(Body)`
+const Item = styled(Body)<BodyProps>`
   ${wordBreakCss}
   font-size: 12px;
   line-height: 14px;

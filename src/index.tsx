@@ -1,7 +1,9 @@
-import ReactDOM from "react-dom";
-import App from "App";
+import ReactDOM from "react-dom/client";
 import { initializeErrorHandling } from "components/ErrorHandling";
+import App from "./App";
 
 initializeErrorHandling();
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <App />
+);

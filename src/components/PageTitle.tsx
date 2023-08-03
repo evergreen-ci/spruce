@@ -13,6 +13,7 @@ interface Props {
   badge: JSX.Element;
   buttons?: JSX.Element;
   size?: Size;
+  children?: React.ReactNode;
 }
 
 interface TitleTypographyProps {

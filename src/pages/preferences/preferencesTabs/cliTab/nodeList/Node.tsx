@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Subtitle } from "@leafygreen-ui/typography";
+import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 
 const { green, white } = palette;
@@ -43,11 +43,11 @@ const Circle = styled.div`
   align-items: center;
 `;
 
-const Index = styled(Subtitle)`
+const Index = styled(Subtitle)<SubtitleProps>`
   color: ${white};
 `;
 
-const NodeTitle = styled(Subtitle)`
+const NodeTitle = styled(Subtitle)<SubtitleProps>`
   align-self: center;
   margin-left: ${size.m};
 `;

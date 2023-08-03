@@ -6,6 +6,7 @@ import {
 } from "@leafygreen-ui/side-nav";
 import { zIndex } from "constants/tokens";
 
+// @ts-expect-error
 export const SideNav = styled(LGSideNav)`
   grid-area: sidenav;
   z-index: ${zIndex.sideNav};

@@ -39,6 +39,7 @@ const OptionWrapper = styled.div`
     background-color: ${blue.light3};
   }
 `;
+// @ts-expect-error
 const StyledBadge = styled(Badge)`
   display: flex;
   flex-shrink: 0;

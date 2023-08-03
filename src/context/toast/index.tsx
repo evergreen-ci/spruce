@@ -120,7 +120,9 @@ const ToastProviderCore: React.VFC<{ children: React.ReactNode }> = ({
   );
 };
 
-const ToastProvider: React.FC = ({ children }) => (
+const ToastProvider: React.VFC<{ children: React.ReactNode }> = ({
+  children,
+}) => (
   <LGToastProvider
     portalClassName={css`
       z-index: ${zIndex.toast};

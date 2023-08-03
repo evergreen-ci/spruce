@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import ExpandableCard from "@leafygreen-ui/expandable-card";
 import { palette } from "@leafygreen-ui/palette";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
 import { PlusButton } from "components/Buttons";
 import Icon from "components/Icon";
@@ -273,6 +273,6 @@ const TitleWrapper = styled.span`
   margin-right: ${size.s};
 `;
 
-const Placeholder = styled(Body)`
+const Placeholder = styled(Body)<BodyProps>`
   ${formComponentSpacingCSS}
 `;

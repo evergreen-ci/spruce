@@ -65,6 +65,8 @@ const ClickableIcon = styled(Icon)`
     color: ${gray.light1};
   }
 `;
+
+// @ts-expect-error
 const PaddedBadge = styled(Badge)`
   :nth-of-type {
     margin-left: ${size.s};
