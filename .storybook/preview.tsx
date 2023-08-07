@@ -9,6 +9,7 @@ import {
   overrideStyles,
   resetStyles,
 } from "../src/components/styles/GlobalStyles";
+import { fontStyles } from "./fonts";
 
 export const parameters: Parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -35,10 +36,12 @@ export const parameters: Parameters = {
 const globalStyles = css`
   ${resetStyles}
   ${overrideStyles}
+  ${fontStyles}
 `;
 
 export const decorators: Decorator[] = [
   (Story: () => JSX.Element) => (
+    // eslint-disable-next-line react/jsx-filename-extension
     <>
       <Global styles={globalStyles} />
       <Story />
@@ -47,7 +50,7 @@ export const decorators: Decorator[] = [
   (Story: () => JSX.Element, context) => {
     const { parameters: storyParameters } = context;
     const { reactRouter } = storyParameters;
-    const { path, params, route } = reactRouter || {};
+    const { params, path, route } = reactRouter || {};
     const routes = [
       {
         path: path || "/",
