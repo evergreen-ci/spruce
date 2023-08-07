@@ -128,8 +128,8 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
         class="leafygreen-ui-1nkq8lt css-5krlfz-StyledSelect ekttol50"
       >
         <button
-          aria-controls="select-13-menu"
-          aria-describedby="select-13-description"
+          aria-controls="select-169-menu"
+          aria-describedby="select-169-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -137,7 +137,7 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
           class="lg-ui-button-0001 leafygreen-ui-18vk81h"
           data-cy="tasks-table-page-size-selector"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-14"
+          id="select-170"
           type="button"
           value="10"
         >
