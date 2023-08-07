@@ -13,9 +13,12 @@ const main = async () => {
       console.log(red("You must be on the main branch to deploy!"));
       process.exit(1);
     }
-    if (!isWorkingDirectoryClean()) {
-      console.log(red("You must have a clean working directory to deploy"));
-      process.exit(1);
+    // If this is a ci run, disable the working directory check
+    if (!isRunningOnCI()) {
+      if (!isWorkingDirectoryClean()) {
+        console.log(red("You must have a clean working directory to deploy"));
+        process.exit(1);
+      }
     }
   }
   if (process.argv.includes("--local")) {
