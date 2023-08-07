@@ -28,4 +28,4 @@ then
 fi
 # Save the current commit hash to a file
 echo "$PREVIOUS_DEPLOYED_COMMIT"
-echo "$PREVIOUS_DEPLOYED_COMMIT" > bin/previous-deployed-commit.txt
+echo "$PREVIOUS_DEPLOYED_COMMIT" > bin/previous_deploy.txt

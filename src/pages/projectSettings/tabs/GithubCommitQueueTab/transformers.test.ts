@@ -62,6 +62,7 @@ const projectForm: GCQFormState = {
             task: ".*",
             taskTags: [],
           },
+          parameters: [],
         },
       ],
     },
@@ -100,6 +101,7 @@ const projectForm: GCQFormState = {
             task: "",
             taskTags: [],
           },
+          parameters: [],
         },
       ],
     },
@@ -128,6 +130,7 @@ const projectForm: GCQFormState = {
             task: "^lint$",
             taskTags: [],
           },
+          parameters: [],
         },
       ],
     },
@@ -161,6 +164,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
       taskTags: [],
       variant: ".*",
       variantTags: [],
+      parameters: [],
     },
     {
       id: "5",
@@ -172,6 +176,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
       remotePath: "./evergreen.yml",
       variantTags: [],
       taskTags: [],
+      parameters: [],
     },
     {
       id: "3",
@@ -183,6 +188,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
       remotePath: "",
       variantTags: [],
       taskTags: [],
+      parameters: [],
     },
   ],
 };
@@ -235,6 +241,7 @@ const repoForm: GCQFormState = {
             task: "",
             taskTags: ["tTag"],
           },
+          parameters: [],
         },
       ],
     },
@@ -291,6 +298,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
       taskTags: ["tTag"],
       variant: "",
       variantTags: ["vTag"],
+      parameters: [],
     },
   ],
 };
@@ -318,6 +326,7 @@ const mergedForm: GCQFormState = {
             task: ".*",
             taskTags: [],
           },
+          parameters: [],
         },
       ],
       repoData: {
@@ -349,6 +358,7 @@ const mergedForm: GCQFormState = {
               task: "",
               taskTags: ["tTag"],
             },
+            parameters: [],
           },
         ],
       },
@@ -390,6 +400,7 @@ const mergedForm: GCQFormState = {
             task: "",
             taskTags: [],
           },
+          parameters: [],
         },
       ],
       repoData: {
@@ -422,6 +433,7 @@ const mergedForm: GCQFormState = {
             taskTags: [],
           },
           remotePath: "",
+          parameters: [],
         },
       ],
       repoData: {
