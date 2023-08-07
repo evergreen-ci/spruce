@@ -22,7 +22,7 @@ interface TaskPageBreadcrumbsProps {
     message: string;
   };
 }
-const TaskPageBreadcrumbs: React.VFC<TaskPageBreadcrumbsProps> = ({
+const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
   displayTask,
   patchNumber,
   taskName,

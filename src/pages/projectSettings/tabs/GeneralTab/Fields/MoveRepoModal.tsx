@@ -22,7 +22,7 @@ type ModalProps = {
   repoOwner: string;
 };
 
-export const MoveRepoModal: React.VFC<ModalProps> = ({
+export const MoveRepoModal: React.FC<ModalProps> = ({
   githubOrgs,
   handleClose,
   open,

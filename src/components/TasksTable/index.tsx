@@ -50,7 +50,7 @@ interface TasksTableProps {
   variantInputProps?: InputFilterProps;
 }
 
-const TasksTable: React.VFC<TasksTableProps> = ({
+const TasksTable: React.FC<TasksTableProps> = ({
   baseStatusSelectorProps,
   isPatch,
   loading = false,

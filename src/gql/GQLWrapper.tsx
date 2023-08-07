@@ -14,7 +14,7 @@ import { leaveBreadcrumb, reportError } from "utils/errorReporting";
 
 const { getGQLUrl } = environmentVariables;
 
-const GQLWrapper: React.VFC<{ children: React.ReactNode }> = ({ children }) => {
+const GQLWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { dispatchAuthenticated, logoutAndRedirect } = useAuthDispatchContext();
   return (
     <ApolloProvider

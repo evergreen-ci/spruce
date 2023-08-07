@@ -12,7 +12,7 @@ interface JiraTicketRowProps {
   jiraKey: string;
   fields: TicketFields;
 }
-export const JiraTicketRow: React.VFC<JiraTicketRowProps> = ({
+export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
   fields,
   jiraKey,
 }) => {

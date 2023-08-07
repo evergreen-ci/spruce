@@ -39,7 +39,7 @@ type Host = HostsQuery["hosts"]["hosts"][0];
 
 type HostsUrlParam = keyof HostsQueryVariables;
 
-export const HostsTable: React.VFC<Props> = ({
+export const HostsTable: React.FC<Props> = ({
   hosts,
   loading,
   selectedHostIds,

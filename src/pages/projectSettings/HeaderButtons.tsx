@@ -39,7 +39,7 @@ interface Props {
   tab: WritableProjectSettingsType;
 }
 
-export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
+export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
   const { sendEvent } = useProjectSettingsAnalytics();
   const dispatchToast = useToastContext();
 

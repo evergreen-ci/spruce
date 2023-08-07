@@ -18,7 +18,7 @@ interface BuildVariantCardProps {
   title: string;
 }
 
-const BuildVariantCard: React.VFC<BuildVariantCardProps> = ({
+const BuildVariantCard: React.FC<BuildVariantCardProps> = ({
   "data-cy": dataCy,
   menuItems,
   onClick,

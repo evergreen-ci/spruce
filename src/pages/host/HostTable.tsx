@@ -13,7 +13,7 @@ import { useDateFormat } from "hooks";
 import { getHostEventString } from "pages/host/getHostEventString";
 import { HostCard } from "pages/host/HostCard";
 
-export const HostTable: React.VFC<{
+export const HostTable: React.FC<{
   loading: boolean;
   eventData: HostEventsQuery;
   error: ApolloError;

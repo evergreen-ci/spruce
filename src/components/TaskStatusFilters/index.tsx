@@ -13,7 +13,7 @@ interface Props {
   onChangeBaseStatusFilter: (s: string[]) => void;
 }
 
-export const TaskStatusFilters: React.VFC<Props> = ({
+export const TaskStatusFilters: React.FC<Props> = ({
   onChangeBaseStatusFilter,
   onChangeStatusFilter,
   selectedBaseStatuses,

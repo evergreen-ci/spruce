@@ -8,7 +8,7 @@ import { ChartTypes } from "types/commits";
 
 const { gray, white } = palette;
 
-export const ChartToggle: React.VFC<{
+export const ChartToggle: React.FC<{
   onToggleAccordion: (nextState: { isVisible: boolean }) => void;
   defaultOpenAccordion: boolean;
   currentChartType: ChartTypes;

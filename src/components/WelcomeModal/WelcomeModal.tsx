@@ -26,7 +26,7 @@ interface WelcomeModalProps {
   carouselCards: CardType[];
 }
 
-const WelcomeModal: React.VFC<WelcomeModalProps> = ({
+const WelcomeModal: React.FC<WelcomeModalProps> = ({
   carouselCards,
   param,
   title,

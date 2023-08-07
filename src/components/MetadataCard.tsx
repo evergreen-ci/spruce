@@ -12,7 +12,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export const MetadataCard: React.VFC<Props> = ({
+export const MetadataCard: React.FC<Props> = ({
   children,
   error,
   loading,
@@ -29,7 +29,7 @@ export const MetadataCard: React.VFC<Props> = ({
   </SiderCard>
 );
 
-export const MetadataTitle: React.VFC<{ children: React.ReactNode }> = ({
+export const MetadataTitle: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
   <>
@@ -43,7 +43,7 @@ interface ItemProps {
   "data-cy"?: string;
 }
 
-export const MetadataItem: React.VFC<ItemProps> = ({
+export const MetadataItem: React.FC<ItemProps> = ({
   children,
   "data-cy": dataCy,
 }) => <Item data-cy={dataCy}>{children}</Item>;

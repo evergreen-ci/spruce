@@ -15,7 +15,7 @@ type RenderCommitsChartProps = ActiveCommitProps & {
   commit: Commit;
 };
 
-const RenderCommitsChart: React.VFC<RenderCommitsChartProps> = ({
+const RenderCommitsChart: React.FC<RenderCommitsChartProps> = ({
   chartType,
   commit,
   groupedResult,
@@ -44,7 +44,7 @@ interface RenderCommitsLabelProps {
   commit: Commit;
   hasFilters: boolean;
 }
-const RenderCommitsLabel: React.VFC<RenderCommitsLabelProps> = ({
+const RenderCommitsLabel: React.FC<RenderCommitsLabelProps> = ({
   commit,
   hasFilters,
 }) => {
@@ -68,7 +68,7 @@ interface RenderCommitsBuildVariantProps {
   commit: Commit;
   buildVariantDict: BuildVariantDict;
 }
-export const RenderCommitsBuildVariants: React.VFC<
+export const RenderCommitsBuildVariants: React.FC<
   RenderCommitsBuildVariantProps
 > = ({ buildVariantDict, commit }) => {
   const { version } = commit;

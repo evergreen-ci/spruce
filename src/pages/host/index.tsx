@@ -31,7 +31,7 @@ import { url } from "utils";
 
 const { getLimitFromSearch, getPageFromSearch } = url;
 
-const Host: React.VFC = () => {
+const Host: React.FC = () => {
   const dispatchToast = useToastContext();
   const { id } = useParams<{ id: string }>();
   // Query host data

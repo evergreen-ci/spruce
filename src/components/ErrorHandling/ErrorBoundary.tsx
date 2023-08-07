@@ -38,7 +38,7 @@ class DefaultErrorBoundary extends Component<
   }
 }
 
-export const ErrorBoundary: React.VFC<{ children: React.ReactNode }> = ({
+export const ErrorBoundary: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const useBugsnag = Bugsnag.isStarted();

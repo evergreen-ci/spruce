@@ -8,7 +8,7 @@ import { zIndex } from "constants/tokens";
 
 const { white } = palette;
 
-const NavDropdownMenuIcon: React.VFC<{ open: boolean }> = ({ open }) => (
+const NavDropdownMenuIcon: React.FC<{ open: boolean }> = ({ open }) => (
   <Icon glyph={open ? "CaretUp" : "CaretDown"} role="presentation" />
 );
 
@@ -24,7 +24,7 @@ interface NavDropdownItemType extends MenuItemType {
   closeMenu: () => void;
 }
 
-const NavDropdownItem: React.VFC<NavDropdownItemType> = ({
+const NavDropdownItem: React.FC<NavDropdownItemType> = ({
   closeMenu,
   "data-cy": itemDataCy,
   href,
@@ -57,7 +57,7 @@ interface NavDropdownProps {
   title: string;
 }
 
-export const NavDropdown: React.VFC<NavDropdownProps> = ({
+export const NavDropdown: React.FC<NavDropdownProps> = ({
   dataCy,
   menuItems,
   title,

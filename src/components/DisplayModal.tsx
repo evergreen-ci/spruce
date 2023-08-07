@@ -15,7 +15,7 @@ export interface DisplayModalProps {
   subtitle?: string;
 }
 
-export const DisplayModal: React.VFC<DisplayModalProps> = ({
+export const DisplayModal: React.FC<DisplayModalProps> = ({
   children,
   "data-cy": dataCy,
   open,

@@ -13,7 +13,7 @@ export type NodeType = {
 interface NodeProps extends NodeType {
   stepNumber: number;
 }
-export const Node: React.VFC<NodeProps> = ({ child, stepNumber, title }) => (
+export const Node: React.FC<NodeProps> = ({ child, stepNumber, title }) => (
   <NodeContainer>
     <NodeHeader>
       <Step stepNumber={stepNumber} />
@@ -27,7 +27,7 @@ interface StepProps {
   stepNumber: number;
 }
 
-const Step: React.VFC<StepProps> = ({ stepNumber }) => (
+const Step: React.FC<StepProps> = ({ stepNumber }) => (
   <Circle>
     <Index>{stepNumber}</Index>
   </Circle>

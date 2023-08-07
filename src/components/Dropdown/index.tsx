@@ -22,7 +22,7 @@ interface DropdownProps {
   setIsOpen: (isOpen: boolean) => void;
   onClose?: () => void;
 }
-const Dropdown: React.VFC<DropdownProps> = ({
+const Dropdown: React.FC<DropdownProps> = ({
   buttonRenderer,
   buttonText,
   children,

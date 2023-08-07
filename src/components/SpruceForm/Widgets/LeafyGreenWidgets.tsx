@@ -24,7 +24,7 @@ import { isNullish, processErrors } from "./utils";
 
 const { yellow } = palette;
 
-export const LeafyGreenTextInput: React.VFC<
+export const LeafyGreenTextInput: React.FC<
   { options: { optional?: boolean } } & SpruceWidgetProps
 > = ({
   disabled,
@@ -99,7 +99,7 @@ const WarningText = styled.p`
   margin-top: ${size.xs};
 `;
 
-export const LeafyGreenCheckBox: React.VFC<SpruceWidgetProps> = ({
+export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
   disabled,
   label,
   onChange,
@@ -150,7 +150,7 @@ const IconContainer = styled.span`
   vertical-align: text-top;
 `;
 
-export const LeafyGreenSelect: React.VFC<
+export const LeafyGreenSelect: React.FC<
   { options: { allowDeselect?: boolean } } & EnumSpruceWidgetProps
 > = ({
   disabled,
@@ -211,7 +211,7 @@ export const LeafyGreenSelect: React.VFC<
   );
 };
 
-export const LeafyGreenRadio: React.VFC<EnumSpruceWidgetProps> = ({
+export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
   disabled,
   label,
   onChange,
@@ -251,7 +251,7 @@ export const LeafyGreenRadio: React.VFC<EnumSpruceWidgetProps> = ({
   );
 };
 
-export const LeafyGreenRadioBox: React.VFC<
+export const LeafyGreenRadioBox: React.FC<
   { options: { description: string | JSX.Element } } & EnumSpruceWidgetProps
 > = ({ disabled, id, label, onChange, options, uiSchema, value }) => {
   const {
@@ -331,7 +331,7 @@ const StyledRadioBox = styled(RadioBox)`
   line-height: 1.25;
 `;
 
-export const LeafyGreenTextArea: React.VFC<SpruceWidgetProps> = ({
+export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
   disabled,
   label,
   onChange,
@@ -379,7 +379,7 @@ export const LeafyGreenTextArea: React.VFC<SpruceWidgetProps> = ({
   );
 };
 
-export const LeafyGreenSegmentedControl: React.VFC<EnumSpruceWidgetProps> = ({
+export const LeafyGreenSegmentedControl: React.FC<EnumSpruceWidgetProps> = ({
   disabled,
   label,
   onChange,

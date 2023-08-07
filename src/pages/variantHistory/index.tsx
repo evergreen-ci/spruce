@@ -35,7 +35,7 @@ const { HistoryTableProvider } = context;
 const { useJumpToCommit, useTestFilters } = hooks;
 const { applyStrictRegex } = string;
 
-const VariantHistoryContents: React.VFC = () => {
+const VariantHistoryContents: React.FC = () => {
   const { projectIdentifier, variantName } = useParams<{
     projectIdentifier: string;
     variantName: string;

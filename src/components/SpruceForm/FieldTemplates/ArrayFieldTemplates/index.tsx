@@ -17,7 +17,7 @@ const { gray } = palette;
 // top of the text box itself.
 const labelOffset = size.m;
 
-const ArrayItem: React.VFC<
+const ArrayItem: React.FC<
   {
     border: boolean;
     title: string;
@@ -128,7 +128,7 @@ const ArrayItemRow = styled.div<{ border: boolean; index: number }>`
  * @param props.uiSchema - The field's UI schema.
  * @returns JSX.Element
  */
-export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
+export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   DescriptionField,
   TitleField,
   canAdd,

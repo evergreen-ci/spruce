@@ -18,7 +18,7 @@ import { getEventCopy } from "./util";
 
 const { getLimitFromSearch, getPageFromSearch } = url;
 
-const EventsTable: React.VFC<{}> = () => {
+const EventsTable: React.FC<{}> = () => {
   const getDateCopy = useDateFormat();
   const { search } = useLocation();
   const setPageSize = usePageSizeSelector();

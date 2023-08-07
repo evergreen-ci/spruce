@@ -14,7 +14,7 @@ interface WarningBannerProps {
   warnings: string[];
 }
 
-const WarningBanner: React.VFC<WarningBannerProps> = ({ warnings }) => {
+const WarningBanner: React.FC<WarningBannerProps> = ({ warnings }) => {
   const [showModal, setShowModal] = useState(false);
   const [showBanner, setShowBanner] = useState(true);
 

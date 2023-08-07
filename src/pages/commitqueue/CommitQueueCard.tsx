@@ -37,7 +37,7 @@ interface Props {
 }
 const { gray } = palette;
 
-export const CommitQueueCard: React.VFC<Props> = ({
+export const CommitQueueCard: React.FC<Props> = ({
   activated,
   author,
   commitQueueId,

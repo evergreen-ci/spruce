@@ -27,7 +27,7 @@ interface Props {
   upstreamProject?: UpstreamProjectFragment["upstreamProject"];
 }
 
-const CommitChartLabel: React.VFC<Props> = ({
+const CommitChartLabel: React.FC<Props> = ({
   author,
   createTime,
   gitTags,

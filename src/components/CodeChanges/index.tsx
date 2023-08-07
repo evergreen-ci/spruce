@@ -26,7 +26,7 @@ const { bucketByCommit, shouldPreserveCommits } = commits;
 interface CodeChangesProps {
   patchId: string;
 }
-export const CodeChanges: React.VFC<CodeChangesProps> = ({ patchId }) => {
+export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
   const { data, error, loading } = useQuery<
     CodeChangesQuery,
     CodeChangesQueryVariables

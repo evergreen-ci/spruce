@@ -23,7 +23,7 @@ const TableContainer = styled.div`
   width: 100%;
 `;
 
-export const SpawnTable: React.VFC<React.ComponentProps<typeof Table>> = (
+export const SpawnTable: React.FC<React.ComponentProps<typeof Table>> = (
   props
 ) => (
   <TableContainer>

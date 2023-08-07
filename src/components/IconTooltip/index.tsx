@@ -9,7 +9,7 @@ export type IconTooltipProps = IconProps & {
   children: React.ReactNode;
 };
 
-const IconTooltip: React.VFC<IconTooltipProps> = ({
+const IconTooltip: React.FC<IconTooltipProps> = ({
   children,
   "data-cy": dataCy,
   ...rest

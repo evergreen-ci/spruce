@@ -8,7 +8,7 @@ interface CodeChangesTableProps {
   fileDiffs: FileDiffsFragment[];
   showHeader?: boolean;
 }
-export const CodeChangesTable: React.VFC<CodeChangesTableProps> = ({
+export const CodeChangesTable: React.FC<CodeChangesTableProps> = ({
   fileDiffs,
   showHeader = true,
 }) => (

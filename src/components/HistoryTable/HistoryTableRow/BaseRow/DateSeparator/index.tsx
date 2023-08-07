@@ -10,7 +10,7 @@ interface DateSeparatorProps {
   date: Date;
 }
 
-const DateSeparator: React.VFC<DateSeparatorProps> = ({ date }) => {
+const DateSeparator: React.FC<DateSeparatorProps> = ({ date }) => {
   const getDateCopy = useDateFormat();
   return (
     <Container>

@@ -32,7 +32,7 @@ const useToastContext = (): ToastContextState => {
   return context;
 };
 
-const ToastProviderCore: React.VFC<{ children: React.ReactNode }> = ({
+const ToastProviderCore: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { pushToast } = useToast();
@@ -120,7 +120,7 @@ const ToastProviderCore: React.VFC<{ children: React.ReactNode }> = ({
   );
 };
 
-const ToastProvider: React.VFC<{ children: React.ReactNode }> = ({
+const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
   <LGToastProvider

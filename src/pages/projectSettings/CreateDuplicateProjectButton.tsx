@@ -27,7 +27,7 @@ interface Props {
   repo: string;
 }
 
-export const CreateDuplicateProjectButton: React.VFC<Props> = ({
+export const CreateDuplicateProjectButton: React.FC<Props> = ({
   id,
   label,
   owner,

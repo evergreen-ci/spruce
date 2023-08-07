@@ -11,7 +11,7 @@ import { useSpruceConfig } from "hooks";
 
 const { green } = palette;
 
-export const Feedback: React.VFC = () => {
+export const Feedback: React.FC = () => {
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
 

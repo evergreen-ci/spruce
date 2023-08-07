@@ -32,7 +32,7 @@ interface WaterfallTaskStatusIconProps {
 }
 
 let timeout;
-export const WaterfallTaskStatusIcon: React.VFC<
+export const WaterfallTaskStatusIcon: React.FC<
   WaterfallTaskStatusIconProps
 > = ({
   displayName,

@@ -9,7 +9,7 @@ interface CustomCreatedTicketProps {
   tickets: IssueLink[];
 }
 
-const CustomCreatedTickets: React.VFC<CustomCreatedTicketProps> = ({
+const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
   execution,
   taskId,
   tickets,

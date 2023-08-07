@@ -7,7 +7,7 @@ interface Props {
   status: PodStatus;
 }
 
-const PodStatusBadge: React.VFC<Props> = ({ status }) => (
+const PodStatusBadge: React.FC<Props> = ({ status }) => (
   <PodStatusWrapper>
     <Badge variant={statusToBadgeVariant[status]}>
       {podStatusToCopy[status]}

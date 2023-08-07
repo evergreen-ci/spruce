@@ -1,7 +1,7 @@
 import { ButtonDropdown } from "components/ButtonDropdown";
 import { AddNotification } from "./AddNotification";
 
-export const WaterfallMenu: React.VFC = () => {
+export const WaterfallMenu: React.FC = () => {
   const dropdownItems = [<AddNotification key="add-notification" />];
 
   return (

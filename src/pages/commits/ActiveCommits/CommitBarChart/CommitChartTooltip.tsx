@@ -18,7 +18,7 @@ interface Props {
   eta?: Date;
 }
 
-export const CommitChartTooltip: React.VFC<Props> = ({
+export const CommitChartTooltip: React.FC<Props> = ({
   eta,
   groupedTaskStats,
   trigger,
@@ -75,7 +75,7 @@ interface TotalCountProps {
   eta?: Date;
   active?: boolean;
 }
-export const TotalCount: React.VFC<TotalCountProps> = ({
+export const TotalCount: React.FC<TotalCountProps> = ({
   active = true,
   color,
   count,

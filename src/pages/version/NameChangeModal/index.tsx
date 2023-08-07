@@ -18,7 +18,7 @@ interface NameChangeModalProps {
   originalPatchName: string;
   patchId: string;
 }
-export const NameChangeModal: React.VFC<NameChangeModalProps> = ({
+export const NameChangeModal: React.FC<NameChangeModalProps> = ({
   originalPatchName,
   patchId,
 }) => {

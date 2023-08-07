@@ -14,7 +14,7 @@ interface Props {
   patchId: string;
   refetchQueries?: string[];
 }
-export const DisableTasks: React.VFC<Props> = ({
+export const DisableTasks: React.FC<Props> = ({
   patchId,
   refetchQueries = [],
 }) => {

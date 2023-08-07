@@ -17,7 +17,7 @@ interface Props {
  * @param props.onChange - Callback to be called when the page size is changed
  * @returns The PageSizeSelector component
  */
-const PageSizeSelector: React.VFC<Props> = ({ onChange, value, ...rest }) => (
+const PageSizeSelector: React.FC<Props> = ({ onChange, value, ...rest }) => (
   <StyledSelect
     aria-labelledby="page-size-select"
     size="small"

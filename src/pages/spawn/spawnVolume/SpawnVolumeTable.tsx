@@ -20,7 +20,7 @@ interface SpawnVolumeTableProps {
   volumes: MyVolume[];
 }
 
-export const SpawnVolumeTable: React.VFC<SpawnVolumeTableProps> = ({
+export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
   volumes,
 }) => {
   const { search } = useLocation();

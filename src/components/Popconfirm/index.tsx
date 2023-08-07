@@ -14,7 +14,7 @@ type PopconfirmProps = TooltipProps & {
   children: React.ReactNode;
 };
 
-const Popconfirm: React.VFC<PopconfirmProps> = ({
+const Popconfirm: React.FC<PopconfirmProps> = ({
   children,
   confirmDisabled = false,
   confirmText = "Yes",

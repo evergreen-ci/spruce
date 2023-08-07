@@ -9,7 +9,7 @@ interface FilterBadgesProps {
   onRemove?: (badge: FilterBadgeType) => void;
   onClearAll?: () => void;
 }
-const FilterBadges: React.VFC<FilterBadgesProps> = ({
+const FilterBadges: React.FC<FilterBadgesProps> = ({
   badges,
   onClearAll = () => {},
   onRemove = () => {},

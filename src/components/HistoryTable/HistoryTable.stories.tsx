@@ -32,7 +32,7 @@ export const VariantHistoryTable: CustomStoryObj<typeof HistoryTable> = {
 interface HistoryTableWrapperProps {
   type?: "variant" | "task";
 }
-const HistoryTableWrapper: React.VFC<HistoryTableWrapperProps> = ({ type }) => {
+const HistoryTableWrapper: React.FC<HistoryTableWrapperProps> = ({ type }) => {
   const { addColumns, ingestNewCommits } = useHistoryTable();
   const [isLoading, setIsLoading] = useState(false);
   const [oldData, setOldData] = useState(mainlineCommitData);

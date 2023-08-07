@@ -19,7 +19,7 @@ interface ExecutionSelectProps {
   updateExecution: (execution: number) => void;
 }
 
-export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
+export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
   currentExecution,
   id,
   latestExecution,

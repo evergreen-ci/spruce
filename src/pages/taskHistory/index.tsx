@@ -35,7 +35,7 @@ const { HistoryTableProvider } = context;
 const { applyStrictRegex } = string;
 const { useJumpToCommit, useTestFilters } = hooks;
 
-const TaskHistoryContents: React.VFC = () => {
+const TaskHistoryContents: React.FC = () => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
   const { projectIdentifier, taskName } = useParams<{
     projectIdentifier: string;

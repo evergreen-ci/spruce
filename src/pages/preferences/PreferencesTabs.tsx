@@ -9,7 +9,7 @@ import { NotificationsTab } from "./preferencesTabs/NotificationsTab";
 import { ProfileTab } from "./preferencesTabs/ProfileTab";
 import { PublicKeysTab } from "./preferencesTabs/PublicKeysTab";
 
-export const PreferencesTabs: React.VFC = () => {
+export const PreferencesTabs: React.FC = () => {
   const { tab } = useParams<{ tab: string }>();
 
   const { subtitle, title } = getTitle(tab as PreferencesTabRoutes);

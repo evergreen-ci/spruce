@@ -22,7 +22,7 @@ interface FilterBadgeProps {
   badge: FilterBadgeType;
   onClose: () => void;
 }
-const FilterBadge: React.VFC<FilterBadgeProps> = ({ badge, onClose }) => {
+const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => {
   // the trimmed name needs to account for the label
   const trimmedBadgeName = trimStringFromMiddle(
     badge.value,

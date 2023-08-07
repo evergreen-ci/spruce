@@ -81,7 +81,7 @@ const tabMap = ({
     </Tab>
   ),
 });
-export const VersionTabs: React.VFC<Props> = ({
+export const VersionTabs: React.FC<Props> = ({
   childPatches,
   isPatch,
   taskCount,

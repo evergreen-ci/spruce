@@ -18,7 +18,7 @@ interface Props {
   jasperTooltipMessage: string;
 }
 
-export const RestartJasper: React.VFC<Props> = ({
+export const RestartJasper: React.FC<Props> = ({
   canRestartJasper,
   hostUrl,
   isSingleHost,
