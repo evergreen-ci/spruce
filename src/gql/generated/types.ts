@@ -1590,6 +1590,7 @@ export type ProjectAlias = {
   description?: Maybe<Scalars["String"]>;
   gitTag: Scalars["String"];
   id: Scalars["String"];
+  parameters: Array<Parameter>;
   remotePath: Scalars["String"];
   task: Scalars["String"];
   taskTags: Array<Scalars["String"]>;
@@ -1602,6 +1603,7 @@ export type ProjectAliasInput = {
   description?: InputMaybe<Scalars["String"]>;
   gitTag: Scalars["String"];
   id: Scalars["String"];
+  parameters?: InputMaybe<Array<ParameterInput>>;
   remotePath: Scalars["String"];
   task: Scalars["String"];
   taskTags: Array<Scalars["String"]>;
@@ -2574,6 +2576,7 @@ export type TestFilter = {
  * It's used to filter, sort, and paginate test results of a task.
  */
 export type TestFilterOptions = {
+  excludeDisplayNames?: InputMaybe<Scalars["Boolean"]>;
   groupID?: InputMaybe<Scalars["String"]>;
   limit?: InputMaybe<Scalars["Int"]>;
   page?: InputMaybe<Scalars["Int"]>;
@@ -3224,6 +3227,7 @@ export type AliasFragment = {
   taskTags: Array<string>;
   variant: string;
   variantTags: Array<string>;
+  parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
 };
 
 export type ProjectContainerSettingsFragment = {
@@ -3408,6 +3412,7 @@ export type ProjectSettingsFieldsFragment = {
     taskTags: Array<string>;
     variant: string;
     variantTags: Array<string>;
+    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
   }> | null;
   projectRef?: {
     __typename?: "Project";
@@ -3615,6 +3620,7 @@ export type RepoSettingsFieldsFragment = {
     taskTags: Array<string>;
     variant: string;
     variantTags: Array<string>;
+    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
   }> | null;
   projectRef?: {
     __typename?: "RepoRef";
@@ -3999,6 +4005,7 @@ export type ProjectEventSettingsFragment = {
     taskTags: Array<string>;
     variant: string;
     variantTags: Array<string>;
+    parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
   }> | null;
   projectRef?: {
     __typename?: "Project";
@@ -4362,6 +4369,15 @@ export type ClearMySubscriptionsMutation = {
   clearMySubscriptions: number;
 };
 
+export type CopyDistroMutationVariables = Exact<{
+  opts: CopyDistroInput;
+}>;
+
+export type CopyDistroMutation = {
+  __typename?: "Mutation";
+  copyDistro: { __typename?: "NewDistroPayload"; newDistroId: string };
+};
+
 export type CopyProjectMutationVariables = Exact<{
   project: CopyProjectInput;
   requestS3Creds: Scalars["Boolean"];
@@ -4370,6 +4386,15 @@ export type CopyProjectMutationVariables = Exact<{
 export type CopyProjectMutation = {
   __typename?: "Mutation";
   copyProject: { __typename?: "Project"; id: string; identifier: string };
+};
+
+export type CreateDistroMutationVariables = Exact<{
+  opts: CreateDistroInput;
+}>;
+
+export type CreateDistroMutation = {
+  __typename?: "Mutation";
+  createDistro: { __typename?: "NewDistroPayload"; newDistroId: string };
 };
 
 export type CreateProjectMutationVariables = Exact<{
@@ -6219,6 +6244,11 @@ export type ProjectEventLogsQuery = {
           taskTags: Array<string>;
           variant: string;
           variantTags: Array<string>;
+          parameters: Array<{
+            __typename?: "Parameter";
+            key: string;
+            value: string;
+          }>;
         }> | null;
         projectRef?: {
           __typename?: "Project";
@@ -6424,6 +6454,11 @@ export type ProjectEventLogsQuery = {
           taskTags: Array<string>;
           variant: string;
           variantTags: Array<string>;
+          parameters: Array<{
+            __typename?: "Parameter";
+            key: string;
+            value: string;
+          }>;
         }> | null;
         projectRef?: {
           __typename?: "Project";
@@ -6639,6 +6674,11 @@ export type ProjectSettingsQuery = {
       taskTags: Array<string>;
       variant: string;
       variantTags: Array<string>;
+      parameters: Array<{
+        __typename?: "Parameter";
+        key: string;
+        value: string;
+      }>;
     }> | null;
     projectRef?: {
       __typename?: "Project";
@@ -6888,6 +6928,11 @@ export type RepoEventLogsQuery = {
           taskTags: Array<string>;
           variant: string;
           variantTags: Array<string>;
+          parameters: Array<{
+            __typename?: "Parameter";
+            key: string;
+            value: string;
+          }>;
         }> | null;
         projectRef?: {
           __typename?: "Project";
@@ -7093,6 +7138,11 @@ export type RepoEventLogsQuery = {
           taskTags: Array<string>;
           variant: string;
           variantTags: Array<string>;
+          parameters: Array<{
+            __typename?: "Parameter";
+            key: string;
+            value: string;
+          }>;
         }> | null;
         projectRef?: {
           __typename?: "Project";
@@ -7308,6 +7358,11 @@ export type RepoSettingsQuery = {
       taskTags: Array<string>;
       variant: string;
       variantTags: Array<string>;
+      parameters: Array<{
+        __typename?: "Parameter";
+        key: string;
+        value: string;
+      }>;
     }> | null;
     projectRef?: {
       __typename?: "RepoRef";
@@ -7943,17 +7998,6 @@ export type UserConfigQuery = {
   } | null;
 };
 
-export type UserPermissionsQueryVariables = Exact<{ [key: string]: never }>;
-
-export type UserPermissionsQuery = {
-  __typename?: "Query";
-  user: {
-    __typename?: "User";
-    userId: string;
-    permissions: { __typename?: "Permissions"; canCreateProject: boolean };
-  };
-};
-
 export type UserSettingsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type UserSettingsQuery = {
@@ -8379,6 +8423,19 @@ export type TaskQueueDistrosQuery = {
   }>;
 };
 
+export type UserDistroSettingsPermissionsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type UserDistroSettingsPermissionsQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    permissions: { __typename?: "Permissions"; canCreateDistro: boolean };
+  };
+};
+
 export type UserPatchesQueryVariables = Exact<{
   userId: Scalars["String"];
   patchesInput: PatchesInput;
@@ -8425,6 +8482,19 @@ export type UserPatchesQuery = {
         } | null;
       }>;
     };
+  };
+};
+
+export type UserProjectSettingsPermissionsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type UserProjectSettingsPermissionsQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    permissions: { __typename?: "Permissions"; canCreateProject: boolean };
   };
 };
 

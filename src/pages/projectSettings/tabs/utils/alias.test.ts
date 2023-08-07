@@ -39,6 +39,7 @@ describe("transformAliases", () => {
         task: ".*",
         gitTag: "",
         remotePath: "",
+        parameters: undefined,
       },
     ]);
   });
@@ -73,6 +74,7 @@ describe("transformAliases", () => {
               task: "",
               taskTags: ["test"],
             },
+            parameters: [],
           } as AliasFormType,
         ],
         true,
@@ -89,6 +91,7 @@ describe("transformAliases", () => {
         task: "",
         gitTag: "",
         remotePath: "",
+        parameters: [],
       },
     ]);
   });
@@ -126,6 +129,7 @@ describe("transformAliases", () => {
         task: "",
         gitTag: "",
         remotePath: "",
+        parameters: undefined,
       },
     ]);
   });
@@ -166,6 +170,7 @@ describe("transformAliases", () => {
           taskTags: [],
           variant: "",
           task: "",
+          parameters: undefined,
         },
       ]);
     });
@@ -205,6 +210,7 @@ describe("transformAliases", () => {
           taskTags: ["goodbye"],
           variant: "",
           task: "",
+          parameters: undefined,
         },
       ]);
     });

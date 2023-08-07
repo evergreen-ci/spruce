@@ -362,6 +362,7 @@ const projectSettingsMock: ApolloMock<
             task: "arst",
             remotePath: "",
             variantTags: [],
+            parameters: [],
             taskTags: [],
             __typename: "ProjectAlias",
           },
