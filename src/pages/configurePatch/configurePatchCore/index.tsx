@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { Spinner } from "@leafygreen-ui/loading-indicator";
 import { Tab } from "@leafygreen-ui/tabs";
 import TextInput from "@leafygreen-ui/text-input";
 import { useNavigate } from "react-router-dom";
@@ -170,6 +171,7 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
           isLoading={loadingScheduledPatch}
           variant="primary"
           disabled={totalSelectedTaskCount === 0 && aliasCount === 0}
+          loadingIndicator={<Spinner />}
         >
           Schedule
         </StyledButton>
