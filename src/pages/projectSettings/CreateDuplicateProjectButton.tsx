@@ -3,8 +3,8 @@ import { useQuery } from "@apollo/client";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { PlusButton, Size, Variant } from "components/Buttons";
 import { zIndex } from "constants/tokens";
-import { UserPermissionsQuery } from "gql/generated/types";
-import { GET_USER_PERMISSIONS } from "gql/queries";
+import { UserProjectSettingsPermissionsQuery } from "gql/generated/types";
+import { USER_PROJECT_SETTINGS_PERMISSIONS } from "gql/queries";
 import { CopyProjectModal } from "./CopyProjectModal";
 import { CreateProjectModal } from "./CreateProjectModal";
 import { ProjectType } from "./tabs/utils";
@@ -34,7 +34,9 @@ export const CreateDuplicateProjectButton: React.VFC<Props> = ({
   projectType,
   repo,
 }) => {
-  const { data } = useQuery<UserPermissionsQuery>(GET_USER_PERMISSIONS);
+  const { data } = useQuery<UserProjectSettingsPermissionsQuery>(
+    USER_PROJECT_SETTINGS_PERMISSIONS
+  );
   const {
     user: {
       permissions: { canCreateProject },

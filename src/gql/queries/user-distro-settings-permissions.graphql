@@ -1,0 +1,8 @@
+query UserDistroSettingsPermissions {
+  user {
+    permissions {
+      canCreateDistro
+    }
+    userId
+  }
+}

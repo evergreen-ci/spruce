@@ -2,6 +2,7 @@ export { useActivityAnalytics } from "./activity/useActivityAnalytics";
 export { useAnalyticsAttributes } from "./useAnalyticsAttributes";
 export { useAnnotationAnalytics } from "./task/useAnnotationAnalytics";
 export { useBreadcrumbAnalytics } from "./breadcrumb/useBreadcrumbAnalytics";
+export { useDistroSettingsAnalytics } from "./distroSettings/useDistroSettingsAnalytics";
 export { useHostsTableAnalytics } from "./hostsTable/useHostsTableAnalytics";
 export { useJobLogsAnalytics } from "./joblogs/useJobLogsAnalytics";
 export { useNavbarAnalytics } from "./navbar/useNavbarAnalytics";
