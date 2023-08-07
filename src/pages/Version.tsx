@@ -195,7 +195,7 @@ export const VersionPage: React.VFC = () => {
           <NameChangeModal patchId={id} originalPatchName={message} />
         )}
       </PageTitle>
-      <PageLayout>
+      <PageLayout hasSider>
         <PageSider>
           <Metadata loading={false} version={version} />
           <BuildVariantCard />

@@ -10,7 +10,7 @@ import {
 export const PatchAndTaskFullPageLoad: React.VFC = () => (
   <PageWrapper>
     <Skeleton active paragraph />
-    <PageLayout>
+    <PageLayout hasSider>
       <PageSider>
         <SiderCard>
           <Skeleton active title={false} paragraph={{ rows: 4 }} />
