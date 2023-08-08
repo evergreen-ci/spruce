@@ -41,7 +41,6 @@ export const ParametersModal: React.FC<ParametersProps> = ({ parameters }) => {
   );
 };
 
-// @ts-expect-error
 const StyledBadge = styled(Badge)`
   :not(:last-of-type) {
     margin-right: ${size.s};

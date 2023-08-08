@@ -117,7 +117,6 @@ const linkStyle = css`
   width: fit-content;
 `;
 
-// @ts-expect-error
 const WorkstationBadge = styled(Badge)`
   margin-left: ${size.xs};
 `;

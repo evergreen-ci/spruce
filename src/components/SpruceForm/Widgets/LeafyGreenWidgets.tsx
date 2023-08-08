@@ -326,7 +326,6 @@ const RadioBoxLabelContainer = styled.div`
   margin-bottom: ${size.xs};
 `;
 
-// @ts-expect-error
 const StyledRadioBox = styled(RadioBox)`
   line-height: 1.25;
 `;

@@ -126,7 +126,6 @@ const DistroLabel = styled.div`
   align-items: center;
   white-space: nowrap;
 `;
-// @ts-expect-error
 const StyledBadge = styled(Badge)`
   margin-right: ${size.xs};
 `;

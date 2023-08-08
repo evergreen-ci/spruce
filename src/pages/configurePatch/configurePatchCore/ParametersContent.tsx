@@ -45,7 +45,6 @@ export const ParametersContent: React.FC<Props> = ({
   </ParamsContainer>
 );
 
-// @ts-expect-error
 const StyledBadge = styled(Badge)`
   margin-right: ${size.s};
   margin-top: ${size.s};

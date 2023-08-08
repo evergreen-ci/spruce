@@ -56,7 +56,6 @@ const Subtitle = styled(Disclaimer)`
   padding-bottom: ${size.xxs};
 `;
 
-// @ts-expect-error
 const StyledBadge = styled(Badge)`
   align-self: flex-start;
 `;

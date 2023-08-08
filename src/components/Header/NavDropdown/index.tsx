@@ -32,20 +32,13 @@ const NavDropdownItem: React.FC<NavDropdownItemType> = ({
   to,
 }) => {
   const isInternalLink = to !== undefined;
-  const linkProps = isInternalLink
-    ? {
-        to,
-      }
-    : {
-        href,
-      };
-  return (
-    <MenuItem
-      as={isInternalLink ? Link : "a"}
-      data-cy={itemDataCy}
-      onClick={closeMenu}
-      {...linkProps}
-    >
+
+  return isInternalLink ? (
+    <MenuItem as={Link} data-cy={itemDataCy} onClick={closeMenu} to={to}>
+      {text}
+    </MenuItem>
+  ) : (
+    <MenuItem as="a" data-cy={itemDataCy} onClick={closeMenu} href={href}>
       {text}
     </MenuItem>
   );

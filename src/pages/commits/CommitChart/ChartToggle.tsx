@@ -60,7 +60,6 @@ export const ChartToggle: React.FC<{
   );
 };
 
-// @ts-expect-error
 const StyledRadioGroup = styled(RadioGroup)`
   display: flex;
   flex-direction: row;

@@ -24,7 +24,6 @@ const badgeWidthMaxContent = css`
 `;
 
 // only use for statuses whose color is not supported by leafygreen badge variants, i.e. SystemFailed, TestTimedOut, SetupFailed
-// @ts-expect-error
 const StyledBadge = styled(Badge)<BadgeColorProps>`
   ${({ border }) => border && `border-color: ${border} !important;`}
   ${({ fill }) => fill && `background-color: ${fill} !important;`}
