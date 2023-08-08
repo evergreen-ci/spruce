@@ -69,31 +69,31 @@ export enum BannerTheme {
 
 export type BootstrapSettings = {
   __typename?: "BootstrapSettings";
-  clientDir?: Maybe<Scalars["String"]>;
-  communication?: Maybe<Scalars["String"]>;
+  clientDir: Scalars["String"];
+  communication: Scalars["String"];
   env: Array<EnvVar>;
-  jasperBinaryDir?: Maybe<Scalars["String"]>;
-  jasperCredentialsPath?: Maybe<Scalars["String"]>;
-  method?: Maybe<Scalars["String"]>;
+  jasperBinaryDir: Scalars["String"];
+  jasperCredentialsPath: Scalars["String"];
+  method: Scalars["String"];
   preconditionScripts: Array<PreconditionScript>;
-  resourceLimits?: Maybe<ResourceLimits>;
-  rootDir?: Maybe<Scalars["String"]>;
-  serviceUser?: Maybe<Scalars["String"]>;
-  shellPath?: Maybe<Scalars["String"]>;
+  resourceLimits: ResourceLimits;
+  rootDir: Scalars["String"];
+  serviceUser: Scalars["String"];
+  shellPath: Scalars["String"];
 };
 
 export type BootstrapSettingsInput = {
-  clientDir?: InputMaybe<Scalars["String"]>;
-  communication?: InputMaybe<Scalars["String"]>;
-  env?: InputMaybe<Array<EnvVarInput>>;
-  jasperBinaryDir?: InputMaybe<Scalars["String"]>;
-  jasperCredentialsPath?: InputMaybe<Scalars["String"]>;
-  method?: InputMaybe<Scalars["String"]>;
-  preconditionScripts?: InputMaybe<Array<PreconditionScriptInput>>;
-  resourceLimits?: InputMaybe<ResourceLimitsInput>;
-  rootDir?: InputMaybe<Scalars["String"]>;
-  serviceUser?: InputMaybe<Scalars["String"]>;
-  shellPath?: InputMaybe<Scalars["String"]>;
+  clientDir: Scalars["String"];
+  communication: Scalars["String"];
+  env: Array<EnvVarInput>;
+  jasperBinaryDir: Scalars["String"];
+  jasperCredentialsPath: Scalars["String"];
+  method: Scalars["String"];
+  preconditionScripts: Array<PreconditionScriptInput>;
+  resourceLimits: ResourceLimitsInput;
+  rootDir: Scalars["String"];
+  serviceUser: Scalars["String"];
+  shellPath: Scalars["String"];
 };
 
 export type Build = {
@@ -293,11 +293,11 @@ export type Dependency = {
 
 export type DispatcherSettings = {
   __typename?: "DispatcherSettings";
-  version?: Maybe<Scalars["String"]>;
+  version: Scalars["String"];
 };
 
 export type DispatcherSettingsInput = {
-  version?: InputMaybe<Scalars["String"]>;
+  version: Scalars["String"];
 };
 
 export type DisplayTask = {
@@ -309,11 +309,11 @@ export type DisplayTask = {
 export type Distro = {
   __typename?: "Distro";
   aliases: Array<Scalars["String"]>;
-  arch?: Maybe<Scalars["String"]>;
-  authorizedKeysFile?: Maybe<Scalars["String"]>;
+  arch: Scalars["String"];
+  authorizedKeysFile: Scalars["String"];
   bootstrapSettings: BootstrapSettings;
-  cloneMethod?: Maybe<Scalars["String"]>;
-  containerPool?: Maybe<Scalars["String"]>;
+  cloneMethod: Scalars["String"];
+  containerPool: Scalars["String"];
   disableShallowClone: Scalars["Boolean"];
   disabled: Scalars["Boolean"];
   dispatcherSettings: DispatcherSettings;
@@ -324,19 +324,19 @@ export type Distro = {
   iceCreamSettings: IceCreamSettings;
   isCluster: Scalars["Boolean"];
   isVirtualWorkStation: Scalars["Boolean"];
-  name?: Maybe<Scalars["String"]>;
-  note?: Maybe<Scalars["String"]>;
+  name: Scalars["String"];
+  note: Scalars["String"];
   plannerSettings: PlannerSettings;
-  provider?: Maybe<Scalars["String"]>;
+  provider: Scalars["String"];
   providerSettingsList: Array<Scalars["Map"]>;
-  setup?: Maybe<Scalars["String"]>;
+  setup: Scalars["String"];
   setupAsSudo: Scalars["Boolean"];
-  sshKey?: Maybe<Scalars["String"]>;
+  sshKey: Scalars["String"];
   sshOptions: Array<Scalars["String"]>;
-  user?: Maybe<Scalars["String"]>;
+  user: Scalars["String"];
   userSpawnAllowed: Scalars["Boolean"];
   validProjects: Array<Maybe<Scalars["String"]>>;
-  workDir?: Maybe<Scalars["String"]>;
+  workDir: Scalars["String"];
 };
 
 export type DistroInfo = {
@@ -350,35 +350,35 @@ export type DistroInfo = {
 };
 
 export type DistroInput = {
-  aliases?: InputMaybe<Array<Scalars["String"]>>;
-  arch?: InputMaybe<Scalars["String"]>;
-  authorizedKeysFile?: InputMaybe<Scalars["String"]>;
-  bootstrapSettings?: InputMaybe<BootstrapSettingsInput>;
-  cloneMethod?: InputMaybe<Scalars["String"]>;
-  containerPool?: InputMaybe<Scalars["String"]>;
-  disableShallowClone?: InputMaybe<Scalars["Boolean"]>;
-  disabled?: InputMaybe<Scalars["Boolean"]>;
-  dispatcherSettings?: InputMaybe<DispatcherSettingsInput>;
-  expansions?: InputMaybe<Array<ExpansionInput>>;
-  finderSettings?: InputMaybe<FinderSettingsInput>;
-  homeVolumeSettings?: InputMaybe<HomeVolumeSettingsInput>;
-  hostAllocatorSettings?: InputMaybe<HostAllocatorSettingsInput>;
-  iceCreamSettings?: InputMaybe<IceCreamSettingsInput>;
-  isCluster?: InputMaybe<Scalars["Boolean"]>;
-  isVirtualWorkStation?: InputMaybe<Scalars["Boolean"]>;
-  name?: InputMaybe<Scalars["String"]>;
-  note?: InputMaybe<Scalars["String"]>;
-  plannerSettings?: InputMaybe<PlannerSettingsInput>;
-  provider?: InputMaybe<Scalars["String"]>;
-  providerSettingsList?: InputMaybe<Array<Scalars["Map"]>>;
-  setup?: InputMaybe<Scalars["String"]>;
-  setupAsSudo?: InputMaybe<Scalars["Boolean"]>;
-  sshKey?: InputMaybe<Scalars["String"]>;
-  sshOptions?: InputMaybe<Array<Scalars["String"]>>;
-  user?: InputMaybe<Scalars["String"]>;
-  userSpawnAllowed?: InputMaybe<Scalars["Boolean"]>;
-  validProjects?: InputMaybe<Array<Scalars["String"]>>;
-  workDir?: InputMaybe<Scalars["String"]>;
+  aliases: Array<Scalars["String"]>;
+  arch: Scalars["String"];
+  authorizedKeysFile: Scalars["String"];
+  bootstrapSettings: BootstrapSettingsInput;
+  cloneMethod: Scalars["String"];
+  containerPool: Scalars["String"];
+  disableShallowClone: Scalars["Boolean"];
+  disabled: Scalars["Boolean"];
+  dispatcherSettings: DispatcherSettingsInput;
+  expansions: Array<ExpansionInput>;
+  finderSettings: FinderSettingsInput;
+  homeVolumeSettings: HomeVolumeSettingsInput;
+  hostAllocatorSettings: HostAllocatorSettingsInput;
+  iceCreamSettings: IceCreamSettingsInput;
+  isCluster: Scalars["Boolean"];
+  isVirtualWorkStation: Scalars["Boolean"];
+  name: Scalars["String"];
+  note: Scalars["String"];
+  plannerSettings: PlannerSettingsInput;
+  provider: Scalars["String"];
+  providerSettingsList: Array<Scalars["Map"]>;
+  setup: Scalars["String"];
+  setupAsSudo: Scalars["Boolean"];
+  sshKey: Scalars["String"];
+  sshOptions: Array<Scalars["String"]>;
+  user: Scalars["String"];
+  userSpawnAllowed: Scalars["Boolean"];
+  validProjects: Array<Scalars["String"]>;
+  workDir: Scalars["String"];
 };
 
 export enum DistroOnSaveOperation {
@@ -404,14 +404,6 @@ export enum DistroSettingsAccess {
   Create = "CREATE",
   Edit = "EDIT",
   View = "VIEW",
-}
-
-export enum DistroSettingsSection {
-  General = "GENERAL",
-  Host = "HOST",
-  Project = "PROJECT",
-  Provider = "PROVIDER",
-  Task = "TASK",
 }
 
 export type EcsConfig = {
@@ -440,24 +432,24 @@ export type EditSpawnHostInput = {
 
 export type EnvVar = {
   __typename?: "EnvVar";
-  key?: Maybe<Scalars["String"]>;
-  value?: Maybe<Scalars["String"]>;
+  key: Scalars["String"];
+  value: Scalars["String"];
 };
 
 export type EnvVarInput = {
-  key?: InputMaybe<Scalars["String"]>;
-  value?: InputMaybe<Scalars["String"]>;
+  key: Scalars["String"];
+  value: Scalars["String"];
 };
 
 export type Expansion = {
   __typename?: "Expansion";
-  key?: Maybe<Scalars["String"]>;
-  value?: Maybe<Scalars["String"]>;
+  key: Scalars["String"];
+  value: Scalars["String"];
 };
 
 export type ExpansionInput = {
-  key?: InputMaybe<Scalars["String"]>;
-  value?: InputMaybe<Scalars["String"]>;
+  key: Scalars["String"];
+  value: Scalars["String"];
 };
 
 export type ExternalLink = {
@@ -497,11 +489,11 @@ export type FileDiff = {
 
 export type FinderSettings = {
   __typename?: "FinderSettings";
-  version?: Maybe<Scalars["String"]>;
+  version: Scalars["String"];
 };
 
 export type FinderSettingsInput = {
-  version?: InputMaybe<Scalars["String"]>;
+  version: Scalars["String"];
 };
 
 export type GeneralSubscription = {
@@ -591,11 +583,11 @@ export type GroupedTaskStatusCount = {
 
 export type HomeVolumeSettings = {
   __typename?: "HomeVolumeSettings";
-  formatCommand?: Maybe<Scalars["String"]>;
+  formatCommand: Scalars["String"];
 };
 
 export type HomeVolumeSettingsInput = {
-  formatCommand?: InputMaybe<Scalars["String"]>;
+  formatCommand: Scalars["String"];
 };
 
 /** Host models a host, which are used for things like running tasks or as virtual workstations. */
@@ -629,23 +621,25 @@ export type Host = {
 
 export type HostAllocatorSettings = {
   __typename?: "HostAllocatorSettings";
-  acceptableHostIdleTime?: Maybe<Scalars["Duration"]>;
-  feedbackRule?: Maybe<Scalars["String"]>;
-  hostsOverallocatedRule?: Maybe<Scalars["String"]>;
+  acceptableHostIdleTime: Scalars["Duration"];
+  feedbackRule: Scalars["String"];
+  futureHostFraction: Scalars["Float"];
+  hostsOverallocatedRule: Scalars["String"];
   maximumHosts: Scalars["Int"];
   minimumHosts: Scalars["Int"];
-  roundingRule?: Maybe<Scalars["String"]>;
-  version?: Maybe<Scalars["String"]>;
+  roundingRule: Scalars["String"];
+  version: Scalars["String"];
 };
 
 export type HostAllocatorSettingsInput = {
-  acceptableHostIdleTime?: InputMaybe<Scalars["Duration"]>;
-  feedbackRule?: InputMaybe<Scalars["String"]>;
-  hostsOverallocatedRule?: InputMaybe<Scalars["String"]>;
-  maximumHosts?: InputMaybe<Scalars["Int"]>;
-  minimumHosts?: InputMaybe<Scalars["Int"]>;
-  roundingRule?: InputMaybe<Scalars["String"]>;
-  version?: InputMaybe<Scalars["String"]>;
+  acceptableHostIdleTime: Scalars["Int"];
+  feedbackRule: Scalars["String"];
+  futureHostFraction: Scalars["Float"];
+  hostsOverallocatedRule: Scalars["String"];
+  maximumHosts: Scalars["Int"];
+  minimumHosts: Scalars["Int"];
+  roundingRule: Scalars["String"];
+  version: Scalars["String"];
 };
 
 export type HostEventLogData = {
@@ -713,13 +707,13 @@ export type HostsResponse = {
 
 export type IceCreamSettings = {
   __typename?: "IceCreamSettings";
-  configPath?: Maybe<Scalars["String"]>;
-  schedulerHost?: Maybe<Scalars["String"]>;
+  configPath: Scalars["String"];
+  schedulerHost: Scalars["String"];
 };
 
 export type IceCreamSettingsInput = {
-  configPath?: InputMaybe<Scalars["String"]>;
-  schedulerHost?: InputMaybe<Scalars["String"]>;
+  configPath: Scalars["String"];
+  schedulerHost: Scalars["String"];
 };
 
 export type InstanceTag = {
@@ -1448,25 +1442,27 @@ export type PermissionsDistroPermissionsArgs = {
 
 export type PlannerSettings = {
   __typename?: "PlannerSettings";
-  expectedRuntimeFactor?: Maybe<Scalars["Int"]>;
-  generateTaskFactor?: Maybe<Scalars["Int"]>;
-  groupVersions?: Maybe<Scalars["Boolean"]>;
-  mainlineTimeInQueueFactor?: Maybe<Scalars["Int"]>;
-  patchFactor?: Maybe<Scalars["Int"]>;
-  patchTimeInQueueFactor?: Maybe<Scalars["Int"]>;
-  targetTime?: Maybe<Scalars["Duration"]>;
-  version?: Maybe<Scalars["String"]>;
+  commitQueueFactor: Scalars["Int"];
+  expectedRuntimeFactor: Scalars["Int"];
+  generateTaskFactor: Scalars["Int"];
+  groupVersions: Scalars["Boolean"];
+  mainlineTimeInQueueFactor: Scalars["Int"];
+  patchFactor: Scalars["Int"];
+  patchTimeInQueueFactor: Scalars["Int"];
+  targetTime: Scalars["Duration"];
+  version: Scalars["String"];
 };
 
 export type PlannerSettingsInput = {
-  expectedRuntimeFactor?: InputMaybe<Scalars["Int"]>;
-  generateTaskFactor?: InputMaybe<Scalars["Int"]>;
-  groupVersions?: InputMaybe<Scalars["Boolean"]>;
-  mainlineTimeInQueueFactor?: InputMaybe<Scalars["Int"]>;
-  patchFactor?: InputMaybe<Scalars["Int"]>;
-  patchTimeInQueueFactor?: InputMaybe<Scalars["Int"]>;
-  targetTime?: InputMaybe<Scalars["Duration"]>;
-  version?: InputMaybe<Scalars["String"]>;
+  commitQueueFactor: Scalars["Int"];
+  expectedRuntimeFactor: Scalars["Int"];
+  generateTaskFactor: Scalars["Int"];
+  groupVersions: Scalars["Boolean"];
+  mainlineTimeInQueueFactor: Scalars["Int"];
+  patchFactor: Scalars["Int"];
+  patchTimeInQueueFactor: Scalars["Int"];
+  targetTime: Scalars["Int"];
+  version: Scalars["String"];
 };
 
 export type Pod = {
@@ -1518,13 +1514,13 @@ export type PodEvents = {
 
 export type PreconditionScript = {
   __typename?: "PreconditionScript";
-  path?: Maybe<Scalars["String"]>;
-  script?: Maybe<Scalars["String"]>;
+  path: Scalars["String"];
+  script: Scalars["String"];
 };
 
 export type PreconditionScriptInput = {
-  path?: InputMaybe<Scalars["String"]>;
-  script?: InputMaybe<Scalars["String"]>;
+  path: Scalars["String"];
+  script: Scalars["String"];
 };
 
 /** Project models single repository on GitHub. */
@@ -2090,26 +2086,24 @@ export enum RequiredStatus {
 
 export type ResourceLimits = {
   __typename?: "ResourceLimits";
-  lockedMemoryKb?: Maybe<Scalars["Int"]>;
-  numFiles?: Maybe<Scalars["Int"]>;
-  numProcesses?: Maybe<Scalars["Int"]>;
-  numTasks?: Maybe<Scalars["Int"]>;
-  virtualMemoryKb?: Maybe<Scalars["Int"]>;
+  lockedMemoryKb: Scalars["Int"];
+  numFiles: Scalars["Int"];
+  numProcesses: Scalars["Int"];
+  numTasks: Scalars["Int"];
+  virtualMemoryKb: Scalars["Int"];
 };
 
 export type ResourceLimitsInput = {
-  lockedMemoryKb?: InputMaybe<Scalars["Int"]>;
-  numFiles?: InputMaybe<Scalars["Int"]>;
-  numProcesses?: InputMaybe<Scalars["Int"]>;
-  numTasks?: InputMaybe<Scalars["Int"]>;
-  virtualMemoryKb?: InputMaybe<Scalars["Int"]>;
+  lockedMemoryKb: Scalars["Int"];
+  numFiles: Scalars["Int"];
+  numProcesses: Scalars["Int"];
+  numTasks: Scalars["Int"];
+  virtualMemoryKb: Scalars["Int"];
 };
 
 export type SaveDistroInput = {
-  changes?: InputMaybe<DistroInput>;
-  distroId: Scalars["String"];
+  distro: DistroInput;
   onSave: DistroOnSaveOperation;
-  section: DistroSettingsSection;
 };
 
 /** Return type representing the updated distro and the number of hosts that were updated. */
@@ -5031,7 +5025,7 @@ export type DistroQueryVariables = Exact<{
 
 export type DistroQuery = {
   __typename?: "Query";
-  distro?: { __typename?: "Distro"; name?: string | null } | null;
+  distro?: { __typename?: "Distro"; name: string } | null;
 };
 
 export type FailedTaskStatusIconTooltipQueryVariables = Exact<{
@@ -5458,7 +5452,7 @@ export type DistrosQuery = {
   distros: Array<{
     __typename?: "Distro";
     isVirtualWorkStation: boolean;
-    name?: string | null;
+    name: string;
   } | null>;
 };
 
