@@ -141,7 +141,7 @@
     "@graphql-eslint/eslint-plugin": "3.18.0",
     "@originjs/vite-plugin-commonjs": "1.0.3",
     "@storybook/addon-actions": "7.0.21",
-    "@storybook/addon-essentials": "7.0.21",
+    "@storybook/addon-essentials": "7.2.1",
     "@storybook/addon-interactions": "7.0.21",
     "@storybook/addon-links": "7.0.21",
     "@storybook/addon-storyshots": "7.0.21",
