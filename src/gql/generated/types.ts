@@ -941,7 +941,7 @@ export type Mutation = {
   restartJasper: Scalars["Int"];
   restartTask: Task;
   restartVersions?: Maybe<Array<Version>>;
-  saveDistroSection: SaveDistroSectionPayload;
+  saveDistro: SaveDistroPayload;
   saveProjectSettingsForSection: ProjectSettings;
   saveRepoSettingsForSection: RepoSettings;
   saveSubscription: Scalars["Boolean"];
@@ -1134,7 +1134,7 @@ export type MutationRestartVersionsArgs = {
   versionsToRestart: Array<VersionToRestart>;
 };
 
-export type MutationSaveDistroSectionArgs = {
+export type MutationSaveDistroArgs = {
   opts: SaveDistroInput;
 };
 
@@ -2107,8 +2107,8 @@ export type SaveDistroInput = {
 };
 
 /** Return type representing the updated distro and the number of hosts that were updated. */
-export type SaveDistroSectionPayload = {
-  __typename?: "SaveDistroSectionPayload";
+export type SaveDistroPayload = {
+  __typename?: "SaveDistroPayload";
   distro: Distro;
   hostCount: Scalars["Int"];
 };
