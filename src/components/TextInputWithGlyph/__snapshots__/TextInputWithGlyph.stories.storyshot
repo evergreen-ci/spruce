@@ -13,7 +13,7 @@ exports[`storybook Storyshots components/TextInputWithGlyph Default 1`] = `
       >
         <label
           class="leafygreen-ui-gr5280"
-          for="textinput-12"
+          for="textinput-171"
         >
           Some search field
         </label>
@@ -25,7 +25,7 @@ exports[`storybook Storyshots components/TextInputWithGlyph Default 1`] = `
           aria-invalid="false"
           autocomplete="on"
           class="leafygreen-ui-6i61vl"
-          id="textinput-12"
+          id="textinput-171"
           placeholder="Search"
           required=""
           type="text"

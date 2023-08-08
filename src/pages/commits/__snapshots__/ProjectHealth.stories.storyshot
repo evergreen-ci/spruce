@@ -251,12 +251,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                             class="leafygreen-ui-jpwlig"
                           >
                             <label
-                              class="leafygreen-ui-1465lnm"
+                              class="leafygreen-ui-14lohqh"
                               for="chart-radio-absolute"
                             >
                               <input
                                 aria-checked="true"
-                                aria-describedby="undefined-undefined"
+                                aria-describedby="lg-202"
                                 aria-disabled="false"
                                 checked=""
                                 class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
@@ -280,11 +280,11 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                             class="leafygreen-ui-jpwlig"
                           >
                             <label
-                              class="leafygreen-ui-1465lnm"
+                              class="leafygreen-ui-14lohqh"
                               for="chart-radio-percent"
                             >
                               <input
-                                aria-describedby="undefined-undefined"
+                                aria-describedby="lg-203"
                                 aria-disabled="false"
                                 class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                                 data-cy="cy-chart-percent-radio"

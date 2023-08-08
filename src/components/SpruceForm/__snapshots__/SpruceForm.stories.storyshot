@@ -37,22 +37,22 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                     class="leafygreen-ui-1nkq8lt"
                   >
                     <label
-                      class="leafygreen-ui-vg7131"
-                      for="select-8"
-                      id="select-7-label"
+                      class="leafygreen-ui-o3xcrd"
+                      for="select-158"
+                      id="select-157-label"
                     >
                       Project Cloning Method
                     </label>
                     <button
-                      aria-controls="select-7-menu"
-                      aria-describedby="select-7-description"
+                      aria-controls="select-157-menu"
+                      aria-describedby="select-157-description"
                       aria-disabled="false"
                       aria-expanded="false"
                       aria-invalid="false"
-                      aria-labelledby="select-7-label"
+                      aria-labelledby="select-157-label"
                       class="lg-ui-button-0001 leafygreen-ui-3qrx9g"
                       data-testid="leafygreen-ui-select-menubutton"
-                      id="select-8"
+                      id="select-158"
                       type="button"
                       value="legacy-ssh"
                     >
@@ -74,7 +74,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                         <svg
                           alt=""
                           aria-hidden="true"
-                          class="leafygreen-ui-866818"
+                          class="leafygreen-ui-1st74h4 leafygreen-ui-1t9qnhm"
                           height="16"
                           role="presentation"
                           viewBox="0 0 16 16"
@@ -170,7 +170,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                               >
                                 <label
                                   class="leafygreen-ui-gr5280"
-                                  for="textinput-10"
+                                  for="textinput-159"
                                 >
                                   key
                                 </label>
@@ -183,7 +183,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                                   aria-label="key"
                                   autocomplete="on"
                                   class="leafygreen-ui-6i61vl"
-                                  id="textinput-10"
+                                  id="textinput-159"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -214,7 +214,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                               >
                                 <label
                                   class="leafygreen-ui-gr5280"
-                                  for="textinput-11"
+                                  for="textinput-160"
                                 >
                                   value
                                 </label>
@@ -227,7 +227,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                                   aria-label="value"
                                   autocomplete="on"
                                   class="leafygreen-ui-6i61vl"
-                                  id="textinput-11"
+                                  id="textinput-160"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -291,14 +291,14 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                   class="leafygreen-ui-1iyoj2o"
                 >
                   <label
-                    class="leafygreen-ui-591fuk"
-                    for="textarea-1"
+                    class="leafygreen-ui-1fi5x3a"
+                    for="textarea-161"
                   >
                     Valid Projects
                   </label>
                   <textarea
                     class="leafygreen-ui-j9hxzb"
-                    id="textarea-1"
+                    id="textarea-161"
                     title="Valid Projects"
                   />
                 </div>
@@ -346,17 +346,17 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
                   class="leafygreen-ui-55kazc"
                 >
                   <label
-                    class="leafygreen-ui-rae0jp"
-                    for="checkbox-1"
-                    id="checkbox-1-label"
+                    class="leafygreen-ui-75mjfl"
+                    for="checkbox-162"
+                    id="checkbox-162-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-1-label"
+                      aria-labelledby="checkbox-162-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-1"
+                      id="checkbox-162"
                       type="checkbox"
                     />
                     <div
@@ -403,17 +403,17 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
                   class="leafygreen-ui-55kazc"
                 >
                   <label
-                    class="leafygreen-ui-rae0jp"
-                    for="checkbox-2"
-                    id="checkbox-2-label"
+                    class="leafygreen-ui-75mjfl"
+                    for="checkbox-163"
+                    id="checkbox-163-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-2-label"
+                      aria-labelledby="checkbox-163-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-2"
+                      id="checkbox-163"
                       type="checkbox"
                     />
                     <div
@@ -460,17 +460,17 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
                   class="leafygreen-ui-55kazc"
                 >
                   <label
-                    class="leafygreen-ui-rae0jp"
-                    for="checkbox-3"
-                    id="checkbox-3-label"
+                    class="leafygreen-ui-75mjfl"
+                    for="checkbox-164"
+                    id="checkbox-164-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-3-label"
+                      aria-labelledby="checkbox-164-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-3"
+                      id="checkbox-164"
                       type="checkbox"
                     />
                     <div
@@ -517,18 +517,18 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
                   class="leafygreen-ui-55kazc"
                 >
                   <label
-                    class="leafygreen-ui-rae0jp"
-                    for="checkbox-4"
-                    id="checkbox-4-label"
+                    class="leafygreen-ui-75mjfl"
+                    for="checkbox-165"
+                    id="checkbox-165-label"
                   >
                     <input
                       aria-checked="true"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-4-label"
+                      aria-labelledby="checkbox-165-label"
                       checked=""
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-4"
+                      id="checkbox-165"
                       type="checkbox"
                     />
                     <div
@@ -572,7 +572,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
                 class="css-c1sqx6-ElementWrapper ee4bs9n0"
               >
                 <div
-                  aria-label="radio-group-1"
+                  aria-label="radio-group-"
                   class="leafygreen-ui-14o8ny9"
                   role="group"
                 >
@@ -580,16 +580,16 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
                     class="leafygreen-ui-jpwlig"
                   >
                     <label
-                      class="leafygreen-ui-1465lnm"
-                      for="radio-group-1-0"
+                      class="leafygreen-ui-14lohqh"
+                      for="radio-group--0"
                     >
                       <input
                         aria-checked="false"
-                        aria-describedby="undefined-undefined"
+                        aria-describedby="lg-166"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
-                        id="radio-group-1-0"
-                        name="radio-group-1"
+                        id="radio-group--0"
+                        name="radio-group-"
                         type="radio"
                         value="restartJasper"
                       />
@@ -607,16 +607,16 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
                     class="leafygreen-ui-jpwlig"
                   >
                     <label
-                      class="leafygreen-ui-1465lnm"
-                      for="radio-group-1-1"
+                      class="leafygreen-ui-14lohqh"
+                      for="radio-group--1"
                     >
                       <input
                         aria-checked="false"
-                        aria-describedby="undefined-undefined"
+                        aria-describedby="lg-167"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
-                        id="radio-group-1-1"
-                        name="radio-group-1"
+                        id="radio-group--1"
+                        name="radio-group-"
                         type="radio"
                         value="reprovisionHosts"
                       />
@@ -675,18 +675,18 @@ exports[`storybook Storyshots components/SpruceForm Example 3 1`] = `
                   class="leafygreen-ui-55kazc"
                 >
                   <label
-                    class="leafygreen-ui-rae0jp"
-                    for="checkbox-5"
-                    id="checkbox-5-label"
+                    class="leafygreen-ui-75mjfl"
+                    for="checkbox-168"
+                    id="checkbox-168-label"
                   >
                     <input
                       aria-checked="true"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-5-label"
+                      aria-labelledby="checkbox-168-label"
                       checked=""
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-5"
+                      id="checkbox-168"
                       type="checkbox"
                     />
                     <div

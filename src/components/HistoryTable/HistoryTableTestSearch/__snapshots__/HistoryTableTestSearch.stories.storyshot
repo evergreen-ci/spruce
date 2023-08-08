@@ -19,7 +19,7 @@ exports[`storybook Storyshots Components/HistoryTable/HistoryTableTestSearch Def
           >
             <label
               class="leafygreen-ui-gr5280"
-              for="textinput-9"
+              for="textinput-32"
             >
               Filter by Failed Tests
             </label>
@@ -32,7 +32,7 @@ exports[`storybook Storyshots Components/HistoryTable/HistoryTableTestSearch Def
               aria-label="history-table-test-search-input"
               autocomplete="on"
               class="leafygreen-ui-6i61vl"
-              id="textinput-9"
+              id="textinput-32"
               placeholder="Search test name regex"
               required=""
               type="search"
