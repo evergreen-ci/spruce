@@ -4484,15 +4484,14 @@
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/box/-/box-3.1.4.tgz#6ff56c8c205f83018373c9c0fe8f49681097dc0a"
   integrity sha512-cdEXGEafHuaH4zGx3NTX1bMOQ52EpoWA595BC1hh4/8BmXL+H4NFMGywuhZnvYjC4lyVGauX6sCspxrunbmfMQ==
 
-"@leafygreen-ui/button@20.2.1", "@leafygreen-ui/button@^20.0.2", "@leafygreen-ui/button@^20.0.6":
-  version "20.2.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-20.2.1.tgz#f80d099e20e98343be2d8b4d3e6fad49ea908fcf"
-  integrity sha512-6/5RBOww7dxshKQR/RI/PDkwKeQh0oVydiGaJBqPgIz0wclBuaZQyQB+e/mkBJEK40eHV8B9yQ8MqbP/oADpVg==
+"@leafygreen-ui/button@21.0.0":
+  version "21.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-21.0.0.tgz#cd3cf92535251fe19952ab202952cc219b1e34fb"
+  integrity sha512-aI8Ib74pp+bTBy/TX9UR2BqonuR27YHeDWJkPNPKixWTpXxzgubzGHykghKsdKCUXfLP+widX22ajzvzU91mjQ==
   dependencies:
     "@leafygreen-ui/box" "^3.1.4"
     "@leafygreen-ui/emotion" "^4.0.4"
     "@leafygreen-ui/lib" "^10.4.0"
-    "@leafygreen-ui/loading-indicator" "^1.0.1"
     "@leafygreen-ui/palette" "^4.0.4"
     "@leafygreen-ui/ripple" "^1.1.9"
     "@leafygreen-ui/tokens" "^2.1.1"
@@ -4509,6 +4508,20 @@
     "@leafygreen-ui/palette" "^3.4.7"
     "@leafygreen-ui/ripple" "^1.1.8"
     "@leafygreen-ui/tokens" "^2.0.0"
+    polished "^4.2.2"
+
+"@leafygreen-ui/button@^20.0.2", "@leafygreen-ui/button@^20.0.6":
+  version "20.2.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-20.2.1.tgz#f80d099e20e98343be2d8b4d3e6fad49ea908fcf"
+  integrity sha512-6/5RBOww7dxshKQR/RI/PDkwKeQh0oVydiGaJBqPgIz0wclBuaZQyQB+e/mkBJEK40eHV8B9yQ8MqbP/oADpVg==
+  dependencies:
+    "@leafygreen-ui/box" "^3.1.4"
+    "@leafygreen-ui/emotion" "^4.0.4"
+    "@leafygreen-ui/lib" "^10.4.0"
+    "@leafygreen-ui/loading-indicator" "^1.0.1"
+    "@leafygreen-ui/palette" "^4.0.4"
+    "@leafygreen-ui/ripple" "^1.1.9"
+    "@leafygreen-ui/tokens" "^2.1.1"
     polished "^4.2.2"
 
 "@leafygreen-ui/callout@9.0.4":
@@ -5551,10 +5564,10 @@
   resolved "https://registry.yarnpkg.com/@reach/observe-rect/-/observe-rect-1.2.0.tgz#d7a6013b8aafcc64c778a0ccb83355a11204d3b2"
   integrity sha512-Ba7HmkFgfQxZqqaeIWWkNK0rEhpxVQHIoVyW1YDSkGsGIXzcaW4deC8B0pZrNSSyLTdIk7y+5olKt5+g0GmFIQ==
 
-"@remix-run/router@1.6.1":
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.6.1.tgz#3a3a408481a3796f45223a549c2571517bc8af2d"
-  integrity sha512-YUkWj+xs0oOzBe74OgErsuR3wVn+efrFhXBWrit50kOiED+pvQe2r6MWY0iJMQU/mSVKxvNzL4ZaYvjdX+G7ZA==
+"@remix-run/router@1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.7.2.tgz#cba1cf0a04bc04cb66027c51fa600e9cbc388bc8"
+  integrity sha512-7Lcn7IqGMV+vizMPoEl5F0XDshcdDYtMI6uJLQdQz5CfZAwy3vvGKYSUk789qndt5dEC4HfSjviSYlSoHGL2+A==
 
 "@repeaterjs/repeater@3.0.4", "@repeaterjs/repeater@^3.0.4":
   version "3.0.4"
@@ -12103,10 +12116,10 @@ jake@^10.8.5:
     filelist "^1.0.1"
     minimatch "^3.0.4"
 
-jest-canvas-mock@^2.5.1:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/jest-canvas-mock/-/jest-canvas-mock-2.5.1.tgz#81509af658ef485e9a1bf39c64e06761517bdbcb"
-  integrity sha512-IVnRiz+v4EYn3ydM/pBo8GW/J+nU/Hg5gHBQQOUQhdRyNfvHnabB8ReqARLO0p+kvQghqr4V0tA92CF3JcUSRg==
+jest-canvas-mock@^2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/jest-canvas-mock/-/jest-canvas-mock-2.5.2.tgz#7e21ebd75e05ab41c890497f6ba8a77f915d2ad6"
+  integrity sha512-vgnpPupjOL6+L5oJXzxTxFrlGEIbHdZqFU+LFNdtLxZ3lRDCl17FlTMM7IatoRQkrcyOTMlDinjUguqmQ6bR2A==
   dependencies:
     cssfontparser "^1.2.1"
     moo-color "^1.0.2"
@@ -14910,20 +14923,20 @@ react-refresh@^0.14.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.14.0.tgz#4e02825378a5f227079554d4284889354e5f553e"
   integrity sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==
 
-react-router-dom@6.11.1:
-  version "6.11.1"
-  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.11.1.tgz#af226bae950deb437208a606a47cf5c2d72c55dc"
-  integrity sha512-dPC2MhoPeTQ1YUOt5uIK376SMNWbwUxYRWk2ZmTT4fZfwlOvabF8uduRKKJIyfkCZvMgiF0GSCQckmkGGijIrg==
+react-router-dom@6.14.2:
+  version "6.14.2"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.14.2.tgz#88f520118b91aa60233bd08dbd3fdcaea3a68488"
+  integrity sha512-5pWX0jdKR48XFZBuJqHosX3AAHjRAzygouMTyimnBPOLdY3WjzUSKhus2FVMihUFWzeLebDgr4r8UeQFAct7Bg==
   dependencies:
-    "@remix-run/router" "1.6.1"
-    react-router "6.11.1"
+    "@remix-run/router" "1.7.2"
+    react-router "6.14.2"
 
-react-router@6.11.1:
-  version "6.11.1"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.11.1.tgz#6e58458c03e16834dda2b433c6adb9e7c2b1d7a8"
-  integrity sha512-OZINSdjJ2WgvAi7hgNLazrEV8SGn6xrKA+MkJe9wVDMZ3zQ6fdJocUjpCUCI0cNrelWjcvon0S/QK/j0NzL3KA==
+react-router@6.14.2:
+  version "6.14.2"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.14.2.tgz#1f60994d8c369de7b8ba7a78d8f7ec23df76b300"
+  integrity sha512-09Zss2dE2z+T1D03IheqAFtK4UzQyX8nFPWx6jkwdYzGLXd5ie06A6ezS2fO6zJfEb/SpG6UocN2O1hfD+2urQ==
   dependencies:
-    "@remix-run/router" "1.6.1"
+    "@remix-run/router" "1.7.2"
 
 react-shallow-renderer@^16.13.1:
   version "16.14.1"
