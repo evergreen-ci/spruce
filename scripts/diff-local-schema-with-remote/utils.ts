@@ -3,10 +3,7 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 import { generate } from "@graphql-codegen/cli";
-import {
-  getConfig,
-  generatedFileName as localGeneratedTypesFileName,
-} from "../codegen";
+import { getConfig } from "../../codegen";
 import { execSync } from "child_process";
 import process from "process";
 
@@ -25,7 +22,7 @@ const USER_AGENT = "Mozilla/5.0";
  * @param {string} domain - The domain name to check.
  * @returns {Promise<boolean>} - Resolves to `true` if the domain can be resolved, `false` otherwise.
  */
-const canResolveDNS = (domain: string) =>
+export const canResolveDNS = (domain: string) =>
   new Promise((resolve) => {
     dns.lookup(domain, (err) => {
       if (err) {
@@ -41,7 +38,7 @@ const canResolveDNS = (domain: string) =>
  * @returns {Promise<string>} A Promise that resolves to the SHA of the latest commit.
  * @throws {Error} When failed to fetch commits.
  */
-async function getRemoteLatestCommitSha(): Promise<string> {
+export async function getRemoteLatestCommitSha(): Promise<string> {
   const url = `${GITHUB_API}${REPO}/commits?path=${GQL_DIR}&sha=main`;
   const response = await fetch(url);
   if (!response.ok) {
@@ -62,9 +59,10 @@ async function getRemoteLatestCommitSha(): Promise<string> {
  * @returns {Promise<boolean>} A Promise that resolves to true if local repo contains the latest commit, and false otherwise.
  * @throws {Error} When an error occurs while executing the command.
  */
-const checkIsAncestor = async (): Promise<boolean> => {
+export const checkIsAncestor = async (): Promise<boolean> => {
   const remoteSha = await getRemoteLatestCommitSha();
   const localSchemaSymlink = fs.readlinkSync(LOCAL_SCHEMA);
+  console.log(localSchemaSymlink);
   const originalDir = process.cwd();
   try {
     process.chdir(localSchemaSymlink);
@@ -87,7 +85,7 @@ const checkIsAncestor = async (): Promise<boolean> => {
  * @returns {Promise<void>}
  * @throws {Error} When failed to fetch the file.
  */
-const downloadAndSaveFile = async (
+export const downloadAndSaveFile = async (
   url: string,
   savePath: string
 ): Promise<void> => {
@@ -110,7 +108,7 @@ const downloadAndSaveFile = async (
  * @returns {Promise<void>}
  * @throws {Error} When failed to fetch the files.
  */
-const fetchFiles = async (
+export const fetchFiles = async (
   repoPath: string,
   localPath: string
 ): Promise<void> => {
@@ -146,7 +144,7 @@ const fetchFiles = async (
  * Download GQL files from remote and generate types.
  * @returns {Promise<string>} A Promise that resolves to the path of the generated file.
  */
-const downloadAndGenerate = async (): Promise<string> => {
+export const downloadAndGenerate = async (): Promise<string> => {
   const tempDir = os.tmpdir();
   fs.mkdirSync(tempDir, { recursive: true });
   await fetchFiles(
@@ -163,50 +161,3 @@ const downloadAndGenerate = async (): Promise<string> => {
   );
   return latestGeneratedTypesFileName;
 };
-
-/**
- * Compare the local generated types with the remote version.
- * Exit with code 1 if the local schema is outdated or validation fails and 0 otherwise.
- * @returns {Promise<void>}
- */
-const diffTypes = async (): Promise<void> => {
-  try {
-    const hasInternetAccess = await canResolveDNS("github.com");
-    if (!hasInternetAccess) {
-      console.info(
-        "Skipping GQL codegen validation because I can't connect to github.com."
-      );
-      process.exit(0);
-    }
-    const latestGeneratedTypesFileName = await downloadAndGenerate();
-    const filenames = [
-      latestGeneratedTypesFileName,
-      localGeneratedTypesFileName,
-    ];
-    filenames.forEach((filename) => {
-      if (!fs.existsSync(filename)) {
-        console.error(
-          `Types file located at ${filename} does not exist. Validation failed.`
-        );
-        process.exit(1);
-      }
-    });
-    const [file1, file2] = filenames.map((filename) =>
-      fs.readFileSync(filename)
-    );
-    if (!file1.equals(file2) && !(await checkIsAncestor())) {
-      console.error(
-        "You are developing against an outdated schema and the codegen task will fail in CI. Run 'yarn codegen' against the latest Evergreen code."
-      );
-      process.exit(1);
-    }
-    process.exit(0);
-  } catch (error) {
-    console.error(
-      `An issue occurred validating the generated GQL types file: ${error}`
-    );
-    process.exit(1);
-  }
-};
-
-diffTypes();

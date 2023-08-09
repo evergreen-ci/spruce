@@ -21,7 +21,7 @@
     "deploy:prod": "env-cmd -e production ts-node scripts/deploy/run-deploy",
     "deploy:do-not-use": ". ./scripts/deploy/deploy.sh",
     "dev": "env-cmd -e devLocal -r .env-cmdrc.local.json yarn start",
-    "diff-schema": "ts-node scripts/download-generate-and-diff-latest-schema-types.ts",
+    "diff-schema": "ts-node scripts/diff-local-schema-with-remote/index.ts",
     "eslint:fix": "yarn eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint '*.{js,ts,tsx}' 'src/**/*.ts?(x)' 'scripts/**/*.js' 'cypress/**/*.ts' 'src/gql/**/*.graphql'",
