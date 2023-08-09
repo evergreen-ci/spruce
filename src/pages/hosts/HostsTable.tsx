@@ -124,7 +124,7 @@ export const HostsTable: React.VFC<Props> = ({
         </StyledRouterLink>
       ),
       ...getColumnSearchFilterProps({
-        placeholder: "Search ID",
+        placeholder: "Search ID or DNS name",
         value: hostIdValue,
         onChange: onChangeHostId,
         "data-cy": "host-id-filter",
