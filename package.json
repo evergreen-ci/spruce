@@ -147,7 +147,7 @@
     "@storybook/addon-storyshots": "7.0.21",
     "@storybook/react": "7.0.21",
     "@storybook/react-vite": "7.0.21",
-    "@storybook/testing-library": "0.1.0",
+    "@storybook/testing-library": "0.2.0",
     "@styled/typescript-styled-plugin": "1.0.0",
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "12.1.5",
