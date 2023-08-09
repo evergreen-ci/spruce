@@ -121,6 +121,8 @@ before(() => {
   });
 });
 
+let arr = [];
+const mutation = "mutation";
 beforeEach(() => {
   cy.login();
   cy.setCookie(bannerCookie, "true");
@@ -128,6 +130,16 @@ beforeEach(() => {
   cy.setCookie(CY_DISABLE_NEW_USER_WELCOME_MODAL, "true");
   cy.setCookie(konamiCookie, "true");
   cy.setCookie(SLACK_NOTIFICATION_BANNER, "true");
+  cy.intercept("POST", "/graphql/query", (req) => {
+    cy.log(JSON.stringify(req));
+    arr.push(req.body.query.substring(0, mutation.length));
+  });
+});
+
+afterEach(() => {
+  if(arr.includes(mutation) {
+    cy.exec("yarn evg-ops --resotre")
+  };
 });
 
 const bannerCookie = "This is an important notification";
