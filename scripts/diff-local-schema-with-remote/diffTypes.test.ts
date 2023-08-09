@@ -33,9 +33,7 @@ describe("diffTypes", () => {
 
   it("exit with 0 when internet is unavailable", async () => {
     (canResolveDNS as jest.Mock).mockResolvedValue(false);
-
     await diffTypes();
-
     expect(exitSpy).toHaveBeenCalledWith(0);
     expect(consoleInfoSpy).toHaveBeenCalledWith(
       "Skipping GQL codegen validation because I can't connect to github.com."
@@ -46,9 +44,7 @@ describe("diffTypes", () => {
     (fs.existsSync as jest.Mock)
       .mockReturnValueOnce(true)
       .mockReturnValueOnce(false);
-
     await diffTypes();
-
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Types file located at undefined does not exist. Validation failed."
     );
@@ -60,9 +56,7 @@ describe("diffTypes", () => {
       .mockReturnValueOnce(Buffer.from("content1"))
       .mockReturnValueOnce(Buffer.from("content2"));
     (checkIsAncestor as jest.Mock).mockResolvedValue(false);
-
     await diffTypes();
-
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "You are developing against an outdated schema and the codegen task will fail in CI. Run 'yarn codegen' against the latest Evergreen code."
     );
@@ -74,9 +68,7 @@ describe("diffTypes", () => {
       .mockReturnValueOnce(Buffer.from("content1"))
       .mockReturnValueOnce(Buffer.from("content2"));
     (checkIsAncestor as jest.Mock).mockResolvedValue(true);
-
     await diffTypes();
-
     expect(exitSpy).toHaveBeenCalledWith(0);
   });
 
@@ -93,9 +85,7 @@ describe("diffTypes", () => {
 
   it("handle error and exit with 1", async () => {
     (canResolveDNS as jest.Mock).mockRejectedValue(new Error("Test Error"));
-
     await diffTypes();
-
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "An issue occurred validating the generated GQL types file: Error: Test Error"
     );
