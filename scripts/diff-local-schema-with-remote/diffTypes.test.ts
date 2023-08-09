@@ -9,7 +9,7 @@ jest.mock("fs", () => ({
 }));
 jest.mock("path");
 jest.mock("./utils.ts", () => ({
-  canResolveDNS: jest.fn().mockResolvedValue(true), // example: always resolve true
+  canResolveDNS: jest.fn().mockResolvedValue(true),
   getRemoteLatestCommitSha: jest.fn().mockResolvedValue("mocked-sha"),
   checkIsAncestor: jest.fn().mockResolvedValue(true),
   downloadAndSaveFile: jest.fn().mockResolvedValue(undefined),
