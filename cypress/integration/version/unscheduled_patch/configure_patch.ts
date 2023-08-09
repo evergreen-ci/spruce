@@ -59,6 +59,8 @@ describe("Configure Patch Page", () => {
 
     it("Required tasks should be auto selected", () => {
       cy.visit(`patch/${patchWithDisplayTasks}/configure/tasks`);
+      cy.dataCy("task-count-badge").contains("1");
+      cy.get("#checkbox-undefined").should("not.exist");
       cy.getInputByLabel("test-graphql").should("be.checked");
     });
   });
@@ -125,8 +127,9 @@ describe("Configure Patch Page", () => {
     });
     it("Can update patch description by typing into `Patch Name` input field", () => {
       const val = "michelle obama";
-      cy.dataCy(`patch-name-input`).clear().type(val);
-      cy.dataCy(`patch-name-input`).should("have.value", val);
+      cy.dataCy("patch-name-input").clear();
+      cy.dataCy("patch-name-input").type(val);
+      cy.dataCy("patch-name-input").should("have.value", val);
     });
     it("Schedule button should be disabled when no tasks are selected and enabled when they are", () => {
       cy.dataCy("task-checkbox").should("not.be.checked");

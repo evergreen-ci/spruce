@@ -120,7 +120,7 @@ const Host: React.FC = () => {
             }
           />
 
-          <PageLayout>
+          <PageLayout hasSider>
             <PageSider width={350}>
               <Metadata
                 loading={hostMetaDataLoading}

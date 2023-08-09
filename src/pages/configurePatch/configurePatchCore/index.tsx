@@ -176,7 +176,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
           Schedule
         </StyledButton>
       </FlexRow>
-      <PageLayout>
+      <PageLayout hasSider>
         <PageSider>
           <MetadataCard error={null}>
             <MetadataTitle>Patch Metadata</MetadataTitle>
