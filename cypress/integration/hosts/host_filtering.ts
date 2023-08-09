@@ -9,7 +9,7 @@ const currentTaskIdParam = "currentTaskId";
 const ownerParam = "startedBy";
 
 const idFilter = "i-0d0ae8b83366d22";
-const dnsFilter = "ec2-34-207-222-84";
+const dnsFilter = "ec2-34-207-222-84.compute-1.amazonaws.com";
 const distroFilter = "macos-1014";
 const statusesFilter = "running";
 const currentTaskIdFilter =
