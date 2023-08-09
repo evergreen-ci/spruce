@@ -5,7 +5,9 @@ import ATTACH_PROJECT_TO_NEW_REPO from "./attach-project-to-new-repo.graphql";
 import ATTACH_PROJECT_TO_REPO from "./attach-project-to-repo.graphql";
 import ATTACH_VOLUME from "./attach-volume.graphql";
 import CLEAR_MY_SUBSCRIPTIONS from "./clear-my-subscriptions.graphql";
+import COPY_DISTRO from "./copy-distro.graphql";
 import COPY_PROJECT from "./copy-project.graphql";
+import CREATE_DISTRO from "./create-distro.graphql";
 import CREATE_PROJECT from "./create-project.graphql";
 import CREATE_PUBLIC_KEY from "./create-public-key.graphql";
 import DEACTIVATE_STEPBACK_TASK from "./deactivate-stepback-task.graphql";
@@ -60,7 +62,9 @@ export {
   ATTACH_PROJECT_TO_REPO,
   ATTACH_VOLUME,
   CLEAR_MY_SUBSCRIPTIONS,
+  COPY_DISTRO,
   COPY_PROJECT,
+  CREATE_DISTRO,
   CREATE_PROJECT,
   CREATE_PUBLIC_KEY,
   DEACTIVATE_STEPBACK_TASK,

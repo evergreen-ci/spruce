@@ -1,45 +1,35 @@
-const prompts = require("prompts");
-const {
-  createNewTag,
-  deleteTag,
-  getCommitMessages,
-  getCurrentlyDeployedCommit,
-  getLatestTag,
-  isOnMainBranch,
-  isWorkingDirectoryClean,
-  pushTags,
-  runLocalDeploy,
-} = require("./deploy-utils");
+import prompts from "prompts";
+import { tagUtils } from "./utils/git/tag";
+import { green, underline } from "../utils/colors";
+import { isRunningOnCI } from "./utils/environment";
+import { getCommitMessages, getCurrentlyDeployedCommit } from "./utils/git";
+import { runDeploy } from "./utils/deploy";
 
+const { createNewTag, deleteTag, getLatestTag, pushTags } = tagUtils;
 /* Deploy by pushing a git tag, to be picked up and built by Evergreen, and deployed to S3. */
 const evergreenDeploy = async () => {
-  if (!(await isOnMainBranch())) {
-    console.log("You must be on the main branch to deploy!");
-    return;
-  }
-  if (!(await isWorkingDirectoryClean())) {
-    console.log("You must have a clean working directory to deploy");
-    return;
-  }
-
-  const currentlyDeployedCommit = await getCurrentlyDeployedCommit();
+  const currentlyDeployedCommit = getCurrentlyDeployedCommit();
   console.log(`Currently Deployed Commit: ${currentlyDeployedCommit}`);
 
-  const commitMessages = await getCommitMessages(currentlyDeployedCommit);
+  const commitMessages = getCommitMessages(currentlyDeployedCommit);
 
   // If there are no commit messages, ask the user if they want to delete and re-push the latest tag, thereby forcing a deploy with no new commits.
   if (commitMessages.length === 0) {
+    const latestTag = getLatestTag();
     const response = await prompts({
       type: "confirm",
       name: "value",
-      message:
-        "No new commits. Do you want to deploy the most recent existing tag?",
+      message: `No new commits. Do you want to trigger a deploy on the most recent existing tag? (${latestTag})`,
       initial: false,
     });
 
     const forceDeploy = response.value;
     if (forceDeploy) {
-      await deleteAndPushLatestTag();
+      console.log(`Deleting tag (${latestTag}) from remote...`);
+      deleteTag(latestTag);
+      console.log("Pushing tags...");
+      pushTags();
+      console.log("Check Evergreen for deploy progress.");
       return;
     }
 
@@ -60,30 +50,28 @@ const evergreenDeploy = async () => {
 
   if (response.value) {
     try {
-      const createTagOutput = await createNewTag();
-      console.log(createTagOutput);
+      console.log("Creating new tag...");
+      createNewTag();
+      console.log("Pushing tags...");
+      pushTags();
       console.log("Pushed to remote. Should be deploying soon...");
       console.log(
-        "Track deploy progress at https://spruce.mongodb.com/commits/spruce?requester=git_tag_request"
+        green(
+          `Track deploy progress at ${underline(
+            "https://spruce.mongodb.com/commits/spruce?requester=git_tag_request"
+          )}`
+        )
       );
     } catch (err) {
-      console.log(err);
-      console.log("Creating tag failed. Aborting.");
+      console.error(err);
+      console.error("Creating tag failed. Aborting.");
+      process.exit(1);
     }
   }
 };
 
 /* Deploy by generating a production build locally and pushing it directly to S3. */
 const localDeploy = async () => {
-  if (!(await isOnMainBranch())) {
-    console.log("You must be on the main branch to deploy!");
-    return;
-  }
-  if (!(await isWorkingDirectoryClean())) {
-    console.log("You must have a clean working directory to deploy");
-    return;
-  }
-
   const response = await prompts({
     type: "confirm",
     name: "value",
@@ -93,25 +81,30 @@ const localDeploy = async () => {
 
   if (response.value) {
     try {
-      const localDeployOutput = await runLocalDeploy();
-      console.log(localDeployOutput);
+      runDeploy();
     } catch (err) {
       console.error(err);
       console.error("Local deploy failed. Aborting.");
+      process.exit(1);
     }
   }
 };
 
-const deleteAndPushLatestTag = async () => {
+/**
+ * `ciDeploy` is a special deploy function that is only run on CI. It does the actual deploy to S3.
+ */
+const ciDeploy = async () => {
+  if (!isRunningOnCI()) {
+    throw new Error("Not running on CI");
+  }
   try {
-    const latestTag = await getLatestTag();
-    console.log(`Deleting and re-pushing latest tag (${latestTag})`);
-    console.log(await deleteTag(latestTag));
-    console.log(await pushTags());
+    const ciDeployOutput = runDeploy();
+    console.log(ciDeployOutput);
   } catch (err) {
     console.error(err);
-    console.error("Deleting and pushing tag failed. Aborting.");
+    console.error("CI deploy failed. Aborting.");
+    process.exit(1);
   }
 };
 
-module.exports = { evergreenDeploy, localDeploy };
+export { evergreenDeploy, localDeploy, ciDeploy };

@@ -1,4 +1,4 @@
-query UserPermissions {
+query UserProjectSettingsPermissions {
   user {
     permissions {
       canCreateProject
