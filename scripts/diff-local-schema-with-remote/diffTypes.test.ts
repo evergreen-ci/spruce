@@ -17,7 +17,7 @@ jest.mock("./utils.ts", () => ({
   downloadAndGenerate: jest.fn().mockResolvedValue("mocked-path/types.ts"),
 }));
 
-describe("diffTypes function", () => {
+describe("diffTypes", () => {
   let exitSpy;
   let consoleInfoSpy;
   let consoleErrorSpy;
