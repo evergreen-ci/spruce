@@ -1,35 +1,31 @@
 import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
-import { useParams } from "react-router-dom";
-import { DistroSettingsTabRoutes } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
   DistroOnSaveOperation,
-  DistroSettingsSection,
-  SaveDistroSectionMutation,
-  SaveDistroSectionMutationVariables,
+  SaveDistroMutation,
+  SaveDistroMutationVariables,
+  DistroQuery,
 } from "gql/generated/types";
-import { SAVE_DISTRO_SECTION } from "gql/mutations";
+import { SAVE_DISTRO } from "gql/mutations";
 import { useDistroSettingsContext } from "./Context";
 import { formToGqlMap } from "./tabs/transformers";
 import { WritableDistroSettingsType } from "./tabs/types";
 
 interface Props {
   tab: WritableDistroSettingsType;
+  distro: DistroQuery["distro"];
 }
 
-export const HeaderButtons: React.VFC<Props> = ({ tab }) => {
+export const HeaderButtons: React.VFC<Props> = ({ distro, tab }) => {
   const { getTab, saveTab } = useDistroSettingsContext();
   const { formData, hasChanges, hasError } = getTab(tab);
   const dispatchToast = useToastContext();
-  const { distroId } = useParams<{
-    distroId: string;
-  }>();
 
   const [saveDistroSection] = useMutation<
-    SaveDistroSectionMutation,
-    SaveDistroSectionMutationVariables
-  >(SAVE_DISTRO_SECTION, {
+    SaveDistroMutation,
+    SaveDistroMutationVariables
+  >(SAVE_DISTRO, {
     onCompleted: () => {
       saveTab(tab);
       dispatchToast.success("Successfully updated distro.");
@@ -49,13 +45,11 @@ export const HeaderButtons: React.VFC<Props> = ({ tab }) => {
     // eslint-disable-next-line no-prototype-builtins
     if (formToGqlMap.hasOwnProperty(tab)) {
       const formToGql = formToGqlMap[tab];
-      const changes = formToGql(formData);
+      const changes = formToGql(formData, distro);
       saveDistroSection({
         variables: {
-          distroId,
-          changes,
+          distro: changes,
           onSave: DistroOnSaveOperation.None,
-          section: tab.toUpperCase() as DistroSettingsSection,
         },
       });
     }
@@ -71,16 +65,4 @@ export const HeaderButtons: React.VFC<Props> = ({ tab }) => {
       Save changes on page
     </Button>
   );
-};
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const mapRouteToSection: Record<
-  WritableDistroSettingsType,
-  DistroSettingsSection
-> = {
-  [DistroSettingsTabRoutes.General]: DistroSettingsSection.General,
-  [DistroSettingsTabRoutes.Host]: DistroSettingsSection.Host,
-  [DistroSettingsTabRoutes.Project]: DistroSettingsSection.Project,
-  [DistroSettingsTabRoutes.Provider]: DistroSettingsSection.Provider,
-  [DistroSettingsTabRoutes.Task]: DistroSettingsSection.Task,
 };

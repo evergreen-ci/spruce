@@ -27,7 +27,7 @@ export const DistroSettingsTabs: React.VFC<Props> = ({ distro }) => {
   return (
     <Container>
       <NavigationModal />
-      <Header tab={tab} />
+      <Header tab={tab} distro={distro} />
       <Routes>
         <Route
           path="*"

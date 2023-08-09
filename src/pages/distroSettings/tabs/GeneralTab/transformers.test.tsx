@@ -9,7 +9,7 @@ describe("general tab", () => {
   });
 
   it("correctly converts from a form to GQL", () => {
-    expect(formToGql(generalForm)).toStrictEqual(generalGql);
+    expect(formToGql(generalForm, distroData)).toStrictEqual(generalGql);
   });
 });
 
@@ -31,6 +31,7 @@ const generalForm: GeneralFormState = {
 };
 
 const generalGql: DistroInput = {
+  ...distroData,
   name: "rhel71-power8-large",
   aliases: ["rhel71-power8", "rhel71-power8-build"],
   note: "distro note",
