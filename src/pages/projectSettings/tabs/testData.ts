@@ -119,6 +119,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       remotePath: "",
       variantTags: [],
       taskTags: [],
+      parameters: [],
     },
     {
       id: "3",
@@ -130,6 +131,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       remotePath: "",
       variantTags: [],
       taskTags: [],
+      parameters: [],
     },
     {
       id: "5",
@@ -141,6 +143,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       remotePath: "./evergreen.yml",
       variantTags: [],
       taskTags: [],
+      parameters: [],
     },
   ],
 };
@@ -279,6 +282,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       remotePath: "",
       variantTags: ["vTag"],
       taskTags: ["tTag"],
+      parameters: [],
     },
     {
       id: "4",
@@ -290,6 +294,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       remotePath: "",
       variantTags: ["okay"],
       taskTags: ["hi"],
+      parameters: [],
     },
   ],
 };

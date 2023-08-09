@@ -1,17 +1,17 @@
-import { FixedSizeList } from "react-window";
+import { Virtuoso } from "react-virtuoso";
 import { selectedStrings } from "hooks/useVersionTaskStatusSelect";
 import { TaskStatusCheckbox } from "./TaskStatusCheckbox";
 
 interface TaskStatusCheckboxContainerProps {
-  versionId: string;
+  selectedTasks: selectedStrings;
   tasks: {
     id: string;
     status: string;
     baseStatus?: string;
     displayName: string;
   }[];
-  selectedTasks: selectedStrings;
   toggleSelectedTask: (taskIds: { [patchId: string]: string }) => void;
+  versionId: string;
 }
 export const TaskStatusCheckboxContainer: React.VFC<
   TaskStatusCheckboxContainerProps
@@ -19,39 +19,32 @@ export const TaskStatusCheckboxContainer: React.VFC<
   const possibleListHeight = tasks.length * itemSize;
   const listHeight =
     possibleListHeight < maxListHeight ? possibleListHeight : maxListHeight;
-  const toggleHandler = (e) => {
-    const { name } = e.target;
-    if (selectedTasks[name] !== undefined) {
-      toggleSelectedTask({ [versionId]: name });
-    }
-  };
+
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
-    <div data-cy="patch-status-selector-container" onClick={toggleHandler}>
-      <FixedSizeList
-        height={listHeight}
-        itemSize={itemSize}
-        itemCount={tasks.length}
-        itemData={tasks}
-        width="100%"
-      >
-        {({ data, index, style }) => {
-          const { baseStatus, displayName, id: taskId, status } = data[index];
-          const checked = !!selectedTasks[taskId];
-          return (
-            <TaskStatusCheckbox
-              style={style}
-              checked={checked}
-              displayName={displayName}
-              key={taskId}
-              status={status}
-              baseStatus={baseStatus}
-              taskId={taskId}
-            />
-          );
-        }}
-      </FixedSizeList>
-    </div>
+    <Virtuoso
+      style={{ height: listHeight, width: "100%" }}
+      totalCount={tasks.length}
+      data={tasks}
+      itemContent={(_idx, task) => {
+        const { baseStatus, displayName, id: taskId, status } = task;
+        const checked = !!selectedTasks[taskId];
+        return (
+          <TaskStatusCheckbox
+            onClick={() => {
+              if (selectedTasks[taskId] !== undefined) {
+                toggleSelectedTask({ [versionId]: taskId });
+              }
+            }}
+            checked={checked}
+            displayName={displayName}
+            key={taskId}
+            status={status}
+            baseStatus={baseStatus}
+            taskId={taskId}
+          />
+        );
+      }}
+    />
   );
 };
 

@@ -74,6 +74,7 @@ export const getFormSchema = (
         "ui:showLabel": false,
         items: {
           "ui:ObjectFieldTemplate": CommandRow,
+          "ui:label": false,
           command: {
             "ui:data-cy": "command-input",
             "ui:widget": widgets.TextareaWidget,

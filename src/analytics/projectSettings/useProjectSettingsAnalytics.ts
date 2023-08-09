@@ -1,9 +1,5 @@
 import { useParams } from "react-router-dom";
-import {
-  addPageAction,
-  Properties,
-  Analytics as A,
-} from "analytics/addPageAction";
+import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 
 type Action =
   | { name: "Save project"; section: string }
@@ -15,21 +11,7 @@ type Action =
   | { name: "Create new project" }
   | { name: "Duplicate project"; projectIdToCopy: string };
 
-interface P extends Properties {
-  identifier: string;
-}
-
-export interface Analytics extends A<Action> {}
-
-export const useProjectSettingsAnalytics = (): Analytics => {
+export const useProjectSettingsAnalytics = () => {
   const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
-
-  const sendEvent: Analytics["sendEvent"] = (action) => {
-    addPageAction<Action, P>(action, {
-      object: "ProjectSettings",
-      identifier: projectIdentifier,
-    });
-  };
-
-  return { sendEvent };
+  return useAnalyticsRoot<Action>("ProjectSettings", { projectIdentifier });
 };

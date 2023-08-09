@@ -60,6 +60,7 @@ export const getFormSchema = (
         "ui:addButtonText": "Add new configuration",
         items: {
           "ui:ObjectFieldTemplate": FieldRow,
+          "ui:label": false,
           "ui:data-cy": "container-size-row",
           name: {
             "ui:data-cy": "var-name-input",
