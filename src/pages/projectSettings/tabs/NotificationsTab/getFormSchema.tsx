@@ -143,6 +143,7 @@ export const getFormSchema = (
         "ui:useExpandableCard": true,
         items: {
           "ui:displayTitle": "New Subscription",
+          "ui:label": false,
           subscriptionData: {
             event: eventUiSchema,
             notification: notificationUiSchema,

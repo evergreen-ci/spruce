@@ -138,6 +138,7 @@ export const getFormSchema = (
       "ui:useExpandableCard": true,
       items: {
         "ui:displayTitle": "New Periodic Build",
+        "ui:label": false,
         interval: {
           specifier: {
             "ui:widget": widgets.SegmentedControlWidget,

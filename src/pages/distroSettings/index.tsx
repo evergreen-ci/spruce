@@ -1,4 +1,6 @@
 import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
+import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
 import { useParams, Link, Navigate } from "react-router-dom";
 import {
   SideNav,
@@ -10,13 +12,16 @@ import {
   DistroSettingsTabRoutes,
   getDistroSettingsRoute,
 } from "constants/routes";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import { DistroQuery, DistroQueryVariables } from "gql/generated/types";
 import { DISTRO } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { isProduction } from "utils/environmentVariables";
 import { DistroSettingsProvider } from "./Context";
+import { DistroSelect } from "./DistroSelect";
 import { getTabTitle } from "./getTabTitle";
+import { NewDistroButton } from "./NewDistro/NewDistroButton";
 import { DistroSettingsTabs } from "./Tabs";
 
 const DistroSettings: React.VFC = () => {
@@ -58,6 +63,10 @@ const DistroSettings: React.VFC = () => {
   return (
     <DistroSettingsProvider>
       <SideNav aria-label="Distro Settings" widthOverride={250}>
+        <ButtonsContainer>
+          <DistroSelect selectedDistro={distroId} />
+          <NewDistroButton />
+        </ButtonsContainer>
         <SideNavGroup>
           {Object.values(DistroSettingsTabRoutes).map((tab) => (
             <SideNavItem
@@ -73,10 +82,19 @@ const DistroSettings: React.VFC = () => {
         </SideNavGroup>
       </SideNav>
       <PageWrapper data-cy="distro-settings-page">
-        {!loading && data.distro && <DistroSettingsTabs distro={data.distro} />}
+        {!loading && data?.distro && (
+          <DistroSettingsTabs distro={data.distro} />
+        )}
       </PageWrapper>
     </DistroSettingsProvider>
   );
 };
+
+const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xs};
+  margin: 0 ${sideNavItemSidePadding}px;
+`;
 
 export default DistroSettings;

@@ -1,6 +1,4 @@
 import Button from "@leafygreen-ui/button";
-import { DistroSettingsTabRoutes } from "constants/routes";
-import { DistroSettingsSection } from "gql/generated/types";
 import { useDistroSettingsContext } from "./Context";
 import { WritableDistroSettingsType } from "./tabs/types";
 
@@ -22,16 +20,4 @@ export const HeaderButtons: React.VFC<Props> = ({ tab }) => {
       Save changes on page
     </Button>
   );
-};
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const mapRouteToSection: Record<
-  WritableDistroSettingsType,
-  DistroSettingsSection
-> = {
-  [DistroSettingsTabRoutes.General]: DistroSettingsSection.General,
-  [DistroSettingsTabRoutes.Host]: DistroSettingsSection.Host,
-  [DistroSettingsTabRoutes.Project]: DistroSettingsSection.Project,
-  [DistroSettingsTabRoutes.Provider]: DistroSettingsSection.Provider,
-  [DistroSettingsTabRoutes.Task]: DistroSettingsSection.Task,
 };
