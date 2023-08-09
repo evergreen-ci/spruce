@@ -1,0 +1,8 @@
+mutation SaveDistro($opts: SaveDistroInput!) {
+  saveDistro(opts: $opts) {
+    distro {
+      name
+    }
+    hostCount
+  }
+}

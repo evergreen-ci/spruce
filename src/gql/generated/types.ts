@@ -4743,6 +4743,19 @@ export type RestartVersionsMutation = {
   }> | null;
 };
 
+export type SaveDistroMutationVariables = Exact<{
+  opts: SaveDistroInput;
+}>;
+
+export type SaveDistroMutation = {
+  __typename?: "Mutation";
+  saveDistro: {
+    __typename?: "SaveDistroPayload";
+    hostCount: number;
+    distro: { __typename?: "Distro"; name: string };
+  };
+};
+
 export type SaveProjectSettingsForSectionMutationVariables = Exact<{
   projectSettings: ProjectSettingsInput;
   section: ProjectSettingsSection;
