@@ -41,7 +41,6 @@ const globalStyles = css`
 
 export const decorators: Decorator[] = [
   (Story: () => JSX.Element) => (
-    // eslint-disable-next-line react/jsx-filename-extension
     <>
       <Global styles={globalStyles} />
       <Story />
