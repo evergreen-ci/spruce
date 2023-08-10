@@ -9,7 +9,7 @@ import { getLogLineWrapper } from "./logMessageLine/LogLines";
 const FORMAT_STR = "yyyy/MM/d, HH:mm:ss.SSS";
 const ansiUp = new AnsiUp();
 
-export const LogMessageLine: React.VFC<LogMessageFragment> = ({
+export const LogMessageLine: React.FC<LogMessageFragment> = ({
   message,
   severity,
   timestamp,

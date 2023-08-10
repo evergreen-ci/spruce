@@ -10,7 +10,7 @@ interface PaginationButtonsProps {
   nextPageOrderNumber?: number;
   prevPageOrderNumber?: number;
 }
-export const PaginationButtons: React.VFC<PaginationButtonsProps> = ({
+export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   nextPageOrderNumber,
   prevPageOrderNumber,
 }) => {

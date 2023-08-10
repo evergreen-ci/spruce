@@ -6,7 +6,7 @@ import { NotificationModal } from "components/Notifications";
 import { waterfallTriggers } from "constants/triggers";
 import { subscriptionMethods } from "types/subscription";
 
-export const AddNotification: React.VFC = () => {
+export const AddNotification: React.FC = () => {
   const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });

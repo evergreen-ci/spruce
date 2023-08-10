@@ -12,7 +12,7 @@ export interface TaskStatusIconProps
   size?: number;
 }
 
-export const TaskStatusIcon: React.VFC<TaskStatusIconProps> = ({
+export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({
   size = 16,
   status,
   ...rest

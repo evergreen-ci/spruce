@@ -4,7 +4,7 @@ import { Analytics } from "analytics/addPageAction";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { PatchCard } from "./PatchCard";
 
-export const ListArea: React.VFC<{
+export const ListArea: React.FC<{
   analyticsObject?: Analytics<
     | { name: "Click Patch Link" }
     | {

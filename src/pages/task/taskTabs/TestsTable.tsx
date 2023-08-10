@@ -34,7 +34,7 @@ const { parseQueryString, queryParamAsNumber } = queryString;
 interface TestsTableProps {
   task: TaskQuery["task"];
 }
-export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
+export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const { pathname, search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
   const taskAnalytics = useTaskAnalytics();

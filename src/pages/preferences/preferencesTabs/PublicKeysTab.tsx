@@ -23,7 +23,7 @@ import {
   EditModalPropsState,
 } from "pages/preferences/preferencesTabs/publicKeysTab/EditModal";
 
-export const PublicKeysTab: React.VFC = () => {
+export const PublicKeysTab: React.FC = () => {
   const dispatchToast = useToastContext();
   const { sendEvent } = usePreferencesAnalytics();
   const [editModalProps, setEditModalProps] = useState<EditModalPropsState>(

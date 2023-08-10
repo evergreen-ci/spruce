@@ -42,7 +42,7 @@ const columns = [
   },
 ];
 
-export const FilesTables: React.VFC = () => {
+export const FilesTables: React.FC = () => {
   const { id: taskId } = useParams<{ id: string }>();
   const { search: queryVars } = useLocation();
   const parsed = parseQueryString(queryVars);

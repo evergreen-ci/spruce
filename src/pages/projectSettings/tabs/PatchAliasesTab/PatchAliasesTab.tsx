@@ -26,7 +26,7 @@ const getInitialFormState = (
   return projectData;
 };
 
-export const PatchAliasesTab: React.VFC<TabProps> = ({
+export const PatchAliasesTab: React.FC<TabProps> = ({
   projectData,
   projectType,
   repoData,

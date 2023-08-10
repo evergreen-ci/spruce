@@ -17,7 +17,7 @@ interface IssuesProps {
   annotation: Annotation;
 }
 
-const Issues: React.VFC<IssuesProps> = ({
+const Issues: React.FC<IssuesProps> = ({
   annotation,
   execution,
   selectedRowKey,

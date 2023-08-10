@@ -14,7 +14,7 @@ interface Props {
   task: TaskQuery["task"];
 }
 
-export const LogsColumn: React.VFC<Props> = ({ task, testResult }) => {
+export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
   const { status, testFile } = testResult;
   const {
     url: urlHTML,

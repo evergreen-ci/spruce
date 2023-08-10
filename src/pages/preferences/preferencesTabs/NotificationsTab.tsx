@@ -21,7 +21,7 @@ import { UserSubscriptions } from "./notificationTab/UserSubscriptions";
 
 const { omitTypename } = string;
 
-export const NotificationsTab: React.VFC = () => {
+export const NotificationsTab: React.FC = () => {
   const dispatchToast = useToastContext();
   const { loading, userSettings } = useUserSettings();
   const { notifications, slackMemberId, slackUsername } = userSettings ?? {};

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Banner, { Variant } from "@leafygreen-ui/banner";
 import Cookies from "js-cookie";
 import { useSpruceConfig } from "hooks";
@@ -11,14 +11,9 @@ export interface SiteBannerProps {
 export const SiteBanner: React.FC<SiteBannerProps> = ({ text, theme }) => {
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
-  const [showBanner, setShowBanner] = useState(false);
-  useEffect(() => {
-    if (text && Cookies.get(text) === undefined) {
-      setShowBanner(true);
-    } else {
-      setShowBanner(false);
-    }
-  }, [text]);
+  const [showBanner, setShowBanner] = useState(
+    text && Cookies.get(text) === undefined
+  );
 
   const hideBanner = () => {
     // If a user sees a banner and closes it lets set a cookie with the banners text as the key.

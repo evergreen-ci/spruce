@@ -10,7 +10,7 @@ interface Props {
   volume: TableVolume;
 }
 
-export const MigrateButton: React.VFC<Props> = ({ volume }) => {
+export const MigrateButton: React.FC<Props> = ({ volume }) => {
   const [openModal, setOpenModal] = useState(false);
   const [openGuideCue, setOpenGuideCue] = useState(volume.showMigrateBtnCue);
   const triggerRef = useRef(null);

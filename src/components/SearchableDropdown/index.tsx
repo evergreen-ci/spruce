@@ -177,14 +177,12 @@ const SearchableDropdown = <T extends {}>({
 };
 
 interface SearchableDropdownOptionProps<T> {
-  displayName?: string;
   isChecked?: boolean;
   onClick: (v: T) => void;
   showCheckmark?: boolean;
   value: T;
 }
 export const SearchableDropdownOption = <T extends {}>({
-  displayName,
   isChecked,
   onClick,
   showCheckmark,
@@ -206,7 +204,7 @@ export const SearchableDropdownOption = <T extends {}>({
         />
       </CheckmarkContainer>
     )}
-    {displayName || value}
+    {value.toString()}
   </Option>
 );
 

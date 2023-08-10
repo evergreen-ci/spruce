@@ -47,12 +47,7 @@ interface Props {
   error: ApolloError;
 }
 
-export const Metadata: React.VFC<Props> = ({
-  error,
-  loading,
-  task,
-  taskId,
-}) => {
+export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
   const taskAnalytics = useTaskAnalytics();
   const getDateCopy = useDateFormat();
   const {

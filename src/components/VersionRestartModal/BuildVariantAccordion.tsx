@@ -20,7 +20,7 @@ interface BuildVariantAccordionProps {
   ) => void;
   versionId: string;
 }
-export const BuildVariantAccordion: React.VFC<BuildVariantAccordionProps> = ({
+export const BuildVariantAccordion: React.FC<BuildVariantAccordionProps> = ({
   displayName,
   selectedTasks,
   tasks,

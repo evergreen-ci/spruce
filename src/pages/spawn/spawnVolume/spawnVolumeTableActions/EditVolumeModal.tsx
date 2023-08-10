@@ -24,7 +24,7 @@ interface Props {
   volume: TableVolume;
 }
 
-export const EditVolumeModal: React.VFC<Props> = ({
+export const EditVolumeModal: React.FC<Props> = ({
   onCancel,
   visible,
   volume,

@@ -38,7 +38,7 @@ import BuildVariantCard from "./version/BuildVariantCard";
 import { ActionButtons, Metadata, VersionTabs } from "./version/index";
 import { NameChangeModal } from "./version/NameChangeModal";
 
-export const VersionPage: React.VFC = () => {
+export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
   const { id } = useParams<{ id: string }>();
   const dispatchToast = useToastContext();
@@ -195,7 +195,7 @@ export const VersionPage: React.VFC = () => {
           <NameChangeModal patchId={id} originalPatchName={message} />
         )}
       </PageTitle>
-      <PageLayout>
+      <PageLayout hasSider>
         <PageSider>
           <Metadata loading={false} version={version} />
           <BuildVariantCard />

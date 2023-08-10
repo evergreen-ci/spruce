@@ -23,7 +23,7 @@ interface Props {
   repo: string;
 }
 
-export const CreateProjectModal: React.VFC<Props> = ({
+export const CreateProjectModal: React.FC<Props> = ({
   handleClose,
   open,
   owner,

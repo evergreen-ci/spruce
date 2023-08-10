@@ -12,7 +12,7 @@ const { shortenGithash } = string;
 interface ActiveCommitLabelProps {
   version: CommitVersion;
 }
-export const ActiveCommitLabel: React.VFC<ActiveCommitLabelProps> = ({
+export const ActiveCommitLabel: React.FC<ActiveCommitLabelProps> = ({
   version,
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({
@@ -56,7 +56,7 @@ interface BuildVariantContainerProps {
   version: CommitVersion;
   buildVariantDict: BuildVariantDict;
 }
-export const BuildVariantContainer: React.VFC<BuildVariantContainerProps> = ({
+export const BuildVariantContainer: React.FC<BuildVariantContainerProps> = ({
   buildVariantDict,
   version,
 }) => {

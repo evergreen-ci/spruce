@@ -18,7 +18,7 @@ interface TableFilterPopoverProps {
   "data-cy"?: string;
 }
 
-export const TableFilterPopover: React.VFC<TableFilterPopoverProps> = ({
+export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
   "data-cy": dataCy,
   onConfirm,
   options,

@@ -11,7 +11,7 @@ interface ParametersProps {
   parameters: Parameter[];
 }
 
-export const ParametersModal: React.VFC<ParametersProps> = ({ parameters }) => {
+export const ParametersModal: React.FC<ParametersProps> = ({ parameters }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   return (
     <>

@@ -16,7 +16,7 @@ interface HistoryTableIconProps {
   onClick?: () => void;
 }
 
-export const HistoryTableIcon: React.VFC<HistoryTableIconProps> = ({
+export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
   failingTests = [],
   inactive,
   label,

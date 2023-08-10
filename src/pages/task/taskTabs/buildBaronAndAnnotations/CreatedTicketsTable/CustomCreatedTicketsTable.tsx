@@ -10,7 +10,7 @@ interface CreatedTicketsProps {
   tickets: AnnotationTickets;
 }
 
-const CustomCreatedTicketsTable: React.VFC<CreatedTicketsProps> = ({
+const CustomCreatedTicketsTable: React.FC<CreatedTicketsProps> = ({
   tickets,
 }) => {
   const columns = [

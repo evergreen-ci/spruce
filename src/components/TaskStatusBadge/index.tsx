@@ -36,7 +36,7 @@ interface TaskStatusBadgeProps {
   id?: string;
   execution?: number;
 }
-const TaskStatusBadge: React.VFC<TaskStatusBadgeProps> = ({
+const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
   execution,
   id,
   status,

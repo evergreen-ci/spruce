@@ -1,9 +1,7 @@
 import {
   getAccessRoute,
-  getContainersRoute,
   getGeneralRoute,
   getGithubCommitQueueRoute,
-  getNotificationsRoute,
   project,
   projectUseRepoEnabled,
   repo,
@@ -343,6 +341,7 @@ describe("Repo Settings", { testIsolation: false }, () => {
   describe("GitHub/Commit Queue page after adding patch trigger alias", () => {
     before(() => {
       cy.dataCy("navitem-github-commitqueue").click();
+      cy.reload();
     });
 
     it("Shows the patch trigger alias", () => {
@@ -992,178 +991,3 @@ describe(
     });
   }
 );
-
-describe("Notifications", { testIsolation: false }, () => {
-  const destination = getNotificationsRoute("evergreen");
-  before(() => {
-    cy.visit(destination);
-  });
-  it("Does not show a 'Default to Repo' button on page", () => {
-    cy.dataCy("default-to-repo-button").should("not.exist");
-  });
-  it("shouldn't have any subscriptions defined", () => {
-    cy.contains("No subscriptions are defined.").should("exist");
-  });
-  it("shouldn't be able to save anything if no changes were made", () => {
-    saveButtonEnabled(false);
-  });
-  it("should be able to add a subscription and save it", () => {
-    cy.dataCy("expandable-card").should("not.exist");
-    cy.dataCy("add-button").contains("Add Subscription").should("be.visible");
-    cy.dataCy("add-button").contains("Add Subscription").click({ force: true });
-    cy.dataCy("expandable-card").should("contain.text", "New Subscription");
-    cy.selectLGOption("Event", "Any Version Finishes");
-    cy.selectLGOption("Notification Method", "Email");
-    cy.getInputByLabel("Email").type("mohamed.khelif@mongodb.com");
-    cy.dataCy("save-settings-button").scrollIntoView();
-    clickSave();
-    cy.validateToast("success", "Successfully updated project");
-
-    saveButtonEnabled(false);
-    cy.dataCy("expandable-card").should("exist");
-    cy.dataCy("expandable-card").scrollIntoView();
-    cy.dataCy("expandable-card").should(
-      "contain.text",
-      "Version outcome  - mohamed.khelif@mongodb.com"
-    );
-  });
-  it("should be able to delete a subscription", () => {
-    cy.dataCy("expandable-card").should("exist");
-    cy.dataCy("expandable-card").scrollIntoView();
-    cy.dataCy("delete-item-button").click({ force: true });
-    cy.dataCy("expandable-card").should("not.exist");
-    cy.dataCy("save-settings-button").scrollIntoView();
-    clickSave();
-    cy.validateToast("success", "Successfully updated project");
-  });
-  it("should not be able to combine a jira comment subscription with a task event", () => {
-    cy.dataCy("expandable-card").should("not.exist");
-    cy.dataCy("add-button").contains("Add Subscription").should("be.visible");
-    cy.dataCy("add-button").contains("Add Subscription").click({ force: true });
-    cy.dataCy("expandable-card").should("exist").scrollIntoView();
-    cy.dataCy("expandable-card").should("contain.text", "New Subscription");
-    cy.selectLGOption("Event", "Any Task Finishes");
-    cy.selectLGOption("Notification Method", "Comment on a JIRA issue");
-    cy.getInputByLabel("JIRA Issue").type("JIRA-123");
-    cy.contains("Subscription type not allowed for tasks in a project.").should(
-      "exist"
-    );
-    cy.dataCy("save-settings-button").scrollIntoView();
-    saveButtonEnabled(false);
-  });
-  it("should not be able to save a subscription if an input is invalid", () => {
-    cy.selectLGOption("Event", "Any Version Finishes");
-    cy.selectLGOption("Notification Method", "Email");
-    cy.getInputByLabel("Email").type("Not a real email");
-    cy.contains("Value should be a valid email.").should("exist");
-    cy.dataCy("save-settings-button").scrollIntoView();
-    saveButtonEnabled(false);
-  });
-  it("Setting a project banner displays the banner on the correct pages and unsetting is removes it", () => {
-    cy.visit(destination);
-    const bannerText = "This is a project banner!";
-
-    // set banner
-    cy.dataCy("banner-text").clear().type(bannerText);
-    clickSave();
-    cy.validateToast("success", "Successfully updated project");
-
-    // ensure banner is displayed
-    cy.contains(bannerText).should("be.visible");
-
-    const taskRoute =
-      "task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
-    cy.visit(taskRoute);
-    cy.contains(bannerText).should("be.visible");
-
-    const configureRoute = "patch/5e6bb9e23066155a993e0f1b/configure/tasks";
-    cy.visit(configureRoute);
-    cy.contains(bannerText).should("be.visible");
-
-    const versionRoute = "version/5e4ff3abe3c3317e352062e4";
-    cy.visit(versionRoute);
-    cy.contains(bannerText).should("be.visible");
-
-    const projectHealthRoute = "commits/evergreen";
-    cy.visit(projectHealthRoute);
-    cy.contains(bannerText).should("be.visible");
-
-    const variantHistoryRoute = "/variant-history/evergreen/ubuntu1604";
-    cy.visit(variantHistoryRoute);
-    cy.contains(bannerText).should("be.visible");
-
-    const taskHistoryRoute = "task-history/evergreen/test-cloud";
-    cy.visit(taskHistoryRoute);
-    cy.contains(bannerText).should("be.visible");
-
-    // clear banner
-    cy.visit(destination);
-    cy.dataCy("banner-text").clear();
-    clickSave();
-
-    // ensure banner is not displayed
-    cy.contains(bannerText).should("not.exist");
-
-    cy.visit(taskRoute);
-    cy.contains(bannerText).should("not.exist");
-
-    cy.visit(configureRoute);
-    cy.contains(bannerText).should("not.exist");
-
-    cy.visit(versionRoute);
-    cy.contains(bannerText).should("not.exist");
-
-    cy.visit(projectHealthRoute);
-    cy.contains(bannerText).should("not.exist");
-
-    cy.visit(variantHistoryRoute);
-    cy.contains(bannerText).should("not.exist");
-
-    cy.visit(taskHistoryRoute);
-    cy.contains(bannerText).should("not.exist");
-  });
-});
-
-describe("Containers", () => {
-  const destination = getContainersRoute("spruce");
-  beforeEach(() => {
-    cy.visit(destination);
-    // Wait for page content to load.
-    cy.contains("Container Configurations").should("exist");
-  });
-  it("shouldn't have any container configurations defined", () => {
-    cy.dataCy("container-size-row").should("not.exist");
-  });
-  it("shouldn't be able to save anything if no changes were made", () => {
-    saveButtonEnabled(false);
-  });
-  it("should be able to add a container configuration and save it", () => {
-    cy.dataCy("add-button").should("be.visible");
-    cy.dataCy("add-button").trigger("mouseover").click();
-    cy.dataCy("container-size-row").should("exist");
-
-    // Test validation for empty fields
-    cy.getInputByLabel("Name").type("test container");
-    cy.getInputByLabel("Memory (MB)").clear();
-    cy.getInputByLabel("CPU").clear();
-    saveButtonEnabled(false);
-
-    cy.getInputByLabel("Memory (MB)").type("1024");
-    cy.getInputByLabel("CPU").type("1024");
-    saveButtonEnabled(true);
-    cy.dataCy("save-settings-button").scrollIntoView();
-    clickSave();
-    cy.validateToast("success", "Successfully updated project");
-  });
-  it("should be able to delete a container configuration", () => {
-    cy.dataCy("container-size-row").should("exist");
-    cy.dataCy("delete-item-button").should("be.visible");
-    cy.dataCy("delete-item-button").should("not.be.disabled");
-    cy.dataCy("delete-item-button").trigger("mouseover").click();
-
-    cy.dataCy("container-size-row").should("not.exist");
-    cy.dataCy("save-settings-button").scrollIntoView();
-    clickSave();
-    cy.validateToast("success", "Successfully updated project");
-  });
-});

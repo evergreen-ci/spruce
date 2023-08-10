@@ -13,7 +13,7 @@ interface Props {
   tab: DistroSettingsTabRoutes;
 }
 
-export const Header: React.VFC<Props> = ({ tab }) => {
+export const Header: React.FC<Props> = ({ tab }) => {
   const { title } = getTabTitle(tab);
   const saveable = Object.values(WritableDistroSettingsTabs).includes(
     tab as WritableDistroSettingsType

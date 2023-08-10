@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import ExpandableCard from "@leafygreen-ui/expandable-card";
 import { palette } from "@leafygreen-ui/palette";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
 import { PlusButton } from "components/Buttons";
 import Icon from "components/Icon";
@@ -17,7 +17,7 @@ const { gray } = palette;
 // top of the text box itself.
 const labelOffset = size.m;
 
-const ArrayItem: React.VFC<
+const ArrayItem: React.FC<
   {
     border: boolean;
     title: string;
@@ -128,7 +128,7 @@ const ArrayItemRow = styled.div<{ border: boolean; index: number }>`
  * @param props.uiSchema - The field's UI schema.
  * @returns JSX.Element
  */
-export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
+export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   DescriptionField,
   TitleField,
   canAdd,
@@ -273,6 +273,6 @@ const TitleWrapper = styled.span`
   margin-right: ${size.s};
 `;
 
-const Placeholder = styled(Body)`
+const Placeholder = styled(Body)<BodyProps>`
   ${formComponentSpacingCSS}
 `;

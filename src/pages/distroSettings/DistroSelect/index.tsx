@@ -9,7 +9,7 @@ interface DistroSelectProps {
   selectedDistro: string;
 }
 
-export const DistroSelect: React.VFC<DistroSelectProps> = ({
+export const DistroSelect: React.FC<DistroSelectProps> = ({
   selectedDistro,
 }) => {
   const navigate = useNavigate();

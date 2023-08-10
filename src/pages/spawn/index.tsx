@@ -10,7 +10,7 @@ import { routes, SpawnTab } from "constants/routes";
 import { SpawnHost } from "./SpawnHost";
 import { SpawnVolume } from "./SpawnVolume";
 
-const Spawn: React.VFC = () => {
+const Spawn: React.FC = () => {
   const { tab } = useParams<{ tab: string }>();
   const spawnAnalytics = useSpawnAnalytics();
 

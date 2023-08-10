@@ -15,7 +15,7 @@ interface Props {
   patchId: string;
   refetchQueries?: string[];
 }
-export const SetPatchVisibility: React.VFC<Props> = ({
+export const SetPatchVisibility: React.FC<Props> = ({
   patchId,
   refetchQueries = [],
 }) => {

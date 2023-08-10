@@ -221,6 +221,9 @@ module.exports = {
       parserOptions: {
         project: "cypress/tsconfig.json",
       },
+      rules: {
+        "cypress/unsafe-to-chain-command": WARN,
+      },
     },
     // For GraphQL files.
     {

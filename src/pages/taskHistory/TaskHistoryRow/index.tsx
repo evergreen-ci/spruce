@@ -14,7 +14,7 @@ interface Props {
   index: number;
   data: types.CommitRowType;
 }
-const TaskHistoryRow: React.VFC<Props> = ({ data, index }) => {
+const TaskHistoryRow: React.FC<Props> = ({ data, index }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
   const { visibleColumns } = useHistoryTable();
 
