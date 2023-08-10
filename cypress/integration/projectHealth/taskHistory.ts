@@ -19,7 +19,7 @@ describe("task history", () => {
       .should("be.visible");
   });
   it("should be able expand and collapse inactive commits", () => {
-    cy.visit(`/task-history/spruce/check_codegen`);
+    cy.visit("/task-history/spruce/check_codegen");
     // Expand
     cy.contains("2ab1c56").should("not.be.visible");
     cy.contains("Expand 1 inactive").should("be.visible");

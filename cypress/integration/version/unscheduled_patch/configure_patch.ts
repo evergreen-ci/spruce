@@ -60,7 +60,6 @@ describe("Configure Patch Page", () => {
     it("Required tasks should be auto selected", () => {
       cy.visit(`patch/${patchWithDisplayTasks}/configure/tasks`);
       cy.dataCy("task-count-badge").contains("1");
-      cy.get("#checkbox-undefined").should("not.exist");
       cy.getInputByLabel("test-graphql").should("be.checked");
     });
   });

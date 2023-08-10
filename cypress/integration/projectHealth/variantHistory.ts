@@ -35,15 +35,15 @@ describe("variant history", () => {
     }
   );
   it("should be able expand and collapse inactive commits", () => {
-    cy.visit("/variant-history/spruce/ubuntu1604");
+    cy.visit("/variant-history/spruce/ubuntu1604?selectedCommit=1238");
     // Expand
     cy.contains("EVG-16356").should("not.exist");
-    cy.contains("Expand 1 inactive").should("exist").scrollIntoView();
+    cy.contains("Expand 1 inactive").should("be.visible");
     cy.contains("Expand 1 inactive").click();
     cy.contains("EVG-16356").should("be.visible");
 
     // Collapse
-    cy.contains("Collapse 1 inactive").should("exist");
+    cy.contains("Collapse 1 inactive").should("be.visible");
     cy.contains("Collapse 1 inactive").click();
     cy.contains("EVG-16356").should("not.be.visible");
   });
