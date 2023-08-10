@@ -6,7 +6,7 @@ import { TabProps } from "./types";
 
 const tab = DistroSettingsTabRoutes.General;
 
-export const GeneralTab: React.VFC<TabProps> = ({ distroData }) => {
+export const GeneralTab: React.FC<TabProps> = ({ distroData }) => {
   const initialFormState = distroData;
 
   const formSchema = useMemo(() => getFormSchema(), []);
