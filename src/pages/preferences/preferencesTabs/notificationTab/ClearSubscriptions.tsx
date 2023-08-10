@@ -10,7 +10,7 @@ import {
 } from "gql/generated/types";
 import { CLEAR_MY_SUBSCRIPTIONS } from "gql/mutations";
 
-export const ClearSubscriptions: React.VFC = () => {
+export const ClearSubscriptions: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();

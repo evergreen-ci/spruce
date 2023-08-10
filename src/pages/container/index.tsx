@@ -40,7 +40,7 @@ const Container = () => {
         loading={loading}
         badge={<PodStatusBadge status={status as PodStatus} />}
       />
-      <PageLayout>
+      <PageLayout hasSider>
         <PageSider width={350}>
           <Metadata loading={loading} pod={pod} error={error} />
         </PageSider>

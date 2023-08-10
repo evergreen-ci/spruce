@@ -19,7 +19,7 @@ interface ModalProps {
   projectId: string;
 }
 
-const Modal: React.VFC<ModalProps> = ({ closeModal, open, projectId }) => {
+const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
   const dispatchToast = useToastContext();
   const [formState, setFormState] = useState(
     deactivateStepbackForm.defaultFormData

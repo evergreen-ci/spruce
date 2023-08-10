@@ -17,7 +17,7 @@ interface SuspectedIssuesProps {
   annotation: Annotation;
 }
 
-const SuspectedIssues: React.VFC<SuspectedIssuesProps> = ({
+const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
   annotation,
   execution,
   selectedRowKey,

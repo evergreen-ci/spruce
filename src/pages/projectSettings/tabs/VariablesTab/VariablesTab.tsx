@@ -20,7 +20,7 @@ const getInitialFormState = (
   return projectData;
 };
 
-export const VariablesTab: React.VFC<TabProps> = ({
+export const VariablesTab: React.FC<TabProps> = ({
   identifier,
   projectData,
   projectType,
@@ -38,7 +38,7 @@ export const VariablesTab: React.VFC<TabProps> = ({
     [projectData, repoData]
   );
 
-  const ModalButton: React.VFC = () => (
+  const ModalButton: React.FC = () => (
     <Button
       data-cy="promote-vars-button"
       onClick={() => setModalOpen(true)}

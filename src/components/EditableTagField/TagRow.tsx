@@ -18,7 +18,7 @@ interface TagRowProps {
   isNewTag?: boolean;
   buttonText: string;
 }
-export const TagRow: React.VFC<TagRowProps> = ({
+export const TagRow: React.FC<TagRowProps> = ({
   buttonText,
   isNewTag = false,
   isValidKey,

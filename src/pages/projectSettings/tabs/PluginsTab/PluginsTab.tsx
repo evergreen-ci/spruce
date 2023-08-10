@@ -8,7 +8,7 @@ import { PluginsFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Plugins;
 
-export const PluginsTab: React.VFC<TabProps> = ({
+export const PluginsTab: React.FC<TabProps> = ({
   projectData,
   projectType,
   repoData,

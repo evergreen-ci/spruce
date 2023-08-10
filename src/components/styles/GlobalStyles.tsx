@@ -2,7 +2,7 @@ import { Global, css } from "@emotion/react";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import fontStyles from "components/styles/fonts";
 
-const resetStyles = css`
+export const resetStyles = css`
   html {
     box-sizing: border-box;
   }
@@ -30,10 +30,7 @@ const resetStyles = css`
   }
 `;
 
-const globalStyles = css`
-  ${fontStyles}
-  ${resetStyles}
-
+export const overrideStyles = css`
   background-color: white;
 
   body {
@@ -52,4 +49,10 @@ const globalStyles = css`
   }
 `;
 
-export const GlobalStyles = () => <Global styles={globalStyles} />;
+const spruceGlobalStyles = css`
+  ${fontStyles}
+  ${resetStyles}
+  ${overrideStyles}
+`;
+
+export const GlobalStyles = () => <Global styles={spruceGlobalStyles} />;

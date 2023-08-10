@@ -48,6 +48,10 @@ Cypress.Commands.add("enterLoginCredentials", () => {
 
 /* getInputByLabel */
 Cypress.Commands.add("getInputByLabel", (label: string) => {
+  // LeafyGreen inputs start out with ids of "undefined". Wait until LeafyGreen components have proper ids.
+  cy.contains("label", label)
+    .should("have.attr", "for")
+    .and("not.contain", "undefined");
   cy.contains("label", label)
     .invoke("attr", "for")
     .then((id) => {

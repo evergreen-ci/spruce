@@ -19,9 +19,7 @@ import { usePolling } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 
-export const SpawnHostActionButton: React.VFC<{ host: MyHost }> = ({
-  host,
-}) => {
+export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   const dispatchToast = useToastContext();
 
   const glyph = mapStatusToGlyph[host.status];

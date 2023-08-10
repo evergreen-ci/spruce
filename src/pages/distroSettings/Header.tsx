@@ -15,7 +15,7 @@ interface Props {
   distro: DistroQuery["distro"];
 }
 
-export const Header: React.VFC<Props> = ({ distro, tab }) => {
+export const Header: React.FC<Props> = ({ distro, tab }) => {
   const { title } = getTabTitle(tab);
   const saveable = Object.values(WritableDistroSettingsTabs).includes(
     tab as WritableDistroSettingsType

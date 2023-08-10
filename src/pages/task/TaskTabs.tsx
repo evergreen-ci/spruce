@@ -23,7 +23,7 @@ interface TaskTabProps {
   isDisplayTask: boolean;
   task: TaskQuery["task"];
 }
-export const TaskTabs: React.VFC<TaskTabProps> = ({ isDisplayTask, task }) => {
+export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
   const { tab: urlTab } = useParams<{ id: string; tab: TaskTab | null }>();
 
   const navigate = useNavigate();

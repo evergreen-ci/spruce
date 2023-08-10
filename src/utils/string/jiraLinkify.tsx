@@ -3,7 +3,7 @@ import { StyledLink } from "components/styles";
 import { getJiraTicketUrl } from "constants/externalResources";
 
 export const jiraLinkify = (
-  unlinkified: string | React.ReactNodeArray,
+  unlinkified: string | React.ReactNode[],
   jiraHost: string,
   onClick?
 ) =>

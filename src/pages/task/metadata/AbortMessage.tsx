@@ -3,7 +3,7 @@ import { StyledRouterLink } from "components/styles";
 import { getTaskRoute, getVersionRoute } from "constants/routes";
 import { AbortInfo } from "gql/generated/types";
 
-export const AbortMessage: React.VFC<AbortInfo> = ({
+export const AbortMessage: React.FC<AbortInfo> = ({
   buildVariantDisplayName,
   newVersion,
   prClosed,

@@ -4,7 +4,7 @@ import { getDistroSettingsRoute, routes } from "constants/routes";
 import { useHasUnsavedTab } from "./Context";
 import { getTabTitle } from "./getTabTitle";
 
-export const NavigationModal: React.VFC = () => {
+export const NavigationModal: React.FC = () => {
   const { hasUnsaved, unsavedTabs } = useHasUnsavedTab();
   const { distroId } = useParams();
 

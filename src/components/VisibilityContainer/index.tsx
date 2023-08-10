@@ -10,7 +10,7 @@ interface VisibilityContainerProps {
  * @param props.children - The children to render when the component is visible
  * @returns The VisibilityContainer component
  */
-const VisibilityContainer: React.VFC<VisibilityContainerProps> = ({
+const VisibilityContainer: React.FC<VisibilityContainerProps> = ({
   children,
 }) => {
   const containerRef = useRef(null);

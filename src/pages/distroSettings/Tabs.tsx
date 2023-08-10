@@ -13,7 +13,7 @@ interface Props {
   distro: DistroQuery["distro"];
 }
 
-export const DistroSettingsTabs: React.VFC<Props> = ({ distro }) => {
+export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
   const { tab } = useParams<{ tab: DistroSettingsTabRoutes }>();
   const { setInitialData } = useDistroSettingsContext();
 

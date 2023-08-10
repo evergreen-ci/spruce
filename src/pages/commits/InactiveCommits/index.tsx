@@ -29,7 +29,7 @@ interface InactiveCommitsProps {
   rolledUpVersions: CommitRolledUpVersions;
   hasFilters: boolean;
 }
-export const InactiveCommitButton: React.VFC<InactiveCommitsProps> = ({
+export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   hasFilters = false,
   rolledUpVersions,
 }) => {
@@ -127,7 +127,7 @@ interface CommitCopyProps {
  * @param props.isTooltip - boolean to indicate if used in tooltip
  * @returns CommitCopy component
  */
-const CommitCopy: React.VFC<CommitCopyProps> = ({ isTooltip, v }) => {
+const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const getDateCopy = useDateFormat();
   const spruceConfig = useSpruceConfig();

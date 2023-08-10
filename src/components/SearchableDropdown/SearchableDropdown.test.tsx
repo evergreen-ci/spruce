@@ -386,7 +386,9 @@ describe("searchableDropdown", () => {
           value: "evergreen",
           onChange,
           options: ["evergreen", "spruce"],
-          buttonRenderer: (option) => <b className="just-a-test">{option}</b>,
+          buttonRenderer: (option: string) => (
+            <b className="just-a-test">{option}</b>
+          ),
         })
       );
       expect(screen.getByText("evergreen")).toBeInTheDocument();

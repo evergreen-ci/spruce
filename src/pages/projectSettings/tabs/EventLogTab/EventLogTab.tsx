@@ -20,7 +20,7 @@ type TabProps = {
   projectType: ProjectType;
 };
 
-export const EventLogTab: React.VFC<TabProps> = ({
+export const EventLogTab: React.FC<TabProps> = ({
   limit = EVENT_LIMIT,
   projectType,
 }) => {
@@ -110,7 +110,7 @@ interface Props {
   user: string;
 }
 
-const EventLogHeader: React.VFC<Props> = ({ timestamp, user }) => {
+const EventLogHeader: React.FC<Props> = ({ timestamp, user }) => {
   const getDateCopy = useDateFormat();
   return (
     <StyledHeader>

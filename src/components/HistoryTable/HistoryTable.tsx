@@ -20,7 +20,7 @@ interface HistoryTableProps {
   finalRowCopy?: string;
   loading: boolean;
 }
-const HistoryTable: React.VFC<HistoryTableProps> = ({
+const HistoryTable: React.FC<HistoryTableProps> = ({
   children: Component,
   finalRowCopy,
   loadMoreItems,

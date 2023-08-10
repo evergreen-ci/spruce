@@ -16,11 +16,7 @@ describe("Configure Patch Page", () => {
     });
     it("Patch name input field value is patch description", () => {
       cy.visit(`/version/${unactivatedPatchId}`);
-      cy.dataCy("patch-name-input")
-        .invoke("val")
-        .then((text) => {
-          expect(text).to.equal("test meee");
-        });
+      cy.dataCy("patch-name-input").should("have.value", "test meee");
     });
     it("First build variant in list is selected by default", () => {
       cy.visit(`/version/${unactivatedPatchId}`);
@@ -63,6 +59,7 @@ describe("Configure Patch Page", () => {
 
     it("Required tasks should be auto selected", () => {
       cy.visit(`patch/${patchWithDisplayTasks}/configure/tasks`);
+      cy.dataCy("task-count-badge").contains("1");
       cy.getInputByLabel("test-graphql").should("be.checked");
     });
   });
@@ -129,8 +126,9 @@ describe("Configure Patch Page", () => {
     });
     it("Can update patch description by typing into `Patch Name` input field", () => {
       const val = "michelle obama";
-      cy.dataCy(`patch-name-input`).clear().type(val);
-      cy.dataCy(`patch-name-input`).should("have.value", val);
+      cy.dataCy("patch-name-input").clear();
+      cy.dataCy("patch-name-input").type(val);
+      cy.dataCy("patch-name-input").should("have.value", val);
     });
     it("Schedule button should be disabled when no tasks are selected and enabled when they are", () => {
       cy.dataCy("task-checkbox").should("not.be.checked");

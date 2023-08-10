@@ -8,7 +8,7 @@ const WithToastContext = (Story) => (
   </MockToastProvider>
 );
 
-const MockToastProvider: React.VFC<{ children: React.ReactNode }> = ({
+const MockToastProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const toastContext = useMemo(

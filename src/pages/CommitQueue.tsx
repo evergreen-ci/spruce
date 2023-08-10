@@ -20,7 +20,7 @@ import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
 
 const { gray } = palette;
 
-export const CommitQueue: React.VFC = () => {
+export const CommitQueue: React.FC = () => {
   const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
   const dispatchToast = useToastContext();
   const { data, loading } = useQuery<

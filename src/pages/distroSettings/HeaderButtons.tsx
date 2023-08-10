@@ -17,7 +17,7 @@ interface Props {
   distro: DistroQuery["distro"];
 }
 
-export const HeaderButtons: React.VFC<Props> = ({ distro, tab }) => {
+export const HeaderButtons: React.FC<Props> = ({ distro, tab }) => {
   const { getTab, saveTab } = useDistroSettingsContext();
   const { formData, hasChanges, hasError } = getTab(tab);
   const dispatchToast = useToastContext();

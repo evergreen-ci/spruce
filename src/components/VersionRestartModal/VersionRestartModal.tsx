@@ -32,7 +32,7 @@ interface VersionRestartModalProps {
   visible: boolean;
 }
 
-const VersionRestartModal: React.VFC<VersionRestartModalProps> = ({
+const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   onCancel,
   onOk,
   refetchQueries,

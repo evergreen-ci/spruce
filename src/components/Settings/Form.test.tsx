@@ -12,7 +12,7 @@ import {
 
 type ComponentProps = FormProps<TestRoutes, FormStateMap>;
 
-const Component: React.VFC<{
+const Component: React.FC<{
   disabled?: ComponentProps["disabled"];
   tab?: ComponentProps["tab"];
   validate?: ComponentProps["validate"];

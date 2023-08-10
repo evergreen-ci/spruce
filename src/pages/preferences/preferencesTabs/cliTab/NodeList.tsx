@@ -8,7 +8,7 @@ const { gray } = palette;
 interface NodeListProps {
   list: NodeType[];
 }
-export const NodeList: React.VFC<NodeListProps> = ({ list }) => (
+export const NodeList: React.FC<NodeListProps> = ({ list }) => (
   <NodeContainer>
     {list.map((node, index) => (
       <Node

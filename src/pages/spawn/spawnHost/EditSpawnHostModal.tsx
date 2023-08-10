@@ -25,7 +25,7 @@ interface EditSpawnHostModalProps {
   onCancel: () => void;
   host: MyHost;
 }
-export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
+export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   host,
   onCancel,
   visible = true,

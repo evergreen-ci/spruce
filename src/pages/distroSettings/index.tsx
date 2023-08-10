@@ -24,7 +24,7 @@ import { getTabTitle } from "./getTabTitle";
 import { NewDistroButton } from "./NewDistro/NewDistroButton";
 import { DistroSettingsTabs } from "./Tabs";
 
-const DistroSettings: React.VFC = () => {
+const DistroSettings: React.FC = () => {
   usePageTitle("Distro Settings");
   const dispatchToast = useToastContext();
   const { distroId, tab: currentTab } = useParams<{
