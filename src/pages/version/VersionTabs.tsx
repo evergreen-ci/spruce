@@ -5,7 +5,7 @@ import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
-import { getVersionRoute, DEFAULT_PATCH_TAB } from "constants/routes";
+import { getVersionRoute } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
 import { useTabShortcut } from "hooks/useTabShortcut";
@@ -81,7 +81,7 @@ const tabMap = ({
     </Tab>
   ),
 });
-export const VersionTabs: React.VFC<Props> = ({
+export const VersionTabs: React.FC<Props> = ({
   childPatches,
   isPatch,
   taskCount,
@@ -118,9 +118,7 @@ export const VersionTabs: React.VFC<Props> = ({
     [allTabs, tabIsActive]
   );
   const isValidTab = tabIsActive[tab];
-  const [selectedTab, setSelectedTab] = useState(
-    activeTabs.indexOf(isValidTab ? tab : DEFAULT_PATCH_TAB)
-  );
+  const [selectedTab, setSelectedTab] = useState(activeTabs.indexOf(tab));
   const previousTab = usePrevious(selectedTab);
 
   useEffect(() => {

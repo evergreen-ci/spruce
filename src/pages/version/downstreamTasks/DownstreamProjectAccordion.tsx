@@ -43,7 +43,7 @@ interface DownstreamProjectAccordionProps {
   parameters: Parameter[];
 }
 
-export const DownstreamProjectAccordion: React.VFC<
+export const DownstreamProjectAccordion: React.FC<
   DownstreamProjectAccordionProps
 > = ({
   baseVersionID,
@@ -231,7 +231,7 @@ interface DownstreamMetadataProps {
   githash: string;
   parameters: Parameter[];
 }
-const DownstreamMetadata: React.VFC<DownstreamMetadataProps> = ({
+const DownstreamMetadata: React.FC<DownstreamMetadataProps> = ({
   baseVersionID,
   githash,
   parameters,

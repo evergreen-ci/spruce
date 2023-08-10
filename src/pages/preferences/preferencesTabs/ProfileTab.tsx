@@ -18,7 +18,7 @@ import { GET_AWS_REGIONS } from "gql/queries";
 import { useUserSettings } from "hooks";
 import { omitTypename } from "utils/string";
 
-export const ProfileTab: React.VFC = () => {
+export const ProfileTab: React.FC = () => {
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
 

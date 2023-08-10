@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
-import { Subtitle } from "@leafygreen-ui/typography";
+import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { useLocation, useParams } from "react-router-dom";
 import PageSizeSelector, {
   usePageSizeSelector,
@@ -18,7 +18,7 @@ import { getEventCopy } from "./util";
 
 const { getLimitFromSearch, getPageFromSearch } = url;
 
-const EventsTable: React.VFC<{}> = () => {
+const EventsTable: React.FC<{}> = () => {
   const getDateCopy = useDateFormat();
   const { search } = useLocation();
   const setPageSize = usePageSizeSelector();
@@ -77,7 +77,7 @@ const EventsTable: React.VFC<{}> = () => {
   );
 };
 
-const StyledSubtitle = styled(Subtitle)`
+const StyledSubtitle = styled(Subtitle)<SubtitleProps>`
   margin: ${size.s} 0;
 `;
 

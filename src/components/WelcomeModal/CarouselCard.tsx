@@ -1,7 +1,12 @@
 import { useRef, useEffect } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Body, BodyProps, Subtitle } from "@leafygreen-ui/typography";
+import {
+  Body,
+  BodyProps,
+  Subtitle,
+  SubtitleProps,
+} from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 import { CardType } from "./types";
 
@@ -10,7 +15,7 @@ interface CarouselCardProps {
   visible: boolean;
 }
 
-const CarouselCard: React.VFC<CarouselCardProps> = ({ card, visible }) => {
+const CarouselCard: React.FC<CarouselCardProps> = ({ card, visible }) => {
   const { alt, description, img, subtitle, title, video } = card;
   const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
@@ -78,7 +83,7 @@ const StyledBody = styled(Body)<BodyProps>`
   margin-bottom: ${size.s};
 `;
 
-const StyledTitle = styled(Subtitle)`
+const StyledTitle = styled(Subtitle)<SubtitleProps>`
   margin-bottom: ${size.s};
 `;
 

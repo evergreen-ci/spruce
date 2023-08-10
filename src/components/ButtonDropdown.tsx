@@ -11,7 +11,7 @@ interface Props {
   "data-cy"?: string;
 }
 
-export const ButtonDropdown: React.VFC<Props> = ({
+export const ButtonDropdown: React.FC<Props> = ({
   "data-cy": dataCy = "ellipsis-btn",
   disabled = false,
   dropdownItems,

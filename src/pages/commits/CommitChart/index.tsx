@@ -29,7 +29,7 @@ interface Props {
   hasError?: boolean;
 }
 
-export const CommitChart: React.VFC<Props> = ({
+export const CommitChart: React.FC<Props> = ({
   hasError = false,
   hasTaskFilter,
   versions,

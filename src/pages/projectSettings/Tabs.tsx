@@ -38,7 +38,7 @@ interface Props {
   repoData?: RepoSettings;
 }
 
-export const ProjectSettingsTabs: React.VFC<Props> = ({
+export const ProjectSettingsTabs: React.FC<Props> = ({
   projectData,
   projectType,
   repoData,

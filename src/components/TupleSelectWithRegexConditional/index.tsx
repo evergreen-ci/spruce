@@ -17,7 +17,7 @@ interface TupleSelectWithRegexConditionalProps
  * @param props.validator - function that is called to validate the value of the input
  * @returns The TupleSelectWithRegexConditional component
  */
-const TupleSelectWithRegexConditional: React.VFC<
+const TupleSelectWithRegexConditional: React.FC<
   TupleSelectWithRegexConditionalProps
 > = ({ onSubmit, validator, ...rest }) => {
   const [type, setType] = useState("regex");

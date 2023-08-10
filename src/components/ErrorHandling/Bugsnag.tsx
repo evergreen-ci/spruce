@@ -21,7 +21,7 @@ const initializeBugsnag = () => {
   }
 };
 
-const ErrorBoundary: React.VFC<{ children: React.ReactNode }> = ({
+const ErrorBoundary: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const BugsnagErrorBoundary =

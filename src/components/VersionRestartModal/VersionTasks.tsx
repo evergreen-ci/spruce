@@ -16,7 +16,7 @@ interface VersionTasksProps {
   versionStatusFilterTerm: string[];
 }
 
-const VersionTasks: React.VFC<VersionTasksProps> = ({
+const VersionTasks: React.FC<VersionTasksProps> = ({
   baseStatusFilterTerm,
   selectedTasks,
   setBaseStatusFilterTerm,

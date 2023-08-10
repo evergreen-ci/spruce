@@ -14,7 +14,7 @@ interface ErrorBannerProps {
   errors: string[];
 }
 
-const ErrorBanner: React.VFC<ErrorBannerProps> = ({ errors }) => {
+const ErrorBanner: React.FC<ErrorBannerProps> = ({ errors }) => {
   const [showModal, setShowModal] = useState(false);
 
   const errorTitle =

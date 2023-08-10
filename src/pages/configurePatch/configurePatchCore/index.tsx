@@ -41,7 +41,7 @@ import { ParametersContent } from "./ParametersContent";
 interface ConfigurePatchCoreProps {
   patch: ConfigurePatchQuery["patch"];
 }
-const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
+const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
   const navigate = useNavigate();
   const dispatchToast = useToastContext();
 
@@ -176,7 +176,7 @@ const ConfigurePatchCore: React.VFC<ConfigurePatchCoreProps> = ({ patch }) => {
           Schedule
         </StyledButton>
       </FlexRow>
-      <PageLayout>
+      <PageLayout hasSider>
         <PageSider>
           <MetadataCard error={null}>
             <MetadataTitle>Patch Metadata</MetadataTitle>

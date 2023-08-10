@@ -11,9 +11,10 @@ type PopconfirmProps = TooltipProps & {
   confirmText?: string;
   "data-cy"?: string;
   onConfirm?: (e?: React.MouseEvent) => void;
+  children: React.ReactNode;
 };
 
-const Popconfirm: React.VFC<PopconfirmProps> = ({
+const Popconfirm: React.FC<PopconfirmProps> = ({
   children,
   confirmDisabled = false,
   confirmText = "Yes",

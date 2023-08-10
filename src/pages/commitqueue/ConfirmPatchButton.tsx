@@ -8,7 +8,7 @@ interface ConfirmPatchButtonProps {
   onConfirm: () => void;
   commitTitle: string;
 }
-export const ConfirmPatchButton: React.VFC<ConfirmPatchButtonProps> = ({
+export const ConfirmPatchButton: React.FC<ConfirmPatchButtonProps> = ({
   commitTitle,
   disabled,
   onConfirm,

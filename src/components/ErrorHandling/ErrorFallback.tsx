@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { H1, H2 } from "@leafygreen-ui/typography";
+import { H1, H1Props, H2, H2Props } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 import { environmentVariables } from "utils";
 import errorPage from "./errorPage.svg";
@@ -24,11 +24,11 @@ const ErrorFallback = () => (
 
 export default ErrorFallback;
 
-const StyledHeader = styled(H1)`
+const StyledHeader = styled(H1)<H1Props>`
   color: ${white};
 `;
 
-const StyledSubtitle = styled(H2)`
+const StyledSubtitle = styled(H2)<H2Props>`
   color: ${white};
 `;
 

@@ -13,7 +13,7 @@ import { HostStatus } from "types/host";
 import { QueryParams } from "../types";
 import { SpawnHostModal } from "./spawnHostButton/SpawnHostModal";
 
-export const SpawnHostButton: React.VFC = () => {
+export const SpawnHostButton: React.FC = () => {
   const { data: myHostsData } = useQuery<MyHostsQuery, MyHostsQueryVariables>(
     GET_MY_HOSTS
   );

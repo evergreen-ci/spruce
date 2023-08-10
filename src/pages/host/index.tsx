@@ -31,7 +31,7 @@ import { url } from "utils";
 
 const { getLimitFromSearch, getPageFromSearch } = url;
 
-const Host: React.VFC = () => {
+const Host: React.FC = () => {
   const dispatchToast = useToastContext();
   const { id } = useParams<{ id: string }>();
   // Query host data
@@ -120,7 +120,7 @@ const Host: React.VFC = () => {
             }
           />
 
-          <PageLayout>
+          <PageLayout hasSider>
             <PageSider width={350}>
               <Metadata
                 loading={hostMetaDataLoading}

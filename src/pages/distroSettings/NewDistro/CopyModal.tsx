@@ -20,7 +20,7 @@ interface Props {
   open: boolean;
 }
 
-export const CopyModal: React.VFC<Props> = ({ handleClose, open }) => {
+export const CopyModal: React.FC<Props> = ({ handleClose, open }) => {
   const { distroId } = useParams<{ distroId: string }>();
   const navigate = useNavigate();
   const dispatchToast = useToastContext();

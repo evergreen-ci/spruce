@@ -25,7 +25,7 @@ interface RowProps {
   selected: boolean;
 }
 
-const BaseRow: React.VFC<RowProps> = ({
+const BaseRow: React.FC<RowProps> = ({
   columns,
   data,
   eventHandlers,

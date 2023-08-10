@@ -23,7 +23,7 @@ interface SpawnVolumeModalProps {
   maxSpawnableLimit: number;
 }
 
-export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
+export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
   maxSpawnableLimit,
   onCancel,
   visible,

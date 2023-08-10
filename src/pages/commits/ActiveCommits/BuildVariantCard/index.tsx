@@ -32,7 +32,7 @@ interface Props {
   };
   order: number;
 }
-export const BuildVariantCard: React.VFC<Props> = ({
+export const BuildVariantCard: React.FC<Props> = ({
   buildVariantDisplayName,
   groupedVariantStats,
   height,
@@ -89,7 +89,7 @@ interface RenderTaskIconsProps {
   variant: string;
 }
 
-const RenderTaskIcons: React.VFC<RenderTaskIconsProps> = ({ tasks, variant }) =>
+const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks, variant }) =>
   tasks.length ? (
     <IconContainer
       data-cy="build-variant-icon-container"

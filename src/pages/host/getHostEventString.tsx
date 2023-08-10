@@ -31,7 +31,7 @@ interface TaskLinkProps {
   "data-cy": string;
   taskId: string;
 }
-const TaskLink: React.VFC<TaskLinkProps> = ({ "data-cy": dataCy, taskId }) => (
+const TaskLink: React.FC<TaskLinkProps> = ({ "data-cy": dataCy, taskId }) => (
   <ShortenedRouterLink
     data-cy={dataCy}
     title={taskId}
@@ -287,7 +287,7 @@ export const getHostEventString = (
   }
 };
 
-export const HostEventLog: React.VFC<{
+export const HostEventLog: React.FC<{
   title: string;
   logs: string;
   isCode: boolean;

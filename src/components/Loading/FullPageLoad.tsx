@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const FullPageLoad: React.VFC = () => (
+export const FullPageLoad: React.FC = () => (
   <FullPage>
     <div>LOADING...</div>
   </FullPage>

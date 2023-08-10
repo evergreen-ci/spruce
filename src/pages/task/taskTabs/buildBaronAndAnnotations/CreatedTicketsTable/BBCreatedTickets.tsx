@@ -10,7 +10,7 @@ interface CreatedTicketsProps {
   tickets: JiraTicket[];
 }
 
-const BBCreatedTickets: React.VFC<CreatedTicketsProps> = ({
+const BBCreatedTickets: React.FC<CreatedTicketsProps> = ({
   buildBaronConfigured,
   execution,
   taskId,

@@ -26,7 +26,7 @@ export const LegendContent = () => (
   </Container>
 );
 
-export const TaskStatusIconLegend: React.VFC = () => {
+export const TaskStatusIconLegend: React.FC = () => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const [isActive, setIsActive] = useState(false);
 
