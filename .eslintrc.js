@@ -28,7 +28,6 @@ module.exports = {
     "plugin:jsdoc/recommended-typescript-error",
     "plugin:prettier/recommended", // Note: prettier must ALWAYS be the last extension.
   ],
-  ignorePatterns: ["!.storybook"],
   plugins: ["@typescript-eslint", "sort-destructure-keys"],
   settings: {
     react: {
