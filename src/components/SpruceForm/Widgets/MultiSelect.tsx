@@ -7,7 +7,7 @@ import ElementWrapper from "../ElementWrapper";
 import { MaxWidthContainer } from "./LeafyGreenWidgets";
 import { EnumSpruceWidgetProps } from "./types";
 
-export const MultiSelect: React.VFC<EnumSpruceWidgetProps> = ({
+export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
   disabled,
   label,
   onChange,

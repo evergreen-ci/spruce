@@ -38,7 +38,7 @@ interface Props extends PatchProps {
   >;
 }
 
-export const PatchCard: React.VFC<Props> = ({
+export const PatchCard: React.FC<Props> = ({
   activated,
   alias,
   analyticsObject,

@@ -44,7 +44,7 @@ interface Props {
   aliasCount: number;
 }
 
-const ConfigureTasks: React.VFC<Props> = ({
+const ConfigureTasks: React.FC<Props> = ({
   activated,
   activatedVariants = [],
   aliasCount,

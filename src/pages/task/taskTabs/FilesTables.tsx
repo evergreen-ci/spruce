@@ -8,7 +8,7 @@ import { SortOrder } from "antd/es/table/interface";
 import debounce from "lodash.debounce";
 import get from "lodash/get";
 import { useParams, useLocation } from "react-router-dom";
-import { WordBreak } from "components/styles";
+import { StyledLink, WordBreak } from "components/styles";
 import { size } from "constants/tokens";
 import {
   TaskFilesQuery,
@@ -28,21 +28,21 @@ const columns = [
     dataIndex: "name",
     key: "name",
     render: (text: string, record: File): JSX.Element => (
-      <a
+      <StyledLink
         data-cy="fileLink"
         href={record.link}
         rel="noopener noreferrer"
         target="_blank"
       >
         <WordBreak>{text}</WordBreak>
-      </a>
+      </StyledLink>
     ),
     defaultSortOrder: "ascend" as SortOrder,
     sorter: (a: File, b: File): number => a.name.localeCompare(b.name),
   },
 ];
 
-export const FilesTables: React.VFC = () => {
+export const FilesTables: React.FC = () => {
   const { id: taskId } = useParams<{ id: string }>();
   const { search: queryVars } = useLocation();
   const parsed = parseQueryString(queryVars);

@@ -6,7 +6,7 @@ interface Props {
   volume: TableVolume;
 }
 
-export const SpawnVolumeCard: React.VFC<Props> = ({ volume }) => (
+export const SpawnVolumeCard: React.FC<Props> = ({ volume }) => (
   <DetailsCard
     data-cy={`spawn-volume-card-${volume.displayName || volume.id}`}
     fieldMaps={spawnVolumeCardFields}
@@ -14,12 +14,12 @@ export const SpawnVolumeCard: React.VFC<Props> = ({ volume }) => (
   />
 );
 
-const VolumeCreationTime: React.VFC<TableVolume> = ({ creationTime }) => {
+const VolumeCreationTime: React.FC<TableVolume> = ({ creationTime }) => {
   const getDateCopy = useDateFormat();
   return <>{getDateCopy(creationTime)}</>;
 };
 
-const VolumeExpiration: React.VFC<TableVolume> = ({
+const VolumeExpiration: React.FC<TableVolume> = ({
   expiration,
   noExpiration,
 }) => {

@@ -25,7 +25,7 @@ const { gray, white } = palette;
 const shouldDisableForTest =
   !isProduction() && Cookies.get(CY_DISABLE_NEW_USER_WELCOME_MODAL) === "true";
 
-export const Layout: React.VFC = () => {
+export const Layout: React.FC = () => {
   const { isAuthenticated } = useAuthStateContext();
   useAnalyticsAttributes();
   useAnnouncementToast();

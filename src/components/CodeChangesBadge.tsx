@@ -8,10 +8,7 @@ interface Props {
   deletions: number;
 }
 
-export const CodeChangesBadge: React.VFC<Props> = ({
-  additions,
-  deletions,
-}) => (
+export const CodeChangesBadge: React.FC<Props> = ({ additions, deletions }) => (
   <Badge>
     <FileDiffText type="+" value={additions} />
     <FileDiffText type="-" value={deletions} />
@@ -23,7 +20,7 @@ interface FileDiffTextProps {
   value: number;
 }
 
-export const FileDiffText: React.VFC<FileDiffTextProps> = ({ type, value }) => {
+export const FileDiffText: React.FC<FileDiffTextProps> = ({ type, value }) => {
   const hasValue = value > 0;
   return (
     <FileDiffTextContainer hasValue={hasValue} type={type}>

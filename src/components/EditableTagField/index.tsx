@@ -16,7 +16,7 @@ type EditableTagFieldProps = {
   id?: string;
 };
 
-export const EditableTagField: React.VFC<EditableTagFieldProps> = ({
+export const EditableTagField: React.FC<EditableTagFieldProps> = ({
   buttonText,
   id,
   inputTags,

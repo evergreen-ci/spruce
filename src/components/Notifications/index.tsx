@@ -39,7 +39,7 @@ interface NotificationModalProps {
   visible: boolean;
 }
 
-export const NotificationModal: React.VFC<NotificationModalProps> = ({
+export const NotificationModal: React.FC<NotificationModalProps> = ({
   "data-cy": dataCy,
   onCancel,
   resourceId,

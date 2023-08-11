@@ -10,7 +10,7 @@ interface ColumnPaginationButtonProps {
   onClickPrev?: () => void;
 }
 
-const ColumnPaginationButtons: React.VFC<ColumnPaginationButtonProps> = ({
+const ColumnPaginationButtons: React.FC<ColumnPaginationButtonProps> = ({
   onClickNext = () => {},
   onClickPrev = () => {},
 }) => {

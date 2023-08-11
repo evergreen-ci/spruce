@@ -154,7 +154,7 @@ export const getFormSchema = (
   };
 };
 
-const HelpText: React.VFC = () => {
+const HelpText: React.FC = () => {
   const spruceConfig = useSpruceConfig();
   const slackName = spruceConfig?.slack?.name;
 

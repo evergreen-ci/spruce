@@ -39,7 +39,7 @@ interface Props {
   tab: WritableProjectSettingsType;
 }
 
-export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
+export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
   const { sendEvent } = useProjectSettingsAnalytics();
   const dispatchToast = useToastContext();
 
@@ -66,9 +66,11 @@ export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
       dispatchToast.success("Successfully updated project");
 
       if (identifier !== newIdentifier) {
-        navigate(getProjectSettingsRoute(newIdentifier, tab), {
-          replace: true,
-        });
+        setTimeout(() => {
+          navigate(getProjectSettingsRoute(newIdentifier, tab), {
+            replace: true,
+          });
+        }, 500);
       }
     },
     onError(err) {

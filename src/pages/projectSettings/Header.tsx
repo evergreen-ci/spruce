@@ -22,7 +22,7 @@ interface Props {
   tab: ProjectSettingsTabRoutes;
 }
 
-export const Header: React.VFC<Props> = ({
+export const Header: React.FC<Props> = ({
   attachedRepoId,
   id,
   projectType,

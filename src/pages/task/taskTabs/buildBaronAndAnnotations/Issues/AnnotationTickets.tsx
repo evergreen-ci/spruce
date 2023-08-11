@@ -20,7 +20,7 @@ interface AnnotationTicketsProps {
   loading: boolean;
 }
 
-const AnnotationTickets: React.VFC<AnnotationTicketsProps> = ({
+const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
   execution,
   isIssue,
   loading,

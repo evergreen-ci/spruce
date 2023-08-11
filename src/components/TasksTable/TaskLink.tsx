@@ -10,7 +10,7 @@ interface TaskLinkProps {
   taskId: string;
   taskName: string;
 }
-export const TaskLink: React.VFC<TaskLinkProps> = ({
+export const TaskLink: React.FC<TaskLinkProps> = ({
   execution,
   onClick = () => {},
   showTaskExecutionLabel,

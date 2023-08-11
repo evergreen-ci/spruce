@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, BodyProps } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
 import { size, zIndex } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
@@ -22,7 +22,7 @@ interface DropdownProps {
   setIsOpen: (isOpen: boolean) => void;
   onClose?: () => void;
 }
-const Dropdown: React.VFC<DropdownProps> = ({
+const Dropdown: React.FC<DropdownProps> = ({
   buttonRenderer,
   buttonText,
   children,
@@ -163,7 +163,7 @@ const ButtonContent = styled.div`
   overflow: hidden;
 `;
 
-const OverflowBody = styled(Body)`
+const OverflowBody = styled(Body)<BodyProps>`
   overflow: hidden;
   text-overflow: ellipsis;
 `;

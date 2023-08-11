@@ -16,7 +16,7 @@ interface Props {
   patchDescription: string;
   hasVersion: boolean;
 }
-export const DropdownMenu: React.VFC<Props> = ({
+export const DropdownMenu: React.FC<Props> = ({
   canEnqueueToCommitQueue,
   hasVersion,
   isPatchOnCommitQueue,

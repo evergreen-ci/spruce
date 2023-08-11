@@ -27,7 +27,7 @@ interface TaskQueueTableProps {
   taskId: string;
 }
 
-export const TaskQueueTable: React.VFC<TaskQueueTableProps> = ({
+export const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
   distro,
   taskId,
 }) => {

@@ -25,7 +25,7 @@ interface Props {
   taskCount: number;
 }
 
-const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
+const TaskDuration: React.FC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
   const { id } = useParams<{ id: string }>();
   const { search } = useLocation();

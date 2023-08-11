@@ -6,7 +6,7 @@ interface Props {
   tab: WritableDistroSettingsType;
 }
 
-export const HeaderButtons: React.VFC<Props> = ({ tab }) => {
+export const HeaderButtons: React.FC<Props> = ({ tab }) => {
   const { getTab } = useDistroSettingsContext();
   const { hasChanges, hasError } = getTab(tab);
 

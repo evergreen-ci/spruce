@@ -7,7 +7,7 @@ import {
   SegmentedControlOption,
 } from "@leafygreen-ui/segmented-control";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Body, Overline } from "@leafygreen-ui/typography";
+import { Body, Overline, OverlineProps } from "@leafygreen-ui/typography";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
@@ -26,7 +26,7 @@ type Props = {
   identifier: string;
 };
 
-export const ViewToggle: React.VFC<Props> = ({ identifier }) => {
+export const ViewToggle: React.FC<Props> = ({ identifier }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const [view, setView] = useQueryParam<ProjectHealthView | null>(
     ProjectFilterOptions.View,
@@ -98,7 +98,7 @@ export const ViewToggle: React.VFC<Props> = ({ identifier }) => {
   );
 };
 
-const StyledOverline = styled(Overline)`
+const StyledOverline = styled(Overline)<OverlineProps>`
   color: ${gray.dark1};
 `;
 

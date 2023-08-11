@@ -18,10 +18,7 @@ interface FileTicketProps {
   execution: number;
 }
 
-const FileTicketButton: React.VFC<FileTicketProps> = ({
-  execution,
-  taskId,
-}) => {
+const FileTicketButton: React.FC<FileTicketProps> = ({ execution, taskId }) => {
   const dispatchToast = useToastContext();
 
   const [fileJiraTicket, { loading: loadingFileJiraTicket }] = useMutation<

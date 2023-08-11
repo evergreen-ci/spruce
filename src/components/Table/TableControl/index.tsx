@@ -19,7 +19,7 @@ interface Props {
   onPageChange?: (page: number) => void;
 }
 
-const TableControl: React.VFC<Props> = ({
+const TableControl: React.FC<Props> = ({
   filteredCount,
   label,
   limit,

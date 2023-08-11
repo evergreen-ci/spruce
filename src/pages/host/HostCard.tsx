@@ -15,7 +15,7 @@ interface StylingProps {
   metaData: boolean;
 }
 
-export const HostCard: React.VFC<Props> = ({
+export const HostCard: React.FC<Props> = ({
   children,
   error,
   loading,

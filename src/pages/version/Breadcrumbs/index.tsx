@@ -16,7 +16,7 @@ interface VersionPageBreadcrumbsProps {
   };
 }
 
-const VersionPageBreadcrumbs: React.VFC<VersionPageBreadcrumbsProps> = ({
+const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
   patchNumber,
   versionMetadata,
 }) => {

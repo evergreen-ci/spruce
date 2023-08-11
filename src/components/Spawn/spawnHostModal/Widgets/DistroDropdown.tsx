@@ -31,7 +31,7 @@ interface DistroEnum {
   };
 }
 
-export const DistroDropdown: React.VFC<
+export const DistroDropdown: React.FC<
   DistroEnum &
     SpruceWidgetProps & {
       options: Pick<SearchableDropdownProps<string>, "data-cy">;
@@ -90,7 +90,7 @@ export const DistroDropdown: React.VFC<
   );
 };
 
-const DropdownOption: React.VFC<{
+const DropdownOption: React.FC<{
   title: string;
   distros: DistroValue[];
   onClick: (distro: DistroValue) => void;
