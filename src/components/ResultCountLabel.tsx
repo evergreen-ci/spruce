@@ -7,7 +7,7 @@ interface Props {
   dataCyDenominator?: string;
   label: string;
 }
-export const ResultCountLabel: React.VFC<Props> = ({
+export const ResultCountLabel: React.FC<Props> = ({
   dataCyDenominator,
   dataCyNumerator,
   denominator,

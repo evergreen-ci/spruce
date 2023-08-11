@@ -42,7 +42,7 @@ interface Props {
   patches?: PatchesPagePatchesFragment;
 }
 
-export const PatchesPage: React.VFC<Props> = ({
+export const PatchesPage: React.FC<Props> = ({
   analyticsObject,
   filterComp,
   loading,

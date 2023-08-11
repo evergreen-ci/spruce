@@ -24,7 +24,7 @@ interface ColumnHeadersProps {
   variantName: string;
 }
 
-const ColumnHeaders: React.VFC<ColumnHeadersProps> = ({
+const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
   projectIdentifier,
   variantName,
 }) => {

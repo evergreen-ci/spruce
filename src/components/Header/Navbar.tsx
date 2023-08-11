@@ -20,7 +20,7 @@ import { UserDropdown } from "./UserDropdown";
 
 const { blue, gray, white } = palette;
 
-export const Navbar: React.VFC = () => {
+export const Navbar: React.FC = () => {
   const { isAuthenticated } = useAuthStateContext();
   const legacyURL = useLegacyUIURL();
   const { sendEvent } = useNavbarAnalytics();

@@ -15,7 +15,7 @@ import { environmentVariables } from "utils";
 const { gray } = palette;
 const { getUiUrl } = environmentVariables;
 
-export const Metadata: React.VFC<{
+export const Metadata: React.FC<{
   loading: boolean;
   host: HostQuery["host"];
   error: ApolloError;

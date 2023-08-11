@@ -42,7 +42,7 @@ interface Props {
   }>;
 }
 
-export const PromoteVariablesModal: React.VFC<Props> = ({
+export const PromoteVariablesModal: React.FC<Props> = ({
   handleClose,
   open,
   projectId,
@@ -132,7 +132,7 @@ export const PromoteVariablesModal: React.VFC<Props> = ({
   );
 };
 
-const DuplicateVarTooltip: React.VFC = () => (
+const DuplicateVarTooltip: React.FC = () => (
   <Tooltip
     data-cy="duplicate-var-tooltip"
     justify="middle"

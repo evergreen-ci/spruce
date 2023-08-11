@@ -55,7 +55,7 @@ interface HistoryTableProviderProps {
   initialState?: HistoryTableReducerState;
 }
 
-const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
+const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
   children,
   initialState = {
     columns: [],

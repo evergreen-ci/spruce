@@ -22,7 +22,7 @@ interface Props {
   isSingleHost?: boolean;
 }
 
-export const UpdateStatusModal: React.VFC<Props> = ({
+export const UpdateStatusModal: React.FC<Props> = ({
   closeModal,
   "data-cy": dataCy,
   hostIds,

@@ -9,7 +9,7 @@ import { NotificationsFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Notifications;
 
-export const NotificationsTab: React.VFC<TabProps> = ({
+export const NotificationsTab: React.FC<TabProps> = ({
   projectData,
   projectType,
   repoData,

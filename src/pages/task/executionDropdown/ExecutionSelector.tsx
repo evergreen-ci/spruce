@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Select } from "antd";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { fontSize, size } from "constants/tokens";
@@ -19,7 +19,7 @@ interface ExecutionSelectProps {
   updateExecution: (execution: number) => void;
 }
 
-export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
+export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
   currentExecution,
   id,
   latestExecution,
@@ -84,7 +84,7 @@ const ExecutionInfo = styled.div`
   align-items: center;
 `;
 
-const StyledBody = styled(Body)`
+const StyledBody = styled(Body)<BodyProps>`
   font-size: ${fontSize.m};
   overflow: hidden;
   white-space: nowrap;

@@ -10,7 +10,7 @@ interface DisabledVariantTasksListProps {
   variantTasks: VariantTask[];
 }
 
-const DisabledVariantTasksList: React.VFC<DisabledVariantTasksListProps> = ({
+const DisabledVariantTasksList: React.FC<DisabledVariantTasksListProps> = ({
   "data-cy": dataCy,
   status,
   variantTasks,

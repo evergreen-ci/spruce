@@ -16,7 +16,7 @@ interface AuxiliaryDropdownProps {
   projectIdentifier: string;
 }
 
-export const AuxiliaryDropdown: React.VFC<AuxiliaryDropdownProps> = ({
+export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
   projectIdentifier,
 }) => {
   const uiURL = getUiUrl();

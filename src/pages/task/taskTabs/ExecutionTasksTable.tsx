@@ -22,7 +22,7 @@ const useSorts = () => {
   return parseSortString(sorts);
 };
 
-export const ExecutionTasksTable: React.VFC<Props> = ({
+export const ExecutionTasksTable: React.FC<Props> = ({
   execution,
   executionTasksFull,
   isPatch,

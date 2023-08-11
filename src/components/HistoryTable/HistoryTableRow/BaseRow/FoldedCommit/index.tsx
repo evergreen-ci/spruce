@@ -24,7 +24,7 @@ interface FoldedCommitProps {
   onClickGithash?: () => void;
   onClickUpstreamProject?: () => void;
 }
-const FoldedCommit: React.VFC<FoldedCommitProps> = ({
+const FoldedCommit: React.FC<FoldedCommitProps> = ({
   data,
   index,
   numVisibleCols,

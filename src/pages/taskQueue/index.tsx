@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { H2, H3 } from "@leafygreen-ui/typography";
+import { H2, H2Props, H3, H3Props } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
@@ -138,10 +138,10 @@ const TableHeader = styled.div`
   align-items: center;
   margin: ${size.m} 0 ${size.s} 0;
 `;
-const StyledH2 = styled(H2)`
+const StyledH2 = styled(H2)<H2Props>`
   margin-bottom: ${size.xs};
 `;
-const StyledH3 = styled(H3)`
+const StyledH3 = styled(H3)<H3Props>`
   margin-right: ${size.s};
 `;
 

@@ -20,7 +20,7 @@ interface Props {
   open: boolean;
 }
 
-export const CopyProjectModal: React.VFC<Props> = ({
+export const CopyProjectModal: React.FC<Props> = ({
   handleClose,
   id,
   label,

@@ -11,7 +11,7 @@ interface CarouselDotProps {
   onClick: (slide: number) => void;
 }
 
-const CarouselDots: React.VFC<CarouselDotProps> = ({
+const CarouselDots: React.FC<CarouselDotProps> = ({
   activeSlide,
   cards,
   onClick,

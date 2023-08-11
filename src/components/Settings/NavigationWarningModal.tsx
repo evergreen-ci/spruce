@@ -13,7 +13,7 @@ export type NavigationModalProps = {
   }>;
 };
 
-export const NavigationWarningModal: React.VFC<NavigationModalProps> = ({
+export const NavigationWarningModal: React.FC<NavigationModalProps> = ({
   shouldBlock,
   unsavedTabs,
 }) => {

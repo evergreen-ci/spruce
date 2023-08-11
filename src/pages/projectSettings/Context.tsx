@@ -19,7 +19,7 @@ const ProjectSettingsContext = createSettingsContext<
   FormStateMap
 >();
 
-const ProjectSettingsProvider: React.VFC<{ children: React.ReactNode }> = ({
+const ProjectSettingsProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { getTab, saveTab, setInitialData, tabs, updateForm } =

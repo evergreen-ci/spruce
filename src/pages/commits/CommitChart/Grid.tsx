@@ -5,7 +5,7 @@ import { gridHeight } from "pages/commits/constants";
 
 const { gray } = palette;
 
-export const Grid: React.VFC<{
+export const Grid: React.FC<{
   numDashedLine: number;
 }> = ({ numDashedLine }) => (
   <ColumnContainer>

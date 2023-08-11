@@ -11,7 +11,7 @@ import { GET_BUILD_VARIANTS_STATS } from "gql/queries";
 import { usePolling } from "hooks";
 import VariantTaskGroup from "./VariantTaskGroup";
 
-const BuildVariantCard: React.VFC = () => {
+const BuildVariantCard: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<

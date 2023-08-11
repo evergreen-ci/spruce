@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Accordion } from "components/Accordion";
 import { CodeChangesBadge } from "components/CodeChangesBadge";
 import { CodeChangesTable } from "components/CodeChangesTable";
@@ -24,7 +24,7 @@ const totalFileDiffs = (
   return { additions, deletions };
 };
 
-export const CodeChangeModule: React.VFC<{
+export const CodeChangeModule: React.FC<{
   moduleCodeChange: ModuleCodeChangeFragment;
 }> = ({ moduleCodeChange }) => {
   const { fileDiffs } = moduleCodeChange;
@@ -65,7 +65,7 @@ const DropDownTextStyle = styled("span")`
   margin-right: ${size.m};
 `;
 
-const CommitName = styled(Body)`
+const CommitName = styled(Body)<BodyProps>`
   font-size: ${fontSize.l};
   padding-bottom: ${size.xs};
 `;

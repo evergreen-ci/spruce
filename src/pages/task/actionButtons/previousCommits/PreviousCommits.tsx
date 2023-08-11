@@ -30,9 +30,7 @@ const { applyStrictRegex } = string;
 interface PreviousCommitsProps {
   taskId: string;
 }
-export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
-  taskId,
-}) => {
+export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
   const { sendEvent } = useTaskAnalytics();
   const [
     {

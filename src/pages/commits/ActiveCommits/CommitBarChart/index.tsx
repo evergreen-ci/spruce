@@ -13,7 +13,7 @@ interface Props {
   eta?: Date;
 }
 
-export const CommitBarChart: React.VFC<Props> = ({
+export const CommitBarChart: React.FC<Props> = ({
   chartType,
   eta,
   groupedTaskStats,

@@ -15,7 +15,7 @@ interface GroupedTaskStatusBadgeProps {
   isActive?: boolean;
 }
 
-export const GroupedTaskStatusBadge: React.VFC<GroupedTaskStatusBadgeProps> = ({
+export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
   count,
   href,
   isActive,

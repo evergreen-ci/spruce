@@ -10,7 +10,7 @@ import { USER_DISTRO_SETTINGS_PERMISSIONS } from "gql/queries";
 import { CopyModal } from "./CopyModal";
 import { CreateModal } from "./CreateModal";
 
-export const NewDistroButton: React.VFC = () => {
+export const NewDistroButton: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [copyModalOpen, setCopyModalOpen] = useState(false);
   const [createModalOpen, setCreateModalOpen] = useState(false);

@@ -14,7 +14,7 @@ interface Props {
   index: number;
   data: types.CommitRowType;
 }
-const VariantHistoryRow: React.VFC<Props> = ({ data, index }) => {
+const VariantHistoryRow: React.FC<Props> = ({ data, index }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
   const { visibleColumns } = useHistoryTable();
 

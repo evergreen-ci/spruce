@@ -5,7 +5,7 @@ import { LoadingCell, LabelCellContainer } from "components/HistoryTable/Cell";
 interface LoadingRowProps {
   numVisibleCols: number;
 }
-const LoadingRow: React.VFC<LoadingRowProps> = ({ numVisibleCols }) => (
+const LoadingRow: React.FC<LoadingRowProps> = ({ numVisibleCols }) => (
   <Container>
     <LabelCellContainer>
       <Skeleton active title={false} paragraph={{ rows: 3 }} />

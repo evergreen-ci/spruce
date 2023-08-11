@@ -25,7 +25,7 @@ interface CommitsWrapperProps {
   hasFilters: boolean;
 }
 
-export const CommitsWrapper: React.VFC<CommitsWrapperProps> = ({
+export const CommitsWrapper: React.FC<CommitsWrapperProps> = ({
   error,
   hasFilters,
   hasTaskFilter,
