@@ -10,7 +10,7 @@ interface JobLogsTableProps {
   tests: LogkeeperBuildMetadataQuery["logkeeperBuildMetadata"]["tests"];
 }
 
-export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
+export const JobLogsTable: React.FC<JobLogsTableProps> = ({
   buildId,
   tests,
 }) => {

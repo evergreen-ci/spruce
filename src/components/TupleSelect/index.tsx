@@ -23,7 +23,7 @@ interface TupleSelectProps {
   validatorErrorMessage?: string;
   label?: React.ReactNode;
 }
-const TupleSelect: React.VFC<TupleSelectProps> = ({
+const TupleSelect: React.FC<TupleSelectProps> = ({
   label,
   onSubmit = () => {},
   options,

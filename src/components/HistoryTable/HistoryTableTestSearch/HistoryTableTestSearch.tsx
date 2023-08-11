@@ -16,7 +16,7 @@ interface HistoryTableTestSearchProps {
   onSubmit?: () => void;
 }
 
-export const HistoryTableTestSearch: React.VFC<HistoryTableTestSearchProps> = ({
+export const HistoryTableTestSearch: React.FC<HistoryTableTestSearchProps> = ({
   onSubmit = () => {},
 }) => {
   const [input, setInput] = useState("");

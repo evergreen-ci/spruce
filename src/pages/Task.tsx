@@ -114,7 +114,7 @@ export const Task = () => {
           />
         }
       />
-      <PageLayout>
+      <PageLayout hasSider>
         <PageSider>
           {latestExecution > 0 && (
             <ExecutionSelect

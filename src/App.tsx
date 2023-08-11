@@ -22,7 +22,7 @@ const browserRouter = createBrowserRouter(
   )
 );
 
-const App: React.VFC = () => (
+const App: React.FC = () => (
   <ErrorBoundary>
     <GlobalStyles />
     <ContextProviders>

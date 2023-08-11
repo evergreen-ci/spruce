@@ -7,10 +7,10 @@ import {
   SiderCard,
 } from "components/styles";
 
-export const PatchAndTaskFullPageLoad: React.VFC = () => (
+export const PatchAndTaskFullPageLoad: React.FC = () => (
   <PageWrapper>
     <Skeleton active paragraph />
-    <PageLayout>
+    <PageLayout hasSider>
       <PageSider>
         <SiderCard>
           <Skeleton active title={false} paragraph={{ rows: 4 }} />

@@ -3,7 +3,7 @@ import { ObjectFieldTemplateProps } from "@rjsf/core";
 import { getFields } from "components/SpruceForm/utils";
 import { size } from "constants/tokens";
 
-export const RegexSelectorRow: React.VFC<
+export const RegexSelectorRow: React.FC<
   Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">
 > = ({ formData, properties }) => {
   const [regexSelect, regexInput] = getFields(properties, formData.isDisabled);

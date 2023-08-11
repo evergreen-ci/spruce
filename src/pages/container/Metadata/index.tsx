@@ -9,7 +9,7 @@ import { StyledRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { PodQuery } from "gql/generated/types";
 
-const Metadata: React.VFC<{
+const Metadata: React.FC<{
   loading: boolean;
   pod: PodQuery["pod"];
   error: ApolloError;

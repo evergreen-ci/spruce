@@ -29,7 +29,7 @@ const getInitialFormState = (
   return projectData;
 };
 
-export const GithubCommitQueueTab: React.VFC<TabProps> = ({
+export const GithubCommitQueueTab: React.FC<TabProps> = ({
   githubWebhooksEnabled,
   identifier,
   projectData,

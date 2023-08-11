@@ -15,7 +15,7 @@ interface Props {
   "data-cy"?: string;
 }
 
-export const HostPopover: React.VFC<Props> = ({
+export const HostPopover: React.FC<Props> = ({
   buttonText,
   "data-cy": dataCy,
   disabled = false,

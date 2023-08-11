@@ -24,7 +24,7 @@ const getInitialFormState = (
   return projectData;
 };
 
-export const VirtualWorkstationTab: React.VFC<TabProps> = ({
+export const VirtualWorkstationTab: React.FC<TabProps> = ({
   identifier,
   projectData,
   projectType,

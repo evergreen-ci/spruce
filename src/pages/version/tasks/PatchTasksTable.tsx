@@ -21,7 +21,7 @@ interface Props {
   loading: boolean;
 }
 
-export const PatchTasksTable: React.VFC<Props> = ({
+export const PatchTasksTable: React.FC<Props> = ({
   isPatch,
   loading,
   sorts,

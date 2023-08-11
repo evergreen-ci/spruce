@@ -36,7 +36,7 @@ import { getResourceRoute, useSubscriptionData } from "./utils";
 
 const { gray } = palette;
 
-export const UserSubscriptions: React.VFC<{}> = () => {
+export const UserSubscriptions: React.FC<{}> = () => {
   const dispatchToast = useToastContext();
 
   const [deleteSubscriptions] = useMutation<

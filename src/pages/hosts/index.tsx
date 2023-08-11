@@ -34,7 +34,7 @@ const { toArray } = array;
 const { getLimitFromSearch, getPageFromSearch } = url;
 const { getString, parseQueryString } = queryString;
 
-const Hosts: React.VFC = () => {
+const Hosts: React.FC = () => {
   const hostsTableAnalytics = useHostsTableAnalytics();
   usePageTitle("Hosts");
   const { search } = useLocation();

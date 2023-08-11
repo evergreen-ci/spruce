@@ -19,7 +19,7 @@ const DistroSettingsContext = createSettingsContext<
   FormStateMap
 >();
 
-const DistroSettingsProvider: React.VFC<{ children: React.ReactNode }> = ({
+const DistroSettingsProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { getTab, saveTab, setInitialData, tabs, updateForm } =

@@ -28,7 +28,7 @@ interface MigrateVolumeModalProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
+export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
   open,
   setOpen,
   volume,

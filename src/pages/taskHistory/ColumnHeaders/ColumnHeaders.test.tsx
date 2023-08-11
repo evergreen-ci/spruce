@@ -117,11 +117,12 @@ describe("columnHeaders (Task History)", () => {
         }),
     });
     await waitFor(() => {
-      expect(screen.queryByRole("link")).toHaveAttribute(
-        "href",
-        "/variant-history/evergreen/real-variant-name"
-      );
+      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
+    expect(screen.queryByRole("link")).toHaveAttribute(
+      "href",
+      "/variant-history/evergreen/real-variant-name"
+    );
   });
 
   it("should truncate the variant name only if it is too long", async () => {
@@ -181,8 +182,9 @@ describe("columnHeaders (Task History)", () => {
         }),
     });
     await waitFor(() => {
-      expect(screen.queryByText(trimmedVariantName)).toBeVisible();
+      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
+    expect(screen.queryByText(trimmedVariantName)).toBeVisible();
     userEvent.hover(screen.queryByText(trimmedVariantName));
     await waitFor(() => {
       expect(screen.queryByText(longVariantName)).toBeVisible();

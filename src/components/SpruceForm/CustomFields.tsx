@@ -11,7 +11,7 @@ import { size } from "constants/tokens";
 
 type TitleFieldProps = Pick<FieldProps, "id" | "title" | "uiSchema">;
 
-export const TitleField: React.VFC<TitleFieldProps> = ({
+export const TitleField: React.FC<TitleFieldProps> = ({
   id,
   title,
   uiSchema,

@@ -5,7 +5,7 @@ interface LoadingSectionProps {
   numLoadingRows: number;
 }
 
-const LoadingSection: React.VFC<LoadingSectionProps> = ({
+const LoadingSection: React.FC<LoadingSectionProps> = ({
   numLoadingRows,
   numVisibleCols,
 }) => (

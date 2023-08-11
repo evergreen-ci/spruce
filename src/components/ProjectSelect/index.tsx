@@ -20,7 +20,7 @@ interface ProjectSelectProps {
   showLabel?: boolean;
 }
 
-export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
+export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   getRoute,
   isProjectSettingsPage = false,
   onSubmit = () => {},

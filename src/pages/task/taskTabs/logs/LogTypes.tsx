@@ -47,7 +47,7 @@ interface Props {
   setNoLogs: (noLogs: boolean) => void;
 }
 
-export const AllLog: React.VFC<Props> = (props) => {
+export const AllLog: React.FC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
@@ -75,7 +75,7 @@ export const AllLog: React.VFC<Props> = (props) => {
   });
 };
 
-export const EventLog: React.VFC<Props> = (props) => {
+export const EventLog: React.FC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
@@ -105,7 +105,7 @@ export const EventLog: React.VFC<Props> = (props) => {
   });
 };
 
-export const SystemLog: React.VFC<Props> = (props) => {
+export const SystemLog: React.FC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
@@ -131,7 +131,7 @@ export const SystemLog: React.VFC<Props> = (props) => {
   });
 };
 
-export const AgentLog: React.VFC<Props> = (props) => {
+export const AgentLog: React.FC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
@@ -157,7 +157,7 @@ export const AgentLog: React.VFC<Props> = (props) => {
   });
 };
 
-export const TaskLog: React.VFC<Props> = (props) => {
+export const TaskLog: React.FC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
@@ -182,11 +182,11 @@ export const TaskLog: React.VFC<Props> = (props) => {
   });
 };
 
-const useRenderBody: React.VFC<{
+const useRenderBody: React.FC<{
   loading: boolean;
   error: ApolloError;
   data: (TaskEventLogEntryType | LogMessageType)[];
-  LogContainer?: React.VFC<{ children: React.ReactNode }>;
+  LogContainer?: React.FC<{ children: React.ReactNode }>;
   setNoLogs: (noLogs: boolean) => void;
 }> = ({
   LogContainer = ({ children }) => <StyledPre>{children}</StyledPre>,

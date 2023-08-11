@@ -7,7 +7,7 @@ import { size } from "constants/tokens";
 
 const { yellow } = palette;
 
-export const VariableRow: React.VFC<
+export const VariableRow: React.FC<
   Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">
 > = ({ formData, properties, uiSchema }) => {
   const [variableName, variableValue, isPrivate, isAdminOnly] = getFields(

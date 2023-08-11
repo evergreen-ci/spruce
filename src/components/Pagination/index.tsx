@@ -22,7 +22,7 @@ interface Props {
  * @param props.pageSize - maximum number of results per page
  * @returns The Pagination component
  */
-const Pagination: React.VFC<Props> = ({
+const Pagination: React.FC<Props> = ({
   currentPage,
   onChange,
   pageSize,

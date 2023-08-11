@@ -53,7 +53,7 @@ const setScope = (scope: Scope, { context, level }: ScopeOptions = {}) => {
   if (context) scope.setContext("metadata", context);
 };
 
-const ErrorBoundary: React.VFC<{ children: React.ReactNode }> = ({
+const ErrorBoundary: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
   <SentryErrorBoundary

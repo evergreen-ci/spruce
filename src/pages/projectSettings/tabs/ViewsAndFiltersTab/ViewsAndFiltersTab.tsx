@@ -8,7 +8,7 @@ import { TabProps, ViewsFormState } from "./types";
 
 const tab = ProjectSettingsTabRoutes.ViewsAndFilters;
 
-export const ViewsAndFiltersTab: React.VFC<TabProps> = ({ projectData }) => {
+export const ViewsAndFiltersTab: React.FC<TabProps> = ({ projectData }) => {
   const initialFormState = projectData;
 
   const formSchema = useMemo(() => getFormSchema(), []);

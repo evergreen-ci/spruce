@@ -20,7 +20,7 @@ interface VariantTaskGroupProps {
   variant: string;
   versionId: string;
 }
-const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
+const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
   displayName,
   statusCounts,
   variant,

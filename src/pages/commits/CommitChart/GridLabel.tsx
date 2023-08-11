@@ -10,7 +10,7 @@ const { gray } = palette;
 
 const percentages = [100, 80, 60, 40, 20, 0];
 
-export const GridLabel: React.VFC<{
+export const GridLabel: React.FC<{
   chartType: string;
   max: number;
   numDashedLine: number;

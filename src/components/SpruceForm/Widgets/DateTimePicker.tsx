@@ -8,7 +8,7 @@ import { useUserTimeZone } from "hooks/useUserTimeZone";
 import ElementWrapper from "../ElementWrapper";
 import { SpruceWidgetProps } from "./types";
 
-export const DateTimePicker: React.VFC<
+export const DateTimePicker: React.FC<
   {
     options: {
       disableBefore?: Date;

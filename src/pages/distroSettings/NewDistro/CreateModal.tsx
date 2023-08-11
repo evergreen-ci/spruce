@@ -20,7 +20,7 @@ interface Props {
   open: boolean;
 }
 
-export const CreateModal: React.VFC<Props> = ({ handleClose, open }) => {
+export const CreateModal: React.FC<Props> = ({ handleClose, open }) => {
   const navigate = useNavigate();
   const dispatchToast = useToastContext();
   const { sendEvent } = useDistroSettingsAnalytics();

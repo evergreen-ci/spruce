@@ -16,7 +16,7 @@ import {
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettings } from "hooks";
 
-export const NewUITab: React.VFC = () => {
+export const NewUITab: React.FC = () => {
   const { sendEvent } = usePreferencesAnalytics();
   const { loading, userSettings } = useUserSettings();
   const { spruceV1 } = userSettings?.useSpruceOptions ?? {};

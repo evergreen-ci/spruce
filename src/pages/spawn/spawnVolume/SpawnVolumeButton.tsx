@@ -13,7 +13,7 @@ interface SpawnVolumeButtonProps {
   volumeLimit: number;
 }
 
-export const SpawnVolumeButton: React.VFC<SpawnVolumeButtonProps> = ({
+export const SpawnVolumeButton: React.FC<SpawnVolumeButtonProps> = ({
   maxSpawnableLimit,
   volumeLimit,
 }) => {

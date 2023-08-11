@@ -15,7 +15,7 @@ interface Props {
   userCanModify: boolean;
 }
 
-const BuildBaron: React.VFC<Props> = ({
+const BuildBaron: React.FC<Props> = ({
   annotation,
   execution,
   taskId,

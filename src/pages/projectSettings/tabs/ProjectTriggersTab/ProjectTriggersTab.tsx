@@ -15,7 +15,7 @@ const getInitialFormState = (
   return projectData;
 };
 
-export const ProjectTriggersTab: React.VFC<TabProps> = ({
+export const ProjectTriggersTab: React.FC<TabProps> = ({
   projectData,
   projectType,
   repoData,

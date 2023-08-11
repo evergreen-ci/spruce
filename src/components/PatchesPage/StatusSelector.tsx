@@ -8,7 +8,7 @@ import {
   ALL_PATCH_STATUS,
 } from "types/patch";
 
-export const StatusSelector: React.VFC = () => {
+export const StatusSelector: React.FC = () => {
   const { inputValue: statusVal, setAndSubmitInputValue: statusValOnChange } =
     useStatusesFilter({ urlParam: PatchPageQueryParams.Statuses });
 

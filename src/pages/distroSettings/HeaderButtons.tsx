@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, BodyProps } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { size } from "constants/tokens";
@@ -22,7 +22,7 @@ interface Props {
   tab: WritableDistroSettingsType;
 }
 
-export const HeaderButtons: React.VFC<Props> = ({ tab }) => {
+export const HeaderButtons: React.FC<Props> = ({ tab }) => {
   const dispatchToast = useToastContext();
 
   const { getTab, saveTab } = useDistroSettingsContext();
@@ -115,6 +115,6 @@ export const HeaderButtons: React.VFC<Props> = ({ tab }) => {
   );
 };
 
-const StyledBody = styled(Body)`
+const StyledBody = styled(Body)<BodyProps>`
   margin-bottom: ${size.xs};
 `;

@@ -8,7 +8,7 @@ import { BuildBaronTable } from "../CreatedTicketsTable";
 interface JiraIssueTableProps {
   bbData: BuildBaron;
 }
-const JiraIssueTable: React.VFC<JiraIssueTableProps> = ({ bbData }) => {
+const JiraIssueTable: React.FC<JiraIssueTableProps> = ({ bbData }) => {
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const jiraSearchString = bbData?.searchReturnInfo?.search;

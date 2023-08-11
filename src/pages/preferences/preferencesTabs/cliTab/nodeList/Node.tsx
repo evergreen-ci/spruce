@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Subtitle } from "@leafygreen-ui/typography";
+import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 
 const { green, white } = palette;
@@ -13,7 +13,7 @@ export type NodeType = {
 interface NodeProps extends NodeType {
   stepNumber: number;
 }
-export const Node: React.VFC<NodeProps> = ({ child, stepNumber, title }) => (
+export const Node: React.FC<NodeProps> = ({ child, stepNumber, title }) => (
   <NodeContainer>
     <NodeHeader>
       <Step stepNumber={stepNumber} />
@@ -27,7 +27,7 @@ interface StepProps {
   stepNumber: number;
 }
 
-const Step: React.VFC<StepProps> = ({ stepNumber }) => (
+const Step: React.FC<StepProps> = ({ stepNumber }) => (
   <Circle>
     <Index>{stepNumber}</Index>
   </Circle>
@@ -43,11 +43,11 @@ const Circle = styled.div`
   align-items: center;
 `;
 
-const Index = styled(Subtitle)`
+const Index = styled(Subtitle)<SubtitleProps>`
   color: ${white};
 `;
 
-const NodeTitle = styled(Subtitle)`
+const NodeTitle = styled(Subtitle)<SubtitleProps>`
   align-self: center;
   margin-left: ${size.m};
 `;

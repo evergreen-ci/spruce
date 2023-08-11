@@ -39,7 +39,7 @@ interface Props {
   taskId: string;
   execution: number;
 }
-export const Logs: React.VFC<Props> = ({ execution, logLinks, taskId }) => {
+export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
   const { sendEvent } = useTaskAnalytics();
   const updateQueryParams = useUpdateURLQueryParams();
   const { search } = useLocation();
