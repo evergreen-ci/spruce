@@ -16,7 +16,7 @@ export default defineConfig({
     setupNodeEvents(on) {
       on("before:run", () => {
         try {
-          execSync("yarn evg-ops --restore");
+          execSync("yarn evg-ops --dump");
         } catch (e) {
           console.error(e);
         }

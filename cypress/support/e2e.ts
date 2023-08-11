@@ -121,8 +121,8 @@ before(() => {
   });
 });
 
-let arr = [];
-const mutation = "mutation";
+const MUTATION = "mutation";
+let mutationDispatched: boolean;
 beforeEach(() => {
   cy.login();
   cy.setCookie(bannerCookie, "true");
@@ -130,16 +130,19 @@ beforeEach(() => {
   cy.setCookie(CY_DISABLE_NEW_USER_WELCOME_MODAL, "true");
   cy.setCookie(konamiCookie, "true");
   cy.setCookie(SLACK_NOTIFICATION_BANNER, "true");
+  mutationDispatched = false;
   cy.intercept("POST", "/graphql/query", (req) => {
-    cy.log(JSON.stringify(req));
-    arr.push(req.body.query.substring(0, mutation.length));
+    if (req.body.query?.startsWith(MUTATION)) {
+      mutationDispatched = true;
+    }
   });
 });
 
 afterEach(() => {
-  if(arr.includes(mutation) {
-    cy.exec("yarn evg-ops --resotre")
-  };
+  if (mutationDispatched) {
+    cy.log("A mutation was detected. Restoring EVG.");
+    cy.exec("yarn evg-ops --restore");
+  }
 });
 
 const bannerCookie = "This is an important notification";
