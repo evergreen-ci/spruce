@@ -3,7 +3,7 @@ import { BaseTab } from "../BaseTab";
 import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";
 
-export const GeneralTab: React.FC<TabProps> = ({ distroData }) => {
+export const ProjectTab: React.FC<TabProps> = ({ distroData }) => {
   const initialFormState = distroData;
 
   const formSchema = useMemo(() => getFormSchema(), []);

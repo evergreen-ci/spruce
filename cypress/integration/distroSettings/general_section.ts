@@ -1,3 +1,5 @@
+import { clickSave } from "./utils";
+
 describe("general section", () => {
   beforeEach(() => {
     cy.visit("/distro/localhost/settings/general");
@@ -38,9 +40,3 @@ describe("general section", () => {
     cy.validateToast("success");
   });
 });
-
-const clickSave = () => {
-  cy.dataCy("save-settings-button")
-    .should("not.have.attr", "aria-disabled", "true")
-    .click();
-};
