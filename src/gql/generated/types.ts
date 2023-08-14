@@ -4744,7 +4744,8 @@ export type RestartVersionsMutation = {
 };
 
 export type SaveDistroMutationVariables = Exact<{
-  opts: SaveDistroInput;
+  distro: DistroInput;
+  onSave: DistroOnSaveOperation;
 }>;
 
 export type SaveDistroMutation = {
@@ -5038,7 +5039,90 @@ export type DistroQueryVariables = Exact<{
 
 export type DistroQuery = {
   __typename?: "Query";
-  distro?: { __typename?: "Distro"; name: string } | null;
+  distro?: {
+    __typename?: "Distro";
+    aliases: Array<string>;
+    arch: string;
+    authorizedKeysFile: string;
+    cloneMethod: string;
+    containerPool: string;
+    disabled: boolean;
+    disableShallowClone: boolean;
+    isCluster: boolean;
+    isVirtualWorkStation: boolean;
+    name: string;
+    note: string;
+    provider: string;
+    providerSettingsList: Array<any>;
+    setup: string;
+    setupAsSudo: boolean;
+    sshKey: string;
+    sshOptions: Array<string>;
+    user: string;
+    userSpawnAllowed: boolean;
+    validProjects: Array<string | null>;
+    workDir: string;
+    bootstrapSettings: {
+      __typename?: "BootstrapSettings";
+      clientDir: string;
+      communication: string;
+      jasperBinaryDir: string;
+      jasperCredentialsPath: string;
+      method: string;
+      rootDir: string;
+      serviceUser: string;
+      shellPath: string;
+      env: Array<{ __typename?: "EnvVar"; key: string; value: string }>;
+      preconditionScripts: Array<{
+        __typename?: "PreconditionScript";
+        path: string;
+        script: string;
+      }>;
+      resourceLimits: {
+        __typename?: "ResourceLimits";
+        lockedMemoryKb: number;
+        numFiles: number;
+        numProcesses: number;
+        numTasks: number;
+        virtualMemoryKb: number;
+      };
+    };
+    dispatcherSettings: { __typename?: "DispatcherSettings"; version: string };
+    expansions: Array<{ __typename?: "Expansion"; key: string; value: string }>;
+    finderSettings: { __typename?: "FinderSettings"; version: string };
+    homeVolumeSettings: {
+      __typename?: "HomeVolumeSettings";
+      formatCommand: string;
+    };
+    hostAllocatorSettings: {
+      __typename?: "HostAllocatorSettings";
+      acceptableHostIdleTime: number;
+      feedbackRule: string;
+      futureHostFraction: number;
+      hostsOverallocatedRule: string;
+      maximumHosts: number;
+      minimumHosts: number;
+      roundingRule: string;
+      version: string;
+    };
+    iceCreamSettings: {
+      __typename?: "IceCreamSettings";
+      configPath: string;
+      schedulerHost: string;
+    };
+    plannerSettings: {
+      __typename?: "PlannerSettings";
+      commitQueueFactor: number;
+      expectedRuntimeFactor: number;
+      generateTaskFactor: number;
+      groupVersions: boolean;
+      mainlineTimeInQueueFactor: number;
+      patchFactor: number;
+      patchTimeInQueueFactor: number;
+      targetTime: number;
+      version: string;
+    };
+  } | null;
 };
 
 export type FailedTaskStatusIconTooltipQueryVariables = Exact<{

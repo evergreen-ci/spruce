@@ -10,6 +10,7 @@ import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   DistroOnSaveOperation,
+  DistroQuery,
   SaveDistroMutation,
   SaveDistroMutationVariables,
 } from "gql/generated/types";
@@ -19,10 +20,11 @@ import { formToGqlMap } from "./tabs/transformers";
 import { WritableDistroSettingsType } from "./tabs/types";
 
 interface Props {
+  distro: DistroQuery["distro"];
   tab: WritableDistroSettingsType;
 }
 
-export const HeaderButtons: React.FC<Props> = ({ tab }) => {
+export const HeaderButtons: React.FC<Props> = ({ distro, tab }) => {
   const dispatchToast = useToastContext();
 
   const { getTab, saveTab } = useDistroSettingsContext();
@@ -57,18 +59,19 @@ export const HeaderButtons: React.FC<Props> = ({ tab }) => {
   });
 
   const handleSave = () => {
-    const formToGql = formToGqlMap[tab];
-    const updatedDistro = formToGql(formData);
-    saveDistro({
-      variables: {
-        opts: {
-          // @ts-expect-error
-          distro: updatedDistro,
-          onSave: onSaveOperation,
+    // Only perform the save operation is the tab is valid.
+    // eslint-disable-next-line no-prototype-builtins
+    if (formToGqlMap.hasOwnProperty(tab)) {
+      const formToGql = formToGqlMap[tab];
+      const changes = formToGql(formData, distro);
+      saveDistro({
+        variables: {
+          distro: changes,
+          onSave: DistroOnSaveOperation.None,
         },
-      },
-    });
-    setModalOpen(false);
+      });
+      setModalOpen(false);
+    }
   };
 
   return (

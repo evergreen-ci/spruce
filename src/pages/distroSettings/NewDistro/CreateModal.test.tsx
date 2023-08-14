@@ -4,11 +4,8 @@ import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   CreateDistroMutation,
   CreateDistroMutationVariables,
-  DistroQuery,
-  DistroQueryVariables,
 } from "gql/generated/types";
 import { CREATE_DISTRO } from "gql/mutations";
-import { DISTRO } from "gql/queries";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -27,7 +24,7 @@ const Modal = ({
   createMock?: MockedResponse;
   open?: boolean;
 }) => (
-  <MockedProvider mocks={[createMock, distroMock]}>
+  <MockedProvider mocks={[createMock]}>
     <CreateModal handleClose={() => {}} open={open} />
   </MockedProvider>
 );
@@ -136,23 +133,6 @@ const createDistroMock: ApolloMock<
       createDistro: {
         __typename: "NewDistroPayload",
         newDistroId,
-      },
-    },
-  },
-};
-
-const distroMock: ApolloMock<DistroQuery, DistroQueryVariables> = {
-  request: {
-    query: DISTRO,
-    variables: {
-      distroId: newDistroId,
-    },
-  },
-  result: {
-    data: {
-      distro: {
-        __typename: "Distro",
-        name: newDistroId,
       },
     },
   },
