@@ -114,7 +114,7 @@ declare global {
 }
 
 before(() => {
-  cy.exec("yarn evg-ops --restore").then((result) => {
+  cy.exec("yarn restore-evg").then((result) => {
     if (result.code !== 0) {
       throw new Error("EVG DB restoration failed during setup.");
     }
@@ -141,7 +141,7 @@ beforeEach(() => {
 afterEach(() => {
   if (mutationDispatched) {
     cy.log("A mutation was detected. Restoring EVG.");
-    cy.exec("yarn evg-ops --restore");
+    cy.exec("yarn restore-evg");
   }
 });
 
