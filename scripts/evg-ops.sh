@@ -25,14 +25,7 @@ restore_database() {
         exit 1
     fi
 
-    echo "Dropping $DB_NAME database..."
-    mongosh --eval "use $DB_NAME" --eval "db.dropDatabase()" 2>&1
-    if [ $? -ne 0 ]; then
-        echo "Error dropping the $DB_NAME database."
-        exit 1
-    fi
-
-    if mongorestore --uri="$URI" "$DUMP_FOLDER" 2>&1; then
+    if mongorestore --drop --uri="$URI" "$DUMP_FOLDER" 2>&1; then
         echo "Successfully restored the database from $DUMP_FOLDER."
         exit 0
     else
