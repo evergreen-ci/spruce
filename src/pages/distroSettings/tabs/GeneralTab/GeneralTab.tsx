@@ -9,6 +9,6 @@ export const GeneralTab: React.FC<TabProps> = ({ distroData }) => {
   const formSchema = useMemo(() => getFormSchema(), []);
 
   return (
-    <BaseTab initialFormState={initialFormState} formSchema={formSchema} />
+    <BaseTab formSchema={formSchema} initialFormState={initialFormState} />
   );
 };

@@ -11,8 +11,8 @@ import {
 } from "./tabs/types";
 
 interface Props {
-  tab: DistroSettingsTabRoutes;
   distro: DistroQuery["distro"];
+  tab: DistroSettingsTabRoutes;
 }
 
 export const Header: React.FC<Props> = ({ distro, tab }) => {
@@ -28,8 +28,8 @@ export const Header: React.FC<Props> = ({ distro, tab }) => {
       </TitleContainer>
       {saveable && (
         <HeaderButtons
-          tab={tab as WritableDistroSettingsType}
           distro={distro}
+          tab={tab as WritableDistroSettingsType}
         />
       )}
     </Container>

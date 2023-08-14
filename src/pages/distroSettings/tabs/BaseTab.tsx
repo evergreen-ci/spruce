@@ -6,8 +6,8 @@ import { FormStateMap, WritableDistroSettingsType } from "./types";
 
 type BaseTabProps<T extends WritableDistroSettingsType> = {
   disabled?: boolean;
-  initialFormState: FormStateMap[T];
   formSchema: ReturnType<GetFormSchema>;
+  initialFormState: FormStateMap[T];
   validate?: ValidateProps<FormStateMap[T]>;
 };
 
@@ -16,7 +16,6 @@ export const BaseTab = <T extends WritableDistroSettingsType>({
   ...rest
 }: BaseTabProps<T>) => {
   const { tab } = useParams<{ tab: T }>();
-
   const state = useDistroSettingsContext();
   usePopulateForm(initialFormState, tab);
 

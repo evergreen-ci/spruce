@@ -13,8 +13,8 @@ import { formToGqlMap } from "./tabs/transformers";
 import { WritableDistroSettingsType } from "./tabs/types";
 
 interface Props {
-  tab: WritableDistroSettingsType;
   distro: DistroQuery["distro"];
+  tab: WritableDistroSettingsType;
 }
 
 export const HeaderButtons: React.FC<Props> = ({ distro, tab }) => {
@@ -38,8 +38,7 @@ export const HeaderButtons: React.FC<Props> = ({ distro, tab }) => {
     refetchQueries: ["Distro"],
   });
 
-  // TODO: Add save modal in EVG-20565. Allow the user to specify the on save operation.
-  // Disable the button if the user does not have editing permissions.
+  // TODO: Add save modal in EVG-20565 to allow user to specify the on save operation.
   const onClick = () => {
     // Only perform the save operation is the tab is valid.
     // eslint-disable-next-line no-prototype-builtins

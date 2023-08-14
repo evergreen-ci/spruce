@@ -9,7 +9,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
     properties: {
       distroName: {
         type: "object" as "object",
-        title: "Identifier",
+        title: "",
         properties: {
           identifier: {
             type: "string" as "string",
@@ -51,18 +51,17 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
           isCluster: {
             type: "boolean" as "boolean",
             title:
-              "Mark distro as a cluster (jobs are not run on this host, used for special purposes)",
+              "Mark distro as a cluster (jobs are not run on this host, used for special purposes).",
             default: false,
           },
           disableShallowClone: {
             type: "boolean" as "boolean",
-            title: "Disable shallow clone for this distro",
+            title: "Disable shallow clone for this distro.",
             default: false,
           },
           disabled: {
             type: "boolean" as "boolean",
-            title:
-              "Disable queueing this distro. Tasks already in the task queue will be removed.",
+            title: "Disable queueing for this distro.",
             default: false,
           },
         },
@@ -77,7 +76,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       "ui:rootFieldId": "aliases",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       aliases: {
-        "ui:addButtonText": "Add new alias",
+        "ui:addButtonText": "Add alias",
         "ui:orderable": false,
         "ui:showLabel": false,
         items: {
@@ -94,6 +93,9 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
     },
     distroOptions: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
+      disabled: {
+        "ui:description": "Tasks already in the task queue will be removed.",
+      },
     },
   },
 });

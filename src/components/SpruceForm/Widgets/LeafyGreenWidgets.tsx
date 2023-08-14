@@ -111,14 +111,18 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
   const {
     customLabel,
     "data-cy": dataCy,
+    description,
     elementWrapperCSS,
     tooltipDescription,
   } = options;
   return (
     <ElementWrapper css={elementWrapperCSS}>
       <Checkbox
-        data-cy={dataCy}
+        bold={false}
         checked={value}
+        data-cy={dataCy}
+        description={description}
+        disabled={disabled || readonly}
         label={
           <>
             {customLabel || label}
@@ -139,7 +143,6 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
           </>
         }
         onChange={(e) => onChange(e.target.checked)}
-        disabled={disabled || readonly}
       />
     </ElementWrapper>
   );
