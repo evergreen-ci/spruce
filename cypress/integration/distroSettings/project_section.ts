@@ -12,8 +12,8 @@ describe("project section", () => {
       "true"
     );
 
-    cy.dataCy("clone-method-select").contains("Legacy SSH");
     // Update fields.
+    cy.dataCy("clone-method-select").contains("Legacy SSH");
     cy.dataCy("clone-method-select").click();
     cy.contains("OAuth").click();
     cy.contains("button", "Add expansion").click();
