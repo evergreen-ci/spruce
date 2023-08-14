@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.123",
+  "version": "3.0.124",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -21,6 +21,7 @@
     "deploy:prod": "env-cmd -e production ts-node scripts/deploy/run-deploy",
     "deploy:do-not-use": ". ./scripts/deploy/deploy.sh",
     "dev": "env-cmd -e devLocal -r .env-cmdrc.local.json yarn start",
+    "diff-schema": "ts-node scripts/diff-local-schema-with-remote/index.ts",
     "eslint:fix": "yarn eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint '*.{js,ts,tsx}' 'src/**/*.ts?(x)' 'scripts/**/*.js' 'cypress/**/*.ts' 'src/gql/**/*.graphql'",
@@ -207,6 +208,7 @@
     "replace-in-file": "6.3.5",
     "rollup-plugin-visualizer": "^5.9.2",
     "serve-handler": "^6.1.5",
+    "simple-git": "3.19.1",
     "storybook": "7.0.21",
     "storybook-addon-apollo-client": "^4.1.4",
     "ts-node": "10.9.1",
