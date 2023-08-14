@@ -61,7 +61,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
           },
           disabled: {
             type: "boolean" as "boolean",
-            title: "Disable queueing this distro.",
+            title: "Disable queueing for this distro.",
             default: false,
           },
         },
