@@ -26,7 +26,7 @@ restore_database() {
     fi
 
     echo "Dropping $DB_NAME database..."
-    mongo --eval "db.dropDatabase()" $DB_NAME 2>&1
+    mongosh --eval "use $DB_NAME" --eval "db.dropDatabase()" 2>&1
     if [ $? -ne 0 ]; then
         echo "Error dropping the $DB_NAME database."
         exit 1
