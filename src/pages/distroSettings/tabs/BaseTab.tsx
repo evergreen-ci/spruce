@@ -5,8 +5,8 @@ import { FormStateMap, WritableDistroSettingsType } from "./types";
 
 type BaseTabProps<T extends WritableDistroSettingsType> = {
   disabled?: boolean;
-  initialFormState: FormStateMap[T];
   formSchema: ReturnType<GetFormSchema>;
+  initialFormState: FormStateMap[T];
   tab: T;
   validate?: ValidateProps<FormStateMap[T]>;
 };
