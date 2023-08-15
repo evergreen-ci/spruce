@@ -6,7 +6,7 @@ import { DistroQuery } from "gql/generated/types";
 import { useDistroSettingsContext } from "./Context";
 import { Header } from "./Header";
 import { NavigationModal } from "./NavigationModal";
-import { GeneralTab } from "./tabs/index";
+import { EventLogTab, GeneralTab } from "./tabs/index";
 import { gqlToFormMap } from "./tabs/transformers";
 
 interface Props {
@@ -38,6 +38,10 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
           element={
             <GeneralTab distroData={tabData[DistroSettingsTabRoutes.General]} />
           }
+        />
+        <Route
+          path={DistroSettingsTabRoutes.EventLog}
+          element={<EventLogTab />}
         />
       </Routes>
     </Container>

@@ -1,22 +1,18 @@
 import { useParams } from "react-router-dom";
 import { EventLog } from "components/Settings/EventLog";
-import { ProjectType } from "../utils";
-import { useProjectSettingsEvents } from "./useProjectSettingsEvents";
+import { useDistroEvents } from "./useDistroEvents";
 
 type TabProps = {
   limit?: number;
-  projectType: ProjectType;
 };
 
-export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
-  const { projectIdentifier: identifier } = useParams<{
-    projectIdentifier: string;
+export const EventLogTab: React.FC<TabProps> = ({ limit }) => {
+  const { distroId } = useParams<{
+    distroId: string;
   }>();
 
-  const isRepo = projectType === ProjectType.Repo;
-  const { allEventsFetched, events, fetchMore } = useProjectSettingsEvents(
-    identifier,
-    isRepo,
+  const { allEventsFetched, events, fetchMore } = useDistroEvents(
+    distroId,
     limit
   );
 
@@ -29,7 +25,7 @@ export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
       handleFetchMore={() => {
         fetchMore({
           variables: {
-            identifier,
+            distroId,
             before: lastEventTimestamp,
           },
         });

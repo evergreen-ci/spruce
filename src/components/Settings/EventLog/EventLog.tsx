@@ -1,13 +1,18 @@
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
+import Card from "@leafygreen-ui/card";
 import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
+import { fontFamilies } from "@leafygreen-ui/tokens";
 import { Subtitle } from "@leafygreen-ui/typography";
+import { size } from "constants/tokens";
 import { EventDiffLine, EventValue, getEventDiffLines } from "./EventLogDiffs";
 import { Header } from "./Header";
 
-export const EventLog = ({ allEventsFetched, events, fetchMore }) => {
-  console.log("hi");
+export const EventLog = ({ allEventsFetched, events, handleFetchMore }) => {
+  const allEventsFetchedCopy =
+    events.length > 0 ? "No more events to show." : "No events to show.";
+
   return (
     <Container data-cy="event-log">
       {events.map(({ after, before, timestamp, user }) => (
@@ -57,14 +62,7 @@ export const EventLog = ({ allEventsFetched, events, fetchMore }) => {
         <Button
           data-cy="load-more-button"
           variant="primary"
-          onClick={() => {
-            fetchMore({
-              variables: {
-                identifier,
-                before: lastEventTimestamp,
-              },
-            });
-          }}
+          onClick={handleFetchMore}
         >
           Load more events
         </Button>
