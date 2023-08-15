@@ -25,7 +25,7 @@ restore_database() {
         exit 1
     fi
 
-    if mongorestore --drop --uri="$URI" "$DUMP_FOLDER" 2>&1; then
+    if mongorestore --quiet --drop --uri="$URI" "$DUMP_FOLDER"; then
         echo "Successfully restored the database from $DUMP_FOLDER."
         exit 0
     else
