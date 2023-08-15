@@ -43,7 +43,7 @@ export const HeaderButtons: React.FC<Props> = ({ distro, tab }) => {
       saveTab(tab);
       dispatchToast.success(
         `Updated distro${
-          hostCount
+          onSaveOperation !== DistroOnSaveOperation.None
             ? ` and scheduled ${hostCount} ${pluralize(
                 "host",
                 hostCount
@@ -67,7 +67,7 @@ export const HeaderButtons: React.FC<Props> = ({ distro, tab }) => {
       saveDistro({
         variables: {
           distro: changes,
-          onSave: DistroOnSaveOperation.None,
+          onSave: onSaveOperation,
         },
       });
       setModalOpen(false);
@@ -86,6 +86,7 @@ export const HeaderButtons: React.FC<Props> = ({ distro, tab }) => {
       </Button>
       <ConfirmationModal
         buttonText="Save"
+        data-cy="save-modal"
         open={modalOpen}
         onCancel={() => setModalOpen(false)}
         onConfirm={handleSave}
