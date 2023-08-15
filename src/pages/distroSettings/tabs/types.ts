@@ -1,5 +1,6 @@
 import { DistroSettingsTabRoutes } from "constants/routes";
-import { DistroQuery, SaveDistroInput } from "gql/generated/types";
+import { DistroQuery, DistroInput } from "gql/generated/types";
+import { GeneralFormState } from "./GeneralTab/types";
 
 const { EventLog, ...WritableDistroSettingsTabs } = DistroSettingsTabRoutes;
 export { WritableDistroSettingsTabs };
@@ -10,7 +11,7 @@ export type WritableDistroSettingsType =
 // TODO: Specify type as tabs are added.
 export type FormStateMap = {
   [T in WritableDistroSettingsType]: {
-    [DistroSettingsTabRoutes.General]: any;
+    [DistroSettingsTabRoutes.General]: GeneralFormState;
     [DistroSettingsTabRoutes.Provider]: any;
     [DistroSettingsTabRoutes.Task]: any;
     [DistroSettingsTabRoutes.Host]: any;
@@ -20,8 +21,8 @@ export type FormStateMap = {
 
 export type FormToGqlFunction<T extends WritableDistroSettingsType> = (
   form: FormStateMap[T],
-  id?: string
-) => SaveDistroInput;
+  distro: DistroQuery["distro"]
+) => DistroInput;
 
 export type GqlToFormFunction<T extends WritableDistroSettingsType> = (
   data: DistroQuery["distro"]
