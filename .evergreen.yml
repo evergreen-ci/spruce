@@ -228,7 +228,7 @@ functions:
       script: |
         ${PREPARE_SHELL}
         # Only record to cypress cloud if this is a pr or a mainline commit.
-        if [[ "${requester}" == "github_pr" || "${requester}" == "commit" ]]; then
+        if [[ "${requester}" == "github_pr" || "${requester}" == "commit" || "${requester}" == "patch" ]]; then
           yarn cy:run --record --key "${cypress_record_key}" --reporter junit
         else
           yarn cy:run --reporter junit
