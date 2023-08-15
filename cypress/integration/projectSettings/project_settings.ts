@@ -6,8 +6,8 @@ import {
   projectUseRepoEnabled,
   repo,
   saveButtonEnabled,
-  clickSave,
 } from "./constants";
+import { clickSave } from "../../utils";
 
 describe("Access page", { testIsolation: false }, () => {
   const destination = getAccessRoute(projectUseRepoEnabled);

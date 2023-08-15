@@ -1,8 +1,5 @@
-import {
-  getNotificationsRoute,
-  saveButtonEnabled,
-  clickSave,
-} from "./constants";
+import { getNotificationsRoute, saveButtonEnabled } from "./constants";
+import { clickSave } from "../../utils";
 
 describe("Notifications", { testIsolation: false }, () => {
   const destination = getNotificationsRoute("evergreen");
