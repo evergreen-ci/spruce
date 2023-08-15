@@ -1,4 +1,4 @@
-import { DistroQuery } from "gql/generated/types";
+import { CloneMethod, DistroQuery } from "gql/generated/types";
 
 const distroData: DistroQuery["distro"] = {
   __typename: "Distro",
@@ -29,7 +29,7 @@ const distroData: DistroQuery["distro"] = {
     serviceUser: "",
     shellPath: "/bin/bash",
   },
-  cloneMethod: "legacy-ssh",
+  cloneMethod: CloneMethod.LegacySsh,
   containerPool: "",
   disabled: false,
   disableShallowClone: true,

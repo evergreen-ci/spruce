@@ -11,6 +11,7 @@ import { formComponentSpacingCSS } from "components/SettingsCard";
 import { size } from "constants/tokens";
 import { Unpacked } from "types/utils";
 import ElementWrapper from "../../ElementWrapper";
+import { STANDARD_FIELD_WIDTH } from "../../utils";
 
 const { gray } = palette;
 // Total pixel count above a text field with a label. Used to align buttons to the
@@ -240,11 +241,11 @@ type ArrayContainerProps = {
   fullWidth?: boolean;
 };
 
-const ArrayContainer = styled.div`
+const ArrayContainer = styled.div<ArrayContainerProps>`
   ${({ hasChildren }) => hasChildren && `margin-bottom: ${size.m};`}
   min-width: min-content;
-  width: ${({ fullWidth }: ArrayContainerProps): string =>
-    fullWidth ? "100%" : "70%"};
+  ${({ fullWidth }) =>
+    fullWidth ? "" : `max-width: ${STANDARD_FIELD_WIDTH}px;`}
 `;
 
 const DeleteButtonWrapper = styled(ElementWrapper)`

@@ -179,6 +179,11 @@ export type ClientConfig = {
   latestRevision?: Maybe<Scalars["String"]>;
 };
 
+export enum CloneMethod {
+  LegacySsh = "LEGACY_SSH",
+  Oauth = "OAUTH",
+}
+
 export type CloudProviderConfig = {
   __typename?: "CloudProviderConfig";
   aws?: Maybe<AwsConfig>;
@@ -312,7 +317,7 @@ export type Distro = {
   arch: Scalars["String"];
   authorizedKeysFile: Scalars["String"];
   bootstrapSettings: BootstrapSettings;
-  cloneMethod: Scalars["String"];
+  cloneMethod: CloneMethod;
   containerPool: Scalars["String"];
   disableShallowClone: Scalars["Boolean"];
   disabled: Scalars["Boolean"];
@@ -354,7 +359,7 @@ export type DistroInput = {
   arch: Scalars["String"];
   authorizedKeysFile: Scalars["String"];
   bootstrapSettings: BootstrapSettingsInput;
-  cloneMethod: Scalars["String"];
+  cloneMethod: CloneMethod;
   containerPool: Scalars["String"];
   disableShallowClone: Scalars["Boolean"];
   disabled: Scalars["Boolean"];
@@ -5044,7 +5049,7 @@ export type DistroQuery = {
     aliases: Array<string>;
     arch: string;
     authorizedKeysFile: string;
-    cloneMethod: string;
+    cloneMethod: CloneMethod;
     containerPool: string;
     disabled: boolean;
     disableShallowClone: boolean;
