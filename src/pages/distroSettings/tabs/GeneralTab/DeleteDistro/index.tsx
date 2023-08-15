@@ -59,7 +59,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal, distroId, open }) => {
       onConfirm={onConfirm}
       open={open}
       variant="danger"
-      title={`Delete “${distroId}“?`}
+      title={`Delete “${distroId}”?`}
       data-cy="delete-distro-modal"
     >
       <p>This action cannot be undone.</p>
