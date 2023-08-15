@@ -16,7 +16,7 @@ Spruce is the React UI for MongoDB's continuous integration software.
 ### Running Locally
 
 1. Clone the Spruce Github repository
-2. Ensure you have Node.js 16+ installed
+2. Ensure you have Node.js 16+ and MongoDB Command Line Database Tools installed
 3. Ask a colleague for their .cmdrc.json file and follow the instructions
    [here](#environment-variables)
 4. Run `yarn`
@@ -200,22 +200,26 @@ production environments.
    switched to db mci
    mci:SECONDARY>  db.distro.find({_id: "archlinux-small"}) // the full query
    ```
+
 5. Exit from the mongo shell and prepare to run `mongoexport`
+
    ```
-   mongoexport --db=mci --collection=distro --out=distro.json --query='{_id: "archlinux-small"}' 
+   mongoexport --db=mci --collection=distro --out=distro.json --query='{_id: "archlinux-small"}'
    2020-07-29T17:41:50.266+0000	connected to: localhost
    2020-07-29T17:41:50.269+0000	exported 1 record
    ```
+
    After running this command a file will be saved to your home directory with
    the results of the `mongoexport`
 
    _Note you may need to provide the full path to mongoexport on the staging db_
 
    ```
-   /var/lib/mongodb-mms-automation/mongodb-linux-x86_64-4.0.5/bin/mongoexport --db=mci --collection=distro --out=distro.json --query='{_id: "archlinux-small"}' 
+   /var/lib/mongodb-mms-automation/mongodb-linux-x86_64-4.0.5/bin/mongoexport --db=mci --collection=distro --out=distro.json --query='{_id: "archlinux-small"}'
    2020-07-29T17:41:50.266+0000	connected to: localhost
    2020-07-29T17:41:50.269+0000	exported 1 record
    ```
+
 6. Exit the ssh session using `exit` or `Ctrl + D`
 7. You can now transfer this json file to your local system by running the
    following command. `scp <db you sshed into>:~/distro.json .` This will save a
