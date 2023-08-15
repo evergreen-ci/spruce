@@ -1,5 +1,7 @@
+import { CloneMethod } from "gql/generated/types";
+
 export interface ProjectFormState {
-  cloneMethod: string;
+  cloneMethod: CloneMethod;
   expansions: Array<{
     key: string;
     value: string;

@@ -3,7 +3,7 @@ import { distroData } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
 import { ProjectFormState } from "./types";
 
-describe("general tab", () => {
+describe("project tab", () => {
   it("correctly converts from GQL to a form", () => {
     expect(gqlToForm(distroData)).toStrictEqual(form);
   });

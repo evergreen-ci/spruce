@@ -70,11 +70,15 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       "ui:orderable": false,
       items: {
         "ui:ObjectFieldTemplate": FieldRow,
+        "ui:label": false,
       },
     },
     validProjects: {
       "ui:addButtonText": "Add project",
       "ui:orderable": false,
+      items: {
+        "ui:label": false,
+      },
     },
   },
 });

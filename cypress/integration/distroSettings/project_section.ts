@@ -1,4 +1,4 @@
-import { clickSave } from "./utils";
+import { clickSave } from "../../utils";
 
 describe("project section", () => {
   beforeEach(() => {
@@ -16,6 +16,7 @@ describe("project section", () => {
     cy.dataCy("clone-method-select").contains("Legacy SSH");
     cy.dataCy("clone-method-select").click();
     cy.contains("OAuth").click();
+    cy.selectLGOption("Project Cloning Method", "OAuth");
     cy.contains("button", "Add expansion").click();
     cy.getInputByLabel("Key").type("key-name");
     cy.getInputByLabel("Value").type("my-value");
@@ -33,8 +34,7 @@ describe("project section", () => {
     cy.getInputByLabel("Project Name").should("have.value", "spruce");
 
     // Undo changes.
-    cy.dataCy("clone-method-select").click();
-    cy.contains("Legacy SSH").click();
+    cy.selectLGOption("Project Cloning Method", "Legacy SSH");
     cy.dataCy("delete-item-button").first().click();
     cy.dataCy("delete-item-button").first().click();
     clickSave();

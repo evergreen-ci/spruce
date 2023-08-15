@@ -1,4 +1,4 @@
-import { clickSave } from "./utils";
+import { clickSave } from "../../utils";
 
 describe("general section", () => {
   beforeEach(() => {
