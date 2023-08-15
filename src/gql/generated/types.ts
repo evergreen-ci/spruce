@@ -4435,6 +4435,15 @@ export type DefaultSectionToRepoMutation = {
   defaultSectionToRepo?: string | null;
 };
 
+export type DeleteDistroMutationVariables = Exact<{
+  distroId: Scalars["String"];
+}>;
+
+export type DeleteDistroMutation = {
+  __typename?: "Mutation";
+  deleteDistro: { __typename?: "DeleteDistroPayload"; deletedDistroId: string };
+};
+
 export type DeleteProjectMutationVariables = Exact<{
   projectId: Scalars["String"];
 }>;
@@ -8514,7 +8523,7 @@ export type TaskQueueDistrosQuery = {
 };
 
 export type UserDistroSettingsPermissionsQueryVariables = Exact<{
-  [key: string]: never;
+  distroId: Scalars["String"];
 }>;
 
 export type UserDistroSettingsPermissionsQuery = {
@@ -8522,7 +8531,11 @@ export type UserDistroSettingsPermissionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    permissions: { __typename?: "Permissions"; canCreateDistro: boolean };
+    permissions: {
+      __typename?: "Permissions";
+      canCreateDistro: boolean;
+      distroPermissions: { __typename?: "DistroPermissions"; admin: boolean };
+    };
   };
 };
 

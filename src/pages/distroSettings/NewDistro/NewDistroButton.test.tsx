@@ -28,7 +28,7 @@ describe("new distro button", () => {
     > = {
       request: {
         query: USER_DISTRO_SETTINGS_PERMISSIONS,
-        variables: {},
+        variables: { distroId },
       },
       result: {
         data: {
@@ -38,6 +38,10 @@ describe("new distro button", () => {
             permissions: {
               __typename: "Permissions",
               canCreateDistro: false,
+              distroPermissions: {
+                __typename: "DistroPermissions",
+                admin: false,
+              },
             },
           },
         },
@@ -46,7 +50,10 @@ describe("new distro button", () => {
     const { Component } = RenderFakeToastContext(
       <Button mock={lacksPermissionsMock} />
     );
-    render(<Component />);
+    render(<Component />, {
+      path: "/distro/:distroId/settings/general",
+      route: `/distro/${distroId}/settings/general`,
+    });
 
     expect(screen.queryByDataCy("new-distro-button")).not.toBeInTheDocument();
   });
@@ -54,7 +61,10 @@ describe("new distro button", () => {
   describe("when user has create distro permissions", () => {
     it("clicking the button opens the menu", async () => {
       const { Component } = RenderFakeToastContext(<Button />);
-      render(<Component />);
+      render(<Component />, {
+        path: "/distro/:distroId/settings/general",
+        route: `/distro/${distroId}/settings/general`,
+      });
 
       await screen.findByText("New distro");
       userEvent.click(screen.queryByDataCy("new-distro-button"));
@@ -65,7 +75,10 @@ describe("new distro button", () => {
 
     it("clicking the 'Create new distro' button opens the create distro modal and closes the menu", async () => {
       const { Component } = RenderFakeToastContext(<Button />);
-      render(<Component />);
+      render(<Component />, {
+        path: "/distro/:distroId/settings/general",
+        route: `/distro/${distroId}/settings/general`,
+      });
 
       await screen.findByText("New distro");
       userEvent.click(screen.queryByDataCy("new-distro-button"));
@@ -81,7 +94,10 @@ describe("new distro button", () => {
 
     it("clicking the 'Copy distro' button opens the create distro modal and closes the menu", async () => {
       const { Component } = RenderFakeToastContext(<Button />);
-      render(<Component />);
+      render(<Component />, {
+        path: "/distro/:distroId/settings/general",
+        route: `/distro/${distroId}/settings/general`,
+      });
 
       await screen.findByText("New distro");
       userEvent.click(screen.queryByDataCy("new-distro-button"));
@@ -97,13 +113,15 @@ describe("new distro button", () => {
   });
 });
 
+const distroId = "localhost";
+
 const permissionsMock: ApolloMock<
   UserDistroSettingsPermissionsQuery,
   UserDistroSettingsPermissionsQueryVariables
 > = {
   request: {
     query: USER_DISTRO_SETTINGS_PERMISSIONS,
-    variables: {},
+    variables: { distroId },
   },
   result: {
     data: {
@@ -113,6 +131,10 @@ const permissionsMock: ApolloMock<
         permissions: {
           __typename: "Permissions",
           canCreateDistro: true,
+          distroPermissions: {
+            __typename: "DistroPermissions",
+            admin: true,
+          },
         },
       },
     },
