@@ -121,29 +121,31 @@ before(() => {
   });
 });
 
-const MUTATION = "mutation";
-let mutationDispatched: boolean;
-beforeEach(() => {
-  cy.login();
-  cy.setCookie(bannerCookie, "true");
-  cy.setCookie(CY_DISABLE_COMMITS_WELCOME_MODAL, "true");
-  cy.setCookie(CY_DISABLE_NEW_USER_WELCOME_MODAL, "true");
-  cy.setCookie(konamiCookie, "true");
-  cy.setCookie(SLACK_NOTIFICATION_BANNER, "true");
-  mutationDispatched = false;
-  cy.intercept("POST", "/graphql/query", (req) => {
-    if (req.body.query?.startsWith(MUTATION)) {
-      mutationDispatched = true;
+(function () {
+  let mutationDispatched: boolean;
+  beforeEach(() => {
+    cy.login();
+    cy.setCookie(bannerCookie, "true");
+    cy.setCookie(CY_DISABLE_COMMITS_WELCOME_MODAL, "true");
+    cy.setCookie(CY_DISABLE_NEW_USER_WELCOME_MODAL, "true");
+    cy.setCookie(konamiCookie, "true");
+    cy.setCookie(SLACK_NOTIFICATION_BANNER, "true");
+    mutationDispatched = false;
+    cy.intercept("POST", "/graphql/query", (req) => {
+      if (req.body.query?.startsWith(MUTATION)) {
+        mutationDispatched = true;
+      }
+    });
+  });
+
+  afterEach(() => {
+    if (mutationDispatched) {
+      cy.log("A mutation was detected. Restoring EVG.");
+      cy.exec("yarn restore-evg");
     }
   });
-});
+})();
 
-afterEach(() => {
-  if (mutationDispatched) {
-    cy.log("A mutation was detected. Restoring EVG.");
-    cy.exec("yarn restore-evg");
-  }
-});
-
+const MUTATION = "mutation";
 const bannerCookie = "This is an important notification";
 const konamiCookie = "seen-konami-code";
