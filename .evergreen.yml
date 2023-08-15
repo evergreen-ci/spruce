@@ -77,7 +77,6 @@ functions:
           tar -zxvf mongodb-database-tools-ubuntu2204-x86_64-100.7.5.tgz
           cd mongodb-database-tools-ubuntu2204-x86_64-100.7.5/bin
           sudo cp -r * /usr/local/bin/
-          mongorestore --help
   setup-node:
     - command: subprocess.exec
       params:
