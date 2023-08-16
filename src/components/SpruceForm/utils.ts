@@ -21,3 +21,5 @@ export const getFields = (
   isDisabled
     ? properties.map(disableField)
     : properties.map(({ content }) => content);
+
+export const STANDARD_FIELD_WIDTH = 400;

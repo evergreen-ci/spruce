@@ -37,9 +37,3 @@ export const saveButtonEnabled = (isEnabled: boolean = true) => {
     "true"
   );
 };
-
-export const clickSave = () => {
-  cy.dataCy("save-settings-button")
-    .should("not.have.attr", "aria-disabled", "true")
-    .click();
-};

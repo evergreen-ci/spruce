@@ -1,6 +1,7 @@
 import { DistroSettingsTabRoutes } from "constants/routes";
 import { DistroQuery, DistroInput } from "gql/generated/types";
 import { GeneralFormState } from "./GeneralTab/types";
+import { ProjectFormState } from "./ProjectTab/types";
 
 const { EventLog, ...WritableDistroSettingsTabs } = DistroSettingsTabRoutes;
 export { WritableDistroSettingsTabs };
@@ -15,7 +16,7 @@ export type FormStateMap = {
     [DistroSettingsTabRoutes.Provider]: any;
     [DistroSettingsTabRoutes.Task]: any;
     [DistroSettingsTabRoutes.Host]: any;
-    [DistroSettingsTabRoutes.Project]: any;
+    [DistroSettingsTabRoutes.Project]: ProjectFormState;
   }[T];
 };
 
