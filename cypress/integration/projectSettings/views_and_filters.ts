@@ -1,8 +1,5 @@
-import {
-  getViewsAndFiltersRoute,
-  saveButtonEnabled,
-  clickSave,
-} from "./constants";
+import { getViewsAndFiltersRoute, saveButtonEnabled } from "./constants";
+import { clickSave } from "../../utils";
 
 describe("Views & filters page", () => {
   const destination = getViewsAndFiltersRoute("sys-perf");

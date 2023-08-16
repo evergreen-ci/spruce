@@ -63,3 +63,12 @@ export const clickOnPageSizeBtnAndAssertURLandTableSize = (
   cy.get(dataCyTableRows).should("have.length.of.at.most", pageSize);
   cy.location("search").should("include", `limit=${pageSize}`);
 };
+
+/**
+ * Save a settings page that has a button with the 'save-settings-button' data-cy attribute.
+ */
+export const clickSave = () => {
+  cy.dataCy("save-settings-button")
+    .should("not.have.attr", "aria-disabled", "true")
+    .click();
+};
