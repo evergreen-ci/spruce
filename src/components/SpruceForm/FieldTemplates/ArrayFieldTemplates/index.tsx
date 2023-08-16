@@ -106,7 +106,8 @@ const ArrayItemRow = styled.div<{ border: boolean; index: number }>`
   padding: ${size.m};
     `};
 
-  .field-object {
+  .field-object,
+  .field {
     flex-grow: 1;
   }
 `;

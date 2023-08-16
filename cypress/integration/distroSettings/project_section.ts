@@ -14,8 +14,6 @@ describe("project section", () => {
 
     // Update fields.
     cy.dataCy("clone-method-select").contains("Legacy SSH");
-    cy.dataCy("clone-method-select").click();
-    cy.contains("OAuth").click();
     cy.selectLGOption("Project Cloning Method", "OAuth");
     cy.contains("button", "Add expansion").click();
     cy.getInputByLabel("Key").type("key-name");
