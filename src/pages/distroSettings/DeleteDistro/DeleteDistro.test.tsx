@@ -14,11 +14,12 @@ import {
   screen,
   userEvent,
   waitFor,
+  within,
 } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { DeleteDistro } from ".";
 
-const Field = ({ isAdmin = false }: { isAdmin?: boolean }) => (
+const DeleteButton = ({ isAdmin = false }: { isAdmin?: boolean }) => (
   <MockedProvider
     mocks={[deleteDistroMock, isAdmin ? isAdminMock : notAdminMock]}
   >
@@ -28,7 +29,7 @@ const Field = ({ isAdmin = false }: { isAdmin?: boolean }) => (
 
 describe("deleteDistro", () => {
   it("button is disabled if not admin", async () => {
-    const { Component } = RenderFakeToastContext(<Field />);
+    const { Component } = RenderFakeToastContext(<DeleteButton />);
     render(<Component />, {
       path: "/distro/:distroId/settings/general",
       route: `/distro/${distroToDelete}/settings/general`,
@@ -43,7 +44,7 @@ describe("deleteDistro", () => {
   });
 
   it("button is enabled if admin", async () => {
-    const { Component } = RenderFakeToastContext(<Field isAdmin />);
+    const { Component } = RenderFakeToastContext(<DeleteButton isAdmin />);
     render(<Component />, {
       path: "/distro/:distroId/settings/general",
       route: "/distro/localhost/settings/general",
@@ -56,7 +57,7 @@ describe("deleteDistro", () => {
 
   it("admin can successfully delete a distro", async () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <Field isAdmin />
+      <DeleteButton isAdmin />
     );
     render(<Component />, {
       path: "/distro/:distroId/settings/general",
@@ -73,6 +74,12 @@ describe("deleteDistro", () => {
     const confirmButton = screen.getByRole("button", {
       name: "Delete",
     });
+    expect(confirmButton).toHaveAttribute("aria-disabled", "true");
+
+    const textInput = within(
+      screen.getByDataCy("delete-distro-modal")
+    ).getByRole("textbox");
+    userEvent.type(textInput, distroToDelete);
     expect(confirmButton).toHaveAttribute("aria-disabled", "false");
 
     userEvent.click(confirmButton);

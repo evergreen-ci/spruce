@@ -1,12 +1,9 @@
 import { css } from "@emotion/react";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
-import { DeleteDistro } from "./DeleteDistro";
 
 export const getFormSchema = (): ReturnType<GetFormSchema> => ({
-  fields: {
-    deleteDistro: DeleteDistro,
-  },
+  fields: {},
   schema: {
     type: "object" as "object",
     properties: {
@@ -69,15 +66,6 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
           },
         },
       },
-      removeConfiguration: {
-        type: "object" as "object",
-        title: "Remove Configuration",
-        properties: {
-          deleteDistro: {
-            type: "null" as "null",
-          },
-        },
-      },
     },
   },
   uiSchema: {
@@ -107,13 +95,6 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       disabled: {
         "ui:description": "Tasks already in the task queue will be removed.",
-      },
-    },
-    removeConfiguration: {
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      deleteDistro: {
-        "ui:field": "deleteDistro",
-        "ui:showLabel": false,
       },
     },
   },

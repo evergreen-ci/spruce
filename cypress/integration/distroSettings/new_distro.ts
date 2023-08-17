@@ -27,6 +27,9 @@ describe("Creating a new distro", () => {
     );
     cy.dataCy("delete-distro-button").click();
     cy.dataCy("delete-distro-modal").should("be.visible");
+    cy.dataCy("delete-distro-modal").within(() => {
+      cy.get("input").type(newDistroId);
+    });
     cy.contains("button", /^Delete$/).click();
     cy.validateToast("success");
   });
@@ -59,6 +62,9 @@ describe("Copying a distro", () => {
     );
     cy.dataCy("delete-distro-button").click();
     cy.dataCy("delete-distro-modal").should("be.visible");
+    cy.dataCy("delete-distro-modal").within(() => {
+      cy.get("input").type(copyDistroId);
+    });
     cy.contains("button", /^Delete$/).click();
     cy.validateToast("success");
   });

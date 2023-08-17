@@ -3,7 +3,6 @@ import { useMutation, useQuery } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Description } from "@leafygreen-ui/typography";
-import { Field } from "@rjsf/core";
 import { useParams } from "react-router-dom";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";
@@ -19,8 +18,8 @@ import { USER_DISTRO_SETTINGS_PERMISSIONS } from "gql/queries";
 
 interface ModalProps {
   closeModal: () => void;
-  open: boolean;
   distroId: string;
+  open: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({ closeModal, distroId, open }) => {
@@ -36,9 +35,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal, distroId, open }) => {
       );
     },
     onError(err) {
-      dispatchToast.error(
-        `There was an error deleting the distro: ${err.message}`
-      );
+      dispatchToast.error(err.message);
     },
     refetchQueries: ["Distros"],
   });
@@ -55,19 +52,20 @@ const Modal: React.FC<ModalProps> = ({ closeModal, distroId, open }) => {
   return (
     <ConfirmationModal
       buttonText="Delete"
+      data-cy="delete-distro-modal"
       onCancel={closeModal}
       onConfirm={onConfirm}
       open={open}
-      variant="danger"
+      requiredInputText={distroId}
       title={`Delete “${distroId}”?`}
-      data-cy="delete-distro-modal"
+      variant="danger"
     >
       <p>This action cannot be undone.</p>
     </ConfirmationModal>
   );
 };
 
-export const DeleteDistro: Field = () => {
+export const DeleteDistro: React.FC = () => {
   const { distroId } = useParams<{ distroId: string }>();
   const [open, setOpen] = useState(false);
   const id = "delete-distro-button";
@@ -86,16 +84,14 @@ export const DeleteDistro: Field = () => {
 
   return (
     <>
-      {open && (
-        <Modal
-          closeModal={() => setOpen(false)}
-          open={open}
-          distroId={distroId}
-        />
-      )}
+      <Modal
+        closeModal={() => setOpen(false)}
+        distroId={distroId}
+        open={open}
+      />
       <ElementWrapper>
         <Description>
-          Delete this distro configuration. Active hosts will be shut down and
+          Delete this distro configuration. Active hosts will be terminated and
           the task queue will be cleared.
         </Description>
       </ElementWrapper>
