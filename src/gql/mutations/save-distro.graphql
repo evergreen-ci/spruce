@@ -3,5 +3,6 @@ mutation SaveDistro($distro: DistroInput!, $onSave: DistroOnSaveOperation!) {
     distro {
       name
     }
+    hostCount
   }
 }
