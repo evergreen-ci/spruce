@@ -5,6 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
+import { useDistroSettingsAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -25,6 +26,7 @@ interface Props {
 }
 
 export const HeaderButtons: React.FC<Props> = ({ distro, tab }) => {
+  const { sendEvent } = useDistroSettingsAnalytics();
   const dispatchToast = useToastContext();
 
   const { getTab, saveTab } = useDistroSettingsContext();
@@ -71,6 +73,7 @@ export const HeaderButtons: React.FC<Props> = ({ distro, tab }) => {
         },
       });
       setModalOpen(false);
+      sendEvent({ name: "Save distro", section: tab });
     }
   };
 
