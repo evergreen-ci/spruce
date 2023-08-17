@@ -184,7 +184,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
         "ui:allowDeselect": false,
       },
       tunableOptions: {
-        "ui:data-cy": "tunable-options",
+        "ui:field-data-cy": "tunable-options",
       },
     },
     dispatcherSettings: {

@@ -24,7 +24,7 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   const sectionId = uiSchema["ui:sectionId"] ?? "";
   const border = uiSchema["ui:border"];
   const showLabel = uiSchema["ui:showLabel"] ?? true;
-  const dataCy = uiSchema["ui:data-cy"];
+  const fieldDataCy = uiSchema["ui:field-data-cy"];
   return (
     !hidden && (
       <>
@@ -37,7 +37,7 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
           id={`${sectionId} ${id}`}
           className={classNames}
           border={border}
-          data-cy={dataCy}
+          data-cy={fieldDataCy}
         >
           {children}
         </DefaultFieldContainer>
