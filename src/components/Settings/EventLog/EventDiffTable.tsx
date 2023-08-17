@@ -13,6 +13,7 @@ type TableProps = {
 export const EventDiffTable: React.VFC<TableProps> = ({ after, before }) => (
   <Table
     data={getEventDiffLines(before, after)}
+    data-cy="event-diff-table"
     columns={[
       <TableHeader
         key="key"
