@@ -16,7 +16,7 @@ const statusToBadgeVariant = {
   [PatchStatus.Created]: Variant.LightGray,
   [PatchStatus.Failed]: Variant.Red,
   [PatchStatus.Started]: Variant.Yellow,
-  [PatchStatus.Succeeded]: Variant.Green,
+  [PatchStatus.LegacySucceeded]: Variant.Green,
   [PatchStatus.Success]: Variant.Green,
   [PatchStatus.Aborted]: Variant.LightGray,
 };
@@ -26,7 +26,7 @@ const patchStatusToCopy = {
   [PatchStatus.Created]: "Created",
   [PatchStatus.Failed]: "Failed",
   [PatchStatus.Started]: "Running",
-  [PatchStatus.Succeeded]: "Succeeded",
+  [PatchStatus.LegacySucceeded]: "Succeeded",
   [PatchStatus.Success]: "Succeeded",
   [PatchStatus.Aborted]: "Aborted",
 };
