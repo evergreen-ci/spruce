@@ -6,11 +6,7 @@ import {
   DispatcherVersion,
 } from "gql/generated/types";
 
-export const getFormSchema = ({
-  plannerVersion,
-}: {
-  plannerVersion: string;
-}): ReturnType<GetFormSchema> => ({
+export const getFormSchema = (): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
     type: "object" as "object",
@@ -67,65 +63,87 @@ export const getFormSchema = ({
               },
             ],
           },
-          tunableOptions: {
-            type: "object" as "object",
-            title: "",
-            properties: {
-              targetTime: {
-                type: "number" as "number",
-                title: "Target Time (seconds)",
-                default: 0,
-                minimum: 0,
-                maximum: 100,
+        },
+        dependencies: {
+          version: {
+            oneOf: [
+              {
+                properties: {
+                  version: {
+                    enum: [PlannerVersion.Legacy],
+                  },
+                },
               },
-              patchFactor: {
-                type: "number" as "number",
-                title: "Patch Factor (0 to 100 inclusive)",
-                default: 0,
-                minimum: 0,
-                maximum: 100,
+              {
+                properties: {
+                  version: {
+                    enum: [PlannerVersion.Tunable],
+                  },
+                  tunableOptions: {
+                    type: "object" as "object",
+                    title: "",
+                    properties: {
+                      targetTime: {
+                        type: "number" as "number",
+                        title: "Target Time (seconds)",
+                        default: 0,
+                        minimum: 0,
+                        maximum: 100,
+                      },
+                      patchFactor: {
+                        type: "number" as "number",
+                        title: "Patch Factor (0 to 100 inclusive)",
+                        default: 0,
+                        minimum: 0,
+                        maximum: 100,
+                      },
+                      patchTimeInQueueFactor: {
+                        type: "number" as "number",
+                        title:
+                          "Patch Time in Queue Factor (0 to 100 inclusive)",
+                        default: 0,
+                        minimum: 0,
+                        maximum: 100,
+                      },
+                      mainlineTimeInQueueFactor: {
+                        type: "number" as "number",
+                        title:
+                          "Mainline Time in Queue Factor (0 to 100 inclusive)",
+                        default: 0,
+                        minimum: 0,
+                        maximum: 100,
+                      },
+                      commitQueueFactor: {
+                        type: "number" as "number",
+                        title: "Commit Queue Factor (0 to 100 inclusive)",
+                        default: 0,
+                        minimum: 0,
+                        maximum: 100,
+                      },
+                      expectedRuntimeFactor: {
+                        type: "number" as "number",
+                        title: "Expected Runtime Factor (0 to 100 inclusive)",
+                        default: 0,
+                        minimum: 0,
+                        maximum: 100,
+                      },
+                      generateTaskFactor: {
+                        type: "number" as "number",
+                        title: "Generate Task Factor (0 to 100 inclusive)",
+                        default: 0,
+                        minimum: 0,
+                        maximum: 100,
+                      },
+                      groupVersions: {
+                        type: "boolean" as "boolean",
+                        title: "Group versions",
+                        default: false,
+                      },
+                    },
+                  },
+                },
               },
-              patchTimeInQueueFactor: {
-                type: "number" as "number",
-                title: "Patch Time in Queue Factor (0 to 100 inclusive)",
-                default: 0,
-                minimum: 0,
-                maximum: 100,
-              },
-              mainlineTimeInQueueFactor: {
-                type: "number" as "number",
-                title: "Mainline Time in Queue Factor (0 to 100 inclusive)",
-                default: 0,
-                minimum: 0,
-                maximum: 100,
-              },
-              commitQueueFactor: {
-                type: "number" as "number",
-                title: "Commit Queue Factor (0 to 100 inclusive)",
-                default: 0,
-                minimum: 0,
-                maximum: 100,
-              },
-              expectedRuntimeFactor: {
-                type: "number" as "number",
-                title: "Expected Runtime Factor (0 to 100 inclusive)",
-                default: 0,
-                minimum: 0,
-                maximum: 100,
-              },
-              generateTaskFactor: {
-                type: "number" as "number",
-                title: "Generate Task Factor (0 to 100 inclusive)",
-                default: 0,
-                minimum: 0,
-                maximum: 100,
-              },
-              groupVersions: {
-                type: "boolean" as "boolean",
-                title: "Group versions",
-                default: false,
-              },
-            },
+            ],
           },
         },
       },
@@ -167,10 +185,6 @@ export const getFormSchema = ({
       },
       tunableOptions: {
         "ui:data-cy": "tunable-options",
-        // Options are only available if the planner version is tunable.
-        ...(plannerVersion === PlannerVersion.Legacy && {
-          "ui:widget": "hidden",
-        }),
       },
     },
     dispatcherSettings: {
