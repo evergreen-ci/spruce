@@ -227,16 +227,12 @@ functions:
       working_dir: spruce
       shell: "bash"
       script: |
-        set -o xtrace
         ${PREPARE_SHELL}
-        # Only record to cypress cloud if this is a pr or a mainline commit.
-        echo "${requester}"
-        if [[ "${requester}" == "github_pr" ]]; then
-          echo "THIS WORKED"
-          # yarn cy:run --record --key "${cypress_record_key}" --reporter junit
+        # Only record to cypress cloud if this is a pr, mainline commit or an intentional patch.
+        if [[ "${requester}" == "github_pr" || "${requester}" == "commit" || "${requester}" == "patch" ]]; then
+          yarn cy:run --record --key "${cypress_record_key}" --reporter junit
         else
-          echo "THIS DIDNT WORK"
-          # yarn cy:run --reporter junit
+          yarn cy:run --reporter junit
         fi
 
   attach-test-results:
