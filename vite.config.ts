@@ -93,7 +93,6 @@ export default defineConfig({
       babel: {
         plugins: ["@emotion/babel-plugin", "import-graphql"],
       },
-      fastRefresh: true,
       // exclude storybook stories
       exclude: [/\.stories\.tsx?$/],
     }),
@@ -110,10 +109,7 @@ export default defineConfig({
           libName: "lodash",
           libDirectory: "",
           camel2DashComponentName: false,
-          style: (name) => {
-            console.log(name);
-            return `lodash/${name}`;
-          },
+          style: (name) => `lodash/${name}`,
         },
         {
           libName: "date-fns",

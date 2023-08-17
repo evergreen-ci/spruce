@@ -27,7 +27,7 @@ interface Props {
   isIssue: boolean;
 }
 
-export const AddIssueModal: React.VFC<Props> = ({
+export const AddIssueModal: React.FC<Props> = ({
   closeModal,
   execution,
   isIssue,

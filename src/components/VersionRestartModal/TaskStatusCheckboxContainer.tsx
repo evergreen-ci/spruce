@@ -13,7 +13,7 @@ interface TaskStatusCheckboxContainerProps {
   toggleSelectedTask: (taskIds: { [patchId: string]: string }) => void;
   versionId: string;
 }
-export const TaskStatusCheckboxContainer: React.VFC<
+export const TaskStatusCheckboxContainer: React.FC<
   TaskStatusCheckboxContainerProps
 > = ({ selectedTasks, tasks, toggleSelectedTask, versionId }) => {
   const possibleListHeight = tasks.length * itemSize;

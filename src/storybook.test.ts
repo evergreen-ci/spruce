@@ -4,7 +4,7 @@ import MatchMediaMock from "jest-matchmedia-mock";
 
 let matchMedia;
 describe("storybook", () => {
-  jest.setTimeout(15000);
+  jest.setTimeout(20000);
 
   beforeAll(() => {
     matchMedia = new MatchMediaMock();

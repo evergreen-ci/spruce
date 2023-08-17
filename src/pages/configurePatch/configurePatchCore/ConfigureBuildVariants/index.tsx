@@ -16,7 +16,7 @@ interface Props {
   disabled: boolean;
 }
 
-export const ConfigureBuildVariants: React.VFC<Props> = ({
+export const ConfigureBuildVariants: React.FC<Props> = ({
   aliases,
   disabled,
   selectedBuildVariants,

@@ -8,7 +8,7 @@ import { TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Containers;
 
-export const ContainersTab: React.VFC<TabProps> = ({
+export const ContainersTab: React.FC<TabProps> = ({
   projectData,
   repoData,
 }) => {

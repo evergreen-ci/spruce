@@ -19,7 +19,7 @@ interface Props {
   volume: TableVolume;
 }
 
-export const UnmountButton: React.VFC<Props> = ({ volume }) => {
+export const UnmountButton: React.FC<Props> = ({ volume }) => {
   const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
 

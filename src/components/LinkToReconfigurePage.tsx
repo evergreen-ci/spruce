@@ -3,7 +3,7 @@ import { useVersionAnalytics, usePatchAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { getPatchRoute } from "constants/routes";
 
-export const LinkToReconfigurePage: React.VFC<{
+export const LinkToReconfigurePage: React.FC<{
   patchId: string;
   disabled?: boolean;
   hasVersion?: boolean;

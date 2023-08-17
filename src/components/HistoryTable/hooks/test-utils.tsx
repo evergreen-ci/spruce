@@ -22,7 +22,7 @@ interface ProviderProps {
   state?: Partial<HistoryTableReducerState>;
   children: React.ReactNode;
 }
-const ProviderWrapper: React.VFC<ProviderProps> = ({
+const ProviderWrapper: React.FC<ProviderProps> = ({
   children,
   mocks = [],
   state = {},

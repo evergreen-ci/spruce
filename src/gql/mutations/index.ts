@@ -34,6 +34,7 @@ import REPROVISION_TO_NEW from "./reprovision-to-new.graphql";
 import RESTART_JASPER from "./restart-jasper.graphql";
 import RESTART_TASK from "./restart-task.graphql";
 import RESTART_VERSIONS from "./restart-versions.graphql";
+import SAVE_DISTRO from "./save-distro.graphql";
 import SAVE_PROJECT_SETTINGS_FOR_SECTION from "./save-project-settings-for-section.graphql";
 import SAVE_REPO_SETTINGS_FOR_SECTION from "./save-repo-settings-for-section.graphql";
 import SAVE_SUBSCRIPTION from "./save-subscription.graphql";
@@ -91,6 +92,7 @@ export {
   RESTART_JASPER,
   RESTART_TASK,
   RESTART_VERSIONS,
+  SAVE_DISTRO,
   SAVE_PROJECT_SETTINGS_FOR_SECTION,
   SAVE_REPO_SETTINGS_FOR_SECTION,
   SAVE_SUBSCRIPTION,

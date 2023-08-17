@@ -23,7 +23,7 @@ interface ScheduleTasksModalProps {
   setOpen: (open: boolean) => void;
   versionId: string;
 }
-export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
+export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
   open,
   setOpen,
   versionId,

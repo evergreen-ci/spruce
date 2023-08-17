@@ -9,6 +9,7 @@ const currentTaskIdParam = "currentTaskId";
 const ownerParam = "startedBy";
 
 const idFilter = "i-0d0ae8b83366d22";
+const dnsFilter = "ec2-34-207-222-84.compute-1.amazonaws.com";
 const distroFilter = "macos-1014";
 const statusesFilter = "running";
 const currentTaskIdFilter =
@@ -24,6 +25,13 @@ const filterTests = [
     filterValue: idFilter,
     filterUrlParam: `${idParam}=${idFilter}`,
     expectedIds: ["i-0d0ae8b83366d22"],
+  },
+  {
+    param: idParam,
+    filterIconDataCy: "host-id-filter",
+    filterValue: dnsFilter,
+    filterUrlParam: `${idParam}=${dnsFilter}`,
+    expectedIds: ["i-06f80fa6e28f93b7d"],
   },
   {
     param: distroParam,

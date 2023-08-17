@@ -29,7 +29,7 @@ interface SpawnHostModalProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
+export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   open,
   setOpen,
 }) => {

@@ -10,7 +10,7 @@ import {
 } from "gql/generated/types";
 import { GET_VIEWABLE_PROJECTS } from "gql/queries";
 
-export const ProjectSettingsRedirect: React.VFC = () => {
+export const ProjectSettingsRedirect: React.FC = () => {
   const { data } = useQuery<
     ViewableProjectRefsQuery,
     ViewableProjectRefsQueryVariables

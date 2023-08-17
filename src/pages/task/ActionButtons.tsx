@@ -48,7 +48,7 @@ interface Props {
   task: TaskQuery["task"];
 }
 
-export const ActionButtons: React.VFC<Props> = ({
+export const ActionButtons: React.FC<Props> = ({
   initialPriority = 1,
   isDisplayTask,
   isExecutionTask,

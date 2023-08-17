@@ -33,7 +33,7 @@ import { ProjectType } from "./tabs/utils";
 
 const { validateObjectId } = validators;
 
-const ProjectSettings: React.VFC = () => {
+const ProjectSettings: React.FC = () => {
   usePageTitle(`Project Settings`);
   const dispatchToast = useToastContext();
   const { projectIdentifier: identifier, tab } = useParams<{
@@ -200,7 +200,7 @@ const ProjectSettings: React.VFC = () => {
   );
 };
 
-const ProjectSettingsNavItem: React.VFC<{
+const ProjectSettingsNavItem: React.FC<{
   currentTab: ProjectSettingsTabRoutes;
   identifier: string;
   tab: ProjectSettingsTabRoutes;

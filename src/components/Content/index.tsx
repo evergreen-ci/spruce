@@ -27,7 +27,7 @@ import { VariantHistory } from "pages/VariantHistory";
 import { VersionPage } from "pages/Version";
 import { Layout } from "./Layout";
 
-export const Content: React.VFC = () => (
+export const Content: React.FC = () => (
   <Routes>
     <Route element={<Layout />}>
       <Route path="/" element={<Navigate to={routes.myPatches} />} />

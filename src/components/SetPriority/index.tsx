@@ -33,7 +33,7 @@ type SetPriorityProps = (
   disabled?: boolean;
 };
 
-const SetPriority: React.VFC<SetPriorityProps> = ({
+const SetPriority: React.FC<SetPriorityProps> = ({
   disabled,
   initialPriority = 0,
   patchId,

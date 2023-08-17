@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { Body, H2 } from "@leafygreen-ui/typography";
+import { H2 } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
@@ -23,7 +23,7 @@ const TableContainer = styled.div`
   width: 100%;
 `;
 
-export const SpawnTable: React.VFC<React.ComponentProps<typeof Table>> = (
+export const SpawnTable: React.FC<React.ComponentProps<typeof Table>> = (
   props
 ) => (
   <TableContainer>
@@ -78,10 +78,4 @@ export const SectionContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   margin-top: ${size.s};
-`;
-
-export const SectionLabel = styled(Body)`
-  flex-grow: 1;
-  padding-right: ${size.s};
-  margin-top: ${size.m};
 `;

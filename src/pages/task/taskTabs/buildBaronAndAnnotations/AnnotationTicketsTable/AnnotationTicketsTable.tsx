@@ -31,7 +31,7 @@ interface AnnotationTicketsProps {
   loading: boolean;
 }
 
-const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
+const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
   execution,
   isIssue,
   jiraIssues,

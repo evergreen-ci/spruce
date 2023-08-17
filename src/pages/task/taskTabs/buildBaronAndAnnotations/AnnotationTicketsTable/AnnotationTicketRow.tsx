@@ -19,7 +19,7 @@ interface AnnotationTicketRowProps {
   confidenceScore?: number;
 }
 
-export const AnnotationTicketRow: React.VFC<AnnotationTicketRowProps> = ({
+export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
   confidenceScore,
   issueKey,
   jiraTicket,

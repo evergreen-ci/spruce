@@ -16,7 +16,7 @@ type GeneratedDatePickerProps = React.ComponentPropsWithRef<
 type DatePickerProps = GeneratedDatePickerProps & {
   disabled?: boolean;
 };
-const DatePicker: React.VFC<DatePickerProps> = (props) => {
+const DatePicker: React.FC<DatePickerProps> = (props) => {
   const { disabled = false } = props;
   return (
     <InteractionRing disabled={disabled}>

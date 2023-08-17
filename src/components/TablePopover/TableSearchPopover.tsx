@@ -19,7 +19,7 @@ interface TableSearchPopoverProps {
   placeholder?: string;
 }
 
-export const TableSearchPopover: React.VFC<TableSearchPopoverProps> = ({
+export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   "data-cy": dataCy,
   onChange,
   onConfirm,

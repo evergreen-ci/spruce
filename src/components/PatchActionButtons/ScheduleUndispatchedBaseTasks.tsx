@@ -14,7 +14,7 @@ interface Props {
   disabled: boolean;
 }
 
-export const ScheduleUndispatchedBaseTasks: React.VFC<Props> = ({
+export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({
   disabled,
   patchId,
 }) => {

@@ -1,18 +1,19 @@
 import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
-import { useParams } from "react-router-dom";
+import { useParams, Routes, Route, Navigate } from "react-router-dom";
 import { DistroSettingsTabRoutes } from "constants/routes";
 import { DistroQuery } from "gql/generated/types";
 import { useDistroSettingsContext } from "./Context";
 import { Header } from "./Header";
 import { NavigationModal } from "./NavigationModal";
+import { GeneralTab, ProjectTab } from "./tabs/index";
 import { gqlToFormMap } from "./tabs/transformers";
 
 interface Props {
   distro: DistroQuery["distro"];
 }
 
-export const DistroSettingsTabs: React.VFC<Props> = ({ distro }) => {
+export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
   const { tab } = useParams<{ tab: DistroSettingsTabRoutes }>();
   const { setInitialData } = useDistroSettingsContext();
 
@@ -26,13 +27,25 @@ export const DistroSettingsTabs: React.VFC<Props> = ({ distro }) => {
   return (
     <Container>
       <NavigationModal />
-      <Header tab={tab} />
-      {/* <Routes>
+      <Header tab={tab} distro={distro} />
+      <Routes>
         <Route
           path="*"
           element={<Navigate to={DistroSettingsTabRoutes.General} replace />}
         />
-      </Routes> */}
+        <Route
+          path={DistroSettingsTabRoutes.General}
+          element={
+            <GeneralTab distroData={tabData[DistroSettingsTabRoutes.General]} />
+          }
+        />
+        <Route
+          path={DistroSettingsTabRoutes.Project}
+          element={
+            <ProjectTab distroData={tabData[DistroSettingsTabRoutes.Project]} />
+          }
+        />
+      </Routes>
     </Container>
   );
 };

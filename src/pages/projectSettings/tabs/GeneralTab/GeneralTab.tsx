@@ -9,7 +9,7 @@ import { GeneralFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.General;
 
-export const GeneralTab: React.VFC<TabProps> = ({
+export const GeneralTab: React.FC<TabProps> = ({
   projectData,
   projectId,
   projectType,

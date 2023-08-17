@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Subtitle, Body } from "@leafygreen-ui/typography";
+import { Subtitle, Body, BodyProps } from "@leafygreen-ui/typography";
 import reactStringReplace from "react-string-replace";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { getGithubPullRequestUrl } from "constants/externalResources";
@@ -37,7 +37,7 @@ interface Props {
 }
 const { gray } = palette;
 
-export const CommitQueueCard: React.VFC<Props> = ({
+export const CommitQueueCard: React.FC<Props> = ({
   activated,
   author,
   commitQueueId,
@@ -191,7 +191,7 @@ const CommitInfo = styled.div`
   margin-bottom: ${size.m};
   width: 100%;
 `;
-const CardMetaData = styled(Body)`
+const CardMetaData = styled(Body)<BodyProps>`
   color: ${gray.dark2};
 `;
 

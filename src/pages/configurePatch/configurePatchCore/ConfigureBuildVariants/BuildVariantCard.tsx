@@ -18,7 +18,7 @@ interface BuildVariantCardProps {
   title: string;
 }
 
-const BuildVariantCard: React.VFC<BuildVariantCardProps> = ({
+const BuildVariantCard: React.FC<BuildVariantCardProps> = ({
   "data-cy": dataCy,
   menuItems,
   onClick,
@@ -96,6 +96,7 @@ const VariantName = styled.div`
   word-break: break-all;
   white-space: normal;
 `;
+
 const StyledBadge = styled(Badge)`
   margin-left: ${size.xs};
 `;

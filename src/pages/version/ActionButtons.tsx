@@ -21,7 +21,7 @@ interface ActionButtonProps {
   versionId: string;
 }
 
-export const ActionButtons: React.VFC<ActionButtonProps> = ({
+export const ActionButtons: React.FC<ActionButtonProps> = ({
   canEnqueueToCommitQueue,
   canReconfigure,
   isPatch,

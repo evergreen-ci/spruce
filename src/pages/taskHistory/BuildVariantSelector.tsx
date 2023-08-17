@@ -15,7 +15,7 @@ interface BuildVariantSelectorProps {
   taskName: string;
 }
 
-const BuildVariantSelector: React.VFC<BuildVariantSelectorProps> = ({
+const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
   projectIdentifier,
   taskName,
 }) => {

@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { H2, Body } from "@leafygreen-ui/typography";
+import { H2, H2Props, Body, BodyProps } from "@leafygreen-ui/typography";
 import { Layout } from "antd";
 import { size, fontSize } from "constants/tokens";
 
@@ -44,7 +44,7 @@ export const PageContent = styled(Content)`
 
 PageSider.defaultProps = { width: 275 };
 
-export const PageTitle = styled(H2)`
+export const PageTitle = styled(H2)<H2Props>`
   margin-bottom: ${size.s};
 `;
 
@@ -74,7 +74,7 @@ export const InputLabel = styled.label`
   color: ${gray.dark2};
 `;
 
-export const ErrorMessage = styled(Body)`
+export const ErrorMessage = styled(Body)<BodyProps>`
   color: ${red.base};
 `;
 

@@ -32,7 +32,7 @@ export interface TreeDataEntry extends TreeDataChildEntry {
   children?: TreeDataChildEntry[];
 }
 
-export const TreeSelect: React.VFC<TreeSelectProps> = ({
+export const TreeSelect: React.FC<TreeSelectProps> = ({
   "data-cy": dataCy,
   hasStyling = true,
   isDropdown = false,
