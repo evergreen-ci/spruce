@@ -4785,6 +4785,7 @@ export type SaveDistroMutation = {
   __typename?: "Mutation";
   saveDistro: {
     __typename?: "SaveDistroPayload";
+    hostCount: number;
     distro: { __typename?: "Distro"; name: string };
   };
 };

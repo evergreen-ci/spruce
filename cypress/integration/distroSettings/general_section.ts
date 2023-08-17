@@ -1,4 +1,4 @@
-import { clickSave } from "../../utils";
+import { save } from "./utils";
 
 describe("general section", () => {
   beforeEach(() => {
@@ -19,7 +19,7 @@ describe("general section", () => {
     cy.getInputByLabel("Disable shallow clone for this distro.").check({
       force: true,
     });
-    clickSave();
+    save();
     cy.validateToast("success");
 
     // Changes should persist.
@@ -36,7 +36,7 @@ describe("general section", () => {
     cy.getInputByLabel("Disable shallow clone for this distro").uncheck({
       force: true,
     });
-    clickSave();
+    save();
     cy.validateToast("success");
   });
 });

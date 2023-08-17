@@ -1,11 +1,19 @@
+import { useState } from "react";
 import { useMutation } from "@apollo/client";
+import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
+import { Body, BodyProps } from "@leafygreen-ui/typography";
+import pluralize from "pluralize";
+import { useDistroSettingsAnalytics } from "analytics";
+import { ConfirmationModal } from "components/ConfirmationModal";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   DistroOnSaveOperation,
+  DistroQuery,
   SaveDistroMutation,
   SaveDistroMutationVariables,
-  DistroQuery,
 } from "gql/generated/types";
 import { SAVE_DISTRO } from "gql/mutations";
 import { useDistroSettingsContext } from "./Context";
@@ -18,50 +26,102 @@ interface Props {
 }
 
 export const HeaderButtons: React.FC<Props> = ({ distro, tab }) => {
-  const { getTab, saveTab } = useDistroSettingsContext();
-  const { formData, hasChanges, hasError } = getTab(tab);
+  const { sendEvent } = useDistroSettingsAnalytics();
   const dispatchToast = useToastContext();
 
-  const [saveDistroSection] = useMutation<
+  const { getTab, saveTab } = useDistroSettingsContext();
+  const { formData, hasChanges, hasError } = getTab(tab);
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [onSaveOperation, setOnSaveOperation] = useState(
+    DistroOnSaveOperation.None
+  );
+
+  const [saveDistro] = useMutation<
     SaveDistroMutation,
     SaveDistroMutationVariables
   >(SAVE_DISTRO, {
-    onCompleted: () => {
+    onCompleted({ saveDistro: { hostCount } }) {
       saveTab(tab);
-      dispatchToast.success("Successfully updated distro.");
-    },
-    onError: (err) => {
-      dispatchToast.error(
-        `There was an error updating the distro: ${err.message}`
+      dispatchToast.success(
+        `Updated distro${
+          onSaveOperation !== DistroOnSaveOperation.None
+            ? ` and scheduled ${hostCount} ${pluralize(
+                "host",
+                hostCount
+              )} to update`
+            : ""
+        }.`
       );
+    },
+    onError(err) {
+      dispatchToast.error(err.message);
     },
     refetchQueries: ["Distro"],
   });
 
-  // TODO: Add save modal in EVG-20565 to allow user to specify the on save operation.
-  const onClick = () => {
+  const handleSave = () => {
     // Only perform the save operation is the tab is valid.
     // eslint-disable-next-line no-prototype-builtins
     if (formToGqlMap.hasOwnProperty(tab)) {
       const formToGql = formToGqlMap[tab];
       const changes = formToGql(formData, distro);
-      saveDistroSection({
+      saveDistro({
         variables: {
           distro: changes,
-          onSave: DistroOnSaveOperation.None,
+          onSave: onSaveOperation,
         },
       });
+      setModalOpen(false);
+      sendEvent({ name: "Save distro", section: tab });
     }
   };
 
   return (
-    <Button
-      data-cy="save-settings-button"
-      variant="primary"
-      onClick={onClick}
-      disabled={hasError || !hasChanges}
-    >
-      Save changes on page
-    </Button>
+    <>
+      <Button
+        data-cy="save-settings-button"
+        disabled={hasError || !hasChanges}
+        onClick={() => setModalOpen(true)}
+        variant="primary"
+      >
+        Save changes on page
+      </Button>
+      <ConfirmationModal
+        buttonText="Save"
+        data-cy="save-modal"
+        open={modalOpen}
+        onCancel={() => setModalOpen(false)}
+        onConfirm={handleSave}
+        title="Save page"
+      >
+        <StyledBody>
+          Evergreen can perform one of the following actions on save:
+        </StyledBody>
+        <RadioGroup
+          onChange={(e) =>
+            setOnSaveOperation(e.target.value as DistroOnSaveOperation)
+          }
+          value={onSaveOperation}
+        >
+          <Radio value={DistroOnSaveOperation.None}>
+            Nothing, only new hosts will have updated distro settings applied
+          </Radio>
+          <Radio value={DistroOnSaveOperation.Decommission}>
+            Decommission hosts of this distro
+          </Radio>
+          <Radio value={DistroOnSaveOperation.RestartJasper}>
+            Restart Jasper service on running hosts of this distro
+          </Radio>
+          <Radio value={DistroOnSaveOperation.Reprovision}>
+            Reprovision running hosts of this distro
+          </Radio>
+        </RadioGroup>
+      </ConfirmationModal>
+    </>
   );
 };
+
+const StyledBody = styled(Body)<BodyProps>`
+  margin-bottom: ${size.xs};
+`;
