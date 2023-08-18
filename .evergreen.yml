@@ -225,7 +225,7 @@ functions:
     command: shell.exec
     params:
       working_dir: spruce
-      shell: "bash"
+      shell: bash
       script: |
         ${PREPARE_SHELL}
         # Only record to cypress cloud if this is a pr, mainline commit or an intentional patch.
