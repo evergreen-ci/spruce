@@ -36,7 +36,7 @@ const statusValToCopy = {
   [PatchStatus.Created]: "Created/Unconfigured",
   [PatchStatus.Failed]: "Failed",
   [PatchStatus.Started]: "Running",
-  [PatchStatus.Success]: "Succeeded",
+  [PatchStatus.LegacySucceeded]: "Succeeded",
 };
 
 const treeData = [
@@ -56,9 +56,9 @@ const treeData = [
     key: PatchStatus.Started,
   },
   {
-    title: statusValToCopy[PatchStatus.Success],
-    value: PatchStatus.Success,
-    key: PatchStatus.Success,
+    title: statusValToCopy[PatchStatus.LegacySucceeded],
+    value: PatchStatus.LegacySucceeded,
+    key: PatchStatus.LegacySucceeded,
   },
   {
     title: statusValToCopy[PatchStatus.Failed],
