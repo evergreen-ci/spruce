@@ -1,4 +1,4 @@
-import { clickSave } from "../../utils";
+import { save } from "./utils";
 
 describe("project section", () => {
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe("project section", () => {
     cy.contains("button", "Add project").click();
     cy.getInputByLabel("Project Name").type("spruce");
 
-    clickSave();
+    save();
     cy.validateToast("success");
 
     // Changes should persist.
@@ -35,7 +35,7 @@ describe("project section", () => {
     cy.selectLGOption("Project Cloning Method", "Legacy SSH");
     cy.dataCy("delete-item-button").first().click();
     cy.dataCy("delete-item-button").first().click();
-    clickSave();
+    save();
     cy.validateToast("success");
   });
 });
