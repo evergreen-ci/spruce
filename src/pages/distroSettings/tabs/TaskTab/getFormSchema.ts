@@ -88,7 +88,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
                         title: "Target Time (seconds)",
                         default: 0,
                         minimum: 0,
-                        maximum: 100,
+                        maximum: 1800,
                       },
                       patchFactor: {
                         type: "number" as "number",

@@ -1,4 +1,4 @@
-import { clickSave } from "../../utils";
+import { save } from "./utils";
 
 describe("task section", () => {
   beforeEach(() => {
@@ -13,12 +13,13 @@ describe("task section", () => {
   });
 
   it("should surface warnings for invalid number inputs", () => {
+    const inputLabel = "Patch Factor (0 to 100 inclusive)";
     cy.selectLGOption("Task Planner Version", "Tunable");
-    cy.getInputByLabel("Target Time (seconds)").clear();
-    cy.getInputByLabel("Target Time (seconds)").type("500");
+    cy.getInputByLabel(inputLabel).clear();
+    cy.getInputByLabel(inputLabel).type("500");
     cy.contains("Value should be <= 100.").should("be.visible");
-    cy.getInputByLabel("Target Time (seconds)").clear();
-    cy.getInputByLabel("Target Time (seconds)").type("-500");
+    cy.getInputByLabel(inputLabel).clear();
+    cy.getInputByLabel(inputLabel).type("-500");
     cy.contains("Value should be >= 0.").should("be.visible");
   });
 
@@ -33,7 +34,7 @@ describe("task section", () => {
     cy.selectLGOption("Task Finder Version", "Parallel");
     cy.selectLGOption("Task Planner Version", "Tunable");
     cy.selectLGOption("Task Dispatcher Version", "Revised with dependencies");
-    clickSave();
+    save();
     cy.validateToast("success");
 
     // Changes should persist.
@@ -55,7 +56,7 @@ describe("task section", () => {
     cy.selectLGOption("Task Finder Version", "Legacy");
     cy.selectLGOption("Task Planner Version", "Legacy");
     cy.selectLGOption("Task Dispatcher Version", /^Revised$/);
-    clickSave();
+    save();
     cy.validateToast("success");
   });
 });
