@@ -102,6 +102,7 @@ Cypress.Commands.add(
   "selectLGOption",
   (label: string, option: string | RegExp) => {
     cy.getInputByLabel(label).click({ force: true }); // open select
+    cy.get('[role="listbox"]').should("have.length", 1);
     cy.get('[role="listbox"]').within(() => {
       cy.contains(option).click();
     });
