@@ -295,7 +295,6 @@ export const baseProps = {
     uiSchema: {
       "ui:addButtonSize": "xsmall",
       "ui:addButtonText": "Add Task Tag",
-      "ui:fullWidth": true,
       "ui:orderable": false,
       "ui:sectionId": "task-tags-field",
       "ui:showLabel": false,
@@ -337,7 +336,6 @@ export const baseProps = {
     uiSchema: {
       "ui:addButtonSize": "xsmall",
       "ui:addButtonText": "Add Variant Tag",
-      "ui:fullWidth": true,
       "ui:orderable": false,
       "ui:sectionId": "variant-tags-field",
       "ui:showLabel": false,
