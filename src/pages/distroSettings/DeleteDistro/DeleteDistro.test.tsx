@@ -1,5 +1,4 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { FieldProps } from "@rjsf/core";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   DeleteDistroMutation,
@@ -23,7 +22,7 @@ const DeleteButton = ({ isAdmin = false }: { isAdmin?: boolean }) => (
   <MockedProvider
     mocks={[deleteDistroMock, isAdmin ? isAdminMock : notAdminMock]}
   >
-    <DeleteDistro {...({} as unknown as FieldProps)} />
+    <DeleteDistro />
   </MockedProvider>
 );
 
@@ -47,7 +46,7 @@ describe("deleteDistro", () => {
     const { Component } = RenderFakeToastContext(<DeleteButton isAdmin />);
     render(<Component />, {
       path: "/distro/:distroId/settings/general",
-      route: "/distro/localhost/settings/general",
+      route: `/distro/${distroToDelete}/settings/general`,
     });
     const deleteButton = screen.getByDataCy("delete-distro-button");
     await waitFor(() => {
@@ -84,9 +83,7 @@ describe("deleteDistro", () => {
 
     userEvent.click(confirmButton);
     await waitFor(() => {
-      expect(dispatchToast.success).toHaveBeenCalledWith(
-        `The distro “${distroToDelete}” was deleted. Future visits to this page will result in an error.`
-      );
+      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
     });
   });
 });

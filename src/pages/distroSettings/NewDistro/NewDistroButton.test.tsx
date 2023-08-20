@@ -14,7 +14,7 @@ import {
 import { ApolloMock } from "types/gql";
 import { NewDistroButton } from "./NewDistroButton";
 
-const Button = ({ mock = permissionsMock }: { mock?: MockedResponse }) => (
+const Button = ({ mock = hasPermissionsMock }: { mock?: MockedResponse }) => (
   <MockedProvider mocks={[mock]}>
     <NewDistroButton />
   </MockedProvider>
@@ -115,7 +115,7 @@ describe("new distro button", () => {
 
 const distroId = "localhost";
 
-const permissionsMock: ApolloMock<
+const hasPermissionsMock: ApolloMock<
   UserDistroSettingsPermissionsQuery,
   UserDistroSettingsPermissionsQueryVariables
 > = {

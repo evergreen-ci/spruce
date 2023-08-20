@@ -29,12 +29,12 @@ const Modal: React.FC<ModalProps> = ({ closeModal, distroId, open }) => {
     DeleteDistroMutation,
     DeleteDistroMutationVariables
   >(DELETE_DISTRO, {
-    onCompleted() {
+    onCompleted: () => {
       dispatchToast.success(
         `The distro “${distroId}” was deleted. Future visits to this page will result in an error.`
       );
     },
-    onError(err) {
+    onError: (err) => {
       dispatchToast.error(err.message);
     },
     refetchQueries: ["Distros"],
@@ -76,11 +76,7 @@ export const DeleteDistro: React.FC = () => {
   >(USER_DISTRO_SETTINGS_PERMISSIONS, {
     variables: { distroId },
   });
-
-  const { user } = data || {};
-  const { permissions } = user || {};
-  const { distroPermissions } = permissions || {};
-  const { admin } = distroPermissions || {};
+  const isAdmin = data?.user?.permissions?.distroPermissions?.admin;
 
   return (
     <>
@@ -97,14 +93,14 @@ export const DeleteDistro: React.FC = () => {
       </ElementWrapper>
       <Tooltip
         data-cy="delete-button-tooltip"
-        enabled={!admin}
+        enabled={!isAdmin}
         trigger={
           <Button
             id={id}
             onClick={() => setOpen(true)}
             variant="danger"
             data-cy={id}
-            disabled={!admin}
+            disabled={!isAdmin}
           >
             Delete distro
           </Button>
