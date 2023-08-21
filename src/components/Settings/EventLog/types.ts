@@ -1,12 +1,16 @@
+export type EventValue =
+  | boolean
+  | string
+  | object
+  | Array<string | boolean | object>;
+
 export type Event = {
-  after?: Record<string, any>;
-  before?: Record<string, any>;
-  data?: Record<string, any>;
+  after?: Record<string, EventValue>;
+  before?: Record<string, EventValue>;
+  data?: Record<string, EventValue>;
   timestamp: Date;
   user: string;
 };
-
-export type EventValue = boolean | string | Array<string | boolean | object>;
 
 export type EventDiffLine = {
   key: string;

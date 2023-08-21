@@ -1,6 +1,6 @@
 import { diff } from "deep-object-diff";
 import { string } from "utils";
-import { EventDiffLine, EventValue } from "./types";
+import { Event, EventDiffLine, EventValue } from "./types";
 
 const { omitTypename } = string;
 
@@ -27,8 +27,8 @@ const getNestedObject = (nestedObj: object, pathArr: string[]): EventValue =>
   pathArr.reduce((obj, key) => (obj ? obj[key] : undefined), nestedObj);
 
 export const getEventDiffLines = (
-  before: Record<string, any>,
-  after: Record<string, any>
+  before: Event["before"],
+  after: Event["after"]
 ): EventDiffLine[] => {
   const beforeNoTypename = omitTypename(before);
   const afterNoTypename = omitTypename(after);
