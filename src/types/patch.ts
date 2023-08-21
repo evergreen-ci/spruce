@@ -11,7 +11,8 @@ export enum PatchStatus {
   Created = "created",
   Failed = "failed",
   Started = "started",
-  Success = "succeeded",
+  LegacySucceeded = "succeeded",
+  Success = "success",
   Aborted = "aborted",
 }
 
