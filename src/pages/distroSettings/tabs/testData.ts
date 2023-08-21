@@ -3,6 +3,7 @@ import {
   DistroQuery,
   FinderVersion,
   PlannerVersion,
+  Provider,
   DispatcherVersion,
 } from "gql/generated/types";
 
@@ -91,7 +92,7 @@ const distroData: DistroQuery["distro"] = {
     targetTime: 0,
     version: PlannerVersion.Tunable,
   },
-  provider: "static",
+  provider: Provider.Static,
   providerSettingsList: [
     {
       ami: "who-ami",

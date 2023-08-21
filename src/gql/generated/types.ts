@@ -337,7 +337,7 @@ export type Distro = {
   name: Scalars["String"];
   note: Scalars["String"];
   plannerSettings: PlannerSettings;
-  provider: Scalars["String"];
+  provider: Provider;
   providerSettingsList: Array<Scalars["Map"]>;
   setup: Scalars["String"];
   setupAsSudo: Scalars["Boolean"];
@@ -401,7 +401,7 @@ export type DistroInput = {
   name: Scalars["String"];
   note: Scalars["String"];
   plannerSettings: PlannerSettingsInput;
-  provider: Scalars["String"];
+  provider: Provider;
   providerSettingsList: Array<Scalars["Map"]>;
   setup: Scalars["String"];
   setupAsSudo: Scalars["Boolean"];
@@ -1804,6 +1804,13 @@ export type ProjectVarsInput = {
   privateVarsList?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   vars?: InputMaybe<Scalars["StringMap"]>;
 };
+
+export enum Provider {
+  Docker = "DOCKER",
+  Ec2Fleet = "EC2_FLEET",
+  Ec2Ondemand = "EC2_ONDEMAND",
+  Static = "STATIC",
+}
 
 /** PublicKey models a public key. Users can save/modify/delete their public keys. */
 export type PublicKey = {
@@ -5111,7 +5118,7 @@ export type DistroQuery = {
     isVirtualWorkStation: boolean;
     name: string;
     note: string;
-    provider: string;
+    provider: Provider;
     providerSettingsList: Array<any>;
     setup: string;
     setupAsSudo: boolean;
