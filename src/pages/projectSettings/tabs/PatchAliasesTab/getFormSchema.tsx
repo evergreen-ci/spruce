@@ -3,6 +3,7 @@ import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { StyledLink } from "components/styles";
 import { patchAliasesDocumentationUrl } from "constants/externalResources";
+import { PatchStatus } from "types/patch";
 import { alias, form, PatchTriggerAliasStatus, ProjectType } from "../utils";
 import { TaskSpecifier } from "./types";
 
@@ -66,13 +67,22 @@ export const getFormSchema = (
                       title: "Select event…",
                       enum: [""],
                     },
-                    ...Object.entries(PatchTriggerAliasStatus).map(
-                      ([value, title]) => ({
-                        type: "string" as "string",
-                        title,
-                        enum: [value],
-                      })
-                    ),
+                    {
+                      type: "string" as "string",
+                      title: PatchTriggerAliasStatus["*"],
+                      enum: ["*"],
+                    },
+                    {
+                      type: "string" as "string",
+                      title:
+                        PatchTriggerAliasStatus[PatchStatus.LegacySucceeded],
+                      enum: [PatchStatus.LegacySucceeded],
+                    },
+                    {
+                      type: "string" as "string",
+                      title: PatchTriggerAliasStatus[PatchStatus.Failed],
+                      enum: [PatchStatus.Failed],
+                    },
                   ],
                 },
                 taskSpecifiers: {
