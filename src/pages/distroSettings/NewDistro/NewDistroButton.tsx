@@ -3,21 +3,29 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Size, Variant } from "@leafygreen-ui/button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
+import { useParams } from "react-router-dom";
 import Icon from "components/Icon";
 import { zIndex } from "constants/tokens";
-import { UserDistroSettingsPermissionsQuery } from "gql/generated/types";
+import {
+  UserDistroSettingsPermissionsQuery,
+  UserDistroSettingsPermissionsQueryVariables,
+} from "gql/generated/types";
 import { USER_DISTRO_SETTINGS_PERMISSIONS } from "gql/queries";
 import { CopyModal } from "./CopyModal";
 import { CreateModal } from "./CreateModal";
 
 export const NewDistroButton: React.FC = () => {
+  const { distroId } = useParams<{ distroId: string }>();
   const [menuOpen, setMenuOpen] = useState(false);
   const [copyModalOpen, setCopyModalOpen] = useState(false);
   const [createModalOpen, setCreateModalOpen] = useState(false);
 
-  const { data } = useQuery<UserDistroSettingsPermissionsQuery>(
-    USER_DISTRO_SETTINGS_PERMISSIONS
-  );
+  const { data } = useQuery<
+    UserDistroSettingsPermissionsQuery,
+    UserDistroSettingsPermissionsQueryVariables
+  >(USER_DISTRO_SETTINGS_PERMISSIONS, {
+    variables: { distroId },
+  });
   const {
     user: {
       permissions: { canCreateDistro },

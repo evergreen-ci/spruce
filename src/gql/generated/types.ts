@@ -298,12 +298,17 @@ export type Dependency = {
 
 export type DispatcherSettings = {
   __typename?: "DispatcherSettings";
-  version: Scalars["String"];
+  version: DispatcherVersion;
 };
 
 export type DispatcherSettingsInput = {
-  version: Scalars["String"];
+  version: DispatcherVersion;
 };
+
+export enum DispatcherVersion {
+  Revised = "REVISED",
+  RevisedWithDependencies = "REVISED_WITH_DEPENDENCIES",
+}
 
 export type DisplayTask = {
   ExecTasks: Array<Scalars["String"]>;
@@ -516,12 +521,19 @@ export type FileDiff = {
 
 export type FinderSettings = {
   __typename?: "FinderSettings";
-  version: Scalars["String"];
+  version: FinderVersion;
 };
 
 export type FinderSettingsInput = {
-  version: Scalars["String"];
+  version: FinderVersion;
 };
+
+export enum FinderVersion {
+  Alternate = "ALTERNATE",
+  Legacy = "LEGACY",
+  Parallel = "PARALLEL",
+  Pipeline = "PIPELINE",
+}
 
 export type GeneralSubscription = {
   __typename?: "GeneralSubscription";
@@ -1477,7 +1489,7 @@ export type PlannerSettings = {
   patchFactor: Scalars["Int"];
   patchTimeInQueueFactor: Scalars["Int"];
   targetTime: Scalars["Duration"];
-  version: Scalars["String"];
+  version: PlannerVersion;
 };
 
 export type PlannerSettingsInput = {
@@ -1489,8 +1501,13 @@ export type PlannerSettingsInput = {
   patchFactor: Scalars["Int"];
   patchTimeInQueueFactor: Scalars["Int"];
   targetTime: Scalars["Int"];
-  version: Scalars["String"];
+  version: PlannerVersion;
 };
+
+export enum PlannerVersion {
+  Legacy = "LEGACY",
+  Tunable = "TUNABLE",
+}
 
 export type Pod = {
   __typename?: "Pod";
@@ -4468,6 +4485,15 @@ export type DefaultSectionToRepoMutation = {
   defaultSectionToRepo?: string | null;
 };
 
+export type DeleteDistroMutationVariables = Exact<{
+  distroId: Scalars["String"];
+}>;
+
+export type DeleteDistroMutation = {
+  __typename?: "Mutation";
+  deleteDistro: { __typename?: "DeleteDistroPayload"; deletedDistroId: string };
+};
+
 export type DeleteProjectMutationVariables = Exact<{
   projectId: Scalars["String"];
 }>;
@@ -5142,9 +5168,12 @@ export type DistroQuery = {
         virtualMemoryKb: number;
       };
     };
-    dispatcherSettings: { __typename?: "DispatcherSettings"; version: string };
+    dispatcherSettings: {
+      __typename?: "DispatcherSettings";
+      version: DispatcherVersion;
+    };
     expansions: Array<{ __typename?: "Expansion"; key: string; value: string }>;
-    finderSettings: { __typename?: "FinderSettings"; version: string };
+    finderSettings: { __typename?: "FinderSettings"; version: FinderVersion };
     homeVolumeSettings: {
       __typename?: "HomeVolumeSettings";
       formatCommand: string;
@@ -5175,7 +5204,7 @@ export type DistroQuery = {
       patchFactor: number;
       patchTimeInQueueFactor: number;
       targetTime: number;
-      version: string;
+      version: PlannerVersion;
     };
   } | null;
 };
@@ -8570,7 +8599,7 @@ export type TaskQueueDistrosQuery = {
 };
 
 export type UserDistroSettingsPermissionsQueryVariables = Exact<{
-  [key: string]: never;
+  distroId: Scalars["String"];
 }>;
 
 export type UserDistroSettingsPermissionsQuery = {
@@ -8578,7 +8607,11 @@ export type UserDistroSettingsPermissionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    permissions: { __typename?: "Permissions"; canCreateDistro: boolean };
+    permissions: {
+      __typename?: "Permissions";
+      canCreateDistro: boolean;
+      distroPermissions: { __typename?: "DistroPermissions"; admin: boolean };
+    };
   };
 };
 

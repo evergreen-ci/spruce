@@ -2,6 +2,7 @@ import { DistroSettingsTabRoutes } from "constants/routes";
 import { DistroInput } from "gql/generated/types";
 import * as general from "./GeneralTab/transformers";
 import * as project from "./ProjectTab/transformers";
+import * as task from "./TaskTab/transformers";
 import {
   FormToGqlFunction,
   GqlToFormFunction,
@@ -18,7 +19,7 @@ export const formToGqlMap: {
   [DistroSettingsTabRoutes.Host]: () => fakeReturn,
   [DistroSettingsTabRoutes.Project]: project.formToGql,
   [DistroSettingsTabRoutes.Provider]: () => fakeReturn,
-  [DistroSettingsTabRoutes.Task]: () => fakeReturn,
+  [DistroSettingsTabRoutes.Task]: task.formToGql,
 };
 
 export const gqlToFormMap: {
@@ -28,5 +29,5 @@ export const gqlToFormMap: {
   [DistroSettingsTabRoutes.Host]: () => fakeReturn,
   [DistroSettingsTabRoutes.Project]: project.gqlToForm,
   [DistroSettingsTabRoutes.Provider]: () => fakeReturn,
-  [DistroSettingsTabRoutes.Task]: () => fakeReturn,
+  [DistroSettingsTabRoutes.Task]: task.gqlToForm,
 };
