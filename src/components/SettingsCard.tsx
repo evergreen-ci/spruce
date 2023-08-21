@@ -12,7 +12,5 @@ export const formComponentSpacingCSS = "margin-bottom: 48px;";
 export const SettingsCard = styled(Card)`
   padding: ${size.m};
 
-  :not(:last-of-type) {
-    ${formComponentSpacingCSS}
-  }
+  ${formComponentSpacingCSS}
 `;

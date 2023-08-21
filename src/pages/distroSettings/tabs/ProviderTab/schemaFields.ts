@@ -1,3 +1,5 @@
+import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
+
 const mergeUserData = {
   type: "boolean" as "boolean",
   title: "Merge with existing user data",
@@ -27,6 +29,7 @@ export const staticProviderSettings = {
 
 export const uiSchema = {
   providerSettings: {
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
     userData: {
       "ui:widget": "textarea",
     },

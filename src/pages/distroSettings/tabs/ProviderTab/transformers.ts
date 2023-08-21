@@ -9,7 +9,7 @@ const getUserData = (providerSettings: any) => ({
 });
 
 const getMergeUserData = (providerSettings: any) => ({
-  userData: providerSettings.merge_user_data_parts ?? false,
+  mergeUserData: providerSettings.merge_user_data_parts ?? false,
 });
 
 const getSecurityGroups = (providerSettings: any) => ({
@@ -31,23 +31,28 @@ export const gqlToForm = ((data) => {
 
   switch (provider) {
     case Provider.Static:
-    default:
       return {
-        provider,
+        provider: {
+          providerName: Provider.Static,
+        },
         ...staticProviderSettings(providerSettingsList[0]),
       };
+    default:
+      throw new Error("idk");
   }
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((data, distro) => {
-  const { provider } = data;
+  const {
+    provider: { providerName },
+  } = data;
 
-  switch (provider) {
-    case Provider.Static:
-    default: {
+  switch (providerName) {
+    case Provider.Static: {
       const { mergeUserData, securityGroups, userData } = data.providerSettings;
       return {
         ...distro,
+        provider: providerName,
         providerSettingsList: [
           {
             merge_user_data_parts: mergeUserData,
@@ -57,5 +62,7 @@ export const formToGql = ((data, distro) => {
         ],
       };
     }
+    default:
+      return distro;
   }
 }) satisfies FormToGqlFunction<Tab>;

@@ -1,7 +1,9 @@
 import { Provider } from "gql/generated/types";
 
 interface StaticProviderFormState {
-  provider: Provider;
+  provider: {
+    providerName: Provider;
+  };
   providerSettings: {
     userData: string;
     mergeUserData: boolean;

@@ -9,30 +9,36 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
     type: "object" as "object",
     properties: {
       provider: {
-        type: "string" as "string",
-        title: "Provider",
-        oneOf: [
-          {
+        type: "object" as "object",
+        title: "",
+        properties: {
+          providerName: {
             type: "string" as "string",
-            title: "Static IP/VM",
-            enum: [Provider.Static],
+            title: "Provider",
+            oneOf: [
+              {
+                type: "string" as "string",
+                title: "Static IP/VM",
+                enum: [Provider.Static],
+              },
+              {
+                type: "string" as "string",
+                title: "Docker",
+                enum: [Provider.Docker],
+              },
+              {
+                type: "string" as "string",
+                title: "EC2 Fleet",
+                enum: [Provider.Ec2Fleet],
+              },
+              {
+                type: "string" as "string",
+                title: "EC2 On Demand",
+                enum: [Provider.Ec2Ondemand],
+              },
+            ],
           },
-          {
-            type: "string" as "string",
-            title: "Docker",
-            enum: [Provider.Docker],
-          },
-          {
-            type: "string" as "string",
-            title: "EC2 Fleet",
-            enum: [Provider.Ec2Fleet],
-          },
-          {
-            type: "string" as "string",
-            title: "EC2 On Demand",
-            enum: [Provider.Ec2Ondemand],
-          },
-        ],
+        },
       },
     },
     dependencies: {
@@ -41,7 +47,11 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
           {
             properties: {
               provider: {
-                enum: [Provider.Static],
+                properties: {
+                  providerName: {
+                    enum: [Provider.Static],
+                  },
+                },
               },
               providerSettings: {
                 type: "object" as "object",
@@ -55,7 +65,9 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
     },
   },
   uiSchema: {
-    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    provider: {
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+    },
     ...uiSchema,
   },
 });
