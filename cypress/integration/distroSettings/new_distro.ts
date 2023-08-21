@@ -1,7 +1,6 @@
 const distroSettingPage = "/distro/rhel71-power8-large/settings/general";
 
-// TODO EVG-19943: Add delete operation and enable test isolation.
-describe("Creating a new distro", { testIsolation: false }, () => {
+describe("Creating a new distro", () => {
   beforeEach(() => {
     cy.visit(distroSettingPage);
   });
@@ -21,12 +20,22 @@ describe("Creating a new distro", { testIsolation: false }, () => {
       `/distro/${newDistroId}/settings/general`
     );
 
-    // TODO: Add delete operation here.
+    cy.dataCy("delete-distro-button").should(
+      "have.attr",
+      "aria-disabled",
+      "false"
+    );
+    cy.dataCy("delete-distro-button").click();
+    cy.dataCy("delete-distro-modal").should("be.visible");
+    cy.dataCy("delete-distro-modal").within(() => {
+      cy.get("input").type(newDistroId);
+    });
+    cy.contains("button", /^Delete$/).click();
+    cy.validateToast("success");
   });
 });
 
-// TODO EVG-19943: Add delete operation and enable test isolation.
-describe("Copying a distro", { testIsolation: false }, () => {
+describe("Copying a distro", () => {
   beforeEach(() => {
     cy.visit(distroSettingPage);
   });
@@ -46,6 +55,17 @@ describe("Copying a distro", { testIsolation: false }, () => {
       `/distro/${copyDistroId}/settings/general`
     );
 
-    // TODO: Add delete operation here.
+    cy.dataCy("delete-distro-button").should(
+      "have.attr",
+      "aria-disabled",
+      "false"
+    );
+    cy.dataCy("delete-distro-button").click();
+    cy.dataCy("delete-distro-modal").should("be.visible");
+    cy.dataCy("delete-distro-modal").within(() => {
+      cy.get("input").type(copyDistroId);
+    });
+    cy.contains("button", /^Delete$/).click();
+    cy.validateToast("success");
   });
 });

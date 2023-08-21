@@ -1,4 +1,10 @@
-import { CloneMethod, DistroQuery } from "gql/generated/types";
+import {
+  CloneMethod,
+  DistroQuery,
+  FinderVersion,
+  PlannerVersion,
+  DispatcherVersion,
+} from "gql/generated/types";
 
 const distroData: DistroQuery["distro"] = {
   __typename: "Distro",
@@ -34,7 +40,7 @@ const distroData: DistroQuery["distro"] = {
   disabled: false,
   disableShallowClone: true,
   dispatcherSettings: {
-    version: "revised-with-dependencies",
+    version: DispatcherVersion.RevisedWithDependencies,
   },
   expansions: [
     {
@@ -51,7 +57,7 @@ const distroData: DistroQuery["distro"] = {
     },
   ],
   finderSettings: {
-    version: "legacy",
+    version: FinderVersion.Legacy,
   },
   homeVolumeSettings: {
     formatCommand: "",
@@ -77,13 +83,13 @@ const distroData: DistroQuery["distro"] = {
   plannerSettings: {
     commitQueueFactor: 0,
     expectedRuntimeFactor: 0,
-    generateTaskFactor: 0,
+    generateTaskFactor: 5,
     groupVersions: false,
     mainlineTimeInQueueFactor: 0,
     patchFactor: 0,
     patchTimeInQueueFactor: 0,
     targetTime: 0,
-    version: "tunable",
+    version: PlannerVersion.Tunable,
   },
   provider: "static",
   providerSettingsList: [

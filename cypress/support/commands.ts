@@ -98,8 +98,13 @@ Cypress.Commands.add(
 );
 
 /* selectLGOption */
-Cypress.Commands.add("selectLGOption", (label: string, option: string) => {
-  // open select
-  cy.getInputByLabel(label).click({ force: true });
-  return cy.contains(option).click();
-});
+Cypress.Commands.add(
+  "selectLGOption",
+  (label: string, option: string | RegExp) => {
+    cy.getInputByLabel(label).click({ force: true }); // open select
+    cy.get('[role="listbox"]').should("have.length", 1);
+    cy.get('[role="listbox"]').within(() => {
+      cy.contains(option).click();
+    });
+  }
+);
