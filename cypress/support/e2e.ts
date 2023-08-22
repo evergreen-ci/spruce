@@ -20,6 +20,7 @@ import {
   CY_DISABLE_NEW_USER_WELCOME_MODAL,
   SLACK_NOTIFICATION_BANNER,
 } from "constants/cookies";
+import { isMutation } from "../utils/graphql-test-utils";
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
@@ -121,7 +122,7 @@ before(() => {
   });
 });
 
-(function () {
+(() => {
   let mutationDispatched: boolean;
   beforeEach(() => {
     cy.login();
@@ -132,7 +133,7 @@ before(() => {
     cy.setCookie(SLACK_NOTIFICATION_BANNER, "true");
     mutationDispatched = false;
     cy.intercept("POST", "/graphql/query", (req) => {
-      if (req.body.query?.startsWith(MUTATION)) {
+      if (isMutation(req)) {
         mutationDispatched = true;
       }
     });
@@ -146,6 +147,5 @@ before(() => {
   });
 })();
 
-const MUTATION = "mutation";
 const bannerCookie = "This is an important notification";
 const konamiCookie = "seen-konami-code";

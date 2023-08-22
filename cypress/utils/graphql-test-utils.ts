@@ -11,5 +11,7 @@ export const hasOperationName = (
     body.operationName === operationName
   );
 };
+export const isMutation = (req: CyHttpMessages.IncomingHttpRequest) =>
+  req.body.query?.startsWith("mutation");
 
 export const GQL_URL = "http://localhost:9090/graphql/query";

@@ -10,6 +10,11 @@ clean_up() {
     echo "Cleaned up $DUMP_ROOT."
 }
 
+reseed_database() {
+    cd -- "$(dirname -- "$(readlink -- "sdlschema")")"
+    ../bin/load-smoke-data -path ../testdata/local -dbName evergreen_local -amboyDBName amboy_local
+}
+
 dump_database() {
     clean_up
     if ! mongodump --uri="$URI" -o "$DUMP_ROOT"; then
@@ -45,6 +50,9 @@ case "$1" in
     --clean-up)
         clean_up
         ;;
+    --reseed)
+        reseed_database
+        ;;    
     *)
         echo "Usage: $0 {--dump|--restore|--clean-up}"
         exit 1
