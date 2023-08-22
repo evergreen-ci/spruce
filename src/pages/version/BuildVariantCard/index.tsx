@@ -1,8 +1,10 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
+import { navBarHeight } from "components/Header/Navbar";
 import { MetadataCard, MetadataTitle } from "components/MetadataCard";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import { size } from "constants/tokens";
 import {
   BuildVariantStatsQuery,
   BuildVariantStatsQueryVariables,
@@ -46,13 +48,16 @@ const BuildVariantCard: React.FC = () => {
 };
 
 const StickyMetadataCard = styled(MetadataCard)`
+  display: flex;
+  flex-direction: column;
+  /* Subtract navbar height, top, and bottom margin from viewport height */
+  max-height: calc(100vh - ${navBarHeight} - ${size.m} - ${size.m});
   position: sticky;
   top: 0;
 `;
 
 const ScrollableBuildVariantStatsContainer = styled.div`
-  max-height: 55vh;
-  overflow-y: auto;
+  overflow-y: scroll;
 `;
 
 export default BuildVariantCard;

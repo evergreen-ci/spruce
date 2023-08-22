@@ -1,10 +1,10 @@
 import {
   CloneMethod,
+  DispatcherVersion,
   DistroQuery,
   FinderVersion,
   PlannerVersion,
   Provider,
-  DispatcherVersion,
 } from "gql/generated/types";
 
 const distroData: DistroQuery["distro"] = {

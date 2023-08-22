@@ -1,7 +1,6 @@
 import { diff } from "deep-object-diff";
-import { ProjectEventSettings } from "gql/generated/types";
-import { Subset } from "types/utils";
 import { string } from "utils";
+import { Event, EventDiffLine, EventValue } from "./types";
 
 const { omitTypename } = string;
 
@@ -27,16 +26,9 @@ const formatArrayElements = (eventKey: string): string =>
 const getNestedObject = (nestedObj: object, pathArr: string[]): EventValue =>
   pathArr.reduce((obj, key) => (obj ? obj[key] : undefined), nestedObj);
 
-export type EventValue = boolean | string | Array<string | boolean | object>;
-export type EventDiffLine = {
-  key: string;
-  before: EventValue;
-  after: EventValue;
-};
-
 export const getEventDiffLines = (
-  before: Subset<ProjectEventSettings>,
-  after: Subset<ProjectEventSettings>
+  before: Event["before"],
+  after: Event["after"]
 ): EventDiffLine[] => {
   const beforeNoTypename = omitTypename(before);
   const afterNoTypename = omitTypename(after);

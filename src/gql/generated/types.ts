@@ -1808,7 +1808,7 @@ export type ProjectVarsInput = {
 export enum Provider {
   Docker = "DOCKER",
   Ec2Fleet = "EC2_FLEET",
-  Ec2Ondemand = "EC2_ONDEMAND",
+  Ec2OnDemand = "EC2_ON_DEMAND",
   Static = "STATIC",
 }
 
@@ -5077,6 +5077,28 @@ export type AwsRegionsQueryVariables = Exact<{ [key: string]: never }>;
 export type AwsRegionsQuery = {
   __typename?: "Query";
   awsRegions?: Array<string> | null;
+};
+
+export type DistroEventsQueryVariables = Exact<{
+  distroId: Scalars["String"];
+  limit?: InputMaybe<Scalars["Int"]>;
+  before?: InputMaybe<Scalars["Time"]>;
+}>;
+
+export type DistroEventsQuery = {
+  __typename?: "Query";
+  distroEvents: {
+    __typename?: "DistroEventsPayload";
+    count: number;
+    eventLogEntries: Array<{
+      __typename?: "DistroEvent";
+      after?: any | null;
+      before?: any | null;
+      data?: any | null;
+      timestamp: Date;
+      user: string;
+    }>;
+  };
 };
 
 export type DistroTaskQueueQueryVariables = Exact<{
