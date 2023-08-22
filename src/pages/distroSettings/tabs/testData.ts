@@ -1,9 +1,10 @@
 import {
   CloneMethod,
+  DispatcherVersion,
   DistroQuery,
   FinderVersion,
   PlannerVersion,
-  DispatcherVersion,
+  Provider,
 } from "gql/generated/types";
 
 const distroData: DistroQuery["distro"] = {
@@ -91,7 +92,7 @@ const distroData: DistroQuery["distro"] = {
     targetTime: 0,
     version: PlannerVersion.Tunable,
   },
-  provider: "static",
+  provider: Provider.Static,
   providerSettingsList: [
     {
       ami: "who-ami",

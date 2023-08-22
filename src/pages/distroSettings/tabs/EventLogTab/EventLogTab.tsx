@@ -12,7 +12,7 @@ export const EventLogTab: React.FC<TabProps> = ({ limit }) => {
     distroId: string;
   }>();
 
-  const { allEventsFetched, events, fetchMore } = useDistroEvents(
+  const { allEventsFetched, events, fetchMore, loading } = useDistroEvents(
     distroId,
     limit
   );
@@ -38,6 +38,7 @@ export const EventLogTab: React.FC<TabProps> = ({ limit }) => {
           },
         });
       }}
+      loading={loading}
     />
   );
 };

@@ -15,7 +15,7 @@ export const useDistroEvents = (
   const dispatchToast = useToastContext();
 
   const { allEventsFetched, onCompleted, setPrevCount } = useEvents(limit);
-  const { data, fetchMore, previousData } = useQuery<
+  const { data, fetchMore, loading, previousData } = useQuery<
     DistroEventsQuery,
     DistroEventsQueryVariables
   >(DISTRO_EVENTS, {
@@ -26,7 +26,7 @@ export const useDistroEvents = (
     notifyOnNetworkStatusChange: true,
     onCompleted: ({ distroEvents: { count } }) => onCompleted(count),
     onError: (e) => {
-      dispatchToast.error(`Unable to fetch events for ${distroId}: ${e}`);
+      dispatchToast.error(e.message);
     },
   });
 
@@ -36,5 +36,5 @@ export const useDistroEvents = (
     setPrevCount(previousData?.distroEvents?.count ?? 0);
   }, [previousData, setPrevCount]);
 
-  return { allEventsFetched, events, fetchMore };
+  return { allEventsFetched, events, fetchMore, loading };
 };
