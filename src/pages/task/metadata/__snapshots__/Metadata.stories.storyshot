@@ -8,14 +8,16 @@ exports[`storybook Storyshots Pages/Task/Metadata Containerized Task 1`] = `
     <div
       class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1v4ednr"
     >
-      <p
-        class="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-1miy0xp"
-      >
-        Task Metadata
-      </p>
-      <hr
-        class="css-qqg5h5-Divider eyj3qof0"
-      />
+      <div>
+        <p
+          class="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-1miy0xp"
+        >
+          Task Metadata
+        </p>
+        <hr
+          class="css-qqg5h5-Divider eyj3qof0"
+        />
+      </div>
       <p
         class="css-1tu2ym0-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
         data-cy="task-metadata-build-variant"
@@ -123,14 +125,16 @@ exports[`storybook Storyshots Pages/Task/Metadata Default 1`] = `
     <div
       class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1v4ednr"
     >
-      <p
-        class="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-1miy0xp"
-      >
-        Task Metadata
-      </p>
-      <hr
-        class="css-qqg5h5-Divider eyj3qof0"
-      />
+      <div>
+        <p
+          class="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-1miy0xp"
+        >
+          Task Metadata
+        </p>
+        <hr
+          class="css-qqg5h5-Divider eyj3qof0"
+        />
+      </div>
       <p
         class="css-1tu2ym0-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
         data-cy="task-metadata-build-variant"
@@ -278,14 +282,16 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
     <div
       class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1v4ednr"
     >
-      <p
-        class="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-1miy0xp"
-      >
-        Task Metadata
-      </p>
-      <hr
-        class="css-qqg5h5-Divider eyj3qof0"
-      />
+      <div>
+        <p
+          class="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-1miy0xp"
+        >
+          Task Metadata
+        </p>
+        <hr
+          class="css-qqg5h5-Divider eyj3qof0"
+        />
+      </div>
       <p
         class="css-1tu2ym0-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
         data-cy="task-metadata-build-variant"
@@ -433,14 +439,16 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
     <div
       class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1v4ednr"
     >
-      <p
-        class="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-1miy0xp"
-      >
-        Task Metadata
-      </p>
-      <hr
-        class="css-qqg5h5-Divider eyj3qof0"
-      />
+      <div>
+        <p
+          class="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-1miy0xp"
+        >
+          Task Metadata
+        </p>
+        <hr
+          class="css-qqg5h5-Divider eyj3qof0"
+        />
+      </div>
       <p
         class="css-1tu2ym0-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
         data-cy="task-metadata-build-variant"
@@ -579,14 +587,16 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
         class="css-5f1fjg-DependsOnContainer ebphozh1"
         data-cy="depends-on-container"
       >
-        <p
-          class="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-1miy0xp"
-        >
-          Depends On
-        </p>
-        <hr
-          class="css-qqg5h5-Divider eyj3qof0"
-        />
+        <div>
+          <p
+            class="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-1miy0xp"
+          >
+            Depends On
+          </p>
+          <hr
+            class="css-qqg5h5-Divider eyj3qof0"
+          />
+        </div>
         <div
           class="css-3ay4yh-DependsOnWrapper e1dgw5p64"
         >
