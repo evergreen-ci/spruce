@@ -41,6 +41,9 @@ const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
+        distroEvents: {
+          keyArgs: ["$distroId"],
+        },
         projectEvents: {
           keyArgs: ["$identifier"],
         },
@@ -51,6 +54,20 @@ const cache = new InMemoryCache({
     },
     GeneralSubscription: {
       keyFields: false,
+    },
+    DistroEventsPayload: {
+      fields: {
+        count: {
+          merge(existing = 0, incoming = 0) {
+            return existing + incoming;
+          },
+        },
+        eventLogEntries: {
+          merge(existing = [], incoming = []) {
+            return [...existing, ...incoming];
+          },
+        },
+      },
     },
     ProjectEvents: {
       fields: {
