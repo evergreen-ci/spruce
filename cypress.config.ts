@@ -12,7 +12,6 @@ export default defineConfig({
     specPattern: "cypress/integration/**/*.ts",
     viewportWidth: 1920,
     viewportHeight: 1080,
-    experimentalInteractiveRunEvents: true,
     setupNodeEvents(on) {
       on("before:run", () => {
         try {

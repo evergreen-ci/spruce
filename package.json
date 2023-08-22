@@ -13,7 +13,7 @@
     "check-types": "tsc -p tsconfig.json --noEmit",
     "clean": "rm -rf node_modules && rm -rf build && yarn install",
     "codegen": "graphql-codegen --config codegen.ts",
-    "cy:open": "cypress open",
+    "cy:open": "yarn evg-db-ops --reseed-and-dump; cypress open",
     "cy:run": "cypress run",
     "cy:test": "cypress run --spec",
     "deploy:beta": "yarn build:beta && env-cmd -e beta yarn deploy:do-not-use",

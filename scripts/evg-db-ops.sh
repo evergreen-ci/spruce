@@ -24,6 +24,11 @@ dump_database() {
     echo "Dump successfully created in $DUMP_ROOT"
 }
 
+reseed_and_dump_database() {
+    reseed_database
+    dump_database
+}
+
 restore_database() {
     if [ ! -d "$DUMP_FOLDER" ]; then
         echo "Error: $DUMP_FOLDER does not exist. Ensure you have a valid dump before restoring."
@@ -52,7 +57,10 @@ case "$1" in
         ;;
     --reseed)
         reseed_database
-        ;;    
+        ;;
+     --reseed-and-dump)
+        reseed_and_dump_database
+        ;; 
     *)
         echo "Usage: $0 {--dump|--restore|--clean-up}"
         exit 1
