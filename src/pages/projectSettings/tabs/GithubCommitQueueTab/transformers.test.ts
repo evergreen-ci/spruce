@@ -217,7 +217,7 @@ const repoForm: GCQFormState = {
             variantRegex: ".*",
           },
         ],
-        status: "succeeded",
+        status: "success",
         parentAsModule: "",
       },
     ],

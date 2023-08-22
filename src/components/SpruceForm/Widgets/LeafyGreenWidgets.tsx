@@ -19,6 +19,7 @@ import Icon from "components/Icon";
 import { size, zIndex } from "constants/tokens";
 import { OneOf } from "types/utils";
 import ElementWrapper from "../ElementWrapper";
+import { STANDARD_FIELD_WIDTH } from "../utils";
 import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
 import { isNullish, processErrors } from "./utils";
 
@@ -110,14 +111,18 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
   const {
     customLabel,
     "data-cy": dataCy,
+    description,
     elementWrapperCSS,
     tooltipDescription,
   } = options;
   return (
     <ElementWrapper css={elementWrapperCSS}>
       <Checkbox
-        data-cy={dataCy}
+        bold={false}
         checked={value}
+        data-cy={dataCy}
+        description={description}
+        disabled={disabled || readonly}
         label={
           <>
             {customLabel || label}
@@ -138,7 +143,6 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
           </>
         }
         onChange={(e) => onChange(e.target.checked)}
-        disabled={disabled || readonly}
       />
     </ElementWrapper>
   );
@@ -430,5 +434,5 @@ const StyledSegmentedControl = styled(SegmentedControl)`
 `;
 
 export const MaxWidthContainer = styled.div`
-  max-width: 400px;
+  max-width: ${STANDARD_FIELD_WIDTH}px;
 `;

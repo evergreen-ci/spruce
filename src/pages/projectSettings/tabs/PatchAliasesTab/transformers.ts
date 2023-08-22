@@ -7,6 +7,16 @@ const { sortAliases, transformAliases } = aliasUtils;
 
 type Tab = ProjectSettingsTabRoutes.PatchAliases;
 
+// Ensure that the front end can ingest patch trigger alias status filters that use either "success" or "succeeded".
+// For now, use "succeeded" for either.
+// TODO EVG-20704: Save patch trigger aliases with "success" instead of "succeeded".
+const migrateSuccessStatus = (status: string) => {
+  if (status === "success") {
+    return "succeeded";
+  }
+  return status ?? "";
+};
+
 export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
   if (!data) return null;
 
@@ -39,7 +49,7 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
                 ? TaskSpecifier.PatchAlias
                 : TaskSpecifier.VariantTask,
             })) ?? [],
-          status: p.status ?? "",
+          status: migrateSuccessStatus(p.status),
           parentAsModule: p.parentAsModule ?? "",
           isGithubTriggerAlias: githubTriggerAliases?.includes(p.alias),
           displayTitle: p.alias,

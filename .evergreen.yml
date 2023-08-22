@@ -234,9 +234,15 @@ functions:
     command: shell.exec
     params:
       working_dir: spruce
+      shell: bash
       script: |
         ${PREPARE_SHELL}
-        yarn cy:run --record --key ${cypress_record_key} --reporter junit
+        # Only record to cypress cloud if this is a pr, mainline commit or an intentional patch.
+        if [[ "${requester}" == "github_pr" || "${requester}" == "commit" || "${requester}" == "patch" ]]; then
+          yarn cy:run --record --key "${cypress_record_key}" --reporter junit
+        else
+          yarn cy:run --reporter junit
+        fi
 
   attach-test-results:
     command: attach.xunit_results

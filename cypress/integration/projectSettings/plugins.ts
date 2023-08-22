@@ -1,4 +1,5 @@
-import { getPluginsRoute, projectUseRepoEnabled, clickSave } from "./constants";
+import { getPluginsRoute, projectUseRepoEnabled } from "./constants";
+import { clickSave } from "../../utils";
 
 describe("Plugins", () => {
   const patchPage = "version/5ecedafb562343215a7ff297";

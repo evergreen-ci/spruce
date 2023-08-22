@@ -74,7 +74,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                         <svg
                           alt=""
                           aria-hidden="true"
-                          class="leafygreen-ui-1st74h4 leafygreen-ui-1t9qnhm"
+                          class="leafygreen-ui-4dp7tf"
                           height="16"
                           role="presentation"
                           viewBox="0 0 16 16"
@@ -139,7 +139,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                 </button>
               </div>
               <div
-                class="css-uocgfp-ArrayContainer e1jxkcec5"
+                class="css-1mmfwj9-ArrayContainer e1jxkcec5"
               >
                 <div
                   class="css-nbhfvd-ArrayItemRow e1jxkcec7"

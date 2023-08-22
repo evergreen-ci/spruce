@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { DistroSettingsTabRoutes } from "constants/routes";
 import { size } from "constants/tokens";
+import { DistroQuery } from "gql/generated/types";
 import { getTabTitle } from "./getTabTitle";
 import { HeaderButtons } from "./HeaderButtons";
 import {
@@ -10,10 +11,11 @@ import {
 } from "./tabs/types";
 
 interface Props {
+  distro: DistroQuery["distro"];
   tab: DistroSettingsTabRoutes;
 }
 
-export const Header: React.FC<Props> = ({ tab }) => {
+export const Header: React.FC<Props> = ({ distro, tab }) => {
   const { title } = getTabTitle(tab);
   const saveable = Object.values(WritableDistroSettingsTabs).includes(
     tab as WritableDistroSettingsType
@@ -24,7 +26,12 @@ export const Header: React.FC<Props> = ({ tab }) => {
       <TitleContainer>
         <H2 data-cy="distro-settings-tab-title">{title}</H2>
       </TitleContainer>
-      {saveable && <HeaderButtons tab={tab as WritableDistroSettingsType} />}
+      {saveable && (
+        <HeaderButtons
+          distro={distro}
+          tab={tab as WritableDistroSettingsType}
+        />
+      )}
     </Container>
   );
 };

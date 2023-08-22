@@ -225,7 +225,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
             variantRegex: ".*",
           },
         ],
-        status: "succeeded",
+        status: "success",
         parentAsModule: "",
       },
     ],

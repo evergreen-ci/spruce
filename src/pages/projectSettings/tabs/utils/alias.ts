@@ -3,12 +3,13 @@ import {
   AccordionFieldTemplate,
   FieldRow,
 } from "components/SpruceForm/FieldTemplates";
+import { STANDARD_FIELD_WIDTH } from "components/SpruceForm/utils";
 import widgets from "components/SpruceForm/Widgets";
 import { ProjectAlias, ProjectAliasInput } from "gql/generated/types";
 
 const textAreaCSS = css`
   box-sizing: border-box;
-  max-width: 400px;
+  max-width: ${STANDARD_FIELD_WIDTH}px;
 `;
 
 export enum AliasNames {
@@ -294,7 +295,6 @@ export const baseProps = {
     uiSchema: {
       "ui:addButtonSize": "xsmall",
       "ui:addButtonText": "Add Task Tag",
-      "ui:fullWidth": true,
       "ui:orderable": false,
       "ui:sectionId": "task-tags-field",
       "ui:showLabel": false,
@@ -336,7 +336,6 @@ export const baseProps = {
     uiSchema: {
       "ui:addButtonSize": "xsmall",
       "ui:addButtonText": "Add Variant Tag",
-      "ui:fullWidth": true,
       "ui:orderable": false,
       "ui:sectionId": "variant-tags-field",
       "ui:showLabel": false,

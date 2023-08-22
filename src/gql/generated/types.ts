@@ -179,6 +179,11 @@ export type ClientConfig = {
   latestRevision?: Maybe<Scalars["String"]>;
 };
 
+export enum CloneMethod {
+  LegacySsh = "LEGACY_SSH",
+  Oauth = "OAUTH",
+}
+
 export type CloudProviderConfig = {
   __typename?: "CloudProviderConfig";
   aws?: Maybe<AwsConfig>;
@@ -293,12 +298,17 @@ export type Dependency = {
 
 export type DispatcherSettings = {
   __typename?: "DispatcherSettings";
-  version: Scalars["String"];
+  version: DispatcherVersion;
 };
 
 export type DispatcherSettingsInput = {
-  version: Scalars["String"];
+  version: DispatcherVersion;
 };
+
+export enum DispatcherVersion {
+  Revised = "REVISED",
+  RevisedWithDependencies = "REVISED_WITH_DEPENDENCIES",
+}
 
 export type DisplayTask = {
   ExecTasks: Array<Scalars["String"]>;
@@ -312,7 +322,7 @@ export type Distro = {
   arch: Scalars["String"];
   authorizedKeysFile: Scalars["String"];
   bootstrapSettings: BootstrapSettings;
-  cloneMethod: Scalars["String"];
+  cloneMethod: CloneMethod;
   containerPool: Scalars["String"];
   disableShallowClone: Scalars["Boolean"];
   disabled: Scalars["Boolean"];
@@ -339,6 +349,28 @@ export type Distro = {
   workDir: Scalars["String"];
 };
 
+export type DistroEvent = {
+  __typename?: "DistroEvent";
+  after?: Maybe<Scalars["Map"]>;
+  before?: Maybe<Scalars["Map"]>;
+  data?: Maybe<Scalars["Map"]>;
+  timestamp: Scalars["Time"];
+  user: Scalars["String"];
+};
+
+/** DistroEventsInput is the input to the distroEvents query. */
+export type DistroEventsInput = {
+  before?: InputMaybe<Scalars["Time"]>;
+  distroId: Scalars["String"];
+  limit?: InputMaybe<Scalars["Int"]>;
+};
+
+export type DistroEventsPayload = {
+  __typename?: "DistroEventsPayload";
+  count: Scalars["Int"];
+  eventLogEntries: Array<DistroEvent>;
+};
+
 export type DistroInfo = {
   __typename?: "DistroInfo";
   bootstrapMethod?: Maybe<Scalars["String"]>;
@@ -354,7 +386,7 @@ export type DistroInput = {
   arch: Scalars["String"];
   authorizedKeysFile: Scalars["String"];
   bootstrapSettings: BootstrapSettingsInput;
-  cloneMethod: Scalars["String"];
+  cloneMethod: CloneMethod;
   containerPool: Scalars["String"];
   disableShallowClone: Scalars["Boolean"];
   disabled: Scalars["Boolean"];
@@ -489,12 +521,19 @@ export type FileDiff = {
 
 export type FinderSettings = {
   __typename?: "FinderSettings";
-  version: Scalars["String"];
+  version: FinderVersion;
 };
 
 export type FinderSettingsInput = {
-  version: Scalars["String"];
+  version: FinderVersion;
 };
+
+export enum FinderVersion {
+  Alternate = "ALTERNATE",
+  Legacy = "LEGACY",
+  Parallel = "PARALLEL",
+  Pipeline = "PIPELINE",
+}
 
 export type GeneralSubscription = {
   __typename?: "GeneralSubscription";
@@ -1450,7 +1489,7 @@ export type PlannerSettings = {
   patchFactor: Scalars["Int"];
   patchTimeInQueueFactor: Scalars["Int"];
   targetTime: Scalars["Duration"];
-  version: Scalars["String"];
+  version: PlannerVersion;
 };
 
 export type PlannerSettingsInput = {
@@ -1462,8 +1501,13 @@ export type PlannerSettingsInput = {
   patchFactor: Scalars["Int"];
   patchTimeInQueueFactor: Scalars["Int"];
   targetTime: Scalars["Int"];
-  version: Scalars["String"];
+  version: PlannerVersion;
 };
+
+export enum PlannerVersion {
+  Legacy = "LEGACY",
+  Tunable = "TUNABLE",
+}
 
 export type Pod = {
   __typename?: "Pod";
@@ -1783,6 +1827,7 @@ export type Query = {
   clientConfig?: Maybe<ClientConfig>;
   commitQueue: CommitQueue;
   distro?: Maybe<Distro>;
+  distroEvents: DistroEventsPayload;
   distroTaskQueue: Array<TaskQueueItem>;
   distros: Array<Maybe<Distro>>;
   githubProjectConflicts: GithubProjectConflicts;
@@ -1838,6 +1883,10 @@ export type QueryCommitQueueArgs = {
 
 export type QueryDistroArgs = {
   distroId: Scalars["String"];
+};
+
+export type QueryDistroEventsArgs = {
+  opts: DistroEventsInput;
 };
 
 export type QueryDistroTaskQueueArgs = {
@@ -2101,6 +2150,7 @@ export type ResourceLimitsInput = {
   virtualMemoryKb: Scalars["Int"];
 };
 
+/** SaveDistroInput is the input to the saveDistro mutation. */
 export type SaveDistroInput = {
   distro: DistroInput;
   onSave: DistroOnSaveOperation;
@@ -4435,6 +4485,15 @@ export type DefaultSectionToRepoMutation = {
   defaultSectionToRepo?: string | null;
 };
 
+export type DeleteDistroMutationVariables = Exact<{
+  distroId: Scalars["String"];
+}>;
+
+export type DeleteDistroMutation = {
+  __typename?: "Mutation";
+  deleteDistro: { __typename?: "DeleteDistroPayload"; deletedDistroId: string };
+};
+
 export type DeleteProjectMutationVariables = Exact<{
   projectId: Scalars["String"];
 }>;
@@ -4743,6 +4802,20 @@ export type RestartVersionsMutation = {
   }> | null;
 };
 
+export type SaveDistroMutationVariables = Exact<{
+  distro: DistroInput;
+  onSave: DistroOnSaveOperation;
+}>;
+
+export type SaveDistroMutation = {
+  __typename?: "Mutation";
+  saveDistro: {
+    __typename?: "SaveDistroPayload";
+    hostCount: number;
+    distro: { __typename?: "Distro"; name: string };
+  };
+};
+
 export type SaveProjectSettingsForSectionMutationVariables = Exact<{
   projectSettings: ProjectSettingsInput;
   section: ProjectSettingsSection;
@@ -5025,7 +5098,93 @@ export type DistroQueryVariables = Exact<{
 
 export type DistroQuery = {
   __typename?: "Query";
-  distro?: { __typename?: "Distro"; name: string } | null;
+  distro?: {
+    __typename?: "Distro";
+    aliases: Array<string>;
+    arch: string;
+    authorizedKeysFile: string;
+    cloneMethod: CloneMethod;
+    containerPool: string;
+    disabled: boolean;
+    disableShallowClone: boolean;
+    isCluster: boolean;
+    isVirtualWorkStation: boolean;
+    name: string;
+    note: string;
+    provider: string;
+    providerSettingsList: Array<any>;
+    setup: string;
+    setupAsSudo: boolean;
+    sshKey: string;
+    sshOptions: Array<string>;
+    user: string;
+    userSpawnAllowed: boolean;
+    validProjects: Array<string | null>;
+    workDir: string;
+    bootstrapSettings: {
+      __typename?: "BootstrapSettings";
+      clientDir: string;
+      communication: string;
+      jasperBinaryDir: string;
+      jasperCredentialsPath: string;
+      method: string;
+      rootDir: string;
+      serviceUser: string;
+      shellPath: string;
+      env: Array<{ __typename?: "EnvVar"; key: string; value: string }>;
+      preconditionScripts: Array<{
+        __typename?: "PreconditionScript";
+        path: string;
+        script: string;
+      }>;
+      resourceLimits: {
+        __typename?: "ResourceLimits";
+        lockedMemoryKb: number;
+        numFiles: number;
+        numProcesses: number;
+        numTasks: number;
+        virtualMemoryKb: number;
+      };
+    };
+    dispatcherSettings: {
+      __typename?: "DispatcherSettings";
+      version: DispatcherVersion;
+    };
+    expansions: Array<{ __typename?: "Expansion"; key: string; value: string }>;
+    finderSettings: { __typename?: "FinderSettings"; version: FinderVersion };
+    homeVolumeSettings: {
+      __typename?: "HomeVolumeSettings";
+      formatCommand: string;
+    };
+    hostAllocatorSettings: {
+      __typename?: "HostAllocatorSettings";
+      acceptableHostIdleTime: number;
+      feedbackRule: string;
+      futureHostFraction: number;
+      hostsOverallocatedRule: string;
+      maximumHosts: number;
+      minimumHosts: number;
+      roundingRule: string;
+      version: string;
+    };
+    iceCreamSettings: {
+      __typename?: "IceCreamSettings";
+      configPath: string;
+      schedulerHost: string;
+    };
+    plannerSettings: {
+      __typename?: "PlannerSettings";
+      commitQueueFactor: number;
+      expectedRuntimeFactor: number;
+      generateTaskFactor: number;
+      groupVersions: boolean;
+      mainlineTimeInQueueFactor: number;
+      patchFactor: number;
+      patchTimeInQueueFactor: number;
+      targetTime: number;
+      version: PlannerVersion;
+    };
+  } | null;
 };
 
 export type FailedTaskStatusIconTooltipQueryVariables = Exact<{
@@ -8418,7 +8577,7 @@ export type TaskQueueDistrosQuery = {
 };
 
 export type UserDistroSettingsPermissionsQueryVariables = Exact<{
-  [key: string]: never;
+  distroId: Scalars["String"];
 }>;
 
 export type UserDistroSettingsPermissionsQuery = {
@@ -8426,7 +8585,11 @@ export type UserDistroSettingsPermissionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    permissions: { __typename?: "Permissions"; canCreateDistro: boolean };
+    permissions: {
+      __typename?: "Permissions";
+      canCreateDistro: boolean;
+      distroPermissions: { __typename?: "DistroPermissions"; admin: boolean };
+    };
   };
 };
 

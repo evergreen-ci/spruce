@@ -83,7 +83,7 @@ declare global {
        * @param option The option text to select
        * @example cy.selectLGOption("Some Label", "Some Option")
        */
-      selectLGOption(label: string, option: string): void;
+      selectLGOption(label: string, option: string | RegExp): void;
       /**
        * Custom command to navigate to login page and login.
        * @example cy.login()
