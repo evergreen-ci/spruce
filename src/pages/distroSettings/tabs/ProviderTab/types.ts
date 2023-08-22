@@ -2,7 +2,7 @@ import { Provider } from "gql/generated/types";
 
 interface StaticProviderFormState {
   provider: {
-    providerName: Provider;
+    providerName: Provider.Static;
   };
   providerSettings: {
     userData: string;
