@@ -48,7 +48,7 @@ interface Props {
   task: TaskQuery["task"];
 }
 
-export const ActionButtons: React.VFC<Props> = ({
+export const ActionButtons: React.FC<Props> = ({
   initialPriority = 1,
   isDisplayTask,
   isExecutionTask,
@@ -57,15 +57,15 @@ export const ActionButtons: React.VFC<Props> = ({
   const {
     canAbort,
     canDisable,
-    canUnschedule,
-    canRestart,
-    canSetPriority,
     canOverrideDependencies,
+    canRestart,
+    canSchedule,
+    canSetPriority,
+    canUnschedule,
     displayName,
     executionTasksFull,
     project,
     requester,
-    canSchedule,
     versionMetadata,
   } = task || {};
 

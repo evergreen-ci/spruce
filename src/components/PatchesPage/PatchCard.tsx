@@ -4,11 +4,13 @@ import { Analytics } from "analytics/addPageAction";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { StyledRouterLink } from "components/styles";
+import { unlinkedPRUsers } from "constants/patch";
 import {
   getProjectPatchesRoute,
   getVersionRoute,
   getUserPatchesRoute,
 } from "constants/routes";
+import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { fontSize, size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useDateFormat } from "hooks";
@@ -21,6 +23,7 @@ import { DropdownMenu } from "./patchCard/DropdownMenu";
 
 type P = Unpacked<PatchesPagePatchesFragment["patches"]>;
 type PatchProps = Omit<P, "commitQueuePosition">;
+
 const { gray } = palette;
 
 interface Props extends PatchProps {
@@ -35,7 +38,7 @@ interface Props extends PatchProps {
   >;
 }
 
-export const PatchCard: React.VFC<Props> = ({
+export const PatchCard: React.FC<Props> = ({
   activated,
   alias,
   analyticsObject,
@@ -54,14 +57,16 @@ export const PatchCard: React.VFC<Props> = ({
 }) => {
   const createDate = new Date(createTime);
   const getDateCopy = useDateFormat();
-  const { taskStatusStats, id: versionId } = versionFull || {};
+  const { id: versionId, taskStatusStats } = versionFull || {};
   const { stats } = groupStatusesByUmbrellaStatus(
     taskStatusStats?.counts ?? []
   );
   const isUnconfigured = isPatchUnconfigured({ alias, activated });
   let patchProject = null;
   if (pageType === "project") {
-    patchProject = (
+    patchProject = unlinkedPRUsers.has(author) ? (
+      authorDisplayName
+    ) : (
       <StyledRouterLink
         to={getUserPatchesRoute(author)}
         data-cy="user-patches-link"
@@ -82,12 +87,14 @@ export const PatchCard: React.VFC<Props> = ({
     );
   }
 
-  const badges = stats?.map(({ count, umbrellaStatus, statusCounts }) => (
+  const badges = stats?.map(({ count, statusCounts, umbrellaStatus }) => (
     <GroupedTaskStatusBadge
       status={umbrellaStatus}
       count={count}
       statusCounts={statusCounts}
-      versionId={versionId}
+      href={getVersionRoute(versionId, {
+        statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
+      })}
       key={`${versionId}_${umbrellaStatus}`}
     />
   ));

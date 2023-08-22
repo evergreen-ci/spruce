@@ -12,13 +12,13 @@ interface AccordionProps {
   onToggle?: (s: { isVisible: boolean }) => void;
   showCaret?: boolean;
   title: React.ReactNode;
-  titleTag?: React.VFC;
+  titleTag?: React.FC;
   toggledTitle?: React.ReactNode;
   toggleFromBottom?: boolean;
   useIndent?: boolean;
   subtitle?: React.ReactNode;
 }
-export const Accordion: React.VFC<AccordionProps> = ({
+export const Accordion: React.FC<AccordionProps> = ({
   children,
   className,
   "data-cy": dataCy,
@@ -26,12 +26,12 @@ export const Accordion: React.VFC<AccordionProps> = ({
   disableAnimation = false,
   onToggle = () => {},
   showCaret = true,
+  subtitle,
   title,
   titleTag,
-  toggledTitle,
   toggleFromBottom = false,
+  toggledTitle,
   useIndent = true,
-  subtitle,
 }) => {
   const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(defaultOpen);
   const toggleAccordionHandler = (): void => {

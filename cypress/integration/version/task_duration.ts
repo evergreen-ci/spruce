@@ -9,7 +9,7 @@ describe("Task Duration Tab", () => {
       // Apply text filter.
       cy.dataCy("task-name-filter-popover").click();
       cy.dataCy("input-filter").type(`${filterText}`).type("{enter}");
-      cy.dataCy("task-duration-table-row").should("have.length", 2);
+      cy.dataCy("task-duration-table-row").should("have.length", 1);
       cy.location("search").should(
         "include",
         `duration=DESC&page=0&taskName=${filterText}`
@@ -28,7 +28,7 @@ describe("Task Duration Tab", () => {
       cy.dataCy("tree-select-options").within(() =>
         cy.contains("Running").click({ force: true })
       );
-      cy.dataCy("task-duration-table-row").should("have.length", 4);
+      cy.dataCy("task-duration-table-row").should("have.length", 2);
       cy.location("search").should(
         "include",
         `duration=DESC&page=0&statuses=started`
@@ -61,7 +61,7 @@ describe("Task Duration Tab", () => {
     it("updates URL appropriately when sort is changing", () => {
       cy.visit(TASK_DURATION_ROUTE);
       // The default sort (DURATION DESC) should be applied
-      cy.location("search").should("include", `duration=DESC`);
+      cy.location("search").should("include", "duration=DESC");
       const longestTask = "test-thirdparty";
       cy.contains(longestTask).should("be.visible");
       cy.dataCy("task-duration-table-row")
@@ -70,8 +70,10 @@ describe("Task Duration Tab", () => {
 
       // Apply new sort (DURATION ASC). The sort icon is clicked twice because LG assumes no
       // default sorting.
-      cy.get(`[aria-label="sort"]`).dblclick();
-      cy.location("search").should("include", `duration=ASC&page=0`);
+      cy.get(`[aria-label="sort"]`).click();
+      cy.location("search").should("include", "duration=DESC");
+      cy.get(`[aria-label="sort"]`).click();
+      cy.location("search").should("include", "duration=ASC");
       const shortestTask = "generate-lint";
       cy.contains(shortestTask).should("be.visible");
       cy.dataCy("task-duration-table-row")
@@ -83,10 +85,12 @@ describe("Task Duration Tab", () => {
       cy.visit(TASK_DURATION_ROUTE);
       // Apply new sort (DURATION ASC). The sort icon is clicked twice because LG assumes no
       // default sorting.
-      cy.get(`[aria-label="sort"]`).dblclick();
-      cy.location("search").should("include", `duration=ASC&page=0`);
+      cy.get(`[aria-label="sort"]`).click();
+      cy.location("search").should("include", "duration=DESC");
+      cy.get(`[aria-label="sort"]`).click();
+      cy.location("search").should("include", "duration=ASC");
       cy.contains("Clear all filters").click();
-      cy.location("search").should("include", `duration=DESC`);
+      cy.location("search").should("include", "duration=DESC");
     });
 
     it("shows message when no test results are found", () => {

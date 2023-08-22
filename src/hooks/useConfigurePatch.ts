@@ -9,6 +9,7 @@ import {
 import { PatchTab } from "types/patch";
 import { Unpacked } from "types/utils";
 import { array, queryString, string } from "utils";
+import { useTabShortcut } from "./useTabShortcut";
 
 const { convertArrayToObject, mapStringArrayToObject } = array;
 const { parseQueryString } = queryString;
@@ -63,7 +64,9 @@ const reducer = (state: ConfigurePatchState, action: Action) => {
     case "setSelectedBuildVariants":
       return {
         ...state,
-        selectedBuildVariants: action.buildVariants,
+        selectedBuildVariants: action.buildVariants.sort((a, b) =>
+          b.localeCompare(a)
+        ),
       };
     case "setSelectedBuildVariantTasks":
       return {
@@ -145,15 +148,14 @@ interface HookResult extends ConfigurePatchState {
 }
 
 export const useConfigurePatch = (
-  patch: ConfigurePatchQuery["patch"],
-  variants: ConfigurePatchQuery["patch"]["project"]["variants"]
+  patch: ConfigurePatchQuery["patch"]
 ): HookResult => {
   const navigate = useNavigate();
   const location = useLocation();
   const { tab } = useParams<{ tab: PatchTab | null }>();
 
-  const { id } = patch;
-
+  const { id, project } = patch;
+  const { variants } = project;
   const [state, dispatch] = useReducer(
     reducer,
     initialState({
@@ -188,11 +190,11 @@ export const useConfigurePatch = (
     }
   }, [patch, variants]);
 
-  const setDescription = (description) =>
+  const setDescription = (description: string) =>
     dispatch({ type: "setDescription", description });
   const setSelectedBuildVariants = (buildVariants: string[]) =>
     dispatch({ type: "setSelectedBuildVariants", buildVariants });
-  const setSelectedBuildVariantTasks = (variantTasks) =>
+  const setSelectedBuildVariantTasks = (variantTasks: VariantTasksState) =>
     dispatch({
       type: "setSelectedBuildVariantTasks",
       variantTasks,
@@ -202,10 +204,16 @@ export const useConfigurePatch = (
       type: "setSelectedAliases",
       aliases,
     });
-  const setSelectedTab = (i) =>
+  const setSelectedTab = (i: number) =>
     dispatch({ type: "setSelectedTab", tabIndex: i });
-  const setPatchParams = (params) =>
+  const setPatchParams = (params: ParameterInput[]) =>
     dispatch({ type: "setPatchParams", params });
+
+  useTabShortcut({
+    currentTab: selectedTab,
+    numTabs: indexToTabMap.length,
+    setSelectedTab,
+  });
 
   return {
     ...state,

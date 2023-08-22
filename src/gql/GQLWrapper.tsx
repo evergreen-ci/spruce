@@ -9,14 +9,13 @@ import { onError } from "@apollo/client/link/error";
 import { RetryLink } from "@apollo/client/link/retry";
 import { routes } from "constants/routes";
 import { useAuthDispatchContext } from "context/auth";
-import { environmentVariables, errorReporting } from "utils";
-
-const { reportError, leaveBreadcrumb } = errorReporting;
+import { environmentVariables } from "utils";
+import { leaveBreadcrumb, reportError } from "utils/errorReporting";
 
 const { getGQLUrl } = environmentVariables;
 
-const GQLWrapper: React.VFC<{ children: React.ReactNode }> = ({ children }) => {
-  const { logoutAndRedirect, dispatchAuthenticated } = useAuthDispatchContext();
+const GQLWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { dispatchAuthenticated, logoutAndRedirect } = useAuthDispatchContext();
   return (
     <ApolloProvider
       client={getGQLClient({
@@ -120,15 +119,17 @@ const authLink = (logout: () => void): ApolloLink =>
 const logErrorsLink = onError(({ graphQLErrors, operation }) => {
   if (Array.isArray(graphQLErrors)) {
     graphQLErrors.forEach((gqlErr) => {
-      reportError({
-        message: "GraphQL Error",
-        name: gqlErr.message,
-        metadata: {
+      reportError(
+        {
+          message: "GraphQL Error",
+          name: gqlErr.message,
+        },
+        {
           gqlErr,
           operationName: operation.operationName,
           variables: operation.variables,
-        },
-      }).warning();
+        }
+      ).warning();
     });
   }
   // dont track network errors here because they are
@@ -173,9 +174,9 @@ const retryLink = new RetryLink({
 
 const getGQLClient = ({
   credentials,
+  dispatchAuthenticated,
   gqlURL,
   logoutAndRedirect,
-  dispatchAuthenticated,
 }: ClientLinkParams) => {
   const link = new HttpLink({
     uri: gqlURL,

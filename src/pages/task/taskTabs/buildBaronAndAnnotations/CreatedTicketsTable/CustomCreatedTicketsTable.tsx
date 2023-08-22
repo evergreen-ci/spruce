@@ -10,17 +10,17 @@ interface CreatedTicketsProps {
   tickets: AnnotationTickets;
 }
 
-const CustomCreatedTicketsTable: React.VFC<CreatedTicketsProps> = ({
+const CustomCreatedTicketsTable: React.FC<CreatedTicketsProps> = ({
   tickets,
 }) => {
   const columns = [
     {
       title: "Ticket",
       render: ({
-        issueKey,
-        url,
         confidenceScore,
+        issueKey,
         jiraTicket,
+        url,
       }: AnnotationTicket): JSX.Element => (
         <AnnotationTicketRow
           issueKey={issueKey}

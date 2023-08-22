@@ -10,7 +10,6 @@ import { string } from "utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { ProjectType } from "../utils";
 import { getGqlPayload } from "./getGqlPayload";
-import { FormState } from "./types";
 
 type Tab = ProjectSettingsTabRoutes.Notifications;
 
@@ -60,7 +59,7 @@ const getHttpHeaders = (headers: { key: string; value: string }[]) =>
       }))
     : [];
 
-export const gqlToForm: GqlToFormFunction<Tab> = (data, { projectType }) => {
+export const gqlToForm = ((data, { projectType }) => {
   if (!data) return null;
   const { projectRef, subscriptions } = data;
   return {
@@ -80,24 +79,24 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data, { projectType }) => {
       ? subscriptions?.map(
           ({
             id,
+            regexSelectors,
             resourceType,
+            subscriber,
             trigger,
             triggerData,
-            regexSelectors,
-            subscriber,
           }) => {
             // Find and process information about trigger.
             const triggerEnum = getTriggerEnum(trigger, resourceType);
             const triggerText = getTriggerText(trigger, resourceType);
 
             // Find and process information about subscriber.
-            const { type: subscriberType, subscriber: subscribers } =
+            const { subscriber: subscribers, type: subscriberType } =
               subscriber;
             const {
-              jiraCommentSubscriber,
-              slackSubscriber,
               emailSubscriber,
+              jiraCommentSubscriber,
               jiraIssueSubscriber,
+              slackSubscriber,
               webhookSubscriber,
             } = subscribers;
             const subscriberText = getSubscriberText(subscriber);
@@ -138,13 +137,10 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data, { projectType }) => {
         )
       : [],
   };
-};
+}) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql: FormToGqlFunction<Tab> = (
-  formState: FormState,
-  projectId
-) => {
-  const { buildBreakSettings, subscriptions, banner } = formState;
+export const formToGql = ((formState, projectId) => {
+  const { banner, buildBreakSettings, subscriptions } = formState;
   const projectRef: ProjectInput = {
     id: projectId,
     notifyOnBuildFailure: buildBreakSettings.notifyOnBuildFailure,
@@ -157,4 +153,4 @@ export const formToGql: FormToGqlFunction<Tab> = (
     projectRef,
     subscriptions: transformedSubscriptions,
   };
-};
+}) satisfies FormToGqlFunction<Tab>;

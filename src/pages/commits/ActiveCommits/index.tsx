@@ -2,42 +2,17 @@ import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import CommitChartLabel from "components/CommitChartLabel";
-import { ChartTypes, CommitVersion, BuildVariantDict } from "types/commits";
+import { CommitVersion, BuildVariantDict } from "types/commits";
 import { array, string } from "utils";
 import { BuildVariantCard } from "./BuildVariantCard";
-import { CommitChart } from "./CommitChart";
-import { ColorCount } from "./utils";
 
-const { convertArrayToObject, arrayUnion } = array;
+const { arrayUnion, convertArrayToObject } = array;
 const { shortenGithash } = string;
-interface ActiveCommitChartProps {
-  groupedTaskStats: ColorCount[];
-  max: number;
-  total: number;
-  chartType: ChartTypes;
-  eta?: Date;
-}
-
-export const ActiveCommitChart: React.VFC<ActiveCommitChartProps> = ({
-  groupedTaskStats,
-  max,
-  total,
-  chartType,
-  eta,
-}) => (
-  <CommitChart
-    groupedTaskStats={groupedTaskStats}
-    total={total}
-    max={max}
-    chartType={chartType}
-    eta={eta}
-  />
-);
 
 interface ActiveCommitLabelProps {
   version: CommitVersion;
 }
-export const ActiveCommitLabel: React.VFC<ActiveCommitLabelProps> = ({
+export const ActiveCommitLabel: React.FC<ActiveCommitLabelProps> = ({
   version,
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({
@@ -47,6 +22,7 @@ export const ActiveCommitLabel: React.VFC<ActiveCommitLabelProps> = ({
     <CommitChartLabel
       versionId={version.id}
       githash={shortenGithash(version.revision)}
+      gitTags={version.gitTags}
       createTime={version.createTime}
       author={version.author}
       message={version.message}
@@ -80,11 +56,11 @@ interface BuildVariantContainerProps {
   version: CommitVersion;
   buildVariantDict: BuildVariantDict;
 }
-export const BuildVariantContainer: React.VFC<BuildVariantContainerProps> = ({
-  version,
+export const BuildVariantContainer: React.FC<BuildVariantContainerProps> = ({
   buildVariantDict,
+  version,
 }) => {
-  const { buildVariants, buildVariantStats, projectIdentifier, id, order } =
+  const { buildVariantStats, buildVariants, id, order, projectIdentifier } =
     version;
 
   const memoizedBuildVariantCards = useMemo(() => {
@@ -102,7 +78,7 @@ export const BuildVariantContainer: React.VFC<BuildVariantContainerProps> = ({
     );
 
     const buildVariantCards = allBuildVariants.map((v) => {
-      const { iconHeight, badgeHeight } = buildVariantDict[v];
+      const { badgeHeight, iconHeight } = buildVariantDict[v];
       const height = iconHeight + badgeHeight;
 
       const buildVariant = groupedBuildVariants[v];

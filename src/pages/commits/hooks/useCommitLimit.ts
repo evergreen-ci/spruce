@@ -5,7 +5,8 @@ import { useQueryParam } from "hooks/useQueryParam";
 import { MainlineCommitQueryParams } from "types/commits";
 /**
  * `useCommitLimit` is a hook that calculates the number of commits to fetch based on the width of the commits container.
- * */
+ * @returns - a tuple containing a ref to the commits container, the number of commits to fetch, and a boolean indicating whether the window is being resized or not
+ */
 export const useCommitLimit = <T extends HTMLElement>(): [
   MutableRefObject<T>,
   number,

@@ -1,14 +1,14 @@
 import { css } from "@emotion/react";
+import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { GetFormSchema } from "../types";
 import { ProjectType } from "../utils";
-import { FormState } from "./types";
+import { VariablesFormState } from "./types";
 import { VariableRow } from "./VariableRow";
 
 export const getFormSchema = (
   projectType: ProjectType,
-  repoData?: FormState,
+  repoData?: VariablesFormState,
   modalButton?: JSX.Element
 ): ReturnType<GetFormSchema> => ({
   fields: {},
@@ -74,6 +74,7 @@ export const getFormSchema = (
       "ui:showLabel": false,
       items: {
         "ui:ObjectFieldTemplate": VariableRow,
+        "ui:label": false,
         options: { repoData },
         varName: {
           "ui:data-cy": "var-name-input",

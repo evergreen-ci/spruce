@@ -2,7 +2,7 @@ import { ProjectSettingsInput } from "gql/generated/types";
 import { Unpacked } from "types/utils";
 import { data } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
-import { FormState } from "./types";
+import { VariablesFormState } from "./types";
 
 const { projectBase } = data;
 
@@ -15,7 +15,7 @@ describe("project data", () => {
     expect(
       formToGql(
         {
-          vars: [...form.vars, {} as Unpacked<FormState["vars"]>],
+          vars: [...form.vars, {} as Unpacked<VariablesFormState["vars"]>],
         },
         "project"
       )
@@ -23,7 +23,7 @@ describe("project data", () => {
   });
 });
 
-const form: FormState = {
+const form: VariablesFormState = {
   vars: [
     {
       varName: "test_name",

@@ -10,17 +10,17 @@ interface ColumnPaginationButtonProps {
   onClickPrev?: () => void;
 }
 
-const ColumnPaginationButtons: React.VFC<ColumnPaginationButtonProps> = ({
+const ColumnPaginationButtons: React.FC<ColumnPaginationButtonProps> = ({
   onClickNext = () => {},
   onClickPrev = () => {},
 }) => {
   const {
-    nextPage,
-    previousPage,
+    currentPage,
     hasNextPage,
     hasPreviousPage,
+    nextPage,
     pageCount,
-    currentPage,
+    previousPage,
   } = useHistoryTable();
   const handleOnClickNext = () => {
     onClickNext();

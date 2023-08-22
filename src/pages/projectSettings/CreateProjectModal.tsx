@@ -23,7 +23,7 @@ interface Props {
   repo: string;
 }
 
-export const CreateProjectModal: React.VFC<Props> = ({
+export const CreateProjectModal: React.FC<Props> = ({
   handleClose,
   open,
   owner,
@@ -118,7 +118,7 @@ export const CreateProjectModal: React.VFC<Props> = ({
       {githubOrgs.length ? (
         <SpruceForm
           formData={formState}
-          onChange={({ formData, errors }) => {
+          onChange={({ errors, formData }) => {
             setHasError(errors.length > 0);
             setFormState(formData);
           }}

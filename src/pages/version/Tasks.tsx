@@ -25,7 +25,7 @@ interface Props {
   taskCount: number;
 }
 
-export const Tasks: React.VFC<Props> = ({ taskCount }) => {
+export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
   const { id } = useParams<{ id: string }>();
   const { search } = useLocation();
@@ -33,7 +33,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   const versionAnalytics = useVersionAnalytics(id);
   const queryVariables = useQueryVariables(search, id);
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
-  const { sorts, limit, page } = queryVariables.taskFilterOptions;
+  const { limit, page, sorts } = queryVariables.taskFilterOptions;
 
   useEffect(() => {
     updateQueryParams({
@@ -71,8 +71,8 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   });
   usePolling({ startPolling, stopPolling, refetch });
   const { version } = data || {};
-  const { tasks, isPatch } = version || {};
-  const { data: tasksData = [], count = 0 } = tasks || {};
+  const { isPatch, tasks } = version || {};
+  const { count = 0, data: tasksData = [] } = tasks || {};
 
   return (
     <TableWrapper

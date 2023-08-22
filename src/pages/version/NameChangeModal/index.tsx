@@ -18,7 +18,7 @@ interface NameChangeModalProps {
   originalPatchName: string;
   patchId: string;
 }
-export const NameChangeModal: React.VFC<NameChangeModalProps> = ({
+export const NameChangeModal: React.FC<NameChangeModalProps> = ({
   originalPatchName,
   patchId,
 }) => {
@@ -70,7 +70,7 @@ export const NameChangeModal: React.VFC<NameChangeModalProps> = ({
           schema={schema}
           uiSchema={uiSchema}
           formData={formState}
-          onChange={({ formData, errors }) => {
+          onChange={({ errors, formData }) => {
             setHasFormError(!!errors.length);
             setFormState(formData);
           }}

@@ -1,19 +1,20 @@
 import styled from "@emotion/styled";
 import { action } from "@storybook/addon-actions";
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+
 import { TaskStatus } from "types/task";
 import { GroupedTaskStatusBadge } from ".";
 
 export default {
   component: GroupedTaskStatusBadge,
-};
+} satisfies CustomMeta<typeof GroupedTaskStatusBadge>;
 
-export const Default: StoryObj<typeof GroupedTaskStatusBadge> = {
+export const Default: CustomStoryObj<typeof GroupedTaskStatusBadge> = {
   render: () => (
     <Container>
       {groupedTaskStats.map((item) => (
         <GroupedTaskStatusBadge
-          versionId="some_version"
+          href="/test"
           status={item.status}
           count={item.count}
           key={item.status}

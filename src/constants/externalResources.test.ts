@@ -2,6 +2,8 @@ import {
   getLobsterTestLogCompleteUrl,
   getParsleyBuildLogURL,
   getParsleyTestLogURL,
+  getHoneycombTraceUrl,
+  getHoneycombSystemMetricsUrl,
 } from "./externalResources";
 
 describe("getLobsterTestLogCompleteUrl", () => {
@@ -46,5 +48,29 @@ describe("getParsleyTestLogURL", () => {
 describe("getParsleyBuildLogURL", () => {
   it("generates the correct url", () => {
     expect(getParsleyBuildLogURL("myBuildId")).toBe("/resmoke/myBuildId/all");
+  });
+});
+
+describe("getTaskTraceUrl", () => {
+  it("generates the correct url", () => {
+    expect(
+      getHoneycombTraceUrl("abcdef", new Date("2023-07-07T19:08:41"))
+    ).toBe(
+      "/datasets/evergreen-agent/trace?trace_id=abcdef&trace_start_ts=1688756921"
+    );
+  });
+});
+
+describe("getTaskSystemMetricsUrl", () => {
+  it("generates the correct url", () => {
+    expect(
+      getHoneycombSystemMetricsUrl(
+        "task_12345",
+        new Date("2023-07-07T19:08:41"),
+        new Date("2023-07-07T20:00:00")
+      )
+    ).toBe(
+      `/datasets/evergreen?query={"calculations":[{"op":"AVG","column":"system.memory.usage.used"},{"op":"AVG","column":"system.cpu.utilization"},{"op":"RATE_AVG","column":"system.network.io.transmit"},{"op":"RATE_AVG","column":"system.network.io.receive"}],"filters":[{"op":"=","column":"evergreen.task.id","value":"task_12345"}],"start_time":1688756921,"end_time":1688760000}&omitMissingValues`
+    );
   });
 });

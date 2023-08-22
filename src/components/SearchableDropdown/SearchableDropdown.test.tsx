@@ -198,6 +198,21 @@ describe("searchableDropdown", () => {
         screen.queryByDataCy("searchable-dropdown-search-input")
       ).toHaveValue("");
     });
+
+    it("does not show checkmark next to the selected option", () => {
+      render(
+        RenderSearchableDropdown({
+          value: "evergreen",
+          onChange: jest.fn(),
+          options: ["evergreen", "spruce"],
+        })
+      );
+      userEvent.click(screen.queryByDataCy("searchable-dropdown"));
+      expect(
+        screen.queryAllByDataCy("searchable-dropdown-option")
+      ).toHaveLength(2);
+      expect(screen.queryByDataCy("checkmark")).toBeNull();
+    });
   });
 
   describe("when multiselect == true", () => {
@@ -277,6 +292,22 @@ describe("searchableDropdown", () => {
         screen.queryAllByDataCy("searchable-dropdown-option")
       ).toHaveLength(2);
     });
+
+    it("shows checkmark next to the selected option", () => {
+      render(
+        RenderSearchableDropdown({
+          value: "evergreen",
+          onChange: jest.fn(),
+          options: ["evergreen", "spruce"],
+          allowMultiSelect: true,
+        })
+      );
+      userEvent.click(screen.queryByDataCy("searchable-dropdown"));
+      expect(
+        screen.queryAllByDataCy("searchable-dropdown-option")
+      ).toHaveLength(2);
+      expect(screen.queryAllByDataCy("checkmark")).toHaveLength(2);
+    });
   });
 
   describe("when using custom render options", () => {
@@ -355,7 +386,9 @@ describe("searchableDropdown", () => {
           value: "evergreen",
           onChange,
           options: ["evergreen", "spruce"],
-          buttonRenderer: (option) => <b className="just-a-test">{option}</b>,
+          buttonRenderer: (option: string) => (
+            <b className="just-a-test">{option}</b>
+          ),
         })
       );
       expect(screen.getByText("evergreen")).toBeInTheDocument();

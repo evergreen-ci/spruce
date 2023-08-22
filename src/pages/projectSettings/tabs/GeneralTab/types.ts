@@ -1,6 +1,6 @@
 import { ProjectType } from "../utils";
 
-export interface FormState {
+export interface GeneralFormState {
   generalConfiguration: {
     enabled?: boolean;
     repositoryInfo: {
@@ -42,8 +42,8 @@ export interface FormState {
 }
 
 export type TabProps = {
-  projectData?: FormState;
+  projectData?: GeneralFormState;
   projectId?: string;
   projectType: ProjectType;
-  repoData?: FormState;
+  repoData?: GeneralFormState;
 };

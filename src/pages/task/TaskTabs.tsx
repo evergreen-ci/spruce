@@ -8,6 +8,7 @@ import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { getTaskRoute } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
+import { useTabShortcut } from "hooks/useTabShortcut";
 import { TaskTab } from "types/task";
 import { queryString } from "utils";
 import { BuildBaron } from "./taskTabs/BuildBaron";
@@ -22,19 +23,19 @@ interface TaskTabProps {
   isDisplayTask: boolean;
   task: TaskQuery["task"];
 }
-export const TaskTabs: React.VFC<TaskTabProps> = ({ isDisplayTask, task }) => {
+export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
   const { tab: urlTab } = useParams<{ id: string; tab: TaskTab | null }>();
 
   const navigate = useNavigate();
   const location = useLocation();
   const taskAnalytics = useTaskAnalytics();
   const {
-    id,
     annotation,
     canModifyAnnotation,
     execution,
     executionTasksFull,
     failedTestCount,
+    id,
     isPerfPluginEnabled,
     logs: logLinks,
     status,
@@ -166,6 +167,12 @@ export const TaskTabs: React.VFC<TaskTabProps> = ({ isDisplayTask, task }) => {
   const [selectedTab, setSelectedTab] = useState(defaultTab);
   // This is used to keep track of the first tab transition so we dont accidently trigger an analytics event for it
   const previousTab = usePrevious(selectedTab);
+
+  useTabShortcut({
+    currentTab: selectedTab,
+    numTabs: activeTabs.length,
+    setSelectedTab,
+  });
 
   useEffect(() => {
     const query = parseQueryString(location.search);

@@ -1,8 +1,9 @@
+/* eslint-disable jsdoc/valid-types */
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import ExpandableCard from "@leafygreen-ui/expandable-card";
 import { palette } from "@leafygreen-ui/palette";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
 import { PlusButton } from "components/Buttons";
 import Icon from "components/Icon";
@@ -10,13 +11,14 @@ import { formComponentSpacingCSS } from "components/SettingsCard";
 import { size } from "constants/tokens";
 import { Unpacked } from "types/utils";
 import ElementWrapper from "../../ElementWrapper";
+import { STANDARD_FIELD_WIDTH } from "../../utils";
 
 const { gray } = palette;
 // Total pixel count above a text field with a label. Used to align buttons to the
 // top of the text box itself.
 const labelOffset = size.m;
 
-const ArrayItem: React.VFC<
+const ArrayItem: React.FC<
   {
     border: boolean;
     title: string;
@@ -111,10 +113,26 @@ const ArrayItemRow = styled.div<{ border: boolean; index: number }>`
 
 /**
  * `ArrayFieldTemplate` is a custom field template for arrays that renders an array of fields.
+ * @param props ArrayFieldTemplateProps
+ * @param props.canAdd - Whether or not the user can add new items to the array.
+ * @param props.DescriptionField - A custom field for rendering the array's description.
+ * @param props.disabled - Whether or not the field is disabled.
+ * @param props.formData - The form's data.
+ * @param props.idSchema - The field's ID schema.
+ * @param props.items - An array of items to render.
+ * @param props.onAddClick - A callback function for when the user clicks the add button.
+ * @param props.readonly - Whether or not the field is readonly. // jsdoc/valid-types is disabled for this file due to // https://github.com/jsdoc-type-pratt-parser/jsdoc-type-pratt-parser/issues/104
+ * @param props.required - Whether or not the field is required.
+ * @param props.schema - The field's schema.
+ * @param props.title - The field's title.
+ * @param props.TitleField - A custom field for rendering the array's title.
+ * @param props.uiSchema - The field's UI schema.
+ * @returns JSX.Element
  */
-export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
-  canAdd,
+export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   DescriptionField,
+  TitleField,
+  canAdd,
   disabled,
   formData,
   idSchema,
@@ -124,7 +142,6 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
   required,
   schema,
   title,
-  TitleField,
   uiSchema,
 }) => {
   const id = idSchema.$id;
@@ -224,11 +241,11 @@ type ArrayContainerProps = {
   fullWidth?: boolean;
 };
 
-const ArrayContainer = styled.div`
+const ArrayContainer = styled.div<ArrayContainerProps>`
   ${({ hasChildren }) => hasChildren && `margin-bottom: ${size.m};`}
   min-width: min-content;
-  width: ${({ fullWidth }: ArrayContainerProps): string =>
-    fullWidth ? "100%" : "70%"};
+  ${({ fullWidth }) =>
+    fullWidth ? "" : `max-width: ${STANDARD_FIELD_WIDTH}px;`}
 `;
 
 const DeleteButtonWrapper = styled(ElementWrapper)`
@@ -257,6 +274,6 @@ const TitleWrapper = styled.span`
   margin-right: ${size.s};
 `;
 
-const Placeholder = styled(Body)`
+const Placeholder = styled(Body)<BodyProps>`
   ${formComponentSpacingCSS}
 `;

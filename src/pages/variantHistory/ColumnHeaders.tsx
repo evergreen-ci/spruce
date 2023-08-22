@@ -10,12 +10,11 @@ import {
   TaskNamesForBuildVariantQueryVariables,
 } from "gql/generated/types";
 import { GET_TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
-import { array, string, errorReporting } from "utils";
-
-const { reportError } = errorReporting;
+import { array, string } from "utils";
+import { reportError } from "utils/errorReporting";
 
 const { mapStringArrayToObject } = array;
-const { LoadingCell, ColumnHeaderCell, LabelCellContainer } = Cell;
+const { ColumnHeaderCell, LabelCellContainer, LoadingCell } = Cell;
 const { useHistoryTable } = context;
 const { useColumns } = hooks;
 const { trimStringFromMiddle } = string;
@@ -25,7 +24,7 @@ interface ColumnHeadersProps {
   variantName: string;
 }
 
-const ColumnHeaders: React.VFC<ColumnHeadersProps> = ({
+const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
   projectIdentifier,
   variantName,
 }) => {
@@ -52,7 +51,7 @@ const ColumnHeaders: React.VFC<ColumnHeadersProps> = ({
   });
 
   const { taskNamesForBuildVariant } = columnData || {};
-  const { visibleColumns, columnLimit } = useHistoryTable();
+  const { columnLimit, visibleColumns } = useHistoryTable();
 
   const columnMap = mapStringArrayToObject(visibleColumns, "name");
   const activeColumns = useColumns(taskNamesForBuildVariant, (c) => c);

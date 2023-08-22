@@ -9,7 +9,7 @@ import {
   V10HeaderRow as HeaderRow,
   V11Adapter,
 } from "@leafygreen-ui/table/new";
-import { Subtitle } from "@leafygreen-ui/typography";
+import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { useLocation, useParams } from "react-router-dom";
 import PageSizeSelector, {
   usePageSizeSelector,
@@ -24,9 +24,9 @@ import { useDateFormat } from "hooks";
 import { url } from "utils";
 import { getEventCopy } from "./util";
 
-const { getPageFromSearch, getLimitFromSearch } = url;
+const { getLimitFromSearch, getPageFromSearch } = url;
 
-const EventsTable: React.VFC<{}> = () => {
+const EventsTable: React.FC<{}> = () => {
   const getDateCopy = useDateFormat();
   const { search } = useLocation();
   const setPageSize = usePageSizeSelector();
@@ -94,7 +94,7 @@ const EventsTable: React.VFC<{}> = () => {
   );
 };
 
-const StyledSubtitle = styled(Subtitle)`
+const StyledSubtitle = styled(Subtitle)<SubtitleProps>`
   margin: ${size.s} 0;
 `;
 

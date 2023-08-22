@@ -17,13 +17,13 @@ interface SuspectedIssuesProps {
   annotation: Annotation;
 }
 
-const SuspectedIssues: React.VFC<SuspectedIssuesProps> = ({
-  taskId,
+const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
+  annotation,
   execution,
-  userCanModify,
   selectedRowKey,
   setSelectedRowKey,
-  annotation,
+  taskId,
+  userCanModify,
 }) => {
   const dispatchToast = useToastContext();
   // Query Jira ticket data

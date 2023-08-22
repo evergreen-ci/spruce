@@ -13,11 +13,11 @@ interface ExpandedTextProps {
   ["data-cy"]?: string;
 }
 
-const ExpandedText: React.VFC<ExpandedTextProps> = ({
-  message,
-  triggerEvent = TriggerEvent.Hover,
-  popoverZIndex = zIndex.popover,
+const ExpandedText: React.FC<ExpandedTextProps> = ({
   "data-cy": dataCy,
+  message,
+  popoverZIndex = zIndex.popover,
+  triggerEvent = TriggerEvent.Hover,
 }) => (
   <Tooltip
     trigger={<ButtonText>more</ButtonText>}

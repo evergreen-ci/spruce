@@ -12,6 +12,10 @@ const RenderCommitChartLabel = ({ version }) => (
       createTime={version.createTime}
       author={version.author}
       message={version.message}
+      gitTags={[
+        { tag: "v1.2.3", pusher: "release-bot" },
+        { tag: "v1.2.3-rc0", pusher: "release-bot" },
+      ]}
     />
   </MockedProvider>
 );
@@ -20,13 +24,12 @@ describe("commitChartLabel", () => {
   it("displays author, githash and createTime", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
     expect(screen.queryByDataCy("commit-label")).toHaveTextContent(
-      "4137c33 Jun 16, 2021, 11:38 PMMohamed Khelif"
+      "4137c33 Jun 16, 2021, 11:38 PM Mohamed Khelif"
     );
   });
 
   it("githash links to version page", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
-
     expect(screen.queryByDataCy("githash-link")).toHaveAttribute(
       "href",
       "/version/123/tasks"
@@ -47,7 +50,7 @@ describe("commitChartLabel", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionLong} />);
     expect(screen.getByText("more")).toBeInTheDocument();
     expect(screen.queryByDataCy("commit-label")).toHaveTextContent(
-      "4137c33 Jun 16, 2021, 11:38 PMMohamed Khelif -SERVER-57332 Create skeleton Internal...more"
+      "4137c33 Jun 16, 2021, 11:38 PM Mohamed Khelif -SERVER-57332 Create skeleton Internal...more"
     );
   });
 
@@ -74,6 +77,12 @@ describe("commitChartLabel", () => {
     ).toHaveTextContent(
       "SERVER-57332 Create skeleton InternalDocumentSourceDensify"
     );
+  });
+
+  it("displays git tags", () => {
+    renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
+    expect(screen.getByText(/v1.2.3/)).toBeInTheDocument();
+    expect(screen.getByText(/v1.2.3-rc0/)).toBeInTheDocument();
   });
 });
 

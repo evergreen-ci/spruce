@@ -10,9 +10,9 @@ interface PaginationButtonsProps {
   nextPageOrderNumber?: number;
   prevPageOrderNumber?: number;
 }
-export const PaginationButtons: React.VFC<PaginationButtonsProps> = ({
-  prevPageOrderNumber,
+export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   nextPageOrderNumber,
+  prevPageOrderNumber,
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const updateQueryParams = useUpdateURLQueryParams();

@@ -29,9 +29,9 @@ interface InactiveCommitsProps {
   rolledUpVersions: CommitRolledUpVersions;
   hasFilters: boolean;
 }
-export const InactiveCommitButton: React.VFC<InactiveCommitsProps> = ({
-  rolledUpVersions,
+export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   hasFilters = false,
+  rolledUpVersions,
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const [showModal, setShowModal] = useState(false);
@@ -115,19 +115,19 @@ export const InactiveCommitButton: React.VFC<InactiveCommitsProps> = ({
   );
 };
 
+interface CommitCopyProps {
+  v: Unpacked<CommitRolledUpVersions>;
+  isTooltip: boolean;
+}
 /**
  * Function that returns formatted information about commits.
  * If isTooltip is true, the commit message is truncated.
- * @param {CommitRolledUpVersions[0]} v: rolled up version
- * @param {boolean} isTooltip: boolean to indicate if used in tooltip
+ * @param props - CommitCopyProps
+ * @param props.v - rolled up version
+ * @param props.isTooltip - boolean to indicate if used in tooltip
+ * @returns CommitCopy component
  */
-const CommitCopy = ({
-  v,
-  isTooltip,
-}: {
-  v: Unpacked<CommitRolledUpVersions>;
-  isTooltip: boolean;
-}) => {
+const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const getDateCopy = useDateFormat();
   const spruceConfig = useSpruceConfig();

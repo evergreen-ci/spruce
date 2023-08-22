@@ -32,12 +32,14 @@ describe("transformAliases", () => {
       {
         id: "123",
         alias: "__github",
+        description: "",
         variantTags: [],
         taskTags: [],
         variant: ".*",
         task: ".*",
         gitTag: "",
         remotePath: "",
+        parameters: undefined,
       },
     ]);
   });
@@ -72,6 +74,7 @@ describe("transformAliases", () => {
               task: "",
               taskTags: ["test"],
             },
+            parameters: [],
           } as AliasFormType,
         ],
         true,
@@ -81,12 +84,14 @@ describe("transformAliases", () => {
       {
         id: "456",
         alias: "__commit_queue",
+        description: "",
         variantTags: ["new"],
         taskTags: ["test"],
         variant: "",
         task: "",
         gitTag: "",
         remotePath: "",
+        parameters: [],
       },
     ]);
   });
@@ -98,6 +103,7 @@ describe("transformAliases", () => {
           {
             id: "",
             alias: "myAlias",
+            description: "myDescription",
             variants: {
               specifier: VariantTaskSpecifier.Tags,
               variant: "",
@@ -116,12 +122,14 @@ describe("transformAliases", () => {
       {
         id: "",
         alias: "myAlias",
+        description: "myDescription",
         variantTags: ["hello"],
         taskTags: ["goodbye"],
         variant: "",
         task: "",
         gitTag: "",
         remotePath: "",
+        parameters: undefined,
       },
     ]);
   });
@@ -155,12 +163,14 @@ describe("transformAliases", () => {
         {
           id: "",
           alias: "__git_tag",
+          description: "",
           gitTag: "test",
           remotePath: "evergreen.yml",
           variantTags: [],
           taskTags: [],
           variant: "",
           task: "",
+          parameters: undefined,
         },
       ]);
     });
@@ -193,12 +203,14 @@ describe("transformAliases", () => {
         {
           id: "",
           alias: "__git_tag",
+          description: "",
           gitTag: "test",
           remotePath: "",
           variantTags: ["hello"],
           taskTags: ["goodbye"],
           variant: "",
           task: "",
+          parameters: undefined,
         },
       ]);
     });

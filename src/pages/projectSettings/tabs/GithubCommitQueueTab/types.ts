@@ -1,7 +1,10 @@
-import { ProjectPatchAliasSettingsFragment } from "gql/generated/types";
+import {
+  ProjectPatchAliasSettingsFragment,
+  MergeQueue,
+} from "gql/generated/types";
 import { AliasFormType, ProjectType } from "../utils";
 
-export interface FormState {
+export interface GCQFormState {
   github: {
     prTestingEnabled: boolean | null;
     manualPrTestingEnabled: boolean | null;
@@ -52,6 +55,7 @@ export interface FormState {
   commitQueue: {
     enabled: boolean | null;
     mergeMethod: string;
+    mergeQueue: MergeQueue;
     message: string;
     patchDefinitions: {
       commitQueueAliasesOverride: boolean;
@@ -67,9 +71,9 @@ export interface FormState {
 export type TabProps = {
   githubWebhooksEnabled: boolean;
   identifier: string;
-  projectData?: FormState;
+  projectData?: GCQFormState;
   projectId: string;
   projectType: ProjectType;
-  repoData?: FormState;
+  repoData?: GCQFormState;
   versionControlEnabled: boolean;
 };

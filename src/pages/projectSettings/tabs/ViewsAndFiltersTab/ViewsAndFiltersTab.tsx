@@ -1,37 +1,24 @@
 import { useMemo } from "react";
-import { SpruceForm, ValidateProps } from "components/SpruceForm";
+import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import {
-  usePopulateForm,
-  useProjectSettingsContext,
-} from "pages/projectSettings/Context";
+import { BaseTab } from "../BaseTab";
 import { findDuplicateIndices } from "../utils";
 import { getFormSchema } from "./getFormSchema";
-import { TabProps, FormState } from "./types";
+import { TabProps, ViewsFormState } from "./types";
 
 const tab = ProjectSettingsTabRoutes.ViewsAndFilters;
 
-export const ViewsAndFiltersTab: React.VFC<TabProps> = ({ projectData }) => {
-  const { getTab, updateForm } = useProjectSettingsContext();
-  const { formData } = getTab(tab);
-
+export const ViewsAndFiltersTab: React.FC<TabProps> = ({ projectData }) => {
   const initialFormState = projectData;
-  usePopulateForm(initialFormState, tab);
 
-  const onChange = updateForm(tab);
-
-  const { fields, schema, uiSchema } = useMemo(() => getFormSchema(), []);
-
-  if (!formData) return null;
+  const formSchema = useMemo(() => getFormSchema(), []);
 
   return (
-    <SpruceForm
-      fields={fields}
-      formData={formData}
-      onChange={onChange}
-      schema={schema}
-      uiSchema={uiSchema}
-      validate={validate as any}
+    <BaseTab
+      formSchema={formSchema}
+      initialFormState={initialFormState}
+      tab={tab}
+      validate={validate}
     />
   );
 };
@@ -49,4 +36,4 @@ const validate = ((formData, errors) => {
   });
 
   return errors;
-}) satisfies ValidateProps<FormState>;
+}) satisfies ValidateProps<ViewsFormState>;

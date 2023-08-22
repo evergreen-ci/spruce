@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { useProjectSettingsAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm } from "components/SpruceForm";
@@ -22,7 +22,7 @@ type ModalProps = {
   repoOwner: string;
 };
 
-export const MoveRepoModal: React.VFC<ModalProps> = ({
+export const MoveRepoModal: React.FC<ModalProps> = ({
   githubOrgs,
   handleClose,
   open,
@@ -99,7 +99,7 @@ export const MoveRepoModal: React.VFC<ModalProps> = ({
       </StyledBody>
       <SpruceForm
         formData={formState}
-        onChange={({ formData, errors }) => {
+        onChange={({ errors, formData }) => {
           setHasError(errors.length > 0);
           setFormState(formData);
         }}
@@ -110,7 +110,7 @@ export const MoveRepoModal: React.VFC<ModalProps> = ({
   );
 };
 
-const StyledBody = styled(Body)`
+const StyledBody = styled(Body)<BodyProps>`
   margin-bottom: ${size.xs};
 `;
 

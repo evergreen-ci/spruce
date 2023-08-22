@@ -15,7 +15,7 @@ import TextInput from "components/TextInputWithGlyph";
 import { size } from "constants/tokens";
 import { toggleArray } from "utils/array";
 
-const { gray, blue } = palette;
+const { blue, gray } = palette;
 
 export interface SearchableDropdownProps<T> {
   allowMultiSelect?: boolean;
@@ -42,8 +42,8 @@ const SearchableDropdown = <T extends {}>({
   disabled = false,
   label,
   onChange,
-  options,
   optionRenderer,
+  options,
   searchFunc,
   searchPlaceholder = "search...",
   value,
@@ -93,6 +93,7 @@ const SearchableDropdown = <T extends {}>({
           value={v}
           onClick={() => onClick(v)}
           isChecked={isChecked(v)}
+          showCheckmark={allowMultiSelect}
         />
       );
 
@@ -176,36 +177,39 @@ const SearchableDropdown = <T extends {}>({
 };
 
 interface SearchableDropdownOptionProps<T> {
-  onClick: (v: T) => void;
-  value: T;
   isChecked?: boolean;
-  displayName?: string;
+  onClick: (v: T) => void;
+  showCheckmark?: boolean;
+  value: T;
 }
 export const SearchableDropdownOption = <T extends {}>({
-  onClick,
   isChecked,
+  onClick,
+  showCheckmark,
   value,
-  displayName,
 }: PropsWithChildren<SearchableDropdownOptionProps<T>>) => (
   <Option
     onClick={() => onClick(value)}
     key={`select_${value}`}
     data-cy="searchable-dropdown-option"
   >
-    <CheckmarkContainer>
-      <CheckmarkIcon
-        glyph="Checkmark"
-        height={12}
-        width={12}
-        fill={blue.base}
-        checked={isChecked}
-      />
-    </CheckmarkContainer>
-    {displayName || value}
+    {showCheckmark && (
+      <CheckmarkContainer data-cy="checkmark">
+        <CheckmarkIcon
+          glyph="Checkmark"
+          height={12}
+          width={12}
+          fill={blue.base}
+          checked={isChecked}
+        />
+      </CheckmarkContainer>
+    )}
+    {value.toString()}
   </Option>
 );
 
 const ScrollableList = styled.div`
+  margin-top: ${size.xxs};
   overflow: scroll;
   max-height: 400px;
 `;
@@ -215,15 +219,22 @@ const Wrapper = styled.div`
     props.width ? props.width : ""};
 `;
 
-const Option = styled.div`
-  padding: ${size.xs} ${size.xxs};
-  display: flex;
-  align-items: start;
-  word-break: break-all; // Safari
+const Option = styled.button`
+  // Remove native button styles.
+  border: 0;
+  background: none;
+  text-align: inherit;
+  font: inherit;
+
+  width: 100%;
+  word-break: break-word; // Safari
   overflow-wrap: anywhere;
-  :hover {
-    cursor: pointer;
-    background-color: ${gray.light1};
+  cursor: pointer;
+  padding: ${size.xs} ${size.xs};
+  :hover,
+  :focus {
+    outline: none;
+    background-color: ${gray.light2};
   }
 `;
 

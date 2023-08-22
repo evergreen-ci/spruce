@@ -4,11 +4,11 @@ interface ConditionalWrapperProps<T = any> {
   altWrapper?: (children: T) => JSX.Element;
   children: T;
 }
-export const ConditionalWrapper: React.VFC<ConditionalWrapperProps> = ({
-  condition,
-  wrapper,
+export const ConditionalWrapper: React.FC<ConditionalWrapperProps> = ({
   altWrapper,
   children,
+  condition,
+  wrapper,
 }) => {
   if (condition) {
     return wrapper(children);

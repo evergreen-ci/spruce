@@ -23,7 +23,7 @@ import {
   EditModalPropsState,
 } from "pages/preferences/preferencesTabs/publicKeysTab/EditModal";
 
-export const PublicKeysTab: React.VFC = () => {
+export const PublicKeysTab: React.FC = () => {
   const dispatchToast = useToastContext();
   const { sendEvent } = usePreferencesAnalytics();
   const [editModalProps, setEditModalProps] = useState<EditModalPropsState>(
@@ -71,7 +71,7 @@ export const PublicKeysTab: React.VFC = () => {
     },
     {
       title: "Actions",
-      render: (text: string, { name, key }: PublicKey): JSX.Element => (
+      render: (text: string, { key, name }: PublicKey): JSX.Element => (
         <BtnContainer>
           <Button
             size="small"

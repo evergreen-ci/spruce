@@ -1,8 +1,12 @@
-import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
+import {
+  ProjectSettingsInput,
+  RepoSettingsInput,
+  MergeQueue,
+} from "gql/generated/types";
 import { data } from "../testData";
 import { alias, ProjectType } from "../utils";
 import { formToGql, gqlToForm, mergeProjectRepo } from "./transformers";
-import { FormState } from "./types";
+import { GCQFormState } from "./types";
 
 const { GitTagSpecifier, VariantTaskSpecifier } = alias;
 const { projectBase, repoBase } = data;
@@ -35,7 +39,7 @@ describe("project data", () => {
   });
 });
 
-const projectForm: FormState = {
+const projectForm: GCQFormState = {
   github: {
     prTestingEnabled: null,
     manualPrTestingEnabled: null,
@@ -45,6 +49,7 @@ const projectForm: FormState = {
         {
           id: "1",
           alias: "__github",
+          description: "",
           gitTag: "",
           remotePath: "",
           variants: {
@@ -57,6 +62,7 @@ const projectForm: FormState = {
             task: ".*",
             taskTags: [],
           },
+          parameters: [],
         },
       ],
     },
@@ -81,6 +87,7 @@ const projectForm: FormState = {
         {
           id: "5",
           alias: "__git_tag",
+          description: "",
           specifier: GitTagSpecifier.ConfigFile,
           remotePath: "./evergreen.yml",
           gitTag: "tagName",
@@ -94,6 +101,7 @@ const projectForm: FormState = {
             task: "",
             taskTags: [],
           },
+          parameters: [],
         },
       ],
     },
@@ -101,6 +109,7 @@ const projectForm: FormState = {
   commitQueue: {
     enabled: null,
     mergeMethod: "",
+    mergeQueue: MergeQueue.Evergreen,
     message: "",
     patchDefinitions: {
       commitQueueAliasesOverride: true,
@@ -108,6 +117,7 @@ const projectForm: FormState = {
         {
           id: "3",
           alias: "__commit_queue",
+          description: "",
           gitTag: "",
           remotePath: "",
           variants: {
@@ -120,6 +130,7 @@ const projectForm: FormState = {
             task: "^lint$",
             taskTags: [],
           },
+          parameters: [],
         },
       ],
     },
@@ -138,6 +149,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
     commitQueue: {
       enabled: null,
       mergeMethod: "",
+      mergeQueue: MergeQueue.Evergreen,
       message: "",
     },
   },
@@ -145,37 +157,43 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
     {
       id: "1",
       alias: "__github",
+      description: "",
       gitTag: "",
       remotePath: "",
       task: ".*",
       taskTags: [],
       variant: ".*",
       variantTags: [],
+      parameters: [],
     },
     {
       id: "5",
       alias: "__git_tag",
+      description: "",
       gitTag: "tagName",
       variant: "",
       task: "",
       remotePath: "./evergreen.yml",
       variantTags: [],
       taskTags: [],
+      parameters: [],
     },
     {
       id: "3",
       alias: "__commit_queue",
+      description: "",
       gitTag: "",
       variant: "^ubuntu1604$",
       task: "^lint$",
       remotePath: "",
       variantTags: [],
       taskTags: [],
+      parameters: [],
     },
   ],
 };
 
-const repoForm: FormState = {
+const repoForm: GCQFormState = {
   github: {
     prTestingEnabled: false,
     manualPrTestingEnabled: false,
@@ -199,7 +217,7 @@ const repoForm: FormState = {
             variantRegex: ".*",
           },
         ],
-        status: "succeeded",
+        status: "success",
         parentAsModule: "",
       },
     ],
@@ -210,6 +228,7 @@ const repoForm: FormState = {
         {
           id: "2",
           alias: "__github_checks",
+          description: "",
           gitTag: "",
           remotePath: "",
           variants: {
@@ -222,6 +241,7 @@ const repoForm: FormState = {
             task: "",
             taskTags: ["tTag"],
           },
+          parameters: [],
         },
       ],
     },
@@ -242,6 +262,7 @@ const repoForm: FormState = {
   commitQueue: {
     enabled: true,
     mergeMethod: "squash",
+    mergeQueue: MergeQueue.Github,
     message: "Commit Queue Message",
     patchDefinitions: {
       commitQueueAliasesOverride: true,
@@ -262,6 +283,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
     commitQueue: {
       enabled: true,
       mergeMethod: "squash",
+      mergeQueue: MergeQueue.Github,
       message: "Commit Queue Message",
     },
   },
@@ -269,17 +291,19 @@ const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
     {
       id: "2",
       alias: "__github_checks",
+      description: "",
       gitTag: "",
       remotePath: "",
       task: "",
       taskTags: ["tTag"],
       variant: "",
       variantTags: ["vTag"],
+      parameters: [],
     },
   ],
 };
 
-const mergedForm: FormState = {
+const mergedForm: GCQFormState = {
   github: {
     prTestingEnabled: null,
     manualPrTestingEnabled: null,
@@ -289,6 +313,7 @@ const mergedForm: FormState = {
         {
           id: "1",
           alias: "__github",
+          description: "",
           gitTag: "",
           remotePath: "",
           variants: {
@@ -301,6 +326,7 @@ const mergedForm: FormState = {
             task: ".*",
             taskTags: [],
           },
+          parameters: [],
         },
       ],
       repoData: {
@@ -319,6 +345,7 @@ const mergedForm: FormState = {
           {
             id: "2",
             alias: "__github_checks",
+            description: "",
             gitTag: "",
             remotePath: "",
             variants: {
@@ -331,6 +358,7 @@ const mergedForm: FormState = {
               task: "",
               taskTags: ["tTag"],
             },
+            parameters: [],
           },
         ],
       },
@@ -358,6 +386,7 @@ const mergedForm: FormState = {
         {
           id: "5",
           alias: "__git_tag",
+          description: "",
           specifier: GitTagSpecifier.ConfigFile,
           remotePath: "./evergreen.yml",
           gitTag: "tagName",
@@ -371,6 +400,7 @@ const mergedForm: FormState = {
             task: "",
             taskTags: [],
           },
+          parameters: [],
         },
       ],
       repoData: {
@@ -382,6 +412,7 @@ const mergedForm: FormState = {
   commitQueue: {
     enabled: null,
     mergeMethod: "",
+    mergeQueue: MergeQueue.Evergreen,
     message: "",
     patchDefinitions: {
       commitQueueAliasesOverride: true,
@@ -389,6 +420,7 @@ const mergedForm: FormState = {
         {
           id: "3",
           alias: "__commit_queue",
+          description: "",
           gitTag: "",
           variants: {
             specifier: VariantTaskSpecifier.Regex,
@@ -401,6 +433,7 @@ const mergedForm: FormState = {
             taskTags: [],
           },
           remotePath: "",
+          parameters: [],
         },
       ],
       repoData: {

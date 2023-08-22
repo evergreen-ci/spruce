@@ -11,7 +11,7 @@ import { size } from "constants/tokens";
 
 type TitleFieldProps = Pick<FieldProps, "id" | "title" | "uiSchema">;
 
-export const TitleField: React.VFC<TitleFieldProps> = ({
+export const TitleField: React.FC<TitleFieldProps> = ({
   id,
   title,
   uiSchema,
@@ -31,7 +31,7 @@ const StyledSubtitle = styled(Subtitle)<SubtitleProps>`
   margin-bottom: 12px;
 `;
 
-export const DescriptionField: Field = ({ id, description }) =>
+export const DescriptionField: Field = ({ description, id }) =>
   description ? (
     <StyledDescription id={id}>{description}</StyledDescription>
   ) : null;

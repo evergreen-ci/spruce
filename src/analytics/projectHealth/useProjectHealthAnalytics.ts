@@ -1,9 +1,8 @@
+import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 import {
-  addPageAction,
-  Properties,
-  Analytics as A,
-} from "analytics/addPageAction";
-import { SaveSubscriptionForUserMutationVariables } from "gql/generated/types";
+  ProjectHealthView,
+  SaveSubscriptionForUserMutationVariables,
+} from "gql/generated/types";
 
 type pageType = "Commit chart" | "Task history" | "Variant history";
 type Action =
@@ -42,20 +41,8 @@ type Action =
   | {
       name: "Add Notification";
       subscription: SaveSubscriptionForUserMutationVariables["subscription"];
-    };
+    }
+  | { name: "Toggle view"; toggle: ProjectHealthView };
 
-interface P extends Properties {}
-interface Analytics extends A<Action> {}
-
-export const useProjectHealthAnalytics: (p: {
-  page: pageType;
-}) => Analytics = ({ page }) => {
-  const sendEvent: Analytics["sendEvent"] = (action) => {
-    addPageAction<Action, P>(action, {
-      object: "ProjectHealthPages",
-      page,
-    });
-  };
-
-  return { sendEvent };
-};
+export const useProjectHealthAnalytics = (p: { page: pageType }) =>
+  useAnalyticsRoot<Action>("ProjectHealthPages", { page: p.page });

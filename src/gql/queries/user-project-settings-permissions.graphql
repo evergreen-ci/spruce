@@ -1,0 +1,8 @@
+query UserProjectSettingsPermissions {
+  user {
+    permissions {
+      canCreateProject
+    }
+    userId
+  }
+}

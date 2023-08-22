@@ -1,10 +1,6 @@
 import { TestFilter } from "gql/generated/types";
 import { CommitRowType, mainlineCommits, rowType } from "./types";
-import {
-  calcColumnLimitFromWidth,
-  processCommits,
-  toggleRowSizeAtIndex,
-} from "./utils";
+import { calcColumnLimitFromWidth, processCommits } from "./utils";
 
 type Action =
   | { type: "ingestNewCommits"; commits: mainlineCommits }
@@ -16,7 +12,11 @@ type Action =
   | { type: "markSelectedRowVisited" }
   | { type: "onChangeTableWidth"; width: number }
   | { type: "setSelectedCommit"; order: number }
-  | { type: "toggleRowSizeAtIndex"; index: number; numCommits: number };
+  | {
+      type: "toggleRowExpansion";
+      rowIndex: number;
+      expanded: boolean;
+    };
 
 type cacheShape = Map<
   number,
@@ -187,17 +187,24 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         },
       };
     }
-    case "toggleRowSizeAtIndex": {
-      const newProcessedCommits = toggleRowSizeAtIndex(
-        state.processedCommits,
-        action.numCommits,
-        action.index
-      );
+    case "toggleRowExpansion": {
+      const updatedProcessedCommits = state.processedCommits;
+      const row = updatedProcessedCommits[action.rowIndex];
+      if (row.type !== rowType.FOLDED_COMMITS) {
+        throw new Error(
+          `Cannot expand row of type ${
+            updatedProcessedCommits[action.rowIndex].type
+          }`
+        );
+      } else {
+        row.expanded = action.expanded;
+      }
       return {
         ...state,
-        processedCommits: newProcessedCommits,
+        processedCommits: updatedProcessedCommits,
       };
     }
+
     default:
       throw new Error(`Unknown reducer action ${action}`);
   }

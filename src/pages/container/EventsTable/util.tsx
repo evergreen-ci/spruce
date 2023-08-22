@@ -3,14 +3,12 @@ import { getTaskRoute } from "constants/routes";
 import { PodEventsQuery } from "gql/generated/types";
 import { PodEvent } from "types/pod";
 import { Unpacked } from "types/utils";
-import { errorReporting } from "utils";
-
-const { reportError } = errorReporting;
+import { reportError } from "utils/errorReporting";
 
 export const getEventCopy = (
   event: Unpacked<PodEventsQuery["pod"]["events"]["eventLogEntries"]>
 ) => {
-  const { eventType, data } = event;
+  const { data, eventType } = event;
   const taskLink = (
     <ShortenedRouterLink
       title={data.taskID}

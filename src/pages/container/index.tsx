@@ -18,7 +18,7 @@ import Metadata from "./Metadata";
 const Container = () => {
   const dispatchToast = useToastContext();
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery<PodQuery, PodQueryVariables>(
+  const { data, error, loading } = useQuery<PodQuery, PodQueryVariables>(
     GET_POD,
     {
       variables: { podId: id },
@@ -40,7 +40,7 @@ const Container = () => {
         loading={loading}
         badge={<PodStatusBadge status={status as PodStatus} />}
       />
-      <PageLayout>
+      <PageLayout hasSider>
         <PageSider width={350}>
           <Metadata loading={loading} pod={pod} error={error} />
         </PageSider>

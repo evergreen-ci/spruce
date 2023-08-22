@@ -15,21 +15,21 @@ import { environmentVariables } from "utils";
 const { gray } = palette;
 const { getUiUrl } = environmentVariables;
 
-export const Metadata: React.VFC<{
+export const Metadata: React.FC<{
   loading: boolean;
   host: HostQuery["host"];
   error: ApolloError;
-}> = ({ loading, host, error }) => {
+}> = ({ error, host, loading }) => {
   const {
-    hostUrl,
-    distroId,
-    startedBy,
-    provider,
-    user,
-    lastCommunicationTime,
-    runningTask,
-    uptime,
     ami,
+    distroId,
+    hostUrl,
+    lastCommunicationTime,
+    provider,
+    runningTask,
+    startedBy,
+    uptime,
+    user,
   } = host ?? {};
 
   const { id: runningTaskId, name: runningTaskName } = runningTask ?? {};

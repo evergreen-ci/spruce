@@ -1,6 +1,6 @@
+import { GetFormSchema } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
 import { timeZones } from "constants/fieldMaps";
-import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
 import { IntervalSpecifier } from "./types";
 
@@ -138,6 +138,7 @@ export const getFormSchema = (
       "ui:useExpandableCard": true,
       items: {
         "ui:displayTitle": "New Periodic Build",
+        "ui:label": false,
         interval: {
           specifier: {
             "ui:widget": widgets.SegmentedControlWidget,

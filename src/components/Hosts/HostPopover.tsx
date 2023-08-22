@@ -15,13 +15,13 @@ interface Props {
   "data-cy"?: string;
 }
 
-export const HostPopover: React.VFC<Props> = ({
+export const HostPopover: React.FC<Props> = ({
   buttonText,
-  titleText,
-  loading,
-  disabled = false,
-  onClick,
   "data-cy": dataCy,
+  disabled = false,
+  loading,
+  onClick,
+  titleText,
 }) => {
   const [active, setActive] = useState(false);
   const buttonRef = useRef(null);

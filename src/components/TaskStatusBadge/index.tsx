@@ -7,9 +7,9 @@ import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { getTaskRoute } from "constants/routes";
 import { taskStatusToCopy } from "constants/task";
 import { TaskStatus, TaskTab } from "types/task";
-import { statuses, errorReporting } from "utils";
+import { statuses } from "utils";
+import { reportError } from "utils/errorReporting";
 
-const { reportError } = errorReporting;
 const { purple } = palette;
 const { getStatusBadgeCopy } = statuses;
 
@@ -36,10 +36,10 @@ interface TaskStatusBadgeProps {
   id?: string;
   execution?: number;
 }
-const TaskStatusBadge: React.VFC<TaskStatusBadgeProps> = ({
-  status,
-  id,
+const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
   execution,
+  id,
+  status,
 }) => {
   if (!status) {
     return null;

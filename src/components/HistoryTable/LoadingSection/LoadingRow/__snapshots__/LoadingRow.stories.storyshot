@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots components/HistoryTable/LoadingSection/LoadingRow Loading Row Story 1`] = `
+<div>
+  <div
+    class="css-4c6myl-Container eubivai0"
+  >
+    <div
+      class="css-167wnfc-LabelCellContainer e1bcz5i60"
+    >
+      <div
+        class="ant-skeleton ant-skeleton-active"
+      >
+        <div
+          class="ant-skeleton-content"
+        >
+          <ul
+            class="ant-skeleton-paragraph"
+          >
+            <li />
+            <li />
+            <li
+              style="width: 61%;"
+            />
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div
+      class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+      data-cy="loading-cell"
+    >
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active"
+      >
+        <span
+          class="ant-skeleton-avatar ant-skeleton-avatar-circle"
+          style="width: 20px; height: 20px; line-height: 20px;"
+        />
+      </div>
+    </div>
+    <div
+      class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+      data-cy="loading-cell"
+    >
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active"
+      >
+        <span
+          class="ant-skeleton-avatar ant-skeleton-avatar-circle"
+          style="width: 20px; height: 20px; line-height: 20px;"
+        />
+      </div>
+    </div>
+    <div
+      class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+      data-cy="loading-cell"
+    >
+      <div
+        class="ant-skeleton ant-skeleton-element ant-skeleton-active"
+      >
+        <span
+          class="ant-skeleton-avatar ant-skeleton-avatar-circle"
+          style="width: 20px; height: 20px; line-height: 20px;"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

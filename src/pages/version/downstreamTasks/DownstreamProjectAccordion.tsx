@@ -43,16 +43,16 @@ interface DownstreamProjectAccordionProps {
   parameters: Parameter[];
 }
 
-export const DownstreamProjectAccordion: React.VFC<
+export const DownstreamProjectAccordion: React.FC<
   DownstreamProjectAccordionProps
 > = ({
   baseVersionID,
   childPatchId,
   githash,
+  parameters,
   projectName,
   status,
   taskCount,
-  parameters,
 }) => {
   const dispatchToast = useToastContext();
 
@@ -95,7 +95,7 @@ export const DownstreamProjectAccordion: React.VFC<
   };
 
   const { baseStatusesInputVal, currentStatusesInputVal } = state;
-  const { currentStatuses, baseStatuses: currentBaseStatuses } =
+  const { baseStatuses: currentBaseStatuses, currentStatuses } =
     useTaskStatuses({
       versionId: childPatchId,
     });
@@ -149,8 +149,8 @@ export const DownstreamProjectAccordion: React.VFC<
   usePolling({ startPolling, stopPolling, refetch });
   const showSkeleton = !data;
   const { version } = data || {};
-  const { tasks, isPatch } = version || {};
-  const { data: tasksData = [], count = 0 } = tasks || {};
+  const { isPatch, tasks } = version || {};
+  const { count = 0, data: tasksData = [] } = tasks || {};
 
   const variantTitle = (
     <>
@@ -231,7 +231,7 @@ interface DownstreamMetadataProps {
   githash: string;
   parameters: Parameter[];
 }
-const DownstreamMetadata: React.VFC<DownstreamMetadataProps> = ({
+const DownstreamMetadata: React.FC<DownstreamMetadataProps> = ({
   baseVersionID,
   githash,
   parameters,

@@ -9,9 +9,9 @@ interface ModalProps {
   onCancel: () => void;
 }
 
-export const TaskNotificationModal: React.VFC<ModalProps> = ({
-  visible,
+export const TaskNotificationModal: React.FC<ModalProps> = ({
   onCancel,
+  visible,
 }) => {
   const { id: taskId } = useParams<{ id: string }>();
   const taskAnalytics = useTaskAnalytics();

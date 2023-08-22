@@ -20,15 +20,15 @@ interface AnnotationTicketsProps {
   loading: boolean;
 }
 
-const AnnotationTickets: React.VFC<AnnotationTicketsProps> = ({
-  tickets,
-  taskId,
+const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
   execution,
   isIssue,
-  userCanModify,
+  loading,
   selectedRowKey,
   setSelectedRowKey,
-  loading,
+  taskId,
+  tickets,
+  userCanModify,
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
   const title = isIssue ? "Issues" : "Suspected Issues";

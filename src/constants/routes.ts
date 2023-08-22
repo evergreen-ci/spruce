@@ -40,10 +40,20 @@ export enum ProjectSettingsTabRoutes {
   ViewsAndFilters = "views-and-filters",
 }
 
+export enum DistroSettingsTabRoutes {
+  General = "general",
+  Provider = "provider",
+  Task = "task",
+  Host = "host",
+  Project = "project",
+  EventLog = "event-log",
+}
+
 const paths = {
   commitQueue: "/commit-queue",
   commits: "/commits",
   container: "/container",
+  distro: "/distro",
   host: "/host",
   hosts: "/hosts",
   jobLogs: "/job-logs",
@@ -72,6 +82,7 @@ export const routes = {
   commits: paths.commits,
   configurePatch: `${paths.patch}/:id/configure`,
   container: `${paths.container}/:id`,
+  distro: `${paths.distro}/:distroId/${PageNames.Settings}`,
   host: `${paths.host}/:id`,
   hosts: paths.hosts,
   jobLogs: `${paths.jobLogs}/:buildId`,
@@ -130,7 +141,7 @@ export const getPatchRoute = (
   patchId: string,
   options: GetPatchRouteOptions
 ) => {
-  const { tab, configure, ...rest } = options || {};
+  const { configure, tab, ...rest } = options || {};
   const queryParams = stringifyQuery({
     ...rest,
   });
@@ -188,8 +199,8 @@ interface GetSpawnHostRouteParam {
 export const getSpawnHostRoute = ({
   distroId,
   host,
-  taskId,
   spawnHost,
+  taskId,
 }: GetSpawnHostRouteParam) => {
   const queryParams = stringifyQuery({
     ...(spawnHost && { spawnHost: "True" }),
@@ -208,7 +219,9 @@ export const getSpawnVolumeRoute = (volume: string) => {
 };
 
 export const getProjectPatchesRoute = (projectIdentifier: string) =>
-  `${paths.project}/${projectIdentifier}/${PageNames.Patches}`;
+  `${paths.project}/${encodeURIComponent(projectIdentifier)}/${
+    PageNames.Patches
+  }`;
 
 export const getProjectSettingsRoute = (
   projectId: string,
@@ -221,11 +234,19 @@ export const getProjectSettingsRoute = (
   return `${paths.project}/${projectId}/${PageNames.Settings}/${tab}`;
 };
 
+export const getDistroSettingsRoute = (
+  distroId: string,
+  tab?: DistroSettingsTabRoutes
+) =>
+  tab
+    ? `${paths.distro}/${distroId}/${PageNames.Settings}/${tab}`
+    : `${paths.distro}/${distroId}/${PageNames.Settings}`;
+
 export const getCommitQueueRoute = (projectIdentifier: string) =>
-  `${paths.commitQueue}/${projectIdentifier}`;
+  `${paths.commitQueue}/${encodeURIComponent(projectIdentifier)}`;
 
 export const getCommitsRoute = (projectIdentifier: string = "") =>
-  `${paths.commits}/${projectIdentifier}`;
+  `${paths.commits}/${encodeURIComponent(projectIdentifier)}`;
 
 const getHistoryRoute = (
   basePath: string,
@@ -261,7 +282,9 @@ export const getVariantHistoryRoute = (
 ) => {
   const { filters, selectedCommit } = options || {};
   return getHistoryRoute(
-    `${paths.variantHistory}/${projectIdentifier}/${variantName}`,
+    `${paths.variantHistory}/${encodeURIComponent(
+      projectIdentifier
+    )}/${variantName}`,
     filters,
     selectedCommit
   );
@@ -281,7 +304,7 @@ export const getTaskHistoryRoute = (
   const { filters, selectedCommit } = options || {};
 
   return getHistoryRoute(
-    `${paths.taskHistory}/${projectIdentifier}/${taskName}`,
+    `${paths.taskHistory}/${encodeURIComponent(projectIdentifier)}/${taskName}`,
     filters,
     selectedCommit
   );

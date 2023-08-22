@@ -28,13 +28,13 @@ import { TestStatus } from "types/test";
 import { queryString, url } from "utils";
 import { getColumnsTemplate } from "./testsTable/getColumnsTemplate";
 
-const { getPageFromSearch, getLimitFromSearch } = url;
+const { getLimitFromSearch, getPageFromSearch } = url;
 const { parseQueryString, queryParamAsNumber } = queryString;
 
 interface TestsTableProps {
   task: TaskQuery["task"];
 }
-export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
+export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const { pathname, search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
   const taskAnalytics = useTaskAnalytics();
@@ -42,7 +42,7 @@ export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
     taskAnalytics.sendEvent({ name: "Filter Tests", filterBy });
 
   const queryVariables = getQueryVariables(search, task.id);
-  const { sort, pageNum, limitNum } = queryVariables;
+  const { limitNum, pageNum, sort } = queryVariables;
   const cat = sort?.[0]?.sortBy;
   const dir = sort?.[0]?.direction;
 
@@ -115,7 +115,7 @@ export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
 
   // update url query params when user event triggers change
   const tableChangeHandler: TableOnChange<TestResult> = (...[, , sorter]) => {
-    const { order, columnKey } = Array.isArray(sorter) ? sorter[0] : sorter;
+    const { columnKey, order } = Array.isArray(sorter) ? sorter[0] : sorter;
     let queryParams = {
       [RequiredQueryParams.Category]: undefined,
       [RequiredQueryParams.Sort]: undefined,
@@ -144,7 +144,7 @@ export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
 
   const { task: taskData } = data ?? {};
   const { tests } = taskData ?? {};
-  const { filteredTestCount, totalTestCount, testResults } = tests ?? {};
+  const { filteredTestCount, testResults, totalTestCount } = tests ?? {};
 
   return (
     <TableWrapper

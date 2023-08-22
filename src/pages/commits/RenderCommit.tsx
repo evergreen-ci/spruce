@@ -1,11 +1,8 @@
 import { ChartTypes, Commit, BuildVariantDict } from "types/commits";
-import {
-  ActiveCommitChart,
-  ActiveCommitLabel,
-  BuildVariantContainer,
-} from "./ActiveCommits";
-import { GroupedResult } from "./ActiveCommits/utils";
+import { ActiveCommitLabel, BuildVariantContainer } from "./ActiveCommits";
+import { CommitBarChart } from "./ActiveCommits/CommitBarChart";
 import { InactiveCommitsLine, InactiveCommitButton } from "./InactiveCommits";
+import { GroupedResult } from "./types";
 
 type ActiveCommitProps = {
   groupedResult: { [key: string]: GroupedResult };
@@ -18,17 +15,17 @@ type RenderCommitsChartProps = ActiveCommitProps & {
   commit: Commit;
 };
 
-const RenderCommitsChart: React.VFC<RenderCommitsChartProps> = ({
-  commit,
+const RenderCommitsChart: React.FC<RenderCommitsChartProps> = ({
   chartType,
+  commit,
   groupedResult,
   max,
 }) => {
-  const { version, rolledUpVersions } = commit;
+  const { rolledUpVersions, version } = commit;
 
   if (version) {
     return (
-      <ActiveCommitChart
+      <CommitBarChart
         chartType={chartType}
         total={groupedResult[version.id].total}
         groupedTaskStats={groupedResult[version.id].stats}
@@ -47,11 +44,11 @@ interface RenderCommitsLabelProps {
   commit: Commit;
   hasFilters: boolean;
 }
-const RenderCommitsLabel: React.VFC<RenderCommitsLabelProps> = ({
+const RenderCommitsLabel: React.FC<RenderCommitsLabelProps> = ({
   commit,
   hasFilters,
 }) => {
-  const { version, rolledUpVersions } = commit;
+  const { rolledUpVersions, version } = commit;
 
   if (version) {
     return <ActiveCommitLabel version={version} />;
@@ -71,9 +68,9 @@ interface RenderCommitsBuildVariantProps {
   commit: Commit;
   buildVariantDict: BuildVariantDict;
 }
-export const RenderCommitsBuildVariants: React.VFC<
+export const RenderCommitsBuildVariants: React.FC<
   RenderCommitsBuildVariantProps
-> = ({ commit, buildVariantDict }) => {
+> = ({ buildVariantDict, commit }) => {
   const { version } = commit;
 
   if (version) {
@@ -99,7 +96,7 @@ const getCommitKey = (commit: Commit) => {
 };
 
 const getCommitWidth = (commit: Commit) => {
-  const { version, rolledUpVersions } = commit;
+  const { rolledUpVersions, version } = commit;
   if (version) {
     return 200;
   }

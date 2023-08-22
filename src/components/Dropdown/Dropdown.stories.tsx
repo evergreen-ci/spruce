@@ -1,18 +1,19 @@
-import { StoryObj } from "@storybook/react";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+
 import Dropdown from ".";
 
 export default {
   component: Dropdown,
-};
+} satisfies CustomMeta<typeof Dropdown>;
 
-export const Default: StoryObj<typeof Dropdown> = {
+export const Default: CustomStoryObj<typeof Dropdown> = {
   render: (args) => <Dropdown {...args}>Some Children</Dropdown>,
   args: {
     disabled: false,
   },
 };
 
-export const CustomButtonRender: StoryObj<typeof Dropdown> = {
+export const CustomButtonRender: CustomStoryObj<typeof Dropdown> = {
   render: (args) => (
     <Dropdown {...args} buttonRenderer={() => <b>Some Magic Button</b>}>
       Some Children

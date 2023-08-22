@@ -9,8 +9,8 @@ import { CommitRolledUpVersions } from "types/commits";
 import { InactiveCommitButton, MAX_COMMIT_COUNT } from ".";
 
 const RenderInactiveCommitButton = ({
-  versions,
   hasFilters,
+  versions,
 }: {
   versions: CommitRolledUpVersions;
   hasFilters?: boolean;

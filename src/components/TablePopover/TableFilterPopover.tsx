@@ -18,11 +18,11 @@ interface TableFilterPopoverProps {
   "data-cy"?: string;
 }
 
-export const TableFilterPopover: React.VFC<TableFilterPopoverProps> = ({
-  value,
-  options,
-  onConfirm,
+export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
   "data-cy": dataCy,
+  onConfirm,
+  options,
+  value,
 }) => {
   const [active, setActive] = useState(false);
   const iconColor = value.length ? blue.light1 : gray.dark2;

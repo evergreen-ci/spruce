@@ -9,6 +9,7 @@ import {
   ProjectSettingsQueryVariables,
   RepoSettingsQuery,
   RepoSettingsQueryVariables,
+  MergeQueue,
 } from "gql/generated/types";
 import { COPY_PROJECT } from "gql/mutations";
 import { GET_PROJECT_SETTINGS, GET_REPO_SETTINGS } from "gql/queries";
@@ -31,10 +32,7 @@ const Modal = ({
   mock?: MockedResponse;
   open?: boolean;
 }) => (
-  <MockedProvider
-    mocks={[mock, projectSettingsMock, repoSettingsMock]}
-    addTypename={false}
-  >
+  <MockedProvider mocks={[mock, projectSettingsMock, repoSettingsMock]}>
     <CopyProjectModal
       handleClose={() => {}}
       id={projectIdToCopy}
@@ -110,6 +108,7 @@ describe("copyProjectField", () => {
       result: {
         data: {
           copyProject: {
+            __typename: "Project",
             id: newProjectIdentifier,
             identifier: newProjectIdentifier,
           },
@@ -156,6 +155,7 @@ describe("copyProjectField", () => {
       result: {
         data: {
           copyProject: {
+            __typename: "Project",
             id: newProjectIdentifier,
             identifier: newProjectIdentifier,
           },
@@ -242,6 +242,7 @@ const copyProjectMock: ApolloMock<
   result: {
     data: {
       copyProject: {
+        __typename: "Project",
         id: newProjectIdentifier,
         identifier: newProjectIdentifier,
       },
@@ -263,6 +264,7 @@ const projectSettingsMock: ApolloMock<
     data: {
       projectSettings: {
         projectRef: {
+          __typename: "Project",
           externalLinks: [],
           id: "asrt",
           identifier: "asrt",
@@ -287,7 +289,6 @@ const projectSettingsMock: ApolloMock<
             __typename: "TaskSyncOptions",
           },
           disabledStatsCache: false,
-          __typename: "Project",
           restricted: false,
           admins: ["admin"],
           buildBaronSettings: {
@@ -337,6 +338,7 @@ const projectSettingsMock: ApolloMock<
           commitQueue: {
             enabled: true,
             mergeMethod: "squash",
+            mergeQueue: MergeQueue.Evergreen,
             message: "",
             __typename: "CommitQueueParams",
           },
@@ -354,11 +356,13 @@ const projectSettingsMock: ApolloMock<
           {
             id: "arst",
             alias: "arst",
+            description: "desc",
             gitTag: "v[0-9]+\\.[0-9]+\\.[0-9]+",
             variant: "ubuntu[0-9]+04",
             task: "arst",
             remotePath: "",
             variantTags: [],
+            parameters: [],
             taskTags: [],
             __typename: "ProjectAlias",
           },
@@ -378,5 +382,9 @@ const repoSettingsMock: ApolloMock<
       repoId: newProjectIdentifier,
     },
   },
-  result: { data: { repoSettings: { githubWebhooksEnabled: true } } },
+  result: {
+    data: {
+      repoSettings: { githubWebhooksEnabled: true, __typename: "RepoSettings" },
+    },
+  },
 };

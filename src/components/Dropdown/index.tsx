@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, BodyProps } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
 import { size, zIndex } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
@@ -22,16 +22,16 @@ interface DropdownProps {
   setIsOpen: (isOpen: boolean) => void;
   onClose?: () => void;
 }
-const Dropdown: React.VFC<DropdownProps> = ({
-  "data-cy": dataCy = "dropdown-button",
-  id,
-  disabled = false,
-  buttonText,
+const Dropdown: React.FC<DropdownProps> = ({
   buttonRenderer,
+  buttonText,
   children,
+  "data-cy": dataCy = "dropdown-button",
+  disabled = false,
+  id,
   isOpen,
-  setIsOpen,
   onClose = () => {},
+  setIsOpen,
 }) => {
   const listMenuRef = useRef(null);
   const menuButtonRef = useRef(null);
@@ -82,8 +82,9 @@ interface DropdownWithRefProps
 interface DropdownWithRefState {
   isOpen: boolean;
 }
-/** DropdownWithRef is a class component that allows the implementer
- *  to control its internal state methods with a ref in order to trigger state updates */
+/**
+ * DropdownWithRef is a class component that allows the implementer to control its internal state methods with a ref in order to trigger state updates
+ */
 class DropdownWithRef extends Component<
   DropdownWithRefProps,
   DropdownWithRefState
@@ -151,6 +152,7 @@ const menuButtonStyleOverrides = css`
 
 const StyledButton = styled<ButtonType>(Button)`
   ${menuButtonStyleOverrides}
+  background: white;
   width: 100%;
 `;
 
@@ -161,7 +163,7 @@ const ButtonContent = styled.div`
   overflow: hidden;
 `;
 
-const OverflowBody = styled(Body)`
+const OverflowBody = styled(Body)<BodyProps>`
   overflow: hidden;
   text-overflow: ellipsis;
 `;

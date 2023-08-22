@@ -9,6 +9,9 @@ const BOB_HICKS_PATCHES_ROUTE = "/user/bob.hicks/patches";
 const REGULAR_USER_PATCHES_ROUTE = "/user/regular/patches";
 
 describe("My Patches Page", () => {
+  beforeEach(() => {
+    cy.setCookie("include-commit-queue-user-patches", "true");
+  });
   it("Redirects user to user patches route from `/user/:id`", () => {
     cy.visit("user/chicken");
     cy.location().should((loc) =>
@@ -31,7 +34,9 @@ describe("My Patches Page", () => {
   it("Typing in patch description input updates the url, requests patches and renders patches", () => {
     cy.visit(MY_PATCHES_ROUTE);
     const inputVal = "testtest";
-    cy.dataCy("patch-description-input").type(inputVal);
+    cy.dataCy("patch-description-input").within(() => {
+      cy.get("input").type(inputVal);
+    });
     urlSearchParamsAreUpdated({
       pathname: MY_PATCHES_ROUTE,
       paramName: "patchName",
@@ -42,19 +47,27 @@ describe("My Patches Page", () => {
       paramName: "page",
       search: 0,
     });
-    cy.dataCy("patch-description-input").clear();
+    cy.dataCy("patch-description-input").within(() => {
+      cy.get("input").clear();
+    });
   });
 
   it("Inputting a number successfully searches patches", () => {
     cy.visit(MY_PATCHES_ROUTE);
-    cy.dataCy("patch-description-input").type("3186");
+    cy.dataCy("patch-description-input").within(() => {
+      cy.get("input").type("3186");
+    });
     cy.dataCy("patch-card").should("have.length", "1");
-    cy.dataCy("patch-description-input").clear();
+    cy.dataCy("patch-description-input").within(() => {
+      cy.get("input").clear();
+    });
   });
 
   it("Searching for a nonexistent patch shows 'No patches found'", () => {
     cy.visit(MY_PATCHES_ROUTE);
-    cy.dataCy("patch-description-input").type("satenarstharienht");
+    cy.dataCy("patch-description-input").within(() => {
+      cy.get("input").type("satenarstharienht");
+    });
     cy.dataCy("no-patches-found").contains("No patches found");
   });
 
@@ -69,19 +82,58 @@ describe("My Patches Page", () => {
       );
   });
 
-  it("Clicking the commit queue checkbox updates the URL, requests patches and renders patches", () => {
-    cy.visit(MY_PATCHES_ROUTE);
-    cy.dataCy("commit-queue-checkbox").should("be.checked");
-    cy.contains(patchOnCommitQueue);
+  describe("Commit queue checkbox", () => {
+    it("Clicking the commit queue checkbox updates the URL, requests patches and renders patches", () => {
+      cy.visit(MY_PATCHES_ROUTE);
+      cy.dataCy("commit-queue-checkbox").should("be.checked");
+      cy.contains(patchOnCommitQueue);
 
-    cy.dataCy("commit-queue-checkbox").uncheck({ force: true });
-    urlSearchParamsAreUpdated({
-      pathname: MY_PATCHES_ROUTE,
-      paramName: "commitQueue",
-      search: "false",
+      cy.dataCy("commit-queue-checkbox").uncheck({ force: true });
+      urlSearchParamsAreUpdated({
+        pathname: MY_PATCHES_ROUTE,
+        paramName: "commitQueue",
+        search: "false",
+      });
+      cy.contains(patchOnCommitQueue).should("not.exist");
+      cy.dataCy("commit-queue-checkbox").check({ force: true });
     });
-    cy.contains(patchOnCommitQueue).should("not.exist");
-    cy.dataCy("commit-queue-checkbox").check({ force: true });
+
+    it("The commit queue checkbox defaults to a cookie value when the commitQueue query param isn't defined", () => {
+      cy.setCookie("include-commit-queue-user-patches", "true");
+      cy.visit(MY_PATCHES_ROUTE);
+      cy.dataCy("commit-queue-checkbox").should("be.checked");
+      cy.setCookie("include-commit-queue-user-patches", "false");
+      cy.dataCy("commit-queue-checkbox").should("not.be.checked");
+    });
+
+    it("The commitQueue query param has higher precedence than the cookie value when determining commit queue checkbox state", () => {
+      cy.setCookie("include-commit-queue-user-patches", "true");
+      cy.visit(`${MY_PATCHES_ROUTE}?commitQueue=false`);
+      cy.dataCy("commit-queue-checkbox").should("not.be.checked");
+      cy.setCookie("include-commit-queue-user-patches", "false");
+      cy.visit(`${MY_PATCHES_ROUTE}?commitQueue=true`);
+      cy.dataCy("commit-queue-checkbox").should("be.checked");
+    });
+
+    it("Clicking on the commit queue checkbox updates the cookie value", () => {
+      cy.setCookie("include-commit-queue-user-patches", "true");
+      cy.visit(MY_PATCHES_ROUTE);
+      cy.dataCy("commit-queue-checkbox").should("be.checked");
+      cy.contains("Include Commit Queue").click();
+      cy.dataCy("commit-queue-checkbox").should("not.be.checked");
+      cy.getCookie("include-commit-queue-user-patches").should(
+        "have.property",
+        "value",
+        "false"
+      );
+      cy.contains("Include Commit Queue").click();
+      cy.dataCy("commit-queue-checkbox").should("be.checked");
+      cy.getCookie("include-commit-queue-user-patches").should(
+        "have.property",
+        "value",
+        "true"
+      );
+    });
   });
 
   it("Changing page size updates URL and renders less than or equal to that many rows", () => {
@@ -193,11 +245,11 @@ const secondPageDisplayNames = [
 ];
 
 const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
-  selector = ".cy-checkbox",
   checkboxDisplayName,
-  pathname,
   paramName,
+  pathname,
   search,
+  selector = ".cy-checkbox",
 }) => {
   cy.get(selector)
     .contains(checkboxDisplayName)

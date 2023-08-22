@@ -12,8 +12,12 @@ interface Props {
 /**
  * `data-*` props are not currently supported by @leafygreen-ui/select
  *  https://jira.mongodb.org/browse/EVG-16932
+ * @param props - React props passed to the component
+ * @param props.value - The current page size
+ * @param props.onChange - Callback to be called when the page size is changed
+ * @returns The PageSizeSelector component
  */
-const PageSizeSelector: React.VFC<Props> = ({ value, onChange, ...rest }) => (
+const PageSizeSelector: React.FC<Props> = ({ onChange, value, ...rest }) => (
   <StyledSelect
     aria-labelledby="page-size-select"
     size="small"

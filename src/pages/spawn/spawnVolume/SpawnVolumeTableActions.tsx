@@ -11,8 +11,8 @@ interface Props {
   volume: TableVolume;
 }
 
-export const SpawnVolumeTableActions: React.VFC<Props> = ({ volume }) => {
-  const { homeVolume, host, id, displayName } = volume;
+export const SpawnVolumeTableActions: React.FC<Props> = ({ volume }) => {
+  const { displayName, homeVolume, host, id } = volume;
   return (
     <FlexRow
       onClick={(e) => {

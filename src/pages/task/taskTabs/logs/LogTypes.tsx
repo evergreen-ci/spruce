@@ -47,13 +47,13 @@ interface Props {
   setNoLogs: (noLogs: boolean) => void;
 }
 
-export const AllLog: React.VFC<Props> = (props) => {
+export const AllLog: React.FC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
 
-  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     AllLogsQuery,
     AllLogsQueryVariables
   >(GET_ALL_LOGS, {
@@ -75,12 +75,12 @@ export const AllLog: React.VFC<Props> = (props) => {
   });
 };
 
-export const EventLog: React.VFC<Props> = (props) => {
+export const EventLog: React.FC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskEventLogsQuery,
     TaskEventLogsQueryVariables
   >(GET_TASK_EVENT_LOGS, {
@@ -105,12 +105,12 @@ export const EventLog: React.VFC<Props> = (props) => {
   });
 };
 
-export const SystemLog: React.VFC<Props> = (props) => {
+export const SystemLog: React.FC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     SystemLogsQuery,
     SystemLogsQueryVariables
   >(GET_SYSTEM_LOGS, {
@@ -131,12 +131,12 @@ export const SystemLog: React.VFC<Props> = (props) => {
   });
 };
 
-export const AgentLog: React.VFC<Props> = (props) => {
+export const AgentLog: React.FC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     AgentLogsQuery,
     AgentLogsQueryVariables
   >(GET_AGENT_LOGS, {
@@ -157,12 +157,12 @@ export const AgentLog: React.VFC<Props> = (props) => {
   });
 };
 
-export const TaskLog: React.VFC<Props> = (props) => {
+export const TaskLog: React.FC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskLogsQuery,
     TaskLogsQueryVariables
   >(GET_TASK_LOGS, {
@@ -182,17 +182,17 @@ export const TaskLog: React.VFC<Props> = (props) => {
   });
 };
 
-const useRenderBody: React.VFC<{
+const useRenderBody: React.FC<{
   loading: boolean;
   error: ApolloError;
   data: (TaskEventLogEntryType | LogMessageType)[];
-  LogContainer?: React.VFC<{ children: React.ReactNode }>;
+  LogContainer?: React.FC<{ children: React.ReactNode }>;
   setNoLogs: (noLogs: boolean) => void;
 }> = ({
-  loading,
-  error,
-  data,
   LogContainer = ({ children }) => <StyledPre>{children}</StyledPre>,
+  data,
+  error,
+  loading,
   setNoLogs,
 }) => {
   const noLogs = error !== undefined || data.length === 0;

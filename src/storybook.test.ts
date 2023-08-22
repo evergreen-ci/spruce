@@ -4,7 +4,7 @@ import MatchMediaMock from "jest-matchmedia-mock";
 
 let matchMedia;
 describe("storybook", () => {
-  jest.setTimeout(15000);
+  jest.setTimeout(20000);
 
   beforeAll(() => {
     matchMedia = new MatchMediaMock();
@@ -36,13 +36,13 @@ describe("storybook", () => {
   initStoryshots({
     renderer: render,
     asyncJest: true,
-    test: ({ story, context, stories2snapsConverter, done }) => {
+    test: ({ context, done, stories2snapsConverter, story }) => {
       const snapshotFileName =
         stories2snapsConverter.getSnapshotFileName(context);
 
       // eslint-disable-next-line testing-library/render-result-naming-convention
       const jsx = story.render();
-      const { unmount, container } = render(jsx);
+      const { container, unmount } = render(jsx);
 
       // Mount components asynchronously to allow for initial state to be set.
       // Some components have a loading state that is set on mount we should wait for it to finish

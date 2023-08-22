@@ -1,14 +1,14 @@
 import { Fragment, useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import SearchInput from "@leafygreen-ui/search-input";
+import { SearchInput } from "@leafygreen-ui/search-input";
 import { Body, Subtitle } from "@leafygreen-ui/typography";
 import { Table, Skeleton } from "antd";
 import { SortOrder } from "antd/es/table/interface";
 import debounce from "lodash.debounce";
 import get from "lodash/get";
 import { useParams, useLocation } from "react-router-dom";
-import { WordBreak } from "components/styles";
+import { StyledLink, WordBreak } from "components/styles";
 import { size } from "constants/tokens";
 import {
   TaskFilesQuery,
@@ -28,28 +28,28 @@ const columns = [
     dataIndex: "name",
     key: "name",
     render: (text: string, record: File): JSX.Element => (
-      <a
+      <StyledLink
         data-cy="fileLink"
         href={record.link}
         rel="noopener noreferrer"
         target="_blank"
       >
         <WordBreak>{text}</WordBreak>
-      </a>
+      </StyledLink>
     ),
     defaultSortOrder: "ascend" as SortOrder,
     sorter: (a: File, b: File): number => a.name.localeCompare(b.name),
   },
 ];
 
-export const FilesTables: React.VFC = () => {
+export const FilesTables: React.FC = () => {
   const { id: taskId } = useParams<{ id: string }>();
   const { search: queryVars } = useLocation();
   const parsed = parseQueryString(queryVars);
   const initialExecution = queryParamAsNumber(
     parsed[RequiredQueryParams.Execution]
   );
-  const { data, loading, error } = useQuery<
+  const { data, error, loading } = useQuery<
     TaskFilesQuery,
     TaskFilesQueryVariables
   >(GET_TASK_FILES, {
@@ -102,7 +102,7 @@ export const FilesTables: React.VFC = () => {
     if (!filteredFiles.length) {
       return <Body>No files found</Body>;
     }
-    return filteredFiles.map(({ taskName, files }) => (
+    return filteredFiles.map(({ files, taskName }) => (
       <Fragment key={taskName}>
         {filteredData?.length > 1 && <Subtitle>{taskName}</Subtitle>}
         <StyledTable

@@ -1,7 +1,9 @@
+import { getUnixTime } from "date-fns";
 import { LogTypes } from "types/task";
 import { environmentVariables } from "utils";
 
-const { getLobsterURL, getParsleyUrl, getUiUrl } = environmentVariables;
+const { getHoneycombBaseURL, getLobsterURL, getParsleyUrl, getUiUrl } =
+  environmentVariables;
 
 export const wikiBaseUrl =
   "https://docs.devprod.prod.corp.mongodb.com/evergreen";
@@ -76,10 +78,10 @@ interface GetLobsterTestLogCompleteUrlParams {
 }
 
 export const getLobsterTestLogCompleteUrl = ({
-  taskId,
   execution,
   groupId,
   lineNum,
+  taskId,
 }: GetLobsterTestLogCompleteUrlParams) =>
   taskId && Number.isFinite(execution)
     ? `${getLobsterURL()}/lobster/evergreen/complete-test/${taskId}/${execution}${
@@ -102,3 +104,30 @@ export const getParsleyBuildLogURL = (buildId: string) =>
 
 export const getDistroPageUrl = (distroId: string) =>
   `${getUiUrl()}/distros##${distroId}`;
+
+export const getHoneycombTraceUrl = (traceId: string, startTs: Date) =>
+  `${getHoneycombBaseURL()}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(
+    new Date(startTs)
+  )}`;
+
+export const getHoneycombSystemMetricsUrl = (
+  taskId: string,
+  startTs: Date,
+  endTs: Date
+): string => {
+  const query = {
+    calculations: [
+      { op: "AVG", column: "system.memory.usage.used" },
+      { op: "AVG", column: "system.cpu.utilization" },
+      { op: "RATE_AVG", column: "system.network.io.transmit" },
+      { op: "RATE_AVG", column: "system.network.io.receive" },
+    ],
+    filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
+    start_time: getUnixTime(new Date(startTs)),
+    end_time: getUnixTime(new Date(endTs)),
+  };
+
+  return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(
+    query
+  )}&omitMissingValues`;
+};

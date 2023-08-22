@@ -8,19 +8,19 @@ import {
   DefaultFieldTemplate,
   ObjectFieldTemplate,
 } from "./FieldTemplates";
-import { SpruceFormProps, ValidateProps } from "./types";
+import { GetFormSchema, SpruceFormProps, ValidateProps } from "./types";
 import widgets from "./Widgets";
 
-export const SpruceForm: React.VFC<SpruceFormProps> = ({
-  schema,
-  onChange,
-  uiSchema,
-  formData,
-  fields,
-  tagName,
-  validate,
-  disabled,
+export const SpruceForm: React.FC<SpruceFormProps> = ({
   customFormatFields,
+  disabled,
+  fields,
+  formData,
+  onChange,
+  schema,
+  tagName,
+  uiSchema,
+  validate,
 }) => (
   <Form
     fields={{ ...baseFields, ...fields }}
@@ -48,4 +48,4 @@ export const SpruceForm: React.VFC<SpruceFormProps> = ({
 );
 
 export { SpruceFormContainer };
-export type { ValidateProps };
+export type { GetFormSchema, ValidateProps };

@@ -1,17 +1,17 @@
-import { StoryObj } from "@storybook/react";
 import FilterBadges, {
   useFilterBadgeQueryParams,
 } from "components/FilterBadges";
 import { size } from "constants/tokens";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { TestStatus } from "types/history";
 import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
 
 export default {
   title: "Components/HistoryTable/HistoryTableTestSearch",
   component: HistoryTableTestSearch,
-};
+} satisfies CustomMeta<typeof HistoryTableTestSearch>;
 
-export const Default: StoryObj<typeof HistoryTableTestSearch> = {
+export const Default: CustomStoryObj<typeof HistoryTableTestSearch> = {
   render: () => <TestSearch />,
 };
 

@@ -1,27 +1,23 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import {
-  ProjectInput,
-  ProjectSettingsQuery,
-  RepoSettingsQuery,
-} from "gql/generated/types";
+import { ProjectInput } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { alias as aliasUtils, ProjectType } from "../utils";
-import { FormState } from "./types";
+import { GCQFormState } from "./types";
 
 const { AliasNames, sortAliases, transformAliases } = aliasUtils;
 
 type Tab = ProjectSettingsTabRoutes.GithubCommitQueue;
 
 export const mergeProjectRepo = (
-  projectData: FormState,
-  repoData: FormState
-): FormState => {
+  projectData: GCQFormState,
+  repoData: GCQFormState
+): GCQFormState => {
   // Merge project and repo objects so that repo config can be displayed on project pages
   const {
-    github: { prTesting, githubChecks, users, teams, gitTags },
     commitQueue: { patchDefinitions },
+    github: { gitTags, githubChecks, prTesting, teams, users },
   } = repoData;
-  const mergedObject: FormState = projectData;
+  const mergedObject: GCQFormState = projectData;
   mergedObject.github.prTesting.repoData = prTesting;
   mergedObject.github.githubChecks.repoData = githubChecks;
   mergedObject.github.users.repoData = users;
@@ -31,32 +27,27 @@ export const mergeProjectRepo = (
   return mergedObject;
 };
 
-export const gqlToForm: GqlToFormFunction<Tab> = (
-  data:
-    | ProjectSettingsQuery["projectSettings"]
-    | RepoSettingsQuery["repoSettings"],
-  options: { projectType: ProjectType }
-) => {
+export const gqlToForm = ((data, options) => {
   if (!data) return null;
 
-  const { projectRef, aliases } = data;
+  const { aliases, projectRef } = data;
   const { projectType } = options;
 
   const {
-    prTestingEnabled,
-    manualPrTestingEnabled,
-    githubChecksEnabled,
-    gitTagVersionsEnabled,
-    gitTagAuthorizedUsers,
-    gitTagAuthorizedTeams,
     commitQueue,
+    gitTagAuthorizedTeams,
+    gitTagAuthorizedUsers,
+    gitTagVersionsEnabled,
+    githubChecksEnabled,
+    manualPrTestingEnabled,
+    prTestingEnabled,
   } = projectRef;
 
   const {
     commitQueueAliases,
-    githubPrAliases,
-    githubCheckAliases,
     gitTagAliases,
+    githubCheckAliases,
+    githubPrAliases,
   } = sortAliases(aliases);
 
   const override = (field: Array<any>) =>
@@ -103,31 +94,38 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
     },
     commitQueue: {
       enabled: commitQueue.enabled,
-      message: commitQueue.message,
       mergeMethod: commitQueue.mergeMethod,
+      mergeQueue: commitQueue.mergeQueue,
+      message: commitQueue.message,
       patchDefinitions: {
         commitQueueAliasesOverride: override(commitQueueAliases),
         commitQueueAliases,
       },
     },
   };
-};
+}) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql: FormToGqlFunction<Tab> = (
+export const formToGql = ((
   {
+    commitQueue: {
+      enabled,
+      mergeMethod,
+      mergeQueue,
+      message,
+      patchDefinitions,
+    },
     github: {
-      prTestingEnabled,
+      gitTagVersionsEnabled,
+      gitTags,
+      githubChecks,
+      githubChecksEnabled,
       manualPrTestingEnabled,
       prTesting,
-      githubChecksEnabled,
-      githubChecks,
-      gitTagVersionsEnabled,
-      users: { gitTagAuthorizedUsers, gitTagAuthorizedUsersOverride },
+      prTestingEnabled,
       teams: { gitTagAuthorizedTeams, gitTagAuthorizedTeamsOverride },
-      gitTags,
+      users: { gitTagAuthorizedUsers, gitTagAuthorizedUsersOverride },
     },
-    commitQueue: { enabled, message, mergeMethod, patchDefinitions },
-  }: FormState,
+  },
   id
 ) => {
   const projectRef: ProjectInput = {
@@ -144,8 +142,9 @@ export const formToGql: FormToGqlFunction<Tab> = (
       : null,
     commitQueue: {
       enabled,
-      message,
       mergeMethod,
+      mergeQueue,
+      message,
     },
   };
 
@@ -184,4 +183,4 @@ export const formToGql: FormToGqlFunction<Tab> = (
     projectRef,
     aliases,
   };
-};
+}) satisfies FormToGqlFunction<Tab>;

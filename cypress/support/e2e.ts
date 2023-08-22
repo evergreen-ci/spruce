@@ -15,7 +15,11 @@
 
 // Import commands.js using ES2015 syntax:
 import "./commands";
-
+import {
+  CY_DISABLE_COMMITS_WELCOME_MODAL,
+  CY_DISABLE_NEW_USER_WELCOME_MODAL,
+  SLACK_NOTIFICATION_BANNER,
+} from "constants/cookies";
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
@@ -79,7 +83,7 @@ declare global {
        * @param option The option text to select
        * @example cy.selectLGOption("Some Label", "Some Option")
        */
-      selectLGOption(label: string, option: string): void;
+      selectLGOption(label: string, option: string | RegExp): void;
       /**
        * Custom command to navigate to login page and login.
        * @example cy.login()
@@ -88,9 +92,7 @@ declare global {
       /**
        * Custom command to open an antd table filter associated with the
        * the supplied column number
-       *
-       * @param columnNumber The order in which the target
-       * column exists in the table starting at 1
+       * @param columnNumber - The order in which the target column exists in the table starting at 1
        * @example cy.toggleTableFilter(1)
        */
       toggleTableFilter(columnNumber: number): void;
@@ -114,10 +116,11 @@ declare global {
 beforeEach(() => {
   cy.login();
   cy.setCookie(bannerCookie, "true");
-  cy.setCookie(slackBannerCookie, "true");
+  cy.setCookie(CY_DISABLE_COMMITS_WELCOME_MODAL, "true");
+  cy.setCookie(CY_DISABLE_NEW_USER_WELCOME_MODAL, "true");
   cy.setCookie(konamiCookie, "true");
+  cy.setCookie(SLACK_NOTIFICATION_BANNER, "true");
 });
 
 const bannerCookie = "This is an important notification";
-const slackBannerCookie = "has-closed-slack-banner";
 const konamiCookie = "seen-konami-code";

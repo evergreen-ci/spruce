@@ -33,7 +33,9 @@ Cypress.Commands.add(
   }
 );
 
-/* enterLoginCredentials */
+/**
+ * `enterLoginCredentials` is a custom command to enter login credentials
+ */
 function enterLoginCredentials() {
   cy.get("input[name=username]").type(user.username);
   cy.get("input[name=password]").type(user.password);
@@ -46,6 +48,10 @@ Cypress.Commands.add("enterLoginCredentials", () => {
 
 /* getInputByLabel */
 Cypress.Commands.add("getInputByLabel", (label: string) => {
+  // LeafyGreen inputs start out with ids of "undefined". Wait until LeafyGreen components have proper ids.
+  cy.contains("label", label)
+    .should("have.attr", "for")
+    .and("not.contain", "undefined");
   cy.contains("label", label)
     .invoke("attr", "for")
     .then((id) => {
@@ -92,8 +98,13 @@ Cypress.Commands.add(
 );
 
 /* selectLGOption */
-Cypress.Commands.add("selectLGOption", (label: string, option: string) => {
-  // open select
-  cy.getInputByLabel(label).click({ force: true });
-  return cy.contains(option).click();
-});
+Cypress.Commands.add(
+  "selectLGOption",
+  (label: string, option: string | RegExp) => {
+    cy.getInputByLabel(label).click({ force: true }); // open select
+    cy.get('[role="listbox"]').should("have.length", 1);
+    cy.get('[role="listbox"]').within(() => {
+      cy.contains(option).click();
+    });
+  }
+);

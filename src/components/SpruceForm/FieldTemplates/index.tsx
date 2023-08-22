@@ -10,9 +10,9 @@ export * from "./ObjectFieldTemplates";
 const { gray } = palette;
 
 // Custom field template that does not render fields' titles, as this is handled by LeafyGreen widgets
-export const DefaultFieldTemplate: React.VFC<FieldTemplateProps> = ({
-  classNames,
+export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   children,
+  classNames,
   description,
   hidden,
   id,
@@ -24,6 +24,7 @@ export const DefaultFieldTemplate: React.VFC<FieldTemplateProps> = ({
   const sectionId = uiSchema["ui:sectionId"] ?? "";
   const border = uiSchema["ui:border"];
   const showLabel = uiSchema["ui:showLabel"] ?? true;
+  const fieldDataCy = uiSchema["ui:field-data-cy"];
   return (
     !hidden && (
       <>
@@ -36,6 +37,7 @@ export const DefaultFieldTemplate: React.VFC<FieldTemplateProps> = ({
           id={`${sectionId} ${id}`}
           className={classNames}
           border={border}
+          data-cy={fieldDataCy}
         >
           {children}
         </DefaultFieldContainer>

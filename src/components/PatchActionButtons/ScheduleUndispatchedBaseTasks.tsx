@@ -14,9 +14,9 @@ interface Props {
   disabled: boolean;
 }
 
-export const ScheduleUndispatchedBaseTasks: React.VFC<Props> = ({
-  patchId,
+export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({
   disabled,
+  patchId,
 }) => {
   const dispatchToast = useToastContext();
   const [open, setOpen] = useState(false);

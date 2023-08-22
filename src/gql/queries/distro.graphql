@@ -1,0 +1,88 @@
+query Distro($distroId: String!) {
+  distro(distroId: $distroId) {
+    aliases
+    arch
+    authorizedKeysFile
+    bootstrapSettings {
+      clientDir
+      communication
+      env {
+        key
+        value
+      }
+      jasperBinaryDir
+      jasperCredentialsPath
+      method
+      preconditionScripts {
+        path
+        script
+      }
+      resourceLimits {
+        lockedMemoryKb
+        numFiles
+        numProcesses
+        numTasks
+        virtualMemoryKb
+      }
+      rootDir
+      serviceUser
+      shellPath
+    }
+    cloneMethod
+    containerPool
+    disabled
+    disableShallowClone
+    dispatcherSettings {
+      version
+    }
+    expansions {
+      key
+      value
+    }
+    finderSettings {
+      version
+    }
+    homeVolumeSettings {
+      formatCommand
+    }
+    hostAllocatorSettings {
+      acceptableHostIdleTime
+      feedbackRule
+      futureHostFraction
+      hostsOverallocatedRule
+      maximumHosts
+      minimumHosts
+      roundingRule
+      version
+    }
+    iceCreamSettings {
+      configPath
+      schedulerHost
+    }
+    isCluster
+    isVirtualWorkStation
+    name
+    note
+    plannerSettings {
+      commitQueueFactor
+      expectedRuntimeFactor
+      generateTaskFactor
+      groupVersions
+      mainlineTimeInQueueFactor
+      patchFactor
+      patchTimeInQueueFactor
+      targetTime
+      version
+    }
+    provider
+    providerSettingsList
+    setup
+    setupAsSudo
+    sshKey
+    sshOptions
+    user
+    userSpawnAllowed
+    validProjects
+    workDir
+  }
+}

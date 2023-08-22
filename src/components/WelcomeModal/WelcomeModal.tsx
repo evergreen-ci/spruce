@@ -4,7 +4,7 @@ import { ClassNames } from "@emotion/react";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import Modal from "@leafygreen-ui/modal";
-import { Subtitle } from "@leafygreen-ui/typography";
+import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { Carousel } from "antd";
 import { CarouselRef } from "antd/es/carousel";
 import { StyledLink as Link } from "components/styles";
@@ -15,12 +15,10 @@ import {
   UseSpruceOptionsInput,
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
-import { errorReporting } from "utils";
+import { reportError } from "utils/errorReporting";
 import CarouselCard from "./CarouselCard";
 import CarouselDots from "./CarouselDots";
 import { CardType } from "./types";
-
-const { reportError } = errorReporting;
 
 interface WelcomeModalProps {
   param: keyof UseSpruceOptionsInput;
@@ -28,7 +26,7 @@ interface WelcomeModalProps {
   carouselCards: CardType[];
 }
 
-const WelcomeModal: React.VFC<WelcomeModalProps> = ({
+const WelcomeModal: React.FC<WelcomeModalProps> = ({
   carouselCards,
   param,
   title,
@@ -133,7 +131,7 @@ const StyledLink = styled(Link)`
   margin-right: ${size.s};
 `;
 
-const CardTitle = styled(Subtitle)`
+const CardTitle = styled(Subtitle)<SubtitleProps>`
   display: flex;
   justify-content: center;
   margin-bottom: ${size.s};

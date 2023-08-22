@@ -50,7 +50,7 @@ interface TasksTableProps {
   variantInputProps?: InputFilterProps;
 }
 
-const TasksTable: React.VFC<TasksTableProps> = ({
+const TasksTable: React.FC<TasksTableProps> = ({
   baseStatusSelectorProps,
   isPatch,
   loading = false,
@@ -143,7 +143,7 @@ const getColumnDefs = ({
     },
     width: "40%",
     className: "cy-task-table-col-NAME",
-    render: (name: string, { id, execution }: Task): JSX.Element => (
+    render: (name: string, { execution, id }: Task): JSX.Element => (
       <TaskLink
         execution={execution}
         onClick={onClickTaskLink}
@@ -172,7 +172,7 @@ const getColumnDefs = ({
       multiple: 4,
     },
     className: "cy-task-table-col-STATUS",
-    render: (status: string, { id, execution }) =>
+    render: (status: string, { execution, id }) =>
       status && (
         <TaskStatusBadge status={status} id={id} execution={execution} />
       ),
@@ -231,7 +231,7 @@ const getColumnDefs = ({
         ...variantInputProps,
         "data-cy": "variant-input",
       })),
-    render: (displayName, { projectIdentifier, buildVariant }) => (
+    render: (displayName, { buildVariant, projectIdentifier }) => (
       <ConditionalWrapper
         condition={buildVariant !== mergeTaskVariant}
         wrapper={(children) => (

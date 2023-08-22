@@ -21,7 +21,7 @@ interface Props {
   loading: boolean;
 }
 
-export const PatchTasksTable: React.VFC<Props> = ({
+export const PatchTasksTable: React.FC<Props> = ({
   isPatch,
   loading,
   sorts,
@@ -43,7 +43,7 @@ export const PatchTasksTable: React.VFC<Props> = ({
     urlParam: PatchTasksQueryParams.BaseStatuses,
     ...filterHookProps,
   });
-  const { currentStatuses, baseStatuses } = useTaskStatuses({ versionId });
+  const { baseStatuses, currentStatuses } = useTaskStatuses({ versionId });
   const statusSelectorProps = {
     state: currentStatusesFilter.inputValue,
     tData: currentStatuses,

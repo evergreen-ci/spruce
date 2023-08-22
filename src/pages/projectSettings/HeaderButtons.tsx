@@ -23,10 +23,10 @@ import {
 import { useProjectSettingsContext } from "./Context";
 import { DefaultSectionToRepoModal } from "./DefaultSectionToRepoModal";
 import { formToGqlMap } from "./tabs/transformers";
-import { FormToGqlFunction, WritableTabRoutes } from "./tabs/types";
+import { FormToGqlFunction, WritableProjectSettingsType } from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
 
-const defaultToRepoDisabled: Set<WritableTabRoutes> = new Set([
+const defaultToRepoDisabled: Set<WritableProjectSettingsType> = new Set([
   ProjectSettingsTabRoutes.Notifications,
   ProjectSettingsTabRoutes.Plugins,
   ProjectSettingsTabRoutes.Containers,
@@ -36,10 +36,10 @@ const defaultToRepoDisabled: Set<WritableTabRoutes> = new Set([
 interface Props {
   id: string;
   projectType: ProjectType;
-  tab: WritableTabRoutes;
+  tab: WritableProjectSettingsType;
 }
 
-export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
+export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
   const { sendEvent } = useProjectSettingsAnalytics();
   const dispatchToast = useToastContext();
 
@@ -66,9 +66,11 @@ export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
       dispatchToast.success("Successfully updated project");
 
       if (identifier !== newIdentifier) {
-        navigate(getProjectSettingsRoute(newIdentifier, tab), {
-          replace: true,
-        });
+        setTimeout(() => {
+          navigate(getProjectSettingsRoute(newIdentifier, tab), {
+            replace: true,
+          });
+        }, 500);
       }
     },
     onError(err) {
@@ -157,7 +159,10 @@ export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
   );
 };
 
-const mapRouteToSection: Record<WritableTabRoutes, ProjectSettingsSection> = {
+const mapRouteToSection: Record<
+  WritableProjectSettingsType,
+  ProjectSettingsSection
+> = {
   [ProjectSettingsTabRoutes.General]: ProjectSettingsSection.General,
   [ProjectSettingsTabRoutes.Access]: ProjectSettingsSection.Access,
   [ProjectSettingsTabRoutes.Variables]: ProjectSettingsSection.Variables,

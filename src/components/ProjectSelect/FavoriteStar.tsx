@@ -11,17 +11,17 @@ import {
 } from "gql/generated/types";
 import { ADD_FAVORITE_PROJECT, REMOVE_FAVORITE_PROJECT } from "gql/mutations";
 
-const { green, gray } = palette;
+const { gray, green } = palette;
 
 interface FavoriteStarProps {
   identifier: string;
   isFavorite: boolean;
   ["data-cy"]?: string;
 }
-export const FavoriteStar: React.VFC<FavoriteStarProps> = ({
+export const FavoriteStar: React.FC<FavoriteStarProps> = ({
+  "data-cy": dataCy,
   identifier,
   isFavorite,
-  "data-cy": dataCy,
 }) => {
   const dispatchToast = useToastContext();
 

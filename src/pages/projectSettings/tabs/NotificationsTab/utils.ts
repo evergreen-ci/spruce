@@ -1,6 +1,6 @@
 import { NotificationMethods } from "types/subscription";
 import { Unpacked } from "types/utils";
-import { FormState, Notification } from "./types";
+import { NotificationsFormState, Notification } from "./types";
 
 export const getTargetForMethod = (
   method: string,
@@ -14,22 +14,24 @@ export const getTargetForMethod = (
     case NotificationMethods.EMAIL:
       return notification.emailInput;
     case NotificationMethods.WEBHOOK:
-      return notification.webhookInput.urlInput;
+      return notification.webhookInput?.urlInput;
     case NotificationMethods.JIRA_ISSUE:
-      return notification.jiraIssueInput.projectInput;
+      return notification.jiraIssueInput?.projectInput;
     default:
       return "";
   }
 };
 
 export const hasInitialError = (
-  subscription: Unpacked<FormState["subscriptions"]>
+  subscription: Unpacked<NotificationsFormState["subscriptions"]>
 ) => {
-  const { subscriptionData } = subscription;
-  const trigger = subscriptionData.event.eventSelect;
-  const method = subscriptionData.notification.notificationSelect;
-  const target = getTargetForMethod(method, subscriptionData.notification);
-  return !trigger || !method || !target;
+  const { subscriptionData } = subscription || {};
+  const { event, notification } = subscriptionData || {};
+  const { eventSelect } = event || {};
+  const { notificationSelect } = notification || {};
+
+  const target = getTargetForMethod(notificationSelect, notification);
+  return !eventSelect || !notificationSelect || !target;
 };
 
 export const generateWebhookSecret = () => {

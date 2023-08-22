@@ -13,7 +13,10 @@ import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
 import TupleSelectWithRegexConditional from "components/TupleSelectWithRegexConditional";
 import WelcomeModal from "components/WelcomeModal";
-import { CURRENT_PROJECT } from "constants/cookies";
+import {
+  CURRENT_PROJECT,
+  CY_DISABLE_COMMITS_WELCOME_MODAL,
+} from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getCommitsRoute } from "constants/routes";
 import { size } from "constants/tokens";
@@ -24,6 +27,7 @@ import {
   SpruceConfigQueryVariables,
   MainlineCommitsQuery,
   MainlineCommitsQueryVariables,
+  ProjectHealthView,
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
 import {
@@ -32,19 +36,25 @@ import {
   useUpsertQueryParams,
   useUserSettings,
 } from "hooks";
+import { useQueryParam } from "hooks/useQueryParam";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString, validators } from "utils";
+import { isProduction } from "utils/environmentVariables";
 import { CommitsWrapper } from "./CommitsWrapper";
-import CommitTypeSelect from "./commitTypeSelect";
+import CommitTypeSelector from "./CommitTypeSelector";
 import { useCommitLimit } from "./hooks/useCommitLimit";
 import { PaginationButtons } from "./PaginationButtons";
 import { StatusSelect } from "./StatusSelect";
 import { getMainlineCommitsQueryVariables, getFilterStatus } from "./utils";
+import { ViewToggle } from "./ViewToggle";
 import { WaterfallMenu } from "./WaterfallMenu";
 
 const { toArray } = array;
-const { parseQueryString, getString } = queryString;
+const { getString, parseQueryString } = queryString;
 const { validateRegexp } = validators;
+
+const shouldDisableForTest =
+  !isProduction() && Cookies.get(CY_DISABLE_COMMITS_WELCOME_MODAL) === "true";
 
 const Commits = () => {
   const dispatchToast = useToastContext();
@@ -87,6 +97,10 @@ const Commits = () => {
   const statusFilters = toArray(parsed[ProjectFilterOptions.Status]);
   const variantFilters = toArray(parsed[ProjectFilterOptions.BuildVariant]);
   const taskFilters = toArray(parsed[ProjectFilterOptions.Task]);
+  const [viewFilter] = useQueryParam(
+    ProjectFilterOptions.View,
+    "" as ProjectHealthView
+  );
   const requesterFilters = toArray(
     parsed[MainlineCommitQueryParams.Requester]
   ).filter((r) => r !== ALL_VALUE);
@@ -99,6 +113,7 @@ const Commits = () => {
     variants: variantFilters,
     tasks: taskFilters,
     requesters: requesterFilters,
+    view: viewFilter || ProjectHealthView.Failed,
   };
   const variables = getMainlineCommitsQueryVariables({
     mainlineCommitOptions: {
@@ -109,13 +124,14 @@ const Commits = () => {
     filterState,
   });
 
-  const { hasTasks, hasFilters } = getFilterStatus(filterState);
+  const { hasFilters, hasTasks } = getFilterStatus(filterState);
 
-  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
   >(GET_MAINLINE_COMMITS, {
     skip: !projectIdentifier || isResizing,
+    fetchPolicy: "cache-and-network",
     variables,
     pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (e) =>
@@ -124,7 +140,7 @@ const Commits = () => {
   usePolling({ startPolling, stopPolling, refetch });
 
   const { mainlineCommits } = data || {};
-  const { versions, nextPageOrderNumber, prevPageOrderNumber } =
+  const { nextPageOrderNumber, prevPageOrderNumber, versions } =
     mainlineCommits || {};
 
   const queryParamsToDisplay = new Set([
@@ -132,7 +148,7 @@ const Commits = () => {
     ProjectFilterOptions.Task,
   ]);
 
-  const { badges, handleOnRemove, handleClearAll } =
+  const { badges, handleClearAll, handleOnRemove } =
     useFilterBadgeQueryParams(queryParamsToDisplay);
   const onSubmit = useUpsertQueryParams();
 
@@ -166,7 +182,7 @@ const Commits = () => {
             <StatusSelect />
           </ElementWrapper>
           <ElementWrapper width="20">
-            <CommitTypeSelect />
+            <CommitTypeSelector />
           </ElementWrapper>
           <ElementWrapper width="25">
             <ProjectSelect
@@ -195,6 +211,7 @@ const Commits = () => {
           />
         </BadgeWrapper>
         <PaginationWrapper>
+          <ViewToggle identifier={projectIdentifier} />
           <PaginationButtons
             prevPageOrderNumber={prevPageOrderNumber}
             nextPageOrderNumber={nextPageOrderNumber}
@@ -204,13 +221,15 @@ const Commits = () => {
           <CommitsWrapper
             versions={versions}
             error={error}
-            isLoading={loading || !projectIdentifier || isResizing}
+            isLoading={
+              (loading && !versions) || !projectIdentifier || isResizing
+            }
             hasTaskFilter={hasTasks}
             hasFilters={hasFilters}
           />
         </div>
       </PageContainer>
-      {!hasUsedMainlineCommitsBefore && (
+      {!shouldDisableForTest && !hasUsedMainlineCommitsBefore && (
         <WelcomeModal
           param="hasUsedMainlineCommitsBefore"
           carouselCards={newMainlineCommitsUser}
@@ -235,7 +254,9 @@ const BadgeWrapper = styled.div`
   margin: ${size.s} 0;
 `;
 const PaginationWrapper = styled.div`
+  align-items: center;
   display: flex;
+  gap: ${size.xs};
   justify-content: flex-end;
   padding-bottom: ${size.xs};
 `;

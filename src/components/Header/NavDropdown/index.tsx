@@ -8,7 +8,7 @@ import { zIndex } from "constants/tokens";
 
 const { white } = palette;
 
-const NavDropdownMenuIcon: React.VFC<{ open: boolean }> = ({ open }) => (
+const NavDropdownMenuIcon: React.FC<{ open: boolean }> = ({ open }) => (
   <Icon glyph={open ? "CaretUp" : "CaretDown"} role="presentation" />
 );
 
@@ -24,28 +24,21 @@ interface NavDropdownItemType extends MenuItemType {
   closeMenu: () => void;
 }
 
-const NavDropdownItem: React.VFC<NavDropdownItemType> = ({
-  "data-cy": itemDataCy,
+const NavDropdownItem: React.FC<NavDropdownItemType> = ({
   closeMenu,
+  "data-cy": itemDataCy,
   href,
   text,
   to,
 }) => {
   const isInternalLink = to !== undefined;
-  const linkProps = isInternalLink
-    ? {
-        to,
-      }
-    : {
-        href,
-      };
-  return (
-    <MenuItem
-      as={isInternalLink ? Link : "a"}
-      data-cy={itemDataCy}
-      onClick={closeMenu}
-      {...linkProps}
-    >
+
+  return isInternalLink ? (
+    <MenuItem as={Link} data-cy={itemDataCy} onClick={closeMenu} to={to}>
+      {text}
+    </MenuItem>
+  ) : (
+    <MenuItem as="a" data-cy={itemDataCy} onClick={closeMenu} href={href}>
       {text}
     </MenuItem>
   );
@@ -57,7 +50,7 @@ interface NavDropdownProps {
   title: string;
 }
 
-export const NavDropdown: React.VFC<NavDropdownProps> = ({
+export const NavDropdown: React.FC<NavDropdownProps> = ({
   dataCy,
   menuItems,
   title,

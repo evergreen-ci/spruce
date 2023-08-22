@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import SearchInput from "@leafygreen-ui/search-input";
+import { SearchInput } from "@leafygreen-ui/search-input";
+import Cookies from "js-cookie";
 import { useLocation } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
 import PageSizeSelector, {
@@ -8,6 +9,10 @@ import PageSizeSelector, {
 } from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
+import {
+  INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES,
+  INCLUDE_COMMIT_QUEUE_USER_PATCHES,
+} from "constants/cookies";
 import { size } from "constants/tokens";
 import { PatchesPagePatchesFragment, PatchesInput } from "gql/generated/types";
 import { useFilterInputChangeHandler, usePageTitle } from "hooks";
@@ -17,7 +22,7 @@ import { url } from "utils";
 import { ListArea } from "./ListArea";
 import { StatusSelector } from "./StatusSelector";
 
-const { getPageFromSearch, getLimitFromSearch } = url;
+const { getLimitFromSearch, getPageFromSearch } = url;
 
 interface Props {
   analyticsObject: Analytics<
@@ -37,7 +42,7 @@ interface Props {
   patches?: PatchesPagePatchesFragment;
 }
 
-export const PatchesPage: React.VFC<Props> = ({
+export const PatchesPage: React.FC<Props> = ({
   analyticsObject,
   filterComp,
   loading,
@@ -47,9 +52,15 @@ export const PatchesPage: React.VFC<Props> = ({
 }) => {
   const { search } = useLocation();
   const setPageSize = usePageSizeSelector();
-
+  const cookie =
+    pageType === "project"
+      ? INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES
+      : INCLUDE_COMMIT_QUEUE_USER_PATCHES;
   const [isCommitQueueCheckboxChecked, setIsCommitQueueCheckboxChecked] =
-    useQueryParam(PatchPageQueryParams.CommitQueue, true);
+    useQueryParam(
+      PatchPageQueryParams.CommitQueue,
+      Cookies.get(cookie) === "true"
+    );
   const { limit, page } = usePatchesInputFromSearch(search);
   const { inputValue, setAndSubmitInputValue } = useFilterInputChangeHandler({
     urlParam: PatchPageQueryParams.PatchName,
@@ -61,6 +72,7 @@ export const PatchesPage: React.VFC<Props> = ({
 
   const onCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setIsCommitQueueCheckboxChecked(e.target.checked);
+    Cookies.set(cookie, e.target.checked ? "true" : "false");
     // eslint-disable-next-line no-unused-expressions
     analyticsObject.sendEvent({ name: "Filter Commit Queue" });
   };

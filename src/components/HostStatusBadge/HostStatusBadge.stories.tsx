@@ -1,14 +1,15 @@
 import styled from "@emotion/styled";
-import { StoryObj } from "@storybook/react";
 import { size } from "constants/tokens";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+
 import { HostStatus } from "types/host";
 import HostStatusBadge from ".";
 
 export default {
   component: HostStatusBadge,
-};
+} satisfies CustomMeta<typeof HostStatusBadge>;
 
-export const Default: StoryObj<typeof HostStatusBadge> = {
+export const Default: CustomStoryObj<typeof HostStatusBadge> = {
   render: () => (
     <Container>
       {Object.keys(HostStatus).map((status) => (

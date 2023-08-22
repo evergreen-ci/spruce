@@ -15,9 +15,9 @@ interface TaskSelectorProps {
   buildVariant: string;
 }
 
-const TaskSelector: React.VFC<TaskSelectorProps> = ({
-  projectIdentifier,
+const TaskSelector: React.FC<TaskSelectorProps> = ({
   buildVariant,
+  projectIdentifier,
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
 

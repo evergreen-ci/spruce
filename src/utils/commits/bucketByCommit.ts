@@ -4,6 +4,8 @@ import { FileDiffsFragment } from "gql/generated/types";
  * Takes a list of fileDiffs and returns a 2-dim array of fileDiffs
  * where 1st-dim represents commit groupings ordered chronologically.
  * FileDiffsFragment.description represents a commit
+ * @param fileDiffs - list of fileDiffs
+ * @returns 2-dim array of fileDiffs
  */
 export const bucketByCommit = (
   fileDiffs: FileDiffsFragment[]

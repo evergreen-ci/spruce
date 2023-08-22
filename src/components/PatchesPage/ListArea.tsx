@@ -4,7 +4,7 @@ import { Analytics } from "analytics/addPageAction";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { PatchCard } from "./PatchCard";
 
-export const ListArea: React.VFC<{
+export const ListArea: React.FC<{
   analyticsObject?: Analytics<
     | { name: "Click Patch Link" }
     | {
@@ -15,7 +15,7 @@ export const ListArea: React.VFC<{
   patches?: PatchesPagePatchesFragment;
   pageType: "project" | "user";
   loading: boolean;
-}> = ({ patches, loading, analyticsObject, pageType }) => {
+}> = ({ analyticsObject, loading, pageType, patches }) => {
   if (loading) {
     return <StyledSkeleton active title={false} paragraph={{ rows: 4 }} />;
   }

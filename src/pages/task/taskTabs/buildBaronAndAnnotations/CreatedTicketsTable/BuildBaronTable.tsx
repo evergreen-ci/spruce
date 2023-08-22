@@ -6,7 +6,7 @@ type CreatedTickets = CreatedTicketsQuery["bbGetCreatedTickets"];
 
 const columns = [
   {
-    render: (text: string, { key, fields }: CreatedTickets[0]): JSX.Element => (
+    render: (text: string, { fields, key }: CreatedTickets[0]): JSX.Element => (
       <div data-cy="jira-ticket-row">
         <JiraTicketRow jiraKey={key} fields={fields} />
       </div>
@@ -14,7 +14,7 @@ const columns = [
   },
 ];
 
-const BuildBaronTable: React.VFC<{
+const BuildBaronTable: React.FC<{
   jiraIssues: CreatedTickets;
 }> = ({ jiraIssues }) => (
   <Table

@@ -6,7 +6,7 @@ interface IsPatchUnconfiguredParams {
 }
 
 export const isPatchUnconfigured = ({
-  alias,
   activated,
+  alias,
 }: IsPatchUnconfiguredParams): boolean =>
   !activated && alias !== commitQueueAlias;

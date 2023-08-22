@@ -19,7 +19,7 @@ interface SpawnHostCardProps {
   host: MyHost;
 }
 
-export const SpawnHostCard: React.VFC<SpawnHostCardProps> = ({ host }) => {
+export const SpawnHostCard: React.FC<SpawnHostCardProps> = ({ host }) => {
   const { sendEvent } = useSpawnAnalytics();
 
   return (
@@ -31,12 +31,12 @@ export const SpawnHostCard: React.VFC<SpawnHostCardProps> = ({ host }) => {
   );
 };
 
-const HostUptime: React.VFC<MyHost> = ({ uptime }) => {
+const HostUptime: React.FC<MyHost> = ({ uptime }) => {
   const getDateCopy = useDateFormat();
   return <span>{getDateCopy(uptime)}</span>;
 };
 
-const HostExpiration: React.VFC<MyHost> = ({ noExpiration, expiration }) => {
+const HostExpiration: React.FC<MyHost> = ({ expiration, noExpiration }) => {
   const getDateCopy = useDateFormat();
   return <span>{noExpiration ? DoesNotExpire : getDateCopy(expiration)}</span>;
 };
@@ -64,7 +64,7 @@ const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
   "Instance Type": (host: MyHost) => <span>{host?.instanceType}</span>,
   "Mounted Volumes": (host: MyHost) => (
     <>
-      {host.volumes.map(({ id, displayName }) => (
+      {host.volumes.map(({ displayName, id }) => (
         <div key={`volume_link_${id}`}>
           <StyledRouterLink to={getSpawnVolumeRoute(id)}>
             {displayName || id}

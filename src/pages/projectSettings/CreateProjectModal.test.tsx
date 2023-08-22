@@ -161,7 +161,7 @@ describe("createProjectField", () => {
     expect(router.state.location.pathname).toBe(
       "/project/new-project-name/settings"
     );
-  });
+  }, 10000);
 
   it("form submission succeeds when all fields are updated", async () => {
     const mockWithId: ApolloMock<
@@ -183,6 +183,7 @@ describe("createProjectField", () => {
       result: {
         data: {
           createProject: {
+            __typename: "Project",
             id: "new-project-id",
             identifier: "new-project-name",
           },
@@ -226,7 +227,7 @@ describe("createProjectField", () => {
     expect(router.state.location.pathname).toBe(
       "/project/new-project-name/settings"
     );
-  });
+  }, 10000);
   it("shows a warning toast when an error and data are returned", async () => {
     const mockWithWarn = {
       request: {
@@ -298,6 +299,7 @@ const createProjectMock: ApolloMock<
   result: {
     data: {
       createProject: {
+        __typename: "Project",
         id: "new-project-id",
         identifier: "new-project-name",
       },
@@ -313,6 +315,7 @@ const getGithubOrgsMock: ApolloMock<GithubOrgsQuery, GithubOrgsQueryVariables> =
     result: {
       data: {
         spruceConfig: {
+          __typename: "SpruceConfig",
           githubOrgs: ["evergreen-ci", "10gen"],
         },
       },

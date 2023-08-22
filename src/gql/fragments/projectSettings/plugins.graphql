@@ -5,6 +5,7 @@ fragment ProjectPluginsSettings on Project {
   }
   externalLinks {
     displayName
+    requesters
     urlTemplate
   }
   perfEnabled
@@ -27,6 +28,7 @@ fragment RepoPluginsSettings on RepoRef {
   }
   externalLinks {
     displayName
+    requesters
     urlTemplate
   }
   perfEnabled

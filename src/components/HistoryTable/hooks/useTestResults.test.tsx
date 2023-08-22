@@ -186,11 +186,17 @@ type UseMergedTestHookType = (args: Parameters<typeof useTestResults>[0]) => {
   hookResponse: ReturnType<typeof useTestResults>;
   historyTable: ReturnType<typeof useHistoryTable>;
 };
-/** useMergedTestHook combines the useTestResults and useHistoryTable hooks together
+/**
+ * `useMergedTestHook` combines the useTestResults and useHistoryTable hooks together
  * and combines them into a shared hook which can be rendered under the same wrapper context
- * and can be used together */
-const useMergedTestHook: UseMergedTestHookType = (args) => {
-  const hookResponse = useTestResults(args);
+ * and can be used together
+ * @param rowIndex - the row index to use for the useTestResults hook
+ * @returns - the merged hooks
+ * - hookResponse - the useTestResults hook
+ * - historyTable - the useHistoryTable hook
+ */
+const useMergedTestHook: UseMergedTestHookType = (rowIndex) => {
+  const hookResponse = useTestResults(rowIndex);
   const historyTable = useHistoryTable();
 
   return {
@@ -222,10 +228,9 @@ describe("useMergedHookRender - sanity check", () => {
       visibleColumns: [],
       addColumns: expect.any(Function),
       getItem: expect.any(Function),
-      getItemHeight: expect.any(Function),
       ingestNewCommits: expect.any(Function),
       isItemLoaded: expect.any(Function),
-      toggleRowSizeAtIndex: expect.any(Function),
+      toggleRowExpansion: expect.any(Function),
       markSelectedRowVisited: expect.any(Function),
       nextPage: expect.any(Function),
       onChangeTableWidth: expect.any(Function),

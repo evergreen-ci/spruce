@@ -1,8 +1,8 @@
+import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { StyledLink } from "components/styles";
 import { versionControlDocumentationUrl } from "constants/externalResources";
-import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
 import {
   DeactivateStepbackTaskField,
@@ -10,7 +10,7 @@ import {
   RepoConfigField,
   RepotrackerField,
 } from "./Fields";
-import { FormState } from "./types";
+import { GeneralFormState } from "./types";
 
 const { placeholderIf, radioBoxOptions } = form;
 
@@ -20,7 +20,7 @@ export const getFormSchema = (
   identifierHasChanges: boolean,
   initialOwner: string,
   initialRepo: string,
-  repoData?: FormState
+  repoData?: GeneralFormState
 ): ReturnType<GetFormSchema> => ({
   fields: {
     deactivateStepbackTask: DeactivateStepbackTaskField,
@@ -396,7 +396,7 @@ const VersionControlEnabledDescription = (
 
 const getMinLength = (
   projectType: ProjectType,
-  repoData: FormState,
+  repoData: GeneralFormState,
   value: string
 ): number => {
   const repoGeneral = repoData?.generalConfiguration;

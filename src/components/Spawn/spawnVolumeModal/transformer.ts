@@ -7,10 +7,10 @@ interface Props {
 export const formToGql = ({
   formData,
 }: Props): SpawnVolumeMutationVariables["spawnVolumeInput"] => {
-  const { requiredVolumeInformation, optionalVolumeInformation } =
+  const { optionalVolumeInformation, requiredVolumeInformation } =
     formData || {};
 
-  const { size, availabilityZone, type } = requiredVolumeInformation || {};
+  const { availabilityZone, size, type } = requiredVolumeInformation || {};
 
   const { expirationDetails, mountToHost } = optionalVolumeInformation || {};
   const { expiration, noExpiration } = expirationDetails || {};

@@ -42,9 +42,9 @@ export const EvergreenLogo: React.ComponentType<LeafygreenIconProps> = ({
 );
 
 export const KnownFailureIcon: React.ComponentType<LeafygreenIconProps> = ({
+  className,
   fill,
   size = 16,
-  className,
 }) => (
   <svg
     className={className}
@@ -63,9 +63,9 @@ export const KnownFailureIcon: React.ComponentType<LeafygreenIconProps> = ({
 );
 
 export const FailureIcon: React.ComponentType<LeafygreenIconProps> = ({
+  className,
   fill,
   size = 16,
-  className,
 }) => (
   <svg
     className={className}
@@ -83,9 +83,9 @@ export const FailureIcon: React.ComponentType<LeafygreenIconProps> = ({
 );
 
 export const SetupFailure: React.ComponentType<LeafygreenIconProps> = ({
+  className,
   fill,
   size = 16,
-  className,
 }) => (
   <svg
     className={className}
@@ -115,9 +115,9 @@ export const SetupFailure: React.ComponentType<LeafygreenIconProps> = ({
 );
 
 export const SystemFailure: React.ComponentType<LeafygreenIconProps> = ({
+  className,
   fill,
   size = 16,
-  className,
 }) => (
   <svg
     className={className}
@@ -139,7 +139,7 @@ export const SystemFailure: React.ComponentType<LeafygreenIconProps> = ({
   </svg>
 );
 
-export const TimedOut = ({ fill, size = 16, className }) => (
+export const TimedOut = ({ className, fill, size = 16 }) => (
   <svg
     className={className}
     width={size}
@@ -160,9 +160,9 @@ export const TimedOut = ({ fill, size = 16, className }) => (
 );
 
 export const WillNotRun: React.ComponentType<LeafygreenIconProps> = ({
+  className,
   fill,
   size = 16,
-  className,
 }) => (
   <svg
     className={className}
@@ -192,9 +192,9 @@ export const WillNotRun: React.ComponentType<LeafygreenIconProps> = ({
 );
 
 export const Loading: React.ComponentType<LeafygreenIconProps> = ({
+  className,
   fill,
   size = 16,
-  className,
 }) => (
   <svg
     width={size}

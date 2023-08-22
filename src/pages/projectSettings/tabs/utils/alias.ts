@@ -1,11 +1,15 @@
 import { css } from "@emotion/react";
-import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
+import {
+  AccordionFieldTemplate,
+  FieldRow,
+} from "components/SpruceForm/FieldTemplates";
+import { STANDARD_FIELD_WIDTH } from "components/SpruceForm/utils";
 import widgets from "components/SpruceForm/Widgets";
 import { ProjectAlias, ProjectAliasInput } from "gql/generated/types";
 
 const textAreaCSS = css`
   box-sizing: border-box;
-  max-width: 400px;
+  max-width: ${STANDARD_FIELD_WIDTH}px;
 `;
 
 export enum AliasNames {
@@ -28,6 +32,7 @@ export enum VariantTaskSpecifier {
 export type AliasFormType = {
   id: string;
   alias: string;
+  description: string;
   displayTitle?: string;
   specifier?: GitTagSpecifier;
   gitTag: string;
@@ -42,20 +47,27 @@ export type AliasFormType = {
     task: string;
     taskTags: string[];
   };
+  parameters: {
+    key: string;
+    value: string;
+  }[];
 };
 
 const aliasToForm = ({
-  id,
   alias,
+  description,
   gitTag,
+  id,
+  parameters,
   remotePath,
-  variant,
-  variantTags,
   task,
   taskTags,
+  variant,
+  variantTags,
 }: ProjectAlias): AliasFormType => ({
   id,
   alias,
+  description,
   gitTag,
   remotePath,
   variants: {
@@ -76,6 +88,7 @@ const aliasToForm = ({
   ...(!Object.values(AliasNames).includes(alias as AliasNames) && {
     displayTitle: alias,
   }),
+  parameters,
 });
 
 // Bucket aliases according to their "alias" field
@@ -143,7 +156,13 @@ const transformTasks = ({
         taskTags: taskTags?.filter((tag) => tag) ?? [],
       };
 
-// Given alias form data, transform it to be safely saved
+/**
+ * `transformAliases` transforms alias form data into the format expected by GQL.
+ * @param aliases - alias form data
+ * @param override - whether to override existing aliases
+ * @param aliasName - alias name to override
+ * @returns - transformed alias form data
+ */
 export const transformAliases = (
   aliases: AliasFormType[],
   override: boolean,
@@ -151,34 +170,50 @@ export const transformAliases = (
 ): ProjectAliasInput[] =>
   override
     ? aliases.map((a) => {
-        const { id, alias, gitTag, remotePath, specifier, tasks, variants } = a;
+        const {
+          alias,
+          description,
+          gitTag,
+          id,
+          parameters,
+          remotePath,
+          specifier,
+          tasks,
+          variants,
+        } = a;
         if (aliasName === AliasNames.GitTag) {
           return specifier === GitTagSpecifier.ConfigFile
             ? {
-                id: id || "",
                 alias: aliasName,
+                description: "",
                 gitTag,
+                id: id || "",
                 remotePath,
+                task: "",
+                parameters,
+                taskTags: [],
                 variant: "",
                 variantTags: [],
-                task: "",
-                taskTags: [],
               }
             : {
-                id: id || "",
-                alias: aliasName,
-                gitTag,
-                remotePath: "",
-                ...(variants && transformVariants(variants)),
                 ...(tasks && transformTasks(tasks)),
+                ...(variants && transformVariants(variants)),
+                alias: aliasName,
+                description: "",
+                gitTag,
+                parameters,
+                id: id || "",
+                remotePath: "",
               };
         }
         return {
-          id: id || "",
-          alias: alias || aliasName,
-          ...(variants && transformVariants(variants)),
           ...(tasks && transformTasks(tasks)),
+          ...(variants && transformVariants(variants)),
+          alias: alias || aliasName,
+          description: description || "",
           gitTag: "",
+          id: id || "",
+          parameters,
           remotePath: "",
         };
       })
@@ -194,6 +229,17 @@ export const baseProps = {
     },
     uiSchema: {
       "ui:data-cy": "alias-input",
+    },
+  },
+  description: {
+    schema: {
+      type: "string" as "string",
+      title: "Description",
+      default: "",
+    },
+    uiSchema: {
+      "ui:elementWrapperCSS": textAreaCSS,
+      "ui:widget": "textarea",
     },
   },
   gitTag: {
@@ -249,7 +295,6 @@ export const baseProps = {
     uiSchema: {
       "ui:addButtonSize": "xsmall",
       "ui:addButtonText": "Add Task Tag",
-      "ui:fullWidth": true,
       "ui:orderable": false,
       "ui:sectionId": "task-tags-field",
       "ui:showLabel": false,
@@ -291,7 +336,6 @@ export const baseProps = {
     uiSchema: {
       "ui:addButtonSize": "xsmall",
       "ui:addButtonText": "Add Variant Tag",
-      "ui:fullWidth": true,
       "ui:orderable": false,
       "ui:sectionId": "variant-tags-field",
       "ui:showLabel": false,
@@ -304,8 +348,16 @@ export const baseProps = {
   },
 };
 
-const { alias, gitTag, remotePath, task, taskTags, variant, variantTags } =
-  baseProps;
+const {
+  alias,
+  description,
+  gitTag,
+  remotePath,
+  task,
+  taskTags,
+  variant,
+  variantTags,
+} = baseProps;
 
 const variants = {
   schema: {
@@ -419,6 +471,41 @@ const tasks = {
     },
     task: task.uiSchema,
     taskTags: taskTags.uiSchema,
+  },
+};
+
+const parameters = {
+  schema: {
+    type: "array" as "array",
+    title: "Parameters",
+    items: {
+      type: "object" as "object",
+      title: "Parameter",
+      properties: {
+        key: {
+          type: "string" as "string",
+          title: "Key",
+        },
+        value: {
+          type: "string" as "string",
+          title: "Value",
+        },
+      },
+      required: ["key", "value"],
+    },
+  },
+  uiSchema: {
+    "ui:addButtonText": "Add parameter",
+    items: {
+      "ui:ObjectFieldTemplate": FieldRow,
+      "ui:data-cy": "parameter-input",
+      key: {
+        "ui:placeholder": "Key",
+      },
+      value: {
+        "ui:placeholder": "Value",
+      },
+    },
   },
 };
 
@@ -538,9 +625,13 @@ export const aliasRowUiSchema = ({
     ...(displayTitle && { "ui:displayTitle": displayTitle }),
     ...(numberedTitle && { "ui:numberedTitle": numberedTitle }),
     "ui:useExpandableCard": useExpandableCard,
-    ...(!aliasHidden && { alias: alias.uiSchema }),
+    ...(!aliasHidden && {
+      alias: alias.uiSchema,
+      description: description.uiSchema,
+    }),
     variants: variants.uiSchema,
     tasks: tasks.uiSchema,
+    parameters: parameters.uiSchema,
   },
 });
 
@@ -551,8 +642,10 @@ export const patchAliasArray = {
       type: "object" as "object",
       properties: {
         alias: alias.schema,
+        description: description.schema,
         variants: variants.schema,
         tasks: tasks.schema,
+        parameters: parameters.schema,
       },
     },
   },

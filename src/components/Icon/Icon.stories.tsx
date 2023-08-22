@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
-import { StoryObj } from "@storybook/react";
 import { size } from "constants/tokens";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+
 import Icon, { glyphs, Size } from "./index";
 
 const Sizes = {
@@ -12,9 +13,9 @@ const Sizes = {
 
 export default {
   component: Icon,
-};
+} satisfies CustomMeta<typeof Icon>;
 
-export const Icons: StoryObj<typeof Icon> = {
+export const Icons: CustomStoryObj<typeof Icon> = {
   render: ({ size: s, ...rest }) => (
     <Container>
       {Object.keys(glyphs).map((name) => (

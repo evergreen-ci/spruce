@@ -1,0 +1,475 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit Story 1`] = `
+<div>
+  <div
+    class="css-42nnqo-Column eg8pw9k3"
+  >
+    <div
+      class="css-i09eoq-StyledAccordion eg8pw9k2"
+    >
+      <div
+        class="css-58nl5l-AccordionToggle ev0bopr3"
+        data-cy="accordion-toggle"
+        role="button"
+      >
+        <svg
+          aria-label="Caret Right Icon"
+          class=""
+          fill="none"
+          height="16"
+          role="img"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+            fill="currentColor"
+          />
+        </svg>
+        <div
+          class="css-1fd23ns-AccordionTitle eg8pw9k1"
+        >
+          Expand 5 inactive
+        </div>
+      </div>
+      <div
+        aria-expanded="false"
+        class="css-19jkg9x-AnimatedAccordion ev0bopr2"
+        data-cy="accordion-collapse-container"
+      >
+        <div
+          class="css-1ds08bm-ContentsContainer ev0bopr1"
+        >
+          <div
+            class="css-j8qvcg-RowContainer-StyledRowContainer eg8pw9k0"
+            data-cy="folded-commit"
+          >
+            <div
+              class="css-167wnfc-LabelCellContainer e1bcz5i60"
+            >
+              <div
+                class="css-42v5yq-LabelContainer e1cz15301"
+                data-cy="commit-label"
+              >
+                <p
+                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                >
+                  <a
+                    class="lg-ui-0002 leafygreen-ui-hvznge"
+                    data-cy="githash-link"
+                    href="/version/1/tasks"
+                  >
+                    <code
+                      class="leafygreen-ui-7u0nmx"
+                    >
+                      ca3a8b4
+                    </code>
+                  </a>
+                   
+                  <b>
+                    Sep 22, 2021, 7:33 PM
+                  </b>
+                   
+                </p>
+                <p
+                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                >
+                  A developer
+                   -
+                </p>
+                <p
+                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                >
+                  v2.17.0
+                </p>
+              </div>
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+          </div>
+          <div
+            class="css-j8qvcg-RowContainer-StyledRowContainer eg8pw9k0"
+            data-cy="folded-commit"
+          >
+            <div
+              class="css-167wnfc-LabelCellContainer e1bcz5i60"
+            >
+              <div
+                class="css-42v5yq-LabelContainer e1cz15301"
+                data-cy="commit-label"
+              >
+                <p
+                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                >
+                  <a
+                    class="lg-ui-0002 leafygreen-ui-hvznge"
+                    data-cy="githash-link"
+                    href="/version/2/tasks"
+                  >
+                    <code
+                      class="leafygreen-ui-7u0nmx"
+                    >
+                      ca3a8b4
+                    </code>
+                  </a>
+                   
+                  <b>
+                    Sep 23, 2021, 7:33 PM
+                  </b>
+                   
+                </p>
+                <p
+                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                >
+                  A developer
+                   -
+                </p>
+                <p
+                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                >
+                  v2.17.1
+                </p>
+              </div>
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+          </div>
+          <div
+            class="css-j8qvcg-RowContainer-StyledRowContainer eg8pw9k0"
+            data-cy="folded-commit"
+          >
+            <div
+              class="css-167wnfc-LabelCellContainer e1bcz5i60"
+            >
+              <div
+                class="css-42v5yq-LabelContainer e1cz15301"
+                data-cy="commit-label"
+              >
+                <p
+                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                >
+                  <a
+                    class="lg-ui-0002 leafygreen-ui-hvznge"
+                    data-cy="githash-link"
+                    href="/version/3/tasks"
+                  >
+                    <code
+                      class="leafygreen-ui-7u0nmx"
+                    >
+                      ca3a8b4
+                    </code>
+                  </a>
+                   
+                  <b>
+                    Sep 24, 2021, 7:33 PM
+                  </b>
+                   
+                </p>
+                <p
+                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                >
+                  A developer
+                   -
+                </p>
+                <p
+                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                >
+                  v2.17.2
+                </p>
+              </div>
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+          </div>
+          <div
+            class="css-j8qvcg-RowContainer-StyledRowContainer eg8pw9k0"
+            data-cy="folded-commit"
+          >
+            <div
+              class="css-167wnfc-LabelCellContainer e1bcz5i60"
+            >
+              <div
+                class="css-42v5yq-LabelContainer e1cz15301"
+                data-cy="commit-label"
+              >
+                <p
+                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                >
+                  <a
+                    class="lg-ui-0002 leafygreen-ui-hvznge"
+                    data-cy="githash-link"
+                    href="/version/4/tasks"
+                  >
+                    <code
+                      class="leafygreen-ui-7u0nmx"
+                    >
+                      ca3a8b4
+                    </code>
+                  </a>
+                   
+                  <b>
+                    Sep 25, 2021, 7:33 PM
+                  </b>
+                   
+                </p>
+                <p
+                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                >
+                  A developer
+                   -
+                </p>
+                <p
+                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                >
+                  v2.17.3
+                </p>
+              </div>
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+          </div>
+          <div
+            class="css-j8qvcg-RowContainer-StyledRowContainer eg8pw9k0"
+            data-cy="folded-commit"
+          >
+            <div
+              class="css-167wnfc-LabelCellContainer e1bcz5i60"
+            >
+              <div
+                class="css-42v5yq-LabelContainer e1cz15301"
+                data-cy="commit-label"
+              >
+                <p
+                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                >
+                  <a
+                    class="lg-ui-0002 leafygreen-ui-hvznge"
+                    data-cy="githash-link"
+                    href="/version/5/tasks"
+                  >
+                    <code
+                      class="leafygreen-ui-7u0nmx"
+                    >
+                      ca3a8b4
+                    </code>
+                  </a>
+                   
+                  <b>
+                    Sep 26, 2021, 7:33 PM
+                  </b>
+                   
+                </p>
+                <p
+                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                >
+                  A developer
+                   -
+                </p>
+                <p
+                  class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
+                >
+                  v2.17.4
+                </p>
+              </div>
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+            <div
+              class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+              data-cy="empty-cell"
+            >
+              <div
+                class="css-8xlg5e-Circle e1bcz5i64"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

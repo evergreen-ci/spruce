@@ -5,6 +5,7 @@ import Card from "@leafygreen-ui/card";
 import {
   InlineCode,
   Subtitle,
+  SubtitleProps,
   Body,
   Disclaimer,
 } from "@leafygreen-ui/typography";
@@ -75,10 +76,10 @@ interface CliDownloadBoxProps {
   link: string | null;
   description?: string;
 }
-const CliDownloadBox: React.VFC<CliDownloadBoxProps> = ({
-  title,
+const CliDownloadBox: React.FC<CliDownloadBoxProps> = ({
   description,
   link,
+  title,
 }) => {
   const { sendEvent } = usePreferencesAnalytics();
   return (
@@ -106,7 +107,7 @@ const CliDownloadBox: React.VFC<CliDownloadBoxProps> = ({
 interface ExpandableLinkContentsProps {
   clientBinaries: ClientBinary[];
 }
-const ExpandableLinkContents: React.VFC<ExpandableLinkContentsProps> = ({
+const ExpandableLinkContents: React.FC<ExpandableLinkContentsProps> = ({
   clientBinaries,
 }) => {
   const { sendEvent } = usePreferencesAnalytics();
@@ -161,7 +162,7 @@ const CliDownloadButton = styled(Button)`
   margin-top: ${size.xs};
 `;
 
-const CliDownloadTitle = styled(Subtitle)`
+const CliDownloadTitle = styled(Subtitle)<SubtitleProps>`
   font-weight: bold;
 `;
 

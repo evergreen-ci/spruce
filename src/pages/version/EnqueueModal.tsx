@@ -26,12 +26,12 @@ interface EnqueueProps {
   onFinished: () => void;
   refetchQueries: string[];
 }
-export const EnqueuePatchModal: React.VFC<EnqueueProps> = ({
-  patchId,
+export const EnqueuePatchModal: React.FC<EnqueueProps> = ({
   commitMessage,
-  visible,
   onFinished,
+  patchId,
   refetchQueries,
+  visible,
 }) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useVersionAnalytics(patchId);

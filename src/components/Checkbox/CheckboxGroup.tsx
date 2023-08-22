@@ -9,10 +9,10 @@ interface CheckboxesProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>, key: string) => void;
 }
 
-export const CheckboxGroup: React.VFC<CheckboxesProps> = ({
+export const CheckboxGroup: React.FC<CheckboxesProps> = ({
   data,
-  value,
   onChange = () => undefined,
+  value,
 }) => (
   <CheckboxesWrapper>
     {data.map(({ key, title, value: checkboxValue }) => (

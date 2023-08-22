@@ -1,10 +1,10 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
-  UserPermissionsQuery,
-  UserPermissionsQueryVariables,
+  UserProjectSettingsPermissionsQuery,
+  UserProjectSettingsPermissionsQueryVariables,
 } from "gql/generated/types";
-import { GET_USER_PERMISSIONS } from "gql/queries";
+import { USER_PROJECT_SETTINGS_PERMISSIONS } from "gql/queries";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -19,7 +19,7 @@ const owner = "existing_owner";
 const repo = "existing_repo";
 
 const Button = ({
-  mock = userPermissionsMock,
+  mock = permissionsMock,
   projectType = ProjectType.AttachedProject,
 }: {
   mock?: MockedResponse;
@@ -39,18 +39,20 @@ const Button = ({
 describe("createDuplicateProjectField", () => {
   it("does not show button when user lacks permissions", async () => {
     const lacksPermissionsMock: ApolloMock<
-      UserPermissionsQuery,
-      UserPermissionsQueryVariables
+      UserProjectSettingsPermissionsQuery,
+      UserProjectSettingsPermissionsQueryVariables
     > = {
       request: {
-        query: GET_USER_PERMISSIONS,
+        query: USER_PROJECT_SETTINGS_PERMISSIONS,
         variables: {},
       },
       result: {
         data: {
           user: {
+            __typename: "User",
             userId: "string",
             permissions: {
+              __typename: "Permissions",
               canCreateProject: false,
             },
           },
@@ -127,19 +129,21 @@ describe("createDuplicateProjectField", () => {
   });
 });
 
-const userPermissionsMock: ApolloMock<
-  UserPermissionsQuery,
-  UserPermissionsQueryVariables
+const permissionsMock: ApolloMock<
+  UserProjectSettingsPermissionsQuery,
+  UserProjectSettingsPermissionsQueryVariables
 > = {
   request: {
-    query: GET_USER_PERMISSIONS,
+    query: USER_PROJECT_SETTINGS_PERMISSIONS,
     variables: {},
   },
   result: {
     data: {
       user: {
+        __typename: "User",
         userId: "string",
         permissions: {
+          __typename: "Permissions",
           canCreateProject: true,
         },
       },

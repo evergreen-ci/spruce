@@ -13,6 +13,7 @@ interface Props {
   badge: JSX.Element;
   buttons?: JSX.Element;
   size?: Size;
+  children?: React.ReactNode;
 }
 
 interface TitleTypographyProps {
@@ -20,7 +21,7 @@ interface TitleTypographyProps {
   children: React.ReactNode | string;
 }
 
-const TitleTypography: React.VFC<TitleTypographyProps> = ({
+const TitleTypography: React.FC<TitleTypographyProps> = ({
   children,
   size,
 }) => {
@@ -33,13 +34,13 @@ const TitleTypography: React.VFC<TitleTypographyProps> = ({
 };
 
 export const PageTitle: React.FC<Props> = ({
-  children,
-  loading,
-  title,
   badge,
   buttons,
-  size = "medium",
+  children,
+  loading,
   pageTitle = "Evergreen",
+  size = "medium",
+  title,
 }) => {
   usePageTitle(pageTitle);
 

@@ -18,18 +18,18 @@ interface TagRowProps {
   isNewTag?: boolean;
   buttonText: string;
 }
-export const TagRow: React.VFC<TagRowProps> = ({
-  tag,
+export const TagRow: React.FC<TagRowProps> = ({
+  buttonText,
+  isNewTag = false,
+  isValidKey,
   onDelete,
   onUpdateTag,
-  isValidKey,
-  isNewTag = false,
-  buttonText,
+  tag,
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState(tag, isNewTag));
 
   const tagId = useMemo(() => crypto.randomUUID(), []);
-  const { key, value, canSave, isInputValid, shouldShowNewTag } = state;
+  const { canSave, isInputValid, key, shouldShowNewTag, value } = state;
 
   return (
     <FlexColumnContainer

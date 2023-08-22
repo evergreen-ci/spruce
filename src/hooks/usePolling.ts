@@ -9,7 +9,7 @@ import { usePageVisibility } from "./usePageVisibility";
 interface Props {
   startPolling: (DEFAULT_POLL_INTERVAL?: number) => void;
   stopPolling: () => void;
-  refetch?: (
+  refetch: (
     variables?: Partial<OperationVariables>
   ) => Promise<ApolloQueryResult<any>> | void;
   shouldPollFaster?: boolean;
@@ -23,19 +23,20 @@ type usePollingType = {
  * This hook uses determines polling status based on browser status and page visibility.
  * Depending on these values, it calls start and stop polling functions supplied from an
  * Apollo useQuery hook.
- * @param startPolling - Function from useQuery that is called when online & visible
- * @param stopPolling - Function from useQuery that is called when offline or not visible
- * @param refetch - Optional function from useQuery that can be used to refetch data
- * @param shouldPollFaster - Optional boolean to enable increased poll rat.
- * @param initialPollingState - Optional boolean to indicate the initial polling state
+ * @param props  - Object containing the following:
+ * @param props.stopPolling - Function from useQuery that is called when offline or not visible
+ * @param props.refetch - Function from useQuery that is used to refetch data.
+ * @param props.shouldPollFaster - Optional boolean to enable increased poll rate.
+ * @param props.initialPollingState - Optional boolean to indicate the initial polling state.
+ * @param props.startPolling - Function from useQuery that is called when online and visible
  * @returns boolean - true if polling, false if not polling
  */
 export const usePolling: usePollingType = ({
-  startPolling,
-  stopPolling,
+  initialPollingState = true,
   refetch,
   shouldPollFaster,
-  initialPollingState = true,
+  startPolling,
+  stopPolling,
 }) => {
   const [pollRate, setPollRate] = useState(
     initialPollingState ? DEFAULT_POLL_INTERVAL : 0
@@ -57,7 +58,7 @@ export const usePolling: usePollingType = ({
   if (isOnline && isVisible && !isPolling) {
     setPollRate(DEFAULT_POLL_INTERVAL);
     startPolling(DEFAULT_POLL_INTERVAL);
-    refetch?.(); // refresh data when returning to tab
+    refetch(); // refresh data when returning to tab
   }
   // If polling and not polling fast enough, poll faster
   if (isPolling && shouldPollFaster && pollRate !== FASTER_POLL_INTERVAL) {

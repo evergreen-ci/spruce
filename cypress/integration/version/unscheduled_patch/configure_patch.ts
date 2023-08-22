@@ -16,11 +16,7 @@ describe("Configure Patch Page", () => {
     });
     it("Patch name input field value is patch description", () => {
       cy.visit(`/version/${unactivatedPatchId}`);
-      cy.dataCy("patch-name-input")
-        .invoke("val")
-        .then((text) => {
-          expect(text).to.equal("test meee");
-        });
+      cy.dataCy("patch-name-input").should("have.value", "test meee");
     });
     it("First build variant in list is selected by default", () => {
       cy.visit(`/version/${unactivatedPatchId}`);
@@ -63,6 +59,7 @@ describe("Configure Patch Page", () => {
 
     it("Required tasks should be auto selected", () => {
       cy.visit(`patch/${patchWithDisplayTasks}/configure/tasks`);
+      cy.dataCy("task-count-badge").contains("1");
       cy.getInputByLabel("test-graphql").should("be.checked");
     });
   });
@@ -129,8 +126,9 @@ describe("Configure Patch Page", () => {
     });
     it("Can update patch description by typing into `Patch Name` input field", () => {
       const val = "michelle obama";
-      cy.dataCy(`patch-name-input`).clear().type(val);
-      cy.dataCy(`patch-name-input`).should("have.value", val);
+      cy.dataCy("patch-name-input").clear();
+      cy.dataCy("patch-name-input").type(val);
+      cy.dataCy("patch-name-input").should("have.value", val);
     });
     it("Schedule button should be disabled when no tasks are selected and enabled when they are", () => {
       cy.dataCy("task-checkbox").should("not.be.checked");
@@ -189,8 +187,49 @@ describe("Configure Patch Page", () => {
         .find('[data-cy="task-count-badge"]')
         .should("not.exist");
       cy.dataCy("selected-task-disclaimer").contains(
-        `0 tasks across 0 build variants`
+        "0 tasks across 0 build variants"
       );
+    });
+
+    describe("Task filter input", () => {
+      it("Updating the task filter input filters tasks in view", () => {
+        cy.visit(`/version/${unactivatedPatchId}`);
+        cy.contains("Ubuntu 16.04").click();
+        cy.dataCy("task-checkbox").should("have.length", 45);
+        cy.dataCy("selected-task-disclaimer").contains(
+          `0 tasks across 0 build variants`
+        );
+        cy.dataCy("task-filter-input").type("dist");
+        cy.dataCy("task-checkbox").should("have.length", 2);
+        cy.contains("Select all tasks in view").click();
+        cy.dataCy("selected-task-disclaimer").contains(
+          "2 tasks across 1 build variant"
+        );
+      });
+      it("The task filter input works across multiple build variants", () => {
+        cy.visit(`/version/${unactivatedPatchId}`);
+        cy.get("body").type("{meta}", {
+          release: false,
+        });
+        cy.dataCy("build-variant-list-item").contains("Ubuntu 16.04").click();
+        cy.dataCy("build-variant-list-item")
+          .contains("Ubuntu 16.04 (Docker)")
+          .click();
+        cy.get("body").type("{meta}", {
+          release: true,
+        });
+        cy.dataCy("task-checkbox").should("have.length", 46);
+        cy.dataCy("selected-task-disclaimer").contains(
+          `0 tasks across 0 build variants`
+        );
+        cy.dataCy("task-filter-input").type("dist");
+        cy.dataCy("task-checkbox").should("have.length", 2);
+        cy.contains("Select all tasks in view").click();
+        cy.dataCy("selected-task-disclaimer").contains(
+          "4 tasks across 2 build variants"
+        );
+        cy.dataCy("task-filter-input").clear();
+      });
     });
 
     describe("Select/Deselect All buttons", () => {

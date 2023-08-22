@@ -22,12 +22,12 @@ interface Props {
   isSingleHost?: boolean;
 }
 
-export const UpdateStatusModal: React.VFC<Props> = ({
-  visible,
+export const UpdateStatusModal: React.FC<Props> = ({
+  closeModal,
   "data-cy": dataCy,
   hostIds,
-  closeModal,
   isSingleHost = false,
+  visible,
 }) => {
   const dispatchToast = useToastContext();
 
@@ -96,7 +96,7 @@ export const UpdateStatusModal: React.VFC<Props> = ({
           setHostStatus(s as UpdateHostStatus);
         }}
       >
-        {hostStatuses.map(({ title, value, key }) => (
+        {hostStatuses.map(({ key, title, value }) => (
           <Option key={key} value={value} data-cy={`${value}-option`}>
             {title}
           </Option>

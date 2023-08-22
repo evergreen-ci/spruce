@@ -20,29 +20,27 @@ import {
 } from "gql/queries";
 import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { TaskStatus } from "types/task";
-import { errorReporting, string } from "utils";
+import { string } from "utils";
+import { reportError } from "utils/errorReporting";
 import { initialState, reducer } from "./reducer";
 import { CommitTask, CommitType } from "./types";
 
 const { applyStrictRegex } = string;
-const { reportError } = errorReporting;
 
 interface PreviousCommitsProps {
   taskId: string;
 }
-export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
-  taskId,
-}) => {
+export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
   const { sendEvent } = useTaskAnalytics();
   const [
     {
-      selectState,
       disableButton,
-      link,
-      shouldFetchLastPassing,
-      shouldFetchLastExecuted,
-      hasFetchedLastPassing,
       hasFetchedLastExecuted,
+      hasFetchedLastPassing,
+      link,
+      selectState,
+      shouldFetchLastExecuted,
+      shouldFetchLastPassing,
     },
     dispatch,
   ] = useReducer(reducer, initialState);
@@ -90,9 +88,9 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
     },
   });
 
-  const { baseTask, versionMetadata, buildVariant, displayName } =
+  const { baseTask, buildVariant, displayName, versionMetadata } =
     taskData?.task ?? {};
-  const { projectIdentifier, order: skipOrderNumber } =
+  const { order: skipOrderNumber, projectIdentifier } =
     versionMetadata?.baseVersion ?? {};
   const bvOptionsBase = {
     tasks: [applyStrictRegex(displayName)],

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { Disclaimer, Subtitle } from "@leafygreen-ui/typography";
+import { Disclaimer, Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { useAnnotationAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { getJiraTicketUrl } from "constants/externalResources";
@@ -8,24 +8,20 @@ import { size } from "constants/tokens";
 import { TicketFields } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
 
-interface TitleProps {
-  margin?: boolean;
-}
-
 interface JiraTicketRowProps {
   jiraKey: string;
   fields: TicketFields;
 }
-export const JiraTicketRow: React.VFC<JiraTicketRowProps> = ({
-  jiraKey,
+export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
   fields,
+  jiraKey,
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
   const getDateCopy = useDateFormat();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const url = getJiraTicketUrl(jiraHost, jiraKey);
-  const { created, assigneeDisplayName, updated, status, summary } =
+  const { assigneeDisplayName, created, status, summary, updated } =
     fields ?? {};
   return (
     <div>
@@ -60,7 +56,9 @@ export const JiraTicketRow: React.VFC<JiraTicketRowProps> = ({
   );
 };
 
-export const TicketsTitle = styled(Subtitle)<TitleProps>`
+export const TicketsTitle = styled(Subtitle)<
+  SubtitleProps & { margin?: boolean }
+>`
   margin-bottom: ${(props) => (props.margin ? size.s : size.xxs)};
   margin-top: ${(props) => (props.margin ? size.m : size.l)};
   line-height: ${size.m};

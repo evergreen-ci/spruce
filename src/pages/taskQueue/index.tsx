@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { H2, H3 } from "@leafygreen-ui/typography";
+import { H2, H2Props, H3, H3Props } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
@@ -20,6 +20,7 @@ import {
   TaskQueueDistrosQueryVariables,
 } from "gql/generated/types";
 import { TASK_QUEUE_DISTROS } from "gql/queries";
+import { usePageTitle } from "hooks";
 import { DistroOption } from "pages/taskQueue/DistroOption";
 import { TaskQueueTable } from "pages/taskQueue/TaskQueueTable";
 
@@ -30,11 +31,11 @@ const TaskQueue = () => {
   const navigate = useNavigate();
 
   const [selectedDistro, setSelectedDistro] = useState(null);
-
+  usePageTitle(`Task Queue - ${distro}`);
   const { data: distrosData } = useQuery<
     TaskQueueDistrosQuery,
     TaskQueueDistrosQueryVariables
-  >(TASK_QUEUE_DISTROS);
+  >(TASK_QUEUE_DISTROS, { fetchPolicy: "cache-and-network" });
 
   const distros = useMemo(
     () => distrosData?.taskQueueDistros ?? [],
@@ -53,7 +54,6 @@ const TaskQueue = () => {
 
   const onChangeDistroSelection = (val: { id: string }) => {
     taskQueueAnalytics.sendEvent({ name: "Select Distro", distro: val.id });
-    navigate(getTaskQueueRoute(val.id), { replace: true });
   };
 
   const handleSearch = (options: { id: string }[], match: string) =>
@@ -62,7 +62,6 @@ const TaskQueue = () => {
   return (
     <PageWrapper>
       <StyledH2>Task Queue</StyledH2>
-
       {selectedDistro === null ? (
         <Skeleton active />
       ) : (
@@ -112,7 +111,7 @@ const TaskQueue = () => {
             )
           }
 
-          <TaskQueueTable />
+          <TaskQueueTable distro={distro} taskId={taskId} />
         </>
       )}
     </PageWrapper>
@@ -136,13 +135,13 @@ const DistroName = styled.div`
 `;
 const TableHeader = styled.div`
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   margin: ${size.m} 0 ${size.s} 0;
 `;
-const StyledH2 = styled(H2)`
+const StyledH2 = styled(H2)<H2Props>`
   margin-bottom: ${size.xs};
 `;
-const StyledH3 = styled(H3)`
+const StyledH3 = styled(H3)<H3Props>`
   margin-right: ${size.s};
 `;
 

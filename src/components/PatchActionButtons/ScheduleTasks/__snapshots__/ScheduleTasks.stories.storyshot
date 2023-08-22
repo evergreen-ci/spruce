@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots components/PatchActionButtons/ScheduleTasks Schedule Tasks Empty 1`] = `
+<div>
+  <button
+    aria-disabled="false"
+    class="lg-ui-button-0000 leafygreen-ui-pt6pqu"
+    data-cy="schedule-patch"
+    type="button"
+  >
+    <div
+      class="leafygreen-ui-v038xi"
+    />
+    <div
+      class="leafygreen-ui-v95oty"
+    >
+      Schedule
+    </div>
+  </button>
+</div>
+`;
+
+exports[`storybook Storyshots components/PatchActionButtons/ScheduleTasks Schedule Tasks Populated 1`] = `
+<div>
+  <button
+    aria-disabled="false"
+    class="lg-ui-button-0000 leafygreen-ui-pt6pqu"
+    data-cy="schedule-patch"
+    type="button"
+  >
+    <div
+      class="leafygreen-ui-v038xi"
+    />
+    <div
+      class="leafygreen-ui-v95oty"
+    >
+      Schedule
+    </div>
+  </button>
+</div>
+`;

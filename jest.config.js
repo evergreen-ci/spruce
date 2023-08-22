@@ -1,29 +1,23 @@
 module.exports = {
-  moduleDirectories: ["node_modules", "utils", "src", __dirname],
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
     "!<rootDir>/node_modules/",
     "!<rootDir>/src/{index.tsx,react-app-env.d.ts}",
   ],
   coverageReporters: ["text"],
-  moduleFileExtensions: ["js", "jsx", "ts", "tsx", "json", "node"],
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
   moduleNameMapper: {
-    "^react-native$": "react-native-web",
     "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
     "^nanoid$": "<rootDir>/node_modules/nanoid/index.cjs",
     "^antd/es/(.*)$": "antd/lib/$1",
   },
   modulePaths: ["<rootDir>/src"],
   resetMocks: true,
-  roots: ["<rootDir>/src"],
-  setupFiles: ["react-app-polyfill/jsdom"],
+  setupFiles: ["react-app-polyfill/jsdom", "jest-canvas-mock"],
   setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
   snapshotSerializers: ["@emotion/jest/serializer"],
   testEnvironment: "jsdom",
-  testMatch: [
-    "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
-    "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}",
-  ],
+  testMatch: ["<rootDir>/{src,scripts}/**/*.{spec,test}.{js,jsx,ts,tsx}"],
   testRunner: "<rootDir>/node_modules/jest-circus/runner.js",
   transform: {
     "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "babel-jest",
@@ -46,4 +40,7 @@ module.exports = {
     "jest-watch-typeahead/testname",
   ],
   globalSetup: "<rootDir>/global-setup.js",
+  globals: {
+    APP_VERSION: JSON.stringify(process.env.npm_package_version),
+  },
 };

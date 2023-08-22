@@ -2,9 +2,9 @@ import { DependencyList, EffectCallback, useEffect, useRef } from "react";
 
 /**
  * `usePrevious` is a custom hook that returns the previous value of a given value
- * @param value
- * @param initialValue
- * @returns - the previous value
+ * @param value - the value to track
+ * @param initialValue - the initial value
+ * @returns the previous value
  */
 const usePrevious = <T>(value: T, initialValue: T) => {
   const ref = useRef(initialValue);
@@ -16,7 +16,6 @@ const usePrevious = <T>(value: T, initialValue: T) => {
 
 /**
  * `useEffectDebugger` is a custom hook that logs the changed dependencies of a useEffect hook
- *
  * @param effectHook - the effect hook
  * @param dependencies - an array of dependencies
  * @param dependencyNames - an array of strings that correspond to the dependencies

@@ -6,13 +6,13 @@ import { TaskEventLogEntry } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { TaskEventType } from "types/task";
 
-export const TaskEventLogLine: React.VFC<TaskEventLogEntry> = ({
+export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
   data,
   eventType,
   timestamp,
 }) => {
   const getDateCopy = useDateFormat();
-  const { hostId, podId, status, userId, jiraIssue, jiraLink, priority } = data;
+  const { hostId, jiraIssue, jiraLink, podId, priority, status, userId } = data;
   const route = podId ? getPodRoute(podId) : getHostRoute(hostId);
   const containerOrHostCopy = podId ? "container" : "host";
   let message: JSX.Element;

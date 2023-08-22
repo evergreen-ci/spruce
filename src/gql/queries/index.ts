@@ -1,5 +1,6 @@
 import GET_AWS_REGIONS from "./aws-regions.graphql";
 import DISTRO_TASK_QUEUE from "./distro-task-queue.graphql";
+import DISTRO from "./distro.graphql";
 import GET_FAILED_TASK_STATUS_ICON_TOOLTIP from "./failed-task-status-icon-tooltip.graphql";
 import GET_AGENT_LOGS from "./get-agent-logs.graphql";
 import GET_ALL_LOGS from "./get-all-logs.graphql";
@@ -58,7 +59,6 @@ import GET_TASK_TESTS from "./get-task-tests.graphql";
 import GET_TASK from "./get-task.graphql";
 import GET_UNSCHEDULED_TASKS from "./get-undispatched-tasks.graphql";
 import GET_USER_CONFIG from "./get-user-config.graphql";
-import GET_USER_PERMISSIONS from "./get-user-permissions.graphql";
 import GET_USER_SETTINGS from "./get-user-settings.graphql";
 import GET_USER from "./get-user.graphql";
 import GET_VERSION_TASK_DURATIONS from "./get-version-task-durations.graphql";
@@ -66,15 +66,19 @@ import GET_VERSION_TASKS from "./get-version-tasks.graphql";
 import GET_VERSION from "./get-version.graphql";
 import GET_VIEWABLE_PROJECTS from "./get-viewable-projects.graphql";
 import HOSTS from "./hosts.graphql";
+import PROJECT_HEALTH_VIEW from "./project-health-view.graphql";
 import GET_PROJECT_PATCHES from "./project-patches.graphql";
 import GET_SPAWN_EXPIRATION_INFO from "./spawn-expiration.graphql";
 import GET_SPAWN_TASK from "./spawn-task.graphql";
 import GET_SUBNET_AVAILABILITY_ZONES from "./subnet-availability-zones.graphql";
 import TASK_QUEUE_DISTROS from "./task-queue-distros.graphql";
+import USER_DISTRO_SETTINGS_PERMISSIONS from "./user-distro-settings-permissions.graphql";
 import GET_USER_PATCHES from "./user-patches.graphql";
+import USER_PROJECT_SETTINGS_PERMISSIONS from "./user-project-settings-permissions.graphql";
 import USER_SUBSCRIPTIONS from "./user-subscriptions.graphql";
 
 export {
+  DISTRO,
   DISTRO_TASK_QUEUE,
   GET_AGENT_LOGS,
   GET_ALL_LOGS,
@@ -140,7 +144,8 @@ export {
   GET_UNSCHEDULED_TASKS,
   GET_USER_CONFIG,
   GET_USER_PATCHES,
-  GET_USER_PERMISSIONS,
+  USER_DISTRO_SETTINGS_PERMISSIONS,
+  USER_PROJECT_SETTINGS_PERMISSIONS,
   GET_USER_SETTINGS,
   GET_USER,
   GET_VERSION_TASK_DURATIONS,
@@ -148,6 +153,7 @@ export {
   GET_VERSION,
   GET_VIEWABLE_PROJECTS,
   HOSTS,
+  PROJECT_HEALTH_VIEW,
   TASK_QUEUE_DISTROS,
   USER_SUBSCRIPTIONS,
 };

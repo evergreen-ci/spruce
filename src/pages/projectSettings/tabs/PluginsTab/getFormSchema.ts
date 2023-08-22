@@ -1,13 +1,36 @@
+import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { GetFormSchema } from "../types";
 import { form } from "../utils";
-import { FormState } from "./types";
+import { PluginsFormState } from "./types";
 
 const { placeholderIf, radioBoxOptions } = form;
 
+const requesters = [
+  {
+    label: "Commits",
+    value: "gitter_request",
+  },
+  {
+    label: "Patches",
+    value: "patch_request",
+  },
+  {
+    label: "GitHub Pull Requests",
+    value: "github_pull_request",
+  },
+  {
+    label: "Commit Queue Merge",
+    value: "merge_test",
+  },
+  {
+    label: "Periodic Builds",
+    value: "ad_hoc",
+  },
+];
+
 export const getFormSchema = (
-  repoData?: FormState
+  repoData?: PluginsFormState
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -136,14 +159,27 @@ export const getFormSchema = (
       },
       externalLinks: {
         type: "object" as "object",
-        title: "Patch Metadata Link",
+        title: "Metadata Link",
         properties: {
-          patchMetadataPanelLink: {
+          metadataPanelLink: {
             type: "object" as "object",
             title: "",
             description:
-              "Add a URL to the patch metadata panel to share a custom link with anyone viewing a patch from this project. Include {version_id} in the URL template and it will be replaced by an actual version ID.",
+              "Add a URL to the metadata panel for versions with the specified requester. Include {version_id} in the URL template and it will be replaced by an actual version ID.",
             properties: {
+              requesters: {
+                type: "array" as "array",
+                title: "Requesters",
+                uniqueItems: true,
+                items: {
+                  type: "string" as "string",
+                  anyOf: requesters.map((r) => ({
+                    type: "string" as "string",
+                    title: r.label,
+                    enum: [r.value],
+                  })),
+                },
+              },
               displayName: {
                 type: "string" as "string",
                 title: "Display name",
@@ -180,6 +216,9 @@ export const getFormSchema = (
             "Add any custom JIRA fields that you want displayed on any listed JIRA tickets, for example: assigned teams.",
           "ui:addButtonText": "Add Custom JIRA Field",
           "ui:orderable": false,
+          items: {
+            "ui:label": false,
+          },
         },
       },
       useBuildBaron: {
@@ -192,6 +231,9 @@ export const getFormSchema = (
           "Specify an existing JIRA project to search for tickets related to a failing task",
         "ui:addButtonText": "Add Search Project",
         "ui:orderable": false,
+        items: {
+          "ui:label": false,
+        },
       },
       ticketCreateProject: {
         "ui:description":
@@ -211,7 +253,11 @@ export const getFormSchema = (
     externalLinks: {
       "ui:rootFieldId": "externalLinks",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
-      patchMetadataPanelLink: {
+      metadataPanelLink: {
+        requesters: {
+          "ui:widget": widgets.MultiSelectWidget,
+          "ui:data-cy": "requesters-input",
+        },
         urlTemplate: {
           "ui:placeholder": "https://example.com/{version_id}",
           "ui:data-cy": "url-template-input",

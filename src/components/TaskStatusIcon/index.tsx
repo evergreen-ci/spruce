@@ -2,10 +2,9 @@ import { IconProps } from "@leafygreen-ui/icon";
 import { palette } from "@leafygreen-ui/palette";
 import Icon from "components/Icon";
 import { TaskStatus } from "types/task";
-import { errorReporting } from "utils";
+import { reportError } from "utils/errorReporting";
 
-const { reportError } = errorReporting;
-const { green, red, yellow, gray, purple } = palette;
+const { gray, green, purple, red, yellow } = palette;
 
 export interface TaskStatusIconProps
   extends Omit<IconProps, "glyph" | "fill" | "size"> {
@@ -13,9 +12,9 @@ export interface TaskStatusIconProps
   size?: number;
 }
 
-export const TaskStatusIcon: React.VFC<TaskStatusIconProps> = ({
-  status,
+export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({
   size = 16,
+  status,
   ...rest
 }) => {
   switch (status) {

@@ -12,9 +12,9 @@ interface Props {
   spin?: boolean;
 }
 
-export const TablePlaceholder: React.VFC<Props> = ({
-  message,
+export const TablePlaceholder: React.FC<Props> = ({
   glyph = "CurlyBraces",
+  message,
   spin = false,
 }) => (
   <PlaceholderWrapper>

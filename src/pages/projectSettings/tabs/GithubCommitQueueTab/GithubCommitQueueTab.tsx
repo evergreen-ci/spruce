@@ -1,29 +1,27 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import Banner from "@leafygreen-ui/banner";
-import { SpruceForm, ValidateProps } from "components/SpruceForm";
+import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   GithubProjectConflictsQuery,
   GithubProjectConflictsQueryVariables,
 } from "gql/generated/types";
 import { GET_GITHUB_PROJECT_CONFLICTS } from "gql/queries";
-import {
-  usePopulateForm,
-  useProjectSettingsContext,
-} from "pages/projectSettings/Context";
+import { useProjectSettingsContext } from "pages/projectSettings/Context";
+import { BaseTab } from "../BaseTab";
 import { ProjectType } from "../utils";
 import { ErrorType, getVersionControlError } from "./getErrors";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";
-import { FormState, TabProps } from "./types";
+import { GCQFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.GithubCommitQueue;
 
 const getInitialFormState = (
-  projectData: FormState,
-  repoData: FormState
-): FormState => {
+  projectData: GCQFormState,
+  repoData: GCQFormState
+): GCQFormState => {
   if (!projectData) return repoData;
   if (repoData) {
     return mergeProjectRepo(projectData, repoData);
@@ -31,7 +29,7 @@ const getInitialFormState = (
   return projectData;
 };
 
-export const GithubCommitQueueTab: React.VFC<TabProps> = ({
+export const GithubCommitQueueTab: React.FC<TabProps> = ({
   githubWebhooksEnabled,
   identifier,
   projectData,
@@ -40,8 +38,9 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
   repoData,
   versionControlEnabled,
 }) => {
-  const { getTab, updateForm } = useProjectSettingsContext();
-  const { formData } = getTab(tab);
+  const { getTab } = useProjectSettingsContext();
+  // @ts-expect-error - see TabState for details.
+  const { formData }: { formData: GCQFormState } = getTab(tab);
 
   const { data } = useQuery<
     GithubProjectConflictsQuery,
@@ -55,11 +54,8 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
     () => getInitialFormState(projectData, repoData),
     [projectData, repoData]
   );
-  usePopulateForm(initialFormState, tab);
 
-  const onChange = updateForm(tab);
-
-  const { fields, schema, uiSchema } = useMemo(
+  const formSchema = useMemo(
     () =>
       getFormSchema(
         identifier,
@@ -81,8 +77,6 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
     ]
   );
 
-  if (!formData) return null;
-
   const validateConflicts = validate(
     projectType,
     repoData,
@@ -97,14 +91,12 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
           Webhooks are enabled after saving with a valid owner and repository.
         </Banner>
       )}
-      <SpruceForm
-        fields={fields}
-        formData={formData}
-        onChange={onChange}
-        schema={schema}
-        uiSchema={uiSchema}
+      <BaseTab
         disabled={!githubWebhooksEnabled}
-        validate={validateConflicts as any}
+        formSchema={formSchema}
+        initialFormState={initialFormState}
+        tab={tab}
+        validate={validateConflicts}
       />
     </>
   );
@@ -112,20 +104,20 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
 
 const validate = (
   projectType: ProjectType,
-  repoData: FormState,
+  repoData: GCQFormState,
   versionControlEnabled: boolean
 ) =>
   ((formData, errors) => {
     const {
+      commitQueue: { enabled, patchDefinitions },
       github: {
-        prTestingEnabled,
-        prTesting,
-        githubChecksEnabled,
-        githubChecks,
         gitTagVersionsEnabled,
         gitTags,
+        githubChecks,
+        githubChecksEnabled,
+        prTesting,
+        prTestingEnabled,
       },
-      commitQueue: { enabled, patchDefinitions },
     } = formData;
 
     // getVersionControlError is a curried function, so save its partial application here to avoid repetition
@@ -179,4 +171,4 @@ const validate = (
     }
 
     return errors;
-  }) satisfies ValidateProps<FormState>;
+  }) satisfies ValidateProps<GCQFormState>;

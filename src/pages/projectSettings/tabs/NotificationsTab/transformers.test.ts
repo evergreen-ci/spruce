@@ -2,7 +2,7 @@ import { BannerTheme, ProjectSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { ProjectType } from "../utils";
 import { formToGql, gqlToForm } from "./transformers";
-import { FormState } from "./types";
+import { NotificationsFormState } from "./types";
 
 const { projectBase } = data;
 
@@ -234,7 +234,7 @@ describe("project data", () => {
   });
 });
 
-const projectFormBase: FormState = {
+const projectFormBase: NotificationsFormState = {
   buildBreakSettings: {
     notifyOnBuildFailure: null,
   },

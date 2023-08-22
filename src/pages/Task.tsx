@@ -39,7 +39,7 @@ export const Task = () => {
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
 
   // Query task data
-  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
+  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskQuery,
     TaskQueryVariables
   >(GET_TASK, {
@@ -114,7 +114,7 @@ export const Task = () => {
           />
         }
       />
-      <PageLayout>
+      <PageLayout hasSider>
         <PageSider>
           {latestExecution > 0 && (
             <ExecutionSelect

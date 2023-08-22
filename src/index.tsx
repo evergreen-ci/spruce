@@ -1,6 +1,12 @@
-import ReactDOM from "react-dom";
-import App from "App";
-import { initializeBugsnag } from "components/ErrorBoundary";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { initializeErrorHandling } from "components/ErrorHandling";
+import App from "./App";
 
-initializeBugsnag();
-ReactDOM.render(<App />, document.getElementById("root"));
+initializeErrorHandling();
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);

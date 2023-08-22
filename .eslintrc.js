@@ -25,10 +25,10 @@ module.exports = {
     "airbnb",
     // Airbnb includes some helpful rules for ESLint and React that aren't covered by recommended.
     // See https://github.com/airbnb/javascript/tree/master/packages for specific rules.
+    "plugin:jsdoc/recommended-typescript-error",
     "plugin:prettier/recommended", // Note: prettier must ALWAYS be the last extension.
   ],
-  ignorePatterns: ["!.storybook"],
-  plugins: ["@typescript-eslint"],
+  plugins: ["@typescript-eslint", "sort-destructure-keys"],
   settings: {
     react: {
       version: "detect",
@@ -95,6 +95,7 @@ module.exports = {
 
     // Rules for prettier.
     "prettier/prettier": errorIfStrict, // Makes Prettier issues warnings rather than errors.
+    "sort-destructure-keys/sort-destructure-keys": errorIfStrict,
   },
   overrides: [
     // For React Typescript files in src.
@@ -219,6 +220,9 @@ module.exports = {
       extends: ["plugin:cypress/recommended"],
       parserOptions: {
         project: "cypress/tsconfig.json",
+      },
+      rules: {
+        "cypress/unsafe-to-chain-command": WARN,
       },
     },
     // For GraphQL files.

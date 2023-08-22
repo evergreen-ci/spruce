@@ -34,15 +34,11 @@ import { shortenGithash, githubPRLinkify } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 import { WarningBanner, ErrorBanner } from "./version/Banners";
 import VersionPageBreadcrumbs from "./version/Breadcrumbs";
-import {
-  ActionButtons,
-  BuildVariants,
-  Metadata,
-  VersionTabs,
-} from "./version/index";
+import BuildVariantCard from "./version/BuildVariantCard";
+import { ActionButtons, Metadata, VersionTabs } from "./version/index";
 import { NameChangeModal } from "./version/NameChangeModal";
 
-export const VersionPage: React.VFC = () => {
+export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
   const { id } = useParams<{ id: string }>();
   const dispatchToast = useToastContext();
@@ -151,10 +147,10 @@ export const VersionPage: React.VFC = () => {
     warnings,
   } = version || {};
   const {
-    commitQueuePosition = null,
-    patchNumber,
     canEnqueueToCommitQueue,
     childPatches,
+    commitQueuePosition = null,
+    patchNumber,
   } = patch || {};
   const isPatchOnCommitQueue = commitQueuePosition !== null;
 
@@ -199,10 +195,10 @@ export const VersionPage: React.VFC = () => {
           <NameChangeModal patchId={id} originalPatchName={message} />
         )}
       </PageTitle>
-      <PageLayout>
+      <PageLayout hasSider>
         <PageSider>
           <Metadata loading={false} version={version} />
-          <BuildVariants />
+          <BuildVariantCard />
         </PageSider>
         <PageLayout>
           <PageContent>

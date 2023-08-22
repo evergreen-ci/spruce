@@ -1,4 +1,4 @@
-import { InlineCode } from "@leafygreen-ui/typography";
+import { InlineCode, Disclaimer } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import {
@@ -29,40 +29,41 @@ interface Props {
   version: VersionQuery["version"];
 }
 
-export const Metadata: React.VFC<Props> = ({ loading, version }) => {
+export const Metadata: React.FC<Props> = ({ loading, version }) => {
   const getDateCopy = useDateFormat();
   const {
     author,
-    revision,
-    project,
-    versionTiming,
-    createTime,
-    startTime,
-    finishTime,
-    patch,
-    projectIdentifier,
     baseVersion,
-    isPatch,
-    parameters,
-    manifest,
-    id,
-    previousVersion,
-    upstreamProject,
-    projectMetadata,
+    createTime,
     externalLinksForMetadata,
+    finishTime,
+    gitTags,
+    id,
+    isPatch,
+    manifest,
+    parameters,
+    patch,
+    previousVersion,
+    project,
+    projectIdentifier,
+    projectMetadata,
+    revision,
+    startTime,
+    upstreamProject,
+    versionTiming,
   } = version || {};
   const { sendEvent } = useVersionAnalytics(id);
   const { commitQueuePosition } = patch || {};
   const { makespan, timeTaken } = versionTiming || {};
   const {
     project: upstreamProjectIdentifier,
-    triggerType,
     task: upstreamTask,
+    triggerType,
     version: upstreamVersion,
   } = upstreamProject || {};
 
-  const { repo, owner } = projectMetadata || {};
-  const { url, displayName } = externalLinksForMetadata?.[0] || {};
+  const { owner, repo } = projectMetadata || {};
+  const { displayName, url } = externalLinksForMetadata?.[0] || {};
   return (
     <MetadataCard loading={loading} error={null}>
       <MetadataTitle>
@@ -179,11 +180,20 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
         </MetadataItem>
       )}
       <ParametersModal parameters={parameters} />
-      {url && displayName && isPatch && (
+      {url && displayName && (
         <MetadataItem>
           <StyledLink data-cy="external-link" href={url}>
             {displayName}
           </StyledLink>
+        </MetadataItem>
+      )}
+      {gitTags && (
+        <MetadataItem>
+          {gitTags.map((g) => (
+            <Disclaimer key={g.tag}>
+              Tag {g.tag} pushed by {g.pusher}
+            </Disclaimer>
+          ))}
         </MetadataItem>
       )}
     </MetadataCard>

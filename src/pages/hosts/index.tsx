@@ -31,25 +31,25 @@ import { HostsTable } from "pages/hosts/HostsTable";
 import { array, queryString, url } from "utils";
 
 const { toArray } = array;
-const { getPageFromSearch, getLimitFromSearch } = url;
+const { getLimitFromSearch, getPageFromSearch } = url;
 const { getString, parseQueryString } = queryString;
 
-const Hosts: React.VFC = () => {
+const Hosts: React.FC = () => {
   const hostsTableAnalytics = useHostsTableAnalytics();
   usePageTitle("Hosts");
   const { search } = useLocation();
   const setPageSize = usePageSizeSelector();
   const queryVariables = getQueryVariables(search);
   const {
-    limit,
-    page,
-    hostId,
     currentTaskId,
     distroId,
-    statuses,
-    startedBy,
+    hostId,
+    limit,
+    page,
     sortBy,
     sortDir,
+    startedBy,
+    statuses,
   } = queryVariables;
 
   const hasFilters =
@@ -78,6 +78,7 @@ const Hosts: React.VFC = () => {
     HostsQueryVariables
   >(HOSTS, {
     variables: queryVariables,
+    fetchPolicy: "cache-and-network",
   });
 
   const hosts = hostsData?.hosts;
@@ -148,7 +149,7 @@ const Hosts: React.VFC = () => {
         setRestartJasperError={setRestartJasperError}
         setCanReprovision={setCanReprovision}
         setReprovisionError={setReprovisionError}
-        loading={loading}
+        loading={loading && hostItems.length === 0}
       />
       <UpdateStatusModal
         data-cy="update-host-status-modal"
@@ -180,13 +181,13 @@ const getSortDir = (sortDirParam: string | string[]): SortDirection => {
 
 const getQueryVariables = (search: string): HostsQueryVariables => {
   const {
-    hostId,
-    distroId,
     currentTaskId,
-    statuses,
-    startedBy,
+    distroId,
+    hostId,
     sortBy,
     sortDir,
+    startedBy,
+    statuses,
   } = parseQueryString(search) as { [key in QueryParam]: string | string[] };
 
   return {

@@ -28,12 +28,12 @@ interface MigrateVolumeModalProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
+export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
   open,
   setOpen,
   volume,
 }) => {
-  const [{ page, form }, dispatch] = useReducer(reducer, initialState);
+  const [{ form, page }, dispatch] = useReducer(reducer, initialState);
   const onPageOne = page === Page.First;
 
   const dispatchToast = useToastContext();

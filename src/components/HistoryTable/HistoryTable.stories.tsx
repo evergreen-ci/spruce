@@ -1,25 +1,19 @@
-import { useState, useEffect } from "react";
-import { MockedProvider } from "@apollo/client/testing";
-import { StoryObj } from "@storybook/react";
+import { useState, useEffect, useCallback, useRef } from "react";
+
 import TaskHistoryRow from "pages/taskHistory/TaskHistoryRow";
 import VariantHistoryRow from "pages/variantHistory/VariantHistoryRow";
-import HistoryTable, { context } from ".";
+import { CustomStoryObj, CustomMeta } from "test_utils/types";
+import { context } from ".";
+import HistoryTable from "./HistoryTable";
 import { mainlineCommitData } from "./testData";
 
 const { HistoryTableProvider, useHistoryTable } = context;
 
 export default {
   component: HistoryTable,
-  decorators: [
-    (Story: () => JSX.Element) => (
-      <MockedProvider>
-        <Story />
-      </MockedProvider>
-    ),
-  ],
-};
+} satisfies CustomMeta<typeof HistoryTable>;
 
-export const TaskHistoryTable: StoryObj<typeof HistoryTable> = {
+export const TaskHistoryTable: CustomStoryObj<typeof HistoryTable> = {
   render: () => (
     <HistoryTableProvider>
       <HistoryTableWrapper type="task" />
@@ -27,7 +21,7 @@ export const TaskHistoryTable: StoryObj<typeof HistoryTable> = {
   ),
 };
 
-export const VariantHistoryTable: StoryObj<typeof HistoryTable> = {
+export const VariantHistoryTable: CustomStoryObj<typeof HistoryTable> = {
   render: () => (
     <HistoryTableProvider>
       <HistoryTableWrapper type="variant" />
@@ -38,25 +32,37 @@ export const VariantHistoryTable: StoryObj<typeof HistoryTable> = {
 interface HistoryTableWrapperProps {
   type?: "variant" | "task";
 }
-const HistoryTableWrapper: React.VFC<HistoryTableWrapperProps> = ({ type }) => {
-  const { addColumns } = useHistoryTable();
-  const [commitData, setCommitData] = useState(mainlineCommitData);
+const HistoryTableWrapper: React.FC<HistoryTableWrapperProps> = ({ type }) => {
+  const { addColumns, ingestNewCommits } = useHistoryTable();
+  const [isLoading, setIsLoading] = useState(false);
+  const [oldData, setOldData] = useState(mainlineCommitData);
+  const timeoutRef = useRef(null);
   useEffect(() => {
     const taskColumns = ["ubuntu1604", "race-detector", "lint"];
     const variantColumns = ["Lint", "test-model-distro", "dist"];
     addColumns(type === "task" ? taskColumns : variantColumns);
+    ingestNewCommits(mainlineCommitData);
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const loadMore = () => {
-    setCommitData(ingestNewCommitData(commitData));
-  };
+  const loadMore = useCallback(() => {
+    setIsLoading(true);
+    timeoutRef.current = setTimeout(() => {
+      setIsLoading(false);
+      const newData = generateNewCommitData(oldData);
+      ingestNewCommits(newData);
+      setOldData(newData);
+    }, 600);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [oldData]);
 
   return (
-    <div style={{ height: 800, width: "100%" }}>
-      <HistoryTable
-        recentlyFetchedCommits={commitData}
-        loadMoreItems={loadMore}
-      >
+    <div style={{ height: 600, width: "100%", border: "red 1px solid" }}>
+      <HistoryTable loadMoreItems={loadMore} loading={isLoading}>
         {type === "task" ? TaskHistoryRow : VariantHistoryRow}
       </HistoryTable>
     </div>
@@ -64,7 +70,7 @@ const HistoryTableWrapper: React.VFC<HistoryTableWrapperProps> = ({ type }) => {
 };
 
 // This is a helper function to generate new commit data
-const ingestNewCommitData = (oldData: typeof mainlineCommitData) => {
+const generateNewCommitData = (oldData: typeof mainlineCommitData) => {
   const commitData = { ...oldData };
   // get last 5 versions from commit data
   const last5Versions = commitData.versions.slice(-5);
@@ -93,6 +99,7 @@ const ingestNewCommitData = (oldData: typeof mainlineCommitData) => {
     }
     return newVersion;
   });
+
   return {
     ...commitData,
     versions: updatedVersions,

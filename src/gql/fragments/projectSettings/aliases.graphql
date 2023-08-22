@@ -1,7 +1,12 @@
 fragment Alias on ProjectAlias {
   alias
+  description
   gitTag
   id
+  parameters {
+    key
+    value
+  }
   remotePath
   task
   taskTags

@@ -31,15 +31,15 @@ interface DistroEnum {
   };
 }
 
-export const DistroDropdown: React.VFC<
+export const DistroDropdown: React.FC<
   DistroEnum &
     SpruceWidgetProps & {
       options: Pick<SearchableDropdownProps<string>, "data-cy">;
     }
-> = ({ options, label, onChange, ...rest }) => {
+> = ({ label, onChange, options, ...rest }) => {
   const {
-    "data-cy": dataCy,
     ariaLabelledBy,
+    "data-cy": dataCy,
     elementWrapperCSS,
     enumOptions,
   } = options;
@@ -77,7 +77,7 @@ export const DistroDropdown: React.VFC<
             ),
           }))
         }
-        optionRenderer={({ title, distros }, onClick) => (
+        optionRenderer={({ distros, title }, onClick) => (
           <DropdownOption
             key={title}
             onClick={onClick}
@@ -90,11 +90,11 @@ export const DistroDropdown: React.VFC<
   );
 };
 
-const DropdownOption: React.VFC<{
+const DropdownOption: React.FC<{
   title: string;
   distros: DistroValue[];
   onClick: (distro: DistroValue) => void;
-}> = ({ title, distros, onClick }) => (
+}> = ({ distros, onClick, title }) => (
   <OptionContainer key={title}>
     <Overline>{title}</Overline>
     <ListContainer>

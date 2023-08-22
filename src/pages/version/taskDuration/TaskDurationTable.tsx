@@ -25,7 +25,7 @@ interface Props {
   loading: boolean;
 }
 
-export const TaskDurationTable: React.VFC<Props> = ({ tasks, loading }) => {
+export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
   const { id: versionId } = useParams<{ id: string }>();
   const { sendEvent } = useVersionAnalytics(versionId);
   const updateQueryParams = useUpdateURLQueryParams();

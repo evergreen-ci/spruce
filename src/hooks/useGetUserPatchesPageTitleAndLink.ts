@@ -11,18 +11,19 @@ export const useGetUserPatchesPageTitleAndLink = (
     GET_OTHER_USER,
     { variables: { userId }, skip }
   );
-  const link = getUserPatchesRoute(userId);
 
   if (!data) {
     return null;
   }
 
-  const { currentUser } = data || {};
+  const { currentUser, otherUser } = data || {};
+  const link = getUserPatchesRoute(userId);
+
   if (userId === currentUser.userId) {
     return { link, title: "My Patches" };
   }
 
-  const otherUserDisplayName = data?.otherUser.displayName ?? "";
+  const otherUserDisplayName = otherUser.displayName ?? "";
   const possessiveModifier =
     otherUserDisplayName.slice(-1) === "s" ? "'" : "'s";
 

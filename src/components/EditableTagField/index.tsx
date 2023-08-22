@@ -16,12 +16,12 @@ type EditableTagFieldProps = {
   id?: string;
 };
 
-export const EditableTagField: React.VFC<EditableTagFieldProps> = ({
-  onChange,
-  inputTags,
-  visible,
+export const EditableTagField: React.FC<EditableTagFieldProps> = ({
   buttonText,
   id,
+  inputTags,
+  onChange,
+  visible,
 }) => {
   const [visibleTags, setVisibleTags] = useState(inputTags);
   // Convert this tag array to an object it makes searching through them faster if there are allot of tags

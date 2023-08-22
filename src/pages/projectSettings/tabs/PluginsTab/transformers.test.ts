@@ -2,7 +2,7 @@ import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
 
-import { FormState } from "./types";
+import { PluginsFormState } from "./types";
 
 const { projectBase, repoBase } = data;
 
@@ -26,7 +26,7 @@ describe("project data", () => {
   });
 });
 
-const projectForm: FormState = {
+const projectForm: PluginsFormState = {
   performanceSettings: {
     perfEnabled: true,
   },
@@ -45,7 +45,8 @@ const projectForm: FormState = {
     },
   },
   externalLinks: {
-    patchMetadataPanelLink: {
+    metadataPanelLink: {
+      requesters: ["gitter_request", "patch_request"],
       displayName: "a link display name",
       urlTemplate: "https:/a-link-template-{version_id}.com",
     },
@@ -65,6 +66,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
     },
     externalLinks: [
       {
+        requesters: ["gitter_request", "patch_request"],
         displayName: "a link display name",
         urlTemplate: "https:/a-link-template-{version_id}.com",
       },
@@ -72,7 +74,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
   },
 };
 
-const repoForm: FormState = {
+const repoForm: PluginsFormState = {
   performanceSettings: {
     perfEnabled: true,
   },
@@ -100,7 +102,8 @@ const repoForm: FormState = {
     },
   },
   externalLinks: {
-    patchMetadataPanelLink: {
+    metadataPanelLink: {
+      requesters: ["gitter_request", "patch_request"],
       displayName: "a link display name",
       urlTemplate: "https:/a-link-template-{version_id}.com",
     },
@@ -125,6 +128,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
     },
     externalLinks: [
       {
+        requesters: ["gitter_request", "patch_request"],
         displayName: "a link display name",
         urlTemplate: "https:/a-link-template-{version_id}.com",
       },

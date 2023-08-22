@@ -1,11 +1,10 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectInput } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { FormState } from "./types";
 
 type Tab = ProjectSettingsTabRoutes.Plugins;
 
-export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
+export const gqlToForm = ((data) => {
   if (!data) return null;
 
   const { projectRef } = data;
@@ -17,7 +16,7 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
       taskAnnotationSettings: {
         jiraCustomFields:
           projectRef?.taskAnnotationSettings?.jiraCustomFields?.map(
-            ({ field, displayText }) => ({
+            ({ displayText, field }) => ({
               field,
               displayText,
             })
@@ -40,17 +39,18 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
       },
     },
     externalLinks: {
-      patchMetadataPanelLink: {
+      metadataPanelLink: {
+        requesters: projectRef?.externalLinks?.[0].requesters ?? [],
         displayName: projectRef?.externalLinks?.[0].displayName ?? "",
         urlTemplate: projectRef?.externalLinks?.[0].urlTemplate ?? "",
       },
     },
   };
-};
+}) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql: FormToGqlFunction<Tab> = (
-  { performanceSettings, buildBaronSettings, externalLinks }: FormState,
-  id: string
+export const formToGql = ((
+  { buildBaronSettings, externalLinks, performanceSettings },
+  id
 ) => {
   const projectRef: ProjectInput = {
     id,
@@ -63,14 +63,14 @@ export const formToGql: FormToGqlFunction<Tab> = (
       ),
       jiraCustomFields:
         buildBaronSettings.taskAnnotationSettings?.jiraCustomFields
-          .map(({ field, displayText }) => ({ field, displayText }))
+          .map(({ displayText, field }) => ({ field, displayText }))
           .filter((str) => !!str),
     },
-    externalLinks: [externalLinks.patchMetadataPanelLink],
+    externalLinks: [externalLinks.metadataPanelLink],
   };
 
   return { projectRef };
-};
+}) satisfies FormToGqlFunction<Tab>;
 
 // conditionally include the buildBaronSettings field based on the useBuildBaron boolean
 export const buildBaronIf = (useBuildBaron: boolean, buildBaronSettings: any) =>

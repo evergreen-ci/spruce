@@ -16,12 +16,12 @@ interface Props {
   patchDescription: string;
   hasVersion: boolean;
 }
-export const DropdownMenu: React.VFC<Props> = ({
-  patchId,
+export const DropdownMenu: React.FC<Props> = ({
   canEnqueueToCommitQueue,
+  hasVersion,
   isPatchOnCommitQueue,
   patchDescription,
-  hasVersion,
+  patchId,
 }) => {
   const restartModalVisibilityControl = useState(false);
   const enqueueModalVisibilityControl = useState(false);

@@ -20,8 +20,8 @@ exports[`storybook Storyshots components/TupleSelect Default 1`] = `
         class="leafygreen-ui-1nkq8lt css-1scwv0u-GroupedSelect e5gn9hl1"
       >
         <button
-          aria-controls="select-19-menu"
-          aria-describedby="select-19-description"
+          aria-controls="select-181-menu"
+          aria-describedby="select-181-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -29,7 +29,7 @@ exports[`storybook Storyshots components/TupleSelect Default 1`] = `
           class="lg-ui-button-0001 leafygreen-ui-3qrx9g"
           data-cy="tuple-select-dropdown"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-20"
+          id="select-182"
           type="button"
           value="build_variant"
         >
@@ -51,7 +51,7 @@ exports[`storybook Storyshots components/TupleSelect Default 1`] = `
             <svg
               alt=""
               aria-hidden="true"
-              class="leafygreen-ui-866818"
+              class="leafygreen-ui-4dp7tf"
               height="16"
               role="presentation"
               viewBox="0 0 16 16"

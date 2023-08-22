@@ -3,7 +3,7 @@ import axios from "axios";
 import { environmentVariables } from "utils";
 import { leaveBreadcrumb } from "utils/errorReporting";
 
-const { getUiUrl, getLoginDomain } = environmentVariables;
+const { getLoginDomain, getUiUrl } = environmentVariables;
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -33,7 +33,7 @@ const reducer = (state: AuthState, action: Action): AuthState => {
 const AuthDispatchContext = createContext<DispatchContext | null>(null);
 const AuthStateContext = createContext<AuthState | null>(null);
 
-const AuthProvider: React.VFC<{ children: React.ReactNode }> = ({
+const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(reducer, {
@@ -43,7 +43,7 @@ const AuthProvider: React.VFC<{ children: React.ReactNode }> = ({
   const dispatchContext: DispatchContext = useMemo(
     () => ({
       // This function is only used in local development.
-      devLogin: async ({ username, password }) => {
+      devLogin: async ({ password, username }) => {
         await axios
           .post(
             `${getUiUrl()}/login`,

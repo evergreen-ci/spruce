@@ -1,0 +1,230 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots Pages/Version/BuildVariantCard Default 1`] = `
+<div>
+  <div
+    class="e1dt8lrl1 css-2nu4m-SiderCard-StickyMetadataCard e1am38ss0 leafygreen-ui-1v4ednr"
+  >
+    <p
+      class="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-1miy0xp"
+    >
+      Build Variants
+    </p>
+    <hr
+      class="css-qqg5h5-Divider eyj3qof0"
+    />
+    <div
+      class="css-14g0c2d-ScrollableBuildVariantStatsContainer e1dt8lrl0"
+      data-cy="build-variants"
+    >
+      <div
+        data-cy="patch-build-variant"
+      >
+        <a
+          class="lg-ui-0003 css-ivsoof-StyledLink-wordBreakCss leafygreen-ui-1320234"
+          data-cy="build-variant-display-name"
+          href="/version/version/tasks?page=0&variant=%5Elint%24"
+        >
+          <span
+            class="leafygreen-ui-baoi4d"
+          >
+            Lint
+          </span>
+        </a>
+        <div
+          class="css-9hxr2s-TaskBadgeContainer e10tlc5t0"
+        >
+          <div
+            class="leafygreen-ui-cssveg"
+          >
+            <a
+              aria-selected="true"
+              data-cy="grouped-task-status-badge"
+              href="/version/version/tasks?page=0&statuses=success&variant=%5Elint%24"
+            >
+              <div
+                class="css-1d7t73j-BadgeContainer emc61an4"
+                fill="#E3FCF7"
+              >
+                <span
+                  class="css-1f81ztl-Number emc61an2"
+                >
+                  1
+                </span>
+                <span
+                  class="css-oqj204-Status emc61an1"
+                >
+                  Succeeded
+                </span>
+              </div>
+            </a>
+          </div>
+          <div
+            class="leafygreen-ui-cssveg"
+          >
+            <a
+              aria-selected="true"
+              data-cy="grouped-task-status-badge"
+              href="/version/version/tasks?page=0&statuses=running-umbrella,started,dispatched&variant=%5Elint%24"
+            >
+              <div
+                class="css-16matd4-BadgeContainer emc61an4"
+                fill="#FEF7DB"
+              >
+                <span
+                  class="css-1f81ztl-Number emc61an2"
+                >
+                  1
+                </span>
+                <span
+                  class="css-oqj204-Status emc61an1"
+                >
+                  Running
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        data-cy="patch-build-variant"
+      >
+        <a
+          class="lg-ui-0003 css-ivsoof-StyledLink-wordBreakCss leafygreen-ui-1320234"
+          data-cy="build-variant-display-name"
+          href="/version/version/tasks?page=0&variant=%5Eubuntu1604%24"
+        >
+          <span
+            class="leafygreen-ui-baoi4d"
+          >
+            Ubuntu 16.04
+          </span>
+        </a>
+        <div
+          class="css-9hxr2s-TaskBadgeContainer e10tlc5t0"
+        >
+          <div
+            class="leafygreen-ui-cssveg"
+          >
+            <a
+              aria-selected="true"
+              data-cy="grouped-task-status-badge"
+              href="/version/version/tasks?page=0&statuses=success&variant=%5Eubuntu1604%24"
+            >
+              <div
+                class="css-1d7t73j-BadgeContainer emc61an4"
+                fill="#E3FCF7"
+              >
+                <span
+                  class="css-1f81ztl-Number emc61an2"
+                >
+                  40
+                </span>
+                <span
+                  class="css-oqj204-Status emc61an1"
+                >
+                  Succeeded
+                </span>
+              </div>
+            </a>
+          </div>
+          <div
+            class="leafygreen-ui-cssveg"
+          >
+            <a
+              aria-selected="true"
+              data-cy="grouped-task-status-badge"
+              href="/version/version/tasks?page=0&statuses=failed-umbrella,failed,task-timed-out,test-timed-out,known-issue&variant=%5Eubuntu1604%24"
+            >
+              <div
+                class="css-1s2ykav-BadgeContainer emc61an4"
+                fill="#FFEAE5"
+              >
+                <span
+                  class="css-1f81ztl-Number emc61an2"
+                >
+                  3
+                </span>
+                <span
+                  class="css-oqj204-Status emc61an1"
+                >
+                  Failed
+                </span>
+              </div>
+            </a>
+          </div>
+          <div
+            class="leafygreen-ui-cssveg"
+          >
+            <a
+              aria-selected="true"
+              data-cy="grouped-task-status-badge"
+              href="/version/version/tasks?page=0&statuses=undispatched-umbrella,unscheduled,aborted,blocked&variant=%5Eubuntu1604%24"
+            >
+              <div
+                class="css-1wx1xli-BadgeContainer emc61an4"
+                fill="#F9FBFA"
+              >
+                <span
+                  class="css-1f81ztl-Number emc61an2"
+                >
+                  1
+                </span>
+                <span
+                  class="css-oqj204-Status emc61an1"
+                >
+                  Undispatched
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        data-cy="patch-build-variant"
+      >
+        <a
+          class="lg-ui-0003 css-ivsoof-StyledLink-wordBreakCss leafygreen-ui-1320234"
+          data-cy="build-variant-display-name"
+          href="/version/version/tasks?page=0&variant=%5Evariant%24"
+        >
+          <span
+            class="leafygreen-ui-baoi4d"
+          >
+            Ubuntu 16.04
+          </span>
+        </a>
+        <div
+          class="css-9hxr2s-TaskBadgeContainer e10tlc5t0"
+        >
+          <div
+            class="leafygreen-ui-cssveg"
+          >
+            <a
+              aria-selected="true"
+              data-cy="grouped-task-status-badge"
+              href="/version/version/tasks?page=0&statuses=running-umbrella,started,dispatched&variant=%5Evariant%24"
+            >
+              <div
+                class="css-16matd4-BadgeContainer emc61an4"
+                fill="#FEF7DB"
+              >
+                <span
+                  class="css-1f81ztl-Number emc61an2"
+                >
+                  4
+                </span>
+                <span
+                  class="css-oqj204-Status emc61an1"
+                >
+                  Running
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

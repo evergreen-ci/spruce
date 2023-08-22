@@ -5,19 +5,19 @@ interface DownstreamTasksProps {
   childPatches: VersionQuery["version"]["patch"]["childPatches"];
 }
 
-export const DownstreamTasks: React.VFC<DownstreamTasksProps> = ({
+export const DownstreamTasks: React.FC<DownstreamTasksProps> = ({
   childPatches,
 }) => (
   <>
     {childPatches.map(
       ({
-        id,
         githash,
+        id,
+        parameters,
         projectIdentifier,
         status,
         taskCount,
         versionFull,
-        parameters,
       }) => (
         <DownstreamProjectAccordion
           key={`downstream_project_${id}`}

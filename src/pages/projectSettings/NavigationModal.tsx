@@ -1,15 +1,10 @@
-import { Body } from "@leafygreen-ui/typography";
-import {
-  matchPath,
-  unstable_useBlocker as useBlocker,
-  useParams,
-} from "react-router-dom";
-import { ConfirmationModal } from "components/ConfirmationModal";
+import { matchPath, useParams } from "react-router-dom";
+import { NavigationWarningModal } from "components/Settings";
 import { getProjectSettingsRoute, routes } from "constants/routes";
 import { useHasUnsavedTab } from "./Context";
 import { getTabTitle } from "./getTabTitle";
 
-export const NavigationModal: React.VFC = () => {
+export const NavigationModal: React.FC = () => {
   const { hasUnsaved, unsavedTabs } = useHasUnsavedTab();
   const { projectIdentifier } = useParams();
 
@@ -34,26 +29,13 @@ export const NavigationModal: React.VFC = () => {
     return false;
   };
 
-  const blocker = useBlocker(shouldConfirmNavigation);
-
   return (
-    blocker.state === "blocked" && (
-      <ConfirmationModal
-        buttonText="Leave"
-        data-cy="navigation-warning-modal"
-        open
-        onCancel={() => blocker.reset?.()}
-        onConfirm={() => blocker.proceed?.()}
-        title="You have unsaved changes that will be discarded. Are you sure you want to leave?"
-        variant="danger"
-      >
-        <Body>Unsaved changes are present on the following pages:</Body>
-        <ol data-cy="unsaved-pages">
-          {unsavedTabs.map((tab) => (
-            <li key={tab}>{getTabTitle(tab).title}</li>
-          ))}
-        </ol>
-      </ConfirmationModal>
-    )
+    <NavigationWarningModal
+      shouldBlock={shouldConfirmNavigation}
+      unsavedTabs={unsavedTabs.map((tab) => ({
+        title: getTabTitle(tab).title,
+        value: tab,
+      }))}
+    />
   );
 };

@@ -23,12 +23,12 @@ interface ScheduleTasksModalProps {
   setOpen: (open: boolean) => void;
   versionId: string;
 }
-export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
+export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
   open,
   setOpen,
   versionId,
 }) => {
-  const [{ sortedBuildVariantGroups, selectedTasks, allTasks }, dispatch] =
+  const [{ allTasks, selectedTasks, sortedBuildVariantGroups }, dispatch] =
     useReducer(reducer, initialState);
   const closeModal = () => {
     dispatch({ type: "reset" });
@@ -54,7 +54,7 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
 
   const [
     loadTaskData,
-    { data: taskData, loading: loadingTaskData, called: calledTaskData },
+    { called: calledTaskData, data: taskData, loading: loadingTaskData },
   ] = useLazyQuery<UndispatchedTasksQuery, UndispatchedTasksQueryVariables>(
     GET_UNSCHEDULED_TASKS,
     {
@@ -107,7 +107,7 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
               />
             ) : null}
             {sortedBuildVariantGroups.map(
-              ({ tasks, buildVariantDisplayName, buildVariant }) => {
+              ({ buildVariant, buildVariantDisplayName, tasks }) => {
                 const allTasksSelected = tasks.every(({ id }) =>
                   selectedTasks.has(id)
                 );
@@ -135,7 +135,7 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
                       }
                       data-cy="build-variant-accordion"
                     >
-                      {tasks.map(({ id, displayName }) => (
+                      {tasks.map(({ displayName, id }) => (
                         <Checkbox
                           key={id}
                           data-cy={`${buildVariant}-${displayName}-task-checkbox`}

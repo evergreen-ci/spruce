@@ -6,15 +6,15 @@ exports[`storybook Storyshots components/PageSizeSelector Default 1`] = `
     class="leafygreen-ui-1nkq8lt css-5krlfz-StyledSelect ekttol50"
   >
     <button
-      aria-controls="select-1-menu"
-      aria-describedby="select-1-description"
+      aria-controls="select-151-menu"
+      aria-describedby="select-151-description"
       aria-disabled="false"
       aria-expanded="false"
       aria-invalid="false"
       aria-labelledby="page-size-select"
       class="lg-ui-button-0001 leafygreen-ui-18vk81h"
       data-testid="leafygreen-ui-select-menubutton"
-      id="select-2"
+      id="select-152"
       type="button"
       value="10"
     >
@@ -36,7 +36,7 @@ exports[`storybook Storyshots components/PageSizeSelector Default 1`] = `
         <svg
           alt=""
           aria-hidden="true"
-          class="leafygreen-ui-866818"
+          class="leafygreen-ui-4dp7tf"
           height="16"
           role="presentation"
           viewBox="0 0 16 16"

@@ -79,7 +79,7 @@ well and you can refer to those before creating your own.
 
 ### Using code generation
 
-- From within the spruce folder run `yarn run codegen`
+- From within the spruce folder run `yarn codegen`
 - As long as your queries are declared correctly the types should generate
 
 ### Code generation troubleshooting and tips
@@ -90,6 +90,14 @@ well and you can refer to those before creating your own.
 - Since query analysis for type generation occurs statically we cant place
   dynamic variables with in query strings we instead have to hard code the
   variable in the query or pass it in as query variable.
+
+### Common errors
+
+- Sometimes you may run into an error where a dependency is out of date or in a
+  broken state. If you run into this issue try running `yarn install` to
+  reinstall all dependencies. If that does not work try deleting your
+  `node_modules` folder and running `yarn install` again. You can use the
+  `yarn clean` command to do this for you.
 
 ## Testing
 
@@ -153,7 +161,7 @@ checked out and all the dependencies installed by yarn:
 
 1. Start the evergreen back-end with the sample local test data. You can do this
    by typing `make local-evergreen` in your evergreen folder.
-2. Start the Spruce dev server by typing `yarn dev` in this repo.
+2. Start the Spruce local server by typing `yarn build:local && yarn serve` in this repo.
 3. Run Cypress by typing one of the following:
    - `yarn cy:open` - opens the Cypress app in interactive mode. You can select
      tests to run from here in the Cypress browser.
@@ -257,3 +265,5 @@ Run one of the following commands to deploy to the appropriate environment
 2. `yarn deploy:staging` = deploy to https://spruce-staging.corp.mongodb.com
 3. `yarn deploy:beta` = deploy to https://spruce-beta.corp.mongodb.com (Beta
    connects to the production backend)
+
+In case of emergency (i.e. Evergreen, GitHub, or other systems are down), a production build can be pushed directly to S3 with `yarn deploy:prod --local`.

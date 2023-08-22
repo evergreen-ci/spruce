@@ -22,13 +22,13 @@ interface TaskPageBreadcrumbsProps {
     message: string;
   };
 }
-const TaskPageBreadcrumbs: React.VFC<TaskPageBreadcrumbsProps> = ({
+const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
   displayTask,
   patchNumber,
   taskName,
   versionMetadata,
 }) => {
-  const { isPatch, author, projectIdentifier, id, message, revision } =
+  const { author, id, isPatch, message, projectIdentifier, revision } =
     versionMetadata ?? {};
   const breadcrumbRoot = useBreadcrumbRoot(isPatch, author, projectIdentifier);
   const breadcrumbAnalytics = useBreadcrumbAnalytics();

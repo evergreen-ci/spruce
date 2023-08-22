@@ -18,12 +18,12 @@ interface Props {
   reprovisionTooltipMessage: string;
 }
 
-export const Reprovision: React.VFC<Props> = ({
-  selectedHostIds,
+export const Reprovision: React.FC<Props> = ({
+  canReprovision,
   hostUrl,
   isSingleHost,
-  canReprovision,
   reprovisionTooltipMessage,
+  selectedHostIds,
 }) => {
   const hostsTableAnalytics = useHostsTableAnalytics(isSingleHost);
   const dispatchToast = useToastContext();

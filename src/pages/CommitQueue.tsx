@@ -20,7 +20,7 @@ import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
 
 const { gray } = palette;
 
-export const CommitQueue: React.VFC = () => {
+export const CommitQueue: React.FC = () => {
   const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
   const dispatchToast = useToastContext();
   const { data, loading } = useQuery<
@@ -28,6 +28,7 @@ export const CommitQueue: React.VFC = () => {
     CommitQueueQueryVariables
   >(GET_COMMIT_QUEUE, {
     variables: { projectIdentifier },
+    fetchPolicy: "cache-and-network",
     onError: (err) => {
       dispatchToast.error(
         `There was an error loading the commit queue: ${err.message}`
@@ -68,7 +69,7 @@ export const CommitQueue: React.VFC = () => {
 
       <HR />
       {queue ? (
-        queue.map(({ patch, issue, enqueueTime }, i) => (
+        queue.map(({ enqueueTime, issue, patch }, i) => (
           <CommitQueueCard
             key={issue}
             issue={issue}

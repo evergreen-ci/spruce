@@ -9,7 +9,7 @@ import { JiraTicket } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { numbers } from "utils";
 
-const { toPercent, roundDecimal } = numbers;
+const { roundDecimal, toPercent } = numbers;
 
 interface AnnotationTicketRowProps {
   issueKey: string;
@@ -19,23 +19,23 @@ interface AnnotationTicketRowProps {
   confidenceScore?: number;
 }
 
-export const AnnotationTicketRow: React.VFC<AnnotationTicketRowProps> = ({
-  issueKey,
-  url,
-  jiraTicket,
+export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
   confidenceScore,
+  issueKey,
+  jiraTicket,
   loading = false,
+  url,
 }) => {
   const getDateCopy = useDateFormat();
   const annotationAnalytics = useAnnotationAnalytics();
   const fields = jiraTicket?.fields;
   const {
-    created,
-    assigneeDisplayName,
     assignedTeam,
-    updated,
-    summary,
+    assigneeDisplayName,
+    created,
     status,
+    summary,
+    updated,
   } = fields ?? {};
 
   return (

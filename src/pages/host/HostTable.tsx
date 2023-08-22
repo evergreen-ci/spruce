@@ -1,7 +1,7 @@
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
-import { Subtitle } from "@leafygreen-ui/typography";
+import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { useHostsTableAnalytics } from "analytics";
 import PageSizeSelector, {
   usePageSizeSelector,
@@ -13,14 +13,14 @@ import { useDateFormat } from "hooks";
 import { getHostEventString } from "pages/host/getHostEventString";
 import { HostCard } from "pages/host/HostCard";
 
-export const HostTable: React.VFC<{
+export const HostTable: React.FC<{
   loading: boolean;
   eventData: HostEventsQuery;
   error: ApolloError;
   page: number;
   limit: number;
   eventsCount: number;
-}> = ({ loading, eventData, error, page, limit, eventsCount }) => {
+}> = ({ error, eventData, eventsCount, limit, loading, page }) => {
   const isHostPage = true;
   const hostsTableAnalytics = useHostsTableAnalytics(isHostPage);
   const setPageSize = usePageSizeSelector();
@@ -72,7 +72,7 @@ export const HostTable: React.VFC<{
   );
 };
 
-const StyledSubtitle = styled(Subtitle)`
+const StyledSubtitle = styled(Subtitle)<SubtitleProps>`
   margin-bottom: 20px;
   margin-top: ${size.s};
 `;

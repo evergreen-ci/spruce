@@ -42,8 +42,8 @@ const defaultFormData = {
 };
 
 const Field = ({
-  projectType = ProjectType.AttachedProject,
   formData = defaultFormData,
+  projectType = ProjectType.AttachedProject,
 }: {
   projectType?: ProjectType;
   formData?: { owner: string; repo: string };
@@ -326,6 +326,7 @@ const attachProjectToNewRepoMock: ApolloMock<
   result: {
     data: {
       attachProjectToNewRepo: {
+        __typename: "Project",
         id: "evergreen",
         repoRefId: "evergreen",
       },
@@ -344,6 +345,7 @@ const attachProjectToRepoMock: ApolloMock<
   result: {
     data: {
       attachProjectToRepo: {
+        __typename: "Project",
         id: "evergreen",
       },
     },
@@ -361,6 +363,7 @@ const detachProjectFromRepoMock: ApolloMock<
   result: {
     data: {
       detachProjectFromRepo: {
+        __typename: "Project",
         id: "evergreen",
       },
     },
@@ -375,6 +378,7 @@ const getGithubOrgsMock: ApolloMock<GithubOrgsQuery, GithubOrgsQueryVariables> =
     result: {
       data: {
         spruceConfig: {
+          __typename: "SpruceConfig",
           githubOrgs: ["evergreen-ci", "10gen"],
         },
       },

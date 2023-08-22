@@ -2,12 +2,13 @@ import { useState, useEffect, useMemo } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
-import { CodeChanges } from "components/CodeChanges/CodeChanges";
+import { CodeChanges } from "components/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
-import { getVersionRoute, DEFAULT_PATCH_TAB } from "constants/routes";
+import { getVersionRoute } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
+import { useTabShortcut } from "hooks/useTabShortcut";
 import { DownstreamTasks } from "pages/version/DownstreamTasks";
 import { Tasks } from "pages/version/Tasks";
 import { PatchStatus, PatchTab } from "types/patch";
@@ -22,7 +23,17 @@ interface Props {
   childPatches: VersionQuery["version"]["patch"]["childPatches"];
 }
 
-const tabMap = ({ taskCount, childPatches, numFailedChildPatches }) => ({
+const tabMap = ({
+  childPatches,
+  numFailedChildPatches,
+  patchId,
+  taskCount,
+}: {
+  taskCount: number;
+  childPatches: VersionQuery["version"]["patch"]["childPatches"];
+  numFailedChildPatches: number;
+  patchId: string;
+}) => ({
   [PatchTab.Tasks]: (
     <Tab name="Tasks" id="task-tab" data-cy="task-tab" key="tasks-tab">
       <Tasks taskCount={taskCount} />
@@ -45,7 +56,7 @@ const tabMap = ({ taskCount, childPatches, numFailedChildPatches }) => ({
       data-cy="changes-tab"
       key="changes-tab"
     >
-      <CodeChanges />
+      <CodeChanges patchId={patchId} />
     </Tab>
   ),
   [PatchTab.Downstream]: (
@@ -70,10 +81,10 @@ const tabMap = ({ taskCount, childPatches, numFailedChildPatches }) => ({
     </Tab>
   ),
 });
-export const VersionTabs: React.VFC<Props> = ({
-  taskCount,
+export const VersionTabs: React.FC<Props> = ({
   childPatches,
   isPatch,
+  taskCount,
 }) => {
   const { id, tab } = useParams<{ id: string; tab: PatchTab }>();
   const { search } = useLocation();
@@ -94,17 +105,20 @@ export const VersionTabs: React.VFC<Props> = ({
     const numFailedChildPatches = childPatches
       ? childPatches.filter((c) => c.status === PatchStatus.Failed).length
       : 0;
-    return tabMap({ taskCount, childPatches, numFailedChildPatches });
-  }, [taskCount, childPatches]);
+    return tabMap({
+      taskCount,
+      childPatches,
+      numFailedChildPatches,
+      patchId: id,
+    });
+  }, [taskCount, childPatches, id]);
 
   const activeTabs = useMemo(
     () => Object.keys(allTabs).filter((t) => tabIsActive[t] as PatchTab[]),
     [allTabs, tabIsActive]
   );
   const isValidTab = tabIsActive[tab];
-  const [selectedTab, setSelectedTab] = useState(
-    activeTabs.indexOf(isValidTab ? tab : DEFAULT_PATCH_TAB)
-  );
+  const [selectedTab, setSelectedTab] = useState(activeTabs.indexOf(tab));
   const previousTab = usePrevious(selectedTab);
 
   useEffect(() => {
@@ -136,7 +150,11 @@ export const VersionTabs: React.VFC<Props> = ({
     }
     setSelectedTab(newTabIndex);
   };
-
+  useTabShortcut({
+    currentTab: selectedTab,
+    numTabs: activeTabs.length,
+    setSelectedTab: selectNewTab,
+  });
   return (
     <StyledTabs
       selected={selectedTab}

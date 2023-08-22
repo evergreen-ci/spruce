@@ -1,4 +1,5 @@
 import { Description } from "@leafygreen-ui/typography";
+import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { StyledRouterLink, StyledLink } from "components/styles";
@@ -12,13 +13,12 @@ import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
 } from "constants/routes";
-import { GithubProjectConflicts } from "gql/generated/types";
+import { GithubProjectConflicts, MergeQueue } from "gql/generated/types";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
-import { GetFormSchema } from "../types";
 import { alias, form, ProjectType } from "../utils";
 import { githubConflictErrorStyling, sectionHasError } from "./getErrors";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
-import { FormState } from "./types";
+import { GCQFormState } from "./types";
 
 const { aliasArray, aliasRowUiSchema, gitTagArray } = alias;
 const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
@@ -27,10 +27,10 @@ export const getFormSchema = (
   identifier: string,
   projectType: ProjectType,
   githubWebhooksEnabled: boolean,
-  formData: FormState,
+  formData: GCQFormState,
   githubProjectConflicts: GithubProjectConflicts,
   versionControlEnabled: boolean,
-  repoData?: FormState
+  repoData?: GCQFormState
 ): ReturnType<GetFormSchema> => {
   const overrideStyling = {
     "ui:widget":
@@ -201,7 +201,6 @@ export const getFormSchema = (
                     enabled: {
                       enum: [false],
                     },
-
                     message: {
                       type: "string" as "string",
                       title: "Commit Queue Message",
@@ -212,6 +211,28 @@ export const getFormSchema = (
                   properties: {
                     enabled: {
                       enum: [true],
+                    },
+                    mergeQueueTitle: {
+                      title: "Merge Queue",
+                      type: "null",
+                    },
+                    mergeQueue: {
+                      type: "string" as "string",
+                      oneOf: [
+                        {
+                          type: "string" as "string",
+                          title: "Evergreen",
+                          enum: [MergeQueue.Evergreen],
+                          description:
+                            "Use the standard commit queue owned and maintained by Evergreen.",
+                        },
+                        {
+                          type: "string" as "string",
+                          title: "GitHub",
+                          enum: [MergeQueue.Github],
+                          description: "Use the GitHub merge queue.",
+                        },
+                      ],
                     },
                     message: {
                       type: "string" as "string",
@@ -344,6 +365,7 @@ export const getFormSchema = (
           ),
           items: {
             "ui:field": "githubTriggerAliasField",
+            "ui:label": false,
           },
         },
         githubChecksEnabledTitle: {
@@ -452,6 +474,9 @@ export const getFormSchema = (
             repoData?.commitQueue?.enabled,
             "the Commit Queue"
           ),
+        },
+        mergeQueue: {
+          "ui:widget": "radio",
         },
         message: {
           "ui:description": "Shown in commit queue CLI commands & web UI",

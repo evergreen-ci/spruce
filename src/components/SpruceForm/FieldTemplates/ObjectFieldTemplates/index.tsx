@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/valid-types */
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import { Subtitle } from "@leafygreen-ui/typography";
@@ -9,13 +10,13 @@ import { SpruceFormContainer } from "../../Container";
 
 export const ObjectFieldTemplate = ({
   DescriptionField,
-  description,
   TitleField,
-  title,
+  description,
+  idSchema,
   properties,
   required,
+  title,
   uiSchema,
-  idSchema,
 }: ObjectFieldTemplateProps) => {
   const errors = uiSchema["ui:errors"] ?? [];
   const warnings = uiSchema["ui:warnings"] ?? [];
@@ -51,8 +52,19 @@ export const ObjectFieldTemplate = ({
 
 /**
  * `CardFieldTemplate` is a custom ObjectFieldTemplate that renders a card with a title and a list of properties.
+ * @param props - ObjectFieldTemplateProps
+ * @param props.DescriptionField - DescriptionField
+ * @param props.idSchema - idSchema
+ * @param props.properties - properties
+ * @param props.schema - schema
+ * @param props.title - title
+ * @param props.uiSchema - uiSchema
+ * @param props.uiSchema."ui:data-cy" - data-cy
+ * @param props.uiSchema."ui:description" - description
+ * @param props.uiSchema."ui:title" - title
+ * @returns JSX.Element
  */
-export const CardFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
+export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   DescriptionField,
   idSchema,
   properties,
@@ -86,8 +98,16 @@ export const CardFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
 
 /**
  * `AccordionFieldTemplate` is a custom ObjectFieldTemplate that renders an accordion with a title and a list of properties.
+ * @param props - ObjectFieldTemplateProps
+ * @param props.disabled - disabled
+ * @param props.idSchema - idSchema
+ * @param props.properties - properties
+ * @param props.title - title
+ * @param props.uiSchema - uiSchema
+ * @param props.readonly - readonly property // jsdoc/valid-types is disabled for this file due to // https://github.com/jsdoc-type-pratt-parser/jsdoc-type-pratt-parser/issues/104
+ * @returns JSX.Element
  */
-export const AccordionFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
+export const AccordionFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   disabled,
   idSchema,
   properties,
@@ -116,8 +136,13 @@ export const AccordionFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
 
 /**
  * `FieldRow` is a custom ObjectFieldTemplate that renders the fields in a row.
+ * @param props - ObjectFieldTemplateProps
+ * @param props.formData - formData
+ * @param props.properties - properties
+ * @param props.uiSchema - uiSchema
+ * @returns JSX.Element
  */
-export const FieldRow: React.VFC<
+export const FieldRow: React.FC<
   Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">
 > = ({ formData, properties, uiSchema }) => {
   const dataCy = uiSchema?.["ui:data-cy"];

@@ -18,7 +18,7 @@ interface CardItem {
   value: JSX.Element;
 }
 
-const CardField: React.VFC<CardItem> = ({ label, value }) =>
+const CardField: React.FC<CardItem> = ({ label, value }) =>
   value !== undefined && (
     <FieldContainer>
       <FieldName>{label}</FieldName>
@@ -36,10 +36,10 @@ interface DetailsCardProps {
   fieldMaps: FieldMap<MyHost | TableVolume>;
 }
 
-export const DetailsCard: React.VFC<DetailsCardProps> = ({
-  type,
+export const DetailsCard: React.FC<DetailsCardProps> = ({
   "data-cy": dataCy,
   fieldMaps,
+  type,
 }) => (
   <CardContainer data-cy={dataCy}>
     {Object.keys(fieldMaps).map((key) => (

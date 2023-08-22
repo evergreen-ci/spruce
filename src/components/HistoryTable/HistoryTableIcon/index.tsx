@@ -16,13 +16,13 @@ interface HistoryTableIconProps {
   onClick?: () => void;
 }
 
-export const HistoryTableIcon: React.VFC<HistoryTableIconProps> = ({
-  status,
-  label,
+export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
   failingTests = [],
   inactive,
+  label,
   loadingTestResults,
   onClick = () => {},
+  status,
 }) => (
   <ConditionalWrapper
     condition={inactive || failingTests.length > 0}

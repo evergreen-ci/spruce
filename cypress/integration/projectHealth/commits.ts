@@ -2,12 +2,6 @@ describe("commits page", () => {
   beforeEach(() => {
     cy.visit("/commits/spruce");
   });
-  it("visiting the commits page for the first time should show a welcome modal", () => {
-    cy.dataCy("welcome-modal").should("be.visible");
-    cy.dataCy("close-welcome-modal").click();
-    cy.reload();
-    cy.dataCy("welcome-modal").should("not.exist");
-  });
   it("should present a default view with only failing task icons visible", () => {
     cy.dataCy("waterfall-task-status-icon").should("exist");
     cy.dataCy("waterfall-task-status-icon")
@@ -20,6 +14,30 @@ describe("commits page", () => {
     );
     cy.dataCy("grouped-task-status-badge").should("not.exist");
   });
+
+  it("shows all icons and no badges when the view is toggled", () => {
+    cy.dataCy("waterfall-task-status-icon").should("exist");
+
+    cy.dataCy("view-all").click();
+    cy.dataCy("waterfall-task-status-icon")
+      .should("be.visible")
+      .should("have.length", 50);
+    cy.dataCy("grouped-task-status-badge").should("have.length", 0);
+    cy.location("search").should("contain", "view=ALL");
+
+    cy.dataCy("view-failed").click();
+    cy.dataCy("waterfall-task-status-icon")
+      .should("be.visible")
+      .should("have.length", 2);
+  });
+
+  it("shows all icons when loaded with the view all query param", () => {
+    cy.visit(`/commits/spruce?view=ALL`);
+    cy.dataCy("waterfall-task-status-icon")
+      .should("be.visible")
+      .should("have.length", 50);
+  });
+
   it("should be able to collapse/expand commit graph which retains state when paginating", () => {
     cy.dataCy("commit-chart-container").should("exist");
     cy.dataCy("commit-chart-container").should("be.visible");

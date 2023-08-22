@@ -29,16 +29,16 @@ import { Metadata } from "pages/host/Metadata";
 import { HostStatus } from "types/host";
 import { url } from "utils";
 
-const { getPageFromSearch, getLimitFromSearch } = url;
+const { getLimitFromSearch, getPageFromSearch } = url;
 
-const Host: React.VFC = () => {
+const Host: React.FC = () => {
   const dispatchToast = useToastContext();
   const { id } = useParams<{ id: string }>();
   // Query host data
   const {
     data: hostData,
-    loading: hostMetaDataLoading,
     error,
+    loading: hostMetaDataLoading,
   } = useQuery<HostQuery, HostQueryVariables>(GET_HOST, {
     variables: { id },
     onError: (err) => {
@@ -49,7 +49,7 @@ const Host: React.VFC = () => {
   });
 
   const host = hostData?.host;
-  const { distro, id: hostId, hostUrl, user } = host || {};
+  const { distro, hostUrl, id: hostId, user } = host || {};
   const bootstrapMethod = distro?.bootstrapMethod;
   const status = host?.status as HostStatus;
   const sshCommand = `ssh ${user}@${hostUrl}`;
@@ -120,7 +120,7 @@ const Host: React.VFC = () => {
             }
           />
 
-          <PageLayout>
+          <PageLayout hasSider>
             <PageSider width={350}>
               <Metadata
                 loading={hostMetaDataLoading}

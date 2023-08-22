@@ -1,9 +1,9 @@
+import { GetFormSchema } from "components/SpruceForm";
 import {
   CardFieldTemplate,
   FieldRow,
 } from "components/SpruceForm/FieldTemplates";
 import { SpruceConfig } from "gql/generated/types";
-import { GetFormSchema } from "../types";
 
 export const getFormSchema = (
   ecsConfig: SpruceConfig["providers"]["aws"]["pod"]["ecs"]
@@ -60,6 +60,7 @@ export const getFormSchema = (
         "ui:addButtonText": "Add new configuration",
         items: {
           "ui:ObjectFieldTemplate": FieldRow,
+          "ui:label": false,
           "ui:data-cy": "container-size-row",
           name: {
             "ui:data-cy": "var-name-input",

@@ -20,7 +20,7 @@ exports[`storybook Storyshots components/SearchableDropdown Custom Option 1`] = 
       >
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-10g1wb5 css-129de3f-StyledButton-menuButtonStyleOverrides e1yw4j302"
+          class="lg-ui-button-0000 leafygreen-ui-18d58v3 css-1dntq6k-StyledButton-menuButtonStyleOverrides e1yw4j302"
           data-cy="searchable-dropdown"
           type="button"
         >
@@ -28,7 +28,7 @@ exports[`storybook Storyshots components/SearchableDropdown Custom Option 1`] = 
             class="leafygreen-ui-v038xi"
           />
           <div
-            class="leafygreen-ui-1qmzz4y"
+            class="leafygreen-ui-v95oty"
           >
             <div
               class="css-19l4y8w-ButtonContent e1yw4j301"
@@ -47,7 +47,7 @@ exports[`storybook Storyshots components/SearchableDropdown Custom Option 1`] = 
             <svg
               alt=""
               aria-hidden="true"
-              class="leafygreen-ui-1t9qnhm"
+              class="leafygreen-ui-15rby6h"
               fill="none"
               height="16"
               role="presentation"
@@ -90,7 +90,7 @@ exports[`storybook Storyshots components/SearchableDropdown Default 1`] = `
       >
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-10g1wb5 css-129de3f-StyledButton-menuButtonStyleOverrides e1yw4j302"
+          class="lg-ui-button-0000 leafygreen-ui-18d58v3 css-1dntq6k-StyledButton-menuButtonStyleOverrides e1yw4j302"
           data-cy="searchable-dropdown"
           type="button"
         >
@@ -98,7 +98,7 @@ exports[`storybook Storyshots components/SearchableDropdown Default 1`] = `
             class="leafygreen-ui-v038xi"
           />
           <div
-            class="leafygreen-ui-1qmzz4y"
+            class="leafygreen-ui-v95oty"
           >
             <div
               class="css-19l4y8w-ButtonContent e1yw4j301"
@@ -117,7 +117,7 @@ exports[`storybook Storyshots components/SearchableDropdown Default 1`] = `
             <svg
               alt=""
               aria-hidden="true"
-              class="leafygreen-ui-1t9qnhm"
+              class="leafygreen-ui-15rby6h"
               fill="none"
               height="16"
               role="presentation"

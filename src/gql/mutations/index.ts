@@ -5,11 +5,14 @@ import ATTACH_PROJECT_TO_NEW_REPO from "./attach-project-to-new-repo.graphql";
 import ATTACH_PROJECT_TO_REPO from "./attach-project-to-repo.graphql";
 import ATTACH_VOLUME from "./attach-volume.graphql";
 import CLEAR_MY_SUBSCRIPTIONS from "./clear-my-subscriptions.graphql";
+import COPY_DISTRO from "./copy-distro.graphql";
 import COPY_PROJECT from "./copy-project.graphql";
+import CREATE_DISTRO from "./create-distro.graphql";
 import CREATE_PROJECT from "./create-project.graphql";
 import CREATE_PUBLIC_KEY from "./create-public-key.graphql";
 import DEACTIVATE_STEPBACK_TASK from "./deactivate-stepback-task.graphql";
 import DEFAULT_SECTION_TO_REPO from "./default-section-to-repo.graphql";
+import DELETE_DISTRO from "./delete-distro.graphql";
 import DELETE_PROJECT from "./delete-project.graphql";
 import DELETE_SUBSCRIPTIONS from "./delete-subscriptions.graphql";
 import DETACH_PROJECT_FROM_REPO from "./detach-project-from-repo.graphql";
@@ -32,6 +35,7 @@ import REPROVISION_TO_NEW from "./reprovision-to-new.graphql";
 import RESTART_JASPER from "./restart-jasper.graphql";
 import RESTART_TASK from "./restart-task.graphql";
 import RESTART_VERSIONS from "./restart-versions.graphql";
+import SAVE_DISTRO from "./save-distro.graphql";
 import SAVE_PROJECT_SETTINGS_FOR_SECTION from "./save-project-settings-for-section.graphql";
 import SAVE_REPO_SETTINGS_FOR_SECTION from "./save-repo-settings-for-section.graphql";
 import SAVE_SUBSCRIPTION from "./save-subscription.graphql";
@@ -60,11 +64,14 @@ export {
   ATTACH_PROJECT_TO_REPO,
   ATTACH_VOLUME,
   CLEAR_MY_SUBSCRIPTIONS,
+  COPY_DISTRO,
   COPY_PROJECT,
+  CREATE_DISTRO,
   CREATE_PROJECT,
   CREATE_PUBLIC_KEY,
   DEACTIVATE_STEPBACK_TASK,
   DEFAULT_SECTION_TO_REPO,
+  DELETE_DISTRO,
   DELETE_PROJECT,
   DELETE_SUBSCRIPTIONS,
   DETACH_PROJECT_FROM_REPO,
@@ -87,6 +94,7 @@ export {
   RESTART_JASPER,
   RESTART_TASK,
   RESTART_VERSIONS,
+  SAVE_DISTRO,
   SAVE_PROJECT_SETTINGS_FOR_SECTION,
   SAVE_REPO_SETTINGS_FOR_SECTION,
   SAVE_SUBSCRIPTION,

@@ -7,9 +7,9 @@ import {
 
 /**
  * getNotificationSchema returns the schema and uiSchema for the notification section of subscriptions.
- *
  * @param subscriptionMethods - an object containing information about available subscription methods. The available
  * subscription methods differ between task/version and project subscriptions.
+ * @returns - an object containing the schema and uiSchema for the notification section of subscriptions.
  */
 export const getNotificationSchema = (
   subscriptionMethods: SubscriptionMethodOption[]
@@ -25,6 +25,7 @@ export const getNotificationSchema = (
       notificationSelect: {
         type: "string" as "string",
         title: "Notification Method",
+        default: "",
         oneOf: [
           ...subscriptionMethods.map(({ label, value }) => ({
             type: "string" as "string",

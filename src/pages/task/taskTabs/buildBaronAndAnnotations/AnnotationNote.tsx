@@ -21,10 +21,10 @@ interface Props {
   userCanModify: boolean;
 }
 
-const AnnotationNote: React.VFC<Props> = ({
+const AnnotationNote: React.FC<Props> = ({
+  execution,
   note,
   taskId,
-  execution,
   userCanModify,
 }) => {
   const getDateCopy = useDateFormat();

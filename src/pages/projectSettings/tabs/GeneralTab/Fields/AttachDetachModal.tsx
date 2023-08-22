@@ -22,7 +22,7 @@ type ModalProps = {
   shouldAttach: boolean;
 };
 
-export const AttachDetachModal: React.VFC<ModalProps> = ({
+export const AttachDetachModal: React.FC<ModalProps> = ({
   handleClose,
   open,
   projectId,

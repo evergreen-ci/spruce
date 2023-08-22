@@ -18,7 +18,7 @@ export interface Breadcrumb {
 interface BreadcrumbsProps {
   breadcrumbs: Breadcrumb[];
 }
-const Breadcrumbs: React.VFC<BreadcrumbsProps> = ({ breadcrumbs }) => (
+const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbs }) => (
   <Container>
     {breadcrumbs.map((bc, index) => (
       <Fragment key={`breadcrumb-${bc.text}`}>
@@ -39,10 +39,10 @@ const Breadcrumbs: React.VFC<BreadcrumbsProps> = ({ breadcrumbs }) => (
 interface BreadcrumbFragmentProps {
   breadcrumb: Breadcrumb;
 }
-const BreadcrumbFragment: React.VFC<BreadcrumbFragmentProps> = ({
+const BreadcrumbFragment: React.FC<BreadcrumbFragmentProps> = ({
   breadcrumb,
 }) => {
-  const { text = "", to, onClick, "data-cy": dataCy } = breadcrumb;
+  const { "data-cy": dataCy, onClick, text = "", to } = breadcrumb;
   const shouldTrimMessage = text.length > 30;
   const message = trimStringFromMiddle(text, 30);
   return (

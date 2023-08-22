@@ -1,6 +1,6 @@
 import { ProjectType } from "../utils";
 
-export interface FormState {
+export interface PluginsFormState {
   performanceSettings: {
     perfEnabled: boolean | null;
   };
@@ -22,7 +22,8 @@ export interface FormState {
     };
   };
   externalLinks: {
-    patchMetadataPanelLink: {
+    metadataPanelLink: {
+      requesters: string[];
       displayName: string;
       urlTemplate: string;
     };
@@ -30,7 +31,7 @@ export interface FormState {
 }
 
 export type TabProps = {
-  projectData?: FormState;
+  projectData?: PluginsFormState;
   projectType: ProjectType;
-  repoData?: FormState;
+  repoData?: PluginsFormState;
 };

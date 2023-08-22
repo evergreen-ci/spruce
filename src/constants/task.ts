@@ -156,7 +156,7 @@ const taskStatuses: TreeDataEntry[] = [
 
 export const mapTaskStatusToUmbrellaStatus: {
   [key: string]: string;
-} = taskStatuses.reduce((accum, { value: parentValue, children }) => {
+} = taskStatuses.reduce((accum, { children, value: parentValue }) => {
   const childrenParentMapping = children
     ? children.reduce(
         (cAccum, child) => ({ ...cAccum, [child.value]: parentValue }),
@@ -171,7 +171,7 @@ export const mapTaskStatusToUmbrellaStatus: {
 
 export const mapUmbrellaStatusToQueryParam: {
   [key: string]: string[];
-} = taskStatuses.reduce((accum, { value, children }) => {
+} = taskStatuses.reduce((accum, { children, value }) => {
   if (children) {
     return {
       ...accum,
@@ -189,8 +189,23 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
   },
   ...taskStatuses,
 ];
+type ColorScheme = {
+  fill: string;
+  border: string;
+  text: string;
+};
 
-export const mapUmbrellaStatusColors = {
+export const mapUmbrellaStatusColors: Pick<
+  Record<TaskStatus, ColorScheme>,
+  | TaskStatus.UndispatchedUmbrella
+  | TaskStatus.RunningUmbrella
+  | TaskStatus.FailedUmbrella
+  | TaskStatus.SystemFailureUmbrella
+  | TaskStatus.UndispatchedUmbrella
+  | TaskStatus.ScheduledUmbrella
+  | TaskStatus.Succeeded
+  | TaskStatus.SetupFailed
+> = {
   [TaskStatus.UndispatchedUmbrella]: {
     fill: gray.light3,
     border: gray.light2,

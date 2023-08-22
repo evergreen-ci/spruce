@@ -20,22 +20,22 @@ export const formToGql = ({
   oldUserTags,
 }: Props): EditSpawnHostMutationVariables => {
   const {
-    hostName,
     expirationDetails,
+    hostName,
     instanceType,
-    volume,
+    publicKeySection,
     rdpPassword,
     userTags: newUserTags,
-    publicKeySection,
+    volume,
   } = formData || {};
 
-  const { noExpiration, expiration } = expirationDetails;
+  const { expiration, noExpiration } = expirationDetails;
   const {
-    useExisting,
-    publicKeyNameDropdown = "",
     newPublicKey = "",
     newPublicKeyName = "",
+    publicKeyNameDropdown = "",
     savePublicKey = false,
+    useExisting,
   } = publicKeySection;
 
   const addedTags = newUserTags.filter((n) =>

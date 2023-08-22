@@ -5,32 +5,42 @@ export enum TaskSpecifier {
   VariantTask = "VARIANT_TASK",
 }
 
-export interface FormState {
+type PatchTriggerAlias = {
+  alias: string;
+  childProjectIdentifier: string;
+  displayTitle?: string;
+  taskSpecifiers: Array<{
+    patchAlias: string;
+    specifier: TaskSpecifier;
+    taskRegex: string;
+    variantRegex: string;
+  }>;
+  status: string;
+  parentAsModule: string;
+  isGithubTriggerAlias: boolean;
+};
+
+export interface PatchAliasesFormState {
   patchAliases: {
     aliasesOverride: boolean;
     aliases: AliasFormType[];
+    repoData?: {
+      aliasesOverride: boolean;
+      aliases: AliasFormType[];
+    };
   };
   patchTriggerAliases: {
     aliasesOverride: boolean;
-    aliases: Array<{
-      alias: string;
-      childProjectIdentifier: string;
-      displayTitle?: string;
-      taskSpecifiers: Array<{
-        patchAlias: string;
-        specifier: TaskSpecifier;
-        taskRegex: string;
-        variantRegex: string;
-      }>;
-      status: string;
-      parentAsModule: string;
-      isGithubTriggerAlias: boolean;
-    }>;
+    aliases: Array<PatchTriggerAlias>;
+    repoData?: {
+      aliasesOverride: boolean;
+      aliases: Array<PatchTriggerAlias>;
+    };
   };
 }
 
 export type TabProps = {
-  projectData?: FormState;
+  projectData?: PatchAliasesFormState;
   projectType: ProjectType;
-  repoData?: FormState;
+  repoData?: PatchAliasesFormState;
 };

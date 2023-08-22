@@ -18,9 +18,9 @@ import { useLegacyUIURL } from "hooks";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
 import { UserDropdown } from "./UserDropdown";
 
-const { white, blue, gray } = palette;
+const { blue, gray, white } = palette;
 
-export const Navbar: React.VFC = () => {
+export const Navbar: React.FC = () => {
   const { isAuthenticated } = useAuthStateContext();
   const legacyURL = useLegacyUIURL();
   const { sendEvent } = useNavbarAnalytics();

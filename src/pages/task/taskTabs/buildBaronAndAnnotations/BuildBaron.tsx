@@ -15,10 +15,10 @@ interface Props {
   userCanModify: boolean;
 }
 
-const BuildBaron: React.VFC<Props> = ({
-  taskId,
-  execution,
+const BuildBaron: React.FC<Props> = ({
   annotation,
+  execution,
+  taskId,
   userCanModify,
 }) => {
   const { data, loading } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(
