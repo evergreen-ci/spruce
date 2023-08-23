@@ -30,7 +30,7 @@ const getSecurityGroups = ((providerSettings) => ({
   },
 })) satisfies FieldGetter;
 
-export const staticProviderSettings = ((providerSettings) => {
+export const staticProviderSettings = ((providerSettings = {}) => {
   const userData = getUserData(providerSettings);
   const mergeUserData = getMergeUserData(providerSettings);
   const securityGroups = getSecurityGroups(providerSettings);
