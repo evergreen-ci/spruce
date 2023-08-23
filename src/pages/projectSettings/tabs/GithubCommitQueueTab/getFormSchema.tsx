@@ -8,6 +8,7 @@ import {
   pullRequestAliasesDocumentationUrl,
   gitTagAliasesDocumentationUrl,
   githubChecksAliasesDocumentationUrl,
+  githubMergeDocumentationUrl,
 } from "constants/externalResources";
 import {
   getProjectSettingsRoute,
@@ -228,13 +229,13 @@ export const getFormSchema = (
                               title: "Evergreen",
                               enum: [MergeQueue.Evergreen],
                               description:
-                                "Use the standard commit queue owned and maintained by Evergreen.",
+                                "The standard commit queue owned and maintained by Evergreen.",
                             },
                             {
                               type: "string" as "string",
                               title: "GitHub",
                               enum: [MergeQueue.Github],
-                              description: "Use the GitHub merge queue.",
+                              description: "GitHub's merge queue.",
                             },
                           ],
                         },
@@ -504,6 +505,7 @@ export const getFormSchema = (
           ...placeholderIf(repoData?.commitQueue?.message),
         },
         mergeSettings: {
+          "ui:description": GitHubMergeQueueDescription,
           mergeQueue: {
             "ui:widget": "radio",
           },
@@ -649,5 +651,13 @@ const GitHubChecksAliasesDescription = (
     </StyledLink>{" "}
     in this project&rsquo;s config YAML instead if Version Control is enabled
     and no aliases are defined on the project or repo page.
+  </>
+);
+
+const GitHubMergeQueueDescription = (
+  <>
+    Choose between the Evergreen and GitHub merge queue. Note that configuring
+    the GitHub merge queue requires following the additional steps outlined in
+    the <StyledLink href={githubMergeDocumentationUrl}>docs</StyledLink>.
   </>
 );

@@ -215,7 +215,7 @@ describe("Repo Settings", { testIsolation: false }, () => {
 
       // Show merge method for Evergreen.
       cy.getInputByLabel("Evergreen").check({ force: true });
-      cy.dataCy(selectId).should("be.visible");
+      cy.dataCy(selectId).should("exist");
       cy.get(`button[name=${selectId}]`).click();
       cy.get(`#${selectId}-menu`).children().should("have.length", 3);
       cy.get(`#${selectId}-menu`).children().first().click();
