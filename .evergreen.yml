@@ -73,9 +73,9 @@ functions:
         shell: bash
         script: |
           ${PREPARE_SHELL}
+          cd $PROJECT_DIRECTORY
           curl -LO ${mongodb_tools_url};
           tar -zxvf mongodb-database-tools-ubuntu2204-x86_64-100.7.5.tgz
-          export PATH=$(realpath ./mongodb-database-tools-ubuntu2204-x86_64-100.7.5/bin):$PATH
   setup-node:
     - command: subprocess.exec
       params:
