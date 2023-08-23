@@ -11,6 +11,7 @@ interface StaticProviderFormState {
   };
 }
 
+// TODO: Append type with additional provider options, e.g. type ProviderFormState = StaticProviderFormState | DockerProviderFormState
 export type ProviderFormState = StaticProviderFormState;
 
 export type TabProps = {
