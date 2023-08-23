@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
+import { EVENT_LIMIT, useEvents } from "components/Settings/EventLog";
 import { useToastContext } from "context/toast";
 import {
   ProjectEventLogsQuery,
@@ -9,23 +10,14 @@ import {
 } from "gql/generated/types";
 import { GET_PROJECT_EVENT_LOGS, GET_REPO_EVENT_LOGS } from "gql/queries";
 
-export const useEvents = (
+export const useProjectSettingsEvents = (
   identifier: string,
   isRepo: boolean,
-  limit: number
+  limit: number = EVENT_LIMIT
 ) => {
   const dispatchToast = useToastContext();
 
-  const [allEventsFetched, setAllEventsFetched] = useState(false);
-  const [prevCount, setPrevCount] = useState(0);
-
-  // Hide Load More button when event count < limit is returned,
-  // or when an additional fetch fails to load more events.
-  const onCompleted = (count: number) => {
-    if (count - prevCount < limit) {
-      setAllEventsFetched(true);
-    }
-  };
+  const { allEventsFetched, onCompleted, setPrevCount } = useEvents(limit);
 
   const {
     data: projectEventData,
@@ -75,7 +67,7 @@ export const useEvents = (
 
   useEffect(() => {
     setPrevCount(previousData?.count ?? 0);
-  }, [previousData]);
+  }, [previousData, setPrevCount]);
 
   return { allEventsFetched, events, fetchMore };
 };

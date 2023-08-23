@@ -1,4 +1,5 @@
 import GET_AWS_REGIONS from "./aws-regions.graphql";
+import DISTRO_EVENTS from "./distro-events.graphql";
 import DISTRO_TASK_QUEUE from "./distro-task-queue.graphql";
 import DISTRO from "./distro.graphql";
 import GET_FAILED_TASK_STATUS_ICON_TOOLTIP from "./failed-task-status-icon-tooltip.graphql";
@@ -79,6 +80,7 @@ import USER_SUBSCRIPTIONS from "./user-subscriptions.graphql";
 
 export {
   DISTRO,
+  DISTRO_EVENTS,
   DISTRO_TASK_QUEUE,
   GET_AGENT_LOGS,
   GET_ALL_LOGS,
