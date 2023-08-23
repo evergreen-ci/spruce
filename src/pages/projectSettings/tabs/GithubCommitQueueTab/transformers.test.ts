@@ -108,8 +108,10 @@ const projectForm: GCQFormState = {
   },
   commitQueue: {
     enabled: null,
-    mergeMethod: "",
-    mergeQueue: MergeQueue.Evergreen,
+    mergeSettings: {
+      mergeMethod: "",
+      mergeQueue: MergeQueue.Evergreen,
+    },
     message: "",
     patchDefinitions: {
       commitQueueAliasesOverride: true,
@@ -261,8 +263,10 @@ const repoForm: GCQFormState = {
   },
   commitQueue: {
     enabled: true,
-    mergeMethod: "squash",
-    mergeQueue: MergeQueue.Github,
+    mergeSettings: {
+      mergeMethod: "squash",
+      mergeQueue: MergeQueue.Github,
+    },
     message: "Commit Queue Message",
     patchDefinitions: {
       commitQueueAliasesOverride: true,
@@ -411,8 +415,10 @@ const mergedForm: GCQFormState = {
   },
   commitQueue: {
     enabled: null,
-    mergeMethod: "",
-    mergeQueue: MergeQueue.Evergreen,
+    mergeSettings: {
+      mergeMethod: "",
+      mergeQueue: MergeQueue.Evergreen,
+    },
     message: "",
     patchDefinitions: {
       commitQueueAliasesOverride: true,
