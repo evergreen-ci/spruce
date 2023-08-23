@@ -228,8 +228,7 @@ export const getFormSchema = (
                               type: "string" as "string",
                               title: "Evergreen",
                               enum: [MergeQueue.Evergreen],
-                              description:
-                                "The standard commit queue owned and maintained by Evergreen.",
+                              description: "Evergreen's commit queue.",
                             },
                             {
                               type: "string" as "string",
@@ -656,8 +655,8 @@ const GitHubChecksAliasesDescription = (
 
 const GitHubMergeQueueDescription = (
   <>
-    Choose between the Evergreen and GitHub merge queue. Note that configuring
-    the GitHub merge queue requires following the additional steps outlined in
-    the <StyledLink href={githubMergeDocumentationUrl}>docs</StyledLink>.
+    Choose to merge with Evergreen or GitHub. Note that configuring the GitHub
+    merge queue requires completing additional steps outlined in the{" "}
+    <StyledLink href={githubMergeDocumentationUrl}>docs</StyledLink>.
   </>
 );
