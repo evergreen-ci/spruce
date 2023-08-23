@@ -1,4 +1,4 @@
-describe("Task Action Buttons", { testIsolation: false }, () => {
+describe("Task Action Buttons", () => {
   describe("Based on the state of the task, some buttons should be disabled and others should be clickable. Clicking on buttons produces banners messaging if the action succeeded or failed.", () => {
     it("Schedule button should be disabled on a completed task", () => {
       cy.visit(tasks[1]);
@@ -12,6 +12,7 @@ describe("Task Action Buttons", { testIsolation: false }, () => {
     });
 
     it("Clicking Unschedule button should unschedule a task and display a success toast", () => {
+      cy.visit(tasks[3]);
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("unschedule-task").click();
@@ -19,6 +20,7 @@ describe("Task Action Buttons", { testIsolation: false }, () => {
     });
 
     it("Abort button should be disabled on completed tasks", () => {
+      cy.visit(tasks[3]);
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("abort-task").should("have.attr", "disabled");
