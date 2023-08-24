@@ -75,7 +75,7 @@ functions:
           ${PREPARE_SHELL}
           cd $PROJECT_DIRECTORY
           curl -LO ${mongodb_tools_url};
-          tar -zxvf mongodb-database-tools-ubuntu2204-x86_64-100.7.5.tgz
+          tar -zxvf mongodb-database-tools-ubuntu2204-x86_64-100.8.0.tgz
   setup-node:
     - command: subprocess.exec
       params:
@@ -499,7 +499,7 @@ buildvariants:
       goroot: /opt/golang/go1.20
       mongodb_url_2204: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-6.0.6.tgz
       mongosh_url_2204: https://downloads.mongodb.com/compass/mongosh-1.9.0-linux-x64.tgz
-      mongodb_tools_url: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.7.5.tgz
+      mongodb_tools_url: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.8.0.tgz
       node_version: 16.17.0
     modules:
       - evergreen
