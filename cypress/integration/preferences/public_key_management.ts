@@ -82,15 +82,15 @@ describe("Public Key Management Page", () => {
       cy.contains("button", "Save").click();
       cy.dataCy("key-edit-modal").should("not.exist");
       cy.dataCy("table-key-name").eq(1).contains(keyName4);
-      cy.dataCy("edit-btn").first().click();
+      cy.dataCy("edit-btn").eq(1).click();
       cy.dataCy("key-name-input").should("have.value", keyName4);
       cy.dataCy("key-value-input").should("have.value", pubKey3);
       cy.dataCy("key-value-input").clear();
       cy.dataCy("key-value-input").type(pubKey4, { delay: 0 });
       cy.contains("button", "Save").click();
       cy.dataCy("key-edit-modal").should("not.exist");
-      cy.dataCy("table-key-name").first().contains(keyName4);
-      cy.dataCy("edit-btn").first().click();
+      cy.dataCy("table-key-name").eq(1).contains(keyName4);
+      cy.dataCy("edit-btn").eq(1).click();
       cy.dataCy("key-name-input").should("have.value", keyName4);
       cy.dataCy("key-value-input").should("have.value", pubKey4);
     });
