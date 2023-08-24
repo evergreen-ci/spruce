@@ -19,6 +19,7 @@ reseed_database() {
     cd -- "$(dirname -- "$(readlink -- "sdlschema")")"
     # Load test data into the database.
     ../bin/load-smoke-data -path ../testdata/local -dbName evergreen_local -amboyDBName amboy_local
+    cd -
 }
 
 # Function to create a dump of the database.
