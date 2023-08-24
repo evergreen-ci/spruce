@@ -32,10 +32,10 @@ export const MetadataCard: React.FC<Props> = ({
 export const MetadataTitle: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
-  <>
+  <div>
     <Title weight="medium">{children}</Title>
     <Divider />
-  </>
+  </div>
 );
 
 interface ItemProps {
