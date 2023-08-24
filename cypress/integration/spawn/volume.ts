@@ -89,7 +89,7 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
       "1de2728dd9de82efc02dc21f6ca046eaa559462414d28e0b6bba6436436ac873"
     ).should("not.exist");
     cy.dataCy("mounted-badge").contains("8 Mounted");
-    cy.dataCy("free-badge").contains("3 Free");
+    cy.dataCy("free-badge").contains("4 Free");
   });
 
   it("Clicking on unmount should result in a success toast appearing.", () => {
