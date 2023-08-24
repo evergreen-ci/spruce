@@ -11,7 +11,7 @@ PREPARE_SHELL: |
     PROJECT_DIRECTORY="$PROJECT_DIRECTORY"
     NVM_DIR="$NVM_DIR"
 
-    export PATH=$PROJECT_DIRECTORY/mongodb-database-tools-ubuntu2204-x86_64-100.7.5/bin:$PATH
+    export PATH=$PROJECT_DIRECTORY/mongodb-database-tools-ubuntu2204-x86_64-100.8.0/bin:$PATH
     export PROJECT_DIRECTORY
     export NVM_DIR
 
