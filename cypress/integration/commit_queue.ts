@@ -3,7 +3,6 @@ const commitQueue = {
   id2: "mongodb-mongo-test",
   id3: "non-existent-item",
   id4: "evergreen",
-  id5: "logkeeper",
 };
 const COMMIT_QUEUE_ROUTE_1 = `/commit-queue/${commitQueue.id1}`;
 const COMMIT_QUEUE_ROUTE_2 = `/commit-queue/${commitQueue.id2}`;
