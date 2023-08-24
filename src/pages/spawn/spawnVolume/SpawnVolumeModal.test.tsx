@@ -68,6 +68,7 @@ describe("spawnVolumeModal", () => {
   }, 10000);
 
   it("form submission succeeds with default values", async () => {
+    const user = userEvent.setup();
     const spawnVolumeMutation: ApolloMock<
       SpawnVolumeMutation,
       SpawnVolumeMutationVariables
@@ -99,17 +100,18 @@ describe("spawnVolumeModal", () => {
       expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
     });
     expect(screen.queryByLabelText("Never expire")).toBeEnabled();
-    userEvent.click(screen.queryByLabelText("Never expire"));
+    await user.click(screen.queryByLabelText("Never expire"));
 
     const spawnButton = screen.queryByRole("button", { name: "Spawn" });
     await waitFor(() => {
       expect(spawnButton).toBeEnabled();
     });
-    userEvent.click(spawnButton);
+    await user.click(spawnButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
   }, 10000);
 
   it("form submission succeeds after adjusting inputs", async () => {
+    const user = userEvent.setup();
     const spawnVolumeMutation: ApolloMock<
       SpawnVolumeMutation,
       SpawnVolumeMutationVariables
@@ -142,21 +144,21 @@ describe("spawnVolumeModal", () => {
     });
 
     // Modify form values
-    userEvent.clear(screen.queryByDataCy("volume-size-input"));
-    userEvent.type(screen.queryByDataCy("volume-size-input"), "24");
+    await user.clear(screen.queryByDataCy("volume-size-input"));
+    await user.type(screen.queryByDataCy("volume-size-input"), "24");
     expect(screen.queryByDataCy("volume-size-input")).toHaveValue("24");
     await selectLGOption("availability-zone-select", "us-east-1c");
     await selectLGOption("type-select", "st1");
     await selectLGOption("host-select", "i-00b212e96b3f91079");
     expect(screen.queryByLabelText("Never expire")).toBeEnabled();
-    userEvent.click(screen.queryByLabelText("Never expire"));
+    await user.click(screen.queryByLabelText("Never expire"));
 
     // Click spawn button
     const spawnButton = screen.queryByRole("button", { name: "Spawn" });
     await waitFor(() => {
       expect(spawnButton).toBeEnabled();
     });
-    userEvent.click(spawnButton);
+    await user.click(spawnButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
   }, 15000);
 });

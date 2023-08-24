@@ -1,4 +1,4 @@
-import { render, screen, userEvent, waitFor } from "test_utils";
+import { render, screen, userEvent } from "test_utils";
 import WarningBanner from ".";
 
 const warnings = ["warning1", "warning2", "warning3"];
@@ -19,22 +19,22 @@ describe("warningBanner", () => {
   });
 
   it("opens modal when clicking on trigger text", async () => {
+    const user = userEvent.setup();
     render(<WarningBanner warnings={warnings} />);
-    userEvent.click(screen.getByDataCy("configuration-warnings-modal-trigger"));
-    await waitFor(() => {
-      expect(screen.getByDataCy("configuration-warnings-modal")).toBeVisible();
-    });
+    await user.click(
+      screen.getByDataCy("configuration-warnings-modal-trigger")
+    );
+    expect(screen.getByDataCy("configuration-warnings-modal")).toBeVisible();
     expect(screen.getAllByRole("listitem")).toHaveLength(3);
   });
 
   it("should be possible to dismiss the banner", async () => {
+    const user = userEvent.setup();
     render(<WarningBanner warnings={warnings} />);
     expect(
       screen.getByDataCy("configuration-warnings-banner")
     ).toBeInTheDocument();
-    userEvent.click(screen.getByLabelText("X Icon"));
-    await waitFor(() => {
-      expect(screen.queryByDataCy("configuration-warnings-banner")).toBeNull();
-    });
+    await user.click(screen.getByLabelText("X Icon"));
+    expect(screen.queryByDataCy("configuration-warnings-banner")).toBeNull();
   });
 });

@@ -42,6 +42,7 @@ describe("editableTagField", () => {
       data = x;
     });
 
+    const user = userEvent.setup();
     render(
       <EditableTagField
         inputTags={editableTags}
@@ -53,14 +54,14 @@ describe("editableTagField", () => {
     expect(data).toStrictEqual(defaultData);
     expect(screen.queryAllByDataCy("user-tag-trash-icon")[0]).toBeVisible();
 
-    userEvent.clear(screen.queryAllByDataCy("user-tag-value-field")[0]);
-    userEvent.type(
+    await user.clear(screen.queryAllByDataCy("user-tag-value-field")[0]);
+    await user.type(
       screen.queryAllByDataCy("user-tag-value-field")[0],
       "new value"
     );
 
     expect(screen.queryAllByDataCy("user-tag-edit-icon")[0]).toBeVisible();
-    userEvent.click(screen.queryAllByDataCy("user-tag-edit-icon")[0]);
+    await user.click(screen.queryAllByDataCy("user-tag-edit-icon")[0]);
 
     expect(updateData).toHaveBeenCalledWith([
       { key: "keyA", value: "new value" },
@@ -78,6 +79,7 @@ describe("editableTagField", () => {
       data = x;
     });
 
+    const user = userEvent.setup();
     render(
       <EditableTagField
         inputTags={editableTags}
@@ -89,7 +91,7 @@ describe("editableTagField", () => {
     expect(data).toStrictEqual(defaultData);
     expect(screen.queryAllByDataCy("user-tag-trash-icon")[0]).toBeVisible();
 
-    userEvent.click(screen.queryAllByDataCy("user-tag-trash-icon")[0]);
+    await user.click(screen.queryAllByDataCy("user-tag-trash-icon")[0]);
 
     expect(updateData).toHaveBeenCalledWith([...defaultData.slice(1, 3)]);
     expect(data).toStrictEqual([...defaultData.slice(1, 3)]);
@@ -102,6 +104,7 @@ describe("editableTagField", () => {
       data = x;
     });
 
+    const user = userEvent.setup();
     render(
       <EditableTagField
         inputTags={editableTags}
@@ -113,11 +116,14 @@ describe("editableTagField", () => {
     expect(data).toStrictEqual(defaultData);
     expect(screen.queryAllByDataCy("user-tag-trash-icon")[0]).toBeVisible();
 
-    userEvent.clear(screen.queryAllByDataCy("user-tag-key-field")[0]);
-    userEvent.type(screen.queryAllByDataCy("user-tag-key-field")[0], "new key");
+    await user.clear(screen.queryAllByDataCy("user-tag-key-field")[0]);
+    await user.type(
+      screen.queryAllByDataCy("user-tag-key-field")[0],
+      "new key"
+    );
 
     expect(screen.queryAllByDataCy("user-tag-edit-icon")[0]).toBeVisible();
-    userEvent.click(screen.queryAllByDataCy("user-tag-edit-icon")[0]);
+    await user.click(screen.queryAllByDataCy("user-tag-edit-icon")[0]);
 
     expect(updateData).toHaveBeenCalledWith([
       { ...defaultData[0], key: "new key" },
@@ -135,6 +141,7 @@ describe("editableTagField", () => {
       data = x;
     });
 
+    const user = userEvent.setup();
     render(
       <EditableTagField
         inputTags={editableTags}
@@ -147,23 +154,26 @@ describe("editableTagField", () => {
     expect(screen.queryAllByDataCy("user-tag-row")).toHaveLength(3);
     expect(screen.queryByDataCy("add-tag-button")).toBeVisible();
 
-    userEvent.click(screen.queryByDataCy("add-tag-button"));
+    await user.click(screen.queryByDataCy("add-tag-button"));
 
     expect(screen.queryByDataCy("add-tag-button")).toBeNull();
     expect(screen.queryAllByDataCy("user-tag-trash-icon")[3]).toBeVisible();
     expect(screen.queryAllByDataCy("user-tag-row")).toHaveLength(4);
 
-    userEvent.clear(screen.queryAllByDataCy("user-tag-key-field")[3]);
-    userEvent.type(screen.queryAllByDataCy("user-tag-key-field")[3], "new key");
+    await user.clear(screen.queryAllByDataCy("user-tag-key-field")[3]);
+    await user.type(
+      screen.queryAllByDataCy("user-tag-key-field")[3],
+      "new key"
+    );
 
-    userEvent.clear(screen.queryAllByDataCy("user-tag-value-field")[3]);
-    userEvent.type(
+    await user.clear(screen.queryAllByDataCy("user-tag-value-field")[3]);
+    await user.type(
       screen.queryAllByDataCy("user-tag-value-field")[3],
       "new value"
     );
 
     expect(screen.queryAllByDataCy("user-tag-edit-icon")).toHaveLength(1);
-    userEvent.click(screen.queryAllByDataCy("user-tag-edit-icon")[0]);
+    await user.click(screen.queryAllByDataCy("user-tag-edit-icon")[0]);
 
     expect(updateData).toHaveBeenCalledTimes(1);
     expect(data).toStrictEqual([

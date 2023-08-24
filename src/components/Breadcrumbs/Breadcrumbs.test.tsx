@@ -1,9 +1,4 @@
-import {
-  screen,
-  renderWithRouterMatch as render,
-  userEvent,
-  waitFor,
-} from "test_utils";
+import { screen, renderWithRouterMatch as render, userEvent } from "test_utils";
 import { trimStringFromMiddle } from "utils/string";
 import Breadcrumbs from ".";
 
@@ -23,37 +18,34 @@ describe("breadcrumbs", () => {
   it("breadcrumbs with long text should be collapsed and viewable with a tooltip", async () => {
     const longMessage = "some really long string that could be a patch title";
     const breadcrumbs = [{ text: longMessage }];
+    const user = userEvent.setup();
     render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
     expect(screen.queryByText(longMessage)).not.toBeInTheDocument();
 
     expect(
       screen.getByText(trimStringFromMiddle(longMessage, 30))
     ).toBeInTheDocument();
-    userEvent.hover(screen.getByText(trimStringFromMiddle(longMessage, 30)));
-    await waitFor(() => {
-      expect(screen.getByDataCy("breadcrumb-tooltip")).toBeInTheDocument();
-    });
+    await user.hover(screen.getByText(trimStringFromMiddle(longMessage, 30)));
+    expect(screen.getByDataCy("breadcrumb-tooltip")).toBeInTheDocument();
     expect(screen.getByText(longMessage)).toBeInTheDocument();
   });
   it("should not display a tooltip if the text is short", async () => {
     const shortMessage = "short";
     const breadcrumbs = [{ text: shortMessage }];
+    const user = userEvent.setup();
     render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
     expect(screen.getByText(shortMessage)).toBeInTheDocument();
-    userEvent.hover(screen.getByText(shortMessage));
-    await waitFor(() => {
-      expect(
-        screen.queryByDataCy("breadcrumb-tooltip")
-      ).not.toBeInTheDocument();
-    });
+    await user.hover(screen.getByText(shortMessage));
+    expect(screen.queryByDataCy("breadcrumb-tooltip")).not.toBeInTheDocument();
   });
-  it("clicking on a tooltip with a link and event handler should call the event", () => {
+  it("clicking on a tooltip with a link and event handler should call the event", async () => {
     const onClick = jest.fn();
     const breadcrumbs = [{ text: "test", onClick, to: "/" }];
+    const user = userEvent.setup();
     render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
     expect(screen.getByText("test")).toBeInTheDocument();
     expect(screen.getByRole("link")).toHaveAttribute("href", "/");
-    userEvent.click(screen.getByText("test"));
+    await user.click(screen.getByText("test"));
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 });

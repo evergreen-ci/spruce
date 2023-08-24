@@ -59,11 +59,12 @@ describe("objectFieldTemplates", () => {
       expect(screen.getByDataCy("age")).toBeInTheDocument();
     });
 
-    it("calls onChange when a field is changed", () => {
+    it("calls onChange when a field is changed", async () => {
       let data;
       const onChange = jest.fn(({ formData }) => {
         data = formData;
       });
+      const user = userEvent.setup();
       render(
         <SpruceForm
           schema={ObjectSchema}
@@ -72,8 +73,8 @@ describe("objectFieldTemplates", () => {
           uiSchema={uiSchema}
         />
       );
-      userEvent.type(screen.getByDataCy("name"), "Bruce Lee");
-      userEvent.type(screen.getByDataCy("age"), "32");
+      await user.type(screen.getByDataCy("name"), "Bruce Lee");
+      await user.type(screen.getByDataCy("age"), "32");
 
       expect(data).toStrictEqual({ person: { name: "Bruce Lee", age: 32 } });
     });
@@ -116,11 +117,12 @@ describe("objectFieldTemplates", () => {
       expect(screen.getByDataCy("name")).toBeInTheDocument();
       expect(screen.getByDataCy("age")).toBeInTheDocument();
     });
-    it("calls onChange when a field is changed", () => {
+    it("calls onChange when a field is changed", async () => {
       let data;
       const onChange = jest.fn(({ formData }) => {
         data = formData;
       });
+      const user = userEvent.setup();
       render(
         <SpruceForm
           schema={ObjectSchema}
@@ -129,8 +131,8 @@ describe("objectFieldTemplates", () => {
           uiSchema={uiSchema}
         />
       );
-      userEvent.type(screen.getByDataCy("name"), "Bruce Lee");
-      userEvent.type(screen.getByDataCy("age"), "32");
+      await user.type(screen.getByDataCy("name"), "Bruce Lee");
+      await user.type(screen.getByDataCy("age"), "32");
 
       expect(data).toStrictEqual({ person: { name: "Bruce Lee", age: 32 } });
     });
@@ -172,11 +174,12 @@ describe("objectFieldTemplates", () => {
       expect(screen.getByDataCy("name")).toBeInTheDocument();
       expect(screen.getByDataCy("age")).toBeInTheDocument();
     });
-    it("calls onChange when a field is changed", () => {
+    it("calls onChange when a field is changed", async () => {
       let data;
       const onChange = jest.fn(({ formData }) => {
         data = formData;
       });
+      const user = userEvent.setup();
       render(
         <SpruceForm
           schema={ObjectSchema}
@@ -185,8 +188,8 @@ describe("objectFieldTemplates", () => {
           uiSchema={uiSchema}
         />
       );
-      userEvent.type(screen.getByDataCy("name"), "Bruce Lee");
-      userEvent.type(screen.getByDataCy("age"), "32");
+      await user.type(screen.getByDataCy("name"), "Bruce Lee");
+      await user.type(screen.getByDataCy("age"), "32");
 
       expect(data).toStrictEqual({ person: { name: "Bruce Lee", age: 32 } });
     });

@@ -40,22 +40,24 @@ describe("context-based form", () => {
     expect(screen.getByLabelText("Caps Lock Enabled")).toBeChecked();
   });
 
-  it("updates the data", () => {
+  it("updates the data", async () => {
+    const user = userEvent.setup();
     render(<Component />, {
       wrapper: TestProvider,
     });
-    userEvent.click(screen.getByLabelText("Caps Lock Enabled"));
+    await user.click(screen.getByLabelText("Caps Lock Enabled"));
     expect(screen.getByLabelText("Caps Lock Enabled")).not.toBeChecked();
   });
 
-  it("applies a validate function that shows an error message", () => {
+  it("applies a validate function that shows an error message", async () => {
+    const user = userEvent.setup();
     render(<Component tab="bar" validate={barValidator} />, {
       wrapper: TestProvider,
     });
-    userEvent.clear(screen.getByLabelText("Age"));
+    await user.clear(screen.getByLabelText("Age"));
     expect(screen.getByLabelText("Age")).toHaveValue("");
     expect(screen.queryByText("Invalid Age!")).not.toBeInTheDocument();
-    userEvent.type(screen.getByLabelText("Age"), "30");
+    await user.type(screen.getByLabelText("Age"), "30");
     expect(screen.getByText("Invalid Age!")).toBeInTheDocument();
   });
 

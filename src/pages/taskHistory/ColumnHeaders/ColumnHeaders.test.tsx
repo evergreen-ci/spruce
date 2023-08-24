@@ -159,6 +159,7 @@ describe("columnHeaders (Task History)", () => {
   });
 
   it("should show a tooltip with the full name when hovering over a truncated variant name", async () => {
+    const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectIdentifier="evergreen" taskName="some_task" />
     );
@@ -185,10 +186,8 @@ describe("columnHeaders (Task History)", () => {
       expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
     expect(screen.queryByText(trimmedVariantName)).toBeVisible();
-    userEvent.hover(screen.queryByText(trimmedVariantName));
-    await waitFor(() => {
-      expect(screen.queryByText(longVariantName)).toBeVisible();
-    });
+    await user.hover(screen.queryByText(trimmedVariantName));
+    expect(screen.queryByText(longVariantName)).toBeVisible();
   });
 });
 

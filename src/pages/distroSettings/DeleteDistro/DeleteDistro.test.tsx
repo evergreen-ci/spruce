@@ -28,6 +28,7 @@ const DeleteButton = ({ isAdmin = false }: { isAdmin?: boolean }) => (
 
 describe("deleteDistro", () => {
   it("button is disabled if not admin", async () => {
+    const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(<DeleteButton />);
     render(<Component />, {
       path: "/distro/:distroId/settings/general",
@@ -36,10 +37,8 @@ describe("deleteDistro", () => {
     const deleteButton = screen.getByDataCy("delete-distro-button");
     expect(deleteButton).toBeInTheDocument();
     expect(deleteButton).toHaveAttribute("aria-disabled", "true");
-    userEvent.hover(deleteButton);
-    await waitFor(() => {
-      expect(screen.getByDataCy("delete-button-tooltip")).toBeVisible();
-    });
+    await user.hover(deleteButton);
+    expect(screen.getByDataCy("delete-button-tooltip")).toBeVisible();
   });
 
   it("button is enabled if admin", async () => {
@@ -55,6 +54,7 @@ describe("deleteDistro", () => {
   });
 
   it("admin can successfully delete a distro", async () => {
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <DeleteButton isAdmin />
     );
@@ -67,7 +67,7 @@ describe("deleteDistro", () => {
       expect(deleteButton).toHaveAttribute("aria-disabled", "false");
     });
 
-    userEvent.click(deleteButton);
+    await user.click(deleteButton);
     expect(screen.getByDataCy("delete-distro-modal")).toBeInTheDocument();
 
     const confirmButton = screen.getByRole("button", {
@@ -78,13 +78,11 @@ describe("deleteDistro", () => {
     const textInput = within(
       screen.getByDataCy("delete-distro-modal")
     ).getByRole("textbox");
-    userEvent.type(textInput, distroToDelete);
+    await user.type(textInput, distroToDelete);
     expect(confirmButton).toHaveAttribute("aria-disabled", "false");
 
-    userEvent.click(confirmButton);
-    await waitFor(() => {
-      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
-    });
+    await user.click(confirmButton);
+    expect(dispatchToast.success).toHaveBeenCalledTimes(1);
   });
 });
 

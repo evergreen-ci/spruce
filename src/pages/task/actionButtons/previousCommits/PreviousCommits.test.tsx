@@ -118,6 +118,7 @@ describe("previous commits", () => {
   });
 
   it("when base task is passing, all dropdown items generate the same link.", async () => {
+    const user = userEvent.setup();
     renderWithRouterMatch(
       <MockedProvider mocks={[getPatchTaskWithSuccessfulBaseTask]}>
         <PreviousCommits taskId="t1" />
@@ -130,25 +131,16 @@ describe("previous commits", () => {
         baseTaskHref
       );
     });
-    userEvent.click(screen.getByText("Go to base commit"));
-    userEvent.click(screen.getByText("Go to last passing version"));
-    await waitFor(() => {
-      expect(screen.getByDataCy(goButton)).toHaveAttribute(
-        "href",
-        baseTaskHref
-      );
-    });
-    userEvent.click(screen.getAllByText("Go to last passing version")[0]);
-    userEvent.click(screen.getByText("Go to last executed version"));
-    await waitFor(() => {
-      expect(screen.getByDataCy(goButton)).toHaveAttribute(
-        "href",
-        baseTaskHref
-      );
-    });
+    await user.click(screen.getByText("Go to base commit"));
+    await user.click(screen.getByText("Go to last passing version"));
+    expect(screen.getByDataCy(goButton)).toHaveAttribute("href", baseTaskHref);
+    await user.click(screen.getAllByText("Go to last passing version")[0]);
+    await user.click(screen.getByText("Go to last executed version"));
+    expect(screen.getByDataCy(goButton)).toHaveAttribute("href", baseTaskHref);
   });
 
   it("when base task is failing, 'Go to base commit' and 'Go to last executed' dropdown items generate the same link and 'Go to last passing version' will be different.", async () => {
+    const user = userEvent.setup();
     renderWithRouterMatch(
       <MockedProvider
         mocks={[getPatchTaskWithFailingBaseTask, getLastPassingVersion]}
@@ -163,16 +155,11 @@ describe("previous commits", () => {
         baseTaskHref
       );
     });
-    userEvent.click(screen.getByText("Go to base commit"));
-    userEvent.click(screen.getByText("Go to last executed version"));
-    await waitFor(() => {
-      expect(screen.getByDataCy(goButton)).toHaveAttribute(
-        "href",
-        baseTaskHref
-      );
-    });
-    userEvent.click(screen.getAllByText("Go to last executed version")[0]);
-    userEvent.click(screen.getByText("Go to last passing version"));
+    await user.click(screen.getByText("Go to base commit"));
+    await user.click(screen.getByText("Go to last executed version"));
+    expect(screen.getByDataCy(goButton)).toHaveAttribute("href", baseTaskHref);
+    await user.click(screen.getAllByText("Go to last executed version")[0]);
+    await user.click(screen.getByText("Go to last passing version"));
     await waitFor(() => {
       expect(screen.getByDataCy(goButton)).toHaveAttribute(
         "href",
@@ -182,6 +169,7 @@ describe("previous commits", () => {
   });
 
   it("when base task is not in a finished state, the last executed & passing task is not the same as the base commit", async () => {
+    const user = userEvent.setup();
     renderWithRouterMatch(
       <MockedProvider
         mocks={[
@@ -200,22 +188,18 @@ describe("previous commits", () => {
         baseTaskHref
       );
     });
-    userEvent.click(screen.getByText("Go to base commit"));
-    userEvent.click(screen.getByText("Go to last executed version"));
-    await waitFor(() => {
-      expect(screen.getByDataCy(goButton)).toHaveAttribute(
-        "href",
-        "/task/last_executed_task"
-      );
-    });
-    userEvent.click(screen.getAllByText("Go to last executed version")[0]);
-    userEvent.click(screen.getByText("Go to last passing version"));
-    await waitFor(() => {
-      expect(screen.getByDataCy(goButton)).toHaveAttribute(
-        "href",
-        "/task/last_passing_task"
-      );
-    });
+    await user.click(screen.getByText("Go to base commit"));
+    await user.click(screen.getByText("Go to last executed version"));
+    expect(screen.getByDataCy(goButton)).toHaveAttribute(
+      "href",
+      "/task/last_executed_task"
+    );
+    await user.click(screen.getAllByText("Go to last executed version")[0]);
+    await user.click(screen.getByText("Go to last passing version"));
+    expect(screen.getByDataCy(goButton)).toHaveAttribute(
+      "href",
+      "/task/last_passing_task"
+    );
   });
 });
 

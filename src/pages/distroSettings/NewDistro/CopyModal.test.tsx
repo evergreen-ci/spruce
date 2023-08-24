@@ -58,14 +58,15 @@ describe("copy distro modal", () => {
   });
 
   it("submits the modal when a distro name is provided", async () => {
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(<Modal />);
     const { router } = render(<Component />, {
       path: `/distro/:distroId/settings/general`,
       route: `/distro/${distroIdToCopy}/settings/general`,
     });
 
-    userEvent.type(screen.queryByDataCy("distro-id-input"), newDistroId);
-    userEvent.click(screen.queryByText("Duplicate"));
+    await user.type(screen.queryByDataCy("distro-id-input"), newDistroId);
+    await user.click(screen.queryByText("Duplicate"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
@@ -75,13 +76,14 @@ describe("copy distro modal", () => {
   });
 
   it("disables the duplicate button when project name contains a space", async () => {
+    const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(<Modal />);
     render(<Component />, {
       path: `/distro/:distroId/settings/general`,
       route: `/distro/${distroIdToCopy}/settings/general`,
     });
 
-    userEvent.type(
+    await user.type(
       screen.queryByDataCy("distro-id-input"),
       "string with spaces"
     );
@@ -110,6 +112,7 @@ describe("copy distro modal", () => {
         errors: [new GraphQLError("There was an error copying the distro")],
       },
     };
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <Modal copyMock={mockWithError} />
     );
@@ -118,14 +121,14 @@ describe("copy distro modal", () => {
       route: `/distro/${distroIdToCopy}/settings/general`,
     });
 
-    userEvent.type(screen.queryByDataCy("distro-id-input"), newDistroId);
+    await user.type(screen.queryByDataCy("distro-id-input"), newDistroId);
 
     const confirmButton = screen.getByRole("button", {
       name: "Duplicate",
     });
     expect(confirmButton).toBeEnabled();
 
-    userEvent.click(screen.queryByText("Duplicate"));
+    await user.click(screen.queryByText("Duplicate"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(1));

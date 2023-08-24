@@ -2,7 +2,7 @@ import {
   findMaxGroupedTaskStats,
   getAllTaskStatsGroupedByColor,
 } from "pages/commits/utils";
-import { render, screen, userEvent, waitFor } from "test_utils";
+import { render, screen, userEvent } from "test_utils";
 import { ChartTypes } from "types/commits";
 import { CommitBarChart } from ".";
 
@@ -26,6 +26,7 @@ describe("commitChart", () => {
   });
 
   it("hovering over the chart should open a tooltip", async () => {
+    const user = userEvent.setup();
     render(
       <CommitBarChart
         key={versions[0].version.id}
@@ -37,13 +38,12 @@ describe("commitChart", () => {
     );
 
     expect(screen.queryByDataCy("commit-chart-tooltip")).toBeNull();
-    userEvent.hover(screen.queryByDataCy("commit-chart-container"));
-    await waitFor(() => {
-      expect(screen.getByDataCy("commit-chart-tooltip")).toBeInTheDocument();
-    });
+    await user.hover(screen.queryByDataCy("commit-chart-container"));
+    expect(screen.getByDataCy("commit-chart-tooltip")).toBeInTheDocument();
   });
 
   it("should show all umbrella statuses (normal and dimmed) and their counts", async () => {
+    const user = userEvent.setup();
     render(
       <CommitBarChart
         key={versions[0].version.id}
@@ -55,10 +55,8 @@ describe("commitChart", () => {
     );
 
     expect(screen.queryByDataCy("commit-chart-tooltip")).toBeNull();
-    userEvent.hover(screen.queryByDataCy("commit-chart-container"));
-    await waitFor(() => {
-      expect(screen.getByDataCy("commit-chart-tooltip")).toBeInTheDocument();
-    });
+    await user.hover(screen.queryByDataCy("commit-chart-container"));
+    expect(screen.getByDataCy("commit-chart-tooltip")).toBeInTheDocument();
     expect(screen.queryAllByDataCy("current-status-count")).toHaveLength(4);
     expect(screen.queryByDataCy("commit-chart-tooltip")).toHaveTextContent("6");
     expect(screen.queryByDataCy("commit-chart-tooltip")).toHaveTextContent("2");

@@ -223,7 +223,8 @@ describe("configureTasks", () => {
         ubuntu1804: { compile: true, lint: true },
       });
     });
-    it("applying a search should filter the tasks", () => {
+    it("applying a search should filter the tasks", async () => {
+      const user = userEvent.setup();
       const selectedBuildVariants = ["ubuntu2004", "ubuntu1804"];
       render(
         <ConfigureTasks
@@ -243,7 +244,7 @@ describe("configureTasks", () => {
         />
       );
 
-      userEvent.type(screen.getByDataCy("task-filter-input"), "compile");
+      await user.type(screen.getByDataCy("task-filter-input"), "compile");
       expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(1);
       const checkbox = screen.getByLabelText("compile");
       expect(checkbox).toBeInTheDocument();

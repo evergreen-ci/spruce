@@ -62,16 +62,15 @@ describe("commitChartLabel", () => {
   });
 
   it("clicking on the 'more' button should open a tooltip containing commit message", async () => {
+    const user = userEvent.setup();
     renderWithRouterMatch(<RenderCommitChartLabel version={versionLong} />);
 
     expect(screen.queryByDataCy("long-commit-message-tooltip")).toBeNull();
-    userEvent.click(screen.queryByText("more"));
+    await user.click(screen.queryByText("more"));
 
-    await waitFor(() => {
-      expect(
-        screen.getByDataCy("long-commit-message-tooltip")
-      ).toBeInTheDocument();
-    });
+    expect(
+      screen.getByDataCy("long-commit-message-tooltip")
+    ).toBeInTheDocument();
     expect(
       screen.queryByDataCy("long-commit-message-tooltip")
     ).toHaveTextContent(

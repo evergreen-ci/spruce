@@ -1,4 +1,4 @@
-import { render, screen, userEvent, waitFor, within } from "test_utils";
+import { render, screen, userEvent, within } from "test_utils";
 import FilterBadges from ".";
 
 describe("filterBadges", () => {
@@ -70,9 +70,10 @@ describe("filterBadges", () => {
     expect(screen.getByText("see 2 more")).toBeInTheDocument();
   });
 
-  it("clicking see more should display a modal with all of the badges", () => {
+  it("clicking see more should display a modal with all of the badges", async () => {
     const onRemove = jest.fn();
     const onClearAll = jest.fn();
+    const user = userEvent.setup();
     render(
       <FilterBadges
         badges={[
@@ -91,7 +92,7 @@ describe("filterBadges", () => {
         onClearAll={onClearAll}
       />
     );
-    userEvent.click(screen.queryByText("see 2 more"));
+    await user.click(screen.queryByText("see 2 more"));
     expect(screen.getByDataCy("see-more-modal")).toBeInTheDocument();
     expect(
       within(screen.queryByDataCy("see-more-modal")).queryAllByDataCy(
@@ -107,9 +108,10 @@ describe("filterBadges", () => {
     }
   });
 
-  it("clicking clear all should call the clear all callback", () => {
+  it("clicking clear all should call the clear all callback", async () => {
     const onRemove = jest.fn();
     const onClearAll = jest.fn();
+    const user = userEvent.setup();
     render(
       <FilterBadges
         badges={[
@@ -128,13 +130,14 @@ describe("filterBadges", () => {
         onClearAll={onClearAll}
       />
     );
-    userEvent.click(screen.queryByText("CLEAR ALL FILTERS"));
+    await user.click(screen.queryByText("CLEAR ALL FILTERS"));
     expect(onClearAll).toHaveBeenCalledTimes(1);
   });
 
-  it("clicking a badge should call the remove callback", () => {
+  it("clicking a badge should call the remove callback", async () => {
     const onRemove = jest.fn();
     const onClearAll = jest.fn();
+    const user = userEvent.setup();
     render(
       <FilterBadges
         badges={[
@@ -155,7 +158,7 @@ describe("filterBadges", () => {
     );
     const closeBadge = screen.queryAllByDataCy("close-badge")[0];
     expect(closeBadge).toBeInTheDocument();
-    userEvent.click(closeBadge);
+    await user.click(closeBadge);
     expect(onRemove).toHaveBeenCalledWith({ key: "test1", value: "value1" });
   });
 
@@ -163,6 +166,7 @@ describe("filterBadges", () => {
     const onRemove = jest.fn();
     const onClearAll = jest.fn();
     const longName = "this is a really long name that should be truncated";
+    const user = userEvent.setup();
     render(
       <FilterBadges
         badges={[{ key: "some", value: longName }]}
@@ -173,9 +177,7 @@ describe("filterBadges", () => {
     const truncatedBadge = screen.queryByDataCy("filter-badge");
     expect(truncatedBadge).toBeInTheDocument();
     expect(truncatedBadge).not.toHaveTextContent(longName);
-    userEvent.hover(truncatedBadge);
-    await waitFor(() => {
-      expect(screen.queryByText(longName)).toBeVisible();
-    });
+    await user.hover(truncatedBadge);
+    expect(screen.queryByText(longName)).toBeVisible();
   });
 });

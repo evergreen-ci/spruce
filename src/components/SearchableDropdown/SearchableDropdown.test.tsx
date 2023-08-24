@@ -18,7 +18,8 @@ describe("searchableDropdown", () => {
     expect(screen.getByText("evergreen")).toBeInTheDocument();
   });
 
-  it("should toggle dropdown when clicking on it", () => {
+  it("should toggle dropdown when clicking on it", async () => {
+    const user = userEvent.setup();
     const onChange = jest.fn();
     render(
       RenderSearchableDropdown({
@@ -30,17 +31,18 @@ describe("searchableDropdown", () => {
     expect(
       screen.queryByDataCy("searchable-dropdown-options")
     ).not.toBeInTheDocument();
-    userEvent.click(screen.queryByDataCy("searchable-dropdown"));
+    await user.click(screen.queryByDataCy("searchable-dropdown"));
     expect(
       screen.getByDataCy("searchable-dropdown-options")
     ).toBeInTheDocument();
-    userEvent.click(screen.queryByDataCy("searchable-dropdown"));
+    await user.click(screen.queryByDataCy("searchable-dropdown"));
     expect(
       screen.queryByDataCy("searchable-dropdown-options")
     ).not.toBeInTheDocument();
   });
 
-  it("should narrow down search results when filtering", () => {
+  it("should narrow down search results when filtering", async () => {
+    const user = userEvent.setup();
     const onChange = jest.fn();
     render(
       RenderSearchableDropdown({
@@ -52,7 +54,7 @@ describe("searchableDropdown", () => {
     expect(
       screen.queryByDataCy("searchable-dropdown-options")
     ).not.toBeInTheDocument();
-    userEvent.click(screen.queryByDataCy("searchable-dropdown"));
+    await user.click(screen.queryByDataCy("searchable-dropdown"));
     expect(
       screen.getByDataCy("searchable-dropdown-options")
     ).toBeInTheDocument();
@@ -62,7 +64,7 @@ describe("searchableDropdown", () => {
     expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
       2
     );
-    userEvent.type(
+    await user.type(
       screen.queryByDataCy("searchable-dropdown-search-input"),
       "spru"
     );
@@ -71,7 +73,8 @@ describe("searchableDropdown", () => {
     );
   });
 
-  it("should reset the search input and options after SearchableDropdown closes", () => {
+  it("should reset the search input and options after SearchableDropdown closes", async () => {
+    const user = userEvent.setup();
     const onChange = jest.fn();
     render(
       RenderSearchableDropdown({
@@ -81,21 +84,21 @@ describe("searchableDropdown", () => {
       })
     );
     // use text input to filter and click on document body (which closes the dropdown).
-    userEvent.click(screen.queryByDataCy("searchable-dropdown"));
+    await user.click(screen.queryByDataCy("searchable-dropdown"));
     expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
       2
     );
-    userEvent.type(
+    await user.type(
       screen.queryByDataCy("searchable-dropdown-search-input"),
       "spru"
     );
     expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
       1
     );
-    userEvent.click(screen.queryByText("spruce"));
+    await user.click(screen.queryByText("spruce"));
 
     // when reopening the dropdown, the text input should be cleared and all options should be visible.
-    userEvent.click(screen.queryByDataCy("searchable-dropdown"));
+    await user.click(screen.queryByDataCy("searchable-dropdown"));
     expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
       2
     );
@@ -104,7 +107,8 @@ describe("searchableDropdown", () => {
     ).toHaveValue("");
   });
 
-  it("should use custom search function when passed in", () => {
+  it("should use custom search function when passed in", async () => {
+    const user = userEvent.setup();
     const onChange = jest.fn();
     const searchFunc = jest.fn((options, match) =>
       options.filter((o) => o === match)
@@ -117,12 +121,12 @@ describe("searchableDropdown", () => {
         searchFunc,
       })
     );
-    userEvent.click(screen.queryByDataCy("searchable-dropdown"));
+    await user.click(screen.queryByDataCy("searchable-dropdown"));
 
     expect(
       screen.getByDataCy("searchable-dropdown-search-input")
     ).toBeInTheDocument();
-    userEvent.type(
+    await user.type(
       screen.queryByDataCy("searchable-dropdown-search-input"),
       "spruce"
     );
@@ -134,7 +138,8 @@ describe("searchableDropdown", () => {
   });
 
   describe("when multiselect == false", () => {
-    it("should call onChange when clicking on an option and should close the option list", () => {
+    it("should call onChange when clicking on an option and should close the option list", async () => {
+      const user = userEvent.setup();
       const onChange = jest.fn();
       const { rerender } = render(
         RenderSearchableDropdown({
@@ -146,11 +151,11 @@ describe("searchableDropdown", () => {
       expect(
         screen.queryByDataCy("searchable-dropdown-options")
       ).not.toBeInTheDocument();
-      userEvent.click(screen.queryByDataCy("searchable-dropdown"));
+      await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
         screen.getByDataCy("searchable-dropdown-options")
       ).toBeInTheDocument();
-      userEvent.click(screen.queryByText("spruce"));
+      await user.click(screen.queryByText("spruce"));
       expect(onChange).toHaveBeenCalledWith("spruce");
       expect(
         screen.queryByDataCy("searchable-dropdown-options")
@@ -166,7 +171,8 @@ describe("searchableDropdown", () => {
       expect(screen.getByText("spruce")).toBeInTheDocument();
     });
 
-    it("should reset the search input and options after user selects an option", () => {
+    it("should reset the search input and options after user selects an option", async () => {
+      const user = userEvent.setup();
       const onChange = jest.fn();
       render(
         RenderSearchableDropdown({
@@ -176,21 +182,21 @@ describe("searchableDropdown", () => {
         })
       );
       // use text input to filter and select an option.
-      userEvent.click(screen.queryByDataCy("searchable-dropdown"));
+      await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
         screen.queryAllByDataCy("searchable-dropdown-option")
       ).toHaveLength(2);
-      userEvent.type(
+      await user.type(
         screen.queryByDataCy("searchable-dropdown-search-input"),
         "spru"
       );
       expect(
         screen.queryAllByDataCy("searchable-dropdown-option")
       ).toHaveLength(1);
-      userEvent.click(screen.queryByText("spruce"));
+      await user.click(screen.queryByText("spruce"));
 
       // when reopening the dropdown, the text input should be cleared and all options should be visible.
-      userEvent.click(screen.queryByDataCy("searchable-dropdown"));
+      await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
         screen.queryAllByDataCy("searchable-dropdown-option")
       ).toHaveLength(2);
@@ -199,7 +205,8 @@ describe("searchableDropdown", () => {
       ).toHaveValue("");
     });
 
-    it("does not show checkmark next to the selected option", () => {
+    it("does not show checkmark next to the selected option", async () => {
+      const user = userEvent.setup();
       render(
         RenderSearchableDropdown({
           value: "evergreen",
@@ -207,7 +214,7 @@ describe("searchableDropdown", () => {
           options: ["evergreen", "spruce"],
         })
       );
-      userEvent.click(screen.queryByDataCy("searchable-dropdown"));
+      await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
         screen.queryAllByDataCy("searchable-dropdown-option")
       ).toHaveLength(2);
@@ -216,7 +223,8 @@ describe("searchableDropdown", () => {
   });
 
   describe("when multiselect == true", () => {
-    it("should call onChange when clicking on multiple options and shouldn't close the dropdown", () => {
+    it("should call onChange when clicking on multiple options and shouldn't close the dropdown", async () => {
+      const user = userEvent.setup();
       const onChange = jest.fn();
       const { rerender } = render(
         RenderSearchableDropdown({
@@ -229,11 +237,11 @@ describe("searchableDropdown", () => {
       expect(
         screen.queryByDataCy("searchable-dropdown-options")
       ).not.toBeInTheDocument();
-      userEvent.click(screen.queryByDataCy("searchable-dropdown"));
+      await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
         screen.getByDataCy("searchable-dropdown-options")
       ).toBeInTheDocument();
-      userEvent.click(screen.queryByText("spruce"));
+      await user.click(screen.queryByText("spruce"));
       expect(onChange).toHaveBeenCalledWith(["spruce"]);
 
       rerender(
@@ -256,11 +264,12 @@ describe("searchableDropdown", () => {
           allowMultiSelect: true,
         })
       );
-      userEvent.click(screen.queryByText("evergreen"));
+      await user.click(screen.queryByText("evergreen"));
       expect(onChange).toHaveBeenCalledWith(["spruce", "evergreen"]);
     });
 
-    it("should NOT reset the search input and options after user selects an option", () => {
+    it("should NOT reset the search input and options after user selects an option", async () => {
+      const user = userEvent.setup();
       const onChange = jest.fn();
       render(
         RenderSearchableDropdown({
@@ -271,18 +280,18 @@ describe("searchableDropdown", () => {
         })
       );
       // use text input to filter and select an option.
-      userEvent.click(screen.queryByDataCy("searchable-dropdown"));
+      await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
         screen.queryAllByDataCy("searchable-dropdown-option")
       ).toHaveLength(3);
-      userEvent.type(
+      await user.type(
         screen.queryByDataCy("searchable-dropdown-search-input"),
         "s"
       );
       expect(
         screen.queryAllByDataCy("searchable-dropdown-option")
       ).toHaveLength(2);
-      userEvent.click(screen.queryByText("spruce"));
+      await user.click(screen.queryByText("spruce"));
 
       // the dropdown should not be closed and the search state should not be reset.
       expect(
@@ -293,7 +302,8 @@ describe("searchableDropdown", () => {
       ).toHaveLength(2);
     });
 
-    it("shows checkmark next to the selected option", () => {
+    it("shows checkmark next to the selected option", async () => {
+      const user = userEvent.setup();
       render(
         RenderSearchableDropdown({
           value: "evergreen",
@@ -302,7 +312,7 @@ describe("searchableDropdown", () => {
           allowMultiSelect: true,
         })
       );
-      userEvent.click(screen.queryByDataCy("searchable-dropdown"));
+      await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
         screen.queryAllByDataCy("searchable-dropdown-option")
       ).toHaveLength(2);
@@ -311,7 +321,8 @@ describe("searchableDropdown", () => {
   });
 
   describe("when using custom render options", () => {
-    it("should render custom options", () => {
+    it("should render custom options", async () => {
+      const user = userEvent.setup();
       const onChange = jest.fn();
       render(
         RenderSearchableDropdown({
@@ -338,14 +349,15 @@ describe("searchableDropdown", () => {
           ),
         })
       );
-      userEvent.click(screen.queryByDataCy("searchable-dropdown"));
+      await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(screen.getByText("Evergreen")).toBeInTheDocument();
       expect(screen.getByText("Spruce")).toBeInTheDocument();
       expect(screen.queryByText("Evergreen")).toBeInstanceOf(HTMLButtonElement);
       expect(screen.queryByText("Spruce")).toBeInstanceOf(HTMLButtonElement);
     });
 
-    it("should be able to click on custom elements", () => {
+    it("should be able to click on custom elements", async () => {
+      const user = userEvent.setup();
       const onChange = jest.fn();
       render(
         RenderSearchableDropdown({
@@ -372,10 +384,10 @@ describe("searchableDropdown", () => {
           ),
         })
       );
-      userEvent.click(screen.queryByDataCy("searchable-dropdown"));
+      await user.click(screen.queryByDataCy("searchable-dropdown"));
 
       expect(screen.getByText("Spruce")).toBeInTheDocument();
-      userEvent.click(screen.queryByText("Spruce"));
+      await user.click(screen.queryByText("Spruce"));
       expect(onChange).toHaveBeenCalledWith("spruce");
     });
 

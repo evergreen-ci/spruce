@@ -93,15 +93,16 @@ describe("createProjectField", () => {
   });
 
   it("disables the confirm button when repo field is missing", async () => {
+    const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
     await waitForModalLoad();
 
-    userEvent.type(
+    await user.type(
       screen.queryByDataCy("project-name-input"),
       "new-project-name-input"
     );
-    userEvent.clear(screen.queryByDataCy("new-repo-input"));
+    await user.clear(screen.queryByDataCy("new-repo-input"));
     expect(
       screen.getByRole("button", {
         name: "Create Project",
@@ -123,11 +124,12 @@ describe("createProjectField", () => {
   });
 
   it("disables the confirm button when project name contains a space", async () => {
+    const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
     await waitForModalLoad();
 
-    userEvent.type(screen.queryByDataCy("project-name-input"), "my test");
+    await user.type(screen.queryByDataCy("project-name-input"), "my test");
     expect(
       screen.getByRole("button", {
         name: "Create Project",
@@ -136,6 +138,7 @@ describe("createProjectField", () => {
   });
 
   it("enables the confirm button if the optional project id is empty", async () => {
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <NewProjectModal />
     );
@@ -143,9 +146,9 @@ describe("createProjectField", () => {
     await waitForModalLoad();
 
     await selectLGOption("new-owner-select", "10gen");
-    userEvent.clear(screen.queryByDataCy("new-repo-input"));
-    userEvent.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
-    userEvent.type(
+    await user.clear(screen.queryByDataCy("new-repo-input"));
+    await user.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
+    await user.type(
       screen.queryByDataCy("project-name-input"),
       "new-project-name"
     );
@@ -155,7 +158,7 @@ describe("createProjectField", () => {
       })
     ).toBeEnabled();
 
-    userEvent.click(screen.queryByText("Create Project"));
+    await user.click(screen.queryByText("Create Project"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
     expect(router.state.location.pathname).toBe(
@@ -190,20 +193,21 @@ describe("createProjectField", () => {
         },
       },
     };
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <NewProjectModal mock={mockWithId} />
     );
     const { router } = render(<Component />);
     await waitForModalLoad();
 
-    userEvent.type(
+    await user.type(
       screen.queryByDataCy("project-name-input"),
       "new-project-name"
     );
-    userEvent.type(screen.queryByDataCy("project-id-input"), "new-project-id");
+    await user.type(screen.queryByDataCy("project-id-input"), "new-project-id");
     await selectLGOption("new-owner-select", "10gen");
-    userEvent.clear(screen.queryByDataCy("new-repo-input"));
-    userEvent.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
+    await user.clear(screen.queryByDataCy("new-repo-input"));
+    await user.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
 
     expect(
       screen.getByRole("button", {
@@ -213,7 +217,7 @@ describe("createProjectField", () => {
 
     const requestS3Creds = screen.getByDataCy("request-s3-creds");
     expect(requestS3Creds).not.toBeChecked();
-    userEvent.click(requestS3Creds);
+    await user.click(requestS3Creds);
     expect(requestS3Creds).toBeChecked();
     expect(
       screen.getByRole("button", {
@@ -221,7 +225,7 @@ describe("createProjectField", () => {
       })
     ).toBeEnabled();
 
-    userEvent.click(screen.queryByText("Create Project"));
+    await user.click(screen.queryByText("Create Project"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
     expect(router.state.location.pathname).toBe(
@@ -251,19 +255,20 @@ describe("createProjectField", () => {
         errors: [new GraphQLError("There was an error creating the project")],
       },
     };
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <NewProjectModal mock={mockWithWarn} />
     );
     const { router } = render(<Component />);
     await waitForModalLoad();
 
-    userEvent.type(
+    await user.type(
       screen.queryByDataCy("project-name-input"),
       "new-project-name"
     );
     await selectLGOption("new-owner-select", "10gen");
-    userEvent.clear(screen.queryByDataCy("new-repo-input"));
-    userEvent.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
+    await user.clear(screen.queryByDataCy("new-repo-input"));
+    await user.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
 
     expect(
       screen.getByRole("button", {
@@ -271,7 +276,7 @@ describe("createProjectField", () => {
       })
     ).toBeEnabled();
 
-    userEvent.click(screen.queryByText("Create Project"));
+    await user.click(screen.queryByText("Create Project"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));

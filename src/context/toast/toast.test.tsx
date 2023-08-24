@@ -130,6 +130,7 @@ describe("toast", () => {
 
   describe("closing the toast", () => {
     it("should be able to close a toast by clicking the X button by default", async () => {
+      const user = userEvent.setup();
       const { Component, hook } = renderComponentWithHook();
       render(<Component />, {
         wrapper,
@@ -138,10 +139,8 @@ describe("toast", () => {
         hook.current.info("test string");
       });
       expect(screen.getByDataCy("toast")).toBeInTheDocument();
-      userEvent.click(screen.getByLabelText(closeIconLabel));
-      await waitFor(() => {
-        expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
-      });
+      await user.click(screen.getByLabelText(closeIconLabel));
+      expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
     });
 
     it("should not be able to close the toast when closable is false", async () => {
@@ -157,6 +156,7 @@ describe("toast", () => {
     });
 
     it("should trigger a callback function onClose", async () => {
+      const user = userEvent.setup();
       const onClose = jest.fn();
       const { Component, hook } = renderComponentWithHook();
       render(<Component />, {
@@ -167,10 +167,8 @@ describe("toast", () => {
       });
 
       expect(screen.getByDataCy("toast")).toBeInTheDocument();
-      userEvent.click(screen.getByLabelText(closeIconLabel));
-      await waitFor(() => {
-        expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
-      });
+      await user.click(screen.getByLabelText(closeIconLabel));
+      expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
       expect(onClose).toHaveBeenCalledTimes(1);
     });
 
@@ -215,9 +213,9 @@ describe("mocked toast", () => {
       dispatchToast,
       useToastContext: useToastContextSpied,
     } = RenderFakeToastContext(<ToastComponent />);
-
+    const user = userEvent.setup();
     render(<Component />);
-    userEvent.click(screen.getByText("Click Me"));
+    await user.click(screen.getByText("Click Me"));
     expect(useToastContextSpied).toHaveBeenCalledTimes(1);
     expect(dispatchToast.success).toHaveBeenCalledWith("test");
   });
