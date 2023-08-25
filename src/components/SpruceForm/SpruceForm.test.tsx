@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "test_utils";
+import { render, screen, userEvent, waitFor } from "test_utils";
 import { SpruceForm, SpruceFormContainer } from ".";
 
 describe("spruce form", () => {
@@ -282,9 +282,11 @@ describe("spruce form", () => {
             uiSchema={uiSchema}
           />
         );
-        await user.click(screen.queryByRole("button"));
-        await user.click(screen.queryByText("Chocolate"));
-        expect(screen.queryByText("Vanilla")).not.toBeInTheDocument();
+        await user.click(screen.getByRole("button"));
+        await user.click(screen.getByRole("option", { name: "Chocolate" }));
+        await waitFor(() => {
+          expect(screen.queryByText("Vanilla")).not.toBeInTheDocument();
+        });
         expect(screen.getByText("Chocolate")).toBeInTheDocument();
         expect(screen.queryByText("Strawberry")).not.toBeInTheDocument();
       });

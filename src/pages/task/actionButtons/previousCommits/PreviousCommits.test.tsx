@@ -13,8 +13,8 @@ import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { PreviousCommits } from "./PreviousCommits";
 
-const goButton = "previous-commits-go-button";
-const selectLabel = "Previous commits for this task";
+const goButton = { name: "Go" };
+const select = { name: "Previous commits for this task" };
 
 describe("previous commits", () => {
   // Patch and mainline commit behavior only have a significant difference when it comes to determining
@@ -28,14 +28,14 @@ describe("previous commits", () => {
         </MockedProvider>
       );
       await waitFor(() => {
-        expect(screen.getByDataCy(goButton)).toHaveAttribute(
+        expect(screen.getByRole("link", goButton)).toHaveAttribute(
           "aria-disabled",
           "true"
         );
       });
       // Select won't be disabled because baseVersion exists
       await waitFor(() => {
-        expect(screen.getByLabelText(selectLabel)).toHaveAttribute(
+        expect(screen.getByRole("button", select)).toHaveAttribute(
           "aria-disabled",
           "false"
         );
@@ -55,14 +55,14 @@ describe("previous commits", () => {
         </MockedProvider>
       );
       await waitFor(() => {
-        expect(screen.getByDataCy(goButton)).toHaveAttribute(
+        expect(screen.getByRole("link", goButton)).toHaveAttribute(
           "aria-disabled",
           "true"
         );
       });
       // Select won't be disabled because baseVersion exists
       await waitFor(() => {
-        expect(screen.getByLabelText(selectLabel)).toHaveAttribute(
+        expect(screen.getByRole("button", select)).toHaveAttribute(
           "aria-disabled",
           "false"
         );
@@ -80,14 +80,14 @@ describe("previous commits", () => {
         </MockedProvider>
       );
       await waitFor(() => {
-        expect(screen.getByDataCy(goButton)).toHaveAttribute(
+        expect(screen.getByRole("link", goButton)).toHaveAttribute(
           "aria-disabled",
           "true"
         );
       });
       // Select won't be disabled because baseVersion exists
       await waitFor(() => {
-        expect(screen.getByLabelText(selectLabel)).toHaveAttribute(
+        expect(screen.getByRole("button", select)).toHaveAttribute(
           "aria-disabled",
           "false"
         );
@@ -104,13 +104,13 @@ describe("previous commits", () => {
       </MockedProvider>
     );
     await waitFor(() => {
-      expect(screen.getByDataCy(goButton)).toHaveAttribute(
+      expect(screen.getByRole("link", goButton)).toHaveAttribute(
         "aria-disabled",
         "true"
       );
     });
     await waitFor(() => {
-      expect(screen.getByLabelText(selectLabel)).toHaveAttribute(
+      expect(screen.getByRole("button", select)).toHaveAttribute(
         "aria-disabled",
         "true"
       );
@@ -126,17 +126,27 @@ describe("previous commits", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByDataCy(goButton)).toHaveAttribute(
+      expect(screen.getByRole("link", goButton)).toHaveAttribute(
         "href",
         baseTaskHref
       );
     });
-    await user.click(screen.getByText("Go to base commit"));
-    await user.click(screen.getByText("Go to last passing version"));
-    expect(screen.getByDataCy(goButton)).toHaveAttribute("href", baseTaskHref);
-    await user.click(screen.getAllByText("Go to last passing version")[0]);
-    await user.click(screen.getByText("Go to last executed version"));
-    expect(screen.getByDataCy(goButton)).toHaveAttribute("href", baseTaskHref);
+    await user.click(screen.getByRole("button", select));
+    await user.click(
+      screen.getByRole("option", { name: "Go to last passing version" })
+    );
+    expect(screen.getByRole("link", goButton)).toHaveAttribute(
+      "href",
+      baseTaskHref
+    );
+    await user.click(screen.getByRole("button", select));
+    await user.click(
+      screen.getByRole("option", { name: "Go to last executed version" })
+    );
+    expect(screen.getByRole("link", goButton)).toHaveAttribute(
+      "href",
+      baseTaskHref
+    );
   });
 
   it("when base task is failing, 'Go to base commit' and 'Go to last executed' dropdown items generate the same link and 'Go to last passing version' will be different.", async () => {
@@ -150,18 +160,25 @@ describe("previous commits", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByDataCy(goButton)).toHaveAttribute(
+      expect(screen.getByRole("link", goButton)).toHaveAttribute(
         "href",
         baseTaskHref
       );
     });
-    await user.click(screen.getByText("Go to base commit"));
-    await user.click(screen.getByText("Go to last executed version"));
-    expect(screen.getByDataCy(goButton)).toHaveAttribute("href", baseTaskHref);
-    await user.click(screen.getAllByText("Go to last executed version")[0]);
-    await user.click(screen.getByText("Go to last passing version"));
+    await user.click(screen.getByRole("button", select));
+    await user.click(
+      screen.getByRole("option", { name: "Go to last executed version" })
+    );
+    expect(screen.getByRole("link", goButton)).toHaveAttribute(
+      "href",
+      baseTaskHref
+    );
+    await user.click(screen.getByRole("button", select));
+    await user.click(
+      screen.getByRole("option", { name: "Go to last passing version" })
+    );
     await waitFor(() => {
-      expect(screen.getByDataCy(goButton)).toHaveAttribute(
+      expect(screen.getByRole("link", goButton)).toHaveAttribute(
         "href",
         "/task/last_passing_task"
       );
@@ -183,20 +200,24 @@ describe("previous commits", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByDataCy(goButton)).toHaveAttribute(
+      expect(screen.getByRole("link", goButton)).toHaveAttribute(
         "href",
         baseTaskHref
       );
     });
-    await user.click(screen.getByText("Go to base commit"));
-    await user.click(screen.getByText("Go to last executed version"));
-    expect(screen.getByDataCy(goButton)).toHaveAttribute(
+    await user.click(screen.getByRole("button", select));
+    await user.click(
+      screen.getByRole("option", { name: "Go to last executed version" })
+    );
+    expect(screen.getByRole("link", goButton)).toHaveAttribute(
       "href",
       "/task/last_executed_task"
     );
-    await user.click(screen.getAllByText("Go to last executed version")[0]);
-    await user.click(screen.getByText("Go to last passing version"));
-    expect(screen.getByDataCy(goButton)).toHaveAttribute(
+    await user.click(screen.getByRole("button", select));
+    await user.click(
+      screen.getByRole("option", { name: "Go to last passing version" })
+    );
+    expect(screen.getByRole("link", goButton)).toHaveAttribute(
       "href",
       "/task/last_passing_task"
     );

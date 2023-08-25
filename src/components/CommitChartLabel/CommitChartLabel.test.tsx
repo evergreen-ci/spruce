@@ -24,7 +24,8 @@ describe("commitChartLabel", () => {
   it("displays author, githash and createTime", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
     expect(screen.queryByDataCy("commit-label")).toHaveTextContent(
-      "4137c33 Jun 16, 2021, 11:38 PM Mohamed Khelif"
+      "4137c33 Jun 16, 2021, 11:38 PM Mohamed Khelif -SERVER-57332 Create skeleton Internal" +
+        "Git Tags: v1.2.3, v1.2.3-rc0"
     );
   });
 
@@ -50,7 +51,8 @@ describe("commitChartLabel", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionLong} />);
     expect(screen.getByText("more")).toBeInTheDocument();
     expect(screen.queryByDataCy("commit-label")).toHaveTextContent(
-      "4137c33 Jun 16, 2021, 11:38 PM Mohamed Khelif -SERVER-57332 Create skeleton Internal...more"
+      "4137c33 Jun 16, 2021, 11:38 PM Mohamed Khelif -SERVER-57332 Create skeleton Internal...more" +
+        "Git Tags: v1.2.3, v1.2.3-rc0"
     );
   });
 
@@ -67,10 +69,11 @@ describe("commitChartLabel", () => {
 
     expect(screen.queryByDataCy("long-commit-message-tooltip")).toBeNull();
     await user.click(screen.queryByText("more"));
-
-    expect(
-      screen.getByDataCy("long-commit-message-tooltip")
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByDataCy("long-commit-message-tooltip")
+      ).toBeInTheDocument();
+    });
     expect(
       screen.queryByDataCy("long-commit-message-tooltip")
     ).toHaveTextContent(

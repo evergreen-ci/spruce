@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import { renderWithRouterMatch as render, screen } from "test_utils";
+import { renderWithRouterMatch as render, userEvent, screen } from "test_utils";
 import FoldedCommit from ".";
 import { foldedCommitData } from "./testData";
 
@@ -28,7 +28,7 @@ describe("foldedCommit", () => {
     expect(screen.queryByText("Collapse 5 inactive")).toBeNull();
   });
 
-  it("can be expanded to show all of the commits", () => {
+  it("can be expanded to show all of the commits", async () => {
     const data = {
       ...foldedCommitData,
     };
@@ -36,6 +36,7 @@ describe("foldedCommit", () => {
       data.expanded = expanded;
     });
 
+    const user = userEvent.setup();
     render(
       <MockedProvider mocks={[getSpruceConfigMock]}>
         <FoldedCommit
@@ -47,7 +48,7 @@ describe("foldedCommit", () => {
         />
       </MockedProvider>
     );
-    screen.queryByText("Expand 5 inactive").click();
+    await user.click(screen.queryByText("Expand 5 inactive"));
     expect(screen.queryByText("Expand 5 inactive")).toBeNull();
     expect(screen.getByText("Collapse 5 inactive")).toBeInTheDocument();
     expect(onToggleFoldedCommit).toHaveBeenCalledWith({

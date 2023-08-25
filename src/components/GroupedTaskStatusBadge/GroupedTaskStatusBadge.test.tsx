@@ -79,9 +79,11 @@ describe("groupedTaskStatusBadgeIcon", () => {
       ).toBeNull();
     });
     await user.hover(screen.queryByDataCy("grouped-task-status-badge"));
-    expect(
-      screen.getByDataCy("grouped-task-status-badge-tooltip")
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByDataCy("grouped-task-status-badge-tooltip")
+      ).toBeInTheDocument();
+    });
     expect(screen.queryByText("30")).toBeVisible();
     expect(screen.queryByText("Running")).toBeVisible();
     expect(screen.queryByText("5")).toBeVisible();

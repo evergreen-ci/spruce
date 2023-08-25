@@ -187,7 +187,9 @@ describe("columnHeaders (Task History)", () => {
     });
     expect(screen.queryByText(trimmedVariantName)).toBeVisible();
     await user.hover(screen.queryByText(trimmedVariantName));
-    expect(screen.queryByText(longVariantName)).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByText(longVariantName)).toBeVisible();
+    });
   });
 });
 

@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "test_utils";
+import { render, screen, userEvent, waitFor } from "test_utils";
 import ErrorBanner from ".";
 
 const errors = ["error1", "error2", "error3"];
@@ -22,7 +22,9 @@ describe("errorBanner", () => {
     const user = userEvent.setup();
     render(<ErrorBanner errors={errors} />);
     await user.click(screen.getByDataCy("configuration-errors-modal-trigger"));
-    expect(screen.getByDataCy("configuration-errors-modal")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByDataCy("configuration-errors-modal")).toBeVisible();
+    });
     expect(screen.getAllByRole("listitem")).toHaveLength(3);
   });
 });

@@ -115,16 +115,20 @@ describe("repoConfigField", () => {
       />
     );
     render(<Component />);
+
     expect(screen.queryByDataCy("attach-repo-button")).toHaveAttribute(
       "aria-disabled",
       "true"
     );
-
     expect(
       screen.queryByDataCy("attach-repo-disabled-tooltip")
     ).not.toBeInTheDocument();
     await user.hover(screen.queryByDataCy("attach-repo-button"));
-    expect(screen.queryByDataCy("attach-repo-disabled-tooltip")).toBeVisible();
+    await waitFor(() => {
+      expect(
+        screen.queryByDataCy("attach-repo-disabled-tooltip")
+      ).toBeVisible();
+    });
   });
 
   it("disables the attach button when the repo field has been changed and shows a tooltip", async () => {
@@ -136,16 +140,20 @@ describe("repoConfigField", () => {
       />
     );
     render(<Component />);
+
     expect(screen.queryByDataCy("attach-repo-button")).toHaveAttribute(
       "aria-disabled",
       "true"
     );
-
     expect(
       screen.queryByDataCy("attach-repo-disabled-tooltip")
     ).not.toBeInTheDocument();
     await user.hover(screen.queryByDataCy("attach-repo-button"));
-    expect(screen.queryByDataCy("attach-repo-disabled-tooltip")).toBeVisible();
+    await waitFor(() => {
+      expect(
+        screen.queryByDataCy("attach-repo-disabled-tooltip")
+      ).toBeVisible();
+    });
   });
 
   it("shows both buttons for an attached project", async () => {
@@ -172,7 +180,9 @@ describe("repoConfigField", () => {
 
     await screen.findByDataCy("move-repo-button");
     await user.click(screen.queryByDataCy("move-repo-button"));
-    expect(screen.queryByDataCy("move-repo-modal")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByDataCy("move-repo-modal")).toBeVisible();
+    });
   });
 
   describe("moveRepoModal", () => {
@@ -239,7 +249,9 @@ describe("repoConfigField", () => {
 
       expect(screen.queryByDataCy("attach-repo-modal")).not.toBeInTheDocument();
       await user.click(screen.queryByDataCy("attach-repo-button"));
-      expect(screen.queryByDataCy("attach-repo-modal")).toBeVisible();
+      await waitFor(() => {
+        expect(screen.queryByDataCy("attach-repo-modal")).toBeVisible();
+      });
     });
 
     it("renders the modal when the open prop is true", () => {
@@ -264,8 +276,8 @@ describe("repoConfigField", () => {
         <AttachmentModal />
       );
       render(<Component />);
-
-      await user.click(screen.queryByText("Attach"));
+      const button = screen.getByRole("button", { name: "Attach" });
+      await user.click(button);
       await waitFor(() => expect(dispatchToast.error).not.toHaveBeenCalled());
       await waitFor(() => {
         expect(dispatchToast.success).toHaveBeenCalledWith(
@@ -292,8 +304,8 @@ describe("repoConfigField", () => {
         <AttachmentModal shouldAttach={false} />
       );
       render(<Component />);
-
-      await user.click(screen.queryByText("Detach"));
+      const button = screen.getByRole("button", { name: "Detach" });
+      await user.click(button);
       await waitFor(() => expect(dispatchToast.error).not.toHaveBeenCalled());
       await waitFor(() => {
         expect(dispatchToast.success).toHaveBeenCalledWith(

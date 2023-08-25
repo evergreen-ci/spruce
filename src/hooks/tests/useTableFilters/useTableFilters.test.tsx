@@ -72,7 +72,7 @@ describe("useTableCheckboxFilter", () => {
     expect(terminatedCheckbox.checked).toBe(true);
 
     // returns updates value when component changes
-    await user.click(runningCheckbox);
+    await user.click(screen.getByText("Running")); // LeafyGreen checkbox has pointer-events: none so we must click on the label.
 
     // updates url query params when update fn is called
     expect(runningCheckbox.checked).toBe(false);
@@ -83,7 +83,7 @@ describe("useTableCheckboxFilter", () => {
     ).toBeInTheDocument();
 
     // resets url query params when reset fn is called
-    await user.click(terminatedCheckbox);
+    await user.click(screen.getByText("Terminated")); // LeafyGreen checkbox has pointer-events: none so we must click on the label.
 
     expect(runningCheckbox.checked).toBe(false);
     expect(terminatedCheckbox.checked).toBe(false);

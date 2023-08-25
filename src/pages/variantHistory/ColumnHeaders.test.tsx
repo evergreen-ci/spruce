@@ -137,7 +137,9 @@ describe("columnHeaders (Variant History)", () => {
       expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
     await user.hover(screen.queryByText(trimmedTaskName));
-    expect(screen.queryByText(longTaskName)).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByText(longTaskName)).toBeVisible();
+    });
   });
 });
 

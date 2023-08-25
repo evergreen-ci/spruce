@@ -1,4 +1,9 @@
-import { screen, renderWithRouterMatch as render, userEvent } from "test_utils";
+import {
+  screen,
+  renderWithRouterMatch as render,
+  userEvent,
+  waitFor,
+} from "test_utils";
 import { trimStringFromMiddle } from "utils/string";
 import Breadcrumbs from ".";
 
@@ -26,7 +31,9 @@ describe("breadcrumbs", () => {
       screen.getByText(trimStringFromMiddle(longMessage, 30))
     ).toBeInTheDocument();
     await user.hover(screen.getByText(trimStringFromMiddle(longMessage, 30)));
-    expect(screen.getByDataCy("breadcrumb-tooltip")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByDataCy("breadcrumb-tooltip")).toBeInTheDocument();
+    });
     expect(screen.getByText(longMessage)).toBeInTheDocument();
   });
   it("should not display a tooltip if the text is short", async () => {

@@ -16,3 +16,16 @@ window.crypto.randomUUID = (() => {
     return value.toString();
   };
 })();
+
+
+// Prevent '`fallbackFocus` as selector refers to no known node' errors.
+jest.mock(
+  "focus-trap-react",
+  () => {
+    const focusTrap = jest.requireActual(
+      "focus-trap-react"
+    );
+    focusTrap.prototype.setupFocusTrap = () => null;
+    return focusTrap;
+  }
+);

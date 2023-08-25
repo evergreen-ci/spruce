@@ -150,7 +150,9 @@ describe("taskHistoryRow", () => {
     });
 
     await user.hover(screen.queryByDataCy("history-table-icon"));
-    expect(screen.queryByText("TestJiraIntegration")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByText("TestJiraIntegration")).toBeVisible();
+    });
   });
 
   it("should show a matching test label when looking at a task cell with filters applied", async () => {
@@ -194,7 +196,9 @@ describe("taskHistoryRow", () => {
 
     expect(screen.queryByText("1 / 1 Failing Tests")).toBeVisible();
     await user.hover(screen.queryByDataCy("history-table-icon"));
-    expect(screen.queryByText("TestJiraIntegration")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByText("TestJiraIntegration")).toBeVisible();
+    });
   });
 
   it("should disable a task cell when there are test filters applied and it does not match the task filters", () => {

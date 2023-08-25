@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "test_utils";
+import { render, screen, userEvent, waitFor } from "test_utils";
 import TupleSelectWithRegexConditionalStories from ".";
 
 const options = [
@@ -79,7 +79,9 @@ describe("tupleSelectWithRegexConditional", () => {
     expect(validator).toHaveBeenLastCalledWith("bad");
     expect(screen.getByDataCy("tuple-select-warning")).toBeInTheDocument();
     await user.hover(screen.queryByDataCy("tuple-select-warning"));
-    expect(screen.getByText(validatorErrorMessage)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText(validatorErrorMessage)).toBeInTheDocument();
+    });
   });
   it("toggling the input type selector to `exact` should escape any regex characters", async () => {
     const user = userEvent.setup();
@@ -122,8 +124,8 @@ describe("tupleSelectWithRegexConditional", () => {
     await user.click(screen.getByRole("tab", { name: "EXACT" }));
     const input = screen.queryByDataCy("tuple-select-input");
     expect(input).toHaveValue("");
-    await user.type(input, "some-[");
-    expect(input).toHaveValue("some-[");
+    await user.type(input, "*");
+    expect(input).toHaveValue("*");
     expect(validator).toHaveBeenCalledWith("");
   });
 });

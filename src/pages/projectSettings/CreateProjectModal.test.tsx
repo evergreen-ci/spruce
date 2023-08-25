@@ -152,19 +152,19 @@ describe("createProjectField", () => {
       screen.queryByDataCy("project-name-input"),
       "new-project-name"
     );
-    expect(
-      screen.getByRole("button", {
-        name: "Create Project",
-      })
-    ).toBeEnabled();
 
-    await user.click(screen.queryByText("Create Project"));
+    const confirmButton = screen.getByRole("button", {
+      name: "Create Project",
+    });
+    expect(confirmButton).toBeEnabled();
+
+    await user.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
     expect(router.state.location.pathname).toBe(
       "/project/new-project-name/settings"
     );
-  }, 10000);
+  });
 
   it("form submission succeeds when all fields are updated", async () => {
     const mockWithId: ApolloMock<
@@ -209,29 +209,28 @@ describe("createProjectField", () => {
     await user.clear(screen.queryByDataCy("new-repo-input"));
     await user.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
 
-    expect(
-      screen.getByRole("button", {
-        name: "Create Project",
-      })
-    ).toBeEnabled();
+    const confirmButton = screen.getByRole("button", {
+      name: "Create Project",
+    });
+    expect(confirmButton).toBeEnabled();
 
     const requestS3Creds = screen.getByDataCy("request-s3-creds");
+    // LeafyGreen checkbox has pointer-events: none so we must click on the label.
+    const requestS3CredLabel = screen.getByText(
+      "Open a JIRA ticket to request an S3 Bucket from the Build team"
+    );
     expect(requestS3Creds).not.toBeChecked();
-    await user.click(requestS3Creds);
+    await user.click(requestS3CredLabel);
     expect(requestS3Creds).toBeChecked();
-    expect(
-      screen.getByRole("button", {
-        name: "Create Project",
-      })
-    ).toBeEnabled();
+    expect(confirmButton).toBeEnabled();
 
-    await user.click(screen.queryByText("Create Project"));
+    await user.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
     expect(router.state.location.pathname).toBe(
       "/project/new-project-name/settings"
     );
-  }, 10000);
+  });
   it("shows a warning toast when an error and data are returned", async () => {
     const mockWithWarn = {
       request: {
@@ -270,13 +269,12 @@ describe("createProjectField", () => {
     await user.clear(screen.queryByDataCy("new-repo-input"));
     await user.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
 
-    expect(
-      screen.getByRole("button", {
-        name: "Create Project",
-      })
-    ).toBeEnabled();
+    const confirmButton = screen.getByRole("button", {
+      name: "Create Project",
+    });
+    expect(confirmButton).toBeEnabled();
 
-    await user.click(screen.queryByText("Create Project"));
+    await user.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));

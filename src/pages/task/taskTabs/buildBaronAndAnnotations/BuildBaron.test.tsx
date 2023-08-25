@@ -74,7 +74,7 @@ describe("buildBaronContent", () => {
     });
     await user.click(screen.queryByDataCy("file-ticket-button"));
     expect(screen.getByDataCy("file-ticket-popconfirm")).toBeVisible();
-    await user.click(screen.getByText("Yes"));
+    await user.click(screen.getByRole("button", { name: "Yes" }));
     expect(dispatchToast.success).toHaveBeenCalledWith(
       "Successfully requested ticket"
     );

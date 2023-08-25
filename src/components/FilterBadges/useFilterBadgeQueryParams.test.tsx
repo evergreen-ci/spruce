@@ -124,7 +124,7 @@ describe("filterBadges - queryParams", () => {
     let badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(4);
 
-    user.click(screen.queryByDataCy("clear-all-filters"));
+    await user.click(screen.queryByDataCy("clear-all-filters"));
     badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(0);
 

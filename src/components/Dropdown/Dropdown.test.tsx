@@ -12,20 +12,22 @@ describe("dropdown", () => {
   it("clicking on the button opens and closes the dropdown", async () => {
     const user = userEvent.setup();
     render(<Dropdown buttonText="Some Button"> {children()} </Dropdown>);
-    expect(screen.getByText("Some Button")).toBeInTheDocument();
+    const button = screen.getByRole("button", { name: "Some Button" });
+    expect(button).toBeInTheDocument();
     expect(screen.queryByText("Some Children")).not.toBeInTheDocument();
-    await user.click(screen.queryByText("Some Button"));
+    await user.click(button);
     expect(screen.getByText("Some Children")).toBeInTheDocument();
-    await user.click(screen.queryByText("Some Button"));
+    await user.click(button);
     expect(screen.queryByText("Some Children")).not.toBeInTheDocument();
   });
 
   it("clicking on the dropdown contents should not close the dropdown", async () => {
     const user = userEvent.setup();
     render(<Dropdown buttonText="Some Button"> {children()} </Dropdown>);
-    expect(screen.getByText("Some Button")).toBeInTheDocument();
+    const button = screen.getByRole("button", { name: "Some Button" });
+    expect(button).toBeInTheDocument();
     expect(screen.queryByText("Some Children")).not.toBeInTheDocument();
-    await user.click(screen.queryByText("Some Button"));
+    await user.click(button);
     expect(screen.getByText("Some Children")).toBeInTheDocument();
     await user.click(screen.queryByText("Some Children"));
     expect(screen.getByText("Some Children")).toBeInTheDocument();
@@ -34,9 +36,10 @@ describe("dropdown", () => {
   it("clicking outside the button and dropdown closes the dropdown", async () => {
     const user = userEvent.setup();
     render(<Dropdown buttonText="Some Button"> {children()} </Dropdown>);
-    expect(screen.getByText("Some Button")).toBeInTheDocument();
+    const button = screen.getByRole("button", { name: "Some Button" });
+    expect(button).toBeInTheDocument();
     expect(screen.queryByText("Some Children")).not.toBeInTheDocument();
-    await user.click(screen.queryByText("Some Button"));
+    await user.click(button);
     expect(screen.getByText("Some Children")).toBeInTheDocument();
     await user.click(document.body);
     expect(screen.queryByText("Some Children")).not.toBeInTheDocument();

@@ -45,8 +45,10 @@ describe("context-based form", () => {
     render(<Component />, {
       wrapper: TestProvider,
     });
-    await user.click(screen.getByLabelText("Caps Lock Enabled"));
-    expect(screen.getByLabelText("Caps Lock Enabled")).not.toBeChecked();
+    const checkbox = screen.getByRole("checkbox");
+    expect(checkbox).toBeChecked();
+    await user.click(screen.getByText("Caps Lock Enabled"));
+    expect(checkbox).not.toBeChecked();
   });
 
   it("applies a validate function that shows an error message", async () => {

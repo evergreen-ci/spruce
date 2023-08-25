@@ -38,7 +38,9 @@ describe("deleteDistro", () => {
     expect(deleteButton).toBeInTheDocument();
     expect(deleteButton).toHaveAttribute("aria-disabled", "true");
     await user.hover(deleteButton);
-    expect(screen.getByDataCy("delete-button-tooltip")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByDataCy("delete-button-tooltip")).toBeVisible();
+    });
   });
 
   it("button is enabled if admin", async () => {

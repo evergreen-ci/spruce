@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "test_utils";
+import { render, screen, userEvent, waitFor } from "test_utils";
 import { TaskStatus } from "types/task";
 import { HistoryTableIcon } from ".";
 
@@ -35,7 +35,9 @@ describe("historyTableIcon", () => {
     const icon = screen.queryByDataCy("history-table-icon");
     expect(icon).toBeInTheDocument();
     await user.hover(icon);
-    expect(screen.queryByText("test a")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByText("test a")).toBeVisible();
+    });
   });
 });
 

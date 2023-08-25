@@ -1,5 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+  waitFor,
+} from "test_utils";
 import { CommitRolledUpVersions } from "types/commits";
 import { InactiveCommitButton, MAX_COMMIT_COUNT } from ".";
 
@@ -35,7 +40,9 @@ describe("inactiveCommitButton", () => {
 
     expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeNull();
     await user.click(screen.queryByDataCy("inactive-commits-button"));
-    expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
+    });
   });
 
   it("should show all inactive commits if there are 3 or less commits", async () => {
@@ -48,7 +55,9 @@ describe("inactiveCommitButton", () => {
 
     expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeNull();
     await user.click(screen.queryByDataCy("inactive-commits-button"));
-    expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
+    });
     expect(screen.queryAllByDataCy("commit-text")).toHaveLength(
       MAX_COMMIT_COUNT - 1
     );
@@ -61,7 +70,9 @@ describe("inactiveCommitButton", () => {
 
     expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeNull();
     await user.click(screen.queryByDataCy("inactive-commits-button"));
-    expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
+    });
     expect(screen.queryAllByDataCy("commit-text")).toHaveLength(
       MAX_COMMIT_COUNT
     );
@@ -74,13 +85,17 @@ describe("inactiveCommitButton", () => {
 
     expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeNull();
     await user.click(screen.queryByDataCy("inactive-commits-button"));
-    expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
+    });
     expect(screen.queryAllByDataCy("commit-text")).toHaveLength(
       MAX_COMMIT_COUNT
     );
     expect(screen.queryByDataCy("inactive-commits-modal")).toBeNull();
     await user.click(screen.queryByDataCy("hidden-commits"));
-    expect(screen.queryByDataCy("inactive-commits-modal")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByDataCy("inactive-commits-modal")).toBeVisible();
+    });
   });
 
   it("should show unmatching label when there are filters applied", () => {

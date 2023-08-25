@@ -140,7 +140,9 @@ describe("toast", () => {
       });
       expect(screen.getByDataCy("toast")).toBeInTheDocument();
       await user.click(screen.getByLabelText(closeIconLabel));
-      expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
+      });
     });
 
     it("should not be able to close the toast when closable is false", async () => {
@@ -168,7 +170,9 @@ describe("toast", () => {
 
       expect(screen.getByDataCy("toast")).toBeInTheDocument();
       await user.click(screen.getByLabelText(closeIconLabel));
-      expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
+      });
       expect(onClose).toHaveBeenCalledTimes(1);
     });
 

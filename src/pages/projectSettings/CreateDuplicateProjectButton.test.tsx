@@ -5,7 +5,12 @@ import {
   UserProjectSettingsPermissionsQueryVariables,
 } from "gql/generated/types";
 import { USER_PROJECT_SETTINGS_PERMISSIONS } from "gql/queries";
-import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+  waitFor,
+} from "test_utils";
 import { ApolloMock } from "types/gql";
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
 import { ProjectType } from "./tabs/utils";
@@ -72,7 +77,9 @@ describe("createDuplicateProjectField", () => {
 
       await screen.findByText("New Project");
       await user.click(screen.queryByDataCy("new-project-button"));
-      expect(screen.queryByDataCy("create-project-modal")).toBeVisible();
+      await waitFor(() => {
+        expect(screen.queryByDataCy("create-project-modal")).toBeVisible();
+      });
       expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
     });
   });
@@ -97,7 +104,9 @@ describe("createDuplicateProjectField", () => {
       await user.click(screen.queryByDataCy("new-project-button"));
       expect(screen.queryByDataCy("new-project-menu")).toBeVisible();
       await user.click(screen.queryByDataCy("create-project-button"));
-      expect(screen.queryByDataCy("create-project-modal")).toBeVisible();
+      await waitFor(() => {
+        expect(screen.queryByDataCy("create-project-modal")).toBeVisible();
+      });
       expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
     });
 
@@ -110,7 +119,9 @@ describe("createDuplicateProjectField", () => {
       await user.click(screen.queryByDataCy("new-project-button"));
       expect(screen.queryByDataCy("new-project-menu")).toBeVisible();
       await user.click(screen.queryByDataCy("copy-project-button"));
-      expect(screen.queryByDataCy("copy-project-modal")).toBeVisible();
+      await waitFor(() => {
+        expect(screen.queryByDataCy("copy-project-modal")).toBeVisible();
+      });
       expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
     });
   });

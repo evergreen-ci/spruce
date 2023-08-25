@@ -77,14 +77,18 @@ describe("copyProjectField", () => {
       name: "Duplicate",
     });
     const requestS3Creds = screen.getByDataCy("request-s3-creds");
-    await user.click(requestS3Creds);
+    // LeafyGreen checkbox has pointer-events: none so we must click on the label.
+    const requestS3CredLabel = screen.getByText(
+      "Open a JIRA ticket to request an S3 Bucket from the Build team"
+    );
+    await user.click(requestS3CredLabel);
     expect(confirmButton).toBeEnabled();
     expect(requestS3Creds).toBeChecked();
-    await user.click(requestS3Creds);
+    await user.click(requestS3CredLabel);
     expect(requestS3Creds).not.toBeChecked();
     expect(confirmButton).toBeEnabled();
 
-    await user.click(screen.queryByText("Duplicate"));
+    await user.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
@@ -133,7 +137,7 @@ describe("copyProjectField", () => {
     });
     expect(confirmButton).toBeEnabled();
 
-    await user.click(screen.queryByText("Duplicate"));
+    await user.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
@@ -181,7 +185,7 @@ describe("copyProjectField", () => {
     });
     expect(confirmButton).toBeEnabled();
 
-    await user.click(screen.queryByText("Duplicate"));
+    await user.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
@@ -222,7 +226,7 @@ describe("copyProjectField", () => {
     });
     expect(confirmButton).toBeEnabled();
 
-    await user.click(screen.queryByText("Duplicate"));
+    await user.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(1));

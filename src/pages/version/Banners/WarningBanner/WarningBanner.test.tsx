@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "test_utils";
+import { render, screen, userEvent, waitFor } from "test_utils";
 import WarningBanner from ".";
 
 const warnings = ["warning1", "warning2", "warning3"];
@@ -24,7 +24,9 @@ describe("warningBanner", () => {
     await user.click(
       screen.getByDataCy("configuration-warnings-modal-trigger")
     );
-    expect(screen.getByDataCy("configuration-warnings-modal")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByDataCy("configuration-warnings-modal")).toBeVisible();
+    });
     expect(screen.getAllByRole("listitem")).toHaveLength(3);
   });
 

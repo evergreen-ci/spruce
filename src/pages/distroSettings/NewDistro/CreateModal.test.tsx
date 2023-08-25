@@ -56,7 +56,7 @@ describe("create distro modal", () => {
     const { router } = render(<Component />);
 
     await user.type(screen.queryByDataCy("distro-id-input"), newDistroId);
-    await user.click(screen.queryByText("Create"));
+    await user.click(screen.getByRole("button", { name: "Create" }));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
@@ -111,7 +111,7 @@ describe("create distro modal", () => {
     });
     expect(confirmButton).toBeEnabled();
 
-    await user.click(screen.queryByText("Create"));
+    await user.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(1));

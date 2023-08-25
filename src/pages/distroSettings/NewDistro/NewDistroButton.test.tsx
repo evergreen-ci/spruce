@@ -5,7 +5,12 @@ import {
   UserDistroSettingsPermissionsQueryVariables,
 } from "gql/generated/types";
 import { USER_DISTRO_SETTINGS_PERMISSIONS } from "gql/queries";
-import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+  waitFor,
+} from "test_utils";
 import { ApolloMock } from "types/gql";
 import { NewDistroButton } from "./NewDistroButton";
 
@@ -79,7 +84,9 @@ describe("new distro button", () => {
       await user.click(screen.queryByDataCy("new-distro-button"));
       expect(screen.queryByDataCy("new-distro-menu")).toBeVisible();
       await user.click(screen.queryByDataCy("create-distro-button"));
-      expect(screen.queryByDataCy("create-distro-modal")).toBeVisible();
+      await waitFor(() => {
+        expect(screen.queryByDataCy("create-distro-modal")).toBeVisible();
+      });
       expect(screen.queryByDataCy("new-distro-menu")).not.toBeInTheDocument();
     });
 
@@ -95,7 +102,9 @@ describe("new distro button", () => {
       await user.click(screen.queryByDataCy("new-distro-button"));
       expect(screen.queryByDataCy("new-distro-menu")).toBeVisible();
       await user.click(screen.queryByDataCy("copy-distro-button"));
-      expect(screen.queryByDataCy("copy-distro-modal")).toBeVisible();
+      await waitFor(() => {
+        expect(screen.queryByDataCy("copy-distro-modal")).toBeVisible();
+      });
       expect(screen.queryByDataCy("new-distro-menu")).not.toBeInTheDocument();
     });
   });

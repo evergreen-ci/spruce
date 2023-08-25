@@ -65,7 +65,7 @@ describe("spawnVolumeModal", () => {
     expect(screen.queryByLabelText("Never expire")).not.toBeChecked();
     expect(screen.queryByDataCy("host-select")).toBeDisabled();
     expect(screen.queryByText("No hosts available.")).toBeVisible();
-  }, 10000);
+  });
 
   it("form submission succeeds with default values", async () => {
     const user = userEvent.setup();
@@ -100,7 +100,7 @@ describe("spawnVolumeModal", () => {
       expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
     });
     expect(screen.queryByLabelText("Never expire")).toBeEnabled();
-    await user.click(screen.queryByLabelText("Never expire"));
+    await user.click(screen.getByText("Never expire"));
 
     const spawnButton = screen.queryByRole("button", { name: "Spawn" });
     await waitFor(() => {
@@ -108,7 +108,7 @@ describe("spawnVolumeModal", () => {
     });
     await user.click(spawnButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
-  }, 10000);
+  });
 
   it("form submission succeeds after adjusting inputs", async () => {
     const user = userEvent.setup();
@@ -151,7 +151,7 @@ describe("spawnVolumeModal", () => {
     await selectLGOption("type-select", "st1");
     await selectLGOption("host-select", "i-00b212e96b3f91079");
     expect(screen.queryByLabelText("Never expire")).toBeEnabled();
-    await user.click(screen.queryByLabelText("Never expire"));
+    await user.click(screen.getByText("Never expire"));
 
     // Click spawn button
     const spawnButton = screen.queryByRole("button", { name: "Spawn" });
@@ -160,7 +160,7 @@ describe("spawnVolumeModal", () => {
     });
     await user.click(spawnButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
-  }, 15000);
+  });
 });
 
 const myHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {

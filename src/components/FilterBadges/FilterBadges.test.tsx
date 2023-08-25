@@ -1,4 +1,4 @@
-import { render, screen, userEvent, within } from "test_utils";
+import { render, screen, userEvent, waitFor, within } from "test_utils";
 import FilterBadges from ".";
 
 describe("filterBadges", () => {
@@ -130,7 +130,7 @@ describe("filterBadges", () => {
         onClearAll={onClearAll}
       />
     );
-    await user.click(screen.queryByText("CLEAR ALL FILTERS"));
+    await user.click(screen.getByRole("button", { name: "CLEAR ALL FILTERS" }));
     expect(onClearAll).toHaveBeenCalledTimes(1);
   });
 
@@ -178,6 +178,8 @@ describe("filterBadges", () => {
     expect(truncatedBadge).toBeInTheDocument();
     expect(truncatedBadge).not.toHaveTextContent(longName);
     await user.hover(truncatedBadge);
-    expect(screen.queryByText(longName)).toBeVisible();
+    await waitFor(() => {
+      expect(screen.queryByText(longName)).toBeVisible();
+    });
   });
 });

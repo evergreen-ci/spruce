@@ -12,7 +12,7 @@ describe("pageSizeSelector", () => {
         onChange={onChange}
       />
     );
-    await user.click(screen.queryByText("10 / page"));
+    await user.click(screen.getByRole("button", { name: "10 / page" }));
     expect(screen.queryByText("20 / page")).toBeVisible();
     await user.click(screen.queryByText("20 / page"));
     expect(onChange).toHaveBeenCalledWith(20);
