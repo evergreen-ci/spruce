@@ -8,7 +8,7 @@ import {
   pullRequestAliasesDocumentationUrl,
   gitTagAliasesDocumentationUrl,
   githubChecksAliasesDocumentationUrl,
-  githubMergeDocumentationUrl,
+  githubMergeQueueDocumentationUrl,
 } from "constants/externalResources";
 import {
   getProjectSettingsRoute,
@@ -655,8 +655,9 @@ const GitHubChecksAliasesDescription = (
 
 const GitHubMergeQueueDescription = (
   <>
-    Choose to merge with Evergreen or GitHub. Note that configuring the GitHub
-    merge queue requires completing additional steps outlined in the{" "}
-    <StyledLink href={githubMergeDocumentationUrl}>docs</StyledLink>.
+    Choose to merge with Evergreen or GitHub. Note that in order to use the
+    GitHub merge queue, you will need to complete the additional steps outlined
+    in the <StyledLink href={githubMergeQueueDocumentationUrl}>docs</StyledLink>
+    .
   </>
 );

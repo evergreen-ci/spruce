@@ -209,11 +209,11 @@ describe("Repo Settings", { testIsolation: false }, () => {
     it("Shows merge method only if merge queue is Evergreen", () => {
       const selectId = "merge-method-select";
 
-      // Don't show merge method for GitHub.
+      // Hides merge method for GitHub.
       cy.getInputByLabel("GitHub").check({ force: true });
       cy.dataCy(selectId).should("not.exist");
 
-      // Show merge method for Evergreen.
+      // Shows merge method for Evergreen.
       cy.getInputByLabel("Evergreen").check({ force: true });
       cy.dataCy(selectId).should("exist");
       cy.get(`button[name=${selectId}]`).click();

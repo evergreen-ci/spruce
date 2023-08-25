@@ -24,7 +24,7 @@ export const gitTagAliasesDocumentationUrl = `${projectDistroSettingsDocumentati
 
 export const githubChecksAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#github-checks-aliases`;
 
-export const githubMergeDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Merge-Queue`;
+export const githubMergeQueueDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Merge-Queue`;
 
 export const cliDocumentationUrl = `${wikiBaseUrl}/CLI`;
 

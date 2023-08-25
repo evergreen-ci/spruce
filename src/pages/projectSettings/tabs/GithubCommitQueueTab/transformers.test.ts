@@ -108,11 +108,11 @@ const projectForm: GCQFormState = {
   },
   commitQueue: {
     enabled: null,
+    message: "",
     mergeSettings: {
       mergeMethod: "",
       mergeQueue: MergeQueue.Evergreen,
     },
-    message: "",
     patchDefinitions: {
       commitQueueAliasesOverride: true,
       commitQueueAliases: [
@@ -150,9 +150,9 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
     gitTagAuthorizedTeams: [],
     commitQueue: {
       enabled: null,
+      message: "",
       mergeMethod: "",
       mergeQueue: MergeQueue.Evergreen,
-      message: "",
     },
   },
   aliases: [
@@ -263,11 +263,11 @@ const repoForm: GCQFormState = {
   },
   commitQueue: {
     enabled: true,
+    message: "Commit Queue Message",
     mergeSettings: {
       mergeMethod: "squash",
       mergeQueue: MergeQueue.Github,
     },
-    message: "Commit Queue Message",
     patchDefinitions: {
       commitQueueAliasesOverride: true,
       commitQueueAliases: [],
@@ -286,9 +286,9 @@ const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
     gitTagAuthorizedTeams: [],
     commitQueue: {
       enabled: true,
+      message: "Commit Queue Message",
       mergeMethod: "squash",
       mergeQueue: MergeQueue.Github,
-      message: "Commit Queue Message",
     },
   },
   aliases: [
@@ -415,11 +415,11 @@ const mergedForm: GCQFormState = {
   },
   commitQueue: {
     enabled: null,
+    message: "",
     mergeSettings: {
       mergeMethod: "",
       mergeQueue: MergeQueue.Evergreen,
     },
-    message: "",
     patchDefinitions: {
       commitQueueAliasesOverride: true,
       commitQueueAliases: [
