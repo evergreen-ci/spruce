@@ -58,7 +58,7 @@ describe("Public Key Management Page", () => {
     });
   });
 
-  describe.only("Edit Key Modal", () => {
+  describe("Edit Key Modal", () => {
     beforeEach(() => {
       cy.visit(route);
       cy.dataCy("edit-btn").first().click();
