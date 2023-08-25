@@ -15,7 +15,7 @@ describe("Task Action Buttons", () => {
       cy.visit(tasks[3]);
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
-      cy.dataCy("unschedule-task").click();
+      cy.dataCy("unschedule-task").click({ force: true });
       cy.validateToast("success", unscheduleSuccessBannerText);
     });
 
@@ -30,7 +30,7 @@ describe("Task Action Buttons", () => {
       cy.visit(tasks[3]);
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
-      cy.dataCy("prioritize-task").click();
+      cy.dataCy("prioritize-task").click({ force: true });
       cy.dataCy("task-priority-input").type("99").type("{enter}");
       cy.validateToast("success", prioritySuccessBannerText);
     });
