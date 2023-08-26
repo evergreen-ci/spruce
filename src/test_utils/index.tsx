@@ -1,6 +1,7 @@
 import {
   act,
   render,
+  renderHook,
   queries,
   within,
   waitFor,
@@ -100,6 +101,7 @@ export {
   customRender as render,
   renderWithRouterMatch,
   customWithin as within,
+  renderHook,
   waitFor,
   userEvent,
 };

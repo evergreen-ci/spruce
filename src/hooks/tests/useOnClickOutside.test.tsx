@@ -1,7 +1,6 @@
 import { createRef } from "react";
-import { renderHook } from "@testing-library/react-hooks";
 import { useOnClickOutside } from "hooks";
-import { render, screen, userEvent } from "test_utils";
+import { renderHook, render, screen, userEvent } from "test_utils";
 
 describe("useOnClickOutside", () => {
   describe("useOnClickOutside with 1 ref", () => {

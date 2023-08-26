@@ -1,4 +1,4 @@
-import { renderHook, act } from "@testing-library/react-hooks";
+import { renderHook, act } from "test_utils";
 import { useResize } from ".";
 
 describe("useResize", () => {
