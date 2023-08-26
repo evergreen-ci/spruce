@@ -293,7 +293,7 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
                         autocomplete="on"
                         class="leafygreen-ui-6i61vl"
                         data-cy="task-filter-input"
-                        id="textinput-238"
+                        id="textinput-236"
                         placeholder="Search tasks"
                         required=""
                         type="text"
@@ -309,17 +309,17 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
                   >
                     <label
                       class="leafygreen-ui-75mjfl"
-                      for="checkbox-239"
-                      id="checkbox-239-label"
+                      for="checkbox-237"
+                      id="checkbox-237-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="checkbox"
-                        aria-labelledby="checkbox-239-label"
+                        aria-labelledby="checkbox-237-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="select-all-checkbox"
-                        id="checkbox-239"
+                        id="checkbox-237"
                         type="checkbox"
                       />
                       <div
@@ -373,17 +373,17 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
                   >
                     <label
                       class="leafygreen-ui-75mjfl"
-                      for="checkbox-240"
-                      id="checkbox-240-label"
+                      for="checkbox-238"
+                      id="checkbox-238-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="checkbox"
-                        aria-labelledby="checkbox-240-label"
+                        aria-labelledby="checkbox-238-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="task-checkbox"
-                        id="checkbox-240"
+                        id="checkbox-238"
                         type="checkbox"
                       />
                       <div
@@ -422,17 +422,17 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
                   >
                     <label
                       class="leafygreen-ui-75mjfl"
-                      for="checkbox-241"
-                      id="checkbox-241-label"
+                      for="checkbox-239"
+                      id="checkbox-239-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="checkbox"
-                        aria-labelledby="checkbox-241-label"
+                        aria-labelledby="checkbox-239-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="task-checkbox"
-                        id="checkbox-241"
+                        id="checkbox-239"
                         type="checkbox"
                       />
                       <div
