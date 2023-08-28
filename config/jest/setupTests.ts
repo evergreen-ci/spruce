@@ -17,8 +17,8 @@ window.crypto.randomUUID = (() => {
   };
 })();
 
-
-// Prevent '`fallbackFocus` as selector refers to no known node' errors.
+// Mock focus-trap-react to prevent errors in tests that use modals. focus-trap-react is a package used
+// by LeafyGreen and is not a direct dependency of this repo.
 jest.mock(
   "focus-trap-react",
   () => {
