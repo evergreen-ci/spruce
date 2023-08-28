@@ -22,7 +22,7 @@ export default defineConfig({
       });
       on("after:run", () => {
         try {
-          execSync("yarn evg-ops --clean-up");
+          execSync("yarn evg-db-ops --clean-up");
         } catch (e) {
           console.error(e);
         }
