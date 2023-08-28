@@ -12,7 +12,7 @@ describe("Task Action Buttons", () => {
     });
 
     it("Clicking Unschedule button should unschedule a task and display a success toast", () => {
-      cy.visit(tasks[3]);
+      cy.visit(tasks[5]);
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("unschedule-task").click({ force: true });
@@ -27,7 +27,7 @@ describe("Task Action Buttons", () => {
     });
 
     it("Clicking on set priority, entering a priority value and submitting should result in a success toast.", () => {
-      cy.visit(tasks[3]);
+      cy.visit(tasks[5]);
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("prioritize-task").click({ force: true });
@@ -44,7 +44,7 @@ describe("Task Action Buttons", () => {
     });
 
     it("Should correctly disable/enable the task when clicked", () => {
-      cy.visit(tasks[1]);
+      cy.visit(tasks[5]);
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("disable-enable").click();
@@ -75,4 +75,5 @@ const tasks = {
   2: "/task/evergreen_lint_lint_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
   3: "/task/evergreen_ubuntu1604_dist_patch_33016573166a36bd5f46b4111151899d5c4e95b1_5ecedafb562343215a7ff297_20_05_27_21_39_46",
   4: "/task/mci_ubuntu1604_display_asdf_patch_a1d2c8f70bf5c543de8b9641ac1ec08def1ddb26_5f74d99ab2373627c047c5e5_20_09_30_19_16_47/execution-tasks?execution=0&sorts=STATUS%3AASC",
+  5: "/task/spruce_ubuntu1604_coverage_22ea5d71470bb1f9a50ffaa4a4aee4f48fb61c49_22_02_24_18_41_35",
 };
