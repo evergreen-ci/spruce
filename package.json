@@ -151,7 +151,7 @@
     "@storybook/react-vite": "7.0.21",
     "@storybook/testing-library": "0.2.0",
     "@styled/typescript-styled-plugin": "1.0.0",
-    "@testing-library/jest-dom": "5.16.4",
+    "@testing-library/jest-dom": "6.1.2",
     "@testing-library/react": "12.1.5",
     "@testing-library/react-hooks": "8.0.0",
     "@testing-library/user-event": "12.5.0",
