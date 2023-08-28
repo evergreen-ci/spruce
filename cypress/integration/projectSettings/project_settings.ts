@@ -197,7 +197,7 @@ describe("Repo Settings", { testIsolation: false }, () => {
 
       countCQFields(2);
       cy.dataCy("cq-enabled-radio-box").children().first().click();
-      countCQFields(7);
+      countCQFields(4);
 
       cy.dataCy("error-banner")
         .contains(
@@ -206,8 +206,16 @@ describe("Repo Settings", { testIsolation: false }, () => {
         .should("exist");
     });
 
-    it("Presents three options for merge method", () => {
+    it("Shows merge method only if merge queue is Evergreen", () => {
       const selectId = "merge-method-select";
+
+      // Hides merge method for GitHub.
+      cy.getInputByLabel("GitHub").check({ force: true });
+      cy.dataCy(selectId).should("not.exist");
+
+      // Shows merge method for Evergreen.
+      cy.getInputByLabel("Evergreen").check({ force: true });
+      cy.dataCy(selectId).should("exist");
       cy.get(`button[name=${selectId}]`).click();
       cy.get(`#${selectId}-menu`).children().should("have.length", 3);
       cy.get(`#${selectId}-menu`).children().first().click();
