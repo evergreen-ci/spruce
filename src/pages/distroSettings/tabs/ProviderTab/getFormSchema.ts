@@ -1,7 +1,7 @@
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import { Provider } from "gql/generated/types";
-import { staticProviderSettings, uiSchema } from "./schemaFields";
+import { staticProviderSettings } from "./schemaFields";
 
 export const getFormSchema = (): ReturnType<GetFormSchema> => ({
   fields: {},
@@ -67,7 +67,21 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
   uiSchema: {
     provider: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
+      providerName: {
+        "ui:allowDeselect": false,
+        "ui:data-cy": "provider-select",
+      },
     },
-    ...uiSchema,
+    providerSettings: {
+      "ui:data-cy": "provider-settings",
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      userData: {
+        "ui:widget": "textarea",
+      },
+      securityGroups: {
+        "ui:addButtonText": "Add security group",
+        "ui:orderable": false,
+      },
+    },
   },
 });
