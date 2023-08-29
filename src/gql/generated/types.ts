@@ -337,7 +337,7 @@ export type Distro = {
   name: Scalars["String"];
   note: Scalars["String"];
   plannerSettings: PlannerSettings;
-  provider: Scalars["String"];
+  provider: Provider;
   providerSettingsList: Array<Scalars["Map"]>;
   setup: Scalars["String"];
   setupAsSudo: Scalars["Boolean"];
@@ -401,7 +401,7 @@ export type DistroInput = {
   name: Scalars["String"];
   note: Scalars["String"];
   plannerSettings: PlannerSettingsInput;
-  provider: Scalars["String"];
+  provider: Provider;
   providerSettingsList: Array<Scalars["Map"]>;
   setup: Scalars["String"];
   setupAsSudo: Scalars["Boolean"];
@@ -1804,6 +1804,13 @@ export type ProjectVarsInput = {
   privateVarsList?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   vars?: InputMaybe<Scalars["StringMap"]>;
 };
+
+export enum Provider {
+  Docker = "DOCKER",
+  Ec2Fleet = "EC2_FLEET",
+  Ec2OnDemand = "EC2_ON_DEMAND",
+  Static = "STATIC",
+}
 
 /** PublicKey models a public key. Users can save/modify/delete their public keys. */
 export type PublicKey = {
@@ -5072,6 +5079,28 @@ export type AwsRegionsQuery = {
   awsRegions?: Array<string> | null;
 };
 
+export type DistroEventsQueryVariables = Exact<{
+  distroId: Scalars["String"];
+  limit?: InputMaybe<Scalars["Int"]>;
+  before?: InputMaybe<Scalars["Time"]>;
+}>;
+
+export type DistroEventsQuery = {
+  __typename?: "Query";
+  distroEvents: {
+    __typename?: "DistroEventsPayload";
+    count: number;
+    eventLogEntries: Array<{
+      __typename?: "DistroEvent";
+      after?: any | null;
+      before?: any | null;
+      data?: any | null;
+      timestamp: Date;
+      user: string;
+    }>;
+  };
+};
+
 export type DistroTaskQueueQueryVariables = Exact<{
   distroId: Scalars["String"];
 }>;
@@ -5111,7 +5140,7 @@ export type DistroQuery = {
     isVirtualWorkStation: boolean;
     name: string;
     note: string;
-    provider: string;
+    provider: Provider;
     providerSettingsList: Array<any>;
     setup: string;
     setupAsSudo: boolean;

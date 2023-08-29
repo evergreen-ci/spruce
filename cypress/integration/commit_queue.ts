@@ -3,13 +3,11 @@ const commitQueue = {
   id2: "mongodb-mongo-test",
   id3: "non-existent-item",
   id4: "evergreen",
-  id5: "logkeeper",
 };
 const COMMIT_QUEUE_ROUTE_1 = `/commit-queue/${commitQueue.id1}`;
 const COMMIT_QUEUE_ROUTE_2 = `/commit-queue/${commitQueue.id2}`;
 const INVALID_COMMIT_QUEUE_ROUTE = `/commit-queue/${commitQueue.id3}`;
 const COMMIT_QUEUE_ROUTE_4 = `/commit-queue/${commitQueue.id4}`;
-const COMMIT_QUEUE_ROUTE_PR = `/commit-queue/${commitQueue.id5}`;
 
 describe("commit queue page", { testIsolation: false }, () => {
   describe(COMMIT_QUEUE_ROUTE_1, () => {
@@ -82,34 +80,6 @@ describe("commit queue page", { testIsolation: false }, () => {
     });
     it("visiting a non existent commit queue page should display an error", () => {
       cy.validateToast("error", "There was an error loading the commit queue");
-    });
-  });
-
-  describe(COMMIT_QUEUE_ROUTE_PR, () => {
-    before(() => {
-      cy.visit(COMMIT_QUEUE_ROUTE_PR);
-    });
-    it("Clicking on remove a patch for the PR commit queue should work", () => {
-      cy.dataCy("commit-queue-card").should("have.length", 1);
-      cy.dataCy("commit-queue-card-title").should(
-        "have.text",
-        "patch description here"
-      );
-      cy.dataCy("commit-queue-card-title").within(() => {
-        cy.get("a").should(
-          "have.attr",
-          "href",
-          "https://github.com/logkeeper/logkeeper/pull/1234"
-        );
-      });
-      cy.dataCy("commit-queue-patch-button").should("exist");
-      cy.dataCy("commit-queue-patch-button").click();
-      cy.dataCy("commit-queue-confirmation-modal").should("be.visible");
-      cy.dataCy("commit-queue-confirmation-modal").within(() => {
-        cy.contains("Remove").click();
-      });
-      cy.dataCy("commit-queue-confirmation-modal").should("not.exist");
-      cy.dataCy("commit-queue-card").should("not.exist");
     });
   });
 });

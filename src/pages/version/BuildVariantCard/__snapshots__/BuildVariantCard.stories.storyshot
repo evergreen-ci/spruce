@@ -3,18 +3,20 @@
 exports[`storybook Storyshots Pages/Version/BuildVariantCard Default 1`] = `
 <div>
   <div
-    class="e1dt8lrl1 css-2nu4m-SiderCard-StickyMetadataCard e1am38ss0 leafygreen-ui-1v4ednr"
+    class="e1dt8lrl1 css-tmy1bv-SiderCard-StickyMetadataCard e1am38ss0 leafygreen-ui-1v4ednr"
   >
-    <p
-      class="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-1miy0xp"
-    >
-      Build Variants
-    </p>
-    <hr
-      class="css-qqg5h5-Divider eyj3qof0"
-    />
+    <div>
+      <p
+        class="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-1miy0xp"
+      >
+        Build Variants
+      </p>
+      <hr
+        class="css-qqg5h5-Divider eyj3qof0"
+      />
+    </div>
     <div
-      class="css-14g0c2d-ScrollableBuildVariantStatsContainer e1dt8lrl0"
+      class="css-akheyc-ScrollableBuildVariantStatsContainer e1dt8lrl0"
       data-cy="build-variants"
     >
       <div
