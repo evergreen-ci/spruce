@@ -47,14 +47,22 @@ restore_database() {
         exit 1
     fi
 
+    MAX_RETRIES=2
+
     # Use 'mongorestore' to restore the database from the dump.
-    if mongorestore --quiet --drop --uri="$URI" "$DUMP_FOLDER"; then
-        echo "Successfully restored the database from $DUMP_FOLDER."
-        exit 0
-    else
-        echo "Error restoring the database from $DUMP_FOLDER."
-        exit 1
-    fi
+    for ((retry=0; retry<=MAX_RETRIES; retry++)); do
+        if mongorestore --quiet --drop --uri="$URI" "$DUMP_FOLDER"; then
+            echo "Successfully restored the database from $DUMP_FOLDER."
+            exit 0
+        else
+            echo "Error restoring the database from $DUMP_FOLDER. Retry attempt: $retry"
+            if [ $retry -eq $MAX_RETRIES ]; then
+                echo "Max retries reached. Exiting."
+                exit 1
+            fi
+            sleep 3
+        fi
+    done
 }
 
 # Check the command-line argument to determine the action to perform.
