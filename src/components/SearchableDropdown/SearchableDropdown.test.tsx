@@ -7,11 +7,10 @@ const RenderSearchableDropdown = (
 
 describe("searchableDropdown", () => {
   it("sets the label to what ever the current value is", () => {
-    const onChange = jest.fn();
     render(
       RenderSearchableDropdown({
         value: "evergreen",
-        onChange,
+        onChange: jest.fn(),
         options: ["evergreen", "spruce"],
       })
     );
@@ -20,11 +19,10 @@ describe("searchableDropdown", () => {
 
   it("should toggle dropdown when clicking on it", async () => {
     const user = userEvent.setup();
-    const onChange = jest.fn();
     render(
       RenderSearchableDropdown({
         value: "evergreen",
-        onChange,
+        onChange: jest.fn(),
         options: ["evergreen", "spruce"],
       })
     );
@@ -43,11 +41,10 @@ describe("searchableDropdown", () => {
 
   it("should narrow down search results when filtering", async () => {
     const user = userEvent.setup();
-    const onChange = jest.fn();
     render(
       RenderSearchableDropdown({
         value: "evergreen",
-        onChange,
+        onChange: jest.fn(),
         options: ["evergreen", "spruce"],
       })
     );
@@ -75,11 +72,10 @@ describe("searchableDropdown", () => {
 
   it("should reset the search input and options after SearchableDropdown closes", async () => {
     const user = userEvent.setup();
-    const onChange = jest.fn();
     render(
       RenderSearchableDropdown({
         value: "evergreen",
-        onChange,
+        onChange: jest.fn(),
         options: ["evergreen", "spruce"],
       })
     );
@@ -109,14 +105,13 @@ describe("searchableDropdown", () => {
 
   it("should use custom search function when passed in", async () => {
     const user = userEvent.setup();
-    const onChange = jest.fn();
     const searchFunc = jest.fn((options, match) =>
       options.filter((o) => o === match)
     );
     render(
       RenderSearchableDropdown({
         value: ["evergreen"],
-        onChange,
+        onChange: jest.fn(),
         options: ["evergreen", "spruce"],
         searchFunc,
       })
@@ -173,11 +168,10 @@ describe("searchableDropdown", () => {
 
     it("should reset the search input and options after user selects an option", async () => {
       const user = userEvent.setup();
-      const onChange = jest.fn();
       render(
         RenderSearchableDropdown({
           value: "evergreen",
-          onChange,
+          onChange: jest.fn(),
           options: ["evergreen", "spruce"],
         })
       );
@@ -270,11 +264,10 @@ describe("searchableDropdown", () => {
 
     it("should NOT reset the search input and options after user selects an option", async () => {
       const user = userEvent.setup();
-      const onChange = jest.fn();
       render(
         RenderSearchableDropdown({
           value: "evergreen",
-          onChange,
+          onChange: jest.fn(),
           options: ["evergreen", "spruce", "sandbox"],
           allowMultiSelect: true,
         })
@@ -323,11 +316,10 @@ describe("searchableDropdown", () => {
   describe("when using custom render options", () => {
     it("should render custom options", async () => {
       const user = userEvent.setup();
-      const onChange = jest.fn();
       render(
         RenderSearchableDropdown({
           value: "evergreen",
-          onChange,
+          onChange: jest.fn(),
           options: [
             {
               label: "Evergreen",
@@ -392,11 +384,10 @@ describe("searchableDropdown", () => {
     });
 
     it("should render a custom button", () => {
-      const onChange = jest.fn();
       render(
         RenderSearchableDropdown({
           value: "evergreen",
-          onChange,
+          onChange: jest.fn(),
           options: ["evergreen", "spruce"],
           buttonRenderer: (option: string) => (
             <b className="just-a-test">{option}</b>

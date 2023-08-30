@@ -1,5 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { render, screen, waitFor, userEvent } from "test_utils";
+import { render, screen, userEvent } from "test_utils";
 import WelcomeModal from "./WelcomeModal";
 
 describe("welcomeModal", () => {
@@ -85,8 +85,6 @@ describe("welcomeModal", () => {
     await user.click(screen.queryByDataCy("carousel-dot-1"));
     expect(screen.getByText("Slide 2")).toBeVisible();
     await user.click(screen.queryByDataCy("carousel-dot-0"));
-    await waitFor(() => {
-      expect(screen.getByText("Slide 1")).toBeVisible();
-    });
+    expect(screen.getByText("Slide 1")).toBeVisible();
   });
 });

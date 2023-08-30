@@ -215,7 +215,7 @@ describe("createProjectField", () => {
     expect(confirmButton).toBeEnabled();
 
     const requestS3Creds = screen.getByDataCy("request-s3-creds");
-    // LeafyGreen checkbox has pointer-events: none so we must click on the label.
+    // LeafyGreen checkbox has pointer-events: none so click on the label instead.
     const requestS3CredLabel = screen.getByText(
       "Open a JIRA ticket to request an S3 Bucket from the Build team"
     );

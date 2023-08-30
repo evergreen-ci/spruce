@@ -18,7 +18,7 @@ window.crypto.randomUUID = (() => {
 })();
 
 // Mock focus-trap-react to prevent errors in tests that use modals. focus-trap-react is a package used
-// by LeafyGreen and is not a direct dependency of this repo.
+// by LeafyGreen and is not a direct dependency of Spruce.
 jest.mock(
   "focus-trap-react",
   () => {

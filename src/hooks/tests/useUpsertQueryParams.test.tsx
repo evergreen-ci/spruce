@@ -33,7 +33,6 @@ const Content = () => {
 describe("useUpsertQueryParams", () => {
   it("renders normally and doesn't affect the url", () => {
     const { router } = renderWithRouterMatch(<Content />);
-
     expect(router.state.location.search).toBe("");
   });
 
@@ -46,7 +45,6 @@ describe("useUpsertQueryParams", () => {
     await user.type(category, "category");
     await user.type(value, "value");
     await user.click(screen.queryByDataCy("submit"));
-
     expect(router.state.location.search).toBe(`?category=value`);
   });
 

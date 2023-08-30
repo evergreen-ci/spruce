@@ -210,6 +210,7 @@ describe("toast", () => {
 
 describe("mocked toast", () => {
   it("should be able to mock the toast in a component test", async () => {
+    const user = userEvent.setup();
     const ToastComponent: React.FC = () => {
       const dispatchToast = useToastContext();
       return (
@@ -223,7 +224,6 @@ describe("mocked toast", () => {
       dispatchToast,
       useToastContext: useToastContextSpied,
     } = RenderFakeToastContext(<ToastComponent />);
-    const user = userEvent.setup();
     render(<Component />);
     await user.click(screen.getByText("Click Me"));
     expect(useToastContextSpied).toHaveBeenCalledTimes(1);

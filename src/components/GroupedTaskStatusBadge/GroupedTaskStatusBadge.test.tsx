@@ -9,9 +9,11 @@ import { TaskStatus } from "types/task";
 import { GroupedTaskStatusBadge } from ".";
 
 describe("groupedTaskStatusBadgeIcon", () => {
+  const versionId = "version1";
+
   it("clicking on badge performs an action", async () => {
-    const onClick = jest.fn();
     const user = userEvent.setup();
+    const onClick = jest.fn();
     render(
       <GroupedTaskStatusBadge
         count={400}
@@ -59,12 +61,12 @@ describe("groupedTaskStatusBadgeIcon", () => {
   });
 
   it("badge should show tooltip when status counts is provided", async () => {
+    const user = userEvent.setup();
     const statusCounts = {
       started: 30,
       failed: 15,
       unstarted: 5,
     };
-    const user = userEvent.setup();
     render(
       <GroupedTaskStatusBadge
         count={400}
@@ -91,5 +93,4 @@ describe("groupedTaskStatusBadgeIcon", () => {
     expect(screen.queryByText("15")).toBeVisible();
     expect(screen.queryByText("Failed")).toBeVisible();
   });
-  const versionId = "version1";
 });

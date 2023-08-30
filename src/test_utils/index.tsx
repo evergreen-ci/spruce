@@ -1,11 +1,11 @@
 import {
   act,
+  queries,
   render,
   renderHook,
-  queries,
-  within,
-  waitFor,
   screen,
+  waitFor,
+  within,
 } from "@testing-library/react";
 import type { RenderResult, RenderOptions } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -94,14 +94,13 @@ const renderWithRouterMatch = (
 const boundQueries = within<typeof customQueries>(document.body, customQueries);
 const customScreen = { ...screen, ...boundQueries };
 
-// override render method
 export {
   act,
-  customScreen as screen,
   customRender as render,
-  renderWithRouterMatch,
-  customWithin as within,
   renderHook,
-  waitFor,
+  renderWithRouterMatch,
+  customScreen as screen,
   userEvent,
+  waitFor,
+  customWithin as within,
 };

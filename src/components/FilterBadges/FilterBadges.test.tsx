@@ -12,13 +12,11 @@ describe("filterBadges", () => {
   });
 
   it("should render badges if there are some passed in", () => {
-    const onRemove = jest.fn();
-    const onClearAll = jest.fn();
     render(
       <FilterBadges
         badges={[{ key: "test", value: "value" }]}
-        onRemove={onRemove}
-        onClearAll={onClearAll}
+        onRemove={jest.fn()}
+        onClearAll={jest.fn()}
       />
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(1);
@@ -26,16 +24,14 @@ describe("filterBadges", () => {
   });
 
   it("should render a badge for each key/value pair passed in", () => {
-    const onRemove = jest.fn();
-    const onClearAll = jest.fn();
     render(
       <FilterBadges
         badges={[
           { key: "test", value: "value" },
           { key: "test2", value: "value2" },
         ]}
-        onRemove={onRemove}
-        onClearAll={onClearAll}
+        onRemove={jest.fn()}
+        onClearAll={jest.fn()}
       />
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(2);
@@ -44,8 +40,6 @@ describe("filterBadges", () => {
   });
 
   it("only renders badges up to the limit", () => {
-    const onRemove = jest.fn();
-    const onClearAll = jest.fn();
     render(
       <FilterBadges
         badges={[
@@ -60,8 +54,8 @@ describe("filterBadges", () => {
           { key: "test9", value: "value9" },
           { key: "test10", value: "value10" },
         ]}
-        onRemove={onRemove}
-        onClearAll={onClearAll}
+        onRemove={jest.fn()}
+        onClearAll={jest.fn()}
       />
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(8);
@@ -71,8 +65,6 @@ describe("filterBadges", () => {
   });
 
   it("clicking see more should display a modal with all of the badges", async () => {
-    const onRemove = jest.fn();
-    const onClearAll = jest.fn();
     const user = userEvent.setup();
     render(
       <FilterBadges
@@ -88,8 +80,8 @@ describe("filterBadges", () => {
           { key: "test9", value: "value9" },
           { key: "test10", value: "value10" },
         ]}
-        onRemove={onRemove}
-        onClearAll={onClearAll}
+        onRemove={jest.fn()}
+        onClearAll={jest.fn()}
       />
     );
     await user.click(screen.queryByText("see 2 more"));
@@ -109,9 +101,8 @@ describe("filterBadges", () => {
   });
 
   it("clicking clear all should call the clear all callback", async () => {
-    const onRemove = jest.fn();
-    const onClearAll = jest.fn();
     const user = userEvent.setup();
+    const onClearAll = jest.fn();
     render(
       <FilterBadges
         badges={[
@@ -126,7 +117,7 @@ describe("filterBadges", () => {
           { key: "test9", value: "value9" },
           { key: "test10", value: "value10" },
         ]}
-        onRemove={onRemove}
+        onRemove={jest.fn()}
         onClearAll={onClearAll}
       />
     );
@@ -136,7 +127,6 @@ describe("filterBadges", () => {
 
   it("clicking a badge should call the remove callback", async () => {
     const onRemove = jest.fn();
-    const onClearAll = jest.fn();
     const user = userEvent.setup();
     render(
       <FilterBadges
@@ -153,7 +143,7 @@ describe("filterBadges", () => {
           { key: "test10", value: "value10" },
         ]}
         onRemove={onRemove}
-        onClearAll={onClearAll}
+        onClearAll={jest.fn()}
       />
     );
     const closeBadge = screen.queryAllByDataCy("close-badge")[0];
@@ -163,15 +153,13 @@ describe("filterBadges", () => {
   });
 
   it("should truncate a badge value if it is too long", async () => {
-    const onRemove = jest.fn();
-    const onClearAll = jest.fn();
-    const longName = "this is a really long name that should be truncated";
     const user = userEvent.setup();
+    const longName = "this is a really long name that should be truncated";
     render(
       <FilterBadges
         badges={[{ key: "some", value: longName }]}
-        onRemove={onRemove}
-        onClearAll={onClearAll}
+        onRemove={jest.fn()}
+        onClearAll={jest.fn()}
       />
     );
     const truncatedBadge = screen.queryByDataCy("filter-badge");

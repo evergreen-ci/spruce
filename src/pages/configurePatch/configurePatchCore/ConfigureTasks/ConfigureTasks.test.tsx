@@ -102,9 +102,9 @@ describe("configureTasks", () => {
       expect(checkbox).toBePartiallyChecked();
     });
     it("selecting a task should call setSelectedBuildVariantTasks with the correct arguments selecting only that task", async () => {
+      const user = userEvent.setup();
       const selectedBuildVariants = ["ubuntu2004"];
       const setSelectedBuildVariantTasks = jest.fn();
-      const user = userEvent.setup();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
@@ -131,9 +131,9 @@ describe("configureTasks", () => {
       });
     });
     it("selecting all tasks should call setSelectedBuildVariantTasks with the correct arguments selecting all of the visible tasks in one variant", async () => {
+      const user = userEvent.setup();
       const selectedBuildVariants = ["ubuntu2004"];
       const setSelectedBuildVariantTasks = jest.fn();
-      const user = userEvent.setup();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
@@ -164,9 +164,9 @@ describe("configureTasks", () => {
       });
     });
     it("selecting a deduplicated task should call setSelectedBuildVariantTasks selecting the task in all variants", async () => {
+      const user = userEvent.setup();
       const selectedBuildVariants = ["ubuntu2004", "ubuntu1804"];
       const setSelectedBuildVariantTasks = jest.fn();
-      const user = userEvent.setup();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
@@ -195,9 +195,9 @@ describe("configureTasks", () => {
       });
     });
     it("selecting all tasks should call setSelectedBuildVariantTasks with the correct arguments selecting all of the visible tasks in multiple variants", async () => {
+      const user = userEvent.setup();
       const selectedBuildVariants = ["ubuntu2004", "ubuntu1804"];
       const setSelectedBuildVariantTasks = jest.fn();
-      const user = userEvent.setup();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
@@ -406,10 +406,10 @@ describe("configureTasks", () => {
       expect(screen.getByLabelText("parsley")).toBeInTheDocument();
     });
     it("selecting the entire alias calls setSelectedAliases with the correct arguments", async () => {
+      const user = userEvent.setup();
       const selectedBuildVariants = ["parsley"];
       const setSelectedBuildVariantTasks = jest.fn();
       const setSelectedAliases = jest.fn();
-      const user = userEvent.setup();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}

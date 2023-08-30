@@ -3,13 +3,12 @@ import { SpruceForm, SpruceFormContainer } from ".";
 
 describe("spruce form", () => {
   it("should render as expected", () => {
-    const onChange = jest.fn();
     render(
       <SpruceFormContainer title="Just a test">
         <SpruceForm
           schema={basicForm.schema}
           formData={basicForm.formData}
-          onChange={onChange}
+          onChange={jest.fn()}
           uiSchema={basicForm.uiSchema}
         />
       </SpruceFormContainer>
@@ -67,8 +66,8 @@ describe("spruce form", () => {
           });
           const validate = jest.fn((_formData, err) => err);
 
-          const { formData, schema, uiSchema } = textInput();
           const user = userEvent.setup();
+          const { formData, schema, uiSchema } = textInput();
           render(
             <SpruceFormContainer title="Test for Text Input">
               <SpruceForm
@@ -97,8 +96,9 @@ describe("spruce form", () => {
             const { formData } = x;
             data = formData;
           });
-          const { formData, schema, uiSchema } = textInput();
+
           const user = userEvent.setup();
+          const { formData, schema, uiSchema } = textInput();
           render(
             <SpruceFormContainer title="Test for Text Input">
               <SpruceForm
@@ -123,8 +123,9 @@ describe("spruce form", () => {
             const { formData } = x;
             data = formData;
           });
-          const { formData, schema, uiSchema } = textInput("myEmptyValue");
+
           const user = userEvent.setup();
+          const { formData, schema, uiSchema } = textInput("myEmptyValue");
           render(
             <SpruceFormContainer title="Test for Text Input">
               <SpruceForm
@@ -157,8 +158,8 @@ describe("spruce form", () => {
           });
           const validate = jest.fn((_formData, err) => err);
 
-          const { formData, schema, uiSchema } = textArea();
           const user = userEvent.setup();
+          const { formData, schema, uiSchema } = textArea();
           render(
             <SpruceFormContainer title="Test for Text Area">
               <SpruceForm
@@ -187,8 +188,9 @@ describe("spruce form", () => {
             const { formData } = x;
             data = formData;
           });
-          const { formData, schema, uiSchema } = textArea();
+
           const user = userEvent.setup();
+          const { formData, schema, uiSchema } = textArea();
           render(
             <SpruceFormContainer title="Test for Text Area">
               <SpruceForm
@@ -213,8 +215,9 @@ describe("spruce form", () => {
             const { formData } = x;
             data = formData;
           });
-          const { formData, schema, uiSchema } = textArea("myEmptyValue");
+
           const user = userEvent.setup();
+          const { formData, schema, uiSchema } = textArea("myEmptyValue");
           render(
             <SpruceFormContainer title="Test for Text Area">
               <SpruceForm
@@ -237,13 +240,12 @@ describe("spruce form", () => {
 
     describe("select", () => {
       it("renders with the specified default selected", () => {
-        const onChange = jest.fn();
         const { formData, schema, uiSchema } = select;
         render(
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={onChange}
+            onChange={jest.fn()}
             uiSchema={uiSchema}
           />
         );
@@ -253,14 +255,13 @@ describe("spruce form", () => {
       });
 
       it("shows three options on click", async () => {
-        const onChange = jest.fn();
-        const { formData, schema, uiSchema } = select;
         const user = userEvent.setup();
+        const { formData, schema, uiSchema } = select;
         render(
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={onChange}
+            onChange={jest.fn()}
             uiSchema={uiSchema}
           />
         );
@@ -271,14 +272,13 @@ describe("spruce form", () => {
       });
 
       it("closes the menu and displays the new selected option on click", async () => {
-        const onChange = jest.fn();
-        const { formData, schema, uiSchema } = select;
         const user = userEvent.setup();
+        const { formData, schema, uiSchema } = select;
         render(
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={onChange}
+            onChange={jest.fn()}
             uiSchema={uiSchema}
           />
         );
@@ -292,14 +292,13 @@ describe("spruce form", () => {
       });
 
       it("disables options included in enumDisabled", async () => {
-        const onChange = jest.fn();
-        const { formData, schema, uiSchema } = select;
         const user = userEvent.setup();
+        const { formData, schema, uiSchema } = select;
         render(
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={onChange}
+            onChange={jest.fn()}
             uiSchema={uiSchema}
           />
         );
@@ -318,12 +317,11 @@ describe("spruce form", () => {
     describe("radio group", () => {
       it("renders 3 inputs with the specified default selected", () => {
         const { formData, schema, uiSchema } = radioGroup;
-        const onChange = jest.fn();
         render(
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={onChange}
+            onChange={jest.fn()}
             uiSchema={uiSchema}
           />
         );
@@ -333,12 +331,11 @@ describe("spruce form", () => {
 
       it("disables options in enumDisabled", () => {
         const { formData, schema, uiSchema } = radioGroup;
-        const onChange = jest.fn();
         render(
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={onChange}
+            onChange={jest.fn()}
             uiSchema={uiSchema}
           />
         );
@@ -347,12 +344,11 @@ describe("spruce form", () => {
 
       it("shows option descriptions", () => {
         const { formData, schema, uiSchema } = radioGroup;
-        const onChange = jest.fn();
         render(
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={onChange}
+            onChange={jest.fn()}
             uiSchema={uiSchema}
           />
         );

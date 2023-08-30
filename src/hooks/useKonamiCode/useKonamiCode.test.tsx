@@ -47,9 +47,8 @@ describe("useKonamiCode", () => {
     );
 
     render(<Component />);
-    await user.type(
-      document.body,
-      "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba"
+    await user.keyboard(
+      "{ArrowUp}{ArrowUp}{ArrowDown}{ArrowDown}{ArrowLeft}{ArrowRight}{ArrowLeft}{ArrowRight}{b}{a}"
     );
     expect(audioPlayMock).toHaveBeenCalledTimes(1);
     expect(dispatchToast.success).toHaveBeenCalledWith(
@@ -90,9 +89,8 @@ describe("useKonamiCode", () => {
     );
 
     render(<Component />);
-    await user.type(
-      document.body,
-      "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightbb"
+    await user.keyboard(
+      "{ArrowUp}{ArrowUp}{ArrowDown}{ArrowDown}{ArrowLeft}{ArrowRight}{ArrowLeft}{ArrowRight}{b}{b}"
     );
     expect(audioPlayMock).toHaveBeenCalledTimes(0);
     expect(dispatchToast.success).not.toHaveBeenCalled();
@@ -131,8 +129,9 @@ describe("useKonamiCode", () => {
     render(<Component />);
     await user.type(
       screen.getByRole("textbox"),
-      "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba"
+      "{ArrowUp}{ArrowUp}{ArrowDown}{ArrowDown}{ArrowLeft}{ArrowRight}{ArrowLeft}{ArrowRight}{b}{a}"
     );
+    expect(screen.getByRole("textbox")).toHaveValue("ba");
     expect(audioPlayMock).toHaveBeenCalledTimes(0);
     expect(dispatchToast.success).not.toHaveBeenCalled();
     expect(

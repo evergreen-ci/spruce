@@ -107,7 +107,7 @@ describe("spawnVolumeModal", () => {
       expect(spawnButton).toBeEnabled();
     });
     await user.click(spawnButton);
-    await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
+    expect(dispatchToast.success).toHaveBeenCalledTimes(1);
   });
 
   it("form submission succeeds after adjusting inputs", async () => {
@@ -159,7 +159,7 @@ describe("spawnVolumeModal", () => {
       expect(spawnButton).toBeEnabled();
     });
     await user.click(spawnButton);
-    await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
+    expect(dispatchToast.success).toHaveBeenCalledTimes(1);
   });
 });
 
