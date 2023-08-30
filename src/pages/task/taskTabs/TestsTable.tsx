@@ -165,6 +165,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     >
       <Table
         data-test-id="tests-table"
+        data-cy="tests-table"
         rowKey={rowKey}
         pagination={false}
         columns={columns}

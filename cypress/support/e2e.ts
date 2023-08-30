@@ -136,7 +136,7 @@ before(() => {
       if (isMutation(req)) {
         mutationDispatched = true;
       }
-    });
+    }).as("gqlReq");
   });
 
   afterEach(() => {
