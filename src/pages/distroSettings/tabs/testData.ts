@@ -102,13 +102,6 @@ const distroData: DistroQuery["distro"] = {
       security_group_ids: ["1"],
       subnet_id: "subnet-123",
     },
-    {
-      ami: "who-ami-2",
-      instance_type: "m4.2xlarge",
-      is_vpc: false,
-      region: "us-west-1",
-      security_group_ids: ["2"],
-    },
   ],
   setup: "ls -alF",
   setupAsSudo: true,
