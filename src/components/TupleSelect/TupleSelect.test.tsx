@@ -35,7 +35,8 @@ describe("tupleSelect", () => {
     expect(input).toHaveValue("");
   });
 
-  it("should clear input when a value is submitted", () => {
+  it("should clear input when a value is submitted", async () => {
+    const user = userEvent.setup();
     const onSubmit = jest.fn();
     const validator = jest.fn((v) => v !== "bad");
     const validatorErrorMessage = "Invalid Input";
@@ -50,12 +51,13 @@ describe("tupleSelect", () => {
     const input = screen.queryByDataCy("tuple-select-input");
 
     expect(input).toHaveValue("");
-    userEvent.type(input, "some-filter");
-    userEvent.type(input, "{enter}");
+    await user.type(input, "some-filter");
+    await user.type(input, "{enter}");
     expect(input).toHaveValue("");
   });
 
   it("should validate the input and prevent submission if it fails validation", async () => {
+    const user = userEvent.setup();
     const onSubmit = jest.fn();
     const validator = jest.fn((v) => v !== "bad");
     const validatorErrorMessage = "Invalid Input";
@@ -70,14 +72,14 @@ describe("tupleSelect", () => {
     const input = screen.queryByDataCy("tuple-select-input");
 
     expect(input).toHaveValue("");
-    userEvent.type(input, "bad");
+    await user.type(input, "bad");
     expect(input).toHaveValue("bad");
-    userEvent.type(input, "{enter}");
+    await user.type(input, "{enter}");
     expect(input).toHaveValue("bad");
     expect(onSubmit).not.toHaveBeenCalled();
     expect(validator).toHaveBeenLastCalledWith("bad");
     expect(screen.getByDataCy("tuple-select-warning")).toBeInTheDocument();
-    userEvent.hover(screen.queryByDataCy("tuple-select-warning"));
+    await user.hover(screen.queryByDataCy("tuple-select-warning"));
     await screen.findByText(validatorErrorMessage);
   });
 });

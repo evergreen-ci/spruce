@@ -64,10 +64,11 @@ describe("copyProjectField", () => {
   });
 
   it("submits the modal when a project name is provided", async () => {
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(<Modal />);
     render(<Component />);
 
-    userEvent.type(
+    await user.type(
       screen.queryByDataCy("project-name-input"),
       newProjectIdentifier
     );
@@ -76,14 +77,18 @@ describe("copyProjectField", () => {
       name: "Duplicate",
     });
     const requestS3Creds = screen.getByDataCy("request-s3-creds");
-    userEvent.click(requestS3Creds);
+    // LeafyGreen checkbox has pointer-events: none so click on the label instead.
+    const requestS3CredLabel = screen.getByText(
+      "Open a JIRA ticket to request an S3 Bucket from the Build team"
+    );
+    await user.click(requestS3CredLabel);
     expect(confirmButton).toBeEnabled();
     expect(requestS3Creds).toBeChecked();
-    userEvent.click(requestS3Creds);
+    await user.click(requestS3CredLabel);
     expect(requestS3Creds).not.toBeChecked();
     expect(confirmButton).toBeEnabled();
 
-    userEvent.click(screen.queryByText("Duplicate"));
+    await user.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
@@ -115,13 +120,14 @@ describe("copyProjectField", () => {
         },
       },
     };
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <Modal mock={mockWithId} />
     );
     render(<Component />);
 
-    userEvent.type(screen.queryByDataCy("project-id-input"), "evg_id");
-    userEvent.type(
+    await user.type(screen.queryByDataCy("project-id-input"), "evg_id");
+    await user.type(
       screen.queryByDataCy("project-name-input"),
       newProjectIdentifier
     );
@@ -131,7 +137,7 @@ describe("copyProjectField", () => {
     });
     expect(confirmButton).toBeEnabled();
 
-    userEvent.click(screen.queryByText("Duplicate"));
+    await user.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
@@ -163,12 +169,13 @@ describe("copyProjectField", () => {
         errors: [new GraphQLError("There was an error copying the project")],
       },
     };
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <Modal mock={mockWithError} />
     );
     render(<Component />);
 
-    userEvent.type(
+    await user.type(
       screen.queryByDataCy("project-name-input"),
       newProjectIdentifier
     );
@@ -178,7 +185,7 @@ describe("copyProjectField", () => {
     });
     expect(confirmButton).toBeEnabled();
 
-    userEvent.click(screen.queryByText("Duplicate"));
+    await user.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
@@ -203,12 +210,13 @@ describe("copyProjectField", () => {
         errors: [new GraphQLError("There was an error copying the project")],
       },
     };
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <Modal mock={mockWithError} />
     );
     render(<Component />);
 
-    userEvent.type(
+    await user.type(
       screen.queryByDataCy("project-name-input"),
       newProjectIdentifier
     );
@@ -218,7 +226,7 @@ describe("copyProjectField", () => {
     });
     expect(confirmButton).toBeEnabled();
 
-    userEvent.click(screen.queryByText("Duplicate"));
+    await user.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(1));

@@ -60,6 +60,7 @@ describe("new distro button", () => {
 
   describe("when user has create distro permissions", () => {
     it("clicking the button opens the menu", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(<Button />);
       render(<Component />, {
         path: "/distro/:distroId/settings/general",
@@ -67,13 +68,12 @@ describe("new distro button", () => {
       });
 
       await screen.findByText("New distro");
-      userEvent.click(screen.queryByDataCy("new-distro-button"));
-      await waitFor(() =>
-        expect(screen.queryByDataCy("new-distro-menu")).toBeVisible()
-      );
+      await user.click(screen.queryByDataCy("new-distro-button"));
+      expect(screen.queryByDataCy("new-distro-menu")).toBeVisible();
     });
 
     it("clicking the 'Create new distro' button opens the create distro modal and closes the menu", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(<Button />);
       render(<Component />, {
         path: "/distro/:distroId/settings/general",
@@ -81,18 +81,17 @@ describe("new distro button", () => {
       });
 
       await screen.findByText("New distro");
-      userEvent.click(screen.queryByDataCy("new-distro-button"));
-      await waitFor(() =>
-        expect(screen.queryByDataCy("new-distro-menu")).toBeVisible()
-      );
-      userEvent.click(screen.queryByDataCy("create-distro-button"));
-      await waitFor(() =>
-        expect(screen.queryByDataCy("create-distro-modal")).toBeVisible()
-      );
+      await user.click(screen.queryByDataCy("new-distro-button"));
+      expect(screen.queryByDataCy("new-distro-menu")).toBeVisible();
+      await user.click(screen.queryByDataCy("create-distro-button"));
+      await waitFor(() => {
+        expect(screen.queryByDataCy("create-distro-modal")).toBeVisible();
+      });
       expect(screen.queryByDataCy("new-distro-menu")).not.toBeInTheDocument();
     });
 
     it("clicking the 'Copy distro' button opens the create distro modal and closes the menu", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(<Button />);
       render(<Component />, {
         path: "/distro/:distroId/settings/general",
@@ -100,14 +99,12 @@ describe("new distro button", () => {
       });
 
       await screen.findByText("New distro");
-      userEvent.click(screen.queryByDataCy("new-distro-button"));
-      await waitFor(() =>
-        expect(screen.queryByDataCy("new-distro-menu")).toBeVisible()
-      );
-      userEvent.click(screen.queryByDataCy("copy-distro-button"));
-      await waitFor(() =>
-        expect(screen.queryByDataCy("copy-distro-modal")).toBeVisible()
-      );
+      await user.click(screen.queryByDataCy("new-distro-button"));
+      expect(screen.queryByDataCy("new-distro-menu")).toBeVisible();
+      await user.click(screen.queryByDataCy("copy-distro-button"));
+      await waitFor(() => {
+        expect(screen.queryByDataCy("copy-distro-modal")).toBeVisible();
+      });
       expect(screen.queryByDataCy("new-distro-menu")).not.toBeInTheDocument();
     });
   });

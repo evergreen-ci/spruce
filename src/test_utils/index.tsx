@@ -1,9 +1,13 @@
-import { render, queries, within, screen } from "@testing-library/react";
-import type {
-  RenderResult,
-  RenderOptions,
-  BoundFunctions,
+import {
+  act,
+  queries,
+  render,
+  renderHook,
+  screen,
+  waitFor,
+  within,
 } from "@testing-library/react";
+import type { RenderResult, RenderOptions } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import * as customQueries from "./custom-queries";
@@ -87,24 +91,16 @@ const renderWithRouterMatch = (
 
 // Bind custom query methods to screen
 // https://github.com/testing-library/dom-testing-library/issues/516
-const boundQueries = Object.entries(customQueries).reduce(
-  (q, [queryName, queryFn]) => {
-    // eslint-disable-next-line no-param-reassign
-    q[queryName] = queryFn.bind(null, document.body);
-    return q;
-  },
-  {}
-) as BoundFunctions<CustomQueriesType>;
+const boundQueries = within<typeof customQueries>(document.body, customQueries);
 const customScreen = { ...screen, ...boundQueries };
 
-// re-export everything
-export * from "@testing-library/react";
-
-// override render method
 export {
-  customScreen as screen,
+  act,
   customRender as render,
+  renderHook,
   renderWithRouterMatch,
-  customWithin as within,
+  customScreen as screen,
   userEvent,
+  waitFor,
+  customWithin as within,
 };

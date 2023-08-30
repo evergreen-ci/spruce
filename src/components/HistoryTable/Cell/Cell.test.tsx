@@ -74,6 +74,7 @@ describe("taskCell", () => {
   });
 
   it("should have a tooltip on hover with failing tests when they are supplied", async () => {
+    const user = userEvent.setup();
     render(
       <TaskCell
         task={{
@@ -84,7 +85,7 @@ describe("taskCell", () => {
         loading={false}
       />
     );
-    userEvent.hover(screen.queryByDataCy("history-table-icon"));
+    await user.hover(screen.queryByDataCy("history-table-icon"));
     await screen.findByText("some-test");
     expect(screen.getByDataCy("test-tooltip")).toBeInTheDocument();
     expect(screen.getByText("some-test")).toBeInTheDocument();

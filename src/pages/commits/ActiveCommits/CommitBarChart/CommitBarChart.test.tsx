@@ -26,6 +26,7 @@ describe("commitChart", () => {
   });
 
   it("hovering over the chart should open a tooltip", async () => {
+    const user = userEvent.setup();
     render(
       <CommitBarChart
         key={versions[0].version.id}
@@ -37,13 +38,14 @@ describe("commitChart", () => {
     );
 
     expect(screen.queryByDataCy("commit-chart-tooltip")).toBeNull();
-    userEvent.hover(screen.queryByDataCy("commit-chart-container"));
+    await user.hover(screen.queryByDataCy("commit-chart-container"));
     await waitFor(() => {
       expect(screen.getByDataCy("commit-chart-tooltip")).toBeInTheDocument();
     });
   });
 
   it("should show all umbrella statuses (normal and dimmed) and their counts", async () => {
+    const user = userEvent.setup();
     render(
       <CommitBarChart
         key={versions[0].version.id}
@@ -55,7 +57,7 @@ describe("commitChart", () => {
     );
 
     expect(screen.queryByDataCy("commit-chart-tooltip")).toBeNull();
-    userEvent.hover(screen.queryByDataCy("commit-chart-container"));
+    await user.hover(screen.queryByDataCy("commit-chart-container"));
     await waitFor(() => {
       expect(screen.getByDataCy("commit-chart-tooltip")).toBeInTheDocument();
     });

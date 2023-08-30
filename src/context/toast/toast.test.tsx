@@ -1,5 +1,11 @@
-import { renderHook } from "@testing-library/react-hooks";
-import { act, render, screen, userEvent, waitFor } from "test_utils";
+import {
+  renderHook,
+  act,
+  render,
+  screen,
+  userEvent,
+  waitFor,
+} from "test_utils";
 import { ToastProvider, useToastContext } from ".";
 import { RenderFakeToastContext } from "./__mocks__";
 import { TOAST_TIMEOUT } from "./constants";
@@ -130,6 +136,7 @@ describe("toast", () => {
 
   describe("closing the toast", () => {
     it("should be able to close a toast by clicking the X button by default", async () => {
+      const user = userEvent.setup();
       const { Component, hook } = renderComponentWithHook();
       render(<Component />, {
         wrapper,
@@ -138,7 +145,7 @@ describe("toast", () => {
         hook.current.info("test string");
       });
       expect(screen.getByDataCy("toast")).toBeInTheDocument();
-      userEvent.click(screen.getByLabelText(closeIconLabel));
+      await user.click(screen.getByLabelText(closeIconLabel));
       await waitFor(() => {
         expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
       });
@@ -157,6 +164,7 @@ describe("toast", () => {
     });
 
     it("should trigger a callback function onClose", async () => {
+      const user = userEvent.setup();
       const onClose = jest.fn();
       const { Component, hook } = renderComponentWithHook();
       render(<Component />, {
@@ -167,7 +175,7 @@ describe("toast", () => {
       });
 
       expect(screen.getByDataCy("toast")).toBeInTheDocument();
-      userEvent.click(screen.getByLabelText(closeIconLabel));
+      await user.click(screen.getByLabelText(closeIconLabel));
       await waitFor(() => {
         expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
       });
@@ -202,6 +210,7 @@ describe("toast", () => {
 
 describe("mocked toast", () => {
   it("should be able to mock the toast in a component test", async () => {
+    const user = userEvent.setup();
     const ToastComponent: React.FC = () => {
       const dispatchToast = useToastContext();
       return (
@@ -215,9 +224,8 @@ describe("mocked toast", () => {
       dispatchToast,
       useToastContext: useToastContextSpied,
     } = RenderFakeToastContext(<ToastComponent />);
-
     render(<Component />);
-    userEvent.click(screen.getByText("Click Me"));
+    await user.click(screen.getByText("Click Me"));
     expect(useToastContextSpied).toHaveBeenCalledTimes(1);
     expect(dispatchToast.success).toHaveBeenCalledWith("test");
   });

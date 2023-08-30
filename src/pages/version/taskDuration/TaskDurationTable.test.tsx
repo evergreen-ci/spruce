@@ -4,7 +4,6 @@ import {
   renderWithRouterMatch as render,
   screen,
   userEvent,
-  waitFor,
   within,
 } from "test_utils";
 import { TaskDurationTable } from "./TaskDurationTable";
@@ -20,6 +19,7 @@ describe("taskDurationTable", () => {
   });
 
   it("opens nested row on click", async () => {
+    const user = userEvent.setup();
     render(
       <MockedProvider>
         <TaskDurationTable tasks={tasks} loading={false} />
@@ -29,10 +29,8 @@ describe("taskDurationTable", () => {
     const expandRowButton = within(
       screen.queryAllByDataCy("task-duration-table-row")[0]
     ).queryByRole("button");
-    userEvent.click(expandRowButton);
-    await waitFor(() => {
-      expect(screen.queryByDataCy("execution-task-row")).toBeVisible();
-    });
+    await user.click(expandRowButton);
+    expect(screen.queryByDataCy("execution-task-row")).toBeVisible();
   });
 });
 

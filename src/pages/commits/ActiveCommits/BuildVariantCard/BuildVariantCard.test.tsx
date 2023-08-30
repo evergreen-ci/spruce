@@ -3,12 +3,7 @@ import {
   injectGlobalDimStyle,
   removeGlobalDimStyle,
 } from "pages/commits/ActiveCommits/utils";
-import {
-  renderWithRouterMatch as render,
-  screen,
-  userEvent,
-  waitFor,
-} from "test_utils";
+import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { BuildVariantCard } from ".";
 
 jest.mock("../utils");
@@ -37,6 +32,7 @@ describe("buildVariantCard", () => {
 
     (removeGlobalDimStyle as jest.Mock).mockImplementationOnce(() => {});
 
+    const user = userEvent.setup();
     render(
       <MockedProvider>
         <BuildVariantCard
@@ -51,15 +47,10 @@ describe("buildVariantCard", () => {
       </MockedProvider>
     );
 
-    userEvent.hover(screen.queryByDataCy("build-variant-icon-container"));
-    await waitFor(() => {
-      expect(injectGlobalDimStyle).toHaveBeenCalledTimes(1);
-    });
-
-    userEvent.unhover(screen.queryByDataCy("build-variant-icon-container"));
-    await waitFor(() => {
-      expect(removeGlobalDimStyle).toHaveBeenCalledTimes(1);
-    });
+    await user.hover(screen.queryByDataCy("build-variant-icon-container"));
+    expect(injectGlobalDimStyle).toHaveBeenCalledTimes(1);
+    await user.unhover(screen.queryByDataCy("build-variant-icon-container"));
+    expect(removeGlobalDimStyle).toHaveBeenCalledTimes(1);
   });
 });
 

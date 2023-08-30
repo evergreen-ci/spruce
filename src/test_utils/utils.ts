@@ -21,10 +21,11 @@ const mockEnvironmentVariables = () => {
 };
 
 const selectLGOption = async (dataCy: string, option: string) => {
+  const user = userEvent.setup();
   expect(screen.queryByDataCy(dataCy)).not.toBeDisabled();
-  userEvent.click(screen.queryByDataCy(dataCy));
+  await user.click(screen.queryByDataCy(dataCy));
   await screen.findByText(option);
-  userEvent.click(screen.queryByText(option));
+  await user.click(screen.queryByText(option));
   expect(screen.queryByDataCy(dataCy)).toHaveTextContent(option);
 };
 

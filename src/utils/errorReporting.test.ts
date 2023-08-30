@@ -116,6 +116,7 @@ describe("breadcrumbs", () => {
       timestamp: 1577836800,
       data: { status_code: 401 },
     });
+    jest.useRealTimers();
   });
 
   it("warns when 'from' or 'to' fields are missing with a navigation breadcrumb", () => {
@@ -149,5 +150,6 @@ describe("breadcrumbs", () => {
       timestamp: 1577836800,
       data: {},
     });
+    jest.useRealTimers();
   });
 });
