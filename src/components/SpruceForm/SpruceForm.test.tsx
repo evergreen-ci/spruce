@@ -27,6 +27,7 @@ describe("spruce form", () => {
       const { formData } = x;
       data = formData;
     });
+
     const user = userEvent.setup();
     render(
       <SpruceFormContainer title="Just a test">

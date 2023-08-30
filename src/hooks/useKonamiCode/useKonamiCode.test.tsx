@@ -25,7 +25,6 @@ describe("useKonamiCode", () => {
     jest.resetModules();
   });
   it("pressing the correct sequence of keys triggers the Konami code easter", async () => {
-    const user = userEvent.setup();
     const audioPlayMock = jest.fn();
     jest.spyOn(global, "Audio").mockImplementation(
       () =>
@@ -42,11 +41,12 @@ describe("useKonamiCode", () => {
       },
     });
 
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <KonamiCodeWrapper gqlCache={cache} />
     );
-
     render(<Component />);
+
     await user.keyboard(
       "{ArrowUp}{ArrowUp}{ArrowDown}{ArrowDown}{ArrowLeft}{ArrowRight}{ArrowLeft}{ArrowRight}{b}{a}"
     );
@@ -67,7 +67,6 @@ describe("useKonamiCode", () => {
     ).toBe("success");
   });
   it("should not trigger the Konami code if the sequence is incorrect", async () => {
-    const user = userEvent.setup();
     const audioPlayMock = jest.fn();
     jest.spyOn(global, "Audio").mockImplementation(
       () =>
@@ -84,11 +83,12 @@ describe("useKonamiCode", () => {
       },
     });
 
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <KonamiCodeWrapper gqlCache={cache} />
     );
-
     render(<Component />);
+
     await user.keyboard(
       "{ArrowUp}{ArrowUp}{ArrowDown}{ArrowDown}{ArrowLeft}{ArrowRight}{ArrowLeft}{ArrowRight}{b}{b}"
     );
@@ -105,7 +105,6 @@ describe("useKonamiCode", () => {
     ).toBe("pending");
   });
   it("should not trigger the Konami code if it is inputted into a text field", async () => {
-    const user = userEvent.setup();
     const audioPlayMock = jest.fn();
     jest.spyOn(global, "Audio").mockImplementation(
       () =>
@@ -122,11 +121,12 @@ describe("useKonamiCode", () => {
       },
     });
 
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <KonamiCodeWrapper gqlCache={cache} />
     );
-
     render(<Component />);
+
     await user.type(
       screen.getByRole("textbox"),
       "{ArrowUp}{ArrowUp}{ArrowDown}{ArrowDown}{ArrowLeft}{ArrowRight}{ArrowLeft}{ArrowRight}{b}{a}"

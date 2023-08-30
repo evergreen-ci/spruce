@@ -59,11 +59,12 @@ describe("objectFieldTemplates", () => {
     });
 
     it("calls onChange when a field is changed", async () => {
-      const user = userEvent.setup();
       let data;
       const onChange = jest.fn(({ formData }) => {
         data = formData;
       });
+
+      const user = userEvent.setup();
       render(
         <SpruceForm
           schema={ObjectSchema}
@@ -114,11 +115,12 @@ describe("objectFieldTemplates", () => {
       expect(screen.getByDataCy("age")).toBeInTheDocument();
     });
     it("calls onChange when a field is changed", async () => {
-      const user = userEvent.setup();
       let data;
       const onChange = jest.fn(({ formData }) => {
         data = formData;
       });
+
+      const user = userEvent.setup();
       render(
         <SpruceForm
           schema={ObjectSchema}
@@ -168,11 +170,12 @@ describe("objectFieldTemplates", () => {
       expect(screen.getByDataCy("age")).toBeInTheDocument();
     });
     it("calls onChange when a field is changed", async () => {
-      const user = userEvent.setup();
       let data;
       const onChange = jest.fn(({ formData }) => {
         data = formData;
       });
+
+      const user = userEvent.setup();
       render(
         <SpruceForm
           schema={ObjectSchema}

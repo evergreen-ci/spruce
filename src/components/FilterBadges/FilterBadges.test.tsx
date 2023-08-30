@@ -126,8 +126,8 @@ describe("filterBadges", () => {
   });
 
   it("clicking a badge should call the remove callback", async () => {
-    const onRemove = jest.fn();
     const user = userEvent.setup();
+    const onRemove = jest.fn();
     render(
       <FilterBadges
         badges={[
