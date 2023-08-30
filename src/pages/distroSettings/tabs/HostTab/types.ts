@@ -2,7 +2,11 @@ import {
   Arch,
   BootstrapMethod,
   CommunicationMethod,
+  FeedbackRule,
+  HostAllocatorVersion,
+  OverallocatedRule,
   Provider,
+  RoundingRule,
 } from "gql/generated/types";
 
 export interface HostFormState {
@@ -21,11 +25,10 @@ export interface HostFormState {
     sshOptions: string[];
   };
   allocation: {
-    // TODO: Replace next 4 with enums.
-    version: string;
-    roundingRule: string;
-    feedbackRule: string;
-    hostsOverallocatedRule: string;
+    version: HostAllocatorVersion;
+    roundingRule: RoundingRule;
+    feedbackRule: FeedbackRule;
+    hostsOverallocatedRule: OverallocatedRule;
     minimumHosts: number;
     maximumHosts: number;
     acceptableHostIdleTime: number;

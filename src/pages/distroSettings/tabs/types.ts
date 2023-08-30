@@ -12,7 +12,6 @@ export { WritableDistroSettingsTabs };
 export type WritableDistroSettingsType =
   (typeof WritableDistroSettingsTabs)[keyof typeof WritableDistroSettingsTabs];
 
-// TODO: Specify type as tabs are added.
 export type FormStateMap = {
   [T in WritableDistroSettingsType]: {
     [DistroSettingsTabRoutes.General]: GeneralFormState;

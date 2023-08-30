@@ -4,7 +4,11 @@ import {
   Arch,
   BootstrapMethod,
   CommunicationMethod,
+  FeedbackRule,
+  HostAllocatorVersion,
+  OverallocatedRule,
   Provider,
+  RoundingRule,
 } from "gql/generated/types";
 
 type FormSchemaParams = {
@@ -29,35 +33,17 @@ export const getFormSchema = ({
             bootstrapMethod: {
               type: "string" as "string",
               title: "Host Bootstrap Method",
-              oneOf: Object.entries(bootstrapMethodToCopy).map(
-                ([value, title]) => ({
-                  type: "string" as "string",
-                  title,
-                  enum: [value],
-                })
-              ),
+              oneOf: enumSelect(bootstrapMethodToCopy),
             },
             communicationMethod: {
               type: "string" as "string",
               title: "Host Communication Method",
-              oneOf: Object.entries(communicationMethodToCopy).map(
-                ([value, title]) => ({
-                  type: "string" as "string",
-                  title,
-                  enum: [value],
-                })
-              ),
+              oneOf: enumSelect(communicationMethodToCopy),
             },
             arch: {
               type: "string" as "string",
               title: "Agent Architecture",
-              oneOf: Object.entries(architectureToCopy).map(
-                ([value, title]) => ({
-                  type: "string" as "string",
-                  title,
-                  enum: [value],
-                })
-              ),
+              oneOf: enumSelect(architectureToCopy),
             },
             workDir: {
               type: "string" as "string",
@@ -106,26 +92,32 @@ export const getFormSchema = ({
             version: {
               type: "string" as "string",
               title: "Host Allocator Version",
+              oneOf: enumSelect(hostAllocatorVersionToCopy),
             },
             roundingRule: {
               type: "string" as "string",
               title: "Host Allocator Rounding Rule",
+              oneOf: enumSelect(roundingRuleToCopy),
             },
             feedbackRule: {
               type: "string" as "string",
               title: "Host Allocator Feedback Rule",
+              oneOf: enumSelect(feedbackRuleToCopy),
             },
             hostsOverallocatedRule: {
               type: "string" as "string",
               title: "Host Overallocation Rule",
+              oneOf: enumSelect(overallocatedRuleToCopy),
             },
             minimumHosts: {
               type: "number" as "number",
               title: "Minimum Number of Hosts Allowed",
+              minimum: 0,
             },
             maximumHosts: {
               type: "number" as "number",
               title: "Maxiumum Number of Hosts Allowed",
+              minimum: 0,
             },
             acceptableHostIdleTime: {
               type: "number" as "number",
@@ -134,6 +126,8 @@ export const getFormSchema = ({
             futureHostFraction: {
               type: "number" as "number",
               title: "Future Host Fraction",
+              minimum: 0,
+              maximum: 1,
             },
           },
         },
@@ -162,28 +156,58 @@ export const getFormSchema = ({
         },
         sshOptions: {
           "ui:addButtonText": "Add SSH option",
+          "ui:orderable": false,
         },
       },
       allocation: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        ...((hasStaticProvider || hasDockerProvider) && {
-          minimumHosts: {
+        version: {
+          "ui:allowDeselect": false,
+        },
+        roundingRule: {
+          "ui:allowDeselect": false,
+        },
+        feedbackRule: {
+          "ui:allowDeselect": false,
+        },
+        hostsOverallocatedRule: {
+          "ui:allowDeselect": false,
+        },
+        minimumHosts: {
+          "ui:data-cy": "minimum-hosts-input",
+          ...((hasStaticProvider || hasDockerProvider) && {
             "ui:widget": "hidden",
-          },
-          maximumHosts: {
+          }),
+        },
+        maximumHosts: {
+          "ui:data-cy": "maximum-hosts-input",
+          ...((hasStaticProvider || hasDockerProvider) && {
             "ui:widget": "hidden",
-          },
-          acceptableHostIdleTime: {
+          }),
+        },
+        acceptableHostIdleTime: {
+          "ui:data-cy": "idle-time-input",
+          ...((hasStaticProvider || hasDockerProvider) && {
             "ui:widget": "hidden",
-          },
-          futureHostFraction: {
+          }),
+        },
+        futureHostFraction: {
+          "ui:data-cy": "future-fraction-input",
+          ...((hasStaticProvider || hasDockerProvider) && {
             "ui:widget": "hidden",
-          },
-        }),
+          }),
+        },
       },
     },
   };
 };
+
+const enumSelect = (enumObject: Record<string, string>) =>
+  Object.entries(enumObject).map(([value, title]) => ({
+    type: "string" as "string",
+    title,
+    enum: [value],
+  }));
 
 const architectureToCopy = {
   [Arch.Linux_64Bit]: "Linux 64-bit",
@@ -205,4 +229,26 @@ const communicationMethodToCopy = {
   [CommunicationMethod.LegacySsh]: "Legacy SSH",
   [CommunicationMethod.Ssh]: "SSH",
   [CommunicationMethod.Rpc]: "RPC",
+};
+
+const hostAllocatorVersionToCopy = {
+  [HostAllocatorVersion.Utilization]: "Utilization",
+};
+
+const roundingRuleToCopy = {
+  [RoundingRule.Default]: "Default",
+  [RoundingRule.Down]: "Round down",
+  [RoundingRule.Up]: "Round up",
+};
+
+const feedbackRuleToCopy = {
+  [FeedbackRule.Default]: "Default",
+  [FeedbackRule.NoFeedback]: "No feedback",
+  [FeedbackRule.WaitsOverThresh]: "Wait over threshold",
+};
+
+const overallocatedRuleToCopy = {
+  [OverallocatedRule.Default]: "Default",
+  [OverallocatedRule.Ignore]: "No terminations when overallocated",
+  [OverallocatedRule.Terminate]: "Terminate hosts when overallocated",
 };

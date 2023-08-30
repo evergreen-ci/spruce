@@ -61,14 +61,12 @@ export type Annotation = {
 };
 
 export enum Arch {
-  Linux_32Bit = "LINUX_32_BIT",
   Linux_64Bit = "LINUX_64_BIT",
   LinuxArm_64Bit = "LINUX_ARM_64_BIT",
   LinuxPpc_64Bit = "LINUX_PPC_64_BIT",
   LinuxZseries = "LINUX_ZSERIES",
   Osx_64Bit = "OSX_64_BIT",
   OsxArm_64Bit = "OSX_ARM_64_BIT",
-  Windows_32Bit = "WINDOWS_32_BIT",
   Windows_64Bit = "WINDOWS_64_BIT",
 }
 
@@ -527,6 +525,12 @@ export type ExternalLinkInput = {
   urlTemplate: Scalars["String"];
 };
 
+export enum FeedbackRule {
+  Default = "DEFAULT",
+  NoFeedback = "NO_FEEDBACK",
+  WaitsOverThresh = "WAITS_OVER_THRESH",
+}
+
 export type File = {
   __typename?: "File";
   link: Scalars["String"];
@@ -685,25 +689,29 @@ export type Host = {
 export type HostAllocatorSettings = {
   __typename?: "HostAllocatorSettings";
   acceptableHostIdleTime: Scalars["Duration"];
-  feedbackRule: Scalars["String"];
+  feedbackRule: FeedbackRule;
   futureHostFraction: Scalars["Float"];
-  hostsOverallocatedRule: Scalars["String"];
+  hostsOverallocatedRule: OverallocatedRule;
   maximumHosts: Scalars["Int"];
   minimumHosts: Scalars["Int"];
-  roundingRule: Scalars["String"];
-  version: Scalars["String"];
+  roundingRule: RoundingRule;
+  version: HostAllocatorVersion;
 };
 
 export type HostAllocatorSettingsInput = {
   acceptableHostIdleTime: Scalars["Int"];
-  feedbackRule: Scalars["String"];
+  feedbackRule: FeedbackRule;
   futureHostFraction: Scalars["Float"];
-  hostsOverallocatedRule: Scalars["String"];
+  hostsOverallocatedRule: OverallocatedRule;
   maximumHosts: Scalars["Int"];
   minimumHosts: Scalars["Int"];
-  roundingRule: Scalars["String"];
-  version: Scalars["String"];
+  roundingRule: RoundingRule;
+  version: HostAllocatorVersion;
 };
+
+export enum HostAllocatorVersion {
+  Utilization = "UTILIZATION",
+}
 
 export type HostEventLogData = {
   __typename?: "HostEventLogData";
@@ -1336,6 +1344,12 @@ export type OomTrackerInfo = {
   detected: Scalars["Boolean"];
   pids?: Maybe<Array<Maybe<Scalars["Int"]>>>;
 };
+
+export enum OverallocatedRule {
+  Default = "DEFAULT",
+  Ignore = "IGNORE",
+  Terminate = "TERMINATE",
+}
 
 export type Parameter = {
   __typename?: "Parameter";
@@ -2181,6 +2195,12 @@ export type ResourceLimitsInput = {
   virtualMemoryKb: Scalars["Int"];
 };
 
+export enum RoundingRule {
+  Default = "DEFAULT",
+  Down = "DOWN",
+  Up = "UP",
+}
+
 /** SaveDistroInput is the input to the saveDistro mutation. */
 export type SaveDistroInput = {
   distro: DistroInput;
@@ -2724,6 +2744,7 @@ export type TriggerAlias = {
   project: Scalars["String"];
   status: Scalars["String"];
   taskRegex: Scalars["String"];
+  unscheduleDownstreamVersions?: Maybe<Scalars["Boolean"]>;
 };
 
 export type TriggerAliasInput = {
@@ -2735,6 +2756,7 @@ export type TriggerAliasInput = {
   project: Scalars["String"];
   status: Scalars["String"];
   taskRegex: Scalars["String"];
+  unscheduleDownstreamVersions?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type UiConfig = {
@@ -5212,13 +5234,13 @@ export type DistroQuery = {
     hostAllocatorSettings: {
       __typename?: "HostAllocatorSettings";
       acceptableHostIdleTime: number;
-      feedbackRule: string;
+      feedbackRule: FeedbackRule;
       futureHostFraction: number;
-      hostsOverallocatedRule: string;
+      hostsOverallocatedRule: OverallocatedRule;
       maximumHosts: number;
       minimumHosts: number;
-      roundingRule: string;
-      version: string;
+      roundingRule: RoundingRule;
+      version: HostAllocatorVersion;
     };
     iceCreamSettings: {
       __typename?: "IceCreamSettings";

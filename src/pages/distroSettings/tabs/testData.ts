@@ -5,9 +5,13 @@ import {
   CommunicationMethod,
   DispatcherVersion,
   DistroQuery,
+  FeedbackRule,
   FinderVersion,
+  HostAllocatorVersion,
+  OverallocatedRule,
   PlannerVersion,
   Provider,
+  RoundingRule,
 } from "gql/generated/types";
 
 const distroData: DistroQuery["distro"] = {
@@ -68,13 +72,13 @@ const distroData: DistroQuery["distro"] = {
   },
   hostAllocatorSettings: {
     acceptableHostIdleTime: 0,
-    feedbackRule: "",
+    feedbackRule: FeedbackRule.Default,
     futureHostFraction: 0,
-    hostsOverallocatedRule: "",
+    hostsOverallocatedRule: OverallocatedRule.Default,
     maximumHosts: 0,
     minimumHosts: 0,
-    roundingRule: "",
-    version: "utilization",
+    roundingRule: RoundingRule.Default,
+    version: HostAllocatorVersion.Utilization,
   },
   iceCreamSettings: {
     configPath: "",
