@@ -9,7 +9,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
       Distro Projects
     </h3>
     <div
-      class="css-soq0i3-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
+      class="css-akg61l-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
     >
       <form
         class="rjsf"
@@ -321,7 +321,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
       Admin Options
     </h3>
     <div
-      class="css-soq0i3-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
+      class="css-akg61l-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
     >
       <form
         class="rjsf"
@@ -650,7 +650,7 @@ exports[`storybook Storyshots components/SpruceForm Example 3 1`] = `
       UI Options
     </h3>
     <div
-      class="css-soq0i3-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
+      class="css-akg61l-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
     >
       <form
         class="rjsf"
