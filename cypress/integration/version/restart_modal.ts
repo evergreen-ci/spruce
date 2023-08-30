@@ -13,11 +13,8 @@ describe("Restarting a patch", () => {
     cy.visit(path);
     cy.dataCy("version-restart-modal").should("not.exist");
     cy.dataCy("restart-version").click();
-  });
-  it("Clicking on the Restart button opens a patch restart modal", () => {
     cy.dataCy("version-restart-modal").should("be.visible");
   });
-
   it("Clicking on a variant should toggle an accordion drop down of tasks", () => {
     cy.dataCy("variant-accordion").first().click();
     cy.dataCy("task-status-checkbox").should("exist");
@@ -34,6 +31,7 @@ describe("Restarting a patch", () => {
     cy.dataCy("task-status-badge").should("contain.text", "1 of 1 Selected");
   });
 
+  // TODO: Drop skip in https://jira.mongodb.org/browse/EVG-20762
   it.skip("Selecting on the task status filter should toggle the tasks that have matching statuses to it", () => {
     cy.dataCy("task-status-filter").click();
     cy.getInputByLabel("All").check({ force: true });
@@ -50,6 +48,7 @@ describe("Restarting a patch", () => {
     cy.dataCy("task-status-filter").click();
   });
 
+  // TODO: Drop skip in https://jira.mongodb.org/browse/EVG-20762
   it.skip("Selecting on the base status filter should toggle the tasks that have matching statuses to it", () => {
     cy.dataCy("version-restart-modal").within(() => {
       cy.dataCy("base-task-status-filter").click();

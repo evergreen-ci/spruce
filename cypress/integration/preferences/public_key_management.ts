@@ -42,8 +42,10 @@ describe("Public Key Management Page", () => {
     });
 
     it("Should include the public in the public key list after adding", () => {
-      cy.dataCy("key-name-input").clear().type(keyName3);
-      cy.dataCy("key-value-input").clear().type(pubKey, { delay: 0 });
+      cy.dataCy("key-name-input").clear();
+      cy.dataCy("key-name-input").type(keyName3);
+      cy.dataCy("key-value-input").clear();
+      cy.dataCy("key-value-input").type(pubKey, { delay: 0 });
       cy.contains("button", "Save").click();
       cy.dataCy("table-key-name").eq(1).contains(keyName3);
     });
@@ -68,9 +70,11 @@ describe("Public Key Management Page", () => {
     });
 
     it("After submitting, the key name and key value are updated", () => {
-      cy.dataCy("key-name-input").clear().type(keyName4);
+      cy.dataCy("key-name-input").clear();
+      cy.dataCy("key-name-input").type(keyName4);
 
-      cy.dataCy("key-value-input").clear().type(pubKey2, { delay: 0 });
+      cy.dataCy("key-value-input").clear();
+      cy.dataCy("key-value-input").type(pubKey2, { delay: 0 });
       cy.contains("button", "Save").click();
       cy.dataCy("key-edit-modal").should("not.exist");
       cy.dataCy("table-key-name").eq(1).contains(keyName4);
