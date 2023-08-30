@@ -1,12 +1,11 @@
 import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
 import { cache } from "gql/GQLWrapper";
 import { taskQuery } from "gql/mocks/taskData";
 import { GET_TASK } from "gql/queries";
-import { render, waitFor, screen } from "test_utils";
+import { render, screen } from "test_utils";
 import useKonamiCode from ".";
 
 const KonamiCodeWrapper = ({ gqlCache }) => (
@@ -42,22 +41,16 @@ describe("useKonamiCode", () => {
       },
     });
 
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <KonamiCodeWrapper gqlCache={cache} />
     );
-
     render(<Component />);
-    // eslint-disable-next-line testing-library/no-unnecessary-act
-    act(() => {
-      userEvent.type(
-        document.body,
-        "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba"
-      );
-    });
 
-    await waitFor(() => {
-      expect(audioPlayMock).toHaveBeenCalledTimes(1);
-    });
+    await user.keyboard(
+      "{ArrowUp}{ArrowUp}{ArrowDown}{ArrowDown}{ArrowLeft}{ArrowRight}{ArrowLeft}{ArrowRight}{b}{a}"
+    );
+    expect(audioPlayMock).toHaveBeenCalledTimes(1);
     expect(dispatchToast.success).toHaveBeenCalledWith(
       "To reset just refresh the page",
       true,
@@ -90,22 +83,16 @@ describe("useKonamiCode", () => {
       },
     });
 
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <KonamiCodeWrapper gqlCache={cache} />
     );
-
     render(<Component />);
-    // eslint-disable-next-line testing-library/no-unnecessary-act
-    act(() => {
-      userEvent.type(
-        document.body,
-        "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightbb"
-      );
-    });
 
-    await waitFor(() => {
-      expect(audioPlayMock).toHaveBeenCalledTimes(0);
-    });
+    await user.keyboard(
+      "{ArrowUp}{ArrowUp}{ArrowDown}{ArrowDown}{ArrowLeft}{ArrowRight}{ArrowLeft}{ArrowRight}{b}{b}"
+    );
+    expect(audioPlayMock).toHaveBeenCalledTimes(0);
     expect(dispatchToast.success).not.toHaveBeenCalled();
     expect(
       cache.extract()[
@@ -134,22 +121,18 @@ describe("useKonamiCode", () => {
       },
     });
 
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <KonamiCodeWrapper gqlCache={cache} />
     );
-
     render(<Component />);
-    // eslint-disable-next-line testing-library/no-unnecessary-act
-    act(() => {
-      userEvent.type(
-        screen.getByRole("textbox"),
-        "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba"
-      );
-    });
 
-    await waitFor(() => {
-      expect(audioPlayMock).toHaveBeenCalledTimes(0);
-    });
+    await user.type(
+      screen.getByRole("textbox"),
+      "{ArrowUp}{ArrowUp}{ArrowDown}{ArrowDown}{ArrowLeft}{ArrowRight}{ArrowLeft}{ArrowRight}{b}{a}"
+    );
+    expect(screen.getByRole("textbox")).toHaveValue("ba");
+    expect(audioPlayMock).toHaveBeenCalledTimes(0);
     expect(dispatchToast.success).not.toHaveBeenCalled();
     expect(
       cache.extract()[

@@ -191,23 +191,20 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
           </Tooltip>
         )}
       >
-        {/* This div is necessary, or else the tooltip will not show. */}
-        <div>
-          <Button
-            onClick={() =>
-              sendEvent({
-                name: "Submit Previous Commit Selector",
-                type: selectState,
-              })
-            }
-            as={Link}
-            disabled={disableButton}
-            size="small"
-            data-cy="previous-commits-go-button"
-          >
-            Go
-          </Button>
-        </div>
+        <Button
+          onClick={() =>
+            sendEvent({
+              name: "Submit Previous Commit Selector",
+              type: selectState,
+            })
+          }
+          as={Link}
+          disabled={disableButton}
+          size="small"
+          data-cy="previous-commits-go-button"
+        >
+          Go
+        </Button>
       </ConditionalWrapper>
     </PreviousCommitsWrapper>
   );

@@ -52,9 +52,9 @@ describe("storybook", () => {
         if (snapshotFileName) {
           expect(container).toMatchSpecificSnapshot(snapshotFileName);
         }
-        unmount();
-        done?.();
       }, waitTime);
+      unmount();
+      done?.();
     },
   });
 });

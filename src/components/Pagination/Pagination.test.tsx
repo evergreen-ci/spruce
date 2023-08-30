@@ -1,4 +1,4 @@
-import { renderWithRouterMatch, screen } from "test_utils";
+import { renderWithRouterMatch, screen, userEvent } from "test_utils";
 import Pagination from ".";
 
 describe("pagination", () => {
@@ -34,26 +34,29 @@ describe("pagination", () => {
       "true"
     );
   });
-  it("paginating forward should update the url with the new page number by default", () => {
+  it("paginating forward should update the url with the new page number by default", async () => {
+    const user = userEvent.setup();
     const { router } = renderWithRouterMatch(
       <Pagination currentPage={0} totalResults={10} pageSize={5} />
     );
 
     expect(router.state.location.search).toBe("");
-    screen.getByDataCy("next-page-button").click();
+    await user.click(screen.getByDataCy("next-page-button"));
     expect(router.state.location.search).toBe("?page=1");
   });
-  it("paginating backward should update the url with the new page number by default", () => {
+  it("paginating backward should update the url with the new page number by default", async () => {
+    const user = userEvent.setup();
     const { router } = renderWithRouterMatch(
       <Pagination currentPage={1} totalResults={10} pageSize={5} />
     );
 
     expect(router.state.location.search).toBe("");
-    screen.getByDataCy("prev-page-button").click();
+    await user.click(screen.getByDataCy("prev-page-button"));
     expect(router.state.location.search).toBe("?page=0");
   });
 
-  it("should call the onChange callback when the page changes", () => {
+  it("should call the onChange callback when the page changes", async () => {
+    const user = userEvent.setup();
     const onChange = jest.fn();
     renderWithRouterMatch(
       <Pagination
@@ -63,7 +66,7 @@ describe("pagination", () => {
         onChange={onChange}
       />
     );
-    screen.getByDataCy("next-page-button").click();
+    await user.click(screen.getByDataCy("next-page-button"));
     expect(onChange).toHaveBeenCalledWith(1);
   });
   it("should disable pagination if there  is only one page", () => {

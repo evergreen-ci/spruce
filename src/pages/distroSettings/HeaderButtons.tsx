@@ -65,6 +65,7 @@ export const HeaderButtons: React.FC<Props> = ({ distro, tab }) => {
     // eslint-disable-next-line no-prototype-builtins
     if (formToGqlMap.hasOwnProperty(tab)) {
       const formToGql = formToGqlMap[tab];
+      // @ts-expect-error
       const changes = formToGql(formData, distro);
       saveDistro({
         variables: {

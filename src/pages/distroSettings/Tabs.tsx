@@ -11,6 +11,7 @@ import {
   GeneralTab,
   HostTab,
   ProjectTab,
+  ProviderTab,
   TaskTab,
 } from "./tabs/index";
 import { gqlToFormMap } from "./tabs/transformers";
@@ -43,6 +44,14 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
           path={DistroSettingsTabRoutes.General}
           element={
             <GeneralTab distroData={tabData[DistroSettingsTabRoutes.General]} />
+          }
+        />
+        <Route
+          path={DistroSettingsTabRoutes.Provider}
+          element={
+            <ProviderTab
+              distroData={tabData[DistroSettingsTabRoutes.Provider]}
+            />
           }
         />
         <Route

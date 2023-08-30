@@ -55,6 +55,7 @@ describe("addIssueModal", () => {
   });
 
   it("entering values should enable the submit button", async () => {
+    const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <AddIssueModal
         closeModal={jest.fn()}
@@ -69,7 +70,7 @@ describe("addIssueModal", () => {
     });
 
     expect(screen.queryByDataCy("issue-url")).toHaveValue("");
-    userEvent.type(
+    await user.type(
       screen.queryByDataCy("issue-url"),
       "https://jira.mongodb.org/browse/EVG-123"
     );
@@ -81,6 +82,7 @@ describe("addIssueModal", () => {
   });
 
   it("entering an invalid confidence score should disable the submit button", async () => {
+    const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <AddIssueModal
         closeModal={jest.fn()}
@@ -95,7 +97,7 @@ describe("addIssueModal", () => {
     });
 
     expect(screen.queryByDataCy("issue-url")).toHaveValue("");
-    userEvent.type(
+    await user.type(
       screen.queryByDataCy("issue-url"),
       "https://jira.mongodb.org/browse/EVG-123"
     );
@@ -104,19 +106,20 @@ describe("addIssueModal", () => {
       name: "Add issue",
     });
 
-    userEvent.type(screen.queryByDataCy("confidence-level"), "not a number");
+    await user.type(screen.queryByDataCy("confidence-level"), "not a number");
     expect(confirmButton).toHaveAttribute("aria-disabled", "true");
 
-    userEvent.clear(screen.queryByDataCy("confidence-level"));
-    userEvent.type(screen.queryByDataCy("confidence-level"), "110");
+    await user.clear(screen.queryByDataCy("confidence-level"));
+    await user.type(screen.queryByDataCy("confidence-level"), "110");
     expect(confirmButton).toHaveAttribute("aria-disabled", "true");
 
-    userEvent.clear(screen.queryByDataCy("confidence-level"));
-    userEvent.type(screen.queryByDataCy("confidence-level"), "80");
+    await user.clear(screen.queryByDataCy("confidence-level"));
+    await user.type(screen.queryByDataCy("confidence-level"), "80");
     expect(confirmButton).not.toHaveAttribute("aria-disabled", "true");
   });
 
   it("should be able to successfully add annotation", async () => {
+    const user = userEvent.setup();
     const setSelectedRowKey = jest.fn();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <AddIssueModal
@@ -131,17 +134,17 @@ describe("addIssueModal", () => {
       checkModalVisibility();
     });
 
-    userEvent.type(
+    await user.type(
       screen.queryByDataCy("issue-url"),
       "https://jira.mongodb.org/browse/EVG-123"
     );
-    userEvent.type(screen.queryByDataCy("confidence-level"), "12");
+    await user.type(screen.queryByDataCy("confidence-level"), "12");
 
     const confirmButton = screen.getByRole("button", {
       name: "Add issue",
     });
     expect(confirmButton).not.toHaveAttribute("aria-disabled", "true");
-    userEvent.click(confirmButton);
+    await user.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     expect(setSelectedRowKey).toHaveBeenCalledWith("EVG-123");
   });
