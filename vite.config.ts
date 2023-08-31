@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import * as fs from "fs";
 import path from "path";
@@ -125,6 +126,14 @@ export default defineConfig({
     visualizer({
       filename: "build/source_map.html",
       template: "treemap",
+    }),
+    sentryVitePlugin({
+      org: "mongodb-org",
+      project: "spruce",
+      authToken: process.env.REACT_APP_SENTRY_AUTH_TOKEN,
+      sourcemaps: {
+        assets: "./build/assets/*",
+      },
     }),
   ],
   css: {
