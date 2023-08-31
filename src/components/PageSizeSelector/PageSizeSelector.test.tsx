@@ -1,8 +1,9 @@
-import { render, screen, userEvent, waitFor } from "test_utils";
+import { render, screen, userEvent } from "test_utils";
 import PageSizeSelector from ".";
 
 describe("pageSizeSelector", () => {
   it("selecting page size should call onChange prop", async () => {
+    const user = userEvent.setup();
     const onChange = jest.fn();
     render(
       <PageSizeSelector
@@ -11,11 +12,9 @@ describe("pageSizeSelector", () => {
         onChange={onChange}
       />
     );
-    userEvent.click(screen.queryByText("10 / page"));
-    await waitFor(() => {
-      expect(screen.queryByText("20 / page")).toBeVisible();
-    });
-    userEvent.click(screen.queryByText("20 / page"));
+    await user.click(screen.getByRole("button", { name: "10 / page" }));
+    expect(screen.queryByText("20 / page")).toBeVisible();
+    await user.click(screen.queryByText("20 / page"));
     expect(onChange).toHaveBeenCalledWith(20);
   });
 });

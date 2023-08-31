@@ -35,6 +35,7 @@ describe("projectSelect", () => {
     });
 
     it("should narrow down search results when filtering on projects", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getProjectsMock}>
           <ProjectSelect
@@ -49,12 +50,12 @@ describe("projectSelect", () => {
         expect(screen.getByDataCy("project-select")).toBeInTheDocument();
       });
       expect(screen.queryByDataCy("project-select-options")).toBeNull();
-      userEvent.click(screen.queryByDataCy("project-select"));
+      await user.click(screen.queryByDataCy("project-select"));
       expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
 
       let options = await screen.findAllByDataCy("project-display-name");
       expect(options).toHaveLength(6);
-      userEvent.type(
+      await user.type(
         screen.queryByDataCy("project-select-search-input"),
         "logkeeper"
       );
@@ -63,6 +64,7 @@ describe("projectSelect", () => {
     });
 
     it("should be possible to search for projects by a repo name, which should NOT be clickable", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getProjectsMock}>
           <ProjectSelect
@@ -77,10 +79,10 @@ describe("projectSelect", () => {
         expect(screen.getByDataCy("project-select")).toBeInTheDocument();
       });
       expect(screen.queryByDataCy("project-select-options")).toBeNull();
-      userEvent.click(screen.queryByDataCy("project-select"));
+      await user.click(screen.queryByDataCy("project-select"));
       expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
 
-      userEvent.type(
+      await user.type(
         screen.queryByDataCy("project-select-search-input"),
         "aaa/totally-different-name"
       );
@@ -113,6 +115,7 @@ describe("projectSelect", () => {
     });
 
     it("should narrow down search results when filtering on projects", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
@@ -128,12 +131,12 @@ describe("projectSelect", () => {
         expect(screen.getByDataCy("project-select")).toBeInTheDocument();
       });
       expect(screen.queryByDataCy("project-select-options")).toBeNull();
-      userEvent.click(screen.queryByDataCy("project-select"));
+      await user.click(screen.queryByDataCy("project-select"));
       expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
 
       let options = await screen.findAllByDataCy("project-display-name");
       expect(options).toHaveLength(5);
-      userEvent.type(
+      await user.type(
         screen.queryByDataCy("project-select-search-input"),
         "evergreen"
       );
@@ -142,6 +145,7 @@ describe("projectSelect", () => {
     });
 
     it("should be possible to search for projects by a repo name, which should be clickable", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
@@ -157,10 +161,10 @@ describe("projectSelect", () => {
         expect(screen.getByDataCy("project-select")).toBeInTheDocument();
       });
       expect(screen.queryByDataCy("project-select-options")).toBeNull();
-      userEvent.click(screen.queryByDataCy("project-select"));
+      await user.click(screen.queryByDataCy("project-select"));
       expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
 
-      userEvent.type(
+      await user.type(
         screen.queryByDataCy("project-select-search-input"),
         "aaa/totally-different-name"
       );
@@ -175,6 +179,7 @@ describe("projectSelect", () => {
     });
 
     it("shows favorited projects twice", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
@@ -190,13 +195,14 @@ describe("projectSelect", () => {
         expect(screen.getByDataCy("project-select")).toBeInTheDocument();
       });
       expect(screen.queryByDataCy("project-select-options")).toBeNull();
-      userEvent.click(screen.queryByDataCy("project-select"));
+      await user.click(screen.queryByDataCy("project-select"));
       expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
       // Favorited projects should appear twice.
       expect(screen.getAllByText("logkeeper")).toHaveLength(2);
     });
 
     it("shows disabled projects at the bottom of the list", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
@@ -212,7 +218,7 @@ describe("projectSelect", () => {
         expect(screen.getByDataCy("project-select")).toBeInTheDocument();
       });
       expect(screen.queryByDataCy("project-select-options")).toBeNull();
-      userEvent.click(screen.queryByDataCy("project-select"));
+      await user.click(screen.queryByDataCy("project-select"));
       expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
 
       const options = await screen.findAllByDataCy("project-display-name");
@@ -223,6 +229,7 @@ describe("projectSelect", () => {
     });
 
     it("does not show a heading for disabled projects when all projects are enabled", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={noDisabledProjectsMock}>
           <ProjectSelect
@@ -238,7 +245,7 @@ describe("projectSelect", () => {
         expect(screen.getByDataCy("project-select")).toBeInTheDocument();
       });
       expect(screen.queryByDataCy("project-select-options")).toBeNull();
-      userEvent.click(screen.queryByDataCy("project-select"));
+      await user.click(screen.queryByDataCy("project-select"));
       expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
       const options = await screen.findAllByDataCy("project-display-name");
       expect(options).toHaveLength(1);

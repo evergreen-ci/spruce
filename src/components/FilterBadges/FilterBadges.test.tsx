@@ -12,13 +12,11 @@ describe("filterBadges", () => {
   });
 
   it("should render badges if there are some passed in", () => {
-    const onRemove = jest.fn();
-    const onClearAll = jest.fn();
     render(
       <FilterBadges
         badges={[{ key: "test", value: "value" }]}
-        onRemove={onRemove}
-        onClearAll={onClearAll}
+        onRemove={jest.fn()}
+        onClearAll={jest.fn()}
       />
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(1);
@@ -26,16 +24,14 @@ describe("filterBadges", () => {
   });
 
   it("should render a badge for each key/value pair passed in", () => {
-    const onRemove = jest.fn();
-    const onClearAll = jest.fn();
     render(
       <FilterBadges
         badges={[
           { key: "test", value: "value" },
           { key: "test2", value: "value2" },
         ]}
-        onRemove={onRemove}
-        onClearAll={onClearAll}
+        onRemove={jest.fn()}
+        onClearAll={jest.fn()}
       />
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(2);
@@ -44,8 +40,6 @@ describe("filterBadges", () => {
   });
 
   it("only renders badges up to the limit", () => {
-    const onRemove = jest.fn();
-    const onClearAll = jest.fn();
     render(
       <FilterBadges
         badges={[
@@ -60,8 +54,8 @@ describe("filterBadges", () => {
           { key: "test9", value: "value9" },
           { key: "test10", value: "value10" },
         ]}
-        onRemove={onRemove}
-        onClearAll={onClearAll}
+        onRemove={jest.fn()}
+        onClearAll={jest.fn()}
       />
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(8);
@@ -70,9 +64,8 @@ describe("filterBadges", () => {
     expect(screen.getByText("see 2 more")).toBeInTheDocument();
   });
 
-  it("clicking see more should display a modal with all of the badges", () => {
-    const onRemove = jest.fn();
-    const onClearAll = jest.fn();
+  it("clicking see more should display a modal with all of the badges", async () => {
+    const user = userEvent.setup();
     render(
       <FilterBadges
         badges={[
@@ -87,11 +80,11 @@ describe("filterBadges", () => {
           { key: "test9", value: "value9" },
           { key: "test10", value: "value10" },
         ]}
-        onRemove={onRemove}
-        onClearAll={onClearAll}
+        onRemove={jest.fn()}
+        onClearAll={jest.fn()}
       />
     );
-    userEvent.click(screen.queryByText("see 2 more"));
+    await user.click(screen.queryByText("see 2 more"));
     expect(screen.getByDataCy("see-more-modal")).toBeInTheDocument();
     expect(
       within(screen.queryByDataCy("see-more-modal")).queryAllByDataCy(
@@ -107,8 +100,8 @@ describe("filterBadges", () => {
     }
   });
 
-  it("clicking clear all should call the clear all callback", () => {
-    const onRemove = jest.fn();
+  it("clicking clear all should call the clear all callback", async () => {
+    const user = userEvent.setup();
     const onClearAll = jest.fn();
     render(
       <FilterBadges
@@ -124,17 +117,17 @@ describe("filterBadges", () => {
           { key: "test9", value: "value9" },
           { key: "test10", value: "value10" },
         ]}
-        onRemove={onRemove}
+        onRemove={jest.fn()}
         onClearAll={onClearAll}
       />
     );
-    userEvent.click(screen.queryByText("CLEAR ALL FILTERS"));
+    await user.click(screen.getByRole("button", { name: "CLEAR ALL FILTERS" }));
     expect(onClearAll).toHaveBeenCalledTimes(1);
   });
 
-  it("clicking a badge should call the remove callback", () => {
+  it("clicking a badge should call the remove callback", async () => {
+    const user = userEvent.setup();
     const onRemove = jest.fn();
-    const onClearAll = jest.fn();
     render(
       <FilterBadges
         badges={[
@@ -150,30 +143,29 @@ describe("filterBadges", () => {
           { key: "test10", value: "value10" },
         ]}
         onRemove={onRemove}
-        onClearAll={onClearAll}
+        onClearAll={jest.fn()}
       />
     );
     const closeBadge = screen.queryAllByDataCy("close-badge")[0];
     expect(closeBadge).toBeInTheDocument();
-    userEvent.click(closeBadge);
+    await user.click(closeBadge);
     expect(onRemove).toHaveBeenCalledWith({ key: "test1", value: "value1" });
   });
 
   it("should truncate a badge value if it is too long", async () => {
-    const onRemove = jest.fn();
-    const onClearAll = jest.fn();
+    const user = userEvent.setup();
     const longName = "this is a really long name that should be truncated";
     render(
       <FilterBadges
         badges={[{ key: "some", value: longName }]}
-        onRemove={onRemove}
-        onClearAll={onClearAll}
+        onRemove={jest.fn()}
+        onClearAll={jest.fn()}
       />
     );
     const truncatedBadge = screen.queryByDataCy("filter-badge");
     expect(truncatedBadge).toBeInTheDocument();
     expect(truncatedBadge).not.toHaveTextContent(longName);
-    userEvent.hover(truncatedBadge);
+    await user.hover(truncatedBadge);
     await waitFor(() => {
       expect(screen.queryByText(longName)).toBeVisible();
     });
