@@ -30,7 +30,7 @@ const distroData: DistroQuery["distro"] = {
     ],
     jasperBinaryDir: "/home/evg/jasper",
     jasperCredentialsPath: "/home/evg/jasper/creds.json",
-    method: BootstrapMethod.Ssh,
+    method: BootstrapMethod.LegacySsh,
     preconditionScripts: [],
     resourceLimits: {
       lockedMemoryKb: -1,
