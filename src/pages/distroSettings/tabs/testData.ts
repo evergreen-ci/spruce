@@ -77,7 +77,7 @@ const distroData: DistroQuery["distro"] = {
     hostsOverallocatedRule: OverallocatedRule.Default,
     maximumHosts: 0,
     minimumHosts: 0,
-    roundingRule: RoundingRule.Up,
+    roundingRule: RoundingRule.Default,
     version: HostAllocatorVersion.Utilization,
   },
   iceCreamSettings: {
