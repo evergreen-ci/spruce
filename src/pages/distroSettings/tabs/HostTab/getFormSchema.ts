@@ -81,6 +81,8 @@ export const getFormSchema = ({
               items: {
                 type: "string" as "string",
                 title: "SSH Option",
+                default: "",
+                minLength: 1,
               },
             },
           },
@@ -152,6 +154,7 @@ export const getFormSchema = ({
       sshConfig: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         authorizedKeysFile: {
+          "ui:data-cy": "authorized-keys-input",
           ...(!hasStaticProvider && { "ui:widget": "hidden" }),
         },
         sshOptions: {
