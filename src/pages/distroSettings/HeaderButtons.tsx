@@ -61,16 +61,20 @@ export const HeaderButtons: React.FC<Props> = ({ distro, tab }) => {
   });
 
   const handleSave = () => {
-    const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
-    const changes = formToGql(formData, distro);
-    saveDistro({
-      variables: {
-        distro: changes,
-        onSave: onSaveOperation,
-      },
-    });
-    setModalOpen(false);
-    sendEvent({ name: "Save distro", section: tab });
+    // Only perform the save operation is the tab is valid.
+    // eslint-disable-next-line no-prototype-builtins
+    if (formToGqlMap.hasOwnProperty(tab)) {
+      const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
+      const changes = formToGql(formData, distro);
+      saveDistro({
+        variables: {
+          distro: changes,
+          onSave: onSaveOperation,
+        },
+      });
+      setModalOpen(false);
+      sendEvent({ name: "Save distro", section: tab });
+    }
   };
 
   return (
