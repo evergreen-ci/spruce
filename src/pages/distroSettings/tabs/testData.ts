@@ -21,7 +21,7 @@ const distroData: DistroQuery["distro"] = {
   authorizedKeysFile: "",
   bootstrapSettings: {
     clientDir: "/home/evg/client",
-    communication: CommunicationMethod.Rpc,
+    communication: CommunicationMethod.LegacySsh,
     env: [
       {
         key: "foo",
