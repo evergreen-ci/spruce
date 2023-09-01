@@ -131,6 +131,9 @@ export default defineConfig({
       org: "mongodb-org",
       project: "spruce",
       authToken: process.env.REACT_APP_SENTRY_AUTH_TOKEN,
+      release: {
+        name: process.env.npm_package_version,
+      },
       sourcemaps: {
         assets: "./build/assets/*",
       },
@@ -142,8 +145,5 @@ export default defineConfig({
         javascriptEnabled: true, // enable LESS {@import ...}
       },
     },
-  },
-  define: {
-    APP_VERSION: JSON.stringify(process.env.npm_package_version),
   },
 });
