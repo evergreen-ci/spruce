@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.131",
+  "version": "3.0.132",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -137,9 +137,9 @@
     "@emotion/babel-plugin": "11.11.0",
     "@emotion/eslint-plugin": "11.11.0",
     "@emotion/jest": "11.11.0",
-    "@graphql-codegen/cli": "3.2.2",
-    "@graphql-codegen/typescript": "3.0.2",
-    "@graphql-codegen/typescript-operations": "3.0.2",
+    "@graphql-codegen/cli": "5.0.0",
+    "@graphql-codegen/typescript": "4.0.1",
+    "@graphql-codegen/typescript-operations": "4.0.1",
     "@graphql-eslint/eslint-plugin": "3.18.0",
     "@originjs/vite-plugin-commonjs": "1.0.3",
     "@storybook/addon-actions": "7.0.21",
