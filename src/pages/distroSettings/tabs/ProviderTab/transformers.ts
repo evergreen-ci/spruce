@@ -1,14 +1,17 @@
 import { DistroSettingsTabRoutes } from "constants/routes";
 import { Provider } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { staticProviderSettings } from "./transformerUtils";
+import {
+  staticProviderSettings,
+  dockerProviderSettings,
+} from "./transformerUtils";
 
 type Tab = DistroSettingsTabRoutes.Provider;
 
 export const gqlToForm = ((data) => {
   if (!data) return null;
 
-  const { provider, providerSettingsList } = data;
+  const { containerPool, provider, providerSettingsList } = data;
 
   switch (provider) {
     case Provider.Static:
@@ -16,7 +19,19 @@ export const gqlToForm = ((data) => {
         provider: {
           providerName: Provider.Static,
         },
-        ...staticProviderSettings(providerSettingsList[0]).form,
+        providerSettings: {
+          ...staticProviderSettings(providerSettingsList[0]).form,
+        },
+      };
+    case Provider.Docker:
+      return {
+        provider: {
+          providerName: Provider.Docker,
+        },
+        providerSettings: {
+          ...dockerProviderSettings(providerSettingsList[0]).form,
+          containerPoolId: containerPool,
+        },
       };
     default:
       throw new Error(`Unknown provider '${provider}'`);
@@ -29,13 +44,24 @@ export const formToGql = ((data, distro) => {
   } = data;
 
   switch (providerName) {
-    case Provider.Static: {
+    case Provider.Static:
       return {
         ...distro,
-        provider: providerName,
-        ...staticProviderSettings(data.providerSettings).gql,
+        provider: Provider.Static,
+        providerSettingsList: [
+          ...staticProviderSettings(data.providerSettings).gql,
+        ],
       };
-    }
+    case Provider.Docker:
+      return {
+        ...distro,
+        provider: Provider.Docker,
+        providerSettingsList: [
+          ...dockerProviderSettings(data.providerSettings).gql,
+        ],
+        // @ts-ignore-error - containerPoolId will exist in DockerFormState.
+        containerPool: data.providerSettings.containerPoolId,
+      };
     default:
       return distro;
   }

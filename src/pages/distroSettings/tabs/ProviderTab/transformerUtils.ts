@@ -30,6 +30,42 @@ const getSecurityGroups = ((providerSettings) => ({
   },
 })) satisfies FieldGetter;
 
+const getImageUrl = ((providerSettings) => ({
+  form: {
+    imageUrl: providerSettings.image_url ?? "",
+  },
+  gql: {
+    image_url: providerSettings.imageUrl,
+  },
+})) satisfies FieldGetter;
+
+const getBuildType = ((providerSettings) => ({
+  form: {
+    buildType: providerSettings.build_type ?? "",
+  },
+  gql: {
+    build_type: providerSettings.buildType,
+  },
+})) satisfies FieldGetter;
+
+const getRegistryUsername = ((providerSettings) => ({
+  form: {
+    registryUsername: providerSettings.docker_registry_user ?? "",
+  },
+  gql: {
+    docker_registry_user: providerSettings.registryUsername,
+  },
+})) satisfies FieldGetter;
+
+const getRegistryPassword = ((providerSettings) => ({
+  form: {
+    registryPassword: providerSettings.docker_registry_pw ?? "",
+  },
+  gql: {
+    docker_registry_pw: providerSettings.registryPassword,
+  },
+})) satisfies FieldGetter;
+
 export const staticProviderSettings = ((providerSettings = {}) => {
   const userData = getUserData(providerSettings);
   const mergeUserData = getMergeUserData(providerSettings);
@@ -37,20 +73,49 @@ export const staticProviderSettings = ((providerSettings = {}) => {
 
   return {
     form: {
-      providerSettings: {
-        ...userData.form,
-        ...mergeUserData.form,
-        ...securityGroups.form,
+      ...userData.form,
+      ...mergeUserData.form,
+      ...securityGroups.form,
+    },
+    gql: [
+      {
+        ...userData.gql,
+        ...mergeUserData.gql,
+        ...securityGroups.gql,
       },
+    ],
+  };
+}) satisfies FieldGetter;
+
+export const dockerProviderSettings = ((providerSettings = {}) => {
+  const imageUrl = getImageUrl(providerSettings);
+  const buildType = getBuildType(providerSettings);
+  const registryUser = getRegistryUsername(providerSettings);
+  const registryPassword = getRegistryPassword(providerSettings);
+  const userData = getUserData(providerSettings);
+  const mergeUserData = getMergeUserData(providerSettings);
+  const securityGroups = getSecurityGroups(providerSettings);
+
+  return {
+    form: {
+      ...imageUrl.form,
+      ...buildType.form,
+      ...registryUser.form,
+      ...registryPassword.form,
+      ...userData.form,
+      ...mergeUserData.form,
+      ...securityGroups.form,
     },
-    gql: {
-      providerSettingsList: [
-        {
-          ...userData.gql,
-          ...mergeUserData.gql,
-          ...securityGroups.gql,
-        },
-      ],
-    },
+    gql: [
+      {
+        ...imageUrl.gql,
+        ...buildType.gql,
+        ...registryUser.gql,
+        ...registryPassword.gql,
+        ...userData.gql,
+        ...mergeUserData.gql,
+        ...securityGroups.gql,
+      },
+    ],
   };
 }) satisfies FieldGetter;

@@ -258,6 +258,19 @@ export enum CommunicationMethod {
   Ssh = "SSH",
 }
 
+export type ContainerPool = {
+  __typename?: "ContainerPool";
+  distro: Scalars["String"]["output"];
+  id: Scalars["String"]["output"];
+  maxContainers: Scalars["Int"]["output"];
+  port: Scalars["Int"]["output"];
+};
+
+export type ContainerPoolsConfig = {
+  __typename?: "ContainerPoolsConfig";
+  pools: Array<ContainerPool>;
+};
+
 export type ContainerResources = {
   __typename?: "ContainerResources";
   cpu: Scalars["Int"]["output"];
@@ -2324,6 +2337,7 @@ export type SpruceConfig = {
   __typename?: "SpruceConfig";
   banner?: Maybe<Scalars["String"]["output"]>;
   bannerTheme?: Maybe<Scalars["String"]["output"]>;
+  containerPools?: Maybe<ContainerPoolsConfig>;
   githubOrgs: Array<Scalars["String"]["output"]>;
   jira?: Maybe<JiraConfig>;
   providers?: Maybe<CloudProviderConfig>;
@@ -7780,41 +7794,6 @@ export type RepoSettingsQuery = {
   };
 };
 
-export type SpruceConfigQueryVariables = Exact<{ [key: string]: never }>;
-
-export type SpruceConfigQuery = {
-  __typename?: "Query";
-  spruceConfig?: {
-    __typename?: "SpruceConfig";
-    banner?: string | null;
-    bannerTheme?: string | null;
-    jira?: { __typename?: "JiraConfig"; host?: string | null } | null;
-    providers?: {
-      __typename?: "CloudProviderConfig";
-      aws?: {
-        __typename?: "AWSConfig";
-        maxVolumeSizePerUser?: number | null;
-        pod?: {
-          __typename?: "AWSPodConfig";
-          ecs?: {
-            __typename?: "ECSConfig";
-            maxCPU: number;
-            maxMemoryMb: number;
-          } | null;
-        } | null;
-      } | null;
-    } | null;
-    slack?: { __typename?: "SlackConfig"; name?: string | null } | null;
-    spawnHost: {
-      __typename?: "SpawnHostConfig";
-      spawnHostsPerUser: number;
-      unexpirableHostsPerUser: number;
-      unexpirableVolumesPerUser: number;
-    };
-    ui?: { __typename?: "UIConfig"; defaultProject: string } | null;
-  } | null;
-};
-
 export type SystemLogsQueryVariables = Exact<{
   id: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;
@@ -8638,6 +8617,51 @@ export type SpawnTaskQuery = {
       id: string;
       spawnHostScriptPath: string;
     } | null;
+  } | null;
+};
+
+export type SpruceConfigQueryVariables = Exact<{ [key: string]: never }>;
+
+export type SpruceConfigQuery = {
+  __typename?: "Query";
+  spruceConfig?: {
+    __typename?: "SpruceConfig";
+    banner?: string | null;
+    bannerTheme?: string | null;
+    containerPools?: {
+      __typename?: "ContainerPoolsConfig";
+      pools: Array<{
+        __typename?: "ContainerPool";
+        distro: string;
+        id: string;
+        maxContainers: number;
+        port: number;
+      }>;
+    } | null;
+    jira?: { __typename?: "JiraConfig"; host?: string | null } | null;
+    providers?: {
+      __typename?: "CloudProviderConfig";
+      aws?: {
+        __typename?: "AWSConfig";
+        maxVolumeSizePerUser?: number | null;
+        pod?: {
+          __typename?: "AWSPodConfig";
+          ecs?: {
+            __typename?: "ECSConfig";
+            maxCPU: number;
+            maxMemoryMb: number;
+          } | null;
+        } | null;
+      } | null;
+    } | null;
+    slack?: { __typename?: "SlackConfig"; name?: string | null } | null;
+    spawnHost: {
+      __typename?: "SpawnHostConfig";
+      spawnHostsPerUser: number;
+      unexpirableHostsPerUser: number;
+      unexpirableVolumesPerUser: number;
+    };
+    ui?: { __typename?: "UIConfig"; defaultProject: string } | null;
   } | null;
 };
 

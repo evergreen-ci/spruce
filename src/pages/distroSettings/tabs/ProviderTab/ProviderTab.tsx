@@ -1,4 +1,8 @@
 import { useMemo } from "react";
+import { DistroSettingsTabRoutes } from "constants/routes";
+import { useSpruceConfig } from "hooks";
+import { useDistroSettingsContext } from "pages/distroSettings/Context";
+import { omitTypename } from "utils/string";
 import { BaseTab } from "../BaseTab";
 import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";
@@ -6,7 +10,22 @@ import { TabProps } from "./types";
 export const ProviderTab: React.FC<TabProps> = ({ distroData }) => {
   const initialFormState = distroData;
 
-  const formSchema = useMemo(() => getFormSchema(), []);
+  const { getTab } = useDistroSettingsContext();
+  const { formData } = getTab(DistroSettingsTabRoutes.Provider);
+
+  const { containerPools } = useSpruceConfig();
+  const { pools = [] } = containerPools || {};
+
+  const selectedPoolId = formData?.providerSettings?.containerPoolId;
+  const selectedPool = pools.find((p) => p.id === selectedPoolId) ?? null;
+  const poolMappingInfo = selectedPool
+    ? JSON.stringify(omitTypename(selectedPool), null, 4)
+    : "";
+
+  const formSchema = useMemo(
+    () => getFormSchema({ pools, poolMappingInfo }),
+    [pools, poolMappingInfo]
+  );
 
   return (
     <BaseTab formSchema={formSchema} initialFormState={initialFormState} />
