@@ -156,6 +156,7 @@ export const getFormSchema = (
           "ui:description":
             "Downstream versions created by this trigger will be deactivated by default",
           "ui:optional": true,
+          "ui:bold": true,
         },
       },
     },
