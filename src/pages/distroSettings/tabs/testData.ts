@@ -1,20 +1,27 @@
 import {
+  Arch,
+  BootstrapMethod,
   CloneMethod,
+  CommunicationMethod,
   DispatcherVersion,
   DistroQuery,
+  FeedbackRule,
   FinderVersion,
+  HostAllocatorVersion,
+  OverallocatedRule,
   PlannerVersion,
   Provider,
+  RoundingRule,
 } from "gql/generated/types";
 
 const distroData: DistroQuery["distro"] = {
   __typename: "Distro",
   aliases: ["rhel71-power8", "rhel71-power8-build"],
-  arch: "linux_ppc64le",
+  arch: Arch.LinuxPpc_64Bit,
   authorizedKeysFile: "",
   bootstrapSettings: {
     clientDir: "/home/evg/client",
-    communication: "legacy-ssh",
+    communication: CommunicationMethod.LegacySsh,
     env: [
       {
         key: "foo",
@@ -23,7 +30,7 @@ const distroData: DistroQuery["distro"] = {
     ],
     jasperBinaryDir: "/home/evg/jasper",
     jasperCredentialsPath: "/home/evg/jasper/creds.json",
-    method: "legacy-ssh",
+    method: BootstrapMethod.LegacySsh,
     preconditionScripts: [],
     resourceLimits: {
       lockedMemoryKb: -1,
@@ -65,13 +72,13 @@ const distroData: DistroQuery["distro"] = {
   },
   hostAllocatorSettings: {
     acceptableHostIdleTime: 0,
-    feedbackRule: "",
+    feedbackRule: FeedbackRule.Default,
     futureHostFraction: 0,
-    hostsOverallocatedRule: "",
+    hostsOverallocatedRule: OverallocatedRule.Default,
     maximumHosts: 0,
     minimumHosts: 0,
-    roundingRule: "",
-    version: "utilization",
+    roundingRule: RoundingRule.Default,
+    version: HostAllocatorVersion.Utilization,
   },
   iceCreamSettings: {
     configPath: "",
