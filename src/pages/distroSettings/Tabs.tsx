@@ -49,6 +49,7 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
           path={DistroSettingsTabRoutes.Provider}
           element={
             <ProviderTab
+              distro={distro}
               distroData={tabData[DistroSettingsTabRoutes.Provider]}
             />
           }
