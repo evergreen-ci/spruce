@@ -15,7 +15,8 @@ describe("historyTableTestSearch", () => {
     expect(input).toHaveValue("");
   });
 
-  it("should clear input when a value is submitted", () => {
+  it("should clear input when a value is submitted", async () => {
+    const user = userEvent.setup();
     render(<Content />, {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
@@ -25,13 +26,14 @@ describe("historyTableTestSearch", () => {
     ) as HTMLInputElement;
 
     expect(input).toHaveValue("");
-    userEvent.type(input, "some-test-name");
+    await user.type(input, "some-test-name");
     expect(input).toHaveValue("some-test-name");
-    userEvent.type(input, "{enter}");
+    await user.type(input, "{enter}");
     expect(input).toHaveValue("");
   });
 
-  it("should add input query params to the url", () => {
+  it("should add input query params to the url", async () => {
+    const user = userEvent.setup();
     const { router } = render(<Content />, {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
@@ -42,13 +44,14 @@ describe("historyTableTestSearch", () => {
 
     // FAILED TEST
     expect(input).toHaveValue("");
-    userEvent.type(input, "some-test-name");
+    await user.type(input, "some-test-name");
     expect(input).toHaveValue("some-test-name");
-    userEvent.type(input, "{enter}");
+    await user.type(input, "{enter}");
     expect(router.state.location.search).toBe(`?failed=some-test-name`);
   });
 
-  it("should add multiple input filters to the same key as query params", () => {
+  it("should add multiple input filters to the same key as query params", async () => {
+    const user = userEvent.setup();
     const { router } = render(<Content />, {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
@@ -57,18 +60,19 @@ describe("historyTableTestSearch", () => {
       "Search test name regex"
     ) as HTMLInputElement;
     expect(input).toHaveValue("");
-    userEvent.type(input, "some-test-name");
+    await user.type(input, "some-test-name");
     expect(input).toHaveValue("some-test-name");
-    userEvent.type(input, "{enter}");
-    userEvent.type(input, "some-other-test-name");
+    await user.type(input, "{enter}");
+    await user.type(input, "some-other-test-name");
     expect(input).toHaveValue("some-other-test-name");
-    userEvent.type(input, "{enter}");
+    await user.type(input, "{enter}");
     expect(router.state.location.search).toBe(
       `?failed=some-test-name,some-other-test-name`
     );
   });
 
-  it("should not allow duplicate input filters for the same key as query params", () => {
+  it("should not allow duplicate input filters for the same key as query params", async () => {
+    const user = userEvent.setup();
     const { router } = render(<Content />, {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
@@ -77,12 +81,12 @@ describe("historyTableTestSearch", () => {
       "Search test name regex"
     ) as HTMLInputElement;
     expect(input).toHaveValue("");
-    userEvent.type(input, "some-test-name");
+    await user.type(input, "some-test-name");
     expect(input).toHaveValue("some-test-name");
-    userEvent.type(input, "{enter}");
-    userEvent.type(input, "some-test-name");
+    await user.type(input, "{enter}");
+    await user.type(input, "some-test-name");
     expect(input).toHaveValue("some-test-name");
-    userEvent.type(input, "{enter}");
+    await user.type(input, "{enter}");
     expect(router.state.location.search).toBe(`?failed=some-test-name`);
   });
 });

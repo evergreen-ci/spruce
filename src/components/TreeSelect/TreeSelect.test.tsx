@@ -19,19 +19,21 @@ describe("treeSelect", () => {
     expect(checkbox).toBeChecked();
   });
 
-  it("clicking a value selects its option in the tree select", () => {
+  it("clicking a value selects its option in the tree select", async () => {
+    const user = userEvent.setup();
     const onChange = jest.fn();
     render(<TreeSelect onChange={onChange} state={[]} tData={treeData} />);
     expect(screen.getByText("Pass")).toBeInTheDocument();
-    userEvent.click(screen.queryByText("Pass"));
+    await user.click(screen.queryByText("Pass"));
     expect(onChange).toHaveBeenCalledWith(["pass"]);
   });
 
-  it("clicking all selects all of the options in the tree select", () => {
+  it("clicking all selects all of the options in the tree select", async () => {
+    const user = userEvent.setup();
     const onChange = jest.fn();
     render(<TreeSelect onChange={onChange} state={[]} tData={treeData} />);
     expect(screen.getByText("All")).toBeInTheDocument();
-    userEvent.click(screen.queryByText("All"));
+    await user.click(screen.queryByText("All"));
     expect(onChange).toHaveBeenCalledWith([
       "all",
       "pass",
@@ -51,7 +53,8 @@ describe("treeSelect", () => {
     expect(screen.getByText("Fail")).toBeInTheDocument();
   });
 
-  it("unchecking a child element should uncheck its parent", () => {
+  it("unchecking a child element should uncheck its parent", async () => {
+    const user = userEvent.setup();
     let state = ["failing-umbrella", "system-failure", "fail"];
     const onChange = jest.fn((update) => {
       state = update;
@@ -62,17 +65,18 @@ describe("treeSelect", () => {
     expect(screen.queryByLabelText("Failing Umbrella")).toBeChecked();
     expect(screen.queryByLabelText("System Failure")).toBeChecked();
     expect(screen.queryByLabelText("Fail")).toBeChecked();
-    userEvent.click(screen.queryByText("Fail"));
+    await user.click(screen.queryByText("Fail"));
     expect(onChange).toHaveBeenCalledWith(["system-failure"]);
   });
 
-  it("checking a parent element should toggle its children", () => {
+  it("checking a parent element should toggle its children", async () => {
+    const user = userEvent.setup();
     const onChange = jest.fn();
     render(
       <TreeSelect onChange={onChange} state={[]} tData={nestedTreeData} />
     );
     expect(screen.getByText("Failing Umbrella")).toBeInTheDocument();
-    userEvent.click(screen.queryByText("Failing Umbrella"));
+    await user.click(screen.queryByText("Failing Umbrella"));
     expect(onChange).toHaveBeenCalledWith([
       "failing-umbrella",
       "system-failure",

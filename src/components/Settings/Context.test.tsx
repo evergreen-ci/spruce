@@ -1,5 +1,5 @@
 import { AjvError } from "@rjsf/core";
-import { act, renderHook } from "@testing-library/react-hooks";
+import { act, renderHook, waitFor } from "test_utils";
 import {
   initialData,
   TestProvider,
@@ -52,7 +52,7 @@ describe("useTestContext", () => {
   });
 
   it("marks the tab as having changes when updateForm is called", async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useTestContext(), {
+    const { result } = renderHook(() => useTestContext(), {
       wrapper: TestProvider,
     });
 
@@ -67,15 +67,16 @@ describe("useTestContext", () => {
       });
     });
 
-    await waitForNextUpdate();
-    expect(result.current.getTab("foo").hasChanges).toBe(true);
+    await waitFor(() => {
+      expect(result.current.getTab("foo").hasChanges).toBe(true);
+    });
     expect(result.current.getTab("foo").hasError).toBe(false);
     expect(result.current.getTab("bar").hasChanges).toBe(false);
     expect(result.current.getTab("bar").hasError).toBe(false);
   });
 
   it("updating the form state with identical data does not unsave the tab", async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useTestContext(), {
+    const { result } = renderHook(() => useTestContext(), {
       wrapper: TestProvider,
     });
 
@@ -90,7 +91,6 @@ describe("useTestContext", () => {
       });
     });
 
-    await waitForNextUpdate();
     expect(result.current.getTab("foo").hasChanges).toBe(false);
   });
 
@@ -120,7 +120,7 @@ describe("useHasUnsavedTab", () => {
   });
 
   it("returns names of unsaved tabs", async () => {
-    const { result, waitForNextUpdate } = renderHook(
+    const { result } = renderHook(
       () => ({
         ...useHasUnsavedTab(),
         ...useTestContext(),
@@ -139,9 +139,10 @@ describe("useHasUnsavedTab", () => {
       });
     });
 
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(result.current.hasUnsaved).toBe(true);
+    });
     expect(result.current.unsavedTabs).toStrictEqual(["bar"]);
-    expect(result.current.hasUnsaved).toBe(true);
   });
 });
 

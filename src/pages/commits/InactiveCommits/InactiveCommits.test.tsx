@@ -35,16 +35,18 @@ describe("inactiveCommitButton", () => {
   });
 
   it("clicking on the button should open a tooltip", async () => {
+    const user = userEvent.setup();
     render(<RenderInactiveCommitButton versions={versions} />);
 
     expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeNull();
-    userEvent.click(screen.queryByDataCy("inactive-commits-button"));
-    await waitFor(() =>
-      expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible()
-    );
+    await user.click(screen.queryByDataCy("inactive-commits-button"));
+    await waitFor(() => {
+      expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
+    });
   });
 
   it("should show all inactive commits if there are 3 or less commits", async () => {
+    const user = userEvent.setup();
     render(
       <RenderInactiveCommitButton
         versions={versions.slice(0, MAX_COMMIT_COUNT - 1)}
@@ -52,10 +54,10 @@ describe("inactiveCommitButton", () => {
     );
 
     expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeNull();
-    userEvent.click(screen.queryByDataCy("inactive-commits-button"));
-    await waitFor(() =>
-      expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible()
-    );
+    await user.click(screen.queryByDataCy("inactive-commits-button"));
+    await waitFor(() => {
+      expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
+    });
     expect(screen.queryAllByDataCy("commit-text")).toHaveLength(
       MAX_COMMIT_COUNT - 1
     );
@@ -63,13 +65,14 @@ describe("inactiveCommitButton", () => {
   });
 
   it("should collapse commits if there are more than 3", async () => {
+    const user = userEvent.setup();
     render(<RenderInactiveCommitButton versions={versions} />);
 
     expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeNull();
-    userEvent.click(screen.queryByDataCy("inactive-commits-button"));
-    await waitFor(() =>
-      expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible()
-    );
+    await user.click(screen.queryByDataCy("inactive-commits-button"));
+    await waitFor(() => {
+      expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
+    });
     expect(screen.queryAllByDataCy("commit-text")).toHaveLength(
       MAX_COMMIT_COUNT
     );
@@ -77,21 +80,22 @@ describe("inactiveCommitButton", () => {
   });
 
   it("should open a modal when clicking on the hidden commits text", async () => {
+    const user = userEvent.setup();
     render(<RenderInactiveCommitButton versions={versions} />);
 
     expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeNull();
-    userEvent.click(screen.queryByDataCy("inactive-commits-button"));
-    await waitFor(() =>
-      expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible()
-    );
+    await user.click(screen.queryByDataCy("inactive-commits-button"));
+    await waitFor(() => {
+      expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
+    });
     expect(screen.queryAllByDataCy("commit-text")).toHaveLength(
       MAX_COMMIT_COUNT
     );
     expect(screen.queryByDataCy("inactive-commits-modal")).toBeNull();
-    userEvent.click(screen.queryByDataCy("hidden-commits"));
-    await waitFor(() =>
-      expect(screen.queryByDataCy("inactive-commits-modal")).toBeVisible()
-    );
+    await user.click(screen.queryByDataCy("hidden-commits"));
+    await waitFor(() => {
+      expect(screen.queryByDataCy("inactive-commits-modal")).toBeVisible();
+    });
   });
 
   it("should show unmatching label when there are filters applied", () => {

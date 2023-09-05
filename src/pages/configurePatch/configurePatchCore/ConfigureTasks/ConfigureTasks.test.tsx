@@ -101,7 +101,8 @@ describe("configureTasks", () => {
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).toBePartiallyChecked();
     });
-    it("selecting a task should call setSelectedBuildVariantTasks with the correct arguments selecting only that task", () => {
+    it("selecting a task should call setSelectedBuildVariantTasks with the correct arguments selecting only that task", async () => {
+      const user = userEvent.setup();
       const selectedBuildVariants = ["ubuntu2004"];
       const setSelectedBuildVariantTasks = jest.fn();
       render(
@@ -124,12 +125,13 @@ describe("configureTasks", () => {
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).not.toBeChecked();
       expect(setSelectedBuildVariantTasks).not.toHaveBeenCalled();
-      checkbox.click();
+      await user.click(screen.getByText("compile"));
       expect(setSelectedBuildVariantTasks).toHaveBeenCalledWith({
         ubuntu2004: { compile: true, test: false },
       });
     });
-    it("selecting all tasks should call setSelectedBuildVariantTasks with the correct arguments selecting all of the visible tasks in one variant", () => {
+    it("selecting all tasks should call setSelectedBuildVariantTasks with the correct arguments selecting all of the visible tasks in one variant", async () => {
+      const user = userEvent.setup();
       const selectedBuildVariants = ["ubuntu2004"];
       const setSelectedBuildVariantTasks = jest.fn();
       render(
@@ -155,13 +157,14 @@ describe("configureTasks", () => {
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).not.toBeChecked();
       expect(setSelectedBuildVariantTasks).not.toHaveBeenCalled();
-      checkbox.click();
+      await user.click(screen.getByText("Select all tasks in this variant"));
       expect(setSelectedBuildVariantTasks).toHaveBeenCalledWith({
         ubuntu2004: { compile: true, test: true },
         ubuntu1804: { compile: false, lint: false },
       });
     });
-    it("selecting a deduplicated task should call setSelectedBuildVariantTasks selecting the task in all variants", () => {
+    it("selecting a deduplicated task should call setSelectedBuildVariantTasks selecting the task in all variants", async () => {
+      const user = userEvent.setup();
       const selectedBuildVariants = ["ubuntu2004", "ubuntu1804"];
       const setSelectedBuildVariantTasks = jest.fn();
       render(
@@ -185,13 +188,14 @@ describe("configureTasks", () => {
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).not.toBeChecked();
       expect(setSelectedBuildVariantTasks).not.toHaveBeenCalled();
-      checkbox.click();
+      await user.click(screen.getByText("compile"));
       expect(setSelectedBuildVariantTasks).toHaveBeenCalledWith({
         ubuntu2004: { compile: true, test: false },
         ubuntu1804: { compile: true, lint: false },
       });
     });
-    it("selecting all tasks should call setSelectedBuildVariantTasks with the correct arguments selecting all of the visible tasks in multiple variants", () => {
+    it("selecting all tasks should call setSelectedBuildVariantTasks with the correct arguments selecting all of the visible tasks in multiple variants", async () => {
+      const user = userEvent.setup();
       const selectedBuildVariants = ["ubuntu2004", "ubuntu1804"];
       const setSelectedBuildVariantTasks = jest.fn();
       render(
@@ -217,13 +221,14 @@ describe("configureTasks", () => {
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).not.toBeChecked();
       expect(setSelectedBuildVariantTasks).not.toHaveBeenCalled();
-      checkbox.click();
+      await user.click(screen.getByText("Select all tasks in these variants"));
       expect(setSelectedBuildVariantTasks).toHaveBeenCalledWith({
         ubuntu2004: { compile: true, test: true },
         ubuntu1804: { compile: true, lint: true },
       });
     });
-    it("applying a search should filter the tasks", () => {
+    it("applying a search should filter the tasks", async () => {
+      const user = userEvent.setup();
       const selectedBuildVariants = ["ubuntu2004", "ubuntu1804"];
       render(
         <ConfigureTasks
@@ -243,7 +248,7 @@ describe("configureTasks", () => {
         />
       );
 
-      userEvent.type(screen.getByDataCy("task-filter-input"), "compile");
+      await user.type(screen.getByDataCy("task-filter-input"), "compile");
       expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(1);
       const checkbox = screen.getByLabelText("compile");
       expect(checkbox).toBeInTheDocument();
@@ -400,7 +405,8 @@ describe("configureTasks", () => {
       expect(screen.getByLabelText("test")).toBeInTheDocument();
       expect(screen.getByLabelText("parsley")).toBeInTheDocument();
     });
-    it("selecting the entire alias calls setSelectedAliases with the correct arguments", () => {
+    it("selecting the entire alias calls setSelectedAliases with the correct arguments", async () => {
+      const user = userEvent.setup();
       const selectedBuildVariants = ["parsley"];
       const setSelectedBuildVariantTasks = jest.fn();
       const setSelectedAliases = jest.fn();
@@ -436,7 +442,7 @@ describe("configureTasks", () => {
         />
       );
       expect(screen.getByLabelText("Add alias to patch")).toBeInTheDocument();
-      screen.getByLabelText("Add alias to patch").click();
+      await user.click(screen.getByText("Add alias to patch"));
       expect(setSelectedAliases).toHaveBeenCalledWith({
         parsley: true,
       });

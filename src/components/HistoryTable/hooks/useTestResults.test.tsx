@@ -1,9 +1,9 @@
-import { act, renderHook } from "@testing-library/react-hooks";
 import {
   TaskTestSampleQuery,
   TaskTestSampleQueryVariables,
 } from "gql/generated/types";
 import { GET_TASK_TEST_SAMPLE } from "gql/queries";
+import { act, renderHook, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { TestStatus } from "types/history";
 import { useHistoryTable } from "../HistoryTableContext";
@@ -65,12 +65,9 @@ describe("useTestResults", () => {
   });
 
   it("should return all matching test results when there are no filters applied and the row is a commit", async () => {
-    const { result, waitForNextUpdate } = renderHook(
-      () => useMergedTestHook(1),
-      {
-        wrapper: ({ children }) => ProviderWrapper({ children, mocks }),
-      }
-    );
+    const { result } = renderHook(() => useMergedTestHook(1), {
+      wrapper: ({ children }) => ProviderWrapper({ children, mocks }),
+    });
     expect(
       result.current.hookResponse.getTaskMetadata(
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
@@ -87,25 +84,24 @@ describe("useTestResults", () => {
     expect(result.current.historyTable.getItem(2)).toMatchObject({
       type: rowType.COMMIT,
     });
-    await waitForNextUpdate();
-    const response = result.current.hookResponse.getTaskMetadata(
-      "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
-    );
-    expect(response).toMatchObject({
-      inactive: false,
-      label: "",
-      failingTests: ["TestJiraIntegration"],
-      loading: false,
+    await waitFor(() => {
+      expect(
+        result.current.hookResponse.getTaskMetadata(
+          "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
+        )
+      ).toMatchObject({
+        inactive: false,
+        label: "",
+        failingTests: ["TestJiraIntegration"],
+        loading: false,
+      });
     });
   });
 
   it("should return all matching test results when there are matching filters applied and the row is a commit", async () => {
-    const { result, waitForNextUpdate } = renderHook(
-      () => useMergedTestHook(1),
-      {
-        wrapper: ({ children }) => ProviderWrapper({ children, mocks }),
-      }
-    );
+    const { result } = renderHook(() => useMergedTestHook(1), {
+      wrapper: ({ children }) => ProviderWrapper({ children, mocks }),
+    });
     expect(
       result.current.hookResponse.getTaskMetadata(
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
@@ -128,26 +124,24 @@ describe("useTestResults", () => {
         { testName: "TestJiraIntegration", testStatus: TestStatus.Failed },
       ]);
     });
-    await waitForNextUpdate();
-    expect(
-      result.current.hookResponse.getTaskMetadata(
-        "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
-      )
-    ).toMatchObject({
-      inactive: false,
-      label: "1 / 1 Failing Tests",
-      failingTests: ["TestJiraIntegration"],
-      loading: false,
+    await waitFor(() => {
+      expect(
+        result.current.hookResponse.getTaskMetadata(
+          "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
+        )
+      ).toMatchObject({
+        inactive: false,
+        label: "1 / 1 Failing Tests",
+        failingTests: ["TestJiraIntegration"],
+        loading: false,
+      });
     });
   });
 
   it("should not return matching test results when there are non matching filters applied and the row is a commit", async () => {
-    const { result, waitForNextUpdate } = renderHook(
-      () => useMergedTestHook(1),
-      {
-        wrapper: ({ children }) => ProviderWrapper({ children, mocks }),
-      }
-    );
+    const { result } = renderHook(() => useMergedTestHook(1), {
+      wrapper: ({ children }) => ProviderWrapper({ children, mocks }),
+    });
     expect(
       result.current.hookResponse.getTaskMetadata(
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
@@ -169,15 +163,16 @@ describe("useTestResults", () => {
         { testName: "NotARealTest", testStatus: TestStatus.Failed },
       ]);
     });
-    await waitForNextUpdate();
-    expect(
-      result.current.hookResponse.getTaskMetadata(
-        "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
-      )
-    ).toMatchObject({
-      inactive: true,
-      label: "0 / 1 Failing Tests",
-      failingTests: [],
+    await waitFor(() => {
+      expect(
+        result.current.hookResponse.getTaskMetadata(
+          "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
+        )
+      ).toMatchObject({
+        inactive: true,
+        label: "0 / 1 Failing Tests",
+        failingTests: [],
+      });
     });
   });
 });

@@ -120,6 +120,7 @@ describe("variantHistoryRow", () => {
   });
 
   it("should show failing tests when you hover over a failing task cell and there are no filters applied", async () => {
+    const user = userEvent.setup();
     render(<VariantHistoryRow index={0} data={taskRow} />, {
       route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",
@@ -151,14 +152,14 @@ describe("variantHistoryRow", () => {
       );
     });
 
-    userEvent.hover(screen.queryByDataCy("history-table-icon"));
-
+    await user.hover(screen.queryByDataCy("history-table-icon"));
     await waitFor(() => {
       expect(screen.queryByText("TestJiraIntegration")).toBeVisible();
     });
   });
 
   it("should show a matching test label when looking at a task cell with filters applied", async () => {
+    const user = userEvent.setup();
     render(<VariantHistoryRow index={0} data={taskRow} />, {
       route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",
@@ -197,7 +198,7 @@ describe("variantHistoryRow", () => {
     });
 
     expect(screen.queryByText("1 / 1 Failing Tests")).toBeVisible();
-    userEvent.hover(screen.queryByDataCy("history-table-icon"));
+    await user.hover(screen.queryByDataCy("history-table-icon"));
     await waitFor(() => {
       expect(screen.queryByText("TestJiraIntegration")).toBeVisible();
     });

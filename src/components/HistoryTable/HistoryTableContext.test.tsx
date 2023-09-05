@@ -1,4 +1,4 @@
-import { renderHook, act } from "@testing-library/react-hooks";
+import { renderHook, act } from "test_utils";
 import { HistoryTableProvider, useHistoryTable } from "./HistoryTableContext";
 import { columns, mainlineCommitData } from "./testData";
 import { rowType, CommitRowType } from "./types";

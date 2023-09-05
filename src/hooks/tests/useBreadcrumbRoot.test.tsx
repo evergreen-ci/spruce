@@ -1,10 +1,10 @@
 import { InMemoryCache } from "@apollo/client";
 import { MockedProvider } from "@apollo/client/testing";
-import { renderHook } from "@testing-library/react-hooks";
 import { OtherUserQuery, OtherUserQueryVariables } from "gql/generated/types";
 import { getUserMock } from "gql/mocks/getUser";
 import { GET_OTHER_USER } from "gql/queries";
 import { useBreadcrumbRoot } from "hooks";
+import { renderHook, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 
 const cache = new InMemoryCache({
@@ -29,24 +29,24 @@ const OtherUserProvider = ({ children }) => (
 
 describe("useBreadcrumbRoot", () => {
   it("returns the correct breadcrumb root when the version is a patch belonging to current user", async () => {
-    const { result, waitForNextUpdate } = renderHook(
+    const { result } = renderHook(
       () => useBreadcrumbRoot(true, "admin", "spruce"),
       { wrapper: SameUserProvider }
     );
-    await waitForNextUpdate();
-
-    expect(result.current.to).toBe("/user/admin/patches");
+    await waitFor(() => {
+      expect(result.current.to).toBe("/user/admin/patches");
+    });
     expect(result.current.text).toBe("My Patches");
   });
 
   it("returns the correct breadcrumb root when the version is a patch belonging to other user", async () => {
-    const { result, waitForNextUpdate } = renderHook(
+    const { result } = renderHook(
       () => useBreadcrumbRoot(true, "john.doe", "spruce"),
       { wrapper: OtherUserProvider }
     );
-    await waitForNextUpdate();
-
-    expect(result.current.to).toBe("/user/john.doe/patches");
+    await waitFor(() => {
+      expect(result.current.to).toBe("/user/john.doe/patches");
+    });
     expect(result.current.text).toBe("John Doe's Patches");
   });
 

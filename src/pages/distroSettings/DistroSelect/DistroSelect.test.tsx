@@ -26,6 +26,7 @@ describe("distro select", () => {
   });
 
   it("selecting a different distro will navigate to the correct URL", async () => {
+    const user = userEvent.setup();
     const { router } = render(<DistroSelect selectedDistro="localhost" />, {
       wrapper,
       route: "/distro/localhost/settings/general",
@@ -35,14 +36,15 @@ describe("distro select", () => {
       expect(screen.getByDataCy("distro-select")).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByDataCy("distro-select"));
+    await user.click(screen.getByDataCy("distro-select"));
     expect(screen.getByDataCy("distro-select-options")).toBeInTheDocument();
-    userEvent.click(screen.getByText("abc"));
+    await user.click(screen.getByText("abc"));
     expect(screen.queryByDataCy("distro-select-options")).toBeNull();
     expect(router.state.location.pathname).toBe("/distro/abc/settings");
   });
 
   it("typing in the text input will narrow down search results", async () => {
+    const user = userEvent.setup();
     render(<DistroSelect selectedDistro="localhost" />, {
       wrapper,
     });
@@ -50,7 +52,7 @@ describe("distro select", () => {
       expect(screen.getByDataCy("distro-select")).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByDataCy("distro-select"));
+    await user.click(screen.getByDataCy("distro-select"));
     expect(
       screen.getByDataCy("distro-select-search-input")
     ).toBeInTheDocument();
@@ -58,7 +60,7 @@ describe("distro select", () => {
 
     let options = await screen.findAllByDataCy("searchable-dropdown-option");
     expect(options).toHaveLength(3);
-    userEvent.type(screen.queryByDataCy("distro-select-search-input"), "abc");
+    await user.type(screen.queryByDataCy("distro-select-search-input"), "abc");
     options = await screen.findAllByDataCy("searchable-dropdown-option");
     expect(options).toHaveLength(1);
   });

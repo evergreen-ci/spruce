@@ -16,10 +16,13 @@ clean_up() {
 # Function to reseed the database with smoke test data.
 reseed_database() {
     # Change the current directory sdlschema symlink.
-    cd -- "$(dirname -- "$(readlink -- "sdlschema")")"
+    if ! cd -- "$(dirname -- "$(readlink -- "sdlschema")")"; then
+        echo "Unable to find Evergreen directory from the sdlschema symlink"
+        exit 1
+    fi
     # Load test data into the database.
     ../bin/load-smoke-data -path ../testdata/local -dbName evergreen_local -amboyDBName amboy_local
-    cd -
+    cd - || exit
 }
 
 # Function to create a dump of the database.
@@ -83,7 +86,7 @@ case "$1" in
         reseed_and_dump_database
         ;; 
     *)
-        echo "Usage: $0 {--dump|--restore|--clean-up}"
+        echo "Usage: $0 {--dump|--restore|--clean-up|--reseed-and-dump}"
         exit 1
         ;;
 esac
