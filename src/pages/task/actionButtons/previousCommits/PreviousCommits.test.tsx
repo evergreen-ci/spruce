@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
@@ -22,11 +23,12 @@ describe("previous commits", () => {
   // mainline commits needs to run another query GET_LAST_MAINLINE_COMMIT to get previous task.
   describe("patch specific", () => {
     it("the GO button is disabled when there is no base task", async () => {
-      renderWithRouterMatch(
+      const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[getPatchTaskWithNoBaseTask]}>
           <PreviousCommits taskId="t1" />
         </MockedProvider>
       );
+      renderWithRouterMatch(<Component />);
       await waitFor(() => {
         expect(screen.getByRole("link", goButton)).toHaveAttribute(
           "aria-disabled",
@@ -47,13 +49,15 @@ describe("previous commits", () => {
 
   describe("mainline commits specific", () => {
     it("the GO button is disabled when getParentTask returns null", async () => {
-      renderWithRouterMatch(
+      const { Component } = RenderFakeToastContext(
         <MockedProvider
           mocks={[getMainlineTaskWithBaseVersion, getNullParentTask]}
         >
           <PreviousCommits taskId="t4" />
         </MockedProvider>
       );
+      renderWithRouterMatch(<Component />);
+
       await waitFor(() => {
         expect(screen.getByRole("link", goButton)).toHaveAttribute(
           "aria-disabled",
@@ -72,13 +76,15 @@ describe("previous commits", () => {
     });
 
     it("the GO button is disabled when getParentTask returns an error", async () => {
-      renderWithRouterMatch(
+      const { Component } = RenderFakeToastContext(
         <MockedProvider
           mocks={[getMainlineTaskWithBaseVersion, getParentTaskWithError]}
         >
           <PreviousCommits taskId="t4" />
         </MockedProvider>
       );
+      renderWithRouterMatch(<Component />);
+
       await waitFor(() => {
         expect(screen.getByRole("link", goButton)).toHaveAttribute(
           "aria-disabled",
@@ -98,11 +104,13 @@ describe("previous commits", () => {
   });
 
   it("the select & GO button are disabled when no base version exists", async () => {
-    renderWithRouterMatch(
+    const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getPatchTaskWithNoBaseVersion]}>
         <PreviousCommits taskId="t3" />
       </MockedProvider>
     );
+    renderWithRouterMatch(<Component />);
+
     await waitFor(() => {
       expect(screen.getByRole("link", goButton)).toHaveAttribute(
         "aria-disabled",
@@ -119,11 +127,12 @@ describe("previous commits", () => {
 
   it("when base task is passing, all dropdown items generate the same link.", async () => {
     const user = userEvent.setup();
-    renderWithRouterMatch(
+    const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getPatchTaskWithSuccessfulBaseTask]}>
         <PreviousCommits taskId="t1" />
       </MockedProvider>
     );
+    renderWithRouterMatch(<Component />);
 
     await waitFor(() => {
       expect(screen.getByRole("link", goButton)).toHaveAttribute(
@@ -151,13 +160,14 @@ describe("previous commits", () => {
 
   it("when base task is failing, 'Go to base commit' and 'Go to last executed' dropdown items generate the same link and 'Go to last passing version' will be different.", async () => {
     const user = userEvent.setup();
-    renderWithRouterMatch(
+    const { Component } = RenderFakeToastContext(
       <MockedProvider
         mocks={[getPatchTaskWithFailingBaseTask, getLastPassingVersion]}
       >
         <PreviousCommits taskId="t1" />
       </MockedProvider>
     );
+    renderWithRouterMatch(<Component />);
 
     await waitFor(() => {
       expect(screen.getByRole("link", goButton)).toHaveAttribute(
@@ -187,7 +197,7 @@ describe("previous commits", () => {
 
   it("when base task is not in a finished state, the last executed & passing task is not the same as the base commit", async () => {
     const user = userEvent.setup();
-    renderWithRouterMatch(
+    const { Component } = RenderFakeToastContext(
       <MockedProvider
         mocks={[
           getPatchTaskWithRunningBaseTask,
@@ -198,6 +208,7 @@ describe("previous commits", () => {
         <PreviousCommits taskId="t3" />
       </MockedProvider>
     );
+    renderWithRouterMatch(<Component />);
 
     await waitFor(() => {
       expect(screen.getByRole("link", goButton)).toHaveAttribute(
