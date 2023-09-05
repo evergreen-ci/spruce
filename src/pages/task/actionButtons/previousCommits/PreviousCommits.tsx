@@ -8,6 +8,7 @@ import { useTaskAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { finishedTaskStatuses } from "constants/task";
 import { size } from "constants/tokens";
+import { useToastContext } from "context/toast";
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
@@ -44,6 +45,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     },
     dispatch,
   ] = useReducer(reducer, initialState);
+  const dispatchToast = useToastContext();
 
   const { data: taskData } = useQuery<
     BaseVersionAndTaskQuery,
@@ -52,6 +54,8 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     variables: { taskId },
   });
 
+  // We don't error for this query because it is the default query that is run when the page loads.
+  // If it errors it probably means there is no base version, which is fine.
   const [fetchParentTask, { loading: parentLoading }] = useLazyQuery<
     LastMainlineCommitQuery,
     LastMainlineCommitQueryVariables
@@ -74,6 +78,9 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
         task: getTaskFromMainlineCommitsQuery(data),
       });
     },
+    onError: (err) => {
+      dispatchToast.error(`Error fetching last passing task: '${err.message}'`);
+    },
   });
 
   const [fetchLastExecuted, { loading: executedLoading }] = useLazyQuery<
@@ -85,6 +92,11 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
         type: "setLastExecutedTask",
         task: getTaskFromMainlineCommitsQuery(data),
       });
+    },
+    onError: (err) => {
+      dispatchToast.error(
+        `Error fetching last executed task: '${err.message}'`
+      );
     },
   });
 
