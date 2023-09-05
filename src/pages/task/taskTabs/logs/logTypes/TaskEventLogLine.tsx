@@ -17,6 +17,9 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
   const containerOrHostCopy = podId ? "container" : "host";
   let message: JSX.Element;
   switch (eventType) {
+    case TaskEventType.TaskBlocked:
+      message = <>This task is blocked.</>;
+      break;
     case TaskEventType.TaskFinished:
       message = (
         <>
