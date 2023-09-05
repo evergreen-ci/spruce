@@ -18,7 +18,7 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
   let message: JSX.Element;
   switch (eventType) {
     case TaskEventType.TaskBlocked:
-      message = <>This task is blocked.</>;
+      message = <>Task is blocked.</>;
       break;
     case TaskEventType.TaskFinished:
       message = (
