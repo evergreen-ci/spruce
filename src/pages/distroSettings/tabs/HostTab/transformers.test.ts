@@ -12,15 +12,13 @@ import { distroData } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
 import { HostFormState } from "./types";
 
-describe("provider tab", () => {
-  describe("static provider", () => {
-    it("correctly converts from GQL to a form", () => {
-      expect(gqlToForm(distroData)).toStrictEqual(form);
-    });
+describe("host tab", () => {
+  it("correctly converts from GQL to a form", () => {
+    expect(gqlToForm(distroData)).toStrictEqual(form);
+  });
 
-    it("correctly converts from a form to GQL", () => {
-      expect(formToGql(form, distroData)).toStrictEqual(gql);
-    });
+  it("correctly converts from a form to GQL", () => {
+    expect(formToGql(form, distroData)).toStrictEqual(gql);
   });
 });
 

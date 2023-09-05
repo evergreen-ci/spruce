@@ -1,3 +1,4 @@
+import { InlineCode } from "@leafygreen-ui/typography";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import {
@@ -9,17 +10,21 @@ import {
   OverallocatedRule,
   Provider,
   RoundingRule,
+  SshKey,
 } from "gql/generated/types";
 
 type FormSchemaParams = {
   provider: Provider;
+  sshKeys: SshKey[];
 };
 
 export const getFormSchema = ({
   provider,
+  sshKeys,
 }: FormSchemaParams): ReturnType<GetFormSchema> => {
   const hasStaticProvider = provider === Provider.Static;
   const hasDockerProvider = provider === Provider.Docker;
+  const hasEC2Provider = !hasStaticProvider && !hasDockerProvider;
 
   return {
     fields: {},
@@ -70,6 +75,11 @@ export const getFormSchema = ({
             sshKey: {
               type: "string" as "string",
               title: "SSH Key",
+              oneOf: sshKeys.map(({ location, name }) => ({
+                type: "string" as "string",
+                title: `${name} – ${location}`,
+                enum: [name],
+              })),
             },
             authorizedKeysFile: {
               type: "string" as "string",
@@ -153,13 +163,24 @@ export const getFormSchema = ({
       },
       sshConfig: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        sshKey: {
+          "ui:allowDeselect": false,
+        },
         authorizedKeysFile: {
           "ui:data-cy": "authorized-keys-input",
           ...(!hasStaticProvider && { "ui:widget": "hidden" }),
         },
         sshOptions: {
           "ui:addButtonText": "Add SSH option",
+          "ui:descriptionNode": (
+            <>
+              Option keywords supported by <InlineCode>ssh_config</InlineCode>.
+            </>
+          ),
           "ui:orderable": false,
+          items: {
+            "ui:placeholder": "ConnectTimeout=10",
+          },
         },
       },
       allocation: {
@@ -178,27 +199,19 @@ export const getFormSchema = ({
         },
         minimumHosts: {
           "ui:data-cy": "minimum-hosts-input",
-          ...((hasStaticProvider || hasDockerProvider) && {
-            "ui:widget": "hidden",
-          }),
+          ...(!hasEC2Provider && { "ui:widget": "hidden" }),
         },
         maximumHosts: {
           "ui:data-cy": "maximum-hosts-input",
-          ...((hasStaticProvider || hasDockerProvider) && {
-            "ui:widget": "hidden",
-          }),
+          ...(!hasEC2Provider && { "ui:widget": "hidden" }),
         },
         acceptableHostIdleTime: {
           "ui:data-cy": "idle-time-input",
-          ...((hasStaticProvider || hasDockerProvider) && {
-            "ui:widget": "hidden",
-          }),
+          ...(!hasEC2Provider && { "ui:widget": "hidden" }),
         },
         futureHostFraction: {
           "ui:data-cy": "future-fraction-input",
-          ...((hasStaticProvider || hasDockerProvider) && {
-            "ui:widget": "hidden",
-          }),
+          ...(!hasEC2Provider && { "ui:widget": "hidden" }),
         },
       },
     },
@@ -206,10 +219,10 @@ export const getFormSchema = ({
 };
 
 const enumSelect = (enumObject: Record<string, string>) =>
-  Object.entries(enumObject).map(([value, title]) => ({
+  Object.entries(enumObject).map(([key, title]) => ({
     type: "string" as "string",
     title,
-    enum: [value],
+    enum: [key],
   }));
 
 const architectureToCopy = {

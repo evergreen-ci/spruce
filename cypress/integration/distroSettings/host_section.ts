@@ -17,7 +17,10 @@ describe("host section", () => {
     it("errors when selecting an incompatible host communication method", () => {
       cy.selectLGOption("Host Communication Method", "RPC");
       save();
-      cy.validateToast("error");
+      cy.validateToast(
+        "error",
+        "validating changes for distro 'localhost': 'ERROR: bootstrapping hosts using legacy SSH is incompatible with non-legacy host communication'"
+      );
       cy.selectLGOption("Host Communication Method", "Legacy SSH");
     });
 
