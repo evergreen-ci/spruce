@@ -46,7 +46,7 @@ const EventsTable: React.FC<{}> = () => {
     },
   });
 
-  const { eventLogEntries, count } = useMemo(
+  const { count, eventLogEntries } = useMemo(
     () => podEventsData?.pod.events ?? { eventLogEntries: [], count: 0 },
     [podEventsData?.pod?.events]
   );
