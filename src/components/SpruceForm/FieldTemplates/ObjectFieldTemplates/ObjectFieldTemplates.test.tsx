@@ -46,12 +46,11 @@ describe("objectFieldTemplates", () => {
       expect(screen.getByDataCy("name")).toBeInTheDocument();
     });
     it("renders all fields", () => {
-      const onChange = jest.fn();
       render(
         <SpruceForm
           schema={ObjectSchema}
           formData={{}}
-          onChange={onChange}
+          onChange={jest.fn()}
           uiSchema={uiSchema}
         />
       );
@@ -59,11 +58,13 @@ describe("objectFieldTemplates", () => {
       expect(screen.getByDataCy("age")).toBeInTheDocument();
     });
 
-    it("calls onChange when a field is changed", () => {
+    it("calls onChange when a field is changed", async () => {
       let data;
       const onChange = jest.fn(({ formData }) => {
         data = formData;
       });
+
+      const user = userEvent.setup();
       render(
         <SpruceForm
           schema={ObjectSchema}
@@ -72,9 +73,8 @@ describe("objectFieldTemplates", () => {
           uiSchema={uiSchema}
         />
       );
-      userEvent.type(screen.getByDataCy("name"), "Bruce Lee");
-      userEvent.type(screen.getByDataCy("age"), "32");
-
+      await user.type(screen.getByDataCy("name"), "Bruce Lee");
+      await user.type(screen.getByDataCy("age"), "32");
       expect(data).toStrictEqual({ person: { name: "Bruce Lee", age: 32 } });
     });
   });
@@ -92,35 +92,35 @@ describe("objectFieldTemplates", () => {
       },
     };
     it("applies data-cy attributes", () => {
-      const onChange = jest.fn();
       render(
         <SpruceForm
           schema={ObjectSchema}
           formData={{}}
-          onChange={onChange}
+          onChange={jest.fn()}
           uiSchema={uiSchema}
         />
       );
       expect(screen.getByDataCy("name")).toBeInTheDocument();
     });
     it("renders all fields in a card", () => {
-      const onChange = jest.fn();
       render(
         <SpruceForm
           schema={ObjectSchema}
           formData={{}}
-          onChange={onChange}
+          onChange={jest.fn()}
           uiSchema={uiSchema}
         />
       );
       expect(screen.getByDataCy("name")).toBeInTheDocument();
       expect(screen.getByDataCy("age")).toBeInTheDocument();
     });
-    it("calls onChange when a field is changed", () => {
+    it("calls onChange when a field is changed", async () => {
       let data;
       const onChange = jest.fn(({ formData }) => {
         data = formData;
       });
+
+      const user = userEvent.setup();
       render(
         <SpruceForm
           schema={ObjectSchema}
@@ -129,9 +129,8 @@ describe("objectFieldTemplates", () => {
           uiSchema={uiSchema}
         />
       );
-      userEvent.type(screen.getByDataCy("name"), "Bruce Lee");
-      userEvent.type(screen.getByDataCy("age"), "32");
-
+      await user.type(screen.getByDataCy("name"), "Bruce Lee");
+      await user.type(screen.getByDataCy("age"), "32");
       expect(data).toStrictEqual({ person: { name: "Bruce Lee", age: 32 } });
     });
   });
@@ -148,35 +147,35 @@ describe("objectFieldTemplates", () => {
       },
     };
     it("applies data-cy attributes", () => {
-      const onChange = jest.fn();
       render(
         <SpruceForm
           schema={ObjectSchema}
           formData={{}}
-          onChange={onChange}
+          onChange={jest.fn()}
           uiSchema={uiSchema}
         />
       );
       expect(screen.getByDataCy("name")).toBeInTheDocument();
     });
     it("renders all fields in an accordion", () => {
-      const onChange = jest.fn();
       render(
         <SpruceForm
           schema={ObjectSchema}
           formData={{}}
-          onChange={onChange}
+          onChange={jest.fn()}
           uiSchema={uiSchema}
         />
       );
       expect(screen.getByDataCy("name")).toBeInTheDocument();
       expect(screen.getByDataCy("age")).toBeInTheDocument();
     });
-    it("calls onChange when a field is changed", () => {
+    it("calls onChange when a field is changed", async () => {
       let data;
       const onChange = jest.fn(({ formData }) => {
         data = formData;
       });
+
+      const user = userEvent.setup();
       render(
         <SpruceForm
           schema={ObjectSchema}
@@ -185,18 +184,17 @@ describe("objectFieldTemplates", () => {
           uiSchema={uiSchema}
         />
       );
-      userEvent.type(screen.getByDataCy("name"), "Bruce Lee");
-      userEvent.type(screen.getByDataCy("age"), "32");
+      await user.type(screen.getByDataCy("name"), "Bruce Lee");
+      await user.type(screen.getByDataCy("age"), "32");
 
       expect(data).toStrictEqual({ person: { name: "Bruce Lee", age: 32 } });
     });
     it("accordion is expanded by default", () => {
-      const onChange = jest.fn();
       render(
         <SpruceForm
           schema={ObjectSchema}
           formData={{}}
-          onChange={onChange}
+          onChange={jest.fn()}
           uiSchema={uiSchema}
         />
       );
@@ -205,12 +203,11 @@ describe("objectFieldTemplates", () => {
       ).toHaveAttribute("aria-expanded", "true");
     });
     it("accordion is collapsed by default if defaultOpen is false", () => {
-      const onChange = jest.fn();
       render(
         <SpruceForm
           schema={ObjectSchema}
           formData={{}}
-          onChange={onChange}
+          onChange={jest.fn()}
           uiSchema={{
             ...uiSchema,
             person: { ...uiSchema.person, "ui:defaultOpen": false },

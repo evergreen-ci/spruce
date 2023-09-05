@@ -6,6 +6,7 @@ import { queryString } from "utils";
 
 describe("useTableInputFilter", () => {
   it("accepts an input value", async () => {
+    const user = userEvent.setup();
     render(<InputFilterTestComponent />, {
       route: "/hosts?hostId=123",
       path: "/hosts",
@@ -16,10 +17,10 @@ describe("useTableInputFilter", () => {
     // starts with initial url params as value
     expect(input.value).toBe("123");
 
-    userEvent.clear(input);
-    userEvent.type(input, "abc");
+    await user.clear(input);
+    await user.type(input, "abc");
     expect(input).toHaveValue("abc");
-    userEvent.type(input, "{enter}");
+    await user.type(input, "{enter}");
 
     // returns updates value when component changes
     expect(input.value).toBe("abc");
@@ -27,31 +28,33 @@ describe("useTableInputFilter", () => {
     // updates url query params when update fn is called
     screen.getByText("host id from url: abc");
 
-    userEvent.clear(input);
+    await user.clear(input);
     expect(input).toHaveValue("");
-    userEvent.type(input, "{enter}");
+    await user.type(input, "{enter}");
 
     // resets url query params when reset fn is called
     expect(input.value).toBe("");
     expect(screen.getByText("host id from url: N/A")).toBeInTheDocument();
   });
 
-  it("useTableInputFilter - trims whitespace from input value", () => {
+  it("useTableInputFilter - trims whitespace from input value", async () => {
+    const user = userEvent.setup();
     render(<InputFilterTestComponent />, {
       route: "/hosts?hostId=123",
       path: "/hosts",
     });
 
     const input = screen.getByPlaceholderText("Search ID") as HTMLInputElement;
-    userEvent.clear(input);
-    userEvent.type(input, "     abc  ");
-    userEvent.type(input, "{enter}");
+    await user.clear(input);
+    await user.type(input, "     abc  ");
+    await user.type(input, "{enter}");
     expect(screen.getByText("host id from url: abc")).toBeInTheDocument();
   });
 });
 
 describe("useTableCheckboxFilter", () => {
   it("useTableCheckboxFilter", async () => {
+    const user = userEvent.setup();
     render(<CheckboxFilterTestComponent />, {
       route: "/hosts?statuses=running,terminated",
       path: "/hosts",
@@ -69,7 +72,7 @@ describe("useTableCheckboxFilter", () => {
     expect(terminatedCheckbox.checked).toBe(true);
 
     // returns updates value when component changes
-    userEvent.click(runningCheckbox);
+    await user.click(screen.getByText("Running")); // LeafyGreen checkbox has pointer-events: none so click on the label instead.
 
     // updates url query params when update fn is called
     expect(runningCheckbox.checked).toBe(false);
@@ -80,7 +83,7 @@ describe("useTableCheckboxFilter", () => {
     ).toBeInTheDocument();
 
     // resets url query params when reset fn is called
-    userEvent.click(terminatedCheckbox);
+    await user.click(screen.getByText("Terminated")); // LeafyGreen checkbox has pointer-events: none so click on the label instead.
 
     expect(runningCheckbox.checked).toBe(false);
     expect(terminatedCheckbox.checked).toBe(false);

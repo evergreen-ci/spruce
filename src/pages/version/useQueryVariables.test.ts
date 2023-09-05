@@ -1,5 +1,5 @@
-import { renderHook } from "@testing-library/react-hooks";
 import { TaskSortCategory, SortDirection } from "gql/generated/types";
+import { renderHook } from "test_utils";
 import { useQueryVariables } from "./useQueryVariables";
 
 describe("useQueryVariables", () => {

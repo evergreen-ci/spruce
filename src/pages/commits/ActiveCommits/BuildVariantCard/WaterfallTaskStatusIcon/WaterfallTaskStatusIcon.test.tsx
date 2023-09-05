@@ -43,8 +43,9 @@ const Content = ({
 );
 describe("waterfallTaskStatusIcon", () => {
   it("tooltip should contain task name, duration, list of failing test names and additonal test count", async () => {
+    const user = userEvent.setup();
     render(<Content status="failed" failedTestCount={1} />);
-    userEvent.hover(screen.queryByDataCy("waterfall-task-status-icon"));
+    await user.hover(screen.queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(
         screen.queryByDataCy("waterfall-task-status-icon-tooltip")
@@ -80,6 +81,7 @@ describe("waterfallTaskStatusIcon", () => {
   });
 
   it("should call the appropriate functions on hover and unhover", async () => {
+    const user = userEvent.setup();
     (injectGlobalHighlightStyle as jest.Mock).mockImplementationOnce(
       (taskIdentifier: string) => {
         Promise.resolve(taskIdentifier);
@@ -88,16 +90,14 @@ describe("waterfallTaskStatusIcon", () => {
     (removeGlobalHighlightStyle as jest.Mock).mockImplementationOnce(() => {});
 
     render(<Content status="failed" failedTestCount={1} />);
-    userEvent.hover(screen.queryByDataCy("waterfall-task-status-icon"));
+    await user.hover(screen.queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(injectGlobalHighlightStyle).toHaveBeenCalledTimes(1);
     });
     expect(injectGlobalHighlightStyle).toHaveBeenCalledWith(props.identifier);
 
-    userEvent.unhover(screen.queryByDataCy("waterfall-task-status-icon"));
-    await waitFor(() => {
-      expect(removeGlobalHighlightStyle).toHaveBeenCalledTimes(1);
-    });
+    await user.unhover(screen.queryByDataCy("waterfall-task-status-icon"));
+    expect(removeGlobalHighlightStyle).toHaveBeenCalledTimes(1);
   });
 });
 

@@ -115,6 +115,7 @@ describe("taskHistoryRow", () => {
   });
 
   it("should show failing tests when you hover over a failing task cell and there are no filters applied", async () => {
+    const user = userEvent.setup();
     render(<TaskHistoryRow index={0} data={taskRow} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
@@ -148,14 +149,14 @@ describe("taskHistoryRow", () => {
       );
     });
 
-    userEvent.hover(screen.queryByDataCy("history-table-icon"));
-
+    await user.hover(screen.queryByDataCy("history-table-icon"));
     await waitFor(() => {
       expect(screen.queryByText("TestJiraIntegration")).toBeVisible();
     });
   });
 
   it("should show a matching test label when looking at a task cell with filters applied", async () => {
+    const user = userEvent.setup();
     render(<TaskHistoryRow index={0} data={taskRow} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
@@ -194,7 +195,7 @@ describe("taskHistoryRow", () => {
     });
 
     expect(screen.queryByText("1 / 1 Failing Tests")).toBeVisible();
-    userEvent.hover(screen.queryByDataCy("history-table-icon"));
+    await user.hover(screen.queryByDataCy("history-table-icon"));
     await waitFor(() => {
       expect(screen.queryByText("TestJiraIntegration")).toBeVisible();
     });

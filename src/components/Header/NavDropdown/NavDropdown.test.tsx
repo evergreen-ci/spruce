@@ -1,4 +1,4 @@
-import { screen, renderWithRouterMatch as render, waitFor } from "test_utils";
+import { screen, renderWithRouterMatch as render, userEvent } from "test_utils";
 import { NavDropdown } from ".";
 
 const menuItems = [
@@ -20,19 +20,17 @@ describe("navDropdown", () => {
     expect(screen.getByText("Dropdown")).toBeInTheDocument();
   });
   it("opening the dropdown renders all of the buttons", async () => {
+    const user = userEvent.setup();
     render(<NavDropdown title="Dropdown" menuItems={menuItems} />);
-    screen.getByText("Dropdown").click();
-    await waitFor(() => {
-      expect(screen.getByText("Item 1")).toBeInTheDocument();
-    });
+    await user.click(screen.getByText("Dropdown"));
+    expect(screen.getByText("Item 1")).toBeInTheDocument();
     expect(screen.getByText("Item 2")).toBeInTheDocument();
   });
   it("should link to both router and non-router links", async () => {
+    const user = userEvent.setup();
     render(<NavDropdown title="Dropdown" menuItems={menuItems} />);
-    screen.getByText("Dropdown").click();
-    await waitFor(() => {
-      expect(screen.getByText("Item 1")).toBeInTheDocument();
-    });
+    await user.click(screen.getByText("Dropdown"));
+    expect(screen.getByText("Item 1")).toBeInTheDocument();
     expect(screen.getByText("Item 1").closest("a")).toHaveAttribute(
       "href",
       "/item1"
@@ -43,6 +41,7 @@ describe("navDropdown", () => {
     );
   });
   it("clicking on a link triggers a callback", async () => {
+    const user = userEvent.setup();
     const mockCallback = jest.fn();
     render(
       <NavDropdown
@@ -57,11 +56,9 @@ describe("navDropdown", () => {
         ]}
       />
     );
-    screen.getByText("Dropdown").click();
-    await waitFor(() => {
-      expect(screen.getByText("Item 1")).toBeInTheDocument();
-    });
-    screen.getByText("Item 1").click();
+    await user.click(screen.getByText("Dropdown"));
+    expect(screen.getByText("Item 1")).toBeInTheDocument();
+    await user.click(screen.getByText("Item 1"));
     expect(mockCallback).toHaveBeenCalledWith();
   });
 });

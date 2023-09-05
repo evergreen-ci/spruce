@@ -9,7 +9,10 @@ import { TaskStatus } from "types/task";
 import { GroupedTaskStatusBadge } from ".";
 
 describe("groupedTaskStatusBadgeIcon", () => {
-  it("clicking on badge performs an action", () => {
+  const versionId = "version1";
+
+  it("clicking on badge performs an action", async () => {
+    const user = userEvent.setup();
     const onClick = jest.fn();
     render(
       <GroupedTaskStatusBadge
@@ -25,7 +28,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
     );
     const badge = screen.queryByDataCy("grouped-task-status-badge");
     expect(badge).toBeInTheDocument();
-    userEvent.click(badge);
+    await user.click(badge);
     expect(onClick).toHaveBeenCalledWith();
   });
 
@@ -58,6 +61,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
   });
 
   it("badge should show tooltip when status counts is provided", async () => {
+    const user = userEvent.setup();
     const statusCounts = {
       started: 30,
       failed: 15,
@@ -76,17 +80,11 @@ describe("groupedTaskStatusBadgeIcon", () => {
         screen.queryByDataCy("grouped-task-status-badge-tooltip")
       ).toBeNull();
     });
-    userEvent.hover(screen.queryByDataCy("grouped-task-status-badge"));
-
+    await user.hover(screen.queryByDataCy("grouped-task-status-badge"));
     await waitFor(() => {
       expect(
         screen.getByDataCy("grouped-task-status-badge-tooltip")
       ).toBeInTheDocument();
-    });
-    await waitFor(() => {
-      expect(
-        screen.queryByDataCy("grouped-task-status-badge-tooltip")
-      ).toBeVisible();
     });
     expect(screen.queryByText("30")).toBeVisible();
     expect(screen.queryByText("Running")).toBeVisible();
@@ -95,5 +93,4 @@ describe("groupedTaskStatusBadgeIcon", () => {
     expect(screen.queryByText("15")).toBeVisible();
     expect(screen.queryByText("Failed")).toBeVisible();
   });
-  const versionId = "version1";
 });

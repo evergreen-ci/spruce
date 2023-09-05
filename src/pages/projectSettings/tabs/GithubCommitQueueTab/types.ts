@@ -54,9 +54,11 @@ export interface GCQFormState {
   };
   commitQueue: {
     enabled: boolean | null;
-    mergeMethod: string;
-    mergeQueue: MergeQueue;
     message: string;
+    mergeSettings: {
+      mergeQueue: MergeQueue;
+      mergeMethod: string;
+    };
     patchDefinitions: {
       commitQueueAliasesOverride: boolean;
       commitQueueAliases: Array<AliasFormType>;
