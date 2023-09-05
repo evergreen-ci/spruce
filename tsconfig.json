@@ -41,7 +41,8 @@
   "include": [
     "src",
     "test_utils/index.tsx",
-    "test_utils/custom-queries.ts",
+    "test_utils/custom-queries.ts", 
+    "config/jest/setupTests.ts",
   ],
   "references": [
     {

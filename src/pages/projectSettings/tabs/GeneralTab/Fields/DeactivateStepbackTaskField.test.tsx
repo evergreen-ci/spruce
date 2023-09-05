@@ -6,12 +6,7 @@ import {
   DeactivateStepbackTaskMutationVariables,
 } from "gql/generated/types";
 import { DEACTIVATE_STEPBACK_TASK } from "gql/mutations";
-import {
-  renderWithRouterMatch as render,
-  screen,
-  userEvent,
-  waitFor,
-} from "test_utils";
+import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { DeactivateStepbackTaskField } from ".";
 
@@ -41,14 +36,11 @@ describe("deactivateStepbackTask", () => {
   });
 
   it("clicking on the button opens the modal with the confirm button disabled by default", async () => {
+    const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(<Field />);
     render(<Component />);
-    userEvent.click(screen.getByDataCy("deactivate-stepback-button"));
-    await waitFor(() => {
-      expect(
-        screen.getByDataCy("deactivate-stepback-modal")
-      ).toBeInTheDocument();
-    });
+    await user.click(screen.getByDataCy("deactivate-stepback-button"));
+    expect(screen.getByDataCy("deactivate-stepback-modal")).toBeInTheDocument();
     expect(screen.getByDataCy("deactivate-variant-name-input")).toHaveValue("");
     expect(screen.getByDataCy("deactivate-task-name-input")).toHaveValue("");
     const confirmButton = screen.getByRole("button", {
@@ -58,31 +50,28 @@ describe("deactivateStepbackTask", () => {
   });
 
   it("filling out all of the fields should enable the confirm button", async () => {
+    const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(<Field />);
     render(<Component />);
-    userEvent.click(screen.getByDataCy("deactivate-stepback-button"));
-    await waitFor(() => {
-      expect(
-        screen.getByDataCy("deactivate-stepback-modal")
-      ).toBeInTheDocument();
-    });
+    await user.click(screen.getByDataCy("deactivate-stepback-button"));
+    expect(screen.getByDataCy("deactivate-stepback-modal")).toBeInTheDocument();
 
-    userEvent.type(
+    await user.type(
       screen.getByDataCy("deactivate-variant-name-input"),
       "ubuntu1604"
     );
-    userEvent.type(screen.getByDataCy("deactivate-task-name-input"), "js-test");
+    await user.type(
+      screen.getByDataCy("deactivate-task-name-input"),
+      "js-test"
+    );
     const confirmButton = screen.getByRole("button", {
       name: "Confirm",
     });
     expect(confirmButton).toBeEnabled();
-    userEvent.click(confirmButton);
-
-    await waitFor(() => {
-      expect(dispatchToast.success).toHaveBeenCalledWith(
-        "Stepback task was deactivated."
-      );
-    });
+    await user.click(confirmButton);
+    expect(dispatchToast.success).toHaveBeenCalledWith(
+      "Stepback task was deactivated."
+    );
   });
 });
 

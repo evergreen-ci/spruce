@@ -74,8 +74,10 @@ functions:
         script: |
           ${PREPARE_SHELL}
           cd $PROJECT_DIRECTORY
-          curl -LO ${mongodb_tools_url};
-          tar -zxvf mongodb-database-tools-ubuntu2204-x86_64-100.8.0.tgz
+          mkdir mongodb-tools && cd mongodb-tools
+          curl ${mongodb_tools_url} -o mongodb-tools.tgz
+          tar -zxvf mongodb-tools.tgz
+          mv ./mongodb-*/bin/* .
   setup-node:
     - command: subprocess.exec
       params:

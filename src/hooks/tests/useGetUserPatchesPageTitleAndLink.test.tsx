@@ -1,8 +1,8 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { renderHook } from "@testing-library/react-hooks";
 import { OtherUserQuery, OtherUserQueryVariables } from "gql/generated/types";
 import { GET_OTHER_USER } from "gql/queries";
 import { useGetUserPatchesPageTitleAndLink } from "hooks";
+import { renderHook, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 
 const mocks: ApolloMock<OtherUserQuery, OtherUserQueryVariables>[] = [
@@ -68,36 +68,35 @@ const Provider = ({ children }) => (
 
 describe("useGetUserPatchesPageTitleAndLink", () => {
   it("return correct title and link when the userId passed into the hook parameter is that of the logged in user", async () => {
-    const { result, waitForNextUpdate } = renderHook(
+    const { result } = renderHook(
       () => useGetUserPatchesPageTitleAndLink("admin"),
       { wrapper: Provider }
     );
-
-    await waitForNextUpdate();
-
-    expect(result.current.title).toBe("My Patches");
+    await waitFor(() => {
+      expect(result.current.title).toBe("My Patches");
+    });
     expect(result.current.link).toBe("/user/admin/patches");
   });
 
   it("return correct title and link when the userId passed into the hook parameter is not that of the logged in user", async () => {
-    const { result, waitForNextUpdate } = renderHook(
+    const { result } = renderHook(
       () => useGetUserPatchesPageTitleAndLink("justin.mathew"),
       { wrapper: Provider }
     );
-
-    await waitForNextUpdate();
-
-    expect(result.current.title).toBe("Justin Mathew's Patches");
+    await waitFor(() => {
+      expect(result.current.title).toBe("Justin Mathew's Patches");
+    });
     expect(result.current.link).toBe("/user/justin.mathew/patches");
   });
 
   it("return correct title and link when the userId passed into the hook parameter is not that of the logged in user and the display name of the other user ends with the letter 's'", async () => {
-    const { result, waitForNextUpdate } = renderHook(
+    const { result } = renderHook(
       () => useGetUserPatchesPageTitleAndLink("justin.mathews"),
       { wrapper: Provider }
     );
-    await waitForNextUpdate();
-    expect(result.current.title).toBe("Justin Mathews' Patches");
+    await waitFor(() => {
+      expect(result.current.title).toBe("Justin Mathews' Patches");
+    });
     expect(result.current.link).toBe("/user/justin.mathews/patches");
   });
 });

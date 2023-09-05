@@ -16,7 +16,8 @@ describe("useUpdateUrlSortParamOnTableChange", () => {
     matchMedia.clear();
   });
 
-  it("toggles table headers when clicked", () => {
+  it("toggles table headers when clicked", async () => {
+    const user = userEvent.setup();
     render(<TestComponent />, {
       route: "/hosts",
       path: "/hosts",
@@ -25,22 +26,22 @@ describe("useUpdateUrlSortParamOnTableChange", () => {
     const idHeader = screen.getByText("ID");
     const statusHeader = screen.getByText("Status");
 
-    userEvent.click(idHeader);
+    await user.click(idHeader);
 
     expect(screen.getByText("sortBy: ID")).toBeInTheDocument();
     expect(screen.getByText("sortDir: ASC")).toBeInTheDocument();
 
-    userEvent.click(statusHeader);
+    await user.click(statusHeader);
 
     expect(screen.getByText("sortBy: STATUS")).toBeInTheDocument();
     expect(screen.getByText("sortDir: ASC")).toBeInTheDocument();
 
-    userEvent.click(statusHeader);
+    await user.click(statusHeader);
 
     expect(screen.getByText("sortBy: STATUS")).toBeInTheDocument();
     expect(screen.getByText("sortDir: DESC")).toBeInTheDocument();
 
-    userEvent.click(statusHeader);
+    await user.click(statusHeader);
 
     expect(screen.getByText("sortBy: none")).toBeInTheDocument();
     expect(screen.getByText("sortDir: none")).toBeInTheDocument();

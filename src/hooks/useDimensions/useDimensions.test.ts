@@ -1,5 +1,5 @@
-import { act, renderHook } from "@testing-library/react-hooks";
 import { useDimensions } from "hooks/useDimensions";
+import { act, renderHook } from "test_utils";
 
 describe("useDimensions", () => {
   let listener;

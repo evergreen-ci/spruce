@@ -1,5 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { render, screen, waitFor } from "test_utils";
+import { render, screen, userEvent } from "test_utils";
 import WelcomeModal from "./WelcomeModal";
 
 describe("welcomeModal", () => {
@@ -59,6 +59,7 @@ describe("welcomeModal", () => {
   });
 
   it("clicking the pagination buttons change the slides", async () => {
+    const user = userEvent.setup();
     render(
       <MockedProvider>
         <WelcomeModal
@@ -81,13 +82,9 @@ describe("welcomeModal", () => {
     );
     expect(screen.getByText("Slide 1")).toBeVisible();
     expect(screen.queryByDataCy("carousel-dot-1")).toBeVisible();
-    screen.queryByDataCy("carousel-dot-1").click();
-    await waitFor(() => {
-      expect(screen.getByText("Slide 2")).toBeVisible();
-    });
-    screen.queryByDataCy("carousel-dot-0").click();
-    await waitFor(() => {
-      expect(screen.getByText("Slide 1")).toBeVisible();
-    });
+    await user.click(screen.queryByDataCy("carousel-dot-1"));
+    expect(screen.getByText("Slide 2")).toBeVisible();
+    await user.click(screen.queryByDataCy("carousel-dot-0"));
+    expect(screen.getByText("Slide 1")).toBeVisible();
   });
 });

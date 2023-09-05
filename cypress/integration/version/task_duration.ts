@@ -20,6 +20,7 @@ describe("Task Duration Tab", () => {
       cy.location("search").should("include", `page=0`);
     });
 
+    // TODO: Drop skip in https://jira.mongodb.org/browse/EVG-20762
     it.skip("updates URL appropriately when status filter is applied", () => {
       cy.visit(TASK_DURATION_ROUTE);
 

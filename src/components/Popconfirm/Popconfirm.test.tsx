@@ -1,9 +1,4 @@
-import {
-  renderWithRouterMatch as render,
-  screen,
-  userEvent,
-  waitFor,
-} from "test_utils";
+import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import Popconfirm from ".";
 
 describe("controlled popconfirm", () => {
@@ -18,7 +13,8 @@ describe("controlled popconfirm", () => {
     expect(screen.getByRole("button", { name: "Cancel" })).toBeInTheDocument();
   });
 
-  it("pressing the Confirm button calls the onConfirm callback and closes the popconfirm", () => {
+  it("pressing the Confirm button calls the onConfirm callback and closes the popconfirm", async () => {
+    const user = userEvent.setup();
     const onConfirm = jest.fn();
     const setOpen = jest.fn();
     render(
@@ -26,13 +22,14 @@ describe("controlled popconfirm", () => {
         <div>hello</div>
       </Popconfirm>
     );
-    userEvent.click(screen.getByRole("button", { name: "Yes" }));
+    await user.click(screen.getByRole("button", { name: "Yes" }));
     expect(onConfirm).toHaveBeenCalledTimes(1);
     expect(setOpen).toHaveBeenCalledTimes(1);
     expect(setOpen).toHaveBeenCalledWith(false);
   });
 
-  it("pressing the Cancel button calls the onClose callback and closes the popconfirm", () => {
+  it("pressing the Cancel button calls the onClose callback and closes the popconfirm", async () => {
+    const user = userEvent.setup();
     const onClose = jest.fn();
     const setOpen = jest.fn();
     render(
@@ -40,7 +37,7 @@ describe("controlled popconfirm", () => {
         <div>hello</div>
       </Popconfirm>
     );
-    userEvent.click(screen.getByRole("button", { name: "Cancel" }));
+    await user.click(screen.getByRole("button", { name: "Cancel" }));
     expect(onClose).toHaveBeenCalledTimes(1);
     expect(setOpen).toHaveBeenCalledTimes(1);
     expect(setOpen).toHaveBeenCalledWith(false);
@@ -61,6 +58,7 @@ describe("controlled popconfirm", () => {
 
 describe("uncontrolled popconfirm", () => {
   it("uses a trigger to open and close the component", async () => {
+    const user = userEvent.setup();
     const onClose = jest.fn();
     render(
       <Popconfirm
@@ -70,11 +68,9 @@ describe("uncontrolled popconfirm", () => {
         <div>hello</div>
       </Popconfirm>
     );
-    userEvent.click(screen.getByRole("button", { name: "Open" }));
-    await waitFor(() => {
-      expect(screen.getByText("hello")).toBeVisible();
-    });
-    userEvent.click(screen.getByRole("button", { name: "Open" }));
+    await user.click(screen.getByRole("button", { name: "Open" }));
+    expect(screen.getByText("hello")).toBeVisible();
+    await user.click(screen.getByRole("button", { name: "Open" }));
     expect(onClose).toHaveBeenCalledTimes(1);
     expect(screen.getByText("hello")).not.toBeVisible();
   });

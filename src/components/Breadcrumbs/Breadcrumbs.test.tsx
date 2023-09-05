@@ -21,6 +21,7 @@ describe("breadcrumbs", () => {
     expect(screen.queryAllByDataCy("breadcrumb-chevron")).toHaveLength(1);
   });
   it("breadcrumbs with long text should be collapsed and viewable with a tooltip", async () => {
+    const user = userEvent.setup();
     const longMessage = "some really long string that could be a patch title";
     const breadcrumbs = [{ text: longMessage }];
     render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
@@ -29,31 +30,29 @@ describe("breadcrumbs", () => {
     expect(
       screen.getByText(trimStringFromMiddle(longMessage, 30))
     ).toBeInTheDocument();
-    userEvent.hover(screen.getByText(trimStringFromMiddle(longMessage, 30)));
+    await user.hover(screen.getByText(trimStringFromMiddle(longMessage, 30)));
     await waitFor(() => {
       expect(screen.getByDataCy("breadcrumb-tooltip")).toBeInTheDocument();
     });
     expect(screen.getByText(longMessage)).toBeInTheDocument();
   });
   it("should not display a tooltip if the text is short", async () => {
+    const user = userEvent.setup();
     const shortMessage = "short";
     const breadcrumbs = [{ text: shortMessage }];
     render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
     expect(screen.getByText(shortMessage)).toBeInTheDocument();
-    userEvent.hover(screen.getByText(shortMessage));
-    await waitFor(() => {
-      expect(
-        screen.queryByDataCy("breadcrumb-tooltip")
-      ).not.toBeInTheDocument();
-    });
+    await user.hover(screen.getByText(shortMessage));
+    expect(screen.queryByDataCy("breadcrumb-tooltip")).not.toBeInTheDocument();
   });
-  it("clicking on a tooltip with a link and event handler should call the event", () => {
+  it("clicking on a tooltip with a link and event handler should call the event", async () => {
+    const user = userEvent.setup();
     const onClick = jest.fn();
     const breadcrumbs = [{ text: "test", onClick, to: "/" }];
     render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
     expect(screen.getByText("test")).toBeInTheDocument();
     expect(screen.getByRole("link")).toHaveAttribute("href", "/");
-    userEvent.click(screen.getByText("test"));
+    await user.click(screen.getByText("test"));
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 });

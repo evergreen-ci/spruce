@@ -107,6 +107,7 @@ describe("repoConfigField", () => {
   });
 
   it("disables the attach button when the owner field has been changed and shows a tooltip", async () => {
+    const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <Field
         projectType={ProjectType.Project}
@@ -114,15 +115,15 @@ describe("repoConfigField", () => {
       />
     );
     render(<Component />);
+
     expect(screen.queryByDataCy("attach-repo-button")).toHaveAttribute(
       "aria-disabled",
       "true"
     );
-
     expect(
       screen.queryByDataCy("attach-repo-disabled-tooltip")
     ).not.toBeInTheDocument();
-    userEvent.hover(screen.queryByDataCy("attach-repo-button"));
+    await user.hover(screen.queryByDataCy("attach-repo-button"));
     await waitFor(() => {
       expect(
         screen.queryByDataCy("attach-repo-disabled-tooltip")
@@ -131,6 +132,7 @@ describe("repoConfigField", () => {
   });
 
   it("disables the attach button when the repo field has been changed and shows a tooltip", async () => {
+    const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <Field
         projectType={ProjectType.Project}
@@ -138,15 +140,15 @@ describe("repoConfigField", () => {
       />
     );
     render(<Component />);
+
     expect(screen.queryByDataCy("attach-repo-button")).toHaveAttribute(
       "aria-disabled",
       "true"
     );
-
     expect(
       screen.queryByDataCy("attach-repo-disabled-tooltip")
     ).not.toBeInTheDocument();
-    userEvent.hover(screen.queryByDataCy("attach-repo-button"));
+    await user.hover(screen.queryByDataCy("attach-repo-button"));
     await waitFor(() => {
       expect(
         screen.queryByDataCy("attach-repo-disabled-tooltip")
@@ -171,15 +173,16 @@ describe("repoConfigField", () => {
   });
 
   it("clicking the button opens the modal", async () => {
+    const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(<Field />);
     render(<Component />);
     expect(screen.queryByDataCy("move-repo-modal")).not.toBeInTheDocument();
 
     await screen.findByDataCy("move-repo-button");
-    userEvent.click(screen.queryByDataCy("move-repo-button"));
-    await waitFor(() =>
-      expect(screen.queryByDataCy("move-repo-modal")).toBeVisible()
-    );
+    await user.click(screen.queryByDataCy("move-repo-button"));
+    await waitFor(() => {
+      expect(screen.queryByDataCy("move-repo-modal")).toBeVisible();
+    });
   });
 
   describe("moveRepoModal", () => {
@@ -221,6 +224,7 @@ describe("repoConfigField", () => {
     });
 
     it("enables the confirm button when both fields are updated", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(<MoveModal />);
       render(<Component />);
 
@@ -228,7 +232,7 @@ describe("repoConfigField", () => {
         "evergreen-ci"
       );
       await selectLGOption("new-owner-select", "10gen");
-      userEvent.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
+      await user.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
       expect(
         screen.getByRole("button", {
           name: "Move Project",
@@ -239,14 +243,15 @@ describe("repoConfigField", () => {
 
   describe("attachDetachModal", () => {
     it("clicking the button opens the modal", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(<Field />);
       render(<Component />);
 
       expect(screen.queryByDataCy("attach-repo-modal")).not.toBeInTheDocument();
-      userEvent.click(screen.queryByDataCy("attach-repo-button"));
-      await waitFor(() =>
-        expect(screen.queryByDataCy("attach-repo-modal")).toBeVisible()
-      );
+      await user.click(screen.queryByDataCy("attach-repo-button"));
+      await waitFor(() => {
+        expect(screen.queryByDataCy("attach-repo-modal")).toBeVisible();
+      });
     });
 
     it("renders the modal when the open prop is true", () => {
@@ -266,12 +271,13 @@ describe("repoConfigField", () => {
     });
 
     it("successfully attaches to repo", async () => {
+      const user = userEvent.setup();
       const { Component, dispatchToast } = RenderFakeToastContext(
         <AttachmentModal />
       );
       render(<Component />);
-
-      userEvent.click(screen.queryByText("Attach"));
+      const button = screen.getByRole("button", { name: "Attach" });
+      await user.click(button);
       await waitFor(() => expect(dispatchToast.error).not.toHaveBeenCalled());
       await waitFor(() => {
         expect(dispatchToast.success).toHaveBeenCalledWith(
@@ -293,12 +299,13 @@ describe("repoConfigField", () => {
     });
 
     it("successfully detaches from repo", async () => {
+      const user = userEvent.setup();
       const { Component, dispatchToast } = RenderFakeToastContext(
         <AttachmentModal shouldAttach={false} />
       );
       render(<Component />);
-
-      userEvent.click(screen.queryByText("Detach"));
+      const button = screen.getByRole("button", { name: "Detach" });
+      await user.click(button);
       await waitFor(() => expect(dispatchToast.error).not.toHaveBeenCalled());
       await waitFor(() => {
         expect(dispatchToast.success).toHaveBeenCalledWith(

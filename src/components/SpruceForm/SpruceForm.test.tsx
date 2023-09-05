@@ -3,13 +3,12 @@ import { SpruceForm, SpruceFormContainer } from ".";
 
 describe("spruce form", () => {
   it("should render as expected", () => {
-    const onChange = jest.fn();
     render(
       <SpruceFormContainer title="Just a test">
         <SpruceForm
           schema={basicForm.schema}
           formData={basicForm.formData}
-          onChange={onChange}
+          onChange={jest.fn()}
           uiSchema={basicForm.uiSchema}
         />
       </SpruceFormContainer>
@@ -28,6 +27,8 @@ describe("spruce form", () => {
       const { formData } = x;
       data = formData;
     });
+
+    const user = userEvent.setup();
     render(
       <SpruceFormContainer title="Just a test">
         <SpruceForm
@@ -38,13 +39,11 @@ describe("spruce form", () => {
         />
       </SpruceFormContainer>
     );
-    userEvent.clear(screen.queryByDataCy("valid-projects-input"));
-    userEvent.type(screen.queryByDataCy("valid-projects-input"), "new value");
-    userEvent.click(screen.queryByDataCy("add-button"));
-    await waitFor(() =>
-      expect(screen.queryAllByDataCy("new-user-input")).toHaveLength(2)
-    );
-    userEvent.type(screen.queryAllByDataCy("new-user-input")[0], "new-user");
+    await user.clear(screen.queryByDataCy("valid-projects-input"));
+    await user.type(screen.queryByDataCy("valid-projects-input"), "new value");
+    await user.click(screen.queryByDataCy("add-button"));
+    expect(screen.queryAllByDataCy("new-user-input")).toHaveLength(2);
+    await user.type(screen.queryAllByDataCy("new-user-input")[0], "new-user");
     expect(onChange).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
     expect(screen.queryByDataCy("valid-projects-input")).toHaveValue(
       "new value"
@@ -60,7 +59,7 @@ describe("spruce form", () => {
   describe("form elements", () => {
     describe("text input", () => {
       describe("invisible errors", () => {
-        it("should work with validate function", () => {
+        it("should work with validate function", async () => {
           let formErrors = {};
           const onChange = jest.fn((x) => {
             const { errors } = x;
@@ -68,6 +67,7 @@ describe("spruce form", () => {
           });
           const validate = jest.fn((_formData, err) => err);
 
+          const user = userEvent.setup();
           const { formData, schema, uiSchema } = textInput();
           render(
             <SpruceFormContainer title="Test for Text Input">
@@ -80,8 +80,8 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>
           );
-          userEvent.type(screen.queryByDataCy("text-input"), "new value");
-          userEvent.clear(screen.queryByDataCy("text-input"));
+          await user.type(screen.queryByDataCy("text-input"), "new value");
+          await user.clear(screen.queryByDataCy("text-input"));
           expect(screen.queryByDataCy("text-input")).toHaveValue("");
 
           // Invisible errors should be in the form error state but not visible on the page.
@@ -91,12 +91,14 @@ describe("spruce form", () => {
       });
 
       describe("emptyValue", () => {
-        it("defaults to '' when not specified", () => {
+        it("defaults to '' when not specified", async () => {
           let data = {};
           const onChange = jest.fn((x) => {
             const { formData } = x;
             data = formData;
           });
+
+          const user = userEvent.setup();
           const { formData, schema, uiSchema } = textInput();
           render(
             <SpruceFormContainer title="Test for Text Input">
@@ -108,20 +110,22 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>
           );
-          userEvent.type(screen.queryByDataCy("text-input"), "new value");
-          userEvent.clear(screen.queryByDataCy("text-input"));
+          await user.type(screen.queryByDataCy("text-input"), "new value");
+          await user.clear(screen.queryByDataCy("text-input"));
           expect(screen.queryByDataCy("text-input")).toHaveValue("");
           expect(data).toStrictEqual({
             textInput: "",
           });
         });
 
-        it("uses provided value when specified", () => {
+        it("uses provided value when specified", async () => {
           let data = {};
           const onChange = jest.fn((x) => {
             const { formData } = x;
             data = formData;
           });
+
+          const user = userEvent.setup();
           const { formData, schema, uiSchema } = textInput("myEmptyValue");
           render(
             <SpruceFormContainer title="Test for Text Input">
@@ -133,8 +137,8 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>
           );
-          userEvent.type(screen.queryByDataCy("text-input"), "new value");
-          userEvent.clear(screen.queryByDataCy("text-input"));
+          await user.type(screen.queryByDataCy("text-input"), "new value");
+          await user.clear(screen.queryByDataCy("text-input"));
           expect(screen.queryByDataCy("text-input")).toHaveValue(
             "myEmptyValue"
           );
@@ -147,7 +151,7 @@ describe("spruce form", () => {
 
     describe("text area", () => {
       describe("invisible errors", () => {
-        it("should work with validate function", () => {
+        it("should work with validate function", async () => {
           let formErrors = {};
           const onChange = jest.fn((x) => {
             const { errors } = x;
@@ -155,6 +159,7 @@ describe("spruce form", () => {
           });
           const validate = jest.fn((_formData, err) => err);
 
+          const user = userEvent.setup();
           const { formData, schema, uiSchema } = textArea();
           render(
             <SpruceFormContainer title="Test for Text Area">
@@ -167,8 +172,8 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>
           );
-          userEvent.type(screen.queryByDataCy("text-area"), "new value");
-          userEvent.clear(screen.queryByDataCy("text-area"));
+          await user.type(screen.queryByDataCy("text-area"), "new value");
+          await user.clear(screen.queryByDataCy("text-area"));
           expect(screen.queryByDataCy("text-area")).toHaveValue("");
 
           // Invisible errors should be in the form error state but not visible on the page.
@@ -178,12 +183,14 @@ describe("spruce form", () => {
       });
 
       describe("emptyValue", () => {
-        it("defaults to '' when not specified", () => {
+        it("defaults to '' when not specified", async () => {
           let data = {};
           const onChange = jest.fn((x) => {
             const { formData } = x;
             data = formData;
           });
+
+          const user = userEvent.setup();
           const { formData, schema, uiSchema } = textArea();
           render(
             <SpruceFormContainer title="Test for Text Area">
@@ -195,20 +202,22 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>
           );
-          userEvent.type(screen.queryByDataCy("text-area"), "new value");
-          userEvent.clear(screen.queryByDataCy("text-area"));
+          await user.type(screen.queryByDataCy("text-area"), "new value");
+          await user.clear(screen.queryByDataCy("text-area"));
           expect(screen.queryByDataCy("text-area")).toHaveValue("");
           expect(data).toStrictEqual({
             textArea: "",
           });
         });
 
-        it("uses provided value when specified", () => {
+        it("uses provided value when specified", async () => {
           let data = {};
           const onChange = jest.fn((x) => {
             const { formData } = x;
             data = formData;
           });
+
+          const user = userEvent.setup();
           const { formData, schema, uiSchema } = textArea("myEmptyValue");
           render(
             <SpruceFormContainer title="Test for Text Area">
@@ -220,8 +229,8 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>
           );
-          userEvent.type(screen.queryByDataCy("text-area"), "new value");
-          userEvent.clear(screen.queryByDataCy("text-area"));
+          await user.type(screen.queryByDataCy("text-area"), "new value");
+          await user.clear(screen.queryByDataCy("text-area"));
           expect(screen.queryByDataCy("text-area")).toHaveValue("myEmptyValue");
           expect(data).toStrictEqual({
             textArea: "myEmptyValue",
@@ -232,13 +241,12 @@ describe("spruce form", () => {
 
     describe("select", () => {
       it("renders with the specified default selected", () => {
-        const onChange = jest.fn();
         const { formData, schema, uiSchema } = select;
         render(
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={onChange}
+            onChange={jest.fn()}
             uiSchema={uiSchema}
           />
         );
@@ -247,36 +255,36 @@ describe("spruce form", () => {
         expect(screen.queryByText("Strawberry")).not.toBeInTheDocument();
       });
 
-      it("shows three options on click", () => {
-        const onChange = jest.fn();
+      it("shows three options on click", async () => {
+        const user = userEvent.setup();
         const { formData, schema, uiSchema } = select;
         render(
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={onChange}
+            onChange={jest.fn()}
             uiSchema={uiSchema}
           />
         );
-        userEvent.click(screen.queryByRole("button"));
+        await user.click(screen.queryByRole("button"));
         expect(screen.queryAllByText("Vanilla")).toHaveLength(2);
         expect(screen.getByText("Chocolate")).toBeInTheDocument();
         expect(screen.getByText("Strawberry")).toBeInTheDocument();
       });
 
       it("closes the menu and displays the new selected option on click", async () => {
-        const onChange = jest.fn();
+        const user = userEvent.setup();
         const { formData, schema, uiSchema } = select;
         render(
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={onChange}
+            onChange={jest.fn()}
             uiSchema={uiSchema}
           />
         );
-        userEvent.click(screen.queryByRole("button"));
-        userEvent.click(screen.queryByText("Chocolate"));
+        await user.click(screen.getByRole("button"));
+        await user.click(screen.getByRole("option", { name: "Chocolate" }));
         await waitFor(() => {
           expect(screen.queryByText("Vanilla")).not.toBeInTheDocument();
         });
@@ -285,17 +293,17 @@ describe("spruce form", () => {
       });
 
       it("disables options included in enumDisabled", async () => {
-        const onChange = jest.fn();
+        const user = userEvent.setup();
         const { formData, schema, uiSchema } = select;
         render(
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={onChange}
+            onChange={jest.fn()}
             uiSchema={uiSchema}
           />
         );
-        userEvent.click(screen.queryByRole("button"));
+        await user.click(screen.queryByRole("button"));
 
         // LeafyGreen doesn't label disabled options as such, so instead of checking for a property
         // ensure that the disabled element is not clickable.
@@ -310,47 +318,41 @@ describe("spruce form", () => {
     describe("radio group", () => {
       it("renders 3 inputs with the specified default selected", () => {
         const { formData, schema, uiSchema } = radioGroup;
-        const onChange = jest.fn();
         render(
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={onChange}
+            onChange={jest.fn()}
             uiSchema={uiSchema}
           />
         );
-
         expect(screen.getAllByRole("radio")).toHaveLength(3);
         expect(screen.getByLabelText("New York")).toBeChecked();
       });
 
       it("disables options in enumDisabled", () => {
         const { formData, schema, uiSchema } = radioGroup;
-        const onChange = jest.fn();
         render(
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={onChange}
+            onChange={jest.fn()}
             uiSchema={uiSchema}
           />
         );
-
         expect(screen.getByLabelText("Connecticut")).toBeDisabled();
       });
 
       it("shows option descriptions", () => {
         const { formData, schema, uiSchema } = radioGroup;
-        const onChange = jest.fn();
         render(
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={onChange}
+            onChange={jest.fn()}
             uiSchema={uiSchema}
           />
         );
-
         expect(screen.getByText("The Garden State")).toBeVisible();
       });
     });

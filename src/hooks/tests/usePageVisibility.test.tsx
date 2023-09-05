@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { act, renderHook } from "@testing-library/react-hooks/dom";
 import { getUserMock } from "gql/mocks/getUser";
 import { usePageVisibility } from "hooks";
+import { act, renderHook } from "test_utils";
 
 const Provider = ({ children }) => (
   <MockedProvider mocks={[getUserMock]}>{children}</MockedProvider>

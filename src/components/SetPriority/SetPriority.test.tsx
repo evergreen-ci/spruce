@@ -14,6 +14,7 @@ import SetPriority from ".";
 describe("setPriority", () => {
   describe("patch priority", () => {
     it("shows default message", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setPatchPriority]}>
           <SetPriority patchId="patch_id" />
@@ -21,18 +22,17 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      userEvent.click(screen.queryByDataCy("prioritize-patch"));
-      await waitFor(() => {
-        expect(
-          screen.queryByDataCy("set-patch-priority-popconfirm")
-        ).toBeVisible();
-      });
+      await user.click(screen.queryByDataCy("prioritize-patch"));
+      expect(
+        screen.queryByDataCy("set-patch-priority-popconfirm")
+      ).toBeVisible();
       expect(screen.queryByDataCy("priority-default-message")).toBeVisible();
-      userEvent.type(screen.queryByDataCy("patch-priority-input"), "9");
+      await user.type(screen.queryByDataCy("patch-priority-input"), "9");
       expect(screen.queryByDataCy("priority-default-message")).toBeVisible();
     });
 
     it("shows warning message", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setPatchPriority]}>
           <SetPriority patchId="patch_id" />
@@ -40,18 +40,17 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      userEvent.click(screen.queryByDataCy("prioritize-patch"));
-      await waitFor(() => {
-        expect(
-          screen.queryByDataCy("set-patch-priority-popconfirm")
-        ).toBeVisible();
-      });
+      await user.click(screen.queryByDataCy("prioritize-patch"));
+      expect(
+        screen.queryByDataCy("set-patch-priority-popconfirm")
+      ).toBeVisible();
       expect(screen.queryByDataCy("priority-warning-message")).toBeNull();
-      userEvent.type(screen.queryByDataCy("patch-priority-input"), "99");
+      await user.type(screen.queryByDataCy("patch-priority-input"), "99");
       expect(screen.queryByDataCy("priority-warning-message")).toBeVisible();
     });
 
     it("shows admin message", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setPatchPriority]}>
           <SetPriority patchId="patch_id" />
@@ -59,18 +58,17 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      userEvent.click(screen.queryByDataCy("prioritize-patch"));
-      await waitFor(() => {
-        expect(
-          screen.queryByDataCy("set-patch-priority-popconfirm")
-        ).toBeVisible();
-      });
+      await user.click(screen.queryByDataCy("prioritize-patch"));
+      expect(
+        screen.queryByDataCy("set-patch-priority-popconfirm")
+      ).toBeVisible();
       expect(screen.queryByDataCy("priority-admin-message")).toBeNull();
-      userEvent.type(screen.queryByDataCy("patch-priority-input"), "999");
+      await user.type(screen.queryByDataCy("patch-priority-input"), "999");
       expect(screen.queryByDataCy("priority-admin-message")).toBeVisible();
     });
 
     it("successfully sets priority", async () => {
+      const user = userEvent.setup();
       const { Component, dispatchToast } = RenderFakeToastContext(
         <MockedProvider mocks={[setPatchPriority]}>
           <SetPriority patchId="patch_id" />
@@ -78,22 +76,19 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      userEvent.click(screen.queryByDataCy("prioritize-patch"));
-      await waitFor(() => {
-        expect(
-          screen.queryByDataCy("set-patch-priority-popconfirm")
-        ).toBeVisible();
-      });
-      userEvent.type(screen.queryByDataCy("patch-priority-input"), "99");
-      userEvent.click(screen.getByRole("button", { name: "Set" }));
-      await waitFor(() =>
-        expect(dispatchToast.success).toHaveBeenCalledTimes(1)
-      );
+      await user.click(screen.queryByDataCy("prioritize-patch"));
+      expect(
+        screen.queryByDataCy("set-patch-priority-popconfirm")
+      ).toBeVisible();
+      await user.type(screen.queryByDataCy("patch-priority-input"), "99");
+      await user.click(screen.getByRole("button", { name: "Set" }));
+      expect(dispatchToast.success).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("task priority", () => {
     it("shows correct initial priority", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setTaskPriority]}>
           <SetPriority taskId="task_id" initialPriority={10} />
@@ -101,16 +96,15 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      userEvent.click(screen.queryByDataCy("prioritize-task"));
-      await waitFor(() => {
-        expect(
-          screen.queryByDataCy("set-task-priority-popconfirm")
-        ).toBeVisible();
-      });
+      await user.click(screen.queryByDataCy("prioritize-task"));
+      expect(
+        screen.queryByDataCy("set-task-priority-popconfirm")
+      ).toBeVisible();
       expect(screen.queryByDataCy("task-priority-input")).toHaveValue(10);
     });
 
     it("shows default message", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setTaskPriority]}>
           <SetPriority taskId="task_id" />
@@ -118,18 +112,19 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      userEvent.click(screen.queryByDataCy("prioritize-task"));
+      await user.click(screen.queryByDataCy("prioritize-task"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-task-priority-popconfirm")
         ).toBeVisible();
       });
       expect(screen.queryByDataCy("priority-default-message")).toBeVisible();
-      userEvent.type(screen.queryByDataCy("task-priority-input"), "9");
+      await user.type(screen.queryByDataCy("task-priority-input"), "9");
       expect(screen.queryByDataCy("priority-default-message")).toBeVisible();
     });
 
     it("shows warning message", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setTaskPriority]}>
           <SetPriority taskId="task_id" />
@@ -137,18 +132,19 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      userEvent.click(screen.queryByDataCy("prioritize-task"));
+      await user.click(screen.queryByDataCy("prioritize-task"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-task-priority-popconfirm")
         ).toBeVisible();
       });
       expect(screen.queryByDataCy("priority-warning-message")).toBeNull();
-      userEvent.type(screen.queryByDataCy("task-priority-input"), "99");
+      await user.type(screen.queryByDataCy("task-priority-input"), "99");
       expect(screen.queryByDataCy("priority-warning-message")).toBeVisible();
     });
 
     it("shows admin message", async () => {
+      const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setTaskPriority]}>
           <SetPriority taskId="task_id" />
@@ -156,18 +152,19 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      userEvent.click(screen.queryByDataCy("prioritize-task"));
+      await user.click(screen.queryByDataCy("prioritize-task"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-task-priority-popconfirm")
         ).toBeVisible();
       });
       expect(screen.queryByDataCy("priority-admin-message")).toBeNull();
-      userEvent.type(screen.queryByDataCy("task-priority-input"), "999");
+      await user.type(screen.queryByDataCy("task-priority-input"), "999");
       expect(screen.queryByDataCy("priority-admin-message")).toBeVisible();
     });
 
     it("successfully sets priority", async () => {
+      const user = userEvent.setup();
       const { Component, dispatchToast } = RenderFakeToastContext(
         <MockedProvider mocks={[setTaskPriority]}>
           <SetPriority taskId="task_id" />
@@ -175,14 +172,14 @@ describe("setPriority", () => {
       );
       renderWithRouterMatch(<Component />);
 
-      userEvent.click(screen.queryByDataCy("prioritize-task"));
+      await user.click(screen.queryByDataCy("prioritize-task"));
       await waitFor(() => {
         expect(
           screen.queryByDataCy("set-task-priority-popconfirm")
         ).toBeVisible();
       });
-      userEvent.type(screen.queryByDataCy("task-priority-input"), "99");
-      userEvent.click(screen.getByRole("button", { name: "Set" }));
+      await user.type(screen.queryByDataCy("task-priority-input"), "99");
+      await user.click(screen.getByRole("button", { name: "Set" }));
       await waitFor(() =>
         expect(dispatchToast.success).toHaveBeenCalledTimes(1)
       );

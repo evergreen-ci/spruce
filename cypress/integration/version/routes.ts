@@ -98,6 +98,13 @@ describe("Version route", () => {
           "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=success&variant=%5Eubuntu1604%24"
         );
 
+        // TODO: Drop skip in https://jira.mongodb.org/browse/EVG-20762
+        // Check that filter values have updated.
+        // cy.toggleTableFilter(2);
+        // cy.getInputByLabel("success")
+        //   .should("have.attr", "aria-checked")
+        //   .and("equal", "true");
+
         cy.toggleTableFilter(4);
         cy.dataCy("variant-input-wrapper")
           .find("input")
