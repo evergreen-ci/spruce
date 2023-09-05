@@ -2,6 +2,7 @@ import { useReducer, useEffect } from "react";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { Spinner } from "@leafygreen-ui/loading-indicator";
 import { Option, Select } from "@leafygreen-ui/select";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useTaskAnalytics } from "analytics";
@@ -214,6 +215,8 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
           disabled={disableButton}
           size="small"
           data-cy="previous-commits-go-button"
+          isLoading={loading}
+          loadingIndicator={<Spinner />}
         >
           Go
         </Button>
