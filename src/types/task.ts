@@ -106,6 +106,7 @@ export enum TaskEventType {
   TaskFinished = "TASK_FINISHED",
   TaskStarted = "TASK_STARTED",
   TaskDispatched = "TASK_DISPATCHED",
+  TaskBlocked = "TASK_BLOCKED",
   TaskUndispatched = "TASK_UNDISPATCHED",
   TaskCreated = "TASK_CREATED",
   TaskRestarted = "TASK_RESTARTED",

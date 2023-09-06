@@ -3381,16 +3381,16 @@
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
-"@leafygreen-ui/loading-indicator@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/loading-indicator/-/loading-indicator-2.0.0.tgz#21f6d81ff43e1dd6339f06a1504f4bf9fcfa6307"
-  integrity sha512-YaPe2meAZaGGRFCwWNpVdBEu8jU81/Sq9BEJD7xRNV6+CPMhe/8nw7OOOozNo+W/o9yzD/25KNT6tbXJZqGfOA==
+"@leafygreen-ui/loading-indicator@2.0.5":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/loading-indicator/-/loading-indicator-2.0.5.tgz#a961ac1da31346aab14a15c3f1efa84226af2ad4"
+  integrity sha512-46qAwxxApQUPCLDwtWdrqZiicn6Zdp/kuRatxq3c5Xgxackt/Z0obJmIhUC4hD4Ir3r87SbAE49Ucy8fgJ/5BQ==
   dependencies:
-    "@leafygreen-ui/emotion" "^4.0.4"
-    "@leafygreen-ui/lib" "^10.4.0"
-    "@leafygreen-ui/palette" "^4.0.4"
-    "@leafygreen-ui/tokens" "^2.1.1"
-    "@leafygreen-ui/typography" "^16.5.1"
+    "@leafygreen-ui/emotion" "^4.0.7"
+    "@leafygreen-ui/lib" "^11.0.0"
+    "@leafygreen-ui/palette" "^4.0.7"
+    "@leafygreen-ui/tokens" "^2.1.4"
+    "@leafygreen-ui/typography" "^17.0.0"
     react-lottie-player "^1.5.4"
 
 "@leafygreen-ui/marketing-modal@^4.0.5":

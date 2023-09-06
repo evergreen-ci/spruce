@@ -3629,6 +3629,7 @@ export type ProjectSettingsFieldsFragment = {
       project: string;
       status: string;
       taskRegex: string;
+      unscheduleDownstreamVersions?: boolean | null;
     }> | null;
     parsleyFilters?: Array<{
       __typename?: "ParsleyFilter";
@@ -3827,6 +3828,7 @@ export type RepoSettingsFieldsFragment = {
       project: string;
       status: string;
       taskRegex: string;
+      unscheduleDownstreamVersions?: boolean | null;
     }>;
     workstationConfig: {
       __typename?: "RepoWorkstationConfig";
@@ -4217,6 +4219,7 @@ export type ProjectEventSettingsFragment = {
       project: string;
       status: string;
       taskRegex: string;
+      unscheduleDownstreamVersions?: boolean | null;
     }> | null;
     parsleyFilters?: Array<{
       __typename?: "ParsleyFilter";
@@ -4316,6 +4319,7 @@ export type ProjectTriggersSettingsFragment = {
     project: string;
     status: string;
     taskRegex: string;
+    unscheduleDownstreamVersions?: boolean | null;
   }> | null;
 };
 
@@ -4331,6 +4335,7 @@ export type RepoTriggersSettingsFragment = {
     project: string;
     status: string;
     taskRegex: string;
+    unscheduleDownstreamVersions?: boolean | null;
   }>;
 };
 
@@ -6591,6 +6596,7 @@ export type ProjectEventLogsQuery = {
             project: string;
             status: string;
             taskRegex: string;
+            unscheduleDownstreamVersions?: boolean | null;
           }> | null;
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
@@ -6801,6 +6807,7 @@ export type ProjectEventLogsQuery = {
             project: string;
             status: string;
             taskRegex: string;
+            unscheduleDownstreamVersions?: boolean | null;
           }> | null;
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
@@ -7026,6 +7033,7 @@ export type ProjectSettingsQuery = {
         project: string;
         status: string;
         taskRegex: string;
+        unscheduleDownstreamVersions?: boolean | null;
       }> | null;
       parsleyFilters?: Array<{
         __typename?: "ParsleyFilter";
@@ -7275,6 +7283,7 @@ export type RepoEventLogsQuery = {
             project: string;
             status: string;
             taskRegex: string;
+            unscheduleDownstreamVersions?: boolean | null;
           }> | null;
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
@@ -7485,6 +7494,7 @@ export type RepoEventLogsQuery = {
             project: string;
             status: string;
             taskRegex: string;
+            unscheduleDownstreamVersions?: boolean | null;
           }> | null;
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
@@ -7700,6 +7710,7 @@ export type RepoSettingsQuery = {
         project: string;
         status: string;
         taskRegex: string;
+        unscheduleDownstreamVersions?: boolean | null;
       }>;
       workstationConfig: {
         __typename?: "RepoWorkstationConfig";
