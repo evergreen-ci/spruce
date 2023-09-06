@@ -12,7 +12,7 @@ import {
 } from "gql/queries";
 import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
-import { PreviousCommits } from "./PreviousCommits";
+import { PreviousCommits } from ".";
 
 const goButton = { name: "Go" };
 const select = { name: "Previous commits for this task" };
