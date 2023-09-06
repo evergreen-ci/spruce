@@ -20,22 +20,20 @@ import { formToGqlMap } from "./tabs/transformers";
 import { WritableDistroSettingsType } from "./tabs/types";
 
 type SaveModalProps = {
-  additionalText?: string;
+  banner?: React.ReactNode;
   distro: DistroQuery["distro"];
   onCancel?: () => void;
   onConfirm?: () => void;
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   tab: WritableDistroSettingsType;
 };
 
 export const SaveModal: React.FC<SaveModalProps> = ({
-  additionalText,
+  banner,
   distro,
   onCancel,
   onConfirm,
   open,
-  setOpen,
   tab,
 }) => {
   const { sendEvent } = useDistroSettingsAnalytics();
@@ -82,7 +80,6 @@ export const SaveModal: React.FC<SaveModalProps> = ({
           onSave: onSaveOperation,
         },
       });
-      setOpen(false);
       sendEvent({ name: "Save distro", section: tab });
     }
   };
@@ -94,7 +91,6 @@ export const SaveModal: React.FC<SaveModalProps> = ({
       open={open}
       onCancel={() => {
         onCancel?.();
-        setOpen(false);
       }}
       onConfirm={() => {
         onConfirm?.();
@@ -102,7 +98,7 @@ export const SaveModal: React.FC<SaveModalProps> = ({
       }}
       title="Save page"
     >
-      {additionalText && <StyledBody>{additionalText}</StyledBody>}
+      {banner}
       <StyledBody>
         Evergreen can perform one of the following actions on save:
       </StyledBody>

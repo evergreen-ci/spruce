@@ -29,7 +29,8 @@ export const HeaderButtons: React.FC<Props> = ({ distro, tab }) => {
       <SaveModal
         distro={distro}
         open={modalOpen}
-        setOpen={setModalOpen}
+        onConfirm={() => setModalOpen(false)}
+        onCancel={() => setModalOpen(false)}
         tab={tab}
       />
     </>

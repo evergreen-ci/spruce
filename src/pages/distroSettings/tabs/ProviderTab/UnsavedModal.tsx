@@ -1,7 +1,10 @@
+import styled from "@emotion/styled";
+import Banner from "@leafygreen-ui/banner";
 import {
   unstable_BlockerFunction as BlockerFunction,
   unstable_useBlocker as useBlocker,
 } from "react-router-dom";
+import { size } from "constants/tokens";
 import { DistroQuery } from "gql/generated/types";
 import { SaveModal } from "../../SaveModal";
 import { WritableDistroSettingsTabs } from "../types";
@@ -20,14 +23,22 @@ export const UnsavedModal: React.FC<UnsavedModalProps> = ({
   return (
     blocker.state === "blocked" && (
       <SaveModal
-        additionalText="Because you have modified the distro provider, your changes must be saved before navigating to a new page."
+        banner={
+          <StyledBanner variant="warning">
+            Because you have modified the distro provider, your changes must be
+            saved before navigating to a new page.
+          </StyledBanner>
+        }
         distro={distro}
         open
         onCancel={() => blocker.reset?.()}
         onConfirm={() => blocker.proceed?.()}
-        setOpen={() => {}}
         tab={WritableDistroSettingsTabs.Provider}
       />
     )
   );
 };
+
+const StyledBanner = styled(Banner)`
+  margin-bottom: ${size.xs};
+`;
