@@ -104,6 +104,7 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
   value,
 }) => {
   const {
+    bold,
     customLabel,
     "data-cy": dataCy,
     description,
@@ -113,7 +114,7 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
   return (
     <ElementWrapper css={elementWrapperCSS}>
       <Checkbox
-        bold={false}
+        bold={bold || false}
         checked={value}
         data-cy={dataCy}
         description={description}

@@ -243,6 +243,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
         taskRegex: ".*",
         configFile: ".evergreen.yml",
         alias: "my-alias",
+        unscheduleDownstreamVersions: true,
       },
     ],
     periodicBuilds: [
