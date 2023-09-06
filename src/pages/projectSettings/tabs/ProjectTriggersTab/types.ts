@@ -10,6 +10,7 @@ type FormTrigger = {
   configFile: string;
   alias: string;
   displayTitle?: string;
+  unscheduleDownstreamVersions: boolean;
 };
 
 export type ProjectTriggersFormState = {
