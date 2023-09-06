@@ -6,7 +6,6 @@ import {
 
 describe("Tests Table", () => {
   const waitForTable = () => {
-    cy.wait(Array(11).fill("@gqlReq"));
     cy.dataCy("tests-table")
       .should("be.visible")
       .should("not.have.attr", "data-loading", "true");
@@ -30,9 +29,9 @@ describe("Tests Table", () => {
     cy.toggleTableFilter(1);
     cy.dataCy("testname-input-wrapper")
       .find("input")
-      .focus()
-      .type("hello")
-      .type("{enter}");
+      .as("testnameInputWrapper")
+      .focus();
+    cy.get("@testnameInputWrapper").type("hello{enter}");
 
     cy.dataCy("filtered-count").contains(0);
     cy.dataCy("total-count").contains(20);
@@ -78,10 +77,10 @@ describe("Tests Table", () => {
   describe("Test Status Selector", () => {
     beforeEach(() => {
       cy.visit(TESTS_ROUTE);
-      waitForTable();
     });
 
     it("Clicking on 'All' checkbox adds all statuses to URL", () => {
+      cy.wait(Array(11).fill("@gqlReq"));
       clickingCheckboxUpdatesUrlAndRendersFetchedResults({
         checkboxDisplayName: "All",
         pathname: TESTS_ROUTE,
@@ -99,6 +98,7 @@ describe("Tests Table", () => {
     ];
 
     it("Checking multiple statuses adds them all to the URL", () => {
+      waitForTable();
       cy.toggleTableFilter(2);
       statuses.forEach(({ display }) => {
         cy.get(".cy-checkbox").contains(display).click({ force: true });
@@ -111,18 +111,18 @@ describe("Tests Table", () => {
 
   describe("Test Name Filter", () => {
     const testNameInputValue = "group";
-    beforeEach(() => {
-      cy.visit(TESTS_ROUTE);
-      waitForTable();
-    });
 
     it("Typing in test name filter updates testname query param", () => {
+      cy.visit(TESTS_ROUTE);
+      cy.wait(Array(11).fill("@gqlReq"));
+      waitForTable();
       cy.toggleTableFilter(1);
       cy.dataCy("testname-input-wrapper")
         .find("input")
-        .focus()
-        .type(testNameInputValue)
-        .type("{enter}");
+        .as("testnameInputWrapper")
+        .focus();
+      cy.get("@testnameInputWrapper").type(testNameInputValue);
+      cy.get("@testnameInputWrapper").type("{enter}");
       cy.location().should((loc) => {
         expect(loc.search).to.include(`testname=${testNameInputValue}`);
       });
