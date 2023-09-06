@@ -6,5 +6,3 @@ declare module "*.graphql" {
   const content: DocumentNode;
   export default content;
 }
-
-declare const APP_VERSION: string;
