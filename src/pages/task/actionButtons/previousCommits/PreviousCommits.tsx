@@ -80,7 +80,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
       });
     },
     onError: (err) => {
-      dispatchToast.error(`Error fetching last passing task: '${err.message}'`);
+      dispatchToast.error(`Last passing version unavailable: '${err.message}'`);
     },
   });
 
@@ -96,7 +96,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     },
     onError: (err) => {
       dispatchToast.error(
-        `Error fetching last executed task: '${err.message}'`
+        `Could not fetch last task execution: '${err.message}'`
       );
     },
   });
