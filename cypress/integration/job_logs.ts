@@ -13,7 +13,7 @@ describe("Job logs page", () => {
     cy.get("th")
       .should("have.length", 1)
       .then((th) => {
-        cy.wrap(th).should("have.attr", "aria-sort", "none");
+        cy.wrap(th).should("not.have.attr", "aria-sort");
       });
 
     cy.dataCy("complete-test-logs-link")

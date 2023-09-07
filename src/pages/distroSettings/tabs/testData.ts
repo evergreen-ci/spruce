@@ -17,7 +17,7 @@ import {
 const distroData: DistroQuery["distro"] = {
   __typename: "Distro",
   aliases: ["rhel71-power8", "rhel71-power8-build"],
-  arch: Arch.LinuxPpc_64Bit,
+  arch: Arch.Linux_64Bit,
   authorizedKeysFile: "",
   bootstrapSettings: {
     clientDir: "/home/evg/client",
