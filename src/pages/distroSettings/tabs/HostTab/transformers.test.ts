@@ -26,7 +26,7 @@ const form: HostFormState = {
   setup: {
     bootstrapMethod: BootstrapMethod.LegacySsh,
     communicationMethod: CommunicationMethod.LegacySsh,
-    arch: Arch.LinuxPpc_64Bit,
+    arch: Arch.Linux_64Bit,
     workDir: "/data/evg",
     setupScript: "ls -alF",
     setupAsSudo: true,
