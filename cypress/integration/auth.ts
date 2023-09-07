@@ -1,15 +1,22 @@
 describe("Auth", () => {
   it("Unauthenticated user is redirected to login page after visiting a private route", () => {
-    cy.clearCookie("mci-token");
+    cy.logout();
     cy.visit("/version/123123");
-    cy.url().should("include", "/login");
+    cy.location("pathname").should("equal", "/login");
   });
 
   it("Redirects user to My Patches page after logging in", () => {
-    cy.clearCookie("mci-token");
+    cy.logout();
     cy.visit("/");
     cy.enterLoginCredentials();
     cy.url().should("include", "/user/admin/patches");
+  });
+
+  it("Can log out via the dropdown", () => {
+    cy.visit("/");
+    cy.dataCy("user-dropdown-link").click();
+    cy.dataCy("log-out").click();
+    cy.location("pathname").should("equal", "/login");
   });
 
   it("Automatically authenticates user if they are logged in", () => {
