@@ -159,10 +159,12 @@ on localhost:9090 for the front-end to work.
 In order to run the Cypress tests, do the following, assuming you have this repo
 checked out and all the dependencies installed by yarn:
 
-1. Start the evergreen back-end with the sample local test data. You can do this
+1. Increase the limit on open files by running `ulimit -n 64000` before running mongod
+   in the same shell.
+2. Start the evergreen back-end with the sample local test data. You can do this
    by typing `make local-evergreen` in your evergreen folder.
-2. Start the Spruce local server by typing `yarn build:local && yarn serve` in this repo.
-3. Run Cypress by typing one of the following:
+3. Start the Spruce local server by typing `yarn build:local && yarn serve` in this repo.
+4. Run Cypress by typing one of the following:
    - `yarn cy:open` - opens the Cypress app in interactive mode. You can select
      tests to run from here in the Cypress browser.
    - `yarn cy:run` - runs all the Cypress tests at the command-line and reports
