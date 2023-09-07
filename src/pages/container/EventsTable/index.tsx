@@ -1,6 +1,14 @@
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
+import {
+  V10Table as Table,
+  V10TableHeader as TableHeader,
+  V10Row as Row,
+  V10Cell as Cell,
+  V10HeaderRow as HeaderRow,
+  V11Adapter,
+} from "@leafygreen-ui/table/new";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { useLocation, useParams } from "react-router-dom";
 import PageSizeSelector, {
@@ -37,7 +45,12 @@ const EventsTable: React.FC<{}> = () => {
       );
     },
   });
-  const { count, eventLogEntries } = podEventsData?.pod.events ?? {};
+
+  const { count, eventLogEntries } = useMemo(
+    () => podEventsData?.pod.events ?? { eventLogEntries: [], count: 0 },
+    [podEventsData?.pod?.events]
+  );
+
   return (
     <SiderCard>
       <TableTitle>
@@ -56,23 +69,27 @@ const EventsTable: React.FC<{}> = () => {
         </TableControlInnerRow>
       </TableTitle>
 
-      <Table
-        data-cy="container-events"
-        data={eventLogEntries}
-        columns={[
-          <TableHeader key="date" dataType="date" label="Date" />,
-          <TableHeader key="event" label="Event" />,
-        ]}
-      >
-        {({ datum }) => (
-          <Row data-cy={`event-type-${datum.eventType}`} key={datum.id}>
-            <Cell data-cy={`${datum.eventType}-time`}>
-              {getDateCopy(datum.timestamp)}
-            </Cell>
-            <Cell>{getEventCopy(datum)}</Cell>
-          </Row>
-        )}
-      </Table>
+      <V11Adapter shouldAlternateRowColor>
+        <Table
+          data-cy="container-events"
+          data={eventLogEntries}
+          columns={
+            <HeaderRow>
+              <TableHeader key="date" dataType="date" label="Date" />
+              <TableHeader key="event" label="Event" />
+            </HeaderRow>
+          }
+        >
+          {({ datum }) => (
+            <Row data-cy={`event-type-${datum.eventType}`} key={datum.id}>
+              <Cell data-cy={`${datum.eventType}-time`}>
+                {getDateCopy(datum.timestamp)}
+              </Cell>
+              <Cell>{getEventCopy(datum)}</Cell>
+            </Row>
+          )}
+        </Table>
+      </V11Adapter>
     </SiderCard>
   );
 };

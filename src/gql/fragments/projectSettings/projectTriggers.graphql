@@ -8,6 +8,7 @@ fragment ProjectTriggersSettings on Project {
     project
     status
     taskRegex
+    unscheduleDownstreamVersions
   }
 }
 
@@ -21,5 +22,6 @@ fragment RepoTriggersSettings on RepoRef {
     project
     status
     taskRegex
+    unscheduleDownstreamVersions
   }
 }
