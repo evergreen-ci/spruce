@@ -229,8 +229,7 @@ production environments.
    from within the evergreen folder
 9. Once you have this file you can copy the contents of it to the relevant
    `testdata/local/<collection>.json` file with in the evergreen folder
-10. You can then delete `/bin/.load-local-data` within the evergreen folder and
-    run `make local-evergreen` to repopulate the local database with your new
+10. You can then run `yarn evg-db-ops --reseed` to repopulate the local database with your new
     data.
 
 **Notes**
