@@ -5,12 +5,10 @@ const files = [
   {
     name: "some_file",
     link: "some_link",
-    visibility: "",
   },
   {
     name: "another_file",
     link: "another_link",
-    visibility: "",
   },
 ];
 
