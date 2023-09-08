@@ -4,7 +4,7 @@ DB_NAME="evergreen_local"
 URI="mongodb://localhost:27017/$DB_NAME"
 
 # Define paths for storing database dumps.
-DUMP_ROOT="$TMPDIR/evg_dump"
+DUMP_ROOT=${TMPDIR}evg_dump
 DUMP_FOLDER="$DUMP_ROOT/$DB_NAME"
 
 # Function to clean up temporary dump files.

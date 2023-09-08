@@ -1,5 +1,3 @@
-const LOGIN_COOKIE = "mci-token";
-const loginURL = "http://localhost:9090/login";
 const user = {
   username: "admin",
   password: "password",
@@ -61,10 +59,17 @@ Cypress.Commands.add("getInputByLabel", (label: string) => {
 
 /* login */
 Cypress.Commands.add("login", () => {
-  cy.getCookie(LOGIN_COOKIE).then((c) => {
+  cy.getCookie("mci-token").then((c) => {
     if (!c) {
-      cy.request("POST", loginURL, { ...user });
+      cy.request("POST", "http://localhost:9090/login", { ...user });
     }
+  });
+});
+
+/* logout */
+Cypress.Commands.add("logout", () => {
+  cy.origin("http://localhost:9090", () => {
+    cy.request({ url: "/logout", followRedirect: false });
   });
 });
 

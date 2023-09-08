@@ -91,6 +91,11 @@ declare global {
        */
       login(): void;
       /**
+       * Custom command to log out of the application.
+       * @example cy.logout()
+       */
+      logout(): void;
+      /**
        * Custom command to open an antd table filter associated with the
        * the supplied column number
        * @param columnNumber - The order in which the target column exists in the table starting at 1
@@ -122,6 +127,7 @@ before(() => {
   });
 });
 
+// Close over beforeEach and afterEach to encapsulate mutationDispatched
 (() => {
   let mutationDispatched: boolean;
   beforeEach(() => {
