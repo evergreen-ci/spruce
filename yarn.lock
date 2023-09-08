@@ -3738,7 +3738,7 @@
     polished "^4.2.2"
     react-transition-group "^4.4.5"
 
-"@leafygreen-ui/skeleton-loader@^1.1.0":
+"@leafygreen-ui/skeleton-loader@1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/skeleton-loader/-/skeleton-loader-1.1.0.tgz#3ce8582a1a4043dea3f5ff0721f207e06bc0c726"
   integrity sha512-q4RCyT0WUmKfHeOON39pOx4pVWFymXbyjd7mG08YdigiPHfq/q5BrmOg8nK7psXwusD0BY3tNYK2A+WZ9PLpJQ==
