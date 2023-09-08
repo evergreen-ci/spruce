@@ -14,7 +14,6 @@ import { queryString } from "utils";
 import { BuildBaron } from "./taskTabs/BuildBaron";
 import { useBuildBaronVariables } from "./taskTabs/buildBaronAndAnnotations";
 import { ExecutionTasksTable } from "./taskTabs/ExecutionTasksTable";
-import { FilesTables } from "./taskTabs/FilesTables";
 import FilesTableTab from "./taskTabs/FileTableTab";
 import { Logs } from "./taskTabs/Logs";
 import { TestsTable } from "./taskTabs/TestsTable";
