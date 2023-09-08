@@ -15,11 +15,12 @@ import {
 } from "@leafygreen-ui/table/new";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { StyledLink } from "components/styles";
-import { File } from "gql/generated/types";
+import { Unpacked } from "types/utils";
+import { GroupedFiles } from "../types";
 
-type GroupedFilesTableFile = Omit<File, "visibility">;
+type GroupedFilesFile = Unpacked<GroupedFiles["files"]>;
 interface GroupedFilesTableProps {
-  files: GroupedFilesTableFile[];
+  files: GroupedFilesFile[];
   taskName?: string;
 }
 const GroupedFilesTable: React.FC<GroupedFilesTableProps> = ({
@@ -28,7 +29,7 @@ const GroupedFilesTable: React.FC<GroupedFilesTableProps> = ({
 }) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
-  const columns = useMemo<Array<LGColumnDef<GroupedFilesTableFile>>>(
+  const columns = useMemo<Array<LGColumnDef<GroupedFilesFile>>>(
     () => [
       {
         accessorKey: "name",
@@ -44,7 +45,7 @@ const GroupedFilesTable: React.FC<GroupedFilesTableProps> = ({
     ],
     []
   );
-  const table = useLeafyGreenTable<GroupedFilesTableFile>({
+  const table = useLeafyGreenTable<GroupedFilesFile>({
     containerRef: tableContainerRef,
     data: files,
     columns,
@@ -59,7 +60,7 @@ const GroupedFilesTable: React.FC<GroupedFilesTableProps> = ({
         <TableHead>
           {table
             .getHeaderGroups()
-            .map((headerGroup: HeaderGroup<GroupedFilesTableFile>) => (
+            .map((headerGroup: HeaderGroup<GroupedFilesFile>) => (
               <HeaderRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <HeaderCell key={header.id} header={header}>
@@ -73,7 +74,7 @@ const GroupedFilesTable: React.FC<GroupedFilesTableProps> = ({
             ))}
         </TableHead>
         <TableBody>
-          {rows.map((row: LeafyGreenTableRow<GroupedFilesTableFile>) => (
+          {rows.map((row: LeafyGreenTableRow<GroupedFilesFile>) => (
             <Row key={row.id} row={row}>
               {row.getVisibleCells().map((cell) => (
                 <Cell key={cell.id}>

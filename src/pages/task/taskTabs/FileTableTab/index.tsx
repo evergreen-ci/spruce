@@ -8,6 +8,7 @@ import { useToastContext } from "context/toast";
 import { TaskFilesQuery, TaskFilesQueryVariables } from "gql/generated/types";
 import { GET_TASK_FILES } from "gql/queries";
 import GroupedFilesTable from "./GroupedFilesTable";
+import { filterGroupedFiles } from "./utils";
 
 interface FilesTableTabProps {
   taskId: string;
@@ -31,18 +32,7 @@ const FilesTableTab: React.FC<FilesTableTabProps> = ({ execution, taskId }) => {
   const { taskFiles } = data?.task ?? {};
 
   const { groupedFiles = [] } = taskFiles ?? {};
-  const filteredGroupedFiles = groupedFiles.reduce((acc, groupedFile) => {
-    const filteredFiles = groupedFile?.files?.filter((file) =>
-      file?.name?.toLowerCase().includes(search.toLowerCase())
-    );
-    if (filteredFiles?.length) {
-      acc.push({
-        ...groupedFile,
-        files: filteredFiles,
-      });
-    }
-    return acc;
-  }, [] as (typeof taskFiles)["groupedFiles"]);
+  const filteredGroupedFiles = filterGroupedFiles(groupedFiles, search);
 
   // We only want to show the file group name if there are multiple file groups.
   const hasMultipleFileGroups = groupedFiles.length > 1;
