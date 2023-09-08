@@ -15,6 +15,7 @@ import { BuildBaron } from "./taskTabs/BuildBaron";
 import { useBuildBaronVariables } from "./taskTabs/buildBaronAndAnnotations";
 import { ExecutionTasksTable } from "./taskTabs/ExecutionTasksTable";
 import { FilesTables } from "./taskTabs/FilesTables";
+import FilesTableTab from "./taskTabs/FileTableTab";
 import { Logs } from "./taskTabs/Logs";
 import { TestsTable } from "./taskTabs/TestsTable";
 
@@ -115,7 +116,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
         data-cy="task-files-tab"
         key="task-files-tab"
       >
-        <FilesTables />
+        <FilesTableTab taskId={id} execution={execution} />
       </Tab>
     ),
     [TaskTab.Annotations]: (
