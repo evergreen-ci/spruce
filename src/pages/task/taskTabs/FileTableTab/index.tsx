@@ -30,12 +30,12 @@ const FilesTableTab: React.FC<FilesTableTabProps> = ({ execution, taskId }) => {
   );
   const { taskFiles } = data?.task ?? {};
 
-  const filteredFiles = taskFiles?.groupedFiles?.filter(
-    (groupedFile) =>
-      groupedFile?.files?.filter((file) =>
-        file?.name?.toLowerCase().includes(search.toLowerCase())
-      ).length
-  );
+  const filteredFiles = taskFiles?.groupedFiles?.map((groupedFile) => ({
+    ...groupedFile,
+    files: groupedFile?.files?.filter((file) =>
+      file?.name?.toLowerCase().includes(search.toLowerCase())
+    ),
+  }));
 
   // We only want to show the file group name if there are multiple file groups.
   const hasMultipleFileGroups = taskFiles?.groupedFiles?.length > 1;
