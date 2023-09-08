@@ -18,7 +18,7 @@ import {
 import { SAVE_DISTRO } from "gql/mutations";
 import { useDistroSettingsContext } from "./Context";
 import { formToGqlMap } from "./tabs/transformers";
-import { WritableDistroSettingsType } from "./tabs/types";
+import { FormToGqlFunction, WritableDistroSettingsType } from "./tabs/types";
 
 interface Props {
   distro: DistroQuery["distro"];
@@ -64,7 +64,7 @@ export const HeaderButtons: React.FC<Props> = ({ distro, tab }) => {
     // Only perform the save operation is the tab is valid.
     // eslint-disable-next-line no-prototype-builtins
     if (formToGqlMap.hasOwnProperty(tab)) {
-      const formToGql = formToGqlMap[tab];
+      const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
       const changes = formToGql(formData, distro);
       saveDistro({
         variables: {
