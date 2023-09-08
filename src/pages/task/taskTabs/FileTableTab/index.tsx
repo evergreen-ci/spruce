@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { SearchInput } from "@leafygreen-ui/search-input";
+import { Skeleton, TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import { TaskFilesQuery, TaskFilesQueryVariables } from "gql/generated/types";
@@ -38,7 +39,9 @@ const FilesTableTab: React.FC<FilesTableTabProps> = ({ execution, taskId }) => {
 
   // We only want to show the file group name if there are multiple file groups.
   const hasMultipleFileGroups = taskFiles?.groupedFiles?.length > 1;
-  return (
+  return loading ? (
+    <FilesTableTabSkeleton />
+  ) : (
     <>
       <StyledSearchInput
         aria-label="Search file names"
@@ -57,6 +60,12 @@ const FilesTableTab: React.FC<FilesTableTabProps> = ({ execution, taskId }) => {
   );
 };
 
+const FilesTableTabSkeleton = () => (
+  <>
+    <Skeleton />
+    <TableSkeleton numCols={1} numRows={5} />
+  </>
+);
 const StyledSearchInput = styled(SearchInput)`
   margin-bottom: ${size.m};
   width: 400px;
