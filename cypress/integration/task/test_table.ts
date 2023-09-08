@@ -5,14 +5,15 @@ import {
 } from "../../utils";
 
 describe("Tests Table", () => {
-  const waitForTable = () => {
+  const visitAndWait = (url: string) => {
+    cy.visit(url);
+    cy.wait(Array(11).fill("@gqlReq"));
     cy.dataCy("tests-table")
       .should("be.visible")
       .should("not.have.attr", "data-loading", "true");
   };
   beforeEach(() => {
-    cy.visit(TESTS_ROUTE);
-    waitForTable();
+    visitAndWait(TESTS_ROUTE);
   });
   it("Test count should update to reflect filtered values", () => {
     cy.contains(TABLE_SORT_SELECTOR, "Name").click();
@@ -76,11 +77,10 @@ describe("Tests Table", () => {
 
   describe("Test Status Selector", () => {
     beforeEach(() => {
-      cy.visit(TESTS_ROUTE);
+      visitAndWait(TESTS_ROUTE);
     });
 
     it("Clicking on 'All' checkbox adds all statuses to URL", () => {
-      cy.wait(Array(11).fill("@gqlReq"));
       clickingCheckboxUpdatesUrlAndRendersFetchedResults({
         checkboxDisplayName: "All",
         pathname: TESTS_ROUTE,
@@ -98,7 +98,6 @@ describe("Tests Table", () => {
     ];
 
     it("Checking multiple statuses adds them all to the URL", () => {
-      waitForTable();
       cy.toggleTableFilter(2);
       statuses.forEach(({ display }) => {
         cy.get(".cy-checkbox").contains(display).click({ force: true });
@@ -113,9 +112,7 @@ describe("Tests Table", () => {
     const testNameInputValue = "group";
 
     it("Typing in test name filter updates testname query param", () => {
-      cy.visit(TESTS_ROUTE);
-      cy.wait(Array(11).fill("@gqlReq"));
-      waitForTable();
+      visitAndWait(TESTS_ROUTE);
       cy.toggleTableFilter(1);
       cy.dataCy("testname-input-wrapper")
         .find("input")
@@ -131,8 +128,7 @@ describe("Tests Table", () => {
 
   describe("Changing page number", () => {
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
-      cy.visit(`${TESTS_ROUTE}?limit=10`);
-      waitForTable();
+      visitAndWait(`${TESTS_ROUTE}?limit=10`);
       cy.dataCy("pagination").first().should("contain.text", "1 / 2");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyNextPage,
@@ -142,8 +138,7 @@ describe("Tests Table", () => {
     });
 
     it("Does not update results or URL when right arrow is clicked and next page does not exist", () => {
-      cy.visit(`${TESTS_ROUTE}?limit=10&page=1`);
-      waitForTable();
+      visitAndWait(`${TESTS_ROUTE}?limit=10&page=1`);
       cy.dataCy("pagination").first().should("contain.text", "2 / 2");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyNextPage,
@@ -153,8 +148,7 @@ describe("Tests Table", () => {
     });
 
     it("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", () => {
-      cy.visit(`${TESTS_ROUTE}?limit=10&page=1`);
-      waitForTable();
+      visitAndWait(`${TESTS_ROUTE}?limit=10&page=1`);
       cy.dataCy("pagination").first().should("contain.text", "2 / 2");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyPrevPage,
@@ -164,8 +158,7 @@ describe("Tests Table", () => {
     });
 
     it("Does not update results or URL when left arrow is clicked and previous page does not exist", () => {
-      cy.visit(`${TESTS_ROUTE}?limit=10&page=0`);
-      waitForTable();
+      visitAndWait(`${TESTS_ROUTE}?limit=10&page=0`);
       cy.dataCy("pagination").first().should("contain.text", "1 / 2");
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyPrevPage,
@@ -179,8 +172,7 @@ describe("Tests Table", () => {
     it("Changing page size updates URL and renders less than or equal to that many rows", () => {
       [20, 50, 100].forEach((pageSize) => {
         it(`when the page size is set to ${pageSize}`, () => {
-          cy.visit(`${TESTS_ROUTE}`);
-          waitForTable();
+          visitAndWait(TESTS_ROUTE);
           clickOnPageSizeBtnAndAssertURLandTableSize(pageSize, dataCyTableRows);
         });
       });
