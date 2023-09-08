@@ -76,7 +76,7 @@ functions:
           cd $PROJECT_DIRECTORY
           mkdir mongodb-tools && cd mongodb-tools
           curl ${mongodb_tools_url} -o mongodb-tools.tgz
-          tar -zxvf mongodb-tools.tgz
+          ${decompress} mongodb-tools.tgz
           mv ./mongodb-*/bin/* .
   setup-node:
     - command: subprocess.exec

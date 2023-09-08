@@ -127,6 +127,7 @@ before(() => {
   });
 });
 
+// Close over beforeEach and afterEach to encapsulate mutationDispatched
 (() => {
   let mutationDispatched: boolean;
   beforeEach(() => {
