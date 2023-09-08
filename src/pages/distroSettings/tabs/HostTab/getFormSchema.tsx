@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
@@ -178,12 +177,8 @@ export const getFormSchema = ({
               Option keywords supported by <InlineCode>ssh_config</InlineCode>.
             </>
           ),
-          "ui:fullWidth": true,
           "ui:orderable": false,
           items: {
-            "ui:elementWrapperCSS": css`
-              max-width: unset;
-            `,
             "ui:placeholder": "ConnectTimeout=10",
           },
         },
