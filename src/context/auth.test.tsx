@@ -97,7 +97,7 @@ describe("auth", () => {
     beforeEach(() => {
       Object.defineProperty(window, "location", {
         value: {
-          href: "http://just-a-placeholder.com",
+          href: "https://just-a-placeholder.com",
         },
         writable: true,
       });
