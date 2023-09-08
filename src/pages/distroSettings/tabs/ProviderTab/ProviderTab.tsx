@@ -14,10 +14,10 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
 
   return (
     <>
-      <UnsavedModal
-        distro={distro}
-        shouldBlock={initialData?.provider !== formData?.provider?.providerName}
-      />
+      {/* Use conditional rendering instead of the shouldBlock prop so that modifying fields other than the provider triggers the standard navigation warning modal */}
+      {initialData?.provider !== formData?.provider?.providerName && (
+        <UnsavedModal distro={distro} shouldBlock />
+      )}
       <BaseTab formSchema={formSchema} initialFormState={distroData} />
     </>
   );

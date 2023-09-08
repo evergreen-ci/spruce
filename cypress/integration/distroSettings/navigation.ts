@@ -12,4 +12,48 @@ describe("using the distro dropdown", () => {
     cy.location("pathname").should("not.contain", "localhost");
     cy.location("pathname").should("contain", "rhel71-power8-large");
   });
+
+  it("warns when navigating away from distro settings with unsaved changes and allows returning to distro settings", () => {
+    cy.getInputByLabel("Notes").type("my note");
+    cy.dataCy("save-settings-button").should(
+      "not.have.attr",
+      "aria-disabled",
+      "true"
+    );
+    cy.dataCy("project-health-link").click();
+    cy.dataCy("navigation-warning-modal").should("be.visible");
+    cy.contains("button", "Cancel").click();
+    cy.dataCy("navigation-warning-modal").should("not.exist");
+    cy.location("pathname").should("eq", "/distro/localhost/settings/general");
+  });
+
+  describe("modifying the distro provider", () => {
+    beforeEach(() => {
+      cy.visit("/distro/localhost/settings/provider");
+    });
+
+    it("warns when navigating to another distro settings tab after the provider has changed and allows save", () => {
+      cy.selectLGOption("Provider", "Docker");
+      cy.dataCy("save-settings-button").should(
+        "not.have.attr",
+        "aria-disabled",
+        "true"
+      );
+      cy.contains("a", "Task Settings").click();
+      cy.dataCy("save-modal").should("be.visible");
+      cy.dataCy("provider-warning-banner").should("be.visible");
+    });
+
+    it("shows the standard save warning modal when non-provider fields have changed", () => {
+      cy.getInputByLabel("User Data").type("test user data");
+      cy.dataCy("save-settings-button").should(
+        "not.have.attr",
+        "aria-disabled",
+        "true"
+      );
+      cy.dataCy("project-health-link").click();
+      cy.dataCy("navigation-warning-modal").should("be.visible");
+      cy.dataCy("provider-warning-banner").should("not.exist");
+    });
+  });
 });

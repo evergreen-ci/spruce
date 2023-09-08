@@ -24,7 +24,7 @@ export const UnsavedModal: React.FC<UnsavedModalProps> = ({
     blocker.state === "blocked" && (
       <SaveModal
         banner={
-          <StyledBanner variant="warning">
+          <StyledBanner data-cy="provider-warning-banner" variant="warning">
             Because you have modified the distro provider, your changes must be
             saved before navigating to a new page.
           </StyledBanner>
