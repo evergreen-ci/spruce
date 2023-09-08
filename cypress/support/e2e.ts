@@ -20,6 +20,7 @@ import {
   CY_DISABLE_NEW_USER_WELCOME_MODAL,
   SLACK_NOTIFICATION_BANNER,
 } from "constants/cookies";
+import { isMutation } from "../utils/graphql-test-utils";
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
@@ -118,14 +119,39 @@ declare global {
   }
 }
 
-beforeEach(() => {
-  cy.login();
-  cy.setCookie(bannerCookie, "true");
-  cy.setCookie(CY_DISABLE_COMMITS_WELCOME_MODAL, "true");
-  cy.setCookie(CY_DISABLE_NEW_USER_WELCOME_MODAL, "true");
-  cy.setCookie(konamiCookie, "true");
-  cy.setCookie(SLACK_NOTIFICATION_BANNER, "true");
+before(() => {
+  cy.exec("yarn evg-db-ops --restore").then((result) => {
+    if (result.code !== 0) {
+      throw new Error("EVG DB restoration failed during setup.");
+    }
+  });
 });
+
+// Close over beforeEach and afterEach to encapsulate mutationDispatched
+(() => {
+  let mutationDispatched: boolean;
+  beforeEach(() => {
+    cy.login();
+    cy.setCookie(bannerCookie, "true");
+    cy.setCookie(CY_DISABLE_COMMITS_WELCOME_MODAL, "true");
+    cy.setCookie(CY_DISABLE_NEW_USER_WELCOME_MODAL, "true");
+    cy.setCookie(konamiCookie, "true");
+    cy.setCookie(SLACK_NOTIFICATION_BANNER, "true");
+    mutationDispatched = false;
+    cy.intercept("POST", "/graphql/query", (req) => {
+      if (isMutation(req)) {
+        mutationDispatched = true;
+      }
+    });
+  });
+
+  afterEach(() => {
+    if (mutationDispatched) {
+      cy.log("A mutation was detected. Restoring EVG.");
+      cy.exec("yarn evg-db-ops --restore");
+    }
+  });
+})();
 
 const bannerCookie = "This is an important notification";
 const konamiCookie = "seen-konami-code";
