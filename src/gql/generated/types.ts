@@ -7809,6 +7809,7 @@ export type SpruceConfigQuery = {
     banner?: string | null;
     bannerTheme?: string | null;
     jira?: { __typename?: "JiraConfig"; host?: string | null } | null;
+    keys: Array<{ __typename?: "SSHKey"; location: string; name: string }>;
     providers?: {
       __typename?: "CloudProviderConfig";
       aws?: {

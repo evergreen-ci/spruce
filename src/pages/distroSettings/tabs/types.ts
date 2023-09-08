@@ -1,6 +1,7 @@
 import { DistroSettingsTabRoutes } from "constants/routes";
 import { DistroQuery, DistroInput } from "gql/generated/types";
 import { GeneralFormState } from "./GeneralTab/types";
+import { HostFormState } from "./HostTab/types";
 import { ProjectFormState } from "./ProjectTab/types";
 import { ProviderFormState } from "./ProviderTab/types";
 import { TaskFormState } from "./TaskTab/types";
@@ -11,13 +12,12 @@ export { WritableDistroSettingsTabs };
 export type WritableDistroSettingsType =
   (typeof WritableDistroSettingsTabs)[keyof typeof WritableDistroSettingsTabs];
 
-// TODO: Specify type as tabs are added.
 export type FormStateMap = {
   [T in WritableDistroSettingsType]: {
     [DistroSettingsTabRoutes.General]: GeneralFormState;
     [DistroSettingsTabRoutes.Provider]: ProviderFormState;
     [DistroSettingsTabRoutes.Task]: TaskFormState;
-    [DistroSettingsTabRoutes.Host]: any;
+    [DistroSettingsTabRoutes.Host]: HostFormState;
     [DistroSettingsTabRoutes.Project]: ProjectFormState;
   }[T];
 };
