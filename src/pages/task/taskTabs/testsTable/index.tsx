@@ -26,7 +26,7 @@ import {
 import { RequiredQueryParams, TableOnChange } from "types/task";
 import { TestStatus } from "types/test";
 import { queryString, url } from "utils";
-import { getColumnsTemplate } from "./testsTable/getColumnsTemplate";
+import { getColumnsTemplate } from "./getColumnsTemplate";
 
 const { getLimitFromSearch, getPageFromSearch } = url;
 const { parseQueryString, queryParamAsNumber } = queryString;

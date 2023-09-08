@@ -1,3 +1,3 @@
-import useBuildBaronVariables from "./useBuildBaronVariables";
+import { loadable } from "components/SpruceLoader";
 
-export { useBuildBaronVariables };
+export const BuildBaron = loadable(() => import("./BuildBaron"));

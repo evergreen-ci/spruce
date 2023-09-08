@@ -1,6 +1,6 @@
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
 
-import { ExecutionTasksTable } from "./ExecutionTasksTable";
+import { ExecutionTasksTable } from ".";
 
 export default {
   title: "Pages/Task/Table/Execution Tasks Table",

@@ -16,13 +16,7 @@ import { size } from "constants/tokens";
 import { TaskLogLinks } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks";
 import { LogTypes, QueryParams } from "types/task";
-import {
-  EventLog,
-  AgentLog,
-  SystemLog,
-  TaskLog,
-  AllLog,
-} from "./logs/LogTypes";
+import { EventLog, AgentLog, SystemLog, TaskLog, AllLog } from "./LogTypes";
 
 const DEFAULT_LOG_TYPE = LogTypes.Task;
 
