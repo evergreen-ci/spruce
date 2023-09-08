@@ -59,16 +59,11 @@ Cypress.Commands.add("getInputByLabel", (label: string) => {
 
 /* login */
 Cypress.Commands.add("login", () => {
-  const args = { ...user };
-  cy.session(
-    // Username & password can be used as the cache key too
-    args,
-    () => {
-      cy.origin("http://localhost:9090", { args }, ({ password, username }) => {
-        cy.request("POST", "/login", { username, password });
-      });
+  cy.getCookie("mci-token").then((c) => {
+    if (!c) {
+      cy.request("POST", "http://localhost:9090/login", { ...user });
     }
-  );
+  });
 });
 
 /* logout */
