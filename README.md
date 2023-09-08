@@ -16,7 +16,7 @@ Spruce is the React UI for MongoDB's continuous integration software.
 ### Running Locally
 
 1. Clone the Spruce Github repository
-2. Ensure you have Node.js 16+ and MongoDB Command Line Database Tools installed
+2. Ensure you have Node.js v16+ and MongoDB Command Line Database Tools v100.8.0+ installed
 3. Ask a colleague for their .cmdrc.json file and follow the instructions
    [here](#environment-variables)
 4. Run `yarn`
@@ -231,8 +231,7 @@ production environments.
    from within the evergreen folder
 9. Once you have this file you can copy the contents of it to the relevant
    `testdata/local/<collection>.json` file with in the evergreen folder
-10. You can then delete `/bin/.load-local-data` within the evergreen folder and
-    run `make local-evergreen` to repopulate the local database with your new
+10. You can then run `yarn evg-db-ops --reseed` to repopulate the local database with your new
     data.
 
 **Notes**
