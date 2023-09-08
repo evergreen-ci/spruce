@@ -38,7 +38,7 @@ import {
 import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { useQueryParam } from "hooks/useQueryParam";
 import { TaskStatus } from "types/task";
-import { PreviousCommits } from "./actionButtons/previousCommits/PreviousCommits";
+import { PreviousCommits } from "./actionButtons/previousCommits";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
