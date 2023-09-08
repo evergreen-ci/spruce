@@ -17,7 +17,7 @@ import {
 import { SAVE_DISTRO } from "gql/mutations";
 import { useDistroSettingsContext } from "./Context";
 import { formToGqlMap } from "./tabs/transformers";
-import { WritableDistroSettingsType } from "./tabs/types";
+import { FormToGqlFunction, WritableDistroSettingsType } from "./tabs/types";
 
 type SaveModalProps = {
   banner?: React.ReactNode;
@@ -72,7 +72,7 @@ export const SaveModal: React.FC<SaveModalProps> = ({
     // Only perform the save operation is the tab is valid.
     // eslint-disable-next-line no-prototype-builtins
     if (formToGqlMap.hasOwnProperty(tab)) {
-      const formToGql = formToGqlMap[tab];
+      const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
       const changes = formToGql(formData, distro);
       saveDistro({
         variables: {

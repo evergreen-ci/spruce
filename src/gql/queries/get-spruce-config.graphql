@@ -5,6 +5,10 @@ query SpruceConfig {
     jira {
       host
     }
+    keys {
+      location
+      name
+    }
     providers {
       aws {
         maxVolumeSizePerUser

@@ -55,6 +55,7 @@ const repoForm: ProjectTriggersFormState = {
       project: "spruce",
       status: "succeeded",
       taskRegex: ".*",
+      unscheduleDownstreamVersions: true,
     },
   ],
 };
@@ -72,6 +73,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
         project: "spruce",
         status: "succeeded",
         taskRegex: ".*",
+        unscheduleDownstreamVersions: true,
       },
     ],
   },

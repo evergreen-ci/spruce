@@ -2212,6 +2212,12 @@ export enum RoundingRule {
   Up = "UP",
 }
 
+export type SshKey = {
+  __typename?: "SSHKey";
+  location: Scalars["String"]["output"];
+  name: Scalars["String"]["output"];
+};
+
 /** SaveDistroInput is the input to the saveDistro mutation. */
 export type SaveDistroInput = {
   distro: DistroInput;
@@ -2326,6 +2332,7 @@ export type SpruceConfig = {
   bannerTheme?: Maybe<Scalars["String"]["output"]>;
   githubOrgs: Array<Scalars["String"]["output"]>;
   jira?: Maybe<JiraConfig>;
+  keys: Array<SshKey>;
   providers?: Maybe<CloudProviderConfig>;
   slack?: Maybe<SlackConfig>;
   spawnHost: SpawnHostConfig;
@@ -3629,6 +3636,7 @@ export type ProjectSettingsFieldsFragment = {
       project: string;
       status: string;
       taskRegex: string;
+      unscheduleDownstreamVersions?: boolean | null;
     }> | null;
     parsleyFilters?: Array<{
       __typename?: "ParsleyFilter";
@@ -3827,6 +3835,7 @@ export type RepoSettingsFieldsFragment = {
       project: string;
       status: string;
       taskRegex: string;
+      unscheduleDownstreamVersions?: boolean | null;
     }>;
     workstationConfig: {
       __typename?: "RepoWorkstationConfig";
@@ -4217,6 +4226,7 @@ export type ProjectEventSettingsFragment = {
       project: string;
       status: string;
       taskRegex: string;
+      unscheduleDownstreamVersions?: boolean | null;
     }> | null;
     parsleyFilters?: Array<{
       __typename?: "ParsleyFilter";
@@ -4316,6 +4326,7 @@ export type ProjectTriggersSettingsFragment = {
     project: string;
     status: string;
     taskRegex: string;
+    unscheduleDownstreamVersions?: boolean | null;
   }> | null;
 };
 
@@ -4331,6 +4342,7 @@ export type RepoTriggersSettingsFragment = {
     project: string;
     status: string;
     taskRegex: string;
+    unscheduleDownstreamVersions?: boolean | null;
   }>;
 };
 
@@ -6591,6 +6603,7 @@ export type ProjectEventLogsQuery = {
             project: string;
             status: string;
             taskRegex: string;
+            unscheduleDownstreamVersions?: boolean | null;
           }> | null;
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
@@ -6801,6 +6814,7 @@ export type ProjectEventLogsQuery = {
             project: string;
             status: string;
             taskRegex: string;
+            unscheduleDownstreamVersions?: boolean | null;
           }> | null;
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
@@ -7026,6 +7040,7 @@ export type ProjectSettingsQuery = {
         project: string;
         status: string;
         taskRegex: string;
+        unscheduleDownstreamVersions?: boolean | null;
       }> | null;
       parsleyFilters?: Array<{
         __typename?: "ParsleyFilter";
@@ -7275,6 +7290,7 @@ export type RepoEventLogsQuery = {
             project: string;
             status: string;
             taskRegex: string;
+            unscheduleDownstreamVersions?: boolean | null;
           }> | null;
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
@@ -7485,6 +7501,7 @@ export type RepoEventLogsQuery = {
             project: string;
             status: string;
             taskRegex: string;
+            unscheduleDownstreamVersions?: boolean | null;
           }> | null;
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
@@ -7700,6 +7717,7 @@ export type RepoSettingsQuery = {
         project: string;
         status: string;
         taskRegex: string;
+        unscheduleDownstreamVersions?: boolean | null;
       }>;
       workstationConfig: {
         __typename?: "RepoWorkstationConfig";
@@ -7791,6 +7809,7 @@ export type SpruceConfigQuery = {
     banner?: string | null;
     bannerTheme?: string | null;
     jira?: { __typename?: "JiraConfig"; host?: string | null } | null;
+    keys: Array<{ __typename?: "SSHKey"; location: string; name: string }>;
     providers?: {
       __typename?: "CloudProviderConfig";
       aws?: {

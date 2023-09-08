@@ -9,11 +9,13 @@ import { NavigationModal } from "./NavigationModal";
 import {
   EventLogTab,
   GeneralTab,
+  HostTab,
   ProjectTab,
   ProviderTab,
   TaskTab,
 } from "./tabs/index";
 import { gqlToFormMap } from "./tabs/transformers";
+import { FormStateMap } from "./tabs/types";
 
 interface Props {
   distro: DistroQuery["distro"];
@@ -26,7 +28,6 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
   const tabData = useMemo(() => getTabData(distro), [distro]);
 
   useEffect(() => {
-    // @ts-expect-error TODO: Type when all tabs have been implemented
     setInitialData(tabData);
   }, [setInitialData, tabData]);
 
@@ -61,6 +62,15 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
           }
         />
         <Route
+          path={DistroSettingsTabRoutes.Host}
+          element={
+            <HostTab
+              distroData={tabData[DistroSettingsTabRoutes.Host]}
+              provider={distro.provider}
+            />
+          }
+        />
+        <Route
           path={DistroSettingsTabRoutes.Project}
           element={
             <ProjectTab distroData={tabData[DistroSettingsTabRoutes.Project]} />
@@ -75,15 +85,13 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
   );
 };
 
-/* Map data from query to the tab to which it will be passed */
-// TODO: Type when all tabs have been implemented
-const getTabData = (data: Props["distro"]) =>
+const getTabData = (data: Props["distro"]): FormStateMap =>
   Object.keys(gqlToFormMap).reduce(
     (obj, tab) => ({
       ...obj,
       [tab]: gqlToFormMap[tab](data),
     }),
-    {}
+    {} as FormStateMap
   );
 
 const Container = styled.div`

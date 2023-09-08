@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useNavbarAnalytics } from "analytics";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
+import { useAuthDispatchContext } from "context/auth";
 import { UserQuery } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
 import { NavDropdown } from "./NavDropdown";
@@ -10,6 +11,7 @@ export const UserDropdown = () => {
   const { user } = data || {};
   const { displayName } = user || {};
 
+  const { logoutAndRedirect } = useAuthDispatchContext();
   const { sendEvent } = useNavbarAnalytics();
 
   const menuItems = [
@@ -22,6 +24,11 @@ export const UserDropdown = () => {
       text: "Notifications",
       to: getPreferencesRoute(PreferencesTabRoutes.Notifications),
       onClick: () => sendEvent({ name: "Click Notifications Link" }),
+    },
+    {
+      "data-cy": "log-out",
+      text: "Log out",
+      onClick: () => logoutAndRedirect(),
     },
   ];
 

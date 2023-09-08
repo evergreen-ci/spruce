@@ -1,16 +1,28 @@
 import { useMemo } from "react";
 import { useDistroSettingsContext } from "../../Context";
 import { BaseTab } from "../BaseTab";
-import { WritableDistroSettingsTabs } from "../types";
+import {
+  FormToGqlFunction,
+  WritableDistroSettingsTabs,
+  WritableDistroSettingsType,
+} from "../types";
 import { getFormSchema } from "./getFormSchema";
-import { TabProps } from "./types";
+import { ProviderFormState, TabProps } from "./types";
 import { UnsavedModal } from "./UnsavedModal";
 
 export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
   const formSchema = useMemo(() => getFormSchema(), []);
 
   const { getTab } = useDistroSettingsContext();
-  const { formData, initialData } = getTab(WritableDistroSettingsTabs.Provider);
+
+  // @ts-expect-error - see TabState for details.
+  const {
+    formData,
+    initialData,
+  }: {
+    formData: ProviderFormState;
+    initialData: ReturnType<FormToGqlFunction<WritableDistroSettingsType>>;
+  } = getTab(WritableDistroSettingsTabs.Provider);
 
   return (
     <>
