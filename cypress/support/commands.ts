@@ -75,10 +75,9 @@ Cypress.Commands.add("logout", () => {
 
 /* toggleTableFilter */
 Cypress.Commands.add("toggleTableFilter", (colNum: number) => {
-  cy.get(`.ant-table-thead > tr > :nth-child(${colNum})`)
-    .find("[role=button]")
-    .first()
-    .click();
+  const selector = `.ant-table-thead > tr > :nth-child(${colNum})`;
+  cy.get(selector).should("be.visible");
+  cy.get(selector).find("[role=button]").first().click();
   cy.get(":not(.ant-dropdown-hidden) > .ant-table-filter-dropdown").should(
     "be.visible"
   );

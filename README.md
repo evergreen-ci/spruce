@@ -17,7 +17,7 @@ Spruce is the React UI for MongoDB's continuous integration software.
 
 1. Clone the Spruce Github repository
 2. Ensure you have Node.js v16+ and MongoDB Command Line Database Tools v100.8.0+ installed
-3. Ask a colleague for theiar .cmdrc.json file and follow the instructions
+3. Ask a colleague for their .cmdrc.json file and follow the instructions
    [here](#environment-variables)
 4. Run `yarn`
 5. Start a local evergreen server by doing the following:

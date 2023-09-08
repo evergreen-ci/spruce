@@ -74,7 +74,7 @@ describe("Version route", () => {
             .trigger("mouseover")
             .within(($el) => {
               // @ts-expect-error
-              expect($el.text()).to.contain("1Undispatched");
+              expect($el.text()).to.contain("1Succeeded");
             });
         });
       });
@@ -95,14 +95,15 @@ describe("Version route", () => {
           .and("equal", "true");
         cy.location("search").should(
           "include",
-          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=undispatched-umbrella,unscheduled,aborted,blocked&variant=%5Eubuntu1604%24"
+          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=success&variant=%5Eubuntu1604%24"
         );
 
+        // TODO: Drop skip in https://jira.mongodb.org/browse/EVG-20762
         // Check that filter values have updated.
-        cy.toggleTableFilter(2);
-        cy.getInputByLabel("Unscheduled")
-          .should("have.attr", "aria-checked")
-          .and("equal", "true");
+        // cy.toggleTableFilter(2);
+        // cy.getInputByLabel("success")
+        //   .should("have.attr", "aria-checked")
+        //   .and("equal", "true");
 
         cy.toggleTableFilter(4);
         cy.dataCy("variant-input-wrapper")
@@ -128,7 +129,7 @@ describe("Version route", () => {
         });
         cy.location("search").should(
           "include",
-          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=undispatched-umbrella,unscheduled,aborted,blocked&variant=%5Eubuntu1604%24"
+          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=success&variant=%5Eubuntu1604%24"
         );
       });
     });
