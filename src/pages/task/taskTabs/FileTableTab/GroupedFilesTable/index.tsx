@@ -17,8 +17,9 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { StyledLink } from "components/styles";
 import { File } from "gql/generated/types";
 
+type GroupedFilesTableFile = Omit<File, "visibility">;
 interface GroupedFilesTableProps {
-  files: File[];
+  files: GroupedFilesTableFile[];
   taskName?: string;
 }
 const GroupedFilesTable: React.FC<GroupedFilesTableProps> = ({
@@ -27,7 +28,7 @@ const GroupedFilesTable: React.FC<GroupedFilesTableProps> = ({
 }) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
-  const columns = useMemo<Array<LGColumnDef<File>>>(
+  const columns = useMemo<Array<LGColumnDef<GroupedFilesTableFile>>>(
     () => [
       {
         accessorKey: "name",
@@ -43,7 +44,7 @@ const GroupedFilesTable: React.FC<GroupedFilesTableProps> = ({
     ],
     []
   );
-  const table = useLeafyGreenTable<File>({
+  const table = useLeafyGreenTable<GroupedFilesTableFile>({
     containerRef: tableContainerRef,
     data: files,
     columns,
@@ -56,21 +57,23 @@ const GroupedFilesTable: React.FC<GroupedFilesTableProps> = ({
       {taskName && <Subtitle>{taskName}</Subtitle>}
       <Table ref={tableContainerRef}>
         <TableHead>
-          {table.getHeaderGroups().map((headerGroup: HeaderGroup<File>) => (
-            <HeaderRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <HeaderCell key={header.id} header={header}>
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
-                </HeaderCell>
-              ))}
-            </HeaderRow>
-          ))}
+          {table
+            .getHeaderGroups()
+            .map((headerGroup: HeaderGroup<GroupedFilesTableFile>) => (
+              <HeaderRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <HeaderCell key={header.id} header={header}>
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                  </HeaderCell>
+                ))}
+              </HeaderRow>
+            ))}
         </TableHead>
         <TableBody>
-          {rows.map((row: LeafyGreenTableRow<File>) => (
+          {rows.map((row: LeafyGreenTableRow<GroupedFilesTableFile>) => (
             <Row key={row.id} row={row}>
               {row.getVisibleCells().map((cell) => (
                 <Cell key={cell.id}>
