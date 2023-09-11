@@ -7,7 +7,7 @@ import {
 describe("Tests Table", () => {
   const visitAndWait = (url: string) => {
     cy.visit(url);
-    cy.wait(Array(11).fill("@gqlReq"));
+    cy.wait(Array(6).fill("@gqlReq"));
     cy.dataCy("tests-table")
       .should("be.visible")
       .should("not.have.attr", "data-loading", "true");
