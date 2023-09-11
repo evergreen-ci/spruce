@@ -2212,12 +2212,6 @@ export enum RoundingRule {
   Up = "UP",
 }
 
-export type SshKey = {
-  __typename?: "SSHKey";
-  location: Scalars["String"]["output"];
-  name: Scalars["String"]["output"];
-};
-
 /** SaveDistroInput is the input to the saveDistro mutation. */
 export type SaveDistroInput = {
   distro: DistroInput;
@@ -2332,7 +2326,6 @@ export type SpruceConfig = {
   bannerTheme?: Maybe<Scalars["String"]["output"]>;
   githubOrgs: Array<Scalars["String"]["output"]>;
   jira?: Maybe<JiraConfig>;
-  keys: Array<SshKey>;
   providers?: Maybe<CloudProviderConfig>;
   slack?: Maybe<SlackConfig>;
   spawnHost: SpawnHostConfig;
