@@ -5,10 +5,12 @@ const SPRUCE_URLS = {
   userPatches: `/user/${USER_ID}/patches`,
   cli: `/preferences/cli`,
 };
+const legacyBase = "http://localhost:9090";
 const LEGACY_URLS = {
-  version: `/version/${PATCH_ID}`,
-  userPatches: `/patches/user/${USER_ID}`,
-  distros: `/distros`,
+  version: `${legacyBase}/version/${PATCH_ID}`,
+  userPatches: `${legacyBase}/patches/user/${USER_ID}`,
+  distros: `${legacyBase}/distros`,
+  admin: `${legacyBase}/admin`,
 };
 describe("Nav Bar", () => {
   const projectCookie = "mci-project-cookie";
@@ -16,9 +18,11 @@ describe("Nav Bar", () => {
   it("Should have a nav bar linking to the proper page on the legacy UI", () => {
     cy.visit(SPRUCE_URLS.version);
     cy.dataCy("legacy-ui-link").should("exist");
-    cy.dataCy("legacy-ui-link")
-      .should("have.attr", "href")
-      .and("include", LEGACY_URLS.version);
+    cy.dataCy("legacy-ui-link").should(
+      "have.attr",
+      "href",
+      LEGACY_URLS.version
+    );
   });
   it("Navigating to a different page should change the nav link to the legacy UI", () => {
     cy.visit(SPRUCE_URLS.version);
@@ -28,9 +32,11 @@ describe("Nav Bar", () => {
       .and("include", LEGACY_URLS.version);
     cy.visit(SPRUCE_URLS.userPatches);
     cy.dataCy("legacy-ui-link").should("exist");
-    cy.dataCy("legacy-ui-link")
-      .should("have.attr", "href")
-      .and("include", LEGACY_URLS.userPatches);
+    cy.dataCy("legacy-ui-link").should(
+      "have.attr",
+      "href",
+      LEGACY_URLS.userPatches
+    );
   });
   it("Visiting a page with no legacy equivalent should not display a nav link", () => {
     cy.visit(SPRUCE_URLS.cli);
@@ -41,9 +47,7 @@ describe("Nav Bar", () => {
     cy.dataCy("legacy_route").should("not.exist");
     cy.dataCy("auxiliary-dropdown-link").click();
     cy.dataCy("legacy_route").should("exist");
-    cy.dataCy("legacy_route")
-      .should("have.attr", "href")
-      .and("include", LEGACY_URLS.distros);
+    cy.dataCy("legacy_route").should("have.attr", "href", LEGACY_URLS.distros);
   });
   it("Nav Dropdown should link to patches page of most recent project if cookie exists", () => {
     cy.setCookie(projectCookie, "spruce");
@@ -99,5 +103,32 @@ describe("Nav Bar", () => {
       "/project/spruce/patches"
     );
     cy.getCookie(projectCookie).should("have.property", "value", "spruce");
+  });
+
+  describe("Admin settings", () => {
+    it("Should not show Admin button to non-admins", () => {
+      const userData = {
+        data: {
+          user: {
+            userId: "admin",
+            displayName: "Evergreen Admin",
+            emailAddress: "admin@evergreen.com",
+            permissions: {
+              canUpdateAdminSettings: false,
+            },
+          },
+        },
+      };
+      cy.overwriteGQL("User", userData);
+      cy.visit(SPRUCE_URLS.version);
+      cy.dataCy("admin-link").should("not.exist");
+    });
+
+    it("Should show Admin button to admins", () => {
+      cy.visit(SPRUCE_URLS.version);
+      cy.dataCy("admin-link")
+        .should("be.visible")
+        .should("have.attr", "href", LEGACY_URLS.admin);
+    });
   });
 });

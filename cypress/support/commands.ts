@@ -1,3 +1,5 @@
+import { GQL_URL, hasOperationName } from "../utils/graphql-test-utils";
+
 const user = {
   username: "admin",
   password: "password",
@@ -113,3 +115,13 @@ Cypress.Commands.add(
     });
   }
 );
+
+Cypress.Commands.add("overwriteGQL", (operationName: string, body: any) => {
+  cy.intercept("POST", GQL_URL, (req) => {
+    if (hasOperationName(req, operationName)) {
+      req.reply((res) => {
+        res.body = body;
+      });
+    }
+  });
+});

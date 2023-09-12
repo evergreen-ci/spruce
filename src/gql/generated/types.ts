@@ -1518,6 +1518,7 @@ export type Permissions = {
   __typename?: "Permissions";
   canCreateDistro: Scalars["Boolean"]["output"];
   canCreateProject: Scalars["Boolean"]["output"];
+  canUpdateAdminSettings: Scalars["Boolean"]["output"];
   distroPermissions: DistroPermissions;
   userId: Scalars["String"]["output"];
 };
@@ -8300,6 +8301,10 @@ export type UserQuery = {
     displayName: string;
     emailAddress: string;
     userId: string;
+    permissions: {
+      __typename?: "Permissions";
+      canUpdateAdminSettings: boolean;
+    };
   };
 };
 
