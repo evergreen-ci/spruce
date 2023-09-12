@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { SearchInput } from "@leafygreen-ui/search-input";
 import { Skeleton, TableSkeleton } from "@leafygreen-ui/skeleton-loader";
+import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import { TaskFilesQuery, TaskFilesQueryVariables } from "gql/generated/types";
@@ -48,6 +49,9 @@ const FilesTableTab: React.FC<FilesTableTabProps> = ({ execution, taskId }) => {
         value={search}
         data-cy="file-search-input"
       />
+      {filteredGroupedFiles.length === 0 && (
+        <TablePlaceholder message="No Files found" />
+      )}
       {filteredGroupedFiles.map((groupedFile) => (
         <GroupedFilesTable
           key={groupedFile?.taskName}
