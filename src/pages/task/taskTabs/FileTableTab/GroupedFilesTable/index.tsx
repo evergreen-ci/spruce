@@ -29,7 +29,7 @@ const GroupedFilesTable: React.FC<GroupedFilesTableProps> = ({
 }) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
-  const columns = useMemo<Array<LGColumnDef<GroupedFilesFile>>>(
+  const columns = useMemo<LGColumnDef<GroupedFilesFile>[]>(
     () => [
       {
         accessorKey: "name",
@@ -37,7 +37,11 @@ const GroupedFilesTable: React.FC<GroupedFilesTableProps> = ({
         size: 60,
         enableSorting: true,
         cell: (value) => (
-          <StyledLink href={value.row.original.link}>
+          <StyledLink
+            href={value.row.original.link}
+            data-cy="file-link"
+            target="_blank"
+          >
             {value.getValue()}
           </StyledLink>
         ),

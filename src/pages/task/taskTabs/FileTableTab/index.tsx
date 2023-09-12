@@ -46,6 +46,7 @@ const FilesTableTab: React.FC<FilesTableTabProps> = ({ execution, taskId }) => {
         placeholder="Search file names"
         onChange={(e) => setSearch(e.target.value)}
         value={search}
+        data-cy="file-search-input"
       />
       {filteredGroupedFiles.map((groupedFile) => (
         <GroupedFilesTable
