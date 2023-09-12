@@ -19,7 +19,6 @@ import Icon from "components/Icon";
 import { size, zIndex } from "constants/tokens";
 import { OneOf } from "types/utils";
 import ElementWrapper from "../ElementWrapper";
-import { STANDARD_FIELD_WIDTH } from "../utils";
 import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
 import { isNullish, processErrors } from "./utils";
 
@@ -59,30 +58,26 @@ export const LeafyGreenTextInput: React.FC<
   };
 
   return (
-    <ElementWrapper css={elementWrapperCSS}>
-      <MaxWidthContainer>
-        <StyledTextInput
-          type={inputType}
-          data-cy={dataCy}
-          value={value === null || value === undefined ? "" : `${value}`}
-          aria-labelledby={ariaLabelledBy}
-          label={ariaLabelledBy ? undefined : label}
-          placeholder={placeholder || undefined}
-          description={description}
-          optional={optional}
-          disabled={disabled || readonly}
-          onChange={({ target }) =>
-            target.value === "" ? onChange(emptyValue) : onChange(target.value)
-          }
-          aria-label={label}
-          {...inputProps}
-        />
-        {!!warnings?.length && (
-          <WarningText data-cy="input-warning">
-            {warnings.join(", ")}
-          </WarningText>
-        )}
-      </MaxWidthContainer>
+    <ElementWrapper limitMaxWidth css={elementWrapperCSS}>
+      <StyledTextInput
+        type={inputType}
+        data-cy={dataCy}
+        value={value === null || value === undefined ? "" : `${value}`}
+        aria-labelledby={ariaLabelledBy}
+        label={ariaLabelledBy ? undefined : label}
+        placeholder={placeholder || undefined}
+        description={description}
+        optional={optional}
+        disabled={disabled || readonly}
+        onChange={({ target }) =>
+          target.value === "" ? onChange(emptyValue) : onChange(target.value)
+        }
+        aria-label={label}
+        {...inputProps}
+      />
+      {!!warnings?.length && (
+        <WarningText data-cy="input-warning">{warnings.join(", ")}</WarningText>
+      )}
     </ElementWrapper>
   );
 };
@@ -109,6 +104,7 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
   value,
 }) => {
   const {
+    bold,
     customLabel,
     "data-cy": dataCy,
     description,
@@ -118,7 +114,7 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
   return (
     <ElementWrapper css={elementWrapperCSS}>
       <Checkbox
-        bold={false}
+        bold={bold || false}
         checked={value}
         data-cy={dataCy}
         description={description}
@@ -182,35 +178,33 @@ export const LeafyGreenSelect: React.FC<
     ariaLabelledBy ? { "aria-labelledby": ariaLabelledBy } : { label };
 
   return (
-    <ElementWrapper css={elementWrapperCSS}>
-      <MaxWidthContainer>
-        <Select
-          allowDeselect={allowDeselect !== false}
-          description={description}
-          disabled={isDisabled}
-          value={value}
-          {...labelProps}
-          onChange={onChange}
-          placeholder={placeholder}
-          id={dataCy}
-          name={dataCy}
-          data-cy={dataCy}
-          state={hasError && !disabled ? "error" : "none"}
-          errorMessage={hasError ? rawErrors?.join(", ") : ""}
-          popoverZIndex={zIndex.dropdown}
-        >
-          {enumOptions.map((o) => {
-            // LG Select doesn't handle disabled options well. So we need to ensure the selected option is not disabled
-            const optionDisabled =
-              (value !== o.value && enumDisabled?.includes(o.value)) ?? false;
-            return (
-              <Option key={o.value} value={o.value} disabled={optionDisabled}>
-                {o.label}
-              </Option>
-            );
-          })}
-        </Select>
-      </MaxWidthContainer>
+    <ElementWrapper limitMaxWidth css={elementWrapperCSS}>
+      <Select
+        allowDeselect={allowDeselect !== false}
+        description={description}
+        disabled={isDisabled}
+        value={value}
+        {...labelProps}
+        onChange={onChange}
+        placeholder={placeholder}
+        id={dataCy}
+        name={dataCy}
+        data-cy={dataCy}
+        state={hasError && !disabled ? "error" : "none"}
+        errorMessage={hasError ? rawErrors?.join(", ") : ""}
+        popoverZIndex={zIndex.dropdown}
+      >
+        {enumOptions.map((o) => {
+          // LG Select doesn't handle disabled options well. So we need to ensure the selected option is not disabled
+          const optionDisabled =
+            (value !== o.value && enumDisabled?.includes(o.value)) ?? false;
+          return (
+            <Option key={o.value} value={o.value} disabled={optionDisabled}>
+              {o.label}
+            </Option>
+          );
+        })}
+      </Select>
     </ElementWrapper>
   );
 };
@@ -433,8 +427,4 @@ export const LeafyGreenSegmentedControl: React.FC<EnumSpruceWidgetProps> = ({
 const StyledSegmentedControl = styled(SegmentedControl)`
   box-sizing: border-box;
   margin-bottom: ${size.s};
-`;
-
-export const MaxWidthContainer = styled.div`
-  max-width: ${STANDARD_FIELD_WIDTH}px;
 `;

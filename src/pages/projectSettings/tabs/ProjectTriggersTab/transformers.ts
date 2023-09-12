@@ -50,6 +50,7 @@ export const formToGql = (({ triggers, triggersOverride }, projectId) => ({
           dateCutoff: trigger.dateCutoff,
           configFile: trigger.configFile,
           alias: trigger.alias,
+          unscheduleDownstreamVersions: trigger.unscheduleDownstreamVersions,
         }))
       : null,
   },

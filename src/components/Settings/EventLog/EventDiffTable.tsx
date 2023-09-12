@@ -1,6 +1,13 @@
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
-import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
+import {
+  V10Table as Table,
+  V10TableHeader as TableHeader,
+  V10Row as Row,
+  V10Cell as Cell,
+  V11Adapter,
+  V10HeaderRow as HeaderRow,
+} from "@leafygreen-ui/table/new";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import { getEventDiffLines } from "./EventLogDiffs";
 import { Event, EventDiffLine, EventValue } from "./types";
@@ -11,45 +18,49 @@ type TableProps = {
 };
 
 export const EventDiffTable: React.FC<TableProps> = ({ after, before }) => (
-  <Table
-    data={getEventDiffLines(before, after)}
-    data-cy="event-diff-table"
-    columns={[
-      <TableHeader
-        key="key"
-        label="Property"
-        sortBy={(datum: EventDiffLine) => datum.key}
-      />,
-      <TableHeader
-        key="before"
-        label="Before"
-        sortBy={(datum: EventDiffLine) => JSON.stringify(datum.before)}
-      />,
-      <TableHeader
-        key="after"
-        label="After"
-        sortBy={(datum: EventDiffLine) => JSON.stringify(datum.after)}
-      />,
-    ]}
-  >
-    {({ datum }) => (
-      <Row key={datum.key} data-cy="event-log-table-row">
-        <Cell>
-          <CellText>{datum.key}</CellText>
-        </Cell>
-        <Cell>
-          <CellText>{renderEventValue(datum.before)}</CellText>
-        </Cell>
-        <Cell>
-          {renderEventValue(datum.after) === null ? (
-            <Badge variant={Variant.Red}>Deleted</Badge>
-          ) : (
-            <CellText>{renderEventValue(datum.after)}</CellText>
-          )}
-        </Cell>
-      </Row>
-    )}
-  </Table>
+  <V11Adapter shouldAlternateRowColor>
+    <Table
+      data={getEventDiffLines(before, after)}
+      data-cy="event-diff-table"
+      columns={
+        <HeaderRow>
+          <TableHeader
+            key="key"
+            label="Property"
+            sortBy={(datum: EventDiffLine) => datum.key}
+          />
+          <TableHeader
+            key="before"
+            label="Before"
+            sortBy={(datum: EventDiffLine) => JSON.stringify(datum.before)}
+          />
+          <TableHeader
+            key="after"
+            label="After"
+            sortBy={(datum: EventDiffLine) => JSON.stringify(datum.after)}
+          />
+        </HeaderRow>
+      }
+    >
+      {({ datum }) => (
+        <Row key={datum.key} data-cy="event-log-table-row">
+          <Cell>
+            <CellText>{datum.key}</CellText>
+          </Cell>
+          <Cell>
+            <CellText>{renderEventValue(datum.before)}</CellText>
+          </Cell>
+          <Cell>
+            {renderEventValue(datum.after) === null ? (
+              <Badge variant={Variant.Red}>Deleted</Badge>
+            ) : (
+              <CellText>{renderEventValue(datum.after)}</CellText>
+            )}
+          </Cell>
+        </Row>
+      )}
+    </Table>
+  </V11Adapter>
 );
 
 const CellText = styled.span`

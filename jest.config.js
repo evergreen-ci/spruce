@@ -40,8 +40,5 @@ module.exports = {
     "jest-watch-typeahead/testname",
   ],
   globalSetup: "<rootDir>/global-setup.js",
-  globals: {
-    APP_VERSION: JSON.stringify(process.env.npm_package_version),
-  },
   testTimeout: 30000,
 };

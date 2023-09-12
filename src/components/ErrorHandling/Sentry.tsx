@@ -18,7 +18,6 @@ const initializeSentry = () => {
       dsn: getSentryDSN(),
       debug: !isProduction(),
       normalizeDepth: 5,
-      release: APP_VERSION,
       environment: releaseStage,
     });
   } catch (e) {
