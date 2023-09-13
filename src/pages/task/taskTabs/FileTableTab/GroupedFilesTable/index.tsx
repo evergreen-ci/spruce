@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import {
   Table,
   TableHead,
@@ -19,6 +19,25 @@ import { Unpacked } from "types/utils";
 import { GroupedFiles } from "../types";
 
 type GroupedFilesFile = Unpacked<GroupedFiles["files"]>;
+
+const columns: LGColumnDef<GroupedFilesFile>[] = [
+  {
+    accessorKey: "name",
+    header: "Name",
+    size: 60,
+    enableSorting: true,
+    cell: (value) => (
+      <StyledLink
+        href={value.row.original.link}
+        data-cy="file-link"
+        target="_blank"
+      >
+        {value.getValue()}
+      </StyledLink>
+    ),
+  },
+];
+
 interface GroupedFilesTableProps {
   files: GroupedFilesFile[];
   taskName?: string;
@@ -29,26 +48,6 @@ const GroupedFilesTable: React.FC<GroupedFilesTableProps> = ({
 }) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
-  const columns = useMemo<LGColumnDef<GroupedFilesFile>[]>(
-    () => [
-      {
-        accessorKey: "name",
-        header: "Name",
-        size: 60,
-        enableSorting: true,
-        cell: (value) => (
-          <StyledLink
-            href={value.row.original.link}
-            data-cy="file-link"
-            target="_blank"
-          >
-            {value.getValue()}
-          </StyledLink>
-        ),
-      },
-    ],
-    []
-  );
   const table = useLeafyGreenTable<GroupedFilesFile>({
     containerRef: tableContainerRef,
     data: files,
