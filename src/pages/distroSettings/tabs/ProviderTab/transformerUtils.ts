@@ -1,3 +1,5 @@
+import { BuildType } from "./types";
+
 type FieldGetter = (providerSettings: Record<string, any>) => {
   form: Record<string, any>;
   gql: Record<string, any>;
@@ -41,7 +43,7 @@ const getImageUrl = ((providerSettings) => ({
 
 const getBuildType = ((providerSettings) => ({
   form: {
-    buildType: providerSettings.build_type ?? "",
+    buildType: (providerSettings.build_type ?? "") as BuildType,
   },
   gql: {
     build_type: providerSettings.buildType,
@@ -77,13 +79,11 @@ export const staticProviderSettings = ((providerSettings = {}) => {
       ...mergeUserData.form,
       ...securityGroups.form,
     },
-    gql: [
-      {
-        ...userData.gql,
-        ...mergeUserData.gql,
-        ...securityGroups.gql,
-      },
-    ],
+    gql: {
+      ...userData.gql,
+      ...mergeUserData.gql,
+      ...securityGroups.gql,
+    },
   };
 }) satisfies FieldGetter;
 
@@ -106,16 +106,14 @@ export const dockerProviderSettings = ((providerSettings = {}) => {
       ...mergeUserData.form,
       ...securityGroups.form,
     },
-    gql: [
-      {
-        ...imageUrl.gql,
-        ...buildType.gql,
-        ...registryUser.gql,
-        ...registryPassword.gql,
-        ...userData.gql,
-        ...mergeUserData.gql,
-        ...securityGroups.gql,
-      },
-    ],
+    gql: {
+      ...imageUrl.gql,
+      ...buildType.gql,
+      ...registryUser.gql,
+      ...registryPassword.gql,
+      ...userData.gql,
+      ...mergeUserData.gql,
+      ...securityGroups.gql,
+    },
   };
 }) satisfies FieldGetter;

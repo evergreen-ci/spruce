@@ -5,13 +5,34 @@ import { BuildType, ProviderFormState } from "./types";
 
 describe("provider tab", () => {
   describe("static provider", () => {
-    const staticDistroData = { ...distroData };
+    const staticDistroData = {
+      ...distroData,
+      provider: Provider.Static,
+      containerPool: "",
+      providerSettingsList: [
+        {
+          user_data: "",
+          merge_user_data: false,
+          security_group_ids: ["1"],
+        },
+      ],
+    };
 
     const staticForm: ProviderFormState = {
       provider: {
         providerName: Provider.Static,
       },
-      providerSettings: {
+      staticProviderSettings: {
+        userData: "",
+        mergeUserData: false,
+        securityGroups: ["1"],
+      },
+      dockerProviderSettings: {
+        imageUrl: "",
+        buildType: "" as BuildType,
+        registryUsername: "",
+        registryPassword: "",
+        containerPoolId: "",
         userData: "",
         mergeUserData: false,
         securityGroups: ["1"],
@@ -40,26 +61,33 @@ describe("provider tab", () => {
   });
 
   describe("docker provider", () => {
-    const dockerDistroData = { ...distroData };
-    dockerDistroData.provider = Provider.Docker;
-    dockerDistroData.containerPool = "pool-1";
-    dockerDistroData.providerSettingsList = [
-      {
-        image_url: "https://some-url",
-        build_type: "import",
-        docker_registry_user: "testuser",
-        docker_registry_pw: "abc-123",
-        user_data: "",
-        merge_user_data: false,
-        security_group_ids: ["1"],
-      },
-    ];
+    const dockerDistroData = {
+      ...distroData,
+      provider: Provider.Docker,
+      containerPool: "pool-1",
+      providerSettingsList: [
+        {
+          image_url: "https://some-url",
+          build_type: "import",
+          docker_registry_user: "testuser",
+          docker_registry_pw: "abc-123",
+          user_data: "",
+          merge_user_data: false,
+          security_group_ids: ["1"],
+        },
+      ],
+    };
 
     const dockerForm: ProviderFormState = {
       provider: {
         providerName: Provider.Docker,
       },
-      providerSettings: {
+      staticProviderSettings: {
+        userData: "",
+        mergeUserData: false,
+        securityGroups: ["1"],
+      },
+      dockerProviderSettings: {
         imageUrl: "https://some-url",
         buildType: BuildType.Import,
         registryUsername: "testuser",

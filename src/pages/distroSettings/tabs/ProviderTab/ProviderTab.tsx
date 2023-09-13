@@ -5,25 +5,28 @@ import { useDistroSettingsContext } from "pages/distroSettings/Context";
 import { omitTypename } from "utils/string";
 import { BaseTab } from "../BaseTab";
 import { getFormSchema } from "./getFormSchema";
-import { TabProps } from "./types";
+import { TabProps, ProviderFormState } from "./types";
 
 export const ProviderTab: React.FC<TabProps> = ({ distroData }) => {
   const initialFormState = distroData;
 
   const { getTab } = useDistroSettingsContext();
-  const { formData } = getTab(DistroSettingsTabRoutes.Provider);
+  // @ts-expect-error - see TabState for details.
+  const { formData }: { formData: ProviderFormState } = getTab(
+    DistroSettingsTabRoutes.Provider
+  );
 
   const { containerPools } = useSpruceConfig();
-  const { pools = [] } = containerPools || {};
+  const { pools } = containerPools || {};
 
-  const selectedPoolId = formData?.providerSettings?.containerPoolId;
-  const selectedPool = pools.find((p) => p.id === selectedPoolId) ?? null;
+  const selectedPoolId = formData?.dockerProviderSettings?.containerPoolId;
+  const selectedPool = pools?.find((p) => p.id === selectedPoolId) ?? null;
   const poolMappingInfo = selectedPool
     ? JSON.stringify(omitTypename(selectedPool), null, 4)
     : "";
 
   const formSchema = useMemo(
-    () => getFormSchema({ pools, poolMappingInfo }),
+    () => getFormSchema({ pools: pools || [], poolMappingInfo }),
     [pools, poolMappingInfo]
   );
 

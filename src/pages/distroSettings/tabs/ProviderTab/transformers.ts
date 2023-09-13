@@ -13,29 +13,18 @@ export const gqlToForm = ((data) => {
 
   const { containerPool, provider, providerSettingsList } = data;
 
-  switch (provider) {
-    case Provider.Static:
-      return {
-        provider: {
-          providerName: Provider.Static,
-        },
-        providerSettings: {
-          ...staticProviderSettings(providerSettingsList[0]).form,
-        },
-      };
-    case Provider.Docker:
-      return {
-        provider: {
-          providerName: Provider.Docker,
-        },
-        providerSettings: {
-          ...dockerProviderSettings(providerSettingsList[0]).form,
-          containerPoolId: containerPool,
-        },
-      };
-    default:
-      throw new Error(`Unknown provider '${provider}'`);
-  }
+  return {
+    provider: {
+      providerName: provider,
+    },
+    staticProviderSettings: {
+      ...staticProviderSettings(providerSettingsList[0]).form,
+    },
+    dockerProviderSettings: {
+      ...dockerProviderSettings(providerSettingsList[0]).form,
+      containerPoolId: containerPool,
+    },
+  };
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((data, distro) => {
@@ -49,18 +38,22 @@ export const formToGql = ((data, distro) => {
         ...distro,
         provider: Provider.Static,
         providerSettingsList: [
-          ...staticProviderSettings(data.providerSettings).gql,
+          {
+            ...staticProviderSettings(data.staticProviderSettings).gql,
+          },
         ],
+        containerPool: "",
       };
     case Provider.Docker:
       return {
         ...distro,
         provider: Provider.Docker,
         providerSettingsList: [
-          ...dockerProviderSettings(data.providerSettings).gql,
+          {
+            ...dockerProviderSettings(data.dockerProviderSettings).gql,
+          },
         ],
-        // @ts-ignore-error - containerPoolId will exist in DockerFormState.
-        containerPool: data.providerSettings.containerPoolId,
+        containerPool: data.dockerProviderSettings.containerPoolId,
       };
     default:
       return distro;

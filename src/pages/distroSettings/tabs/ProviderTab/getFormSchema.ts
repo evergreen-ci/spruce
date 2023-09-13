@@ -61,14 +61,10 @@ export const getFormSchema = ({
                   },
                 },
               },
-              providerSettings: {
+              staticProviderSettings: {
                 type: "object" as "object",
                 title: "",
-                properties: {
-                  userData: staticProviderSettings.userData,
-                  mergeUserData: staticProviderSettings.mergeUserData,
-                  securityGroups: staticProviderSettings.securityGroups,
-                },
+                properties: staticProviderSettings,
               },
             },
           },
@@ -81,7 +77,7 @@ export const getFormSchema = ({
                   },
                 },
               },
-              providerSettings: {
+              dockerProviderSettings: {
                 type: "object" as "object",
                 title: "",
                 properties: {
@@ -119,8 +115,20 @@ export const getFormSchema = ({
         "ui:data-cy": "provider-select",
       },
     },
-    providerSettings: {
-      "ui:data-cy": "provider-settings",
+    staticProviderSettings: {
+      "ui:data-cy": "static-provider-settings",
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      userData: {
+        "ui:widget": "textarea",
+        "ui:elementWrapperCSS": textAreaCSS,
+      },
+      securityGroups: {
+        "ui:addButtonText": "Add security group",
+        "ui:orderable": false,
+      },
+    },
+    dockerProviderSettings: {
+      "ui:data-cy": "docker-provider-settings",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       userData: {
         "ui:widget": "textarea",

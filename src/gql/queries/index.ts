@@ -70,7 +70,7 @@ import PROJECT_HEALTH_VIEW from "./project-health-view.graphql";
 import GET_PROJECT_PATCHES from "./project-patches.graphql";
 import GET_SPAWN_EXPIRATION_INFO from "./spawn-expiration.graphql";
 import GET_SPAWN_TASK from "./spawn-task.graphql";
-import GET_SPRUCE_CONFIG from "./spruce-config.graphql";
+import SPRUCE_CONFIG from "./spruce-config.graphql";
 import GET_SUBNET_AVAILABILITY_ZONES from "./subnet-availability-zones.graphql";
 import TASK_QUEUE_DISTROS from "./task-queue-distros.graphql";
 import USER_DISTRO_SETTINGS_PERMISSIONS from "./user-distro-settings-permissions.graphql";
@@ -131,7 +131,7 @@ export {
   GET_REPO_SETTINGS,
   GET_SPAWN_EXPIRATION_INFO,
   GET_SPAWN_TASK,
-  GET_SPRUCE_CONFIG,
+  SPRUCE_CONFIG,
   GET_SUBNET_AVAILABILITY_ZONES,
   GET_SYSTEM_LOGS,
   GET_TASK_ALL_EXECUTIONS,

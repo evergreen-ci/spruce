@@ -2,7 +2,7 @@ import {
   SpruceConfigQuery,
   SpruceConfigQueryVariables,
 } from "gql/generated/types";
-import { GET_SPRUCE_CONFIG } from "gql/queries";
+import { SPRUCE_CONFIG } from "gql/queries";
 import { ApolloMock } from "types/gql";
 
 export const getSpruceConfigMock: ApolloMock<
@@ -10,7 +10,7 @@ export const getSpruceConfigMock: ApolloMock<
   SpruceConfigQueryVariables
 > = {
   request: {
-    query: GET_SPRUCE_CONFIG,
+    query: SPRUCE_CONFIG,
     variables: {},
   },
   result: {

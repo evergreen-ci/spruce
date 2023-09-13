@@ -5,22 +5,17 @@ export enum BuildType {
   Pull = "pull",
 }
 
-interface StaticProviderFormState {
+// TODO: Append type with additional provider options, e.g. type ProviderFormState = StaticProviderFormState | DockerProviderFormState
+export type ProviderFormState = {
   provider: {
-    providerName: Provider.Static;
+    providerName: Provider;
   };
-  providerSettings: {
+  staticProviderSettings: {
     userData: string;
     mergeUserData: boolean;
     securityGroups: string[];
   };
-}
-
-interface DockerProviderFormState {
-  provider: {
-    providerName: Provider.Docker;
-  };
-  providerSettings: {
+  dockerProviderSettings: {
     imageUrl: string;
     buildType: BuildType;
     registryUsername: string;
@@ -30,12 +25,7 @@ interface DockerProviderFormState {
     mergeUserData: boolean;
     securityGroups: string[];
   };
-}
-
-// TODO: Append type with additional provider options, e.g. type ProviderFormState = StaticProviderFormState | DockerProviderFormState
-export type ProviderFormState =
-  | StaticProviderFormState
-  | DockerProviderFormState;
+};
 
 export type TabProps = {
   distroData: ProviderFormState;
