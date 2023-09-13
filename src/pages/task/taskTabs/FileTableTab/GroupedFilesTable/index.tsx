@@ -1,20 +1,10 @@
 import { useRef } from "react";
-import {
-  Table,
-  TableHead,
-  HeaderRow,
-  HeaderCell,
-  TableBody,
-  Row,
-  Cell,
-  LGColumnDef,
-  useLeafyGreenTable,
-  HeaderGroup,
-  LeafyGreenTableRow,
-  flexRender,
-} from "@leafygreen-ui/table/new";
+import styled from "@emotion/styled";
+import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table/new";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { StyledLink } from "components/styles";
+import { BaseTable } from "components/Table/BaseTable";
+import { size } from "constants/tokens";
 import { Unpacked } from "types/utils";
 import { GroupedFiles } from "../types";
 
@@ -54,42 +44,15 @@ const GroupedFilesTable: React.FC<GroupedFilesTableProps> = ({
     columns,
   });
 
-  const { rows } = table.getRowModel();
-
   return (
-    <>
+    <Container>
       {taskName && <Subtitle>{taskName}</Subtitle>}
-      <Table ref={tableContainerRef}>
-        <TableHead>
-          {table
-            .getHeaderGroups()
-            .map((headerGroup: HeaderGroup<GroupedFilesFile>) => (
-              <HeaderRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <HeaderCell key={header.id} header={header}>
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-                  </HeaderCell>
-                ))}
-              </HeaderRow>
-            ))}
-        </TableHead>
-        <TableBody>
-          {rows.map((row: LeafyGreenTableRow<GroupedFilesFile>) => (
-            <Row key={row.id} row={row}>
-              {row.getVisibleCells().map((cell) => (
-                <Cell key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </Cell>
-              ))}
-            </Row>
-          ))}
-        </TableBody>
-      </Table>
-    </>
+      <BaseTable table={table} />
+    </Container>
   );
 };
 
+const Container = styled.div`
+  margin-bottom: ${size.m};
+`;
 export default GroupedFilesTable;

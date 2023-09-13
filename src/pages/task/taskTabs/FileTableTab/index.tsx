@@ -50,7 +50,7 @@ const FilesTableTab: React.FC<FilesTableTabProps> = ({ execution, taskId }) => {
         data-cy="file-search-input"
       />
       {filteredGroupedFiles.length === 0 && (
-        <TablePlaceholder message="No Files found" />
+        <TablePlaceholder message="No files found" />
       )}
       {filteredGroupedFiles.map((groupedFile) => (
         <GroupedFilesTable
