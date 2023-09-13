@@ -47,7 +47,6 @@ export const BaseTable = <T extends LGRowData>({
           </HeaderRow>
         ))}
       </TableHead>
-
       <TableBody>
         {table.getRowModel().rows.map((row) => (
           <Row key={row.id} row={row} data-cy={dataCyRow}>
