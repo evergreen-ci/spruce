@@ -1,5 +1,4 @@
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
-
 import TableControl from ".";
 
 export default {

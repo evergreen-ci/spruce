@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import { LGColumnDef, useLeafyGreenTable } from "@leafygreen-ui/table/new";
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
-
 import { BaseTable } from "./BaseTable";
 
 export default {
