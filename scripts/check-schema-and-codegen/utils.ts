@@ -12,23 +12,6 @@ const LOCAL_SCHEMA = "sdlschema";
 const REPO = "/repos/evergreen-ci/evergreen";
 
 /**
- * Checks if a given domain can be resolved.
- * @async
- * @param domain - The domain name to check.
- * @returns - Resolves to `true` if the domain can be resolved, `false` otherwise.
- */
-export const canResolveDNS = (domain: string) =>
-  new Promise((resolve) => {
-    dns.lookup(domain, (err) => {
-      if (err) {
-        resolve(false);
-      } else {
-        resolve(true);
-      }
-    });
-  });
-
-/**
  * Get the latest commit that was made to the GQL folder of the remote Evergreen repository.
  * @returns A Promise that resolves to the SHA of the latest commit.
  * @throws {Error} When failed to fetch commits.

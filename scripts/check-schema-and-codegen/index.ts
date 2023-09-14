@@ -2,7 +2,6 @@ import fs from "fs";
 import process from "process";
 import { generatedFileName as existingTypesFileName } from "../../codegen";
 import {
-  canResolveDNS,
   checkIsAncestor,
   generateTypes,
   getLatestCommitFromRemote,
@@ -16,14 +15,6 @@ const failCopy = "GQL types validation failed:";
  */
 export const checkSchemaAndCodegenCore = async (): Promise<number> => {
   try {
-    // First check to see if all remote GQL commits exist locally.
-    const hasInternetAccess = await canResolveDNS("github.com");
-    if (!hasInternetAccess) {
-      console.info(
-        "Skipping GQL codegen validation because I can't connect to github.com."
-      );
-      return 0;
-    }
     const commit = await getLatestCommitFromRemote();
     const hasLatestCommit = await checkIsAncestor(commit);
     if (!hasLatestCommit) {
