@@ -27,17 +27,25 @@ describe("Name change modal", () => {
   it("The confirm button is disabled when the text area value is empty or greater than 300 characters", () => {
     cy.dataCy("name-change-modal-trigger").click();
     cy.get("textarea").clear();
-    cy.contains("button", "Confirm").should("have.attr", "aria-disabled", true);
+    cy.contains("button", "Confirm").should(
+      "have.attr",
+      "aria-disabled",
+      "true"
+    );
     cy.get("textarea").type("lol");
     cy.contains("button", "Confirm").should(
       "have.attr",
       "aria-disabled",
-      false
+      "false"
     );
     const over300Chars =
       "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     cy.get("textarea").type(over300Chars);
-    cy.contains("button", "Confirm").should("have.attr", "aria-disabled", true);
+    cy.contains("button", "Confirm").should(
+      "have.attr",
+      "aria-disabled",
+      "true"
+    );
     cy.contains("Value cannot exceed 300 characters");
   });
 });
