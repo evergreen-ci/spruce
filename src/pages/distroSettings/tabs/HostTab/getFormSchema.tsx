@@ -1,17 +1,16 @@
 import { InlineCode } from "@leafygreen-ui/typography";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
+import { Provider, SshKey } from "gql/generated/types";
 import {
-  Arch,
-  BootstrapMethod,
-  CommunicationMethod,
-  FeedbackRule,
-  HostAllocatorVersion,
-  OverallocatedRule,
-  Provider,
-  RoundingRule,
-  SshKey,
-} from "gql/generated/types";
+  architectureToCopy,
+  bootstrapMethodToCopy,
+  communicationMethodToCopy,
+  feedbackRuleToCopy,
+  hostAllocatorVersionToCopy,
+  overallocatedRuleToCopy,
+  roundingRuleToCopy,
+} from "./constants";
 
 type FormSchemaParams = {
   provider: Provider;
@@ -62,8 +61,39 @@ export const getFormSchema = ({
               type: "boolean" as "boolean",
               title: "Run script as sudo",
             },
+            userSpawnAllowed: {
+              type: "boolean" as "boolean",
+              title: "Allow users to spawn these hosts for personal use",
+            },
+            isVirtualWorkstation: {
+              type: "boolean" as "boolean",
+              title:
+                "Allow spawned hosts of this distro to be used as virtual workstations",
+            },
+          },
+          dependencies: {
+            isVirtualWorkstation: {
+              oneOf: [
+                {
+                  properties: {
+                    isVirtualWorkstation: {
+                      enum: [true],
+                    },
+                    icecreamSchedulerHost: {
+                      type: "string" as "string",
+                      title: "Icecream Scheduler Host",
+                    },
+                    icecreamConfigPath: {
+                      type: "string" as "string",
+                      title: "Icecream Config File Path",
+                    },
+                  },
+                },
+              ],
+            },
           },
         },
+        bootstrapSettings,
         sshConfig: {
           type: "object" as "object",
           title: "SSH Configuration",
@@ -160,6 +190,15 @@ export const getFormSchema = ({
         setupScript: {
           "ui:widget": "textarea",
         },
+        userSpawnAllowed: {
+          ...(hasStaticProvider && {
+            "ui:disabled": true,
+            "ui:tooltipDescription": "Static distros are not spawnable.",
+          }),
+        },
+      },
+      bootstrapSettings: {
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
       },
       sshConfig: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
@@ -218,53 +257,112 @@ export const getFormSchema = ({
   };
 };
 
+const bootstrapSettings = {
+  type: "object" as "object",
+  title: "Bootstrap Settings",
+  properties: {
+    rootDir: {
+      type: "string" as "string",
+      title: "Root Directory",
+    },
+    jasperBinaryDir: {
+      type: "string" as "string",
+      title: "Jasper Binary Directory",
+    },
+    jasperCredentialsPath: {
+      type: "string" as "string",
+      title: "Jasper Credentials Path",
+    },
+    clientDir: {
+      type: "string" as "string",
+      title: "Client Directory",
+    },
+    shellPath: {
+      type: "string" as "string",
+      title: "Shell Path",
+    },
+    serviceUser: {
+      type: "string" as "string",
+      title: "Service User",
+    },
+    homeVolumeFormatCommand: {
+      type: "string" as "string",
+      title: "Home Volume Format Command",
+    },
+    resouceLimits: {
+      type: "object" as "object",
+      title: "Resource Limits",
+      properties: {
+        numFiles: {
+          type: "number" as "number",
+          title: "Number of Files",
+        },
+        numTasks: {
+          type: "number" as "number",
+          title: "Number of CGroup Tasks",
+        },
+        numProcesses: {
+          type: "number" as "number",
+          title: "Number of Processes",
+        },
+        lockedMemoryKb: {
+          type: "number" as "number",
+          title: "Locked Memory (kB)",
+        },
+        virtualMemoryKb: {
+          type: "number" as "number",
+          title: "Virtual Memory (kB)",
+        },
+      },
+    },
+    env: {
+      type: "array" as "array",
+      title: "Environment Variables",
+      items: {
+        type: "object" as "object",
+        properties: {
+          key: {
+            type: "string" as "string",
+            title: "Key",
+            default: "",
+            minLength: 1,
+          },
+          value: {
+            type: "string" as "string",
+            title: "Value",
+            default: "",
+            minLength: 1,
+          },
+        },
+      },
+    },
+    preconditionScripts: {
+      type: "array" as "array",
+      title: "Precondition Scripts",
+      items: {
+        type: "object" as "object",
+        properties: {
+          path: {
+            type: "string" as "string",
+            title: "Path",
+            default: "",
+            minLength: 1,
+          },
+          script: {
+            type: "string" as "string",
+            title: "Script",
+            default: "",
+            minLength: 1,
+          },
+        },
+      },
+    },
+  },
+};
+
 const enumSelect = (enumObject: Record<string, string>) =>
   Object.entries(enumObject).map(([key, title]) => ({
     type: "string" as "string",
     title,
     enum: [key],
   }));
-
-const architectureToCopy = {
-  [Arch.Linux_64Bit]: "Linux 64-bit",
-  [Arch.LinuxArm_64Bit]: "Linux ARM 64-bit",
-  [Arch.LinuxPpc_64Bit]: "Linux PowerPC 64-bit",
-  [Arch.LinuxZseries]: "Linux zSeries",
-  [Arch.Osx_64Bit]: "macOS 64-bit",
-  [Arch.OsxArm_64Bit]: "macOS ARM 64-bit",
-  [Arch.Windows_64Bit]: "Windows 64-bit",
-};
-
-const bootstrapMethodToCopy = {
-  [BootstrapMethod.LegacySsh]: "Legacy SSH",
-  [BootstrapMethod.Ssh]: "SSH",
-  [BootstrapMethod.UserData]: "User Data",
-};
-
-const communicationMethodToCopy = {
-  [CommunicationMethod.LegacySsh]: "Legacy SSH",
-  [CommunicationMethod.Ssh]: "SSH",
-  [CommunicationMethod.Rpc]: "RPC",
-};
-
-const hostAllocatorVersionToCopy = {
-  [HostAllocatorVersion.Utilization]: "Utilization",
-};
-
-const roundingRuleToCopy = {
-  [RoundingRule.Default]: "Default",
-  [RoundingRule.Down]: "Round down",
-  [RoundingRule.Up]: "Round up",
-};
-
-const feedbackRuleToCopy = {
-  [FeedbackRule.Default]: "Default",
-  [FeedbackRule.NoFeedback]: "No feedback",
-  [FeedbackRule.WaitsOverThresh]: "Wait over threshold",
-};
-
-const overallocatedRuleToCopy = {
-  [OverallocatedRule.Default]: "Default",
-  [OverallocatedRule.Ignore]: "No terminations when overallocated",
-  [OverallocatedRule.Terminate]: "Terminate hosts when overallocated",
-};

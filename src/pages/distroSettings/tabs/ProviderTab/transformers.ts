@@ -12,14 +12,13 @@ export const gqlToForm = ((data) => {
 
   switch (provider) {
     case Provider.Static:
+    default:
       return {
         provider: {
           providerName: Provider.Static,
         },
         ...staticProviderSettings(providerSettingsList[0]).form,
       };
-    default:
-      throw new Error(`Unknown provider '${provider}'`);
   }
 }) satisfies GqlToFormFunction<Tab>;
 
