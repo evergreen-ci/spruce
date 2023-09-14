@@ -16,7 +16,7 @@ const REPO = "/repos/evergreen-ci/evergreen";
  * @returns A Promise that resolves to the SHA of the latest commit.
  * @throws {Error} When failed to fetch commits.
  */
-export async function getLatestCommitFromRemote(): Promise<string> {
+export const getLatestCommitFromRemote = async (): Promise<string> => {
   const url = `${GITHUB_API}${REPO}/commits?path=${GQL_DIR}&sha=main`;
   const response = await fetch(url);
   if (!response.ok) {
@@ -29,7 +29,7 @@ export async function getLatestCommitFromRemote(): Promise<string> {
     return commits[0].sha;
   }
   throw new Error(`No commits found for this path: ${url}`);
-}
+};
 
 /**
  * Check if the local Evergreen repo contains a given commit.
