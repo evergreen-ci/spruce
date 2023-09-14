@@ -72,3 +72,5 @@ export const clickSave = () => {
     .should("not.have.attr", "aria-disabled", "true")
     .click();
 };
+
+export const EVG_BASE_URL = "http://localhost:9090";

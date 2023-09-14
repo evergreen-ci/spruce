@@ -1,3 +1,4 @@
+import { EVG_BASE_URL } from "../utils";
 import { GQL_URL, hasOperationName } from "../utils/graphql-test-utils";
 
 const user = {
@@ -63,14 +64,14 @@ Cypress.Commands.add("getInputByLabel", (label: string) => {
 Cypress.Commands.add("login", () => {
   cy.getCookie("mci-token").then((c) => {
     if (!c) {
-      cy.request("POST", "http://localhost:9090/login", { ...user });
+      cy.request("POST", `${EVG_BASE_URL}/login`, { ...user });
     }
   });
 });
 
 /* logout */
 Cypress.Commands.add("logout", () => {
-  cy.origin("http://localhost:9090", () => {
+  cy.origin(EVG_BASE_URL, () => {
     cy.request({ url: "/logout", followRedirect: false });
   });
 });

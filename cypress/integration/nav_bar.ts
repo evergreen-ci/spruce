@@ -1,3 +1,5 @@
+import { EVG_BASE_URL } from "../utils";
+
 const PATCH_ID = "5e4ff3abe3c3317e352062e4";
 const USER_ID = "admin";
 const SPRUCE_URLS = {
@@ -5,12 +7,11 @@ const SPRUCE_URLS = {
   userPatches: `/user/${USER_ID}/patches`,
   cli: `/preferences/cli`,
 };
-const legacyBase = "http://localhost:9090";
 const LEGACY_URLS = {
-  version: `${legacyBase}/version/${PATCH_ID}`,
-  userPatches: `${legacyBase}/patches/user/${USER_ID}`,
-  distros: `${legacyBase}/distros`,
-  admin: `${legacyBase}/admin`,
+  version: `${EVG_BASE_URL}/version/${PATCH_ID}`,
+  userPatches: `${EVG_BASE_URL}/patches/user/${USER_ID}`,
+  distros: `${EVG_BASE_URL}/distros`,
+  admin: `${EVG_BASE_URL}/admin`,
 };
 describe("Nav Bar", () => {
   const projectCookie = "mci-project-cookie";
