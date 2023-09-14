@@ -8,7 +8,7 @@ import { Link, useParams } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { CURRENT_PROJECT } from "constants/cookies";
-import { adminSettingsURL, wikiUrl } from "constants/externalResources";
+import { wikiUrl } from "constants/externalResources";
 import { getCommitsRoute, getUserPatchesRoute, routes } from "constants/routes";
 import { size } from "constants/tokens";
 import { useAuthStateContext } from "context/auth";
@@ -27,7 +27,7 @@ export const Navbar: React.FC = () => {
 
   const { data: userData } = useQuery<UserQuery>(GET_USER);
   const { user } = userData || {};
-  const { permissions, userId } = user || {};
+  const { userId } = user || {};
 
   const { projectIdentifier: projectFromUrl } = useParams<{
     projectIdentifier: string;
@@ -82,11 +82,6 @@ export const Navbar: React.FC = () => {
         >
           My Hosts
         </PrimaryLink>
-        {permissions?.canEditAdminSettings && (
-          <PrimaryLink data-cy="admin-link" to={adminSettingsURL}>
-            Admin
-          </PrimaryLink>
-        )}
         <AuxiliaryDropdown projectIdentifier={projectIdentifier} />
       </NavActionContainer>
       <NavActionContainer>

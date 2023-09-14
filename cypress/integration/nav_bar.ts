@@ -122,11 +122,13 @@ describe("Nav Bar", () => {
       };
       cy.overwriteGQL("User", userData);
       cy.visit(SPRUCE_URLS.version);
+      cy.dataCy("user-dropdown-link").click();
       cy.dataCy("admin-link").should("not.exist");
     });
 
     it("Should show Admin button to admins", () => {
       cy.visit(SPRUCE_URLS.version);
+      cy.dataCy("user-dropdown-link").click();
       cy.dataCy("admin-link")
         .should("be.visible")
         .should("have.attr", "href", LEGACY_URLS.admin);

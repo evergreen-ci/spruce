@@ -1,6 +1,7 @@
 import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 
 type Action =
+  | { name: "Click Admin Link" }
   | { name: "Click Legacy UI Link" }
   | { name: "Click Logo Link" }
   | { name: "Click Waterfall Link" }
