@@ -82,7 +82,7 @@ export const Navbar: React.FC = () => {
         >
           My Hosts
         </PrimaryLink>
-        {permissions?.canUpdateAdminSettings && (
+        {permissions?.canEditAdminSettings && (
           <PrimaryLink data-cy="admin-link" to={adminSettingsURL}>
             Admin
           </PrimaryLink>

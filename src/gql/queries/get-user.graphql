@@ -3,7 +3,7 @@ query User {
     displayName
     emailAddress
     permissions {
-      canUpdateAdminSettings
+      canEditAdminSettings
     }
     userId
   }

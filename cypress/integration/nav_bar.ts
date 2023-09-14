@@ -114,7 +114,7 @@ describe("Nav Bar", () => {
             displayName: "Evergreen Admin",
             emailAddress: "admin@evergreen.com",
             permissions: {
-              canUpdateAdminSettings: false,
+              canEditAdminSettings: false,
             },
           },
         },
