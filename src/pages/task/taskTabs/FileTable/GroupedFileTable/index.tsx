@@ -28,11 +28,11 @@ const columns: LGColumnDef<GroupedFilesFile>[] = [
   },
 ];
 
-interface GroupedFilesTableProps {
+interface GroupedFileTableProps {
   files: GroupedFilesFile[];
   taskName?: string;
 }
-const GroupedFilesTable: React.FC<GroupedFilesTableProps> = ({
+const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
   files,
   taskName,
 }) => {
@@ -55,4 +55,4 @@ const GroupedFilesTable: React.FC<GroupedFilesTableProps> = ({
 const Container = styled.div`
   margin-bottom: ${size.m};
 `;
-export default GroupedFilesTable;
+export default GroupedFileTable;

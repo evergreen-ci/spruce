@@ -8,14 +8,14 @@ import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import { TaskFilesQuery, TaskFilesQueryVariables } from "gql/generated/types";
 import { GET_TASK_FILES } from "gql/queries";
-import GroupedFilesTable from "./GroupedFilesTable";
+import GroupedFileTable from "./GroupedFileTable";
 import { filterGroupedFiles } from "./utils";
 
-interface FilesTableProps {
+interface FileTableProps {
   taskId: string;
   execution: number;
 }
-const FilesTable: React.FC<FilesTableProps> = ({ execution, taskId }) => {
+const FileTable: React.FC<FileTableProps> = ({ execution, taskId }) => {
   const [search, setSearch] = useState("");
   const dispatchToast = useToastContext();
   const { data, loading } = useQuery<TaskFilesQuery, TaskFilesQueryVariables>(
@@ -51,7 +51,7 @@ const FilesTable: React.FC<FilesTableProps> = ({ execution, taskId }) => {
       />
       {filteredGroupedFiles.length === 0 && <Body>No files found</Body>}
       {filteredGroupedFiles.map((groupedFile) => (
-        <GroupedFilesTable
+        <GroupedFileTable
           key={groupedFile?.taskName}
           files={groupedFile?.files}
           taskName={hasMultipleFileGroups && groupedFile?.taskName}
@@ -71,4 +71,4 @@ const StyledSearchInput = styled(SearchInput)`
   margin-bottom: ${size.m};
   width: 400px;
 `;
-export default FilesTable;
+export default FileTable;
