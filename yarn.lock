@@ -3697,19 +3697,6 @@
     "@leafygreen-ui/typography" "^17.0.0"
     react-lottie-player "^1.5.4"
 
-"@leafygreen-ui/marketing-modal@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/marketing-modal/-/marketing-modal-4.1.0.tgz#64ae619fb52d220fb4a7f64f55f179c614256798"
-  integrity sha512-zav5OQiwG4AC1nRWIlDxX215YTKVcXAE0MS8ufpdsTQV2cpEQ+9mE7R6MZO1Z6YZXCVfNaqA2YcJ3yWCTgyjwA==
-  dependencies:
-    "@leafygreen-ui/button" "^21.0.5"
-    "@leafygreen-ui/emotion" "^4.0.7"
-    "@leafygreen-ui/lib" "^11.0.0"
-    "@leafygreen-ui/modal" "^16.0.0"
-    "@leafygreen-ui/palette" "^4.0.7"
-    "@leafygreen-ui/tokens" "^2.1.4"
-    "@leafygreen-ui/typography" "^17.0.0"
-
 "@leafygreen-ui/menu@20.0.1":
   version "20.0.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/menu/-/menu-20.0.1.tgz#73384d4a49c5268a31cf09ff4355a5022de3319e"
