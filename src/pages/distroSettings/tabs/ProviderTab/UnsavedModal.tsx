@@ -25,8 +25,8 @@ export const UnsavedModal: React.FC<UnsavedModalProps> = ({
       <SaveModal
         banner={
           <StyledBanner data-cy="provider-warning-banner" variant="warning">
-            Because you have modified the distro provider, your changes must be
-            saved before navigating to a new page.
+            Your distro provider changes must be saved or reverted before
+            navigating to a new page.
           </StyledBanner>
         }
         distro={distro}

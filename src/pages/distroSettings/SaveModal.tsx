@@ -69,9 +69,8 @@ export const SaveModal: React.FC<SaveModalProps> = ({
   });
 
   const handleSave = () => {
-    // Only perform the save operation is the tab is valid.
-    // eslint-disable-next-line no-prototype-builtins
-    if (formToGqlMap.hasOwnProperty(tab)) {
+    // Only perform the save operation if the tab is valid.
+    if (Object.prototype.hasOwnProperty.call(formToGqlMap, tab)) {
       const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
       const changes = formToGql(formData, distro);
       saveDistro({
