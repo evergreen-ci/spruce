@@ -50,4 +50,5 @@ const DefaultFieldContainer = styled.div<{ border?: "top" | "bottom" }>`
   ${({ border }) =>
     border &&
     `border-${border}: 1px solid ${gray.light1}; padding-${border}: ${size.s};`}
+  width: 100%;
 `;

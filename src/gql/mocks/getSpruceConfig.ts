@@ -22,6 +22,12 @@ export const getSpruceConfigMock: ApolloMock<
           defaultProject: "evergreen",
           __typename: "UIConfig",
         },
+        keys: [
+          {
+            name: "fake_key",
+            location: "/path/to/key",
+          },
+        ],
         jira: { host: "jira.mongodb.org", __typename: "JiraConfig" },
         providers: {
           aws: {

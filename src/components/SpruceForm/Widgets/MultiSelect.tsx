@@ -4,7 +4,6 @@ import Dropdown from "components/Dropdown";
 import { TreeSelect, ALL_VALUE } from "components/TreeSelect";
 import { size } from "constants/tokens";
 import ElementWrapper from "../ElementWrapper";
-import { MaxWidthContainer } from "./LeafyGreenWidgets";
 import { EnumSpruceWidgetProps } from "./types";
 
 export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
@@ -39,28 +38,26 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
   const selectedOptions = [...value, ...(includeAll ? [ALL_VALUE] : [])];
 
   return (
-    <ElementWrapper css={elementWrapperCSS}>
-      <MaxWidthContainer>
-        <Container>
-          <Label htmlFor={`${label}-multiselect`}>{label}</Label>
-          <Dropdown
-            disabled={disabled}
-            id={`${label}-multiselect`}
-            data-cy={dataCy}
-            buttonText={`${label}: ${
-              value.length ? value.join(", ") : "No options selected."
-            }`}
-          >
-            <TreeSelect
-              onChange={handleChange}
-              tData={dropdownOptions}
-              state={selectedOptions}
-              hasStyling={false}
-            />
-          </Dropdown>
-          {rawErrors.length > 0 && <Error>{rawErrors.join(", ")}</Error>}
-        </Container>
-      </MaxWidthContainer>
+    <ElementWrapper limitMaxWidth css={elementWrapperCSS}>
+      <Container>
+        <Label htmlFor={`${label}-multiselect`}>{label}</Label>
+        <Dropdown
+          disabled={disabled}
+          id={`${label}-multiselect`}
+          data-cy={dataCy}
+          buttonText={`${label}: ${
+            value.length ? value.join(", ") : "No options selected."
+          }`}
+        >
+          <TreeSelect
+            onChange={handleChange}
+            tData={dropdownOptions}
+            state={selectedOptions}
+            hasStyling={false}
+          />
+        </Dropdown>
+        {rawErrors.length > 0 && <Error>{rawErrors.join(", ")}</Error>}
+      </Container>
     </ElementWrapper>
   );
 };
