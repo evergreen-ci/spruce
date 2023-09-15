@@ -339,6 +339,7 @@ export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
 }) => {
   const {
     "data-cy": dataCy,
+    description,
     elementWrapperCSS,
     emptyValue = "",
     focusOnMount,
@@ -364,6 +365,7 @@ export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
         ref={el}
         data-cy={dataCy}
         label={label}
+        description={description}
         disabled={disabled || readonly}
         value={value}
         onChange={({ target }) =>

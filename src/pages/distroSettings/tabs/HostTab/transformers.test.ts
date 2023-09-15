@@ -30,6 +30,33 @@ const form: HostFormState = {
     workDir: "/data/evg",
     setupScript: "ls -alF",
     setupAsSudo: true,
+    userSpawnAllowed: false,
+    rootDir: "",
+    isVirtualWorkStation: false,
+    icecreamSchedulerHost: "",
+    icecreamConfigPath: "",
+  },
+  bootstrapSettings: {
+    jasperBinaryDir: "/home/evg/jasper",
+    jasperCredentialsPath: "/home/evg/jasper/creds.json",
+    clientDir: "/home/evg/client",
+    shellPath: "/bin/bash",
+    serviceUser: "",
+    homeVolumeFormatCommand: "",
+    resourceLimits: {
+      lockedMemoryKb: -1,
+      numFiles: 64000,
+      numProcesses: -1,
+      numTasks: 0,
+      virtualMemoryKb: -1,
+    },
+    env: [
+      {
+        key: "foo",
+        value: "bar",
+      },
+    ],
+    preconditionScripts: [],
   },
   sshConfig: {
     user: "admin",

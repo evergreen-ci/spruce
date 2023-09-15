@@ -1,23 +1,33 @@
+import { css } from "@emotion/react";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { GetFormSchema } from "components/SpruceForm";
-import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
-import { Provider, SshKey } from "gql/generated/types";
+import {
+  AccordionFieldTemplate,
+  CardFieldTemplate,
+  FieldRow,
+} from "components/SpruceForm/FieldTemplates";
+import { Arch, BootstrapMethod, Provider, SshKey } from "gql/generated/types";
 import {
   architectureToCopy,
   bootstrapMethodToCopy,
   communicationMethodToCopy,
   feedbackRuleToCopy,
   hostAllocatorVersionToCopy,
+  linuxArchitectures,
+  nonWindowsArchitectures,
   overallocatedRuleToCopy,
   roundingRuleToCopy,
+  windowsArchitectures,
 } from "./constants";
 
 type FormSchemaParams = {
+  architecture: Arch;
   provider: Provider;
   sshKeys: SshKey[];
 };
 
 export const getFormSchema = ({
+  architecture,
   provider,
   sshKeys,
 }: FormSchemaParams): ReturnType<GetFormSchema> => {
@@ -53,39 +63,80 @@ export const getFormSchema = ({
               type: "string" as "string",
               title: "Working Directory",
             },
-            setupScript: {
-              type: "string" as "string",
-              title: "Setup Script",
-            },
             setupAsSudo: {
               type: "boolean" as "boolean",
               title: "Run script as sudo",
+            },
+            setupScript: {
+              type: "string" as "string",
+              title: "Setup Script",
             },
             userSpawnAllowed: {
               type: "boolean" as "boolean",
               title: "Allow users to spawn these hosts for personal use",
             },
-            isVirtualWorkstation: {
-              type: "boolean" as "boolean",
-              title:
-                "Allow spawned hosts of this distro to be used as virtual workstations",
-            },
           },
           dependencies: {
-            isVirtualWorkstation: {
+            arch: {
               oneOf: [
                 {
                   properties: {
-                    isVirtualWorkstation: {
-                      enum: [true],
-                    },
-                    icecreamSchedulerHost: {
+                    arch: { enum: windowsArchitectures },
+                    rootDir: {
                       type: "string" as "string",
-                      title: "Icecream Scheduler Host",
+                      title: "Root Directory",
                     },
-                    icecreamConfigPath: {
-                      type: "string" as "string",
-                      title: "Icecream Config File Path",
+                  },
+                },
+                {
+                  properties: {
+                    arch: { enum: nonWindowsArchitectures },
+                  },
+                },
+              ],
+            },
+            userSpawnAllowed: {
+              oneOf: [
+                {
+                  properties: {
+                    userSpawnAllowed: { enum: [false] },
+                  },
+                },
+                {
+                  properties: {
+                    userSpawnAllowed: { enum: [true] },
+                    isVirtualWorkStation: {
+                      type: "boolean" as "boolean",
+                      title:
+                        "Allow spawned hosts of this distro to be used as virtual workstations",
+                    },
+                  },
+                  dependencies: {
+                    isVirtualWorkStation: {
+                      oneOf: [
+                        {
+                          properties: {
+                            isVirtualWorkStation: {
+                              enum: [false],
+                            },
+                          },
+                        },
+                        {
+                          properties: {
+                            isVirtualWorkStation: {
+                              enum: [true],
+                            },
+                            icecreamSchedulerHost: {
+                              type: "string" as "string",
+                              title: "Icecream Scheduler Host",
+                            },
+                            icecreamConfigPath: {
+                              type: "string" as "string",
+                              title: "Icecream Config File Path",
+                            },
+                          },
+                        },
+                      ],
                     },
                   },
                 },
@@ -93,85 +144,36 @@ export const getFormSchema = ({
             },
           },
         },
-        bootstrapSettings,
-        sshConfig: {
-          type: "object" as "object",
-          title: "SSH Configuration",
-          properties: {
-            user: {
-              type: "string" as "string",
-              title: "SSH User",
-            },
-            sshKey: {
-              type: "string" as "string",
-              title: "SSH Key",
-              oneOf: sshKeys.map(({ location, name }) => ({
-                type: "string" as "string",
-                title: `${name} – ${location}`,
-                enum: [name],
-              })),
-            },
-            authorizedKeysFile: {
-              type: "string" as "string",
-              title: "Authorized Keys File",
-            },
-            sshOptions: {
-              type: "array" as "array",
-              title: "SSH Options",
-              items: {
-                type: "string" as "string",
-                title: "SSH Option",
-                default: "",
-                minLength: 1,
+      },
+      dependencies: {
+        setup: {
+          oneOf: [
+            {
+              properties: {
+                setup: {
+                  properties: {
+                    bootstrapMethod: { enum: [BootstrapMethod.LegacySsh] },
+                  },
+                },
+                sshConfig: sshConfig(sshKeys),
+                allocation,
               },
             },
-          },
-        },
-        allocation: {
-          type: "object" as "object",
-          title: "Host Allocation",
-          properties: {
-            version: {
-              type: "string" as "string",
-              title: "Host Allocator Version",
-              oneOf: enumSelect(hostAllocatorVersionToCopy),
+            {
+              properties: {
+                setup: {
+                  properties: {
+                    bootstrapMethod: {
+                      enum: [BootstrapMethod.Ssh, BootstrapMethod.UserData],
+                    },
+                  },
+                },
+                bootstrapSettings,
+                sshConfig: sshConfig(sshKeys),
+                allocation,
+              },
             },
-            roundingRule: {
-              type: "string" as "string",
-              title: "Host Allocator Rounding Rule",
-              oneOf: enumSelect(roundingRuleToCopy),
-            },
-            feedbackRule: {
-              type: "string" as "string",
-              title: "Host Allocator Feedback Rule",
-              oneOf: enumSelect(feedbackRuleToCopy),
-            },
-            hostsOverallocatedRule: {
-              type: "string" as "string",
-              title: "Host Overallocation Rule",
-              oneOf: enumSelect(overallocatedRuleToCopy),
-            },
-            minimumHosts: {
-              type: "number" as "number",
-              title: "Minimum Number of Hosts Allowed",
-              minimum: 0,
-            },
-            maximumHosts: {
-              type: "number" as "number",
-              title: "Maxiumum Number of Hosts Allowed",
-              minimum: 0,
-            },
-            acceptableHostIdleTime: {
-              type: "number" as "number",
-              title: "Acceptable Host Idle Time (s)",
-            },
-            futureHostFraction: {
-              type: "number" as "number",
-              title: "Future Host Fraction",
-              minimum: 0,
-              maximum: 1,
-            },
-          },
+          ],
         },
       },
     },
@@ -187,7 +189,17 @@ export const getFormSchema = ({
         arch: {
           "ui:allowDeselect": false,
         },
+        setupAsSudo: {
+          "ui:elementWrapperCSS": css`
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 0;
+          `,
+        },
         setupScript: {
+          "ui:elementWrapperCSS": css`
+            margin-top: -22px;
+          `,
           "ui:widget": "textarea",
         },
         userSpawnAllowed: {
@@ -199,6 +211,43 @@ export const getFormSchema = ({
       },
       bootstrapSettings: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        serviceUser: {
+          // Only visible for Windows
+          ...(!windowsArchitectures.includes(architecture) && {
+            "ui:widget": "hidden",
+          }),
+        },
+        resourceLimits: {
+          // Only visible for Linux
+          ...(!linuxArchitectures.includes(architecture) && {
+            "ui:widget": "hidden",
+          }),
+        },
+        env: {
+          "ui:addButtonText": "Add variable",
+          "ui:orderable": false,
+          items: {
+            "ui:ObjectFieldTemplate": FieldRow,
+          },
+        },
+        preconditionScripts: {
+          "ui:addButtonText": "Add script",
+          "ui:orderable": false,
+          "ui:topAlignDelete": true,
+          items: {
+            "ui:ObjectFieldTemplate": AccordionFieldTemplate,
+            "ui:numberedTitle": "Precondition Script",
+
+            path: {
+              "ui:description":
+                "Absolute path where the script will be placed.",
+            },
+            script: {
+              "ui:description": "Script that must run and succeed.",
+              "ui:widget": "textarea",
+            },
+          },
+        },
       },
       sshConfig: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
@@ -261,10 +310,6 @@ const bootstrapSettings = {
   type: "object" as "object",
   title: "Bootstrap Settings",
   properties: {
-    rootDir: {
-      type: "string" as "string",
-      title: "Root Directory",
-    },
     jasperBinaryDir: {
       type: "string" as "string",
       title: "Jasper Binary Directory",
@@ -289,7 +334,7 @@ const bootstrapSettings = {
       type: "string" as "string",
       title: "Home Volume Format Command",
     },
-    resouceLimits: {
+    resourceLimits: {
       type: "object" as "object",
       title: "Resource Limits",
       properties: {
@@ -366,3 +411,84 @@ const enumSelect = (enumObject: Record<string, string>) =>
     title,
     enum: [key],
   }));
+
+const sshConfig = (sshKeys: SshKey[]) => ({
+  type: "object" as "object",
+  title: "SSH Configuration",
+  properties: {
+    user: {
+      type: "string" as "string",
+      title: "SSH User",
+    },
+    sshKey: {
+      type: "string" as "string",
+      title: "SSH Key",
+      oneOf: sshKeys.map(({ location, name }) => ({
+        type: "string" as "string",
+        title: `${name} – ${location}`,
+        enum: [name],
+      })),
+    },
+    authorizedKeysFile: {
+      type: "string" as "string",
+      title: "Authorized Keys File",
+    },
+    sshOptions: {
+      type: "array" as "array",
+      title: "SSH Options",
+      items: {
+        type: "string" as "string",
+        title: "SSH Option",
+        default: "",
+        minLength: 1,
+      },
+    },
+  },
+});
+
+const allocation = {
+  type: "object" as "object",
+  title: "Host Allocation",
+  properties: {
+    version: {
+      type: "string" as "string",
+      title: "Host Allocator Version",
+      oneOf: enumSelect(hostAllocatorVersionToCopy),
+    },
+    roundingRule: {
+      type: "string" as "string",
+      title: "Host Allocator Rounding Rule",
+      oneOf: enumSelect(roundingRuleToCopy),
+    },
+    feedbackRule: {
+      type: "string" as "string",
+      title: "Host Allocator Feedback Rule",
+      oneOf: enumSelect(feedbackRuleToCopy),
+    },
+    hostsOverallocatedRule: {
+      type: "string" as "string",
+      title: "Host Overallocation Rule",
+      oneOf: enumSelect(overallocatedRuleToCopy),
+    },
+    minimumHosts: {
+      type: "number" as "number",
+      title: "Minimum Number of Hosts Allowed",
+      minimum: 0,
+    },
+    maximumHosts: {
+      type: "number" as "number",
+      title: "Maxiumum Number of Hosts Allowed",
+      minimum: 0,
+    },
+    acceptableHostIdleTime: {
+      type: "number" as "number",
+      title: "Acceptable Host Idle Time (s)",
+    },
+    futureHostFraction: {
+      type: "number" as "number",
+      title: "Future Host Fraction",
+      minimum: 0,
+      maximum: 1,
+    },
+  },
+};

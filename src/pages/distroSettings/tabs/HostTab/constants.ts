@@ -8,12 +8,22 @@ import {
   RoundingRule,
 } from "gql/generated/types";
 
-export const linuxArchitectures = new Set([
+export const linuxArchitectures = [
   Arch.Linux_64Bit,
   Arch.LinuxArm_64Bit,
   Arch.LinuxPpc_64Bit,
   Arch.LinuxZseries,
-]);
+];
+
+export const nonLinuxArchitectures = Object.values(Arch).filter(
+  (a) => !linuxArchitectures.includes(a)
+);
+
+export const windowsArchitectures = [Arch.Windows_64Bit];
+
+export const nonWindowsArchitectures = Object.values(Arch).filter(
+  (a) => !windowsArchitectures.includes(a)
+);
 
 export const architectureToCopy = {
   [Arch.Linux_64Bit]: "Linux 64-bit",
