@@ -38,6 +38,20 @@ describe("provider section", () => {
       cy.visit("/distro/ubuntu1604-container-test/settings/provider");
     });
 
+    it("shows pool mapping information based on container pool id", () => {
+      cy.getInputByLabel("Container Pool ID").should(
+        "contain.text",
+        "test-pool-1"
+      );
+      cy.getInputByLabel("Pool Mapping Information")
+        .should("have.attr", "placeholder")
+        .and("match", /test-pool-1/);
+      cy.selectLGOption("Container Pool ID", "test-pool-2");
+      cy.getInputByLabel("Pool Mapping Information")
+        .should("have.attr", "placeholder")
+        .and("match", /test-pool-2/);
+    });
+
     it("successfully updates docker provider fields", () => {
       cy.dataCy("provider-select").contains("Docker");
 

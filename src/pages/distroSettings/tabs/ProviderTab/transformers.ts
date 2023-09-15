@@ -23,6 +23,7 @@ export const gqlToForm = ((data) => {
     dockerProviderSettings: {
       ...dockerProviderSettings(providerSettingsList[0]).form,
       containerPoolId: containerPool,
+      poolMappingInfo: "",
     },
   };
 }) satisfies GqlToFormFunction<Tab>;

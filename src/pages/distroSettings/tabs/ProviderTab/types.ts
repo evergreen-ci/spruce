@@ -5,7 +5,6 @@ export enum BuildType {
   Pull = "pull",
 }
 
-// TODO: Append type with additional provider options, e.g. type ProviderFormState = StaticProviderFormState | DockerProviderFormState
 export type ProviderFormState = {
   provider: {
     providerName: Provider;
@@ -21,6 +20,7 @@ export type ProviderFormState = {
     registryUsername: string;
     registryPassword: string;
     containerPoolId: string;
+    poolMappingInfo: string;
     userData: string;
     mergeUserData: boolean;
     securityGroups: string[];

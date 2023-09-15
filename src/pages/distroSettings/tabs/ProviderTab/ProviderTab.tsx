@@ -8,8 +8,6 @@ import { getFormSchema } from "./getFormSchema";
 import { TabProps, ProviderFormState } from "./types";
 
 export const ProviderTab: React.FC<TabProps> = ({ distroData }) => {
-  const initialFormState = distroData;
-
   const { getTab } = useDistroSettingsContext();
   // @ts-expect-error - see TabState for details.
   const { formData }: { formData: ProviderFormState } = getTab(
@@ -30,7 +28,5 @@ export const ProviderTab: React.FC<TabProps> = ({ distroData }) => {
     [pools, poolMappingInfo]
   );
 
-  return (
-    <BaseTab formSchema={formSchema} initialFormState={initialFormState} />
-  );
+  return <BaseTab formSchema={formSchema} initialFormState={distroData} />;
 };
