@@ -78,7 +78,6 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({
             z-index: ${zIndex.max_do_not_use};
           `}
           size="large"
-          initialFocus=".slick-active"
         >
           {title && <CardTitle>{title}</CardTitle>}
           <Carousel
