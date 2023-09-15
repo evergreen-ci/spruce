@@ -11,8 +11,6 @@ import {
   type TableProps,
   TableHead,
 } from "@leafygreen-ui/table/new";
-import { glyphs } from "components/Icon";
-import { TablePlaceholder } from "./TablePlaceholder";
 
 type SpruceTableProps = {
   "data-cy-row"?: string;
