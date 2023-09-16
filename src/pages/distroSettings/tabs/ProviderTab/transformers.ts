@@ -1,10 +1,7 @@
 import { DistroSettingsTabRoutes } from "constants/routes";
 import { Provider } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import {
-  staticProviderSettings,
-  dockerProviderSettings,
-} from "./transformerUtils";
+import { gqlProviderSettings, formProviderSettings } from "./transformerUtils";
 
 type Tab = DistroSettingsTabRoutes.Provider;
 
@@ -18,10 +15,10 @@ export const gqlToForm = ((data) => {
       providerName: provider,
     },
     staticProviderSettings: {
-      ...staticProviderSettings(providerSettingsList[0]).form,
+      ...formProviderSettings(providerSettingsList[0]).staticProviderSettings,
     },
     dockerProviderSettings: {
-      ...dockerProviderSettings(providerSettingsList[0]).form,
+      ...formProviderSettings(providerSettingsList[0]).dockerProviderSettings,
       containerPoolId: containerPool,
       poolMappingInfo: "",
     },
@@ -40,7 +37,8 @@ export const formToGql = ((data, distro) => {
         provider: Provider.Static,
         providerSettingsList: [
           {
-            ...staticProviderSettings(data.staticProviderSettings).gql,
+            ...gqlProviderSettings(data.staticProviderSettings)
+              .staticProviderSettings,
           },
         ],
         containerPool: "",
@@ -51,7 +49,8 @@ export const formToGql = ((data, distro) => {
         provider: Provider.Docker,
         providerSettingsList: [
           {
-            ...dockerProviderSettings(data.dockerProviderSettings).gql,
+            ...gqlProviderSettings(data.dockerProviderSettings)
+              .dockerProviderSettings,
           },
         ],
         containerPool: data.dockerProviderSettings.containerPoolId,
