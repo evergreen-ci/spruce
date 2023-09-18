@@ -3,11 +3,10 @@ import { filterGroupedFiles } from "./utils";
 describe("filterGroupedFiles", () => {
   it("should return an empty array if groupedFiles is empty", () => {
     const groupedFiles = [];
-    const search = "";
-    const result = filterGroupedFiles(groupedFiles, search);
+    const result = filterGroupedFiles(groupedFiles, "");
     expect(result).toStrictEqual([]);
   });
-  it("should return the original array if search is empty", () => {
+  it("should return the original array if search term is empty", () => {
     const groupedFiles = [
       {
         taskName: "some_task_name",
@@ -19,11 +18,10 @@ describe("filterGroupedFiles", () => {
         ],
       },
     ];
-    const search = "";
-    const result = filterGroupedFiles(groupedFiles, search);
+    const result = filterGroupedFiles(groupedFiles, "");
     expect(result).toStrictEqual(groupedFiles);
   });
-  it("should filter the array if search is not empty", () => {
+  it("should filter the array if search term is not empty", () => {
     const groupedFiles = [
       {
         taskName: "some_task_name",
