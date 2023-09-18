@@ -103,6 +103,7 @@ describe("host section", () => {
       cy.getInputByLabel(/^Path$/).type("/path/to/precondition/script");
       cy.getInputByLabel(/^Script$/).type("script contents here");
 
+      cy.dataCy("save-settings-button").scrollIntoView();
       save();
       cy.validateToast("success");
 
@@ -122,6 +123,7 @@ describe("host section", () => {
       cy.selectLGOption("Host Bootstrap Method", "Legacy SSH");
       cy.selectLGOption("Host Communication Method", "Legacy SSH");
 
+      cy.dataCy("save-settings-button").scrollIntoView();
       save();
       cy.validateToast("success");
     });
