@@ -1,4 +1,4 @@
-import { Provider } from "gql/generated/types";
+import { DistroQuery, Provider } from "gql/generated/types";
 
 interface StaticProviderFormState {
   provider: {
@@ -15,5 +15,6 @@ interface StaticProviderFormState {
 export type ProviderFormState = StaticProviderFormState;
 
 export type TabProps = {
+  distro: DistroQuery["distro"];
   distroData: ProviderFormState;
 };
