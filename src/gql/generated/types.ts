@@ -258,6 +258,19 @@ export enum CommunicationMethod {
   Ssh = "SSH",
 }
 
+export type ContainerPool = {
+  __typename?: "ContainerPool";
+  distro: Scalars["String"]["output"];
+  id: Scalars["String"]["output"];
+  maxContainers: Scalars["Int"]["output"];
+  port: Scalars["Int"]["output"];
+};
+
+export type ContainerPoolsConfig = {
+  __typename?: "ContainerPoolsConfig";
+  pools: Array<ContainerPool>;
+};
+
 export type ContainerResources = {
   __typename?: "ContainerResources";
   cpu: Scalars["Int"]["output"];
@@ -1518,6 +1531,7 @@ export type Permissions = {
   __typename?: "Permissions";
   canCreateDistro: Scalars["Boolean"]["output"];
   canCreateProject: Scalars["Boolean"]["output"];
+  canEditAdminSettings: Scalars["Boolean"]["output"];
   distroPermissions: DistroPermissions;
   userId: Scalars["String"]["output"];
 };
@@ -2330,6 +2344,7 @@ export type SpruceConfig = {
   __typename?: "SpruceConfig";
   banner?: Maybe<Scalars["String"]["output"]>;
   bannerTheme?: Maybe<Scalars["String"]["output"]>;
+  containerPools?: Maybe<ContainerPoolsConfig>;
   githubOrgs: Array<Scalars["String"]["output"]>;
   jira?: Maybe<JiraConfig>;
   keys: Array<SshKey>;
@@ -8300,6 +8315,7 @@ export type UserQuery = {
     displayName: string;
     emailAddress: string;
     userId: string;
+    permissions: { __typename?: "Permissions"; canEditAdminSettings: boolean };
   };
 };
 

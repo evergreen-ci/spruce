@@ -1,4 +1,5 @@
-import { hasOperationName, GQL_URL } from "../../../utils/graphql-test-utils";
+import { GQL_URL } from "../../../constants";
+import { hasOperationName } from "../../../utils/graphql-test-utils";
 import { mockErrorResponse } from "../../../utils/mockErrorResponse";
 
 describe("Configure Patch Page", () => {

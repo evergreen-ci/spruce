@@ -1,3 +1,6 @@
+import { EVG_BASE_URL, GQL_URL } from "../constants";
+import { hasOperationName } from "../utils/graphql-test-utils";
+
 const user = {
   username: "admin",
   password: "password",
@@ -61,14 +64,14 @@ Cypress.Commands.add("getInputByLabel", (label: string) => {
 Cypress.Commands.add("login", () => {
   cy.getCookie("mci-token").then((c) => {
     if (!c) {
-      cy.request("POST", "http://localhost:9090/login", { ...user });
+      cy.request("POST", `${EVG_BASE_URL}/login`, { ...user });
     }
   });
 });
 
 /* logout */
 Cypress.Commands.add("logout", () => {
-  cy.origin("http://localhost:9090", () => {
+  cy.origin(EVG_BASE_URL, () => {
     cy.request({ url: "/logout", followRedirect: false });
   });
 });
@@ -112,3 +115,13 @@ Cypress.Commands.add(
     });
   }
 );
+
+Cypress.Commands.add("overwriteGQL", (operationName: string, body: any) => {
+  cy.intercept("POST", GQL_URL, (req) => {
+    if (hasOperationName(req, operationName)) {
+      req.reply((res) => {
+        res.body = body;
+      });
+    }
+  });
+});
