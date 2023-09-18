@@ -33,11 +33,11 @@ describe("using the distro dropdown", () => {
 
     describe("modifying the distro provider", () => {
       beforeEach(() => {
-        cy.visit("/distro/localhost/settings/provider");
+        cy.visit("/distro/ubuntu1604-container-test/settings/provider");
       });
 
       it("warns when navigating to another distro settings tab after the provider has changed and allows save", () => {
-        cy.selectLGOption("Provider", "Docker");
+        cy.selectLGOption("Provider", "Static");
         cy.dataCy("save-settings-button").should(
           "not.have.attr",
           "aria-disabled",
