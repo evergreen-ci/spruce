@@ -133,3 +133,5 @@ export const getHoneycombSystemMetricsUrl = (
     query
   )}&omitMissingValues`;
 };
+
+export const adminSettingsURL = `${getUiUrl()}/admin`;
