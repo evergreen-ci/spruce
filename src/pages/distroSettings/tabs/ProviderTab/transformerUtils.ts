@@ -11,7 +11,7 @@ interface ProviderSettingsList {
 }
 
 export const formProviderSettings = (
-  providerSettings: Partial<ProviderSettingsList>
+  providerSettings: Partial<ProviderSettingsList> = {}
 ) => ({
   staticProviderSettings: {
     userData: providerSettings.user_data ?? "",
@@ -33,7 +33,7 @@ type ProviderSettings = ProviderFormState["staticProviderSettings"] &
   ProviderFormState["dockerProviderSettings"];
 
 export const gqlProviderSettings = (
-  providerSettings: Partial<ProviderSettings>
+  providerSettings: Partial<ProviderSettings> = {}
 ) => ({
   staticProviderSettings: {
     user_data: providerSettings.userData,
