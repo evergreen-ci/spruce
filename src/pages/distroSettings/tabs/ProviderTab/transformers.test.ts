@@ -43,6 +43,7 @@ describe("provider tab", () => {
     const staticGql: DistroInput = {
       ...distroData,
       provider: Provider.Static,
+      containerPool: "",
       providerSettingsList: [
         {
           merge_user_data_parts: false,

@@ -22,6 +22,16 @@ export const getSpruceConfigMock: ApolloMock<
           defaultProject: "evergreen",
           __typename: "UIConfig",
         },
+        containerPools: {
+          pools: [
+            {
+              distro: "localhost",
+              id: "test-pool",
+              maxContainers: 5,
+              port: 1234,
+            },
+          ],
+        },
         keys: [
           {
             name: "fake_key",
