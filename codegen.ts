@@ -3,35 +3,35 @@ import path from "path";
 
 export const getConfig = ({
   generatedFileName,
-  schema,
+  silent,
 }: {
-  schema: string;
   generatedFileName: string;
-}): CodegenConfig => ({
-  schema,
+} & Pick<CodegenConfig, "silent">): CodegenConfig => ({
   documents: ["./src/**/*.ts", "./src/**/*.graphql", "./src/**/*.gql"].map(
     (d) => path.resolve(__dirname, d)
   ),
+  generates: {
+    [generatedFileName]: {
+      config: {
+        arrayInputCoercion: false,
+        preResolveTypes: true,
+        scalars: {
+          Duration: "number",
+          StringMap: "{ [key: string]: any }",
+          Time: "Date",
+        },
+      },
+      plugins: ["typescript", "typescript-operations"],
+    },
+  },
   hooks: {
     afterAllFileWrite: [
       `${path.resolve(__dirname, "./node_modules/.bin/prettier")} --write`,
     ],
   },
   overwrite: true,
-  generates: {
-    [generatedFileName]: {
-      plugins: ["typescript", "typescript-operations"],
-      config: {
-        preResolveTypes: true,
-        arrayInputCoercion: false,
-        scalars: {
-          StringMap: "{ [key: string]: any }",
-          Time: "Date",
-          Duration: "number",
-        },
-      },
-    },
-  },
+  schema: "sdlschema/**/*.graphql",
+  silent,
 });
 
 export const generatedFileName = path.resolve(
@@ -40,6 +40,5 @@ export const generatedFileName = path.resolve(
 );
 
 export default getConfig({
-  schema: "sdlschema/**/*.graphql",
   generatedFileName,
 });

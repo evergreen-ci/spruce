@@ -84,7 +84,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
     await waitFor(() => {
       expect(
         screen.getByDataCy("grouped-task-status-badge-tooltip")
-      ).toBeInTheDocument();
+      ).toBeVisible();
     });
     expect(screen.queryByText("30")).toBeVisible();
     expect(screen.queryByText("Running")).toBeVisible();

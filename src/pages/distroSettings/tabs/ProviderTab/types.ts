@@ -1,4 +1,4 @@
-import { Provider } from "gql/generated/types";
+import { DistroQuery, Provider } from "gql/generated/types";
 
 export enum BuildType {
   Import = "import",
@@ -28,5 +28,6 @@ export type ProviderFormState = {
 };
 
 export type TabProps = {
+  distro: DistroQuery["distro"];
   distroData: ProviderFormState;
 };
