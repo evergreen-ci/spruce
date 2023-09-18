@@ -1531,6 +1531,7 @@ export type Permissions = {
   __typename?: "Permissions";
   canCreateDistro: Scalars["Boolean"]["output"];
   canCreateProject: Scalars["Boolean"]["output"];
+  canEditAdminSettings: Scalars["Boolean"]["output"];
   distroPermissions: DistroPermissions;
   userId: Scalars["String"]["output"];
 };

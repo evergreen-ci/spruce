@@ -48,6 +48,7 @@ export const checkIsAncestor = async (commit: string): Promise<boolean> => {
   } catch (error) {
     process.chdir(originalDir);
     // Error status 1 and 128 means that the commit is not an anecestor and the user must fetch.
+    // Error code docs: https://www.git-scm.com/docs/api-error-handling/
     if (error.status === 1 || error.status === 128) {
       return false;
     }
