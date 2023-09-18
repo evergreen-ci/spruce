@@ -8315,6 +8315,7 @@ export type UserQuery = {
     displayName: string;
     emailAddress: string;
     userId: string;
+    permissions: { __typename?: "Permissions"; canEditAdminSettings: boolean };
   };
 };
 

@@ -12,7 +12,7 @@ const NavDropdownMenuIcon: React.FC<{ open: boolean }> = ({ open }) => (
   <Icon glyph={open ? "CaretUp" : "CaretDown"} role="presentation" />
 );
 
-interface MenuItemType {
+export interface MenuItemType {
   "data-cy"?: string;
   text: string;
   href?: string;

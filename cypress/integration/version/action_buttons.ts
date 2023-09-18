@@ -51,7 +51,7 @@ describe("Action Buttons", () => {
     it("Clicking 'Set Priority' button shows popconfirm with input and toast on success", () => {
       const priority = "99";
       cy.dataCy("prioritize-patch").click();
-      cy.dataCy("patch-priority-input").type(priority).type("{enter}");
+      cy.dataCy("patch-priority-input").type(`${priority}{enter}`);
       cy.validateToast("success", priority);
     });
 

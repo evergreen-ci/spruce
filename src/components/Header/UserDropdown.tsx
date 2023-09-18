@@ -1,20 +1,21 @@
 import { useQuery } from "@apollo/client";
 import { useNavbarAnalytics } from "analytics";
+import { adminSettingsURL } from "constants/externalResources";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import { useAuthDispatchContext } from "context/auth";
 import { UserQuery } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
-import { NavDropdown } from "./NavDropdown";
+import { MenuItemType, NavDropdown } from "./NavDropdown";
 
 export const UserDropdown = () => {
   const { data } = useQuery<UserQuery>(GET_USER);
   const { user } = data || {};
-  const { displayName } = user || {};
+  const { displayName, permissions } = user || {};
 
   const { logoutAndRedirect } = useAuthDispatchContext();
   const { sendEvent } = useNavbarAnalytics();
 
-  const menuItems = [
+  const menuItems: MenuItemType[] = [
     {
       text: "Preferences",
       to: getPreferencesRoute(PreferencesTabRoutes.Profile),
@@ -31,7 +32,14 @@ export const UserDropdown = () => {
       onClick: () => logoutAndRedirect(),
     },
   ];
-
+  if (permissions?.canEditAdminSettings) {
+    menuItems.splice(1, 0, {
+      "data-cy": "admin-link",
+      text: "Admin",
+      href: adminSettingsURL,
+      onClick: () => sendEvent({ name: "Click Admin Link" }),
+    });
+  }
   return (
     <NavDropdown
       dataCy="user-dropdown-link"

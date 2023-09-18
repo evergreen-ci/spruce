@@ -1,0 +1,3 @@
+import { checkSchemaAndCodegen } from ".";
+
+checkSchemaAndCodegen();
