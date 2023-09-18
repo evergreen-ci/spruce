@@ -47,7 +47,7 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
   return (
     <Container>
       {taskName && <Subtitle>{taskName}</Subtitle>}
-      <BaseTable table={table} />
+      <BaseTable table={table} shouldAlternateRowColor />
     </Container>
   );
 };
