@@ -1,5 +1,5 @@
-import { EVG_BASE_URL } from "../utils";
-import { GQL_URL, hasOperationName } from "../utils/graphql-test-utils";
+import { EVG_BASE_URL, GQL_URL } from "../constants";
+import { hasOperationName } from "../utils/graphql-test-utils";
 
 const user = {
   username: "admin",

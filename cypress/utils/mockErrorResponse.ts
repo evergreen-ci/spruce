@@ -1,4 +1,5 @@
-import { GQL_URL, hasOperationName } from "./graphql-test-utils";
+import { hasOperationName } from "./graphql-test-utils";
+import { GQL_URL } from "../constants";
 
 interface Args {
   errorMessage: string;

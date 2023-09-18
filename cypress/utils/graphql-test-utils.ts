@@ -1,5 +1,4 @@
 import { CyHttpMessages } from "cypress/types/net-stubbing";
-import { EVG_BASE_URL } from ".";
 
 // Utility to match GraphQL  based on the operation name
 export const hasOperationName = (
@@ -31,5 +30,3 @@ export const aliasMutation = (
     req.alias = `gql${operationName}Mutation`;
   }
 };
-
-export const GQL_URL = `${EVG_BASE_URL}/graphql/query`;
