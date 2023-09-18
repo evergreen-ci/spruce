@@ -76,25 +76,4 @@ const form: HostFormState = {
   },
 };
 
-const gql: DistroInput = {
-  ...distroData,
-  bootstrapSettings: {
-    clientDir: "",
-    communication: CommunicationMethod.LegacySsh,
-    env: [],
-    jasperBinaryDir: "",
-    jasperCredentialsPath: "",
-    method: BootstrapMethod.LegacySsh,
-    preconditionScripts: [],
-    resourceLimits: {
-      lockedMemoryKb: 0,
-      numFiles: 0,
-      numProcesses: 0,
-      numTasks: 0,
-      virtualMemoryKb: 0,
-    },
-    rootDir: "",
-    serviceUser: "",
-    shellPath: "",
-  },
-};
+const gql: DistroInput = distroData;

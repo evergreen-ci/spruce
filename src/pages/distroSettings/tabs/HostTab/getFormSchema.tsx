@@ -225,6 +225,7 @@ export const getFormSchema = ({
         },
         env: {
           "ui:addButtonText": "Add variable",
+          "ui:fullWidth": true,
           "ui:orderable": false,
           items: {
             "ui:ObjectFieldTemplate": FieldRow,
@@ -232,18 +233,19 @@ export const getFormSchema = ({
         },
         preconditionScripts: {
           "ui:addButtonText": "Add script",
+          "ui:fullWidth": true,
           "ui:orderable": false,
           "ui:topAlignDelete": true,
           items: {
             "ui:ObjectFieldTemplate": AccordionFieldTemplate,
             "ui:numberedTitle": "Precondition Script",
-
             path: {
               "ui:description":
                 "Absolute path where the script will be placed.",
             },
             script: {
-              "ui:description": "Script that must run and succeed.",
+              "ui:description":
+                "The precondition script that must run and succeed.",
               "ui:widget": "textarea",
             },
           },
