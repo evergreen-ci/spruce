@@ -333,6 +333,7 @@ export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
   label,
   onChange,
   options,
+  placeholder,
   rawErrors,
   readonly,
   value,
@@ -362,6 +363,7 @@ export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
     <ElementWrapper css={elementWrapperCSS}>
       <TextArea
         ref={el}
+        placeholder={placeholder || undefined}
         data-cy={dataCy}
         label={label}
         disabled={disabled || readonly}

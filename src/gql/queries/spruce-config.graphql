@@ -2,6 +2,14 @@ query SpruceConfig {
   spruceConfig {
     banner
     bannerTheme
+    containerPools {
+      pools {
+        distro
+        id
+        maxContainers
+        port
+      }
+    }
     jira {
       host
     }
