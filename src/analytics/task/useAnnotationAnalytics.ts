@@ -8,7 +8,7 @@ import {
   AnnotationEventDataQuery,
   AnnotationEventDataQueryVariables,
 } from "gql/generated/types";
-import { GET_ANNOTATION_EVENT_DATA, GET_BUILD_BARON } from "gql/queries";
+import { ANNOTATION_EVENT_DATA, BUILD_BARON } from "gql/queries";
 import { RequiredQueryParams } from "types/task";
 import { queryString } from "utils";
 
@@ -36,13 +36,13 @@ export const useAnnotationAnalytics = () => {
   const { data: eventData } = useQuery<
     AnnotationEventDataQuery,
     AnnotationEventDataQueryVariables
-  >(GET_ANNOTATION_EVENT_DATA, {
+  >(ANNOTATION_EVENT_DATA, {
     variables: { taskId: id, execution },
     fetchPolicy: "cache-first",
   });
 
   const { data: bbData } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(
-    GET_BUILD_BARON,
+    BUILD_BARON,
     {
       variables: { taskId: id, execution },
       fetchPolicy: "cache-first",

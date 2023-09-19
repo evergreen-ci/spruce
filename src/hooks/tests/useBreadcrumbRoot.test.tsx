@@ -2,7 +2,7 @@ import { InMemoryCache } from "@apollo/client";
 import { MockedProvider } from "@apollo/client/testing";
 import { OtherUserQuery, OtherUserQueryVariables } from "gql/generated/types";
 import { getUserMock } from "gql/mocks/getUser";
-import { GET_OTHER_USER } from "gql/queries";
+import { OTHER_USER } from "gql/queries";
 import { useBreadcrumbRoot } from "hooks";
 import { renderHook, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
@@ -63,7 +63,7 @@ describe("useBreadcrumbRoot", () => {
 
 const sameUserMock: ApolloMock<OtherUserQuery, OtherUserQueryVariables> = {
   request: {
-    query: GET_OTHER_USER,
+    query: OTHER_USER,
     variables: {
       userId: "admin",
     },
@@ -82,7 +82,7 @@ const sameUserMock: ApolloMock<OtherUserQuery, OtherUserQueryVariables> = {
 
 const otherUserMock: ApolloMock<OtherUserQuery, OtherUserQueryVariables> = {
   request: {
-    query: GET_OTHER_USER,
+    query: OTHER_USER,
     variables: {
       userId: "john.doe",
     },

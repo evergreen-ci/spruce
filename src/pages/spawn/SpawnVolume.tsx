@@ -6,7 +6,7 @@ import { Title, BadgeWrapper, TitleContainer } from "components/Spawn";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
 import { MyVolumesQuery, MyVolumesQueryVariables } from "gql/generated/types";
-import { GET_MY_VOLUMES } from "gql/queries";
+import { MY_VOLUMES } from "gql/queries";
 import { usePolling, usePageTitle, useSpruceConfig } from "hooks";
 import { SpawnVolumeTable } from "pages/spawn/spawnVolume/SpawnVolumeTable";
 import { SpawnVolumeButton } from "./spawnVolume/SpawnVolumeButton";
@@ -22,7 +22,7 @@ export const SpawnVolume = () => {
     refetch,
     startPolling,
     stopPolling,
-  } = useQuery<MyVolumesQuery, MyVolumesQueryVariables>(GET_MY_VOLUMES, {
+  } = useQuery<MyVolumesQuery, MyVolumesQueryVariables>(MY_VOLUMES, {
     pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (e) => {
       dispatchToast.error(

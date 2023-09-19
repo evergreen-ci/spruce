@@ -13,7 +13,7 @@ import {
   LogkeeperBuildMetadataQuery,
   LogkeeperBuildMetadataQueryVariables,
 } from "gql/generated/types";
-import { GET_LOGKEEPER_BUILD_METADATA } from "gql/queries";
+import { LOGKEEPER_BUILD_METADATA } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { JobLogsTable } from "./jobLogs/JobLogsTable";
 
@@ -27,7 +27,7 @@ export const JobLogs = () => {
   const { data } = useQuery<
     LogkeeperBuildMetadataQuery,
     LogkeeperBuildMetadataQueryVariables
-  >(GET_LOGKEEPER_BUILD_METADATA, {
+  >(LOGKEEPER_BUILD_METADATA, {
     variables: { buildId },
     onError: (err) => {
       dispatchToast.error(

@@ -7,7 +7,7 @@ import { Field } from "@rjsf/core";
 import { SpruceForm } from "components/SpruceForm";
 import { size, zIndex } from "constants/tokens";
 import { GithubOrgsQuery } from "gql/generated/types";
-import { GET_GITHUB_ORGS } from "gql/queries";
+import { GITHUB_ORGS } from "gql/queries";
 import { ProjectType } from "../../utils";
 import { AttachDetachModal } from "./AttachDetachModal";
 import { MoveRepoModal } from "./MoveRepoModal";
@@ -36,7 +36,7 @@ export const RepoConfigField: Field = ({
   const ownerOrRepoHasChanges =
     formData.owner !== initialOwner || formData.repo !== initialRepo;
 
-  const { data } = useQuery<GithubOrgsQuery>(GET_GITHUB_ORGS);
+  const { data } = useQuery<GithubOrgsQuery>(GITHUB_ORGS);
   const { spruceConfig: { githubOrgs = [] } = {} } = data ?? {};
 
   return (

@@ -23,7 +23,7 @@ import {
   HostEventsQuery,
   HostEventsQueryVariables,
 } from "gql/generated/types";
-import { GET_HOST, GET_HOST_EVENTS } from "gql/queries/index";
+import { HOST, HOST_EVENTS } from "gql/queries/index";
 import { HostTable } from "pages/host/HostTable";
 import { Metadata } from "pages/host/Metadata";
 import { HostStatus } from "types/host";
@@ -39,7 +39,7 @@ const Host: React.FC = () => {
     data: hostData,
     error,
     loading: hostMetaDataLoading,
-  } = useQuery<HostQuery, HostQueryVariables>(GET_HOST, {
+  } = useQuery<HostQuery, HostQueryVariables>(HOST, {
     variables: { id },
     onError: (err) => {
       dispatchToast.error(
@@ -63,7 +63,7 @@ const Host: React.FC = () => {
   const { data: hostEventData, loading: hostEventLoading } = useQuery<
     HostEventsQuery,
     HostEventsQueryVariables
-  >(GET_HOST_EVENTS, {
+  >(HOST_EVENTS, {
     variables: { id, tag, page, limit },
   });
 

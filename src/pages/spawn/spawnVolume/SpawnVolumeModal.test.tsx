@@ -13,11 +13,7 @@ import {
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { getUserMock } from "gql/mocks/getUser";
 import { SPAWN_VOLUME } from "gql/mutations";
-import {
-  GET_MY_HOSTS,
-  GET_SUBNET_AVAILABILITY_ZONES,
-  GET_MY_VOLUMES,
-} from "gql/queries";
+import { MY_HOSTS, SUBNET_AVAILABILITY_ZONES, MY_VOLUMES } from "gql/queries";
 import {
   userEvent,
   renderWithRouterMatch as render,
@@ -165,7 +161,7 @@ describe("spawnVolumeModal", () => {
 
 const myHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
   request: {
-    query: GET_MY_HOSTS,
+    query: MY_HOSTS,
     variables: {},
   },
   result: {
@@ -352,7 +348,7 @@ const myHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
 
 const myVolumesQueryMock: ApolloMock<MyVolumesQuery, MyVolumesQueryVariables> =
   {
-    request: { query: GET_MY_VOLUMES, variables: {} },
+    request: { query: MY_VOLUMES, variables: {} },
     result: {
       data: {
         myVolumes: [
@@ -410,7 +406,7 @@ const subnetZonesMock: ApolloMock<
   SubnetAvailabilityZonesQueryVariables
 > = {
   request: {
-    query: GET_SUBNET_AVAILABILITY_ZONES,
+    query: SUBNET_AVAILABILITY_ZONES,
     variables: {},
   },
   result: {

@@ -5,7 +5,7 @@ import {
   BuildVariantsForTaskNameQuery,
   BuildVariantsForTaskNameQueryVariables,
 } from "gql/generated/types";
-import { GET_BUILD_VARIANTS_FOR_TASK_NAME } from "gql/queries";
+import { BUILD_VARIANTS_FOR_TASK_NAME } from "gql/queries";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -200,7 +200,7 @@ const mock = (
   BuildVariantsForTaskNameQueryVariables
 > => ({
   request: {
-    query: GET_BUILD_VARIANTS_FOR_TASK_NAME,
+    query: BUILD_VARIANTS_FOR_TASK_NAME,
     variables: {
       projectIdentifier: "evergreen",
       taskName: "some_task",

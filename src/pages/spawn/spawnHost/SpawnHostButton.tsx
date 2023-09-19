@@ -6,7 +6,7 @@ import { useSpawnAnalytics } from "analytics";
 import { PlusButton } from "components/Buttons";
 import { size, zIndex } from "constants/tokens";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
-import { GET_MY_HOSTS } from "gql/queries";
+import { MY_HOSTS } from "gql/queries";
 import { useSpruceConfig } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
 import { HostStatus } from "types/host";
@@ -15,7 +15,7 @@ import { SpawnHostModal } from "./spawnHostButton/SpawnHostModal";
 
 export const SpawnHostButton: React.FC = () => {
   const { data: myHostsData } = useQuery<MyHostsQuery, MyHostsQueryVariables>(
-    GET_MY_HOSTS
+    MY_HOSTS
   );
   const [spawnHostParam, setSpawnHostParam] = useQueryParam<
     boolean | undefined

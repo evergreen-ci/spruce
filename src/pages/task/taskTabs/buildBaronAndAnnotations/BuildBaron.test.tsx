@@ -12,7 +12,7 @@ import {
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { getUserMock } from "gql/mocks/getUser";
 import { FILE_JIRA_TICKET } from "gql/mutations";
-import { GET_BUILD_BARON, GET_CREATED_TICKETS } from "gql/queries";
+import { BUILD_BARON, CREATED_TICKETS } from "gql/queries";
 import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { ApolloMock } from "types/gql";
 import BuildBaronContent from "./BuildBaronContent";
@@ -194,7 +194,7 @@ const buildBaronQuery: BuildBaronQuery = {
 const getBuildBaronMock: ApolloMock<BuildBaronQuery, BuildBaronQueryVariables> =
   {
     request: {
-      query: GET_BUILD_BARON,
+      query: BUILD_BARON,
       variables: {
         taskId,
         execution,
@@ -227,7 +227,7 @@ const getJiraTicketsMock: ApolloMock<
   CreatedTicketsQueryVariables
 > = {
   request: {
-    query: GET_CREATED_TICKETS,
+    query: CREATED_TICKETS,
     variables: {
       taskId,
     },

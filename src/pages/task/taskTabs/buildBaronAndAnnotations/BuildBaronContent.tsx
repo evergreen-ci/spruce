@@ -11,10 +11,7 @@ import {
   CreatedTicketsQuery,
   CreatedTicketsQueryVariables,
 } from "gql/generated/types";
-import {
-  GET_CREATED_TICKETS,
-  GET_JIRA_CUSTOM_CREATED_ISSUES,
-} from "gql/queries";
+import { CREATED_TICKETS, JIRA_CUSTOM_CREATED_ISSUES } from "gql/queries";
 import AnnotationNote from "./AnnotationNote";
 import { BBCreatedTickets, CustomCreatedTickets } from "./CreatedTicketsTable";
 import { Issues, SuspectedIssues } from "./Issues";
@@ -43,7 +40,7 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   const { data: customCreatedTickets } = useQuery<
     CustomCreatedIssuesQuery,
     CustomCreatedIssuesQueryVariables
-  >(GET_JIRA_CUSTOM_CREATED_ISSUES, {
+  >(JIRA_CUSTOM_CREATED_ISSUES, {
     variables: { taskId, execution },
     onError: (err) => {
       dispatchToast.error(
@@ -55,7 +52,7 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   const { data: bbCreatedTickets } = useQuery<
     CreatedTicketsQuery,
     CreatedTicketsQueryVariables
-  >(GET_CREATED_TICKETS, {
+  >(CREATED_TICKETS, {
     variables: { taskId },
     onError(error) {
       dispatchToast.error(

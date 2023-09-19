@@ -13,7 +13,7 @@ import { getCommitsRoute, getUserPatchesRoute, routes } from "constants/routes";
 import { size } from "constants/tokens";
 import { useAuthStateContext } from "context/auth";
 import { UserQuery, SpruceConfigQuery } from "gql/generated/types";
-import { GET_USER, SPRUCE_CONFIG } from "gql/queries";
+import { USER, SPRUCE_CONFIG } from "gql/queries";
 import { useLegacyUIURL } from "hooks";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
 import { UserDropdown } from "./UserDropdown";
@@ -25,7 +25,7 @@ export const Navbar: React.FC = () => {
   const legacyURL = useLegacyUIURL();
   const { sendEvent } = useNavbarAnalytics();
 
-  const { data: userData } = useQuery<UserQuery>(GET_USER);
+  const { data: userData } = useQuery<UserQuery>(USER);
   const { user } = userData || {};
   const { userId } = user || {};
 
