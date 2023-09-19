@@ -17,7 +17,7 @@ import {
   CodeChangesQueryVariables,
   FileDiffsFragment,
 } from "gql/generated/types";
-import { GET_CODE_CHANGES } from "gql/queries";
+import { CODE_CHANGES } from "gql/queries";
 import { commits } from "utils";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 
@@ -30,7 +30,7 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
   const { data, error, loading } = useQuery<
     CodeChangesQuery,
     CodeChangesQueryVariables
-  >(GET_CODE_CHANGES, {
+  >(CODE_CHANGES, {
     variables: { id: patchId },
   });
   const { moduleCodeChanges } = data?.patch ?? {};

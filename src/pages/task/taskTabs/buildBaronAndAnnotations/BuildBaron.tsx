@@ -5,7 +5,7 @@ import {
   BuildBaronQuery,
   BuildBaronQueryVariables,
 } from "gql/generated/types";
-import { GET_BUILD_BARON } from "gql/queries";
+import { BUILD_BARON } from "gql/queries";
 import BuildBaronContent from "./BuildBaronContent";
 
 interface Props {
@@ -22,7 +22,7 @@ const BuildBaron: React.FC<Props> = ({
   userCanModify,
 }) => {
   const { data, loading } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(
-    GET_BUILD_BARON,
+    BUILD_BARON,
     {
       variables: { taskId, execution },
     }

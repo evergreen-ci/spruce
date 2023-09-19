@@ -2,7 +2,7 @@ import {
   TaskTestSampleQuery,
   TaskTestSampleQueryVariables,
 } from "gql/generated/types";
-import { GET_TASK_TEST_SAMPLE } from "gql/queries";
+import { TASK_TEST_SAMPLE } from "gql/queries";
 import { act, renderHook, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { TestStatus } from "types/history";
@@ -241,7 +241,7 @@ const noFilterData: ApolloMock<
   TaskTestSampleQueryVariables
 > = {
   request: {
-    query: GET_TASK_TEST_SAMPLE,
+    query: TASK_TEST_SAMPLE,
     variables: {
       tasks: [
         "evergreen_lint_lint_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
@@ -273,7 +273,7 @@ const withMatchingFilter: ApolloMock<
   TaskTestSampleQueryVariables
 > = {
   request: {
-    query: GET_TASK_TEST_SAMPLE,
+    query: TASK_TEST_SAMPLE,
     variables: {
       tasks: [
         "evergreen_lint_lint_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
@@ -307,7 +307,7 @@ const withNonMatchingFilter: ApolloMock<
   TaskTestSampleQueryVariables
 > = {
   request: {
-    query: GET_TASK_TEST_SAMPLE,
+    query: TASK_TEST_SAMPLE,
     variables: {
       tasks: [
         "evergreen_lint_lint_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",

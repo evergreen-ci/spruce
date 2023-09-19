@@ -4,7 +4,7 @@ import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
 import { cache } from "gql/GQLWrapper";
 import { taskQuery } from "gql/mocks/taskData";
-import { GET_TASK } from "gql/queries";
+import { TASK } from "gql/queries";
 import { render, screen } from "test_utils";
 import useKonamiCode from ".";
 
@@ -35,7 +35,7 @@ describe("useKonamiCode", () => {
     window.HTMLMediaElement.prototype.play = audioPlayMock;
 
     cache.writeQuery<TaskQuery, TaskQueryVariables>({
-      query: GET_TASK,
+      query: TASK,
       data: {
         ...taskQuery,
       },
@@ -77,7 +77,7 @@ describe("useKonamiCode", () => {
     window.HTMLMediaElement.prototype.play = audioPlayMock;
 
     cache.writeQuery<TaskQuery, TaskQueryVariables>({
-      query: GET_TASK,
+      query: TASK,
       data: {
         ...taskQuery,
       },
@@ -115,7 +115,7 @@ describe("useKonamiCode", () => {
     window.HTMLMediaElement.prototype.play = audioPlayMock;
 
     cache.writeQuery<TaskQuery, TaskQueryVariables>({
-      query: GET_TASK,
+      query: TASK,
       data: {
         ...taskQuery,
       },

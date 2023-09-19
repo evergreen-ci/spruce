@@ -9,7 +9,7 @@ import {
   BuildVariantStatsQuery,
   BuildVariantStatsQueryVariables,
 } from "gql/generated/types";
-import { GET_BUILD_VARIANTS_STATS } from "gql/queries";
+import { BUILD_VARIANTS_STATS } from "gql/queries";
 import { usePolling } from "hooks";
 import VariantTaskGroup from "./VariantTaskGroup";
 
@@ -19,7 +19,7 @@ const BuildVariantCard: React.FC = () => {
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     BuildVariantStatsQuery,
     BuildVariantStatsQueryVariables
-  >(GET_BUILD_VARIANTS_STATS, {
+  >(BUILD_VARIANTS_STATS, {
     fetchPolicy: "cache-and-network",
     variables: { id },
     pollInterval: DEFAULT_POLL_INTERVAL,

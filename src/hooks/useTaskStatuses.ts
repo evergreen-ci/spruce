@@ -7,7 +7,7 @@ import {
   TaskStatusesQuery,
   TaskStatusesQueryVariables,
 } from "gql/generated/types";
-import { GET_TASK_STATUSES } from "gql/queries";
+import { TASK_STATUSES } from "gql/queries";
 import { usePolling } from "hooks";
 import { getCurrentStatuses } from "utils/statuses";
 
@@ -26,7 +26,7 @@ export const useTaskStatuses = ({
   const { data, refetch, startPolling, stopPolling } = useQuery<
     TaskStatusesQuery,
     TaskStatusesQueryVariables
-  >(GET_TASK_STATUSES, {
+  >(TASK_STATUSES, {
     variables: { id: versionId },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });

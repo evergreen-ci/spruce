@@ -15,7 +15,7 @@ import { size } from "constants/tokens";
 import { newSpruceUser } from "constants/welcomeModalProps";
 import { useAuthStateContext } from "context/auth";
 import { UserQuery, UserQueryVariables } from "gql/generated/types";
-import { GET_USER } from "gql/queries";
+import { USER } from "gql/queries";
 import { useUserSettings } from "hooks";
 import { useAnnouncementToast } from "hooks/useAnnouncementToast";
 import { isProduction } from "utils/environmentVariables";
@@ -33,7 +33,7 @@ export const Layout: React.FC = () => {
   // this top-level query is required for authentication to work
   // afterware is used at apollo link level to authenticate or deauthenticate user based on response to query
   // therefore this could be any query as long as it is top-level
-  const { data } = useQuery<UserQuery, UserQueryVariables>(GET_USER);
+  const { data } = useQuery<UserQuery, UserQueryVariables>(USER);
   localStorage.setItem("userId", data?.user?.userId ?? "");
   const { userSettings } = useUserSettings();
   const { useSpruceOptions } = userSettings ?? {};

@@ -7,7 +7,7 @@ import {
   GithubProjectConflictsQuery,
   GithubProjectConflictsQueryVariables,
 } from "gql/generated/types";
-import { GET_GITHUB_PROJECT_CONFLICTS } from "gql/queries";
+import { GITHUB_PROJECT_CONFLICTS } from "gql/queries";
 import { useProjectSettingsContext } from "pages/projectSettings/Context";
 import { BaseTab } from "../BaseTab";
 import { ProjectType } from "../utils";
@@ -45,7 +45,7 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
   const { data } = useQuery<
     GithubProjectConflictsQuery,
     GithubProjectConflictsQueryVariables
-  >(GET_GITHUB_PROJECT_CONFLICTS, {
+  >(GITHUB_PROJECT_CONFLICTS, {
     skip: projectType === ProjectType.Repo,
     variables: { projectId },
   });

@@ -5,7 +5,7 @@ import {
   TaskTestSampleQueryVariables,
   TaskTestResultSample,
 } from "gql/generated/types";
-import { GET_TASK_TEST_SAMPLE } from "gql/queries";
+import { TASK_TEST_SAMPLE } from "gql/queries";
 import { array } from "utils";
 import { useHistoryTable } from "../HistoryTableContext";
 import { rowType } from "../types";
@@ -35,7 +35,7 @@ const useTestResults = (rowIndex: number) => {
   const { loading } = useQuery<
     TaskTestSampleQuery,
     TaskTestSampleQueryVariables
-  >(GET_TASK_TEST_SAMPLE, {
+  >(TASK_TEST_SAMPLE, {
     variables: {
       tasks: taskIds,
       filters: historyTableFilters,

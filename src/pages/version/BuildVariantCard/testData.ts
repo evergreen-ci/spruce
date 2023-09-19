@@ -2,7 +2,7 @@ import {
   BuildVariantStatsQuery,
   BuildVariantStatsQueryVariables,
 } from "gql/generated/types";
-import { GET_BUILD_VARIANTS_STATS } from "gql/queries";
+import { BUILD_VARIANTS_STATS } from "gql/queries";
 import { ApolloMock } from "types/gql";
 
 const mocks: ApolloMock<
@@ -11,7 +11,7 @@ const mocks: ApolloMock<
 >[] = [
   {
     request: {
-      query: GET_BUILD_VARIANTS_STATS,
+      query: BUILD_VARIANTS_STATS,
       variables: { id: "version" },
     },
     result: {

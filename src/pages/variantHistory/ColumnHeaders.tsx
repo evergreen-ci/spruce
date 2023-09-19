@@ -9,7 +9,7 @@ import {
   TaskNamesForBuildVariantQuery,
   TaskNamesForBuildVariantQueryVariables,
 } from "gql/generated/types";
-import { GET_TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
+import { TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
 import { array, string } from "utils";
 import { reportError } from "utils/errorReporting";
 
@@ -35,7 +35,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
   const { data: columnData, loading } = useQuery<
     TaskNamesForBuildVariantQuery,
     TaskNamesForBuildVariantQueryVariables
-  >(GET_TASK_NAMES_FOR_BUILD_VARIANT, {
+  >(TASK_NAMES_FOR_BUILD_VARIANT, {
     variables: {
       projectIdentifier,
       buildVariant: variantName,

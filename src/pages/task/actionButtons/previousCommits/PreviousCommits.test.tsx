@@ -6,10 +6,7 @@ import {
   LastMainlineCommitQuery,
   LastMainlineCommitQueryVariables,
 } from "gql/generated/types";
-import {
-  GET_BASE_VERSION_AND_TASK,
-  GET_LAST_MAINLINE_COMMIT,
-} from "gql/queries";
+import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
 import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { PreviousCommits } from ".";
@@ -19,8 +16,8 @@ const select = { name: "Previous commits for this task" };
 
 describe("previous commits", () => {
   // Patch and mainline commit behavior only have a significant difference when it comes to determining
-  // the base or previous task. Patch gets the base task directly from GET_BASE_VERSION_AND_TASK, while
-  // mainline commits needs to run another query GET_LAST_MAINLINE_COMMIT to get previous task.
+  // the base or previous task. Patch gets the base task directly from BASE_VERSION_AND_TASK, while
+  // mainline commits needs to run another query LAST_MAINLINE_COMMIT to get previous task.
   describe("patch specific", () => {
     it("the GO button is disabled when there is no base task", async () => {
       const { Component } = RenderFakeToastContext(
@@ -244,7 +241,7 @@ const getPatchTaskWithSuccessfulBaseTask: ApolloMock<
   BaseVersionAndTaskQueryVariables
 > = {
   request: {
-    query: GET_BASE_VERSION_AND_TASK,
+    query: BASE_VERSION_AND_TASK,
     variables: {
       taskId: "t1",
     },
@@ -284,7 +281,7 @@ const getPatchTaskWithRunningBaseTask: ApolloMock<
   BaseVersionAndTaskQueryVariables
 > = {
   request: {
-    query: GET_BASE_VERSION_AND_TASK,
+    query: BASE_VERSION_AND_TASK,
     variables: {
       taskId: "t3",
     },
@@ -324,7 +321,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
   BaseVersionAndTaskQueryVariables
 > = {
   request: {
-    query: GET_BASE_VERSION_AND_TASK,
+    query: BASE_VERSION_AND_TASK,
     variables: {
       taskId: "t1",
     },
@@ -364,7 +361,7 @@ const getPatchTaskWithNoBaseVersion: ApolloMock<
   BaseVersionAndTaskQueryVariables
 > = {
   request: {
-    query: GET_BASE_VERSION_AND_TASK,
+    query: BASE_VERSION_AND_TASK,
     variables: {
       taskId: "t3",
     },
@@ -394,7 +391,7 @@ const getLastPassingVersion: ApolloMock<
   LastMainlineCommitQueryVariables
 > = {
   request: {
-    query: GET_LAST_MAINLINE_COMMIT,
+    query: LAST_MAINLINE_COMMIT,
     variables: {
       projectIdentifier: "evergreen",
       skipOrderNumber: 3676,
@@ -441,7 +438,7 @@ const getLastExecutedVersion: ApolloMock<
   LastMainlineCommitQueryVariables
 > = {
   request: {
-    query: GET_LAST_MAINLINE_COMMIT,
+    query: LAST_MAINLINE_COMMIT,
     variables: {
       projectIdentifier: "evergreen",
       skipOrderNumber: 3676,
@@ -499,7 +496,7 @@ const getPatchTaskWithNoBaseTask: ApolloMock<
   BaseVersionAndTaskQueryVariables
 > = {
   request: {
-    query: GET_BASE_VERSION_AND_TASK,
+    query: BASE_VERSION_AND_TASK,
     variables: {
       taskId: "t1",
     },
@@ -535,7 +532,7 @@ const getMainlineTaskWithBaseVersion: ApolloMock<
   BaseVersionAndTaskQueryVariables
 > = {
   request: {
-    query: GET_BASE_VERSION_AND_TASK,
+    query: BASE_VERSION_AND_TASK,
     variables: {
       taskId: "t4",
     },
@@ -570,7 +567,7 @@ const getNullParentTask: ApolloMock<
   LastMainlineCommitQueryVariables
 > = {
   request: {
-    query: GET_LAST_MAINLINE_COMMIT,
+    query: LAST_MAINLINE_COMMIT,
     variables: {
       projectIdentifier: "evergreen",
       skipOrderNumber: 3676,
@@ -589,7 +586,7 @@ const getParentTaskWithError: ApolloMock<
   LastMainlineCommitQueryVariables
 > = {
   request: {
-    query: GET_LAST_MAINLINE_COMMIT,
+    query: LAST_MAINLINE_COMMIT,
     variables: {
       projectIdentifier: "evergreen",
       skipOrderNumber: 3676,

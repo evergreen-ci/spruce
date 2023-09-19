@@ -6,7 +6,7 @@ import {
   PatchQueryVariables,
   TaskSortCategory,
 } from "gql/generated/types";
-import { GET_PATCH } from "gql/queries";
+import { PATCH } from "gql/queries";
 
 type Action =
   | { name: "Filter Tasks"; filterBy: string }
@@ -49,13 +49,10 @@ type Action =
   | { name: "Open Schedule Tasks Modal" };
 
 export const usePatchAnalytics = (id: string) => {
-  const { data: eventData } = useQuery<PatchQuery, PatchQueryVariables>(
-    GET_PATCH,
-    {
-      variables: { id },
-      fetchPolicy: "cache-first",
-    }
-  );
+  const { data: eventData } = useQuery<PatchQuery, PatchQueryVariables>(PATCH, {
+    variables: { id },
+    fetchPolicy: "cache-first",
+  });
   const { status } = eventData?.patch || {};
 
   return useAnalyticsRoot<Action>("Patch", {

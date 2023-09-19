@@ -29,7 +29,7 @@ import {
   MainlineCommitsQueryVariables,
   ProjectHealthView,
 } from "gql/generated/types";
-import { GET_MAINLINE_COMMITS, SPRUCE_CONFIG } from "gql/queries";
+import { MAINLINE_COMMITS, SPRUCE_CONFIG } from "gql/queries";
 import {
   usePageTitle,
   usePolling,
@@ -129,7 +129,7 @@ const Commits = () => {
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
-  >(GET_MAINLINE_COMMITS, {
+  >(MAINLINE_COMMITS, {
     skip: !projectIdentifier || isResizing,
     fetchPolicy: "cache-and-network",
     variables,

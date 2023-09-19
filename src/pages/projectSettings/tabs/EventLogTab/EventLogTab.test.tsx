@@ -6,7 +6,7 @@ import {
   ProjectHealthView,
   MergeQueue,
 } from "gql/generated/types";
-import { GET_PROJECT_EVENT_LOGS } from "gql/queries";
+import { PROJECT_EVENT_LOGS } from "gql/queries";
 import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { ProjectType } from "../utils";
@@ -59,7 +59,7 @@ const mock = (
   limit: number = 15
 ): ApolloMock<ProjectEventLogsQuery, ProjectEventLogsQueryVariables> => ({
   request: {
-    query: GET_PROJECT_EVENT_LOGS,
+    query: PROJECT_EVENT_LOGS,
     variables: {
       identifier: "spruce",
       limit,

@@ -14,7 +14,7 @@ import {
   MyHostsQueryVariables,
 } from "gql/generated/types";
 import { UPDATE_SPAWN_HOST_STATUS } from "gql/mutations";
-import { GET_MY_HOSTS } from "gql/queries";
+import { MY_HOSTS } from "gql/queries";
 import { usePolling } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
@@ -27,13 +27,13 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   const canTerminate = host.status !== HostStatus.Terminated;
 
   // When the UPDATE_SPAWN_HOST_STATUS mutation occurs the host state is not immediately updated, It gets updated a few seconds later.
-  // Since the GET_MY_HOSTS query on this components parent polls at a slower rate, this component triggers a poll at a faster interval for that
+  // Since the MY_HOSTS query on this components parent polls at a slower rate, this component triggers a poll at a faster interval for that
   // query when it returns an updated host status the polling is halted. This allows the query to poll slowly and not utilize unnecessary bandwith
   // except when an action is performed and we need to fetch updated data.
   const [getMyHosts, { refetch, startPolling, stopPolling }] = useLazyQuery<
     MyHostsQuery,
     MyHostsQueryVariables
-  >(GET_MY_HOSTS, {
+  >(MY_HOSTS, {
     pollInterval: 3000,
     onError: (e) => {
       dispatchToast.error(

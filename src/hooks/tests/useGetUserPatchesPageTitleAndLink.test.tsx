@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { OtherUserQuery, OtherUserQueryVariables } from "gql/generated/types";
-import { GET_OTHER_USER } from "gql/queries";
+import { OTHER_USER } from "gql/queries";
 import { useGetUserPatchesPageTitleAndLink } from "hooks";
 import { renderHook, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
@@ -8,7 +8,7 @@ import { ApolloMock } from "types/gql";
 const mocks: ApolloMock<OtherUserQuery, OtherUserQueryVariables>[] = [
   {
     request: {
-      query: GET_OTHER_USER,
+      query: OTHER_USER,
       variables: {
         userId: "admin",
       },
@@ -26,7 +26,7 @@ const mocks: ApolloMock<OtherUserQuery, OtherUserQueryVariables>[] = [
   },
   {
     request: {
-      query: GET_OTHER_USER,
+      query: OTHER_USER,
       variables: {
         userId: "justin.mathew",
       },
@@ -44,7 +44,7 @@ const mocks: ApolloMock<OtherUserQuery, OtherUserQueryVariables>[] = [
   },
   {
     request: {
-      query: GET_OTHER_USER,
+      query: OTHER_USER,
       variables: {
         userId: "justin.mathews",
       },

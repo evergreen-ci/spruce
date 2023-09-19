@@ -8,7 +8,7 @@ import {
   TaskSortCategory,
   TestSortCategory,
 } from "gql/generated/types";
-import { GET_TASK } from "gql/queries";
+import { TASK } from "gql/queries";
 import { CommitType } from "pages/task/actionButtons/previousCommits/types";
 import { RequiredQueryParams, LogTypes } from "types/task";
 import { queryString } from "utils";
@@ -71,13 +71,10 @@ export const useTaskAnalytics = () => {
 
   const parsed = parseQueryString(location.search);
   const execution = Number(parsed[RequiredQueryParams.Execution]);
-  const { data: eventData } = useQuery<TaskQuery, TaskQueryVariables>(
-    GET_TASK,
-    {
-      variables: { taskId: id, execution },
-      fetchPolicy: "cache-first",
-    }
-  );
+  const { data: eventData } = useQuery<TaskQuery, TaskQueryVariables>(TASK, {
+    variables: { taskId: id, execution },
+    fetchPolicy: "cache-first",
+  });
 
   const {
     failedTestCount,

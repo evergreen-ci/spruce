@@ -9,7 +9,7 @@ import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
 import { size } from "constants/tokens";
 import { UserConfigQuery, UserConfigQueryVariables } from "gql/generated/types";
-import { GET_USER_CONFIG } from "gql/queries";
+import { USER_CONFIG } from "gql/queries";
 import { request } from "utils";
 
 const { post } = request;
@@ -18,7 +18,7 @@ export const AuthenticationCard = () => {
   const { data, loading, refetch } = useQuery<
     UserConfigQuery,
     UserConfigQueryVariables
-  >(GET_USER_CONFIG);
+  >(USER_CONFIG);
   const { sendEvent } = usePreferencesAnalytics();
   if (loading) {
     return <Skeleton active paragraph={{ rows: 6 }} />;
