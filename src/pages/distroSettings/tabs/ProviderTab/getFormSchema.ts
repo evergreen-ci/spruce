@@ -1,16 +1,27 @@
 import { css } from "@emotion/react";
 import { GetFormSchema } from "components/SpruceForm";
-import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
+import {
+  CardFieldTemplate,
+  AccordionFieldTemplate,
+} from "components/SpruceForm/FieldTemplates";
 import { STANDARD_FIELD_WIDTH } from "components/SpruceForm/utils";
 import { Provider, ContainerPool } from "gql/generated/types";
-import { dockerProviderSettings, staticProviderSettings } from "./schemaFields";
+import {
+  dockerProviderSettings,
+  staticProviderSettings,
+  ec2FleetProviderSettings,
+} from "./schemaFields";
 
 export const getFormSchema = ({
+  awsRegions,
+  fleetRegions,
   poolMappingInfo,
   pools,
 }: {
+  awsRegions: string[];
   poolMappingInfo: string;
   pools: ContainerPool[];
+  fleetRegions: string[];
 }): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -103,6 +114,38 @@ export const getFormSchema = ({
               },
             },
           },
+          {
+            properties: {
+              provider: {
+                properties: {
+                  providerName: {
+                    enum: [Provider.Ec2Fleet],
+                  },
+                },
+              },
+              ec2FleetProviderSettings: {
+                type: "array" as "array",
+                minItems: 1,
+                title: "",
+                items: {
+                  type: "object" as "object",
+                  properties: {
+                    region: {
+                      type: "string" as "string",
+                      title: "Region",
+                      default: "",
+                      oneOf: awsRegions.map((r) => ({
+                        type: "string" as "string",
+                        title: r,
+                        enum: [r],
+                      })),
+                    },
+                    ...ec2FleetProviderSettings,
+                  },
+                },
+              },
+            },
+          },
         ],
       },
     },
@@ -157,6 +200,66 @@ export const getFormSchema = ({
         "ui:placeholder": poolMappingInfo,
         "ui:elementWrapperCSS": poolMappingInfoCss,
         "ui:readonly": true,
+      },
+    },
+    ec2FleetProviderSettings: {
+      "ui:data-cy": "ec2-fleet-provider-settings",
+      "ui:addable": awsRegions.length !== fleetRegions.length,
+      "ui:addButtonText": "Add region settings",
+      "ui:orderable": false,
+      "ui:useExpandableCard": true,
+      items: {
+        "ui:displayTitle": "New AWS Region",
+        userData: {
+          "ui:widget": "textarea",
+          "ui:elementWrapperCSS": textAreaCSS,
+        },
+        securityGroups: {
+          "ui:addButtonText": "Add security group",
+          "ui:orderable": false,
+        },
+        region: {
+          "ui:data-cy": "region-select",
+          "ui:allowDeselect": false,
+          "ui:enumDisabled": fleetRegions,
+        },
+        amiId: {
+          "ui:placeholder": "e.g. ami-1ecba176",
+        },
+        instanceType: {
+          "ui:description": "EC2 instance type for the AMI. Must be available.",
+          "ui:placeholder": "e.g. t1.micro",
+        },
+        fleetOptions: {
+          fleetInstanceType: {
+            "ui:allowDeselect": false,
+          },
+          useCapacityOptimization: {
+            "ui:data-cy": "use-capacity-optimization",
+          },
+        },
+        vpcOptions: {
+          useVpc: {
+            "ui:data-cy": "use-vpc",
+          },
+          subnetId: {
+            "ui:placeholder": "e.g. subnet-xxxx",
+          },
+          subnetPrefix: {
+            "ui:description":
+              "Will look for subnets like <prefix>.subnet_1a, <prefix>.subnet_1b, etc.",
+          },
+        },
+        mountPoints: {
+          "ui:data-cy": "mount-points",
+          "ui:addButtonText": "Add mount point",
+          "ui:orderable": true,
+          "ui:topAlignDelete": true,
+          items: {
+            "ui:ObjectFieldTemplate": AccordionFieldTemplate,
+            "ui:numberedTitle": "Mount Point",
+          },
+        },
       },
     },
   },
