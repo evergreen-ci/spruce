@@ -839,6 +839,7 @@ export type IssueLinkInput = {
 
 export type JiraConfig = {
   __typename?: "JiraConfig";
+  email?: Maybe<Scalars["String"]["output"]>;
   host?: Maybe<Scalars["String"]["output"]>;
 };
 
