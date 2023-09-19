@@ -1,6 +1,6 @@
 import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 
-type Action = { name: "Triggered Konami Code" };
+type Action = { name: "2024 Boilerplate!" };
 
 export const useAprilFoolsAnalytics = () =>
   useAnalyticsRoot<Action>("April Fools");
