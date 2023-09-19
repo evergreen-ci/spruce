@@ -14,13 +14,9 @@ import {
   TableControlInnerRow,
   TableControlOuterRow,
 } from "./Layout";
+import { ShortenedRouterLink, StyledLink, StyledRouterLink } from "./Link";
 import { SideNav, SideNavGroup, SideNavItem } from "./SideNav";
 import { SiderCard } from "./SiderCard";
-import {
-  ShortenedRouterLink,
-  StyledLink,
-  StyledRouterLink,
-} from "./StyledLink";
 import { WordBreak, wordBreakCss } from "./Typography";
 
 export {

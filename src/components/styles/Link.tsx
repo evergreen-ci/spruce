@@ -7,13 +7,7 @@ export const StyledLink = (props) => (
   <LGLink
     hideExternalIcon
     css={css`
-      // TODO: Remove when fixed: https://jira.mongodb.org/browse/EVG-18183
-
-      // Override LG's fixed 13px line height
-      line-height: inherit;
-
-      // Override LeafyGreen's font-size declaration for Link
-      font-size: inherit;
+      // Override LeafyGreen's font-weight declaration for Link
       font-weight: inherit;
     `}
     {...props}
