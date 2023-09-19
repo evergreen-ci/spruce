@@ -81,7 +81,7 @@ describe("host section", () => {
       cy.contains("Resource Limits").should("not.exist");
     });
 
-    it.only("saves bootstrap settings", () => {
+    it("saves bootstrap settings", () => {
       cy.getInputByLabel("Jasper Binary Directory").type("/jasper/binary");
       cy.getInputByLabel("Jasper Credentials Path").type("/jasper/credentials");
       cy.getInputByLabel("Client Directory").type("/client/dir");
@@ -120,10 +120,11 @@ describe("host section", () => {
       cy.getInputByLabel("Virtual Memory (kB)").clear();
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("delete-item-button").first().click();
+
+      cy.dataCy("save-settings-button").scrollIntoView();
       cy.selectLGOption("Host Bootstrap Method", "Legacy SSH");
       cy.selectLGOption("Host Communication Method", "Legacy SSH");
 
-      cy.dataCy("save-settings-button").scrollIntoView();
       save();
       cy.validateToast("success");
     });
