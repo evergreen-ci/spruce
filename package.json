@@ -54,7 +54,7 @@
     "extends": "react-app"
   },
   "dependencies": {
-    "@apollo/client": "3.6.9",
+    "@apollo/client": "3.8.4",
     "@bugsnag/js": "7.20.2",
     "@bugsnag/plugin-react": "7.18.0",
     "@emotion/css": "11.11.2",
