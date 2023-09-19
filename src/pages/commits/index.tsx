@@ -29,7 +29,7 @@ import {
   MainlineCommitsQueryVariables,
   ProjectHealthView,
 } from "gql/generated/types";
-import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
+import { GET_MAINLINE_COMMITS, SPRUCE_CONFIG } from "gql/queries";
 import {
   usePageTitle,
   usePolling,
@@ -77,7 +77,7 @@ const Commits = () => {
   const { data: spruceData } = useQuery<
     SpruceConfigQuery,
     SpruceConfigQueryVariables
-  >(GET_SPRUCE_CONFIG, {
+  >(SPRUCE_CONFIG, {
     skip: !!projectIdentifier || !!recentlySelectedProject,
   });
 

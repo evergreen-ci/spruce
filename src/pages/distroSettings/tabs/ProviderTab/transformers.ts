@@ -1,25 +1,28 @@
 import { DistroSettingsTabRoutes } from "constants/routes";
 import { Provider } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { staticProviderSettings } from "./transformerUtils";
+import { gqlProviderSettings, formProviderSettings } from "./transformerUtils";
 
 type Tab = DistroSettingsTabRoutes.Provider;
 
 export const gqlToForm = ((data) => {
   if (!data) return null;
 
-  const { provider, providerSettingsList } = data;
+  const { containerPool, provider, providerSettingsList } = data;
 
-  switch (provider) {
-    case Provider.Static:
-    default:
-      return {
-        provider: {
-          providerName: Provider.Static,
-        },
-        ...staticProviderSettings(providerSettingsList[0]).form,
-      };
-  }
+  return {
+    provider: {
+      providerName: provider,
+    },
+    staticProviderSettings: {
+      ...formProviderSettings(providerSettingsList[0]).staticProviderSettings,
+    },
+    dockerProviderSettings: {
+      ...formProviderSettings(providerSettingsList[0]).dockerProviderSettings,
+      containerPoolId: containerPool,
+      poolMappingInfo: "",
+    },
+  };
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((data, distro) => {
@@ -28,13 +31,30 @@ export const formToGql = ((data, distro) => {
   } = data;
 
   switch (providerName) {
-    case Provider.Static: {
+    case Provider.Static:
       return {
         ...distro,
-        provider: providerName,
-        ...staticProviderSettings(data.providerSettings).gql,
+        provider: Provider.Static,
+        providerSettingsList: [
+          {
+            ...gqlProviderSettings(data.staticProviderSettings)
+              .staticProviderSettings,
+          },
+        ],
+        containerPool: "",
       };
-    }
+    case Provider.Docker:
+      return {
+        ...distro,
+        provider: Provider.Docker,
+        providerSettingsList: [
+          {
+            ...gqlProviderSettings(data.dockerProviderSettings)
+              .dockerProviderSettings,
+          },
+        ],
+        containerPool: data.dockerProviderSettings.containerPoolId,
+      };
     default:
       return distro;
   }

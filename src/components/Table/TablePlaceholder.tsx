@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
-import { glyphs } from "@leafygreen-ui/icon";
 import { palette } from "@leafygreen-ui/palette";
-import Icon from "components/Icon";
+import Icon, { glyphs } from "components/Icon";
 import { size } from "constants/tokens";
 
 const { gray } = palette;

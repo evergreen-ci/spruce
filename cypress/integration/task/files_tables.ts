@@ -5,21 +5,21 @@ describe("files table", () => {
 
   it("File names under name column should link to a new tab", () => {
     cy.visit(FILES_ROUTE);
-    cy.dataCy("fileLink").should("have.attr", "target", "_blank");
+    cy.dataCy("file-link").should("have.attr", "target", "_blank");
   });
 
   it("Searching for a non existent value yields 0 results, tables will not render and will display 'No files found'", () => {
     cy.visit(FILES_ROUTE);
-    cy.dataCy("file-input").type("Hello world");
+    cy.dataCy("file-search-input").type("Hello world");
     cy.dataCy("files-table").should("not.exist");
-    cy.dataCy("fileLink").should("not.exist");
+    cy.dataCy("file-link").should("not.exist");
     cy.contains("No files found");
   });
 
   it("Searching for a value yields results across multiple tables", () => {
     cy.visit(FILES_ROUTE);
-    cy.dataCy("file-input").type("458");
-    cy.dataCy("fileLink").should("have.length", 4);
+    cy.dataCy("file-search-input").type("458");
+    cy.dataCy("file-link").should("have.length", 4);
   });
 
   it("Should display 'No files found' after loading a task without files", () => {

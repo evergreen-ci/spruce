@@ -7815,42 +7815,6 @@ export type RepoSettingsQuery = {
   };
 };
 
-export type SpruceConfigQueryVariables = Exact<{ [key: string]: never }>;
-
-export type SpruceConfigQuery = {
-  __typename?: "Query";
-  spruceConfig?: {
-    __typename?: "SpruceConfig";
-    banner?: string | null;
-    bannerTheme?: string | null;
-    jira?: { __typename?: "JiraConfig"; host?: string | null } | null;
-    keys: Array<{ __typename?: "SSHKey"; location: string; name: string }>;
-    providers?: {
-      __typename?: "CloudProviderConfig";
-      aws?: {
-        __typename?: "AWSConfig";
-        maxVolumeSizePerUser?: number | null;
-        pod?: {
-          __typename?: "AWSPodConfig";
-          ecs?: {
-            __typename?: "ECSConfig";
-            maxCPU: number;
-            maxMemoryMb: number;
-          } | null;
-        } | null;
-      } | null;
-    } | null;
-    slack?: { __typename?: "SlackConfig"; name?: string | null } | null;
-    spawnHost: {
-      __typename?: "SpawnHostConfig";
-      spawnHostsPerUser: number;
-      unexpirableHostsPerUser: number;
-      unexpirableVolumesPerUser: number;
-    };
-    ui?: { __typename?: "UIConfig"; defaultProject: string } | null;
-  } | null;
-};
-
 export type SystemLogsQueryVariables = Exact<{
   id: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;
@@ -8315,6 +8279,7 @@ export type UserQuery = {
     displayName: string;
     emailAddress: string;
     userId: string;
+    permissions: { __typename?: "Permissions"; canEditAdminSettings: boolean };
   };
 };
 
@@ -8674,6 +8639,52 @@ export type SpawnTaskQuery = {
       id: string;
       spawnHostScriptPath: string;
     } | null;
+  } | null;
+};
+
+export type SpruceConfigQueryVariables = Exact<{ [key: string]: never }>;
+
+export type SpruceConfigQuery = {
+  __typename?: "Query";
+  spruceConfig?: {
+    __typename?: "SpruceConfig";
+    banner?: string | null;
+    bannerTheme?: string | null;
+    containerPools?: {
+      __typename?: "ContainerPoolsConfig";
+      pools: Array<{
+        __typename?: "ContainerPool";
+        distro: string;
+        id: string;
+        maxContainers: number;
+        port: number;
+      }>;
+    } | null;
+    jira?: { __typename?: "JiraConfig"; host?: string | null } | null;
+    keys: Array<{ __typename?: "SSHKey"; location: string; name: string }>;
+    providers?: {
+      __typename?: "CloudProviderConfig";
+      aws?: {
+        __typename?: "AWSConfig";
+        maxVolumeSizePerUser?: number | null;
+        pod?: {
+          __typename?: "AWSPodConfig";
+          ecs?: {
+            __typename?: "ECSConfig";
+            maxCPU: number;
+            maxMemoryMb: number;
+          } | null;
+        } | null;
+      } | null;
+    } | null;
+    slack?: { __typename?: "SlackConfig"; name?: string | null } | null;
+    spawnHost: {
+      __typename?: "SpawnHostConfig";
+      spawnHostsPerUser: number;
+      unexpirableHostsPerUser: number;
+      unexpirableVolumesPerUser: number;
+    };
+    ui?: { __typename?: "UIConfig"; defaultProject: string } | null;
   } | null;
 };
 

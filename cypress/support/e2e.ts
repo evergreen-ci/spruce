@@ -114,6 +114,12 @@ declare global {
         message?: string,
         shouldClose?: boolean
       ): void;
+      /**
+       * Custom command to overwrite a GQL response
+       * @param operationName - The operation name of the query
+       * @param body - The replacement response body
+       */
+      overwriteGQL(operationName: string, body: any);
     }
   }
 }

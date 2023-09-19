@@ -13,7 +13,7 @@ import { getCommitsRoute, getUserPatchesRoute, routes } from "constants/routes";
 import { size } from "constants/tokens";
 import { useAuthStateContext } from "context/auth";
 import { UserQuery, SpruceConfigQuery } from "gql/generated/types";
-import { GET_USER, GET_SPRUCE_CONFIG } from "gql/queries";
+import { GET_USER, SPRUCE_CONFIG } from "gql/queries";
 import { useLegacyUIURL } from "hooks";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
 import { UserDropdown } from "./UserDropdown";
@@ -43,7 +43,7 @@ export const Navbar: React.FC = () => {
 
   const currProject = projectFromUrl ?? Cookies.get(CURRENT_PROJECT);
 
-  const { data: configData } = useQuery<SpruceConfigQuery>(GET_SPRUCE_CONFIG, {
+  const { data: configData } = useQuery<SpruceConfigQuery>(SPRUCE_CONFIG, {
     skip: currProject !== undefined,
   });
 

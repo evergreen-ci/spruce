@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.137",
+  "version": "3.0.138",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -21,7 +21,7 @@
     "deploy:prod": "env-cmd -e production ts-node scripts/deploy/run-deploy",
     "deploy:do-not-use": ". ./scripts/deploy/deploy.sh",
     "dev": "env-cmd -e devLocal -r .env-cmdrc.local.json yarn start",
-    "diff-schema": "ts-node scripts/diff-local-schema-with-remote/index.ts",
+    "check-schema-and-codegen": "ts-node scripts/check-schema-and-codegen/script.ts",
     "eslint:fix": "yarn eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint '*.{js,ts,tsx}' 'src/**/*.ts?(x)' 'scripts/**/*.js' 'cypress/**/*.ts' 'src/gql/**/*.graphql'",
@@ -90,6 +90,7 @@
     "@leafygreen-ui/segmented-control": "8.2.6",
     "@leafygreen-ui/select": "10.2.0",
     "@leafygreen-ui/side-nav": "13.0.2",
+    "@leafygreen-ui/skeleton-loader": "1.1.0",
     "@leafygreen-ui/table": "10.0.1",
     "@leafygreen-ui/table/new": "npm:@leafygreen-ui/table@12.0.10",
     "@leafygreen-ui/tabs": "11.0.4",
