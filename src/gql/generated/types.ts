@@ -8102,7 +8102,7 @@ export type TaskFilesQuery = {
     __typename?: "Task";
     execution: number;
     id: string;
-    taskFiles: {
+    files: {
       __typename?: "TaskFiles";
       fileCount: number;
       groupedFiles: Array<{
@@ -8391,6 +8391,7 @@ export type TaskQuery = {
       id: string;
       status: string;
     }> | null;
+    files: { __typename?: "TaskFiles"; fileCount: number };
     logs: {
       __typename?: "TaskLogLinks";
       agentLogLink?: string | null;
@@ -8401,7 +8402,6 @@ export type TaskQuery = {
     };
     pod?: { __typename?: "Pod"; id: string } | null;
     project?: { __typename?: "Project"; id: string; identifier: string } | null;
-    taskFiles: { __typename?: "TaskFiles"; fileCount: number };
     versionMetadata: {
       __typename?: "Version";
       author: string;

@@ -74,6 +74,9 @@ query Task($taskId: String!, $execution: Int) {
     }
     expectedDuration
     failedTestCount
+    files {
+      fileCount
+    }
     finishTime
     generatedBy
     generatedByName
@@ -103,9 +106,6 @@ query Task($taskId: String!, $execution: Int) {
     resetWhenFinished
     spawnHostLink
     startTime
-    taskFiles {
-      fileCount
-    }
     timeTaken
     totalTestCount
     versionMetadata {
