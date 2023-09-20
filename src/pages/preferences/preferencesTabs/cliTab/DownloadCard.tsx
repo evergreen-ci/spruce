@@ -21,14 +21,14 @@ import {
   ClientConfigQueryVariables,
   ClientBinary,
 } from "gql/generated/types";
-import { GET_CLIENT_CONFIG } from "gql/queries";
+import { CLIENT_CONFIG } from "gql/queries";
 import { CardType } from "types/leafygreen";
 
 export const DownloadCard = () => {
   const { data, loading } = useQuery<
     ClientConfigQuery,
     ClientConfigQueryVariables
-  >(GET_CLIENT_CONFIG);
+  >(CLIENT_CONFIG);
 
   if (loading) {
     return <Skeleton active paragraph={{ rows: 6 }} />;

@@ -6,7 +6,7 @@ import {
   MyVolumesQueryVariables,
 } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import { GET_MY_VOLUMES, GET_MY_HOSTS } from "gql/queries";
+import { MY_VOLUMES, MY_HOSTS } from "gql/queries";
 import { renderHook } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { useDisableSpawnExpirationCheckbox } from "..";
@@ -116,7 +116,7 @@ const myVolumesBase: Omit<
 };
 const myVolumesQueryMock: ApolloMock<MyVolumesQuery, MyVolumesQueryVariables> =
   {
-    request: { query: GET_MY_VOLUMES, variables: {} },
+    request: { query: MY_VOLUMES, variables: {} },
     result: {
       data: {
         myVolumes: [
@@ -239,7 +239,7 @@ const myHostBase: Omit<MyHostsQuery["myHosts"][0], "noExpiration" | "id"> = {
 };
 const myHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
   request: {
-    query: GET_MY_HOSTS,
+    query: MY_HOSTS,
     variables: {},
   },
   result: {

@@ -16,7 +16,7 @@ import {
   TestResult,
   TaskQuery,
 } from "gql/generated/types";
-import { GET_TASK_TESTS } from "gql/queries";
+import { TASK_TESTS } from "gql/queries";
 import {
   useUpdateURLQueryParams,
   usePolling,
@@ -106,7 +106,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
-  >(GET_TASK_TESTS, {
+  >(TASK_TESTS, {
     variables: queryVariables,
     skip: queryVariables.execution === null,
     pollInterval: DEFAULT_POLL_INTERVAL,

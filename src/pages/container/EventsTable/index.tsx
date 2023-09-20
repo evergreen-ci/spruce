@@ -19,7 +19,7 @@ import { SiderCard, TableControlInnerRow } from "components/styles";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import { PodEventsQuery, PodEventsQueryVariables } from "gql/generated/types";
-import { GET_POD_EVENTS } from "gql/queries";
+import { POD_EVENTS } from "gql/queries";
 import { useDateFormat } from "hooks";
 import { url } from "utils";
 import { getEventCopy } from "./util";
@@ -37,7 +37,7 @@ const EventsTable: React.FC<{}> = () => {
   const { data: podEventsData } = useQuery<
     PodEventsQuery,
     PodEventsQueryVariables
-  >(GET_POD_EVENTS, {
+  >(POD_EVENTS, {
     variables: { id, page, limit },
     onError: (err) => {
       dispatchToast.error(

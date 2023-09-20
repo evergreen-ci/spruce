@@ -7,7 +7,7 @@ import {
   TaskTestSampleQuery,
   TaskTestSampleQueryVariables,
 } from "gql/generated/types";
-import { GET_TASK_TEST_SAMPLE } from "gql/queries";
+import { TASK_TEST_SAMPLE } from "gql/queries";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -335,7 +335,7 @@ const noFilterData: ApolloMock<
   TaskTestSampleQueryVariables
 > = {
   request: {
-    query: GET_TASK_TEST_SAMPLE,
+    query: TASK_TEST_SAMPLE,
     variables: {
       tasks: [
         "some_id_1",
@@ -369,7 +369,7 @@ const withMatchingFilter: ApolloMock<
   TaskTestSampleQueryVariables
 > = {
   request: {
-    query: GET_TASK_TEST_SAMPLE,
+    query: TASK_TEST_SAMPLE,
     variables: {
       tasks: [
         "some_id_1",
@@ -405,7 +405,7 @@ const withNonMatchingFilter: ApolloMock<
   TaskTestSampleQueryVariables
 > = {
   request: {
-    query: GET_TASK_TEST_SAMPLE,
+    query: TASK_TEST_SAMPLE,
     variables: {
       tasks: [
         "some_id_1",

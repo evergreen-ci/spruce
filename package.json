@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.138",
+  "version": "3.0.140",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -54,11 +54,11 @@
     "extends": "react-app"
   },
   "dependencies": {
-    "@apollo/client": "3.6.9",
+    "@apollo/client": "3.8.4",
     "@bugsnag/js": "7.20.2",
     "@bugsnag/plugin-react": "7.18.0",
     "@emotion/css": "11.11.2",
-    "@emotion/react": "11.11.0",
+    "@emotion/react": "11.11.1",
     "@emotion/styled": "11.11.0",
     "@leafygreen-ui/badge": "8.0.2",
     "@leafygreen-ui/banner": "7.0.4",
@@ -100,7 +100,7 @@
     "@leafygreen-ui/toggle": "10.0.1",
     "@leafygreen-ui/tokens": "2.1.0",
     "@leafygreen-ui/tooltip": "10.0.10",
-    "@leafygreen-ui/typography": "16.4.1",
+    "@leafygreen-ui/typography": "17.0.1",
     "@rjsf/core": "4.2.3",
     "@sentry/react": "7.56.0",
     "@sentry/types": "7.56.0",
@@ -113,7 +113,7 @@
     "env-cmd": "10.1.0",
     "graphql": "16.6.0",
     "html-react-parser": "4.2.1",
-    "js-cookie": "3.0.1",
+    "js-cookie": "3.0.5",
     "linkify-html": "4.1.1",
     "linkifyjs": "4.1.0",
     "lodash.debounce": "4.0.8",
@@ -156,7 +156,7 @@
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
     "@types/jest": "29.4.0",
-    "@types/js-cookie": "^3.0.2",
+    "@types/js-cookie": "^3.0.4",
     "@types/lodash.debounce": "4.0.7",
     "@types/lodash.throttle": "^4.1.7",
     "@types/new-relic-browser": "0.1212.2",

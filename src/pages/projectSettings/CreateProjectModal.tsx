@@ -13,7 +13,7 @@ import {
   GithubOrgsQuery,
 } from "gql/generated/types";
 import { CREATE_PROJECT } from "gql/mutations";
-import { GET_GITHUB_ORGS } from "gql/queries";
+import { GITHUB_ORGS } from "gql/queries";
 import { projectId, projectName, requestS3Creds } from "./sharedFormSchema";
 
 interface Props {
@@ -42,7 +42,7 @@ export const CreateProjectModal: React.FC<Props> = ({
   });
   const [hasError, setHasError] = useState(true);
 
-  const { data: gitOrgs } = useQuery<GithubOrgsQuery>(GET_GITHUB_ORGS, {
+  const { data: gitOrgs } = useQuery<GithubOrgsQuery>(GITHUB_ORGS, {
     skip: !open,
   });
   const { spruceConfig: { githubOrgs = [] } = {} } = gitOrgs ?? {};

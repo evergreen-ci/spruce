@@ -8,7 +8,7 @@ import {
   RepoEventLogsQuery,
   RepoEventLogsQueryVariables,
 } from "gql/generated/types";
-import { GET_PROJECT_EVENT_LOGS, GET_REPO_EVENT_LOGS } from "gql/queries";
+import { PROJECT_EVENT_LOGS, REPO_EVENT_LOGS } from "gql/queries";
 
 export const useProjectSettingsEvents = (
   identifier: string,
@@ -24,7 +24,7 @@ export const useProjectSettingsEvents = (
     fetchMore: projectFetchMore,
     previousData: projectPreviousData,
   } = useQuery<ProjectEventLogsQuery, ProjectEventLogsQueryVariables>(
-    GET_PROJECT_EVENT_LOGS,
+    PROJECT_EVENT_LOGS,
     {
       variables: { identifier, limit },
       errorPolicy: "all",
@@ -42,7 +42,7 @@ export const useProjectSettingsEvents = (
     fetchMore: repoFetchMore,
     previousData: repoPreviousData,
   } = useQuery<RepoEventLogsQuery, RepoEventLogsQueryVariables>(
-    GET_REPO_EVENT_LOGS,
+    REPO_EVENT_LOGS,
     {
       variables: { id: identifier, limit },
       errorPolicy: "all",

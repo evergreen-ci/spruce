@@ -3,7 +3,7 @@ import {
   ProjectBannerQuery,
   ProjectBannerQueryVariables,
 } from "gql/generated/types";
-import { GET_PROJECT_BANNER } from "gql/queries";
+import { PROJECT_BANNER } from "gql/queries";
 import { PortalBanner } from "./PortalBanner";
 
 interface ProjectBannerProps {
@@ -15,7 +15,7 @@ export const ProjectBanner: React.FC<ProjectBannerProps> = ({
   const { data: projectBannerData } = useQuery<
     ProjectBannerQuery,
     ProjectBannerQueryVariables
-  >(GET_PROJECT_BANNER, {
+  >(PROJECT_BANNER, {
     variables: { identifier: projectIdentifier },
     skip: !projectIdentifier,
   });
