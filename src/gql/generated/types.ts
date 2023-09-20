@@ -7981,7 +7981,11 @@ export type SpruceConfigQuery = {
         port: number;
       }>;
     } | null;
-    jira?: { __typename?: "JiraConfig"; host?: string | null } | null;
+    jira?: {
+      __typename?: "JiraConfig";
+      email?: string | null;
+      host?: string | null;
+    } | null;
     keys: Array<{ __typename?: "SSHKey"; location: string; name: string }>;
     providers?: {
       __typename?: "CloudProviderConfig";
