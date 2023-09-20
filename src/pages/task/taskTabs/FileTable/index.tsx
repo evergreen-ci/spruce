@@ -30,9 +30,9 @@ const FileTable: React.FC<FileTableProps> = ({ execution, taskId }) => {
       },
     }
   );
-  const { taskFiles } = data?.task ?? {};
+  const { files } = data?.task ?? {};
 
-  const { groupedFiles = [] } = taskFiles ?? {};
+  const { groupedFiles = [] } = files ?? {};
   const filteredGroupedFiles = filterGroupedFiles(groupedFiles, search);
 
   // We only want to show the file group name if there are multiple file groups.

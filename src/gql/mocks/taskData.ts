@@ -79,7 +79,7 @@ export const taskQuery: TaskQuery = {
     spawnHostLink:
       "https://evergreen.mongodb.com/spawn?distro_id=ubuntu1604-small&task_id=spruce_ubuntu1604_e2e_test_patch_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_5f4889313627e0544660c800_20_08_28_04_33_55",
     status: "pending",
-    taskFiles: { __typename: "TaskFiles", fileCount: 38 },
+    files: { __typename: "TaskFiles", fileCount: 38 },
     totalTestCount: 0,
     versionMetadata: {
       __typename: "Version",
