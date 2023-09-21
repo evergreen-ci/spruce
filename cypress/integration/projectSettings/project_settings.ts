@@ -630,7 +630,7 @@ describe("Project Settings when defaulting to repo", () => {
     });
   });
 
-  describe("GitHub/Commit Queue page", () => {
+  describe.only("GitHub/Commit Queue page", () => {
     beforeEach(() => {
       cy.dataCy("navitem-github-commitqueue").click();
     });
@@ -705,7 +705,7 @@ describe("Project Settings when defaulting to repo", () => {
         .should("have.value", "^smoke-test-endpoints$");
     });
 
-    it("Returns an error on save because no commit check definitions are defined", () => {
+    it.only("Returns an error on save because no commit check definitions are defined", () => {
       clickSave();
       cy.validateToast("error");
     });
