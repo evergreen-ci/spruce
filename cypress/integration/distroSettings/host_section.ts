@@ -92,8 +92,8 @@ describe("host section", () => {
       cy.getInputByLabel("Number of Files").type("10");
       cy.getInputByLabel("Number of CGroup Tasks").type("20");
       cy.getInputByLabel("Number of Processes").type("30");
-      cy.getInputByLabel("Locked Memory (kB)").type("128");
-      cy.getInputByLabel("Virtual Memory (kB)").type("256");
+      cy.getInputByLabel("Locked Memory").type("128");
+      cy.getInputByLabel("Virtual Memory").type("256");
 
       cy.contains("button", "Add variable").click();
       cy.getInputByLabel("Key").type("my-key");
