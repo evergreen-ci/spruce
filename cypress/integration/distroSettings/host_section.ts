@@ -108,16 +108,6 @@ describe("host section", () => {
       cy.validateToast("success");
 
       // Reset fields
-      cy.getInputByLabel("Working Directory").clear();
-      cy.getInputByLabel("Jasper Credentials Path").clear();
-      cy.getInputByLabel("Client Directory").clear();
-      cy.getInputByLabel("Shell Path").clear();
-      cy.getInputByLabel("Home Volume Format Command").clear();
-      cy.getInputByLabel("Number of Files").clear();
-      cy.getInputByLabel("Number of CGroup Tasks").clear();
-      cy.getInputByLabel("Number of Processes").clear();
-      cy.getInputByLabel("Locked Memory (kB)").clear();
-      cy.getInputByLabel("Virtual Memory (kB)").clear();
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("delete-item-button").first().click();
 

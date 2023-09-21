@@ -6,6 +6,7 @@ import {
   CardFieldTemplate,
   FieldRow,
 } from "components/SpruceForm/FieldTemplates";
+import { size } from "constants/tokens";
 import { Arch, BootstrapMethod, Provider, SshKey } from "gql/generated/types";
 import {
   architectureToCopy,
@@ -62,6 +63,7 @@ export const getFormSchema = ({
             workDir: {
               type: "string" as "string",
               title: "Working Directory",
+              minLength: 1,
             },
             setupAsSudo: {
               type: "boolean" as "boolean",
@@ -73,7 +75,7 @@ export const getFormSchema = ({
             },
             userSpawnAllowed: {
               type: "boolean" as "boolean",
-              title: "Allow users to spawn these hosts for personal use",
+              title: "Spawnable",
             },
           },
           dependencies: {
@@ -107,8 +109,7 @@ export const getFormSchema = ({
                     userSpawnAllowed: { enum: [true] },
                     isVirtualWorkStation: {
                       type: "boolean" as "boolean",
-                      title:
-                        "Allow spawned hosts of this distro to be used as virtual workstations",
+                      title: "Virtual Workstations",
                     },
                   },
                   dependencies: {
@@ -196,6 +197,10 @@ export const getFormSchema = ({
             margin-bottom: 0;
           `,
         },
+        workDir: {
+          "ui:description":
+            "Absolute path in which the agent run tasks on the host machine",
+        },
         setupScript: {
           "ui:elementWrapperCSS": css`
             margin-top: -22px;
@@ -207,21 +212,71 @@ export const getFormSchema = ({
             "ui:disabled": true,
             "ui:tooltipDescription": "Static distros are not spawnable.",
           }),
+          "ui:description":
+            "Allow users to spawn these hosts for personal use.",
+          "ui:bold": true,
+        },
+        isVirtualWorkStation: {
+          "ui:description":
+            "Allow spawned hosts of this distro to be used as virtual workstations.",
+          "ui:bold": true,
+        },
+        icecreamSchedulerHost: {
+          "ui:elementWrapperCSS": indentCSS,
+        },
+        icecreamConfigPath: {
+          "ui:elementWrapperCSS": indentCSS,
         },
       },
       bootstrapSettings: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         serviceUser: {
+          "ui:description": "Username for setting up Evergreen services",
           // Only visible for Windows
           ...(!windowsArchitectures.includes(architecture) && {
             "ui:widget": "hidden",
           }),
+        },
+        jasperBinaryDir: {
+          "ui:description":
+            "Absolute native path to the directory containing the Jasper binary",
+        },
+        jasperCredentialsPath: {
+          "ui:description":
+            "Absolute native path to the directory containing the Jasper credentials",
+        },
+        clientDir: {
+          "ui:description":
+            "Absolute native path to the directory containing the evergreen binary",
+        },
+        shellPath: {
+          "ui:description":
+            "Absolute native path to the shell binary file (bash)",
         },
         resourceLimits: {
           // Only visible for Linux
           ...(!linuxArchitectures.includes(architecture) && {
             "ui:widget": "hidden",
           }),
+          numFiles: {
+            "ui:description":
+              "Max number of open file handles. Set -1 for unlimited.",
+          },
+          numProcesses: {
+            "ui:description": "Max number of processes. Set -1 for unlimited.",
+          },
+          numTasks: {
+            "ui:description":
+              "Max number of cgroup tasks (threads). Set -1 for unlimited.",
+          },
+          lockedMemory: {
+            "ui:description":
+              "Max size (kB) that can be locked into memory. Set -1 for unlimited.",
+          },
+          virtualMemory: {
+            "ui:description":
+              "Max size (kB) of available virtual memory. Set -1 for unlimited.",
+          },
         },
         env: {
           "ui:addButtonText": "Add variable",
@@ -245,7 +300,7 @@ export const getFormSchema = ({
             },
             script: {
               "ui:description":
-                "The precondition script that must run and succeed.",
+                "The precondition script that must run and succeed before Jasper can start.",
               "ui:widget": "textarea",
             },
           },
@@ -253,6 +308,9 @@ export const getFormSchema = ({
       },
       sshConfig: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
+        user: {
+          "ui:description": "Username with which to SSH into host machine",
+        },
         sshKey: {
           "ui:allowDeselect": false,
         },
@@ -262,9 +320,10 @@ export const getFormSchema = ({
         },
         sshOptions: {
           "ui:addButtonText": "Add SSH option",
-          "ui:descriptionNode": (
+          "ui:description": (
             <>
-              Option keywords supported by <InlineCode>ssh_config</InlineCode>.
+              Specify option keywords supported by{" "}
+              <InlineCode>ssh_config</InlineCode>.
             </>
           ),
           "ui:orderable": false,
@@ -297,10 +356,12 @@ export const getFormSchema = ({
         },
         acceptableHostIdleTime: {
           "ui:data-cy": "idle-time-input",
+          "ui:description": "Set 0 to use global default.",
           ...(!hasEC2Provider && { "ui:widget": "hidden" }),
         },
         futureHostFraction: {
           "ui:data-cy": "future-fraction-input",
+          "ui:description": "Set 0 to use global default.",
           ...(!hasEC2Provider && { "ui:widget": "hidden" }),
         },
       },
@@ -315,50 +376,66 @@ const bootstrapSettings = {
     jasperBinaryDir: {
       type: "string" as "string",
       title: "Jasper Binary Directory",
+      minLength: 1,
     },
     jasperCredentialsPath: {
       type: "string" as "string",
       title: "Jasper Credentials Path",
+      minLength: 1,
     },
     clientDir: {
       type: "string" as "string",
       title: "Client Directory",
+      minLength: 1,
     },
     shellPath: {
       type: "string" as "string",
       title: "Shell Path",
-    },
-    serviceUser: {
-      type: "string" as "string",
-      title: "Service User",
+      minLength: 1,
     },
     homeVolumeFormatCommand: {
       type: "string" as "string",
       title: "Home Volume Format Command",
     },
+    serviceUser: {
+      type: "string" as "string",
+      title: "Service User",
+    },
     resourceLimits: {
       type: "object" as "object",
       title: "Resource Limits",
+      required: [
+        "numFiles",
+        "numTasks",
+        "numProcesses",
+        "lockedMemoryKb",
+        "virtualMemoryKb",
+      ],
       properties: {
         numFiles: {
           type: "number" as "number",
           title: "Number of Files",
+          minimum: -1,
         },
         numTasks: {
           type: "number" as "number",
           title: "Number of CGroup Tasks",
+          minimum: -1,
         },
         numProcesses: {
           type: "number" as "number",
           title: "Number of Processes",
+          minimum: -1,
         },
         lockedMemoryKb: {
           type: "number" as "number",
-          title: "Locked Memory (kB)",
+          title: "Locked Memory",
+          minimum: -1,
         },
         virtualMemoryKb: {
           type: "number" as "number",
           title: "Virtual Memory (kB)",
+          minimum: -1,
         },
       },
     },
@@ -421,6 +498,7 @@ const sshConfig = (sshKeys: SshKey[]) => ({
     user: {
       type: "string" as "string",
       title: "SSH User",
+      minLength: 1,
     },
     sshKey: {
       type: "string" as "string",
@@ -451,6 +529,12 @@ const sshConfig = (sshKeys: SshKey[]) => ({
 const allocation = {
   type: "object" as "object",
   title: "Host Allocation",
+  required: [
+    "minimumHosts",
+    "maximumHosts",
+    "acceptableHostIdleTime",
+    "futureHostFraction",
+  ],
   properties: {
     version: {
       type: "string" as "string",
@@ -485,6 +569,7 @@ const allocation = {
     acceptableHostIdleTime: {
       type: "number" as "number",
       title: "Acceptable Host Idle Time (s)",
+      minimum: 0,
     },
     futureHostFraction: {
       type: "number" as "number",
@@ -494,3 +579,7 @@ const allocation = {
     },
   },
 };
+
+const indentCSS = css`
+  margin-left: ${size.m};
+`;

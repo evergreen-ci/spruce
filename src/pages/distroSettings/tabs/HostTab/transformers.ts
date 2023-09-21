@@ -90,12 +90,15 @@ export const formToGql = ((
     serviceUser: bootstrapSettings.serviceUser,
     shellPath: bootstrapSettings.shellPath,
   },
+  homeVolumeSettings: {
+    formatCommand: bootstrapSettings.homeVolumeFormatCommand,
+  },
+  hostAllocatorSettings: allocation,
   iceCreamSettings: {
     configPath: setup.icecreamConfigPath,
     schedulerHost: setup.icecreamSchedulerHost,
   },
   isVirtualWorkStation: setup.isVirtualWorkStation,
-  hostAllocatorSettings: allocation,
   setupAsSudo: setup.setupAsSudo,
   setup: setup.setupScript,
   sshKey: sshConfig.sshKey,
