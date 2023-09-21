@@ -14,7 +14,7 @@ import {
   AwsRegionsQuery,
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
-import { GET_AWS_REGIONS } from "gql/queries";
+import { AWS_REGIONS } from "gql/queries";
 import { useUserSettings } from "hooks";
 import { omitTypename } from "utils/string";
 
@@ -27,7 +27,7 @@ export const ProfileTab: React.FC = () => {
   const lastKnownAs = githubUser?.lastKnownAs || "";
 
   const { data: awsRegionData, loading: awsRegionLoading } =
-    useQuery<AwsRegionsQuery>(GET_AWS_REGIONS);
+    useQuery<AwsRegionsQuery>(AWS_REGIONS);
   const awsRegions = awsRegionData?.awsRegions || [];
 
   const [updateUserSettings, { loading: updateLoading }] = useMutation<

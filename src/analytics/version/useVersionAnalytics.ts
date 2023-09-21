@@ -6,7 +6,7 @@ import {
   VersionQueryVariables,
   TaskSortCategory,
 } from "gql/generated/types";
-import { GET_VERSION } from "gql/queries";
+import { VERSION } from "gql/queries";
 
 type Action =
   | { name: "Filter Tasks"; filterBy: string }
@@ -52,7 +52,7 @@ type Action =
 
 export const useVersionAnalytics = (id: string) => {
   const { data: eventData } = useQuery<VersionQuery, VersionQueryVariables>(
-    GET_VERSION,
+    VERSION,
     {
       variables: { id },
       fetchPolicy: "cache-first",

@@ -4,11 +4,11 @@ import { adminSettingsURL } from "constants/externalResources";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import { useAuthDispatchContext } from "context/auth";
 import { UserQuery } from "gql/generated/types";
-import { GET_USER } from "gql/queries";
+import { USER } from "gql/queries";
 import { MenuItemType, NavDropdown } from "./NavDropdown";
 
 export const UserDropdown = () => {
-  const { data } = useQuery<UserQuery>(GET_USER);
+  const { data } = useQuery<UserQuery>(USER);
   const { user } = data || {};
   const { displayName, permissions } = user || {};
 

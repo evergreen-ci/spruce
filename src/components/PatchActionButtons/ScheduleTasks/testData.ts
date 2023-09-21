@@ -2,7 +2,7 @@ import {
   UndispatchedTasksQuery,
   UndispatchedTasksQueryVariables,
 } from "gql/generated/types";
-import { GET_UNSCHEDULED_TASKS } from "gql/queries";
+import { UNSCHEDULED_TASKS } from "gql/queries";
 import { ApolloMock } from "types/gql";
 
 const mocks: ApolloMock<
@@ -11,7 +11,7 @@ const mocks: ApolloMock<
 >[] = [
   {
     request: {
-      query: GET_UNSCHEDULED_TASKS,
+      query: UNSCHEDULED_TASKS,
       variables: { versionId: "version" },
     },
     result: {
@@ -142,7 +142,7 @@ const mocks: ApolloMock<
   },
   {
     request: {
-      query: GET_UNSCHEDULED_TASKS,
+      query: UNSCHEDULED_TASKS,
       variables: { versionId: "emptyVersion" },
     },
     result: {

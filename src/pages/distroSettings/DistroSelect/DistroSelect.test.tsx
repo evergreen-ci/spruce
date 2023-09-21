@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { DistrosQuery, DistrosQueryVariables } from "gql/generated/types";
-import { GET_DISTROS } from "gql/queries";
+import { DISTROS } from "gql/queries";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -68,7 +68,7 @@ describe("distro select", () => {
 
 const distrosMock: ApolloMock<DistrosQuery, DistrosQueryVariables> = {
   request: {
-    query: GET_DISTROS,
+    query: DISTROS,
     variables: { onlySpawnable: false },
   },
   result: {

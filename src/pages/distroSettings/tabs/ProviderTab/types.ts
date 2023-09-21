@@ -1,18 +1,31 @@
 import { DistroQuery, Provider } from "gql/generated/types";
 
-interface StaticProviderFormState {
+export enum BuildType {
+  Import = "import",
+  Pull = "pull",
+}
+
+export type ProviderFormState = {
   provider: {
-    providerName: Provider.Static;
+    providerName: Provider;
   };
-  providerSettings: {
+  staticProviderSettings: {
     userData: string;
     mergeUserData: boolean;
     securityGroups: string[];
   };
-}
-
-// TODO: Append type with additional provider options, e.g. type ProviderFormState = StaticProviderFormState | DockerProviderFormState
-export type ProviderFormState = StaticProviderFormState;
+  dockerProviderSettings: {
+    imageUrl: string;
+    buildType: BuildType;
+    registryUsername: string;
+    registryPassword: string;
+    containerPoolId: string;
+    poolMappingInfo: string;
+    userData: string;
+    mergeUserData: boolean;
+    securityGroups: string[];
+  };
+};
 
 export type TabProps = {
   distro: DistroQuery["distro"];

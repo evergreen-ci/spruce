@@ -23,7 +23,7 @@ import {
   VersionTasksQuery,
   VersionTasksQueryVariables,
 } from "gql/generated/types";
-import { GET_VERSION_TASKS } from "gql/queries";
+import { VERSION_TASKS } from "gql/queries";
 import { usePolling, useTaskStatuses } from "hooks";
 import { PatchStatus } from "types/patch";
 import { queryString, string } from "utils";
@@ -139,7 +139,7 @@ export const DownstreamProjectAccordion: React.FC<
   const { data, refetch, startPolling, stopPolling } = useQuery<
     VersionTasksQuery,
     VersionTasksQueryVariables
-  >(GET_VERSION_TASKS, {
+  >(VERSION_TASKS, {
     variables,
     fetchPolicy: "cache-and-network",
     onError: (err) => {

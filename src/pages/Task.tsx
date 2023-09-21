@@ -15,7 +15,7 @@ import TaskStatusBadge from "components/TaskStatusBadge";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
 import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
-import { GET_TASK } from "gql/queries";
+import { TASK } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PageDoesNotExist } from "pages/404";
@@ -42,7 +42,7 @@ export const Task = () => {
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskQuery,
     TaskQueryVariables
-  >(GET_TASK, {
+  >(TASK, {
     variables: { taskId: id, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
     fetchPolicy: "network-only",

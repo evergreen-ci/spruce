@@ -20,7 +20,7 @@ import {
   SpawnTaskQueryVariables,
 } from "gql/generated/types";
 import { SPAWN_HOST } from "gql/mutations";
-import { GET_SPAWN_TASK } from "gql/queries";
+import { SPAWN_TASK } from "gql/queries";
 import { omit } from "utils/object";
 import { getString, parseQueryString } from "utils/queryString";
 
@@ -44,7 +44,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   const { data: spawnTaskData } = useQuery<
     SpawnTaskQuery,
     SpawnTaskQueryVariables
-  >(GET_SPAWN_TASK, {
+  >(SPAWN_TASK, {
     skip: !(taskIdQueryParam && distroIdQueryParam),
     variables: { taskId: taskIdQueryParam },
   });

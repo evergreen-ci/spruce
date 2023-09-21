@@ -5,7 +5,7 @@ import {
   IssuesQueryVariables,
   Annotation,
 } from "gql/generated/types";
-import { GET_JIRA_ISSUES } from "gql/queries";
+import { JIRA_ISSUES } from "gql/queries";
 import AnnotationTickets from "./AnnotationTickets";
 
 interface IssuesProps {
@@ -28,7 +28,7 @@ const Issues: React.FC<IssuesProps> = ({
   const dispatchToast = useToastContext();
   // Query Jira ticket data
   const { data, loading } = useQuery<IssuesQuery, IssuesQueryVariables>(
-    GET_JIRA_ISSUES,
+    JIRA_ISSUES,
     {
       variables: { taskId, execution },
       onError: (err) => {

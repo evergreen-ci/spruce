@@ -141,7 +141,6 @@ before(() => {
     cy.setCookie(bannerCookie, "true");
     cy.setCookie(CY_DISABLE_COMMITS_WELCOME_MODAL, "true");
     cy.setCookie(CY_DISABLE_NEW_USER_WELCOME_MODAL, "true");
-    cy.setCookie(konamiCookie, "true");
     cy.setCookie(SLACK_NOTIFICATION_BANNER, "true");
     mutationDispatched = false;
     cy.intercept("POST", "/graphql/query", (req) => {
@@ -160,4 +159,3 @@ before(() => {
 })();
 
 const bannerCookie = "This is an important notification";
-const konamiCookie = "seen-konami-code";

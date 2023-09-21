@@ -2,7 +2,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import { GET_MY_HOSTS } from "gql/queries";
+import { MY_HOSTS } from "gql/queries";
 import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { HostStatus } from "types/host";
@@ -142,7 +142,7 @@ const terminatedHost: MyHost = {
 
 const sixHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
   request: {
-    query: GET_MY_HOSTS,
+    query: MY_HOSTS,
     variables: {},
   },
   result: {
@@ -161,7 +161,7 @@ const sixHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
 
 const twoHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
   request: {
-    query: GET_MY_HOSTS,
+    query: MY_HOSTS,
     variables: {},
   },
   result: {
@@ -176,7 +176,7 @@ const fiveHostsWithTerminatedMock: ApolloMock<
   MyHostsQueryVariables
 > = {
   request: {
-    query: GET_MY_HOSTS,
+    query: MY_HOSTS,
     variables: {},
   },
   result: {

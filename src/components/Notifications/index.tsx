@@ -18,7 +18,7 @@ import {
   UserQuery,
 } from "gql/generated/types";
 import { SAVE_SUBSCRIPTION } from "gql/mutations";
-import { GET_USER } from "gql/queries";
+import { USER } from "gql/queries";
 import { useUserSettings } from "hooks/useUserSettings";
 import { SubscriptionMethodOption } from "types/subscription";
 import { Trigger } from "types/triggers";
@@ -65,7 +65,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   // Fetch user Slack and email information.
   const { userSettings } = useUserSettings();
   const { slackUsername } = userSettings || {};
-  const { data: userData } = useQuery<UserQuery>(GET_USER);
+  const { data: userData } = useQuery<UserQuery>(USER);
   const { user } = userData || {};
   const { emailAddress } = user || {};
 

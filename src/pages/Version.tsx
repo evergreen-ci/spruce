@@ -22,11 +22,7 @@ import {
   HasVersionQuery,
   HasVersionQueryVariables,
 } from "gql/generated/types";
-import {
-  GET_VERSION,
-  GET_IS_PATCH_CONFIGURED,
-  GET_HAS_VERSION,
-} from "gql/queries";
+import { VERSION, IS_PATCH_CONFIGURED, HAS_VERSION } from "gql/queries";
 import { useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { isPatchUnconfigured } from "utils/patch";
@@ -49,7 +45,7 @@ export const VersionPage: React.FC = () => {
   const [getVersion, { data: versionData, error: versionError }] = useLazyQuery<
     VersionQuery,
     VersionQueryVariables
-  >(GET_VERSION, {
+  >(VERSION, {
     variables: { id },
     fetchPolicy: "cache-and-network",
     onError: (error) => {
@@ -63,7 +59,7 @@ export const VersionPage: React.FC = () => {
   const [getPatch, { data: patchData, error: patchError }] = useLazyQuery<
     IsPatchConfiguredQuery,
     IsPatchConfiguredQueryVariables
-  >(GET_IS_PATCH_CONFIGURED, {
+  >(IS_PATCH_CONFIGURED, {
     variables: { id },
     onError: (error) => {
       dispatchToast.error(
@@ -76,7 +72,7 @@ export const VersionPage: React.FC = () => {
   const { error: hasVersionError } = useQuery<
     HasVersionQuery,
     HasVersionQueryVariables
-  >(GET_HAS_VERSION, {
+  >(HAS_VERSION, {
     variables: { id },
     onCompleted: ({ hasVersion }) => {
       if (hasVersion) {

@@ -167,13 +167,6 @@ export const timeZones = [
   },
 ];
 
-export const awsRegions = [
-  {
-    str: "US-East-1",
-    value: "us-east-1",
-  },
-];
-
 const listOfDateFormatStrings = [
   "MM-dd-yyyy",
   "dd-MM-yyyy",

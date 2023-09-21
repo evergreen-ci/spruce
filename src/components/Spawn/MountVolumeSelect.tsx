@@ -6,7 +6,7 @@ import { InputLabel } from "components/styles";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
-import { GET_MY_HOSTS } from "gql/queries";
+import { MY_HOSTS } from "gql/queries";
 import { usePolling } from "hooks";
 import { HostStatus } from "types/host";
 
@@ -35,7 +35,7 @@ export const MountVolumeSelect = ({
   const { data, refetch, startPolling, stopPolling } = useQuery<
     MyHostsQuery,
     MyHostsQueryVariables
-  >(GET_MY_HOSTS, {
+  >(MY_HOSTS, {
     pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (e) => {
       dispatchToast.error(`There was an error loading hosts: ${e.message}`);

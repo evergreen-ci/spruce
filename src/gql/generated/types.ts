@@ -839,6 +839,7 @@ export type IssueLinkInput = {
 
 export type JiraConfig = {
   __typename?: "JiraConfig";
+  email?: Maybe<Scalars["String"]["output"]>;
   host?: Maybe<Scalars["String"]["output"]>;
 };
 
@@ -5158,172 +5159,6 @@ export type UpdateUserSettingsMutation = {
   updateUserSettings: boolean;
 };
 
-export type AwsRegionsQueryVariables = Exact<{ [key: string]: never }>;
-
-export type AwsRegionsQuery = {
-  __typename?: "Query";
-  awsRegions?: Array<string> | null;
-};
-
-export type DistroEventsQueryVariables = Exact<{
-  distroId: Scalars["String"]["input"];
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  before?: InputMaybe<Scalars["Time"]["input"]>;
-}>;
-
-export type DistroEventsQuery = {
-  __typename?: "Query";
-  distroEvents: {
-    __typename?: "DistroEventsPayload";
-    count: number;
-    eventLogEntries: Array<{
-      __typename?: "DistroEvent";
-      after?: any | null;
-      before?: any | null;
-      data?: any | null;
-      timestamp: Date;
-      user: string;
-    }>;
-  };
-};
-
-export type DistroTaskQueueQueryVariables = Exact<{
-  distroId: Scalars["String"]["input"];
-}>;
-
-export type DistroTaskQueueQuery = {
-  __typename?: "Query";
-  distroTaskQueue: Array<{
-    __typename?: "TaskQueueItem";
-    activatedBy: string;
-    buildVariant: string;
-    displayName: string;
-    expectedDuration: number;
-    id: string;
-    priority: number;
-    project: string;
-    requester: TaskQueueItemType;
-    version: string;
-  }>;
-};
-
-export type DistroQueryVariables = Exact<{
-  distroId: Scalars["String"]["input"];
-}>;
-
-export type DistroQuery = {
-  __typename?: "Query";
-  distro?: {
-    __typename?: "Distro";
-    aliases: Array<string>;
-    arch: Arch;
-    authorizedKeysFile: string;
-    cloneMethod: CloneMethod;
-    containerPool: string;
-    disabled: boolean;
-    disableShallowClone: boolean;
-    isCluster: boolean;
-    isVirtualWorkStation: boolean;
-    name: string;
-    note: string;
-    provider: Provider;
-    providerSettingsList: Array<any>;
-    setup: string;
-    setupAsSudo: boolean;
-    sshKey: string;
-    sshOptions: Array<string>;
-    user: string;
-    userSpawnAllowed: boolean;
-    validProjects: Array<string | null>;
-    workDir: string;
-    bootstrapSettings: {
-      __typename?: "BootstrapSettings";
-      clientDir: string;
-      communication: CommunicationMethod;
-      jasperBinaryDir: string;
-      jasperCredentialsPath: string;
-      method: BootstrapMethod;
-      rootDir: string;
-      serviceUser: string;
-      shellPath: string;
-      env: Array<{ __typename?: "EnvVar"; key: string; value: string }>;
-      preconditionScripts: Array<{
-        __typename?: "PreconditionScript";
-        path: string;
-        script: string;
-      }>;
-      resourceLimits: {
-        __typename?: "ResourceLimits";
-        lockedMemoryKb: number;
-        numFiles: number;
-        numProcesses: number;
-        numTasks: number;
-        virtualMemoryKb: number;
-      };
-    };
-    dispatcherSettings: {
-      __typename?: "DispatcherSettings";
-      version: DispatcherVersion;
-    };
-    expansions: Array<{ __typename?: "Expansion"; key: string; value: string }>;
-    finderSettings: { __typename?: "FinderSettings"; version: FinderVersion };
-    homeVolumeSettings: {
-      __typename?: "HomeVolumeSettings";
-      formatCommand: string;
-    };
-    hostAllocatorSettings: {
-      __typename?: "HostAllocatorSettings";
-      acceptableHostIdleTime: number;
-      feedbackRule: FeedbackRule;
-      futureHostFraction: number;
-      hostsOverallocatedRule: OverallocatedRule;
-      maximumHosts: number;
-      minimumHosts: number;
-      roundingRule: RoundingRule;
-      version: HostAllocatorVersion;
-    };
-    iceCreamSettings: {
-      __typename?: "IceCreamSettings";
-      configPath: string;
-      schedulerHost: string;
-    };
-    plannerSettings: {
-      __typename?: "PlannerSettings";
-      commitQueueFactor: number;
-      expectedRuntimeFactor: number;
-      generateTaskFactor: number;
-      groupVersions: boolean;
-      mainlineTimeInQueueFactor: number;
-      patchFactor: number;
-      patchTimeInQueueFactor: number;
-      targetTime: number;
-      version: PlannerVersion;
-    };
-  } | null;
-};
-
-export type FailedTaskStatusIconTooltipQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-}>;
-
-export type FailedTaskStatusIconTooltipQuery = {
-  __typename?: "Query";
-  task?: {
-    __typename?: "Task";
-    execution: number;
-    id: string;
-    tests: {
-      __typename?: "TaskTestResult";
-      filteredTestCount: number;
-      testResults: Array<{
-        __typename?: "TestResult";
-        id: string;
-        testFile: string;
-      }>;
-    };
-  } | null;
-};
-
 export type AgentLogsQueryVariables = Exact<{
   id: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;
@@ -5437,6 +5272,13 @@ export type AnnotationEventDataQuery = {
       } | null> | null;
     } | null;
   } | null;
+};
+
+export type AwsRegionsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AwsRegionsQuery = {
+  __typename?: "Query";
+  awsRegions?: Array<string> | null;
 };
 
 export type BaseVersionAndTaskQueryVariables = Exact<{
@@ -5717,6 +5559,143 @@ export type DisplayTaskQuery = {
   } | null;
 };
 
+export type DistroEventsQueryVariables = Exact<{
+  distroId: Scalars["String"]["input"];
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  before?: InputMaybe<Scalars["Time"]["input"]>;
+}>;
+
+export type DistroEventsQuery = {
+  __typename?: "Query";
+  distroEvents: {
+    __typename?: "DistroEventsPayload";
+    count: number;
+    eventLogEntries: Array<{
+      __typename?: "DistroEvent";
+      after?: any | null;
+      before?: any | null;
+      data?: any | null;
+      timestamp: Date;
+      user: string;
+    }>;
+  };
+};
+
+export type DistroTaskQueueQueryVariables = Exact<{
+  distroId: Scalars["String"]["input"];
+}>;
+
+export type DistroTaskQueueQuery = {
+  __typename?: "Query";
+  distroTaskQueue: Array<{
+    __typename?: "TaskQueueItem";
+    activatedBy: string;
+    buildVariant: string;
+    displayName: string;
+    expectedDuration: number;
+    id: string;
+    priority: number;
+    project: string;
+    requester: TaskQueueItemType;
+    version: string;
+  }>;
+};
+
+export type DistroQueryVariables = Exact<{
+  distroId: Scalars["String"]["input"];
+}>;
+
+export type DistroQuery = {
+  __typename?: "Query";
+  distro?: {
+    __typename?: "Distro";
+    aliases: Array<string>;
+    arch: Arch;
+    authorizedKeysFile: string;
+    cloneMethod: CloneMethod;
+    containerPool: string;
+    disabled: boolean;
+    disableShallowClone: boolean;
+    isCluster: boolean;
+    isVirtualWorkStation: boolean;
+    name: string;
+    note: string;
+    provider: Provider;
+    providerSettingsList: Array<any>;
+    setup: string;
+    setupAsSudo: boolean;
+    sshKey: string;
+    sshOptions: Array<string>;
+    user: string;
+    userSpawnAllowed: boolean;
+    validProjects: Array<string | null>;
+    workDir: string;
+    bootstrapSettings: {
+      __typename?: "BootstrapSettings";
+      clientDir: string;
+      communication: CommunicationMethod;
+      jasperBinaryDir: string;
+      jasperCredentialsPath: string;
+      method: BootstrapMethod;
+      rootDir: string;
+      serviceUser: string;
+      shellPath: string;
+      env: Array<{ __typename?: "EnvVar"; key: string; value: string }>;
+      preconditionScripts: Array<{
+        __typename?: "PreconditionScript";
+        path: string;
+        script: string;
+      }>;
+      resourceLimits: {
+        __typename?: "ResourceLimits";
+        lockedMemoryKb: number;
+        numFiles: number;
+        numProcesses: number;
+        numTasks: number;
+        virtualMemoryKb: number;
+      };
+    };
+    dispatcherSettings: {
+      __typename?: "DispatcherSettings";
+      version: DispatcherVersion;
+    };
+    expansions: Array<{ __typename?: "Expansion"; key: string; value: string }>;
+    finderSettings: { __typename?: "FinderSettings"; version: FinderVersion };
+    homeVolumeSettings: {
+      __typename?: "HomeVolumeSettings";
+      formatCommand: string;
+    };
+    hostAllocatorSettings: {
+      __typename?: "HostAllocatorSettings";
+      acceptableHostIdleTime: number;
+      feedbackRule: FeedbackRule;
+      futureHostFraction: number;
+      hostsOverallocatedRule: OverallocatedRule;
+      maximumHosts: number;
+      minimumHosts: number;
+      roundingRule: RoundingRule;
+      version: HostAllocatorVersion;
+    };
+    iceCreamSettings: {
+      __typename?: "IceCreamSettings";
+      configPath: string;
+      schedulerHost: string;
+    };
+    plannerSettings: {
+      __typename?: "PlannerSettings";
+      commitQueueFactor: number;
+      expectedRuntimeFactor: number;
+      generateTaskFactor: number;
+      groupVersions: boolean;
+      mainlineTimeInQueueFactor: number;
+      patchFactor: number;
+      patchTimeInQueueFactor: number;
+      targetTime: number;
+      version: PlannerVersion;
+    };
+  } | null;
+};
+
 export type DistrosQueryVariables = Exact<{
   onlySpawnable: Scalars["Boolean"]["input"];
 }>;
@@ -5728,6 +5707,28 @@ export type DistrosQuery = {
     isVirtualWorkStation: boolean;
     name: string;
   } | null>;
+};
+
+export type FailedTaskStatusIconTooltipQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+}>;
+
+export type FailedTaskStatusIconTooltipQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    execution: number;
+    id: string;
+    tests: {
+      __typename?: "TaskTestResult";
+      filteredTestCount: number;
+      testResults: Array<{
+        __typename?: "TestResult";
+        id: string;
+        testFile: string;
+      }>;
+    };
+  } | null;
 };
 
 export type GithubOrgsQueryVariables = Exact<{ [key: string]: never }>;
@@ -5833,6 +5834,51 @@ export type HostQuery = {
       name?: string | null;
     } | null;
   } | null;
+};
+
+export type HostsQueryVariables = Exact<{
+  hostId?: InputMaybe<Scalars["String"]["input"]>;
+  distroId?: InputMaybe<Scalars["String"]["input"]>;
+  currentTaskId?: InputMaybe<Scalars["String"]["input"]>;
+  statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  startedBy?: InputMaybe<Scalars["String"]["input"]>;
+  sortBy?: InputMaybe<HostSortBy>;
+  sortDir?: InputMaybe<SortDirection>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type HostsQuery = {
+  __typename?: "Query";
+  hosts: {
+    __typename?: "HostsResponse";
+    filteredHostsCount?: number | null;
+    totalHostsCount: number;
+    hosts: Array<{
+      __typename?: "Host";
+      distroId?: string | null;
+      elapsed?: Date | null;
+      hostUrl: string;
+      id: string;
+      noExpiration: boolean;
+      provider: string;
+      startedBy: string;
+      status: string;
+      tag: string;
+      totalIdleTime?: number | null;
+      uptime?: Date | null;
+      distro?: {
+        __typename?: "DistroInfo";
+        bootstrapMethod?: string | null;
+        id?: string | null;
+      } | null;
+      runningTask?: {
+        __typename?: "TaskInfo";
+        id?: string | null;
+        name?: string | null;
+      } | null;
+    }>;
+  };
 };
 
 export type InstanceTypesQueryVariables = Exact<{ [key: string]: never }>;
@@ -6924,6 +6970,72 @@ export type ProjectEventLogsQuery = {
   };
 };
 
+export type ProjectHealthViewQueryVariables = Exact<{
+  identifier: Scalars["String"]["input"];
+}>;
+
+export type ProjectHealthViewQuery = {
+  __typename?: "Query";
+  projectSettings: {
+    __typename?: "ProjectSettings";
+    projectRef?: {
+      __typename?: "Project";
+      id: string;
+      projectHealthView: ProjectHealthView;
+    } | null;
+  };
+};
+
+export type ProjectPatchesQueryVariables = Exact<{
+  projectIdentifier: Scalars["String"]["input"];
+  patchesInput: PatchesInput;
+}>;
+
+export type ProjectPatchesQuery = {
+  __typename?: "Query";
+  project: {
+    __typename?: "Project";
+    displayName: string;
+    id: string;
+    patches: {
+      __typename?: "Patches";
+      filteredPatchCount: number;
+      patches: Array<{
+        __typename?: "Patch";
+        activated: boolean;
+        alias?: string | null;
+        author: string;
+        authorDisplayName: string;
+        canEnqueueToCommitQueue: boolean;
+        commitQueuePosition?: number | null;
+        createTime?: Date | null;
+        description: string;
+        id: string;
+        projectIdentifier: string;
+        status: string;
+        projectMetadata?: {
+          __typename?: "Project";
+          owner: string;
+          repo: string;
+        } | null;
+        versionFull?: {
+          __typename?: "Version";
+          id: string;
+          status: string;
+          taskStatusStats?: {
+            __typename?: "TaskStats";
+            counts?: Array<{
+              __typename?: "StatusCount";
+              count: number;
+              status: string;
+            }> | null;
+          } | null;
+        } | null;
+      }>;
+    };
+  };
+};
+
 export type ProjectSettingsQueryVariables = Exact<{
   identifier: Scalars["String"]["input"];
 }>;
@@ -7815,6 +7927,42 @@ export type RepoSettingsQuery = {
   };
 };
 
+export type SpawnExpirationInfoQueryVariables = Exact<{ [key: string]: never }>;
+
+export type SpawnExpirationInfoQuery = {
+  __typename?: "Query";
+  myHosts: Array<{ __typename?: "Host"; id: string; noExpiration: boolean }>;
+  myVolumes: Array<{
+    __typename?: "Volume";
+    id: string;
+    noExpiration: boolean;
+  }>;
+};
+
+export type SpawnTaskQueryVariables = Exact<{
+  taskId: Scalars["String"]["input"];
+}>;
+
+export type SpawnTaskQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    canSync: boolean;
+    buildVariant: string;
+    buildVariantDisplayName?: string | null;
+    displayName: string;
+    execution: number;
+    id: string;
+    revision?: string | null;
+    status: string;
+    project?: {
+      __typename?: "Project";
+      id: string;
+      spawnHostScriptPath: string;
+    } | null;
+  } | null;
+};
+
 export type SpruceConfigQueryVariables = Exact<{ [key: string]: never }>;
 
 export type SpruceConfigQuery = {
@@ -7823,7 +7971,21 @@ export type SpruceConfigQuery = {
     __typename?: "SpruceConfig";
     banner?: string | null;
     bannerTheme?: string | null;
-    jira?: { __typename?: "JiraConfig"; host?: string | null } | null;
+    containerPools?: {
+      __typename?: "ContainerPoolsConfig";
+      pools: Array<{
+        __typename?: "ContainerPool";
+        distro: string;
+        id: string;
+        maxContainers: number;
+        port: number;
+      }>;
+    } | null;
+    jira?: {
+      __typename?: "JiraConfig";
+      email?: string | null;
+      host?: string | null;
+    } | null;
     keys: Array<{ __typename?: "SSHKey"; location: string; name: string }>;
     providers?: {
       __typename?: "CloudProviderConfig";
@@ -7849,6 +8011,15 @@ export type SpruceConfigQuery = {
     };
     ui?: { __typename?: "UIConfig"; defaultProject: string } | null;
   } | null;
+};
+
+export type SubnetAvailabilityZonesQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type SubnetAvailabilityZonesQuery = {
+  __typename?: "Query";
+  subnetAvailabilityZones: Array<string>;
 };
 
 export type SystemLogsQueryVariables = Exact<{
@@ -7935,7 +8106,7 @@ export type TaskFilesQuery = {
     __typename?: "Task";
     execution: number;
     id: string;
-    taskFiles: {
+    files: {
       __typename?: "TaskFiles";
       fileCount: number;
       groupedFiles: Array<{
@@ -7982,6 +8153,18 @@ export type TaskNamesForBuildVariantQueryVariables = Exact<{
 export type TaskNamesForBuildVariantQuery = {
   __typename?: "Query";
   taskNamesForBuildVariant?: Array<string> | null;
+};
+
+export type TaskQueueDistrosQueryVariables = Exact<{ [key: string]: never }>;
+
+export type TaskQueueDistrosQuery = {
+  __typename?: "Query";
+  taskQueueDistros: Array<{
+    __typename?: "TaskQueueDistro";
+    hostCount: number;
+    id: string;
+    taskCount: number;
+  }>;
 };
 
 export type TaskStatusesQueryVariables = Exact<{
@@ -8212,6 +8395,7 @@ export type TaskQuery = {
       id: string;
       status: string;
     }> | null;
+    files: { __typename?: "TaskFiles"; fileCount: number };
     logs: {
       __typename?: "TaskLogLinks";
       agentLogLink?: string | null;
@@ -8222,7 +8406,6 @@ export type TaskQuery = {
     };
     pod?: { __typename?: "Pod"; id: string } | null;
     project?: { __typename?: "Project"; id: string; identifier: string } | null;
-    taskFiles: { __typename?: "TaskFiles"; fileCount: number };
     versionMetadata: {
       __typename?: "Version";
       author: string;
@@ -8273,6 +8456,85 @@ export type UserConfigQuery = {
   } | null;
 };
 
+export type UserDistroSettingsPermissionsQueryVariables = Exact<{
+  distroId: Scalars["String"]["input"];
+}>;
+
+export type UserDistroSettingsPermissionsQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    permissions: {
+      __typename?: "Permissions";
+      canCreateDistro: boolean;
+      distroPermissions: { __typename?: "DistroPermissions"; admin: boolean };
+    };
+  };
+};
+
+export type UserPatchesQueryVariables = Exact<{
+  userId: Scalars["String"]["input"];
+  patchesInput: PatchesInput;
+}>;
+
+export type UserPatchesQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    patches: {
+      __typename?: "Patches";
+      filteredPatchCount: number;
+      patches: Array<{
+        __typename?: "Patch";
+        activated: boolean;
+        alias?: string | null;
+        author: string;
+        authorDisplayName: string;
+        canEnqueueToCommitQueue: boolean;
+        commitQueuePosition?: number | null;
+        createTime?: Date | null;
+        description: string;
+        id: string;
+        projectIdentifier: string;
+        status: string;
+        projectMetadata?: {
+          __typename?: "Project";
+          owner: string;
+          repo: string;
+        } | null;
+        versionFull?: {
+          __typename?: "Version";
+          id: string;
+          status: string;
+          taskStatusStats?: {
+            __typename?: "TaskStats";
+            counts?: Array<{
+              __typename?: "StatusCount";
+              count: number;
+              status: string;
+            }> | null;
+          } | null;
+        } | null;
+      }>;
+    };
+  };
+};
+
+export type UserProjectSettingsPermissionsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type UserProjectSettingsPermissionsQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    permissions: { __typename?: "Permissions"; canCreateProject: boolean };
+  };
+};
+
 export type UserSettingsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type UserSettingsQuery = {
@@ -8302,6 +8564,52 @@ export type UserSettingsQuery = {
       hasUsedMainlineCommitsBefore?: boolean | null;
       hasUsedSpruceBefore?: boolean | null;
       spruceV1?: boolean | null;
+    } | null;
+  } | null;
+};
+
+export type UserSubscriptionsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UserSubscriptionsQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    subscriptions?: Array<{
+      __typename?: "GeneralSubscription";
+      id: string;
+      ownerType: string;
+      resourceType: string;
+      trigger: string;
+      triggerData?: { [key: string]: any } | null;
+      regexSelectors: Array<{
+        __typename?: "Selector";
+        data: string;
+        type: string;
+      }>;
+      selectors: Array<{ __typename?: "Selector"; data: string; type: string }>;
+      subscriber?: {
+        __typename?: "SubscriberWrapper";
+        type: string;
+        subscriber: {
+          __typename?: "Subscriber";
+          emailSubscriber?: string | null;
+          jiraCommentSubscriber?: string | null;
+          slackSubscriber?: string | null;
+        };
+      } | null;
+    }> | null;
+  };
+  userSettings?: {
+    __typename?: "UserSettings";
+    notifications?: {
+      __typename?: "Notifications";
+      buildBreakId?: string | null;
+      commitQueueId?: string | null;
+      patchFinishId?: string | null;
+      patchFirstFailureId?: string | null;
+      spawnHostExpirationId?: string | null;
+      spawnHostOutcomeId?: string | null;
     } | null;
   } | null;
 };
@@ -8529,297 +8837,4 @@ export type ViewableProjectRefsQuery = {
     }>;
     repo?: { __typename?: "RepoRef"; id: string } | null;
   } | null>;
-};
-
-export type HostsQueryVariables = Exact<{
-  hostId?: InputMaybe<Scalars["String"]["input"]>;
-  distroId?: InputMaybe<Scalars["String"]["input"]>;
-  currentTaskId?: InputMaybe<Scalars["String"]["input"]>;
-  statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
-  startedBy?: InputMaybe<Scalars["String"]["input"]>;
-  sortBy?: InputMaybe<HostSortBy>;
-  sortDir?: InputMaybe<SortDirection>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-}>;
-
-export type HostsQuery = {
-  __typename?: "Query";
-  hosts: {
-    __typename?: "HostsResponse";
-    filteredHostsCount?: number | null;
-    totalHostsCount: number;
-    hosts: Array<{
-      __typename?: "Host";
-      distroId?: string | null;
-      elapsed?: Date | null;
-      hostUrl: string;
-      id: string;
-      noExpiration: boolean;
-      provider: string;
-      startedBy: string;
-      status: string;
-      tag: string;
-      totalIdleTime?: number | null;
-      uptime?: Date | null;
-      distro?: {
-        __typename?: "DistroInfo";
-        bootstrapMethod?: string | null;
-        id?: string | null;
-      } | null;
-      runningTask?: {
-        __typename?: "TaskInfo";
-        id?: string | null;
-        name?: string | null;
-      } | null;
-    }>;
-  };
-};
-
-export type ProjectHealthViewQueryVariables = Exact<{
-  identifier: Scalars["String"]["input"];
-}>;
-
-export type ProjectHealthViewQuery = {
-  __typename?: "Query";
-  projectSettings: {
-    __typename?: "ProjectSettings";
-    projectRef?: {
-      __typename?: "Project";
-      id: string;
-      projectHealthView: ProjectHealthView;
-    } | null;
-  };
-};
-
-export type ProjectPatchesQueryVariables = Exact<{
-  projectIdentifier: Scalars["String"]["input"];
-  patchesInput: PatchesInput;
-}>;
-
-export type ProjectPatchesQuery = {
-  __typename?: "Query";
-  project: {
-    __typename?: "Project";
-    displayName: string;
-    id: string;
-    patches: {
-      __typename?: "Patches";
-      filteredPatchCount: number;
-      patches: Array<{
-        __typename?: "Patch";
-        activated: boolean;
-        alias?: string | null;
-        author: string;
-        authorDisplayName: string;
-        canEnqueueToCommitQueue: boolean;
-        commitQueuePosition?: number | null;
-        createTime?: Date | null;
-        description: string;
-        id: string;
-        projectIdentifier: string;
-        status: string;
-        projectMetadata?: {
-          __typename?: "Project";
-          owner: string;
-          repo: string;
-        } | null;
-        versionFull?: {
-          __typename?: "Version";
-          id: string;
-          status: string;
-          taskStatusStats?: {
-            __typename?: "TaskStats";
-            counts?: Array<{
-              __typename?: "StatusCount";
-              count: number;
-              status: string;
-            }> | null;
-          } | null;
-        } | null;
-      }>;
-    };
-  };
-};
-
-export type SpawnExpirationInfoQueryVariables = Exact<{ [key: string]: never }>;
-
-export type SpawnExpirationInfoQuery = {
-  __typename?: "Query";
-  myHosts: Array<{ __typename?: "Host"; id: string; noExpiration: boolean }>;
-  myVolumes: Array<{
-    __typename?: "Volume";
-    id: string;
-    noExpiration: boolean;
-  }>;
-};
-
-export type SpawnTaskQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-}>;
-
-export type SpawnTaskQuery = {
-  __typename?: "Query";
-  task?: {
-    __typename?: "Task";
-    canSync: boolean;
-    buildVariant: string;
-    buildVariantDisplayName?: string | null;
-    displayName: string;
-    execution: number;
-    id: string;
-    revision?: string | null;
-    status: string;
-    project?: {
-      __typename?: "Project";
-      id: string;
-      spawnHostScriptPath: string;
-    } | null;
-  } | null;
-};
-
-export type SubnetAvailabilityZonesQueryVariables = Exact<{
-  [key: string]: never;
-}>;
-
-export type SubnetAvailabilityZonesQuery = {
-  __typename?: "Query";
-  subnetAvailabilityZones: Array<string>;
-};
-
-export type TaskQueueDistrosQueryVariables = Exact<{ [key: string]: never }>;
-
-export type TaskQueueDistrosQuery = {
-  __typename?: "Query";
-  taskQueueDistros: Array<{
-    __typename?: "TaskQueueDistro";
-    hostCount: number;
-    id: string;
-    taskCount: number;
-  }>;
-};
-
-export type UserDistroSettingsPermissionsQueryVariables = Exact<{
-  distroId: Scalars["String"]["input"];
-}>;
-
-export type UserDistroSettingsPermissionsQuery = {
-  __typename?: "Query";
-  user: {
-    __typename?: "User";
-    userId: string;
-    permissions: {
-      __typename?: "Permissions";
-      canCreateDistro: boolean;
-      distroPermissions: { __typename?: "DistroPermissions"; admin: boolean };
-    };
-  };
-};
-
-export type UserPatchesQueryVariables = Exact<{
-  userId: Scalars["String"]["input"];
-  patchesInput: PatchesInput;
-}>;
-
-export type UserPatchesQuery = {
-  __typename?: "Query";
-  user: {
-    __typename?: "User";
-    userId: string;
-    patches: {
-      __typename?: "Patches";
-      filteredPatchCount: number;
-      patches: Array<{
-        __typename?: "Patch";
-        activated: boolean;
-        alias?: string | null;
-        author: string;
-        authorDisplayName: string;
-        canEnqueueToCommitQueue: boolean;
-        commitQueuePosition?: number | null;
-        createTime?: Date | null;
-        description: string;
-        id: string;
-        projectIdentifier: string;
-        status: string;
-        projectMetadata?: {
-          __typename?: "Project";
-          owner: string;
-          repo: string;
-        } | null;
-        versionFull?: {
-          __typename?: "Version";
-          id: string;
-          status: string;
-          taskStatusStats?: {
-            __typename?: "TaskStats";
-            counts?: Array<{
-              __typename?: "StatusCount";
-              count: number;
-              status: string;
-            }> | null;
-          } | null;
-        } | null;
-      }>;
-    };
-  };
-};
-
-export type UserProjectSettingsPermissionsQueryVariables = Exact<{
-  [key: string]: never;
-}>;
-
-export type UserProjectSettingsPermissionsQuery = {
-  __typename?: "Query";
-  user: {
-    __typename?: "User";
-    userId: string;
-    permissions: { __typename?: "Permissions"; canCreateProject: boolean };
-  };
-};
-
-export type UserSubscriptionsQueryVariables = Exact<{ [key: string]: never }>;
-
-export type UserSubscriptionsQuery = {
-  __typename?: "Query";
-  user: {
-    __typename?: "User";
-    userId: string;
-    subscriptions?: Array<{
-      __typename?: "GeneralSubscription";
-      id: string;
-      ownerType: string;
-      resourceType: string;
-      trigger: string;
-      triggerData?: { [key: string]: any } | null;
-      regexSelectors: Array<{
-        __typename?: "Selector";
-        data: string;
-        type: string;
-      }>;
-      selectors: Array<{ __typename?: "Selector"; data: string; type: string }>;
-      subscriber?: {
-        __typename?: "SubscriberWrapper";
-        type: string;
-        subscriber: {
-          __typename?: "Subscriber";
-          emailSubscriber?: string | null;
-          jiraCommentSubscriber?: string | null;
-          slackSubscriber?: string | null;
-        };
-      } | null;
-    }> | null;
-  };
-  userSettings?: {
-    __typename?: "UserSettings";
-    notifications?: {
-      __typename?: "Notifications";
-      buildBreakId?: string | null;
-      commitQueueId?: string | null;
-      patchFinishId?: string | null;
-      patchFirstFailureId?: string | null;
-      spawnHostExpirationId?: string | null;
-      spawnHostOutcomeId?: string | null;
-    } | null;
-  } | null;
 };

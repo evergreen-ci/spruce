@@ -16,7 +16,7 @@ import {
   RestartVersionsMutationVariables,
 } from "gql/generated/types";
 import { RESTART_VERSIONS } from "gql/mutations";
-import { GET_BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
+import { BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
 import { useVersionTaskStatusSelect } from "hooks";
 import {
   versionSelectedTasks,
@@ -60,7 +60,7 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   const { data, loading } = useQuery<
     BuildVariantsWithChildrenQuery,
     BuildVariantsWithChildrenQueryVariables
-  >(GET_BUILD_VARIANTS_WITH_CHILDREN, {
+  >(BUILD_VARIANTS_WITH_CHILDREN, {
     variables: { id: versionId },
     skip: !visible,
   });
