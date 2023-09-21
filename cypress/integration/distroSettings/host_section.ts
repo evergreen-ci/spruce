@@ -106,17 +106,6 @@ describe("host section", () => {
       cy.dataCy("save-settings-button").scrollIntoView();
       save();
       cy.validateToast("success");
-
-      // Reset fields
-      cy.dataCy("delete-item-button").first().click();
-      cy.dataCy("delete-item-button").first().click();
-
-      cy.dataCy("save-settings-button").scrollIntoView();
-      cy.selectLGOption("Host Bootstrap Method", "Legacy SSH");
-      cy.selectLGOption("Host Communication Method", "Legacy SSH");
-
-      save();
-      cy.validateToast("success");
     });
   });
 });
