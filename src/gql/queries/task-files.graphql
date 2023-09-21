@@ -1,8 +1,7 @@
 query TaskFiles($taskId: String!, $execution: Int) {
   task(taskId: $taskId, execution: $execution) {
     execution
-    id
-    taskFiles {
+    files {
       fileCount
       groupedFiles {
         files {
@@ -12,5 +11,6 @@ query TaskFiles($taskId: String!, $execution: Int) {
         taskName
       }
     }
+    id
   }
 }

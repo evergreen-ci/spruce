@@ -9,7 +9,7 @@ import {
   RemoveFavoriteProjectMutationVariables,
 } from "gql/generated/types";
 import { ADD_FAVORITE_PROJECT, REMOVE_FAVORITE_PROJECT } from "gql/mutations";
-import { GET_PROJECTS, GET_VIEWABLE_PROJECTS } from "gql/queries";
+import { PROJECTS, VIEWABLE_PROJECTS } from "gql/queries";
 import { ApolloMock } from "types/gql";
 
 const addFavoriteMock: ApolloMock<
@@ -59,7 +59,7 @@ const removeFavoriteMock: ApolloMock<
 
 const getProjectsMock: ApolloMock<ProjectsQuery, ProjectsQueryVariables> = {
   request: {
-    query: GET_PROJECTS,
+    query: PROJECTS,
   },
   result: {
     data: {
@@ -158,7 +158,7 @@ const viewableProjectsMock: ApolloMock<
   ViewableProjectRefsQueryVariables
 > = {
   request: {
-    query: GET_VIEWABLE_PROJECTS,
+    query: VIEWABLE_PROJECTS,
   },
   result: {
     data: {

@@ -22,7 +22,7 @@ import {
   RepoSettingsQuery,
   RepoSettingsQueryVariables,
 } from "gql/generated/types";
-import { GET_PROJECT_SETTINGS, GET_REPO_SETTINGS } from "gql/queries";
+import { PROJECT_SETTINGS, REPO_SETTINGS } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { validators } from "utils";
 import { ProjectSettingsProvider } from "./Context";
@@ -46,7 +46,7 @@ const ProjectSettings: React.FC = () => {
   const { data: projectData, loading: projectLoading } = useQuery<
     ProjectSettingsQuery,
     ProjectSettingsQueryVariables
-  >(GET_PROJECT_SETTINGS, {
+  >(PROJECT_SETTINGS, {
     skip: isRepo,
     variables: { identifier },
     onError: (e) => {
@@ -72,7 +72,7 @@ const ProjectSettings: React.FC = () => {
   const { data: repoData } = useQuery<
     RepoSettingsQuery,
     RepoSettingsQueryVariables
-  >(GET_REPO_SETTINGS, {
+  >(REPO_SETTINGS, {
     skip: projectLoading || projectType === ProjectType.Project,
     variables: { repoId },
     onError: (e) => {

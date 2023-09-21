@@ -37,9 +37,6 @@ export const getJiraBugUrl = (jiraHost: string) =>
 export const getJiraImprovementUrl = (jiraHost: string) =>
   `https://${jiraHost}/secure/CreateIssueDetails!init.jspa?pid=12787&issuetype=4&priority=4&labels=user-feedback`;
 
-export const konamiSoundTrackUrl =
-  "https://www.myinstants.com/media/sounds/mvssf-win.mp3";
-
 export const legacyRoutes = {
   distros: "/distros",
   hosts: "/spawn",

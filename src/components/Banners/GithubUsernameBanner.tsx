@@ -8,7 +8,7 @@ import {
   routes,
 } from "constants/routes";
 import { UserSettingsQuery } from "gql/generated/types";
-import { GET_USER_SETTINGS } from "gql/queries";
+import { USER_SETTINGS } from "gql/queries";
 
 export const GithubUsernameBanner = () => {
   const { pathname } = useLocation();
@@ -17,7 +17,7 @@ export const GithubUsernameBanner = () => {
 
   // USER SETTINGS QUERY
   const { data: userSettingsData } = useQuery<UserSettingsQuery>(
-    GET_USER_SETTINGS,
+    USER_SETTINGS,
     { skip: !isPatchesPage }
   );
   const { userSettings } = userSettingsData || {};

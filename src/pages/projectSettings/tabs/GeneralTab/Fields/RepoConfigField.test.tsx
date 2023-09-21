@@ -16,7 +16,7 @@ import {
   ATTACH_PROJECT_TO_NEW_REPO,
   DETACH_PROJECT_FROM_REPO,
 } from "gql/mutations";
-import { GET_GITHUB_ORGS } from "gql/queries";
+import { GITHUB_ORGS } from "gql/queries";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -380,7 +380,7 @@ const detachProjectFromRepoMock: ApolloMock<
 const getGithubOrgsMock: ApolloMock<GithubOrgsQuery, GithubOrgsQueryVariables> =
   {
     request: {
-      query: GET_GITHUB_ORGS,
+      query: GITHUB_ORGS,
     },
     result: {
       data: {

@@ -7,7 +7,7 @@ import { Body } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import { TaskFilesQuery, TaskFilesQueryVariables } from "gql/generated/types";
-import { GET_TASK_FILES } from "gql/queries";
+import { TASK_FILES } from "gql/queries";
 import GroupedFileTable from "./GroupedFileTable";
 import { filterGroupedFiles } from "./utils";
 
@@ -19,7 +19,7 @@ const FileTable: React.FC<FileTableProps> = ({ execution, taskId }) => {
   const [search, setSearch] = useState("");
   const dispatchToast = useToastContext();
   const { data, loading } = useQuery<TaskFilesQuery, TaskFilesQueryVariables>(
-    GET_TASK_FILES,
+    TASK_FILES,
     {
       variables: {
         taskId,
@@ -30,9 +30,9 @@ const FileTable: React.FC<FileTableProps> = ({ execution, taskId }) => {
       },
     }
   );
-  const { taskFiles } = data?.task ?? {};
+  const { files } = data?.task ?? {};
 
-  const { groupedFiles = [] } = taskFiles ?? {};
+  const { groupedFiles = [] } = files ?? {};
   const filteredGroupedFiles = filterGroupedFiles(groupedFiles, search);
 
   // We only want to show the file group name if there are multiple file groups.

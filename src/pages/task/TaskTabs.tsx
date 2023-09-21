@@ -35,15 +35,15 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     execution,
     executionTasksFull,
     failedTestCount,
+    files,
     id,
     isPerfPluginEnabled,
     logs: logLinks,
     status,
-    taskFiles,
     totalTestCount,
     versionMetadata,
   } = task ?? {};
-  const { fileCount } = taskFiles ?? {};
+  const { fileCount } = files ?? {};
 
   const { showBuildBaron } = useBuildBaronVariables({
     task: {

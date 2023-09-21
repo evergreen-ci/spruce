@@ -15,7 +15,7 @@ import {
   UserSettingsQuery,
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
-import { GET_USER_SETTINGS } from "gql/queries";
+import { USER_SETTINGS } from "gql/queries";
 
 const { blue } = palette;
 
@@ -41,8 +41,7 @@ export const SlackNotificationBanner = () => {
     });
 
   // USER SETTINGS QUERY
-  const { data: userSettingsData } =
-    useQuery<UserSettingsQuery>(GET_USER_SETTINGS);
+  const { data: userSettingsData } = useQuery<UserSettingsQuery>(USER_SETTINGS);
   const { userSettings } = userSettingsData || {};
   const { notifications, slackUsername: defaultSlackUsername } =
     userSettings || {};

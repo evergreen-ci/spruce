@@ -11,7 +11,7 @@ import {
   VersionTaskDurationsQuery,
   VersionTaskDurationsQueryVariables,
 } from "gql/generated/types";
-import { GET_VERSION_TASK_DURATIONS } from "gql/queries";
+import { VERSION_TASK_DURATIONS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
@@ -58,7 +58,7 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
   const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     VersionTaskDurationsQuery,
     VersionTaskDurationsQueryVariables
-  >(GET_VERSION_TASK_DURATIONS, {
+  >(VERSION_TASK_DURATIONS, {
     variables: queryVariables,
     skip: !hasQueryVariables,
     pollInterval: DEFAULT_POLL_INTERVAL,

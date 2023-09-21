@@ -16,10 +16,7 @@ import {
   LastMainlineCommitQuery,
   LastMainlineCommitQueryVariables,
 } from "gql/generated/types";
-import {
-  GET_BASE_VERSION_AND_TASK,
-  GET_LAST_MAINLINE_COMMIT,
-} from "gql/queries";
+import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
 import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { TaskStatus } from "types/task";
 import { string } from "utils";
@@ -51,7 +48,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
   const { data: taskData } = useQuery<
     BaseVersionAndTaskQuery,
     BaseVersionAndTaskQueryVariables
-  >(GET_BASE_VERSION_AND_TASK, {
+  >(BASE_VERSION_AND_TASK, {
     variables: { taskId },
   });
 
@@ -60,7 +57,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
   const [fetchParentTask, { loading: parentLoading }] = useLazyQuery<
     LastMainlineCommitQuery,
     LastMainlineCommitQueryVariables
-  >(GET_LAST_MAINLINE_COMMIT, {
+  >(LAST_MAINLINE_COMMIT, {
     onCompleted: (data) => {
       dispatch({
         type: "setParentTask",
@@ -72,7 +69,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
   const [fetchLastPassing, { loading: passingLoading }] = useLazyQuery<
     LastMainlineCommitQuery,
     LastMainlineCommitQueryVariables
-  >(GET_LAST_MAINLINE_COMMIT, {
+  >(LAST_MAINLINE_COMMIT, {
     onCompleted: (data) => {
       dispatch({
         type: "setLastPassingTask",
@@ -87,7 +84,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
   const [fetchLastExecuted, { loading: executedLoading }] = useLazyQuery<
     LastMainlineCommitQuery,
     LastMainlineCommitQueryVariables
-  >(GET_LAST_MAINLINE_COMMIT, {
+  >(LAST_MAINLINE_COMMIT, {
     onCompleted: (data) => {
       dispatch({
         type: "setLastExecutedTask",

@@ -7,7 +7,7 @@ import {
   ViewableProjectRefsQuery,
   ViewableProjectRefsQueryVariables,
 } from "gql/generated/types";
-import { GET_PROJECTS, GET_VIEWABLE_PROJECTS } from "gql/queries";
+import { PROJECTS, VIEWABLE_PROJECTS } from "gql/queries";
 import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 
@@ -257,7 +257,7 @@ describe("projectSelect", () => {
 const getProjectsMock: [ApolloMock<ProjectsQuery, ProjectsQueryVariables>] = [
   {
     request: {
-      query: GET_PROJECTS,
+      query: PROJECTS,
     },
     result: {
       data: {
@@ -357,7 +357,7 @@ const getViewableProjectsMock: [
 ] = [
   {
     request: {
-      query: GET_VIEWABLE_PROJECTS,
+      query: VIEWABLE_PROJECTS,
     },
     result: {
       data: {
@@ -438,7 +438,7 @@ const noDisabledProjectsMock: [
 ] = [
   {
     request: {
-      query: GET_VIEWABLE_PROJECTS,
+      query: VIEWABLE_PROJECTS,
     },
     result: {
       data: {

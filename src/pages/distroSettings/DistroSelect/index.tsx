@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import SearchableDropdown from "components/SearchableDropdown";
 import { getDistroSettingsRoute } from "constants/routes";
 import { DistrosQuery, DistrosQueryVariables } from "gql/generated/types";
-import { GET_DISTROS } from "gql/queries";
+import { DISTROS } from "gql/queries";
 
 interface DistroSelectProps {
   selectedDistro: string;
@@ -17,7 +17,7 @@ export const DistroSelect: React.FC<DistroSelectProps> = ({
   const { data: distrosData, loading } = useQuery<
     DistrosQuery,
     DistrosQueryVariables
-  >(GET_DISTROS, {
+  >(DISTROS, {
     variables: {
       onlySpawnable: false,
     },

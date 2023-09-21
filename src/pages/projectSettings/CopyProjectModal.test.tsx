@@ -12,7 +12,7 @@ import {
   MergeQueue,
 } from "gql/generated/types";
 import { COPY_PROJECT } from "gql/mutations";
-import { GET_PROJECT_SETTINGS, GET_REPO_SETTINGS } from "gql/queries";
+import { PROJECT_SETTINGS, REPO_SETTINGS } from "gql/queries";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -263,7 +263,7 @@ const projectSettingsMock: ApolloMock<
   ProjectSettingsQueryVariables
 > = {
   request: {
-    query: GET_PROJECT_SETTINGS,
+    query: PROJECT_SETTINGS,
     variables: {
       identifier: newProjectIdentifier,
     },
@@ -385,7 +385,7 @@ const repoSettingsMock: ApolloMock<
   RepoSettingsQueryVariables
 > = {
   request: {
-    query: GET_REPO_SETTINGS,
+    query: REPO_SETTINGS,
     variables: {
       repoId: newProjectIdentifier,
     },

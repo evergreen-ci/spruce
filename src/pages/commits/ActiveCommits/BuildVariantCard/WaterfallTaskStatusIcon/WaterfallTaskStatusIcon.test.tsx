@@ -3,7 +3,7 @@ import {
   FailedTaskStatusIconTooltipQuery,
   FailedTaskStatusIconTooltipQueryVariables,
 } from "gql/generated/types";
-import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
+import { FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import {
   injectGlobalHighlightStyle,
   removeGlobalHighlightStyle,
@@ -106,7 +106,7 @@ const getTooltipQueryMock: ApolloMock<
   FailedTaskStatusIconTooltipQueryVariables
 > = {
   request: {
-    query: GET_FAILED_TASK_STATUS_ICON_TOOLTIP,
+    query: FAILED_TASK_STATUS_ICON_TOOLTIP,
     variables: { taskId: "task" },
   },
   result: {
