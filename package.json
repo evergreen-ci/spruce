@@ -111,7 +111,7 @@
     "date-fns-tz": "2.0.0",
     "deep-object-diff": "1.1.9",
     "env-cmd": "10.1.0",
-    "graphql": "16.6.0",
+    "graphql": "16.8.1",
     "html-react-parser": "4.2.1",
     "js-cookie": "3.0.5",
     "linkify-html": "4.1.1",
