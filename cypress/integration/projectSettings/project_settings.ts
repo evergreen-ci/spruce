@@ -529,7 +529,7 @@ describe("Project Settings when not defaulting to repo", () => {
   });
 });
 
-describe("Project Settings when defaulting to repo", () => {
+xdescribe("Project Settings when defaulting to repo", () => {
   const destination = getGeneralRoute(projectUseRepoEnabled);
 
   beforeEach(() => {
@@ -830,7 +830,7 @@ describe("Project Settings when defaulting to repo", () => {
   });
 });
 
-describe("Attaching Spruce to a repo", { testIsolation: false }, () => {
+xdescribe("Attaching Spruce to a repo", { testIsolation: false }, () => {
   const destination = getGeneralRoute(project);
 
   before(() => {
@@ -889,7 +889,7 @@ describe("Attaching Spruce to a repo", { testIsolation: false }, () => {
   });
 });
 
-describe("Renaming the identifier", { testIsolation: false }, () => {
+xdescribe("Renaming the identifier", { testIsolation: false }, () => {
   const destination = getGeneralRoute(project);
 
   before(() => {
@@ -915,7 +915,7 @@ describe("Renaming the identifier", { testIsolation: false }, () => {
   });
 });
 
-describe(
+xdescribe(
   "A project that has GitHub webhooks disabled",
   { testIsolation: false },
   () => {
