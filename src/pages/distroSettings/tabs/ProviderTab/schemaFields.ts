@@ -102,8 +102,7 @@ const fleetInstanceType = {
 
 const useCapacityOptimization = {
   type: "boolean" as "boolean",
-  title:
-    "Use the capacity-optimized allocation strategy for spot (default: lowest-cost)",
+  title: "Capacity optimization",
   default: false,
 };
 
@@ -204,6 +203,8 @@ const mountPoints = {
       deviceName: {
         type: "string" as "string",
         title: "Device Name",
+        default: "",
+        minLength: 1,
       },
       virtualName: {
         type: "string" as "string",
@@ -230,8 +231,8 @@ const mountPoints = {
 };
 
 export const staticProviderSettings = {
-  userData,
   mergeUserData,
+  userData,
   securityGroups,
 };
 
@@ -241,8 +242,8 @@ export const dockerProviderSettings = {
   registryUsername,
   registryPassword,
   poolMappingInfo,
-  userData,
   mergeUserData,
+  userData,
   securityGroups,
 };
 
@@ -252,8 +253,8 @@ export const ec2FleetProviderSettings = {
   sshKeyName,
   fleetOptions,
   instanceProfileARN,
-  userData,
   mergeUserData,
+  userData,
   securityGroups,
   vpcOptions,
   mountPoints,
