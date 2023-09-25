@@ -19,6 +19,8 @@ describe("provider section", () => {
       });
       cy.contains("button", "Add security group").click();
       cy.getInputByLabel("Security Group ID").type("group-1234");
+      cy.contains("button", "Add host").click();
+      cy.getInputByLabel("Name").type("host-1234");
       save();
       cy.validateToast("success");
 
@@ -27,7 +29,8 @@ describe("provider section", () => {
       cy.getInputByLabel("Merge with existing user data").uncheck({
         force: true,
       });
-      cy.dataCy("delete-item-button").click();
+      cy.dataCy("delete-item-button").first().click();
+      cy.dataCy("delete-item-button").first().click();
       save();
       cy.validateToast("success");
     });

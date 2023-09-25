@@ -14,6 +14,7 @@ describe("provider tab", () => {
           user_data: "",
           merge_user_data: false,
           security_group_ids: ["1"],
+          hosts: [{ name: "localhost-1" }, { name: "localhost-2" }],
         },
       ],
     };
@@ -26,6 +27,7 @@ describe("provider tab", () => {
         userData: "",
         mergeUserData: false,
         securityGroups: ["1"],
+        hosts: [{ name: "localhost-1" }, { name: "localhost-2" }],
       },
       dockerProviderSettings: {
         imageUrl: "",
@@ -49,6 +51,7 @@ describe("provider tab", () => {
           merge_user_data_parts: false,
           security_group_ids: ["1"],
           user_data: "",
+          hosts: [{ name: "localhost-1" }, { name: "localhost-2" }],
         },
       ],
     };
@@ -88,6 +91,7 @@ describe("provider tab", () => {
         userData: "",
         mergeUserData: false,
         securityGroups: ["1"],
+        hosts: [],
       },
       dockerProviderSettings: {
         imageUrl: "https://some-url",

@@ -21,6 +21,28 @@ const securityGroups = {
   },
 };
 
+const hosts = {
+  type: "array" as "array",
+  title: "Hosts",
+  items: {
+    type: "object" as "object",
+    properties: {
+      name: {
+        type: "string" as "string",
+        title: "Name",
+        minLength: 1,
+      },
+    },
+  },
+};
+
+export const staticProviderSettings = {
+  userData,
+  mergeUserData,
+  securityGroups,
+  hosts,
+};
+
 const imageUrl = {
   type: "string" as "string",
   title: "Docker Image URL",
@@ -60,12 +82,6 @@ const registryPassword = {
 const poolMappingInfo = {
   type: "string" as "string",
   title: "Pool Mapping Information",
-};
-
-export const staticProviderSettings = {
-  userData,
-  mergeUserData,
-  securityGroups,
 };
 
 export const dockerProviderSettings = {

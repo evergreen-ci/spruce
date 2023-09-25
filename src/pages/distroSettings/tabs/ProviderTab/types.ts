@@ -13,6 +13,9 @@ export type ProviderFormState = {
     userData: string;
     mergeUserData: boolean;
     securityGroups: string[];
+    hosts: Array<{
+      name: string;
+    }>;
   };
   dockerProviderSettings: {
     imageUrl: string;

@@ -126,6 +126,10 @@ export const getFormSchema = ({
         "ui:addButtonText": "Add security group",
         "ui:orderable": false,
       },
+      hosts: {
+        "ui:orderable": false,
+        "ui:addButtonText": "Add host",
+      },
     },
     dockerProviderSettings: {
       "ui:data-cy": "docker-provider-settings",
