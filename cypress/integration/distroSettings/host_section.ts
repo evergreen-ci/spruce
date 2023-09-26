@@ -40,7 +40,7 @@ describe("host section", () => {
       );
 
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
 
       // Reset fields
       cy.selectLGOption("Agent Architecture", "Linux 64-bit");
@@ -54,7 +54,7 @@ describe("host section", () => {
       cy.selectLGOption("Host Overallocation Rule", "Default");
 
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
     });
   });
 

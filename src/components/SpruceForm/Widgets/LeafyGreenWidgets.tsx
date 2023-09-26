@@ -48,7 +48,7 @@ export const LeafyGreenTextInput: React.FC<
   } = options;
 
   const { errors, hasError } = processErrors(rawErrors);
-  const emptyValue = "emptyValue" in options ? options.emptyValue : "";
+  const emptyValue = options.emptyValue ?? "";
 
   const inputProps = {
     ...(!isNullish(schema.maximum) && { max: schema.maximum }),
