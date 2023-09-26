@@ -14,14 +14,11 @@ describe("host section", () => {
       cy.dataCy("future-fraction-input").should("not.exist");
     });
 
-    it("errors when selecting an incompatible host communication method", () => {
+    it("shows an error when selecting an incompatible host communication method", () => {
       cy.selectLGOption("Host Communication Method", "RPC");
-      save();
-      cy.validateToast(
-        "error",
-        "validating changes for distro 'localhost': 'ERROR: bootstrapping hosts using legacy SSH is incompatible with non-legacy host communication'"
+      cy.contains(
+        "Legacy and non-legacy bootstrapping and communication are incompatible."
       );
-      cy.selectLGOption("Host Communication Method", "Legacy SSH");
     });
 
     it("updates host fields", () => {

@@ -181,7 +181,7 @@ export const getFormSchema = ({
       },
       bootstrapSettings: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
-        serviceUser: serviceUser.uiSchema,
+        serviceUser: serviceUser.uiSchema(architecture),
         jasperBinaryDir: jasperBinaryDir.uiSchema,
         jasperCredentialsPath: jasperCredentialsPath.uiSchema,
         clientDir: clientDir.uiSchema,
@@ -204,7 +204,7 @@ export const getFormSchema = ({
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         user: user.uiSchema,
         sshKey: sshKey.uiSchema,
-        authorizedKeysFile: authorizedKeysFile.uiSchema,
+        authorizedKeysFile: authorizedKeysFile.uiSchema(hasStaticProvider),
         sshOptions: sshOptions.uiSchema,
       },
       allocation: {
