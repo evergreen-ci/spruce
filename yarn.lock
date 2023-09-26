@@ -3364,16 +3364,16 @@
     "@leafygreen-ui/tokens" "^2.1.4"
     "@leafygreen-ui/typography" "^16.5.4"
 
-"@leafygreen-ui/card@9.0.1":
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/card/-/card-9.0.1.tgz#c81eb354acfd950d10ef0a5b4ce4c124235505db"
-  integrity sha512-I07xrEesSmM1tz6IHI4baLb7btudG0EFFPp0MZjd20+yZjrUjBO0DYgL0x7YlN56/DxtIqAmQrWr8kGk1Ythaw==
+"@leafygreen-ui/card@10.0.5":
+  version "10.0.5"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/card/-/card-10.0.5.tgz#890b0b9e9c8d099b2e0200a725738c730752489a"
+  integrity sha512-RunKpbTg2agE+YXjP0YFtIbUWWLLA3owf5PmyPU7jU+uhOXxSatmcM/ma2zGa82K3oLZSGI7LkKJJL9NMRU8Ig==
   dependencies:
-    "@leafygreen-ui/box" "^3.1.1"
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.4.0"
+    "@leafygreen-ui/box" "^3.1.8"
+    "@leafygreen-ui/emotion" "^4.0.7"
+    "@leafygreen-ui/lib" "^12.0.0"
+    "@leafygreen-ui/palette" "^4.0.7"
+    "@leafygreen-ui/tokens" "^2.1.4"
     polished "^4.2.2"
 
 "@leafygreen-ui/card@^10.0.4":
