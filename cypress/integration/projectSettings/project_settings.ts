@@ -2,6 +2,7 @@ import {
   getAccessRoute,
   getGeneralRoute,
   getGithubCommitQueueRoute,
+  getVirtualWorkstationRoute,
   project,
   projectUseRepoEnabled,
   repo,
@@ -10,9 +11,9 @@ import {
 import { clickSave } from "../../utils";
 
 describe("Access page", () => {
-  const destination = getAccessRoute(projectUseRepoEnabled);
+  const origin = getAccessRoute(projectUseRepoEnabled);
   beforeEach(() => {
-    cy.visit(destination);
+    cy.visit(origin);
     saveButtonEnabled(false);
     cy.dataCy("default-to-repo-button")
       .should("be.visible")
@@ -78,10 +79,10 @@ describe("Access page", () => {
 });
 
 describe("Clicking on The Project Select Dropdown", () => {
-  const destination = getGeneralRoute(project);
+  const origin = getGeneralRoute(project);
 
   beforeEach(() => {
-    cy.visit(destination);
+    cy.visit(origin);
   });
 
   it("Headers are clickable", () => {
@@ -92,15 +93,15 @@ describe("Clicking on The Project Select Dropdown", () => {
       .find("div")
       .contains("evergreen-ci/evergreen")
       .click();
-    cy.location().should((loc) => expect(loc.pathname).to.not.eq(destination));
+    cy.location().should((loc) => expect(loc.pathname).to.not.eq(origin));
   });
 });
 
 describe("Repo Settings", () => {
-  const destination = getGeneralRoute(repo);
+  const origin = getGeneralRoute(repo);
 
   beforeEach(() => {
-    cy.visit(destination);
+    cy.visit(origin);
   });
 
   describe("General settings pag", () => {
@@ -268,7 +269,7 @@ describe("Repo Settings", () => {
       cy.dataCy("patch-aliases-override-radio-box").should("not.exist");
     });
 
-    it("Saving a patch alias shows a success toast and the alias name in the card title", () => {
+    it("Saving a patch alias shows a success toast, the alias name in the card title and in the repo defaulted project", () => {
       cy.dataCy("add-button").contains("Add Patch Alias").parent().click();
       cy.dataCy("expandable-card-title").contains("New Patch Alias");
       cy.dataCy("alias-input").type("my alias name");
@@ -281,6 +282,19 @@ describe("Repo Settings", () => {
       // Verify persistence
       cy.reload();
       cy.dataCy("expandable-card-title").contains("my alias name");
+      cy.visit(getAccessRoute(projectUseRepoEnabled));
+      cy.dataCy("default-to-repo-button").click();
+      cy.dataCy("default-to-repo-modal").should("be.visible");
+      cy.dataCy("default-to-repo-modal").contains("button", "Confirm").click();
+      cy.validateToast("success", "Successfully defaulted page to repo");
+      cy.dataCy("navitem-patch-aliases").click();
+      cy.dataCy("expandable-card-title").contains("my alias name");
+      cy.dataCy("expandable-card-title")
+        .parentsUntil("div")
+        .first()
+        .click({ force: true });
+      cy.dataCy("expandable-card").find("input").should("be.disabled");
+      cy.dataCy("expandable-card").find("button").should("be.disabled");
     });
 
     it("Saving a Patch Trigger Alias shows a success toast and updates the Github/Commit Queue page", () => {
@@ -356,10 +370,10 @@ describe("Repo Settings", () => {
 });
 
 describe("Project Settings when not defaulting to repo", () => {
-  const destination = getGeneralRoute(project);
+  const origin = getGeneralRoute(project);
 
   beforeEach(() => {
-    cy.visit(destination);
+    cy.visit(origin);
     saveButtonEnabled(false);
   });
 
@@ -529,11 +543,11 @@ describe("Project Settings when not defaulting to repo", () => {
   });
 });
 
-xdescribe("Project Settings when defaulting to repo", () => {
-  const destination = getGeneralRoute(projectUseRepoEnabled);
+describe("Project Settings when defaulting to repo", () => {
+  const origin = getGeneralRoute(projectUseRepoEnabled);
 
   beforeEach(() => {
-    cy.visit(destination);
+    cy.visit(origin);
   });
 
   describe("General Settings page", () => {
@@ -626,7 +640,7 @@ xdescribe("Project Settings when defaulting to repo", () => {
       cy.dataCy("promote-vars-modal").should("be.visible");
       cy.dataCy("promote-var-checkbox").first().check({ force: true });
       cy.contains("button", "Move 1 variable").click();
-      cy.validateToast("success");
+      cy.validateToast("success", "Successfully updated project");
     });
   });
 
@@ -662,7 +676,8 @@ xdescribe("Project Settings when defaulting to repo", () => {
       cy.dataCy("variant-input").should("have.value", ".*");
       cy.dataCy("task-input-control").find("button").contains("Regex").click();
       cy.dataCy("task-input").first().type(".*");
-      saveButtonEnabled();
+      clickSave();
+      cy.validateToast("success", "Successfully updated repo");
     });
 
     it("Shows a warning banner when a commit check definition does not exist", () => {
@@ -706,38 +721,54 @@ xdescribe("Project Settings when defaulting to repo", () => {
     });
 
     it("Returns an error on save because no commit check definitions are defined", () => {
+      // Ensure page has loaded
+      cy.dataCy("pr-testing-enabled-radio-box")
+        .contains("label", "Default to repo (enabled)")
+        .should("be.visible");
+      cy.dataCy("pr-testing-enabled-radio-box")
+        .contains("label", "Disabled")
+        .click();
+      cy.dataCy("manual-pr-testing-enabled-radio-box")
+        .contains("label", "Disabled")
+        .click();
+      cy.dataCy("github-checks-enabled-radio-box")
+        .contains("label", "Enabled")
+        .click();
       clickSave();
-      cy.validateToast("error");
+      cy.validateToast(
+        "error",
+        "There was an error saving the project: GitHub checks cannot be enabled without aliases"
+      );
     });
 
-    it("Disabling commit checks saves successfully", () => {
-      cy.dataCy("github-checks-enabled-radio-box").within(($el) => {
-        cy.wrap($el).getInputByLabel("Disabled").parent().click();
-      });
-
+    it("Defaults to repo and shows the repo's disabled patch definition", () => {
+      cy.dataCy("accordion-toggle")
+        .contains("Repo Patch Definition 1")
+        .should("not.exist");
+      // Save a repo patch definition
+      cy.visit(getGeneralRoute(repo));
+      cy.dataCy("navitem-github-commitqueue").click();
+      cy.contains("button", "Add Patch Definition").click();
+      cy.dataCy("variant-tags-input").first().type("vtag");
+      cy.dataCy("task-tags-input").first().type("ttag");
       clickSave();
-      cy.validateToast("success", "Successfully updated project");
-    });
-
-    it("Defaults to repo", () => {
+      cy.validateToast("success", "Successfully updated repo");
+      cy.visit(origin);
+      cy.dataCy("navitem-github-commitqueue").click();
       cy.dataCy("default-to-repo-button").click();
       cy.dataCy("default-to-repo-modal").should("be.visible");
       cy.dataCy("default-to-repo-modal").contains("button", "Confirm").click();
       cy.validateToast("success", "Successfully defaulted page to repo");
-    });
-
-    it("Again shows the repo's disabled patch definition", () => {
-      cy.dataCy("accordion-toggle").should("exist");
-      cy.dataCy("accordion-toggle").contains("Patch Definition 1");
+      cy.dataCy("accordion-toggle").scrollIntoView();
+      cy.dataCy("accordion-toggle")
+        .should("be.visible")
+        .contains("Repo Patch Definition 1");
     });
   });
 
   describe("Patch Aliases page", () => {
-    before(() => {
+    beforeEach(() => {
       cy.dataCy("navitem-patch-aliases").click();
-    });
-
-    it("Should not have the save button enabled on load", () => {
       saveButtonEnabled(false);
     });
 
@@ -748,104 +779,117 @@ xdescribe("Project Settings when defaulting to repo", () => {
       );
     });
 
-    it("Shows the saved repo patch alias", () => {
-      cy.dataCy("expandable-card-title").contains("my alias name");
-    });
-
-    it("Displays disabled fields when the card is expanded", () => {
-      cy.dataCy("expandable-card-title")
-        .parentsUntil("div")
-        .first()
-        .click({ force: true });
-      cy.dataCy("expandable-card").find("input").should("be.disabled");
-      cy.dataCy("expandable-card").find("button").should("be.disabled");
-    });
-
-    it("Allows adding a patch alias", () => {
-      cy.getInputByLabel("Override Repo Patch Aliases").click({
-        force: true,
-      });
+    it("Patch aliases added before defaulting to repo patch aliases are cleared", () => {
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(200);
+      // Override repo patch alias and add a patch alias.
+      cy.contains("label", "Override Repo Patch Aliases")
+        .should("be.visible")
+        .click();
       saveButtonEnabled(false);
-
       cy.dataCy("add-button")
         .contains("Add Patch Alias")
         .parent()
         .click({ force: true });
       saveButtonEnabled(false);
-
       cy.dataCy("alias-input").type("my overriden alias name");
-
       cy.dataCy("variant-tags-input").first().type("alias variant tag 2");
-
       cy.dataCy("task-tags-input").first().type("alias task tag 2");
       cy.dataCy("add-button").contains("Add Task Tag").parent().click();
       cy.dataCy("task-tags-input").first().type("alias task tag 3");
-
       clickSave();
       cy.validateToast("success", "Successfully updated project");
-    });
-
-    it("Allows defaulting to repo patch aliases", () => {
-      cy.getInputByLabel("Default to Repo Patch Aliases").click({
-        force: true,
-      });
-
+      // Default to repo patch alias
+      cy.contains("label", "Default to Repo Patch Aliases").click();
       clickSave();
       cy.validateToast("success", "Successfully updated project");
-
       saveButtonEnabled(false);
-      cy.dataCy("expandable-card-title").contains("my alias name");
-    });
-
-    it("Has cleared previously saved alias definitions", () => {
-      cy.getInputByLabel("Override Repo Patch Aliases").click({
-        force: true,
-      });
+      // Aliases are cleared
+      cy.contains("label", "Override Repo Patch Aliases").click();
       cy.dataCy("alias-row").should("have.length", 0);
     });
   });
 
   describe("Virtual Workstation page", () => {
-    before(() => {
+    beforeEach(() => {
       cy.dataCy("navitem-virtual-workstation").click();
+      cy.get('[aria-label="Git Clone"]')
+        .as("gitCloneButtonContainer")
+        .children()
+        .should("have.length", 3);
     });
 
-    it("Shows repo commands", () => {
-      cy.dataCy("add-button").should("not.exist");
-      cy.dataCy("command-row").should("have.length", 2);
-      cy.dataCy("command-row").each(() => {
-        cy.get("input").should("be.disabled");
-        cy.get("textarea").should("be.disabled");
-      });
+    it("Enable git clone", () => {
+      cy.get("@gitCloneButtonContainer").contains("Enabled").click();
+      cy.getInputByLabel("Enabled").should("be.checked");
+      clickSave();
+      cy.validateToast("success", "Successfully updated project");
+    });
+    it("Add commands", () => {
+      // Repo commands should be visible on project page based on button selection
+      cy.getInputByLabel("Default to repo (disabled)").should("be.checked");
+      cy.dataCy("command-row").should("not.exist");
+      cy.dataCy("attached-repo-link").click();
+      cy.location("pathname").should(
+        "equal",
+        `/${getVirtualWorkstationRoute(repo)}`
+      );
+      cy.contains("button", "Add Command").click();
+      cy.dataCy("command-input").type("a repo command");
+      clickSave();
+      cy.validateToast("success", "Successfully updated repo");
+      // Go to project page
+      cy.visit(origin);
+      cy.dataCy("navitem-virtual-workstation").click();
+      cy.dataCy("command-row")
+        .contains("textarea", "a repo command")
+        .should("be.disabled");
+      // Override commands, add a command, default to repo then show override commands are cleared
+      cy.contains("label", "Override Repo Commands")
+        .as("overrideRepoCommandsButton")
+        .click();
+      cy.dataCy("command-row").should("not.exist");
+      cy.contains("button", "Add Command").click();
+      cy.dataCy("command-input").type("a project command");
+      clickSave();
+      cy.validateToast("success", "Successfully updated project");
+      cy.dataCy("command-row")
+        .contains("textarea", "a project command")
+        .should("be.enabled");
+      cy.contains("label", "Default to Repo Commands").click();
+      clickSave();
+      cy.validateToast("success", "Successfully updated project");
+      cy.dataCy("command-row")
+        .contains("textarea", "a repo command")
+        .should("be.disabled");
+      cy.get("@overrideRepoCommandsButton").click();
+      cy.dataCy("command-row").should("not.exist");
     });
 
     it("Allows overriding without adding a command", () => {
-      cy.getInputByLabel("Override Repo Commands").click({ force: true });
-
+      cy.contains("label", "Override Repo Commands").click();
       clickSave();
       cy.validateToast("success", "Successfully updated project");
-
       cy.getInputByLabel("Override Repo Commands").should("be.checked");
     });
   });
 });
 
-xdescribe("Attaching Spruce to a repo", { testIsolation: false }, () => {
-  const destination = getGeneralRoute(project);
+describe("Attaching Spruce to a repo", () => {
+  const origin = getGeneralRoute(project);
 
-  before(() => {
-    cy.visit(destination);
+  beforeEach(() => {
+    cy.visit(origin);
   });
 
   it("Saves a new repo", () => {
-    cy.dataCy("repo-input").clear().type("evergreen");
-
+    cy.dataCy("repo-input").as("repoInput").clear();
+    cy.get("@repoInput").type("evergreen");
     cy.dataCy("attach-repo-button").should(
       "have.attr",
       "aria-disabled",
       "true"
     );
-
     clickSave();
     cy.validateToast("success", "Successfully updated project");
   });
@@ -857,11 +901,14 @@ xdescribe("Attaching Spruce to a repo", { testIsolation: false }, () => {
   });
 
   describe("GitHub/Commit Queue page", () => {
-    before(() => {
+    beforeEach(() => {
       cy.dataCy("navitem-github-commitqueue").click();
     });
 
-    it("Shows warnings about enabling PR Testing", () => {
+    xit("Shows warnings about enabling PR Testing", () => {
+      cy.dataCy("pr-testing-enabled-radio-box")
+        .contains("label", "Enabled")
+        .click();
       cy.dataCy("pr-testing-enabled-radio-box")
         .prev()
         .dataCy("warning-banner")
@@ -872,11 +919,11 @@ xdescribe("Attaching Spruce to a repo", { testIsolation: false }, () => {
         .should("exist");
     });
 
-    it("Doesn't show a warning about enabling commit checks because the feature is disabled", () => {
+    xit("Doesn't show a warning about enabling commit checks because the feature is disabled", () => {
       cy.dataCy("github-checks-enabled-radio-box").prev().should("not.exist");
     });
 
-    it("Shows a warning about enabling commit queue", () => {
+    xit("Shows a warning about enabling commit queue", () => {
       cy.dataCy("cq-card").dataCy("warning-banner").should("exist");
     });
 
@@ -889,47 +936,38 @@ xdescribe("Attaching Spruce to a repo", { testIsolation: false }, () => {
   });
 });
 
-xdescribe("Renaming the identifier", { testIsolation: false }, () => {
-  const destination = getGeneralRoute(project);
+describe("Renaming the identifier", () => {
+  const origin = getGeneralRoute(project);
 
-  before(() => {
-    cy.visit(destination);
+  beforeEach(() => {
+    cy.visit(origin);
   });
 
-  it("Shows warning text when identifier is changed", () => {
+  it("Update identifier", () => {
     const warningText =
       "Updates made to the project identifier will change the identifier used for the CLI, inter-project dependencies, etc. Project users should be made aware of this change, as the old identifier will no longer work.";
 
     cy.dataCy("input-warning").should("not.exist");
-    cy.dataCy("identifier-input").clear().type("new-identifier");
+    cy.dataCy("identifier-input").clear();
+    cy.dataCy("identifier-input").type("new-identifier");
     cy.dataCy("input-warning").should("contain", warningText);
-  });
-
-  it("Successfully saves", () => {
     clickSave();
     cy.validateToast("success", "Successfully updated project");
-  });
-
-  it("Redirects to a new URL", () => {
     cy.url().should("include", "new-identifier");
   });
 });
 
-xdescribe(
-  "A project that has GitHub webhooks disabled",
-  { testIsolation: false },
-  () => {
-    const destination = getGithubCommitQueueRoute("logkeeper");
+describe("A project that has GitHub webhooks disabled", () => {
+  const origin = getGithubCommitQueueRoute("logkeeper");
 
-    before(() => {
-      cy.visit(destination);
-    });
+  beforeEach(() => {
+    cy.visit(origin);
+  });
 
-    it("Disables all interactive elements on the page", () => {
-      cy.dataCy("project-settings-page")
-        .find("button")
-        .should("have.attr", "aria-disabled", "true");
-      cy.get("input").should("be.disabled");
-    });
-  }
-);
+  it("Disables all interactive elements on the page", () => {
+    cy.dataCy("project-settings-page")
+      .find("button")
+      .should("have.attr", "aria-disabled", "true");
+    cy.get("input").should("be.disabled");
+  });
+});
