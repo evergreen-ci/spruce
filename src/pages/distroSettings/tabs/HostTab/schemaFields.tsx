@@ -83,7 +83,7 @@ export const setupAsSudo = {
     "ui:elementWrapperCSS": css`
       display: flex;
       justify-content: flex-end;
-      margin-bottom: 0;
+      margin-bottom: -20px;
     `,
   },
 };
@@ -94,9 +94,6 @@ export const setupScript = {
     title: "Setup Script",
   },
   uiSchema: {
-    "ui:elementWrapperCSS": css`
-      margin-top: -22px;
-    `,
     "ui:widget": "textarea",
   },
 };
