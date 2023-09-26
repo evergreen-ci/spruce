@@ -23,7 +23,7 @@ describe("Access page", () => {
   it("Changing settings and clicking the save button produces a success toast and the changes are persisted", () => {
     // Wait for internal access buttons to load
     cy.get("[aria-label='Internal Access']")
-      .children()
+      .find("label")
       .as("internalAccessButtons")
       .should("have.length", 3);
     cy.contains("label", "Unrestricted").click();
@@ -653,9 +653,10 @@ describe("Project Settings when defaulting to repo", () => {
       saveButtonEnabled(false);
     });
 
-    it.only("Allows overriding repo patch definitions", () => {
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      //cy.wait(200);
+    it("Allows overriding repo patch definitions", () => {
+      cy.dataCy("pr-testing-enabled-radio-box")
+        .find("label")
+        .should("have.length", 3);
       cy.contains("label", "Override Repo Patch Definition").click();
       cy.dataCy("error-banner")
         .contains(
@@ -815,7 +816,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("navitem-virtual-workstation").click();
       cy.get('[aria-label="Git Clone"]')
         .as("gitCloneButtonContainer")
-        .children()
+        .find("label")
         .should("have.length", 3);
     });
 
