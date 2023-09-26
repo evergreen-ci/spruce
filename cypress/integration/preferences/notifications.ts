@@ -73,7 +73,7 @@ describe("user subscriptions table", () => {
     );
   });
 
-  describe("Deleting subscriptions", { testIsolation: false }, () => {
+  describe("Deleting subscriptions", () => {
     it("Deletes a single subscription", () => {
       cy.dataCy("subscription-row")
         .eq(0)
