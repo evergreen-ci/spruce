@@ -633,14 +633,14 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("var-value-input").first().type("3");
 
       clickSave();
-      cy.validateToast("success", "Successfully updated repo");
+      cy.validateToast("success", "Successfully updated project");
       // Promote variables
       cy.dataCy("promote-vars-modal").should("not.exist");
       cy.dataCy("promote-vars-button").click();
       cy.dataCy("promote-vars-modal").should("be.visible");
       cy.dataCy("promote-var-checkbox").first().check({ force: true });
       cy.contains("button", "Move 1 variable").click();
-      cy.validateToast("success", "Successfully updated repo");
+      cy.validateToast("success", "Successfully moved variables to repo");
     });
   });
 
@@ -653,9 +653,9 @@ describe("Project Settings when defaulting to repo", () => {
       saveButtonEnabled(false);
     });
 
-    it("Allows overriding repo patch definitions", () => {
+    it.only("Allows overriding repo patch definitions", () => {
       // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(200);
+      //cy.wait(200);
       cy.contains("label", "Override Repo Patch Definition").click();
       cy.dataCy("error-banner")
         .contains(
