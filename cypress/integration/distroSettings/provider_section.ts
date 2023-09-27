@@ -86,4 +86,83 @@ describe("provider section", () => {
       cy.validateToast("success");
     });
   });
+
+  describe("ec2 fleet", () => {
+    beforeEach(() => {
+      cy.visit("/distro/ubuntu1804-workstation/settings/provider");
+    });
+
+    it("shows and hides fields correctly", () => {
+      // Fleet options.
+      cy.getInputByLabel("Fleet Instance Type").contains("On-demand");
+      cy.contains("Capacity optimization").should("not.exist");
+
+      cy.selectLGOption("Fleet Instance Type", "Spot");
+      cy.contains("Capacity optimization").should("exist");
+
+      // VPC options.
+      cy.dataCy("use-vpc").should("be.checked");
+      cy.contains("Default VPC Subnet ID").should("exist");
+      cy.contains("VPC Subnet Prefix").should("exist");
+
+      cy.dataCy("use-vpc").uncheck({ force: true });
+      cy.contains("Default VPC Subnet ID").should("not.exist");
+      cy.contains("VPC Subnet Prefix").should("not.exist");
+    });
+
+    it("successfully updates ec2 fleet provider fields", () => {
+      cy.dataCy("provider-select").contains("EC2 Fleet");
+
+      // Correct section is displayed.
+      cy.dataCy("ec2-fleet-provider-settings").should("exist");
+      cy.dataCy("region-select").contains("us-east-1");
+
+      // Change field values.
+      cy.selectLGOption("Region", "us-west-1");
+      cy.getInputByLabel("SSH Key Name").as("keyNameInput");
+      cy.get("@keyNameInput").clear();
+      cy.get("@keyNameInput").type("my ssh key");
+      cy.selectLGOption("Fleet Instance Type", "Spot");
+      cy.contains("button", "Add mount point").click();
+      cy.getInputByLabel("Device Name").type("device name");
+      cy.getInputByLabel("Size").type("200");
+      save();
+      cy.validateToast("success");
+
+      // Revert fields to original values.
+      cy.selectLGOption("Region", "us-east-1");
+      cy.get("@keyNameInput").clear();
+      cy.get("@keyNameInput").type("mci");
+      cy.selectLGOption("Fleet Instance Type", "On-demand");
+      cy.dataCy("mount-points").within(() => {
+        cy.dataCy("delete-item-button").click();
+      });
+      save();
+      cy.validateToast("success");
+    });
+
+    it("can add and delete region settings", () => {
+      cy.dataCy("ec2-fleet-provider-settings").should("exist");
+
+      // Add item for new region.
+      cy.contains("button", "Add region settings").click();
+      cy.contains("button", "Add region settings").should("not.exist");
+
+      // Save new region.
+      cy.selectLGOption("Region", "us-west-1");
+      cy.getInputByLabel("EC2 AMI ID").type("ami-1234");
+      cy.getInputByLabel("Instance Type").type("m5.xlarge");
+      cy.contains("button", "Add security group").click();
+      cy.getInputByLabel("Security Group ID").type("security-group-1234");
+      save();
+      cy.validateToast("success");
+
+      // Revert to original state by deleting the new region.
+      cy.dataCy("delete-item-button").first().click();
+      save();
+      cy.validateToast("success");
+
+      cy.contains("button", "Add region settings").should("exist");
+    });
+  });
 });
