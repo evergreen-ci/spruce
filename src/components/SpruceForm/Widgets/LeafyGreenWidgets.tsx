@@ -344,6 +344,7 @@ export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
     elementWrapperCSS,
     emptyValue = "",
     focusOnMount,
+    rows,
   } = options;
 
   const { errors, hasError } = processErrors(rawErrors);
@@ -374,6 +375,7 @@ export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
           target.value === "" ? onChange(emptyValue) : onChange(target.value)
         }
         errorMessage={hasError ? errors.join(", ") : null}
+        rows={rows}
         state={hasError ? "error" : "none"}
       />
     </ElementWrapper>

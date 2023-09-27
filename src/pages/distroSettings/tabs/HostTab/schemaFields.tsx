@@ -1,6 +1,8 @@
 import { css } from "@emotion/react";
+import { fontFamilies } from "@leafygreen-ui/tokens";
 import { InlineCode } from "@leafygreen-ui/typography";
 import {
+  CardFieldTemplate,
   AccordionFieldTemplate,
   FieldRow,
 } from "components/SpruceForm/FieldTemplates";
@@ -29,7 +31,7 @@ const enumSelect = (enumObject: Record<string, string>) =>
     enum: [key],
   }));
 
-export const bootstrapMethod = {
+const bootstrapMethod = {
   schema: {
     type: "string" as "string",
     title: "Host Bootstrap Method",
@@ -40,7 +42,7 @@ export const bootstrapMethod = {
   },
 };
 
-export const communicationMethod = {
+const communicationMethod = {
   schema: {
     type: "string" as "string",
     title: "Host Communication Method",
@@ -51,7 +53,7 @@ export const communicationMethod = {
   },
 };
 
-export const arch = {
+const arch = {
   schema: {
     type: "string" as "string",
     title: "Agent Architecture",
@@ -62,7 +64,7 @@ export const arch = {
   },
 };
 
-export const workDir = {
+const workDir = {
   schema: {
     type: "string" as "string",
     title: "Working Directory",
@@ -74,7 +76,7 @@ export const workDir = {
   },
 };
 
-export const setupAsSudo = {
+const setupAsSudo = {
   schema: {
     type: "boolean" as "boolean",
     title: "Run script as sudo",
@@ -88,17 +90,23 @@ export const setupAsSudo = {
   },
 };
 
-export const setupScript = {
+const setupScript = {
   schema: {
     type: "string" as "string",
     title: "Setup Script",
   },
   uiSchema: {
+    "ui:elementWrapperCSS": css`
+      textarea {
+        font-family: ${fontFamilies.code};
+      }
+    `,
+    "ui:rows": 8,
     "ui:widget": "textarea",
   },
 };
 
-export const userSpawnAllowed = {
+const userSpawnAllowed = {
   schema: {
     type: "boolean" as "boolean",
     title: "Spawnable",
@@ -159,7 +167,7 @@ export const rootDir = {
   uiSchema: {},
 };
 
-export const serviceUser = {
+const serviceUser = {
   schema: {
     type: "string" as "string",
     title: "Service User",
@@ -173,7 +181,7 @@ export const serviceUser = {
   }),
 };
 
-export const jasperBinaryDir = {
+const jasperBinaryDir = {
   schema: {
     type: "string" as "string",
     title: "Jasper Binary Directory",
@@ -197,7 +205,7 @@ export const jasperCredentialsPath = {
   },
 };
 
-export const clientDir = {
+const clientDir = {
   schema: {
     type: "string" as "string",
     title: "Client Directory",
@@ -209,7 +217,7 @@ export const clientDir = {
   },
 };
 
-export const shellPath = {
+const shellPath = {
   schema: {
     type: "string" as "string",
     title: "Shell Path",
@@ -220,7 +228,7 @@ export const shellPath = {
   },
 };
 
-export const homeVolumeFormatCommand = {
+const homeVolumeFormatCommand = {
   schema: {
     type: "string" as "string",
     title: "Home Volume Format Command",
@@ -228,7 +236,7 @@ export const homeVolumeFormatCommand = {
   uiSchema: {},
 };
 
-export const numFiles = {
+const numFiles = {
   schema: {
     type: "number" as "number",
     title: "Number of Files",
@@ -239,7 +247,7 @@ export const numFiles = {
   },
 };
 
-export const numTasks = {
+const numTasks = {
   schema: {
     type: "number" as "number",
     title: "Number of CGroup Tasks",
@@ -251,7 +259,7 @@ export const numTasks = {
   },
 };
 
-export const numProcesses = {
+const numProcesses = {
   schema: {
     type: "number" as "number",
     title: "Number of Processes",
@@ -262,7 +270,7 @@ export const numProcesses = {
   },
 };
 
-export const lockedMemoryKb = {
+const lockedMemoryKb = {
   schema: {
     type: "number" as "number",
     title: "Locked Memory",
@@ -274,7 +282,7 @@ export const lockedMemoryKb = {
   },
 };
 
-export const virtualMemoryKb = {
+const virtualMemoryKb = {
   schema: {
     type: "number" as "number",
     title: "Virtual Memory (kB)",
@@ -286,7 +294,7 @@ export const virtualMemoryKb = {
   },
 };
 
-export const env = {
+const env = {
   schema: {
     type: "array" as "array",
     title: "Environment Variables",
@@ -318,7 +326,7 @@ export const env = {
   },
 };
 
-export const preconditionScripts = {
+const preconditionScripts = {
   schema: {
     type: "array" as "array",
     title: "Precondition Scripts",
@@ -360,7 +368,7 @@ export const preconditionScripts = {
   },
 };
 
-export const user = {
+const user = {
   schema: {
     type: "string" as "string",
     title: "SSH User",
@@ -371,7 +379,7 @@ export const user = {
   },
 };
 
-export const sshKey = {
+const sshKey = {
   schema: (sshKeys: SshKey[]) => ({
     type: "string" as "string",
     title: "SSH Key",
@@ -386,7 +394,7 @@ export const sshKey = {
   },
 };
 
-export const authorizedKeysFile = {
+const authorizedKeysFile = {
   schema: {
     type: "string" as "string",
     title: "Authorized Keys File",
@@ -397,7 +405,7 @@ export const authorizedKeysFile = {
   }),
 };
 
-export const sshOptions = {
+const sshOptions = {
   schema: {
     type: "array" as "array",
     title: "SSH Options",
@@ -423,7 +431,7 @@ export const sshOptions = {
   },
 };
 
-export const version = {
+const version = {
   schema: {
     type: "string" as "string",
     title: "Host Allocator Version",
@@ -434,7 +442,7 @@ export const version = {
   },
 };
 
-export const roundingRule = {
+const roundingRule = {
   schema: {
     type: "string" as "string",
     title: "Host Allocator Rounding Rule",
@@ -445,7 +453,7 @@ export const roundingRule = {
   },
 };
 
-export const feedbackRule = {
+const feedbackRule = {
   schema: {
     type: "string" as "string",
     title: "Host Allocator Feedback Rule",
@@ -456,7 +464,7 @@ export const feedbackRule = {
   },
 };
 
-export const hostsOverallocatedRule = {
+const hostsOverallocatedRule = {
   schema: {
     type: "string" as "string",
     title: "Host Overallocation Rule",
@@ -467,7 +475,7 @@ export const hostsOverallocatedRule = {
   },
 };
 
-export const minimumHosts = {
+const minimumHosts = {
   schema: {
     type: "number" as "number",
     title: "Minimum Number of Hosts Allowed",
@@ -479,7 +487,7 @@ export const minimumHosts = {
   }),
 };
 
-export const maximumHosts = {
+const maximumHosts = {
   schema: {
     type: "number" as "number",
     title: "Maxiumum Number of Hosts Allowed",
@@ -491,7 +499,7 @@ export const maximumHosts = {
   }),
 };
 
-export const acceptableHostIdleTime = {
+const acceptableHostIdleTime = {
   schema: {
     type: "number" as "number",
     title: "Acceptable Host Idle Time (s)",
@@ -504,7 +512,7 @@ export const acceptableHostIdleTime = {
   }),
 };
 
-export const futureHostFraction = {
+const futureHostFraction = {
   schema: {
     type: "number" as "number",
     title: "Future Host Fraction",
@@ -515,5 +523,122 @@ export const futureHostFraction = {
     "ui:data-cy": "future-fraction-input",
     "ui:description": "Set 0 to use global default.",
     ...(!hasEC2Provider && { "ui:widget": "hidden" }),
+  }),
+};
+
+export const setup = {
+  schema: {
+    bootstrapMethod: bootstrapMethod.schema,
+    communicationMethod: communicationMethod.schema,
+    arch: arch.schema,
+    workDir: workDir.schema,
+    setupAsSudo: setupAsSudo.schema,
+    setupScript: setupScript.schema,
+    userSpawnAllowed: userSpawnAllowed.schema,
+  },
+  uiSchema: (architecture: Arch, hasStaticProvider: boolean) => ({
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    bootstrapMethod: bootstrapMethod.uiSchema,
+    communicationMethod: communicationMethod.uiSchema,
+    arch: arch.uiSchema,
+    setupAsSudo: setupAsSudo.uiSchema,
+    workDir: workDir.uiSchema,
+    setupScript: setupScript.uiSchema,
+    userSpawnAllowed: userSpawnAllowed.uiSchema(hasStaticProvider),
+    isVirtualWorkStation: isVirtualWorkStation.uiSchema(architecture),
+    icecreamSchedulerHost: icecreamSchedulerHost.uiSchema,
+    icecreamConfigPath: icecreamConfigPath.uiSchema,
+  }),
+};
+
+export const bootstrap = {
+  schema: {
+    jasperBinaryDir: jasperBinaryDir.schema,
+    jasperCredentialsPath: jasperCredentialsPath.schema,
+    clientDir: clientDir.schema,
+    shellPath: shellPath.schema,
+    homeVolumeFormatCommand: homeVolumeFormatCommand.schema,
+    serviceUser: serviceUser.schema,
+    resourceLimits: {
+      type: "object" as "object",
+      title: "Resource Limits",
+      required: [
+        "numFiles",
+        "numTasks",
+        "numProcesses",
+        "lockedMemoryKb",
+        "virtualMemoryKb",
+      ],
+      properties: {
+        numFiles: numFiles.schema,
+        numTasks: numTasks.schema,
+        numProcesses: numProcesses.schema,
+        lockedMemoryKb: lockedMemoryKb.schema,
+        virtualMemoryKb: virtualMemoryKb.schema,
+      },
+    },
+    env: env.schema,
+    preconditionScripts: preconditionScripts.schema,
+  },
+  uiSchema: (architecture: Arch) => ({
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    serviceUser: serviceUser.uiSchema(architecture),
+    jasperBinaryDir: jasperBinaryDir.uiSchema,
+    jasperCredentialsPath: jasperCredentialsPath.uiSchema,
+    clientDir: clientDir.uiSchema,
+    shellPath: shellPath.uiSchema,
+    resourceLimits: {
+      // Only visible for Linux
+      ...(!linuxArchitectures.includes(architecture) && {
+        "ui:widget": "hidden",
+      }),
+      numFiles: numFiles.uiSchema,
+      numTasks: numTasks.uiSchema,
+      numProcesses: numProcesses.uiSchema,
+      lockedMemoryKb: lockedMemoryKb.uiSchema,
+      virtualMemoryKb: virtualMemoryKb.uiSchema,
+    },
+    env: env.uiSchema,
+    preconditionScripts: preconditionScripts.uiSchema,
+  }),
+};
+
+export const allocation = {
+  schema: {
+    version: version.schema,
+    roundingRule: roundingRule.schema,
+    feedbackRule: feedbackRule.schema,
+    hostsOverallocatedRule: hostsOverallocatedRule.schema,
+    minimumHosts: minimumHosts.schema,
+    maximumHosts: maximumHosts.schema,
+    acceptableHostIdleTime: acceptableHostIdleTime.schema,
+    futureHostFraction: futureHostFraction.schema,
+  },
+  uiSchema: (hasEC2Provider: boolean) => ({
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    version: version.uiSchema,
+    roundingRule: roundingRule.uiSchema,
+    feedbackRule: feedbackRule.uiSchema,
+    hostsOverallocatedRule: hostsOverallocatedRule.uiSchema,
+    minimumHosts: minimumHosts.uiSchema(hasEC2Provider),
+    maximumHosts: maximumHosts.uiSchema(hasEC2Provider),
+    acceptableHostIdleTime: acceptableHostIdleTime.uiSchema(hasEC2Provider),
+    futureHostFraction: futureHostFraction.uiSchema(hasEC2Provider),
+  }),
+};
+
+export const sshConfig = {
+  schema: (sshKeys: SshKey[]) => ({
+    user: user.schema,
+    sshKey: sshKey.schema(sshKeys),
+    authorizedKeysFile: authorizedKeysFile.schema,
+    sshOptions: sshOptions.schema,
+  }),
+  uiSchema: (hasStaticProvider: boolean) => ({
+    "ui:ObjectFieldTemplate": CardFieldTemplate,
+    user: user.uiSchema,
+    sshKey: sshKey.uiSchema,
+    authorizedKeysFile: authorizedKeysFile.uiSchema(hasStaticProvider),
+    sshOptions: sshOptions.uiSchema,
   }),
 };

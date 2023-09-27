@@ -1,48 +1,15 @@
 import { GetFormSchema } from "components/SpruceForm";
-import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import { Arch, BootstrapMethod, Provider, SshKey } from "gql/generated/types";
+import { nonWindowsArchitectures, windowsArchitectures } from "./constants";
 import {
-  linuxArchitectures,
-  nonWindowsArchitectures,
-  windowsArchitectures,
-} from "./constants";
-import {
-  acceptableHostIdleTime,
-  arch,
-  authorizedKeysFile,
-  bootstrapMethod,
-  clientDir,
-  communicationMethod,
-  env,
-  feedbackRule,
-  futureHostFraction,
-  homeVolumeFormatCommand,
-  hostsOverallocatedRule,
+  allocation as allocationProperties,
+  bootstrap as bootstrapProperties,
+  setup,
+  sshConfig as sshConfigProperties,
   icecreamConfigPath,
   icecreamSchedulerHost,
   isVirtualWorkStation,
-  jasperBinaryDir,
-  jasperCredentialsPath,
-  lockedMemoryKb,
-  maximumHosts,
-  minimumHosts,
-  numFiles,
-  numProcesses,
-  numTasks,
-  preconditionScripts,
   rootDir,
-  roundingRule,
-  serviceUser,
-  setupAsSudo,
-  setupScript,
-  shellPath,
-  sshKey,
-  sshOptions,
-  user,
-  userSpawnAllowed,
-  version,
-  virtualMemoryKb,
-  workDir,
 } from "./schemaFields";
 
 type FormSchemaParams = {
@@ -68,15 +35,7 @@ export const getFormSchema = ({
         setup: {
           type: "object" as "object",
           title: "Host Setup",
-          properties: {
-            bootstrapMethod: bootstrapMethod.schema,
-            communicationMethod: communicationMethod.schema,
-            arch: arch.schema,
-            workDir: workDir.schema,
-            setupAsSudo: setupAsSudo.schema,
-            setupScript: setupScript.schema,
-            userSpawnAllowed: userSpawnAllowed.schema,
-          },
+          properties: setup.schema,
           dependencies: {
             userSpawnAllowed: {
               oneOf: [
@@ -166,58 +125,10 @@ export const getFormSchema = ({
       },
     },
     uiSchema: {
-      setup: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        bootstrapMethod: bootstrapMethod.uiSchema,
-        communicationMethod: communicationMethod.uiSchema,
-        arch: arch.uiSchema,
-        setupAsSudo: setupAsSudo.uiSchema,
-        workDir: workDir.uiSchema,
-        setupScript: setupScript.uiSchema,
-        userSpawnAllowed: userSpawnAllowed.uiSchema(hasStaticProvider),
-        isVirtualWorkStation: isVirtualWorkStation.uiSchema(architecture),
-        icecreamSchedulerHost: icecreamSchedulerHost.uiSchema,
-        icecreamConfigPath: icecreamConfigPath.uiSchema,
-      },
-      bootstrapSettings: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        serviceUser: serviceUser.uiSchema(architecture),
-        jasperBinaryDir: jasperBinaryDir.uiSchema,
-        jasperCredentialsPath: jasperCredentialsPath.uiSchema,
-        clientDir: clientDir.uiSchema,
-        shellPath: shellPath.uiSchema,
-        resourceLimits: {
-          // Only visible for Linux
-          ...(!linuxArchitectures.includes(architecture) && {
-            "ui:widget": "hidden",
-          }),
-          numFiles: numFiles.uiSchema,
-          numTasks: numTasks.uiSchema,
-          numProcesses: numProcesses.uiSchema,
-          lockedMemoryKb: lockedMemoryKb.uiSchema,
-          virtualMemoryKb: virtualMemoryKb.uiSchema,
-        },
-        env: env.uiSchema,
-        preconditionScripts: preconditionScripts.uiSchema,
-      },
-      sshConfig: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        user: user.uiSchema,
-        sshKey: sshKey.uiSchema,
-        authorizedKeysFile: authorizedKeysFile.uiSchema(hasStaticProvider),
-        sshOptions: sshOptions.uiSchema,
-      },
-      allocation: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        version: version.uiSchema,
-        roundingRule: roundingRule.uiSchema,
-        feedbackRule: feedbackRule.uiSchema,
-        hostsOverallocatedRule: hostsOverallocatedRule.uiSchema,
-        minimumHosts: minimumHosts.uiSchema(hasEC2Provider),
-        maximumHosts: maximumHosts.uiSchema(hasEC2Provider),
-        acceptableHostIdleTime: acceptableHostIdleTime.uiSchema(hasEC2Provider),
-        futureHostFraction: futureHostFraction.uiSchema(hasEC2Provider),
-      },
+      setup: setup.uiSchema(architecture, hasStaticProvider),
+      bootstrapSettings: bootstrapProperties.uiSchema(architecture),
+      sshConfig: sshConfigProperties.uiSchema(hasStaticProvider),
+      allocation: allocationProperties.uiSchema(hasEC2Provider),
     },
   };
 };
@@ -225,45 +136,13 @@ export const getFormSchema = ({
 const bootstrapSettings = {
   type: "object" as "object",
   title: "Bootstrap Settings",
-  properties: {
-    jasperBinaryDir: jasperBinaryDir.schema,
-    jasperCredentialsPath: jasperCredentialsPath.schema,
-    clientDir: clientDir.schema,
-    shellPath: shellPath.schema,
-    homeVolumeFormatCommand: homeVolumeFormatCommand.schema,
-    serviceUser: serviceUser.schema,
-    resourceLimits: {
-      type: "object" as "object",
-      title: "Resource Limits",
-      required: [
-        "numFiles",
-        "numTasks",
-        "numProcesses",
-        "lockedMemoryKb",
-        "virtualMemoryKb",
-      ],
-      properties: {
-        numFiles: numFiles.schema,
-        numTasks: numTasks.schema,
-        numProcesses: numProcesses.schema,
-        lockedMemoryKb: lockedMemoryKb.schema,
-        virtualMemoryKb: virtualMemoryKb.schema,
-      },
-    },
-    env: env.schema,
-    preconditionScripts: preconditionScripts.schema,
-  },
+  properties: bootstrapProperties.schema,
 };
 
 const sshConfig = (sshKeys: SshKey[]) => ({
   type: "object" as "object",
   title: "SSH Configuration",
-  properties: {
-    user: user.schema,
-    sshKey: sshKey.schema(sshKeys),
-    authorizedKeysFile: authorizedKeysFile.schema,
-    sshOptions: sshOptions.schema,
-  },
+  properties: sshConfigProperties.schema(sshKeys),
 });
 
 const allocation = {
@@ -275,14 +154,5 @@ const allocation = {
     "acceptableHostIdleTime",
     "futureHostFraction",
   ],
-  properties: {
-    version: version.schema,
-    roundingRule: roundingRule.schema,
-    feedbackRule: feedbackRule.schema,
-    hostsOverallocatedRule: hostsOverallocatedRule.schema,
-    minimumHosts: minimumHosts.schema,
-    maximumHosts: maximumHosts.schema,
-    acceptableHostIdleTime: acceptableHostIdleTime.schema,
-    futureHostFraction: futureHostFraction.schema,
-  },
+  properties: allocationProperties.schema,
 };
