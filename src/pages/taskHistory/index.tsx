@@ -23,7 +23,7 @@ import {
   MainlineCommitsForHistoryQuery,
   MainlineCommitsForHistoryQueryVariables,
 } from "gql/generated/types";
-import { GET_MAINLINE_COMMITS_FOR_HISTORY } from "gql/queries";
+import { MAINLINE_COMMITS_FOR_HISTORY } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { string } from "utils";
 import { leaveBreadcrumb } from "utils/errorReporting";
@@ -54,7 +54,7 @@ const TaskHistoryContents: React.FC = () => {
   const { data, loading, refetch } = useQuery<
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
-  >(GET_MAINLINE_COMMITS_FOR_HISTORY, {
+  >(MAINLINE_COMMITS_FOR_HISTORY, {
     variables: {
       mainlineCommitsOptions: {
         projectIdentifier,

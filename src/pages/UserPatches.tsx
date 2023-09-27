@@ -10,7 +10,7 @@ import {
   UserPatchesQuery,
   UserPatchesQueryVariables,
 } from "gql/generated/types";
-import { GET_USER_PATCHES } from "gql/queries";
+import { USER_PATCHES } from "gql/queries";
 import { usePolling, useGetUserPatchesPageTitleAndLink } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
 import { PatchPageQueryParams } from "types/patch";
@@ -31,7 +31,7 @@ export const UserPatches = () => {
   const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     UserPatchesQuery,
     UserPatchesQueryVariables
-  >(GET_USER_PATCHES, {
+  >(USER_PATCHES, {
     variables: {
       userId,
       patchesInput: {

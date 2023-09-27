@@ -15,8 +15,36 @@ export interface HostFormState {
     communicationMethod: CommunicationMethod;
     arch: Arch;
     workDir: string;
-    setupScript: string;
     setupAsSudo: boolean;
+    setupScript: string;
+    userSpawnAllowed: boolean;
+    rootDir: string;
+    isVirtualWorkStation: boolean;
+    icecreamSchedulerHost: string;
+    icecreamConfigPath: string;
+  };
+  bootstrapSettings: {
+    jasperBinaryDir: string;
+    jasperCredentialsPath: string;
+    clientDir: string;
+    shellPath: string;
+    serviceUser: string;
+    homeVolumeFormatCommand: string;
+    resourceLimits: {
+      numFiles: number;
+      numTasks: number;
+      numProcesses: number;
+      lockedMemoryKb: number;
+      virtualMemoryKb: number;
+    };
+    env: Array<{
+      key: string;
+      value: string;
+    }>;
+    preconditionScripts: Array<{
+      path: string;
+      script: string;
+    }>;
   };
   sshConfig: {
     user: string;

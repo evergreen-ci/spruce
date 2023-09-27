@@ -1,4 +1,7 @@
 import { useMemo } from "react";
+import { useQuery } from "@apollo/client";
+import { AwsRegionsQuery, AwsRegionsQueryVariables } from "gql/generated/types";
+import { AWS_REGIONS } from "gql/queries";
 import { useSpruceConfig } from "hooks";
 import { useDistroSettingsContext } from "pages/distroSettings/Context";
 import { omitTypename } from "utils/string";
@@ -24,6 +27,14 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
     initialData: ReturnType<FormToGqlFunction<WritableDistroSettingsType>>;
   } = getTab(WritableDistroSettingsTabs.Provider);
 
+  const { data: awsData } = useQuery<AwsRegionsQuery, AwsRegionsQueryVariables>(
+    AWS_REGIONS
+  );
+  const { awsRegions } = awsData || {};
+  const configuredRegions = formData?.ec2FleetProviderSettings?.map(
+    (p) => p.region
+  );
+
   const { containerPools } = useSpruceConfig();
   const { pools } = containerPools || {};
 
@@ -34,8 +45,14 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
     : "";
 
   const formSchema = useMemo(
-    () => getFormSchema({ pools: pools || [], poolMappingInfo }),
-    [pools, poolMappingInfo]
+    () =>
+      getFormSchema({
+        awsRegions: awsRegions || [],
+        configuredRegions: configuredRegions || [],
+        pools: pools || [],
+        poolMappingInfo,
+      }),
+    [awsRegions, configuredRegions, pools, poolMappingInfo]
   );
 
   return (

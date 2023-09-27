@@ -17,7 +17,7 @@ import {
   CreatePublicKeyMutationVariables,
 } from "gql/generated/types";
 import { CREATE_PUBLIC_KEY, UPDATE_PUBLIC_KEY } from "gql/mutations";
-import { GET_MY_PUBLIC_KEYS } from "gql/queries";
+import { MY_PUBLIC_KEYS } from "gql/queries";
 import { validators, string } from "utils";
 
 const { validateSSHPublicKey } = validators;
@@ -40,7 +40,7 @@ export const EditModal: React.FC<EditModalProps> = ({
   const { data: myKeysData } = useQuery<
     MyPublicKeysQuery,
     MyPublicKeysQueryVariables
-  >(GET_MY_PUBLIC_KEYS, { fetchPolicy: "cache-only" });
+  >(MY_PUBLIC_KEYS, { fetchPolicy: "cache-only" });
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
   const [errors, setErrors] = useState<string[]>([]);
@@ -56,7 +56,7 @@ export const EditModal: React.FC<EditModalProps> = ({
     onCompleted() {},
     update(cache, { data }) {
       cache.writeQuery<MyPublicKeysQuery, MyPublicKeysQueryVariables>({
-        query: GET_MY_PUBLIC_KEYS,
+        query: MY_PUBLIC_KEYS,
         data: { myPublicKeys: [...data.updatePublicKey] },
       });
     },
@@ -73,7 +73,7 @@ export const EditModal: React.FC<EditModalProps> = ({
     onCompleted() {},
     update(cache, { data }) {
       cache.writeQuery<MyPublicKeysQuery, MyPublicKeysQueryVariables>({
-        query: GET_MY_PUBLIC_KEYS,
+        query: MY_PUBLIC_KEYS,
         data: { myPublicKeys: [...data.createPublicKey] },
       });
     },

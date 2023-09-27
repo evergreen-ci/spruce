@@ -8,7 +8,7 @@ import {
   TaskAllExecutionsQuery,
   TaskAllExecutionsQueryVariables,
 } from "gql/generated/types";
-import { GET_TASK_ALL_EXECUTIONS } from "gql/queries";
+import { TASK_ALL_EXECUTIONS } from "gql/queries";
 import { useDateFormat } from "hooks";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 
@@ -28,7 +28,7 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
   const allExecutionsResult = useQuery<
     TaskAllExecutionsQuery,
     TaskAllExecutionsQueryVariables
-  >(GET_TASK_ALL_EXECUTIONS, {
+  >(TASK_ALL_EXECUTIONS, {
     variables: { taskId: id },
   });
   const allExecutions = allExecutionsResult?.data?.taskAllExecutions;

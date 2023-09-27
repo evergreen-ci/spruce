@@ -1,14 +1,26 @@
 import { css } from "@emotion/react";
 import { GetFormSchema } from "components/SpruceForm";
-import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
+import {
+  CardFieldTemplate,
+  AccordionFieldTemplate,
+} from "components/SpruceForm/FieldTemplates";
 import { STANDARD_FIELD_WIDTH } from "components/SpruceForm/utils";
+import { size } from "constants/tokens";
 import { Provider, ContainerPool } from "gql/generated/types";
-import { dockerProviderSettings, staticProviderSettings } from "./schemaFields";
+import {
+  dockerProviderSettings,
+  staticProviderSettings,
+  ec2FleetProviderSettings,
+} from "./schemaFields";
 
 export const getFormSchema = ({
+  awsRegions,
+  configuredRegions,
   poolMappingInfo,
   pools,
 }: {
+  awsRegions: string[];
+  configuredRegions: string[];
   poolMappingInfo: string;
   pools: ContainerPool[];
 }): ReturnType<GetFormSchema> => ({
@@ -96,9 +108,41 @@ export const getFormSchema = ({
                     })),
                   },
                   poolMappingInfo: dockerProviderSettings.poolMappingInfo,
-                  userData: dockerProviderSettings.userData,
                   mergeUserData: dockerProviderSettings.mergeUserData,
+                  userData: dockerProviderSettings.userData,
                   securityGroups: dockerProviderSettings.securityGroups,
+                },
+              },
+            },
+          },
+          {
+            properties: {
+              provider: {
+                properties: {
+                  providerName: {
+                    enum: [Provider.Ec2Fleet],
+                  },
+                },
+              },
+              ec2FleetProviderSettings: {
+                type: "array" as "array",
+                minItems: 1,
+                title: "",
+                items: {
+                  type: "object" as "object",
+                  properties: {
+                    region: {
+                      type: "string" as "string",
+                      title: "Region",
+                      default: "",
+                      oneOf: awsRegions.map((r) => ({
+                        type: "string" as "string",
+                        title: r,
+                        enum: [r],
+                      })),
+                    },
+                    ...ec2FleetProviderSettings,
+                  },
                 },
               },
             },
@@ -118,6 +162,9 @@ export const getFormSchema = ({
     staticProviderSettings: {
       "ui:data-cy": "static-provider-settings",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
+      mergeUserData: {
+        "ui:elementWrapperCSS": mergeCheckboxCSS,
+      },
       userData: {
         "ui:widget": "textarea",
         "ui:elementWrapperCSS": textAreaCSS,
@@ -126,10 +173,17 @@ export const getFormSchema = ({
         "ui:addButtonText": "Add security group",
         "ui:orderable": false,
       },
+      hosts: {
+        "ui:orderable": false,
+        "ui:addButtonText": "Add host",
+      },
     },
     dockerProviderSettings: {
       "ui:data-cy": "docker-provider-settings",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
+      mergeUserData: {
+        "ui:elementWrapperCSS": mergeCheckboxCSS,
+      },
       userData: {
         "ui:widget": "textarea",
         "ui:elementWrapperCSS": textAreaCSS,
@@ -159,12 +213,100 @@ export const getFormSchema = ({
         "ui:readonly": true,
       },
     },
+    ec2FleetProviderSettings: {
+      "ui:data-cy": "ec2-fleet-provider-settings",
+      "ui:addable": awsRegions.length !== configuredRegions.length,
+      "ui:addButtonText": "Add region settings",
+      "ui:orderable": false,
+      "ui:useExpandableCard": true,
+      items: {
+        "ui:displayTitle": "New AWS Region",
+        mergeUserData: {
+          "ui:elementWrapperCSS": mergeCheckboxCSS,
+        },
+        userData: {
+          "ui:widget": "textarea",
+          "ui:elementWrapperCSS": textAreaCSS,
+        },
+        securityGroups: {
+          "ui:addButtonText": "Add security group",
+          "ui:orderable": false,
+        },
+        region: {
+          "ui:data-cy": "region-select",
+          "ui:allowDeselect": false,
+          "ui:enumDisabled": configuredRegions,
+        },
+        amiId: {
+          "ui:placeholder": "e.g. ami-1ecba176",
+        },
+        instanceType: {
+          "ui:description": "EC2 instance type for the AMI. Must be available.",
+          "ui:placeholder": "e.g. t1.micro",
+        },
+        fleetOptions: {
+          fleetInstanceType: {
+            "ui:allowDeselect": false,
+          },
+          useCapacityOptimization: {
+            "ui:data-cy": "use-capacity-optimization",
+            "ui:bold": true,
+            "ui:description":
+              "Use the capacity-optimized allocation strategy for spot (default: lowest-cost)",
+            "ui:elementWrapperCSS": capacityCheckboxCSS,
+          },
+        },
+        vpcOptions: {
+          useVpc: {
+            "ui:data-cy": "use-vpc",
+          },
+          subnetId: {
+            "ui:placeholder": "e.g. subnet-xxxx",
+            "ui:elementWrapperCSS": indentCSS,
+          },
+          subnetPrefix: {
+            "ui:description":
+              "Looks for subnets like <prefix>.subnet_1a, <prefix>.subnet_1b, etc.",
+            "ui:elementWrapperCSS": indentCSS,
+          },
+        },
+        mountPoints: {
+          "ui:data-cy": "mount-points",
+          "ui:addButtonText": "Add mount point",
+          "ui:orderable": false,
+          "ui:topAlignDelete": true,
+          items: {
+            "ui:ObjectFieldTemplate": AccordionFieldTemplate,
+            "ui:numberedTitle": "Mount Point",
+          },
+        },
+      },
+    },
   },
 });
 
 const textAreaCSS = css`
   box-sizing: border-box;
   max-width: ${STANDARD_FIELD_WIDTH}px;
+  textarea {
+    min-height: 120px;
+  }
+`;
+
+const mergeCheckboxCSS = css`
+  max-width: ${STANDARD_FIELD_WIDTH}px;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: -20px;
+`;
+
+const capacityCheckboxCSS = css`
+  max-width: ${STANDARD_FIELD_WIDTH}px;
+`;
+
+const indentCSS = css`
+  box-sizing: border-box;
+  padding-left: ${size.m};
 `;
 
 const poolMappingInfoCss = css`

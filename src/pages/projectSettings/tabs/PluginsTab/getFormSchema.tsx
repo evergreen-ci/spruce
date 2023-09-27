@@ -1,3 +1,4 @@
+import { InlineCode } from "@leafygreen-ui/typography";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
@@ -30,6 +31,7 @@ const requesters = [
 ];
 
 export const getFormSchema = (
+  jiraEmail?: string,
   repoData?: PluginsFormState
 ): ReturnType<GetFormSchema> => ({
   fields: {},
@@ -228,7 +230,7 @@ export const getFormSchema = (
       },
       ticketSearchProjects: {
         "ui:description":
-          "Specify an existing JIRA project to search for tickets related to a failing task",
+          "Specify an existing JIRA project to search for tickets related to a failing task.",
         "ui:addButtonText": "Add Search Project",
         "ui:orderable": false,
         items: {
@@ -236,8 +238,21 @@ export const getFormSchema = (
         },
       },
       ticketCreateProject: {
-        "ui:description":
-          "Specify an existing JIRA project to create tickets in when the File Ticket button is clicked on a failing task.",
+        "ui:description": (
+          <>
+            Specify an existing JIRA project to create tickets in when the File
+            Ticket button is clicked on a failing task.
+            {jiraEmail && (
+              <>
+                {" "}
+                This project must include <InlineCode>
+                  {jiraEmail}
+                </InlineCode>{" "}
+                as a user with create permissions.
+              </>
+            )}
+          </>
+        ),
       },
       fileTicketWebhook: {
         "ui:description":

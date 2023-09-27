@@ -3,7 +3,7 @@ import {
   BuildBaronConfiguredQuery,
   BuildBaronConfiguredQueryVariables,
 } from "gql/generated/types";
-import { GET_BUILD_BARON_CONFIGURED } from "gql/queries";
+import { BUILD_BARON_CONFIGURED } from "gql/queries";
 import { statuses } from "utils";
 
 const { isFailedTaskStatus } = statuses;
@@ -22,7 +22,7 @@ const useBuildBaronVariables = ({ task }: UseBuildBaronVariablesType) => {
   const { data: buildBaronData } = useQuery<
     BuildBaronConfiguredQuery,
     BuildBaronConfiguredQueryVariables
-  >(GET_BUILD_BARON_CONFIGURED, {
+  >(BUILD_BARON_CONFIGURED, {
     variables: {
       taskId: id,
       execution,

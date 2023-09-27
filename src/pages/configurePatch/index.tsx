@@ -10,7 +10,7 @@ import {
   ConfigurePatchQuery,
   ConfigurePatchQueryVariables,
 } from "gql/generated/types";
-import { GET_PATCH_CONFIGURE } from "gql/queries";
+import { PATCH_CONFIGURE } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { validateObjectId } from "utils/validators";
@@ -22,7 +22,7 @@ const ConfigurePatch: React.FC = () => {
   const { data, error, loading } = useQuery<
     ConfigurePatchQuery,
     ConfigurePatchQueryVariables
-  >(GET_PATCH_CONFIGURE, {
+  >(PATCH_CONFIGURE, {
     variables: { id },
     onError(err) {
       dispatchToast.error(err.message);

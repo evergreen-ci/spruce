@@ -12,7 +12,7 @@ import {
   DetachVolumeFromHostMutationVariables,
 } from "gql/generated/types";
 import { DETACH_VOLUME } from "gql/mutations";
-import { GET_MY_HOSTS } from "gql/queries";
+import { MY_HOSTS } from "gql/queries";
 import { TableVolume } from "types/spawn";
 
 interface Props {
@@ -24,7 +24,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
   const spawnAnalytics = useSpawnAnalytics();
 
   const { data: myHostsData } = useQuery<MyHostsQuery, MyHostsQueryVariables>(
-    GET_MY_HOSTS
+    MY_HOSTS
   );
 
   const myHosts = myHostsData?.myHosts ?? [];

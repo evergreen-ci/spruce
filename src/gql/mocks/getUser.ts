@@ -1,10 +1,10 @@
 import { UserQuery, UserQueryVariables } from "gql/generated/types";
-import { GET_USER } from "gql/queries";
+import { USER } from "gql/queries";
 import { ApolloMock } from "types/gql";
 
 export const getUserMock: ApolloMock<UserQuery, UserQueryVariables> = {
   request: {
-    query: GET_USER,
+    query: USER,
     variables: {},
   },
   result: {

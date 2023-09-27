@@ -76,7 +76,7 @@ declare global {
        * Custom command to enter get an input by its label
        * @example cy.getInputBylabel("Some Label")
        */
-      getInputByLabel(label: string): Chainable<Element>;
+      getInputByLabel(label: string | RegExp): Chainable<Element>;
       /**
        * Custom command to select an option from a leafygreen select component by label
        * @param label The label of the select component

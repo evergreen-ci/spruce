@@ -3,7 +3,7 @@ import {
   CodeChangesQueryVariables,
   ConfigurePatchQuery,
 } from "gql/generated/types";
-import { GET_CODE_CHANGES } from "gql/queries";
+import { CODE_CHANGES } from "gql/queries";
 import { ApolloMock } from "types/gql";
 
 export const patchQuery: ConfigurePatchQuery = {
@@ -61,7 +61,7 @@ export const mocks: ApolloMock<CodeChangesQuery, CodeChangesQueryVariables>[] =
   [
     {
       request: {
-        query: GET_CODE_CHANGES,
+        query: CODE_CHANGES,
         variables: { id: "version" },
       },
       result: {

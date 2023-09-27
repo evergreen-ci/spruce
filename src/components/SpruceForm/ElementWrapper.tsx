@@ -7,6 +7,7 @@ type ElementWrapperProps = {
 
 const ElementWrapper = styled.div<ElementWrapperProps>`
   margin-bottom: 20px;
+  max-width: 800px;
 
   ${({ limitMaxWidth }) =>
     limitMaxWidth && `max-width: ${STANDARD_FIELD_WIDTH}px;`}
