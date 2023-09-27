@@ -125,15 +125,10 @@ const fleetOptions = {
         {
           properties: {
             fleetInstanceType: {
-              enum: [FleetInstanceType.Spot],
-            },
-            useCapacityOptimization,
-          },
-        },
-        {
-          properties: {
-            fleetInstanceType: {
-              enum: [FleetInstanceType.SpotWithOnDemandFallback],
+              enum: [
+                FleetInstanceType.Spot,
+                FleetInstanceType.SpotWithOnDemandFallback,
+              ],
             },
             useCapacityOptimization,
           },

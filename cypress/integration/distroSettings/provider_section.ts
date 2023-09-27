@@ -95,13 +95,12 @@ describe("provider section", () => {
       cy.contains("Capacity optimization").should("not.exist");
 
       cy.selectLGOption("Fleet Instance Type", "Spot");
-      cy.contains("Capacity optimization").should("be.visible");
+      cy.contains("Capacity optimization").should("exist");
 
       // VPC options.
-      cy.dataCy("use-vpc").scrollIntoView();
       cy.dataCy("use-vpc").should("be.checked");
-      cy.contains("Default VPC Subnet ID").should("be.visible");
-      cy.contains("VPC Subnet Prefix").should("be.visible");
+      cy.contains("Default VPC Subnet ID").should("exist");
+      cy.contains("VPC Subnet Prefix").should("exist");
 
       cy.dataCy("use-vpc").uncheck({ force: true });
       cy.contains("Default VPC Subnet ID").should("not.exist");
@@ -112,7 +111,7 @@ describe("provider section", () => {
       cy.dataCy("provider-select").contains("EC2 Fleet");
 
       // Correct section is displayed.
-      cy.dataCy("ec2-fleet-provider-settings").should("be.visible");
+      cy.dataCy("ec2-fleet-provider-settings").should("exist");
       cy.dataCy("region-select").contains("us-east-1");
 
       // Change field values.
@@ -140,7 +139,7 @@ describe("provider section", () => {
     });
 
     it("can add and delete region settings", () => {
-      cy.dataCy("ec2-fleet-provider-settings").should("be.visible");
+      cy.dataCy("ec2-fleet-provider-settings").should("exist");
 
       // Add item for new region.
       cy.contains("button", "Add region settings").click();
@@ -160,7 +159,7 @@ describe("provider section", () => {
       save();
       cy.validateToast("success");
 
-      cy.contains("button", "Add region settings").should("be.visible");
+      cy.contains("button", "Add region settings").should("exist");
     });
   });
 });

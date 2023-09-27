@@ -47,12 +47,12 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
   const formSchema = useMemo(
     () =>
       getFormSchema({
-        pools: pools || [],
-        poolMappingInfo,
         awsRegions: awsRegions || [],
         configuredRegions: configuredRegions || [],
+        pools: pools || [],
+        poolMappingInfo,
       }),
-    [pools, poolMappingInfo, awsRegions, configuredRegions]
+    [awsRegions, configuredRegions, pools, poolMappingInfo]
   );
 
   return (

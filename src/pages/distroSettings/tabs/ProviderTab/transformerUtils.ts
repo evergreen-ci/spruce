@@ -1,6 +1,9 @@
 import { Unpacked } from "types/utils";
 import { BuildType, ProviderFormState, FleetInstanceType } from "./types";
 
+/**
+ * The provider settings list is untyped in the backend, so we manually define types here.
+ */
 interface ProviderSettingsList {
   user_data: string;
   merge_user_data_parts: boolean;
@@ -65,6 +68,7 @@ export const formProviderSettings = (
     registryPassword: providerSettings.docker_registry_pw ?? "",
   },
   ec2FleetProviderSettings: {
+    region: providerSettings.region ?? "",
     userData: providerSettings.user_data ?? "",
     mergeUserData: providerSettings.merge_user_data_parts ?? false,
     securityGroups: providerSettings.security_group_ids ?? [],
