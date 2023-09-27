@@ -3,12 +3,8 @@ import { BaseTab } from "../BaseTab";
 import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";
 
-export const TaskTab: React.FC<TabProps> = ({ distroData }) => {
-  const initialFormState = distroData;
+export const TaskTab: React.FC<TabProps> = ({ distroData, provider }) => {
+  const formSchema = useMemo(() => getFormSchema({ provider }), [provider]);
 
-  const formSchema = useMemo(() => getFormSchema(), []);
-
-  return (
-    <BaseTab formSchema={formSchema} initialFormState={initialFormState} />
-  );
+  return <BaseTab formSchema={formSchema} initialFormState={distroData} />;
 };

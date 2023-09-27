@@ -21,6 +21,21 @@ const securityGroups = {
   },
 };
 
+const hosts = {
+  type: "array" as "array",
+  title: "Hosts",
+  items: {
+    type: "object" as "object",
+    properties: {
+      name: {
+        type: "string" as "string",
+        title: "Name",
+        minLength: 1,
+      },
+    },
+  },
+};
+
 const imageUrl = {
   type: "string" as "string",
   title: "Docker Image URL",
@@ -229,6 +244,7 @@ export const staticProviderSettings = {
   mergeUserData,
   userData,
   securityGroups,
+  hosts,
 };
 
 export const dockerProviderSettings = {

@@ -2,6 +2,7 @@ import {
   FinderVersion,
   PlannerVersion,
   DispatcherVersion,
+  Provider,
 } from "gql/generated/types";
 
 export interface TaskFormState {
@@ -28,4 +29,5 @@ export interface TaskFormState {
 
 export type TabProps = {
   distroData: TaskFormState;
+  provider: Provider;
 };

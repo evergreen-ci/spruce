@@ -12,6 +12,7 @@ interface ProviderSettingsList {
   build_type: string;
   docker_registry_user: string;
   docker_registry_pw: string;
+  hosts: Array<{ name: string; ssh_port: string }>;
   ami: string;
   instance_type: string;
   key_name: string;
@@ -57,6 +58,7 @@ export const formProviderSettings = (
     userData: providerSettings.user_data ?? "",
     mergeUserData: providerSettings.merge_user_data_parts ?? false,
     securityGroups: providerSettings.security_group_ids ?? [],
+    hosts: providerSettings.hosts?.map((h) => ({ name: h.name })) ?? [],
   },
   dockerProviderSettings: {
     userData: providerSettings.user_data ?? "",
@@ -111,6 +113,10 @@ export const gqlProviderSettings = (
       user_data: providerSettings.userData,
       merge_user_data_parts: providerSettings.mergeUserData,
       security_group_ids: providerSettings.securityGroups,
+      hosts:
+        providerSettings.hosts?.map((h) => ({
+          name: h.name,
+        })) ?? [],
     },
     dockerProviderSettings: {
       user_data: providerSettings.userData,
