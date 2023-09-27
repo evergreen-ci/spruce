@@ -2,14 +2,37 @@ import { save } from "./utils";
 
 describe("task section", () => {
   beforeEach(() => {
-    cy.visit("/distro/localhost/settings/task");
+    cy.visit("/distro/ubuntu1804-workstation/settings/task");
   });
 
-  it("should only show tunable options if planner version is tunable", () => {
-    cy.getInputByLabel("Task Planner Version").should("contain.text", "Legacy");
-    cy.dataCy("tunable-options").should("not.exist");
-    cy.selectLGOption("Task Planner Version", "Tunable");
-    cy.dataCy("tunable-options").should("be.visible");
+  describe("providers", () => {
+    describe("static provider", () => {
+      it("should not show tunable options", () => {
+        cy.visit("/distro/localhost/settings/task");
+        cy.selectLGOption("Task Planner Version", "Tunable");
+        cy.dataCy("tunable-options").should("not.exist");
+      });
+    });
+
+    describe("docker provider", () => {
+      it("should not show tunable options", () => {
+        cy.visit("/distro/ubuntu1604-container-test/settings/task");
+        cy.selectLGOption("Task Planner Version", "Tunable");
+        cy.dataCy("tunable-options").should("not.exist");
+      });
+    });
+
+    describe("ec2 provider", () => {
+      it("should only show tunable options if planner version is tunable", () => {
+        cy.getInputByLabel("Task Planner Version").should(
+          "contain.text",
+          "Legacy"
+        );
+        cy.dataCy("tunable-options").should("not.exist");
+        cy.selectLGOption("Task Planner Version", "Tunable");
+        cy.dataCy("tunable-options").should("be.visible");
+      });
+    });
   });
 
   it("should surface warnings for invalid number inputs", () => {

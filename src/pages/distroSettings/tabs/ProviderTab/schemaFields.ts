@@ -1,4 +1,4 @@
-import { BuildType } from "./types";
+import { BuildType, FleetInstanceType } from "./types";
 
 const userData = {
   type: "string" as "string",
@@ -18,6 +18,21 @@ const securityGroups = {
     title: "Security Group ID",
     default: "",
     minLength: 1,
+  },
+};
+
+const hosts = {
+  type: "array" as "array",
+  title: "Hosts",
+  items: {
+    type: "object" as "object",
+    properties: {
+      name: {
+        type: "string" as "string",
+        title: "Name",
+        minLength: 1,
+      },
+    },
   },
 };
 
@@ -62,10 +77,174 @@ const poolMappingInfo = {
   title: "Pool Mapping Information",
 };
 
+const amiId = {
+  type: "string" as "string",
+  title: "EC2 AMI ID",
+};
+
+const instanceType = {
+  type: "string" as "string",
+  title: "Instance Type",
+};
+
+const sshKeyName = {
+  type: "string" as "string",
+  title: "SSH Key Name",
+};
+
+const fleetInstanceType = {
+  type: "string" as "string",
+  title: "Fleet Instance Type",
+  default: FleetInstanceType.Spot,
+  oneOf: [
+    {
+      type: "string" as "string",
+      title: "Spot",
+      enum: [FleetInstanceType.Spot],
+    },
+    {
+      type: "string" as "string",
+      title: "Spot with on-demand fallback",
+      enum: [FleetInstanceType.SpotWithOnDemandFallback],
+    },
+    {
+      type: "string" as "string",
+      title: "On-demand",
+      enum: [FleetInstanceType.OnDemand],
+    },
+  ],
+};
+
+const useCapacityOptimization = {
+  type: "boolean" as "boolean",
+  title: "Capacity optimization",
+  default: false,
+};
+
+const fleetOptions = {
+  type: "object" as "object",
+  title: "",
+  properties: {
+    fleetInstanceType,
+  },
+  dependencies: {
+    fleetInstanceType: {
+      oneOf: [
+        {
+          properties: {
+            fleetInstanceType: {
+              enum: [FleetInstanceType.OnDemand],
+            },
+          },
+        },
+        {
+          properties: {
+            fleetInstanceType: {
+              enum: [
+                FleetInstanceType.Spot,
+                FleetInstanceType.SpotWithOnDemandFallback,
+              ],
+            },
+            useCapacityOptimization,
+          },
+        },
+      ],
+    },
+  },
+};
+
+const instanceProfileARN = {
+  type: "string" as "string",
+  title: "IAM Instance Profile ARN",
+};
+
+const useVpc = {
+  type: "boolean" as "boolean",
+  title: "Use security groups in an EC2 VPC",
+  default: false,
+};
+
+const subnetId = {
+  type: "string" as "string",
+  title: "Default VPC Subnet ID",
+};
+
+const subnetPrefix = {
+  type: "string" as "string",
+  title: "VPC Subnet Prefix",
+};
+
+const vpcOptions = {
+  type: "object" as "object",
+  title: "",
+  properties: {
+    useVpc,
+  },
+  dependencies: {
+    useVpc: {
+      oneOf: [
+        {
+          properties: {
+            useVpc: {
+              enum: [true],
+            },
+            subnetId,
+            subnetPrefix,
+          },
+        },
+        {
+          properties: {
+            useVpc: {
+              enum: [false],
+            },
+          },
+        },
+      ],
+    },
+  },
+};
+
+const mountPoints = {
+  type: "array" as "array",
+  title: "Mount Points",
+  items: {
+    type: "object" as "object",
+    properties: {
+      deviceName: {
+        type: "string" as "string",
+        title: "Device Name",
+        default: "",
+        minLength: 1,
+      },
+      virtualName: {
+        type: "string" as "string",
+        title: "Virtual Name",
+      },
+      volumeType: {
+        type: "string" as "string",
+        title: "Volume Type",
+      },
+      iops: {
+        type: "number" as "number",
+        title: "IOPS",
+      },
+      throughput: {
+        type: "number" as "number",
+        title: "Throughput",
+      },
+      size: {
+        type: "number" as "number",
+        title: "Size",
+      },
+    },
+  },
+};
+
 export const staticProviderSettings = {
-  userData,
   mergeUserData,
+  userData,
   securityGroups,
+  hosts,
 };
 
 export const dockerProviderSettings = {
@@ -74,7 +253,20 @@ export const dockerProviderSettings = {
   registryUsername,
   registryPassword,
   poolMappingInfo,
-  userData,
   mergeUserData,
+  userData,
   securityGroups,
+};
+
+export const ec2FleetProviderSettings = {
+  amiId,
+  instanceType,
+  sshKeyName,
+  fleetOptions,
+  instanceProfileARN,
+  mergeUserData,
+  userData,
+  securityGroups,
+  vpcOptions,
+  mountPoints,
 };
