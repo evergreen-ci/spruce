@@ -58,7 +58,10 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
         <Route
           path={DistroSettingsTabRoutes.Task}
           element={
-            <TaskTab distroData={tabData[DistroSettingsTabRoutes.Task]} />
+            <TaskTab
+              distroData={tabData[DistroSettingsTabRoutes.Task]}
+              provider={distro.provider}
+            />
           }
         />
         <Route
