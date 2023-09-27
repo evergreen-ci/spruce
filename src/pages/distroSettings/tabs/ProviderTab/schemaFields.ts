@@ -241,8 +241,8 @@ const mountPoints = {
 };
 
 export const staticProviderSettings = {
-  userData,
   mergeUserData,
+  userData,
   securityGroups,
   hosts,
 };

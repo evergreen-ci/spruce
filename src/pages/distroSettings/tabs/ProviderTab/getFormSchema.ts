@@ -289,7 +289,7 @@ const textAreaCSS = css`
   box-sizing: border-box;
   max-width: ${STANDARD_FIELD_WIDTH}px;
   textarea {
-    min-height: 140px;
+    min-height: 120px;
   }
 `;
 
