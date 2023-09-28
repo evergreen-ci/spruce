@@ -328,6 +328,9 @@ export const ec2FleetProviderSettings = {
       "ui:description": "EC2 instance type for the AMI. Must be available.",
       "ui:placeholder": "e.g. t1.micro",
     },
+    sshKeyName: {
+      "ui:description": "SSH key to add to the host machine.",
+    },
     fleetOptions: {
       fleetInstanceType: {
         "ui:allowDeselect": false,
@@ -398,6 +401,9 @@ export const ec2OnDemandProviderSettings = {
     instanceType: {
       "ui:description": "EC2 instance type for the AMI. Must be available.",
       "ui:placeholder": "e.g. t1.micro",
+    },
+    sshKeyName: {
+      "ui:description": "SSH key to add to the host machine.",
     },
     mergeUserData: {
       "ui:elementWrapperCSS": mergeCheckboxCSS,
