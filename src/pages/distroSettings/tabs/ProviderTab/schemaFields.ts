@@ -1,3 +1,10 @@
+import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
+import {
+  userDataCSS,
+  mergeCheckboxCSS,
+  capacityCheckboxCSS,
+  indentCSS,
+} from "./styles";
 import { BuildType, FleetInstanceType } from "./types";
 
 const userData = {
@@ -72,14 +79,11 @@ const registryPassword = {
   title: "Password for Registries",
 };
 
-const poolMappingInfo = {
-  type: "string" as "string",
-  title: "Pool Mapping Information",
-};
-
 const amiId = {
   type: "string" as "string",
   title: "EC2 AMI ID",
+  default: "",
+  minLength: 1,
 };
 
 const instanceType = {
@@ -241,32 +245,195 @@ const mountPoints = {
 };
 
 export const staticProviderSettings = {
-  mergeUserData,
-  userData,
-  securityGroups,
-  hosts,
+  schema: {
+    mergeUserData,
+    userData,
+    securityGroups,
+    hosts,
+  },
+  uiSchema: {
+    mergeUserData: {
+      "ui:elementWrapperCSS": mergeCheckboxCSS,
+    },
+    userData: {
+      "ui:widget": "textarea",
+      "ui:elementWrapperCSS": userDataCSS,
+      "ui:rows": 6,
+    },
+    securityGroups: {
+      "ui:addButtonText": "Add security group",
+      "ui:orderable": false,
+    },
+    hosts: {
+      "ui:orderable": false,
+      "ui:addButtonText": "Add host",
+    },
+  },
 };
 
 export const dockerProviderSettings = {
-  imageUrl,
-  buildType,
-  registryUsername,
-  registryPassword,
-  poolMappingInfo,
-  mergeUserData,
-  userData,
-  securityGroups,
+  schema: {
+    buildType,
+    imageUrl,
+    registryUsername,
+    registryPassword,
+    mergeUserData,
+    userData,
+    securityGroups,
+  },
+  uiSchema: {
+    buildType: {
+      "ui:allowDeselect": false,
+    },
+    registryUsername: {
+      "ui:optional": true,
+    },
+    registryPassword: {
+      "ui:optional": true,
+      "ui:inputType": "password",
+    },
+    mergeUserData: {
+      "ui:elementWrapperCSS": mergeCheckboxCSS,
+    },
+    userData: {
+      "ui:widget": "textarea",
+      "ui:elementWrapperCSS": userDataCSS,
+      "ui:rows": 6,
+    },
+    securityGroups: {
+      "ui:addButtonText": "Add security group",
+      "ui:orderable": false,
+    },
+  },
 };
 
 export const ec2FleetProviderSettings = {
-  amiId,
-  instanceType,
-  sshKeyName,
-  fleetOptions,
-  instanceProfileARN,
-  mergeUserData,
-  userData,
-  securityGroups,
-  vpcOptions,
-  mountPoints,
+  schema: {
+    amiId,
+    instanceType,
+    sshKeyName,
+    fleetOptions,
+    instanceProfileARN,
+    mergeUserData,
+    userData,
+    securityGroups,
+    vpcOptions,
+    mountPoints,
+  },
+  uiSchema: {
+    amiId: {
+      "ui:placeholder": "e.g. ami-1ecba176",
+    },
+    instanceType: {
+      "ui:description": "EC2 instance type for the AMI. Must be available.",
+      "ui:placeholder": "e.g. t1.micro",
+    },
+    fleetOptions: {
+      fleetInstanceType: {
+        "ui:allowDeselect": false,
+      },
+      useCapacityOptimization: {
+        "ui:data-cy": "use-capacity-optimization",
+        "ui:bold": true,
+        "ui:description":
+          "Use the capacity-optimized allocation strategy for spot (default: lowest-cost)",
+        "ui:elementWrapperCSS": capacityCheckboxCSS,
+      },
+    },
+    mergeUserData: {
+      "ui:elementWrapperCSS": mergeCheckboxCSS,
+    },
+    userData: {
+      "ui:widget": "textarea",
+      "ui:elementWrapperCSS": userDataCSS,
+      "ui:rows": 6,
+    },
+    securityGroups: {
+      "ui:addButtonText": "Add security group",
+      "ui:orderable": false,
+    },
+    vpcOptions: {
+      useVpc: {
+        "ui:data-cy": "use-vpc",
+      },
+      subnetId: {
+        "ui:placeholder": "e.g. subnet-xxxx",
+        "ui:elementWrapperCSS": indentCSS,
+      },
+      subnetPrefix: {
+        "ui:description":
+          "Looks for subnets like <prefix>.subnet_1a, <prefix>.subnet_1b, etc.",
+        "ui:elementWrapperCSS": indentCSS,
+      },
+    },
+    mountPoints: {
+      "ui:data-cy": "mount-points",
+      "ui:addButtonText": "Add mount point",
+      "ui:orderable": false,
+      "ui:topAlignDelete": true,
+      items: {
+        "ui:ObjectFieldTemplate": AccordionFieldTemplate,
+        "ui:numberedTitle": "Mount Point",
+      },
+    },
+  },
+};
+
+export const ec2OnDemandProviderSettings = {
+  schema: {
+    amiId,
+    instanceType,
+    sshKeyName,
+    instanceProfileARN,
+    mergeUserData,
+    userData,
+    securityGroups,
+    vpcOptions,
+    mountPoints,
+  },
+  uiSchema: {
+    amiId: {
+      "ui:placeholder": "e.g. ami-1ecba176",
+    },
+    instanceType: {
+      "ui:description": "EC2 instance type for the AMI. Must be available.",
+      "ui:placeholder": "e.g. t1.micro",
+    },
+    mergeUserData: {
+      "ui:elementWrapperCSS": mergeCheckboxCSS,
+    },
+    userData: {
+      "ui:widget": "textarea",
+      "ui:elementWrapperCSS": userDataCSS,
+      "ui:rows": 6,
+    },
+    securityGroups: {
+      "ui:addButtonText": "Add security group",
+      "ui:orderable": false,
+    },
+    vpcOptions: {
+      useVpc: {
+        "ui:data-cy": "use-vpc",
+      },
+      subnetId: {
+        "ui:placeholder": "e.g. subnet-xxxx",
+        "ui:elementWrapperCSS": indentCSS,
+      },
+      subnetPrefix: {
+        "ui:description":
+          "Looks for subnets like <prefix>.subnet_1a, <prefix>.subnet_1b, etc.",
+        "ui:elementWrapperCSS": indentCSS,
+      },
+    },
+    mountPoints: {
+      "ui:data-cy": "mount-points",
+      "ui:addButtonText": "Add mount point",
+      "ui:orderable": false,
+      "ui:topAlignDelete": true,
+      items: {
+        "ui:ObjectFieldTemplate": AccordionFieldTemplate,
+        "ui:numberedTitle": "Mount Point",
+      },
+    },
+  },
 };
