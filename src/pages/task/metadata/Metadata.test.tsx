@@ -73,6 +73,7 @@ describe("metadata", () => {
     expect(screen.getByDataCy("task-metadata-finished")).toBeInTheDocument();
     expect(screen.getByDataCy("task-trace-link")).toBeInTheDocument();
     expect(screen.getByDataCy("task-metrics-link")).toBeInTheDocument();
+    expect(screen.getByDataCy("task-metadata-details")).toBeInTheDocument();
   });
 });
 
@@ -99,6 +100,14 @@ const taskSucceeded = {
     ...taskStarted.task,
     finishTime: addMilliseconds(new Date(), 1228078),
     status: "succeeded",
-    details: { ...taskStarted.task.details, traceID: "trace_abcde" },
+    details: {
+      type: "",
+      status: "success",
+      description: "exiting due to custom reason",
+      traceID: "trace_abcde",
+      oomTracker: {
+        detected: false,
+      },
+    },
   },
 };
