@@ -3,12 +3,21 @@ import { githubRemote } from "./constants";
 
 /**
  * `createNewTag` is a helper function that creates a new tag.
+ * @returns true if tag creation is successful and false otherwise.
  */
 const createNewTag = () => {
-  execSync("yarn version --new-version patch", {
-    encoding: "utf-8",
-    stdio: "inherit",
-  });
+  console.log("Creating new tag...");
+  try {
+    execSync("yarn version --new-version patch", {
+      encoding: "utf-8",
+      stdio: "inherit",
+    });
+  } catch (err) {
+    console.log("Creating new tag failed.");
+    console.log("output", err);
+    return false;
+  }
+  return true;
 };
 
 /**
@@ -35,12 +44,21 @@ const deleteTag = (tag: string) => {
 
 /**
  * `pushTags` is a helper function that pushes tags to the remote.
+ * @returns true if pushing tags is successful and false otherwise.
  */
 const pushTags = () => {
-  execSync(`git push --tags ${githubRemote}`, {
-    stdio: "inherit",
-    encoding: "utf-8",
-  });
+  console.log("Pushing tags...");
+  try {
+    execSync(`git push --tags ${githubRemote}`, {
+      stdio: "inherit",
+      encoding: "utf-8",
+    });
+  } catch (err) {
+    console.log("Pushing tags failed.");
+    console.log("output", err);
+    return false;
+  }
+  return true;
 };
 
 export { createNewTag, getLatestTag, deleteTag, pushTags };
