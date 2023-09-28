@@ -73,7 +73,7 @@ describe("metadata", () => {
     expect(screen.getByDataCy("task-metadata-finished")).toBeInTheDocument();
     expect(screen.getByDataCy("task-trace-link")).toBeInTheDocument();
     expect(screen.getByDataCy("task-metrics-link")).toBeInTheDocument();
-    expect(screen.getByDataCy("task-metadata-details")).toBeInTheDocument();
+    expect(screen.getByDataCy("task-metadata-description")).toBeInTheDocument();
   });
 });
 
