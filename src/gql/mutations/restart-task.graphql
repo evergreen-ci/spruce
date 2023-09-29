@@ -4,5 +4,6 @@ mutation RestartTask($taskId: String!, $failedOnly: Boolean!) {
     ...BaseTask
     execution
     latestExecution
+    priority
   }
 }
