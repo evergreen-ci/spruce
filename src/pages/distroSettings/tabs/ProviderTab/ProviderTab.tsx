@@ -38,7 +38,7 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
   const selectedPoolId = formData?.dockerProviderSettings?.containerPoolId;
   const selectedPool = pools?.find((p) => p.id === selectedPoolId) ?? null;
   const poolMappingInfo = selectedPool
-    ? JSON.stringify(omitTypename(selectedPool), null, 4)
+    ? JSON.stringify(omitTypename(selectedPool), null, 2)
     : "";
 
   const fleetRegionsInUse = formData?.ec2FleetProviderSettings?.map(

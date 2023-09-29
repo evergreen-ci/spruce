@@ -6,10 +6,6 @@ import { size } from "constants/tokens";
 const textAreaCSS = css`
   box-sizing: border-box;
   max-width: ${STANDARD_FIELD_WIDTH}px;
-`;
-
-const userDataCSS = css`
-  ${textAreaCSS};
   textarea {
     font-family: ${fontFamilies.code};
   }
@@ -31,10 +27,4 @@ const indentCSS = css`
   padding-left: ${size.m};
 `;
 
-export {
-  textAreaCSS,
-  userDataCSS,
-  mergeCheckboxCSS,
-  capacityCheckboxCSS,
-  indentCSS,
-};
+export { textAreaCSS, mergeCheckboxCSS, capacityCheckboxCSS, indentCSS };

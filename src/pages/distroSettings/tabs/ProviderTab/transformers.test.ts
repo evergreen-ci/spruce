@@ -24,7 +24,7 @@ const defaultFormState = {
   ec2FleetProviderSettings: [
     {
       region: "",
-      displayTitle: "",
+      displayTitle: undefined,
       amiId: "",
       fleetOptions: {
         fleetInstanceType: FleetInstanceType.Spot,
@@ -47,7 +47,7 @@ const defaultFormState = {
   ec2OnDemandProviderSettings: [
     {
       region: "",
-      displayTitle: "",
+      displayTitle: undefined,
       amiId: "",
       instanceProfileARN: "",
       instanceType: "",

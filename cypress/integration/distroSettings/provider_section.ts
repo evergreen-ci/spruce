@@ -22,7 +22,7 @@ describe("provider section", () => {
       cy.contains("button", "Add host").click();
       cy.getInputByLabel("Name").type("host-1234");
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
 
       // Revert fields to original values.
       cy.getInputByLabel("User Data").clear();
@@ -32,7 +32,7 @@ describe("provider section", () => {
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("delete-item-button").first().click();
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
     });
   });
 
@@ -71,7 +71,7 @@ describe("provider section", () => {
         force: true,
       });
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
 
       // Revert fields to original values.
       cy.selectLGOption("Image Build Method", "Import");
@@ -83,7 +83,7 @@ describe("provider section", () => {
         force: true,
       });
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
     });
   });
 
@@ -127,7 +127,7 @@ describe("provider section", () => {
       cy.getInputByLabel("Device Name").type("device name");
       cy.getInputByLabel("Size").type("200");
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
 
       // Revert fields to original values.
       cy.selectLGOption("Region", "us-east-1");
@@ -138,7 +138,7 @@ describe("provider section", () => {
         cy.dataCy("delete-item-button").click();
       });
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
     });
 
     it("can add and delete region settings", () => {
@@ -155,12 +155,12 @@ describe("provider section", () => {
       cy.contains("button", "Add security group").click();
       cy.getInputByLabel("Security Group ID").type("security-group-1234");
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
 
       // Revert to original state by deleting the new region.
       cy.dataCy("delete-item-button").first().click();
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
 
       cy.contains("button", "Add region settings").should("exist");
     });
@@ -202,7 +202,7 @@ describe("provider section", () => {
         force: true,
       });
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
 
       // Revert fields to original values.
       cy.selectLGOption("Region", "us-east-1");
@@ -215,7 +215,7 @@ describe("provider section", () => {
         force: true,
       });
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
     });
 
     it("can add and delete region settings", () => {
@@ -232,12 +232,12 @@ describe("provider section", () => {
       cy.contains("button", "Add security group").click();
       cy.getInputByLabel("Security Group ID").type("security-group-1234");
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
 
       // Revert to original state by deleting the new region.
       cy.dataCy("delete-item-button").first().click();
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
 
       cy.contains("button", "Add region settings").should("exist");
     });

@@ -24,11 +24,11 @@ export const gqlToForm = ((data) => {
     },
     ec2FleetProviderSettings: providerSettingsList.map((p) => ({
       ...formProviderSettings(p).ec2FleetProviderSettings,
-      displayTitle: p.region ?? "",
+      displayTitle: p.region,
     })),
     ec2OnDemandProviderSettings: providerSettingsList.map((p) => ({
       ...formProviderSettings(p).ec2OnDemandProviderSettings,
-      displayTitle: p.region ?? "",
+      displayTitle: p.region,
     })),
   };
 }) satisfies GqlToFormFunction<Tab>;
