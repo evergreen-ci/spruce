@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import AnsiUp from "ansi_up";
+import { AnsiUp } from "ansi_up";
 import { format, utcToZonedTime } from "date-fns-tz";
 import parse from "html-react-parser";
 import linkifyHtml from "linkify-html";

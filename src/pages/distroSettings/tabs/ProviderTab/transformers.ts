@@ -22,6 +22,10 @@ export const gqlToForm = ((data) => {
       containerPoolId: containerPool,
       poolMappingInfo: "",
     },
+    ec2FleetProviderSettings: providerSettingsList.map((p) => ({
+      ...formProviderSettings(p).ec2FleetProviderSettings,
+      displayTitle: p.region ?? "",
+    })),
   };
 }) satisfies GqlToFormFunction<Tab>;
 
@@ -54,6 +58,15 @@ export const formToGql = ((data, distro) => {
           },
         ],
         containerPool: data.dockerProviderSettings.containerPoolId,
+      };
+    case Provider.Ec2Fleet:
+      return {
+        ...distro,
+        provider: Provider.Ec2Fleet,
+        providerSettingsList: data.ec2FleetProviderSettings.map((p) => ({
+          ...gqlProviderSettings(p).ec2FleetProviderSettings,
+        })),
+        containerPool: "",
       };
     default:
       return distro;

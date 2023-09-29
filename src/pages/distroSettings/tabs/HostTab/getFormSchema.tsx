@@ -1,24 +1,25 @@
-import { InlineCode } from "@leafygreen-ui/typography";
 import { GetFormSchema } from "components/SpruceForm";
-import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
+import { Arch, BootstrapMethod, Provider, SshKey } from "gql/generated/types";
+import { nonWindowsArchitectures, windowsArchitectures } from "./constants";
 import {
-  Arch,
-  BootstrapMethod,
-  CommunicationMethod,
-  FeedbackRule,
-  HostAllocatorVersion,
-  OverallocatedRule,
-  Provider,
-  RoundingRule,
-  SshKey,
-} from "gql/generated/types";
+  allocation as allocationProperties,
+  bootstrap as bootstrapProperties,
+  setup,
+  sshConfig as sshConfigProperties,
+  icecreamConfigPath,
+  icecreamSchedulerHost,
+  isVirtualWorkStation,
+  rootDir,
+} from "./schemaFields";
 
 type FormSchemaParams = {
+  architecture: Arch;
   provider: Provider;
   sshKeys: SshKey[];
 };
 
 export const getFormSchema = ({
+  architecture,
   provider,
   sshKeys,
 }: FormSchemaParams): ReturnType<GetFormSchema> => {
@@ -34,237 +35,124 @@ export const getFormSchema = ({
         setup: {
           type: "object" as "object",
           title: "Host Setup",
-          properties: {
-            bootstrapMethod: {
-              type: "string" as "string",
-              title: "Host Bootstrap Method",
-              oneOf: enumSelect(bootstrapMethodToCopy),
-            },
-            communicationMethod: {
-              type: "string" as "string",
-              title: "Host Communication Method",
-              oneOf: enumSelect(communicationMethodToCopy),
+          properties: setup.schema,
+          dependencies: {
+            userSpawnAllowed: {
+              oneOf: [
+                {
+                  properties: {
+                    userSpawnAllowed: { enum: [false] },
+                  },
+                },
+                {
+                  properties: {
+                    userSpawnAllowed: { enum: [true] },
+                    isVirtualWorkStation: isVirtualWorkStation.schema,
+                  },
+                  dependencies: {
+                    isVirtualWorkStation: {
+                      oneOf: [
+                        {
+                          properties: {
+                            isVirtualWorkStation: {
+                              enum: [false],
+                            },
+                          },
+                        },
+                        {
+                          properties: {
+                            isVirtualWorkStation: {
+                              enum: [true],
+                            },
+                            icecreamSchedulerHost: icecreamSchedulerHost.schema,
+                            icecreamConfigPath: icecreamConfigPath.schema,
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+              ],
             },
             arch: {
-              type: "string" as "string",
-              title: "Agent Architecture",
-              oneOf: enumSelect(architectureToCopy),
-            },
-            workDir: {
-              type: "string" as "string",
-              title: "Working Directory",
-            },
-            setupScript: {
-              type: "string" as "string",
-              title: "Setup Script",
-            },
-            setupAsSudo: {
-              type: "boolean" as "boolean",
-              title: "Run script as sudo",
+              oneOf: [
+                {
+                  properties: {
+                    arch: { enum: windowsArchitectures },
+                    rootDir: rootDir.schema,
+                  },
+                },
+                {
+                  properties: {
+                    arch: { enum: nonWindowsArchitectures },
+                  },
+                },
+              ],
             },
           },
         },
-        sshConfig: {
-          type: "object" as "object",
-          title: "SSH Configuration",
-          properties: {
-            user: {
-              type: "string" as "string",
-              title: "SSH User",
-            },
-            sshKey: {
-              type: "string" as "string",
-              title: "SSH Key",
-              oneOf: sshKeys.map(({ location, name }) => ({
-                type: "string" as "string",
-                title: `${name} – ${location}`,
-                enum: [name],
-              })),
-            },
-            authorizedKeysFile: {
-              type: "string" as "string",
-              title: "Authorized Keys File",
-            },
-            sshOptions: {
-              type: "array" as "array",
-              title: "SSH Options",
-              items: {
-                type: "string" as "string",
-                title: "SSH Option",
-                default: "",
-                minLength: 1,
+      },
+      dependencies: {
+        setup: {
+          oneOf: [
+            {
+              properties: {
+                setup: {
+                  properties: {
+                    bootstrapMethod: { enum: [BootstrapMethod.LegacySsh] },
+                  },
+                },
+                sshConfig: sshConfig(sshKeys),
+                allocation,
               },
             },
-          },
-        },
-        allocation: {
-          type: "object" as "object",
-          title: "Host Allocation",
-          properties: {
-            version: {
-              type: "string" as "string",
-              title: "Host Allocator Version",
-              oneOf: enumSelect(hostAllocatorVersionToCopy),
+            {
+              properties: {
+                setup: {
+                  properties: {
+                    bootstrapMethod: {
+                      enum: [BootstrapMethod.Ssh, BootstrapMethod.UserData],
+                    },
+                  },
+                },
+                bootstrapSettings,
+                sshConfig: sshConfig(sshKeys),
+                allocation,
+              },
             },
-            roundingRule: {
-              type: "string" as "string",
-              title: "Host Allocator Rounding Rule",
-              oneOf: enumSelect(roundingRuleToCopy),
-            },
-            feedbackRule: {
-              type: "string" as "string",
-              title: "Host Allocator Feedback Rule",
-              oneOf: enumSelect(feedbackRuleToCopy),
-            },
-            hostsOverallocatedRule: {
-              type: "string" as "string",
-              title: "Host Overallocation Rule",
-              oneOf: enumSelect(overallocatedRuleToCopy),
-            },
-            minimumHosts: {
-              type: "number" as "number",
-              title: "Minimum Number of Hosts Allowed",
-              minimum: 0,
-            },
-            maximumHosts: {
-              type: "number" as "number",
-              title: "Maxiumum Number of Hosts Allowed",
-              minimum: 0,
-            },
-            acceptableHostIdleTime: {
-              type: "number" as "number",
-              title: "Acceptable Host Idle Time (s)",
-            },
-            futureHostFraction: {
-              type: "number" as "number",
-              title: "Future Host Fraction",
-              minimum: 0,
-              maximum: 1,
-            },
-          },
+          ],
         },
       },
     },
     uiSchema: {
-      setup: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        bootstrapMethod: {
-          "ui:allowDeselect": false,
-        },
-        communicationMethod: {
-          "ui:allowDeselect": false,
-        },
-        arch: {
-          "ui:allowDeselect": false,
-        },
-        setupScript: {
-          "ui:widget": "textarea",
-        },
-      },
-      sshConfig: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        sshKey: {
-          "ui:allowDeselect": false,
-        },
-        authorizedKeysFile: {
-          "ui:data-cy": "authorized-keys-input",
-          ...(!hasStaticProvider && { "ui:widget": "hidden" }),
-        },
-        sshOptions: {
-          "ui:addButtonText": "Add SSH option",
-          "ui:descriptionNode": (
-            <>
-              Option keywords supported by <InlineCode>ssh_config</InlineCode>.
-            </>
-          ),
-          "ui:orderable": false,
-          items: {
-            "ui:placeholder": "ConnectTimeout=10",
-          },
-        },
-      },
-      allocation: {
-        "ui:ObjectFieldTemplate": CardFieldTemplate,
-        version: {
-          "ui:allowDeselect": false,
-        },
-        roundingRule: {
-          "ui:allowDeselect": false,
-        },
-        feedbackRule: {
-          "ui:allowDeselect": false,
-        },
-        hostsOverallocatedRule: {
-          "ui:allowDeselect": false,
-        },
-        minimumHosts: {
-          "ui:data-cy": "minimum-hosts-input",
-          ...(!hasEC2Provider && { "ui:widget": "hidden" }),
-        },
-        maximumHosts: {
-          "ui:data-cy": "maximum-hosts-input",
-          ...(!hasEC2Provider && { "ui:widget": "hidden" }),
-        },
-        acceptableHostIdleTime: {
-          "ui:data-cy": "idle-time-input",
-          ...(!hasEC2Provider && { "ui:widget": "hidden" }),
-        },
-        futureHostFraction: {
-          "ui:data-cy": "future-fraction-input",
-          ...(!hasEC2Provider && { "ui:widget": "hidden" }),
-        },
-      },
+      setup: setup.uiSchema(architecture, hasStaticProvider),
+      bootstrapSettings: bootstrapProperties.uiSchema(architecture),
+      sshConfig: sshConfigProperties.uiSchema(hasStaticProvider),
+      allocation: allocationProperties.uiSchema(hasEC2Provider),
     },
   };
 };
 
-const enumSelect = (enumObject: Record<string, string>) =>
-  Object.entries(enumObject).map(([key, title]) => ({
-    type: "string" as "string",
-    title,
-    enum: [key],
-  }));
-
-const architectureToCopy = {
-  [Arch.Linux_64Bit]: "Linux 64-bit",
-  [Arch.LinuxArm_64Bit]: "Linux ARM 64-bit",
-  [Arch.LinuxPpc_64Bit]: "Linux PowerPC 64-bit",
-  [Arch.LinuxZseries]: "Linux zSeries",
-  [Arch.Osx_64Bit]: "macOS 64-bit",
-  [Arch.OsxArm_64Bit]: "macOS ARM 64-bit",
-  [Arch.Windows_64Bit]: "Windows 64-bit",
+const bootstrapSettings = {
+  type: "object" as "object",
+  title: "Bootstrap Settings",
+  properties: bootstrapProperties.schema,
 };
 
-const bootstrapMethodToCopy = {
-  [BootstrapMethod.LegacySsh]: "Legacy SSH",
-  [BootstrapMethod.Ssh]: "SSH",
-  [BootstrapMethod.UserData]: "User Data",
-};
+const sshConfig = (sshKeys: SshKey[]) => ({
+  type: "object" as "object",
+  title: "SSH Configuration",
+  properties: sshConfigProperties.schema(sshKeys),
+});
 
-const communicationMethodToCopy = {
-  [CommunicationMethod.LegacySsh]: "Legacy SSH",
-  [CommunicationMethod.Ssh]: "SSH",
-  [CommunicationMethod.Rpc]: "RPC",
-};
-
-const hostAllocatorVersionToCopy = {
-  [HostAllocatorVersion.Utilization]: "Utilization",
-};
-
-const roundingRuleToCopy = {
-  [RoundingRule.Default]: "Default",
-  [RoundingRule.Down]: "Round down",
-  [RoundingRule.Up]: "Round up",
-};
-
-const feedbackRuleToCopy = {
-  [FeedbackRule.Default]: "Default",
-  [FeedbackRule.NoFeedback]: "No feedback",
-  [FeedbackRule.WaitsOverThresh]: "Wait over threshold",
-};
-
-const overallocatedRuleToCopy = {
-  [OverallocatedRule.Default]: "Default",
-  [OverallocatedRule.Ignore]: "No terminations when overallocated",
-  [OverallocatedRule.Terminate]: "Terminate hosts when overallocated",
+const allocation = {
+  type: "object" as "object",
+  title: "Host Allocation",
+  required: [
+    "minimumHosts",
+    "maximumHosts",
+    "acceptableHostIdleTime",
+    "futureHostFraction",
+  ],
+  properties: allocationProperties.schema,
 };

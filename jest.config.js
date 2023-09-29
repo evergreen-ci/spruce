@@ -27,6 +27,8 @@ module.exports = {
   },
   transformIgnorePatterns: [
     `<rootDir>/node_modules/(?!${[
+      // jest doesn't officially support ESM so ignore ansi_up: https://jestjs.io/docs/ecmascript-modules
+      "ansi_up",
       "antd",
       // The following modules are all related to the query-string package.
       "query-string",

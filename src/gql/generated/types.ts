@@ -4861,6 +4861,7 @@ export type RestartTaskMutation = {
     __typename?: "Task";
     execution: number;
     latestExecution: number;
+    priority?: number | null;
     buildVariant: string;
     buildVariantDisplayName?: string | null;
     displayName: string;
