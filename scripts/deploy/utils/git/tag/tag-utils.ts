@@ -38,8 +38,15 @@ const getLatestTag = () => {
  * @param tag - the tag to delete
  */
 const deleteTag = (tag: string) => {
+  console.log(`Deleting tag (${tag}) from remote...`);
   const deleteCommand = `git push --delete ${githubRemote} ${tag}`;
-  execSync(deleteCommand, { stdio: "inherit", encoding: "utf-8" });
+  try {
+    execSync(deleteCommand, { stdio: "inherit", encoding: "utf-8" });
+  } catch (err) {
+    console.log("Deleting tag failed.");
+    console.log("output", err);
+    return false;
+  }
 };
 
 /**

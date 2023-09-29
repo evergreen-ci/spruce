@@ -26,9 +26,7 @@ const evergreenDeploy = async () => {
 
       const forceDeploy = response.value;
       if (forceDeploy) {
-        console.log(`Deleting tag (${latestTag}) from remote...`);
         deleteTag(latestTag);
-        console.log("Pushing tags...");
         pushTags();
         console.log("Check Evergreen for deploy progress.");
         return;
