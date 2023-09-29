@@ -42,13 +42,13 @@ export const LeafyGreenTextInput: React.FC<
     "data-cy": dataCy,
     description,
     elementWrapperCSS,
-    emptyValue = "",
     inputType,
     optional,
     warnings,
   } = options;
 
   const { errors, hasError } = processErrors(rawErrors);
+  const emptyValue = options.emptyValue ?? "";
 
   const inputProps = {
     ...(!isNullish(schema.maximum) && { max: schema.maximum }),
@@ -340,9 +340,11 @@ export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
 }) => {
   const {
     "data-cy": dataCy,
+    description,
     elementWrapperCSS,
     emptyValue = "",
     focusOnMount,
+    rows,
   } = options;
 
   const { errors, hasError } = processErrors(rawErrors);
@@ -366,12 +368,14 @@ export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
         placeholder={placeholder || undefined}
         data-cy={dataCy}
         label={label}
+        description={description}
         disabled={disabled || readonly}
         value={value}
         onChange={({ target }) =>
           target.value === "" ? onChange(emptyValue) : onChange(target.value)
         }
         errorMessage={hasError ? errors.join(", ") : null}
+        rows={rows}
         state={hasError ? "error" : "none"}
       />
     </ElementWrapper>
