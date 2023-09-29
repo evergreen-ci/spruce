@@ -21,11 +21,6 @@ describe("Access page", () => {
   });
 
   it("Changing settings and clicking the save button produces a success toast and the changes are persisted", () => {
-    // Wait for internal access buttons to load
-    cy.get("[aria-label='Internal Access']")
-      .find("label")
-      .as("internalAccessButtons")
-      .should("have.length", 3);
     cy.contains("label", "Unrestricted").click();
     cy.getInputByLabel("Unrestricted").should(
       "have.attr",
@@ -34,7 +29,8 @@ describe("Access page", () => {
     );
     // Input and save username
     cy.contains("Add Username").click();
-    cy.get("[aria-label='Username'").as("usernameInput").type("admin");
+    cy.getInputByLabel("Username").as("usernameInput");
+    cy.get("@usernameInput").type("admin");
     cy.get("@usernameInput").should("have.value", "admin").should("be.visible");
     clickSave();
     cy.validateToast("success", "Successfully updated project");
@@ -42,7 +38,6 @@ describe("Access page", () => {
     cy.reload();
     cy.get("@usernameInput").should("have.value", "admin").should("be.visible");
     // Delete a username
-    cy.get("@internalAccessButtons").should("have.length", 3);
     cy.dataCy("delete-item-button").should("be.visible").click();
     cy.get("@usernameInput").should("not.exist");
     clickSave();
@@ -104,7 +99,7 @@ describe("Repo Settings", () => {
     cy.visit(origin);
   });
 
-  describe("General settings pag", () => {
+  describe("General settings page", () => {
     it("Should have the save button disabled on load", () => {
       saveButtonEnabled(false);
     });
@@ -145,8 +140,8 @@ describe("Repo Settings", () => {
           .contains(
             "A Commit Check Definition must be specified for this feature to run."
           )
-          .as("errorBanner")
-          .should("be.visible");
+          .as("errorBanner");
+        cy.get("@errorBanner").should("be.visible");
         cy.dataCy("github-checks-enabled-radio-box")
           .contains("label", "Disabled")
           .click();
@@ -162,9 +157,8 @@ describe("Repo Settings", () => {
       it("Saving a patch defintion should hide the error banner, success toast and displays disable patch definitions for the repo", () => {
         cy.contains(
           "A GitHub Patch Definition must be specified for this feature to run."
-        )
-          .as("errorBanner")
-          .should("be.visible");
+        ).as("errorBanner");
+        cy.get("@errorBanner").should("be.visible");
         cy.contains("button", "Add Patch Definition").click();
         cy.get("@errorBanner").should("not.exist");
         saveButtonEnabled(false);
@@ -308,9 +302,10 @@ describe("Repo Settings", () => {
       cy.contains("button", "Variant/Task").click();
       cy.dataCy("variant-regex-input").type(".*");
       cy.dataCy("task-regex-input").type(".*");
-      cy.getInputByLabel("Add to GitHub Trigger Alias")
-        .as("triggerAliasCheckbox")
-        .should("not.be.checked");
+      cy.getInputByLabel("Add to GitHub Trigger Alias").as(
+        "triggerAliasCheckbox"
+      );
+      cy.get("@triggerAliasCheckbox").should("not.be.checked");
       cy.contains("label", "Add to GitHub Trigger Alias").click();
       cy.get("@triggerAliasCheckbox").should("be.checked");
       clickSave();
@@ -444,7 +439,7 @@ describe("Project Settings when not defaulting to repo", () => {
         "errorMessage"
       );
       saveButtonEnabled(false);
-      // Fix duplication
+      // Undo variable duplication
       cy.dataCy("var-name-input").first().type("_2");
       saveButtonEnabled();
       cy.get("@errorMessage").should("not.exist");
@@ -616,8 +611,6 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Successfully saves variables and then promotes them using the promote variables modal", () => {
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(100);
       // Save variables
       cy.dataCy("add-button").should("be.visible").click();
       cy.dataCy("var-name-input").type("a");
@@ -781,12 +774,15 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Patch aliases added before defaulting to repo patch aliases are cleared", () => {
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(200);
       // Override repo patch alias and add a patch alias.
       cy.contains("label", "Override Repo Patch Aliases")
         .should("be.visible")
         .click();
+      cy.getInputByLabel("Override Repo Patch Aliases").should(
+        "have.attr",
+        "aria-checked",
+        "true"
+      );
       saveButtonEnabled(false);
       cy.dataCy("add-button")
         .contains("Add Patch Alias")
@@ -814,14 +810,10 @@ describe("Project Settings when defaulting to repo", () => {
   describe("Virtual Workstation page", () => {
     beforeEach(() => {
       cy.dataCy("navitem-virtual-workstation").click();
-      cy.get('[aria-label="Git Clone"]')
-        .as("gitCloneButtonContainer")
-        .find("label")
-        .should("have.length", 3);
     });
 
     it("Enable git clone", () => {
-      cy.get("@gitCloneButtonContainer").contains("Enabled").click();
+      cy.contains("label", "Enabled").click();
       cy.getInputByLabel("Enabled").should("be.checked");
       clickSave();
       cy.validateToast("success", "Successfully updated project");
@@ -883,7 +875,7 @@ describe("Attaching Spruce to a repo", () => {
     cy.visit(origin);
   });
 
-  it("Saves a new repo", () => {
+  it("Saves and attaches new repo and shows warnings on the Github/Commit Queue page", () => {
     cy.dataCy("repo-input").as("repoInput").clear();
     cy.get("@repoInput").type("evergreen");
     cy.dataCy("attach-repo-button").should(
@@ -893,47 +885,24 @@ describe("Attaching Spruce to a repo", () => {
     );
     clickSave();
     cy.validateToast("success", "Successfully updated project");
-  });
-
-  it("Attaches to new repo", () => {
     cy.dataCy("attach-repo-button").click();
     cy.dataCy("attach-repo-modal").contains("button", "Attach").click();
     cy.validateToast("success", "Successfully attached to repo");
-  });
-
-  describe("GitHub/Commit Queue page", () => {
-    beforeEach(() => {
-      cy.dataCy("navitem-github-commitqueue").click();
+    cy.dataCy("navitem-github-commitqueue").click();
+    cy.dataCy("pr-testing-enabled-radio-box")
+      .prev()
+      .dataCy("warning-banner")
+      .should("exist");
+    cy.dataCy("manual-pr-testing-enabled-radio-box")
+      .prev()
+      .dataCy("warning-banner")
+      .should("exist");
+    cy.dataCy("github-checks-enabled-radio-box").prev().should("not.exist");
+    cy.dataCy("cq-card").dataCy("warning-banner").should("exist");
+    cy.dataCy("cq-enabled-radio-box").within(($el) => {
+      cy.wrap($el).getInputByLabel("Enabled").parent().click();
     });
-
-    xit("Shows warnings about enabling PR Testing", () => {
-      cy.dataCy("pr-testing-enabled-radio-box")
-        .contains("label", "Enabled")
-        .click();
-      cy.dataCy("pr-testing-enabled-radio-box")
-        .prev()
-        .dataCy("warning-banner")
-        .should("exist");
-      cy.dataCy("manual-pr-testing-enabled-radio-box")
-        .prev()
-        .dataCy("warning-banner")
-        .should("exist");
-    });
-
-    xit("Doesn't show a warning about enabling commit checks because the feature is disabled", () => {
-      cy.dataCy("github-checks-enabled-radio-box").prev().should("not.exist");
-    });
-
-    xit("Shows a warning about enabling commit queue", () => {
-      cy.dataCy("cq-card").dataCy("warning-banner").should("exist");
-    });
-
-    it("Shows an error banner about enabling commit queue if the feature is enabled", () => {
-      cy.dataCy("cq-enabled-radio-box").within(($el) => {
-        cy.wrap($el).getInputByLabel("Enabled").parent().click();
-      });
-      cy.dataCy("cq-card").dataCy("error-banner").should("exist");
-    });
+    cy.dataCy("cq-card").dataCy("error-banner").should("exist");
   });
 });
 
