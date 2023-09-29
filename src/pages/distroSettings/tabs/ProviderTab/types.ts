@@ -35,8 +35,8 @@ export type ProviderFormState = {
     securityGroups: string[];
   };
   ec2FleetProviderSettings: Array<{
-    region: string;
     displayTitle: string;
+    region: string;
     amiId: string;
     instanceType: string;
     sshKeyName: string;
@@ -63,8 +63,8 @@ export type ProviderFormState = {
     securityGroups: string[];
   }>;
   ec2OnDemandProviderSettings: Array<{
-    region: string;
     displayTitle: string;
+    region: string;
     amiId: string;
     instanceType: string;
     sshKeyName: string;

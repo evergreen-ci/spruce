@@ -51,7 +51,7 @@ export const getFormSchema = ({
               },
               {
                 type: "string" as "string",
-                title: "EC2 On Demand",
+                title: "EC2 On-Demand",
                 enum: [Provider.Ec2OnDemand],
               },
             ],
