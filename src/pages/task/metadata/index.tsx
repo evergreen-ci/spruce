@@ -7,6 +7,7 @@ import { InlineCode } from "@leafygreen-ui/typography";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
+import ExpandedText from "components/ExpandedText";
 import {
   MetadataCard,
   MetadataItem,
@@ -28,7 +29,7 @@ import {
   getProjectPatchesRoute,
   getPodRoute,
 } from "constants/routes";
-import { size } from "constants/tokens";
+import { size, zIndex } from "constants/tokens";
 import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { TaskStatus } from "types/task";
@@ -209,12 +210,11 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
       )}
       {details?.description && (
         <MetadataItem data-cy="task-metadata-description">
-          {details?.status === TaskStatus.Failed
-            ? `Failing command: ${processFailingCommand(
-                details.description,
-                isContainerTask
-              )}`
-            : `Command: ${details.description}`}
+          <DetailsDescription
+            isContainerTask={isContainerTask}
+            description={details.description}
+            status={details?.status}
+          />
         </MetadataItem>
       )}
       {details?.timeoutType && details?.timeoutType !== "" && (
@@ -394,6 +394,47 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
         </MetadataItem>
       )}
     </MetadataCard>
+  );
+};
+
+const DetailsDescription = ({
+  description,
+  isContainerTask,
+  status,
+}: {
+  description: string;
+  isContainerTask: boolean;
+  status: string;
+}) => {
+  const MAX_CHAR = 80;
+  const shouldTruncate = description.length > MAX_CHAR;
+
+  const fullText =
+    status === TaskStatus.Failed
+      ? `Failing command: ${processFailingCommand(
+          description,
+          isContainerTask
+        )}`
+      : `Command: ${description}`;
+  const truncatedText = fullText.substring(0, MAX_CHAR).concat("... ");
+
+  return (
+    <span>
+      {shouldTruncate ? (
+        <>
+          {truncatedText}
+          <ExpandedText
+            align="right"
+            justify="end"
+            popoverZIndex={zIndex.tooltip}
+            message={description}
+            data-cy="task-metadata-description-tooltip"
+          />
+        </>
+      ) : (
+        fullText
+      )}
+    </span>
   );
 };
 
