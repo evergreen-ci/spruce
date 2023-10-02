@@ -35,8 +35,8 @@ export type ProviderFormState = {
     securityGroups: string[];
   };
   ec2FleetProviderSettings: Array<{
-    region: string;
     displayTitle: string;
+    region: string;
     amiId: string;
     instanceType: string;
     sshKeyName: string;
@@ -44,6 +44,30 @@ export type ProviderFormState = {
       fleetInstanceType: FleetInstanceType;
       useCapacityOptimization: boolean;
     };
+    instanceProfileARN: string;
+    vpcOptions: {
+      useVpc: boolean;
+      subnetId: string;
+      subnetPrefix: string;
+    };
+    mountPoints: Array<{
+      deviceName: string;
+      virtualName: string;
+      volumeType: string;
+      iops: number;
+      throughput: number;
+      size: number;
+    }>;
+    userData: string;
+    mergeUserData: boolean;
+    securityGroups: string[];
+  }>;
+  ec2OnDemandProviderSettings: Array<{
+    displayTitle: string;
+    region: string;
+    amiId: string;
+    instanceType: string;
+    sshKeyName: string;
     instanceProfileARN: string;
     vpcOptions: {
       useVpc: boolean;
