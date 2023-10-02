@@ -2,7 +2,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import { addMilliseconds } from "date-fns";
 import { getUserMock } from "gql/mocks/getUser";
 import { taskQuery } from "gql/mocks/taskData";
-import { renderWithRouterMatch as render, screen } from "test_utils";
+import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { Metadata } from "./index";
 
 const wrapper = ({ children }) => (
@@ -52,7 +52,8 @@ describe("metadata", () => {
     expect(screen.queryByDataCy("task-metrics-link")).toBeNull();
   });
 
-  it("renders the metadata card with a succeeded status", () => {
+  it("renders the metadata card with a succeeded status", async () => {
+    const user = userEvent.setup();
     render(
       <Metadata
         taskId={taskId}
@@ -73,6 +74,14 @@ describe("metadata", () => {
     expect(screen.getByDataCy("task-metadata-finished")).toBeInTheDocument();
     expect(screen.getByDataCy("task-trace-link")).toBeInTheDocument();
     expect(screen.getByDataCy("task-metrics-link")).toBeInTheDocument();
+
+    expect(screen.getByDataCy("task-metadata-description")).toBeInTheDocument();
+    expect(screen.getByText("more")).toBeInTheDocument();
+    await user.hover(screen.getByText("more"));
+    await screen.findByDataCy("task-metadata-description-tooltip");
+    expect(
+      screen.getByDataCy("task-metadata-description-tooltip")
+    ).toHaveTextContent(taskSucceeded.task.details.description);
   });
 });
 
@@ -94,11 +103,21 @@ const taskStarted = {
     status: "started",
   },
 };
+
 const taskSucceeded = {
   task: {
     ...taskStarted.task,
     finishTime: addMilliseconds(new Date(), 1228078),
     status: "succeeded",
-    details: { ...taskStarted.task.details, traceID: "trace_abcde" },
+    details: {
+      type: "",
+      status: "success",
+      description:
+        "exiting due to custom reason: long long long long long long long long long long long long long message",
+      traceID: "trace_abcde",
+      oomTracker: {
+        detected: false,
+      },
+    },
   },
 };

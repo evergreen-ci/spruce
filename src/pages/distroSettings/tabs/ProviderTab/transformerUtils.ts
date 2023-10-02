@@ -98,11 +98,36 @@ export const formProviderSettings = (
         size: mp.size,
       })) ?? [],
   },
+  ec2OnDemandProviderSettings: {
+    region: providerSettings.region ?? "",
+    userData: providerSettings.user_data ?? "",
+    mergeUserData: providerSettings.merge_user_data_parts ?? false,
+    securityGroups: providerSettings.security_group_ids ?? [],
+    amiId: providerSettings.ami ?? "",
+    instanceType: providerSettings.instance_type ?? "",
+    sshKeyName: providerSettings.key_name ?? "",
+    instanceProfileARN: providerSettings.iam_instance_profile_arn ?? "",
+    vpcOptions: {
+      useVpc: providerSettings.is_vpc ?? false,
+      subnetId: providerSettings.subnet_id ?? "",
+      subnetPrefix: providerSettings.vpc_name ?? "",
+    },
+    mountPoints:
+      providerSettings.mount_points?.map((mp) => ({
+        deviceName: mp.device_name,
+        virtualName: mp.virtual_name,
+        volumeType: mp.volume_type,
+        iops: mp.iops,
+        throughput: mp.throughput,
+        size: mp.size,
+      })) ?? [],
+  },
 });
 
 type ProviderSettings = ProviderFormState["staticProviderSettings"] &
   ProviderFormState["dockerProviderSettings"] &
-  Unpacked<ProviderFormState["ec2FleetProviderSettings"]>;
+  Unpacked<ProviderFormState["ec2FleetProviderSettings"]> &
+  Unpacked<ProviderFormState["ec2OnDemandProviderSettings"]>;
 
 export const gqlProviderSettings = (
   providerSettings: Partial<ProviderSettings> = {}
@@ -146,6 +171,28 @@ export const gqlProviderSettings = (
       fallback:
         fleetOptions?.fleetInstanceType ===
         FleetInstanceType.SpotWithOnDemandFallback,
+      iam_instance_profile_arn: providerSettings.instanceProfileARN,
+      is_vpc: vpcOptions?.useVpc,
+      subnet_id: vpcOptions?.useVpc ? vpcOptions?.subnetId : undefined,
+      vpc_name: vpcOptions?.useVpc ? vpcOptions?.subnetPrefix : undefined,
+      mount_points:
+        providerSettings.mountPoints?.map((mp) => ({
+          device_name: mp.deviceName,
+          virtual_name: mp.virtualName,
+          volume_type: mp.volumeType,
+          iops: mp.iops,
+          throughput: mp.throughput,
+          size: mp.size,
+        })) ?? [],
+    },
+    ec2OnDemandProviderSettings: {
+      region: providerSettings.region,
+      user_data: providerSettings.userData,
+      merge_user_data_parts: providerSettings.mergeUserData,
+      security_group_ids: providerSettings.securityGroups,
+      ami: providerSettings.amiId,
+      instance_type: providerSettings.instanceType,
+      key_name: providerSettings.sshKeyName,
       iam_instance_profile_arn: providerSettings.instanceProfileARN,
       is_vpc: vpcOptions?.useVpc,
       subnet_id: vpcOptions?.useVpc ? vpcOptions?.subnetId : undefined,
