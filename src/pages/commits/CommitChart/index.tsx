@@ -26,12 +26,12 @@ const DEFAULT_OPEN_STATE = true;
 interface Props {
   versions?: Commits;
   hasTaskFilter?: boolean;
-  hasError?: boolean;
+  noData?: boolean;
 }
 
 export const CommitChart: React.FC<Props> = ({
-  hasError = false,
   hasTaskFilter,
+  noData = false,
   versions,
 }) => {
   const [chartOpen, setChartOpen] = useQueryParam(
@@ -70,7 +70,7 @@ export const CommitChart: React.FC<Props> = ({
   const onToggleAccordion = ({ isVisible }) =>
     Cookies.set(COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION, isVisible.toString());
 
-  return hasError ? (
+  return noData ? (
     <ChartWrapper>
       <Grid numDashedLine={5} />
     </ChartWrapper>

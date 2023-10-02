@@ -80,6 +80,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [],
@@ -104,6 +105,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [],
@@ -126,6 +128,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [TaskStatus.Succeeded],
@@ -148,6 +151,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [],
@@ -170,6 +174,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [],
@@ -196,6 +201,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [],
@@ -217,6 +223,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [TaskStatus.Failed],
@@ -238,6 +245,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [],
@@ -263,6 +271,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [],
@@ -285,6 +294,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [TaskStatus.Failed],
@@ -305,6 +315,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [],
@@ -325,6 +336,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [],
@@ -349,6 +361,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [],
@@ -373,6 +386,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [],
@@ -397,6 +411,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [TaskStatus.Succeeded],
@@ -421,6 +436,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [TaskStatus.Succeeded],
@@ -445,6 +461,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [TaskStatus.Failed, TaskStatus.Succeeded],
@@ -468,6 +485,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [],
@@ -489,6 +507,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [TaskStatus.Succeeded],
@@ -512,6 +531,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [],
@@ -538,6 +558,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [],
@@ -561,6 +582,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [],
@@ -584,6 +606,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [TaskStatus.Succeeded],
@@ -607,6 +630,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [TaskStatus.Succeeded],
@@ -630,6 +654,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [TaskStatus.Succeeded, TaskStatus.Failed],
@@ -652,6 +677,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [TaskStatus.Failed],
@@ -674,6 +700,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [],
@@ -696,6 +723,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [],
@@ -716,6 +744,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
+            revision: "",
           },
           filterState: {
             statuses: [TaskStatus.Failed],

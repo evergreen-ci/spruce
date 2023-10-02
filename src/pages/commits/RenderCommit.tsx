@@ -106,4 +106,28 @@ const getCommitWidth = (commit: Commit) => {
   throw new Error("Commit type not found");
 };
 
-export { RenderCommitsChart, RenderCommitsLabel, getCommitKey, getCommitWidth };
+const isCommitSelected = (commit: Commit, revision: string) => {
+  const { rolledUpVersions, version } = commit;
+
+  if (revision.trim() === "") {
+    return false;
+  }
+  if (version && version.revision.includes(revision)) {
+    return true;
+  }
+  if (
+    rolledUpVersions &&
+    rolledUpVersions.some((v) => v.revision.includes(revision))
+  ) {
+    return true;
+  }
+  return false;
+};
+
+export {
+  RenderCommitsChart,
+  RenderCommitsLabel,
+  getCommitKey,
+  getCommitWidth,
+  isCommitSelected,
+};

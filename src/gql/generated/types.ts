@@ -933,6 +933,7 @@ export type MainlineCommitsOptions = {
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  revision?: InputMaybe<Scalars["String"]["input"]>;
   shouldCollapse?: InputMaybe<Scalars["Boolean"]["input"]>;
   skipOrderNumber?: InputMaybe<Scalars["Int"]["input"]>;
 };
