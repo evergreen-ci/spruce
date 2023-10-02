@@ -211,8 +211,8 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
       {details?.description && (
         <MetadataItem data-cy="task-metadata-description">
           <DetailsDescription
-            isContainerTask={isContainerTask}
             description={details.description}
+            isContainerTask={isContainerTask}
             status={details?.status}
           />
         </MetadataItem>
@@ -406,8 +406,7 @@ const DetailsDescription = ({
   isContainerTask: boolean;
   status: string;
 }) => {
-  const MAX_CHAR = 80;
-  const shouldTruncate = description.length > MAX_CHAR;
+  const MAX_CHAR = 100;
 
   const fullText =
     status === TaskStatus.Failed
@@ -416,13 +415,14 @@ const DetailsDescription = ({
           isContainerTask
         )}`
       : `Command: ${description}`;
-  const truncatedText = fullText.substring(0, MAX_CHAR).concat("... ");
+  const shouldTruncate = fullText.length > MAX_CHAR;
+  const truncatedText = fullText.substring(0, MAX_CHAR).concat("...");
 
   return (
     <span>
       {shouldTruncate ? (
         <>
-          {truncatedText}
+          {truncatedText}{" "}
           <ExpandedText
             align="right"
             justify="end"
