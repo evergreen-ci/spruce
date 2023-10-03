@@ -16,7 +16,7 @@ describe("general section", () => {
     cy.contains("button", "Add alias").click();
     cy.getInputByLabel("Alias").type("localhost-alias");
     cy.getInputByLabel("Notes").type("this is a note");
-    cy.getInputByLabel("Disable shallow clone for this distro.").check({
+    cy.getInputByLabel("Disable shallow clone for this distro").check({
       force: true,
     });
     save();
@@ -26,7 +26,7 @@ describe("general section", () => {
     cy.reload();
     cy.getInputByLabel("Alias").should("have.value", "localhost-alias");
     cy.getInputByLabel("Notes").should("have.value", "this is a note");
-    cy.getInputByLabel("Disable shallow clone for this distro.").should(
+    cy.getInputByLabel("Disable shallow clone for this distro").should(
       "be.checked"
     );
 
