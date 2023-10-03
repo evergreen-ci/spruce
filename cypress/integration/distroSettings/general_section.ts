@@ -39,4 +39,16 @@ describe("general section", () => {
     save();
     cy.validateToast("success");
   });
+
+  describe("container pool distro", () => {
+    beforeEach(() => {
+      cy.visit("/distro/ubuntu1604-parent/settings/general");
+    });
+
+    it("warns users that the distro will not be spawned for tasks", () => {
+      cy.contains(
+        "Distro is a container pool, so it cannot be spawned for tasks."
+      ).should("be.visible");
+    });
+  });
 });

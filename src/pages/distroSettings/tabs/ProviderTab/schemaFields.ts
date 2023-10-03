@@ -38,6 +38,7 @@ const securityGroups = {
       title: "Security Group ID",
       default: "",
       minLength: 1,
+      pattern: "^sg-.*",
     },
   },
   uiSchema: {
@@ -257,10 +258,15 @@ const vpcOptions = {
               subnetId: {
                 type: "string" as "string",
                 title: "Default VPC Subnet ID",
+                default: "",
+                minLength: 1,
+                pattern: "^subnet-.*",
               },
               subnetPrefix: {
                 type: "string" as "string",
                 title: "VPC Subnet Prefix",
+                default: "",
+                minLength: 1,
               },
             },
           },

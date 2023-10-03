@@ -1,14 +1,29 @@
 import { useMemo } from "react";
+import { useParams } from "react-router-dom";
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
+import { useSpruceConfig } from "hooks";
 import { DeleteDistro } from "pages/distroSettings/DeleteDistro";
 import { BaseTab } from "../BaseTab";
 import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";
 
-export const GeneralTab: React.FC<TabProps> = ({ distroData }) => {
+export const GeneralTab: React.FC<TabProps> = ({
+  distroData,
+  minimumHosts,
+}) => {
+  const { distroId } = useParams();
+  const { containerPools } = useSpruceConfig();
+  const containerPoolDistros =
+    containerPools?.pools?.map(({ distro }) => distro) ?? [];
+
+  const isContainerDistro = containerPoolDistros.includes(distroId);
+
   const initialFormState = distroData;
 
-  const formSchema = useMemo(() => getFormSchema(), []);
+  const formSchema = useMemo(
+    () => getFormSchema(isContainerDistro, minimumHosts),
+    [isContainerDistro, minimumHosts]
+  );
 
   return (
     <>
