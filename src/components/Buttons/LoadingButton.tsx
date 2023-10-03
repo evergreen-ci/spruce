@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import { ExtendableBox } from "@leafygreen-ui/box";
 import LeafyGreenButton, { ButtonProps } from "@leafygreen-ui/button";
-import Icon from "components/Icon";
+import { Spinner } from "@leafygreen-ui/loading-indicator";
 
 type Props = ButtonProps & {
   loading?: boolean;
@@ -13,7 +13,8 @@ export const LoadingButton: ExtendableBox<
 > = forwardRef(({ leftGlyph, loading = false, ...rest }: Props, ref) => (
   <LeafyGreenButton
     ref={ref}
-    leftGlyph={loading ? <Icon glyph="Loading" /> : leftGlyph}
+    isLoading={loading}
+    loadingIndicator={<Spinner />}
     {...rest}
   />
 ));
