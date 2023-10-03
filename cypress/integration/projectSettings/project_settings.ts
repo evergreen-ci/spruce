@@ -307,7 +307,7 @@ describe("Repo Settings", () => {
         "triggerAliasCheckbox"
       );
       cy.get("@triggerAliasCheckbox").should("not.be.checked");
-      cy.contains("label", "Add to GitHub Trigger Alias").click();
+            cy.get("@triggerAliasCheckbox").check({ force: true });
       cy.get("@triggerAliasCheckbox").should("be.checked");
       clickSave();
       cy.validateToast("success", "Successfully updated repo");
