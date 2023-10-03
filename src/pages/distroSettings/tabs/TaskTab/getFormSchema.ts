@@ -97,11 +97,10 @@ export const getFormSchema = ({
                           title: "Target Time (ms)",
                           default: 0,
                           minimum: 0,
-                          maximum: 1800,
                         },
                         patchFactor: {
                           type: "number" as "number",
-                          title: "Patch Factor (0 to 100 inclusive)",
+                          title: "Patch Factor",
                           default: 0,
                           minimum: 0,
                           maximum: 100,
@@ -193,25 +192,29 @@ export const getFormSchema = ({
         tunableOptions: {
           "ui:field-data-cy": "tunable-options",
           ...(!hasEC2Provider && { "ui:widget": "hidden" }),
+          patchFactor: {
+            "ui:description":
+              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
+          },
           patchTimeInQueueFactor: {
             "ui:description":
-              "Set 0 to use global default. Value should range from 0-100 inclusive.",
+              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
           },
           mainlineTimeInQueueFactor: {
             "ui:description":
-              "Set 0 to use global default. Value should range from 0-100 inclusive.",
+              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
           },
           commitQueueFactor: {
             "ui:description":
-              "Set 0 to use global default. Value should range from 0-100 inclusive.",
+              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
           },
           expectedRuntimeFactor: {
             "ui:description":
-              "Set 0 to use global default. Value should range from 0-100 inclusive.",
+              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
           },
           generateTaskFactor: {
             "ui:description":
-              "Set 0 to use global default. Value should range from 0-100 inclusive.",
+              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
           },
         },
       },

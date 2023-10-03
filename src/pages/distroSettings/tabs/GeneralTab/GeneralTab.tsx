@@ -18,8 +18,6 @@ export const GeneralTab: React.FC<TabProps> = ({
 
   const isContainerDistro = containerPoolDistros.includes(distroId);
 
-  const initialFormState = distroData;
-
   const formSchema = useMemo(
     () => getFormSchema(isContainerDistro, minimumHosts),
     [isContainerDistro, minimumHosts]
@@ -27,7 +25,7 @@ export const GeneralTab: React.FC<TabProps> = ({
 
   return (
     <>
-      <BaseTab formSchema={formSchema} initialFormState={initialFormState} />
+      <BaseTab formSchema={formSchema} initialFormState={distroData} />
       <SettingsCardTitle>Remove Configuration</SettingsCardTitle>
       <SettingsCard>
         <DeleteDistro />

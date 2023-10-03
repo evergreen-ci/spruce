@@ -370,6 +370,7 @@ const preconditionScripts = {
           }
         `,
         "ui:rows": 8,
+        "ui:widget": "textarea",
       },
     },
   },
