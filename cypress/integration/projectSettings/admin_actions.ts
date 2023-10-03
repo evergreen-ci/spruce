@@ -19,11 +19,10 @@ describe("Duplicating a project", () => {
   });
 });
 
-describe("Creating a new project", () => {
-  const destination = getGeneralRoute(project);
-
-  it("Successfully creates a new project", () => {
-    cy.visit(destination);
+describe("Creating a new project and deleting it", () => {
+  it("Successfully creates a new project and then deletes it", () => {
+    // Create project
+    cy.visit(getGeneralRoute(project));
     cy.dataCy("new-project-button").click();
     cy.dataCy("new-project-menu").should("be.visible");
     cy.dataCy("create-project-button").click();
@@ -38,14 +37,9 @@ describe("Creating a new project", () => {
     cy.validateToast("success");
 
     cy.url().should("include", "my-new-project");
-  });
-});
 
-describe("Deleting a project", () => {
-  const destination = getGeneralRoute("my-new-project");
-
-  it("Successfully deletes a project", () => {
-    cy.visit(destination);
+    // Delete project
+    cy.visit(getGeneralRoute("my-new-project"));
     cy.dataCy("attach-repo-button").click();
     cy.dataCy("attach-repo-modal")
       .find("button")

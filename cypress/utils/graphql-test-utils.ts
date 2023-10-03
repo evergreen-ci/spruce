@@ -11,22 +11,5 @@ export const hasOperationName = (
     body.operationName === operationName
   );
 };
-
-// Alias query if operationName matches
-export const aliasQuery = (
-  req: CyHttpMessages.IncomingHttpRequest,
-  operationName: string
-): void => {
-  if (hasOperationName(req, operationName)) {
-    req.alias = `gql${operationName}Query`;
-  }
-};
-
-export const aliasMutation = (
-  req: CyHttpMessages.IncomingHttpRequest,
-  operationName: string
-): void => {
-  if (hasOperationName(req, operationName)) {
-    req.alias = `gql${operationName}Mutation`;
-  }
-};
+export const isMutation = (req: CyHttpMessages.IncomingHttpRequest) =>
+  req.body.query?.startsWith("mutation");
