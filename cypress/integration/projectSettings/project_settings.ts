@@ -17,7 +17,8 @@ describe("Access page", () => {
     saveButtonEnabled(false);
     cy.dataCy("default-to-repo-button")
       .should("be.visible")
-      .should("be.enabled");
+      .should("be.enabled")
+      .should("not.have.attr", "aria-disabled", "true");
   });
 
   it("Changing settings and clicking the save button produces a success toast and the changes are persisted", () => {
