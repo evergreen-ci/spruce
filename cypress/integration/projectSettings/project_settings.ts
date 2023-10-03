@@ -23,11 +23,7 @@ describe("Access page", () => {
 
   it("Changing settings and clicking the save button produces a success toast and the changes are persisted", () => {
     cy.contains("label", "Unrestricted").click();
-    cy.getInputByLabel("Unrestricted").should(
-      "have.attr",
-      "aria-checked",
-      "true"
-    );
+    cy.getInputByLabel("Unrestricted").should("be.checked");
     // Input and save username
     cy.contains("Add Username").click();
     cy.getInputByLabel("Username").as("usernameInput");
@@ -52,11 +48,7 @@ describe("Access page", () => {
     cy.dataCy("default-to-repo-button").click();
     cy.dataCy("default-to-repo-modal").contains("Confirm").click();
     cy.validateToast("success", "Successfully defaulted page to repo");
-    cy.getInputByLabel("Default to repo (unrestricted)").should(
-      "have.attr",
-      "aria-checked",
-      "true"
-    );
+    cy.getInputByLabel("Default to repo (unrestricted)").should("be.checked");
   });
 
   it("Submitting an invalid admin username produces an error toast", () => {
@@ -307,7 +299,7 @@ describe("Repo Settings", () => {
         "triggerAliasCheckbox"
       );
       cy.get("@triggerAliasCheckbox").should("not.be.checked");
-            cy.get("@triggerAliasCheckbox").check({ force: true });
+      cy.get("@triggerAliasCheckbox").check({ force: true });
       cy.get("@triggerAliasCheckbox").should("be.checked");
       clickSave();
       cy.validateToast("success", "Successfully updated repo");
