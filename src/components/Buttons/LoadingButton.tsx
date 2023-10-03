@@ -3,7 +3,7 @@ import { ExtendableBox } from "@leafygreen-ui/box";
 import LeafyGreenButton, { ButtonProps } from "@leafygreen-ui/button";
 import { Spinner } from "@leafygreen-ui/loading-indicator";
 
-type Props = ButtonProps & {
+type Props = Omit<ButtonProps, "isLoading"> & {
   loading?: boolean;
 };
 
