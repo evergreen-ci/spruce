@@ -95,11 +95,15 @@ const ProjectSettings: React.FC = () => {
     identifier,
     currentTab: tab,
   };
-
   const project =
     projectType === ProjectType.Repo
       ? repoData?.repoSettings
       : projectData?.projectSettings;
+
+  const hasLoaded =
+    (projectData || projectType === ProjectType.Repo) &&
+    (repoData || projectType === ProjectType.Project) &&
+    project;
 
   const owner = project?.projectRef?.owner;
   const repo = project?.projectRef?.repo;
@@ -186,7 +190,7 @@ const ProjectSettings: React.FC = () => {
         </SideNavGroup>
       </SideNav>
       <PageWrapper data-cy="project-settings-page">
-        {project ? (
+        {hasLoaded ? (
           <ProjectSettingsTabs
             projectData={projectData?.projectSettings}
             projectType={projectType}

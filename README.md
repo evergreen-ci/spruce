@@ -16,7 +16,8 @@ Spruce is the React UI for MongoDB's continuous integration software.
 ### Running Locally
 
 1. Clone the Spruce Github repository
-2. Ensure you have Node.js 16+ installed
+2. Ensure you have Node.js v16+ and MongoDB Command Line Database Tools
+   v100.8.0+ installed
 3. Ask a colleague for their .cmdrc.json file and follow the instructions
    [here](#environment-variables)
 4. Run `yarn`
@@ -159,10 +160,13 @@ on localhost:9090 for the front-end to work.
 In order to run the Cypress tests, do the following, assuming you have this repo
 checked out and all the dependencies installed by yarn:
 
-1. Start the evergreen back-end with the sample local test data. You can do this
+1. Increase the limit on open files by running `ulimit -n 64000` before running
+   mongod in the same shell.
+2. Start the evergreen back-end with the sample local test data. You can do this
    by typing `make local-evergreen` in your evergreen folder.
-2. Start the Spruce local server by typing `yarn build:local && yarn serve` in this repo.
-3. Run Cypress by typing one of the following:
+3. Start the Spruce local server by typing `yarn build:local && yarn serve` in
+   this repo.
+4. Run Cypress by typing one of the following:
    - `yarn cy:open` - opens the Cypress app in interactive mode. You can select
      tests to run from here in the Cypress browser.
    - `yarn cy:run` - runs all the Cypress tests at the command-line and reports
@@ -200,22 +204,26 @@ production environments.
    switched to db mci
    mci:SECONDARY>  db.distro.find({_id: "archlinux-small"}) // the full query
    ```
+
 5. Exit from the mongo shell and prepare to run `mongoexport`
+
    ```
-   mongoexport --db=mci --collection=distro --out=distro.json --query='{_id: "archlinux-small"}' 
+   mongoexport --db=mci --collection=distro --out=distro.json --query='{_id: "archlinux-small"}'
    2020-07-29T17:41:50.266+0000	connected to: localhost
    2020-07-29T17:41:50.269+0000	exported 1 record
    ```
+
    After running this command a file will be saved to your home directory with
    the results of the `mongoexport`
 
    _Note you may need to provide the full path to mongoexport on the staging db_
 
    ```
-   /var/lib/mongodb-mms-automation/mongodb-linux-x86_64-4.0.5/bin/mongoexport --db=mci --collection=distro --out=distro.json --query='{_id: "archlinux-small"}' 
+   /var/lib/mongodb-mms-automation/mongodb-linux-x86_64-4.0.5/bin/mongoexport --db=mci --collection=distro --out=distro.json --query='{_id: "archlinux-small"}'
    2020-07-29T17:41:50.266+0000	connected to: localhost
    2020-07-29T17:41:50.269+0000	exported 1 record
    ```
+
 6. Exit the ssh session using `exit` or `Ctrl + D`
 7. You can now transfer this json file to your local system by running the
    following command. `scp <db you sshed into>:~/distro.json .` This will save a
@@ -225,9 +233,8 @@ production environments.
    from within the evergreen folder
 9. Once you have this file you can copy the contents of it to the relevant
    `testdata/local/<collection>.json` file with in the evergreen folder
-10. You can then delete `/bin/.load-local-data` within the evergreen folder and
-    run `make local-evergreen` to repopulate the local database with your new
-    data.
+10. You can then run `yarn evg-db-ops --reseed` to repopulate the local database
+    with your new data.
 
 **Notes**
 
@@ -266,4 +273,5 @@ Run one of the following commands to deploy to the appropriate environment
 3. `yarn deploy:beta` = deploy to https://spruce-beta.corp.mongodb.com (Beta
    connects to the production backend)
 
-In case of emergency (i.e. Evergreen, GitHub, or other systems are down), a production build can be pushed directly to S3 with `yarn deploy:prod --local`.
+In case of emergency (i.e. Evergreen, GitHub, or other systems are down), a
+production build can be pushed directly to S3 with `yarn deploy:prod --local`.
