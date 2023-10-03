@@ -101,7 +101,7 @@ const ProjectSettings: React.FC = () => {
       : projectData?.projectSettings;
 
   const hasLoaded =
-    (projectData || isRepo) &&
+    (projectData ||  projectType === ProjectType.Repo) &&
     (repoData || projectType === ProjectType.Project) &&
     project;
 
