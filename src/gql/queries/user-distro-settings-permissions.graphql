@@ -4,6 +4,7 @@ query UserDistroSettingsPermissions($distroId: String!) {
       canCreateDistro
       distroPermissions(options: { distroId: $distroId }) {
         admin
+        edit
       }
     }
     userId

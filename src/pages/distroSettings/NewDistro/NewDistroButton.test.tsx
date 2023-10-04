@@ -41,6 +41,7 @@ describe("new distro button", () => {
               distroPermissions: {
                 __typename: "DistroPermissions",
                 admin: false,
+                edit: false,
               },
             },
           },
@@ -131,6 +132,7 @@ const hasPermissionsMock: ApolloMock<
           distroPermissions: {
             __typename: "DistroPermissions",
             admin: true,
+            edit: true,
           },
         },
       },
