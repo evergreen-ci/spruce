@@ -1,5 +1,5 @@
 import { render, screen, userEvent } from "test_utils";
-import { ParametersModal } from "./ParametersModal";
+import { ParametersModal } from ".";
 
 const parameters = [
   { key: "Key 1", value: "Value 1" },

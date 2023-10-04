@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import styled from "@emotion/styled";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table/new";
 import { DisplayModal } from "components/DisplayModal";
 import { MetadataItem } from "components/MetadataCard";
@@ -40,11 +41,18 @@ export const ParametersModal: React.FC<ParametersProps> = ({ parameters }) => {
         size="large"
         title="Patch Parameters"
       >
-        <BaseTable table={table} />
+        <OverflowContainer>
+          <BaseTable table={table} />
+        </OverflowContainer>
       </DisplayModal>
     </>
   );
 };
+
+const OverflowContainer = styled.div`
+  max-height: 600px;
+  overflow-y: scroll;
+`;
 
 const columns: LGColumnDef<Parameter>[] = [
   {
