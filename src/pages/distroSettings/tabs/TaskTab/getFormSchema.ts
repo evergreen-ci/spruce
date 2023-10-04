@@ -94,51 +94,48 @@ export const getFormSchema = ({
                       properties: {
                         targetTime: {
                           type: "number" as "number",
-                          title: "Target Time (seconds)",
+                          title: "Target Time (ms)",
                           default: 0,
                           minimum: 0,
-                          maximum: 1800,
                         },
                         patchFactor: {
                           type: "number" as "number",
-                          title: "Patch Factor (0 to 100 inclusive)",
+                          title: "Patch Factor",
                           default: 0,
                           minimum: 0,
                           maximum: 100,
                         },
                         patchTimeInQueueFactor: {
                           type: "number" as "number",
-                          title:
-                            "Patch Time in Queue Factor (0 to 100 inclusive)",
+                          title: "Patch Time in Queue Factor",
                           default: 0,
                           minimum: 0,
                           maximum: 100,
                         },
                         mainlineTimeInQueueFactor: {
                           type: "number" as "number",
-                          title:
-                            "Mainline Time in Queue Factor (0 to 100 inclusive)",
+                          title: "Mainline Time in Queue Factor",
                           default: 0,
                           minimum: 0,
                           maximum: 100,
                         },
                         commitQueueFactor: {
                           type: "number" as "number",
-                          title: "Commit Queue Factor (0 to 100 inclusive)",
+                          title: "Commit Queue Factor",
                           default: 0,
                           minimum: 0,
                           maximum: 100,
                         },
                         expectedRuntimeFactor: {
                           type: "number" as "number",
-                          title: "Expected Runtime Factor (0 to 100 inclusive)",
+                          title: "Expected Runtime Factor",
                           default: 0,
                           minimum: 0,
                           maximum: 100,
                         },
                         generateTaskFactor: {
                           type: "number" as "number",
-                          title: "Generate Task Factor (0 to 100 inclusive)",
+                          title: "Generate Task Factor",
                           default: 0,
                           minimum: 0,
                           maximum: 100,
@@ -195,6 +192,30 @@ export const getFormSchema = ({
         tunableOptions: {
           "ui:field-data-cy": "tunable-options",
           ...(!hasEC2Provider && { "ui:widget": "hidden" }),
+          patchFactor: {
+            "ui:description":
+              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
+          },
+          patchTimeInQueueFactor: {
+            "ui:description":
+              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
+          },
+          mainlineTimeInQueueFactor: {
+            "ui:description":
+              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
+          },
+          commitQueueFactor: {
+            "ui:description":
+              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
+          },
+          expectedRuntimeFactor: {
+            "ui:description":
+              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
+          },
+          generateTaskFactor: {
+            "ui:description":
+              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
+          },
         },
       },
       dispatcherSettings: {

@@ -5,16 +5,15 @@ export interface GeneralFormState {
   distroAliases: {
     aliases: string[];
   };
-  distroNote: {
-    note: string;
-  };
   distroOptions: {
     isCluster: boolean;
     disableShallowClone: boolean;
     disabled: boolean;
+    note: string;
   };
 }
 
 export type TabProps = {
   distroData: GeneralFormState;
+  minimumHosts: number;
 };

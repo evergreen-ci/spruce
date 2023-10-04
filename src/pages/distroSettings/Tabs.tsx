@@ -43,7 +43,10 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
         <Route
           path={DistroSettingsTabRoutes.General}
           element={
-            <GeneralTab distroData={tabData[DistroSettingsTabRoutes.General]} />
+            <GeneralTab
+              distroData={tabData[DistroSettingsTabRoutes.General]}
+              minimumHosts={distro.hostAllocatorSettings.minimumHosts}
+            />
           }
         />
         <Route

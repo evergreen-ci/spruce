@@ -648,7 +648,9 @@ export type GroupedBuildVariant = {
 
 export type GroupedFiles = {
   __typename?: "GroupedFiles";
+  execution: Scalars["Int"]["output"];
   files?: Maybe<Array<File>>;
+  taskId: Scalars["String"]["output"];
   taskName?: Maybe<Scalars["String"]["output"]>;
 };
 

@@ -5,14 +5,12 @@ import { size } from "constants/tokens";
 
 const textAreaCSS = css`
   box-sizing: border-box;
-  max-width: ${STANDARD_FIELD_WIDTH}px;
   textarea {
     font-family: ${fontFamilies.code};
   }
 `;
 
 const mergeCheckboxCSS = css`
-  max-width: ${STANDARD_FIELD_WIDTH}px;
   display: flex;
   justify-content: flex-end;
   margin-bottom: -20px;
