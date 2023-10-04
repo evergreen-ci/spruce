@@ -60,10 +60,14 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           credentials: "include",
           method: "GET",
           redirect: "manual",
-        }).then(() => {
-          dispatch({ type: "deauthenticated" });
-          window.location.href = `${getLoginDomain()}/login`;
-        });
+        })
+          .then(() => {
+            dispatch({ type: "deauthenticated" });
+            window.location.href = `${getLoginDomain()}/login`;
+          })
+          .catch((error) => {
+            leaveBreadcrumb("Logout failed", { error }, "user");
+          });
       },
       dispatchAuthenticated: () => {
         if (!state.isAuthenticated) {
