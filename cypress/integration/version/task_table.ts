@@ -1,4 +1,7 @@
-import { clickOnPageSizeBtnAndAssertURLandTableSize } from "../../utils";
+import {
+  clickOnPageSizeBtnAndAssertURLandTableSize,
+  waitForTaskTable,
+} from "../../utils";
 
 const pathTasks = `/version/5e4ff3abe3c3317e352062e4/tasks`;
 const patchDescriptionTasksExist = "dist";
@@ -14,6 +17,7 @@ describe("Task table", () => {
 
   it("Updates the url when column headers are clicked", () => {
     cy.visit(pathTasks);
+    waitForTaskTable();
     cy.location("search").should(
       "contain",
       "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
