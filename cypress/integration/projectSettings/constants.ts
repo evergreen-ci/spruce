@@ -22,6 +22,9 @@ export const getContainersRoute = (identifier: string) =>
 export const getViewsAndFiltersRoute = (identifier: string) =>
   `${getSettingsRoute(identifier)}/views-and-filters`;
 
+export const getVirtualWorkstationRoute = (identifier: string) =>
+  `${getSettingsRoute(identifier)}/virtual-workstation`;
+
 export const project = "spruce";
 export const projectUseRepoEnabled = "evergreen";
 export const repo = "602d70a2b2373672ee493184";
