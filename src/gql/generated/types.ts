@@ -8471,7 +8471,11 @@ export type UserDistroSettingsPermissionsQuery = {
     permissions: {
       __typename?: "Permissions";
       canCreateDistro: boolean;
-      distroPermissions: { __typename?: "DistroPermissions"; admin: boolean };
+      distroPermissions: {
+        __typename?: "DistroPermissions";
+        admin: boolean;
+        edit: boolean;
+      };
     };
   };
 };
