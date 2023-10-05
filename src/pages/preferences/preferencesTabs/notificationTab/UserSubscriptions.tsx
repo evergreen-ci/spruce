@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -30,7 +30,12 @@ import {
   Selector,
 } from "gql/generated/types";
 import { DELETE_SUBSCRIPTIONS } from "gql/mutations";
-import { notificationMethodToCopy } from "types/subscription";
+import { useSpruceConfig } from "hooks";
+import {
+  NotificationMethods,
+  notificationMethodToCopy,
+} from "types/subscription";
+import { jiraLinkify } from "utils/string/jiraLinkify";
 import { ClearSubscriptions } from "./ClearSubscriptions";
 import { getResourceRoute, useSubscriptionData } from "./utils";
 
@@ -38,6 +43,8 @@ const { gray } = palette;
 
 export const UserSubscriptions: React.FC<{}> = () => {
   const dispatchToast = useToastContext();
+  const spruceConfig = useSpruceConfig();
+  const jiraHost = spruceConfig?.jira?.host;
 
   const [deleteSubscriptions] = useMutation<
     DeleteSubscriptionsMutation,
@@ -64,6 +71,79 @@ export const UserSubscriptions: React.FC<{}> = () => {
   const [rowSelection, setRowSelection] = useState({});
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
+
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: "resourceType",
+        cell: ({ getValue }) => {
+          const resourceType = getValue();
+          return resourceTypeToCopy?.[resourceType] ?? resourceType;
+        },
+        ...getColumnTreeSelectFilterProps({
+          "data-cy": "status-filter-popover",
+          tData: resourceTypeTreeData,
+          title: "Type",
+        }),
+      },
+      {
+        header: "ID",
+        accessorKey: "selectors",
+        cell: ({
+          getValue,
+          row: {
+            original: { resourceType },
+          },
+        }) => {
+          const selectors = getValue();
+          const resourceSelector = selectors.find(
+            (s: Selector) => s.type !== "object" && s.type !== "requester"
+          );
+          const { data: selectorId } = resourceSelector ?? {};
+          const route = getResourceRoute(resourceType, resourceSelector);
+
+          return route ? (
+            <ShortenedRouterLink to={route}>{selectorId}</ShortenedRouterLink>
+          ) : (
+            selectorId
+          );
+        },
+      },
+      {
+        accessorKey: "trigger",
+        ...getColumnTreeSelectFilterProps({
+          "data-cy": "trigger-filter-popover",
+          tData: triggerTreeData,
+          title: "Event",
+        }),
+        cell: ({ getValue }) => {
+          const trigger = getValue();
+          return triggerToCopy?.[trigger] ?? trigger;
+        },
+      },
+      {
+        header: "Notify by",
+        accessorKey: "subscriber.type",
+        cell: ({ getValue }) => {
+          const subscriberType = getValue();
+          return notificationMethodToCopy[subscriberType] ?? subscriberType;
+        },
+      },
+      {
+        header: "Target",
+        accessorKey: "subscriber",
+        cell: ({ getValue }) => {
+          const subscriber = getValue();
+          const text = getSubscriberText(subscriber);
+          return subscriber.type === NotificationMethods.JIRA_COMMENT
+            ? jiraLinkify(text, jiraHost)
+            : text;
+        },
+      },
+    ],
+    [jiraHost]
+  );
+
   const table = useLeafyGreenTable<GeneralSubscription>({
     columns,
     containerRef: tableContainerRef,
@@ -141,69 +221,6 @@ export const UserSubscriptions: React.FC<{}> = () => {
     </>
   );
 };
-
-const columns = [
-  {
-    accessorKey: "resourceType",
-    cell: ({ getValue }) => {
-      const resourceType = getValue();
-      return resourceTypeToCopy?.[resourceType] ?? resourceType;
-    },
-    ...getColumnTreeSelectFilterProps({
-      "data-cy": "status-filter-popover",
-      tData: resourceTypeTreeData,
-      title: "Type",
-    }),
-  },
-  {
-    header: "ID",
-    accessorKey: "selectors",
-    cell: ({
-      getValue,
-      row: {
-        original: { resourceType },
-      },
-    }) => {
-      const selectors = getValue();
-      const resourceSelector = selectors.find(
-        (s: Selector) => s.type !== "object" && s.type !== "requester"
-      );
-      const { data: selectorId } = resourceSelector ?? {};
-      const route = getResourceRoute(resourceType, resourceSelector);
-
-      return route ? (
-        <ShortenedRouterLink to={route}>{selectorId}</ShortenedRouterLink>
-      ) : (
-        selectorId
-      );
-    },
-  },
-  {
-    accessorKey: "trigger",
-    ...getColumnTreeSelectFilterProps({
-      "data-cy": "trigger-filter-popover",
-      tData: triggerTreeData,
-      title: "Event",
-    }),
-    cell: ({ getValue }) => {
-      const trigger = getValue();
-      return triggerToCopy?.[trigger] ?? trigger;
-    },
-  },
-  {
-    header: "Notify by",
-    accessorKey: "subscriber.type",
-    cell: ({ getValue }) => {
-      const subscriberType = getValue();
-      return notificationMethodToCopy[subscriberType] ?? subscriberType;
-    },
-  },
-  {
-    header: "Target",
-    accessorKey: "subscriber",
-    cell: ({ getValue }) => getSubscriberText(getValue()),
-  },
-];
 
 const InteractiveWrapper = styled.div`
   display: flex;
