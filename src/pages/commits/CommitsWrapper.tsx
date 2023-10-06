@@ -42,7 +42,7 @@ export const CommitsWrapper: React.FC<CommitsWrapperProps> = ({
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
   }
   if (!versions) {
-    return <CommitChart noData />;
+    return <CommitChart />;
   }
   if (versions) {
     return (

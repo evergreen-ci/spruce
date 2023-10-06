@@ -201,17 +201,21 @@ describe("commits page", () => {
   describe("search by git commit", () => {
     const revision = "aac24c894994e44a2dadc6db40b46eb82e41f2cc";
 
-    beforeEach(() => {
-      cy.visit("/commits/spruce");
+    const searchCommit = (commitHash: string) => {
       cy.dataCy("waterfall-menu").click();
       cy.dataCy("git-commit-search").click();
       cy.dataCy("git-commit-search-modal").should("be.visible");
-      cy.getInputByLabel("Git Commit Hash").type(revision);
+      cy.getInputByLabel("Git Commit Hash").type(commitHash);
       cy.contains("button", "Submit").click();
-      cy.location("search").should("contain", `revision=${revision}`);
+      cy.location("search").should("contain", `revision=${commitHash}`);
+    };
+
+    beforeEach(() => {
+      cy.visit("/commits/spruce");
     });
 
     it("should jump to the given commit", () => {
+      searchCommit(revision);
       cy.get("[data-selected='true']").should("be.visible");
       cy.get("[data-selected='true']").should(
         "contain.text",
@@ -219,7 +223,18 @@ describe("commits page", () => {
       );
     });
 
+    it("should clear any applied filters and skip numbers", () => {
+      cy.visit(
+        "/commits/spruce?buildVariants=ubuntu&skipOrderNumber=1231&taskNames=codegen&view=FAILED"
+      );
+      searchCommit(revision);
+      cy.location("search").should("not.contain", "buildVariants");
+      cy.location("search").should("not.contain", "taskNames");
+      cy.location("search").should("not.contain", "skipOrderNumber");
+    });
+
     it("should be possible to paginate from the given commit", () => {
+      searchCommit(revision);
       cy.get("[data-selected='true']").should("be.visible");
 
       cy.dataCy("next-page-button").click();
@@ -233,6 +248,11 @@ describe("commits page", () => {
       cy.dataCy("next-page-button").click();
 
       cy.get("[data-selected='true']").should("be.visible");
+    });
+
+    it("should show an error toast if the commit could not be found", () => {
+      searchCommit(revision.slice(3, 12));
+      cy.validateToast("error");
     });
   });
 });

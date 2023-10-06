@@ -3,7 +3,7 @@ import TextInput from "@leafygreen-ui/text-input";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { useQueryParams } from "hooks/useQueryParam";
 import { MainlineCommitQueryParams } from "types/commits";
 
 interface GitCommitSearchProps {
@@ -14,16 +14,15 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
   setMenuOpen,
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
-  const updateQueryParams = useUpdateURLQueryParams();
+  const [, setQueryParams] = useQueryParams();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [commitHash, setCommitHash] = useState("");
 
   const onSubmit = () => {
     sendEvent({ name: "Search for commit", commit: commitHash });
-    updateQueryParams({
+    setQueryParams({
       [MainlineCommitQueryParams.Revision]: commitHash,
-      [MainlineCommitQueryParams.SkipOrderNumber]: undefined,
     });
     setIsModalVisible(false);
     setMenuOpen(false);
@@ -51,6 +50,7 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
         title="Search by Git Commit Hash"
       >
         <TextInput
+          description="Note: this is an experimental feature that works best with no task or build variant filters applied. Applying a git commit hash will clear all applied filters."
           label="Git Commit Hash"
           onChange={(e) => setCommitHash(e.target.value)}
           onKeyPress={(e) => e.key === "Enter" && onSubmit()}

@@ -112,15 +112,18 @@ const isCommitSelected = (commit: Commit, revision: string) => {
   if (revision.trim() === "") {
     return false;
   }
-  if (version && version.revision.includes(revision)) {
+
+  if (version?.revision.startsWith(revision)) {
     return true;
   }
+
   if (
     rolledUpVersions &&
-    rolledUpVersions.some((v) => v.revision.includes(revision))
+    rolledUpVersions.some((v) => v.revision.startsWith(revision))
   ) {
     return true;
   }
+
   return false;
 };
 
