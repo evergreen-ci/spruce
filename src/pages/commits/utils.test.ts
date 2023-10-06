@@ -80,7 +80,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
-            revision: "",
+            revision: "revision",
           },
           filterState: {
             statuses: [],
@@ -94,6 +94,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         limit: 5,
         projectIdentifier: "projectIdentifier",
         skipOrderNumber: 0,
+        revision: "revision",
         shouldCollapse: false,
         requesters: [],
       });
@@ -105,7 +106,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
-            revision: "",
+            revision: "revision",
           },
           filterState: {
             statuses: [],
@@ -119,6 +120,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         limit: 5,
         projectIdentifier: "projectIdentifier",
         skipOrderNumber: 0,
+        revision: "revision",
         shouldCollapse: true,
         requesters: [],
       });
@@ -128,7 +130,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
-            revision: "",
+            revision: "revision",
           },
           filterState: {
             statuses: [TaskStatus.Succeeded],
@@ -142,6 +144,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         limit: 5,
         projectIdentifier: "projectIdentifier",
         skipOrderNumber: 0,
+        revision: "revision",
         shouldCollapse: true,
         requesters: [],
       });
@@ -151,7 +154,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
-            revision: "",
+            revision: "revision",
           },
           filterState: {
             statuses: [],
@@ -165,6 +168,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         limit: 5,
         projectIdentifier: "projectIdentifier",
         skipOrderNumber: 0,
+        revision: "revision",
         shouldCollapse: true,
         requesters: [],
       });
@@ -174,7 +178,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             projectIdentifier: "projectIdentifier",
             limit: 5,
             skipOrderNumber: 0,
-            revision: "",
+            revision: "revision",
           },
           filterState: {
             statuses: [],
@@ -188,6 +192,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         limit: 5,
         projectIdentifier: "projectIdentifier",
         skipOrderNumber: 0,
+        revision: "revision",
         shouldCollapse: true,
         requesters: [],
       });
