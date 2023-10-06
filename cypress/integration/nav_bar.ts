@@ -43,12 +43,6 @@ describe("Nav Bar", () => {
     cy.visit(SPRUCE_URLS.cli);
     cy.dataCy("legacy-ui-link").should("not.exist");
   });
-  it("Nav Dropdown should provide links to legacy pages", () => {
-    cy.visit(SPRUCE_URLS.version);
-    cy.dataCy("legacy_route").should("not.exist");
-    cy.dataCy("auxiliary-dropdown-link").click();
-    cy.dataCy("legacy_route").should("exist");
-  });
   it("Nav Dropdown should link to patches page of most recent project if cookie exists", () => {
     cy.setCookie(projectCookie, "spruce");
     cy.visit(SPRUCE_URLS.userPatches);
