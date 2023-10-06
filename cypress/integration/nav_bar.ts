@@ -48,7 +48,6 @@ describe("Nav Bar", () => {
     cy.dataCy("legacy_route").should("not.exist");
     cy.dataCy("auxiliary-dropdown-link").click();
     cy.dataCy("legacy_route").should("exist");
-    cy.dataCy("legacy_route").should("have.attr", "href", LEGACY_URLS.distros);
   });
   it("Nav Dropdown should link to patches page of most recent project if cookie exists", () => {
     cy.setCookie(projectCookie, "spruce");
@@ -56,6 +55,15 @@ describe("Nav Bar", () => {
     cy.dataCy("auxiliary-dropdown-link").click();
     cy.dataCy("auxiliary-dropdown-project-patches").click();
     cy.location("pathname").should("eq", "/project/spruce/patches");
+  });
+  it("Nav Dropdown should link to the first distro returned by the distros resolver", () => {
+    cy.visit(SPRUCE_URLS.version);
+    cy.dataCy("auxiliary-dropdown-link").click();
+    cy.dataCy("auxiliary-dropdown-distro-settings").should(
+      "have.attr",
+      "href",
+      "/distro/localhost/settings/general"
+    );
   });
   it("Nav Dropdown should link to patches page of default project in SpruceConfig if cookie does not exist", () => {
     cy.clearCookie(projectCookie);

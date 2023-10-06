@@ -37,7 +37,7 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
       onClick: () => sendEvent({ name: "Click Task Queue Link" }),
     },
     {
-      "data-cy": "legacy_route",
+      "data-cy": "auxiliary-dropdown-distro-settings",
       to: getDistroSettingsRoute(distro),
       text: "Distros",
       onClick: () => sendEvent({ name: "Click Distros Link" }),
