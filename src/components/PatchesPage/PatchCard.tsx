@@ -47,6 +47,7 @@ export const PatchCard: React.FC<Props> = ({
   canEnqueueToCommitQueue,
   createTime,
   description,
+  hidden,
   id,
   isPatchOnCommitQueue,
   pageType,
@@ -132,6 +133,7 @@ export const PatchCard: React.FC<Props> = ({
           patchId={id}
           canEnqueueToCommitQueue={canEnqueueToCommitQueue}
           isPatchOnCommitQueue={isPatchOnCommitQueue}
+          isPatchHidden={hidden}
           patchDescription={description}
           hasVersion={!!versionId}
         />
