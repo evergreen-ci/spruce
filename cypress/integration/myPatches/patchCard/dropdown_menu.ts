@@ -100,17 +100,32 @@ describe("Dropdown Menu of Patch Actions", { testIsolation: false }, () => {
     });
     cy.dataCy("enqueue-patch").should("be.disabled");
   });
-  it("hiding a patch should remove it from the page", () => {
+  it("Toggle patch visibility", () => {
+    // Hide it
+    cy.location("search").should("not.contain", "hidden");
     cy.dataCy("patch-card").should("exist");
-    cy.dataCy("patch-card").contains("testtest").should("exist");
-    cy.dataCy("patch-card").eq(6).should("contain.text", "testtest");
+    cy.dataCy("patch-card").contains("testtest").should("be.visible");
     getPatchCardByDescription("testtest").within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
-    cy.contains("Hide patch").should("exist");
-    cy.contains("Hide patch").click();
-    cy.contains("button", "Yes").click({ force: true });
-    cy.validateToast("success");
+    cy.contains("Hide patch").should("be.visible").click();
+    cy.validateToast("success", "Successfully updated patch visibility.");
     cy.dataCy("patch-card").contains("testtest").should("not.exist");
+
+    // Unhide it
+    cy.dataCy("hidden-only-checkbox").check({ force: true });
+    cy.location("search").should("contain", "hidden=true");
+    cy.dataCy("patch-card").contains("testtest").should("be.visible");
+    getPatchCardByDescription("testtest").within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
+    cy.contains("Unhide patch").should("be.visible").click();
+    cy.validateToast("success", "Successfully updated patch visibility.");
+    cy.dataCy("patch-card").should("not.exist");
+
+    // Check that the patch moved
+    cy.dataCy("hidden-only-checkbox").uncheck({ force: true });
+    cy.location("search").should("contain", "hidden=false");
+    cy.dataCy("patch-card").contains("testtest").should("be.visible");
   });
 });
