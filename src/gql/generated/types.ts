@@ -557,6 +557,7 @@ export type File = {
   __typename?: "File";
   link: Scalars["String"]["output"];
   name: Scalars["String"]["output"];
+  urlParsley?: Maybe<Scalars["String"]["output"]>;
   visibility: Scalars["String"]["output"];
 };
 
@@ -1504,6 +1505,7 @@ export type PatchesInput = {
   includeCommitQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: Scalars["Int"]["input"];
   onlyCommitQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
+  onlyHidden?: InputMaybe<Scalars["Boolean"]["input"]>;
   page?: Scalars["Int"]["input"];
   patchName?: Scalars["String"]["input"];
   statuses?: Array<Scalars["String"]["input"]>;
@@ -2935,6 +2937,7 @@ export type Version = {
   finishTime?: Maybe<Scalars["Time"]["output"]>;
   gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"]["output"];
+  ignored: Scalars["Boolean"]["output"];
   isPatch: Scalars["Boolean"]["output"];
   manifest?: Maybe<Manifest>;
   message: Scalars["String"]["output"];
@@ -3315,6 +3318,7 @@ export type PatchesPagePatchesFragment = {
     commitQueuePosition?: number | null;
     createTime?: Date | null;
     description: string;
+    hidden: boolean;
     id: string;
     projectIdentifier: string;
     status: string;
@@ -7013,6 +7017,7 @@ export type ProjectPatchesQuery = {
         commitQueuePosition?: number | null;
         createTime?: Date | null;
         description: string;
+        hidden: boolean;
         id: string;
         projectIdentifier: string;
         status: string;
@@ -8503,6 +8508,7 @@ export type UserPatchesQuery = {
         commitQueuePosition?: number | null;
         createTime?: Date | null;
         description: string;
+        hidden: boolean;
         id: string;
         projectIdentifier: string;
         status: string;

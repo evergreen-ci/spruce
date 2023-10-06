@@ -28,6 +28,7 @@ interface Props {
   analyticsObject: Analytics<
     | { name: "Filter Patches"; filterBy: string }
     | { name: "Filter Commit Queue" }
+    | { name: "Filter Hidden" }
     | { name: "Change Page Size" }
     | { name: "Click Patch Link" }
     | {
@@ -61,6 +62,8 @@ export const PatchesPage: React.FC<Props> = ({
       PatchPageQueryParams.CommitQueue,
       Cookies.get(cookie) === "true"
     );
+  const [isHiddenOnlyCheckboxChecked, setIsHiddenOnlyCheckboxChecked] =
+    useQueryParam(PatchPageQueryParams.Hidden, false);
   const { limit, page } = usePatchesInputFromSearch(search);
   const { inputValue, setAndSubmitInputValue } = useFilterInputChangeHandler({
     urlParam: PatchPageQueryParams.PatchName,
@@ -70,11 +73,21 @@ export const PatchesPage: React.FC<Props> = ({
   });
   usePageTitle(pageTitle);
 
-  const onCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const onCommitQueueCheckboxChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setIsCommitQueueCheckboxChecked(e.target.checked);
     Cookies.set(cookie, e.target.checked ? "true" : "false");
     // eslint-disable-next-line no-unused-expressions
     analyticsObject.sendEvent({ name: "Filter Commit Queue" });
+  };
+
+  const onHiddenOnlyCheckboxChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setIsHiddenOnlyCheckboxChecked(e.target.checked);
+    // eslint-disable-next-line no-unused-expressions
+    analyticsObject.sendEvent({ name: "Filter Hidden" });
   };
 
   const handlePageSizeChange = (pageSize: number): void => {
@@ -98,13 +111,19 @@ export const PatchesPage: React.FC<Props> = ({
         <CheckboxContainer>
           <Checkbox
             data-cy="commit-queue-checkbox"
-            onChange={onCheckboxChange}
+            onChange={onCommitQueueCheckboxChange}
             label={
               pageType === "project"
                 ? "Only Show Commit Queue Patches"
                 : "Include Commit Queue"
             }
             checked={isCommitQueueCheckboxChecked}
+          />
+          <StyledCheckbox
+            data-cy="hidden-only-checkbox"
+            onChange={onHiddenOnlyCheckboxChange}
+            label="Hidden only"
+            checked={isHiddenOnlyCheckboxChecked}
           />
         </CheckboxContainer>
       </FiltersWrapperSpaceBetween>
@@ -136,12 +155,14 @@ export const usePatchesInputFromSearch = (search: string): PatchesInput => {
     PatchPageQueryParams.Statuses,
     []
   );
+  const [hidden] = useQueryParam(PatchPageQueryParams.Hidden, false);
   const statuses = rawStatuses.filter((v) => v && v !== ALL_PATCH_STATUS);
   return {
+    limit: getLimitFromSearch(search),
+    onlyHidden: hidden,
+    page: getPageFromSearch(search),
     patchName: `${patchName}`,
     statuses,
-    page: getPageFromSearch(search),
-    limit: getLimitFromSearch(search),
   };
 };
 
@@ -166,4 +187,9 @@ const FiltersWrapperSpaceBetween = styled(FiltersWrapper)<{
 const CheckboxContainer = styled.div`
   display: flex;
   justify-content: end;
+`;
+
+/* @ts-expect-error */
+const StyledCheckbox = styled(Checkbox)`
+  padding-left: ${size.xs};
 `;
