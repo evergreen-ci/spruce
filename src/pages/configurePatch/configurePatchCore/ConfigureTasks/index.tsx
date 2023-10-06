@@ -7,7 +7,7 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import Icon from "components/Icon";
-import { CharKey, ModifierKey } from "constants/keys";
+import { CharKey } from "constants/keys";
 import { size } from "constants/tokens";
 import { VariantTask } from "gql/generated/types";
 import useKeyboardShortcut from "hooks/useKeyboardShortcut";
@@ -61,8 +61,7 @@ const ConfigureTasks: React.FC<Props> = ({
   const searchRef = useRef<HTMLInputElement>(null);
   useKeyboardShortcut(
     {
-      charKey: CharKey.F,
-      modifierKeys: [ModifierKey.Control],
+      charKey: CharKey.ForwardSlash,
     },
     () => {
       searchRef.current?.focus();

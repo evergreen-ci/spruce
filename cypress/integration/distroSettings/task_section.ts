@@ -36,7 +36,7 @@ describe("task section", () => {
   });
 
   it("should surface warnings for invalid number inputs", () => {
-    const inputLabel = "Patch Factor (0 to 100 inclusive)";
+    const inputLabel = "Patch Factor";
     cy.selectLGOption("Task Planner Version", "Tunable");
     cy.getInputByLabel(inputLabel).clear();
     cy.getInputByLabel(inputLabel).type("500");

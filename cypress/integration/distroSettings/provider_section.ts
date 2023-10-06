@@ -18,7 +18,7 @@ describe("provider section", () => {
         force: true,
       });
       cy.contains("button", "Add security group").click();
-      cy.getInputByLabel("Security Group ID").type("group-1234");
+      cy.getInputByLabel("Security Group ID").type("sg-1234");
       cy.contains("button", "Add host").click();
       cy.getInputByLabel("Name").type("host-1234");
       save();
@@ -153,7 +153,7 @@ describe("provider section", () => {
       cy.getInputByLabel("EC2 AMI ID").type("ami-1234");
       cy.getInputByLabel("Instance Type").type("m5.xlarge");
       cy.contains("button", "Add security group").click();
-      cy.getInputByLabel("Security Group ID").type("security-group-1234");
+      cy.getInputByLabel("Security Group ID").type("sg-5678");
       save();
       cy.validateToast("success", "Updated distro.");
 
@@ -230,7 +230,7 @@ describe("provider section", () => {
       cy.getInputByLabel("EC2 AMI ID").type("ami-1234");
       cy.getInputByLabel("Instance Type").type("m5.xlarge");
       cy.contains("button", "Add security group").click();
-      cy.getInputByLabel("Security Group ID").type("security-group-1234");
+      cy.getInputByLabel("Security Group ID").type("sg-0000");
       save();
       cy.validateToast("success", "Updated distro.");
 

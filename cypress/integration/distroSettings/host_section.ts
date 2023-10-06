@@ -12,6 +12,8 @@ describe("host section", () => {
       cy.dataCy("maximum-hosts-input").should("not.exist");
       cy.dataCy("idle-time-input").should("not.exist");
       cy.dataCy("future-fraction-input").should("not.exist");
+      cy.dataCy("rounding-rule-select").should("not.exist");
+      cy.dataCy("feedback-rule-select").should("not.exist");
     });
 
     it("shows an error when selecting an incompatible host communication method", () => {
@@ -29,8 +31,6 @@ describe("host section", () => {
       cy.getInputByLabel("SSH User").type("sudo");
       cy.contains("button", "Add SSH option").click();
       cy.getInputByLabel("SSH Option").type("BatchMode=yes");
-      cy.selectLGOption("Host Allocator Rounding Rule", "Round down");
-      cy.selectLGOption("Host Allocator Feedback Rule", "No feedback");
       cy.selectLGOption(
         "Host Overallocation Rule",
         "Terminate hosts when overallocated"
@@ -46,8 +46,6 @@ describe("host section", () => {
       cy.getInputByLabel("SSH User").clear();
       cy.getInputByLabel("SSH User").type("ubuntu");
       cy.dataCy("delete-item-button").click();
-      cy.selectLGOption("Host Allocator Rounding Rule", "Default");
-      cy.selectLGOption("Host Allocator Feedback Rule", "Default");
       cy.selectLGOption("Host Overallocation Rule", "Default");
 
       save();

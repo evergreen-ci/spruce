@@ -1,8 +1,10 @@
-import { css } from "@emotion/react";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 
-export const getFormSchema = (): ReturnType<GetFormSchema> => ({
+export const getFormSchema = (
+  isContainerDistro: boolean,
+  minimumHosts: number
+): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
     type: "object" as "object",
@@ -33,36 +35,29 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
           },
         },
       },
-      distroNote: {
-        type: "object" as "object",
-        title: "Notes",
-        properties: {
-          note: {
-            type: "string" as "string",
-            title: "Notes",
-            default: "",
-          },
-        },
-      },
       distroOptions: {
         type: "object" as "object",
         title: "Distro Options",
         properties: {
           isCluster: {
             type: "boolean" as "boolean",
-            title:
-              "Mark distro as a cluster (jobs are not run on this host, used for special purposes).",
+            title: "Mark distro as cluster",
             default: false,
           },
           disableShallowClone: {
             type: "boolean" as "boolean",
-            title: "Disable shallow clone for this distro.",
+            title: "Disable shallow clone for this distro",
             default: false,
           },
           disabled: {
             type: "boolean" as "boolean",
-            title: "Disable queueing for this distro.",
+            title: "Disable queueing for this distro",
             default: false,
+          },
+          note: {
+            type: "string" as "string",
+            title: "Notes",
+            default: "",
           },
         },
       },
@@ -71,6 +66,13 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
   uiSchema: {
     distroName: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
+      identifier: {
+        ...(isContainerDistro && {
+          "ui:warnings": [
+            "Distro is a container pool, so it cannot be spawned for tasks.",
+          ],
+        }),
+      },
     },
     distroAliases: {
       "ui:rootFieldId": "aliases",
@@ -84,25 +86,22 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
         },
       },
     },
-    distroNote: {
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      note: {
-        "ui:widget": "textarea",
-        "ui:elementWrapperCSS": textAreaCSS,
-      },
-    },
     distroOptions: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
+      isCluster: {
+        "ui:description":
+          "Jobs will not be run on this host. Used for special purposes.",
+      },
       disabled: {
         "ui:description": "Tasks already in the task queue will be removed.",
+        ...(minimumHosts > 0 && {
+          "ui:tooltipDescription": `This will still allow the minimum number of hosts (${minimumHosts}) to start`,
+        }),
+      },
+      note: {
+        "ui:rows": 7,
+        "ui:widget": "textarea",
       },
     },
   },
 });
-
-const textAreaCSS = css`
-  box-sizing: border-box;
-  textarea {
-    min-height: 150px;
-  }
-`;

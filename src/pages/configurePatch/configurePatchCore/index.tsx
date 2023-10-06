@@ -2,10 +2,10 @@ import { useMemo } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { Spinner } from "@leafygreen-ui/loading-indicator";
 import { Tab } from "@leafygreen-ui/tabs";
 import TextInput from "@leafygreen-ui/text-input";
 import { useNavigate } from "react-router-dom";
+import { LoadingButton } from "components/Buttons";
 import { CodeChanges } from "components/CodeChanges";
 import {
   MetadataCard,
@@ -153,28 +153,29 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        {activated && (
-          <StyledButton
-            data-cy="cancel-button"
-            onClick={() =>
-              window.history.state.idx > 0
-                ? navigate(-1)
-                : navigate(getVersionRoute(id))
-            }
+        <ButtonWrapper>
+          {activated && (
+            <Button
+              data-cy="cancel-button"
+              onClick={() =>
+                window.history.state.idx > 0
+                  ? navigate(-1)
+                  : navigate(getVersionRoute(id))
+              }
+            >
+              Cancel
+            </Button>
+          )}
+          <LoadingButton
+            data-cy="schedule-patch"
+            disabled={totalSelectedTaskCount === 0 && aliasCount === 0}
+            loading={loadingScheduledPatch}
+            onClick={onClickSchedule}
+            variant="primary"
           >
-            Cancel
-          </StyledButton>
-        )}
-        <StyledButton
-          data-cy="schedule-patch"
-          onClick={onClickSchedule}
-          isLoading={loadingScheduledPatch}
-          variant="primary"
-          disabled={totalSelectedTaskCount === 0 && aliasCount === 0}
-          loadingIndicator={<Spinner />}
-        >
-          Schedule
-        </StyledButton>
+            Schedule
+          </LoadingButton>
+        </ButtonWrapper>
       </FlexRow>
       <PageLayout hasSider>
         <PageSider>
@@ -315,8 +316,10 @@ const StyledInput = styled(TextInput)`
   width: 100%;
 `;
 
-const StyledButton = styled(Button)`
+const ButtonWrapper = styled.div`
   margin-top: ${size.m};
+  display: flex;
+  gap: ${size.s};
 `;
 
 const FlexRow = styled.div`

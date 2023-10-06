@@ -648,7 +648,9 @@ export type GroupedBuildVariant = {
 
 export type GroupedFiles = {
   __typename?: "GroupedFiles";
+  execution: Scalars["Int"]["output"];
   files?: Maybe<Array<File>>;
+  taskId: Scalars["String"]["output"];
   taskName?: Maybe<Scalars["String"]["output"]>;
 };
 
@@ -8470,7 +8472,11 @@ export type UserDistroSettingsPermissionsQuery = {
     permissions: {
       __typename?: "Permissions";
       canCreateDistro: boolean;
-      distroPermissions: { __typename?: "DistroPermissions"; admin: boolean };
+      distroPermissions: {
+        __typename?: "DistroPermissions";
+        admin: boolean;
+        edit: boolean;
+      };
     };
   };
 };

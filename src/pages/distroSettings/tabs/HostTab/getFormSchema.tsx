@@ -128,7 +128,10 @@ export const getFormSchema = ({
       setup: setup.uiSchema(architecture, hasStaticProvider),
       bootstrapSettings: bootstrapProperties.uiSchema(architecture),
       sshConfig: sshConfigProperties.uiSchema(hasStaticProvider),
-      allocation: allocationProperties.uiSchema(hasEC2Provider),
+      allocation: allocationProperties.uiSchema(
+        hasEC2Provider,
+        hasStaticProvider
+      ),
     },
   };
 };
