@@ -82,7 +82,7 @@ export const routes = {
   commits: paths.commits,
   configurePatch: `${paths.patch}/:id/configure`,
   container: `${paths.container}/:id`,
-  distro: `${paths.distro}/:distroId/${PageNames.Settings}`,
+  distroSettings: `${paths.distro}/:distroId/${PageNames.Settings}`,
   host: `${paths.host}/:id`,
   hosts: paths.hosts,
   jobLogs: `${paths.jobLogs}/:buildId`,
@@ -240,7 +240,7 @@ export const getDistroSettingsRoute = (
 ) =>
   tab
     ? `${paths.distro}/${distroId}/${PageNames.Settings}/${tab}`
-    : `${paths.distro}/${distroId}/${PageNames.Settings}`;
+    : `${paths.distro}/${distroId}/${PageNames.Settings}/${DistroSettingsTabRoutes.General}`;
 
 export const getCommitQueueRoute = (projectIdentifier: string) =>
   `${paths.commitQueue}/${encodeURIComponent(projectIdentifier)}`;
