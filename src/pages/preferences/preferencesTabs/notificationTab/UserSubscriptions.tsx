@@ -149,10 +149,10 @@ const columns = [
       const resourceType = getValue();
       return resourceTypeToCopy?.[resourceType] ?? resourceType;
     },
+    header: "Type",
     ...getColumnTreeSelectFilterProps({
       "data-cy": "status-filter-popover",
       tData: resourceTypeTreeData,
-      title: "Type",
     }),
   },
   {
@@ -180,10 +180,10 @@ const columns = [
   },
   {
     accessorKey: "trigger",
+    header: "Event",
     ...getColumnTreeSelectFilterProps({
       "data-cy": "trigger-filter-popover",
       tData: triggerTreeData,
-      title: "Event",
     }),
     cell: ({ getValue }) => {
       const trigger = getValue();

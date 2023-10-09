@@ -8658,7 +8658,7 @@ export type VersionTaskDurationsQuery = {
         startTime?: Date | null;
         status: string;
         timeTaken?: number | null;
-        executionTasksFull?: Array<{
+        subRows?: Array<{
           __typename?: "Task";
           buildVariantDisplayName?: string | null;
           displayName: string;

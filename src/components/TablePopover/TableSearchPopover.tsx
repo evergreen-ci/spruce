@@ -13,21 +13,20 @@ const { blue, gray } = palette;
 
 interface TableSearchPopoverProps {
   value: string;
-  onChange: (search: string) => void;
-  onConfirm: () => void;
+  onConfirm: (search: string) => void;
   "data-cy"?: string;
   placeholder?: string;
 }
 
 export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   "data-cy": dataCy,
-  onChange,
   onConfirm,
   placeholder,
   value,
 }) => {
+  const [input, setInput] = useState(value);
   const [active, setActive] = useState(false);
-  const iconColor = value === "" ? gray.dark2 : blue.light1;
+  const iconColor = input === "" ? gray.dark2 : blue.base;
 
   const buttonRef = useRef(null);
   const popoverRef = useRef(null);
@@ -35,8 +34,8 @@ export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   // Handle onClickOutside
   useOnClickOutside([buttonRef, popoverRef], () => setActive(false));
 
-  const closePopup = () => {
-    onConfirm();
+  const onEnter = () => {
+    onConfirm(input);
     setActive(false);
   };
 
@@ -59,9 +58,9 @@ export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
             type="search"
             aria-label="Search Table"
             data-cy="input-filter"
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            onKeyPress={(e) => e.key === "Enter" && closePopup()}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyPress={(e) => e.key === "Enter" && onEnter()}
             autoFocus
           />
         </PopoverContainer>

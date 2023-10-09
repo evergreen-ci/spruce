@@ -25,7 +25,7 @@ export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
   value,
 }) => {
   const [active, setActive] = useState(false);
-  const iconColor = value.length ? blue.light1 : gray.dark2;
+  const iconColor = value.length ? blue.base : gray.dark2;
 
   const buttonRef = useRef(null);
   const popoverRef = useRef(null);

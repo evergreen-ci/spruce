@@ -1,9 +1,6 @@
 import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
 import Icon, { glyphs } from "components/Icon";
 import { size } from "constants/tokens";
-
-const { gray } = palette;
 
 interface Props {
   message: string;
@@ -27,7 +24,6 @@ const PlaceholderWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   padding: ${size.l} 0;
-  background-color: ${gray.light2};
   opacity: 50%;
 `;
 

@@ -1,36 +1,39 @@
 import { LeafyGreenTableRow } from "@leafygreen-ui/table/new";
-import { TableFilterPopover } from "components/TablePopover";
+import {
+  TableFilterPopover,
+  TableSearchPopover,
+  TableSortIcon,
+} from "components/TablePopover";
 import { TreeDataEntry } from "components/TreeSelect";
 
 type TreeSelectFilterProps = {
   "data-cy"?: string;
   tData: TreeDataEntry[];
-  title: React.ReactNode;
+  onFilter?: ({ id, value }: { id: string; value: string[] }) => void;
 };
 
 export const getColumnTreeSelectFilterProps = ({
   "data-cy": dataCy,
+  onFilter,
   tData,
-  title,
 }: TreeSelectFilterProps) => ({
-  header: ({ column }) => {
-    // Only present options that appear in the table
-    const options = tData.filter(
-      ({ value }) => !!column.getFacetedUniqueValues().get(value)
-    );
-    return (
-      <>
-        {title}
+  meta: {
+    filterComponent: ({ column }) => {
+      const filtered = tData.filter(
+        ({ value }) => !!column.getFacetedUniqueValues().get(value)
+      );
+      return (
         <TableFilterPopover
           value={column?.getFilterValue() ?? []}
-          options={options}
-          onConfirm={(value) => {
-            column.setFilterValue(value);
+          options={filtered.length ? filtered : tData}
+          onConfirm={(newValue) => {
+            column.setFilterValue(newValue);
+            onFilter?.({ id: column.id, value: newValue });
           }}
           data-cy={dataCy}
         />
-      </>
-    );
+      );
+    },
   },
   filterFn: (
     row: LeafyGreenTableRow<any>,
@@ -42,5 +45,64 @@ export const getColumnTreeSelectFilterProps = ({
       return true;
     }
     return filterValue.includes(row.getValue(columnId));
+  },
+});
+
+type InputFilterProps = {
+  "data-cy"?: string;
+  onFilter?: ({ id, value }: { id: string; value: string }) => void;
+};
+
+export const getColumnInputFilterProps = ({
+  "data-cy": dataCy,
+  onFilter,
+}: InputFilterProps) => ({
+  meta: {
+    filterComponent: ({ column }) => (
+      <TableSearchPopover
+        value={column?.getFilterValue() ?? ""}
+        onConfirm={(newValue) => {
+          column.setFilterValue(newValue);
+          onFilter?.({ id: column.id, value: newValue });
+        }}
+        data-cy={dataCy}
+      />
+    ),
+  },
+  filterFn: (
+    row: LeafyGreenTableRow<any>,
+    columnId: string,
+    filterValue: string
+  ) => {
+    // If no filter is specified, show all rows
+    if (!filterValue.length) {
+      return true;
+    }
+    return (row.getValue(columnId) as string)
+      .toLowerCase()
+      .includes(filterValue.toLowerCase());
+  },
+});
+
+type SortProps = {
+  "data-cy"?: string;
+  onSort?: ({ id, value }: { id: string; value: string }) => void;
+};
+
+export const getColumnSortProps = ({
+  "data-cy": dataCy,
+  onSort,
+}: SortProps) => ({
+  meta: {
+    sortComponent: ({ column }) => (
+      <TableSortIcon
+        value={column.getIsSorted().toString()}
+        onToggle={(newValue) => {
+          column.toggleSorting();
+          onSort({ id: column.id, value: newValue });
+        }}
+        data-cy={dataCy}
+      />
+    ),
   },
 });
