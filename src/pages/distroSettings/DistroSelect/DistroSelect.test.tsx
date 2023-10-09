@@ -40,7 +40,7 @@ describe("distro select", () => {
     expect(screen.getByDataCy("distro-select-options")).toBeInTheDocument();
     await user.click(screen.getByText("abc"));
     expect(screen.queryByDataCy("distro-select-options")).toBeNull();
-    expect(router.state.location.pathname).toBe("/distro/abc/settings");
+    expect(router.state.location.pathname).toBe("/distro/abc/settings/general");
   });
 
   it("typing in the text input will narrow down search results", async () => {
