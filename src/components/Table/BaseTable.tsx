@@ -54,7 +54,7 @@ export const BaseTable = <T extends LGRowData>({
           data-cy={dataCyRow}
           className={css`
             &[aria-hidden="false"] td > div {
-              max-height: 999px;
+              max-height: unset;
             }
           `}
         >
@@ -70,8 +70,8 @@ export const BaseTable = <T extends LGRowData>({
                 key={subRow.id}
                 row={subRow}
                 className={css`
-                  &[aria-hidden="false"] td > div {
-                    max-height: 999px;
+                  &[aria-hidden="false"] td > div[data-state="entered"] {
+                    max-height: unset;
                   }
                 `}
               >
