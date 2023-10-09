@@ -7,7 +7,7 @@ import {
   getTaskQueueRoute,
   getCommitQueueRoute,
 } from "constants/routes";
-import { useFirstDistro } from "hooks/useFirstDistro";
+import { useFirstDistro } from "hooks";
 import { NavDropdown } from "./NavDropdown";
 
 interface AuxiliaryDropdownProps {
@@ -39,7 +39,7 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
     {
       "data-cy": "auxiliary-dropdown-distro-settings",
       to: getDistroSettingsRoute(distro),
-      text: "Distros",
+      text: "Distro Settings",
       onClick: () => sendEvent({ name: "Click Distros Link" }),
     },
 

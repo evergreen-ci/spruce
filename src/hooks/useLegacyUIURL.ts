@@ -35,7 +35,8 @@ export const useLegacyUIURL = (): string | null => {
       if (matchedPath !== null) {
         setId(
           get(matchedPath, "params.id", "") ||
-            get(matchedPath, "params.identifier", "")
+            get(matchedPath, "params.identifier", "") ||
+            get(matchedPath, "params.distroId", "")
         );
         setLegacyUIUrl(legacyUIMap[legacyUIKeys[i]]);
         break;
