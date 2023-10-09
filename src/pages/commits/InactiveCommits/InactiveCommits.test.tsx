@@ -107,7 +107,7 @@ describe("inactiveCommitButton", () => {
 });
 
 const time = new Date("2021-06-16T23:38:13Z");
-const versions = [
+const versions: CommitRolledUpVersions = [
   {
     id: "1",
     createTime: time,
@@ -115,6 +115,7 @@ const versions = [
     order: 39365,
     author: "Mohamed Khelif",
     revision: "4137c33fa4a0d5c747a1115f0853b5f70e46f112",
+    ignored: false,
   },
   {
     id: "2",
@@ -123,6 +124,7 @@ const versions = [
     order: 39366,
     author: "Arjun Patel",
     revision: "4237c33fa4a0d5c747a1115f0853b5f70e46f113",
+    ignored: false,
   },
   {
     id: "3",
@@ -131,6 +133,7 @@ const versions = [
     order: 39365,
     author: "Mohamed Khelif",
     revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f114",
+    ignored: false,
   },
   {
     id: "4",
@@ -139,6 +142,7 @@ const versions = [
     order: 39366,
     author: "Arjun Patel",
     revision: "4437c33fa4a0d5c747a1115f0853b5f70e46f115",
+    ignored: false,
   },
   {
     id: "5",
@@ -147,6 +151,7 @@ const versions = [
     order: 39365,
     author: "Elena Chen",
     revision: "4537c33fa4a0d5c747a1115f0853b5f70e46f116",
+    ignored: false,
   },
   {
     id: "6",
@@ -155,5 +160,6 @@ const versions = [
     order: 39366,
     author: "Sophie Stadler",
     revision: "4637c33fa4a0d5c747a1115f0853b5f70e46f117",
+    ignored: false,
   },
 ];
