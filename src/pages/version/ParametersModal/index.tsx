@@ -42,7 +42,7 @@ export const ParametersModal: React.FC<ParametersProps> = ({ parameters }) => {
         title="Patch Parameters"
       >
         <OverflowContainer>
-          <BaseTable table={table} />
+          <BaseTable table={table} shouldAlternateRowColor />
         </OverflowContainer>
       </DisplayModal>
     </>
@@ -58,11 +58,9 @@ const columns: LGColumnDef<Parameter>[] = [
   {
     accessorKey: "key",
     header: "Key",
-    cell: (value) => value.getValue(),
   },
   {
     accessorKey: "value",
     header: "Value",
-    cell: (value) => value.getValue(),
   },
 ];

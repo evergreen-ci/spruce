@@ -1,3 +1,4 @@
+import { css } from "@leafygreen-ui/emotion";
 import {
   Cell,
   ExpandedContent,
@@ -43,7 +44,16 @@ export const BaseTable = <T extends LGRowData>({
       </TableHead>
       <TableBody>
         {table.getRowModel().rows.map((row) => (
-          <Row key={row.id} row={row} data-cy={dataCyRow}>
+          <Row
+            key={row.id}
+            row={row}
+            data-cy={dataCyRow}
+            className={css`
+              &[aria-hidden="false"] td > div {
+                max-height: unset;
+              }
+            `}
+          >
             {row.getVisibleCells().map((cell) => (
               <Cell key={cell.id}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
