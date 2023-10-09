@@ -78,7 +78,7 @@ export const UserSubscriptions: React.FC<{}> = () => {
         accessorKey: "resourceType",
         cell: ({ getValue }) => {
           const resourceType = getValue();
-          return resourceTypeToCopy?.[resourceType] ?? resourceType;
+          return resourceTypeToCopy[resourceType] ?? resourceType;
         },
         ...getColumnTreeSelectFilterProps({
           "data-cy": "status-filter-popover",
@@ -118,7 +118,7 @@ export const UserSubscriptions: React.FC<{}> = () => {
         }),
         cell: ({ getValue }) => {
           const trigger = getValue();
-          return triggerToCopy?.[trigger] ?? trigger;
+          return triggerToCopy[trigger] ?? trigger;
         },
       },
       {
