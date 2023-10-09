@@ -25,6 +25,7 @@ export const useLegacyUIURL = (): string | null => {
       [routes.spawnHost]: `${uiURL}/spawn#?resourcetype=hosts`,
       [routes.spawnVolume]: `${uiURL}/spawn#?resourcetype=volumes`,
       [`${routes.commits}/:id`]: `${uiURL}/waterfall/${id}`,
+      [`${routes.distroSettings}/*`]: `${uiURL}/distros##${id}`,
       [routes.hosts]: `${uiURL}/hosts`,
       [routes.host]: `${uiURL}/host/${id}`,
     };
@@ -34,7 +35,8 @@ export const useLegacyUIURL = (): string | null => {
       if (matchedPath !== null) {
         setId(
           get(matchedPath, "params.id", "") ||
-            get(matchedPath, "params.identifier", "")
+            get(matchedPath, "params.identifier", "") ||
+            get(matchedPath, "params.distroId", "")
         );
         setLegacyUIUrl(legacyUIMap[legacyUIKeys[i]]);
         break;

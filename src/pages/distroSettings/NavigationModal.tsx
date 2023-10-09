@@ -10,7 +10,8 @@ export const NavigationModal: React.FC = () => {
 
   const shouldConfirmNavigation = ({ nextLocation }): boolean => {
     const isDistroSettingsRoute =
-      nextLocation && !!matchPath(`${routes.distro}/*`, nextLocation.pathname);
+      nextLocation &&
+      !!matchPath(`${routes.distroSettings}/*`, nextLocation.pathname);
     if (!isDistroSettingsRoute) {
       return hasUnsaved;
     }

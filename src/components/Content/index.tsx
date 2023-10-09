@@ -42,7 +42,7 @@ export const Content: React.FC = () => (
       <Route path={routes.configurePatch} element={<ConfigurePatch />}>
         <Route path={tab} element={null} />
       </Route>
-      <Route path={`${routes.distro}/*`} element={<Distro />}>
+      <Route path={`${routes.distroSettings}/*`} element={<Distro />}>
         <Route path={tab} element={null} />
       </Route>
       <Route path={routes.host} element={<Host />} />

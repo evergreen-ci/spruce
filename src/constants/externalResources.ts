@@ -101,9 +101,6 @@ export const getParsleyTestLogURL = (buildId: string, testId: string) =>
 export const getParsleyBuildLogURL = (buildId: string) =>
   `${getParsleyUrl()}/resmoke/${buildId}/all`;
 
-export const getDistroPageUrl = (distroId: string) =>
-  `${getUiUrl()}/distros##${distroId}`;
-
 export const getHoneycombTraceUrl = (traceId: string, startTs: Date) =>
   `${getHoneycombBaseURL()}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(
     new Date(startTs)
