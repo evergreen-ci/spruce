@@ -557,6 +557,7 @@ export type File = {
   __typename?: "File";
   link: Scalars["String"]["output"];
   name: Scalars["String"]["output"];
+  urlParsley?: Maybe<Scalars["String"]["output"]>;
   visibility: Scalars["String"]["output"];
 };
 
@@ -2935,6 +2936,7 @@ export type Version = {
   finishTime?: Maybe<Scalars["Time"]["output"]>;
   gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"]["output"];
+  ignored: Scalars["Boolean"]["output"];
   isPatch: Scalars["Boolean"]["output"];
   manifest?: Maybe<Manifest>;
   message: Scalars["String"]["output"];
@@ -8471,7 +8473,11 @@ export type UserDistroSettingsPermissionsQuery = {
     permissions: {
       __typename?: "Permissions";
       canCreateDistro: boolean;
-      distroPermissions: { __typename?: "DistroPermissions"; admin: boolean };
+      distroPermissions: {
+        __typename?: "DistroPermissions";
+        admin: boolean;
+        edit: boolean;
+      };
     };
   };
 };
