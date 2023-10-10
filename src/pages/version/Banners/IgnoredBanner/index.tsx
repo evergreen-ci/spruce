@@ -7,11 +7,7 @@ const IgnoredBanner: React.FC = () => (
   <BannerContainer data-cy="ignored-banner">
     <Banner variant={Variant.Info}>
       This revision will not be automatically scheduled, because only{" "}
-      <StyledLink
-        data-cy="fileLink"
-        href={ignoredFilesDocumentationUrl}
-        target="_blank"
-      >
+      <StyledLink href={ignoredFilesDocumentationUrl} target="_blank">
         ignored files
       </StyledLink>{" "}
       are changed. It may still be scheduled manually, or on failure stepback.
