@@ -42,10 +42,10 @@ describe("banners", () => {
 
     it("should indicate if a version is ignored in the inactive commits tooltip", () => {
       cy.visit("/commits/spruce");
-      cy.dataCy("ignored-version-icon").should("not.exist");
+      cy.dataCy("ignored-icon").should("not.exist");
       cy.dataCy("inactive-commits-button").click();
       cy.dataCy("inactive-commits-tooltip").should("be.visible");
-      cy.dataCy("ignored-version-icon").should("be.visible");
+      cy.dataCy("ignored-icon").should("be.visible");
     });
   });
 });

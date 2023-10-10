@@ -168,13 +168,7 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
         </>
       )}
       <CommitBodyText>
-        {v.ignored && (
-          <StyledIcon
-            data-cy="ignored-version-icon"
-            glyph="VisibilityOff"
-            size="small"
-          />
-        )}
+        {v.ignored && <StyledIcon data-cy="ignored-icon" glyph="Ignored" />}
         {v.author} -{" "}
         {jiraLinkify(message, jiraHost, () => {
           sendEvent({

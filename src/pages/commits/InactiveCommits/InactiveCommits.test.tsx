@@ -104,6 +104,17 @@ describe("inactiveCommitButton", () => {
       "6Unmatching"
     );
   });
+
+  it("should show ignored icon for ignored versions", async () => {
+    const user = userEvent.setup();
+    render(<RenderInactiveCommitButton versions={versions.slice(0, 1)} />);
+    expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeNull();
+    await user.click(screen.queryByDataCy("inactive-commits-button"));
+    await waitFor(() => {
+      expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
+    });
+    expect(screen.getByDataCy("ignored-icon")).toBeVisible();
+  });
 });
 
 const time = new Date("2021-06-16T23:38:13Z");
@@ -115,7 +126,7 @@ const versions: CommitRolledUpVersions = [
     order: 39365,
     author: "Mohamed Khelif",
     revision: "4137c33fa4a0d5c747a1115f0853b5f70e46f112",
-    ignored: false,
+    ignored: true,
   },
   {
     id: "2",
