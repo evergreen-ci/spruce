@@ -26,6 +26,8 @@ export const githubChecksAliasesDocumentationUrl = `${projectDistroSettingsDocum
 
 export const githubMergeQueueDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Merge-Queue`;
 
+export const ignoredFilesDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Project-Configuration-Files#ignoring-changes-to-certain-files`;
+
 export const cliDocumentationUrl = `${wikiBaseUrl}/CLI`;
 
 export const windowsPasswordRulesURL =

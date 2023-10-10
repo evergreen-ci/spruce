@@ -6,6 +6,7 @@ const { green } = palette;
 interface LeafygreenIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number;
   role?: "presentation" | "img";
+  ["data-cy"]?: string;
 }
 
 export const EvergreenLogo: React.ComponentType<LeafygreenIconProps> = ({
@@ -239,5 +240,29 @@ export const Loading: React.ComponentType<LeafygreenIconProps> = ({
         </circle>
       </g>
     </g>
+  </svg>
+);
+
+export const Ignored: React.ComponentType<LeafygreenIconProps> = ({
+  className,
+  "data-cy": dataCy,
+  fill,
+  size = 16,
+}) => (
+  <svg
+    aria-label="Ignored Icon"
+    data-cy={dataCy}
+    className={className}
+    fill="currentColor"
+    height={size}
+    width={size}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill={fill}
+      fillRule="evenodd"
+      d="M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12ZM5 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H5Z"
+      clipRule="evenodd"
+    />
   </svg>
 );
