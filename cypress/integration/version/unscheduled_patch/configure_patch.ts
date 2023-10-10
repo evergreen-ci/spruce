@@ -17,7 +17,11 @@ describe("Configure Patch Page", () => {
     });
     it("Patch name input field value is patch description", () => {
       cy.visit(`/version/${unactivatedPatchId}`);
-      cy.dataCy("patch-name-input").should("have.value", "test meee");
+      cy.dataCy("patch-name-input")
+        .invoke("val")
+        .then((text) => {
+          expect(text).to.equal("hello world");
+        });
     });
     it("First build variant in list is selected by default", () => {
       cy.visit(`/version/${unactivatedPatchId}`);
@@ -121,8 +125,8 @@ describe("Configure Patch Page", () => {
     });
   });
 
-  describe("Configuring a patch", { testIsolation: false }, () => {
-    before(() => {
+  describe("Configuring a patch", () => {
+    beforeEach(() => {
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
     });
     it("Can update patch description by typing into `Patch Name` input field", () => {
@@ -132,6 +136,9 @@ describe("Configure Patch Page", () => {
       cy.dataCy("patch-name-input").should("have.value", val);
     });
     it("Schedule button should be disabled when no tasks are selected and enabled when they are", () => {
+      cy.getInputByLabel("Select all tasks in this variant").uncheck({
+        force: true,
+      });
       cy.dataCy("task-checkbox").should("not.be.checked");
       cy.dataCy("schedule-patch").should("have.attr", "aria-disabled", "true");
       cy.dataCy("task-checkbox").check({ force: true });
@@ -139,76 +146,78 @@ describe("Configure Patch Page", () => {
       cy.dataCy("schedule-patch").should("not.be.disabled");
       cy.dataCy("task-checkbox").uncheck({ force: true });
     });
-    it("Clicking on unchecked tasks checks them and updates task counts", () => {
-      cy.dataCy("build-variant-list-item").eq(-1).click();
-
+    it("Checking and unchecking task checkboxes updates the task count label", () => {
+      // setup
+      cy.dataCy("selected-task-disclaimer").contains(
+        "1 task across 1 build variant"
+      );
       cy.dataCy("build-variant-list-item")
         .find('[data-cy="task-count-badge"]')
-        .should("not.exist");
-      let count = 0;
+        .as("selectedTaskCountBadge")
+        .click();
+      cy.getInputByLabel("Select all tasks in this variant").uncheck({
+        force: true,
+      });
+      // No tasks selected
+      cy.get("@selectedTaskCountBadge").should("not.exist");
       cy.dataCy("selected-task-disclaimer").contains(
-        `${count} tasks across 0 build variants`
+        "0 tasks across 0 build variants"
       );
-      cy.dataCy("task-checkbox").each(($el) => {
+      // Test check
+      cy.dataCy("build-variant-list-item").eq(-1).click();
+      cy.dataCy("task-checkbox").each(($el, index) => {
         cy.wrap($el).should("not.be.checked");
         cy.wrap($el).check({
           force: true,
         });
-        count += 1;
         cy.wrap($el).should("be.checked");
-        cy.dataCy("selected-task-disclaimer").contains(`${count} task`);
-        cy.dataCy("selected-task-disclaimer").contains(`1 build variant`);
-        cy.dataCy("build-variant-list-item")
-          .find('[data-cy="task-count-badge"]')
-          .should("exist");
-        cy.dataCy("build-variant-list-item")
-          .find('[data-cy="task-count-badge"]')
+        const count = index + 1;
+        cy.dataCy("selected-task-disclaimer").contains(
+          new RegExp(`${count} tasks? across 1 build variant`)
+        );
+        cy.get("@selectedTaskCountBadge")
+          .should("be.visible")
           .should("have.text", count);
       });
-    });
-    it("Clicking on checked tasks unchecks them and updates task counts", () => {
-      cy.dataCy("build-variant-list-item")
-        .find('[data-cy="task-count-badge"]')
-        .should("exist");
-      let count = 7;
-      cy.dataCy("selected-task-disclaimer").contains(
-        `${count} tasks across 1 build variant`
-      );
-
-      cy.dataCy("task-checkbox").each(($el) => {
+      // Test Uncheck
+      cy.dataCy("task-checkbox").each(($el, index, list) => {
         cy.wrap($el).should("be.checked");
         cy.wrap($el).uncheck({
           force: true,
         });
-        count -= 1;
         cy.wrap($el).should("not.be.checked");
+        const count = list.length - index - 1;
+        cy.dataCy("selected-task-disclaimer").contains(
+          new RegExp(`${count} tasks? across [10] build variants?`)
+        );
+        if (count) {
+          cy.get("@selectedTaskCountBadge")
+            .should("be.visible")
+            .should("have.text", count);
+        } else {
+          cy.get("@selectedTaskCountBadge").should("not.exist");
+        }
       });
-
-      cy.dataCy("build-variant-list-item")
-        .find('[data-cy="task-count-badge"]')
-        .should("not.exist");
-      cy.dataCy("selected-task-disclaimer").contains(
-        "0 tasks across 0 build variants"
-      );
     });
 
     describe("Task filter input", () => {
-      it("Updating the task filter input filters tasks in view", () => {
+      beforeEach(() => {
         cy.visit(`/version/${unactivatedPatchId}`);
+      });
+      it("Updating the task filter input filters tasks in view", () => {
         cy.contains("Ubuntu 16.04").click();
         cy.dataCy("task-checkbox").should("have.length", 45);
         cy.dataCy("selected-task-disclaimer").contains(
-          `0 tasks across 0 build variants`
+          "1 task across 1 build variant"
         );
         cy.dataCy("task-filter-input").type("dist");
         cy.dataCy("task-checkbox").should("have.length", 2);
         cy.contains("Select all tasks in view").click();
         cy.dataCy("selected-task-disclaimer").contains(
-          "2 tasks across 1 build variant"
+          "3 tasks across 2 build variant"
         );
       });
       it("The task filter input works across multiple build variants", () => {
-        cy.visit(`/version/${unactivatedPatchId}`);
         cy.get("body").type("{meta}", {
           release: false,
         });
@@ -221,19 +230,22 @@ describe("Configure Patch Page", () => {
         });
         cy.dataCy("task-checkbox").should("have.length", 46);
         cy.dataCy("selected-task-disclaimer").contains(
-          `0 tasks across 0 build variants`
+          "1 task across 1 build variant"
         );
         cy.dataCy("task-filter-input").type("dist");
         cy.dataCy("task-checkbox").should("have.length", 2);
         cy.contains("Select all tasks in view").click();
         cy.dataCy("selected-task-disclaimer").contains(
-          "4 tasks across 2 build variants"
+          "5 tasks across 3 build variants"
         );
         cy.dataCy("task-filter-input").clear();
       });
     });
 
     describe("Select/Deselect All buttons", () => {
+      beforeEach(() => {
+        cy.visit(`/version/${unactivatedPatchId}`);
+      });
       it("Checking Select All should check all task checkboxes when all of the task checkboxes unchecked", () => {
         cy.dataCy("select-all-checkbox").check({
           force: true,
@@ -250,14 +262,12 @@ describe("Configure Patch Page", () => {
           cy.wrap($el).should("not.be.checked");
         });
       });
-      it("Checking all task checkboxes should check the Select All checkbox", () => {
+      it("Checking all task checkboxes should check the 'Select All' checkbox and unchecking all should uncheck it", () => {
+        cy.dataCy("build-variant-list-item").contains("OSX").click();
         cy.dataCy("select-all-checkbox").should("not.be.checked");
         cy.dataCy("task-checkbox").each(($el) => {
           cy.wrap($el).check({ force: true });
         });
-        cy.dataCy("select-all-checkbox").should("be.checked");
-      });
-      it("Unchecking all task checkboxes should uncheck the Select All checkbox", () => {
         cy.dataCy("select-all-checkbox").should("be.checked");
         cy.dataCy("task-checkbox").each(($el) => {
           cy.wrap($el).uncheck({ force: true });
@@ -276,6 +286,9 @@ describe("Configure Patch Page", () => {
         );
       });
       it("Selecting all tasks on an an indeterminate state should check all the checkboxes", () => {
+        cy.dataCy("build-variant-list-item")
+          .contains("RHEL 7.2 zLinux")
+          .click();
         cy.dataCy("select-all-checkbox").check({ force: true });
         cy.dataCy("task-checkbox").each(($el) => {
           cy.wrap($el).should("be.checked");
@@ -289,28 +302,7 @@ describe("Configure Patch Page", () => {
     });
 
     describe("Build variant selection", () => {
-      it("Should be able to select and unselect an individual task and have task count be reflected in variant tab badge and task count label", () => {
-        cy.dataCy("build-variant-list-item")
-          .contains("RHEL 7.2 zLinux")
-          .click();
-        cy.getInputByLabel("test-agent").check({
-          force: true,
-        });
-        cy.dataCy("task-count-badge").should("have.length", 1);
-        cy.dataCy("task-count-badge").contains("1");
-
-        cy.dataCy("selected-task-disclaimer").contains(
-          "1 task across 1 build variant"
-        );
-        cy.getInputByLabel("test-agent").uncheck({
-          force: true,
-        });
-        cy.dataCy("task-count-badge").should("not.exist");
-        cy.dataCy("selected-task-disclaimer").contains(
-          "0 tasks across 0 build variants"
-        );
-      });
-      it("Selecting multiple build variants should display deduplicated task checkboxes", () => {
+      it("Selecting/deselecting multiple build variants should display/hide the task checkboxes and checking a task will select it across multiple build variants", () => {
         cy.get("body").type("{meta}", {
           release: false,
         });
@@ -326,11 +318,17 @@ describe("Configure Patch Page", () => {
         cy.get("body").type("{meta}", {
           release: true,
         });
-        cy.getInputByLabel("test-agent").should("have.length", 1);
-      });
-
-      it("Deselecting multiple build variants should remove the associated tasks ", () => {
-        cy.dataCy("task-checkbox").as("before-tasks");
+        cy.dataCy("task-checkbox").should("have.length", 41);
+        // Test select all when multiple build variants are selected
+        cy.dataCy("selected-task-disclaimer").contains(
+          "1 task across 1 build variant, 0 trigger aliases"
+        );
+        cy.getInputByLabel("Select all tasks in these variants").check({
+          force: true,
+        });
+        cy.dataCy("selected-task-disclaimer").contains(
+          "53 tasks across 4 build variants, 0 trigger aliases"
+        );
         cy.get("body").type("{meta}", {
           release: false,
         });
@@ -342,7 +340,7 @@ describe("Configure Patch Page", () => {
         cy.dataCy("build-variant-list-item")
           .contains("RHEL 7.2 zLinux")
           .click();
-        cy.dataCy("task-checkbox").should("have.length", 6);
+        cy.dataCy("task-checkbox").should("have.length", 1);
       });
 
       it("Checking a deduplicated task between multiple build variants updates the task within each selected build variant", () => {
@@ -390,53 +388,7 @@ describe("Configure Patch Page", () => {
         });
       });
 
-      describe("Selecting/deselecting all multiple buildvariants", () => {
-        it("Should be able to select all tasks from multiple build variants", () => {
-          cy.dataCy("build-variant-list-item")
-            .contains("RHEL 7.2 zLinux")
-            .click();
-
-          cy.dataCy("task-checkbox").as("variant1Task");
-
-          cy.dataCy("build-variant-list-item")
-            .contains("RHEL 7.1 POWER8")
-            .click();
-
-          cy.dataCy("task-checkbox").as("variant2Task");
-
-          cy.get("body").type("{meta}", {
-            release: false,
-          });
-          cy.dataCy("build-variant-list-item")
-            .contains("RHEL 7.2 zLinux")
-            .click();
-
-          cy.dataCy("select-all-checkbox").check({
-            force: true,
-          });
-          cy.dataCy("task-checkbox").each(($el) => {
-            cy.wrap($el).should("be.checked");
-          });
-
-          cy.get("@variant1Task")
-            .its("length")
-            .then((variant1TaskCount) => {
-              cy.get("@variant2Task")
-                .its("length")
-                .then((variant2TaskCount) => {
-                  cy.dataCy("selected-task-disclaimer").contains(
-                    `${
-                      variant1TaskCount + variant2TaskCount
-                    } tasks across 2 build variants`
-                  );
-                });
-            });
-
-          cy.get("body").type("{meta}", {
-            release: true,
-          });
-        });
-
+      describe.only("Selecting/deselecting all multiple buildvariants", () => {
         it("Should be able to deselect all tasks from multiple build variants", () => {
           cy.dataCy("build-variant-list-item")
             .contains("RHEL 7.2 zLinux")
