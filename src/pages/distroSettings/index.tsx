@@ -17,7 +17,6 @@ import { useToastContext } from "context/toast";
 import { DistroQuery, DistroQueryVariables } from "gql/generated/types";
 import { DISTRO } from "gql/queries";
 import { usePageTitle } from "hooks";
-import { isProduction } from "utils/environmentVariables";
 import { DistroSettingsProvider } from "./Context";
 import { DistroSelect } from "./DistroSelect";
 import { getTabTitle } from "./getTabTitle";
@@ -43,14 +42,6 @@ const DistroSettings: React.FC = () => {
       },
     }
   );
-
-  if (isProduction()) {
-    return (
-      <PageWrapper>
-        <h1>Coming Soon 🌱⚙️</h1>
-      </PageWrapper>
-    );
-  }
 
   if (!Object.values(DistroSettingsTabRoutes).includes(currentTab)) {
     return (

@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
-import { Spinner } from "@leafygreen-ui/loading-indicator";
 import { Subtitle } from "@leafygreen-ui/typography";
+import { LoadingButton } from "components/Buttons";
 import { size } from "constants/tokens";
 import { EventDiffTable } from "./EventDiffTable";
 import { Header } from "./Header";
@@ -42,15 +41,14 @@ export const EventLog: React.FC<EventLogProps> = ({
         );
       })}
       {!allEventsFetched && !!events.length && (
-        <Button
+        <LoadingButton
           data-cy="load-more-button"
-          isLoading={loading}
-          loadingIndicator={<Spinner />}
+          loading={loading}
           onClick={handleFetchMore}
           variant="primary"
         >
           Load more events
-        </Button>
+        </LoadingButton>
       )}
       {allEventsFetched && <Subtitle>{allEventsFetchedCopy}</Subtitle>}
     </Container>

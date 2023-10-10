@@ -1,11 +1,10 @@
 import { useReducer, useEffect } from "react";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
-import { Spinner } from "@leafygreen-ui/loading-indicator";
 import { Option, Select } from "@leafygreen-ui/select";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useTaskAnalytics } from "analytics";
+import { LoadingButton } from "components/Buttons";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { finishedTaskStatuses } from "constants/task";
 import { size } from "constants/tokens";
@@ -201,22 +200,21 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
           </Tooltip>
         )}
       >
-        <Button
+        <LoadingButton
+          as={Link}
+          data-cy="previous-commits-go-button"
+          disabled={disableButton}
+          loading={loading}
           onClick={() =>
             sendEvent({
               name: "Submit Previous Commit Selector",
               type: selectState,
             })
           }
-          as={Link}
-          disabled={disableButton}
           size="small"
-          data-cy="previous-commits-go-button"
-          isLoading={loading}
-          loadingIndicator={<Spinner />}
         >
           Go
-        </Button>
+        </LoadingButton>
       </ConditionalWrapper>
     </PreviousCommitsWrapper>
   );

@@ -1,16 +1,14 @@
 import { useNavbarAnalytics } from "analytics";
-import { legacyRoutes } from "constants/externalResources";
 import {
   routes,
+  getDistroSettingsRoute,
   getProjectPatchesRoute,
   getProjectSettingsRoute,
   getTaskQueueRoute,
   getCommitQueueRoute,
 } from "constants/routes";
-import { environmentVariables } from "utils";
+import { useFirstDistro } from "hooks";
 import { NavDropdown } from "./NavDropdown";
-
-const { getUiUrl } = environmentVariables;
 
 interface AuxiliaryDropdownProps {
   projectIdentifier: string;
@@ -19,8 +17,8 @@ interface AuxiliaryDropdownProps {
 export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
   projectIdentifier,
 }) => {
-  const uiURL = getUiUrl();
   const { sendEvent } = useNavbarAnalytics();
+  const distro = useFirstDistro();
 
   const menuItems = [
     {
@@ -39,9 +37,9 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
       onClick: () => sendEvent({ name: "Click Task Queue Link" }),
     },
     {
-      "data-cy": "legacy_route",
-      href: `${uiURL}${legacyRoutes.distros}`,
-      text: "Distros",
+      "data-cy": "auxiliary-dropdown-distro-settings",
+      to: getDistroSettingsRoute(distro),
+      text: "Distro Settings",
       onClick: () => sendEvent({ name: "Click Distros Link" }),
     },
 
