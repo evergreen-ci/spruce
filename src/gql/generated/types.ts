@@ -6182,6 +6182,7 @@ export type MainlineCommitsQuery = {
         author: string;
         createTime: Date;
         id: string;
+        ignored: boolean;
         message: string;
         order: number;
         revision: string;
@@ -8739,6 +8740,7 @@ export type VersionQuery = {
     errors: Array<string>;
     finishTime?: Date | null;
     id: string;
+    ignored: boolean;
     isPatch: boolean;
     message: string;
     order: number;
