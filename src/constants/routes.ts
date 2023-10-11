@@ -2,6 +2,8 @@ import { TestStatus, HistoryQueryParams } from "types/history";
 import { PatchTab } from "types/patch";
 import { PatchTasksQueryParams, TaskTab } from "types/task";
 import { queryString, array } from "utils";
+import { ProjectTriggerLevel } from "../types/triggers";
+import { getGithubCommitUrl } from "./externalResources";
 
 const { toArray } = array;
 const { stringifyQuery } = queryString;
@@ -308,4 +310,21 @@ export const getTaskHistoryRoute = (
     filters,
     selectedCommit
   );
+};
+
+export const getTriggerRoute = (
+  triggerType: string,
+  upstreamTask: any,
+  upstreamVersion: any,
+  upstreamRevision: string,
+  owner: string,
+  repo: string
+) => {
+  if (triggerType === ProjectTriggerLevel.TASK) {
+    return getTaskRoute(upstreamTask.id);
+  }
+  if (triggerType === ProjectTriggerLevel.PUSH) {
+    return getGithubCommitUrl(owner, repo, upstreamRevision);
+  }
+  return getVersionRoute(upstreamVersion.id);
 };

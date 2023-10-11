@@ -4,11 +4,10 @@ import { Body, BodyProps, InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import ExpandedText from "components/ExpandedText";
 import { StyledRouterLink } from "components/styles";
-import { getVersionRoute, getTaskRoute } from "constants/routes";
+import { getVersionRoute, getTriggerRoute } from "constants/routes";
 import { size, zIndex } from "constants/tokens";
 import { UpstreamProjectFragment, GitTag } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
-import { ProjectTriggerLevel } from "types/triggers";
 import { shortenGithash } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 
@@ -46,7 +45,10 @@ const CommitChartLabel: React.FC<Props> = ({
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const {
+    owner: upstreamOwner,
     project: upstreamProjectIdentifier,
+    repo: upstreamRepo,
+    revision: upstreamRevision,
     task: upstreamTask,
     triggerType,
     version: upstreamVersion,
@@ -72,11 +74,14 @@ const CommitChartLabel: React.FC<Props> = ({
           Triggered from:{" "}
           <StyledRouterLink
             onClick={onClickUpstreamProject}
-            to={
-              triggerType === ProjectTriggerLevel.TASK
-                ? getTaskRoute(upstreamTask.id)
-                : getVersionRoute(upstreamVersion.id)
-            }
+            to={getTriggerRoute(
+              triggerType,
+              upstreamTask,
+              upstreamVersion,
+              upstreamRevision,
+              upstreamOwner,
+              upstreamRepo
+            )}
           >
             {upstreamProjectIdentifier}
           </StyledRouterLink>

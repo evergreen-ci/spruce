@@ -6,11 +6,10 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { DisplayModal } from "components/DisplayModal";
 import { StyledRouterLink } from "components/styles";
-import { getVersionRoute, getTaskRoute } from "constants/routes";
+import { getVersionRoute, getTriggerRoute } from "constants/routes";
 import { size, zIndex, fontSize } from "constants/tokens";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { CommitRolledUpVersions } from "types/commits";
-import { ProjectTriggerLevel } from "types/triggers";
 import { Unpacked } from "types/utils";
 import { string } from "utils";
 import { jiraLinkify } from "utils/string/jiraLinkify";
@@ -156,11 +155,14 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
         <>
           Triggered from:{" "}
           <StyledRouterLink
-            to={
-              v.upstreamProject.triggerType === ProjectTriggerLevel.TASK
-                ? getTaskRoute(v.upstreamProject.task.id)
-                : getVersionRoute(v.upstreamProject.version.id)
-            }
+            to={getTriggerRoute(
+              v.upstreamProject.triggerType,
+              v.upstreamProject.task,
+              v.upstreamProject.version,
+              v.upstreamProject.revision,
+              v.upstreamProject.owner,
+              v.upstreamProject.repo
+            )}
           >
             {v.upstreamProject.project}
           </StyledRouterLink>

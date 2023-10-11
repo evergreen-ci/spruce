@@ -11,12 +11,11 @@ import { getGithubCommitUrl } from "constants/externalResources";
 import {
   getCommitQueueRoute,
   getProjectPatchesRoute,
-  getTaskRoute,
+  getTriggerRoute,
   getVersionRoute,
 } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
-import { ProjectTriggerLevel } from "types/triggers";
 import { string } from "utils";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 import ManifestBlob from "./ManifestBlob";
@@ -56,7 +55,10 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
   const { commitQueuePosition } = patch || {};
   const { makespan, timeTaken } = versionTiming || {};
   const {
+    owner: upstreamOwner,
     project: upstreamProjectIdentifier,
+    repo: upstreamRepo,
+    revision: upstreamRevision,
     task: upstreamTask,
     triggerType,
     version: upstreamVersion,
@@ -169,11 +171,14 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
         <MetadataItem>
           Triggered from:{" "}
           <StyledRouterLink
-            to={
-              triggerType === ProjectTriggerLevel.TASK
-                ? getTaskRoute(upstreamTask.id)
-                : getVersionRoute(upstreamVersion.id)
-            }
+            to={getTriggerRoute(
+              triggerType,
+              upstreamTask,
+              upstreamVersion,
+              upstreamRevision,
+              upstreamOwner,
+              upstreamRepo
+            )}
           >
             {upstreamProjectIdentifier}
           </StyledRouterLink>
