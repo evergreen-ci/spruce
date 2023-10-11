@@ -19,6 +19,7 @@ query Version($id: String!) {
       tag
     }
     id
+    ignored
     isPatch
     manifest {
       branch

@@ -5,6 +5,7 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { DisplayModal } from "components/DisplayModal";
+import Icon from "components/Icon";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute, getTriggerRoute } from "constants/routes";
 import { size, zIndex, fontSize } from "constants/tokens";
@@ -169,6 +170,7 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
         </>
       )}
       <CommitBodyText>
+        {v.ignored && <StyledIcon data-cy="ignored-icon" glyph="Ignored" />}
         {v.author} -{" "}
         {jiraLinkify(message, jiraHost, () => {
           sendEvent({
@@ -182,6 +184,11 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
     </CommitText>
   );
 };
+
+const StyledIcon = styled(Icon)`
+  margin-right: ${size.xxs};
+  vertical-align: text-bottom;
+`;
 
 const InactiveCommitContainer = styled.div`
   display: flex;
