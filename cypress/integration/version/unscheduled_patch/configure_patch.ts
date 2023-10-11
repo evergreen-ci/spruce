@@ -147,19 +147,10 @@ describe("Configure Patch Page", () => {
       cy.dataCy("task-checkbox").uncheck({ force: true });
     });
     it("Checking and unchecking task checkboxes updates the task count label", () => {
-      // setup
-      cy.dataCy("selected-task-disclaimer").contains(
-        "1 task across 1 build variant"
-      );
       cy.dataCy("build-variant-list-item")
         .find('[data-cy="task-count-badge"]')
-        .as("selectedTaskCountBadge")
-        .click();
-      cy.getInputByLabel("Select all tasks in this variant").uncheck({
-        force: true,
-      });
+        .should("not.exist");
       // No tasks selected
-      cy.get("@selectedTaskCountBadge").should("not.exist");
       cy.dataCy("selected-task-disclaimer").contains(
         "0 tasks across 0 build variants"
       );
@@ -175,7 +166,9 @@ describe("Configure Patch Page", () => {
         cy.dataCy("selected-task-disclaimer").contains(
           new RegExp(`${count} tasks? across 1 build variant`)
         );
-        cy.get("@selectedTaskCountBadge")
+        cy.dataCy("build-variant-list-item")
+          .find('[data-cy="task-count-badge"]')
+          .as("selectedTaskCountBadge")
           .should("be.visible")
           .should("have.text", count);
       });
@@ -208,13 +201,13 @@ describe("Configure Patch Page", () => {
         cy.contains("Ubuntu 16.04").click();
         cy.dataCy("task-checkbox").should("have.length", 45);
         cy.dataCy("selected-task-disclaimer").contains(
-          "1 task across 1 build variant"
+          "0 tasks across 0 build variants"
         );
         cy.dataCy("task-filter-input").type("dist");
         cy.dataCy("task-checkbox").should("have.length", 2);
         cy.contains("Select all tasks in view").click();
         cy.dataCy("selected-task-disclaimer").contains(
-          "3 tasks across 2 build variant"
+          "2 tasks across 1 build variant"
         );
       });
       it("The task filter input works across multiple build variants", () => {
@@ -227,13 +220,13 @@ describe("Configure Patch Page", () => {
 
         cy.dataCy("task-checkbox").should("have.length", 46);
         cy.dataCy("selected-task-disclaimer").contains(
-          "1 task across 1 build variant"
+          "0 tasks across 0 build variants"
         );
         cy.dataCy("task-filter-input").type("dist");
         cy.dataCy("task-checkbox").should("have.length", 2);
         cy.contains("Select all tasks in view").click();
         cy.dataCy("selected-task-disclaimer").contains(
-          "5 tasks across 3 build variants"
+          "4 tasks across 2 build variants"
         );
         cy.dataCy("task-filter-input").clear();
       });
@@ -316,7 +309,7 @@ describe("Configure Patch Page", () => {
         cy.dataCy("task-checkbox").should("have.length", 41);
         // Test select all when multiple build variants are selected
         cy.dataCy("selected-task-disclaimer").contains(
-          "1 task across 1 build variant, 0 trigger aliases"
+          "0 tasks across 0 build variants, 0 trigger aliases"
         );
         cy.getInputByLabel("Select all tasks in these variants").check({
           force: true,
@@ -441,7 +434,7 @@ describe("Configure Patch Page", () => {
       });
     });
 
-    describe.only("Selecting a trigger alias", () => {
+    describe("Selecting a trigger alias", () => {
       beforeEach(() => {
         cy.dataCy("trigger-alias-list-item")
           .contains("logkeeper-alias")
@@ -515,9 +508,8 @@ describe("Configure Patch Page", () => {
     });
     it("Clicking 'Schedule' button schedules patch and redirects to patch page", () => {
       const val = "hello world";
-      cy.dataCy("patch-name-input").as("patchNameInput");
-      cy.get("patch-name-input").clear();
-      cy.get("patch-name-input").type(val);
+      cy.dataCy("patch-name-input").clear();
+      cy.dataCy("patch-name-input").type(val);
       cy.dataCy("task-checkbox").first().check({ force: true });
       cy.intercept("POST", GQL_URL, (req) => {
         if (hasOperationName(req, "SchedulePatch")) {
