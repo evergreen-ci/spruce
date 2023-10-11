@@ -207,7 +207,7 @@ describe("Configure Patch Page", () => {
         cy.dataCy("task-checkbox").should("have.length", 2);
         cy.contains("Select all tasks in view").click();
         cy.dataCy("selected-task-disclaimer").contains(
-          "2 tasks across 1 build variant"
+          "3 tasks across 2 build variant"
         );
       });
       it("The task filter input works across multiple build variants", () => {
@@ -226,7 +226,7 @@ describe("Configure Patch Page", () => {
         cy.dataCy("task-checkbox").should("have.length", 2);
         cy.contains("Select all tasks in view").click();
         cy.dataCy("selected-task-disclaimer").contains(
-          "4 tasks across 2 build variants"
+          "5 tasks across 3 build variants"
         );
         cy.dataCy("task-filter-input").clear();
       });
@@ -329,7 +329,6 @@ describe("Configure Patch Page", () => {
             .contains("RHEL 7.2 zLinux")
             .click();
         });
-
         cy.dataCy("task-checkbox").should("have.length", 1);
       });
 
