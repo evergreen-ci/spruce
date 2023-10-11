@@ -121,6 +121,16 @@ declare global {
        * @param body - The replacement response body
        */
       overwriteGQL(operationName: string, body: any);
+      /**
+       * Custom command to hold shift during the given operation
+       * @param action - A function that is executed while shift is held
+       */
+      holdShift(action: () => void): void;
+      /**
+       * Custom command to hold meta during the given operation
+       * @param action - A function that is executed while meta is held
+       */
+      holdMeta(action: () => void): void;
     }
   }
 }

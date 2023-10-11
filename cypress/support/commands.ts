@@ -125,3 +125,23 @@ Cypress.Commands.add("overwriteGQL", (operationName: string, body: any) => {
     }
   });
 });
+
+Cypress.Commands.add("holdShift", (action: () => void) => {
+  cy.get("body").type("{shift}", {
+    release: false,
+  });
+  action();
+  cy.get("body").type("{shift}", {
+    release: true,
+  });
+});
+
+Cypress.Commands.add("holdMeta", (action: () => void) => {
+  cy.get("body").type("{meta}", {
+    release: false,
+  });
+  action();
+  cy.get("body").type("{meta}", {
+    release: true,
+  });
+});

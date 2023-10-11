@@ -20,7 +20,7 @@ describe("Configure Patch Page", () => {
       cy.dataCy("patch-name-input")
         .invoke("val")
         .then((text) => {
-          expect(text).to.equal("hello world");
+          expect(text).to.equal("test meee");
         });
     });
     it("First build variant in list is selected by default", () => {
@@ -218,16 +218,13 @@ describe("Configure Patch Page", () => {
         );
       });
       it("The task filter input works across multiple build variants", () => {
-        cy.get("body").type("{meta}", {
-          release: false,
+        cy.holdMeta(() => {
+          cy.dataCy("build-variant-list-item").contains("Ubuntu 16.04").click();
+          cy.dataCy("build-variant-list-item")
+            .contains("Ubuntu 16.04 (Docker)")
+            .click();
         });
-        cy.dataCy("build-variant-list-item").contains("Ubuntu 16.04").click();
-        cy.dataCy("build-variant-list-item")
-          .contains("Ubuntu 16.04 (Docker)")
-          .click();
-        cy.get("body").type("{meta}", {
-          release: true,
-        });
+
         cy.dataCy("task-checkbox").should("have.length", 46);
         cy.dataCy("selected-task-disclaimer").contains(
           "1 task across 1 build variant"
@@ -303,20 +300,18 @@ describe("Configure Patch Page", () => {
 
     describe("Build variant selection", () => {
       it("Selecting/deselecting multiple build variants should display/hide the task checkboxes and checking a task will select it across multiple build variants", () => {
-        cy.get("body").type("{meta}", {
-          release: false,
-        });
-        cy.dataCy("build-variant-list-item")
-          .contains("RHEL 7.2 zLinux")
-          .click();
+        cy.holdMeta(() => {
+          cy.dataCy("build-variant-list-item")
+            .contains("RHEL 7.2 zLinux")
+            .click();
 
-        cy.dataCy("build-variant-list-item")
-          .contains("RHEL 7.1 POWER8")
-          .click();
+          cy.dataCy("build-variant-list-item")
+            .contains("RHEL 7.1 POWER8")
+            .click();
 
-        cy.dataCy("build-variant-list-item").contains("Race Detector").click();
-        cy.get("body").type("{meta}", {
-          release: true,
+          cy.dataCy("build-variant-list-item")
+            .contains("Race Detector")
+            .click();
         });
         cy.dataCy("task-checkbox").should("have.length", 41);
         // Test select all when multiple build variants are selected
@@ -329,32 +324,30 @@ describe("Configure Patch Page", () => {
         cy.dataCy("selected-task-disclaimer").contains(
           "53 tasks across 4 build variants, 0 trigger aliases"
         );
-        cy.get("body").type("{meta}", {
-          release: false,
-        });
-        cy.dataCy("build-variant-list-item").contains("Race Detector").click();
-        cy.dataCy("build-variant-list-item")
-          .contains("RHEL 7.1 POWER8")
-          .click();
+        cy.holdMeta(() => {
+          cy.dataCy("build-variant-list-item")
+            .contains("Race Detector")
+            .click();
+          cy.dataCy("build-variant-list-item")
+            .contains("RHEL 7.1 POWER8")
+            .click();
 
-        cy.dataCy("build-variant-list-item")
-          .contains("RHEL 7.2 zLinux")
-          .click();
+          cy.dataCy("build-variant-list-item")
+            .contains("RHEL 7.2 zLinux")
+            .click();
+        });
+
         cy.dataCy("task-checkbox").should("have.length", 1);
       });
 
       it("Checking a deduplicated task between multiple build variants updates the task within each selected build variant", () => {
-        cy.get("body").type("{meta}", {
-          release: false,
-        });
-        cy.dataCy("build-variant-list-item")
-          .contains("RHEL 7.2 zLinux")
-          .click();
-        cy.dataCy("build-variant-list-item")
-          .contains("RHEL 7.1 POWER8")
-          .click();
-        cy.get("body").type("{meta}", {
-          release: true,
+        cy.holdMeta(() => {
+          cy.dataCy("build-variant-list-item")
+            .contains("RHEL 7.2 zLinux")
+            .click();
+          cy.dataCy("build-variant-list-item")
+            .contains("RHEL 7.1 POWER8")
+            .click();
         });
         cy.getInputByLabel("test-agent").should("have.length", 1);
         cy.getInputByLabel("test-agent").check({
@@ -388,61 +381,68 @@ describe("Configure Patch Page", () => {
         });
       });
 
-      describe.only("Selecting/deselecting all multiple buildvariants", () => {
-        it("Should be able to deselect all tasks from multiple build variants", () => {
+      describe("Selecting/deselecting all multiple buildvariants", () => {
+        it("Should be able to select/deselect all tasks from multiple build variants", () => {
+          // Test select all
           cy.dataCy("build-variant-list-item")
-            .contains("RHEL 7.2 zLinux")
+            .contains("ArchLinux (Docker)")
             .click();
 
-          cy.dataCy("task-checkbox").each(($el) => {
-            cy.wrap($el).should("be.checked");
-          });
+          cy.holdShift(() =>
+            cy.dataCy("build-variant-list-item").contains("Windows").click()
+          );
 
-          cy.dataCy("build-variant-list-item")
-            .contains("RHEL 7.1 POWER8")
-            .click();
-
-          cy.dataCy("task-checkbox").each(($el) => {
-            cy.wrap($el).should("be.checked");
-          });
-
-          cy.get("body").type("{meta}", {
-            release: false,
-          });
-          cy.dataCy("build-variant-list-item")
-            .contains("RHEL 7.2 zLinux")
-            .click();
-
+          // Uncheck "Select all" to setup for checking
           cy.dataCy("select-all-checkbox").uncheck({
             force: true,
           });
-
-          cy.dataCy("task-checkbox").each(($el) => {
-            cy.wrap($el).should("not.be.checked");
-          });
-
           cy.dataCy("selected-task-disclaimer").contains(
-            `0 tasks across 0 build variants`
+            "0 tasks across 0 build variants, 0 trigger aliases"
           );
+          cy.getInputByLabel("Select all tasks in these variants").check({
+            force: true,
+          });
+          cy.dataCy("selected-task-disclaimer").contains(
+            "198 tasks across 11 build variants, 0 trigger aliases"
+          );
+          // Ensure all of them are checked
+          cy.dataCy("build-variant-list-item").each((bvListItem) => {
+            cy.wrap(bvListItem).click();
+            cy.dataCy("task-checkbox").should("be.checked");
+          });
+          // Test deselect all
+          cy.dataCy("build-variant-list-item")
+            .contains("ArchLinux (Docker)")
+            .click();
+          cy.holdShift(() =>
+            cy.dataCy("build-variant-list-item").contains("Windows").click()
+          );
+          cy.dataCy("select-all-checkbox").uncheck({
+            force: true,
+          });
+          cy.dataCy("selected-task-disclaimer").contains(
+            "0 tasks across 0 build variants, 0 trigger aliases"
+          );
+          cy.dataCy("build-variant-list-item").each((bvListItem) => {
+            cy.wrap(bvListItem).click();
+            cy.dataCy("task-checkbox").should("not.be.checked");
+          });
         });
       });
 
       it("Shift+click will select the clicked build variant along with all build variants between the clicked build variant and the first selected build variant in the list", () => {
-        cy.get("body").type("{shift}", {
-          release: false,
-        }); // hold shift
         cy.dataCy("build-variant-list-item")
           .contains("RHEL 7.2 zLinux")
           .click();
-
-        cy.dataCy("build-variant-list-item").contains("Windows").click();
-
+        cy.holdShift(() => {
+          cy.dataCy("build-variant-list-item").contains("Windows").click();
+        });
         cy.get("[data-selected=true]").its("length").should("eq", 6);
       });
     });
 
-    describe("Selecting a trigger alias", () => {
-      before(() => {
+    describe.only("Selecting a trigger alias", () => {
+      beforeEach(() => {
         cy.dataCy("trigger-alias-list-item")
           .contains("logkeeper-alias")
           .click();
@@ -486,22 +486,21 @@ describe("Configure Patch Page", () => {
         cy.dataCy("alias-task-checkbox").should("be.checked");
       });
 
-      it("Cmd+click will select the clicked trigger alias along with the build variant and will show a checkbox for the trigger alias", () => {
-        cy.get("body").type("{meta}", {
-          release: false,
+      it("Holding Cmd allows selecting a trigger alias and build variant at the same time", () => {
+        cy.holdMeta(() => {
+          cy.dataCy("build-variant-list-item").contains("Windows").click();
         });
-
-        cy.dataCy("build-variant-list-item").contains("Windows").click();
         cy.dataCy("alias-checkbox").should("have.length", 1);
-
         cy.get("[data-selected=true]").its("length").should("eq", 2);
-      });
-
-      it("Updates the badge count when the trigger alias is deselected", () => {
+        cy.dataCy("alias-checkbox").check({
+          force: true,
+        });
+        cy.dataCy("trigger-alias-list-item")
+          .find('[data-cy="task-count-badge"]')
+          .should("be.visible");
         cy.dataCy("alias-checkbox").uncheck({
           force: true,
         });
-
         cy.dataCy("trigger-alias-list-item")
           .find('[data-cy="task-count-badge"]')
           .should("not.exist");
@@ -516,7 +515,9 @@ describe("Configure Patch Page", () => {
     });
     it("Clicking 'Schedule' button schedules patch and redirects to patch page", () => {
       const val = "hello world";
-      cy.dataCy(`patch-name-input`).as("patchNameInput").clear().type(val);
+      cy.dataCy("patch-name-input").as("patchNameInput");
+      cy.get("patch-name-input").clear();
+      cy.get("patch-name-input").type(val);
       cy.dataCy("task-checkbox").first().check({ force: true });
       cy.intercept("POST", GQL_URL, (req) => {
         if (hasOperationName(req, "SchedulePatch")) {
@@ -534,7 +535,8 @@ describe("Configure Patch Page", () => {
 
     it("Shows error toast if unsuccessful and keeps data", () => {
       const val = "hello world";
-      cy.dataCy(`patch-name-input`).clear().type(val);
+      cy.dataCy("patch-name-input").clear();
+      cy.dataCy("patch-name-input").type(val);
       cy.dataCy("task-checkbox").first().check({ force: true });
       mockErrorResponse({
         errorMessage: "An error occured",
