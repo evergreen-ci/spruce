@@ -227,11 +227,9 @@ export const getProjectSettingsRoute = (
   projectId: string,
   tab?: ProjectSettingsTabRoutes
 ) => {
-  if (!tab) {
-    return `${paths.project}/${projectId}/${PageNames.Settings}`;
-  }
-
-  return `${paths.project}/${projectId}/${PageNames.Settings}/${tab}`;
+  const encodedProjectId = encodeURIComponent(projectId);
+  const root = `${paths.project}/${encodedProjectId}/${PageNames.Settings}`;
+  return tab ? `${root}/${tab}` : root;
 };
 
 export const getDistroSettingsRoute = (
