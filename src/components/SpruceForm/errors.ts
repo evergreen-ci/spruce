@@ -51,6 +51,12 @@ export const transformErrors = (errors: AjvError[]) =>
           };
         case "format":
           switch (error.params.format) {
+            case "noSpecialCharacters":
+              return {
+                ...error,
+                message:
+                  "Value can only contain numbers, letters, periods and hyphens.",
+              };
             case "noSpaces":
               return {
                 ...error,
