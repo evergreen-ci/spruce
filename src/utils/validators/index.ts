@@ -138,7 +138,7 @@ const validateRegexp = (regexp: string): boolean => {
  * @returns - true if the string has no special characters and false otherwise
  */
 const validateNoSpecialCharacters = (str: string): boolean => {
-  const noSpecialCharacters = /^[0-9a-zA-Z-._]*$/;
+  const noSpecialCharacters = /^[0-9a-zA-Z-._~()]*$/;
   return noSpecialCharacters.test(str);
 };
 

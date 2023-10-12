@@ -12,13 +12,13 @@ import {
 describe("validateNoSpecialCharacters", () => {
   it("returns true if string has no special characters", () => {
     expect(validateNoSpecialCharacters("")).toBe(true);
-    expect(validateNoSpecialCharacters("hello_world")).toBe(true);
+    expect(validateNoSpecialCharacters("helloworld-_~)(")).toBe(true);
     expect(validateNoSpecialCharacters("hello-world123")).toBe(true);
     expect(validateNoSpecialCharacters("helloworld.123")).toBe(true);
+    expect(validateNoSpecialCharacters("hellowo~rld.123")).toBe(true);
     expect(validateNoSpecialCharacters("helloWorld123")).toBe(true);
 
     expect(validateNoSpecialCharacters(" ")).toBe(false);
-    expect(validateNoSpecialCharacters("s ")).toBe(false);
     expect(validateNoSpecialCharacters("he/lloworld")).toBe(false);
     expect(validateNoSpecialCharacters("hello%world")).toBe(false);
   });

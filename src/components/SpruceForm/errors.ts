@@ -55,7 +55,7 @@ export const transformErrors = (errors: AjvError[]) =>
               return {
                 ...error,
                 message:
-                  "Value can only contain numbers, letters, periods and hyphens.",
+                  "Value can only contain numbers, letters and these symbols: -._~().",
               };
             case "noSpaces":
               return {
