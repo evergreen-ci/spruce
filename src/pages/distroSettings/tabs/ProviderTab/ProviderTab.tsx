@@ -32,8 +32,8 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
   );
   const { awsRegions } = awsData || {};
 
-  const { containerPools } = useSpruceConfig();
-  const { pools } = containerPools || {};
+  const spruceConfig = useSpruceConfig();
+  const { pools } = spruceConfig?.containerPools || {};
 
   const selectedPoolId = formData?.dockerProviderSettings?.containerPoolId;
   const selectedPool = pools?.find((p) => p.id === selectedPoolId) ?? null;
