@@ -17,11 +17,7 @@ describe("Configure Patch Page", () => {
     });
     it("Patch name input field value is patch description", () => {
       cy.visit(`/version/${unactivatedPatchId}`);
-      cy.dataCy("patch-name-input")
-        .invoke("val")
-        .then((text) => {
-          expect(text).to.equal("test meee");
-        });
+      cy.dataCy("patch-name-input").should("have.value", "test meee");
     });
     it("First build variant in list is selected by default", () => {
       cy.visit(`/version/${unactivatedPatchId}`);
