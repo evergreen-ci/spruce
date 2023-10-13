@@ -82,6 +82,7 @@ export const getFormSchema = (
                   title: "Identifier",
                   default: "",
                   minLength: 1,
+                  format: "noSpecialCharacters",
                 },
               }),
               batchTime: {
