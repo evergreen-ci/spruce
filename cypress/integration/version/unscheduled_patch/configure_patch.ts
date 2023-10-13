@@ -197,7 +197,7 @@ describe("Configure Patch Page", () => {
       beforeEach(() => {
         cy.visit(`/version/${unactivatedPatchId}`);
       });
-      it.only("Updating the task filter input filters tasks in view", () => {
+      it("Updating the task filter input filters tasks in view", () => {
         cy.contains("Ubuntu 16.04").click();
         cy.dataCy("task-checkbox").should("have.length", 45);
         cy.dataCy("selected-task-disclaimer").contains(
