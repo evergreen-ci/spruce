@@ -227,6 +227,7 @@ export const getProjectSettingsRoute = (
   projectId: string,
   tab?: ProjectSettingsTabRoutes
 ) => {
+  // Encode projectId for backwards compatibilty
   const encodedProjectId = encodeURIComponent(projectId);
   const root = `${paths.project}/${encodedProjectId}/${PageNames.Settings}`;
   return tab ? `${root}/${tab}` : root;
