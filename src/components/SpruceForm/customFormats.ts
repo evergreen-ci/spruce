@@ -5,6 +5,7 @@ const {
   validateEmail,
   validateJira,
   validateJiraURL,
+  validateNoSpecialCharacters,
   validatePercentage,
   validateRegexp,
   validateSlack,
@@ -13,16 +14,16 @@ const {
 } = validators;
 
 export const customFormats = (jiraHost: string) => ({
+  noSpecialCharacters: validateNoSpecialCharacters,
   // Permit empty string but disallow whitespace
   noSpaces: /^$|^\S+$/,
-  // Permit url
-  validURL: validateURL,
-  validURLTemplate: validateURLTemplate,
   validDuration: validateDuration,
-  validPercentage: validatePercentage,
+  validEmail: validateEmail,
   validJiraTicket: validateJira,
   validJiraURL: (url: string) => validateJiraURL(jiraHost, url),
+  validPercentage: validatePercentage,
   validRegex: validateRegexp,
   validSlack: validateSlack,
-  validEmail: validateEmail,
+  validURL: validateURL,
+  validURLTemplate: validateURLTemplate,
 });
