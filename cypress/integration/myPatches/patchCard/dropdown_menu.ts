@@ -1,3 +1,5 @@
+import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
+
 const patchWithoutVersion = "test meee";
 const patchWithVersion = "main: EVG-7823 add a commit queue message (#4048)";
 const patchWithVersionOnCommitQueue =
@@ -100,8 +102,10 @@ describe("Dropdown Menu of Patch Actions", { testIsolation: false }, () => {
     });
     cy.dataCy("enqueue-patch").should("be.disabled");
   });
+
   it("Toggle patch visibility", () => {
     // "Include hidden" checkbox is not checked and patch is visible
+    cy.getCookie(INCLUDE_HIDDEN_PATCHES).should("not.exist");
     cy.getInputByLabel("Include hidden").should("not.be.checked");
     cy.location("search").should("not.contain", "hidden=true");
     getPatchCardByDescription("testtest")
@@ -116,6 +120,11 @@ describe("Dropdown Menu of Patch Actions", { testIsolation: false }, () => {
     cy.get("@targetPatchCard").should("not.exist");
     // Check "Include hidden" checkbox and unhide patch card
     cy.dataCy("include-hidden-checkbox").check({ force: true });
+    cy.getCookie(INCLUDE_HIDDEN_PATCHES).should(
+      "have.property",
+      "value",
+      "true"
+    );
     cy.location("search").should("contain", "hidden=true");
     cy.get("@targetPatchCard")
       .should("be.visible")
@@ -127,6 +136,11 @@ describe("Dropdown Menu of Patch Actions", { testIsolation: false }, () => {
     cy.get("@targetPatchCard").should("be.visible");
     // Uncheck "Include hidden" and verify patch card is visible
     cy.dataCy("include-hidden-checkbox").uncheck({ force: true });
+    cy.getCookie(INCLUDE_HIDDEN_PATCHES).should(
+      "have.property",
+      "value",
+      "false"
+    );
     cy.location("search").should("contain", "hidden=false");
     cy.get("@targetPatchCard").should("be.visible");
   });

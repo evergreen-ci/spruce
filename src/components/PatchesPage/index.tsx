@@ -12,6 +12,7 @@ import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
 import {
   INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES,
   INCLUDE_COMMIT_QUEUE_USER_PATCHES,
+  INCLUDE_HIDDEN_PATCHES,
 } from "constants/cookies";
 import { size } from "constants/tokens";
 import { PatchesPagePatchesFragment, PatchesInput } from "gql/generated/types";
@@ -63,7 +64,10 @@ export const PatchesPage: React.FC<Props> = ({
       Cookies.get(cookie) === "true"
     );
   const [includeHiddenCheckboxChecked, setIsIncludeHiddenCheckboxChecked] =
-    useQueryParam(PatchPageQueryParams.Hidden, false);
+    useQueryParam(
+      PatchPageQueryParams.Hidden,
+      Cookies.get(INCLUDE_HIDDEN_PATCHES) === "true"
+    );
   const { limit, page } = usePatchesInputFromSearch(search);
   const { inputValue, setAndSubmitInputValue } = useFilterInputChangeHandler({
     urlParam: PatchPageQueryParams.PatchName,
@@ -86,6 +90,7 @@ export const PatchesPage: React.FC<Props> = ({
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
     setIsIncludeHiddenCheckboxChecked(e.target.checked);
+    Cookies.set(INCLUDE_HIDDEN_PATCHES, e.target.checked ? "true" : "false");
     // eslint-disable-next-line no-unused-expressions
     analyticsObject.sendEvent({ name: "Filter Hidden" });
   };
