@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
+import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table/new";
 import { DisplayModal } from "components/DisplayModal";
 import { MetadataItem } from "components/MetadataCard";
 import { StyledLink } from "components/styles";
-import { size } from "constants/tokens";
+import { BaseTable } from "components/Table/BaseTable";
 import { Parameter } from "gql/generated/types";
 
 interface ParametersProps {
@@ -13,6 +13,15 @@ interface ParametersProps {
 
 export const ParametersModal: React.FC<ParametersProps> = ({ parameters }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
+
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+
+  const table = useLeafyGreenTable<Parameter>({
+    containerRef: tableContainerRef,
+    data: parameters,
+    columns,
+  });
+
   return (
     <>
       {parameters !== undefined && parameters.length > 0 && (
@@ -26,23 +35,32 @@ export const ParametersModal: React.FC<ParametersProps> = ({ parameters }) => {
         </MetadataItem>
       )}
       <DisplayModal
+        data-cy="parameters-modal"
         open={showModal}
         setOpen={setShowModal}
+        size="large"
         title="Patch Parameters"
-        data-cy="parameters-modal"
       >
-        {parameters?.map((param) => (
-          <StyledBadge key={`param_${param.key}`}>
-            {param.key}: {param.value}
-          </StyledBadge>
-        ))}
+        <OverflowContainer>
+          <BaseTable table={table} shouldAlternateRowColor />
+        </OverflowContainer>
       </DisplayModal>
     </>
   );
 };
 
-const StyledBadge = styled(Badge)`
-  :not(:last-of-type) {
-    margin-right: ${size.s};
-  }
+const OverflowContainer = styled.div`
+  max-height: 600px;
+  overflow-y: scroll;
 `;
+
+const columns: LGColumnDef<Parameter>[] = [
+  {
+    accessorKey: "key",
+    header: "Key",
+  },
+  {
+    accessorKey: "value",
+    header: "Value",
+  },
+];

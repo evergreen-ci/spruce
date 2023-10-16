@@ -82,7 +82,7 @@ export const routes = {
   commits: paths.commits,
   configurePatch: `${paths.patch}/:id/configure`,
   container: `${paths.container}/:id`,
-  distro: `${paths.distro}/:distroId/${PageNames.Settings}`,
+  distroSettings: `${paths.distro}/:distroId/${PageNames.Settings}`,
   host: `${paths.host}/:id`,
   hosts: paths.hosts,
   jobLogs: `${paths.jobLogs}/:buildId`,
@@ -227,11 +227,12 @@ export const getProjectSettingsRoute = (
   projectId: string,
   tab?: ProjectSettingsTabRoutes
 ) => {
-  if (!tab) {
-    return `${paths.project}/${projectId}/${PageNames.Settings}`;
-  }
-
-  return `${paths.project}/${projectId}/${PageNames.Settings}/${tab}`;
+  // Encode projectId for backwards compatibilty.
+  // Encoding can be removed when all projectIDs
+  // are URL friendly withou encoding
+  const encodedProjectId = encodeURIComponent(projectId);
+  const root = `${paths.project}/${encodedProjectId}/${PageNames.Settings}`;
+  return tab ? `${root}/${tab}` : root;
 };
 
 export const getDistroSettingsRoute = (
@@ -240,7 +241,7 @@ export const getDistroSettingsRoute = (
 ) =>
   tab
     ? `${paths.distro}/${distroId}/${PageNames.Settings}/${tab}`
-    : `${paths.distro}/${distroId}/${PageNames.Settings}`;
+    : `${paths.distro}/${distroId}/${PageNames.Settings}/${DistroSettingsTabRoutes.General}`;
 
 export const getCommitQueueRoute = (projectIdentifier: string) =>
   `${paths.commitQueue}/${encodeURIComponent(projectIdentifier)}`;

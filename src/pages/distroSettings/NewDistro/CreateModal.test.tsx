@@ -61,7 +61,7 @@ describe("create distro modal", () => {
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
     expect(router.state.location.pathname).toBe(
-      `/distro/${newDistroId}/settings`
+      `/distro/${newDistroId}/settings/general`
     );
   });
 

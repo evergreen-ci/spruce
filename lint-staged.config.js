@@ -5,7 +5,10 @@ module.exports = {
   "src/gql/**/*.{graphql,gql}": [
     "yarn eslint:staged",
     "yarn prettier --parser graphql",
-  ], // For GraphQL files, run eslint and prettier
-  "*.{ts,tsx}": () => "tsc -p tsconfig.json --noEmit", // For TypeScript files, run tsc
-  "*": () => "yarn check-schema-and-codegen",
+    "yarn check-schema-and-codegen",
+  ], // For GraphQL files, run eslint and prettier, and gql schema check
+  "*.{ts,tsx}": () => [
+    "tsc -p tsconfig.json --noEmit",
+    "yarn check-schema-and-codegen",
+  ], // For TypeScript files, run tsc, and gql schema check
 };

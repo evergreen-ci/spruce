@@ -11,6 +11,9 @@ describe("should initialize error handlers according to release stage", () => {
     jest.spyOn(Bugsnag, "start").mockImplementation(jest.fn());
     jest.spyOn(Bugsnag, "isStarted").mockImplementation(jest.fn(() => false));
     jest.spyOn(Sentry, "init").mockImplementation(jest.fn());
+    jest
+      .spyOn(Sentry, "Replay")
+      .mockImplementation(() => ({} as Sentry.Replay));
   });
 
   afterEach(() => {
@@ -48,6 +51,9 @@ describe("should initialize error handlers according to release stage", () => {
       debug: false,
       normalizeDepth: 5,
       environment: "production",
+      integrations: [{}],
+      replaysOnErrorSampleRate: 0.6,
+      replaysSessionSampleRate: 0,
     });
   });
 
@@ -71,6 +77,9 @@ describe("should initialize error handlers according to release stage", () => {
       debug: true,
       normalizeDepth: 5,
       environment: "beta",
+      integrations: [{}],
+      replaysOnErrorSampleRate: 1,
+      replaysSessionSampleRate: 0,
     });
   });
 
@@ -94,6 +103,9 @@ describe("should initialize error handlers according to release stage", () => {
       debug: true,
       normalizeDepth: 5,
       environment: "staging",
+      integrations: [{}],
+      replaysOnErrorSampleRate: 1,
+      replaysSessionSampleRate: 0,
     });
   });
 });
