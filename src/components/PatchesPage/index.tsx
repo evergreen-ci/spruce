@@ -62,7 +62,7 @@ export const PatchesPage: React.FC<Props> = ({
       PatchPageQueryParams.CommitQueue,
       Cookies.get(cookie) === "true"
     );
-  const [isHiddenOnlyCheckboxChecked, setIsHiddenOnlyCheckboxChecked] =
+  const [includeHiddenCheckboxChecked, setIsIncludeHiddenCheckboxChecked] =
     useQueryParam(PatchPageQueryParams.Hidden, false);
   const { limit, page } = usePatchesInputFromSearch(search);
   const { inputValue, setAndSubmitInputValue } = useFilterInputChangeHandler({
@@ -73,7 +73,7 @@ export const PatchesPage: React.FC<Props> = ({
   });
   usePageTitle(pageTitle);
 
-  const onCommitQueueCheckboxChange = (
+  const commitQueueCheckboxOnChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
     setIsCommitQueueCheckboxChecked(e.target.checked);
@@ -82,10 +82,10 @@ export const PatchesPage: React.FC<Props> = ({
     analyticsObject.sendEvent({ name: "Filter Commit Queue" });
   };
 
-  const onHiddenOnlyCheckboxChange = (
+  const includeHiddenCheckboxOnChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setIsHiddenOnlyCheckboxChecked(e.target.checked);
+    setIsIncludeHiddenCheckboxChecked(e.target.checked);
     // eslint-disable-next-line no-unused-expressions
     analyticsObject.sendEvent({ name: "Filter Hidden" });
   };
@@ -111,7 +111,7 @@ export const PatchesPage: React.FC<Props> = ({
         <CheckboxContainer>
           <Checkbox
             data-cy="commit-queue-checkbox"
-            onChange={onCommitQueueCheckboxChange}
+            onChange={commitQueueCheckboxOnChange}
             label={
               pageType === "project"
                 ? "Only Show Commit Queue Patches"
@@ -120,10 +120,10 @@ export const PatchesPage: React.FC<Props> = ({
             checked={isCommitQueueCheckboxChecked}
           />
           <StyledCheckbox
-            data-cy="hidden-only-checkbox"
-            onChange={onHiddenOnlyCheckboxChange}
-            label="Hidden only"
-            checked={isHiddenOnlyCheckboxChecked}
+            data-cy="include-hidden-checkbox"
+            onChange={includeHiddenCheckboxOnChange}
+            label="Include hidden"
+            checked={includeHiddenCheckboxChecked}
           />
         </CheckboxContainer>
       </FiltersWrapperSpaceBetween>
@@ -159,7 +159,7 @@ export const usePatchesInputFromSearch = (search: string): PatchesInput => {
   const statuses = rawStatuses.filter((v) => v && v !== ALL_PATCH_STATUS);
   return {
     limit: getLimitFromSearch(search),
-    onlyHidden: hidden,
+    includeHidden: hidden,
     page: getPageFromSearch(search),
     patchName: `${patchName}`,
     statuses,

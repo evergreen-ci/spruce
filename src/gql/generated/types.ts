@@ -1503,9 +1503,9 @@ export type Patches = {
  */
 export type PatchesInput = {
   includeCommitQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
+  includeHidden?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: Scalars["Int"]["input"];
   onlyCommitQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
-  onlyHidden?: InputMaybe<Scalars["Boolean"]["input"]>;
   page?: Scalars["Int"]["input"];
   patchName?: Scalars["String"]["input"];
   statuses?: Array<Scalars["String"]["input"]>;

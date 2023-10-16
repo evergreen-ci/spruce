@@ -101,31 +101,33 @@ describe("Dropdown Menu of Patch Actions", { testIsolation: false }, () => {
     cy.dataCy("enqueue-patch").should("be.disabled");
   });
   it("Toggle patch visibility", () => {
-    // Hide it
-    cy.location("search").should("not.contain", "hidden");
-    cy.dataCy("patch-card").should("exist");
-    cy.dataCy("patch-card").contains("testtest").should("be.visible");
-    getPatchCardByDescription("testtest").within(() => {
+    // "Include hidden" checkbox is not checked and patch is visible
+    cy.getInputByLabel("Include hidden").should("not.be.checked");
+    cy.location("search").should("not.contain", "hidden=true");
+    getPatchCardByDescription("testtest")
+      .as("targetPatchCard")
+      .should("be.visible");
+    // Hide patch card
+    cy.get("@targetPatchCard").within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.contains("Hide patch").should("be.visible").click();
     cy.validateToast("success", "Successfully updated patch visibility.");
-    cy.dataCy("patch-card").contains("testtest").should("not.exist");
-
-    // Unhide it
-    cy.dataCy("hidden-only-checkbox").check({ force: true });
+    cy.get("@targetPatchCard").should("not.exist");
+    // Check "Include hidden" checkbox and unhide patch card
+    cy.dataCy("include-hidden-checkbox").check({ force: true });
     cy.location("search").should("contain", "hidden=true");
-    cy.dataCy("patch-card").contains("testtest").should("be.visible");
-    getPatchCardByDescription("testtest").within(() => {
-      cy.dataCy("patch-card-dropdown").click();
-    });
+    cy.get("@targetPatchCard")
+      .should("be.visible")
+      .within(() => {
+        cy.dataCy("patch-card-dropdown").click();
+      });
     cy.contains("Unhide patch").should("be.visible").click();
     cy.validateToast("success", "Successfully updated patch visibility.");
-    cy.dataCy("patch-card").should("not.exist");
-
-    // Check that the patch moved
-    cy.dataCy("hidden-only-checkbox").uncheck({ force: true });
+    cy.get("@targetPatchCard").should("be.visible");
+    // Uncheck "Include hidden" and verify patch card is visible
+    cy.dataCy("include-hidden-checkbox").uncheck({ force: true });
     cy.location("search").should("contain", "hidden=false");
-    cy.dataCy("patch-card").contains("testtest").should("be.visible");
+    cy.get("@targetPatchCard").should("be.visible");
   });
 });
