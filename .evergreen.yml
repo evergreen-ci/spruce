@@ -104,7 +104,7 @@ functions:
       env:
         SETTINGS_OVERRIDE: file
         GOROOT: ${goroot}
-        MONGOTOOLS_URL: ${mongotools_url}
+        MONGOTOOLS_URL: ${mongotools_url_2204}
         MONGOTOOLS_DECOMPRESS: ${decompress}
 
   wait-for-evergreen:
