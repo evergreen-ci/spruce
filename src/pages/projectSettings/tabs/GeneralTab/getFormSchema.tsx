@@ -82,7 +82,10 @@ export const getFormSchema = (
                   title: "Identifier",
                   default: "",
                   minLength: 1,
-                  format: "noSpecialCharacters",
+                  // Don't invalidate form based on initial data
+                  format: identifierHasChanges
+                    ? "noSpecialCharacters"
+                    : "noSpaces",
                 },
               }),
               batchTime: {
