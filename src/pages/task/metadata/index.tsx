@@ -7,6 +7,7 @@ import { InlineCode } from "@leafygreen-ui/typography";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
+import ExpandedText from "components/ExpandedText";
 import {
   MetadataCard,
   MetadataItem,
@@ -15,11 +16,11 @@ import {
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { SEEN_HONEYCOMB_GUIDE_CUE } from "constants/cookies";
 import {
-  getDistroPageUrl,
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
 } from "constants/externalResources";
 import {
+  getDistroSettingsRoute,
   getTaskQueueRoute,
   getTaskRoute,
   getHostRoute,
@@ -28,7 +29,7 @@ import {
   getProjectPatchesRoute,
   getPodRoute,
 } from "constants/routes";
-import { size } from "constants/tokens";
+import { size, zIndex } from "constants/tokens";
 import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { TaskStatus } from "types/task";
@@ -207,10 +208,13 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           </InlineCode>
         </MetadataItem>
       )}
-      {details?.status === TaskStatus.Failed && (
-        <MetadataItem>
-          Failing command:{" "}
-          {processFailingCommand(details?.description, isContainerTask)}
+      {details?.description && (
+        <MetadataItem data-cy="task-metadata-description">
+          <DetailsDescription
+            description={details.description}
+            isContainerTask={isContainerTask}
+            status={details?.status}
+          />
         </MetadataItem>
       )}
       {details?.timeoutType && details?.timeoutType !== "" && (
@@ -234,15 +238,15 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
       {!isContainerTask && distroId && (
         <MetadataItem>
           Distro:{" "}
-          <StyledLink
+          <StyledRouterLink
             data-cy="task-distro-link"
-            href={getDistroPageUrl(distroId)}
             onClick={() =>
               taskAnalytics.sendEvent({ name: "Click Distro Link" })
             }
+            to={getDistroSettingsRoute(distroId)}
           >
             {distroId}
-          </StyledLink>
+          </StyledRouterLink>
         </MetadataItem>
       )}
       {ami && (
@@ -390,6 +394,47 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
         </MetadataItem>
       )}
     </MetadataCard>
+  );
+};
+
+const DetailsDescription = ({
+  description,
+  isContainerTask,
+  status,
+}: {
+  description: string;
+  isContainerTask: boolean;
+  status: string;
+}) => {
+  const MAX_CHAR = 100;
+
+  const fullText =
+    status === TaskStatus.Failed
+      ? `Failing command: ${processFailingCommand(
+          description,
+          isContainerTask
+        )}`
+      : `Command: ${description}`;
+  const shouldTruncate = fullText.length > MAX_CHAR;
+  const truncatedText = fullText.substring(0, MAX_CHAR).concat("...");
+
+  return (
+    <span>
+      {shouldTruncate ? (
+        <>
+          {truncatedText}{" "}
+          <ExpandedText
+            align="right"
+            justify="end"
+            popoverZIndex={zIndex.tooltip}
+            message={description}
+            data-cy="task-metadata-description-tooltip"
+          />
+        </>
+      ) : (
+        fullText
+      )}
+    </span>
   );
 };
 

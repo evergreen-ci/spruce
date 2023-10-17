@@ -132,16 +132,30 @@ const validateRegexp = (regexp: string): boolean => {
   }
 };
 
+const allowedSymbols = "-._~()";
+
+/**
+ * `validateNoSpecialCharacters` tests if a provided string contains no special characters
+ * @param str - The string to test.
+ * @returns - true if the string has no special characters and false otherwise
+ */
+const validateNoSpecialCharacters = (str: string): boolean => {
+  const noSpecialCharacters = new RegExp(`^[0-9a-zA-Z${allowedSymbols}]*$`);
+  return noSpecialCharacters.test(str);
+};
+
 export {
+  allowedSymbols,
   validateDuration,
   validateEmail,
   validateJira,
   validateJiraURL,
+  validateNoSpecialCharacters,
   validateObjectId,
   validatePercentage,
   validateRegexp,
-  validateSSHPublicKey,
   validateSlack,
+  validateSSHPublicKey,
   validateURL,
   validateURLTemplate,
 };

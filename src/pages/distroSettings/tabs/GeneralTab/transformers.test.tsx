@@ -20,13 +20,11 @@ const generalForm: GeneralFormState = {
   distroAliases: {
     aliases: ["rhel71-power8", "rhel71-power8-build"],
   },
-  distroNote: {
-    note: "distro note",
-  },
   distroOptions: {
     isCluster: false,
     disableShallowClone: true,
     disabled: false,
+    note: "distro note",
   },
 };
 
@@ -34,8 +32,8 @@ const generalGql: DistroInput = {
   ...distroData,
   name: "rhel71-power8-large",
   aliases: ["rhel71-power8", "rhel71-power8-build"],
-  note: "distro note",
   isCluster: false,
   disableShallowClone: true,
   disabled: false,
+  note: "distro note",
 };

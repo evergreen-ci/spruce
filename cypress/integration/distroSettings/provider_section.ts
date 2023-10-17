@@ -18,11 +18,11 @@ describe("provider section", () => {
         force: true,
       });
       cy.contains("button", "Add security group").click();
-      cy.getInputByLabel("Security Group ID").type("group-1234");
+      cy.getInputByLabel("Security Group ID").type("sg-1234");
       cy.contains("button", "Add host").click();
       cy.getInputByLabel("Name").type("host-1234");
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
 
       // Revert fields to original values.
       cy.getInputByLabel("User Data").clear();
@@ -32,7 +32,7 @@ describe("provider section", () => {
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("delete-item-button").first().click();
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
     });
   });
 
@@ -71,7 +71,7 @@ describe("provider section", () => {
         force: true,
       });
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
 
       // Revert fields to original values.
       cy.selectLGOption("Image Build Method", "Import");
@@ -83,7 +83,7 @@ describe("provider section", () => {
         force: true,
       });
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
     });
   });
 
@@ -127,7 +127,7 @@ describe("provider section", () => {
       cy.getInputByLabel("Device Name").type("device name");
       cy.getInputByLabel("Size").type("200");
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
 
       // Revert fields to original values.
       cy.selectLGOption("Region", "us-east-1");
@@ -138,7 +138,7 @@ describe("provider section", () => {
         cy.dataCy("delete-item-button").click();
       });
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
     });
 
     it("can add and delete region settings", () => {
@@ -153,14 +153,91 @@ describe("provider section", () => {
       cy.getInputByLabel("EC2 AMI ID").type("ami-1234");
       cy.getInputByLabel("Instance Type").type("m5.xlarge");
       cy.contains("button", "Add security group").click();
-      cy.getInputByLabel("Security Group ID").type("security-group-1234");
+      cy.getInputByLabel("Security Group ID").type("sg-5678");
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
 
       // Revert to original state by deleting the new region.
       cy.dataCy("delete-item-button").first().click();
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
+
+      cy.contains("button", "Add region settings").should("exist");
+    });
+  });
+
+  describe("ec2 on-demand", () => {
+    beforeEach(() => {
+      cy.visit("/distro/ubuntu1604-parent/settings/provider");
+    });
+
+    it("shows and hides fields correctly", () => {
+      // VPC options.
+      cy.dataCy("use-vpc").should("be.checked");
+      cy.contains("Default VPC Subnet ID").should("exist");
+      cy.contains("VPC Subnet Prefix").should("exist");
+
+      cy.dataCy("use-vpc").uncheck({ force: true });
+      cy.contains("Default VPC Subnet ID").should("not.exist");
+      cy.contains("VPC Subnet Prefix").should("not.exist");
+    });
+
+    it("successfully updates ec2 on-demand provider fields", () => {
+      cy.dataCy("provider-select").contains("EC2 On-Demand");
+
+      // Correct section is displayed.
+      cy.dataCy("ec2-on-demand-provider-settings").should("exist");
+      cy.dataCy("region-select").contains("us-east-1");
+
+      // Change field values.
+      cy.selectLGOption("Region", "us-west-1");
+      cy.getInputByLabel("EC2 AMI ID").as("amiInput");
+      cy.get("@amiInput").clear();
+      cy.get("@amiInput").type("ami-1234560");
+      cy.getInputByLabel("SSH Key Name").as("keyNameInput");
+      cy.get("@keyNameInput").clear();
+      cy.get("@keyNameInput").type("my ssh key");
+      cy.getInputByLabel("User Data").type("<powershell></powershell>");
+      cy.getInputByLabel("Merge with existing user data").check({
+        force: true,
+      });
+      save();
+      cy.validateToast("success", "Updated distro.");
+
+      // Revert fields to original values.
+      cy.selectLGOption("Region", "us-east-1");
+      cy.get("@amiInput").clear();
+      cy.get("@amiInput").type("ami-0000");
+      cy.get("@keyNameInput").clear();
+      cy.get("@keyNameInput").type("mci");
+      cy.getInputByLabel("User Data").clear();
+      cy.getInputByLabel("Merge with existing user data").uncheck({
+        force: true,
+      });
+      save();
+      cy.validateToast("success", "Updated distro.");
+    });
+
+    it("can add and delete region settings", () => {
+      cy.dataCy("ec2-on-demand-provider-settings").should("exist");
+
+      // Add item for new region.
+      cy.contains("button", "Add region settings").click();
+      cy.contains("button", "Add region settings").should("not.exist");
+
+      // Save new region.
+      cy.selectLGOption("Region", "us-west-1");
+      cy.getInputByLabel("EC2 AMI ID").type("ami-1234");
+      cy.getInputByLabel("Instance Type").type("m5.xlarge");
+      cy.contains("button", "Add security group").click();
+      cy.getInputByLabel("Security Group ID").type("sg-0000");
+      save();
+      cy.validateToast("success", "Updated distro.");
+
+      // Revert to original state by deleting the new region.
+      cy.dataCy("delete-item-button").first().click();
+      save();
+      cy.validateToast("success", "Updated distro.");
 
       cy.contains("button", "Add region settings").should("exist");
     });

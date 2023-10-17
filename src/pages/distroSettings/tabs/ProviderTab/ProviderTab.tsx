@@ -31,28 +31,39 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
     AWS_REGIONS
   );
   const { awsRegions } = awsData || {};
-  const configuredRegions = formData?.ec2FleetProviderSettings?.map(
-    (p) => p.region
-  );
 
-  const { containerPools } = useSpruceConfig();
-  const { pools } = containerPools || {};
+  const spruceConfig = useSpruceConfig();
+  const { pools } = spruceConfig?.containerPools || {};
 
   const selectedPoolId = formData?.dockerProviderSettings?.containerPoolId;
   const selectedPool = pools?.find((p) => p.id === selectedPoolId) ?? null;
   const poolMappingInfo = selectedPool
-    ? JSON.stringify(omitTypename(selectedPool), null, 4)
+    ? JSON.stringify(omitTypename(selectedPool), null, 2)
     : "";
+
+  const fleetRegionsInUse = formData?.ec2FleetProviderSettings?.map(
+    (p) => p.region
+  );
+  const onDemandRegionsInUse = formData?.ec2OnDemandProviderSettings?.map(
+    (p) => p.region
+  );
 
   const formSchema = useMemo(
     () =>
       getFormSchema({
         awsRegions: awsRegions || [],
-        configuredRegions: configuredRegions || [],
+        fleetRegionsInUse: fleetRegionsInUse || [],
+        onDemandRegionsInUse: onDemandRegionsInUse || [],
         pools: pools || [],
         poolMappingInfo,
       }),
-    [awsRegions, configuredRegions, pools, poolMappingInfo]
+    [
+      awsRegions,
+      fleetRegionsInUse,
+      onDemandRegionsInUse,
+      pools,
+      poolMappingInfo,
+    ]
   );
 
   return (

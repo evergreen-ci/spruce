@@ -145,6 +145,7 @@ export const icecreamSchedulerHost = {
     title: "Icecream Scheduler Host",
   },
   uiSchema: {
+    "ui:description": "Host name to connect to the icecream scheduler",
     "ui:elementWrapperCSS": indentCSS,
   },
 };
@@ -155,6 +156,7 @@ export const icecreamConfigPath = {
     title: "Icecream Config File Path",
   },
   uiSchema: {
+    "ui:description": "Path to the icecream config file",
     "ui:elementWrapperCSS": indentCSS,
   },
 };
@@ -285,7 +287,7 @@ const lockedMemoryKb = {
 const virtualMemoryKb = {
   schema: {
     type: "number" as "number",
-    title: "Virtual Memory (kB)",
+    title: "Virtual Memory",
     minimum: -1,
   },
   uiSchema: {
@@ -362,6 +364,12 @@ const preconditionScripts = {
       script: {
         "ui:description":
           "The precondition script that must run and succeed before Jasper can start.",
+        "ui:elementWrapperCSS": css`
+          textarea {
+            font-family: ${fontFamilies.code};
+          }
+        `,
+        "ui:rows": 8,
         "ui:widget": "textarea",
       },
     },
@@ -401,6 +409,8 @@ const authorizedKeysFile = {
   },
   uiSchema: (hasStaticProvider: boolean) => ({
     "ui:data-cy": "authorized-keys-input",
+    "ui:description": "Path to file containing authorized SSH keys",
+    "ui:placeholder": "~/.ssh/authorized_keys",
     ...(!hasStaticProvider && { "ui:widget": "hidden" }),
   }),
 };
@@ -448,9 +458,11 @@ const roundingRule = {
     title: "Host Allocator Rounding Rule",
     oneOf: enumSelect(roundingRuleToCopy),
   },
-  uiSchema: {
+  uiSchema: (hasStaticProvider: boolean) => ({
     "ui:allowDeselect": false,
-  },
+    "ui:data-cy": "rounding-rule-select",
+    ...(hasStaticProvider && { "ui:widget": "hidden" }),
+  }),
 };
 
 const feedbackRule = {
@@ -459,9 +471,11 @@ const feedbackRule = {
     title: "Host Allocator Feedback Rule",
     oneOf: enumSelect(feedbackRuleToCopy),
   },
-  uiSchema: {
+  uiSchema: (hasStaticProvider: boolean) => ({
     "ui:allowDeselect": false,
-  },
+    "ui:data-cy": "feedback-rule-select",
+    ...(hasStaticProvider && { "ui:widget": "hidden" }),
+  }),
 };
 
 const hostsOverallocatedRule = {
@@ -490,7 +504,7 @@ const minimumHosts = {
 const maximumHosts = {
   schema: {
     type: "number" as "number",
-    title: "Maxiumum Number of Hosts Allowed",
+    title: "Maximum Number of Hosts Allowed",
     minimum: 0,
   },
   uiSchema: (hasEC2Provider: boolean) => ({
@@ -502,7 +516,7 @@ const maximumHosts = {
 const acceptableHostIdleTime = {
   schema: {
     type: "number" as "number",
-    title: "Acceptable Host Idle Time (s)",
+    title: "Acceptable Host Idle Time (ms)",
     minimum: 0,
   },
   uiSchema: (hasEC2Provider: boolean) => ({
@@ -614,11 +628,11 @@ export const allocation = {
     acceptableHostIdleTime: acceptableHostIdleTime.schema,
     futureHostFraction: futureHostFraction.schema,
   },
-  uiSchema: (hasEC2Provider: boolean) => ({
+  uiSchema: (hasEC2Provider: boolean, hasStaticProvider: boolean) => ({
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     version: version.uiSchema,
-    roundingRule: roundingRule.uiSchema,
-    feedbackRule: feedbackRule.uiSchema,
+    roundingRule: roundingRule.uiSchema(hasStaticProvider),
+    feedbackRule: feedbackRule.uiSchema(hasStaticProvider),
     hostsOverallocatedRule: hostsOverallocatedRule.uiSchema,
     minimumHosts: minimumHosts.uiSchema(hasEC2Provider),
     maximumHosts: maximumHosts.uiSchema(hasEC2Provider),

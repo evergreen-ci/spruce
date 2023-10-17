@@ -557,6 +557,7 @@ export type File = {
   __typename?: "File";
   link: Scalars["String"]["output"];
   name: Scalars["String"]["output"];
+  urlParsley?: Maybe<Scalars["String"]["output"]>;
   visibility: Scalars["String"]["output"];
 };
 
@@ -648,7 +649,9 @@ export type GroupedBuildVariant = {
 
 export type GroupedFiles = {
   __typename?: "GroupedFiles";
+  execution: Scalars["Int"]["output"];
   files?: Maybe<Array<File>>;
+  taskId: Scalars["String"]["output"];
   taskName?: Maybe<Scalars["String"]["output"]>;
 };
 
@@ -2933,6 +2936,7 @@ export type Version = {
   finishTime?: Maybe<Scalars["Time"]["output"]>;
   gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"]["output"];
+  ignored: Scalars["Boolean"]["output"];
   isPatch: Scalars["Boolean"]["output"];
   manifest?: Maybe<Manifest>;
   message: Scalars["String"]["output"];
@@ -4861,6 +4865,7 @@ export type RestartTaskMutation = {
     __typename?: "Task";
     execution: number;
     latestExecution: number;
+    priority?: number | null;
     buildVariant: string;
     buildVariantDisplayName?: string | null;
     displayName: string;
@@ -6177,6 +6182,7 @@ export type MainlineCommitsQuery = {
         author: string;
         createTime: Date;
         id: string;
+        ignored: boolean;
         message: string;
         order: number;
         revision: string;
@@ -8468,7 +8474,11 @@ export type UserDistroSettingsPermissionsQuery = {
     permissions: {
       __typename?: "Permissions";
       canCreateDistro: boolean;
-      distroPermissions: { __typename?: "DistroPermissions"; admin: boolean };
+      distroPermissions: {
+        __typename?: "DistroPermissions";
+        admin: boolean;
+        edit: boolean;
+      };
     };
   };
 };
@@ -8730,6 +8740,7 @@ export type VersionQuery = {
     errors: Array<string>;
     finishTime?: Date | null;
     id: string;
+    ignored: boolean;
     isPatch: boolean;
     message: string;
     order: number;

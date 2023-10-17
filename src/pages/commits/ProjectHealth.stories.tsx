@@ -235,6 +235,7 @@ const versions: Commits = [
         order: 927,
         message: "v2.11.1",
         revision: "a77bd39ccf515b63327dc2355a8444955043c66a",
+        ignored: false,
       },
     ],
   },
