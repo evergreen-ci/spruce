@@ -10,7 +10,11 @@ import { RetryLink } from "@apollo/client/link/retry";
 import { routes } from "constants/routes";
 import { useAuthDispatchContext } from "context/auth";
 import { environmentVariables } from "utils";
-import { leaveBreadcrumb, reportError } from "utils/errorReporting";
+import {
+  leaveBreadcrumb,
+  reportError,
+  SentryBreadcrumb,
+} from "utils/errorReporting";
 
 const { getGQLUrl } = environmentVariables;
 
@@ -128,7 +132,11 @@ const authLink = (logout: () => void): ApolloLink =>
       networkError.statusCode === 401 &&
       window.location.pathname !== routes.login
     ) {
-      leaveBreadcrumb("Not Authenticated", { statusCode: 401 }, "user");
+      leaveBreadcrumb(
+        "Not Authenticated",
+        { status_code: 401 },
+        SentryBreadcrumb.User
+      );
       logout();
     }
   });
@@ -164,7 +172,7 @@ const authenticateIfSuccessfulLink = (
           status: !response.errors ? "OK" : "ERROR",
           errors: response.errors,
         },
-        "request"
+        SentryBreadcrumb.HTTP
       );
       return response;
     })
