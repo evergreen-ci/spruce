@@ -74,14 +74,14 @@ const CommitChartLabel: React.FC<Props> = ({
           Triggered from:{" "}
           <StyledRouterLink
             onClick={onClickUpstreamProject}
-            to={getTriggerRoute(
+            to={getTriggerRoute({
               triggerType,
               upstreamTask,
               upstreamVersion,
               upstreamRevision,
               upstreamOwner,
-              upstreamRepo
-            )}
+              upstreamRepo,
+            })}
           >
             {upstreamProjectIdentifier}
           </StyledRouterLink>

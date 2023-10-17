@@ -156,14 +156,14 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
         <>
           Triggered from:{" "}
           <StyledRouterLink
-            to={getTriggerRoute(
-              v.upstreamProject.triggerType,
-              v.upstreamProject.task,
-              v.upstreamProject.version,
-              v.upstreamProject.revision,
-              v.upstreamProject.owner,
-              v.upstreamProject.repo
-            )}
+            to={getTriggerRoute({
+              upstreamOwner: v.upstreamProject.owner,
+              upstreamRepo: v.upstreamProject.repo,
+              triggerType: v.upstreamProject.triggerType,
+              upstreamRevision: v.upstreamProject.revision,
+              upstreamTask: v.upstreamProject.task,
+              upstreamVersion: v.upstreamProject.version,
+            })}
           >
             {v.upstreamProject.project}
           </StyledRouterLink>

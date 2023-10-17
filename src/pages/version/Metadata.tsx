@@ -171,14 +171,14 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
         <MetadataItem>
           Triggered from:{" "}
           <StyledRouterLink
-            to={getTriggerRoute(
+            to={getTriggerRoute({
               triggerType,
               upstreamTask,
               upstreamVersion,
               upstreamRevision,
               upstreamOwner,
-              upstreamRepo
-            )}
+              upstreamRepo,
+            })}
           >
             {upstreamProjectIdentifier}
           </StyledRouterLink>
