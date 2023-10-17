@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Badge from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import { Analytics } from "analytics/addPageAction";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
@@ -129,6 +130,7 @@ export const PatchCard: React.FC<Props> = ({
         <TaskBadgeContainer>{badges}</TaskBadgeContainer>
       </Center>
       <Right>
+        {hidden && <Badge data-cy="hidden-badge">Hidden</Badge>}
         <DropdownMenu
           patchId={id}
           canEnqueueToCommitQueue={canEnqueueToCommitQueue}
@@ -169,8 +171,12 @@ const Left = styled(Center)`
 `;
 
 const Right = styled.div`
+  width: 110px;
   display: flex;
   justify-content: flex-end;
+  > button {
+    margin-left: ${size.xs};
+  }
 `;
 
 const DescriptionLink = styled(StyledRouterLink)`

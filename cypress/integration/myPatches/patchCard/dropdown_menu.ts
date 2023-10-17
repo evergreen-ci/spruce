@@ -113,6 +113,7 @@ describe("Dropdown Menu of Patch Actions", { testIsolation: false }, () => {
       .should("be.visible");
     // Hide patch card
     cy.get("@targetPatchCard").within(() => {
+      cy.dataCy("hidden-badge").should("not.exist");
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.contains("Hide patch").should("be.visible").click();
@@ -129,11 +130,16 @@ describe("Dropdown Menu of Patch Actions", { testIsolation: false }, () => {
     cy.get("@targetPatchCard")
       .should("be.visible")
       .within(() => {
+        cy.dataCy("hidden-badge").should("be.visible");
         cy.dataCy("patch-card-dropdown").click();
       });
     cy.contains("Unhide patch").should("be.visible").click();
     cy.validateToast("success", "Successfully updated patch visibility.");
-    cy.get("@targetPatchCard").should("be.visible");
+    cy.get("@targetPatchCard")
+      .should("be.visible")
+      .within(() => {
+        cy.dataCy("hidden-badge").should("not.exist");
+      });
     // Uncheck "Include hidden" and verify patch card is visible
     cy.dataCy("include-hidden-checkbox").uncheck({ force: true });
     cy.getCookie(INCLUDE_HIDDEN_PATCHES).should(
