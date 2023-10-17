@@ -3,6 +3,7 @@ import {
   ErrorBoundary as SentryErrorBoundary,
   getCurrentHub,
   init,
+  Replay,
   withScope,
 } from "@sentry/react";
 import type { Scope, SeverityLevel } from "@sentry/react";
@@ -13,12 +14,22 @@ const { getReleaseStage, getSentryDSN, isProduction } = environmentVariables;
 
 const initializeSentry = () => {
   const releaseStage = getReleaseStage() || "development";
+  const productionEnv = isProduction();
   try {
     init({
       dsn: getSentryDSN(),
-      debug: !isProduction(),
+      debug: !productionEnv,
       normalizeDepth: 5,
       environment: releaseStage,
+      replaysSessionSampleRate: 0,
+      replaysOnErrorSampleRate: productionEnv ? 0.6 : 1.0,
+      integrations: [
+        new Replay({
+          blockAllMedia: productionEnv,
+          maskAllInputs: productionEnv,
+          maskAllText: productionEnv,
+        }),
+      ],
     });
   } catch (e) {
     console.error("Failed to initialize Sentry", e);

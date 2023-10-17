@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.155",
+  "version": "3.0.158",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -80,7 +80,7 @@
     "@leafygreen-ui/loading-indicator": "2.0.6",
     "@leafygreen-ui/menu": "20.0.1",
     "@leafygreen-ui/modal": "16.0.1",
-    "@leafygreen-ui/number-input": "1.0.4",
+    "@leafygreen-ui/number-input": "1.0.17",
     "@leafygreen-ui/pagination": "1.0.12",
     "@leafygreen-ui/palette": "4.0.7",
     "@leafygreen-ui/popover": "11.0.17",
@@ -162,7 +162,7 @@
     "@types/new-relic-browser": "0.1212.2",
     "@types/node": "^16.11.47",
     "@types/pluralize": "0.0.29",
-    "@types/prompts": "2.4.5",
+    "@types/prompts": "2.4.6",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.0",
     "@typescript-eslint/eslint-plugin": "5.57.1",
