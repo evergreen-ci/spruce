@@ -17,15 +17,14 @@ const evergreenDeploy = async () => {
     // If there are no commit messages, ask the user if they want to delete and re-push the latest tag, thereby forcing a deploy with no new commits.
     if (commitMessages.length === 0) {
       const latestTag = getLatestTag();
-      const response = await prompts({
+      const { value: shouldForceDeploy } = await prompts({
         type: "confirm",
         name: "value",
         message: `No new commits. Do you want to trigger a deploy on the most recent existing tag? (${latestTag})`,
         initial: false,
       });
 
-      const forceDeploy = response.value;
-      if (forceDeploy) {
+      if (shouldForceDeploy) {
         deleteTag(latestTag);
         pushTags();
         console.log("Check Evergreen for deploy progress.");
@@ -41,13 +40,13 @@ const evergreenDeploy = async () => {
     // Print all commits between the last tag and the current commit
     console.log(`Commit messages:\n${commitMessages}`);
 
-    const response = await prompts({
+    const { value: shouldCreateAndPushTag } = await prompts({
       type: "confirm",
       name: "value",
       message: "Are you sure you want to deploy to production?",
     });
 
-    if (response.value) {
+    if (shouldCreateAndPushTag) {
       if (createNewTag()) {
         console.log("Pushed to remote. Should be deploying soon...");
         console.log(
@@ -71,21 +70,20 @@ const evergreenDeploy = async () => {
 
 /* Deploy by generating a production build locally and pushing it directly to S3. */
 const localDeploy = async () => {
-  const response = await prompts({
-    type: "confirm",
-    name: "value",
-    message:
-      "Are you sure you'd like to build Spruce locally and push directly to S3? This is a high-risk operation that requires a correctly configured local environment.",
-  });
-
-  if (response.value) {
-    try {
+  try {
+    const response = await prompts({
+      type: "confirm",
+      name: "value",
+      message:
+        "Are you sure you'd like to build Spruce locally and push directly to S3? This is a high-risk operation that requires a correctly configured local environment.",
+    });
+    if (response.value) {
       runDeploy();
-    } catch (err) {
-      console.error(err);
-      console.error("Local deploy failed. Aborting.");
-      process.exit(1);
     }
+  } catch (err) {
+    console.error(err);
+    console.error("Local deploy failed. Aborting.");
+    process.exit(1);
   }
 };
 
@@ -93,12 +91,11 @@ const localDeploy = async () => {
  * `ciDeploy` is a special deploy function that is only run on CI. It does the actual deploy to S3.
  */
 const ciDeploy = async () => {
-  if (!isRunningOnCI()) {
-    throw new Error("Not running on CI");
-  }
   try {
-    const ciDeployOutput = runDeploy();
-    console.log(ciDeployOutput);
+    if (!isRunningOnCI()) {
+      throw new Error("Not running on CI");
+    }
+    runDeploy();
   } catch (err) {
     console.error(err);
     console.error("CI deploy failed. Aborting.");

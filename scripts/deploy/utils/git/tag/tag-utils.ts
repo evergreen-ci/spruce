@@ -36,6 +36,7 @@ const getLatestTag = () => {
 /**
  * `deleteTag` is a helper function that deletes a tag.
  * @param tag - the tag to delete
+ * @returns true if deleting tags is successful adn false otherwise
  */
 const deleteTag = (tag: string) => {
   console.log(`Deleting tag (${tag}) from remote...`);
@@ -47,6 +48,7 @@ const deleteTag = (tag: string) => {
     console.log("output", err);
     return false;
   }
+  return true;
 };
 
 /**
