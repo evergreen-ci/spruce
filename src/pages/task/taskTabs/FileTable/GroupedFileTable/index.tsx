@@ -29,7 +29,7 @@ const columns = (
           taskAnalytics.sendEvent({
             name: "Click Task File Link",
             parsleyAvailable: false,
-            fileName: value.getValue(),
+            fileName: value.getValue() as GroupedFilesFile["name"],
           });
         }}
       >
