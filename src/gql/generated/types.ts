@@ -8122,6 +8122,7 @@ export type TaskFilesQuery = {
           __typename?: "File";
           link: string;
           name: string;
+          urlParsley?: string | null;
         }> | null;
       }>;
     };

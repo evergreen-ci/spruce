@@ -1,6 +1,8 @@
 import { useRef } from "react";
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table/new";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { StyledLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
@@ -14,16 +16,36 @@ const columns: LGColumnDef<GroupedFilesFile>[] = [
   {
     accessorKey: "name",
     header: "Name",
-    size: 60,
+    size: 100,
     enableSorting: true,
     cell: (value) => (
-      <StyledLink
-        href={value.row.original.link}
-        data-cy="file-link"
-        target="_blank"
-      >
-        {value.getValue()}
-      </StyledLink>
+      <CellContainer>
+        <StyledLink
+          href={value.row.original.link}
+          data-cy="file-link"
+          target="_blank"
+        >
+          {value.getValue()}
+        </StyledLink>
+        <Tooltip
+          trigger={
+            <Button
+              href={value.row.original.urlParsley}
+              data-cy="parsley-link"
+              target="_blank"
+              disabled={value.row.original.urlParsley === null}
+              size="small"
+            >
+              Parsley
+            </Button>
+          }
+          enabled={value.row.original.urlParsley === null}
+          align="top"
+          justify="middle"
+        >
+          Only plain text files can be opened in Parsley.
+        </Tooltip>
+      </CellContainer>
     ),
   },
 ];
@@ -54,5 +76,12 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
 
 const Container = styled.div`
   margin-bottom: ${size.m};
+`;
+
+const CellContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 `;
 export default GroupedFileTable;
