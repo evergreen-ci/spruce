@@ -8976,6 +8976,14 @@ eslint-module-utils@^2.7.3:
   dependencies:
     debug "^3.2.7"
 
+eslint-plugin-check-file@2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-check-file/-/eslint-plugin-check-file-2.6.2.tgz#2e60d567ce7d087727d19c7e7b5b9def1e5b693e"
+  integrity sha512-z3Rur4JjOdNH0fia1IH7JQseo9NLuFVtw9j8P6z2c5XmXWemH7/qGpmMB8XbOt9bJBNpmPlNAGJty9b3EervPw==
+  dependencies:
+    is-glob "^4.0.3"
+    micromatch "^4.0.5"
+
 eslint-plugin-cypress@^2.12.1:
   version "2.14.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-cypress/-/eslint-plugin-cypress-2.14.0.tgz#c65e1f592680dd25bbd00c86194ee85fecf59bd7"
