@@ -63,7 +63,12 @@ type Action =
   | { name: "Click See History Button" }
   | { name: "Click Trace Link" }
   | { name: "Click Trace Metrics Link" }
-  | { name: "Submit Previous Commit Selector"; type: CommitType };
+  | { name: "Submit Previous Commit Selector"; type: CommitType }
+  | {
+      name: "Click Task File Link";
+      parsleyAvailable: boolean;
+      fileName: string;
+    };
 
 export const useTaskAnalytics = () => {
   const { id } = useParams<{ id: string }>();
