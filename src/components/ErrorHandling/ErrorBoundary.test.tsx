@@ -1,4 +1,3 @@
-import Bugsnag from "@bugsnag/js";
 import * as Sentry from "@sentry/react";
 import { render, screen } from "test_utils";
 import { mockEnvironmentVariables } from "test_utils/utils";
@@ -9,13 +8,14 @@ const { cleanup } = mockEnvironmentVariables();
 describe("default error boundary", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
-    jest.spyOn(Bugsnag, "notify");
     jest.spyOn(Sentry, "captureException");
   });
+
   afterEach(() => {
     cleanup();
     jest.restoreAllMocks();
   });
+
   it("should render the passed in component", () => {
     const TestComponent = () => <div>Hello</div>;
     const TestErrorBoundary = () => (
@@ -26,6 +26,7 @@ describe("default error boundary", () => {
     render(<TestErrorBoundary />);
     expect(screen.getByText("Hello")).toBeInTheDocument();
   });
+
   it("should display the fallback when an error occurs", () => {
     const err = new Error("Test error");
 
@@ -45,7 +46,6 @@ describe("default error boundary", () => {
         componentStack: expect.any(String),
       }),
     });
-    expect(Bugsnag.notify).not.toHaveBeenCalled();
     expect(Sentry.captureException).not.toHaveBeenCalled();
   });
 });

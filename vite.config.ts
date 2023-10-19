@@ -47,6 +47,7 @@ export default defineConfig({
           injectVariablesInHTML({
             files: "build/index.html",
             variables: [
+              "%APP_VERSION%",
               "%GIT_SHA%",
               "%REACT_APP_RELEASE_STAGE%",
               "%REACT_APP_NEW_RELIC_ACCOUNT_ID%",
