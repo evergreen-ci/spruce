@@ -9,7 +9,7 @@
     "build:local": "env-cmd -e local -r .env-cmdrc.local.json yarn build",
     "build:prod": "env-cmd -e production yarn build",
     "build:staging": "env-cmd -e staging yarn build",
-    "build": "GIT_SHA=`git rev-parse HEAD` vite build",
+    "build": "GIT_SHA=`git rev-parse HEAD` APP_VERSION=$npm_package_version vite build",
     "check-types": "tsc -p tsconfig.json --noEmit",
     "clean": "rm -rf node_modules && rm -rf build && yarn install",
     "codegen": "graphql-codegen --config codegen.ts",
