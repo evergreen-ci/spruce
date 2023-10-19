@@ -13,13 +13,13 @@ jest.mock("./utils/environment");
 
 describe("deploy-production", () => {
   let consoleLogMock;
-  let consoleExitMock;
-  let errorMock;
+  let processExitMock;
+  let consoleErrorMock;
 
   beforeEach(() => {
     consoleLogMock = jest.spyOn(console, "log").mockImplementation();
-    errorMock = jest.spyOn(console, "error").mockImplementation();
-    consoleExitMock = jest
+    consoleErrorMock = jest.spyOn(console, "error").mockImplementation();
+    processExitMock = jest
       .spyOn(process, "exit")
       .mockImplementation(() => undefined as never);
   });
@@ -64,10 +64,18 @@ describe("deploy-production", () => {
     });
 
     it("return exit code 1 if an error is thrown", async () => {
-      (getCommitMessages as jest.Mock).mockReturnValue(new Error("error mock"));
-      await evergreenDeploy();
+      const e = new Error("error in get commit messages", { cause: "yup" });
+      (getCommitMessages as jest.Mock).mockReturnValue(
+        "getCommitMessages result"
+      );
+      (prompts as unknown as jest.Mock).mockResolvedValue({ value: true });
+      (tagUtils.createTagAndPush as jest.Mock).mockImplementation(() => {
+        throw e;
+      });
+      expect(await evergreenDeploy());
+      expect(consoleErrorMock).toHaveBeenCalledWith(e);
       expect(consoleLogMock).toHaveBeenCalledWith("Deploy failed.");
-      expect(consoleExitMock).toHaveBeenCalledWith(1);
+      expect(processExitMock).toHaveBeenCalledWith(1);
     });
   });
 
@@ -90,9 +98,11 @@ describe("deploy-production", () => {
         throw new Error("error mock");
       });
       await localDeploy();
-      expect(errorMock).toHaveBeenCalledWith(new Error("error mock"));
-      expect(errorMock).toHaveBeenCalledWith("Local deploy failed. Aborting.");
-      expect(consoleExitMock).toHaveBeenCalledWith(1);
+      expect(consoleErrorMock).toHaveBeenCalledWith(new Error("error mock"));
+      expect(consoleErrorMock).toHaveBeenCalledWith(
+        "Local deploy failed. Aborting."
+      );
+      expect(processExitMock).toHaveBeenCalledWith(1);
     });
   });
 
@@ -100,9 +110,13 @@ describe("deploy-production", () => {
     it("returns exit code 1 when not running in CI", async () => {
       (isRunningOnCI as jest.Mock).mockReturnValue(false);
       await ciDeploy();
-      expect(errorMock).toHaveBeenCalledWith(new Error("Not running on CI"));
-      expect(errorMock).toHaveBeenCalledWith("CI deploy failed. Aborting.");
-      expect(consoleExitMock).toHaveBeenCalledWith(1);
+      expect(consoleErrorMock).toHaveBeenCalledWith(
+        new Error("Not running on CI")
+      );
+      expect(consoleErrorMock).toHaveBeenCalledWith(
+        "CI deploy failed. Aborting."
+      );
+      expect(processExitMock).toHaveBeenCalledWith(1);
     });
 
     it("should run deploy when running on CI", async () => {

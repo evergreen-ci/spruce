@@ -38,7 +38,7 @@ const getLatestTag = () => {
       .toString()
       .trim();
     return latestTag;
-  } catch (e) {
+  } catch (err) {
     throw new Error("Getting latest tag failed.", { cause: err });
   }
 };
