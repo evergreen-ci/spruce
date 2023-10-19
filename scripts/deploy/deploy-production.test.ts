@@ -64,7 +64,7 @@ describe("deploy-production", () => {
     });
 
     it("return exit code 1 if an error is thrown", async () => {
-      const e = new Error("error in get commit messages", { cause: "yup" });
+      const e = new Error("test error", { cause: "cause of test error" });
       (getCommitMessages as jest.Mock).mockReturnValue(
         "getCommitMessages result"
       );
