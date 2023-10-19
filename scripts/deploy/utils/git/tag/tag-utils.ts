@@ -1,11 +1,12 @@
 import { execSync } from "child_process";
 import { githubRemote } from "./constants";
+import { green, underline } from "../../../../utils/colors";
 
 /**
- * `createNewTag` is a helper function that creates a new tag.
- * @returns true if tag creation is successful and false otherwise.
+ * `createTagAndPush` is a helper function that creates a new tag.
+ * Pushing occurs in the postversion hook triggered by "yarn version"
  */
-const createNewTag = () => {
+const createTagAndPush = () => {
   console.log("Creating new tag...");
   try {
     execSync("yarn version --new-version patch", {
@@ -13,11 +14,16 @@ const createNewTag = () => {
       stdio: "inherit",
     });
   } catch (err) {
-    console.log("Creating new tag failed.");
-    console.log("output", err);
-    return false;
+    throw new Error("Creating new tag failed.", { cause: err });
   }
-  return true;
+  console.log("Pushed to remote. Should be deploying soon...");
+  console.log(
+    green(
+      `Track deploy progress at ${underline(
+        "https://spruce.mongodb.com/commits/spruce?requester=git_tag_request"
+      )}`
+    )
+  );
 };
 
 /**
@@ -25,18 +31,21 @@ const createNewTag = () => {
  * @returns - the latest tag
  */
 const getLatestTag = () => {
-  const latestTag = execSync("git describe --tags --abbrev=0", {
-    encoding: "utf-8",
-  })
-    .toString()
-    .trim();
-  return latestTag;
+  try {
+    const latestTag = execSync("git describe --tags --abbrev=0", {
+      encoding: "utf-8",
+    })
+      .toString()
+      .trim();
+    return latestTag;
+  } catch (e) {
+    throw new Error("Getting latest tag failed.", { cause: err });
+  }
 };
 
 /**
  * `deleteTag` is a helper function that deletes a tag.
  * @param tag - the tag to delete
- * @returns true if deleting tags is successful adn false otherwise
  */
 const deleteTag = (tag: string) => {
   console.log(`Deleting tag (${tag}) from remote...`);
@@ -44,16 +53,12 @@ const deleteTag = (tag: string) => {
   try {
     execSync(deleteCommand, { stdio: "inherit", encoding: "utf-8" });
   } catch (err) {
-    console.log("Deleting tag failed.");
-    console.log("output", err);
-    return false;
+    throw new Error("Deleting tag failed.", { cause: err });
   }
-  return true;
 };
 
 /**
  * `pushTags` is a helper function that pushes tags to the remote.
- * @returns true if pushing tags is successful and false otherwise.
  */
 const pushTags = () => {
   console.log("Pushing tags...");
@@ -63,11 +68,8 @@ const pushTags = () => {
       encoding: "utf-8",
     });
   } catch (err) {
-    console.log("Pushing tags failed.");
-    console.log("output", err);
-    return false;
+    throw new Error("Pushing tags failed.", { cause: err });
   }
-  return true;
 };
 
-export { createNewTag, getLatestTag, deleteTag, pushTags };
+export { createTagAndPush, getLatestTag, deleteTag, pushTags };

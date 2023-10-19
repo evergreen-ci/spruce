@@ -58,9 +58,9 @@ describe("deploy-production", () => {
         "getCommitMessages result"
       );
       (prompts as unknown as jest.Mock).mockResolvedValue({ value: true });
-      (tagUtils.createNewTag as jest.Mock).mockResolvedValue(true);
+      (tagUtils.createTagAndPush as jest.Mock).mockResolvedValue(true);
       await evergreenDeploy();
-      expect(consoleLogMock).toHaveBeenCalledTimes(4);
+      expect(consoleLogMock).toHaveBeenCalledTimes(2);
     });
 
     it("return exit code 1 if an error is thrown", async () => {

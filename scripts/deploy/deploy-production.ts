@@ -1,11 +1,10 @@
 import prompts from "prompts";
 import { tagUtils } from "./utils/git/tag";
-import { green, underline } from "../utils/colors";
 import { isRunningOnCI } from "./utils/environment";
 import { getCommitMessages, getCurrentlyDeployedCommit } from "./utils/git";
 import { runDeploy } from "./utils/deploy";
 
-const { createNewTag, deleteTag, getLatestTag, pushTags } = tagUtils;
+const { createTagAndPush, deleteTag, getLatestTag, pushTags } = tagUtils;
 /* Deploy by pushing a git tag, to be picked up and built by Evergreen, and deployed to S3. */
 const evergreenDeploy = async () => {
   try {
@@ -28,12 +27,11 @@ const evergreenDeploy = async () => {
         deleteTag(latestTag);
         pushTags();
         console.log("Check Evergreen for deploy progress.");
-        return;
+      } else {
+        console.log(
+          "Deploy canceled. If systems are experiencing an outage and you'd like to push the deploy directly to S3, run yarn deploy:prod --local."
+        );
       }
-
-      console.log(
-        "Deploy canceled. If systems are experiencing an outage and you'd like to push the deploy directly to S3, run yarn deploy:prod --local."
-      );
       return;
     }
 
@@ -47,19 +45,7 @@ const evergreenDeploy = async () => {
     });
 
     if (shouldCreateAndPushTag) {
-      if (createNewTag()) {
-        console.log("Pushed to remote. Should be deploying soon...");
-        console.log(
-          green(
-            `Track deploy progress at ${underline(
-              "https://spruce.mongodb.com/commits/spruce?requester=git_tag_request"
-            )}`
-          )
-        );
-      } else {
-        console.log("Deploy failed.");
-        process.exit(1);
-      }
+      createTagAndPush();
     }
   } catch (err) {
     console.error(err);
