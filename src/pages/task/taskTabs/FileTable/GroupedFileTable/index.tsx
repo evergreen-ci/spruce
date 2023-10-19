@@ -1,9 +1,10 @@
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table/new";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Subtitle } from "@leafygreen-ui/typography";
+import { useTaskAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { size } from "constants/tokens";
@@ -12,7 +13,9 @@ import { GroupedFiles } from "../types";
 
 type GroupedFilesFile = Unpacked<GroupedFiles["files"]>;
 
-const columns: LGColumnDef<GroupedFilesFile>[] = [
+const columns = (
+  taskAnalytics: ReturnType<typeof useTaskAnalytics>
+): LGColumnDef<GroupedFilesFile>[] => [
   {
     accessorKey: "name",
     header: "Name",
@@ -59,11 +62,16 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
   taskName,
 }) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
+  const taskAnalytics = useTaskAnalytics();
 
+  const memoizedColumns = useMemo(
+    () => columns(taskAnalytics),
+    [taskAnalytics]
+  );
   const table = useLeafyGreenTable<GroupedFilesFile>({
     containerRef: tableContainerRef,
     data: files,
-    columns,
+    columns: memoizedColumns,
   });
 
   return (
