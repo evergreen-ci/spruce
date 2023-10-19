@@ -11,7 +11,6 @@ import { GroupedFiles } from "../types";
 
 type GroupedFilesFile = Unpacked<GroupedFiles["files"]>;
 
-// taskAnalytics is the return value of useTaskAnalytics
 const columns = (
   taskAnalytics: ReturnType<typeof useTaskAnalytics>
 ): LGColumnDef<GroupedFilesFile>[] => [
