@@ -64,6 +64,10 @@ type Action =
       parsleyAvailable: boolean;
       fileName: string;
     }
+  | {
+      name: "Click Task File Parsley Link";
+      fileName: string;
+    }
   | { name: "Click Trace Link" }
   | { name: "Click Trace Metrics Link" }
   | { name: "Submit Previous Commit Selector"; type: CommitType };

@@ -27,6 +27,13 @@ const columns = (
           href={value.row.original.link}
           data-cy="file-link"
           target="_blank"
+          onClick={() => {
+            taskAnalytics.sendEvent({
+              name: "Click Task File Link",
+              parsleyAvailable: value.row.original.urlParsley !== null,
+              fileName: value.getValue() as GroupedFilesFile["name"],
+            });
+          }}
         >
           {value.getValue()}
         </StyledLink>
@@ -38,6 +45,12 @@ const columns = (
               target="_blank"
               disabled={value.row.original.urlParsley === null}
               size="small"
+              onClick={() => {
+                taskAnalytics.sendEvent({
+                  name: "Click Task File Parsley Link",
+                  fileName: value.getValue() as GroupedFilesFile["name"],
+                });
+              }}
             >
               Parsley
             </Button>
