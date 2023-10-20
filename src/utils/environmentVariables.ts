@@ -6,13 +6,6 @@ export const getApiUrl: () => string = () =>
   process.env.REACT_APP_API_URL || "";
 
 /**
- * `getBugsnagApiKey()` - Get the BUGSNAG API KEY from the environment variables
- * @returns - The API KEY
- */
-export const getBugsnagApiKey: () => string = () =>
-  process.env.REACT_APP_BUGSNAG_API_KEY;
-
-/**
  * `getSentryDSN()` - Get the Sentry Data Source Name (SENTRY_DSN) from the environment variables
  * @returns - The application's DSN
  */
