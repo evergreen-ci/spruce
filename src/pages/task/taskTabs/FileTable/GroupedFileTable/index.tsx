@@ -21,48 +21,51 @@ const columns = (
     header: "Name",
     size: 100,
     enableSorting: true,
-    cell: (value) => (
-      <CellContainer>
-        <StyledLink
-          href={value.row.original.link}
-          data-cy="file-link"
-          target="_blank"
-          onClick={() => {
-            taskAnalytics.sendEvent({
-              name: "Click Task File Link",
-              parsleyAvailable: value.row.original.urlParsley !== null,
-              fileName: value.getValue() as GroupedFilesFile["name"],
-            });
-          }}
-        >
-          {value.getValue()}
-        </StyledLink>
-        <Tooltip
-          trigger={
-            <Button
-              href={value.row.original.urlParsley}
-              data-cy="parsley-link"
-              target="_blank"
-              disabled={value.row.original.urlParsley === null}
-              size="small"
-              onClick={() => {
-                taskAnalytics.sendEvent({
-                  name: "Click Task File Parsley Link",
-                  fileName: value.getValue() as GroupedFilesFile["name"],
-                });
-              }}
-            >
-              Parsley
-            </Button>
-          }
-          enabled={value.row.original.urlParsley === null}
-          align="top"
-          justify="middle"
-        >
-          Only plain text files can be opened in Parsley.
-        </Tooltip>
-      </CellContainer>
-    ),
+    cell: (value) => {
+      const fileName = value.getValue() as GroupedFilesFile["name"];
+      return (
+        <CellContainer>
+          <StyledLink
+            href={value.row.original.link}
+            data-cy="file-link"
+            target="_blank"
+            onClick={() => {
+              taskAnalytics.sendEvent({
+                name: "Click Task File Link",
+                parsleyAvailable: value.row.original.urlParsley !== null,
+                fileName,
+              });
+            }}
+          >
+            {fileName}
+          </StyledLink>
+          <Tooltip
+            trigger={
+              <Button
+                href={value.row.original.urlParsley}
+                data-cy="parsley-link"
+                target="_blank"
+                disabled={value.row.original.urlParsley === null}
+                size="small"
+                onClick={() => {
+                  taskAnalytics.sendEvent({
+                    name: "Click Task File Parsley Link",
+                    fileName,
+                  });
+                }}
+              >
+                Parsley
+              </Button>
+            }
+            enabled={value.row.original.urlParsley === null}
+            align="top"
+            justify="middle"
+          >
+            Only plain text files can be opened in Parsley.
+          </Tooltip>
+        </CellContainer>
+      );
+    },
   },
 ];
 
