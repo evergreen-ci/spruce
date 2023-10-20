@@ -84,7 +84,7 @@ export const useTaskAnalytics = () => {
   const {
     failedTestCount,
     latestExecution,
-    project: { identifier },
+    project: { identifier } = { identifier: null },
     status: taskStatus,
   } = eventData?.task || {};
   const isLatestExecution = latestExecution === execution;
