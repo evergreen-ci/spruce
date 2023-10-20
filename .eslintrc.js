@@ -97,12 +97,14 @@ module.exports = {
     "prettier/prettier": errorIfStrict, // Makes Prettier issues warnings rather than errors.
     "sort-destructure-keys/sort-destructure-keys": errorIfStrict,
     "check-file/filename-naming-convention": [
-      "warn",
+      errorIfStrict,
       {
         "**/*.graphql": "KEBAB_CASE",
         "cypress/integration/**/*.ts": "SNAKE_CASE",
         "scripts/**/*.{js,ts}": "KEBAB_CASE",
-        "src/**/*.{js,ts}": "CAMEL_CASE",
+        "src/**/!(vite-env.d)*.{js,ts}": "CAMEL_CASE",
+        "src/**/!(use|getFormSchema|index)*.tsx": "PASCAL_CASE",
+        "src/**/(use|getFormSchema|index)*.tsx": "CAMEL_CASE",
       },
       {
         ignoreMiddleExtensions: true,
