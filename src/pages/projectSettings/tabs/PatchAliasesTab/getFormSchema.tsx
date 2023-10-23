@@ -74,9 +74,8 @@ export const getFormSchema = (
                     },
                     {
                       type: "string" as "string",
-                      title:
-                        PatchTriggerAliasStatus[PatchStatus.LegacySucceeded],
-                      enum: [PatchStatus.LegacySucceeded],
+                      title: PatchTriggerAliasStatus[PatchStatus.Success],
+                      enum: [PatchStatus.Success],
                     },
                     {
                       type: "string" as "string",

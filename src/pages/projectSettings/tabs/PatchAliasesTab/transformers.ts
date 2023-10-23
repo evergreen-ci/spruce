@@ -1,4 +1,6 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
+
+import { PatchStatus } from "types/patch";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { alias as aliasUtils, ProjectType } from "../utils";
 import { TaskSpecifier } from "./types";
@@ -7,12 +9,11 @@ const { sortAliases, transformAliases } = aliasUtils;
 
 type Tab = ProjectSettingsTabRoutes.PatchAliases;
 
-// Ensure that the front end can ingest patch trigger alias status filters that use either "success" or "succeeded".
-// For now, use "succeeded" for either.
-// TODO EVG-20704: Save patch trigger aliases with "success" instead of "succeeded".
+// Ensure that the front end can ingest patch trigger alias status filters that use either "success" or "succeeded" and convert them to "success".
+// TODO EVG-20032: Remove conversion.
 const migrateSuccessStatus = (status: string) => {
-  if (status === "success") {
-    return "succeeded";
+  if (status === PatchStatus.LegacySucceeded) {
+    return PatchStatus.Success;
   }
   return status ?? "";
 };
