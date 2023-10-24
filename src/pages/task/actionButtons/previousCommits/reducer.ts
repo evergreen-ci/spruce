@@ -228,3 +228,36 @@ const determineNewLink = (
   }
   return nullLink;
 };
+
+export const getLinks = ({ lastExecutedTask, lastPassingTask, parentTask }) => {
+  if (!parentTask) {
+    return {
+      [CommitType.Base]: {
+        link: nullLink,
+        disabled: true,
+      },
+      [CommitType.LastPassing]: {
+        link: nullLink,
+        disabled: true,
+      },
+      [CommitType.LastExecuted]: {
+        link: nullLink,
+        disabled: true,
+      },
+    };
+  }
+  return {
+    [CommitType.Base]: {
+      link: getTaskRoute(parentTask.id),
+      disabled: false,
+    },
+    [CommitType.LastPassing]: {
+      link: getTaskRoute(lastPassingTask?.id || parentTask.id),
+      disabled: false,
+    },
+    [CommitType.LastExecuted]: {
+      link: getTaskRoute(lastExecutedTask?.id || parentTask.id),
+      disabled: false,
+    },
+  };
+};

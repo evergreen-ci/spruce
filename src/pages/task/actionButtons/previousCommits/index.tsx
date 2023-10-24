@@ -1,8 +1,11 @@
-import { useReducer, useEffect } from "react";
+import { useMemo, useReducer, useEffect } from "react";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Button, { Size } from "@leafygreen-ui/button";
+import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { Option, Select } from "@leafygreen-ui/select";
 import Tooltip from "@leafygreen-ui/tooltip";
+import { Link, useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { LoadingButton } from "components/Buttons";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
@@ -18,12 +21,13 @@ import {
 import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
 import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { TaskStatus } from "types/task";
-import { string } from "utils";
+import { statuses, string } from "utils";
 import { reportError } from "utils/errorReporting";
-import { initialState, reducer } from "./reducer";
+import { getLinks, initialState, reducer } from "./reducer";
 import { CommitTask, CommitType } from "./types";
 
 const { applyStrictRegex } = string;
+const { isFinishedTaskStatus } = statuses;
 
 interface PreviousCommitsProps {
   taskId: string;
@@ -51,52 +55,6 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     variables: { taskId },
   });
 
-  // We don't error for this query because it is the default query that is run when the page loads.
-  // If it errors it probably means there is no base version, which is fine.
-  const [fetchParentTask, { loading: parentLoading }] = useLazyQuery<
-    LastMainlineCommitQuery,
-    LastMainlineCommitQueryVariables
-  >(LAST_MAINLINE_COMMIT, {
-    onCompleted: (data) => {
-      dispatch({
-        type: "setParentTask",
-        task: getTaskFromMainlineCommitsQuery(data),
-      });
-    },
-  });
-
-  const [fetchLastPassing, { loading: passingLoading }] = useLazyQuery<
-    LastMainlineCommitQuery,
-    LastMainlineCommitQueryVariables
-  >(LAST_MAINLINE_COMMIT, {
-    onCompleted: (data) => {
-      dispatch({
-        type: "setLastPassingTask",
-        task: getTaskFromMainlineCommitsQuery(data),
-      });
-    },
-    onError: (err) => {
-      dispatchToast.error(`Last passing version unavailable: '${err.message}'`);
-    },
-  });
-
-  const [fetchLastExecuted, { loading: executedLoading }] = useLazyQuery<
-    LastMainlineCommitQuery,
-    LastMainlineCommitQueryVariables
-  >(LAST_MAINLINE_COMMIT, {
-    onCompleted: (data) => {
-      dispatch({
-        type: "setLastExecutedTask",
-        task: getTaskFromMainlineCommitsQuery(data),
-      });
-    },
-    onError: (err) => {
-      dispatchToast.error(
-        `Could not fetch last task execution: '${err.message}'`
-      );
-    },
-  });
-
   const { baseTask, buildVariant, displayName, versionMetadata } =
     taskData?.task ?? {};
   const { order: skipOrderNumber, projectIdentifier } =
@@ -105,118 +63,100 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     tasks: [applyStrictRegex(displayName)],
     variants: [applyStrictRegex(buildVariant)],
   };
-  const loading = parentLoading || passingLoading || executedLoading;
 
-  // Hook to determine the parent task. If mainline commit, use fetchParentTask function to get task from
-  // previous mainline commit. Otherwise, just extract the base task from the task data.
-  useEffect(() => {
-    if (versionMetadata) {
-      if (!versionMetadata.isPatch) {
-        fetchParentTask({
-          variables: {
-            projectIdentifier,
-            skipOrderNumber,
-            buildVariantOptions: {
-              ...bvOptionsBase,
-            },
-          },
-        });
-      } else {
-        dispatch({ type: "setParentTask", task: baseTask });
-      }
-    }
-  }, [versionMetadata]); // eslint-disable-line react-hooks/exhaustive-deps
+  // We don't error for this query because it is the default query that is run when the page loads.
+  // If it errors it probably means there is no base version, which is fine.
+  const { data: parentTaskData, loading: parentLoading } = useQuery<
+    LastMainlineCommitQuery,
+    LastMainlineCommitQueryVariables
+  >(LAST_MAINLINE_COMMIT, {
+    skip: !versionMetadata || versionMetadata.isPatch,
+    variables: {
+      projectIdentifier,
+      skipOrderNumber,
+      buildVariantOptions: {
+        ...bvOptionsBase,
+      },
+    },
+  });
+  const parentTask =
+    getTaskFromMainlineCommitsQuery(parentTaskData) ?? baseTask;
 
-  // Hook that triggers fetching the last passing task if it needs to be fetched.
-  useEffect(() => {
-    if (!hasFetchedLastPassing && shouldFetchLastPassing) {
-      fetchLastPassing({
-        variables: {
-          projectIdentifier,
-          skipOrderNumber,
-          buildVariantOptions: {
-            ...bvOptionsBase,
-            statuses: [TaskStatus.Succeeded],
-          },
-        },
-      });
-    }
-  }, [shouldFetchLastPassing]); // eslint-disable-line react-hooks/exhaustive-deps
+  const { data: lastPassingTaskData, loading: passingLoading } = useQuery<
+    LastMainlineCommitQuery,
+    LastMainlineCommitQueryVariables
+  >(LAST_MAINLINE_COMMIT, {
+    skip: !parentTask || parentTask.status === TaskStatus.Succeeded,
+    variables: {
+      projectIdentifier,
+      skipOrderNumber,
+      buildVariantOptions: {
+        ...bvOptionsBase,
+        statuses: [TaskStatus.Succeeded],
+      },
+    },
+    onError: (err) => {
+      dispatchToast.error(`Last passing version unavailable: '${err.message}'`);
+    },
+  });
+  const lastPassingTask = getTaskFromMainlineCommitsQuery(lastPassingTaskData);
 
-  // Hook that triggers fetching the last executed task if it needs to be fetched.
-  useEffect(() => {
-    if (!hasFetchedLastExecuted && shouldFetchLastExecuted) {
-      fetchLastExecuted({
-        variables: {
-          projectIdentifier,
-          skipOrderNumber,
-          buildVariantOptions: {
-            ...bvOptionsBase,
-            statuses: finishedTaskStatuses,
-          },
-        },
-      });
-    }
-  }, [shouldFetchLastExecuted]); // eslint-disable-line react-hooks/exhaustive-deps
+  const { data: lastExecutedTaskData, loading: executedLoading } = useQuery<
+    LastMainlineCommitQuery,
+    LastMainlineCommitQueryVariables
+  >(LAST_MAINLINE_COMMIT, {
+    skip: !parentTask || isFinishedTaskStatus(parentTask.status),
+    variables: {
+      projectIdentifier,
+      skipOrderNumber,
+      buildVariantOptions: {
+        ...bvOptionsBase,
+        statuses: finishedTaskStatuses,
+      },
+    },
+    onError: (err) => {
+      dispatchToast.error(
+        `Could not fetch last task execution: '${err.message}'`
+      );
+    },
+  });
+  const lastExecutedTask =
+    getTaskFromMainlineCommitsQuery(lastExecutedTaskData);
 
-  const Link = useLGButtonRouterLink(link);
+  const linkObject = useMemo(
+    () =>
+      getLinks({
+        parentTask,
+        lastPassingTask,
+        lastExecutedTask,
+      }),
+    [parentTask, lastPassingTask, lastExecutedTask]
+  );
 
   return (
-    <PreviousCommitsWrapper>
-      <StyledSelect
-        size="small"
-        data-cy="previous-commits-select"
-        label="Previous commits for this task"
-        allowDeselect={false}
-        onChange={(v: CommitType) =>
-          dispatch({ type: "setSelectState", selectState: v })
+    <Menu
+      trigger={
+        <Button size={Size.Small} disabled={!parentTask}>
+          Previous commits
+        </Button>
+      }
+    >
+      <MenuItem as={Link} to={linkObject[CommitType.Base].link}>
+        {versionMetadata?.isPatch ? "Base" : "Previous"} commit
+      </MenuItem>
+      <MenuItem as={Link} to={linkObject[CommitType.LastPassing].link}>
+        Last passing version
+      </MenuItem>
+      <MenuItem
+        as={Link}
+        to={linkObject[CommitType.LastExecuted].link}
+        disabled={
+          linkObject[CommitType.LastExecuted].disabled || executedLoading
         }
-        value={selectState}
-        disabled={!versionMetadata?.baseVersion}
       >
-        <Option value={CommitType.Base}>
-          Go to {versionMetadata?.isPatch ? "base" : "previous"} commit
-        </Option>
-        <Option value={CommitType.LastPassing}>
-          Go to last passing version
-        </Option>
-        <Option value={CommitType.LastExecuted}>
-          Go to last executed version
-        </Option>
-      </StyledSelect>
-
-      <ConditionalWrapper
-        condition={disableButton}
-        wrapper={(children) => (
-          <Tooltip
-            align="top"
-            justify="middle"
-            triggerEvent="hover"
-            trigger={children}
-          >
-            {loading
-              ? `Fetching...`
-              : `There is no version that satisfies this criteria.`}
-          </Tooltip>
-        )}
-      >
-        <LoadingButton
-          as={Link}
-          data-cy="previous-commits-go-button"
-          disabled={disableButton}
-          loading={loading}
-          onClick={() =>
-            sendEvent({
-              name: "Submit Previous Commit Selector",
-              type: selectState,
-            })
-          }
-          size="small"
-        >
-          Go
-        </LoadingButton>
-      </ConditionalWrapper>
-    </PreviousCommitsWrapper>
+        Last executed version
+      </MenuItem>
+    </Menu>
   );
 };
 
@@ -240,15 +180,3 @@ const getTaskFromMainlineCommitsQuery = (
   }
   return buildVariants[0]?.tasks[0];
 };
-
-const PreviousCommitsWrapper = styled.div`
-  display: flex;
-  align-items: flex-start;
-`;
-
-// @ts-expect-error
-const StyledSelect = styled(Select)`
-  width: 220px;
-  margin-right: ${size.xs};
-  margin-top: -23px;
-`;
