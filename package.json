@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.158",
+  "version": "3.0.161",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -9,7 +9,7 @@
     "build:local": "env-cmd -e local -r .env-cmdrc.local.json yarn build",
     "build:prod": "env-cmd -e production yarn build",
     "build:staging": "env-cmd -e staging yarn build",
-    "build": "GIT_SHA=`git rev-parse HEAD` vite build",
+    "build": "GIT_SHA=`git rev-parse HEAD` APP_VERSION=$npm_package_version vite build",
     "check-types": "tsc -p tsconfig.json --noEmit",
     "clean": "rm -rf node_modules && rm -rf build && yarn install",
     "codegen": "graphql-codegen --config codegen.ts",
@@ -35,7 +35,6 @@
     "storybook": "storybook dev -p 6006",
     "test:watch": "node scripts/test.js  --verbose",
     "test": "node scripts/test.js  --watchAll=false",
-    "upload-source-maps": "env-cmd -e production node ./scripts/deploy/upload-bugsnag-sourcemaps",
     "postversion": "scripts/push-version.sh"
   },
   "browserslist": {
@@ -55,8 +54,6 @@
   },
   "dependencies": {
     "@apollo/client": "3.8.4",
-    "@bugsnag/js": "7.20.2",
-    "@bugsnag/plugin-react": "7.18.0",
     "@emotion/css": "11.11.2",
     "@emotion/react": "11.11.1",
     "@emotion/styled": "11.11.0",
@@ -133,7 +130,6 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.17.12",
     "@babel/preset-react": "^7.12.13",
     "@babel/preset-typescript": "7.21.5",
-    "@bugsnag/source-maps": "^2.3.0",
     "@emotion/babel-plugin": "11.11.0",
     "@emotion/eslint-plugin": "11.11.0",
     "@emotion/jest": "11.11.0",

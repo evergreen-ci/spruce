@@ -87,8 +87,9 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
     <>
       {!githubWebhooksEnabled && (
         <Banner data-cy="disabled-webhook-banner" variant="warning">
-          GitHub features are disabled because webhooks are not enabled.
-          Webhooks are enabled after saving with a valid owner and repository.
+          GitHub features are disabled because the Evergreen GitHub App is not
+          installed on the saved owner/repo. Contact IT to install the App and
+          enable GitHub features.
         </Banner>
       )}
       <BaseTab
