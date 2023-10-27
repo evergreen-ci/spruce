@@ -1,16 +1,11 @@
-import { useMemo, useReducer, useEffect } from "react";
-import { useLazyQuery, useQuery } from "@apollo/client";
-import styled from "@emotion/styled";
+import { useMemo } from "react";
+import { useQuery } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
-import { Option, Select } from "@leafygreen-ui/select";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import { LoadingButton } from "components/Buttons";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { finishedTaskStatuses } from "constants/task";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   BaseVersionAndTaskQuery,
@@ -19,12 +14,10 @@ import {
   LastMainlineCommitQueryVariables,
 } from "gql/generated/types";
 import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
-import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { TaskStatus } from "types/task";
 import { statuses, string } from "utils";
-import { reportError } from "utils/errorReporting";
-import { getLinks, initialState, reducer } from "./reducer";
-import { CommitTask, CommitType } from "./types";
+import { CommitType } from "./types";
+import { getLinks, getTaskFromMainlineCommitsQuery } from "./utils";
 
 const { applyStrictRegex } = string;
 const { isFinishedTaskStatus } = statuses;
@@ -34,18 +27,6 @@ interface PreviousCommitsProps {
 }
 export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
   const { sendEvent } = useTaskAnalytics();
-  const [
-    {
-      disableButton,
-      hasFetchedLastExecuted,
-      hasFetchedLastPassing,
-      link,
-      selectState,
-      shouldFetchLastExecuted,
-      shouldFetchLastPassing,
-    },
-    dispatch,
-  ] = useReducer(reducer, initialState);
   const dispatchToast = useToastContext();
 
   const { data: taskData } = useQuery<
@@ -133,50 +114,60 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     [parentTask, lastPassingTask, lastExecutedTask]
   );
 
-  return (
-    <Menu
+  const menuDisabled = !baseTask || !parentTask;
+
+  return menuDisabled ? (
+    <Tooltip
+      justify="middle"
       trigger={
-        <Button size={Size.Small} disabled={!parentTask}>
+        <Button size={Size.Small} disabled>
           Previous commits
         </Button>
       }
     >
-      <MenuItem as={Link} to={linkObject[CommitType.Base].link}>
+      No previous versions available.
+    </Tooltip>
+  ) : (
+    <Menu trigger={<Button size={Size.Small}>Previous commits</Button>}>
+      <MenuItem
+        as={Link}
+        disabled={parentLoading}
+        onClick={() =>
+          sendEvent({
+            name: "Submit Previous Commit Selector",
+            type: CommitType.Base,
+          })
+        }
+        to={linkObject[CommitType.Base]}
+      >
         {versionMetadata?.isPatch ? "Base" : "Previous"} commit
       </MenuItem>
-      <MenuItem as={Link} to={linkObject[CommitType.LastPassing].link}>
+      <MenuItem
+        as={Link}
+        disabled={passingLoading}
+        onClick={() =>
+          sendEvent({
+            name: "Submit Previous Commit Selector",
+            type: CommitType.LastPassing,
+          })
+        }
+        to={linkObject[CommitType.LastPassing]}
+      >
         Last passing version
       </MenuItem>
       <MenuItem
         as={Link}
-        to={linkObject[CommitType.LastExecuted].link}
-        disabled={
-          linkObject[CommitType.LastExecuted].disabled || executedLoading
+        disabled={executedLoading}
+        onClick={() =>
+          sendEvent({
+            name: "Submit Previous Commit Selector",
+            type: CommitType.LastExecuted,
+          })
         }
+        to={linkObject[CommitType.LastExecuted]}
       >
         Last executed version
       </MenuItem>
     </Menu>
   );
-};
-
-// The return value from GetLastMainlineCommitQuery has a lot of nested fields that may or may
-// not exist. The logic to extract the task from it is written in this function.
-const getTaskFromMainlineCommitsQuery = (
-  data: LastMainlineCommitQuery
-): CommitTask => {
-  const buildVariants =
-    data?.mainlineCommits.versions.find(({ version }) => version)?.version
-      .buildVariants ?? [];
-  if (buildVariants.length > 1) {
-    reportError(
-      new Error("Multiple build variants matched previous commit search.")
-    ).warning();
-  }
-  if (buildVariants[0]?.tasks.length > 1) {
-    reportError(
-      new Error("Multiple tasks matched previous commit search.")
-    ).warning();
-  }
-  return buildVariants[0]?.tasks[0];
 };
