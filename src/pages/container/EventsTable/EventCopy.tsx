@@ -4,10 +4,10 @@ import { PodEventsQuery } from "gql/generated/types";
 import { PodEvent } from "types/pod";
 import { Unpacked } from "types/utils";
 import { reportError } from "utils/errorReporting";
-
-export const getEventCopy = (
-  event: Unpacked<PodEventsQuery["pod"]["events"]["eventLogEntries"]>
-) => {
+interface EventCopyProps {
+  event: Unpacked<PodEventsQuery["pod"]["events"]["eventLogEntries"]>;
+}
+export const EventCopy: React.FC<EventCopyProps> = ({ event }) => {
   const { data, eventType } = event;
   const taskLink = (
     <ShortenedRouterLink
