@@ -99,11 +99,13 @@ module.exports = {
     "check-file/filename-naming-convention": [
       errorIfStrict,
       {
-        "**/*.graphql": "KEBAB_CASE",
+        "src/gql/fragments/**/*.graphql": "CAMEL_CASE",
+        "src/gql/(mutations,queries)/**/*.graphql": "KEBAB_CASE",
         "cypress/integration/**/*.ts": "SNAKE_CASE",
         "scripts/**/*.{js,ts}": "KEBAB_CASE",
-        "src/**/!(vite-env.d)*.{js,ts}": "CAMEL_CASE",
-        "src/**/!(use|getFormSchema|index)*.tsx": "PASCAL_CASE",
+        "src/**/!(vite-env.d,custom-queries,toast-decorator)*.{js,ts}":
+          "CAMEL_CASE",
+        "src/**/!(use|getFormSchema|index|test-utils)*.tsx": "PASCAL_CASE",
         "src/**/(use|getFormSchema|index)*.tsx": "CAMEL_CASE",
       },
       {
