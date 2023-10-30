@@ -164,7 +164,7 @@ export const usePatchesInputFromSearch = (search: string): PatchesInput => {
   const statuses = rawStatuses.filter((v) => v && v !== ALL_PATCH_STATUS);
   return {
     limit: getLimitFromSearch(search),
-    includeHidden: hidden,
+    includeHidden: hidden || Cookies.get(INCLUDE_HIDDEN_PATCHES) === "true",
     page: getPageFromSearch(search),
     patchName: `${patchName}`,
     statuses,
