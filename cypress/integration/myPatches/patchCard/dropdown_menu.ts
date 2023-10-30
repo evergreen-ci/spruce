@@ -133,6 +133,21 @@ describe("Dropdown Menu of Patch Actions", { testIsolation: false }, () => {
         cy.dataCy("hidden-badge").should("be.visible");
         cy.dataCy("patch-card-dropdown").click();
       });
+    // Test initial state derived from cookie
+    cy.visit("/");
+    cy.getCookie(INCLUDE_HIDDEN_PATCHES).should(
+      "have.property",
+      "value",
+      "true"
+    );
+    cy.location("search").should("not.contain", "hidden=true");
+    cy.get("@targetPatchCard")
+      .should("be.visible")
+      .within(() => {
+        cy.dataCy("hidden-badge").should("be.visible");
+        cy.dataCy("patch-card-dropdown").click();
+      });
+    // Test unhide button
     cy.contains("Unhide patch").should("be.visible").click();
     cy.validateToast("success", "Successfully updated patch visibility.");
     cy.get("@targetPatchCard")
