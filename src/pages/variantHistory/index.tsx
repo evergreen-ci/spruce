@@ -26,7 +26,7 @@ import {
 import { MAINLINE_COMMITS_FOR_HISTORY } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { string } from "utils";
-import { leaveBreadcrumb } from "utils/errorReporting";
+import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
 import ColumnHeaders from "./ColumnHeaders";
 import TaskSelector from "./TaskSelector";
 import VariantHistoryRow from "./VariantHistoryRow";
@@ -74,7 +74,7 @@ const VariantHistoryContents: React.FC = () => {
           variantName,
           numCommits: mainlineCommits.versions.length,
         },
-        "process"
+        SentryBreadcrumb.UI
       );
       ingestNewCommits(mainlineCommits);
     },
@@ -94,7 +94,7 @@ const VariantHistoryContents: React.FC = () => {
           variantName,
           skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
         },
-        "process"
+        SentryBreadcrumb.UI
       );
       refetch({
         mainlineCommitsOptions: {

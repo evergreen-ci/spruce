@@ -1,6 +1,4 @@
 import { Component } from "react";
-import Bugsnag from "@bugsnag/js";
-import { ErrorBoundary as BugsnagErrorBoundary } from "./Bugsnag";
 import ErrorFallback from "./ErrorFallback";
 import { ErrorBoundary as SentryErrorBoundary, isInitialized } from "./Sentry";
 
@@ -41,24 +39,10 @@ class DefaultErrorBoundary extends Component<
 export const ErrorBoundary: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const useBugsnag = Bugsnag.isStarted();
   const useSentry = isInitialized();
 
-  if (!useBugsnag && !useSentry) {
-    return <DefaultErrorBoundary>{children}</DefaultErrorBoundary>;
-  }
-
-  let errorBoundary = children;
-
   if (useSentry) {
-    errorBoundary = <SentryErrorBoundary>{errorBoundary}</SentryErrorBoundary>;
+    return <SentryErrorBoundary>{children}</SentryErrorBoundary>;
   }
-
-  if (useBugsnag) {
-    errorBoundary = (
-      <BugsnagErrorBoundary>{errorBoundary}</BugsnagErrorBoundary>
-    );
-  }
-
-  return <>{errorBoundary}</>; // eslint-disable-line react/jsx-no-useless-fragment
+  return <DefaultErrorBoundary>{children}</DefaultErrorBoundary>;
 };
