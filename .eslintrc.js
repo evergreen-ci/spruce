@@ -103,9 +103,9 @@ module.exports = {
         "src/gql/(mutations,queries)/**/*.graphql": "KEBAB_CASE",
         "cypress/integration/**/*.ts": "SNAKE_CASE",
         "scripts/**/*.{js,ts}": "KEBAB_CASE",
-        "src/**/!(vite-env.d,custom-queries,toast-decorator)*.{js,ts}":
-          "CAMEL_CASE",
-        "src/**/!(use|getFormSchema|index|test-utils)*.tsx": "PASCAL_CASE",
+        "src/**/!(vite-env.d|custom-queries)*.{js,ts}": "CAMEL_CASE",
+        "src/**/!(use|getFormSchema|index|test-utils|toast-decorator|schemaFields|getColumnsTemplate|githubPRLinkify|jiraLinkify)*.tsx":
+          "PASCAL_CASE",
         "src/**/(use|getFormSchema|index)*.tsx": "CAMEL_CASE",
       },
       {
