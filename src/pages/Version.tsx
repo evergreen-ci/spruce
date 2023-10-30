@@ -24,7 +24,7 @@ import {
 } from "gql/generated/types";
 import { VERSION, IS_PATCH_CONFIGURED, HAS_VERSION } from "gql/queries";
 import { useSpruceConfig } from "hooks";
-import { PageDoesNotExist } from "pages/404";
+import { PageDoesNotExist } from "pages/NotFound";
 import { isPatchUnconfigured } from "utils/patch";
 import { shortenGithash, githubPRLinkify } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
