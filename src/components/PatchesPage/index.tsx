@@ -138,10 +138,11 @@ export const usePatchesInputFromSearch = (search: string): PatchesInput => {
   );
   const statuses = rawStatuses.filter((v) => v && v !== ALL_PATCH_STATUS);
   return {
+    includeHidden: false,
+    limit: getLimitFromSearch(search),
+    page: getPageFromSearch(search),
     patchName: `${patchName}`,
     statuses,
-    page: getPageFromSearch(search),
-    limit: getLimitFromSearch(search),
   };
 };
 
