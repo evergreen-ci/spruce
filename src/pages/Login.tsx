@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
+import { useAuthDispatchContext, useAuthStateContext } from "context/Auth";
 import { UserQuery, UserQueryVariables } from "gql/generated/types";
 import { USER } from "gql/queries";
 
