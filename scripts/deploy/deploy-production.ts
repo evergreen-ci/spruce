@@ -38,13 +38,13 @@ const evergreenDeploy = async () => {
     // Print all commits between the last tag and the current commit
     console.log(`Commit messages:\n${commitMessages}`);
 
-    const { value: shouldCreateAndPushTag } = await prompts({
+    const { value: shouldCreateTagAndPush } = await prompts({
       type: "confirm",
       name: "value",
       message: "Are you sure you want to deploy to production?",
     });
 
-    if (shouldCreateAndPushTag) {
+    if (shouldCreateTagAndPush) {
       createTagAndPush();
     }
   } catch (err) {
