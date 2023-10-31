@@ -117,7 +117,7 @@ describe("Dropdown Menu of Patch Actions", { testIsolation: false }, () => {
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.contains("Hide patch").should("be.visible").click();
-    cy.validateToast("success", "Successfully updated patch visibility.");
+    cy.validateToast("success", "This patch was successfully hidden.");
     cy.get("@targetPatchCard").should("not.exist");
     // Check "Include hidden" checkbox and unhide patch card
     cy.dataCy("include-hidden-checkbox").check({ force: true });
@@ -149,7 +149,7 @@ describe("Dropdown Menu of Patch Actions", { testIsolation: false }, () => {
       });
     // Test unhide button
     cy.contains("Unhide patch").should("be.visible").click();
-    cy.validateToast("success", "Successfully updated patch visibility.");
+    cy.validateToast("success", "This patch was successfully unhidden.");
     cy.get("@targetPatchCard")
       .should("be.visible")
       .within(() => {
