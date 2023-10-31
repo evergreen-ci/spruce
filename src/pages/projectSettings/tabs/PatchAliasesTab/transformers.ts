@@ -1,5 +1,4 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
-
 import { PatchStatus } from "types/patch";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { alias as aliasUtils, ProjectType } from "../utils";
