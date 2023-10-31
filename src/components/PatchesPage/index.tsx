@@ -26,7 +26,7 @@ interface Props {
   analyticsObject: Analytics<
     | { name: "Filter Patches"; filterBy: string }
     | { name: "Filter Commit Queue" }
-    | { name: "Filter Hidden" }
+    | { name: "Filter Hidden"; includeHidden: boolean }
     | { name: "Change Page Size" }
     | { name: "Click Patch Link" }
     | {
@@ -86,7 +86,10 @@ export const PatchesPage: React.FC<Props> = ({
   ): void => {
     setIsIncludeHiddenCheckboxChecked(e.target.checked);
     Cookies.set(INCLUDE_HIDDEN_PATCHES, e.target.checked ? "true" : "false");
-    analyticsObject.sendEvent({ name: "Filter Hidden" });
+    analyticsObject.sendEvent({
+      name: "Filter Hidden",
+      includeHidden: e.target.checked,
+    });
   };
 
   const handlePageSizeChange = (pageSize: number): void => {
