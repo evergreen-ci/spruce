@@ -1,15 +1,10 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import IconButton from "@leafygreen-ui/icon-button";
-import { palette } from "@leafygreen-ui/palette";
 import { Select, Option } from "@leafygreen-ui/select";
 import { Label } from "@leafygreen-ui/typography";
-import Icon from "components/Icon";
-import IconTooltip from "components/IconTooltip";
-import TextInput from "components/TextInputWithGlyph";
+import TextInput from "components/TextInputWithValidation";
 import { size } from "constants/tokens";
 
-const { yellow } = palette;
 type option = {
   value: string;
   displayName: string;
@@ -30,20 +25,12 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
   validator = () => true,
   validatorErrorMessage = "Invalid Input",
 }) => {
-  const [input, setInput] = useState("");
   const [selected, setSelected] = useState(options[0].value);
-  const isValid = validator(input);
 
-  const handleOnSubmit = () => {
-    if (isValid) {
-      onSubmit({ category: selected, value: input });
-      setInput("");
-    }
+  const handleOnSubmit = (input: string) => {
+    onSubmit({ category: selected, value: input });
   };
 
-  const handleOnChange = (value: string) => {
-    setInput(value);
-  };
   const selectedOption = options.find((o) => o.value === selected);
 
   return (
@@ -73,31 +60,11 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
           id="filter-input"
           aria-label={selectedOption.displayName}
           data-cy="tuple-select-input"
-          value={input}
           type="search"
-          onChange={(e) => handleOnChange(e.target.value)}
           placeholder={selectedOption.placeHolderText}
-          onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
-            e.key === "Enter" && handleOnSubmit()
-          }
-          icon={
-            isValid ? (
-              <IconButton
-                onClick={handleOnSubmit}
-                aria-label="Select plus button"
-              >
-                <Icon glyph="Plus" data-cy="tuple-select-button" />
-              </IconButton>
-            ) : (
-              <IconTooltip
-                glyph="Warning"
-                data-cy="tuple-select-warning"
-                fill={yellow.base}
-              >
-                {validatorErrorMessage}
-              </IconTooltip>
-            )
-          }
+          validator={validator}
+          validatorErrorMessage={validatorErrorMessage}
+          onSubmit={handleOnSubmit}
         />
       </InputGroup>
     </Container>
