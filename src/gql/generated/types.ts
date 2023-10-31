@@ -4416,8 +4416,10 @@ export type UpstreamProjectFragment = {
   __typename?: "Version";
   upstreamProject?: {
     __typename?: "UpstreamProject";
+    owner: string;
     project: string;
     repo: string;
+    revision: string;
     triggerID: string;
     triggerType: string;
     task?: { __typename?: "Task"; execution: number; id: string } | null;
@@ -6116,8 +6118,10 @@ export type MainlineCommitsForHistoryQuery = {
         }> | null;
         upstreamProject?: {
           __typename?: "UpstreamProject";
+          owner: string;
           project: string;
           repo: string;
+          revision: string;
           triggerID: string;
           triggerType: string;
           task?: { __typename?: "Task"; execution: number; id: string } | null;
@@ -6151,8 +6155,10 @@ export type MainlineCommitsForHistoryQuery = {
         }> | null;
         upstreamProject?: {
           __typename?: "UpstreamProject";
+          owner: string;
           project: string;
           repo: string;
+          revision: string;
           triggerID: string;
           triggerType: string;
           task?: { __typename?: "Task"; execution: number; id: string } | null;
@@ -6190,8 +6196,10 @@ export type MainlineCommitsQuery = {
         revision: string;
         upstreamProject?: {
           __typename?: "UpstreamProject";
+          owner: string;
           project: string;
           repo: string;
+          revision: string;
           triggerID: string;
           triggerType: string;
           task?: { __typename?: "Task"; execution: number; id: string } | null;
@@ -6247,8 +6255,10 @@ export type MainlineCommitsQuery = {
         } | null;
         upstreamProject?: {
           __typename?: "UpstreamProject";
+          owner: string;
           project: string;
           repo: string;
+          revision: string;
           triggerID: string;
           triggerType: string;
           task?: { __typename?: "Task"; execution: number; id: string } | null;
@@ -8125,6 +8135,7 @@ export type TaskFilesQuery = {
           __typename?: "File";
           link: string;
           name: string;
+          urlParsley?: string | null;
         }> | null;
       }>;
     };
@@ -8823,8 +8834,10 @@ export type VersionQuery = {
     } | null;
     upstreamProject?: {
       __typename?: "UpstreamProject";
+      owner: string;
       project: string;
       repo: string;
+      revision: string;
       triggerID: string;
       triggerType: string;
       task?: { __typename?: "Task"; execution: number; id: string } | null;

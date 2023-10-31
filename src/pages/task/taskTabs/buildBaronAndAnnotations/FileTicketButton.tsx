@@ -34,6 +34,7 @@ const FileTicketButton: React.FC<FileTicketProps> = ({ execution, taskId }) => {
         `There was an error filing the ticket: ${error.message}`
       );
     },
+    refetchQueries: ["CreatedTickets", "CustomCreatedIssues"],
   });
 
   const [buttonText, setButtonText] = useState<string>("File ticket");
