@@ -1,16 +1,10 @@
-import { useState } from "react";
 import styled from "@emotion/styled";
-import IconButton from "@leafygreen-ui/icon-button";
-import { palette } from "@leafygreen-ui/palette";
-import Icon from "components/Icon";
-import IconTooltip from "components/IconTooltip";
-import TextInput from "components/TextInputWithGlyph";
+import TextInput from "components/TextInputWithValidation";
 import { useUpsertQueryParams } from "hooks";
 import { TestStatus } from "types/history";
 import { validators } from "utils";
 
 const { validateRegexp } = validators;
-const { yellow } = palette;
 
 interface HistoryTableTestSearchProps {
   onSubmit?: () => void;
@@ -19,19 +13,11 @@ interface HistoryTableTestSearchProps {
 export const HistoryTableTestSearch: React.FC<HistoryTableTestSearchProps> = ({
   onSubmit = () => {},
 }) => {
-  const [input, setInput] = useState("");
-  const isValid = validateRegexp(input);
   const handleSubmit = useUpsertQueryParams();
 
-  const handleOnChange = (value: string) => {
-    setInput(value);
-  };
-  const handleOnSubmit = () => {
-    if (isValid) {
-      onSubmit();
-      handleSubmit({ category: TestStatus.Failed, value: input });
-      setInput("");
-    }
+  const handleOnSubmit = (input: string) => {
+    onSubmit();
+    handleSubmit({ category: TestStatus.Failed, value: input });
   };
 
   return (
@@ -40,30 +26,10 @@ export const HistoryTableTestSearch: React.FC<HistoryTableTestSearchProps> = ({
         type="search"
         label="Filter by Failed Tests"
         aria-label="history-table-test-search-input"
-        value={input}
         placeholder="Search test name regex"
-        onChange={(e) => handleOnChange(e.target.value)}
-        onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
-          e.key === "Enter" && handleOnSubmit()
-        }
-        icon={
-          isValid ? (
-            <IconButton
-              onClick={handleOnSubmit}
-              aria-label="Select plus button"
-            >
-              <Icon glyph="Plus" data-cy="tuple-select-button" />
-            </IconButton>
-          ) : (
-            <IconTooltip
-              glyph="Warning"
-              data-cy="tuple-select-warning"
-              fill={yellow.base}
-            >
-              Invalid Regular Expression
-            </IconTooltip>
-          )
-        }
+        validatorErrorMessage="Invalid Regular Expression"
+        onSubmit={handleOnSubmit}
+        validator={validateRegexp}
       />
     </ContentWrapper>
   );
