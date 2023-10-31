@@ -124,7 +124,7 @@ export const PatchesPage: React.FC<Props> = ({
             }
             checked={isCommitQueueCheckboxChecked}
           />
-          <StyledCheckbox
+          <Checkbox
             data-cy="include-hidden-checkbox"
             onChange={includeHiddenCheckboxOnChange}
             label="Include hidden"
@@ -192,9 +192,5 @@ const FiltersWrapperSpaceBetween = styled(FiltersWrapper)<{
 const CheckboxContainer = styled.div`
   display: flex;
   justify-content: end;
-`;
-
-/* @ts-expect-error */
-const StyledCheckbox = styled(Checkbox)`
-  padding-left: ${size.xs};
+  gap: ${size.xs};
 `;

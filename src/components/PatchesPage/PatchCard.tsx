@@ -174,9 +174,7 @@ const Right = styled.div`
   width: 110px;
   display: flex;
   justify-content: flex-end;
-  > button {
-    margin-left: ${size.xs};
-  }
+  gap: ${size.xs};
 `;
 
 const DescriptionLink = styled(StyledRouterLink)`
