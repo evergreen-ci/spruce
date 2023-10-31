@@ -1,7 +1,7 @@
 import prompts from "prompts";
 import { evergreenDeploy, localDeploy, ciDeploy } from "./deploy-production";
 import { runDeploy } from "./utils/deploy";
-import { getCommitMessages } from "./utils/git";
+import { getCommitMessages, getCurrentlyDeployedCommit } from "./utils/git";
 import { tagUtils } from "./utils/git/tag";
 import { isRunningOnCI } from "./utils/environment";
 
@@ -59,8 +59,21 @@ describe("deploy-production", () => {
       );
       (prompts as unknown as jest.Mock).mockResolvedValue({ value: true });
       (tagUtils.createTagAndPush as jest.Mock).mockResolvedValue(true);
+      const createTagAndPushMock = jest
+        .spyOn(tagUtils, "createTagAndPush")
+        .mockImplementation(() => true);
+      (getCurrentlyDeployedCommit as jest.Mock).mockReturnValue(
+        "getCurrentlyDeployedCommit mock"
+      );
       await evergreenDeploy();
       expect(consoleLogMock).toHaveBeenCalledTimes(2);
+      expect(consoleLogMock).toHaveBeenCalledWith(
+        "Currently Deployed Commit: getCurrentlyDeployedCommit mock"
+      );
+      expect(consoleLogMock).toHaveBeenCalledWith(
+        "Commit messages:\ngetCommitMessages result"
+      );
+      expect(createTagAndPushMock).toBeCalledTimes(1);
     });
 
     it("return exit code 1 if an error is thrown", async () => {
@@ -94,11 +107,12 @@ describe("deploy-production", () => {
 
     it("logs and error and returns exit code 1 when error is thrown", async () => {
       (prompts as unknown as jest.Mock).mockResolvedValue({ value: true });
+      const e = new Error("error mock");
       (runDeploy as jest.Mock).mockImplementation(() => {
-        throw new Error("error mock");
+        throw e;
       });
       await localDeploy();
-      expect(consoleErrorMock).toHaveBeenCalledWith(new Error("error mock"));
+      expect(consoleErrorMock).toHaveBeenCalledWith(e);
       expect(consoleErrorMock).toHaveBeenCalledWith(
         "Local deploy failed. Aborting."
       );
