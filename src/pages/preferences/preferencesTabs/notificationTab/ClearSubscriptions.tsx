@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Button, { Variant } from "@leafygreen-ui/button";
+import pluralize from "pluralize";
 import { usePreferencesAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { useToastContext } from "context/toast";
@@ -23,9 +24,10 @@ export const ClearSubscriptions: React.FC = () => {
     onCompleted: (result) => {
       setShowModal(false);
       dispatchToast.success(
-        `Successfully cleared ${result.clearMySubscriptions} subscription${
-          result.clearMySubscriptions !== 1 && "s"
-        }!`
+        `Successfully cleared ${result.clearMySubscriptions} ${pluralize(
+          "subscription",
+          result.clearMySubscriptions
+        )}!`
       );
     },
     onError: (err) => {
