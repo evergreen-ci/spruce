@@ -38,4 +38,5 @@ const IconWrapper = styled.div`
   justify-content: center;
 `;
 
+export type { TextInputWithGlyphProps };
 export default TextInputWithGlyph;
