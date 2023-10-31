@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { SearchInput } from "@leafygreen-ui/search-input";
 import Cookies from "js-cookie";
-import { useLocation } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
 import PageSizeSelector, {
   usePageSizeSelector,
@@ -15,15 +14,13 @@ import {
   INCLUDE_HIDDEN_PATCHES,
 } from "constants/cookies";
 import { size } from "constants/tokens";
-import { PatchesPagePatchesFragment, PatchesInput } from "gql/generated/types";
+import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useFilterInputChangeHandler, usePageTitle } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
-import { PatchPageQueryParams, ALL_PATCH_STATUS } from "types/patch";
-import { url } from "utils";
+import { PatchPageQueryParams } from "types/patch";
 import { ListArea } from "./ListArea";
 import { StatusSelector } from "./StatusSelector";
-
-const { getLimitFromSearch, getPageFromSearch } = url;
+import { usePatchesQueryParams } from "./usePatchesQueryParams";
 
 interface Props {
   analyticsObject: Analytics<
@@ -52,7 +49,6 @@ export const PatchesPage: React.FC<Props> = ({
   pageType,
   patches,
 }) => {
-  const { search } = useLocation();
   const setPageSize = usePageSizeSelector();
   const cookie =
     pageType === "project"
@@ -68,7 +64,7 @@ export const PatchesPage: React.FC<Props> = ({
       PatchPageQueryParams.Hidden,
       Cookies.get(INCLUDE_HIDDEN_PATCHES) === "true"
     );
-  const { limit, page } = usePatchesInputFromSearch(search);
+  const { limit, page } = usePatchesQueryParams();
   const { inputValue, setAndSubmitInputValue } = useFilterInputChangeHandler({
     urlParam: PatchPageQueryParams.PatchName,
     resetPage: true,
@@ -82,7 +78,6 @@ export const PatchesPage: React.FC<Props> = ({
   ): void => {
     setIsCommitQueueCheckboxChecked(e.target.checked);
     Cookies.set(cookie, e.target.checked ? "true" : "false");
-    // eslint-disable-next-line no-unused-expressions
     analyticsObject.sendEvent({ name: "Filter Commit Queue" });
   };
 
@@ -91,7 +86,6 @@ export const PatchesPage: React.FC<Props> = ({
   ): void => {
     setIsIncludeHiddenCheckboxChecked(e.target.checked);
     Cookies.set(INCLUDE_HIDDEN_PATCHES, e.target.checked ? "true" : "false");
-    // eslint-disable-next-line no-unused-expressions
     analyticsObject.sendEvent({ name: "Filter Hidden" });
   };
 
@@ -152,23 +146,6 @@ export const PatchesPage: React.FC<Props> = ({
       />
     </PageWrapper>
   );
-};
-
-export const usePatchesInputFromSearch = (search: string): PatchesInput => {
-  const [patchName] = useQueryParam<string>(PatchPageQueryParams.PatchName, "");
-  const [rawStatuses] = useQueryParam<string[]>(
-    PatchPageQueryParams.Statuses,
-    []
-  );
-  const [hidden] = useQueryParam(PatchPageQueryParams.Hidden, false);
-  const statuses = rawStatuses.filter((v) => v && v !== ALL_PATCH_STATUS);
-  return {
-    limit: getLimitFromSearch(search),
-    includeHidden: hidden || Cookies.get(INCLUDE_HIDDEN_PATCHES) === "true",
-    page: getPageFromSearch(search),
-    patchName: `${patchName}`,
-    statuses,
-  };
 };
 
 const PaginationRow = styled.div`
