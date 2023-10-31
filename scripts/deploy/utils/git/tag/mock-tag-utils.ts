@@ -26,11 +26,9 @@ const deleteTag = (tag: string) => {
 
 /**
  * `pushTags` is a helper function that pushes tags to the remote.
- * @returns true
  */
 const pushTags = () => {
   console.log(yellow("Dry run mode enabled. Pushing tags."));
-  return true;
 };
 
 export { createTagAndPush, getLatestTag, deleteTag, pushTags };
