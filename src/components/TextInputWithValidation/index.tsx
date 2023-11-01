@@ -24,12 +24,17 @@ type TextInputWithValidationProps = {
   onChange?: (value: string) => void;
   validatorErrorMessage?: string;
   placeholder?: string;
+  /**
+   * If true, the input will be cleared when the user submits a new input
+   */
+  clearOnSubmit?: boolean;
 } & Omit<TextInputWithGlyphProps, "icon" | "onSubmit" | "onChange">;
 
 const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
   forwardRef((props, ref) => {
     const {
       "aria-label": ariaLabel,
+      clearOnSubmit = false,
       label,
       onChange = () => {},
       onSubmit = () => {},
@@ -45,7 +50,9 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
     const handleOnSubmit = () => {
       if (isValid) {
         onSubmit(input);
-        setInput("");
+        if (clearOnSubmit) {
+          setInput("");
+        }
       }
     };
 

@@ -30,6 +30,7 @@ export const HistoryTableTestSearch: React.FC<HistoryTableTestSearchProps> = ({
         validatorErrorMessage="Invalid Regular Expression"
         onSubmit={handleOnSubmit}
         validator={validateRegexp}
+        clearOnSubmit
       />
     </ContentWrapper>
   );

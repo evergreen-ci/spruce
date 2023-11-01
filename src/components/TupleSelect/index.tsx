@@ -65,6 +65,7 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
           validator={validator}
           validatorErrorMessage={validatorErrorMessage}
           onSubmit={handleOnSubmit}
+          clearOnSubmit
         />
       </InputGroup>
     </Container>
