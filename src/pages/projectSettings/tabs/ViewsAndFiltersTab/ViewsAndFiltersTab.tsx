@@ -8,12 +8,24 @@ import { TabProps, ViewsFormState } from "./types";
 
 const tab = ProjectSettingsTabRoutes.ViewsAndFilters;
 
+const getInitialFormState = (
+  projectData: TabProps["projectData"],
+  repoData: TabProps["repoData"]
+): ViewsFormState => {
+  if (!projectData) return repoData;
+  if (repoData) return { ...projectData, repoData };
+  return projectData;
+};
+
 export const ViewsAndFiltersTab: React.FC<TabProps> = ({
   projectData,
   projectType,
   repoData,
 }) => {
-  const initialFormState = projectData || repoData;
+  const initialFormState = useMemo(
+    () => getInitialFormState(projectData, repoData),
+    [projectData, repoData]
+  );
 
   const formSchema = useMemo(() => getFormSchema(projectType), [projectType]);
 
