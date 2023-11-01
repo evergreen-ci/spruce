@@ -24,7 +24,7 @@ type TextInputWithValidationProps = {
   onChange?: (value: string) => void;
   validatorErrorMessage?: string;
   placeholder?: string;
-} & Omit<TextInputWithGlyphProps, "icon" | "onSubmit">;
+} & Omit<TextInputWithGlyphProps, "icon" | "onSubmit" | "onChange">;
 
 const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
   forwardRef((props, ref) => {
