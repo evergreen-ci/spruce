@@ -99,13 +99,19 @@ module.exports = {
     "check-file/filename-naming-convention": [
       errorIfStrict,
       {
+        // GraphQL fragments, mutations and queries
         "src/gql/fragments/**/*.graphql": "CAMEL_CASE",
         "src/gql/(mutations,queries)/**/*.graphql": "KEBAB_CASE",
+        // Cypress
         "cypress/integration/**/*.ts": "SNAKE_CASE",
+        // Scripts
         "scripts/**/*.{js,ts}": "KEBAB_CASE",
+        // JS and TS with exceptions
         "src/**/!(vite-env.d|custom-queries)*.{js,ts}": "CAMEL_CASE",
+        // All tsx with exceptions
         "src/**/!(use|getFormSchema|index|test-utils|toast-decorator|schemaFields|getColumnsTemplate|githubPRLinkify|jiraLinkify)*.tsx":
           "PASCAL_CASE",
+        // tsx exceptions
         "src/**/(use|getFormSchema|index)*.tsx": "CAMEL_CASE",
       },
       {
