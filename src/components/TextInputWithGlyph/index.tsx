@@ -9,10 +9,10 @@ type TextInputWithGlyphProps = {
 
 const TextInputWithGlyph: React.FC<TextInputWithGlyphProps> = forwardRef(
   (props, ref) => {
-    const { icon, ...rest } = props;
+    const { className, icon, ...rest } = props;
 
     return (
-      <TextInputWrapper>
+      <TextInputWrapper className={className}>
         <TextInput ref={ref} {...rest} />
         <IconWrapper>{icon}</IconWrapper>
       </TextInputWrapper>

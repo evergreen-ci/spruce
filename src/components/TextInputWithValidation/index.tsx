@@ -50,7 +50,7 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
     };
 
     const handleOnChange = (value: string) => {
-      if (isValid) {
+      if (validator(value)) {
         onChange(value);
       }
       setInput(value);
