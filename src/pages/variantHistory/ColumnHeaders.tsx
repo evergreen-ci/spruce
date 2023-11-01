@@ -45,7 +45,9 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
         reportError(
           new Error("No task names found for build variant")
         ).warning();
-        dispatchToast.error(`No tasks found for buildVariant: ${variantName}}`);
+        dispatchToast.error(
+          `No tasks found for build variant: ${variantName}}`
+        );
       }
     },
   });

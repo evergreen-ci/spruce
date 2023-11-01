@@ -27,7 +27,7 @@ export const ClearSubscriptions: React.FC = () => {
         `Successfully cleared ${result.clearMySubscriptions} ${pluralize(
           "subscription",
           result.clearMySubscriptions
-        )}!`
+        )}.`
       );
     },
     onError: (err) => {
