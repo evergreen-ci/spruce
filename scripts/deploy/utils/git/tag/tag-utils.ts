@@ -1,14 +1,29 @@
 import { execSync } from "child_process";
 import { githubRemote } from "./constants";
+import { green, underline } from "../../../../utils/colors";
 
 /**
- * `createNewTag` is a helper function that creates a new tag.
+ * `createTagAndPush` is a helper function that creates a new tag.
+ * Pushing occurs in the postversion hook triggered by "yarn version"
  */
-const createNewTag = () => {
-  execSync("yarn version --new-version patch", {
-    encoding: "utf-8",
-    stdio: "inherit",
-  });
+const createTagAndPush = () => {
+  console.log("Creating new tag...");
+  try {
+    execSync("yarn version --new-version patch", {
+      encoding: "utf-8",
+      stdio: "inherit",
+    });
+  } catch (err) {
+    throw new Error("Creating new tag failed.", { cause: err });
+  }
+  console.log("Pushed to remote. Should be deploying soon...");
+  console.log(
+    green(
+      `Track deploy progress at ${underline(
+        "https://spruce.mongodb.com/commits/spruce?requester=git_tag_request"
+      )}`
+    )
+  );
 };
 
 /**
@@ -16,12 +31,16 @@ const createNewTag = () => {
  * @returns - the latest tag
  */
 const getLatestTag = () => {
-  const latestTag = execSync("git describe --tags --abbrev=0", {
-    encoding: "utf-8",
-  })
-    .toString()
-    .trim();
-  return latestTag;
+  try {
+    const latestTag = execSync("git describe --tags --abbrev=0", {
+      encoding: "utf-8",
+    })
+      .toString()
+      .trim();
+    return latestTag;
+  } catch (err) {
+    throw new Error("Getting latest tag failed.", { cause: err });
+  }
 };
 
 /**
@@ -29,18 +48,28 @@ const getLatestTag = () => {
  * @param tag - the tag to delete
  */
 const deleteTag = (tag: string) => {
+  console.log(`Deleting tag (${tag}) from remote...`);
   const deleteCommand = `git push --delete ${githubRemote} ${tag}`;
-  execSync(deleteCommand, { stdio: "inherit", encoding: "utf-8" });
+  try {
+    execSync(deleteCommand, { stdio: "inherit", encoding: "utf-8" });
+  } catch (err) {
+    throw new Error("Deleting tag failed.", { cause: err });
+  }
 };
 
 /**
  * `pushTags` is a helper function that pushes tags to the remote.
  */
 const pushTags = () => {
-  execSync(`git push --tags ${githubRemote}`, {
-    stdio: "inherit",
-    encoding: "utf-8",
-  });
+  console.log("Pushing tags...");
+  try {
+    execSync(`git push --tags ${githubRemote}`, {
+      stdio: "inherit",
+      encoding: "utf-8",
+    });
+  } catch (err) {
+    throw new Error("Pushing tags failed.", { cause: err });
+  }
 };
 
-export { createNewTag, getLatestTag, deleteTag, pushTags };
+export { createTagAndPush, getLatestTag, deleteTag, pushTags };
