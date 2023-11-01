@@ -2105,6 +2105,7 @@ export type RepoRef = {
   manualPrTestingEnabled: Scalars["Boolean"]["output"];
   notifyOnBuildFailure: Scalars["Boolean"]["output"];
   owner: Scalars["String"]["output"];
+  parsleyFilters?: Maybe<Array<ParsleyFilter>>;
   patchTriggerAliases?: Maybe<Array<PatchTriggerAlias>>;
   patchingDisabled: Scalars["Boolean"]["output"];
   perfEnabled: Scalars["Boolean"]["output"];
@@ -2146,6 +2147,7 @@ export type RepoRefInput = {
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   notifyOnBuildFailure?: InputMaybe<Scalars["Boolean"]["input"]>;
   owner?: InputMaybe<Scalars["String"]["input"]>;
+  parsleyFilters?: InputMaybe<Array<ParsleyFilterInput>>;
   patchTriggerAliases?: InputMaybe<Array<PatchTriggerAliasInput>>;
   patchingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   perfEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3857,6 +3859,12 @@ export type RepoSettingsFieldsFragment = {
       taskRegex: string;
       unscheduleDownstreamVersions?: boolean | null;
     }>;
+    parsleyFilters?: Array<{
+      __typename?: "ParsleyFilter";
+      caseSensitive: boolean;
+      exactMatch: boolean;
+      expression: string;
+    }> | null;
     workstationConfig: {
       __typename?: "RepoWorkstationConfig";
       gitClone: boolean;
@@ -4376,6 +4384,16 @@ export type VariablesFragment = {
 export type ProjectViewsAndFiltersSettingsFragment = {
   __typename?: "Project";
   projectHealthView: ProjectHealthView;
+  parsleyFilters?: Array<{
+    __typename?: "ParsleyFilter";
+    caseSensitive: boolean;
+    exactMatch: boolean;
+    expression: string;
+  }> | null;
+};
+
+export type RepoViewsAndFiltersSettingsFragment = {
+  __typename?: "RepoRef";
   parsleyFilters?: Array<{
     __typename?: "ParsleyFilter";
     caseSensitive: boolean;
@@ -7862,6 +7880,12 @@ export type RepoSettingsQuery = {
         taskRegex: string;
         unscheduleDownstreamVersions?: boolean | null;
       }>;
+      parsleyFilters?: Array<{
+        __typename?: "ParsleyFilter";
+        caseSensitive: boolean;
+        exactMatch: boolean;
+        expression: string;
+      }> | null;
       workstationConfig: {
         __typename?: "RepoWorkstationConfig";
         gitClone: boolean;

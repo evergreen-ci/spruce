@@ -2,7 +2,7 @@ import { ProjectHealthView } from "gql/generated/types";
 import { ProjectType } from "../utils";
 
 export interface ViewsFormState {
-  view: {
+  view?: {
     projectHealthView: ProjectHealthView;
   };
   parsleyFilters: {
@@ -17,4 +17,5 @@ export type TabProps = {
   identifier: string;
   projectData?: ViewsFormState;
   projectType: ProjectType;
+  repoData?: ViewsFormState;
 };

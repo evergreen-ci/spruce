@@ -1,5 +1,6 @@
 import { ProjectHealthView, ProjectSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
+import { ProjectType } from "../utils";
 import { formToGql, gqlToForm } from "./transformers";
 import { ViewsFormState } from "./types";
 
@@ -7,7 +8,9 @@ const { projectBase } = data;
 
 describe("project data", () => {
   it("correctly converts from GQL to a form", () => {
-    expect(gqlToForm(projectBase)).toStrictEqual(projectForm);
+    expect(
+      gqlToForm(projectBase, { projectType: ProjectType.Project })
+    ).toStrictEqual(projectForm);
   });
 
   it("correctly converts from a form to GQL", () => {

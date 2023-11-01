@@ -2,39 +2,44 @@ import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { ProjectHealthView } from "gql/generated/types";
+import { ProjectType } from "../utils";
 
-export const getFormSchema = (): ReturnType<GetFormSchema> => ({
+export const getFormSchema = (
+  projectType: ProjectType
+): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
     type: "object" as "object",
     properties: {
-      view: {
-        title: "Project Health View",
-        type: "object" as "object",
-        description:
-          "This setting will define the default behavior of the Project Health page for all viewers of this project. Users can still toggle between views.",
-        properties: {
-          projectHealthView: {
-            type: "string" as "string",
-            oneOf: [
-              {
-                type: "string" as "string",
-                title: "Default view",
-                enum: [ProjectHealthView.Failed],
-                description:
-                  "Displays only task failures, making it easier to identify them, and groups tasks by status if they don't match any search criteria. Consider using it for troubleshooting specific issues.",
-              },
-              {
-                type: "string" as "string",
-                title: "All tasks view",
-                enum: [ProjectHealthView.All],
-                description:
-                  "Displays all tasks without grouping. This view can be helpful for getting a comprehensive overview of all tasks.",
-              },
-            ],
+      ...(projectType !== ProjectType.Repo && {
+        view: {
+          title: "Project Health View",
+          type: "object" as "object",
+          description:
+            "This setting will define the default behavior of the Project Health page for all viewers of this project. Users can still toggle between views.",
+          properties: {
+            projectHealthView: {
+              type: "string" as "string",
+              oneOf: [
+                {
+                  type: "string" as "string",
+                  title: "Default view",
+                  enum: [ProjectHealthView.Failed],
+                  description:
+                    "Displays only task failures, making it easier to identify them, and groups tasks by status if they don't match any search criteria. Consider using it for troubleshooting specific issues.",
+                },
+                {
+                  type: "string" as "string",
+                  title: "All tasks view",
+                  enum: [ProjectHealthView.All],
+                  description:
+                    "Displays all tasks without grouping. This view can be helpful for getting a comprehensive overview of all tasks.",
+                },
+              ],
+            },
           },
         },
-      },
+      }),
       parsleyFiltersTitle: {
         type: "null",
         title: "Parsley Filters",
