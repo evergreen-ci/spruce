@@ -55,6 +55,7 @@ export const ActionButtons: React.FC<Props> = ({
   task,
 }) => {
   const {
+    buildVariant,
     canAbort,
     canDisable,
     canOverrideDependencies,
@@ -178,6 +179,7 @@ export const ActionButtons: React.FC<Props> = ({
   const HistoryLink = useLGButtonRouterLink(
     getTaskHistoryRoute(projectIdentifier, displayName, {
       selectedCommit: !isPatch && order,
+      visibleColumns: [buildVariant],
     })
   );
 
