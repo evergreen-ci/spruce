@@ -371,7 +371,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           <StyledLink
             ref={triggerRef}
             data-cy="task-trace-link"
-            href={getHoneycombTraceUrl(taskTrace, startTime)}
+            href={getHoneycombTraceUrl(taskTrace, startTime, finishTime)}
             onClick={() => {
               onHideCue();
               taskAnalytics.sendEvent({ name: "Click Trace Link" });
