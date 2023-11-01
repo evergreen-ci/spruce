@@ -1,4 +1,5 @@
 import { AjvError } from "@rjsf/core";
+import { allowedSymbols } from "utils/validators";
 
 export enum Errors {
   Invisible = "invisible",
@@ -51,6 +52,11 @@ export const transformErrors = (errors: AjvError[]) =>
           };
         case "format":
           switch (error.params.format) {
+            case "noSpecialCharacters":
+              return {
+                ...error,
+                message: `Value can only contain numbers, letters and these symbols: ${allowedSymbols}.`,
+              };
             case "noSpaces":
               return {
                 ...error,

@@ -5,11 +5,12 @@ import {
 } from "gql/generated/types";
 import { SPRUCE_CONFIG } from "gql/queries";
 
-export const useSpruceConfig = () => {
+export const useSpruceConfig = ():
+  | SpruceConfigQuery["spruceConfig"]
+  | undefined => {
   const { data } = useQuery<SpruceConfigQuery, SpruceConfigQueryVariables>(
     SPRUCE_CONFIG
   );
 
-  const { spruceConfig } = data || {};
-  return spruceConfig;
+  return data?.spruceConfig;
 };

@@ -391,7 +391,6 @@ functions:
       working_dir: spruce
       script: |
         echo "Generating .env-cmdrc.json"
-        REACT_APP_BUGSNAG_API_KEY=${REACT_APP_BUGSNAG_API_KEY} \
         REACT_APP_SENTRY_AUTH_TOKEN=${REACT_APP_SENTRY_AUTH_TOKEN} \
         REACT_APP_SENTRY_DSN=${REACT_APP_SENTRY_DSN} \
         REACT_APP_NEW_RELIC_ACCOUNT_ID=${REACT_APP_NEW_RELIC_ACCOUNT_ID} \
@@ -420,7 +419,6 @@ functions:
       shell: bash
       script: |
         ${PREPARE_SHELL}
-        REACT_APP_BUGSNAG_API_KEY=${REACT_APP_BUGSNAG_API_KEY} \
         BUCKET=${bucket} \
         AWS_ACCESS_KEY_ID=${aws_key} \
         AWS_SECRET_ACCESS_KEY=${aws_secret} \

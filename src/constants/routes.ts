@@ -1,6 +1,8 @@
+import { getGithubCommitUrl } from "constants/externalResources";
 import { TestStatus, HistoryQueryParams } from "types/history";
 import { PatchTab } from "types/patch";
 import { PatchTasksQueryParams, TaskTab } from "types/task";
+import { ProjectTriggerLevel } from "types/triggers";
 import { queryString, array } from "utils";
 
 const { toArray } = array;
@@ -82,7 +84,7 @@ export const routes = {
   commits: paths.commits,
   configurePatch: `${paths.patch}/:id/configure`,
   container: `${paths.container}/:id`,
-  distro: `${paths.distro}/:distroId/${PageNames.Settings}`,
+  distroSettings: `${paths.distro}/:distroId/${PageNames.Settings}`,
   host: `${paths.host}/:id`,
   hosts: paths.hosts,
   jobLogs: `${paths.jobLogs}/:buildId`,
@@ -227,11 +229,12 @@ export const getProjectSettingsRoute = (
   projectId: string,
   tab?: ProjectSettingsTabRoutes
 ) => {
-  if (!tab) {
-    return `${paths.project}/${projectId}/${PageNames.Settings}`;
-  }
-
-  return `${paths.project}/${projectId}/${PageNames.Settings}/${tab}`;
+  // Encode projectId for backwards compatibilty.
+  // Encoding can be removed when all projectIDs
+  // are URL friendly withou encoding
+  const encodedProjectId = encodeURIComponent(projectId);
+  const root = `${paths.project}/${encodedProjectId}/${PageNames.Settings}`;
+  return tab ? `${root}/${tab}` : root;
 };
 
 export const getDistroSettingsRoute = (
@@ -240,7 +243,7 @@ export const getDistroSettingsRoute = (
 ) =>
   tab
     ? `${paths.distro}/${distroId}/${PageNames.Settings}/${tab}`
-    : `${paths.distro}/${distroId}/${PageNames.Settings}`;
+    : `${paths.distro}/${distroId}/${PageNames.Settings}/${DistroSettingsTabRoutes.General}`;
 
 export const getCommitQueueRoute = (projectIdentifier: string) =>
   `${paths.commitQueue}/${encodeURIComponent(projectIdentifier)}`;
@@ -254,7 +257,8 @@ const getHistoryRoute = (
     failingTests?: string[];
     passingTests?: string[];
   },
-  selectedCommit?: number
+  selectedCommit?: number,
+  visibleColumns?: string[]
 ) => {
   if (filters || selectedCommit) {
     const failingTests = toArray(filters?.failingTests);
@@ -264,6 +268,7 @@ const getHistoryRoute = (
       [TestStatus.Failed]: failingTests,
       [TestStatus.Passed]: passingTests,
       [HistoryQueryParams.SelectedCommit]: selectedCommit,
+      [HistoryQueryParams.VisibleColumns]: visibleColumns,
     });
     return `${basePath}?${queryParams}`;
   }
@@ -299,13 +304,41 @@ export const getTaskHistoryRoute = (
       passingTests?: string[];
     };
     selectedCommit?: number;
+    visibleColumns?: string[];
   }
 ) => {
-  const { filters, selectedCommit } = options || {};
+  const { filters, selectedCommit, visibleColumns } = options || {};
 
   return getHistoryRoute(
     `${paths.taskHistory}/${encodeURIComponent(projectIdentifier)}/${taskName}`,
     filters,
-    selectedCommit
+    selectedCommit,
+    visibleColumns
   );
+};
+
+interface GetTriggerRouteParams {
+  triggerType: string;
+  upstreamTask: any;
+  upstreamVersion: any;
+  upstreamRevision: string;
+  upstreamOwner: string;
+  upstreamRepo: string;
+}
+
+export const getTriggerRoute = ({
+  triggerType,
+  upstreamOwner,
+  upstreamRepo,
+  upstreamRevision,
+  upstreamTask,
+  upstreamVersion,
+}: GetTriggerRouteParams) => {
+  if (triggerType === ProjectTriggerLevel.TASK) {
+    return getTaskRoute(upstreamTask.id);
+  }
+  if (triggerType === ProjectTriggerLevel.PUSH) {
+    return getGithubCommitUrl(upstreamOwner, upstreamRepo, upstreamRevision);
+  }
+  return getVersionRoute(upstreamVersion.id);
 };

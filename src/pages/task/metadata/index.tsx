@@ -16,11 +16,11 @@ import {
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { SEEN_HONEYCOMB_GUIDE_CUE } from "constants/cookies";
 import {
-  getDistroPageUrl,
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
 } from "constants/externalResources";
 import {
+  getDistroSettingsRoute,
   getTaskQueueRoute,
   getTaskRoute,
   getHostRoute,
@@ -238,15 +238,15 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
       {!isContainerTask && distroId && (
         <MetadataItem>
           Distro:{" "}
-          <StyledLink
+          <StyledRouterLink
             data-cy="task-distro-link"
-            href={getDistroPageUrl(distroId)}
             onClick={() =>
               taskAnalytics.sendEvent({ name: "Click Distro Link" })
             }
+            to={getDistroSettingsRoute(distroId)}
           >
             {distroId}
-          </StyledLink>
+          </StyledRouterLink>
         </MetadataItem>
       )}
       {ami && (
@@ -371,7 +371,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           <StyledLink
             ref={triggerRef}
             data-cy="task-trace-link"
-            href={getHoneycombTraceUrl(taskTrace, startTime)}
+            href={getHoneycombTraceUrl(taskTrace, startTime, finishTime)}
             onClick={() => {
               onHideCue();
               taskAnalytics.sendEvent({ name: "Click Trace Link" });

@@ -10,6 +10,7 @@ export enum ResourceType {
 export enum ProjectTriggerLevel {
   TASK = "task",
   BUILD = "build",
+  PUSH = "push",
 }
 
 export enum TriggerType {

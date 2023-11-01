@@ -557,6 +557,7 @@ export type File = {
   __typename?: "File";
   link: Scalars["String"]["output"];
   name: Scalars["String"]["output"];
+  urlParsley?: Maybe<Scalars["String"]["output"]>;
   visibility: Scalars["String"]["output"];
 };
 
@@ -2936,6 +2937,7 @@ export type Version = {
   finishTime?: Maybe<Scalars["Time"]["output"]>;
   gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"]["output"];
+  ignored: Scalars["Boolean"]["output"];
   isPatch: Scalars["Boolean"]["output"];
   manifest?: Maybe<Manifest>;
   message: Scalars["String"]["output"];
@@ -4413,8 +4415,10 @@ export type UpstreamProjectFragment = {
   __typename?: "Version";
   upstreamProject?: {
     __typename?: "UpstreamProject";
+    owner: string;
     project: string;
     repo: string;
+    revision: string;
     triggerID: string;
     triggerType: string;
     task?: { __typename?: "Task"; execution: number; id: string } | null;
@@ -6113,8 +6117,10 @@ export type MainlineCommitsForHistoryQuery = {
         }> | null;
         upstreamProject?: {
           __typename?: "UpstreamProject";
+          owner: string;
           project: string;
           repo: string;
+          revision: string;
           triggerID: string;
           triggerType: string;
           task?: { __typename?: "Task"; execution: number; id: string } | null;
@@ -6148,8 +6154,10 @@ export type MainlineCommitsForHistoryQuery = {
         }> | null;
         upstreamProject?: {
           __typename?: "UpstreamProject";
+          owner: string;
           project: string;
           repo: string;
+          revision: string;
           triggerID: string;
           triggerType: string;
           task?: { __typename?: "Task"; execution: number; id: string } | null;
@@ -6181,13 +6189,16 @@ export type MainlineCommitsQuery = {
         author: string;
         createTime: Date;
         id: string;
+        ignored: boolean;
         message: string;
         order: number;
         revision: string;
         upstreamProject?: {
           __typename?: "UpstreamProject";
+          owner: string;
           project: string;
           repo: string;
+          revision: string;
           triggerID: string;
           triggerType: string;
           task?: { __typename?: "Task"; execution: number; id: string } | null;
@@ -6243,8 +6254,10 @@ export type MainlineCommitsQuery = {
         } | null;
         upstreamProject?: {
           __typename?: "UpstreamProject";
+          owner: string;
           project: string;
           repo: string;
+          revision: string;
           triggerID: string;
           triggerType: string;
           task?: { __typename?: "Task"; execution: number; id: string } | null;
@@ -8120,6 +8133,7 @@ export type TaskFilesQuery = {
           __typename?: "File";
           link: string;
           name: string;
+          urlParsley?: string | null;
         }> | null;
       }>;
     };
@@ -8738,6 +8752,7 @@ export type VersionQuery = {
     errors: Array<string>;
     finishTime?: Date | null;
     id: string;
+    ignored: boolean;
     isPatch: boolean;
     message: string;
     order: number;
@@ -8816,8 +8831,10 @@ export type VersionQuery = {
     } | null;
     upstreamProject?: {
       __typename?: "UpstreamProject";
+      owner: string;
       project: string;
       repo: string;
+      revision: string;
       triggerID: string;
       triggerType: string;
       task?: { __typename?: "Task"; execution: number; id: string } | null;

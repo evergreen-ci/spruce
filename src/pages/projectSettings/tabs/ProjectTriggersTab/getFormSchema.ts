@@ -50,6 +50,11 @@ export const getFormSchema = (
                   title: "Build",
                   enum: [ProjectTriggerLevel.BUILD],
                 },
+                {
+                  type: "string" as "string",
+                  title: "Push",
+                  enum: [ProjectTriggerLevel.PUSH],
+                },
               ],
             },
             status: {

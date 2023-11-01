@@ -5,12 +5,12 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { DisplayModal } from "components/DisplayModal";
+import Icon from "components/Icon";
 import { StyledRouterLink } from "components/styles";
-import { getVersionRoute, getTaskRoute } from "constants/routes";
+import { getVersionRoute, getTriggerRoute } from "constants/routes";
 import { size, zIndex, fontSize } from "constants/tokens";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { CommitRolledUpVersions } from "types/commits";
-import { ProjectTriggerLevel } from "types/triggers";
 import { Unpacked } from "types/utils";
 import { string } from "utils";
 import { jiraLinkify } from "utils/string/jiraLinkify";
@@ -156,17 +156,21 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
         <>
           Triggered from:{" "}
           <StyledRouterLink
-            to={
-              v.upstreamProject.triggerType === ProjectTriggerLevel.TASK
-                ? getTaskRoute(v.upstreamProject.task.id)
-                : getVersionRoute(v.upstreamProject.version.id)
-            }
+            to={getTriggerRoute({
+              upstreamOwner: v.upstreamProject.owner,
+              upstreamRepo: v.upstreamProject.repo,
+              triggerType: v.upstreamProject.triggerType,
+              upstreamRevision: v.upstreamProject.revision,
+              upstreamTask: v.upstreamProject.task,
+              upstreamVersion: v.upstreamProject.version,
+            })}
           >
             {v.upstreamProject.project}
           </StyledRouterLink>
         </>
       )}
       <CommitBodyText>
+        {v.ignored && <StyledIcon data-cy="ignored-icon" glyph="Ignored" />}
         {v.author} -{" "}
         {jiraLinkify(message, jiraHost, () => {
           sendEvent({
@@ -180,6 +184,11 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
     </CommitText>
   );
 };
+
+const StyledIcon = styled(Icon)`
+  margin-right: ${size.xxs};
+  vertical-align: text-bottom;
+`;
 
 const InactiveCommitContainer = styled.div`
   display: flex;

@@ -12,9 +12,9 @@ export const GeneralTab: React.FC<TabProps> = ({
   minimumHosts,
 }) => {
   const { distroId } = useParams();
-  const { containerPools } = useSpruceConfig();
+  const spruceConfig = useSpruceConfig();
   const containerPoolDistros =
-    containerPools?.pools?.map(({ distro }) => distro) ?? [];
+    spruceConfig?.containerPools?.pools?.map(({ distro }) => distro) ?? [];
 
   const isContainerDistro = containerPoolDistros.includes(distroId);
 
