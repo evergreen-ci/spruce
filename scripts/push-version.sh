@@ -3,7 +3,13 @@
 WAIT_TIME=9
 GITHUB_REMOTE=https://github.com/evergreen-ci/spruce
 
-git push $GITHUB_REMOTE
+if git push $GITHUB_REMOTE
+then
+  echo "Successfully pushed to ${GITHUB_REMOTE}"
+else
+  echo "Failed to push to ${GITHUB_REMOTE}"
+  exit 1
+fi
 
 i=$WAIT_TIME
 while [ $i -gt 0 ]
@@ -11,4 +17,11 @@ while [ $i -gt 0 ]
 done
 echo ""
 
-git push --tags $GITHUB_REMOTE
+if git push --tags $GITHUB_REMOTE
+then
+  echo "Successfully pushed tags to ${GITHUB_REMOTE}"
+else 
+  echo "Failed to push tags to ${GITHUB_REMOTE}"
+  exit 1
+fi
+

@@ -73,9 +73,8 @@ export const getColumnsTemplate = ({
       },
     }),
     sorter: true,
-    render: (status: string): JSX.Element => (
-      <TestStatusBadge status={status} />
-    ),
+    render: (status: string): JSX.Element =>
+      status && <TestStatusBadge status={status} />,
   },
   {
     title: <span data-cy="time-column">Time</span>,
