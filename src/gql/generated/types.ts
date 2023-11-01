@@ -2105,6 +2105,7 @@ export type RepoRef = {
   manualPrTestingEnabled: Scalars["Boolean"]["output"];
   notifyOnBuildFailure: Scalars["Boolean"]["output"];
   owner: Scalars["String"]["output"];
+  parsleyFilters?: Maybe<Array<ParsleyFilter>>;
   patchTriggerAliases?: Maybe<Array<PatchTriggerAlias>>;
   patchingDisabled: Scalars["Boolean"]["output"];
   perfEnabled: Scalars["Boolean"]["output"];
@@ -2146,6 +2147,7 @@ export type RepoRefInput = {
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   notifyOnBuildFailure?: InputMaybe<Scalars["Boolean"]["input"]>;
   owner?: InputMaybe<Scalars["String"]["input"]>;
+  parsleyFilters?: InputMaybe<Array<ParsleyFilterInput>>;
   patchTriggerAliases?: InputMaybe<Array<PatchTriggerAliasInput>>;
   patchingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   perfEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;

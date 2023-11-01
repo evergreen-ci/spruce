@@ -18,6 +18,8 @@ describe("Task table", () => {
   it("Updates the url when column headers are clicked", () => {
     cy.visit(pathTasks);
     waitForTaskTable();
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(200);
     cy.location("search").should(
       "contain",
       "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
