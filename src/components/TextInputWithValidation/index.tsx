@@ -23,13 +23,14 @@ type TextInputWithValidationProps = {
    */
   onChange?: (value: string) => void;
   validatorErrorMessage?: string;
-  label?: React.ReactNode;
   placeholder?: string;
-} & TextInputWithGlyphProps;
+} & Omit<TextInputWithGlyphProps, "icon" | "onSubmit">;
 
 const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
   forwardRef((props, ref) => {
     const {
+      "aria-label": ariaLabel,
+      label,
       onChange = () => {},
       onSubmit = () => {},
       placeholder = "",
@@ -64,6 +65,8 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
         onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
           e.key === "Enter" && handleOnSubmit()
         }
+        label={label}
+        aria-label={ariaLabel}
         ref={ref}
         icon={
           isValid ? (
