@@ -1,10 +1,10 @@
 import { yellow } from "../../../../utils/colors";
 
 /**
- * `createNewTag` is a helper function that creates a new tag.
+ * `createTagAndPush` is a helper function that creates a new tag and pushes to remote.
  */
-const createNewTag = () => {
-  console.log(yellow("Dry run mode enabled. Created new tag."));
+const createTagAndPush = () => {
+  console.log(yellow("Dry run mode enabled. Created new tag and pushed."));
 };
 
 /**
@@ -31,4 +31,4 @@ const pushTags = () => {
   console.log(yellow("Dry run mode enabled. Pushing tags."));
 };
 
-export { createNewTag, getLatestTag, deleteTag, pushTags };
+export { createTagAndPush, getLatestTag, deleteTag, pushTags };

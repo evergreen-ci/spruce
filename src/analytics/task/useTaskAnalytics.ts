@@ -64,6 +64,10 @@ type Action =
       parsleyAvailable: boolean;
       fileName: string;
     }
+  | {
+      name: "Click Task File Parsley Link";
+      fileName: string;
+    }
   | { name: "Click Trace Link" }
   | { name: "Click Trace Metrics Link" }
   | { name: "Submit Previous Commit Selector"; type: CommitType };
@@ -80,6 +84,7 @@ export const useTaskAnalytics = () => {
   const {
     failedTestCount,
     latestExecution,
+    project: { identifier } = { identifier: null },
     status: taskStatus,
   } = eventData?.task || {};
   const isLatestExecution = latestExecution === execution;
@@ -90,5 +95,6 @@ export const useTaskAnalytics = () => {
     isLatestExecution: isLatestExecution.toString(),
     taskId: id,
     failedTestCount,
+    projectIdentifier: identifier,
   });
 };
