@@ -5,6 +5,7 @@ import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
+import Icon from "components/Icon";
 import { finishedTaskStatuses } from "constants/task";
 import { useToastContext } from "context/toast";
 import {
@@ -45,8 +46,6 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     variants: [applyStrictRegex(buildVariant)],
   };
 
-  // We don't error for this query because it is the default query that is run when the page loads.
-  // If it errors it probably means there is no base version, which is fine.
   const { data: parentTaskData, loading: parentLoading } = useQuery<
     LastMainlineCommitQuery,
     LastMainlineCommitQueryVariables
@@ -120,7 +119,11 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     <Tooltip
       justify="middle"
       trigger={
-        <Button size={Size.Small} disabled>
+        <Button
+          disabled
+          rightGlyph={<Icon glyph="CaretDown" />}
+          size={Size.Small}
+        >
           Previous commits
         </Button>
       }
@@ -128,7 +131,13 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
       No previous versions available.
     </Tooltip>
   ) : (
-    <Menu trigger={<Button size={Size.Small}>Previous commits</Button>}>
+    <Menu
+      trigger={
+        <Button rightGlyph={<Icon glyph="CaretDown" />} size={Size.Small}>
+          Previous commits
+        </Button>
+      }
+    >
       <MenuItem
         as={Link}
         disabled={parentLoading}
@@ -140,7 +149,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
         }
         to={linkObject[CommitType.Base]}
       >
-        {versionMetadata?.isPatch ? "Base" : "Previous"} commit
+        Go to {versionMetadata?.isPatch ? "base" : "previous"} commit
       </MenuItem>
       <MenuItem
         as={Link}
@@ -153,7 +162,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
         }
         to={linkObject[CommitType.LastPassing]}
       >
-        Last passing version
+        Go to last passing version
       </MenuItem>
       <MenuItem
         as={Link}
@@ -166,7 +175,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
         }
         to={linkObject[CommitType.LastExecuted]}
       >
-        Last executed version
+        Go to last executed version
       </MenuItem>
     </Menu>
   );

@@ -107,13 +107,13 @@ describe("previous commits", () => {
     });
 
     expect(
-      screen.getByRole("menuitem", { name: "Base commit" })
+      screen.getByRole("menuitem", { name: "Go to base commit" })
     ).toHaveAttribute("href", baseTaskHref);
     expect(
-      screen.getByRole("menuitem", { name: "Last passing version" })
+      screen.getByRole("menuitem", { name: "Go to last passing version" })
     ).toHaveAttribute("href", baseTaskHref);
     expect(
-      screen.getByRole("menuitem", { name: "Last executed version" })
+      screen.getByRole("menuitem", { name: "Go to last executed version" })
     ).toHaveAttribute("href", baseTaskHref);
   });
 
@@ -138,13 +138,13 @@ describe("previous commits", () => {
     });
 
     expect(
-      screen.getByRole("menuitem", { name: "Base commit" })
+      screen.getByRole("menuitem", { name: "Go to base commit" })
     ).toHaveAttribute("href", baseTaskHref);
     expect(
-      screen.getByRole("menuitem", { name: "Last passing version" })
+      screen.getByRole("menuitem", { name: "Go to last passing version" })
     ).toHaveAttribute("href", "/task/last_passing_task");
     expect(
-      screen.getByRole("menuitem", { name: "Last executed version" })
+      screen.getByRole("menuitem", { name: "Go to last executed version" })
     ).toHaveAttribute("href", baseTaskHref);
   });
 
@@ -173,13 +173,13 @@ describe("previous commits", () => {
     });
 
     expect(
-      screen.getByRole("menuitem", { name: "Base commit" })
+      screen.getByRole("menuitem", { name: "Go to base commit" })
     ).toHaveAttribute("href", baseTaskHref);
     expect(
-      screen.getByRole("menuitem", { name: "Last passing version" })
+      screen.getByRole("menuitem", { name: "Go to last passing version" })
     ).toHaveAttribute("href", "/task/last_passing_task");
     expect(
-      screen.getByRole("menuitem", { name: "Last executed version" })
+      screen.getByRole("menuitem", { name: "Go to last executed version" })
     ).toHaveAttribute("href", "/task/last_executed_task");
   });
 });
