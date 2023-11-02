@@ -1,24 +1,20 @@
 import { getNotificationsRoute, saveButtonEnabled } from "./constants";
 import { clickSave } from "../../utils";
 
-describe("Notifications", { testIsolation: false }, () => {
-  const destination = getNotificationsRoute("evergreen");
-  before(() => {
-    cy.visit(destination);
+describe("Notifications", () => {
+  const origin = getNotificationsRoute("evergreen");
+  beforeEach(() => {
+    cy.visit(origin);
   });
-  it("Does not show a 'Default to Repo' button on page", () => {
+  it("shows correct intitial state", () => {
     cy.dataCy("default-to-repo-button").should("not.exist");
-  });
-  it("shouldn't have any subscriptions defined", () => {
-    cy.contains("No subscriptions are defined.").should("exist");
-  });
-  it("shouldn't be able to save anything if no changes were made", () => {
+    cy.contains("No subscriptions are defined.").should("be.visible");
     saveButtonEnabled(false);
   });
-  it("should be able to add a subscription and save it", () => {
+  it("should be able to add a subscription, save it and delete it", () => {
     cy.dataCy("expandable-card").should("not.exist");
     cy.dataCy("add-button").contains("Add Subscription").should("be.visible");
-    cy.dataCy("add-button").contains("Add Subscription").click({ force: true });
+    cy.dataCy("add-button").click();
     cy.dataCy("expandable-card").should("contain.text", "New Subscription");
     cy.selectLGOption("Event", "Any Version Finishes");
     cy.selectLGOption("Notification Method", "Email");
@@ -28,51 +24,53 @@ describe("Notifications", { testIsolation: false }, () => {
     cy.validateToast("success", "Successfully updated project");
 
     saveButtonEnabled(false);
-    cy.dataCy("expandable-card").should("exist");
-    cy.dataCy("expandable-card").scrollIntoView();
-    cy.dataCy("expandable-card").should(
-      "contain.text",
-      "Version outcome  - mohamed.khelif@mongodb.com"
-    );
-  });
-  it("should be able to delete a subscription", () => {
-    cy.dataCy("expandable-card").should("exist");
-    cy.dataCy("expandable-card").scrollIntoView();
-    cy.dataCy("delete-item-button").click({ force: true });
-    cy.dataCy("expandable-card").should("not.exist");
+    cy.dataCy("expandable-card").as("subscriptionItem").scrollIntoView();
+    cy.get("@subscriptionItem")
+      .should("be.visible")
+      .should("contain.text", "Version outcome  - mohamed.khelif@mongodb.com");
+    cy.dataCy("delete-item-button").should("not.be.disabled").click();
+    cy.get("@subscriptionItem").should("not.exist");
     cy.dataCy("save-settings-button").scrollIntoView();
     clickSave();
     cy.validateToast("success", "Successfully updated project");
   });
+
   it("should not be able to combine a jira comment subscription with a task event", () => {
     cy.dataCy("expandable-card").should("not.exist");
     cy.dataCy("add-button").contains("Add Subscription").should("be.visible");
-    cy.dataCy("add-button").contains("Add Subscription").click({ force: true });
+    cy.dataCy("add-button").click();
     cy.dataCy("expandable-card").should("exist").scrollIntoView();
-    cy.dataCy("expandable-card").should("contain.text", "New Subscription");
+    cy.dataCy("expandable-card")
+      .should("be.visible")
+      .should("contain.text", "New Subscription");
     cy.selectLGOption("Event", "Any Task Finishes");
     cy.selectLGOption("Notification Method", "Comment on a JIRA issue");
     cy.getInputByLabel("JIRA Issue").type("JIRA-123");
     cy.contains("Subscription type not allowed for tasks in a project.").should(
-      "exist"
+      "be.visible"
     );
     cy.dataCy("save-settings-button").scrollIntoView();
     saveButtonEnabled(false);
   });
   it("should not be able to save a subscription if an input is invalid", () => {
+    cy.dataCy("add-button").click();
+    cy.dataCy("expandable-card").scrollIntoView();
+    cy.dataCy("expandable-card")
+      .should("be.visible")
+      .should("contain.text", "New Subscription");
     cy.selectLGOption("Event", "Any Version Finishes");
     cy.selectLGOption("Notification Method", "Email");
     cy.getInputByLabel("Email").type("Not a real email");
-    cy.contains("Value should be a valid email.").should("exist");
+    cy.contains("Value should be a valid email.").should("be.visible");
     cy.dataCy("save-settings-button").scrollIntoView();
     saveButtonEnabled(false);
   });
   it("Setting a project banner displays the banner on the correct pages and unsetting is removes it", () => {
-    cy.visit(destination);
     const bannerText = "This is a project banner!";
 
     // set banner
-    cy.dataCy("banner-text").clear().type(bannerText);
+    cy.dataCy("banner-text").clear();
+    cy.dataCy("banner-text").type(bannerText);
     clickSave();
     cy.validateToast("success", "Successfully updated project");
 
@@ -105,7 +103,7 @@ describe("Notifications", { testIsolation: false }, () => {
     cy.contains(bannerText).should("be.visible");
 
     // clear banner
-    cy.visit(destination);
+    cy.visit(origin);
     cy.dataCy("banner-text").clear();
     clickSave();
 

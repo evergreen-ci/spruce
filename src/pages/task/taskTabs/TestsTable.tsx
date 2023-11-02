@@ -164,7 +164,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
       shouldShowBottomTableControl={filteredTestCount > 10}
     >
       <Table
-        data-test-id="tests-table"
+        data-cy="tests-table"
         rowKey={rowKey}
         pagination={false}
         columns={columns}
