@@ -107,12 +107,13 @@ const Commits = () => {
   const skipOrderNumberParam = getString(
     parsed[MainlineCommitQueryParams.SkipOrderNumber]
   );
-  const revision = getString(parsed[MainlineCommitQueryParams.Revision]);
+  const revisionParam = getString(parsed[MainlineCommitQueryParams.Revision]);
 
   const parsedSkipNum = parseInt(skipOrderNumberParam, 10);
   const skipOrderNumber = Number.isNaN(parsedSkipNum)
     ? undefined
     : parsedSkipNum;
+  const revision = revisionParam.length ? revisionParam : undefined;
 
   const filterState = {
     statuses: statusFilters,

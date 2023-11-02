@@ -109,7 +109,7 @@ const getCommitWidth = (commit: Commit) => {
 const isCommitSelected = (commit: Commit, revision: string) => {
   const { rolledUpVersions, version } = commit;
 
-  if (revision.trim() === "") {
+  if (!revision) {
     return false;
   }
 

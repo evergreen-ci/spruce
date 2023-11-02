@@ -52,7 +52,7 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
         <TextInput
           description="Note: this is an experimental feature that works best with no task or build variant filters applied. Applying a git commit hash will clear all applied filters."
           label="Git Commit Hash"
-          onChange={(e) => setCommitHash(e.target.value)}
+          onChange={(e) => setCommitHash(e.target.value.trim())}
           onKeyPress={(e) => e.key === "Enter" && onSubmit()}
           value={commitHash}
         />
