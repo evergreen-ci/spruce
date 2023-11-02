@@ -9,7 +9,11 @@ import envCompatible from "vite-plugin-env-compatible";
 import checker from "vite-plugin-checker";
 import { visualizer } from "rollup-plugin-visualizer";
 import tsconfigPaths from "vite-tsconfig-paths";
+import dns from "dns";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
+
+// Remove when https://github.com/cypress-io/cypress/issues/25397 is resolved.
+dns.setDefaultResultOrder("ipv4first");
 
 // Do not apply Antd's global styles
 fs.writeFileSync(require.resolve("antd/es/style/core/global.less"), "");
