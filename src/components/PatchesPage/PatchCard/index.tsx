@@ -19,8 +19,7 @@ import { PatchStatus } from "types/patch";
 import { Unpacked } from "types/utils";
 import { isPatchUnconfigured } from "utils/patch";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
-
-import { DropdownMenu } from "./patchCard/DropdownMenu";
+import { DropdownMenu } from "./DropdownMenu";
 
 type P = Unpacked<PatchesPagePatchesFragment["patches"]>;
 type PatchProps = Omit<P, "commitQueuePosition">;

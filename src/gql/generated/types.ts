@@ -936,6 +936,7 @@ export type MainlineCommitsOptions = {
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  revision?: InputMaybe<Scalars["String"]["input"]>;
   shouldCollapse?: InputMaybe<Scalars["Boolean"]["input"]>;
   skipOrderNumber?: InputMaybe<Scalars["Int"]["input"]>;
 };
@@ -2106,6 +2107,7 @@ export type RepoRef = {
   manualPrTestingEnabled: Scalars["Boolean"]["output"];
   notifyOnBuildFailure: Scalars["Boolean"]["output"];
   owner: Scalars["String"]["output"];
+  parsleyFilters?: Maybe<Array<ParsleyFilter>>;
   patchTriggerAliases?: Maybe<Array<PatchTriggerAlias>>;
   patchingDisabled: Scalars["Boolean"]["output"];
   perfEnabled: Scalars["Boolean"]["output"];
@@ -2147,6 +2149,7 @@ export type RepoRefInput = {
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   notifyOnBuildFailure?: InputMaybe<Scalars["Boolean"]["input"]>;
   owner?: InputMaybe<Scalars["String"]["input"]>;
+  parsleyFilters?: InputMaybe<Array<ParsleyFilterInput>>;
   patchTriggerAliases?: InputMaybe<Array<PatchTriggerAliasInput>>;
   patchingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   perfEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
