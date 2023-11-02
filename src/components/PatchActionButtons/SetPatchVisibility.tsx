@@ -25,11 +25,8 @@ export const SetPatchVisibility: React.FC<Props> = ({
     SetPatchVisibilityMutationVariables
   >(SET_PATCH_VISIBILITY, {
     onCompleted: (d) => {
-      dispatchToast.success(
-        `This patch was successfully ${
-          d.setPatchVisibility?.[0].hidden ? "unhidden" : "hidden"
-        }`
-      );
+      const copy = d.setPatchVisibility?.[0].hidden ? "unhidden" : "hidden";
+      dispatchToast.success(`This patch was successfully ${copy}`);
     },
     onError: (err) => {
       dispatchToast.error(`Unable to update patch visibility: ${err.message}`);
