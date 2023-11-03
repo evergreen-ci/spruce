@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo, useReducer } from "react";
 import { environmentVariables } from "utils";
-import { leaveBreadcrumb } from "utils/errorReporting";
+import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
 
 const { getLoginDomain, getUiUrl } = environmentVariables;
 
@@ -66,13 +66,13 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             window.location.href = `${getLoginDomain()}/login`;
           })
           .catch((error) => {
-            leaveBreadcrumb("Logout failed", { error }, "user");
+            leaveBreadcrumb("Logout failed", { error }, SentryBreadcrumb.User);
           });
       },
       dispatchAuthenticated: () => {
         if (!state.isAuthenticated) {
           dispatch({ type: "authenticated" });
-          leaveBreadcrumb("Authenticated", {}, "user");
+          leaveBreadcrumb("Authenticated", {}, SentryBreadcrumb.User);
         }
       },
     }),

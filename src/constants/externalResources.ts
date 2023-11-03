@@ -26,6 +26,8 @@ export const githubChecksAliasesDocumentationUrl = `${projectDistroSettingsDocum
 
 export const githubMergeQueueDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Merge-Queue`;
 
+export const ignoredFilesDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Project-Configuration-Files#ignoring-changes-to-certain-files`;
+
 export const cliDocumentationUrl = `${wikiBaseUrl}/CLI`;
 
 export const windowsPasswordRulesURL =
@@ -101,10 +103,14 @@ export const getParsleyTestLogURL = (buildId: string, testId: string) =>
 export const getParsleyBuildLogURL = (buildId: string) =>
   `${getParsleyUrl()}/resmoke/${buildId}/all`;
 
-export const getHoneycombTraceUrl = (traceId: string, startTs: Date) =>
+export const getHoneycombTraceUrl = (
+  traceId: string,
+  startTs: Date,
+  endTs: Date
+) =>
   `${getHoneycombBaseURL()}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(
     new Date(startTs)
-  )}`;
+  )}&trace_end_ts=${getUnixTime(new Date(endTs))}`;
 
 export const getHoneycombSystemMetricsUrl = (
   taskId: string,

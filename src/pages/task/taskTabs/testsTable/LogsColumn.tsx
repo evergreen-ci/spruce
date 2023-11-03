@@ -22,7 +22,7 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
     urlParsley,
     urlRaw,
   } = testResult.logs ?? {};
-  const { displayName, displayTask, order, project } = task ?? {};
+  const { buildVariant, displayName, displayTask, order, project } = task ?? {};
   const { sendEvent } = useTaskAnalytics();
   const filters =
     status === TestStatus.Fail
@@ -114,6 +114,7 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           to={getTaskHistoryRoute(project?.identifier, displayName, {
             filters,
             selectedCommit: order,
+            visibleColumns: [buildVariant],
           })}
         />
       )}

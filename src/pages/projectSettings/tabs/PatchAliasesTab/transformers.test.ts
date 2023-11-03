@@ -82,7 +82,7 @@ const repoForm: PatchAliasesFormState = {
       {
         alias: "alias1",
         childProjectIdentifier: "spruce",
-        status: "succeeded",
+        status: "success",
         displayTitle: "alias1",
         parentAsModule: "",
         isGithubTriggerAlias: true,
@@ -124,7 +124,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
             variantRegex: ".*",
           },
         ],
-        status: "succeeded",
+        status: "success",
         parentAsModule: "",
       },
     ],

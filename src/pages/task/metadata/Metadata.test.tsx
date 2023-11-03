@@ -3,7 +3,7 @@ import { addMilliseconds } from "date-fns";
 import { getUserMock } from "gql/mocks/getUser";
 import { taskQuery } from "gql/mocks/taskData";
 import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
-import { Metadata } from "./index";
+import { Metadata } from ".";
 
 const wrapper = ({ children }) => (
   <MockedProvider mocks={[getUserMock]}>{children}</MockedProvider>

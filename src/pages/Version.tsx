@@ -28,7 +28,7 @@ import { PageDoesNotExist } from "pages/404";
 import { isPatchUnconfigured } from "utils/patch";
 import { shortenGithash, githubPRLinkify } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
-import { WarningBanner, ErrorBanner } from "./version/Banners";
+import { WarningBanner, ErrorBanner, IgnoredBanner } from "./version/Banners";
 import VersionPageBreadcrumbs from "./version/Breadcrumbs";
 import BuildVariantCard from "./version/BuildVariantCard";
 import { ActionButtons, Metadata, VersionTabs } from "./version/index";
@@ -133,6 +133,7 @@ export const VersionPage: React.FC = () => {
   const { version } = versionData || {};
   const {
     errors,
+    ignored,
     isPatch,
     message,
     order,
@@ -165,6 +166,7 @@ export const VersionPage: React.FC = () => {
       <ProjectBanner projectIdentifier={projectIdentifier} />
       {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
       {warnings && warnings.length > 0 && <WarningBanner warnings={warnings} />}
+      {ignored && <IgnoredBanner />}
       {version && (
         <VersionPageBreadcrumbs
           patchNumber={patchNumber}

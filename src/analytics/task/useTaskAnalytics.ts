@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 import {
   SaveSubscriptionForUserMutationVariables,
@@ -9,11 +9,9 @@ import {
   TestSortCategory,
 } from "gql/generated/types";
 import { TASK } from "gql/queries";
+import { useQueryParam } from "hooks/useQueryParam";
 import { CommitType } from "pages/task/actionButtons/previousCommits/types";
 import { RequiredQueryParams, LogTypes } from "types/task";
-import { queryString } from "utils";
-
-const { parseQueryString } = queryString;
 
 type LogViewer = "raw" | "html" | "parsley" | "lobster";
 type Action =
@@ -61,16 +59,23 @@ type Action =
   | { name: "Click Display Task Link" }
   | { name: "Click Project Link" }
   | { name: "Click See History Button" }
+  | {
+      name: "Click Task File Link";
+      parsleyAvailable: boolean;
+      fileName: string;
+    }
+  | {
+      name: "Click Task File Parsley Link";
+      fileName: string;
+    }
   | { name: "Click Trace Link" }
   | { name: "Click Trace Metrics Link" }
   | { name: "Submit Previous Commit Selector"; type: CommitType };
 
 export const useTaskAnalytics = () => {
   const { id } = useParams<{ id: string }>();
-  const location = useLocation();
 
-  const parsed = parseQueryString(location.search);
-  const execution = Number(parsed[RequiredQueryParams.Execution]);
+  const [execution] = useQueryParam(RequiredQueryParams.Execution, 0);
   const { data: eventData } = useQuery<TaskQuery, TaskQueryVariables>(TASK, {
     variables: { taskId: id, execution },
     fetchPolicy: "cache-first",
@@ -79,6 +84,7 @@ export const useTaskAnalytics = () => {
   const {
     failedTestCount,
     latestExecution,
+    project: { identifier } = { identifier: null },
     status: taskStatus,
   } = eventData?.task || {};
   const isLatestExecution = latestExecution === execution;
@@ -89,5 +95,6 @@ export const useTaskAnalytics = () => {
     isLatestExecution: isLatestExecution.toString(),
     taskId: id,
     failedTestCount,
+    projectIdentifier: identifier,
   });
 };
