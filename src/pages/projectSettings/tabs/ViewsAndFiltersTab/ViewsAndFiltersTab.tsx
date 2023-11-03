@@ -39,12 +39,13 @@ export const ViewsAndFiltersTab: React.FC<TabProps> = ({
   );
 };
 
-/* Display an error and prevent saving if a user enters a Parsley filter expression that already appears in the project. */
+/* Display an error and prevent saving if a user enters a Parsley filter expression that already appears in the project or repo. */
 const validate = ((formData, errors) => {
-  const duplicateIndices = findDuplicateIndices(
-    formData.parsleyFilters,
-    "expression"
-  );
+  const combinedFilters = [
+    ...formData.parsleyFilters,
+    ...(formData?.repoData?.parsleyFilters ?? []),
+  ];
+  const duplicateIndices = findDuplicateIndices(combinedFilters, "expression");
   duplicateIndices.forEach((i) => {
     errors.parsleyFilters?.[i]?.expression?.addError(
       "Filter expression already appears in this project."
