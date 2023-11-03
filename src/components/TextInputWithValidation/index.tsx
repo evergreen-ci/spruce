@@ -38,7 +38,6 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
       label,
       onChange = () => {},
       onSubmit = () => {},
-      placeholder = "",
       validator = () => true,
       validatorErrorMessage = "",
       ...rest
@@ -66,9 +65,7 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
     return (
       <TextInputWithGlyph
         value={input}
-        type="search"
         onChange={(e) => handleOnChange(e.target.value)}
-        placeholder={placeholder}
         onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
           e.key === "Enter" && handleOnSubmit()
         }
