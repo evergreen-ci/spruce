@@ -9,26 +9,26 @@ import { TreeDataEntry } from "components/TreeSelect";
 type TreeSelectFilterProps = {
   "data-cy"?: string;
   tData: TreeDataEntry[];
-  onFilter?: ({ id, value }: { id: string; value: string[] }) => void;
+  onConfirm?: ({ id, value }: { id: string; value: string[] }) => void;
 };
 
 export const getColumnTreeSelectFilterProps = ({
   "data-cy": dataCy,
-  onFilter,
+  onConfirm = () => {},
   tData,
 }: TreeSelectFilterProps) => ({
   meta: {
     filterComponent: ({ column }) => {
-      const filtered = tData.filter(
+      const filteredOptions = tData.filter(
         ({ value }) => !!column.getFacetedUniqueValues().get(value)
       );
       return (
         <TableFilterPopover
           value={column?.getFilterValue() ?? []}
-          options={filtered.length ? filtered : tData}
+          options={filteredOptions.length ? filteredOptions : tData}
           onConfirm={(newValue) => {
             column.setFilterValue(newValue);
-            onFilter?.({ id: column.id, value: newValue });
+            onConfirm({ id: column.id, value: newValue });
           }}
           data-cy={dataCy}
         />
@@ -40,7 +40,7 @@ export const getColumnTreeSelectFilterProps = ({
     columnId: string,
     filterValue: string[]
   ) => {
-    // If no filter is specified, show all rows
+    // If no filter is specified, show all rows.
     if (!filterValue.length) {
       return true;
     }
@@ -50,12 +50,12 @@ export const getColumnTreeSelectFilterProps = ({
 
 type InputFilterProps = {
   "data-cy"?: string;
-  onFilter?: ({ id, value }: { id: string; value: string }) => void;
+  onConfirm?: ({ id, value }: { id: string; value: string }) => void;
 };
 
 export const getColumnInputFilterProps = ({
   "data-cy": dataCy,
-  onFilter,
+  onConfirm = () => {},
 }: InputFilterProps) => ({
   meta: {
     filterComponent: ({ column }) => (
@@ -63,7 +63,7 @@ export const getColumnInputFilterProps = ({
         value={column?.getFilterValue() ?? ""}
         onConfirm={(newValue) => {
           column.setFilterValue(newValue);
-          onFilter?.({ id: column.id, value: newValue });
+          onConfirm({ id: column.id, value: newValue });
         }}
         data-cy={dataCy}
       />
@@ -74,7 +74,7 @@ export const getColumnInputFilterProps = ({
     columnId: string,
     filterValue: string
   ) => {
-    // If no filter is specified, show all rows
+    // If no filter is specified, show all rows.
     if (!filterValue.length) {
       return true;
     }
@@ -86,12 +86,12 @@ export const getColumnInputFilterProps = ({
 
 type SortProps = {
   "data-cy"?: string;
-  onSort?: ({ id, value }: { id: string; value: string }) => void;
+  onToggle?: ({ id, value }: { id: string; value: string }) => void;
 };
 
 export const getColumnSortProps = ({
   "data-cy": dataCy,
-  onSort,
+  onToggle = () => {},
 }: SortProps) => ({
   meta: {
     sortComponent: ({ column }) => (
@@ -99,7 +99,7 @@ export const getColumnSortProps = ({
         value={column.getIsSorted().toString()}
         onToggle={(newValue) => {
           column.toggleSorting();
-          onSort({ id: column.id, value: newValue });
+          onToggle({ id: column.id, value: newValue });
         }}
         data-cy={dataCy}
       />

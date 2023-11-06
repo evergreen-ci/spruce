@@ -21,17 +21,17 @@ const iconGlyph = {
 };
 
 interface TableSortIconProps {
-  value: SortStateType;
-  onToggle: (value: string) => void;
   "data-cy"?: string;
+  onToggle: (value: string) => void;
+  value: SortStateType;
 }
 
-export const TableSortIcon: React.VFC<TableSortIconProps> = ({
+export const TableSortIcon: React.FC<TableSortIconProps> = ({
   "data-cy": dataCy,
   onToggle,
   value,
 }) => {
-  const iconColor = value !== SortState.OFF ? blue.base : gray.dark2;
+  const iconColor = value === SortState.OFF ? gray.dark2 : blue.base;
 
   const onClick = () => {
     let update: string | undefined;
@@ -46,7 +46,7 @@ export const TableSortIcon: React.VFC<TableSortIconProps> = ({
   };
 
   return (
-    <Wrapper>
+    <SortIconWrapper>
       <IconButton
         onClick={onClick}
         data-cy={dataCy}
@@ -54,10 +54,10 @@ export const TableSortIcon: React.VFC<TableSortIconProps> = ({
       >
         <Icon glyph={iconGlyph[value]} small="xsmall" color={iconColor} />
       </IconButton>
-    </Wrapper>
+    </SortIconWrapper>
   );
 };
 
-const Wrapper = styled.div`
+const SortIconWrapper = styled.div`
   margin-left: ${size.xxs};
 `;

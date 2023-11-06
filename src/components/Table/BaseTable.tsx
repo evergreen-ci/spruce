@@ -17,12 +17,14 @@ type SpruceTableProps = {
   "data-cy-row"?: string;
   "data-cy-table"?: string;
   emptyComponent?: React.ReactNode;
+  loading?: boolean;
 };
 
 export const BaseTable = <T extends LGRowData>({
   "data-cy-row": dataCyRow,
   "data-cy-table": dataCyTable,
   emptyComponent,
+  loading,
   table,
   ...args
 }: SpruceTableProps & TableProps<T>) => (
@@ -85,7 +87,8 @@ export const BaseTable = <T extends LGRowData>({
         </Row>
       ))}
     </TableBody>
-    {table.getRowModel().rows.length === 0 &&
+    {!loading &&
+      table.getRowModel().rows.length === 0 &&
       (emptyComponent || "No data to display")}
   </Table>
 );

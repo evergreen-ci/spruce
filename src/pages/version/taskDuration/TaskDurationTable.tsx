@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useLeafyGreenTable } from "@leafygreen-ui/table/new";
 import {
   SortingState,
@@ -29,6 +29,10 @@ interface Props {
 }
 
 export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
+  const { id: versionId } = useParams<{ id: string }>();
+  const { sendEvent } = useVersionAnalytics(versionId);
+  const { currentStatuses: statusOptions } = useTaskStatuses({ versionId });
+
   const [queryParams] = useQueryParams();
   const {
     [PatchTasksQueryParams.TaskName]: taskName = "",
@@ -37,7 +41,7 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
     [PatchTasksQueryParams.Duration]: duration = "",
   } = queryParams;
 
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([
+  const [filters, setFilters] = useState<ColumnFiltersState>([
     { id: PatchTasksQueryParams.TaskName, value: taskName },
     {
       id: PatchTasksQueryParams.Statuses,
@@ -49,65 +53,26 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
   const [sorting, setSorting] = useState<SortingState>([
     {
       id: PatchTasksQueryParams.Duration,
-      desc: duration === "DESC",
+      desc: duration !== "ASC",
     },
   ]);
 
-  const { columns } = useGetColumns();
-
-  const tableContainerRef = useRef<HTMLDivElement>(null);
-  const table = useLeafyGreenTable<
-    VersionTaskDurationsQuery["version"]["tasks"]["data"][0]
-  >({
-    columns,
-    containerRef: tableContainerRef,
-    data: tasks ?? [],
-    state: {
-      columnFilters,
-      sorting,
-    },
-    onColumnFiltersChange: setColumnFilters,
-    onSortingChange: setSorting,
-    getFacetedMinMaxValues: getFacetedMinMaxValues(),
-    manualFiltering: true,
-    manualSorting: true,
-    manualPagination: true,
-  });
-
-  return (
-    <>
-      <BaseTable
-        data-cy="task-duration-table-row"
-        table={table}
-        shouldAlternateRowColor
-      />
-      {loading && (
-        <TablePlaceholder glyph="Refresh" message="Loading..." spin />
-      )}
-      {!loading && tasks.length === 0 && (
-        <TablePlaceholder message="No tasks found." />
-      )}
-    </>
-  );
-};
-
-const useGetColumns = () => {
-  const { id: versionId } = useParams<{ id: string }>();
-  const { sendEvent } = useVersionAnalytics(versionId);
   const updateQueryParams = useUpdateURLQueryParams();
-  const { currentStatuses: statusOptions } = useTaskStatuses({ versionId });
+  const updateUrl = useCallback(
+    ({ id, value }) => {
+      updateQueryParams({ [id]: value || undefined, page: "0" });
+      sendEvent({ name: "Filter Tasks", filterBy: id });
+    },
+    [sendEvent, updateQueryParams]
+  );
 
-  const updateUrl = ({ id, value }) => {
-    updateQueryParams({ [id]: value || undefined, page: "0" });
-    sendEvent({ name: "Filter Tasks", filterBy: id });
-  };
-
-  return {
-    columns: [
+  const columns = useMemo(
+    () => [
       {
         id: PatchTasksQueryParams.TaskName,
         accessorKey: "displayName",
         header: "Task Name",
+        size: 250,
         cell: ({
           getValue,
           row: {
@@ -116,35 +81,35 @@ const useGetColumns = () => {
         }) => <TaskLink taskId={id} taskName={getValue()} />,
         ...getColumnInputFilterProps({
           "data-cy": "task-name-filter-popover",
-          onFilter: updateUrl,
+          onConfirm: updateUrl,
         }),
-        size: 300,
       },
       {
         id: PatchTasksQueryParams.Statuses,
         accessorKey: "status",
         header: "Status",
+        size: 100,
         cell: ({ getValue }) => <TaskStatusBadge status={getValue()} />,
         ...getColumnTreeSelectFilterProps({
           "data-cy": "status-filter-popover",
           tData: statusOptions,
-          onFilter: updateUrl,
+          onConfirm: updateUrl,
         }),
       },
       {
         id: PatchTasksQueryParams.Variant,
         accessorKey: "buildVariantDisplayName",
         header: "Build Variant",
-        cell: ({ getValue }) => getValue(),
         ...getColumnInputFilterProps({
           "data-cy": "variant-filter-popover",
-          onFilter: updateUrl,
+          onConfirm: updateUrl,
         }),
       },
       {
         id: PatchTasksQueryParams.Duration,
         accessorKey: "timeTaken",
         header: "Task Duration",
+        size: 250,
         cell: ({
           column,
           getValue,
@@ -160,10 +125,44 @@ const useGetColumns = () => {
         ),
         ...getColumnSortProps({
           "data-cy": "duration-sort-icon",
-          onSort: updateUrl,
+          onToggle: updateUrl,
         }),
-        size: 400,
       },
     ],
-  };
+    [statusOptions, updateUrl]
+  );
+
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+  const table = useLeafyGreenTable<
+    VersionTaskDurationsQuery["version"]["tasks"]["data"][0]
+  >({
+    columns,
+    containerRef: tableContainerRef,
+    data: tasks ?? [],
+    state: {
+      columnFilters: filters,
+      sorting,
+    },
+    onColumnFiltersChange: setFilters,
+    onSortingChange: setSorting,
+    getFacetedMinMaxValues: getFacetedMinMaxValues(),
+    manualFiltering: true,
+    manualSorting: true,
+    manualPagination: true,
+  });
+
+  return (
+    <>
+      <BaseTable
+        data-cy="task-duration-table-row"
+        table={table}
+        shouldAlternateRowColor
+        emptyComponent={<TablePlaceholder message="No tasks found." />}
+        loading={loading}
+      />
+      {loading && (
+        <TablePlaceholder glyph="Refresh" message="Loading..." spin />
+      )}
+    </>
+  );
 };

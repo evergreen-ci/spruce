@@ -26,7 +26,7 @@ export const TaskDurationCell: React.VFC<TaskDurationCellProps> = ({
   return (
     <Duration>
       <DurationBar width={barWidth} color={barColor} />
-      <DurationLabel>{msToDuration(timeTaken)}</DurationLabel>
+      <DurationLabel>{msToDuration(timeTaken) || "0s"}</DurationLabel>
     </Duration>
   );
 };
