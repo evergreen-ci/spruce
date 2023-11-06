@@ -69,12 +69,7 @@ describe("Task Duration Tab", () => {
       cy.dataCy("task-duration-table-row")
         .first()
         .should("contain", longestTask);
-
-      // Apply new sort (DURATION ASC). The sort icon is clicked twice because LG assumes no
-      // default sorting.
-      cy.get(`[aria-label="sort"]`).click();
-      cy.location("search").should("include", "duration=DESC");
-      cy.get(`[aria-label="sort"]`).click();
+      cy.dataCy("duration-sort-icon").click();
       cy.location("search").should("include", "duration=ASC");
       const shortestTask = "generate-lint";
       cy.contains(shortestTask).should("be.visible");
@@ -85,11 +80,7 @@ describe("Task Duration Tab", () => {
 
     it("clearing all filters resets to the default sort", () => {
       cy.visit(TASK_DURATION_ROUTE);
-      // Apply new sort (DURATION ASC). The sort icon is clicked twice because LG assumes no
-      // default sorting.
-      cy.get(`[aria-label="sort"]`).click();
-      cy.location("search").should("include", "duration=DESC");
-      cy.get(`[aria-label="sort"]`).click();
+      cy.dataCy("duration-sort-icon").click();
       cy.location("search").should("include", "duration=ASC");
       cy.contains("Clear all filters").click();
       cy.location("search").should("include", "duration=DESC");

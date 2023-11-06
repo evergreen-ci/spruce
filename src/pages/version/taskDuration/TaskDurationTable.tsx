@@ -1,10 +1,6 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import { useLeafyGreenTable } from "@leafygreen-ui/table/new";
-import {
-  SortingState,
-  ColumnFiltersState,
-  getFacetedMinMaxValues,
-} from "@tanstack/react-table";
+import { getFacetedMinMaxValues } from "@tanstack/react-table";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
@@ -41,21 +37,27 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
     [PatchTasksQueryParams.Duration]: duration = "",
   } = queryParams;
 
-  const [filters, setFilters] = useState<ColumnFiltersState>([
-    { id: PatchTasksQueryParams.TaskName, value: taskName },
-    {
-      id: PatchTasksQueryParams.Statuses,
-      value: Array.isArray(statuses) ? statuses : [statuses],
-    },
-    { id: PatchTasksQueryParams.Variant, value: variant },
-  ]);
+  const filters = useMemo(
+    () => [
+      { id: PatchTasksQueryParams.TaskName, value: taskName },
+      {
+        id: PatchTasksQueryParams.Statuses,
+        value: Array.isArray(statuses) ? statuses : [statuses],
+      },
+      { id: PatchTasksQueryParams.Variant, value: variant },
+    ],
+    [taskName, statuses, variant]
+  );
 
-  const [sorting, setSorting] = useState<SortingState>([
-    {
-      id: PatchTasksQueryParams.Duration,
-      desc: duration !== "ASC",
-    },
-  ]);
+  const sorting = useMemo(
+    () => [
+      {
+        id: PatchTasksQueryParams.Duration,
+        desc: duration !== "ASC",
+      },
+    ],
+    [duration]
+  );
 
   const updateQueryParams = useUpdateURLQueryParams();
   const updateUrl = useCallback(
@@ -102,7 +104,7 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
         header: "Build Variant",
         size: 150,
         ...getColumnInputFilterProps({
-          "data-cy": "variant-filter-popover",
+          "data-cy": "build-variant-filter-popover",
           onConfirm: updateUrl,
         }),
       },
@@ -144,8 +146,6 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
       columnFilters: filters,
       sorting,
     },
-    onColumnFiltersChange: setFilters,
-    onSortingChange: setSorting,
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
     manualFiltering: true,
     manualSorting: true,
@@ -155,7 +155,8 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
   return (
     <>
       <BaseTable
-        data-cy="task-duration-table-row"
+        data-cy="task-duration-table"
+        data-cy-row="task-duration-table-row"
         table={table}
         shouldAlternateRowColor
         emptyComponent={<TablePlaceholder message="No tasks found." />}

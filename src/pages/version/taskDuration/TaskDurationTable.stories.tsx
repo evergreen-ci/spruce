@@ -20,7 +20,7 @@ const props = {
       buildVariantDisplayName:
         "Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)",
       displayName:
-        "sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion",
+        "sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion",
       execution: 0,
       id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_display_sharding_multiversion_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
       startTime: new Date("2023-10-09T16:42:53.995Z"),
@@ -28,7 +28,7 @@ const props = {
       subRows: [
         {
           buildVariantDisplayName:
-            "Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled) long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long",
+            "Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled) long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long",
           displayName: "sharding_last_continuous_00-linux-enterprise",
           execution: 0,
           id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_00_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
@@ -142,6 +142,37 @@ const props = {
   ],
   tasks: [
     {
+      id: "evg_ubuntu1604_container_test_model_distro_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18",
+      buildVariantDisplayName: "Ubuntu 16.04 (Container)",
+      displayName: "test-model-distro",
+      execution: 0,
+      subRows: [
+        {
+          buildVariantDisplayName:
+            "Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)",
+          displayName: "sharding_last_continuous_01-linux-enterprise",
+          execution: 0,
+          id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_01_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
+          startTime: new Date("2023-10-09T16:42:58.249Z"),
+          status: "failed",
+          timeTaken: 1417378,
+        },
+        {
+          buildVariantDisplayName:
+            "Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)",
+          displayName: "sharding_last_continuous_02-linux-enterprise",
+          execution: 0,
+          id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_02_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
+          startTime: new Date("2023-10-09T16:42:59.444Z"),
+          status: "success",
+          timeTaken: 1367157,
+        },
+      ],
+      startTime: new Date("2023-01-04T16:01:25.295Z"),
+      status: "failed",
+      timeTaken: 4840547,
+    },
+    {
       id: "evg_ubuntu1604_container_test_rest_data_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18",
       buildVariantDisplayName: "Ubuntu 16.04 (Container)",
       displayName: "test-rest-data",
@@ -150,16 +181,6 @@ const props = {
       startTime: new Date("2023-01-04T16:01:25.242Z"),
       status: "system-failed",
       timeTaken: 4840553,
-    },
-    {
-      id: "evg_ubuntu1604_container_test_model_distro_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18",
-      buildVariantDisplayName: "Ubuntu 16.04 (Container)",
-      displayName: "test-model-distro",
-      execution: 0,
-      subRows: null,
-      startTime: new Date("2023-01-04T16:01:25.295Z"),
-      status: "system-failed",
-      timeTaken: 4840547,
     },
     {
       id: "evg_ubuntu1604_container_test_agent_internal_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18",
