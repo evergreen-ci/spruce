@@ -51,10 +51,12 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
 
   const sorting = useMemo(
     () => [
-      {
-        id: PatchTasksQueryParams.Duration,
-        desc: duration !== "ASC",
-      },
+      ...(duration && [
+        {
+          id: PatchTasksQueryParams.Duration,
+          desc: duration === "DESC",
+        },
+      ]),
     ],
     [duration]
   );
