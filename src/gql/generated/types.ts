@@ -5304,6 +5304,7 @@ export type BaseVersionAndTaskQuery = {
     displayName: string;
     execution: number;
     id: string;
+    projectIdentifier?: string | null;
     baseTask?: {
       __typename?: "Task";
       execution: number;
@@ -5318,7 +5319,6 @@ export type BaseVersionAndTaskQuery = {
         __typename?: "Version";
         id: string;
         order: number;
-        projectIdentifier: string;
       } | null;
     };
   } | null;
