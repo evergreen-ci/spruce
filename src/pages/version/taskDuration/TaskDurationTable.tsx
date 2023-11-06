@@ -88,7 +88,7 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
         id: PatchTasksQueryParams.Statuses,
         accessorKey: "status",
         header: "Status",
-        size: 100,
+        size: 120,
         cell: ({ getValue }) => <TaskStatusBadge status={getValue()} />,
         ...getColumnTreeSelectFilterProps({
           "data-cy": "status-filter-popover",
@@ -100,6 +100,7 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
         id: PatchTasksQueryParams.Variant,
         accessorKey: "buildVariantDisplayName",
         header: "Build Variant",
+        size: 150,
         ...getColumnInputFilterProps({
           "data-cy": "variant-filter-popover",
           onConfirm: updateUrl,
