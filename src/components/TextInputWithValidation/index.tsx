@@ -12,7 +12,7 @@ type TextInputWithValidationProps = {
    * `onSubmit` will be called when the user submits a new input with the enter key or the plus button
    * if the input is valid
    * @param value - the value of the input
-   * @returns
+   * @returns void
    */
   onSubmit?: (value: string) => void;
   validator?: (value: string) => boolean;
@@ -39,7 +39,7 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
       onChange = () => {},
       onSubmit = () => {},
       validator = () => true,
-      validatorErrorMessage = "",
+      validatorErrorMessage = "Invalid input",
       ...rest
     } = props;
 

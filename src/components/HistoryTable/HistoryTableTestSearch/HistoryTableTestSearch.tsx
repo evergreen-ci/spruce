@@ -27,7 +27,7 @@ export const HistoryTableTestSearch: React.FC<HistoryTableTestSearchProps> = ({
         label="Filter by Failed Tests"
         aria-label="history-table-test-search-input"
         placeholder="Search test name regex"
-        validatorErrorMessage="Invalid Regular Expression"
+        validatorErrorMessage="Invalid regular expression"
         onSubmit={handleOnSubmit}
         validator={validateRegexp}
         clearOnSubmit
