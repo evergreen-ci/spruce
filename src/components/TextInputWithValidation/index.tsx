@@ -81,7 +81,11 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
               <Icon glyph="Plus" />
             </IconButton>
           ) : (
-            <IconTooltip glyph="Warning" fill={yellow.base}>
+            <IconTooltip
+              glyph="Warning"
+              fill={yellow.base}
+              aria-label="validation error"
+            >
               {validatorErrorMessage}
             </IconTooltip>
           )
