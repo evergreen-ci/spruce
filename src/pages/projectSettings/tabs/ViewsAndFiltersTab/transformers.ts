@@ -28,18 +28,18 @@ export const gqlToForm = ((data, { projectType }) => {
   };
 }) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql = ((formState, id) => ({
+export const formToGql = (({ parsleyFilters, view }, id) => ({
   projectRef: {
     id,
-    parsleyFilters: formState.parsleyFilters.map(
+    parsleyFilters: parsleyFilters.map(
       ({ caseSensitive, exactMatch, expression }) => ({
         expression,
         caseSensitive,
         exactMatch,
       })
     ),
-    ...("view" in formState && {
-      projectHealthView: formState.view.projectHealthView,
+    ...(view && {
+      projectHealthView: view.projectHealthView,
     }),
   },
 })) satisfies FormToGqlFunction<Tab>;
