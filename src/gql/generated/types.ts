@@ -936,6 +936,7 @@ export type MainlineCommitsOptions = {
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  revision?: InputMaybe<Scalars["String"]["input"]>;
   shouldCollapse?: InputMaybe<Scalars["Boolean"]["input"]>;
   skipOrderNumber?: InputMaybe<Scalars["Int"]["input"]>;
 };
@@ -1503,6 +1504,7 @@ export type Patches = {
  */
 export type PatchesInput = {
   includeCommitQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
+  includeHidden?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: Scalars["Int"]["input"];
   onlyCommitQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
   page?: Scalars["Int"]["input"];
