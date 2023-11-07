@@ -2,15 +2,16 @@ import React, { useMemo, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import TextInput from "@leafygreen-ui/text-input";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import Icon from "components/Icon";
+import TextInput from "components/TextInputWithValidation";
 import { CharKey } from "constants/keys";
 import { size } from "constants/tokens";
 import { VariantTask } from "gql/generated/types";
 import useKeyboardShortcut from "hooks/useKeyboardShortcut";
+import { validateRegexp } from "utils/validators";
 import {
   AliasState,
   ChildPatchAliased,
@@ -87,7 +88,11 @@ const ConfigureTasks: React.FC<Props> = ({
     const previouslySelectedVariants = selectedBuildVariants.map(
       (bv) => activatedVariants.find((vt) => vt.name === bv) || undefined
     );
-    return deduplicateTasks(tasks, previouslySelectedVariants, search);
+    return deduplicateTasks(
+      tasks,
+      previouslySelectedVariants,
+      new RegExp(search)
+    );
   }, [
     selectedBuildVariantTasks,
     selectedBuildVariants,
@@ -186,11 +191,11 @@ const ConfigureTasks: React.FC<Props> = ({
       <Actions>
         <StyledTextInput
           aria-labelledby="search-tasks"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search tasks"
+          onChange={(v) => setSearch(v)}
+          placeholder="Search tasks regex"
           ref={searchRef}
           data-cy="task-filter-input"
+          validator={validateRegexp}
         />
         <InlineCheckbox
           data-cy="select-all-checkbox"
