@@ -15,7 +15,7 @@ export const TablePlaceholder: React.FC<Props> = ({
 }) => (
   <PlaceholderWrapper>
     <SpinningIcon glyph={glyph} size="large" spin={spin ? "spin" : "no-spin"} />
-    <Message> {message} </Message>
+    <div>{message}</div>
   </PlaceholderWrapper>
 );
 
@@ -23,6 +23,7 @@ const PlaceholderWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: ${size.xs};
   padding: ${size.l} 0;
   opacity: 50%;
 `;
@@ -37,8 +38,4 @@ const SpinningIcon = styled(Icon)<{ spin: string }>`
     }
   }
   ${({ spin }) => spin === "spin" && `animation: spin 1s linear infinite`};
-`;
-
-const Message = styled.div`
-  margin-top: ${size.xs};
 `;

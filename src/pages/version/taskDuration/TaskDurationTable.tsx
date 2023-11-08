@@ -12,7 +12,7 @@ import {
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { TaskLink } from "components/TasksTable/TaskLink";
 import TaskStatusBadge from "components/TaskStatusBadge";
-import { VersionTaskDurationsQuery } from "gql/generated/types";
+import { VersionTaskDurationsQuery, SortDirection } from "gql/generated/types";
 import { useTaskStatuses } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
@@ -29,13 +29,14 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
   const { sendEvent } = useVersionAnalytics(versionId);
   const { currentStatuses: statusOptions } = useTaskStatuses({ versionId });
 
-  const [queryParams] = useQueryParams();
-  const {
-    [PatchTasksQueryParams.TaskName]: taskName = "",
-    [PatchTasksQueryParams.Statuses]: statuses = [],
-    [PatchTasksQueryParams.Variant]: variant = "",
-    [PatchTasksQueryParams.Duration]: duration = "",
-  } = queryParams;
+  const [
+    {
+      [PatchTasksQueryParams.TaskName]: taskName = "",
+      [PatchTasksQueryParams.Statuses]: statuses = [],
+      [PatchTasksQueryParams.Variant]: variant = "",
+      [PatchTasksQueryParams.Duration]: duration = "",
+    },
+  ] = useQueryParams();
 
   const filters = useMemo(
     () => [
@@ -54,7 +55,7 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
       ...(duration && [
         {
           id: PatchTasksQueryParams.Duration,
-          desc: duration === "DESC",
+          desc: duration === SortDirection.Desc,
         },
       ]),
     ],
@@ -155,18 +156,16 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
   });
 
   return (
-    <>
-      <BaseTable
-        data-cy="task-duration-table"
-        data-cy-row="task-duration-table-row"
-        table={table}
-        shouldAlternateRowColor
-        emptyComponent={<TablePlaceholder message="No tasks found." />}
-        loading={loading}
-      />
-      {loading && (
+    <BaseTable
+      data-cy="task-duration-table"
+      data-cy-row="task-duration-table-row"
+      table={table}
+      shouldAlternateRowColor
+      emptyComponent={<TablePlaceholder message="No tasks found." />}
+      loading={loading}
+      loadingComponent={
         <TablePlaceholder glyph="Refresh" message="Loading..." spin />
-      )}
-    </>
+      }
+    />
   );
 };

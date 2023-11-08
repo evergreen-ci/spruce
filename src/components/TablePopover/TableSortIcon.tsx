@@ -3,21 +3,22 @@ import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { size } from "constants/tokens";
+import { SortDirection } from "gql/generated/types";
 
 const { blue, gray } = palette;
 
-enum SortState {
+enum TableSortState {
   ASC = "asc",
   DESC = "desc",
   OFF = "false",
 }
 
-type SortStateType = (typeof SortState)[keyof typeof SortState];
+type SortStateType = (typeof TableSortState)[keyof typeof TableSortState];
 
 const iconGlyph = {
-  [SortState.ASC]: "SortAscending",
-  [SortState.DESC]: "SortDescending",
-  [SortState.OFF]: "Unsorted",
+  [TableSortState.ASC]: "SortAscending",
+  [TableSortState.DESC]: "SortDescending",
+  [TableSortState.OFF]: "Unsorted",
 };
 
 interface TableSortIconProps {
@@ -31,14 +32,14 @@ export const TableSortIcon: React.FC<TableSortIconProps> = ({
   onToggle,
   value,
 }) => {
-  const iconColor = value === SortState.OFF ? gray.dark2 : blue.base;
+  const iconColor = value === TableSortState.OFF ? gray.dark2 : blue.base;
 
   const onClick = () => {
     let update: string | undefined;
-    if (value === SortState.OFF) {
-      update = "DESC";
-    } else if (value === SortState.DESC) {
-      update = "ASC";
+    if (value === TableSortState.OFF) {
+      update = SortDirection.Desc;
+    } else if (value === TableSortState.DESC) {
+      update = SortDirection.Asc;
     } else {
       update = undefined;
     }
