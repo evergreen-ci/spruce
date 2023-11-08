@@ -11,6 +11,7 @@ const getPatchCardByDescription = (description: string) =>
 describe("Dropdown Menu of Patch Actions", { testIsolation: false }, () => {
   beforeEach(() => {
     cy.visit("/");
+    cy.getInputByLabel("Include Commit Queue").check({ force: true });
   });
 
   it("'Reconfigure' link takes user to patch configure page", () => {
@@ -105,7 +106,11 @@ describe("Dropdown Menu of Patch Actions", { testIsolation: false }, () => {
 
   it("Toggle patch visibility", () => {
     // "Include hidden" checkbox is not checked and patch is visible
-    cy.getCookie(INCLUDE_HIDDEN_PATCHES).should("not.exist");
+    cy.getCookie(INCLUDE_HIDDEN_PATCHES).should(
+      "have.property",
+      "value",
+      "false"
+    );
     cy.getInputByLabel("Include hidden").should("not.be.checked");
     cy.location("search").should("not.contain", "hidden=true");
     getPatchCardByDescription("testtest")
