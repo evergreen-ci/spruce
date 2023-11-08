@@ -55,6 +55,7 @@ fragment RepoSettingsFields on RepoSettings {
     ...RepoPeriodicBuildsSettings
     ...RepoPluginsSettings
     ...RepoTriggersSettings
+    ...RepoViewsAndFiltersSettings
     ...RepoVirtualWorkstationSettings
   }
   ...RepoGithubCommitQueue
