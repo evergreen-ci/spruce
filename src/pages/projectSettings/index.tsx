@@ -160,13 +160,10 @@ const ProjectSettings: React.FC = () => {
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.Containers}
           />
-          {/* Views and filters are not available at the repo level at this time. */}
-          {projectType !== ProjectType.Repo && (
-            <ProjectSettingsNavItem
-              {...sharedProps}
-              tab={ProjectSettingsTabRoutes.ViewsAndFilters}
-            />
-          )}
+          <ProjectSettingsNavItem
+            {...sharedProps}
+            tab={ProjectSettingsTabRoutes.ViewsAndFilters}
+          />
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.ProjectTriggers}

@@ -9,7 +9,6 @@ import { size } from "constants/tokens";
 import { getTabTitle } from "./getTabTitle";
 import { HeaderButtons } from "./HeaderButtons";
 import {
-  projectOnlyTabs,
   WritableProjectSettingsTabs,
   WritableProjectSettingsType,
 } from "./tabs/types";
@@ -32,13 +31,12 @@ export const Header: React.FC<Props> = ({
   const saveable = Object.values(WritableProjectSettingsTabs).includes(
     tab as WritableProjectSettingsType
   );
-  const showRepoLink = !projectOnlyTabs.has(tab);
 
   return (
     <Container>
       <TitleContainer>
         <H2 data-cy="project-settings-tab-title">{title}</H2>
-        {projectType === ProjectType.AttachedProject && showRepoLink && (
+        {projectType === ProjectType.AttachedProject && (
           <StyledRouterLink
             to={getProjectSettingsRoute(attachedRepoId, tab)}
             data-cy="attached-repo-link"

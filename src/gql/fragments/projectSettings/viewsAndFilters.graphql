@@ -6,3 +6,11 @@ fragment ProjectViewsAndFiltersSettings on Project {
   }
   projectHealthView
 }
+
+fragment RepoViewsAndFiltersSettings on RepoRef {
+  parsleyFilters {
+    caseSensitive
+    exactMatch
+    expression
+  }
+}
