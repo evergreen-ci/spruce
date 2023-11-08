@@ -26,7 +26,7 @@ export const SetPatchVisibility: React.FC<Props> = ({
   >(SET_PATCH_VISIBILITY, {
     onCompleted: (d) => {
       const copy = d.setPatchVisibility?.[0].hidden ? "hidden" : "unhidden";
-      dispatchToast.success(`This patch was successfully ${copy}`);
+      dispatchToast.success(`This patch was successfully ${copy}.`);
     },
     onError: (err) => {
       dispatchToast.error(`Unable to update patch visibility: ${err.message}`);
