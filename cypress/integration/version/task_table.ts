@@ -18,6 +18,9 @@ describe("Task table", () => {
   it("Updates the url when column headers are clicked", () => {
     cy.visit(pathTasks);
     waitForTaskTable();
+    // TODO: Remove wait in DEVPROD-597.
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(200);
     cy.location("search").should(
       "contain",
       "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
@@ -83,7 +86,8 @@ describe("Task table", () => {
   });
 
   ["NAME", "STATUS", "BASE_STATUS", "VARIANT"].forEach((sortBy) => {
-    // TODO: This test doesn't work bc of issues with assertCorrectRequestVariables
+    // TODO: This test doesn't work bc of issues with assertCorrectRequestVariables.
+    // Remove skip in DEVPROD-597.
     it.skip(`Fetches tasks sorted by ${sortBy} when ${sortBy} header is clicked`, () => {
       // clickSorterAndAssertTasksAreFetched(sortBy);
     });

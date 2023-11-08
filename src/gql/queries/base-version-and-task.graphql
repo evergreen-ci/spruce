@@ -9,11 +9,11 @@ query BaseVersionAndTask($taskId: String!) {
     displayName
     execution
     id
+    projectIdentifier
     versionMetadata {
       baseVersion {
         id
         order
-        projectIdentifier
       }
       id
       isPatch
