@@ -114,8 +114,8 @@ describe("provider section", () => {
       cy.dataCy("provider-select").contains("EC2 Fleet");
 
       // Correct section is displayed.
-      cy.dataCy("ec2-fleet-provider-settings").should("exist");
-      cy.dataCy("region-select").contains("us-east-1");
+      cy.dataCy("ec2-fleet-provider-settings").should("be.visible");
+      cy.dataCy("region-select").contains("us-east-1").should("be.visible");
 
       // Change field values.
       cy.selectLGOption("Region", "us-west-1");
@@ -181,7 +181,6 @@ describe("provider section", () => {
       cy.contains("Default VPC Subnet ID").should("not.exist");
       cy.contains("VPC Subnet Prefix").should("not.exist");
     });
-
     it("successfully updates ec2 on-demand provider fields", () => {
       cy.dataCy("provider-select").contains("EC2 On-Demand");
 
