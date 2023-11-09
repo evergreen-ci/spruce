@@ -2928,6 +2928,7 @@ export type Version = {
   __typename?: "Version";
   activated?: Maybe<Scalars["Boolean"]["output"]>;
   author: Scalars["String"]["output"];
+  authorEmail: Scalars["String"]["output"];
   baseTaskStatuses: Array<Scalars["String"]["output"]>;
   baseVersion?: Maybe<Version>;
   branch: Scalars["String"]["output"];
@@ -8773,6 +8774,7 @@ export type VersionQuery = {
     __typename?: "Version";
     activated?: boolean | null;
     author: string;
+    authorEmail: string;
     createTime: Date;
     errors: Array<string>;
     finishTime?: Date | null;

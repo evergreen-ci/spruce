@@ -12,6 +12,7 @@ import {
   getCommitQueueRoute,
   getProjectPatchesRoute,
   getTriggerRoute,
+  getUserPatchesRoute,
   getVersionRoute,
 } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
@@ -32,6 +33,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
   const getDateCopy = useDateFormat();
   const {
     author,
+    authorEmail,
     baseVersion,
     createTime,
     externalLinksForMetadata,
@@ -117,7 +119,15 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
           </span>
         </MetadataItem>
       )}
-      <MetadataItem>{`Submitted by: ${author}`}</MetadataItem>
+      <MetadataItem>
+        Submitted by:{" "}
+        <StyledRouterLink
+          to={getUserPatchesRoute(getAuthorUsername(authorEmail, author))}
+          data-cy="user-patches-link"
+        >
+          {author}
+        </StyledRouterLink>
+      </MetadataItem>
       {isPatch ? (
         <MetadataItem>
           Base commit:{" "}
@@ -203,4 +213,13 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
       )}
     </MetadataCard>
   );
+};
+
+const getAuthorUsername = (email: string, name: string) => {
+  if (email === null || email === "") {
+    return name.toLocaleLowerCase().replaceAll(" ", ".");
+  }
+
+  const atIndex = email.indexOf("@");
+  return atIndex === -1 ? email : email.substring(0, atIndex);
 };
