@@ -3861,6 +3861,12 @@ export type RepoSettingsFieldsFragment = {
       taskRegex: string;
       unscheduleDownstreamVersions?: boolean | null;
     }>;
+    parsleyFilters?: Array<{
+      __typename?: "ParsleyFilter";
+      caseSensitive: boolean;
+      exactMatch: boolean;
+      expression: string;
+    }> | null;
     workstationConfig: {
       __typename?: "RepoWorkstationConfig";
       gitClone: boolean;
@@ -4380,6 +4386,16 @@ export type VariablesFragment = {
 export type ProjectViewsAndFiltersSettingsFragment = {
   __typename?: "Project";
   projectHealthView: ProjectHealthView;
+  parsleyFilters?: Array<{
+    __typename?: "ParsleyFilter";
+    caseSensitive: boolean;
+    exactMatch: boolean;
+    expression: string;
+  }> | null;
+};
+
+export type RepoViewsAndFiltersSettingsFragment = {
+  __typename?: "RepoRef";
   parsleyFilters?: Array<{
     __typename?: "ParsleyFilter";
     caseSensitive: boolean;
@@ -5304,6 +5320,7 @@ export type BaseVersionAndTaskQuery = {
     displayName: string;
     execution: number;
     id: string;
+    projectIdentifier?: string | null;
     baseTask?: {
       __typename?: "Task";
       execution: number;
@@ -5318,7 +5335,6 @@ export type BaseVersionAndTaskQuery = {
         __typename?: "Version";
         id: string;
         order: number;
-        projectIdentifier: string;
       } | null;
     };
   } | null;
@@ -7866,6 +7882,12 @@ export type RepoSettingsQuery = {
         taskRegex: string;
         unscheduleDownstreamVersions?: boolean | null;
       }>;
+      parsleyFilters?: Array<{
+        __typename?: "ParsleyFilter";
+        caseSensitive: boolean;
+        exactMatch: boolean;
+        expression: string;
+      }> | null;
       workstationConfig: {
         __typename?: "RepoWorkstationConfig";
         gitClone: boolean;

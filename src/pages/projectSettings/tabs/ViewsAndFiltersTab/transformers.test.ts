@@ -1,19 +1,62 @@
-import { ProjectHealthView, ProjectSettingsInput } from "gql/generated/types";
+import {
+  ProjectHealthView,
+  ProjectSettingsInput,
+  RepoSettingsInput,
+} from "gql/generated/types";
 import { data } from "../testData";
+import { ProjectType } from "../utils";
 import { formToGql, gqlToForm } from "./transformers";
 import { ViewsFormState } from "./types";
 
-const { projectBase } = data;
+const { projectBase, repoBase } = data;
+
+describe("repo data", () => {
+  it("correctly converts from GQL to a form", () => {
+    expect(
+      gqlToForm(repoBase, { projectType: ProjectType.Repo })
+    ).toStrictEqual(repoForm);
+  });
+
+  it("correctly converts from a form to GQL", () => {
+    expect(formToGql(repoForm, "repo")).toStrictEqual(repoResult);
+  });
+});
 
 describe("project data", () => {
   it("correctly converts from GQL to a form", () => {
-    expect(gqlToForm(projectBase)).toStrictEqual(projectForm);
+    expect(
+      gqlToForm(projectBase, { projectType: ProjectType.Project })
+    ).toStrictEqual(projectForm);
   });
 
   it("correctly converts from a form to GQL", () => {
     expect(formToGql(projectForm, "project")).toStrictEqual(projectResult);
   });
 });
+
+const repoForm: ViewsFormState = {
+  parsleyFilters: [
+    {
+      displayTitle: "repo-filter",
+      expression: "repo-filter",
+      caseSensitive: false,
+      exactMatch: false,
+    },
+  ],
+};
+
+const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
+  projectRef: {
+    id: "repo",
+    parsleyFilters: [
+      {
+        expression: "repo-filter",
+        caseSensitive: false,
+        exactMatch: false,
+      },
+    ],
+  },
+};
 
 const projectForm: ViewsFormState = {
   parsleyFilters: [
