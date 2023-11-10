@@ -1,5 +1,6 @@
 mutation SetPatchVisibility($patchIds: [String!]!, $hidden: Boolean!) {
   setPatchVisibility(patchIds: $patchIds, hidden: $hidden) {
+    hidden
     id
   }
 }

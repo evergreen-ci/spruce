@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Badge from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import { Analytics } from "analytics/addPageAction";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
@@ -18,8 +19,7 @@ import { PatchStatus } from "types/patch";
 import { Unpacked } from "types/utils";
 import { isPatchUnconfigured } from "utils/patch";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
-
-import { DropdownMenu } from "./patchCard/DropdownMenu";
+import { DropdownMenu } from "./DropdownMenu";
 
 type P = Unpacked<PatchesPagePatchesFragment["patches"]>;
 type PatchProps = Omit<P, "commitQueuePosition">;
@@ -47,6 +47,7 @@ export const PatchCard: React.FC<Props> = ({
   canEnqueueToCommitQueue,
   createTime,
   description,
+  hidden,
   id,
   isPatchOnCommitQueue,
   pageType,
@@ -128,10 +129,12 @@ export const PatchCard: React.FC<Props> = ({
         <TaskBadgeContainer>{badges}</TaskBadgeContainer>
       </Center>
       <Right>
+        {hidden && <Badge data-cy="hidden-badge">Hidden</Badge>}
         <DropdownMenu
           patchId={id}
           canEnqueueToCommitQueue={canEnqueueToCommitQueue}
           isPatchOnCommitQueue={isPatchOnCommitQueue}
+          isPatchHidden={hidden}
           patchDescription={description}
           hasVersion={!!versionId}
         />
@@ -167,8 +170,10 @@ const Left = styled(Center)`
 `;
 
 const Right = styled.div`
+  width: 110px;
   display: flex;
   justify-content: flex-end;
+  gap: ${size.xs};
 `;
 
 const DescriptionLink = styled(StyledRouterLink)`
