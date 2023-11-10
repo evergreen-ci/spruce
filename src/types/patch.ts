@@ -4,6 +4,7 @@ export enum PatchPageQueryParams {
   Statuses = "statuses",
   Page = "page",
   Limit = "limit",
+  Hidden = "hidden",
 }
 
 export enum PatchStatus {

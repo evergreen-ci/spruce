@@ -3321,6 +3321,7 @@ export type PatchesPagePatchesFragment = {
     commitQueuePosition?: number | null;
     createTime?: Date | null;
     description: string;
+    hidden: boolean;
     id: string;
     projectIdentifier: string;
     status: string;
@@ -5053,7 +5054,11 @@ export type SetPatchVisibilityMutationVariables = Exact<{
 
 export type SetPatchVisibilityMutation = {
   __typename?: "Mutation";
-  setPatchVisibility: Array<{ __typename?: "Patch"; id: string }>;
+  setPatchVisibility: Array<{
+    __typename?: "Patch";
+    hidden: boolean;
+    id: string;
+  }>;
 };
 
 export type SetTaskPriorityMutationVariables = Exact<{
@@ -7046,6 +7051,7 @@ export type ProjectPatchesQuery = {
         commitQueuePosition?: number | null;
         createTime?: Date | null;
         description: string;
+        hidden: boolean;
         id: string;
         projectIdentifier: string;
         status: string;
@@ -8543,6 +8549,7 @@ export type UserPatchesQuery = {
         commitQueuePosition?: number | null;
         createTime?: Date | null;
         description: string;
+        hidden: boolean;
         id: string;
         projectIdentifier: string;
         status: string;
