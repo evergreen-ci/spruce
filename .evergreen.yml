@@ -240,7 +240,7 @@ functions:
         ${PREPARE_SHELL}
         # Only record to cypress cloud if this is a pr, mainline commit or an intentional patch.
         if [[ "${requester}" == "github_pr" || "${requester}" == "commit" || "${requester}" == "patch" ]]; then
-          yarn cy:run --record --key "${cypress_record_key}" --reporter junit
+          yarn cy:run --record --key "${cypress_record_key}" --reporter junit --spec cypress/integration/distroSettings/*
         else
           yarn cy:run --reporter junit
         fi

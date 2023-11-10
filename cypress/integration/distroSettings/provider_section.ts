@@ -183,7 +183,6 @@ describe("provider section", () => {
     });
     it("successfully updates ec2 on-demand provider fields", () => {
       cy.dataCy("provider-select").contains("EC2 On-Demand");
-
       // Correct section is displayed.
       cy.dataCy("ec2-on-demand-provider-settings").should("exist");
       cy.dataCy("region-select").contains("us-east-1");

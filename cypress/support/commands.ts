@@ -108,6 +108,7 @@ Cypress.Commands.add(
 Cypress.Commands.add(
   "selectLGOption",
   (label: string, option: string | RegExp) => {
+    cy.getInputByLabel(label).should("not.have.attr", "aria-disabled", "true");
     cy.getInputByLabel(label).click({ force: true }); // open select
     cy.get('[role="listbox"]').should("have.length", 1);
     cy.get('[role="listbox"]').within(() => {
