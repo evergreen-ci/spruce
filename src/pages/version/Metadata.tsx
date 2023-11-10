@@ -12,7 +12,6 @@ import {
   getCommitQueueRoute,
   getProjectPatchesRoute,
   getTriggerRoute,
-  getUserPatchesRoute,
   getVersionRoute,
 } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
@@ -118,15 +117,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
           </span>
         </MetadataItem>
       )}
-      <MetadataItem>
-        Submitted by:{" "}
-        <StyledRouterLink
-          to={getUserPatchesRoute(author)}
-          data-cy="user-patches-link"
-        >
-          {author}
-        </StyledRouterLink>
-      </MetadataItem>
+      <MetadataItem>{`Submitted by: ${author}`}</MetadataItem>
       {isPatch ? (
         <MetadataItem>
           Base commit:{" "}
