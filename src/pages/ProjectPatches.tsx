@@ -1,9 +1,10 @@
 import { useQuery } from "@apollo/client";
 import Cookies from "js-cookie";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useProjectPatchesAnalytics } from "analytics/patches/useProjectPatchesAnalytics";
 import { ProjectBanner } from "components/Banners";
-import { PatchesPage, usePatchesInputFromSearch } from "components/PatchesPage";
+import { PatchesPage } from "components/PatchesPage";
+import { usePatchesQueryParams } from "components/PatchesPage/usePatchesQueryParams";
 import { ProjectSelect } from "components/ProjectSelect";
 import { INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -23,13 +24,12 @@ export const ProjectPatches = () => {
   const analyticsObject = useProjectPatchesAnalytics();
 
   const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
-  const { search } = useLocation();
   const [isCommitQueueCheckboxChecked] = useQueryParam(
     PatchPageQueryParams.CommitQueue,
     Cookies.get(INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES) === "true"
   );
 
-  const patchesInput = usePatchesInputFromSearch(search);
+  const patchesInput = usePatchesQueryParams();
 
   const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     ProjectPatchesQuery,
