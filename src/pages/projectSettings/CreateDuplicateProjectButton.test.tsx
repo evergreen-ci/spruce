@@ -3,8 +3,10 @@ import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   UserProjectSettingsPermissionsQuery,
   UserProjectSettingsPermissionsQueryVariables,
+  GithubOrgsQuery,
+  GithubOrgsQueryVariables,
 } from "gql/generated/types";
-import { USER_PROJECT_SETTINGS_PERMISSIONS } from "gql/queries";
+import { USER_PROJECT_SETTINGS_PERMISSIONS, GITHUB_ORGS } from "gql/queries";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -25,7 +27,7 @@ const Button = ({
   mock?: MockedResponse;
   projectType?: ProjectType;
 }) => (
-  <MockedProvider mocks={[mock]}>
+  <MockedProvider mocks={[mock, githubOrgsMock]}>
     <CreateDuplicateProjectButton
       id="my_id"
       label={`${owner}/${repo}`}
@@ -44,7 +46,7 @@ describe("createDuplicateProjectField", () => {
     > = {
       request: {
         query: USER_PROJECT_SETTINGS_PERMISSIONS,
-        variables: { projectIdentifier: "evergreen" },
+        variables: { projectIdentifier: "my_id" },
       },
       result: {
         data: {
@@ -137,7 +139,7 @@ const permissionsMock: ApolloMock<
 > = {
   request: {
     query: USER_PROJECT_SETTINGS_PERMISSIONS,
-    variables: { projectIdentifier: "evergreen" },
+    variables: { projectIdentifier: "my_id" },
   },
   result: {
     data: {
@@ -152,6 +154,21 @@ const permissionsMock: ApolloMock<
             admin: true,
           },
         },
+      },
+    },
+  },
+};
+
+const githubOrgsMock: ApolloMock<GithubOrgsQuery, GithubOrgsQueryVariables> = {
+  request: {
+    query: GITHUB_ORGS,
+    variables: {},
+  },
+  result: {
+    data: {
+      spruceConfig: {
+        __typename: "SpruceConfig",
+        githubOrgs: ["evergreen"],
       },
     },
   },
