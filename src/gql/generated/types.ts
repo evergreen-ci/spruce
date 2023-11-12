@@ -1048,6 +1048,7 @@ export type Mutation = {
   scheduleTasks: Array<Task>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"]["output"];
+  setLastRevision: SetLastRevisionPayload;
   setPatchPriority?: Maybe<Scalars["String"]["output"]>;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
@@ -1271,6 +1272,10 @@ export type MutationSetAnnotationMetadataLinksArgs = {
   execution: Scalars["Int"]["input"];
   metadataLinks: Array<MetadataLinkInput>;
   taskId: Scalars["String"]["input"];
+};
+
+export type MutationSetLastRevisionArgs = {
+  opts: SetLastRevisionInput;
 };
 
 export type MutationSetPatchPriorityArgs = {
@@ -1539,11 +1544,16 @@ export type Permissions = {
   canCreateProject: Scalars["Boolean"]["output"];
   canEditAdminSettings: Scalars["Boolean"]["output"];
   distroPermissions: DistroPermissions;
+  projectPermissions: ProjectPermissions;
   userId: Scalars["String"]["output"];
 };
 
 export type PermissionsDistroPermissionsArgs = {
   options: DistroPermissionsOptions;
+};
+
+export type PermissionsProjectPermissionsArgs = {
+  options: ProjectPermissionsOptions;
 };
 
 export type PlannerSettings = {
@@ -1675,6 +1685,7 @@ export type Project = {
   repo: Scalars["String"]["output"];
   repoRefId: Scalars["String"]["output"];
   repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  repotrackerError?: Maybe<RepotrackerError>;
   restricted?: Maybe<Scalars["Boolean"]["output"]>;
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -1816,6 +1827,16 @@ export type ProjectInput = {
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
+};
+
+export type ProjectPermissions = {
+  __typename?: "ProjectPermissions";
+  admin: Scalars["Boolean"]["output"];
+  view: Scalars["Boolean"]["output"];
+};
+
+export type ProjectPermissionsOptions = {
+  projectIdentifier: Scalars["String"]["input"];
 };
 
 /** ProjectSettings models the settings for a given Project. */
@@ -2205,6 +2226,13 @@ export type RepoWorkstationConfig = {
   setupCommands?: Maybe<Array<WorkstationSetupCommand>>;
 };
 
+export type RepotrackerError = {
+  __typename?: "RepotrackerError";
+  exists: Scalars["Boolean"]["output"];
+  invalidRevision: Scalars["String"]["output"];
+  mergeBaseRevision: Scalars["String"]["output"];
+};
+
 export enum RequiredStatus {
   MustFail = "MUST_FAIL",
   MustFinish = "MUST_FINISH",
@@ -2270,6 +2298,20 @@ export type Selector = {
 export type SelectorInput = {
   data: Scalars["String"]["input"];
   type: Scalars["String"]["input"];
+};
+
+/**
+ * SetLastRevisionInput is the input to the setLastRevision mutation.
+ * It contains information used to fix the repotracker error of a project.
+ */
+export type SetLastRevisionInput = {
+  projectIdentifier: Scalars["String"]["input"];
+  revision: Scalars["String"]["input"];
+};
+
+export type SetLastRevisionPayload = {
+  __typename?: "SetLastRevisionPayload";
+  mergeBaseRevision: Scalars["String"]["output"];
 };
 
 export type SlackConfig = {
@@ -5035,6 +5077,19 @@ export type ScheduleUndispatchedBaseTasksMutation = {
     id: string;
     status: string;
   }> | null;
+};
+
+export type SetLastRevisionMutationVariables = Exact<{
+  projectIdentifier: Scalars["String"]["input"];
+  revision: Scalars["String"]["input"];
+}>;
+
+export type SetLastRevisionMutation = {
+  __typename?: "Mutation";
+  setLastRevision: {
+    __typename?: "SetLastRevisionPayload";
+    mergeBaseRevision: string;
+  };
 };
 
 export type SetPatchPriorityMutationVariables = Exact<{
@@ -7975,6 +8030,24 @@ export type RepoSettingsQuery = {
   };
 };
 
+export type RepotrackerErrorQueryVariables = Exact<{
+  projectIdentifier: Scalars["String"]["input"];
+}>;
+
+export type RepotrackerErrorQuery = {
+  __typename?: "Query";
+  project: {
+    __typename?: "Project";
+    branch: string;
+    id: string;
+    repotrackerError?: {
+      __typename?: "RepotrackerError";
+      exists: boolean;
+      invalidRevision: string;
+    } | null;
+  };
+};
+
 export type SpawnExpirationInfoQueryVariables = Exact<{ [key: string]: never }>;
 
 export type SpawnExpirationInfoQuery = {
@@ -8577,7 +8650,7 @@ export type UserPatchesQuery = {
 };
 
 export type UserProjectSettingsPermissionsQueryVariables = Exact<{
-  [key: string]: never;
+  projectIdentifier: Scalars["String"]["input"];
 }>;
 
 export type UserProjectSettingsPermissionsQuery = {
@@ -8585,7 +8658,11 @@ export type UserProjectSettingsPermissionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    permissions: { __typename?: "Permissions"; canCreateProject: boolean };
+    permissions: {
+      __typename?: "Permissions";
+      canCreateProject: boolean;
+      projectPermissions: { __typename?: "ProjectPermissions"; admin: boolean };
+    };
   };
 };
 

@@ -44,7 +44,7 @@ describe("createDuplicateProjectField", () => {
     > = {
       request: {
         query: USER_PROJECT_SETTINGS_PERMISSIONS,
-        variables: {},
+        variables: { projectIdentifier: "evergreen" },
       },
       result: {
         data: {
@@ -54,6 +54,10 @@ describe("createDuplicateProjectField", () => {
             permissions: {
               __typename: "Permissions",
               canCreateProject: false,
+              projectPermissions: {
+                __typename: "ProjectPermissions",
+                admin: false,
+              },
             },
           },
         },
@@ -133,7 +137,7 @@ const permissionsMock: ApolloMock<
 > = {
   request: {
     query: USER_PROJECT_SETTINGS_PERMISSIONS,
-    variables: {},
+    variables: { projectIdentifier: "evergreen" },
   },
   result: {
     data: {
@@ -143,6 +147,10 @@ const permissionsMock: ApolloMock<
         permissions: {
           __typename: "Permissions",
           canCreateProject: true,
+          projectPermissions: {
+            __typename: "ProjectPermissions",
+            admin: true,
+          },
         },
       },
     },

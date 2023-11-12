@@ -50,6 +50,7 @@ import PROJECTS from "./projects.graphql";
 import MY_PUBLIC_KEYS from "./public-keys.graphql";
 import REPO_EVENT_LOGS from "./repo-event-logs.graphql";
 import REPO_SETTINGS from "./repo-settings.graphql";
+import REPOTRACKER_ERROR from "./repotracker-error.graphql";
 import SPAWN_EXPIRATION_INFO from "./spawn-expiration.graphql";
 import SPAWN_TASK from "./spawn-task.graphql";
 import SPRUCE_CONFIG from "./spruce-config.graphql";
@@ -131,6 +132,7 @@ export {
   PROJECTS,
   REPO_EVENT_LOGS,
   REPO_SETTINGS,
+  REPOTRACKER_ERROR,
   SPAWN_EXPIRATION_INFO,
   SPAWN_TASK,
   SPRUCE_CONFIG,
