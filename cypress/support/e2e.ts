@@ -121,6 +121,11 @@ declare global {
        * @param body - The replacement response body
        */
       overwriteGQL(operationName: string, body: any);
+      /**
+       * Command to open expandable card
+       * @param cardTitle - The title of the card to expand
+       */
+      openExpandableCard(cardTitle: string);
     }
   }
 }

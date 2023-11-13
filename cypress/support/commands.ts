@@ -126,3 +126,15 @@ Cypress.Commands.add("overwriteGQL", (operationName: string, body: any) => {
     }
   });
 });
+
+Cypress.Commands.add("openExpandableCard", (cardTitle: string) => {
+  cy.dataCy("expandable-card-title")
+    .contains(cardTitle)
+    .closest("[role='button']")
+    .as("card-btn");
+  cy.get("@card-btn").then(($btn) => {
+    if ($btn.attr("aria-expanded") !== "true") {
+      cy.get("@card-btn").click();
+    }
+  });
+});
