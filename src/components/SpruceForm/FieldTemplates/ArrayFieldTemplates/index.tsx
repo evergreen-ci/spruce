@@ -40,7 +40,6 @@ const ArrayItem: React.FC<
   topAlignDelete,
   useExpandableCard,
 }) => {
-  console.log(disabled, readonly);
   const isDisabled = disabled || readonly;
   const deleteButton = (
     <Button
