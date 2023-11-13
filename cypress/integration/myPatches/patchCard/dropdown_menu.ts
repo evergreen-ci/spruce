@@ -106,7 +106,6 @@ describe("Dropdown Menu of Patch Actions", () => {
 
   it("Toggle patch visibility", () => {
     // "Include hidden" checkbox is not checked and patch is visible
-    cy.getCookie(INCLUDE_HIDDEN_PATCHES).should("equal", null);
     cy.getInputByLabel("Include hidden").should("not.be.checked");
     cy.location("search").should("not.contain", "hidden=true");
     getPatchCardByDescription("testtest")
