@@ -239,8 +239,11 @@ functions:
       script: |
         ${PREPARE_SHELL}
         # Only record to cypress cloud if this is a pr, mainline commit or an intentional patch.
-        if [[ "${requester}" == "github_pr" || "${requester}" == "commit" || "${requester}" == "patch" ]]; then
+        # And only allow spec filtering for an intentional patch.
+        if [[ "${requester}" == "github_pr" || "${requester}" == "commit" ]]; then
           yarn cy:run --record --key "${cypress_record_key}" --reporter junit
+        elif [[ "${requester}" == "patch" ]]; then
+          yarn cy:run --record --key "${cypress_record_key}" --reporter junit --spec ${cypress_spec}
         else
           yarn cy:run --reporter junit
         fi
@@ -518,3 +521,8 @@ buildvariants:
         git_tag_only: true
         patchable: false
         priority: 100
+
+parameters:
+  - key: cypress_spec
+    value: cypress/integration/*
+    description: Specify the Cypress spec files to run for user submitted patches running the e2e_test task.
