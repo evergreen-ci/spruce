@@ -1,4 +1,4 @@
-import { LeafyGreenTableRow } from "@leafygreen-ui/table/new";
+import { LeafyGreenTableRow } from "@leafygreen-ui/table";
 import {
   TableFilterPopover,
   TableSearchPopover,
@@ -8,8 +8,8 @@ import { TreeDataEntry } from "components/TreeSelect";
 
 type TreeSelectFilterProps = {
   "data-cy"?: string;
-  tData: TreeDataEntry[];
   onConfirm?: ({ id, value }: { id: string; value: string[] }) => void;
+  tData: TreeDataEntry[];
 };
 
 export const getColumnTreeSelectFilterProps = ({
@@ -24,13 +24,13 @@ export const getColumnTreeSelectFilterProps = ({
       );
       return (
         <TableFilterPopover
-          value={column?.getFilterValue() ?? []}
-          options={filteredOptions.length ? filteredOptions : tData}
+          data-cy={dataCy}
           onConfirm={(newValue) => {
             column.setFilterValue(newValue);
             onConfirm({ id: column.id, value: newValue });
           }}
-          data-cy={dataCy}
+          options={filteredOptions.length ? filteredOptions : tData}
+          value={column?.getFilterValue() ?? []}
         />
       );
     },
@@ -60,12 +60,12 @@ export const getColumnInputFilterProps = ({
   meta: {
     filterComponent: ({ column }) => (
       <TableSearchPopover
-        value={column?.getFilterValue() ?? ""}
+        data-cy={dataCy}
         onConfirm={(newValue) => {
           column.setFilterValue(newValue);
           onConfirm({ id: column.id, value: newValue });
         }}
-        data-cy={dataCy}
+        value={column?.getFilterValue() ?? ""}
       />
     ),
   },
@@ -96,12 +96,12 @@ export const getColumnSortProps = ({
   meta: {
     sortComponent: ({ column }) => (
       <TableSortIcon
-        value={column.getIsSorted().toString()}
+        data-cy={dataCy}
         onToggle={(newValue) => {
           column.toggleSorting();
           onToggle({ id: column.id, value: newValue });
         }}
-        data-cy={dataCy}
+        value={column.getIsSorted().toString()}
       />
     ),
   },

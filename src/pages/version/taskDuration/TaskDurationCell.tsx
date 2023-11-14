@@ -10,9 +10,9 @@ import { string } from "utils";
 const { msToDuration } = string;
 
 interface TaskDurationCellProps {
+  maxTimeTaken: number;
   status: string;
   timeTaken: number;
-  maxTimeTaken: number;
 }
 
 export const TaskDurationCell: React.VFC<TaskDurationCellProps> = ({
@@ -25,19 +25,19 @@ export const TaskDurationCell: React.VFC<TaskDurationCellProps> = ({
     mapTaskToBarchartColor[mapTaskStatusToUmbrellaStatus[status]];
   return (
     <Duration>
-      <DurationBar width={barWidth} color={barColor} />
+      <DurationBar color={barColor} width={barWidth} />
       <DurationLabel>{msToDuration(timeTaken) || "0s"}</DurationLabel>
     </Duration>
   );
 };
 
+const calculateBarWidth = (value: number, max: number) =>
+  max ? `${(value / max) * 100}%` : "0%";
+
 const Duration = styled.div`
   width: 100%;
   padding: ${size.s} 0;
 `;
-
-const calculateBarWidth = (value: number, max: number) =>
-  max ? `${(value / max) * 100}%` : "0%";
 
 const DurationBar = styled.div<{ width: string; color: string }>`
   width: ${({ width }) => width};

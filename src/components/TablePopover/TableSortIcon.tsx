@@ -49,11 +49,11 @@ export const TableSortIcon: React.FC<TableSortIconProps> = ({
   return (
     <SortIconWrapper>
       <IconButton
-        onClick={onClick}
-        data-cy={dataCy}
         aria-label="Table Sort Icon"
+        data-cy={dataCy}
+        onClick={onClick}
       >
-        <Icon glyph={iconGlyph[value]} small="xsmall" color={iconColor} />
+        <Icon color={iconColor} glyph={iconGlyph[value]} small="xsmall" />
       </IconButton>
     </SortIconWrapper>
   );

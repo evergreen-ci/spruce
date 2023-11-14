@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { LGColumnDef, useLeafyGreenTable } from "@leafygreen-ui/table/new";
+import { LGColumnDef, useLeafyGreenTable } from "@leafygreen-ui/table";
 import { WordBreak } from "components/styles";
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { BaseTable } from "./BaseTable";
@@ -65,16 +65,16 @@ const nestedRows: DataShape[] = Array.from({ length: 50 }, (_, i) => ({
   ],
 }));
 
-const repeated = "long ".repeat(100);
+const longContent = "long ".repeat(100);
 const longContentRows: DataShape[] = Array.from({ length: 3 }, (_, i) => ({
-  name: `${repeated} name ${i}`,
-  type: `${repeated} type ${i}`,
-  size: `${repeated} size ${i}`,
+  name: `${longContent} name ${i}`,
+  type: `${longContent} type ${i}`,
+  size: `${longContent} size ${i}`,
   subRows: [
     {
-      name: `${repeated} nested name ${i}`,
-      type: `${repeated} nested type ${i}`,
-      size: `${repeated} nested size ${i}`,
+      name: `${longContent} nested name ${i}`,
+      type: `${longContent} nested type ${i}`,
+      size: `${longContent} nested size ${i}`,
     },
   ],
 }));

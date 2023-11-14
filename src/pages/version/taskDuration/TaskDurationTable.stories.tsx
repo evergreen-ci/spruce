@@ -19,16 +19,16 @@ const props = {
     {
       buildVariantDisplayName:
         "Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)",
-      displayName:
-        "sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion",
+      displayName: "sharding_multiversion ".repeat(30),
       execution: 0,
       id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_display_sharding_multiversion_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
       startTime: new Date("2023-10-09T16:42:53.995Z"),
       status: "known-issue",
       subRows: [
         {
-          buildVariantDisplayName:
-            "Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled) long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long",
+          buildVariantDisplayName: `Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled) ${"long ".repeat(
+            80
+          )}`,
           displayName: "sharding_last_continuous_00-linux-enterprise",
           execution: 0,
           id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_00_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",

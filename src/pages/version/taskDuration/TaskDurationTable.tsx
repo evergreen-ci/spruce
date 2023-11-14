@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useRef } from "react";
-import { useLeafyGreenTable } from "@leafygreen-ui/table/new";
+import { useLeafyGreenTable } from "@leafygreen-ui/table";
 import { getFacetedMinMaxValues } from "@tanstack/react-table";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
@@ -66,9 +66,8 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
   const updateUrl = useCallback(
     ({ id, value }) => {
       updateQueryParams({ [id]: value || undefined, page: "0" });
-      sendEvent({ name: "Filter Tasks", filterBy: id });
     },
-    [sendEvent, updateQueryParams]
+    [updateQueryParams]
   );
 
   const columns = useMemo(
@@ -86,7 +85,10 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
         }) => <TaskLink taskId={id} taskName={getValue()} />,
         ...getColumnInputFilterProps({
           "data-cy": "task-name-filter-popover",
-          onConfirm: updateUrl,
+          onConfirm: (filter) => {
+            updateUrl(filter);
+            sendEvent({ name: "Filter Tasks", filterBy: filter.id });
+          },
         }),
       },
       {
@@ -98,7 +100,10 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
         ...getColumnTreeSelectFilterProps({
           "data-cy": "status-filter-popover",
           tData: statusOptions,
-          onConfirm: updateUrl,
+          onConfirm: (filter) => {
+            updateUrl(filter);
+            sendEvent({ name: "Filter Tasks", filterBy: filter.id });
+          },
         }),
       },
       {
@@ -108,7 +113,10 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
         size: 150,
         ...getColumnInputFilterProps({
           "data-cy": "build-variant-filter-popover",
-          onConfirm: updateUrl,
+          onConfirm: (filter) => {
+            updateUrl(filter);
+            sendEvent({ name: "Filter Tasks", filterBy: filter.id });
+          },
         }),
       },
       {
@@ -135,7 +143,7 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
         }),
       },
     ],
-    [statusOptions, updateUrl]
+    [statusOptions, sendEvent, updateUrl]
   );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
@@ -159,13 +167,13 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
     <BaseTable
       data-cy="task-duration-table"
       data-cy-row="task-duration-table-row"
-      table={table}
-      shouldAlternateRowColor
       emptyComponent={<TablePlaceholder message="No tasks found." />}
       loading={loading}
       loadingComponent={
         <TablePlaceholder glyph="Refresh" message="Loading..." spin />
       }
+      table={table}
+      shouldAlternateRowColor
     />
   );
 };

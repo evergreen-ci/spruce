@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Pagination from "@leafygreen-ui/pagination";
 import { palette } from "@leafygreen-ui/palette";
-import { useLeafyGreenTable } from "@leafygreen-ui/table/new";
+import { useLeafyGreenTable } from "@leafygreen-ui/table";
 import {
   getFacetedUniqueValues,
   getFilteredRowModel,

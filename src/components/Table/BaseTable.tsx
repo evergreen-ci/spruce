@@ -11,7 +11,7 @@ import {
   TableBody,
   type TableProps,
   TableHead,
-} from "@leafygreen-ui/table/new";
+} from "@leafygreen-ui/table";
 
 type SpruceTableProps = {
   "data-cy-row"?: string;
