@@ -127,6 +127,7 @@ Cypress.Commands.add("overwriteGQL", (operationName: string, body: any) => {
   });
 });
 
+// TODO: Usage of openExpandableCard introduced in DEVPROD-2415 can be deleted after DEVPROD-2608
 Cypress.Commands.add("openExpandableCard", (cardTitle: string) => {
   cy.dataCy("expandable-card-title")
     .contains(cardTitle)
