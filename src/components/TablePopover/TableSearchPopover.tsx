@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
@@ -12,22 +12,21 @@ import { useOnClickOutside } from "hooks";
 const { blue, gray } = palette;
 
 interface TableSearchPopoverProps {
-  value: string;
-  onChange: (search: string) => void;
-  onConfirm: () => void;
   "data-cy"?: string;
+  onConfirm: (search: string) => void;
   placeholder?: string;
+  value: string;
 }
 
 export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   "data-cy": dataCy,
-  onChange,
   onConfirm,
   placeholder,
   value,
 }) => {
+  const [input, setInput] = useState(value);
   const [active, setActive] = useState(false);
-  const iconColor = value === "" ? gray.dark2 : blue.light1;
+  const iconColor = value === "" ? gray.dark2 : blue.base;
 
   const buttonRef = useRef(null);
   const popoverRef = useRef(null);
@@ -35,13 +34,18 @@ export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   // Handle onClickOutside
   useOnClickOutside([buttonRef, popoverRef], () => setActive(false));
 
-  const closePopup = () => {
-    onConfirm();
+  // If the value from the URL has changed, update the input.
+  useEffect(() => {
+    setInput(value);
+  }, [value]);
+
+  const onEnter = () => {
+    onConfirm(input);
     setActive(false);
   };
 
   return (
-    <Wrapper>
+    <SearchWrapper>
       <IconButton
         onClick={() => setActive(!active)}
         active={active}
@@ -59,17 +63,17 @@ export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
             type="search"
             aria-label="Search Table"
             data-cy="input-filter"
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            onKeyPress={(e) => e.key === "Enter" && closePopup()}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyPress={(e) => e.key === "Enter" && onEnter()}
             autoFocus
           />
         </PopoverContainer>
       </Popover>
-    </Wrapper>
+    </SearchWrapper>
   );
 };
 
-const Wrapper = styled.div`
+const SearchWrapper = styled.div`
   margin-left: ${size.xxs};
 `;

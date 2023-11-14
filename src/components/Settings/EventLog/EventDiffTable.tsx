@@ -7,7 +7,7 @@ import {
   V10Cell as Cell,
   V11Adapter,
   V10HeaderRow as HeaderRow,
-} from "@leafygreen-ui/table/new";
+} from "@leafygreen-ui/table";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import { getEventDiffLines } from "./EventLogDiffs";
 import { Event, EventDiffLine, EventValue } from "./types";

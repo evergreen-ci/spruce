@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { LeafyGreenTableRow } from "@leafygreen-ui/table/new";
+import { LeafyGreenTableRow } from "@leafygreen-ui/table";
 import {
   getCommitsRoute,
   getPatchRoute,
