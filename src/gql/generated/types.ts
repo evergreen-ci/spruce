@@ -1675,6 +1675,7 @@ export type Project = {
   repo: Scalars["String"]["output"];
   repoRefId: Scalars["String"]["output"];
   repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  repotrackerError?: Maybe<RepotrackerError>;
   restricted?: Maybe<Scalars["Boolean"]["output"]>;
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2203,6 +2204,13 @@ export type RepoWorkstationConfig = {
   __typename?: "RepoWorkstationConfig";
   gitClone: Scalars["Boolean"]["output"];
   setupCommands?: Maybe<Array<WorkstationSetupCommand>>;
+};
+
+export type RepotrackerError = {
+  __typename?: "RepotrackerError";
+  exists: Scalars["Boolean"]["output"];
+  invalidRevision: Scalars["String"]["output"];
+  mergeBaseRevision: Scalars["String"]["output"];
 };
 
 export enum RequiredStatus {
@@ -2928,6 +2936,7 @@ export type Version = {
   __typename?: "Version";
   activated?: Maybe<Scalars["Boolean"]["output"]>;
   author: Scalars["String"]["output"];
+  authorEmail: Scalars["String"]["output"];
   baseTaskStatuses: Array<Scalars["String"]["output"]>;
   baseVersion?: Maybe<Version>;
   branch: Scalars["String"]["output"];
@@ -3321,6 +3330,7 @@ export type PatchesPagePatchesFragment = {
     commitQueuePosition?: number | null;
     createTime?: Date | null;
     description: string;
+    hidden: boolean;
     id: string;
     projectIdentifier: string;
     status: string;
@@ -3861,6 +3871,12 @@ export type RepoSettingsFieldsFragment = {
       taskRegex: string;
       unscheduleDownstreamVersions?: boolean | null;
     }>;
+    parsleyFilters?: Array<{
+      __typename?: "ParsleyFilter";
+      caseSensitive: boolean;
+      exactMatch: boolean;
+      expression: string;
+    }> | null;
     workstationConfig: {
       __typename?: "RepoWorkstationConfig";
       gitClone: boolean;
@@ -4380,6 +4396,16 @@ export type VariablesFragment = {
 export type ProjectViewsAndFiltersSettingsFragment = {
   __typename?: "Project";
   projectHealthView: ProjectHealthView;
+  parsleyFilters?: Array<{
+    __typename?: "ParsleyFilter";
+    caseSensitive: boolean;
+    exactMatch: boolean;
+    expression: string;
+  }> | null;
+};
+
+export type RepoViewsAndFiltersSettingsFragment = {
+  __typename?: "RepoRef";
   parsleyFilters?: Array<{
     __typename?: "ParsleyFilter";
     caseSensitive: boolean;
@@ -5037,7 +5063,11 @@ export type SetPatchVisibilityMutationVariables = Exact<{
 
 export type SetPatchVisibilityMutation = {
   __typename?: "Mutation";
-  setPatchVisibility: Array<{ __typename?: "Patch"; id: string }>;
+  setPatchVisibility: Array<{
+    __typename?: "Patch";
+    hidden: boolean;
+    id: string;
+  }>;
 };
 
 export type SetTaskPriorityMutationVariables = Exact<{
@@ -5304,6 +5334,7 @@ export type BaseVersionAndTaskQuery = {
     displayName: string;
     execution: number;
     id: string;
+    projectIdentifier?: string | null;
     baseTask?: {
       __typename?: "Task";
       execution: number;
@@ -5318,7 +5349,6 @@ export type BaseVersionAndTaskQuery = {
         __typename?: "Version";
         id: string;
         order: number;
-        projectIdentifier: string;
       } | null;
     };
   } | null;
@@ -7030,6 +7060,7 @@ export type ProjectPatchesQuery = {
         commitQueuePosition?: number | null;
         createTime?: Date | null;
         description: string;
+        hidden: boolean;
         id: string;
         projectIdentifier: string;
         status: string;
@@ -7866,6 +7897,12 @@ export type RepoSettingsQuery = {
         taskRegex: string;
         unscheduleDownstreamVersions?: boolean | null;
       }>;
+      parsleyFilters?: Array<{
+        __typename?: "ParsleyFilter";
+        caseSensitive: boolean;
+        exactMatch: boolean;
+        expression: string;
+      }> | null;
       workstationConfig: {
         __typename?: "RepoWorkstationConfig";
         gitClone: boolean;
@@ -8521,6 +8558,7 @@ export type UserPatchesQuery = {
         commitQueuePosition?: number | null;
         createTime?: Date | null;
         description: string;
+        hidden: boolean;
         id: string;
         projectIdentifier: string;
         status: string;
@@ -8674,7 +8712,7 @@ export type VersionTaskDurationsQuery = {
         startTime?: Date | null;
         status: string;
         timeTaken?: number | null;
-        executionTasksFull?: Array<{
+        subRows?: Array<{
           __typename?: "Task";
           buildVariantDisplayName?: string | null;
           displayName: string;

@@ -10,15 +10,17 @@ import {
 } from "components/PatchActionButtons";
 
 interface Props {
-  patchId: string;
   canEnqueueToCommitQueue: boolean;
+  hasVersion: boolean;
+  isPatchHidden: boolean;
   isPatchOnCommitQueue: boolean;
   patchDescription: string;
-  hasVersion: boolean;
+  patchId: string;
 }
 export const DropdownMenu: React.FC<Props> = ({
   canEnqueueToCommitQueue,
   hasVersion,
+  isPatchHidden,
   isPatchOnCommitQueue,
   patchDescription,
   patchId,
@@ -57,6 +59,7 @@ export const DropdownMenu: React.FC<Props> = ({
     <SetPatchVisibility
       key="hide"
       patchId={patchId}
+      isPatchHidden={isPatchHidden}
       refetchQueries={["UserPatches", "ProjectPatches"]}
     />,
   ];

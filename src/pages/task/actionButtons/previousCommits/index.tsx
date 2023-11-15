@@ -37,10 +37,15 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     variables: { taskId },
   });
 
-  const { baseTask, buildVariant, displayName, versionMetadata } =
-    taskData?.task ?? {};
-  const { order: skipOrderNumber, projectIdentifier } =
-    versionMetadata?.baseVersion ?? {};
+  const {
+    baseTask,
+    buildVariant,
+    displayName,
+    projectIdentifier,
+    versionMetadata,
+  } = taskData?.task ?? {};
+  const { order: skipOrderNumber } = versionMetadata?.baseVersion ?? {};
+
   const bvOptionsBase = {
     tasks: [applyStrictRegex(displayName)],
     variants: [applyStrictRegex(buildVariant)],

@@ -77,8 +77,8 @@ describe("tupleSelectWithRegexConditional", () => {
     expect(input).toHaveValue("bad");
     expect(onSubmit).not.toHaveBeenCalled();
     expect(validator).toHaveBeenLastCalledWith("bad");
-    expect(screen.getByDataCy("tuple-select-warning")).toBeInTheDocument();
-    await user.hover(screen.queryByDataCy("tuple-select-warning"));
+    expect(screen.getByLabelText("validation error")).toBeInTheDocument();
+    await user.hover(screen.getByLabelText("validation error"));
     await waitFor(() => {
       expect(screen.getByText(validatorErrorMessage)).toBeInTheDocument();
     });

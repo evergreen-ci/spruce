@@ -59,7 +59,3 @@ export { WritableProjectSettingsTabs };
 
 export type WritableProjectSettingsType =
   (typeof WritableProjectSettingsTabs)[keyof typeof WritableProjectSettingsTabs];
-
-export const projectOnlyTabs: Set<ProjectSettingsTabRoutes> = new Set([
-  ProjectSettingsTabRoutes.ViewsAndFilters,
-]);

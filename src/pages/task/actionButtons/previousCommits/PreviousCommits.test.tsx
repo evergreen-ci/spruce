@@ -205,11 +205,11 @@ const getPatchTaskWithSuccessfulBaseTask: ApolloMock<
         execution: 0,
         displayName: "lint-agent",
         buildVariant: "lint",
+        projectIdentifier: "evergreen",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
             order: 3676,
-            projectIdentifier: "evergreen",
             __typename: "Version",
           },
           isPatch: true,
@@ -245,11 +245,11 @@ const getPatchTaskWithRunningBaseTask: ApolloMock<
         execution: 0,
         displayName: "lint-agent",
         buildVariant: "lint",
+        projectIdentifier: "evergreen",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
             order: 3676,
-            projectIdentifier: "evergreen",
             __typename: "Version",
           },
           isPatch: true,
@@ -285,11 +285,11 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
         execution: 0,
         displayName: "lint-agent",
         buildVariant: "lint",
+        projectIdentifier: "evergreen",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
             order: 3676,
-            projectIdentifier: "evergreen",
             __typename: "Version",
           },
           isPatch: true,
@@ -325,6 +325,7 @@ const getPatchTaskWithNoBaseVersion: ApolloMock<
         execution: 0,
         displayName: "lint-agent",
         buildVariant: "lint",
+        projectIdentifier: "evergreen",
         versionMetadata: {
           baseVersion: null,
           id: "versionMetadataId",
@@ -460,11 +461,11 @@ const getPatchTaskWithNoBaseTask: ApolloMock<
         execution: 0,
         displayName: "lint-agent",
         buildVariant: "lint",
+        projectIdentifier: "evergreen",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
             order: 3676,
-            projectIdentifier: "evergreen",
             __typename: "Version",
           },
           isPatch: true,
@@ -496,11 +497,11 @@ const getMainlineTaskWithBaseVersion: ApolloMock<
         execution: 0,
         displayName: "lint-agent",
         buildVariant: "lint",
+        projectIdentifier: "evergreen",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
             order: 3676,
-            projectIdentifier: "evergreen",
             __typename: "Version",
           },
           isPatch: false,

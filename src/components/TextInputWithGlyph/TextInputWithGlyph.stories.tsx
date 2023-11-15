@@ -5,6 +5,7 @@ import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import TextInputWithGlyph from ".";
 
 export default {
+  title: "Components/TextInput/TextInputWithGlyph",
   component: TextInputWithGlyph,
 } satisfies CustomMeta<typeof TextInputWithGlyph>;
 

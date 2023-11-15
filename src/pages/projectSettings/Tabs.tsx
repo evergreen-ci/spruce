@@ -215,6 +215,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
                 tabData[ProjectSettingsTabRoutes.ViewsAndFilters].projectData
               }
               projectType={projectType}
+              repoData={
+                tabData[ProjectSettingsTabRoutes.ViewsAndFilters].repoData
+              }
             />
           }
         />
