@@ -144,9 +144,8 @@ const Commits = () => {
     fetchPolicy: "cache-and-network",
     variables,
     pollInterval: DEFAULT_POLL_INTERVAL,
-    onError: (e) => {
-      dispatchToast.error(`There was an error loading the page: ${e.message}`);
-    },
+    onError: (e) =>
+      dispatchToast.error(`There was an error loading the page: ${e.message}`),
   });
   usePolling({ startPolling, stopPolling, refetch });
 

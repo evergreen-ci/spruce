@@ -1,8 +1,11 @@
 import { useState } from "react";
+import styled from "@emotion/styled";
 import TextInput from "@leafygreen-ui/text-input";
+import { Description } from "@leafygreen-ui/typography";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { ConfirmationModal } from "components/ConfirmationModal";
+import { size } from "constants/tokens";
 import { useQueryParams } from "hooks/useQueryParam";
 import { MainlineCommitQueryParams } from "types/commits";
 
@@ -16,16 +19,20 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const [, setQueryParams] = useQueryParams();
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [commitHash, setCommitHash] = useState("");
 
-  const onSubmit = () => {
+  const onCancel = () => {
+    setModalOpen(false);
+    setMenuOpen(false);
+  };
+
+  const onConfirm = () => {
     sendEvent({ name: "Search for commit", commit: commitHash });
     setQueryParams({
       [MainlineCommitQueryParams.Revision]: commitHash,
     });
-    setIsModalVisible(false);
-    setMenuOpen(false);
+    onCancel();
   };
 
   return (
@@ -33,7 +40,7 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
       <DropdownItem
         data-cy="git-commit-search"
         onClick={() => {
-          setIsModalVisible(true);
+          setModalOpen(true);
           sendEvent({ name: "Open Git Commit Search Modal" });
         }}
       >
@@ -42,21 +49,28 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
       <ConfirmationModal
         buttonText="Submit"
         data-cy="git-commit-search-modal"
-        onCancel={() => setIsModalVisible(false)}
-        onConfirm={onSubmit}
-        open={isModalVisible}
+        onCancel={onCancel}
+        onConfirm={onConfirm}
+        open={modalOpen}
         // Force user to input at least 7 characters of the hash.
         submitDisabled={commitHash.trim().length < 7}
         title="Search by Git Commit Hash"
       >
+        <StyledDescription>
+          Note: This is an experimental feature that works best without any
+          filters. Searching for a git commit will clear all applied filters.
+        </StyledDescription>
         <TextInput
-          description="Note: this is an experimental feature that works best with no task or build variant filters applied. Applying a git commit hash will clear all applied filters."
           label="Git Commit Hash"
           onChange={(e) => setCommitHash(e.target.value.trim())}
-          onKeyPress={(e) => e.key === "Enter" && onSubmit()}
+          onKeyPress={(e) => e.key === "Enter" && onConfirm()}
           value={commitHash}
         />
       </ConfirmationModal>
     </>
   );
 };
+
+const StyledDescription = styled(Description)`
+  margin-bottom: ${size.xs};
+`;

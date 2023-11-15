@@ -214,6 +214,11 @@ describe("commits page", () => {
       cy.visit("/commits/spruce");
     });
 
+    it("should show an error toast if the commit could not be found", () => {
+      searchCommit(revision.slice(3, 12));
+      cy.validateToast("error");
+    });
+
     it("should jump to the given commit", () => {
       searchCommit(revision);
       cy.get("[data-selected='true']").should("be.visible");
@@ -240,19 +245,12 @@ describe("commits page", () => {
       cy.dataCy("next-page-button").click();
       cy.get("[data-selected='true']").should("not.exist");
       cy.dataCy("prev-page-button").click();
-
       cy.get("[data-selected='true']").should("be.visible");
 
       cy.dataCy("prev-page-button").click();
       cy.get("[data-selected='true']").should("not.exist");
       cy.dataCy("next-page-button").click();
-
       cy.get("[data-selected='true']").should("be.visible");
-    });
-
-    it("should show an error toast if the commit could not be found", () => {
-      searchCommit(revision.slice(3, 12));
-      cy.validateToast("error");
     });
   });
 });
