@@ -1831,7 +1831,7 @@ export type ProjectInput = {
 
 export type ProjectPermissions = {
   __typename?: "ProjectPermissions";
-  admin: Scalars["Boolean"]["output"];
+  edit: Scalars["Boolean"]["output"];
   view: Scalars["Boolean"]["output"];
 };
 
