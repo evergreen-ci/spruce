@@ -6,11 +6,11 @@ import { useQueryParams } from "hooks/useQueryParam";
  * @returns - a function that updates the page size query param
  */
 const usePageSizeSelector = () => {
-  const [, setQueryParams] = useQueryParams();
+  const [queryParams, setQueryParams] = useQueryParams();
   const setPageSize = (pageSize: number) => {
     const newPageSize = pageSize.toString();
     localStorage.setItem(RECENT_PAGE_SIZE_KEY, newPageSize);
-    setQueryParams({ limit: newPageSize, page: "0" });
+    setQueryParams({ ...queryParams, limit: newPageSize, page: "0" });
   };
   return setPageSize;
 };
