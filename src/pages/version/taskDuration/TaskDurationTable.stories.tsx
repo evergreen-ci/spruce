@@ -7,11 +7,15 @@ export default {
 } satisfies CustomMeta<typeof TaskDurationTable>;
 
 export const Default: CustomStoryObj<typeof TaskDurationTable> = {
-  render: () => <TaskDurationTable tasks={props.tasks} loading={false} />,
+  render: () => (
+    <TaskDurationTable tasks={props.tasks} loading={false} pageSize={10} />
+  ),
 };
 
 export const LongContent: CustomStoryObj<typeof TaskDurationTable> = {
-  render: () => <TaskDurationTable tasks={props.tasksLong} loading={false} />,
+  render: () => (
+    <TaskDurationTable tasks={props.tasksLong} loading={false} pageSize={10} />
+  ),
 };
 
 const props = {

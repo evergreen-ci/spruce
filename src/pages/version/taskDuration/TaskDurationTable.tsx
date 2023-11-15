@@ -22,9 +22,14 @@ import { TaskDurationCell } from "./TaskDurationCell";
 interface Props {
   tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"];
   loading: boolean;
+  pageSize: number;
 }
 
-export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
+export const TaskDurationTable: React.FC<Props> = ({
+  loading,
+  pageSize,
+  tasks,
+}) => {
   const { id: versionId } = useParams<{ id: string }>();
   const { sendEvent } = useVersionAnalytics(versionId);
   const { currentStatuses: statusOptions } = useTaskStatuses({ versionId });
@@ -169,11 +174,9 @@ export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
       data-cy-row="task-duration-table-row"
       emptyComponent={<TablePlaceholder message="No tasks found." />}
       loading={loading}
-      loadingComponent={
-        <TablePlaceholder glyph="Refresh" message="Loading..." spin />
-      }
       table={table}
       shouldAlternateRowColor
+      loadingRows={pageSize}
     />
   );
 };
