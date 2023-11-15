@@ -7,7 +7,6 @@ import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
-import HalloweenTree from "components/Icon/icons/Halloween.svg";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { wikiUrl } from "constants/externalResources";
 import { getCommitsRoute, getUserPatchesRoute, routes } from "constants/routes";
@@ -61,10 +60,7 @@ export const Navbar: React.FC = () => {
           to={routes.myPatches}
           onClick={() => sendEvent({ name: "Click Logo Link" })}
         >
-          <HalloweenTreeIcon
-            src={HalloweenTree}
-            alt="Evergreen Logo with Halloween Decorations"
-          />
+          <Icon glyph="EvergreenLogo" size={32} />
         </LogoLink>
         <PrimaryLink
           data-cy="project-health-link"
@@ -175,11 +171,4 @@ const secondaryStyle = css`
 
 const SecondaryLink = styled.a`
   ${secondaryStyle}
-`;
-
-const HalloweenTreeIcon = styled.img`
-  height: 46px;
-  width: 46px;
-  position: relative;
-  bottom: 4px;
 `;

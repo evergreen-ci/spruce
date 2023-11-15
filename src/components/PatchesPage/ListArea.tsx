@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { Analytics } from "analytics/addPageAction";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
-import { PatchCard } from "./PatchCard";
+import { PatchCard } from "./patchCard";
 
 export const ListArea: React.FC<{
   analyticsObject?: Analytics<

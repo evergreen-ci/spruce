@@ -1,8 +1,9 @@
 import { useQuery } from "@apollo/client";
 import Cookies from "js-cookie";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useUserPatchesAnalytics } from "analytics";
-import { PatchesPage, usePatchesInputFromSearch } from "components/PatchesPage";
+import { PatchesPage } from "components/PatchesPage";
+import { usePatchesQueryParams } from "components/PatchesPage/usePatchesQueryParams";
 import { INCLUDE_COMMIT_QUEUE_USER_PATCHES } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
@@ -18,7 +19,6 @@ import { PatchPageQueryParams } from "types/patch";
 export const UserPatches = () => {
   const dispatchToast = useToastContext();
   const { id: userId } = useParams<{ id: string }>();
-  const { search } = useLocation();
   const analyticsObject = useUserPatchesAnalytics();
 
   const [isCommitQueueCheckboxChecked] = useQueryParam(
@@ -26,7 +26,7 @@ export const UserPatches = () => {
     Cookies.get(INCLUDE_COMMIT_QUEUE_USER_PATCHES) === "true"
   );
 
-  const patchesInput = usePatchesInputFromSearch(search);
+  const patchesInput = usePatchesQueryParams();
 
   const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     UserPatchesQuery,

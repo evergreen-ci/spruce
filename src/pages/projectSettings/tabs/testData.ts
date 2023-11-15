@@ -266,6 +266,13 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
         nextRunTime: new Date("2022-03-30T17:07:10.942Z"),
       },
     ],
+    parsleyFilters: [
+      {
+        expression: "repo-filter",
+        caseSensitive: false,
+        exactMatch: false,
+      },
+    ],
   },
   vars: {
     vars: { repo_name: "repo_value" },

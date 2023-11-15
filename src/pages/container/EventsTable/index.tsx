@@ -8,7 +8,7 @@ import {
   V10Cell as Cell,
   V10HeaderRow as HeaderRow,
   V11Adapter,
-} from "@leafygreen-ui/table/new";
+} from "@leafygreen-ui/table";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { useLocation, useParams } from "react-router-dom";
 import PageSizeSelector, {

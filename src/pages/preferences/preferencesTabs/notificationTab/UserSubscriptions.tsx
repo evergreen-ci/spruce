@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Pagination from "@leafygreen-ui/pagination";
 import { palette } from "@leafygreen-ui/palette";
-import { useLeafyGreenTable } from "@leafygreen-ui/table/new";
+import { useLeafyGreenTable } from "@leafygreen-ui/table";
 import {
   getFacetedUniqueValues,
   getFilteredRowModel,
@@ -81,10 +81,10 @@ export const UserSubscriptions: React.FC<{}> = () => {
           const resourceType = getValue();
           return resourceTypeToCopy[resourceType] ?? resourceType;
         },
+        header: "Type",
         ...getColumnTreeSelectFilterProps({
           "data-cy": "status-filter-popover",
           tData: resourceTypeTreeData,
-          title: "Type",
         }),
       },
       {
@@ -112,10 +112,10 @@ export const UserSubscriptions: React.FC<{}> = () => {
       },
       {
         accessorKey: "trigger",
+        header: "Event",
         ...getColumnTreeSelectFilterProps({
           "data-cy": "trigger-filter-popover",
           tData: triggerTreeData,
-          title: "Event",
         }),
         cell: ({ getValue }) => {
           const trigger = getValue();

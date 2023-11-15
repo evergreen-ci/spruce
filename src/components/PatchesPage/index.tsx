@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { SearchInput } from "@leafygreen-ui/search-input";
 import Cookies from "js-cookie";
-import { useLocation } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
 import PageSizeSelector, {
   usePageSizeSelector,
@@ -12,22 +11,22 @@ import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
 import {
   INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES,
   INCLUDE_COMMIT_QUEUE_USER_PATCHES,
+  INCLUDE_HIDDEN_PATCHES,
 } from "constants/cookies";
 import { size } from "constants/tokens";
-import { PatchesPagePatchesFragment, PatchesInput } from "gql/generated/types";
+import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useFilterInputChangeHandler, usePageTitle } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
-import { PatchPageQueryParams, ALL_PATCH_STATUS } from "types/patch";
-import { url } from "utils";
+import { PatchPageQueryParams } from "types/patch";
 import { ListArea } from "./ListArea";
 import { StatusSelector } from "./StatusSelector";
-
-const { getLimitFromSearch, getPageFromSearch } = url;
+import { usePatchesQueryParams } from "./usePatchesQueryParams";
 
 interface Props {
   analyticsObject: Analytics<
     | { name: "Filter Patches"; filterBy: string }
     | { name: "Filter Commit Queue" }
+    | { name: "Filter Hidden"; includeHidden: boolean }
     | { name: "Change Page Size" }
     | { name: "Click Patch Link" }
     | {
@@ -50,7 +49,6 @@ export const PatchesPage: React.FC<Props> = ({
   pageType,
   patches,
 }) => {
-  const { search } = useLocation();
   const setPageSize = usePageSizeSelector();
   const cookie =
     pageType === "project"
@@ -61,7 +59,12 @@ export const PatchesPage: React.FC<Props> = ({
       PatchPageQueryParams.CommitQueue,
       Cookies.get(cookie) === "true"
     );
-  const { limit, page } = usePatchesInputFromSearch(search);
+  const [includeHiddenCheckboxChecked, setIsIncludeHiddenCheckboxChecked] =
+    useQueryParam(
+      PatchPageQueryParams.Hidden,
+      Cookies.get(INCLUDE_HIDDEN_PATCHES) === "true"
+    );
+  const { limit, page } = usePatchesQueryParams();
   const { inputValue, setAndSubmitInputValue } = useFilterInputChangeHandler({
     urlParam: PatchPageQueryParams.PatchName,
     resetPage: true,
@@ -70,11 +73,23 @@ export const PatchesPage: React.FC<Props> = ({
   });
   usePageTitle(pageTitle);
 
-  const onCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const commitQueueCheckboxOnChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setIsCommitQueueCheckboxChecked(e.target.checked);
     Cookies.set(cookie, e.target.checked ? "true" : "false");
-    // eslint-disable-next-line no-unused-expressions
     analyticsObject.sendEvent({ name: "Filter Commit Queue" });
+  };
+
+  const includeHiddenCheckboxOnChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setIsIncludeHiddenCheckboxChecked(e.target.checked);
+    Cookies.set(INCLUDE_HIDDEN_PATCHES, e.target.checked ? "true" : "false");
+    analyticsObject.sendEvent({
+      name: "Filter Hidden",
+      includeHidden: e.target.checked,
+    });
   };
 
   const handlePageSizeChange = (pageSize: number): void => {
@@ -98,13 +113,19 @@ export const PatchesPage: React.FC<Props> = ({
         <CheckboxContainer>
           <Checkbox
             data-cy="commit-queue-checkbox"
-            onChange={onCheckboxChange}
+            onChange={commitQueueCheckboxOnChange}
             label={
               pageType === "project"
                 ? "Only Show Commit Queue Patches"
                 : "Include Commit Queue"
             }
             checked={isCommitQueueCheckboxChecked}
+          />
+          <Checkbox
+            data-cy="include-hidden-checkbox"
+            onChange={includeHiddenCheckboxOnChange}
+            label="Include hidden"
+            checked={includeHiddenCheckboxChecked}
           />
         </CheckboxContainer>
       </FiltersWrapperSpaceBetween>
@@ -130,21 +151,6 @@ export const PatchesPage: React.FC<Props> = ({
   );
 };
 
-export const usePatchesInputFromSearch = (search: string): PatchesInput => {
-  const [patchName] = useQueryParam<string>(PatchPageQueryParams.PatchName, "");
-  const [rawStatuses] = useQueryParam<string[]>(
-    PatchPageQueryParams.Statuses,
-    []
-  );
-  const statuses = rawStatuses.filter((v) => v && v !== ALL_PATCH_STATUS);
-  return {
-    patchName: `${patchName}`,
-    statuses,
-    page: getPageFromSearch(search),
-    limit: getLimitFromSearch(search),
-  };
-};
-
 const PaginationRow = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -166,4 +172,5 @@ const FiltersWrapperSpaceBetween = styled(FiltersWrapper)<{
 const CheckboxContainer = styled.div`
   display: flex;
   justify-content: end;
+  gap: ${size.xs};
 `;
