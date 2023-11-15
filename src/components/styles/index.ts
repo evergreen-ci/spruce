@@ -1,4 +1,4 @@
-import { Divider } from "./Divider";
+import { Divider } from "./divider";
 import { FiltersWrapper } from "./filters";
 import { inactiveElementStyle } from "./inactive";
 import {
