@@ -40,6 +40,15 @@ export const LongContent: CustomStoryObj<typeof BaseTable> = {
   },
 };
 
+export const Loading: CustomStoryObj<typeof BaseTable> = {
+  render: (args) => <TemplateComponent {...args} data={[]} />,
+  args: {
+    loading: true,
+    darkMode: false,
+    loadingRows: 5,
+  },
+};
+
 interface DataShape {
   name: string;
   type: string;
