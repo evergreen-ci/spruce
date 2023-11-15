@@ -107,10 +107,12 @@ module.exports = {
         // Scripts
         "scripts/**/*.{js,ts}": "KEBAB_CASE",
         // JS and TS with exceptions
-        "src/**/!(vite-env.d|custom-queries)*.{js,ts}": "CAMEL_CASE",
+        "src/(!test_utils)/**/!(vite-env.d)*.{js,ts}": "CAMEL_CASE",
         // All tsx with exceptions
-        "src/**/!(use|getFormSchema|index|test-utils|toast-decorator|schemaFields|getColumnsTemplate|githubPRLinkify|jiraLinkify)*.tsx":
+        "src/!(test_utils)/**/!(use|getFormSchema|index|test-utils|schemaFields|getColumnsTemplate|githubPRLinkify|jiraLinkify)*.tsx":
           "PASCAL_CASE",
+        // Test utils
+        "src/test_utils/**/*": "KEBAB_CASE",
         // tsx exceptions
         "src/**/(use|getFormSchema|index)*.tsx": "CAMEL_CASE",
       },
