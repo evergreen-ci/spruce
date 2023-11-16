@@ -44,7 +44,7 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
           sendEvent({ name: "Open Git Commit Search Modal" });
         }}
       >
-        Search by Git Commit
+        Search by Git Hash
       </DropdownItem>
       <ConfirmationModal
         buttonText="Submit"
@@ -58,7 +58,7 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
       >
         <StyledDescription>
           Note: This is an experimental feature that works best without any
-          filters. Searching for a git commit will clear all applied filters.
+          filters. Searching for a git hash will clear all applied filters.
         </StyledDescription>
         <TextInput
           label="Git Commit Hash"
