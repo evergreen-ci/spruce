@@ -149,6 +149,7 @@ export type BuildBaronSettings = {
   bfSuggestionServer?: Maybe<Scalars["String"]["output"]>;
   bfSuggestionTimeoutSecs?: Maybe<Scalars["Int"]["output"]>;
   bfSuggestionUsername?: Maybe<Scalars["String"]["output"]>;
+  ticketCreateIssueType: Scalars["String"]["output"];
   ticketCreateProject: Scalars["String"]["output"];
   ticketSearchProjects?: Maybe<Array<Scalars["String"]["output"]>>;
 };
@@ -159,6 +160,7 @@ export type BuildBaronSettingsInput = {
   bfSuggestionServer?: InputMaybe<Scalars["String"]["input"]>;
   bfSuggestionTimeoutSecs?: InputMaybe<Scalars["Int"]["input"]>;
   bfSuggestionUsername?: InputMaybe<Scalars["String"]["input"]>;
+  ticketCreateIssueType: Scalars["String"]["input"];
   ticketCreateProject: Scalars["String"]["input"];
   ticketSearchProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
@@ -1048,6 +1050,7 @@ export type Mutation = {
   scheduleTasks: Array<Task>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"]["output"];
+  setLastRevision: SetLastRevisionPayload;
   setPatchPriority?: Maybe<Scalars["String"]["output"]>;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
@@ -1271,6 +1274,10 @@ export type MutationSetAnnotationMetadataLinksArgs = {
   execution: Scalars["Int"]["input"];
   metadataLinks: Array<MetadataLinkInput>;
   taskId: Scalars["String"]["input"];
+};
+
+export type MutationSetLastRevisionArgs = {
+  opts: SetLastRevisionInput;
 };
 
 export type MutationSetPatchPriorityArgs = {
@@ -1539,11 +1546,16 @@ export type Permissions = {
   canCreateProject: Scalars["Boolean"]["output"];
   canEditAdminSettings: Scalars["Boolean"]["output"];
   distroPermissions: DistroPermissions;
+  projectPermissions: ProjectPermissions;
   userId: Scalars["String"]["output"];
 };
 
 export type PermissionsDistroPermissionsArgs = {
   options: DistroPermissionsOptions;
+};
+
+export type PermissionsProjectPermissionsArgs = {
+  options: ProjectPermissionsOptions;
 };
 
 export type PlannerSettings = {
@@ -1817,6 +1829,16 @@ export type ProjectInput = {
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
+};
+
+export type ProjectPermissions = {
+  __typename?: "ProjectPermissions";
+  edit: Scalars["Boolean"]["output"];
+  view: Scalars["Boolean"]["output"];
+};
+
+export type ProjectPermissionsOptions = {
+  projectIdentifier: Scalars["String"]["input"];
 };
 
 /** ProjectSettings models the settings for a given Project. */
@@ -2278,6 +2300,20 @@ export type Selector = {
 export type SelectorInput = {
   data: Scalars["String"]["input"];
   type: Scalars["String"]["input"];
+};
+
+/**
+ * SetLastRevisionInput is the input to the setLastRevision mutation.
+ * It contains information used to fix the repotracker error of a project.
+ */
+export type SetLastRevisionInput = {
+  projectIdentifier: Scalars["String"]["input"];
+  revision: Scalars["String"]["input"];
+};
+
+export type SetLastRevisionPayload = {
+  __typename?: "SetLastRevisionPayload";
+  mergeBaseRevision: Scalars["String"]["output"];
 };
 
 export type SlackConfig = {
@@ -3640,6 +3676,7 @@ export type ProjectSettingsFieldsFragment = {
       __typename?: "BuildBaronSettings";
       ticketCreateProject: string;
       ticketSearchProjects?: Array<string> | null;
+      ticketCreateIssueType: string;
     };
     externalLinks?: Array<{
       __typename?: "ExternalLink";
@@ -3839,6 +3876,7 @@ export type RepoSettingsFieldsFragment = {
       __typename?: "BuildBaronSettings";
       ticketCreateProject: string;
       ticketSearchProjects?: Array<string> | null;
+      ticketCreateIssueType: string;
     };
     externalLinks?: Array<{
       __typename?: "ExternalLink";
@@ -4099,6 +4137,7 @@ export type ProjectPluginsSettingsFragment = {
     __typename?: "BuildBaronSettings";
     ticketCreateProject: string;
     ticketSearchProjects?: Array<string> | null;
+    ticketCreateIssueType: string;
   };
   externalLinks?: Array<{
     __typename?: "ExternalLink";
@@ -4128,6 +4167,7 @@ export type RepoPluginsSettingsFragment = {
     __typename?: "BuildBaronSettings";
     ticketCreateProject: string;
     ticketSearchProjects?: Array<string> | null;
+    ticketCreateIssueType: string;
   };
   externalLinks?: Array<{
     __typename?: "ExternalLink";
@@ -4236,6 +4276,7 @@ export type ProjectEventSettingsFragment = {
       __typename?: "BuildBaronSettings";
       ticketCreateProject: string;
       ticketSearchProjects?: Array<string> | null;
+      ticketCreateIssueType: string;
     };
     externalLinks?: Array<{
       __typename?: "ExternalLink";
@@ -6684,6 +6725,7 @@ export type ProjectEventLogsQuery = {
             __typename?: "BuildBaronSettings";
             ticketCreateProject: string;
             ticketSearchProjects?: Array<string> | null;
+            ticketCreateIssueType: string;
           };
           externalLinks?: Array<{
             __typename?: "ExternalLink";
@@ -6895,6 +6937,7 @@ export type ProjectEventLogsQuery = {
             __typename?: "BuildBaronSettings";
             ticketCreateProject: string;
             ticketSearchProjects?: Array<string> | null;
+            ticketCreateIssueType: string;
           };
           externalLinks?: Array<{
             __typename?: "ExternalLink";
@@ -7188,6 +7231,7 @@ export type ProjectSettingsQuery = {
         __typename?: "BuildBaronSettings";
         ticketCreateProject: string;
         ticketSearchProjects?: Array<string> | null;
+        ticketCreateIssueType: string;
       };
       externalLinks?: Array<{
         __typename?: "ExternalLink";
@@ -7438,6 +7482,7 @@ export type RepoEventLogsQuery = {
             __typename?: "BuildBaronSettings";
             ticketCreateProject: string;
             ticketSearchProjects?: Array<string> | null;
+            ticketCreateIssueType: string;
           };
           externalLinks?: Array<{
             __typename?: "ExternalLink";
@@ -7649,6 +7694,7 @@ export type RepoEventLogsQuery = {
             __typename?: "BuildBaronSettings";
             ticketCreateProject: string;
             ticketSearchProjects?: Array<string> | null;
+            ticketCreateIssueType: string;
           };
           externalLinks?: Array<{
             __typename?: "ExternalLink";
@@ -7865,6 +7911,7 @@ export type RepoSettingsQuery = {
         __typename?: "BuildBaronSettings";
         ticketCreateProject: string;
         ticketSearchProjects?: Array<string> | null;
+        ticketCreateIssueType: string;
       };
       externalLinks?: Array<{
         __typename?: "ExternalLink";
