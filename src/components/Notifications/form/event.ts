@@ -399,6 +399,25 @@ export const getEventSchema = (
           {
             properties: {
               eventSelect: {
+                enum: [ProjectTriggers.SUCCESSFUL_TASK_EXCEEDS_DURATION],
+              },
+              extraFields: {
+                type: "object" as "object",
+                title: "",
+                required: [ExtraFieldKey.TASK_DURATION_SECS],
+                properties: {
+                  [ExtraFieldKey.TASK_DURATION_SECS]: taskDurationInput,
+                },
+              },
+              regexSelector: regexSelector(
+                regexEnumsToDisable,
+                taskRegexSelectors
+              ),
+            },
+          },
+          {
+            properties: {
+              eventSelect: {
                 enum: [ProjectTriggers.SUCCESSFUL_TASK_RUNTIME_CHANGES],
               },
               extraFields: {

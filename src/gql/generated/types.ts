@@ -936,6 +936,7 @@ export type MainlineCommitsOptions = {
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  revision?: InputMaybe<Scalars["String"]["input"]>;
   shouldCollapse?: InputMaybe<Scalars["Boolean"]["input"]>;
   skipOrderNumber?: InputMaybe<Scalars["Int"]["input"]>;
 };
@@ -1047,6 +1048,7 @@ export type Mutation = {
   scheduleTasks: Array<Task>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"]["output"];
+  setLastRevision: SetLastRevisionPayload;
   setPatchPriority?: Maybe<Scalars["String"]["output"]>;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
@@ -1270,6 +1272,10 @@ export type MutationSetAnnotationMetadataLinksArgs = {
   execution: Scalars["Int"]["input"];
   metadataLinks: Array<MetadataLinkInput>;
   taskId: Scalars["String"]["input"];
+};
+
+export type MutationSetLastRevisionArgs = {
+  opts: SetLastRevisionInput;
 };
 
 export type MutationSetPatchPriorityArgs = {
@@ -1503,6 +1509,7 @@ export type Patches = {
  */
 export type PatchesInput = {
   includeCommitQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
+  includeHidden?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: Scalars["Int"]["input"];
   onlyCommitQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
   page?: Scalars["Int"]["input"];
@@ -1537,11 +1544,16 @@ export type Permissions = {
   canCreateProject: Scalars["Boolean"]["output"];
   canEditAdminSettings: Scalars["Boolean"]["output"];
   distroPermissions: DistroPermissions;
+  projectPermissions: ProjectPermissions;
   userId: Scalars["String"]["output"];
 };
 
 export type PermissionsDistroPermissionsArgs = {
   options: DistroPermissionsOptions;
+};
+
+export type PermissionsProjectPermissionsArgs = {
+  options: ProjectPermissionsOptions;
 };
 
 export type PlannerSettings = {
@@ -1673,6 +1685,7 @@ export type Project = {
   repo: Scalars["String"]["output"];
   repoRefId: Scalars["String"]["output"];
   repotrackerDisabled?: Maybe<Scalars["Boolean"]["output"]>;
+  repotrackerError?: Maybe<RepotrackerError>;
   restricted?: Maybe<Scalars["Boolean"]["output"]>;
   spawnHostScriptPath: Scalars["String"]["output"];
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -1814,6 +1827,16 @@ export type ProjectInput = {
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
+};
+
+export type ProjectPermissions = {
+  __typename?: "ProjectPermissions";
+  edit: Scalars["Boolean"]["output"];
+  view: Scalars["Boolean"]["output"];
+};
+
+export type ProjectPermissionsOptions = {
+  projectIdentifier: Scalars["String"]["input"];
 };
 
 /** ProjectSettings models the settings for a given Project. */
@@ -2105,6 +2128,7 @@ export type RepoRef = {
   manualPrTestingEnabled: Scalars["Boolean"]["output"];
   notifyOnBuildFailure: Scalars["Boolean"]["output"];
   owner: Scalars["String"]["output"];
+  parsleyFilters?: Maybe<Array<ParsleyFilter>>;
   patchTriggerAliases?: Maybe<Array<PatchTriggerAlias>>;
   patchingDisabled: Scalars["Boolean"]["output"];
   perfEnabled: Scalars["Boolean"]["output"];
@@ -2146,6 +2170,7 @@ export type RepoRefInput = {
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   notifyOnBuildFailure?: InputMaybe<Scalars["Boolean"]["input"]>;
   owner?: InputMaybe<Scalars["String"]["input"]>;
+  parsleyFilters?: InputMaybe<Array<ParsleyFilterInput>>;
   patchTriggerAliases?: InputMaybe<Array<PatchTriggerAliasInput>>;
   patchingDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   perfEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -2199,6 +2224,13 @@ export type RepoWorkstationConfig = {
   __typename?: "RepoWorkstationConfig";
   gitClone: Scalars["Boolean"]["output"];
   setupCommands?: Maybe<Array<WorkstationSetupCommand>>;
+};
+
+export type RepotrackerError = {
+  __typename?: "RepotrackerError";
+  exists: Scalars["Boolean"]["output"];
+  invalidRevision: Scalars["String"]["output"];
+  mergeBaseRevision: Scalars["String"]["output"];
 };
 
 export enum RequiredStatus {
@@ -2266,6 +2298,20 @@ export type Selector = {
 export type SelectorInput = {
   data: Scalars["String"]["input"];
   type: Scalars["String"]["input"];
+};
+
+/**
+ * SetLastRevisionInput is the input to the setLastRevision mutation.
+ * It contains information used to fix the repotracker error of a project.
+ */
+export type SetLastRevisionInput = {
+  projectIdentifier: Scalars["String"]["input"];
+  revision: Scalars["String"]["input"];
+};
+
+export type SetLastRevisionPayload = {
+  __typename?: "SetLastRevisionPayload";
+  mergeBaseRevision: Scalars["String"]["output"];
 };
 
 export type SlackConfig = {
@@ -2924,6 +2970,7 @@ export type Version = {
   __typename?: "Version";
   activated?: Maybe<Scalars["Boolean"]["output"]>;
   author: Scalars["String"]["output"];
+  authorEmail: Scalars["String"]["output"];
   baseTaskStatuses: Array<Scalars["String"]["output"]>;
   baseVersion?: Maybe<Version>;
   branch: Scalars["String"]["output"];
