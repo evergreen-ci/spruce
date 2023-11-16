@@ -61,6 +61,7 @@ query Distro($distroId: String!) {
     }
     isCluster
     isVirtualWorkStation
+    mountpoints
     name
     note
     plannerSettings {

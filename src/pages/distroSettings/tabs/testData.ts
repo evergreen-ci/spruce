@@ -118,6 +118,7 @@ const distroData: DistroQuery["distro"] = {
   userSpawnAllowed: false,
   validProjects: [],
   workDir: "/data/evg",
+  mountpoints: ["/"],
 };
 
 export { distroData };

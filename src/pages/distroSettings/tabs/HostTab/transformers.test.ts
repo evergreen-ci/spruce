@@ -35,6 +35,7 @@ const form: HostFormState = {
     isVirtualWorkStation: false,
     icecreamSchedulerHost: "",
     icecreamConfigPath: "",
+    mountpoints: ["/"],
   },
   bootstrapSettings: {
     jasperBinaryDir: "/home/evg/jasper",

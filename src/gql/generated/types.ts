@@ -443,6 +443,7 @@ export type DistroInput = {
   iceCreamSettings: IceCreamSettingsInput;
   isCluster: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
+  mountpoints: Array<InputMaybe<Scalars["String"]["input"]>>;
   name: Scalars["String"]["input"];
   note: Scalars["String"]["input"];
   plannerSettings: PlannerSettingsInput;
@@ -5694,6 +5695,7 @@ export type DistroQuery = {
     disableShallowClone: boolean;
     isCluster: boolean;
     isVirtualWorkStation: boolean;
+    mountpoints: Array<string | null>;
     name: string;
     note: string;
     provider: Provider;

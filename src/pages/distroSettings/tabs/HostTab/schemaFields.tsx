@@ -169,6 +169,27 @@ export const rootDir = {
   uiSchema: {},
 };
 
+export const mountpoints = {
+  schema: {
+    type: "array" as "array",
+    title: "Mountpoints",
+    items: {
+      type: "string" as "string",
+      title: "Mountpoint",
+      default: "",
+      minLength: 1,
+    },
+  },
+  uiSchema: {
+    "ui:addButtonText": "Add Mountpoint",
+    "ui:description": "Mointpoints configured on the host.",
+    "ui:orderable": false,
+    items: {
+      "ui:placeholder": "/data",
+    },
+  },
+};
+
 const serviceUser = {
   schema: {
     type: "string" as "string",
@@ -548,6 +569,7 @@ export const setup = {
     workDir: workDir.schema,
     setupAsSudo: setupAsSudo.schema,
     setupScript: setupScript.schema,
+    mountpoints: mountpoints.schema,
     userSpawnAllowed: userSpawnAllowed.schema,
   },
   uiSchema: (architecture: Arch, hasStaticProvider: boolean) => ({
@@ -558,6 +580,7 @@ export const setup = {
     setupAsSudo: setupAsSudo.uiSchema,
     workDir: workDir.uiSchema,
     setupScript: setupScript.uiSchema,
+    mountpoints: mountpoints.uiSchema,
     userSpawnAllowed: userSpawnAllowed.uiSchema(hasStaticProvider),
     isVirtualWorkStation: isVirtualWorkStation.uiSchema(architecture),
     icecreamSchedulerHost: icecreamSchedulerHost.uiSchema,
