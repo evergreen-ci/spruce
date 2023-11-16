@@ -2,6 +2,7 @@ import { InlineCode } from "@leafygreen-ui/typography";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
+import { JiraTicketType } from "types/jira";
 import { form } from "../utils";
 import { PluginsFormState } from "./types";
 
@@ -128,6 +129,28 @@ export const getFormSchema = (
                       },
                     },
                   },
+                  ticketCreateIssueType: {
+                    type: "object" as "object",
+                    title: "Ticket Create Issue Type",
+                    properties: {
+                      issueType: {
+                        type: "string" as "string",
+                        title: "",
+                        oneOf: [
+                          JiraTicketType.Investigation,
+                          JiraTicketType.Bug,
+                          JiraTicketType.Task,
+                          JiraTicketType.BuildFailure,
+                          JiraTicketType.Epic,
+                          JiraTicketType.Incident,
+                        ].map((r: string) => ({
+                          type: "string" as "string",
+                          title: r,
+                          enum: [r],
+                        })),
+                      },
+                    },
+                  },
                 },
               },
               {
@@ -236,6 +259,9 @@ export const getFormSchema = (
         items: {
           "ui:label": false,
         },
+      },
+      ticketIssueType: {
+        "ui:description": "Specify a JIRA issue type for created tickets.",
       },
       ticketCreateProject: {
         "ui:description": (
