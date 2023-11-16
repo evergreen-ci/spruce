@@ -53,7 +53,6 @@ const Hosts: React.FC = () => {
   const hasFilters =
     hostId || currentTaskId || distroId || statuses.length || startedBy;
 
-  // SELECTED HOST IDS STATE
   const [selectedHosts, setSelectedHosts] = useState([]);
 
   const selectedHostIds = useMemo(
@@ -233,6 +232,7 @@ const getQueryVariables = (search: string): HostsQueryVariables => {
   };
 };
 
+// Convert query param values into react-table's column filters state
 const getFilters = (queryParams: HostsQueryVariables): ColumnFiltersState => {
   const filters = [];
   Object.entries(mapQueryParamToId).forEach(([param, id]) => {
@@ -243,6 +243,7 @@ const getFilters = (queryParams: HostsQueryVariables): ColumnFiltersState => {
   return filters;
 };
 
+// Convert query param values into react-table's sorting state
 const getSorting = ({ sortBy, sortDir }: HostsQueryVariables): SortingState => [
   { id: sortBy, desc: sortDir === SortDirection.Desc },
 ];

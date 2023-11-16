@@ -15,7 +15,7 @@ import { getHostRoute, getTaskRoute } from "constants/routes";
 import { HostSortBy, HostsQuery } from "gql/generated/types";
 import { useTableSort } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
-import { mapIdToQueryParam } from "types/host";
+import { mapIdToFilterParam } from "types/host";
 import { Unpacked } from "types/utils";
 
 type Host = Unpacked<HostsQuery["hosts"]["hosts"]>;
@@ -58,7 +58,7 @@ export const HostsTable: React.FC<Props> = ({
     const updatedParams = { page: "0" };
 
     filterState.forEach(({ id, value }) => {
-      const key = mapIdToQueryParam[id];
+      const key = mapIdToFilterParam[id];
       updatedParams[key] = value;
     });
 

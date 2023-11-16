@@ -8,6 +8,12 @@ interface Params {
   sendAnalyticsEvents?: () => void;
 }
 
+/**
+ * `useTableSort` manages sorting via query params with react-table.
+ * @param params - Object containing the following:
+ * @param params.sendAnalyticsEvents - Optional callback that makes a call to sendEvent.
+ * @returns tableChangeHandler - Function that accepts react-table's sort state and updates query params with these values.
+ */
 export const useTableSort = ({
   sendAnalyticsEvents = () => undefined,
 }: Params = {}) => {

@@ -19,7 +19,7 @@ type UseInputFilterReturn = [
 ];
 
 /*
- * @deprecated
+ * @deprecated For use with antd tables
  */
 export const useTableInputFilter = <SearchParam extends string>({
   sendAnalyticsEvent = () => undefined,
@@ -60,7 +60,7 @@ type UseCheckboxFilterReturn = [
 ];
 
 /*
- * @deprecated
+ * @deprecated For use with antd tables
  */
 export const useTableCheckboxFilter = <SearchParam extends string>({
   sendAnalyticsEvent = () => undefined,

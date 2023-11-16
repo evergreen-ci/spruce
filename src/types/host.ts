@@ -78,32 +78,29 @@ export enum HostMonitorOp {
   Expired = "expired",
 }
 
-export enum HostsTableQueryParams {
+export enum HostsTableFilterParams {
   CurrentTaskId = "currentTaskId",
   DistroId = "distroId",
   HostId = "hostId",
-  Page = "page",
-  SortBy = "sortBy",
-  SortDir = "sortDir",
   StartedBy = "startedBy",
   Statuses = "statuses",
 }
 
-export const mapIdToQueryParam: PartialRecord<
+export const mapIdToFilterParam: PartialRecord<
   HostSortBy,
   keyof HostsQueryVariables
 > = {
-  [HostSortBy.Id]: HostsTableQueryParams.HostId,
-  [HostSortBy.Distro]: HostsTableQueryParams.DistroId,
-  [HostSortBy.Status]: HostsTableQueryParams.Statuses,
-  [HostSortBy.CurrentTask]: HostsTableQueryParams.CurrentTaskId,
-  [HostSortBy.Owner]: HostsTableQueryParams.StartedBy,
+  [HostSortBy.Id]: HostsTableFilterParams.HostId,
+  [HostSortBy.Distro]: HostsTableFilterParams.DistroId,
+  [HostSortBy.Status]: HostsTableFilterParams.Statuses,
+  [HostSortBy.CurrentTask]: HostsTableFilterParams.CurrentTaskId,
+  [HostSortBy.Owner]: HostsTableFilterParams.StartedBy,
 } as const;
 
 export const mapQueryParamToId: PartialRecord<
   keyof HostsQueryVariables,
   HostSortBy
-> = Object.entries(mapIdToQueryParam).reduce(
+> = Object.entries(mapIdToFilterParam).reduce(
   (obj, [id, param]) => ({
     ...obj,
     [param]: id,
