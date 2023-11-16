@@ -8823,6 +8823,7 @@ export type VersionQuery = {
     __typename?: "Version";
     activated?: boolean | null;
     author: string;
+    authorEmail: string;
     createTime: Date;
     errors: Array<string>;
     finishTime?: Date | null;
