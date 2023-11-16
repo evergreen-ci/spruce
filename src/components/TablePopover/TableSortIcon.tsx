@@ -37,12 +37,13 @@ export const TableSortIcon: React.FC<TableSortIconProps> = ({
   const onClick = () => {
     let update: string | undefined;
     if (value === TableSortState.OFF) {
-      update = SortDirection.Desc;
-    } else if (value === TableSortState.DESC) {
       update = SortDirection.Asc;
+    } else if (value === TableSortState.ASC) {
+      update = SortDirection.Desc;
     } else {
       update = undefined;
     }
+    console.log(value, update);
     onToggle(update);
   };
 

@@ -6,6 +6,9 @@ interface Params {
   sendAnalyticsEvents?: () => void;
 }
 
+/*
+ * @deprecated For use with antd tables
+ */
 export const useUpdateUrlSortParamOnTableChange = <T extends unknown>({
   sendAnalyticsEvents = () => undefined,
 }: Params = {}) => {

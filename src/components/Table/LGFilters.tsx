@@ -51,11 +51,13 @@ export const getColumnTreeSelectFilterProps = ({
 type InputFilterProps = {
   "data-cy"?: string;
   onConfirm?: ({ id, value }: { id: string; value: string }) => void;
+  placeholder?: string;
 };
 
 export const getColumnInputFilterProps = ({
   "data-cy": dataCy,
   onConfirm = () => {},
+  placeholder,
 }: InputFilterProps) => ({
   meta: {
     filterComponent: ({ column }) => (
@@ -65,6 +67,7 @@ export const getColumnInputFilterProps = ({
           column.setFilterValue(newValue);
           onConfirm({ id: column.id, value: newValue });
         }}
+        placeholder={placeholder}
         value={column?.getFilterValue() ?? ""}
       />
     ),
@@ -97,9 +100,12 @@ export const getColumnSortProps = ({
     sortComponent: ({ column }) => (
       <TableSortIcon
         data-cy={dataCy}
+        key={column.id}
         onToggle={(newValue) => {
+          // console.log(newValue, column.getFirstSortDir());
           column.toggleSorting();
           onToggle({ id: column.id, value: newValue });
+          console.log("hi", column.id, newValue);
         }}
         value={column.getIsSorted().toString()}
       />

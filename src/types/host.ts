@@ -1,3 +1,6 @@
+import { HostsQueryVariables, HostSortBy } from "gql/generated/types";
+import { PartialRecord } from "types/utils";
+
 export enum HostStatus {
   // green: host-running
   Running = "running",
@@ -74,3 +77,36 @@ export enum HostMonitorOp {
   ProvisionFailed = "provision_failed",
   Expired = "expired",
 }
+
+export enum HostsTableQueryParams {
+  CurrentTaskId = "currentTaskId",
+  DistroId = "distroId",
+  HostId = "hostId",
+  Page = "page",
+  SortBy = "sortBy",
+  SortDir = "sortDir",
+  StartedBy = "startedBy",
+  Statuses = "statuses",
+}
+
+export const mapIdToQueryParam: PartialRecord<
+  HostSortBy,
+  keyof HostsQueryVariables
+> = {
+  [HostSortBy.Id]: HostsTableQueryParams.HostId,
+  [HostSortBy.Distro]: HostsTableQueryParams.DistroId,
+  [HostSortBy.Status]: HostsTableQueryParams.Statuses,
+  [HostSortBy.CurrentTask]: HostsTableQueryParams.CurrentTaskId,
+  [HostSortBy.Owner]: HostsTableQueryParams.StartedBy,
+} as const;
+
+export const mapQueryParamToId: PartialRecord<
+  keyof HostsQueryVariables,
+  HostSortBy
+> = Object.entries(mapIdToQueryParam).reduce(
+  (obj, [id, param]) => ({
+    ...obj,
+    [param]: id,
+  }),
+  {}
+);

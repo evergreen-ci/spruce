@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
+import { ColumnFiltersState, SortingState } from "@tanstack/react-table";
 import { useLocation } from "react-router-dom";
 import { useHostsTableAnalytics } from "analytics";
 import { UpdateStatusModal } from "components/Hosts";
@@ -28,6 +29,7 @@ import {
 import { HOSTS } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { HostsTable } from "pages/hosts/HostsTable";
+import { mapQueryParamToId } from "types/host";
 import { array, queryString, url } from "utils";
 
 const { toArray } = array;
@@ -40,28 +42,61 @@ const Hosts: React.FC = () => {
   const { search } = useLocation();
   const setPageSize = usePageSizeSelector();
   const queryVariables = getQueryVariables(search);
-  const {
-    currentTaskId,
-    distroId,
-    hostId,
-    limit,
-    page,
-    sortBy,
-    sortDir,
-    startedBy,
-    statuses,
-  } = queryVariables;
+  const { currentTaskId, distroId, hostId, limit, page, startedBy, statuses } =
+    queryVariables;
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const initialFilters = useMemo(() => getFilters(queryVariables), []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const initialSorting = useMemo(() => getSorting(queryVariables), []);
 
   const hasFilters =
     hostId || currentTaskId || distroId || statuses.length || startedBy;
 
   // SELECTED HOST IDS STATE
-  const [selectedHostIds, setSelectedHostIds] = useState<string[]>([]);
+  const [selectedHosts, setSelectedHosts] = useState([]);
 
-  const [canRestartJasper, setCanRestartJasper] = useState<boolean>(true);
-  const [restartJasperError, setRestartJasperError] = useState<string>("");
-  const [canReprovision, setCanReprovision] = useState<boolean>(true);
-  const [reprovisionError, setReprovisionError] = useState<string>("");
+  const selectedHostIds = useMemo(
+    () => selectedHosts.map(({ id }) => id),
+    [selectedHosts]
+  );
+
+  const {
+    canReprovision,
+    canRestartJasper,
+    reprovisionError,
+    restartJasperError,
+  } = useMemo(() => {
+    let canRestart = true;
+    let canRepro = true;
+
+    let restartJasperErrorMessage = "Jasper cannot be restarted for:";
+    let reprovisionErrorMessage =
+      "The following hosts cannot be reprovisioned:";
+    const errorHosts = [];
+    selectedHosts.forEach((host) => {
+      const bootstrapMethod = host?.distro?.bootstrapMethod;
+      if (
+        !(
+          host?.status === "running" &&
+          (bootstrapMethod === "ssh" || bootstrapMethod === "user-data")
+        )
+      ) {
+        canRestart = false;
+        canRepro = false;
+        errorHosts.push(` ${host?.id}`);
+      }
+    });
+    restartJasperErrorMessage += ` ${errorHosts}`;
+    reprovisionErrorMessage += ` ${errorHosts}`;
+
+    return {
+      canReprovision: canRepro,
+      canRestartJasper: canRestart,
+      reprovisionError: reprovisionErrorMessage,
+      restartJasperError: restartJasperErrorMessage,
+    };
+  }, [selectedHosts]);
 
   const handlePageSizeChange = (pageSize: number): void => {
     setPageSize(pageSize);
@@ -140,15 +175,10 @@ const Hosts: React.FC = () => {
         </TableControlInnerRow>
       </TableControlOuterRow>
       <HostsTable
+        initialFilters={initialFilters}
+        initialSorting={initialSorting}
         hosts={hostItems}
-        sortBy={sortBy}
-        sortDir={sortDir}
-        selectedHostIds={selectedHostIds}
-        setSelectedHostIds={setSelectedHostIds}
-        setCanRestartJasper={setCanRestartJasper}
-        setRestartJasperError={setRestartJasperError}
-        setCanReprovision={setCanReprovision}
-        setReprovisionError={setReprovisionError}
+        setSelectedHosts={setSelectedHosts}
         loading={loading && hostItems.length === 0}
       />
       <UpdateStatusModal
@@ -202,6 +232,20 @@ const getQueryVariables = (search: string): HostsQueryVariables => {
     limit: getLimitFromSearch(search),
   };
 };
+
+const getFilters = (queryParams: HostsQueryVariables): ColumnFiltersState => {
+  const filters = [];
+  Object.entries(mapQueryParamToId).forEach(([param, id]) => {
+    if (queryParams[param]?.length) {
+      filters.push({ id, value: queryParams[param] });
+    }
+  });
+  return filters;
+};
+
+const getSorting = ({ sortBy, sortDir }: HostsQueryVariables): SortingState => [
+  { id: sortBy, desc: sortDir === SortDirection.Desc },
+];
 
 const SubtitleDataWrapper = styled.div`
   display: flex;

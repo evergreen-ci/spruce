@@ -1,4 +1,5 @@
 export { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
+export { useTableSort } from "./useTableSort";
 export { useGetUserPatchesPageTitleAndLink } from "hooks/useGetUserPatchesPageTitleAndLink";
 export { useOnClickOutside } from "hooks/useOnClickOutside";
 export { useVersionTaskStatusSelect } from "hooks/useVersionTaskStatusSelect";

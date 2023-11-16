@@ -1,304 +1,250 @@
-import { Table } from "antd";
-import { ColumnProps } from "antd/es/table";
-import { TableRowSelection } from "antd/es/table/interface";
+import { useRef, useState } from "react";
+import { useLeafyGreenTable } from "@leafygreen-ui/table";
+import {
+  ColumnFiltersState,
+  RowSelectionState,
+  SortingState,
+} from "@tanstack/react-table";
 import { formatDistanceToNow } from "date-fns";
 import { useHostsTableAnalytics } from "analytics";
 import { StyledRouterLink, WordBreak } from "components/styles";
-import {
-  getColumnSearchFilterProps,
-  getColumnCheckboxFilterProps,
-} from "components/Table/Filters";
+import { BaseTable } from "components/Table/BaseTable";
+import { onChangeHandler } from "components/Table/utils";
 import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";
-import {
-  HostsQueryVariables,
-  SortDirection,
-  HostSortBy,
-  HostsQuery,
-} from "gql/generated/types";
-import {
-  useUpdateUrlSortParamOnTableChange,
-  useTableInputFilter,
-  useTableCheckboxFilter,
-} from "hooks";
+import { HostSortBy, HostsQuery } from "gql/generated/types";
+import { useTableSort } from "hooks";
+import { useQueryParams } from "hooks/useQueryParam";
+import { mapIdToQueryParam } from "types/host";
+import { Unpacked } from "types/utils";
+
+type Host = Unpacked<HostsQuery["hosts"]["hosts"]>;
 
 interface Props {
+  initialFilters: ColumnFiltersState;
+  initialSorting: SortingState;
   hosts: HostsQuery["hosts"]["hosts"];
-  sortBy: HostsQueryVariables["sortBy"];
-  sortDir: HostsQueryVariables["sortDir"];
-  selectedHostIds: string[];
   loading: boolean;
-  setSelectedHostIds: React.Dispatch<React.SetStateAction<string[]>>;
-  setCanRestartJasper: React.Dispatch<React.SetStateAction<boolean>>;
-  setRestartJasperError: React.Dispatch<React.SetStateAction<string>>;
-  setCanReprovision: React.Dispatch<React.SetStateAction<boolean>>;
-  setReprovisionError: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedHosts: React.Dispatch<React.SetStateAction<Host[]>>;
 }
-
-type Host = HostsQuery["hosts"]["hosts"][0];
-
-type HostsUrlParam = keyof HostsQueryVariables;
 
 export const HostsTable: React.FC<Props> = ({
   hosts,
+  initialFilters,
+  initialSorting,
   loading,
-  selectedHostIds,
-  setCanReprovision,
-  setCanRestartJasper,
-  setReprovisionError,
-  setRestartJasperError,
-  setSelectedHostIds,
-  sortBy,
-  sortDir,
+  setSelectedHosts,
 }) => {
-  const hostsTableAnalytics = useHostsTableAnalytics();
+  const { sendEvent } = useHostsTableAnalytics();
 
-  const tableChangeHandler = useUpdateUrlSortParamOnTableChange<Host>({
-    sendAnalyticsEvents: () =>
-      hostsTableAnalytics.sendEvent({ name: "Sort Hosts" }),
+  const tableSortHandler = useTableSort({
+    sendAnalyticsEvents: () => sendEvent({ name: "Sort Hosts" }),
   });
 
-  const getDefaultSortOrder = (
-    key: HostSortBy
-  ): ColumnProps<Host>["defaultSortOrder"] => {
-    if (sortBy === key) {
-      return sortDir === SortDirection.Asc ? "ascend" : "descend";
-    }
-    return null;
+  const [, setQueryParams] = useQueryParams();
+
+  const [filters, setFilters] = useState<ColumnFiltersState>(initialFilters);
+  const [sorting, setSorting] = useState<SortingState>(initialSorting);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+
+  const updateRowSelection = (rowState: RowSelectionState) => {
+    const selectedHosts = Object.keys(rowState).map(
+      (key) => table.getRowModel().rowsById[key]?.original
+    );
+    setSelectedHosts(selectedHosts);
   };
 
-  const sendHostsTableFilterEvent = (filterBy: string) =>
-    hostsTableAnalytics.sendEvent({ name: "Filter Hosts", filterBy });
+  const updateUrl = (filterState: ColumnFiltersState) => {
+    const updatedParams = { page: "0" };
 
-  // HOST ID URL PARAM
-  const [hostIdValue, onChangeHostId, updateHostIdUrlParam] =
-    useTableInputFilter<HostsUrlParam>({
-      urlSearchParam: "hostId",
-      sendAnalyticsEvent: sendHostsTableFilterEvent,
+    filterState.forEach(({ id, value }) => {
+      const key = mapIdToQueryParam[id];
+      updatedParams[key] = value;
     });
 
-  // STATUSES URL PARAM
-  const [statusesValue, onChangeStatuses] =
-    useTableCheckboxFilter<HostsUrlParam>({
-      urlSearchParam: "statuses",
-      sendAnalyticsEvent: sendHostsTableFilterEvent,
-    });
+    setQueryParams(updatedParams);
+    sendEvent({ name: "Filter Hosts", filterBy: Object.keys(filterState) });
+  };
 
-  // DISTRO URL PARAM
-  const [distroIdValue, onChangeDistroId, updateDistroIdUrlParam] =
-    useTableInputFilter<HostsUrlParam>({
-      urlSearchParam: "distroId",
-      sendAnalyticsEvent: sendHostsTableFilterEvent,
-    });
-
-  // CURRENT TASK ID URL PARAM
-  const [
-    currentTaskIdValue,
-    onChangeCurrentTaskId,
-    updateCurrentTaskIdUrlParam,
-  ] = useTableInputFilter<HostsUrlParam>({
-    urlSearchParam: "currentTaskId",
-    sendAnalyticsEvent: sendHostsTableFilterEvent,
-  });
-
-  // OWNER URL PARAM
-  const [ownerValue, onChangeOwner, updateOwnerUrlParam] =
-    useTableInputFilter<HostsUrlParam>({
-      urlSearchParam: "startedBy",
-      sendAnalyticsEvent: sendHostsTableFilterEvent,
-    });
-
-  // TABLE COLUMNS
-  const columnsTemplate: Array<ColumnProps<Host>> = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: HostSortBy.Id,
-      sorter: true,
-      className: "cy-hosts-table-col-ID",
-      defaultSortOrder: getDefaultSortOrder(HostSortBy.Id),
-      width: "17%",
-      render: (_, { id }: Host): JSX.Element => (
-        <StyledRouterLink data-cy="host-id-link" to={getHostRoute(id)}>
-          {id}
-        </StyledRouterLink>
-      ),
-      ...getColumnSearchFilterProps({
-        placeholder: "Search ID or DNS name",
-        value: hostIdValue,
-        onChange: onChangeHostId,
-        "data-cy": "host-id-filter",
-        onFilter: updateHostIdUrlParam,
-      }),
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+  const table = useLeafyGreenTable<Host>({
+    columns,
+    containerRef: tableContainerRef,
+    data: hosts ?? [],
+    state: {
+      columnFilters: filters,
+      rowSelection,
+      sorting,
     },
-    {
-      title: "Distro",
-      dataIndex: "distroId",
-      defaultSortOrder: getDefaultSortOrder(HostSortBy.Distro),
-      key: HostSortBy.Distro,
-      sorter: true,
-      width: "15%",
-      className: "cy-task-table-col-DISTRO",
-      ...getColumnSearchFilterProps({
-        placeholder: "Search distro regex",
-        value: distroIdValue,
-        onChange: onChangeDistroId,
-        "data-cy": "distro-id-filter",
-        onFilter: updateDistroIdUrlParam,
-      }),
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: HostSortBy.Status,
-      defaultSortOrder: getDefaultSortOrder(HostSortBy.Status),
-      sorter: true,
-      width: "10%",
-      className: "cy-task-table-col-STATUS",
-      ...getColumnCheckboxFilterProps({
-        value: statusesValue,
-        onChange: onChangeStatuses,
-        dataCy: "statuses-filter",
-        statuses: hostStatuses,
-      }),
-    },
-    {
-      title: "Current Task",
-      dataIndex: "currentTask",
-      key: HostSortBy.CurrentTask,
-      defaultSortOrder: getDefaultSortOrder(HostSortBy.CurrentTask),
-      sorter: true,
-      width: "18%",
-      className: "cy-task-table-col-CURRENT-TASK",
-      render: (_, { runningTask }: Host) =>
-        runningTask?.id !== null ? (
-          <StyledRouterLink
-            data-cy="current-task-link"
-            to={getTaskRoute(runningTask?.id)}
-          >
-            <WordBreak>{runningTask?.name}</WordBreak>
-          </StyledRouterLink>
-        ) : (
-          ""
-        ),
-      ...getColumnSearchFilterProps({
-        placeholder: "Search Current Task ID",
-        value: currentTaskIdValue,
-        onChange: onChangeCurrentTaskId,
-        "data-cy": "current-task-id-filter",
-        onFilter: updateCurrentTaskIdUrlParam,
-      }),
-    },
-    {
-      title: "Elapsed",
-      dataIndex: "elapsed",
-      defaultSortOrder: getDefaultSortOrder(HostSortBy.Elapsed),
-      key: HostSortBy.Elapsed,
-      sorter: true,
-      className: "cy-task-table-col-ELAPSED",
-      width: "10%",
-      render: (_, { elapsed }) =>
-        elapsed ? formatDistanceToNow(new Date(elapsed)) : "N/A",
-    },
-    {
-      title: "Uptime",
-      dataIndex: "uptime",
-      defaultSortOrder: getDefaultSortOrder(HostSortBy.Uptime),
-      key: HostSortBy.Uptime,
-      sorter: true,
-      width: "10%",
-      className: "cy-task-table-col-UPTIME",
-      render: (_, { uptime }) =>
-        uptime ? formatDistanceToNow(new Date(uptime)) : "N/A",
-    },
-    {
-      title: "Idle Time",
-      dataIndex: "totalIdleTime",
-      defaultSortOrder: getDefaultSortOrder(HostSortBy.IdleTime),
-      key: HostSortBy.IdleTime,
-      sorter: true,
-      width: "10%",
-      className: "cy-task-table-col-IDLE-TIME",
-      render: (_, { totalIdleTime }) =>
-        totalIdleTime
-          ? formatDistanceToNow(new Date(Date.now() - totalIdleTime))
-          : "N/A",
-    },
-    {
-      title: "Owner",
-      dataIndex: "startedBy",
-      defaultSortOrder: getDefaultSortOrder(HostSortBy.Owner),
-      key: HostSortBy.Owner,
-      sorter: true,
-      width: "10%",
-      render: (owner) => <WordBreak>{owner}</WordBreak>,
-      className: "cy-task-table-col-OWNER",
-      ...getColumnSearchFilterProps({
-        placeholder: "Search Owner",
-        value: ownerValue,
-        onChange: onChangeOwner,
-        "data-cy": "owner-filter",
-        onFilter: updateOwnerUrlParam,
-      }),
-    },
-  ];
-
-  const canRestartJasperOrReprovision = (selectedHosts) => {
-    let canRestart = true;
-    let canReprovision = true;
-
-    let restartJasperErrorMessage = "Jasper cannot be restarted for:";
-    let reprovisionErrorMessage =
-      "The following hosts cannot be reprovisioned:";
-    const errorHosts = [];
-    selectedHosts.forEach((host) => {
-      const bootstrapMethod = host?.distro?.bootstrapMethod;
-      if (
-        !(
-          host?.status === "running" &&
-          (bootstrapMethod === "ssh" || bootstrapMethod === "user-data")
-        )
-      ) {
-        canRestart = false;
-        canReprovision = false;
-        errorHosts.push(` ${host?.id}`);
+    hasSelectableRows: true,
+    manualFiltering: true,
+    manualSorting: true,
+    manualPagination: true,
+    onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+      setFilters,
+      (updatedState) => {
+        updateUrl(updatedState);
+        table.resetRowSelection();
       }
-    });
-    restartJasperErrorMessage += ` ${errorHosts}`;
-    reprovisionErrorMessage += ` ${errorHosts}`;
-
-    setCanRestartJasper(canRestart);
-    setRestartJasperError(restartJasperErrorMessage);
-    setCanReprovision(canReprovision);
-    setReprovisionError(reprovisionErrorMessage);
-  };
-
-  const onSelectChange: TableRowSelection<Host>["onChange"] = (
-    selectedRowKeys,
-    selectedRows
-  ) => {
-    setSelectedHostIds(selectedRowKeys as string[]);
-    canRestartJasperOrReprovision(selectedRows);
-  };
+    ),
+    onRowSelectionChange: onChangeHandler<RowSelectionState>(
+      setRowSelection,
+      updateRowSelection
+    ),
+    onSortingChange: onChangeHandler<SortingState>(
+      setSorting,
+      (updatedState) => {
+        tableSortHandler(updatedState);
+        table.resetRowSelection();
+      }
+    ),
+  });
 
   return (
-    <Table
+    <BaseTable
       data-cy="hosts-table"
-      rowKey={rowKey}
-      pagination={false}
-      columns={columnsTemplate}
-      dataSource={hosts}
-      rowSelection={{
-        type: "checkbox",
-        onChange: onSelectChange,
-        selectedRowKeys: selectedHostIds,
-      }}
-      getPopupContainer={(trigger: HTMLElement) => trigger}
-      onChange={tableChangeHandler}
-      loading={loading}
       data-loading={loading}
+      loading={loading}
+      shouldAlternateRowColor
+      table={table}
     />
   );
 };
 
-const rowKey = ({ id }: { id: string }): string => id;
+const columns = [
+  {
+    header: "ID",
+    accessorKey: "id",
+    id: HostSortBy.Id,
+    cell: ({ getValue }): JSX.Element => {
+      const id = getValue();
+      return (
+        <StyledRouterLink data-cy="host-id-link" to={getHostRoute(id)}>
+          {id}
+        </StyledRouterLink>
+      );
+    },
+    enableColumnFilter: true,
+    enableSorting: true,
+    meta: {
+      search: {
+        "data-cy": "host-id-filter",
+        placeholder: "Search ID or DNS name",
+      },
+    },
+  },
+  {
+    header: "Distro",
+    accessorKey: "distroId",
+    id: HostSortBy.Distro,
+    className: "cy-task-table-col-DISTRO",
+    enableColumnFilter: true,
+    enableSorting: true,
+    meta: {
+      search: {
+        "data-cy": "distro-id-filter",
+        placeholder: "Search distro regex",
+      },
+    },
+  },
+  {
+    header: "Status",
+    accessorKey: "status",
+    id: HostSortBy.Status,
+    className: "cy-task-table-col-STATUS",
+    enableSorting: true,
+    /* ...getColumnCheckboxFilterProps({
+          value: statusesValue,
+          onChange: onChangeStatuses,
+          dataCy: "statuses-filter",
+          statuses: hostStatuses,
+        }), */
+    meta: {
+      treeSelect: {
+        options: hostStatuses,
+      },
+    },
+  },
+  {
+    header: "Current Task",
+    accessorKey: "runningTask",
+    id: HostSortBy.CurrentTask,
+    // width: "18%",
+    className: "cy-task-table-col-CURRENT-TASK",
+    cell: ({ getValue }) => {
+      const task = getValue();
+      return task?.id !== null ? (
+        <StyledRouterLink
+          data-cy="current-task-link"
+          to={getTaskRoute(task?.id)}
+        >
+          <WordBreak>{task?.name}</WordBreak>
+        </StyledRouterLink>
+      ) : (
+        ""
+      );
+    },
+    enableColumnFilter: true,
+    enableSorting: true,
+    meta: {
+      search: {
+        "data-cy": "current-task-id-filter",
+        placeholder: "Search by task ID",
+      },
+    },
+  },
+  {
+    header: "Elapsed",
+    accessorKey: "elapsed",
+    id: HostSortBy.Elapsed,
+    className: "cy-task-table-col-ELAPSED",
+    // width: "10%",
+    cell: ({ getValue }) => {
+      const elapsed = getValue();
+      return elapsed ? formatDistanceToNow(new Date(elapsed)) : "N/A";
+    },
+    enableColumnFilter: false,
+    enableSorting: true,
+  },
+  {
+    header: "Uptime",
+    accessorKey: "uptime",
+    id: HostSortBy.Uptime,
+    // width: "10%",
+    className: "cy-task-table-col-UPTIME",
+    cell: ({ getValue }) => {
+      const uptime = getValue();
+      return uptime ? formatDistanceToNow(new Date(uptime)) : "N/A";
+    },
+    enableColumnFilter: false,
+    enableSorting: true,
+  },
+  {
+    header: "Idle Time",
+    accessorKey: "totalIdleTime",
+    id: HostSortBy.IdleTime,
+    className: "cy-task-table-col-IDLE-TIME",
+    cell: ({ getValue }) => {
+      const totalIdleTime = getValue();
+      return totalIdleTime
+        ? formatDistanceToNow(new Date(Date.now() - totalIdleTime))
+        : "N/A";
+    },
+    enableColumnFilter: false,
+    enableSorting: true,
+  },
+  {
+    header: "Owner",
+    accessorKey: "startedBy",
+    id: HostSortBy.Owner,
+    cell: ({ getValue }) => <WordBreak>{getValue()}</WordBreak>,
+    className: "cy-task-table-col-OWNER",
+    enableColumnFilter: true,
+    enableSorting: true,
+    meta: {
+      search: {
+        "data-cy": "owner-filter",
+      },
+    },
+  },
+];

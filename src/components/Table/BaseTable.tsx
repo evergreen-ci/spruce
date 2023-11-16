@@ -12,6 +12,28 @@ import {
   type TableProps,
   TableHead,
 } from "@leafygreen-ui/table";
+import { RowData } from "@tanstack/react-table";
+import {
+  TableFilterPopover,
+  TableSearchPopover,
+} from "components/TablePopover";
+import { TreeDataEntry } from "components/TreeSelect";
+
+declare module "@tanstack/table-core" {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface ColumnMeta<TData extends RowData, TValue> {
+    filterComponent?: (column: any) => JSX.Element;
+    search?: {
+      "data-cy"?: string;
+      placeholder?: string;
+    };
+    sortComponent?: (column: any) => JSX.Element;
+    treeSelect?: {
+      "data-cy"?: string;
+      options: TreeDataEntry[];
+    };
+  }
+}
 
 type SpruceTableProps = {
   "data-cy-row"?: string;
@@ -41,14 +63,38 @@ export const BaseTable = <T extends LGRowData>({
                   header.column.columnDef.header,
                   header.getContext()
                 )}
-                {/* @ts-ignore-error */}
-                {header.column.columnDef?.meta?.filterComponent?.({
-                  column: header.column,
-                })}
-                {/* @ts-ignore-error */}
                 {header.column.columnDef?.meta?.sortComponent?.({
                   column: header.column,
                 })}
+                {header.column.columnDef?.meta?.filterComponent?.({
+                  column: header.column,
+                })}
+                {header.column.getCanFilter() &&
+                  (header.column.columnDef?.meta?.treeSelect ? (
+                    <TableFilterPopover
+                      data-cy={
+                        header.column.columnDef?.meta?.treeSelect?.["data-cy"]
+                      }
+                      onConfirm={(value) => header.column.setFilterValue(value)}
+                      options={
+                        header.column.columnDef?.meta?.treeSelect?.options
+                      }
+                      value={
+                        (header?.column?.getFilterValue() as string[]) ?? []
+                      }
+                    />
+                  ) : (
+                    <TableSearchPopover
+                      data-cy={
+                        header.column.columnDef?.meta?.search?.["data-cy"]
+                      }
+                      onConfirm={(value) => header.column.setFilterValue(value)}
+                      placeholder={
+                        header.column.columnDef?.meta?.search?.placeholder
+                      }
+                      value={(header?.column?.getFilterValue() as string) ?? ""}
+                    />
+                  ))}
               </HeaderCell>
             ))}
           </HeaderRow>
