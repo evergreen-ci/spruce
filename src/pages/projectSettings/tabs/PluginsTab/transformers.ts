@@ -5,6 +5,7 @@ import { FormToGqlFunction, GqlToFormFunction } from "../types";
 type Tab = ProjectSettingsTabRoutes.Plugins;
 
 export const gqlToForm = ((data) => {
+  console.log(data);
   if (!data) return null;
 
   const { projectRef } = data;
@@ -31,6 +32,11 @@ export const gqlToForm = ((data) => {
 
       ticketCreateProject: {
         createProject: projectRef?.buildBaronSettings?.ticketCreateProject,
+      },
+      ticketCreateIssueType: {
+        issueType:
+          projectRef?.buildBaronSettings?.ticketCreateIssueType ||
+          "Build Failure",
       },
       fileTicketWebhook: {
         endpoint:
@@ -82,6 +88,8 @@ export const buildBaronIf = (useBuildBaron: boolean, buildBaronSettings: any) =>
       ticketSearchProjects: buildBaronSettings.ticketSearchProjects
         .map(({ searchProject }) => searchProject)
         .filter((str) => !!str),
+      ticketCreateIssueType:
+        buildBaronSettings.ticketCreateIssueType?.issueType || "Build Failure",
     },
   };
 
