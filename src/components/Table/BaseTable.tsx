@@ -106,11 +106,11 @@ export const BaseTable = <T extends LGRowData>({
             key={row.id}
             row={row}
             data-cy={dataCyRow}
-            className={css`
+            className={`leafygreen-table-row ${css`
               &[aria-hidden="false"] td > div {
                 max-height: unset;
               }
-            `}
+            `}`}
           >
             {row.getVisibleCells().map((cell) => (
               <Cell key={cell.id}>

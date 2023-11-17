@@ -1,6 +1,6 @@
 const hostsRoute = "/hosts";
 
-const tableRow = "tr.ant-table-row";
+const tableRow = "tr.leafygreen-table-row";
 
 const idParam = "hostId";
 const distroParam = "distroId";
@@ -108,6 +108,7 @@ describe("Hosts page filtering from table filters", () => {
         cy.dataCy(`${filterIconDataCy}-wrapper`).should("be.visible");
         if (param === statusesParam) {
           cy.getInputByLabel("Running").check({ force: true });
+          cy.get("body").click();
         } else {
           cy.dataCy(`${filterIconDataCy}-input-filter`).should("be.visible");
           cy.dataCy(`${filterIconDataCy}-input-filter`)
@@ -116,7 +117,7 @@ describe("Hosts page filtering from table filters", () => {
             .type(`${filterValue}`, { scrollBehavior: false })
             .type("{enter}");
         }
-        cy.get(".ant-dropdown").should("not.be.visible");
+        cy.dataCy(`${filterIconDataCy}-wrapper`).should("not.exist");
         cy.location("search").should("contain", filterUrlParam);
         cy.dataCy("hosts-table").should("have.attr", "data-loading", "false");
 

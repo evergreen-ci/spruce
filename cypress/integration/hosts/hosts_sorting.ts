@@ -151,12 +151,12 @@ const sortDirectionTests = [
 describe("Hosts page sorting", () => {
   const hostsRoute = "/hosts";
 
-  const tableRow = "tr.ant-table-row";
-  const distroSortControl =
-    ".cy-task-table-col-DISTRO > .ant-table-filter-column > :nth-child(1) > .ant-table-column-sorters";
+  const tableRow = "tr.leafygreen-table-row";
+  const distroSortControl = "button[aria-label='Sort by Distro']";
 
   it("Clicking the sort direction filter will set the page query param to 0", () => {
     cy.visit(`${hostsRoute}?distroId=arfarf&page=5`);
+    cy.get(tableRow).should("exist");
     cy.get(distroSortControl).click();
     cy.location("search").should(
       "equal",
@@ -166,27 +166,31 @@ describe("Hosts page sorting", () => {
   it("Clicking a sort direction 3 times will set the page query param to 0, clear the direction & sortBy query param, and preserve the rest", () => {
     cy.visit(`${hostsRoute}?distroId=arfarf&page=5`);
     cy.get(distroSortControl).click();
+    cy.location("search").should(
+      "equal",
+      "?distroId=arfarf&page=0&sortBy=DISTRO&sortDir=ASC"
+    );
     cy.get(distroSortControl).click();
+    cy.location("search").should(
+      "equal",
+      "?distroId=arfarf&page=0&sortBy=DISTRO&sortDir=DESC"
+    );
     cy.get(distroSortControl).click();
     cy.location("search").should("equal", "?distroId=arfarf&page=0");
   });
   it("Status sorter is selected by default if no sort params in url", () => {
     cy.visit(hostsRoute);
-    cy.get(".cy-task-table-col-STATUS")
+    cy.contains("th", "Status")
       .first()
       .within(() => {
-        cy.get("[data-icon=caret-up]")
-          .should("have.attr", "fill")
-          .and("eq", "currentColor");
+        cy.get("svg[aria-label='Sort Ascending Icon']").should("exist");
       });
   });
 
   it("Status sorter has initial value of sort param from url", () => {
     cy.visit(`${hostsRoute}?page=0&sortBy=DISTRO&sortDir=DESC`);
-    cy.get(".cy-task-table-col-DISTRO").within(() => {
-      cy.get("[data-icon=caret-down]")
-        .should("have.attr", "fill")
-        .and("eq", "currentColor");
+    cy.contains("th", "Distro").within(() => {
+      cy.get("svg[aria-label='Sort Descending Icon']").should("exist");
     });
   });
 

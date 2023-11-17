@@ -102,10 +102,8 @@ export const getColumnSortProps = ({
         data-cy={dataCy}
         key={column.id}
         onToggle={(newValue) => {
-          // console.log(newValue, column.getFirstSortDir());
           column.toggleSorting();
           onToggle({ id: column.id, value: newValue });
-          console.log("hi", column.id, newValue);
         }}
         value={column.getIsSorted().toString()}
       />

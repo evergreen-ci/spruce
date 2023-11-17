@@ -153,14 +153,9 @@ const columns = [
     id: HostSortBy.Status,
     className: "cy-task-table-col-STATUS",
     enableSorting: true,
-    /* ...getColumnCheckboxFilterProps({
-          value: statusesValue,
-          onChange: onChangeStatuses,
-          dataCy: "statuses-filter",
-          statuses: hostStatuses,
-        }), */
     meta: {
       treeSelect: {
+        "data-cy": "statuses-filter",
         options: hostStatuses,
       },
     },
