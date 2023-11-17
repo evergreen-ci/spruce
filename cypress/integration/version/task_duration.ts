@@ -8,7 +8,7 @@ describe("Task Duration Tab", () => {
       const filterText = "test-annotation";
       // Apply text filter.
       cy.dataCy("task-name-filter-popover").click();
-      cy.dataCy("input-filter").type(`${filterText}`).type("{enter}");
+      cy.dataCy("input-filter").type(`${filterText}{enter}`);
       cy.dataCy("task-duration-table-row").should("have.length", 1);
       cy.location("search").should(
         "include",
@@ -16,7 +16,8 @@ describe("Task Duration Tab", () => {
       );
       // Clear text filter.
       cy.dataCy("task-name-filter-popover").click();
-      cy.dataCy("input-filter").clear().type("{enter}");
+      cy.dataCy("input-filter").clear();
+      cy.dataCy("input-filter").type("{enter}");
       cy.location("search").should("include", `page=0`);
     });
 
@@ -47,7 +48,7 @@ describe("Task Duration Tab", () => {
       const filterText = "Lint";
       // Apply text filter.
       cy.dataCy("build-variant-filter-popover").click();
-      cy.dataCy("input-filter").type(`${filterText}`).type("{enter}");
+      cy.dataCy("input-filter").type(`${filterText}{enter}`);
       cy.dataCy("task-duration-table-row").should("have.length", 2);
       cy.location("search").should(
         "include",
@@ -55,7 +56,8 @@ describe("Task Duration Tab", () => {
       );
       // Clear text filter.
       cy.dataCy("build-variant-filter-popover").click();
-      cy.dataCy("input-filter").clear().type("{enter}");
+      cy.dataCy("input-filter").clear();
+      cy.dataCy("input-filter").type("{enter}");
       cy.location("search").should("include", `page=0`);
     });
 
@@ -68,12 +70,7 @@ describe("Task Duration Tab", () => {
       cy.dataCy("task-duration-table-row")
         .first()
         .should("contain", longestTask);
-
-      // Apply new sort (DURATION ASC). The sort icon is clicked twice because LG assumes no
-      // default sorting.
-      cy.get(`[aria-label="sort"]`).click();
-      cy.location("search").should("include", "duration=DESC");
-      cy.get(`[aria-label="sort"]`).click();
+      cy.dataCy("duration-sort-icon").click();
       cy.location("search").should("include", "duration=ASC");
       const shortestTask = "test-auth";
       cy.contains(shortestTask).should("be.visible");
@@ -84,11 +81,7 @@ describe("Task Duration Tab", () => {
 
     it("clearing all filters resets to the default sort", () => {
       cy.visit(TASK_DURATION_ROUTE);
-      // Apply new sort (DURATION ASC). The sort icon is clicked twice because LG assumes no
-      // default sorting.
-      cy.get(`[aria-label="sort"]`).click();
-      cy.location("search").should("include", "duration=DESC");
-      cy.get(`[aria-label="sort"]`).click();
+      cy.dataCy("duration-sort-icon").click();
       cy.location("search").should("include", "duration=ASC");
       cy.contains("Clear all filters").click();
       cy.location("search").should("include", "duration=DESC");
@@ -99,7 +92,7 @@ describe("Task Duration Tab", () => {
       const filterText = "this_does_not_exist";
 
       cy.dataCy("task-name-filter-popover").click();
-      cy.dataCy("input-filter").type(`${filterText}`).type("{enter}");
+      cy.dataCy("input-filter").type(`${filterText}{enter}`);
       cy.dataCy("task-duration-table-row").should("have.length", 0);
       cy.contains("No tasks found.").should("exist");
     });

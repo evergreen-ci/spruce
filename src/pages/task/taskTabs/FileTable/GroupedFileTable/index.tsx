@@ -1,7 +1,7 @@
 import { useMemo, useRef } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table/new";
+import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { useTaskAnalytics } from "analytics";

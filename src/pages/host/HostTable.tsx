@@ -8,7 +8,7 @@ import {
   V10Row as Row,
   V10Cell as Cell,
   V11Adapter,
-} from "@leafygreen-ui/table/new";
+} from "@leafygreen-ui/table";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { useHostsTableAnalytics } from "analytics";
 import PageSizeSelector, {

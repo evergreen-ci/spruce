@@ -38,6 +38,8 @@ type Action =
       name: "Toggle commit chart label tooltip";
     }
   | { name: "Open Notification Modal" }
+  | { name: "Open Git Commit Search Modal" }
+  | { name: "Search for commit"; commit: string }
   | {
       name: "Add Notification";
       subscription: SaveSubscriptionForUserMutationVariables["subscription"];

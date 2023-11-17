@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import styled from "@emotion/styled";
-import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table/new";
+import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { DisplayModal } from "components/DisplayModal";
 import { MetadataItem } from "components/MetadataCard";
 import { StyledLink } from "components/styles";

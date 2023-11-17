@@ -12,10 +12,10 @@ import { TreeDataEntry, TreeSelect } from "../TreeSelect";
 const { blue, gray } = palette;
 
 interface TableFilterPopoverProps {
-  value: string[];
-  options: TreeDataEntry[];
-  onConfirm: (filters: string[]) => void;
   "data-cy"?: string;
+  onConfirm: (filters: string[]) => void;
+  options: TreeDataEntry[];
+  value: string[];
 }
 
 export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
@@ -25,7 +25,7 @@ export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
   value,
 }) => {
   const [active, setActive] = useState(false);
-  const iconColor = value.length ? blue.light1 : gray.dark2;
+  const iconColor = value.length ? blue.base : gray.dark2;
 
   const buttonRef = useRef(null);
   const popoverRef = useRef(null);
@@ -38,7 +38,7 @@ export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
   };
 
   return (
-    <Wrapper>
+    <FilterWrapper>
       <IconButton
         onClick={() => setActive(!active)}
         active={active}
@@ -58,10 +58,10 @@ export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
           />
         </PopoverContainer>
       </Popover>
-    </Wrapper>
+    </FilterWrapper>
   );
 };
 
-const Wrapper = styled.div`
+const FilterWrapper = styled.div`
   margin-left: ${size.xxs};
 `;
