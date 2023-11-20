@@ -149,6 +149,7 @@ export type BuildBaronSettings = {
   bfSuggestionServer?: Maybe<Scalars["String"]["output"]>;
   bfSuggestionTimeoutSecs?: Maybe<Scalars["Int"]["output"]>;
   bfSuggestionUsername?: Maybe<Scalars["String"]["output"]>;
+  ticketCreateIssueType: Scalars["String"]["output"];
   ticketCreateProject: Scalars["String"]["output"];
   ticketSearchProjects?: Maybe<Array<Scalars["String"]["output"]>>;
 };
@@ -159,6 +160,7 @@ export type BuildBaronSettingsInput = {
   bfSuggestionServer?: InputMaybe<Scalars["String"]["input"]>;
   bfSuggestionTimeoutSecs?: InputMaybe<Scalars["Int"]["input"]>;
   bfSuggestionUsername?: InputMaybe<Scalars["String"]["input"]>;
+  ticketCreateIssueType?: InputMaybe<Scalars["String"]["input"]>;
   ticketCreateProject: Scalars["String"]["input"];
   ticketSearchProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
