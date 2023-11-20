@@ -12,7 +12,7 @@ describe("taskDurationTable", () => {
   it("renders all rows", () => {
     render(
       <MockedProvider>
-        <TaskDurationTable tasks={tasks} loading={false} />
+        <TaskDurationTable tasks={tasks} loading={false} numLoadingRows={10} />
       </MockedProvider>
     );
     expect(screen.queryAllByDataCy("task-duration-table-row")).toHaveLength(2);
@@ -22,7 +22,7 @@ describe("taskDurationTable", () => {
     const user = userEvent.setup();
     render(
       <MockedProvider>
-        <TaskDurationTable tasks={tasks} loading={false} />
+        <TaskDurationTable tasks={tasks} loading={false} numLoadingRows={10} />
       </MockedProvider>
     );
     expect(
