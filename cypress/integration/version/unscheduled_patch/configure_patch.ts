@@ -121,8 +121,8 @@ describe("Configure Patch Page", () => {
     });
   });
 
-  describe("Configuring a patch", { testIsolation: false }, () => {
-    before(() => {
+  describe("Configuring a patch", () => {
+    beforeEach(() => {
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
     });
     it("Can update patch description by typing into `Patch Name` input field", () => {
@@ -167,22 +167,18 @@ describe("Configure Patch Page", () => {
       });
     });
     it("Clicking on checked tasks unchecks them and updates task counts", () => {
+      cy.dataCy("task-checkbox").check({ force: true });
       cy.dataCy("build-variant-list-item")
         .find('[data-cy="task-count-badge"]')
         .should("exist");
-      let count = 7;
+      cy.dataCy("build-variant-list-item")
+        .find('[data-cy="task-count-badge"]')
+        .should("contain.text", "1");
       cy.dataCy("selected-task-disclaimer").contains(
-        `${count} tasks across 1 build variant`
+        `1 task across 1 build variant`
       );
 
-      cy.dataCy("task-checkbox").each(($el) => {
-        cy.wrap($el).should("be.checked");
-        cy.wrap($el).uncheck({
-          force: true,
-        });
-        count -= 1;
-        cy.wrap($el).should("not.be.checked");
-      });
+      cy.dataCy("task-checkbox").uncheck({ force: true });
 
       cy.dataCy("build-variant-list-item")
         .find('[data-cy="task-count-badge"]')
@@ -258,6 +254,9 @@ describe("Configure Patch Page", () => {
         cy.dataCy("select-all-checkbox").should("be.checked");
       });
       it("Unchecking all task checkboxes should uncheck the Select All checkbox", () => {
+        cy.dataCy("task-checkbox").each(($el) => {
+          cy.wrap($el).check({ force: true });
+        });
         cy.dataCy("select-all-checkbox").should("be.checked");
         cy.dataCy("task-checkbox").each(($el) => {
           cy.wrap($el).uncheck({ force: true });
@@ -342,7 +341,7 @@ describe("Configure Patch Page", () => {
         cy.dataCy("build-variant-list-item")
           .contains("RHEL 7.2 zLinux")
           .click();
-        cy.dataCy("task-checkbox").should("have.length", 6);
+        cy.dataCy("task-checkbox").should("have.length", 8);
       });
 
       it("Checking a deduplicated task between multiple build variants updates the task within each selected build variant", () => {
@@ -441,7 +440,7 @@ describe("Configure Patch Page", () => {
           cy.dataCy("build-variant-list-item")
             .contains("RHEL 7.2 zLinux")
             .click();
-
+          cy.dataCy("select-all-checkbox").check({ force: true });
           cy.dataCy("task-checkbox").each(($el) => {
             cy.wrap($el).should("be.checked");
           });
@@ -449,6 +448,7 @@ describe("Configure Patch Page", () => {
           cy.dataCy("build-variant-list-item")
             .contains("RHEL 7.1 POWER8")
             .click();
+          cy.dataCy("select-all-checkbox").check({ force: true });
 
           cy.dataCy("task-checkbox").each(($el) => {
             cy.wrap($el).should("be.checked");
@@ -476,13 +476,12 @@ describe("Configure Patch Page", () => {
       });
 
       it("Shift+click will select the clicked build variant along with all build variants between the clicked build variant and the first selected build variant in the list", () => {
-        cy.get("body").type("{shift}", {
-          release: false,
-        }); // hold shift
         cy.dataCy("build-variant-list-item")
           .contains("RHEL 7.2 zLinux")
           .click();
-
+        cy.get("body").type("{shift}", {
+          release: false,
+        }); // hold shift
         cy.dataCy("build-variant-list-item").contains("Windows").click();
 
         cy.get("[data-selected=true]").its("length").should("eq", 6);
@@ -490,7 +489,8 @@ describe("Configure Patch Page", () => {
     });
 
     describe("Selecting a trigger alias", () => {
-      before(() => {
+      beforeEach(() => {
+        cy.visit(`/version/${unactivatedPatchId}`);
         cy.dataCy("trigger-alias-list-item")
           .contains("logkeeper-alias")
           .click();
@@ -546,7 +546,14 @@ describe("Configure Patch Page", () => {
       });
 
       it("Updates the badge count when the trigger alias is deselected", () => {
-        cy.dataCy("alias-checkbox").uncheck({
+        cy.dataCy("select-all-checkbox").check({
+          force: true,
+        });
+
+        cy.dataCy("trigger-alias-list-item")
+          .find('[data-cy="task-count-badge"]')
+          .should("exist");
+        cy.dataCy("select-all-checkbox").uncheck({
           force: true,
         });
 
@@ -564,7 +571,9 @@ describe("Configure Patch Page", () => {
     });
     it("Clicking 'Schedule' button schedules patch and redirects to patch page", () => {
       const val = "hello world";
-      cy.dataCy(`patch-name-input`).as("patchNameInput").clear().type(val);
+      cy.dataCy(`patch-name-input`).as("patchNameInput");
+      cy.get("@patchNameInput").clear();
+      cy.get("@patchNameInput").type(val);
       cy.dataCy("task-checkbox").first().check({ force: true });
       cy.intercept("POST", GQL_URL, (req) => {
         if (hasOperationName(req, "SchedulePatch")) {
