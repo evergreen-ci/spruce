@@ -44,7 +44,7 @@ describe("Spawn volume page", () => {
     cy.dataCy("spawn-volume-card-vol-0ea662ac92f611ed4").should("be.visible");
   });
 
-  it.skip("Click the trash can should remove the volume from the table and update free/mounted volumes badges.", () => {
+  it("Click the trash can should remove the volume from the table and update free/mounted volumes badges.", () => {
     cy.dataRowKey("vol-0c66e16459646704d").should("exist");
     cy.dataCy("trash-vol-0c66e16459646704d").click();
     cy.dataCy("delete-volume-popconfirm").should("be.visible");
@@ -60,7 +60,7 @@ describe("Spawn volume page", () => {
     cy.dataCy("free-badge").contains("3 Free");
   });
 
-  it.skip("Click the trash can for a mounted volume should show an additional confirmation checkbox which enables the submit button when checked.", () => {
+  it("Click the trash can for a mounted volume should show an additional confirmation checkbox which enables the submit button when checked.", () => {
     cy.dataRowKey(
       "1de2728dd9de82efc02dc21f6ca046eaa559462414d28e0b6bba6436436ac873"
     ).should("exist");
@@ -93,7 +93,7 @@ describe("Spawn volume page", () => {
     cy.dataCy("free-badge").contains("4 Free");
   });
 
-  it.skip("Clicking on unmount should result in a success toast appearing.", () => {
+  it("Clicking on unmount should result in a success toast appearing.", () => {
     cy.dataCy(
       "detach-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b857"
     ).click();
@@ -111,7 +111,9 @@ describe("Spawn volume page", () => {
     cy.dataCy("spawn-volume-modal").should("be.visible");
   });
 
-  it.skip("Reopening the Spawn Volume modal clears previous input changes.", () => {
+  it("Reopening the Spawn Volume modal clears previous input changes.", () => {
+    cy.dataCy("spawn-volume-btn").click();
+    cy.dataCy("spawn-volume-modal").should("be.visible");
     cy.selectLGOption("Type", "sc1");
     cy.dataCy("spawn-volume-modal").within(() => {
       cy.contains("button", "Cancel").should(
@@ -206,8 +208,7 @@ describe("Spawn volume page", () => {
       );
     });
 
-    // TODO: Fix this test
-    it.skip("Clicking on save button should close the modal and show a success toast", () => {
+    it("Clicking on save button should close the modal and show a success toast", () => {
       cy.dataCy(
         "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
       ).click();
