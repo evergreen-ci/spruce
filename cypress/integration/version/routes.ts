@@ -98,12 +98,11 @@ describe("Version route", () => {
           "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=success&variant=%5Eubuntu1604%24"
         );
 
-        // TODO: Drop skip in https://jira.mongodb.org/browse/EVG-20762
         // Check that filter values have updated.
-        // cy.toggleTableFilter(2);
-        // cy.getInputByLabel("success")
-        //   .should("have.attr", "aria-checked")
-        //   .and("equal", "true");
+        cy.toggleTableFilter(2);
+        cy.getInputByLabel("Succeeded")
+          .should("have.attr", "aria-checked")
+          .and("equal", "true");
 
         cy.toggleTableFilter(4);
         cy.dataCy("variant-input-wrapper")
@@ -117,11 +116,9 @@ describe("Version route", () => {
 
         // Apply name filter
         cy.toggleTableFilter(1);
-        cy.dataCy("taskname-input-wrapper")
-          .find("input")
-          .focus()
-          .type("a-task-name")
-          .type("{enter}");
+        cy.dataCy("taskname-input-wrapper").find("input").as("taskNameInput");
+        cy.get("@taskNameInput").focus();
+        cy.get("@taskNameInput").type("a-task-name{enter}");
 
         // name filter shouldn't be applied after clicking task status badge
         cy.dataCy("build-variants").within(() => {
@@ -168,11 +165,9 @@ describe("Version route", () => {
 
         // Apply name filter
         cy.toggleTableFilter(1);
-        cy.dataCy("taskname-input-wrapper")
-          .find("input")
-          .focus()
-          .type("a-task-name")
-          .type("{enter}");
+        cy.dataCy("taskname-input-wrapper").find("input").as("taskNameInput");
+        cy.get("@taskNameInput").focus();
+        cy.get("@taskNameInput").type("a-task-name{enter}");
 
         // name filter shouldn't be applied after clicking build variant name
         cy.dataCy("build-variant-display-name").first().click();
