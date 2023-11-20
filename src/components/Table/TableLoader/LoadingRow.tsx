@@ -6,7 +6,6 @@ interface LoadingRowProps {
 }
 const LoadingRow: React.FC<LoadingRowProps> = ({ numColumns }) => (
   <Row>
-    {/* Create a skeleton for each amount of columns */}
     {Array.from({ length: numColumns }, (_, i) => (
       <Cell key={i}>
         <Skeleton size="small" />

@@ -34,7 +34,6 @@ export const BaseTable = <T extends LGRowData>({
   ...args
 }: SpruceTableProps & TableProps<T>) => (
   <>
-    {/* TODO: Re-evaluate loading state in DEVPROD-1967. */}
     <StyledTable data-cy={dataCyTable} table={table} {...args}>
       <TableHead>
         {table.getHeaderGroups().map((headerGroup) => (

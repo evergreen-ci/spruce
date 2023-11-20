@@ -22,12 +22,12 @@ import { TaskDurationCell } from "./TaskDurationCell";
 interface Props {
   tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"];
   loading: boolean;
-  pageSize: number;
+  numLoadingRows: number;
 }
 
 export const TaskDurationTable: React.FC<Props> = ({
   loading,
-  pageSize,
+  numLoadingRows,
   tasks,
 }) => {
   const { id: versionId } = useParams<{ id: string }>();
@@ -176,7 +176,7 @@ export const TaskDurationTable: React.FC<Props> = ({
       loading={loading}
       table={table}
       shouldAlternateRowColor
-      loadingRows={pageSize}
+      loadingRows={numLoadingRows}
     />
   );
 };
