@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
 import { StyledRouterLink, WordBreak } from "components/styles";
 import { getTaskRoute } from "constants/routes";
@@ -10,6 +11,7 @@ interface TaskLinkProps {
   taskId: string;
   taskName: string;
 }
+
 export const TaskLink: React.FC<TaskLinkProps> = ({
   execution,
   onClick = () => {},
@@ -21,9 +23,13 @@ export const TaskLink: React.FC<TaskLinkProps> = ({
     onClick={() => onClick(taskId)}
     to={getTaskRoute(taskId, { execution })}
   >
-    <WordBreak>{taskName}</WordBreak>
+    <WordBreakAll>{taskName}</WordBreakAll>
     {showTaskExecutionLabel && (
       <Body>Execution {formatZeroIndexForDisplay(execution)}</Body>
     )}
   </StyledRouterLink>
 );
+
+const WordBreakAll = styled(WordBreak)`
+  word-break: break-all;
+`;

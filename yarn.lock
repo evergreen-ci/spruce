@@ -3186,7 +3186,7 @@
   resolved "https://registry.yarnpkg.com/@kwsites/promise-deferred/-/promise-deferred-1.1.1.tgz#8ace5259254426ccef57f3175bc64ed7095ed919"
   integrity sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==
 
-"@leafygreen-ui/a11y@^1.3.4", "@leafygreen-ui/a11y@^1.4.10", "@leafygreen-ui/a11y@^1.4.11", "@leafygreen-ui/a11y@^1.4.2", "@leafygreen-ui/a11y@^1.4.3", "@leafygreen-ui/a11y@^1.4.7", "@leafygreen-ui/a11y@^1.4.8", "@leafygreen-ui/a11y@^1.4.9":
+"@leafygreen-ui/a11y@^1.3.4", "@leafygreen-ui/a11y@^1.4.10", "@leafygreen-ui/a11y@^1.4.11", "@leafygreen-ui/a11y@^1.4.2", "@leafygreen-ui/a11y@^1.4.3", "@leafygreen-ui/a11y@^1.4.7", "@leafygreen-ui/a11y@^1.4.8":
   version "1.4.11"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/a11y/-/a11y-1.4.11.tgz#5ebaa4a4a1bf99e2c3d6d9cb08f6b4983f2b2d59"
   integrity sha512-mzNMR4ci3ExdCY3Ec1kr7xH4nV02uamoohbWxcI9qSd41TFskaDAZSXO9PL9S8JosQXjpRkt0f470XvVE0kEXQ==
@@ -3334,20 +3334,6 @@
     "@leafygreen-ui/typography" "^16.0.0"
     react-transition-group "^4.4.1"
 
-"@leafygreen-ui/checkbox@^12.0.18":
-  version "12.0.18"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/checkbox/-/checkbox-12.0.18.tgz#13e5166235113db1731d70c4e01231ece726460f"
-  integrity sha512-y9ikeNodJeKvqJ+Y0HYMAe8zw4wgdhsbEd56CqkEjsalu5dAsghYLw3EUBzy0vcTZOVyB9jrq3lU7JIeUdPMCg==
-  dependencies:
-    "@leafygreen-ui/a11y" "^1.4.9"
-    "@leafygreen-ui/emotion" "^4.0.7"
-    "@leafygreen-ui/hooks" "^8.0.0"
-    "@leafygreen-ui/lib" "^11.0.0"
-    "@leafygreen-ui/palette" "^4.0.7"
-    "@leafygreen-ui/tokens" "^2.2.0"
-    "@leafygreen-ui/typography" "^17.0.0"
-    react-transition-group "^4.4.5"
-
 "@leafygreen-ui/checkbox@^12.0.20":
   version "12.0.20"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/checkbox/-/checkbox-12.0.20.tgz#8969b106f27ab30d3e5ff742682130a21c471409"
@@ -3491,6 +3477,13 @@
   dependencies:
     lodash "^4.17.21"
 
+"@leafygreen-ui/hooks@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-8.0.1.tgz#3f864f5be93e872c0884206643ee6b957972e17f"
+  integrity sha512-n++2Qdtv0UsJoSSCtrDU0Qlcq0JvSy+fzvvexDphqbchoC47DtgFqVfftq8UcmkvkkJOkTASrIZesV45rVJAiQ==
+  dependencies:
+    lodash "^4.17.21"
+
 "@leafygreen-ui/icon-button@15.0.5":
   version "15.0.5"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-15.0.5.tgz#4c9e6a8388c471262c98bcb52b2d95c061625eea"
@@ -3554,6 +3547,14 @@
   version "11.23.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.23.0.tgz#d6fdae3386f79ee061a991d32e2ff807611af85c"
   integrity sha512-TaK9mlQO2K1Y4urL69FzLXMfW/hoSChlsA0WSj4IEFEyaC/bwVQTJFq9qStcRPTwf18G1rwsEQB1TlKDvlPIFA==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.7"
+    lodash "^4.17.21"
+
+"@leafygreen-ui/icon@^11.25.0":
+  version "11.25.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.25.0.tgz#a6cc0d54e7988cb39d3a2b1e947715b6af8f1ca2"
+  integrity sha512-54nEMSj/g8cfKsh2iQ9qVr7oYSSbdpZbzrgQ/tExDuaG90UR0FJeWHzPiNbUI7hrRuLYuokn7WafsxqX6Sfr2A==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.7"
     lodash "^4.17.21"
@@ -3982,44 +3983,27 @@
     "@leafygreen-ui/tokens" "^2.1.4"
     "@leafygreen-ui/typography" "^17.0.0"
 
-"@leafygreen-ui/table/new@npm:@leafygreen-ui/table@12.0.10":
-  version "12.0.10"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/table/-/table-12.0.10.tgz#b6d6a1d55795cc428a1199e8a67938e5b32ed162"
-  integrity sha512-hooCstSi79y7t+Wj0DT4gdgegwp56DuqnBGBvXptpf/zXVoLXMCkYCZQbTxio0QMMH+seNijVEvu5m9SL0HVfA==
+"@leafygreen-ui/table@12.1.3":
+  version "12.1.3"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/table/-/table-12.1.3.tgz#d44bc302e65c0d6ace474163dd555065bba9cf3c"
+  integrity sha512-2VX5u46T2AJqDtXOqLmvzC2XYD9HnKoECJvPLJYt+JNyl2gmdBRYOVbRHrUcFpxD3iKulRYdfABAD1JR73XoUw==
   dependencies:
-    "@leafygreen-ui/checkbox" "^12.0.18"
+    "@leafygreen-ui/checkbox" "^12.0.20"
     "@leafygreen-ui/emotion" "^4.0.7"
-    "@leafygreen-ui/hooks" "^8.0.0"
-    "@leafygreen-ui/icon" "^11.23.0"
-    "@leafygreen-ui/icon-button" "^15.0.17"
-    "@leafygreen-ui/lib" "^11.0.0"
+    "@leafygreen-ui/hooks" "^8.0.1"
+    "@leafygreen-ui/icon" "^11.25.0"
+    "@leafygreen-ui/icon-button" "^15.0.19"
+    "@leafygreen-ui/lib" "^13.0.0"
     "@leafygreen-ui/palette" "^4.0.7"
     "@leafygreen-ui/polymorphic" "^1.3.6"
     "@leafygreen-ui/tokens" "^2.2.0"
-    "@leafygreen-ui/typography" "^17.0.0"
+    "@leafygreen-ui/typography" "^18.0.1"
     "@tanstack/react-table" "^8.7.3"
     lodash "^4.17.21"
     polished "^4.2.2"
     react-keyed-flatten-children "^1.3.0"
     react-transition-group "^4.4.5"
     react-virtual "^2.10.4"
-
-"@leafygreen-ui/table@10.0.1":
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/table/-/table-10.0.1.tgz#b20f673c20eda06192d2a97d2d2976b6e05f8b7b"
-  integrity sha512-dc6b5uWVSwDfuIUYrLKewVGXmRvAcKuDi6Q/xv4AA5Uibj67yDROwvd1Dd8QWvSPnfj/JK2Z1dTeDMM2rLXabA==
-  dependencies:
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/icon" "^11.12.4"
-    "@leafygreen-ui/icon-button" "^15.0.4"
-    "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.7"
-    "@leafygreen-ui/tokens" "^2.0.0"
-    "@leafygreen-ui/typography" "^16.0.0"
-    lodash "^4.17.21"
-    polished "^4.2.2"
-    react-transition-group "^4.4.1"
 
 "@leafygreen-ui/tabs@11.0.4":
   version "11.0.4"
@@ -4216,6 +4200,18 @@
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.7"
     "@leafygreen-ui/icon" "^11.22.2"
+    "@leafygreen-ui/lib" "^13.0.0"
+    "@leafygreen-ui/palette" "^4.0.7"
+    "@leafygreen-ui/polymorphic" "^1.3.6"
+    "@leafygreen-ui/tokens" "^2.1.4"
+
+"@leafygreen-ui/typography@^18.0.1":
+  version "18.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-18.0.1.tgz#ca1a05f1e0d2defc9b50838d7ebe64e42c1f2345"
+  integrity sha512-XPTya1YVmpiGInxrD//aF0uCvhpnGPKDTkkZKD0Mk+bPP3qXaXtP8YwdrGnMLEJsuRG3ipmOrA5/YXcNQDeQkQ==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.7"
+    "@leafygreen-ui/icon" "^11.25.0"
     "@leafygreen-ui/lib" "^13.0.0"
     "@leafygreen-ui/palette" "^4.0.7"
     "@leafygreen-ui/polymorphic" "^1.3.6"
@@ -4812,6 +4808,28 @@
     ts-dedent "^2.0.0"
     uuid "^9.0.0"
 
+"@storybook/addon-actions@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-7.5.3.tgz#e0d0d819488d1d19918b23469b3ea6610fee5f07"
+  integrity sha512-v3yL6Eq/jCiXfA24JjRdbEQUuorms6tmrywaKcd1tAy4Ftgof0KHB4tTcTyiajrI5bh6PVJoRBkE8IDqmNAHkA==
+  dependencies:
+    "@storybook/client-logger" "7.5.3"
+    "@storybook/components" "7.5.3"
+    "@storybook/core-events" "7.5.3"
+    "@storybook/global" "^5.0.0"
+    "@storybook/manager-api" "7.5.3"
+    "@storybook/preview-api" "7.5.3"
+    "@storybook/theming" "7.5.3"
+    "@storybook/types" "7.5.3"
+    dequal "^2.0.2"
+    lodash "^4.17.21"
+    polished "^4.2.2"
+    prop-types "^15.7.2"
+    react-inspector "^6.0.0"
+    telejson "^7.2.0"
+    ts-dedent "^2.0.0"
+    uuid "^9.0.0"
+
 "@storybook/addon-backgrounds@7.4.0":
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/@storybook/addon-backgrounds/-/addon-backgrounds-7.4.0.tgz#7d3048329b8ef73145a2e9b435b7b35004a65f86"
@@ -5153,6 +5171,18 @@
     telejson "^7.2.0"
     tiny-invariant "^1.3.1"
 
+"@storybook/channels@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@storybook/channels/-/channels-7.5.3.tgz#cbd178b0778f3484b970d0fd0edd294db6969e0f"
+  integrity sha512-dhWuV2o2lmxH0RKuzND8jxYzvSQTSmpE13P0IT/k8+I1up/rSNYOBQJT6SalakcNWXFAMXguo/8E7ApmnKKcEw==
+  dependencies:
+    "@storybook/client-logger" "7.5.3"
+    "@storybook/core-events" "7.5.3"
+    "@storybook/global" "^5.0.0"
+    qs "^6.10.0"
+    telejson "^7.2.0"
+    tiny-invariant "^1.3.1"
+
 "@storybook/cli@7.4.0":
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/@storybook/cli/-/cli-7.4.0.tgz#a50f435d55e3056547c983c0bfacb2eed63cd692"
@@ -5222,6 +5252,13 @@
   dependencies:
     "@storybook/global" "^5.0.0"
 
+"@storybook/client-logger@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@storybook/client-logger/-/client-logger-7.5.3.tgz#5a33a8a1785dbe6beff60654bc8947724c0cd62e"
+  integrity sha512-vUFYALypjix5FoJ5M/XUP6KmyTnQJNW1poHdW7WXUVSg+lBM6E5eAtjTm0hdxNNDH8KSrdy24nCLra5h0X0BWg==
+  dependencies:
+    "@storybook/global" "^5.0.0"
+
 "@storybook/codemod@7.4.0":
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/@storybook/codemod/-/codemod-7.4.0.tgz#c23ef80253b5a5998c83e49e74bd6ff62683d27a"
@@ -5254,6 +5291,22 @@
     "@storybook/global" "^5.0.0"
     "@storybook/theming" "7.4.0"
     "@storybook/types" "7.4.0"
+    memoizerific "^1.11.3"
+    use-resize-observer "^9.1.0"
+    util-deprecate "^1.0.2"
+
+"@storybook/components@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@storybook/components/-/components-7.5.3.tgz#3fa282252e02973ead9f537f5ae3b5aeee5be4c4"
+  integrity sha512-M3+cjvEsDGLUx8RvK5wyF6/13LNlUnKbMgiDE8Sxk/v/WPpyhOAIh/B8VmrU1psahS61Jd4MTkFmLf1cWau1vw==
+  dependencies:
+    "@radix-ui/react-select" "^1.2.2"
+    "@radix-ui/react-toolbar" "^1.0.4"
+    "@storybook/client-logger" "7.5.3"
+    "@storybook/csf" "^0.1.0"
+    "@storybook/global" "^5.0.0"
+    "@storybook/theming" "7.5.3"
+    "@storybook/types" "7.5.3"
     memoizerific "^1.11.3"
     use-resize-observer "^9.1.0"
     util-deprecate "^1.0.2"
@@ -5319,6 +5372,13 @@
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/@storybook/core-events/-/core-events-7.4.0.tgz#0d50d254d65a678065d5906ac1dcab64396f2f6a"
   integrity sha512-JavEo4dw7TQdF5pSKjk4RtqLgsG2R/eWRI8vZ3ANKa0ploGAnQR/eMTfSxf6TUH3ElBWLJhi+lvUCkKXPQD+dw==
+  dependencies:
+    ts-dedent "^2.0.0"
+
+"@storybook/core-events@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@storybook/core-events/-/core-events-7.5.3.tgz#210089576844569a914cc0cd1e07119bac6eb0e4"
+  integrity sha512-DFOpyQ22JD5C1oeOFzL8wlqSWZzrqgDfDbUGP8xdO4wJu+FVTxnnWN6ZYLdTPB1u27DOhd7TzjQMfLDHLu7kbQ==
   dependencies:
     ts-dedent "^2.0.0"
 
@@ -5479,6 +5539,27 @@
     telejson "^7.2.0"
     ts-dedent "^2.0.0"
 
+"@storybook/manager-api@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@storybook/manager-api/-/manager-api-7.5.3.tgz#6e9e791a8996631dc77f3a0cecc34ce4f4869647"
+  integrity sha512-d8mVLr/5BEG4bAS2ZeqYTy/aX4jPEpZHdcLaWoB4mAM+PAL9wcWsirUyApKtDVYLITJf/hd8bb2Dm2ok6E45gA==
+  dependencies:
+    "@storybook/channels" "7.5.3"
+    "@storybook/client-logger" "7.5.3"
+    "@storybook/core-events" "7.5.3"
+    "@storybook/csf" "^0.1.0"
+    "@storybook/global" "^5.0.0"
+    "@storybook/router" "7.5.3"
+    "@storybook/theming" "7.5.3"
+    "@storybook/types" "7.5.3"
+    dequal "^2.0.2"
+    lodash "^4.17.21"
+    memoizerific "^1.11.3"
+    semver "^7.3.7"
+    store2 "^2.14.2"
+    telejson "^7.2.0"
+    ts-dedent "^2.0.0"
+
 "@storybook/manager@7.4.0":
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/@storybook/manager/-/manager-7.4.0.tgz#21a825c9145f56ca6c38d3e9d3546b311a6db14e"
@@ -5510,6 +5591,26 @@
     "@storybook/csf" "^0.1.0"
     "@storybook/global" "^5.0.0"
     "@storybook/types" "7.4.0"
+    "@types/qs" "^6.9.5"
+    dequal "^2.0.2"
+    lodash "^4.17.21"
+    memoizerific "^1.11.3"
+    qs "^6.10.0"
+    synchronous-promise "^2.0.15"
+    ts-dedent "^2.0.0"
+    util-deprecate "^1.0.2"
+
+"@storybook/preview-api@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@storybook/preview-api/-/preview-api-7.5.3.tgz#eaf70f9b6888d0dac42ce39a296afd6acacf6156"
+  integrity sha512-LNmEf7oBRnZ1wG3bQ+P+TO29+NN5pSDJiAA6FabZBrtIVm+psc2lxBCDQvFYyAFzQSlt60toGKNW8+RfFNdR5Q==
+  dependencies:
+    "@storybook/channels" "7.5.3"
+    "@storybook/client-logger" "7.5.3"
+    "@storybook/core-events" "7.5.3"
+    "@storybook/csf" "^0.1.0"
+    "@storybook/global" "^5.0.0"
+    "@storybook/types" "7.5.3"
     "@types/qs" "^6.9.5"
     dequal "^2.0.2"
     lodash "^4.17.21"
@@ -5590,6 +5691,15 @@
     memoizerific "^1.11.3"
     qs "^6.10.0"
 
+"@storybook/router@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@storybook/router/-/router-7.5.3.tgz#e024ad96bc4bbf7250239921a251e828729e4747"
+  integrity sha512-/iNYCFore7R5n6eFHbBYoB0P2/sybTVpA+uXTNUd3UEt7Ro6CEslTaFTEiH2RVQwOkceBp/NpyWon74xZuXhMg==
+  dependencies:
+    "@storybook/client-logger" "7.5.3"
+    memoizerific "^1.11.3"
+    qs "^6.10.0"
+
 "@storybook/semver@^7.3.2":
   version "7.3.2"
   resolved "https://registry.yarnpkg.com/@storybook/semver/-/semver-7.3.2.tgz#f3b9c44a1c9a0b933c04e66d0048fcf2fa10dac0"
@@ -5641,6 +5751,16 @@
     "@storybook/global" "^5.0.0"
     memoizerific "^1.11.3"
 
+"@storybook/theming@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@storybook/theming/-/theming-7.5.3.tgz#bbcf547c8b3ec1e59e641c58155a44781d5f310d"
+  integrity sha512-Cjmthe1MAk0z4RKCZ7m72gAD8YD0zTAH97z5ryM1Qv84QXjiCQ143fGOmYz1xEQdNFpOThPcwW6FEccLHTkVcg==
+  dependencies:
+    "@emotion/use-insertion-effect-with-fallbacks" "^1.0.0"
+    "@storybook/client-logger" "7.5.3"
+    "@storybook/global" "^5.0.0"
+    memoizerific "^1.11.3"
+
 "@storybook/types@7.4.0":
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/@storybook/types/-/types-7.4.0.tgz#71ce550d4d469f6aaf9777fc7432db9fb67f53f9"
@@ -5650,6 +5770,16 @@
     "@types/babel__core" "^7.0.0"
     "@types/express" "^4.7.0"
     "@types/react" "^16.14.34"
+    file-system-cache "2.3.0"
+
+"@storybook/types@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@storybook/types/-/types-7.5.3.tgz#be956805dafc09fa9a7a3dd4e0e5097ef08e4fd4"
+  integrity sha512-iu5W0Kdd6nysN5CPkY4GRl+0BpxRTdSfBIJak7mb6xCIHSB5t1tw4BOuqMQ5EgpikRY3MWJ4gY647QkWBX3MNQ==
+  dependencies:
+    "@storybook/channels" "7.5.3"
+    "@types/babel__core" "^7.0.0"
+    "@types/express" "^4.7.0"
     file-system-cache "2.3.0"
 
 "@styled/typescript-styled-plugin@1.0.0":
@@ -8915,10 +9045,10 @@ eslint-config-airbnb@19.0.4:
     object.assign "^4.1.2"
     object.entries "^1.1.5"
 
-eslint-config-prettier@8.8.0:
-  version "8.8.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.8.0.tgz#bfda738d412adc917fd7b038857110efe98c9348"
-  integrity sha512-wLbQiFre3tdGgpDv67NQKnJuTlcUVYHas3k+DZCc2U2BadthoEY4B7hLPvAxaqdyOGCzuLfii2fqGph10va7oA==
+eslint-config-prettier@9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-9.0.0.tgz#eb25485946dd0c66cd216a46232dc05451518d1f"
+  integrity sha512-IcJsTkJae2S35pRsRAwoCE+925rJJStOdkKnLVgtE+tEpqU0EVVM7OqrwxqgptKdX29NUwC82I5pXsGFIgSevw==
 
 eslint-import-resolver-node@^0.3.6:
   version "0.3.9"
