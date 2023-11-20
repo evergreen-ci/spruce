@@ -31,6 +31,8 @@ describe("host section", () => {
       cy.getInputByLabel("SSH User").type("sudo");
       cy.contains("button", "Add SSH option").click();
       cy.getInputByLabel("SSH Option").type("BatchMode=yes");
+      cy.contains("button", "Add Mountpoint").click();
+      cy.getInputByLabel("Mountpoint").type("/data");
       cy.selectLGOption(
         "Host Overallocation Rule",
         "Terminate hosts when overallocated"
