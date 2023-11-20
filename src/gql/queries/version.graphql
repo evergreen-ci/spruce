@@ -4,6 +4,7 @@ query Version($id: String!) {
   version(id: $id) {
     activated
     author
+    authorEmail
     baseVersion {
       id
     }

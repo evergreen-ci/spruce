@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
@@ -9,6 +8,7 @@ import { CommitChart } from "./CommitChart";
 import {
   getCommitKey,
   getCommitWidth,
+  isCommitSelected,
   RenderCommitsLabel,
   RenderCommitsBuildVariants,
 } from "./RenderCommit";
@@ -19,17 +19,17 @@ const { white } = palette;
 
 interface CommitsWrapperProps {
   versions: Commits;
-  error?: ApolloError;
   isLoading: boolean;
   hasTaskFilter: boolean;
   hasFilters: boolean;
+  revision?: string;
 }
 
 export const CommitsWrapper: React.FC<CommitsWrapperProps> = ({
-  error,
   hasFilters,
   hasTaskFilter,
   isLoading,
+  revision,
   versions,
 }) => {
   const buildVariantDict = useMemo(() => {
@@ -38,11 +38,11 @@ export const CommitsWrapper: React.FC<CommitsWrapperProps> = ({
     }
   }, [versions]);
 
-  if (error) {
-    return <CommitChart hasError />;
-  }
   if (isLoading) {
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
+  }
+  if (!versions) {
+    return <CommitChart />;
   }
   if (versions) {
     return (
@@ -54,6 +54,8 @@ export const CommitsWrapper: React.FC<CommitsWrapperProps> = ({
               <CommitWrapper
                 key={getCommitKey(commit)}
                 width={getCommitWidth(commit)}
+                selected={isCommitSelected(commit, revision)}
+                data-selected={isCommitSelected(commit, revision)}
               >
                 <RenderCommitsLabel commit={commit} hasFilters={hasFilters} />
               </CommitWrapper>
@@ -65,6 +67,7 @@ export const CommitsWrapper: React.FC<CommitsWrapperProps> = ({
             <CommitWrapper
               key={getCommitKey(commit)}
               width={getCommitWidth(commit)}
+              selected={isCommitSelected(commit, revision)}
             >
               <RenderCommitsBuildVariants
                 commit={commit}
@@ -89,7 +92,6 @@ const StickyContainer = styled.div`
   z-index: 1;
   background-color: ${white};
   margin-top: ${size.xxs};
-  margin-bottom: ${size.xs};
 `;
 
 const StyledSkeleton = styled(Skeleton)`
