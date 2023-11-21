@@ -1,6 +1,6 @@
 describe("Task Duration Tab", () => {
   beforeEach(() => {
-    cy.visit(`/version/5e4ff3abe3c3317e352062e4/task-duration`);
+    cy.visit("/version/5e4ff3abe3c3317e352062e4/task-duration");
   });
   describe("when interacting with the filters on the page", () => {
     it("updates URL appropriately when task name filter is applied", () => {
@@ -29,7 +29,7 @@ describe("Task Duration Tab", () => {
       cy.dataCy("task-duration-table-row").should("have.length", 3);
       cy.location("search").should(
         "include",
-        `duration=DESC&page=0&statuses=running-umbrella,started,dispatched`
+        "duration=DESC&page=0&statuses=running-umbrella,started,dispatched"
       );
       // Clear status filter.
       cy.dataCy("status-filter-popover").click();

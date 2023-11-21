@@ -175,7 +175,7 @@ describe("Configure Patch Page", () => {
         .find('[data-cy="task-count-badge"]')
         .should("contain.text", "1");
       cy.dataCy("selected-task-disclaimer").contains(
-        `1 task across 1 build variant`
+        "1 task across 1 build variant"
       );
 
       cy.dataCy("task-checkbox").uncheck({ force: true });
@@ -591,7 +591,8 @@ describe("Configure Patch Page", () => {
 
     it("Shows error toast if unsuccessful and keeps data", () => {
       const val = "hello world";
-      cy.dataCy(`patch-name-input`).clear().type(val);
+      cy.dataCy(`patch-name-input`).clear();
+      cy.dataCy(`patch-name-input`).type(val);
       cy.dataCy("task-checkbox").first().check({ force: true });
       mockErrorResponse({
         errorMessage: "An error occured",
