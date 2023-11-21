@@ -149,6 +149,7 @@ export type BuildBaronSettings = {
   bfSuggestionServer?: Maybe<Scalars["String"]["output"]>;
   bfSuggestionTimeoutSecs?: Maybe<Scalars["Int"]["output"]>;
   bfSuggestionUsername?: Maybe<Scalars["String"]["output"]>;
+  ticketCreateIssueType: Scalars["String"]["output"];
   ticketCreateProject: Scalars["String"]["output"];
   ticketSearchProjects?: Maybe<Array<Scalars["String"]["output"]>>;
 };
@@ -159,6 +160,7 @@ export type BuildBaronSettingsInput = {
   bfSuggestionServer?: InputMaybe<Scalars["String"]["input"]>;
   bfSuggestionTimeoutSecs?: InputMaybe<Scalars["Int"]["input"]>;
   bfSuggestionUsername?: InputMaybe<Scalars["String"]["input"]>;
+  ticketCreateIssueType?: InputMaybe<Scalars["String"]["input"]>;
   ticketCreateProject: Scalars["String"]["input"];
   ticketSearchProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
@@ -378,6 +380,7 @@ export type Distro = {
   iceCreamSettings: IceCreamSettings;
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
+  mountpoints?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>;
   name: Scalars["String"]["output"];
   note: Scalars["String"]["output"];
   plannerSettings: PlannerSettings;
@@ -442,6 +445,7 @@ export type DistroInput = {
   iceCreamSettings: IceCreamSettingsInput;
   isCluster: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
+  mountpoints?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
   name: Scalars["String"]["input"];
   note: Scalars["String"]["input"];
   plannerSettings: PlannerSettingsInput;
@@ -1831,7 +1835,7 @@ export type ProjectInput = {
 
 export type ProjectPermissions = {
   __typename?: "ProjectPermissions";
-  admin: Scalars["Boolean"]["output"];
+  edit: Scalars["Boolean"]["output"];
   view: Scalars["Boolean"]["output"];
 };
 
@@ -8858,6 +8862,7 @@ export type VersionQuery = {
     __typename?: "Version";
     activated?: boolean | null;
     author: string;
+    authorEmail: string;
     createTime: Date;
     errors: Array<string>;
     finishTime?: Date | null;

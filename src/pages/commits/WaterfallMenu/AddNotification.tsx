@@ -6,7 +6,13 @@ import { NotificationModal } from "components/Notifications";
 import { waterfallTriggers } from "constants/triggers";
 import { subscriptionMethods } from "types/subscription";
 
-export const AddNotification: React.FC = () => {
+interface AddNotificationProps {
+  setMenuOpen: (open: boolean) => void;
+}
+
+export const AddNotification: React.FC<AddNotificationProps> = ({
+  setMenuOpen,
+}) => {
   const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
@@ -23,7 +29,10 @@ export const AddNotification: React.FC = () => {
       </DropdownItem>
       <NotificationModal
         data-cy="waterfall-notification-modal"
-        onCancel={() => setIsModalVisible(false)}
+        onCancel={() => {
+          setIsModalVisible(false);
+          setMenuOpen(false);
+        }}
         resourceId={projectIdentifier}
         sendAnalyticsEvent={(subscription) =>
           sendEvent({ name: "Add Notification", subscription })

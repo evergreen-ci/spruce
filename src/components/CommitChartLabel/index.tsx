@@ -65,7 +65,7 @@ const CommitChartLabel: React.FC<Props> = ({
         >
           {shortenGithash(githash)}
         </InlineCode>{" "}
-        <b>
+        <b title={getDateCopy(createDate)}>
           {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
         </b>{" "}
       </LabelText>
