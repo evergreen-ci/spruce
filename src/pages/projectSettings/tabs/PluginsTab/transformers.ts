@@ -88,7 +88,7 @@ export const buildBaronIf = (useBuildBaron: boolean, buildBaronSettings: any) =>
         .map(({ searchProject }) => searchProject)
         .filter((str) => !!str),
       ticketCreateIssueType:
-        buildBaronSettings.ticketCreateIssueType?.issueType || "Build Failure",
+        buildBaronSettings.ticketCreateIssueType?.issueType || JiraTicketType.BuildFailure,
     },
   };
 
