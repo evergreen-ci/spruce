@@ -20,6 +20,7 @@ import {
   USER_PROJECT_SETTINGS_PERMISSIONS,
   REPOTRACKER_ERROR,
 } from "gql/queries";
+import { PortalBanner } from "./PortalBanner";
 
 interface RepotrackerBannerProps {
   projectIdentifier: string;
@@ -38,24 +39,24 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
     variables: { projectIdentifier },
   });
   const hasRepotrackerError =
-    repotrackerData?.project?.repotrackerError?.exists;
+    repotrackerData?.project?.repotrackerError?.exists ?? false;
 
   const { data: permissionsData } = useQuery<
     UserProjectSettingsPermissionsQuery,
     UserProjectSettingsPermissionsQueryVariables
   >(USER_PROJECT_SETTINGS_PERMISSIONS, {
     variables: { projectIdentifier },
-    // If there's no repotracker error, there's no need to determine whether the current user is an admin.
-    skip: !repotrackerData || !hasRepotrackerError,
+    // If there's no repotracker error, there is no need to determine whether the current user is an admin.
+    skip: !hasRepotrackerError,
   });
   const isProjectAdmin =
-    permissionsData?.user?.permissions?.projectPermissions?.admin;
+    permissionsData?.user?.permissions?.projectPermissions?.edit ?? false;
 
   const [setLastRevision] = useMutation<
     SetLastRevisionMutation,
     SetLastRevisionMutationVariables
   >(SET_LAST_REVISION, {
-    onCompleted() {
+    onCompleted: () => {
       dispatchToast.success(
         "Successfully updated merge base revision. The repotracker job has been scheduled to run."
       );
@@ -76,24 +77,28 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
     return null;
   }
   return (
-    <BannerContainer>
-      <Banner data-cy="repotracker-error-banner" variant="danger">
-        {isProjectAdmin ? (
-          <span>
-            The project was unable to build. Please specify a new base revision
-            by clicking{" "}
-            <ModalTriggerText
-              data-cy="repotracker-error-trigger"
-              onClick={() => setOpenModal(true)}
-            >
-              here
-            </ModalTriggerText>
-            .
-          </span>
-        ) : (
-          "The project was unable to build. Please reach out to a project admin to fix."
-        )}
-      </Banner>
+    <>
+      <PortalBanner
+        banner={
+          <Banner data-cy="repotracker-error-banner" variant="danger">
+            {isProjectAdmin ? (
+              <span>
+                The project was unable to build. Please specify a new base
+                revision by clicking{" "}
+                <ModalTriggerText
+                  data-cy="repotracker-error-trigger"
+                  onClick={() => setOpenModal(true)}
+                >
+                  here
+                </ModalTriggerText>
+                .
+              </span>
+            ) : (
+              "The project was unable to build. Please reach out to a project admin to fix."
+            )}
+          </Banner>
+        }
+      />
       <ConfirmationModal
         buttonText="Confirm"
         data-cy="repotracker-error-modal"
@@ -107,7 +112,7 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
         }}
         open={openModal}
         setOpen={setOpenModal}
-        submitDisabled={!baseRevision.length}
+        submitDisabled={baseRevision.length < 40}
         title="Enter New Base Revision"
       >
         <ModalDescription>
@@ -120,19 +125,15 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
           base revision.
         </ModalDescription>
         <TextInput
-          description="Specify the full 40 character hash."
+          description="Specify a full 40 character hash."
           label="Base Revision"
           onChange={(e) => setBaseRevision(e.target.value)}
           value={baseRevision}
         />
       </ConfirmationModal>
-    </BannerContainer>
+    </>
   );
 };
-
-const BannerContainer = styled.div`
-  margin-bottom: ${size.s};
-`;
 
 const ModalDescription = styled.div`
   margin-bottom: ${size.xs};

@@ -3,7 +3,7 @@ query UserProjectSettingsPermissions($projectIdentifier: String!) {
     permissions {
       canCreateProject
       projectPermissions(options: { projectIdentifier: $projectIdentifier }) {
-        admin
+        edit
       }
     }
     userId

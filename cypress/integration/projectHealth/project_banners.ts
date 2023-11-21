@@ -1,4 +1,4 @@
-describe("banners", () => {
+describe("project banners", () => {
   const projectWithRepotrackerError = "/commits/mongodb-mongo-test";
 
   describe("repotracker banner", () => {

@@ -58,7 +58,7 @@ describe("createDuplicateProjectField", () => {
               canCreateProject: false,
               projectPermissions: {
                 __typename: "ProjectPermissions",
-                admin: false,
+                edit: false,
               },
             },
           },
@@ -151,7 +151,7 @@ const permissionsMock: ApolloMock<
           canCreateProject: true,
           projectPermissions: {
             __typename: "ProjectPermissions",
-            admin: true,
+            edit: true,
           },
         },
       },

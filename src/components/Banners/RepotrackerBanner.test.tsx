@@ -170,7 +170,7 @@ const adminUser: ApolloMock<
           canCreateProject: true,
           projectPermissions: {
             __typename: "ProjectPermissions",
-            admin: true,
+            edit: true,
           },
         },
       },
@@ -196,7 +196,7 @@ const basicUser: ApolloMock<
           canCreateProject: false,
           projectPermissions: {
             __typename: "ProjectPermissions",
-            admin: false,
+            edit: false,
           },
         },
       },

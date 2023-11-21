@@ -8666,7 +8666,7 @@ export type UserProjectSettingsPermissionsQuery = {
     permissions: {
       __typename?: "Permissions";
       canCreateProject: boolean;
-      projectPermissions: { __typename?: "ProjectPermissions"; admin: boolean };
+      projectPermissions: { __typename?: "ProjectPermissions"; edit: boolean };
     };
   };
 };
