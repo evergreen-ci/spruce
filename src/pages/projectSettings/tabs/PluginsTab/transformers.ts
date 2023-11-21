@@ -35,7 +35,7 @@ export const gqlToForm = ((data) => {
       ticketCreateIssueType: {
         issueType:
           projectRef?.buildBaronSettings?.ticketCreateIssueType ||
-          "Build Failure",
+          JiraTicketType.BuildFailure,
       },
       fileTicketWebhook: {
         endpoint:
