@@ -136,14 +136,7 @@ export const getFormSchema = (
                       issueType: {
                         type: "string" as "string",
                         title: "",
-                        oneOf: [
-                          JiraTicketType.Investigation,
-                          JiraTicketType.Bug,
-                          JiraTicketType.Task,
-                          JiraTicketType.BuildFailure,
-                          JiraTicketType.Epic,
-                          JiraTicketType.Incident,
-                        ].map((r: string) => ({
+                        oneOf: Object.values(JiraTicketType).map((r: string) => ({
                           type: "string" as "string",
                           title: r,
                           enum: [r],
