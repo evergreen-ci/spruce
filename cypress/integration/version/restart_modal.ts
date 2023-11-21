@@ -31,14 +31,11 @@ describe("Restarting a patch", () => {
     cy.dataCy("task-status-badge").should("contain.text", "1 of 1 Selected");
   });
 
-  // TODO: Drop skip in https://jira.mongodb.org/browse/EVG-20762
-  it.skip("Selecting on the task status filter should toggle the tasks that have matching statuses to it", () => {
+  it("Selecting on the task status filter should toggle the tasks that have matching statuses to it", () => {
     cy.dataCy("task-status-filter").click();
     cy.getInputByLabel("All").check({ force: true });
     cy.dataCy("task-status-filter").click();
 
-    // ideally this would target the text field itself but leafygreen Body tags dont
-    // support cy-data elements currently
     cy.dataCy("version-restart-modal").should(
       "contain.text",
       "Are you sure you want to restart the 1 selected tasks?"
@@ -48,8 +45,7 @@ describe("Restarting a patch", () => {
     cy.dataCy("task-status-filter").click();
   });
 
-  // TODO: Drop skip in https://jira.mongodb.org/browse/EVG-20762
-  it.skip("Selecting on the base status filter should toggle the tasks that have matching statuses to it", () => {
+  it("Selecting on the base status filter should toggle the tasks that have matching statuses to it", () => {
     cy.dataCy("version-restart-modal").within(() => {
       cy.dataCy("base-task-status-filter").click();
       cy.getInputByLabel("Succeeded").check({ force: true });

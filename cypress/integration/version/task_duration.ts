@@ -1,10 +1,9 @@
 describe("Task Duration Tab", () => {
-  const patch = "5e4ff3abe3c3317e352062e4";
-  const TASK_DURATION_ROUTE = `/version/${patch}/task-duration`;
-
+  beforeEach(() => {
+    cy.visit("/version/5e4ff3abe3c3317e352062e4/task-duration");
+  });
   describe("when interacting with the filters on the page", () => {
     it("updates URL appropriately when task name filter is applied", () => {
-      cy.visit(TASK_DURATION_ROUTE);
       const filterText = "test-annotation";
       // Apply text filter.
       cy.dataCy("task-name-filter-popover").click();
@@ -21,19 +20,16 @@ describe("Task Duration Tab", () => {
       cy.location("search").should("include", `page=0`);
     });
 
-    // TODO: Drop skip in https://jira.mongodb.org/browse/EVG-20762
-    it.skip("updates URL appropriately when status filter is applied", () => {
-      cy.visit(TASK_DURATION_ROUTE);
-
+    it("updates URL appropriately when status filter is applied", () => {
       // Apply status filter.
       cy.dataCy("status-filter-popover").click();
       cy.dataCy("tree-select-options").within(() =>
         cy.contains("Running").click({ force: true })
       );
-      cy.dataCy("task-duration-table-row").should("have.length", 2);
+      cy.dataCy("task-duration-table-row").should("have.length", 3);
       cy.location("search").should(
         "include",
-        `duration=DESC&page=0&statuses=started`
+        "duration=DESC&page=0&statuses=running-umbrella,started,dispatched"
       );
       // Clear status filter.
       cy.dataCy("status-filter-popover").click();
@@ -44,7 +40,6 @@ describe("Task Duration Tab", () => {
     });
 
     it("updates URL appropriately when build variant filter is applied", () => {
-      cy.visit(TASK_DURATION_ROUTE);
       const filterText = "Lint";
       // Apply text filter.
       cy.dataCy("build-variant-filter-popover").click();
@@ -62,7 +57,6 @@ describe("Task Duration Tab", () => {
     });
 
     it("updates URL appropriately when sort is changing", () => {
-      cy.visit(TASK_DURATION_ROUTE);
       // The default sort (DURATION DESC) should be applied
       cy.location("search").should("include", "duration=DESC");
       const longestTask = "test-thirdparty";
@@ -80,7 +74,6 @@ describe("Task Duration Tab", () => {
     });
 
     it("clearing all filters resets to the default sort", () => {
-      cy.visit(TASK_DURATION_ROUTE);
       cy.dataCy("duration-sort-icon").click();
       cy.location("search").should("include", "duration=ASC");
       cy.contains("Clear all filters").click();
@@ -88,7 +81,6 @@ describe("Task Duration Tab", () => {
     });
 
     it("shows message when no test results are found", () => {
-      cy.visit(TASK_DURATION_ROUTE);
       const filterText = "this_does_not_exist";
 
       cy.dataCy("task-name-filter-popover").click();
