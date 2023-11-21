@@ -31,8 +31,6 @@ describe("host section", () => {
       cy.getInputByLabel("SSH User").type("sudo");
       cy.contains("button", "Add SSH option").click();
       cy.getInputByLabel("SSH Option").type("BatchMode=yes");
-      cy.contains("button", "Add Mountpoint").click();
-      cy.getInputByLabel("Mountpoint").type("/data");
       cy.selectLGOption(
         "Host Overallocation Rule",
         "Terminate hosts when overallocated"
@@ -49,6 +47,20 @@ describe("host section", () => {
       cy.getInputByLabel("SSH User").type("ubuntu");
       cy.dataCy("delete-item-button").click();
       cy.selectLGOption("Host Overallocation Rule", "Default");
+
+      save();
+      cy.validateToast("success", "Updated distro.");
+    });
+
+    it("updates mountpoints", () => {
+      cy.contains("button", "Add Mountpoint").click();
+      cy.getInputByLabel("Mountpoint").type("/data");
+
+      save();
+      cy.validateToast("success", "Updated distro.");
+
+      // Reset fields
+      cy.dataCy("delete-item-button").click();
 
       save();
       cy.validateToast("success", "Updated distro.");
