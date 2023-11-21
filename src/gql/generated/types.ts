@@ -149,6 +149,7 @@ export type BuildBaronSettings = {
   bfSuggestionServer?: Maybe<Scalars["String"]["output"]>;
   bfSuggestionTimeoutSecs?: Maybe<Scalars["Int"]["output"]>;
   bfSuggestionUsername?: Maybe<Scalars["String"]["output"]>;
+  ticketCreateIssueType: Scalars["String"]["output"];
   ticketCreateProject: Scalars["String"]["output"];
   ticketSearchProjects?: Maybe<Array<Scalars["String"]["output"]>>;
 };
@@ -159,6 +160,7 @@ export type BuildBaronSettingsInput = {
   bfSuggestionServer?: InputMaybe<Scalars["String"]["input"]>;
   bfSuggestionTimeoutSecs?: InputMaybe<Scalars["Int"]["input"]>;
   bfSuggestionUsername?: InputMaybe<Scalars["String"]["input"]>;
+  ticketCreateIssueType?: InputMaybe<Scalars["String"]["input"]>;
   ticketCreateProject: Scalars["String"]["input"];
   ticketSearchProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
@@ -378,6 +380,7 @@ export type Distro = {
   iceCreamSettings: IceCreamSettings;
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
+  mountpoints?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>;
   name: Scalars["String"]["output"];
   note: Scalars["String"]["output"];
   plannerSettings: PlannerSettings;
@@ -442,6 +445,7 @@ export type DistroInput = {
   iceCreamSettings: IceCreamSettingsInput;
   isCluster: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
+  mountpoints?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
   name: Scalars["String"]["input"];
   note: Scalars["String"]["input"];
   plannerSettings: PlannerSettingsInput;
@@ -3364,6 +3368,7 @@ export type PatchesPagePatchesFragment = {
     commitQueuePosition?: number | null;
     createTime?: Date | null;
     description: string;
+    hidden: boolean;
     id: string;
     projectIdentifier: string;
     status: string;
@@ -3904,6 +3909,12 @@ export type RepoSettingsFieldsFragment = {
       taskRegex: string;
       unscheduleDownstreamVersions?: boolean | null;
     }>;
+    parsleyFilters?: Array<{
+      __typename?: "ParsleyFilter";
+      caseSensitive: boolean;
+      exactMatch: boolean;
+      expression: string;
+    }> | null;
     workstationConfig: {
       __typename?: "RepoWorkstationConfig";
       gitClone: boolean;
@@ -4423,6 +4434,16 @@ export type VariablesFragment = {
 export type ProjectViewsAndFiltersSettingsFragment = {
   __typename?: "Project";
   projectHealthView: ProjectHealthView;
+  parsleyFilters?: Array<{
+    __typename?: "ParsleyFilter";
+    caseSensitive: boolean;
+    exactMatch: boolean;
+    expression: string;
+  }> | null;
+};
+
+export type RepoViewsAndFiltersSettingsFragment = {
+  __typename?: "RepoRef";
   parsleyFilters?: Array<{
     __typename?: "ParsleyFilter";
     caseSensitive: boolean;
@@ -5080,7 +5101,11 @@ export type SetPatchVisibilityMutationVariables = Exact<{
 
 export type SetPatchVisibilityMutation = {
   __typename?: "Mutation";
-  setPatchVisibility: Array<{ __typename?: "Patch"; id: string }>;
+  setPatchVisibility: Array<{
+    __typename?: "Patch";
+    hidden: boolean;
+    id: string;
+  }>;
 };
 
 export type SetTaskPriorityMutationVariables = Exact<{
@@ -5347,6 +5372,7 @@ export type BaseVersionAndTaskQuery = {
     displayName: string;
     execution: number;
     id: string;
+    projectIdentifier?: string | null;
     baseTask?: {
       __typename?: "Task";
       execution: number;
@@ -5361,7 +5387,6 @@ export type BaseVersionAndTaskQuery = {
         __typename?: "Version";
         id: string;
         order: number;
-        projectIdentifier: string;
       } | null;
     };
   } | null;
@@ -7073,6 +7098,7 @@ export type ProjectPatchesQuery = {
         commitQueuePosition?: number | null;
         createTime?: Date | null;
         description: string;
+        hidden: boolean;
         id: string;
         projectIdentifier: string;
         status: string;
@@ -7909,6 +7935,12 @@ export type RepoSettingsQuery = {
         taskRegex: string;
         unscheduleDownstreamVersions?: boolean | null;
       }>;
+      parsleyFilters?: Array<{
+        __typename?: "ParsleyFilter";
+        caseSensitive: boolean;
+        exactMatch: boolean;
+        expression: string;
+      }> | null;
       workstationConfig: {
         __typename?: "RepoWorkstationConfig";
         gitClone: boolean;
@@ -8564,6 +8596,7 @@ export type UserPatchesQuery = {
         commitQueuePosition?: number | null;
         createTime?: Date | null;
         description: string;
+        hidden: boolean;
         id: string;
         projectIdentifier: string;
         status: string;
@@ -8717,7 +8750,7 @@ export type VersionTaskDurationsQuery = {
         startTime?: Date | null;
         status: string;
         timeTaken?: number | null;
-        executionTasksFull?: Array<{
+        subRows?: Array<{
           __typename?: "Task";
           buildVariantDisplayName?: string | null;
           displayName: string;
@@ -8794,6 +8827,7 @@ export type VersionQuery = {
     __typename?: "Version";
     activated?: boolean | null;
     author: string;
+    authorEmail: string;
     createTime: Date;
     errors: Array<string>;
     finishTime?: Date | null;

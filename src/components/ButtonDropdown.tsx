@@ -9,6 +9,8 @@ interface Props {
   dropdownItems: JSX.Element[];
   size?: "default" | "small" | "large";
   "data-cy"?: string;
+  open?: boolean;
+  setOpen?: (open: boolean) => void;
 }
 
 export const ButtonDropdown: React.FC<Props> = ({
@@ -16,6 +18,8 @@ export const ButtonDropdown: React.FC<Props> = ({
   disabled = false,
   dropdownItems,
   loading = false,
+  open = undefined,
+  setOpen = undefined,
   size = "small",
 }) => (
   <Menu
@@ -32,6 +36,8 @@ export const ButtonDropdown: React.FC<Props> = ({
     data-cy="card-dropdown"
     popoverZIndex={zIndex.popover}
     adjustOnMutation
+    open={open}
+    setOpen={setOpen}
   >
     {dropdownItems}
   </Menu>

@@ -21,13 +21,13 @@ const deduplicateTasks = (
     [task: string]: boolean;
   }[],
   previouslyActivatedBuildvariants: VariantTask[],
-  filterTerm: string
+  filterTerm: RegExp
 ): DeduplicateTasksResult => {
   const visibleTasks: DeduplicateTasksResult = {};
   currentTasks.forEach((bv, i) => {
     const previouslyActivatedTasks = previouslyActivatedBuildvariants[i]?.tasks;
     Object.entries(bv).forEach(([taskName, value]) => {
-      if (filterTerm && !taskName.includes(filterTerm)) {
+      if (filterTerm && !filterTerm.test(taskName)) {
         return;
       }
       switch (visibleTasks[taskName]?.checkboxState) {

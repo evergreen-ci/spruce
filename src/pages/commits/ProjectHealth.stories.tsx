@@ -59,7 +59,6 @@ const RenderCommitsWrapper = ({
     <div style={{ height: "500px" }}>
       <CommitsWrapper
         versions={updatedVersions}
-        error={null}
         isLoading={isLoading}
         hasTaskFilter={hasTaskFilter}
         hasFilters={hasFilters}

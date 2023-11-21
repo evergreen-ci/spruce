@@ -4,6 +4,7 @@ export enum PatchPageQueryParams {
   Statuses = "statuses",
   Page = "page",
   Limit = "limit",
+  Hidden = "hidden",
 }
 
 export enum PatchStatus {
@@ -11,6 +12,7 @@ export enum PatchStatus {
   Created = "created",
   Failed = "failed",
   Started = "started",
+  // TODO EVG-20032: Remove legacy status
   LegacySucceeded = "succeeded",
   Success = "success",
   Aborted = "aborted",

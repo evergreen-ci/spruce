@@ -1,3 +1,5 @@
+import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
+
 const patchWithoutVersion = "test meee";
 const patchWithVersion = "main: EVG-7823 add a commit queue message (#4048)";
 const patchWithVersionOnCommitQueue =
@@ -100,17 +102,67 @@ describe("Dropdown Menu of Patch Actions", { testIsolation: false }, () => {
     });
     cy.dataCy("enqueue-patch").should("be.disabled");
   });
-  it("hiding a patch should remove it from the page", () => {
-    cy.dataCy("patch-card").should("exist");
-    cy.dataCy("patch-card").contains("testtest").should("exist");
-    cy.dataCy("patch-card").eq(6).should("contain.text", "testtest");
-    getPatchCardByDescription("testtest").within(() => {
+
+  it("Toggle patch visibility", () => {
+    // "Include hidden" checkbox is not checked and patch is visible
+    cy.getCookie(INCLUDE_HIDDEN_PATCHES).should("not.exist");
+    cy.getInputByLabel("Include hidden").should("not.be.checked");
+    cy.location("search").should("not.contain", "hidden=true");
+    getPatchCardByDescription("testtest")
+      .as("targetPatchCard")
+      .should("be.visible");
+    // Hide patch card
+    cy.get("@targetPatchCard").within(() => {
+      cy.dataCy("hidden-badge").should("not.exist");
       cy.dataCy("patch-card-dropdown").click();
     });
-    cy.contains("Hide patch").should("exist");
-    cy.contains("Hide patch").click();
-    cy.contains("button", "Yes").click({ force: true });
-    cy.validateToast("success");
-    cy.dataCy("patch-card").contains("testtest").should("not.exist");
+    cy.contains("Hide patch").should("be.visible").click();
+    cy.validateToast("success", "This patch was successfully hidden.");
+    cy.get("@targetPatchCard").should("not.exist");
+    // Check "Include hidden" checkbox and unhide patch card
+    cy.dataCy("include-hidden-checkbox").check({ force: true });
+    cy.getCookie(INCLUDE_HIDDEN_PATCHES).should(
+      "have.property",
+      "value",
+      "true"
+    );
+    cy.location("search").should("contain", "hidden=true");
+    cy.get("@targetPatchCard")
+      .should("be.visible")
+      .within(() => {
+        cy.dataCy("hidden-badge").should("be.visible");
+        cy.dataCy("patch-card-dropdown").click();
+      });
+    // Test initial state derived from cookie
+    cy.visit("/");
+    cy.getCookie(INCLUDE_HIDDEN_PATCHES).should(
+      "have.property",
+      "value",
+      "true"
+    );
+    cy.location("search").should("not.contain", "hidden=true");
+    cy.get("@targetPatchCard")
+      .should("be.visible")
+      .within(() => {
+        cy.dataCy("hidden-badge").should("be.visible");
+        cy.dataCy("patch-card-dropdown").click();
+      });
+    // Test unhide button
+    cy.contains("Unhide patch").should("be.visible").click();
+    cy.validateToast("success", "This patch was successfully unhidden.");
+    cy.get("@targetPatchCard")
+      .should("be.visible")
+      .within(() => {
+        cy.dataCy("hidden-badge").should("not.exist");
+      });
+    // Uncheck "Include hidden" and verify patch card is visible
+    cy.dataCy("include-hidden-checkbox").uncheck({ force: true });
+    cy.getCookie(INCLUDE_HIDDEN_PATCHES).should(
+      "have.property",
+      "value",
+      "false"
+    );
+    cy.location("search").should("contain", "hidden=false");
+    cy.get("@targetPatchCard").should("be.visible");
   });
 });

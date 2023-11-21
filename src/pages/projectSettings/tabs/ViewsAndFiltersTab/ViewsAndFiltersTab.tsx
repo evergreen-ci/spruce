@@ -8,10 +8,26 @@ import { TabProps, ViewsFormState } from "./types";
 
 const tab = ProjectSettingsTabRoutes.ViewsAndFilters;
 
-export const ViewsAndFiltersTab: React.FC<TabProps> = ({ projectData }) => {
-  const initialFormState = projectData;
+const getInitialFormState = (
+  projectData: TabProps["projectData"],
+  repoData: TabProps["repoData"]
+): ViewsFormState => {
+  if (!projectData) return repoData;
+  if (repoData) return { ...projectData, repoData };
+  return projectData;
+};
 
-  const formSchema = useMemo(() => getFormSchema(), []);
+export const ViewsAndFiltersTab: React.FC<TabProps> = ({
+  projectData,
+  projectType,
+  repoData,
+}) => {
+  const initialFormState = useMemo(
+    () => getInitialFormState(projectData, repoData),
+    [projectData, repoData]
+  );
+
+  const formSchema = useMemo(() => getFormSchema(projectType), [projectType]);
 
   return (
     <BaseTab
@@ -23,12 +39,13 @@ export const ViewsAndFiltersTab: React.FC<TabProps> = ({ projectData }) => {
   );
 };
 
-/* Display an error and prevent saving if a user enters a Parsley filter expression that already appears in the project. */
+/* Display an error and prevent saving if a user enters a Parsley filter expression that already appears in the project or repo. */
 const validate = ((formData, errors) => {
-  const duplicateIndices = findDuplicateIndices(
-    formData.parsleyFilters,
-    "expression"
-  );
+  const combinedFilters = [
+    ...formData.parsleyFilters,
+    ...(formData?.repoData?.parsleyFilters ?? []),
+  ];
+  const duplicateIndices = findDuplicateIndices(combinedFilters, "expression");
   duplicateIndices.forEach((i) => {
     errors.parsleyFilters?.[i]?.expression?.addError(
       "Filter expression already appears in this project."

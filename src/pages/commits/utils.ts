@@ -31,6 +31,7 @@ interface MainlineCommitOptions {
   projectIdentifier: string;
   limit: number;
   skipOrderNumber: number;
+  revision: string;
 }
 interface CommitsPageReducerState {
   filterState: FilterState;

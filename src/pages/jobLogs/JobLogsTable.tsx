@@ -5,7 +5,7 @@ import {
   V10Row as Row,
   V10Cell as Cell,
   V11Adapter,
-} from "@leafygreen-ui/table/new";
+} from "@leafygreen-ui/table";
 import { Link } from "@leafygreen-ui/typography";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";

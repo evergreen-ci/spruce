@@ -1,167 +1,182 @@
-import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
-import { Table, TableHeader } from "@leafygreen-ui/table";
+import { useCallback, useMemo, useRef } from "react";
+import { useLeafyGreenTable } from "@leafygreen-ui/table";
+import { getFacetedMinMaxValues } from "@tanstack/react-table";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
+import { BaseTable } from "components/Table/BaseTable";
+import {
+  getColumnInputFilterProps,
+  getColumnTreeSelectFilterProps,
+  getColumnSortProps,
+} from "components/Table/LGFilters";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
-import {
-  TableFilterPopover,
-  TableSearchPopover,
-} from "components/TablePopover";
-import { VersionTaskDurationsQuery } from "gql/generated/types";
-import {
-  useTaskStatuses,
-  useStatusesFilter,
-  useFilterInputChangeHandler,
-} from "hooks";
+import { TaskLink } from "components/TasksTable/TaskLink";
+import TaskStatusBadge from "components/TaskStatusBadge";
+import { VersionTaskDurationsQuery, SortDirection } from "gql/generated/types";
+import { useTaskStatuses } from "hooks";
+import { useQueryParams } from "hooks/useQueryParam";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
-import { TaskDurationRow } from "./TaskDurationRow";
-
-const { gray } = palette;
+import { TaskDurationCell } from "./TaskDurationCell";
 
 interface Props {
   tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"];
   loading: boolean;
+  numLoadingRows: number;
 }
 
-export const TaskDurationTable: React.FC<Props> = ({ loading, tasks }) => {
+export const TaskDurationTable: React.FC<Props> = ({
+  loading,
+  numLoadingRows,
+  tasks,
+}) => {
   const { id: versionId } = useParams<{ id: string }>();
   const { sendEvent } = useVersionAnalytics(versionId);
+  const { currentStatuses: statusOptions } = useTaskStatuses({ versionId });
+
+  const [
+    {
+      [PatchTasksQueryParams.TaskName]: taskName = "",
+      [PatchTasksQueryParams.Statuses]: statuses = [],
+      [PatchTasksQueryParams.Variant]: variant = "",
+      [PatchTasksQueryParams.Duration]: duration = "",
+    },
+  ] = useQueryParams();
+
+  const filters = useMemo(
+    () => [
+      { id: PatchTasksQueryParams.TaskName, value: taskName },
+      {
+        id: PatchTasksQueryParams.Statuses,
+        value: Array.isArray(statuses) ? statuses : [statuses],
+      },
+      { id: PatchTasksQueryParams.Variant, value: variant },
+    ],
+    [taskName, statuses, variant]
+  );
+
+  const sorting = useMemo(
+    () => [
+      ...(duration && [
+        {
+          id: PatchTasksQueryParams.Duration,
+          desc: duration === SortDirection.Desc,
+        },
+      ]),
+    ],
+    [duration]
+  );
+
   const updateQueryParams = useUpdateURLQueryParams();
+  const updateUrl = useCallback(
+    ({ id, value }) => {
+      updateQueryParams({ [id]: value || undefined, page: "0" });
+    },
+    [updateQueryParams]
+  );
 
-  const { currentStatuses } = useTaskStatuses({ versionId });
+  const columns = useMemo(
+    () => [
+      {
+        id: PatchTasksQueryParams.TaskName,
+        accessorKey: "displayName",
+        header: "Task Name",
+        size: 250,
+        cell: ({
+          getValue,
+          row: {
+            original: { id },
+          },
+        }) => <TaskLink taskId={id} taskName={getValue()} />,
+        ...getColumnInputFilterProps({
+          "data-cy": "task-name-filter-popover",
+          onConfirm: (filter) => {
+            updateUrl(filter);
+            sendEvent({ name: "Filter Tasks", filterBy: filter.id });
+          },
+        }),
+      },
+      {
+        id: PatchTasksQueryParams.Statuses,
+        accessorKey: "status",
+        header: "Status",
+        size: 120,
+        cell: ({ getValue }) => <TaskStatusBadge status={getValue()} />,
+        ...getColumnTreeSelectFilterProps({
+          "data-cy": "status-filter-popover",
+          tData: statusOptions,
+          onConfirm: (filter) => {
+            updateUrl(filter);
+            sendEvent({ name: "Filter Tasks", filterBy: filter.id });
+          },
+        }),
+      },
+      {
+        id: PatchTasksQueryParams.Variant,
+        accessorKey: "buildVariantDisplayName",
+        header: "Build Variant",
+        size: 150,
+        ...getColumnInputFilterProps({
+          "data-cy": "build-variant-filter-popover",
+          onConfirm: (filter) => {
+            updateUrl(filter);
+            sendEvent({ name: "Filter Tasks", filterBy: filter.id });
+          },
+        }),
+      },
+      {
+        id: PatchTasksQueryParams.Duration,
+        accessorKey: "timeTaken",
+        header: "Task Duration",
+        size: 250,
+        cell: ({
+          column,
+          getValue,
+          row: {
+            original: { status },
+          },
+        }) => (
+          <TaskDurationCell
+            status={status}
+            maxTimeTaken={column.getFacetedMinMaxValues()?.[1] ?? 0}
+            timeTaken={getValue()}
+          />
+        ),
+        ...getColumnSortProps({
+          "data-cy": "duration-sort-icon",
+          onToggle: updateUrl,
+        }),
+      },
+    ],
+    [statusOptions, sendEvent, updateUrl]
+  );
 
-  const filterProps = {
-    resetPage: true,
-    sendAnalyticsEvent: (filterBy: string) =>
-      sendEvent({ name: "Filter Tasks", filterBy }),
-  };
-
-  const statusesFilter = useStatusesFilter({
-    urlParam: PatchTasksQueryParams.Statuses,
-    ...filterProps,
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+  const table = useLeafyGreenTable<
+    VersionTaskDurationsQuery["version"]["tasks"]["data"][0]
+  >({
+    columns,
+    containerRef: tableContainerRef,
+    data: tasks ?? [],
+    state: {
+      columnFilters: filters,
+      sorting,
+    },
+    getFacetedMinMaxValues: getFacetedMinMaxValues(),
+    manualFiltering: true,
+    manualSorting: true,
+    manualPagination: true,
   });
-
-  const taskFilter = useFilterInputChangeHandler({
-    urlParam: PatchTasksQueryParams.TaskName,
-    ...filterProps,
-  });
-
-  const variantFilter = useFilterInputChangeHandler({
-    urlParam: PatchTasksQueryParams.Variant,
-    ...filterProps,
-  });
-
-  const handleDurationSort = (direction: string) => {
-    updateQueryParams({
-      [PatchTasksQueryParams.Duration]: direction.toUpperCase(),
-      [PatchTasksQueryParams.Page]: "0",
-    });
-  };
-
-  const maxTimeTaken = findMaxTimeTaken(tasks);
 
   return (
-    <TableWrapper>
-      <Table
-        data={tasks}
-        columns={[
-          <StyledTableHeader
-            key="duration-table-task-name"
-            label={
-              <TableHeaderLabel>
-                Task Name
-                <TableSearchPopover
-                  value={taskFilter.inputValue}
-                  onChange={taskFilter.setInputValue}
-                  onConfirm={taskFilter.submitInputValue}
-                  data-cy="task-name-filter-popover"
-                />
-              </TableHeaderLabel>
-            }
-          />,
-          <StyledTableHeader
-            key="duration-table-status"
-            label={
-              <TableHeaderLabel>
-                Status
-                <TableFilterPopover
-                  value={statusesFilter.inputValue}
-                  options={currentStatuses}
-                  onConfirm={statusesFilter.setAndSubmitInputValue}
-                  data-cy="status-filter-popover"
-                />
-              </TableHeaderLabel>
-            }
-          />,
-          <StyledTableHeader
-            key="duration-table-build-variant"
-            label={
-              <TableHeaderLabel>
-                Build Variant
-                <TableSearchPopover
-                  value={variantFilter.inputValue}
-                  onChange={variantFilter.setInputValue}
-                  onConfirm={variantFilter.submitInputValue}
-                  data-cy="build-variant-filter-popover"
-                />
-              </TableHeaderLabel>
-            }
-          />,
-          <TableHeader
-            key="duration-table-task-duration"
-            label={<TableHeaderLabel>Task Duration</TableHeaderLabel>}
-            handleSort={handleDurationSort}
-          />,
-        ]}
-      >
-        {({ datum }) => (
-          <TaskDurationRow
-            data-cy="task-duration-table-row"
-            task={datum}
-            maxTimeTaken={maxTimeTaken}
-          />
-        )}
-      </Table>
-      {loading && (
-        <TablePlaceholder glyph="Refresh" message="Loading..." spin />
-      )}
-      {!loading && tasks.length === 0 && (
-        <TablePlaceholder message="No tasks found." />
-      )}
-    </TableWrapper>
+    <BaseTable
+      data-cy="task-duration-table"
+      data-cy-row="task-duration-table-row"
+      emptyComponent={<TablePlaceholder message="No tasks found." />}
+      loading={loading}
+      table={table}
+      shouldAlternateRowColor
+      loadingRows={numLoadingRows}
+    />
   );
 };
-
-const findMaxTimeTaken = (
-  tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"]
-) => {
-  if (tasks && tasks.length) {
-    const durations = tasks.map((t) =>
-      t.startTime !== null ? t.timeTaken : 0
-    );
-    return Math.max(...durations);
-  }
-  return 0;
-};
-
-const TableWrapper = styled.div`
-  border-top: 3px solid ${gray.light2};
-
-  // LeafyGreen applies overflow-x: auto to the table, which causes an overflow-y scrollbar
-  // to appear. Since the table container will expand to fit its contents, we will never
-  // overflow on the Y-axis. Therefore, hide the scroll bar.
-  > div > div:last-of-type {
-    overflow-y: hidden;
-  }
-`;
-
-const StyledTableHeader = styled(TableHeader)`
-  width: 15%;
-`;
-
-const TableHeaderLabel = styled.div`
-  display: flex;
-  align-items: center;
-`;

@@ -9,6 +9,7 @@ fragment PatchesPagePatches on Patches {
     commitQueuePosition
     createTime
     description
+    hidden
     id
     projectIdentifier
     projectMetadata {
