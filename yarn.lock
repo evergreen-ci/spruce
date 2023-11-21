@@ -3453,14 +3453,7 @@
   dependencies:
     lodash "^4.17.21"
 
-"@leafygreen-ui/hooks@^8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-8.0.0.tgz#10ff3335ab7690cc040ad930fac3097da66fe810"
-  integrity sha512-SpcjqRlPsRW5DsfqGdjf11N0f3JJw+bl5dOlp43Biz0RuJHJtt0h8b0D5Ig5dCn0jBDNiGNazG2lshX+btd9iA==
-  dependencies:
-    lodash "^4.17.21"
-
-"@leafygreen-ui/hooks@^8.0.1":
+"@leafygreen-ui/hooks@^8.0.0", "@leafygreen-ui/hooks@^8.0.1":
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-8.0.1.tgz#3f864f5be93e872c0884206643ee6b957972e17f"
   integrity sha512-n++2Qdtv0UsJoSSCtrDU0Qlcq0JvSy+fzvvexDphqbchoC47DtgFqVfftq8UcmkvkkJOkTASrIZesV45rVJAiQ==
@@ -3598,13 +3591,13 @@
     "@leafygreen-ui/palette" "^3.4.5"
     "@leafygreen-ui/tokens" "^1.4.1"
 
-"@leafygreen-ui/leafygreen-provider@3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/leafygreen-provider/-/leafygreen-provider-3.1.0.tgz#5f36e5e6e6203e9cf64ba7bad342ed1fa433a32c"
-  integrity sha512-ZfmBV8O8RvUgOOYeV6aMOyYnqKdT/ovEwo4AZVChBvvB7IzNbGkEFgQPLcvqk4dhOJ0Kwg8bWeijD0gSZ9FB3g==
+"@leafygreen-ui/leafygreen-provider@3.1.10":
+  version "3.1.10"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/leafygreen-provider/-/leafygreen-provider-3.1.10.tgz#44a5de540f4052ad945970610b0bca7a8f9f44dc"
+  integrity sha512-ZPrC9rQVCvyRQU76snv7h/DhDrarVlvbokV8r9ylanfnjFZwm02RliRVYiGiJHkz3LYrdmpJ2384z9juRFQDaQ==
   dependencies:
-    "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/lib" "^10.0.0"
+    "@leafygreen-ui/hooks" "^8.0.0"
+    "@leafygreen-ui/lib" "^13.0.0"
 
 "@leafygreen-ui/lib@^10.0.0", "@leafygreen-ui/lib@^10.1.0", "@leafygreen-ui/lib@^10.2.2", "@leafygreen-ui/lib@^10.3.2", "@leafygreen-ui/lib@^10.3.3", "@leafygreen-ui/lib@^10.4.0", "@leafygreen-ui/lib@^10.4.3":
   version "10.4.3"
