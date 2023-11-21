@@ -1,6 +1,6 @@
 import { Table } from "antd";
 import { CreatedTicketsQuery } from "gql/generated/types";
-import { JiraTicketRow } from "../BBComponents";
+import JiraTicketRow from "./JiraTicketRow";
 
 type CreatedTickets = CreatedTicketsQuery["bbGetCreatedTickets"];
 
