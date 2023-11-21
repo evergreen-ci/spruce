@@ -11,10 +11,6 @@ export const TicketsTitle = styled(Subtitle)<
   font-weight: bold;
 `;
 
-export const NonTableWrapper = styled.div`
-  margin-left: ${size.s};
-`;
-
 export const ButtonWrapper = styled.div`
   margin-right: ${size.xs};
   padding-top: ${size.s};

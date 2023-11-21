@@ -1,5 +1,5 @@
 import { JiraTicket } from "gql/generated/types";
-import { TicketsTitle, NonTableWrapper } from "../BBComponents";
+import { TicketsTitle } from "../BBComponents";
 import FileTicketButton from "../FileTicketButton";
 import BuildBaronTable from "./BuildBaronTable";
 
@@ -18,16 +18,14 @@ const BBCreatedTickets: React.FC<CreatedTicketsProps> = ({
 }) => (
   <>
     {buildBaronConfigured && (
-      <NonTableWrapper>
+      <>
         <TicketsTitle>Create a New Ticket</TicketsTitle>
         <FileTicketButton taskId={taskId} execution={execution} />
-      </NonTableWrapper>
+      </>
     )}
     {tickets?.length > 0 && (
       <>
-        <NonTableWrapper>
-          <TicketsTitle>Tickets Created From This Task </TicketsTitle>
-        </NonTableWrapper>{" "}
+        <TicketsTitle>Tickets Created From This Task </TicketsTitle>
         <BuildBaronTable jiraIssues={tickets} />
       </>
     )}

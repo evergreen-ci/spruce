@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
+import { palette } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { useAnnotationAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
@@ -7,7 +8,9 @@ import { getJiraTicketUrl } from "constants/externalResources";
 import { size } from "constants/tokens";
 import { TicketFields } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
+import { trimStringFromMiddle } from "utils/string";
 
+const { gray } = palette;
 interface JiraTicketRowProps {
   jiraKey: string;
   fields: TicketFields;
@@ -21,15 +24,16 @@ const JiraTicketRow: React.FC<JiraTicketRowProps> = ({ fields, jiraKey }) => {
   const { assigneeDisplayName, created, status, summary, updated } =
     fields ?? {};
   return (
-    <div>
+    <Container data-cy="jira-ticket-row">
       <JiraSummaryLink
         href={url}
         data-cy={jiraKey}
         onClick={() =>
           annotationAnalytics.sendEvent({ name: "Click Jira Summary Link" })
         }
+        title={summary}
       >
-        {jiraKey}: {summary} {"   "}
+        {jiraKey}: {trimStringFromMiddle(summary, 80)} {"   "}
       </JiraSummaryLink>
 
       <Badge data-cy={`${jiraKey}-badge`} variant="lightgray">
@@ -49,10 +53,16 @@ const JiraTicketRow: React.FC<JiraTicketRowProps> = ({ fields, jiraKey }) => {
             : "Unassigned"}{" "}
         </Disclaimer>
       </BottomMetaDataWrapper>
-    </div>
+    </Container>
   );
 };
 
+const Container = styled.div`
+  padding: ${size.xs};
+  :hover {
+    background-color: ${gray.light3};
+  }
+`;
 const BottomMetaDataWrapper = styled.div`
   margin-top: ${size.xs};
   display: grid;
@@ -66,6 +76,7 @@ const BottomMetaDataWrapper = styled.div`
 const JiraSummaryLink = styled(StyledLink)`
   font-weight: bold;
   margin-right: ${size.s};
+  /* overflow-x: ellipsis; */
 `;
 
 export default JiraTicketRow;

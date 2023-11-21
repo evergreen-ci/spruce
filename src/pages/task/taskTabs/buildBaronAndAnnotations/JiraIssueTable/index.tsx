@@ -2,7 +2,7 @@ import { StyledLink } from "components/styles";
 import { getJiraSearchUrl } from "constants/externalResources";
 import { BuildBaron } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
-import { TicketsTitle, NonTableWrapper } from "../BBComponents";
+import { TicketsTitle } from "../BBComponents";
 import { BuildBaronTable } from "../CreatedTicketsTable";
 
 interface JiraIssueTableProps {
@@ -17,14 +17,12 @@ const JiraIssueTable: React.FC<JiraIssueTableProps> = ({ bbData }) => {
 
   return (
     <>
-      <NonTableWrapper>
-        <TicketsTitle>
-          Related tickets from Jira
-          <StyledLink data-cy="jira-search-link" href={jiraSearchLink}>
-            {"  "}(Jira Search)
-          </StyledLink>
-        </TicketsTitle>
-      </NonTableWrapper>
+      <TicketsTitle>
+        Related tickets from Jira
+        <StyledLink data-cy="jira-search-link" href={jiraSearchLink}>
+          {"  "}(Jira Search)
+        </StyledLink>
+      </TicketsTitle>
       {/* build baron related jira tickets */}
       <BuildBaronTable jiraIssues={bbData?.searchReturnInfo?.issues} />
     </>
