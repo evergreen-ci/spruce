@@ -87,7 +87,11 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
           });
         }}
       />
-      <TaskDurationTable tasks={tasksData} loading={loading} />
+      <TaskDurationTable
+        tasks={tasksData}
+        loading={loading}
+        numLoadingRows={limit}
+      />
       {shouldShowBottomTableControl && (
         <TableControlWrapper>
           <TableControl

@@ -380,7 +380,7 @@ export type Distro = {
   iceCreamSettings: IceCreamSettings;
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
-  mountpoints: Array<Maybe<Scalars["String"]["output"]>>;
+  mountpoints?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>;
   name: Scalars["String"]["output"];
   note: Scalars["String"]["output"];
   plannerSettings: PlannerSettings;
@@ -445,6 +445,7 @@ export type DistroInput = {
   iceCreamSettings: IceCreamSettingsInput;
   isCluster: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
+  mountpoints?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
   name: Scalars["String"]["input"];
   note: Scalars["String"]["input"];
   plannerSettings: PlannerSettingsInput;
