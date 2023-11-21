@@ -1,5 +1,6 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectInput } from "gql/generated/types";
+import { JiraTicketType } from "types/jira";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 
 type Tab = ProjectSettingsTabRoutes.Plugins;
@@ -88,7 +89,8 @@ export const buildBaronIf = (useBuildBaron: boolean, buildBaronSettings: any) =>
         .map(({ searchProject }) => searchProject)
         .filter((str) => !!str),
       ticketCreateIssueType:
-        buildBaronSettings.ticketCreateIssueType?.issueType || JiraTicketType.BuildFailure,
+        buildBaronSettings.ticketCreateIssueType?.issueType ||
+        JiraTicketType.BuildFailure,
     },
   };
 

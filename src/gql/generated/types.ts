@@ -160,7 +160,7 @@ export type BuildBaronSettingsInput = {
   bfSuggestionServer?: InputMaybe<Scalars["String"]["input"]>;
   bfSuggestionTimeoutSecs?: InputMaybe<Scalars["Int"]["input"]>;
   bfSuggestionUsername?: InputMaybe<Scalars["String"]["input"]>;
-  ticketCreateIssueType: Scalars["String"]["input"];
+  ticketCreateIssueType?: InputMaybe<Scalars["String"]["input"]>;
   ticketCreateProject: Scalars["String"]["input"];
   ticketSearchProjects?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
@@ -380,6 +380,7 @@ export type Distro = {
   iceCreamSettings: IceCreamSettings;
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
+  mountpoints?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>;
   name: Scalars["String"]["output"];
   note: Scalars["String"]["output"];
   plannerSettings: PlannerSettings;
@@ -444,6 +445,7 @@ export type DistroInput = {
   iceCreamSettings: IceCreamSettingsInput;
   isCluster: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
+  mountpoints?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
   name: Scalars["String"]["input"];
   note: Scalars["String"]["input"];
   plannerSettings: PlannerSettingsInput;
@@ -3674,9 +3676,9 @@ export type ProjectSettingsFieldsFragment = {
     }> | null;
     buildBaronSettings: {
       __typename?: "BuildBaronSettings";
+      ticketCreateIssueType: string;
       ticketCreateProject: string;
       ticketSearchProjects?: Array<string> | null;
-      ticketCreateIssueType: string;
     };
     externalLinks?: Array<{
       __typename?: "ExternalLink";
@@ -3874,9 +3876,9 @@ export type RepoSettingsFieldsFragment = {
     }> | null;
     buildBaronSettings: {
       __typename?: "BuildBaronSettings";
+      ticketCreateIssueType: string;
       ticketCreateProject: string;
       ticketSearchProjects?: Array<string> | null;
-      ticketCreateIssueType: string;
     };
     externalLinks?: Array<{
       __typename?: "ExternalLink";
@@ -4135,9 +4137,9 @@ export type ProjectPluginsSettingsFragment = {
   perfEnabled?: boolean | null;
   buildBaronSettings: {
     __typename?: "BuildBaronSettings";
+    ticketCreateIssueType: string;
     ticketCreateProject: string;
     ticketSearchProjects?: Array<string> | null;
-    ticketCreateIssueType: string;
   };
   externalLinks?: Array<{
     __typename?: "ExternalLink";
@@ -4165,9 +4167,9 @@ export type RepoPluginsSettingsFragment = {
   perfEnabled: boolean;
   buildBaronSettings: {
     __typename?: "BuildBaronSettings";
+    ticketCreateIssueType: string;
     ticketCreateProject: string;
     ticketSearchProjects?: Array<string> | null;
-    ticketCreateIssueType: string;
   };
   externalLinks?: Array<{
     __typename?: "ExternalLink";
@@ -4274,9 +4276,9 @@ export type ProjectEventSettingsFragment = {
     }> | null;
     buildBaronSettings: {
       __typename?: "BuildBaronSettings";
+      ticketCreateIssueType: string;
       ticketCreateProject: string;
       ticketSearchProjects?: Array<string> | null;
-      ticketCreateIssueType: string;
     };
     externalLinks?: Array<{
       __typename?: "ExternalLink";
@@ -6723,9 +6725,9 @@ export type ProjectEventLogsQuery = {
           }> | null;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
+            ticketCreateIssueType: string;
             ticketCreateProject: string;
             ticketSearchProjects?: Array<string> | null;
-            ticketCreateIssueType: string;
           };
           externalLinks?: Array<{
             __typename?: "ExternalLink";
@@ -6935,9 +6937,9 @@ export type ProjectEventLogsQuery = {
           }> | null;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
+            ticketCreateIssueType: string;
             ticketCreateProject: string;
             ticketSearchProjects?: Array<string> | null;
-            ticketCreateIssueType: string;
           };
           externalLinks?: Array<{
             __typename?: "ExternalLink";
@@ -7229,9 +7231,9 @@ export type ProjectSettingsQuery = {
       }> | null;
       buildBaronSettings: {
         __typename?: "BuildBaronSettings";
+        ticketCreateIssueType: string;
         ticketCreateProject: string;
         ticketSearchProjects?: Array<string> | null;
-        ticketCreateIssueType: string;
       };
       externalLinks?: Array<{
         __typename?: "ExternalLink";
@@ -7480,9 +7482,9 @@ export type RepoEventLogsQuery = {
           }> | null;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
+            ticketCreateIssueType: string;
             ticketCreateProject: string;
             ticketSearchProjects?: Array<string> | null;
-            ticketCreateIssueType: string;
           };
           externalLinks?: Array<{
             __typename?: "ExternalLink";
@@ -7692,9 +7694,9 @@ export type RepoEventLogsQuery = {
           }> | null;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
+            ticketCreateIssueType: string;
             ticketCreateProject: string;
             ticketSearchProjects?: Array<string> | null;
-            ticketCreateIssueType: string;
           };
           externalLinks?: Array<{
             __typename?: "ExternalLink";
@@ -7909,9 +7911,9 @@ export type RepoSettingsQuery = {
       }> | null;
       buildBaronSettings: {
         __typename?: "BuildBaronSettings";
+        ticketCreateIssueType: string;
         ticketCreateProject: string;
         ticketSearchProjects?: Array<string> | null;
-        ticketCreateIssueType: string;
       };
       externalLinks?: Array<{
         __typename?: "ExternalLink";

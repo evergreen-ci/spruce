@@ -136,11 +136,13 @@ export const getFormSchema = (
                       issueType: {
                         type: "string" as "string",
                         title: "",
-                        oneOf: Object.values(JiraTicketType).map((r: string) => ({
-                          type: "string" as "string",
-                          title: r,
-                          enum: [r],
-                        })),
+                        oneOf: Object.values(JiraTicketType).map(
+                          (r: string) => ({
+                            type: "string" as "string",
+                            title: r,
+                            enum: [r],
+                          })
+                        ),
                       },
                     },
                   },
@@ -253,8 +255,10 @@ export const getFormSchema = (
           "ui:label": false,
         },
       },
-      ticketIssueType: {
-        "ui:description": "Specify a JIRA issue type for created tickets.",
+      ticketCreateIssueType: {
+        "ui:allowDeselect": false,
+        "ui:description":
+          "Specify a JIRA issue type for tickets created by the File Ticket button.",
       },
       ticketCreateProject: {
         "ui:description": (
