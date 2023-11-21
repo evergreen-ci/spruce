@@ -5,7 +5,6 @@ import { FormToGqlFunction, GqlToFormFunction } from "../types";
 type Tab = ProjectSettingsTabRoutes.Plugins;
 
 export const gqlToForm = ((data) => {
-  console.log(data);
   if (!data) return null;
 
   const { projectRef } = data;
