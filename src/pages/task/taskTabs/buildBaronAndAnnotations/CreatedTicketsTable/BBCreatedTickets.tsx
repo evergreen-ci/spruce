@@ -1,7 +1,7 @@
 import { JiraTicket } from "gql/generated/types";
 import { TicketsTitle } from "../BBComponents";
 import FileTicketButton from "../FileTicketButton";
-import BuildBaronTable from "./BuildBaronTable";
+import JiraTicketList from "./JiraTicketList";
 
 interface CreatedTicketsProps {
   taskId: string;
@@ -26,7 +26,7 @@ const BBCreatedTickets: React.FC<CreatedTicketsProps> = ({
     {tickets?.length > 0 && (
       <>
         <TicketsTitle>Tickets Created From This Task </TicketsTitle>
-        <BuildBaronTable jiraIssues={tickets} />
+        <JiraTicketList jiraIssues={tickets} />
       </>
     )}
   </>

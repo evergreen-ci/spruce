@@ -3,7 +3,7 @@ import { getJiraSearchUrl } from "constants/externalResources";
 import { BuildBaron } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
 import { TicketsTitle } from "../BBComponents";
-import { BuildBaronTable } from "../CreatedTicketsTable";
+import JiraTicketList from "../CreatedTicketsTable/JiraTicketList";
 
 interface JiraIssueTableProps {
   bbData: BuildBaron;
@@ -24,7 +24,7 @@ const JiraIssueTable: React.FC<JiraIssueTableProps> = ({ bbData }) => {
         </StyledLink>
       </TicketsTitle>
       {/* build baron related jira tickets */}
-      <BuildBaronTable jiraIssues={bbData?.searchReturnInfo?.issues} />
+      <JiraTicketList jiraIssues={bbData?.searchReturnInfo?.issues} />
     </>
   );
 };

@@ -3,7 +3,7 @@ import JiraTicketRow from "./JiraTicketRow";
 
 type CreatedTickets = CreatedTicketsQuery["bbGetCreatedTickets"];
 
-const BuildBaronTable: React.FC<{
+const JiraTicketList: React.FC<{
   jiraIssues: CreatedTickets;
 }> = ({ jiraIssues }) => (
   <div>
@@ -13,4 +13,4 @@ const BuildBaronTable: React.FC<{
   </div>
 );
 
-export default BuildBaronTable;
+export default JiraTicketList;
