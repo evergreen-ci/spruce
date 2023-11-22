@@ -256,9 +256,11 @@ export const getFormSchema = (
         },
       },
       ticketCreateIssueType: {
-        "ui:allowDeselect": false,
         "ui:description":
           "Specify a JIRA issue type for tickets created by the File Ticket button.",
+        issueType: {
+          "ui:allowDeselect": false,
+        },
       },
       ticketCreateProject: {
         "ui:description": (
