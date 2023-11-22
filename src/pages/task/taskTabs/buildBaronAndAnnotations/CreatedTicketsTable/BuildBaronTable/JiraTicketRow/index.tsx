@@ -76,7 +76,6 @@ const BottomMetaDataWrapper = styled.div`
 const JiraSummaryLink = styled(StyledLink)`
   font-weight: bold;
   margin-right: ${size.s};
-  /* overflow-x: ellipsis; */
 `;
 
 export default JiraTicketRow;
