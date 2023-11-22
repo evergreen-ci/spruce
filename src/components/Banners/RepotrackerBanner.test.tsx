@@ -18,6 +18,19 @@ import { render, screen, userEvent, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 
 describe("repotracker banner", () => {
+  beforeEach(() => {
+    const bannerContainer = document.createElement("div");
+    bannerContainer.setAttribute("id", "banner-container");
+    const body = document.body as HTMLElement;
+    body.appendChild(bannerContainer);
+  });
+
+  afterEach(() => {
+    const bannerContainer = document.getElementById("banner-container");
+    const body = document.body as HTMLElement;
+    body.removeChild(bannerContainer);
+  });
+
   describe("repotracker error does not exist", () => {
     it("does not render banner", async () => {
       const { Component } = RenderFakeToastContext(
@@ -74,7 +87,9 @@ describe("repotracker banner", () => {
     it("can submit new base revision via modal", async () => {
       const user = userEvent.setup();
       const { Component, dispatchToast } = RenderFakeToastContext(
-        <MockedProvider mocks={[projectWithError, adminUser, setLastRevision]}>
+        <MockedProvider
+          mocks={[projectWithError, adminUser, setLastRevision, projectNoError]}
+        >
           <RepotrackerBanner projectIdentifier="evergreen" />
         </MockedProvider>
       );
@@ -93,16 +108,15 @@ describe("repotracker banner", () => {
       // Submit new base revision.
       const confirmButton = screen.getByRole("button", { name: "Confirm" });
       expect(confirmButton).toHaveAttribute("aria-disabled", "true");
-      await user.type(
-        screen.getByLabelText("Base Revision"),
-        "new_base_revision"
-      );
+      await user.type(screen.getByLabelText("Base Revision"), baseRevision);
       expect(confirmButton).toHaveAttribute("aria-disabled", "false");
       await user.click(confirmButton);
       expect(dispatchToast.success).toHaveBeenCalledTimes(1);
     });
   });
 });
+
+const baseRevision = "7ad0f0571691fa5063b757762a5b103999290fa8";
 
 const projectNoError: ApolloMock<
   RepotrackerErrorQuery,
@@ -212,14 +226,14 @@ const setLastRevision: ApolloMock<
     query: SET_LAST_REVISION,
     variables: {
       projectIdentifier: "evergreen",
-      revision: "new_base_revision",
+      revision: baseRevision,
     },
   },
   result: {
     data: {
       setLastRevision: {
         __typename: "SetLastRevisionPayload",
-        mergeBaseRevision: "new_base_revision",
+        mergeBaseRevision: baseRevision,
       },
     },
   },
