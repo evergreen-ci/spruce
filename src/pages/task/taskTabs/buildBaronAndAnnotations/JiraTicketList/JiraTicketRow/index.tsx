@@ -11,6 +11,7 @@ import { useSpruceConfig, useDateFormat } from "hooks";
 import { trimStringFromMiddle } from "utils/string";
 
 const { gray } = palette;
+
 interface JiraTicketRowProps {
   jiraKey: string;
   fields: TicketFields;

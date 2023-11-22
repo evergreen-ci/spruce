@@ -1,7 +1,7 @@
 import { JiraTicket } from "gql/generated/types";
 import { TicketsTitle } from "../BBComponents";
 import FileTicketButton from "../FileTicketButton";
-import JiraTicketList from "./JiraTicketList";
+import JiraTicketList from "../JiraTicketList";
 
 interface CreatedTicketsProps {
   taskId: string;

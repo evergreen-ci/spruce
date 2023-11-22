@@ -3,7 +3,7 @@ import { getJiraSearchUrl } from "constants/externalResources";
 import { BuildBaron } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
 import { TicketsTitle } from "../BBComponents";
-import JiraTicketList from "../CreatedTicketsTable/JiraTicketList";
+import JiraTicketList from "../JiraTicketList";
 
 interface JiraIssueTableProps {
   bbData: BuildBaron;
