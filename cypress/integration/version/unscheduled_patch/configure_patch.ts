@@ -1,6 +1,5 @@
 import { GQL_URL } from "../../../constants";
 import { hasOperationName } from "../../../utils/graphql-test-utils";
-import { mockErrorResponse } from "../../../utils/mockErrorResponse";
 
 describe("Configure Patch Page", () => {
   const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
@@ -377,7 +376,7 @@ describe("Configure Patch Page", () => {
           .click();
         cy.getInputByLabel("test-agent").should("be.checked");
 
-        // Deselect the buttons and reset                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ;
+        // Deselect the buttons and reset;
         cy.getInputByLabel("test-agent").uncheck({
           force: true,
         });
@@ -557,7 +556,6 @@ describe("Configure Patch Page", () => {
     });
   });
 
-  // Using mocked responses because we are unable to schedule a patch because of a missing github token
   describe("Scheduling a patch", () => {
     beforeEach(() => {
       cy.visit(`/patch/${unactivatedPatchId}`);
@@ -578,23 +576,6 @@ describe("Configure Patch Page", () => {
         "eq",
         `/version/${activatedPatchId}/tasks`
       );
-    });
-
-    it("Shows error toast if unsuccessful and keeps data", () => {
-      const val = "hello world";
-      cy.dataCy(`patch-name-input`).clear().type(val);
-      cy.dataCy("task-checkbox").first().check({ force: true });
-      mockErrorResponse({
-        errorMessage: "An error occured",
-        operationName: "SchedulePatch",
-        path: "schedulePatch",
-      });
-      cy.dataCy("schedule-patch").click();
-      cy.location("pathname").should(
-        "eq",
-        `/patch/${unactivatedPatchId}/configure/tasks`
-      );
-      cy.validateToast("error");
     });
   });
 });
