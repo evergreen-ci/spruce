@@ -5,6 +5,7 @@ import {
 } from "gql/generated/types";
 import { PROJECT_BANNER } from "gql/queries";
 import { PortalBanner } from "./PortalBanner";
+import { SiteBanner } from "./SiteBanner";
 
 interface ProjectBannerProps {
   projectIdentifier: string;
@@ -23,5 +24,5 @@ export const ProjectBanner: React.FC<ProjectBannerProps> = ({
   if (!text) {
     return null;
   }
-  return <PortalBanner theme={theme} text={text} />;
+  return <PortalBanner banner={<SiteBanner text={text} theme={theme} />} />;
 };
