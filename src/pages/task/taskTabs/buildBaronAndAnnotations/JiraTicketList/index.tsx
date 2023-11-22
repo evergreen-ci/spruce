@@ -6,11 +6,11 @@ type CreatedTickets = CreatedTicketsQuery["bbGetCreatedTickets"];
 const JiraTicketList: React.FC<{
   jiraIssues: CreatedTickets;
 }> = ({ jiraIssues }) => (
-  <div>
+  <>
     {jiraIssues.map(({ fields, key }) => (
       <JiraTicketRow jiraKey={key} fields={fields} key={key} />
     ))}
-  </div>
+  </>
 );
 
 export default JiraTicketList;
