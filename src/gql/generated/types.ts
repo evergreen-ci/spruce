@@ -5084,6 +5084,19 @@ export type ScheduleUndispatchedBaseTasksMutation = {
   }> | null;
 };
 
+export type SetLastRevisionMutationVariables = Exact<{
+  projectIdentifier: Scalars["String"]["input"];
+  revision: Scalars["String"]["input"];
+}>;
+
+export type SetLastRevisionMutation = {
+  __typename?: "Mutation";
+  setLastRevision: {
+    __typename?: "SetLastRevisionPayload";
+    mergeBaseRevision: string;
+  };
+};
+
 export type SetPatchPriorityMutationVariables = Exact<{
   patchId: Scalars["String"]["input"];
   priority: Scalars["Int"]["input"];
@@ -8022,6 +8035,24 @@ export type RepoSettingsQuery = {
   };
 };
 
+export type RepotrackerErrorQueryVariables = Exact<{
+  projectIdentifier: Scalars["String"]["input"];
+}>;
+
+export type RepotrackerErrorQuery = {
+  __typename?: "Query";
+  project: {
+    __typename?: "Project";
+    branch: string;
+    id: string;
+    repotrackerError?: {
+      __typename?: "RepotrackerError";
+      exists: boolean;
+      invalidRevision: string;
+    } | null;
+  };
+};
+
 export type SpawnExpirationInfoQueryVariables = Exact<{ [key: string]: never }>;
 
 export type SpawnExpirationInfoQuery = {
@@ -8624,7 +8655,7 @@ export type UserPatchesQuery = {
 };
 
 export type UserProjectSettingsPermissionsQueryVariables = Exact<{
-  [key: string]: never;
+  projectIdentifier: Scalars["String"]["input"];
 }>;
 
 export type UserProjectSettingsPermissionsQuery = {
@@ -8632,7 +8663,11 @@ export type UserProjectSettingsPermissionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    permissions: { __typename?: "Permissions"; canCreateProject: boolean };
+    permissions: {
+      __typename?: "Permissions";
+      canCreateProject: boolean;
+      projectPermissions: { __typename?: "ProjectPermissions"; edit: boolean };
+    };
   };
 };
 

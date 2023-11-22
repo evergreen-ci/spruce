@@ -42,6 +42,7 @@ import SAVE_SUBSCRIPTION from "./save-subscription.graphql";
 import SCHEDULE_PATCH from "./schedule-patch.graphql";
 import SCHEDULE_TASKS from "./schedule-tasks.graphql";
 import SCHEDULE_UNDISPATCHED_BASE_TASKS from "./schedule-undispatched-base-tasks.graphql";
+import SET_LAST_REVISION from "./set-last-revision.graphql";
 import SET_PATCH_PRIORITY from "./set-patch-priority.graphql";
 import SET_PATCH_VISIBILITY from "./set-patch-visibility.graphql";
 import SET_TASK_PRIORITY from "./set-task-priority.graphql";
@@ -101,6 +102,7 @@ export {
   SCHEDULE_PATCH,
   SCHEDULE_TASKS,
   SCHEDULE_UNDISPATCHED_BASE_TASKS,
+  SET_LAST_REVISION,
   SET_PATCH_PRIORITY,
   SET_PATCH_VISIBILITY,
   SET_TASK_PRIORITY,
