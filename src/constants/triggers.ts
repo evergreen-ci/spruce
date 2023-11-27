@@ -306,10 +306,25 @@ export const projectTriggers: Trigger = {
       failureTypeSubscriberConfig,
     ],
   },
+  [ProjectTriggers.SUCCESSFUL_TASK_EXCEEDS_DURATION]: {
+    trigger: TriggerType.SUCCESSFUL_EXCEEDS_DURATION,
+    resourceType: ResourceType.Task,
+    label: "The Runtime For a Successful Task Exceeds Some Duration",
+    regexSelectors: taskRegexSelectors,
+    extraFields: [
+      {
+        text: "Task Duration (Seconds)",
+        fieldType: "input",
+        key: ExtraFieldKey.TASK_DURATION_SECS,
+        format: "number",
+        default: "10",
+      },
+    ],
+  },
   [ProjectTriggers.TASK_EXCEEDS_DURATION]: {
     trigger: TriggerType.EXCEEDS_DURATION,
     resourceType: ResourceType.Task,
-    label: "The Runtime For a Task Exceeds Some Duration",
+    label: "The Runtime For Any Task Exceeds Some Duration",
     regexSelectors: taskRegexSelectors,
     extraFields: [
       {
@@ -408,6 +423,7 @@ export const triggerToCopy = {
   [TriggerType.FAMILY_SUCCESS]: "Success",
   [TriggerType.RUNTIME_CHANGE]: "Runtime changes by %",
   [TriggerType.EXCEEDS_DURATION]: "Runtime exceeds duration",
+  [TriggerType.SUCCESSFUL_EXCEEDS_DURATION]: "Runtime exceeds duration",
   [TriggerType.TASK_STARTED]: "Task started",
   [TriggerType.TASK_FAILED_OR_BLOCKED]: "Task failed or blocked",
   [TriggerType.REGRESSION]: "Regression",

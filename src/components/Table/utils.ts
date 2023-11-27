@@ -1,7 +1,7 @@
 import { OnChangeFn } from "@tanstack/react-table";
 
 /**
- * `onChangeHandler` simplifies making applying a side effect with one of react-table's callback functions (e.g. onColumnFiltersChange, onSortingChange).
+ * `onChangeHandler` simplifies applying a side effect with one of react-table's callback functions (e.g. onColumnFiltersChange, onSortingChange).
  * @param setState - state updater as returned by a React useState hook.
  * @param sideEffect - side effect function, to be called with the updated state returned by setState.
  * @returns void

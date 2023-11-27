@@ -34,6 +34,9 @@ const projectForm: PluginsFormState = {
     ticketCreateProject: {
       createProject: null,
     },
+    ticketCreateIssueType: {
+      issueType: "Epic",
+    },
     ticketSearchProjects: [],
     useBuildBaron: false,
     taskAnnotationSettings: {
@@ -86,6 +89,9 @@ const repoForm: PluginsFormState = {
     ],
     ticketCreateProject: {
       createProject: "EVG",
+    },
+    ticketCreateIssueType: {
+      issueType: "Epic",
     },
     useBuildBaron: false,
     taskAnnotationSettings: {

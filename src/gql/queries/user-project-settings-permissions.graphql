@@ -1,7 +1,10 @@
-query UserProjectSettingsPermissions {
+query UserProjectSettingsPermissions($projectIdentifier: String!) {
   user {
     permissions {
       canCreateProject
+      projectPermissions(options: { projectIdentifier: $projectIdentifier }) {
+        edit
+      }
     }
     userId
   }

@@ -1,5 +1,6 @@
 import { FieldRow } from "components/SpruceForm/FieldTemplates";
 import { SpruceFormProps } from "components/SpruceForm/types";
+import { JiraTicketType } from "types/jira";
 import {
   SubscriptionMethodOption,
   NotificationMethods,
@@ -193,7 +194,7 @@ export const getNotificationSchema = (
         "ui:data-cy": "project-input",
       },
       issueInput: {
-        "ui:placeholder": "Build Failure",
+        "ui:placeholder": JiraTicketType.BuildFailure,
         "ui:data-cy": "issue-input",
       },
     },
