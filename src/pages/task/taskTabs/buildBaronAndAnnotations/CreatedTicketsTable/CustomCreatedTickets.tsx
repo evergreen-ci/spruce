@@ -1,7 +1,7 @@
 import { IssueLink } from "gql/generated/types";
-import { TicketsTitle, NonTableWrapper } from "../BBComponents";
+import { AnnotationTicketRow } from "../AnnotationTicketsTable/AnnotationTicketRow";
+import { TicketsTitle } from "../BBComponents";
 import FileTicketButton from "../FileTicketButton";
-import CustomCreatedTicketsTable from "./CustomCreatedTicketsTable";
 
 interface CustomCreatedTicketProps {
   taskId: string;
@@ -15,16 +15,20 @@ const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
   tickets,
 }) => (
   <>
-    <NonTableWrapper>
-      <TicketsTitle>Create a New Ticket</TicketsTitle>
-      <FileTicketButton taskId={taskId} execution={execution} />
-    </NonTableWrapper>
+    <TicketsTitle>Create a New Ticket</TicketsTitle>
+    <FileTicketButton taskId={taskId} execution={execution} />
     {tickets?.length > 0 && (
       <>
-        <NonTableWrapper>
-          <TicketsTitle>Tickets Created From This Task</TicketsTitle>
-        </NonTableWrapper>
-        <CustomCreatedTicketsTable tickets={tickets} />
+        <TicketsTitle>Tickets Created From This Task</TicketsTitle>
+        {tickets.map(({ confidenceScore, issueKey, jiraTicket, url }) => (
+          <AnnotationTicketRow
+            confidenceScore={confidenceScore}
+            issueKey={issueKey}
+            jiraTicket={jiraTicket}
+            key={issueKey}
+            url={url}
+          />
+        ))}
       </>
     )}
   </>
