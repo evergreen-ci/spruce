@@ -72,6 +72,8 @@ export const HostsTable: React.FC<Props> = ({
     containerRef: tableContainerRef,
     data: hosts ?? [],
     defaultColumn: {
+      enableColumnFilter: false,
+      enableSorting: false,
       // Handle bug in sorting order
       // https://github.com/TanStack/table/issues/4289
       sortDescFirst: false,
@@ -169,7 +171,6 @@ const columns = [
     header: "Current Task",
     accessorKey: "runningTask",
     id: HostSortBy.CurrentTask,
-    // width: "18%",
     className: "cy-task-table-col-CURRENT-TASK",
     cell: ({ getValue }) => {
       const task = getValue();
@@ -198,25 +199,21 @@ const columns = [
     accessorKey: "elapsed",
     id: HostSortBy.Elapsed,
     className: "cy-task-table-col-ELAPSED",
-    // width: "10%",
     cell: ({ getValue }) => {
       const elapsed = getValue();
       return elapsed ? formatDistanceToNow(new Date(elapsed)) : "N/A";
     },
-    enableColumnFilter: false,
     enableSorting: true,
   },
   {
     header: "Uptime",
     accessorKey: "uptime",
     id: HostSortBy.Uptime,
-    // width: "10%",
     className: "cy-task-table-col-UPTIME",
     cell: ({ getValue }) => {
       const uptime = getValue();
       return uptime ? formatDistanceToNow(new Date(uptime)) : "N/A";
     },
-    enableColumnFilter: false,
     enableSorting: true,
   },
   {
@@ -230,7 +227,6 @@ const columns = [
         ? formatDistanceToNow(new Date(Date.now() - totalIdleTime))
         : "N/A";
     },
-    enableColumnFilter: false,
     enableSorting: true,
   },
   {
