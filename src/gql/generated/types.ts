@@ -3676,6 +3676,7 @@ export type ProjectSettingsFieldsFragment = {
     }> | null;
     buildBaronSettings: {
       __typename?: "BuildBaronSettings";
+      ticketCreateIssueType: string;
       ticketCreateProject: string;
       ticketSearchProjects?: Array<string> | null;
     };
@@ -3875,6 +3876,7 @@ export type RepoSettingsFieldsFragment = {
     }> | null;
     buildBaronSettings: {
       __typename?: "BuildBaronSettings";
+      ticketCreateIssueType: string;
       ticketCreateProject: string;
       ticketSearchProjects?: Array<string> | null;
     };
@@ -4135,6 +4137,7 @@ export type ProjectPluginsSettingsFragment = {
   perfEnabled?: boolean | null;
   buildBaronSettings: {
     __typename?: "BuildBaronSettings";
+    ticketCreateIssueType: string;
     ticketCreateProject: string;
     ticketSearchProjects?: Array<string> | null;
   };
@@ -4164,6 +4167,7 @@ export type RepoPluginsSettingsFragment = {
   perfEnabled: boolean;
   buildBaronSettings: {
     __typename?: "BuildBaronSettings";
+    ticketCreateIssueType: string;
     ticketCreateProject: string;
     ticketSearchProjects?: Array<string> | null;
   };
@@ -4272,6 +4276,7 @@ export type ProjectEventSettingsFragment = {
     }> | null;
     buildBaronSettings: {
       __typename?: "BuildBaronSettings";
+      ticketCreateIssueType: string;
       ticketCreateProject: string;
       ticketSearchProjects?: Array<string> | null;
     };
@@ -6733,6 +6738,7 @@ export type ProjectEventLogsQuery = {
           }> | null;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
+            ticketCreateIssueType: string;
             ticketCreateProject: string;
             ticketSearchProjects?: Array<string> | null;
           };
@@ -6944,6 +6950,7 @@ export type ProjectEventLogsQuery = {
           }> | null;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
+            ticketCreateIssueType: string;
             ticketCreateProject: string;
             ticketSearchProjects?: Array<string> | null;
           };
@@ -7237,6 +7244,7 @@ export type ProjectSettingsQuery = {
       }> | null;
       buildBaronSettings: {
         __typename?: "BuildBaronSettings";
+        ticketCreateIssueType: string;
         ticketCreateProject: string;
         ticketSearchProjects?: Array<string> | null;
       };
@@ -7487,6 +7495,7 @@ export type RepoEventLogsQuery = {
           }> | null;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
+            ticketCreateIssueType: string;
             ticketCreateProject: string;
             ticketSearchProjects?: Array<string> | null;
           };
@@ -7698,6 +7707,7 @@ export type RepoEventLogsQuery = {
           }> | null;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
+            ticketCreateIssueType: string;
             ticketCreateProject: string;
             ticketSearchProjects?: Array<string> | null;
           };
@@ -7914,6 +7924,7 @@ export type RepoSettingsQuery = {
       }> | null;
       buildBaronSettings: {
         __typename?: "BuildBaronSettings";
+        ticketCreateIssueType: string;
         ticketCreateProject: string;
         ticketSearchProjects?: Array<string> | null;
       };

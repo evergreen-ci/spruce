@@ -303,6 +303,7 @@ const projectSettingsMock: ApolloMock<
             ticketCreateProject: "suv",
             ticketSearchProjects: ["suv"],
             __typename: "BuildBaronSettings",
+            ticketCreateIssueType: "",
           },
           taskAnnotationSettings: {
             jiraCustomFields: null,
