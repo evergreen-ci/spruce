@@ -1,5 +1,6 @@
 fragment ProjectPluginsSettings on Project {
   buildBaronSettings {
+    ticketCreateIssueType
     ticketCreateProject
     ticketSearchProjects
   }
@@ -23,6 +24,7 @@ fragment ProjectPluginsSettings on Project {
 
 fragment RepoPluginsSettings on RepoRef {
   buildBaronSettings {
+    ticketCreateIssueType
     ticketCreateProject
     ticketSearchProjects
   }

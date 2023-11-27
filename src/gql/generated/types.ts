@@ -3676,6 +3676,7 @@ export type ProjectSettingsFieldsFragment = {
     }> | null;
     buildBaronSettings: {
       __typename?: "BuildBaronSettings";
+      ticketCreateIssueType: string;
       ticketCreateProject: string;
       ticketSearchProjects?: Array<string> | null;
     };
@@ -3875,6 +3876,7 @@ export type RepoSettingsFieldsFragment = {
     }> | null;
     buildBaronSettings: {
       __typename?: "BuildBaronSettings";
+      ticketCreateIssueType: string;
       ticketCreateProject: string;
       ticketSearchProjects?: Array<string> | null;
     };
@@ -4135,6 +4137,7 @@ export type ProjectPluginsSettingsFragment = {
   perfEnabled?: boolean | null;
   buildBaronSettings: {
     __typename?: "BuildBaronSettings";
+    ticketCreateIssueType: string;
     ticketCreateProject: string;
     ticketSearchProjects?: Array<string> | null;
   };
@@ -4164,6 +4167,7 @@ export type RepoPluginsSettingsFragment = {
   perfEnabled: boolean;
   buildBaronSettings: {
     __typename?: "BuildBaronSettings";
+    ticketCreateIssueType: string;
     ticketCreateProject: string;
     ticketSearchProjects?: Array<string> | null;
   };
@@ -4272,6 +4276,7 @@ export type ProjectEventSettingsFragment = {
     }> | null;
     buildBaronSettings: {
       __typename?: "BuildBaronSettings";
+      ticketCreateIssueType: string;
       ticketCreateProject: string;
       ticketSearchProjects?: Array<string> | null;
     };
@@ -5082,6 +5087,19 @@ export type ScheduleUndispatchedBaseTasksMutation = {
     id: string;
     status: string;
   }> | null;
+};
+
+export type SetLastRevisionMutationVariables = Exact<{
+  projectIdentifier: Scalars["String"]["input"];
+  revision: Scalars["String"]["input"];
+}>;
+
+export type SetLastRevisionMutation = {
+  __typename?: "Mutation";
+  setLastRevision: {
+    __typename?: "SetLastRevisionPayload";
+    mergeBaseRevision: string;
+  };
 };
 
 export type SetPatchPriorityMutationVariables = Exact<{
@@ -6720,6 +6738,7 @@ export type ProjectEventLogsQuery = {
           }> | null;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
+            ticketCreateIssueType: string;
             ticketCreateProject: string;
             ticketSearchProjects?: Array<string> | null;
           };
@@ -6931,6 +6950,7 @@ export type ProjectEventLogsQuery = {
           }> | null;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
+            ticketCreateIssueType: string;
             ticketCreateProject: string;
             ticketSearchProjects?: Array<string> | null;
           };
@@ -7224,6 +7244,7 @@ export type ProjectSettingsQuery = {
       }> | null;
       buildBaronSettings: {
         __typename?: "BuildBaronSettings";
+        ticketCreateIssueType: string;
         ticketCreateProject: string;
         ticketSearchProjects?: Array<string> | null;
       };
@@ -7474,6 +7495,7 @@ export type RepoEventLogsQuery = {
           }> | null;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
+            ticketCreateIssueType: string;
             ticketCreateProject: string;
             ticketSearchProjects?: Array<string> | null;
           };
@@ -7685,6 +7707,7 @@ export type RepoEventLogsQuery = {
           }> | null;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
+            ticketCreateIssueType: string;
             ticketCreateProject: string;
             ticketSearchProjects?: Array<string> | null;
           };
@@ -7901,6 +7924,7 @@ export type RepoSettingsQuery = {
       }> | null;
       buildBaronSettings: {
         __typename?: "BuildBaronSettings";
+        ticketCreateIssueType: string;
         ticketCreateProject: string;
         ticketSearchProjects?: Array<string> | null;
       };
@@ -8018,6 +8042,24 @@ export type RepoSettingsQuery = {
       adminOnlyVars: Array<string>;
       privateVars: Array<string>;
       vars?: { [key: string]: any } | null;
+    } | null;
+  };
+};
+
+export type RepotrackerErrorQueryVariables = Exact<{
+  projectIdentifier: Scalars["String"]["input"];
+}>;
+
+export type RepotrackerErrorQuery = {
+  __typename?: "Query";
+  project: {
+    __typename?: "Project";
+    branch: string;
+    id: string;
+    repotrackerError?: {
+      __typename?: "RepotrackerError";
+      exists: boolean;
+      invalidRevision: string;
     } | null;
   };
 };
@@ -8624,7 +8666,7 @@ export type UserPatchesQuery = {
 };
 
 export type UserProjectSettingsPermissionsQueryVariables = Exact<{
-  [key: string]: never;
+  projectIdentifier: Scalars["String"]["input"];
 }>;
 
 export type UserProjectSettingsPermissionsQuery = {
@@ -8632,7 +8674,11 @@ export type UserProjectSettingsPermissionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
-    permissions: { __typename?: "Permissions"; canCreateProject: boolean };
+    permissions: {
+      __typename?: "Permissions";
+      canCreateProject: boolean;
+      projectPermissions: { __typename?: "ProjectPermissions"; edit: boolean };
+    };
   };
 };
 

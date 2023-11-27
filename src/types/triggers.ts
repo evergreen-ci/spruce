@@ -22,6 +22,7 @@ export enum TriggerType {
   FAMILY_SUCCESS = "family-success",
   RUNTIME_CHANGE = "runtime-change",
   EXCEEDS_DURATION = "exceeds-duration",
+  SUCCESSFUL_EXCEEDS_DURATION = "successful-exceeds-duration",
   TASK_STARTED = "task-started",
   TASK_FAILED_OR_BLOCKED = "task-failed-or-blocked",
   REGRESSION = "regression",
@@ -67,6 +68,7 @@ export enum ProjectTriggers {
   PREVIOUS_PASSING_TASK_FAILS = "previous-passing-task-fails",
   PREVIOUS_PASSING_TEST_FAILS = "previous-passing-test-fails",
   TASK_EXCEEDS_DURATION = "project-task-exceeds-duration",
+  SUCCESSFUL_TASK_EXCEEDS_DURATION = "successful-project-task-exceeds-duration",
   SUCCESSFUL_TASK_RUNTIME_CHANGES = "successful-task-runtime-change",
 }
 
