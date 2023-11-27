@@ -4,6 +4,7 @@ import { PodEventsQuery } from "gql/generated/types";
 import { PodEvent } from "types/pod";
 import { Unpacked } from "types/utils";
 import { reportError } from "utils/errorReporting";
+
 interface EventCopyProps {
   event: Unpacked<PodEventsQuery["pod"]["events"]["eventLogEntries"]>;
 }
