@@ -17,6 +17,7 @@ export const getColumnTreeSelectFilterProps = ({
   onConfirm = () => {},
   tData,
 }: TreeSelectFilterProps) => ({
+  enableColumnFilter: false,
   meta: {
     filterComponent: ({ column }) => {
       const filteredOptions = tData.filter(
@@ -59,6 +60,7 @@ export const getColumnInputFilterProps = ({
   onConfirm = () => {},
   placeholder,
 }: InputFilterProps) => ({
+  enableColumnFilter: false,
   meta: {
     filterComponent: ({ column }) => (
       <TableSearchPopover

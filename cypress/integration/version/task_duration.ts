@@ -29,17 +29,17 @@ describe("Task Duration Tab", () => {
       // Apply status filter.
       cy.dataCy("status-filter-popover").click();
       cy.dataCy("tree-select-options").within(() =>
-        cy.contains("Running").click({ force: true })
+        cy.contains("Succeeded").click({ force: true })
       );
-      cy.dataCy("task-duration-table-row").should("have.length", 2);
+      cy.dataCy("task-duration-table-row").should("have.length", 10);
       cy.location("search").should(
         "include",
-        `duration=DESC&page=0&statuses=started`
+        `duration=DESC&page=0&statuses=success`
       );
       // Clear status filter.
       cy.dataCy("status-filter-popover").click();
       cy.dataCy("tree-select-options").within(() =>
-        cy.contains("Running").click({ force: true })
+        cy.contains("Succeeded").click({ force: true })
       );
       cy.location("search").should("include", `duration=DESC&page=0`);
     });
@@ -74,8 +74,10 @@ describe("Task Duration Tab", () => {
         .first()
         .should("contain", longestTask);
       cy.dataCy("duration-sort-icon").click();
+      cy.location("search").should("not.include", "duration");
+      cy.dataCy("duration-sort-icon").click();
       cy.location("search").should("include", "duration=ASC");
-      const shortestTask = "generate-lint";
+      const shortestTask = "test-auth";
       cy.contains(shortestTask).should("be.visible");
       cy.dataCy("task-duration-table-row")
         .first()
@@ -84,6 +86,8 @@ describe("Task Duration Tab", () => {
 
     it("clearing all filters resets to the default sort", () => {
       cy.visit(TASK_DURATION_ROUTE);
+      cy.dataCy("duration-sort-icon").click();
+      cy.location("search").should("not.include", "duration");
       cy.dataCy("duration-sort-icon").click();
       cy.location("search").should("include", "duration=ASC");
       cy.contains("Clear all filters").click();

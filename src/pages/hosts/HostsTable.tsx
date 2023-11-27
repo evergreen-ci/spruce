@@ -54,7 +54,7 @@ export const HostsTable: React.FC<Props> = ({
     setSelectedHosts(selectedHosts);
   };
 
-  const updateUrl = (filterState: ColumnFiltersState) => {
+  const updateFilters = (filterState: ColumnFiltersState) => {
     const updatedParams = { page: "0" };
 
     filterState.forEach(({ id, value }) => {
@@ -83,7 +83,7 @@ export const HostsTable: React.FC<Props> = ({
     onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
       setFilters,
       (updatedState) => {
-        updateUrl(updatedState);
+        updateFilters(updatedState);
         table.resetRowSelection();
       }
     ),
