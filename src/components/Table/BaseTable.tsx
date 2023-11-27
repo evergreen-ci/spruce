@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
 import {
   Cell,
@@ -12,13 +13,15 @@ import {
   type TableProps,
   TableHead,
 } from "@leafygreen-ui/table";
+import TableLoader from "./TableLoader";
 
 type SpruceTableProps = {
   "data-cy-row"?: string;
   "data-cy-table"?: string;
   emptyComponent?: React.ReactNode;
   loading?: boolean;
-  loadingComponent?: React.ReactNode;
+  /** estimated number of rows the table will have */
+  loadingRows?: number;
 };
 
 export const BaseTable = <T extends LGRowData>({
@@ -26,12 +29,12 @@ export const BaseTable = <T extends LGRowData>({
   "data-cy-table": dataCyTable,
   emptyComponent,
   loading,
-  loadingComponent,
+  loadingRows = 5,
   table,
   ...args
 }: SpruceTableProps & TableProps<T>) => (
   <>
-    <Table data-cy={dataCyTable} table={table} {...args}>
+    <StyledTable data-cy={dataCyTable} table={table} {...args}>
       <TableHead>
         {table.getHeaderGroups().map((headerGroup) => (
           <HeaderRow key={headerGroup.id}>
@@ -55,6 +58,12 @@ export const BaseTable = <T extends LGRowData>({
         ))}
       </TableHead>
       <TableBody>
+        {loading && (
+          <TableLoader
+            numColumns={table.getAllColumns().length}
+            numRows={loadingRows}
+          />
+        )}
         {table.getRowModel().rows.map((row) => (
           <Row
             key={row.id}
@@ -98,13 +107,14 @@ export const BaseTable = <T extends LGRowData>({
           </Row>
         ))}
       </TableBody>
-    </Table>
+    </StyledTable>
+
     {!loading &&
       table.getRowModel().rows.length === 0 &&
       (emptyComponent || "No data to display")}
-    {/* TODO: Re-evaluate loading state in DEVPROD-1967. */}
-    {loading &&
-      table.getRowModel().rows.length === 0 &&
-      (loadingComponent || "Loading...")}
   </>
 );
+
+const StyledTable = styled(Table)`
+  transition: none !important;
+`;

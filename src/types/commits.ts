@@ -17,6 +17,7 @@ export enum ChartToggleQueryParams {
 export enum MainlineCommitQueryParams {
   Requester = "requester",
   SkipOrderNumber = "skipOrderNumber",
+  Revision = "revision",
 }
 
 export enum ChartTypes {

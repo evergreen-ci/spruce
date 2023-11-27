@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Cookies from "js-cookie";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
-import { ProjectBanner } from "components/Banners";
+import { ProjectBanner, RepotrackerBanner } from "components/Banners";
 import FilterBadges, {
   useFilterBadgeQueryParams,
 } from "components/FilterBadges";
@@ -107,7 +107,14 @@ const Commits = () => {
   const skipOrderNumberParam = getString(
     parsed[MainlineCommitQueryParams.SkipOrderNumber]
   );
-  const skipOrderNumber = parseInt(skipOrderNumberParam, 10) || undefined;
+  const revisionParam = getString(parsed[MainlineCommitQueryParams.Revision]);
+
+  const parsedSkipNum = parseInt(skipOrderNumberParam, 10);
+  const skipOrderNumber = Number.isNaN(parsedSkipNum)
+    ? undefined
+    : parsedSkipNum;
+  const revision = revisionParam.length ? revisionParam : undefined;
+
   const filterState = {
     statuses: statusFilters,
     variants: variantFilters,
@@ -115,22 +122,25 @@ const Commits = () => {
     requesters: requesterFilters,
     view: viewFilter || ProjectHealthView.Failed,
   };
+
   const variables = getMainlineCommitsQueryVariables({
     mainlineCommitOptions: {
       projectIdentifier,
       skipOrderNumber,
       limit,
+      revision,
     },
     filterState,
   });
 
   const { hasFilters, hasTasks } = getFilterStatus(filterState);
 
-  const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
+  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
   >(MAINLINE_COMMITS, {
     skip: !projectIdentifier || isResizing,
+    errorPolicy: "all",
     fetchPolicy: "cache-and-network",
     variables,
     pollInterval: DEFAULT_POLL_INTERVAL,
@@ -168,6 +178,7 @@ const Commits = () => {
   return (
     <PageWrapper>
       <ProjectBanner projectIdentifier={projectIdentifier} />
+      <RepotrackerBanner projectIdentifier={projectIdentifier} />
       <PageContainer>
         <HeaderWrapper>
           <ElementWrapper width="35">
@@ -220,7 +231,7 @@ const Commits = () => {
         <div ref={ref}>
           <CommitsWrapper
             versions={versions}
-            error={error}
+            revision={revision}
             isLoading={
               (loading && !versions) || !projectIdentifier || isResizing
             }

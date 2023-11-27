@@ -113,6 +113,7 @@ const projectEventsQuery: ProjectEventLogsQuery = {
               ticketCreateProject: "EVG",
               ticketSearchProjects: ["EVG"],
               __typename: "BuildBaronSettings",
+              ticketCreateIssueType: "",
             },
             taskAnnotationSettings: {
               jiraCustomFields: null,
@@ -198,6 +199,7 @@ const projectEventsQuery: ProjectEventLogsQuery = {
               ticketCreateProject: "EVG",
               ticketSearchProjects: ["EVG"],
               __typename: "BuildBaronSettings",
+              ticketCreateIssueType: "",
             },
             taskAnnotationSettings: {
               jiraCustomFields: null,

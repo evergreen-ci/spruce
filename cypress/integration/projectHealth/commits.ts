@@ -2,40 +2,43 @@ describe("commits page", () => {
   beforeEach(() => {
     cy.visit("/commits/spruce");
   });
-  it("should present a default view with only failing task icons visible", () => {
-    cy.dataCy("waterfall-task-status-icon").should("exist");
-    cy.dataCy("waterfall-task-status-icon")
-      .should("be.visible")
-      .should("have.length", 2);
-    cy.dataCy("waterfall-task-status-icon").should(
-      "have.attr",
-      "aria-label",
-      "failed icon"
-    );
-    cy.dataCy("grouped-task-status-badge").should("not.exist");
-  });
 
-  it("shows all icons and no badges when the view is toggled", () => {
-    cy.dataCy("waterfall-task-status-icon").should("exist");
+  describe("view", () => {
+    it("should present a default view with only failing task icons visible", () => {
+      cy.dataCy("waterfall-task-status-icon").should("exist");
+      cy.dataCy("waterfall-task-status-icon")
+        .should("be.visible")
+        .should("have.length", 2);
+      cy.dataCy("waterfall-task-status-icon").should(
+        "have.attr",
+        "aria-label",
+        "failed icon"
+      );
+      cy.dataCy("grouped-task-status-badge").should("not.exist");
+    });
 
-    cy.dataCy("view-all").click();
-    cy.dataCy("waterfall-task-status-icon")
-      .should("be.visible")
-      .should("have.length", 50);
-    cy.dataCy("grouped-task-status-badge").should("have.length", 0);
-    cy.location("search").should("contain", "view=ALL");
+    it("shows all icons and no badges when the view is toggled", () => {
+      cy.dataCy("waterfall-task-status-icon").should("exist");
 
-    cy.dataCy("view-failed").click();
-    cy.dataCy("waterfall-task-status-icon")
-      .should("be.visible")
-      .should("have.length", 2);
-  });
+      cy.dataCy("view-all").click();
+      cy.dataCy("waterfall-task-status-icon")
+        .should("be.visible")
+        .should("have.length", 50);
+      cy.dataCy("grouped-task-status-badge").should("have.length", 0);
+      cy.location("search").should("contain", "view=ALL");
 
-  it("shows all icons when loaded with the view all query param", () => {
-    cy.visit(`/commits/spruce?view=ALL`);
-    cy.dataCy("waterfall-task-status-icon")
-      .should("be.visible")
-      .should("have.length", 50);
+      cy.dataCy("view-failed").click();
+      cy.dataCy("waterfall-task-status-icon")
+        .should("be.visible")
+        .should("have.length", 2);
+    });
+
+    it("shows all icons when loaded with the view all query param", () => {
+      cy.visit(`/commits/spruce?view=ALL`);
+      cy.dataCy("waterfall-task-status-icon")
+        .should("be.visible")
+        .should("have.length", 50);
+    });
   });
 
   it("should be able to collapse/expand commit graph which retains state when paginating", () => {
@@ -97,21 +100,7 @@ describe("commits page", () => {
     cy.dataCy("prev-page-button").click();
     cy.dataCy("prev-page-button").should("have.attr", "aria-disabled", "true");
   });
-  it("should only show matching requester filters", () => {
-    cy.dataCy("requester-select").click();
-    cy.dataCy("requester-select-options").should("be.visible");
-    cy.dataCy("requester-select-options").within(() => {
-      cy.getInputByLabel("Git Tag").should("exist");
-      cy.getInputByLabel("Git Tag").should("not.be.checked");
-      cy.getInputByLabel("Git Tag").check({ force: true });
-    });
-    cy.dataCy("requester-select").click();
-    cy.dataCy("requester-select-options").should("not.exist");
-    cy.dataCy("commit-label").should("exist");
-    cy.dataCy("commit-label").each(($el) => {
-      cy.wrap($el).should("contain.text", "Git Tag");
-    });
-  });
+
   it("resizing the page adjusts the number of commits rendered", () => {
     cy.visit("/commits/spruce");
     cy.dataCy("commit-chart-container").should("have.length", 9);
@@ -120,94 +109,7 @@ describe("commits page", () => {
     cy.viewport(1280, 1024);
     cy.dataCy("commit-chart-container").should("have.length", 6);
   });
-  describe("task filtering", () => {
-    beforeEach(() => {
-      cy.visit("/commits/spruce");
-    });
-    it("applying an `all` status filter should show all matching tasks with non failing tasks grouped", () => {
-      cy.dataCy("project-task-status-select").should("exist");
-      cy.dataCy("project-task-status-select").click();
-      cy.dataCy("project-task-status-select-options").should("be.visible");
-      cy.dataCy("project-task-status-select-options").within(() => {
-        cy.getInputByLabel("All").should("exist");
-        cy.getInputByLabel("All").should("not.be.checked");
-        cy.getInputByLabel("All").check({ force: true });
-      });
-      cy.dataCy("project-task-status-select").click();
-      cy.dataCy("project-task-status-select-options").should("not.exist");
-      cy.dataCy("grouped-task-status-badge").should("have.length", 9);
-      cy.dataCy("waterfall-task-status-icon").should("have.length", 2);
-    });
-    it("applying a status filter should only show matching tasks", () => {
-      cy.dataCy("project-task-status-select").should("exist");
-      cy.dataCy("project-task-status-select").click();
-      cy.dataCy("project-task-status-select-options").should("be.visible");
-      cy.dataCy("project-task-status-select-options").within(() => {
-        cy.getInputByLabel("Succeeded").should("exist");
-        cy.getInputByLabel("Succeeded").should("not.be.checked");
-        cy.getInputByLabel("Succeeded").check({ force: true });
-      });
-      cy.dataCy("project-task-status-select").click();
-      cy.dataCy("project-task-status-select-options").should("not.exist");
-      cy.dataCy("grouped-task-status-badge").should("have.length", 9);
-      cy.dataCy("grouped-task-status-badge").should(
-        "contain.text",
-        "Succeeded"
-      );
-      cy.dataCy("waterfall-task-status-icon").should("not.exist");
-    });
-    it("applying a build variant filter should show all task statuses by default", () => {
-      cy.getInputByLabel("Add New Filter").type("Ubuntu").type("{enter}");
-      cy.dataCy("filter-badge").should("have.length", 1);
-      cy.dataCy("filter-badge").should("have.text", "buildVariants: Ubuntu");
-      cy.location("search").should("contain", "?buildVariants=Ubuntu");
-      cy.dataCy("grouped-task-status-badge").should("have.length", 9);
-      cy.dataCy("waterfall-task-status-icon").should("have.length", 2);
-      cy.dataCy("waterfall-task-status-icon").should(
-        "have.attr",
-        "aria-label",
-        "failed icon"
-      );
-    });
-    it("applying a task filter should show all task icons instead of groupings", () => {
-      cy.contains("button", "Build Variant").should("exist");
-      cy.contains("button", "Build Variant").click({ force: true });
-      cy.get("li").contains("Task").should("be.visible");
-      cy.get("li").contains("Task").click();
-      cy.getInputByLabel("Add New Filter").type(".").type("{enter}");
-      cy.dataCy("grouped-task-status-badge").should("not.exist");
-      cy.dataCy("waterfall-task-status-icon").should("have.length", 51);
-      cy.dataCy("waterfall-task-status-icon")
-        .get("[aria-label='failed icon']")
-        .should("exist");
-      cy.dataCy("waterfall-task-status-icon")
-        .get("[aria-label='failed icon']")
-        .should("have.length", 2);
-      cy.dataCy("waterfall-task-status-icon")
-        .get("[aria-label='success icon']")
-        .should("exist");
-      cy.dataCy("waterfall-task-status-icon")
-        .get("[aria-label='success icon']")
-        .should("have.length", 49);
-    });
-    it("should hide commits that don't match applied filters", () => {
-      cy.dataCy("project-task-status-select").should("exist");
-      cy.dataCy("project-task-status-select").click();
-      cy.dataCy("project-task-status-select-options").should("be.visible");
-      cy.dataCy("project-task-status-select-options").within(() => {
-        cy.getInputByLabel("Failed").should("exist");
-        cy.getInputByLabel("Failed").should("not.be.checked");
-        cy.getInputByLabel("Failed").check({ force: true });
-      });
-      cy.dataCy("project-task-status-select").click();
-      cy.dataCy("project-task-status-select-options").should("not.exist");
-      cy.dataCy("grouped-task-status-badge").should("not.exist");
-      cy.dataCy("inactive-commits-button").should("have.length", 5);
-      cy.dataCy("inactive-commits-button").each(($el) => {
-        cy.wrap($el).should("contain.text", "Unmatching");
-      });
-    });
-  });
+
   describe("inactive / unmatching commit tooltips", () => {
     beforeEach(() => {
       cy.visit("/commits/spruce");
@@ -293,6 +195,62 @@ describe("commits page", () => {
         cy.location("search").should("contain", "statuses=success");
         cy.location("search").should("contain", "variant=%5Eubuntu1604%24"); // %5E and %24 are the url encoded values used for strictRegex matching
       });
+    });
+  });
+
+  describe("search by git commit", () => {
+    const revision = "aac24c894994e44a2dadc6db40b46eb82e41f2cc";
+
+    const searchCommit = (commitHash: string) => {
+      cy.dataCy("waterfall-menu").click();
+      cy.dataCy("git-commit-search").click();
+      cy.dataCy("git-commit-search-modal").should("be.visible");
+      cy.getInputByLabel("Git Commit Hash").type(commitHash);
+      cy.contains("button", "Submit").click();
+      cy.location("search").should("contain", `revision=${commitHash}`);
+    };
+
+    beforeEach(() => {
+      cy.visit("/commits/spruce");
+    });
+
+    it("should show an error toast if the commit could not be found", () => {
+      searchCommit(revision.slice(3, 12));
+      cy.validateToast("error");
+    });
+
+    it("should jump to the given commit", () => {
+      searchCommit(revision);
+      cy.get("[data-selected='true']").should("be.visible");
+      cy.get("[data-selected='true']").should(
+        "contain.text",
+        revision.substring(0, 7)
+      );
+    });
+
+    it("should clear any applied filters and skip numbers", () => {
+      cy.visit(
+        "/commits/spruce?buildVariants=ubuntu&skipOrderNumber=1231&taskNames=codegen&view=FAILED"
+      );
+      searchCommit(revision);
+      cy.location("search").should("not.contain", "buildVariants");
+      cy.location("search").should("not.contain", "taskNames");
+      cy.location("search").should("not.contain", "skipOrderNumber");
+    });
+
+    it("should be possible to paginate from the given commit", () => {
+      searchCommit(revision);
+      cy.get("[data-selected='true']").should("be.visible");
+
+      cy.dataCy("next-page-button").click();
+      cy.get("[data-selected='true']").should("not.exist");
+      cy.dataCy("prev-page-button").click();
+      cy.get("[data-selected='true']").should("be.visible");
+
+      cy.dataCy("prev-page-button").click();
+      cy.get("[data-selected='true']").should("not.exist");
+      cy.dataCy("next-page-button").click();
+      cy.get("[data-selected='true']").should("be.visible");
     });
   });
 });

@@ -16,6 +16,9 @@ export interface PluginsFormState {
     ticketCreateProject: {
       createProject: string;
     };
+    ticketCreateIssueType: {
+      issueType: string;
+    };
     fileTicketWebhook: {
       endpoint: string;
       secret: string;
