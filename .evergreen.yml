@@ -524,5 +524,5 @@ buildvariants:
 
 parameters:
   - key: cypress_spec
-    value: cypress/integration/*
+    value: "cypress/integration/*"
     description: Specify the Cypress spec files to run for user submitted patches running the e2e_test task.
