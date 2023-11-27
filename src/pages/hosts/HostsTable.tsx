@@ -71,6 +71,11 @@ export const HostsTable: React.FC<Props> = ({
     columns,
     containerRef: tableContainerRef,
     data: hosts ?? [],
+    defaultColumn: {
+      // Handle bug in sorting order
+      // https://github.com/TanStack/table/issues/4289
+      sortDescFirst: false,
+    },
     state: {
       columnFilters: filters,
       rowSelection,

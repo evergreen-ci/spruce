@@ -156,7 +156,8 @@ describe("Hosts page sorting", () => {
 
   it("Clicking the sort direction filter will set the page query param to 0", () => {
     cy.visit(`${hostsRoute}?distroId=arfarf&page=5`);
-    cy.get(tableRow).should("exist");
+    cy.dataCy("hosts-table").should("exist");
+    cy.dataCy("hosts-table").should("not.have.attr", "data-loading", "true");
     cy.get(distroSortControl).click();
     cy.location("search").should(
       "equal",
