@@ -74,7 +74,7 @@ describe("Version route", () => {
             .trigger("mouseover")
             .within(($el) => {
               // @ts-expect-error
-              expect($el.text()).to.contain("1Undispatched");
+              expect($el.text()).to.contain("1Succeeded");
             });
         });
       });
@@ -95,12 +95,12 @@ describe("Version route", () => {
           .and("equal", "true");
         cy.location("search").should(
           "include",
-          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=undispatched-umbrella,unscheduled,aborted,blocked&variant=%5Eubuntu1604%24"
+          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=success&variant=%5Eubuntu1604%24"
         );
 
         // Check that filter values have updated.
         cy.toggleTableFilter(2);
-        cy.getInputByLabel("Unscheduled")
+        cy.getInputByLabel("Succeeded")
           .should("have.attr", "aria-checked")
           .and("equal", "true");
 
@@ -116,11 +116,9 @@ describe("Version route", () => {
 
         // Apply name filter
         cy.toggleTableFilter(1);
-        cy.dataCy("taskname-input-wrapper")
-          .find("input")
-          .focus()
-          .type("a-task-name")
-          .type("{enter}");
+        cy.dataCy("taskname-input-wrapper").find("input").as("taskNameInput");
+        cy.get("@taskNameInput").focus();
+        cy.get("@taskNameInput").type("a-task-name{enter}");
 
         // name filter shouldn't be applied after clicking task status badge
         cy.dataCy("build-variants").within(() => {
@@ -128,7 +126,7 @@ describe("Version route", () => {
         });
         cy.location("search").should(
           "include",
-          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=undispatched-umbrella,unscheduled,aborted,blocked&variant=%5Eubuntu1604%24"
+          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=success&variant=%5Eubuntu1604%24"
         );
       });
     });
@@ -167,11 +165,9 @@ describe("Version route", () => {
 
         // Apply name filter
         cy.toggleTableFilter(1);
-        cy.dataCy("taskname-input-wrapper")
-          .find("input")
-          .focus()
-          .type("a-task-name")
-          .type("{enter}");
+        cy.dataCy("taskname-input-wrapper").find("input").as("taskNameInput");
+        cy.get("@taskNameInput").focus();
+        cy.get("@taskNameInput").type("a-task-name{enter}");
 
         // name filter shouldn't be applied after clicking build variant name
         cy.dataCy("build-variant-display-name").first().click();

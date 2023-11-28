@@ -78,10 +78,9 @@ Cypress.Commands.add("logout", () => {
 
 /* toggleTableFilter */
 Cypress.Commands.add("toggleTableFilter", (colNum: number) => {
-  cy.get(`.ant-table-thead > tr > :nth-child(${colNum})`)
-    .find("[role=button]")
-    .first()
-    .click();
+  const selector = `.ant-table-thead > tr > :nth-child(${colNum})`;
+  cy.get(selector).should("be.visible");
+  cy.get(selector).find("[role=button]").first().click();
   cy.get(":not(.ant-dropdown-hidden) > .ant-table-filter-dropdown").should(
     "be.visible"
   );
@@ -109,6 +108,7 @@ Cypress.Commands.add(
 Cypress.Commands.add(
   "selectLGOption",
   (label: string, option: string | RegExp) => {
+    cy.getInputByLabel(label).should("not.have.attr", "aria-disabled", "true");
     cy.getInputByLabel(label).click({ force: true }); // open select
     cy.get('[role="listbox"]').should("have.length", 1);
     cy.get('[role="listbox"]').within(() => {
@@ -123,6 +123,19 @@ Cypress.Commands.add("overwriteGQL", (operationName: string, body: any) => {
       req.reply((res) => {
         res.body = body;
       });
+    }
+  });
+});
+
+// TODO: Usage of openExpandableCard introduced in DEVPROD-2415 can be deleted after DEVPROD-2608
+Cypress.Commands.add("openExpandableCard", (cardTitle: string) => {
+  cy.dataCy("expandable-card-title")
+    .contains(cardTitle)
+    .closest("[role='button']")
+    .as("card-btn");
+  cy.get("@card-btn").then(($btn) => {
+    if ($btn.attr("aria-expanded") !== "true") {
+      cy.get("@card-btn").click();
     }
   });
 });

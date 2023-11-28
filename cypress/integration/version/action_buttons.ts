@@ -26,7 +26,7 @@ describe("Action Buttons", () => {
     });
   });
 
-  describe("Version dropdown options", { testIsolation: true }, () => {
+  describe("Version dropdown options", () => {
     beforeEach(() => {
       cy.visit(versionPath(patch));
       cy.dataCy("ellipsis-btn").click();
