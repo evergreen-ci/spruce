@@ -159,6 +159,7 @@ const columns = [
     accessorKey: "status",
     id: HostSortBy.Status,
     className: "cy-task-table-col-STATUS",
+    enableColumnFilter: true,
     enableSorting: true,
     meta: {
       treeSelect: {
