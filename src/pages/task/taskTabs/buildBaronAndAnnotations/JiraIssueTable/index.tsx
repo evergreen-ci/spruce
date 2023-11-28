@@ -18,9 +18,9 @@ const JiraIssueTable: React.FC<JiraIssueTableProps> = ({ bbData }) => {
   return (
     <>
       <TicketsTitle>
-        Related tickets from Jira
+        Related tickets from JIRA
         <StyledLink data-cy="jira-search-link" href={jiraSearchLink}>
-          {"  "}(Jira Search)
+          {"  "}(JIRA Search)
         </StyledLink>
       </TicketsTitle>
       {/* build baron related jira tickets */}
