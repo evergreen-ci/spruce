@@ -8,6 +8,7 @@ import { usePreferencesAnalytics } from "analytics";
 import Popconfirm from "components/Popconfirm";
 import { WordBreak } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
+import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -118,6 +119,7 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
   return (
     <BaseTable
       data-cy="hosts-table"
+      emptyComponent={<TablePlaceholder glyph="Key" message="No keys saved." />}
       loading={loadingMyPublicKeys}
       shouldAlternateRowColor
       table={table}
