@@ -2,7 +2,6 @@ import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { AnnotationTicketRow } from "./AnnotationTicketRow";
 
 export default {
-  title: "Pages/Task/BuildBaron/AnnotationTicketRow",
   component: AnnotationTicketRow,
 } satisfies CustomMeta<typeof AnnotationTicketRow>;
 
