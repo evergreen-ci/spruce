@@ -13,7 +13,6 @@ export {
   useTableInputFilter,
   useTableCheckboxFilter,
 } from "hooks/useTableFilters";
-export { useUpdateUrlSortParamOnTableChange } from "./useUpdateUrlSortParamOnTableChange";
 export { usePrevious } from "./usePrevious";
 export { useDisableSpawnExpirationCheckbox } from "./useDisableSpawnExpirationCheckbox";
 export { useUpdateURLQueryParams } from "./useUpdateURLQueryParams";
