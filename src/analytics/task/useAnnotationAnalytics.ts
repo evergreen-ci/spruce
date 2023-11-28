@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
-import get from "lodash/get";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 import {
   BuildBaronQuery,
@@ -9,10 +8,9 @@ import {
   AnnotationEventDataQueryVariables,
 } from "gql/generated/types";
 import { ANNOTATION_EVENT_DATA, BUILD_BARON } from "gql/queries";
+import { useQueryParam } from "hooks/useQueryParam";
 import { RequiredQueryParams } from "types/task";
-import { queryString } from "utils";
 
-const { parseQueryString } = queryString;
 type Action =
   | { name: "Click Jira Summary Link" }
   | { name: "Build Baron File Ticket" }
@@ -29,10 +27,8 @@ type Action =
 
 export const useAnnotationAnalytics = () => {
   const { id } = useParams<{ id: string }>();
+  const [execution] = useQueryParam(RequiredQueryParams.Execution, 0);
 
-  const location = useLocation();
-  const parsed = parseQueryString(location.search);
-  const execution = Number(parsed[RequiredQueryParams.Execution]);
   const { data: eventData } = useQuery<
     AnnotationEventDataQuery,
     AnnotationEventDataQueryVariables
@@ -49,16 +45,12 @@ export const useAnnotationAnalytics = () => {
     }
   );
 
-  const annotation = get(eventData, "task.annotation", undefined);
-  const bbConfigured = get(
-    bbData,
-    "buildBaron.buildBaronConfigured",
-    undefined
-  );
+  const { annotation } = eventData?.task || {};
+  const { buildBaronConfigured } = bbData?.buildBaron || {};
 
   return useAnalyticsRoot<Action>("Annotations", {
     taskId: id,
     annotation,
-    bbConfigured,
+    bbConfigured: buildBaronConfigured,
   });
 };
