@@ -199,23 +199,22 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
         hasChildren={!!items?.length}
         data-cy={arrayDataCy}
       >
-        {items.length === 0 ? (
+        {items.length === 0 && placeholder && (
           <Placeholder>{placeholder}</Placeholder>
-        ) : (
-          items.map((p, i) => (
-            <ArrayItem
-              {...p}
-              key={p.key}
-              border={border}
-              title={
-                formData?.[i]?.displayTitle ??
-                uiSchema?.items?.["ui:displayTitle"]
-              }
-              topAlignDelete={topAlignDelete}
-              useExpandableCard={useExpandableCard}
-            />
-          ))
         )}
+        {items.map((p, i) => (
+          <ArrayItem
+            {...p}
+            key={p.key}
+            border={border}
+            title={
+              formData?.[i]?.displayTitle ??
+              uiSchema?.items?.["ui:displayTitle"]
+            }
+            topAlignDelete={topAlignDelete}
+            useExpandableCard={useExpandableCard}
+          />
+        ))}
         {buttonAtEnd && (
           <AddButtonContainer>
             {addButton}

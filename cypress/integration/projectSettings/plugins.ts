@@ -3,10 +3,9 @@ import { clickSave } from "../../utils";
 
 describe("Plugins", () => {
   const patchPage = "version/5ecedafb562343215a7ff297";
-  beforeEach(() => {
+  it("Should set an external link to render on patch metadata panel and then unset it to revert the changes", () => {
+    // Set the external link
     cy.visit(getPluginsRoute(projectUseRepoEnabled));
-  });
-  it("Should set an external link to render on patch metadata panel", () => {
     cy.dataCy("requesters-input").click();
     cy.getInputByLabel("Commits").check({ force: true });
     cy.getInputByLabel("Patches").check({ force: true });
@@ -24,8 +23,9 @@ describe("Plugins", () => {
       "href",
       "https://example.com/5ecedafb562343215a7ff297"
     );
-  });
-  it("Unsetting the external link should remove it from the patch metadata panel", () => {
+
+    // Unset the external link
+    cy.visit(getPluginsRoute(projectUseRepoEnabled));
     cy.dataCy("requesters-input").click();
     cy.getInputByLabel("Commits").uncheck({ force: true });
     cy.getInputByLabel("Patches").uncheck({ force: true });

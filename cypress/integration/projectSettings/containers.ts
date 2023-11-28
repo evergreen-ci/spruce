@@ -14,7 +14,8 @@ describe("Containers", () => {
   it("shouldn't be able to save anything if no changes were made", () => {
     saveButtonEnabled(false);
   });
-  it("should be able to add a container configuration and save it", () => {
+  it("should be able to add and save container configuration and then delete it", () => {
+    // Add configuration
     cy.dataCy("add-button").should("be.visible");
     cy.dataCy("add-button").trigger("mouseover").click();
     cy.dataCy("container-size-row").should("exist");
@@ -31,8 +32,8 @@ describe("Containers", () => {
     cy.dataCy("save-settings-button").scrollIntoView();
     clickSave();
     cy.validateToast("success", "Successfully updated project");
-  });
-  it("should be able to delete a container configuration", () => {
+
+    // Delete configuration
     cy.dataCy("container-size-row").should("exist");
     cy.dataCy("delete-item-button").should("be.visible");
     cy.dataCy("delete-item-button").should("not.be.disabled");
