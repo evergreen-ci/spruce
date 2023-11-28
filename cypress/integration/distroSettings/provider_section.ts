@@ -111,11 +111,12 @@ describe("provider section", () => {
     });
 
     it("successfully updates ec2 fleet provider fields", () => {
+      cy.openExpandableCard("us-east-1");
       cy.dataCy("provider-select").contains("EC2 Fleet");
 
       // Correct section is displayed.
-      cy.dataCy("ec2-fleet-provider-settings").should("exist");
-      cy.dataCy("region-select").contains("us-east-1");
+      cy.dataCy("ec2-fleet-provider-settings").should("be.visible");
+      cy.dataCy("region-select").contains("us-east-1").should("be.visible");
 
       // Change field values.
       cy.selectLGOption("Region", "us-west-1");
@@ -142,11 +143,13 @@ describe("provider section", () => {
     });
 
     it("can add and delete region settings", () => {
+      cy.openExpandableCard("us-east-1");
       cy.dataCy("ec2-fleet-provider-settings").should("exist");
 
       // Add item for new region.
       cy.contains("button", "Add region settings").click();
       cy.contains("button", "Add region settings").should("not.exist");
+      cy.openExpandableCard("New AWS Region");
 
       // Save new region.
       cy.selectLGOption("Region", "us-west-1");
@@ -181,10 +184,9 @@ describe("provider section", () => {
       cy.contains("Default VPC Subnet ID").should("not.exist");
       cy.contains("VPC Subnet Prefix").should("not.exist");
     });
-
     it("successfully updates ec2 on-demand provider fields", () => {
+      cy.openExpandableCard("us-east-1");
       cy.dataCy("provider-select").contains("EC2 On-Demand");
-
       // Correct section is displayed.
       cy.dataCy("ec2-on-demand-provider-settings").should("exist");
       cy.dataCy("region-select").contains("us-east-1");
@@ -224,6 +226,7 @@ describe("provider section", () => {
       // Add item for new region.
       cy.contains("button", "Add region settings").click();
       cy.contains("button", "Add region settings").should("not.exist");
+      cy.openExpandableCard("New AWS Region");
 
       // Save new region.
       cy.selectLGOption("Region", "us-west-1");

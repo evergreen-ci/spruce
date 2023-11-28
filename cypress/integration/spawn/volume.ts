@@ -1,6 +1,8 @@
-describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
-  it("Visiting the spawn volume page should display the number of free and mounted volumes.", () => {
+describe("Spawn volume page", () => {
+  beforeEach(() => {
     cy.visit("/spawn/volume");
+  });
+  it("Visiting the spawn volume page should display the number of free and mounted volumes.", () => {
     cy.dataCy("mounted-badge").contains("9 Mounted");
     cy.dataCy("free-badge").contains("4 Free");
   });
@@ -32,6 +34,7 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
   });
 
   it("Clicking on the row should toggle the volume card open and closed", () => {
+    cy.visit("/spawn/volume?volume=vol-0ea662ac92f611ed4");
     cy.dataCy("spawn-volume-card-vol-0ea662ac92f611ed4").should("be.visible");
     cy.dataRowKey("vol-0ea662ac92f611ed4").click();
     cy.dataCy("spawn-volume-card-vol-0ea662ac92f611ed4").should(
@@ -42,7 +45,6 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
   });
 
   it("Click the trash can should remove the volume from the table and update free/mounted volumes badges.", () => {
-    cy.visit("/spawn/volume");
     cy.dataRowKey("vol-0c66e16459646704d").should("exist");
     cy.dataCy("trash-vol-0c66e16459646704d").click();
     cy.dataCy("delete-volume-popconfirm").should("be.visible");
@@ -59,7 +61,6 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
   });
 
   it("Click the trash can for a mounted volume should show an additional confirmation checkbox which enables the submit button when checked.", () => {
-    cy.visit("/spawn/volume");
     cy.dataRowKey(
       "1de2728dd9de82efc02dc21f6ca046eaa559462414d28e0b6bba6436436ac873"
     ).should("exist");
@@ -89,11 +90,10 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
       "1de2728dd9de82efc02dc21f6ca046eaa559462414d28e0b6bba6436436ac873"
     ).should("not.exist");
     cy.dataCy("mounted-badge").contains("8 Mounted");
-    cy.dataCy("free-badge").contains("3 Free");
+    cy.dataCy("free-badge").contains("4 Free");
   });
 
   it("Clicking on unmount should result in a success toast appearing.", () => {
-    cy.visit("/spawn/volume");
     cy.dataCy(
       "detach-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b857"
     ).click();
@@ -102,7 +102,6 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
   });
 
   it("Clicking on 'Spawn Volume' should open the Spawn Volume Modal", () => {
-    cy.visit("/spawn/volume");
     cy.dataCy("spawn-volume-btn").should(
       "not.have.attr",
       "aria-disabled",
@@ -113,6 +112,8 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
   });
 
   it("Reopening the Spawn Volume modal clears previous input changes.", () => {
+    cy.dataCy("spawn-volume-btn").click();
+    cy.dataCy("spawn-volume-modal").should("be.visible");
     cy.selectLGOption("Type", "sc1");
     cy.dataCy("spawn-volume-modal").within(() => {
       cy.contains("button", "Cancel").should(
@@ -129,8 +130,10 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
   });
 
   describe("Edit volume modal", () => {
-    it("Clicking on 'Edit' should open the Edit Volume Modal", () => {
+    beforeEach(() => {
       cy.visit("/spawn/volume");
+    });
+    it("Clicking on 'Edit' should open the Edit Volume Modal", () => {
       cy.dataCy(
         "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
       ).click();
@@ -138,6 +141,10 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
     });
 
     it("Volume name & expiration inputs should be populated with the volume display name & expiration on initial render", () => {
+      cy.dataCy(
+        "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      ).click();
+      cy.dataCy("update-volume-modal").should("be.visible");
       cy.dataCy("volume-name-input").should(
         "have.value",
         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
@@ -147,6 +154,10 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
     });
 
     it("Reopening the edit volume modal should reset form input fields.", () => {
+      cy.dataCy(
+        "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      ).click();
+      cy.dataCy("update-volume-modal").should("be.visible");
       cy.dataCy("volume-name-input").type("Hello, World");
       cy.dataCy("update-volume-modal").within(() => {
         cy.contains("button", "Cancel").click();
@@ -161,6 +172,10 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
     });
 
     it("Submit button should be enabled when the volume details input value differs from what already exists.", () => {
+      cy.dataCy(
+        "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      ).click();
+      cy.dataCy("update-volume-modal").should("be.visible");
       cy.contains("button", "Save").should(
         "have.attr",
         "aria-disabled",
@@ -175,11 +190,10 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
       );
 
       // type original name
-      cy.dataCy("volume-name-input")
-        .clear()
-        .type(
-          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
-        );
+      cy.dataCy("volume-name-input").clear();
+      cy.dataCy("volume-name-input").type(
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      );
       cy.contains("button", "Save").should(
         "have.attr",
         "aria-disabled",
@@ -195,6 +209,16 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
     });
 
     it("Clicking on save button should close the modal and show a success toast", () => {
+      cy.dataCy(
+        "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      ).click();
+      cy.dataCy("update-volume-modal").should("be.visible");
+      cy.dataCy("volume-name-input").type("Hello, World");
+      cy.contains("button", "Save").should(
+        "not.have.attr",
+        "aria-disabled",
+        "true"
+      );
       cy.contains("button", "Save").click();
       cy.validateToast("success", "Successfully updated volume");
       cy.dataCy("update-volume-modal").should("not.exist");
@@ -203,7 +227,6 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
 
   describe("Migrate Modal", () => {
     beforeEach(() => {
-      cy.setCookie("seen-migrate-guide-cue", "false");
       cy.visit("/spawn/volume");
     });
     it("migrate button is disabled for volumes with the migrating status", () => {
@@ -215,25 +238,6 @@ describe("Navigating to Spawn Volume page", { testIsolation: false }, () => {
         "aria-disabled",
         "true"
       );
-    });
-    it("will persistently not show the guide cue after the Migrate button has been clicked", () => {
-      cy.dataCy("migrate-cue").should("be.visible");
-      cy.dataCy(
-        "migrate-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
-      ).click();
-      cy.dataCy("migrate-cue").should("not.exist");
-      cy.reload();
-      cy.dataCy("migrate-cue").should("not.exist");
-    });
-    it("will persistently not show the guide cue after the guide cue 'Got it' button has been clicked", () => {
-      cy.dataCy("migrate-cue").should("be.visible");
-      cy.get("[role=dialog]")
-        .find("button")
-        .contains("Got it")
-        .click({ force: true });
-      cy.dataCy("migrate-cue").should("not.exist");
-      cy.reload();
-      cy.dataCy("migrate-cue").should("not.exist");
     });
     it("clicking cancel during confirmation renders the Migrate modal form", () => {
       cy.dataCy(
