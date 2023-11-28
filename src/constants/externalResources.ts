@@ -34,10 +34,10 @@ export const windowsPasswordRulesURL =
   "https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc786468(v=ws.10)?redirectedfrom=MSDN";
 
 export const getJiraBugUrl = (jiraHost: string) =>
-  `https://${jiraHost}/secure/CreateIssueDetails!init.jspa?pid=12787&issuetype=1&priority=4&labels=user-feedback&description=Please%20note%20browser%20and%20OS%20when%20describing%20your%20issue.`;
+  `https://${jiraHost}/secure/CreateIssueDetails!init.jspa?pid=22786&issuetype=1&priority=4&labels=user-feedback&description=Please%20note%20browser%20and%20OS%20when%20describing%20your%20issue.`;
 
 export const getJiraImprovementUrl = (jiraHost: string) =>
-  `https://${jiraHost}/secure/CreateIssueDetails!init.jspa?pid=12787&issuetype=4&priority=4&labels=user-feedback`;
+  `https://${jiraHost}/secure/CreateIssueDetails!init.jspa?pid=22786&issuetype=4&priority=4&labels=user-feedback`;
 
 export const legacyRoutes = {
   distros: "/distros",
