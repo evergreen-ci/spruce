@@ -96,6 +96,12 @@ const cache = new InMemoryCache({
     User: {
       keyFields: ["userId"],
     },
+    UserSettings: {
+      keyFields: false,
+      merge(existing, incoming, { mergeObjects }) {
+        return mergeObjects(existing, incoming);
+      },
+    },
     Task: {
       keyFields: ["execution", "id"],
       fields: {
