@@ -17,7 +17,7 @@ const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
   <>
     <TicketsTitle>Create a New Ticket</TicketsTitle>
     <FileTicketButton taskId={taskId} execution={execution} />
-    {tickets?.length > 0 && (
+    {!!tickets?.length && (
       <>
         <TicketsTitle>Tickets Created From This Task</TicketsTitle>
         <CustomCreatedTicketsTable tickets={tickets} />
