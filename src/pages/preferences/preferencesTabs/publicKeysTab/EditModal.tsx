@@ -53,14 +53,9 @@ export const EditModal: React.FC<EditModalProps> = ({
         `There was an error editing the public key: ${error.message}`
       );
     },
-    onCompleted() {},
-    update(cache, { data }) {
-      cache.writeQuery<MyPublicKeysQuery, MyPublicKeysQueryVariables>({
-        query: MY_PUBLIC_KEYS,
-        data: { myPublicKeys: [...data.updatePublicKey] },
-      });
-    },
+    refetchQueries: ["MyPublicKeys"],
   });
+
   const [createPublicKey] = useMutation<
     CreatePublicKeyMutation,
     CreatePublicKeyMutationVariables
@@ -70,13 +65,7 @@ export const EditModal: React.FC<EditModalProps> = ({
         `There was an error creating the public key: ${error.message}`
       );
     },
-    onCompleted() {},
-    update(cache, { data }) {
-      cache.writeQuery<MyPublicKeysQuery, MyPublicKeysQueryVariables>({
-        query: MY_PUBLIC_KEYS,
-        data: { myPublicKeys: [...data.createPublicKey] },
-      });
-    },
+    refetchQueries: ["MyPublicKeys"],
   });
 
   const [keyName, setKeyName] = useState<string>();
