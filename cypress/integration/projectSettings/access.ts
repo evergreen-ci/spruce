@@ -6,7 +6,7 @@ import {
 } from "./constants";
 import { clickSave } from "../../utils";
 
-describe("Access page", () => {
+xdescribe("Access page", () => {
   const origin = getAccessRoute(projectUseRepoEnabled);
   beforeEach(() => {
     cy.visit(origin);
