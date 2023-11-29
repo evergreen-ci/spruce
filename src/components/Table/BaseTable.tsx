@@ -81,7 +81,8 @@ export const BaseTable = <T extends LGRowData>({
               </Cell>
             ))}
             {row.original.renderExpandedContent && (
-              <ExpandedContent row={row} />
+              // @ts-expect-error
+              <StyledExpandedContent row={row} />
             )}
             {row.subRows &&
               row.subRows.map((subRow) => (
@@ -117,4 +118,11 @@ export const BaseTable = <T extends LGRowData>({
 
 const StyledTable = styled(Table)`
   transition: none !important;
+`;
+
+const StyledExpandedContent = styled(ExpandedContent)`
+  // Allow expanded content containers to take up the full table width
+  [data-state="entered"] > div {
+    flex-grow: 1;
+  }
 `;

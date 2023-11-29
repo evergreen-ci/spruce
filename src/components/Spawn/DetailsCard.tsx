@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { SiderCard } from "components/styles";
+import Card from "@leafygreen-ui/card";
 import { size } from "constants/tokens";
 import { MyHost, TableVolume } from "types/spawn";
 
@@ -52,7 +52,8 @@ export const DetailsCard: React.FC<DetailsCardProps> = ({
   </CardContainer>
 );
 
-const CardContainer = styled(SiderCard)`
+const CardContainer = styled(Card)`
   width: 80%;
   padding: ${size.s} ${size.l};
+  margin: ${size.s} ${size.m};
 `;
