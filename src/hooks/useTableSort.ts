@@ -32,7 +32,7 @@ export const useTableSort = ({
         nextQueryParams[TableQueryParams.SortDir] = undefined;
         nextQueryParams[TableQueryParams.SortBy] = undefined;
       } else {
-        // TODO: For other tables that support multi-sort, we should be able to update this to handle a sorter array with more than one entry.
+        // TODO: For tables that support multi-sort, we should be able to update this to handle a sorter array with more than one entry.
         const { desc, id } = Array.isArray(sorter) ? sorter[0] : sorter;
         nextQueryParams[TableQueryParams.SortDir] = desc
           ? SortDirection.Desc

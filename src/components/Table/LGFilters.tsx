@@ -12,6 +12,9 @@ type TreeSelectFilterProps = {
   tData: TreeDataEntry[];
 };
 
+/*
+ * @deprecated Use react-table's onColumnFiltersChange prop.
+ */
 export const getColumnTreeSelectFilterProps = ({
   "data-cy": dataCy,
   onConfirm = () => {},
@@ -52,13 +55,14 @@ export const getColumnTreeSelectFilterProps = ({
 type InputFilterProps = {
   "data-cy"?: string;
   onConfirm?: ({ id, value }: { id: string; value: string }) => void;
-  placeholder?: string;
 };
 
+/*
+ * @deprecated Use react-table's onColumnFiltersChange prop.
+ */
 export const getColumnInputFilterProps = ({
   "data-cy": dataCy,
   onConfirm = () => {},
-  placeholder,
 }: InputFilterProps) => ({
   enableColumnFilter: false,
   meta: {
@@ -69,7 +73,6 @@ export const getColumnInputFilterProps = ({
           column.setFilterValue(newValue);
           onConfirm({ id: column.id, value: newValue });
         }}
-        placeholder={placeholder}
         value={column?.getFilterValue() ?? ""}
       />
     ),
@@ -94,6 +97,9 @@ type SortProps = {
   onToggle?: ({ id, value }: { id: string; value: string }) => void;
 };
 
+/*
+ * @deprecated Use react-table's onSortingChange prop.
+ */
 export const getColumnSortProps = ({
   "data-cy": dataCy,
   onToggle = () => {},
@@ -102,7 +108,6 @@ export const getColumnSortProps = ({
     sortComponent: ({ column }) => (
       <TableSortIcon
         data-cy={dataCy}
-        key={column.id}
         onToggle={(newValue) => {
           column.toggleSorting();
           onToggle({ id: column.id, value: newValue });

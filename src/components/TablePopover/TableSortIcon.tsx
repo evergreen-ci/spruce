@@ -43,7 +43,6 @@ export const TableSortIcon: React.FC<TableSortIconProps> = ({
     } else {
       update = undefined;
     }
-    console.log(value, update);
     onToggle(update);
   };
 

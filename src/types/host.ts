@@ -86,21 +86,18 @@ export enum HostsTableFilterParams {
   Statuses = "statuses",
 }
 
+export const mapQueryParamToId: Record<HostsTableFilterParams, HostSortBy> = {
+  [HostsTableFilterParams.HostId]: HostSortBy.Id,
+  [HostsTableFilterParams.DistroId]: HostSortBy.Distro,
+  [HostsTableFilterParams.Statuses]: HostSortBy.Status,
+  [HostsTableFilterParams.CurrentTaskId]: HostSortBy.CurrentTask,
+  [HostsTableFilterParams.StartedBy]: HostSortBy.Owner,
+} as const;
+
 export const mapIdToFilterParam: PartialRecord<
   HostSortBy,
   keyof HostsQueryVariables
-> = {
-  [HostSortBy.Id]: HostsTableFilterParams.HostId,
-  [HostSortBy.Distro]: HostsTableFilterParams.DistroId,
-  [HostSortBy.Status]: HostsTableFilterParams.Statuses,
-  [HostSortBy.CurrentTask]: HostsTableFilterParams.CurrentTaskId,
-  [HostSortBy.Owner]: HostsTableFilterParams.StartedBy,
-} as const;
-
-export const mapQueryParamToId: PartialRecord<
-  keyof HostsQueryVariables,
-  HostSortBy
-> = Object.entries(mapIdToFilterParam).reduce(
+> = Object.entries(mapQueryParamToId).reduce(
   (obj, [id, param]) => ({
     ...obj,
     [param]: id,
