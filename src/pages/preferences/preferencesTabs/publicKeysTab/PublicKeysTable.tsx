@@ -68,7 +68,7 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
       cell: ({ row }) => {
         const { key, name } = row.original;
         return (
-          <ButtonContainer className="w-[100px]">
+          <ButtonContainer>
             <Button
               size="small"
               data-cy="edit-btn"
@@ -118,7 +118,6 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
 
   return (
     <BaseTable
-      data-cy="hosts-table"
       emptyComponent={<TablePlaceholder glyph="Key" message="No keys saved." />}
       loading={loadingMyPublicKeys}
       shouldAlternateRowColor

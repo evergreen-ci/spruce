@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { PlusButton } from "components/Buttons";
+import { size } from "constants/tokens";
 import { EditModal, EditModalPropsState } from "./publicKeysTab/EditModal";
 import { PublicKeysTable } from "./publicKeysTab/PublicKeysTable";
 
@@ -41,5 +42,5 @@ const defaultEditModalProps = {
 };
 
 const TableContainer = styled.div`
-  margin-top: 48px;
+  margin-top: ${size.m};
 `;
