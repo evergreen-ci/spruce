@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -55,54 +55,57 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
     refetchQueries: ["MyPublicKeys"],
   });
 
-  const columns = [
-    {
-      header: "Name",
-      accessorKey: "name",
-      cell: ({ getValue }) => (
-        <WordBreak data-cy="table-key-name">{getValue()}</WordBreak>
-      ),
-    },
-    {
-      header: "Actions",
-      cell: ({ row }) => {
-        const { key, name } = row.original;
-        return (
-          <ButtonContainer>
-            <Button
-              size="small"
-              data-cy="edit-btn"
-              leftGlyph={<Icon glyph="Edit" />}
-              onClick={() => {
-                setEditModalProps({
-                  initialPublicKey: { key, name },
-                  visible: true,
-                });
-              }}
-            />
-            <Popconfirm
-              align="right"
-              onConfirm={() => {
-                sendEvent({ name: "Delete public key" });
-                removePublicKey({ variables: { keyName: name } });
-              }}
-              trigger={
-                <Button
-                  size="small"
-                  data-cy="delete-btn"
-                  disabled={loadingRemovePublicKey}
-                >
-                  <Icon glyph="Trash" />
-                </Button>
-              }
-            >
-              Delete this public key?
-            </Popconfirm>
-          </ButtonContainer>
-        );
+  const columns = useMemo(
+    () => [
+      {
+        header: "Name",
+        accessorKey: "name",
+        cell: ({ getValue }) => (
+          <WordBreak data-cy="table-key-name">{getValue()}</WordBreak>
+        ),
       },
-    },
-  ];
+      {
+        header: "Actions",
+        cell: ({ row }) => {
+          const { key, name } = row.original;
+          return (
+            <ButtonContainer>
+              <Button
+                size="small"
+                data-cy="edit-btn"
+                leftGlyph={<Icon glyph="Edit" />}
+                onClick={() => {
+                  setEditModalProps({
+                    initialPublicKey: { key, name },
+                    visible: true,
+                  });
+                }}
+              />
+              <Popconfirm
+                align="right"
+                onConfirm={() => {
+                  sendEvent({ name: "Delete public key" });
+                  removePublicKey({ variables: { keyName: name } });
+                }}
+                trigger={
+                  <Button
+                    size="small"
+                    data-cy="delete-btn"
+                    disabled={loadingRemovePublicKey}
+                  >
+                    <Icon glyph="Trash" />
+                  </Button>
+                }
+              >
+                Delete this public key?
+              </Popconfirm>
+            </ButtonContainer>
+          );
+        },
+      },
+    ],
+    [loadingRemovePublicKey, removePublicKey, sendEvent, setEditModalProps]
+  );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<PublicKey>({
