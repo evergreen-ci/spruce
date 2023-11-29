@@ -49,7 +49,7 @@ export const gqlToForm = ((data) => {
       isVirtualWorkStation,
       icecreamSchedulerHost: iceCreamSettings.schedulerHost,
       icecreamConfigPath: iceCreamSettings.configPath,
-      mountpoints,
+      mountpoints: mountpoints ?? [],
     },
     bootstrapSettings: {
       jasperBinaryDir,
