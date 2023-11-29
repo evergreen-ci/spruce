@@ -1,0 +1,10 @@
+query RepotrackerError($projectIdentifier: String!) {
+  project(projectIdentifier: $projectIdentifier) {
+    branch
+    id
+    repotrackerError {
+      exists
+      invalidRevision
+    }
+  }
+}

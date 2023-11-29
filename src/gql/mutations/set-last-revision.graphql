@@ -1,0 +1,7 @@
+mutation SetLastRevision($projectIdentifier: String!, $revision: String!) {
+  setLastRevision(
+    opts: { projectIdentifier: $projectIdentifier, revision: $revision }
+  ) {
+    mergeBaseRevision
+  }
+}

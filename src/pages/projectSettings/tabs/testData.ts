@@ -5,6 +5,7 @@ import {
   RepoSettingsQuery,
   MergeQueue,
 } from "gql/generated/types";
+import { JiraTicketType } from "types/jira";
 
 const projectBase: ProjectSettingsQuery["projectSettings"] = {
   githubWebhooksEnabled: true,
@@ -69,6 +70,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     buildBaronSettings: {
       ticketCreateProject: null,
       ticketSearchProjects: [],
+      ticketCreateIssueType: JiraTicketType.Epic,
     },
     taskAnnotationSettings: {
       jiraCustomFields: [],
@@ -196,6 +198,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     buildBaronSettings: {
       ticketCreateProject: "EVG",
       ticketSearchProjects: ["EVG"],
+      ticketCreateIssueType: JiraTicketType.Epic,
     },
     taskAnnotationSettings: {
       jiraCustomFields: [
