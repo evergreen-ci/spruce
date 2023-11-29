@@ -67,7 +67,17 @@ functions:
       params:
         working_dir: spruce/evergreen
         command: make configure-mongod
-
+    - command: shell.exec
+      type: setup
+      params:
+        shell: bash
+        script: |
+          ${PREPARE_SHELL}
+          cd $PROJECT_DIRECTORY
+          mkdir mongodb-tools && cd mongodb-tools
+          curl ${mongodb_tools_url} -o mongodb-tools.tgz
+          ${decompress} mongodb-tools.tgz
+          mv ./mongodb-*/bin/* .
   setup-node:
     - command: subprocess.exec
       params:
@@ -202,7 +212,7 @@ functions:
       script: |
         ${PREPARE_SHELL}
         yarn build-storybook
-    
+
   yarn-snapshot:
     command: shell.exec
     params:
@@ -229,8 +239,11 @@ functions:
       script: |
         ${PREPARE_SHELL}
         # Only record to cypress cloud if this is a pr, mainline commit or an intentional patch.
-        if [[ "${requester}" == "github_pr" || "${requester}" == "commit" || "${requester}" == "patch" ]]; then
+        # And only allow spec filtering for an intentional patch.
+        if [[ "${requester}" == "github_pr" || "${requester}" == "commit" ]]; then
           yarn cy:run --record --key "${cypress_record_key}" --reporter junit
+        elif [[ "${requester}" == "patch" ]]; then
+          yarn cy:run --record --key "${cypress_record_key}" --reporter junit --spec ${cypress_spec}
         else
           yarn cy:run --reporter junit
         fi
@@ -247,8 +260,7 @@ functions:
       params:
         aws_key: ${aws_key}
         aws_secret: ${aws_secret}
-        local_files_include_filter:
-          ["spruce/cypress/screenshots/*"]
+        local_files_include_filter: ["spruce/cypress/screenshots/*"]
         remote_file: spruce/${task_id}/
         bucket: mciuploads
         content_type: image/png
@@ -259,8 +271,7 @@ functions:
       params:
         aws_key: ${aws_key}
         aws_secret: ${aws_secret}
-        local_files_include_filter:
-          ["spruce/cypress/videos/*"]
+        local_files_include_filter: ["spruce/cypress/videos/*"]
         remote_file: spruce/${task_id}/
         bucket: mciuploads
         content_type: video/mp4
@@ -290,8 +301,7 @@ functions:
       params:
         aws_key: ${aws_key}
         aws_secret: ${aws_secret}
-        local_files_include_filter:
-          ["spruce/storybook-static/*.html"]
+        local_files_include_filter: ["spruce/storybook-static/*.html"]
         remote_file: spruce/${task_id}/storybook/
         bucket: mciuploads
         content_type: text/html
@@ -303,7 +313,10 @@ functions:
         aws_key: ${aws_key}
         aws_secret: ${aws_secret}
         local_files_include_filter:
-          ["spruce/storybook-static/**/*.js$", "spruce/storybook-static/**/*.mjs$"]
+          [
+            "spruce/storybook-static/**/*.js$",
+            "spruce/storybook-static/**/*.mjs$",
+          ]
         remote_file: spruce/${task_id}/storybook/
         bucket: mciuploads
         content_type: application/javascript
@@ -314,8 +327,7 @@ functions:
       params:
         aws_key: ${aws_key}
         aws_secret: ${aws_secret}
-        local_files_include_filter:
-          ["spruce/storybook-static/**/*.js.map"]
+        local_files_include_filter: ["spruce/storybook-static/**/*.js.map"]
         remote_file: spruce/${task_id}/storybook/
         bucket: mciuploads
         content_type: application/json
@@ -326,8 +338,7 @@ functions:
       params:
         aws_key: ${aws_key}
         aws_secret: ${aws_secret}
-        local_files_include_filter:
-          ["spruce/storybook-static/**/*.css"]
+        local_files_include_filter: ["spruce/storybook-static/**/*.css"]
         remote_file: spruce/${task_id}/storybook/
         bucket: mciuploads
         content_type: text/css
@@ -338,8 +349,7 @@ functions:
       params:
         aws_key: ${aws_key}
         aws_secret: ${aws_secret}
-        local_files_include_filter:
-          ["spruce/storybook-static/**/*.json"]
+        local_files_include_filter: ["spruce/storybook-static/**/*.json"]
         remote_file: spruce/${task_id}/storybook/
         bucket: mciuploads
         content_type: application/json
@@ -358,7 +368,7 @@ functions:
         content_type: font/woff2
         permissions: public-read
         preserve_path: true
-  
+
   attach-codegen-diff:
     command: s3.put
     type: system
@@ -371,7 +381,7 @@ functions:
       bucket: mciuploads
       content_type: text/plain
       permissions: public-read
-  
+
   attach-email:
     command: s3.put
     type: system
@@ -411,7 +421,7 @@ functions:
         EOF
 
         echo "Done populating"
-  
+
   prod-deploy:
     command: shell.exec
     params:
@@ -426,8 +436,6 @@ functions:
         DEPLOYS_EMAIL=${DEPLOYS_EMAIL} \
         AUTHOR_EMAIL=${author_email} \
         yarn deploy:prod
-
-
 
 #######################################
 #                Tasks                #
@@ -474,7 +482,7 @@ tasks:
       - func: yarn-serve
       - func: wait-for-evergreen
       - func: run-cypress-tests
-    
+
   - name: check_codegen
     commands:
       - func: sym-link
@@ -493,6 +501,7 @@ buildvariants:
       - ubuntu2204-large
     expansions:
       goroot: /opt/golang/go1.20
+      mongodb_tools_url: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.8.0.tgz
       mongodb_url_2204: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.2.tgz
       mongosh_url_2204: https://downloads.mongodb.com/compass/mongosh-2.0.2-linux-x64.tgz
       node_version: 16.17.0
@@ -512,3 +521,8 @@ buildvariants:
         git_tag_only: true
         patchable: false
         priority: 100
+
+parameters:
+  - key: cypress_spec
+    value: "cypress/integration/**/*"
+    description: Specify the Cypress spec files to run for user submitted patches running the e2e_test task.
