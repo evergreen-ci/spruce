@@ -14,7 +14,6 @@ import {
   SuspectedIssuesQuery,
   SuspectedIssuesQueryVariables,
 } from "gql/generated/types";
-import { cache } from "gql/GQLWrapper";
 import {
   getSpruceConfigMock,
   getUserSettingsMock,
@@ -74,7 +73,7 @@ describe("buildBaronContent", () => {
   it("clicking on file a new ticket dispatches a toast", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <MockedProvider mocks={buildBaronMocks} addTypename={false} cache={cache}>
+      <MockedProvider mocks={buildBaronMocks} addTypename={false}>
         <BuildBaronContent
           annotation={null}
           taskId={taskId}
