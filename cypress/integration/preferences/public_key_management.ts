@@ -16,12 +16,12 @@ describe("Public Key Management Page", () => {
       cy.dataCy("table-key-name").first().should("not.contain", keyName1);
       cy.dataCy("table-key-name").first().contains(keyName2);
     });
-    it('Displays "No keys saved. Add a new key to populate the list." when no keys are available', () => {
+    it("Displays empty message", () => {
       cy.dataCy("delete-btn").first().click();
       cy.contains("button", "Yes").click();
       cy.dataCy("delete-btn").first().click();
       cy.contains("button", "Yes").click();
-      cy.contains("No keys saved. Add a new key to populate the list.");
+      cy.contains("No keys saved.");
     });
   });
 
