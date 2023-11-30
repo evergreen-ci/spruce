@@ -22,6 +22,7 @@ export interface GeneralFormState {
     scheduling: {
       deactivatePrevious: boolean | null;
       stepbackDisabled: boolean | null;
+      stepbackBisection: boolean | null;
       deactivateStepback: null;
     };
     repotracker: {

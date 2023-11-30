@@ -47,6 +47,7 @@ const repoForm: GeneralFormState = {
     scheduling: {
       deactivatePrevious: true,
       stepbackDisabled: true,
+      stepbackBisection: true,
       deactivateStepback: null,
     },
     repotracker: {
@@ -81,6 +82,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
     repotrackerDisabled: false,
     patchingDisabled: false,
     stepbackDisabled: true,
+    stepbackBisect: true,
     taskSync: {
       configEnabled: true,
       patchEnabled: true,
@@ -111,6 +113,7 @@ const projectForm: GeneralFormState = {
     scheduling: {
       deactivatePrevious: null,
       stepbackDisabled: null,
+      stepbackBisection: null,
       deactivateStepback: null,
     },
     repotracker: {
@@ -148,6 +151,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
     repotrackerDisabled: null,
     patchingDisabled: null,
     stepbackDisabled: null,
+    stepbackBisect: null,
     taskSync: {
       configEnabled: null,
       patchEnabled: null,

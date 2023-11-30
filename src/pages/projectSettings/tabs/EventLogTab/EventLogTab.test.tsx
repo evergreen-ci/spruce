@@ -100,6 +100,7 @@ const projectEventsQuery: ProjectEventLogsQuery = {
             deactivatePrevious: true,
             repotrackerDisabled: false,
             stepbackDisabled: null,
+            stepbackBisect: null,
             patchingDisabled: false,
             taskSync: {
               configEnabled: false,
@@ -186,6 +187,7 @@ const projectEventsQuery: ProjectEventLogsQuery = {
             deactivatePrevious: true,
             repotrackerDisabled: false,
             stepbackDisabled: null,
+            stepbackBisect: null,
             patchingDisabled: false,
             taskSync: {
               configEnabled: false,

@@ -3459,6 +3459,7 @@ export type ProjectGeneralSettingsFragment = {
   repotrackerDisabled?: boolean | null;
   spawnHostScriptPath: string;
   stepbackDisabled?: boolean | null;
+  stepbackBisect?: boolean | null;
   versionControlEnabled?: boolean | null;
   taskSync: {
     __typename?: "TaskSyncOptions";
@@ -3481,6 +3482,7 @@ export type RepoGeneralSettingsFragment = {
   repotrackerDisabled: boolean;
   spawnHostScriptPath: string;
   stepbackDisabled: boolean;
+  stepbackBisect?: boolean | null;
   versionControlEnabled: boolean;
   taskSync: {
     __typename?: "RepoTaskSyncOptions";
@@ -3628,6 +3630,7 @@ export type ProjectSettingsFieldsFragment = {
     repotrackerDisabled?: boolean | null;
     spawnHostScriptPath: string;
     stepbackDisabled?: boolean | null;
+    stepbackBisect?: boolean | null;
     versionControlEnabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
     githubTriggerAliases?: Array<string> | null;
@@ -3834,6 +3837,7 @@ export type RepoSettingsFieldsFragment = {
     repotrackerDisabled: boolean;
     spawnHostScriptPath: string;
     stepbackDisabled: boolean;
+    stepbackBisect?: boolean | null;
     versionControlEnabled: boolean;
     notifyOnBuildFailure: boolean;
     githubTriggerAliases?: Array<string> | null;
@@ -4235,6 +4239,7 @@ export type ProjectEventSettingsFragment = {
     repotrackerDisabled?: boolean | null;
     spawnHostScriptPath: string;
     stepbackDisabled?: boolean | null;
+    stepbackBisect?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
     githubTriggerAliases?: Array<string> | null;
     perfEnabled?: boolean | null;
@@ -6697,6 +6702,7 @@ export type ProjectEventLogsQuery = {
           repotrackerDisabled?: boolean | null;
           spawnHostScriptPath: string;
           stepbackDisabled?: boolean | null;
+          stepbackBisect?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
@@ -6909,6 +6915,7 @@ export type ProjectEventLogsQuery = {
           repotrackerDisabled?: boolean | null;
           spawnHostScriptPath: string;
           stepbackDisabled?: boolean | null;
+          stepbackBisect?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
@@ -7196,6 +7203,7 @@ export type ProjectSettingsQuery = {
       repotrackerDisabled?: boolean | null;
       spawnHostScriptPath: string;
       stepbackDisabled?: boolean | null;
+      stepbackBisect?: boolean | null;
       versionControlEnabled?: boolean | null;
       notifyOnBuildFailure?: boolean | null;
       githubTriggerAliases?: Array<string> | null;
@@ -7454,6 +7462,7 @@ export type RepoEventLogsQuery = {
           repotrackerDisabled?: boolean | null;
           spawnHostScriptPath: string;
           stepbackDisabled?: boolean | null;
+          stepbackBisect?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
@@ -7666,6 +7675,7 @@ export type RepoEventLogsQuery = {
           repotrackerDisabled?: boolean | null;
           spawnHostScriptPath: string;
           stepbackDisabled?: boolean | null;
+          stepbackBisect?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
           perfEnabled?: boolean | null;
@@ -7882,6 +7892,7 @@ export type RepoSettingsQuery = {
       repotrackerDisabled: boolean;
       spawnHostScriptPath: string;
       stepbackDisabled: boolean;
+      stepbackBisect?: boolean | null;
       versionControlEnabled: boolean;
       notifyOnBuildFailure: boolean;
       githubTriggerAliases?: Array<string> | null;
