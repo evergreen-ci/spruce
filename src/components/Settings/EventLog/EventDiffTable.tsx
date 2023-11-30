@@ -9,7 +9,7 @@ import {
   V10HeaderRow as HeaderRow,
 } from "@leafygreen-ui/table";
 import { fontFamilies } from "@leafygreen-ui/tokens";
-import { getEventDiffLines } from "./EventLogDiffs";
+import { getEventDiffLines } from "./eventLogDiffs";
 import { Event, EventDiffLine, EventValue } from "./types";
 
 type TableProps = {

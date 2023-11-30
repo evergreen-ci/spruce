@@ -18,8 +18,8 @@ import Pagination from "components/Pagination";
 import { size } from "constants/tokens";
 import { HostEventsQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
-import { getHostEventString } from "pages/host/getHostEventString";
 import { HostCard } from "pages/host/HostCard";
+import { HostEventString } from "pages/host/HostEventString";
 
 export const HostTable: React.FC<{
   loading: boolean;
@@ -77,7 +77,12 @@ export const HostTable: React.FC<{
               <Cell data-cy={`${datum.eventType}-time`}>
                 {getDateCopy(datum.timestamp)}
               </Cell>
-              <Cell>{getHostEventString(datum.eventType, datum.data)}</Cell>
+              <Cell>
+                <HostEventString
+                  eventType={datum.eventType}
+                  data={datum.data}
+                />
+              </Cell>
             </Row>
           )}
         </Table>
