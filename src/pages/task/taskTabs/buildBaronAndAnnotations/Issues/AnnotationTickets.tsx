@@ -6,7 +6,7 @@ import { PlusButton } from "components/Buttons";
 import { size } from "constants/tokens";
 import { IssueLink } from "gql/generated/types";
 import { AddIssueModal } from "../AddIssueModal";
-import { AnnotationTicketsTable } from "../AnnotationTicketsTable";
+import AnnotationTicketsTable from "../AnnotationTicketsTable";
 import { TicketsTitle } from "../BBComponents";
 
 interface AnnotationTicketsProps {
