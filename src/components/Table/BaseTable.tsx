@@ -21,6 +21,8 @@ import {
 import { TreeDataEntry } from "components/TreeSelect";
 import TableLoader from "./TableLoader";
 
+// Define typing of columns' meta field
+// https://tanstack.com/table/v8/docs/api/core/column-def#meta
 declare module "@tanstack/table-core" {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData extends RowData, TValue> {
@@ -114,12 +116,12 @@ export const BaseTable = <T extends LGRowData>({
           <Row
             key={row.id}
             row={row}
-            data-cy={dataCyRow}
-            className={`leafygreen-table-row ${css`
+            data-cy="leafygreen-table-row"
+            className={css`
               &[aria-hidden="false"] td > div {
                 max-height: unset;
               }
-            `}`}
+            `}
           >
             {row.getVisibleCells().map((cell) => (
               <Cell key={cell.id}>

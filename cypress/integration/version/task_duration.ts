@@ -10,7 +10,7 @@ describe("Task Duration Tab", () => {
       cy.dataCy("task-name-filter-popover-input-filter").type(
         `${filterText}{enter}`
       );
-      cy.dataCy("task-duration-table-row").should("have.length", 1);
+      cy.dataCy("leafygreen-table-row").should("have.length", 1);
       cy.location("search").should(
         "include",
         `duration=DESC&page=0&taskName=${filterText}`
@@ -28,7 +28,7 @@ describe("Task Duration Tab", () => {
       cy.dataCy("tree-select-options").within(() =>
         cy.contains("Running").click({ force: true })
       );
-      cy.dataCy("task-duration-table-row").should("have.length", 3);
+      cy.dataCy("leafygreen-table-row").should("have.length", 3);
       cy.location("search").should(
         "include",
         "duration=DESC&page=0&statuses=running-umbrella,started,dispatched"
@@ -48,7 +48,7 @@ describe("Task Duration Tab", () => {
       cy.dataCy("build-variant-filter-popover-input-filter").type(
         `${filterText}{enter}`
       );
-      cy.dataCy("task-duration-table-row").should("have.length", 2);
+      cy.dataCy("leafygreen-table-row").should("have.length", 2);
       cy.location("search").should(
         "include",
         `duration=DESC&page=0&variant=${filterText}`
@@ -65,18 +65,14 @@ describe("Task Duration Tab", () => {
       cy.location("search").should("include", "duration=DESC");
       const longestTask = "test-thirdparty";
       cy.contains(longestTask).should("be.visible");
-      cy.dataCy("task-duration-table-row")
-        .first()
-        .should("contain", longestTask);
+      cy.dataCy("leafygreen-table-row").first().should("contain", longestTask);
       cy.dataCy("duration-sort-icon").click();
       cy.location("search").should("not.include", "duration");
       cy.dataCy("duration-sort-icon").click();
       cy.location("search").should("include", "duration=ASC");
       const shortestTask = "test-auth";
       cy.contains(shortestTask).should("be.visible");
-      cy.dataCy("task-duration-table-row")
-        .first()
-        .should("contain", shortestTask);
+      cy.dataCy("leafygreen-table-row").first().should("contain", shortestTask);
     });
 
     it("clearing all filters resets to the default sort", () => {

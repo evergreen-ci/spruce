@@ -150,13 +150,11 @@ const sortDirectionTests = [
 
 describe("Hosts page sorting", () => {
   const hostsRoute = "/hosts";
-
-  const tableRow = "tr.leafygreen-table-row";
   const distroSortControl = "button[aria-label='Sort by Distro']";
 
   it("Clicking the sort direction filter will set the page query param to 0", () => {
     cy.visit(`${hostsRoute}?distroId=arfarf&page=5`);
-    cy.dataCy("hosts-table").should("exist");
+    cy.dataCy("hosts-table").should("be.visible");
     cy.dataCy("hosts-table").should("not.have.attr", "data-loading", "true");
     cy.get(distroSortControl).click();
     cy.location("search").should(
@@ -184,21 +182,21 @@ describe("Hosts page sorting", () => {
     cy.contains("th", "Status")
       .first()
       .within(() => {
-        cy.get("svg[aria-label='Sort Ascending Icon']").should("exist");
+        cy.validateTableSort("asc");
       });
   });
 
   it("Status sorter has initial value of sort param from url", () => {
     cy.visit(`${hostsRoute}?page=0&sortBy=DISTRO&sortDir=DESC`);
     cy.contains("th", "Distro").within(() => {
-      cy.get("svg[aria-label='Sort Descending Icon']").should("exist");
+      cy.validateTableSort("desc");
     });
   });
 
   sortByTests.forEach(({ expectedIds, sortBy, sorterName }) => {
     it(`Sorts by ${sorterName} when sortBy = ${sortBy}`, () => {
       cy.visit(`${hostsRoute}?sortBy=${sortBy}&limit=10`);
-      cy.get(tableRow).each(($el, index) =>
+      cy.dataCy("leafygreen-table-row").each(($el, index) =>
         cy.wrap($el).contains(expectedIds[index])
       );
     });
@@ -209,7 +207,7 @@ describe("Hosts page sorting", () => {
       cy.visit(
         `${hostsRoute}?page=0&sortBy=CURRENT_TASK&sortDir=${sortDir}&limit=10`
       );
-      cy.get(tableRow).each(($el, index) =>
+      cy.dataCy("leafygreen-table-row").each(($el, index) =>
         cy.wrap($el).contains(expectedIds[index])
       );
     });
@@ -217,7 +215,7 @@ describe("Hosts page sorting", () => {
 
   it("Uses default sortBy and sortDir if sortBy or sortDir param is invalid", () => {
     cy.visit(`${hostsRoute}?sortBy=INVALID&sortDir=INVALID&limit=10`);
-    cy.get(tableRow).each(($el, index) =>
+    cy.dataCy("leafygreen-table-row").each(($el, index) =>
       cy
         .wrap($el)
         .contains(
