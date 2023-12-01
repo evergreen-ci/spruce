@@ -17,7 +17,7 @@ import { AnnotationTickets } from "./types";
 
 const { gray } = palette;
 
-interface AnnotationTicketsProps {
+interface AnnotationTicketsListProps {
   jiraIssues: AnnotationTickets;
   taskId: string;
   execution: number;
@@ -28,7 +28,7 @@ interface AnnotationTicketsProps {
   loading: boolean;
 }
 
-const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
+const AnnotationTicketsList: React.FC<AnnotationTicketsListProps> = ({
   execution,
   isIssue,
   jiraIssues,
@@ -150,4 +150,4 @@ const ItemContainer = styled.div`
   `}
 `;
 
-export default AnnotationTicketsTable;
+export default AnnotationTicketsList;

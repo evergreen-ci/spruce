@@ -1,14 +1,14 @@
 import WithToastContext from "test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
-import AnnotationTicketsTable from ".";
+import AnnotationTicketsList from ".";
 
 export default {
-  component: AnnotationTicketsTable,
+  component: AnnotationTicketsList,
   decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
-} satisfies CustomMeta<typeof AnnotationTicketsTable>;
+} satisfies CustomMeta<typeof AnnotationTicketsList>;
 
-export const Default: CustomStoryObj<typeof AnnotationTicketsTable> = {
-  render: (args) => <AnnotationTicketsTable {...args} />,
+export const Default: CustomStoryObj<typeof AnnotationTicketsList> = {
+  render: (args) => <AnnotationTicketsList {...args} />,
   argTypes: {},
   args: {
     execution: 0,

@@ -1,9 +1,9 @@
 import { Table } from "antd";
-import AnnotationTicketRow from "../AnnotationTicketsTable/AnnotationTicketRow";
+import AnnotationTicketRow from "../AnnotationTicketsList/AnnotationTicketRow";
 import {
   AnnotationTickets,
   AnnotationTicket,
-} from "../AnnotationTicketsTable/types";
+} from "../AnnotationTicketsList/types";
 
 // CREATED TICKETS
 interface CreatedTicketsProps {
