@@ -128,6 +128,7 @@ export const TaskDurationTable: React.FC<Props> = ({
         id: PatchTasksQueryParams.Duration,
         accessorKey: "timeTaken",
         header: "Task Duration",
+        enableColumnFilter: false,
         size: 250,
         cell: ({
           column,

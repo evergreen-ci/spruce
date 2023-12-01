@@ -150,13 +150,12 @@ const sortDirectionTests = [
 
 describe("Hosts page sorting", () => {
   const hostsRoute = "/hosts";
-
-  const tableRow = "tr.ant-table-row";
-  const distroSortControl =
-    ".cy-task-table-col-DISTRO > .ant-table-filter-column > :nth-child(1) > .ant-table-column-sorters";
+  const distroSortControl = "button[aria-label='Sort by Distro']";
 
   it("Clicking the sort direction filter will set the page query param to 0", () => {
     cy.visit(`${hostsRoute}?distroId=arfarf&page=5`);
+    cy.dataCy("hosts-table").should("be.visible");
+    cy.dataCy("hosts-table").should("not.have.attr", "data-loading", "true");
     cy.get(distroSortControl).click();
     cy.location("search").should(
       "equal",
@@ -166,34 +165,38 @@ describe("Hosts page sorting", () => {
   it("Clicking a sort direction 3 times will set the page query param to 0, clear the direction & sortBy query param, and preserve the rest", () => {
     cy.visit(`${hostsRoute}?distroId=arfarf&page=5`);
     cy.get(distroSortControl).click();
+    cy.location("search").should(
+      "equal",
+      "?distroId=arfarf&page=0&sortBy=DISTRO&sortDir=ASC"
+    );
     cy.get(distroSortControl).click();
+    cy.location("search").should(
+      "equal",
+      "?distroId=arfarf&page=0&sortBy=DISTRO&sortDir=DESC"
+    );
     cy.get(distroSortControl).click();
     cy.location("search").should("equal", "?distroId=arfarf&page=0");
   });
   it("Status sorter is selected by default if no sort params in url", () => {
     cy.visit(hostsRoute);
-    cy.get(".cy-task-table-col-STATUS")
+    cy.contains("th", "Status")
       .first()
       .within(() => {
-        cy.get("[data-icon=caret-up]")
-          .should("have.attr", "fill")
-          .and("eq", "currentColor");
+        cy.validateTableSort("asc");
       });
   });
 
   it("Status sorter has initial value of sort param from url", () => {
     cy.visit(`${hostsRoute}?page=0&sortBy=DISTRO&sortDir=DESC`);
-    cy.get(".cy-task-table-col-DISTRO").within(() => {
-      cy.get("[data-icon=caret-down]")
-        .should("have.attr", "fill")
-        .and("eq", "currentColor");
+    cy.contains("th", "Distro").within(() => {
+      cy.validateTableSort("desc");
     });
   });
 
   sortByTests.forEach(({ expectedIds, sortBy, sorterName }) => {
     it(`Sorts by ${sorterName} when sortBy = ${sortBy}`, () => {
       cy.visit(`${hostsRoute}?sortBy=${sortBy}&limit=10`);
-      cy.get(tableRow).each(($el, index) =>
+      cy.dataCy("leafygreen-table-row").each(($el, index) =>
         cy.wrap($el).contains(expectedIds[index])
       );
     });
@@ -204,7 +207,7 @@ describe("Hosts page sorting", () => {
       cy.visit(
         `${hostsRoute}?page=0&sortBy=CURRENT_TASK&sortDir=${sortDir}&limit=10`
       );
-      cy.get(tableRow).each(($el, index) =>
+      cy.dataCy("leafygreen-table-row").each(($el, index) =>
         cy.wrap($el).contains(expectedIds[index])
       );
     });
@@ -212,7 +215,7 @@ describe("Hosts page sorting", () => {
 
   it("Uses default sortBy and sortDir if sortBy or sortDir param is invalid", () => {
     cy.visit(`${hostsRoute}?sortBy=INVALID&sortDir=INVALID&limit=10`);
-    cy.get(tableRow).each(($el, index) =>
+    cy.dataCy("leafygreen-table-row").each(($el, index) =>
       cy
         .wrap($el)
         .contains(
