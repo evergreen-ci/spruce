@@ -24,6 +24,7 @@ interface Props {
   initialFilters: ColumnFiltersState;
   initialSorting: SortingState;
   hosts: HostsQuery["hosts"]["hosts"];
+  limit: number;
   loading: boolean;
   setSelectedHosts: React.Dispatch<React.SetStateAction<Host[]>>;
 }
@@ -32,6 +33,7 @@ export const HostsTable: React.FC<Props> = ({
   hosts,
   initialFilters,
   initialSorting,
+  limit,
   loading,
   setSelectedHosts,
 }) => {
@@ -112,6 +114,7 @@ export const HostsTable: React.FC<Props> = ({
       data-cy="hosts-table"
       data-loading={loading}
       loading={loading}
+      loadingRows={limit}
       shouldAlternateRowColor
       table={table}
     />

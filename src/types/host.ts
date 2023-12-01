@@ -98,8 +98,8 @@ export const mapIdToFilterParam: PartialRecord<
   HostSortBy,
   keyof HostsQueryVariables
 > = Object.entries(mapQueryParamToId).reduce(
-  (obj, [id, param]) => ({
-    ...obj,
+  (accum, [id, param]) => ({
+    ...accum,
     [param]: id,
   }),
   {}

@@ -55,16 +55,12 @@ const Hosts: React.FC = () => {
 
   const [selectedHosts, setSelectedHosts] = useState([]);
 
-  const selectedHostIds = useMemo(
-    () => selectedHosts.map(({ id }) => id),
-    [selectedHosts]
-  );
-
   const {
     canReprovision,
     canRestartJasper,
     reprovisionError,
     restartJasperError,
+    selectedHostIds,
   } = useMemo(() => {
     let canRestart = true;
     let canRepro = true;
@@ -89,11 +85,14 @@ const Hosts: React.FC = () => {
     restartJasperErrorMessage += ` ${errorHosts}`;
     reprovisionErrorMessage += ` ${errorHosts}`;
 
+    const hostIds = selectedHosts.map(({ id }) => id);
+
     return {
       canReprovision: canRepro,
       canRestartJasper: canRestart,
       reprovisionError: reprovisionErrorMessage,
       restartJasperError: restartJasperErrorMessage,
+      selectedHostIds: hostIds,
     };
   }, [selectedHosts]);
 
@@ -177,8 +176,9 @@ const Hosts: React.FC = () => {
         initialFilters={initialFilters}
         initialSorting={initialSorting}
         hosts={hostItems}
-        setSelectedHosts={setSelectedHosts}
         loading={loading && hostItems.length === 0}
+        limit={limit}
+        setSelectedHosts={setSelectedHosts}
       />
       <UpdateStatusModal
         data-cy="update-host-status-modal"
@@ -232,18 +232,26 @@ const getQueryVariables = (search: string): HostsQueryVariables => {
   };
 };
 
-// Convert query param values into react-table's column filters state
-const getFilters = (queryParams: HostsQueryVariables): ColumnFiltersState => {
-  const filters = [];
-  Object.entries(mapQueryParamToId).forEach(([param, id]) => {
+/**
+ * `getFilters` converts query param values into react-table's column filters state.
+ * @param queryParams - query params from the URL
+ * @returns - react-table's filtering state
+ */
+const getFilters = (queryParams: HostsQueryVariables): ColumnFiltersState =>
+  Object.entries(mapQueryParamToId).reduce((accum, [param, id]) => {
     if (queryParams[param]?.length) {
-      filters.push({ id, value: queryParams[param] });
+      return [...accum, { id, value: queryParams[param] }];
     }
-  });
-  return filters;
-};
+    return accum;
+  }, []);
 
-// Convert query param values into react-table's sorting state
+/**
+ * `getSorting` converts query param values into react-table's sorting state.
+ * @param queryParams - query params from the URL
+ * @param queryParams.sortBy - key indicating the field that is being sorted
+ * @param queryParams.sortDir - direction of the sort
+ * @returns - react-table's sorting state
+ */
 const getSorting = ({ sortBy, sortDir }: HostsQueryVariables): SortingState => [
   { id: sortBy, desc: sortDir === SortDirection.Desc },
 ];
