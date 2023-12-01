@@ -8,7 +8,8 @@ describe("global subscription settings", () => {
       "aria-disabled",
       "true"
     );
-    cy.dataCy("slack-member-id-field").clear().type("12345");
+    cy.dataCy("slack-member-id-field").clear();
+    cy.dataCy("slack-member-id-field").type("12345");
     cy.dataCy("save-profile-changes-button").should(
       "not.have.attr",
       "aria-disabled",
@@ -17,7 +18,8 @@ describe("global subscription settings", () => {
   });
   it("saving changes to a field should work", () => {
     cy.visit(pageRoute);
-    cy.dataCy("slack-username-field").clear().type("slack.user");
+    cy.dataCy("slack-username-field").clear();
+    cy.dataCy("slack-username-field").type("slack.user");
     cy.dataCy("save-profile-changes-button").click();
     cy.validateToast("success", "Your changes have successfully been saved.");
   });
@@ -73,7 +75,7 @@ describe("user subscriptions table", () => {
     );
   });
 
-  describe("Deleting subscriptions", { testIsolation: false }, () => {
+  describe("Deleting subscriptions", () => {
     it("Deletes a single subscription", () => {
       cy.dataCy("subscription-row")
         .eq(0)

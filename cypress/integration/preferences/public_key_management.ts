@@ -1,10 +1,9 @@
-describe("Public Key Management Page", { testIsolation: false }, () => {
+describe("Public Key Management Page", () => {
   const route = "/preferences/publickeys";
-
+  beforeEach(() => {
+    cy.visit(route);
+  });
   describe("Public keys list", () => {
-    before(() => {
-      cy.visit(route);
-    });
     it("Displays the user's public keys", () => {
       cy.dataCy("table-key-name").each(($el, index) =>
         cy.wrap($el).contains([keyName1, keyName2][index])
@@ -17,19 +16,20 @@ describe("Public Key Management Page", { testIsolation: false }, () => {
       cy.dataCy("table-key-name").first().should("not.contain", keyName1);
       cy.dataCy("table-key-name").first().contains(keyName2);
     });
-    it('Displays "No keys saved. Add a new key to populate the list." when no keys are available', () => {
+    it("Displays empty message", () => {
       cy.dataCy("delete-btn").first().click();
       cy.contains("button", "Yes").click();
-      cy.contains("No keys saved. Add a new key to populate the list.");
+      cy.dataCy("delete-btn").first().click();
+      cy.contains("button", "Yes").click();
+      cy.contains("No keys saved.");
     });
   });
 
   describe("Add New Key Modal", () => {
-    before(() => {
-      cy.visit(route);
+    beforeEach(() => {
+      cy.dataCy("add-key-button").click();
     });
     it("Displays errors when the modal opens", () => {
-      cy.dataCy("add-key-button").click();
       cy.dataCy("error-message").each(($el, index) =>
         cy.wrap($el).contains([err1, err2][index])
       );
@@ -42,15 +42,16 @@ describe("Public Key Management Page", { testIsolation: false }, () => {
     });
 
     it("Should include the public in the public key list after adding", () => {
+      cy.dataCy("key-name-input").clear();
+      cy.dataCy("key-name-input").type(keyName3);
       cy.dataCy("key-value-input").clear();
       cy.dataCy("key-value-input").type(pubKey, { delay: 0 });
       cy.contains("button", "Save").click();
-      cy.dataCy("table-key-name").first().contains(keyName3);
+      cy.dataCy("table-key-name").eq(1).contains(keyName3);
     });
 
     it("Should show an error if the key name already exists", () => {
-      cy.dataCy("add-key-button").click();
-      cy.dataCy("key-name-input").type(keyName3, { delay: 0 });
+      cy.dataCy("key-name-input").type(keyName2, { delay: 0 });
       cy.dataCy("error-message").first().contains(err3);
     });
 
@@ -60,40 +61,40 @@ describe("Public Key Management Page", { testIsolation: false }, () => {
   });
 
   describe("Edit Key Modal", () => {
-    before(() => {
+    beforeEach(() => {
       cy.visit(route);
+      cy.dataCy("edit-btn").first().click();
     });
     it("Should not have any errors when the modal opens", () => {
-      cy.dataCy("edit-btn").first().click();
       cy.dataCy("error-message").should("have.length", 0);
     });
 
     it("After submitting, the key name and key value are updated", () => {
       cy.dataCy("key-name-input").clear();
       cy.dataCy("key-name-input").type(keyName4);
-      cy.dataCy("key-value-input").clear();
 
+      cy.dataCy("key-value-input").clear();
       cy.dataCy("key-value-input").type(pubKey2, { delay: 0 });
       cy.contains("button", "Save").click();
       cy.dataCy("key-edit-modal").should("not.exist");
-      cy.dataCy("table-key-name").first().contains(keyName4);
-      cy.dataCy("edit-btn").first().click();
+      cy.dataCy("table-key-name").eq(1).contains(keyName4);
+      cy.dataCy("edit-btn").eq(1).click();
       cy.dataCy("key-name-input").should("have.value", keyName4);
       cy.dataCy("key-value-input").should("have.value", pubKey2);
       cy.dataCy("key-value-input").clear();
       cy.dataCy("key-value-input").type(pubKey3, { delay: 0 });
       cy.contains("button", "Save").click();
       cy.dataCy("key-edit-modal").should("not.exist");
-      cy.dataCy("table-key-name").first().contains(keyName4);
-      cy.dataCy("edit-btn").first().click();
+      cy.dataCy("table-key-name").eq(1).contains(keyName4);
+      cy.dataCy("edit-btn").eq(1).click();
       cy.dataCy("key-name-input").should("have.value", keyName4);
       cy.dataCy("key-value-input").should("have.value", pubKey3);
       cy.dataCy("key-value-input").clear();
       cy.dataCy("key-value-input").type(pubKey4, { delay: 0 });
       cy.contains("button", "Save").click();
       cy.dataCy("key-edit-modal").should("not.exist");
-      cy.dataCy("table-key-name").first().contains(keyName4);
-      cy.dataCy("edit-btn").first().click();
+      cy.dataCy("table-key-name").eq(1).contains(keyName4);
+      cy.dataCy("edit-btn").eq(1).click();
       cy.dataCy("key-name-input").should("have.value", keyName4);
       cy.dataCy("key-value-input").should("have.value", pubKey4);
     });

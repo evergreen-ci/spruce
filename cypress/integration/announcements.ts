@@ -4,13 +4,8 @@ import {
 } from "constants/cookies";
 
 describe("Announcement overlays", () => {
-  beforeEach(() => {
-    cy.clearCookie(CY_DISABLE_NEW_USER_WELCOME_MODAL);
-    cy.clearCookie(CY_DISABLE_COMMITS_WELCOME_MODAL);
-    cy.clearCookie("This is an important notification");
-  });
-
   it("Displays a welcome modal only when you first visit spruce", () => {
+    cy.clearCookie(CY_DISABLE_NEW_USER_WELCOME_MODAL);
     cy.visit("/");
     cy.dataCy("welcome-modal").should("exist");
     cy.dataCy("close-welcome-modal").click();
@@ -19,6 +14,7 @@ describe("Announcement overlays", () => {
   });
 
   it("Should not show a Sitewide banner after it has been dismissed", () => {
+    cy.clearCookie("This is an important notification");
     cy.visit("/");
     cy.dataCy("sitewide-banner-success").should("exist");
     cy.closeBanner("sitewide-banner-success");
@@ -41,6 +37,7 @@ describe("Announcement overlays", () => {
   });
 
   it("visiting the commits page for the first time should show a welcome modal", () => {
+    cy.clearCookie(CY_DISABLE_COMMITS_WELCOME_MODAL);
     cy.visit("/commits/spruce");
     cy.dataCy("welcome-modal").should("be.visible");
     cy.dataCy("close-welcome-modal").click();
