@@ -1,5 +1,5 @@
 import { IssueLink } from "gql/generated/types";
-import { TicketsTitle, NonTableWrapper } from "../BBComponents";
+import { TicketsTitle } from "../BBComponents";
 import FileTicketButton from "../FileTicketButton";
 import CustomCreatedTicketsTable from "./CustomCreatedTicketsTable";
 
@@ -15,15 +15,11 @@ const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
   tickets,
 }) => (
   <>
-    <NonTableWrapper>
-      <TicketsTitle>Create a New Ticket</TicketsTitle>
-      <FileTicketButton taskId={taskId} execution={execution} />
-    </NonTableWrapper>
-    {tickets?.length > 0 && (
+    <TicketsTitle>Create a New Ticket</TicketsTitle>
+    <FileTicketButton taskId={taskId} execution={execution} />
+    {!!tickets?.length && (
       <>
-        <NonTableWrapper>
-          <TicketsTitle>Tickets Created From This Task</TicketsTitle>
-        </NonTableWrapper>
+        <TicketsTitle>Tickets Created From This Task</TicketsTitle>
         <CustomCreatedTicketsTable tickets={tickets} />
       </>
     )}

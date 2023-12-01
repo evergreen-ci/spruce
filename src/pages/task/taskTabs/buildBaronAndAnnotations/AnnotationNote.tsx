@@ -12,7 +12,7 @@ import {
 } from "gql/generated/types";
 import { EDIT_ANNOTATION_NOTE } from "gql/mutations";
 import { useDateFormat } from "hooks";
-import { ButtonWrapper, NonTableWrapper } from "./BBComponents";
+import { ButtonWrapper } from "./BBComponents";
 
 interface Props {
   note: Note;
@@ -63,7 +63,7 @@ const AnnotationNote: React.FC<Props> = ({
   };
 
   return (
-    <NonTableWrapper>
+    <>
       <TextArea
         aria-labelledby="annotation-note-input"
         rows={4}
@@ -97,7 +97,7 @@ const AnnotationNote: React.FC<Props> = ({
       >
         You are not authorized to edit failure details
       </Tooltip>
-    </NonTableWrapper>
+    </>
   );
 };
 
