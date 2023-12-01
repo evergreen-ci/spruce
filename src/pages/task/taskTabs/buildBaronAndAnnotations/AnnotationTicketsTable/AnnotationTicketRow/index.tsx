@@ -19,7 +19,7 @@ interface AnnotationTicketRowProps {
   confidenceScore?: number;
 }
 
-export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
+const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
   confidenceScore,
   issueKey,
   jiraTicket,
@@ -118,3 +118,6 @@ const BottomMetaDataWrapper = styled.div`
   margin-top: ${size.xs};
   width: 80%;
 `;
+
+export default AnnotationTicketRow;
+export type { AnnotationTicketRowProps };

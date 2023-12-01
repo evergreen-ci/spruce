@@ -1,5 +1,5 @@
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
-import { AnnotationTicketRow } from ".";
+import AnnotationTicketRow from ".";
 
 export default {
   component: AnnotationTicketRow,
