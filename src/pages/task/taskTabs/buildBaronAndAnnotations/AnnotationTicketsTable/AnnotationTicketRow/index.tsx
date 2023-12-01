@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
+import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { Skeleton } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { size } from "constants/tokens";
@@ -40,25 +40,25 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
 
   return (
     <div data-cy="annotation-ticket-row">
-      <JiraSummaryLink
-        href={url}
-        target="_blank"
-        data-cy={issueKey}
-        onClick={() =>
-          annotationAnalytics.sendEvent({
-            name: "Click Annotation Ticket Link",
-          })
-        }
-      >
-        {issueKey}
-        {summary && `: ${summary}`}
-      </JiraSummaryLink>
       {loading ? (
         <LoadingWrapper data-cy="loading-annotation-ticket">
-          <Skeleton active title={false} />
+          <Skeleton />
         </LoadingWrapper>
       ) : (
         <>
+          <JiraSummaryLink
+            href={url}
+            target="_blank"
+            data-cy={issueKey}
+            onClick={() =>
+              annotationAnalytics.sendEvent({
+                name: "Click Annotation Ticket Link",
+              })
+            }
+          >
+            {issueKey}
+            {summary && `: ${summary}`}
+          </JiraSummaryLink>
           {jiraTicket && (
             <StyledBadge data-cy={`${issueKey}-badge`} variant="lightgray">
               {status.name}
