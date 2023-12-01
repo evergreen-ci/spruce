@@ -91,7 +91,11 @@ const columns = [
     header: "Status",
     accessorKey: "hostID",
     enableSorting: true,
-    cell: ({ row }) => <VolumeStatusBadge volume={row.original} />,
+    cell: ({ getValue, row }) => {
+      const hostId = getValue();
+      const { migrating } = row.original;
+      return <VolumeStatusBadge hostId={hostId} migrating={migrating} />;
+    },
   },
   {
     header: "Expires In",

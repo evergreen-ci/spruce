@@ -13,6 +13,7 @@ import {
   type TableProps,
   TableHead,
 } from "@leafygreen-ui/table";
+import { size } from "constants/tokens";
 import TableLoader from "./TableLoader";
 
 type SpruceTableProps = {
@@ -76,7 +77,7 @@ export const BaseTable = <T extends LGRowData>({
             `}
           >
             {row.getVisibleCells().map((cell) => (
-              <Cell key={cell.id}>
+              <Cell key={cell.id} style={{ padding: `${size.xxs} 2px` }}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </Cell>
             ))}

@@ -7,7 +7,7 @@ import {
 import { DoesNotExpire, DetailsCard } from "components/Spawn";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { getIdeUrl } from "constants/externalResources";
-import { getSpawnVolumeRoute } from "constants/routes";
+import { getHostRoute, getSpawnVolumeRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { useDateFormat } from "hooks";
 import { HostStatus } from "types/host";
@@ -41,7 +41,13 @@ const HostExpiration: React.FC<MyHost> = ({ expiration, noExpiration }) => {
   return <span>{noExpiration ? DoesNotExpire : getDateCopy(expiration)}</span>;
 };
 const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
-  ID: (host: MyHost) => <span>{host?.id}</span>,
+  ID: (host: MyHost) => (
+    <span>
+      {host?.id} (
+      <StyledRouterLink to={getHostRoute(host?.id)}>Event Log</StyledRouterLink>
+      )
+    </span>
+  ),
   "Created at": HostUptime,
   "Started at": HostUptime,
   "Expires at": HostExpiration,
