@@ -3,7 +3,6 @@ import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { ExecutionTasksTable } from "./ExecutionTasksTable";
 
 export default {
-  title: "Pages/Task/Table/Execution Tasks Table",
   component: ExecutionTasksTable,
 } satisfies CustomMeta<typeof ExecutionTasksTable>;
 

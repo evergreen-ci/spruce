@@ -5,7 +5,6 @@ import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { Metadata } from "./index";
 
 export default {
-  title: "Pages/Task/Metadata",
   component: Metadata,
 } satisfies CustomMeta<typeof Metadata>;
 
