@@ -58,6 +58,7 @@ const columns = [
   {
     header: "Host",
     accessorKey: "id",
+    enableSorting: true,
     cell: ({ getValue, row }) => {
       const id = getValue();
       return row.original.distro?.isVirtualWorkStation ? (
@@ -73,25 +74,29 @@ const columns = [
   {
     header: "Distro",
     accessorFn: ({ distro: { id } }) => id,
+    enableSorting: true,
     cell: ({ getValue }) => <WordBreak>{getValue()}</WordBreak>,
   },
   {
     header: "Status",
     accessorKey: "status",
+    enableSorting: true,
     cell: ({ getValue }) => <HostStatusBadge status={getValue()} />,
   },
   {
     header: "Expires In",
-    accessorKey: "expiration",
+    accessorFn: ({ expiration }) => new Date(expiration),
+    enableSorting: true,
     cell: ({ getValue, row }) =>
       row.original.noExpiration
         ? DoesNotExpire
-        : formatDistanceToNow(new Date(getValue())),
+        : formatDistanceToNow(getValue()),
   },
   {
     header: "Uptime",
-    accessorKey: "uptime",
-    cell: ({ getValue }) => formatDistanceToNow(new Date(getValue())),
+    accessorFn: ({ uptime }) => new Date(uptime),
+    enableSorting: true,
+    cell: ({ getValue }) => formatDistanceToNow(getValue()),
   },
   {
     header: "Actions",

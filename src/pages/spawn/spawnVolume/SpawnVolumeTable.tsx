@@ -99,14 +99,14 @@ const columns = [
   },
   {
     header: "Expires In",
-    accessorKey: "expiration",
+    accessorFn: ({ expiration }) => new Date(expiration),
     enableSorting: true,
     cell: ({ getValue, row }) => {
       const expiration = getValue();
       const { noExpiration } = row.original;
       return noExpiration || !expiration
         ? DoesNotExpire
-        : formatDistanceToNow(new Date(expiration));
+        : formatDistanceToNow(expiration);
     },
   },
   {
