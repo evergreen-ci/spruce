@@ -74,7 +74,7 @@ const Preferences: React.FC = () => {
               })
             }
           >
-            Manage Public Keys
+            Public Keys
           </SideNavItem>
           <SideNavItem
             active={tab === PreferencesTabRoutes.NewUI}

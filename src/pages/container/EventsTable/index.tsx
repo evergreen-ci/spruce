@@ -22,7 +22,7 @@ import { PodEventsQuery, PodEventsQueryVariables } from "gql/generated/types";
 import { POD_EVENTS } from "gql/queries";
 import { useDateFormat } from "hooks";
 import { url } from "utils";
-import { getEventCopy } from "./util";
+import { EventCopy } from "./EventCopy";
 
 const { getLimitFromSearch, getPageFromSearch } = url;
 
@@ -85,7 +85,9 @@ const EventsTable: React.FC<{}> = () => {
               <Cell data-cy={`${datum.eventType}-time`}>
                 {getDateCopy(datum.timestamp)}
               </Cell>
-              <Cell>{getEventCopy(datum)}</Cell>
+              <Cell>
+                <EventCopy event={datum} />
+              </Cell>
             </Row>
           )}
         </Table>

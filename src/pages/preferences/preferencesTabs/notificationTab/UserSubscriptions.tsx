@@ -37,7 +37,8 @@ import {
 } from "types/subscription";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 import { ClearSubscriptions } from "./ClearSubscriptions";
-import { getResourceRoute, useSubscriptionData } from "./utils";
+import { useSubscriptionData } from "./useSubscriptionData";
+import { getResourceRoute } from "./utils";
 
 const { gray } = palette;
 

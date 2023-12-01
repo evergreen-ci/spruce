@@ -8,7 +8,7 @@ import {
 import { onError } from "@apollo/client/link/error";
 import { RetryLink } from "@apollo/client/link/retry";
 import { routes } from "constants/routes";
-import { useAuthDispatchContext } from "context/auth";
+import { useAuthDispatchContext } from "context/Auth";
 import { environmentVariables } from "utils";
 import {
   leaveBreadcrumb,
