@@ -127,7 +127,7 @@ const columns = [
       const id = getValue();
       return (
         <StyledRouterLink data-cy="host-id-link" to={getHostRoute(id)}>
-          {id}
+          <WordBreak>{id}</WordBreak>
         </StyledRouterLink>
       );
     },
@@ -138,13 +138,13 @@ const columns = [
         "data-cy": "host-id-filter",
         placeholder: "Search ID or DNS name",
       },
+      width: "17%",
     },
   },
   {
     header: "Distro",
     accessorKey: "distroId",
     id: HostSortBy.Distro,
-    className: "cy-task-table-col-DISTRO",
     enableColumnFilter: true,
     enableSorting: true,
     meta: {
@@ -152,13 +152,13 @@ const columns = [
         "data-cy": "distro-id-filter",
         placeholder: "Search distro regex",
       },
+      width: "15%",
     },
   },
   {
     header: "Status",
     accessorKey: "status",
     id: HostSortBy.Status,
-    className: "cy-task-table-col-STATUS",
     enableColumnFilter: true,
     enableSorting: true,
     meta: {
@@ -166,13 +166,13 @@ const columns = [
         "data-cy": "statuses-filter",
         options: hostStatuses,
       },
+      width: "10%",
     },
   },
   {
     header: "Current Task",
     accessorKey: "runningTask",
     id: HostSortBy.CurrentTask,
-    className: "cy-task-table-col-CURRENT-TASK",
     cell: ({ getValue }) => {
       const task = getValue();
       return task?.id !== null ? (
@@ -193,35 +193,39 @@ const columns = [
         "data-cy": "current-task-id-filter",
         placeholder: "Search by task ID",
       },
+      width: "18%",
     },
   },
   {
     header: "Elapsed",
     accessorKey: "elapsed",
     id: HostSortBy.Elapsed,
-    className: "cy-task-table-col-ELAPSED",
     cell: ({ getValue }) => {
       const elapsed = getValue();
       return elapsed ? formatDistanceToNow(new Date(elapsed)) : "N/A";
     },
     enableSorting: true,
+    meta: {
+      width: "10%",
+    },
   },
   {
     header: "Uptime",
     accessorKey: "uptime",
     id: HostSortBy.Uptime,
-    className: "cy-task-table-col-UPTIME",
     cell: ({ getValue }) => {
       const uptime = getValue();
       return uptime ? formatDistanceToNow(new Date(uptime)) : "N/A";
     },
     enableSorting: true,
+    meta: {
+      width: "10%",
+    },
   },
   {
     header: "Idle Time",
     accessorKey: "totalIdleTime",
     id: HostSortBy.IdleTime,
-    className: "cy-task-table-col-IDLE-TIME",
     cell: ({ getValue }) => {
       const totalIdleTime = getValue();
       return totalIdleTime
@@ -229,19 +233,22 @@ const columns = [
         : "N/A";
     },
     enableSorting: true,
+    meta: {
+      width: "10%",
+    },
   },
   {
     header: "Owner",
     accessorKey: "startedBy",
     id: HostSortBy.Owner,
     cell: ({ getValue }) => <WordBreak>{getValue()}</WordBreak>,
-    className: "cy-task-table-col-OWNER",
     enableColumnFilter: true,
     enableSorting: true,
     meta: {
       search: {
         "data-cy": "owner-filter",
       },
+      width: "10%",
     },
   },
 ];

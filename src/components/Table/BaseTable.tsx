@@ -36,6 +36,9 @@ declare module "@tanstack/table-core" {
       "data-cy"?: string;
       options: TreeDataEntry[];
     };
+    // Overcome react-table's column width limitations
+    // https://github.com/TanStack/table/discussions/4179#discussioncomment-3334470
+    width?: string;
   }
 }
 
@@ -62,46 +65,50 @@ export const BaseTable = <T extends LGRowData>({
       <TableHead>
         {table.getHeaderGroups().map((headerGroup) => (
           <HeaderRow key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <HeaderCell key={header.id} header={header}>
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext()
-                )}
-                {header.column.columnDef?.meta?.sortComponent?.({
-                  column: header.column,
-                })}
-                {header.column.columnDef?.meta?.filterComponent?.({
-                  column: header.column,
-                })}
-                {header.column.getCanFilter() &&
-                  (header.column.columnDef?.meta?.treeSelect ? (
-                    <TableFilterPopover
-                      data-cy={
-                        header.column.columnDef?.meta?.treeSelect?.["data-cy"]
-                      }
-                      onConfirm={(value) => header.column.setFilterValue(value)}
-                      options={
-                        header.column.columnDef?.meta?.treeSelect?.options
-                      }
-                      value={
-                        (header?.column?.getFilterValue() as string[]) ?? []
-                      }
-                    />
-                  ) : (
-                    <TableSearchPopover
-                      data-cy={
-                        header.column.columnDef?.meta?.search?.["data-cy"]
-                      }
-                      onConfirm={(value) => header.column.setFilterValue(value)}
-                      placeholder={
-                        header.column.columnDef?.meta?.search?.placeholder
-                      }
-                      value={(header?.column?.getFilterValue() as string) ?? ""}
-                    />
-                  ))}
-              </HeaderCell>
-            ))}
+            {headerGroup.headers.map((header) => {
+              const { columnDef } = header.column;
+              return (
+                <HeaderCell
+                  key={header.id}
+                  header={header}
+                  style={
+                    columnDef?.meta?.width && { width: columnDef?.meta?.width }
+                  }
+                >
+                  {flexRender(columnDef.header, header.getContext())}
+                  {columnDef?.meta?.sortComponent?.({
+                    column: header.column,
+                  })}
+                  {columnDef?.meta?.filterComponent?.({
+                    column: header.column,
+                  })}
+                  {header.column.getCanFilter() &&
+                    (columnDef?.meta?.treeSelect ? (
+                      <TableFilterPopover
+                        data-cy={columnDef?.meta?.treeSelect?.["data-cy"]}
+                        onConfirm={(value) =>
+                          header.column.setFilterValue(value)
+                        }
+                        options={columnDef?.meta?.treeSelect?.options}
+                        value={
+                          (header?.column?.getFilterValue() as string[]) ?? []
+                        }
+                      />
+                    ) : (
+                      <TableSearchPopover
+                        data-cy={columnDef?.meta?.search?.["data-cy"]}
+                        onConfirm={(value) =>
+                          header.column.setFilterValue(value)
+                        }
+                        placeholder={columnDef?.meta?.search?.placeholder}
+                        value={
+                          (header?.column?.getFilterValue() as string) ?? ""
+                        }
+                      />
+                    ))}
+                </HeaderCell>
+              );
+            })}
           </HeaderRow>
         ))}
       </TableHead>
