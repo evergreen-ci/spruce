@@ -1,6 +1,6 @@
 import { ProjectEventSettings } from "gql/generated/types";
 import { Subset } from "types/utils";
-import { getEventDiffLines } from "./EventLogDiffs";
+import { getEventDiffLines } from "./eventLogDiffs";
 
 const beforeAddition: Subset<ProjectEventSettings> = {
   __typename: "ProjectEventSettings",
