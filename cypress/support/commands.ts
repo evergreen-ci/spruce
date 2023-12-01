@@ -37,14 +37,10 @@ Cypress.Commands.add(
 /**
  * `enterLoginCredentials` is a custom command to enter login credentials
  */
-function enterLoginCredentials() {
+Cypress.Commands.add("enterLoginCredentials", () => {
   cy.get("input[name=username]").type(user.username);
   cy.get("input[name=password]").type(user.password);
   cy.get("button[id=login-submit]").click();
-}
-
-Cypress.Commands.add("enterLoginCredentials", () => {
-  enterLoginCredentials();
 });
 
 /* getInputByLabel */
@@ -85,6 +81,24 @@ Cypress.Commands.add("toggleTableFilter", (colNum: number) => {
     "be.visible"
   );
 });
+
+/* validateTableSort */
+Cypress.Commands.add(
+  "validateTableSort",
+  (direction?: "asc" | "desc" | "none") => {
+    switch (direction) {
+      case "asc":
+        cy.get("svg[aria-label='Sort Ascending Icon']").should("be.visible");
+        return;
+      case "desc":
+        cy.get("svg[aria-label='Sort Descending Icon']").should("be.visible");
+        return;
+      case "none":
+      default:
+        cy.get("svg[aria-label='Unsorted Icon']").should("be.visible");
+    }
+  }
+);
 
 /* validateToast */
 Cypress.Commands.add(

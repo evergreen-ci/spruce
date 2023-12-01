@@ -7,13 +7,13 @@ describe("Hosts Page Default", () => {
   });
 
   it("Renders hosts table with hosts sorted by status by default", () => {
-    cy.get("tr.ant-table-row").each(($el, index) =>
+    cy.dataCy("leafygreen-table-row").each(($el, index) =>
       cy.wrap($el).contains(defaultHostsFirstPage[index])
     );
   });
 
   it("ID column value links to host page", () => {
-    cy.get("tr.ant-table-row")
+    cy.dataCy("leafygreen-table-row")
       .first()
       .within(() => {
         cy.dataCy("host-id-link")
@@ -23,7 +23,7 @@ describe("Hosts Page Default", () => {
   });
 
   it("Current Task column value links to task page", () => {
-    cy.get("tr.ant-table-row")
+    cy.dataCy("leafygreen-table-row")
       .first()
       .within(() => {
         cy.dataCy("current-task-link")
