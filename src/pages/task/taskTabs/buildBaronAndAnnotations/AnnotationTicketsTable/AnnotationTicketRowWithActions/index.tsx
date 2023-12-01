@@ -18,7 +18,7 @@ interface AnnotationTicketRowWithActionsProps extends AnnotationTicketRowProps {
     url,
   }: {
     url: string;
-    issueKey: string;
+    issueKey?: string;
     confidenceScore?: number;
   }) => void;
   issueString: string;

@@ -12,8 +12,8 @@ import { numbers } from "utils";
 const { roundDecimal, toPercent } = numbers;
 
 interface AnnotationTicketRowProps {
-  issueKey: string;
-  url: string;
+  issueKey?: string;
+  url?: string;
   jiraTicket?: JiraTicket;
   loading?: boolean;
   confidenceScore?: number;

@@ -1,13 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
-import Icon, { Size } from "@leafygreen-ui/icon";
-import Tooltip from "@leafygreen-ui/tooltip";
-import { Table } from "antd";
+import { palette } from "@leafygreen-ui/palette";
 import { useAnnotationAnalytics } from "analytics";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
-import Popconfirm from "components/Popconfirm";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -17,8 +12,10 @@ import {
   RemoveAnnotationIssueMutationVariables,
 } from "gql/generated/types";
 import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
-import { AnnotationTicketRow } from "./AnnotationTicketRow";
-import { AnnotationTickets, AnnotationTicket } from "./types";
+import AnnotationTicketRowWithActions from "./AnnotationTicketRowWithActions";
+import { AnnotationTickets } from "./types";
+
+const { gray } = palette;
 
 interface AnnotationTicketsProps {
   jiraIssues: AnnotationTickets;
@@ -44,94 +41,6 @@ const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
   const annotationAnalytics = useAnnotationAnalytics();
   const dispatchToast = useToastContext();
   const issueString = isIssue ? "issue" : "suspected issue";
-
-  const columns = [
-    {
-      title: "Ticket",
-      width: "65%",
-      render: ({
-        confidenceScore,
-        issueKey,
-        jiraTicket,
-        url,
-      }: AnnotationTicket): JSX.Element => (
-        <AnnotationTicketRow
-          issueKey={issueKey}
-          url={url}
-          jiraTicket={jiraTicket}
-          confidenceScore={confidenceScore}
-          loading={loading}
-        />
-      ),
-    },
-    {
-      render: ({
-        confidenceScore,
-        issueKey,
-        url,
-      }: AnnotationTicket): JSX.Element => (
-        <ButtonContainer>
-          {ConditionalWrapper({
-            condition: userCanModify,
-            wrapper: (children: JSX.Element) => (
-              <Popconfirm
-                align="right"
-                onConfirm={() => {
-                  handleMove({ url, issueKey, confidenceScore });
-                }}
-                trigger={children}
-              >
-                Do you want to move this {issueString} to{" "}
-                {isIssue ? "suspected issues" : "issues"}?
-              </Popconfirm>
-            ),
-            altWrapper: (children: JSX.Element) => (
-              <Tooltip trigger={children}>
-                You are not authorized to edit failure details
-              </Tooltip>
-            ),
-            children: (
-              <Button
-                size={Size.Small}
-                data-cy={`move-btn-${issueKey}`}
-                disabled={!userCanModify}
-                leftGlyph={<Icon glyph={isIssue ? "ArrowDown" : "ArrowUp"} />}
-              >
-                Move to {isIssue ? "suspected issues" : "issues"}
-              </Button>
-            ),
-          })}
-          {ConditionalWrapper({
-            condition: userCanModify,
-            wrapper: (children: JSX.Element) => (
-              <Popconfirm
-                align="right"
-                onConfirm={() => {
-                  handleRemove(url, issueKey);
-                }}
-                trigger={children}
-              >
-                Do you want to delete this {issueString}?
-              </Popconfirm>
-            ),
-            altWrapper: (children: JSX.Element) => (
-              <Tooltip trigger={children}>
-                You are not authorized to edit failure details
-              </Tooltip>
-            ),
-            children: (
-              <Button
-                size="small"
-                data-cy={`${issueKey}-delete-btn`}
-                leftGlyph={<Icon glyph="Trash" />}
-                disabled={!userCanModify}
-              />
-            ),
-          })}
-        </ButtonContainer>
-      ),
-    },
-  ];
 
   const [removeAnnotation] = useMutation<
     RemoveAnnotationIssueMutation,
@@ -199,7 +108,7 @@ const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
   // SCROLL TO added Issue
   // Will add a span with a ref to the row that matches the selectedRowKey
   // And will scroll to that ref.
-  const rowRef = useRef<HTMLSpanElement>(null);
+  const rowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (selectedRowKey && rowRef.current) {
@@ -211,28 +120,34 @@ const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
   }, [selectedRowKey]);
 
   return (
-    <Table
-      tableLayout="fixed"
-      data-test-id={isIssue ? "issues-table" : "suspected-issues-table"}
-      dataSource={jiraIssues}
-      rowKey={({ issueKey }) => issueKey}
-      columns={columns}
-      pagination={false}
-      showHeader={false}
-      rowSelection={{
-        renderCell: (_, record) =>
-          record.issueKey === selectedRowKey && <span ref={rowRef} />,
-        selectedRowKeys: [selectedRowKey],
-        columnWidth: 0,
-      }}
-    />
+    <>
+      {jiraIssues.map((issue) => (
+        <ItemContainer
+          key={issue.issueKey}
+          ref={issue.issueKey === selectedRowKey ? rowRef : null}
+          selected={issue.issueKey === selectedRowKey}
+        >
+          <AnnotationTicketRowWithActions
+            isIssue={isIssue}
+            issueString={issueString}
+            onMove={handleMove}
+            onRemove={handleRemove}
+            userCanModify={userCanModify}
+            loading={loading}
+            {...issue}
+          />
+        </ItemContainer>
+      ))}
+    </>
   );
 };
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: ${size.xs};
+const ItemContainer = styled.div`
+  padding: ${size.xs};
+  ${({ selected }: { selected?: boolean }) =>
+    selected &&
+    `
+    background-color: ${gray.light2};
+  `}
 `;
 
 export default AnnotationTicketsTable;
