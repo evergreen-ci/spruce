@@ -1,4 +1,3 @@
-const hostTableRow = ".ant-table-row";
 const hostColumnHeader = ".ant-table-thead > tr > :nth-child(2)";
 
 const ascendingSortSpawnHostOrderByHostId = [
@@ -28,7 +27,7 @@ describe("Navigating to Spawn Host page", () => {
     cy.visit("/spawn/host");
   });
   it("Visiting the spawn host page should display all of your spawned hosts", () => {
-    cy.get(hostTableRow).should("have.length", 2);
+    cy.dataCy("leafygreen-table-row").should("have.length", 2);
   });
   it("Visiting the spawn host page should not have any cards expanded by default", () => {
     cy.dataCy("spawn-host-card").should("not.exist");
@@ -56,18 +55,18 @@ describe("Navigating to Spawn Host page", () => {
       cy.visit("/spawn/host");
     });
     it("Visiting the spawn host page should display all of your spawned hosts not sorted by default", () => {
-      cy.get(hostTableRow).should("have.length", 2);
+      cy.dataCy("leafygreen-table-row").should("have.length", 2);
     });
     it("Clicking on the host column header should sort spawn hosts by ascending order by id", () => {
       cy.get(hostColumnHeader).click();
-      cy.get(hostTableRow).each(($el, index) =>
+      cy.dataCy("leafygreen-table-row").each(($el, index) =>
         cy.wrap($el).contains(ascendingSortSpawnHostOrderByHostId[index])
       );
     });
     it("Clicking on the host column header a second time should sort spawn hosts by decending order by id", () => {
       cy.get(hostColumnHeader).click();
       cy.get(hostColumnHeader).click();
-      cy.get(hostTableRow).each(($el, index) =>
+      cy.dataCy("leafygreen-table-row").each(($el, index) =>
         cy.wrap($el).contains(descendingSortSpawnHostOrderByHostId[index])
       );
     });
@@ -75,18 +74,18 @@ describe("Navigating to Spawn Host page", () => {
       cy.get(hostColumnHeader).click();
       cy.get(hostColumnHeader).click();
       cy.get(hostColumnHeader).click();
-      cy.get(hostTableRow).should("have.length", 2);
+      cy.dataCy("leafygreen-table-row").should("have.length", 2);
     });
     it("Clicking on the expiration column header should sort the hosts by ascending order", () => {
       cy.contains("Expires In").click();
-      cy.get(hostTableRow).each(($el, index) =>
+      cy.dataCy("leafygreen-table-row").each(($el, index) =>
         cy.wrap($el).contains(ascendingSortSpawnHostOrderByExpiration[index])
       );
     });
     it("Clicking on the expiration column header a second time should sort the hosts by descending order", () => {
       cy.contains("Expires In").click();
       cy.contains("Expires In").click();
-      cy.get(hostTableRow).each(($el, index) =>
+      cy.dataCy("leafygreen-table-row").each(($el, index) =>
         cy.wrap($el).contains(descendingSortSpawnHostOrderByExpiration[index])
       );
     });
@@ -94,7 +93,7 @@ describe("Navigating to Spawn Host page", () => {
       cy.contains("Expires In").click();
       cy.contains("Expires In").click();
       cy.contains("Expires In").click();
-      cy.get(hostTableRow).should("have.length", 2);
+      cy.dataCy("leafygreen-table-row").should("have.length", 2);
     });
 
     describe("Spawn host modal", () => {
