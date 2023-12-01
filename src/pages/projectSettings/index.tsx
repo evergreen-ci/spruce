@@ -83,6 +83,7 @@ const ProjectSettings: React.FC = () => {
   if (!tabRouteValues.includes(tab)) {
     return (
       <Navigate
+        replace
         to={getProjectSettingsRoute(
           identifier,
           ProjectSettingsTabRoutes.General

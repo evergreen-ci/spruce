@@ -7,7 +7,7 @@ import { size } from "constants/tokens";
 import { IssueLink } from "gql/generated/types";
 import { AddIssueModal } from "../AddIssueModal";
 import { AnnotationTicketsTable } from "../AnnotationTicketsTable";
-import { TicketsTitle, NonTableWrapper } from "../BBComponents";
+import { TicketsTitle } from "../BBComponents";
 
 interface AnnotationTicketsProps {
   tickets: IssueLink[];
@@ -45,25 +45,23 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
   };
   return (
     <>
-      <NonTableWrapper>
-        <TicketsTitle>{title}</TicketsTitle>
-        <Tooltip
-          trigger={
-            <StyledButton
-              onClick={handleAdd}
-              data-cy={
-                isIssue ? "add-issue-button" : "add-suspected-issue-button"
-              }
-              disabled={!userCanModify}
-            >
-              {buttonText}
-            </StyledButton>
-          }
-          enabled={!userCanModify}
-        >
-          You are not authorized to edit failure details
-        </Tooltip>
-      </NonTableWrapper>
+      <TicketsTitle>{title}</TicketsTitle>
+      <Tooltip
+        trigger={
+          <StyledButton
+            onClick={handleAdd}
+            data-cy={
+              isIssue ? "add-issue-button" : "add-suspected-issue-button"
+            }
+            disabled={!userCanModify}
+          >
+            {buttonText}
+          </StyledButton>
+        }
+        enabled={!userCanModify}
+      >
+        You are not authorized to edit failure details
+      </Tooltip>
       {tickets.length > 0 && (
         <AnnotationTicketsTable
           jiraIssues={tickets}

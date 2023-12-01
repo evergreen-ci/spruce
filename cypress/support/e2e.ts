@@ -126,6 +126,11 @@ declare global {
        * @param cardTitle - The title of the card to expand
        */
       openExpandableCard(cardTitle: string);
+      /**
+       * Command to validate sort is applied to table
+       * @param direction - The direction of the sort that should be applied
+       */
+      validateTableSort(direction: "asc" | "desc" | "none");
     }
   }
 }

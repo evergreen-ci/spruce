@@ -1,13 +1,16 @@
+const selectHosts = () => {
+  cy.get("thead").within(() => {
+    cy.get("input[type=checkbox]").check({ force: true });
+  });
+  cy.get("tbody").within(() => {
+    cy.get("input[type=checkbox]")
+      .should("have.length", 3)
+      .and("have.attr", "aria-checked", "true");
+  });
+};
+
 describe("Select hosts in hosts page table", () => {
   const hostsRoute = "/hosts";
-
-  const selectHosts = () => {
-    cy.get(".ant-table-thead .ant-table-selection-column").within(() => {
-      cy.get(".ant-checkbox-input").should("not.be.disabled");
-      cy.get(".ant-checkbox-input").check();
-    });
-    cy.get(".ant-checkbox-checked").should("have.length", 4);
-  };
 
   beforeEach(() => {
     cy.visit(`${hostsRoute}?distroId=ubuntu1604-large&page=0&statuses=running`);

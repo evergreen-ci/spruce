@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.177",
+  "version": "3.0.179",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -29,7 +29,7 @@
     "prepare": "husky install",
     "prettier": "prettier --write",
     "prod": "env-cmd -e devProduction -r .env-cmdrc.local.json yarn start",
-    "serve": "node scripts/prodServer.js",
+    "serve": "node scripts/prod-server.js",
     "snapshot": "jest storybook.test.ts --watchAll=false",
     "staging": "env-cmd -e devStaging -r .env-cmdrc.local.json yarn start",
     "start": "vite",
@@ -174,6 +174,7 @@
     "eslint": "8.19.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "9.0.0",
+    "eslint-plugin-check-file": "2.6.2",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jest": "27.2.1",

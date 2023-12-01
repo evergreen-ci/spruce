@@ -18,7 +18,7 @@ import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
 import { TASK } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { PageDoesNotExist } from "pages/404";
+import { PageDoesNotExist } from "pages/NotFound";
 import { RequiredQueryParams, TaskStatus } from "types/task";
 import { queryString } from "utils";
 import { ActionButtons } from "./task/ActionButtons";
