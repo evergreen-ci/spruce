@@ -9,7 +9,7 @@ import {
 import { VERSION } from "gql/queries";
 
 type Action =
-  | { name: "Filter Tasks"; filterBy: string }
+  | { name: "Filter Tasks"; filterBy: string | string[] }
   | {
       name: "Sort Tasks Table";
       sortBy:
