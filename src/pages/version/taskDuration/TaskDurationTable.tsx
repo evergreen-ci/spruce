@@ -50,6 +50,10 @@ export const TaskDurationTable: React.FC<Props> = ({
       updatedParams[id] = value;
     });
 
+    sorting.forEach(({ desc, id }) => {
+      updatedParams[id] = desc ? SortDirection.Desc : SortDirection.Asc;
+    });
+
     setQueryParams(updatedParams);
     sendEvent({ name: "Filter Tasks", filterBy: Object.keys(filterState) });
   };
@@ -57,9 +61,9 @@ export const TaskDurationTable: React.FC<Props> = ({
   const updateSort = (sortState: SortingState) => {
     const updatedParams = { page: "0" };
 
-    if (!sortState.length) {
-      setQueryParams(updatedParams);
-    }
+    filters.forEach(({ id, value }) => {
+      updatedParams[id] = value;
+    });
 
     sortState.forEach(({ desc, id }) => {
       updatedParams[id] = desc ? SortDirection.Desc : SortDirection.Asc;
@@ -84,7 +88,7 @@ export const TaskDurationTable: React.FC<Props> = ({
         }) => <TaskLink taskId={id} taskName={getValue()} />,
         meta: {
           search: {
-            "data-cy": "task-name-filter",
+            "data-cy": "task-name-filter-popover",
           },
         },
       },
@@ -97,7 +101,7 @@ export const TaskDurationTable: React.FC<Props> = ({
         cell: ({ getValue }) => <TaskStatusBadge status={getValue()} />,
         meta: {
           treeSelect: {
-            "data-cy": "status-filter",
+            "data-cy": "status-filter-popover",
             options: statusOptions,
           },
         },
@@ -110,7 +114,7 @@ export const TaskDurationTable: React.FC<Props> = ({
         enableColumnFilter: true,
         meta: {
           search: {
-            "data-cy": "build-variant-filter",
+            "data-cy": "build-variant-filter-popover",
           },
         },
       },
@@ -146,6 +150,11 @@ export const TaskDurationTable: React.FC<Props> = ({
     columns,
     containerRef: tableContainerRef,
     data: tasks ?? [],
+    defaultColumn: {
+      // Handle bug in sorting order
+      // https://github.com/TanStack/table/issues/4289
+      sortDescFirst: false,
+    },
     state: {
       columnFilters: filters,
       sorting,
@@ -190,21 +199,31 @@ const getInitialParams = (queryParams: {
   initialSort: SortingState;
 } => {
   const {
-    [PatchTasksQueryParams.TaskName]: taskName = "",
-    [PatchTasksQueryParams.Statuses]: statuses = [],
-    [PatchTasksQueryParams.Variant]: variant = "",
-    [PatchTasksQueryParams.Duration]: duration = "",
+    [PatchTasksQueryParams.TaskName]: taskName,
+    [PatchTasksQueryParams.Statuses]: statuses,
+    [PatchTasksQueryParams.Variant]: variant,
+    [PatchTasksQueryParams.Duration]: duration,
   } = queryParams;
 
+  const initialFilters = [];
+  if (taskName) {
+    initialFilters.push({
+      id: PatchTasksQueryParams.TaskName,
+      value: taskName,
+    });
+  }
+  if (statuses) {
+    initialFilters.push({
+      id: PatchTasksQueryParams.Statuses,
+      value: Array.isArray(statuses) ? statuses : [statuses],
+    });
+  }
+  if (variant) {
+    initialFilters.push({ id: PatchTasksQueryParams.Variant, value: variant });
+  }
+
   return {
-    initialFilters: [
-      { id: PatchTasksQueryParams.TaskName, value: taskName },
-      {
-        id: PatchTasksQueryParams.Statuses,
-        value: Array.isArray(statuses) ? statuses : [statuses],
-      },
-      { id: PatchTasksQueryParams.Variant, value: variant },
-    ],
+    initialFilters,
     initialSort: duration
       ? [
           {
