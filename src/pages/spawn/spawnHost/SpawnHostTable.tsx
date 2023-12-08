@@ -38,13 +38,19 @@ export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
     dataSource.map(({ id }, i) => [i, id === selectedHost])
   );
 
+  console.log(dataSource);
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<MyHost>({
     columns,
     containerRef: tableContainerRef,
     data: dataSource,
     defaultColumn: {
+      enableColumnFilter: false,
+      enableSorting: false,
       size: "auto" as unknown as number,
+      // Handle bug in sorting order
+      // https://github.com/TanStack/table/issues/4289
+      sortDescFirst: false,
     },
     initialState: {
       expanded: initialExpanded,

@@ -1,5 +1,3 @@
-const hostColumnHeader = ".ant-table-thead > tr > :nth-child(2)";
-
 const ascendingSortSpawnHostOrderByHostId = [
   "i-04ade558e1e26b0ad",
   "i-092593689871a50dc",
@@ -33,20 +31,24 @@ describe("Navigating to Spawn Host page", () => {
     cy.dataCy("spawn-host-card").should("not.exist");
   });
   it("Clicking on a spawn host row should toggle the host card", () => {
-    cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(1)').click();
+    cy.get("button[aria-label='Expand row']").first().click();
     cy.dataCy("spawn-host-card").should("be.visible");
-    cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(1)').click();
+    cy.get("button[aria-label='Collapse row']").first().click();
     cy.dataCy("spawn-host-card").should("not.be.visible");
   });
   it("Visiting the spawn host page with an id in the url should open the page with the row expanded", () => {
     cy.visit("/spawn/host?host=i-092593689871a50dc");
-    cy.dataCy("spawn-host-card").should("be.visible");
-    cy.dataCy("spawn-host-card").should("have.length", 1);
+    cy.dataCy("spawn-host-card").first().should("be.visible");
+    cy.dataCy("spawn-host-card").eq(1).should("not.be.visible");
   });
   it("Clicking on the Event Log link should redirect to /host/:hostId", () => {
-    cy.get('[data-row-key="i-092593689871a50dc"]').within(() => {
-      cy.contains("Event Log").click();
+    cy.contains(
+      '[data-cy="leafygreen-table-row"]',
+      "i-092593689871a50dc"
+    ).within(() => {
+      cy.get("button[aria-label='Expand row']").click();
     });
+    cy.contains("Event Log").click();
     cy.location("pathname").should("eq", "/host/i-092593689871a50dc");
   });
 
@@ -54,45 +56,36 @@ describe("Navigating to Spawn Host page", () => {
     beforeEach(() => {
       cy.visit("/spawn/host");
     });
+
     it("Visiting the spawn host page should display all of your spawned hosts not sorted by default", () => {
       cy.dataCy("leafygreen-table-row").should("have.length", 2);
     });
-    it("Clicking on the host column header should sort spawn hosts by ascending order by id", () => {
-      cy.get(hostColumnHeader).click();
+
+    it("Clicking on the host column header should sort spawn hosts by ascending order, then descending, then remove sort", () => {
+      const hostSortControl = "button[aria-label='Sort by Host']";
+      cy.get(hostSortControl).click();
       cy.dataCy("leafygreen-table-row").each(($el, index) =>
         cy.wrap($el).contains(ascendingSortSpawnHostOrderByHostId[index])
       );
-    });
-    it("Clicking on the host column header a second time should sort spawn hosts by decending order by id", () => {
-      cy.get(hostColumnHeader).click();
-      cy.get(hostColumnHeader).click();
+      cy.get(hostSortControl).click();
       cy.dataCy("leafygreen-table-row").each(($el, index) =>
         cy.wrap($el).contains(descendingSortSpawnHostOrderByHostId[index])
       );
-    });
-    it("Clicking on the host column header a third time should return the spawn host table to its original state", () => {
-      cy.get(hostColumnHeader).click();
-      cy.get(hostColumnHeader).click();
-      cy.get(hostColumnHeader).click();
+      cy.get(hostSortControl).click();
       cy.dataCy("leafygreen-table-row").should("have.length", 2);
     });
-    it("Clicking on the expiration column header should sort the hosts by ascending order", () => {
-      cy.contains("Expires In").click();
+
+    it("Clicking on the expiration column header should sort the hosts by ascending order, then descending, then remove sort", () => {
+      const expiresInSortControl = "button[aria-label='Sort by Expires In']";
+      cy.get(expiresInSortControl).click();
       cy.dataCy("leafygreen-table-row").each(($el, index) =>
         cy.wrap($el).contains(ascendingSortSpawnHostOrderByExpiration[index])
       );
-    });
-    it("Clicking on the expiration column header a second time should sort the hosts by descending order", () => {
-      cy.contains("Expires In").click();
-      cy.contains("Expires In").click();
+      cy.get(expiresInSortControl).click();
       cy.dataCy("leafygreen-table-row").each(($el, index) =>
         cy.wrap($el).contains(descendingSortSpawnHostOrderByExpiration[index])
       );
-    });
-    it("Clicking on the expiration column header a third time should return the spawn host table to its original state", () => {
-      cy.contains("Expires In").click();
-      cy.contains("Expires In").click();
-      cy.contains("Expires In").click();
+      cy.get(expiresInSortControl).click();
       cy.dataCy("leafygreen-table-row").should("have.length", 2);
     });
 
