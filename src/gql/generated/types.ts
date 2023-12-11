@@ -2567,6 +2567,7 @@ export type TaskContainerCreationOpts = {
 export type TaskEndDetail = {
   __typename?: "TaskEndDetail";
   description?: Maybe<Scalars["String"]["output"]>;
+  diskDevices?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>;
   oomTracker: OomTrackerInfo;
   status: Scalars["String"]["output"];
   timedOut?: Maybe<Scalars["Boolean"]["output"]>;
@@ -8510,6 +8511,7 @@ export type TaskQuery = {
     details?: {
       __typename?: "TaskEndDetail";
       description?: string | null;
+      diskDevices?: Array<string | null> | null;
       status: string;
       timedOut?: boolean | null;
       timeoutType?: string | null;

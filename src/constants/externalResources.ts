@@ -114,6 +114,7 @@ export const getHoneycombTraceUrl = (
 
 export const getHoneycombSystemMetricsUrl = (
   taskId: string,
+  diskDevices: string[],
   startTs: Date,
   endTs: Date
 ): string => {
@@ -123,7 +124,20 @@ export const getHoneycombSystemMetricsUrl = (
       { op: "AVG", column: "system.cpu.utilization" },
       { op: "RATE_AVG", column: "system.network.io.transmit" },
       { op: "RATE_AVG", column: "system.network.io.receive" },
-    ],
+    ].concat(
+      diskDevices
+        .map((device) => [
+          { op: "RATE_AVG", column: `system.disk.io.${device}.read` },
+          { op: "RATE_AVG", column: `system.disk.io.${device}.write` },
+          { op: "RATE_AVG", column: `system.disk.operations.${device}.read` },
+          {
+            op: "RATE_AVG",
+            column: `system.disk.operations.${device}.write`,
+          },
+          { op: "RATE_AVG", column: `system.disk.io_time.${device}` },
+        ])
+        .flat()
+    ),
     filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
     start_time: getUnixTime(new Date(startTs)),
     end_time: getUnixTime(new Date(endTs)),

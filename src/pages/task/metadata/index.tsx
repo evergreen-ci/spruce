@@ -93,6 +93,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
   const { author, id: versionID } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;
   const taskTrace = details?.traceID;
+  const diskDevices = details?.diskDevices;
   const { id: podId } = pod ?? {};
   const isContainerTask = !!podId;
   const { metadataLinks } = annotation ?? {};
@@ -382,7 +383,12 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           </StyledLink>
           <StyledLink
             data-cy="task-metrics-link"
-            href={getHoneycombSystemMetricsUrl(taskId, startTime, finishTime)}
+            href={getHoneycombSystemMetricsUrl(
+              taskId,
+              diskDevices,
+              startTime,
+              finishTime
+            )}
             onClick={() => {
               onHideCue();
               taskAnalytics.sendEvent({ name: "Click Trace Metrics Link" });
