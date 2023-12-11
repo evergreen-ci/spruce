@@ -1,5 +1,6 @@
 # 2023-12-11 Cypress tests run independently by resetting browser and database state
 
+- design: WRITING-14354
 - status: accepted
 - date: 2023-6-26
 - authors: SupaJoon
