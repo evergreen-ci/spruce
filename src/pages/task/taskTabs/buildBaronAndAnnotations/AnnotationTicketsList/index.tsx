@@ -1,9 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
 import { useAnnotationAnalytics } from "analytics";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   MoveAnnotationIssueMutation,
@@ -14,8 +11,6 @@ import {
 import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
 import AnnotationTicketRowWithActions from "./AnnotationTicketRowWithActions";
 import { AnnotationTickets } from "./types";
-
-const { gray } = palette;
 
 interface AnnotationTicketsListProps {
   jiraIssues: AnnotationTickets;
@@ -106,8 +101,6 @@ const AnnotationTicketsList: React.FC<AnnotationTicketsListProps> = ({
   };
 
   // SCROLL TO added Issue
-  // Will add a span with a ref to the row that matches the selectedRowKey
-  // And will scroll to that ref.
   const rowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -122,32 +115,21 @@ const AnnotationTicketsList: React.FC<AnnotationTicketsListProps> = ({
   return (
     <>
       {jiraIssues.map((issue) => (
-        <ItemContainer
+        <AnnotationTicketRowWithActions
+          isIssue={isIssue}
+          issueString={issueString}
+          onMove={handleMove}
+          onRemove={handleRemove}
+          userCanModify={userCanModify}
+          loading={loading}
           key={issue.issueKey}
           ref={issue.issueKey === selectedRowKey ? rowRef : null}
           selected={issue.issueKey === selectedRowKey}
-        >
-          <AnnotationTicketRowWithActions
-            isIssue={isIssue}
-            issueString={issueString}
-            onMove={handleMove}
-            onRemove={handleRemove}
-            userCanModify={userCanModify}
-            loading={loading}
-            {...issue}
-          />
-        </ItemContainer>
+          {...issue}
+        />
       ))}
     </>
   );
 };
-const ItemContainer = styled.div`
-  padding: ${size.xs};
-  ${({ selected }: { selected?: boolean }) =>
-    selected &&
-    `
-    background-color: ${gray.light2};
-  `}
-`;
 
 export default AnnotationTicketsList;
