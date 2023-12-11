@@ -113,7 +113,7 @@ const AnnotationTicketsList: React.FC<AnnotationTicketsListProps> = ({
   }, [selectedRowKey]);
 
   return (
-    <>
+    <div data-cy={isIssue ? "issues-list" : "suspected-issues-list"}>
       {jiraIssues.map((issue) => (
         <AnnotationTicketRowWithActions
           isIssue={isIssue}
@@ -128,7 +128,7 @@ const AnnotationTicketsList: React.FC<AnnotationTicketsListProps> = ({
           {...issue}
         />
       ))}
-    </>
+    </div>
   );
 };
 
