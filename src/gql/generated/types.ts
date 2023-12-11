@@ -5719,6 +5719,7 @@ export type DistroQuery = {
     disableShallowClone: boolean;
     isCluster: boolean;
     isVirtualWorkStation: boolean;
+    mountpoints?: Array<string | null> | null;
     name: string;
     note: string;
     provider: Provider;
