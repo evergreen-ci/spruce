@@ -46,6 +46,7 @@ const DistroSettings: React.FC = () => {
   if (!Object.values(DistroSettingsTabRoutes).includes(currentTab)) {
     return (
       <Navigate
+        replace
         to={getDistroSettingsRoute(distroId, DistroSettingsTabRoutes.General)}
       />
     );

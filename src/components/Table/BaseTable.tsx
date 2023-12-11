@@ -13,7 +13,34 @@ import {
   type TableProps,
   TableHead,
 } from "@leafygreen-ui/table";
+import { RowData } from "@tanstack/react-table";
+import {
+  TableFilterPopover,
+  TableSearchPopover,
+} from "components/TablePopover";
+import { TreeDataEntry } from "components/TreeSelect";
 import TableLoader from "./TableLoader";
+
+// Define typing of columns' meta field
+// https://tanstack.com/table/v8/docs/api/core/column-def#meta
+declare module "@tanstack/table-core" {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface ColumnMeta<TData extends RowData, TValue> {
+    filterComponent?: (column: any) => JSX.Element;
+    search?: {
+      "data-cy"?: string;
+      placeholder?: string;
+    };
+    sortComponent?: (column: any) => JSX.Element;
+    treeSelect?: {
+      "data-cy"?: string;
+      options: TreeDataEntry[];
+    };
+    // Overcome react-table's column width limitations
+    // https://github.com/TanStack/table/discussions/4179#discussioncomment-3334470
+    width?: string;
+  }
+}
 
 type SpruceTableProps = {
   "data-cy-row"?: string;
@@ -38,22 +65,50 @@ export const BaseTable = <T extends LGRowData>({
       <TableHead>
         {table.getHeaderGroups().map((headerGroup) => (
           <HeaderRow key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <HeaderCell key={header.id} header={header}>
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext()
-                )}
-                {/* @ts-ignore-error */}
-                {header.column.columnDef?.meta?.filterComponent?.({
-                  column: header.column,
-                })}
-                {/* @ts-ignore-error */}
-                {header.column.columnDef?.meta?.sortComponent?.({
-                  column: header.column,
-                })}
-              </HeaderCell>
-            ))}
+            {headerGroup.headers.map((header) => {
+              const { columnDef } = header.column;
+              return (
+                <HeaderCell
+                  key={header.id}
+                  header={header}
+                  style={
+                    columnDef?.meta?.width && { width: columnDef?.meta?.width }
+                  }
+                >
+                  {flexRender(columnDef.header, header.getContext())}
+                  {columnDef?.meta?.sortComponent?.({
+                    column: header.column,
+                  })}
+                  {columnDef?.meta?.filterComponent?.({
+                    column: header.column,
+                  })}
+                  {header.column.getCanFilter() &&
+                    (columnDef?.meta?.treeSelect ? (
+                      <TableFilterPopover
+                        data-cy={columnDef?.meta?.treeSelect?.["data-cy"]}
+                        onConfirm={(value) =>
+                          header.column.setFilterValue(value)
+                        }
+                        options={columnDef?.meta?.treeSelect?.options}
+                        value={
+                          (header?.column?.getFilterValue() as string[]) ?? []
+                        }
+                      />
+                    ) : (
+                      <TableSearchPopover
+                        data-cy={columnDef?.meta?.search?.["data-cy"]}
+                        onConfirm={(value) =>
+                          header.column.setFilterValue(value)
+                        }
+                        placeholder={columnDef?.meta?.search?.placeholder}
+                        value={
+                          (header?.column?.getFilterValue() as string) ?? ""
+                        }
+                      />
+                    ))}
+                </HeaderCell>
+              );
+            })}
           </HeaderRow>
         ))}
       </TableHead>
@@ -68,7 +123,7 @@ export const BaseTable = <T extends LGRowData>({
           <Row
             key={row.id}
             row={row}
-            data-cy={dataCyRow}
+            data-cy="leafygreen-table-row"
             className={css`
               &[aria-hidden="false"] td > div {
                 max-height: unset;

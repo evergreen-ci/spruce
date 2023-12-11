@@ -12,11 +12,15 @@ type TreeSelectFilterProps = {
   tData: TreeDataEntry[];
 };
 
+/*
+ * @deprecated Use react-table's onColumnFiltersChange prop.
+ */
 export const getColumnTreeSelectFilterProps = ({
   "data-cy": dataCy,
   onConfirm = () => {},
   tData,
 }: TreeSelectFilterProps) => ({
+  enableColumnFilter: false,
   meta: {
     filterComponent: ({ column }) => {
       const filteredOptions = tData.filter(
@@ -53,10 +57,14 @@ type InputFilterProps = {
   onConfirm?: ({ id, value }: { id: string; value: string }) => void;
 };
 
+/*
+ * @deprecated Use react-table's onColumnFiltersChange prop.
+ */
 export const getColumnInputFilterProps = ({
   "data-cy": dataCy,
   onConfirm = () => {},
 }: InputFilterProps) => ({
+  enableColumnFilter: false,
   meta: {
     filterComponent: ({ column }) => (
       <TableSearchPopover
@@ -89,6 +97,9 @@ type SortProps = {
   onToggle?: ({ id, value }: { id: string; value: string }) => void;
 };
 
+/*
+ * @deprecated Use react-table's onSortingChange prop.
+ */
 export const getColumnSortProps = ({
   "data-cy": dataCy,
   onToggle = () => {},

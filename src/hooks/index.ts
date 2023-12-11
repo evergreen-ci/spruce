@@ -1,4 +1,5 @@
 export { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
+export { useTableSort } from "./useTableSort";
 export { useGetUserPatchesPageTitleAndLink } from "hooks/useGetUserPatchesPageTitleAndLink";
 export { useOnClickOutside } from "hooks/useOnClickOutside";
 export { useVersionTaskStatusSelect } from "hooks/useVersionTaskStatusSelect";
@@ -12,7 +13,6 @@ export {
   useTableInputFilter,
   useTableCheckboxFilter,
 } from "hooks/useTableFilters";
-export { useUpdateUrlSortParamOnTableChange } from "./useUpdateUrlSortParamOnTableChange";
 export { usePrevious } from "./usePrevious";
 export { useDisableSpawnExpirationCheckbox } from "./useDisableSpawnExpirationCheckbox";
 export { useUpdateURLQueryParams } from "./useUpdateURLQueryParams";
