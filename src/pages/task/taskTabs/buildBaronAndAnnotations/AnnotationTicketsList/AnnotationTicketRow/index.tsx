@@ -37,13 +37,25 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
     summary,
     updated,
   } = fields ?? {};
-
   return (
-    <div data-cy="annotation-ticket-row">
+    <Container data-cy="annotation-ticket-row">
       {loading ? (
-        <LoadingWrapper data-cy="loading-annotation-ticket">
-          <Skeleton />
-        </LoadingWrapper>
+        <>
+          <JiraSummaryLink
+            href={url}
+            target="_blank"
+            data-cy={issueKey}
+            onClick={() =>
+              annotationAnalytics.sendEvent({
+                name: "Click Annotation Ticket Link",
+              })
+            }
+          >
+            {issueKey}
+            {summary && `: ${summary}`}
+          </JiraSummaryLink>
+          <Skeleton data-cy="loading-annotation-ticket" />
+        </>
       ) : (
         <>
           <JiraSummaryLink
@@ -95,12 +107,11 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
           </BottomMetaDataWrapper>
         </>
       )}
-    </div>
+    </Container>
   );
 };
-
-const LoadingWrapper = styled.div`
-  margin-top: ${size.xs};
+const Container = styled.div`
+  width: 100%;
 `;
 
 const JiraSummaryLink = styled(StyledLink)`

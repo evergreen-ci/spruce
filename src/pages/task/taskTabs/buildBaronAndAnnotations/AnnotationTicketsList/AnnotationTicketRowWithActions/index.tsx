@@ -45,69 +45,71 @@ const AnnotationTicketRowWithActions = forwardRef<
     },
     ref
   ) => {
-    const { confidenceScore, issueKey, url } = rest;
+    const { confidenceScore, issueKey, loading, url } = rest;
     return (
       <Container selected={selected} ref={ref}>
         <AnnotationTicketRow {...rest} />
-        <ButtonContainer>
-          {ConditionalWrapper({
-            condition: userCanModify,
-            wrapper: (children: JSX.Element) => (
-              <Popconfirm
-                align="right"
-                onConfirm={() => {
-                  onMove({ url, issueKey, confidenceScore });
-                }}
-                trigger={children}
-              >
-                Do you want to move this {issueString} to{" "}
-                {isIssue ? "suspected issues" : "issues"}?
-              </Popconfirm>
-            ),
-            altWrapper: (children: JSX.Element) => (
-              <Tooltip trigger={children}>
-                You are not authorized to edit failure details
-              </Tooltip>
-            ),
-            children: (
-              <Button
-                size={Size.Small}
-                data-cy={`move-btn-${issueKey}`}
-                disabled={!userCanModify}
-                leftGlyph={<Icon glyph={isIssue ? "ArrowDown" : "ArrowUp"} />}
-              >
-                Move to {isIssue ? "suspected issues" : "issues"}
-              </Button>
-            ),
-          })}
-          {ConditionalWrapper({
-            condition: userCanModify,
-            wrapper: (children: JSX.Element) => (
-              <Popconfirm
-                align="right"
-                onConfirm={() => {
-                  onRemove(url, issueKey);
-                }}
-                trigger={children}
-              >
-                Do you want to delete this {issueString}?
-              </Popconfirm>
-            ),
-            altWrapper: (children: JSX.Element) => (
-              <Tooltip trigger={children}>
-                You are not authorized to edit failure details
-              </Tooltip>
-            ),
-            children: (
-              <Button
-                size="small"
-                data-cy={`${issueKey}-delete-btn`}
-                leftGlyph={<Icon glyph="Trash" />}
-                disabled={!userCanModify}
-              />
-            ),
-          })}
-        </ButtonContainer>
+        {!loading && (
+          <ButtonContainer>
+            {ConditionalWrapper({
+              condition: userCanModify,
+              wrapper: (children: JSX.Element) => (
+                <Popconfirm
+                  align="right"
+                  onConfirm={() => {
+                    onMove({ url, issueKey, confidenceScore });
+                  }}
+                  trigger={children}
+                >
+                  Do you want to move this {issueString} to{" "}
+                  {isIssue ? "suspected issues" : "issues"}?
+                </Popconfirm>
+              ),
+              altWrapper: (children: JSX.Element) => (
+                <Tooltip trigger={children}>
+                  You are not authorized to edit failure details
+                </Tooltip>
+              ),
+              children: (
+                <Button
+                  size={Size.Small}
+                  data-cy={`move-btn-${issueKey}`}
+                  disabled={!userCanModify}
+                  leftGlyph={<Icon glyph={isIssue ? "ArrowDown" : "ArrowUp"} />}
+                >
+                  Move to {isIssue ? "suspected issues" : "issues"}
+                </Button>
+              ),
+            })}
+            {ConditionalWrapper({
+              condition: userCanModify,
+              wrapper: (children: JSX.Element) => (
+                <Popconfirm
+                  align="right"
+                  onConfirm={() => {
+                    onRemove(url, issueKey);
+                  }}
+                  trigger={children}
+                >
+                  Do you want to delete this {issueString}?
+                </Popconfirm>
+              ),
+              altWrapper: (children: JSX.Element) => (
+                <Tooltip trigger={children}>
+                  You are not authorized to edit failure details
+                </Tooltip>
+              ),
+              children: (
+                <Button
+                  size="small"
+                  data-cy={`${issueKey}-delete-btn`}
+                  leftGlyph={<Icon glyph="Trash" />}
+                  disabled={!userCanModify}
+                />
+              ),
+            })}
+          </ButtonContainer>
+        )}
       </Container>
     );
   }
