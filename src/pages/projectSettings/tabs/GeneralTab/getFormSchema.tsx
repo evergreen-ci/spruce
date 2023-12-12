@@ -354,6 +354,7 @@ export const getFormSchema = (
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
             "Bisection will cause your stepback to activate the midway task between the last failing task and last passing task.",
+          "ui:data-cy": "stepback-bisect-group",
         },
         deactivateStepback: {
           "ui:field": "deactivateStepbackTask",
