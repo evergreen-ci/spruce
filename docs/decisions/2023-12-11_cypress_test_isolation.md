@@ -11,4 +11,4 @@ Cypress tests that mutate browser or Evergreen database state affected outcomes 
 
 ## Decision Outcome
 
-Cypress tests that mutate Evergreen data follow up with a database reset operation before running the next test. Also, DOM state, cookies, localStorage and sessionStorage are reset before each test.
+Cypress tests that mutate Evergreen data follow up with a database reset operation before running the next test. Also, DOM state, cookies, localStorage and sessionStorage are reset before each test. This lets tests run reliably in any order or grouping allowing for parallelization of the test suite.
