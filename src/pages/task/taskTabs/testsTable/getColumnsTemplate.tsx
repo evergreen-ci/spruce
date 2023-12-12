@@ -1,12 +1,6 @@
-import { ColumnProps } from "antd/es/table";
 import { WordBreak } from "components/styles";
-import {
-  InputFilterProps,
-  getColumnSearchFilterProps,
-  getColumnTreeSelectFilterProps,
-} from "components/Table/Filters";
-import { TreeSelectProps } from "components/TreeSelect";
-import { TestSortCategory, TestResult, TaskQuery } from "gql/generated/types";
+import { testStatusesFilterTreeData } from "constants/test";
+import { TestSortCategory, TaskQuery } from "gql/generated/types";
 import { string } from "utils";
 import { LogsColumn } from "./LogsColumn";
 import { TestStatusBadge } from "./TestStatusBadge";
@@ -14,89 +8,63 @@ import { TestStatusBadge } from "./TestStatusBadge";
 const { msToDuration } = string;
 
 interface GetColumnsTemplateParams {
-  onColumnHeaderClick?: (sortField) => void;
-  statusSelectorProps: TreeSelectProps;
-  testNameInputProps: InputFilterProps;
   task: TaskQuery["task"];
 }
 
-export const getColumnsTemplate = ({
-  onColumnHeaderClick = () => undefined,
-  statusSelectorProps,
-  task,
-  testNameInputProps,
-}: GetColumnsTemplateParams): ColumnProps<TestResult>[] => [
+export const getColumnsTemplate = ({ task }: GetColumnsTemplateParams) => [
   {
-    title: <span data-cy="name-column">Name</span>,
-    dataIndex: "testFile",
-    key: TestSortCategory.TestName,
-    onHeaderCell: () => ({
-      onClick: () => {
-        onColumnHeaderClick(TestSortCategory.TestName);
+    header: "Name",
+    accessorKey: "testFile",
+    id: TestSortCategory.TestName,
+    cell: ({ getValue }) => <WordBreak>{getValue()}</WordBreak>,
+    enableColumnFilter: true,
+    enableSorting: true,
+    meta: {
+      search: {
+        placeholder: "Test name regex",
       },
-    }),
-    width: "40%",
-    render: (testFile) => <WordBreak>{testFile}</WordBreak>,
-    sorter: true,
-    ...getColumnSearchFilterProps(testNameInputProps),
+      width: "40%",
+    },
   },
   {
-    title: <span data-cy="status-column">Status</span>,
-    dataIndex: "status",
-    key: TestSortCategory.Status,
-    onHeaderCell: () => ({
-      onClick: () => {
-        onColumnHeaderClick(TestSortCategory.Status);
+    header: "Status",
+    accessorKey: "status",
+    id: TestSortCategory.Status,
+    enableColumnFilter: true,
+    enableSorting: true,
+    cell: ({ getValue }) => <TestStatusBadge status={getValue()} />,
+    meta: {
+      treeSelect: {
+        "data-cy": "status-treeselect",
+        options: testStatusesFilterTreeData,
       },
-    }),
-    sorter: true,
-    className: "data-cy-status-column",
-    render: (status: string): JSX.Element => (
-      <TestStatusBadge status={status} />
+    },
+  },
+  {
+    header: () => (
+      <>{task.versionMetadata.isPatch ? "Base" : "Previous"} Status</>
     ),
-    ...getColumnTreeSelectFilterProps({
-      ...statusSelectorProps,
-      "data-cy": "status-treeselect",
-    }),
+    accessorKey: "baseStatus",
+    id: TestSortCategory.BaseStatus,
+    enableSorting: true,
+    cell: ({ getValue }) => {
+      const status = getValue();
+      return status && <TestStatusBadge status={status} />;
+    },
   },
   {
-    title: (
-      <span data-cy="base-status-column">
-        {task.versionMetadata.isPatch ? "Base" : "Previous"} Status
-      </span>
-    ),
-    dataIndex: "baseStatus",
-    key: TestSortCategory.BaseStatus,
-    onHeaderCell: () => ({
-      onClick: () => {
-        onColumnHeaderClick(TestSortCategory.BaseStatus);
-      },
-    }),
-    sorter: true,
-    render: (status: string): JSX.Element =>
-      status && <TestStatusBadge status={status} />,
-  },
-  {
-    title: <span data-cy="time-column">Time</span>,
-    dataIndex: "duration",
-    key: TestSortCategory.Duration,
-    onHeaderCell: () => ({
-      onClick: () => {
-        onColumnHeaderClick(TestSortCategory.Duration);
-      },
-    }),
-    sorter: true,
-    render: (text: number): string => {
-      const ms = text * 1000;
+    header: "Time",
+    accessorKey: "duration",
+    id: TestSortCategory.Duration,
+    enableSorting: true,
+    cell: ({ getValue }): string => {
+      const ms = getValue() * 1000;
       return msToDuration(Math.trunc(ms));
     },
   },
   {
-    title: <span data-cy="logs-column">Logs</span>,
-    width: 230,
-    dataIndex: "logs",
-    key: "logs",
+    header: "Logs",
     sorter: false,
-    render: (a, b): JSX.Element => <LogsColumn testResult={b} task={task} />,
+    cell: ({ row }) => <LogsColumn testResult={row.original} task={task} />,
   },
 ];

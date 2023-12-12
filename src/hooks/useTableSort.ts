@@ -4,7 +4,7 @@ import { SortDirection } from "gql/generated/types";
 import { useQueryParams } from "hooks/useQueryParam";
 
 interface Props {
-  sendAnalyticsEvents?: () => void;
+  sendAnalyticsEvents?: (sorter?: SortingState) => void;
 }
 
 type CallbackType = (sorter: SortingState) => void;
@@ -19,7 +19,7 @@ export const useTableSort = (props?: Props): CallbackType => {
   const [queryParams, setQueryParams] = useQueryParams();
 
   const tableChangeHandler = ((sorter: SortingState) => {
-    props?.sendAnalyticsEvents?.();
+    props?.sendAnalyticsEvents?.(sorter);
 
     const nextQueryParams = {
       ...queryParams,
