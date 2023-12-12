@@ -37,40 +37,32 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
     summary,
     updated,
   } = fields ?? {};
+
+  const jiraLink = (
+    <JiraSummaryLink
+      href={url}
+      target="_blank"
+      data-cy={issueKey}
+      onClick={() =>
+        annotationAnalytics.sendEvent({
+          name: "Click Annotation Ticket Link",
+        })
+      }
+    >
+      {issueKey}
+      {summary && `: ${summary}`}
+    </JiraSummaryLink>
+  );
   return (
     <Container data-cy="annotation-ticket-row">
       {loading ? (
         <>
-          <JiraSummaryLink
-            href={url}
-            target="_blank"
-            data-cy={issueKey}
-            onClick={() =>
-              annotationAnalytics.sendEvent({
-                name: "Click Annotation Ticket Link",
-              })
-            }
-          >
-            {issueKey}
-            {summary && `: ${summary}`}
-          </JiraSummaryLink>
+          {jiraLink}
           <Skeleton data-cy="loading-annotation-ticket" />
         </>
       ) : (
         <>
-          <JiraSummaryLink
-            href={url}
-            target="_blank"
-            data-cy={issueKey}
-            onClick={() =>
-              annotationAnalytics.sendEvent({
-                name: "Click Annotation Ticket Link",
-              })
-            }
-          >
-            {issueKey}
-            {summary && `: ${summary}`}
-          </JiraSummaryLink>
+          {jiraLink}
           {jiraTicket && (
             <StyledBadge data-cy={`${issueKey}-badge`} variant="lightgray">
               {status.name}

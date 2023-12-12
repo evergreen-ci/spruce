@@ -60,7 +60,7 @@ const AnnotationTicketsList: React.FC<AnnotationTicketsListProps> = ({
       dispatchToast.success(
         `Successfully moved ${issueString} to ${
           isIssue ? "suspected issues" : "issues"
-        }`
+        }.`
       );
     },
     onError(error) {
