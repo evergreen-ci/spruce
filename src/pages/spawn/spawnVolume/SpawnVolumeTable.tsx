@@ -1,18 +1,15 @@
 import { useMemo, useRef } from "react";
 import { LeafyGreenTableRow, useLeafyGreenTable } from "@leafygreen-ui/table";
 import { formatDistanceToNow } from "date-fns";
-import { useLocation } from "react-router-dom";
 import { DoesNotExpire } from "components/Spawn";
 import { StyledRouterLink, WordBreak } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { getSpawnHostRoute } from "constants/routes";
-import { MyVolume, TableVolume } from "types/spawn";
-import { queryString } from "utils";
+import { useQueryParam } from "hooks/useQueryParam";
+import { MyVolume, QueryParams, TableVolume } from "types/spawn";
 import { SpawnVolumeCard } from "./SpawnVolumeCard";
 import { SpawnVolumeTableActions } from "./SpawnVolumeTableActions";
 import { VolumeStatusBadge } from "./VolumeStatusBadge";
-
-const { parseQueryString } = queryString;
 
 interface SpawnVolumeTableProps {
   volumes: MyVolume[];
@@ -21,7 +18,8 @@ interface SpawnVolumeTableProps {
 export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
   volumes,
 }) => {
-  const { search } = useLocation();
+  const [selectedVolume] = useQueryParam(QueryParams.Volume, "");
+
   const dataSource: TableVolume[] = useMemo(() => {
     const volumesCopy = [...volumes];
     volumesCopy.sort(sortByHost);
@@ -33,7 +31,6 @@ export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
     }));
   }, [volumes]);
 
-  const selectedVolume = parseQueryString(search)?.volume;
   const initialExpanded = Object.fromEntries(
     dataSource.map(({ id }, i) => [i, id === selectedVolume])
   );

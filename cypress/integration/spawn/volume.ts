@@ -43,21 +43,15 @@ describe("Spawn volume page", () => {
   it("Clicking on the row should toggle the volume card open and closed", () => {
     cy.visit("/spawn/volume?volume=vol-0ea662ac92f611ed4");
     cy.dataCy("spawn-volume-card-vol-0ea662ac92f611ed4").should("be.visible");
-    cy.contains(
-      '[data-cy="leafygreen-table-row"]',
-      "vol-0ea662ac92f611ed4"
-    ).within(() => {
-      cy.get("button[aria-label='Collapse row']").click();
-    });
+    cy.contains('[data-cy="leafygreen-table-row"]', "vol-0ea662ac92f611ed4")
+      .find("button[aria-label='Collapse row']")
+      .click();
     cy.dataCy("spawn-volume-card-vol-0ea662ac92f611ed4").should(
       "not.be.visible"
     );
-    cy.contains(
-      '[data-cy="leafygreen-table-row"]',
-      "vol-0ea662ac92f611ed4"
-    ).within(() => {
-      cy.get("button[aria-label='Expand row']").click();
-    });
+    cy.contains('[data-cy="leafygreen-table-row"]', "vol-0ea662ac92f611ed4")
+      .find("button[aria-label='Expand row']")
+      .click();
     cy.dataCy("spawn-volume-card-vol-0ea662ac92f611ed4").should("be.visible");
   });
 
@@ -247,12 +241,9 @@ describe("Spawn volume page", () => {
       cy.visit("/spawn/volume");
     });
     it("migrate button is disabled for volumes with the migrating status", () => {
-      cy.contains(
-        '[data-cy="leafygreen-table-row"]',
-        "vol-0ae8720b445b771b6"
-      ).within(() => {
-        cy.get("[data-cy=volume-status-badge]").contains("Migrating");
-      });
+      cy.contains('[data-cy="leafygreen-table-row"]', "vol-0ae8720b445b771b6")
+        .find("[data-cy=volume-status-badge]")
+        .contains("Migrating");
       cy.dataCy("migrate-btn-vol-0ae8720b445b771b6").should(
         "have.attr",
         "aria-disabled",

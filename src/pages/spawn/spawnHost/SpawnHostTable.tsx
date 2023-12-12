@@ -3,24 +3,21 @@ import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { LeafyGreenTableRow, useLeafyGreenTable } from "@leafygreen-ui/table";
 import { formatDistanceToNow } from "date-fns";
-import { useLocation } from "react-router-dom";
 import HostStatusBadge from "components/HostStatusBadge";
 import { DoesNotExpire } from "components/Spawn";
 import { WordBreak } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { size } from "constants/tokens";
-import { MyHost } from "types/spawn";
-import { queryString } from "utils";
+import { useQueryParam } from "hooks/useQueryParam";
+import { MyHost, QueryParams } from "types/spawn";
 import { SpawnHostCard } from "./SpawnHostCard";
 import { SpawnHostTableActions } from "./SpawnHostTableActions";
-
-const { parseQueryString } = queryString;
 
 interface SpawnHostTableProps {
   hosts: MyHost[];
 }
 export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
-  const { search } = useLocation();
+  const [selectedHost] = useQueryParam(QueryParams.Host, "");
 
   const dataSource = useMemo(
     () =>
@@ -33,12 +30,10 @@ export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
     [hosts]
   );
 
-  const selectedHost = parseQueryString(search)?.host;
   const initialExpanded = Object.fromEntries(
     dataSource.map(({ id }, i) => [i, id === selectedHost])
   );
 
-  console.log(dataSource);
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<MyHost>({
     columns,
