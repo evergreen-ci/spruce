@@ -9,6 +9,9 @@ export { githubPRLinkify } from "./githubPRLinkify";
  * @returns - a string representing the duration in the format of "1d 2h 3m 4s"
  */
 export const msToDuration = (ms: number): string => {
+  if (ms === 0) {
+    return "0s";
+  }
   const days = Math.floor(ms / (24 * 60 * 60 * 1000));
   const daysMilli = ms % (24 * 60 * 60 * 1000);
   const hours = Math.floor(daysMilli / (60 * 60 * 1000));
