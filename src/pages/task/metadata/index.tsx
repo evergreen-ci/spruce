@@ -36,7 +36,8 @@ import { TaskStatus } from "types/task";
 import { string } from "utils";
 import { AbortMessage } from "./AbortMessage";
 import { DependsOn } from "./DependsOn";
-import { ETATimer } from "./ETATimer";
+import ETATimer from "./ETATimer";
+import RuntimeTimer from "./RuntimeTimer";
 
 const { applyStrictRegex, msToDuration, shortenGithash } = string;
 const { red } = palette;
@@ -163,6 +164,9 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
       )}
       {status === TaskStatus.Started && expectedDuration > 0 && (
         <ETATimer startTime={startTime} expectedDuration={expectedDuration} />
+      )}
+      {status === TaskStatus.Started && startTime && (
+        <RuntimeTimer startTime={startTime} />
       )}
       {startTime && (
         <MetadataItem>
