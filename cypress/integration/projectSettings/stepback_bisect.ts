@@ -1,6 +1,28 @@
 import { clickSave } from "../../utils";
 import { getGeneralRoute, project, projectUseRepoEnabled } from "./constants";
 
+type stepbackButtonType = "enabled" | "disabled" | "repo";
+
+/**
+ * Retrieves the stepback button associated with type. The stepback buttons are
+ * inside of the div container with "stepback-bisect-group", which contains three
+ * labels that each have their first child as the button
+ * @param type The type of stepback button to get
+ * @returns The stepback button corresponding to the type
+ */
+function getStepbackButton(
+  type: stepbackButtonType
+): Cypress.Chainable<JQuery<HTMLElement>> {
+  let i = 0;
+  if (type === "disabled") {
+    i = 1;
+  }
+  if (type === "repo") {
+    i = 2;
+  }
+  return cy.dataCy("stepback-bisect-group").children().eq(i).children().eq(0);
+}
+
 describe("Stepback bisect setting", () => {
   describe("Repo project present", () => {
     const destination = getGeneralRoute(projectUseRepoEnabled);
@@ -10,23 +32,16 @@ describe("Stepback bisect setting", () => {
     });
 
     it("Starts as default to repo", () => {
-      cy.dataCy("stepback-bisect-group")
-        .children()
-        .should("have.length", 3)
-        .eq(2)
-        .should("have.attr", "aria-clicked", "true");
+      getStepbackButton("repo").should("have.attr", "aria-clicked", "true");
     });
 
     it("Clicking on enabled and then save shows a success toast", () => {
-      cy.dataCy("stepback-bisect-group").children().eq(0).click();
+      getStepbackButton("enabled").click();
       clickSave();
       cy.validateToast("success", "Successfully updated project");
 
       cy.reload();
-      cy.dataCy("stepback-bisect-group")
-        .children()
-        .eq(0)
-        .should("have.attr", "aria-clicked", "true");
+      getStepbackButton("enabled").should("have.attr", "aria-clicked", "true");
     });
   });
 
@@ -38,23 +53,16 @@ describe("Stepback bisect setting", () => {
     });
 
     it("Starts as disabled", () => {
-      cy.dataCy("stepback-bisect-group")
-        .children()
-        .should("have.length", 2)
-        .eq(1)
-        .should("have.attr", "aria-clicked", "true");
+      getStepbackButton("disabled").should("have.attr", "aria-clicked", "true");
     });
 
     it("Clicking on enabled and then save shows a success toast", () => {
-      cy.dataCy("stepback-bisect-group").children().eq(0).click();
+      getStepbackButton("enabled").click();
       clickSave();
       cy.validateToast("success", "Successfully updated project");
 
       cy.reload();
-      cy.dataCy("stepback-bisect-group")
-        .children()
-        .eq(0)
-        .should("have.attr", "aria-clicked", "true");
+      getStepbackButton("enabled").should("have.attr", "aria-clicked", "true");
     });
   });
 });
