@@ -8,15 +8,10 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 const { blue } = palette;
 
 type ExpandedTextProps = {
-  ["data-cy"]?: string;
   message: string;
 } & Omit<InlineDefinitionProps, "children" | "definition">;
 
-const ExpandedText: React.FC<ExpandedTextProps> = ({
-  "data-cy": dataCy,
-  message,
-  ...rest
-}) => (
+const ExpandedText: React.FC<ExpandedTextProps> = ({ message, ...rest }) => (
   <InlineDefinition {...rest} definition={message}>
     <ButtonText>more</ButtonText>
   </InlineDefinition>
