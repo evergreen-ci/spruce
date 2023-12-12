@@ -122,9 +122,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
       <MetadataItem>
         Submitted by:{" "}
         <StyledRouterLink
-          to={
-            authorEmail && getUserPatchesRoute(getAuthorUsername(authorEmail))
-          }
+          to={getUserPatchesRoute(getAuthorUsername(authorEmail || ""))}
           data-cy="user-patches-link"
         >
           {author}
