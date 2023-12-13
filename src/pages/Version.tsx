@@ -34,6 +34,8 @@ import BuildVariantCard from "./version/BuildVariantCard";
 import { ActionButtons, Metadata, VersionTabs } from "./version/index";
 import { NameChangeModal } from "./version/NameChangeModal";
 
+// IMPORTANT: If you make any changes to the state logic in this file, please make sure to update the ADR:
+// docs/adrs/2023-12-13_version_page_logic.md
 export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
   const { id } = useParams<{ id: string }>();

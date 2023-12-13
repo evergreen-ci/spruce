@@ -1,0 +1,69 @@
+# 2023-12-13 How the version page reasons about what to load
+
+- status: accepted
+- date: 2023-12-13
+- authors: Mohamed Khelif
+
+## Context and Problem Statement
+
+The version page can have multiple states and every time it is loaded there are
+a series of checks that need to be done to determine what to load or if we
+should redirect to another page. This document aims to describe the logic behind
+the version page.
+
+<!-- This is an optional element. Feel free to remove. -->
+
+## Considered Options
+
+## Decision Outcome
+
+Please reference the below flowchart for the logic behind the version page.
+
+```mermaid
+flowchart
+	2["hasVersion(id)"] --- 565589("Error")
+	style 2 fill:#acc6ff
+	480632["getPatch(id)"] --- 565589
+	style 480632 fill:#acc6ff
+	273918["getVersion(id)"] --- 565589
+	style 273918 fill:#acc6ff
+	480632 ---|"activated == true\n"| 273918
+	2 ---|"hasVersion == false\n"| 480632
+	2 ---|"hasVersion == true\n"| 273918
+	965472(["setIsLoadingData(false)"]) --- 616311["redirect to patch configure page"]
+	style 965472 fill:#a097ff
+	style 616311 fill:#00ff33
+	1{"User Visits /version/{id}"} --- 273769(["setIsLoadingData(true)"])
+	style 1 fill:#00ff33
+	style 273769 fill:#a097ff
+	273769 --- 2
+	565589 --- 229436(["setIsLoadingData(false)"])
+	style 229436 fill:#a097ff
+	229436 --- 835273["show error"]
+	style 835273 fill:#00ff33
+	860357(["setIsLoadingData(false)"]) --- 273918
+	style 860357 fill:#a097ff
+	860357 --- 750648["show version page"]
+	style 750648 fill:#00ff33
+	764900(["setIsLoadingData(false)"]) --- 164931["redirect to commit queue"]
+	style 764900 fill:#a097ff
+	style 164931 fill:#00ff33
+	965472 ---|"alias !== commit_queue && activated == false"| 480632
+	480632 ---|"alias == commit_queue && activated == false"| 764900
+	142529["GraphQL request"]
+	style 142529 fill:#acc6ff
+	497431["User visible feedback"]
+	style 497431 fill:#00ff33
+	539322(["State Transition"])
+	style 539322 fill:#a097ff
+	891333{"User Interaction"}
+	style 891333 fill:#00ff33
+
+    %% Mermaid Flow Diagram Link
+%% Keep this link to make future edits to your diagram
+%% https://www.mermaidflow.app/flowchart#N4IgZgNg9g7iBcoB2UAmBTAzgg2qGAlqgC4AWCAjAJxUA0Ip6BA5qcQgEwAMH9RCICiHoAHKJgLECUJAlAAPShwDMAFgB0HAKz0AnpS5cAvvVQBDYmbkgAxhDOZMWXAF16mYrojP4OcAQgIeABiQzAwZWUQNxB7ACN0CAEAVScAJwACADUCCWJMDIB6ADd0NIkZQuAiI2EQVAI09BspGQEAFQAhOrSzJABrTAARXphZRBMQETMmpGIAJT7+hC5TUYBlT28EMDMIJ0nPEXQBNNIoAFs4gFdMADk0E-ctk4n3RObidFQdvadRcSSaRIACCcUwUAg1y+1kU8AoKg02j0BmMJnwRDIlFUqnojBYbAQAA5ViB+PAQBw6mI8sDYUoAGwUdQAdh0IH08FUFFUk3MlmsdgcTmwvhiHi8Pj8YACQWCZhsNgZ4Wi9HiiQEpAcWTKFSQAAoiABKOoNJotOkUro9JbDUbjYCTaazBZLFZrMwwTaS377dCHXTHU6fPrMbwPDB1CXbN4gJzeFrfX3-KaA1qg8GQ6GvBSM5lslFcnlGdEgQgkcjwhns-GsdjwEl8H4UnnaDhUalpy25+GqLTKTTszkUJl8ixWRC2eyOKXil6i6WykIKpUqmLqpIUgDivREpAAigAZDJNACO1yw7FMjU+lpA1vovQGds9DqdM3Qc0WA3d9Q2L2Tf16COV4QHNSwkDDdAIyeOMANjeNPiTeBdj9AFaRkMEIShGFJzhHl+0HQsRwoEtaAxCtOG4PEmDrYlSXJQQGVUKhlCEdCgTaPCEC0FkOFZIdKARBkxwFSchRnBc50lBd-ECEIwgiKJ1zMBJNzA74bxaDJiCgDIbEuC5JAyc90AvU0tPTDpukfW0RlfOR3xdb9lngUlUH-H0UL+ICQBA4MWlDcNHijeDHXeBMvmbVCUxpTiM2w7N6XgXj+ILDkhI4ETS3LLF4G4XEGFowl4D4psBA4dtVGUBlOwwh0QHwgj1EE+FKpE0xx0FacRVcZ4ZNwOS5TMLgqBZNc1VUjUKScYgAElMEPKAzAaSChnHfUYvQE1r3Au8HzAuz7Uc0QPy-N03I9L14K2gMgwpERZRg0KvPCuMPkTaKfI49MsKzXCewoZrWoRLK+V6ZhmAISDAJyzFK2oIkaIJesyrJZtKRZZQWQZDsfu7RqlDUATC2USrRInUAJN6sV+u8WSZXk+VRvGsBVViKb1NmhalpW6HmHWyx9WINILx2+pLP2mzDufeyxhOqYztdH9Lr-T1vRjW7gMDUDHsCZ66ZzSZEM+wD8cwzMcJzQm2uJ9LOTJjgyIovKeUK2sSsbdGKqxqgKCJOr4uSoHVC4IiMvgKgiQ6+ouvEnrZ0Nhml3lRVlTZlS1IEZh0GIHVymBQ1UHFs1by4+9pafQY5bfU7nIu9zPM1ny7tA8CgugkLDYVk2orN1N6r+q3g55MPkQjqOY48sxIf52HyLLeHsXd4r6y9xjVBJBkycDqzuIbLhCs5XHeU6sSqYTqSk8GxnhrTiaOazikc+IAAFCwbFIIuS8l8uDqrl88tYzOk-MrVyjd1Y3Rbtre6GlAqQWCpGbuCEPp928mhAe8Uh5JX3iSI+CAT7gxnlDGG6CDgL1ygjKgK8Ub0XKhSFiLJqrsUwXvHsRItBIhBqOM+lMpzCkTnBAavghoKS4OESI7MNwpHSBkYouQCBxG8BkMA6BvhxAVMsXaZdxgVxtLLY6wClYuV-NPa6XktZ+R1gFCCUEDZCJjG9XuyEtrmwSv9a2cIOFcOIjwtWs9SFaxdgjVQDJkZ0VKrwb2FJ+ysUqrvAm+EuAMiJOHYc1YKbdQEVfBxUpRHMzGg-aRFJNgWHQBkdoT56oWT2n-SuR0HJGPrirCB5jm5+lbgIPWEB7HRiNhFJCX0MFxV+pbHBgNkmpPHukrQztF6UV7DQiJ68MZaGrFoIkeNWGJKEmyFqxFhKZPjtkvquScnFJAAAUTSGkKAaQak6Osvo6uhi3ogPOi0q6GtXgiwvJ0iktzrhIAwKgeYIYEGdyQbknuqCXHfW2RbRKAMbZAz2SDQ5HoAnMHnsEzguNwmewYhjJk28gYJK4j2bgpJORaE4Uci+JzaZnJvinRSkjM7TQ0qXbSukMjTGIJ-fSMgZTMGuE0PlM9YLcr3no2yBjGlvOMQ3L5UCOkwLbuCuxXdoUoMinC4ZXZEUeOSlSwstLeRwwWRQFkLICVryJQINkyTN7koavhUOdAJ7R3pfwySpy+nJyZmy5Sk0n5xnODAORupgQSpzg8i0dTnmANrorZp4CVUWOgVY2B7cIW9LCsbWFQzYqGvccPfeo9PWcknkQrFOL5l5QKnahAaNGI4xYoYV1yUNlh3tggGgxheFZL9UygNLKmYjUKRnUNnLuaLWWqtAWG0to-1qbo-+DSgGKrTaYpurxLH+Qek9bVfSYV6uLegNx2DkVwh7STCeVBB3+JIdishQFcWLObQfehIAiTKC0BwLGXaK3Wq0PsiOFA2JEh9dTQRY6RG3zERIkNj9Z0RoyGUW59ztEJvXfU+VW6nKgJMarMx3z57Zo1fArVULT26sGf3EZwJr2eN2WBkGUG5mUM4IfL9raMbRy4P+lkwHAY1WZK1IkOIYOX39fOcdw0WZFM5gIOdvNF2CzMJtHyq7HlWnwy8hVRGPnprVm0-dWbD1TGPbRgtAzTZvqvWMm9lBxPgc5FJ0+z655vsta7TeX7rVRMYpsyDki3HJRSQyNJQlZlDuOSOnA0l6YKaQ0pKRKmKSpDKBkOacwygKisjhmVG6CMpveWA3dkDM1qso6cc4Vxbj5teoW89jHS0sci9HGL8IKCzL85WJtRVaGRJ-VQasqg+KiZtjVKtCBVDk3iwyxLyW8mIYKazDLYa1MLv5pp7TfpdO4aeXKwzhG67EeVWZ8jvn1VdJs7BOjTii3tcHs51j8BZuFgW07TFL7YYxG+DnBcoArM2FuLpC4dQLgzH6GUUpaR6wgCgMcWQ9AYdpDh2kS5wKBAo8-HUaGXxei4YAOpL3yqSJ7cFblw-J1ayYjEgfoAALTtm4Gs8bTqojuCgGKmwoEqTARmC-AQazaWbLqJYNIL8AASfRUAxkEFGPnaQBfy+BUrlh-I+EXLqN4SCrtWsMdu6D6xFJwceEuND2H8PpdI-x2jkAGOsc44xo7wn+WSfpnp42qnYUadQDpxT0iP7mcs9pdQyDXAcbJJ53GVXAuBCbzj0LvyIvc5i-WZL4XMvc4a8V6BFhEJ+foAL1r00cdQB67VJ+ZgRv7NoKCXVi3EPrfo9t2kBHDvUc28x2UN3ePe98C94V4EvvBv+9eoH4PDOw+oBzizqgHApOxK0MJLgKvS8+2UH7AOufRcxOz1s6XcuFcV956X8vRfK-n1Q+pfXdeG-vTa6blvtg29Q47-3rv9uh8E+-1d1xwpA9xH2JzHxkAnx42QVAA8Fp3QCgPhEZwxnDxxmoQ4E3hZCBhoC3zV1AhT23jT1P0zwpEA1339ilwz2IGvwEGL0TzL3PxvyW3vwEDH2KDKVQAyAAF4uCdJRZ0AAAdAQp3A3evBGY3BzZvMHT-PvLHbvf-J3F3AfYA5HYfMkUfMnCnaiHVWAkWIPBAkPZAgQcPIkG1KTQwMaIkbgXApPUgygvPJHAgneA-fPRg2gmwhgzXJg2OO-C5LUTAfOPUbg3graIQkQp-cQxvfVchM3WBS3SHWQu3GYHvAA53TvQfEAtQonArTQhZbQ6nOA-QxA0PaJEAcPKgXiUDBkbeLQHgDwiqeww-TGcg-fdPBwmglsDwjo5XZgvw7UaNGQYIvgi8MIx-Q3SIl-E3KQ83D-K3L-NIn-eQzI1IpQ7HFQ0A9Q8A3Iv3GAmfAwufUo8Pf9XGQwOPITWqS-PAgQcbThKbFwpHElNiFhYg6gtwzoy49XN4nonw3XTLEAMYsQygCQpvaBWI0CeI9vBYuQv-ZYxQ9I9YrIjQn3LQqfRxPY4oowikI4libgKOFkUwtieo94toposgtAxo1wrw9wj4zwwvakn46wGvWICIoEqIi9UsaQuYxI3-ZIhQ7kjI1Q1I7I73cfFE3Ywo2fZ-JnBfVnCgGPEkP9R2DZIk5o8k+4ho+47ougq-L47XKvFgikAE5-ZxdkheTkhIwApIxHPky0tY93RErY5EvI1E62CU-YqUlAmUlnf9TeIkTZJkcbLZEvK4o-CXE-KgiqKqGqCk14qk4k4Mz4uM74nXRkv4o0iYk0+tc0yE1YpYwUuEn-AUjY4UiApARA-IgPN0jE+fRfLAtQUOTZdfSbFUyqahaM9UikP9ADIDTU3Urovs3otM2vcY1kyYyQ0E9-CE+Y3MmE-M-khEoUpE0U508UvQyUiY6UxfHkbeFPITaONPBM0CQTYTGMnfPfGMrU-spMvU3woc5kkcpAtkrMmYqc7kvMjY1Yosh0nIp0nYnQ9Ewwms1nao0woTQDfsfsFU483iU8ikJ1ZiVol4y8mk5ChkycJk0Q40l7N-bM6czvd8tQz8hcp3Es7YyfVc+A6sw4r0zhZQDhdsfsLgIkbUkMkAdtR9TfDspiFiQk3s68q8uk4klM9Cu8zCjM7C6YuImQ20gilY+E+0xcx05cv8gotc90jM+g64ibO4hPHU-iripwogqg7otPTc2UlfZi0aagdsVovoAgGHEEjBYS3QryPwN0kIOICgTyuIWqDlCAcswqDcWXVeTgQqXIS5BoKQQJeFC5PYAgBwDIAAQh4KFQuCMmIAAH1TILwMgAAyXKjINgjgoYraEAYE6I99Sc6SqEq0lIgsoAhSkipcyAsU-8qswC3S1iwygSpXIyhwx1ZiDii8gc6ixfADGgADP0mgR9OoOyhyiq5gujNytSjyryry3ymdfyinNQW1e-YKkbDAvgTACKoEaKjBWKiAeKgoFKgyNKyQLKi8HK-Kwqi0dgqKEqnyMqp83zGIeRdAGAMQa0-eDgOU9QQ+fsSDUGBkPiNGTkDA6LR9SbFQaOGgKTceAALygGtzcnUBqikxoDJgZCyjYlorIglhnl6AuAAFlc4zBNNrAwBbk5gqaLBidrApBiAlcvqJY10TsebbxSgclbqLhQEhbZMxRGdjr5BAa34+hEgAB5XveAX5S9EAMMKADRCACKnOdoc3UAVAa4PYfuS6pAdAXW2BbCfgegZnFmn-c20CDYgyaAe5CkYIby9a7m9WzWmCe29mmY3NGjWCJ2u5AQUIU4ztegDRGwfoZgQFYFAAYUhBDtdsnU20jruQwDSETudtDvDojpADiAzrKHaFIAIGjtNscFU0hCtrJGGAcEYHZKMCAA
+```
+
+<!-- This is an optional element. Feel free to remove. -->
+
+## More Information
