@@ -1,12 +1,15 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { GuideCue } from "@leafygreen-ui/guide-cue";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Subtitle } from "@leafygreen-ui/typography";
+import Cookies from "js-cookie";
 import { useTaskAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
+import { SEEN_PARSLEY_FILES_GUIDE_CUE } from "constants/cookies";
 import { size } from "constants/tokens";
 import { Unpacked } from "types/utils";
 import { GroupedFiles } from "../types";
@@ -14,7 +17,11 @@ import { GroupedFiles } from "../types";
 type GroupedFilesFile = Unpacked<GroupedFiles["files"]>;
 
 const columns = (
-  taskAnalytics: ReturnType<typeof useTaskAnalytics>
+  taskAnalytics: ReturnType<typeof useTaskAnalytics>,
+  options: {
+    triggerRef: React.RefObject<HTMLAnchorElement>;
+    index: number;
+  }
 ): LGColumnDef<GroupedFilesFile>[] => [
   {
     accessorKey: "name",
@@ -23,6 +30,7 @@ const columns = (
     enableSorting: true,
     cell: (value) => {
       const fileName = value.getValue() as GroupedFilesFile["name"];
+      console.log(options);
       return (
         <CellContainer>
           <StyledLink
@@ -47,6 +55,9 @@ const columns = (
                 target="_blank"
                 disabled={value.row.original.urlParsley === null}
                 size="small"
+                ref={
+                  options.index === value.row.index ? options.triggerRef : null
+                }
                 onClick={() => {
                   taskAnalytics.sendEvent({
                     name: "Click Task File Parsley Link",
@@ -79,10 +90,27 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
 }) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const taskAnalytics = useTaskAnalytics();
-
+  const [openGuideCue, setOpenGuideCue] = useState(
+    Cookies.get(SEEN_PARSLEY_FILES_GUIDE_CUE) !== "true"
+  );
+  const firstParsleyFileIndex = useMemo(
+    () => files.findIndex((file) => file.urlParsley !== null),
+    [files]
+  );
+  const parsleyLinkRef = useRef<HTMLAnchorElement>(null);
+  console.log(parsleyLinkRef);
   const memoizedColumns = useMemo(
-    () => columns(taskAnalytics),
-    [taskAnalytics]
+    () =>
+      columns(
+        taskAnalytics,
+        firstParsleyFileIndex !== -1
+          ? {
+              triggerRef: parsleyLinkRef,
+              index: firstParsleyFileIndex,
+            }
+          : null
+      ),
+    [taskAnalytics, firstParsleyFileIndex]
   );
   const table = useLeafyGreenTable<GroupedFilesFile>({
     containerRef: tableContainerRef,
@@ -91,10 +119,31 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
   });
 
   return (
-    <Container>
-      {taskName && <Subtitle>{taskName}</Subtitle>}
-      <BaseTable table={table} shouldAlternateRowColor />
-    </Container>
+    <>
+      <Container>
+        {taskName && <Subtitle>{taskName}</Subtitle>}
+
+        <BaseTable table={table} shouldAlternateRowColor />
+      </Container>
+      {parsleyLinkRef.current !== null && (
+        <GuideCue
+          data-cy="migrate-cue"
+          open={openGuideCue}
+          setOpen={setOpenGuideCue}
+          title="New Feature!"
+          refEl={parsleyLinkRef}
+          numberOfSteps={1}
+          currentStep={1}
+          onPrimaryButtonClick={() => {
+            Cookies.set(SEEN_PARSLEY_FILES_GUIDE_CUE, "true", { expires: 365 });
+            setOpenGuideCue(false);
+          }}
+        >
+          Open your file in Parsley to view it with Parsleys rich text
+          formatting capabilities.
+        </GuideCue>
+      )}
+    </>
   );
 };
 
