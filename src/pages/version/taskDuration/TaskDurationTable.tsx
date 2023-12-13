@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useLeafyGreenTable } from "@leafygreen-ui/table";
 import {
   ColumnFiltersState,
@@ -9,7 +9,6 @@ import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
-import { onChangeHandler } from "components/Table/utils";
 import { TaskLink } from "components/TasksTable/TaskLink";
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { VersionTaskDurationsQuery, SortDirection } from "gql/generated/types";
@@ -39,38 +38,6 @@ export const TaskDurationTable: React.FC<Props> = ({
     () => getInitialParams(queryParams),
     [] // eslint-disable-line react-hooks/exhaustive-deps
   );
-
-  const [filters, setFilters] = useState<ColumnFiltersState>(initialFilters);
-  const [sorting, setSorting] = useState<SortingState>(initialSort);
-
-  const updateFilters = (filterState: ColumnFiltersState) => {
-    const updatedParams = { page: "0" };
-
-    filterState.forEach(({ id, value }) => {
-      updatedParams[id] = value;
-    });
-
-    sorting.forEach(({ desc, id }) => {
-      updatedParams[id] = desc ? SortDirection.Desc : SortDirection.Asc;
-    });
-
-    setQueryParams(updatedParams);
-    sendEvent({ name: "Filter Tasks", filterBy: Object.keys(filterState) });
-  };
-
-  const updateSort = (sortState: SortingState) => {
-    const updatedParams = { page: "0" };
-
-    filters.forEach(({ id, value }) => {
-      updatedParams[id] = value;
-    });
-
-    sortState.forEach(({ desc, id }) => {
-      updatedParams[id] = desc ? SortDirection.Desc : SortDirection.Asc;
-    });
-
-    setQueryParams(updatedParams);
-  };
 
   const columns = useMemo(
     () => [
@@ -155,29 +122,31 @@ export const TaskDurationTable: React.FC<Props> = ({
       // https://github.com/TanStack/table/issues/4289
       sortDescFirst: false,
     },
-    state: {
-      columnFilters: filters,
-      sorting,
-    },
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
-    manualFiltering: true,
-    manualSorting: true,
+    initialState: {
+      columnFilters: initialFilters,
+      sorting: initialSort,
+    },
     manualPagination: true,
-    onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
-      setFilters,
-      (updatedState) => {
-        updateFilters(updatedState);
-        table.resetRowSelection();
-      }
-    ),
-    onSortingChange: onChangeHandler<SortingState>(
-      setSorting,
-      (updatedState) => {
-        updateSort(updatedState);
-        table.resetRowSelection();
-      }
-    ),
   });
+
+  const { getState } = table;
+  const { columnFilters, sorting } = getState();
+
+  useEffect(() => {
+    const updatedParams = { page: "0" };
+
+    columnFilters.forEach(({ id, value }) => {
+      updatedParams[id] = value;
+    });
+
+    sorting.forEach(({ desc, id }) => {
+      updatedParams[id] = desc ? SortDirection.Desc : SortDirection.Asc;
+    });
+
+    setQueryParams(updatedParams);
+    sendEvent({ name: "Filter Tasks", filterBy: Object.keys(columnFilters) });
+  }, [columnFilters, sorting]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <BaseTable
