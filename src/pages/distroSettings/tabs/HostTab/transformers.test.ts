@@ -20,6 +20,13 @@ describe("host tab", () => {
   it("correctly converts from a form to GQL", () => {
     expect(formToGql(form, distroData)).toStrictEqual(gql);
   });
+
+  it("correctly converts from GQL to a form when mountpoints is null", () => {
+    expect(gqlToForm({ ...distroData, mountpoints: null })).toStrictEqual({
+      ...form,
+      setup: { ...form.setup, mountpoints: [] },
+    });
+  });
 });
 
 const form: HostFormState = {
@@ -35,6 +42,7 @@ const form: HostFormState = {
     isVirtualWorkStation: false,
     icecreamSchedulerHost: "",
     icecreamConfigPath: "",
+    mountpoints: ["/"],
   },
   bootstrapSettings: {
     jasperBinaryDir: "/home/evg/jasper",

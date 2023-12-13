@@ -1,7 +1,9 @@
+import styled from "@emotion/styled";
+import { size } from "constants/tokens";
 import { IssueLink } from "gql/generated/types";
+import { AnnotationTicketRow } from "../AnnotationTicketsTable/AnnotationTicketRow";
 import { TicketsTitle } from "../BBComponents";
 import FileTicketButton from "../FileTicketButton";
-import CustomCreatedTicketsTable from "./CustomCreatedTicketsTable";
 
 interface CustomCreatedTicketProps {
   taskId: string;
@@ -19,11 +21,27 @@ const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
     <FileTicketButton taskId={taskId} execution={execution} />
     {!!tickets?.length && (
       <>
-        <TicketsTitle>Tickets Created From This Task</TicketsTitle>
-        <CustomCreatedTicketsTable tickets={tickets} />
+        <TicketsTitle margin>Tickets Created From This Task</TicketsTitle>
+        <TicketContainer>
+          {tickets.map(({ confidenceScore, issueKey, jiraTicket, url }) => (
+            <AnnotationTicketRow
+              confidenceScore={confidenceScore}
+              issueKey={issueKey}
+              jiraTicket={jiraTicket}
+              key={issueKey}
+              url={url}
+            />
+          ))}
+        </TicketContainer>
       </>
     )}
   </>
 );
+
+const TicketContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.s};
+`;
 
 export default CustomCreatedTickets;
