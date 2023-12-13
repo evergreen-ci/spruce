@@ -13,7 +13,7 @@ the version page.
 
 ## Decision Outcome
 
-Please reference the below flowchart for the logic behind the version page.
+The version page identifies the resource type for a URL parameter to decide whether to show to the configure, version or commit queue page. The following diagram resembles the identification logic and navigation result. 
 
 ```mermaid
 flowchart
