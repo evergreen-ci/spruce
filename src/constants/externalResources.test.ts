@@ -65,7 +65,7 @@ describe("getTaskTraceUrl", () => {
   });
 });
 
-describe("getTaskSystemMetricsUrl", () => {
+describe("getHoneycombSystemMetricsUrl", () => {
   it("generates the correct url", () => {
     expect(
       getHoneycombSystemMetricsUrl(
@@ -77,11 +77,7 @@ describe("getTaskSystemMetricsUrl", () => {
     ).toBe(
       `/datasets/evergreen?query={"calculations":[{"op":"AVG","column":"system.memory.usage.used"},{"op":"AVG","column":"system.cpu.utilization"},{"op":"RATE_AVG","column":"system.network.io.transmit"},{"op":"RATE_AVG","column":"system.network.io.receive"}],"filters":[{"op":"=","column":"evergreen.task.id","value":"task_12345"}],"start_time":1688756921,"end_time":1688760000}&omitMissingValues`
     );
-  });
-});
 
-describe("getTaskSystemMetricsUrlWithDisks", () => {
-  it("generates the correct url", () => {
     expect(
       getHoneycombSystemMetricsUrl(
         "task_12345",

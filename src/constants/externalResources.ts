@@ -125,18 +125,16 @@ export const getHoneycombSystemMetricsUrl = (
       { op: "RATE_AVG", column: "system.network.io.transmit" },
       { op: "RATE_AVG", column: "system.network.io.receive" },
     ].concat(
-      diskDevices
-        .map((device) => [
-          { op: "RATE_AVG", column: `system.disk.io.${device}.read` },
-          { op: "RATE_AVG", column: `system.disk.io.${device}.write` },
-          { op: "RATE_AVG", column: `system.disk.operations.${device}.read` },
-          {
-            op: "RATE_AVG",
-            column: `system.disk.operations.${device}.write`,
-          },
-          { op: "RATE_AVG", column: `system.disk.io_time.${device}` },
-        ])
-        .flat()
+      diskDevices.flatMap((device) => [
+        { op: "RATE_AVG", column: `system.disk.io.${device}.read` },
+        { op: "RATE_AVG", column: `system.disk.io.${device}.write` },
+        { op: "RATE_AVG", column: `system.disk.operations.${device}.read` },
+        {
+          op: "RATE_AVG",
+          column: `system.disk.operations.${device}.write`,
+        },
+        { op: "RATE_AVG", column: `system.disk.io_time.${device}` },
+      ])
     ),
     filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
     start_time: getUnixTime(new Date(startTs)),
