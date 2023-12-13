@@ -25,7 +25,8 @@ const RuntimeTimer: React.FC<RuntimeTimerProps> = ({ startTime }) => {
     }, 1000);
 
     return () => clearInterval(timer);
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <MetadataItem data-cy="task-metadata-running-time">

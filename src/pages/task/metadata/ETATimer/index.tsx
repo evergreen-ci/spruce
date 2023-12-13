@@ -27,12 +27,14 @@ const ETATimer: React.FC<ETATimerProps> = ({ expectedDuration, startTime }) => {
         Date.now()
       );
       setEta(newEta > 0 ? newEta : 0);
+      if (newEta <= 0) {
+        clearInterval(timer);
+      }
     }, 1000);
-    if (eta === 0) {
-      clearInterval(timer);
-    }
+
     return () => clearInterval(timer);
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <MetadataItem data-cy="task-metadata-eta">
