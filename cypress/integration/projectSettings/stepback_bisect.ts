@@ -5,8 +5,7 @@ type stepbackButtonType = "enabled" | "disabled" | "repo";
 
 /**
  * Retrieves the stepback button associated with type. The stepback buttons are
- * inside of the div container with "stepback-bisect-group", which contains three
- * labels that each have their first child as the button
+ * inside of the div container with "stepback-bisect-group".
  * @param type The type of stepback button to get
  * @returns The stepback button corresponding to the type
  */
@@ -20,7 +19,7 @@ function getStepbackButton(
   if (type === "repo") {
     i = 2;
   }
-  return cy.dataCy("stepback-bisect-group").children().eq(i).children().eq(0);
+  return cy.dataCy("stepback-bisect-group").children().eq(i);
 }
 
 describe("Stepback bisect setting", () => {
