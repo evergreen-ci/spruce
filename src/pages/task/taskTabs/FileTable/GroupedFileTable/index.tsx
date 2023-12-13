@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { GuideCue } from "@leafygreen-ui/guide-cue";
@@ -112,6 +112,15 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
       ),
     [taskAnalytics, firstParsleyFileIndex]
   );
+  useEffect(() => {
+    // Scroll to the first file that can be opened in parsley on initial render.
+    // Since the button may not always be in view, we need to scroll to it.
+    if (firstParsleyFileIndex !== -1 && openGuideCue) {
+      parsleyLinkRef.current?.scrollIntoView();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const table = useLeafyGreenTable<GroupedFilesFile>({
     containerRef: tableContainerRef,
     data: files,
@@ -119,12 +128,8 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
   });
 
   return (
-    <>
-      <Container>
-        {taskName && <Subtitle>{taskName}</Subtitle>}
-
-        <BaseTable table={table} shouldAlternateRowColor />
-      </Container>
+    <Container>
+      {taskName && <Subtitle>{taskName}</Subtitle>}
       {parsleyLinkRef.current !== null && (
         <GuideCue
           data-cy="migrate-cue"
@@ -135,7 +140,9 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
           numberOfSteps={1}
           currentStep={1}
           onPrimaryButtonClick={() => {
-            Cookies.set(SEEN_PARSLEY_FILES_GUIDE_CUE, "true", { expires: 365 });
+            Cookies.set(SEEN_PARSLEY_FILES_GUIDE_CUE, "true", {
+              expires: 365,
+            });
             setOpenGuideCue(false);
           }}
         >
@@ -143,7 +150,8 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
           formatting capabilities.
         </GuideCue>
       )}
-    </>
+      <BaseTable table={table} shouldAlternateRowColor />
+    </Container>
   );
 };
 
