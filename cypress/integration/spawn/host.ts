@@ -184,7 +184,7 @@ describe("Navigating to Spawn Host page", () => {
         cy.dataCy("distro-option-ubuntu1804-workstation")
           .should("be.visible")
           .click();
-        cy.dataCy("volume-select").should("be.disabled");
+        cy.dataCy("volume-select").should("have.attr", "aria-disabled", "true");
       });
 
       it("Clicking 'Add new key' hides the key name dropdown and shows the key value text area", () => {
