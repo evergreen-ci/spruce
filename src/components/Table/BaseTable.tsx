@@ -137,7 +137,6 @@ export const BaseTable = <T extends LGRowData>({
               </Cell>
             ))}
             {row.original.renderExpandedContent && (
-              // @ts-expect-error
               <StyledExpandedContent row={row} />
             )}
             {row.subRows &&
@@ -181,4 +180,4 @@ const StyledExpandedContent = styled(ExpandedContent)`
   [data-state="entered"] > div {
     flex-grow: 1;
   }
-`;
+` as typeof ExpandedContent;
