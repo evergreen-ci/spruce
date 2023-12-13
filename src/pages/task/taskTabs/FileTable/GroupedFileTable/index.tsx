@@ -30,7 +30,6 @@ const columns = (
     enableSorting: true,
     cell: (value) => {
       const fileName = value.getValue() as GroupedFilesFile["name"];
-      console.log(options);
       return (
         <CellContainer>
           <StyledLink
@@ -98,7 +97,6 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
     [files]
   );
   const parsleyLinkRef = useRef<HTMLAnchorElement>(null);
-  console.log(parsleyLinkRef);
   const memoizedColumns = useMemo(
     () =>
       columns(
