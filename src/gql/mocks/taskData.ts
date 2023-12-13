@@ -1,4 +1,5 @@
 import { TaskQuery } from "gql/generated/types";
+import { TaskStatus } from "types/task";
 
 export const taskQuery: TaskQuery = {
   task: {
@@ -13,7 +14,15 @@ export const taskQuery: TaskQuery = {
     ingestTime: null,
     executionTasksFull: null,
     displayTask: null,
-    details: null,
+    details: {
+      description:
+        "Long description that requirese use of the inline definition component. This would include details about where the task failed.",
+      oomTracker: {
+        detected: false,
+      },
+      status: TaskStatus.Failed,
+      type: "type",
+    },
     timeTaken: null,
     annotation: null,
     activatedBy: "",
