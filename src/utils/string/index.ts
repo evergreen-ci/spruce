@@ -28,6 +28,7 @@ export const msToDuration = (ms: number): string => {
   if (seconds > 0) {
     return `${seconds}s`;
   }
+  return `${ms}ms`;
 };
 
 /**

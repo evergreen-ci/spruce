@@ -226,15 +226,15 @@ export const getFormSchema = (
                           oneOf: [
                             {
                               type: "string" as "string",
-                              title: "Evergreen",
-                              enum: [MergeQueue.Evergreen],
-                              description: "Evergreen's commit queue.",
-                            },
-                            {
-                              type: "string" as "string",
                               title: "GitHub",
                               enum: [MergeQueue.Github],
                               description: "GitHub's merge queue.",
+                            },
+                            {
+                              type: "string" as "string",
+                              title: "Evergreen (deprecated)",
+                              enum: [MergeQueue.Evergreen],
+                              description: "Evergreen's commit queue.",
                             },
                           ],
                         },
