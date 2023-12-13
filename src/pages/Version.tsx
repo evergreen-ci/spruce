@@ -42,6 +42,7 @@ export const VersionPage: React.FC = () => {
   const [redirectURL, setRedirectURL] = useState(undefined);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
+  // This query is used to fetch the version data.
   const [getVersion, { data: versionData, error: versionError }] = useLazyQuery<
     VersionQuery,
     VersionQueryVariables
@@ -56,6 +57,7 @@ export const VersionPage: React.FC = () => {
     },
   });
 
+  // If the version is a patch, we need to check if it's been configured.
   const [getPatch, { data: patchData, error: patchError }] = useLazyQuery<
     IsPatchConfiguredQuery,
     IsPatchConfiguredQueryVariables
@@ -69,12 +71,14 @@ export const VersionPage: React.FC = () => {
     },
   });
 
+  // This query checks if the provided id has a configured version.
   const { error: hasVersionError } = useQuery<
     HasVersionQuery,
     HasVersionQueryVariables
   >(HAS_VERSION, {
     variables: { id },
     onCompleted: ({ hasVersion }) => {
+      setIsLoadingData(true);
       if (hasVersion) {
         getVersion({ variables: { id } });
       } else {
