@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLeafyGreenTable } from "@leafygreen-ui/table";
 import {
   ColumnFiltersState,
@@ -12,8 +12,7 @@ import { BaseTable } from "components/Table/BaseTable";
 import { onChangeHandler } from "components/Table/utils";
 import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";
-import { HostSortBy, HostsQuery } from "gql/generated/types";
-import { useTableSort } from "hooks";
+import { HostSortBy, HostsQuery, SortDirection } from "gql/generated/types";
 import { useQueryParams } from "hooks/useQueryParam";
 import { mapIdToFilterParam } from "types/host";
 import { Unpacked } from "types/utils";
@@ -39,14 +38,8 @@ export const HostsTable: React.FC<Props> = ({
 }) => {
   const { sendEvent } = useHostsTableAnalytics();
 
-  const tableSortHandler = useTableSort({
-    sendAnalyticsEvents: () => sendEvent({ name: "Sort Hosts" }),
-  });
-
   const [, setQueryParams] = useQueryParams();
 
-  const [filters, setFilters] = useState<ColumnFiltersState>(initialFilters);
-  const [sorting, setSorting] = useState<SortingState>(initialSorting);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const updateRowSelection = (rowState: RowSelectionState) => {
@@ -54,18 +47,6 @@ export const HostsTable: React.FC<Props> = ({
       (key) => table.getRowModel().rowsById[key]?.original
     );
     setSelectedHosts(selectedHosts);
-  };
-
-  const updateFilters = (filterState: ColumnFiltersState) => {
-    const updatedParams = { page: "0" };
-
-    filterState.forEach(({ id, value }) => {
-      const key = mapIdToFilterParam[id];
-      updatedParams[key] = value;
-    });
-
-    setQueryParams(updatedParams);
-    sendEvent({ name: "Filter Hosts", filterBy: Object.keys(filterState) });
   };
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
@@ -80,34 +61,45 @@ export const HostsTable: React.FC<Props> = ({
       // https://github.com/TanStack/table/issues/4289
       sortDescFirst: false,
     },
+    initialState: {
+      columnFilters: initialFilters,
+      sorting: initialSorting,
+    },
     state: {
-      columnFilters: filters,
       rowSelection,
-      sorting,
     },
     hasSelectableRows: true,
-    manualFiltering: true,
-    manualSorting: true,
     manualPagination: true,
-    onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
-      setFilters,
-      (updatedState) => {
-        updateFilters(updatedState);
-        table.resetRowSelection();
-      }
-    ),
     onRowSelectionChange: onChangeHandler<RowSelectionState>(
       setRowSelection,
       updateRowSelection
     ),
-    onSortingChange: onChangeHandler<SortingState>(
-      setSorting,
-      (updatedState) => {
-        tableSortHandler(updatedState);
-        table.resetRowSelection();
-      }
-    ),
   });
+
+  const { getState } = table;
+  const { columnFilters, sorting } = getState();
+
+  useEffect(() => {
+    const updatedParams = { page: "0" };
+
+    columnFilters.forEach(({ id, value }) => {
+      const key = mapIdToFilterParam[id];
+      updatedParams[key] = value;
+    });
+
+    sorting.forEach(({ desc, id }) => {
+      updatedParams[id] = desc ? SortDirection.Desc : SortDirection.Asc;
+    });
+
+    setQueryParams(updatedParams);
+
+    if (columnFilters.length) {
+      sendEvent({ name: "Filter Hosts", filterBy: Object.keys(columnFilters) });
+    }
+    if (sorting.length) {
+      sendEvent({ name: "Sort Hosts" });
+    }
+  }, [columnFilters, sorting]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <BaseTable
