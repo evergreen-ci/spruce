@@ -44,7 +44,7 @@ describe("Stepback bisect setting", () => {
     });
 
     it("Starts as default to repo", () => {
-      getStepbackButton("repo").should("have.attr", "aria-clicked", "true");
+      getStepbackButton("repo").should("have.attr", "aria-checked", "true");
     });
 
     it("Clicking on enabled and then save shows a success toast", () => {
@@ -53,7 +53,7 @@ describe("Stepback bisect setting", () => {
       cy.validateToast("success", "Successfully updated project");
 
       cy.reload();
-      getStepbackButton("enabled").should("have.attr", "aria-clicked", "true");
+      getStepbackButton("enabled").should("have.attr", "aria-checked", "true");
     });
   });
 
@@ -65,7 +65,7 @@ describe("Stepback bisect setting", () => {
     });
 
     it("Starts as disabled", () => {
-      getStepbackButton("disabled").should("have.attr", "aria-clicked", "true");
+      getStepbackButton("disabled").should("have.attr", "aria-checked", "true");
     });
 
     it("Clicking on enabled and then save shows a success toast", () => {
@@ -74,7 +74,7 @@ describe("Stepback bisect setting", () => {
       cy.validateToast("success", "Successfully updated project");
 
       cy.reload();
-      getStepbackButton("enabled").should("have.attr", "aria-clicked", "true");
+      getStepbackButton("enabled").should("have.attr", "aria-checked", "true");
     });
   });
 });
