@@ -144,7 +144,7 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
             setOpenGuideCue(false);
           }}
         >
-          Open your file in Parsley to view it with Parsleys rich text
+          Open your file in Parsley to view it with Parsley&apos;s rich text
           formatting capabilities.
         </GuideCue>
       )}
