@@ -17,12 +17,12 @@ export const taskQuery: TaskQuery = {
     details: {
       description:
         "Long description that requirese use of the inline definition component. This would include details about where the task failed.",
+      diskDevices: [],
       oomTracker: {
         detected: false,
       },
       status: TaskStatus.Failed,
       type: "type",
-      diskDevices: [],
     },
     timeTaken: null,
     annotation: null,
