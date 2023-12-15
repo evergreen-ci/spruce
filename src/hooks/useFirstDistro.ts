@@ -8,11 +8,14 @@ import { DISTROS } from "gql/queries";
  * @returns the distro ID
  */
 export const useFirstDistro = () => {
-  const { data } = useQuery<DistrosQuery, DistrosQueryVariables>(DISTROS, {
-    variables: {
-      onlySpawnable: false,
-    },
-  });
+  const { data, loading } = useQuery<DistrosQuery, DistrosQueryVariables>(
+    DISTROS,
+    {
+      variables: {
+        onlySpawnable: false,
+      },
+    }
+  );
 
-  return data?.distros?.[0]?.name ?? "ubuntu2204-large";
+  return { distro: data?.distros?.[0]?.name ?? "ubuntu2204-large", loading };
 };
