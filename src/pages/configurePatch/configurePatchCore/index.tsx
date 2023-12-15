@@ -12,9 +12,14 @@ import {
   MetadataItem,
   MetadataTitle,
 } from "components/MetadataCard";
-import { PageContent, PageLayout, PageSider } from "components/styles";
+import {
+  StyledRouterLink,
+  PageContent,
+  PageLayout,
+  PageSider,
+} from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
-import { getVersionRoute } from "constants/routes";
+import { getProjectPatchesRoute, getVersionRoute } from "constants/routes";
 import { fontSize, size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -53,6 +58,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     id,
     patchTriggerAliases,
     project,
+    projectIdentifier,
     time,
     variantsTasks,
   } = patch;
@@ -183,6 +189,12 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
             <MetadataTitle>Patch Metadata</MetadataTitle>
             <MetadataItem>Submitted by: {author}</MetadataItem>
             <MetadataItem>Submitted at: {time.submittedAt}</MetadataItem>
+            <MetadataItem>
+              Project:{" "}
+              <StyledRouterLink to={getProjectPatchesRoute(projectIdentifier)}>
+                {projectIdentifier}
+              </StyledRouterLink>
+            </MetadataItem>
           </MetadataCard>
           <ConfigureBuildVariants
             variants={getVariantEntries(variants, selectedBuildVariantTasks)}
