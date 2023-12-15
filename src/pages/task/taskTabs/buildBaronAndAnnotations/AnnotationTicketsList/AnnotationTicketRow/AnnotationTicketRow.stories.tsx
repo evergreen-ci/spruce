@@ -1,5 +1,5 @@
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
-import { AnnotationTicketRow } from "./AnnotationTicketRow";
+import AnnotationTicketRow from ".";
 
 export default {
   component: AnnotationTicketRow,
@@ -29,6 +29,7 @@ export const Default: CustomStoryObj<typeof AnnotationTicketRow> = {
   ),
   args: {
     confidenceScore: 0.5,
+    loading: false,
   },
   argTypes: {
     confidenceScore: {
