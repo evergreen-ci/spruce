@@ -1,23 +1,29 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useLeafyGreenTable } from "@leafygreen-ui/table";
 import {
   ColumnFiltersState,
+  Filters,
   RowSelectionState,
+  Sorting,
   SortingState,
 } from "@tanstack/react-table";
 import { formatDistanceToNow } from "date-fns";
 import { useHostsTableAnalytics } from "analytics";
 import { StyledRouterLink, WordBreak } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
-import { TableQueryParams, onChangeHandler } from "components/Table/utils";
+import { onChangeHandler } from "components/Table/utils";
 import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";
-import { HostSortBy, HostsQuery, SortDirection } from "gql/generated/types";
+import { HostSortBy, HostsQuery } from "gql/generated/types";
+import { useTableSort } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
-import { mapIdToFilterParam } from "types/host";
+import { HostsTableFilterParams, mapIdToFilterParam } from "types/host";
 import { Unpacked } from "types/utils";
 
 type Host = Unpacked<HostsQuery["hosts"]["hosts"]>;
+
+const { getDefaultOptions: getDefaultFiltering } = Filters;
+const { getDefaultOptions: getDefaultSorting } = Sorting;
 
 interface Props {
   initialFilters: ColumnFiltersState;
@@ -38,7 +44,7 @@ export const HostsTable: React.FC<Props> = ({
 }) => {
   const { sendEvent } = useHostsTableAnalytics();
 
-  const [, setQueryParams] = useQueryParams();
+  const [queryParams, setQueryParams] = useQueryParams();
 
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
@@ -47,6 +53,32 @@ export const HostsTable: React.FC<Props> = ({
       (key) => table.getRowModel().rowsById[key]?.original
     );
     setSelectedHosts(selectedHosts);
+  };
+
+  const setSorting = (s: SortingState) =>
+    getDefaultSorting(table).onSortingChange(s);
+
+  const tableSortHandler = useTableSort({
+    sendAnalyticsEvents: () => sendEvent({ name: "Sort Hosts" }),
+  });
+
+  const setFilters = (f: ColumnFiltersState) =>
+    getDefaultFiltering(table).onColumnFiltersChange(f);
+
+  const updateFilters = (filterState: ColumnFiltersState) => {
+    const updatedParams = {
+      ...queryParams,
+      page: "0",
+      ...emptyFilterQueryParams,
+    };
+
+    filterState.forEach(({ id, value }) => {
+      const key = mapIdToFilterParam[id];
+      updatedParams[key] = value;
+    });
+
+    setQueryParams(updatedParams);
+    sendEvent({ name: "Filter Hosts", filterBy: Object.keys(filterState) });
   };
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
@@ -72,39 +104,25 @@ export const HostsTable: React.FC<Props> = ({
     manualFiltering: true,
     manualPagination: true,
     manualSorting: true,
+    onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+      setFilters,
+      (updatedState) => {
+        updateFilters(updatedState);
+        table.resetRowSelection();
+      }
+    ),
     onRowSelectionChange: onChangeHandler<RowSelectionState>(
       setRowSelection,
       updateRowSelection
     ),
+    onSortingChange: onChangeHandler<SortingState>(
+      setSorting,
+      (updatedState) => {
+        tableSortHandler(updatedState);
+        table.resetRowSelection();
+      }
+    ),
   });
-
-  const { getState } = table;
-  const { columnFilters, sorting } = getState();
-
-  useEffect(() => {
-    const updatedParams = { page: "0" };
-
-    columnFilters.forEach(({ id, value }) => {
-      const key = mapIdToFilterParam[id];
-      updatedParams[key] = value;
-    });
-
-    if (sorting.length) {
-      const { desc, id } = sorting[0];
-      updatedParams[TableQueryParams.SortDir] = desc
-        ? SortDirection.Desc
-        : SortDirection.Asc;
-      updatedParams[TableQueryParams.SortBy] = id;
-
-      sendEvent({ name: "Sort Hosts" });
-    }
-
-    setQueryParams(updatedParams);
-
-    if (columnFilters.length) {
-      sendEvent({ name: "Filter Hosts", filterBy: Object.keys(columnFilters) });
-    }
-  }, [columnFilters, sorting]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <BaseTable
@@ -117,6 +135,11 @@ export const HostsTable: React.FC<Props> = ({
     />
   );
 };
+
+const emptyFilterQueryParams = Object.values(HostsTableFilterParams).reduce(
+  (a, v) => ({ ...a, [v]: undefined }),
+  {}
+);
 
 const columns = [
   {

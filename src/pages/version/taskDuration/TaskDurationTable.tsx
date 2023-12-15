@@ -1,7 +1,9 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useLeafyGreenTable } from "@leafygreen-ui/table";
 import {
   ColumnFiltersState,
+  Filters,
+  Sorting,
   SortingState,
   getFacetedMinMaxValues,
 } from "@tanstack/react-table";
@@ -9,6 +11,7 @@ import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
+import { onChangeHandler } from "components/Table/utils";
 import { TaskLink } from "components/TasksTable/TaskLink";
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { VersionTaskDurationsQuery, SortDirection } from "gql/generated/types";
@@ -16,6 +19,9 @@ import { useTaskStatuses } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
 import { TaskDurationCell } from "./TaskDurationCell";
+
+const { getDefaultOptions: getDefaultFiltering } = Filters;
+const { getDefaultOptions: getDefaultSorting } = Sorting;
 
 interface Props {
   tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"];
@@ -38,6 +44,43 @@ export const TaskDurationTable: React.FC<Props> = ({
     () => getInitialParams(queryParams),
     [] // eslint-disable-line react-hooks/exhaustive-deps
   );
+
+  const setFilters = (f: ColumnFiltersState) =>
+    getDefaultFiltering(table).onColumnFiltersChange(f);
+
+  const updateFilters = (filterState: ColumnFiltersState) => {
+    const updatedParams = {
+      ...queryParams,
+      page: "0",
+      [PatchTasksQueryParams.TaskName]: undefined,
+      [PatchTasksQueryParams.Statuses]: undefined,
+      [PatchTasksQueryParams.Variant]: undefined,
+    };
+
+    filterState.forEach(({ id, value }) => {
+      updatedParams[id] = value;
+    });
+
+    setQueryParams(updatedParams);
+    sendEvent({ name: "Filter Tasks", filterBy: Object.keys(filterState) });
+  };
+
+  const setSorting = (s: SortingState) =>
+    getDefaultSorting(table).onSortingChange(s);
+
+  const updateSort = (sortState: SortingState) => {
+    const updatedParams = {
+      ...queryParams,
+      page: "0",
+      [PatchTasksQueryParams.Duration]: undefined,
+    };
+
+    sortState.forEach(({ desc, id }) => {
+      updatedParams[id] = desc ? SortDirection.Desc : SortDirection.Asc;
+    });
+
+    setQueryParams(updatedParams);
+  };
 
   const columns = useMemo(
     () => [
@@ -130,28 +173,21 @@ export const TaskDurationTable: React.FC<Props> = ({
     manualFiltering: true,
     manualPagination: true,
     manualSorting: true,
+    onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+      setFilters,
+      (updatedState) => {
+        updateFilters(updatedState);
+        table.resetRowSelection();
+      }
+    ),
+    onSortingChange: onChangeHandler<SortingState>(
+      setSorting,
+      (updatedState) => {
+        updateSort(updatedState);
+        table.resetRowSelection();
+      }
+    ),
   });
-
-  const { getState } = table;
-  const { columnFilters, sorting } = getState();
-
-  useEffect(() => {
-    const updatedParams = { page: "0" };
-
-    columnFilters.forEach(({ id, value }) => {
-      updatedParams[id] = value;
-    });
-
-    sorting.forEach(({ desc, id }) => {
-      updatedParams[id] = desc ? SortDirection.Desc : SortDirection.Asc;
-    });
-
-    setQueryParams(updatedParams);
-
-    if (columnFilters.length) {
-      sendEvent({ name: "Filter Tasks", filterBy: Object.keys(columnFilters) });
-    }
-  }, [columnFilters, sorting]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <BaseTable
