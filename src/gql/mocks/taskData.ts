@@ -23,7 +23,6 @@ export const taskQuery: TaskQuery = {
       },
       status: TaskStatus.Failed,
       type: "type",
-      diskDevices: [],
     },
     timeTaken: null,
     annotation: null,
