@@ -19,6 +19,7 @@ import {
   TableSearchPopover,
 } from "components/TablePopover";
 import { TreeDataEntry } from "components/TreeSelect";
+import { size } from "constants/tokens";
 import TableLoader from "./TableLoader";
 
 // Define typing of columns' meta field
@@ -131,12 +132,12 @@ export const BaseTable = <T extends LGRowData>({
             `}
           >
             {row.getVisibleCells().map((cell) => (
-              <Cell key={cell.id}>
+              <Cell key={cell.id} style={{ padding: `${size.xxs} 2px` }}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </Cell>
             ))}
             {row.original.renderExpandedContent && (
-              <ExpandedContent row={row} />
+              <StyledExpandedContent row={row} />
             )}
             {row.subRows &&
               row.subRows.map((subRow) => (
@@ -173,3 +174,10 @@ export const BaseTable = <T extends LGRowData>({
 const StyledTable = styled(Table)`
   transition: none !important;
 `;
+
+const StyledExpandedContent = styled(ExpandedContent)`
+  // Allow expanded content containers to take up the full table width
+  [data-state="entered"] > div {
+    flex-grow: 1;
+  }
+` as typeof ExpandedContent;

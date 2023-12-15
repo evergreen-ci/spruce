@@ -1,18 +1,15 @@
-import { useMemo } from "react";
-import { ColumnProps } from "antd/es/table";
+import { useMemo, useRef } from "react";
+import { LeafyGreenTableRow, useLeafyGreenTable } from "@leafygreen-ui/table";
 import { formatDistanceToNow } from "date-fns";
-import { useLocation } from "react-router-dom";
-import { DoesNotExpire, SpawnTable } from "components/Spawn";
+import { DoesNotExpire } from "components/Spawn";
 import { StyledRouterLink, WordBreak } from "components/styles";
+import { BaseTable } from "components/Table/BaseTable";
 import { getSpawnHostRoute } from "constants/routes";
-import { MyVolume, TableVolume } from "types/spawn";
-import { queryString, string } from "utils";
+import { useQueryParam } from "hooks/useQueryParam";
+import { MyVolume, QueryParams, TableVolume } from "types/spawn";
 import { SpawnVolumeCard } from "./SpawnVolumeCard";
 import { SpawnVolumeTableActions } from "./SpawnVolumeTableActions";
 import { VolumeStatusBadge } from "./VolumeStatusBadge";
-
-const { sortFunctionDate } = string;
-const { parseQueryString } = queryString;
 
 interface SpawnVolumeTableProps {
   volumes: MyVolume[];
@@ -21,29 +18,43 @@ interface SpawnVolumeTableProps {
 export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
   volumes,
 }) => {
-  const { search } = useLocation();
-  const volume = parseQueryString(search)?.volume;
+  const [selectedVolume] = useQueryParam(QueryParams.Volume, "");
+
   const dataSource: TableVolume[] = useMemo(() => {
     const volumesCopy = [...volumes];
     volumesCopy.sort(sortByHost);
     return volumes.map((v) => ({
       ...v,
+      renderExpandedContent: (row: LeafyGreenTableRow<TableVolume>) => (
+        <SpawnVolumeCard volume={row.original} />
+      ),
     }));
   }, [volumes]);
-  return (
-    <SpawnTable
-      expandedRowRender={(record: TableVolume) => (
-        <SpawnVolumeCard volume={record} />
-      )}
-      columns={columns}
-      dataSource={dataSource}
-      defaultExpandedRowKeys={[volume as string]}
-    />
-  );
-};
 
-const getVolumeDisplayName = (v: TableVolume) =>
-  v.displayName ? v.displayName : v.id;
+  const initialExpanded = Object.fromEntries(
+    dataSource.map(({ id }, i) => [i, id === selectedVolume])
+  );
+
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+  const table = useLeafyGreenTable<TableVolume>({
+    columns,
+    containerRef: tableContainerRef,
+    data: dataSource,
+    defaultColumn: {
+      enableColumnFilter: false,
+      enableSorting: false,
+      size: "auto" as unknown as number,
+      // Handle bug in sorting order
+      // https://github.com/TanStack/table/issues/4289
+      sortDescFirst: false,
+    },
+    initialState: {
+      expanded: initialExpanded,
+    },
+  });
+
+  return <BaseTable table={table} shouldAlternateRowColor />;
+};
 
 const getHostDisplayName = (v: TableVolume) =>
   v?.host?.displayName ? v.host.displayName : v.hostID;
@@ -51,50 +62,57 @@ const getHostDisplayName = (v: TableVolume) =>
 const sortByHost = (a: TableVolume, b: TableVolume) =>
   getHostDisplayName(a).localeCompare(getHostDisplayName(b));
 
-const columns: Array<ColumnProps<TableVolume>> = [
+const columns = [
   {
-    title: "Volume",
-    key: "displayName",
-    sorter: (a: TableVolume, b: TableVolume) =>
-      getVolumeDisplayName(a).localeCompare(getVolumeDisplayName(b)),
-    render: (_, volume: TableVolume) => (
-      <WordBreak data-cy="vol-name">{getVolumeDisplayName(volume)}</WordBreak>
+    header: "Volume",
+    accessorFn: ({ displayName, id }) => displayName || id,
+    enableSorting: true,
+    cell: ({ getValue }) => (
+      <WordBreak data-cy="vol-name">{getValue()}</WordBreak>
     ),
   },
   {
-    title: "Mounted On",
-    key: "mountedOn",
-    sorter: sortByHost,
-    render: (_, volume: TableVolume) => (
-      <StyledRouterLink
-        data-cy="host-link"
-        to={getSpawnHostRoute({ host: volume.hostID })}
-      >
-        <WordBreak>{getHostDisplayName(volume)}</WordBreak>
-      </StyledRouterLink>
-    ),
+    header: "Mounted On",
+    accessorFn: ({ host, hostID }) => host?.displayName || hostID,
+    enableSorting: true,
+    cell: ({ getValue, row }) => {
+      const hostId = row.original.hostID;
+      return (
+        hostId && (
+          <StyledRouterLink
+            data-cy="host-link"
+            to={getSpawnHostRoute({ host: hostId })}
+          >
+            <WordBreak>{getValue()}</WordBreak>
+          </StyledRouterLink>
+        )
+      );
+    },
   },
   {
-    title: "Status",
-    key: "status",
-    sorter: sortByHost,
-    defaultSortOrder: "ascend",
-    render: (_, volume: TableVolume) => <VolumeStatusBadge volume={volume} />,
+    header: "Status",
+    accessorKey: "hostID",
+    enableSorting: true,
+    cell: ({ getValue, row }) => {
+      const hostId = getValue();
+      const { migrating } = row.original;
+      return <VolumeStatusBadge hostId={hostId} migrating={migrating} />;
+    },
   },
   {
-    title: "Expires In",
-    dataIndex: "expiration",
-    sorter: (a: TableVolume, b: TableVolume) =>
-      sortFunctionDate(a, b, "expiration"),
-    render: (expiration, volume: TableVolume) =>
-      volume.noExpiration || !volume.expiration
+    header: "Expires In",
+    accessorFn: ({ expiration }) => new Date(expiration),
+    enableSorting: true,
+    cell: ({ getValue, row }) => {
+      const expiration = getValue();
+      const { noExpiration } = row.original;
+      return noExpiration || !expiration
         ? DoesNotExpire
-        : formatDistanceToNow(new Date(expiration)),
+        : formatDistanceToNow(expiration);
+    },
   },
   {
-    title: "Actions",
-    render: (volume: TableVolume) => (
-      <SpawnVolumeTableActions volume={volume} />
-    ),
+    header: "Actions",
+    cell: ({ row }) => <SpawnVolumeTableActions volume={row.original} />,
   },
 ];
