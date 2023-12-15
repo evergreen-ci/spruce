@@ -9,7 +9,7 @@ import { formatDistanceToNow } from "date-fns";
 import { useHostsTableAnalytics } from "analytics";
 import { StyledRouterLink, WordBreak } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
-import { onChangeHandler } from "components/Table/utils";
+import { TableQueryParams, onChangeHandler } from "components/Table/utils";
 import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";
 import { HostSortBy, HostsQuery, SortDirection } from "gql/generated/types";
@@ -89,17 +89,20 @@ export const HostsTable: React.FC<Props> = ({
       updatedParams[key] = value;
     });
 
-    sorting.forEach(({ desc, id }) => {
-      updatedParams[id] = desc ? SortDirection.Desc : SortDirection.Asc;
-    });
+    if (sorting.length) {
+      const { desc, id } = sorting[0];
+      updatedParams[TableQueryParams.SortDir] = desc
+        ? SortDirection.Desc
+        : SortDirection.Asc;
+      updatedParams[TableQueryParams.SortBy] = id;
+
+      sendEvent({ name: "Sort Hosts" });
+    }
 
     setQueryParams(updatedParams);
 
     if (columnFilters.length) {
       sendEvent({ name: "Filter Hosts", filterBy: Object.keys(columnFilters) });
-    }
-    if (sorting.length) {
-      sendEvent({ name: "Sort Hosts" });
     }
   }, [columnFilters, sorting]); // eslint-disable-line react-hooks/exhaustive-deps
 

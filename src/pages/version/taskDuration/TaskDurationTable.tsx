@@ -147,7 +147,10 @@ export const TaskDurationTable: React.FC<Props> = ({
     });
 
     setQueryParams(updatedParams);
-    sendEvent({ name: "Filter Tasks", filterBy: Object.keys(columnFilters) });
+
+    if (columnFilters.length) {
+      sendEvent({ name: "Filter Tasks", filterBy: Object.keys(columnFilters) });
+    }
   }, [columnFilters, sorting]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
