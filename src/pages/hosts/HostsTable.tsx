@@ -69,7 +69,9 @@ export const HostsTable: React.FC<Props> = ({
       rowSelection,
     },
     hasSelectableRows: true,
+    manualFiltering: true,
     manualPagination: true,
+    manualSorting: true,
     onRowSelectionChange: onChangeHandler<RowSelectionState>(
       setRowSelection,
       updateRowSelection

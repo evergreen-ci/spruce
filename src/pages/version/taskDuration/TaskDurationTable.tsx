@@ -127,7 +127,9 @@ export const TaskDurationTable: React.FC<Props> = ({
       columnFilters: initialFilters,
       sorting: initialSort,
     },
+    manualFiltering: true,
     manualPagination: true,
+    manualSorting: true,
   });
 
   const { getState } = table;
