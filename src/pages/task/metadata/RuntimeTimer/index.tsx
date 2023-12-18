@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import { differenceInMilliseconds } from "date-fns";
 import { MetadataItem } from "components/MetadataCard";
+import { useRunningTime } from "hooks";
 import { string } from "utils";
 
 const { msToDuration } = string;
@@ -11,22 +10,7 @@ interface RuntimeTimerProps {
 const RuntimeTimer: React.FC<RuntimeTimerProps> = ({ startTime }) => {
   const parsedStartTime = new Date(startTime);
 
-  const [runningTime, setRunningTime] = useState(
-    differenceInMilliseconds(Date.now(), parsedStartTime)
-  );
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const newRunningTime = differenceInMilliseconds(
-        Date.now(),
-        parsedStartTime
-      );
-      setRunningTime(newRunningTime > 0 ? newRunningTime : 0);
-    }, 1000);
-
-    return () => clearInterval(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { runningTime } = useRunningTime(parsedStartTime);
 
   return (
     <MetadataItem data-cy="task-metadata-running-time">

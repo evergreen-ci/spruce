@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { addMilliseconds, differenceInMilliseconds } from "date-fns";
+import { useEffect } from "react";
 import { MetadataItem } from "components/MetadataCard";
+import { useRunningTime } from "hooks";
 import { string } from "utils";
 
 const { msToDuration } = string;
@@ -11,31 +11,15 @@ interface ETATimerProps {
 }
 const ETATimer: React.FC<ETATimerProps> = ({ expectedDuration, startTime }) => {
   const parsedStartTime = new Date(startTime);
-  const estimatedCompletionTime = addMilliseconds(
-    parsedStartTime,
-    expectedDuration
-  );
-
-  const [eta, setEta] = useState(
-    differenceInMilliseconds(estimatedCompletionTime, Date.now())
-  );
+  const { endTimer, runningTime } = useRunningTime(parsedStartTime);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      const newEta = differenceInMilliseconds(
-        estimatedCompletionTime,
-        Date.now()
-      );
-      setEta(newEta > 0 ? newEta : 0);
-      if (newEta <= 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
+    if (runningTime >= expectedDuration) {
+      endTimer();
+    }
+  }, [runningTime, expectedDuration, endTimer]);
 
-    return () => clearInterval(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  const eta = expectedDuration - runningTime;
   return (
     <MetadataItem data-cy="task-metadata-eta">
       ETA: {msToDuration(eta)}
