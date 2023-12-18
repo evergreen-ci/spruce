@@ -27,14 +27,15 @@ import TableLoader from "./TableLoader";
 declare module "@tanstack/table-core" {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData extends RowData, TValue> {
-    filterComponent?: (column: any) => JSX.Element;
     search?: {
       "data-cy"?: string;
       placeholder?: string;
     };
-    sortComponent?: (column: any) => JSX.Element;
     treeSelect?: {
       "data-cy"?: string;
+      // Configures whether or not the tree select should be filtered to only represent values found in the table.
+      // Note that this may not be very performant for large tables.
+      filterOptions?: boolean;
       options: TreeDataEntry[];
     };
     // Overcome react-table's column width limitations
@@ -67,41 +68,43 @@ export const BaseTable = <T extends LGRowData>({
         {table.getHeaderGroups().map((headerGroup) => (
           <HeaderRow key={headerGroup.id}>
             {headerGroup.headers.map((header) => {
-              const { columnDef } = header.column;
+              const { columnDef } = header.column ?? {};
+              const { meta } = columnDef;
               return (
                 <HeaderCell
                   key={header.id}
                   header={header}
-                  style={
-                    columnDef?.meta?.width && { width: columnDef?.meta?.width }
-                  }
+                  style={meta?.width && { width: columnDef?.meta?.width }}
                 >
                   {flexRender(columnDef.header, header.getContext())}
-                  {columnDef?.meta?.sortComponent?.({
-                    column: header.column,
-                  })}
-                  {columnDef?.meta?.filterComponent?.({
-                    column: header.column,
-                  })}
                   {header.column.getCanFilter() &&
-                    (columnDef?.meta?.treeSelect ? (
+                    (meta?.treeSelect ? (
                       <TableFilterPopover
-                        data-cy={columnDef?.meta?.treeSelect?.["data-cy"]}
+                        data-cy={meta.treeSelect?.["data-cy"]}
                         onConfirm={(value) =>
                           header.column.setFilterValue(value)
                         }
-                        options={columnDef?.meta?.treeSelect?.options}
+                        options={
+                          meta.treeSelect?.filterOptions
+                            ? meta.treeSelect.options.filter(
+                                ({ value }) =>
+                                  !!header.column
+                                    .getFacetedUniqueValues()
+                                    .get(value)
+                              )
+                            : meta.treeSelect.options
+                        }
                         value={
                           (header?.column?.getFilterValue() as string[]) ?? []
                         }
                       />
                     ) : (
                       <TableSearchPopover
-                        data-cy={columnDef?.meta?.search?.["data-cy"]}
+                        data-cy={meta?.search?.["data-cy"]}
                         onConfirm={(value) =>
                           header.column.setFilterValue(value)
                         }
-                        placeholder={columnDef?.meta?.search?.placeholder}
+                        placeholder={meta?.search?.placeholder}
                         value={
                           (header?.column?.getFilterValue() as string) ?? ""
                         }

@@ -31,7 +31,7 @@ describe("Task Duration Tab", () => {
       cy.dataCy("leafygreen-table-row").should("have.length", 3);
       cy.location("search").should(
         "include",
-        "duration=DESC&page=0&statuses=running-umbrella,started,dispatched"
+        "duration=DESC&page=0&statuses=running-umbrella%2Cstarted%2Cdispatched"
       );
       // Clear status filter.
       cy.dataCy("status-filter-popover").click();
@@ -61,14 +61,15 @@ describe("Task Duration Tab", () => {
     });
 
     it("updates URL appropriately when sort is changing", () => {
+      const durationSortControl = "button[aria-label='Sort by Task Duration']";
       // The default sort (DURATION DESC) should be applied
       cy.location("search").should("include", "duration=DESC");
       const longestTask = "test-thirdparty";
       cy.contains(longestTask).should("be.visible");
       cy.dataCy("leafygreen-table-row").first().should("contain", longestTask);
-      cy.dataCy("duration-sort-icon").click();
+      cy.get(durationSortControl).click();
       cy.location("search").should("not.include", "duration");
-      cy.dataCy("duration-sort-icon").click();
+      cy.get(durationSortControl).click();
       cy.location("search").should("include", "duration=ASC");
       const shortestTask = "test-auth";
       cy.contains(shortestTask).should("be.visible");
@@ -76,9 +77,10 @@ describe("Task Duration Tab", () => {
     });
 
     it("clearing all filters resets to the default sort", () => {
-      cy.dataCy("duration-sort-icon").click();
+      const durationSortControl = "button[aria-label='Sort by Task Duration']";
+      cy.get(durationSortControl).click();
       cy.location("search").should("not.include", "duration");
-      cy.dataCy("duration-sort-icon").click();
+      cy.get(durationSortControl).click();
       cy.location("search").should("include", "duration=ASC");
       cy.contains("Clear all filters").click();
       cy.location("search").should("include", "duration=DESC");
