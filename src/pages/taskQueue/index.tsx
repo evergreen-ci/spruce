@@ -15,14 +15,16 @@ import {
 import { getTaskQueueRoute, getAllHostsRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import {
+  DistroTaskQueueQuery,
+  DistroTaskQueueQueryVariables,
   TaskQueueDistro,
   TaskQueueDistrosQuery,
   TaskQueueDistrosQueryVariables,
 } from "gql/generated/types";
-import { TASK_QUEUE_DISTROS } from "gql/queries";
+import { DISTRO_TASK_QUEUE, TASK_QUEUE_DISTROS } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { DistroOption } from "pages/taskQueue/DistroOption";
-import { TaskQueueTable } from "pages/taskQueue/TaskQueueTable";
+import TaskQueueTable from "./TaskQueueTable";
 
 const TaskQueue = () => {
   const taskQueueAnalytics = useTaskQueueAnalytics();
@@ -37,6 +39,15 @@ const TaskQueue = () => {
     TaskQueueDistrosQueryVariables
   >(TASK_QUEUE_DISTROS, { fetchPolicy: "cache-and-network" });
 
+  const { data: taskQueueItemsData, loading } = useQuery<
+    DistroTaskQueueQuery,
+    DistroTaskQueueQueryVariables
+  >(DISTRO_TASK_QUEUE, {
+    variables: { distroId: distro },
+    fetchPolicy: "cache-and-network",
+  });
+
+  const { distroTaskQueue } = taskQueueItemsData ?? {};
   const distros = useMemo(
     () => distrosData?.taskQueueDistros ?? [],
     [distrosData]
@@ -111,7 +122,7 @@ const TaskQueue = () => {
             )
           }
 
-          <TaskQueueTable distro={distro} taskId={taskId} />
+          <TaskQueueTable taskQueue={distroTaskQueue} loading={loading} />
         </>
       )}
     </PageWrapper>
