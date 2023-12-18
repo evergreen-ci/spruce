@@ -118,6 +118,7 @@ const taskSucceeded = {
       oomTracker: {
         detected: false,
       },
+      diskDevices: [],
     },
   },
 };

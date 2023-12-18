@@ -8512,6 +8512,7 @@ export type TaskQuery = {
     details?: {
       __typename?: "TaskEndDetail";
       description?: string | null;
+      diskDevices: Array<string>;
       status: string;
       timedOut?: boolean | null;
       timeoutType?: string | null;
