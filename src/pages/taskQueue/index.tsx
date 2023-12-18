@@ -23,7 +23,7 @@ import {
 } from "gql/generated/types";
 import { DISTRO_TASK_QUEUE, TASK_QUEUE_DISTROS } from "gql/queries";
 import { usePageTitle } from "hooks";
-import { DistroOption } from "pages/taskQueue/DistroOption";
+import { DistroOption } from "./DistroOption";
 import TaskQueueTable from "./TaskQueueTable";
 
 const TaskQueue = () => {
