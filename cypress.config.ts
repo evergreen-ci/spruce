@@ -3,7 +3,10 @@ import { execSync } from "child_process";
 
 export default defineConfig({
   e2e: {
-    retries: 3,
+    retries: {
+      runMode: 3,
+      openMode: 0,
+    },
     baseUrl: "http://localhost:3000",
     projectId: "yshv48",
     reporterOptions: {
