@@ -6,6 +6,7 @@ import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { useTaskQueueAnalytics } from "analytics";
 import { StyledRouterLink, WordBreak } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
+import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import {
   getVersionRoute,
   getTaskRoute,
@@ -23,7 +24,7 @@ interface TaskQueueTableProps {
 
 const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
   loading,
-  taskQueue,
+  taskQueue = [],
 }) => {
   const taskQueueAnalytics = useTaskQueueAnalytics();
   const tableContainerRef = useRef<HTMLDivElement>(null);
@@ -46,6 +47,7 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
       table={table}
       loading={loading && taskQueue?.length === 0}
       shouldAlternateRowColor
+      emptyComponent={<TablePlaceholder message="No tasks found in queue." />}
     />
   );
 };

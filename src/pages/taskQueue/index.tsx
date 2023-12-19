@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
@@ -24,7 +24,6 @@ import {
 import { DISTRO_TASK_QUEUE, TASK_QUEUE_DISTROS } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { DistroOption } from "./DistroOption";
-import TaskQueueTable from "./TaskQueueTable";
 
 const TaskQueue = () => {
   const taskQueueAnalytics = useTaskQueueAnalytics();
@@ -37,34 +36,29 @@ const TaskQueue = () => {
   const { data: distrosData } = useQuery<
     TaskQueueDistrosQuery,
     TaskQueueDistrosQueryVariables
-  >(TASK_QUEUE_DISTROS, { fetchPolicy: "cache-and-network" });
+  >(TASK_QUEUE_DISTROS, {
+    fetchPolicy: "cache-and-network",
+    onCompleted: (data) => {
+      const { taskQueueDistros } = data;
+      const firstDistroInList = taskQueueDistros[0]?.id;
+      const defaultDistro = distro ?? firstDistroInList;
+      setSelectedDistro(taskQueueDistros.find((d) => d.id === defaultDistro));
+      console.log("Redirecting");
+      navigate(getTaskQueueRoute(defaultDistro, taskId), { replace: true });
+    },
+  });
 
   const { data: taskQueueItemsData, loading } = useQuery<
     DistroTaskQueueQuery,
     DistroTaskQueueQueryVariables
   >(DISTRO_TASK_QUEUE, {
-    variables: { distroId: distro },
     fetchPolicy: "cache-and-network",
+    variables: { distroId: distro },
   });
-
-  const { distroTaskQueue } = taskQueueItemsData ?? {};
-  const distros = useMemo(
-    () => distrosData?.taskQueueDistros ?? [],
-    [distrosData]
-  );
-  const firstDistroInList = distros[0]?.id;
-
-  // SET DEFAULT DISTRO AFTER DISTROS HAVE BEEN OBTAINED
-  useEffect(() => {
-    if (distros.length) {
-      const defaultDistro = distro ?? firstDistroInList;
-      setSelectedDistro(distros.find((d) => d.id === defaultDistro));
-      navigate(getTaskQueueRoute(defaultDistro, taskId), { replace: true });
-    }
-  }, [firstDistroInList, distro, navigate, taskId, distros]);
 
   const onChangeDistroSelection = (val: { id: string }) => {
     taskQueueAnalytics.sendEvent({ name: "Select Distro", distro: val.id });
+    setSelectedDistro(val);
   };
 
   const handleSearch = (options: { id: string }[], match: string) =>
@@ -82,7 +76,7 @@ const TaskQueue = () => {
               <SearchableDropdown
                 data-cy="distro-dropdown"
                 label="Distro"
-                options={distros}
+                options={distrosData?.taskQueueDistros ?? []}
                 searchFunc={handleSearch}
                 optionRenderer={(option, onClick) => (
                   <DistroOption
@@ -122,7 +116,10 @@ const TaskQueue = () => {
             )
           }
 
-          <TaskQueueTable taskQueue={distroTaskQueue} loading={loading} />
+          {/* <TaskQueue Table
+            taskQueue={taskQueueItemsData?.distroTaskQueue}
+            loading={loading}
+          /> */}
         </>
       )}
     </PageWrapper>
