@@ -56,13 +56,13 @@ export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
         <Icon glyph="MagnifyingGlass" small="xsmall" color={iconColor} />
       </IconButton>
       <Popover align="bottom" justify="middle" active={active}>
-        <PopoverContainer ref={popoverRef}>
+        <PopoverContainer ref={popoverRef} data-cy={`${dataCy}-wrapper`}>
           <TextInput
             description="Press enter to filter."
             placeholder={placeholder}
             type="search"
             aria-label="Search Table"
-            data-cy="input-filter"
+            data-cy={`${dataCy}-input-filter`}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === "Enter" && onEnter()}

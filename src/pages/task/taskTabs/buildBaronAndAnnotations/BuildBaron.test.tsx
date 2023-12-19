@@ -1,25 +1,41 @@
-import { MockedProvider } from "@apollo/client/testing";
 import MatchMediaMock from "jest-matchmedia-mock";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
+  AnnotationEventDataQuery,
+  AnnotationEventDataQueryVariables,
   BuildBaronCreateTicketMutation,
   BuildBaronCreateTicketMutationVariables,
   BuildBaronQuery,
   BuildBaronQueryVariables,
   CreatedTicketsQuery,
   CreatedTicketsQueryVariables,
+  CustomCreatedIssuesQuery,
+  CustomCreatedIssuesQueryVariables,
+  SuspectedIssuesQuery,
+  SuspectedIssuesQueryVariables,
 } from "gql/generated/types";
-import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import {
+  getSpruceConfigMock,
+  getUserSettingsMock,
+} from "gql/mocks/getSpruceConfig";
 import { getUserMock } from "gql/mocks/getUser";
 import { FILE_JIRA_TICKET } from "gql/mutations";
-import { BUILD_BARON, CREATED_TICKETS } from "gql/queries";
+import {
+  ANNOTATION_EVENT_DATA,
+  BUILD_BARON,
+  CREATED_TICKETS,
+  JIRA_CUSTOM_CREATED_ISSUES,
+  JIRA_ISSUES,
+  JIRA_SUSPECTED_ISSUES,
+} from "gql/queries";
 import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
+import { MockedProvider } from "test_utils/graphql";
 import { ApolloMock } from "types/gql";
 import BuildBaronContent from "./BuildBaronContent";
 
 const taskId =
   "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41";
-const execution = 1;
+const execution = 0;
 
 let matchMedia;
 describe("buildBaronContent", () => {
@@ -34,7 +50,7 @@ describe("buildBaronContent", () => {
 
   it("the BuildBaron component renders without crashing.", () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={buildBaronMocks}>
+      <MockedProvider mocks={buildBaronMocks} addTypename={false}>
         <BuildBaronContent
           annotation={null}
           taskId={taskId}
@@ -57,7 +73,7 @@ describe("buildBaronContent", () => {
   it("clicking on file a new ticket dispatches a toast", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <MockedProvider mocks={buildBaronMocks}>
+      <MockedProvider mocks={buildBaronMocks} addTypename={false}>
         <BuildBaronContent
           annotation={null}
           taskId={taskId}
@@ -82,7 +98,7 @@ describe("buildBaronContent", () => {
 
   it("the correct JiraTicket rows are rendered in the component", () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={buildBaronMocks}>
+      <MockedProvider mocks={buildBaronMocks} addTypename={false}>
         <BuildBaronContent
           annotation={null}
           taskId={taskId}
@@ -108,17 +124,17 @@ describe("buildBaronContent", () => {
       "Resolved"
     );
     expect(screen.queryByDataCy("EVG-12345-metadata")).toHaveTextContent(
-      "Created: Sep 23, 2020 Updated: Sep 23, 2020 Unassigned"
+      "Created: Sep 23, 2020Updated: Sep 23, 2020Unassigned"
     );
 
     expect(screen.queryByDataCy("EVG-12346-badge")).toHaveTextContent("Closed");
     expect(screen.queryByDataCy("EVG-12346-metadata")).toHaveTextContent(
-      "Created: Sep 18, 2020 Updated: Sep 18, 2020 Assignee: Some Name"
+      "Created: Sep 18, 2020Updated: Sep 18, 2020Assignee: Some Name"
     );
 
     expect(screen.queryByDataCy("EVG-12347-badge")).toHaveTextContent("Open");
     expect(screen.queryByDataCy("EVG-12347-metadata")).toHaveTextContent(
-      "Created: Sep 18, 2020 Updated: Sep 18, 2020 Assignee: Backlog - Evergreen Team"
+      "Created: Sep 18, 2020Updated: Sep 18, 2020Assignee: Backlog - Evergreen Team"
     );
   });
 });
@@ -239,10 +255,103 @@ const getJiraTicketsMock: ApolloMock<
   },
 };
 
+const customCreatedIssuesMock: ApolloMock<
+  CustomCreatedIssuesQuery,
+  CustomCreatedIssuesQueryVariables
+> = {
+  request: {
+    query: JIRA_CUSTOM_CREATED_ISSUES,
+    variables: {
+      taskId,
+      execution,
+    },
+  },
+  result: {
+    data: {
+      task: {
+        id: taskId,
+        execution,
+        annotation: null,
+      },
+    },
+  },
+};
+
+const suspectedIssueMock: ApolloMock<
+  SuspectedIssuesQuery,
+  SuspectedIssuesQueryVariables
+> = {
+  request: {
+    query: JIRA_SUSPECTED_ISSUES,
+    variables: {
+      taskId,
+      execution,
+    },
+  },
+  result: {
+    data: {
+      task: {
+        id: taskId,
+        execution,
+        annotation: null,
+      },
+    },
+  },
+};
+
+const jiraIssuesMock: ApolloMock<
+  SuspectedIssuesQuery,
+  SuspectedIssuesQueryVariables
+> = {
+  request: {
+    query: JIRA_ISSUES,
+    variables: {
+      taskId,
+      execution,
+    },
+  },
+  result: {
+    data: {
+      task: {
+        id: taskId,
+        execution,
+        annotation: null,
+      },
+    },
+  },
+};
+
+const annotationEventDataMock: ApolloMock<
+  AnnotationEventDataQuery,
+  AnnotationEventDataQueryVariables
+> = {
+  request: {
+    query: ANNOTATION_EVENT_DATA,
+    variables: {
+      taskId,
+      execution,
+    },
+  },
+  result: {
+    data: {
+      task: {
+        id: taskId,
+        execution,
+        annotation: null,
+      },
+    },
+  },
+};
+
 const buildBaronMocks = [
-  getBuildBaronMock,
+  customCreatedIssuesMock,
   fileJiraTicketMock,
+  getBuildBaronMock,
   getJiraTicketsMock,
-  getUserMock,
   getSpruceConfigMock,
+  annotationEventDataMock,
+  getUserSettingsMock,
+  getUserMock,
+  jiraIssuesMock,
+  suspectedIssueMock,
 ];

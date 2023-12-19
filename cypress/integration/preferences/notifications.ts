@@ -31,18 +31,18 @@ describe("user subscriptions table", () => {
   });
 
   it("shows all of a user's subscriptions and expands with details", () => {
-    cy.dataCy("subscription-row").should("have.length", 3);
+    cy.dataCy("leafygreen-table-row").should("have.length", 3);
 
     cy.dataCy("regex-selectors").should("not.be.visible");
     cy.dataCy("trigger-data").should("not.be.visible");
-    cy.dataCy("subscription-row")
+    cy.dataCy("leafygreen-table-row")
       .eq(0)
       .within(() => {
         cy.get("button").first().click();
       });
     cy.dataCy("regex-selectors").should("be.visible");
     cy.dataCy("trigger-data").should("not.be.visible");
-    cy.dataCy("subscription-row")
+    cy.dataCy("leafygreen-table-row")
       .eq(2)
       .within(() => {
         cy.get("button").first().click();
@@ -52,7 +52,7 @@ describe("user subscriptions table", () => {
   });
 
   it("Shows the selected count in the 'Delete' button", () => {
-    cy.dataCy("subscription-row")
+    cy.dataCy("leafygreen-table-row")
       .eq(0)
       .within(() => {
         cy.get("input[type=checkbox]").check({ force: true });
@@ -77,14 +77,14 @@ describe("user subscriptions table", () => {
 
   describe("Deleting subscriptions", () => {
     it("Deletes a single subscription", () => {
-      cy.dataCy("subscription-row")
+      cy.dataCy("leafygreen-table-row")
         .eq(0)
         .within(() => {
           cy.get("input[type=checkbox]").check({ force: true });
         });
       cy.dataCy("delete-some-button").click();
       cy.validateToast("success", "Deleted 1 subscription.");
-      cy.dataCy("subscription-row").should("have.length", 2);
+      cy.dataCy("leafygreen-table-row").should("have.length", 2);
     });
   });
 });

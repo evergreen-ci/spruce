@@ -1,11 +1,11 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import {
+  DistroSettingsRedirect,
   ProjectSettingsRedirect,
   UserPatchesRedirect,
   WaterfallCommitsRedirect,
 } from "components/Redirects";
 import { redirectRoutes, routes } from "constants/routes";
-import { PageDoesNotExist } from "pages/404";
 import { CommitQueue } from "pages/CommitQueue";
 import { Commits } from "pages/Commits";
 import { ConfigurePatch } from "pages/ConfigurePatch";
@@ -15,6 +15,7 @@ import { Host } from "pages/Host";
 import { Hosts } from "pages/Hosts";
 import { JobLogs } from "pages/JobLogs";
 import { MyPatches } from "pages/MyPatches";
+import { PageDoesNotExist } from "pages/NotFound";
 import { Preferences } from "pages/Preferences";
 import { ProjectPatches } from "pages/ProjectPatches";
 import { ProjectSettings } from "pages/ProjectSettings";
@@ -45,6 +46,10 @@ export const Content: React.FC = () => (
       <Route path={`${routes.distroSettings}/*`} element={<Distro />}>
         <Route path={tab} element={null} />
       </Route>
+      <Route
+        path={redirectRoutes.distroSettings}
+        element={<DistroSettingsRedirect />}
+      />
       <Route path={routes.host} element={<Host />} />
       <Route path={routes.hosts} element={<Hosts />} />
       <Route path={routes.jobLogs} element={<JobLogs />}>

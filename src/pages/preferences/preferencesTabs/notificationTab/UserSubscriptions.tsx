@@ -8,12 +8,12 @@ import { useLeafyGreenTable } from "@leafygreen-ui/table";
 import {
   getFacetedUniqueValues,
   getFilteredRowModel,
+  filterFns,
 } from "@tanstack/react-table";
 import Icon from "components/Icon";
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
 import { ShortenedRouterLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
-import { getColumnTreeSelectFilterProps } from "components/Table/LGFilters";
 import { getSubscriberText } from "constants/subscription";
 import { size } from "constants/tokens";
 import {
@@ -37,7 +37,8 @@ import {
 } from "types/subscription";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 import { ClearSubscriptions } from "./ClearSubscriptions";
-import { getResourceRoute, useSubscriptionData } from "./utils";
+import { useSubscriptionData } from "./useSubscriptionData";
+import { getResourceRoute } from "./utils";
 
 const { gray } = palette;
 
@@ -76,15 +77,21 @@ export const UserSubscriptions: React.FC<{}> = () => {
     () => [
       {
         accessorKey: "resourceType",
+        id: "resourceType",
         cell: ({ getValue }) => {
           const resourceType = getValue();
           return resourceTypeToCopy[resourceType] ?? resourceType;
         },
+        enableColumnFilter: true,
+        filterFn: filterFns.arrIncludesSome,
         header: "Type",
-        ...getColumnTreeSelectFilterProps({
-          "data-cy": "status-filter-popover",
-          tData: resourceTypeTreeData,
-        }),
+        meta: {
+          treeSelect: {
+            "data-cy": "status-filter-popover",
+            filterOptions: true,
+            options: resourceTypeTreeData,
+          },
+        },
       },
       {
         header: "ID",
@@ -112,10 +119,15 @@ export const UserSubscriptions: React.FC<{}> = () => {
       {
         accessorKey: "trigger",
         header: "Event",
-        ...getColumnTreeSelectFilterProps({
-          "data-cy": "trigger-filter-popover",
-          tData: triggerTreeData,
-        }),
+        enableColumnFilter: true,
+        filterFn: filterFns.arrIncludesSome,
+        meta: {
+          treeSelect: {
+            "data-cy": "trigger-filter-popover",
+            filterOptions: true,
+            options: triggerTreeData,
+          },
+        },
         cell: ({ getValue }) => {
           const trigger = getValue();
           return triggerToCopy[trigger] ?? trigger;
@@ -148,6 +160,9 @@ export const UserSubscriptions: React.FC<{}> = () => {
     columns,
     containerRef: tableContainerRef,
     data: subscriptions ?? [],
+    defaultColumn: {
+      enableColumnFilter: false,
+    },
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFilteredRowModel: getFilteredRowModel(),
     hasSelectableRows: true,

@@ -1,7 +1,5 @@
 const hostsRoute = "/hosts";
 
-const tableRow = "tr.ant-table-row";
-
 const idParam = "hostId";
 const distroParam = "distroId";
 const statusesParam = "statuses";
@@ -108,20 +106,22 @@ describe("Hosts page filtering from table filters", () => {
         cy.dataCy(`${filterIconDataCy}-wrapper`).should("be.visible");
         if (param === statusesParam) {
           cy.getInputByLabel("Running").check({ force: true });
+          cy.get("body").click();
         } else {
           cy.dataCy(`${filterIconDataCy}-input-filter`).should("be.visible");
-          cy.dataCy(`${filterIconDataCy}-input-filter`)
-            .should("be.focused")
-            .focus()
-            .type(`${filterValue}`, { scrollBehavior: false })
-            .type("{enter}");
+          cy.dataCy(`${filterIconDataCy}-input-filter`).should("be.focused");
+
+          cy.dataCy(`${filterIconDataCy}-input-filter`).type(
+            `${filterValue}{enter}`,
+            { scrollBehavior: false }
+          );
         }
-        cy.get(".ant-dropdown").should("not.be.visible");
+        cy.dataCy(`${filterIconDataCy}-wrapper`).should("not.exist");
         cy.location("search").should("contain", filterUrlParam);
         cy.dataCy("hosts-table").should("have.attr", "data-loading", "false");
 
         expectedIds.forEach((id) => {
-          cy.get(tableRow).contains(id).should("be.visible");
+          cy.dataCy("leafygreen-table-row").contains(id).should("be.visible");
         });
 
         cy.dataCy(filterIconDataCy).should("be.visible");

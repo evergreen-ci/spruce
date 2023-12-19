@@ -2567,6 +2567,7 @@ export type TaskContainerCreationOpts = {
 export type TaskEndDetail = {
   __typename?: "TaskEndDetail";
   description?: Maybe<Scalars["String"]["output"]>;
+  diskDevices: Array<Scalars["String"]["output"]>;
   oomTracker: OomTrackerInfo;
   status: Scalars["String"]["output"];
   timedOut?: Maybe<Scalars["Boolean"]["output"]>;
@@ -5724,6 +5725,7 @@ export type DistroQuery = {
     disableShallowClone: boolean;
     isCluster: boolean;
     isVirtualWorkStation: boolean;
+    mountpoints?: Array<string | null> | null;
     name: string;
     note: string;
     provider: Provider;
@@ -8521,6 +8523,7 @@ export type TaskQuery = {
     details?: {
       __typename?: "TaskEndDetail";
       description?: string | null;
+      diskDevices: Array<string>;
       status: string;
       timedOut?: boolean | null;
       timeoutType?: string | null;

@@ -1,4 +1,4 @@
-import { Divider } from "components/styles/Divider";
+import { Divider } from "components/styles/divider";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
 import { BuildVariantsWithChildrenQuery } from "gql/generated/types";
 import { versionSelectedTasks } from "hooks/useVersionTaskStatusSelect";

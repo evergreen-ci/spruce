@@ -13,7 +13,36 @@ import {
   type TableProps,
   TableHead,
 } from "@leafygreen-ui/table";
+import { RowData } from "@tanstack/react-table";
+import {
+  TableFilterPopover,
+  TableSearchPopover,
+} from "components/TablePopover";
+import { TreeDataEntry } from "components/TreeSelect";
+import { size } from "constants/tokens";
 import TableLoader from "./TableLoader";
+
+// Define typing of columns' meta field
+// https://tanstack.com/table/v8/docs/api/core/column-def#meta
+declare module "@tanstack/table-core" {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface ColumnMeta<TData extends RowData, TValue> {
+    search?: {
+      "data-cy"?: string;
+      placeholder?: string;
+    };
+    treeSelect?: {
+      "data-cy"?: string;
+      // Configures whether or not the tree select should be filtered to only represent values found in the table.
+      // Note that this may not be very performant for large tables.
+      filterOptions?: boolean;
+      options: TreeDataEntry[];
+    };
+    // Overcome react-table's column width limitations
+    // https://github.com/TanStack/table/discussions/4179#discussioncomment-3334470
+    width?: string;
+  }
+}
 
 type SpruceTableProps = {
   "data-cy-row"?: string;
@@ -38,22 +67,52 @@ export const BaseTable = <T extends LGRowData>({
       <TableHead>
         {table.getHeaderGroups().map((headerGroup) => (
           <HeaderRow key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <HeaderCell key={header.id} header={header}>
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext()
-                )}
-                {/* @ts-ignore-error */}
-                {header.column.columnDef?.meta?.filterComponent?.({
-                  column: header.column,
-                })}
-                {/* @ts-ignore-error */}
-                {header.column.columnDef?.meta?.sortComponent?.({
-                  column: header.column,
-                })}
-              </HeaderCell>
-            ))}
+            {headerGroup.headers.map((header) => {
+              const { columnDef } = header.column ?? {};
+              const { meta } = columnDef;
+              return (
+                <HeaderCell
+                  key={header.id}
+                  header={header}
+                  style={meta?.width && { width: columnDef?.meta?.width }}
+                >
+                  {flexRender(columnDef.header, header.getContext())}
+                  {header.column.getCanFilter() &&
+                    (meta?.treeSelect ? (
+                      <TableFilterPopover
+                        data-cy={meta.treeSelect?.["data-cy"]}
+                        onConfirm={(value) =>
+                          header.column.setFilterValue(value)
+                        }
+                        options={
+                          meta.treeSelect?.filterOptions
+                            ? meta.treeSelect.options.filter(
+                                ({ value }) =>
+                                  !!header.column
+                                    .getFacetedUniqueValues()
+                                    .get(value)
+                              )
+                            : meta.treeSelect.options
+                        }
+                        value={
+                          (header?.column?.getFilterValue() as string[]) ?? []
+                        }
+                      />
+                    ) : (
+                      <TableSearchPopover
+                        data-cy={meta?.search?.["data-cy"]}
+                        onConfirm={(value) =>
+                          header.column.setFilterValue(value)
+                        }
+                        placeholder={meta?.search?.placeholder}
+                        value={
+                          (header?.column?.getFilterValue() as string) ?? ""
+                        }
+                      />
+                    ))}
+                </HeaderCell>
+              );
+            })}
           </HeaderRow>
         ))}
       </TableHead>
@@ -68,7 +127,7 @@ export const BaseTable = <T extends LGRowData>({
           <Row
             key={row.id}
             row={row}
-            data-cy={dataCyRow}
+            data-cy="leafygreen-table-row"
             className={css`
               &[aria-hidden="false"] td > div {
                 max-height: unset;
@@ -76,12 +135,12 @@ export const BaseTable = <T extends LGRowData>({
             `}
           >
             {row.getVisibleCells().map((cell) => (
-              <Cell key={cell.id}>
+              <Cell key={cell.id} style={{ padding: `${size.xxs} 2px` }}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </Cell>
             ))}
             {row.original.renderExpandedContent && (
-              <ExpandedContent row={row} />
+              <StyledExpandedContent row={row} />
             )}
             {row.subRows &&
               row.subRows.map((subRow) => (
@@ -118,3 +177,10 @@ export const BaseTable = <T extends LGRowData>({
 const StyledTable = styled(Table)`
   transition: none !important;
 `;
+
+const StyledExpandedContent = styled(ExpandedContent)`
+  // Allow expanded content containers to take up the full table width
+  [data-state="entered"] > div {
+    flex-grow: 1;
+  }
+` as typeof ExpandedContent;

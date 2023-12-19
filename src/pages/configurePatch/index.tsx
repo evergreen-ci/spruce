@@ -12,7 +12,7 @@ import {
 } from "gql/generated/types";
 import { PATCH_CONFIGURE } from "gql/queries";
 import { usePageTitle } from "hooks";
-import { PageDoesNotExist } from "pages/404";
+import { PageDoesNotExist } from "pages/NotFound";
 import { validateObjectId } from "utils/validators";
 import ConfigurePatchCore from "./configurePatchCore";
 

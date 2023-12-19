@@ -44,6 +44,10 @@ describe("msToDuration", () => {
     const ms = 25000;
     expect(msToDuration(ms)).toBe("25s");
   });
+  it("does not convert milli < 1s", () => {
+    const ms = 500;
+    expect(msToDuration(ms)).toBe("500ms");
+  });
 });
 
 describe("sortFunctionDate", () => {

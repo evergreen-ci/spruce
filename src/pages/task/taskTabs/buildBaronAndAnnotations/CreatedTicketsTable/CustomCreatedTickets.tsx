@@ -1,7 +1,9 @@
+import styled from "@emotion/styled";
+import { size } from "constants/tokens";
 import { IssueLink } from "gql/generated/types";
-import { TicketsTitle, NonTableWrapper } from "../BBComponents";
+import AnnotationTicketRow from "../AnnotationTicketsList/AnnotationTicketRow";
+import { TicketsTitle } from "../BBComponents";
 import FileTicketButton from "../FileTicketButton";
-import CustomCreatedTicketsTable from "./CustomCreatedTicketsTable";
 
 interface CustomCreatedTicketProps {
   taskId: string;
@@ -15,19 +17,31 @@ const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
   tickets,
 }) => (
   <>
-    <NonTableWrapper>
-      <TicketsTitle>Create a New Ticket</TicketsTitle>
-      <FileTicketButton taskId={taskId} execution={execution} />
-    </NonTableWrapper>
-    {tickets?.length > 0 && (
+    <TicketsTitle>Create a New Ticket</TicketsTitle>
+    <FileTicketButton taskId={taskId} execution={execution} />
+    {!!tickets?.length && (
       <>
-        <NonTableWrapper>
-          <TicketsTitle>Tickets Created From This Task</TicketsTitle>
-        </NonTableWrapper>
-        <CustomCreatedTicketsTable tickets={tickets} />
+        <TicketsTitle margin>Tickets Created From This Task</TicketsTitle>
+        <TicketContainer>
+          {tickets.map(({ confidenceScore, issueKey, jiraTicket, url }) => (
+            <AnnotationTicketRow
+              confidenceScore={confidenceScore}
+              issueKey={issueKey}
+              jiraTicket={jiraTicket}
+              key={issueKey}
+              url={url}
+            />
+          ))}
+        </TicketContainer>
       </>
     )}
   </>
 );
+
+const TicketContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.s};
+`;
 
 export default CustomCreatedTickets;

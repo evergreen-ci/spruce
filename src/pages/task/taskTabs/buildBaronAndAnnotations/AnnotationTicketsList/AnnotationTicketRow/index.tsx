@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
+import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { Skeleton } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { size } from "constants/tokens";
@@ -12,14 +12,14 @@ import { numbers } from "utils";
 const { roundDecimal, toPercent } = numbers;
 
 interface AnnotationTicketRowProps {
-  issueKey: string;
-  url: string;
+  issueKey?: string;
+  url?: string;
   jiraTicket?: JiraTicket;
   loading?: boolean;
   confidenceScore?: number;
 }
 
-export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
+const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
   confidenceScore,
   issueKey,
   jiraTicket,
@@ -38,27 +38,31 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
     updated,
   } = fields ?? {};
 
+  const jiraLink = (
+    <JiraSummaryLink
+      href={url}
+      target="_blank"
+      data-cy={issueKey}
+      onClick={() =>
+        annotationAnalytics.sendEvent({
+          name: "Click Annotation Ticket Link",
+        })
+      }
+    >
+      {issueKey}
+      {summary && `: ${summary}`}
+    </JiraSummaryLink>
+  );
   return (
-    <div data-cy="annotation-ticket-row">
-      <JiraSummaryLink
-        href={url}
-        target="_blank"
-        data-cy={issueKey}
-        onClick={() =>
-          annotationAnalytics.sendEvent({
-            name: "Click Annotation Ticket Link",
-          })
-        }
-      >
-        {issueKey}
-        {summary && `: ${summary}`}
-      </JiraSummaryLink>
+    <Container data-cy="annotation-ticket-row">
       {loading ? (
-        <LoadingWrapper data-cy="loading-annotation-ticket">
-          <Skeleton active title={false} />
-        </LoadingWrapper>
+        <>
+          {jiraLink}
+          <Skeleton data-cy="loading-annotation-ticket" />
+        </>
       ) : (
         <>
+          {jiraLink}
           {jiraTicket && (
             <StyledBadge data-cy={`${issueKey}-badge`} variant="lightgray">
               {status.name}
@@ -95,12 +99,11 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
           </BottomMetaDataWrapper>
         </>
       )}
-    </div>
+    </Container>
   );
 };
-
-const LoadingWrapper = styled.div`
-  margin-top: ${size.xs};
+const Container = styled.div`
+  width: 100%;
 `;
 
 const JiraSummaryLink = styled(StyledLink)`
@@ -118,3 +121,6 @@ const BottomMetaDataWrapper = styled.div`
   margin-top: ${size.xs};
   width: 80%;
 `;
+
+export default AnnotationTicketRow;
+export type { AnnotationTicketRowProps };
