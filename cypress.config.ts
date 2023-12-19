@@ -2,6 +2,7 @@ import { defineConfig } from "cypress";
 import { execSync } from "child_process";
 
 export default defineConfig({
+  video: true,
   e2e: {
     retries: {
       runMode: 3,
