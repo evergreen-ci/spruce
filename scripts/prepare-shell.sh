@@ -8,6 +8,7 @@ export NVM_DIR
 
 cat <<EOT > expansion.yml
 PREPARE_SHELL: |
+    export CYPRESS_VERIFY_TIMEOUT=60000 # wait for 60 seconds
     PROJECT_DIRECTORY="$PROJECT_DIRECTORY"
     NVM_DIR="$NVM_DIR"
 
