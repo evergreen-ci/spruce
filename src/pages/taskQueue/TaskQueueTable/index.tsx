@@ -15,8 +15,9 @@ import { TaskQueueItem, TaskQueueItemType } from "gql/generated/types";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 import { msToDuration } from "utils/string";
 
+type TaskQueueColumnData = Omit<TaskQueueItem, "revision">;
 interface TaskQueueTableProps {
-  taskQueue: Omit<TaskQueueItem, "revision">[];
+  taskQueue: TaskQueueColumnData[];
   loading: boolean;
 }
 
@@ -32,7 +33,7 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
-  const table = useLeafyGreenTable<Omit<TaskQueueItem, "revision">>({
+  const table = useLeafyGreenTable<TaskQueueColumnData>({
     data: taskQueue,
     columns,
     containerRef: tableContainerRef,
@@ -54,8 +55,6 @@ const TaskCell = styled.div`
   flex-direction: column;
 `;
 
-type TaskQueueColumnData = Omit<TaskQueueItem, "revision">;
-
 const taskQueueTableColumns = (
   sendEvent: ReturnType<typeof useTaskQueueAnalytics>["sendEvent"]
 ) => {
@@ -75,15 +74,13 @@ const taskQueueTableColumns = (
         const { buildVariant, displayName, id, project } = value.row.original;
         return (
           <TaskCell>
-            <Body>
-              <StyledRouterLink
-                data-cy="current-task-link"
-                to={getTaskRoute(id)}
-                onClick={() => sendEvent({ name: "Click Task Link" })}
-              >
-                <WordBreak>{displayName}</WordBreak>
-              </StyledRouterLink>
-            </Body>
+            <StyledRouterLink
+              data-cy="current-task-link"
+              to={getTaskRoute(id)}
+              onClick={() => sendEvent({ name: "Click Task Link" })}
+            >
+              <WordBreak>{displayName}</WordBreak>
+            </StyledRouterLink>
             <Body>{buildVariant}</Body>
             <Disclaimer>{project}</Disclaimer>
           </TaskCell>
