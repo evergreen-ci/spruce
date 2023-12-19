@@ -19,8 +19,8 @@ type GroupedFilesFile = Unpacked<GroupedFiles["files"]>;
 const columns = (
   taskAnalytics: ReturnType<typeof useTaskAnalytics>,
   options: {
-    triggerRef: React.RefObject<HTMLAnchorElement>;
-    index: number;
+    gudeCueTriggerRef: React.RefObject<HTMLAnchorElement>;
+    firstParsleyFileIndex: number;
   }
 ): LGColumnDef<GroupedFilesFile>[] => [
   {
@@ -55,8 +55,8 @@ const columns = (
                 disabled={value.row.original.urlParsley === null}
                 size="small"
                 ref={
-                  options && options.index === value.row.index
-                    ? options.triggerRef
+                  options && options.firstParsleyFileIndex === value.row.index
+                    ? options.gudeCueTriggerRef
                     : null
                 }
                 onClick={() => {
@@ -105,12 +105,12 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
         taskAnalytics,
         firstParsleyFileIndex !== -1
           ? {
-              triggerRef: parsleyLinkRef,
-              index: firstParsleyFileIndex,
+              gudeCueTriggerRef: parsleyLinkRef,
+              firstParsleyFileIndex,
             }
           : {
-              triggerRef: null,
-              index: -1,
+              gudeCueTriggerRef: null,
+              firstParsleyFileIndex: -1,
             }
       ),
     [taskAnalytics, firstParsleyFileIndex]
