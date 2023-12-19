@@ -5,10 +5,12 @@ const files = [
   {
     name: "some_file",
     link: "some_link",
+    urlParsley: null,
   },
   {
     name: "another_file",
     link: "another_link",
+    urlParsley: "parsley_link",
   },
 ];
 
