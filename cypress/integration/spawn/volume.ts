@@ -270,7 +270,7 @@ describe("Spawn volume page", () => {
       ).click();
       cy.dataCy("distro-input").click();
       cy.dataCy("distro-option-ubuntu1804-workstation").click();
-      cy.dataCy("region-select").should("be.disabled");
+      cy.dataCy("region-select").should("have.attr", "aria-disabled", "true");
       cy.dataCy("migrate-modal").contains("Next").click({ force: true });
       cy.dataCy("migrate-modal")
         .contains("Migrate Volume")
