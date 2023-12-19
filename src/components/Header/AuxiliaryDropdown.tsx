@@ -18,7 +18,7 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
   projectIdentifier,
 }) => {
   const { sendEvent } = useNavbarAnalytics();
-  const distro = useFirstDistro();
+  const { distro } = useFirstDistro();
 
   const menuItems = [
     {

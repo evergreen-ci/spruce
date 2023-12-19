@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { size } from "constants/tokens";
 import { IssueLink } from "gql/generated/types";
-import { AnnotationTicketRow } from "../AnnotationTicketsTable/AnnotationTicketRow";
+import AnnotationTicketRow from "../AnnotationTicketsList/AnnotationTicketRow";
 import { TicketsTitle } from "../BBComponents";
 import FileTicketButton from "../FileTicketButton";
 

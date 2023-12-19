@@ -62,3 +62,11 @@ describe("using the distro dropdown", () => {
     });
   });
 });
+
+describe("/distros redirect route", () => {
+  it("should redirect to the first distro available", () => {
+    cy.visit("/distros");
+    cy.location("pathname").should("not.contain", "/distros");
+    cy.location("pathname").should("eq", "/distro/localhost/settings/general");
+  });
+});

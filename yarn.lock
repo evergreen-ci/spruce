@@ -3952,10 +3952,10 @@
     "@leafygreen-ui/tokens" "^2.1.4"
     "@leafygreen-ui/typography" "^17.0.0"
 
-"@leafygreen-ui/table@12.1.3":
-  version "12.1.3"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/table/-/table-12.1.3.tgz#d44bc302e65c0d6ace474163dd555065bba9cf3c"
-  integrity sha512-2VX5u46T2AJqDtXOqLmvzC2XYD9HnKoECJvPLJYt+JNyl2gmdBRYOVbRHrUcFpxD3iKulRYdfABAD1JR73XoUw==
+"@leafygreen-ui/table@12.1.4":
+  version "12.1.4"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/table/-/table-12.1.4.tgz#e17f9b01bdbf9d2892b99be283cc4589962ae5b0"
+  integrity sha512-ju9xS8ynh8UwniFjm8MSBvW0sCSf/P0qfVfHawTnZk3z7+E5P+TaetprBiEUDPilqz3GhlVvwE9z0OdUm9boag==
   dependencies:
     "@leafygreen-ui/checkbox" "^12.0.20"
     "@leafygreen-ui/emotion" "^4.0.7"
