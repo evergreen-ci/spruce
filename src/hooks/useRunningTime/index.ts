@@ -1,6 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import differenceInMilliseconds from "date-fns/differenceInMilliseconds";
 
+/**
+ * `useRunningTime` is a hook that returns the time elapsed since the start time. It refreshes every second.
+ * @param startTime - The start time of the timer
+ * @returns
+ * - `runningTime` - The running time in milliseconds
+ * - `endTimer` - A function that clears the timer
+ */
 export const useRunningTime = (startTime: Date) => {
   const [runningTime, setRunningTime] = useState(
     differenceInMilliseconds(Date.now(), startTime)
