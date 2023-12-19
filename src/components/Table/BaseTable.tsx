@@ -12,6 +12,9 @@ import {
   TableBody,
   type TableProps,
   TableHead,
+  LGTableDataType,
+  VirtualItem,
+  LeafyGreenTableRow,
 } from "@leafygreen-ui/table";
 import { RowData } from "@tanstack/react-table";
 import {
@@ -123,48 +126,7 @@ export const BaseTable = <T extends LGRowData>({
             numRows={loadingRows}
           />
         )}
-        {table.getRowModel().rows.map((row) => (
-          <Row
-            key={row.id}
-            row={row}
-            data-cy="leafygreen-table-row"
-            className={css`
-              &[aria-hidden="false"] td > div {
-                max-height: unset;
-              }
-            `}
-          >
-            {row.getVisibleCells().map((cell) => (
-              <Cell key={cell.id} style={{ padding: `${size.xxs} 2px` }}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </Cell>
-            ))}
-            {row.original.renderExpandedContent && (
-              <StyledExpandedContent row={row} />
-            )}
-            {row.subRows &&
-              row.subRows.map((subRow) => (
-                <Row
-                  key={subRow.id}
-                  row={subRow}
-                  className={css`
-                    &[aria-hidden="false"] td > div[data-state="entered"] {
-                      max-height: unset;
-                    }
-                  `}
-                >
-                  {subRow.getVisibleCells().map((cell) => (
-                    <Cell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </Cell>
-                  ))}
-                </Row>
-              ))}
-          </Row>
-        ))}
+        <RenderRows rows={table.getRowModel().rows} />
       </TableBody>
     </StyledTable>
 
@@ -173,6 +135,60 @@ export const BaseTable = <T extends LGRowData>({
       (emptyComponent || "No data to display")}
   </>
 );
+
+const RenderRows = <T extends LGRowData>({
+  rows,
+  virtualRows,
+}: {
+  virtualRows?: VirtualItem[];
+  rows: LeafyGreenTableRow<LGTableDataType<T>>[];
+}) => {
+  const hasVirtualRows = virtualRows.length > 0;
+  const renderableRows = hasVirtualRows ? virtualRows : rows;
+  return (
+    <>
+      {renderableRows.map((row) => (
+        <Row
+          key={row.id}
+          row={row}
+          data-cy="leafygreen-table-row"
+          className={css`
+            &[aria-hidden="false"] td > div {
+              max-height: unset;
+            }
+          `}
+        >
+          {row.getVisibleCells().map((cell) => (
+            <Cell key={cell.id} style={{ padding: `${size.xxs} 2px` }}>
+              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            </Cell>
+          ))}
+          {row.original.renderExpandedContent && (
+            <StyledExpandedContent row={row} />
+          )}
+          {row.subRows &&
+            row.subRows.map((subRow) => (
+              <Row
+                key={subRow.id}
+                row={subRow}
+                className={css`
+                  &[aria-hidden="false"] td > div[data-state="entered"] {
+                    max-height: unset;
+                  }
+                `}
+              >
+                {subRow.getVisibleCells().map((cell) => (
+                  <Cell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </Cell>
+                ))}
+              </Row>
+            ))}
+        </Row>
+      ))}
+    </>
+  );
+};
 
 const StyledTable = styled(Table)`
   transition: none !important;
