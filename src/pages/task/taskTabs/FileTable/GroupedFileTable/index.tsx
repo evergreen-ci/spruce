@@ -55,7 +55,9 @@ const columns = (
                 disabled={value.row.original.urlParsley === null}
                 size="small"
                 ref={
-                  options.index === value.row.index ? options.triggerRef : null
+                  options && options.index === value.row.index
+                    ? options.triggerRef
+                    : null
                 }
                 onClick={() => {
                   taskAnalytics.sendEvent({
@@ -106,7 +108,10 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
               triggerRef: parsleyLinkRef,
               index: firstParsleyFileIndex,
             }
-          : null
+          : {
+              triggerRef: null,
+              index: -1,
+            }
       ),
     [taskAnalytics, firstParsleyFileIndex]
   );
