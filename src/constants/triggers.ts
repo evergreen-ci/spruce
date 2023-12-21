@@ -135,19 +135,19 @@ export const taskTriggers: Trigger = {
 // VERSION TRIGGERS
 export const versionTriggers: Trigger = {
   [VersionTriggers.VERSION_FINISHES]: {
-    trigger: TriggerType.FAMILY_OUTCOME,
+    trigger: TriggerType.OUTCOME,
     label: "This version finishes",
     resourceType: ResourceType.Version,
     payloadResourceIdKey: "id",
   },
   [VersionTriggers.VERSION_FAILS]: {
-    trigger: TriggerType.FAMILY_FAILURE,
+    trigger: TriggerType.FAILURE,
     label: "This version fails",
     resourceType: ResourceType.Version,
     payloadResourceIdKey: "id",
   },
   [VersionTriggers.VERSION_SUCCEEDS]: {
-    trigger: TriggerType.FAMILY_SUCCESS,
+    trigger: TriggerType.SUCCESS,
     label: "This version succeeds",
     resourceType: ResourceType.Version,
     payloadResourceIdKey: "id",
@@ -207,70 +207,70 @@ export const versionTriggers: Trigger = {
 
 export const projectTriggers: Trigger = {
   [ProjectTriggers.ANY_VERSION_FINISHES]: {
-    trigger: TriggerType.FAMILY_OUTCOME,
+    trigger: TriggerType.OUTCOME,
     resourceType: ResourceType.Version,
-    label: "Any Version Finishes",
+    label: "Any version finishes",
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_VERSION_FAILS]: {
-    trigger: TriggerType.FAMILY_FAILURE,
+    trigger: TriggerType.FAILURE,
     resourceType: ResourceType.Version,
-    label: "Any Version Fails",
+    label: "Any version fails",
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_BUILD_FINISHES]: {
     trigger: TriggerType.OUTCOME,
     resourceType: ResourceType.Build,
-    label: "Any Build Finishes",
+    label: "Any build finishes",
     regexSelectors: buildRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_BUILD_FAILS]: {
     trigger: TriggerType.FAILURE,
     resourceType: ResourceType.Build,
-    label: "Any Build Fails",
+    label: "Any build fails",
     regexSelectors: buildRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_TASK_FINISHES]: {
     trigger: TriggerType.OUTCOME,
     resourceType: ResourceType.Task,
-    label: "Any Task Finishes",
+    label: "Any task finishes",
     regexSelectors: taskRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_TASK_FAILS]: {
     trigger: TriggerType.FAILURE,
     resourceType: ResourceType.Task,
-    label: "Any Task Fails",
+    label: "Any task fails",
     regexSelectors: taskRegexSelectors,
     extraFields: [failureTypeSubscriberConfig, requesterSubscriberConfig],
   },
   [ProjectTriggers.FIRST_FAILURE_VERSION]: {
     trigger: TriggerType.FIRST_FAILURE_VERSION,
     resourceType: ResourceType.Task,
-    label: "The First Failure In a Version Occurs",
+    label: "The first failure in a version occurs",
     regexSelectors: taskRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.FIRST_FAILURE_BUILD]: {
     trigger: TriggerType.FIRST_FAILURE_BUILD,
     resourceType: ResourceType.Task,
-    label: "The First Failure In Each Build Occurs",
+    label: "The first failure in each build occurs",
     regexSelectors: taskRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.FIRST_FAILURE_TASK]: {
     trigger: TriggerType.FIRST_FAILURE_VERSION_NAME,
     resourceType: ResourceType.Task,
-    label: "The First Failure In Each Version For Each Task Name Occurs",
+    label: "The first failure in each version for each task name occurs",
     regexSelectors: taskRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.PREVIOUS_PASSING_TASK_FAILS]: {
     trigger: TriggerType.REGRESSION,
     resourceType: ResourceType.Task,
-    label: "A Previously Passing Task Fails",
+    label: "A previously passing task fails",
     regexSelectors: taskRegexSelectors,
     extraFields: [
       {
@@ -286,7 +286,7 @@ export const projectTriggers: Trigger = {
   [ProjectTriggers.PREVIOUS_PASSING_TEST_FAILS]: {
     trigger: TriggerType.TEST_REGRESSION,
     resourceType: ResourceType.Task,
-    label: "A Previously Passing Test In a Task Fails",
+    label: "A previously passing test in a task fails",
     regexSelectors: taskRegexSelectors,
     extraFields: [
       {
@@ -309,7 +309,7 @@ export const projectTriggers: Trigger = {
   [ProjectTriggers.SUCCESSFUL_TASK_EXCEEDS_DURATION]: {
     trigger: TriggerType.SUCCESSFUL_EXCEEDS_DURATION,
     resourceType: ResourceType.Task,
-    label: "The Runtime For a Successful Task Exceeds Some Duration",
+    label: "The runtime For a successful task exceeds some duration",
     regexSelectors: taskRegexSelectors,
     extraFields: [
       {
@@ -324,7 +324,7 @@ export const projectTriggers: Trigger = {
   [ProjectTriggers.TASK_EXCEEDS_DURATION]: {
     trigger: TriggerType.EXCEEDS_DURATION,
     resourceType: ResourceType.Task,
-    label: "The Runtime For Any Task Exceeds Some Duration",
+    label: "The runtime for any task exceeds some duration",
     regexSelectors: taskRegexSelectors,
     extraFields: [
       {
@@ -339,7 +339,7 @@ export const projectTriggers: Trigger = {
   [ProjectTriggers.SUCCESSFUL_TASK_RUNTIME_CHANGES]: {
     trigger: TriggerType.RUNTIME_CHANGE,
     resourceType: ResourceType.Task,
-    label: "The Runtime For a Successful Task Changes By Some Percentage",
+    label: "The runtime for a successful task changes by some percentage",
     regexSelectors: taskRegexSelectors,
     extraFields: [
       {
@@ -355,41 +355,41 @@ export const projectTriggers: Trigger = {
 
 export const waterfallTriggers: Trigger = {
   [ProjectTriggers.ANY_VERSION_FINISHES]: {
-    trigger: TriggerType.FAMILY_OUTCOME,
+    trigger: TriggerType.OUTCOME,
     resourceType: ResourceType.Version,
-    label: "Any Version Finishes",
+    label: "Any version finishes",
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_VERSION_FAILS]: {
-    trigger: TriggerType.FAMILY_FAILURE,
+    trigger: TriggerType.FAILURE,
     resourceType: ResourceType.Version,
-    label: "Any Version Fails",
+    label: "Any version fails",
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_VERSION_SUCCEEDS]: {
-    trigger: TriggerType.FAMILY_SUCCESS,
+    trigger: TriggerType.SUCCESS,
     resourceType: ResourceType.Version,
-    label: "Any Version Succeeds",
+    label: "Any version succeeds",
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_BUILD_FINISHES]: {
     trigger: TriggerType.OUTCOME,
     resourceType: ResourceType.Build,
-    label: "Any Build Finishes",
+    label: "Any build finishes",
     regexSelectors: buildRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_BUILD_FAILS]: {
     trigger: TriggerType.FAILURE,
     resourceType: ResourceType.Build,
-    label: "Any Build Fails",
+    label: "Any build fails",
     regexSelectors: buildRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_BUILD_SUCCEEDS]: {
     trigger: TriggerType.SUCCESS,
     resourceType: ResourceType.Build,
-    label: "Any Build Succeeds",
+    label: "Any build succeeds",
     regexSelectors: buildRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },
@@ -418,9 +418,6 @@ export const triggerToCopy = {
   [TriggerType.OUTCOME]: "Outcome",
   [TriggerType.FAILURE]: "Failure",
   [TriggerType.SUCCESS]: "Success",
-  [TriggerType.FAMILY_OUTCOME]: "Outcome",
-  [TriggerType.FAMILY_FAILURE]: "Failure",
-  [TriggerType.FAMILY_SUCCESS]: "Success",
   [TriggerType.RUNTIME_CHANGE]: "Runtime changes by %",
   [TriggerType.EXCEEDS_DURATION]: "Runtime exceeds duration",
   [TriggerType.SUCCESSFUL_EXCEEDS_DURATION]: "Runtime exceeds duration",
@@ -428,14 +425,16 @@ export const triggerToCopy = {
   [TriggerType.TASK_FAILED_OR_BLOCKED]: "Task failed or blocked",
   [TriggerType.REGRESSION]: "Regression",
   [TriggerType.TEST_REGRESSION]: "Test regression",
-  [TriggerType.FIRST_FAILURE_BUILD]: "First failure",
   [TriggerType.FIRST_FAILURE_BUILD]: "First failure in build",
   [TriggerType.FIRST_FAILURE_VERSION]: "First failure in version",
   [TriggerType.FIRST_FAILURE_VERSION_NAME]:
     "First failure in version with name",
+  [TriggerType.FAMILY_OUTCOME]: "Outcome",
+  [TriggerType.FAMILY_FAILURE]: "Failure",
+  [TriggerType.FAMILY_SUCCESS]: "Success",
 };
 
-export const convertFamilyTrigger = (trigger: string) => {
+export const fromFamilyTrigger = (trigger: string) => {
   switch (trigger) {
     case TriggerType.FAMILY_OUTCOME:
       return TriggerType.OUTCOME;
