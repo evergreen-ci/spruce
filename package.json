@@ -143,7 +143,7 @@
     "@storybook/addon-essentials": "7.4.0",
     "@storybook/addon-interactions": "7.4.0",
     "@storybook/addon-links": "7.4.0",
-    "@storybook/addon-storyshots": "7.4.0",
+    "@storybook/addon-storyshots": "7.6.6",
     "@storybook/react": "7.4.0",
     "@storybook/react-vite": "7.4.0",
     "@storybook/testing-library": "0.2.2",
