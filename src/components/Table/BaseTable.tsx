@@ -64,77 +64,84 @@ export const BaseTable = <T extends LGRowData>({
   loadingRows = 5,
   table,
   ...args
-}: SpruceTableProps & TableProps<T>) => (
-  <>
-    <StyledTable data-cy={dataCyTable} table={table} {...args}>
-      <TableHead>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <HeaderRow key={headerGroup.id}>
-            {headerGroup.headers.map((header) => {
-              const { columnDef } = header.column ?? {};
-              const { meta } = columnDef;
-              return (
-                <HeaderCell
-                  key={header.id}
-                  header={header}
-                  style={meta?.width && { width: columnDef?.meta?.width }}
-                >
-                  {flexRender(columnDef.header, header.getContext())}
-                  {header.column.getCanFilter() &&
-                    (meta?.treeSelect ? (
-                      <TableFilterPopover
-                        data-cy={meta.treeSelect?.["data-cy"]}
-                        onConfirm={(value) =>
-                          header.column.setFilterValue(value)
-                        }
-                        options={
-                          meta.treeSelect?.filterOptions
-                            ? meta.treeSelect.options.filter(
-                                ({ value }) =>
-                                  !!header.column
-                                    .getFacetedUniqueValues()
-                                    .get(value)
-                              )
-                            : meta.treeSelect.options
-                        }
-                        value={
-                          (header?.column?.getFilterValue() as string[]) ?? []
-                        }
-                      />
-                    ) : (
-                      <TableSearchPopover
-                        data-cy={meta?.search?.["data-cy"]}
-                        onConfirm={(value) =>
-                          header.column.setFilterValue(value)
-                        }
-                        placeholder={meta?.search?.placeholder}
-                        value={
-                          (header?.column?.getFilterValue() as string) ?? ""
-                        }
-                      />
-                    ))}
-                </HeaderCell>
-              );
-            })}
-          </HeaderRow>
-        ))}
-      </TableHead>
-      <TableBody>
-        {loading && (
-          <TableLoader
-            numColumns={table.getAllColumns().length}
-            numRows={loadingRows}
-          />
-        )}
-        <RenderRows rows={table.getRowModel().rows} />
-      </TableBody>
-    </StyledTable>
-
-    {!loading &&
-      table.getRowModel().rows.length === 0 &&
-      (emptyComponent || "No data to display")}
-  </>
-);
+}: SpruceTableProps & TableProps<T>) => {
+  const { virtualRows } = table;
+  const { rows } = table.getRowModel();
+  return (
+    <>
+      <div>
+        <p>{rows.length} total rows</p>
+        <p>{virtualRows?.length} virtual rows</p>
+      </div>
+      <StyledTable data-cy={dataCyTable} table={table} {...args}>
+        <TableHead>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <HeaderRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                const { columnDef } = header.column ?? {};
+                const { meta } = columnDef;
+                return (
+                  <HeaderCell
+                    key={header.id}
+                    header={header}
+                    style={meta?.width && { width: columnDef?.meta?.width }}
+                  >
+                    {flexRender(columnDef.header, header.getContext())}
+                    {header.column.getCanFilter() &&
+                      (meta?.treeSelect ? (
+                        <TableFilterPopover
+                          data-cy={meta.treeSelect?.["data-cy"]}
+                          onConfirm={(value) =>
+                            header.column.setFilterValue(value)
+                          }
+                          options={
+                            meta.treeSelect?.filterOptions
+                              ? meta.treeSelect.options.filter(
+                                  ({ value }) =>
+                                    !!header.column
+                                      .getFacetedUniqueValues()
+                                      .get(value)
+                                )
+                              : meta.treeSelect.options
+                          }
+                          value={
+                            (header?.column?.getFilterValue() as string[]) ?? []
+                          }
+                        />
+                      ) : (
+                        <TableSearchPopover
+                          data-cy={meta?.search?.["data-cy"]}
+                          onConfirm={(value) =>
+                            header.column.setFilterValue(value)
+                          }
+                          placeholder={meta?.search?.placeholder}
+                          value={
+                            (header?.column?.getFilterValue() as string) ?? ""
+                          }
+                        />
+                      ))}
+                  </HeaderCell>
+                );
+              })}
+            </HeaderRow>
+          ))}
+        </TableHead>
+        <TableBody>
+          {loading && (
+            <TableLoader
+              numColumns={table.getAllColumns().length}
+              numRows={loadingRows}
+            />
+          )}
+          <RenderRows rows={rows} virtualRows={virtualRows} />
+        </TableBody>
+      </StyledTable>
+      {!loading &&
+        rows.length === 0 &&
+        (emptyComponent || "No data to display")}
+    </>
+  );
+};
 
 const RenderRows = <T extends LGRowData>({
   rows,
@@ -143,53 +150,67 @@ const RenderRows = <T extends LGRowData>({
   virtualRows?: VirtualItem[];
   rows: LeafyGreenTableRow<LGTableDataType<T>>[];
 }) => {
-  const hasVirtualRows = virtualRows.length > 0;
-  const renderableRows = hasVirtualRows ? virtualRows : rows;
+  const hasVirtualRows = virtualRows && virtualRows.length > 0;
   return (
     <>
-      {renderableRows.map((row) => (
-        <Row
-          key={row.id}
-          row={row}
-          data-cy="leafygreen-table-row"
-          className={css`
-            &[aria-hidden="false"] td > div {
-              max-height: unset;
-            }
-          `}
-        >
-          {row.getVisibleCells().map((cell) => (
-            <Cell key={cell.id} style={{ padding: `${size.xxs} 2px` }}>
-              {flexRender(cell.column.columnDef.cell, cell.getContext())}
-            </Cell>
-          ))}
-          {row.original.renderExpandedContent && (
-            <StyledExpandedContent row={row} />
-          )}
-          {row.subRows &&
-            row.subRows.map((subRow) => (
-              <Row
-                key={subRow.id}
-                row={subRow}
-                className={css`
-                  &[aria-hidden="false"] td > div[data-state="entered"] {
-                    max-height: unset;
-                  }
-                `}
-              >
-                {subRow.getVisibleCells().map((cell) => (
-                  <Cell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </Cell>
-                ))}
-              </Row>
-            ))}
-        </Row>
-      ))}
+      {!hasVirtualRows &&
+        rows.map((row) => (
+          <RenderableRow row={row} key={row.id} virtualRow={null} />
+        ))}
+      {hasVirtualRows &&
+        virtualRows.map((vr) => {
+          const row = rows[vr.index];
+          return <RenderableRow row={row} key={row.id} virtualRow={vr} />;
+        })}
     </>
   );
 };
 
+const RenderableRow = <T extends LGRowData>({
+  row,
+  virtualRow,
+}: {
+  row: LeafyGreenTableRow<LGTableDataType<T>>;
+  virtualRow: VirtualItem;
+}) => (
+  <Row
+    row={row}
+    data-cy="leafygreen-table-row"
+    className={css`
+      &[aria-hidden="false"] td > div {
+        max-height: unset;
+      }
+    `}
+    virtualRow={virtualRow}
+  >
+    {row.getVisibleCells().map((cell) => (
+      <Cell key={cell.id} style={{ padding: `${size.xxs} 2px` }}>
+        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+      </Cell>
+    ))}
+    {row.original.renderExpandedContent && <StyledExpandedContent row={row} />}
+    {row.subRows &&
+      row.subRows.map((subRow) => (
+        <Row
+          key={subRow.id}
+          row={subRow}
+          className={css`
+            &[aria-hidden="false"] td > div[data-state="entered"] {
+              max-height: unset;
+            }
+          `}
+          virtualRow={virtualRow}
+        >
+          {subRow.getVisibleCells().map((cell) => (
+            <Cell key={cell.id}>
+              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            </Cell>
+          ))}
+        </Row>
+      ))}
+  </Row>
+);
+RenderableRow.displayName = "Row";
 const StyledTable = styled(Table)`
   transition: none !important;
 `;
