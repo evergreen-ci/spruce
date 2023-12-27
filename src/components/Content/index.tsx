@@ -1,5 +1,6 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import {
+  DistroSettingsRedirect,
   ProjectSettingsRedirect,
   UserPatchesRedirect,
   WaterfallCommitsRedirect,
@@ -45,6 +46,10 @@ export const Content: React.FC = () => (
       <Route path={`${routes.distroSettings}/*`} element={<Distro />}>
         <Route path={tab} element={null} />
       </Route>
+      <Route
+        path={redirectRoutes.distroSettings}
+        element={<DistroSettingsRedirect />}
+      />
       <Route path={routes.host} element={<Host />} />
       <Route path={routes.hosts} element={<Hosts />} />
       <Route path={routes.jobLogs} element={<JobLogs />}>

@@ -59,7 +59,10 @@ describe("spawnVolumeModal", () => {
     );
     expect(screen.queryByDataCy("type-select")).toHaveTextContent("gp2");
     expect(screen.queryByLabelText("Never expire")).not.toBeChecked();
-    expect(screen.queryByDataCy("host-select")).toBeDisabled();
+    expect(screen.queryByDataCy("host-select")).toHaveAttribute(
+      "aria-disabled",
+      "true"
+    );
     expect(screen.queryByText("No hosts available.")).toBeVisible();
   });
 
