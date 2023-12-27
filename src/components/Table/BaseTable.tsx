@@ -1,3 +1,4 @@
+import { ForwardedRef, forwardRef } from "react";
 import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
 import {
@@ -54,26 +55,33 @@ type SpruceTableProps = {
   loading?: boolean;
   /** estimated number of rows the table will have */
   loadingRows?: number;
+  className?: string;
 };
 
-export const BaseTable = <T extends LGRowData>({
-  "data-cy-row": dataCyRow,
-  "data-cy-table": dataCyTable,
-  emptyComponent,
-  loading,
-  loadingRows = 5,
-  table,
-  ...args
-}: SpruceTableProps & TableProps<T>) => {
+const BaseTable = (
+  {
+    className,
+    "data-cy-row": dataCyRow,
+    "data-cy-table": dataCyTable,
+    emptyComponent,
+    loading,
+    loadingRows = 5,
+    table,
+    ...args
+  }: SpruceTableProps & TableProps<unknown>,
+  ref: ForwardedRef<HTMLDivElement>
+) => {
   const { virtualRows } = table;
   const { rows } = table.getRowModel();
   return (
     <>
-      <div>
-        <p>{rows.length} total rows</p>
-        <p>{virtualRows?.length} virtual rows</p>
-      </div>
-      <StyledTable data-cy={dataCyTable} table={table} {...args}>
+      <StyledTable
+        data-cy={dataCyTable}
+        table={table}
+        className={className}
+        ref={ref}
+        {...args}
+      >
         <TableHead>
           {table.getHeaderGroups().map((headerGroup) => (
             <HeaderRow key={headerGroup.id}>
@@ -210,7 +218,7 @@ const RenderableRow = <T extends LGRowData>({
       ))}
   </Row>
 );
-RenderableRow.displayName = "Row";
+
 const StyledTable = styled(Table)`
   transition: none !important;
 `;
@@ -221,3 +229,6 @@ const StyledExpandedContent = styled(ExpandedContent)`
     flex-grow: 1;
   }
 ` as typeof ExpandedContent;
+
+const BaseTableWithForwardedRef = forwardRef(BaseTable);
+export { BaseTableWithForwardedRef as BaseTable };
