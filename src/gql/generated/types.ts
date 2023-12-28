@@ -2418,6 +2418,14 @@ export type StatusCount = {
   status: Scalars["String"]["output"];
 };
 
+export type StepbackInfo = {
+  __typename?: "StepbackInfo";
+  lastFailingStepbackTaskId?: Maybe<Scalars["String"]["output"]>;
+  lastPassingStepbackTaskId?: Maybe<Scalars["String"]["output"]>;
+  nextStepbackTaskId?: Maybe<Scalars["String"]["output"]>;
+  previousStepbackTaskId?: Maybe<Scalars["String"]["output"]>;
+};
+
 export type Subscriber = {
   __typename?: "Subscriber";
   emailSubscriber?: Maybe<Scalars["String"]["output"]>;
@@ -2526,6 +2534,7 @@ export type Task = {
   spawnHostLink?: Maybe<Scalars["String"]["output"]>;
   startTime?: Maybe<Scalars["Time"]["output"]>;
   status: Scalars["String"]["output"];
+  stepbackInfo?: Maybe<StepbackInfo>;
   /** @deprecated Use files instead */
   taskFiles: TaskFiles;
   taskGroup?: Maybe<Scalars["String"]["output"]>;
@@ -8562,6 +8571,13 @@ export type TaskQuery = {
     };
     pod?: { __typename?: "Pod"; id: string } | null;
     project?: { __typename?: "Project"; id: string; identifier: string } | null;
+    stepbackInfo?: {
+      __typename?: "StepbackInfo";
+      lastFailingStepbackTaskId?: string | null;
+      lastPassingStepbackTaskId?: string | null;
+      nextStepbackTaskId?: string | null;
+      previousStepbackTaskId?: string | null;
+    } | null;
     versionMetadata: {
       __typename?: "Version";
       author: string;
