@@ -409,7 +409,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           <MetadataItem>
             Last Passing Stepback Task:{" "}
             <StyledRouterLink
-              data-cy="last-passing-stepback-task-link"
               to={getTaskRoute(stepbackInfo.lastPassingStepbackTaskId)}
               onClick={() =>
                 taskAnalytics.sendEvent({
@@ -423,7 +422,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           <MetadataItem>
             Last Failing Stepback Task:{" "}
             <StyledRouterLink
-              data-cy="last-failing-stepback-task-link"
               to={getTaskRoute(stepbackInfo.lastFailingStepbackTaskId)}
               onClick={() =>
                 taskAnalytics.sendEvent({
@@ -440,7 +438,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
         <MetadataItem>
           Previous Stepback Task:{" "}
           <StyledRouterLink
-            data-cy="previous-stepback-task-link"
             to={getTaskRoute(stepbackInfo.previousStepbackTaskId)}
             onClick={() =>
               taskAnalytics.sendEvent({
@@ -456,7 +453,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
         <MetadataItem>
           Next Stepback Task:{" "}
           <StyledRouterLink
-            data-cy="next-stepback-task-link"
             to={getTaskRoute(stepbackInfo.nextStepbackTaskId)}
             onClick={() =>
               taskAnalytics.sendEvent({
