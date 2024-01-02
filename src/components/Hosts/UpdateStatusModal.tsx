@@ -113,7 +113,6 @@ export const UpdateStatusModal: React.FC<Props> = ({
   );
 };
 
-// @ts-expect-error
 const StyledSelect = styled(Select)`
   margin-bottom: ${size.xs};
 `;

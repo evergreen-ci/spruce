@@ -89,7 +89,6 @@ const LabelContainer = styled.div`
   flex-direction: row;
 `;
 
-// @ts-expect-error
 const GroupedSelect = styled(Select)`
   width: 30%;
   /* overwrite lg borders https://jira.mongodb.org/browse/PD-1995 */
