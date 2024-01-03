@@ -243,7 +243,7 @@ functions:
         if [[ "${requester}" == "github_pr" || "${requester}" == "commit" ]]; then
           yarn cy:run --record --key "${cypress_record_key}" --reporter junit
         elif [[ "${requester}" == "patch" ]]; then
-          yarn cy:run --record --key "${cypress_record_key}" --reporter junit --spec "${cypress_spec}"
+          yarn cy:run --record --key "${cypress_record_key}" --reporter junit --spec ${cypress_spec}
         else
           yarn cy:run --reporter junit
         fi
@@ -524,5 +524,5 @@ buildvariants:
 
 parameters:
   - key: cypress_spec
-    value: cypress/integration/**/*
+    value: "cypress/integration/**/*"
     description: Specify the Cypress spec files to run for user submitted patches running the e2e_test task.
