@@ -10,7 +10,7 @@ export default {
 } satisfies CustomMeta<typeof BaseTable>;
 
 export const Default: CustomStoryObj<typeof BaseTable> = {
-  render: (args) => <TemplateComponent {...args} data={defaultRows} />,
+  render: (args) => <TemplateComponent {...args} data={makeDefaultRows(100)} />,
   args: {
     shouldAlternateRowColor: true,
     darkMode: false,
@@ -41,13 +41,13 @@ export const LongContent: CustomStoryObj<typeof BaseTable> = {
   },
 };
 const virtualScrollingContainerHeight = css`
-  height: 200px;
+  height: 500px;
 `;
 export const VirtualTable: CustomStoryObj<typeof BaseTable> = {
   render: (args) => (
     <TemplateComponent
       {...args}
-      data={defaultRows}
+      data={makeDefaultRows(10000)}
       useVirtualScrolling
       className={virtualScrollingContainerHeight}
     />
@@ -73,11 +73,12 @@ interface DataShape {
   size: string;
 }
 
-const defaultRows: DataShape[] = Array.from({ length: 100 }, (_, i) => ({
-  name: `name ${i}`,
-  type: `type ${i}`,
-  size: `size ${i}`,
-}));
+const makeDefaultRows = (count: number): DataShape[] =>
+  Array.from({ length: count }, (_, i) => ({
+    name: `name ${i}`,
+    type: `type ${i}`,
+    size: `size ${i}`,
+  }));
 
 const nestedRows: DataShape[] = Array.from({ length: 50 }, (_, i) => ({
   name: `name ${i}`,
