@@ -58,98 +58,101 @@ type SpruceTableProps = {
   className?: string;
 };
 
-const BaseTable = (
-  {
-    className,
-    "data-cy-row": dataCyRow,
-    "data-cy-table": dataCyTable,
-    emptyComponent,
-    loading,
-    loadingRows = 5,
-    table,
-    ...args
-  }: SpruceTableProps & TableProps<unknown>,
-  ref: ForwardedRef<HTMLDivElement>
-) => {
-  const { virtualRows } = table;
-  const { rows } = table.getRowModel();
-  return (
-    <>
-      <StyledTable
-        data-cy={dataCyTable}
-        table={table}
-        className={className}
-        ref={ref}
-        {...args}
-      >
-        <TableHead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <HeaderRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                const { columnDef } = header.column ?? {};
-                const { meta } = columnDef;
-                return (
-                  <HeaderCell
-                    key={header.id}
-                    header={header}
-                    style={meta?.width && { width: columnDef?.meta?.width }}
-                  >
-                    {flexRender(columnDef.header, header.getContext())}
-                    {header.column.getCanFilter() &&
-                      (meta?.treeSelect ? (
-                        <TableFilterPopover
-                          data-cy={meta.treeSelect?.["data-cy"]}
-                          onConfirm={(value) =>
-                            header.column.setFilterValue(value)
-                          }
-                          options={
-                            meta.treeSelect?.filterOptions
-                              ? meta.treeSelect.options.filter(
-                                  ({ value }) =>
-                                    !!header.column
-                                      .getFacetedUniqueValues()
-                                      .get(value)
-                                )
-                              : meta.treeSelect.options
-                          }
-                          value={
-                            (header?.column?.getFilterValue() as string[]) ?? []
-                          }
-                        />
-                      ) : (
-                        <TableSearchPopover
-                          data-cy={meta?.search?.["data-cy"]}
-                          onConfirm={(value) =>
-                            header.column.setFilterValue(value)
-                          }
-                          placeholder={meta?.search?.placeholder}
-                          value={
-                            (header?.column?.getFilterValue() as string) ?? ""
-                          }
-                        />
-                      ))}
-                  </HeaderCell>
-                );
-              })}
-            </HeaderRow>
-          ))}
-        </TableHead>
-        <TableBody>
-          {loading && (
-            <TableLoader
-              numColumns={table.getAllColumns().length}
-              numRows={loadingRows}
-            />
-          )}
-          <RenderRows rows={rows} virtualRows={virtualRows} />
-        </TableBody>
-      </StyledTable>
-      {!loading &&
-        rows.length === 0 &&
-        (emptyComponent || "No data to display")}
-    </>
-  );
-};
+export const BaseTable = forwardRef(
+  (
+    {
+      className,
+      "data-cy-row": dataCyRow,
+      "data-cy-table": dataCyTable,
+      emptyComponent,
+      loading,
+      loadingRows = 5,
+      table,
+      ...args
+    }: SpruceTableProps & TableProps<any>,
+    ref: ForwardedRef<HTMLDivElement>
+  ) => {
+    const { virtualRows } = table;
+    const { rows } = table.getRowModel();
+    return (
+      <>
+        <StyledTable
+          data-cy={dataCyTable}
+          table={table}
+          className={className}
+          ref={ref}
+          {...args}
+        >
+          <TableHead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <HeaderRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  const { columnDef } = header.column ?? {};
+                  const { meta } = columnDef;
+                  return (
+                    <HeaderCell
+                      key={header.id}
+                      header={header}
+                      style={meta?.width && { width: columnDef?.meta?.width }}
+                    >
+                      {flexRender(columnDef.header, header.getContext())}
+                      {header.column.getCanFilter() &&
+                        (meta?.treeSelect ? (
+                          <TableFilterPopover
+                            data-cy={meta.treeSelect?.["data-cy"]}
+                            onConfirm={(value) =>
+                              header.column.setFilterValue(value)
+                            }
+                            options={
+                              meta.treeSelect?.filterOptions
+                                ? meta.treeSelect.options.filter(
+                                    ({ value }) =>
+                                      !!header.column
+                                        .getFacetedUniqueValues()
+                                        .get(value)
+                                  )
+                                : meta.treeSelect.options
+                            }
+                            value={
+                              (header?.column?.getFilterValue() as string[]) ??
+                              []
+                            }
+                          />
+                        ) : (
+                          <TableSearchPopover
+                            data-cy={meta?.search?.["data-cy"]}
+                            onConfirm={(value) =>
+                              header.column.setFilterValue(value)
+                            }
+                            placeholder={meta?.search?.placeholder}
+                            value={
+                              (header?.column?.getFilterValue() as string) ?? ""
+                            }
+                          />
+                        ))}
+                    </HeaderCell>
+                  );
+                })}
+              </HeaderRow>
+            ))}
+          </TableHead>
+          <TableBody>
+            {loading && (
+              <TableLoader
+                numColumns={table.getAllColumns().length}
+                numRows={loadingRows}
+              />
+            )}
+            <RenderRows rows={rows} virtualRows={virtualRows} />
+          </TableBody>
+        </StyledTable>
+        {!loading &&
+          rows.length === 0 &&
+          (emptyComponent || "No data to display")}
+      </>
+    );
+  }
+);
 
 const RenderRows = <T extends LGRowData>({
   rows,
@@ -229,6 +232,3 @@ const StyledExpandedContent = styled(ExpandedContent)`
     flex-grow: 1;
   }
 ` as typeof ExpandedContent;
-
-const BaseTableWithForwardedRef = forwardRef(BaseTable);
-export { BaseTableWithForwardedRef as BaseTable };
