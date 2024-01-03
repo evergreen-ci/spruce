@@ -1,12 +1,12 @@
 import Badge, { Variant } from "@leafygreen-ui/badge";
-import { TableVolume } from "types/spawn";
 
 interface Props {
-  volume: TableVolume;
+  migrating: boolean;
+  hostId?: string;
 }
 
-export const VolumeStatusBadge = ({ volume }: Props) => {
-  const { text, variant } = getBadge(volume.migrating, volume.hostID);
+export const VolumeStatusBadge: React.FC<Props> = ({ hostId, migrating }) => {
+  const { text, variant } = getBadge(migrating, hostId);
   return (
     <Badge data-cy="volume-status-badge" variant={variant}>
       {text}
@@ -16,7 +16,7 @@ export const VolumeStatusBadge = ({ volume }: Props) => {
 
 const getBadge = (
   migrating: boolean,
-  hostID?: string
+  hostId?: string
 ): { text: string; variant: Variant } => {
   if (migrating) {
     return {
@@ -25,7 +25,7 @@ const getBadge = (
     };
   }
 
-  if (hostID) {
+  if (hostId) {
     return {
       text: "Mounted",
       variant: Variant.Green,

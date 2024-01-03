@@ -165,6 +165,14 @@ export const getFormSchema = (
                   true
                 ),
               },
+              stepbackBisection: {
+                type: ["boolean", "null"],
+                title: "Stepback Bisection",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  repoData?.projectFlags?.scheduling?.stepbackBisection
+                ),
+              },
               deactivateStepback: {
                 type: "null" as "null",
               },
@@ -341,6 +349,12 @@ export const getFormSchema = (
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
             "Disabling this setting will override all enabled stepback settings for the project. Disabling stepback won't cancel any active stepback tasks, but it will prevent any future ones.",
+        },
+        stepbackBisection: {
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:description":
+            "Bisection will cause your stepback to activate the midway task between the last failing task and last passing task.",
+          "ui:data-cy": "stepback-bisect-group",
         },
         deactivateStepback: {
           "ui:field": "deactivateStepbackTask",

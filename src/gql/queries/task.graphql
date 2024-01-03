@@ -46,6 +46,7 @@ query Task($taskId: String!, $execution: Int) {
     }
     details {
       description
+      diskDevices
       oomTracker {
         detected
         pids
@@ -106,6 +107,12 @@ query Task($taskId: String!, $execution: Int) {
     resetWhenFinished
     spawnHostLink
     startTime
+    stepbackInfo {
+      lastFailingStepbackTaskId
+      lastPassingStepbackTaskId
+      nextStepbackTaskId
+      previousStepbackTaskId
+    }
     timeTaken
     totalTestCount
     versionMetadata {

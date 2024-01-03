@@ -56,6 +56,7 @@ const paths = {
   commits: "/commits",
   container: "/container",
   distro: "/distro",
+  distros: "/distros",
   host: "/host",
   hosts: "/hosts",
   jobLogs: "/job-logs",
@@ -74,6 +75,7 @@ const paths = {
   waterfall: "/waterfall",
 };
 export const redirectRoutes = {
+  distroSettings: paths.distros,
   projectSettings: paths.projects,
   userPatches: `${paths.user}/:id`,
   waterfall: `${paths.waterfall}/:projectIdentifier`,

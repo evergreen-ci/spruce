@@ -12,6 +12,7 @@ fragment ProjectGeneralSettings on Project {
   repo
   repotrackerDisabled
   spawnHostScriptPath
+  stepbackBisect
   stepbackDisabled
   taskSync {
     configEnabled
@@ -32,6 +33,7 @@ fragment RepoGeneralSettings on RepoRef {
   repo
   repotrackerDisabled
   spawnHostScriptPath
+  stepbackBisect
   stepbackDisabled
   taskSync {
     configEnabled

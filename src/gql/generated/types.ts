@@ -2418,6 +2418,14 @@ export type StatusCount = {
   status: Scalars["String"]["output"];
 };
 
+export type StepbackInfo = {
+  __typename?: "StepbackInfo";
+  lastFailingStepbackTaskId?: Maybe<Scalars["String"]["output"]>;
+  lastPassingStepbackTaskId?: Maybe<Scalars["String"]["output"]>;
+  nextStepbackTaskId?: Maybe<Scalars["String"]["output"]>;
+  previousStepbackTaskId?: Maybe<Scalars["String"]["output"]>;
+};
+
 export type Subscriber = {
   __typename?: "Subscriber";
   emailSubscriber?: Maybe<Scalars["String"]["output"]>;
@@ -2526,6 +2534,7 @@ export type Task = {
   spawnHostLink?: Maybe<Scalars["String"]["output"]>;
   startTime?: Maybe<Scalars["Time"]["output"]>;
   status: Scalars["String"]["output"];
+  stepbackInfo?: Maybe<StepbackInfo>;
   /** @deprecated Use files instead */
   taskFiles: TaskFiles;
   taskGroup?: Maybe<Scalars["String"]["output"]>;
@@ -2567,6 +2576,7 @@ export type TaskContainerCreationOpts = {
 export type TaskEndDetail = {
   __typename?: "TaskEndDetail";
   description?: Maybe<Scalars["String"]["output"]>;
+  diskDevices: Array<Scalars["String"]["output"]>;
   oomTracker: OomTrackerInfo;
   status: Scalars["String"]["output"];
   timedOut?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3458,6 +3468,7 @@ export type ProjectGeneralSettingsFragment = {
   repo: string;
   repotrackerDisabled?: boolean | null;
   spawnHostScriptPath: string;
+  stepbackBisect?: boolean | null;
   stepbackDisabled?: boolean | null;
   versionControlEnabled?: boolean | null;
   taskSync: {
@@ -3480,6 +3491,7 @@ export type RepoGeneralSettingsFragment = {
   repo: string;
   repotrackerDisabled: boolean;
   spawnHostScriptPath: string;
+  stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
   versionControlEnabled: boolean;
   taskSync: {
@@ -3627,6 +3639,7 @@ export type ProjectSettingsFieldsFragment = {
     repo: string;
     repotrackerDisabled?: boolean | null;
     spawnHostScriptPath: string;
+    stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
     versionControlEnabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
@@ -3833,6 +3846,7 @@ export type RepoSettingsFieldsFragment = {
     repo: string;
     repotrackerDisabled: boolean;
     spawnHostScriptPath: string;
+    stepbackBisect?: boolean | null;
     stepbackDisabled: boolean;
     versionControlEnabled: boolean;
     notifyOnBuildFailure: boolean;
@@ -4234,6 +4248,7 @@ export type ProjectEventSettingsFragment = {
     repo: string;
     repotrackerDisabled?: boolean | null;
     spawnHostScriptPath: string;
+    stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
     githubTriggerAliases?: Array<string> | null;
@@ -6697,6 +6712,7 @@ export type ProjectEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           spawnHostScriptPath: string;
+          stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
@@ -6909,6 +6925,7 @@ export type ProjectEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           spawnHostScriptPath: string;
+          stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
@@ -7196,6 +7213,7 @@ export type ProjectSettingsQuery = {
       repo: string;
       repotrackerDisabled?: boolean | null;
       spawnHostScriptPath: string;
+      stepbackBisect?: boolean | null;
       stepbackDisabled?: boolean | null;
       versionControlEnabled?: boolean | null;
       notifyOnBuildFailure?: boolean | null;
@@ -7454,6 +7472,7 @@ export type RepoEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           spawnHostScriptPath: string;
+          stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
@@ -7666,6 +7685,7 @@ export type RepoEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           spawnHostScriptPath: string;
+          stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
@@ -7882,6 +7902,7 @@ export type RepoSettingsQuery = {
       repo: string;
       repotrackerDisabled: boolean;
       spawnHostScriptPath: string;
+      stepbackBisect?: boolean | null;
       stepbackDisabled: boolean;
       versionControlEnabled: boolean;
       notifyOnBuildFailure: boolean;
@@ -8511,6 +8532,7 @@ export type TaskQuery = {
     details?: {
       __typename?: "TaskEndDetail";
       description?: string | null;
+      diskDevices: Array<string>;
       status: string;
       timedOut?: boolean | null;
       timeoutType?: string | null;
@@ -8549,6 +8571,13 @@ export type TaskQuery = {
     };
     pod?: { __typename?: "Pod"; id: string } | null;
     project?: { __typename?: "Project"; id: string; identifier: string } | null;
+    stepbackInfo?: {
+      __typename?: "StepbackInfo";
+      lastFailingStepbackTaskId?: string | null;
+      lastPassingStepbackTaskId?: string | null;
+      nextStepbackTaskId?: string | null;
+      previousStepbackTaskId?: string | null;
+    } | null;
     versionMetadata: {
       __typename?: "Version";
       author: string;

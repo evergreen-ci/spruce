@@ -10,7 +10,7 @@ import { MY_HOSTS } from "gql/queries";
 import { useSpruceConfig } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
 import { HostStatus } from "types/host";
-import { QueryParams } from "../types";
+import { QueryParams } from "types/spawn";
 import { SpawnHostModal } from "./spawnHostButton/SpawnHostModal";
 
 export const SpawnHostButton: React.FC = () => {

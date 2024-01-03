@@ -41,6 +41,7 @@ export const gqlToForm = ((data, options = {}) => {
       scheduling: {
         deactivatePrevious: projectRef.deactivatePrevious,
         stepbackDisabled: projectRef.stepbackDisabled,
+        stepbackBisection: projectRef.stepbackBisect,
         deactivateStepback: null,
       },
       repotracker: {
@@ -91,6 +92,7 @@ export const formToGql = ((
     deactivatePrevious: projectFlags.scheduling.deactivatePrevious,
     repotrackerDisabled: projectFlags.repotracker.repotrackerDisabled,
     stepbackDisabled: projectFlags.scheduling.stepbackDisabled,
+    stepbackBisect: projectFlags.scheduling.stepbackBisection,
     patchingDisabled: projectFlags.patch.patchingDisabled,
     taskSync: {
       configEnabled: projectFlags.taskSync.configEnabled,

@@ -11,14 +11,14 @@ import { getUserMock } from "gql/mocks/getUser";
 import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
 import { renderWithRouterMatch as render, screen } from "test_utils";
 import { ApolloMock } from "types/gql";
-import AnnotationTicketsTable from "./AnnotationTicketsTable";
+import AnnotationTicketsList from ".";
 
 const taskId =
   "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41";
 const execution = 1;
 let matchMedia;
 
-describe("annotationTicketsTable", () => {
+describe("annotationTicketsList", () => {
   beforeAll(() => {
     matchMedia = new MatchMediaMock();
   });
@@ -31,7 +31,7 @@ describe("annotationTicketsTable", () => {
   it("should display the link and jiraIssue key while waiting for data to fetch", async () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={ticketsTableMocks}>
-        <AnnotationTicketsTable
+        <AnnotationTicketsList
           jiraIssues={[
             {
               issueKey: "EVG-1234567",

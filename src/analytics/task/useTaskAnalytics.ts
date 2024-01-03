@@ -66,6 +66,10 @@ type Action =
     }
   | { name: "Click Trace Link" }
   | { name: "Click Trace Metrics Link" }
+  | { name: "Click Last Passing Stepback Task Link" }
+  | { name: "Click Last Failing Stepback Task Link" }
+  | { name: "Click Previous Stepback Task Link" }
+  | { name: "Click Next Stepback Task Link" }
   | { name: "Submit Previous Commit Selector"; type: CommitType };
 
 export const useTaskAnalytics = () => {

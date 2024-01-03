@@ -25,3 +25,4 @@ export { useDateFormat } from "./useDateFormat";
 export { useFirstDistro } from "./useFirstDistro";
 export { useBreadcrumbRoot } from "./useBreadcrumbRoot";
 export { useResize } from "./useResize";
+export { useRunningTime } from "./useRunningTime";
