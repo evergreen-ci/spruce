@@ -146,7 +146,7 @@ describe("Waterfall subscription modal", () => {
     cy.dataCy("add-notification").click();
     cy.dataCy(dataCyModal).should("be.visible");
 
-    cy.selectLGOption("Event", "Any Version Finishes");
+    cy.selectLGOption("Event", "Any version finishes");
     cy.selectLGOption("Notification Method", "JIRA issue");
 
     cy.dataCy("jira-comment-input").type("EVG-2000");
@@ -160,7 +160,7 @@ describe("Waterfall subscription modal", () => {
     cy.dataCy("add-notification").click();
     cy.dataCy(dataCyModal).should("be.visible");
 
-    cy.selectLGOption("Event", "Any Build Finishes");
+    cy.selectLGOption("Event", "Any build finishes");
     cy.dataCy("add-button").click();
     saveButtonEnabled(false);
 
@@ -179,7 +179,7 @@ describe("Waterfall subscription modal", () => {
     cy.dataCy("add-notification").click();
     cy.dataCy(dataCyModal).should("be.visible");
 
-    cy.selectLGOption("Event", "Any Version Finishes");
+    cy.selectLGOption("Event", "Any version finishes");
     cy.dataCy("jira-comment-input").type("EVG-2000");
     mockErrorResponse({
       path: "SaveSubscription",
@@ -207,7 +207,7 @@ describe("Waterfall subscription modal", () => {
     cy.dataCy("waterfall-menu").click();
     cy.dataCy("add-notification").click();
     cy.dataCy(dataCyModal).should("be.visible");
-    cy.contains("Any Build Fails").should("be.visible");
+    cy.contains("Any build fails").should("be.visible");
     cy.contains("Slack").should("be.visible");
 
     cy.clearCookie(subscriptionCookie);

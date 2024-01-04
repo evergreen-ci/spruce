@@ -17,9 +17,6 @@ export enum TriggerType {
   OUTCOME = "outcome",
   FAILURE = "failure",
   SUCCESS = "success",
-  FAMILY_OUTCOME = "family-outcome",
-  FAMILY_FAILURE = "family-failure",
-  FAMILY_SUCCESS = "family-success",
   RUNTIME_CHANGE = "runtime-change",
   EXCEEDS_DURATION = "exceeds-duration",
   SUCCESSFUL_EXCEEDS_DURATION = "successful-exceeds-duration",
@@ -30,6 +27,11 @@ export enum TriggerType {
   FIRST_FAILURE_BUILD = "first-failure-in-build",
   FIRST_FAILURE_VERSION = "first-failure-in-version",
   FIRST_FAILURE_VERSION_NAME = "first-failure-in-version-with-name",
+
+  // Family triggers are for patches only.
+  FAMILY_OUTCOME = "family-outcome",
+  FAMILY_FAILURE = "family-failure",
+  FAMILY_SUCCESS = "family-success",
 }
 
 export enum TaskTriggers {
