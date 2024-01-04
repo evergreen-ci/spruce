@@ -309,7 +309,7 @@ export const projectTriggers: Trigger = {
   [ProjectTriggers.SUCCESSFUL_TASK_EXCEEDS_DURATION]: {
     trigger: TriggerType.SUCCESSFUL_EXCEEDS_DURATION,
     resourceType: ResourceType.Task,
-    label: "The runtime For a successful task exceeds some duration",
+    label: "The runtime for a successful task exceeds some duration",
     regexSelectors: taskRegexSelectors,
     extraFields: [
       {
