@@ -434,7 +434,12 @@ export const triggerToCopy = {
   [TriggerType.FAMILY_SUCCESS]: "Success",
 };
 
-export const fromFamilyTrigger = (trigger: string) => {
+/**
+ * Converts a family trigger into a non-family trigger.
+ * @param trigger - string representing a trigger. It may or may not be a family trigger.
+ * @returns string representing a non-family trigger
+ */
+export const convertFromFamilyTrigger = (trigger: string) => {
   switch (trigger) {
     case TriggerType.FAMILY_OUTCOME:
       return TriggerType.OUTCOME;

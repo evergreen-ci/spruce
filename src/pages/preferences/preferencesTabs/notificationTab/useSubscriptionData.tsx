@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { LeafyGreenTableRow } from "@leafygreen-ui/table";
 import { size } from "constants/tokens";
-import { fromFamilyTrigger } from "constants/triggers";
+import { convertFromFamilyTrigger } from "constants/triggers";
 import {
   UserSubscriptionsQuery,
   UserSubscriptionsQueryVariables,
@@ -61,7 +61,7 @@ const processSubscriptionData = (
       // For this table's purposes, FAMILY_TRIGGER = TRIGGER. Convert all family triggers to their base type.
       .map(({ trigger, ...subscription }) => ({
         ...subscription,
-        trigger: fromFamilyTrigger(trigger),
+        trigger: convertFromFamilyTrigger(trigger),
       }))
       // For subscriptions that contain regex selectors or additional trigger data, append an expandable section
       .map((subscription) => {

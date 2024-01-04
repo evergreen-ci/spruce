@@ -1,6 +1,6 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { getSubscriberText } from "constants/subscription";
-import { fromFamilyTrigger, projectTriggers } from "constants/triggers";
+import { convertFromFamilyTrigger, projectTriggers } from "constants/triggers";
 import {
   BannerTheme,
   ProjectInput,
@@ -16,19 +16,17 @@ type Tab = ProjectSettingsTabRoutes.Notifications;
 const { toSentenceCase } = string;
 
 const getTriggerText = (trigger: string, resourceType: string) => {
-  const convertedTrigger = fromFamilyTrigger(trigger);
   const triggerText =
     resourceType && trigger
-      ? `${toSentenceCase(resourceType)} ${convertedTrigger} `
+      ? `${toSentenceCase(resourceType)} ${convertFromFamilyTrigger(trigger)} `
       : "";
   return triggerText;
 };
 
 const getTriggerEnum = (trigger: string, resourceType: string) => {
-  const convertedTrigger = fromFamilyTrigger(trigger);
   const triggerEnum = Object.keys(projectTriggers).find(
     (t) =>
-      projectTriggers[t].trigger === convertedTrigger &&
+      projectTriggers[t].trigger === convertFromFamilyTrigger(trigger) &&
       projectTriggers[t].resourceType === resourceType
   );
   return triggerEnum;
