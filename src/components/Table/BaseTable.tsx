@@ -135,7 +135,10 @@ export const BaseTable = <T extends LGRowData>({
             `}
           >
             {row.getVisibleCells().map((cell) => (
-              <Cell key={cell.id} style={{ padding: `${size.xxs} 2px` }}>
+              <Cell
+                key={cell.id}
+                style={{ paddingBottom: size.xxs, paddingTop: size.xxs }}
+              >
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </Cell>
             ))}

@@ -1,13 +1,18 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 import { useQuery } from "@apollo/client";
 import { useLeafyGreenTable } from "@leafygreen-ui/table";
-import { ColumnFiltersState, SortingState } from "@tanstack/react-table";
+import {
+  ColumnFiltersState,
+  Filters,
+  Sorting,
+  SortingState,
+} from "@tanstack/react-table";
 import { useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import TableControl from "components/Table/TableControl";
 import TableWrapper from "components/Table/TableWrapper";
-import { onChangeHandler } from "components/Table/utils";
+import { onChangeHandler, TableQueryParams } from "components/Table/utils";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
   TaskTestsQuery,
@@ -18,17 +23,11 @@ import {
   TaskQuery,
 } from "gql/generated/types";
 import { TASK_TESTS } from "gql/queries";
-import {
-  useTableSort,
-  useUpdateURLQueryParams,
-  usePolling,
-  useStatusesFilter,
-  useFilterInputChangeHandler,
-} from "hooks";
+import { useTableSort, useUpdateURLQueryParams, usePolling } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import {
   RequiredQueryParams,
-  TableOnChange,
+  mapFilterParamToId,
   mapIdToFilterParam,
 } from "types/task";
 import { TestStatus } from "types/test";
@@ -37,36 +36,21 @@ import { getColumnsTemplate } from "./testsTable/getColumnsTemplate";
 
 const { getLimitFromSearch, getPageFromSearch } = url;
 const { parseQueryString, queryParamAsNumber } = queryString;
+const { getDefaultOptions: getDefaultFiltering } = Filters;
+const { getDefaultOptions: getDefaultSorting } = Sorting;
 
 interface TestsTableProps {
   task: TaskQuery["task"];
 }
 
 export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
-  const { pathname, search } = useLocation();
+  const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
   const { sendEvent } = useTaskAnalytics();
 
   const queryVariables = getQueryVariables(search, task.id);
-  const [, setQueryParams] = useQueryParams();
-  const { limitNum, pageNum, sort } = queryVariables;
-  const cat = sort?.[0]?.sortBy;
-  const dir = sort?.[0]?.direction;
-
-  /* const appliedDefaultSort = useRef(null);
-  useEffect(() => {
-    if (
-      cat === undefined &&
-      updateQueryParams &&
-      appliedDefaultSort.current !== pathname
-    ) {
-      appliedDefaultSort.current = pathname;
-      updateQueryParams({
-        [RequiredQueryParams.Category]: TestSortCategory.Status,
-        [RequiredQueryParams.Sort]: SortDirection.Asc,
-      });
-    }
-  }, [pathname, updateQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps */
+  const [queryParams, setQueryParams] = useQueryParams();
+  const { limitNum, pageNum } = queryVariables;
 
   const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskTestsQuery,
@@ -112,9 +96,16 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const { tests } = taskData ?? {};
   const { filteredTestCount, testResults, totalTestCount } = tests ?? {};
 
-  // TODO: Get initial filters and sorting
-  const [filters, setFilters] = useState<ColumnFiltersState>([]);
-  const [sorting, setSorting] = useState<SortingState>([]);
+  const { initialFilters, initialSorting } = useMemo(
+    () => getInitialState(queryParams),
+    [] // eslint-disable-line react-hooks/exhaustive-deps
+  );
+
+  const setSorting = (s: SortingState) =>
+    getDefaultSorting(table).onSortingChange(s);
+
+  const setFilters = (f: ColumnFiltersState) =>
+    getDefaultFiltering(table).onColumnFiltersChange(f);
 
   const columns = useMemo(() => getColumnsTemplate({ task }), [task]);
 
@@ -130,26 +121,20 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
       // https://github.com/TanStack/table/issues/4289
       sortDescFirst: false,
     },
-    state: {
-      columnFilters: filters,
-      sorting,
+    initialState: {
+      columnFilters: initialFilters,
+      sorting: initialSorting,
     },
     manualFiltering: true,
     manualSorting: true,
     manualPagination: true,
     onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
       setFilters,
-      (updatedState) => {
-        updateFilters(updatedState);
-        table.resetRowSelection();
-      }
+      updateFilters
     ),
     onSortingChange: onChangeHandler<SortingState>(
       setSorting,
-      (updatedState) => {
-        tableSortHandler(updatedState);
-        table.resetRowSelection();
-      }
+      tableSortHandler
     ),
   });
 
@@ -180,6 +165,34 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
       />
     </TableWrapper>
   );
+};
+
+const getInitialState = (queryParams: {
+  [key: string]: any;
+}): {
+  initialFilters: ColumnFiltersState;
+  initialSorting: SortingState;
+} => {
+  const {
+    [TableQueryParams.SortBy]: sortBy,
+    [TableQueryParams.SortDir]: sortDir,
+  } = queryParams;
+
+  return {
+    initialSorting:
+      sortBy && sortDir
+        ? [{ id: sortBy, desc: sortDir === SortDirection.Desc }]
+        : [],
+    initialFilters: Object.entries(mapFilterParamToId).reduce(
+      (accum, [param, id]) => {
+        if (queryParams[param]?.length) {
+          return [...accum, { id, value: queryParams[param] }];
+        }
+        return accum;
+      },
+      []
+    ),
+  };
 };
 
 const getQueryVariables = (
