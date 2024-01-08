@@ -3478,7 +3478,7 @@
     "@leafygreen-ui/emotion" "^4.0.7"
     lodash "^4.17.21"
 
-"@leafygreen-ui/icon@^11.12.1", "@leafygreen-ui/icon@^11.12.3", "@leafygreen-ui/icon@^11.12.4", "@leafygreen-ui/icon@^11.12.5", "@leafygreen-ui/icon@^11.15.0", "@leafygreen-ui/icon@^11.17.0", "@leafygreen-ui/icon@^11.22.1", "@leafygreen-ui/icon@^11.22.2", "@leafygreen-ui/icon@^11.23.0", "@leafygreen-ui/icon@^11.25.0", "@leafygreen-ui/icon@^11.25.1":
+"@leafygreen-ui/icon@^11.12.1", "@leafygreen-ui/icon@^11.12.3", "@leafygreen-ui/icon@^11.12.4", "@leafygreen-ui/icon@^11.12.5", "@leafygreen-ui/icon@^11.15.0", "@leafygreen-ui/icon@^11.17.0", "@leafygreen-ui/icon@^11.22.1", "@leafygreen-ui/icon@^11.22.2", "@leafygreen-ui/icon@^11.23.0", "@leafygreen-ui/icon@^11.25.0", "@leafygreen-ui/icon@^11.25.1", "@leafygreen-ui/icon@^11.27.0":
   version "11.27.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.27.0.tgz#12163437a5e02289d4e40142fb0aa049bb6a5b98"
   integrity sha512-Dk9ELFRG1DIM/3xXKeG44yU3x3G8PCyUL3+ptq0pCaClRQIdQvxSgr873bV8Mq7NNu8IcK/bjQKQ5sLAMpWChg==
@@ -3921,18 +3921,18 @@
     "@leafygreen-ui/portal" "^4.0.9"
     "@leafygreen-ui/tokens" "^2.0.0"
 
-"@leafygreen-ui/text-area@8.0.4":
-  version "8.0.4"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/text-area/-/text-area-8.0.4.tgz#57d4d4eaad5210b90baa24ec1980afb24923c989"
-  integrity sha512-NnhVINOpf5TdlEikxAHM1k6TiJOpSCTuqRr5eQcTYnelyiStYiVhHqXqfPgQ4M5YZqYSyEVpyNqWz/li9c7o1w==
+"@leafygreen-ui/text-area@8.0.21":
+  version "8.0.21"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/text-area/-/text-area-8.0.21.tgz#098a434d45d6092e1e54f0e1f0d3603477848e37"
+  integrity sha512-1gzzGt3dvNWzT3mhOrmjs3oKt+wruGs6Yq3Ij0gYwEzosSQc81dNwlPimN5S1Lzsu5aCbn4cgaQPuYi47QcLcw==
   dependencies:
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/hooks" "^7.4.0"
-    "@leafygreen-ui/icon" "^11.12.4"
-    "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.7"
-    "@leafygreen-ui/tokens" "^2.0.0"
-    "@leafygreen-ui/typography" "^16.0.0"
+    "@leafygreen-ui/emotion" "^4.0.7"
+    "@leafygreen-ui/hooks" "^8.0.0"
+    "@leafygreen-ui/icon" "^11.27.0"
+    "@leafygreen-ui/lib" "^13.0.0"
+    "@leafygreen-ui/palette" "^4.0.7"
+    "@leafygreen-ui/tokens" "^2.2.0"
+    "@leafygreen-ui/typography" "^18.0.0"
 
 "@leafygreen-ui/text-input@12.1.0":
   version "12.1.0"
