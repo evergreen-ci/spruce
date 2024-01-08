@@ -16,7 +16,7 @@ describe("Notifications", () => {
     cy.dataCy("add-button").contains("Add Subscription").should("be.visible");
     cy.dataCy("add-button").click();
     cy.dataCy("expandable-card").should("contain.text", "New Subscription");
-    cy.selectLGOption("Event", "Any Version Finishes");
+    cy.selectLGOption("Event", "Any version finishes");
     cy.selectLGOption("Notification Method", "Email");
     cy.getInputByLabel("Email").type("mohamed.khelif@mongodb.com");
     cy.dataCy("save-settings-button").scrollIntoView();
@@ -43,7 +43,7 @@ describe("Notifications", () => {
     cy.dataCy("expandable-card")
       .should("be.visible")
       .should("contain.text", "New Subscription");
-    cy.selectLGOption("Event", "Any Task Finishes");
+    cy.selectLGOption("Event", "Any task finishes");
     cy.selectLGOption("Notification Method", "Comment on a JIRA issue");
     cy.getInputByLabel("JIRA Issue").type("JIRA-123");
     cy.contains("Subscription type not allowed for tasks in a project.").should(
@@ -58,7 +58,7 @@ describe("Notifications", () => {
     cy.dataCy("expandable-card")
       .should("be.visible")
       .should("contain.text", "New Subscription");
-    cy.selectLGOption("Event", "Any Version Finishes");
+    cy.selectLGOption("Event", "Any version finishes");
     cy.selectLGOption("Notification Method", "Email");
     cy.getInputByLabel("Email").type("Not a real email");
     cy.contains("Value should be a valid email.").should("be.visible");
