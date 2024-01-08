@@ -106,7 +106,7 @@ describe("getGqlPayload", () => {
         type: "email",
         target: "fake.user@mongodb.com",
       },
-      trigger: "family-outcome",
+      trigger: "outcome",
       trigger_data: {},
     });
   });
