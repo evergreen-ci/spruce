@@ -38,7 +38,7 @@ describe("getGqlPayload", () => {
           webhookSubscriber: undefined,
           jiraIssueSubscriber: undefined,
         },
-        trigger: "family-outcome",
+        trigger: "outcome",
         trigger_data: { requester: "gitter_request" },
       },
     ]);
@@ -150,7 +150,7 @@ describe("getGqlPayload", () => {
         webhookSubscriber: undefined,
         jiraIssueSubscriber: undefined,
       },
-      trigger: "family-failure",
+      trigger: "failure",
       trigger_data: { requester: "ad_hoc" },
     });
   });
