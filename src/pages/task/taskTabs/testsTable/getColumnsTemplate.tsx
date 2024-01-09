@@ -21,6 +21,7 @@ export const getColumnsTemplate = ({ task }: GetColumnsTemplateParams) => [
     enableSorting: true,
     meta: {
       search: {
+        "data-cy": "test-name-filter",
         placeholder: "Test name regex",
       },
       width: "40%",

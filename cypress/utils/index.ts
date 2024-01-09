@@ -22,9 +22,9 @@ export const urlSearchParamsAreUpdated = ({ paramName, pathname, search }) => {
   cy.location().should((loc) => {
     expect(loc.pathname).to.equal(pathname);
     if (search === null) {
-      expect(loc.search).to.not.include(paramName);
+      expect(decodeURIComponent(loc.search)).to.not.include(paramName);
     } else {
-      expect(loc.search).to.include(search);
+      expect(decodeURIComponent(loc.search)).to.include(search);
     }
   });
 };

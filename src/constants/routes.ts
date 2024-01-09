@@ -174,7 +174,7 @@ export const getAllHostsRoute = (options?: GetAllHostsRouteOptions) => {
   return `${paths.hosts}?${queryParams}`;
 };
 
-interface GetTaskRouteOptions {
+export interface GetTaskRouteOptions {
   tab?: TaskTab;
   execution?: number;
   [key: string]: any;
