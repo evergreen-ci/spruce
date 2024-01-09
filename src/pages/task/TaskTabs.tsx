@@ -182,6 +182,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
         ...query,
       };
 
+      // Introduce execution query parameter if none is set.
       if (
         id === task?.id &&
         query.execution === undefined &&

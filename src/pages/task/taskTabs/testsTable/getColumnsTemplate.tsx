@@ -24,7 +24,6 @@ export const getColumnsTemplate = ({ task }: GetColumnsTemplateParams) => [
         "data-cy": "test-name-filter",
         placeholder: "Test name regex",
       },
-      width: "40%",
     },
   },
   {

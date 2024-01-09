@@ -55,7 +55,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
 
   const appliedDefaultSort = useRef(null);
   useEffect(() => {
-    // Avoid race condition where this hook overwrites TaskTabs setting aa  default execution.
+    // Avoid race condition where this hook overwrites TaskTabs setting a default execution.
     if (execution == null) {
       return;
     }
@@ -144,6 +144,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     defaultColumn: {
       enableColumnFilter: false,
       enableSorting: false,
+      size: "auto" as unknown as number,
       // Handle bug in sorting order
       // https://github.com/TanStack/table/issues/4289
       sortDescFirst: false,
@@ -186,7 +187,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
         data-cy="tests-table"
         data-loading={loading}
         loading={loading}
-        // loadingRows={limit}
+        loadingRows={limitNum}
         shouldAlternateRowColor
         table={table}
       />
