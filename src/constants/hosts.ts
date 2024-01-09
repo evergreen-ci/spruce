@@ -13,11 +13,6 @@ export const hostStatuses: Status[] = [
     key: HostStatus.Running,
   },
   {
-    title: "Terminated",
-    value: HostStatus.Terminated,
-    key: HostStatus.Terminated,
-  },
-  {
     title: "Uninitialized",
     value: HostStatus.Uninitialized,
     key: HostStatus.Uninitialized,
