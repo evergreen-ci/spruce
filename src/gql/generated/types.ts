@@ -2786,11 +2786,13 @@ export type TestFilterOptions = {
 export type TestLog = {
   __typename?: "TestLog";
   lineNum?: Maybe<Scalars["Int"]["output"]>;
+  renderingType?: Maybe<Scalars["String"]["output"]>;
   url?: Maybe<Scalars["String"]["output"]>;
   /** @deprecated Use urlParsley instead */
   urlLobster?: Maybe<Scalars["String"]["output"]>;
   urlParsley?: Maybe<Scalars["String"]["output"]>;
   urlRaw?: Maybe<Scalars["String"]["output"]>;
+  version?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type TestResult = {
