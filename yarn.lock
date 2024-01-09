@@ -3201,12 +3201,7 @@
     "@leafygreen-ui/tokens" "^2.0.1"
     "@leafygreen-ui/typography" "^16.1.0"
 
-"@leafygreen-ui/box@^3.1.1", "@leafygreen-ui/box@^3.1.4":
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/box/-/box-3.1.4.tgz#6ff56c8c205f83018373c9c0fe8f49681097dc0a"
-  integrity sha512-cdEXGEafHuaH4zGx3NTX1bMOQ52EpoWA595BC1hh4/8BmXL+H4NFMGywuhZnvYjC4lyVGauX6sCspxrunbmfMQ==
-
-"@leafygreen-ui/box@^3.1.8":
+"@leafygreen-ui/box@^3.1.1", "@leafygreen-ui/box@^3.1.4", "@leafygreen-ui/box@^3.1.8":
   version "3.1.8"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/box/-/box-3.1.8.tgz#33e6dedbe3ee510ce88ffade0a3a9e68a96103a9"
   integrity sha512-qfjwhrie+mUrS2H+Qp98iQKBPoZtNpFmlGBYgg59sVOzotFvyvqwxlf/JcaNGo+v7nyOhC2XAHui0ywf9cScKw==
@@ -3444,20 +3439,7 @@
   dependencies:
     lodash "^4.17.21"
 
-"@leafygreen-ui/icon-button@15.0.5":
-  version "15.0.5"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-15.0.5.tgz#4c9e6a8388c471262c98bcb52b2d95c061625eea"
-  integrity sha512-8zWWqInWVvG2399FeyoQcvuzdEt0aongqZi06eGEQOpXwRCaIxUXOqeEmAHPjFy2K3jAUs2KtMFVlrdZZnWNbg==
-  dependencies:
-    "@leafygreen-ui/a11y" "^1.3.4"
-    "@leafygreen-ui/box" "^3.1.1"
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/icon" "^11.12.4"
-    "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.7"
-    "@leafygreen-ui/tokens" "^2.0.0"
-
-"@leafygreen-ui/icon-button@^15.0.10", "@leafygreen-ui/icon-button@^15.0.12", "@leafygreen-ui/icon-button@^15.0.16", "@leafygreen-ui/icon-button@^15.0.17", "@leafygreen-ui/icon-button@^15.0.19", "@leafygreen-ui/icon-button@^15.0.4", "@leafygreen-ui/icon-button@^15.0.7":
+"@leafygreen-ui/icon-button@15.0.19", "@leafygreen-ui/icon-button@^15.0.10", "@leafygreen-ui/icon-button@^15.0.12", "@leafygreen-ui/icon-button@^15.0.16", "@leafygreen-ui/icon-button@^15.0.17", "@leafygreen-ui/icon-button@^15.0.19", "@leafygreen-ui/icon-button@^15.0.4", "@leafygreen-ui/icon-button@^15.0.7":
   version "15.0.19"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-15.0.19.tgz#4c9bd36358c6568605bb76cd2477f6930d4039fc"
   integrity sha512-TXNFHpfuMXIcMQHW/D31GEFby63qhBLyeI5CLL8KQjD5Xom3Q6fqviu/eyXE097jTzQtd1dO/2IIiqyyLRW30g==
