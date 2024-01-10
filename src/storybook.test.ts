@@ -6,7 +6,7 @@ import * as glob from "glob";
 import "jest-specific-snapshot";
 import MatchMediaMock from "jest-matchmedia-mock";
 import path from "path";
-import { render } from "test_utils";
+import { act, render } from "test_utils";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import * as projectAnnotations from "../.storybook/preview";
 
@@ -44,7 +44,7 @@ const getAllStoryFiles = () => {
 
 // Recreate similar options to Storyshots. Place your configuration below
 const options = {
-  suite: "Storybook Tests",
+  suite: "Snapshot Tests",
   storyKindRegex: /^.*?DontTest$/,
   storyNameRegex: /UNSET/,
   snapshotsDirName: "__snapshots__",
@@ -81,6 +81,7 @@ describe(`${options.suite}`, () => {
     const { filePath, storyFile } = params;
     const meta = storyFile.default;
     const { title } = meta;
+
     const storyBookFileBaseName = path
       .basename(filePath)
       .replace(/\.[^/.]+$/, "");
@@ -113,9 +114,10 @@ describe(`${options.suite}`, () => {
       stories.forEach(({ name, story }) => {
         it(`${name}`, async () => {
           const { container } = render(story());
-          // Ensures a consistent snapshot by waiting for the component to render by adding a delay of 1 ms before taking the snapshot.
-          await new Promise((resolve) => {
-            setTimeout(resolve, 1);
+          await act(async () => {
+            await new Promise((resolve) => {
+              setTimeout(resolve, 0);
+            });
           });
           const storyDirectory = path.dirname(filePath);
           const snapshotPath = path.join(
