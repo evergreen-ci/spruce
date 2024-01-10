@@ -13,7 +13,6 @@ import {
   TableBody,
   type TableProps,
   TableHead,
-  LGTableDataType,
   VirtualItem,
   LeafyGreenTableRow,
 } from "@leafygreen-ui/table";
@@ -49,13 +48,13 @@ declare module "@tanstack/table-core" {
 }
 
 type SpruceTableProps = {
+  className?: string;
   "data-cy-row"?: string;
   "data-cy-table"?: string;
   emptyComponent?: React.ReactNode;
   loading?: boolean;
   /** estimated number of rows the table will have */
   loadingRows?: number;
-  className?: string;
 };
 
 export const BaseTable = forwardRef(
@@ -74,6 +73,8 @@ export const BaseTable = forwardRef(
   ) => {
     const { virtualRows } = table;
     const { rows } = table.getRowModel();
+    const hasVirtualRows = virtualRows && virtualRows.length > 0;
+
     return (
       <>
         <StyledTable
@@ -143,7 +144,16 @@ export const BaseTable = forwardRef(
                 numRows={loadingRows}
               />
             )}
-            <RenderRows rows={rows} virtualRows={virtualRows} />
+            {hasVirtualRows
+              ? virtualRows.map((vr) => {
+                  const row = rows[vr.index];
+                  return (
+                    <RenderableRow row={row} key={row.id} virtualRow={vr} />
+                  );
+                })
+              : rows.map((row) => (
+                  <RenderableRow row={row} key={row.id} virtualRow={null} />
+                ))}
           </TableBody>
         </StyledTable>
         {!loading &&
@@ -154,34 +164,11 @@ export const BaseTable = forwardRef(
   }
 );
 
-const RenderRows = <T extends LGRowData>({
-  rows,
-  virtualRows,
-}: {
-  virtualRows?: VirtualItem[];
-  rows: LeafyGreenTableRow<LGTableDataType<T>>[];
-}) => {
-  const hasVirtualRows = virtualRows && virtualRows.length > 0;
-  return (
-    <>
-      {!hasVirtualRows &&
-        rows.map((row) => (
-          <RenderableRow row={row} key={row.id} virtualRow={null} />
-        ))}
-      {hasVirtualRows &&
-        virtualRows.map((vr) => {
-          const row = rows[vr.index];
-          return <RenderableRow row={row} key={row.id} virtualRow={vr} />;
-        })}
-    </>
-  );
-};
-
 const RenderableRow = <T extends LGRowData>({
   row,
   virtualRow,
 }: {
-  row: LeafyGreenTableRow<LGTableDataType<T>>;
+  row: LeafyGreenTableRow<T>;
   virtualRow: VirtualItem;
 }) => (
   <Row
