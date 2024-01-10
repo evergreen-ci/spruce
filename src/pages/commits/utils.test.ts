@@ -30,7 +30,7 @@ describe("getFilterStatus", () => {
         variants: ["variant1"],
         requesters: ["requester1"],
         view: ProjectHealthView.Failed,
-      })
+      }),
     ).toStrictEqual({
       hasFilters: true,
       hasRequesterFilter: true,
@@ -45,7 +45,7 @@ describe("getFilterStatus", () => {
         variants: [],
         requesters: [],
         view: ProjectHealthView.Failed,
-      })
+      }),
     ).toStrictEqual({
       hasFilters: false,
       hasRequesterFilter: false,
@@ -60,7 +60,7 @@ describe("getFilterStatus", () => {
         variants: [],
         requesters: [],
         view: ProjectHealthView.Failed,
-      })
+      }),
     ).toStrictEqual({
       hasFilters: true,
       hasRequesterFilter: false,
@@ -89,7 +89,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).mainlineCommitsOptions
+        }).mainlineCommitsOptions,
       ).toStrictEqual({
         limit: 5,
         projectIdentifier: "projectIdentifier",
@@ -115,7 +115,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).mainlineCommitsOptions
+        }).mainlineCommitsOptions,
       ).toStrictEqual({
         limit: 5,
         projectIdentifier: "projectIdentifier",
@@ -139,7 +139,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).mainlineCommitsOptions
+        }).mainlineCommitsOptions,
       ).toStrictEqual({
         limit: 5,
         projectIdentifier: "projectIdentifier",
@@ -163,7 +163,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).mainlineCommitsOptions
+        }).mainlineCommitsOptions,
       ).toStrictEqual({
         limit: 5,
         projectIdentifier: "projectIdentifier",
@@ -187,7 +187,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).mainlineCommitsOptions
+        }).mainlineCommitsOptions,
       ).toStrictEqual({
         limit: 5,
         projectIdentifier: "projectIdentifier",
@@ -215,7 +215,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptions
+        }).buildVariantOptions,
       ).toStrictEqual({
         tasks: [],
         variants: [],
@@ -237,7 +237,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptions
+        }).buildVariantOptions,
       ).toStrictEqual({
         tasks: [],
         variants: [],
@@ -259,7 +259,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptions
+        }).buildVariantOptions,
       ).toStrictEqual({
         tasks: ["task1"],
         variants: [],
@@ -285,7 +285,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptionsForGraph
+        }).buildVariantOptionsForGraph,
       ).toStrictEqual({
         tasks: [],
         variants: [],
@@ -308,7 +308,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptionsForGraph
+        }).buildVariantOptionsForGraph,
       ).toStrictEqual({
         tasks: [],
         variants: [],
@@ -329,7 +329,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptionsForGraph
+        }).buildVariantOptionsForGraph,
       ).toStrictEqual({
         tasks: ["task1"],
         variants: [],
@@ -350,7 +350,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptionsForGraph
+        }).buildVariantOptionsForGraph,
       ).toStrictEqual({
         tasks: [],
         variants: ["variant1"],
@@ -375,7 +375,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptionsForTaskIcons
+        }).buildVariantOptionsForTaskIcons,
       ).toStrictEqual({
         tasks: [],
         variants: [],
@@ -400,7 +400,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.All,
           },
-        }).buildVariantOptionsForTaskIcons
+        }).buildVariantOptionsForTaskIcons,
       ).toStrictEqual({
         tasks: [],
         variants: [],
@@ -425,7 +425,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptionsForTaskIcons
+        }).buildVariantOptionsForTaskIcons,
       ).toStrictEqual({
         tasks: [impossibleMatch],
         variants: [],
@@ -450,7 +450,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.All,
           },
-        }).buildVariantOptionsForTaskIcons
+        }).buildVariantOptionsForTaskIcons,
       ).toStrictEqual({
         tasks: [],
         variants: [],
@@ -475,7 +475,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptionsForTaskIcons
+        }).buildVariantOptionsForTaskIcons,
       ).toStrictEqual({
         tasks: [],
         variants: [],
@@ -499,7 +499,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptionsForTaskIcons
+        }).buildVariantOptionsForTaskIcons,
       ).toStrictEqual({
         tasks: ["task1"],
         variants: [],
@@ -521,7 +521,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptionsForTaskIcons
+        }).buildVariantOptionsForTaskIcons,
       ).toStrictEqual({
         tasks: ["task1"],
         variants: [],
@@ -545,7 +545,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptionsForTaskIcons
+        }).buildVariantOptionsForTaskIcons,
       ).toStrictEqual({
         tasks: [],
         variants: ["variant1"],
@@ -572,7 +572,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptionsForGroupedTasks
+        }).buildVariantOptionsForGroupedTasks,
       ).toStrictEqual({
         tasks: [impossibleMatch],
         statuses: [],
@@ -596,7 +596,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.All,
           },
-        }).buildVariantOptionsForGroupedTasks
+        }).buildVariantOptionsForGroupedTasks,
       ).toStrictEqual({
         tasks: [impossibleMatch],
         statuses: [],
@@ -620,7 +620,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptionsForGroupedTasks
+        }).buildVariantOptionsForGroupedTasks,
       ).toStrictEqual({
         tasks: [],
         variants: [],
@@ -644,7 +644,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.All,
           },
-        }).buildVariantOptionsForGroupedTasks
+        }).buildVariantOptionsForGroupedTasks,
       ).toStrictEqual({
         tasks: [impossibleMatch],
         variants: [],
@@ -668,7 +668,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptionsForGroupedTasks
+        }).buildVariantOptionsForGroupedTasks,
       ).toStrictEqual({
         tasks: [],
         variants: [],
@@ -691,7 +691,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptionsForGroupedTasks
+        }).buildVariantOptionsForGroupedTasks,
       ).toStrictEqual({
         tasks: [impossibleMatch],
         variants: [],
@@ -714,7 +714,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptionsForGroupedTasks
+        }).buildVariantOptionsForGroupedTasks,
       ).toStrictEqual({
         tasks: [],
         variants: ["variant1"],
@@ -737,7 +737,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptionsForGroupedTasks
+        }).buildVariantOptionsForGroupedTasks,
       ).toStrictEqual({
         tasks: [impossibleMatch],
         variants: [],
@@ -758,7 +758,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             requesters: [],
             view: ProjectHealthView.Failed,
           },
-        }).buildVariantOptionsForGroupedTasks
+        }).buildVariantOptionsForGroupedTasks,
       ).toStrictEqual({
         tasks: [impossibleMatch],
         variants: [],

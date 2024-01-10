@@ -43,7 +43,7 @@ const Host: React.FC = () => {
     variables: { id },
     onError: (err) => {
       dispatchToast.error(
-        `There was an error loading the host: ${err.message}`
+        `There was an error loading the host: ${err.message}`,
       );
     },
   });

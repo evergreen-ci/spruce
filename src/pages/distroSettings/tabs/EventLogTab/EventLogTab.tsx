@@ -14,7 +14,7 @@ export const EventLogTab: React.FC<TabProps> = ({ limit }) => {
 
   const { allEventsFetched, events, fetchMore, loading } = useDistroEvents(
     distroId,
-    limit
+    limit,
   );
 
   const lastEventTimestamp = events[events.length - 1]?.timestamp;

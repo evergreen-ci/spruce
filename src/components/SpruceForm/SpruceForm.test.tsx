@@ -11,13 +11,13 @@ describe("spruce form", () => {
           onChange={jest.fn()}
           uiSchema={basicForm.uiSchema}
         />
-      </SpruceFormContainer>
+      </SpruceFormContainer>,
     );
     expect(screen.getByLabelText("Project Cloning Method")).toBeInTheDocument();
     expect(screen.queryByText("Username Label")).not.toBeInTheDocument();
     expect(screen.queryByDataCy("add-button")).toHaveTextContent("New User");
     expect(screen.getAllByRole("heading", { level: 3 })[1]).toHaveTextContent(
-      "Manage Access"
+      "Manage Access",
     );
   });
 
@@ -37,7 +37,7 @@ describe("spruce form", () => {
           onChange={onChange}
           uiSchema={basicForm.uiSchema}
         />
-      </SpruceFormContainer>
+      </SpruceFormContainer>,
     );
     await user.clear(screen.queryByDataCy("valid-projects-input"));
     await user.type(screen.queryByDataCy("valid-projects-input"), "new value");
@@ -46,7 +46,7 @@ describe("spruce form", () => {
     await user.type(screen.queryAllByDataCy("new-user-input")[0], "new-user");
     expect(onChange).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
     expect(screen.queryByDataCy("valid-projects-input")).toHaveValue(
-      "new value"
+      "new value",
     );
     expect(data).toStrictEqual({
       ...basicForm.formData,
@@ -78,7 +78,7 @@ describe("spruce form", () => {
                 uiSchema={uiSchema}
                 validate={validate}
               />
-            </SpruceFormContainer>
+            </SpruceFormContainer>,
           );
           await user.type(screen.queryByDataCy("text-input"), "new value");
           await user.clear(screen.queryByDataCy("text-input"));
@@ -108,7 +108,7 @@ describe("spruce form", () => {
                 onChange={onChange}
                 uiSchema={uiSchema}
               />
-            </SpruceFormContainer>
+            </SpruceFormContainer>,
           );
           await user.type(screen.queryByDataCy("text-input"), "new value");
           await user.clear(screen.queryByDataCy("text-input"));
@@ -135,12 +135,12 @@ describe("spruce form", () => {
                 onChange={onChange}
                 uiSchema={uiSchema}
               />
-            </SpruceFormContainer>
+            </SpruceFormContainer>,
           );
           await user.type(screen.queryByDataCy("text-input"), "new value");
           await user.clear(screen.queryByDataCy("text-input"));
           expect(screen.queryByDataCy("text-input")).toHaveValue(
-            "myEmptyValue"
+            "myEmptyValue",
           );
           expect(data).toStrictEqual({
             textInput: "myEmptyValue",
@@ -170,7 +170,7 @@ describe("spruce form", () => {
                 uiSchema={uiSchema}
                 validate={validate}
               />
-            </SpruceFormContainer>
+            </SpruceFormContainer>,
           );
           await user.type(screen.queryByDataCy("text-area"), "new value");
           await user.clear(screen.queryByDataCy("text-area"));
@@ -200,7 +200,7 @@ describe("spruce form", () => {
                 onChange={onChange}
                 uiSchema={uiSchema}
               />
-            </SpruceFormContainer>
+            </SpruceFormContainer>,
           );
           await user.type(screen.queryByDataCy("text-area"), "new value");
           await user.clear(screen.queryByDataCy("text-area"));
@@ -227,7 +227,7 @@ describe("spruce form", () => {
                 onChange={onChange}
                 uiSchema={uiSchema}
               />
-            </SpruceFormContainer>
+            </SpruceFormContainer>,
           );
           await user.type(screen.queryByDataCy("text-area"), "new value");
           await user.clear(screen.queryByDataCy("text-area"));
@@ -248,7 +248,7 @@ describe("spruce form", () => {
             formData={formData}
             onChange={jest.fn()}
             uiSchema={uiSchema}
-          />
+          />,
         );
         expect(screen.getByText("Vanilla")).toBeInTheDocument();
         expect(screen.queryByText("Chocolate")).not.toBeInTheDocument();
@@ -264,7 +264,7 @@ describe("spruce form", () => {
             formData={formData}
             onChange={jest.fn()}
             uiSchema={uiSchema}
-          />
+          />,
         );
         await user.click(screen.queryByRole("button"));
         expect(screen.queryAllByText("Vanilla")).toHaveLength(2);
@@ -281,7 +281,7 @@ describe("spruce form", () => {
             formData={formData}
             onChange={jest.fn()}
             uiSchema={uiSchema}
-          />
+          />,
         );
         await user.click(screen.getByRole("button"));
         await user.click(screen.getByRole("option", { name: "Chocolate" }));
@@ -301,7 +301,7 @@ describe("spruce form", () => {
             formData={formData}
             onChange={jest.fn()}
             uiSchema={uiSchema}
-          />
+          />,
         );
         await user.click(screen.queryByRole("button"));
 
@@ -310,7 +310,7 @@ describe("spruce form", () => {
         expect(
           screen.getByRole("option", {
             name: "Strawberry",
-          })
+          }),
         ).toHaveStyle("cursor: not-allowed");
       });
     });
@@ -324,7 +324,7 @@ describe("spruce form", () => {
             formData={formData}
             onChange={jest.fn()}
             uiSchema={uiSchema}
-          />
+          />,
         );
         expect(screen.getAllByRole("radio")).toHaveLength(3);
         expect(screen.getByLabelText("New York")).toBeChecked();
@@ -338,7 +338,7 @@ describe("spruce form", () => {
             formData={formData}
             onChange={jest.fn()}
             uiSchema={uiSchema}
-          />
+          />,
         );
         expect(screen.getByLabelText("Connecticut")).toBeDisabled();
       });
@@ -351,7 +351,7 @@ describe("spruce form", () => {
             formData={formData}
             onChange={jest.fn()}
             uiSchema={uiSchema}
-          />
+          />,
         );
         expect(screen.getByText("The Garden State")).toBeVisible();
       });

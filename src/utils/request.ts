@@ -8,13 +8,13 @@ type optionsType = {
 export const post = async (
   url: string,
   body: unknown,
-  options: optionsType = {}
+  options: optionsType = {},
 ) => {
   try {
     const response = await axios.post(
       `${getUiUrl()}${url}`,
       { body },
-      { withCredentials: true }
+      { withCredentials: true },
     );
     if (isBadResponse(response)) {
       throw new Error(getErrorMessage(response, "POST"));

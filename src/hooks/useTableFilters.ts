@@ -15,7 +15,7 @@ interface Params<SearchParam> {
 type UseInputFilterReturn = [
   string, // url param value
   (e: InputEvent) => void, // onChange handler
-  () => void // update url param
+  () => void, // update url param
 ];
 
 /*
@@ -45,7 +45,7 @@ export const useTableInputFilter = <SearchParam extends string>({
       search,
       navigate,
       pathname,
-      true
+      true,
     );
 
     sendAnalyticsEvent(urlSearchParam);
@@ -56,7 +56,7 @@ export const useTableInputFilter = <SearchParam extends string>({
 
 type UseCheckboxFilterReturn = [
   string[], // url param value
-  (e: InputEvent, key: string) => void // onChange handler
+  (e: InputEvent, key: string) => void, // onChange handler
 ];
 
 /*
@@ -94,7 +94,7 @@ export const useTableCheckboxFilter = <SearchParam extends string>({
       search,
       navigate,
       pathname,
-      true
+      true,
     );
     sendAnalyticsEvent(urlSearchParam);
   };

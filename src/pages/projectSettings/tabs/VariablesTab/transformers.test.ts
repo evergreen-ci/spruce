@@ -17,8 +17,8 @@ describe("project data", () => {
         {
           vars: [...form.vars, {} as Unpacked<VariablesFormState["vars"]>],
         },
-        "project"
-      )
+        "project",
+      ),
     ).toStrictEqual(result);
   });
 });

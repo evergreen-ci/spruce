@@ -22,7 +22,7 @@ const getTargetForMethod = (method: string) => {
 // from other dependencies to persist.
 const regexFormToGql = (
   hasRegexSelectors: boolean,
-  regexForm: FormRegexSelector[]
+  regexForm: FormRegexSelector[],
 ) =>
   hasRegexSelectors && regexForm
     ? regexForm.map((r) => ({
@@ -36,7 +36,7 @@ const regexFormToGql = (
 // for data from other dependencies to persist.
 const extraFieldsFormToGql = (
   extraFieldsToInclude: ExtraField[],
-  extraFieldsForm: FormExtraFields
+  extraFieldsForm: FormExtraFields,
 ): StringMap => {
   // If there are no extra fields for this trigger, just return.
   if (!extraFieldsToInclude) {
@@ -53,7 +53,7 @@ export const getGqlPayload = (
   type: "task" | "version" | "project",
   triggers: Trigger,
   resourceId: string,
-  formState: FormState
+  formState: FormState,
 ) => {
   const event = triggers[formState.event.eventSelect];
   const {
@@ -66,12 +66,12 @@ export const getGqlPayload = (
 
   const triggerData = extraFieldsFormToGql(
     extraFields,
-    formState.event.extraFields
+    formState.event.extraFields,
   );
 
   const regexData = regexFormToGql(
     !!regexSelectors,
-    formState.event.regexSelector
+    formState.event.regexSelector,
   );
 
   const method = formState.notification.notificationSelect;

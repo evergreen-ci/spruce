@@ -70,7 +70,7 @@ describe("copyProjectField", () => {
 
     await user.type(
       screen.queryByDataCy("project-name-input"),
-      newProjectIdentifier
+      newProjectIdentifier,
     );
 
     const confirmButton = screen.getByRole("button", {
@@ -79,7 +79,7 @@ describe("copyProjectField", () => {
     const requestS3Creds = screen.getByDataCy("request-s3-creds");
     // LeafyGreen checkbox has pointer-events: none so click on the label instead.
     const requestS3CredLabel = screen.getByText(
-      "Open a JIRA ticket to request an S3 Bucket from the Build team"
+      "Open a JIRA ticket to request an S3 Bucket from the Build team",
     );
     await user.click(requestS3CredLabel);
     expect(confirmButton).toBeEnabled();
@@ -122,14 +122,14 @@ describe("copyProjectField", () => {
     };
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <Modal mock={mockWithId} />
+      <Modal mock={mockWithId} />,
     );
     render(<Component />);
 
     await user.type(screen.queryByDataCy("project-id-input"), "evg_id");
     await user.type(
       screen.queryByDataCy("project-name-input"),
-      newProjectIdentifier
+      newProjectIdentifier,
     );
 
     const confirmButton = screen.getByRole("button", {
@@ -171,13 +171,13 @@ describe("copyProjectField", () => {
     };
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <Modal mock={mockWithError} />
+      <Modal mock={mockWithError} />,
     );
     render(<Component />);
 
     await user.type(
       screen.queryByDataCy("project-name-input"),
-      newProjectIdentifier
+      newProjectIdentifier,
     );
 
     const confirmButton = screen.getByRole("button", {
@@ -212,13 +212,13 @@ describe("copyProjectField", () => {
     };
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <Modal mock={mockWithError} />
+      <Modal mock={mockWithError} />,
     );
     render(<Component />);
 
     await user.type(
       screen.queryByDataCy("project-name-input"),
-      newProjectIdentifier
+      newProjectIdentifier,
     );
 
     const confirmButton = screen.getByRole("button", {

@@ -44,7 +44,7 @@ describe("provider section", () => {
     it("shows pool mapping information based on container pool id", () => {
       cy.getInputByLabel("Container Pool ID").should(
         "contain.text",
-        "test-pool-1"
+        "test-pool-1",
       );
       cy.getInputByLabel("Pool Mapping Information")
         .should("have.attr", "placeholder")

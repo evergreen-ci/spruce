@@ -14,19 +14,19 @@ describe("validateSpawnHostForm", () => {
       validateSpawnHostForm({
         ...validVirtualWorkstationForm,
         homeVolumeDetails: { selectExistingVolume: true, volumeSelect: "" },
-      })
+      }),
     ).toBe(false);
     expect(
       validateSpawnHostForm({
         ...validVirtualWorkstationForm,
         homeVolumeDetails: { selectExistingVolume: false, volumeSize: 0 },
-      })
+      }),
     ).toBe(false);
     expect(
       validateSpawnHostForm({
         ...validVirtualWorkstationForm,
         homeVolumeDetails: { selectExistingVolume: false, volumeSize: 1 },
-      })
+      }),
     ).toBe(true);
   });
   it("home volume inputs are not required when migrating a volume", () => {
@@ -36,8 +36,8 @@ describe("validateSpawnHostForm", () => {
           ...validVirtualWorkstationForm,
           homeVolumeDetails: { selectExistingVolume: true, volumeSelect: "" },
         },
-        true
-      )
+        true,
+      ),
     ).toBe(true);
     expect(
       validateSpawnHostForm(
@@ -45,8 +45,8 @@ describe("validateSpawnHostForm", () => {
           ...validVirtualWorkstationForm,
           homeVolumeDetails: { selectExistingVolume: false, volumeSize: 0 },
         },
-        true
-      )
+        true,
+      ),
     ).toBe(true);
     expect(
       validateSpawnHostForm(
@@ -54,8 +54,8 @@ describe("validateSpawnHostForm", () => {
           ...validVirtualWorkstationForm,
           homeVolumeDetails: { selectExistingVolume: false, volumeSize: 1 },
         },
-        true
-      )
+        true,
+      ),
     ).toBe(true);
   });
   it("an empty distro will not pass validation", () => {
@@ -63,7 +63,7 @@ describe("validateSpawnHostForm", () => {
       validateSpawnHostForm({
         ...validForm,
         distro: { value: "", isVirtualWorkstation: false },
-      })
+      }),
     ).toBe(false);
   });
   it("an empty region will not pass validation", () => {
@@ -71,7 +71,7 @@ describe("validateSpawnHostForm", () => {
       validateSpawnHostForm({
         ...validForm,
         region: "",
-      })
+      }),
     ).toBe(false);
   });
   it("a public key name or public key value must be provided", () => {
@@ -79,13 +79,13 @@ describe("validateSpawnHostForm", () => {
       validateSpawnHostForm({
         ...validForm,
         publicKeySection: { useExisting: true, publicKeyNameDropdown: "" },
-      })
+      }),
     ).toBe(false);
     expect(
       validateSpawnHostForm({
         ...validForm,
         publicKeySection: { useExisting: false, newPublicKey: "" },
-      })
+      }),
     ).toBe(false);
     expect(
       validateSpawnHostForm({
@@ -94,13 +94,13 @@ describe("validateSpawnHostForm", () => {
           useExisting: true,
           publicKeyNameDropdown: "key val",
         },
-      })
+      }),
     ).toBe(true);
     expect(
       validateSpawnHostForm({
         ...validForm,
         publicKeySection: { useExisting: false, newPublicKey: "key val" },
-      })
+      }),
     ).toBe(true);
   });
   it("a public key name is required when 'Save Public Key' is checked", () => {
@@ -113,7 +113,7 @@ describe("validateSpawnHostForm", () => {
           savePublicKey: true,
           newPublicKeyName: "new key",
         },
-      })
+      }),
     ).toBe(true);
     expect(
       validateSpawnHostForm({
@@ -123,7 +123,7 @@ describe("validateSpawnHostForm", () => {
           newPublicKey: "ssh-rsa new-key",
           savePublicKey: true,
         },
-      })
+      }),
     ).toBe(false);
   });
   it("a user data script must be provided when the option is selected", () => {
@@ -134,7 +134,7 @@ describe("validateSpawnHostForm", () => {
           runUserdataScript: true,
           userdataScript: "",
         },
-      })
+      }),
     ).toBe(false);
     expect(
       validateSpawnHostForm({
@@ -143,7 +143,7 @@ describe("validateSpawnHostForm", () => {
           runUserdataScript: true,
           userdataScript: "abc",
         },
-      })
+      }),
     ).toBe(true);
   });
   it("a setup script must be provided when the option is selected", () => {
@@ -154,7 +154,7 @@ describe("validateSpawnHostForm", () => {
           defineSetupScriptCheckbox: true,
           setupScript: "abc123",
         },
-      })
+      }),
     ).toBe(true);
     expect(
       validateSpawnHostForm({
@@ -163,7 +163,7 @@ describe("validateSpawnHostForm", () => {
           defineSetupScriptCheckbox: true,
           setupScript: "",
         },
-      })
+      }),
     ).toBe(false);
   });
   it("an expiration is required when 'Never expire' is not selected", () => {
@@ -174,7 +174,7 @@ describe("validateSpawnHostForm", () => {
           noExpiration: false,
           expiration: "2022-10-11T22:08:02.000Z",
         },
-      })
+      }),
     ).toBe(true);
     expect(
       validateSpawnHostForm({
@@ -183,7 +183,7 @@ describe("validateSpawnHostForm", () => {
           noExpiration: false,
           expiration: "",
         },
-      })
+      }),
     ).toBe(false);
   });
 });

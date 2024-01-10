@@ -37,12 +37,12 @@ export const useTaskStatuses = ({
   const { baseTaskStatuses, taskStatuses } = version || {};
   const currentStatuses = useMemo(
     () => getCurrentStatuses(taskStatuses ?? [], taskStatusesFilterTreeData),
-    [taskStatuses]
+    [taskStatuses],
   );
   const baseStatuses = useMemo(
     () =>
       getCurrentStatuses(baseTaskStatuses ?? [], taskStatusesFilterTreeData),
-    [baseTaskStatuses]
+    [baseTaskStatuses],
   );
 
   return { currentStatuses, baseStatuses };

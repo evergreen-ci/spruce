@@ -22,7 +22,7 @@ export const useDimensions = (ref: MutableRefObject<HTMLElement>) => {
           setState({ width, height });
         });
       }),
-    []
+    [],
   );
 
   useLayoutEffect(() => {

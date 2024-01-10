@@ -125,7 +125,7 @@ export interface GetVersionRouteOptions {
 }
 export const getVersionRoute = (
   versionId: string,
-  options?: GetVersionRouteOptions
+  options?: GetVersionRouteOptions,
 ) => {
   const { tab, ...rest } = options || {};
   const queryParams = stringifyQuery({
@@ -143,7 +143,7 @@ interface GetPatchRouteOptions {
 
 export const getPatchRoute = (
   patchId: string,
-  options: GetPatchRouteOptions
+  options: GetPatchRouteOptions,
 ) => {
   const { configure, tab, ...rest } = options || {};
   const queryParams = stringifyQuery({
@@ -229,7 +229,7 @@ export const getProjectPatchesRoute = (projectIdentifier: string) =>
 
 export const getProjectSettingsRoute = (
   projectId: string,
-  tab?: ProjectSettingsTabRoutes
+  tab?: ProjectSettingsTabRoutes,
 ) => {
   // Encode projectId for backwards compatibilty.
   // Encoding can be removed when all projectIDs
@@ -241,7 +241,7 @@ export const getProjectSettingsRoute = (
 
 export const getDistroSettingsRoute = (
   distroId: string,
-  tab?: DistroSettingsTabRoutes
+  tab?: DistroSettingsTabRoutes,
 ) =>
   tab
     ? `${paths.distro}/${distroId}/${PageNames.Settings}/${tab}`
@@ -260,7 +260,7 @@ const getHistoryRoute = (
     passingTests?: string[];
   },
   selectedCommit?: number,
-  visibleColumns?: string[]
+  visibleColumns?: string[],
 ) => {
   if (filters || selectedCommit) {
     const failingTests = toArray(filters?.failingTests);
@@ -285,15 +285,15 @@ export const getVariantHistoryRoute = (
       passingTests?: string[];
     };
     selectedCommit?: number;
-  }
+  },
 ) => {
   const { filters, selectedCommit } = options || {};
   return getHistoryRoute(
     `${paths.variantHistory}/${encodeURIComponent(
-      projectIdentifier
+      projectIdentifier,
     )}/${variantName}`,
     filters,
-    selectedCommit
+    selectedCommit,
   );
 };
 
@@ -307,7 +307,7 @@ export const getTaskHistoryRoute = (
     };
     selectedCommit?: number;
     visibleColumns?: string[];
-  }
+  },
 ) => {
   const { filters, selectedCommit, visibleColumns } = options || {};
 
@@ -315,7 +315,7 @@ export const getTaskHistoryRoute = (
     `${paths.taskHistory}/${encodeURIComponent(projectIdentifier)}/${taskName}`,
     filters,
     selectedCommit,
-    visibleColumns
+    visibleColumns,
   );
 };
 

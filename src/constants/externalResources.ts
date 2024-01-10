@@ -56,19 +56,19 @@ export const getJiraTicketUrl = (jiraHost: string, jiraKey: string) =>
 export const getGithubPullRequestUrl = (
   owner: string,
   repo: string,
-  issue: number | string
+  issue: number | string,
 ) => `https://github.com/${owner}/${repo}/pull/${issue}`;
 
 export const getGithubCommitUrl = (
   owner: string,
   repo: string,
-  githash: string
+  githash: string,
 ) => `https://github.com/${owner}/${repo}/commit/${githash}`;
 
 export const getParsleyTaskLogLink = (
   logType: LogTypes,
   taskId: string,
-  execution: number
+  execution: number,
 ) => `${getParsleyUrl()}/evergreen/${taskId}/${execution}/${logType}`;
 
 interface GetLobsterTestLogCompleteUrlParams {
@@ -93,7 +93,7 @@ export const getLobsterTestLogCompleteUrl = ({
 export const getLobsterTaskLink = (
   logType: LogTypes,
   taskId: string,
-  execution: number
+  execution: number,
 ) =>
   `${getLobsterURL()}/lobster/evergreen/task/${taskId}/${execution}/${logType}`;
 
@@ -106,17 +106,17 @@ export const getParsleyBuildLogURL = (buildId: string) =>
 export const getHoneycombTraceUrl = (
   traceId: string,
   startTs: Date,
-  endTs: Date
+  endTs: Date,
 ) =>
   `${getHoneycombBaseURL()}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(
-    new Date(startTs)
+    new Date(startTs),
   )}&trace_end_ts=${getUnixTime(new Date(endTs))}`;
 
 export const getHoneycombSystemMetricsUrl = (
   taskId: string,
   diskDevices: string[],
   startTs: Date,
-  endTs: Date
+  endTs: Date,
 ): string => {
   const query = {
     calculations: [
@@ -134,7 +134,7 @@ export const getHoneycombSystemMetricsUrl = (
           column: `system.disk.operations.${device}.write`,
         },
         { op: "RATE_AVG", column: `system.disk.io_time.${device}` },
-      ])
+      ]),
     ),
     filters: [{ op: "=", column: "evergreen.task.id", value: taskId }],
     start_time: getUnixTime(new Date(startTs)),
@@ -142,7 +142,7 @@ export const getHoneycombSystemMetricsUrl = (
   };
 
   return `${getHoneycombBaseURL()}/datasets/evergreen?query=${JSON.stringify(
-    query
+    query,
   )}&omitMissingValues`;
 };
 

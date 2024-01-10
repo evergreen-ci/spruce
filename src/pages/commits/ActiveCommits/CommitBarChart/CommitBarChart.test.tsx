@@ -20,7 +20,7 @@ describe("commitChart", () => {
         total={groupedTaskData[versions[0].version.id].total}
         max={max}
         chartType={ChartTypes.Absolute}
-      />
+      />,
     );
     expect(screen.queryAllByDataCy("commit-chart-bar")).toHaveLength(4);
   });
@@ -34,7 +34,7 @@ describe("commitChart", () => {
         total={groupedTaskData[versions[0].version.id].total}
         max={max}
         chartType={ChartTypes.Absolute}
-      />
+      />,
     );
 
     expect(screen.queryByDataCy("commit-chart-tooltip")).toBeNull();
@@ -53,7 +53,7 @@ describe("commitChart", () => {
         total={groupedTaskData[versions[0].version.id].total}
         max={max}
         chartType={ChartTypes.Absolute}
-      />
+      />,
     );
 
     expect(screen.queryByDataCy("commit-chart-tooltip")).toBeNull();

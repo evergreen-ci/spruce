@@ -27,14 +27,14 @@ const getTriggerEnum = (trigger: string, resourceType: string) => {
   const triggerEnum = Object.keys(projectTriggers).find(
     (t) =>
       projectTriggers[t].trigger === convertFromFamilyTrigger(trigger) &&
-      projectTriggers[t].resourceType === resourceType
+      projectTriggers[t].resourceType === resourceType,
   );
   return triggerEnum;
 };
 
 const getExtraFields = (
   triggerEnum: string,
-  triggerData: { [key: string]: string }
+  triggerData: { [key: string]: string },
 ) => {
   // If there are no extra fields, just return.
   if (!triggerData) return {};
@@ -132,7 +132,7 @@ export const gqlToForm = ((data, { projectType }) => {
                 },
               },
             };
-          }
+          },
         )
       : [],
   };
@@ -146,7 +146,7 @@ export const formToGql = ((formState, projectId) => {
     ...(banner && { banner: banner.bannerData }),
   };
   const transformedSubscriptions: SubscriptionInput[] = subscriptions.map(
-    getGqlPayload(projectId)
+    getGqlPayload(projectId),
   );
   return {
     projectRef,

@@ -15,7 +15,7 @@ describe("etaTimer", () => {
     const startTime = new Date();
     const expectedDuration = 10000;
     render(
-      <ETATimer startTime={startTime} expectedDuration={expectedDuration} />
+      <ETATimer startTime={startTime} expectedDuration={expectedDuration} />,
     );
     expect(screen.getByText("ETA: 10s")).toBeInTheDocument();
     act(() => {
@@ -35,7 +35,7 @@ describe("etaTimer", () => {
     const startTime = new Date();
     const expectedDuration = 1000;
     render(
-      <ETATimer startTime={startTime} expectedDuration={expectedDuration} />
+      <ETATimer startTime={startTime} expectedDuration={expectedDuration} />,
     );
     expect(screen.getByText("ETA: 1s")).toBeInTheDocument();
     act(() => {

@@ -113,7 +113,7 @@ describe("Hosts page filtering from table filters", () => {
 
           cy.dataCy(`${filterIconDataCy}-input-filter`).type(
             `${filterValue}{enter}`,
-            { scrollBehavior: false }
+            { scrollBehavior: false },
           );
         }
         cy.dataCy(`${filterIconDataCy}-wrapper`).should("not.exist");
@@ -138,6 +138,6 @@ describe("Hosts page filtering from table filters", () => {
             .type("{enter}");
         }
       });
-    }
+    },
   );
 });

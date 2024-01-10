@@ -212,7 +212,7 @@ describe("Host events", () => {
     cy.contains("button", "Save Changes").click();
     cy.visit(pathWithEvents);
     cy.dataCy("HOST_JASPER_RESTARTING-time").contains(
-      "Sep 30, 2017, 9:11:16 AM"
+      "Sep 30, 2017, 9:11:16 AM",
     );
     // Reset timezone so re-running this test works.
     cy.visit("/preferences");

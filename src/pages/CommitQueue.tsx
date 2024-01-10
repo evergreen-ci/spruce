@@ -31,7 +31,7 @@ export const CommitQueue: React.FC = () => {
     fetchPolicy: "cache-and-network",
     onError: (err) => {
       dispatchToast.error(
-        `There was an error loading the commit queue: ${err.message}`
+        `There was an error loading the commit queue: ${err.message}`,
       );
     },
   });

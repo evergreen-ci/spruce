@@ -25,7 +25,7 @@ const TaskHistoryRow: React.FC<Props> = ({ data, index }) => {
         ? generateColumns(data, visibleColumns, getTaskMetadata, sendEvent)
         : [],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [visibleColumns, getTaskMetadata]
+    [visibleColumns, getTaskMetadata],
   );
   const eventHandlers = useMemo(
     () => ({
@@ -77,7 +77,7 @@ const TaskHistoryRow: React.FC<Props> = ({ data, index }) => {
       },
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [],
   );
 
   return (
@@ -96,7 +96,7 @@ const generateColumns = (
   data: types.CommitRow,
   visibleColumns: string[],
   getTaskMetadata: ReturnType<typeof useTestResults>["getTaskMetadata"],
-  sendEvent: ReturnType<typeof useProjectHealthAnalytics>["sendEvent"]
+  sendEvent: ReturnType<typeof useProjectHealthAnalytics>["sendEvent"],
 ) => {
   const { buildVariants } = data.commit;
   const buildVariantMap = convertArrayToObject(buildVariants, "variant");
@@ -108,7 +108,7 @@ const generateColumns = (
         // the tasks array should in theory only have one item in it so we should always use it.
         const t = tasks[0];
         const { failingTests, inactive, label, loading } = getTaskMetadata(
-          t.id
+          t.id,
         );
         return (
           <TaskCell

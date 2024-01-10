@@ -102,5 +102,5 @@ export const mapIdToFilterParam: PartialRecord<
     ...accum,
     [param]: id,
   }),
-  {}
+  {},
 );

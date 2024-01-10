@@ -21,7 +21,7 @@ describe("Plugins", () => {
     cy.dataCy("external-link").should(
       "have.attr",
       "href",
-      "https://example.com/5ecedafb562343215a7ff297"
+      "https://example.com/5ecedafb562343215a7ff297",
     );
 
     // Unset the external link

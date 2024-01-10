@@ -31,7 +31,7 @@ const FileTicketButton: React.FC<FileTicketProps> = ({ execution, taskId }) => {
     },
     onError(error) {
       dispatchToast.error(
-        `There was an error filing the ticket: ${error.message}`
+        `There was an error filing the ticket: ${error.message}`,
       );
     },
     refetchQueries: ["CreatedTickets", "CustomCreatedIssues"],

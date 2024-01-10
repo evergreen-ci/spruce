@@ -181,7 +181,7 @@ export const rowKey = ({ id }: { id: string }): string => id;
 
 const getQueryVariables = (
   search: string,
-  taskId: string
+  taskId: string,
 ): TaskTestsQueryVariables => {
   const parsed = parseQueryString(search);
 
@@ -190,7 +190,7 @@ const getQueryVariables = (
     .toString()
     .toUpperCase();
   const TestSortCategories = Object.keys(TestSortCategory).map(
-    (k) => TestSortCategory[k]
+    (k) => TestSortCategory[k],
   );
   const sortBy = TestSortCategories.includes(parsedCategory)
     ? (parsedCategory as TestSortCategory)

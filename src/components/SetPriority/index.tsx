@@ -68,7 +68,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
       dispatchToast.success(
         data.setTaskPriority.priority >= 0
           ? `Priority for task updated to ${data.setTaskPriority.priority}`
-          : `Task was successfully disabled`
+          : `Task was successfully disabled`,
       );
     },
     onError: (err) => {

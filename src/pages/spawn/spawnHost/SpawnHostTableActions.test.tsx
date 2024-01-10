@@ -26,7 +26,7 @@ describe("copySSHCommandButton", () => {
           hostUrl={hostUrl}
           hostStatus={HostStatus.Running}
         />
-      </MockedProvider>
+      </MockedProvider>,
     );
 
     const copySSHButton = screen.queryByDataCy("copy-ssh-button");
@@ -37,7 +37,7 @@ describe("copySSHCommandButton", () => {
       expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
     });
     expect(
-      screen.getByText("Must be on VPN to connect to host")
+      screen.getByText("Must be on VPN to connect to host"),
     ).toBeInTheDocument();
 
     // Click on button to copy the SSH command and change tooltip message.
@@ -51,7 +51,7 @@ describe("copySSHCommandButton", () => {
       jest.advanceTimersByTime(10 * SECOND);
     });
     expect(
-      screen.getByText("Must be on VPN to connect to host")
+      screen.getByText("Must be on VPN to connect to host"),
     ).toBeInTheDocument();
     jest.useRealTimers();
   });
@@ -65,7 +65,7 @@ describe("copySSHCommandButton", () => {
           hostUrl={undefined}
           hostStatus={HostStatus.Starting}
         />
-      </MockedProvider>
+      </MockedProvider>,
     );
     const copySSHButton = screen.queryByDataCy("copy-ssh-button");
     expect(copySSHButton).toBeInTheDocument();
@@ -76,7 +76,7 @@ describe("copySSHCommandButton", () => {
       expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
     });
     expect(
-      screen.getByText("Host must be running in order to SSH")
+      screen.getByText("Host must be running in order to SSH"),
     ).toBeInTheDocument();
   });
 
@@ -89,7 +89,7 @@ describe("copySSHCommandButton", () => {
           hostUrl={hostUrl}
           hostStatus={HostStatus.Terminated}
         />
-      </MockedProvider>
+      </MockedProvider>,
     );
     const copySSHButton = screen.queryByDataCy("copy-ssh-button");
     expect(copySSHButton).toBeInTheDocument();
@@ -100,7 +100,7 @@ describe("copySSHCommandButton", () => {
       expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
     });
     expect(
-      screen.getByText("Host must be running in order to SSH")
+      screen.getByText("Host must be running in order to SSH"),
     ).toBeInTheDocument();
   });
 });

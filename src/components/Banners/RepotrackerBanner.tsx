@@ -58,12 +58,12 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
   >(SET_LAST_REVISION, {
     onCompleted: () => {
       dispatchToast.success(
-        "Successfully updated merge base revision. The repotracker job has been scheduled to run."
+        "Successfully updated merge base revision. The repotracker job has been scheduled to run.",
       );
     },
     onError: (err) => {
       dispatchToast.error(
-        `Error when attempting to update merge base revision: ${err.message}`
+        `Error when attempting to update merge base revision: ${err.message}`,
       );
     },
   });

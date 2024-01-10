@@ -27,7 +27,7 @@ describe("variantTaskGroup", () => {
     });
     expect(screen.getByText("Some Variant")).toBeDefined();
     expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
-      2
+      2,
     );
   });
   describe("variantTaskGroup status badge state", () => {
@@ -39,7 +39,7 @@ describe("variantTaskGroup", () => {
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
       expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
-        2
+        2,
       );
     });
     it("all should be active if no status and variant filters are set", () => {
@@ -50,7 +50,7 @@ describe("variantTaskGroup", () => {
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
       expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
-        2
+        2,
       );
       screen.queryAllByDataCy("grouped-task-status-badge").forEach((badge) => {
         expect(badge).toHaveAttribute("aria-selected", "true");
@@ -64,7 +64,7 @@ describe("variantTaskGroup", () => {
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
       expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
-        2
+        2,
       );
       screen.queryAllByDataCy("grouped-task-status-badge").forEach((badge) => {
         expect(badge).toHaveAttribute("aria-selected", "true");
@@ -78,7 +78,7 @@ describe("variantTaskGroup", () => {
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
       expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
-        2
+        2,
       );
       screen.queryAllByDataCy("grouped-task-status-badge").forEach((badge) => {
         expect(badge).toHaveAttribute("aria-selected", "true");
@@ -95,14 +95,14 @@ describe("variantTaskGroup", () => {
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
       expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
-        2
+        2,
       );
       const successBadge = screen.queryAllByDataCy(
-        "grouped-task-status-badge"
+        "grouped-task-status-badge",
       )[0];
       expect(successBadge).toHaveTextContent("Succeeded");
       const failedBadge = screen.queryAllByDataCy(
-        "grouped-task-status-badge"
+        "grouped-task-status-badge",
       )[1];
       expect(failedBadge).toHaveTextContent("Failed");
 
@@ -119,7 +119,7 @@ describe("variantTaskGroup", () => {
       });
       expect(screen.getByText("Some Variant")).toBeDefined();
       expect(screen.queryAllByDataCy("grouped-task-status-badge")).toHaveLength(
-        2
+        2,
       );
       screen.queryAllByDataCy("grouped-task-status-badge").forEach((badge) => {
         expect(badge).toHaveAttribute("aria-selected", "false");
@@ -143,7 +143,7 @@ describe("variantTaskGroup", () => {
           getVersionRoute("1", {
             variant: applyStrictRegex("some_variant"),
             page: 0,
-          })
+          }),
         );
       });
       it("should link to the variant filter if a different variant is selected", () => {
@@ -160,7 +160,7 @@ describe("variantTaskGroup", () => {
           getVersionRoute("1", {
             variant: applyStrictRegex("some_variant"),
             page: 0,
-          })
+          }),
         );
       });
       it("should remove the variant filter if the same variant is selected", () => {
@@ -176,7 +176,7 @@ describe("variantTaskGroup", () => {
           "href",
           getVersionRoute("1", {
             page: 0,
-          })
+          }),
         );
       });
     });
@@ -189,10 +189,10 @@ describe("variantTaskGroup", () => {
         });
         expect(screen.getByText("Some Variant")).toBeDefined();
         expect(
-          screen.queryAllByDataCy("grouped-task-status-badge")
+          screen.queryAllByDataCy("grouped-task-status-badge"),
         ).toHaveLength(2);
         const successBadge = screen.queryAllByDataCy(
-          "grouped-task-status-badge"
+          "grouped-task-status-badge",
         )[0];
         expect(successBadge).toHaveTextContent("Succeeded");
         expect(successBadge).toHaveAttribute(
@@ -201,11 +201,11 @@ describe("variantTaskGroup", () => {
             statuses: [TaskStatus.Succeeded],
             variant: applyStrictRegex("some_variant"),
             page: 0,
-          })
+          }),
         );
 
         const failedBadge = screen.queryAllByDataCy(
-          "grouped-task-status-badge"
+          "grouped-task-status-badge",
         )[1];
         expect(failedBadge).toHaveTextContent("Failed");
         expect(failedBadge).toHaveAttribute(
@@ -214,7 +214,7 @@ describe("variantTaskGroup", () => {
             statuses: mapUmbrellaStatusToQueryParam[TaskStatus.FailedUmbrella],
             variant: applyStrictRegex("some_variant"),
             page: 0,
-          })
+          }),
         );
       });
       it("should link to the variant and status filter if a different variant is selected", () => {
@@ -225,10 +225,10 @@ describe("variantTaskGroup", () => {
         });
         expect(screen.getByText("Some Variant")).toBeDefined();
         expect(
-          screen.queryAllByDataCy("grouped-task-status-badge")
+          screen.queryAllByDataCy("grouped-task-status-badge"),
         ).toHaveLength(2);
         const successBadge = screen.queryAllByDataCy(
-          "grouped-task-status-badge"
+          "grouped-task-status-badge",
         )[0];
         expect(successBadge).toHaveTextContent("Succeeded");
         expect(successBadge).toHaveAttribute(
@@ -237,11 +237,11 @@ describe("variantTaskGroup", () => {
             statuses: [TaskStatus.Succeeded],
             variant: applyStrictRegex("some_variant"),
             page: 0,
-          })
+          }),
         );
 
         const failedBadge = screen.queryAllByDataCy(
-          "grouped-task-status-badge"
+          "grouped-task-status-badge",
         )[1];
         expect(failedBadge).toHaveTextContent("Failed");
         expect(failedBadge).toHaveAttribute(
@@ -250,7 +250,7 @@ describe("variantTaskGroup", () => {
             statuses: mapUmbrellaStatusToQueryParam[TaskStatus.FailedUmbrella],
             variant: applyStrictRegex("some_variant"),
             page: 0,
-          })
+          }),
         );
       });
       it("should link to the variant and status filter if the same variant is selected and no status is selected", () => {
@@ -261,10 +261,10 @@ describe("variantTaskGroup", () => {
         });
         expect(screen.getByText("Some Variant")).toBeDefined();
         expect(
-          screen.queryAllByDataCy("grouped-task-status-badge")
+          screen.queryAllByDataCy("grouped-task-status-badge"),
         ).toHaveLength(2);
         const successBadge = screen.queryAllByDataCy(
-          "grouped-task-status-badge"
+          "grouped-task-status-badge",
         )[0];
         expect(successBadge).toHaveTextContent("Succeeded");
         expect(successBadge).toHaveAttribute(
@@ -273,11 +273,11 @@ describe("variantTaskGroup", () => {
             statuses: [TaskStatus.Succeeded],
             variant: applyStrictRegex("some_variant"),
             page: 0,
-          })
+          }),
         );
 
         const failedBadge = screen.queryAllByDataCy(
-          "grouped-task-status-badge"
+          "grouped-task-status-badge",
         )[1];
         expect(failedBadge).toHaveTextContent("Failed");
         expect(failedBadge).toHaveAttribute(
@@ -286,30 +286,30 @@ describe("variantTaskGroup", () => {
             statuses: mapUmbrellaStatusToQueryParam[TaskStatus.FailedUmbrella],
             variant: applyStrictRegex("some_variant"),
             page: 0,
-          })
+          }),
         );
       });
       it("should remove the variant and status filter if the same variant and the same status is selected", () => {
         render(<Component />, {
           wrapper: Wrapper,
           route: `/version/1?variant=${applyStrictRegex(
-            "some_variant"
+            "some_variant",
           )}&statuses=${TaskStatus.Succeeded}`,
           path: "/version/:id",
         });
         expect(screen.getByText("Some Variant")).toBeDefined();
         expect(
-          screen.queryAllByDataCy("grouped-task-status-badge")
+          screen.queryAllByDataCy("grouped-task-status-badge"),
         ).toHaveLength(2);
         const successBadge = screen.queryAllByDataCy(
-          "grouped-task-status-badge"
+          "grouped-task-status-badge",
         )[0];
         expect(successBadge).toHaveTextContent("Succeeded");
         expect(successBadge).toHaveAttribute(
           "href",
           getVersionRoute("1", {
             page: 0,
-          })
+          }),
         );
       });
     });

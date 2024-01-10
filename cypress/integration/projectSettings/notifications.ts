@@ -47,7 +47,7 @@ describe("Notifications", () => {
     cy.selectLGOption("Notification Method", "Comment on a JIRA issue");
     cy.getInputByLabel("JIRA Issue").type("JIRA-123");
     cy.contains("Subscription type not allowed for tasks in a project.").should(
-      "be.visible"
+      "be.visible",
     );
     cy.dataCy("save-settings-button").scrollIntoView();
     saveButtonEnabled(false);

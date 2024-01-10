@@ -58,7 +58,7 @@ export const formToGql = ({
         : publicKeySection?.newPublicKeyName ?? "",
       key: publicKeySection?.useExisting
         ? myPublicKeys.find(
-            ({ name }) => name === publicKeySection?.publicKeyNameDropdown
+            ({ name }) => name === publicKeySection?.publicKeyNameDropdown,
           )?.key
         : stripNewLines(publicKeySection.newPublicKey),
     },

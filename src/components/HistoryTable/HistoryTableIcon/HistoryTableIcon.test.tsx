@@ -7,7 +7,7 @@ describe("historyTableIcon", () => {
     const user = userEvent.setup();
     const onClick = jest.fn();
     render(
-      <HistoryTableIcon status={TaskStatus.Succeeded} onClick={onClick} />
+      <HistoryTableIcon status={TaskStatus.Succeeded} onClick={onClick} />,
     );
     const icon = screen.queryByDataCy("history-table-icon");
     expect(icon).toBeInTheDocument();
@@ -30,7 +30,7 @@ describe("historyTableIcon", () => {
       <HistoryTableIcon
         status={TaskStatus.Succeeded}
         failingTests={failingTests}
-      />
+      />,
     );
     const icon = screen.queryByDataCy("history-table-icon");
     expect(icon).toBeInTheDocument();

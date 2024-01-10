@@ -35,7 +35,7 @@ export const useLoadFormData = (host: MyHost) => {
 
   const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(
     false,
-    host
+    host,
   );
 
   const noExpirationCheckboxTooltip = getNoExpirationCheckboxTooltipCopy({

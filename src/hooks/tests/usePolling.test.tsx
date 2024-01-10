@@ -47,7 +47,7 @@ describe("usePolling", () => {
       () => usePolling({ startPolling, stopPolling, refetch }),
       {
         wrapper: Provider,
-      }
+      },
     );
     expect(startPolling).toHaveBeenCalledTimes(0);
     expect(stopPolling).toHaveBeenCalledTimes(0);
@@ -69,7 +69,7 @@ describe("usePolling", () => {
           }),
         {
           wrapper: Provider,
-        }
+        },
       );
       expect(disabledResult.current).toBe(false);
 
@@ -83,7 +83,7 @@ describe("usePolling", () => {
           }),
         {
           wrapper: Provider,
-        }
+        },
       );
       expect(enabledResult.current).toBe(false);
     });
@@ -102,7 +102,7 @@ describe("usePolling", () => {
             shouldPollFaster,
             refetch,
           }),
-        { wrapper: Provider }
+        { wrapper: Provider },
       );
 
       // go offline
@@ -130,7 +130,7 @@ describe("usePolling", () => {
 
       const { result } = renderHook(
         () => usePolling({ startPolling, stopPolling, refetch }),
-        { wrapper: Provider }
+        { wrapper: Provider },
       );
       expect(result.current).toBe(true);
 
@@ -148,7 +148,7 @@ describe("usePolling", () => {
 
       const { result } = renderHook(
         () => usePolling({ startPolling, stopPolling, refetch }),
-        { wrapper: Provider }
+        { wrapper: Provider },
       );
       expect(result.current).toBe(true);
 
@@ -165,7 +165,7 @@ describe("usePolling", () => {
 
       const { result } = renderHook(
         () => usePolling({ startPolling, stopPolling, refetch }),
-        { wrapper: Provider }
+        { wrapper: Provider },
       );
       expect(result.current).toBe(true);
 
@@ -190,7 +190,7 @@ describe("usePolling", () => {
       const refetch = jest.fn();
       const { result } = renderHook(
         () => usePolling({ startPolling, stopPolling, refetch }),
-        { wrapper: Provider }
+        { wrapper: Provider },
       );
       expect(result.current).toBe(true);
 
@@ -217,7 +217,7 @@ describe("usePolling", () => {
 
       const { result } = renderHook(
         () => usePolling({ startPolling, stopPolling, refetch }),
-        { wrapper: Provider }
+        { wrapper: Provider },
       );
       expect(result.current).toBe(true);
 
@@ -262,7 +262,7 @@ describe("usePolling", () => {
             refetch: noop,
             shouldPollFaster,
           }),
-        { wrapper: Provider }
+        { wrapper: Provider },
       );
       expect(startPolling).toHaveBeenCalledTimes(1);
       expect(startPolling).toHaveBeenLastCalledWith(FASTER_POLL_INTERVAL);

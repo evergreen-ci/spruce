@@ -44,7 +44,7 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
     variables: { taskId, execution },
     onError: (err) => {
       dispatchToast.error(
-        `There was an error loading the ticket information from Jira: ${err.message}`
+        `There was an error loading the ticket information from Jira: ${err.message}`,
       );
     },
   });
@@ -56,7 +56,7 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
     variables: { taskId },
     onError(error) {
       dispatchToast.error(
-        `There was an error getting tickets created for this task: ${error.message}`
+        `There was an error getting tickets created for this task: ${error.message}`,
       );
     },
   });

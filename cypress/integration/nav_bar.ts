@@ -22,7 +22,7 @@ describe("Nav Bar", () => {
     cy.dataCy("legacy-ui-link").should(
       "have.attr",
       "href",
-      LEGACY_URLS.version
+      LEGACY_URLS.version,
     );
   });
   it("Navigating to a different page should change the nav link to the legacy UI", () => {
@@ -36,7 +36,7 @@ describe("Nav Bar", () => {
     cy.dataCy("legacy-ui-link").should(
       "have.attr",
       "href",
-      LEGACY_URLS.userPatches
+      LEGACY_URLS.userPatches,
     );
   });
   it("Visiting a page with no legacy equivalent should not display a nav link", () => {
@@ -56,7 +56,7 @@ describe("Nav Bar", () => {
     cy.dataCy("auxiliary-dropdown-distro-settings").should(
       "have.attr",
       "href",
-      "/distro/localhost/settings/general"
+      "/distro/localhost/settings/general",
     );
   });
   it("Nav Dropdown should link to patches page of default project in SpruceConfig if cookie does not exist", () => {
@@ -66,7 +66,7 @@ describe("Nav Bar", () => {
     cy.dataCy("auxiliary-dropdown-project-patches").should(
       "have.attr",
       "href",
-      "/project/evergreen/patches"
+      "/project/evergreen/patches",
     );
     cy.dataCy("auxiliary-dropdown-project-patches").click();
     cy.location("pathname").should("eq", "/project/evergreen/patches");
@@ -79,13 +79,13 @@ describe("Nav Bar", () => {
     cy.dataCy("project-health-link").should(
       "have.attr",
       "href",
-      "/commits/evergreen"
+      "/commits/evergreen",
     );
     cy.dataCy("auxiliary-dropdown-link").click();
     cy.dataCy("auxiliary-dropdown-project-settings").should(
       "have.attr",
       "href",
-      "/project/evergreen/settings"
+      "/project/evergreen/settings",
     );
     cy.getCookie(projectCookie).should("have.property", "value", "evergreen");
   });
@@ -97,13 +97,13 @@ describe("Nav Bar", () => {
     cy.dataCy("project-health-link").should(
       "have.attr",
       "href",
-      "/commits/spruce"
+      "/commits/spruce",
     );
     cy.dataCy("auxiliary-dropdown-link").click();
     cy.dataCy("auxiliary-dropdown-project-patches").should(
       "have.attr",
       "href",
-      "/project/spruce/patches"
+      "/project/spruce/patches",
     );
     cy.getCookie(projectCookie).should("have.property", "value", "spruce");
   });

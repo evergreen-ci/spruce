@@ -35,7 +35,7 @@ export const DefaultSectionToRepoModal = ({
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error defaulting to repo: ${err.message}`
+        `There was an error defaulting to repo: ${err.message}`,
       );
     },
     refetchQueries: ["ProjectSettings", "RepoSettings"],

@@ -44,7 +44,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   const instanceTypes = instanceTypesData?.instanceTypes ?? [];
   const volumes =
     volumesData?.myVolumes?.filter(
-      (v) => v.availabilityZone === host.availabilityZone && v.hostID === ""
+      (v) => v.availabilityZone === host.availabilityZone && v.hostID === "",
     ) ?? [];
   const userTags =
     host?.instanceTags
@@ -91,7 +91,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error while modifying your host: ${err.message}`
+        `There was an error while modifying your host: ${err.message}`,
       );
       onCancel();
     },
@@ -114,7 +114,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
 
   const [hasChanges, mutationParams] = computeDiff(
     initialEditState,
-    currEditState
+    currEditState,
   );
 
   const onSubmit = () => {

@@ -23,7 +23,7 @@ const getErrorStyle = (
   errorType: ErrorType,
   versionControlEnabled: boolean,
   projectType: ProjectType,
-  fieldName: string
+  fieldName: string,
 ): { "ui:warnings": string[] } | { "ui:errors": string[] } | {} => {
   if (errorType === ErrorType.Warning) {
     const definitionLocation = getDefinitionLocation(projectType);
@@ -58,7 +58,7 @@ export const getVersionControlError =
     enabled: boolean,
     override: boolean,
     aliases: Array<AliasFormType>,
-    repoAliases: Array<AliasFormType>
+    repoAliases: Array<AliasFormType>,
   ) => {
     if (enabled === false) {
       return ErrorType.None;
@@ -94,17 +94,17 @@ export const sectionHasError =
     override: boolean,
     aliases: Array<AliasFormType>,
     repoAliases: Array<AliasFormType>,
-    fieldName: string
+    fieldName: string,
   ): ReturnType<typeof getErrorStyle> => {
     const errorType = getVersionControlError(
       versionControlEnabled,
-      projectType
+      projectType,
     )(enabled, override, aliases, repoAliases);
     return getErrorStyle(
       errorType,
       versionControlEnabled,
       projectType,
-      fieldName
+      fieldName,
     );
   };
 
@@ -112,7 +112,7 @@ export const githubConflictErrorStyling = (
   conflictProjects: string[] | null,
   fieldEnabled: boolean | null,
   repoFieldEnabled: boolean,
-  fieldName: string
+  fieldName: string,
 ) => {
   if (!conflictProjects?.length) {
     return {};
@@ -125,7 +125,7 @@ export const githubConflictErrorStyling = (
   return {
     [bannerKey]: [
       `Enabling ${fieldName} would introduce conflicts with the following project(s): ${conflictProjects.join(
-        ", "
+        ", ",
       )}. To enable ${fieldName} for this project please disable it elsewhere.`,
     ],
   };

@@ -59,7 +59,7 @@ describe("buildBaronContent", () => {
           bbData={buildBaronQuery.buildBaron}
           loading={false}
         />
-      </MockedProvider>
+      </MockedProvider>,
     );
 
     render(<Component />, {
@@ -82,7 +82,7 @@ describe("buildBaronContent", () => {
           loading={false}
           bbData={buildBaronQuery.buildBaron}
         />
-      </MockedProvider>
+      </MockedProvider>,
     );
     render(<Component />, {
       route: `/task/${taskId}`,
@@ -92,7 +92,7 @@ describe("buildBaronContent", () => {
     expect(screen.getByDataCy("file-ticket-popconfirm")).toBeVisible();
     await user.click(screen.getByRole("button", { name: "Yes" }));
     expect(dispatchToast.success).toHaveBeenCalledWith(
-      "Successfully requested ticket"
+      "Successfully requested ticket",
     );
   });
 
@@ -107,7 +107,7 @@ describe("buildBaronContent", () => {
           bbData={buildBaronQuery.buildBaron}
           loading={false}
         />
-      </MockedProvider>
+      </MockedProvider>,
     );
     render(<Component />, {
       route: `/task/${taskId}`,
@@ -121,20 +121,20 @@ describe("buildBaronContent", () => {
     expect(screen.getByDataCy("EVG-12347")).toBeInTheDocument();
 
     expect(screen.queryByDataCy("EVG-12345-badge")).toHaveTextContent(
-      "Resolved"
+      "Resolved",
     );
     expect(screen.queryByDataCy("EVG-12345-metadata")).toHaveTextContent(
-      "Created: Sep 23, 2020Updated: Sep 23, 2020Unassigned"
+      "Created: Sep 23, 2020Updated: Sep 23, 2020Unassigned",
     );
 
     expect(screen.queryByDataCy("EVG-12346-badge")).toHaveTextContent("Closed");
     expect(screen.queryByDataCy("EVG-12346-metadata")).toHaveTextContent(
-      "Created: Sep 18, 2020Updated: Sep 18, 2020Assignee: Some Name"
+      "Created: Sep 18, 2020Updated: Sep 18, 2020Assignee: Some Name",
     );
 
     expect(screen.queryByDataCy("EVG-12347-badge")).toHaveTextContent("Open");
     expect(screen.queryByDataCy("EVG-12347-metadata")).toHaveTextContent(
-      "Created: Sep 18, 2020Updated: Sep 18, 2020Assignee: Backlog - Evergreen Team"
+      "Created: Sep 18, 2020Updated: Sep 18, 2020Assignee: Backlog - Evergreen Team",
     );
   });
 });

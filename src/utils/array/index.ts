@@ -18,7 +18,7 @@ import { Unpacked } from "types/utils";
 export const toggleArray = <T>(value: T, array: T[]) => {
   const tempArray = [...array];
   const idIndex = tempArray.findIndex(
-    (e) => JSON.stringify(value) === JSON.stringify(e)
+    (e) => JSON.stringify(value) === JSON.stringify(e),
   );
   if (idIndex !== -1) {
     tempArray.splice(idIndex, 1);
@@ -56,7 +56,7 @@ export const deduplicatedAppend = <T>(value: T, array: T[]) => {
  */
 export const convertArrayToObject = <T = { [key: string]: any }>(
   array: T[],
-  key: keyof T
+  key: keyof T,
 ): { [key: string]: T } => {
   const initialValue = {};
   if (!Array.isArray(array)) {
@@ -90,7 +90,7 @@ export const convertArrayToObject = <T = { [key: string]: any }>(
  * // array = [{key: 'a', value: 1}, {key: 'b', value: 2}, {key: 'b', value: 3}, {key: 'c', value: 4}]
  */
 export const convertObjectToArray = <T extends object>(
-  obj: T
+  obj: T,
 ): KeyValue<T>[] => {
   const result = [];
   if (obj === undefined) return result;
@@ -98,7 +98,7 @@ export const convertObjectToArray = <T extends object>(
   return objectEntries.flatMap(([key, value]) => {
     const entries = toArray(value);
 
-    return entries.map((v) => ({ key, value: v } as KeyValue<T>));
+    return entries.map((v) => ({ key, value: v }) as KeyValue<T>);
   });
 };
 
@@ -123,7 +123,7 @@ type KeyValue<T> = {
  */
 export const mapStringArrayToObject = <T>(
   array: string[],
-  v: T
+  v: T,
 ): { [key: string]: T } => {
   if (!Array.isArray(array)) {
     return {};
@@ -180,7 +180,7 @@ export const arraySymmetricDifference = <T>(a: T[], b: T[]) => {
   const setA = new Set(a);
   const setB = new Set(b);
   const difference = Array.from(
-    new Set(a.concat(b).filter((x) => !setA.has(x) || !setB.has(x)))
+    new Set(a.concat(b).filter((x) => !setA.has(x) || !setB.has(x))),
   );
 
   return difference;

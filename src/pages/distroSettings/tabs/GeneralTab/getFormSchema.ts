@@ -3,7 +3,7 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 
 export const getFormSchema = (
   isContainerDistro: boolean,
-  minimumHosts: number
+  minimumHosts: number,
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {

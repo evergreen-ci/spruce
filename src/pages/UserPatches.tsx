@@ -23,7 +23,7 @@ export const UserPatches = () => {
 
   const [isCommitQueueCheckboxChecked] = useQueryParam(
     PatchPageQueryParams.CommitQueue,
-    Cookies.get(INCLUDE_COMMIT_QUEUE_USER_PATCHES) === "true"
+    Cookies.get(INCLUDE_COMMIT_QUEUE_USER_PATCHES) === "true",
   );
 
   const patchesInput = usePatchesQueryParams();

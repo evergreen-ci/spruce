@@ -42,7 +42,7 @@ export const reducer = (state: State, action: Action): State => {
           selectedTasks,
           sortedBuildVariantGroups
             .find(({ buildVariant }) => action.buildVariant === buildVariant)
-            ?.tasks.map(({ id }) => id) ?? []
+            ?.tasks.map(({ id }) => id) ?? [],
         ),
       };
     case "toggleSelectAll":
@@ -67,7 +67,7 @@ export const initialState: State = {
 };
 
 const getSortedBuildVariantGroups = (
-  data?: UndispatchedTasksQuery
+  data?: UndispatchedTasksQuery,
 ): BVGroupEntry[] => {
   const bvGroups: BVGroupsInterface = data?.version?.tasks?.data.reduce(
     (acc, task) => {
@@ -83,11 +83,11 @@ const getSortedBuildVariantGroups = (
       }
       return acc;
     },
-    {}
+    {},
   );
   // sort the build variants
   const sortedBuildVariants = Object.values(bvGroups ?? {}).sort((a, b) =>
-    a.buildVariantDisplayName.localeCompare(b.buildVariantDisplayName)
+    a.buildVariantDisplayName.localeCompare(b.buildVariantDisplayName),
   );
   // sort the tasks
   sortedBuildVariants.forEach(({ tasks }) => {

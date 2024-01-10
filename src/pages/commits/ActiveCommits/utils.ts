@@ -15,7 +15,7 @@ const calculateBarHeight = (
   value: number,
   max: number,
   total: number,
-  chartType: string
+  chartType: string,
 ) => {
   if (chartType === ChartTypes.Percentage) {
     return `${(value / total) * 100}%`;
@@ -29,7 +29,9 @@ const getStatusesWithZeroCount = (colors: ColorCount[]) => {
   const availableStatuses = colors.map(({ umbrellaStatus }) => umbrellaStatus);
   const allStatuses = Object.values(mapTaskStatusToUmbrellaStatus);
   return Array.from(
-    new Set(allStatuses.filter((status) => !availableStatuses.includes(status)))
+    new Set(
+      allStatuses.filter((status) => !availableStatuses.includes(status)),
+    ),
   );
 };
 

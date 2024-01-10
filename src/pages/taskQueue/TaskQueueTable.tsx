@@ -79,7 +79,7 @@ const TaskCell = styled.div`
 `;
 
 const columns = (
-  sendEvent: ReturnType<typeof useTaskQueueAnalytics>["sendEvent"]
+  sendEvent: ReturnType<typeof useTaskQueueAnalytics>["sendEvent"],
 ): ColumnProps<TaskQueueItem>[] => [
   {
     title: "",

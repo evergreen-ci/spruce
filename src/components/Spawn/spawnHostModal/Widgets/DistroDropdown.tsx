@@ -57,7 +57,7 @@ export const DistroDropdown: React.FC<
     [
       { title: "Workstation distros", distros: [] },
       { title: "Other distros", distros: [] },
-    ]
+    ],
   );
   const selectedDistro = rest.value?.value;
   return (
@@ -73,7 +73,7 @@ export const DistroDropdown: React.FC<
           items.map((e) => ({
             ...e,
             distros: e.distros.filter(({ value }) =>
-              value.toLowerCase().includes(match.toLowerCase())
+              value.toLowerCase().includes(match.toLowerCase()),
             ),
           }))
         }

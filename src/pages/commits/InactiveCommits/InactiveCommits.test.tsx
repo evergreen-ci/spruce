@@ -23,14 +23,14 @@ const RenderInactiveCommitButton = ({
 describe("inactiveCommitButton", () => {
   it("displays the correct count of inactive versions with the correct copy", () => {
     const { rerender } = render(
-      <RenderInactiveCommitButton versions={versions} />
+      <RenderInactiveCommitButton versions={versions} />,
     );
     expect(screen.queryByDataCy("inactive-commits-button")).toHaveTextContent(
-      "6Inactive"
+      "6Inactive",
     );
     rerender(<RenderInactiveCommitButton versions={versions.slice(0, 1)} />);
     expect(screen.queryByDataCy("inactive-commits-button")).toHaveTextContent(
-      "1Inactive"
+      "1Inactive",
     );
   });
 
@@ -50,7 +50,7 @@ describe("inactiveCommitButton", () => {
     render(
       <RenderInactiveCommitButton
         versions={versions.slice(0, MAX_COMMIT_COUNT - 1)}
-      />
+      />,
     );
 
     expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeNull();
@@ -59,7 +59,7 @@ describe("inactiveCommitButton", () => {
       expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
     });
     expect(screen.queryAllByDataCy("commit-text")).toHaveLength(
-      MAX_COMMIT_COUNT - 1
+      MAX_COMMIT_COUNT - 1,
     );
     expect(screen.queryByDataCy("hidden-commits")).toBeNull();
   });
@@ -74,7 +74,7 @@ describe("inactiveCommitButton", () => {
       expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
     });
     expect(screen.queryAllByDataCy("commit-text")).toHaveLength(
-      MAX_COMMIT_COUNT
+      MAX_COMMIT_COUNT,
     );
     expect(screen.getByDataCy("hidden-commits")).toBeInTheDocument();
   });
@@ -89,7 +89,7 @@ describe("inactiveCommitButton", () => {
       expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
     });
     expect(screen.queryAllByDataCy("commit-text")).toHaveLength(
-      MAX_COMMIT_COUNT
+      MAX_COMMIT_COUNT,
     );
     expect(screen.queryByDataCy("inactive-commits-modal")).toBeNull();
     await user.click(screen.queryByDataCy("hidden-commits"));
@@ -101,7 +101,7 @@ describe("inactiveCommitButton", () => {
   it("should show unmatching label when there are filters applied", () => {
     render(<RenderInactiveCommitButton versions={versions} hasFilters />);
     expect(screen.queryByDataCy("inactive-commits-button")).toHaveTextContent(
-      "6Unmatching"
+      "6Unmatching",
     );
   });
 

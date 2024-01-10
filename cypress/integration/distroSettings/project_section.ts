@@ -9,7 +9,7 @@ describe("project section", () => {
     cy.dataCy("save-settings-button").should(
       "have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
 
     // Update fields.

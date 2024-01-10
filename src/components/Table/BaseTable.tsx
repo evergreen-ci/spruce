@@ -90,7 +90,7 @@ export const BaseTable = <T extends LGRowData>({
                                 ({ value }) =>
                                   !!header.column
                                     .getFacetedUniqueValues()
-                                    .get(value)
+                                    .get(value),
                               )
                             : meta.treeSelect.options
                         }
@@ -157,7 +157,7 @@ export const BaseTable = <T extends LGRowData>({
                     <Cell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </Cell>
                   ))}

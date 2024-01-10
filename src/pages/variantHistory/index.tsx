@@ -47,7 +47,7 @@ const VariantHistoryContents: React.FC = () => {
   useJumpToCommit();
   useTestFilters();
   const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
-    constants.queryParamsToDisplay
+    constants.queryParamsToDisplay,
   );
   const { data, loading, refetch } = useQuery<
     MainlineCommitsForHistoryQuery,
@@ -74,13 +74,13 @@ const VariantHistoryContents: React.FC = () => {
           variantName,
           numCommits: mainlineCommits.versions.length,
         },
-        SentryBreadcrumb.UI
+        SentryBreadcrumb.UI,
       );
       ingestNewCommits(mainlineCommits);
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error loading the variant history: ${err.message}`
+        `There was an error loading the variant history: ${err.message}`,
       );
     },
   });
@@ -94,7 +94,7 @@ const VariantHistoryContents: React.FC = () => {
           variantName,
           skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
         },
-        SentryBreadcrumb.UI
+        SentryBreadcrumb.UI,
       );
       refetch({
         mainlineCommitsOptions: {

@@ -57,12 +57,12 @@ export const PatchesPage: React.FC<Props> = ({
   const [isCommitQueueCheckboxChecked, setIsCommitQueueCheckboxChecked] =
     useQueryParam(
       PatchPageQueryParams.CommitQueue,
-      Cookies.get(cookie) === "true"
+      Cookies.get(cookie) === "true",
     );
   const [includeHiddenCheckboxChecked, setIsIncludeHiddenCheckboxChecked] =
     useQueryParam(
       PatchPageQueryParams.Hidden,
-      Cookies.get(INCLUDE_HIDDEN_PATCHES) === "true"
+      Cookies.get(INCLUDE_HIDDEN_PATCHES) === "true",
     );
   const { limit, page } = usePatchesQueryParams();
   const { inputValue, setAndSubmitInputValue } = useFilterInputChangeHandler({
@@ -74,7 +74,7 @@ export const PatchesPage: React.FC<Props> = ({
   usePageTitle(pageTitle);
 
   const commitQueueCheckboxOnChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ): void => {
     setIsCommitQueueCheckboxChecked(e.target.checked);
     Cookies.set(cookie, e.target.checked ? "true" : "false");
@@ -82,7 +82,7 @@ export const PatchesPage: React.FC<Props> = ({
   };
 
   const includeHiddenCheckboxOnChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ): void => {
     setIsIncludeHiddenCheckboxChecked(e.target.checked);
     Cookies.set(INCLUDE_HIDDEN_PATCHES, e.target.checked ? "true" : "false");

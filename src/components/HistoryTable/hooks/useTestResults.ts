@@ -28,7 +28,7 @@ const useTestResults = (rowIndex: number) => {
   const commit = getItem(rowIndex);
   if (commit && commit.type === rowType.COMMIT && commit.commit) {
     taskIds = commit.commit.buildVariants.flatMap((buildVariant) =>
-      buildVariant.tasks.map((task) => task.id)
+      buildVariant.tasks.map((task) => task.id),
     );
   }
   const hasDataToQuery = taskIds.length > 0;
@@ -72,7 +72,7 @@ const useTestResults = (rowIndex: number) => {
         failingTests: [],
       };
     },
-    [hasTestFilters, loading, taskTestMap]
+    [hasTestFilters, loading, taskTestMap],
   );
 
   return { getTaskMetadata };

@@ -135,7 +135,7 @@ const authLink = (logout: () => void): ApolloLink =>
       leaveBreadcrumb(
         "Not Authenticated",
         { status_code: 401 },
-        SentryBreadcrumb.User
+        SentryBreadcrumb.User,
       );
       logout();
     }
@@ -156,7 +156,7 @@ const logErrorsLink = onError(({ graphQLErrors, operation }) => {
 });
 
 const authenticateIfSuccessfulLink = (
-  dispatchAuthenticated: () => void
+  dispatchAuthenticated: () => void,
 ): ApolloLink =>
   new ApolloLink((operation, forward) =>
     forward(operation).map((response) => {
@@ -172,10 +172,10 @@ const authenticateIfSuccessfulLink = (
           status: !response.errors ? "OK" : "ERROR",
           errors: response.errors,
         },
-        SentryBreadcrumb.HTTP
+        SentryBreadcrumb.HTTP,
       );
       return response;
-    })
+    }),
   );
 
 const retryLink = new RetryLink({

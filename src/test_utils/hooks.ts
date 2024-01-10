@@ -23,16 +23,16 @@ const usePrevious = <T>(value: T, initialValue: T) => {
 const useEffectDebugger = (
   effectHook: EffectCallback,
   dependencies: DependencyList,
-  dependencyNames: string[] = []
+  dependencyNames: string[] = [],
 ) => {
   if (process.env.NODE_ENV !== "development") {
     console.warn(
-      "[use-effect-debugger] This hook should only be used in development!"
+      "[use-effect-debugger] This hook should only be used in development!",
     );
   }
   if (dependencies.length !== dependencyNames.length) {
     console.warn(
-      "[use-effect-debugger] The number of dependencies and dependency names should be the same!"
+      "[use-effect-debugger] The number of dependencies and dependency names should be the same!",
     );
   }
   const previousDeps = usePrevious(dependencies, []);
@@ -52,7 +52,7 @@ const useEffectDebugger = (
 
       return accum;
     },
-    {} as Record<string, { before: any; after: any }>
+    {} as Record<string, { before: any; after: any }>,
   );
 
   if (Object.keys(changedDeps).length) {

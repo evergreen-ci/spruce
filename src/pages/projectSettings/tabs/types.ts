@@ -46,12 +46,12 @@ export type GqlToFormFunction<T extends WritableProjectSettingsType> = (
   data:
     | ProjectSettingsQuery["projectSettings"]
     | RepoSettingsQuery["repoSettings"],
-  options?: { projectType?: ProjectType }
+  options?: { projectType?: ProjectType },
 ) => FormStateMap[T];
 
 export type FormToGqlFunction<T extends WritableProjectSettingsType> = (
   form: FormStateMap[T],
-  id?: string
+  id?: string,
 ) => ProjectSettingsInput;
 
 const { EventLog, ...WritableProjectSettingsTabs } = ProjectSettingsTabRoutes;

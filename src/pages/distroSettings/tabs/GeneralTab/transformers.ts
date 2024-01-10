@@ -27,7 +27,7 @@ export const gqlToForm = ((data) => {
 
 export const formToGql = ((
   { distroAliases, distroName, distroOptions },
-  distro
+  distro,
 ) => ({
   ...distro,
   name: distroName.identifier,

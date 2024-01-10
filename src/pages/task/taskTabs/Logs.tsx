@@ -51,7 +51,7 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
   const [currentLog, setCurrentLog] = useState<LogTypes>(
     Object.values(LogTypes).includes(logTypeParam)
       ? logTypeParam
-      : DEFAULT_LOG_TYPE
+      : DEFAULT_LOG_TYPE,
   );
   const [noLogs, setNoLogs] = useState(false);
 
@@ -69,7 +69,7 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
     logLinks,
     currentLog,
     taskId,
-    execution
+    execution,
   );
   const LogComp = options[currentLog];
 
@@ -204,7 +204,7 @@ const getLinks = (
   logLinks: TaskLogLinks,
   logType: LogTypes,
   taskId: string,
-  execution: number
+  execution: number,
 ): GetLinksResult => {
   if (!logLinks) {
     return {};

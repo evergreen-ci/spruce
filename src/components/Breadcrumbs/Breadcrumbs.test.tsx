@@ -28,7 +28,7 @@ describe("breadcrumbs", () => {
     expect(screen.queryByText(longMessage)).not.toBeInTheDocument();
 
     expect(
-      screen.getByText(trimStringFromMiddle(longMessage, 30))
+      screen.getByText(trimStringFromMiddle(longMessage, 30)),
     ).toBeInTheDocument();
     await user.hover(screen.getByText(trimStringFromMiddle(longMessage, 30)));
     await waitFor(() => {

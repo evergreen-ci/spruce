@@ -10,7 +10,7 @@ import { DISTRO_EVENTS } from "gql/queries";
 
 export const useDistroEvents = (
   distroId: string,
-  limit: number = EVENT_LIMIT
+  limit: number = EVENT_LIMIT,
 ) => {
   const dispatchToast = useToastContext();
 

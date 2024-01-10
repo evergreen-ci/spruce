@@ -32,7 +32,7 @@ describe("welcomeModal", () => {
           ]}
           param="spruceV1"
         />
-      </MockedProvider>
+      </MockedProvider>,
     );
 
     expect(screen.queryByDataCy("carousel-image")).toBeVisible();
@@ -53,7 +53,7 @@ describe("welcomeModal", () => {
           ]}
           param="spruceV1"
         />
-      </MockedProvider>
+      </MockedProvider>,
     );
     expect(screen.queryByDataCy("carousel-video")).toBeVisible();
   });
@@ -78,7 +78,7 @@ describe("welcomeModal", () => {
           ]}
           param="spruceV1"
         />
-      </MockedProvider>
+      </MockedProvider>,
     );
     expect(screen.getByText("Slide 1")).toBeVisible();
     expect(screen.queryByDataCy("carousel-dot-1")).toBeVisible();

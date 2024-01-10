@@ -54,7 +54,7 @@ describe("distro select", () => {
 
     await user.click(screen.getByDataCy("distro-select"));
     expect(
-      screen.getByDataCy("distro-select-search-input")
+      screen.getByDataCy("distro-select-search-input"),
     ).toBeInTheDocument();
     expect(screen.getByDataCy("distro-select-options")).toBeInTheDocument();
 

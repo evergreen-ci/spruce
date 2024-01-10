@@ -10,7 +10,7 @@ type RecursivelyAddError<T> = T extends object
 /** typescript utility to coerce @rjsf/core validate prop signature to more accurately represent the shape of the actual validate function signature  */
 export type ValidateProps<T> = (
   FormState: T,
-  errors: RecursivelyAddError<T>
+  errors: RecursivelyAddError<T>,
 ) => RecursivelyAddError<T>;
 
 type CustomFormatFields = {

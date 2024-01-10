@@ -25,7 +25,7 @@ describe("commitChartLabel", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
     expect(screen.queryByDataCy("commit-label")).toHaveTextContent(
       "4137c33 Jun 16, 2021, 11:38 PM Mohamed Khelif -SERVER-57332 Create skeleton Internal" +
-        "Git Tags: v1.2.3, v1.2.3-rc0"
+        "Git Tags: v1.2.3, v1.2.3-rc0",
     );
   });
 
@@ -33,7 +33,7 @@ describe("commitChartLabel", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
     expect(screen.queryByDataCy("githash-link")).toHaveAttribute(
       "href",
-      "/version/123/tasks"
+      "/version/123/tasks",
     );
   });
 
@@ -42,7 +42,7 @@ describe("commitChartLabel", () => {
     await waitFor(() => {
       expect(screen.queryByDataCy("jira-link")).toHaveAttribute(
         "href",
-        "https://jira.mongodb.org/browse/SERVER-57332"
+        "https://jira.mongodb.org/browse/SERVER-57332",
       );
     });
   });
@@ -52,14 +52,14 @@ describe("commitChartLabel", () => {
     expect(screen.getByText("more")).toBeInTheDocument();
     expect(screen.queryByDataCy("commit-label")).toHaveTextContent(
       "4137c33 Jun 16, 2021, 11:38 PM Mohamed Khelif -SERVER-57332 Create skeleton Internal...more" +
-        "Git Tags: v1.2.3, v1.2.3-rc0"
+        "Git Tags: v1.2.3, v1.2.3-rc0",
     );
   });
 
   it("displays entire commit message if it does not break length limit", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
     expect(screen.queryByDataCy("commit-label")).toHaveTextContent(
-      "SERVER-57332 Create skeleton Internal"
+      "SERVER-57332 Create skeleton Internal",
     );
   });
 
@@ -71,13 +71,13 @@ describe("commitChartLabel", () => {
     await user.click(screen.queryByText("more"));
     await waitFor(() => {
       expect(
-        screen.getByDataCy("long-commit-message-tooltip")
+        screen.getByDataCy("long-commit-message-tooltip"),
       ).toBeInTheDocument();
     });
     expect(
-      screen.queryByDataCy("long-commit-message-tooltip")
+      screen.queryByDataCy("long-commit-message-tooltip"),
     ).toHaveTextContent(
-      "SERVER-57332 Create skeleton InternalDocumentSourceDensify"
+      "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
     );
   });
 

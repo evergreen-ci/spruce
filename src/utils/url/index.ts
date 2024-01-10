@@ -49,7 +49,7 @@ export const removeQueryParam = (param: string | string[], value: string) => {
 export const getDefaultPageSize = () => {
   const pageSizeFromLocalStorage: number = parseInt(
     localStorage.getItem(RECENT_PAGE_SIZE_KEY),
-    10
+    10,
   );
 
   return PAGE_SIZES.includes(pageSizeFromLocalStorage)

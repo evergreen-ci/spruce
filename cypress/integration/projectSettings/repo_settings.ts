@@ -53,7 +53,7 @@ describe("Repo Settings", () => {
           .click();
         cy.dataCy("error-banner")
           .contains(
-            "A Commit Check Definition must be specified for this feature to run."
+            "A Commit Check Definition must be specified for this feature to run.",
           )
           .as("errorBanner");
         cy.get("@errorBanner").should("be.visible");
@@ -71,7 +71,7 @@ describe("Repo Settings", () => {
       });
       it("Saving a patch defintion should hide the error banner, success toast and displays disable patch definitions for the repo", () => {
         cy.contains(
-          "A GitHub Patch Definition must be specified for this feature to run."
+          "A GitHub Patch Definition must be specified for this feature to run.",
         ).as("errorBanner");
         cy.get("@errorBanner").should("be.visible");
         cy.contains("button", "Add Patch Definition").click();
@@ -93,7 +93,7 @@ describe("Repo Settings", () => {
         cy.dataCy("task-tags-input").should("have.value", "ttag");
         cy.dataCy("task-tags-input").should("be.disabled");
         cy.contains(
-          "A GitHub Patch Definition must be specified for this feature to run."
+          "A GitHub Patch Definition must be specified for this feature to run.",
         ).should("not.exist");
       });
     });
@@ -116,7 +116,7 @@ describe("Repo Settings", () => {
         cy.contains("Commit Queue Patch Definitions").scrollIntoView();
         cy.dataCy("error-banner")
           .contains(
-            "A Commit Queue Patch Definition must be specified for this feature to run."
+            "A Commit Queue Patch Definition must be specified for this feature to run.",
           )
           .should("be.visible");
       });
@@ -165,7 +165,7 @@ describe("Repo Settings", () => {
         cy.dataCy("cq-message-input").should(
           "have.attr",
           "placeholder",
-          "Repo message wohoo! (Default from repo)"
+          "Repo message wohoo! (Default from repo)",
         );
       });
     });
@@ -218,7 +218,7 @@ describe("Repo Settings", () => {
       cy.dataCy("variant-regex-input").type(".*");
       cy.dataCy("task-regex-input").type(".*");
       cy.getInputByLabel("Add to GitHub Trigger Alias").as(
-        "triggerAliasCheckbox"
+        "triggerAliasCheckbox",
       );
       cy.get("@triggerAliasCheckbox").should("not.be.checked");
       cy.get("@triggerAliasCheckbox").check({ force: true });
@@ -231,14 +231,14 @@ describe("Repo Settings", () => {
       cy.getInputByLabel("Wait on").should(
         "have.attr",
         "aria-invalid",
-        "false"
+        "false",
       );
       saveButtonEnabled(true);
       cy.selectLGOption("Wait on", "Select event…");
       cy.getInputByLabel("Wait on").should(
         "have.attr",
         "aria-invalid",
-        "false"
+        "false",
       );
       saveButtonEnabled(false);
       // Verify information on Github/Commit Queue page

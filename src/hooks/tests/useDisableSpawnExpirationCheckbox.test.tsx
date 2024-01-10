@@ -24,7 +24,7 @@ describe("useDisableSpawnExpirationCheckbox", () => {
       () => useDisableSpawnExpirationCheckbox(true),
       {
         wrapper: getProvider(mocks),
-      }
+      },
     );
     expect(result.current).toBeTruthy();
   });
@@ -36,7 +36,7 @@ describe("useDisableSpawnExpirationCheckbox", () => {
           ...volume,
           noExpiration: true,
         }),
-      { wrapper: getProvider(mocks) }
+      { wrapper: getProvider(mocks) },
     );
     expect(result.current).toBeFalsy();
   });
@@ -50,7 +50,7 @@ describe("useDisableSpawnExpirationCheckbox", () => {
         }),
       {
         wrapper: getProvider(mocks),
-      }
+      },
     );
     expect(result.current).toBeTruthy();
   });
@@ -58,7 +58,7 @@ describe("useDisableSpawnExpirationCheckbox", () => {
   it("should return true when the user has the maximum number of hosts and a target item is not supplied.", async () => {
     const { result } = renderHook(
       () => useDisableSpawnExpirationCheckbox(false),
-      { wrapper: getProvider(mocks) }
+      { wrapper: getProvider(mocks) },
     );
     expect(result.current).toBeTruthy();
   });
@@ -72,7 +72,7 @@ describe("useDisableSpawnExpirationCheckbox", () => {
         }),
       {
         wrapper: getProvider(mocks),
-      }
+      },
     );
     expect(result.current).toBeFalsy();
   });
@@ -86,7 +86,7 @@ describe("useDisableSpawnExpirationCheckbox", () => {
         }),
       {
         wrapper: getProvider(mocks),
-      }
+      },
     );
     expect(result.current).toBeTruthy();
   });

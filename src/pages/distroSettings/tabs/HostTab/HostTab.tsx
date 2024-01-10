@@ -15,13 +15,13 @@ export const HostTab: React.FC<TabProps> = ({ distroData, provider }) => {
   const { getTab } = useDistroSettingsContext();
   // @ts-expect-error - see TabState for details.
   const { formData }: { formData: HostFormState } = getTab(
-    DistroSettingsTabRoutes.Host
+    DistroSettingsTabRoutes.Host,
   );
   const architecture = formData?.setup?.arch;
 
   const formSchema = useMemo(
     () => getFormSchema({ architecture, provider, sshKeys }),
-    [architecture, provider, sshKeys]
+    [architecture, provider, sshKeys],
   );
 
   return (
@@ -46,7 +46,7 @@ const validate = ((formData, errors) => {
       communicationMethod === CommunicationMethod.LegacySsh)
   ) {
     errors.setup.communicationMethod.addError(
-      "Legacy and non-legacy bootstrapping and communication are incompatible."
+      "Legacy and non-legacy bootstrapping and communication are incompatible.",
     );
   }
 

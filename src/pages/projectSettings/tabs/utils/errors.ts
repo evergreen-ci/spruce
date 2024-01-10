@@ -6,12 +6,13 @@
  */
 export const findDuplicateIndices = <T = { [key: string]: any }>(
   array: T[],
-  key: keyof T
+  key: keyof T,
 ) => {
   const duplicateIndices = array
     .map((item) => item[key])
     .map(
-      (val, index, arr) => val !== "" && arr.lastIndexOf(val) !== index && index
+      (val, index, arr) =>
+        val !== "" && arr.lastIndexOf(val) !== index && index,
     )
     .filter((index) => array[index]);
   return duplicateIndices;

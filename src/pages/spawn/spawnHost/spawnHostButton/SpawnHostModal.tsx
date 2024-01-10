@@ -62,7 +62,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error while spawning your host: ${err.message}`
+        `There was an error while spawning your host: ${err.message}`,
       );
     },
     refetchQueries: ["MyHosts", "MyVolumes", "MyPublicKeys"],

@@ -40,7 +40,7 @@ const getRouter = ({ shouldBlock, unsavedTabs }: NavigationModalProps) =>
     ],
     {
       initialEntries: ["/"],
-    }
+    },
   );
 
 describe("navigation warning", () => {
@@ -54,7 +54,7 @@ describe("navigation warning", () => {
     await user.click(screen.getByRole("link"));
     expect(router.state.location.pathname).toBe("/about");
     expect(
-      screen.queryByDataCy("navigation-warning-modal")
+      screen.queryByDataCy("navigation-warning-modal"),
     ).not.toBeInTheDocument();
     expect(screen.queryByRole("heading")).toHaveTextContent("About Page");
   });

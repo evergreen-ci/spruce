@@ -26,12 +26,12 @@ export const SpawnVolume = () => {
     pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (e) => {
       dispatchToast.error(
-        `There was an error loading your spawn volume: ${e.message}`
+        `There was an error loading your spawn volume: ${e.message}`,
       );
     },
   });
   const migrationInProcess = !!volumesData?.myVolumes.find(
-    ({ migrating }) => migrating
+    ({ migrating }) => migrating,
   );
   usePolling({
     startPolling,

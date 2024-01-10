@@ -18,7 +18,7 @@ interface Props {
 export const Header: React.FC<Props> = ({ distro, tab }) => {
   const { title } = getTabTitle(tab);
   const saveable = Object.values(WritableDistroSettingsTabs).includes(
-    tab as WritableDistroSettingsType
+    tab as WritableDistroSettingsType,
   );
 
   return (

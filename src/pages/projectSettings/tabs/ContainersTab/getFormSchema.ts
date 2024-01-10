@@ -6,7 +6,7 @@ import {
 import { SpruceConfig } from "gql/generated/types";
 
 export const getFormSchema = (
-  ecsConfig: SpruceConfig["providers"]["aws"]["pod"]["ecs"]
+  ecsConfig: SpruceConfig["providers"]["aws"]["pod"]["ecs"],
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {

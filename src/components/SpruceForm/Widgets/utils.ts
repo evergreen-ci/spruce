@@ -15,7 +15,7 @@ export const isNullish = (val: any) => val === null || val === undefined;
  * - boolean indicating if the processed error messages array is non-empty
  */
 export const processErrors = (
-  rawErrors: string[]
+  rawErrors: string[],
 ): { errors: string[]; hasError: boolean } => {
   const errors = deduplicateErrors(filterInvisibleErrors(rawErrors));
   const hasError = !!errors.length;

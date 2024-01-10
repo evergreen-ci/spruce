@@ -9,7 +9,7 @@ describe("should initialize error handlers according to release stage", () => {
     jest.spyOn(Sentry, "init").mockImplementation(jest.fn());
     jest
       .spyOn(Sentry, "Replay")
-      .mockImplementation(() => ({} as Sentry.Replay));
+      .mockImplementation(() => ({}) as Sentry.Replay);
   });
 
   afterEach(() => {

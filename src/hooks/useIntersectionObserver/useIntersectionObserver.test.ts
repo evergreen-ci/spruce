@@ -23,8 +23,8 @@ describe("useIntersectionObserver", () => {
         {
           current: document.createElement("div"),
         },
-        mockCallback
-      )
+        mockCallback,
+      ),
     );
     expect(mockCallback).toHaveBeenCalledWith([{ isIntersecting: false }]);
   });
@@ -49,8 +49,8 @@ describe("useIntersectionObserver", () => {
         {
           current: document.createElement("div"),
         },
-        mockCallback
-      )
+        mockCallback,
+      ),
     );
     expect(mockCallback).toHaveBeenCalledWith([{ isIntersecting: true }]);
   });

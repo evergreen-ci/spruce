@@ -25,7 +25,7 @@ const VariantHistoryRow: React.FC<Props> = ({ data, index }) => {
         ? generateColumns(data, visibleColumns, getTaskMetadata, sendEvent)
         : [],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [visibleColumns, getTaskMetadata]
+    [visibleColumns, getTaskMetadata],
   );
   const eventHandlers = useMemo(
     () => ({
@@ -77,7 +77,7 @@ const VariantHistoryRow: React.FC<Props> = ({ data, index }) => {
       },
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [],
   );
 
   return (
@@ -96,7 +96,7 @@ const generateColumns = (
   data: types.CommitRow,
   visibleColumns: string[],
   getTaskMetadata: ReturnType<typeof useTestResults>["getTaskMetadata"],
-  sendEvent: ReturnType<typeof useProjectHealthAnalytics>["sendEvent"]
+  sendEvent: ReturnType<typeof useProjectHealthAnalytics>["sendEvent"],
 ) => {
   const { buildVariants } = data.commit;
   return visibleColumns.map((c) => {

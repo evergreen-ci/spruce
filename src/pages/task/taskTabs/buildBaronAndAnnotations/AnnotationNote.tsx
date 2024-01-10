@@ -45,7 +45,7 @@ const AnnotationNote: React.FC<Props> = ({
     },
     onError(error) {
       dispatchToast.error(
-        `There was an error updating this note: ${error.message}`
+        `There was an error updating this note: ${error.message}`,
       );
     },
     refetchQueries: ["AnnotationEventData"],

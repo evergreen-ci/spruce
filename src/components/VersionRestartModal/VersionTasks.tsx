@@ -10,7 +10,7 @@ interface VersionTasksProps {
   setBaseStatusFilterTerm: (statuses: string[]) => void;
   setVersionStatusFilterTerm: (statuses: string[]) => void;
   toggleSelectedTask: (
-    taskIds: { [patchId: string]: string } | { [patchId: string]: string[] }
+    taskIds: { [patchId: string]: string } | { [patchId: string]: string[] },
   ) => void;
   version: BuildVariantsWithChildrenQuery["version"];
   versionStatusFilterTerm: string[];

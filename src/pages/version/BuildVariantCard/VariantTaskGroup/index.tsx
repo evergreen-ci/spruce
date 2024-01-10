@@ -30,12 +30,12 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
 
   const [variantSearch] = useQueryParam<string | null>(
     PatchTasksQueryParams.Variant,
-    undefined
+    undefined,
   );
   const [sorts] = useQueryParam(PatchTasksQueryParams.Sorts, undefined);
   const [statusSearch] = useQueryParam<string[] | null>(
     PatchTasksQueryParams.Statuses,
-    []
+    [],
   );
   const hasStatusFilter = statusSearch.length > 0;
   const hasVariantFilter = variantSearch !== undefined;
@@ -72,7 +72,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
           ({ count, statusCounts: groupedStatusCounts, umbrellaStatus }) => {
             const hasStatusFilterForUmbrellaStatus = isUmbrellaStatusSet(
               umbrellaStatus,
-              statusSearch
+              statusSearch,
             );
             // A badge is active if the variant is selected and the status is selected
             // or if the variant is selected and there are no status filters
@@ -105,12 +105,12 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
                         variant: applyStrictRegex(variant),
                         statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
                       }
-                    : { ...versionRouteParams }
+                    : { ...versionRouteParams },
                 )}
                 isActive={isBadgeActive}
               />
             );
-          }
+          },
         )}
       </TaskBadgeContainer>
     </div>
@@ -119,11 +119,11 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
 
 const isUmbrellaStatusSet = (
   status: TaskStatus,
-  activeStatusSearch: string[]
+  activeStatusSearch: string[],
 ) =>
   arraySymmetricDifference(
     mapUmbrellaStatusToQueryParam[status],
-    activeStatusSearch
+    activeStatusSearch,
   ).length === 0;
 
 const TaskBadgeContainer = styled.div`

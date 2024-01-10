@@ -21,7 +21,7 @@ describe("loading events", () => {
     const { Component } = RenderFakeToastContext(
       <Wrapper mocks={[mock()]}>
         <EventLogTab projectType={ProjectType.AttachedProject} />
-      </Wrapper>
+      </Wrapper>,
     );
     render(<Component />, {
       route: "/project/spruce/settings",
@@ -39,7 +39,7 @@ describe("loading events", () => {
     const { Component } = RenderFakeToastContext(
       <Wrapper mocks={[mock(limit)]}>
         <EventLogTab projectType={ProjectType.AttachedProject} limit={limit} />
-      </Wrapper>
+      </Wrapper>,
     );
     render(<Component />, {
       route: "/project/spruce/settings",
@@ -50,13 +50,13 @@ describe("loading events", () => {
     });
     expect(screen.getByDataCy("load-more-button")).toBeInTheDocument();
     expect(
-      screen.queryByText("No more events to show.")
+      screen.queryByText("No more events to show."),
     ).not.toBeInTheDocument();
   });
 });
 
 const mock = (
-  limit: number = 15
+  limit: number = 15,
 ): ApolloMock<ProjectEventLogsQuery, ProjectEventLogsQueryVariables> => ({
   request: {
     query: PROJECT_EVENT_LOGS,

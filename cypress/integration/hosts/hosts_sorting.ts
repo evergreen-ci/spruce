@@ -159,7 +159,7 @@ describe("Hosts page sorting", () => {
     cy.get(distroSortControl).click();
     cy.location("search").should(
       "equal",
-      "?distroId=arfarf&page=0&sortBy=DISTRO&sortDir=ASC"
+      "?distroId=arfarf&page=0&sortBy=DISTRO&sortDir=ASC",
     );
   });
   it("Clicking a sort direction 3 times will set the page query param to 0, clear the direction & sortBy query param, and preserve the rest", () => {
@@ -167,12 +167,12 @@ describe("Hosts page sorting", () => {
     cy.get(distroSortControl).click();
     cy.location("search").should(
       "equal",
-      "?distroId=arfarf&page=0&sortBy=DISTRO&sortDir=ASC"
+      "?distroId=arfarf&page=0&sortBy=DISTRO&sortDir=ASC",
     );
     cy.get(distroSortControl).click();
     cy.location("search").should(
       "equal",
-      "?distroId=arfarf&page=0&sortBy=DISTRO&sortDir=DESC"
+      "?distroId=arfarf&page=0&sortBy=DISTRO&sortDir=DESC",
     );
     cy.get(distroSortControl).click();
     cy.location("search").should("equal", "?distroId=arfarf&page=0");
@@ -197,7 +197,7 @@ describe("Hosts page sorting", () => {
     it(`Sorts by ${sorterName} when sortBy = ${sortBy}`, () => {
       cy.visit(`${hostsRoute}?sortBy=${sortBy}&limit=10`);
       cy.dataCy("leafygreen-table-row").each(($el, index) =>
-        cy.wrap($el).contains(expectedIds[index])
+        cy.wrap($el).contains(expectedIds[index]),
       );
     });
   });
@@ -205,10 +205,10 @@ describe("Hosts page sorting", () => {
   sortDirectionTests.forEach(({ expectedIds, order, sortDir }) => {
     it(`Sorts in ${order} order when sortDir = ${sortDir}`, () => {
       cy.visit(
-        `${hostsRoute}?page=0&sortBy=CURRENT_TASK&sortDir=${sortDir}&limit=10`
+        `${hostsRoute}?page=0&sortBy=CURRENT_TASK&sortDir=${sortDir}&limit=10`,
       );
       cy.dataCy("leafygreen-table-row").each(($el, index) =>
-        cy.wrap($el).contains(expectedIds[index])
+        cy.wrap($el).contains(expectedIds[index]),
       );
     });
   });
@@ -230,8 +230,8 @@ describe("Hosts page sorting", () => {
             "macos-1014-68.macstadium.build.10gen.c",
             "macos-1014-68.macstadium.build.10gen.cc",
             "ubuntu1804-ppc-3.pic.build.10gen",
-          ][index]
-        )
+          ][index],
+        ),
     );
   });
 });
