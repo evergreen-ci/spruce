@@ -48,7 +48,6 @@ declare module "@tanstack/table-core" {
 }
 
 type SpruceTableProps = {
-  className?: string;
   "data-cy-row"?: string;
   "data-cy-table"?: string;
   emptyComponent?: React.ReactNode;
@@ -60,7 +59,6 @@ type SpruceTableProps = {
 export const BaseTable = forwardRef(
   (
     {
-      className,
       "data-cy-row": dataCyRow,
       "data-cy-table": dataCyTable,
       emptyComponent,
@@ -77,13 +75,7 @@ export const BaseTable = forwardRef(
 
     return (
       <>
-        <StyledTable
-          data-cy={dataCyTable}
-          table={table}
-          className={className}
-          ref={ref}
-          {...args}
-        >
+        <StyledTable data-cy={dataCyTable} table={table} ref={ref} {...args}>
           <TableHead>
             {table.getHeaderGroups().map((headerGroup) => (
               <HeaderRow key={headerGroup.id}>
