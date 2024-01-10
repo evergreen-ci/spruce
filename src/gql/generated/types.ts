@@ -364,6 +364,7 @@ export type DisplayTask = {
 /** Distro models an environment configuration for a host. */
 export type Distro = {
   __typename?: "Distro";
+  adminOnly: Scalars["Boolean"]["output"];
   aliases: Array<Scalars["String"]["output"]>;
   arch: Arch;
   authorizedKeysFile: Scalars["String"]["output"];
@@ -429,6 +430,8 @@ export type DistroInfo = {
 };
 
 export type DistroInput = {
+  /** TODO: require adminOnly field upon completion of DEVPROD-3533 */
+  adminOnly?: InputMaybe<Scalars["Boolean"]["input"]>;
   aliases: Array<Scalars["String"]["input"]>;
   arch: Arch;
   authorizedKeysFile: Scalars["String"]["input"];
@@ -2786,11 +2789,13 @@ export type TestFilterOptions = {
 export type TestLog = {
   __typename?: "TestLog";
   lineNum?: Maybe<Scalars["Int"]["output"]>;
+  renderingType?: Maybe<Scalars["String"]["output"]>;
   url?: Maybe<Scalars["String"]["output"]>;
   /** @deprecated Use urlParsley instead */
   urlLobster?: Maybe<Scalars["String"]["output"]>;
   urlParsley?: Maybe<Scalars["String"]["output"]>;
   urlRaw?: Maybe<Scalars["String"]["output"]>;
+  version?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type TestResult = {
