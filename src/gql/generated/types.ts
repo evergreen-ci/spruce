@@ -364,6 +364,7 @@ export type DisplayTask = {
 /** Distro models an environment configuration for a host. */
 export type Distro = {
   __typename?: "Distro";
+  adminOnly: Scalars["Boolean"]["output"];
   aliases: Array<Scalars["String"]["output"]>;
   arch: Arch;
   authorizedKeysFile: Scalars["String"]["output"];
@@ -429,6 +430,8 @@ export type DistroInfo = {
 };
 
 export type DistroInput = {
+  /** TODO: require adminOnly field upon completion of DEVPROD-3533 */
+  adminOnly?: InputMaybe<Scalars["Boolean"]["input"]>;
   aliases: Array<Scalars["String"]["input"]>;
   arch: Arch;
   authorizedKeysFile: Scalars["String"]["input"];
@@ -2418,6 +2421,14 @@ export type StatusCount = {
   status: Scalars["String"]["output"];
 };
 
+export type StepbackInfo = {
+  __typename?: "StepbackInfo";
+  lastFailingStepbackTaskId?: Maybe<Scalars["String"]["output"]>;
+  lastPassingStepbackTaskId?: Maybe<Scalars["String"]["output"]>;
+  nextStepbackTaskId?: Maybe<Scalars["String"]["output"]>;
+  previousStepbackTaskId?: Maybe<Scalars["String"]["output"]>;
+};
+
 export type Subscriber = {
   __typename?: "Subscriber";
   emailSubscriber?: Maybe<Scalars["String"]["output"]>;
@@ -2526,6 +2537,7 @@ export type Task = {
   spawnHostLink?: Maybe<Scalars["String"]["output"]>;
   startTime?: Maybe<Scalars["Time"]["output"]>;
   status: Scalars["String"]["output"];
+  stepbackInfo?: Maybe<StepbackInfo>;
   /** @deprecated Use files instead */
   taskFiles: TaskFiles;
   taskGroup?: Maybe<Scalars["String"]["output"]>;
@@ -2777,11 +2789,13 @@ export type TestFilterOptions = {
 export type TestLog = {
   __typename?: "TestLog";
   lineNum?: Maybe<Scalars["Int"]["output"]>;
+  renderingType?: Maybe<Scalars["String"]["output"]>;
   url?: Maybe<Scalars["String"]["output"]>;
   /** @deprecated Use urlParsley instead */
   urlLobster?: Maybe<Scalars["String"]["output"]>;
   urlParsley?: Maybe<Scalars["String"]["output"]>;
   urlRaw?: Maybe<Scalars["String"]["output"]>;
+  version?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type TestResult = {
@@ -3459,6 +3473,7 @@ export type ProjectGeneralSettingsFragment = {
   repo: string;
   repotrackerDisabled?: boolean | null;
   spawnHostScriptPath: string;
+  stepbackBisect?: boolean | null;
   stepbackDisabled?: boolean | null;
   versionControlEnabled?: boolean | null;
   taskSync: {
@@ -3481,6 +3496,7 @@ export type RepoGeneralSettingsFragment = {
   repo: string;
   repotrackerDisabled: boolean;
   spawnHostScriptPath: string;
+  stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
   versionControlEnabled: boolean;
   taskSync: {
@@ -3628,6 +3644,7 @@ export type ProjectSettingsFieldsFragment = {
     repo: string;
     repotrackerDisabled?: boolean | null;
     spawnHostScriptPath: string;
+    stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
     versionControlEnabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
@@ -3834,6 +3851,7 @@ export type RepoSettingsFieldsFragment = {
     repo: string;
     repotrackerDisabled: boolean;
     spawnHostScriptPath: string;
+    stepbackBisect?: boolean | null;
     stepbackDisabled: boolean;
     versionControlEnabled: boolean;
     notifyOnBuildFailure: boolean;
@@ -4235,6 +4253,7 @@ export type ProjectEventSettingsFragment = {
     repo: string;
     repotrackerDisabled?: boolean | null;
     spawnHostScriptPath: string;
+    stepbackBisect?: boolean | null;
     stepbackDisabled?: boolean | null;
     notifyOnBuildFailure?: boolean | null;
     githubTriggerAliases?: Array<string> | null;
@@ -6698,6 +6717,7 @@ export type ProjectEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           spawnHostScriptPath: string;
+          stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
@@ -6910,6 +6930,7 @@ export type ProjectEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           spawnHostScriptPath: string;
+          stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
@@ -7197,6 +7218,7 @@ export type ProjectSettingsQuery = {
       repo: string;
       repotrackerDisabled?: boolean | null;
       spawnHostScriptPath: string;
+      stepbackBisect?: boolean | null;
       stepbackDisabled?: boolean | null;
       versionControlEnabled?: boolean | null;
       notifyOnBuildFailure?: boolean | null;
@@ -7455,6 +7477,7 @@ export type RepoEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           spawnHostScriptPath: string;
+          stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
@@ -7667,6 +7690,7 @@ export type RepoEventLogsQuery = {
           repo: string;
           repotrackerDisabled?: boolean | null;
           spawnHostScriptPath: string;
+          stepbackBisect?: boolean | null;
           stepbackDisabled?: boolean | null;
           notifyOnBuildFailure?: boolean | null;
           githubTriggerAliases?: Array<string> | null;
@@ -7883,6 +7907,7 @@ export type RepoSettingsQuery = {
       repo: string;
       repotrackerDisabled: boolean;
       spawnHostScriptPath: string;
+      stepbackBisect?: boolean | null;
       stepbackDisabled: boolean;
       versionControlEnabled: boolean;
       notifyOnBuildFailure: boolean;
@@ -8551,6 +8576,13 @@ export type TaskQuery = {
     };
     pod?: { __typename?: "Pod"; id: string } | null;
     project?: { __typename?: "Project"; id: string; identifier: string } | null;
+    stepbackInfo?: {
+      __typename?: "StepbackInfo";
+      lastFailingStepbackTaskId?: string | null;
+      lastPassingStepbackTaskId?: string | null;
+      nextStepbackTaskId?: string | null;
+      previousStepbackTaskId?: string | null;
+    } | null;
     versionMetadata: {
       __typename?: "Version";
       author: string;
