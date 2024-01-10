@@ -1,18 +1,16 @@
 /* eslint-disable jest/require-hook */
-// Replace your-framework with one of the supported Storybook frameworks (react, vue3)
-import { describe, test, expect } from "@jest/globals";
-import type { Meta, StoryFn } from "@storybook/react";
 // Replace your-testing-library with one of the supported testing libraries (e.g., react, vue)
 import { composeStories } from "@storybook/react";
-
 // Adjust the import based on the supported framework or Storybook's testing libraries (e.g., react, testing-vue3)
 import * as glob from "glob";
+import "jest-specific-snapshot";
 import path from "path";
 import { renderWithRouterMatch as render } from "test_utils";
+import { CustomMeta, CustomStoryObj } from "test_utils/types";
 
 type StoryFile = {
-  default: Meta;
-  [name: string]: StoryFn | Meta;
+  default: CustomMeta<unknown>;
+  [name: string]: CustomStoryObj<unknown> | CustomMeta<unknown>;
 };
 
 const compose = (
@@ -34,8 +32,8 @@ const getAllStoryFiles = () => {
   const storyFiles = glob.sync(path.join(__dirname, "**/*.stories.tsx"));
 
   return storyFiles.map((filePath) => {
-    const storyFile = require(filePath);
-    console.log({ storyFile });
+    // eslint-disable-next-line import/no-dynamic-require, global-require
+    const storyFile: StoryFile = require(filePath);
     return { filePath, storyFile };
   });
 };
@@ -49,55 +47,53 @@ const options = {
   snapshotExtension: ".storyshot",
 };
 
-describe("storybook Tests", () => {
-  // eslint-disable-next-line jest/valid-title
-  describe(options.suite, () => {
-    getAllStoryFiles().forEach(({ componentName, storyDir, storyFile }) => {
-      console.log("storyFile", storyFile);
-      const meta = storyFile.default;
-      const title = meta.title || componentName;
+describe(`Snapshot Tests: ${options.suite}`, () => {
+  getAllStoryFiles().forEach((params) => {
+    const { filePath, storyFile } = params;
+    const meta = storyFile.default;
+    const { title } = meta;
+    if (
+      options.storyKindRegex.test(title) ||
+      meta.parameters?.storyshots?.disable
+    ) {
+      // Skip component tests if they are disabled
+      return;
+    }
 
-      if (
-        options.storyKindRegex.test(title) ||
-        meta.parameters?.storyshots?.disable
-      ) {
-        // Skip component tests if they are disabled
-        return;
+    describe(`${title}`, () => {
+      const stories = Object.entries(compose(storyFile))
+        .map(([name, story]) => ({ name, story }))
+        .filter(
+          ({ name, story }) =>
+            // Implements a filtering mechanism to avoid running stories that are disabled via parameters or that match a specific regex mirroring the default behavior of Storyshots.
+            !options.storyNameRegex.test(name) &&
+            !story.parameters.storyshots?.disable
+        );
+
+      if (stories.length <= 0) {
+        throw new Error(
+          `No stories found for this module: ${title}. Make sure there is at least one valid story for this module, without a disable parameter, or add parameters.storyshots.disable in the default export of this file.`
+        );
       }
 
-      describe(`${title}`, () => {
-        const stories = Object.entries(compose(storyFile))
-          .map(([name, story]) => ({ name, story }))
-          .filter(
-            ({ name, story }) =>
-              // Implements a filtering mechanism to avoid running stories that are disabled via parameters or that match a specific regex mirroring the default behavior of Storyshots.
-              !options.storyNameRegex.test(name) &&
-              !story.parameters.storyshots?.disable
-          );
-
-        if (stories.length <= 0) {
-          throw new Error(
-            `No stories found for this module: ${title}. Make sure there is at least one valid story for this module, without a disable parameter, or add parameters.storyshots.disable in the default export of this file.`
-          );
-        }
-
-        stories.forEach(({ name, story }) => {
-          // Instead of not running the test, you can create logic to skip it, flagging it accordingly in the test results.
-          const testFn = story.parameters.storyshots?.skip ? test.skip : test;
-
-          it(`${name}`, async () => {
-            const { container } = render(story());
-            // Ensures a consistent snapshot by waiting for the component to render by adding a delay of 1 ms before taking the snapshot.
-            await new Promise((resolve) => {
-              setTimeout(resolve, 1);
-            });
-            const snapshotPath = path.join(
-              storyDir,
-              options.snapshotsDirName,
-              `${componentName}${options.snapshotExtension}`
-            );
-            expect(container).toMatchSpecificSnapshot(snapshotPath);
+      stories.forEach(({ name, story }) => {
+        it(`${name}`, async () => {
+          const { container } = render(story(), {
+            path: story.parameters?.reactRouter?.path,
+            route: story.parameters?.reactRouter?.route,
           });
+          // Ensures a consistent snapshot by waiting for the component to render by adding a delay of 1 ms before taking the snapshot.
+          await new Promise((resolve) => {
+            setTimeout(resolve, 1);
+          });
+          const storyDirectory = path.dirname(filePath);
+          const snapshotPath = path.join(
+            storyDirectory,
+            options.snapshotsDirName,
+            `${name}${options.snapshotExtension}`
+          );
+          console.log(snapshotPath);
+          expect(container).toMatchSpecificSnapshot(snapshotPath);
         });
       });
     });
