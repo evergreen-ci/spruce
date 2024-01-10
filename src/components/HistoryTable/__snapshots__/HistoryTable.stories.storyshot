@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/HistoryTable Task History Table 1`] = `
+exports[`Snapshot Tests HistoryTable.stories TaskHistoryTable 1`] = `
 <div>
   <div>
     Failed to render component.
@@ -8,7 +8,7 @@ exports[`storybook Storyshots components/HistoryTable Task History Table 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots components/HistoryTable Variant History Table 1`] = `
+exports[`Snapshot Tests HistoryTable.stories VariantHistoryTable 1`] = `
 <div>
   <div>
     Failed to render component.

@@ -1,0 +1,272 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot Tests AnnotationTicketsList.stories Default 1`] = `
+<div>
+  <div
+    data-cy="issues-list"
+  >
+    <div
+      class="css-2j47yq-Container emxicn40"
+    >
+      <div
+        class="css-1bcnev1-Container e1ch0kli3"
+        data-cy="annotation-ticket-row"
+      >
+        <a
+          class="lg-ui-0001 e1ch0kli2 css-1ced1jn-StyledLink-JiraSummaryLink leafygreen-ui-1gfngq5"
+          data-cy="DEVPROD-123"
+          href="https://example.com"
+          target="_blank"
+        >
+          <span
+            class="leafygreen-ui-1ewnca3"
+          >
+            DEVPROD-123
+            : summary
+          </span>
+        </a>
+        <div
+          class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-ohl2hc"
+          data-cy="DEVPROD-123-badge"
+        >
+          status
+        </div>
+        <div
+          class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-1qtf7xy"
+          data-cy="DEVPROD-123-confidence-badge"
+        >
+          50
+          % Confident in suggestion
+        </div>
+        <div
+          class="css-vrtzhq-BottomMetaDataWrapper e1ch0kli0"
+          data-cy="DEVPROD-123-metadata"
+        >
+          <small
+            class="leafygreen-ui-6flbwy"
+          >
+            Created: 
+            Jan 2, 2020
+          </small>
+          <small
+            class="leafygreen-ui-6flbwy"
+          >
+            Updated: 
+            Jan 2, 2020
+          </small>
+          <small
+            class="leafygreen-ui-6flbwy"
+          >
+            Assignee: mohamed.khelif
+          </small>
+          <small
+            class="leafygreen-ui-6flbwy"
+          >
+            Assigned Team: 
+            evg-ui
+          </small>
+        </div>
+      </div>
+      <div
+        class="css-1t2qz3u-ButtonContainer emxicn41"
+      >
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-2jj1me leafygreen-ui-cssveg"
+          data-cy="move-btn-DEVPROD-123"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-v95oty"
+          >
+            <svg
+              alt=""
+              aria-hidden="true"
+              class="leafygreen-ui-18si895"
+              fill="none"
+              height="16"
+              role="presentation"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.168 3v6.944l1.535-1.535a1 1 0 0 1 1.414 0l.239.24a1 1 0 0 1 0 1.414l-3.383 3.382c-.008.01-.017.018-.026.027l-.239.24a1 1 0 0 1-1.414 0L3.643 10.06a1 1 0 0 1 0-1.414l.239-.239a1 1 0 0 1 1.414 0L6.83 9.941V3a1 1 0 0 1 1-1h.338a1 1 0 0 1 1 1Z"
+                fill="currentColor"
+              />
+            </svg>
+            Move to 
+            suspected issues
+          </div>
+        </button>
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-2jj1me leafygreen-ui-cssveg"
+          data-cy="DEVPROD-123-delete-btn"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-v95oty"
+          >
+            <svg
+              alt=""
+              aria-hidden="true"
+              class="leafygreen-ui-18si895"
+              fill="none"
+              height="16"
+              role="presentation"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M5 2a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1v1H2V3a1 1 0 0 1 1-1h2Zm9 3H2l1.678 8.392A2 2 0 0 0 5.64 15h4.72a2 2 0 0 0 1.962-1.608L14 5Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+    <div
+      class="css-2j47yq-Container emxicn40"
+    >
+      <div
+        class="css-1bcnev1-Container e1ch0kli3"
+        data-cy="annotation-ticket-row"
+      >
+        <a
+          class="lg-ui-0001 e1ch0kli2 css-1ced1jn-StyledLink-JiraSummaryLink leafygreen-ui-1gfngq5"
+          data-cy="DEVPROD-456"
+          href="https://example.com"
+          target="_blank"
+        >
+          <span
+            class="leafygreen-ui-1ewnca3"
+          >
+            DEVPROD-456
+            : other summary
+          </span>
+        </a>
+        <div
+          class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-ohl2hc"
+          data-cy="DEVPROD-456-badge"
+        >
+          failed
+        </div>
+        <div
+          class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-1qtf7xy"
+          data-cy="DEVPROD-456-confidence-badge"
+        >
+          99
+          % Confident in suggestion
+        </div>
+        <div
+          class="css-vrtzhq-BottomMetaDataWrapper e1ch0kli0"
+          data-cy="DEVPROD-456-metadata"
+        >
+          <small
+            class="leafygreen-ui-6flbwy"
+          >
+            Created: 
+            Jan 2, 2020
+          </small>
+          <small
+            class="leafygreen-ui-6flbwy"
+          >
+            Updated: 
+            Jan 2, 2020
+          </small>
+          <small
+            class="leafygreen-ui-6flbwy"
+          >
+            Assignee: sophie.stadler
+          </small>
+          <small
+            class="leafygreen-ui-6flbwy"
+          >
+            Assigned Team: 
+            evg-ui
+          </small>
+        </div>
+      </div>
+      <div
+        class="css-1t2qz3u-ButtonContainer emxicn41"
+      >
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-2jj1me leafygreen-ui-cssveg"
+          data-cy="move-btn-DEVPROD-456"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-v95oty"
+          >
+            <svg
+              alt=""
+              aria-hidden="true"
+              class="leafygreen-ui-18si895"
+              fill="none"
+              height="16"
+              role="presentation"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.168 3v6.944l1.535-1.535a1 1 0 0 1 1.414 0l.239.24a1 1 0 0 1 0 1.414l-3.383 3.382c-.008.01-.017.018-.026.027l-.239.24a1 1 0 0 1-1.414 0L3.643 10.06a1 1 0 0 1 0-1.414l.239-.239a1 1 0 0 1 1.414 0L6.83 9.941V3a1 1 0 0 1 1-1h.338a1 1 0 0 1 1 1Z"
+                fill="currentColor"
+              />
+            </svg>
+            Move to 
+            suspected issues
+          </div>
+        </button>
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-2jj1me leafygreen-ui-cssveg"
+          data-cy="DEVPROD-456-delete-btn"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-v95oty"
+          >
+            <svg
+              alt=""
+              aria-hidden="true"
+              class="leafygreen-ui-18si895"
+              fill="none"
+              height="16"
+              role="presentation"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M5 2a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1v1H2V3a1 1 0 0 1 1-1h2Zm9 3H2l1.678 8.392A2 2 0 0 0 5.64 15h4.72a2 2 0 0 0 1.962-1.608L14 5Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

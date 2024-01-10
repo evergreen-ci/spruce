@@ -1,38 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Pages/Task/BuildBaron/AnnotationTicketRow Default 1`] = `
+exports[`Snapshot Tests AnnotationTicketRow.stories Default 1`] = `
 <div>
   <div
+    class="css-1bcnev1-Container e1ch0kli3"
     data-cy="annotation-ticket-row"
   >
     <a
-      class="lg-ui-0003 ekm0eth2 css-8qzidg-StyledLink-JiraSummaryLink leafygreen-ui-1320234"
+      class="lg-ui-0001 e1ch0kli2 css-1ced1jn-StyledLink-JiraSummaryLink leafygreen-ui-1gfngq5"
       data-cy="EVG-123"
       href="https://www.google.com"
       target="_blank"
     >
       <span
-        class="leafygreen-ui-baoi4d"
+        class="leafygreen-ui-1ewnca3"
       >
         EVG-123
         : summary
       </span>
     </a>
     <div
-      class="css-39fn8m-StyledBadge ekm0eth1 leafygreen-ui-ohl2hc"
+      class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-ohl2hc"
       data-cy="EVG-123-badge"
     >
       status
     </div>
     <div
-      class="css-39fn8m-StyledBadge ekm0eth1 leafygreen-ui-1qtf7xy"
+      class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-1qtf7xy"
       data-cy="EVG-123-confidence-badge"
     >
       50
       % Confident in suggestion
     </div>
     <div
-      class="css-vrtzhq-BottomMetaDataWrapper ekm0eth0"
+      class="css-vrtzhq-BottomMetaDataWrapper e1ch0kli0"
       data-cy="EVG-123-metadata"
     >
       <small

@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Pages/Spawn/Spawn Host Card Default 1`] = `
+exports[`Snapshot Tests Pages/Spawn/Spawn Host Card Default 1`] = `
 <div>
   <div
-    class="css-9bhcvs-SiderCard-CardContainer e9wutqn0 leafygreen-ui-1v4ednr"
+    class="css-161hi4o-CardContainer e9wutqn0 leafygreen-ui-1ecxdul"
     data-cy="spawn-host-card"
   >
     <div
@@ -17,6 +17,18 @@ exports[`storybook Storyshots Pages/Spawn/Spawn Host Card Default 1`] = `
       <div>
         <span>
           i-04ade558e1e26b0ad
+           (
+          <a
+            class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+            href="/host/i-04ade558e1e26b0ad"
+          >
+            <span
+              class="leafygreen-ui-1ewnca3"
+            >
+              Event Log
+            </span>
+          </a>
+          )
         </span>
       </div>
     </div>
@@ -163,11 +175,11 @@ exports[`storybook Storyshots Pages/Spawn/Spawn Host Card Default 1`] = `
       <div>
         <span>
           <a
-            class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+            class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
             href="/spawn/volume?volume=vol-0ea662ac92f611ed4"
           >
             <span
-              class="leafygreen-ui-baoi4d"
+              class="leafygreen-ui-1ewnca3"
             >
               vol-0ea662ac92f611ed4
             </span>
@@ -186,12 +198,12 @@ exports[`storybook Storyshots Pages/Spawn/Spawn Host Card Default 1`] = `
       <div>
         <span>
           <a
-            class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+            class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
             href="/host/i-04ade558e1e26b0ad/ide"
             target="_self"
           >
             <span
-              class="leafygreen-ui-baoi4d"
+              class="leafygreen-ui-1ewnca3"
             >
               Open IDE
             </span>

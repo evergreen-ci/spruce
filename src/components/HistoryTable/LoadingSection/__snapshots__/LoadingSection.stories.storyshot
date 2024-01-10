@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/HistoryTable/LoadingSection Loading Section Story 1`] = `
+exports[`Snapshot Tests components/HistoryTable/LoadingSection LoadingSectionStory 1`] = `
 <div>
   <div
     class="css-4c6myl-Container eubivai0"

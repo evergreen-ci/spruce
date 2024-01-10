@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/PageSizeSelector Default 1`] = `
+exports[`Snapshot Tests PageSizeSelector.stories Default 1`] = `
 <div>
   <div
-    class="leafygreen-ui-1nkq8lt css-5krlfz-StyledSelect ekttol50"
+    class="leafygreen-ui-1iyoj2o css-5krlfz-StyledSelect ekttol50"
   >
     <button
-      aria-controls="select-151-menu"
-      aria-describedby="select-151-description"
+      aria-controls="select-1-menu"
+      aria-describedby="select-1-description"
       aria-disabled="false"
       aria-expanded="false"
       aria-invalid="false"
       aria-labelledby="page-size-select"
-      class="lg-ui-button-0001 leafygreen-ui-18vk81h"
+      class="lg-ui-button-0000 leafygreen-ui-3wvwqe"
       data-testid="leafygreen-ui-select-menubutton"
-      id="select-152"
+      id="select-2"
       type="button"
       value="10"
     >
@@ -22,13 +22,13 @@ exports[`storybook Storyshots components/PageSizeSelector Default 1`] = `
         class="leafygreen-ui-v038xi"
       />
       <div
-        class="leafygreen-ui-1qmzz4y"
+        class="leafygreen-ui-16tr4y"
       >
         <div
           class="leafygreen-ui-obh8q1"
         >
           <div
-            class="leafygreen-ui-17aj16e"
+            class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
           >
             10 / page
           </div>
@@ -36,7 +36,7 @@ exports[`storybook Storyshots components/PageSizeSelector Default 1`] = `
         <svg
           alt=""
           aria-hidden="true"
-          class="leafygreen-ui-4dp7tf"
+          class="leafygreen-ui-fn50nl"
           height="16"
           role="presentation"
           viewBox="0 0 16 16"

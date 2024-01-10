@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots pages/commits/InactiveCommits Default 1`] = `
+exports[`Snapshot Tests InactiveCommits.stories Default 1`] = `
 <div>
   <div
     class="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx7"

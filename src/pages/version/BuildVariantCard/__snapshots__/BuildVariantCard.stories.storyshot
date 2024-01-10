@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Pages/Version/BuildVariantCard Default 1`] = `
+exports[`Snapshot Tests Pages/Version/BuildVariantCard Default 1`] = `
 <div>
   <div
-    class="e1dt8lrl1 css-tmy1bv-SiderCard-StickyMetadataCard e1am38ss0 leafygreen-ui-1v4ednr"
+    class="e1dt8lrl1 css-tmy1bv-SiderCard-StickyMetadataCard e1am38ss0 leafygreen-ui-1ecxdul"
   >
     <div>
       <p
@@ -12,7 +12,7 @@ exports[`storybook Storyshots Pages/Version/BuildVariantCard Default 1`] = `
         Build Variants
       </p>
       <hr
-        class="css-qqg5h5-Divider eyj3qof0"
+        class="css-qqg5h5-Divider eb6szep0"
       />
     </div>
     <div
@@ -23,12 +23,12 @@ exports[`storybook Storyshots Pages/Version/BuildVariantCard Default 1`] = `
         data-cy="patch-build-variant"
       >
         <a
-          class="lg-ui-0003 css-ivsoof-StyledLink-wordBreakCss leafygreen-ui-1320234"
+          class="lg-ui-0001 css-fvumu-StyledLink-wordBreakCss leafygreen-ui-1gfngq5"
           data-cy="build-variant-display-name"
           href="/version/version/tasks?page=0&variant=%5Elint%24"
         >
           <span
-            class="leafygreen-ui-baoi4d"
+            class="leafygreen-ui-1ewnca3"
           >
             Lint
           </span>
@@ -92,12 +92,12 @@ exports[`storybook Storyshots Pages/Version/BuildVariantCard Default 1`] = `
         data-cy="patch-build-variant"
       >
         <a
-          class="lg-ui-0003 css-ivsoof-StyledLink-wordBreakCss leafygreen-ui-1320234"
+          class="lg-ui-0001 css-fvumu-StyledLink-wordBreakCss leafygreen-ui-1gfngq5"
           data-cy="build-variant-display-name"
           href="/version/version/tasks?page=0&variant=%5Eubuntu1604%24"
         >
           <span
-            class="leafygreen-ui-baoi4d"
+            class="leafygreen-ui-1ewnca3"
           >
             Ubuntu 16.04
           </span>
@@ -186,12 +186,12 @@ exports[`storybook Storyshots Pages/Version/BuildVariantCard Default 1`] = `
         data-cy="patch-build-variant"
       >
         <a
-          class="lg-ui-0003 css-ivsoof-StyledLink-wordBreakCss leafygreen-ui-1320234"
+          class="lg-ui-0001 css-fvumu-StyledLink-wordBreakCss leafygreen-ui-1gfngq5"
           data-cy="build-variant-display-name"
           href="/version/version/tasks?page=0&variant=%5Evariant%24"
         >
           <span
-            class="leafygreen-ui-baoi4d"
+            class="leafygreen-ui-1ewnca3"
           >
             Ubuntu 16.04
           </span>

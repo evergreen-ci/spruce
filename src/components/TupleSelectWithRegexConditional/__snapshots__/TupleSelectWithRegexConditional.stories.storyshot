@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/TupleSelect With Conditional 1`] = `
+exports[`Snapshot Tests Components/TupleSelect WithConditional 1`] = `
 <div>
   <div
     class="css-1ry038z-Container e5gn9hl4"
@@ -17,8 +17,8 @@ exports[`storybook Storyshots Components/TupleSelect With Conditional 1`] = `
           class="leafygreen-ui-ozfao7 css-1qa4isu-PaddedSegmentedControl egmqwjk0"
         >
           <div
-            aria-label="segmented-control-183"
-            aria-owns="segmented-control-183-0 segmented-control-183-1"
+            aria-label="segmented-control-1"
+            aria-owns="segmented-control-1-0 segmented-control-1-1"
             class="leafygreen-ui-18en4yf"
             role="tablist"
           >
@@ -35,7 +35,7 @@ exports[`storybook Storyshots Components/TupleSelect With Conditional 1`] = `
                   aria-controls="tuple-select-with-regex"
                   aria-selected="true"
                   class="leafygreen-ui-ypz97o"
-                  id="segmented-control-183-0"
+                  id="segmented-control-1-0"
                   role="tab"
                   tabindex="0"
                   type="button"
@@ -65,7 +65,7 @@ exports[`storybook Storyshots Components/TupleSelect With Conditional 1`] = `
                   aria-controls="tuple-select-with-regex"
                   aria-selected="false"
                   class="leafygreen-ui-ypz97o"
-                  id="segmented-control-183-1"
+                  id="segmented-control-1-1"
                   role="tab"
                   tabindex="-1"
                   type="button"
@@ -96,19 +96,19 @@ exports[`storybook Storyshots Components/TupleSelect With Conditional 1`] = `
       class="css-iyur2e-InputGroup e5gn9hl3"
     >
       <div
-        class="leafygreen-ui-1nkq8lt css-1scwv0u-GroupedSelect e5gn9hl1"
+        class="leafygreen-ui-1iyoj2o css-1scwv0u-GroupedSelect e5gn9hl1"
       >
         <button
-          aria-controls="select-184-menu"
-          aria-describedby="select-184-description"
+          aria-controls="select-9-menu"
+          aria-describedby="select-9-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
           aria-labelledby="Tuple Select"
-          class="lg-ui-button-0001 leafygreen-ui-3qrx9g"
+          class="lg-ui-button-0000 leafygreen-ui-c8np5"
           data-cy="tuple-select-dropdown"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-185"
+          id="select-10"
           type="button"
           value="build_variant"
         >
@@ -116,13 +116,13 @@ exports[`storybook Storyshots Components/TupleSelect With Conditional 1`] = `
             class="leafygreen-ui-v038xi"
           />
           <div
-            class="leafygreen-ui-1qmzz4y"
+            class="leafygreen-ui-16tr4y"
           >
             <div
               class="leafygreen-ui-obh8q1"
             >
               <div
-                class="leafygreen-ui-17aj16e"
+                class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
               >
                 Build Variant
               </div>
@@ -130,7 +130,7 @@ exports[`storybook Storyshots Components/TupleSelect With Conditional 1`] = `
             <svg
               alt=""
               aria-hidden="true"
-              class="leafygreen-ui-4dp7tf"
+              class="leafygreen-ui-fn50nl"
               height="16"
               role="presentation"
               viewBox="0 0 16 16"
@@ -145,10 +145,10 @@ exports[`storybook Storyshots Components/TupleSelect With Conditional 1`] = `
         </button>
       </div>
       <div
-        class="css-mk4qpy-TextInputWrapper e13gwrw81"
+        class="e5gn9hl0 css-47706i-TextInputWrapper-GroupedTextInput e13gwrw81"
       >
         <div
-          class="css-1f1bh8e-GroupedTextInput e5gn9hl0 leafygreen-ui-xtefr5"
+          class="leafygreen-ui-xtefr5"
         >
           <div
             class="leafygreen-ui-lzja97"
@@ -185,7 +185,6 @@ exports[`storybook Storyshots Components/TupleSelect With Conditional 1`] = `
               <svg
                 aria-label="Plus Icon"
                 class=""
-                data-cy="tuple-select-button"
                 fill="none"
                 height="16"
                 role="img"
@@ -195,7 +194,7 @@ exports[`storybook Storyshots Components/TupleSelect With Conditional 1`] = `
               >
                 <path
                   clip-rule="evenodd"
-                  d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
+                  d="M7.5 2a1 1 0 0 0-1 1v3.5H3a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h3.5V13a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9.5H13a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9.5V3a1 1 0 0 0-1-1h-1Z"
                   fill="currentColor"
                   fill-rule="evenodd"
                 />
