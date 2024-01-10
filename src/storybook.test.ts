@@ -1,7 +1,5 @@
 /* eslint-disable jest/require-hook */
-// Replace your-testing-library with one of the supported testing libraries (e.g., react, vue)
 import { composeStories } from "@storybook/react";
-// Adjust the import based on the supported framework or Storybook's testing libraries (e.g., react, testing-vue3)
 import * as glob from "glob";
 import "jest-specific-snapshot";
 import MatchMediaMock from "jest-matchmedia-mock";
@@ -17,6 +15,11 @@ type StoryFile = {
   [name: string]: CustomStoryObj<unknown> | CustomMeta<unknown>;
 };
 
+/**
+ * `compose` takes a story file and returns a composed story file with the annotations from the storybook preview file.
+ * @param entry - The story file to compose
+ * @returns - A composed story file
+ */
 const compose = (
   entry: StoryFile
 ): ReturnType<typeof composeStories<StoryFile>> => {
@@ -32,9 +35,7 @@ const compose = (
 };
 
 const getAllStoryFiles = () => {
-  // Place the glob you want to match your stories files
   const storyFiles = glob.sync(path.join(__dirname, "**/*.stories.tsx"));
-
   return storyFiles.map((filePath) => {
     // eslint-disable-next-line import/no-dynamic-require, global-require
     const storyFile: StoryFile = require(filePath);
@@ -42,7 +43,6 @@ const getAllStoryFiles = () => {
   });
 };
 
-// Recreate similar options to Storyshots. Place your configuration below
 const options = {
   suite: "Snapshot Tests",
   storyKindRegex: /^.*?DontTest$/,
