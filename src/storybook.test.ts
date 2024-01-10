@@ -4,9 +4,13 @@ import { composeStories } from "@storybook/react";
 // Adjust the import based on the supported framework or Storybook's testing libraries (e.g., react, testing-vue3)
 import * as glob from "glob";
 import "jest-specific-snapshot";
+import MatchMediaMock from "jest-matchmedia-mock";
 import path from "path";
-import { renderWithRouterMatch as render } from "test_utils";
+import { render } from "test_utils";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
+import * as projectAnnotations from "../.storybook/preview";
+
+let matchMedia;
 
 type StoryFile = {
   default: CustomMeta<unknown>;
@@ -17,7 +21,7 @@ const compose = (
   entry: StoryFile
 ): ReturnType<typeof composeStories<StoryFile>> => {
   try {
-    return composeStories(entry);
+    return composeStories(entry, projectAnnotations);
   } catch (e) {
     throw new Error(
       `There was an issue composing stories for the module: ${JSON.stringify(
@@ -47,11 +51,41 @@ const options = {
   snapshotExtension: ".storyshot",
 };
 
-describe(`Snapshot Tests: ${options.suite}`, () => {
+describe(`${options.suite}`, () => {
+  beforeAll(() => {
+    matchMedia = new MatchMediaMock();
+  });
+  beforeEach(() => {
+    const mockIntersectionObserver = jest.fn((callback) => {
+      callback([
+        {
+          isIntersecting: true,
+        },
+      ]);
+      return {
+        observe: jest.fn(),
+        unobserve: jest.fn(),
+        disconnect: jest.fn(),
+      };
+    });
+
+    // @ts-expect-error
+    window.IntersectionObserver = mockIntersectionObserver;
+  });
+
+  afterAll(() => {
+    matchMedia.clear();
+    jest.restoreAllMocks();
+  });
   getAllStoryFiles().forEach((params) => {
     const { filePath, storyFile } = params;
     const meta = storyFile.default;
     const { title } = meta;
+    const storyBookFileBaseName = path
+      .basename(filePath)
+      .replace(/\.[^/.]+$/, "");
+    // storyName is either the title of the story or the name of the file without the extension
+    const storyName = title || storyBookFileBaseName;
     if (
       options.storyKindRegex.test(title) ||
       meta.parameters?.storyshots?.disable
@@ -60,7 +94,7 @@ describe(`Snapshot Tests: ${options.suite}`, () => {
       return;
     }
 
-    describe(`${title}`, () => {
+    describe(`${storyName}`, () => {
       const stories = Object.entries(compose(storyFile))
         .map(([name, story]) => ({ name, story }))
         .filter(
@@ -78,10 +112,7 @@ describe(`Snapshot Tests: ${options.suite}`, () => {
 
       stories.forEach(({ name, story }) => {
         it(`${name}`, async () => {
-          const { container } = render(story(), {
-            path: story.parameters?.reactRouter?.path,
-            route: story.parameters?.reactRouter?.route,
-          });
+          const { container } = render(story());
           // Ensures a consistent snapshot by waiting for the component to render by adding a delay of 1 ms before taking the snapshot.
           await new Promise((resolve) => {
             setTimeout(resolve, 1);
@@ -90,9 +121,8 @@ describe(`Snapshot Tests: ${options.suite}`, () => {
           const snapshotPath = path.join(
             storyDirectory,
             options.snapshotsDirName,
-            `${name}${options.snapshotExtension}`
+            `${storyBookFileBaseName}${options.snapshotExtension}`
           );
-          console.log(snapshotPath);
           expect(container).toMatchSpecificSnapshot(snapshotPath);
         });
       });
