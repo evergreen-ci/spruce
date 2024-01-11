@@ -18,3 +18,6 @@ const config: StorybookConfig = {
   },
 };
 
+// storybook/addon-storyshots does not support es6 module exports so we must use commonjs
+// https://github.com/storybookjs/storybook/issues/20814
+module.exports = config;
