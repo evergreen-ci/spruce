@@ -1,7 +1,5 @@
 import { GetFormSchema } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
-import { StyledLink } from "components/styles";
-import { projectTriggersDocumentationUrl } from "constants/externalResources";
 import { TaskStatus } from "types/task";
 import { ProjectTriggerLevel } from "types/triggers";
 import { form, ProjectType } from "../utils";
@@ -127,7 +125,8 @@ export const getFormSchema = (
         "ui:displayTitle": "New Project Trigger",
         "ui:label": false,
         project: {
-          "ui:description": "The upstream project.",
+          "ui:description":
+            "The upstream project identifier to listen to for commits",
           "ui:data-cy": "project-input",
         },
         configFile: {
@@ -142,7 +141,7 @@ export const getFormSchema = (
         },
         status: {
           "ui:description":
-            "Only applicable to build and task level triggers. Specify which status of the upstream build or task should trigger a downstream version.",
+            "Specify which status of the upstream build or task should trigger a downstream version. (Only applicable to build and task level triggers.)",
           "ui:allowDeselect": false,
         },
         dateCutoff: {
@@ -186,10 +185,13 @@ export const getFormSchema = (
 
 const LevelDescription = (
   <>
-    Accepted values are task, build, and push. Task and build levels will
-    trigger based on the completion of either a task or a build in the upstream
-    project. View the{" "}
-    <StyledLink href={projectTriggersDocumentationUrl}>docs</StyledLink> for
-    more info.
+    Task and build levels will trigger based on the completion of either a task
+    or a build in the upstream project. Push level triggers do not require any
+    upstream build or task to run, but instead trigger a downstream version once
+    a commit is pushed to the upstream project. This is helpful if the upstream
+    project doesn&apos;t regularly run or create commit tasks. For push level
+    triggers, if the upstream project is a module of the downstream
+    project&apos;s YAML, the manifest of the downstream version will use the
+    commit hash of the upstream project&apos;s commit. project.
   </>
 );
