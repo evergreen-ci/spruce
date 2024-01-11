@@ -7,12 +7,12 @@ Spruce is the React UI for MongoDB's continuous integration software.
 ### Running Locally
 
 1. Clone the Spruce GitHub repository
-2. Ensure you have Node.js v16+ and MongoDB Command Line Database Tools
+2. Ensure you have Node.js v20+ and MongoDB Command Line Database Tools
    v100.8.0+ installed
 3. Run `yarn install`
 4. Start a local Evergreen server by doing the following:
     - Clone the [Evergreen repo](https://github.com/evergreen-ci/evergreen)
-    - Run `make local-evergreen`
+    - From the Evergreen directory, run `make local-evergreen`
 5. Run `yarn run dev`. This will launch the app and point it at the local
    Evergreen server you just started.
 
@@ -62,7 +62,11 @@ well and you can refer to those before creating your own.
 
 ### Setting up code generation
 
-- Create a symlink from the `schema` folder from Evergreen to Spruce using `ln -s <path_to_evergreen_repo>/graphql/schema sdlschema`
+- Create a symlink from the `schema` folder from Evergreen to Spruce using
+
+```bash
+ln -s <path_to_evergreen_repo>/graphql/schema sdlschema`
+```
 
 ### Using code generation
 
