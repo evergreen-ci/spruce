@@ -16,6 +16,8 @@ export const versionControlDocumentationUrl = `${projectDistroSettingsDocumentat
 
 export const patchAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#patch-aliases`;
 
+export const projectTriggersDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#project-triggers`;
+
 export const pullRequestAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#pr-aliases`;
 
 export const commitQueueAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#commit-queue-aliases`;

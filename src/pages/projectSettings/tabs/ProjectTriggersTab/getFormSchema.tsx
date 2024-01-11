@@ -1,5 +1,7 @@
 import { GetFormSchema } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
+import { StyledLink } from "components/styles";
+import { projectTriggersDocumentationUrl } from "constants/externalResources";
 import { TaskStatus } from "types/task";
 import { ProjectTriggerLevel } from "types/triggers";
 import { form, ProjectType } from "../utils";
@@ -125,16 +127,22 @@ export const getFormSchema = (
         "ui:displayTitle": "New Project Trigger",
         "ui:label": false,
         project: {
+          "ui:description": "The upstream project.",
           "ui:data-cy": "project-input",
         },
         configFile: {
+          "ui:description":
+            "The path to the downstream project's config file. This may be the same as the main project configuration file but does not have to be.",
           "ui:data-cy": "config-file-input",
           "ui:placeholder": ".evergreen.yml",
         },
         level: {
+          "ui:description": LevelDescription,
           "ui:allowDeselect": false,
         },
         status: {
+          "ui:description":
+            "Only applicable to build and task level triggers. Specify which status of the upstream build or task should trigger a downstream version.",
           "ui:allowDeselect": false,
         },
         dateCutoff: {
@@ -175,3 +183,13 @@ export const getFormSchema = (
     },
   },
 });
+
+const LevelDescription = (
+  <>
+    Accepted values are task, build, and push. Task and build levels will
+    trigger based on the completion of either a task or a build in the upstream
+    project. View the{" "}
+    <StyledLink href={projectTriggersDocumentationUrl}>docs</StyledLink> for
+    more info.
+  </>
+);
