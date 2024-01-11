@@ -4,7 +4,7 @@ import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import { SiderCard, wordBreakCss } from "components/styles";
-import { Divider } from "components/styles/Divider";
+import { Divider } from "components/styles/divider";
 
 interface Props {
   error: ApolloError;

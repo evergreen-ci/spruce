@@ -11,7 +11,7 @@ import { usePrevious } from "hooks";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { TaskTab } from "types/task";
 import { queryString } from "utils";
-import { BuildBaron } from "./taskTabs/BuildBaron";
+import { BuildBaron } from "./taskTabs/buildBaron";
 import { useBuildBaronVariables } from "./taskTabs/buildBaronAndAnnotations";
 import { ExecutionTasksTable } from "./taskTabs/ExecutionTasksTable";
 import FileTable from "./taskTabs/FileTable";

@@ -1,18 +1,16 @@
 import { defaultHostsFirstPage } from "./hosts_page_default";
 
 describe("Hosts Page", () => {
-  const tableRow = "tr.ant-table-row";
-
   it("URL query parameters determine pagination values", () => {
     cy.visit("/hosts?limit=10&page=1");
 
-    cy.get(tableRow).each(($el, index) =>
+    cy.dataCy("leafygreen-table-row").each(($el, index) =>
       cy.wrap($el).contains(hostsSecondPageWithLimitOfTen[index])
     );
 
     cy.visit("/hosts?limit=20&page=0");
 
-    cy.get(tableRow).each(($el, index) =>
+    cy.dataCy("leafygreen-table-row").each(($el, index) =>
       cy
         .wrap($el)
         .contains(

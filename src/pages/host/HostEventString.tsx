@@ -40,10 +40,15 @@ const TaskLink: React.FC<TaskLinkProps> = ({ "data-cy": dataCy, taskId }) => (
     {taskId}
   </ShortenedRouterLink>
 );
-export const getHostEventString = (
-  eventType: string,
-  data: HostEventLogData
-) => {
+
+interface HostEventStringProps {
+  eventType: string;
+  data: HostEventLogData;
+}
+export const HostEventString: React.FC<HostEventStringProps> = ({
+  data,
+  eventType,
+}) => {
   const succeededString = "succeeded";
   const failedString = "failed";
 
@@ -281,9 +286,8 @@ export const getHostEventString = (
           )}
         </span>
       );
-
     default:
-      return `${eventType}`;
+      return <span>{eventType}</span>;
   }
 };
 

@@ -290,6 +290,7 @@ const projectSettingsMock: ApolloMock<
           deactivatePrevious: true,
           repotrackerDisabled: false,
           stepbackDisabled: null,
+          stepbackBisect: null,
           patchingDisabled: false,
           taskSync: {
             configEnabled: false,

@@ -10,6 +10,7 @@ export enum RequiredQueryParams {
   Execution = "execution",
 }
 
+// TODO: Remove SortBy-Limit in favor of generic TableQueryParams
 export enum PatchTasksQueryParams {
   SortBy = "sortBy",
   SortDir = "sortDir",

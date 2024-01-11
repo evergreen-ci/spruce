@@ -1,7 +1,7 @@
 import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 
 type Action =
-  | { name: "Filter Hosts"; filterBy: string }
+  | { name: "Filter Hosts"; filterBy: string | string[] }
   | { name: "Sort Hosts" }
   | { name: "Change Page Size" }
   | { name: "Restart Jasper" }

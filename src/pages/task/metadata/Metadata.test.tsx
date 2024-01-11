@@ -26,7 +26,7 @@ describe("metadata", () => {
     expect(
       screen.queryByDataCy("task-metadata-estimated_start")
     ).toHaveTextContent("1s");
-    expect(screen.queryByDataCy("metadata-eta-timer")).toBeNull();
+    expect(screen.queryByDataCy("task-metadata-eta")).toBeNull();
     expect(screen.queryByDataCy("task-metadata-started")).toBeNull();
     expect(screen.queryByDataCy("task-metadata-finished")).toBeNull();
   });
@@ -45,7 +45,7 @@ describe("metadata", () => {
       }
     );
     expect(screen.queryByDataCy("task-metadata-estimated_start")).toBeNull();
-    expect(screen.getByDataCy("metadata-eta-timer")).toBeInTheDocument();
+    expect(screen.getByDataCy("task-metadata-eta")).toBeInTheDocument();
     expect(screen.getByDataCy("task-metadata-started")).toBeInTheDocument();
     expect(screen.queryByDataCy("task-metadata-finished")).toBeNull();
     expect(screen.queryByDataCy("task-trace-link")).toBeNull();
@@ -69,7 +69,7 @@ describe("metadata", () => {
     );
 
     expect(screen.queryByDataCy("task-metadata-estimated_start")).toBeNull();
-    expect(screen.queryByDataCy("metadata-eta-timer")).toBeNull();
+    expect(screen.queryByDataCy("task-metadata-eta")).toBeNull();
     expect(screen.getByDataCy("task-metadata-started")).toBeInTheDocument();
     expect(screen.getByDataCy("task-metadata-finished")).toBeInTheDocument();
     expect(screen.getByDataCy("task-trace-link")).toBeInTheDocument();
@@ -118,6 +118,7 @@ const taskSucceeded = {
       oomTracker: {
         detected: false,
       },
+      diskDevices: [],
     },
   },
 };

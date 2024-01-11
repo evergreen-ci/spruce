@@ -22,6 +22,7 @@ export interface HostFormState {
     isVirtualWorkStation: boolean;
     icecreamSchedulerHost: string;
     icecreamConfigPath: string;
+    mountpoints: string[];
   };
   bootstrapSettings: {
     jasperBinaryDir: string;

@@ -8,8 +8,8 @@ describe("Spawn volume page", () => {
   });
 
   it("The table initially displays volumes with status ascending.", () => {
-    cy.dataCy("vol-name").each(($el, index) =>
-      cy.wrap($el).contains(expectedVolNames[index])
+    cy.dataCy("leafygreen-table-row").each(($el, index) =>
+      cy.contains(expectedVolNames[index])
     );
   });
 
@@ -20,9 +20,16 @@ describe("Spawn volume page", () => {
   });
 
   it("Should render migrating volumes with a different badge and disable action buttons", () => {
-    cy.dataRowKey("vol-0ae8720b445b771b6").within(() => {
+    cy.contains(
+      '[data-cy="leafygreen-table-row"]',
+      "vol-0ae8720b445b771b6"
+    ).within(() => {
       cy.dataCy("volume-status-badge").contains("Migrating");
-      cy.get("button").should("have.attr", "aria-disabled", "true");
+      cy.get("button[aria-label!='Expand row']").should(
+        "have.attr",
+        "aria-disabled",
+        "true"
+      );
     });
   });
 
@@ -36,16 +43,23 @@ describe("Spawn volume page", () => {
   it("Clicking on the row should toggle the volume card open and closed", () => {
     cy.visit("/spawn/volume?volume=vol-0ea662ac92f611ed4");
     cy.dataCy("spawn-volume-card-vol-0ea662ac92f611ed4").should("be.visible");
-    cy.dataRowKey("vol-0ea662ac92f611ed4").click();
+    cy.contains('[data-cy="leafygreen-table-row"]', "vol-0ea662ac92f611ed4")
+      .find("button[aria-label='Collapse row']")
+      .click();
     cy.dataCy("spawn-volume-card-vol-0ea662ac92f611ed4").should(
       "not.be.visible"
     );
-    cy.dataRowKey("vol-0ea662ac92f611ed4").click();
+    cy.contains('[data-cy="leafygreen-table-row"]', "vol-0ea662ac92f611ed4")
+      .find("button[aria-label='Expand row']")
+      .click();
     cy.dataCy("spawn-volume-card-vol-0ea662ac92f611ed4").should("be.visible");
   });
 
-  it("Click the trash can should remove the volume from the table and update free/mounted volumes badges.", () => {
-    cy.dataRowKey("vol-0c66e16459646704d").should("exist");
+  it("Clicking the trash can should remove the volume from the table and update free/mounted volumes badges.", () => {
+    cy.contains(
+      '[data-cy="leafygreen-table-row"]',
+      "vol-0c66e16459646704d"
+    ).should("exist");
     cy.dataCy("trash-vol-0c66e16459646704d").click();
     cy.dataCy("delete-volume-popconfirm").should("be.visible");
     cy.dataCy("delete-volume-popconfirm").within(($el) => {
@@ -55,15 +69,15 @@ describe("Spawn volume page", () => {
         .should("not.have.attr", "aria-disabled", "true");
       cy.wrap($el).contains("Yes").click();
     });
-    cy.dataRowKey("vol-0c66e16459646704d").should("not.exist");
+    cy.contains(
+      '[data-cy="leafygreen-table-row"]',
+      "vol-0c66e16459646704d"
+    ).should("not.exist");
     cy.dataCy("mounted-badge").contains("9 Mounted");
     cy.dataCy("free-badge").contains("3 Free");
   });
 
-  it("Click the trash can for a mounted volume should show an additional confirmation checkbox which enables the submit button when checked.", () => {
-    cy.dataRowKey(
-      "1de2728dd9de82efc02dc21f6ca046eaa559462414d28e0b6bba6436436ac873"
-    ).should("exist");
+  it("Clicking the trash can for a mounted volume should show an additional confirmation checkbox which enables the submit button when checked.", () => {
     cy.dataCy(
       "trash-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     ).click();
@@ -86,9 +100,6 @@ describe("Spawn volume page", () => {
         .should("not.have.attr", "aria-disabled", "true")
         .click();
     });
-    cy.dataRowKey(
-      "1de2728dd9de82efc02dc21f6ca046eaa559462414d28e0b6bba6436436ac873"
-    ).should("not.exist");
     cy.dataCy("mounted-badge").contains("8 Mounted");
     cy.dataCy("free-badge").contains("4 Free");
   });
@@ -230,7 +241,7 @@ describe("Spawn volume page", () => {
       cy.visit("/spawn/volume");
     });
     it("migrate button is disabled for volumes with the migrating status", () => {
-      cy.get("[data-row-key=vol-0ae8720b445b771b6]")
+      cy.contains('[data-cy="leafygreen-table-row"]', "vol-0ae8720b445b771b6")
         .find("[data-cy=volume-status-badge]")
         .contains("Migrating");
       cy.dataCy("migrate-btn-vol-0ae8720b445b771b6").should(
@@ -259,7 +270,7 @@ describe("Spawn volume page", () => {
       ).click();
       cy.dataCy("distro-input").click();
       cy.dataCy("distro-option-ubuntu1804-workstation").click();
-      cy.dataCy("region-select").should("be.disabled");
+      cy.dataCy("region-select").should("have.attr", "aria-disabled", "true");
       cy.dataCy("migrate-modal").contains("Next").click({ force: true });
       cy.dataCy("migrate-modal")
         .contains("Migrate Volume")

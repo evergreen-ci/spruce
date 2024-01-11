@@ -4,7 +4,7 @@ import {
   AuthProvider,
   useAuthDispatchContext,
   useAuthStateContext,
-} from "./auth";
+} from "./Auth";
 
 const { cleanup, mockEnv } = mockEnvironmentVariables();
 

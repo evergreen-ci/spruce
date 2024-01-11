@@ -4,7 +4,7 @@ import Badge, { Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import { Body, Description } from "@leafygreen-ui/typography";
 import { SiderCard } from "components/styles";
-import { Divider } from "components/styles/Divider";
+import { Divider } from "components/styles/divider";
 import { size } from "constants/tokens";
 import type { MenuItemProps } from "./types";
 

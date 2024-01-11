@@ -2,7 +2,6 @@ import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { TaskDurationTable } from "./TaskDurationTable";
 
 export default {
-  title: "Pages/Task/Table/Task Duration Table",
   component: TaskDurationTable,
 } satisfies CustomMeta<typeof TaskDurationTable>;
 

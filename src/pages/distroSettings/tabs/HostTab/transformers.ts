@@ -26,6 +26,7 @@ export const gqlToForm = ((data) => {
     hostAllocatorSettings,
     iceCreamSettings,
     isVirtualWorkStation,
+    mountpoints,
     setup,
     setupAsSudo,
     sshKey,
@@ -48,6 +49,7 @@ export const gqlToForm = ((data) => {
       isVirtualWorkStation,
       icecreamSchedulerHost: iceCreamSettings.schedulerHost,
       icecreamConfigPath: iceCreamSettings.configPath,
+      mountpoints: mountpoints ?? [],
     },
     bootstrapSettings: {
       jasperBinaryDir,
@@ -101,6 +103,7 @@ export const formToGql = ((
   isVirtualWorkStation: setup.isVirtualWorkStation,
   setupAsSudo: setup.setupAsSudo,
   setup: setup.setupScript,
+  mountpoints: setup.mountpoints,
   sshKey: sshConfig.sshKey,
   sshOptions: sshConfig.sshOptions,
   user: sshConfig.user,

@@ -2,22 +2,15 @@ import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { LeafyGreenTableRow } from "@leafygreen-ui/table";
-import {
-  getCommitsRoute,
-  getPatchRoute,
-  getTaskRoute,
-  getVersionRoute,
-} from "constants/routes";
 import { size } from "constants/tokens";
-import { convertFamilyTrigger } from "constants/triggers";
+import { convertFromFamilyTrigger } from "constants/triggers";
 import {
-  GeneralSubscription,
-  Selector,
   UserSubscriptionsQuery,
   UserSubscriptionsQueryVariables,
+  GeneralSubscription,
+  Selector,
 } from "gql/generated/types";
 import { USER_SUBSCRIPTIONS } from "gql/queries";
-import { ResourceType } from "types/triggers";
 
 export const useSubscriptionData = () => {
   const { data } = useQuery<
@@ -68,7 +61,7 @@ const processSubscriptionData = (
       // For this table's purposes, FAMILY_TRIGGER = TRIGGER. Convert all family triggers to their base type.
       .map(({ trigger, ...subscription }) => ({
         ...subscription,
-        trigger: convertFamilyTrigger(trigger),
+        trigger: convertFromFamilyTrigger(trigger),
       }))
       // For subscriptions that contain regex selectors or additional trigger data, append an expandable section
       .map((subscription) => {
@@ -108,34 +101,7 @@ const ExpandedBlock = styled.pre`
   padding: ${size.s} ${size.l};
 `;
 
-export const getResourceRoute = (
-  resourceType: ResourceType,
-  selector: Selector
-) => {
-  const { data: id, type } = selector;
-
-  if (!id) {
-    return "";
-  }
-
-  switch (resourceType) {
-    case ResourceType.Build:
-    case ResourceType.Version: {
-      if (type === "project") {
-        return getCommitsRoute(id);
-      }
-      return getVersionRoute(id);
-    }
-    case ResourceType.Patch:
-      return getPatchRoute(id, { configure: false });
-    case ResourceType.Task:
-      return getTaskRoute(id);
-    default:
-      return "";
-  }
-};
-
-export const formatRegexSelectors = (regexSelectors: Selector[]) => ({
+const formatRegexSelectors = (regexSelectors: Selector[]) => ({
   "regex-selectors": regexSelectors.reduce<Record<string, string>>(
     (obj, { data, type }) => ({
       ...obj,

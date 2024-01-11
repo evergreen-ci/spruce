@@ -24,7 +24,7 @@ import {
 } from "gql/generated/types";
 import { VERSION, IS_PATCH_CONFIGURED, HAS_VERSION } from "gql/queries";
 import { useSpruceConfig } from "hooks";
-import { PageDoesNotExist } from "pages/404";
+import { PageDoesNotExist } from "pages/NotFound";
 import { isPatchUnconfigured } from "utils/patch";
 import { shortenGithash, githubPRLinkify } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
@@ -34,6 +34,8 @@ import BuildVariantCard from "./version/BuildVariantCard";
 import { ActionButtons, Metadata, VersionTabs } from "./version/index";
 import { NameChangeModal } from "./version/NameChangeModal";
 
+// IMPORTANT: If you make any changes to the state logic in this file, please make sure to update the ADR:
+// docs/decisions/2023-12-13_version_page_logic.md
 export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
   const { id } = useParams<{ id: string }>();
@@ -42,6 +44,7 @@ export const VersionPage: React.FC = () => {
   const [redirectURL, setRedirectURL] = useState(undefined);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
+  // This query is used to fetch the version data.
   const [getVersion, { data: versionData, error: versionError }] = useLazyQuery<
     VersionQuery,
     VersionQueryVariables
@@ -56,6 +59,7 @@ export const VersionPage: React.FC = () => {
     },
   });
 
+  // If the version is a patch, we need to check if it's been configured.
   const [getPatch, { data: patchData, error: patchError }] = useLazyQuery<
     IsPatchConfiguredQuery,
     IsPatchConfiguredQueryVariables
@@ -69,12 +73,14 @@ export const VersionPage: React.FC = () => {
     },
   });
 
+  // This query checks if the provided id has a configured version.
   const { error: hasVersionError } = useQuery<
     HasVersionQuery,
     HasVersionQueryVariables
   >(HAS_VERSION, {
     variables: { id },
     onCompleted: ({ hasVersion }) => {
+      setIsLoadingData(true);
       if (hasVersion) {
         getVersion({ variables: { id } });
       } else {

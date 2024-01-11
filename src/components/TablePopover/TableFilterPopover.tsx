@@ -49,7 +49,7 @@ export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
         <Icon glyph="Filter" small="xsmall" color={iconColor} />
       </IconButton>
       <Popover align="bottom" justify="middle" active={active}>
-        <PopoverContainer ref={popoverRef}>
+        <PopoverContainer ref={popoverRef} data-cy={`${dataCy}-wrapper`}>
           <TreeSelect
             hasStyling={false}
             tData={options}

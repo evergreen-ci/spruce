@@ -18,7 +18,9 @@ type UseInputFilterReturn = [
   () => void // update url param
 ];
 
-// USE FOR FILTERS BUILT INTO TABLE COLUMN HEADERS
+/*
+ * @deprecated For use with antd tables
+ */
 export const useTableInputFilter = <SearchParam extends string>({
   sendAnalyticsEvent = () => undefined,
   urlSearchParam,
@@ -57,6 +59,9 @@ type UseCheckboxFilterReturn = [
   (e: InputEvent, key: string) => void // onChange handler
 ];
 
+/*
+ * @deprecated For use with antd tables
+ */
 export const useTableCheckboxFilter = <SearchParam extends string>({
   sendAnalyticsEvent = () => undefined,
   urlSearchParam,

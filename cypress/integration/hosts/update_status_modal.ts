@@ -8,9 +8,10 @@ describe("Update Status Modal", () => {
   });
 
   it("Update status for selected hosts", () => {
-    cy.get(".ant-checkbox-input").first().should("exist");
-    cy.get(".ant-checkbox-input").first().should("not.be.disabled");
-    cy.get(".ant-checkbox-input").first().check({ force: true });
+    cy.get("thead").within(() => {
+      cy.get("input[type=checkbox]").should("not.be.disabled");
+      cy.get("input[type=checkbox]").check({ force: true });
+    });
 
     cy.dataCy("update-status-button").click();
 

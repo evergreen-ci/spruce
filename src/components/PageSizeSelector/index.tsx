@@ -33,7 +33,6 @@ const PageSizeSelector: React.FC<Props> = ({ onChange, value, ...rest }) => (
   </StyledSelect>
 );
 
-// @ts-expect-error
 const StyledSelect = styled(Select)`
   width: 120px;
 `;

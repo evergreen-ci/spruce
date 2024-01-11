@@ -13,7 +13,7 @@ import WelcomeModal from "components/WelcomeModal";
 import { CY_DISABLE_NEW_USER_WELCOME_MODAL } from "constants/cookies";
 import { size } from "constants/tokens";
 import { newSpruceUser } from "constants/welcomeModalProps";
-import { useAuthStateContext } from "context/auth";
+import { useAuthStateContext } from "context/Auth";
 import { UserQuery, UserQueryVariables } from "gql/generated/types";
 import { USER } from "gql/queries";
 import { useUserSettings } from "hooks";

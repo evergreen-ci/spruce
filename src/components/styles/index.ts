@@ -1,6 +1,6 @@
-import { Divider } from "./Divider";
+import { Divider } from "./divider";
 import { FiltersWrapper } from "./filters";
-import { inactiveElementStyle } from "./Inactive";
+import { inactiveElementStyle } from "./inactive";
 import {
   ErrorMessage,
   InputLabel,

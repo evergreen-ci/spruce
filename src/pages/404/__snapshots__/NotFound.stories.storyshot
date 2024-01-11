@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots pages/404/NotFound Default 404 1`] = `
+exports[`storybook Storyshots pages/NotFound/NotFound Default 404 1`] = `
 <div>
   <div
     style="height: 100%; width: 100%;"
