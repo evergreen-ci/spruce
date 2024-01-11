@@ -39,6 +39,7 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
     columns,
     containerRef: tableContainerRef,
     enableColumnFilters: false,
+    useVirtualScrolling: true,
   });
 
   return (
@@ -48,6 +49,7 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
       loading={loading && taskQueue?.length === 0}
       shouldAlternateRowColor
       emptyComponent={<TablePlaceholder message="No tasks found in queue." />}
+      ref={tableContainerRef}
     />
   );
 };

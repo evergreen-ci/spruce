@@ -24,6 +24,7 @@ import {
 import { DISTRO_TASK_QUEUE, TASK_QUEUE_DISTROS } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { DistroOption } from "./DistroOption";
+import TaskQueueTable from "./TaskQueueTable";
 
 const TaskQueue = () => {
   const taskQueueAnalytics = useTaskQueueAnalytics();
@@ -116,10 +117,10 @@ const TaskQueue = () => {
             )
           }
 
-          {/* <TaskQueue Table
+          <TaskQueueTable
             taskQueue={taskQueueItemsData?.distroTaskQueue}
             loading={loading}
-          /> */}
+          />
         </>
       )}
     </PageWrapper>
