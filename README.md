@@ -2,32 +2,19 @@
 
 Spruce is the React UI for MongoDB's continuous integration software.
 
-## Table of Contents
-
-- [Getting Started](#getting-started)
-  - [Running Locally](#running-locally)
-  - [Environment Variables](#environment-variables)
-- [Deployment](#deployment)
-  - [Requirements](#requirements)
-  - [How to Deploy](#how-to-deploy)
-
 ## Getting Started
 
 ### Running Locally
 
-1. Clone the Spruce Github repository
-2. Ensure you have Node.js v16+ and MongoDB Command Line Database Tools
+1. Clone the Spruce GitHub repository
+2. Ensure you have Node.js v20+ and MongoDB Command Line Database Tools
    v100.8.0+ installed
-3. Ask a colleague for their .cmdrc.json file and follow the instructions
-   [here](#environment-variables)
-4. Run `yarn`
-5. Start a local evergreen server by doing the following:
-
-- Clone the evergreen repo
-- Run `make local-evergreen`
-
-6. Run `yarn run dev`. This will launch the app and point it at the local
-   evergreen server you just ran.
+3. Run `yarn install`
+4. Start a local Evergreen server by doing the following:
+    - Clone the [Evergreen repo](https://github.com/evergreen-ci/evergreen)
+    - From the Evergreen directory, run `make local-evergreen`
+5. Run `yarn run dev`. This will launch the app and point it at the local
+   Evergreen server you just started.
 
 ### Storybook
 
@@ -47,11 +34,11 @@ results.
 
 1. Symlink the standard definition language GraphQL schema used in your backend
    to a file named sdlschema in the root of the Spruce directory to enable query
-   linting with ESlint like so
+   linting with ESLint like so
    `ln -s <path_to_evergreen_repo>/graphql/schema sdlschema`
 2. Run `yarn run eslint` to see the results of query linting in your terminal or
    install a plugin to integrate ESlint into your editor. If you are using
-   VSCode, we recommend ESLint by Dirk Baeumer.
+   VS Code, we recommend ESLint by Dirk Baeumer.
 
 ### Environment Variables
 
@@ -62,11 +49,11 @@ with non-sensitive information, and `.env-cmdrc.json` for builds deployed to S3.
 This file is git ignored because it contains API keys that we do not want to
 publish. It should be named `.env-cmdrc.json` and placed in the root of the
 project. This file is required to deploy Spruce to production and to staging.
-The credential file is located in the R&D Dev Prod 1password vault.
+The credential file is located in the R&D Dev Prod 1Password vault.
 
 ## GraphQL Type Generation
 
-We use Code generation to generate our types for our GraphQL queries and
+We use code generation to generate our types for our GraphQL queries and
 mutations. When you create a query or mutation you can run the code generation
 script with the steps below. The types for your query/mutation response and
 variables will be generated and saved to `gql/generated/types.ts`. Much of the
@@ -75,12 +62,15 @@ well and you can refer to those before creating your own.
 
 ### Setting up code generation
 
-- create a symlink from the `schema` folder from evergreen with the spruce
-  folder using `ln -s <path_to_evergreen_repo>/graphql/schema sdlschema`
+- Create a symlink from the `schema` folder from Evergreen to Spruce using
+
+```bash
+ln -s <path_to_evergreen_repo>/graphql/schema sdlschema`
+```
 
 ### Using code generation
 
-- From within the spruce folder run `yarn codegen`
+- From within the Spruce folder run `yarn codegen`
 - As long as your queries are declared correctly the types should generate
 
 ### Code generation troubleshooting and tips
@@ -88,8 +78,8 @@ well and you can refer to those before creating your own.
 - Queries should be declared with a query name so the code generation knows what
   to name the corresponding type.
 - Each query and mutation should have a unique name.
-- Since query analysis for type generation occurs statically we cant place
-  dynamic variables with in query strings we instead have to hard code the
+- Since query analysis for type generation occurs statically we can't place
+  dynamic variables with in query strings. We instead have to hard code the
   variable in the query or pass it in as query variable.
 
 ### Common errors
@@ -107,47 +97,44 @@ Cypress.
 
 ### Unit tests
 
-Unit Tests are used to test individual features in isolation. We utilize the
-[Jest Test Runner](https://jestjs.io/) to execute our Unit Tests and generate
+Unit tests are used to test individual features in isolation. We utilize the
+[Jest Test Runner](https://jestjs.io/) to execute our unit tests and generate
 reports.
 
 There are 3 types of unit tests you may encounter in this codebase.
 
 #### Component Tests
 
-These test React Componenents. We utilize
+These test React components. We utilize
 [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 to help us write our component tests. React Testing Library provides several
 utilities that are useful for making assertions on React Componenents. When
 writing component tests you should import
 [test_utils](https://github.com/evergreen-ci/spruce/blob/main/src/test_utils/index.tsx)
-instead of React Testing Library, `test_utils` is a wrapper around React Testing
+instead of React Testing Library; `test_utils` is a wrapper around React Testing
 Library which provides a series of helpful utilities for common testing
-scenarios such as `queryByDataCy` which is a helper for selecting `data-cy`
-attributes or `renderWithRouterMatch` which is helpful for testing components
+scenarios such as `queryByDataCy`, which is a helper for selecting `data-cy`
+attributes, or `renderWithRouterMatch`, which is helpful for testing components
 that rely on React Router.
 
 #### Hook Tests
 
 Often times you may find yourself writing
-[custom react hooks](https://reactjs.org/docs/hooks-custom.html). The best way
-to test these is using
-[React Hooks Testing Library](https://react-hooks-testing-library.com/). React
-Hooks Testing Library allows you to test your custom Hooks in isolation without
-needing to wrap them in a Component. It provides several methods that make it
-easy to assert and test different behaviors in your hooks. Such as
-[`waitForNextUpdate`](https://react-hooks-testing-library.com/reference/api#waitfornextupdate)
+[custom React hooks](https://reactjs.org/docs/hooks-custom.html). The best way
+to test these is using React Testing Library's [`renderHook`](https://testing-library.com/docs/react-testing-library/api#renderhook) utility. This allows you to test your custom hooks in isolation without
+needing to wrap them in a component. It provides several methods that make it
+easy to assert and test different behaviors in your hooks. Such as [`waitFor`](https://testing-library.com/docs/dom-testing-library/api-async/#waitfor), 
 which will wait for your hook to rerender before allowing a test to proceed.
 
 #### Standard utility tests
 
 These are the most basic of tests. They do not require any special libraries to
-run and often just test standard javascript functions.
+run and often just test standard JavaScript functions.
 
-- You can run all Unit Tests using `yarn test`
-- You can run a specific Unit Test using `yarn test -t <test_name>`
-- You can run jest in watch mode using `yarn test:watch` This will open an
-  interactive CLI you can use to automatically run tests as you update them.
+- You can run all unit tests using `yarn test`
+- You can run a specific unit test using `yarn test -t <test_name>`
+- You can run Jest in watch mode using `yarn test:watch` This will open an
+  interactive CLI that can be used to automatically run tests as you update them.
 
 ### E2E tests
 
@@ -155,10 +142,10 @@ At a high level, we use [Cypress](https://www.cypress.io/) to start a virtual
 browser that is running Spruce. Cypress then is able to run our test specs,
 which tell it to interact with the browser in certain ways and makes assertions
 about what happens in the UI. Note that you must be running the Evergreen server
-on localhost:9090 for the front-end to work.
+on http://localhost:9090 for the front-end to work.
 
 In order to run the Cypress tests, do the following, assuming you have this repo
-checked out and all the dependencies installed by yarn:
+checked out and all the dependencies installed by Yarn:
 
 1. Increase the limit on open files by running `ulimit -n 64000` before running
    mongod in the same shell.
@@ -177,16 +164,16 @@ checked out and all the dependencies installed by yarn:
 
 ### Snapshot Tests
 
-Snapshot tests are automatically generated when we create storybook stories.
-These Tests create a snapshot of the UI and compare them to previous snapshots
-which are stored as files along side your storybook stories in a `__snapshots__`
+Snapshot tests are automatically generated when we create Storybook stories.
+These tests create a snapshot of the UI and compare them to previous snapshots
+which are stored as files along side your Storybook stories in a `__snapshots__`
 directory. They try to catch unexpected UI regressions. Read more about them
-[Here](https://jestjs.io/docs/snapshot-testing).
+[here](https://jestjs.io/docs/snapshot-testing).
 
 ## How to get data for your feature
 
-If you need more data to be able to test out your feature locally the easiest
-way to do it is to populate the local db using real data from the staging or
+If you need more data to be able to test out your feature locally, the easiest
+way to do so is to populate the local db using real data from the staging or
 production environments.
 
 1. You should identify if the data you need is located in the staging or prod db
@@ -244,12 +231,12 @@ so you don't accidently export an entire collection you can do this by passing a
 
 ### Logkeeper
 
-Spruce has a minimal dependency on Logkeeper: it is used for Cypress tests on
+Spruce has a minimal dependency on Logkeeper: it is used by Cypress tests on
 the Job Logs page. If you'd like to get set up to develop these tests, complete
 the following:
 
-1. Clone the [Logkeeper Repository](https://github.com/evergreen-ci/logkeeper)
-2. Run `yarn bootstrap-logkeeper` to download some sample resmoke logs from S3.
+1. Clone the [Logkeeper repository](https://github.com/evergreen-ci/logkeeper)
+2. Run `yarn bootstrap-logkeeper` within Spruce to download some sample resmoke logs from S3.
 3. Run the command output by the previous step to seed the env variables and
    start the local logkeeper server at http://localhost:8080.
 
@@ -257,9 +244,9 @@ the following:
 
 ### Requirements
 
-You must be on the `main` Branch if deploying to prod.
+You must be on the `main` branch if deploying to prod.
 
-A `.cmdrc.json` file is required to deploy because it sets the environment
+An `.env-cmdrc.json` file is required to deploy because it sets the environment
 variables that the application needs in production and staging environments. See
 [Environment Variables](#environment-variables) section for more info about this
 file.
