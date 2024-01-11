@@ -185,13 +185,9 @@ export const getFormSchema = (
 
 const LevelDescription = (
   <>
-    Task and build levels will trigger based on the completion of either a task
-    or a build in the upstream project. Push level triggers do not require any
-    upstream build or task to run, but instead trigger a downstream version once
-    a commit is pushed to the upstream project. This is helpful if the upstream
-    project doesn&apos;t regularly run or create commit tasks. For push level
-    triggers, if the upstream project is a module of the downstream
-    project&apos;s YAML, the manifest of the downstream version will use the
-    commit hash of the upstream project&apos;s commit. project.
+    Task and build levels will trigger based on the completion of a task or a
+    build in the upstream project. Push level triggers will trigger once a
+    commit is pushed to the upstream project. This is helpful if the upstream
+    project does not regularly run or create commit tasks.
   </>
 );
