@@ -65,7 +65,7 @@ well and you can refer to those before creating your own.
 - Create a symlink from the `schema` folder from Evergreen to Spruce using
 
 ```bash
-ln -s <path_to_evergreen_repo>/graphql/schema sdlschema`
+ln -s <path_to_evergreen_repo>/graphql/schema sdlschema
 ```
 
 ### Using code generation
