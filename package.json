@@ -203,6 +203,7 @@
     "prettier": "2.8.8",
     "prompts": "^2.4.2",
     "react-app-polyfill": "^2.0.0",
+    "react-inspector": "^6.0.2",
     "replace-in-file": "6.3.5",
     "rollup-plugin-visualizer": "^5.9.2",
     "serve-handler": "^6.1.5",
