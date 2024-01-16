@@ -213,6 +213,7 @@ export const getFormSchema = ({
       "ui:addButtonText": "Add region settings",
       "ui:addable": fleetRegionsInUse.length < awsRegions.length,
       "ui:orderable": false,
+      "ui:defaultOpen": true,
       items: {
         "ui:displayTitle": "New AWS Region",
         region: {
@@ -229,6 +230,7 @@ export const getFormSchema = ({
       "ui:addButtonText": "Add region settings",
       "ui:addable": onDemandRegionsInUse.length < awsRegions.length,
       "ui:orderable": false,
+      "ui:defaultOpen": true,
       items: {
         "ui:displayTitle": "New AWS Region",
         region: {
