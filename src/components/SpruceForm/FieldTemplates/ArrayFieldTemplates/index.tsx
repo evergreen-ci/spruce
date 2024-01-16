@@ -24,12 +24,10 @@ const ArrayItem: React.FC<
     title: string;
     topAlignDelete: boolean;
     useExpandableCard: boolean;
-    defaultOpen: boolean;
   } & Unpacked<ArrayFieldTemplateProps["items"]>
 > = ({
   border,
   children,
-  defaultOpen,
   disabled,
   hasMoveDown,
   hasMoveUp,
@@ -54,7 +52,7 @@ const ArrayItem: React.FC<
   );
   return useExpandableCard ? (
     <StyledExpandableCard
-      defaultOpen={defaultOpen || !isDisabled}
+      defaultOpen={!isDisabled}
       data-cy="expandable-card"
       // Override LeafyGreen's string typing for title so we can include buttons. (LG-2193)
       /* @ts-expect-error */
@@ -155,7 +153,6 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const showLabel = uiSchema["ui:showLabel"] ?? true;
   const topAlignDelete = uiSchema["ui:topAlignDelete"] ?? false;
   const useExpandableCard = uiSchema["ui:useExpandableCard"] ?? false;
-  const defaultOpen = uiSchema["ui:defaultOpen"] ?? false;
   const isDisabled = disabled || readonly;
 
   const addButtonSize = uiSchema["ui:addButtonSize"] || "small";
@@ -216,7 +213,6 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
             }
             topAlignDelete={topAlignDelete}
             useExpandableCard={useExpandableCard}
-            defaultOpen={defaultOpen}
           />
         ))}
         {buttonAtEnd && (
