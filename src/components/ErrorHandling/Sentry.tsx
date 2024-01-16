@@ -41,7 +41,7 @@ const isInitialized = () => !!getCurrentHub().getClient();
 const sendError = (
   err: Error,
   severity: SeverityLevel,
-  metadata?: { [key: string]: any }
+  metadata?: { [key: string]: any },
 ) => {
   withScope((scope) => {
     setScope(scope, { level: severity, context: metadata });

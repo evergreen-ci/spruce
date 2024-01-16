@@ -22,7 +22,7 @@ describe("foldedCommit", () => {
           numVisibleCols={5}
           selected={false}
         />
-      </MockedProvider>
+      </MockedProvider>,
     );
     expect(screen.getByText("Expand 5 inactive")).toBeInTheDocument();
     expect(screen.queryByText("Collapse 5 inactive")).toBeNull();
@@ -46,7 +46,7 @@ describe("foldedCommit", () => {
           numVisibleCols={5}
           selected={false}
         />
-      </MockedProvider>
+      </MockedProvider>,
     );
     await user.click(screen.queryByText("Expand 5 inactive"));
     expect(screen.queryByText("Expand 5 inactive")).toBeNull();

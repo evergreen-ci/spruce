@@ -17,13 +17,13 @@ describe("Creating a new distro", () => {
     cy.validateToast("success");
     cy.location("pathname").should(
       "eq",
-      `/distro/${newDistroId}/settings/general`
+      `/distro/${newDistroId}/settings/general`,
     );
 
     cy.dataCy("delete-distro-button").should(
       "have.attr",
       "aria-disabled",
-      "false"
+      "false",
     );
     cy.dataCy("delete-distro-button").click();
     cy.dataCy("delete-distro-modal").should("be.visible");
@@ -52,13 +52,13 @@ describe("Copying a distro", () => {
     cy.validateToast("success");
     cy.location("pathname").should(
       "eq",
-      `/distro/${copyDistroId}/settings/general`
+      `/distro/${copyDistroId}/settings/general`,
     );
 
     cy.dataCy("delete-distro-button").should(
       "have.attr",
       "aria-disabled",
-      "false"
+      "false",
     );
     cy.dataCy("delete-distro-button").click();
     cy.dataCy("delete-distro-modal").should("be.visible");

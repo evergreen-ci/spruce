@@ -81,7 +81,7 @@ export const TagRow: React.FC<TagRowProps> = ({
                     });
                     onUpdateTag(
                       { key, value },
-                      !isNewTag && key !== tag.key ? tag.key : undefined
+                      !isNewTag && key !== tag.key ? tag.key : undefined,
                     );
                   }}
                 />

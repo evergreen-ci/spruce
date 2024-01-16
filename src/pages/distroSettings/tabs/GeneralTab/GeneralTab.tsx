@@ -20,7 +20,7 @@ export const GeneralTab: React.FC<TabProps> = ({
 
   const formSchema = useMemo(
     () => getFormSchema(isContainerDistro, minimumHosts),
-    [isContainerDistro, minimumHosts]
+    [isContainerDistro, minimumHosts],
   );
 
   return (

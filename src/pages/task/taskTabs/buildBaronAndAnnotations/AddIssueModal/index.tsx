@@ -66,7 +66,7 @@ export const AddIssueModal: React.FC<Props> = ({
     onError(error) {
       closeModal();
       dispatchToast.error(
-        `There was an error adding the issue: ${error.message}`
+        `There was an error adding the issue: ${error.message}`,
       );
     },
     refetchQueries: ["AnnotationEventData"],

@@ -33,7 +33,7 @@ const requesters = [
 
 export const getFormSchema = (
   jiraEmail?: string,
-  repoData?: PluginsFormState
+  repoData?: PluginsFormState,
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -48,7 +48,7 @@ export const getFormSchema = (
             title: "",
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
-              repoData?.performanceSettings?.perfEnabled
+              repoData?.performanceSettings?.perfEnabled,
             ),
           },
         },
@@ -141,7 +141,7 @@ export const getFormSchema = (
                             type: "string" as "string",
                             title: r,
                             enum: [r],
-                          })
+                          }),
                         ),
                       },
                     },
@@ -283,10 +283,10 @@ export const getFormSchema = (
         "ui:description":
           "Specify the endpoint and secret for a custom webhook to be called when the File Ticket button is clicked on a failing task.",
         endpoint: placeholderIf(
-          repoData?.buildBaronSettings?.fileTicketWebhook?.endpoint
+          repoData?.buildBaronSettings?.fileTicketWebhook?.endpoint,
         ),
         secret: placeholderIf(
-          repoData?.buildBaronSettings?.fileTicketWebhook?.secret
+          repoData?.buildBaronSettings?.fileTicketWebhook?.secret,
         ),
       },
     },

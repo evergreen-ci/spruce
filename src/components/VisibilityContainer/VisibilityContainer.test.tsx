@@ -23,7 +23,7 @@ describe("visibilityContainer", () => {
     render(
       <VisibilityContainer>
         <div>Visible content</div>
-      </VisibilityContainer>
+      </VisibilityContainer>,
     );
 
     expect(screen.queryByText("Visible content")).toBeNull();
@@ -47,7 +47,7 @@ describe("visibilityContainer", () => {
     render(
       <VisibilityContainer>
         <div>Visible content</div>
-      </VisibilityContainer>
+      </VisibilityContainer>,
     );
     expect(screen.getByText("Visible content")).toBeInTheDocument();
   });

@@ -58,7 +58,7 @@ export const PromoteVariablesModal: React.FC<Props> = ({
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error moving the variables: ${err.message}`
+        `There was an error moving the variables: ${err.message}`,
       );
     },
   });

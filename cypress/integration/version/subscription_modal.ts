@@ -36,7 +36,7 @@ describe("Version Subscription Modal", () => {
         cy.contains("Build Variant ID").should(
           "have.css",
           "cursor",
-          "not-allowed"
+          "not-allowed",
         );
       });
     });
@@ -48,7 +48,7 @@ describe("Version Subscription Modal", () => {
       cy.contains("button", "Save").should(
         "not.have.attr",
         "aria-disabled",
-        "true"
+        "true",
       );
       cy.contains("button", "Save").click();
       cy.validateToast("success", "Your subscription has been added");
@@ -96,13 +96,13 @@ describe("Version Subscription Modal", () => {
       cy.contains("Add Additional Criteria").should(
         "not.have.attr",
         "aria-disabled",
-        "true"
+        "true",
       );
       cy.contains("Add Additional Criteria").click();
       cy.contains("Add Additional Criteria").should(
         "not.have.attr",
         "aria-disabled",
-        "true"
+        "true",
       );
       cy.contains("Add Additional Criteria").click();
       cy.contains("Add Additional Criteria").should("not.exist");

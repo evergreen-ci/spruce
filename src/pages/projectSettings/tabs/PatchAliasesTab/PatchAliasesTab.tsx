@@ -8,7 +8,7 @@ const tab = ProjectSettingsTabRoutes.PatchAliases;
 
 const getInitialFormState = (
   projectData: TabProps["projectData"],
-  repoData: TabProps["repoData"]
+  repoData: TabProps["repoData"],
 ): PatchAliasesFormState => {
   if (!projectData) return repoData;
   if (repoData) {
@@ -33,7 +33,7 @@ export const PatchAliasesTab: React.FC<TabProps> = ({
 }) => {
   const initialFormState = useMemo(
     () => getInitialFormState(projectData, repoData),
-    [projectData, repoData]
+    [projectData, repoData],
   );
 
   const formSchema = useMemo(() => getFormSchema(projectType), [projectType]);

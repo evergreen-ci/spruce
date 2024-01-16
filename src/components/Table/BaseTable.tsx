@@ -67,7 +67,7 @@ export const BaseTable = forwardRef(
       table,
       ...args
     }: SpruceTableProps & TableProps<any>,
-    ref: ForwardedRef<HTMLDivElement>
+    ref: ForwardedRef<HTMLDivElement>,
   ) => {
     const { virtualRows } = table;
     const { rows } = table.getRowModel();
@@ -102,7 +102,7 @@ export const BaseTable = forwardRef(
                                     ({ value }) =>
                                       !!header.column
                                         .getFacetedUniqueValues()
-                                        .get(value)
+                                        .get(value),
                                   )
                                 : meta.treeSelect.options
                             }
@@ -153,7 +153,7 @@ export const BaseTable = forwardRef(
           (emptyComponent || "No data to display")}
       </>
     );
-  }
+  },
 );
 
 const RenderableRow = <T extends LGRowData>({

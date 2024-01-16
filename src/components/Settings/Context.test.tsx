@@ -127,7 +127,7 @@ describe("useHasUnsavedTab", () => {
       }),
       {
         wrapper: TestProvider,
-      }
+      },
     );
     expect(result.current.unsavedTabs).toStrictEqual([]);
     expect(result.current.hasUnsaved).toBe(false);
@@ -156,7 +156,7 @@ describe("usePopulateForm", () => {
       }),
       {
         wrapper: TestProvider,
-      }
+      },
     );
     expect(result.current.hasUnsaved).toBe(false);
     expect(result.current.getTab("foo")).toStrictEqual({

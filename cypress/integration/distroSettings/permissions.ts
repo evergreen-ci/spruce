@@ -20,7 +20,7 @@ describe("with various permission levels", () => {
     cy.dataCy("delete-distro-button").should(
       "not.have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     cy.get("textarea").should("not.be.disabled");
   });
@@ -46,7 +46,7 @@ describe("with various permission levels", () => {
     cy.dataCy("delete-distro-button").should(
       "have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     cy.get("textarea").should("not.be.disabled");
   });
@@ -72,7 +72,7 @@ describe("with various permission levels", () => {
     cy.dataCy("delete-distro-button").should(
       "have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     cy.dataCy("distro-settings-page").within(() => {
       cy.get("input").should("be.disabled");

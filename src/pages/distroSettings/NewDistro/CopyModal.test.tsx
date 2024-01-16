@@ -71,7 +71,7 @@ describe("copy distro modal", () => {
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
     expect(router.state.location.pathname).toBe(
-      `/distro/${newDistroId}/settings/general`
+      `/distro/${newDistroId}/settings/general`,
     );
   });
 
@@ -85,12 +85,12 @@ describe("copy distro modal", () => {
 
     await user.type(
       screen.queryByDataCy("distro-id-input"),
-      "string with spaces"
+      "string with spaces",
     );
     expect(
       screen.getByRole("button", {
         name: "Duplicate",
-      })
+      }),
     ).toHaveAttribute("aria-disabled", "true");
   });
 
@@ -114,7 +114,7 @@ describe("copy distro modal", () => {
     };
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <Modal copyMock={mockWithError} />
+      <Modal copyMock={mockWithError} />,
     );
     const { router } = render(<Component />, {
       path: `/distro/:distroId/settings/general`,
@@ -133,7 +133,7 @@ describe("copy distro modal", () => {
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(1));
     expect(router.state.location.pathname).toBe(
-      `/distro/${distroIdToCopy}/settings/general`
+      `/distro/${distroIdToCopy}/settings/general`,
     );
   });
 });

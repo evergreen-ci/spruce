@@ -1,7 +1,7 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 
 export const getTabTitle = (
-  tab: ProjectSettingsTabRoutes = ProjectSettingsTabRoutes.General
+  tab: ProjectSettingsTabRoutes = ProjectSettingsTabRoutes.General,
 ): { title: string } => {
   const defaultTitle = {
     title: "General Settings",

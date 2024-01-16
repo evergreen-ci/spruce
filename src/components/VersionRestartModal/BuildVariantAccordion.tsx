@@ -16,7 +16,9 @@ interface BuildVariantAccordionProps {
     displayName: string;
   }[];
   toggleSelectedTask: (
-    taskIds: { [versionId: string]: string } | { [versionId: string]: string[] }
+    taskIds:
+      | { [versionId: string]: string }
+      | { [versionId: string]: string[] },
   ) => void;
   versionId: string;
 }
@@ -64,7 +66,7 @@ export const BuildVariantAccordion: React.FC<BuildVariantAccordionProps> = ({
 
 const countMatchingTasks = (
   tasks: { id: string }[],
-  selectedTasks: selectedStrings
+  selectedTasks: selectedStrings,
 ): number => {
   let matchingTasks = 0;
   tasks.forEach((task) => {

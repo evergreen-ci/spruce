@@ -51,11 +51,11 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
 
         const additions = fileDiffs.reduce(
           (total, diff) => total + diff.additions,
-          0
+          0,
         );
         const deletions = fileDiffs.reduce(
           (total, diff) => total + diff.deletions,
-          0
+          0,
         );
 
         let codeChanges;

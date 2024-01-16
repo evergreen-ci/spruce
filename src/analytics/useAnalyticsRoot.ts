@@ -11,7 +11,7 @@ interface P extends Properties {}
 
 export const useAnalyticsRoot = <Action extends ActionType>(
   object: AnalyticsObject,
-  attributes: { [key: string]: any } = {}
+  attributes: { [key: string]: any } = {},
 ): Analytics<Action> => {
   const sendEvent: Analytics<Action>["sendEvent"] = useCallback(
     (action) => {
@@ -22,7 +22,7 @@ export const useAnalyticsRoot = <Action extends ActionType>(
         ...attributes,
       });
     },
-    [object, attributes]
+    [object, attributes],
   );
 
   return useMemo(() => ({ sendEvent }), [sendEvent]);

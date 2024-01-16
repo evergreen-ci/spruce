@@ -9,7 +9,7 @@ describe("general section", () => {
     cy.dataCy("save-settings-button").should(
       "have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
 
     // Update fields.
@@ -27,7 +27,7 @@ describe("general section", () => {
     cy.getInputByLabel("Alias").should("have.value", "localhost-alias");
     cy.getInputByLabel("Notes").should("have.value", "this is a note");
     cy.getInputByLabel("Disable shallow clone for this distro").should(
-      "be.checked"
+      "be.checked",
     );
 
     // Undo changes.
@@ -47,7 +47,7 @@ describe("general section", () => {
 
     it("warns users that the distro will not be spawned for tasks", () => {
       cy.contains(
-        "Distro is a container pool, so it cannot be spawned for tasks."
+        "Distro is a container pool, so it cannot be spawned for tasks.",
       ).should("be.visible");
     });
   });

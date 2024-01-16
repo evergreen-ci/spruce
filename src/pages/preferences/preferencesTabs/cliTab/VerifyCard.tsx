@@ -11,7 +11,7 @@ import { CLIENT_CONFIG } from "gql/queries";
 
 export const VerifyCard = () => {
   const { data } = useQuery<ClientConfigQuery, ClientConfigQueryVariables>(
-    CLIENT_CONFIG
+    CLIENT_CONFIG,
   );
 
   const latestRevision = get(data, "clientConfig.latestRevision", "");

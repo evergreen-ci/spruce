@@ -16,11 +16,11 @@ import { NotificationsFormState } from "./types";
 const { radioBoxOptions } = form;
 export const getFormSchema = (
   repoData: NotificationsFormState | null,
-  projectType: ProjectType
+  projectType: ProjectType,
 ): ReturnType<GetFormSchema> => {
   const { schema: eventSchema, uiSchema: eventUiSchema } = getEventSchema(
     [],
-    projectTriggers
+    projectTriggers,
   );
   const { schema: notificationSchema, uiSchema: notificationUiSchema } =
     getNotificationSchema(subscriptionMethods);
@@ -39,7 +39,7 @@ export const getFormSchema = (
               title: "Build Break Notifications",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
-                repoData?.buildBreakSettings?.notifyOnBuildFailure
+                repoData?.buildBreakSettings?.notifyOnBuildFailure,
               ),
             },
           },

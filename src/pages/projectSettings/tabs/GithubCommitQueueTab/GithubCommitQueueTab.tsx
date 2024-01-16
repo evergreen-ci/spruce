@@ -20,7 +20,7 @@ const tab = ProjectSettingsTabRoutes.GithubCommitQueue;
 
 const getInitialFormState = (
   projectData: GCQFormState,
-  repoData: GCQFormState
+  repoData: GCQFormState,
 ): GCQFormState => {
   if (!projectData) return repoData;
   if (repoData) {
@@ -52,7 +52,7 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
 
   const initialFormState = useMemo(
     () => getInitialFormState(projectData, repoData),
-    [projectData, repoData]
+    [projectData, repoData],
   );
 
   const formSchema = useMemo(
@@ -64,7 +64,7 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
         formData,
         data?.githubProjectConflicts,
         versionControlEnabled,
-        projectType === ProjectType.AttachedProject ? repoData : null
+        projectType === ProjectType.AttachedProject ? repoData : null,
       ),
     [
       data?.githubProjectConflicts,
@@ -74,13 +74,13 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
       projectType,
       repoData,
       versionControlEnabled,
-    ]
+    ],
   );
 
   const validateConflicts = validate(
     projectType,
     repoData,
-    versionControlEnabled
+    versionControlEnabled,
   );
 
   return (
@@ -106,7 +106,7 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
 const validate = (
   projectType: ProjectType,
   repoData: GCQFormState,
-  versionControlEnabled: boolean
+  versionControlEnabled: boolean,
 ) =>
   ((formData, errors) => {
     const {
@@ -124,7 +124,7 @@ const validate = (
     // getVersionControlError is a curried function, so save its partial application here to avoid repetition
     const getAliasError = getVersionControlError(
       versionControlEnabled,
-      projectType
+      projectType,
     );
 
     if (
@@ -132,7 +132,7 @@ const validate = (
         prTestingEnabled,
         prTesting?.githubPrAliasesOverride,
         prTesting?.githubPrAliases,
-        repoData?.github?.prTesting?.githubPrAliases
+        repoData?.github?.prTesting?.githubPrAliases,
       ) === ErrorType.Error
     ) {
       errors.github.prTesting.addError("Missing Patch Definition");
@@ -143,7 +143,7 @@ const validate = (
         githubChecksEnabled,
         githubChecks?.githubCheckAliasesOverride,
         githubChecks?.githubCheckAliases,
-        repoData?.github?.githubChecks?.githubCheckAliases
+        repoData?.github?.githubChecks?.githubCheckAliases,
       ) === ErrorType.Error
     ) {
       errors.github.prTesting.addError("Missing Commit Check Definition");
@@ -154,7 +154,7 @@ const validate = (
         gitTagVersionsEnabled,
         gitTags?.gitTagAliasesOverride,
         gitTags?.gitTagAliases,
-        repoData?.github?.gitTags?.gitTagAliases
+        repoData?.github?.gitTags?.gitTagAliases,
       ) === ErrorType.Error
     ) {
       errors.github.prTesting.addError("Missing Git Tag Definition");
@@ -165,7 +165,7 @@ const validate = (
         enabled,
         patchDefinitions?.commitQueueAliasesOverride,
         patchDefinitions?.commitQueueAliases,
-        repoData?.commitQueue?.patchDefinitions?.commitQueueAliases
+        repoData?.commitQueue?.patchDefinitions?.commitQueueAliases,
       ) === ErrorType.Error
     ) {
       errors.github.prTesting.addError("Missing Commit Queue Patch Definition");

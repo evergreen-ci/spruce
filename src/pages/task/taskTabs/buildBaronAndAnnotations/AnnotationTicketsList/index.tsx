@@ -46,7 +46,7 @@ const AnnotationTicketsList: React.FC<AnnotationTicketsListProps> = ({
     },
     onError(error) {
       dispatchToast.error(
-        `There was an error removing the ${issueString}: ${error.message}`
+        `There was an error removing the ${issueString}: ${error.message}`,
       );
     },
     refetchQueries: ["SuspectedIssues", "Issues"],
@@ -60,12 +60,12 @@ const AnnotationTicketsList: React.FC<AnnotationTicketsListProps> = ({
       dispatchToast.success(
         `Successfully moved ${issueString} to ${
           isIssue ? "suspected issues" : "issues"
-        }.`
+        }.`,
       );
     },
     onError(error) {
       dispatchToast.error(
-        `There was an error moving the ${issueString}: ${error.message}`
+        `There was an error moving the ${issueString}: ${error.message}`,
       );
     },
     refetchQueries: ["SuspectedIssues", "Issues"],

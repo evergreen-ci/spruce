@@ -7,7 +7,7 @@ export const stringifyQuery = (object: { [key: string]: any }) =>
 
 export const stringifyQueryAsValue = (
   object: { [key: string]: any },
-  options: StringifyOptions = {}
+  options: StringifyOptions = {},
 ) =>
   queryString.stringify(object, {
     arrayFormat: "comma",

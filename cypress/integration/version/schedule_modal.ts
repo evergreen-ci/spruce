@@ -5,7 +5,7 @@ describe("Restarting and scheduling mainline commits", () => {
     cy.dataCy("schedule-patch").should(
       "not.have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     cy.dataCy("schedule-patch").click();
     cy.dataCy("schedule-tasks-modal").should("be.visible");
@@ -16,7 +16,7 @@ describe("Restarting and scheduling mainline commits", () => {
       cy.contains("button", "Schedule").should(
         "not.have.attr",
         "aria-disabled",
-        "true"
+        "true",
       );
       cy.contains("button", "Schedule").click({ force: true });
     });

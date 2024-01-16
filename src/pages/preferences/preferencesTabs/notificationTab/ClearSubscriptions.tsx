@@ -26,14 +26,14 @@ export const ClearSubscriptions: React.FC = () => {
       dispatchToast.success(
         `Successfully cleared ${result.clearMySubscriptions} ${pluralize(
           "subscription",
-          result.clearMySubscriptions
-        )}.`
+          result.clearMySubscriptions,
+        )}.`,
       );
     },
     onError: (err) => {
       setShowModal(false);
       dispatchToast.error(
-        `Error while clearing subscriptions: '${err.message}'`
+        `Error while clearing subscriptions: '${err.message}'`,
       );
     },
   });

@@ -31,7 +31,7 @@ describe("useBreadcrumbRoot", () => {
   it("returns the correct breadcrumb root when the version is a patch belonging to current user", async () => {
     const { result } = renderHook(
       () => useBreadcrumbRoot(true, "admin", "spruce"),
-      { wrapper: SameUserProvider }
+      { wrapper: SameUserProvider },
     );
     await waitFor(() => {
       expect(result.current.to).toBe("/user/admin/patches");
@@ -42,7 +42,7 @@ describe("useBreadcrumbRoot", () => {
   it("returns the correct breadcrumb root when the version is a patch belonging to other user", async () => {
     const { result } = renderHook(
       () => useBreadcrumbRoot(true, "john.doe", "spruce"),
-      { wrapper: OtherUserProvider }
+      { wrapper: OtherUserProvider },
     );
     await waitFor(() => {
       expect(result.current.to).toBe("/user/john.doe/patches");
@@ -53,7 +53,7 @@ describe("useBreadcrumbRoot", () => {
   it("returns the correct breadcrumb root when the version is a commit", () => {
     const { result } = renderHook(
       () => useBreadcrumbRoot(false, "admin", "spruce"),
-      { wrapper: SameUserProvider }
+      { wrapper: SameUserProvider },
     );
 
     expect(result.current.to).toBe("/commits/spruce");

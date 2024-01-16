@@ -40,7 +40,7 @@ const CommitTypeSelector = () => {
 
   const [requesters, setRequesters] = useQueryParam(
     MainlineCommitQueryParams.Requester,
-    []
+    [],
   );
 
   const onChange = (value: string[]) => {

@@ -74,7 +74,7 @@ export const gqlToForm = ((data) => {
 
 export const formToGql = ((
   { allocation, bootstrapSettings, setup, sshConfig },
-  distro
+  distro,
 ) => ({
   ...distro,
   arch: setup.arch,

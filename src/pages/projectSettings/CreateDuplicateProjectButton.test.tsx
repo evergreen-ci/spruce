@@ -66,7 +66,7 @@ describe("createDuplicateProjectField", () => {
       },
     };
     const { Component } = RenderFakeToastContext(
-      <Button mock={lacksPermissionsMock} />
+      <Button mock={lacksPermissionsMock} />,
     );
     render(<Component />);
 
@@ -77,7 +77,7 @@ describe("createDuplicateProjectField", () => {
     it("clicking the button opens the new project modal", async () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
-        <Button projectType={ProjectType.Repo} />
+        <Button projectType={ProjectType.Repo} />,
       );
       render(<Component />);
 

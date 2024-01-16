@@ -12,7 +12,7 @@ describe("commits page", () => {
       cy.dataCy("waterfall-task-status-icon").should(
         "have.attr",
         "aria-label",
-        "failed icon"
+        "failed icon",
       );
       cy.dataCy("grouped-task-status-badge").should("not.exist");
     });
@@ -63,7 +63,7 @@ describe("commits page", () => {
     cy.dataCy("commit-chart-container").should(
       "have.attr",
       "data-type",
-      "absolute"
+      "absolute",
     );
     cy.getInputByLabel("Percentage").click({ force: true });
     cy.getInputByLabel("Absolute Number").should("not.be.checked");
@@ -71,7 +71,7 @@ describe("commits page", () => {
     cy.dataCy("commit-chart-container").should(
       "have.attr",
       "data-type",
-      "percentage"
+      "percentage",
     );
     cy.location("search").should("contain", "chartType=percentage");
     cy.getInputByLabel("Absolute Number").click({ force: true });
@@ -80,7 +80,7 @@ describe("commits page", () => {
     cy.dataCy("commit-chart-container").should(
       "have.attr",
       "data-type",
-      "absolute"
+      "absolute",
     );
     cy.location("search").should("contain", "chartType=absolute");
   });
@@ -89,13 +89,13 @@ describe("commits page", () => {
     cy.dataCy("next-page-button").should(
       "not.have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     cy.dataCy("next-page-button").click();
     cy.dataCy("prev-page-button").should(
       "not.have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     cy.dataCy("prev-page-button").click();
     cy.dataCy("prev-page-button").should("have.attr", "aria-disabled", "true");
@@ -123,13 +123,13 @@ describe("commits page", () => {
       cy.dataCy("inactive-commits-tooltip").should("exist");
       cy.dataCy("inactive-commits-tooltip").should(
         "contain.text",
-        "1 Inactive Commit"
+        "1 Inactive Commit",
       );
       cy.dataCy("inactive-commits-tooltip").should("contain.text", "e695f65");
       cy.contains("e695f65").should(
         "have.attr",
         "href",
-        "/version/spruce_e695f654c8b4b959d3e12e71696c3e318bcd4c33/tasks"
+        "/version/spruce_e695f654c8b4b959d3e12e71696c3e318bcd4c33/tasks",
       );
     });
   });
@@ -143,18 +143,18 @@ describe("commits page", () => {
         cy.dataCy("waterfall-task-status-icon").should(
           "have.attr",
           "aria-label",
-          "failed icon"
+          "failed icon",
         );
         cy.dataCy("waterfall-task-status-icon").first().trigger("mouseover");
         cy.dataCy("waterfall-task-status-icon-tooltip").should("exist");
         cy.dataCy("waterfall-task-status-icon-tooltip").should("be.visible");
         cy.dataCy("waterfall-task-status-icon-tooltip").should(
           "contain.text",
-          "check_codegen"
+          "check_codegen",
         );
         cy.dataCy("waterfall-task-status-icon-tooltip").should(
           "contain.text",
-          "JustAFakeTestInALonelyWorld"
+          "JustAFakeTestInALonelyWorld",
         );
       });
       it("clicking on a task icon should direct you to the task page", () => {
@@ -186,7 +186,7 @@ describe("commits page", () => {
         cy.dataCy("grouped-task-status-badge-tooltip").should("be.visible");
         cy.dataCy("grouped-task-status-badge-tooltip").should(
           "contain.text",
-          "1 Succeeded"
+          "1 Succeeded",
         );
       });
       it("should direct you to the version page with the build variant and task status filters applied", () => {
@@ -224,13 +224,13 @@ describe("commits page", () => {
       cy.get("[data-selected='true']").should("be.visible");
       cy.get("[data-selected='true']").should(
         "contain.text",
-        revision.substring(0, 7)
+        revision.substring(0, 7),
       );
     });
 
     it("should clear any applied filters and skip numbers", () => {
       cy.visit(
-        "/commits/spruce?buildVariants=ubuntu&skipOrderNumber=1231&taskNames=codegen&view=FAILED"
+        "/commits/spruce?buildVariants=ubuntu&skipOrderNumber=1231&taskNames=codegen&view=FAILED",
       );
       searchCommit(revision);
       cy.location("search").should("not.contain", "buildVariants");

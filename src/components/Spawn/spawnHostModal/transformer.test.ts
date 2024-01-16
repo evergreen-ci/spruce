@@ -8,7 +8,7 @@ describe("spawn host modal", () => {
           formData,
           myPublicKeys,
           spawnTaskData: null,
-        })
+        }),
       ).toStrictEqual(mutationInput);
     });
   });
@@ -21,7 +21,7 @@ describe("spawn host modal", () => {
           myPublicKeys,
           spawnTaskData: null,
           migrateVolumeId,
-        })
+        }),
       ).toStrictEqual({
         ...mutationInput,
         volumeId: migrateVolumeId,

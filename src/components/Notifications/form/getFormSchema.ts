@@ -7,14 +7,14 @@ import { getNotificationSchema } from "./notification";
 export const getFormSchema = (
   regexEnumsToDisable: string[],
   triggers: Trigger,
-  subscriptionMethods: SubscriptionMethodOption[]
+  subscriptionMethods: SubscriptionMethodOption[],
 ): {
   schema: SpruceFormProps["schema"];
   uiSchema: SpruceFormProps["uiSchema"];
 } => {
   const { schema: eventSchema, uiSchema: eventUiSchema } = getEventSchema(
     regexEnumsToDisable,
-    triggers
+    triggers,
   );
   const { schema: notificationSchema, uiSchema: notificationUiSchema } =
     getNotificationSchema(subscriptionMethods);

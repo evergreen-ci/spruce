@@ -17,7 +17,7 @@ export const useUpdateURLQueryParams = () => {
         replace: true,
       });
     },
-    [navigate, search, pathname]
+    [navigate, search, pathname],
   );
 
   return updateQueryParams;

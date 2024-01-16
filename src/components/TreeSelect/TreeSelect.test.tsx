@@ -12,7 +12,7 @@ describe("treeSelect", () => {
 
   it("selected elements should be checked", () => {
     render(
-      <TreeSelect onChange={() => {}} state={["pass"]} tData={treeData} />
+      <TreeSelect onChange={() => {}} state={["pass"]} tData={treeData} />,
     );
     expect(screen.getByDataCy("tree-select-options")).toBeInTheDocument();
     const checkbox = screen.queryByLabelText("Pass");
@@ -45,7 +45,7 @@ describe("treeSelect", () => {
 
   it("should render nested children", () => {
     render(
-      <TreeSelect onChange={() => {}} state={[]} tData={nestedTreeData} />
+      <TreeSelect onChange={() => {}} state={[]} tData={nestedTreeData} />,
     );
     expect(screen.getByText("All")).toBeInTheDocument();
     expect(screen.getByText("Failing Umbrella")).toBeInTheDocument();
@@ -60,7 +60,7 @@ describe("treeSelect", () => {
       state = update;
     });
     render(
-      <TreeSelect onChange={onChange} state={state} tData={nestedTreeData} />
+      <TreeSelect onChange={onChange} state={state} tData={nestedTreeData} />,
     );
     expect(screen.queryByLabelText("Failing Umbrella")).toBeChecked();
     expect(screen.queryByLabelText("System Failure")).toBeChecked();
@@ -73,7 +73,7 @@ describe("treeSelect", () => {
     const user = userEvent.setup();
     const onChange = jest.fn();
     render(
-      <TreeSelect onChange={onChange} state={[]} tData={nestedTreeData} />
+      <TreeSelect onChange={onChange} state={[]} tData={nestedTreeData} />,
     );
     expect(screen.getByText("Failing Umbrella")).toBeInTheDocument();
     await user.click(screen.queryByText("Failing Umbrella"));

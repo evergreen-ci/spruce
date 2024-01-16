@@ -4,7 +4,7 @@ describe("task history", () => {
     cy.dataCy("loading-cell").should("have.length", 0);
     cy.validateToast(
       "error",
-      "There was an error loading the task history: Could not find project with id: bogus-project"
+      "There was an error loading the task history: Could not find project with id: bogus-project",
     );
   });
 
@@ -38,14 +38,14 @@ describe("task history", () => {
     cy.dataCy("task-history-tests-btn").click();
     cy.location("pathname").should(
       "contain",
-      `/task-history/spruce/check_codegen`
+      `/task-history/spruce/check_codegen`,
     );
     cy.dataCy("filter-badge").should("exist");
     cy.dataCy("filter-badge").should("contain.text", "JustAFake");
   });
   it("hovering over a failing task should show test results", () => {
     cy.visit(
-      "/task-history/spruce/check_codegen?failed=JustAFakeTestInALonelyWorld&selectedCommit=1236"
+      "/task-history/spruce/check_codegen?failed=JustAFakeTestInALonelyWorld&selectedCommit=1236",
     );
     cy.dataCy("history-table-icon").get("[data-status=failed]").should("exist");
     cy.dataCy("history-table-icon")

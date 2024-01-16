@@ -26,7 +26,7 @@ const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => {
   // the trimmed name needs to account for the label
   const trimmedBadgeName = trimStringFromMiddle(
     badge.value,
-    maxBadgeLength - badge.key.length
+    maxBadgeLength - badge.key.length,
   );
 
   return (

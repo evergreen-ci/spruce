@@ -44,7 +44,7 @@ export interface Properties {
 
 export const addPageAction = <A extends ActionType, P extends Properties>(
   { name, ...actionProps }: A,
-  properties: P & RequiredProperties
+  properties: P & RequiredProperties,
 ) => {
   const { newrelic } = window;
   const { search } = window.location;

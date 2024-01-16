@@ -62,7 +62,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
     onError(error) {
       closeModal();
       dispatchToast.error(
-        `There was an error updating hosts status: ${error.message}`
+        `There was an error updating hosts status: ${error.message}`,
       );
     },
     refetchQueries: ["Hosts"],

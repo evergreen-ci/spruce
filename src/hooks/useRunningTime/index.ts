@@ -10,7 +10,7 @@ import differenceInMilliseconds from "date-fns/differenceInMilliseconds";
  */
 export const useRunningTime = (startTime: Date) => {
   const [runningTime, setRunningTime] = useState(
-    differenceInMilliseconds(Date.now(), startTime)
+    differenceInMilliseconds(Date.now(), startTime),
   );
 
   const timerRef = useRef(null);

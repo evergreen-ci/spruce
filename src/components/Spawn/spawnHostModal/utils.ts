@@ -20,7 +20,7 @@ export const validateSpawnHostForm = (
     setupScriptSection,
     userdataScriptSection,
   }: FormState,
-  isMigration?: boolean
+  isMigration?: boolean,
 ) => {
   const hasDistro = !!distro?.value;
   const hasRegion = !!region;

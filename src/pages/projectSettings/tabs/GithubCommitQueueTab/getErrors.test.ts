@@ -14,7 +14,7 @@ const callSectionHasError = ({
     override,
     aliases,
     repoAliases,
-    "myFieldName"
+    "myFieldName",
   );
 
 describe("an attached project", () => {
@@ -41,7 +41,7 @@ describe("an attached project", () => {
         callSectionHasError({
           ...baseArgs,
           versionControlEnabled: false,
-        })
+        }),
       ).toStrictEqual({
         "ui:errors": [
           "A myFieldName must be specified for this feature to run.",
@@ -56,7 +56,7 @@ describe("an attached project", () => {
         callSectionHasError({
           ...baseArgs,
           aliases: [{} as AliasFormType],
-        })
+        }),
       ).toStrictEqual({});
     });
   });
@@ -67,7 +67,7 @@ describe("an attached project", () => {
         callSectionHasError({
           ...baseArgs,
           override: false,
-        })
+        }),
       ).toStrictEqual({
         "ui:warnings": [
           "YAML aliases will be used for this feature unless a myFieldName is added to the project or repo.",
@@ -81,7 +81,7 @@ describe("an attached project", () => {
           ...baseArgs,
           versionControlEnabled: false,
           override: false,
-        })
+        }),
       ).toStrictEqual({
         "ui:warnings": [
           "This feature will only run if a myFieldName is defined in the project or repo.",
@@ -95,7 +95,7 @@ describe("an attached project", () => {
       callSectionHasError({
         ...baseArgs,
         enabled: false,
-      })
+      }),
     ).toStrictEqual({});
   });
 });
@@ -115,7 +115,7 @@ describe("a repo", () => {
       callSectionHasError({
         ...baseArgs,
         aliases: [{} as AliasFormType],
-      })
+      }),
     ).toStrictEqual({});
   });
 
@@ -133,7 +133,7 @@ describe("a repo", () => {
         callSectionHasError({
           ...baseArgs,
           versionControlEnabled: false,
-        })
+        }),
       ).toStrictEqual({
         "ui:errors": [
           "A myFieldName must be specified for this feature to run.",

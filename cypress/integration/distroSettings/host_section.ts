@@ -19,7 +19,7 @@ describe("host section", () => {
     it("shows an error when selecting an incompatible host communication method", () => {
       cy.selectLGOption("Host Communication Method", "RPC");
       cy.contains(
-        "Legacy and non-legacy bootstrapping and communication are incompatible."
+        "Legacy and non-legacy bootstrapping and communication are incompatible.",
       );
     });
 
@@ -33,7 +33,7 @@ describe("host section", () => {
       cy.getInputByLabel("SSH Option").type("BatchMode=yes");
       cy.selectLGOption(
         "Host Overallocation Rule",
-        "Terminate hosts when overallocated"
+        "Terminate hosts when overallocated",
       );
 
       save();
@@ -96,7 +96,7 @@ describe("host section", () => {
       cy.getInputByLabel("Client Directory").type("/client/dir");
       cy.getInputByLabel("Shell Path").type("/shell/path");
       cy.getInputByLabel("Home Volume Format Command").type(
-        "echo 'Hello World'"
+        "echo 'Hello World'",
       );
       cy.getInputByLabel("Number of Files").type("10");
       cy.getInputByLabel("Number of CGroup Tasks").type("20");

@@ -38,7 +38,7 @@ describe("Restarting a patch", () => {
 
     cy.dataCy("version-restart-modal").should(
       "contain.text",
-      "Are you sure you want to restart the 1 selected tasks?"
+      "Are you sure you want to restart the 1 selected tasks?",
     );
     cy.dataCy("task-status-filter").click();
     cy.getInputByLabel("All").check({ force: true });
@@ -55,7 +55,7 @@ describe("Restarting a patch", () => {
       // support cy-data elements currently
       cy.dataCy("confirmation-message").should(
         "contain.text",
-        "Are you sure you want to restart the 1 selected tasks?"
+        "Are you sure you want to restart the 1 selected tasks?",
       );
       cy.dataCy("base-task-status-filter").click();
 
@@ -80,7 +80,7 @@ describe("Restarting mainline commits", () => {
     cy.dataCy("restart-version").should(
       "not.have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     cy.dataCy("restart-version").click();
     cy.dataCy("version-restart-modal").should("be.visible");
@@ -91,7 +91,7 @@ describe("Restarting mainline commits", () => {
       cy.contains("button", "Restart").should(
         "not.have.attr",
         "aria-disabled",
-        "true"
+        "true",
       );
       cy.contains("button", "Restart").click();
     });

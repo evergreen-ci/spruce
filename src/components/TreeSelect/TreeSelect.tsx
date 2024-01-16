@@ -56,12 +56,12 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
             const { target } = findNode({ value, tData });
             if (target.children) {
               return accum.filter(
-                (v) => !target.children.find((child) => child.value === v)
+                (v) => !target.children.find((child) => child.value === v),
               );
             }
             return accum;
           },
-          [...filteredState]
+          [...filteredState],
         )
         .map((value) => findNode({ value, tData }).target.title)
         .join(", ");
@@ -149,7 +149,7 @@ const renderCheckboxesHelper = ({
         bold={false}
         data-cy="checkbox"
       />
-    </CheckboxWrapper>
+    </CheckboxWrapper>,
   );
   // then examine children
   if (data.children) {
@@ -170,7 +170,7 @@ const renderCheckboxesHelper = ({
             bold={false}
             data-cy="checkbox"
           />
-        </CheckboxWrapper>
+        </CheckboxWrapper>,
       );
     });
   }
@@ -209,14 +209,14 @@ const handleOnChange = ({
       onChange(
         adjustAll({
           resultState: state.filter(
-            (v) => v !== value && !childrenValues.includes(v)
+            (v) => v !== value && !childrenValues.includes(v),
           ),
           tData,
-        })
+        }),
       );
     } else {
       const resultState = Array.from(
-        new Set([...state, value, ...childrenValues])
+        new Set([...state, value, ...childrenValues]),
       );
       onChange(adjustAll({ resultState, tData }));
     }
@@ -228,7 +228,7 @@ const handleOnChange = ({
         adjustAll({
           resultState: state.filter((v) => v !== value && v !== parentValue),
           tData,
-        })
+        }),
       );
     } else {
       let siblingsChecked = true;
@@ -239,8 +239,8 @@ const handleOnChange = ({
       // use set in case parent.value already exists in state
       const resultState = Array.from(
         new Set(
-          [...state, value].concat(shouldCheckParent ? [parentValue] : [])
-        )
+          [...state, value].concat(shouldCheckParent ? [parentValue] : []),
+        ),
       );
       onChange(adjustAll({ resultState, tData }));
     }
@@ -258,7 +258,7 @@ const adjustAll = ({
   const allValues = getAllValues(tData).filter((value) => value !== ALL_VALUE);
   const resultStateHasAllValues = allValues.reduce(
     (accum, value) => accum && resultState.includes(value),
-    true
+    true,
   );
   // convert to set in case all exists in URL when its not supposed to
   const resultStateSet = new Set(resultState);

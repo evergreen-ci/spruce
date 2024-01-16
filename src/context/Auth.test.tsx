@@ -33,14 +33,14 @@ describe("auth", () => {
   it("useAuthDispatchContext should error when rendered outside of AuthProvider", () => {
     jest.spyOn(console, "error").mockImplementation();
     expect(() => renderHook(() => useAuthDispatchContext())).toThrow(
-      "useAuthDispatchContext must be used within an auth context provider"
+      "useAuthDispatchContext must be used within an auth context provider",
     );
   });
 
   it("useAuthStateContext should error when rendered outside of AuthProvider", () => {
     jest.spyOn(console, "error").mockImplementation();
     expect(() => renderHook(() => useAuthStateContext())).toThrow(
-      "useAuthStateContext must be used within an auth context provider"
+      "useAuthStateContext must be used within an auth context provider",
     );
   });
 

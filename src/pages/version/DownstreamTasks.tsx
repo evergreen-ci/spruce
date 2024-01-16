@@ -29,7 +29,7 @@ export const DownstreamTasks: React.FC<DownstreamTasksProps> = ({
           baseVersionID={versionFull?.baseVersion?.id}
           parameters={parameters}
         />
-      )
+      ),
     )}
   </>
 );

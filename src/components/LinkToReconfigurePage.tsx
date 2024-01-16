@@ -9,7 +9,7 @@ export const LinkToReconfigurePage: React.FC<{
   hasVersion?: boolean;
 }> = ({ disabled, hasVersion = true, patchId }) => {
   const { sendEvent } = (hasVersion ? useVersionAnalytics : usePatchAnalytics)(
-    patchId
+    patchId,
   );
 
   const navigate = useNavigate();

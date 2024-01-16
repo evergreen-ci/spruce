@@ -7,7 +7,7 @@ const { radioBoxOptions } = form;
 
 export const getFormSchema = (
   projectType: ProjectType,
-  repoData?: any
+  repoData?: any,
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -22,7 +22,7 @@ export const getFormSchema = (
             title: "Internal Access",
             oneOf: radioBoxOptions(
               ["Restricted", "Unrestricted"],
-              repoData?.accessSettings?.restricted
+              repoData?.accessSettings?.restricted,
             ),
           },
         },

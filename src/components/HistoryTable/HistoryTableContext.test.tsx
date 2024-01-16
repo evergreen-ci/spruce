@@ -45,11 +45,11 @@ describe("historyTableContext", () => {
     });
     // Filter out the column date separators
     const processedCommits = result.current.processedCommits.filter(
-      (c) => c.type !== rowType.DATE_SEPARATOR
+      (c) => c.type !== rowType.DATE_SEPARATOR,
     );
     // Should have processed the new commits and have every real commit
     expect(processedCommits).toHaveLength(
-      splitMainlineCommitDataPart1.versions.length
+      splitMainlineCommitDataPart1.versions.length,
     );
     // First element should be the date separator
     expect(result.current.isItemLoaded(0)).toBe(true);

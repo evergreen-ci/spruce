@@ -6,7 +6,7 @@ describe("Host page title and sidebar ", () => {
     cy.visit(pathNoTask);
     cy.dataCy("page-title").should(
       "include.text",
-      "Host: macos-1014-68.macstadium.build.10gen"
+      "Host: macos-1014-68.macstadium.build.10gen",
     );
   });
 
@@ -24,7 +24,7 @@ describe("Host page title and sidebar ", () => {
   it("sshCommand has the correct values", () => {
     cy.visit(pathWithTask);
     cy.dataCy("ssh-command").contains(
-      "ssh admin@ec2-54-146-18-248.compute-1.amazonaws.com"
+      "ssh admin@ec2-54-146-18-248.compute-1.amazonaws.com",
     );
   });
 });

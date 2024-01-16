@@ -50,10 +50,10 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
     >
       {allExecutions?.map((singleExecution) => {
         const optionText = `Execution ${formatZeroIndexForDisplay(
-          singleExecution.execution
+          singleExecution.execution,
         )} - ${getDateCopy(
           singleExecution.activatedTime ?? singleExecution.ingestTime,
-          { omitTimezone: true }
+          { omitTimezone: true },
         )}`;
 
         return (

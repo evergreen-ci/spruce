@@ -55,7 +55,7 @@ export const useLoadFormSchemaData = (p?: Props) => {
 
   const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(
     false,
-    p?.host
+    p?.host,
   );
   const noExpirationCheckboxTooltip = getNoExpirationCheckboxTooltipCopy({
     disableExpirationCheckbox,

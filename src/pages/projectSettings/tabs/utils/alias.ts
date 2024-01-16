@@ -93,7 +93,7 @@ const aliasToForm = ({
 
 // Bucket aliases according to their "alias" field
 export const sortAliases = (
-  aliases: ProjectAlias[]
+  aliases: ProjectAlias[],
 ): Record<string, AliasFormType[]> =>
   aliases.reduce(
     (o, a) => {
@@ -117,7 +117,7 @@ export const sortAliases = (
       githubCheckAliases: [],
       gitTagAliases: [],
       patchAliases: [],
-    }
+    },
   );
 
 const transformVariants = ({
@@ -166,7 +166,7 @@ const transformTasks = ({
 export const transformAliases = (
   aliases: AliasFormType[],
   override: boolean,
-  aliasName?: AliasNames
+  aliasName?: AliasNames,
 ): ProjectAliasInput[] =>
   override
     ? aliases.map((a) => {

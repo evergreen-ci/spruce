@@ -58,7 +58,7 @@ describe("deleteDistro", () => {
   it("admin can successfully delete a distro", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <DeleteButton isAdmin />
+      <DeleteButton isAdmin />,
     );
     render(<Component />, {
       path: "/distro/:distroId/settings/general",
@@ -78,7 +78,7 @@ describe("deleteDistro", () => {
     expect(confirmButton).toHaveAttribute("aria-disabled", "true");
 
     const textInput = within(
-      screen.getByDataCy("delete-distro-modal")
+      screen.getByDataCy("delete-distro-modal"),
     ).getByRole("textbox");
     await user.type(textInput, distroToDelete);
     expect(confirmButton).toHaveAttribute("aria-disabled", "false");

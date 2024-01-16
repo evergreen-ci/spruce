@@ -53,7 +53,7 @@ export const VersionPage: React.FC = () => {
     fetchPolicy: "cache-and-network",
     onError: (error) => {
       dispatchToast.error(
-        `There was an error loading the version: ${error.message}`
+        `There was an error loading the version: ${error.message}`,
       );
       setIsLoadingData(false);
     },
@@ -67,7 +67,7 @@ export const VersionPage: React.FC = () => {
     variables: { id },
     onError: (error) => {
       dispatchToast.error(
-        `There was an error loading this patch: ${error.message}`
+        `There was an error loading this patch: ${error.message}`,
       );
       setIsLoadingData(false);
     },
@@ -164,7 +164,7 @@ export const VersionPage: React.FC = () => {
 
   const linkifiedMessage = jiraLinkify(
     githubPRLinkify(message),
-    spruceConfig?.jira?.host
+    spruceConfig?.jira?.host,
   );
 
   return (

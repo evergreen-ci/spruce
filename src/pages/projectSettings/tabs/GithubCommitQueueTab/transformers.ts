@@ -10,7 +10,7 @@ type Tab = ProjectSettingsTabRoutes.GithubCommitQueue;
 
 export const mergeProjectRepo = (
   projectData: GCQFormState,
-  repoData: GCQFormState
+  repoData: GCQFormState,
 ): GCQFormState => {
   // Merge project and repo objects so that repo config can be displayed on project pages
   const {
@@ -56,7 +56,7 @@ export const gqlToForm = ((data, options) => {
   const githubTriggerAliases =
     projectRef.githubTriggerAliases
       ?.map((aliasName) =>
-        projectRef.patchTriggerAliases.find(({ alias }) => alias === aliasName)
+        projectRef.patchTriggerAliases.find(({ alias }) => alias === aliasName),
       )
       ?.filter((a) => a) ?? [];
 
@@ -127,7 +127,7 @@ export const formToGql = ((
       users: { gitTagAuthorizedUsers, gitTagAuthorizedUsersOverride },
     },
   },
-  id
+  id,
 ) => {
   const projectRef: ProjectInput = {
     id,
@@ -152,25 +152,25 @@ export const formToGql = ((
   const githubPrAliases = transformAliases(
     prTesting.githubPrAliases,
     prTesting.githubPrAliasesOverride,
-    AliasNames.GithubPr
+    AliasNames.GithubPr,
   );
 
   const githubCheckAliases = transformAliases(
     githubChecks.githubCheckAliases,
     githubChecks.githubCheckAliasesOverride,
-    AliasNames.GithubCheck
+    AliasNames.GithubCheck,
   );
 
   const gitTagAliases = transformAliases(
     gitTags.gitTagAliases,
     gitTags.gitTagAliasesOverride,
-    AliasNames.GitTag
+    AliasNames.GitTag,
   );
 
   const commitQueueAliases = transformAliases(
     patchDefinitions.commitQueueAliases,
     patchDefinitions.commitQueueAliasesOverride,
-    AliasNames.CommitQueue
+    AliasNames.CommitQueue,
   );
 
   const aliases = [

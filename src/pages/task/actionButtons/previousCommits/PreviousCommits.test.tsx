@@ -20,12 +20,12 @@ describe("previous commits", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[getPatchTaskWithNoBaseTask]}>
           <PreviousCommits taskId="t1" />
-        </MockedProvider>
+        </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
       await waitFor(() => {
         expect(
-          screen.getByRole("button", { name: "Previous commits" })
+          screen.getByRole("button", { name: "Previous commits" }),
         ).toHaveAttribute("aria-disabled", "true");
       });
     });
@@ -38,13 +38,13 @@ describe("previous commits", () => {
           mocks={[getMainlineTaskWithBaseVersion, getNullParentTask]}
         >
           <PreviousCommits taskId="t4" />
-        </MockedProvider>
+        </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
       await waitFor(() => {
         expect(
-          screen.getByRole("button", { name: "Previous commits" })
+          screen.getByRole("button", { name: "Previous commits" }),
         ).toHaveAttribute("aria-disabled", "true");
       });
     });
@@ -55,13 +55,13 @@ describe("previous commits", () => {
           mocks={[getMainlineTaskWithBaseVersion, getParentTaskWithError]}
         >
           <PreviousCommits taskId="t4" />
-        </MockedProvider>
+        </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
       await waitFor(() => {
         expect(
-          screen.getByRole("button", { name: "Previous commits" })
+          screen.getByRole("button", { name: "Previous commits" }),
         ).toHaveAttribute("aria-disabled", "true");
       });
     });
@@ -71,13 +71,13 @@ describe("previous commits", () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getPatchTaskWithNoBaseVersion]}>
         <PreviousCommits taskId="t3" />
-      </MockedProvider>
+      </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
 
     await waitFor(() => {
       expect(
-        screen.getByRole("button", { name: "Previous commits" })
+        screen.getByRole("button", { name: "Previous commits" }),
       ).toHaveAttribute("aria-disabled", "true");
     });
   });
@@ -93,13 +93,13 @@ describe("previous commits", () => {
         ]}
       >
         <PreviousCommits taskId="t1" />
-      </MockedProvider>
+      </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
 
     await screen.findByRole("button", { name: "Previous commits" });
     expect(
-      screen.getByRole("button", { name: "Previous commits" })
+      screen.getByRole("button", { name: "Previous commits" }),
     ).toHaveAttribute("aria-disabled", "false");
     await user.click(screen.getByRole("button", { name: "Previous commits" }));
     await waitFor(() => {
@@ -107,13 +107,13 @@ describe("previous commits", () => {
     });
 
     expect(
-      screen.getByRole("menuitem", { name: "Go to base commit" })
+      screen.getByRole("menuitem", { name: "Go to base commit" }),
     ).toHaveAttribute("href", baseTaskHref);
     expect(
-      screen.getByRole("menuitem", { name: "Go to last passing version" })
+      screen.getByRole("menuitem", { name: "Go to last passing version" }),
     ).toHaveAttribute("href", baseTaskHref);
     expect(
-      screen.getByRole("menuitem", { name: "Go to last executed version" })
+      screen.getByRole("menuitem", { name: "Go to last executed version" }),
     ).toHaveAttribute("href", baseTaskHref);
   });
 
@@ -124,13 +124,13 @@ describe("previous commits", () => {
         mocks={[getPatchTaskWithFailingBaseTask, getLastPassingVersion]}
       >
         <PreviousCommits taskId="t1" />
-      </MockedProvider>
+      </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
 
     await screen.findByRole("button", { name: "Previous commits" });
     expect(
-      screen.getByRole("button", { name: "Previous commits" })
+      screen.getByRole("button", { name: "Previous commits" }),
     ).toHaveAttribute("aria-disabled", "false");
     await user.click(screen.getByRole("button", { name: "Previous commits" }));
     await waitFor(() => {
@@ -138,13 +138,13 @@ describe("previous commits", () => {
     });
 
     expect(
-      screen.getByRole("menuitem", { name: "Go to base commit" })
+      screen.getByRole("menuitem", { name: "Go to base commit" }),
     ).toHaveAttribute("href", baseTaskHref);
     expect(
-      screen.getByRole("menuitem", { name: "Go to last passing version" })
+      screen.getByRole("menuitem", { name: "Go to last passing version" }),
     ).toHaveAttribute("href", "/task/last_passing_task");
     expect(
-      screen.getByRole("menuitem", { name: "Go to last executed version" })
+      screen.getByRole("menuitem", { name: "Go to last executed version" }),
     ).toHaveAttribute("href", baseTaskHref);
   });
 
@@ -159,13 +159,13 @@ describe("previous commits", () => {
         ]}
       >
         <PreviousCommits taskId="t3" />
-      </MockedProvider>
+      </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
 
     await screen.findByRole("button", { name: "Previous commits" });
     expect(
-      screen.getByRole("button", { name: "Previous commits" })
+      screen.getByRole("button", { name: "Previous commits" }),
     ).toHaveAttribute("aria-disabled", "false");
     await user.click(screen.getByRole("button", { name: "Previous commits" }));
     await waitFor(() => {
@@ -173,13 +173,13 @@ describe("previous commits", () => {
     });
 
     expect(
-      screen.getByRole("menuitem", { name: "Go to base commit" })
+      screen.getByRole("menuitem", { name: "Go to base commit" }),
     ).toHaveAttribute("href", baseTaskHref);
     expect(
-      screen.getByRole("menuitem", { name: "Go to last passing version" })
+      screen.getByRole("menuitem", { name: "Go to last passing version" }),
     ).toHaveAttribute("href", "/task/last_passing_task");
     expect(
-      screen.getByRole("menuitem", { name: "Go to last executed version" })
+      screen.getByRole("menuitem", { name: "Go to last executed version" }),
     ).toHaveAttribute("href", "/task/last_executed_task");
   });
 });

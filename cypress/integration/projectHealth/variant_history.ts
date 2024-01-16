@@ -4,7 +4,7 @@ describe("variant history", () => {
     cy.dataCy("loading-cell").should("have.length", 0);
     cy.validateToast(
       "error",
-      "There was an error loading the variant history: Could not find project with id: bogus-project"
+      "There was an error loading the variant history: Could not find project with id: bogus-project",
     );
   });
 
@@ -32,7 +32,7 @@ describe("variant history", () => {
       cy.dataCy("header-cell").should("have.length", 4);
       cy.dataCy("prev-page-button").click();
       cy.dataCy("header-cell").should("have.length", 4);
-    }
+    },
   );
   it("should be able expand and collapse inactive commits", () => {
     cy.visit("/variant-history/spruce/ubuntu1604?selectedCommit=1238");
@@ -68,7 +68,7 @@ describe("variant history", () => {
   });
   it("hovering over a failing task should show test results", () => {
     cy.visit(
-      "/variant-history/spruce/ubuntu1604?failed=JustAFakeTestInALonelyWorld&selectedCommit=1236"
+      "/variant-history/spruce/ubuntu1604?failed=JustAFakeTestInALonelyWorld&selectedCommit=1236",
     );
     cy.dataCy("history-table-icon")
       .get("[data-status=failed]")

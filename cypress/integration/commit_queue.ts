@@ -54,7 +54,7 @@ describe("commit queue page", () => {
       cy.dataCy("commit-queue-message").should("exist");
       cy.dataCy("commit-queue-message").should(
         "contain.text",
-        "This is the commit queue"
+        "This is the commit queue",
       );
     });
 
@@ -68,8 +68,8 @@ describe("commit queue page", () => {
               "some other commit",
               "crazy cool commit!!!",
               "mega commit",
-            ][index]
-          )
+            ][index],
+          ),
       );
     });
   });

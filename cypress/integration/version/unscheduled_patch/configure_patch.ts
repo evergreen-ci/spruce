@@ -10,8 +10,8 @@ describe("Configure Patch Page", () => {
       cy.visit(`/version/${unactivatedPatchId}`);
       cy.location().should((loc) =>
         expect(loc.pathname).to.eq(
-          `/patch/${unactivatedPatchId}/configure/tasks`
-        )
+          `/patch/${unactivatedPatchId}/configure/tasks`,
+        ),
       );
     });
     it("Patch name input field value is patch description", () => {
@@ -30,7 +30,7 @@ describe("Configure Patch Page", () => {
       cy.dataCy("cancel-button").should("exist");
       cy.dataCy("cancel-button").click();
       cy.location().should((loc) =>
-        expect(loc.pathname).to.eq(`/version/5ecedafb562343215a7ff297/tasks`)
+        expect(loc.pathname).to.eq(`/version/5ecedafb562343215a7ff297/tasks`),
       );
     });
     it("should not allow canceling an unconfigured patch", () => {
@@ -44,7 +44,7 @@ describe("Configure Patch Page", () => {
         cy.get('button[data-cy="tasks-tab"]').should(
           "have.attr",
           "aria-selected",
-          "true"
+          "true",
         );
         cy.dataCy("tasks-tab").should("be.visible");
       });
@@ -72,17 +72,17 @@ describe("Configure Patch Page", () => {
       cy.get('button[data-cy="changes-tab"]').click();
       cy.location("pathname").should(
         "eq",
-        `/patch/${unactivatedPatchId}/configure/changes`
+        `/patch/${unactivatedPatchId}/configure/changes`,
       );
       cy.get('button[data-cy="parameters-tab"]').click();
       cy.location("pathname").should(
         "eq",
-        `/patch/${unactivatedPatchId}/configure/parameters`
+        `/patch/${unactivatedPatchId}/configure/parameters`,
       );
       cy.get('button[data-cy="tasks-tab"]').click();
       cy.location("pathname").should(
         "eq",
-        `/patch/${unactivatedPatchId}/configure/tasks`
+        `/patch/${unactivatedPatchId}/configure/tasks`,
       );
     });
     it("Navigating away from the configure tab should disable the build variant selector", () => {
@@ -91,7 +91,7 @@ describe("Configure Patch Page", () => {
       cy.dataCy("build-variant-select-wrapper").should(
         "have.css",
         "pointer-events",
-        "none"
+        "none",
       );
     });
   });
@@ -146,7 +146,7 @@ describe("Configure Patch Page", () => {
         .should("not.exist");
       let count = 0;
       cy.dataCy("selected-task-disclaimer").contains(
-        `${count} tasks across 0 build variants`
+        `${count} tasks across 0 build variants`,
       );
       cy.dataCy("task-checkbox").each(($el) => {
         cy.wrap($el).should("not.be.checked");
@@ -174,7 +174,7 @@ describe("Configure Patch Page", () => {
         .find('[data-cy="task-count-badge"]')
         .should("contain.text", "1");
       cy.dataCy("selected-task-disclaimer").contains(
-        "1 task across 1 build variant"
+        "1 task across 1 build variant",
       );
 
       cy.dataCy("task-checkbox").uncheck({ force: true });
@@ -183,7 +183,7 @@ describe("Configure Patch Page", () => {
         .find('[data-cy="task-count-badge"]')
         .should("not.exist");
       cy.dataCy("selected-task-disclaimer").contains(
-        "0 tasks across 0 build variants"
+        "0 tasks across 0 build variants",
       );
     });
 
@@ -193,13 +193,13 @@ describe("Configure Patch Page", () => {
         cy.contains("Ubuntu 16.04").click();
         cy.dataCy("task-checkbox").should("have.length", 45);
         cy.dataCy("selected-task-disclaimer").contains(
-          `0 tasks across 0 build variants`
+          `0 tasks across 0 build variants`,
         );
         cy.dataCy("task-filter-input").type("dist");
         cy.dataCy("task-checkbox").should("have.length", 2);
         cy.contains("Select all tasks in view").click();
         cy.dataCy("selected-task-disclaimer").contains(
-          "2 tasks across 1 build variant"
+          "2 tasks across 1 build variant",
         );
       });
       it("The task filter input works across multiple build variants", () => {
@@ -216,13 +216,13 @@ describe("Configure Patch Page", () => {
         });
         cy.dataCy("task-checkbox").should("have.length", 46);
         cy.dataCy("selected-task-disclaimer").contains(
-          `0 tasks across 0 build variants`
+          `0 tasks across 0 build variants`,
         );
         cy.dataCy("task-filter-input").type("dist");
         cy.dataCy("task-checkbox").should("have.length", 2);
         cy.contains("Select all tasks in view").click();
         cy.dataCy("selected-task-disclaimer").contains(
-          "4 tasks across 2 build variants"
+          "4 tasks across 2 build variants",
         );
         cy.dataCy("task-filter-input").clear();
       });
@@ -270,7 +270,7 @@ describe("Configure Patch Page", () => {
         cy.dataCy("select-all-checkbox").should(
           "have.attr",
           "aria-checked",
-          "mixed"
+          "mixed",
         );
       });
       it("Selecting all tasks on an an indeterminate state should check all the checkboxes", () => {
@@ -298,14 +298,14 @@ describe("Configure Patch Page", () => {
         cy.dataCy("task-count-badge").contains("1");
 
         cy.dataCy("selected-task-disclaimer").contains(
-          "1 task across 1 build variant"
+          "1 task across 1 build variant",
         );
         cy.getInputByLabel("test-agent").uncheck({
           force: true,
         });
         cy.dataCy("task-count-badge").should("not.exist");
         cy.dataCy("selected-task-disclaimer").contains(
-          "0 tasks across 0 build variants"
+          "0 tasks across 0 build variants",
         );
       });
       it("Selecting multiple build variants should display deduplicated task checkboxes", () => {
@@ -425,7 +425,7 @@ describe("Configure Patch Page", () => {
                   cy.dataCy("selected-task-disclaimer").contains(
                     `${
                       variant1TaskCount + variant2TaskCount
-                    } tasks across 2 build variants`
+                    } tasks across 2 build variants`,
                   );
                 });
             });
@@ -469,7 +469,7 @@ describe("Configure Patch Page", () => {
           });
 
           cy.dataCy("selected-task-disclaimer").contains(
-            `0 tasks across 0 build variants`
+            `0 tasks across 0 build variants`,
           );
         });
       });
@@ -517,11 +517,11 @@ describe("Configure Patch Page", () => {
         });
 
         cy.dataCy("selected-task-disclaimer").contains(
-          `0 tasks across 0 build variants, 1 trigger alias`
+          `0 tasks across 0 build variants, 1 trigger alias`,
         );
 
         cy.dataCy("trigger-alias-list-item").find(
-          '[data-cy="task-count-badge"]'
+          '[data-cy="task-count-badge"]',
         );
         cy.dataCy("trigger-alias-list-item")
           .find('[data-cy="task-count-badge"]')
@@ -583,7 +583,7 @@ describe("Configure Patch Page", () => {
       cy.dataCy("schedule-patch").click();
       cy.location("pathname").should(
         "eq",
-        `/version/${activatedPatchId}/tasks`
+        `/version/${activatedPatchId}/tasks`,
       );
     });
   });

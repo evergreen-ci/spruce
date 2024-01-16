@@ -52,7 +52,7 @@ describe("initializeTaskState", () => {
           name: "variant1",
           tasks: ["task1"],
         },
-      ])
+      ]),
     ).toStrictEqual({
       variant1: {
         task1: true,
@@ -79,7 +79,7 @@ describe("initializeTaskState", () => {
           name: "variant2",
           tasks: ["task2"],
         },
-      ])
+      ]),
     ).toStrictEqual({
       variant1: {
         task1: false,

@@ -76,7 +76,8 @@ export const getFormSchema = ({
             ? {
                 value: distroIdQueryParam,
                 isVirtualWorkstation: !!distros?.find(
-                  (v) => v.name === distroIdQueryParam && v.isVirtualWorkStation
+                  (v) =>
+                    v.name === distroIdQueryParam && v.isVirtualWorkStation,
                 ),
               }
             : null,

@@ -153,7 +153,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
   };
 
   const activeTabs = Object.keys(tabMap).filter(
-    (tab) => tabIsActive[tab]
+    (tab) => tabIsActive[tab],
   ) as TaskTab[];
 
   let defaultTab = 0;

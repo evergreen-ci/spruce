@@ -48,7 +48,7 @@ export const MoveRepoModal: React.FC<ModalProps> = ({
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error attaching the project: ${err.message}`
+        `There was an error attaching the project: ${err.message}`,
       );
     },
     refetchQueries: [

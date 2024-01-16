@@ -13,7 +13,7 @@ describe("taskDurationTable", () => {
     render(
       <MockedProvider>
         <TaskDurationTable tasks={tasks} loading={false} numLoadingRows={10} />
-      </MockedProvider>
+      </MockedProvider>,
     );
     expect(screen.queryAllByDataCy("leafygreen-table-row")).toHaveLength(2);
   });
@@ -23,13 +23,13 @@ describe("taskDurationTable", () => {
     render(
       <MockedProvider>
         <TaskDurationTable tasks={tasks} loading={false} numLoadingRows={10} />
-      </MockedProvider>
+      </MockedProvider>,
     );
     expect(
-      screen.queryByText("check_codegen_execution_task")
+      screen.queryByText("check_codegen_execution_task"),
     ).not.toBeVisible();
     const expandRowButton = within(
-      screen.queryAllByDataCy("leafygreen-table-row")[0]
+      screen.queryAllByDataCy("leafygreen-table-row")[0],
     ).queryByRole("button");
     await user.click(expandRowButton);
     expect(screen.queryByText("check_codegen_execution_task")).toBeVisible();

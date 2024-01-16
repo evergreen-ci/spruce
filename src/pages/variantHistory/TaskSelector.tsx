@@ -23,7 +23,7 @@ const TaskSelector: React.FC<TaskSelectorProps> = ({
 
   const [visibleColumns, setVisibleColumns] = useQueryParam<string[]>(
     HistoryQueryParams.VisibleColumns,
-    []
+    [],
   );
 
   const { data, loading } = useQuery<

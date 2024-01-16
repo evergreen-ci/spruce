@@ -36,7 +36,7 @@ export const EnqueuePatchModal: React.FC<EnqueueProps> = ({
   const dispatchToast = useToastContext();
   const { sendEvent } = useVersionAnalytics(patchId);
   const [commitMessageValue, setCommitMessageValue] = useState<string>(
-    commitMessage || ""
+    commitMessage || "",
   );
 
   const { data, previousData } = useQuery<

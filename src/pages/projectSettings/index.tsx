@@ -51,7 +51,7 @@ const ProjectSettings: React.FC = () => {
     variables: { identifier },
     onError: (e) => {
       dispatchToast.error(
-        `There was an error loading the project ${identifier}: ${e.message}`
+        `There was an error loading the project ${identifier}: ${e.message}`,
       );
     },
   });
@@ -86,7 +86,7 @@ const ProjectSettings: React.FC = () => {
         replace
         to={getProjectSettingsRoute(
           identifier,
-          ProjectSettingsTabRoutes.General
+          ProjectSettingsTabRoutes.General,
         )}
       />
     );

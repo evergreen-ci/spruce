@@ -61,7 +61,7 @@ const reducer = (state: ConfigurePatchState, action: Action) => {
       return {
         ...state,
         selectedBuildVariants: action.buildVariants.sort((a, b) =>
-          a.localeCompare(b)
+          a.localeCompare(b),
         ),
       };
     case "setSelectedBuildVariantTasks":
@@ -134,7 +134,7 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
     reducer,
     initialState({
       selectedTab: tabToIndexMap[tab || PatchTab.Configure],
-    })
+    }),
   );
 
   const { selectedTab } = state;
@@ -147,7 +147,7 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
         tab: indexToTabMap[selectedTab],
         ...query,
       }),
-      { replace: true }
+      { replace: true },
     );
   }, [selectedTab]); // eslint-disable-line react-hooks/exhaustive-deps
 

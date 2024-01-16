@@ -12,7 +12,7 @@ export const VariableRow: React.FC<
 > = ({ formData, properties, uiSchema }) => {
   const [variableName, variableValue, isPrivate, isAdminOnly] = getFields(
     properties,
-    formData.isDisabled
+    formData.isDisabled,
   );
   const repoData = uiSchema?.options?.repoData;
   const inRepo = repoData

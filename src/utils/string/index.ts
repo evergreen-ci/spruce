@@ -47,7 +47,7 @@ export const msToDuration = (ms: number): string => {
 export const stringifyNanoseconds = (
   input: number,
   skipDayMax: boolean,
-  skipSecMax: boolean
+  skipSecMax: boolean,
 ) => {
   const NS_PER_MS = 1000 * 1000; // 10^6
   const NS_PER_SEC = NS_PER_MS * 1000;
@@ -71,12 +71,12 @@ export const stringifyNanoseconds = (
   }
   if (input < NS_PER_HOUR) {
     return `${Math.floor(input / NS_PER_MINUTE)}m ${Math.floor(
-      (input % NS_PER_MINUTE) / NS_PER_SEC
+      (input % NS_PER_MINUTE) / NS_PER_SEC,
     )}s`;
   }
   if (input < NS_PER_HOUR * 24 || skipDayMax) {
     return `${Math.floor(input / NS_PER_HOUR)}h ${Math.floor(
-      (input % NS_PER_HOUR) / NS_PER_MINUTE
+      (input % NS_PER_HOUR) / NS_PER_MINUTE,
     )}m ${Math.floor((input % NS_PER_MINUTE) / NS_PER_SEC)}s`;
   }
   return ">= 1 day";
@@ -91,7 +91,7 @@ export const stringifyNanoseconds = (
  */
 export const omitTypename = (object) =>
   JSON.parse(JSON.stringify(object), (key, value) =>
-    key === "__typename" ? undefined : value
+    key === "__typename" ? undefined : value,
   );
 
 export type DateCopyOptions = {
@@ -115,7 +115,7 @@ export type DateCopyOptions = {
  */
 export const getDateCopy = (
   time: string | number | Date,
-  options?: DateCopyOptions
+  options?: DateCopyOptions,
 ) => {
   if (!time) {
     return "";

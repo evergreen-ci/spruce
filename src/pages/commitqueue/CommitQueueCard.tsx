@@ -99,7 +99,7 @@ export const CommitQueueCard: React.FC<Props> = ({
         <StyledRouterLink key={`${match}${i}`} to={getVersionRoute(patchId)}>
           {match}
         </StyledRouterLink>
-      )
+      ),
     );
 
     return (

@@ -38,7 +38,7 @@ export const EventCopy: React.FC<EventCopyProps> = ({ event }) => {
       return <span>Task {taskLink} assigned.</span>;
     default:
       reportError(
-        new Error(`Unrecognized pod event type: ${eventType}`)
+        new Error(`Unrecognized pod event type: ${eventType}`),
       ).severe();
       return null;
   }

@@ -28,7 +28,7 @@ export interface SearchableDropdownProps<T> {
   optionRenderer?: (
     option: T,
     onClick: (selectedV) => void,
-    isChecked: (selectedV) => boolean
+    isChecked: (selectedV) => boolean,
   ) => React.ReactNode;
   searchFunc?: (options: T[], match: string) => T[];
   searchPlaceholder?: string;
@@ -119,18 +119,18 @@ const SearchableDropdown = <T extends {}>({
           filteredOptions = searchFunc(options as T[], searchTerm);
         } else if (typeof options[0] === "string") {
           filteredOptions = (options as string[]).filter(
-            (o) => o.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+            (o) => o.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1,
           );
         } else {
           console.error(
-            "A searchFunc must be supplied when options is not of type string[]"
+            "A searchFunc must be supplied when options is not of type string[]",
           );
         }
       }
 
       setVisibleOptions(filteredOptions);
     },
-    [searchFunc, options]
+    [searchFunc, options],
   );
 
   let buttonText = valuePlaceholder;

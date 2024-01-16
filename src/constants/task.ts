@@ -160,7 +160,7 @@ export const mapTaskStatusToUmbrellaStatus: {
   const childrenParentMapping = children
     ? children.reduce(
         (cAccum, child) => ({ ...cAccum, [child.value]: parentValue }),
-        {}
+        {},
       )
     : { [parentValue]: parentValue };
   return {

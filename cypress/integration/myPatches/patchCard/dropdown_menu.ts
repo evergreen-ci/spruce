@@ -124,7 +124,7 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.getCookie(INCLUDE_HIDDEN_PATCHES).should(
       "have.property",
       "value",
-      "true"
+      "true",
     );
     cy.location("search").should("contain", "hidden=true");
     cy.get("@targetPatchCard")
@@ -138,7 +138,7 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.getCookie(INCLUDE_HIDDEN_PATCHES).should(
       "have.property",
       "value",
-      "true"
+      "true",
     );
     cy.location("search").should("not.contain", "hidden=true");
     cy.get("@targetPatchCard")
@@ -160,7 +160,7 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.getCookie(INCLUDE_HIDDEN_PATCHES).should(
       "have.property",
       "value",
-      "false"
+      "false",
     );
     cy.location("search").should("contain", "hidden=false");
     cy.get("@targetPatchCard").should("be.visible");

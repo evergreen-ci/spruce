@@ -44,7 +44,7 @@ describe("buildVariantCard", () => {
           order={1}
           tasks={tasks}
         />
-      </MockedProvider>
+      </MockedProvider>,
     );
 
     await user.hover(screen.queryByDataCy("build-variant-icon-container"));

@@ -41,14 +41,14 @@ const EventsTable: React.FC<{}> = () => {
     variables: { id, page, limit },
     onError: (err) => {
       dispatchToast.error(
-        `There was an error loading the pod events: ${err.message}`
+        `There was an error loading the pod events: ${err.message}`,
       );
     },
   });
 
   const { count, eventLogEntries } = useMemo(
     () => podEventsData?.pod.events ?? { eventLogEntries: [], count: 0 },
-    [podEventsData?.pod?.events]
+    [podEventsData?.pod?.events],
   );
 
   return (

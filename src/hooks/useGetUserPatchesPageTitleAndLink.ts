@@ -5,11 +5,11 @@ import { OTHER_USER } from "gql/queries";
 
 export const useGetUserPatchesPageTitleAndLink = (
   userId: string,
-  skip: boolean = false
+  skip: boolean = false,
 ) => {
   const { data } = useQuery<OtherUserQuery, OtherUserQueryVariables>(
     OTHER_USER,
-    { variables: { userId }, skip }
+    { variables: { userId }, skip },
   );
 
   if (!data) {

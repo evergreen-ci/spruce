@@ -11,7 +11,7 @@ describe("textInputWithValidation", () => {
         label="textinput"
         aria-label="textinput"
         validator={(v) => v.length > 5}
-      />
+      />,
     );
     const input = screen.getByRole("textbox", { name: "textinput" });
     await user.type(input, "test");
@@ -27,7 +27,7 @@ describe("textInputWithValidation", () => {
         onSubmit={onSubmit}
         label="textinput"
         aria-label="textinput"
-      />
+      />,
     );
     const input = screen.getByRole("textbox", { name: "textinput" });
     await user.type(input, "test");
@@ -43,7 +43,7 @@ describe("textInputWithValidation", () => {
         label="textinput"
         aria-label="textinput"
         validator={(v) => v.length >= 5}
-      />
+      />,
     );
     const input = screen.getByRole("textbox", { name: "textinput" });
     await user.type(input, "test");
@@ -63,7 +63,7 @@ describe("textInputWithValidation", () => {
         validator={(v) => v.length >= 5}
         onSubmit={onSubmit}
         clearOnSubmit
-      />
+      />,
     );
     const input = screen.getByRole("textbox", { name: "textinput" });
     await user.type(input, "test");

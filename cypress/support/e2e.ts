@@ -49,7 +49,7 @@ declare global {
        */
       dataCy(
         value: string,
-        options?: Parameters<typeof cy.get>[1]
+        options?: Parameters<typeof cy.get>[1],
       ): Chainable<Element>;
       /**
        * Custom command to select DOM element by data-row-key attribute.
@@ -57,7 +57,7 @@ declare global {
        */
       dataRowKey(
         value: string,
-        options?: Parameters<typeof cy.get>[1]
+        options?: Parameters<typeof cy.get>[1],
       ): Chainable<Element>;
       /**
        * Custom command to select DOM element by data-test-id attribute.
@@ -65,7 +65,7 @@ declare global {
        */
       dataTestId(
         value: string,
-        options?: Parameters<typeof cy.get>[1]
+        options?: Parameters<typeof cy.get>[1],
       ): Chainable<Element>;
       /**
        * Custom command to enter credentials in username and password input
@@ -113,7 +113,7 @@ declare global {
       validateToast(
         type: "success" | "warning" | "error" | "info",
         message?: string,
-        shouldClose?: boolean
+        shouldClose?: boolean,
       ): void;
       /**
        * Custom command to overwrite a GQL response

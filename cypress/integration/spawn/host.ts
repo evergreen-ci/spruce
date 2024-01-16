@@ -61,11 +61,11 @@ describe("Navigating to Spawn Host page", () => {
     it("Clicking on the host column header should sort spawn hosts by ascending order, then descending, then remove sort", () => {
       cy.get("button[aria-label='Sort by Host']").as("hostSortControl").click();
       cy.dataCy("leafygreen-table-row").each(($el, index) =>
-        cy.wrap($el).contains(ascendingSortSpawnHostOrderByHostId[index])
+        cy.wrap($el).contains(ascendingSortSpawnHostOrderByHostId[index]),
       );
       cy.get("@hostSortControl").click();
       cy.dataCy("leafygreen-table-row").each(($el, index) =>
-        cy.wrap($el).contains(descendingSortSpawnHostOrderByHostId[index])
+        cy.wrap($el).contains(descendingSortSpawnHostOrderByHostId[index]),
       );
       cy.get("@hostSortControl").click();
       cy.dataCy("leafygreen-table-row").should("have.length", 2);
@@ -76,11 +76,11 @@ describe("Navigating to Spawn Host page", () => {
         .as("expiresInSortControl")
         .click();
       cy.dataCy("leafygreen-table-row").each(($el, index) =>
-        cy.wrap($el).contains(ascendingSortSpawnHostOrderByExpiration[index])
+        cy.wrap($el).contains(ascendingSortSpawnHostOrderByExpiration[index]),
       );
       cy.get("@expiresInSortControl").click();
       cy.dataCy("leafygreen-table-row").each(($el, index) =>
-        cy.wrap($el).contains(descendingSortSpawnHostOrderByExpiration[index])
+        cy.wrap($el).contains(descendingSortSpawnHostOrderByExpiration[index]),
       );
       cy.get("@expiresInSortControl").click();
       cy.dataCy("leafygreen-table-row").should("have.length", 2);
@@ -98,12 +98,12 @@ describe("Navigating to Spawn Host page", () => {
       cy.dataCy("never-expire-checkbox").should(
         "have.attr",
         "aria-checked",
-        "false"
+        "false",
       );
       cy.dataCy("never-expire-checkbox").should(
         "have.css",
         "pointer-events",
-        "none"
+        "none",
       );
     });
 
@@ -131,12 +131,12 @@ describe("Navigating to Spawn Host page", () => {
     });
     it("Visiting the spawn host page with a taskId url param should render additional options at the bottom of the modal.", () => {
       cy.visit(
-        `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${hostTaskId}`
+        `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${hostTaskId}`,
       );
       cy.dataCy("spawn-host-modal").should("contain.text", label1);
       cy.dataCy("spawn-host-modal").should(
         "contain.text",
-        "Load data for dist on ubuntu1604"
+        "Load data for dist on ubuntu1604",
       );
       cy.dataCy("spawn-host-modal").should("contain.text", label2);
       cy.dataCy("spawn-host-modal").should("contain.text", label3);
@@ -144,7 +144,7 @@ describe("Navigating to Spawn Host page", () => {
 
     it("Unchecking 'Load data for dist' hides nested checkbox selections and checking shows them.", () => {
       cy.visit(
-        `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${hostTaskId}`
+        `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${hostTaskId}`,
       );
       cy.dataCy("spawn-host-modal").should("be.visible");
       cy.dataCy("load-data-checkbox").should("be.checked");
@@ -161,14 +161,14 @@ describe("Navigating to Spawn Host page", () => {
 
     it("Visiting the spawn host page with a task and distro supplied in the url should populate the distro input", () => {
       cy.visit(
-        `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`
+        `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
       cy.dataCy("spawn-host-modal").should("be.visible");
       cy.dataCy("distro-input").dataCy("dropdown-value").contains(distroId);
     });
     it("The virtual workstation dropdown should filter any volumes that aren't a home volume", () => {
       cy.visit(
-        `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`
+        `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
       cy.dataCy("distro-input").click();
       cy.dataCy("distro-option-ubuntu1804-workstation")
@@ -179,7 +179,7 @@ describe("Navigating to Spawn Host page", () => {
 
     it("Clicking 'Add new key' hides the key name dropdown and shows the key value text area", () => {
       cy.visit(
-        `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`
+        `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
       cy.dataCy("key-select").should("be.visible");
       cy.dataCy("key-value-text-area").should("not.exist");
@@ -190,7 +190,7 @@ describe("Navigating to Spawn Host page", () => {
 
     it("Checking 'Run Userdata script on start' shows the user data script text area", () => {
       cy.visit(
-        `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`
+        `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
       cy.dataCy("run-user-data-script-text-area").should("not.exist");
       cy.contains("Run Userdata script on start").click();
@@ -199,39 +199,39 @@ describe("Navigating to Spawn Host page", () => {
 
     it("Checking 'Define setup script...' shows the setup script text area", () => {
       cy.visit(
-        `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`
+        `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
       cy.dataCy("setup-script-text-area").should("not.exist");
       cy.contains(
-        "Define setup script to run after host is configured (i.e. task data and artifacts are loaded"
+        "Define setup script to run after host is configured (i.e. task data and artifacts are loaded",
       ).click();
       cy.dataCy("setup-script-text-area").should("be.visible");
     });
 
     it("Conditionally disables setup script and project setup script checkboxes based on the other's value", () => {
       cy.visit(
-        `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`
+        `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
       // Checking setup script should disable project setup script.
       cy.dataCy("setup-script-checkbox").check({ force: true });
       cy.dataCy("project-setup-script-checkbox").should(
         "have.attr",
         "aria-disabled",
-        "true"
+        "true",
       );
       // Unchecking setup script should reenable project setup script.
       cy.dataCy("setup-script-checkbox").uncheck({ force: true });
       cy.dataCy("project-setup-script-checkbox").should(
         "have.attr",
         "aria-disabled",
-        "false"
+        "false",
       );
       // Checking project setup script should disable setup script.
       cy.dataCy("project-setup-script-checkbox").check({ force: true });
       cy.dataCy("setup-script-checkbox").should(
         "have.attr",
         "aria-disabled",
-        "true"
+        "true",
       );
     });
     const label1 = "Use project-specific setup script defined at /path";

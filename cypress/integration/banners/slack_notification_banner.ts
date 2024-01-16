@@ -16,7 +16,7 @@ describe("Slack notification banner", () => {
     cy.dataCy(slackNotificationBanner).should("exist");
 
     cy.visit(
-      "/task/evergreen_ubuntu1604_dist_patch_33016573166a36bd5f46b4111151899d5c4e95b1_5ecedafb562343215a7ff297_20_05_27_21_39_46/logs?execution=1"
+      "/task/evergreen_ubuntu1604_dist_patch_33016573166a36bd5f46b4111151899d5c4e95b1_5ecedafb562343215a7ff297_20_05_27_21_39_46/logs?execution=1",
     );
     cy.dataCy(slackNotificationBanner).should("exist");
   });
@@ -33,7 +33,7 @@ describe("Slack notification banner", () => {
     cy.dataCy(slackNotificationBanner).should("not.exist");
     cy.validateToast(
       "success",
-      "You will now receive Slack notifications when your patches fail or succeed"
+      "You will now receive Slack notifications when your patches fail or succeed",
     );
 
     cy.visit("/preferences/notifications");
