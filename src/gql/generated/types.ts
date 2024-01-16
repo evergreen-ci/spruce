@@ -364,6 +364,7 @@ export type DisplayTask = {
 /** Distro models an environment configuration for a host. */
 export type Distro = {
   __typename?: "Distro";
+  adminOnly: Scalars["Boolean"]["output"];
   aliases: Array<Scalars["String"]["output"]>;
   arch: Arch;
   authorizedKeysFile: Scalars["String"]["output"];
@@ -429,6 +430,8 @@ export type DistroInfo = {
 };
 
 export type DistroInput = {
+  /** TODO: require adminOnly field upon completion of DEVPROD-3533 */
+  adminOnly?: InputMaybe<Scalars["Boolean"]["input"]>;
   aliases: Array<Scalars["String"]["input"]>;
   arch: Arch;
   authorizedKeysFile: Scalars["String"]["input"];
