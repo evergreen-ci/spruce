@@ -6,11 +6,13 @@ ignore:
 
 modules:
   - name: evergreen
-    repo: git@github.com:evergreen-ci/evergreen.git
+    owner: evergreen-ci
+    repo: evergreen
     branch: main
     auto_update: true
   - name: logkeeper
-    repo: git@github.com:evergreen-ci/logkeeper.git
+    owner: evergreen-ci
+    repo: logkeeper
     branch: main
     auto_update: true
 
