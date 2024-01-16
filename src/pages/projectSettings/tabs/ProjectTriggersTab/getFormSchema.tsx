@@ -136,7 +136,8 @@ export const getFormSchema = (
           "ui:placeholder": ".evergreen.yml",
         },
         level: {
-          "ui:description": LevelDescription,
+          "ui:description":
+            "Task and build levels will trigger based on the completion of a task or a build in the upstream project. Push level triggers will trigger once a commit is pushed to the upstream project. This is helpful if the upstream project does not regularly run or create commit tasks.",
           "ui:allowDeselect": false,
         },
         status: {
@@ -182,12 +183,3 @@ export const getFormSchema = (
     },
   },
 });
-
-const LevelDescription = (
-  <>
-    Task and build levels will trigger based on the completion of a task or a
-    build in the upstream project. Push level triggers will trigger once a
-    commit is pushed to the upstream project. This is helpful if the upstream
-    project does not regularly run or create commit tasks.
-  </>
-);
