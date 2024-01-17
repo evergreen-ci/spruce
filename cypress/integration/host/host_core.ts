@@ -10,7 +10,7 @@ describe("Host page title is displayed ", () => {
     cy.visit(`host/macos-1014-68.macstadium.build.10gen`);
     cy.dataCy("page-title").should(
       "include.text",
-      "Host: macos-1014-68.macstadium.build.10gen"
+      "Host: macos-1014-68.macstadium.build.10gen",
     );
   });
 });

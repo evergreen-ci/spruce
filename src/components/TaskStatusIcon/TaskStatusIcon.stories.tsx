@@ -21,7 +21,7 @@ export const Default: CustomStoryObj<TaskStatusIconProps> = {
   render: ({ size: s }) => {
     // filter out umbrella statuses
     const taskStatuses = Object.keys(TaskStatus).filter(
-      (taskName) => !taskName.includes("Umbrella")
+      (taskName) => !taskName.includes("Umbrella"),
     );
     return (
       <Container>

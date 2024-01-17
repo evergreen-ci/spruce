@@ -20,14 +20,14 @@ export const gqlToForm = ((data) => {
             ({ displayText, field }) => ({
               field,
               displayText,
-            })
+            }),
           ) ?? [],
       },
       useBuildBaron:
         projectRef?.taskAnnotationSettings?.fileTicketWebhook?.endpoint === "",
       ticketSearchProjects:
         projectRef?.buildBaronSettings?.ticketSearchProjects?.map(
-          (searchProject) => ({ searchProject })
+          (searchProject) => ({ searchProject }),
         ) ?? [],
 
       ticketCreateProject: {
@@ -56,7 +56,7 @@ export const gqlToForm = ((data) => {
 
 export const formToGql = ((
   { buildBaronSettings, externalLinks, performanceSettings },
-  id
+  id,
 ) => {
   const projectRef: ProjectInput = {
     id,
@@ -65,7 +65,7 @@ export const formToGql = ((
     taskAnnotationSettings: {
       ...fileTicketWebhookIf(
         buildBaronSettings.useBuildBaron,
-        buildBaronSettings.fileTicketWebhook
+        buildBaronSettings.fileTicketWebhook,
       ),
       jiraCustomFields:
         buildBaronSettings.taskAnnotationSettings?.jiraCustomFields
@@ -97,7 +97,7 @@ export const buildBaronIf = (useBuildBaron: boolean, buildBaronSettings: any) =>
 // conditionally include the fileTicketWebhook field based on the useBuildBaron boolean
 export const fileTicketWebhookIf = (
   useBuildBaron: boolean,
-  fileTicketWebhook: any
+  fileTicketWebhook: any,
 ) =>
   useBuildBaron !== true &&
   fileTicketWebhook !== undefined && {

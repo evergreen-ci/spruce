@@ -39,10 +39,10 @@ export const formToGql = ({
   } = publicKeySection;
 
   const addedTags = newUserTags.filter((n) =>
-    oldUserTags.every((o) => n.key !== o.key || n.value !== o.value)
+    oldUserTags.every((o) => n.key !== o.key || n.value !== o.value),
   );
   const deletedTags = oldUserTags.filter((o) =>
-    newUserTags.every((n) => n.key !== o.key || n.value !== o.value)
+    newUserTags.every((n) => n.key !== o.key || n.value !== o.value),
   );
 
   return {

@@ -6,7 +6,7 @@ export const useLoadFormData = (volume: TableVolume) => {
   const spruceConfig = useSpruceConfig();
   const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(
     true,
-    volume
+    volume,
   );
   const noExpirationCheckboxTooltip = getNoExpirationCheckboxTooltipCopy({
     disableExpirationCheckbox,

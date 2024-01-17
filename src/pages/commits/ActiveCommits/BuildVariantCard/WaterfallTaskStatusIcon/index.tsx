@@ -75,7 +75,7 @@ export const WaterfallTaskStatusIcon: React.FC<
         clearTimeout(timeout);
       }
     },
-    [] // eslint-disable-line react-hooks/exhaustive-deps
+    [], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   return (

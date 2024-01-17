@@ -74,7 +74,7 @@ describe("sortFunctionDate", () => {
         { a: { b: { c: "2020-08-17T18:00:07Z" } } },
         { a: { b: { c: "2020-08-21T18:00:07Z" } } },
         { a: { b: { c: "2020-23-21T18:00:07Z" } } },
-      ]
+      ],
     );
   });
 });
@@ -95,7 +95,7 @@ describe("sortFunctionString", () => {
       { a: { b: { c: "beta" } } },
     ];
     expect(
-      dates.sort((a, b) => sortFunctionString(a, b, "a.b.c"))
+      dates.sort((a, b) => sortFunctionString(a, b, "a.b.c")),
     ).toStrictEqual([
       { a: { b: { c: "alpha" } } },
       { a: { b: { c: "beta" } } },
@@ -238,38 +238,38 @@ describe("getDateCopy", () => {
     expect(getDateCopy("08/31/1996")).toBe("Aug 31, 1996, 12:00:00 AM UTC");
     expect(getDateCopy("12-23-2014")).toBe("Dec 23, 2014, 12:00:00 AM UTC");
     expect(getDateCopy("2020-11-16T22:17:29")).toBe(
-      "Nov 16, 2020, 10:17:29 PM UTC"
+      "Nov 16, 2020, 10:17:29 PM UTC",
     );
   });
   it("converts strings with a supplied timezone to the users timezone", () => {
     expect(getDateCopy("2020-11-16T22:17:29z")).toBe(
-      "Nov 16, 2020, 10:17:29 PM UTC"
+      "Nov 16, 2020, 10:17:29 PM UTC",
     );
   });
   it("converts date objects to a formatted date with no options", () => {
     expect(getDateCopy(new Date("2020-11-16T22:17:29z"))).toBe(
-      "Nov 16, 2020, 10:17:29 PM UTC"
+      "Nov 16, 2020, 10:17:29 PM UTC",
     );
   });
   it("converts date objects to a supplied timezone", () => {
     expect(getDateCopy("2020-11-16T22:17:29", { tz: "America/New_York" })).toBe(
-      "Nov 16, 2020, 5:17:29 PM EST"
+      "Nov 16, 2020, 5:17:29 PM EST",
     );
   });
   it("doesn't return seconds when omitSeconds option is true", () => {
     expect(getDateCopy("2020-11-16T22:17:29", { omitSeconds: true })).toBe(
-      "Nov 16, 2020, 10:17 PM UTC"
+      "Nov 16, 2020, 10:17 PM UTC",
     );
   });
   it("returns date only when supplied with the option", () => {
     expect(
-      getDateCopy(new Date("2020-11-16T22:17:29z"), { dateOnly: true })
+      getDateCopy(new Date("2020-11-16T22:17:29z"), { dateOnly: true }),
     ).toBe("Nov 16, 2020");
     expect(
       getDateCopy("2020-11-16T22:17:29", {
         tz: "America/New_York",
         dateOnly: true,
-      })
+      }),
     ).toBe("Nov 16, 2020");
     expect(getDateCopy("08/31/1996", { dateOnly: true })).toBe("Aug 31, 1996");
   });
@@ -279,17 +279,17 @@ describe("getDateCopy", () => {
       getDateCopy(new Date("2020-11-16T22:17:29z"), {
         dateFormat: "MM-dd-yyyy",
         dateOnly: true,
-      })
+      }),
     ).toBe("11-16-2020");
     expect(
       getDateCopy("2020-11-16T22:17:29", {
         tz: "America/New_York",
         dateFormat: "dd-MM-yyyy",
         dateOnly: true,
-      })
+      }),
     ).toBe("16-11-2020");
     expect(
-      getDateCopy("08/31/1996", { dateFormat: "MM/dd/yyyy", dateOnly: true })
+      getDateCopy("08/31/1996", { dateFormat: "MM/dd/yyyy", dateOnly: true }),
     ).toBe("08/31/1996");
   });
 });
@@ -330,13 +330,13 @@ describe("trimStringFromMiddle", () => {
 describe("joinWithConjunction", () => {
   it("creates a list from strings", () => {
     expect(
-      joinWithConjunction(["evergreen", "spruce", "app", "plt"], "and")
+      joinWithConjunction(["evergreen", "spruce", "app", "plt"], "and"),
     ).toBe("evergreen, spruce, app, and plt");
   });
 
   it("does not include a comma for a list of two elements", () => {
     expect(joinWithConjunction(["heads", "tails"], "or")).toBe(
-      "heads or tails"
+      "heads or tails",
     );
   });
 
@@ -368,10 +368,10 @@ describe("toSentenceCase", () => {
 describe("getTicketFromJiraURL", () => {
   it("correctly extracts the ticket number from a JIRA URL", () => {
     expect(
-      getTicketFromJiraURL("https://jira.mongodb.org/browse/EVG-123")
+      getTicketFromJiraURL("https://jira.mongodb.org/browse/EVG-123"),
     ).toBe("EVG-123");
     expect(
-      getTicketFromJiraURL("https://jira.mongodb.org/browse/SOMETHING-12345")
+      getTicketFromJiraURL("https://jira.mongodb.org/browse/SOMETHING-12345"),
     ).toBe("SOMETHING-12345");
   });
   it("returns undefined if a ticket number is not found", () => {

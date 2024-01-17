@@ -10,7 +10,7 @@ const { projectBase, repoBase } = data;
 describe("repo data", () => {
   it("correctly converts from GQL to a form", () => {
     expect(
-      gqlToForm(repoBase, { projectType: ProjectType.Repo })
+      gqlToForm(repoBase, { projectType: ProjectType.Repo }),
     ).toStrictEqual(repoForm);
   });
 
@@ -22,7 +22,7 @@ describe("repo data", () => {
 describe("project data", () => {
   it("correctly converts from GQL to a form", () => {
     expect(
-      gqlToForm(projectBase, { projectType: ProjectType.AttachedProject })
+      gqlToForm(projectBase, { projectType: ProjectType.AttachedProject }),
     ).toStrictEqual(projectForm);
   });
 

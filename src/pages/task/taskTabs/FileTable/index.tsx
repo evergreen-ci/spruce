@@ -28,7 +28,7 @@ const FileTable: React.FC<FileTableProps> = ({ execution, taskId }) => {
       onError: (err) => {
         dispatchToast.error(`Unable to load task files: ${err}`);
       },
-    }
+    },
   );
   const { files } = data?.task ?? {};
 

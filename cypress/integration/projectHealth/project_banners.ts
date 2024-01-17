@@ -12,12 +12,12 @@ describe("project banners", () => {
       cy.dataCy("repotracker-error-trigger").click();
       cy.dataCy("repotracker-error-modal").should("be.visible");
       cy.getInputByLabel("Base Revision").type(
-        "7ad0f0571691fa5063b757762a5b103999290fa8"
+        "7ad0f0571691fa5063b757762a5b103999290fa8",
       );
       cy.contains("button", "Confirm").should(
         "have.attr",
         "aria-disabled",
-        "false"
+        "false",
       );
       cy.contains("button", "Confirm").click();
       cy.validateToast("success", "Successfully updated merge base revision");

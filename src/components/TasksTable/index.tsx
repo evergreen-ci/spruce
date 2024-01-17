@@ -250,7 +250,7 @@ const getColumnDefs = ({
 
 const getSortDir = (
   key: string,
-  sorts: SortOrder[]
+  sorts: SortOrder[],
 ): antSortOrder | undefined => {
   const sortKey = sorts.find((sort) => sort.Key === key);
   if (sortKey) {

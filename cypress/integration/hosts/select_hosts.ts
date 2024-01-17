@@ -19,17 +19,17 @@ describe("Select hosts in hosts page table", () => {
     cy.dataCy("update-status-button").should(
       "have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     cy.dataCy("restart-jasper-button").should(
       "have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     cy.dataCy("reprovision-button").should(
       "have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
   });
 
@@ -38,17 +38,17 @@ describe("Select hosts in hosts page table", () => {
     cy.dataCy("update-status-button").should(
       "not.have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     cy.dataCy("restart-jasper-button").should(
       "not.have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     cy.dataCy("reprovision-button").should(
       "not.have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
   });
 
@@ -57,7 +57,7 @@ describe("Select hosts in hosts page table", () => {
     cy.dataCy("restart-jasper-button").should(
       "not.have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     cy.dataCy("restart-jasper-button").should("be.visible").click();
     cy.dataCy("restart-jasper-button-popover").should("be.visible");
@@ -70,7 +70,7 @@ describe("Select hosts in hosts page table", () => {
     cy.dataCy("reprovision-button").should(
       "not.have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     cy.dataCy("reprovision-button").should("be.visible").click();
     cy.dataCy("reprovision-button-popover").should("be.visible");

@@ -43,7 +43,7 @@ const VariantGroupedTaskStatusBadges: React.FC<Props> = ({
             statusCounts={groupedStatusCounts}
             status={umbrellaStatus}
           />
-        )
+        ),
       )}
     </VariantTasks>
   );

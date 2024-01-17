@@ -20,7 +20,7 @@ export const NavigationModal: React.FC = () => {
     const currentDistroRoute = getDistroSettingsRoute(distroId);
     const isNewDistroSettingsRoute = !matchPath(
       `${currentDistroRoute}/*`,
-      nextLocation.pathname
+      nextLocation.pathname,
     );
     if (isNewDistroSettingsRoute) {
       return hasUnsaved;

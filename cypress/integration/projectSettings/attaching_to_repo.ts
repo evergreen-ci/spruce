@@ -14,7 +14,7 @@ describe("Attaching Spruce to a repo", () => {
     cy.dataCy("attach-repo-button").should(
       "have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     clickSave();
     cy.validateToast("success", "Successfully updated project");

@@ -119,11 +119,11 @@ describe("breadcrumbs", () => {
     leaveBreadcrumb(message, metadata, type);
     expect(console.warn).toHaveBeenNthCalledWith(
       1,
-      "Navigation breadcrumbs should include a 'from' metadata field."
+      "Navigation breadcrumbs should include a 'from' metadata field.",
     );
     expect(console.warn).toHaveBeenNthCalledWith(
       2,
-      "Navigation breadcrumbs should include a 'to' metadata field."
+      "Navigation breadcrumbs should include a 'to' metadata field.",
     );
     expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
       message,

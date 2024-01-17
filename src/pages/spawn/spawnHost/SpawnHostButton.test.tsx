@@ -18,7 +18,7 @@ describe("spawnHostButton", () => {
     render(
       <MockedProvider mocks={[sixHostsMock, getSpruceConfigMock]}>
         <Component />
-      </MockedProvider>
+      </MockedProvider>,
     );
     await waitFor(() => {
       const spawnButton = screen.getByRole("button", {
@@ -33,7 +33,7 @@ describe("spawnHostButton", () => {
     render(
       <MockedProvider mocks={[twoHostsMock, getSpruceConfigMock]}>
         <Component />
-      </MockedProvider>
+      </MockedProvider>,
     );
     await waitFor(() => {
       const spawnButton = screen.getByRole("button", {
@@ -50,7 +50,7 @@ describe("spawnHostButton", () => {
         mocks={[fiveHostsWithTerminatedMock, getSpruceConfigMock]}
       >
         <Component />
-      </MockedProvider>
+      </MockedProvider>,
     );
     await waitFor(() => {
       const spawnButton = screen.getByRole("button", {

@@ -10,7 +10,7 @@ import { VariantTasksState } from "./types";
 // With merged variant and default selected tasks auto selected.
 const initializeTaskState = (
   variantTasks: ProjectBuildVariant[],
-  defaultSelectedTasks: VariantTask[]
+  defaultSelectedTasks: VariantTask[],
 ): VariantTasksState => {
   const defaultTasks = convertArrayToObject(defaultSelectedTasks, "name");
   return variantTasks.reduce(
@@ -23,7 +23,7 @@ const initializeTaskState = (
           : {}),
       },
     }),
-    {}
+    {},
   );
 };
 
@@ -33,7 +33,7 @@ const initializeAliasState = (patchTriggerAliases: PatchTriggerAlias[]) =>
       ...prev,
       [alias]: false,
     }),
-    {}
+    {},
   );
 
 export { initializeTaskState, initializeAliasState };

@@ -10,7 +10,7 @@ const tab = ProjectSettingsTabRoutes.ViewsAndFilters;
 
 const getInitialFormState = (
   projectData: TabProps["projectData"],
-  repoData: TabProps["repoData"]
+  repoData: TabProps["repoData"],
 ): ViewsFormState => {
   if (!projectData) return repoData;
   if (repoData) return { ...projectData, repoData };
@@ -24,7 +24,7 @@ export const ViewsAndFiltersTab: React.FC<TabProps> = ({
 }) => {
   const initialFormState = useMemo(
     () => getInitialFormState(projectData, repoData),
-    [projectData, repoData]
+    [projectData, repoData],
   );
 
   const formSchema = useMemo(() => getFormSchema(projectType), [projectType]);
@@ -48,7 +48,7 @@ const validate = ((formData, errors) => {
   const duplicateIndices = findDuplicateIndices(combinedFilters, "expression");
   duplicateIndices.forEach((i) => {
     errors.parsleyFilters?.[i]?.expression?.addError(
-      "Filter expression already appears in this project."
+      "Filter expression already appears in this project.",
     );
   });
 

@@ -25,7 +25,7 @@ describe("tupleSelectWithRegexConditional", () => {
         onSubmit={onSubmit}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
-      />
+      />,
     );
     const input = screen.queryByDataCy("tuple-select-input");
     const dropdown = screen.queryByText("Build Variant");
@@ -45,7 +45,7 @@ describe("tupleSelectWithRegexConditional", () => {
         onSubmit={onSubmit}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
-      />
+      />,
     );
     const input = screen.queryByDataCy("tuple-select-input");
 
@@ -66,7 +66,7 @@ describe("tupleSelectWithRegexConditional", () => {
         onSubmit={onSubmit}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
-      />
+      />,
     );
     const input = screen.queryByDataCy("tuple-select-input");
 
@@ -94,7 +94,7 @@ describe("tupleSelectWithRegexConditional", () => {
         onSubmit={onSubmit}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
-      />
+      />,
     );
     await user.click(screen.getByRole("tab", { name: "EXACT" }));
     const input = screen.queryByDataCy("tuple-select-input");
@@ -119,7 +119,7 @@ describe("tupleSelectWithRegexConditional", () => {
         onSubmit={onSubmit}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
-      />
+      />,
     );
     await user.click(screen.getByRole("tab", { name: "EXACT" }));
     const input = screen.queryByDataCy("tuple-select-input");

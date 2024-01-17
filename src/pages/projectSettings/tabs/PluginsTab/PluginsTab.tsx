@@ -22,9 +22,9 @@ export const PluginsTab: React.FC<TabProps> = ({
     () =>
       getFormSchema(
         jiraEmail,
-        projectType === ProjectType.AttachedProject ? repoData : null
+        projectType === ProjectType.AttachedProject ? repoData : null,
       ),
-    [jiraEmail, projectType, repoData]
+    [jiraEmail, projectType, repoData],
   );
 
   return (
@@ -53,13 +53,13 @@ const validate = ((formData, errors) => {
 
   if (searchProjectDefined && !createProjectDefined) {
     errors.buildBaronSettings?.ticketCreateProject?.createProject.addError(
-      "You must specify a create project."
+      "You must specify a create project.",
     );
   }
 
   if (createProjectDefined && !searchProjectDefined) {
     errors.buildBaronSettings?.ticketCreateProject?.createProject.addError(
-      "You must also specify at least one ticket search project above."
+      "You must also specify at least one ticket search project above.",
     );
   }
 
@@ -70,17 +70,17 @@ const validate = ((formData, errors) => {
   if (displayNameDefined || urlTemplateDefined || requestersDefined) {
     if (!displayNameDefined) {
       errors.externalLinks.metadataPanelLink.displayName.addError(
-        "You must specify a display name."
+        "You must specify a display name.",
       );
     }
     if (!urlTemplateDefined) {
       errors.externalLinks.metadataPanelLink.urlTemplate.addError(
-        "You must specify a URL template."
+        "You must specify a URL template.",
       );
     }
     if (!requestersDefined) {
       errors.externalLinks.metadataPanelLink.requesters.addError(
-        "You must specify requesters."
+        "You must specify requesters.",
       );
     }
   }

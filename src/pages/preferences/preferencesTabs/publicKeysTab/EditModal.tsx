@@ -50,7 +50,7 @@ export const EditModal: React.FC<EditModalProps> = ({
   >(UPDATE_PUBLIC_KEY, {
     onError(error) {
       dispatchToast.error(
-        `There was an error editing the public key: ${error.message}`
+        `There was an error editing the public key: ${error.message}`,
       );
     },
     refetchQueries: ["MyPublicKeys"],
@@ -62,7 +62,7 @@ export const EditModal: React.FC<EditModalProps> = ({
   >(CREATE_PUBLIC_KEY, {
     onError(error) {
       dispatchToast.error(
-        `There was an error creating the public key: ${error.message}`
+        `There was an error creating the public key: ${error.message}`,
       );
     },
     refetchQueries: ["MyPublicKeys"],

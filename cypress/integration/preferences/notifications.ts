@@ -6,14 +6,14 @@ describe("global subscription settings", () => {
     cy.dataCy("save-profile-changes-button").should(
       "have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     cy.dataCy("slack-member-id-field").clear();
     cy.dataCy("slack-member-id-field").type("12345");
     cy.dataCy("save-profile-changes-button").should(
       "not.have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
   });
   it("saving changes to a field should work", () => {
@@ -71,7 +71,7 @@ describe("user subscriptions table", () => {
     cy.dataCy("delete-some-button").should(
       "have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
   });
 

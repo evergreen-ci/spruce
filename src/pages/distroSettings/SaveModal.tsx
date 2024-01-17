@@ -42,7 +42,7 @@ export const SaveModal: React.FC<SaveModalProps> = ({
   const { getTab, saveTab } = useDistroSettingsContext();
   const { formData } = getTab(tab);
   const [onSaveOperation, setOnSaveOperation] = useState(
-    DistroOnSaveOperation.None
+    DistroOnSaveOperation.None,
   );
 
   const [saveDistro] = useMutation<
@@ -56,10 +56,10 @@ export const SaveModal: React.FC<SaveModalProps> = ({
           onSaveOperation !== DistroOnSaveOperation.None
             ? ` and scheduled ${hostCount} ${pluralize(
                 "host",
-                hostCount
+                hostCount,
               )} to update`
             : ""
-        }.`
+        }.`,
       );
     },
     onError(err) {

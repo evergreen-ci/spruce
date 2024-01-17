@@ -61,7 +61,7 @@ describe("Version route", () => {
       cy.dataCy("build-variants").within(() => {
         cy.dataCy("patch-build-variant").within(
           // @ts-expect-error
-          ($variants) => Array.from($variants).length > 0
+          ($variants) => Array.from($variants).length > 0,
         );
       });
     });
@@ -95,7 +95,7 @@ describe("Version route", () => {
           .and("equal", "true");
         cy.location("search").should(
           "include",
-          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=success&variant=%5Eubuntu1604%24"
+          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=success&variant=%5Eubuntu1604%24",
         );
 
         // Check that filter values have updated.
@@ -126,7 +126,7 @@ describe("Version route", () => {
         });
         cy.location("search").should(
           "include",
-          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=success&variant=%5Eubuntu1604%24"
+          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=success&variant=%5Eubuntu1604%24",
         );
       });
     });
@@ -149,7 +149,7 @@ describe("Version route", () => {
           .and("equal", "true");
         cy.location("search").should(
           "include",
-          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&variant=%5Eubuntu1604%24"
+          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&variant=%5Eubuntu1604%24",
         );
 
         // Check that filter values have updated.
@@ -173,7 +173,7 @@ describe("Version route", () => {
         cy.dataCy("build-variant-display-name").first().click();
         cy.location("search").should(
           "include",
-          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&variant=%5Eubuntu1604%24"
+          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&variant=%5Eubuntu1604%24",
         );
       });
     });
@@ -189,7 +189,7 @@ describe("Version route", () => {
         .should(
           "have.attr",
           "href",
-          "https://jira.example.com/browse/EVG-7425"
+          "https://jira.example.com/browse/EVG-7425",
         );
     });
 
@@ -199,7 +199,7 @@ describe("Version route", () => {
         .should(
           "have.attr",
           "href",
-          "https://github.com/evergreen-ci/evergreen/pull/3186"
+          "https://github.com/evergreen-ci/evergreen/pull/3186",
         );
     });
   });

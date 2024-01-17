@@ -17,7 +17,7 @@ export const gqlToForm = ((data, { projectType }) => {
           expression,
           caseSensitive,
           exactMatch,
-        })
+        }),
       ) ?? [],
     ...(projectType !== ProjectType.Repo &&
       "projectHealthView" in projectRef && {
@@ -36,7 +36,7 @@ export const formToGql = (({ parsleyFilters, view }, id) => ({
         expression,
         caseSensitive,
         exactMatch,
-      })
+      }),
     ),
     ...(view && {
       projectHealthView: view.projectHealthView,

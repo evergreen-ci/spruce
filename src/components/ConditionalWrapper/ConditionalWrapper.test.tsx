@@ -12,7 +12,7 @@ describe("conditionalWrapper", () => {
         wrapper={(children) => <Wrapper1>{children}</Wrapper1>}
       >
         <span>Some Element</span>
-      </ConditionalWrapper>
+      </ConditionalWrapper>,
     );
     expect(screen.queryByDataCy("wrapper-1")).toBeVisible();
     expect(screen.queryByDataCy("wrapper-1")).toHaveTextContent("Some Element");
@@ -25,7 +25,7 @@ describe("conditionalWrapper", () => {
         wrapper={(children) => <Wrapper1>{children}</Wrapper1>}
       >
         <span>Some Element</span>
-      </ConditionalWrapper>
+      </ConditionalWrapper>,
     );
     expect(screen.queryByDataCy("wrapper-1")).toBeNull();
     expect(screen.queryByText("Some Element")).toBeVisible();
@@ -39,7 +39,7 @@ describe("conditionalWrapper", () => {
         altWrapper={(children) => <Wrapper2>{children}</Wrapper2>}
       >
         <span>Some Element</span>
-      </ConditionalWrapper>
+      </ConditionalWrapper>,
     );
     expect(screen.queryByDataCy("wrapper-1")).toBeNull();
     expect(screen.queryByDataCy("wrapper-2")).toBeVisible();

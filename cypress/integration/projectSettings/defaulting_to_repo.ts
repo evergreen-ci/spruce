@@ -122,7 +122,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.contains("label", "Override Repo Patch Definition").click();
       cy.dataCy("error-banner")
         .contains(
-          "A GitHub Patch Definition must be specified for this feature to run."
+          "A GitHub Patch Definition must be specified for this feature to run.",
         )
         .should("exist");
       cy.contains("button", "Add Patch Definition").click();
@@ -152,7 +152,7 @@ describe("Project Settings when defaulting to repo", () => {
 
       cy.dataCy("warning-banner")
         .contains(
-          "This feature will only run if a Commit Check Definition is defined in the project or repo."
+          "This feature will only run if a Commit Check Definition is defined in the project or repo.",
         )
         .should("exist");
     });
@@ -165,7 +165,7 @@ describe("Project Settings when defaulting to repo", () => {
     it("Displays the repo's merge method as its default", () => {
       cy.get("button[name=merge-method-select]").should(
         "have.text",
-        "Default to Repo (squash)"
+        "Default to Repo (squash)",
       );
     });
 
@@ -200,7 +200,7 @@ describe("Project Settings when defaulting to repo", () => {
       clickSave();
       cy.validateToast(
         "error",
-        "There was an error saving the project: GitHub checks cannot be enabled without aliases"
+        "There was an error saving the project: GitHub checks cannot be enabled without aliases",
       );
     });
 
@@ -238,7 +238,7 @@ describe("Project Settings when defaulting to repo", () => {
     it("Defaults to repo patch aliases", () => {
       cy.getInputByLabel("Default to Repo Patch Aliases").should(
         "have.attr",
-        "checked"
+        "checked",
       );
     });
 
@@ -250,7 +250,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.getInputByLabel("Override Repo Patch Aliases").should(
         "have.attr",
         "aria-checked",
-        "true"
+        "true",
       );
       saveButtonEnabled(false);
       cy.dataCy("add-button")
@@ -294,7 +294,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("attached-repo-link").click();
       cy.location("pathname").should(
         "equal",
-        `/${getVirtualWorkstationRoute(repo)}`
+        `/${getVirtualWorkstationRoute(repo)}`,
       );
       cy.contains("button", "Add Command").click();
       cy.dataCy("command-input").type("a repo command");

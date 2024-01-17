@@ -24,9 +24,9 @@ export type FormStateMap = {
 
 export type FormToGqlFunction<T extends WritableDistroSettingsType> = (
   form: FormStateMap[T],
-  distro: DistroQuery["distro"]
+  distro: DistroQuery["distro"],
 ) => DistroInput;
 
 export type GqlToFormFunction<T extends WritableDistroSettingsType> = (
-  data: DistroQuery["distro"]
+  data: DistroQuery["distro"],
 ) => FormStateMap[T];

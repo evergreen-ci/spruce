@@ -16,7 +16,7 @@ export const VolumeStatusBadge: React.FC<Props> = ({ hostId, migrating }) => {
 
 const getBadge = (
   migrating: boolean,
-  hostId?: string
+  hostId?: string,
 ): { text: string; variant: Variant } => {
   if (migrating) {
     return {

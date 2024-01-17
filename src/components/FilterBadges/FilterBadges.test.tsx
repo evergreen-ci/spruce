@@ -6,7 +6,7 @@ describe("filterBadges", () => {
     const onRemove = jest.fn();
     const onClearAll = jest.fn();
     render(
-      <FilterBadges badges={[]} onRemove={onRemove} onClearAll={onClearAll} />
+      <FilterBadges badges={[]} onRemove={onRemove} onClearAll={onClearAll} />,
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(0);
   });
@@ -17,7 +17,7 @@ describe("filterBadges", () => {
         badges={[{ key: "test", value: "value" }]}
         onRemove={jest.fn()}
         onClearAll={jest.fn()}
-      />
+      />,
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(1);
     expect(screen.getByText("test: value")).toBeInTheDocument();
@@ -32,7 +32,7 @@ describe("filterBadges", () => {
         ]}
         onRemove={jest.fn()}
         onClearAll={jest.fn()}
-      />
+      />,
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(2);
     expect(screen.getByText("test: value")).toBeInTheDocument();
@@ -56,7 +56,7 @@ describe("filterBadges", () => {
         ]}
         onRemove={jest.fn()}
         onClearAll={jest.fn()}
-      />
+      />,
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(8);
     expect(screen.getByText("test: value")).toBeInTheDocument();
@@ -82,20 +82,20 @@ describe("filterBadges", () => {
         ]}
         onRemove={jest.fn()}
         onClearAll={jest.fn()}
-      />
+      />,
     );
     await user.click(screen.queryByText("see 2 more"));
     expect(screen.getByDataCy("see-more-modal")).toBeInTheDocument();
     expect(
       within(screen.queryByDataCy("see-more-modal")).queryAllByDataCy(
-        "filter-badge"
-      )
+        "filter-badge",
+      ),
     ).toHaveLength(10);
     for (let i = 0; i < 10; i++) {
       expect(
         within(screen.getByDataCy("see-more-modal")).getByText(
-          `test${i + 1}: value${i + 1}`
-        )
+          `test${i + 1}: value${i + 1}`,
+        ),
       ).toBeInTheDocument();
     }
   });
@@ -119,7 +119,7 @@ describe("filterBadges", () => {
         ]}
         onRemove={jest.fn()}
         onClearAll={onClearAll}
-      />
+      />,
     );
     await user.click(screen.getByRole("button", { name: "CLEAR ALL FILTERS" }));
     expect(onClearAll).toHaveBeenCalledTimes(1);
@@ -144,7 +144,7 @@ describe("filterBadges", () => {
         ]}
         onRemove={onRemove}
         onClearAll={jest.fn()}
-      />
+      />,
     );
     const closeBadge = screen.queryAllByDataCy("close-badge")[0];
     expect(closeBadge).toBeInTheDocument();
@@ -160,7 +160,7 @@ describe("filterBadges", () => {
         badges={[{ key: "some", value: longName }]}
         onRemove={jest.fn()}
         onClearAll={jest.fn()}
-      />
+      />,
     );
     const truncatedBadge = screen.queryByDataCy("filter-badge");
     expect(truncatedBadge).toBeInTheDocument();

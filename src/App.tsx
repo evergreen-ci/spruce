@@ -18,8 +18,8 @@ const browserRouter = createBrowserRouter(
     <>
       <Route path={routes.login} element={<Login />} />
       <Route path="/*" element={<Content />} />
-    </>
-  )
+    </>,
+  ),
 );
 
 const App: React.FC = () => (

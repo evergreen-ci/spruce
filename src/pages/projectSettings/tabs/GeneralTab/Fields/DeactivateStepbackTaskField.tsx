@@ -22,7 +22,7 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
   const dispatchToast = useToastContext();
   const [formState, setFormState] = useState(
-    deactivateStepbackForm.defaultFormData
+    deactivateStepbackForm.defaultFormData,
   );
   const [hasError, setHasError] = useState(true);
 
@@ -35,7 +35,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error deactivating the stepback task: ${err.message}`
+        `There was an error deactivating the stepback task: ${err.message}`,
       );
     },
   });

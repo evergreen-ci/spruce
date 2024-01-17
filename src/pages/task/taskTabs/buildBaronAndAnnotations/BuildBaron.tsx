@@ -25,7 +25,7 @@ const BuildBaron: React.FC<Props> = ({
     BUILD_BARON,
     {
       variables: { taskId, execution },
-    }
+    },
   );
   return (
     <>

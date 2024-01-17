@@ -14,7 +14,7 @@ const {
 const { overrideRadioBox } = form;
 
 export const getFormSchema = (
-  projectType: ProjectType
+  projectType: ProjectType,
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -25,7 +25,7 @@ export const getFormSchema = (
         ...overrideRadioBox(
           "aliases",
           ["Override Repo Patch Aliases", "Default to Repo Patch Aliases"],
-          patchAliasArray.schema
+          patchAliasArray.schema,
         ),
       },
       patchTriggerAliases: {
@@ -145,7 +145,7 @@ export const getFormSchema = (
                 },
               },
             },
-          }
+          },
         ),
       },
     },

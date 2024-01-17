@@ -8,7 +8,7 @@ export const getConfig = ({
   generatedFileName: string;
 } & Pick<CodegenConfig, "silent">): CodegenConfig => ({
   documents: ["./src/**/*.ts", "./src/**/*.graphql", "./src/**/*.gql"].map(
-    (d) => path.resolve(__dirname, d)
+    (d) => path.resolve(__dirname, d),
   ),
   generates: {
     [generatedFileName]: {
@@ -36,7 +36,7 @@ export const getConfig = ({
 
 export const generatedFileName = path.resolve(
   __dirname,
-  "./src/gql/generated/types.ts"
+  "./src/gql/generated/types.ts",
 );
 
 export default getConfig({

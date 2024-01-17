@@ -58,7 +58,7 @@ export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({
       return <Icon glyph="Calendar" fill={gray.dark3} size={size} {...rest} />;
     default:
       reportError(
-        new Error(`Status '${status}' is not a valid task status`)
+        new Error(`Status '${status}' is not a valid task status`),
       ).warning();
       return null;
   }

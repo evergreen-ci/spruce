@@ -43,7 +43,7 @@ export const EditVolumeModal: React.FC<Props> = ({
     onError(err) {
       onCancel();
       dispatchToast.error(
-        `There was an error while updating your volume: ${err.message}`
+        `There was an error while updating your volume: ${err.message}`,
       );
     },
     refetchQueries: ["MyVolumes", "MyHosts"],
@@ -57,7 +57,7 @@ export const EditVolumeModal: React.FC<Props> = ({
       },
       name: volume.displayName,
     }),
-    [volume]
+    [volume],
   );
   const [formState, setFormState] = useState<FormState>(initialState);
   const [formErrors, setFormErrors] = useState([]);

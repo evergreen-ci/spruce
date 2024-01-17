@@ -132,7 +132,7 @@ describe("Tests Table", () => {
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyNextPage,
         secondPageDisplayNames,
-        1
+        1,
       );
     });
 
@@ -142,7 +142,7 @@ describe("Tests Table", () => {
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyNextPage,
         secondPageDisplayNames,
-        1
+        1,
       );
     });
 
@@ -152,7 +152,7 @@ describe("Tests Table", () => {
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyPrevPage,
         firstPageDisplayNames,
-        0
+        0,
       );
     });
 
@@ -162,7 +162,7 @@ describe("Tests Table", () => {
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyPrevPage,
         firstPageDisplayNames,
-        0
+        0,
       );
     });
   });

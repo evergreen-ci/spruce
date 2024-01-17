@@ -56,12 +56,12 @@ export const UserSubscriptions: React.FC<{}> = () => {
       dispatchToast.success(
         `Deleted ${result.deleteSubscriptions} subscription${
           result.deleteSubscriptions === 1 ? "" : "s"
-        }.`
+        }.`,
       );
     },
     onError: (e) => {
       dispatchToast.error(
-        `Error attempting to delete subscriptions: ${e.message}`
+        `Error attempting to delete subscriptions: ${e.message}`,
       );
     },
   });
@@ -104,7 +104,7 @@ export const UserSubscriptions: React.FC<{}> = () => {
         }) => {
           const selectors = getValue();
           const resourceSelector = selectors.find(
-            (s: Selector) => s.type !== "object" && s.type !== "requester"
+            (s: Selector) => s.type !== "object" && s.type !== "requester",
           );
           const { data: selectorId } = resourceSelector ?? {};
           const route = getResourceRoute(resourceType, resourceSelector);
@@ -153,7 +153,7 @@ export const UserSubscriptions: React.FC<{}> = () => {
         },
       },
     ],
-    [jiraHost]
+    [jiraHost],
   );
 
   const table = useLeafyGreenTable<GeneralSubscription>({

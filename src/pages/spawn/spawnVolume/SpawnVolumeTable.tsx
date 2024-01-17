@@ -32,7 +32,7 @@ export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
   }, [volumes]);
 
   const initialExpanded = Object.fromEntries(
-    dataSource.map(({ id }, i) => [i, id === selectedVolume])
+    dataSource.map(({ id }, i) => [i, id === selectedVolume]),
   );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);

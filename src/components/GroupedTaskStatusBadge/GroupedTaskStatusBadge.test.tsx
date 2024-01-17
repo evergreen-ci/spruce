@@ -24,7 +24,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
       {
         path: "/version/:versionId/:tab",
         route: `/version/${versionId}/tasks`,
-      }
+      },
     );
     const badge = screen.queryByDataCy("grouped-task-status-badge");
     expect(badge).toBeInTheDocument();
@@ -38,7 +38,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
         count={400}
         status={TaskStatus.SystemFailureUmbrella}
         href={`/version/${versionId}`}
-      />
+      />,
     );
     expect(screen.getByText("System Failed")).toBeInTheDocument();
     expect(screen.getByText("400")).toBeInTheDocument();
@@ -52,11 +52,11 @@ describe("groupedTaskStatusBadgeIcon", () => {
         href={getVersionRoute(versionId, {
           statuses: [TaskStatus.SystemFailed],
         })}
-      />
+      />,
     );
     expect(screen.queryByDataCy("grouped-task-status-badge")).toHaveAttribute(
       "href",
-      `/version/${versionId}/tasks?statuses=system-failed`
+      `/version/${versionId}/tasks?statuses=system-failed`,
     );
   });
 
@@ -73,17 +73,17 @@ describe("groupedTaskStatusBadgeIcon", () => {
         status={TaskStatus.SystemFailureUmbrella}
         href={`/version/${versionId}`}
         statusCounts={statusCounts}
-      />
+      />,
     );
     await waitFor(() => {
       expect(
-        screen.queryByDataCy("grouped-task-status-badge-tooltip")
+        screen.queryByDataCy("grouped-task-status-badge-tooltip"),
       ).toBeNull();
     });
     await user.hover(screen.queryByDataCy("grouped-task-status-badge"));
     await waitFor(() => {
       expect(
-        screen.getByDataCy("grouped-task-status-badge-tooltip")
+        screen.getByDataCy("grouped-task-status-badge-tooltip"),
       ).toBeVisible();
     });
     expect(screen.queryByText("30")).toBeVisible();

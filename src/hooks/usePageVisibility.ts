@@ -11,7 +11,7 @@ type usePageVisibilityType = {
  * @returns boolean - true if visible, false if hidden
  */
 export const usePageVisibility: usePageVisibilityType = (
-  sendAnalytics = false
+  sendAnalytics = false,
 ) => {
   const [isVisible, setIsVisible] = useState(true);
   const { sendEvent } = useActivityAnalytics();

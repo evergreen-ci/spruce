@@ -60,7 +60,7 @@ export const PatchCard: React.FC<Props> = ({
   const getDateCopy = useDateFormat();
   const { id: versionId, taskStatusStats } = versionFull || {};
   const { stats } = groupStatusesByUmbrellaStatus(
-    taskStatusStats?.counts ?? []
+    taskStatusStats?.counts ?? [],
   );
   const isUnconfigured = isPatchUnconfigured({ alias, activated });
   let patchProject = null;

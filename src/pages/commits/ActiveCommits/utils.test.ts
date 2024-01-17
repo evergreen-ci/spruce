@@ -38,12 +38,12 @@ describe("injectGlobalStyle", () => {
   it("should properly inject global style using the task identifier", () => {
     const dimIconStyle = "dim-icon-style";
     expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
-      dimIconStyle
+      dimIconStyle,
     );
 
     injectGlobalDimStyle();
     expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
-      dimIconStyle
+      dimIconStyle,
     );
   });
 });
@@ -54,12 +54,12 @@ describe("removeGlobalDimStyle", () => {
 
     // Styles should persist from previous test.
     expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
-      dimIconStyle
+      dimIconStyle,
     );
 
     removeGlobalDimStyle();
     expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
-      dimIconStyle
+      dimIconStyle,
     );
   });
 });
@@ -69,18 +69,18 @@ describe("injectGlobalHighlightStyle", () => {
     const taskIconStyle = "task-icon-style";
     const taskIdentifier = "ubuntu1604-test_util";
     expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
-      taskIconStyle
+      taskIconStyle,
     );
     expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
-      taskIdentifier
+      taskIdentifier,
     );
 
     injectGlobalHighlightStyle("ubuntu1604-test_util");
     expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
-      taskIconStyle
+      taskIconStyle,
     );
     expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
-      taskIdentifier
+      taskIdentifier,
     );
   });
 });
@@ -92,18 +92,18 @@ describe("removeGlobalHighlightStyle", () => {
 
     // Styles should persist from previous test.
     expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
-      taskIconStyle
+      taskIconStyle,
     );
     expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
-      taskIdentifier
+      taskIdentifier,
     );
 
     removeGlobalHighlightStyle();
     expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
-      taskIconStyle
+      taskIconStyle,
     );
     expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
-      taskIdentifier
+      taskIdentifier,
     );
   });
 });

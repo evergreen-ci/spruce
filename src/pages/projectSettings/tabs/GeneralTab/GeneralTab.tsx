@@ -35,7 +35,7 @@ export const GeneralTab: React.FC<TabProps> = ({
   const identifierHasChanges = useMemo(
     () =>
       initialIdentifier !== formData?.generalConfiguration?.other?.identifier,
-    [initialIdentifier, formData?.generalConfiguration?.other?.identifier]
+    [initialIdentifier, formData?.generalConfiguration?.other?.identifier],
   );
   const formSchema = useMemo(
     () =>
@@ -45,7 +45,7 @@ export const GeneralTab: React.FC<TabProps> = ({
         identifierHasChanges,
         initialOwner,
         initialRepo,
-        projectType === ProjectType.AttachedProject ? repoData : null
+        projectType === ProjectType.AttachedProject ? repoData : null,
       ),
     [
       identifierHasChanges,
@@ -54,7 +54,7 @@ export const GeneralTab: React.FC<TabProps> = ({
       projectId,
       projectType,
       repoData,
-    ]
+    ],
   );
 
   return (
@@ -80,7 +80,7 @@ const validate = (projectType: ProjectType) =>
     // Ensure that both attached and unattached projects have a branch specified if they are enabled.
     if (enabled && !branch) {
       errors.generalConfiguration.branch.addError(
-        "A branch is required for enabled projects."
+        "A branch is required for enabled projects.",
       );
     }
 

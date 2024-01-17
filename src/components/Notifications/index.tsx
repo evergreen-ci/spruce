@@ -31,7 +31,7 @@ interface NotificationModalProps {
   onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   resourceId: string;
   sendAnalyticsEvent: (
-    subscription: SaveSubscriptionForUserMutationVariables["subscription"]
+    subscription: SaveSubscriptionForUserMutationVariables["subscription"],
   ) => void;
   subscriptionMethods: SubscriptionMethodOption[];
   triggers: Trigger;
@@ -115,7 +115,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   const { schema, uiSchema } = getFormSchema(
     getRegexEnumsToDisable(formState.event.regexSelector),
     triggers,
-    subscriptionMethods
+    subscriptionMethods,
   );
 
   return (

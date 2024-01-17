@@ -9,5 +9,5 @@ export const githubPRLinkify = (unlinkified: string | React.ReactNode[]) =>
       <StyledLink key={`${match}${i}`} href={match}>
         {match}
       </StyledLink>
-    )
+    ),
   );

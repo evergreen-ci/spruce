@@ -48,7 +48,7 @@ export const Task = () => {
     fetchPolicy: "network-only",
     onError: (err) =>
       dispatchToast.error(
-        `There was an error loading the task: ${err.message}`
+        `There was an error loading the task: ${err.message}`,
       ),
   });
   usePolling({ startPolling, stopPolling, refetch });

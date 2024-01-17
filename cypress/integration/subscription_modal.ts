@@ -6,7 +6,7 @@ const testSharedSubscriptionModalFunctionality = (
   dataCyModal: string,
   dataCyToggleModalButton: string,
   description: string,
-  type: string
+  type: string,
 ) => {
   describe(description, () => {
     it("Displays success toast after submitting a valid form and request succeeds", () => {
@@ -120,7 +120,7 @@ testSharedSubscriptionModalFunctionality(
   "task-notification-modal",
   "notify-task",
   "Task Subscription Modal",
-  "task"
+  "task",
 );
 
 testSharedSubscriptionModalFunctionality(
@@ -128,7 +128,7 @@ testSharedSubscriptionModalFunctionality(
   "patch-notification-modal",
   "notify-patch",
   "Version Subscription Modal",
-  "version"
+  "version",
 );
 
 describe("Waterfall subscription modal", () => {
@@ -219,6 +219,6 @@ const saveButtonEnabled = (isEnabled: boolean = true) => {
   cy.contains("button", "Save").should(
     isEnabled ? "not.have.attr" : "have.attr",
     "aria-disabled",
-    "true"
+    "true",
   );
 };

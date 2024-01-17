@@ -55,17 +55,17 @@ export const CopyProjectModal: React.FC<Props> = ({
         dispatchToast.warning(
           `Project cannot be enabled due to the global or repo-specific limits.`,
           true,
-          { shouldTimeout: false }
+          { shouldTimeout: false },
         );
       } else {
         dispatchToast.success(
-          `Successfully duplicated the project: ${identifier}`
+          `Successfully duplicated the project: ${identifier}`,
         );
       }
       navigate(getProjectSettingsRoute(identifier), { replace: true });
     } else if (error) {
       dispatchToast.error(
-        `There was an error duplicating the project: ${error?.message}`
+        `There was an error duplicating the project: ${error?.message}`,
       );
     }
   }, [

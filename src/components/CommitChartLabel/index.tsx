@@ -92,7 +92,7 @@ const CommitChartLabel: React.FC<Props> = ({
         {jiraLinkify(
           shortenMessage ? shortenedMessage : message,
           jiraHost,
-          onClickJiraTicket
+          onClickJiraTicket,
         )}
       </LabelText>
       {shortenMessage && (

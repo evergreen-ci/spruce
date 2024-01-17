@@ -10,11 +10,11 @@ import { MainlineCommitQueryParams } from "types/commits";
 export const useCommitLimit = <T extends HTMLElement>(): [
   MutableRefObject<T>,
   number,
-  boolean
+  boolean,
 ] => {
   const [, setSkipOrderNumber] = useQueryParam(
     MainlineCommitQueryParams.SkipOrderNumber,
-    0
+    0,
   );
   const commitsContainerRef = useRef<T>();
   const isResizing = useResize();

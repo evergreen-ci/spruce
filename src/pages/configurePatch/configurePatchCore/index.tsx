@@ -73,12 +73,12 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
 
   const selectableAliases = useMemo(
     () => filterAliases(patchTriggerAliases, childPatchAliases || []),
-    [patchTriggerAliases, childPatchAliases]
+    [patchTriggerAliases, childPatchAliases],
   );
 
   const initialPatch = useMemo(
     () => ({ ...patch, patchTriggerAliases: selectableAliases }),
-    [patch, selectableAliases]
+    [patch, selectableAliases],
   );
 
   const {
@@ -98,15 +98,15 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
   } = useConfigurePatch(initialPatch);
 
   const totalSelectedTaskCount = Object.values(
-    selectedBuildVariantTasks
+    selectedBuildVariantTasks,
   ).reduce(
     (count, taskObj) => count + Object.values(taskObj).filter((v) => v).length,
-    0
+    0,
   );
 
   const aliasCount = Object.values(selectedAliases).reduce(
     (count, alias) => count + (alias ? 1 : 0),
-    0
+    0,
   );
 
   const [schedulePatch, { loading: loadingScheduledPatch }] = useMutation<
@@ -120,7 +120,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error scheduling this patch : ${err.message}`
+        `There was an error scheduling this patch : ${err.message}`,
       );
     },
     refetchQueries: ["VersionTasks", "VersionTaskDurations"],
@@ -201,7 +201,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
             aliases={[
               ...getPatchTriggerAliasEntries(
                 selectableAliases,
-                selectedAliases
+                selectedAliases,
               ),
               ...getChildPatchEntries(childPatchesWithAliases),
             ]}
@@ -252,7 +252,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
 
 const getVariantEntries = (
   variants: ProjectBuildVariant[],
-  selectedBuildVariantTasks: VariantTasksState
+  selectedBuildVariantTasks: VariantTasksState,
 ) =>
   variants.map(({ displayName, name }) => ({
     displayName,
@@ -264,7 +264,7 @@ const getVariantEntries = (
 
 const getPatchTriggerAliasEntries = (
   selectableAliases: PatchTriggerAlias[],
-  selectedAliases: AliasState
+  selectedAliases: AliasState,
 ) => {
   if (!selectableAliases) {
     return [];
@@ -276,7 +276,7 @@ const getPatchTriggerAliasEntries = (
       taskCount: selectedAliases[alias]
         ? variantsTasks.reduce((count, { tasks }) => count + tasks.length, 0)
         : 0,
-    })
+    }),
   );
 };
 
@@ -292,7 +292,7 @@ const getChildPatchEntries = (childPatches: ChildPatchAliased[]) => {
 };
 
 const toGQLVariantTasksType = (
-  selectedVariantTasks: VariantTasksState
+  selectedVariantTasks: VariantTasksState,
 ): VariantTasks[] =>
   Object.entries(selectedVariantTasks)
     .map(([variantName, tasksObj]) => {
@@ -315,7 +315,7 @@ const toGQLAliasType = (selectedAliases: AliasState) =>
 // Remove all patch trigger aliases that have already been invoked as child patches via CLI
 const filterAliases = (
   patchTriggerAliases: PatchTriggerAlias[],
-  childPatchAliases: ChildPatchAlias[]
+  childPatchAliases: ChildPatchAlias[],
 ): PatchTriggerAlias[] => {
   const invokedAliases = new Set(childPatchAliases.map(({ alias }) => alias));
   return patchTriggerAliases.filter(({ alias }) => !invokedAliases.has(alias));

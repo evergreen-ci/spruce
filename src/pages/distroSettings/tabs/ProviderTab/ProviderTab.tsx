@@ -28,7 +28,7 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
   } = getTab(WritableDistroSettingsTabs.Provider);
 
   const { data: awsData } = useQuery<AwsRegionsQuery, AwsRegionsQueryVariables>(
-    AWS_REGIONS
+    AWS_REGIONS,
   );
   const { awsRegions } = awsData || {};
 
@@ -42,10 +42,10 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
     : "";
 
   const fleetRegionsInUse = formData?.ec2FleetProviderSettings?.map(
-    (p) => p.region
+    (p) => p.region,
   );
   const onDemandRegionsInUse = formData?.ec2OnDemandProviderSettings?.map(
-    (p) => p.region
+    (p) => p.region,
   );
 
   const formSchema = useMemo(
@@ -63,7 +63,7 @@ export const ProviderTab: React.FC<TabProps> = ({ distro, distroData }) => {
       onDemandRegionsInUse,
       pools,
       poolMappingInfo,
-    ]
+    ],
   );
 
   return (

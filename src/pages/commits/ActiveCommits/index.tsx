@@ -67,14 +67,14 @@ export const BuildVariantContainer: React.FC<BuildVariantContainerProps> = ({
     const groupedBuildVariants = convertArrayToObject(buildVariants, "variant");
     const groupedBuildVariantStats = convertArrayToObject(
       buildVariantStats,
-      "variant"
+      "variant",
     );
     const allBuildVariants = arrayUnion(
       Object.keys(groupedBuildVariantStats),
       Object.keys(groupedBuildVariants),
       (a, b) =>
         buildVariantDict[b].priority - buildVariantDict[a].priority ||
-        a.localeCompare(b)
+        a.localeCompare(b),
     );
 
     const buildVariantCards = allBuildVariants.map((v) => {

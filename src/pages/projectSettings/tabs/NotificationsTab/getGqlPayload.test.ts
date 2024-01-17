@@ -79,7 +79,7 @@ describe("getGqlPayload", () => {
       .mockImplementationOnce(() => "my_generated_secret");
 
     const payload = getGqlPayload("project_id")(
-      webhookSubscriptionWithoutSecret
+      webhookSubscriptionWithoutSecret,
     );
     expect(payload).toStrictEqual({
       id: "webhook_subscription",

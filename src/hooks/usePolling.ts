@@ -10,7 +10,7 @@ interface Props {
   startPolling: (DEFAULT_POLL_INTERVAL?: number) => void;
   stopPolling: () => void;
   refetch: (
-    variables?: Partial<OperationVariables>
+    variables?: Partial<OperationVariables>,
   ) => Promise<ApolloQueryResult<any>> | void;
   shouldPollFaster?: boolean;
   initialPollingState?: boolean;
@@ -39,7 +39,7 @@ export const usePolling: usePollingType = ({
   stopPolling,
 }) => {
   const [pollRate, setPollRate] = useState(
-    initialPollingState ? DEFAULT_POLL_INTERVAL : 0
+    initialPollingState ? DEFAULT_POLL_INTERVAL : 0,
   );
   const isPolling = pollRate > 0;
   const isOnline = useNetworkStatus();

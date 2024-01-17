@@ -20,7 +20,7 @@ describe("configureTasks", () => {
           childPatches={[]}
           activated={false}
           setSelectedAliases={() => {}}
-        />
+        />,
       );
       expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(2);
       expect(screen.getByText("compile")).toBeInTheDocument();
@@ -44,7 +44,7 @@ describe("configureTasks", () => {
           childPatches={[]}
           activated={false}
           setSelectedAliases={() => {}}
-        />
+        />,
       );
       expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(4);
       expect(screen.getByText("compile")).toBeInTheDocument();
@@ -70,7 +70,7 @@ describe("configureTasks", () => {
           childPatches={[]}
           activated={false}
           setSelectedAliases={() => {}}
-        />
+        />,
       );
       expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(3);
       expect(screen.getByText("compile")).toBeInTheDocument();
@@ -95,7 +95,7 @@ describe("configureTasks", () => {
           childPatches={[]}
           activated={false}
           setSelectedAliases={() => {}}
-        />
+        />,
       );
       const checkbox = screen.getByLabelText("compile");
       expect(checkbox).toBeInTheDocument();
@@ -119,7 +119,7 @@ describe("configureTasks", () => {
           childPatches={[]}
           activated={false}
           setSelectedAliases={() => {}}
-        />
+        />,
       );
       const checkbox = screen.getByLabelText("compile");
       expect(checkbox).toBeInTheDocument();
@@ -149,10 +149,10 @@ describe("configureTasks", () => {
           childPatches={[]}
           activated={false}
           setSelectedAliases={() => {}}
-        />
+        />,
       );
       const checkbox = screen.getByLabelText(
-        "Select all tasks in this variant"
+        "Select all tasks in this variant",
       );
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).not.toBeChecked();
@@ -182,7 +182,7 @@ describe("configureTasks", () => {
           childPatches={[]}
           activated={false}
           setSelectedAliases={() => {}}
-        />
+        />,
       );
       const checkbox = screen.getByLabelText("compile");
       expect(checkbox).toBeInTheDocument();
@@ -213,10 +213,10 @@ describe("configureTasks", () => {
           childPatches={[]}
           activated={false}
           setSelectedAliases={() => {}}
-        />
+        />,
       );
       const checkbox = screen.getByLabelText(
-        "Select all tasks in these variants"
+        "Select all tasks in these variants",
       );
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).not.toBeChecked();
@@ -245,7 +245,7 @@ describe("configureTasks", () => {
           childPatches={[]}
           activated={false}
           setSelectedAliases={() => {}}
-        />
+        />,
       );
 
       await user.type(screen.getByDataCy("task-filter-input"), "compile");
@@ -286,7 +286,7 @@ describe("configureTasks", () => {
           childPatches={[]}
           activated={false}
           setSelectedAliases={setSelectedAliases}
-        />
+        />,
       );
       expect(screen.getByText("ubuntu2204-large")).toBeInTheDocument();
       const checkbox = screen.getByLabelText("e2e_test");
@@ -323,7 +323,7 @@ describe("configureTasks", () => {
           childPatches={[]}
           activated={false}
           setSelectedAliases={setSelectedAliases}
-        />
+        />,
       );
       expect(screen.getByText("ubuntu2204-large")).toBeInTheDocument();
       const checkbox = screen.getByLabelText("e2e_test");
@@ -361,7 +361,7 @@ describe("configureTasks", () => {
           childPatches={[]}
           activated={false}
           setSelectedAliases={setSelectedAliases}
-        />
+        />,
       );
       expect(screen.getByText("ubuntu2204-large")).toBeInTheDocument();
       const checkbox = screen.getByLabelText("e2e_test");
@@ -399,7 +399,7 @@ describe("configureTasks", () => {
           childPatches={[]}
           activated={false}
           setSelectedAliases={setSelectedAliases}
-        />
+        />,
       );
       expect(screen.getByLabelText("compile")).toBeInTheDocument();
       expect(screen.getByLabelText("test")).toBeInTheDocument();
@@ -439,7 +439,7 @@ describe("configureTasks", () => {
           childPatches={[]}
           activated={false}
           setSelectedAliases={setSelectedAliases}
-        />
+        />,
       );
       expect(screen.getByLabelText("Add alias to patch")).toBeInTheDocument();
       await user.click(screen.getByText("Add alias to patch"));

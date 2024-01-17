@@ -4,7 +4,7 @@ import { FormState } from "./types";
 export const formToGql = (
   initialState: FormState,
   formData: FormState,
-  volumeId: string
+  volumeId: string,
 ) => {
   const updatedFields: Partial<FormState> = diff(initialState, formData);
   const {

@@ -9,7 +9,7 @@ export const useSpruceConfig = ():
   | SpruceConfigQuery["spruceConfig"]
   | undefined => {
   const { data } = useQuery<SpruceConfigQuery, SpruceConfigQueryVariables>(
-    SPRUCE_CONFIG
+    SPRUCE_CONFIG,
   );
 
   return data?.spruceConfig;

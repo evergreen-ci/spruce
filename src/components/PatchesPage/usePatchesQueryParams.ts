@@ -20,7 +20,7 @@ export const usePatchesQueryParams = (): Omit<
   const [patchName] = useQueryParam<string>(PatchPageQueryParams.PatchName, "");
   const [rawStatuses] = useQueryParam<string[]>(
     PatchPageQueryParams.Statuses,
-    []
+    [],
   );
   const [hidden] = useQueryParam(PatchPageQueryParams.Hidden, false);
   const statuses = rawStatuses.filter((v) => v && v !== ALL_PATCH_STATUS);

@@ -41,7 +41,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
       VIEWABLE_PROJECTS,
       {
         skip: !isProjectSettingsPage,
-      }
+      },
     );
 
   const loading = isProjectSettingsPage
@@ -51,7 +51,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   const allProjects = getProjects(
     projectsData,
     viewableProjectsData,
-    isProjectSettingsPage
+    isProjectSettingsPage,
   );
 
   // Find the project with the selectedProjectIdentifier and set it as the selected project
@@ -60,29 +60,32 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
       allProjects
         .flatMap((g) => g.projects)
         .find((p) => p.identifier === selectedProjectIdentifier),
-    [allProjects, selectedProjectIdentifier]
+    [allProjects, selectedProjectIdentifier],
   );
 
   const handleSearch = (options: typeof allProjects, value: string) => {
     // iterate through options and remove any groups that have no matching projects
-    const filteredProjects = options.reduce((acc, g) => {
-      const { groupDisplayName, projects: pg, repo } = g;
+    const filteredProjects = options.reduce(
+      (acc, g) => {
+        const { groupDisplayName, projects: pg, repo } = g;
 
-      const newProjects = pg.filter(
-        (p) =>
-          groupDisplayName.toLowerCase().includes(value.toLowerCase()) ||
-          p.displayName.toLowerCase().includes(value.toLowerCase()) ||
-          p.identifier.toLowerCase().includes(value.toLowerCase())
-      );
-      if (newProjects.length > 0) {
-        acc.push({
-          groupDisplayName,
-          projects: newProjects,
-          ...(repo && { repo }),
-        });
-      }
-      return acc;
-    }, [] as typeof allProjects);
+        const newProjects = pg.filter(
+          (p) =>
+            groupDisplayName.toLowerCase().includes(value.toLowerCase()) ||
+            p.displayName.toLowerCase().includes(value.toLowerCase()) ||
+            p.identifier.toLowerCase().includes(value.toLowerCase()),
+        );
+        if (newProjects.length > 0) {
+          acc.push({
+            groupDisplayName,
+            projects: newProjects,
+            ...(repo && { repo }),
+          });
+        }
+        return acc;
+      },
+      [] as typeof allProjects,
+    );
     return filteredProjects;
   };
 
@@ -128,14 +131,14 @@ const getFavoriteProjects = (projectGroups: ProjectsQuery["projects"]) =>
 const filterDisabledProjects = (
   projects: Unpacked<
     ViewableProjectRefsQuery["viewableProjectRefs"]
-  >["projects"]
+  >["projects"],
 ) =>
   projects.reduce(
     ([enabled, disabled], project) =>
       project.enabled === false
         ? [enabled, [...disabled, project]]
         : [[...enabled, project], disabled],
-    [[], []]
+    [[], []],
   );
 
 type ViewableProjectRef = Unpacked<
@@ -149,13 +152,13 @@ interface GetProjectsResult {
 type GetProjectsType = (
   projectsData: ProjectsQuery,
   viewableProjectsData: ViewableProjectRefsQuery,
-  isProjectSettingsPage: boolean
+  isProjectSettingsPage: boolean,
 ) => GetProjectsResult[];
 
 const getProjects: GetProjectsType = (
   projectsData,
   viewableProjectsData,
-  isProjectSettingsPage
+  isProjectSettingsPage,
 ) => {
   if (!isProjectSettingsPage) {
     const projectGroups = projectsData?.projects ?? [];

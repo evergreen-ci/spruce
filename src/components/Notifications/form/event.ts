@@ -80,7 +80,7 @@ const failureSelect = {
 
 const regexSelector = (
   regexEnumsToDisable: string[],
-  regexSelectors: RegexSelector[]
+  regexSelectors: RegexSelector[],
 ) => ({
   type: "array" as "array",
   minItems: 0,
@@ -123,7 +123,7 @@ const regexSelector = (
  */
 export const getEventSchema = (
   regexEnumsToDisable: string[],
-  triggers: Trigger
+  triggers: Trigger,
 ): {
   schema: SpruceFormProps["schema"];
   uiSchema: SpruceFormProps["uiSchema"];
@@ -236,7 +236,7 @@ export const getEventSchema = (
               },
               regexSelector: regexSelector(
                 regexEnumsToDisable,
-                buildRegexSelectors
+                buildRegexSelectors,
               ),
             },
           },
@@ -278,7 +278,7 @@ export const getEventSchema = (
               },
               regexSelector: regexSelector(
                 regexEnumsToDisable,
-                buildRegexSelectors
+                buildRegexSelectors,
               ),
             },
           },
@@ -302,7 +302,7 @@ export const getEventSchema = (
               },
               regexSelector: regexSelector(
                 regexEnumsToDisable,
-                taskRegexSelectors
+                taskRegexSelectors,
               ),
             },
           },
@@ -325,7 +325,7 @@ export const getEventSchema = (
               },
               regexSelector: regexSelector(
                 regexEnumsToDisable,
-                taskRegexSelectors
+                taskRegexSelectors,
               ),
             },
           },
@@ -348,7 +348,7 @@ export const getEventSchema = (
               },
               regexSelector: regexSelector(
                 regexEnumsToDisable,
-                taskRegexSelectors
+                taskRegexSelectors,
               ),
             },
           },
@@ -373,7 +373,7 @@ export const getEventSchema = (
               },
               regexSelector: regexSelector(
                 regexEnumsToDisable,
-                taskRegexSelectors
+                taskRegexSelectors,
               ),
             },
           },
@@ -395,7 +395,7 @@ export const getEventSchema = (
               },
               regexSelector: regexSelector(
                 regexEnumsToDisable,
-                taskRegexSelectors
+                taskRegexSelectors,
               ),
             },
           },
@@ -414,7 +414,7 @@ export const getEventSchema = (
               },
               regexSelector: regexSelector(
                 regexEnumsToDisable,
-                taskRegexSelectors
+                taskRegexSelectors,
               ),
             },
           },

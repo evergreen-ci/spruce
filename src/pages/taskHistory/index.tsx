@@ -47,7 +47,7 @@ const TaskHistoryContents: React.FC = () => {
   useJumpToCommit();
 
   const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
-    constants.queryParamsToDisplay
+    constants.queryParamsToDisplay,
   );
   const dispatchToast = useToastContext();
 
@@ -76,13 +76,13 @@ const TaskHistoryContents: React.FC = () => {
           taskName,
           numCommits: mainlineCommits.versions.length,
         },
-        SentryBreadcrumb.UI
+        SentryBreadcrumb.UI,
       );
       ingestNewCommits(mainlineCommits);
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error loading the task history: ${err.message}`
+        `There was an error loading the task history: ${err.message}`,
       );
     },
   });
@@ -96,7 +96,7 @@ const TaskHistoryContents: React.FC = () => {
           taskName,
           skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
         },
-        SentryBreadcrumb.UI
+        SentryBreadcrumb.UI,
       );
       refetch({
         mainlineCommitsOptions: {

@@ -94,7 +94,7 @@ describe("deduplicateTasks", () => {
       { tasks: ["task3"], name: "variant2" },
     ];
     expect(
-      deduplicateTasks(tasks, previouslyActivatedBuildvariants, /(?:)/)
+      deduplicateTasks(tasks, previouslyActivatedBuildvariants, /(?:)/),
     ).toStrictEqual({
       task1: {
         checkboxState: CheckboxState.Checked,
@@ -134,7 +134,7 @@ describe("getSelectAllCheckboxState", () => {
       task2: { checkboxState: CheckboxState.Checked, activated: false },
     };
     expect(getSelectAllCheckboxState(tasks, {}, false)).toStrictEqual(
-      CheckboxState.Checked
+      CheckboxState.Checked,
     );
   });
   it("should return unchecked if all tasks are unchecked", () => {
@@ -146,7 +146,7 @@ describe("getSelectAllCheckboxState", () => {
       task2: { checkboxState: CheckboxState.Unchecked, activated: false },
     };
     expect(getSelectAllCheckboxState(tasks, {}, false)).toStrictEqual(
-      CheckboxState.Unchecked
+      CheckboxState.Unchecked,
     );
   });
   it("should return indeterminate if some tasks are checked and unchecked", () => {
@@ -158,7 +158,7 @@ describe("getSelectAllCheckboxState", () => {
       task2: { checkboxState: CheckboxState.Unchecked, activated: false },
     };
     expect(getSelectAllCheckboxState(tasks, {}, false)).toStrictEqual(
-      CheckboxState.Indeterminate
+      CheckboxState.Indeterminate,
     );
   });
   it("should return indeterminate if some tasks are indeterminate", () => {
@@ -170,7 +170,7 @@ describe("getSelectAllCheckboxState", () => {
       task2: { checkboxState: CheckboxState.Indeterminate, activated: false },
     };
     expect(getSelectAllCheckboxState(tasks, {}, false)).toStrictEqual(
-      CheckboxState.Indeterminate
+      CheckboxState.Indeterminate,
     );
   });
   it("should return checked if all aliases are checked", () => {
@@ -179,7 +179,7 @@ describe("getSelectAllCheckboxState", () => {
       alias2: CheckboxState.Checked,
     };
     expect(getSelectAllCheckboxState({}, aliases, false)).toStrictEqual(
-      CheckboxState.Checked
+      CheckboxState.Checked,
     );
   });
   it("should return unchecked if all aliases are unchecked", () => {
@@ -188,7 +188,7 @@ describe("getSelectAllCheckboxState", () => {
       alias2: CheckboxState.Unchecked,
     };
     expect(getSelectAllCheckboxState({}, aliases, false)).toStrictEqual(
-      CheckboxState.Unchecked
+      CheckboxState.Unchecked,
     );
   });
   it("should return indeterminate if some aliases are checked", () => {
@@ -197,7 +197,7 @@ describe("getSelectAllCheckboxState", () => {
       alias2: CheckboxState.Unchecked,
     };
     expect(getSelectAllCheckboxState({}, aliases, false)).toStrictEqual(
-      CheckboxState.Indeterminate
+      CheckboxState.Indeterminate,
     );
   });
   it("should return checked if all tasks and aliases are checked", () => {
@@ -216,7 +216,7 @@ describe("getSelectAllCheckboxState", () => {
       alias2: CheckboxState.Checked,
     };
     expect(getSelectAllCheckboxState(tasks, aliases, false)).toStrictEqual(
-      CheckboxState.Checked
+      CheckboxState.Checked,
     );
   });
   it("should return unchecked if all tasks and aliases are unchecked", () => {
@@ -235,7 +235,7 @@ describe("getSelectAllCheckboxState", () => {
       alias2: CheckboxState.Unchecked,
     };
     expect(getSelectAllCheckboxState(tasks, aliases, false)).toStrictEqual(
-      CheckboxState.Unchecked
+      CheckboxState.Unchecked,
     );
   });
   it("should return indeterminate if some tasks and aliases are checked", () => {
@@ -254,7 +254,7 @@ describe("getSelectAllCheckboxState", () => {
       alias2: CheckboxState.Unchecked,
     };
     expect(getSelectAllCheckboxState(tasks, aliases, false)).toStrictEqual(
-      CheckboxState.Indeterminate
+      CheckboxState.Indeterminate,
     );
   });
   it("should be checked by default if a child patch is selected", () => {
@@ -273,7 +273,7 @@ describe("getSelectAllCheckboxState", () => {
       alias2: CheckboxState.Unchecked,
     };
     expect(getSelectAllCheckboxState(tasks, aliases, true)).toStrictEqual(
-      CheckboxState.Checked
+      CheckboxState.Checked,
     );
   });
 });

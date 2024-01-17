@@ -33,10 +33,10 @@ const Issues: React.FC<IssuesProps> = ({
       variables: { taskId, execution },
       onError: (err) => {
         dispatchToast.error(
-          `There was an error loading the ticket information from Jira: ${err.message}`
+          `There was an error loading the ticket information from Jira: ${err.message}`,
         );
       },
-    }
+    },
   );
   return (
     <AnnotationTickets

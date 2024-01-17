@@ -37,7 +37,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     pollInterval: 3000,
     onError: (e) => {
       dispatchToast.error(
-        `There was an error loading your spawn hosts: ${e.message}`
+        `There was an error loading your spawn hosts: ${e.message}`,
       );
     },
   });
@@ -66,7 +66,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error while updating your host: ${err.message}`
+        `There was an error while updating your host: ${err.message}`,
       );
     },
     refetchQueries: ["MyVolumes"],
@@ -94,9 +94,8 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     checkboxLabel = `${copyPrefix} a virtual workstation.`;
   }
 
-  const [checkboxAcknowledged, setCheckboxAcknowledged] = useState(
-    !checkboxLabel
-  );
+  const [checkboxAcknowledged, setCheckboxAcknowledged] =
+    useState(!checkboxLabel);
 
   return (
     <>

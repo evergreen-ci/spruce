@@ -11,7 +11,7 @@ describe("containers", () => {
   });
   it("correctly converts from a form to GQL", () => {
     expect(formToGql(projectFormBase, "spruce")).toStrictEqual(
-      projectResultBase
+      projectResultBase,
     );
   });
 });

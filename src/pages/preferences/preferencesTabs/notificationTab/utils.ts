@@ -9,7 +9,7 @@ import { ResourceType } from "types/triggers";
 
 export const getResourceRoute = (
   resourceType: ResourceType,
-  selector: Selector
+  selector: Selector,
 ) => {
   const { data: id, type } = selector;
 

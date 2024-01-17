@@ -12,7 +12,7 @@ describe("using an on-save operation", () => {
     save(DistroOnSaveOperation.Decommission);
     cy.validateToast(
       "success",
-      "Updated distro and scheduled 0 hosts to update."
+      "Updated distro and scheduled 0 hosts to update.",
     );
 
     // Reset field
@@ -20,7 +20,7 @@ describe("using an on-save operation", () => {
     save(DistroOnSaveOperation.RestartJasper);
     cy.validateToast(
       "success",
-      "Updated distro and scheduled 0 hosts to update."
+      "Updated distro and scheduled 0 hosts to update.",
     );
   });
 });

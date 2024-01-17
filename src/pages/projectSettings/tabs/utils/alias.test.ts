@@ -26,8 +26,8 @@ describe("transformAliases", () => {
           } as AliasFormType,
         ],
         true,
-        AliasNames.GithubPr
-      )
+        AliasNames.GithubPr,
+      ),
     ).toStrictEqual([
       {
         id: "123",
@@ -53,8 +53,8 @@ describe("transformAliases", () => {
           } as AliasFormType,
         ],
         false,
-        AliasNames.GithubPr
-      )
+        AliasNames.GithubPr,
+      ),
     ).toStrictEqual([]);
   });
 
@@ -78,8 +78,8 @@ describe("transformAliases", () => {
           } as AliasFormType,
         ],
         true,
-        AliasNames.CommitQueue
-      )
+        AliasNames.CommitQueue,
+      ),
     ).toStrictEqual([
       {
         id: "456",
@@ -116,8 +116,8 @@ describe("transformAliases", () => {
             },
           } as AliasFormType,
         ],
-        true
-      )
+        true,
+      ),
     ).toStrictEqual([
       {
         id: "",
@@ -157,8 +157,8 @@ describe("transformAliases", () => {
             } as AliasFormType,
           ],
           true,
-          AliasNames.GitTag
-        )
+          AliasNames.GitTag,
+        ),
       ).toStrictEqual([
         {
           id: "",
@@ -197,8 +197,8 @@ describe("transformAliases", () => {
             } as AliasFormType,
           ],
           true,
-          AliasNames.GitTag
-        )
+          AliasNames.GitTag,
+        ),
       ).toStrictEqual([
         {
           id: "",

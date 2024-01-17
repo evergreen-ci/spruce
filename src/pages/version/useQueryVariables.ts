@@ -12,7 +12,7 @@ const { toArray } = array;
 
 export const useQueryVariables = (
   search: string,
-  versionId: string
+  versionId: string,
 ): VersionTasksQueryVariables => {
   const queryParams = parseQueryString(search);
   const {

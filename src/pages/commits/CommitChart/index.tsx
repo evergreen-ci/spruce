@@ -31,11 +31,11 @@ interface Props {
 export const CommitChart: React.FC<Props> = ({ hasTaskFilter, versions }) => {
   const [chartOpen, setChartOpen] = useQueryParam(
     ChartToggleQueryParams.chartOpen,
-    DEFAULT_OPEN_STATE
+    DEFAULT_OPEN_STATE,
   );
   const [chartType, setChartType] = useQueryParam(
     ChartToggleQueryParams.chartType,
-    DEFAULT_CHART_TYPE
+    DEFAULT_CHART_TYPE,
   );
 
   const onChangeChartType = (type: ChartTypes): void => {

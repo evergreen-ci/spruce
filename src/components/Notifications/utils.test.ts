@@ -11,7 +11,7 @@ describe("getGqlPayload", () => {
       "task",
       taskTriggers,
       "task_id",
-      taskFormState
+      taskFormState,
     );
     expect(payload).toStrictEqual({
       owner_type: "person",
@@ -35,7 +35,7 @@ describe("getGqlPayload", () => {
       "version",
       versionTriggers,
       "version_id",
-      versionFormState
+      versionFormState,
     );
     expect(payload).toStrictEqual({
       owner_type: "person",
@@ -59,7 +59,7 @@ describe("getGqlPayload", () => {
       "project",
       waterfallTriggers,
       "project_id",
-      projectFormState
+      projectFormState,
     );
     expect(payload).toStrictEqual({
       owner_type: "person",
@@ -92,7 +92,7 @@ describe("getGqlPayload", () => {
       "version",
       versionTriggers,
       "version_id",
-      omitFieldsFormState
+      omitFieldsFormState,
     );
     expect(payload).toStrictEqual({
       owner_type: "person",
