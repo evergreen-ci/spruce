@@ -96,7 +96,7 @@ exports[`Snapshot Tests EditableTagField.stories Default 1`] = `
           <button
             aria-disabled="false"
             aria-label="Delete Tag"
-            class="leafygreen-ui-1xt2asn"
+            class="leafygreen-ui-76dd2i"
             tabindex="0"
           >
             <div
@@ -216,7 +216,7 @@ exports[`Snapshot Tests EditableTagField.stories Default 1`] = `
           <button
             aria-disabled="false"
             aria-label="Delete Tag"
-            class="leafygreen-ui-1xt2asn"
+            class="leafygreen-ui-76dd2i"
             tabindex="0"
           >
             <div
@@ -336,7 +336,7 @@ exports[`Snapshot Tests EditableTagField.stories Default 1`] = `
           <button
             aria-disabled="false"
             aria-label="Delete Tag"
-            class="leafygreen-ui-1xt2asn"
+            class="leafygreen-ui-76dd2i"
             tabindex="0"
           >
             <div

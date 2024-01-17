@@ -289,7 +289,7 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                     Valid Projects
                   </label>
                   <textarea
-                    class="leafygreen-ui-j9hxzb"
+                    class="leafygreen-ui-18em0fn"
                     id="textarea-1"
                     rows="5"
                     title="Valid Projects"

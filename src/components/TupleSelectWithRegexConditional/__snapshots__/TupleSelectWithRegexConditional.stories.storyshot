@@ -176,7 +176,7 @@ exports[`Snapshot Tests Components/TupleSelect WithConditional 1`] = `
           <button
             aria-disabled="false"
             aria-label="Select plus button"
-            class="leafygreen-ui-1xt2asn"
+            class="leafygreen-ui-76dd2i"
             tabindex="0"
           >
             <div

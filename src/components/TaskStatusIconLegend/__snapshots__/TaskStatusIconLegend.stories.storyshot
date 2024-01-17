@@ -345,7 +345,7 @@ exports[`Snapshot Tests TaskStatusIconLegend.stories LegendWithButton 1`] = `
     <button
       aria-disabled="false"
       aria-label="Task Status Icon Legend"
-      class="leafygreen-ui-1xt2asn"
+      class="leafygreen-ui-76dd2i"
       tabindex="0"
     >
       <div
