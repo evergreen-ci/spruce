@@ -72,7 +72,7 @@ exports[`Snapshot Tests AnnotationTicketsList.stories Default 1`] = `
       >
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-2jj1me leafygreen-ui-cssveg"
+          class="lg-ui-button-0000 leafygreen-ui-q3ln33"
           data-cy="move-btn-DEVPROD-123"
           type="button"
         >
@@ -104,7 +104,7 @@ exports[`Snapshot Tests AnnotationTicketsList.stories Default 1`] = `
         </button>
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-2jj1me leafygreen-ui-cssveg"
+          class="lg-ui-button-0000 leafygreen-ui-q3ln33"
           data-cy="DEVPROD-123-delete-btn"
           type="button"
         >
@@ -203,7 +203,7 @@ exports[`Snapshot Tests AnnotationTicketsList.stories Default 1`] = `
       >
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-2jj1me leafygreen-ui-cssveg"
+          class="lg-ui-button-0000 leafygreen-ui-q3ln33"
           data-cy="move-btn-DEVPROD-456"
           type="button"
         >
@@ -235,7 +235,7 @@ exports[`Snapshot Tests AnnotationTicketsList.stories Default 1`] = `
         </button>
         <button
           aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-2jj1me leafygreen-ui-cssveg"
+          class="lg-ui-button-0000 leafygreen-ui-q3ln33"
           data-cy="DEVPROD-456-delete-btn"
           type="button"
         >

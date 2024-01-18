@@ -231,7 +231,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
       <tbody>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-0"
@@ -296,7 +296,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-1"
@@ -361,7 +361,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-2"
@@ -426,7 +426,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-3"
@@ -491,7 +491,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-4"
@@ -556,7 +556,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-5"
@@ -621,7 +621,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-6"
@@ -686,7 +686,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-7"
@@ -751,7 +751,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-8"
@@ -816,7 +816,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-9"
@@ -881,7 +881,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-10"
@@ -946,7 +946,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-11"
@@ -1011,7 +1011,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-12"
@@ -1076,7 +1076,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-13"
@@ -1141,7 +1141,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-14"
@@ -1206,7 +1206,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-15"
@@ -1271,7 +1271,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-16"
@@ -1336,7 +1336,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-17"
@@ -1401,7 +1401,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-18"
@@ -1466,7 +1466,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-19"
@@ -1531,7 +1531,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-20"
@@ -1596,7 +1596,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-21"
@@ -1661,7 +1661,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-22"
@@ -1726,7 +1726,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-23"
@@ -1791,7 +1791,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-24"
@@ -1856,7 +1856,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-25"
@@ -1921,7 +1921,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-26"
@@ -1986,7 +1986,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-27"
@@ -2051,7 +2051,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-28"
@@ -2116,7 +2116,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-29"
@@ -2181,7 +2181,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-30"
@@ -2246,7 +2246,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-31"
@@ -2311,7 +2311,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-32"
@@ -2376,7 +2376,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-33"
@@ -2441,7 +2441,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-34"
@@ -2506,7 +2506,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-35"
@@ -2571,7 +2571,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-36"
@@ -2636,7 +2636,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-37"
@@ -2701,7 +2701,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-38"
@@ -2766,7 +2766,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-39"
@@ -2831,7 +2831,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-40"
@@ -2896,7 +2896,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-41"
@@ -2961,7 +2961,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-42"
@@ -3026,7 +3026,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-43"
@@ -3091,7 +3091,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-44"
@@ -3156,7 +3156,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-45"
@@ -3221,7 +3221,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-46"
@@ -3286,7 +3286,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-47"
@@ -3351,7 +3351,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-48"
@@ -3416,7 +3416,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-49"
@@ -3481,7 +3481,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-50"
@@ -3546,7 +3546,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-51"
@@ -3611,7 +3611,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-52"
@@ -3676,7 +3676,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-53"
@@ -3741,7 +3741,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-54"
@@ -3806,7 +3806,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-55"
@@ -3871,7 +3871,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-56"
@@ -3936,7 +3936,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-57"
@@ -4001,7 +4001,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-58"
@@ -4066,7 +4066,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-59"
@@ -4131,7 +4131,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-60"
@@ -4196,7 +4196,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-61"
@@ -4261,7 +4261,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-62"
@@ -4326,7 +4326,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-63"
@@ -4391,7 +4391,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-64"
@@ -4456,7 +4456,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-65"
@@ -4521,7 +4521,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-66"
@@ -4586,7 +4586,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-67"
@@ -4651,7 +4651,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-68"
@@ -4716,7 +4716,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-69"
@@ -4781,7 +4781,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-70"
@@ -4846,7 +4846,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-71"
@@ -4911,7 +4911,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-72"
@@ -4976,7 +4976,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-73"
@@ -5041,7 +5041,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-74"
@@ -5106,7 +5106,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-75"
@@ -5171,7 +5171,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-76"
@@ -5236,7 +5236,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-77"
@@ -5301,7 +5301,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-78"
@@ -5366,7 +5366,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-79"
@@ -5431,7 +5431,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-80"
@@ -5496,7 +5496,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-81"
@@ -5561,7 +5561,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-82"
@@ -5626,7 +5626,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-83"
@@ -5691,7 +5691,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-84"
@@ -5756,7 +5756,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-85"
@@ -5821,7 +5821,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-86"
@@ -5886,7 +5886,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-87"
@@ -5951,7 +5951,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-88"
@@ -6016,7 +6016,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-89"
@@ -6081,7 +6081,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-90"
@@ -6146,7 +6146,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-91"
@@ -6211,7 +6211,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-92"
@@ -6276,7 +6276,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-93"
@@ -6341,7 +6341,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-94"
@@ -6406,7 +6406,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-95"
@@ -6471,7 +6471,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-96"
@@ -6536,7 +6536,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-97"
@@ -6601,7 +6601,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-98"
@@ -6666,7 +6666,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-99"
@@ -7639,7 +7639,7 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-0"
@@ -7734,7 +7734,7 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-0.0"
         >
@@ -7800,7 +7800,7 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-1"
@@ -7895,7 +7895,7 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-1.0"
         >
@@ -7961,7 +7961,7 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-2"
@@ -8056,7 +8056,7 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-2.0"
         >
@@ -8355,7 +8355,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-0"
@@ -8450,7 +8450,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-0.0"
         >
@@ -8516,7 +8516,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-1"
@@ -8611,7 +8611,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-1.0"
         >
@@ -8677,7 +8677,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-2"
@@ -8772,7 +8772,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-2.0"
         >
@@ -8838,7 +8838,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-3"
@@ -8933,7 +8933,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-3.0"
         >
@@ -8999,7 +8999,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-4"
@@ -9094,7 +9094,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-4.0"
         >
@@ -9160,7 +9160,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-5"
@@ -9255,7 +9255,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-5.0"
         >
@@ -9321,7 +9321,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-6"
@@ -9416,7 +9416,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-6.0"
         >
@@ -9482,7 +9482,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-7"
@@ -9577,7 +9577,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-7.0"
         >
@@ -9643,7 +9643,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-8"
@@ -9738,7 +9738,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-8.0"
         >
@@ -9804,7 +9804,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-9"
@@ -9899,7 +9899,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-9.0"
         >
@@ -9965,7 +9965,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-10"
@@ -10060,7 +10060,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-10.0"
         >
@@ -10126,7 +10126,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-11"
@@ -10221,7 +10221,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-11.0"
         >
@@ -10287,7 +10287,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-12"
@@ -10382,7 +10382,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-12.0"
         >
@@ -10448,7 +10448,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-13"
@@ -10543,7 +10543,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-13.0"
         >
@@ -10609,7 +10609,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-14"
@@ -10704,7 +10704,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-14.0"
         >
@@ -10770,7 +10770,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-15"
@@ -10865,7 +10865,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-15.0"
         >
@@ -10931,7 +10931,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-16"
@@ -11026,7 +11026,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-16.0"
         >
@@ -11092,7 +11092,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-17"
@@ -11187,7 +11187,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-17.0"
         >
@@ -11253,7 +11253,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-18"
@@ -11348,7 +11348,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-18.0"
         >
@@ -11414,7 +11414,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-19"
@@ -11509,7 +11509,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-19.0"
         >
@@ -11575,7 +11575,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-20"
@@ -11670,7 +11670,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-20.0"
         >
@@ -11736,7 +11736,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-21"
@@ -11831,7 +11831,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-21.0"
         >
@@ -11897,7 +11897,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-22"
@@ -11992,7 +11992,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-22.0"
         >
@@ -12058,7 +12058,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-23"
@@ -12153,7 +12153,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-23.0"
         >
@@ -12219,7 +12219,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-24"
@@ -12314,7 +12314,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-24.0"
         >
@@ -12380,7 +12380,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-25"
@@ -12475,7 +12475,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-25.0"
         >
@@ -12541,7 +12541,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-26"
@@ -12636,7 +12636,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-26.0"
         >
@@ -12702,7 +12702,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-27"
@@ -12797,7 +12797,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-27.0"
         >
@@ -12863,7 +12863,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-28"
@@ -12958,7 +12958,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-28.0"
         >
@@ -13024,7 +13024,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-29"
@@ -13119,7 +13119,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-29.0"
         >
@@ -13185,7 +13185,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-30"
@@ -13280,7 +13280,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-30.0"
         >
@@ -13346,7 +13346,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-31"
@@ -13441,7 +13441,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-31.0"
         >
@@ -13507,7 +13507,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-32"
@@ -13602,7 +13602,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-32.0"
         >
@@ -13668,7 +13668,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-33"
@@ -13763,7 +13763,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-33.0"
         >
@@ -13829,7 +13829,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-34"
@@ -13924,7 +13924,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-34.0"
         >
@@ -13990,7 +13990,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-35"
@@ -14085,7 +14085,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-35.0"
         >
@@ -14151,7 +14151,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-36"
@@ -14246,7 +14246,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-36.0"
         >
@@ -14312,7 +14312,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-37"
@@ -14407,7 +14407,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-37.0"
         >
@@ -14473,7 +14473,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-38"
@@ -14568,7 +14568,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-38.0"
         >
@@ -14634,7 +14634,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-39"
@@ -14729,7 +14729,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-39.0"
         >
@@ -14795,7 +14795,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-40"
@@ -14890,7 +14890,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-40.0"
         >
@@ -14956,7 +14956,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-41"
@@ -15051,7 +15051,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-41.0"
         >
@@ -15117,7 +15117,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-42"
@@ -15212,7 +15212,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-42.0"
         >
@@ -15278,7 +15278,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-43"
@@ -15373,7 +15373,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-43.0"
         >
@@ -15439,7 +15439,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-44"
@@ -15534,7 +15534,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-44.0"
         >
@@ -15600,7 +15600,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-45"
@@ -15695,7 +15695,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-45.0"
         >
@@ -15761,7 +15761,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-46"
@@ -15856,7 +15856,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-46.0"
         >
@@ -15922,7 +15922,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-47"
@@ -16017,7 +16017,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-47.0"
         >
@@ -16083,7 +16083,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-48"
@@ -16178,7 +16178,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-48.0"
         >
@@ -16244,7 +16244,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       >
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-ew8k5w"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-49"
@@ -16339,7 +16339,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         </tr>
         <tr
           aria-hidden="true"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          class="leafygreen-ui-1jfc6is"
           data-selected="false"
           id="lg-table-row-49.0"
         >
@@ -16407,7 +16407,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
 exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd leafygreen-ui-13vi68r css-1wf6e6y-StyledTable e1bwwd861"
+    class="css-1wf6e6y-StyledTable e1bwwd861 leafygreen-ui-2z6hr7"
     tabindex="0"
   >
     <table
@@ -16700,7 +16700,7 @@ exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-16yodxz leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-13jhnf1"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-1"
@@ -16830,7 +16830,7 @@ exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-16yodxz leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-13jhnf1"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-3"
@@ -16960,7 +16960,7 @@ exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-16yodxz leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-13jhnf1"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-5"
@@ -17090,7 +17090,7 @@ exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-16yodxz leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-13jhnf1"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-7"
@@ -17220,7 +17220,7 @@ exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-16yodxz leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-13jhnf1"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-9"
@@ -17350,7 +17350,7 @@ exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-16yodxz leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-13jhnf1"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-11"
@@ -17480,7 +17480,7 @@ exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-16yodxz leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-13jhnf1"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-13"
@@ -17610,7 +17610,7 @@ exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-16yodxz leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-13jhnf1"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-15"
@@ -17740,7 +17740,7 @@ exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-16yodxz leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-13jhnf1"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-17"
@@ -17870,7 +17870,7 @@ exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-16yodxz leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-13jhnf1"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-19"
@@ -18000,7 +18000,7 @@ exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-16yodxz leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-13jhnf1"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-21"
@@ -18130,7 +18130,7 @@ exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-16yodxz leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-13jhnf1"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-23"
@@ -18260,7 +18260,7 @@ exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-16yodxz leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-13jhnf1"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-25"
@@ -18390,7 +18390,7 @@ exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-16yodxz leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-13jhnf1"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-27"
@@ -18520,7 +18520,7 @@ exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
         </tr>
         <tr
           aria-hidden="false"
-          class="leafygreen-ui-16yodxz leafygreen-ui-1cl06l1"
+          class="leafygreen-ui-13jhnf1"
           data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-29"

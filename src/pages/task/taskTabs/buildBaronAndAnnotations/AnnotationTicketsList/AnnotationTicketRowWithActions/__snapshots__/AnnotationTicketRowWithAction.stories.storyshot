@@ -69,7 +69,7 @@ exports[`Snapshot Tests AnnotationTicketRowWithAction.stories Default 1`] = `
     >
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-2jj1me leafygreen-ui-cssveg"
+        class="lg-ui-button-0000 leafygreen-ui-q3ln33"
         data-cy="move-btn-EVG-123"
         type="button"
       >
@@ -101,7 +101,7 @@ exports[`Snapshot Tests AnnotationTicketRowWithAction.stories Default 1`] = `
       </button>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-2jj1me leafygreen-ui-cssveg"
+        class="lg-ui-button-0000 leafygreen-ui-q3ln33"
         data-cy="EVG-123-delete-btn"
         type="button"
       >
