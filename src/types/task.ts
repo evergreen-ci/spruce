@@ -35,7 +35,7 @@ export const mapIdToFilterParam = Object.entries(mapFilterParamToId).reduce(
     ...accum,
     [param]: id,
   }),
-  {}
+  {},
 );
 
 export type TableOnChange<D> = TableProps<D>["onChange"];
