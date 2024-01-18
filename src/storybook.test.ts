@@ -21,15 +21,15 @@ type StoryFile = {
  * @returns - A composed story file
  */
 const compose = (
-  entry: StoryFile
+  entry: StoryFile,
 ): ReturnType<typeof composeStories<StoryFile>> => {
   try {
     return composeStories(entry, projectAnnotations);
   } catch (e) {
     throw new Error(
       `There was an issue composing stories for the module: ${JSON.stringify(
-        entry
-      )}, ${e}`
+        entry,
+      )}, ${e}`,
     );
   }
 };
@@ -102,12 +102,12 @@ describe(`${options.suite}`, () => {
           ({ name, story }) =>
             // Implements a filtering mechanism to avoid running stories that are disabled via parameters or that match a specific regex mirroring the default behavior of Storyshots.
             !options.storyNameRegex.test(name) &&
-            !story.parameters.storyshots?.disable
+            !story.parameters.storyshots?.disable,
         );
 
       if (stories.length <= 0) {
         throw new Error(
-          `No stories found for this module: ${title}. Make sure there is at least one valid story for this module, without a disable parameter, or add parameters.storyshots.disable in the default export of this file.`
+          `No stories found for this module: ${title}. Make sure there is at least one valid story for this module, without a disable parameter, or add parameters.storyshots.disable in the default export of this file.`,
         );
       }
 
@@ -123,7 +123,7 @@ describe(`${options.suite}`, () => {
           const snapshotPath = path.join(
             storyDirectory,
             options.snapshotsDirName,
-            `${storyBookFileBaseName}${options.snapshotExtension}`
+            `${storyBookFileBaseName}${options.snapshotExtension}`,
           );
           expect(container).toMatchSpecificSnapshot(snapshotPath);
         });
