@@ -51,7 +51,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const queryVariables = getQueryVariables(search, task.id);
   const [queryParams, setQueryParams] = useQueryParams();
   const { execution, limitNum, pageNum, sort } = queryVariables;
-  const cat = sort?.[0]?.sortBy;
+  const sortBy = sort?.[0]?.sortBy;
 
   const appliedDefaultSort = useRef(null);
   useEffect(() => {
@@ -61,7 +61,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     }
 
     if (
-      cat === undefined &&
+      sortBy === undefined &&
       updateQueryParams &&
       appliedDefaultSort.current !== pathname
     ) {
@@ -84,15 +84,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   usePolling({ startPolling, stopPolling, refetch });
 
   const clearQueryParams = () => {
-    table.resetColumnFilters();
-    table.resetSorting();
-    setQueryParams({
-      ...queryParams,
-      ...emptyFilterQueryParams,
-      [TableQueryParams.Page]: "0",
-      [TableQueryParams.SortBy]: undefined,
-      [TableQueryParams.SortDir]: undefined,
-    });
+    table.resetColumnFilters(true);
   };
 
   const updateFilters = (filterState: ColumnFiltersState) => {

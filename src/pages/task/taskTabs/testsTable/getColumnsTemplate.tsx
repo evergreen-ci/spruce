@@ -24,6 +24,7 @@ export const getColumnsTemplate = ({ task }: GetColumnsTemplateParams) => [
         "data-cy": "test-name-filter",
         placeholder: "Test name regex",
       },
+      width: "50%",
     },
   },
   {
@@ -38,18 +39,21 @@ export const getColumnsTemplate = ({ task }: GetColumnsTemplateParams) => [
         "data-cy": "status-treeselect",
         options: testStatusesFilterTreeData,
       },
+      width: "10%",
     },
   },
   {
-    header: () => (
-      <>{task.versionMetadata.isPatch ? "Base" : "Previous"} Status</>
-    ),
+    header: () =>
+      `${task.versionMetadata.isPatch ? "Base" : "Previous"} Status`,
     accessorKey: "baseStatus",
     id: TestSortCategory.BaseStatus,
     enableSorting: true,
     cell: ({ getValue }) => {
       const status = getValue();
       return status && <TestStatusBadge status={status} />;
+    },
+    meta: {
+      width: "10%",
     },
   },
   {
@@ -61,10 +65,16 @@ export const getColumnsTemplate = ({ task }: GetColumnsTemplateParams) => [
       const ms = getValue() * 1000;
       return msToDuration(Math.trunc(ms));
     },
+    meta: {
+      width: "10%",
+    },
   },
   {
     header: "Logs",
     sorter: false,
     cell: ({ row }) => <LogsColumn testResult={row.original} task={task} />,
+    meta: {
+      width: "20%",
+    },
   },
 ];
