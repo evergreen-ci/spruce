@@ -42,7 +42,7 @@ export const formToGql = (({ vars: varsData }, id) => {
       vars: {},
       privateVarsList: [],
       adminOnlyVarsList: [],
-    }
+    },
   );
   return {
     projectRef: { id },

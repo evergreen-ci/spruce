@@ -26,7 +26,7 @@ const FAILED_STATUSES = [
 const ALL_STATUSES = Object.values(TaskStatus);
 const ALL_NON_FAILING_STATUSES = arraySetDifference(
   ALL_STATUSES,
-  FAILED_STATUSES
+  FAILED_STATUSES,
 );
 
 const impossibleMatch = "^\b$"; // this will never match anything

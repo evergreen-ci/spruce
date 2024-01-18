@@ -27,7 +27,7 @@ export const useFilterInputChangeHandler = ({
   const updateQueryParams = useUpdateURLQueryParams();
   const updateQueryParamWithDebounce = useMemo(
     () => debounce(updateQueryParams, 250),
-    [updateQueryParams]
+    [updateQueryParams],
   );
 
   const [inputValue, setInputValue] = useState(urlValue);

@@ -20,9 +20,9 @@ export const NotificationsTab: React.FC<TabProps> = ({
     () =>
       getFormSchema(
         projectType === ProjectType.AttachedProject ? repoData : null,
-        projectType
+        projectType,
       ),
-    [projectType, repoData]
+    [projectType, repoData],
   );
 
   return (
@@ -52,11 +52,11 @@ const validate = ((formData, errors) => {
             errors.subscriptions[
               i
             ].subscriptionData?.notification?.notificationSelect?.addError(
-              "Subscription type not allowed for tasks in a project."
+              "Subscription type not allowed for tasks in a project.",
             );
           }
         }
-      }
+      },
     );
   });
   return errors;

@@ -9,7 +9,7 @@ const Content = () => {
       ProjectFilterOptions.BuildVariant,
       ProjectFilterOptions.Test,
       ProjectFilterOptions.Task,
-    ])
+    ]),
   );
   return (
     <FilterBadges

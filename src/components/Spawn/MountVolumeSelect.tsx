@@ -53,7 +53,7 @@ export const MountVolumeSelect = ({
       const opts = data.myHosts
         // Filter hosts that do not have the same availability zone as the volume.
         .filter(({ availabilityZone, status }) =>
-          canUpdateHost(status, availabilityZone)
+          canUpdateHost(status, availabilityZone),
         )
         // Map host to a displayName and ID for the dropdown <Option />
         .map(({ displayName, id }) => ({

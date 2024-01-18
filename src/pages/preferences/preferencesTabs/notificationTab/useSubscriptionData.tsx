@@ -40,7 +40,7 @@ export const useSubscriptionData = () => {
   const subscriptions = useMemo(
     () =>
       processSubscriptionData(data?.user?.subscriptions, globalSubscriptionIds),
-    [data?.user?.subscriptions, globalSubscriptionIds]
+    [data?.user?.subscriptions, globalSubscriptionIds],
   );
 
   return subscriptions;
@@ -48,7 +48,7 @@ export const useSubscriptionData = () => {
 
 const processSubscriptionData = (
   subscriptions: GeneralSubscription[],
-  globalSubscriptionIds: Set<string>
+  globalSubscriptionIds: Set<string>,
 ) => {
   if (!subscriptions || !subscriptions.length) {
     return;
@@ -72,7 +72,7 @@ const processSubscriptionData = (
           ? {
               ...subscription,
               renderExpandedContent: (
-                row: LeafyGreenTableRow<GeneralSubscription>
+                row: LeafyGreenTableRow<GeneralSubscription>,
               ) => (
                 <ExpandedBlock data-cy="expanded-block">
                   {hasTriggerData && (
@@ -85,7 +85,7 @@ const processSubscriptionData = (
                       {JSON.stringify(
                         formatRegexSelectors(row.original.regexSelectors),
                         null,
-                        2
+                        2,
                       )}
                     </div>
                   )}
@@ -107,6 +107,6 @@ const formatRegexSelectors = (regexSelectors: Selector[]) => ({
       ...obj,
       [type]: data,
     }),
-    {}
+    {},
   ),
 });

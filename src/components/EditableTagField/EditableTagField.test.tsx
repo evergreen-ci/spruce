@@ -28,7 +28,7 @@ describe("editableTagField", () => {
         inputTags={editableTags}
         onChange={updateData}
         buttonText="Add Tag"
-      />
+      />,
     );
 
     expect(screen.queryAllByDataCy("user-tag-row")).toHaveLength(3);
@@ -48,7 +48,7 @@ describe("editableTagField", () => {
         inputTags={editableTags}
         onChange={updateData}
         buttonText="Add Tag"
-      />
+      />,
     );
 
     expect(data).toStrictEqual(defaultData);
@@ -57,7 +57,7 @@ describe("editableTagField", () => {
     await user.clear(screen.queryAllByDataCy("user-tag-value-field")[0]);
     await user.type(
       screen.queryAllByDataCy("user-tag-value-field")[0],
-      "new value"
+      "new value",
     );
 
     expect(screen.queryAllByDataCy("user-tag-edit-icon")[0]).toBeVisible();
@@ -85,7 +85,7 @@ describe("editableTagField", () => {
         inputTags={editableTags}
         onChange={updateData}
         buttonText="Add Tag"
-      />
+      />,
     );
 
     expect(data).toStrictEqual(defaultData);
@@ -110,7 +110,7 @@ describe("editableTagField", () => {
         inputTags={editableTags}
         onChange={updateData}
         buttonText="Add Tag"
-      />
+      />,
     );
 
     expect(data).toStrictEqual(defaultData);
@@ -119,7 +119,7 @@ describe("editableTagField", () => {
     await user.clear(screen.queryAllByDataCy("user-tag-key-field")[0]);
     await user.type(
       screen.queryAllByDataCy("user-tag-key-field")[0],
-      "new key"
+      "new key",
     );
 
     expect(screen.queryAllByDataCy("user-tag-edit-icon")[0]).toBeVisible();
@@ -147,7 +147,7 @@ describe("editableTagField", () => {
         inputTags={editableTags}
         onChange={updateData}
         buttonText="Add Tag"
-      />
+      />,
     );
 
     expect(data).toStrictEqual(defaultData);
@@ -163,13 +163,13 @@ describe("editableTagField", () => {
     await user.clear(screen.queryAllByDataCy("user-tag-key-field")[3]);
     await user.type(
       screen.queryAllByDataCy("user-tag-key-field")[3],
-      "new key"
+      "new key",
     );
 
     await user.clear(screen.queryAllByDataCy("user-tag-value-field")[3]);
     await user.type(
       screen.queryAllByDataCy("user-tag-value-field")[3],
-      "new value"
+      "new value",
     );
 
     expect(screen.queryAllByDataCy("user-tag-edit-icon")).toHaveLength(1);

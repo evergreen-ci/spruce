@@ -6,7 +6,7 @@ describe("controlled popconfirm", () => {
     render(
       <Popconfirm open confirmText="OK" setOpen={jest.fn()}>
         <div>hello</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     expect(screen.getByText("hello")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "OK" })).toBeInTheDocument();
@@ -20,7 +20,7 @@ describe("controlled popconfirm", () => {
     render(
       <Popconfirm open onConfirm={onConfirm} setOpen={setOpen}>
         <div>hello</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     await user.click(screen.getByRole("button", { name: "Yes" }));
     expect(onConfirm).toHaveBeenCalledTimes(1);
@@ -35,7 +35,7 @@ describe("controlled popconfirm", () => {
     render(
       <Popconfirm open onClose={onClose} setOpen={setOpen}>
         <div>hello</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     await user.click(screen.getByRole("button", { name: "Cancel" }));
     expect(onClose).toHaveBeenCalledTimes(1);
@@ -47,11 +47,11 @@ describe("controlled popconfirm", () => {
     render(
       <Popconfirm open confirmDisabled onClose={jest.fn()} setOpen={jest.fn()}>
         <div>hello</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     expect(screen.getByRole("button", { name: "Yes" })).toHaveAttribute(
       "aria-disabled",
-      "true"
+      "true",
     );
   });
 });
@@ -66,7 +66,7 @@ describe("uncontrolled popconfirm", () => {
         trigger={<button type="button">Open</button>}
       >
         <div>hello</div>
-      </Popconfirm>
+      </Popconfirm>,
     );
     await user.click(screen.getByRole("button", { name: "Open" }));
     expect(screen.getByText("hello")).toBeVisible();

@@ -28,7 +28,7 @@ const getNestedObject = (nestedObj: object, pathArr: string[]): EventValue =>
 
 export const getEventDiffLines = (
   before: Event["before"],
-  after: Event["after"]
+  after: Event["after"],
 ): EventDiffLine[] => {
   const beforeNoTypename = omitTypename(before);
   const afterNoTypename = omitTypename(after);

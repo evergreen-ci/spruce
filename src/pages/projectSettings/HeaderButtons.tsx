@@ -75,7 +75,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error saving the project: ${err.message}`
+        `There was an error saving the project: ${err.message}`,
       );
     },
     refetchQueries: ({

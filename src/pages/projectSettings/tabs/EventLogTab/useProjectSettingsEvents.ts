@@ -13,7 +13,7 @@ import { PROJECT_EVENT_LOGS, REPO_EVENT_LOGS } from "gql/queries";
 export const useProjectSettingsEvents = (
   identifier: string,
   isRepo: boolean,
-  limit: number = EVENT_LIMIT
+  limit: number = EVENT_LIMIT,
 ) => {
   const dispatchToast = useToastContext();
 
@@ -34,7 +34,7 @@ export const useProjectSettingsEvents = (
       onError: (e) => {
         dispatchToast.error(`Unable to fetch events for ${identifier}: ${e}`);
       },
-    }
+    },
   );
 
   const {
@@ -52,7 +52,7 @@ export const useProjectSettingsEvents = (
       onError: (e) => {
         dispatchToast.error(`Unable to fetch events for ${identifier}: ${e}`);
       },
-    }
+    },
   );
 
   const events = isRepo

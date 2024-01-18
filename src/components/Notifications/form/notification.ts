@@ -13,7 +13,7 @@ import {
  * @returns - an object containing the schema and uiSchema for the notification section of subscriptions.
  */
 export const getNotificationSchema = (
-  subscriptionMethods: SubscriptionMethodOption[]
+  subscriptionMethods: SubscriptionMethodOption[],
 ): {
   schema: SpruceFormProps["schema"];
   uiSchema: SpruceFormProps["uiSchema"];

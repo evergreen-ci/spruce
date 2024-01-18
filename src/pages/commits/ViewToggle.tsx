@@ -30,7 +30,7 @@ export const ViewToggle: React.FC<Props> = ({ identifier }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const [view, setView] = useQueryParam<ProjectHealthView | null>(
     ProjectFilterOptions.View,
-    null
+    null,
   );
 
   const { data } = useQuery<

@@ -24,7 +24,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
   const spawnAnalytics = useSpawnAnalytics();
 
   const { data: myHostsData } = useQuery<MyHostsQuery, MyHostsQueryVariables>(
-    MY_HOSTS
+    MY_HOSTS,
   );
 
   const myHosts = myHostsData?.myHosts ?? [];

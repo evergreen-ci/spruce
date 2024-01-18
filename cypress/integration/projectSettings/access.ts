@@ -57,7 +57,7 @@ xdescribe("Access page", () => {
     clickSave();
     cy.validateToast(
       "error",
-      "There was an error saving the project: error updating project admin roles: no admin role for project 'spruce' found"
+      "There was an error saving the project: error updating project admin roles: no admin role for project 'spruce' found",
     );
   });
 });

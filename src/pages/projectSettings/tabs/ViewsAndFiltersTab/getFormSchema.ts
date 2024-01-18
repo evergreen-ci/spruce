@@ -5,7 +5,7 @@ import { ProjectHealthView } from "gql/generated/types";
 import { ProjectType } from "../utils";
 
 export const getFormSchema = (
-  projectType: ProjectType
+  projectType: ProjectType,
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {

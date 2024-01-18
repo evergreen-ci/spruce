@@ -17,7 +17,7 @@ export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
   const { allEventsFetched, events, fetchMore } = useProjectSettingsEvents(
     identifier,
     isRepo,
-    limit
+    limit,
   );
 
   const lastEventTimestamp = events[events.length - 1]?.timestamp;

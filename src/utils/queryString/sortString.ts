@@ -13,7 +13,7 @@ import {
 // takes sort input from the antd table and translates into part of the query string
 // if sort field is being unset, returns undefined
 export const toSortString = (
-  sorts: SorterResult<Task> | SorterResult<Task>[]
+  sorts: SorterResult<Task> | SorterResult<Task>[],
 ) => {
   let sortStrings: string[] = [];
   const shortenSortOrder = (order: string) =>
@@ -27,7 +27,7 @@ export const toSortString = (
     });
   } else {
     sortStrings = sortStrings.concat(
-      getSortString(sorts.columnKey, sorts.order)
+      getSortString(sorts.columnKey, sorts.order),
     );
   }
 

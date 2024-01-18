@@ -9,7 +9,7 @@ import type { GroupedFiles } from "./types";
 const filterGroupedFiles = (groupedFiles: GroupedFiles[], search: string) =>
   groupedFiles.reduce((acc, groupedFile) => {
     const filteredFiles = groupedFile?.files?.filter((file) =>
-      file.name.toLowerCase().includes(search.toLowerCase())
+      file.name.toLowerCase().includes(search.toLowerCase()),
     );
     if (filteredFiles?.length) {
       acc.push({

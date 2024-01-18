@@ -31,7 +31,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal, distroId, open }) => {
   >(DELETE_DISTRO, {
     onCompleted: () => {
       dispatchToast.success(
-        `The distro “${distroId}” was deleted. Future visits to this page will result in an error.`
+        `The distro “${distroId}” was deleted. Future visits to this page will result in an error.`,
       );
     },
     onError: (err) => {

@@ -16,7 +16,7 @@ import { getTargetForMethod, generateWebhookSecret } from "./utils";
 // from other dependencies to persist.
 const regexFormToGql = (
   hasRegexSelectors: boolean,
-  regexForm: FormRegexSelector[]
+  regexForm: FormRegexSelector[],
 ) =>
   hasRegexSelectors && regexForm
     ? regexForm.map((r) => ({
@@ -59,19 +59,22 @@ const jiraFormToGql = (jiraInput: Notification["jiraIssueInput"]) => {
 // for data from other dependencies to persist.
 const extraFieldsFormToGql = (
   extraFieldsToInclude: ExtraField[],
-  extraFieldsForm: FormExtraFields
+  extraFieldsForm: FormExtraFields,
 ) =>
-  (extraFieldsToInclude || []).reduce((acc, e) => {
-    if (extraFieldsForm[e.key]) {
-      acc[e.key] = extraFieldsForm[e.key].toString();
-    }
-    return acc;
-  }, {} as { [key: string]: string });
+  (extraFieldsToInclude || []).reduce(
+    (acc, e) => {
+      if (extraFieldsForm[e.key]) {
+        acc[e.key] = extraFieldsForm[e.key].toString();
+      }
+      return acc;
+    },
+    {} as { [key: string]: string },
+  );
 
 export const getGqlPayload =
   (projectId: string) =>
   (
-    subscription: Unpacked<NotificationsFormState["subscriptions"]>
+    subscription: Unpacked<NotificationsFormState["subscriptions"]>,
   ): SubscriptionInput => {
     const { subscriptionData } = subscription || {};
     const event = projectTriggers[subscriptionData?.event?.eventSelect];
@@ -84,18 +87,18 @@ export const getGqlPayload =
 
     const triggerData = extraFieldsFormToGql(
       extraFields,
-      subscriptionData?.event?.extraFields
+      subscriptionData?.event?.extraFields,
     );
 
     const regexData = regexFormToGql(
       !!regexSelectors,
-      subscriptionData?.event?.regexSelector
+      subscriptionData?.event?.regexSelector,
     );
 
     const method = subscriptionData?.notification?.notificationSelect;
     const subscriber = getTargetForMethod(
       method,
-      subscriptionData?.notification
+      subscriptionData?.notification,
     );
 
     const selectors = Object.entries(triggerData)

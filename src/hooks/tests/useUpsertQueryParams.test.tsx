@@ -95,7 +95,7 @@ describe("useUpsertQueryParams", () => {
     await user.type(category, "category2");
     await user.click(screen.queryByDataCy("submit"));
     expect(router.state.location.search).toBe(
-      `?category=value1&category2=value1`
+      `?category=value1&category2=value1`,
     );
   });
 });

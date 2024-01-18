@@ -43,7 +43,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
     onCompleted: ({ buildVariantsForTaskName }) => {
       if (!buildVariantsForTaskName) {
         reportError(
-          new Error("No build variants found for task name")
+          new Error("No build variants found for task name"),
         ).warning();
         dispatchToast.error(`No build variants found for task: ${taskName}`);
       }
@@ -55,7 +55,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
 
   const activeColumns = useColumns(
     buildVariantsForTaskName,
-    ({ buildVariant }) => buildVariant
+    ({ buildVariant }) => buildVariant,
   );
   const columnMap = convertArrayToObject(activeColumns, "buildVariant");
   return (
@@ -72,7 +72,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
             link={getVariantHistoryRoute(projectIdentifier, cell.buildVariant)}
             trimmedDisplayName={trimStringFromMiddle(
               cell.displayName,
-              maxLength
+              maxLength,
             )}
             onClick={() => {
               sendEvent({

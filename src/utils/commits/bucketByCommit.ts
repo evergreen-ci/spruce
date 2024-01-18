@@ -8,7 +8,7 @@ import { FileDiffsFragment } from "gql/generated/types";
  * @returns 2-dim array of fileDiffs
  */
 export const bucketByCommit = (
-  fileDiffs: FileDiffsFragment[]
+  fileDiffs: FileDiffsFragment[],
 ): FileDiffsFragment[][] =>
   fileDiffs.reduce((accum: FileDiffsFragment[][], curr) => {
     const targetArr = accum.find((d) => d[0].description === curr.description);

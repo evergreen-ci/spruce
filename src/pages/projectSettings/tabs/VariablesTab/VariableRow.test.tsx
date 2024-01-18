@@ -31,7 +31,7 @@ describe("variable row field template", () => {
         formData={{ varName: "test" }}
         properties={mockProperties}
         uiSchema={mockUiSchema}
-      />
+      />,
     );
     expect(screen.getByDataCy("override-warning")).toBeInTheDocument();
   });
@@ -42,7 +42,7 @@ describe("variable row field template", () => {
         formData={{ varName: "" }}
         properties={mockProperties}
         uiSchema={mockUiSchema}
-      />
+      />,
     );
     expect(screen.queryByDataCy("override-warning")).not.toBeInTheDocument();
   });

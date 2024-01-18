@@ -11,30 +11,30 @@ const useColumns = <T>(allColumns: T[], accessFunc: (column: T) => string) => {
   const { search } = useLocation();
   const { [HistoryQueryParams.VisibleColumns]: queryParams } = useMemo(
     () => parseQueryString(search),
-    [search]
+    [search],
   );
   const { addColumns } = useHistoryTable();
 
   const selectedColumnsInQuery = useMemo(
     () => toArray(queryParams),
-    [queryParams]
+    [queryParams],
   );
 
   const activeColumns = useMemo(
     () =>
       selectedColumnsInQuery.length
         ? allColumns?.filter((column) =>
-            selectedColumnsInQuery.includes(accessFunc(column))
+            selectedColumnsInQuery.includes(accessFunc(column)),
           )
         : allColumns,
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selectedColumnsInQuery, allColumns]
+    [selectedColumnsInQuery, allColumns],
   );
 
   const visibleColumns = useMemo(
     () => activeColumns?.map((column) => accessFunc(column)) ?? [],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [activeColumns]
+    [activeColumns],
   );
 
   useEffect(() => {

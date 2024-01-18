@@ -44,5 +44,5 @@ export const notificationMethodToCopy = projectSubscriptionMethods.reduce(
     ...obj,
     [value]: label,
   }),
-  {}
+  {},
 );

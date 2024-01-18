@@ -61,7 +61,7 @@ export const processCommits = ({
         const firstRolledUpVersion = rolledUpVersions[0];
         const selected = hasSelectedCommit(
           rolledUpVersions,
-          selectedCommitOrder
+          selectedCommitOrder,
         );
         if (
           priorCommit &&
@@ -123,19 +123,19 @@ const isSameDay = (date1: string | Date, date2: string | Date) => {
 
 const hasSelectedCommit = (
   rolledUpUpVersions: Unpacked<mainlineCommits["versions"]>["rolledUpVersions"],
-  selectedCommitOrder: number | null
+  selectedCommitOrder: number | null,
 ) => {
   if (selectedCommitOrder === null) {
     return false;
   }
   return rolledUpUpVersions.some(
-    (version) => version.order === selectedCommitOrder
+    (version) => version.order === selectedCommitOrder,
   );
 };
 
 export const calcColumnLimitFromWidth = (tableWidth: number) => {
   const colLimit = Math.floor(
-    (tableWidth - ROW_LABEL_WIDTH) / COLUMN_LABEL_WIDTH
+    (tableWidth - ROW_LABEL_WIDTH) / COLUMN_LABEL_WIDTH,
   );
   return Math.max(colLimit, 1);
 };

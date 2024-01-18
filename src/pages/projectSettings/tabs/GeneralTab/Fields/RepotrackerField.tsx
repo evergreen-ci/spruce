@@ -29,7 +29,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error creating the repotracker job: ${err.message}`
+        `There was an error creating the repotracker job: ${err.message}`,
       );
     },
   });

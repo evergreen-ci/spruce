@@ -19,7 +19,7 @@ export const groupStatusesByUmbrellaStatus = (
   statusCounts: {
     status: string;
     count: number;
-  }[]
+  }[],
 ) => {
   const counts: { [key: string]: ColorCount } = {};
 
@@ -29,7 +29,7 @@ export const groupStatusesByUmbrellaStatus = (
       counts[umbrellaStatus].count += stat.count;
       counts[umbrellaStatus].statuses = deduplicatedAppend(
         taskStatusToCopy[stat.status],
-        counts[umbrellaStatus].statuses
+        counts[umbrellaStatus].statuses,
       );
     } else {
       counts[umbrellaStatus] = {

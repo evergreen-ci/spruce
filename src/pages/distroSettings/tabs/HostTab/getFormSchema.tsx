@@ -130,7 +130,7 @@ export const getFormSchema = ({
       sshConfig: sshConfigProperties.uiSchema(hasStaticProvider),
       allocation: allocationProperties.uiSchema(
         hasEC2Provider,
-        hasStaticProvider
+        hasStaticProvider,
       ),
     },
   };

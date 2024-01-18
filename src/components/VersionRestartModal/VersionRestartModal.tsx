@@ -187,7 +187,7 @@ const selectedArray = (selected: selectedStrings) => {
 const selectTasksTotal = (selectedTasks: versionSelectedTasks) =>
   Object.values(selectedTasks).reduce(
     (total, selectedTask) => selectedArray(selectedTask).length + total,
-    0
+    0,
   );
 
 const getTaskIds = (selectedTasks: versionSelectedTasks) =>

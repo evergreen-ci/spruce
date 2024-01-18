@@ -7,14 +7,14 @@ describe("warningBanner", () => {
   it("shows correct text when there is only one warning", () => {
     render(<WarningBanner warnings={warnings.slice(0, 1)} />);
     expect(
-      screen.getByText("1 warning in configuration file")
+      screen.getByText("1 warning in configuration file"),
     ).toBeInTheDocument();
   });
 
   it("shows correct text when there are multiple warnings", () => {
     render(<WarningBanner warnings={warnings} />);
     expect(
-      screen.getByText("3 warnings in configuration file")
+      screen.getByText("3 warnings in configuration file"),
     ).toBeInTheDocument();
   });
 
@@ -22,7 +22,7 @@ describe("warningBanner", () => {
     const user = userEvent.setup();
     render(<WarningBanner warnings={warnings} />);
     await user.click(
-      screen.getByDataCy("configuration-warnings-modal-trigger")
+      screen.getByDataCy("configuration-warnings-modal-trigger"),
     );
     await waitFor(() => {
       expect(screen.getByDataCy("configuration-warnings-modal")).toBeVisible();
@@ -34,7 +34,7 @@ describe("warningBanner", () => {
     const user = userEvent.setup();
     render(<WarningBanner warnings={warnings} />);
     expect(
-      screen.getByDataCy("configuration-warnings-banner")
+      screen.getByDataCy("configuration-warnings-banner"),
     ).toBeInTheDocument();
     await user.click(screen.getByLabelText("X Icon"));
     expect(screen.queryByDataCy("configuration-warnings-banner")).toBeNull();

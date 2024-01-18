@@ -15,7 +15,7 @@ describe("site banner", () => {
     render(
       <MockedProvider mocks={[mock]}>
         <AdminBanner />
-      </MockedProvider>
+      </MockedProvider>,
     );
     await waitFor(() => {
       expect(screen.queryByDataCy("sitewide-banner-warning")).toBeVisible();
@@ -28,7 +28,7 @@ describe("site banner", () => {
     render(
       <MockedProvider mocks={[mock]}>
         <AdminBanner />
-      </MockedProvider>
+      </MockedProvider>,
     );
     await waitFor(() => {
       expect(screen.queryByDataCy("sitewide-banner-success")).toBeVisible();
@@ -41,7 +41,7 @@ describe("site banner", () => {
     render(
       <MockedProvider mocks={[mock]}>
         <AdminBanner />
-      </MockedProvider>
+      </MockedProvider>,
     );
     await waitFor(() => {
       expect(screen.queryByDataCy("sitewide-banner-danger")).toBeVisible();
@@ -54,7 +54,7 @@ describe("site banner", () => {
     render(
       <MockedProvider mocks={[mock]}>
         <AdminBanner />
-      </MockedProvider>
+      </MockedProvider>,
     );
     await waitFor(() => {
       expect(screen.queryByDataCy("sitewide-banner-info")).toBeVisible();
@@ -67,7 +67,7 @@ describe("site banner", () => {
     render(
       <MockedProvider mocks={[mock]}>
         <AdminBanner />
-      </MockedProvider>
+      </MockedProvider>,
     );
     await waitFor(() => {
       expect(screen.queryByDataCy("sitewide-banner-info")).toBeVisible();
@@ -80,7 +80,7 @@ describe("site banner", () => {
     render(
       <MockedProvider mocks={[mock]}>
         <AdminBanner />
-      </MockedProvider>
+      </MockedProvider>,
     );
     await waitFor(() => {
       expect(screen.queryByDataCy("sitewide-banner-info")).toBeVisible();

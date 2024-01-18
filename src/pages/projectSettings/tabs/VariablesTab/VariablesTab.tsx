@@ -13,7 +13,7 @@ const tab = ProjectSettingsTabRoutes.Variables;
 
 const getInitialFormState = (
   projectData: TabProps["projectData"],
-  repoData: TabProps["repoData"]
+  repoData: TabProps["repoData"],
 ): VariablesFormState => {
   if (!projectData) return repoData;
   if (repoData) return { ...projectData, repoData };
@@ -29,13 +29,13 @@ export const VariablesTab: React.FC<TabProps> = ({
   const { getTab } = useProjectSettingsContext();
   // @ts-expect-error - see TabState for details.
   const { formData }: { formData: VariablesFormState } = getTab(
-    ProjectSettingsTabRoutes.Variables
+    ProjectSettingsTabRoutes.Variables,
   );
   const [modalOpen, setModalOpen] = useState(false);
 
   const initialFormState = useMemo(
     () => getInitialFormState(projectData, repoData),
-    [projectData, repoData]
+    [projectData, repoData],
   );
 
   const ModalButton: React.FC = () => (
@@ -53,9 +53,9 @@ export const VariablesTab: React.FC<TabProps> = ({
       getFormSchema(
         projectType,
         projectType === ProjectType.AttachedProject ? repoData : null,
-        projectType === ProjectType.AttachedProject ? <ModalButton /> : null
+        projectType === ProjectType.AttachedProject ? <ModalButton /> : null,
       ),
-    [projectType, repoData]
+    [projectType, repoData],
   );
 
   return (
@@ -69,7 +69,7 @@ export const VariablesTab: React.FC<TabProps> = ({
             name: varName,
             inRepo:
               repoData?.vars?.some(
-                ({ varName: repoVar }) => varName === repoVar
+                ({ varName: repoVar }) => varName === repoVar,
               ) ?? false,
           }))}
         />
@@ -89,7 +89,7 @@ const validate = ((formData, errors) => {
   const duplicateIndices = findDuplicateIndices(formData.vars, "varName");
   duplicateIndices.forEach((i) => {
     errors.vars?.[i]?.varName?.addError(
-      "Value already appears in project variables."
+      "Value already appears in project variables.",
     );
   });
 

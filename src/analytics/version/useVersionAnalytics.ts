@@ -56,7 +56,7 @@ export const useVersionAnalytics = (id: string) => {
     {
       variables: { id },
       fetchPolicy: "cache-first",
-    }
+    },
   );
   const { status } = eventData?.version || {};
 

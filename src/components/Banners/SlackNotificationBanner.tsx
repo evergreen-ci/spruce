@@ -31,7 +31,7 @@ export const SlackNotificationBanner = () => {
       onCompleted: () => {
         hideBanner();
         dispatchToast.success(
-          "You will now receive Slack notifications when your patches fail or succeed"
+          "You will now receive Slack notifications when your patches fail or succeed",
         );
       },
       onError: (err) => {
@@ -48,7 +48,7 @@ export const SlackNotificationBanner = () => {
   const { patchFinish, patchFirstFailure } = notifications || {};
 
   const [slackUsername, setSlackUsername] = useState(
-    () => defaultSlackUsername
+    () => defaultSlackUsername,
   );
 
   const hasClosedSlackBanner = () =>

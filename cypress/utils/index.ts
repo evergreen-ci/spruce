@@ -22,9 +22,9 @@ export const urlSearchParamsAreUpdated = ({ paramName, pathname, search }) => {
   cy.location().should((loc) => {
     expect(loc.pathname).to.equal(pathname);
     if (search === null) {
-      expect(loc.search).to.not.include(paramName);
+      expect(decodeURIComponent(loc.search)).to.not.include(paramName);
     } else {
-      expect(loc.search).to.include(search);
+      expect(decodeURIComponent(loc.search)).to.include(search);
     }
   });
 };
@@ -38,7 +38,7 @@ export const urlSearchParamsAreUpdated = ({ paramName, pathname, search }) => {
 export const clickOnPageBtnAndAssertURLandTableResults = (
   dataCyPageBtn: string,
   tableDisplayNames: string[],
-  pageQueryParamValue: number
+  pageQueryParamValue: number,
 ) => {
   cy.dataCy(dataCyPageBtn).first().should("be.visible");
   cy.dataCy(dataCyPageBtn).first().should("not.be.disabled");
@@ -56,7 +56,7 @@ export const clickOnPageBtnAndAssertURLandTableResults = (
  */
 export const clickOnPageSizeBtnAndAssertURLandTableSize = (
   pageSize: number,
-  dataCyTableRows: string
+  dataCyTableRows: string,
 ) => {
   cy.get("button[aria-labelledby='page-size-select']").click();
   cy.contains(`${pageSize} / page`).click();

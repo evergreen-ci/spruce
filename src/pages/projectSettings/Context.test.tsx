@@ -11,7 +11,7 @@ describe("projectSettingsContext", () => {
     });
 
     expect(
-      result.current.getTab(ProjectSettingsTabRoutes.General).hasChanges
+      result.current.getTab(ProjectSettingsTabRoutes.General).hasChanges,
     ).toBe(false);
   });
 
@@ -47,7 +47,7 @@ describe("projectSettingsContext", () => {
 
     await waitFor(() => {
       expect(
-        result.current.getTab(ProjectSettingsTabRoutes.Variables).hasChanges
+        result.current.getTab(ProjectSettingsTabRoutes.Variables).hasChanges,
       ).toBe(true);
     });
   });
@@ -91,7 +91,7 @@ describe("projectSettingsContext", () => {
     });
 
     expect(
-      result.current.getTab(ProjectSettingsTabRoutes.Variables).hasChanges
+      result.current.getTab(ProjectSettingsTabRoutes.Variables).hasChanges,
     ).toBe(false);
   });
 
@@ -118,7 +118,7 @@ describe("projectSettingsContext", () => {
     });
 
     expect(
-      result.current.getTab(ProjectSettingsTabRoutes.Variables).hasError
+      result.current.getTab(ProjectSettingsTabRoutes.Variables).hasError,
     ).toBe(true);
   });
 });

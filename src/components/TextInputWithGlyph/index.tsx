@@ -17,7 +17,7 @@ const TextInputWithGlyph: React.FC<TextInputWithGlyphProps> = forwardRef(
         <IconWrapper>{icon}</IconWrapper>
       </TextInputWrapper>
     );
-  }
+  },
 );
 
 TextInputWithGlyph.displayName = "TextInputWithGlyph";

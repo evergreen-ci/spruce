@@ -9,13 +9,13 @@ const { projectBase } = data;
 describe("project data", () => {
   it("correctly converts from GQL to a form for project type", () => {
     expect(
-      gqlToForm(projectBase, { projectType: ProjectType.Project })
+      gqlToForm(projectBase, { projectType: ProjectType.Project }),
     ).toStrictEqual({ ...projectFormBase, banner });
   });
 
   it("correctly converts from GQL to a form for repo type", () => {
     expect(
-      gqlToForm(projectBase, { projectType: ProjectType.Repo })
+      gqlToForm(projectBase, { projectType: ProjectType.Repo }),
     ).toStrictEqual(projectFormBase);
   });
 
@@ -31,7 +31,7 @@ describe("project data", () => {
 
   it("correctly converts from a form to GQL when the subscriptions field is empty", () => {
     expect(formToGql(projectFormBase, "spruce")).toStrictEqual(
-      projectResultBase
+      projectResultBase,
     );
   });
 

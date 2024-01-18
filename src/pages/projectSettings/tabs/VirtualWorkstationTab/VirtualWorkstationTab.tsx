@@ -9,7 +9,7 @@ const tab = ProjectSettingsTabRoutes.VirtualWorkstation;
 
 const getInitialFormState = (
   projectData: TabProps["projectData"],
-  repoData: TabProps["repoData"]
+  repoData: TabProps["repoData"],
 ): VWFormState => {
   if (!projectData) return repoData;
   if (repoData) {
@@ -32,7 +32,7 @@ export const VirtualWorkstationTab: React.FC<TabProps> = ({
 }) => {
   const initialFormState = useMemo(
     () => getInitialFormState(projectData, repoData),
-    [projectData, repoData]
+    [projectData, repoData],
   );
 
   const formSchema = useMemo(
@@ -40,9 +40,9 @@ export const VirtualWorkstationTab: React.FC<TabProps> = ({
       getFormSchema(
         identifier,
         projectType,
-        projectType === ProjectType.AttachedProject ? repoData : null
+        projectType === ProjectType.AttachedProject ? repoData : null,
       ),
-    [identifier, projectType, repoData]
+    [identifier, projectType, repoData],
   );
 
   return (

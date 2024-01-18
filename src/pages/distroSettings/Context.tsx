@@ -33,7 +33,7 @@ const DistroSettingsProvider: React.FC<{ children: React.ReactNode }> = ({
       tabs,
       updateForm,
     }),
-    [getTab, saveTab, setInitialData, tabs, updateForm]
+    [getTab, saveTab, setInitialData, tabs, updateForm],
   );
 
   return (
@@ -50,7 +50,7 @@ const useDistroSettingsContext = (): SettingsState<
   const context = useContext(DistroSettingsContext);
   if (context === undefined) {
     throw new Error(
-      "useDistroSettingsContext must be used within a DistroSettingsProvider"
+      "useDistroSettingsContext must be used within a DistroSettingsProvider",
     );
   }
   return context;

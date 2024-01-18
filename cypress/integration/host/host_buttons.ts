@@ -24,7 +24,7 @@ describe("Host page restart jasper, reprovision, and update host status buttons"
       cy.contains("button", "Update").should(
         "not.have.attr",
         "aria-disabled",
-        "true"
+        "true",
       );
       cy.contains("button", "Update").click({ force: true });
     });

@@ -16,13 +16,13 @@ export const linuxArchitectures = [
 ];
 
 export const nonLinuxArchitectures = Object.values(Arch).filter(
-  (a) => !linuxArchitectures.includes(a)
+  (a) => !linuxArchitectures.includes(a),
 );
 
 export const windowsArchitectures = [Arch.Windows_64Bit];
 
 export const nonWindowsArchitectures = Object.values(Arch).filter(
-  (a) => !windowsArchitectures.includes(a)
+  (a) => !windowsArchitectures.includes(a),
 );
 
 export const architectureToCopy = {

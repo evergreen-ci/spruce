@@ -21,7 +21,7 @@ export const gqlToForm = ((data) => {
 
 export const formToGql = ((
   { dispatcherSettings, finderSettings, plannerSettings },
-  distro
+  distro,
 ) => {
   const { tunableOptions, version: plannerVersion } = plannerSettings;
 

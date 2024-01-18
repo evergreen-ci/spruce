@@ -32,12 +32,12 @@ const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
   >(DELETE_PROJECT, {
     onCompleted() {
       dispatchToast.success(
-        `The project “${identifier}” was deleted. Future visits to this page will result in an error.`
+        `The project “${identifier}” was deleted. Future visits to this page will result in an error.`,
       );
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error deleting the project: ${err.message}`
+        `There was an error deleting the project: ${err.message}`,
       );
     },
     refetchQueries: ["ViewableProjectRefs"],

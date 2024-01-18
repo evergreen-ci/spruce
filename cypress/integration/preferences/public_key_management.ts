@@ -6,7 +6,7 @@ describe("Public Key Management Page", () => {
   describe("Public keys list", () => {
     it("Displays the user's public keys", () => {
       cy.dataCy("table-key-name").each(($el, index) =>
-        cy.wrap($el).contains([keyName1, keyName2][index])
+        cy.wrap($el).contains([keyName1, keyName2][index]),
       );
     });
     it("Removes a public key from the table after deletion", () => {
@@ -31,7 +31,7 @@ describe("Public Key Management Page", () => {
     });
     it("Displays errors when the modal opens", () => {
       cy.dataCy("error-message").each(($el, index) =>
-        cy.wrap($el).contains([err1, err2][index])
+        cy.wrap($el).contains([err1, err2][index]),
       );
     });
 

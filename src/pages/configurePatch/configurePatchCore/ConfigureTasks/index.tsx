@@ -66,32 +66,32 @@ const ConfigureTasks: React.FC<Props> = ({
     },
     () => {
       searchRef.current?.focus();
-    }
+    },
   );
 
   const childPatchCount = childPatches?.length || 0;
   const totalDownstreamTaskCount = aliasCount + childPatchCount;
 
   const totalSelectedBuildVariantCount = Object.values(
-    selectedBuildVariantTasks
+    selectedBuildVariantTasks,
   ).reduce(
     (count, tasks) =>
       count + (Object.values(tasks).some((isSelected) => isSelected) ? 1 : 0),
-    0
+    0,
   );
 
   // Deduplicate tasks across selected build variants
   const visibleTasks = useMemo(() => {
     const tasks = selectedBuildVariants.map(
-      (bv) => selectedBuildVariantTasks[bv] || {}
+      (bv) => selectedBuildVariantTasks[bv] || {},
     );
     const previouslySelectedVariants = selectedBuildVariants.map(
-      (bv) => activatedVariants.find((vt) => vt.name === bv) || undefined
+      (bv) => activatedVariants.find((vt) => vt.name === bv) || undefined,
     );
     return deduplicateTasks(
       tasks,
       previouslySelectedVariants,
-      new RegExp(search)
+      new RegExp(search),
     );
   }, [
     selectedBuildVariantTasks,
@@ -103,15 +103,15 @@ const ConfigureTasks: React.FC<Props> = ({
   // Sort tasks alphabetically
   const sortedVisibleTasks = useMemo(
     () => Object.entries(visibleTasks).sort((a, b) => a[0].localeCompare(b[0])),
-    [visibleTasks]
+    [visibleTasks],
   );
 
   const currentAliases = getVisibleAliases(
     selectedAliases,
-    selectedBuildVariants
+    selectedBuildVariants,
   );
   const currentAliasTasks = selectableAliases.filter(({ alias }) =>
-    selectedBuildVariants.includes(alias)
+    selectedBuildVariants.includes(alias),
   );
   // Show an alias's variants/tasks if it is the only menu item selected
   const shouldShowAliasTasks =
@@ -119,7 +119,7 @@ const ConfigureTasks: React.FC<Props> = ({
 
   const currentChildPatches = getVisibleChildPatches(
     childPatches,
-    selectedBuildVariants
+    selectedBuildVariants,
   );
   // Show a child patch's variants/tasks if it is the only menu item selected
   const shouldShowChildPatchTasks =
@@ -166,25 +166,25 @@ const ConfigureTasks: React.FC<Props> = ({
   const selectAllCheckboxState = getSelectAllCheckboxState(
     visibleTasks,
     currentAliases,
-    shouldShowChildPatchTasks
+    shouldShowChildPatchTasks,
   );
 
   const variantHasActivatedTasks = sortedVisibleTasks.some((t) =>
-    isTaskCheckboxActivated(t[1])
+    isTaskCheckboxActivated(t[1]),
   );
 
   const taskDisclaimerCopy = `${totalSelectedTaskCount} ${pluralize(
     "task",
-    totalSelectedTaskCount
+    totalSelectedTaskCount,
   )} across ${totalSelectedBuildVariantCount} build ${pluralize(
     "variant",
-    totalSelectedBuildVariantCount
+    totalSelectedBuildVariantCount,
   )}, ${totalDownstreamTaskCount} trigger ${pluralize("alias", aliasCount)}`;
 
   const selectAllCheckboxCopy = getSelectAllCheckboxCopy(
     selectedBuildVariants.length,
     sortedVisibleTasks.length,
-    search.length > 0
+    search.length > 0,
   );
   return (
     <TabContentWrapper>
@@ -310,7 +310,7 @@ const ConfigureTasks: React.FC<Props> = ({
 const getSelectAllCheckboxCopy = (
   selectedBuildVariantsCount: number,
   sortedVisibleTaskCount: number,
-  hasFilter: boolean
+  hasFilter: boolean,
 ) => {
   if (hasFilter) {
     return "Select all tasks in view";
@@ -320,7 +320,7 @@ const getSelectAllCheckboxCopy = (
     ? `Add ${pluralize("alias", selectedBuildVariantsCount)} to patch`
     : `Select all tasks in ${pluralize(
         "this",
-        selectedBuildVariantsCount
+        selectedBuildVariantsCount,
       )} ${pluralize("variant", selectedBuildVariantsCount)}`;
 };
 const Actions = styled.div`

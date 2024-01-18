@@ -52,7 +52,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
 
   const tabData: TabDataProps = useMemo(
     () => getTabData(projectData, projectType, repoData),
-    [projectData, projectType, repoData]
+    [projectData, projectType, repoData],
   );
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         ...obj,
         [route]: val.projectData ?? val.repoData,
       }),
-      {} as Record<WritableProjectSettingsType, any>
+      {} as Record<WritableProjectSettingsType, any>,
     );
 
     setInitialData(projectOrRepoData);
@@ -266,7 +266,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
 const getTabData = (
   projectData: ProjectSettings,
   projectType: ProjectType,
-  repoData?: RepoSettings
+  repoData?: RepoSettings,
 ): TabDataProps =>
   Object.keys(gqlToFormMap).reduce(
     (obj, tab) => ({
@@ -276,7 +276,7 @@ const getTabData = (
         repoData: gqlToFormMap[tab](repoData, { projectType }),
       },
     }),
-    {} as TabDataProps
+    {} as TabDataProps,
   );
 
 const Container = styled.div`

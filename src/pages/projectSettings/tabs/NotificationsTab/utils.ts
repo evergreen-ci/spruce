@@ -4,7 +4,7 @@ import { NotificationsFormState, Notification } from "./types";
 
 export const getTargetForMethod = (
   method: string,
-  notification: Notification
+  notification: Notification,
 ) => {
   switch (method) {
     case NotificationMethods.JIRA_COMMENT:
@@ -23,7 +23,7 @@ export const getTargetForMethod = (
 };
 
 export const hasInitialError = (
-  subscription: Unpacked<NotificationsFormState["subscriptions"]>
+  subscription: Unpacked<NotificationsFormState["subscriptions"]>,
 ) => {
   const { subscriptionData } = subscription || {};
   const { event, notification } = subscriptionData || {};
@@ -38,6 +38,6 @@ export const generateWebhookSecret = () => {
   const arr = new Uint8Array(32);
   const randomValues = crypto.getRandomValues(arr);
   return Array.from(randomValues, (byte) =>
-    byte.toString(36).padStart(2, "0")
+    byte.toString(36).padStart(2, "0"),
   ).join("");
 };

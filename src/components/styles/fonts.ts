@@ -10,7 +10,8 @@ const fontStyles = css`
     font-family: "Euclid Circular A";
     font-weight: 700;
     font-style: normal;
-    src: url("/static/fonts/EuclidCircularA/EuclidCircularA-Semibold-WebXL.woff2")
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-Semibold-WebXL.woff2")
         format("woff2"),
       url("/static/fonts/EuclidCircularA/EuclidCircularA-Semibold-WebXL.woff")
         format("woff");
@@ -21,7 +22,8 @@ const fontStyles = css`
     font-family: "Euclid Circular A";
     font-weight: 700;
     font-style: italic;
-    src: url("/static/fonts/EuclidCircularA/EuclidCircularA-SemiboldItalic-WebXL.woff2")
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-SemiboldItalic-WebXL.woff2")
         format("woff2"),
       url("/static/fonts/EuclidCircularA/EuclidCircularA-SemiboldItalic-WebXL.woff")
         format("woff");
@@ -32,7 +34,8 @@ const fontStyles = css`
     font-family: "Euclid Circular A";
     font-weight: 500;
     font-style: normal;
-    src: url("/static/fonts/EuclidCircularA/EuclidCircularA-Medium-WebXL.woff2")
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-Medium-WebXL.woff2")
         format("woff2"),
       url("/static/fonts/EuclidCircularA/EuclidCircularA-Medium-WebXL.woff")
         format("woff");
@@ -43,7 +46,8 @@ const fontStyles = css`
     font-family: "Euclid Circular A";
     font-weight: 500;
     font-style: italic;
-    src: url("/static/fonts/EuclidCircularA/EuclidCircularA-MediumItalic-WebXL.woff2")
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-MediumItalic-WebXL.woff2")
         format("woff2"),
       url("/static/fonts/EuclidCircularA/EuclidCircularA-MediumItalic-WebXL.woff")
         format("woff");
@@ -54,7 +58,8 @@ const fontStyles = css`
     font-family: "Euclid Circular A";
     font-weight: 400;
     font-style: normal;
-    src: url("/static/fonts/EuclidCircularA/EuclidCircularA-Regular-WebXL.woff2")
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-Regular-WebXL.woff2")
         format("woff2"),
       url("/static/fonts/EuclidCircularA/EuclidCircularA-Regular-WebXL.woff")
         format("woff");
@@ -65,7 +70,8 @@ const fontStyles = css`
     font-family: "Euclid Circular A";
     font-weight: 400;
     font-style: italic;
-    src: url("/static/fonts/EuclidCircularA/EuclidCircularA-RegularItalic-WebXL.woff2")
+    src:
+      url("/static/fonts/EuclidCircularA/EuclidCircularA-RegularItalic-WebXL.woff2")
         format("woff2"),
       url("/static/fonts/EuclidCircularA/EuclidCircularA-RegularItalic-WebXL.woff")
         format("woff");
@@ -80,7 +86,8 @@ const fontStyles = css`
     font-family: "MongoDB Value Serif";
     font-weight: 700;
     font-style: normal;
-    src: url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Bold.woff2")
+    src:
+      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Bold.woff2")
         format("woff2"),
       url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Bold.woff")
         format("woff");
@@ -91,7 +98,8 @@ const fontStyles = css`
     font-family: "MongoDB Value Serif";
     font-weight: 500;
     font-style: normal;
-    src: url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Medium.woff2")
+    src:
+      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Medium.woff2")
         format("woff2"),
       url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Medium.woff")
         format("woff");
@@ -102,7 +110,8 @@ const fontStyles = css`
     font-family: "MongoDB Value Serif";
     font-weight: 400;
     font-style: normal;
-    src: url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Regular.woff2")
+    src:
+      url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Regular.woff2")
         format("woff2"),
       url("/static/fonts/MongoDBValueSerif/MongoDBValueSerif-Regular.woff")
         format("woff");

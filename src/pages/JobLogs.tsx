@@ -31,7 +31,7 @@ export const JobLogs = () => {
     variables: { buildId },
     onError: (err) => {
       dispatchToast.error(
-        `There was an error retrieving logs for this build: ${err.message}`
+        `There was an error retrieving logs for this build: ${err.message}`,
       );
     },
   });

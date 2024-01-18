@@ -23,43 +23,43 @@ describe("Task table", () => {
     cy.wait(200);
     cy.location("search").should(
       "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
     );
 
     cy.get("th.cy-task-table-col-NAME").click({ force: true });
     cy.location("search").should(
       "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BNAME%3AASC"
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BNAME%3AASC",
     );
 
     cy.get("th.cy-task-table-col-NAME").click({ force: true });
     cy.location("search").should(
       "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BNAME%3ADESC"
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BNAME%3ADESC",
     );
 
     cy.get("th.cy-task-table-col-NAME").click({ force: true });
     cy.location("search").should(
       "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
     );
 
     cy.get("th.cy-task-table-col-VARIANT").click({ force: true });
     cy.location("search").should(
       "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BVARIANT%3AASC"
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BVARIANT%3AASC",
     );
 
     cy.get("th.cy-task-table-col-VARIANT").click({ force: true });
     cy.location("search").should(
       "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BVARIANT%3ADESC"
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BVARIANT%3ADESC",
     );
 
     cy.get("th.cy-task-table-col-VARIANT").click({ force: true });
     cy.location("search").should(
       "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
     );
   });
 
@@ -80,7 +80,7 @@ describe("Task table", () => {
     cy.contains(TABLE_SORT_SELECTOR, "Name").click();
     cy.once("fail", (err) => {
       expect(err.message).to.include(
-        "'pointer-events: none' prevents user mouse interaction."
+        "'pointer-events: none' prevents user mouse interaction.",
       );
     });
   });
@@ -140,7 +140,7 @@ describe("Task table", () => {
           cy.get(dataCyTableRows).should("be.visible");
           clickOnPageSizeBtnAndAssertURLandTableSize(
             pageSize,
-            dataCyTableDataRows
+            dataCyTableDataRows,
           );
         });
       });

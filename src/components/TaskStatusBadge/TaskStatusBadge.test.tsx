@@ -14,24 +14,24 @@ describe("taskStatusBadge", () => {
   });
   it("should render a link if a task id is passed", () => {
     renderWithRouterMatch(
-      <TaskStatusBadge status="success" id="123" execution={0} />
+      <TaskStatusBadge status="success" id="123" execution={0} />,
     );
     expect(screen.getByDataCy("task-status-badge")).toBeInTheDocument();
     expect(screen.getByRole("link")).toBeInTheDocument();
     expect(screen.getByRole("link")).toHaveAttribute(
       "href",
-      "/task/123?execution=0"
+      "/task/123?execution=0",
     );
   });
   it("should render a link to the annotations tab if the status is known issue", () => {
     renderWithRouterMatch(
-      <TaskStatusBadge status={TaskStatus.KnownIssue} id="123" execution={0} />
+      <TaskStatusBadge status={TaskStatus.KnownIssue} id="123" execution={0} />,
     );
     expect(screen.getByDataCy("task-status-badge")).toBeInTheDocument();
     expect(screen.getByRole("link")).toBeInTheDocument();
     expect(screen.getByRole("link")).toHaveAttribute(
       "href",
-      "/task/123/annotations?execution=0"
+      "/task/123/annotations?execution=0",
     );
   });
 });

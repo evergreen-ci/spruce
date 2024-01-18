@@ -54,7 +54,9 @@ type HookResult = {
   versionStatusFilterTerm: versionFilters;
   baseStatusFilterTerm: versionFilters;
   toggleSelectedTask: (
-    taskIds: { [versionId: string]: string } | { [versionId: string]: string[] }
+    taskIds:
+      | { [versionId: string]: string }
+      | { [versionId: string]: string[] },
   ) => void;
   setVersionStatusFilterTerm: FilterSetter;
   setBaseStatusFilterTerm: FilterSetter;
@@ -79,7 +81,7 @@ type ChildVersions = {
 export const useVersionTaskStatusSelect = (
   versionBuildVariants: UpdatedVersionBuildVariantType[],
   versionId: string,
-  childVersions: ChildVersions
+  childVersions: ChildVersions,
 ): HookResult => {
   const [
     { baseStatusFilterTerm, selectedTasks, versionStatusFilterTerm },
@@ -91,7 +93,9 @@ export const useVersionTaskStatusSelect = (
   });
 
   const toggleSelectedTask = (
-    taskIds: { [versionId: string]: string } | { [versionId: string]: string[] }
+    taskIds:
+      | { [versionId: string]: string }
+      | { [versionId: string]: string[] },
   ) => {
     const newState = { ...selectedTasks };
     const taskVersion = Object.keys(taskIds)[0];
@@ -108,7 +112,7 @@ export const useVersionTaskStatusSelect = (
       // Enter this condition when a parent checkbox is clicked.
       // If every task is already checked, uncheck them. Otherwise, check them.
       const nextCheckedState = !selected.every(
-        (selectedId) => selectedTasks[taskVersion][selectedId]
+        (selectedId) => selectedTasks[taskVersion][selectedId],
       );
       selected.forEach((selectedId) => {
         newState[taskVersion][selectedId] = nextCheckedState;
@@ -228,7 +232,7 @@ const reduceBuildVariants = (filterDetails: reduceInput) => {
 
     const bvReducer = (
       acc: UpdatedVersionBuildVariantType,
-      versionBuildVariant: UpdatedVersionBuildVariantType
+      versionBuildVariant: UpdatedVersionBuildVariantType,
     ) => versionBuildVariant.tasks?.reduce(taskReducer, acc);
 
     // Iterate through VersionBuildVariants and determine if a task should be

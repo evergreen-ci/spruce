@@ -43,7 +43,7 @@ export const AttachDetachModal: React.FC<ModalProps> = ({
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error attaching the project: ${err.message}`
+        `There was an error attaching the project: ${err.message}`,
       );
     },
     refetchQueries: [
@@ -64,7 +64,7 @@ export const AttachDetachModal: React.FC<ModalProps> = ({
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error detaching the project: ${err.message}`
+        `There was an error detaching the project: ${err.message}`,
       );
     },
     refetchQueries: ["ProjectSettings", "RepoSettings", "ViewableProjectRefs"],

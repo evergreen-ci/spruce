@@ -20,7 +20,7 @@ const useFilterBadgeQueryParams = (validQueryParams: Set<string>) => {
   const { search } = location;
   const queryParams = parseQueryString(search);
   const queryParamsList = convertObjectToArray(queryParams).filter(({ key }) =>
-    validQueryParams.has(key as string)
+    validQueryParams.has(key as string),
   );
 
   const handleClearAll = () => {

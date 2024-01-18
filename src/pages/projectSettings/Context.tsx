@@ -33,7 +33,7 @@ const ProjectSettingsProvider: React.FC<{ children: React.ReactNode }> = ({
       tabs,
       updateForm,
     }),
-    [getTab, saveTab, setInitialData, tabs, updateForm]
+    [getTab, saveTab, setInitialData, tabs, updateForm],
   );
 
   return (
@@ -50,7 +50,7 @@ const useProjectSettingsContext = (): SettingsState<
   const context = useContext(ProjectSettingsContext);
   if (context === undefined) {
     throw new Error(
-      "useProjectSettingsContext must be used within a ProjectSettingsProvider"
+      "useProjectSettingsContext must be used within a ProjectSettingsProvider",
     );
   }
   return context;

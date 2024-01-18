@@ -38,7 +38,7 @@ export const UnscheduleTasks: React.FC<props> = ({
         dispatchToast.success(
           `All tasks were unscheduled ${
             abort ? "and tasks that already started were aborted" : ""
-          }`
+          }`,
         );
         setAbort(false);
       },

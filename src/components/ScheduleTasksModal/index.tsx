@@ -45,11 +45,11 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
         },
         onError({ message }) {
           dispatchToast.error(
-            `There was an error scheduling tasks: ${message}`
+            `There was an error scheduling tasks: ${message}`,
           );
           closeModal();
         },
-      }
+      },
     );
 
   const [
@@ -59,7 +59,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
     UNSCHEDULED_TASKS,
     {
       variables: { versionId },
-    }
+    },
   );
   useEffect(() => {
     if (open && !calledTaskData) {
@@ -109,10 +109,10 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
             {sortedBuildVariantGroups.map(
               ({ buildVariant, buildVariantDisplayName, tasks }) => {
                 const allTasksSelected = tasks.every(({ id }) =>
-                  selectedTasks.has(id)
+                  selectedTasks.has(id),
                 );
                 const someTasksSelected = tasks.some(({ id }) =>
-                  selectedTasks.has(id)
+                  selectedTasks.has(id),
                 );
                 return (
                   <Wrapper key={buildVariant}>
@@ -155,7 +155,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                     </Accordion>
                   </Wrapper>
                 );
-              }
+              },
             )}
           </>
         )}

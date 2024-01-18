@@ -29,7 +29,7 @@ export const Header: React.FC<Props> = ({
 }) => {
   const { title } = getTabTitle(tab);
   const saveable = Object.values(WritableProjectSettingsTabs).includes(
-    tab as WritableProjectSettingsType
+    tab as WritableProjectSettingsType,
   );
 
   return (

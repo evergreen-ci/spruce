@@ -50,7 +50,7 @@ describe("dropdown", () => {
     render(
       <Dropdown buttonText="Some Button" buttonRenderer={customButtonRenderer}>
         {children()}
-      </Dropdown>
+      </Dropdown>,
     );
     expect(screen.queryByText("Some Button")).not.toBeInTheDocument();
     expect(screen.getByText("Custom Button")).toBeInTheDocument();

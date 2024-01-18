@@ -60,11 +60,11 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
 
 export const formToGql = ((
   { patchAliases, patchTriggerAliases: ptaData },
-  id
+  id,
 ) => {
   const aliases = transformAliases(
     patchAliases.aliases,
-    patchAliases.aliasesOverride
+    patchAliases.aliasesOverride,
   );
 
   const githubTriggerAliases = [];
@@ -89,7 +89,7 @@ export const formToGql = ((
                       patchAlias: "",
                       taskRegex,
                       variantRegex,
-                    }
+                    },
             ) ?? [],
           status: a.status,
           parentAsModule: a.parentAsModule,

@@ -31,7 +31,7 @@ export const getFormSchema = (
   formData: GCQFormState,
   githubProjectConflicts: GithubProjectConflicts,
   versionControlEnabled: boolean,
-  repoData?: GCQFormState
+  repoData?: GCQFormState,
 ): ReturnType<GetFormSchema> => {
   const overrideStyling = {
     "ui:widget":
@@ -74,7 +74,7 @@ export const getFormSchema = (
               title: "Automated Testing",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
-                repoData?.github?.prTestingEnabled
+                repoData?.github?.prTestingEnabled,
               ),
             },
             manualPrTestingEnabled: {
@@ -82,7 +82,7 @@ export const getFormSchema = (
               title: "Manual Testing",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
-                repoData?.github?.manualPrTestingEnabled
+                repoData?.github?.manualPrTestingEnabled,
               ),
             },
             prTesting: {
@@ -94,7 +94,7 @@ export const getFormSchema = (
                   "Override Repo Patch Definition",
                   "Default to Repo Patch Definition",
                 ],
-                aliasArray.schema
+                aliasArray.schema,
               ),
             },
             githubTriggerAliases: {
@@ -112,7 +112,7 @@ export const getFormSchema = (
               type: ["boolean", "null"],
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
-                repoData?.github?.githubChecksEnabled
+                repoData?.github?.githubChecksEnabled,
               ),
             },
             githubChecks: {
@@ -120,7 +120,7 @@ export const getFormSchema = (
               ...overrideRadioBox(
                 "githubCheckAliases",
                 ["Override Repo Definition", "Default to Repo Definition"],
-                aliasArray.schema
+                aliasArray.schema,
               ),
             },
             gitTagVersionsTitle: {
@@ -133,7 +133,7 @@ export const getFormSchema = (
               type: ["boolean", "null"],
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
-                repoData?.github?.gitTagVersionsEnabled
+                repoData?.github?.gitTagVersionsEnabled,
               ),
             },
             users: {
@@ -151,7 +151,7 @@ export const getFormSchema = (
                     default: "",
                     minLength: 1,
                   },
-                }
+                },
               ),
             },
             teams: {
@@ -169,7 +169,7 @@ export const getFormSchema = (
                     default: "",
                     minLength: 1,
                   },
-                }
+                },
               ),
             },
             gitTags: {
@@ -177,7 +177,7 @@ export const getFormSchema = (
               ...overrideRadioBox(
                 "gitTagAliases",
                 ["Override Repo Git Tags", "Default to Repo Git Tags"],
-                gitTagArray.schema
+                gitTagArray.schema,
               ),
             },
           },
@@ -190,7 +190,7 @@ export const getFormSchema = (
               type: ["boolean", "null"],
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
-                repoData?.commitQueue?.enabled
+                repoData?.commitQueue?.enabled,
               ),
             },
           },
@@ -273,7 +273,7 @@ export const getFormSchema = (
                                         type: "string" as "string",
                                         title: `Default to Repo (${repoData?.commitQueue?.mergeSettings?.mergeMethod})`,
                                         enum: [""],
-                                      }
+                                      },
                                     ),
                                   ],
                                 },
@@ -299,7 +299,7 @@ export const getFormSchema = (
                           "Override Repo Patch Definition",
                           "Default to Repo Patch Definition",
                         ],
-                        aliasArray.schema
+                        aliasArray.schema,
                       ),
                     },
                   },
@@ -324,7 +324,7 @@ export const getFormSchema = (
             githubProjectConflicts?.prTestingIdentifiers,
             formData?.github?.prTestingEnabled,
             repoData?.github?.prTestingEnabled,
-            "PR Testing"
+            "PR Testing",
           ),
         },
         manualPrTestingEnabled: {
@@ -336,26 +336,26 @@ export const getFormSchema = (
             githubProjectConflicts?.prTestingIdentifiers,
             formData?.github?.manualPrTestingEnabled,
             repoData?.github?.manualPrTestingEnabled,
-            "PR Testing"
+            "PR Testing",
           ),
         },
         prTesting: {
           ...hideIf(
             fieldDisabled(
               formData?.github?.prTestingEnabled,
-              repoData?.github?.prTestingEnabled
+              repoData?.github?.prTestingEnabled,
             ) &&
               fieldDisabled(
                 formData?.github?.manualPrTestingEnabled,
-                repoData?.github?.manualPrTestingEnabled
-              )
+                repoData?.github?.manualPrTestingEnabled,
+              ),
           ),
           ...errorStyling(
             formData?.github?.prTestingEnabled,
             formData?.github?.prTesting?.githubPrAliasesOverride,
             formData?.github?.prTesting?.githubPrAliases,
             repoData?.github?.prTesting?.githubPrAliases,
-            "GitHub Patch Definition"
+            "GitHub Patch Definition",
           ),
           githubPrAliasesOverride: {
             "ui:data-cy": "pr-testing-override-radio-box",
@@ -404,22 +404,22 @@ export const getFormSchema = (
             githubProjectConflicts?.commitCheckIdentifiers,
             formData?.github?.githubChecksEnabled,
             repoData?.github?.githubChecksEnabled,
-            "Commit Checks"
+            "Commit Checks",
           ),
         },
         githubChecks: {
           ...hideIf(
             fieldDisabled(
               formData?.github?.githubChecksEnabled,
-              repoData?.github?.githubChecksEnabled
-            )
+              repoData?.github?.githubChecksEnabled,
+            ),
           ),
           ...errorStyling(
             formData?.github?.githubChecksEnabled,
             formData?.github?.githubChecks?.githubCheckAliasesOverride,
             formData?.github?.githubChecks?.githubCheckAliases,
             repoData?.github?.githubChecks?.githubCheckAliases,
-            "Commit Check Definition"
+            "Commit Check Definition",
           ),
           githubCheckAliasesOverride: overrideStyling,
           githubCheckAliases: aliasRowUiSchema({
@@ -446,28 +446,28 @@ export const getFormSchema = (
           "Add User",
           repoData?.github?.users?.gitTagAuthorizedUsers === undefined,
           formData?.github?.gitTagVersionsEnabled,
-          repoData?.github?.gitTagVersionsEnabled
+          repoData?.github?.gitTagVersionsEnabled,
         ),
         teams: userTeamStyling(
           "gitTagAuthorizedTeams",
           "Add Team",
           repoData?.github?.teams?.gitTagAuthorizedTeams === undefined,
           formData?.github?.gitTagVersionsEnabled,
-          repoData?.github?.gitTagVersionsEnabled
+          repoData?.github?.gitTagVersionsEnabled,
         ),
         gitTags: {
           ...hideIf(
             fieldDisabled(
               formData?.github?.gitTagVersionsEnabled,
-              repoData?.github?.gitTagVersionsEnabled
-            )
+              repoData?.github?.gitTagVersionsEnabled,
+            ),
           ),
           ...errorStyling(
             formData?.github?.gitTagVersionsEnabled,
             formData?.github?.gitTags?.gitTagAliasesOverride,
             formData?.github?.gitTags?.gitTagAliases,
             repoData?.github?.gitTags?.gitTagAliases,
-            "Git Tag Version Definition"
+            "Git Tag Version Definition",
           ),
           gitTagAliasesOverride: overrideStyling,
           "ui:description": GitTagAliasesDescription,
@@ -495,7 +495,7 @@ export const getFormSchema = (
             githubProjectConflicts?.commitQueueIdentifiers,
             formData?.commitQueue?.enabled,
             repoData?.commitQueue?.enabled,
-            "the Commit Queue"
+            "the Commit Queue",
           ),
         },
         message: {
@@ -519,7 +519,7 @@ export const getFormSchema = (
             formData?.commitQueue?.patchDefinitions?.commitQueueAliasesOverride,
             formData?.commitQueue?.patchDefinitions?.commitQueueAliases,
             repoData?.commitQueue?.patchDefinitions?.commitQueueAliases,
-            "Commit Queue Patch Definition"
+            "Commit Queue Patch Definition",
           ),
           commitQueueAliasesOverride: {
             "ui:data-cy": "cq-override-radio-box",
@@ -564,7 +564,7 @@ const userTeamStyling = (
   addButtonText: string,
   shouldOverride: boolean,
   field: boolean | null,
-  repoField: boolean | null
+  repoField: boolean | null,
 ) => ({
   ...hideIf(fieldDisabled(field, repoField)),
   [`${fieldName}Override`]: {

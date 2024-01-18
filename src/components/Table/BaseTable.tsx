@@ -67,7 +67,7 @@ export const BaseTable = forwardRef(
       table,
       ...args
     }: SpruceTableProps & TableProps<any>,
-    ref: ForwardedRef<HTMLDivElement>
+    ref: ForwardedRef<HTMLDivElement>,
   ) => {
     const { virtualRows } = table;
     const { rows } = table.getRowModel();
@@ -102,7 +102,7 @@ export const BaseTable = forwardRef(
                                     ({ value }) =>
                                       !!header.column
                                         .getFacetedUniqueValues()
-                                        .get(value)
+                                        .get(value),
                                   )
                                 : meta.treeSelect.options
                             }
@@ -153,8 +153,10 @@ export const BaseTable = forwardRef(
           (emptyComponent || "No data to display")}
       </>
     );
-  }
+  },
 );
+
+const cellPaddingStyle = { paddingBottom: size.xxs, paddingTop: size.xxs };
 
 const RenderableRow = <T extends LGRowData>({
   row,
@@ -174,7 +176,7 @@ const RenderableRow = <T extends LGRowData>({
     virtualRow={virtualRow}
   >
     {row.getVisibleCells().map((cell) => (
-      <Cell key={cell.id} style={{ padding: `${size.xxs} 2px` }}>
+      <Cell key={cell.id} style={cellPaddingStyle}>
         {flexRender(cell.column.columnDef.cell, cell.getContext())}
       </Cell>
     ))}
@@ -192,7 +194,7 @@ const RenderableRow = <T extends LGRowData>({
           virtualRow={virtualRow}
         >
           {subRow.getVisibleCells().map((cell) => (
-            <Cell key={cell.id}>
+            <Cell key={cell.id} style={cellPaddingStyle}>
               {flexRender(cell.column.columnDef.cell, cell.getContext())}
             </Cell>
           ))}

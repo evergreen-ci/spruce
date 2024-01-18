@@ -75,7 +75,7 @@ export const PreferencesTabs: React.FC = () => {
 };
 
 const getTitle = (
-  tab: PreferencesTabRoutes = PreferencesTabRoutes.Profile
+  tab: PreferencesTabRoutes = PreferencesTabRoutes.Profile,
 ): { title: string; subtitle?: string } => {
   const defaultTitle = {
     title: "Profile",

@@ -5,7 +5,7 @@ describe("Hosts Page", () => {
     cy.visit("/hosts?limit=10&page=1");
 
     cy.dataCy("leafygreen-table-row").each(($el, index) =>
-      cy.wrap($el).contains(hostsSecondPageWithLimitOfTen[index])
+      cy.wrap($el).contains(hostsSecondPageWithLimitOfTen[index]),
     );
 
     cy.visit("/hosts?limit=20&page=0");
@@ -14,8 +14,8 @@ describe("Hosts Page", () => {
       cy
         .wrap($el)
         .contains(
-          [...defaultHostsFirstPage, ...hostsSecondPageWithLimitOfTen][index]
-        )
+          [...defaultHostsFirstPage, ...hostsSecondPageWithLimitOfTen][index],
+        ),
     );
   });
 });

@@ -39,7 +39,7 @@ interface CommitsPageReducerState {
 }
 
 const getMainlineCommitsQueryVariables = (
-  state: CommitsPageReducerState
+  state: CommitsPageReducerState,
 ): MainlineCommitsQueryVariables => {
   const variables = {
     mainlineCommitsOptions: generateMainlineCommitOptionsFromState(state),
@@ -72,7 +72,7 @@ const getFilterStatus = (state: FilterState) => ({
 });
 
 const generateBuildVariantOptionsFromState = (
-  state: CommitsPageReducerState
+  state: CommitsPageReducerState,
 ) => {
   const { filterState } = state;
   const { statuses, tasks, variants } = filterState;
@@ -88,7 +88,7 @@ const generateBuildVariantOptionsFromState = (
 };
 
 const generateBuildVariantOptionsForTaskIconsFromState = (
-  state: CommitsPageReducerState
+  state: CommitsPageReducerState,
 ): MainlineCommitsQueryVariables["buildVariantOptions"] => {
   const { filterState } = state;
   const { hasStatuses, hasTasks } = getFilterStatus(filterState);
@@ -120,7 +120,7 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
 };
 
 const generateBuildVariantOptionsForGroupedTasksFromState = (
-  state: CommitsPageReducerState
+  state: CommitsPageReducerState,
 ): MainlineCommitsQueryVariables["buildVariantOptionsForGroupedTasks"] => {
   const { filterState } = state;
   const { hasFilters, hasStatuses, hasTasks } = getFilterStatus(filterState);
@@ -145,7 +145,7 @@ const generateBuildVariantOptionsForGroupedTasksFromState = (
     } else {
       const nonFailingStatusFilters = arrayIntersection(
         filterState.statuses,
-        ALL_NON_FAILING_STATUSES
+        ALL_NON_FAILING_STATUSES,
       );
       if (!nonFailingStatusFilters.length) {
         shouldShowGroupedTaskIcons = false;
@@ -167,7 +167,7 @@ const generateBuildVariantOptionsForGroupedTasksFromState = (
 };
 
 const generateBuildVariantOptionsForGraphFromState = (
-  state: CommitsPageReducerState
+  state: CommitsPageReducerState,
 ): MainlineCommitsQueryVariables["buildVariantOptionsForGraph"] => {
   const { filterState } = state;
   const buildVariantOptionsForGraph = {
@@ -179,7 +179,7 @@ const generateBuildVariantOptionsForGraphFromState = (
 };
 
 const generateMainlineCommitOptionsFromState = (
-  state: CommitsPageReducerState
+  state: CommitsPageReducerState,
 ): MainlineCommitsQueryVariables["mainlineCommitsOptions"] => {
   const { filterState, mainlineCommitOptions } = state;
   const { hasFilters } = getFilterStatus(filterState);
@@ -197,7 +197,7 @@ const findMaxGroupedTaskStats = (groupedTaskStats: {
     return { max: 0 };
   }
   return Object.values(groupedTaskStats).reduce((prev, curr) =>
-    prev.max > curr.max ? prev : curr
+    prev.max > curr.max ? prev : curr,
   );
 };
 
@@ -206,7 +206,7 @@ const getAllTaskStatsGroupedByColor = (versions: Commits) => {
   versions.forEach(({ version }) => {
     if (version != null) {
       idToGroupedTaskStats[version.id] = groupStatusesByUmbrellaStatus(
-        version.taskStatusStats?.counts
+        version.taskStatusStats?.counts,
       );
     }
   });
@@ -248,7 +248,7 @@ const constructBuildVariantDict = (versions: Commits): BuildVariantDict => {
           let badgeHeight = 0;
           if (statusCounts) {
             const numRows = Math.ceil(
-              statusCounts.length / GROUPED_BADGES_PER_ROW
+              statusCounts.length / GROUPED_BADGES_PER_ROW,
             );
             const badgeContainerHeight = numRows * GROUPED_BADGE_HEIGHT;
             const badgeContainerPadding = GROUPED_BADGE_PADDING * 2;
@@ -268,7 +268,7 @@ const constructBuildVariantDict = (versions: Commits): BuildVariantDict => {
           }
           return acc;
         },
-        buildVariantDict
+        buildVariantDict,
       );
     }
   }

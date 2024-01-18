@@ -11,7 +11,7 @@ type useNetworkStatusType = {
  * @returns boolean - true if online, false if offline
  */
 export const useNetworkStatus: useNetworkStatusType = (
-  sendAnalytics = false
+  sendAnalytics = false,
 ) => {
   const [isOnline, setIsOnline] = useState(true);
   const { sendEvent } = useActivityAnalytics();

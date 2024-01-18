@@ -42,7 +42,7 @@ export const useAnnotationAnalytics = () => {
     {
       variables: { taskId: id, execution },
       fetchPolicy: "cache-first",
-    }
+    },
   );
 
   const { annotation } = eventData?.task || {};

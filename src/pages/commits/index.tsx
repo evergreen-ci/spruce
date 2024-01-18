@@ -99,13 +99,13 @@ const Commits = () => {
   const taskFilters = toArray(parsed[ProjectFilterOptions.Task]);
   const [viewFilter] = useQueryParam(
     ProjectFilterOptions.View,
-    "" as ProjectHealthView
+    "" as ProjectHealthView,
   );
   const requesterFilters = toArray(
-    parsed[MainlineCommitQueryParams.Requester]
+    parsed[MainlineCommitQueryParams.Requester],
   ).filter((r) => r !== ALL_VALUE);
   const skipOrderNumberParam = getString(
-    parsed[MainlineCommitQueryParams.SkipOrderNumber]
+    parsed[MainlineCommitQueryParams.SkipOrderNumber],
   );
   const revisionParam = getString(parsed[MainlineCommitQueryParams.Revision]);
 

@@ -42,7 +42,7 @@ export const TaskDurationTable: React.FC<Props> = ({
 
   const { initialFilters, initialSort } = useMemo(
     () => getInitialParams(queryParams),
-    [] // eslint-disable-line react-hooks/exhaustive-deps
+    [], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   const setFilters = (f: ColumnFiltersState) =>
@@ -150,7 +150,7 @@ export const TaskDurationTable: React.FC<Props> = ({
         ),
       },
     ],
-    [statusOptions]
+    [statusOptions],
   );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
@@ -178,14 +178,14 @@ export const TaskDurationTable: React.FC<Props> = ({
       (updatedState) => {
         updateFilters(updatedState);
         table.resetRowSelection();
-      }
+      },
     ),
     onSortingChange: onChangeHandler<SortingState>(
       setSorting,
       (updatedState) => {
         updateSort(updatedState);
         table.resetRowSelection();
-      }
+      },
     ),
   });
 

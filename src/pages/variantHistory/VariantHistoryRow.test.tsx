@@ -142,13 +142,13 @@ describe("variantHistoryRow", () => {
     await waitFor(() => {
       expect(screen.queryByDataCy("task-cell")).toHaveAttribute(
         "aria-disabled",
-        "false"
+        "false",
       );
     });
     await waitFor(() => {
       expect(screen.queryByDataCy("history-table-icon")).toHaveAttribute(
         "aria-disabled",
-        "false"
+        "false",
       );
     });
 
@@ -187,13 +187,13 @@ describe("variantHistoryRow", () => {
     await waitFor(() => {
       expect(screen.queryByDataCy("task-cell")).toHaveAttribute(
         "aria-disabled",
-        "false"
+        "false",
       );
     });
     await waitFor(() => {
       expect(screen.queryByDataCy("history-table-icon")).toHaveAttribute(
         "aria-disabled",
-        "false"
+        "false",
       );
     });
 
@@ -227,7 +227,7 @@ describe("variantHistoryRow", () => {
     expect(screen.queryAllByDataCy("empty-cell")).toHaveLength(0);
     expect(screen.queryByDataCy("task-cell")).toHaveAttribute(
       "aria-disabled",
-      "true"
+      "true",
     );
   });
 });

@@ -7,7 +7,7 @@ export const updateUrlQueryParam = (
   search: string,
   navigate: NavigateFunction,
   pathname: string,
-  resetPage?: boolean
+  resetPage?: boolean,
 ) => {
   const urlParams = parseQueryString(search);
 

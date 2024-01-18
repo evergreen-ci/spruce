@@ -70,7 +70,7 @@ describe("useGetUserPatchesPageTitleAndLink", () => {
   it("return correct title and link when the userId passed into the hook parameter is that of the logged in user", async () => {
     const { result } = renderHook(
       () => useGetUserPatchesPageTitleAndLink("admin"),
-      { wrapper: Provider }
+      { wrapper: Provider },
     );
     await waitFor(() => {
       expect(result.current.title).toBe("My Patches");
@@ -81,7 +81,7 @@ describe("useGetUserPatchesPageTitleAndLink", () => {
   it("return correct title and link when the userId passed into the hook parameter is not that of the logged in user", async () => {
     const { result } = renderHook(
       () => useGetUserPatchesPageTitleAndLink("justin.mathew"),
-      { wrapper: Provider }
+      { wrapper: Provider },
     );
     await waitFor(() => {
       expect(result.current.title).toBe("Justin Mathew's Patches");
@@ -92,7 +92,7 @@ describe("useGetUserPatchesPageTitleAndLink", () => {
   it("return correct title and link when the userId passed into the hook parameter is not that of the logged in user and the display name of the other user ends with the letter 's'", async () => {
     const { result } = renderHook(
       () => useGetUserPatchesPageTitleAndLink("justin.mathews"),
-      { wrapper: Provider }
+      { wrapper: Provider },
     );
     await waitFor(() => {
       expect(result.current.title).toBe("Justin Mathews' Patches");

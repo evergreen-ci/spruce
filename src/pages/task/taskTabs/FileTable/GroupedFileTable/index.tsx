@@ -21,7 +21,7 @@ const columns = (
   options: {
     gudeCueTriggerRef: React.RefObject<HTMLAnchorElement>;
     firstParsleyFileIndex: number;
-  }
+  },
 ): LGColumnDef<GroupedFilesFile>[] => [
   {
     accessorKey: "name",
@@ -92,11 +92,11 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const taskAnalytics = useTaskAnalytics();
   const [openGuideCue, setOpenGuideCue] = useState(
-    Cookies.get(SEEN_PARSLEY_FILES_GUIDE_CUE) !== "true"
+    Cookies.get(SEEN_PARSLEY_FILES_GUIDE_CUE) !== "true",
   );
   const firstParsleyFileIndex = useMemo(
     () => files.findIndex((file) => file.urlParsley !== null),
-    [files]
+    [files],
   );
   const parsleyLinkRef = useRef<HTMLAnchorElement>(null);
   const memoizedColumns = useMemo(
@@ -111,9 +111,9 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
           : {
               gudeCueTriggerRef: null,
               firstParsleyFileIndex: -1,
-            }
+            },
       ),
-    [taskAnalytics, firstParsleyFileIndex]
+    [taskAnalytics, firstParsleyFileIndex],
   );
   useEffect(() => {
     // Scroll to the first file that can be opened in parsley on initial render.

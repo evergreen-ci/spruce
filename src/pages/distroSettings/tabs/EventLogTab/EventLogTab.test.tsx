@@ -18,7 +18,7 @@ describe("loading events", () => {
     const { Component } = RenderFakeToastContext(
       <Wrapper>
         <EventLogTab />
-      </Wrapper>
+      </Wrapper>,
     );
     render(<Component />, {
       route: "/distro/rhel71-power8-large/settings",
@@ -36,7 +36,7 @@ describe("loading events", () => {
     const { Component } = RenderFakeToastContext(
       <Wrapper mocks={[query(limit)]}>
         <EventLogTab limit={limit} />
-      </Wrapper>
+      </Wrapper>,
     );
     render(<Component />, {
       route: "/distro/rhel71-power8-large/settings",
@@ -47,7 +47,7 @@ describe("loading events", () => {
     });
     expect(screen.getByDataCy("load-more-button")).toBeInTheDocument();
     expect(
-      screen.queryByText("No more events to show.")
+      screen.queryByText("No more events to show."),
     ).not.toBeInTheDocument();
   });
 
@@ -55,7 +55,7 @@ describe("loading events", () => {
     const { Component } = RenderFakeToastContext(
       <Wrapper>
         <EventLogTab />
-      </Wrapper>
+      </Wrapper>,
     );
     render(<Component />, {
       route: "/distro/rhel71-power8-large/settings",
@@ -70,7 +70,7 @@ describe("loading events", () => {
 });
 
 const query = (
-  limit: number = 15
+  limit: number = 15,
 ): ApolloMock<DistroEventsQuery, DistroEventsQueryVariables> => ({
   request: {
     query: DISTRO_EVENTS,

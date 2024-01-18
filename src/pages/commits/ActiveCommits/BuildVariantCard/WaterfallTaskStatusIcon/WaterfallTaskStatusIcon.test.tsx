@@ -48,7 +48,7 @@ describe("waterfallTaskStatusIcon", () => {
     await user.hover(screen.queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(
-        screen.queryByDataCy("waterfall-task-status-icon-tooltip")
+        screen.queryByDataCy("waterfall-task-status-icon-tooltip"),
       ).toBeVisible();
     });
     await waitFor(() => {
@@ -57,8 +57,8 @@ describe("waterfallTaskStatusIcon", () => {
     await waitFor(() => {
       expect(
         screen.queryByText(
-          "jstests/multiVersion/remove_invalid_index_options.js"
-        )
+          "jstests/multiVersion/remove_invalid_index_options.js",
+        ),
       ).toBeVisible();
     });
     await waitFor(() => {
@@ -70,12 +70,12 @@ describe("waterfallTaskStatusIcon", () => {
     render(<Content status="failed" />);
     await waitFor(() => {
       expect(
-        screen.getByDataCy("waterfall-task-status-icon")
+        screen.getByDataCy("waterfall-task-status-icon"),
       ).toBeInTheDocument();
     });
     await waitFor(() => {
       expect(
-        screen.queryByDataCy("waterfall-task-status-icon")
+        screen.queryByDataCy("waterfall-task-status-icon"),
       ).toHaveAttribute("href", "/task/task");
     });
   });
@@ -85,7 +85,7 @@ describe("waterfallTaskStatusIcon", () => {
     (injectGlobalHighlightStyle as jest.Mock).mockImplementationOnce(
       (taskIdentifier: string) => {
         Promise.resolve(taskIdentifier);
-      }
+      },
     );
     (removeGlobalHighlightStyle as jest.Mock).mockImplementationOnce(() => {});
 

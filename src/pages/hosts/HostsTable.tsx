@@ -50,7 +50,7 @@ export const HostsTable: React.FC<Props> = ({
 
   const updateRowSelection = (rowState: RowSelectionState) => {
     const selectedHosts = Object.keys(rowState).map(
-      (key) => table.getRowModel().rowsById[key]?.original
+      (key) => table.getRowModel().rowsById[key]?.original,
     );
     setSelectedHosts(selectedHosts);
   };
@@ -109,18 +109,18 @@ export const HostsTable: React.FC<Props> = ({
       (updatedState) => {
         updateFilters(updatedState);
         table.resetRowSelection();
-      }
+      },
     ),
     onRowSelectionChange: onChangeHandler<RowSelectionState>(
       setRowSelection,
-      updateRowSelection
+      updateRowSelection,
     ),
     onSortingChange: onChangeHandler<SortingState>(
       setSorting,
       (updatedState) => {
         tableSortHandler(updatedState);
         table.resetRowSelection();
-      }
+      },
     ),
   });
 
@@ -138,7 +138,7 @@ export const HostsTable: React.FC<Props> = ({
 
 const emptyFilterQueryParams = Object.values(HostsTableFilterParams).reduce(
   (a, v) => ({ ...a, [v]: undefined }),
-  {}
+  {},
 );
 
 const columns = [

@@ -26,7 +26,7 @@ describe("projectSelect", () => {
             selectedProjectIdentifier="evergreen"
             getRoute={getCommitsRoute}
           />
-        </MockedProvider>
+        </MockedProvider>,
       );
       const { baseElement } = renderWithRouterMatch(<Component />);
       await waitFor(() => {
@@ -42,7 +42,7 @@ describe("projectSelect", () => {
             selectedProjectIdentifier="evergreen"
             getRoute={getCommitsRoute}
           />
-        </MockedProvider>
+        </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
@@ -57,7 +57,7 @@ describe("projectSelect", () => {
       expect(options).toHaveLength(6);
       await user.type(
         screen.queryByDataCy("project-select-search-input"),
-        "logkeeper"
+        "logkeeper",
       );
       options = await screen.findAllByDataCy("project-display-name");
       expect(options).toHaveLength(1);
@@ -71,7 +71,7 @@ describe("projectSelect", () => {
             selectedProjectIdentifier="evergreen"
             getRoute={getCommitsRoute}
           />
-        </MockedProvider>
+        </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
@@ -84,7 +84,7 @@ describe("projectSelect", () => {
 
       await user.type(
         screen.queryByDataCy("project-select-search-input"),
-        "aaa/totally-different-name"
+        "aaa/totally-different-name",
       );
       const options = await screen.findAllByDataCy("project-display-name");
       expect(options).toHaveLength(2);
@@ -92,7 +92,7 @@ describe("projectSelect", () => {
       expect(
         screen.queryByRole("button", {
           name: "aaa/totally-different-name",
-        })
+        }),
       ).toBeNull();
     });
   });
@@ -106,7 +106,7 @@ describe("projectSelect", () => {
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
           />
-        </MockedProvider>
+        </MockedProvider>,
       );
       const { baseElement } = renderWithRouterMatch(<Component />);
       await waitFor(() => {
@@ -123,7 +123,7 @@ describe("projectSelect", () => {
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
           />
-        </MockedProvider>
+        </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
@@ -138,7 +138,7 @@ describe("projectSelect", () => {
       expect(options).toHaveLength(5);
       await user.type(
         screen.queryByDataCy("project-select-search-input"),
-        "evergreen"
+        "evergreen",
       );
       options = await screen.findAllByDataCy("project-display-name");
       expect(options).toHaveLength(2);
@@ -153,7 +153,7 @@ describe("projectSelect", () => {
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
           />
-        </MockedProvider>
+        </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
@@ -166,7 +166,7 @@ describe("projectSelect", () => {
 
       await user.type(
         screen.queryByDataCy("project-select-search-input"),
-        "aaa/totally-different-name"
+        "aaa/totally-different-name",
       );
       const options = await screen.findAllByDataCy("project-display-name");
       expect(options).toHaveLength(1);
@@ -174,7 +174,7 @@ describe("projectSelect", () => {
       expect(
         screen.getByRole("button", {
           name: "aaa/totally-different-name",
-        })
+        }),
       ).toBeInTheDocument();
     });
 
@@ -187,7 +187,7 @@ describe("projectSelect", () => {
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
           />
-        </MockedProvider>
+        </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
@@ -210,7 +210,7 @@ describe("projectSelect", () => {
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
           />
-        </MockedProvider>
+        </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
@@ -237,7 +237,7 @@ describe("projectSelect", () => {
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
           />
-        </MockedProvider>
+        </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
@@ -353,7 +353,7 @@ const getProjectsMock: [ApolloMock<ProjectsQuery, ProjectsQueryVariables>] = [
 ];
 
 const getViewableProjectsMock: [
-  ApolloMock<ViewableProjectRefsQuery, ViewableProjectRefsQueryVariables>
+  ApolloMock<ViewableProjectRefsQuery, ViewableProjectRefsQueryVariables>,
 ] = [
   {
     request: {
@@ -434,7 +434,7 @@ const getViewableProjectsMock: [
 ];
 
 const noDisabledProjectsMock: [
-  ApolloMock<ViewableProjectRefsQuery, ViewableProjectRefsQueryVariables>
+  ApolloMock<ViewableProjectRefsQuery, ViewableProjectRefsQueryVariables>,
 ] = [
   {
     request: {

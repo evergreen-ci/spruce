@@ -453,7 +453,7 @@ export const convertFromFamilyTrigger = (trigger: string) => {
 };
 
 export const triggerTreeData: TreeDataEntry[] = Object.entries(
-  triggerToCopy
+  triggerToCopy,
 ).map(([key, value]) => ({
   title: value,
   value: key,
@@ -483,7 +483,7 @@ export const resourceTypeToCopy = {
 };
 
 export const resourceTypeTreeData: TreeDataEntry[] = Object.entries(
-  resourceTypeToCopy
+  resourceTypeToCopy,
 ).map(([key, value]) => ({
   title: value,
   value: key,

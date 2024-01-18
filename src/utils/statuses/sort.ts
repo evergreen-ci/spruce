@@ -27,7 +27,7 @@ const greyStatusIndex = 3.5;
 export const sortTasks = (a, b): number => {
   const findGroup = (status) => {
     const groupIndex = ordering.findIndex((statusGroup) =>
-      statusGroup.has(status)
+      statusGroup.has(status),
     );
     return groupIndex === -1 ? greyStatusIndex : groupIndex;
   };

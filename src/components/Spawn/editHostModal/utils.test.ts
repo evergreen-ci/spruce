@@ -5,7 +5,7 @@ describe("computeDiff", () => {
   it("correctly computes diff when there is no change", () => {
     const [hasChanges, mutationParams] = computeDiff(
       initialEditState,
-      initialEditState
+      initialEditState,
     );
     expect(hasChanges).toBe(false);
     expect(mutationParams).toStrictEqual({});
@@ -14,7 +14,7 @@ describe("computeDiff", () => {
   it("correctly computes diff when there is change, omitting unchanged fields", () => {
     const [hasChanges, mutationParams] = computeDiff(
       initialEditState,
-      currEditState
+      currEditState,
     );
     expect(hasChanges).toBe(true);
     // eslint-disable-next-line jest/prefer-strict-equal

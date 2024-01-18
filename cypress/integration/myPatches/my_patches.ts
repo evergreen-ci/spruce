@@ -15,7 +15,7 @@ describe("My Patches Page", () => {
   it("Redirects user to user patches route from `/user/:id`", () => {
     cy.visit("user/chicken");
     cy.location().should((loc) =>
-      expect(loc.pathname).to.eq("/user/chicken/patches")
+      expect(loc.pathname).to.eq("/user/chicken/patches"),
     );
   });
 
@@ -78,7 +78,7 @@ describe("My Patches Page", () => {
       .should("have.attr", "href")
       .and(
         "equals",
-        "/version/5ecedafb562343215a7ff297/tasks?statuses=success"
+        "/version/5ecedafb562343215a7ff297/tasks?statuses=success",
       );
   });
 
@@ -124,14 +124,14 @@ describe("My Patches Page", () => {
       cy.getCookie("include-commit-queue-user-patches").should(
         "have.property",
         "value",
-        "false"
+        "false",
       );
       cy.contains("Include Commit Queue").click();
       cy.dataCy("commit-queue-checkbox").should("be.checked");
       cy.getCookie("include-commit-queue-user-patches").should(
         "have.property",
         "value",
-        "true"
+        "true",
       );
     });
   });
@@ -151,7 +151,7 @@ describe("My Patches Page", () => {
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyNextPage,
         secondPageDisplayNames,
-        1
+        1,
       );
     });
 
@@ -162,7 +162,7 @@ describe("My Patches Page", () => {
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyPrevPage,
         firstPageDisplayNames,
-        0
+        0,
       );
     });
 

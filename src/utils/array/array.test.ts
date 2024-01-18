@@ -85,7 +85,7 @@ describe("convertArrayToObject", () => {
     const element3 = { key: "cKey", value: 3 };
 
     expect(
-      convertArrayToObject([element1, element2, element3], "key")
+      convertArrayToObject([element1, element2, element3], "key"),
     ).toStrictEqual({
       aKey: element1,
       bKey: element2,
@@ -98,7 +98,7 @@ describe("convertArrayToObject", () => {
     const element3 = { key: "aKey", value: 3 };
 
     expect(
-      convertArrayToObject([element1, element2, element3], "key")
+      convertArrayToObject([element1, element2, element3], "key"),
     ).toStrictEqual({
       aKey: element3,
       bKey: element2,
@@ -110,7 +110,7 @@ describe("convertArrayToObject", () => {
     const element3 = { key: "cKey", value: 3 };
 
     expect(() =>
-      convertArrayToObject([element1, element2, element3], "key")
+      convertArrayToObject([element1, element2, element3], "key"),
     ).toThrow(TypeError("Object keys must be of type `string`"));
   });
 });
@@ -173,7 +173,7 @@ describe("toArray", () => {
 describe("arrayIntersection", () => {
   it("should throw an error if an object is passed in", () => {
     expect(() => arrayIntersection([{}], [{}])).toThrow(
-      TypeError("arrayIntersection does not support objects")
+      TypeError("arrayIntersection does not support objects"),
     );
   });
   it("should return an empty array when the arrays are empty", () => {
@@ -187,7 +187,7 @@ describe("arrayIntersection", () => {
   });
   it("should return an empty array when the arrays have no common elements", () => {
     expect(arrayIntersection(["1", "2", "3"], ["4", "5", "6"])).toStrictEqual(
-      []
+      [],
     );
   });
   it("should return the common elements when the arrays have common elements", () => {
@@ -195,7 +195,7 @@ describe("arrayIntersection", () => {
       "3",
     ]);
     expect(
-      arrayIntersection(["1", "1", "2", "2", "3"], ["2", "3", "4"])
+      arrayIntersection(["1", "1", "2", "2", "3"], ["2", "3", "4"]),
     ).toStrictEqual(["2", "3"]);
   });
 });
@@ -203,7 +203,7 @@ describe("arrayIntersection", () => {
 describe("arraySymmetricDifference", () => {
   it("should throw an error if an object is passed in", () => {
     expect(() => arraySymmetricDifference([{}], [{}])).toThrow(
-      TypeError("arraySymmetricDifference does not support objects")
+      TypeError("arraySymmetricDifference does not support objects"),
     );
   });
   it("should return an empty array when the arrays are empty", () => {
@@ -225,12 +225,12 @@ describe("arraySymmetricDifference", () => {
   });
   it("should return the symmetric difference when the arrays have no common elements", () => {
     expect(
-      arraySymmetricDifference(["1", "2", "3"], ["4", "5", "6"])
+      arraySymmetricDifference(["1", "2", "3"], ["4", "5", "6"]),
     ).toStrictEqual(["1", "2", "3", "4", "5", "6"]);
   });
   it("should return the symmetric difference when the arrays have common elements", () => {
     expect(
-      arraySymmetricDifference(["1", "2", "3"], ["3", "4", "5"])
+      arraySymmetricDifference(["1", "2", "3"], ["3", "4", "5"]),
     ).toStrictEqual(["1", "2", "4", "5"]);
   });
 });
@@ -238,7 +238,7 @@ describe("arraySymmetricDifference", () => {
 describe("arraySetDifference", () => {
   it("should throw an error if an object is passed in", () => {
     expect(() => arraySetDifference([{}], [{}])).toThrow(
-      TypeError("arraySetDifference does not support objects")
+      TypeError("arraySetDifference does not support objects"),
     );
   });
   it("should return an empty array when the arrays are empty", () => {
@@ -272,7 +272,7 @@ describe("arraySetDifference", () => {
 describe("arrayUnion", () => {
   it("should throw an error if an object is passed in", () => {
     expect(() => arrayUnion([{}], [{}])).toThrow(
-      TypeError("arrayUnion does not support objects")
+      TypeError("arrayUnion does not support objects"),
     );
   });
   it("should return an empty array when the arrays are empty", () => {
@@ -299,7 +299,7 @@ describe("arrayUnion", () => {
   });
   it("should apply a sort when a sort function is provided", () => {
     expect(
-      arrayUnion(["1"], ["3", "2", "5", "4"], (a, b) => a.localeCompare(b))
+      arrayUnion(["1"], ["3", "2", "5", "4"], (a, b) => a.localeCompare(b)),
     ).toStrictEqual(["1", "2", "3", "4", "5"]);
     expect(arrayUnion([1], [3, 2, 5, 4], (a, b) => a - b)).toStrictEqual([
       1, 2, 3, 4, 5,

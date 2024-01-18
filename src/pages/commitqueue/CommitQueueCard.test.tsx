@@ -29,27 +29,27 @@ describe("commit queue entry title", () => {
           issue=""
           title={titleWithPullRequestURL}
           versionId="456"
-        />
+        />,
       );
       render(
         <MockedProvider>
           <Component />
-        </MockedProvider>
+        </MockedProvider>,
       );
 
       const title = screen.getByDataCy("commit-queue-card-title");
       const links = within(title).getAllByRole("link");
       expect(links).toHaveLength(2);
       expect(links[0]).toHaveTextContent(
-        "'evergreen-ci/spruce' commit queue merge (PR #1000) by github_pull_request"
+        "'evergreen-ci/spruce' commit queue merge (PR #1000) by github_pull_request",
       );
       expect(links[0]).toHaveAttribute("href", "/version/123/tasks");
       expect(links[1]).toHaveTextContent(
-        "https://github.com/evergreen-ci/spruce/pull/1000"
+        "https://github.com/evergreen-ci/spruce/pull/1000",
       );
       expect(links[1]).toHaveAttribute(
         "href",
-        "https://github.com/evergreen-ci/spruce/pull/1000"
+        "https://github.com/evergreen-ci/spruce/pull/1000",
       );
     });
 
@@ -61,12 +61,12 @@ describe("commit queue entry title", () => {
           issue=""
           title={titleWithoutPullRequestURL}
           versionId="456"
-        />
+        />,
       );
       render(
         <MockedProvider>
           <Component />
-        </MockedProvider>
+        </MockedProvider>,
       );
 
       const title = screen.getByDataCy("commit-queue-card-title");
@@ -84,23 +84,23 @@ describe("commit queue entry title", () => {
           issue="1000"
           title={titleWithPullRequestURL}
           versionId="456"
-        />
+        />,
       );
       render(
         <MockedProvider>
           <Component />
-        </MockedProvider>
+        </MockedProvider>,
       );
 
       const title = screen.getByDataCy("commit-queue-card-title");
       const links = within(title).getAllByRole("link");
       expect(links).toHaveLength(1);
       expect(links[0]).toHaveTextContent(
-        "https://github.com/evergreen-ci/spruce/pull/1000"
+        "https://github.com/evergreen-ci/spruce/pull/1000",
       );
       expect(links[0]).toHaveAttribute(
         "href",
-        "https://github.com/evergreen-ci/spruce/pull/1000"
+        "https://github.com/evergreen-ci/spruce/pull/1000",
       );
     });
   });
@@ -114,23 +114,23 @@ describe("commit queue entry title", () => {
           issue="1000"
           title={titleWithPullRequestURL}
           versionId={undefined}
-        />
+        />,
       );
       render(
         <MockedProvider>
           <Component />
-        </MockedProvider>
+        </MockedProvider>,
       );
 
       const title = screen.getByDataCy("commit-queue-card-title");
       const links = within(title).getAllByRole("link");
       expect(links).toHaveLength(1);
       expect(links[0]).toHaveTextContent(
-        "https://github.com/evergreen-ci/spruce/pull/1000"
+        "https://github.com/evergreen-ci/spruce/pull/1000",
       );
       expect(links[0]).toHaveAttribute(
         "href",
-        "https://github.com/evergreen-ci/spruce/pull/1000"
+        "https://github.com/evergreen-ci/spruce/pull/1000",
       );
     });
 
@@ -142,12 +142,12 @@ describe("commit queue entry title", () => {
           issue="1000"
           title={titleWithoutPullRequestURL}
           versionId={undefined}
-        />
+        />,
       );
       render(
         <MockedProvider>
           <Component />
-        </MockedProvider>
+        </MockedProvider>,
       );
 
       const title = screen.getByDataCy("commit-queue-card-title");
@@ -156,7 +156,7 @@ describe("commit queue entry title", () => {
       expect(links[0]).toHaveTextContent(titleWithoutPullRequestURL);
       expect(links[0]).toHaveAttribute(
         "href",
-        "https://github.com/evergreen-ci/spruce/pull/1000"
+        "https://github.com/evergreen-ci/spruce/pull/1000",
       );
     });
   });
@@ -171,12 +171,12 @@ describe("commit queue entry title", () => {
           title={titleWithoutPullRequestURL}
           versionId={undefined}
           patchId={undefined}
-        />
+        />,
       );
       render(
         <MockedProvider>
           <Component />
-        </MockedProvider>
+        </MockedProvider>,
       );
 
       const title = screen.getByDataCy("commit-queue-card-title");
@@ -185,7 +185,7 @@ describe("commit queue entry title", () => {
       expect(links[0]).toHaveTextContent("Pull Request #1000");
       expect(links[0]).toHaveAttribute(
         "href",
-        "https://github.com/evergreen-ci/spruce/pull/1000"
+        "https://github.com/evergreen-ci/spruce/pull/1000",
       );
     });
   });

@@ -43,7 +43,7 @@ const TestProvider = ({ children }) => {
       tabs,
       updateForm,
     }),
-    [getTab, saveTab, setInitialData, tabs, updateForm]
+    [getTab, saveTab, setInitialData, tabs, updateForm],
   );
 
   return (
@@ -55,7 +55,7 @@ const useTestContext = (): SettingsState<TestRoutes, FormStateMap> => {
   const context = useContext(TestContext);
   if (context === undefined) {
     throw new Error(
-      "useProjectSettingsContext must be used within a ProjectSettingsProvider"
+      "useProjectSettingsContext must be used within a ProjectSettingsProvider",
     );
   }
   return context;

@@ -7,7 +7,7 @@ describe("useTabShortcut", () => {
     const setSelectedTab = jest.fn();
     let currentTab = 1;
     const { rerender } = renderHook(() =>
-      useTabShortcut({ setSelectedTab, currentTab, numTabs: 4 })
+      useTabShortcut({ setSelectedTab, currentTab, numTabs: 4 }),
     );
     await user.keyboard("{j}");
     expect(setSelectedTab).toHaveBeenCalledWith(2);
@@ -29,7 +29,7 @@ describe("useTabShortcut", () => {
     const setSelectedTab = jest.fn();
     let currentTab = 1;
     const { rerender } = renderHook(() =>
-      useTabShortcut({ setSelectedTab, currentTab, numTabs: 4 })
+      useTabShortcut({ setSelectedTab, currentTab, numTabs: 4 }),
     );
     await user.keyboard("{k}");
     expect(setSelectedTab).toHaveBeenCalledWith(0);

@@ -27,11 +27,11 @@ export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
           <SpawnHostCard host={row.original} />
         ),
       })),
-    [hosts]
+    [hosts],
   );
 
   const initialExpanded = Object.fromEntries(
-    dataSource.map(({ id }, i) => [i, id === selectedHost])
+    dataSource.map(({ id }, i) => [i, id === selectedHost]),
   );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);

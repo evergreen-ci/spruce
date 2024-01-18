@@ -14,7 +14,7 @@ export const useFirstDistro = () => {
       variables: {
         onlySpawnable: false,
       },
-    }
+    },
   );
 
   return { distro: data?.distros?.[0]?.name ?? "ubuntu2204-large", loading };

@@ -19,7 +19,7 @@ type DispatchToast = (
     onClose?: () => void;
     shouldTimeout?: boolean;
     title?: string;
-  }
+  },
 ) => void;
 
 type DispatchToastWithProgress = (
@@ -30,7 +30,7 @@ type DispatchToastWithProgress = (
     onClose?: () => void;
     shouldTimeout?: boolean;
     title?: string;
-  }
+  },
 ) => void;
 
 export type {

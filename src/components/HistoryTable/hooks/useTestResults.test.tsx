@@ -28,8 +28,8 @@ describe("useTestResults", () => {
     });
     expect(
       result.current.hookResponse.getTaskMetadata(
-        "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
-      )
+        "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
+      ),
     ).toMatchObject({
       inactive: false,
       label: "",
@@ -42,7 +42,7 @@ describe("useTestResults", () => {
       wrapper: ({ children }) => ProviderWrapper({ children, mocks }),
     });
     expect(
-      result.current.hookResponse.getTaskMetadata("some_id")
+      result.current.hookResponse.getTaskMetadata("some_id"),
     ).toMatchObject({
       inactive: false,
       label: "",
@@ -56,7 +56,7 @@ describe("useTestResults", () => {
       type: rowType.DATE_SEPARATOR,
     });
     expect(
-      result.current.hookResponse.getTaskMetadata("some_id")
+      result.current.hookResponse.getTaskMetadata("some_id"),
     ).toMatchObject({
       inactive: false,
       label: "",
@@ -70,8 +70,8 @@ describe("useTestResults", () => {
     });
     expect(
       result.current.hookResponse.getTaskMetadata(
-        "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
-      )
+        "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
+      ),
     ).toMatchObject({
       inactive: false,
       label: "",
@@ -87,8 +87,8 @@ describe("useTestResults", () => {
     await waitFor(() => {
       expect(
         result.current.hookResponse.getTaskMetadata(
-          "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
-        )
+          "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
+        ),
       ).toMatchObject({
         inactive: false,
         label: "",
@@ -104,8 +104,8 @@ describe("useTestResults", () => {
     });
     expect(
       result.current.hookResponse.getTaskMetadata(
-        "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
-      )
+        "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
+      ),
     ).toMatchObject({
       inactive: false,
       label: "",
@@ -127,8 +127,8 @@ describe("useTestResults", () => {
     await waitFor(() => {
       expect(
         result.current.hookResponse.getTaskMetadata(
-          "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
-        )
+          "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
+        ),
       ).toMatchObject({
         inactive: false,
         label: "1 / 1 Failing Tests",
@@ -144,8 +144,8 @@ describe("useTestResults", () => {
     });
     expect(
       result.current.hookResponse.getTaskMetadata(
-        "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
-      )
+        "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
+      ),
     ).toMatchObject({
       inactive: false,
       label: "",
@@ -166,8 +166,8 @@ describe("useTestResults", () => {
     await waitFor(() => {
       expect(
         result.current.hookResponse.getTaskMetadata(
-          "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
-        )
+          "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
+        ),
       ).toMatchObject({
         inactive: true,
         label: "0 / 1 Failing Tests",

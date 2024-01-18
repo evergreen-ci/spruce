@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
@@ -48,7 +47,7 @@ export const Task = () => {
     fetchPolicy: "network-only",
     onError: (err) =>
       dispatchToast.error(
-        `There was an error loading the task: ${err.message}`
+        `There was an error loading the task: ${err.message}`,
       ),
   });
   usePolling({ startPolling, stopPolling, refetch });
@@ -67,18 +66,6 @@ export const Task = () => {
   } = task ?? {};
   const attributed = annotation?.issues?.length > 0;
   const isDisplayTask = executionTasksFull != null;
-
-  useEffect(() => {
-    if (
-      id === task?.id &&
-      Number.isNaN(selectedExecution) &&
-      latestExecution !== undefined
-    ) {
-      updateQueryParams({
-        execution: `${latestExecution}`,
-      });
-    }
-  }, [id, selectedExecution, latestExecution, updateQueryParams, task?.id]);
 
   if (error) {
     return <PageDoesNotExist />;

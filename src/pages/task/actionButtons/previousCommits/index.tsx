@@ -101,7 +101,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     },
     onError: (err) => {
       dispatchToast.error(
-        `Could not fetch last task execution: '${err.message}'`
+        `Could not fetch last task execution: '${err.message}'`,
       );
     },
   });
@@ -115,7 +115,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
         lastPassingTask,
         lastExecutedTask,
       }),
-    [parentTask, lastPassingTask, lastExecutedTask]
+    [parentTask, lastPassingTask, lastExecutedTask],
   );
 
   const menuDisabled = !baseTask || !parentTask;

@@ -100,7 +100,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
   const isContainerTask = !!podId;
   const { metadataLinks } = annotation ?? {};
   const [openGuideCue, setOpenGuideCue] = useState(
-    Cookies.get(SEEN_HONEYCOMB_GUIDE_CUE) !== "true"
+    Cookies.get(SEEN_HONEYCOMB_GUIDE_CUE) !== "true",
   );
   const triggerRef = useRef(null);
   const onHideCue = () => {
@@ -392,7 +392,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
               taskId,
               diskDevices,
               startTime,
-              finishTime
+              finishTime,
             )}
             onClick={() => {
               onHideCue();
@@ -483,7 +483,7 @@ const DetailsDescription = ({
     status === TaskStatus.Failed
       ? `Failing command: ${processFailingCommand(
           description,
-          isContainerTask
+          isContainerTask,
         )}`
       : `Command: ${description}`;
   const shouldTruncate = fullText.length > MAX_CHAR;
@@ -511,7 +511,7 @@ const DetailsDescription = ({
 
 const processFailingCommand = (
   description: string,
-  isContainerTask: boolean
+  isContainerTask: boolean,
 ): string => {
   if (description === "stranded") {
     return isContainerTask

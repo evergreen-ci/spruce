@@ -26,7 +26,7 @@ export const ProjectPatches = () => {
   const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
   const [isCommitQueueCheckboxChecked] = useQueryParam(
     PatchPageQueryParams.CommitQueue,
-    Cookies.get(INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES) === "true"
+    Cookies.get(INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES) === "true",
   );
 
   const patchesInput = usePatchesQueryParams();
@@ -45,7 +45,7 @@ export const ProjectPatches = () => {
     pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (err) => {
       dispatchToast.error(
-        `Error while fetching project patches: ${err.message}`
+        `Error while fetching project patches: ${err.message}`,
       );
     },
   });

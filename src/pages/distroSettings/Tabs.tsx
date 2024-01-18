@@ -97,7 +97,7 @@ const getTabData = (data: Props["distro"]): FormStateMap =>
       ...obj,
       [tab]: gqlToFormMap[tab](data),
     }),
-    {} as FormStateMap
+    {} as FormStateMap,
   );
 
 const Container = styled.div`

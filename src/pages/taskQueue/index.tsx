@@ -39,7 +39,7 @@ const TaskQueue = () => {
 
   const distros = useMemo(
     () => distrosData?.taskQueueDistros ?? [],
-    [distrosData]
+    [distrosData],
   );
   const firstDistroInList = distros[0]?.id;
 

@@ -25,7 +25,7 @@ describe("tupleSelect", () => {
         onSubmit={onSubmit}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
-      />
+      />,
     );
     const input = screen.queryByDataCy("tuple-select-input");
     const dropdown = screen.queryByText("Build Variant");
@@ -46,7 +46,7 @@ describe("tupleSelect", () => {
         onSubmit={onSubmit}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
-      />
+      />,
     );
     const input = screen.queryByDataCy("tuple-select-input");
 
@@ -67,7 +67,7 @@ describe("tupleSelect", () => {
         onSubmit={onSubmit}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
-      />
+      />,
     );
     const input = screen.queryByDataCy("tuple-select-input");
 
