@@ -70,15 +70,15 @@ export const formToGql = ((
           .map(({ displayText, field }) => ({ field, displayText }))
           .filter((str) => !!str),
     },
-    externalLinks: externalLinks.map(
-      ({ displayName, requesters, urlTemplate }) => ({
-        requesters,
-        displayName,
-        urlTemplate,
-      }),
-    ),
+    externalLinks:
+      externalLinks.length > 0
+        ? externalLinks.map(({ displayName, requesters, urlTemplate }) => ({
+            requesters,
+            displayName,
+            urlTemplate,
+          }))
+        : null,
   };
-
   return { projectRef };
 }) satisfies FormToGqlFunction<Tab>;
 
