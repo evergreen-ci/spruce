@@ -39,6 +39,7 @@ export enum UpdateHostStatus {
 
 export enum HostEvent {
   Created = "HOST_CREATED",
+  HostCreatedError = "HOST_CREATED_ERROR",
   AgentDeployFailed = "HOST_AGENT_DEPLOY_FAILED",
   ProvisionError = "HOST_PROVISION_ERROR",
   Started = "HOST_STARTED",
