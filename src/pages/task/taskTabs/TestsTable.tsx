@@ -117,7 +117,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
 
   const { initialFilters, initialSorting } = useMemo(
     () => getInitialState(queryParams),
-    [] // eslint-disable-line react-hooks/exhaustive-deps
+    [], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   const setSorting = (s: SortingState) =>
@@ -150,11 +150,11 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     manualPagination: true,
     onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
       setFilters,
-      updateFilters
+      updateFilters,
     ),
     onSortingChange: onChangeHandler<SortingState>(
       setSorting,
-      tableSortHandler
+      tableSortHandler,
     ),
   });
 
@@ -215,7 +215,7 @@ const getInitialState = (queryParams: {
         }
         return accum;
       },
-      []
+      [],
     ),
   };
 };

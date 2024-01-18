@@ -106,7 +106,7 @@ describe("Tests Table", () => {
       });
       cy.location().should((loc) => {
         expect(decodeURIComponent(loc.search)).to.include(
-          `statuses=${statuses.map(({ key }) => key).join(",")}`
+          `statuses=${statuses.map(({ key }) => key).join(",")}`,
         );
       });
     });

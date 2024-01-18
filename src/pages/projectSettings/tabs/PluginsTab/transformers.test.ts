@@ -47,13 +47,20 @@ const projectForm: PluginsFormState = {
       secret: null,
     },
   },
-  externalLinks: {
-    metadataPanelLink: {
+  externalLinks: [
+    {
       requesters: ["gitter_request", "patch_request"],
       displayName: "a link display name",
-      urlTemplate: "https:/a-link-template-{version_id}.com",
+      displayTitle: "a link display name",
+      urlTemplate: "https://a-link-template-{version_id}.com",
     },
-  },
+    {
+      requesters: ["ad_hoc"],
+      displayName: "periodic build link",
+      displayTitle: "periodic build link",
+      urlTemplate: "https://periodic-build-{version_id}.com",
+    },
+  ],
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
@@ -71,7 +78,12 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
       {
         requesters: ["gitter_request", "patch_request"],
         displayName: "a link display name",
-        urlTemplate: "https:/a-link-template-{version_id}.com",
+        urlTemplate: "https://a-link-template-{version_id}.com",
+      },
+      {
+        requesters: ["ad_hoc"],
+        displayName: "periodic build link",
+        urlTemplate: "https://periodic-build-{version_id}.com",
       },
     ],
   },
@@ -107,13 +119,20 @@ const repoForm: PluginsFormState = {
       secret: "secret",
     },
   },
-  externalLinks: {
-    metadataPanelLink: {
+  externalLinks: [
+    {
       requesters: ["gitter_request", "patch_request"],
       displayName: "a link display name",
-      urlTemplate: "https:/a-link-template-{version_id}.com",
+      displayTitle: "a link display name",
+      urlTemplate: "https://a-link-template-{version_id}.com",
     },
-  },
+    {
+      requesters: ["ad_hoc"],
+      displayName: "periodic build link",
+      displayTitle: "periodic build link",
+      urlTemplate: "https://periodic-build-{version_id}.com",
+    },
+  ],
 };
 
 const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
@@ -136,7 +155,12 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
       {
         requesters: ["gitter_request", "patch_request"],
         displayName: "a link display name",
-        urlTemplate: "https:/a-link-template-{version_id}.com",
+        urlTemplate: "https://a-link-template-{version_id}.com",
+      },
+      {
+        requesters: ["ad_hoc"],
+        displayName: "periodic build link",
+        urlTemplate: "https://periodic-build-{version_id}.com",
       },
     ],
   },

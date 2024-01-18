@@ -67,7 +67,6 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
   } = upstreamProject || {};
 
   const { owner, repo } = projectMetadata || {};
-  const { displayName, url } = externalLinksForMetadata?.[0] || {};
   return (
     <MetadataCard loading={loading} error={null}>
       <MetadataTitle>
@@ -195,13 +194,13 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
         </MetadataItem>
       )}
       <ParametersModal parameters={parameters} />
-      {url && displayName && (
-        <MetadataItem>
+      {externalLinksForMetadata?.map(({ displayName, url }) => (
+        <MetadataItem key={displayName}>
           <StyledLink data-cy="external-link" href={url}>
             {displayName}
           </StyledLink>
         </MetadataItem>
-      )}
+      ))}
       {gitTags && (
         <MetadataItem>
           {gitTags.map((g) => (
