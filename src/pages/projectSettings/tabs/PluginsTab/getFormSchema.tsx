@@ -180,6 +180,7 @@ export const getFormSchema = (
       externalLinks: {
         type: "array" as "array",
         title: "Metadata Links",
+        maxItems: 5,
         items: {
           type: "object" as "object",
           properties: {
