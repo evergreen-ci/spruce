@@ -44,13 +44,11 @@ export const gqlToForm = ((data) => {
         secret: projectRef?.taskAnnotationSettings?.fileTicketWebhook?.secret,
       },
     },
-    externalLinks: {
-      metadataPanelLink: {
-        requesters: projectRef?.externalLinks?.[0].requesters ?? [],
-        displayName: projectRef?.externalLinks?.[0].displayName ?? "",
-        urlTemplate: projectRef?.externalLinks?.[0].urlTemplate ?? "",
-      },
-    },
+    externalLinks:
+      projectRef?.externalLinks?.map((e) => ({
+        ...e,
+        displayTitle: e.displayName,
+      })) ?? [],
   };
 }) satisfies GqlToFormFunction<Tab>;
 
@@ -72,7 +70,13 @@ export const formToGql = ((
           .map(({ displayText, field }) => ({ field, displayText }))
           .filter((str) => !!str),
     },
-    externalLinks: [externalLinks.metadataPanelLink],
+    externalLinks: externalLinks.map(
+      ({ displayName, requesters, urlTemplate }) => ({
+        requesters,
+        displayName,
+        urlTemplate,
+      }),
+    ),
   };
 
   return { projectRef };
