@@ -1,13 +1,19 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useQuery } from "@apollo/client";
-import { Table } from "antd";
-import { SortOrder } from "antd/es/table/interface";
+import { useLeafyGreenTable } from "@leafygreen-ui/table";
+import {
+  ColumnFiltersState,
+  Filters,
+  Sorting,
+  SortingState,
+} from "@tanstack/react-table";
 import { useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
+import { BaseTable } from "components/Table/BaseTable";
 import TableControl from "components/Table/TableControl";
 import TableWrapper from "components/Table/TableWrapper";
+import { onChangeHandler, TableQueryParams } from "components/Table/utils";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { testStatusesFilterTreeData } from "constants/test";
 import {
   TaskTestsQuery,
   TaskTestsQueryVariables,
@@ -17,91 +23,55 @@ import {
   TaskQuery,
 } from "gql/generated/types";
 import { TASK_TESTS } from "gql/queries";
+import { useTableSort, useUpdateURLQueryParams, usePolling } from "hooks";
+import { useQueryParams } from "hooks/useQueryParam";
 import {
-  useUpdateURLQueryParams,
-  usePolling,
-  useStatusesFilter,
-  useFilterInputChangeHandler,
-} from "hooks";
-import { RequiredQueryParams, TableOnChange } from "types/task";
+  RequiredQueryParams,
+  mapFilterParamToId,
+  mapIdToFilterParam,
+} from "types/task";
 import { TestStatus } from "types/test";
 import { queryString, url } from "utils";
 import { getColumnsTemplate } from "./testsTable/getColumnsTemplate";
 
 const { getLimitFromSearch, getPageFromSearch } = url;
 const { parseQueryString, queryParamAsNumber } = queryString;
+const { getDefaultOptions: getDefaultFiltering } = Filters;
+const { getDefaultOptions: getDefaultSorting } = Sorting;
 
 interface TestsTableProps {
   task: TaskQuery["task"];
 }
+
 export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const { pathname, search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
-  const taskAnalytics = useTaskAnalytics();
-  const sendFilterTestsEvent = (filterBy: string) =>
-    taskAnalytics.sendEvent({ name: "Filter Tests", filterBy });
+  const { sendEvent } = useTaskAnalytics();
 
   const queryVariables = getQueryVariables(search, task.id);
-  const { limitNum, pageNum, sort } = queryVariables;
-  const cat = sort?.[0]?.sortBy;
-  const dir = sort?.[0]?.direction;
+  const [queryParams, setQueryParams] = useQueryParams();
+  const { execution, limitNum, pageNum, sort } = queryVariables;
+  const sortBy = sort?.[0]?.sortBy;
 
   const appliedDefaultSort = useRef(null);
   useEffect(() => {
+    // Avoid race condition where this hook overwrites TaskTabs setting a default execution.
+    if (execution == null) {
+      return;
+    }
+
     if (
-      cat === undefined &&
+      sortBy === undefined &&
       updateQueryParams &&
       appliedDefaultSort.current !== pathname
     ) {
       appliedDefaultSort.current = pathname;
       updateQueryParams({
-        [RequiredQueryParams.Category]: TestSortCategory.Status,
-        [RequiredQueryParams.Sort]: SortDirection.Asc,
+        [TableQueryParams.SortBy]: TestSortCategory.Status,
+        [TableQueryParams.SortDir]: SortDirection.Asc,
       });
     }
   }, [pathname, updateQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const statusesFilter = useStatusesFilter({
-    urlParam: RequiredQueryParams.Statuses,
-    resetPage: false,
-    sendAnalyticsEvent: sendFilterTestsEvent,
-  });
-
-  const statusSelectorProps = {
-    state: statusesFilter.inputValue,
-    tData: testStatusesFilterTreeData,
-    onChange: statusesFilter.setAndSubmitInputValue,
-  };
-
-  const testNameFilterInputChangeHandler = useFilterInputChangeHandler({
-    urlParam: RequiredQueryParams.TestName,
-    resetPage: true,
-    sendAnalyticsEvent: sendFilterTestsEvent,
-  });
-
-  const testNameInputProps = {
-    "data-cy": "testname-input",
-    placeholder: "Test name regex",
-    value: testNameFilterInputChangeHandler.inputValue,
-    onChange: ({ target }) =>
-      testNameFilterInputChangeHandler.setInputValue(target.value),
-    onFilter: testNameFilterInputChangeHandler.submitInputValue,
-  };
-
-  const columns = getColumnsTemplate({
-    onColumnHeaderClick: (sortField) =>
-      taskAnalytics.sendEvent({ name: "Sort Tests Table", sortBy: sortField }),
-    statusSelectorProps,
-    testNameInputProps,
-    task,
-  }).map((column) => ({
-    ...column,
-    ...(column.key === cat && {
-      sortOrder: (dir === SortDirection.Asc
-        ? "ascend"
-        : "descend") as SortOrder,
-    }),
-  }));
 
   const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskTestsQuery,
@@ -113,38 +83,80 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   });
   usePolling({ startPolling, stopPolling, refetch });
 
-  // update url query params when user event triggers change
-  const tableChangeHandler: TableOnChange<TestResult> = (...[, , sorter]) => {
-    const { columnKey, order } = Array.isArray(sorter) ? sorter[0] : sorter;
-    let queryParams = {
-      [RequiredQueryParams.Category]: undefined,
-      [RequiredQueryParams.Sort]: undefined,
-      [RequiredQueryParams.Page]: "0",
-    };
-    if (order !== undefined) {
-      queryParams = {
-        ...queryParams,
-        [RequiredQueryParams.Category]: `${columnKey}`,
-        [RequiredQueryParams.Sort]:
-          order === "ascend" ? SortDirection.Asc : SortDirection.Desc,
-      };
-    }
-    updateQueryParams(queryParams);
+  const clearQueryParams = () => {
+    table.resetColumnFilters(true);
   };
 
-  const clearQueryParams = () => {
-    updateQueryParams({
-      [RequiredQueryParams.Category]: undefined,
-      [RequiredQueryParams.Sort]: undefined,
-      [RequiredQueryParams.Page]: "0",
-      [RequiredQueryParams.TestName]: undefined,
-      [RequiredQueryParams.Statuses]: undefined,
+  const updateFilters = (filterState: ColumnFiltersState) => {
+    const updatedParams = {
+      ...queryParams,
+      page: "0",
+      ...emptyFilterQueryParams,
+    };
+
+    filterState.forEach(({ id, value }) => {
+      const key = mapIdToFilterParam[id];
+      updatedParams[key] = value;
     });
+
+    setQueryParams(updatedParams);
+    sendEvent({ name: "Filter Tests", filterBy: Object.keys(filterState) });
   };
+
+  const tableSortHandler = useTableSort({
+    sendAnalyticsEvents: (sorter: SortingState) =>
+      sendEvent({
+        name: "Sort Tests Table",
+        sortBy: sorter.map(({ id }) => id as TestSortCategory),
+      }),
+  });
 
   const { task: taskData } = data ?? {};
   const { tests } = taskData ?? {};
   const { filteredTestCount, testResults, totalTestCount } = tests ?? {};
+
+  const { initialFilters, initialSorting } = useMemo(
+    () => getInitialState(queryParams),
+    [] // eslint-disable-line react-hooks/exhaustive-deps
+  );
+
+  const setSorting = (s: SortingState) =>
+    getDefaultSorting(table).onSortingChange(s);
+
+  const setFilters = (f: ColumnFiltersState) =>
+    getDefaultFiltering(table).onColumnFiltersChange(f);
+
+  const columns = useMemo(() => getColumnsTemplate({ task }), [task]);
+
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+  const table = useLeafyGreenTable<TestResult>({
+    columns,
+    containerRef: tableContainerRef,
+    data: testResults ?? [],
+    defaultColumn: {
+      enableColumnFilter: false,
+      enableSorting: false,
+      size: "auto" as unknown as number,
+      // Handle bug in sorting order
+      // https://github.com/TanStack/table/issues/4289
+      sortDescFirst: false,
+    },
+    initialState: {
+      columnFilters: initialFilters,
+      sorting: initialSorting,
+    },
+    manualFiltering: true,
+    manualSorting: true,
+    manualPagination: true,
+    onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+      setFilters,
+      updateFilters
+    ),
+    onSortingChange: onChangeHandler<SortingState>(
+      setSorting,
+      tableSortHandler
+    ),
+  });
 
   return (
     <TableWrapper
@@ -157,27 +169,56 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
           label="tests"
           onClear={clearQueryParams}
           onPageSizeChange={() => {
-            taskAnalytics.sendEvent({ name: "Change Page Size" });
+            sendEvent({ name: "Change Page Size" });
           }}
         />
       }
       shouldShowBottomTableControl={filteredTestCount > 10}
     >
-      <Table
+      <BaseTable
         data-cy="tests-table"
-        rowKey={rowKey}
-        pagination={false}
-        columns={columns}
-        dataSource={testResults}
-        getPopupContainer={(trigger: HTMLElement) => trigger}
-        onChange={tableChangeHandler}
+        data-loading={loading}
         loading={loading}
+        loadingRows={limitNum}
+        shouldAlternateRowColor
+        table={table}
       />
     </TableWrapper>
   );
 };
 
-export const rowKey = ({ id }: { id: string }): string => id;
+const emptyFilterQueryParams = {
+  [RequiredQueryParams.TestName]: undefined,
+  [RequiredQueryParams.Statuses]: undefined,
+};
+
+const getInitialState = (queryParams: {
+  [key: string]: any;
+}): {
+  initialFilters: ColumnFiltersState;
+  initialSorting: SortingState;
+} => {
+  const {
+    [TableQueryParams.SortBy]: sortBy,
+    [TableQueryParams.SortDir]: sortDir,
+  } = queryParams;
+
+  return {
+    initialSorting:
+      sortBy && sortDir
+        ? [{ id: sortBy, desc: sortDir === SortDirection.Desc }]
+        : [{ id: TestSortCategory.Status, desc: false }],
+    initialFilters: Object.entries(mapFilterParamToId).reduce(
+      (accum, [param, id]) => {
+        if (queryParams[param]?.length) {
+          return [...accum, { id, value: queryParams[param] }];
+        }
+        return accum;
+      },
+      []
+    ),
+  };
+};
 
 const getQueryVariables = (
   search: string,

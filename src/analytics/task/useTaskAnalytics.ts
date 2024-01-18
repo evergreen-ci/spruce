@@ -15,14 +15,10 @@ import { RequiredQueryParams, LogTypes } from "types/task";
 
 type LogViewer = "raw" | "html" | "parsley" | "lobster";
 type Action =
-  | { name: "Filter Tests"; filterBy: string }
+  | { name: "Filter Tests"; filterBy: string | string[] }
   | {
       name: "Sort Tests Table";
-      sortBy:
-        | TestSortCategory.TestName
-        | TestSortCategory.Status
-        | TestSortCategory.BaseStatus
-        | TestSortCategory.Duration;
+      sortBy: TestSortCategory | TestSortCategory[];
     }
   | {
       name: "Sort Execution Tasks Table";
