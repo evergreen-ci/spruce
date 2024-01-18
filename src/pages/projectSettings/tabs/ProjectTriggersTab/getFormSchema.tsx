@@ -142,7 +142,7 @@ export const getFormSchema = (
         },
         status: {
           "ui:description":
-            "Specify which status of the upstream build or task should trigger a downstream version. (Only applicable to build and task level triggers.)",
+            "Specify which status of the upstream build or task should trigger a downstream version. This applicable to build and task level triggers only.",
           "ui:allowDeselect": false,
         },
         dateCutoff: {
