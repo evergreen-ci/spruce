@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/Dropdown Custom Button Render 1`] = `
+exports[`Snapshot Tests Dropdown.stories CustomButtonRender 1`] = `
 <div>
   <div
     class="css-1ry038z-Container e1yw4j304"
   >
     <button
       aria-disabled="false"
-      class="lg-ui-button-0000 leafygreen-ui-18d58v3 css-1dntq6k-StyledButton-menuButtonStyleOverrides e1yw4j302"
+      class="lg-ui-button-0000 leafygreen-ui-xcwxw8 css-1dntq6k-StyledButton-menuButtonStyleOverrides e1yw4j302"
       data-cy="dropdown-button"
       type="button"
     >
@@ -41,7 +41,7 @@ exports[`storybook Storyshots components/Dropdown Custom Button Render 1`] = `
         >
           <path
             clip-rule="evenodd"
-            d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
+            d="M1.636 5.364a1 1 0 0 0 0 1.414l4.95 4.95.707.707a1 1 0 0 0 1.414 0l.707-.707 4.95-4.95a1 1 0 0 0 0-1.414l-.707-.707a1 1 0 0 0-1.414 0L8 8.899 3.757 4.657a1 1 0 0 0-1.414 0l-.707.707Z"
             fill="currentColor"
             fill-rule="evenodd"
           />
@@ -52,14 +52,14 @@ exports[`storybook Storyshots components/Dropdown Custom Button Render 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots components/Dropdown Default 1`] = `
+exports[`Snapshot Tests Dropdown.stories Default 1`] = `
 <div>
   <div
     class="css-1ry038z-Container e1yw4j304"
   >
     <button
       aria-disabled="false"
-      class="lg-ui-button-0000 leafygreen-ui-18d58v3 css-1dntq6k-StyledButton-menuButtonStyleOverrides e1yw4j302"
+      class="lg-ui-button-0000 leafygreen-ui-xcwxw8 css-1dntq6k-StyledButton-menuButtonStyleOverrides e1yw4j302"
       data-cy="dropdown-button"
       type="button"
     >
@@ -94,7 +94,7 @@ exports[`storybook Storyshots components/Dropdown Default 1`] = `
         >
           <path
             clip-rule="evenodd"
-            d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
+            d="M1.636 5.364a1 1 0 0 0 0 1.414l4.95 4.95.707.707a1 1 0 0 0 1.414 0l.707-.707 4.95-4.95a1 1 0 0 0 0-1.414l-.707-.707a1 1 0 0 0-1.414 0L8 8.899 3.757 4.657a1 1 0 0 0-1.414 0l-.707.707Z"
             fill="currentColor"
             fill-rule="evenodd"
           />

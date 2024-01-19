@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/Breadcrumbs Default 1`] = `
+exports[`Snapshot Tests Breadcrumbs.stories Default 1`] = `
 <div>
   <nav
     class="css-tfl7ja-Container eaak0tv1"
@@ -9,11 +9,11 @@ exports[`storybook Storyshots components/Breadcrumbs Default 1`] = `
       class="leafygreen-ui-cssveg"
     >
       <a
-        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
         href="/commits/spruce"
       >
         <span
-          class="leafygreen-ui-baoi4d"
+          class="leafygreen-ui-1ewnca3"
         >
           spruce
         </span>
@@ -32,7 +32,7 @@ exports[`storybook Storyshots components/Breadcrumbs Default 1`] = `
     >
       <path
         clip-rule="evenodd"
-        d="M5.364 14.364a1 1 0 001.414 0l4.95-4.95.707-.707a1 1 0 000-1.414l-.707-.707-4.95-4.95a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L8.899 8l-4.242 4.243a1 1 0 000 1.414l.707.707z"
+        d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
         fill="currentColor"
         fill-rule="evenodd"
       />

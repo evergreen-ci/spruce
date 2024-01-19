@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/HistoryTable/HistoryTableTestSearch Default 1`] = `
+exports[`Snapshot Tests Components/HistoryTable/HistoryTableTestSearch Default 1`] = `
 <div>
   <div
     style="display: flex; flex-direction: column;"
@@ -19,7 +19,7 @@ exports[`storybook Storyshots Components/HistoryTable/HistoryTableTestSearch Def
           >
             <label
               class="leafygreen-ui-gr5280"
-              for="textinput-32"
+              for="textinput-3"
             >
               Filter by Failed Tests
             </label>
@@ -32,7 +32,7 @@ exports[`storybook Storyshots Components/HistoryTable/HistoryTableTestSearch Def
               aria-label="history-table-test-search-input"
               autocomplete="on"
               class="leafygreen-ui-6i61vl"
-              id="textinput-32"
+              id="textinput-3"
               placeholder="Search test name regex"
               required=""
               type="search"
@@ -49,7 +49,7 @@ exports[`storybook Storyshots Components/HistoryTable/HistoryTableTestSearch Def
           <button
             aria-disabled="false"
             aria-label="Select plus button"
-            class="leafygreen-ui-1xt2asn"
+            class="leafygreen-ui-76dd2i"
             tabindex="0"
           >
             <div
@@ -58,7 +58,6 @@ exports[`storybook Storyshots Components/HistoryTable/HistoryTableTestSearch Def
               <svg
                 aria-label="Plus Icon"
                 class=""
-                data-cy="tuple-select-button"
                 fill="none"
                 height="16"
                 role="img"
@@ -68,7 +67,7 @@ exports[`storybook Storyshots Components/HistoryTable/HistoryTableTestSearch Def
               >
                 <path
                   clip-rule="evenodd"
-                  d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
+                  d="M7.5 2a1 1 0 0 0-1 1v3.5H3a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h3.5V13a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9.5H13a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9.5V3a1 1 0 0 0-1-1h-1Z"
                   fill="currentColor"
                   fill-rule="evenodd"
                 />

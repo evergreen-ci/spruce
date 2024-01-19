@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot Tests CustomCreatedTickets.stories Default 1`] = `
+<div>
+  <h6
+    class="css-17joker-TicketsTitle efcqne01 leafygreen-ui-19p3n10"
+  >
+    Create a New Ticket
+  </h6>
+  <div
+    class="css-t0zpzm-Container eo8g30w0"
+  >
+    <div
+      class="leafygreen-ui-cssveg css-4qutsv-ButtonWrapper efcqne00"
+    >
+      <button
+        aria-disabled="false"
+        class="lg-ui-button-0000 leafygreen-ui-h1g1ry"
+        data-cy="file-ticket-button"
+        type="button"
+      >
+        <div
+          class="leafygreen-ui-v038xi"
+        />
+        <div
+          class="leafygreen-ui-1tpstb3"
+        >
+          File ticket
+        </div>
+      </button>
+    </div>
+  </div>
+  <h6
+    class="css-1bcaqaj-TicketsTitle efcqne01 leafygreen-ui-19p3n10"
+  >
+    Tickets Created From This Task
+  </h6>
+  <div
+    class="css-1sw7km2-TicketContainer elmpkl90"
+  >
+    <div
+      class="css-1bcnev1-Container e1ch0kli3"
+      data-cy="annotation-ticket-row"
+    >
+      <a
+        class="lg-ui-0001 e1ch0kli2 css-1ced1jn-StyledLink-JiraSummaryLink leafygreen-ui-1gfngq5"
+        data-cy="DEVPROD-1"
+        href="https://spruce.mongodb.com"
+        target="_blank"
+      >
+        <span
+          class="leafygreen-ui-1ewnca3"
+        >
+          DEVPROD-1
+          : Issue Summary
+        </span>
+      </a>
+      <div
+        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-ohl2hc"
+        data-cy="DEVPROD-1-badge"
+      >
+        Done
+      </div>
+      <div
+        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-1qtf7xy"
+        data-cy="DEVPROD-1-confidence-badge"
+      >
+        25
+        % Confident in suggestion
+      </div>
+      <div
+        class="css-vrtzhq-BottomMetaDataWrapper e1ch0kli0"
+        data-cy="DEVPROD-1-metadata"
+      >
+        <small
+          class="leafygreen-ui-6flbwy"
+        >
+          Created: 
+          Jan 27, 2020
+        </small>
+        <small
+          class="leafygreen-ui-6flbwy"
+        >
+          Updated: 
+          Nov 28, 2023
+        </small>
+        <small
+          class="leafygreen-ui-6flbwy"
+        >
+          Assignee: sophie.stadler
+        </small>
+        <small
+          class="leafygreen-ui-6flbwy"
+        >
+          Assigned Team: 
+          evg-ui
+        </small>
+      </div>
+    </div>
+    <div
+      class="css-1bcnev1-Container e1ch0kli3"
+      data-cy="annotation-ticket-row"
+    >
+      <a
+        class="lg-ui-0001 e1ch0kli2 css-1ced1jn-StyledLink-JiraSummaryLink leafygreen-ui-1gfngq5"
+        data-cy="DEVPROD-2"
+        href="https://spruce.mongodb.com"
+        target="_blank"
+      >
+        <span
+          class="leafygreen-ui-1ewnca3"
+        >
+          DEVPROD-2
+          : Issue Summary
+        </span>
+      </a>
+      <div
+        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-ohl2hc"
+        data-cy="DEVPROD-2-badge"
+      >
+        In Progress
+      </div>
+      <div
+        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-1qtf7xy"
+        data-cy="DEVPROD-2-confidence-badge"
+      >
+        50
+        % Confident in suggestion
+      </div>
+      <div
+        class="css-vrtzhq-BottomMetaDataWrapper e1ch0kli0"
+        data-cy="DEVPROD-2-metadata"
+      >
+        <small
+          class="leafygreen-ui-6flbwy"
+        >
+          Created: 
+          Jan 28, 2020
+        </small>
+        <small
+          class="leafygreen-ui-6flbwy"
+        >
+          Updated: 
+          Nov 29, 2023
+        </small>
+        <small
+          class="leafygreen-ui-6flbwy"
+        >
+          Assignee: mohamed.khelif
+        </small>
+        <small
+          class="leafygreen-ui-6flbwy"
+        >
+          Assigned Team: 
+          evg-ui
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+`;

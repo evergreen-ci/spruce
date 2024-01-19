@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/TreeSelect Default 1`] = `
+exports[`Snapshot Tests TreeSelect.stories Default 1`] = `
 <div>
   <div
     class="css-p9y3cy-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
@@ -14,17 +14,17 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
       >
         <label
           class="leafygreen-ui-75mjfl"
-          for="checkbox-172"
-          id="checkbox-172-label"
+          for="checkbox-6"
+          id="checkbox-6-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-172-label"
+            aria-labelledby="checkbox-6-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-172"
+            id="checkbox-6"
             type="checkbox"
           />
           <div
@@ -67,17 +67,17 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
       >
         <label
           class="leafygreen-ui-75mjfl"
-          for="checkbox-173"
-          id="checkbox-173-label"
+          for="checkbox-7"
+          id="checkbox-7-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-173-label"
+            aria-labelledby="checkbox-7-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-173"
+            id="checkbox-7"
             type="checkbox"
           />
           <div
@@ -120,17 +120,17 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
       >
         <label
           class="leafygreen-ui-75mjfl"
-          for="checkbox-174"
-          id="checkbox-174-label"
+          for="checkbox-8"
+          id="checkbox-8-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-174-label"
+            aria-labelledby="checkbox-8-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-174"
+            id="checkbox-8"
             type="checkbox"
           />
           <div
@@ -173,17 +173,17 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
       >
         <label
           class="leafygreen-ui-75mjfl"
-          for="checkbox-175"
-          id="checkbox-175-label"
+          for="checkbox-9"
+          id="checkbox-9-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-175-label"
+            aria-labelledby="checkbox-9-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-175"
+            id="checkbox-9"
             type="checkbox"
           />
           <div
@@ -226,17 +226,17 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
       >
         <label
           class="leafygreen-ui-75mjfl"
-          for="checkbox-176"
-          id="checkbox-176-label"
+          for="checkbox-10"
+          id="checkbox-10-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-176-label"
+            aria-labelledby="checkbox-10-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-176"
+            id="checkbox-10"
             type="checkbox"
           />
           <div
@@ -279,17 +279,17 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
       >
         <label
           class="leafygreen-ui-75mjfl"
-          for="checkbox-177"
-          id="checkbox-177-label"
+          for="checkbox-11"
+          id="checkbox-11-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-177-label"
+            aria-labelledby="checkbox-11-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-177"
+            id="checkbox-11"
             type="checkbox"
           />
           <div
@@ -332,17 +332,17 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
       >
         <label
           class="leafygreen-ui-75mjfl"
-          for="checkbox-178"
-          id="checkbox-178-label"
+          for="checkbox-12"
+          id="checkbox-12-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-178-label"
+            aria-labelledby="checkbox-12-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-178"
+            id="checkbox-12"
             type="checkbox"
           />
           <div
@@ -385,17 +385,17 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
       >
         <label
           class="leafygreen-ui-75mjfl"
-          for="checkbox-179"
-          id="checkbox-179-label"
+          for="checkbox-13"
+          id="checkbox-13-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-179-label"
+            aria-labelledby="checkbox-13-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-179"
+            id="checkbox-13"
             type="checkbox"
           />
           <div
@@ -438,17 +438,17 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
       >
         <label
           class="leafygreen-ui-75mjfl"
-          for="checkbox-180"
-          id="checkbox-180-label"
+          for="checkbox-14"
+          id="checkbox-14-label"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-label="checkbox"
-            aria-labelledby="checkbox-180-label"
+            aria-labelledby="checkbox-14-label"
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
-            id="checkbox-180"
+            id="checkbox-14"
             type="checkbox"
           />
           <div
@@ -487,14 +487,14 @@ exports[`storybook Storyshots components/TreeSelect Default 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots components/TreeSelect With Dropdown 1`] = `
+exports[`Snapshot Tests TreeSelect.stories WithDropdown 1`] = `
 <div>
   <div
     class="css-1ry038z-Container e1yw4j304"
   >
     <button
       aria-disabled="false"
-      class="lg-ui-button-0000 leafygreen-ui-18d58v3 css-1dntq6k-StyledButton-menuButtonStyleOverrides e1yw4j302"
+      class="lg-ui-button-0000 leafygreen-ui-xcwxw8 css-1dntq6k-StyledButton-menuButtonStyleOverrides e1yw4j302"
       data-cy="dropdown-button"
       type="button"
     >
@@ -531,7 +531,7 @@ exports[`storybook Storyshots components/TreeSelect With Dropdown 1`] = `
         >
           <path
             clip-rule="evenodd"
-            d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
+            d="M1.636 5.364a1 1 0 0 0 0 1.414l4.95 4.95.707.707a1 1 0 0 0 1.414 0l.707-.707 4.95-4.95a1 1 0 0 0 0-1.414l-.707-.707a1 1 0 0 0-1.414 0L8 8.899 3.757 4.657a1 1 0 0 0-1.414 0l-.707.707Z"
             fill="currentColor"
             fill-rule="evenodd"
           />
