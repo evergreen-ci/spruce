@@ -30,7 +30,7 @@
     "prettier": "prettier --write",
     "prod": "env-cmd -e devProduction -r .env-cmdrc.local.json yarn start",
     "serve": "node scripts/prod-server.js",
-    "snapshot": "jest storybook.test.ts --watchAll=false",
+    "snapshot": "jest snapshot.test.ts --watchAll=false",
     "staging": "env-cmd -e devStaging -r .env-cmdrc.local.json yarn start",
     "start": "vite",
     "storybook": "storybook dev -p 6006",
