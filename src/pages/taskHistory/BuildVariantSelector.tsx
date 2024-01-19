@@ -22,7 +22,7 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
   const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
   const [visibleColumns, setVisibleColumns] = useQueryParam(
     HistoryQueryParams.VisibleColumns,
-    []
+    [],
   );
 
   const { data, loading } = useQuery<

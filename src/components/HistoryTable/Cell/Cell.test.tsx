@@ -11,7 +11,7 @@ describe("taskCell", () => {
           status: TaskStatus.Succeeded,
         }}
         loading={false}
-      />
+      />,
     );
 
     expect(screen.getByLabelText("Checkmark Icon")).toBeInTheDocument();
@@ -24,7 +24,7 @@ describe("taskCell", () => {
           status: TaskStatus.Failed,
         }}
         loading={false}
-      />
+      />,
     );
     expect(screen.getByLabelText("Failure Icon")).toBeInTheDocument();
     expect(screen.getByDataCy("task-cell")).toBeInTheDocument();
@@ -38,11 +38,11 @@ describe("taskCell", () => {
           status: TaskStatus.Succeeded,
         }}
         loading={false}
-      />
+      />,
     );
     expect(screen.queryByRole("link")).toHaveAttribute(
       "href",
-      "/task/some-task-id"
+      "/task/some-task-id",
     );
   });
 
@@ -55,7 +55,7 @@ describe("taskCell", () => {
         }}
         inactive
         loading={false}
-      />
+      />,
     );
     expect(screen.queryByDataCy("task-cell")).toHaveStyle("opacity: 0.4");
   });
@@ -68,7 +68,7 @@ describe("taskCell", () => {
           status: TaskStatus.Failed,
         }}
         label="some-label"
-      />
+      />,
     );
     expect(screen.getByText("some-label")).toBeInTheDocument();
   });
@@ -83,7 +83,7 @@ describe("taskCell", () => {
         }}
         failingTests={["some-test"]}
         loading={false}
-      />
+      />,
     );
     await user.hover(screen.queryByDataCy("history-table-icon"));
     await screen.findByText("some-test");

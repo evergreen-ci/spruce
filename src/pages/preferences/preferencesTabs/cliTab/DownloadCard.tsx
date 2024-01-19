@@ -37,7 +37,7 @@ export const DownloadCard = () => {
   const { clientBinaries } = clientConfig || {};
   const topBinaries = clientBinaries.filter(filterBinaries);
   const otherBinaries = clientBinaries.filter(
-    (binary) => !filterBinaries(binary)
+    (binary) => !filterBinaries(binary),
   );
 
   return (

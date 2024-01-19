@@ -7,7 +7,7 @@ import { form, ProjectType } from "../utils";
 const { overrideRadioBox } = form;
 
 export const getFormSchema = (
-  projectType: ProjectType
+  projectType: ProjectType,
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -105,7 +105,7 @@ export const getFormSchema = (
             },
           },
         },
-      }
+      },
     ),
   },
   uiSchema: {
@@ -125,16 +125,24 @@ export const getFormSchema = (
         "ui:displayTitle": "New Project Trigger",
         "ui:label": false,
         project: {
+          "ui:description":
+            "The upstream project identifier to listen to for commits",
           "ui:data-cy": "project-input",
         },
         configFile: {
+          "ui:description":
+            "The path to the downstream project's config file. This may be the same as the main project configuration file but does not have to be.",
           "ui:data-cy": "config-file-input",
           "ui:placeholder": ".evergreen.yml",
         },
         level: {
+          "ui:description":
+            "Task and build levels will trigger based on the completion of a task or a build in the upstream project. Push level triggers will trigger once a commit is pushed to the upstream project. This is helpful if the upstream project does not regularly run or create commit tasks.",
           "ui:allowDeselect": false,
         },
         status: {
+          "ui:description":
+            "Specify which status of the upstream build or task should trigger a downstream version. This applicable to build and task level triggers only.",
           "ui:allowDeselect": false,
         },
         dateCutoff: {

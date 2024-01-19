@@ -98,7 +98,7 @@ export const VersionTabs: React.FC<Props> = ({
       [PatchTab.Changes]: isPatch,
       [PatchTab.Downstream]: childPatches,
     }),
-    [isPatch, childPatches]
+    [isPatch, childPatches],
   );
 
   const allTabs = useMemo(() => {
@@ -115,7 +115,7 @@ export const VersionTabs: React.FC<Props> = ({
 
   const activeTabs = useMemo(
     () => Object.keys(allTabs).filter((t) => tabIsActive[t] as PatchTab[]),
-    [allTabs, tabIsActive]
+    [allTabs, tabIsActive],
   );
   const isValidTab = tabIsActive[tab];
   const [selectedTab, setSelectedTab] = useState(activeTabs.indexOf(tab));

@@ -38,7 +38,7 @@ const props = {
       subRows: [
         {
           buildVariantDisplayName: `Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled) ${"long ".repeat(
-            80
+            80,
           )}`,
           displayName: "sharding_last_continuous_00-linux-enterprise",
           execution: 0,

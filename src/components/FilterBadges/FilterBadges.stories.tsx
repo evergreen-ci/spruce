@@ -27,8 +27,8 @@ const BadgeContainer = () => {
   const removeBadge = (badge: FilterBadgeType) => {
     setBadges(
       badges.filter(
-        (b) => (b.key !== badge.key && b.value !== badge.value) || false
-      )
+        (b) => (b.key !== badge.key && b.value !== badge.value) || false,
+      ),
     );
   };
   const onClearAll = () => {

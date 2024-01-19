@@ -7,7 +7,7 @@ import { PublicKeysTable } from "./publicKeysTab/PublicKeysTable";
 
 export const PublicKeysTab: React.FC = () => {
   const [editModalProps, setEditModalProps] = useState<EditModalPropsState>(
-    defaultEditModalProps
+    defaultEditModalProps,
   );
 
   const onCancel = () => {

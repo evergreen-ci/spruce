@@ -48,13 +48,13 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
   >(MIGRATE_VOLUME, {
     onCompleted() {
       dispatchToast.success(
-        "Volume migration has been scheduled. A new host will be spawned and accessible on your Hosts page."
+        "Volume migration has been scheduled. A new host will be spawned and accessible on your Hosts page.",
       );
       setOpen(false);
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error during volume migration: ${err.message}`
+        `There was an error during volume migration: ${err.message}`,
       );
       dispatch({ type: "resetPage" });
     },
@@ -63,7 +63,7 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
 
   const distros = useMemo(
     () => formSchemaInput.distros?.filter((d) => d.isVirtualWorkStation),
-    [formSchemaInput.distros]
+    [formSchemaInput.distros],
   );
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,

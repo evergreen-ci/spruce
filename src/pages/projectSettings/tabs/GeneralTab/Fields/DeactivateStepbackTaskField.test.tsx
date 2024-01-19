@@ -28,10 +28,10 @@ describe("deactivateStepbackTask", () => {
     const { Component } = RenderFakeToastContext(<Field />);
     render(<Component />);
     expect(
-      screen.getByDataCy("deactivate-stepback-button")
+      screen.getByDataCy("deactivate-stepback-button"),
     ).toBeInTheDocument();
     expect(
-      screen.queryByDataCy("deactivate-stepback-modal")
+      screen.queryByDataCy("deactivate-stepback-modal"),
     ).not.toBeInTheDocument();
   });
 
@@ -58,11 +58,11 @@ describe("deactivateStepbackTask", () => {
 
     await user.type(
       screen.getByDataCy("deactivate-variant-name-input"),
-      "ubuntu1604"
+      "ubuntu1604",
     );
     await user.type(
       screen.getByDataCy("deactivate-task-name-input"),
-      "js-test"
+      "js-test",
     );
     const confirmButton = screen.getByRole("button", {
       name: "Confirm",
@@ -70,7 +70,7 @@ describe("deactivateStepbackTask", () => {
     expect(confirmButton).toBeEnabled();
     await user.click(confirmButton);
     expect(dispatchToast.success).toHaveBeenCalledWith(
-      "Stepback task was deactivated."
+      "Stepback task was deactivated.",
     );
   });
 });

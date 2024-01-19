@@ -21,12 +21,12 @@ export const SpawnHost = () => {
     pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (e) => {
       dispatchToast.error(
-        `There was an error loading your spawn hosts: ${e.message}`
+        `There was an error loading your spawn hosts: ${e.message}`,
       );
     },
   });
   const migrationInProcess = !!data?.myHosts.find(
-    ({ volumes }) => !!volumes.find(({ migrating }) => migrating)
+    ({ volumes }) => !!volumes.find(({ migrating }) => migrating),
   );
   usePolling({
     startPolling,
@@ -42,10 +42,10 @@ export const SpawnHost = () => {
   }
   const hosts = data?.myHosts || [];
   const runningHosts = hosts.filter(
-    (host) => host.status === HostStatus.Running
+    (host) => host.status === HostStatus.Running,
   );
   const pausedHosts = hosts.filter(
-    (host) => host.status === HostStatus.Stopped
+    (host) => host.status === HostStatus.Stopped,
   );
 
   const hasHosts = hosts.length > 0;

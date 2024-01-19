@@ -33,11 +33,11 @@ describe("navDropdown", () => {
     expect(screen.getByText("Item 1")).toBeInTheDocument();
     expect(screen.getByText("Item 1").closest("a")).toHaveAttribute(
       "href",
-      "/item1"
+      "/item1",
     );
     expect(screen.getByText("Item 2").closest("a")).toHaveAttribute(
       "href",
-      "/item2"
+      "/item2",
     );
   });
   it("clicking on a link triggers a callback", async () => {
@@ -54,7 +54,7 @@ describe("navDropdown", () => {
             onClick: mockCallback,
           },
         ]}
-      />
+      />,
     );
     await user.click(screen.getByText("Dropdown"));
     expect(screen.getByText("Item 1")).toBeInTheDocument();

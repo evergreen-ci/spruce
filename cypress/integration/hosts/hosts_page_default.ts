@@ -8,7 +8,7 @@ describe("Hosts Page Default", () => {
 
   it("Renders hosts table with hosts sorted by status by default", () => {
     cy.dataCy("leafygreen-table-row").each(($el, index) =>
-      cy.wrap($el).contains(defaultHostsFirstPage[index])
+      cy.wrap($el).contains(defaultHostsFirstPage[index]),
     );
   });
 

@@ -7,7 +7,7 @@ import { IntervalSpecifier } from "./types";
 type Tab = ProjectSettingsTabRoutes.PeriodicBuilds;
 
 const getTitle = (
-  definition: Pick<PeriodicBuild, "cron" | "intervalHours" | "message">
+  definition: Pick<PeriodicBuild, "cron" | "intervalHours" | "message">,
 ) => {
   if (!definition) {
     return "";
@@ -58,14 +58,14 @@ export const gqlToForm = ((data, { projectType }) => {
                   intervalHours: null,
                   cron,
                 },
-        })
+        }),
       ) ?? [],
   };
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
   { periodicBuilds, periodicBuildsOverride },
-  projectId
+  projectId,
 ) => ({
   projectRef: {
     id: projectId,
@@ -86,7 +86,7 @@ export const formToGql = ((
                   cron: "",
                   intervalHours: interval.intervalHours,
                 }),
-          })
+          }),
         )
       : null,
   },

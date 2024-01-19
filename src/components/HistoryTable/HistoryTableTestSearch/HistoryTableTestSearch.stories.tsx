@@ -17,7 +17,7 @@ export const Default: CustomStoryObj<typeof HistoryTableTestSearch> = {
 
 const TestSearch = () => {
   const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
-    new Set([TestStatus.Failed, TestStatus.Passed, TestStatus.All])
+    new Set([TestStatus.Failed, TestStatus.Passed, TestStatus.All]),
   );
 
   return (

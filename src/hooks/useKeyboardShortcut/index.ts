@@ -20,7 +20,7 @@ const INPUT_ELEMENTS = ["INPUT", "TEXTAREA", "SELECT"];
 const useKeyboardShortcut = (
   keys: ShortcutKeys,
   cb: () => void,
-  options: UseKeyboardShortcutOptions = {}
+  options: UseKeyboardShortcutOptions = {},
 ) => {
   if (!keys.modifierKeys?.length && !keys.charKey) {
     throw new Error("Must provide at least one key.");
@@ -39,7 +39,7 @@ const useKeyboardShortcut = (
 
   const areExactModifierKeysPressed = (
     event: KeyboardEvent,
-    modifierKeys: ModifierKey[]
+    modifierKeys: ModifierKey[],
   ): boolean => {
     const pressedModifierKeys: ModifierKey[] = [
       ...(event.ctrlKey || event.metaKey ? [ModifierKey.Control] : []),
@@ -55,7 +55,7 @@ const useKeyboardShortcut = (
     (event: KeyboardEvent) => {
       const exactModifierKeysPressed = areExactModifierKeysPressed(
         event,
-        keys.modifierKeys ?? []
+        keys.modifierKeys ?? [],
       );
       const charKeyPressed = event.key === keys.charKey;
 
@@ -77,7 +77,7 @@ const useKeyboardShortcut = (
         }
       }
     },
-    [keys, preventDefault, ignoreFocus, sendEvent]
+    [keys, preventDefault, ignoreFocus, sendEvent],
   );
 
   useEffect(() => {

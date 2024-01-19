@@ -61,10 +61,10 @@ describe("useTableCheckboxFilter", () => {
     });
 
     const runningCheckbox = screen.getByLabelText(
-      "Running"
+      "Running",
     ) as HTMLInputElement;
     const terminatedCheckbox = screen.getByLabelText(
-      "Terminated"
+      "Terminated",
     ) as HTMLInputElement;
 
     // starts with initial url params as value
@@ -79,7 +79,7 @@ describe("useTableCheckboxFilter", () => {
     expect(terminatedCheckbox.checked).toBe(true);
 
     expect(
-      screen.getByText("statuses from url: terminated")
+      screen.getByText("statuses from url: terminated"),
     ).toBeInTheDocument();
 
     // resets url query params when reset fn is called

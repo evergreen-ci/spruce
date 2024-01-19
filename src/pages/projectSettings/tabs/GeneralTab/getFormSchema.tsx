@@ -20,7 +20,7 @@ export const getFormSchema = (
   identifierHasChanges: boolean,
   initialOwner: string,
   initialRepo: string,
-  repoData?: GeneralFormState
+  repoData?: GeneralFormState,
 ): ReturnType<GetFormSchema> => ({
   fields: {
     deactivateStepbackTask: DeactivateStepbackTaskField,
@@ -106,7 +106,7 @@ export const getFormSchema = (
                 title: "Version Control",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
-                  repoData?.generalConfiguration?.other?.versionControlEnabled
+                  repoData?.generalConfiguration?.other?.versionControlEnabled,
                 ),
               },
             },
@@ -123,7 +123,7 @@ export const getFormSchema = (
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
               repoData?.projectFlags?.dispatchingDisabled,
-              true
+              true,
             ),
           },
           repotracker: {
@@ -136,7 +136,7 @@ export const getFormSchema = (
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
                   repoData?.projectFlags?.repotracker?.repotrackerDisabled,
-                  true
+                  true,
                 ),
               },
               forceRun: {
@@ -153,7 +153,7 @@ export const getFormSchema = (
                 title: "Old Task on Success",
                 oneOf: radioBoxOptions(
                   ["Unschedule", "Don't Unschedule"],
-                  repoData?.projectFlags?.scheduling?.deactivatePrevious
+                  repoData?.projectFlags?.scheduling?.deactivatePrevious,
                 ),
               },
               stepbackDisabled: {
@@ -162,7 +162,7 @@ export const getFormSchema = (
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
                   repoData?.projectFlags?.scheduling?.stepbackDisabled,
-                  true
+                  true,
                 ),
               },
               stepbackBisection: {
@@ -170,7 +170,7 @@ export const getFormSchema = (
                 title: "Stepback Bisection",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
-                  repoData?.projectFlags?.scheduling?.stepbackBisection
+                  repoData?.projectFlags?.scheduling?.stepbackBisection,
                 ),
               },
               deactivateStepback: {
@@ -190,7 +190,7 @@ export const getFormSchema = (
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
                   repoData?.projectFlags?.patch?.patchingDisabled,
-                  true
+                  true,
                 ),
               },
             },
@@ -204,7 +204,7 @@ export const getFormSchema = (
                 title: "Project Config Commands",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
-                  repoData?.projectFlags?.taskSync.configEnabled
+                  repoData?.projectFlags?.taskSync.configEnabled,
                 ),
               },
               patchEnabled: {
@@ -212,7 +212,7 @@ export const getFormSchema = (
                 title: "Task in Patches",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
-                  repoData?.projectFlags?.taskSync.patchEnabled
+                  repoData?.projectFlags?.taskSync.patchEnabled,
                 ),
               },
             },
@@ -229,7 +229,7 @@ export const getFormSchema = (
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
               repoData?.historicalTaskDataCaching?.disabledStatsCache,
-              true
+              true,
             ),
           },
         },
@@ -269,13 +269,13 @@ export const getFormSchema = (
         },
         owner: {
           ...placeholderIf(
-            repoData?.generalConfiguration?.repositoryInfo?.owner
+            repoData?.generalConfiguration?.repositoryInfo?.owner,
           ),
         },
         repo: {
           "ui:data-cy": "repo-input",
           ...placeholderIf(
-            repoData?.generalConfiguration?.repositoryInfo?.repo
+            repoData?.generalConfiguration?.repositoryInfo?.repo,
           ),
         },
       },
@@ -311,7 +311,7 @@ export const getFormSchema = (
           "ui:data-cy": "spawn-host-input",
           "ui:optional": true,
           ...placeholderIf(
-            repoData?.generalConfiguration?.other?.spawnHostScriptPath
+            repoData?.generalConfiguration?.other?.spawnHostScriptPath,
           ),
         },
         versionControlEnabled: {
@@ -415,7 +415,7 @@ const VersionControlEnabledDescription = (
 const getMinLength = (
   projectType: ProjectType,
   repoData: GeneralFormState,
-  value: string
+  value: string,
 ): number => {
   const repoGeneral = repoData?.generalConfiguration;
   const repository = repoGeneral?.repositoryInfo;

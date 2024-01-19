@@ -45,10 +45,10 @@ const NewProjectModal = ({
 
 const waitForModalLoad = async () => {
   await waitFor(() =>
-    expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
+    expect(screen.queryByDataCy("create-project-modal")).toBeVisible(),
   );
   await waitFor(() =>
-    expect(screen.queryByDataCy("loading-skeleton")).toBeNull()
+    expect(screen.queryByDataCy("loading-skeleton")).toBeNull(),
   );
 };
 
@@ -59,12 +59,12 @@ describe("createProjectField", () => {
 
   it("does not render the modal when open prop is false", () => {
     const { Component } = RenderFakeToastContext(
-      <NewProjectModal open={false} />
+      <NewProjectModal open={false} />,
     );
     render(<Component />);
 
     expect(
-      screen.queryByDataCy("create-project-modal")
+      screen.queryByDataCy("create-project-modal"),
     ).not.toBeInTheDocument();
   });
 
@@ -77,7 +77,7 @@ describe("createProjectField", () => {
     expect(
       screen.getByRole("button", {
         name: "Create Project",
-      })
+      }),
     ).toHaveAttribute("aria-disabled", "true");
   });
 
@@ -87,7 +87,7 @@ describe("createProjectField", () => {
     await waitForModalLoad();
 
     expect(screen.queryByDataCy("new-owner-select")).toHaveTextContent(
-      defaultOwner
+      defaultOwner,
     );
     expect(screen.queryByDataCy("new-repo-input")).toHaveValue(defaultRepo);
   });
@@ -100,13 +100,13 @@ describe("createProjectField", () => {
 
     await user.type(
       screen.queryByDataCy("project-name-input"),
-      "new-project-name-input"
+      "new-project-name-input",
     );
     await user.clear(screen.queryByDataCy("new-repo-input"));
     expect(
       screen.getByRole("button", {
         name: "Create Project",
-      })
+      }),
     ).toHaveAttribute("aria-disabled", "true");
   });
 
@@ -119,7 +119,7 @@ describe("createProjectField", () => {
     expect(
       screen.getByRole("button", {
         name: "Create Project",
-      })
+      }),
     ).toHaveAttribute("aria-disabled", "true");
   });
 
@@ -133,14 +133,14 @@ describe("createProjectField", () => {
     expect(
       screen.getByRole("button", {
         name: "Create Project",
-      })
+      }),
     ).toHaveAttribute("aria-disabled", "true");
   });
 
   it("enables the confirm button if the optional project id is empty", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <NewProjectModal />
+      <NewProjectModal />,
     );
     const { router } = render(<Component />);
     await waitForModalLoad();
@@ -150,7 +150,7 @@ describe("createProjectField", () => {
     await user.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
     await user.type(
       screen.queryByDataCy("project-name-input"),
-      "new-project-name"
+      "new-project-name",
     );
 
     const confirmButton = screen.getByRole("button", {
@@ -162,7 +162,7 @@ describe("createProjectField", () => {
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
     expect(router.state.location.pathname).toBe(
-      "/project/new-project-name/settings"
+      "/project/new-project-name/settings",
     );
   });
 
@@ -195,14 +195,14 @@ describe("createProjectField", () => {
     };
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <NewProjectModal mock={mockWithId} />
+      <NewProjectModal mock={mockWithId} />,
     );
     const { router } = render(<Component />);
     await waitForModalLoad();
 
     await user.type(
       screen.queryByDataCy("project-name-input"),
-      "new-project-name"
+      "new-project-name",
     );
     await user.type(screen.queryByDataCy("project-id-input"), "new-project-id");
     await selectLGOption("new-owner-select", "10gen");
@@ -217,7 +217,7 @@ describe("createProjectField", () => {
     const requestS3Creds = screen.getByDataCy("request-s3-creds");
     // LeafyGreen checkbox has pointer-events: none so click on the label instead.
     const requestS3CredLabel = screen.getByText(
-      "Open a JIRA ticket to request an S3 Bucket from the Build team"
+      "Open a JIRA ticket to request an S3 Bucket from the Build team",
     );
     expect(requestS3Creds).not.toBeChecked();
     await user.click(requestS3CredLabel);
@@ -228,7 +228,7 @@ describe("createProjectField", () => {
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
     expect(router.state.location.pathname).toBe(
-      "/project/new-project-name/settings"
+      "/project/new-project-name/settings",
     );
   });
   it("shows a warning toast when an error and data are returned", async () => {
@@ -256,14 +256,14 @@ describe("createProjectField", () => {
     };
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <NewProjectModal mock={mockWithWarn} />
+      <NewProjectModal mock={mockWithWarn} />,
     );
     const { router } = render(<Component />);
     await waitForModalLoad();
 
     await user.type(
       screen.queryByDataCy("project-name-input"),
-      "new-project-name"
+      "new-project-name",
     );
     await selectLGOption("new-owner-select", "10gen");
     await user.clear(screen.queryByDataCy("new-repo-input"));
@@ -279,7 +279,7 @@ describe("createProjectField", () => {
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
     expect(router.state.location.pathname).toBe(
-      "/project/new-project-name/settings"
+      "/project/new-project-name/settings",
     );
   });
 });

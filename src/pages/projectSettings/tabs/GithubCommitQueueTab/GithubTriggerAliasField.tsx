@@ -49,7 +49,7 @@ export const GithubTriggerAliasField: Field = ({ formData }) => {
                     </>
                   )}
                 </li>
-              )
+              ),
             )}
           </Ul>
         </>

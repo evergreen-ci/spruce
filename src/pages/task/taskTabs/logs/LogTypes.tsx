@@ -220,7 +220,7 @@ const useRenderBody: React.FC<{
             key={`${d.message}_${d.timestamp}_${index}`} // eslint-disable-line react/no-array-index-key
             {...d}
           />
-        )
+        ),
       )}
     </LogContainer>
   );

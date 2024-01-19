@@ -8,7 +8,7 @@ const { overrideRadioBox } = form;
 
 export const getFormSchema = (
   projectType: ProjectType,
-  timezone: string
+  timezone: string,
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -120,7 +120,7 @@ export const getFormSchema = (
             },
           },
         },
-      }
+      },
     ),
   },
   uiSchema: {

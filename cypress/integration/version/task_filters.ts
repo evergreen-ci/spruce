@@ -137,7 +137,7 @@ describe("Tasks filters", () => {
             .then((postFilterCount) => {
               cy.dataCy("filtered-count").should(
                 "not.have.text",
-                preFilterCount
+                preFilterCount,
               );
               selectCheckboxOption("Succeeded", true);
               urlSearchParamsAreUpdated({
@@ -148,7 +148,7 @@ describe("Tasks filters", () => {
               waitForTaskTable();
               cy.dataCy("filtered-count").should(
                 "not.have.text",
-                postFilterCount
+                postFilterCount,
               );
             });
         });

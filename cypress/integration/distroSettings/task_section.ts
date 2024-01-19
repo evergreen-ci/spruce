@@ -40,7 +40,7 @@ describe("task section", () => {
       cy.dataCy("save-settings-button").should(
         "have.attr",
         "aria-disabled",
-        "true"
+        "true",
       );
 
       // Update fields.
@@ -54,15 +54,15 @@ describe("task section", () => {
       cy.reload();
       cy.getInputByLabel("Task Finder Version").should(
         "contain.text",
-        "Parallel"
+        "Parallel",
       );
       cy.getInputByLabel("Task Planner Version").should(
         "contain.text",
-        "Tunable"
+        "Tunable",
       );
       cy.getInputByLabel("Task Dispatcher Version").should(
         "contain.text",
-        "Revised with dependencies"
+        "Revised with dependencies",
       );
 
       // Undo changes.

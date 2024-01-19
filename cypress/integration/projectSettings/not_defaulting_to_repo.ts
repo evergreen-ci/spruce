@@ -73,7 +73,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-name-input").first().type("sample_name");
       cy.dataCy("var-value-input").first().type("sample_value_2");
       cy.contains("Value already appears in project variables.").as(
-        "errorMessage"
+        "errorMessage",
       );
       saveButtonEnabled(false);
       // Undo variable duplication

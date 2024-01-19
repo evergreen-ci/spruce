@@ -8,12 +8,12 @@ describe("Task Duration Tab", () => {
       // Apply text filter.
       cy.dataCy("task-name-filter-popover").click();
       cy.dataCy("task-name-filter-popover-input-filter").type(
-        `${filterText}{enter}`
+        `${filterText}{enter}`,
       );
       cy.dataCy("leafygreen-table-row").should("have.length", 1);
       cy.location("search").should(
         "include",
-        `duration=DESC&page=0&taskName=${filterText}`
+        `duration=DESC&page=0&taskName=${filterText}`,
       );
       // Clear text filter.
       cy.dataCy("task-name-filter-popover").click();
@@ -26,17 +26,17 @@ describe("Task Duration Tab", () => {
       // Apply status filter.
       cy.dataCy("status-filter-popover").click();
       cy.dataCy("tree-select-options").within(() =>
-        cy.contains("Running").click({ force: true })
+        cy.contains("Running").click({ force: true }),
       );
       cy.dataCy("leafygreen-table-row").should("have.length", 3);
       cy.location("search").should(
         "include",
-        "duration=DESC&page=0&statuses=running-umbrella%2Cstarted%2Cdispatched"
+        "duration=DESC&page=0&statuses=running-umbrella%2Cstarted%2Cdispatched",
       );
       // Clear status filter.
       cy.dataCy("status-filter-popover").click();
       cy.dataCy("tree-select-options").within(() =>
-        cy.contains("Succeeded").click({ force: true })
+        cy.contains("Succeeded").click({ force: true }),
       );
       cy.location("search").should("include", `duration=DESC&page=0`);
     });
@@ -46,12 +46,12 @@ describe("Task Duration Tab", () => {
       // Apply text filter.
       cy.dataCy("build-variant-filter-popover").click();
       cy.dataCy("build-variant-filter-popover-input-filter").type(
-        `${filterText}{enter}`
+        `${filterText}{enter}`,
       );
       cy.dataCy("leafygreen-table-row").should("have.length", 2);
       cy.location("search").should(
         "include",
-        `duration=DESC&page=0&variant=${filterText}`
+        `duration=DESC&page=0&variant=${filterText}`,
       );
       // Clear text filter.
       cy.dataCy("build-variant-filter-popover").click();
@@ -91,11 +91,11 @@ describe("Task Duration Tab", () => {
 
       cy.dataCy("task-name-filter-popover").click();
       cy.dataCy("task-name-filter-popover-input-filter").type(
-        `${filterText}{enter}`
+        `${filterText}{enter}`,
       );
       cy.dataCy("task-name-filter-popover-task-duration-table-row").should(
         "have.length",
-        0
+        0,
       );
       cy.contains("No tasks found.").should("exist");
     });

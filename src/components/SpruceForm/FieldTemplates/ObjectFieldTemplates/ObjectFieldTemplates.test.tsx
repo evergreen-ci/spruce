@@ -41,7 +41,7 @@ describe("objectFieldTemplates", () => {
           formData={{}}
           onChange={onChange}
           uiSchema={uiSchema}
-        />
+        />,
       );
       expect(screen.getByDataCy("name")).toBeInTheDocument();
     });
@@ -52,7 +52,7 @@ describe("objectFieldTemplates", () => {
           formData={{}}
           onChange={jest.fn()}
           uiSchema={uiSchema}
-        />
+        />,
       );
       expect(screen.getByDataCy("name")).toBeInTheDocument();
       expect(screen.getByDataCy("age")).toBeInTheDocument();
@@ -71,7 +71,7 @@ describe("objectFieldTemplates", () => {
           formData={{}}
           onChange={onChange}
           uiSchema={uiSchema}
-        />
+        />,
       );
       await user.type(screen.getByDataCy("name"), "Bruce Lee");
       await user.type(screen.getByDataCy("age"), "32");
@@ -98,7 +98,7 @@ describe("objectFieldTemplates", () => {
           formData={{}}
           onChange={jest.fn()}
           uiSchema={uiSchema}
-        />
+        />,
       );
       expect(screen.getByDataCy("name")).toBeInTheDocument();
     });
@@ -109,7 +109,7 @@ describe("objectFieldTemplates", () => {
           formData={{}}
           onChange={jest.fn()}
           uiSchema={uiSchema}
-        />
+        />,
       );
       expect(screen.getByDataCy("name")).toBeInTheDocument();
       expect(screen.getByDataCy("age")).toBeInTheDocument();
@@ -127,7 +127,7 @@ describe("objectFieldTemplates", () => {
           formData={{}}
           onChange={onChange}
           uiSchema={uiSchema}
-        />
+        />,
       );
       await user.type(screen.getByDataCy("name"), "Bruce Lee");
       await user.type(screen.getByDataCy("age"), "32");
@@ -153,7 +153,7 @@ describe("objectFieldTemplates", () => {
           formData={{}}
           onChange={jest.fn()}
           uiSchema={uiSchema}
-        />
+        />,
       );
       expect(screen.getByDataCy("name")).toBeInTheDocument();
     });
@@ -164,7 +164,7 @@ describe("objectFieldTemplates", () => {
           formData={{}}
           onChange={jest.fn()}
           uiSchema={uiSchema}
-        />
+        />,
       );
       expect(screen.getByDataCy("name")).toBeInTheDocument();
       expect(screen.getByDataCy("age")).toBeInTheDocument();
@@ -182,7 +182,7 @@ describe("objectFieldTemplates", () => {
           formData={{}}
           onChange={onChange}
           uiSchema={uiSchema}
-        />
+        />,
       );
       await user.type(screen.getByDataCy("name"), "Bruce Lee");
       await user.type(screen.getByDataCy("age"), "32");
@@ -196,10 +196,10 @@ describe("objectFieldTemplates", () => {
           formData={{}}
           onChange={jest.fn()}
           uiSchema={uiSchema}
-        />
+        />,
       );
       expect(
-        screen.queryByDataCy("accordion-collapse-container")
+        screen.queryByDataCy("accordion-collapse-container"),
       ).toHaveAttribute("aria-expanded", "true");
     });
     it("accordion is collapsed by default if defaultOpen is false", () => {
@@ -212,10 +212,10 @@ describe("objectFieldTemplates", () => {
             ...uiSchema,
             person: { ...uiSchema.person, "ui:defaultOpen": false },
           }}
-        />
+        />,
       );
       expect(
-        screen.queryByDataCy("accordion-collapse-container")
+        screen.queryByDataCy("accordion-collapse-container"),
       ).toHaveAttribute("aria-expanded", "false");
     });
   });

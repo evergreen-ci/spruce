@@ -10,8 +10,8 @@ describe("useKeyboardShortcut", () => {
       renderHook(() =>
         useKeyboardShortcut(
           { charKey: CharKey.A, modifierKeys: [ModifierKey.Control] },
-          callback
-        )
+          callback,
+        ),
       );
       await user.keyboard("{Control}");
       expect(callback).toHaveBeenCalledTimes(0);
@@ -29,8 +29,8 @@ describe("useKeyboardShortcut", () => {
       renderHook(() =>
         useKeyboardShortcut(
           { charKey: CharKey.A, modifierKeys: [ModifierKey.Control] },
-          callback
-        )
+          callback,
+        ),
       );
       render(<input data-cy="test-input" />);
 
@@ -78,8 +78,8 @@ describe("useKeyboardShortcut", () => {
         callback,
         {
           ignoreFocus: true,
-        }
-      )
+        },
+      ),
     );
     render(<input data-cy="test-input" />);
     await user.click(screen.getByDataCy("test-input"));
@@ -97,8 +97,8 @@ describe("useKeyboardShortcut", () => {
         callback,
         {
           disabled: true,
-        }
-      )
+        },
+      ),
     );
     await user.keyboard("{a}");
     expect(callback).toHaveBeenCalledTimes(0);
@@ -118,7 +118,7 @@ describe("useKeyboardShortcut", () => {
       (args: { disabled: boolean } = { disabled: false }) =>
         useKeyboardShortcut({ charKey: CharKey.A }, jest.fn(), {
           disabled: args.disabled,
-        })
+        }),
     );
     expect(mockedAddEventListener).toHaveBeenCalledTimes(1);
 

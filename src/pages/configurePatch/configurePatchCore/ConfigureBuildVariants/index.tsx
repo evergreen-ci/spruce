@@ -32,7 +32,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
         dispatch({ type: "increment" });
       }
     },
-    [dispatch]
+    [dispatch],
   );
   const keyUpCb = useMemo(
     () => (e: KeyboardEvent) => {
@@ -40,7 +40,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
         dispatch({ type: "decrement" });
       }
     },
-    [dispatch]
+    [dispatch],
   );
   useEffect(() => {
     window.addEventListener("keydown", keyDownCb);
@@ -58,7 +58,9 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
           ...selectedBuildVariants,
         ]);
         setSelectedBuildVariants(
-          updatedBuildVariants.length > 0 ? updatedBuildVariants : [variantName]
+          updatedBuildVariants.length > 0
+            ? updatedBuildVariants
+            : [variantName],
         );
       } else if (e.shiftKey) {
         const variantNames = variants.map(({ name }) => name);
@@ -66,7 +68,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
         const anchorIndex = variants.reduce(
           (accum, { name }, index) =>
             accum > -1 || !selectedBuildVariants.includes(name) ? accum : index,
-          -1
+          -1,
         );
         if (clickIndex === anchorIndex) {
           return;
@@ -77,7 +79,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
           new Set([
             ...variantNames.slice(startIndex, endIndex + 1),
             ...selectedBuildVariants,
-          ])
+          ]),
         );
         setSelectedBuildVariants(nextSelectedBuildVariants);
       } else {

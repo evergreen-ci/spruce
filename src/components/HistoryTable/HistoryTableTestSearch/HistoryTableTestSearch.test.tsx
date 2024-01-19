@@ -9,7 +9,7 @@ describe("historyTableTestSearch", () => {
       path: "/variant-history/:projectId/:variantName",
     });
     const input = screen.getByPlaceholderText(
-      "Search test name regex"
+      "Search test name regex",
     ) as HTMLInputElement;
     expect(input).toBeInTheDocument();
     expect(input).toHaveValue("");
@@ -22,7 +22,7 @@ describe("historyTableTestSearch", () => {
       path: "/variant-history/:projectId/:variantName",
     });
     const input = screen.getByPlaceholderText(
-      "Search test name regex"
+      "Search test name regex",
     ) as HTMLInputElement;
 
     expect(input).toHaveValue("");
@@ -39,7 +39,7 @@ describe("historyTableTestSearch", () => {
       path: "/variant-history/:projectId/:variantName",
     });
     const input = screen.getByPlaceholderText(
-      "Search test name regex"
+      "Search test name regex",
     ) as HTMLInputElement;
 
     // FAILED TEST
@@ -57,7 +57,7 @@ describe("historyTableTestSearch", () => {
       path: "/variant-history/:projectId/:variantName",
     });
     const input = screen.getByPlaceholderText(
-      "Search test name regex"
+      "Search test name regex",
     ) as HTMLInputElement;
     expect(input).toHaveValue("");
     await user.type(input, "some-test-name");
@@ -67,7 +67,7 @@ describe("historyTableTestSearch", () => {
     expect(input).toHaveValue("some-other-test-name");
     await user.type(input, "{enter}");
     expect(router.state.location.search).toBe(
-      `?failed=some-test-name,some-other-test-name`
+      `?failed=some-test-name,some-other-test-name`,
     );
   });
 
@@ -78,7 +78,7 @@ describe("historyTableTestSearch", () => {
       path: "/variant-history/:projectId/:variantName",
     });
     const input = screen.getByPlaceholderText(
-      "Search test name regex"
+      "Search test name regex",
     ) as HTMLInputElement;
     expect(input).toHaveValue("");
     await user.type(input, "some-test-name");

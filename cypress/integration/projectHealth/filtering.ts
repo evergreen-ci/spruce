@@ -48,7 +48,7 @@ describe("filtering", () => {
       cy.dataCy("grouped-task-status-badge").should("have.length", 9);
       cy.dataCy("grouped-task-status-badge").should(
         "contain.text",
-        "Succeeded"
+        "Succeeded",
       );
       cy.dataCy("waterfall-task-status-icon").should("not.exist");
     });
@@ -62,7 +62,7 @@ describe("filtering", () => {
       cy.dataCy("waterfall-task-status-icon").should(
         "have.attr",
         "aria-label",
-        "failed icon"
+        "failed icon",
       );
     });
     it("applying a task filter should show all task icons instead of groupings", () => {

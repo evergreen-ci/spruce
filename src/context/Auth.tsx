@@ -76,7 +76,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         }
       },
     }),
-    [state.isAuthenticated]
+    [state.isAuthenticated],
   );
 
   return (
@@ -92,7 +92,7 @@ const useAuthStateContext = (): AuthState => {
   const authState = useContext(AuthStateContext);
   if (authState === null || authState === undefined) {
     throw new Error(
-      "useAuthStateContext must be used within an auth context provider"
+      "useAuthStateContext must be used within an auth context provider",
     );
   }
   return authState;
@@ -102,7 +102,7 @@ const useAuthDispatchContext = (): DispatchContext => {
   const authDispatch = useContext(AuthDispatchContext);
   if (authDispatch === null || authDispatch === undefined) {
     throw new Error(
-      "useAuthDispatchContext must be used within an auth context provider"
+      "useAuthDispatchContext must be used within an auth context provider",
     );
   }
   return authDispatch;

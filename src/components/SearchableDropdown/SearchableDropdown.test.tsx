@@ -2,7 +2,7 @@ import { render, screen, userEvent } from "test_utils";
 import SearchableDropdown from ".";
 
 const RenderSearchableDropdown = (
-  props: Omit<React.ComponentProps<typeof SearchableDropdown>, "label">
+  props: Omit<React.ComponentProps<typeof SearchableDropdown>, "label">,
 ) => <SearchableDropdown label="Just a test" {...props} />;
 
 describe("searchableDropdown", () => {
@@ -12,7 +12,7 @@ describe("searchableDropdown", () => {
         value: "evergreen",
         onChange: jest.fn(),
         options: ["evergreen", "spruce"],
-      })
+      }),
     );
     expect(screen.getByText("evergreen")).toBeInTheDocument();
   });
@@ -24,18 +24,18 @@ describe("searchableDropdown", () => {
         value: "evergreen",
         onChange: jest.fn(),
         options: ["evergreen", "spruce"],
-      })
+      }),
     );
     expect(
-      screen.queryByDataCy("searchable-dropdown-options")
+      screen.queryByDataCy("searchable-dropdown-options"),
     ).not.toBeInTheDocument();
     await user.click(screen.queryByDataCy("searchable-dropdown"));
     expect(
-      screen.getByDataCy("searchable-dropdown-options")
+      screen.getByDataCy("searchable-dropdown-options"),
     ).toBeInTheDocument();
     await user.click(screen.queryByDataCy("searchable-dropdown"));
     expect(
-      screen.queryByDataCy("searchable-dropdown-options")
+      screen.queryByDataCy("searchable-dropdown-options"),
     ).not.toBeInTheDocument();
   });
 
@@ -46,27 +46,27 @@ describe("searchableDropdown", () => {
         value: "evergreen",
         onChange: jest.fn(),
         options: ["evergreen", "spruce"],
-      })
+      }),
     );
     expect(
-      screen.queryByDataCy("searchable-dropdown-options")
+      screen.queryByDataCy("searchable-dropdown-options"),
     ).not.toBeInTheDocument();
     await user.click(screen.queryByDataCy("searchable-dropdown"));
     expect(
-      screen.getByDataCy("searchable-dropdown-options")
+      screen.getByDataCy("searchable-dropdown-options"),
     ).toBeInTheDocument();
     expect(
-      screen.getByDataCy("searchable-dropdown-search-input")
+      screen.getByDataCy("searchable-dropdown-search-input"),
     ).toBeInTheDocument();
     expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
-      2
+      2,
     );
     await user.type(
       screen.queryByDataCy("searchable-dropdown-search-input"),
-      "spru"
+      "spru",
     );
     expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
-      1
+      1,
     );
   });
 
@@ -77,36 +77,36 @@ describe("searchableDropdown", () => {
         value: "evergreen",
         onChange: jest.fn(),
         options: ["evergreen", "spruce"],
-      })
+      }),
     );
     // use text input to filter and click on document body (which closes the dropdown).
     await user.click(screen.queryByDataCy("searchable-dropdown"));
     expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
-      2
+      2,
     );
     await user.type(
       screen.queryByDataCy("searchable-dropdown-search-input"),
-      "spru"
+      "spru",
     );
     expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
-      1
+      1,
     );
     await user.click(screen.queryByText("spruce"));
 
     // when reopening the dropdown, the text input should be cleared and all options should be visible.
     await user.click(screen.queryByDataCy("searchable-dropdown"));
     expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
-      2
+      2,
     );
     expect(
-      screen.queryByDataCy("searchable-dropdown-search-input")
+      screen.queryByDataCy("searchable-dropdown-search-input"),
     ).toHaveValue("");
   });
 
   it("should use custom search function when passed in", async () => {
     const user = userEvent.setup();
     const searchFunc = jest.fn((options, match) =>
-      options.filter((o) => o === match)
+      options.filter((o) => o === match),
     );
     render(
       RenderSearchableDropdown({
@@ -114,20 +114,20 @@ describe("searchableDropdown", () => {
         onChange: jest.fn(),
         options: ["evergreen", "spruce"],
         searchFunc,
-      })
+      }),
     );
     await user.click(screen.queryByDataCy("searchable-dropdown"));
 
     expect(
-      screen.getByDataCy("searchable-dropdown-search-input")
+      screen.getByDataCy("searchable-dropdown-search-input"),
     ).toBeInTheDocument();
     await user.type(
       screen.queryByDataCy("searchable-dropdown-search-input"),
-      "spruce"
+      "spruce",
     );
     expect(searchFunc).toHaveBeenLastCalledWith(
       ["evergreen", "spruce"],
-      "spruce"
+      "spruce",
     );
     expect(screen.getByText("spruce")).toBeInTheDocument();
   });
@@ -141,19 +141,19 @@ describe("searchableDropdown", () => {
           value: "evergreen",
           onChange,
           options: ["evergreen", "spruce"],
-        })
+        }),
       );
       expect(
-        screen.queryByDataCy("searchable-dropdown-options")
+        screen.queryByDataCy("searchable-dropdown-options"),
       ).not.toBeInTheDocument();
       await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
-        screen.getByDataCy("searchable-dropdown-options")
+        screen.getByDataCy("searchable-dropdown-options"),
       ).toBeInTheDocument();
       await user.click(screen.queryByText("spruce"));
       expect(onChange).toHaveBeenCalledWith("spruce");
       expect(
-        screen.queryByDataCy("searchable-dropdown-options")
+        screen.queryByDataCy("searchable-dropdown-options"),
       ).not.toBeInTheDocument();
 
       rerender(
@@ -161,7 +161,7 @@ describe("searchableDropdown", () => {
           value: "spruce",
           onChange,
           options: ["evergreen", "spruce"],
-        })
+        }),
       );
       expect(screen.getByText("spruce")).toBeInTheDocument();
     });
@@ -173,29 +173,29 @@ describe("searchableDropdown", () => {
           value: "evergreen",
           onChange: jest.fn(),
           options: ["evergreen", "spruce"],
-        })
+        }),
       );
       // use text input to filter and select an option.
       await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
-        screen.queryAllByDataCy("searchable-dropdown-option")
+        screen.queryAllByDataCy("searchable-dropdown-option"),
       ).toHaveLength(2);
       await user.type(
         screen.queryByDataCy("searchable-dropdown-search-input"),
-        "spru"
+        "spru",
       );
       expect(
-        screen.queryAllByDataCy("searchable-dropdown-option")
+        screen.queryAllByDataCy("searchable-dropdown-option"),
       ).toHaveLength(1);
       await user.click(screen.queryByText("spruce"));
 
       // when reopening the dropdown, the text input should be cleared and all options should be visible.
       await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
-        screen.queryAllByDataCy("searchable-dropdown-option")
+        screen.queryAllByDataCy("searchable-dropdown-option"),
       ).toHaveLength(2);
       expect(
-        screen.queryByDataCy("searchable-dropdown-search-input")
+        screen.queryByDataCy("searchable-dropdown-search-input"),
       ).toHaveValue("");
     });
 
@@ -206,11 +206,11 @@ describe("searchableDropdown", () => {
           value: "evergreen",
           onChange: jest.fn(),
           options: ["evergreen", "spruce"],
-        })
+        }),
       );
       await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
-        screen.queryAllByDataCy("searchable-dropdown-option")
+        screen.queryAllByDataCy("searchable-dropdown-option"),
       ).toHaveLength(2);
       expect(screen.queryByDataCy("checkmark")).toBeNull();
     });
@@ -226,14 +226,14 @@ describe("searchableDropdown", () => {
           onChange,
           options: ["evergreen", "spruce"],
           allowMultiSelect: true,
-        })
+        }),
       );
       expect(
-        screen.queryByDataCy("searchable-dropdown-options")
+        screen.queryByDataCy("searchable-dropdown-options"),
       ).not.toBeInTheDocument();
       await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
-        screen.getByDataCy("searchable-dropdown-options")
+        screen.getByDataCy("searchable-dropdown-options"),
       ).toBeInTheDocument();
       await user.click(screen.queryByText("spruce"));
       expect(onChange).toHaveBeenCalledWith(["spruce"]);
@@ -244,10 +244,10 @@ describe("searchableDropdown", () => {
           onChange,
           options: ["evergreen", "spruce"],
           allowMultiSelect: true,
-        })
+        }),
       );
       expect(
-        screen.getByDataCy("searchable-dropdown-options")
+        screen.getByDataCy("searchable-dropdown-options"),
       ).toBeInTheDocument();
 
       rerender(
@@ -256,7 +256,7 @@ describe("searchableDropdown", () => {
           onChange,
           options: ["evergreen", "spruce"],
           allowMultiSelect: true,
-        })
+        }),
       );
       await user.click(screen.queryByText("evergreen"));
       expect(onChange).toHaveBeenCalledWith(["spruce", "evergreen"]);
@@ -270,28 +270,28 @@ describe("searchableDropdown", () => {
           onChange: jest.fn(),
           options: ["evergreen", "spruce", "sandbox"],
           allowMultiSelect: true,
-        })
+        }),
       );
       // use text input to filter and select an option.
       await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
-        screen.queryAllByDataCy("searchable-dropdown-option")
+        screen.queryAllByDataCy("searchable-dropdown-option"),
       ).toHaveLength(3);
       await user.type(
         screen.queryByDataCy("searchable-dropdown-search-input"),
-        "s"
+        "s",
       );
       expect(
-        screen.queryAllByDataCy("searchable-dropdown-option")
+        screen.queryAllByDataCy("searchable-dropdown-option"),
       ).toHaveLength(2);
       await user.click(screen.queryByText("spruce"));
 
       // the dropdown should not be closed and the search state should not be reset.
       expect(
-        screen.queryByDataCy("searchable-dropdown-search-input")
+        screen.queryByDataCy("searchable-dropdown-search-input"),
       ).toHaveValue("s");
       expect(
-        screen.queryAllByDataCy("searchable-dropdown-option")
+        screen.queryAllByDataCy("searchable-dropdown-option"),
       ).toHaveLength(2);
     });
 
@@ -303,11 +303,11 @@ describe("searchableDropdown", () => {
           onChange: jest.fn(),
           options: ["evergreen", "spruce"],
           allowMultiSelect: true,
-        })
+        }),
       );
       await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
-        screen.queryAllByDataCy("searchable-dropdown-option")
+        screen.queryAllByDataCy("searchable-dropdown-option"),
       ).toHaveLength(2);
       expect(screen.queryAllByDataCy("checkmark")).toHaveLength(2);
     });
@@ -339,7 +339,7 @@ describe("searchableDropdown", () => {
               {option.label}
             </button>
           ),
-        })
+        }),
       );
       await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(screen.getByText("Evergreen")).toBeInTheDocument();
@@ -374,7 +374,7 @@ describe("searchableDropdown", () => {
               {option.label}
             </button>
           ),
-        })
+        }),
       );
       await user.click(screen.queryByDataCy("searchable-dropdown"));
 
@@ -392,12 +392,12 @@ describe("searchableDropdown", () => {
           buttonRenderer: (option: string) => (
             <b className="just-a-test">{option}</b>
           ),
-        })
+        }),
       );
       expect(screen.getByText("evergreen")).toBeInTheDocument();
       expect(screen.queryByText("evergreen")).toHaveAttribute(
         "class",
-        "just-a-test"
+        "just-a-test",
       );
     });
   });

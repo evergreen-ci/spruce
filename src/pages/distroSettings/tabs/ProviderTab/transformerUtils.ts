@@ -37,7 +37,7 @@ interface ProviderSettingsList {
 }
 
 const getFleetInstanceType = (
-  providerSettings: Partial<ProviderSettingsList> = {}
+  providerSettings: Partial<ProviderSettingsList> = {},
 ) => {
   if (providerSettings.fleet_options?.use_on_demand) {
     return FleetInstanceType.OnDemand;
@@ -52,7 +52,7 @@ const getFleetInstanceType = (
 };
 
 export const formProviderSettings = (
-  providerSettings: Partial<ProviderSettingsList> = {}
+  providerSettings: Partial<ProviderSettingsList> = {},
 ) => ({
   staticProviderSettings: {
     userData: providerSettings.user_data ?? "",
@@ -130,7 +130,7 @@ type ProviderSettings = ProviderFormState["staticProviderSettings"] &
   Unpacked<ProviderFormState["ec2OnDemandProviderSettings"]>;
 
 export const gqlProviderSettings = (
-  providerSettings: Partial<ProviderSettings> = {}
+  providerSettings: Partial<ProviderSettings> = {},
 ) => {
   const { fleetOptions, vpcOptions } = providerSettings;
   return {

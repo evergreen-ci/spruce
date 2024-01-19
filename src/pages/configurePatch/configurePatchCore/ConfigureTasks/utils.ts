@@ -21,7 +21,7 @@ const deduplicateTasks = (
     [task: string]: boolean;
   }[],
   previouslyActivatedBuildvariants: VariantTask[],
-  filterTerm: RegExp
+  filterTerm: RegExp,
 ): DeduplicateTasksResult => {
   const visibleTasks: DeduplicateTasksResult = {};
   currentTasks.forEach((bv, i) => {
@@ -83,7 +83,7 @@ const getSelectAllCheckboxState = (
   aliases: {
     [alias: string]: CheckboxState;
   },
-  shouldShowChildPatchTasks: boolean
+  shouldShowChildPatchTasks: boolean,
 ): CheckboxState => {
   if (shouldShowChildPatchTasks) {
     return CheckboxState.Checked;
@@ -101,7 +101,7 @@ const getSelectAllCheckboxState = (
     allAliasStatuses.includes(CheckboxState.Unchecked);
 
   const hasIndeterminateTasks = allTaskStatuses.some((t) =>
-    isTaskCheckboxIndeterminate(t)
+    isTaskCheckboxIndeterminate(t),
   );
 
   if (hasSelectedTasks && !hasUnselectedTasks && !hasIndeterminateTasks) {
@@ -127,7 +127,7 @@ const getSelectAllCheckboxState = (
  */
 const getVisibleAliases = (
   selectedAliases: AliasState,
-  selectedBuildVariants: string[]
+  selectedBuildVariants: string[],
 ): { [key: string]: CheckboxState } => {
   const visiblePatches = {};
   Object.entries(selectedAliases).forEach(([alias]) => {
@@ -150,14 +150,14 @@ const getVisibleAliases = (
  */
 const getVisibleChildPatches = (
   childPatches: ChildPatchAliased[],
-  selectedBuildVariants: string[]
+  selectedBuildVariants: string[],
 ): ChildPatchAliased[] => {
   if (!childPatches) {
     return [];
   }
 
   return childPatches.filter(({ alias }) =>
-    selectedBuildVariants.includes(alias)
+    selectedBuildVariants.includes(alias),
   );
 };
 

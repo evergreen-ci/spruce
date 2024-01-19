@@ -133,7 +133,7 @@ export const ActionButtons: React.FC<Props> = ({
       const { latestExecution, priority } = data.restartTask;
       if (priority < 0) {
         dispatchToast.warning(
-          "Task scheduled to restart, but is disabled. Enable the task to run."
+          "Task scheduled to restart, but is disabled. Enable the task to run.",
         );
       } else {
         dispatchToast.success("Task scheduled to restart");
@@ -153,7 +153,7 @@ export const ActionButtons: React.FC<Props> = ({
       dispatchToast.success(
         data.setTaskPriority.priority >= 0
           ? `Priority for task updated to ${data.setTaskPriority.priority}`
-          : `Task was successfully disabled`
+          : `Task was successfully disabled`,
       );
     },
     onError: (err) => {
@@ -180,7 +180,7 @@ export const ActionButtons: React.FC<Props> = ({
     getTaskHistoryRoute(projectIdentifier, displayName, {
       selectedCommit: !isPatch && order,
       visibleColumns: [buildVariant],
-    })
+    }),
   );
 
   const disabled =

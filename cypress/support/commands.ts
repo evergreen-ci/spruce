@@ -23,7 +23,7 @@ Cypress.Commands.add(
   "dataRowKey",
   (value: string, options: cyGetOptions = {}) => {
     cy.get(`[data-row-key=${value}]`, options);
-  }
+  },
 );
 
 /* dataTestId */
@@ -31,7 +31,7 @@ Cypress.Commands.add(
   "dataTestId",
   (value: string, options: cyGetOptions = {}) => {
     cy.get(`[data-test-id=${value}]`, options);
-  }
+  },
 );
 
 /**
@@ -78,7 +78,7 @@ Cypress.Commands.add("toggleTableFilter", (colNum: number) => {
   cy.get(selector).should("be.visible");
   cy.get(selector).find("[role=button]").first().click();
   cy.get(":not(.ant-dropdown-hidden) > .ant-table-filter-dropdown").should(
-    "be.visible"
+    "be.visible",
   );
 });
 
@@ -97,7 +97,7 @@ Cypress.Commands.add(
       default:
         cy.get("svg[aria-label='Unsorted Icon']").should("be.visible");
     }
-  }
+  },
 );
 
 /* validateToast */
@@ -115,7 +115,7 @@ Cypress.Commands.add(
       });
       cy.dataCy("toast").should("not.exist");
     }
-  }
+  },
 );
 
 /* selectLGOption */
@@ -128,7 +128,7 @@ Cypress.Commands.add(
     cy.get('[role="listbox"]').within(() => {
       cy.contains(option).click();
     });
-  }
+  },
 );
 
 Cypress.Commands.add("overwriteGQL", (operationName: string, body: any) => {

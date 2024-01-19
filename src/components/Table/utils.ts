@@ -16,7 +16,7 @@ export enum TableQueryParams {
  */
 export const onChangeHandler = <T>(
   setState: OnChangeFn<T>,
-  sideEffect?: (updatedState: T) => void
+  sideEffect?: (updatedState: T) => void,
 ) =>
   ((updater) => {
     setState((prev) => {

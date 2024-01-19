@@ -24,12 +24,12 @@ const useQueryParams = () => {
       });
       setSearchParams(new URLSearchParams(stringifiedQuery), { replace: true });
     },
-    [setSearchParams]
+    [setSearchParams],
   );
 
   const parsedQueryString = useMemo(
     () => parseQueryString(searchParams.toString()),
-    [searchParams]
+    [searchParams],
   );
   return [parsedQueryString, setQueryString] as const;
 };
@@ -54,7 +54,7 @@ const useQueryParams = () => {
  */
 const useQueryParam = <T>(
   param: string,
-  defaultParam: T
+  defaultParam: T,
 ): readonly [T, (set: T) => void] => {
   const [searchParams, setSearchParams] = useQueryParams();
 
@@ -65,14 +65,14 @@ const useQueryParam = <T>(
         [param]: value,
       });
     },
-    [setSearchParams, searchParams, param]
+    [setSearchParams, searchParams, param],
   );
 
   const queryParam =
     searchParams[param] !== undefined
       ? (conditionalToArray(
           searchParams[param],
-          Array.isArray(defaultParam)
+          Array.isArray(defaultParam),
         ) as unknown as T)
       : defaultParam;
 

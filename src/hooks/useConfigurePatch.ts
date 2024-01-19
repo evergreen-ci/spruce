@@ -65,7 +65,7 @@ const reducer = (state: ConfigurePatchState, action: Action) => {
       return {
         ...state,
         selectedBuildVariants: action.buildVariants.sort((a, b) =>
-          b.localeCompare(a)
+          b.localeCompare(a),
         ),
       };
     case "setSelectedBuildVariantTasks":
@@ -148,7 +148,7 @@ interface HookResult extends ConfigurePatchState {
 }
 
 export const useConfigurePatch = (
-  patch: ConfigurePatchQuery["patch"]
+  patch: ConfigurePatchQuery["patch"],
 ): HookResult => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -160,7 +160,7 @@ export const useConfigurePatch = (
     reducer,
     initialState({
       selectedTab: tabToIndexMap[tab || PatchTab.Configure],
-    })
+    }),
   );
 
   const { selectedTab } = state;
@@ -173,7 +173,7 @@ export const useConfigurePatch = (
         tab: indexToTabMap[selectedTab],
         ...query,
       }),
-      { replace: true }
+      { replace: true },
     );
   }, [selectedTab]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -230,7 +230,7 @@ export const useConfigurePatch = (
 // With merged variant and default selected tasks auto selected.
 const initializeTaskState = (
   variantTasks: ConfigurePatchQuery["patch"]["project"]["variants"],
-  defaultSelectedTasks: VariantTask[]
+  defaultSelectedTasks: VariantTask[],
 ) => {
   const defaultTasks = convertArrayToObject(defaultSelectedTasks, "name");
   return variantTasks.reduce(
@@ -243,7 +243,7 @@ const initializeTaskState = (
           : {}),
       },
     }),
-    {}
+    {},
   );
 };
 
@@ -253,5 +253,5 @@ const initializeAliasState = (patchTriggerAliases: PatchTriggerAlias[]) =>
       ...prev,
       [alias]: false,
     }),
-    {}
+    {},
   );

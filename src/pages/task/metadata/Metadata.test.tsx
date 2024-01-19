@@ -21,10 +21,10 @@ describe("metadata", () => {
         route: `/task/${taskId}`,
         path: "/task/:id",
         wrapper,
-      }
+      },
     );
     expect(
-      screen.queryByDataCy("task-metadata-estimated_start")
+      screen.queryByDataCy("task-metadata-estimated_start"),
     ).toHaveTextContent("1s");
     expect(screen.queryByDataCy("task-metadata-eta")).toBeNull();
     expect(screen.queryByDataCy("task-metadata-started")).toBeNull();
@@ -42,7 +42,7 @@ describe("metadata", () => {
         route: `/task/${taskId}`,
         path: "/task/:id",
         wrapper,
-      }
+      },
     );
     expect(screen.queryByDataCy("task-metadata-estimated_start")).toBeNull();
     expect(screen.getByDataCy("task-metadata-eta")).toBeInTheDocument();
@@ -65,7 +65,7 @@ describe("metadata", () => {
         route: `/task/${taskId}`,
         path: "/task/:id",
         wrapper,
-      }
+      },
     );
 
     expect(screen.queryByDataCy("task-metadata-estimated_start")).toBeNull();
@@ -80,7 +80,7 @@ describe("metadata", () => {
     await user.hover(screen.getByText("more"));
     await screen.findByDataCy("task-metadata-description-tooltip");
     expect(
-      screen.getByDataCy("task-metadata-description-tooltip")
+      screen.getByDataCy("task-metadata-description-tooltip"),
     ).toHaveTextContent(taskSucceeded.task.details.description);
   });
 });

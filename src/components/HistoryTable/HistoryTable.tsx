@@ -39,7 +39,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   const size = useDimensions(ref);
   const throttledOnChangeTableWidth = useMemo(
     () => throttle(onChangeTableWidth, 400),
-    [onChangeTableWidth]
+    [onChangeTableWidth],
   );
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
         {
           selectedCommit,
         },
-        SentryBreadcrumb.UI
+        SentryBreadcrumb.UI,
       );
       listRef.current.scrollToIndex(selectedCommit.rowIndex);
     }
@@ -71,7 +71,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
           selectedCommit,
           processedCommitCount,
         },
-        SentryBreadcrumb.UI
+        SentryBreadcrumb.UI,
       );
       loadMoreItems();
     }

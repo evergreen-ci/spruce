@@ -8,4 +8,4 @@ export const getTabTitle = (tab: DistroSettingsTabRoutes): { title: string } =>
     [DistroSettingsTabRoutes.Host]: { title: "Host Settings" },
     [DistroSettingsTabRoutes.Project]: { title: "Project Settings" },
     [DistroSettingsTabRoutes.EventLog]: { title: "Event Log" },
-  }[tab]);
+  })[tab];

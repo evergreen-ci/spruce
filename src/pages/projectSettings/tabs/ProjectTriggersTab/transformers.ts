@@ -32,7 +32,7 @@ export const gqlToForm = ((data, { projectType }) => {
           ...trigger,
           level: trigger.level as ProjectTriggerLevel,
           displayTitle: getTitle(trigger),
-        })
+        }),
       ) ?? [],
   };
 }) satisfies GqlToFormFunction<Tab>;

@@ -37,10 +37,10 @@ const DistroSettings: React.FC = () => {
       variables: { distroId },
       onError: (e) => {
         dispatchToast.error(
-          `There was an error loading the distro ${distroId}: ${e.message}`
+          `There was an error loading the distro ${distroId}: ${e.message}`,
         );
       },
-    }
+    },
   );
 
   if (!Object.values(DistroSettingsTabRoutes).includes(currentTab)) {

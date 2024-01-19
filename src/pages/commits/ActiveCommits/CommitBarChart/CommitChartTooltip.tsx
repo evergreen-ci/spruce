@@ -49,7 +49,7 @@ export const CommitChartTooltip: React.FC<Props> = ({
             />
             {umbrellaStatus === TaskStatus.Failed && (
               <SubStatusText css={sharedCss}>{`(${statuses.join(
-                ", "
+                ", ",
               )})`}</SubStatusText>
             )}
           </FlexColumnContainer>

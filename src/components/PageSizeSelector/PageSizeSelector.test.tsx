@@ -10,7 +10,7 @@ describe("pageSizeSelector", () => {
         data-cy="page-size-selector"
         value={10}
         onChange={onChange}
-      />
+      />,
     );
     await user.click(screen.getByRole("button", { name: "10 / page" }));
     expect(screen.queryByText("20 / page")).toBeVisible();

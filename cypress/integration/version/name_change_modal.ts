@@ -30,13 +30,13 @@ describe("Name change modal", () => {
     cy.contains("button", "Confirm").should(
       "have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     cy.get("textarea").type("lol");
     cy.contains("button", "Confirm").should(
       "have.attr",
       "aria-disabled",
-      "false"
+      "false",
     );
     const over300Chars =
       "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -44,7 +44,7 @@ describe("Name change modal", () => {
     cy.contains("button", "Confirm").should(
       "have.attr",
       "aria-disabled",
-      "true"
+      "true",
     );
     cy.contains("Value cannot exceed 300 characters");
   });

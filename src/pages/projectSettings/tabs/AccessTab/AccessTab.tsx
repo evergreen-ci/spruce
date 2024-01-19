@@ -18,9 +18,9 @@ export const AccessTab: React.FC<TabProps> = ({
     () =>
       getFormSchema(
         projectType,
-        projectType === ProjectType.AttachedProject ? repoData : null
+        projectType === ProjectType.AttachedProject ? repoData : null,
       ),
-    [projectType, repoData]
+    [projectType, repoData],
   );
 
   return (

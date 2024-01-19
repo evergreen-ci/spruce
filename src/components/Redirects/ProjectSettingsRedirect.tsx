@@ -26,7 +26,7 @@ export const ProjectSettingsRedirect: React.FC = () => {
         <Navigate
           to={getProjectSettingsRoute(
             viewableProjectRefs[0].projects[0].identifier,
-            ProjectSettingsTabRoutes.General
+            ProjectSettingsTabRoutes.General,
           )}
         />
       );

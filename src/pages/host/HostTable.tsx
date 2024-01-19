@@ -35,7 +35,7 @@ export const HostTable: React.FC<{
   const getDateCopy = useDateFormat();
   const logEntries = useMemo(
     () => eventData?.hostEvents?.eventLogEntries ?? [],
-    [eventData?.hostEvents?.eventLogEntries]
+    [eventData?.hostEvents?.eventLogEntries],
   );
 
   const handlePageSizeChange = (pageSize: number): void => {

@@ -9,7 +9,7 @@ interface reportErrorResult {
 
 const reportError = (
   err: Error,
-  metadata?: { [key: string]: any }
+  metadata?: { [key: string]: any },
 ): reportErrorResult => {
   if (!isProductionBuild()) {
     return {
@@ -50,7 +50,7 @@ enum SentryBreadcrumb {
 const leaveBreadcrumb = (
   message: string,
   metadata: Breadcrumb["data"],
-  type: SentryBreadcrumb
+  type: SentryBreadcrumb,
 ) => {
   if (!isProductionBuild()) {
     console.debug({ message, metadata, type });
@@ -75,17 +75,17 @@ const leaveBreadcrumb = (
  */
 const validateMetadata = (
   metadata: Breadcrumb["data"],
-  breadcrumbType: SentryBreadcrumb
+  breadcrumbType: SentryBreadcrumb,
 ): Breadcrumb["data"] => {
   if (breadcrumbType === SentryBreadcrumb.Navigation) {
     if (!metadata.from) {
       console.warn(
-        "Navigation breadcrumbs should include a 'from' metadata field."
+        "Navigation breadcrumbs should include a 'from' metadata field.",
       );
     }
     if (!metadata.to) {
       console.warn(
-        "Navigation breadcrumbs should include a 'to' metadata field."
+        "Navigation breadcrumbs should include a 'to' metadata field.",
       );
     }
   }

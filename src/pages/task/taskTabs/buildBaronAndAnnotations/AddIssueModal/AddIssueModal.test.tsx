@@ -19,7 +19,7 @@ const AddIssueModal = (
   props: Omit<
     React.ComponentProps<typeof AddIssueModalToTest>,
     "execution" | "taskId" | "visible"
-  >
+  >,
 ) => (
   <MockedProvider mocks={[getSpruceConfigMock, addAnnotationMock]}>
     <AddIssueModalToTest
@@ -38,7 +38,7 @@ describe("addIssueModal", () => {
         closeModal={jest.fn()}
         setSelectedRowKey={jest.fn()}
         isIssue
-      />
+      />,
     );
     render(<Component />);
 
@@ -50,7 +50,7 @@ describe("addIssueModal", () => {
     expect(
       screen.getByRole("button", {
         name: "Add issue",
-      })
+      }),
     ).toHaveAttribute("aria-disabled", "true");
   });
 
@@ -61,7 +61,7 @@ describe("addIssueModal", () => {
         closeModal={jest.fn()}
         setSelectedRowKey={jest.fn()}
         isIssue
-      />
+      />,
     );
     render(<Component />);
 
@@ -72,12 +72,12 @@ describe("addIssueModal", () => {
     expect(screen.queryByDataCy("issue-url")).toHaveValue("");
     await user.type(
       screen.queryByDataCy("issue-url"),
-      "https://jira.mongodb.org/browse/EVG-123"
+      "https://jira.mongodb.org/browse/EVG-123",
     );
     expect(
       screen.getByRole("button", {
         name: "Add issue",
-      })
+      }),
     ).not.toHaveAttribute("aria-disabled", "true");
   });
 
@@ -88,7 +88,7 @@ describe("addIssueModal", () => {
         closeModal={jest.fn()}
         setSelectedRowKey={jest.fn()}
         isIssue
-      />
+      />,
     );
     render(<Component />);
 
@@ -99,7 +99,7 @@ describe("addIssueModal", () => {
     expect(screen.queryByDataCy("issue-url")).toHaveValue("");
     await user.type(
       screen.queryByDataCy("issue-url"),
-      "https://jira.mongodb.org/browse/EVG-123"
+      "https://jira.mongodb.org/browse/EVG-123",
     );
 
     const confirmButton = screen.getByRole("button", {
@@ -126,7 +126,7 @@ describe("addIssueModal", () => {
         closeModal={jest.fn()}
         setSelectedRowKey={setSelectedRowKey}
         isIssue
-      />
+      />,
     );
     render(<Component />);
 
@@ -136,7 +136,7 @@ describe("addIssueModal", () => {
 
     await user.type(
       screen.queryByDataCy("issue-url"),
-      "https://jira.mongodb.org/browse/EVG-123"
+      "https://jira.mongodb.org/browse/EVG-123",
     );
     await user.type(screen.queryByDataCy("confidence-level"), "12");
 

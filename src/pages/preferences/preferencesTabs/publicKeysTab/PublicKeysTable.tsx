@@ -38,7 +38,7 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
   >(MY_PUBLIC_KEYS, {
     onError(error) {
       dispatchToast.error(
-        `There was an error fetching your public keys: ${error.message}`
+        `There was an error fetching your public keys: ${error.message}`,
       );
     },
   });
@@ -49,7 +49,7 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
   >(REMOVE_PUBLIC_KEY, {
     onError(error) {
       dispatchToast.error(
-        `There was an error removing the public key: ${error.message}`
+        `There was an error removing the public key: ${error.message}`,
       );
     },
     refetchQueries: ["MyPublicKeys"],
@@ -104,7 +104,7 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
         },
       },
     ],
-    [loadingRemovePublicKey, removePublicKey, sendEvent, setEditModalProps]
+    [loadingRemovePublicKey, removePublicKey, sendEvent, setEditModalProps],
   );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);

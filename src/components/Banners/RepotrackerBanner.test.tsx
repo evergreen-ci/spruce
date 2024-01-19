@@ -36,7 +36,7 @@ describe("repotracker banner", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[projectNoError]}>
           <RepotrackerBanner projectIdentifier="evergreen" />
-        </MockedProvider>
+        </MockedProvider>,
       );
       render(<Component />);
       await waitFor(() => {
@@ -50,7 +50,7 @@ describe("repotracker banner", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[projectWithError, adminUser]}>
           <RepotrackerBanner projectIdentifier="evergreen" />
-        </MockedProvider>
+        </MockedProvider>,
       );
       render(<Component />);
       await waitFor(() => {
@@ -62,7 +62,7 @@ describe("repotracker banner", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[projectWithError, basicUser]}>
           <RepotrackerBanner projectIdentifier="evergreen" />
-        </MockedProvider>
+        </MockedProvider>,
       );
       render(<Component />);
       await waitFor(() => {
@@ -75,7 +75,7 @@ describe("repotracker banner", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[projectWithError, adminUser]}>
           <RepotrackerBanner projectIdentifier="evergreen" />
-        </MockedProvider>
+        </MockedProvider>,
       );
       render(<Component />);
       await waitFor(() => {
@@ -91,7 +91,7 @@ describe("repotracker banner", () => {
           mocks={[projectWithError, adminUser, setLastRevision, projectNoError]}
         >
           <RepotrackerBanner projectIdentifier="evergreen" />
-        </MockedProvider>
+        </MockedProvider>,
       );
       render(<Component />);
       await waitFor(() => {

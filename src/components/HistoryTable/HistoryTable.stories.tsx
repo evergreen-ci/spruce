@@ -94,7 +94,7 @@ const generateNewCommitData = (oldData: typeof mainlineCommitData) => {
           newRolledUpVersion.order -= counter;
           counter += 1;
           return newRolledUpVersion;
-        }
+        },
       );
     }
     return newVersion;

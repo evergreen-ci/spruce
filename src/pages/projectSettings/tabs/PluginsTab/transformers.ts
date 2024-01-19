@@ -20,14 +20,14 @@ export const gqlToForm = ((data) => {
             ({ displayText, field }) => ({
               field,
               displayText,
-            })
+            }),
           ) ?? [],
       },
       useBuildBaron:
         projectRef?.taskAnnotationSettings?.fileTicketWebhook?.endpoint === "",
       ticketSearchProjects:
         projectRef?.buildBaronSettings?.ticketSearchProjects?.map(
-          (searchProject) => ({ searchProject })
+          (searchProject) => ({ searchProject }),
         ) ?? [],
 
       ticketCreateProject: {
@@ -44,19 +44,17 @@ export const gqlToForm = ((data) => {
         secret: projectRef?.taskAnnotationSettings?.fileTicketWebhook?.secret,
       },
     },
-    externalLinks: {
-      metadataPanelLink: {
-        requesters: projectRef?.externalLinks?.[0].requesters ?? [],
-        displayName: projectRef?.externalLinks?.[0].displayName ?? "",
-        urlTemplate: projectRef?.externalLinks?.[0].urlTemplate ?? "",
-      },
-    },
+    externalLinks:
+      projectRef?.externalLinks?.map((e) => ({
+        ...e,
+        displayTitle: e.displayName,
+      })) ?? [],
   };
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
   { buildBaronSettings, externalLinks, performanceSettings },
-  id
+  id,
 ) => {
   const projectRef: ProjectInput = {
     id,
@@ -65,16 +63,22 @@ export const formToGql = ((
     taskAnnotationSettings: {
       ...fileTicketWebhookIf(
         buildBaronSettings.useBuildBaron,
-        buildBaronSettings.fileTicketWebhook
+        buildBaronSettings.fileTicketWebhook,
       ),
       jiraCustomFields:
         buildBaronSettings.taskAnnotationSettings?.jiraCustomFields
           .map(({ displayText, field }) => ({ field, displayText }))
           .filter((str) => !!str),
     },
-    externalLinks: [externalLinks.metadataPanelLink],
+    externalLinks:
+      externalLinks.length > 0
+        ? externalLinks.map(({ displayName, requesters, urlTemplate }) => ({
+            requesters,
+            displayName,
+            urlTemplate,
+          }))
+        : null,
   };
-
   return { projectRef };
 }) satisfies FormToGqlFunction<Tab>;
 
@@ -97,7 +101,7 @@ export const buildBaronIf = (useBuildBaron: boolean, buildBaronSettings: any) =>
 // conditionally include the fileTicketWebhook field based on the useBuildBaron boolean
 export const fileTicketWebhookIf = (
   useBuildBaron: boolean,
-  fileTicketWebhook: any
+  fileTicketWebhook: any,
 ) =>
   useBuildBaron !== true &&
   fileTicketWebhook !== undefined && {

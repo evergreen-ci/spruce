@@ -33,7 +33,7 @@ const requesters = [
 
 export const getFormSchema = (
   jiraEmail?: string,
-  repoData?: PluginsFormState
+  repoData?: PluginsFormState,
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -48,7 +48,7 @@ export const getFormSchema = (
             title: "",
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
-              repoData?.performanceSettings?.perfEnabled
+              repoData?.performanceSettings?.perfEnabled,
             ),
           },
         },
@@ -141,7 +141,7 @@ export const getFormSchema = (
                             type: "string" as "string",
                             title: r,
                             enum: [r],
-                          })
+                          }),
                         ),
                       },
                     },
@@ -178,38 +178,39 @@ export const getFormSchema = (
         },
       },
       externalLinks: {
-        type: "object" as "object",
-        title: "Metadata Link",
-        properties: {
-          metadataPanelLink: {
-            type: "object" as "object",
-            title: "",
-            description:
-              "Add a URL to the metadata panel for versions with the specified requester. Include {version_id} in the URL template and it will be replaced by an actual version ID.",
-            properties: {
-              requesters: {
-                type: "array" as "array",
-                title: "Requesters",
-                uniqueItems: true,
-                items: {
+        type: "array" as "array",
+        title: "Metadata Links",
+        maxItems: 5,
+        items: {
+          type: "object" as "object",
+          properties: {
+            requesters: {
+              type: "array" as "array",
+              title: "Requesters",
+              uniqueItems: true,
+              items: {
+                type: "string" as "string",
+                anyOf: requesters.map((r) => ({
                   type: "string" as "string",
-                  anyOf: requesters.map((r) => ({
-                    type: "string" as "string",
-                    title: r.label,
-                    enum: [r.value],
-                  })),
-                },
+                  title: r.label,
+                  enum: [r.value],
+                })),
               },
-              displayName: {
-                type: "string" as "string",
-                title: "Display name",
-                maxLength: 40,
-              },
-              urlTemplate: {
-                type: "string" as "string",
-                title: "URL template",
-                format: "validURLTemplate",
-              },
+              default: [],
+            },
+            displayName: {
+              type: "string" as "string",
+              title: "Display name",
+              default: "",
+              minLength: 1,
+              maxLength: 40,
+            },
+            urlTemplate: {
+              type: "string" as "string",
+              title: "URL template",
+              default: "",
+              minLength: 1,
+              format: "validURLTemplate",
             },
           },
         },
@@ -283,27 +284,35 @@ export const getFormSchema = (
         "ui:description":
           "Specify the endpoint and secret for a custom webhook to be called when the File Ticket button is clicked on a failing task.",
         endpoint: placeholderIf(
-          repoData?.buildBaronSettings?.fileTicketWebhook?.endpoint
+          repoData?.buildBaronSettings?.fileTicketWebhook?.endpoint,
         ),
         secret: placeholderIf(
-          repoData?.buildBaronSettings?.fileTicketWebhook?.secret
+          repoData?.buildBaronSettings?.fileTicketWebhook?.secret,
         ),
       },
     },
     externalLinks: {
       "ui:rootFieldId": "externalLinks",
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      metadataPanelLink: {
+      "ui:placeholder": "No metadata links are defined.",
+      "ui:description":
+        "Add URLs to the metadata panel for versions with the specified requester.",
+      "ui:addButtonText": "Add metadata link",
+      "ui:orderable": false,
+      "ui:useExpandableCard": true,
+      items: {
+        "ui:displayTitle": "New Metadata Link",
         requesters: {
           "ui:widget": widgets.MultiSelectWidget,
           "ui:data-cy": "requesters-input",
         },
+        displayName: {
+          "ui:data-cy": "display-name-input",
+        },
         urlTemplate: {
           "ui:placeholder": "https://example.com/{version_id}",
           "ui:data-cy": "url-template-input",
-        },
-        displayName: {
-          "ui:data-cy": "display-name-input",
+          "ui:description":
+            "Include {version_id} in the URL template and it will be replaced by an actual version ID.",
         },
       },
     },

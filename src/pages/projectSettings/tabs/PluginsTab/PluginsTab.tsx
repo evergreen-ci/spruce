@@ -22,9 +22,9 @@ export const PluginsTab: React.FC<TabProps> = ({
     () =>
       getFormSchema(
         jiraEmail,
-        projectType === ProjectType.AttachedProject ? repoData : null
+        projectType === ProjectType.AttachedProject ? repoData : null,
       ),
-    [jiraEmail, projectType, repoData]
+    [jiraEmail, projectType, repoData],
   );
 
   return (
@@ -41,7 +41,7 @@ export const PluginsTab: React.FC<TabProps> = ({
 const validate = ((formData, errors) => {
   const {
     buildBaronSettings: { ticketSearchProjects },
-    externalLinks: { metadataPanelLink },
+    externalLinks,
   } = formData;
 
   // if a search project is defined, a create project must be defined, and vice versa
@@ -53,37 +53,39 @@ const validate = ((formData, errors) => {
 
   if (searchProjectDefined && !createProjectDefined) {
     errors.buildBaronSettings?.ticketCreateProject?.createProject.addError(
-      "You must specify a create project."
+      "You must specify a create project.",
     );
   }
 
   if (createProjectDefined && !searchProjectDefined) {
     errors.buildBaronSettings?.ticketCreateProject?.createProject.addError(
-      "You must also specify at least one ticket search project above."
+      "You must also specify at least one ticket search project above.",
     );
   }
 
-  const displayNameDefined = metadataPanelLink.displayName.trim() !== "";
-  const urlTemplateDefined = metadataPanelLink.urlTemplate.trim() !== "";
-  const requestersDefined = metadataPanelLink.requesters.length > 0;
+  externalLinks.forEach((link, idx) => {
+    const displayNameDefined = link.displayName.trim() !== "";
+    const urlTemplateDefined = link.urlTemplate.trim() !== "";
+    const requestersDefined = link.requesters.length > 0;
 
-  if (displayNameDefined || urlTemplateDefined || requestersDefined) {
-    if (!displayNameDefined) {
-      errors.externalLinks.metadataPanelLink.displayName.addError(
-        "You must specify a display name."
-      );
+    if (displayNameDefined || urlTemplateDefined || requestersDefined) {
+      if (!displayNameDefined) {
+        errors.externalLinks[idx].displayName.addError(
+          "You must specify a display name.",
+        );
+      }
+      if (!urlTemplateDefined) {
+        errors.externalLinks[idx].urlTemplate.addError(
+          "You must specify a URL template.",
+        );
+      }
+      if (!requestersDefined) {
+        errors.externalLinks[idx].requesters.addError(
+          "You must specify requesters.",
+        );
+      }
     }
-    if (!urlTemplateDefined) {
-      errors.externalLinks.metadataPanelLink.urlTemplate.addError(
-        "You must specify a URL template."
-      );
-    }
-    if (!requestersDefined) {
-      errors.externalLinks.metadataPanelLink.requesters.addError(
-        "You must specify requesters."
-      );
-    }
-  }
+  });
 
   return errors;
 }) satisfies ValidateProps<PluginsFormState>;

@@ -43,7 +43,7 @@ const AnnotationTicketRowWithActions = forwardRef<
       userCanModify,
       ...rest
     },
-    ref
+    ref,
   ) => {
     const { confidenceScore, issueKey, loading, url } = rest;
     return (
@@ -112,7 +112,7 @@ const AnnotationTicketRowWithActions = forwardRef<
         )}
       </Container>
     );
-  }
+  },
 );
 
 const ButtonContainer = styled.div`

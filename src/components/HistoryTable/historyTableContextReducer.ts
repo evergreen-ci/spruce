@@ -58,7 +58,7 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
       // This also performantly handles deduplication of commits at the expense of memory
       const updatedObjectCache = objectifyCommits(
         state.commitCache,
-        action.commits.versions
+        action.commits.versions,
       );
       if (updatedObjectCache.size > state.commitCache.size) {
         // Check if our selected commit has been loaded
@@ -115,7 +115,7 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
       const nextPage = state.currentPage + 1;
       const nextPageColumns = state.columns.slice(
         state.columnLimit * nextPage,
-        state.columnLimit * (nextPage + 1)
+        state.columnLimit * (nextPage + 1),
       );
       return {
         ...state,
@@ -142,7 +142,7 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
       }
       const prevPageColumns = state.columns.slice(
         state.columnLimit * (state.currentPage - 1),
-        state.columnLimit * state.currentPage
+        state.columnLimit * state.currentPage,
       );
       return {
         ...state,
@@ -169,7 +169,7 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
       const hasMatchingCommit = state.commitCache.has(action.order);
       if (hasMatchingCommit) {
         rowIndex = state.processedCommits.findIndex((commit) =>
-          commitOrderToRowIndex(action.order, commit)
+          commitOrderToRowIndex(action.order, commit),
         );
         updatedProcessedCommits[rowIndex].selected = true;
         loaded = true;
@@ -194,7 +194,7 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         throw new Error(
           `Cannot expand row of type ${
             updatedProcessedCommits[action.rowIndex].type
-          }`
+          }`,
         );
       } else {
         row.expanded = action.expanded;
@@ -214,7 +214,7 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
 // This is used to performantly track if we have seen a commit before and avoid duplicating it
 const objectifyCommits = (
   cache: cacheShape,
-  newCommits: mainlineCommits["versions"]
+  newCommits: mainlineCommits["versions"],
 ) => {
   const obj = new Map(cache);
   newCommits.forEach((commit) => {

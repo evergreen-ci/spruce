@@ -48,7 +48,7 @@ interface renderWithRouterMatchOptions extends customRenderOptions {
  */
 const renderWithRouterMatch = (
   ui: React.ReactElement,
-  options: renderWithRouterMatchOptions = {}
+  options: renderWithRouterMatchOptions = {},
 ) => {
   const { path = "/", route = "/", wrapper: TestWrapper, ...rest } = options;
 
@@ -75,7 +75,7 @@ const renderWithRouterMatch = (
     <RouterProvider router={memoryRouter} />,
     {
       ...rest,
-    }
+    },
   );
 
   const customRerender = (element: React.ReactElement) => {

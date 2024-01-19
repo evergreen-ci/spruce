@@ -53,7 +53,7 @@ const RenderCommitsWrapper = ({
   taskCount,
 }) => {
   const updatedVersions = versions.map((version) =>
-    populateVersion(version, buildVariantCount, taskCount, hasTaskFilter)
+    populateVersion(version, buildVariantCount, taskCount, hasTaskFilter),
   );
   return (
     <div style={{ height: "500px" }}>
@@ -103,7 +103,7 @@ const generateTasks = (count: number) =>
  */
 const randomStatus = (index: number) => {
   const TaskStatusWithoutUmbrella = Object.values(TaskStatus).filter(
-    (status) => status.includes("umbrella") === false
+    (status) => status.includes("umbrella") === false,
   );
   const taskStatuses = Object.values(TaskStatusWithoutUmbrella);
   return taskStatuses[index % taskStatuses.length];
@@ -115,7 +115,7 @@ const populateVersion = (
   version: Commit,
   buildVariantCount: number,
   taskCount: number,
-  hasTaskFilter: boolean
+  hasTaskFilter: boolean,
 ) => {
   if (isRolledUpCommit(version)) {
     return version;
@@ -125,20 +125,23 @@ const populateVersion = (
 
   // This is used to populate the barcharts on the waterfall page
   // iterate through the buildVariants and aggregate the task statuses for each buildVariant into this format [ { status: "success", count: 1 }, { status: "failed", count: 1 }
-  const taskStatusCounts = buildVariants.reduce((acc, buildVariant) => {
-    buildVariant.tasks.forEach((task) => {
-      const taskStatus = task.status;
-      const taskStatusIndex = acc.findIndex(
-        (status) => status.status === taskStatus
-      );
-      if (taskStatusIndex === -1) {
-        acc.push({ status: taskStatus, count: 1 });
-      } else {
-        acc[taskStatusIndex].count += 1;
-      }
-    });
-    return acc;
-  }, [] as { status: string; count: number }[]);
+  const taskStatusCounts = buildVariants.reduce(
+    (acc, buildVariant) => {
+      buildVariant.tasks.forEach((task) => {
+        const taskStatus = task.status;
+        const taskStatusIndex = acc.findIndex(
+          (status) => status.status === taskStatus,
+        );
+        if (taskStatusIndex === -1) {
+          acc.push({ status: taskStatus, count: 1 });
+        } else {
+          acc[taskStatusIndex].count += 1;
+        }
+      });
+      return acc;
+    },
+    [] as { status: string; count: number }[],
+  );
   newVersion.version.taskStatusStats = { eta: null, counts: taskStatusCounts };
 
   // Calculate the buildVariantStats
@@ -148,7 +151,7 @@ const populateVersion = (
         displayName: buildVariant.displayName,
         variant: buildVariant.variant,
         statusCounts: groupTasksByStatus(
-          buildVariant.tasks.filter((t) => !isFailedTaskStatus(t.status))
+          buildVariant.tasks.filter((t) => !isFailedTaskStatus(t.status)),
         ),
       }));
 
@@ -172,18 +175,21 @@ const populateVersion = (
  * @returns an array of objects with the status and count
  */
 const groupTasksByStatus = (tasks: { status: string }[]) => {
-  const taskStatusCounts = tasks.reduce((acc, task) => {
-    const taskStatus = task.status;
-    const taskStatusIndex = acc.findIndex(
-      (status) => status.status === taskStatus
-    );
-    if (taskStatusIndex === -1) {
-      acc.push({ status: taskStatus, count: 1 });
-    } else {
-      acc[taskStatusIndex].count += 1;
-    }
-    return acc;
-  }, [] as { status: string; count: number }[]);
+  const taskStatusCounts = tasks.reduce(
+    (acc, task) => {
+      const taskStatus = task.status;
+      const taskStatusIndex = acc.findIndex(
+        (status) => status.status === taskStatus,
+      );
+      if (taskStatusIndex === -1) {
+        acc.push({ status: taskStatus, count: 1 });
+      } else {
+        acc[taskStatusIndex].count += 1;
+      }
+      return acc;
+    },
+    [] as { status: string; count: number }[],
+  );
   return taskStatusCounts;
 };
 

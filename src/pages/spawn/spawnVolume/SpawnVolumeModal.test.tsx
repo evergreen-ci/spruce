@@ -31,37 +31,37 @@ describe("spawnVolumeModal", () => {
         visible={false}
         onCancel={() => {}}
         maxSpawnableLimit={1000}
-      />
+      />,
     );
     render(
       <MockedProvider mocks={baseMocks}>
         <Component />
-      </MockedProvider>
+      </MockedProvider>,
     );
     expect(screen.queryByDataCy("spawn-volume-modal")).not.toBeInTheDocument();
   });
 
   it("form contains default values on initial render", async () => {
     const { Component } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />
+      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />,
     );
     render(
       <MockedProvider mocks={baseMocks}>
         <Component />
-      </MockedProvider>
+      </MockedProvider>,
     );
     await waitFor(() => {
       expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
     });
     expect(screen.queryByDataCy("volume-size-input")).toHaveValue("500");
     expect(screen.queryByDataCy("availability-zone-select")).toHaveTextContent(
-      "us-east-1a"
+      "us-east-1a",
     );
     expect(screen.queryByDataCy("type-select")).toHaveTextContent("gp2");
     expect(screen.queryByLabelText("Never expire")).not.toBeChecked();
     expect(screen.queryByDataCy("host-select")).toHaveAttribute(
       "aria-disabled",
-      "true"
+      "true",
     );
     expect(screen.queryByText("No hosts available.")).toBeVisible();
   });
@@ -88,12 +88,12 @@ describe("spawnVolumeModal", () => {
       result: { data: { spawnVolume: true } },
     };
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />
+      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />,
     );
     render(
       <MockedProvider mocks={[...baseMocks, spawnVolumeMutation]}>
         <Component />
-      </MockedProvider>
+      </MockedProvider>,
     );
     await waitFor(() => {
       expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
@@ -131,12 +131,12 @@ describe("spawnVolumeModal", () => {
       result: { data: { spawnVolume: true } },
     };
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />
+      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />,
     );
     render(
       <MockedProvider mocks={[...baseMocks, spawnVolumeMutation]}>
         <Component />
-      </MockedProvider>
+      </MockedProvider>,
     );
     await waitFor(() => {
       expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();

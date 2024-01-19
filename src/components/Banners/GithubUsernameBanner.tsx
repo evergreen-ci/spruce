@@ -18,7 +18,7 @@ export const GithubUsernameBanner = () => {
   // USER SETTINGS QUERY
   const { data: userSettingsData } = useQuery<UserSettingsQuery>(
     USER_SETTINGS,
-    { skip: !isPatchesPage }
+    { skip: !isPatchesPage },
   );
   const { userSettings } = userSettingsData || {};
   const { githubUser } = userSettings || {};

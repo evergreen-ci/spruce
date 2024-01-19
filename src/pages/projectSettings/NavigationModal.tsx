@@ -20,7 +20,7 @@ export const NavigationModal: React.FC = () => {
     const currentProjectRoute = getProjectSettingsRoute(projectIdentifier);
     const isNewProjectSettingsRoute = !matchPath(
       `${currentProjectRoute}/*`,
-      nextLocation.pathname
+      nextLocation.pathname,
     );
     if (isNewProjectSettingsRoute) {
       return hasUnsaved;

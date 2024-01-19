@@ -29,7 +29,7 @@ describe("deleteProject", () => {
     render(<Component />);
     expect(screen.getByDataCy("delete-project-button")).toBeInTheDocument();
     expect(
-      screen.queryByDataCy("delete-project-modal")
+      screen.queryByDataCy("delete-project-modal"),
     ).not.toBeInTheDocument();
   });
 
@@ -49,7 +49,7 @@ describe("deleteProject", () => {
     expect(deleteButton).toBeEnabled();
     await user.click(deleteButton);
     expect(dispatchToast.success).toHaveBeenCalledWith(
-      "The project “evergreen” was deleted. Future visits to this page will result in an error."
+      "The project “evergreen” was deleted. Future visits to this page will result in an error.",
     );
   });
 });

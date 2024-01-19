@@ -12,7 +12,7 @@ export const SiteBanner: React.FC<SiteBannerProps> = ({ text, theme }) => {
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const [showBanner, setShowBanner] = useState(
-    text && Cookies.get(text) === undefined
+    text && Cookies.get(text) === undefined,
   );
 
   const hideBanner = () => {

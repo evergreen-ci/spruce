@@ -48,7 +48,7 @@ interface HistoryTableState {
 }
 
 const HistoryTableDispatchContext = createContext<HistoryTableState | null>(
-  null
+  null,
 );
 interface HistoryTableProviderProps {
   children: React.ReactNode;
@@ -112,7 +112,7 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
       addColumns: (columns: string[]) =>
         dispatch({ type: "addColumns", columns }),
       ingestNewCommits: (
-        commits: MainlineCommitsForHistoryQuery["mainlineCommits"]
+        commits: MainlineCommitsForHistoryQuery["mainlineCommits"],
       ) => dispatch({ type: "ingestNewCommits", commits }),
       markSelectedRowVisited: () =>
         dispatch({ type: "markSelectedRowVisited" }),
@@ -132,7 +132,7 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
       },
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [visibleColumns, processedCommitCount, historyTableFilters]
+    [visibleColumns, processedCommitCount, historyTableFilters],
   );
 
   return (
@@ -146,7 +146,7 @@ const useHistoryTable = () => {
   const context = useContext(HistoryTableDispatchContext);
   if (context === undefined) {
     throw new Error(
-      "useHistoryTable must be used within a HistoryTableProvider"
+      "useHistoryTable must be used within a HistoryTableProvider",
     );
   }
   return context;

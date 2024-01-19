@@ -6,7 +6,7 @@ describe("Patch with aborted task", () => {
     cy.get(`[data-row-key=${taskId}] > .cy-task-table-col-STATUS`).within(
       () => {
         cy.dataCy("task-status-badge").should("have.text", "Aborted");
-      }
+      },
     );
   });
 });

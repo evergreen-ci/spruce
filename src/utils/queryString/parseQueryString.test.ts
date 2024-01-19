@@ -19,7 +19,7 @@ describe("parseQueryString", () => {
   });
   it("parses a query param with multiple arrays as value", () => {
     expect(
-      parseQueryString("statuses=failed,passed,ehh&variants=ubuntu1604,GLADOS")
+      parseQueryString("statuses=failed,passed,ehh&variants=ubuntu1604,GLADOS"),
     ).toMatchObject({
       statuses: ["failed", "passed", "ehh"],
       variants: ["ubuntu1604", "GLADOS"],
@@ -27,7 +27,7 @@ describe("parseQueryString", () => {
   });
   it("parses a query param with a mixed array and a single string as a value", () => {
     expect(
-      parseQueryString("status=failed&variants=ubuntu1604,GLADOS")
+      parseQueryString("status=failed&variants=ubuntu1604,GLADOS"),
     ).toMatchObject({
       status: "failed",
       variants: ["ubuntu1604", "GLADOS"],

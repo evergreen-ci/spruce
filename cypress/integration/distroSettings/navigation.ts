@@ -19,7 +19,7 @@ describe("using the distro dropdown", () => {
       cy.dataCy("save-settings-button").should(
         "not.have.attr",
         "aria-disabled",
-        "true"
+        "true",
       );
       cy.dataCy("project-health-link").click();
       cy.dataCy("navigation-warning-modal").should("be.visible");
@@ -27,7 +27,7 @@ describe("using the distro dropdown", () => {
       cy.dataCy("navigation-warning-modal").should("not.exist");
       cy.location("pathname").should(
         "eq",
-        "/distro/localhost/settings/general"
+        "/distro/localhost/settings/general",
       );
     });
 
@@ -41,7 +41,7 @@ describe("using the distro dropdown", () => {
         cy.dataCy("save-settings-button").should(
           "not.have.attr",
           "aria-disabled",
-          "true"
+          "true",
         );
         cy.contains("a", "Task Settings").click();
         cy.dataCy("save-modal").should("be.visible");
@@ -53,7 +53,7 @@ describe("using the distro dropdown", () => {
         cy.dataCy("save-settings-button").should(
           "not.have.attr",
           "aria-disabled",
-          "true"
+          "true",
         );
         cy.dataCy("project-health-link").click();
         cy.dataCy("navigation-warning-modal").should("be.visible");

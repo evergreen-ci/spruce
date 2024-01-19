@@ -41,7 +41,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error while spawning your volume: ${err.message}`
+        `There was an error while spawning your volume: ${err.message}`,
       );
       onCancel();
     },
@@ -76,7 +76,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
       ({ availabilityZone, status }) =>
         availabilityZone ===
           formState?.requiredVolumeInformation?.availabilityZone &&
-        (status === HostStatus.Running || status === HostStatus.Stopped)
+        (status === HostStatus.Running || status === HostStatus.Stopped),
     )
     .map(({ displayName, id }) => ({ id, displayName }))
     .sort((a, b) => a.displayName.localeCompare(b.displayName));

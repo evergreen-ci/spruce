@@ -10,7 +10,7 @@ const { overrideRadioBox, radioBoxOptions } = form;
 export const getFormSchema = (
   identifier: string,
   projectType: ProjectType,
-  repoData?: VWFormState
+  repoData?: VWFormState,
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -45,7 +45,7 @@ export const getFormSchema = (
                 },
               },
             },
-          }
+          },
         ),
       },
     },

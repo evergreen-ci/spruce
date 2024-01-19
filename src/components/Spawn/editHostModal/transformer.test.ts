@@ -8,7 +8,7 @@ describe("edit spawn host modal", () => {
         hostId: "host_id",
         myPublicKeys,
         oldUserTags,
-      })
+      }),
     ).toStrictEqual({
       hostId: "host_id",
       displayName: "new-name",

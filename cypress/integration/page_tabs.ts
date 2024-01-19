@@ -8,7 +8,7 @@ describe("Tabs", () => {
       locationPathEquals(patches.tasks.route);
       cy.location("search").should(
         "contain",
-        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
       );
     });
 
@@ -29,14 +29,14 @@ describe("Tabs", () => {
       locationPathEquals(patches.changes.route);
       cy.location("search").should(
         "not.contain",
-        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
       );
 
       cy.dataCy("task-tab").first().click();
       locationPathEquals(patches.tasks.route);
       cy.location("search").should(
         "contain",
-        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
       );
     });
 
@@ -44,14 +44,14 @@ describe("Tabs", () => {
       cy.visit(patchRoute);
       cy.location("search").should(
         "contain",
-        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
       );
 
       cy.get(`button[data-cy='${patches.changes.btn}']`).click();
       locationPathEquals(patches.changes.route);
       cy.location("search").should(
         "contain",
-        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC",
       );
     });
 

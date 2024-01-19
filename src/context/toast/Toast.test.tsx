@@ -40,7 +40,7 @@ describe("toast", () => {
     jest.spyOn(console, "error").mockImplementation();
     const { Component } = renderComponentWithHook();
     expect(() => render(<Component />)).toThrow(
-      "useToastContext must be used within a ToastProvider"
+      "useToastContext must be used within a ToastProvider",
     );
     console.error = errorObject;
   });

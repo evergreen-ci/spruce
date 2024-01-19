@@ -61,7 +61,7 @@ describe("create distro modal", () => {
     await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
     expect(router.state.location.pathname).toBe(
-      `/distro/${newDistroId}/settings/general`
+      `/distro/${newDistroId}/settings/general`,
     );
   });
 
@@ -72,12 +72,12 @@ describe("create distro modal", () => {
 
     await user.type(
       screen.queryByDataCy("distro-id-input"),
-      "string with spaces"
+      "string with spaces",
     );
     expect(
       screen.getByRole("button", {
         name: "Create",
-      })
+      }),
     ).toHaveAttribute("aria-disabled", "true");
   });
 
@@ -100,7 +100,7 @@ describe("create distro modal", () => {
     };
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <Modal createMock={mockWithError} />
+      <Modal createMock={mockWithError} />,
     );
     const { router } = render(<Component />);
 

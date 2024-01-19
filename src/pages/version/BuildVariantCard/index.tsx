@@ -40,7 +40,7 @@ const BuildVariantCard: React.FC = () => {
               variant={variant}
               versionId={id}
             />
-          )
+          ),
         )}
       </ScrollableBuildVariantStatsContainer>
     </StickyMetadataCard>

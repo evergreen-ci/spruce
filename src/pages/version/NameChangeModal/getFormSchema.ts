@@ -1,7 +1,7 @@
 import { SpruceFormProps } from "components/SpruceForm/types";
 
 export const getFormSchema = (
-  name: string
+  name: string,
 ): {
   schema: SpruceFormProps["schema"];
   uiSchema: SpruceFormProps["uiSchema"];

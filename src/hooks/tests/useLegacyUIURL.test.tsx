@@ -34,7 +34,7 @@ describe("useLegacyUIURL", () => {
         legacyURL: useLegacyUIURL(),
         navigate: useNavigate(),
       }),
-      { wrapper }
+      { wrapper },
     );
     expect(result.current.legacyURL).toBe("/waterfall/spruce");
 
@@ -56,7 +56,7 @@ describe("useLegacyUIURL", () => {
         legacyURL: useLegacyUIURL(),
         navigate: useNavigate(),
       }),
-      { wrapper }
+      { wrapper },
     );
     expect(result.current.legacyURL).toBeNull();
 

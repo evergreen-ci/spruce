@@ -10,7 +10,7 @@ export { bucketByCommit } from "./bucketByCommit";
  * @returns true if commits are preserved, false if otherwise
  */
 export const shouldPreserveCommits = (
-  fileDiffs: FileDiffsFragment[]
+  fileDiffs: FileDiffsFragment[],
 ): boolean => {
   if (fileDiffs.length && fileDiffs[0].description !== "") {
     return true;

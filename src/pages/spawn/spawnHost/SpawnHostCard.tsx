@@ -63,7 +63,7 @@ const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
             <PaddedBadge key={`user_tag_${host.id}_${tag.key}`}>
               {tag?.key}:{tag?.value}
             </PaddedBadge>
-          )
+          ),
       )}
     </span>
   ),

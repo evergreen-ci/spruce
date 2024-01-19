@@ -44,12 +44,12 @@ describe("stringifyQueryAsValue", () => {
   it("should preserve empty strings if skipEmptyString is passed in", () => {
     let result = stringifyQueryAsValue(
       { foo: "", bar: null },
-      { skipEmptyString: false }
+      { skipEmptyString: false },
     );
     expect(result).toBe("foo=");
     result = stringifyQueryAsValue(
       { foo: "", bar: 21 },
-      { skipEmptyString: false }
+      { skipEmptyString: false },
     );
     expect(result).toBe("bar=21&foo=");
   });

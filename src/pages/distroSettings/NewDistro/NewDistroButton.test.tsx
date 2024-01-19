@@ -49,7 +49,7 @@ describe("new distro button", () => {
       },
     };
     const { Component } = RenderFakeToastContext(
-      <Button mock={lacksPermissionsMock} />
+      <Button mock={lacksPermissionsMock} />,
     );
     render(<Component />, {
       path: "/distro/:distroId/settings/general",

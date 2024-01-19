@@ -13,7 +13,7 @@ import { commits } from "utils";
 const { bucketByCommit } = commits;
 
 const totalFileDiffs = (
-  fileDiffs: FileDiffsFragment[]
+  fileDiffs: FileDiffsFragment[],
 ): { additions: number; deletions: number } => {
   let additions = 0;
   let deletions = 0;

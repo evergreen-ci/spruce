@@ -8,7 +8,7 @@ import { SettingsRoutes } from "./types";
 
 export type FormProps<
   T extends SettingsRoutes,
-  FormStateMap extends Record<T, any>
+  FormStateMap extends Record<T, any>,
 > = {
   disabled?: boolean;
   formSchema: ReturnType<GetFormSchema>;
@@ -19,7 +19,7 @@ export type FormProps<
 
 export const Form = <
   T extends SettingsRoutes,
-  FormStateMap extends Record<T, any>
+  FormStateMap extends Record<T, any>,
 >({
   disabled,
   formSchema,

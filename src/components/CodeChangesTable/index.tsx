@@ -26,7 +26,7 @@ const rowKey = (record: FileDiffsFragment): string =>
   `${record.diffLink}_code_table`;
 
 const columns: (
-  showHeader: boolean
+  showHeader: boolean,
 ) => Array<ColumnProps<FileDiffsFragment>> = (showHeader: boolean) => [
   {
     title: <span data-cy="file-column">File</span>,

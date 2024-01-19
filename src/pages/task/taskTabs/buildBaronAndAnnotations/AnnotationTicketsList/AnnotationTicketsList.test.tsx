@@ -46,7 +46,7 @@ describe("annotationTicketsList", () => {
           setSelectedRowKey={() => {}}
           loading
         />
-      </MockedProvider>
+      </MockedProvider>,
     );
     render(<Component />, {
       route: `/task/${taskId}`,

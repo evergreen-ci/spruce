@@ -17,7 +17,7 @@ export const gqlToForm = ((data) => {
 
 export const formToGql = ((
   { cloneMethod, expansions, validProjects },
-  distro
+  distro,
 ) => ({
   ...distro,
   cloneMethod,

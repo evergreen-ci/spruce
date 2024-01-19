@@ -5,7 +5,7 @@ describe("spawn volume modal", () => {
     expect(
       formToGql({
         formData: formState,
-      })
+      }),
     ).toStrictEqual({
       size: 200,
       availabilityZone: "us-east-1c",

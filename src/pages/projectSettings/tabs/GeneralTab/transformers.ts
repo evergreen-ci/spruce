@@ -68,7 +68,7 @@ export const formToGql = ((
     historicalTaskDataCaching: { disabledStatsCache },
     projectFlags,
   },
-  id
+  id,
 ) => {
   const projectRef: ProjectInput = {
     id,

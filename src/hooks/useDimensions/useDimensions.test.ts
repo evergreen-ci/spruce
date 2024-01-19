@@ -35,7 +35,7 @@ describe("useDimensions", () => {
 
   it("tracks DOM dimensions", () => {
     const { result } = renderHook(() =>
-      useDimensions({ current: document.createElement("div") })
+      useDimensions({ current: document.createElement("div") }),
     );
 
     act(() => {
@@ -57,7 +57,7 @@ describe("useDimensions", () => {
 
   it("tracks multiple updates", () => {
     const { result } = renderHook(() =>
-      useDimensions({ current: document.createElement("div") })
+      useDimensions({ current: document.createElement("div") }),
     );
 
     act(() => {
@@ -95,7 +95,7 @@ describe("useDimensions", () => {
 
   it("calls .disconnect() on ResizeObserver when component unmounts", () => {
     const { unmount } = renderHook(() =>
-      useDimensions({ current: document.createElement("div") })
+      useDimensions({ current: document.createElement("div") }),
     );
 
     expect(disconnectSpy).toHaveBeenCalledTimes(0);

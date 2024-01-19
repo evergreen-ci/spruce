@@ -15,7 +15,7 @@ import { SpawnHostModal } from "./spawnHostButton/SpawnHostModal";
 
 export const SpawnHostButton: React.FC = () => {
   const { data: myHostsData } = useQuery<MyHostsQuery, MyHostsQueryVariables>(
-    MY_HOSTS
+    MY_HOSTS,
   );
   const [spawnHostParam, setSpawnHostParam] = useQueryParam<
     boolean | undefined
@@ -29,7 +29,7 @@ export const SpawnHostButton: React.FC = () => {
   const maxHosts = spruceConfig?.spawnHost?.spawnHostsPerUser || 0;
 
   const nonTerminatedHosts = myHostsData?.myHosts.filter(
-    (host) => host.status !== HostStatus.Terminated
+    (host) => host.status !== HostStatus.Terminated,
   );
   const currentHostCount = nonTerminatedHosts?.length || 0;
   const reachedMaxNumHosts = currentHostCount >= maxHosts;

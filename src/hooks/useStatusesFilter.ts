@@ -24,7 +24,7 @@ export const useStatusesFilter = ({
   const urlValue = useMemo(
     () =>
       Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses].filter((v) => v),
-    [rawStatuses]
+    [rawStatuses],
   );
 
   const [inputValue, setInputValue] = useState(urlValue);

@@ -340,6 +340,7 @@ const mountPoints = {
     "ui:topAlignDelete": true,
     items: {
       "ui:ObjectFieldTemplate": AccordionFieldTemplate,
+      "ui:defaultOpen": true,
       "ui:numberedTitle": "Mount Point",
     },
   },
