@@ -127,7 +127,7 @@ export const getFormSchema = (
               type: "null",
               title: "Trigger Versions With Git Tags",
               description:
-                "If an authorized user pushes a tag that matches a regex, then a version can be created from this alias.",
+                "If an authorized user pushes a tag that matches a specific regex, then a version will be created from this alias.",
             },
             gitTagVersionsEnabled: {
               type: ["boolean", "null"],
@@ -139,7 +139,7 @@ export const getFormSchema = (
             users: {
               title: "Authorized Users",
               description:
-                "MANA entitlements may also be used to manage this authorization.",
+                "This must be a list of authorized GitHub user or bot names. This authorization can alternatively be provisioned on this project's MANA resource.",
               ...overrideRadioBox(
                 "gitTagAuthorizedUsers",
                 ["Override Repo Users", "Default to Repo Users"],
@@ -157,7 +157,7 @@ export const getFormSchema = (
             teams: {
               title: "Authorized Teams",
               description:
-                "This should be the team slug, i.e. the team name with dashes instead of spaces. For example, the team Evergreen Users would be evergreen-users. MANA entitlements may also be used to manage this authorization.",
+                "This must be the team slug, i.e. the team name with dashes instead of spaces. For example, the team Evergreen Users would be evergreen-users. This authorization can also be provisioned on this project's MANA resource.",
               ...overrideRadioBox(
                 "gitTagAuthorizedTeams",
                 ["Override Repo Teams", "Default to Repo Teams"],
