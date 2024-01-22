@@ -201,7 +201,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         >
           <td
             class="leafygreen-ui-1kl9d6z"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -255,7 +255,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -271,7 +271,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -282,7 +282,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -313,6 +313,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         >
           <td
             class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -336,6 +337,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -351,6 +353,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -361,6 +364,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -391,6 +395,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         >
           <td
             class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -414,6 +419,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -429,6 +435,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -439,6 +446,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -475,7 +483,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         >
           <td
             class="leafygreen-ui-ygreag"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -499,7 +507,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -518,7 +526,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -529,7 +537,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -566,7 +574,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         >
           <td
             class="leafygreen-ui-ygreag"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -590,7 +598,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -609,7 +617,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -620,7 +628,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -657,7 +665,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         >
           <td
             class="leafygreen-ui-ygreag"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -681,7 +689,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -700,7 +708,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -711,7 +719,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -748,7 +756,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         >
           <td
             class="leafygreen-ui-ygreag"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -772,7 +780,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -791,7 +799,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -802,7 +810,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -839,7 +847,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         >
           <td
             class="leafygreen-ui-ygreag"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -863,7 +871,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -882,7 +890,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -893,7 +901,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -930,7 +938,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         >
           <td
             class="leafygreen-ui-ygreag"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -954,7 +962,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -973,7 +981,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -984,7 +992,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -1021,7 +1029,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         >
           <td
             class="leafygreen-ui-ygreag"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -1045,7 +1053,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -1064,7 +1072,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -1075,7 +1083,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -1112,7 +1120,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         >
           <td
             class="leafygreen-ui-ygreag"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -1136,7 +1144,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -1155,7 +1163,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -1166,7 +1174,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -1203,7 +1211,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         >
           <td
             class="leafygreen-ui-ygreag"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -1227,7 +1235,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -1246,7 +1254,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -1257,7 +1265,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -1487,7 +1495,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
         >
           <td
             class="leafygreen-ui-1kl9d6z"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -1541,7 +1549,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -1557,7 +1565,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -1568,7 +1576,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
-            style="padding: 4px 2px;"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-1a8pnbv"
@@ -1599,6 +1607,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
         >
           <td
             class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1622,6 +1631,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1637,6 +1647,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1647,6 +1658,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1677,6 +1689,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
         >
           <td
             class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1700,6 +1713,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1715,6 +1729,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1725,6 +1740,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1755,6 +1771,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
         >
           <td
             class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1778,6 +1795,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1793,6 +1811,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1803,6 +1822,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1833,6 +1853,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
         >
           <td
             class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1856,6 +1877,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1871,6 +1893,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1881,6 +1904,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1911,6 +1935,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
         >
           <td
             class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1934,6 +1959,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1949,6 +1975,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1959,6 +1986,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -1989,6 +2017,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
         >
           <td
             class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2012,6 +2041,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2027,6 +2057,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2037,6 +2068,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2067,6 +2099,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
         >
           <td
             class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2090,6 +2123,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2105,6 +2139,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2115,6 +2150,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2145,6 +2181,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
         >
           <td
             class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2168,6 +2205,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2183,6 +2221,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2193,6 +2232,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2223,6 +2263,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
         >
           <td
             class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2246,6 +2287,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2261,6 +2303,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2271,6 +2314,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2301,6 +2345,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
         >
           <td
             class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2324,6 +2369,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2339,6 +2385,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2349,6 +2396,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2379,6 +2427,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
         >
           <td
             class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2402,6 +2451,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2417,6 +2467,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
@@ -2427,6 +2478,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-16cgk7i"
