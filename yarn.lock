@@ -3363,17 +3363,17 @@
     "@leafygreen-ui/tokens" "^2.1.4"
     polished "^4.2.2"
 
-"@leafygreen-ui/callout@9.0.13":
-  version "9.0.13"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/callout/-/callout-9.0.13.tgz#968860a52915c3f3b00056d7952e8114f80e377f"
-  integrity sha512-aJsKfWJolGHDhUJgt59pOhUmjtv+XOWnHtxLsYzvv7ty0MBKa6KKpyvYHrRczano56APnNfhbX8weIfUU2sKFg==
+"@leafygreen-ui/callout@9.0.18":
+  version "9.0.18"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/callout/-/callout-9.0.18.tgz#3ad478c845a3a15b0639f11978e4779563460c43"
+  integrity sha512-UzlRO4inYjGpXQDLoLDqoXP4B3TfVAzGl5Cco5OWJjuN51jeHk37i1cd4y02itBvqNwjC8bMA4DCizOggQgldA==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.7"
-    "@leafygreen-ui/icon" "^11.22.1"
-    "@leafygreen-ui/lib" "^10.4.3"
+    "@leafygreen-ui/icon" "^11.25.1"
+    "@leafygreen-ui/lib" "^13.1.0"
     "@leafygreen-ui/palette" "^4.0.7"
     "@leafygreen-ui/tokens" "^2.1.4"
-    "@leafygreen-ui/typography" "^16.5.4"
+    "@leafygreen-ui/typography" "^18.0.0"
 
 "@leafygreen-ui/card@10.0.5":
   version "10.0.5"
