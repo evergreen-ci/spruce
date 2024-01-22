@@ -13,3 +13,5 @@ updates:
     commit-message:
       # Prefix all commit messages with "npm"
       prefix: "CHORE(NPM) - "
+    reviewers:
+      - "evergreen-ci/evg-ui"
