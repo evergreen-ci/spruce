@@ -160,6 +160,11 @@ describe("Host events", () => {
         text: "Host modify attempt failed",
         logsTitle: "Additional details",
       },
+      {
+        hostType: "host-creation-failed",
+        text: "Host creation failed.",
+        logsTitle: "Host creation logs",
+      },
     ];
     cy.visit(pathWithEvents);
     clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCyTableRows);
@@ -179,6 +184,7 @@ describe("Host events", () => {
 
   it("host events logs do not display when not available", () => {
     cy.visit(pathWithEvents);
+    clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCyTableRows);
     cy.dataCy("host-status-changed")
       .contains("Status changed from running to stopping")
       .first()
