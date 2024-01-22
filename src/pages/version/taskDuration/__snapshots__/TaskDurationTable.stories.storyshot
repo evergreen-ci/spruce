@@ -1,1149 +1,2508 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Pages/Task/Table/Task Duration Table Default 1`] = `
+exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
 <div>
   <div
-    class="css-us4ua-TableWrapper e1k6n0sw2"
+    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+    tabindex="0"
   >
-    <div
-      class="leafygreen-ui-nqkcdc"
+    <table
+      class="leafygreen-ui-1soynca"
+      data-cy="task-duration-table"
     >
-      <div
-        class="leafygreen-ui-p59zoy"
-      />
-      <div
-        class="leafygreen-ui-11dcrjd"
-      />
-      <div
-        class="leafygreen-ui-phzgpi"
+      <thead
+        class="leafygreen-ui-bebmcm"
       >
-        <table
-          cellpadding="0"
-          cellspacing="0"
-          class="leafygreen-ui-xh1r83"
+        <tr>
+          <th
+            class="leafygreen-ui-1uoimgs"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-upmv86"
+            >
+              Task Name
+              <div
+                class="css-1ewdmxn-SearchWrapper e1umzslw0"
+              >
+                <button
+                  aria-disabled="false"
+                  aria-label="Table Search Popover Icon"
+                  class="leafygreen-ui-76dd2i"
+                  data-cy="task-name-filter-popover"
+                  tabindex="0"
+                >
+                  <div
+                    class="leafygreen-ui-xhlipt"
+                  >
+                    <svg
+                      aria-label="Magnifying Glass Icon"
+                      class=""
+                      color="#3D4F58"
+                      fill="none"
+                      height="16"
+                      role="img"
+                      small="xsmall"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M2.323 9.819a5.302 5.302 0 0 0 6.463.805l4.144 4.144a1.3 1.3 0 1 0 1.838-1.838l-4.144-4.144a5.302 5.302 0 0 0-8.3-6.463 5.3 5.3 0 0 0 0 7.496ZM7.98 4.162A2.7 2.7 0 1 1 4.162 7.98 2.7 2.7 0 0 1 7.98 4.162Z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </th>
+          <th
+            class="leafygreen-ui-16wgytu"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-upmv86"
+            >
+              Status
+              <div
+                class="css-12wdkyj-FilterWrapper e4jpuf00"
+              >
+                <button
+                  aria-disabled="false"
+                  aria-label="Table Filter Popover Icon"
+                  class="leafygreen-ui-76dd2i"
+                  data-cy="status-filter-popover"
+                  tabindex="0"
+                >
+                  <div
+                    class="leafygreen-ui-xhlipt"
+                  >
+                    <svg
+                      aria-label="Filter Icon"
+                      class=""
+                      color="#3D4F58"
+                      fill="none"
+                      height="16"
+                      role="img"
+                      small="xsmall"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="m6 6.148-3.8-3.94C1.797 1.79 2.044 1 2.576 1h10.848c.532 0 .779.79.377 1.208L10 6.148v5.625a.5.5 0 0 1-.17.376l-3 2.625a.5.5 0 0 1-.83-.376v-8.25Z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </th>
+          <th
+            class="leafygreen-ui-1ee8zmq"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-upmv86"
+            >
+              Build Variant
+              <div
+                class="css-1ewdmxn-SearchWrapper e1umzslw0"
+              >
+                <button
+                  aria-disabled="false"
+                  aria-label="Table Search Popover Icon"
+                  class="leafygreen-ui-76dd2i"
+                  data-cy="build-variant-filter-popover"
+                  tabindex="0"
+                >
+                  <div
+                    class="leafygreen-ui-xhlipt"
+                  >
+                    <svg
+                      aria-label="Magnifying Glass Icon"
+                      class=""
+                      color="#3D4F58"
+                      fill="none"
+                      height="16"
+                      role="img"
+                      small="xsmall"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M2.323 9.819a5.302 5.302 0 0 0 6.463.805l4.144 4.144a1.3 1.3 0 1 0 1.838-1.838l-4.144-4.144a5.302 5.302 0 0 0-8.3-6.463 5.3 5.3 0 0 0 0 7.496ZM7.98 4.162A2.7 2.7 0 1 1 4.162 7.98 2.7 2.7 0 0 1 7.98 4.162Z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </th>
+          <th
+            class="leafygreen-ui-h0e8wo"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-upmv86"
+            >
+              Task Duration
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Task Duration"
+                class="leafygreen-ui-76dd2i"
+                data-testid="lg-table-sort-icon-button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    aria-label="Sort Descending Icon"
+                    class="leafygreen-ui-1t2jgtk"
+                    fill="none"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M4.45 14.696a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.025h1.312V2.168a1.169 1.169 0 1 1 2.338 0v9.351H6.55c.541 0 .792.673.383 1.027L4.45 14.696ZM8 3a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H8ZM7 7a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2H8a1 1 0 0 1-1-1ZM8 9a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H8Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class=""
+        data-expanded="false"
+      >
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-ew8k5w"
+          data-cy="leafygreen-table-row"
+          data-selected="false"
+          id="lg-table-row-0"
         >
-          <thead>
-            <tr
-              data-testid="leafygreen-ui-header-row"
+          <td
+            class="leafygreen-ui-1kl9d6z"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
             >
-              <th
-                aria-sort="none"
-                class="css-175ua20-StyledTableHeader e1k6n0sw1 leafygreen-ui-uu7z1l"
-                role="columnheader"
-                scope="col"
+              <button
+                aria-disabled="false"
+                aria-hidden="false"
+                aria-label="Expand row"
+                class="leafygreen-ui-7f9p5r"
+                tabindex="0"
               >
                 <div
-                  class="leafygreen-ui-1mwn02k"
+                  class="leafygreen-ui-xhlipt"
                 >
-                  <span
-                    class="leafygreen-ui-nem3xz"
+                  <svg
+                    alt=""
+                    aria-hidden="true"
+                    class="leafygreen-ui-jc2z8v"
+                    fill="none"
+                    height="16"
+                    role="presentation"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <div
-                      class="css-558dsl-TableHeaderLabel e1k6n0sw0"
-                    >
-                      Task Name
-                      <div
-                        class="css-1g8yf9b-Wrapper e1umzslw0"
-                      >
-                        <button
-                          aria-disabled="false"
-                          aria-label="Table Search Popover Icon"
-                          class="leafygreen-ui-1xt2asn"
-                          data-cy="task-name-filter-popover"
-                          tabindex="0"
-                        >
-                          <div
-                            class="leafygreen-ui-xhlipt"
-                          >
-                            <svg
-                              aria-label="Magnifying Glass Icon"
-                              class=""
-                              color="#3D4F58"
-                              fill="none"
-                              height="16"
-                              role="img"
-                              small="xsmall"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                clip-rule="evenodd"
-                                d="M2.323 9.819a5.302 5.302 0 006.463.805l4.144 4.144a1.3 1.3 0 101.838-1.838l-4.144-4.144a5.302 5.302 0 00-8.3-6.463 5.3 5.3 0 000 7.496zM7.98 4.162A2.7 2.7 0 114.162 7.98 2.7 2.7 0 017.98 4.162z"
-                                fill="currentColor"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </span>
-                </div>
-              </th>
-              <th
-                aria-sort="none"
-                class="css-175ua20-StyledTableHeader e1k6n0sw1 leafygreen-ui-uu7z1l"
-                role="columnheader"
-                scope="col"
-              >
-                <div
-                  class="leafygreen-ui-1mwn02k"
-                >
-                  <span
-                    class="leafygreen-ui-nem3xz"
-                  >
-                    <div
-                      class="css-558dsl-TableHeaderLabel e1k6n0sw0"
-                    >
-                      Status
-                      <div
-                        class="css-1g8yf9b-Wrapper e4jpuf00"
-                      >
-                        <button
-                          aria-disabled="false"
-                          aria-label="Table Filter Popover Icon"
-                          class="leafygreen-ui-1xt2asn"
-                          data-cy="status-filter-popover"
-                          tabindex="0"
-                        >
-                          <div
-                            class="leafygreen-ui-xhlipt"
-                          >
-                            <svg
-                              aria-label="Filter Icon"
-                              class=""
-                              color="#3D4F58"
-                              fill="none"
-                              height="16"
-                              role="img"
-                              small="xsmall"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                clip-rule="evenodd"
-                                d="M6 6.148l-3.8-3.94C1.797 1.79 2.044 1 2.576 1h10.848c.532 0 .779.79.377 1.208L10 6.148v5.625a.5.5 0 01-.17.376l-3 2.625a.5.5 0 01-.83-.376v-8.25z"
-                                fill="currentColor"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </span>
-                </div>
-              </th>
-              <th
-                aria-sort="none"
-                class="css-175ua20-StyledTableHeader e1k6n0sw1 leafygreen-ui-uu7z1l"
-                role="columnheader"
-                scope="col"
-              >
-                <div
-                  class="leafygreen-ui-1mwn02k"
-                >
-                  <span
-                    class="leafygreen-ui-nem3xz"
-                  >
-                    <div
-                      class="css-558dsl-TableHeaderLabel e1k6n0sw0"
-                    >
-                      Build Variant
-                      <div
-                        class="css-1g8yf9b-Wrapper e1umzslw0"
-                      >
-                        <button
-                          aria-disabled="false"
-                          aria-label="Table Search Popover Icon"
-                          class="leafygreen-ui-1xt2asn"
-                          data-cy="build-variant-filter-popover"
-                          tabindex="0"
-                        >
-                          <div
-                            class="leafygreen-ui-xhlipt"
-                          >
-                            <svg
-                              aria-label="Magnifying Glass Icon"
-                              class=""
-                              color="#3D4F58"
-                              fill="none"
-                              height="16"
-                              role="img"
-                              small="xsmall"
-                              viewBox="0 0 16 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                clip-rule="evenodd"
-                                d="M2.323 9.819a5.302 5.302 0 006.463.805l4.144 4.144a1.3 1.3 0 101.838-1.838l-4.144-4.144a5.302 5.302 0 00-8.3-6.463 5.3 5.3 0 000 7.496zM7.98 4.162A2.7 2.7 0 114.162 7.98 2.7 2.7 0 017.98 4.162z"
-                                fill="currentColor"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </span>
-                </div>
-              </th>
-              <th
-                aria-sort="none"
-                class="leafygreen-ui-uu7z1l"
-                role="columnheader"
-                scope="col"
-              >
-                <div
-                  class="leafygreen-ui-1mwn02k"
-                >
-                  <span
-                    class="leafygreen-ui-nem3xz"
-                  >
-                    <div
-                      class="css-558dsl-TableHeaderLabel e1k6n0sw0"
-                    >
-                      Task Duration
-                    </div>
-                  </span>
-                  <button
-                    aria-disabled="false"
-                    aria-label="sort"
-                    class="leafygreen-ui-1mo7gku"
-                    tabindex="0"
-                  >
-                    <div
-                      class="leafygreen-ui-xhlipt"
-                    >
-                      <svg
-                        class="leafygreen-ui-1st74h4"
-                        height="14"
-                        role="img"
-                        title="unsorted-3"
-                        viewBox="0 0 16 16"
-                        width="14"
-                      >
-                        <path
-                          d="M3.68466 1.14265C3.90429 0.952449 4.23028 0.95245 4.44991 1.14265L6.93156 3.29182C7.34063 3.64609 7.09009 4.31811 6.54893 4.31811H5.23624L5.23624 11.6819H6.54894C7.09009 11.6819 7.34064 12.3539 6.93157 12.7082L4.44992 14.8573C4.23029 15.0476 3.9043 15.0476 3.68467 14.8573L1.20303 12.7082C0.793953 12.3539 1.0445 11.6819 1.58565 11.6819H2.89836V11.6742L2.89835 11.6696L2.89835 4.31811H1.58564C1.04449 4.31811 0.793944 3.64609 1.20302 3.29182L3.68466 1.14265Z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M8 8C8 7.44772 8.44772 7 9 7H14C14.5523 7 15 7.44772 15 8C15 8.55228 14.5523 9 14 9H9C8.44772 9 8 8.55228 8 8Z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M9 4C8.44772 4 8 4.44772 8 5C8 5.55228 8.44772 6 9 6H14C14.5523 6 15 5.55228 15 5C15 4.44772 14.5523 4 14 4H9Z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M8 11C8 10.4477 8.44772 10 9 10H14C14.5523 10 15 10.4477 15 11C15 11.5523 14.5523 12 14 12H9C8.44772 12 8 11.5523 8 11Z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    </div>
-                  </button>
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              aria-disabled="false"
-              class="leafygreen-ui-1o2km4s"
-              data-cy="task-duration-table-row"
-              role="row"
-            >
-              <td
-                class="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <a
-                      class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
-                      href="/task/evg_ubuntu1604_container_test_rest_data_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
-                    >
-                      <span
-                        class="leafygreen-ui-baoi4d"
-                      >
-                        <span
-                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
-                        >
-                          test-rest-data
-                        </span>
-                      </span>
-                    </a>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      border="#2D0B59"
-                      class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
-                      data-cy="task-status-badge"
-                      fill="#5E0C9E"
-                      text="#F9EBFF"
-                    >
-                      System Failed
-                    </div>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    Ubuntu 16.04 (Container)
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      class="css-oglm9h-DurationBar e1gfyhbu1"
-                      color="#5E0C9E"
-                      width="100%"
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
                     />
-                    <p
-                      class="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-110o31d"
-                    >
-                      1h 20m
-                    </p>
-                  </span>
+                  </svg>
                 </div>
-              </td>
-            </tr>
-            <tr
-              aria-disabled="false"
-              class="leafygreen-ui-1o2km4s"
-              data-cy="task-duration-table-row"
-              role="row"
+              </button>
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/evg_ubuntu1604_container_test_model_distro_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    test-model-distro
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
             >
-              <td
-                class="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
+              <div
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
+                data-cy="task-status-badge"
               >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <a
-                      class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
-                      href="/task/evg_ubuntu1604_container_test_model_distro_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
-                    >
-                      <span
-                        class="leafygreen-ui-baoi4d"
-                      >
-                        <span
-                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
-                        >
-                          test-model-distro
-                        </span>
-                      </span>
-                    </a>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      border="#2D0B59"
-                      class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
-                      data-cy="task-status-badge"
-                      fill="#5E0C9E"
-                      text="#F9EBFF"
-                    >
-                      System Failed
-                    </div>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    Ubuntu 16.04 (Container)
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      class="css-1y0xyto-DurationBar e1gfyhbu1"
-                      color="#5E0C9E"
-                      width="99.99987604722023%"
-                    />
-                    <p
-                      class="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-110o31d"
-                    >
-                      1h 20m
-                    </p>
-                  </span>
-                </div>
-              </td>
-            </tr>
-            <tr
-              aria-disabled="false"
-              class="leafygreen-ui-1o2km4s"
-              data-cy="task-duration-table-row"
-              role="row"
+                Failed
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
             >
-              <td
-                class="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <a
-                      class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
-                      href="/task/evg_ubuntu1604_container_test_agent_internal_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
-                    >
-                      <span
-                        class="leafygreen-ui-baoi4d"
-                      >
-                        <span
-                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
-                        >
-                          test-agent-internal
-                        </span>
-                      </span>
-                    </a>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      border="#2D0B59"
-                      class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
-                      data-cy="task-status-badge"
-                      fill="#5E0C9E"
-                      text="#F9EBFF"
-                    >
-                      System Failed
-                    </div>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    Ubuntu 16.04 (Container)
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      class="css-gg2znz-DurationBar e1gfyhbu1"
-                      color="#5E0C9E"
-                      width="99.999442212491%"
-                    />
-                    <p
-                      class="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-110o31d"
-                    >
-                      1h 20m
-                    </p>
-                  </span>
-                </div>
-              </td>
-            </tr>
-            <tr
-              aria-disabled="false"
-              class="leafygreen-ui-1o2km4s"
-              data-cy="task-duration-table-row"
-              role="row"
+              Ubuntu 16.04 (Container)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
             >
-              <td
-                class="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
               >
                 <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+                  class="css-o8iy53-DurationBar e1c6tk3t1"
+                  color="#DB3030"
+                  width="99.99987604722023%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
                 >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <a
-                      class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
-                      href="/task/evg_ubuntu1604_container_test_evergreen_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
-                    >
-                      <span
-                        class="leafygreen-ui-baoi4d"
-                      >
-                        <span
-                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
-                        >
-                          test-evergreen
-                        </span>
-                      </span>
-                    </a>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      border="#2D0B59"
-                      class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
-                      data-cy="task-status-badge"
-                      fill="#5E0C9E"
-                      text="#F9EBFF"
-                    >
-                      System Failed
-                    </div>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    Ubuntu 16.04 (Container)
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      class="css-efjrkv-DurationBar e1gfyhbu1"
-                      color="#5E0C9E"
-                      width="99.9991529893382%"
-                    />
-                    <p
-                      class="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-110o31d"
-                    >
-                      1h 20m
-                    </p>
-                  </span>
-                </div>
-              </td>
-            </tr>
-            <tr
-              aria-disabled="false"
-              class="leafygreen-ui-1o2km4s"
-              data-cy="task-duration-table-row"
-              role="row"
+                  1h 20m
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="true"
+          class="leafygreen-ui-1jfc6is"
+          data-selected="false"
+          id="lg-table-row-0.0"
+        >
+          <td
+            class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
             >
-              <td
-                class="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_01_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
               >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+                <span
+                  class="leafygreen-ui-1ewnca3"
                 >
                   <span
-                    class="leafygreen-ui-1auv844"
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
-                    <a
-                      class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
-                      href="/task/evg_ubuntu1604_container_test_model_artifact_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
-                    >
-                      <span
-                        class="leafygreen-ui-baoi4d"
-                      >
-                        <span
-                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
-                        >
-                          test-model-artifact
-                        </span>
-                      </span>
-                    </a>
+                    sharding_last_continuous_01-linux-enterprise
                   </span>
-                </div>
-              </td>
-              <td
-                class="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      border="#2D0B59"
-                      class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
-                      data-cy="task-status-badge"
-                      fill="#5E0C9E"
-                      text="#F9EBFF"
-                    >
-                      System Failed
-                    </div>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    Ubuntu 16.04 (Container)
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      class="css-1oei1ok-DurationBar e1gfyhbu1"
-                      color="#5E0C9E"
-                      width="99.9968185453191%"
-                    />
-                    <p
-                      class="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-110o31d"
-                    >
-                      1h 20m
-                    </p>
-                  </span>
-                </div>
-              </td>
-            </tr>
-            <tr
-              aria-disabled="false"
-              class="leafygreen-ui-1o2km4s"
-              data-cy="task-duration-table-row"
-              role="row"
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
             >
-              <td
-                class="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
+              <div
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
+                data-cy="task-status-badge"
               >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <a
-                      class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
-                      href="/task/evg_ubuntu1604_container_test_thirdparty_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
-                    >
-                      <span
-                        class="leafygreen-ui-baoi4d"
-                      >
-                        <span
-                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
-                        >
-                          test-thirdparty
-                        </span>
-                      </span>
-                    </a>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      border="#2D0B59"
-                      class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
-                      data-cy="task-status-badge"
-                      fill="#5E0C9E"
-                      text="#F9EBFF"
-                    >
-                      System Failed
-                    </div>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    Ubuntu 16.04 (Container)
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      class="css-11f9ihw-DurationBar e1gfyhbu1"
-                      color="#5E0C9E"
-                      width="99.99632273419999%"
-                    />
-                    <p
-                      class="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-110o31d"
-                    >
-                      1h 20m
-                    </p>
-                  </span>
-                </div>
-              </td>
-            </tr>
-            <tr
-              aria-disabled="false"
-              class="leafygreen-ui-1o2km4s"
-              data-cy="task-duration-table-row"
-              role="row"
+                Failed
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
             >
-              <td
-                class="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <a
-                      class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
-                      href="/task/evg_ubuntu1604_container_test_model_event_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
-                    >
-                      <span
-                        class="leafygreen-ui-baoi4d"
-                      >
-                        <span
-                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
-                        >
-                          test-model-event
-                        </span>
-                      </span>
-                    </a>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      border="#2D0B59"
-                      class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
-                      data-cy="task-status-badge"
-                      fill="#5E0C9E"
-                      text="#F9EBFF"
-                    >
-                      System Failed
-                    </div>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    Ubuntu 16.04 (Container)
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      class="css-1l18uxx-DurationBar e1gfyhbu1"
-                      color="#5E0C9E"
-                      width="99.99574428789438%"
-                    />
-                    <p
-                      class="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-110o31d"
-                    >
-                      1h 20m
-                    </p>
-                  </span>
-                </div>
-              </td>
-            </tr>
-            <tr
-              aria-disabled="false"
-              class="leafygreen-ui-1o2km4s"
-              data-cy="task-duration-table-row"
-              role="row"
+              Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
             >
-              <td
-                class="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
               >
                 <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+                  class="css-1uvez83-DurationBar e1c6tk3t1"
+                  color="#DB3030"
+                  width="29.281323848742076%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
                 >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <a
-                      class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
-                      href="/task/evg_ubuntu1604_container_test_model_testresult_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
-                    >
-                      <span
-                        class="leafygreen-ui-baoi4d"
-                      >
-                        <span
-                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
-                        >
-                          test-model-testresult
-                        </span>
-                      </span>
-                    </a>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      border="#2D0B59"
-                      class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
-                      data-cy="task-status-badge"
-                      fill="#5E0C9E"
-                      text="#F9EBFF"
-                    >
-                      System Failed
-                    </div>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    Ubuntu 16.04 (Container)
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      class="css-ewoe5o-DurationBar e1gfyhbu1"
-                      color="#5E0C9E"
-                      width="99.99516584158876%"
-                    />
-                    <p
-                      class="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-110o31d"
-                    >
-                      1h 20m
-                    </p>
-                  </span>
-                </div>
-              </td>
-            </tr>
-            <tr
-              aria-disabled="false"
-              class="leafygreen-ui-1o2km4s"
-              data-cy="task-duration-table-row"
-              role="row"
+                  23m 37s
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="true"
+          class="leafygreen-ui-1jfc6is"
+          data-selected="false"
+          id="lg-table-row-0.1"
+        >
+          <td
+            class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
             >
-              <td
-                class="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_02_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
               >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+                <span
+                  class="leafygreen-ui-1ewnca3"
                 >
                   <span
-                    class="leafygreen-ui-1auv844"
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
-                    <a
-                      class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
-                      href="/task/evg_ubuntu1604_container_test_model_alertrecord_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
-                    >
-                      <span
-                        class="leafygreen-ui-baoi4d"
-                      >
-                        <span
-                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
-                        >
-                          test-model-alertrecord
-                        </span>
-                      </span>
-                    </a>
+                    sharding_last_continuous_02-linux-enterprise
                   </span>
-                </div>
-              </td>
-              <td
-                class="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      border="#2D0B59"
-                      class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
-                      data-cy="task-status-badge"
-                      fill="#5E0C9E"
-                      text="#F9EBFF"
-                    >
-                      System Failed
-                    </div>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    Ubuntu 16.04 (Container)
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      class="css-12vlb2d-DurationBar e1gfyhbu1"
-                      color="#5E0C9E"
-                      width="99.9948353008427%"
-                    />
-                    <p
-                      class="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-110o31d"
-                    >
-                      1h 20m
-                    </p>
-                  </span>
-                </div>
-              </td>
-            </tr>
-            <tr
-              aria-disabled="false"
-              class="leafygreen-ui-1o2km4s"
-              data-cy="task-duration-table-row"
-              role="row"
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
             >
-              <td
-                class="css-a2e2x6-TaskNameCell-baseCellStyle e1gfyhbu5 leafygreen-ui-ai3olp"
+              <div
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                data-cy="task-status-badge"
+              >
+                Succeeded
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
               >
                 <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+                  class="css-558lmq-DurationBar e1c6tk3t1"
+                  color="#00A35C"
+                  width="28.24381842322561%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  22m 47s
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tbody
+        class=""
+        data-expanded="false"
+      >
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-ew8k5w"
+          data-cy="leafygreen-table-row"
+          data-selected="false"
+          id="lg-table-row-1"
+        >
+          <td
+            class="leafygreen-ui-ygreag"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/evg_ubuntu1604_container_test_rest_data_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
                 >
                   <span
-                    class="leafygreen-ui-1auv844"
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
-                    <a
-                      class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
-                      href="/task/evg_ubuntu1604_container_test_model_patch_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                    test-rest-data
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                border="#2D0B59"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
+                data-cy="task-status-badge"
+                fill="#5E0C9E"
+                text="#F9EBFF"
+              >
+                System Failed
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              Ubuntu 16.04 (Container)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-15tcxdg-DurationBar e1c6tk3t1"
+                  color="#5E0C9E"
+                  width="100%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  1h 20m
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tbody
+        class=""
+        data-expanded="false"
+      >
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-ew8k5w"
+          data-cy="leafygreen-table-row"
+          data-selected="false"
+          id="lg-table-row-2"
+        >
+          <td
+            class="leafygreen-ui-ygreag"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/evg_ubuntu1604_container_test_agent_internal_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    test-agent-internal
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                border="#2D0B59"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
+                data-cy="task-status-badge"
+                fill="#5E0C9E"
+                text="#F9EBFF"
+              >
+                System Failed
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              Ubuntu 16.04 (Container)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-7rdz2i-DurationBar e1c6tk3t1"
+                  color="#5E0C9E"
+                  width="99.999442212491%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  1h 20m
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tbody
+        class=""
+        data-expanded="false"
+      >
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-ew8k5w"
+          data-cy="leafygreen-table-row"
+          data-selected="false"
+          id="lg-table-row-3"
+        >
+          <td
+            class="leafygreen-ui-ygreag"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/evg_ubuntu1604_container_test_evergreen_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    test-evergreen
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                border="#2D0B59"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
+                data-cy="task-status-badge"
+                fill="#5E0C9E"
+                text="#F9EBFF"
+              >
+                System Failed
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              Ubuntu 16.04 (Container)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-iwuugb-DurationBar e1c6tk3t1"
+                  color="#5E0C9E"
+                  width="99.9991529893382%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  1h 20m
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tbody
+        class=""
+        data-expanded="false"
+      >
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-ew8k5w"
+          data-cy="leafygreen-table-row"
+          data-selected="false"
+          id="lg-table-row-4"
+        >
+          <td
+            class="leafygreen-ui-ygreag"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/evg_ubuntu1604_container_test_model_artifact_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    test-model-artifact
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                border="#2D0B59"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
+                data-cy="task-status-badge"
+                fill="#5E0C9E"
+                text="#F9EBFF"
+              >
+                System Failed
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              Ubuntu 16.04 (Container)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-g6r0kc-DurationBar e1c6tk3t1"
+                  color="#5E0C9E"
+                  width="99.9968185453191%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  1h 20m
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tbody
+        class=""
+        data-expanded="false"
+      >
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-ew8k5w"
+          data-cy="leafygreen-table-row"
+          data-selected="false"
+          id="lg-table-row-5"
+        >
+          <td
+            class="leafygreen-ui-ygreag"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/evg_ubuntu1604_container_test_thirdparty_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    test-thirdparty
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                border="#2D0B59"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
+                data-cy="task-status-badge"
+                fill="#5E0C9E"
+                text="#F9EBFF"
+              >
+                System Failed
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              Ubuntu 16.04 (Container)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-1tv334j-DurationBar e1c6tk3t1"
+                  color="#5E0C9E"
+                  width="99.99632273419999%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  1h 20m
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tbody
+        class=""
+        data-expanded="false"
+      >
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-ew8k5w"
+          data-cy="leafygreen-table-row"
+          data-selected="false"
+          id="lg-table-row-6"
+        >
+          <td
+            class="leafygreen-ui-ygreag"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/evg_ubuntu1604_container_test_model_event_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    test-model-event
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                border="#2D0B59"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
+                data-cy="task-status-badge"
+                fill="#5E0C9E"
+                text="#F9EBFF"
+              >
+                System Failed
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              Ubuntu 16.04 (Container)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-wqwatx-DurationBar e1c6tk3t1"
+                  color="#5E0C9E"
+                  width="99.99574428789438%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  1h 20m
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tbody
+        class=""
+        data-expanded="false"
+      >
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-ew8k5w"
+          data-cy="leafygreen-table-row"
+          data-selected="false"
+          id="lg-table-row-7"
+        >
+          <td
+            class="leafygreen-ui-ygreag"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/evg_ubuntu1604_container_test_model_testresult_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    test-model-testresult
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                border="#2D0B59"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
+                data-cy="task-status-badge"
+                fill="#5E0C9E"
+                text="#F9EBFF"
+              >
+                System Failed
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              Ubuntu 16.04 (Container)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-1ty7hg-DurationBar e1c6tk3t1"
+                  color="#5E0C9E"
+                  width="99.99516584158876%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  1h 20m
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tbody
+        class=""
+        data-expanded="false"
+      >
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-ew8k5w"
+          data-cy="leafygreen-table-row"
+          data-selected="false"
+          id="lg-table-row-8"
+        >
+          <td
+            class="leafygreen-ui-ygreag"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/evg_ubuntu1604_container_test_model_alertrecord_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    test-model-alertrecord
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                border="#2D0B59"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
+                data-cy="task-status-badge"
+                fill="#5E0C9E"
+                text="#F9EBFF"
+              >
+                System Failed
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              Ubuntu 16.04 (Container)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-1c515v7-DurationBar e1c6tk3t1"
+                  color="#5E0C9E"
+                  width="99.9948353008427%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  1h 20m
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tbody
+        class=""
+        data-expanded="false"
+      >
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-ew8k5w"
+          data-cy="leafygreen-table-row"
+          data-selected="false"
+          id="lg-table-row-9"
+        >
+          <td
+            class="leafygreen-ui-ygreag"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/evg_ubuntu1604_container_test_model_patch_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    test-model-patch
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                border="#2D0B59"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
+                data-cy="task-status-badge"
+                fill="#5E0C9E"
+                text="#F9EBFF"
+              >
+                System Failed
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              Ubuntu 16.04 (Container)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-3z5fpm-DurationBar e1c6tk3t1"
+                  color="#5E0C9E"
+                  width="99.99429817213034%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  1h 20m
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
+
+exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
+<div>
+  <div
+    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+    tabindex="0"
+  >
+    <table
+      class="leafygreen-ui-1soynca"
+      data-cy="task-duration-table"
+    >
+      <thead
+        class="leafygreen-ui-bebmcm"
+      >
+        <tr>
+          <th
+            class="leafygreen-ui-1uoimgs"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-upmv86"
+            >
+              Task Name
+              <div
+                class="css-1ewdmxn-SearchWrapper e1umzslw0"
+              >
+                <button
+                  aria-disabled="false"
+                  aria-label="Table Search Popover Icon"
+                  class="leafygreen-ui-76dd2i"
+                  data-cy="task-name-filter-popover"
+                  tabindex="0"
+                >
+                  <div
+                    class="leafygreen-ui-xhlipt"
+                  >
+                    <svg
+                      aria-label="Magnifying Glass Icon"
+                      class=""
+                      color="#3D4F58"
+                      fill="none"
+                      height="16"
+                      role="img"
+                      small="xsmall"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <span
-                        class="leafygreen-ui-baoi4d"
-                      >
-                        <span
-                          class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
-                        >
-                          test-model-patch
-                        </span>
-                      </span>
-                    </a>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-oxnrs6-StatusCell-baseCellStyle e1gfyhbu4 leafygreen-ui-ai3olp"
+                      <path
+                        clip-rule="evenodd"
+                        d="M2.323 9.819a5.302 5.302 0 0 0 6.463.805l4.144 4.144a1.3 1.3 0 1 0 1.838-1.838l-4.144-4.144a5.302 5.302 0 0 0-8.3-6.463 5.3 5.3 0 0 0 0 7.496ZM7.98 4.162A2.7 2.7 0 1 1 4.162 7.98 2.7 2.7 0 0 1 7.98 4.162Z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </th>
+          <th
+            class="leafygreen-ui-16wgytu"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-upmv86"
+            >
+              Status
+              <div
+                class="css-12wdkyj-FilterWrapper e4jpuf00"
               >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+                <button
+                  aria-disabled="false"
+                  aria-label="Table Filter Popover Icon"
+                  class="leafygreen-ui-76dd2i"
+                  data-cy="status-filter-popover"
+                  tabindex="0"
                 >
-                  <span
-                    class="leafygreen-ui-1auv844"
+                  <div
+                    class="leafygreen-ui-xhlipt"
                   >
-                    <div
-                      border="#2D0B59"
-                      class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
-                      data-cy="task-status-badge"
-                      fill="#5E0C9E"
-                      text="#F9EBFF"
+                    <svg
+                      aria-label="Filter Icon"
+                      class=""
+                      color="#3D4F58"
+                      fill="none"
+                      height="16"
+                      role="img"
+                      small="xsmall"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      System Failed
-                    </div>
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1nb9o01-BuildVariantCell-baseCellStyle e1gfyhbu3 leafygreen-ui-ai3olp"
+                      <path
+                        clip-rule="evenodd"
+                        d="m6 6.148-3.8-3.94C1.797 1.79 2.044 1 2.576 1h10.848c.532 0 .779.79.377 1.208L10 6.148v5.625a.5.5 0 0 1-.17.376l-3 2.625a.5.5 0 0 1-.83-.376v-8.25Z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </th>
+          <th
+            class="leafygreen-ui-1ee8zmq"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-upmv86"
+            >
+              Build Variant
+              <div
+                class="css-1ewdmxn-SearchWrapper e1umzslw0"
+              >
+                <button
+                  aria-disabled="false"
+                  aria-label="Table Search Popover Icon"
+                  class="leafygreen-ui-76dd2i"
+                  data-cy="build-variant-filter-popover"
+                  tabindex="0"
+                >
+                  <div
+                    class="leafygreen-ui-xhlipt"
+                  >
+                    <svg
+                      aria-label="Magnifying Glass Icon"
+                      class=""
+                      color="#3D4F58"
+                      fill="none"
+                      height="16"
+                      role="img"
+                      small="xsmall"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M2.323 9.819a5.302 5.302 0 0 0 6.463.805l4.144 4.144a1.3 1.3 0 1 0 1.838-1.838l-4.144-4.144a5.302 5.302 0 0 0-8.3-6.463 5.3 5.3 0 0 0 0 7.496ZM7.98 4.162A2.7 2.7 0 1 1 4.162 7.98 2.7 2.7 0 0 1 7.98 4.162Z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </th>
+          <th
+            class="leafygreen-ui-h0e8wo"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-upmv86"
+            >
+              Task Duration
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Task Duration"
+                class="leafygreen-ui-76dd2i"
+                data-testid="lg-table-sort-icon-button"
+                tabindex="0"
               >
                 <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
+                  class="leafygreen-ui-xhlipt"
                 >
-                  <span
-                    class="leafygreen-ui-1auv844"
+                  <svg
+                    aria-label="Sort Descending Icon"
+                    class="leafygreen-ui-1t2jgtk"
+                    fill="none"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    Ubuntu 16.04 (Container)
-                  </span>
-                </div>
-              </td>
-              <td
-                class="css-1795e7v-DurationCell e1gfyhbu2 leafygreen-ui-ai3olp"
-              >
-                <div
-                  class="lg-ui-td-inner-div-0000 leafygreen-ui-1sg2lsz"
-                >
-                  <span
-                    class="leafygreen-ui-1auv844"
-                  >
-                    <div
-                      class="css-1kphhoq-DurationBar e1gfyhbu1"
-                      color="#5E0C9E"
-                      width="99.99429817213034%"
+                    <path
+                      d="M4.45 14.696a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.025h1.312V2.168a1.169 1.169 0 1 1 2.338 0v9.351H6.55c.541 0 .792.673.383 1.027L4.45 14.696ZM8 3a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H8ZM7 7a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2H8a1 1 0 0 1-1-1ZM8 9a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H8Z"
+                      fill="currentColor"
                     />
-                    <p
-                      class="css-1whedkk-DurationLabel e1gfyhbu0 leafygreen-ui-110o31d"
-                    >
-                      1h 20m
-                    </p>
-                  </span>
+                  </svg>
                 </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+              </button>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class=""
+        data-expanded="false"
+      >
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-ew8k5w"
+          data-cy="leafygreen-table-row"
+          data-selected="false"
+          id="lg-table-row-0"
+        >
+          <td
+            class="leafygreen-ui-1kl9d6z"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <button
+                aria-disabled="false"
+                aria-hidden="false"
+                aria-label="Expand row"
+                class="leafygreen-ui-7f9p5r"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    alt=""
+                    aria-hidden="true"
+                    class="leafygreen-ui-jc2z8v"
+                    fill="none"
+                    height="16"
+                    role="presentation"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </button>
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_display_sharding_multiversion_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion 
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
+                data-cy="task-status-badge"
+              >
+                Known Issue
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-1a8pnbv"
+              data-state="entered"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-1exoomp-DurationBar e1c6tk3t1"
+                  color="#DB3030"
+                  width="100%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  4h 21m
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="true"
+          class="leafygreen-ui-1jfc6is"
+          data-selected="false"
+          id="lg-table-row-0.0"
+        >
+          <td
+            class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_00_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    sharding_last_continuous_00-linux-enterprise
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                data-cy="task-status-badge"
+              >
+                Succeeded
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled) long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long 
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-1jmosh4-DurationBar e1c6tk3t1"
+                  color="#00A35C"
+                  width="7.954467725033249%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  20m 48s
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="true"
+          class="leafygreen-ui-1jfc6is"
+          data-selected="false"
+          id="lg-table-row-0.1"
+        >
+          <td
+            class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_01_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    sharding_last_continuous_01-linux-enterprise
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
+                data-cy="task-status-badge"
+              >
+                Failed
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-1iobil4-DurationBar e1c6tk3t1"
+                  color="#DB3030"
+                  width="9.027136730444392%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  23m 37s
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="true"
+          class="leafygreen-ui-1jfc6is"
+          data-selected="false"
+          id="lg-table-row-0.2"
+        >
+          <td
+            class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_02_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    sharding_last_continuous_02-linux-enterprise
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                data-cy="task-status-badge"
+              >
+                Succeeded
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-nuckf9-DurationBar e1c6tk3t1"
+                  color="#00A35C"
+                  width="8.70728427489644%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  22m 47s
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="true"
+          class="leafygreen-ui-1jfc6is"
+          data-selected="false"
+          id="lg-table-row-0.3"
+        >
+          <td
+            class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_03_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    sharding_last_continuous_03-linux-enterprise
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                data-cy="task-status-badge"
+              >
+                Succeeded
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-1gp4uuk-DurationBar e1c6tk3t1"
+                  color="#00A35C"
+                  width="11.797563030123234%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  30m 52s
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="true"
+          class="leafygreen-ui-1jfc6is"
+          data-selected="false"
+          id="lg-table-row-0.4"
+        >
+          <td
+            class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_04_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    sharding_last_continuous_04-linux-enterprise
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                data-cy="task-status-badge"
+              >
+                Succeeded
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-14e7mrw-DurationBar e1c6tk3t1"
+                  color="#00A35C"
+                  width="12.819045197653036%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  33m 32s
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="true"
+          class="leafygreen-ui-1jfc6is"
+          data-selected="false"
+          id="lg-table-row-0.5"
+        >
+          <td
+            class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_05_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    sharding_last_continuous_05-linux-enterprise
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                data-cy="task-status-badge"
+              >
+                Succeeded
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-7j6s6t-DurationBar e1c6tk3t1"
+                  color="#00A35C"
+                  width="1.561061624061495%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  4m 5s
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="true"
+          class="leafygreen-ui-1jfc6is"
+          data-selected="false"
+          id="lg-table-row-0.6"
+        >
+          <td
+            class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_00_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    sharding_last_lts_00-linux-enterprise
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                data-cy="task-status-badge"
+              >
+                Succeeded
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-1jwb5g-DurationBar e1c6tk3t1"
+                  color="#00A35C"
+                  width="8.291121335033234%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  21m 41s
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="true"
+          class="leafygreen-ui-1jfc6is"
+          data-selected="false"
+          id="lg-table-row-0.7"
+        >
+          <td
+            class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_01_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    sharding_last_lts_01-linux-enterprise
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                data-cy="task-status-badge"
+              >
+                Succeeded
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-o9i56f-DurationBar e1c6tk3t1"
+                  color="#00A35C"
+                  width="10.290223065577619%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  26m 55s
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="true"
+          class="leafygreen-ui-1jfc6is"
+          data-selected="false"
+          id="lg-table-row-0.8"
+        >
+          <td
+            class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_02_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    sharding_last_lts_02-linux-enterprise
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                data-cy="task-status-badge"
+              >
+                Succeeded
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-e7end9-DurationBar e1c6tk3t1"
+                  color="#00A35C"
+                  width="12.068941798584602%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  31m 34s
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="true"
+          class="leafygreen-ui-1jfc6is"
+          data-selected="false"
+          id="lg-table-row-0.9"
+        >
+          <td
+            class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_03_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    sharding_last_lts_03-linux-enterprise
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                data-cy="task-status-badge"
+              >
+                Succeeded
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-7fl6r2-DurationBar e1c6tk3t1"
+                  color="#00A35C"
+                  width="8.153871570650638%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  21m 20s
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="true"
+          class="leafygreen-ui-1jfc6is"
+          data-selected="false"
+          id="lg-table-row-0.10"
+        >
+          <td
+            class="leafygreen-ui-8c1hdd"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_04_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    sharding_last_lts_04-linux-enterprise
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                data-cy="task-status-badge"
+              >
+                Succeeded
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled)
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1jjbxr6"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-16cgk7i"
+              data-state="exited"
+            >
+              <div
+                class="css-18tifp5-Duration e1c6tk3t2"
+              >
+                <div
+                  class="css-1tiv3zn-DurationBar e1c6tk3t1"
+                  color="#00A35C"
+                  width="9.329239065652008%"
+                />
+                <p
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                >
+                  24m 24s
+                </p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 `;

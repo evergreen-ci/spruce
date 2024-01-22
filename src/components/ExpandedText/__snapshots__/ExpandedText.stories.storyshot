@@ -1,11 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/ExpandedText Default 1`] = `
+exports[`Snapshot Tests ExpandedText.stories Default 1`] = `
 <div>
-  <small
-    class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-6flbwy"
+  <span
+    class="leafygreen-ui-vm4wms"
+    tabindex="0"
   >
-    more
-  </small>
+    <small
+      class="css-1ghrn41-ButtonText eq9i5u70 leafygreen-ui-6flbwy"
+    >
+      more
+    </small>
+  </span>
 </div>
 `;

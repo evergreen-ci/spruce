@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot Tests Components/TextInput/TextInputWithValidation Default 1`] = `
+<div>
+  <div
+    class="css-mk4qpy-TextInputWrapper e13gwrw81"
+  >
+    <div
+      class="leafygreen-ui-xtefr5"
+    >
+      <div
+        class="leafygreen-ui-a533bt"
+      >
+        <label
+          class="leafygreen-ui-gr5280"
+          for="textinput-7"
+        >
+          Some search field
+        </label>
+      </div>
+      <div
+        class="leafygreen-ui-lzja97"
+      >
+        <input
+          aria-invalid="false"
+          autocomplete="on"
+          class="leafygreen-ui-6i61vl"
+          id="textinput-7"
+          required=""
+          type="text"
+          value=""
+        />
+        <div
+          class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+        />
+      </div>
+    </div>
+    <div
+      class="css-4bamt4-IconWrapper e13gwrw80"
+    >
+      <button
+        aria-disabled="false"
+        aria-label="Select plus button"
+        class="leafygreen-ui-76dd2i"
+        tabindex="0"
+      >
+        <div
+          class="leafygreen-ui-xhlipt"
+        >
+          <svg
+            aria-label="Plus Icon"
+            class=""
+            fill="none"
+            height="16"
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M7.5 2a1 1 0 0 0-1 1v3.5H3a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h3.5V13a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9.5H13a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9.5V3a1 1 0 0 0-1-1h-1Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+`;

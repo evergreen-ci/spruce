@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Pages/Commits/Charts/ActiveCommit/CommitBarChart Default 1`] = `
+exports[`Snapshot Tests Pages/Commits/Charts/ActiveCommit/CommitBarChart Default 1`] = `
 <div>
   <div
     class="css-1e93osx-FlexRowContainer epttb230"

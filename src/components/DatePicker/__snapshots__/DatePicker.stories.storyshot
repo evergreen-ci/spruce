@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/DatePicker Default 1`] = `
+exports[`Snapshot Tests DatePicker.stories Default 1`] = `
 <div>
   <div
     class="leafygreen-ui-62nio8"

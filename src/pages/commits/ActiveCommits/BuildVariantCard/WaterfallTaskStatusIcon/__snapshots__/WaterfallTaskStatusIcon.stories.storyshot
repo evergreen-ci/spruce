@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Pages/Commits/WaterfallIcon Default 1`] = `
+exports[`Snapshot Tests Pages/Commits/WaterfallIcon Default 1`] = `
 <div>
   <div
     class="css-1qyc0mz-Container e10m6vua0"
