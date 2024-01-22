@@ -127,7 +127,7 @@ export const getFormSchema = (
               type: "null",
               title: "Trigger Versions With Git Tags",
               description:
-                "If an authorized user pushes a tag that matches a specific regex, then a version will be created from this alias.",
+                "If an authorized user pushes a tag that matches a specific regex, then a version will be created from this alias. Note that project admins are not authorized by default; they must explicitly be given this permission.",
             },
             gitTagVersionsEnabled: {
               type: ["boolean", "null"],
