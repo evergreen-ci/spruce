@@ -1,25 +1,22 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
-import {
-  V10Table as Table,
-  V10TableHeader as TableHeader,
-  V10HeaderRow as HeaderRow,
-  V10Row as Row,
-  V10Cell as Cell,
-  V11Adapter,
-} from "@leafygreen-ui/table";
+import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { useHostsTableAnalytics } from "analytics";
 import PageSizeSelector, {
   usePageSizeSelector,
 } from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
+import { BaseTable } from "components/Table/BaseTable";
 import { size } from "constants/tokens";
 import { HostEventsQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { HostCard } from "pages/host/HostCard";
 import { HostEventString } from "pages/host/HostEventString";
+import { Unpacked } from "types/utils";
+
+type HostEvent = Unpacked<HostEventsQuery["hostEvents"]["eventLogEntries"]>;
 
 export const HostTable: React.FC<{
   loading: boolean;
@@ -43,10 +40,41 @@ export const HostTable: React.FC<{
     hostsTableAnalytics.sendEvent({ name: "Change Page Size" });
   };
 
+  const columns: LGColumnDef<HostEvent>[] = useMemo(
+    () => [
+      {
+        header: "Date",
+        accessorKey: "timestamp",
+        cell: ({ getValue }) => getDateCopy(getValue() as Date),
+        enableColumnFilter: false,
+      },
+      {
+        header: "Event",
+        accessorKey: "eventType",
+        cell: ({ getValue, row }) => (
+          <HostEventString
+            eventType={getValue() as string}
+            data={row.original.data}
+          />
+        ),
+        enableColumnFilter: false,
+      },
+    ],
+    [getDateCopy],
+  );
+
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+  const table = useLeafyGreenTable<HostEvent>({
+    columns,
+    containerRef: tableContainerRef,
+    data: logEntries ?? [],
+    manualPagination: true,
+  });
+
   return (
     <HostCard error={error} loading={loading} metaData={false}>
       <TableTitle>
-        <StyledSubtitle>Recent Events </StyledSubtitle>
+        <StyledSubtitle>Recent Events</StyledSubtitle>
         <PaginationWrapper>
           <Pagination
             data-cy="host-event-table-pagination"
@@ -61,32 +89,14 @@ export const HostTable: React.FC<{
           />
         </PaginationWrapper>
       </TableTitle>
-      <V11Adapter shouldAlternateRowColor>
-        <Table
-          data-cy="host-events-table"
-          data={logEntries}
-          columns={
-            <HeaderRow>
-              <TableHeader key="date" dataType="date" label="Date" />
-              <TableHeader key="event" label="Event" />
-            </HeaderRow>
-          }
-        >
-          {({ datum }) => (
-            <Row data-cy={`event-type-${datum.eventType}`} key={datum.id}>
-              <Cell data-cy={`${datum.eventType}-time`}>
-                {getDateCopy(datum.timestamp)}
-              </Cell>
-              <Cell>
-                <HostEventString
-                  eventType={datum.eventType}
-                  data={datum.data}
-                />
-              </Cell>
-            </Row>
-          )}
-        </Table>
-      </V11Adapter>
+      <BaseTable
+        data-cy-table="host-events-table"
+        data-loading={loading}
+        loading={loading}
+        loadingRows={limit}
+        shouldAlternateRowColor
+        table={table}
+      />
     </HostCard>
   );
 };
