@@ -31,11 +31,11 @@ import {
   mapIdToFilterParam,
 } from "types/task";
 import { TestStatus } from "types/test";
-import { queryString, url } from "utils";
+import { queryString } from "utils";
 import { getColumnsTemplate } from "./testsTable/getColumnsTemplate";
 
-const { getLimitFromSearch, getPageFromSearch } = url;
-const { parseQueryString, queryParamAsNumber } = queryString;
+const { getLimit, getPage, getString, parseSortString, queryParamAsNumber } =
+  queryString;
 const { getDefaultOptions: getDefaultFiltering } = Filters;
 const { getDefaultOptions: getDefaultSorting } = Sorting;
 
@@ -44,12 +44,12 @@ interface TestsTableProps {
 }
 
 export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
-  const { pathname, search } = useLocation();
+  const { pathname } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
   const { sendEvent } = useTaskAnalytics();
 
-  const queryVariables = getQueryVariables(search, task.id);
   const [queryParams, setQueryParams] = useQueryParams();
+  const queryVariables = getQueryVariables(queryParams, task.id);
   const { execution, limitNum, pageNum, sort } = queryVariables;
   const sortBy = sort?.[0]?.sortBy;
 
@@ -135,6 +135,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     data: testResults ?? [],
     defaultColumn: {
       enableColumnFilter: false,
+      enableMultiSort: true,
       enableSorting: false,
       size: "auto" as unknown as number,
       // Handle bug in sorting order
@@ -145,9 +146,12 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
       columnFilters: initialFilters,
       sorting: initialSorting,
     },
+    // Override default requirement for shift-click to multisort.
+    isMultiSortEvent: () => true,
     manualFiltering: true,
     manualSorting: true,
     manualPagination: true,
+    maxMultiSortColCount: 2,
     onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
       setFilters,
       updateFilters,
@@ -221,44 +225,47 @@ const getInitialState = (queryParams: {
 };
 
 const getQueryVariables = (
-  search: string,
+  queryParams: { [key: string]: any },
   taskId: string,
 ): TaskTestsQueryVariables => {
-  const parsed = parseQueryString(search);
-
   // Detemining sort category
-  const parsedCategory = (parsed[RequiredQueryParams.Category] ?? "")
-    .toString()
-    .toUpperCase();
-  const TestSortCategories = Object.keys(TestSortCategory).map(
-    (k) => TestSortCategory[k],
-  );
-  const sortBy = TestSortCategories.includes(parsedCategory)
-    ? (parsedCategory as TestSortCategory)
+  const parsedSortBy = getString(queryParams[TableQueryParams.SortBy]);
+  const testSortCategories: string[] = Object.values(TestSortCategory);
+  const sortBy = testSortCategories.includes(parsedSortBy)
+    ? (parsedSortBy as TestSortCategory)
     : undefined;
+  const sorts = queryParams[TableQueryParams.Sorts];
 
   // Determining sort direction
-  const parsedDirection = (parsed[RequiredQueryParams.Sort] ?? "").toString();
+  const parsedDirection = getString(queryParams[TableQueryParams.SortDir]);
   const direction =
     parsedDirection === SortDirection.Desc
       ? SortDirection.Desc
       : SortDirection.Asc;
 
-  const sort = sortBy && direction ? [{ sortBy, direction }] : [];
+  let sort = [];
+  if (sortBy && direction) {
+    sort = [{ sortBy, direction }];
+  } else if (sorts) {
+    sort = parseSortString(sorts, {
+      sortByKey: "sortBy",
+      sortDirKey: "direction",
+    });
+  }
 
-  const testName = (parsed[RequiredQueryParams.TestName] ?? "").toString();
-  const rawStatuses = parsed[RequiredQueryParams.Statuses];
+  const testName = getString(queryParams[RequiredQueryParams.TestName]);
+  const rawStatuses = queryParams[RequiredQueryParams.Statuses];
   const statusList = (
     Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses]
   ).filter((v) => v && v !== TestStatus.All);
-  const execution = parsed[RequiredQueryParams.Execution];
+  const execution = queryParams[RequiredQueryParams.Execution];
   return {
     id: taskId,
     execution: queryParamAsNumber(execution),
     sort,
-    limitNum: getLimitFromSearch(search),
+    limitNum: getLimit(queryParams[TableQueryParams.Limit]),
     statusList,
     testName,
-    pageNum: getPageFromSearch(search),
+    pageNum: getPage(queryParams[TableQueryParams.Page]),
   };
 };

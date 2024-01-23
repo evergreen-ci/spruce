@@ -40,14 +40,22 @@ describe("Tests Table", () => {
     const statusSortControl = "button[aria-label='Sort by Status']";
     const durationSortControl = "button[aria-label='Sort by Time']";
 
-    cy.get(nameSortControl).click();
+    // Clear default status sort
+    cy.get(statusSortControl).click();
+    cy.get(statusSortControl).click();
+    cy.location("search").should("not.include", "sortBy");
 
+    cy.get(nameSortControl).click();
     cy.location().should((loc) => {
-      expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=TEST_NAME");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
 
+    // Clear name sort
+    cy.get(nameSortControl).click();
+    cy.get(nameSortControl).click();
+    cy.location("search").should("not.include", "sortBy");
+
     cy.get(statusSortControl).click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
@@ -62,6 +70,10 @@ describe("Tests Table", () => {
       expect(loc.search).to.include(DESCEND_PARAM);
     });
 
+    // Clear status sort
+    cy.get(statusSortControl).click();
+    cy.location("search").should("not.include", "sortBy");
+
     cy.get(durationSortControl).click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
@@ -74,6 +86,15 @@ describe("Tests Table", () => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=DURATION");
       expect(loc.search).to.include(DESCEND_PARAM);
+    });
+
+    cy.get(statusSortControl).click();
+    cy.location().should((loc) => {
+      expect(loc.search).not.to.include("sortBy=DURATION");
+      expect(loc.search).not.to.include("sortBy=STATUS");
+      expect(loc.search).not.to.include(DESCEND_PARAM);
+      expect(loc.search).not.to.include(ASCEND_PARAM);
+      expect(loc.search).to.include("sorts=DURATION%3ADESC%3BSTATUS%3AASC");
     });
   });
 

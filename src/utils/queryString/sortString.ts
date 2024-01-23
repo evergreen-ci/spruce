@@ -1,14 +1,8 @@
-import {
-  Key,
-  SortOrder as SortLabel,
-  SorterResult,
-} from "antd/es/table/interface";
-import {
-  Task,
-  SortDirection,
-  SortOrder,
-  TaskSortCategory,
-} from "gql/generated/types";
+import { Key, SorterResult } from "antd/es/table/interface";
+import { Task, SortDirection, TaskSortCategory } from "gql/generated/types";
+
+export const getSortString = (columnKey: Key, direction: SortDirection) =>
+  direction ? `${columnKey}:${direction}` : undefined;
 
 // takes sort input from the antd table and translates into part of the query string
 // if sort field is being unset, returns undefined
@@ -18,16 +12,17 @@ export const toSortString = (
   let sortStrings: string[] = [];
   const shortenSortOrder = (order: string) =>
     order === "ascend" ? SortDirection.Asc : SortDirection.Desc;
-  const getSortString = (columnKey: Key, order: SortLabel) =>
-    order ? `${columnKey}:${shortenSortOrder(order)}` : undefined;
   if (Array.isArray(sorts)) {
     sorts.forEach((sort) => {
-      const singleSortString = getSortString(sort.columnKey, sort.order);
+      const singleSortString = getSortString(
+        sort.columnKey,
+        shortenSortOrder(sort.order),
+      );
       sortStrings = sortStrings.concat(singleSortString);
     });
   } else {
     sortStrings = sortStrings.concat(
-      getSortString(sorts.columnKey, sorts.order),
+      getSortString(sorts.columnKey, shortenSortOrder(sorts.order)),
     );
   }
 
@@ -37,8 +32,16 @@ export const toSortString = (
 };
 
 // takes a sort query string and parses it into valid GQL params
-export const parseSortString = (sortQuery: string | string[]): SortOrder[] => {
-  let sorts: SortOrder[] = [];
+export const parseSortString = <
+  T extends Record<string, SortDirection | TaskSortCategory>,
+>(
+  sortQuery: string | string[],
+  options: {
+    sortByKey: keyof T;
+    sortDirKey: keyof T;
+  } = { sortByKey: "Key", sortDirKey: "Direction" },
+): T[] => {
+  let sorts: T[] = [];
   let sortArray: string[] = [];
   if (typeof sortQuery === "string") {
     sortArray = sortQuery.split(";");
@@ -60,9 +63,9 @@ export const parseSortString = (sortQuery: string | string[]): SortOrder[] => {
         return;
       }
       sorts = sorts.concat({
-        Key: parts[0] as TaskSortCategory,
-        Direction: parts[1] as SortDirection,
-      });
+        [options.sortByKey]: parts[0] as TaskSortCategory,
+        [options.sortDirKey]: parts[1] as SortDirection,
+      } as T);
     });
   }
   return sorts;
