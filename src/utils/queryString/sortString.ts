@@ -20,10 +20,15 @@ export const toSortString = (
       );
       sortStrings = sortStrings.concat(singleSortString);
     });
-  } else {
-    sortStrings = sortStrings.concat(
-      getSortString(sorts.columnKey, shortenSortOrder(sorts.order)),
+    sortStrings = sorts.map(({ columnKey, order }) =>
+      order ? getSortString(columnKey, shortenSortOrder(order)) : undefined,
     );
+  } else {
+    sortStrings = [
+      sorts.order
+        ? getSortString(sorts.columnKey, shortenSortOrder(sorts.order))
+        : undefined,
+    ];
   }
 
   return sortStrings.some((s) => s)
