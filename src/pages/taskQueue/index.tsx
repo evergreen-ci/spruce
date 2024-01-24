@@ -44,7 +44,6 @@ const TaskQueue = () => {
       const firstDistroInList = taskQueueDistros[0]?.id;
       const defaultDistro = distro ?? firstDistroInList;
       setSelectedDistro(taskQueueDistros.find((d) => d.id === defaultDistro));
-      console.log("Redirecting");
       navigate(getTaskQueueRoute(defaultDistro, taskId), { replace: true });
     },
   });
