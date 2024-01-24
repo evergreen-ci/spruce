@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Pages/Preferences/Node List Node Element 1`] = `
+exports[`Snapshot Tests Pages/Preferences/Node List NodeElement 1`] = `
 <div>
   <div
     class="css-paub65-NodeContainer e1k5prvz2"
@@ -36,7 +36,7 @@ exports[`storybook Storyshots Pages/Preferences/Node List Node Element 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots Pages/Preferences/Node List Node List Full 1`] = `
+exports[`Snapshot Tests Pages/Preferences/Node List NodeListFull 1`] = `
 <div>
   <div
     style="position: relative;"

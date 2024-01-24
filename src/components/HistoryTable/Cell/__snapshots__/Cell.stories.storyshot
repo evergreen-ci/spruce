@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/HistoryTable/Cell Column Header Cell Story 1`] = `
+exports[`Snapshot Tests components/HistoryTable/Cell ColumnHeaderCellStory 1`] = `
 <div>
   <div
     class="css-t6ohyf-BaseCell-HeaderCell e1bcz5i61"
     data-cy="header-cell"
   >
     <a
-      class="lg-ui-0003 leafygreen-ui-cssveg css-84rhzu-StyledLink leafygreen-ui-1320234"
+      class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-s1d8jb"
       href="https://spruce.mongodb.com"
     >
       <span
-        class="leafygreen-ui-baoi4d"
+        class="leafygreen-ui-1ewnca3"
       >
         displayName
       </span>
@@ -20,7 +20,7 @@ exports[`storybook Storyshots components/HistoryTable/Cell Column Header Cell St
 </div>
 `;
 
-exports[`storybook Storyshots components/HistoryTable/Cell Empty Cell Story 1`] = `
+exports[`Snapshot Tests components/HistoryTable/Cell EmptyCellStory 1`] = `
 <div>
   <div
     class="css-azgjvx-BaseCell-Cell e1bcz5i62"
@@ -33,7 +33,7 @@ exports[`storybook Storyshots components/HistoryTable/Cell Empty Cell Story 1`] 
 </div>
 `;
 
-exports[`storybook Storyshots components/HistoryTable/Cell Loading Cell Story 1`] = `
+exports[`Snapshot Tests components/HistoryTable/Cell LoadingCellStory 1`] = `
 <div>
   <div
     class="css-azgjvx-BaseCell-Cell e1bcz5i62"
@@ -51,7 +51,7 @@ exports[`storybook Storyshots components/HistoryTable/Cell Loading Cell Story 1`
 </div>
 `;
 
-exports[`storybook Storyshots components/HistoryTable/Cell Task Cell Story 1`] = `
+exports[`Snapshot Tests components/HistoryTable/Cell TaskCellStory 1`] = `
 <div>
   <div
     class="css-azgjvx-BaseCell-Cell e1bcz5i62"
@@ -80,7 +80,7 @@ exports[`storybook Storyshots components/HistoryTable/Cell Task Cell Story 1`] =
           >
             <path
               clip-rule="evenodd"
-              d="M6.306 9.05l5.455-5.455a1 1 0 011.414 0l.707.707a1 1 0 010 1.414l-7.067 7.068a1 1 0 01-1.5-.098l-3.049-3.97a1 1 0 01.184-1.402l.595-.457a1.25 1.25 0 011.753.23L6.306 9.05z"
+              d="m6.306 9.05 5.455-5.455a1 1 0 0 1 1.414 0l.707.707a1 1 0 0 1 0 1.414l-7.067 7.068a1 1 0 0 1-1.5-.098l-3.049-3.97a1 1 0 0 1 .184-1.402l.595-.457a1.25 1.25 0 0 1 1.753.23L6.306 9.05Z"
               fill="currentColor"
               fill-rule="evenodd"
             />

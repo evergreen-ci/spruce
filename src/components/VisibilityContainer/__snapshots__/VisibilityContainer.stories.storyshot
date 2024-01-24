@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/VisibilityContainer Default 1`] = `
+exports[`Snapshot Tests VisibilityContainer.stories Default 1`] = `
 <div>
   Scroll the below container out of view and observe the component mounting and unmounting
   <div

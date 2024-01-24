@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure Tasks Default 1`] = `
+exports[`Snapshot Tests pages/configurePatch/configurePatchCore ConfigureTasksDefault 1`] = `
 <div>
   <div
     class="css-d31jx9-FlexRow ek3m3u40"
@@ -13,7 +13,7 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
       >
         <label
           class="leafygreen-ui-gr5280"
-          for="textinput-227"
+          for="textinput-8"
         >
           Patch Name
         </label>
@@ -26,7 +26,7 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
           autocomplete="on"
           class="leafygreen-ui-6i61vl"
           data-cy="patch-name-input"
-          id="textinput-227"
+          id="textinput-8"
           required=""
           type="text"
           value="test"
@@ -36,21 +36,25 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
         />
       </div>
     </div>
-    <button
-      aria-disabled="true"
-      class="lg-ui-button-0000 leafygreen-ui-ipsf7h css-10cfexx-StyledButton ek3m3u41"
-      data-cy="schedule-patch"
-      type="button"
+    <div
+      class="css-8i32g1-ButtonWrapper ek3m3u41"
     >
-      <div
-        class="leafygreen-ui-v038xi"
-      />
-      <div
-        class="leafygreen-ui-v95oty"
+      <button
+        aria-disabled="true"
+        class="lg-ui-button-0000 leafygreen-ui-ln4wk1"
+        data-cy="schedule-patch"
+        type="button"
       >
-        Schedule
-      </div>
-    </button>
+        <div
+          class="leafygreen-ui-v038xi"
+        />
+        <div
+          class="leafygreen-ui-v95oty"
+        >
+          Schedule
+        </div>
+      </button>
+    </div>
   </div>
   <section
     class="ant-layout ant-layout-has-sider css-1aoao0r-PageLayout-whiteBackground e1xf068s9"
@@ -63,7 +67,7 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
         class="ant-layout-sider-children"
       >
         <div
-          class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1v4ednr"
+          class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
         >
           <div>
             <p
@@ -72,7 +76,7 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
               Patch Metadata
             </p>
             <hr
-              class="css-qqg5h5-Divider eyj3qof0"
+              class="css-qqg5h5-Divider eb6szep0"
             />
           </div>
           <p
@@ -87,6 +91,22 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
             Submitted at: 
             2020-08-28T15:00:17Z
           </p>
+          <p
+            class="css-1tu2ym0-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
+          >
+            Project:
+             
+            <a
+              class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+              href="/project/spruce/patches"
+            >
+              <span
+                class="leafygreen-ui-1ewnca3"
+              >
+                spruce
+              </span>
+            </a>
+          </p>
         </div>
         <div
           class="css-1rkkuaq-DisableWrapper e1xdo4m90"
@@ -96,7 +116,7 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
             class="css-1etd4q7-UserSelectWrapper e1xdo4m91"
           >
             <div
-              class="css-1ff72qn-SiderCard-StyledSiderCard e14bc6yx4 leafygreen-ui-1v4ednr"
+              class="css-1ff72qn-SiderCard-StyledSiderCard e14bc6yx4 leafygreen-ui-1ecxdul"
             >
               <div
                 class="css-993586-Container-cardSidePadding e14bc6yx5"
@@ -112,7 +132,7 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
                   Use Shift + Click to edit multiple variants simultaneously.
                 </p>
                 <hr
-                  class="css-qqg5h5-Divider eyj3qof0"
+                  class="css-qqg5h5-Divider eb6szep0"
                 />
               </div>
               <div
@@ -151,7 +171,7 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
               </div>
             </div>
             <div
-              class="css-1ff72qn-SiderCard-StyledSiderCard e14bc6yx4 leafygreen-ui-1v4ednr"
+              class="css-1ff72qn-SiderCard-StyledSiderCard e14bc6yx4 leafygreen-ui-1ecxdul"
             >
               <div
                 class="css-993586-Container-cardSidePadding e14bc6yx5"
@@ -167,7 +187,7 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
                   Use Shift + Click to edit multiple variants simultaneously.
                 </p>
                 <hr
-                  class="css-qqg5h5-Divider eyj3qof0"
+                  class="css-qqg5h5-Divider eb6szep0"
                 />
               </div>
               <div
@@ -213,12 +233,12 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
               role="tablist"
             >
               <button
-                aria-controls="tab-panel-228"
+                aria-controls="tab-panel-1"
                 aria-selected="true"
                 class="leafygreen-ui-1eowt3k"
                 data-cy="tasks-tab"
                 data-text="Configure"
-                id="tab-229"
+                id="tab-2"
                 name="Configure"
                 role="tab"
                 tabindex="0"
@@ -230,12 +250,12 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
                 </div>
               </button>
               <button
-                aria-controls="tab-panel-230"
+                aria-controls="tab-panel-3"
                 aria-selected="false"
                 class="leafygreen-ui-7ok9wl"
                 data-cy="changes-tab"
                 data-text="Changes"
-                id="tab-231"
+                id="tab-4"
                 name="Changes"
                 role="tab"
                 tabindex="-1"
@@ -247,12 +267,12 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
                 </div>
               </button>
               <button
-                aria-controls="tab-panel-232"
+                aria-controls="tab-panel-5"
                 aria-selected="false"
                 class="leafygreen-ui-7ok9wl"
                 data-cy="parameters-tab"
                 data-text="Parameters"
-                id="tab-233"
+                id="tab-6"
                 name="Parameters"
                 role="tab"
                 tabindex="-1"
@@ -270,9 +290,9 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
           </div>
           <div>
             <div
-              aria-labelledby="tab-229"
+              aria-labelledby="tab-2"
               data-cy="tasks-tab"
-              id="tab-panel-228"
+              id="tab-panel-1"
               role="tabpanel"
             >
               <div
@@ -282,26 +302,62 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
                   class="css-1ln61zq-Actions eoqkpw16"
                 >
                   <div
-                    class="css-6hd73e-StyledTextInput eoqkpw13 leafygreen-ui-xtefr5"
+                    class="eoqkpw13 css-1pn85ix-TextInputWrapper-StyledTextInput e13gwrw81"
                   >
                     <div
-                      class="leafygreen-ui-lzja97"
+                      class="leafygreen-ui-xtefr5"
                     >
-                      <input
-                        aria-invalid="false"
-                        aria-labelledby="search-tasks"
-                        autocomplete="on"
-                        class="leafygreen-ui-6i61vl"
-                        data-cy="task-filter-input"
-                        id="textinput-236"
-                        placeholder="Search tasks"
-                        required=""
-                        type="text"
-                        value=""
-                      />
                       <div
-                        class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
-                      />
+                        class="leafygreen-ui-lzja97"
+                      >
+                        <input
+                          aria-invalid="false"
+                          aria-labelledby="search-tasks"
+                          autocomplete="on"
+                          class="leafygreen-ui-6i61vl"
+                          data-cy="task-filter-input"
+                          id="textinput-10"
+                          placeholder="Search tasks regex"
+                          required=""
+                          type="text"
+                          value=""
+                        />
+                        <div
+                          class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="css-4bamt4-IconWrapper e13gwrw80"
+                    >
+                      <button
+                        aria-disabled="false"
+                        aria-label="Select plus button"
+                        class="leafygreen-ui-76dd2i"
+                        tabindex="0"
+                      >
+                        <div
+                          class="leafygreen-ui-xhlipt"
+                        >
+                          <svg
+                            aria-label="Plus Icon"
+                            class=""
+                            fill="none"
+                            height="16"
+                            role="img"
+                            viewBox="0 0 16 16"
+                            width="16"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M7.5 2a1 1 0 0 0-1 1v3.5H3a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h3.5V13a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9.5H13a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9.5V3a1 1 0 0 0-1-1h-1Z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      </button>
                     </div>
                   </div>
                   <div
@@ -309,17 +365,17 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
                   >
                     <label
                       class="leafygreen-ui-75mjfl"
-                      for="checkbox-237"
-                      id="checkbox-237-label"
+                      for="checkbox-16"
+                      id="checkbox-16-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="checkbox"
-                        aria-labelledby="checkbox-237-label"
+                        aria-labelledby="checkbox-16-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="select-all-checkbox"
-                        id="checkbox-237"
+                        id="checkbox-16"
                         type="checkbox"
                       />
                       <div
@@ -373,17 +429,17 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
                   >
                     <label
                       class="leafygreen-ui-75mjfl"
-                      for="checkbox-238"
-                      id="checkbox-238-label"
+                      for="checkbox-17"
+                      id="checkbox-17-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="checkbox"
-                        aria-labelledby="checkbox-238-label"
+                        aria-labelledby="checkbox-17-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="task-checkbox"
-                        id="checkbox-238"
+                        id="checkbox-17"
                         type="checkbox"
                       />
                       <div
@@ -422,17 +478,17 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
                   >
                     <label
                       class="leafygreen-ui-75mjfl"
-                      for="checkbox-239"
-                      id="checkbox-239-label"
+                      for="checkbox-18"
+                      id="checkbox-18-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="checkbox"
-                        aria-labelledby="checkbox-239-label"
+                        aria-labelledby="checkbox-18-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="task-checkbox"
-                        id="checkbox-239"
+                        id="checkbox-18"
                         type="checkbox"
                       />
                       <div
@@ -470,15 +526,15 @@ exports[`storybook Storyshots pages/configurePatch/configurePatchCore Configure 
               </div>
             </div>
             <div
-              aria-labelledby="tab-231"
+              aria-labelledby="tab-4"
               data-cy="changes-tab"
-              id="tab-panel-230"
+              id="tab-panel-3"
               role="tabpanel"
             />
             <div
-              aria-labelledby="tab-233"
+              aria-labelledby="tab-6"
               data-cy="parameters-tab"
-              id="tab-panel-232"
+              id="tab-panel-5"
               role="tabpanel"
             />
           </div>

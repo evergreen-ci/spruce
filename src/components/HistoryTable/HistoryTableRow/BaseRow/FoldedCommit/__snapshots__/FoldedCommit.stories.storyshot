@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit Story 1`] = `
+exports[`Snapshot Tests components/HistoryTable/FoldedCommit FoldedCommitStory 1`] = `
 <div>
   <div
     class="css-42nnqo-Column eg8pw9k3"
@@ -24,7 +24,7 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+            d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
             fill="currentColor"
           />
         </svg>
@@ -57,18 +57,20 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
                   class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   <a
-                    class="lg-ui-0002 leafygreen-ui-hvznge"
+                    class="lg-ui-0000 leafygreen-ui-hvznge"
                     data-cy="githash-link"
                     href="/version/1/tasks"
                   >
                     <code
-                      class="leafygreen-ui-7u0nmx"
+                      class="leafygreen-ui-i6ovbf"
                     >
                       ca3a8b4
                     </code>
                   </a>
                    
-                  <b>
+                  <b
+                    title="Sep 22, 2021, 7:33:22 PM UTC"
+                  >
                     Sep 22, 2021, 7:33 PM
                   </b>
                    
@@ -142,18 +144,20 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
                   class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   <a
-                    class="lg-ui-0002 leafygreen-ui-hvznge"
+                    class="lg-ui-0000 leafygreen-ui-hvznge"
                     data-cy="githash-link"
                     href="/version/2/tasks"
                   >
                     <code
-                      class="leafygreen-ui-7u0nmx"
+                      class="leafygreen-ui-i6ovbf"
                     >
                       ca3a8b4
                     </code>
                   </a>
                    
-                  <b>
+                  <b
+                    title="Sep 23, 2021, 7:33:22 PM UTC"
+                  >
                     Sep 23, 2021, 7:33 PM
                   </b>
                    
@@ -227,18 +231,20 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
                   class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   <a
-                    class="lg-ui-0002 leafygreen-ui-hvznge"
+                    class="lg-ui-0000 leafygreen-ui-hvznge"
                     data-cy="githash-link"
                     href="/version/3/tasks"
                   >
                     <code
-                      class="leafygreen-ui-7u0nmx"
+                      class="leafygreen-ui-i6ovbf"
                     >
                       ca3a8b4
                     </code>
                   </a>
                    
-                  <b>
+                  <b
+                    title="Sep 24, 2021, 7:33:22 PM UTC"
+                  >
                     Sep 24, 2021, 7:33 PM
                   </b>
                    
@@ -312,18 +318,20 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
                   class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   <a
-                    class="lg-ui-0002 leafygreen-ui-hvznge"
+                    class="lg-ui-0000 leafygreen-ui-hvznge"
                     data-cy="githash-link"
                     href="/version/4/tasks"
                   >
                     <code
-                      class="leafygreen-ui-7u0nmx"
+                      class="leafygreen-ui-i6ovbf"
                     >
                       ca3a8b4
                     </code>
                   </a>
                    
-                  <b>
+                  <b
+                    title="Sep 25, 2021, 7:33:22 PM UTC"
+                  >
                     Sep 25, 2021, 7:33 PM
                   </b>
                    
@@ -397,18 +405,20 @@ exports[`storybook Storyshots components/HistoryTable/FoldedCommit Folded Commit
                   class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
                 >
                   <a
-                    class="lg-ui-0002 leafygreen-ui-hvznge"
+                    class="lg-ui-0000 leafygreen-ui-hvznge"
                     data-cy="githash-link"
                     href="/version/5/tasks"
                   >
                     <code
-                      class="leafygreen-ui-7u0nmx"
+                      class="leafygreen-ui-i6ovbf"
                     >
                       ca3a8b4
                     </code>
                   </a>
                    
-                  <b>
+                  <b
+                    title="Sep 26, 2021, 7:33:22 PM UTC"
+                  >
                     Sep 26, 2021, 7:33 PM
                   </b>
                    

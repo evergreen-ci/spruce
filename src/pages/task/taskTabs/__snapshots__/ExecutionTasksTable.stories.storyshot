@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Executions 1`] = `
+exports[`Snapshot Tests ExecutionTasksTable.stories MultipleExecutions 1`] = `
 <div>
   <div
     class="ant-table-wrapper"
@@ -284,14 +284,14 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/task/some_id_5?execution=14"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some fancy execution task
                           </span>
@@ -325,11 +325,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           Windows 97
                         </span>
@@ -344,14 +344,14 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/task/some_id_6?execution=12"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Another execution task
                           </span>
@@ -385,11 +385,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           Windows 97
                         </span>
@@ -407,7 +407,7 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Multiple Ex
 </div>
 `;
 
-exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Execution 1`] = `
+exports[`Snapshot Tests ExecutionTasksTable.stories SingleExecution 1`] = `
 <div>
   <div
     class="ant-table-wrapper"
@@ -691,14 +691,14 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/task/some_id_5?execution=5"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some fancy execution task
                           </span>
@@ -726,11 +726,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           Windows 97
                         </span>
@@ -745,14 +745,14 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/task/some_id_6?execution=5"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Another execution task
                           </span>
@@ -780,11 +780,11 @@ exports[`storybook Storyshots Pages/Task/Table/Execution Tasks Table Single Exec
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           Windows 97
                         </span>

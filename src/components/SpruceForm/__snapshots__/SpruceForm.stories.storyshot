@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
+exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
 <div>
   <div>
     <h3
@@ -9,14 +9,14 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
       Distro Projects
     </h3>
     <div
-      class="css-akg61l-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
+      class="css-akg61l-SettingsCard e1h7idos0 leafygreen-ui-1ecxdul"
     >
       <form
         class="rjsf"
         novalidate=""
       >
         <div
-          class="form-group field field-object css-ejwhfc-DefaultFieldContainer eny4k1v0"
+          class="form-group field field-object css-mg3yql-DefaultFieldContainer eny4k1v0"
           id=" root"
         >
           <fieldset
@@ -24,75 +24,75 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
             id="root"
           >
             <div
-              class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v0"
               id=" root_cloneMethod"
             >
               <div
-                class="css-c1sqx6-ElementWrapper ee4bs9n0"
+                class="css-cjejq9-ElementWrapper ee4bs9n0"
               >
                 <div
-                  class="css-12pm1mq-MaxWidthContainer eevpusu0"
+                  class="leafygreen-ui-1iyoj2o"
                 >
                   <div
-                    class="leafygreen-ui-1nkq8lt"
+                    class="leafygreen-ui-e3fvh5"
                   >
                     <label
-                      class="leafygreen-ui-o3xcrd"
-                      for="select-158"
-                      id="select-157-label"
+                      class="leafygreen-ui-nf64md"
+                      for="select-191"
+                      id="select-190-label"
                     >
                       Project Cloning Method
                     </label>
-                    <button
-                      aria-controls="select-157-menu"
-                      aria-describedby="select-157-description"
-                      aria-disabled="false"
-                      aria-expanded="false"
-                      aria-invalid="false"
-                      aria-labelledby="select-157-label"
-                      class="lg-ui-button-0001 leafygreen-ui-3qrx9g"
-                      data-testid="leafygreen-ui-select-menubutton"
-                      id="select-158"
-                      type="button"
-                      value="legacy-ssh"
+                  </div>
+                  <button
+                    aria-controls="select-190-menu"
+                    aria-describedby="select-190-description"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-invalid="false"
+                    aria-labelledby="select-190-label"
+                    class="lg-ui-button-0000 leafygreen-ui-c8np5"
+                    data-testid="leafygreen-ui-select-menubutton"
+                    id="select-191"
+                    type="button"
+                    value="legacy-ssh"
+                  >
+                    <div
+                      class="leafygreen-ui-v038xi"
+                    />
+                    <div
+                      class="leafygreen-ui-16tr4y"
                     >
                       <div
-                        class="leafygreen-ui-v038xi"
-                      />
-                      <div
-                        class="leafygreen-ui-1qmzz4y"
+                        class="leafygreen-ui-obh8q1"
                       >
                         <div
-                          class="leafygreen-ui-obh8q1"
+                          class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
                         >
-                          <div
-                            class="leafygreen-ui-17aj16e"
-                          >
-                            Legacy SSH
-                          </div>
+                          Legacy SSH
                         </div>
-                        <svg
-                          alt=""
-                          aria-hidden="true"
-                          class="leafygreen-ui-4dp7tf"
-                          height="16"
-                          role="presentation"
-                          viewBox="0 0 16 16"
-                          width="16"
-                        >
-                          <path
-                            d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
-                            fill="currentColor"
-                          />
-                        </svg>
                       </div>
-                    </button>
-                  </div>
+                      <svg
+                        alt=""
+                        aria-hidden="true"
+                        class="leafygreen-ui-fn50nl"
+                        height="16"
+                        role="presentation"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <path
+                          d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                  </button>
                 </div>
               </div>
             </div>
             <div
-              class="form-group field field-array css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-array css-mg3yql-DefaultFieldContainer eny4k1v0"
               id=" root_expansions"
             >
               <h6
@@ -102,11 +102,11 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                 Expansions
               </h6>
               <div
-                class="css-y5jij6-ElementWrapper-AddButtonContainer e1jxkcec6"
+                class="css-1owtxr-ElementWrapper-AddButtonContainer e1jxkcec6"
               >
                 <button
                   aria-disabled="false"
-                  class="lg-ui-button-0000 leafygreen-ui-pt6pqu"
+                  class="lg-ui-button-0000 leafygreen-ui-2jj1me"
                   data-cy="add-button"
                   type="button"
                 >
@@ -129,7 +129,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                     >
                       <path
                         clip-rule="evenodd"
-                        d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
+                        d="M7.5 2a1 1 0 0 0-1 1v3.5H3a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h3.5V13a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9.5H13a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9.5V3a1 1 0 0 0-1-1h-1Z"
                         fill="currentColor"
                         fill-rule="evenodd"
                       />
@@ -145,7 +145,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                   class="css-nbhfvd-ArrayItemRow e1jxkcec7"
                 >
                   <div
-                    class="form-group field field-object css-ejwhfc-DefaultFieldContainer eny4k1v0"
+                    class="form-group field field-object css-mg3yql-DefaultFieldContainer eny4k1v0"
                     id=" root_expansions_0"
                   >
                     <fieldset
@@ -153,89 +153,81 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                       id="root_expansions_0"
                     >
                       <div
-                        class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
+                        class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v0"
                         id=" root_expansions_0_key"
                       >
                         <div
-                          class="css-c1sqx6-ElementWrapper ee4bs9n0"
+                          class="css-cjejq9-ElementWrapper ee4bs9n0"
                         >
                           <div
-                            class="css-12pm1mq-MaxWidthContainer eevpusu0"
+                            class="css-1kbcljo-StyledTextInput eevpusu6 leafygreen-ui-xtefr5"
                           >
                             <div
-                              class="css-1kbcljo-StyledTextInput eevpusu7 leafygreen-ui-xtefr5"
+                              class="leafygreen-ui-a533bt"
                             >
-                              <div
-                                class="leafygreen-ui-a533bt"
+                              <label
+                                class="leafygreen-ui-gr5280"
+                                for="textinput-4"
                               >
-                                <label
-                                  class="leafygreen-ui-gr5280"
-                                  for="textinput-159"
-                                >
-                                  key
-                                </label>
-                              </div>
+                                key
+                              </label>
+                            </div>
+                            <div
+                              class="leafygreen-ui-lzja97"
+                            >
+                              <input
+                                aria-invalid="false"
+                                aria-label="key"
+                                autocomplete="on"
+                                class="leafygreen-ui-6i61vl"
+                                id="textinput-4"
+                                required=""
+                                type="text"
+                                value="Sample Input"
+                              />
                               <div
-                                class="leafygreen-ui-lzja97"
-                              >
-                                <input
-                                  aria-invalid="false"
-                                  aria-label="key"
-                                  autocomplete="on"
-                                  class="leafygreen-ui-6i61vl"
-                                  id="textinput-159"
-                                  required=""
-                                  type="text"
-                                  value="Sample Input"
-                                />
-                                <div
-                                  class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
-                                />
-                              </div>
+                                class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                              />
                             </div>
                           </div>
                         </div>
                       </div>
                       <div
-                        class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
+                        class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v0"
                         id=" root_expansions_0_value"
                       >
                         <div
-                          class="css-c1sqx6-ElementWrapper ee4bs9n0"
+                          class="css-cjejq9-ElementWrapper ee4bs9n0"
                         >
                           <div
-                            class="css-12pm1mq-MaxWidthContainer eevpusu0"
+                            class="css-1kbcljo-StyledTextInput eevpusu6 leafygreen-ui-xtefr5"
                           >
                             <div
-                              class="css-1kbcljo-StyledTextInput eevpusu7 leafygreen-ui-xtefr5"
+                              class="leafygreen-ui-a533bt"
                             >
-                              <div
-                                class="leafygreen-ui-a533bt"
+                              <label
+                                class="leafygreen-ui-gr5280"
+                                for="textinput-5"
                               >
-                                <label
-                                  class="leafygreen-ui-gr5280"
-                                  for="textinput-160"
-                                >
-                                  value
-                                </label>
-                              </div>
+                                value
+                              </label>
+                            </div>
+                            <div
+                              class="leafygreen-ui-lzja97"
+                            >
+                              <input
+                                aria-invalid="false"
+                                aria-label="value"
+                                autocomplete="on"
+                                class="leafygreen-ui-6i61vl"
+                                id="textinput-5"
+                                required=""
+                                type="text"
+                                value="Sample Input"
+                              />
                               <div
-                                class="leafygreen-ui-lzja97"
-                              >
-                                <input
-                                  aria-invalid="false"
-                                  aria-label="value"
-                                  autocomplete="on"
-                                  class="leafygreen-ui-6i61vl"
-                                  id="textinput-160"
-                                  required=""
-                                  type="text"
-                                  value="Sample Input"
-                                />
-                                <div
-                                  class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
-                                />
-                              </div>
+                                class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                              />
                             </div>
                           </div>
                         </div>
@@ -243,11 +235,11 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                     </fieldset>
                   </div>
                   <div
-                    class="css-oex5ed-ElementWrapper-DeleteButtonWrapper e1jxkcec4"
+                    class="css-opjgra-ElementWrapper-DeleteButtonWrapper e1jxkcec4"
                   >
                     <button
                       aria-disabled="false"
-                      class="lg-ui-button-0000 leafygreen-ui-pt6pqu"
+                      class="lg-ui-button-0000 leafygreen-ui-2jj1me"
                       data-cy="delete-item-button"
                       type="button"
                     >
@@ -269,7 +261,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
                         >
                           <path
                             clip-rule="evenodd"
-                            d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                            d="M5 2a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1v1H2V3a1 1 0 0 1 1-1h2Zm9 3H2l1.678 8.392A2 2 0 0 0 5.64 15h4.72a2 2 0 0 0 1.962-1.608L14 5Z"
                             fill="currentColor"
                             fill-rule="evenodd"
                           />
@@ -281,24 +273,25 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
               </div>
             </div>
             <div
-              class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v0"
               id=" root_validProjects"
             >
               <div
-                class="css-c1sqx6-ElementWrapper ee4bs9n0"
+                class="css-17q2u8g-ElementWrapper ee4bs9n0"
               >
                 <div
                   class="leafygreen-ui-1iyoj2o"
                 >
                   <label
                     class="leafygreen-ui-1fi5x3a"
-                    for="textarea-161"
+                    for="textarea-192"
                   >
                     Valid Projects
                   </label>
                   <textarea
-                    class="leafygreen-ui-j9hxzb"
-                    id="textarea-161"
+                    class="leafygreen-ui-18em0fn"
+                    id="textarea-192"
+                    rows="5"
                     title="Valid Projects"
                   />
                 </div>
@@ -312,7 +305,7 @@ exports[`storybook Storyshots components/SpruceForm Example 1 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
+exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
 <div>
   <div>
     <h3
@@ -321,14 +314,14 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
       Admin Options
     </h3>
     <div
-      class="css-akg61l-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
+      class="css-akg61l-SettingsCard e1h7idos0 leafygreen-ui-1ecxdul"
     >
       <form
         class="rjsf"
         novalidate=""
       >
         <div
-          class="form-group field field-object css-ejwhfc-DefaultFieldContainer eny4k1v0"
+          class="form-group field field-object css-mg3yql-DefaultFieldContainer eny4k1v0"
           id=" root"
         >
           <fieldset
@@ -336,27 +329,27 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
             id="root"
           >
             <div
-              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-boolean css-mg3yql-DefaultFieldContainer eny4k1v0"
               id=" root_distroIsCluster"
             >
               <div
-                class="css-c1sqx6-ElementWrapper ee4bs9n0"
+                class="css-17q2u8g-ElementWrapper ee4bs9n0"
               >
                 <div
                   class="leafygreen-ui-55kazc"
                 >
                   <label
                     class="leafygreen-ui-75mjfl"
-                    for="checkbox-162"
-                    id="checkbox-162-label"
+                    for="checkbox-1"
+                    id="checkbox-1-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-162-label"
+                      aria-labelledby="checkbox-1-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-162"
+                      id="checkbox-1"
                       type="checkbox"
                     />
                     <div
@@ -393,27 +386,27 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
               </div>
             </div>
             <div
-              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-boolean css-mg3yql-DefaultFieldContainer eny4k1v0"
               id=" root_disableShallowClone"
             >
               <div
-                class="css-c1sqx6-ElementWrapper ee4bs9n0"
+                class="css-17q2u8g-ElementWrapper ee4bs9n0"
               >
                 <div
                   class="leafygreen-ui-55kazc"
                 >
                   <label
                     class="leafygreen-ui-75mjfl"
-                    for="checkbox-163"
-                    id="checkbox-163-label"
+                    for="checkbox-2"
+                    id="checkbox-2-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-163-label"
+                      aria-labelledby="checkbox-2-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-163"
+                      id="checkbox-2"
                       type="checkbox"
                     />
                     <div
@@ -450,27 +443,27 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
               </div>
             </div>
             <div
-              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-boolean css-mg3yql-DefaultFieldContainer eny4k1v0"
               id=" root_disableQueue"
             >
               <div
-                class="css-c1sqx6-ElementWrapper ee4bs9n0"
+                class="css-17q2u8g-ElementWrapper ee4bs9n0"
               >
                 <div
                   class="leafygreen-ui-55kazc"
                 >
                   <label
                     class="leafygreen-ui-75mjfl"
-                    for="checkbox-164"
-                    id="checkbox-164-label"
+                    for="checkbox-3"
+                    id="checkbox-3-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-164-label"
+                      aria-labelledby="checkbox-3-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-164"
+                      id="checkbox-3"
                       type="checkbox"
                     />
                     <div
@@ -507,28 +500,28 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
               </div>
             </div>
             <div
-              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-boolean css-mg3yql-DefaultFieldContainer eny4k1v0"
               id=" root_decommissionHosts"
             >
               <div
-                class="css-c1sqx6-ElementWrapper ee4bs9n0"
+                class="css-17q2u8g-ElementWrapper ee4bs9n0"
               >
                 <div
                   class="leafygreen-ui-55kazc"
                 >
                   <label
                     class="leafygreen-ui-75mjfl"
-                    for="checkbox-165"
-                    id="checkbox-165-label"
+                    for="checkbox-4"
+                    id="checkbox-4-label"
                   >
                     <input
                       aria-checked="true"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-165-label"
+                      aria-labelledby="checkbox-4-label"
                       checked=""
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-165"
+                      id="checkbox-4"
                       type="checkbox"
                     />
                     <div
@@ -565,11 +558,11 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
               </div>
             </div>
             <div
-              class="form-group field field-string css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v0"
               id=" root_reprovisionMethod"
             >
               <div
-                class="css-c1sqx6-ElementWrapper ee4bs9n0"
+                class="css-17q2u8g-ElementWrapper ee4bs9n0"
               >
                 <div
                   aria-label="radio-group-"
@@ -585,7 +578,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
                     >
                       <input
                         aria-checked="false"
-                        aria-describedby="lg-166"
+                        aria-describedby="lg-1"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                         id="radio-group--0"
@@ -612,7 +605,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
                     >
                       <input
                         aria-checked="false"
-                        aria-describedby="lg-167"
+                        aria-describedby="lg-2"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                         id="radio-group--1"
@@ -641,7 +634,7 @@ exports[`storybook Storyshots components/SpruceForm Example 2 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots components/SpruceForm Example 3 1`] = `
+exports[`Snapshot Tests SpruceForm.stories Example3 1`] = `
 <div>
   <div>
     <h3
@@ -650,14 +643,14 @@ exports[`storybook Storyshots components/SpruceForm Example 3 1`] = `
       UI Options
     </h3>
     <div
-      class="css-akg61l-SettingsCard e1h7idos0 leafygreen-ui-1v4ednr"
+      class="css-akg61l-SettingsCard e1h7idos0 leafygreen-ui-1ecxdul"
     >
       <form
         class="rjsf"
         novalidate=""
       >
         <div
-          class="form-group field field-object css-ejwhfc-DefaultFieldContainer eny4k1v0"
+          class="form-group field field-object css-mg3yql-DefaultFieldContainer eny4k1v0"
           id=" root"
         >
           <fieldset
@@ -665,28 +658,28 @@ exports[`storybook Storyshots components/SpruceForm Example 3 1`] = `
             id="root"
           >
             <div
-              class="form-group field field-boolean css-ejwhfc-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-boolean css-mg3yql-DefaultFieldContainer eny4k1v0"
               id=" root_visible"
             >
               <div
-                class="css-c1sqx6-ElementWrapper ee4bs9n0"
+                class="css-17q2u8g-ElementWrapper ee4bs9n0"
               >
                 <div
                   class="leafygreen-ui-55kazc"
                 >
                   <label
                     class="leafygreen-ui-75mjfl"
-                    for="checkbox-168"
-                    id="checkbox-168-label"
+                    for="checkbox-5"
+                    id="checkbox-5-label"
                   >
                     <input
                       aria-checked="true"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-168-label"
+                      aria-labelledby="checkbox-5-label"
                       checked=""
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-168"
+                      id="checkbox-5"
                       type="checkbox"
                     />
                     <div
