@@ -1,14 +1,7 @@
 import { getUiUrl } from "./environmentVariables";
 import { reportError } from "./errorReporting";
 
-type optionsType = {
-  onFailure?: (e: Error) => void;
-};
-export const post = async (
-  url: string,
-  body: unknown,
-  options: optionsType = {},
-) => {
+export const post = async (url: string, body: unknown) => {
   try {
     const response = await fetch(`${getUiUrl()}${url}`, {
       method: "POST",
@@ -20,9 +13,6 @@ export const post = async (
     }
     return response;
   } catch (e: any) {
-    if (options.onFailure) {
-      options.onFailure(e);
-    }
     handleError(e);
   }
 };

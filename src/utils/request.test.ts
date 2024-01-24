@@ -32,21 +32,17 @@ describe("post", () => {
       status: 500,
       statusText: "Internal Server Error",
     });
-    jest.spyOn(console, "error").mockImplementation(() => {});
+    const errorReportingMock = jest.fn();
+    jest.spyOn(console, "error").mockImplementation(errorReportingMock);
     jest.spyOn(global, "fetch").mockImplementation(fetchMock);
 
-    const onFailureMock = jest.fn();
-
-    await post(url, body, { onFailure: onFailureMock });
+    await post(url, body);
 
     expect(fetchMock).toHaveBeenCalledWith("/api/resource", {
       method: "POST",
       body: JSON.stringify(body),
       credentials: "include",
     });
-
-    expect(onFailureMock).toHaveBeenCalledWith(
-      new Error("POST Error: 500 - Internal Server Error"),
-    );
+    expect(errorReportingMock).toHaveBeenCalledTimes(1);
   });
 });
