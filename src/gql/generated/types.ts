@@ -7111,13 +7111,10 @@ export type ProjectHealthViewQueryVariables = Exact<{
 
 export type ProjectHealthViewQuery = {
   __typename?: "Query";
-  projectSettings: {
-    __typename?: "ProjectSettings";
-    projectRef?: {
-      __typename?: "Project";
-      id: string;
-      projectHealthView: ProjectHealthView;
-    } | null;
+  project: {
+    __typename?: "Project";
+    id: string;
+    projectHealthView: ProjectHealthView;
   };
 };
 
