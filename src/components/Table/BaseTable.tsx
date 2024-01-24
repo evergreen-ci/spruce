@@ -1,6 +1,7 @@
 import { ForwardedRef, forwardRef } from "react";
 import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
+import { palette } from "@leafygreen-ui/palette";
 import {
   Cell,
   ExpandedContent,
@@ -47,6 +48,8 @@ declare module "@tanstack/table-core" {
   }
 }
 
+const { blue } = palette;
+
 type SpruceTableProps = {
   "data-cy-row"?: string;
   "data-cy-table"?: string;
@@ -54,6 +57,8 @@ type SpruceTableProps = {
   loading?: boolean;
   /** estimated number of rows the table will have */
   loadingRows?: number;
+  /** rows that will have a blue tint to represent that they are selected */
+  selectedRowIds?: string[];
 };
 
 export const BaseTable = forwardRef(
@@ -64,6 +69,7 @@ export const BaseTable = forwardRef(
       emptyComponent,
       loading,
       loadingRows = 5,
+      selectedRowIds,
       table,
       ...args
     }: SpruceTableProps & TableProps<any>,
@@ -140,11 +146,21 @@ export const BaseTable = forwardRef(
               ? virtualRows.map((vr) => {
                   const row = rows[vr.index];
                   return (
-                    <RenderableRow row={row} key={row.id} virtualRow={vr} />
+                    <RenderableRow
+                      row={row}
+                      key={row.id}
+                      virtualRow={vr}
+                      selectedRowIds={selectedRowIds}
+                    />
                   );
                 })
               : rows.map((row) => (
-                  <RenderableRow row={row} key={row.id} virtualRow={null} />
+                  <RenderableRow
+                    row={row}
+                    key={row.id}
+                    virtualRow={null}
+                    selectedRowIds={selectedRowIds}
+                  />
                 ))}
           </TableBody>
         </StyledTable>
@@ -160,10 +176,12 @@ const cellPaddingStyle = { paddingBottom: size.xxs, paddingTop: size.xxs };
 
 const RenderableRow = <T extends LGRowData>({
   row,
+  selectedRowIds,
   virtualRow,
 }: {
   row: LeafyGreenTableRow<T>;
   virtualRow: VirtualItem;
+  selectedRowIds?: string[];
 }) => (
   <Row
     row={row}
@@ -172,6 +190,11 @@ const RenderableRow = <T extends LGRowData>({
       &[aria-hidden="false"] td > div {
         max-height: unset;
       }
+      ${selectedRowIds?.includes(row.id) &&
+      `
+        background-color: ${blue.light3} !important;
+        font-weight:bold;
+        `}
     `}
     virtualRow={virtualRow}
   >
