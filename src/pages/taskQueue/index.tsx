@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { H2, H2Props, H3, H3Props } from "@leafygreen-ui/typography";
-import { Skeleton } from "antd";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
 import SearchableDropdown from "components/SearchableDropdown";
@@ -14,6 +13,7 @@ import {
 } from "components/styles";
 import { getTaskQueueRoute, getAllHostsRoute } from "constants/routes";
 import { size } from "constants/tokens";
+import { useToastContext } from "context/toast";
 import {
   DistroTaskQueueQuery,
   DistroTaskQueueQueryVariables,
@@ -31,10 +31,12 @@ const TaskQueue = () => {
 
   const { distro, taskId } = useParams<{ distro: string; taskId?: string }>();
   const navigate = useNavigate();
-
-  const [selectedDistro, setSelectedDistro] = useState(null);
+  const [selectedDistro, setSelectedDistro] = useState<TaskQueueDistro | null>(
+    null,
+  );
+  const dispatchToast = useToastContext();
   usePageTitle(`Task Queue - ${distro}`);
-  const { data: distrosData } = useQuery<
+  const { data: distrosData, loading: loadingDistrosData } = useQuery<
     TaskQueueDistrosQuery,
     TaskQueueDistrosQueryVariables
   >(TASK_QUEUE_DISTROS, {
@@ -44,7 +46,9 @@ const TaskQueue = () => {
       const firstDistroInList = taskQueueDistros[0]?.id;
       const defaultDistro = distro ?? firstDistroInList;
       setSelectedDistro(taskQueueDistros.find((d) => d.id === defaultDistro));
-      navigate(getTaskQueueRoute(defaultDistro, taskId), { replace: true });
+    },
+    onError: (err) => {
+      dispatchToast.error(`There was an error loading distros: ${err.message}`);
     },
   });
 
@@ -54,74 +58,78 @@ const TaskQueue = () => {
   >(DISTRO_TASK_QUEUE, {
     fetchPolicy: "cache-and-network",
     variables: { distroId: distro },
+    onError: (err) => {
+      dispatchToast.error(
+        `There was an error loading task queue: ${err.message}`,
+      );
+    },
   });
 
-  const onChangeDistroSelection = (val: { id: string }) => {
+  const onChangeDistroSelection = (val: TaskQueueDistro) => {
     taskQueueAnalytics.sendEvent({ name: "Select Distro", distro: val.id });
+    navigate(getTaskQueueRoute(val.id));
     setSelectedDistro(val);
   };
 
-  const handleSearch = (options: { id: string }[], match: string) =>
+  const handleSearch = (options: TaskQueueDistro[], match: string) =>
     options.filter((d) => d.id.toLowerCase().includes(match.toLowerCase()));
 
   return (
     <PageWrapper>
       <StyledH2>Task Queue</StyledH2>
-      {selectedDistro === null ? (
-        <Skeleton active />
-      ) : (
-        <>
-          <TableControlOuterRow>
-            <SearchableDropdownWrapper>
-              <SearchableDropdown
-                data-cy="distro-dropdown"
-                label="Distro"
-                options={distrosData?.taskQueueDistros ?? []}
-                searchFunc={handleSearch}
-                optionRenderer={(option, onClick) => (
-                  <DistroOption
-                    option={option}
-                    key={`distro-select-search-option-${option.id}`}
-                    onClick={onClick}
-                  />
-                )}
-                onChange={onChangeDistroSelection}
-                value={selectedDistro}
-                buttonRenderer={(option: Partial<TaskQueueDistro>) => (
-                  <DistroLabel>
-                    <StyledBadge>{`${option?.taskCount || 0} ${
-                      option?.taskCount === 1 ? "TASK" : "TASKS"
-                    }`}</StyledBadge>
-                    <StyledBadge>{`${option?.hostCount || 0} ${
-                      option?.hostCount === 1 ? "HOST" : "HOSTS"
-                    }`}</StyledBadge>
-                    <DistroName> {option?.id} </DistroName>
-                  </DistroLabel>
-                )}
-              />
-            </SearchableDropdownWrapper>
-          </TableControlOuterRow>
+      <>
+        <TableControlOuterRow>
+          <SearchableDropdownWrapper>
+            <SearchableDropdown
+              data-cy="distro-dropdown"
+              label="Distro"
+              disabled={loadingDistrosData}
+              options={distrosData?.taskQueueDistros}
+              searchFunc={handleSearch}
+              optionRenderer={(option, onClick) => (
+                <DistroOption
+                  option={option}
+                  key={`distro-select-search-option-${option.id}`}
+                  onClick={onClick}
+                />
+              )}
+              onChange={onChangeDistroSelection}
+              value={selectedDistro}
+              buttonRenderer={(option: TaskQueueDistro) => (
+                <DistroLabel>
+                  <StyledBadge>{`${option?.taskCount || 0} ${
+                    option?.taskCount === 1 ? "TASK" : "TASKS"
+                  }`}</StyledBadge>
+                  <StyledBadge>{`${option?.hostCount || 0} ${
+                    option?.hostCount === 1 ? "HOST" : "HOSTS"
+                  }`}</StyledBadge>
+                  <DistroName> {option?.id} </DistroName>
+                </DistroLabel>
+              )}
+            />
+          </SearchableDropdownWrapper>
+        </TableControlOuterRow>
 
-          {
-            /* Only show name & link if distro exists. */
-            selectedDistro && (
-              <TableHeader>
-                <StyledH3> {selectedDistro.id} </StyledH3>
-                <StyledRouterLink
-                  to={getAllHostsRoute({ distroId: selectedDistro.id })}
-                >
-                  View hosts
-                </StyledRouterLink>
-              </TableHeader>
-            )
-          }
+        {
+          /* Only show name & link if distro exists. */
+          distro && (
+            <TableHeader>
+              <StyledH3> {distro} </StyledH3>
+              <StyledRouterLink to={getAllHostsRoute({ distroId: distro })}>
+                View hosts
+              </StyledRouterLink>
+            </TableHeader>
+          )
+        }
 
+        {!loading && (
           <TaskQueueTable
             taskQueue={taskQueueItemsData?.distroTaskQueue}
             loading={loading}
+            taskId={taskId}
           />
-        </>
-      )}
+        )}
+      </>
     </PageWrapper>
   );
 };
