@@ -5730,6 +5730,7 @@ export type DistroQuery = {
   __typename?: "Query";
   distro?: {
     __typename?: "Distro";
+    adminOnly: boolean;
     aliases: Array<string>;
     arch: Arch;
     authorizedKeysFile: string;
