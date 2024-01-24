@@ -46,7 +46,6 @@ export const HostTable: React.FC<{
         header: "Date",
         accessorKey: "timestamp",
         cell: ({ getValue }) => getDateCopy(getValue() as Date),
-        enableColumnFilter: false,
       },
       {
         header: "Event",
@@ -57,7 +56,6 @@ export const HostTable: React.FC<{
             data={row.original.data}
           />
         ),
-        enableColumnFilter: false,
       },
     ],
     [getDateCopy],
@@ -68,6 +66,9 @@ export const HostTable: React.FC<{
     columns,
     containerRef: tableContainerRef,
     data: logEntries ?? [],
+    defaultColumn: {
+      enableColumnFilter: false,
+    },
     manualPagination: true,
   });
 
