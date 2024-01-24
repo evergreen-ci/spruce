@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.193",
+  "version": "3.0.194",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -191,7 +191,7 @@
     "identity-obj-proxy": "3.0.0",
     "jest": "29.5.0",
     "jest-canvas-mock": "^2.5.2",
-    "jest-environment-jsdom": "29.5.0",
+    "jest-environment-jsdom": "29.7.0",
     "jest-junit": "15.0.0",
     "jest-matchmedia-mock": "1.1.0",
     "jest-specific-snapshot": "8.0.0",
