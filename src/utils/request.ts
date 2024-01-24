@@ -1,9 +1,8 @@
-import axios from "axios";
 import { getUiUrl } from "./environmentVariables";
 import { reportError } from "./errorReporting";
 
 type optionsType = {
-  onFailure?: (e) => void;
+  onFailure?: (e: Error) => void;
 };
 export const post = async (
   url: string,
@@ -11,16 +10,16 @@ export const post = async (
   options: optionsType = {},
 ) => {
   try {
-    const response = await axios.post(
-      `${getUiUrl()}${url}`,
-      { body },
-      { withCredentials: true },
-    );
-    if (isBadResponse(response)) {
-      throw new Error(getErrorMessage(response, "POST"));
+    const response = await fetch(`${getUiUrl()}${url}`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      credentials: "include",
+    });
+    if (!response.ok) {
+      throw new Error(await getErrorMessage(response, "POST"));
     }
     return response;
-  } catch (e) {
+  } catch (e: any) {
     if (options.onFailure) {
       options.onFailure(e);
     }
@@ -28,17 +27,10 @@ export const post = async (
   }
 };
 
-const isBadResponse = (response) =>
-  !response || (response && response.statusText !== "OK");
-
-type responseType = {
-  status: number;
-  statusText: string;
+const getErrorMessage = async (response: Response, method: string) => {
+  const { status, statusText } = response;
+  return `${method} Error: ${status} - ${statusText}`;
 };
-const getErrorMessage = (response: responseType, method: string) =>
-  response
-    ? `${method} Error: ${response.status} - ${response.statusText}`
-    : `${method} Error: Did not receive a response from the server`;
 
 const handleError = (error: string) => {
   reportError(new Error(error)).warning();
