@@ -1,6 +1,7 @@
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
+import { css } from "@leafygreen-ui/emotion";
 import { LGColumnDef, useLeafyGreenTable } from "@leafygreen-ui/table";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { useTaskQueueAnalytics } from "analytics";
@@ -20,19 +21,21 @@ type TaskQueueColumnData = Omit<TaskQueueItem, "revision">;
 interface TaskQueueTableProps {
   taskQueue: TaskQueueColumnData[];
   loading: boolean;
+  taskId?: string;
 }
 
 const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
   loading,
+  taskId,
   taskQueue = [],
 }) => {
   const taskQueueAnalytics = useTaskQueueAnalytics();
   const tableContainerRef = useRef<HTMLDivElement>(null);
-
+  const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
   const columns = useMemo(
     () => taskQueueTableColumns(taskQueueAnalytics.sendEvent),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [],
   );
   const table = useLeafyGreenTable<TaskQueueColumnData>({
     data: taskQueue,
@@ -41,16 +44,36 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
     enableColumnFilters: false,
     useVirtualScrolling: true,
   });
+  const performedInitialScroll = useRef(false);
+  useEffect(() => {
+    if (taskId !== undefined && !performedInitialScroll.current) {
+      const i = taskQueue.findIndex((t) => t.id === taskId);
+      setSelectedRowIds([i.toString()]);
+      table.scrollToIndex(i + 10, { align: "center" });
+
+      setTimeout(() => {
+        performedInitialScroll.current = true;
+        table.scrollToIndex(i + 10, { align: "center" });
+      }, 200);
+    }
+  }, [taskId, taskQueue]);
 
   return (
-    <BaseTable
-      data-cy="task-queue-table"
-      table={table}
-      loading={loading && taskQueue?.length === 0}
-      shouldAlternateRowColor
-      emptyComponent={<TablePlaceholder message="No tasks found in queue." />}
-      ref={tableContainerRef}
-    />
+    <>
+      Row Index: {selectedRowIds[0]}
+      <BaseTable
+        data-cy="task-queue-table"
+        table={table}
+        loading={loading && taskQueue?.length === 0}
+        shouldAlternateRowColor
+        emptyComponent={<TablePlaceholder message="No tasks found in queue." />}
+        ref={tableContainerRef}
+        selectedRowIds={selectedRowIds}
+        className={css`
+          max-height: 80vh;
+        `}
+      />
+    </>
   );
 };
 
@@ -60,7 +83,7 @@ const TaskCell = styled.div`
 `;
 
 const taskQueueTableColumns = (
-  sendEvent: ReturnType<typeof useTaskQueueAnalytics>["sendEvent"]
+  sendEvent: ReturnType<typeof useTaskQueueAnalytics>["sendEvent"],
 ) => {
   const columns: LGColumnDef<TaskQueueColumnData>[] = [
     {
