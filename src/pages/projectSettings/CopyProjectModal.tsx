@@ -11,7 +11,12 @@ import {
   CopyProjectMutationVariables,
 } from "gql/generated/types";
 import { COPY_PROJECT } from "gql/mutations";
-import { projectId, projectName, requestS3Creds } from "./sharedFormSchema";
+import {
+  PerformanceToolingBanner,
+  enablePerformanceTooling,
+  projectName,
+  requestS3Creds,
+} from "./CreateDuplicateSchema";
 
 interface Props {
   handleClose: () => void;
@@ -31,8 +36,8 @@ export const CopyProjectModal: React.FC<Props> = ({
   const { sendEvent } = useProjectSettingsAnalytics();
 
   const [formState, setFormState] = useState({
-    projectId: "",
     projectName: "",
+    enablePerformanceTooling: false,
     requestS3Creds: false,
   });
   const [hasError, setHasError] = useState(true);
@@ -81,8 +86,8 @@ export const CopyProjectModal: React.FC<Props> = ({
     copyProject({
       variables: {
         project: {
-          ...(formState?.projectId && {
-            newProjectId: formState.projectId,
+          ...(formState.enablePerformanceTooling && {
+            newProjectId: formState.projectName,
           }),
           newProjectIdentifier: formState.projectName,
           projectIdToCopy: id,
@@ -122,13 +127,20 @@ const modalFormDefinition = {
     type: "object" as "object",
     properties: {
       projectName: projectName.schema,
-      projectId: projectId.schema,
+      enablePerformanceTooling: enablePerformanceTooling.schema,
+      performanceToolingBanner: {
+        type: "null" as "null",
+      },
       requestS3Creds: requestS3Creds.schema,
     },
   },
   uiSchema: {
     projectName: projectName.uiSchema,
-    projectId: projectId.uiSchema,
+    enablePerformanceTooling: enablePerformanceTooling.uiSchema,
+    performanceToolingBanner: {
+      "ui:field": PerformanceToolingBanner,
+      "ui:showLabel": false,
+    },
     requestS3Creds: requestS3Creds.uiSchema,
   },
 };

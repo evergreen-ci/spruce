@@ -76,9 +76,17 @@ describe("createProjectField", () => {
 
     expect(
       screen.getByRole("button", {
-        name: "Create Project",
+        name: "Create project",
       }),
     ).toHaveAttribute("aria-disabled", "true");
+  });
+
+  it("shows warning banner for performance tooling", async () => {
+    const { Component } = RenderFakeToastContext(<NewProjectModal />);
+    render(<Component />);
+
+    await waitForModalLoad();
+    expect(screen.queryByDataCy("performance-tooling-banner")).toBeVisible();
   });
 
   it("pre-fills the owner and repo", async () => {
@@ -105,7 +113,7 @@ describe("createProjectField", () => {
     await user.clear(screen.queryByDataCy("new-repo-input"));
     expect(
       screen.getByRole("button", {
-        name: "Create Project",
+        name: "Create project",
       }),
     ).toHaveAttribute("aria-disabled", "true");
   });
@@ -118,7 +126,7 @@ describe("createProjectField", () => {
     expect(screen.queryByDataCy("project-name-input")).toHaveValue("");
     expect(
       screen.getByRole("button", {
-        name: "Create Project",
+        name: "Create project",
       }),
     ).toHaveAttribute("aria-disabled", "true");
   });
@@ -132,41 +140,12 @@ describe("createProjectField", () => {
     await user.type(screen.queryByDataCy("project-name-input"), "my test");
     expect(
       screen.getByRole("button", {
-        name: "Create Project",
+        name: "Create project",
       }),
     ).toHaveAttribute("aria-disabled", "true");
   });
 
-  it("enables the confirm button if the optional project id is empty", async () => {
-    const user = userEvent.setup();
-    const { Component, dispatchToast } = RenderFakeToastContext(
-      <NewProjectModal />,
-    );
-    const { router } = render(<Component />);
-    await waitForModalLoad();
-
-    await selectLGOption("new-owner-select", "10gen");
-    await user.clear(screen.queryByDataCy("new-repo-input"));
-    await user.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
-    await user.type(
-      screen.queryByDataCy("project-name-input"),
-      "new-project-name",
-    );
-
-    const confirmButton = screen.getByRole("button", {
-      name: "Create Project",
-    });
-    expect(confirmButton).toBeEnabled();
-
-    await user.click(confirmButton);
-    await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
-    await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
-    expect(router.state.location.pathname).toBe(
-      "/project/new-project-name/settings",
-    );
-  });
-
-  it("form submission succeeds when all fields are updated", async () => {
+  it("form submission succeeds when performance tooling is enabled", async () => {
     const mockWithId: ApolloMock<
       CreateProjectMutation,
       CreateProjectMutationVariables
@@ -176,7 +155,7 @@ describe("createProjectField", () => {
         variables: {
           project: {
             id: "new-project-id",
-            identifier: "new-project-name",
+            identifier: "new-project-id",
             owner: "10gen",
             repo: "new-repo-name",
           },
@@ -188,7 +167,7 @@ describe("createProjectField", () => {
           createProject: {
             __typename: "Project",
             id: "new-project-id",
-            identifier: "new-project-name",
+            identifier: "new-project-id",
           },
         },
       },
@@ -202,25 +181,35 @@ describe("createProjectField", () => {
 
     await user.type(
       screen.queryByDataCy("project-name-input"),
-      "new-project-name",
+      "new-project-id",
     );
-    await user.type(screen.queryByDataCy("project-id-input"), "new-project-id");
     await selectLGOption("new-owner-select", "10gen");
     await user.clear(screen.queryByDataCy("new-repo-input"));
     await user.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
 
     const confirmButton = screen.getByRole("button", {
-      name: "Create Project",
+      name: "Create project",
     });
     expect(confirmButton).toBeEnabled();
 
+    // Turn on performance tooling.
+    const enablePerformanceTooling = screen.getByDataCy(
+      "enable-performance-tooling",
+    );
+    const enablePerformanceToolingLabel = screen.getByText(
+      "Enable performance tooling",
+    );
+    expect(enablePerformanceTooling).not.toBeChecked();
+    await user.click(enablePerformanceToolingLabel); // LeafyGreen checkbox has pointer-events: none so click on the label instead.
+    expect(enablePerformanceTooling).toBeChecked();
+
+    // Turn on request for S3 creds.
     const requestS3Creds = screen.getByDataCy("request-s3-creds");
-    // LeafyGreen checkbox has pointer-events: none so click on the label instead.
     const requestS3CredLabel = screen.getByText(
       "Open a JIRA ticket to request an S3 Bucket from the Build team",
     );
     expect(requestS3Creds).not.toBeChecked();
-    await user.click(requestS3CredLabel);
+    await user.click(requestS3CredLabel); // LeafyGreen checkbox has pointer-events: none so click on the label instead.
     expect(requestS3Creds).toBeChecked();
     expect(confirmButton).toBeEnabled();
 
@@ -228,7 +217,7 @@ describe("createProjectField", () => {
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
     expect(router.state.location.pathname).toBe(
-      "/project/new-project-name/settings",
+      "/project/new-project-id/settings",
     );
   });
   it("shows a warning toast when an error and data are returned", async () => {
@@ -270,7 +259,7 @@ describe("createProjectField", () => {
     await user.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
 
     const confirmButton = screen.getByRole("button", {
-      name: "Create Project",
+      name: "Create project",
     });
     expect(confirmButton).toBeEnabled();
 

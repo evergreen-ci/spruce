@@ -14,7 +14,12 @@ import {
 } from "gql/generated/types";
 import { CREATE_PROJECT } from "gql/mutations";
 import { GITHUB_ORGS } from "gql/queries";
-import { projectId, projectName, requestS3Creds } from "./sharedFormSchema";
+import {
+  PerformanceToolingBanner,
+  enablePerformanceTooling,
+  projectName,
+  requestS3Creds,
+} from "./CreateDuplicateSchema";
 
 interface Props {
   handleClose: () => void;
@@ -37,7 +42,7 @@ export const CreateProjectModal: React.FC<Props> = ({
     owner: owner ?? "",
     repo: repo ?? "",
     projectName: "",
-    projectId: "",
+    enablePerformanceTooling: false,
     requestS3Creds: false,
   });
   const [hasError, setHasError] = useState(true);
@@ -96,7 +101,9 @@ export const CreateProjectModal: React.FC<Props> = ({
           identifier: formState.projectName,
           owner: formState.owner,
           repo: formState.repo,
-          ...(formState?.projectId && { id: formState.projectId }),
+          ...(formState.enablePerformanceTooling && {
+            id: formState.projectName,
+          }),
         },
         requestS3Creds: formState.requestS3Creds,
       },
@@ -107,7 +114,7 @@ export const CreateProjectModal: React.FC<Props> = ({
 
   return (
     <ConfirmationModal
-      buttonText="Create Project"
+      buttonText="Create project"
       data-cy="create-project-modal"
       onCancel={handleClose}
       onConfirm={onConfirm}
@@ -138,7 +145,6 @@ const modalFormDefinition = (githubOrgs: string[]) => ({
     required: ["owner", "repo"],
     properties: {
       projectName: projectName.schema,
-      projectId: projectId.schema,
       owner: {
         type: "string" as "string",
         title: "Owner",
@@ -154,18 +160,26 @@ const modalFormDefinition = (githubOrgs: string[]) => ({
         minLength: 1,
         format: "noSpaces",
       },
+      enablePerformanceTooling: enablePerformanceTooling.schema,
+      performanceToolingBanner: {
+        type: "null" as "null",
+      },
       requestS3Creds: requestS3Creds.schema,
     },
   },
   uiSchema: {
     projectName: projectName.uiSchema,
-    projectId: projectId.uiSchema,
     owner: {
       "ui:data-cy": "new-owner-select",
       "ui:allowDeselect": false,
     },
     repo: {
       "ui:data-cy": "new-repo-input",
+    },
+    enablePerformanceTooling: enablePerformanceTooling.uiSchema,
+    performanceToolingBanner: {
+      "ui:field": PerformanceToolingBanner,
+      "ui:showLabel": false,
     },
     requestS3Creds: requestS3Creds.uiSchema,
   },

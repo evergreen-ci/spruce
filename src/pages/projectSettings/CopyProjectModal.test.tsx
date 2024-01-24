@@ -63,6 +63,12 @@ describe("copyProjectField", () => {
     expect(confirmButton).toHaveAttribute("aria-disabled", "true");
   });
 
+  it("shows warning banner for performance tooling", async () => {
+    const { Component } = RenderFakeToastContext(<Modal />);
+    render(<Component />);
+    expect(screen.queryByDataCy("performance-tooling-banner")).toBeVisible();
+  });
+
   it("submits the modal when a project name is provided", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(<Modal />);
@@ -73,19 +79,18 @@ describe("copyProjectField", () => {
       newProjectIdentifier,
     );
 
-    const confirmButton = screen.getByRole("button", {
-      name: "Duplicate",
-    });
+    // Turn on request for S3 creds.
     const requestS3Creds = screen.getByDataCy("request-s3-creds");
-    // LeafyGreen checkbox has pointer-events: none so click on the label instead.
     const requestS3CredLabel = screen.getByText(
       "Open a JIRA ticket to request an S3 Bucket from the Build team",
     );
-    await user.click(requestS3CredLabel);
-    expect(confirmButton).toBeEnabled();
-    expect(requestS3Creds).toBeChecked();
-    await user.click(requestS3CredLabel);
     expect(requestS3Creds).not.toBeChecked();
+    await user.click(requestS3CredLabel); // LeafyGreen checkbox has pointer-events: none so click on the label instead.
+    expect(requestS3Creds).toBeChecked();
+
+    const confirmButton = screen.getByRole("button", {
+      name: "Duplicate",
+    });
     expect(confirmButton).toBeEnabled();
 
     await user.click(confirmButton);
@@ -94,7 +99,7 @@ describe("copyProjectField", () => {
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
   });
 
-  it("submits the modal when a project name and id are provided", async () => {
+  it("form submission succeeds when performance tooling is enabled", async () => {
     const mockWithId: ApolloMock<
       CopyProjectMutation,
       CopyProjectMutationVariables
@@ -103,7 +108,7 @@ describe("copyProjectField", () => {
         query: COPY_PROJECT,
         variables: {
           project: {
-            newProjectId: "evg_id",
+            newProjectId: newProjectIdentifier,
             newProjectIdentifier,
             projectIdToCopy,
           },
@@ -126,11 +131,21 @@ describe("copyProjectField", () => {
     );
     render(<Component />);
 
-    await user.type(screen.queryByDataCy("project-id-input"), "evg_id");
     await user.type(
       screen.queryByDataCy("project-name-input"),
       newProjectIdentifier,
     );
+
+    // Turn on performance tooling.
+    const enablePerformanceTooling = screen.getByDataCy(
+      "enable-performance-tooling",
+    );
+    const enablePerformanceToolingLabel = screen.getByText(
+      "Enable performance tooling",
+    );
+    expect(enablePerformanceTooling).not.toBeChecked();
+    await user.click(enablePerformanceToolingLabel); // LeafyGreen checkbox has pointer-events: none so click on the label instead.
+    expect(enablePerformanceTooling).toBeChecked();
 
     const confirmButton = screen.getByRole("button", {
       name: "Duplicate",
@@ -244,7 +259,7 @@ const copyProjectMock: ApolloMock<
         newProjectIdentifier,
         projectIdToCopy,
       },
-      requestS3Creds: false,
+      requestS3Creds: true,
     },
   },
   result: {

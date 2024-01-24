@@ -9,6 +9,7 @@ describe("Duplicating a project", () => {
     cy.dataCy("new-project-menu").should("be.visible");
     cy.dataCy("copy-project-button").click();
     cy.dataCy("copy-project-modal").should("be.visible");
+    cy.dataCy("performance-tooling-banner").should("be.visible");
 
     cy.dataCy("project-name-input").type("copied-project");
 
@@ -27,13 +28,15 @@ describe("Creating a new project and deleting it", () => {
     cy.dataCy("new-project-menu").should("be.visible");
     cy.dataCy("create-project-button").click();
     cy.dataCy("create-project-modal").should("be.visible");
+    cy.dataCy("performance-tooling-banner").should("be.visible");
 
     cy.dataCy("project-name-input").type("my-new-project");
     cy.dataCy("new-owner-select").contains("evergreen-ci");
     cy.dataCy("new-repo-input").should("have.value", "spruce");
-    cy.dataCy("new-repo-input").clear().type("new-repo");
+    cy.dataCy("new-repo-input").clear();
+    cy.dataCy("new-repo-input").type("new-repo");
 
-    cy.contains("button", "Create Project").click();
+    cy.contains("button", "Create project").click();
     cy.validateToast("success");
 
     cy.url().should("include", "my-new-project");
