@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.194",
+  "version": "3.0.195",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -103,7 +103,6 @@
     "@sentry/types": "7.56.0",
     "ansi_up": "6.0.2",
     "antd": "4.20.0",
-    "axios": "1.6.1",
     "date-fns": "2.28.0",
     "date-fns-tz": "2.0.0",
     "deep-object-diff": "1.1.9",
