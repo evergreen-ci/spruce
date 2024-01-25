@@ -1,7 +1,6 @@
 import {
   Arch,
   BootstrapMethod,
-  CloneMethod,
   CommunicationMethod,
   DispatcherVersion,
   DistroQuery,
@@ -43,7 +42,6 @@ const distroData: DistroQuery["distro"] = {
     serviceUser: "",
     shellPath: "/bin/bash",
   },
-  cloneMethod: CloneMethod.LegacySsh,
   containerPool: "",
   disabled: false,
   disableShallowClone: true,

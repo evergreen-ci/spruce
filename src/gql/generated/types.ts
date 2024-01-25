@@ -436,7 +436,7 @@ export type DistroInput = {
   arch: Arch;
   authorizedKeysFile: Scalars["String"]["input"];
   bootstrapSettings: BootstrapSettingsInput;
-  cloneMethod: CloneMethod;
+  cloneMethod?: InputMaybe<CloneMethod>;
   containerPool: Scalars["String"]["input"];
   disableShallowClone: Scalars["Boolean"]["input"];
   disabled: Scalars["Boolean"]["input"];
@@ -2515,6 +2515,7 @@ export type Task = {
   generateTask?: Maybe<Scalars["Boolean"]["output"]>;
   generatedBy?: Maybe<Scalars["String"]["output"]>;
   generatedByName?: Maybe<Scalars["String"]["output"]>;
+  hasCedarResults: Scalars["Boolean"]["output"];
   hostId?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
@@ -5733,7 +5734,6 @@ export type DistroQuery = {
     aliases: Array<string>;
     arch: Arch;
     authorizedKeysFile: string;
-    cloneMethod: CloneMethod;
     containerPool: string;
     disabled: boolean;
     disableShallowClone: boolean;
