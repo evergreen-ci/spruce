@@ -38,22 +38,22 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                   >
                     <label
                       class="leafygreen-ui-nf64md"
-                      for="select-191"
-                      id="select-190-label"
+                      for="select-4"
+                      id="select-3-label"
                     >
                       Project Cloning Method
                     </label>
                   </div>
                   <button
-                    aria-controls="select-190-menu"
-                    aria-describedby="select-190-description"
+                    aria-controls="select-3-menu"
+                    aria-describedby="select-3-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
-                    aria-labelledby="select-190-label"
+                    aria-labelledby="select-3-label"
                     class="lg-ui-button-0000 leafygreen-ui-c8np5"
                     data-testid="leafygreen-ui-select-menubutton"
-                    id="select-191"
+                    id="select-4"
                     type="button"
                     value="legacy-ssh"
                   >
@@ -284,13 +284,13 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                 >
                   <label
                     class="leafygreen-ui-1fi5x3a"
-                    for="textarea-192"
+                    for="textarea-1"
                   >
                     Valid Projects
                   </label>
                   <textarea
                     class="leafygreen-ui-18em0fn"
-                    id="textarea-192"
+                    id="textarea-1"
                     rows="5"
                     title="Valid Projects"
                   />
