@@ -37,6 +37,7 @@ export const toSortString = (
 };
 
 // takes a sort query string and parses it into valid GQL params
+// By default, uses keys for task's SortOrder type, but sort field keys can be passed in for use with e.g. tests' TestSortOptions
 export const parseSortString = <
   T extends Record<string, SortDirection | TaskSortCategory>,
 >(
