@@ -105,8 +105,10 @@ describe("Hosts page filtering from table filters", () => {
         cy.dataCy(filterIconDataCy).click();
         cy.dataCy(`${filterIconDataCy}-wrapper`).should("be.visible");
         if (param === statusesParam) {
-          cy.getInputByLabel("Running").check({ force: true });
-          cy.get("body").click();
+          cy.dataCy(`${filterIconDataCy}-wrapper`).within(() => {
+            cy.getInputByLabel("Running").check({ force: true });
+          });
+          cy.dataCy(filterIconDataCy).click();
         } else {
           cy.dataCy(`${filterIconDataCy}-input-filter`).should("be.visible");
           cy.dataCy(`${filterIconDataCy}-input-filter`).should("be.focused");
