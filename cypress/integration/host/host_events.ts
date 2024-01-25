@@ -2,7 +2,7 @@ import { clickOnPageSizeBtnAndAssertURLandTableSize } from "../../utils";
 
 describe("Host events", () => {
   const pathWithEvents = "/host/i-0f81a2d39744003dd";
-  const dataCyTableRows = "[data-cy=host-events-table] .ant-table-row";
+  const dataCyTableRows = "[data-cy=host-events-table]";
 
   beforeEach(() => {
     cy.window().then((win) => {
@@ -217,9 +217,9 @@ describe("Host events", () => {
     cy.contains("Hawaii").click();
     cy.contains("button", "Save Changes").click();
     cy.visit(pathWithEvents);
-    cy.dataCy("HOST_JASPER_RESTARTING-time").contains(
-      "Sep 30, 2017, 9:11:16 AM",
-    );
+    cy.dataCy("leafygreen-table-row")
+      .first()
+      .contains("Sep 30, 2017, 9:11:16 AM");
     // Reset timezone so re-running this test works.
     cy.visit("/preferences");
     cy.contains("Hawaii").click();
