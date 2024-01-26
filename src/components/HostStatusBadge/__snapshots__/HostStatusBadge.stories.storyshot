@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/HostStatusBadge Default 1`] = `
+exports[`Snapshot Tests HostStatusBadge.stories Default 1`] = `
 <div>
   <div
     class="css-o6c4dw-Container e1or3ep41"
@@ -70,7 +70,7 @@ exports[`storybook Storyshots components/HostStatusBadge Default 1`] = `
           >
             <path
               clip-rule="evenodd"
-              d="M8 15A7 7 0 108 1a7 7 0 000 14zM9 4a1 1 0 11-2 0 1 1 0 012 0zM8 6a1 1 0 011 1v4h.5a.5.5 0 010 1h-3a.5.5 0 010-1H7V7h-.5a.5.5 0 010-1H8z"
+              d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14ZM9 4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM8 6a1 1 0 0 1 1 1v4h.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1H7V7h-.5a.5.5 0 0 1 0-1H8Z"
               fill="currentColor"
               fill-rule="evenodd"
             />

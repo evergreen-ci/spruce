@@ -286,6 +286,15 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           )}
         </span>
       );
+    case HostEvent.HostCreatedError:
+      return (
+        <span data-cy="host-creation-failed">
+          Host creation failed.
+          {data.logs && (
+            <HostEventLog title="Host creation logs" logs={data.logs} isCode />
+          )}
+        </span>
+      );
     default:
       return <span>{eventType}</span>;
   }

@@ -26,7 +26,6 @@ query TaskTests(
         id
         logs {
           url
-          urlLobster
           urlParsley
           urlRaw
         }

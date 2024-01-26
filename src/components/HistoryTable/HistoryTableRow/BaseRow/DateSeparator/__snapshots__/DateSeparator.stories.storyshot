@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/HistoryTable/DateSeparator Date Separator Story 1`] = `
+exports[`Snapshot Tests components/HistoryTable/DateSeparator DateSeparatorStory 1`] = `
 <div>
   <div
     class="css-1x7x41w-Container e1ogwe4s1"

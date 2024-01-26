@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
+exports[`Snapshot Tests TableControl.stories Default 1`] = `
 <div>
   <div
     class="css-1p8q5g-TableControlInnerRow-TableControlOuterRow e1xf068s4"
@@ -29,7 +29,7 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
       </p>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-pt6pqu css-vvan06-PaddedButton et5phr00"
+        class="lg-ui-button-0000 leafygreen-ui-2jj1me css-vvan06-PaddedButton et5phr00"
         data-cy="clear-all-filters"
         type="button"
       >
@@ -52,7 +52,7 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
       >
         <button
           aria-disabled="true"
-          class="lg-ui-button-0000 leafygreen-ui-14b4nbp css-mze5ol-StyledButton e4w46hm2"
+          class="lg-ui-button-0000 leafygreen-ui-1vou6i4 css-mze5ol-StyledButton e4w46hm2"
           data-cy="prev-page-button"
           type="button"
         >
@@ -74,7 +74,7 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
             >
               <path
                 clip-rule="evenodd"
-                d="M10.778 1.636a1 1 0 00-1.414 0l-4.95 4.95-.707.707a1 1 0 000 1.414l.707.707 4.95 4.95a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L7.243 8l4.242-4.243a1 1 0 000-1.414l-.707-.707z"
+                d="M10.778 1.636a1 1 0 0 0-1.414 0l-4.95 4.95-.707.707a1 1 0 0 0 0 1.414l.707.707 4.95 4.95a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L7.243 8l4.242-4.243a1 1 0 0 0 0-1.414l-.707-.707Z"
                 fill="currentColor"
                 fill-rule="evenodd"
               />
@@ -94,7 +94,7 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
         </div>
         <button
           aria-disabled="true"
-          class="lg-ui-button-0000 leafygreen-ui-14b4nbp css-mze5ol-StyledButton e4w46hm2"
+          class="lg-ui-button-0000 leafygreen-ui-1vou6i4 css-mze5ol-StyledButton e4w46hm2"
           data-cy="next-page-button"
           type="button"
         >
@@ -116,7 +116,7 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
             >
               <path
                 clip-rule="evenodd"
-                d="M5.364 14.364a1 1 0 001.414 0l4.95-4.95.707-.707a1 1 0 000-1.414l-.707-.707-4.95-4.95a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L8.899 8l-4.242 4.243a1 1 0 000 1.414l.707.707z"
+                d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
                 fill="currentColor"
                 fill-rule="evenodd"
               />
@@ -125,19 +125,19 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
         </button>
       </div>
       <div
-        class="leafygreen-ui-1nkq8lt css-5krlfz-StyledSelect ekttol50"
+        class="leafygreen-ui-1iyoj2o css-5krlfz-StyledSelect ekttol50"
       >
         <button
-          aria-controls="select-169-menu"
-          aria-describedby="select-169-description"
+          aria-controls="select-193-menu"
+          aria-describedby="select-193-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
           aria-labelledby="page-size-select"
-          class="lg-ui-button-0001 leafygreen-ui-18vk81h"
+          class="lg-ui-button-0000 leafygreen-ui-3wvwqe"
           data-cy="tasks-table-page-size-selector"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-170"
+          id="select-194"
           type="button"
           value="10"
         >
@@ -145,13 +145,13 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
             class="leafygreen-ui-v038xi"
           />
           <div
-            class="leafygreen-ui-1qmzz4y"
+            class="leafygreen-ui-16tr4y"
           >
             <div
               class="leafygreen-ui-obh8q1"
             >
               <div
-                class="leafygreen-ui-17aj16e"
+                class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
               >
                 10 / page
               </div>
@@ -159,7 +159,7 @@ exports[`storybook Storyshots components/Table/TableControl Default 1`] = `
             <svg
               alt=""
               aria-hidden="true"
-              class="leafygreen-ui-4dp7tf"
+              class="leafygreen-ui-fn50nl"
               height="16"
               role="presentation"
               viewBox="0 0 16 16"

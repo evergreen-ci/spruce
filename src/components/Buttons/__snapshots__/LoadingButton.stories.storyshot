@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot Tests LoadingButton.stories Default 1`] = `
+<div>
+  <button
+    aria-disabled="false"
+    class="lg-ui-button-0000 leafygreen-ui-xcwxw8"
+    type="button"
+  >
+    <div
+      class="leafygreen-ui-v038xi"
+    />
+    <div
+      class="leafygreen-ui-v95oty"
+    >
+      Button text
+    </div>
+  </button>
+</div>
+`;

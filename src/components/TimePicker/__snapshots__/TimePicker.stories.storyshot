@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/TimePicker Default 1`] = `
+exports[`Snapshot Tests TimePicker.stories Default 1`] = `
 <div>
   <div
     class="leafygreen-ui-62nio8"

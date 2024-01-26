@@ -24,13 +24,12 @@ export interface PluginsFormState {
       secret: string;
     };
   };
-  externalLinks: {
-    metadataPanelLink: {
-      requesters: string[];
-      displayName: string;
-      urlTemplate: string;
-    };
-  };
+  externalLinks: Array<{
+    displayTitle: string;
+    requesters: string[];
+    displayName: string;
+    urlTemplate: string;
+  }>;
 }
 
 export type TabProps = {

@@ -42,7 +42,7 @@ export const ViewToggle: React.FC<Props> = ({ identifier }) => {
 
   useEffect(() => {
     if (!view) {
-      setView(data?.projectSettings?.projectRef?.projectHealthView);
+      setView(data?.project?.projectHealthView);
     }
   }, [data, setView, view]);
 

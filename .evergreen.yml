@@ -180,7 +180,7 @@ functions:
       working_dir: spruce
       script: |
         ${PREPARE_SHELL}
-        yarn test --reporters=default --reporters=jest-junit --testPathIgnorePatterns=storybook.test.ts
+        yarn test --reporters=default --reporters=jest-junit --testPathIgnorePatterns=snapshot.test.ts
 
   yarn-eslint:
     command: shell.exec
@@ -221,7 +221,7 @@ functions:
       working_dir: spruce
       script: |
         ${PREPARE_SHELL}
-        yarn test --reporters="jest-junit" --reporters="default" --testPathPattern="storybook.test.ts"
+        yarn test --reporters="jest-junit" --reporters="default" --testPathPattern="snapshot.test.ts"
 
   check-codegen:
     command: shell.exec

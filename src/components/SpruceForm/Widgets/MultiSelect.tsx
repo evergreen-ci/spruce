@@ -56,7 +56,7 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
             hasStyling={false}
           />
         </Dropdown>
-        {rawErrors.length > 0 && <Error>{rawErrors.join(", ")}</Error>}
+        {rawErrors?.length > 0 && <Error>{rawErrors?.join(", ")}</Error>}
       </Container>
     </ElementWrapper>
   );

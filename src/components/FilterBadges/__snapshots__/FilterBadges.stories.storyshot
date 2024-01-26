@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/FilterBadges Default 1`] = `
+exports[`Snapshot Tests FilterBadges.stories Default 1`] = `
 <div>
   <div>
     <div
@@ -30,7 +30,7 @@ exports[`storybook Storyshots components/FilterBadges Default 1`] = `
         >
           <path
             clip-rule="evenodd"
-            d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+            d="M12.203 3.404a1 1 0 0 0-1.414 0L8.314 5.879 5.839 3.404a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L6.192 8l-2.474 2.475a1 1 0 0 0 0 1.414l.707.707a1 1 0 0 0 1.414 0l2.475-2.475 2.475 2.475a1 1 0 0 0 1.414 0l.707-.707a1 1 0 0 0 0-1.414L10.435 8l2.475-2.475a1 1 0 0 0 0-1.414l-.707-.707Z"
             fill="currentColor"
             fill-rule="evenodd"
           />
@@ -38,7 +38,7 @@ exports[`storybook Storyshots components/FilterBadges Default 1`] = `
       </div>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-1dcl2p3"
+        class="lg-ui-button-0000 leafygreen-ui-1dcyxci"
         data-cy="clear-all-filters"
         type="button"
       >
@@ -61,7 +61,7 @@ exports[`storybook Storyshots components/FilterBadges Default 1`] = `
         >
           <label
             class="leafygreen-ui-gr5280"
-            for="textinput-4"
+            for="textinput-1"
           >
             key
           </label>
@@ -73,7 +73,7 @@ exports[`storybook Storyshots components/FilterBadges Default 1`] = `
             aria-invalid="false"
             autocomplete="on"
             class="leafygreen-ui-6i61vl"
-            id="textinput-4"
+            id="textinput-1"
             placeholder="key"
             required=""
             type="text"
@@ -92,7 +92,7 @@ exports[`storybook Storyshots components/FilterBadges Default 1`] = `
         >
           <label
             class="leafygreen-ui-gr5280"
-            for="textinput-5"
+            for="textinput-2"
           >
             value
           </label>
@@ -104,7 +104,7 @@ exports[`storybook Storyshots components/FilterBadges Default 1`] = `
             aria-invalid="false"
             autocomplete="on"
             class="leafygreen-ui-6i61vl"
-            id="textinput-5"
+            id="textinput-2"
             placeholder="value"
             required=""
             type="text"
@@ -117,7 +117,7 @@ exports[`storybook Storyshots components/FilterBadges Default 1`] = `
       </div>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-18d58v3 css-1ck35jk-StyledButton eqgjs5q0"
+        class="lg-ui-button-0000 leafygreen-ui-xcwxw8 css-1ck35jk-StyledButton eqgjs5q0"
         type="button"
       >
         <div

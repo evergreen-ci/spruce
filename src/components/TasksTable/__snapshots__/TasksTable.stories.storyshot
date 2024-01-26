@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/TasksTable Base Task Table 1`] = `
+exports[`Snapshot Tests TasksTable.stories BaseTaskTable 1`] = `
 <div>
   <div
     class="ant-table-wrapper"
@@ -283,14 +283,14 @@ exports[`storybook Storyshots components/TasksTable Base Task Table 1`] = `
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/task/some_id"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some Fancy ID
                           </span>
@@ -325,11 +325,11 @@ exports[`storybook Storyshots components/TasksTable Base Task Table 1`] = `
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/variant-history/undefined/ubuntu1604"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           Ubuntu 16.04
                         </span>
@@ -344,14 +344,14 @@ exports[`storybook Storyshots components/TasksTable Base Task Table 1`] = `
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/task/some_id_2"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some other Fancy ID
                           </span>
@@ -386,11 +386,11 @@ exports[`storybook Storyshots components/TasksTable Base Task Table 1`] = `
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/variant-history/undefined/ubuntu1604"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           Ubuntu 16.04
                         </span>
@@ -405,14 +405,14 @@ exports[`storybook Storyshots components/TasksTable Base Task Table 1`] = `
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/task/some_id_3"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some different Fancy ID
                           </span>
@@ -447,11 +447,11 @@ exports[`storybook Storyshots components/TasksTable Base Task Table 1`] = `
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           Windows 97
                         </span>
@@ -469,7 +469,7 @@ exports[`storybook Storyshots components/TasksTable Base Task Table 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots components/TasksTable Execution Tasks Table 1`] = `
+exports[`Snapshot Tests TasksTable.stories ExecutionTasksTable 1`] = `
 <div>
   <div
     class="ant-table-wrapper"
@@ -761,14 +761,14 @@ exports[`storybook Storyshots components/TasksTable Execution Tasks Table 1`] = 
                         type="button"
                       />
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/task/some_id"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some Fancy ID
                           </span>
@@ -803,11 +803,11 @@ exports[`storybook Storyshots components/TasksTable Execution Tasks Table 1`] = 
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/variant-history/undefined/ubuntu1604"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           Ubuntu 16.04
                         </span>
@@ -831,14 +831,14 @@ exports[`storybook Storyshots components/TasksTable Execution Tasks Table 1`] = 
                         type="button"
                       />
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/task/some_id_2"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some other Fancy ID
                           </span>
@@ -873,11 +873,11 @@ exports[`storybook Storyshots components/TasksTable Execution Tasks Table 1`] = 
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/variant-history/undefined/ubuntu1604"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           Ubuntu 16.04
                         </span>
@@ -901,14 +901,14 @@ exports[`storybook Storyshots components/TasksTable Execution Tasks Table 1`] = 
                         type="button"
                       />
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/task/some_id_3"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some different Fancy ID
                           </span>
@@ -943,11 +943,11 @@ exports[`storybook Storyshots components/TasksTable Execution Tasks Table 1`] = 
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           Windows 97
                         </span>
@@ -971,14 +971,14 @@ exports[`storybook Storyshots components/TasksTable Execution Tasks Table 1`] = 
                         type="button"
                       />
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/task/some_id_4"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some Fancy Display Task
                           </span>
@@ -1013,11 +1013,11 @@ exports[`storybook Storyshots components/TasksTable Execution Tasks Table 1`] = 
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           Windows 97
                         </span>
@@ -1035,7 +1035,7 @@ exports[`storybook Storyshots components/TasksTable Execution Tasks Table 1`] = 
 </div>
 `;
 
-exports[`storybook Storyshots components/TasksTable Version Tasks Table 1`] = `
+exports[`Snapshot Tests TasksTable.stories VersionTasksTable 1`] = `
 <div>
   <div
     class="ant-table-wrapper"
@@ -1318,14 +1318,14 @@ exports[`storybook Storyshots components/TasksTable Version Tasks Table 1`] = `
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/task/some_id"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some Fancy ID
                           </span>
@@ -1360,11 +1360,11 @@ exports[`storybook Storyshots components/TasksTable Version Tasks Table 1`] = `
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/variant-history/undefined/ubuntu1604"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           Ubuntu 16.04
                         </span>
@@ -1379,14 +1379,14 @@ exports[`storybook Storyshots components/TasksTable Version Tasks Table 1`] = `
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/task/some_id_2"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some other Fancy ID
                           </span>
@@ -1421,11 +1421,11 @@ exports[`storybook Storyshots components/TasksTable Version Tasks Table 1`] = `
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/variant-history/undefined/ubuntu1604"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           Ubuntu 16.04
                         </span>
@@ -1440,14 +1440,14 @@ exports[`storybook Storyshots components/TasksTable Version Tasks Table 1`] = `
                       class="ant-table-cell cy-task-table-col-NAME"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/task/some_id_3"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           <span
-                            class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some different Fancy ID
                           </span>
@@ -1482,11 +1482,11 @@ exports[`storybook Storyshots components/TasksTable Version Tasks Table 1`] = `
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                         href="/variant-history/undefined/Windows"
                       >
                         <span
-                          class="leafygreen-ui-baoi4d"
+                          class="leafygreen-ui-1ewnca3"
                         >
                           Windows 97
                         </span>
