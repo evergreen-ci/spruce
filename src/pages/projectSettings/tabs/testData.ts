@@ -14,7 +14,12 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       {
         requesters: ["gitter_request", "patch_request"],
         displayName: "a link display name",
-        urlTemplate: "https:/a-link-template-{version_id}.com",
+        urlTemplate: "https://a-link-template-{version_id}.com",
+      },
+      {
+        requesters: ["ad_hoc"],
+        displayName: "periodic build link",
+        urlTemplate: "https://periodic-build-{version_id}.com",
       },
     ],
     banner: {
@@ -158,7 +163,12 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       {
         requesters: ["gitter_request", "patch_request"],
         displayName: "a link display name",
-        urlTemplate: "https:/a-link-template-{version_id}.com",
+        urlTemplate: "https://a-link-template-{version_id}.com",
+      },
+      {
+        requesters: ["ad_hoc"],
+        displayName: "periodic build link",
+        urlTemplate: "https://periodic-build-{version_id}.com",
       },
     ],
     id: "123",

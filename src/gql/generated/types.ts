@@ -2515,6 +2515,7 @@ export type Task = {
   generateTask?: Maybe<Scalars["Boolean"]["output"]>;
   generatedBy?: Maybe<Scalars["String"]["output"]>;
   generatedByName?: Maybe<Scalars["String"]["output"]>;
+  hasCedarResults: Scalars["Boolean"]["output"];
   hostId?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
@@ -6336,7 +6337,7 @@ export type MainlineCommitsQuery = {
             __typename?: "Task";
             displayName: string;
             execution: number;
-            failedTestCount: number;
+            hasCedarResults: boolean;
             id: string;
             status: string;
             timeTaken?: number | null;
@@ -7111,13 +7112,10 @@ export type ProjectHealthViewQueryVariables = Exact<{
 
 export type ProjectHealthViewQuery = {
   __typename?: "Query";
-  projectSettings: {
-    __typename?: "ProjectSettings";
-    projectRef?: {
-      __typename?: "Project";
-      id: string;
-      projectHealthView: ProjectHealthView;
-    } | null;
+  project: {
+    __typename?: "Project";
+    id: string;
+    projectHealthView: ProjectHealthView;
   };
 };
 

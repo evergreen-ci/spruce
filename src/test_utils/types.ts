@@ -13,6 +13,9 @@ type CustomStorybookMockApolloProviderParams = {
 type CustomStorybookParams = {
   reactRouter?: CustomStorybookReactRouterParams;
   apolloClient?: CustomStorybookMockApolloProviderParams;
+  storyshots?: {
+    disable?: boolean;
+  };
 };
 
 type CustomStoryObj<T extends any> = StoryObj<T> & {

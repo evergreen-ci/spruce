@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/ErrorHandling/ErrorFallback Default Error 1`] = `
+exports[`Snapshot Tests ErrorFallback.stories DefaultError 1`] = `
 <div>
   <div
     style="height: 100%; width: 100%;"

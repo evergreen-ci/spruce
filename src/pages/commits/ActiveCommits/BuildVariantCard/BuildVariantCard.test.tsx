@@ -59,15 +59,18 @@ const tasks = [
     id: "1",
     status: "failed",
     displayName: "One",
+    hasCedarResults: true,
   },
   {
     id: "2",
     status: "success",
     displayName: "Two",
+    hasCedarResults: true,
   },
   {
     id: "3",
     status: "success",
     displayName: "Three",
+    hasCedarResults: true,
   },
 ];

@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/PatchActionButtons/ScheduleTasks Schedule Tasks Empty 1`] = `
+exports[`Snapshot Tests ScheduleTasks.stories ScheduleTasksEmpty 1`] = `
 <div>
   <button
     aria-disabled="false"
-    class="lg-ui-button-0000 leafygreen-ui-pt6pqu"
+    class="lg-ui-button-0000 leafygreen-ui-2jj1me"
     data-cy="schedule-patch"
     type="button"
   >
@@ -20,11 +20,11 @@ exports[`storybook Storyshots components/PatchActionButtons/ScheduleTasks Schedu
 </div>
 `;
 
-exports[`storybook Storyshots components/PatchActionButtons/ScheduleTasks Schedule Tasks Populated 1`] = `
+exports[`Snapshot Tests ScheduleTasks.stories ScheduleTasksPopulated 1`] = `
 <div>
   <button
     aria-disabled="false"
-    class="lg-ui-button-0000 leafygreen-ui-pt6pqu"
+    class="lg-ui-button-0000 leafygreen-ui-2jj1me"
     data-cy="schedule-patch"
     type="button"
   >

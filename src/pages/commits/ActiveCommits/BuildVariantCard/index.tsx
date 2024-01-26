@@ -18,7 +18,7 @@ type taskList = {
   status: string;
   displayName: string;
   timeTaken?: number;
-  failedTestCount?: number;
+  hasCedarResults: boolean;
 }[];
 interface Props {
   variant: string;
@@ -96,7 +96,7 @@ const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks, variant }) =>
       onMouseEnter={() => injectGlobalDimStyle()}
       onMouseLeave={() => removeGlobalDimStyle()}
     >
-      {tasks.map(({ displayName, failedTestCount, id, status, timeTaken }) => (
+      {tasks.map(({ displayName, hasCedarResults, id, status, timeTaken }) => (
         <WaterfallTaskStatusIcon
           key={id}
           taskId={id}
@@ -104,7 +104,7 @@ const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks, variant }) =>
           displayName={displayName}
           timeTaken={timeTaken}
           identifier={`${variant}-${displayName}`}
-          failedTestCount={failedTestCount}
+          hasCedarResults={hasCedarResults}
         />
       ))}
     </IconContainer>

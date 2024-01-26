@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots components/TaskStatusIconLegend Legend Only 1`] = `
+exports[`Snapshot Tests TaskStatusIconLegend.stories LegendOnly 1`] = `
 <div>
   <div
     class="css-1omgk10-Container e1yp16pl3"
@@ -20,7 +20,7 @@ exports[`storybook Storyshots components/TaskStatusIconLegend Legend Only 1`] = 
       >
         <path
           clip-rule="evenodd"
-          d="M6.306 9.05l5.455-5.455a1 1 0 011.414 0l.707.707a1 1 0 010 1.414l-7.067 7.068a1 1 0 01-1.5-.098l-3.049-3.97a1 1 0 01.184-1.402l.595-.457a1.25 1.25 0 011.753.23L6.306 9.05z"
+          d="m6.306 9.05 5.455-5.455a1 1 0 0 1 1.414 0l.707.707a1 1 0 0 1 0 1.414l-7.067 7.068a1 1 0 0 1-1.5-.098l-3.049-3.97a1 1 0 0 1 .184-1.402l.595-.457a1.25 1.25 0 0 1 1.753.23L6.306 9.05Z"
           fill="currentColor"
           fill-rule="evenodd"
         />
@@ -171,7 +171,7 @@ exports[`storybook Storyshots components/TaskStatusIconLegend Legend Only 1`] = 
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M8.033 2c2.699 0 4.95 1.718 5.467 4h1.414c.542 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 01-.765 0l-2.482-2.15A.584.584 0 019.951 6h1.447c-.469-1.085-1.68-2-3.365-2-1.026 0-1.877.34-2.491.85-.243.202-.618.203-.817-.043l-.61-.754a.468.468 0 01.044-.651C5.163 2.534 6.53 2 8.033 2zM3.95 6.843a.584.584 0 00-.765 0L.703 8.992a.584.584 0 00.383 1.026h1.418C3.03 12.291 5.275 14 7.967 14c1.505 0 2.87-.534 3.874-1.402a.468.468 0 00.044-.65l-.61-.755c-.2-.246-.574-.245-.817-.043-.614.51-1.465.85-2.49.85-1.676 0-2.883-.904-3.358-1.982H6.05a.584.584 0 00.383-1.026L3.95 6.842z"
+          d="M8.033 2c2.699 0 4.95 1.718 5.467 4h1.414c.542 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15A.584.584 0 0 1 9.951 6h1.447c-.469-1.085-1.68-2-3.365-2-1.026 0-1.877.34-2.491.85-.243.202-.618.203-.817-.043l-.61-.754a.468.468 0 0 1 .044-.651C5.163 2.534 6.53 2 8.033 2ZM3.95 6.843a.584.584 0 0 0-.765 0L.703 8.992a.584.584 0 0 0 .383 1.026h1.418C3.03 12.291 5.275 14 7.967 14c1.505 0 2.87-.534 3.874-1.402a.468.468 0 0 0 .044-.65l-.61-.755c-.2-.246-.574-.245-.817-.043-.614.51-1.465.85-2.49.85-1.676 0-2.883-.904-3.358-1.982H6.05a.584.584 0 0 0 .383-1.026L3.95 6.842Z"
           fill="currentColor"
         />
       </svg>
@@ -204,10 +204,18 @@ exports[`storybook Storyshots components/TaskStatusIconLegend Legend Only 1`] = 
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
+          d="M4 2a1 1 0 0 1 2 0v1a1 1 0 0 1-2 0V2Z"
+          fill="currentColor"
+        />
+        <path
           clip-rule="evenodd"
-          d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+          d="M9 3H7a2 2 0 1 1-4 0 2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2 2 2 0 1 1-4 0Zm3 4H9v3h3V7Z"
           fill="currentColor"
           fill-rule="evenodd"
+        />
+        <path
+          d="M10 3a1 1 0 1 0 2 0V2a1 1 0 1 0-2 0v1Z"
+          fill="currentColor"
         />
       </svg>
       <div
@@ -331,13 +339,13 @@ exports[`storybook Storyshots components/TaskStatusIconLegend Legend Only 1`] = 
 </div>
 `;
 
-exports[`storybook Storyshots components/TaskStatusIconLegend Legend With Button 1`] = `
+exports[`Snapshot Tests TaskStatusIconLegend.stories LegendWithButton 1`] = `
 <div>
   <div>
     <button
       aria-disabled="false"
       aria-label="Task Status Icon Legend"
-      class="leafygreen-ui-1xt2asn"
+      class="leafygreen-ui-76dd2i"
       tabindex="0"
     >
       <div
@@ -355,7 +363,7 @@ exports[`storybook Storyshots components/TaskStatusIconLegend Legend With Button
         >
           <path
             clip-rule="evenodd"
-            d="M8 15A7 7 0 108 1a7 7 0 000 14zM6.932 5.612C7.054 5.298 7.425 5 7.942 5 8.615 5 9 5.478 9 5.875c0 .162-.057.33-.172.476a.985.985 0 01-.242.216l-.016.01a1.141 1.141 0 01-.098.054c-.59.286-1.53.967-1.53 2.119V9a1 1 0 002 0c0-.035.011-.12.138-.27a2.66 2.66 0 01.587-.48 3 3 0 00.726-.656A2.742 2.742 0 0011 5.875C11 4.201 9.54 3 7.941 3c-1.275 0-2.43.745-2.873 1.888a1 1 0 101.864.724zM8 13a1 1 0 100-2 1 1 0 000 2z"
+            d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14ZM6.932 5.612C7.054 5.298 7.425 5 7.942 5 8.615 5 9 5.478 9 5.875c0 .162-.057.33-.172.476a.985.985 0 0 1-.242.216l-.016.01a1.141 1.141 0 0 1-.098.054c-.59.286-1.53.967-1.53 2.119V9a1 1 0 0 0 2 0c0-.035.011-.12.138-.27a2.66 2.66 0 0 1 .587-.48 3 3 0 0 0 .726-.656A2.742 2.742 0 0 0 11 5.875C11 4.201 9.54 3 7.941 3c-1.275 0-2.43.745-2.873 1.888a1 1 0 1 0 1.864.724ZM8 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
             fill="currentColor"
             fill-rule="evenodd"
           />

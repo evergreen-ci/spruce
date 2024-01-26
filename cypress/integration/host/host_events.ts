@@ -2,7 +2,7 @@ import { clickOnPageSizeBtnAndAssertURLandTableSize } from "../../utils";
 
 describe("Host events", () => {
   const pathWithEvents = "/host/i-0f81a2d39744003dd";
-  const dataCyTableRows = "[data-cy=host-events-table] .ant-table-row";
+  const dataCyTableRows = "[data-cy=host-events-table]";
 
   beforeEach(() => {
     cy.window().then((win) => {
@@ -160,6 +160,11 @@ describe("Host events", () => {
         text: "Host modify attempt failed",
         logsTitle: "Additional details",
       },
+      {
+        hostType: "host-creation-failed",
+        text: "Host creation failed.",
+        logsTitle: "Host creation logs",
+      },
     ];
     cy.visit(pathWithEvents);
     clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCyTableRows);
@@ -179,6 +184,7 @@ describe("Host events", () => {
 
   it("host events logs do not display when not available", () => {
     cy.visit(pathWithEvents);
+    clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCyTableRows);
     cy.dataCy("host-status-changed")
       .contains("Status changed from running to stopping")
       .first()
@@ -211,9 +217,9 @@ describe("Host events", () => {
     cy.contains("Hawaii").click();
     cy.contains("button", "Save Changes").click();
     cy.visit(pathWithEvents);
-    cy.dataCy("HOST_JASPER_RESTARTING-time").contains(
-      "Sep 30, 2017, 9:11:16 AM",
-    );
+    cy.dataCy("leafygreen-table-row")
+      .first()
+      .contains("Sep 30, 2017, 9:11:16 AM");
     // Reset timezone so re-running this test works.
     cy.visit("/preferences");
     cy.contains("Hawaii").click();

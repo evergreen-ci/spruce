@@ -12,7 +12,7 @@ const buildVariant1 = {
       id: "auth",
       execution: 0,
       displayName: "auth",
-      failedTestCount: 0,
+      hasCedarResults: false,
     },
   ],
 };
@@ -26,7 +26,7 @@ const buildVariant2 = {
       id: "benchmarks",
       execution: 0,
       displayName: "benchmarks",
-      failedTestCount: 0,
+      hasCedarResults: false,
     },
   ],
 };
@@ -40,7 +40,7 @@ const buildVariant3 = {
       id: "fuzzer",
       execution: 0,
       displayName: "fuzzer",
-      failedTestCount: 1,
+      hasCedarResults: true,
     },
   ],
 };

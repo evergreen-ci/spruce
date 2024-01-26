@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
+exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
 <div>
   <div
     style="height: 500px;"
@@ -25,7 +25,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M8.679 10.796a.554.554 0 01-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82z"
+              d="M8.679 10.796a.554.554 0 0 1-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82Z"
               fill="currentColor"
             />
           </svg>
@@ -48,7 +48,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-gnwyka-FlexRowContainer eq4i7ol1"
               >
                 <div
-                  class="css-mgqp2w-CommitWrapper eq4i7ol0"
+                  class="css-1502eag-CommitWrapper eq4i7ol0"
                   width="200"
                 >
                   <div
@@ -65,7 +65,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                   </div>
                 </div>
                 <div
-                  class="css-mgqp2w-CommitWrapper eq4i7ol0"
+                  class="css-1502eag-CommitWrapper eq4i7ol0"
                   width="200"
                 >
                   <div
@@ -82,7 +82,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                   </div>
                 </div>
                 <div
-                  class="css-11x1fi4-CommitWrapper eq4i7ol0"
+                  class="css-1iigwp8-CommitWrapper eq4i7ol0"
                   width="64"
                 >
                   <div
@@ -94,7 +94,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                   </div>
                 </div>
                 <div
-                  class="css-mgqp2w-CommitWrapper eq4i7ol0"
+                  class="css-1502eag-CommitWrapper eq4i7ol0"
                   width="200"
                 >
                   <div
@@ -111,7 +111,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                   </div>
                 </div>
                 <div
-                  class="css-mgqp2w-CommitWrapper eq4i7ol0"
+                  class="css-1502eag-CommitWrapper eq4i7ol0"
                   width="200"
                 >
                   <div
@@ -128,7 +128,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                   </div>
                 </div>
                 <div
-                  class="css-mgqp2w-CommitWrapper eq4i7ol0"
+                  class="css-1502eag-CommitWrapper eq4i7ol0"
                   width="200"
                 >
                   <div
@@ -223,7 +223,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M8.679 10.796a.554.554 0 01-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82z"
+                        d="M8.679 10.796a.554.554 0 0 1-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82Z"
                         fill="currentColor"
                       />
                     </svg>
@@ -256,7 +256,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                             >
                               <input
                                 aria-checked="true"
-                                aria-describedby="lg-202"
+                                aria-describedby="lg-3"
                                 aria-disabled="false"
                                 checked=""
                                 class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
@@ -284,7 +284,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                               for="chart-radio-percent"
                             >
                               <input
-                                aria-describedby="lg-203"
+                                aria-describedby="lg-4"
                                 aria-disabled="false"
                                 class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                                 data-cy="cy-chart-percent-radio"
@@ -314,13 +314,14 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
         </div>
       </div>
       <div
-        class="css-1nsrvm5-StickyContainer ech0nhv2"
+        class="css-1xvil5c-StickyContainer ech0nhv2"
       >
         <div
           class="css-gnwyka-FlexRowContainer eq4i7ol1"
         >
           <div
-            class="css-mgqp2w-CommitWrapper eq4i7ol0"
+            class="css-1502eag-CommitWrapper eq4i7ol0"
+            data-selected="false"
             width="200"
           >
             <div
@@ -331,18 +332,20 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0002 leafygreen-ui-hvznge"
+                  class="lg-ui-0000 leafygreen-ui-hvznge"
                   data-cy="githash-link"
                   href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks"
                 >
                   <code
-                    class="leafygreen-ui-7u0nmx"
+                    class="leafygreen-ui-i6ovbf"
                   >
                     987bf57
                   </code>
                 </a>
                  
-                <b>
+                <b
+                  title="Jul 16, 2021, 3:53:25 PM UTC"
+                >
                   Jul 16, 2021, 3:53 PM
                 </b>
                  
@@ -357,29 +360,35 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                   data-cy="jira-link"
                   href="https://undefined/browse/EVG-14901"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   <span
-                    class="leafygreen-ui-baoi4d"
+                    class="leafygreen-ui-1ewnca3"
                   >
                     EVG-14901
                   </span>
                 </a>
                  add ssh key to EditSpawnHos...
               </p>
-              <small
-                class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-6flbwy"
+              <span
+                class="leafygreen-ui-vm4wms"
+                tabindex="0"
               >
-                more
-              </small>
+                <small
+                  class="css-1ghrn41-ButtonText eq9i5u70 leafygreen-ui-6flbwy"
+                >
+                  more
+                </small>
+              </span>
             </div>
           </div>
           <div
-            class="css-mgqp2w-CommitWrapper eq4i7ol0"
+            class="css-1502eag-CommitWrapper eq4i7ol0"
+            data-selected="false"
             width="200"
           >
             <div
@@ -390,18 +399,20 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0002 leafygreen-ui-hvznge"
+                  class="lg-ui-0000 leafygreen-ui-hvznge"
                   data-cy="githash-link"
                   href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks"
                 >
                   <code
-                    class="leafygreen-ui-7u0nmx"
+                    class="leafygreen-ui-i6ovbf"
                   >
                     a77bd39
                   </code>
                 </a>
                  
-                <b>
+                <b
+                  title="Jul 13, 2021, 2:51:30 PM UTC"
+                >
                   Jul 13, 2021, 2:51 PM
                 </b>
                  
@@ -417,15 +428,21 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 Triggered From Git Tag 'v2.11.1': v2....
               </p>
-              <small
-                class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-6flbwy"
+              <span
+                class="leafygreen-ui-vm4wms"
+                tabindex="0"
               >
-                more
-              </small>
+                <small
+                  class="css-1ghrn41-ButtonText eq9i5u70 leafygreen-ui-6flbwy"
+                >
+                  more
+                </small>
+              </span>
             </div>
           </div>
           <div
-            class="css-11x1fi4-CommitWrapper eq4i7ol0"
+            class="css-1iigwp8-CommitWrapper eq4i7ol0"
+            data-selected="false"
             width="64"
           >
             <div
@@ -444,7 +461,8 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
             </div>
           </div>
           <div
-            class="css-mgqp2w-CommitWrapper eq4i7ol0"
+            class="css-1502eag-CommitWrapper eq4i7ol0"
+            data-selected="false"
             width="200"
           >
             <div
@@ -455,18 +473,20 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0002 leafygreen-ui-hvznge"
+                  class="lg-ui-0000 leafygreen-ui-hvznge"
                   data-cy="githash-link"
                   href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks"
                 >
                   <code
-                    class="leafygreen-ui-7u0nmx"
+                    class="leafygreen-ui-i6ovbf"
                   >
                     9c1d1eb
                   </code>
                 </a>
                  
-                <b>
+                <b
+                  title="Jul 13, 2021, 2:51:30 PM UTC"
+                >
                   Jul 13, 2021, 2:51 PM
                 </b>
                  
@@ -481,29 +501,35 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0003 css-84rhzu-StyledLink leafygreen-ui-1320234"
+                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
                   data-cy="jira-link"
                   href="https://undefined/browse/EVG-14799"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   <span
-                    class="leafygreen-ui-baoi4d"
+                    class="leafygreen-ui-1ewnca3"
                   >
                     EVG-14799
                   </span>
                 </a>
                  Correctly visit configure p...
               </p>
-              <small
-                class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-6flbwy"
+              <span
+                class="leafygreen-ui-vm4wms"
+                tabindex="0"
               >
-                more
-              </small>
+                <small
+                  class="css-1ghrn41-ButtonText eq9i5u70 leafygreen-ui-6flbwy"
+                >
+                  more
+                </small>
+              </span>
             </div>
           </div>
           <div
-            class="css-mgqp2w-CommitWrapper eq4i7ol0"
+            class="css-1502eag-CommitWrapper eq4i7ol0"
+            data-selected="false"
             width="200"
           >
             <div
@@ -514,18 +540,20 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0002 leafygreen-ui-hvznge"
+                  class="lg-ui-0000 leafygreen-ui-hvznge"
                   data-cy="githash-link"
                   href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks"
                 >
                   <code
-                    class="leafygreen-ui-7u0nmx"
+                    class="leafygreen-ui-i6ovbf"
                   >
                     f7f7f1a
                   </code>
                 </a>
                  
-                <b>
+                <b
+                  title="Jul 13, 2021, 2:51:30 PM UTC"
+                >
                   Jul 13, 2021, 2:51 PM
                 </b>
                  
@@ -541,15 +569,21 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 Remove navigation announcement toast ...
               </p>
-              <small
-                class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-6flbwy"
+              <span
+                class="leafygreen-ui-vm4wms"
+                tabindex="0"
               >
-                more
-              </small>
+                <small
+                  class="css-1ghrn41-ButtonText eq9i5u70 leafygreen-ui-6flbwy"
+                >
+                  more
+                </small>
+              </span>
             </div>
           </div>
           <div
-            class="css-mgqp2w-CommitWrapper eq4i7ol0"
+            class="css-1502eag-CommitWrapper eq4i7ol0"
+            data-selected="false"
             width="200"
           >
             <div
@@ -560,18 +594,20 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0002 leafygreen-ui-hvznge"
+                  class="lg-ui-0000 leafygreen-ui-hvznge"
                   data-cy="githash-link"
                   href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks"
                 >
                   <code
-                    class="leafygreen-ui-7u0nmx"
+                    class="leafygreen-ui-i6ovbf"
                   >
                     211b3a0
                   </code>
                 </a>
                  
-                <b>
+                <b
+                  title="Jul 13, 2021, 2:51:30 PM UTC"
+                >
                   Jul 13, 2021, 2:51 PM
                 </b>
                  
@@ -587,11 +623,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               >
                 Triggered From Git Tag 'v2.11.0': v2....
               </p>
-              <small
-                class="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-6flbwy"
+              <span
+                class="leafygreen-ui-vm4wms"
+                tabindex="0"
               >
-                more
-              </small>
+                <small
+                  class="css-1ghrn41-ButtonText eq9i5u70 leafygreen-ui-6flbwy"
+                >
+                  more
+                </small>
+              </span>
             </div>
           </div>
         </div>
@@ -600,7 +641,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
         class="css-gnwyka-FlexRowContainer eq4i7ol1"
       >
         <div
-          class="css-mgqp2w-CommitWrapper eq4i7ol0"
+          class="css-1502eag-CommitWrapper eq4i7ol0"
           width="200"
         >
           <div
@@ -610,12 +651,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-1gfngq5"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_000?selectedCommit=929"
               >
                 <span
-                  class="leafygreen-ui-baoi4d"
+                  class="leafygreen-ui-1ewnca3"
                 >
                   Build Variant 0
                 </span>
@@ -660,12 +701,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-1gfngq5"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_001?selectedCommit=929"
               >
                 <span
-                  class="leafygreen-ui-baoi4d"
+                  class="leafygreen-ui-1ewnca3"
                 >
                   Build Variant 1
                 </span>
@@ -710,12 +751,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-1gfngq5"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_002?selectedCommit=929"
               >
                 <span
-                  class="leafygreen-ui-baoi4d"
+                  class="leafygreen-ui-1ewnca3"
                 >
                   Build Variant 2
                 </span>
@@ -759,7 +800,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
           </div>
         </div>
         <div
-          class="css-mgqp2w-CommitWrapper eq4i7ol0"
+          class="css-1502eag-CommitWrapper eq4i7ol0"
           width="200"
         >
           <div
@@ -769,12 +810,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-1gfngq5"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_000?selectedCommit=928"
               >
                 <span
-                  class="leafygreen-ui-baoi4d"
+                  class="leafygreen-ui-1ewnca3"
                 >
                   Build Variant 0
                 </span>
@@ -819,12 +860,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-1gfngq5"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_001?selectedCommit=928"
               >
                 <span
-                  class="leafygreen-ui-baoi4d"
+                  class="leafygreen-ui-1ewnca3"
                 >
                   Build Variant 1
                 </span>
@@ -869,12 +910,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-1gfngq5"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_002?selectedCommit=928"
               >
                 <span
-                  class="leafygreen-ui-baoi4d"
+                  class="leafygreen-ui-1ewnca3"
                 >
                   Build Variant 2
                 </span>
@@ -918,11 +959,11 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
           </div>
         </div>
         <div
-          class="css-11x1fi4-CommitWrapper eq4i7ol0"
+          class="css-1iigwp8-CommitWrapper eq4i7ol0"
           width="64"
         />
         <div
-          class="css-mgqp2w-CommitWrapper eq4i7ol0"
+          class="css-1502eag-CommitWrapper eq4i7ol0"
           width="200"
         >
           <div
@@ -932,12 +973,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-1gfngq5"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_000?selectedCommit=926"
               >
                 <span
-                  class="leafygreen-ui-baoi4d"
+                  class="leafygreen-ui-1ewnca3"
                 >
                   Build Variant 0
                 </span>
@@ -982,12 +1023,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-1gfngq5"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_001?selectedCommit=926"
               >
                 <span
-                  class="leafygreen-ui-baoi4d"
+                  class="leafygreen-ui-1ewnca3"
                 >
                   Build Variant 1
                 </span>
@@ -1032,12 +1073,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-1gfngq5"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_002?selectedCommit=926"
               >
                 <span
-                  class="leafygreen-ui-baoi4d"
+                  class="leafygreen-ui-1ewnca3"
                 >
                   Build Variant 2
                 </span>
@@ -1081,7 +1122,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
           </div>
         </div>
         <div
-          class="css-mgqp2w-CommitWrapper eq4i7ol0"
+          class="css-1502eag-CommitWrapper eq4i7ol0"
           width="200"
         >
           <div
@@ -1091,12 +1132,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-1gfngq5"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_000?selectedCommit=925"
               >
                 <span
-                  class="leafygreen-ui-baoi4d"
+                  class="leafygreen-ui-1ewnca3"
                 >
                   Build Variant 0
                 </span>
@@ -1141,12 +1182,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-1gfngq5"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_001?selectedCommit=925"
               >
                 <span
-                  class="leafygreen-ui-baoi4d"
+                  class="leafygreen-ui-1ewnca3"
                 >
                   Build Variant 1
                 </span>
@@ -1191,12 +1232,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-1gfngq5"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_002?selectedCommit=925"
               >
                 <span
-                  class="leafygreen-ui-baoi4d"
+                  class="leafygreen-ui-1ewnca3"
                 >
                   Build Variant 2
                 </span>
@@ -1240,7 +1281,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
           </div>
         </div>
         <div
-          class="css-mgqp2w-CommitWrapper eq4i7ol0"
+          class="css-1502eag-CommitWrapper eq4i7ol0"
           width="200"
         >
           <div
@@ -1250,12 +1291,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-1gfngq5"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_000?selectedCommit=924"
               >
                 <span
-                  class="leafygreen-ui-baoi4d"
+                  class="leafygreen-ui-1ewnca3"
                 >
                   Build Variant 0
                 </span>
@@ -1300,12 +1341,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-1gfngq5"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_001?selectedCommit=924"
               >
                 <span
-                  class="leafygreen-ui-baoi4d"
+                  class="leafygreen-ui-1ewnca3"
                 >
                   Build Variant 1
                 </span>
@@ -1350,12 +1391,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0003 e1e552r23 css-1vedf2u-StyledLink-Label leafygreen-ui-1320234"
+                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-1gfngq5"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_002?selectedCommit=924"
               >
                 <span
-                  class="leafygreen-ui-baoi4d"
+                  class="leafygreen-ui-1ewnca3"
                 >
                   Build Variant 2
                 </span>

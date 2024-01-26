@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot Tests JiraTicketRow.stories Default 1`] = `
+<div>
+  <div
+    class="css-xs7qfe-Container e1fnmnn32"
+    data-cy="jira-ticket-row"
+  >
+    <a
+      class="lg-ui-0001 e1fnmnn30 css-1ced1jn-StyledLink-JiraSummaryLink leafygreen-ui-1gfngq5"
+      data-cy="DEVPROD-123"
+      href="https://undefined/browse/DEVPROD-123"
+      rel="noopener noreferrer"
+      target="_blank"
+      title="Create the JiraTicketRow component"
+    >
+      <span
+        class="leafygreen-ui-1ewnca3"
+      >
+        DEVPROD-123
+        : 
+        Create the JiraTicketRow component
+      </span>
+    </a>
+    <div
+      class="leafygreen-ui-ohl2hc"
+      data-cy="DEVPROD-123-badge"
+    >
+      Closed
+    </div>
+    <div
+      class="css-1gb2e82-BottomMetaDataWrapper e1fnmnn31"
+      data-cy="DEVPROD-123-metadata"
+    >
+      <small
+        class="leafygreen-ui-6flbwy"
+      >
+        Created: 
+        Jan 2, 2020
+      </small>
+      <small
+        class="leafygreen-ui-6flbwy"
+      >
+        Updated: 
+        Nov 21, 2023
+      </small>
+      <small
+        class="leafygreen-ui-6flbwy"
+      >
+        Assignee: mohamed.khelif
+      </small>
+    </div>
+  </div>
+</div>
+`;

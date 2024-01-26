@@ -5,7 +5,7 @@ import { useTaskAnalytics } from "analytics";
 import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
-import { getTaskRoute } from "constants/routes";
+import { getTaskRoute, GetTaskRouteOptions } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
 import { useTabShortcut } from "hooks/useTabShortcut";
@@ -175,19 +175,33 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
   });
 
   useEffect(() => {
-    const query = parseQueryString(location.search);
-    const newRoute = getTaskRoute(id, {
-      tab: activeTabs[selectedTab],
-      ...query,
-    });
-    navigate(newRoute, { replace: true });
-    if (previousTab !== undefined && previousTab !== selectedTab) {
-      taskAnalytics.sendEvent({
-        name: "Change Tab",
+    if (previousTab !== selectedTab) {
+      const query = parseQueryString(location.search);
+      const params: GetTaskRouteOptions = {
         tab: activeTabs[selectedTab],
-      });
+        ...query,
+      };
+
+      // Introduce execution query parameter if none is set.
+      if (
+        id === task?.id &&
+        query.execution === undefined &&
+        task.latestExecution !== undefined
+      ) {
+        params.execution = task.latestExecution;
+      }
+
+      const newRoute = getTaskRoute(id, params);
+      navigate(newRoute, { replace: true });
+
+      if (previousTab !== undefined) {
+        taskAnalytics.sendEvent({
+          name: "Change Tab",
+          tab: activeTabs[selectedTab],
+        });
+      }
     }
-  }, [selectedTab, execution]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [selectedTab]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <StyledTabs

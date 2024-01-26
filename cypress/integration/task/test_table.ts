@@ -11,62 +11,65 @@ describe("Tests Table", () => {
       .should("be.visible")
       .should("not.have.attr", "data-loading", "true");
   };
+
   beforeEach(() => {
     visitAndWait(TESTS_ROUTE);
   });
+
   it("Test count should update to reflect filtered values", () => {
-    cy.contains(TABLE_SORT_SELECTOR, "Name").click();
+    const nameSortControl = "button[aria-label='Sort by Name']";
+    cy.get(nameSortControl).click();
 
     cy.dataCy("filtered-count").contains(20);
     cy.dataCy("total-count").contains(20);
 
-    cy.toggleTableFilter(2);
-
-    cy.get(".cy-checkbox").contains("Fail").click({ force: true });
+    cy.dataCy("status-treeselect").click();
+    cy.getInputByLabel("Fail").check({ force: true });
     cy.dataCy("filtered-count").contains(1);
     cy.dataCy("total-count").contains(20);
 
-    cy.toggleTableFilter(1);
-    cy.dataCy("testname-input-wrapper")
-      .find("input")
-      .as("testnameInputWrapper")
-      .focus();
-    cy.get("@testnameInputWrapper").type("hello{enter}");
+    cy.dataCy("test-name-filter").click();
+    cy.dataCy("test-name-filter-input-filter").type("hello{enter}");
 
     cy.dataCy("filtered-count").contains(0);
     cy.dataCy("total-count").contains(20);
   });
 
   it("Adjusts query params when table headers are clicked", () => {
-    cy.contains(TABLE_SORT_SELECTOR, "Name").click();
+    const nameSortControl = "button[aria-label='Sort by Name']";
+    const statusSortControl = "button[aria-label='Sort by Status']";
+    const durationSortControl = "button[aria-label='Sort by Time']";
+
+    cy.get(nameSortControl).click();
+
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=TEST_NAME");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
 
-    cy.contains(TABLE_SORT_SELECTOR, "Status").click();
+    cy.get(statusSortControl).click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=STATUS");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
 
-    cy.contains(TABLE_SORT_SELECTOR, "Status").click();
+    cy.get(statusSortControl).click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=STATUS");
       expect(loc.search).to.include(DESCEND_PARAM);
     });
 
-    cy.contains(TABLE_SORT_SELECTOR, "Time").click();
+    cy.get(durationSortControl).click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=DURATION");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
 
-    cy.contains(TABLE_SORT_SELECTOR, "Time").click();
+    cy.get(durationSortControl).click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=DURATION");
@@ -82,10 +85,10 @@ describe("Tests Table", () => {
     it("Clicking on 'All' checkbox adds all statuses to URL", () => {
       clickingCheckboxUpdatesUrlAndRendersFetchedResults({
         checkboxDisplayName: "All",
-        pathname: TESTS_ROUTE,
+        openFilter: () => cy.dataCy("status-treeselect").click(),
         paramName: "statuses",
+        pathname: TESTS_ROUTE,
         search: "all,pass,fail,skip,silentfail",
-        openFilter: () => cy.toggleTableFilter(2),
       });
     });
 
@@ -97,12 +100,14 @@ describe("Tests Table", () => {
     ];
 
     it("Checking multiple statuses adds them all to the URL", () => {
-      cy.toggleTableFilter(2);
+      cy.dataCy("status-treeselect").click();
       statuses.forEach(({ display }) => {
-        cy.get(".cy-checkbox").contains(display).click({ force: true });
+        cy.getInputByLabel(display).check({ force: true });
       });
       cy.location().should((loc) => {
-        expect(loc.search).to.include("statuses=pass,silentfail,fail,skip,all");
+        expect(decodeURIComponent(loc.search)).to.include(
+          `statuses=${statuses.map(({ key }) => key).join(",")}`,
+        );
       });
     });
   });
@@ -112,8 +117,8 @@ describe("Tests Table", () => {
 
     it("Typing in test name filter updates testname query param", () => {
       visitAndWait(TESTS_ROUTE);
-      cy.toggleTableFilter(1);
-      cy.dataCy("testname-input-wrapper")
+      cy.dataCy("test-name-filter").click();
+      cy.dataCy("test-name-filter-wrapper")
         .find("input")
         .as("testnameInputWrapper")
         .focus();
@@ -179,7 +184,6 @@ describe("Tests Table", () => {
   });
 });
 
-const TABLE_SORT_SELECTOR = ".ant-table-column-sorters";
 const DESCEND_PARAM = "sortDir=DESC";
 const ASCEND_PARAM = "sortDir=ASC";
 const TESTS_ROUTE =
