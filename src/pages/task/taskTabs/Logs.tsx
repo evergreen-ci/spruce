@@ -8,10 +8,7 @@ import {
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import {
-  getLobsterTaskLink,
-  getParsleyTaskLogLink,
-} from "constants/externalResources";
+import { getParsleyTaskLogLink } from "constants/externalResources";
 import { size } from "constants/tokens";
 import { TaskLogLinks } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks";
@@ -65,7 +62,7 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
     });
   };
 
-  const { htmlLink, lobsterLink, parsleyLink, rawLink } = getLinks(
+  const { htmlLink, parsleyLink, rawLink } = getLinks(
     logLinks,
     currentLog,
     taskId,
@@ -100,7 +97,7 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
           </SegmentedControlOption>
         </SegmentedControl>
 
-        {(htmlLink || rawLink || parsleyLink || lobsterLink) && (
+        {(htmlLink || rawLink || parsleyLink) && (
           <ButtonContainer>
             {parsleyLink && (
               <Button
@@ -118,24 +115,6 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                 }
               >
                 Parsley
-              </Button>
-            )}
-            {lobsterLink && (
-              <Button
-                title="Legacy log viewer"
-                data-cy="lobster-log-btn"
-                disabled={noLogs}
-                href={lobsterLink}
-                target="_blank"
-                onClick={() =>
-                  sendEvent({
-                    name: "Click Logs Button",
-                    logType: currentLog,
-                    logViewer: "lobster",
-                  })
-                }
-              >
-                Lobster
               </Button>
             )}
             {htmlLink && (
@@ -197,7 +176,6 @@ interface GetLinksResult {
   htmlLink?: string;
   parsleyLink?: string;
   rawLink?: string;
-  lobsterLink?: string;
 }
 
 const getLinks = (
@@ -223,7 +201,6 @@ const getLinks = (
   return {
     htmlLink,
     parsleyLink: getParsleyTaskLogLink(logType, taskId, execution),
-    lobsterLink: getLobsterTaskLink(logType, taskId, execution),
     rawLink: `${htmlLink}&text=true`,
   };
 };

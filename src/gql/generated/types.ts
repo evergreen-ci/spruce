@@ -8394,7 +8394,6 @@ export type TaskTestsQuery = {
         logs: {
           __typename?: "TestLog";
           url?: string | null;
-          urlLobster?: string | null;
           urlParsley?: string | null;
           urlRaw?: string | null;
         };
