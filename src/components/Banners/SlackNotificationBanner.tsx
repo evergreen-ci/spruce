@@ -82,9 +82,10 @@ export const SlackNotificationBanner = () => {
     !notifications &&
     (isNotificationSet(patchFirstFailure) || isNotificationSet(patchFinish));
 
-  const showSlackBanner = !hasClosedBanner && !hasSetNotifications;
+  const shouldShowSlackBanner =
+    !defaultSlackUsername && !hasClosedBanner && !hasSetNotifications;
 
-  return showSlackBanner ? (
+  return shouldShowSlackBanner ? (
     <Banner
       variant="info"
       data-cy="slack-notification-banner"
