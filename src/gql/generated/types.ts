@@ -436,7 +436,7 @@ export type DistroInput = {
   arch: Arch;
   authorizedKeysFile: Scalars["String"]["input"];
   bootstrapSettings: BootstrapSettingsInput;
-  cloneMethod: CloneMethod;
+  cloneMethod?: InputMaybe<CloneMethod>;
   containerPool: Scalars["String"]["input"];
   disableShallowClone: Scalars["Boolean"]["input"];
   disabled: Scalars["Boolean"]["input"];
