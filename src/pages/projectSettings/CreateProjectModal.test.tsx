@@ -192,7 +192,7 @@ describe("createProjectField", () => {
     });
     expect(confirmButton).toBeEnabled();
 
-    // Turn on performance tooling.
+    // Check performance tooling checkbox.
     const enablePerformanceTooling = screen.getByDataCy(
       "enable-performance-tooling",
     );
@@ -203,7 +203,7 @@ describe("createProjectField", () => {
     await user.click(enablePerformanceToolingLabel); // LeafyGreen checkbox has pointer-events: none so click on the label instead.
     expect(enablePerformanceTooling).toBeChecked();
 
-    // Turn on request for S3 creds.
+    // Check S3 creds checkbox.
     const requestS3Creds = screen.getByDataCy("request-s3-creds");
     const requestS3CredLabel = screen.getByText(
       "Open a JIRA ticket to request an S3 Bucket from the Build team",

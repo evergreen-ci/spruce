@@ -79,7 +79,7 @@ describe("copyProjectField", () => {
       newProjectIdentifier,
     );
 
-    // Turn on request for S3 creds.
+    // Check S3 creds checkbox.
     const requestS3Creds = screen.getByDataCy("request-s3-creds");
     const requestS3CredLabel = screen.getByText(
       "Open a JIRA ticket to request an S3 Bucket from the Build team",
@@ -136,7 +136,7 @@ describe("copyProjectField", () => {
       newProjectIdentifier,
     );
 
-    // Turn on performance tooling.
+    // Check performance tooling checkbox.
     const enablePerformanceTooling = screen.getByDataCy(
       "enable-performance-tooling",
     );

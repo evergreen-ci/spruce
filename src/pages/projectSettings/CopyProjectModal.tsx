@@ -12,11 +12,10 @@ import {
 } from "gql/generated/types";
 import { COPY_PROJECT } from "gql/mutations";
 import {
-  PerformanceToolingBanner,
-  enablePerformanceTooling,
+  performanceTooling,
   projectName,
   requestS3Creds,
-} from "./CreateDuplicateSchema";
+} from "./createDuplicateModalSchema";
 
 interface Props {
   handleClose: () => void;
@@ -127,20 +126,13 @@ const modalFormDefinition = {
     type: "object" as "object",
     properties: {
       projectName: projectName.schema,
-      enablePerformanceTooling: enablePerformanceTooling.schema,
-      performanceToolingBanner: {
-        type: "null" as "null",
-      },
+      ...performanceTooling.schema,
       requestS3Creds: requestS3Creds.schema,
     },
   },
   uiSchema: {
     projectName: projectName.uiSchema,
-    enablePerformanceTooling: enablePerformanceTooling.uiSchema,
-    performanceToolingBanner: {
-      "ui:field": PerformanceToolingBanner,
-      "ui:showLabel": false,
-    },
+    ...performanceTooling.uiSchema,
     requestS3Creds: requestS3Creds.uiSchema,
   },
 };

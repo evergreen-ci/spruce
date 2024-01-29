@@ -15,11 +15,10 @@ import {
 import { CREATE_PROJECT } from "gql/mutations";
 import { GITHUB_ORGS } from "gql/queries";
 import {
-  PerformanceToolingBanner,
-  enablePerformanceTooling,
+  performanceTooling,
   projectName,
   requestS3Creds,
-} from "./CreateDuplicateSchema";
+} from "./createDuplicateModalSchema";
 
 interface Props {
   handleClose: () => void;
@@ -160,10 +159,7 @@ const modalFormDefinition = (githubOrgs: string[]) => ({
         minLength: 1,
         format: "noSpaces",
       },
-      enablePerformanceTooling: enablePerformanceTooling.schema,
-      performanceToolingBanner: {
-        type: "null" as "null",
-      },
+      ...performanceTooling.schema,
       requestS3Creds: requestS3Creds.schema,
     },
   },
@@ -176,11 +172,7 @@ const modalFormDefinition = (githubOrgs: string[]) => ({
     repo: {
       "ui:data-cy": "new-repo-input",
     },
-    enablePerformanceTooling: enablePerformanceTooling.uiSchema,
-    performanceToolingBanner: {
-      "ui:field": PerformanceToolingBanner,
-      "ui:showLabel": false,
-    },
+    ...performanceTooling.uiSchema,
     requestS3Creds: requestS3Creds.uiSchema,
   },
 });

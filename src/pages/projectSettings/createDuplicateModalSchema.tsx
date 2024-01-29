@@ -1,3 +1,4 @@
+/* eslint-disable check-file/filename-naming-convention */
 import Banner from "@leafygreen-ui/banner";
 import { Field } from "@rjsf/core";
 
@@ -13,7 +14,7 @@ export const projectName = {
   },
 };
 
-export const enablePerformanceTooling = {
+const enablePerformanceTooling = {
   schema: {
     type: "boolean" as "boolean",
     title: "Enable performance tooling",
@@ -24,7 +25,7 @@ export const enablePerformanceTooling = {
   },
 };
 
-export const PerformanceToolingBanner: Field = () => (
+const PerformanceToolingBanner: Field = () => (
   <Banner
     variant="warning"
     data-cy="performance-tooling-banner"
@@ -34,6 +35,22 @@ export const PerformanceToolingBanner: Field = () => (
     be able to configure the project for performance tooling at a later date.
   </Banner>
 );
+
+export const performanceTooling = {
+  schema: {
+    enablePerformanceTooling: enablePerformanceTooling.schema,
+    performanceToolingBanner: {
+      type: "null" as "null",
+    },
+  },
+  uiSchema: {
+    enablePerformanceTooling: enablePerformanceTooling.uiSchema,
+    performanceToolingBanner: {
+      "ui:field": PerformanceToolingBanner,
+      "ui:showLabel": false,
+    },
+  },
+};
 
 export const requestS3Creds = {
   schema: {
