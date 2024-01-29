@@ -196,7 +196,7 @@
     "jest-specific-snapshot": "8.0.0",
     "jest-watch-typeahead": "2.2.2",
     "less": "^4.1.3",
-    "lint-staged": "13.0.3",
+    "lint-staged": "15.2.0",
     "mutation-observer": "1.0.3",
     "path": "0.12.7",
     "prettier": "3.2.2",
