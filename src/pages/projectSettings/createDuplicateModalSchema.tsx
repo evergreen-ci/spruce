@@ -31,7 +31,7 @@ const PerformanceToolingBanner: Field = () => (
     data-cy="performance-tooling-banner"
     style={{ marginBottom: "20px" }}
   >
-    Please confirm your preferences before creating your project. You will not
+    Please confirm these preferences before creating your project. You will not
     be able to configure the project for performance tooling at a later date.
   </Banner>
 );
