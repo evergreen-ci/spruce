@@ -100,7 +100,7 @@
     "@leafygreen-ui/typography": "17.0.1",
     "@rjsf/core": "4.2.3",
     "@sentry/react": "7.56.0",
-    "@sentry/types": "7.56.0",
+    "@sentry/types": "7.98.0",
     "ansi_up": "6.0.2",
     "antd": "4.20.0",
     "date-fns": "2.28.0",
