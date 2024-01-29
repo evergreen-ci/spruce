@@ -16,12 +16,7 @@ interface Props {
 
 export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
   const { status, testFile } = testResult;
-  const {
-    url: urlHTML,
-    urlLobster,
-    urlParsley,
-    urlRaw,
-  } = testResult.logs ?? {};
+  const { url: urlHTML, urlParsley, urlRaw } = testResult.logs ?? {};
   const { buildVariant, displayName, displayTask, order, project } = task ?? {};
   const { sendEvent } = useTaskAnalytics();
   const filters =
@@ -50,24 +45,6 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           }
         >
           Parsley
-        </Button>
-      )}
-      {urlLobster && (
-        <Button
-          title="Legacy log viewer"
-          data-cy="test-table-lobster-btn"
-          size="xsmall"
-          target="_blank"
-          href={urlLobster}
-          onClick={() =>
-            sendEvent({
-              name: "Click Test Logs Button",
-              logViewer: "lobster",
-              testStatus: status,
-            })
-          }
-        >
-          Lobster
         </Button>
       )}
       {urlHTML && (

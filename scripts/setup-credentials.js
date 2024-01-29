@@ -8,7 +8,6 @@ const production = {
   REACT_APP_API_URL: "https://evergreen.mongodb.com/api",
   REACT_APP_UI_URL: "https://evergreen.mongodb.com",
   REACT_APP_GQL_URL: "https://evergreen.mongodb.com/graphql/query",
-  REACT_APP_LOBSTER_URL: "https://evergreen.mongodb.com",
   REACT_APP_PARSLEY_URL: "https://parsley.mongodb.com",
   REACT_APP_SPRUCE_URL: "https://spruce.mongodb.com",
   REACT_APP_RELEASE_STAGE: "production",
