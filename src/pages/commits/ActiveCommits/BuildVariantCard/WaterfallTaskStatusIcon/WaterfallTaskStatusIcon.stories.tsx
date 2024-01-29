@@ -26,7 +26,7 @@ export const Default: CustomStoryObj<typeof WaterfallTaskStatusIcon> = {
     taskId: "task-id",
     identifier: "ubuntu1604",
     status: "failed",
-    failedTestCount: 5,
+    hasCedarResults: true,
   },
   argTypes: {
     status: {
