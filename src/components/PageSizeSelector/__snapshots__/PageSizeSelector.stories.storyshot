@@ -6,15 +6,15 @@ exports[`Snapshot Tests PageSizeSelector.stories Default 1`] = `
     class="leafygreen-ui-1iyoj2o css-5krlfz-StyledSelect ekttol50"
   >
     <button
-      aria-controls="select-1-menu"
-      aria-describedby="select-1-description"
+      aria-controls="select-184-menu"
+      aria-describedby="select-184-description"
       aria-disabled="false"
       aria-expanded="false"
       aria-invalid="false"
       aria-labelledby="page-size-select"
       class="lg-ui-button-0000 leafygreen-ui-3wvwqe"
       data-testid="leafygreen-ui-select-menubutton"
-      id="select-2"
+      id="select-185"
       type="button"
       value="10"
     >
