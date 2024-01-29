@@ -2,8 +2,7 @@ import { getUnixTime } from "date-fns";
 import { LogTypes } from "types/task";
 import { environmentVariables } from "utils";
 
-const { getHoneycombBaseURL, getLobsterURL, getParsleyUrl, getUiUrl } =
-  environmentVariables;
+const { getHoneycombBaseURL, getParsleyUrl, getUiUrl } = environmentVariables;
 
 export const wikiBaseUrl =
   "https://docs.devprod.prod.corp.mongodb.com/evergreen";
@@ -70,32 +69,6 @@ export const getParsleyTaskLogLink = (
   taskId: string,
   execution: number,
 ) => `${getParsleyUrl()}/evergreen/${taskId}/${execution}/${logType}`;
-
-interface GetLobsterTestLogCompleteUrlParams {
-  taskId: string;
-  execution: number;
-  groupId?: string;
-  lineNum?: number;
-}
-
-export const getLobsterTestLogCompleteUrl = ({
-  execution,
-  groupId,
-  lineNum,
-  taskId,
-}: GetLobsterTestLogCompleteUrlParams) =>
-  taskId && Number.isFinite(execution)
-    ? `${getLobsterURL()}/lobster/evergreen/complete-test/${taskId}/${execution}${
-        groupId ? `/${groupId}` : ""
-      }${lineNum ? `#shareLine=${lineNum}` : ""}`
-    : "";
-
-export const getLobsterTaskLink = (
-  logType: LogTypes,
-  taskId: string,
-  execution: number,
-) =>
-  `${getLobsterURL()}/lobster/evergreen/task/${taskId}/${execution}/${logType}`;
 
 export const getParsleyTestLogURL = (buildId: string, testId: string) =>
   `${getParsleyUrl()}/resmoke/${buildId}/test/${testId}`;

@@ -28,7 +28,7 @@ interface WaterfallTaskStatusIconProps {
   displayName: string;
   timeTaken?: number;
   identifier: string;
-  failedTestCount?: number;
+  hasCedarResults: boolean;
 }
 
 let timeout;
@@ -36,7 +36,7 @@ export const WaterfallTaskStatusIcon: React.FC<
   WaterfallTaskStatusIconProps
 > = ({
   displayName,
-  failedTestCount,
+  hasCedarResults,
   identifier,
   status,
   taskId,
@@ -60,7 +60,7 @@ export const WaterfallTaskStatusIcon: React.FC<
       injectGlobalHighlightStyle(identifier);
       timeout = setTimeout(() => {
         // Only query failing test names if the task has failed.
-        if (isFailedTaskStatus(status) && failedTestCount > 0) {
+        if (isFailedTaskStatus(status) && hasCedarResults) {
           loadData();
         }
       }, 600);

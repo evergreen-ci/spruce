@@ -78,13 +78,6 @@ export const getGQLUrl: () => string = () =>
   process.env.REACT_APP_GQL_URL || "";
 
 /**
- * `getLobsterUrl()` - Get the Lobster URL from the environment variables
- * @returns - Returns the lobster URL.
- */
-export const getLobsterURL = (): string =>
-  process.env.REACT_APP_LOBSTER_URL || "";
-
-/**
  * `getParsleyUrl()` - Get the Parsley URL from the environment variables
  * @returns - Returns the Parsley URL.
  */
