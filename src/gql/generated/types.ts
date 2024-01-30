@@ -5731,6 +5731,7 @@ export type DistroQuery = {
   __typename?: "Query";
   distro?: {
     __typename?: "Distro";
+    adminOnly: boolean;
     aliases: Array<string>;
     arch: Arch;
     authorizedKeysFile: string;
@@ -6336,7 +6337,7 @@ export type MainlineCommitsQuery = {
             __typename?: "Task";
             displayName: string;
             execution: number;
-            failedTestCount: number;
+            hasCedarResults: boolean;
             id: string;
             status: string;
             timeTaken?: number | null;
@@ -7111,13 +7112,10 @@ export type ProjectHealthViewQueryVariables = Exact<{
 
 export type ProjectHealthViewQuery = {
   __typename?: "Query";
-  projectSettings: {
-    __typename?: "ProjectSettings";
-    projectRef?: {
-      __typename?: "Project";
-      id: string;
-      projectHealthView: ProjectHealthView;
-    } | null;
+  project: {
+    __typename?: "Project";
+    id: string;
+    projectHealthView: ProjectHealthView;
   };
 };
 
@@ -8396,7 +8394,6 @@ export type TaskTestsQuery = {
         logs: {
           __typename?: "TestLog";
           url?: string | null;
-          urlLobster?: string | null;
           urlParsley?: string | null;
           urlRaw?: string | null;
         };

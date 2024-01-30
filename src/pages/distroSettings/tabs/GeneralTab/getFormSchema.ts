@@ -39,6 +39,11 @@ export const getFormSchema = (
         type: "object" as "object",
         title: "Distro Options",
         properties: {
+          adminOnly: {
+            type: "boolean" as "boolean",
+            title: "Admin only",
+            default: false,
+          },
           isCluster: {
             type: "boolean" as "boolean",
             title: "Mark distro as cluster",
@@ -88,6 +93,10 @@ export const getFormSchema = (
     },
     distroOptions: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
+      adminOnly: {
+        "ui:description":
+          "Admin-only distros are not selectable by general users (e.g. when spawning a host). They do not have their access controlled beyond being hidden.",
+      },
       isCluster: {
         "ui:description":
           "Jobs will not be run on this host. Used for special purposes.",

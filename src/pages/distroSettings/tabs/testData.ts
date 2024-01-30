@@ -15,6 +15,7 @@ import {
 
 const distroData: DistroQuery["distro"] = {
   __typename: "Distro",
+  adminOnly: false,
   aliases: ["rhel71-power8", "rhel71-power8-build"],
   arch: Arch.Linux_64Bit,
   authorizedKeysFile: "",

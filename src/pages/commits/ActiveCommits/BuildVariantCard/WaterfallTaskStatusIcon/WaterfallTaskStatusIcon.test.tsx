@@ -27,24 +27,24 @@ const props = {
 jest.mock("../../utils");
 
 const Content = ({
-  failedTestCount = 0,
+  hasCedarResults = false,
   status,
 }: {
   status: string;
-  failedTestCount?: number;
+  hasCedarResults: boolean;
 }) => (
   <MockedProvider mocks={[getTooltipQueryMock]}>
     <WaterfallTaskStatusIcon
       {...props}
       status={status}
-      failedTestCount={failedTestCount}
+      hasCedarResults={hasCedarResults}
     />
   </MockedProvider>
 );
 describe("waterfallTaskStatusIcon", () => {
   it("tooltip should contain task name, duration, list of failing test names and additonal test count", async () => {
     const user = userEvent.setup();
-    render(<Content status="failed" failedTestCount={1} />);
+    render(<Content status="failed" hasCedarResults />);
     await user.hover(screen.queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(
@@ -67,7 +67,7 @@ describe("waterfallTaskStatusIcon", () => {
   });
 
   it("icon should link to task page", async () => {
-    render(<Content status="failed" />);
+    render(<Content status="failed" hasCedarResults />);
     await waitFor(() => {
       expect(
         screen.getByDataCy("waterfall-task-status-icon"),
@@ -89,7 +89,7 @@ describe("waterfallTaskStatusIcon", () => {
     );
     (removeGlobalHighlightStyle as jest.Mock).mockImplementationOnce(() => {});
 
-    render(<Content status="failed" failedTestCount={1} />);
+    render(<Content status="failed" hasCedarResults />);
     await user.hover(screen.queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(injectGlobalHighlightStyle).toHaveBeenCalledTimes(1);

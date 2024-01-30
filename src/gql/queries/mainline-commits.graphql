@@ -31,7 +31,7 @@ query MainlineCommits(
           tasks {
             displayName
             execution
-            failedTestCount
+            hasCedarResults
             id
             status
             timeTaken

@@ -1,5 +1,6 @@
 query Distro($distroId: String!) {
   distro(distroId: $distroId) {
+    adminOnly
     aliases
     arch
     authorizedKeysFile
