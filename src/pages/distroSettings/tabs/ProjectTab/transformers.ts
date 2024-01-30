@@ -6,21 +6,16 @@ type Tab = DistroSettingsTabRoutes.Project;
 export const gqlToForm = ((data) => {
   if (!data) return null;
 
-  const { cloneMethod, expansions, validProjects } = data;
+  const { expansions, validProjects } = data;
 
   return {
-    cloneMethod,
     expansions,
     validProjects,
   };
 }) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql = ((
-  { cloneMethod, expansions, validProjects },
-  distro,
-) => ({
+export const formToGql = (({ expansions, validProjects }, distro) => ({
   ...distro,
-  cloneMethod,
   expansions,
   validProjects,
 })) satisfies FormToGqlFunction<Tab>;

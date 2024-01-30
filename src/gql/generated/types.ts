@@ -5735,7 +5735,6 @@ export type DistroQuery = {
     aliases: Array<string>;
     arch: Arch;
     authorizedKeysFile: string;
-    cloneMethod: CloneMethod;
     containerPool: string;
     disabled: boolean;
     disableShallowClone: boolean;

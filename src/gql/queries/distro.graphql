@@ -29,7 +29,6 @@ query Distro($distroId: String!) {
       serviceUser
       shellPath
     }
-    cloneMethod
     containerPool
     disabled
     disableShallowClone
