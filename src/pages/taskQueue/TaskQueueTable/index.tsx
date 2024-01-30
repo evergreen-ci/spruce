@@ -49,31 +49,28 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
     if (taskId !== undefined && !performedInitialScroll.current) {
       const i = taskQueue.findIndex((t) => t.id === taskId);
       setSelectedRowIds([i.toString()]);
-      table.scrollToIndex(i + 10, { align: "center" });
+      table.scrollToIndex(i, { align: "center" });
 
       setTimeout(() => {
         performedInitialScroll.current = true;
-        table.scrollToIndex(i + 10, { align: "center" });
+        table.scrollToIndex(i, { align: "center" });
       }, 200);
     }
   }, [taskId, taskQueue]);
 
   return (
-    <>
-      Row Index: {selectedRowIds[0]}
-      <BaseTable
-        data-cy="task-queue-table"
-        table={table}
-        loading={loading && taskQueue?.length === 0}
-        shouldAlternateRowColor
-        emptyComponent={<TablePlaceholder message="No tasks found in queue." />}
-        ref={tableContainerRef}
-        selectedRowIds={selectedRowIds}
-        className={css`
-          max-height: 80vh;
-        `}
-      />
-    </>
+    <BaseTable
+      data-cy="task-queue-table"
+      table={table}
+      loading={loading}
+      shouldAlternateRowColor
+      emptyComponent={<TablePlaceholder message="No tasks found in queue." />}
+      ref={tableContainerRef}
+      selectedRowIds={selectedRowIds}
+      className={css`
+        flex-grow: 1;
+      `}
+    />
   );
 };
 

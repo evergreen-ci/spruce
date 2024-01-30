@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
+import { css } from "@leafygreen-ui/emotion";
 import { H2, H2Props, H3, H3Props } from "@leafygreen-ui/typography";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
@@ -75,7 +76,12 @@ const TaskQueue = () => {
     options.filter((d) => d.id.toLowerCase().includes(match.toLowerCase()));
 
   return (
-    <PageWrapper>
+    <PageWrapper
+      className={css`
+        display: flex;
+        flex-direction: column;
+      `}
+    >
       <StyledH2>Task Queue</StyledH2>
       <>
         <TableControlOuterRow>
