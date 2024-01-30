@@ -19,6 +19,7 @@ describe("general section", () => {
     cy.getInputByLabel("Disable shallow clone for this distro").check({
       force: true,
     });
+    cy.getInputByLabel("Admin only").check({ force: true });
     save();
     cy.validateToast("success");
 
@@ -29,6 +30,7 @@ describe("general section", () => {
     cy.getInputByLabel("Disable shallow clone for this distro").should(
       "be.checked",
     );
+    cy.getInputByLabel("Admin only").should("be.checked");
 
     // Undo changes.
     cy.dataCy("delete-item-button").click();
@@ -36,6 +38,7 @@ describe("general section", () => {
     cy.getInputByLabel("Disable shallow clone for this distro").uncheck({
       force: true,
     });
+    cy.getInputByLabel("Admin only").uncheck({ force: true });
     save();
     cy.validateToast("success");
   });

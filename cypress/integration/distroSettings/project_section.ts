@@ -13,8 +13,6 @@ describe("project section", () => {
     );
 
     // Update fields.
-    cy.dataCy("clone-method-select").contains("Legacy SSH");
-    cy.selectLGOption("Project Cloning Method", "OAuth");
     cy.contains("button", "Add expansion").click();
     cy.getInputByLabel("Key").type("key-name");
     cy.getInputByLabel("Value").type("my-value");
@@ -26,13 +24,11 @@ describe("project section", () => {
 
     // Changes should persist.
     cy.reload();
-    cy.dataCy("clone-method-select").contains("OAuth");
     cy.getInputByLabel("Key").should("have.value", "key-name");
     cy.getInputByLabel("Value").should("have.value", "my-value");
     cy.getInputByLabel("Project Name").should("have.value", "spruce");
 
     // Undo changes.
-    cy.selectLGOption("Project Cloning Method", "Legacy SSH");
     cy.dataCy("delete-item-button").first().click();
     cy.dataCy("delete-item-button").first().click();
     save();

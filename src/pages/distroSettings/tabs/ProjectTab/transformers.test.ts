@@ -1,4 +1,4 @@
-import { CloneMethod, DistroInput } from "gql/generated/types";
+import { DistroInput } from "gql/generated/types";
 import { distroData } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
 import { ProjectFormState } from "./types";
@@ -14,7 +14,6 @@ describe("project tab", () => {
 });
 
 const form: ProjectFormState = {
-  cloneMethod: CloneMethod.LegacySsh,
   expansions: [
     {
       key: "decompress",
@@ -34,7 +33,6 @@ const form: ProjectFormState = {
 
 const gql: DistroInput = {
   ...distroData,
-  cloneMethod: CloneMethod.LegacySsh,
   expansions: [
     {
       key: "decompress",
