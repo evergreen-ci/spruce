@@ -37,11 +37,11 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
+
   const table = useLeafyGreenTable<TaskQueueColumnData>({
     data: taskQueue,
     columns,
     containerRef: tableContainerRef,
-    enableColumnFilters: false,
     useVirtualScrolling: true,
   });
   const performedInitialScroll = useRef(false);
