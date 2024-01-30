@@ -6,6 +6,7 @@ export interface GeneralFormState {
     aliases: string[];
   };
   distroOptions: {
+    adminOnly: boolean;
     isCluster: boolean;
     disableShallowClone: boolean;
     disabled: boolean;
