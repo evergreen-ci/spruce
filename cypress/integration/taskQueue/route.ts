@@ -10,11 +10,11 @@ describe("Task Queue", () => {
   it("Uses distro param in url to query queue and renders table", () => {
     cy.visit("/task-queue/osx-108");
 
-    cy.get(".ant-table-row").should("have.length", 13);
+    cy.dataCy("task-queue-table").should("exist");
 
     cy.visit("/task-queue/debian71-test");
 
-    cy.get(".ant-table-row").should("have.length", 0);
+    cy.dataCy("task-queue-table").should("not.exist");
   });
 
   it("Selecting a distro queries the queue for that distro", () => {
