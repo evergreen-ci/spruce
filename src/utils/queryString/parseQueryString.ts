@@ -30,5 +30,5 @@ export const getLimit = (param: string | string[]) => {
 
 export const getPage = (param: string | string[]) => {
   const page = queryParamAsNumber(param);
-  return page !== null && page >= 0 ? page : 0;
+  return page !== null && page > 0 ? page : 0;
 };

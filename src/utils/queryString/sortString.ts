@@ -2,7 +2,10 @@ import { Key, SorterResult } from "antd/es/table/interface";
 import { Task, SortDirection, TaskSortCategory } from "gql/generated/types";
 
 export const getSortString = (columnKey: Key, direction: SortDirection) =>
-  direction ? `${columnKey}:${direction}` : undefined;
+  columnKey && direction ? `${columnKey}:${direction}` : undefined;
+
+const shortenSortOrder = (order: string) =>
+  order === "ascend" ? SortDirection.Asc : SortDirection.Desc;
 
 // takes sort input from the antd table and translates into part of the query string
 // if sort field is being unset, returns undefined
@@ -10,16 +13,7 @@ export const toSortString = (
   sorts: SorterResult<Task> | SorterResult<Task>[],
 ) => {
   let sortStrings: string[] = [];
-  const shortenSortOrder = (order: string) =>
-    order === "ascend" ? SortDirection.Asc : SortDirection.Desc;
   if (Array.isArray(sorts)) {
-    sorts.forEach((sort) => {
-      const singleSortString = getSortString(
-        sort.columnKey,
-        shortenSortOrder(sort.order),
-      );
-      sortStrings = sortStrings.concat(singleSortString);
-    });
     sortStrings = sorts.map(({ columnKey, order }) =>
       order ? getSortString(columnKey, shortenSortOrder(order)) : undefined,
     );

@@ -125,7 +125,7 @@ describe("useTableSort", () => {
     expect(analytics).toHaveBeenCalledTimes(1);
   });
 
-  it("handles multi-sort", () => {
+  it("updates query params when multi-sort is applied", () => {
     const analytics = jest.fn();
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
       <MemoryRouter initialEntries={["/?page=0&sortBy=foo&sortDir=ASC"]}>
