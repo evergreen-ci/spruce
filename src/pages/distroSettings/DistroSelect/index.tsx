@@ -42,7 +42,9 @@ export const DistroSelect: React.FC<DistroSelectProps> = ({
       onChange={(value: string) => {
         navigate(getDistroSettingsRoute(value));
       }}
+      placeholder="Select distro"
       popoverZIndex={zIndex.popover}
+      portalClassName="distro-select-options"
       value={selectedDistro}
     >
       {nonAdminOnly.map(({ name }) => (
