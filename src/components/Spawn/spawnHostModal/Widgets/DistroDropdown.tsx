@@ -77,7 +77,7 @@ export const DistroDropdown: React.FC<
   );
 };
 
-// Bucketize distros into Workstation and Non-Workstation buckets
+// Bucketize distros into admin-only, workstation, and Non-Workstation buckets. Admin-only takes precedence over workstation.
 const categorizeDistros = (distros: DistroEnum["options"]["enumOptions"]) =>
   distros.reduce<OptionValue[]>(
     (accum, { schema, value }) => {

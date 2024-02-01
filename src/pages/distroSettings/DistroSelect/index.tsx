@@ -39,8 +39,8 @@ export const DistroSelect: React.FC<DistroSelectProps> = ({
       clearable={false}
       data-cy="distro-select"
       label="Distro"
-      onChange={(value: string) => {
-        navigate(getDistroSettingsRoute(value));
+      onChange={(distroId: string) => {
+        navigate(getDistroSettingsRoute(distroId));
       }}
       placeholder="Select distro"
       popoverZIndex={zIndex.popover}
@@ -65,11 +65,12 @@ export const DistroSelect: React.FC<DistroSelectProps> = ({
   );
 };
 
+// Returns an array of [adminOnlyDistros, nonAdminOnlyDistros]
 const filterAdminOnlyDistros = (distros: DistrosQuery["distros"]) =>
   distros.reduce(
-    ([adminOnly, nonAdminOnly], distro) => {
-      (distro.adminOnly ? adminOnly : nonAdminOnly).push(distro);
-      return [adminOnly, nonAdminOnly];
+    (accum, distro) => {
+      accum[distro.adminOnly ? 0 : 1].push(distro);
+      return accum;
     },
     [[], []],
   );
