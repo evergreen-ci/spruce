@@ -124,4 +124,33 @@ describe("useTableSort", () => {
     expect(result.current.location.search).toBe("?page=0");
     expect(analytics).toHaveBeenCalledTimes(1);
   });
+
+  it("updates query params when multi-sort is applied", () => {
+    const analytics = jest.fn();
+    const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+      <MemoryRouter initialEntries={["/?page=0&sortBy=foo&sortDir=ASC"]}>
+        {children}
+      </MemoryRouter>
+    );
+
+    const { result } = renderHook(
+      () => ({
+        location: useLocation(),
+        sort: useTableSort({ sendAnalyticsEvents: analytics }),
+      }),
+      {
+        wrapper,
+      },
+    );
+    act(() => {
+      result.current.sort([
+        { id: "distroId", desc: false },
+        { id: "status", desc: true },
+      ]);
+    });
+    expect(result.current.location.search).toBe(
+      "?page=0&sorts=distroId%3AASC%3Bstatus%3ADESC",
+    );
+    expect(analytics).toHaveBeenCalledTimes(1);
+  });
 });
