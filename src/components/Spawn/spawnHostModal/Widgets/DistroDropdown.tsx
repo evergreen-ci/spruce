@@ -111,7 +111,7 @@ const DropdownOption: React.FC<{
     <OptionContainer key={title}>
       <Overline>{title}</Overline>
       <ListContainer>
-        {distros?.map((d) => (
+        {distros.map((d) => (
           <Option
             onClick={() => onClick(d)}
             key={d.value}

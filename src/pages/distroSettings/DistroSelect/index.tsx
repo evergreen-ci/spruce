@@ -69,7 +69,8 @@ export const DistroSelect: React.FC<DistroSelectProps> = ({
 const filterAdminOnlyDistros = (distros: DistrosQuery["distros"]) =>
   distros.reduce(
     (accum, distro) => {
-      accum[distro.adminOnly ? 0 : 1].push(distro);
+      const [adminOnly, nonAdminOnly] = accum;
+      (distro.adminOnly ? adminOnly : nonAdminOnly).push(distro);
       return accum;
     },
     [[], []],
