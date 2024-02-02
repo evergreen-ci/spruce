@@ -23,6 +23,7 @@ interface DistroEnum {
   options: {
     enumOptions: Array<{
       schema: {
+        adminOnly: boolean;
         isVirtualWorkstation: boolean;
       };
       label: string;
@@ -44,21 +45,7 @@ export const DistroDropdown: React.FC<
     enumOptions,
   } = options;
 
-  const searchableOptions = enumOptions.reduce<OptionValue[]>(
-    (accum, { schema, value }) => {
-      const { isVirtualWorkstation } = schema;
-      // Bucketize distros into Workstation and Non-Workstation buckets
-      accum[isVirtualWorkstation ? 0 : 1].distros.push({
-        value,
-        isVirtualWorkstation,
-      });
-      return accum;
-    },
-    [
-      { title: "Workstation distros", distros: [] },
-      { title: "Other distros", distros: [] },
-    ],
-  );
+  const searchableOptions = categorizeDistros(enumOptions);
   const selectedDistro = rest.value?.value;
   return (
     <StyledElementWrapper css={elementWrapperCSS}>
@@ -90,26 +77,53 @@ export const DistroDropdown: React.FC<
   );
 };
 
+// Bucketize distros into admin-only, workstation, and Non-Workstation buckets. Admin-only takes precedence over workstation.
+const categorizeDistros = (distros: DistroEnum["options"]["enumOptions"]) =>
+  distros.reduce<OptionValue[]>(
+    (accum, { schema, value }) => {
+      const { adminOnly, isVirtualWorkstation } = schema;
+
+      // Default to standard distro
+      let categoryIndex = 1;
+      if (adminOnly) {
+        categoryIndex = 2;
+      } else if (isVirtualWorkstation) {
+        categoryIndex = 0;
+      }
+
+      accum[categoryIndex].distros.push({ value, isVirtualWorkstation });
+
+      return accum;
+    },
+    [
+      { title: "Workstation distros", distros: [] },
+      { title: "Other distros", distros: [] },
+      { title: "Admin-only distros", distros: [] },
+    ],
+  );
+
 const DropdownOption: React.FC<{
   title: string;
   distros: DistroValue[];
   onClick: (distro: DistroValue) => void;
-}> = ({ distros, onClick, title }) => (
-  <OptionContainer key={title}>
-    <Overline>{title}</Overline>
-    <ListContainer>
-      {distros?.map((d) => (
-        <Option
-          onClick={() => onClick(d)}
-          key={d.value}
-          data-cy={`distro-option-${d.value}`}
-        >
-          {d.value}
-        </Option>
-      ))}
-    </ListContainer>
-  </OptionContainer>
-);
+}> = ({ distros, onClick, title }) =>
+  distros.length > 0 ? (
+    <OptionContainer key={title}>
+      <Overline>{title}</Overline>
+      <ListContainer>
+        {distros.map((d) => (
+          <Option
+            onClick={() => onClick(d)}
+            key={d.value}
+            data-cy={`distro-option-${d.value}`}
+          >
+            {d.value}
+          </Option>
+        ))}
+      </ListContainer>
+    </OptionContainer>
+  ) : null;
+
 const ListContainer = styled.div`
   margin: 0;
   padding: 0;

@@ -171,6 +171,7 @@ describe("Navigating to Spawn Host page", () => {
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
       cy.dataCy("distro-input").click();
+      cy.contains("Admin-only distros").should("not.exist");
       cy.dataCy("distro-option-ubuntu1804-workstation")
         .should("be.visible")
         .click();

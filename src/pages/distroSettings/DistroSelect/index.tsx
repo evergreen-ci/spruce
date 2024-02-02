@@ -1,7 +1,13 @@
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
+import {
+  Combobox,
+  ComboboxGroup,
+  ComboboxOption,
+} from "@leafygreen-ui/combobox";
 import { useNavigate } from "react-router-dom";
-import SearchableDropdown from "components/SearchableDropdown";
 import { getDistroSettingsRoute } from "constants/routes";
+import { zIndex } from "constants/tokens";
 import { DistrosQuery, DistrosQueryVariables } from "gql/generated/types";
 import { DISTROS } from "gql/queries";
 
@@ -22,17 +28,50 @@ export const DistroSelect: React.FC<DistroSelectProps> = ({
       onlySpawnable: false,
     },
   });
-  const { distros = [] } = distrosData || {};
+
+  const [adminOnly, nonAdminOnly] = useMemo(
+    () => filterAdminOnlyDistros(distrosData?.distros ?? []),
+    [distrosData?.distros],
+  );
 
   return loading ? null : (
-    <SearchableDropdown
+    <Combobox
+      clearable={false}
+      data-cy="distro-select"
       label="Distro"
-      value={selectedDistro}
-      options={distros.map((d) => d.name)}
       onChange={(distroId: string) => {
         navigate(getDistroSettingsRoute(distroId));
       }}
-      data-cy="distro-select"
-    />
+      placeholder="Select distro"
+      popoverZIndex={zIndex.popover}
+      portalClassName="distro-select-options"
+      value={selectedDistro}
+    >
+      {nonAdminOnly.map(({ name }) => (
+        <ComboboxOption key={name} value={name}>
+          {name}
+        </ComboboxOption>
+      ))}
+      {adminOnly.length > 0 && (
+        <ComboboxGroup label="Admin-Only">
+          {adminOnly.map(({ name }) => (
+            <ComboboxOption key={name} value={name}>
+              {name}
+            </ComboboxOption>
+          ))}
+        </ComboboxGroup>
+      )}
+    </Combobox>
   );
 };
+
+// Returns an array of [adminOnlyDistros, nonAdminOnlyDistros]
+const filterAdminOnlyDistros = (distros: DistrosQuery["distros"]) =>
+  distros.reduce(
+    (accum, distro) => {
+      const [adminOnly, nonAdminOnly] = accum;
+      (distro.adminOnly ? adminOnly : nonAdminOnly).push(distro);
+      return accum;
+    },
+    [[], []],
+  );
