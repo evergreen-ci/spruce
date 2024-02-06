@@ -408,7 +408,7 @@ export const getFormSchema = ({
                       volumeSize: {
                         title: "Volume size (GB)",
                         type: "number" as "number",
-                        default: 500,
+                        default: 256,
                       },
                     },
                   },
