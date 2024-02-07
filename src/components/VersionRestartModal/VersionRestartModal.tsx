@@ -191,10 +191,12 @@ const selectTasksTotal = (selectedTasks: versionSelectedTasks) =>
   );
 
 const getTaskIds = (selectedTasks: versionSelectedTasks) =>
-  Object.entries(selectedTasks).map(([versionId, tasks]) => ({
-    versionId,
-    taskIds: selectedArray(tasks),
-  }));
+  Object.entries(selectedTasks)
+    .map(([versionId, tasks]) => ({
+      versionId,
+      taskIds: selectedArray(tasks),
+    }))
+    .filter(({ taskIds }) => taskIds.length > 0);
 
 const ConfirmationMessage = styled(Body)<BodyProps>`
   padding: ${size.s} 0;
