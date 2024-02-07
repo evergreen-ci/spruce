@@ -15,6 +15,7 @@ import { DistroDropdown } from "./Widgets/DistroDropdown";
 
 interface Props {
   distros: {
+    adminOnly: boolean;
     isVirtualWorkStation: boolean;
     name?: string;
   }[];
@@ -87,6 +88,7 @@ export const getFormSchema = ({
               title: d.name,
               enum: [d.name],
               isVirtualWorkstation: d.isVirtualWorkStation,
+              adminOnly: d.adminOnly,
             })) || []),
           ],
         },

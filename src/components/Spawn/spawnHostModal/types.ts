@@ -1,7 +1,8 @@
 export type FormState = {
   distro?: {
-    value: string;
+    adminOnly: boolean;
     isVirtualWorkstation: boolean;
+    value: string;
   };
   region?: string;
   publicKeySection?: {

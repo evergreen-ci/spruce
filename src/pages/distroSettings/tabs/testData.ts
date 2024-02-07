@@ -1,7 +1,6 @@
 import {
   Arch,
   BootstrapMethod,
-  CloneMethod,
   CommunicationMethod,
   DispatcherVersion,
   DistroQuery,
@@ -16,6 +15,7 @@ import {
 
 const distroData: DistroQuery["distro"] = {
   __typename: "Distro",
+  adminOnly: false,
   aliases: ["rhel71-power8", "rhel71-power8-build"],
   arch: Arch.Linux_64Bit,
   authorizedKeysFile: "",
@@ -43,7 +43,6 @@ const distroData: DistroQuery["distro"] = {
     serviceUser: "",
     shellPath: "/bin/bash",
   },
-  cloneMethod: CloneMethod.LegacySsh,
   containerPool: "",
   disabled: false,
   disableShallowClone: true,
