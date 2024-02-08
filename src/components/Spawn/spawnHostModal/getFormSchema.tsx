@@ -12,6 +12,7 @@ import { shortenGithash } from "utils/string";
 import { getDefaultExpiration } from "../utils";
 import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
+import {DEFAULT_VOLUME_SIZE} from "./constants";
 
 interface Props {
   distros: {
@@ -408,7 +409,7 @@ export const getFormSchema = ({
                       volumeSize: {
                         title: "Volume size (GB)",
                         type: "number" as "number",
-                        default: 256,
+                        default: DEFAULT_VOLUME_SIZE,
                       },
                     },
                   },
