@@ -213,7 +213,7 @@
     "typescript": "5.0.3",
     "vite": "4.5.2",
     "vite-plugin-checker": "0.6.2",
-    "vite-plugin-env-compatible": "1.1.1",
+    "vite-plugin-env-compatible": "2.0.1",
     "vite-plugin-imp": "2.4.0",
     "vite-tsconfig-paths": "4.2.0"
   },
