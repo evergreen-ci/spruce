@@ -578,7 +578,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                     >
                       <input
                         aria-checked="false"
-                        aria-describedby="lg-1"
+                        aria-describedby="lg-193"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                         id="radio-group--0"
@@ -605,7 +605,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                     >
                       <input
                         aria-checked="false"
-                        aria-describedby="lg-2"
+                        aria-describedby="lg-194"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                         id="radio-group--1"

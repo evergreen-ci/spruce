@@ -20,8 +20,8 @@ exports[`Snapshot Tests TupleSelect.stories Default 1`] = `
         class="leafygreen-ui-1iyoj2o css-1scwv0u-GroupedSelect e5gn9hl1"
       >
         <button
-          aria-controls="select-195-menu"
-          aria-describedby="select-195-description"
+          aria-controls="select-197-menu"
+          aria-describedby="select-197-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -29,7 +29,7 @@ exports[`Snapshot Tests TupleSelect.stories Default 1`] = `
           class="lg-ui-button-0000 leafygreen-ui-c8np5"
           data-cy="tuple-select-dropdown"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-196"
+          id="select-198"
           type="button"
           value="build_variant"
         >
