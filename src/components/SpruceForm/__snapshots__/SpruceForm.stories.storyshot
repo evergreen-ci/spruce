@@ -38,22 +38,22 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                   >
                     <label
                       class="leafygreen-ui-nf64md"
-                      for="select-191"
-                      id="select-190-label"
+                      for="select-227"
+                      id="select-226-label"
                     >
                       Project Cloning Method
                     </label>
                   </div>
                   <button
-                    aria-controls="select-190-menu"
-                    aria-describedby="select-190-description"
+                    aria-controls="select-226-menu"
+                    aria-describedby="select-226-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
-                    aria-labelledby="select-190-label"
+                    aria-labelledby="select-226-label"
                     class="lg-ui-button-0000 leafygreen-ui-c8np5"
                     data-testid="leafygreen-ui-select-menubutton"
-                    id="select-191"
+                    id="select-227"
                     type="button"
                     value="legacy-ssh"
                   >
@@ -160,35 +160,46 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                           class="css-cjejq9-ElementWrapper ee4bs9n0"
                         >
                           <div
-                            class="css-1kbcljo-StyledTextInput eevpusu6 leafygreen-ui-xtefr5"
+                            class="leafygreen-ui-1br9h7w css-1kbcljo-StyledTextInput eevpusu6"
                           >
                             <div
-                              class="leafygreen-ui-a533bt"
+                              class="leafygreen-ui-e3fvh5"
                             >
                               <label
-                                class="leafygreen-ui-gr5280"
-                                for="textinput-4"
+                                class="leafygreen-ui-1qjbbjd"
+                                for="lg-form-field-input-231"
+                                id="lg-form-field-label-228"
                               >
                                 key
                               </label>
                             </div>
                             <div
-                              class="leafygreen-ui-lzja97"
+                              aria-disabled="false"
+                              class="leafygreen-ui-mrtshz"
                             >
-                              <input
-                                aria-invalid="false"
-                                aria-label="key"
-                                autocomplete="on"
-                                class="leafygreen-ui-6i61vl"
-                                id="textinput-4"
-                                required=""
-                                type="text"
-                                value="Sample Input"
-                              />
                               <div
-                                class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                                class="leafygreen-ui-1ago99h"
+                              >
+                                <input
+                                  aria-describedby=""
+                                  aria-invalid="false"
+                                  aria-label=""
+                                  aria-labelledby="lg-form-field-label-228"
+                                  autocomplete="on"
+                                  class="lg-ui-form-field-input-0000 leafygreen-ui-vrj1me"
+                                  id="lg-form-field-input-231"
+                                  required=""
+                                  type="text"
+                                  value="Sample Input"
+                                />
+                              </div>
+                              <div
+                                class="leafygreen-ui-iwiovi"
                               />
                             </div>
+                            <div
+                              class="leafygreen-ui-jsxxy6"
+                            />
                           </div>
                         </div>
                       </div>
@@ -200,35 +211,46 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                           class="css-cjejq9-ElementWrapper ee4bs9n0"
                         >
                           <div
-                            class="css-1kbcljo-StyledTextInput eevpusu6 leafygreen-ui-xtefr5"
+                            class="leafygreen-ui-1br9h7w css-1kbcljo-StyledTextInput eevpusu6"
                           >
                             <div
-                              class="leafygreen-ui-a533bt"
+                              class="leafygreen-ui-e3fvh5"
                             >
                               <label
-                                class="leafygreen-ui-gr5280"
-                                for="textinput-5"
+                                class="leafygreen-ui-1qjbbjd"
+                                for="lg-form-field-input-235"
+                                id="lg-form-field-label-232"
                               >
                                 value
                               </label>
                             </div>
                             <div
-                              class="leafygreen-ui-lzja97"
+                              aria-disabled="false"
+                              class="leafygreen-ui-mrtshz"
                             >
-                              <input
-                                aria-invalid="false"
-                                aria-label="value"
-                                autocomplete="on"
-                                class="leafygreen-ui-6i61vl"
-                                id="textinput-5"
-                                required=""
-                                type="text"
-                                value="Sample Input"
-                              />
                               <div
-                                class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                                class="leafygreen-ui-1ago99h"
+                              >
+                                <input
+                                  aria-describedby=""
+                                  aria-invalid="false"
+                                  aria-label=""
+                                  aria-labelledby="lg-form-field-label-232"
+                                  autocomplete="on"
+                                  class="lg-ui-form-field-input-0000 leafygreen-ui-vrj1me"
+                                  id="lg-form-field-input-235"
+                                  required=""
+                                  type="text"
+                                  value="Sample Input"
+                                />
+                              </div>
+                              <div
+                                class="leafygreen-ui-iwiovi"
                               />
                             </div>
+                            <div
+                              class="leafygreen-ui-jsxxy6"
+                            />
                           </div>
                         </div>
                       </div>
@@ -284,13 +306,13 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                 >
                   <label
                     class="leafygreen-ui-1fi5x3a"
-                    for="textarea-192"
+                    for="textarea-236"
                   >
                     Valid Projects
                   </label>
                   <textarea
                     class="leafygreen-ui-18em0fn"
-                    id="textarea-192"
+                    id="textarea-236"
                     rows="5"
                     title="Valid Projects"
                   />
@@ -578,7 +600,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                     >
                       <input
                         aria-checked="false"
-                        aria-describedby="lg-193"
+                        aria-describedby="lg-237"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                         id="radio-group--0"
@@ -605,7 +627,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                     >
                       <input
                         aria-checked="false"
-                        aria-describedby="lg-194"
+                        aria-describedby="lg-238"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                         id="radio-group--1"
