@@ -27,10 +27,10 @@ import {
 const { applyStrictRegex } = string;
 const { isFinishedTaskStatus } = statuses;
 
-interface PreviousCommitsProps {
+interface RelevantCommitsProps {
   taskId: string;
 }
-export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
+export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ taskId }) => {
   const { sendEvent } = useTaskAnalytics();
   const dispatchToast = useToastContext();
 
@@ -160,17 +160,17 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
           rightGlyph={<Icon glyph="CaretDown" />}
           size={Size.Small}
         >
-          Previous commits
+          Relevant commits
         </Button>
       }
     >
-      No previous versions available.
+      No relevant versions available.
     </Tooltip>
   ) : (
     <Menu
       trigger={
         <Button rightGlyph={<Icon glyph="CaretDown" />} size={Size.Small}>
-          Previous commits
+          Relevant commits
         </Button>
       }
     >

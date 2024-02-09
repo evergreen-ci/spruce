@@ -9,9 +9,9 @@ import {
 import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
 import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
-import { PreviousCommits } from ".";
+import { RelevantCommits } from ".";
 
-describe("previous commits", () => {
+describe("relevant commits", () => {
   // Patch and mainline commit behavior only have a significant difference when it comes to determining
   // the base or previous task. Patch gets the base task directly from BASE_VERSION_AND_TASK, while
   // mainline commits needs to run another query LAST_MAINLINE_COMMIT to get previous task.
@@ -19,13 +19,13 @@ describe("previous commits", () => {
     it("the button is disabled when there is no base task", async () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[getPatchTaskWithNoBaseTask]}>
-          <PreviousCommits taskId="t1" />
+          <RelevantCommits taskId="t1" />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
       await waitFor(() => {
         expect(
-          screen.getByRole("button", { name: "Previous commits" }),
+          screen.getByRole("button", { name: "Relevant commits" }),
         ).toHaveAttribute("aria-disabled", "true");
       });
     });
@@ -37,14 +37,14 @@ describe("previous commits", () => {
         <MockedProvider
           mocks={[getMainlineTaskWithBaseVersion, getNullParentTask]}
         >
-          <PreviousCommits taskId="t4" />
+          <RelevantCommits taskId="t4" />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
       await waitFor(() => {
         expect(
-          screen.getByRole("button", { name: "Previous commits" }),
+          screen.getByRole("button", { name: "Relevant commits" }),
         ).toHaveAttribute("aria-disabled", "true");
       });
     });
@@ -54,14 +54,14 @@ describe("previous commits", () => {
         <MockedProvider
           mocks={[getMainlineTaskWithBaseVersion, getParentTaskWithError]}
         >
-          <PreviousCommits taskId="t4" />
+          <RelevantCommits taskId="t4" />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
       await waitFor(() => {
         expect(
-          screen.getByRole("button", { name: "Previous commits" }),
+          screen.getByRole("button", { name: "Relevant commits" }),
         ).toHaveAttribute("aria-disabled", "true");
       });
     });
@@ -70,14 +70,14 @@ describe("previous commits", () => {
   it("the button is disabled when no base version exists", async () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getPatchTaskWithNoBaseVersion]}>
-        <PreviousCommits taskId="t3" />
+        <RelevantCommits taskId="t3" />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
 
     await waitFor(() => {
       expect(
-        screen.getByRole("button", { name: "Previous commits" }),
+        screen.getByRole("button", { name: "Relevant commits" }),
       ).toHaveAttribute("aria-disabled", "true");
     });
   });
@@ -92,16 +92,16 @@ describe("previous commits", () => {
           getLastExecutedVersion,
         ]}
       >
-        <PreviousCommits taskId="t1" />
+        <RelevantCommits taskId="t1" />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
 
-    await screen.findByRole("button", { name: "Previous commits" });
+    await screen.findByRole("button", { name: "Relevant commits" });
     expect(
-      screen.getByRole("button", { name: "Previous commits" }),
+      screen.getByRole("button", { name: "Relevant commits" }),
     ).toHaveAttribute("aria-disabled", "false");
-    await user.click(screen.getByRole("button", { name: "Previous commits" }));
+    await user.click(screen.getByRole("button", { name: "Relevant commits" }));
     await waitFor(() => {
       expect(screen.getByRole("menu")).toBeVisible();
     });
@@ -123,16 +123,16 @@ describe("previous commits", () => {
       <MockedProvider
         mocks={[getPatchTaskWithFailingBaseTask, getLastPassingVersion]}
       >
-        <PreviousCommits taskId="t1" />
+        <RelevantCommits taskId="t1" />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
 
-    await screen.findByRole("button", { name: "Previous commits" });
+    await screen.findByRole("button", { name: "Relevant commits" });
     expect(
-      screen.getByRole("button", { name: "Previous commits" }),
+      screen.getByRole("button", { name: "Relevant commits" }),
     ).toHaveAttribute("aria-disabled", "false");
-    await user.click(screen.getByRole("button", { name: "Previous commits" }));
+    await user.click(screen.getByRole("button", { name: "Relevant commits" }));
     await waitFor(() => {
       expect(screen.getByRole("menu")).toBeVisible();
     });
@@ -158,16 +158,16 @@ describe("previous commits", () => {
           getLastExecutedVersion,
         ]}
       >
-        <PreviousCommits taskId="t3" />
+        <RelevantCommits taskId="t3" />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
 
-    await screen.findByRole("button", { name: "Previous commits" });
+    await screen.findByRole("button", { name: "Relevant commits" });
     expect(
-      screen.getByRole("button", { name: "Previous commits" }),
+      screen.getByRole("button", { name: "Relevant commits" }),
     ).toHaveAttribute("aria-disabled", "false");
-    await user.click(screen.getByRole("button", { name: "Previous commits" }));
+    await user.click(screen.getByRole("button", { name: "Relevant commits" }));
     await waitFor(() => {
       expect(screen.getByRole("menu")).toBeVisible();
     });

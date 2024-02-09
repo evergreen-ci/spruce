@@ -10,7 +10,7 @@ import {
 } from "gql/generated/types";
 import { TASK } from "gql/queries";
 import { useQueryParam } from "hooks/useQueryParam";
-import { CommitType } from "pages/task/actionButtons/previousCommits/types";
+import { CommitType } from "pages/task/actionButtons/relevantCommits/types";
 import { RequiredQueryParams, LogTypes } from "types/task";
 
 type LogViewer = "raw" | "html" | "parsley";
