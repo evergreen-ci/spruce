@@ -18,7 +18,11 @@ import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
 import { TaskStatus } from "types/task";
 import { statuses, string } from "utils";
 import { CommitType } from "./types";
-import { getLinks, getTaskFromMainlineCommitsQuery } from "./utils";
+import {
+  getLinks,
+  getOrderFromMainlineCommitsQuery,
+  getTaskFromMainlineCommitsQuery,
+} from "./utils";
 
 const { applyStrictRegex } = string;
 const { isFinishedTaskStatus } = statuses;
@@ -42,6 +46,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     buildVariant,
     displayName,
     projectIdentifier,
+    status: baseStatus,
     versionMetadata,
   } = taskData?.task ?? {};
   const { order: skipOrderNumber } = versionMetadata?.baseVersion ?? {};
@@ -85,6 +90,31 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     },
   });
   const lastPassingTask = getTaskFromMainlineCommitsQuery(lastPassingTaskData);
+  const passingOrderNumber =
+    getOrderFromMainlineCommitsQuery(lastPassingTaskData);
+
+  const { data: breakingTaskData, loading: breakingLoading } = useQuery<
+    LastMainlineCommitQuery,
+    LastMainlineCommitQueryVariables
+  >(LAST_MAINLINE_COMMIT, {
+    skip:
+      !parentTask ||
+      !lastPassingTask ||
+      baseStatus === undefined ||
+      baseStatus === TaskStatus.Succeeded,
+    variables: {
+      projectIdentifier,
+      skipOrderNumber: passingOrderNumber + 2,
+      buildVariantOptions: {
+        ...bvOptionsBase,
+        statuses: [TaskStatus.Failed],
+      },
+    },
+    onError: (err) => {
+      dispatchToast.error(`Breaking commit unavailable: '${err.message}'`);
+    },
+  });
+  const breakingTask = getTaskFromMainlineCommitsQuery(breakingTaskData);
 
   const { data: lastExecutedTaskData, loading: executedLoading } = useQuery<
     LastMainlineCommitQuery,
@@ -112,10 +142,11 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     () =>
       getLinks({
         parentTask,
+        breakingTask,
         lastPassingTask,
         lastExecutedTask,
       }),
-    [parentTask, lastPassingTask, lastExecutedTask],
+    [parentTask, breakingTask, lastPassingTask, lastExecutedTask],
   );
 
   const menuDisabled = !baseTask || !parentTask;
@@ -155,6 +186,19 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
         to={linkObject[CommitType.Base]}
       >
         Go to {versionMetadata?.isPatch ? "base" : "previous"} commit
+      </MenuItem>
+      <MenuItem
+        as={Link}
+        disabled={breakingLoading || breakingTask === undefined}
+        onClick={() =>
+          sendEvent({
+            name: "Submit Previous Commit Selector",
+            type: CommitType.Breaking,
+          })
+        }
+        to={linkObject[CommitType.Breaking]}
+      >
+        Go to breaking commit
       </MenuItem>
       <MenuItem
         as={Link}

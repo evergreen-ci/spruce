@@ -7,10 +7,12 @@ import { CommitTask, CommitType } from "./types";
 const nullLink = "#";
 
 export const getLinks = ({
+  breakingTask,
   lastExecutedTask,
   lastPassingTask,
   parentTask,
 }: {
+  breakingTask: CommitTask;
   lastExecutedTask: CommitTask;
   lastPassingTask: CommitTask;
   parentTask: CommitTask;
@@ -18,6 +20,7 @@ export const getLinks = ({
   if (!parentTask) {
     return {
       [CommitType.Base]: nullLink,
+      [CommitType.Breaking]: nullLink,
       [CommitType.LastPassing]: nullLink,
       [CommitType.LastExecuted]: nullLink,
     };
@@ -25,6 +28,9 @@ export const getLinks = ({
 
   return {
     [CommitType.Base]: getTaskRoute(parentTask.id),
+    [CommitType.Breaking]: breakingTask
+      ? getTaskRoute(breakingTask.id)
+      : nullLink,
     [CommitType.LastPassing]: getTaskRoute(
       lastPassingTask?.id || parentTask.id,
     ),
@@ -54,3 +60,9 @@ export const getTaskFromMainlineCommitsQuery = (
   }
   return buildVariants[0]?.tasks[0];
 };
+
+export const getOrderFromMainlineCommitsQuery = (
+  data: LastMainlineCommitQuery,
+): number =>
+  data?.mainlineCommits.versions.find(({ version }) => version)?.version
+    .order ?? -1;
