@@ -10,6 +10,7 @@ query BaseVersionAndTask($taskId: String!) {
     execution
     id
     projectIdentifier
+    status
     versionMetadata {
       baseVersion {
         id

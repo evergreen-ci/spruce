@@ -5406,6 +5406,7 @@ export type BaseVersionAndTaskQuery = {
     execution: number;
     id: string;
     projectIdentifier?: string | null;
+    status: string;
     baseTask?: {
       __typename?: "Task";
       execution: number;
@@ -6164,6 +6165,7 @@ export type LastMainlineCommitQuery = {
       version?: {
         __typename?: "Version";
         id: string;
+        order: number;
         buildVariants?: Array<{
           __typename?: "GroupedBuildVariant";
           tasks?: Array<{

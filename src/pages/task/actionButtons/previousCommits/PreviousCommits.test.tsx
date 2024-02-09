@@ -206,6 +206,7 @@ const getPatchTaskWithSuccessfulBaseTask: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
+        status: "success",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
@@ -246,6 +247,7 @@ const getPatchTaskWithRunningBaseTask: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
+        status: "started",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
@@ -286,6 +288,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
+        status: "success",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
@@ -326,6 +329,7 @@ const getPatchTaskWithNoBaseVersion: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
+        status: "success",
         versionMetadata: {
           baseVersion: null,
           id: "versionMetadataId",
@@ -362,6 +366,7 @@ const getLastPassingVersion: ApolloMock<
           {
             version: {
               id: "evergreen_44110b57c6977bf3557009193628c9389772163f",
+              order: 3676,
               buildVariants: [
                 {
                   tasks: [
@@ -419,6 +424,7 @@ const getLastExecutedVersion: ApolloMock<
           {
             version: {
               id: "evergreen_44110b57c6977bf3557009193628c9389772163f",
+              order: 3676,
               buildVariants: [
                 {
                   tasks: [
@@ -462,6 +468,7 @@ const getPatchTaskWithNoBaseTask: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
+        status: "success",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
@@ -498,6 +505,7 @@ const getMainlineTaskWithBaseVersion: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
+        status: "success",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
