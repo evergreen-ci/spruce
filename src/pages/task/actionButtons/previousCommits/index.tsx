@@ -202,7 +202,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
       </MenuItem>
       <MenuItem
         as={Link}
-        disabled={passingLoading}
+        disabled={passingLoading || lastPassingTask === undefined}
         onClick={() =>
           sendEvent({
             name: "Submit Previous Commit Selector",
