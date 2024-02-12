@@ -54,66 +54,90 @@ exports[`Snapshot Tests FilterBadges.stories Default 1`] = `
     </div>
     <div>
       <div
-        class="leafygreen-ui-xtefr5"
+        class="leafygreen-ui-1br9h7w"
       >
         <div
-          class="leafygreen-ui-a533bt"
+          class="leafygreen-ui-e3fvh5"
         >
           <label
-            class="leafygreen-ui-gr5280"
-            for="textinput-1"
+            class="leafygreen-ui-1qjbbjd"
+            for="lg-form-field-input-31"
+            id="lg-form-field-label-28"
           >
             key
           </label>
         </div>
         <div
-          class="leafygreen-ui-lzja97"
+          aria-disabled="false"
+          class="leafygreen-ui-mrtshz"
         >
-          <input
-            aria-invalid="false"
-            autocomplete="on"
-            class="leafygreen-ui-6i61vl"
-            id="textinput-1"
-            placeholder="key"
-            required=""
-            type="text"
-            value=""
-          />
           <div
-            class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+            class="leafygreen-ui-1ago99h"
+          >
+            <input
+              aria-describedby=""
+              aria-invalid="false"
+              aria-label=""
+              aria-labelledby="lg-form-field-label-28"
+              autocomplete="on"
+              class="lg-ui-form-field-input-0000 leafygreen-ui-vrj1me"
+              id="lg-form-field-input-31"
+              placeholder="key"
+              required=""
+              type="text"
+              value=""
+            />
+          </div>
+          <div
+            class="leafygreen-ui-iwiovi"
           />
         </div>
+        <div
+          class="leafygreen-ui-jsxxy6"
+        />
       </div>
       <div
-        class="leafygreen-ui-xtefr5"
+        class="leafygreen-ui-1br9h7w"
       >
         <div
-          class="leafygreen-ui-a533bt"
+          class="leafygreen-ui-e3fvh5"
         >
           <label
-            class="leafygreen-ui-gr5280"
-            for="textinput-2"
+            class="leafygreen-ui-1qjbbjd"
+            for="lg-form-field-input-35"
+            id="lg-form-field-label-32"
           >
             value
           </label>
         </div>
         <div
-          class="leafygreen-ui-lzja97"
+          aria-disabled="false"
+          class="leafygreen-ui-mrtshz"
         >
-          <input
-            aria-invalid="false"
-            autocomplete="on"
-            class="leafygreen-ui-6i61vl"
-            id="textinput-2"
-            placeholder="value"
-            required=""
-            type="text"
-            value=""
-          />
           <div
-            class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+            class="leafygreen-ui-1ago99h"
+          >
+            <input
+              aria-describedby=""
+              aria-invalid="false"
+              aria-label=""
+              aria-labelledby="lg-form-field-label-32"
+              autocomplete="on"
+              class="lg-ui-form-field-input-0000 leafygreen-ui-vrj1me"
+              id="lg-form-field-input-35"
+              placeholder="value"
+              required=""
+              type="text"
+              value=""
+            />
+          </div>
+          <div
+            class="leafygreen-ui-iwiovi"
           />
         </div>
+        <div
+          class="leafygreen-ui-jsxxy6"
+        />
       </div>
       <button
         aria-disabled="false"

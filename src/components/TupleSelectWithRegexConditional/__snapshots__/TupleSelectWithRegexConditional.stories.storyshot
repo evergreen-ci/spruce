@@ -17,8 +17,8 @@ exports[`Snapshot Tests Components/TupleSelect WithConditional 1`] = `
           class="leafygreen-ui-ozfao7 css-1qa4isu-PaddedSegmentedControl egmqwjk0"
         >
           <div
-            aria-label="segmented-control-199"
-            aria-owns="segmented-control-199-0 segmented-control-199-1"
+            aria-label="segmented-control-255"
+            aria-owns="segmented-control-255-0 segmented-control-255-1"
             class="leafygreen-ui-18en4yf"
             role="tablist"
           >
@@ -35,7 +35,7 @@ exports[`Snapshot Tests Components/TupleSelect WithConditional 1`] = `
                   aria-controls="tuple-select-with-regex"
                   aria-selected="true"
                   class="leafygreen-ui-ypz97o"
-                  id="segmented-control-199-0"
+                  id="segmented-control-255-0"
                   role="tab"
                   tabindex="0"
                   type="button"
@@ -65,7 +65,7 @@ exports[`Snapshot Tests Components/TupleSelect WithConditional 1`] = `
                   aria-controls="tuple-select-with-regex"
                   aria-selected="false"
                   class="leafygreen-ui-ypz97o"
-                  id="segmented-control-199-1"
+                  id="segmented-control-255-1"
                   role="tab"
                   tabindex="-1"
                   type="button"
@@ -99,8 +99,8 @@ exports[`Snapshot Tests Components/TupleSelect WithConditional 1`] = `
         class="leafygreen-ui-1iyoj2o css-1scwv0u-GroupedSelect e5gn9hl1"
       >
         <button
-          aria-controls="select-200-menu"
-          aria-describedby="select-200-description"
+          aria-controls="select-256-menu"
+          aria-describedby="select-256-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -108,7 +108,7 @@ exports[`Snapshot Tests Components/TupleSelect WithConditional 1`] = `
           class="lg-ui-button-0000 leafygreen-ui-c8np5"
           data-cy="tuple-select-dropdown"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-201"
+          id="select-257"
           type="button"
           value="build_variant"
         >
@@ -148,27 +148,38 @@ exports[`Snapshot Tests Components/TupleSelect WithConditional 1`] = `
         class="e5gn9hl0 css-47706i-TextInputWrapper-GroupedTextInput e13gwrw81"
       >
         <div
-          class="leafygreen-ui-xtefr5"
+          class="leafygreen-ui-1br9h7w"
         >
           <div
-            class="leafygreen-ui-lzja97"
+            class="leafygreen-ui-e3fvh5"
+          />
+          <div
+            aria-disabled="false"
+            class="leafygreen-ui-mrtshz"
           >
-            <input
-              aria-invalid="false"
-              aria-label="Build Variant"
-              autocomplete="on"
-              class="leafygreen-ui-6i61vl"
-              data-cy="tuple-select-input"
-              id="filter-input"
-              placeholder="Search Build Variant names"
-              required=""
-              type="search"
-              value=""
-            />
             <div
-              class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+              class="leafygreen-ui-1ago99h"
+            >
+              <input
+                aria-describedby=""
+                aria-invalid="false"
+                autocomplete="on"
+                class="lg-ui-form-field-input-0000 leafygreen-ui-vrj1me"
+                data-cy="tuple-select-input"
+                id="filter-input"
+                placeholder="Search Build Variant names"
+                required=""
+                type="search"
+                value=""
+              />
+            </div>
+            <div
+              class="leafygreen-ui-iwiovi"
             />
           </div>
+          <div
+            class="leafygreen-ui-jsxxy6"
+          />
         </div>
         <div
           class="css-4bamt4-IconWrapper e13gwrw80"

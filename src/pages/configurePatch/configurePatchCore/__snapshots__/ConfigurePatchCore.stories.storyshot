@@ -6,35 +6,47 @@ exports[`Snapshot Tests pages/configurePatch/configurePatchCore ConfigureTasksDe
     class="css-d31jx9-FlexRow ek3m3u40"
   >
     <div
-      class="css-pjeyga-StyledInput ek3m3u42 leafygreen-ui-xtefr5"
+      class="leafygreen-ui-1br9h7w css-pjeyga-StyledInput ek3m3u42"
     >
       <div
-        class="leafygreen-ui-a533bt"
+        class="leafygreen-ui-e3fvh5"
       >
         <label
-          class="leafygreen-ui-gr5280"
-          for="textinput-8"
+          class="leafygreen-ui-1qjbbjd"
+          for="lg-form-field-input-306"
+          id="lg-form-field-label-303"
         >
           Patch Name
         </label>
       </div>
       <div
-        class="leafygreen-ui-lzja97"
+        aria-disabled="false"
+        class="leafygreen-ui-mrtshz"
       >
-        <input
-          aria-invalid="false"
-          autocomplete="on"
-          class="leafygreen-ui-6i61vl"
-          data-cy="patch-name-input"
-          id="textinput-8"
-          required=""
-          type="text"
-          value="test"
-        />
         <div
-          class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+          class="leafygreen-ui-1ago99h"
+        >
+          <input
+            aria-describedby=""
+            aria-invalid="false"
+            aria-label=""
+            aria-labelledby="lg-form-field-label-303"
+            autocomplete="on"
+            class="lg-ui-form-field-input-0000 leafygreen-ui-vrj1me"
+            data-cy="patch-name-input"
+            id="lg-form-field-input-306"
+            required=""
+            type="text"
+            value="test"
+          />
+        </div>
+        <div
+          class="leafygreen-ui-iwiovi"
         />
       </div>
+      <div
+        class="leafygreen-ui-jsxxy6"
+      />
     </div>
     <div
       class="css-8i32g1-ButtonWrapper ek3m3u41"
@@ -305,27 +317,38 @@ exports[`Snapshot Tests pages/configurePatch/configurePatchCore ConfigureTasksDe
                     class="eoqkpw13 css-1pn85ix-TextInputWrapper-StyledTextInput e13gwrw81"
                   >
                     <div
-                      class="leafygreen-ui-xtefr5"
+                      class="leafygreen-ui-1br9h7w"
                     >
                       <div
-                        class="leafygreen-ui-lzja97"
+                        class="leafygreen-ui-e3fvh5"
+                      />
+                      <div
+                        aria-disabled="false"
+                        class="leafygreen-ui-mrtshz"
                       >
-                        <input
-                          aria-invalid="false"
-                          aria-labelledby="search-tasks"
-                          autocomplete="on"
-                          class="leafygreen-ui-6i61vl"
-                          data-cy="task-filter-input"
-                          id="textinput-10"
-                          placeholder="Search tasks regex"
-                          required=""
-                          type="text"
-                          value=""
-                        />
                         <div
-                          class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                          class="leafygreen-ui-1ago99h"
+                        >
+                          <input
+                            aria-describedby=""
+                            aria-invalid="false"
+                            autocomplete="on"
+                            class="lg-ui-form-field-input-0000 leafygreen-ui-vrj1me"
+                            data-cy="task-filter-input"
+                            id="lg-form-field-input-314"
+                            placeholder="Search tasks regex"
+                            required=""
+                            type="text"
+                            value=""
+                          />
+                        </div>
+                        <div
+                          class="leafygreen-ui-iwiovi"
                         />
                       </div>
+                      <div
+                        class="leafygreen-ui-jsxxy6"
+                      />
                     </div>
                     <div
                       class="css-4bamt4-IconWrapper e13gwrw80"

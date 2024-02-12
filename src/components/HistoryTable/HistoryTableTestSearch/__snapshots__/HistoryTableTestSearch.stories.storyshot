@@ -12,36 +12,47 @@ exports[`Snapshot Tests Components/HistoryTable/HistoryTableTestSearch Default 1
         class="css-mk4qpy-TextInputWrapper e13gwrw81"
       >
         <div
-          class="leafygreen-ui-xtefr5"
+          class="leafygreen-ui-1br9h7w"
         >
           <div
-            class="leafygreen-ui-a533bt"
+            class="leafygreen-ui-e3fvh5"
           >
             <label
-              class="leafygreen-ui-gr5280"
-              for="textinput-3"
+              class="leafygreen-ui-1qjbbjd"
+              for="lg-form-field-input-65"
+              id="lg-form-field-label-62"
             >
               Filter by Failed Tests
             </label>
           </div>
           <div
-            class="leafygreen-ui-lzja97"
+            aria-disabled="false"
+            class="leafygreen-ui-mrtshz"
           >
-            <input
-              aria-invalid="false"
-              aria-label="history-table-test-search-input"
-              autocomplete="on"
-              class="leafygreen-ui-6i61vl"
-              id="textinput-3"
-              placeholder="Search test name regex"
-              required=""
-              type="search"
-              value=""
-            />
             <div
-              class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+              class="leafygreen-ui-1ago99h"
+            >
+              <input
+                aria-describedby=""
+                aria-invalid="false"
+                aria-label=""
+                aria-labelledby="lg-form-field-label-62"
+                autocomplete="on"
+                class="lg-ui-form-field-input-0000 leafygreen-ui-vrj1me"
+                id="lg-form-field-input-65"
+                placeholder="Search test name regex"
+                required=""
+                type="search"
+                value=""
+              />
+            </div>
+            <div
+              class="leafygreen-ui-iwiovi"
             />
           </div>
+          <div
+            class="leafygreen-ui-jsxxy6"
+          />
         </div>
         <div
           class="css-4bamt4-IconWrapper e13gwrw80"
