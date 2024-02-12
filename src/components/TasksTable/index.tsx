@@ -1,6 +1,8 @@
+import Tooltip from "@leafygreen-ui/tooltip";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { SortOrder as antSortOrder } from "antd/lib/table/interface";
+import pluralize from "pluralize";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { StyledRouterLink } from "components/styles";
 import {
@@ -18,7 +20,7 @@ import {
   SortOrder,
   TaskSortCategory,
 } from "gql/generated/types";
-import { TableOnChange } from "types/task";
+import { TableOnChange, TaskStatus } from "types/task";
 import { sortTasks } from "utils/statuses";
 import { TaskLink } from "./TaskLink";
 
@@ -27,6 +29,7 @@ type TaskTableInfo = {
     status: string;
   };
   buildVariantDisplayName?: string;
+  dependsOn?: Array<{ name: string }>;
   displayName: string;
   executionTasksFull?: TaskTableInfo[];
   id: string;
@@ -172,9 +175,23 @@ const getColumnDefs = ({
       multiple: 4,
     },
     className: "cy-task-table-col-STATUS",
-    render: (status: string, { execution, id }) =>
-      status && (
-        <TaskStatusBadge status={status} id={id} execution={execution} />
+    render: (status: string, { dependsOn, execution, id }) =>
+      dependsOn?.length && status === TaskStatus.Blocked ? (
+        <Tooltip
+          justify="middle"
+          trigger={
+            <span>
+              <TaskStatusBadge status={status} id={id} execution={execution} />
+            </span>
+          }
+        >
+          Depends on <>{pluralize("task", dependsOn.length)}</>:{" "}
+          {dependsOn.map(({ name }) => `“${name}”`).join(", ")}
+        </Tooltip>
+      ) : (
+        status && (
+          <TaskStatusBadge status={status} id={id} execution={execution} />
+        )
       ),
     ...(statusSelectorProps && {
       ...getColumnTreeSelectFilterProps({
