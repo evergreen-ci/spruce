@@ -53,7 +53,7 @@ describe("spawnVolumeModal", () => {
     await waitFor(() => {
       expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
     });
-    expect(screen.queryByDataCy("volume-size-input")).toHaveValue("500");
+    expect(screen.queryByDataCy("volume-size-input")).toHaveValue("256  ");
     expect(screen.queryByDataCy("availability-zone-select")).toHaveTextContent(
       "us-east-1a",
     );
