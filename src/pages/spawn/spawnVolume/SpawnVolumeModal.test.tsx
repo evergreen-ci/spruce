@@ -77,7 +77,7 @@ describe("spawnVolumeModal", () => {
         variables: {
           spawnVolumeInput: {
             availabilityZone: "us-east-1a",
-            size: 500,
+            size: 256,
             type: "gp2",
             expiration: null,
             noExpiration: true,
