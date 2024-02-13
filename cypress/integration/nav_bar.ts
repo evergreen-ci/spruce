@@ -109,19 +109,8 @@ describe("Nav Bar", () => {
 
   describe("Admin settings", () => {
     it("Should not show Admin button to non-admins", () => {
-      const userData = {
-        data: {
-          user: {
-            userId: "admin",
-            displayName: "Evergreen Admin",
-            emailAddress: "admin@evergreen.com",
-            permissions: {
-              canEditAdminSettings: false,
-            },
-          },
-        },
-      };
-      cy.overwriteGQL("User", userData);
+      cy.logout();
+      cy.login({ isAdmin: false });
       cy.visit(SPRUCE_URLS.version);
       cy.dataCy("user-dropdown-link").click();
       cy.dataCy("admin-link").should("not.exist");

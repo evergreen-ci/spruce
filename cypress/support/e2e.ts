@@ -89,7 +89,7 @@ declare global {
        * Custom command to navigate to login page and login.
        * @example cy.login()
        */
-      login(): void;
+      login({ isAdmin }: { isAdmin: boolean }): void;
       /**
        * Custom command to log out of the application.
        * @example cy.logout()
@@ -147,7 +147,7 @@ before(() => {
 (() => {
   let mutationDispatched: boolean;
   beforeEach(() => {
-    cy.login();
+    cy.login({ isAdmin: true });
     cy.setCookie(bannerCookie, "true");
     cy.setCookie(CY_DISABLE_COMMITS_WELCOME_MODAL, "true");
     cy.setCookie(CY_DISABLE_NEW_USER_WELCOME_MODAL, "true");
