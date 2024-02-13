@@ -178,6 +178,7 @@ const getColumnDefs = ({
     render: (status: string, { dependsOn, execution, id }) =>
       dependsOn?.length && status === TaskStatus.Blocked ? (
         <Tooltip
+          data-cy="depends-on-tooltip"
           justify="middle"
           trigger={
             <span>
