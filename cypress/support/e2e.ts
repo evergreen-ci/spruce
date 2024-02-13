@@ -87,9 +87,10 @@ declare global {
       selectLGOption(label: string, option: string | RegExp): void;
       /**
        * Custom command to navigate to login page and login.
+       * @param username The username of the account to log in to.
        * @example cy.login()
        */
-      login({ isAdmin }: { isAdmin: boolean }): void;
+      login({ username }: { username: string }): void;
       /**
        * Custom command to log out of the application.
        * @example cy.logout()
@@ -147,7 +148,7 @@ before(() => {
 (() => {
   let mutationDispatched: boolean;
   beforeEach(() => {
-    cy.login({ isAdmin: true });
+    cy.login({ username: "admin" });
     cy.setCookie(bannerCookie, "true");
     cy.setCookie(CY_DISABLE_COMMITS_WELCOME_MODAL, "true");
     cy.setCookie(CY_DISABLE_NEW_USER_WELCOME_MODAL, "true");

@@ -1,15 +1,22 @@
 describe("distro permissions", () => {
   beforeEach(() => {
     cy.logout();
-    cy.login({ isAdmin: false });
   });
 
   it("hides the new distro button when a user cannot create distros", () => {
+    cy.login({ username: "privileged" });
     cy.visit("/distro/rhel71-power8-large/settings/general");
     cy.dataCy("new-distro-button").should("not.exist");
+    cy.dataCy("delete-distro-button").should(
+      "not.have.attr",
+      "aria-disabled",
+      "true",
+    );
+    cy.get("textarea").should("not.be.disabled");
   });
 
   it("disables the delete button when user lacks admin permissions", () => {
+    cy.login({ username: "regular" });
     cy.visit("/distro/rhel71-power8-large/settings/general");
     cy.dataCy("delete-distro-button").should(
       "have.attr",
@@ -19,6 +26,7 @@ describe("distro permissions", () => {
   });
 
   it("disables fields when user lacks edit permissions", () => {
+    cy.login({ username: "regular" });
     cy.visit("/distro/rhel71-power8-large/settings/general");
     cy.dataCy("distro-settings-page").within(() => {
       cy.get('input[type="checkbox"]').should(
@@ -31,6 +39,7 @@ describe("distro permissions", () => {
   });
 
   it("enables fields if user has edit permissions for a particular distro", () => {
+    cy.login({ username: "regular" });
     cy.visit("/distro/localhost/settings/general");
     cy.dataCy("distro-settings-page").within(() => {
       cy.get('input[type="checkbox"]').should(

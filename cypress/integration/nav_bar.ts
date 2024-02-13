@@ -108,20 +108,20 @@ describe("Nav Bar", () => {
   });
 
   describe("Admin settings", () => {
-    it("Should not show Admin button to non-admins", () => {
-      cy.logout();
-      cy.login({ isAdmin: false });
-      cy.visit(SPRUCE_URLS.version);
-      cy.dataCy("user-dropdown-link").click();
-      cy.dataCy("admin-link").should("not.exist");
-    });
-
     it("Should show Admin button to admins", () => {
       cy.visit(SPRUCE_URLS.version);
       cy.dataCy("user-dropdown-link").click();
       cy.dataCy("admin-link")
         .should("be.visible")
         .should("have.attr", "href", LEGACY_URLS.admin);
+    });
+
+    it("Should not show Admin button to non-admins", () => {
+      cy.logout();
+      cy.login({ username: "regular" });
+      cy.visit(SPRUCE_URLS.version);
+      cy.dataCy("user-dropdown-link").click();
+      cy.dataCy("admin-link").should("not.exist");
     });
   });
 });

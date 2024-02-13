@@ -52,11 +52,11 @@ Cypress.Commands.add("getInputByLabel", (label: string | RegExp) => {
 });
 
 /* login */
-Cypress.Commands.add("login", ({ isAdmin = true }) => {
+Cypress.Commands.add("login", ({ username = "admin" }) => {
   cy.getCookie("mci-token").then((c) => {
     if (!c) {
       cy.request("POST", `${EVG_BASE_URL}/login`, {
-        username: isAdmin ? "admin" : "basic",
+        username,
         password: "password",
       });
     }
