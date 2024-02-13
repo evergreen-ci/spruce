@@ -2583,6 +2583,7 @@ export type TaskEndDetail = {
 
 export type TaskEventLogData = {
   __typename?: "TaskEventLogData";
+  blockedOn?: Maybe<Scalars["String"]["output"]>;
   hostId?: Maybe<Scalars["String"]["output"]>;
   jiraIssue?: Maybe<Scalars["String"]["output"]>;
   jiraLink?: Maybe<Scalars["String"]["output"]>;
@@ -2651,7 +2652,6 @@ export type TaskLogs = {
   __typename?: "TaskLogs";
   agentLogs: Array<LogMessage>;
   allLogs: Array<LogMessage>;
-  defaultLogger: Scalars["String"]["output"];
   eventLogs: Array<TaskEventLogEntry>;
   execution: Scalars["Int"]["output"];
   systemLogs: Array<LogMessage>;
@@ -2784,8 +2784,6 @@ export type TestLog = {
   lineNum?: Maybe<Scalars["Int"]["output"]>;
   renderingType?: Maybe<Scalars["String"]["output"]>;
   url?: Maybe<Scalars["String"]["output"]>;
-  /** @deprecated Use urlParsley instead */
-  urlLobster?: Maybe<Scalars["String"]["output"]>;
   urlParsley?: Maybe<Scalars["String"]["output"]>;
   urlRaw?: Maybe<Scalars["String"]["output"]>;
   version?: Maybe<Scalars["Int"]["output"]>;

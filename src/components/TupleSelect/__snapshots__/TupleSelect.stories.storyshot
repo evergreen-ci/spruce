@@ -20,8 +20,8 @@ exports[`Snapshot Tests TupleSelect.stories Default 1`] = `
         class="leafygreen-ui-1iyoj2o css-1scwv0u-GroupedSelect e5gn9hl1"
       >
         <button
-          aria-controls="select-195-menu"
-          aria-describedby="select-195-description"
+          aria-controls="select-249-menu"
+          aria-describedby="select-249-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -29,7 +29,7 @@ exports[`Snapshot Tests TupleSelect.stories Default 1`] = `
           class="lg-ui-button-0000 leafygreen-ui-c8np5"
           data-cy="tuple-select-dropdown"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-196"
+          id="select-250"
           type="button"
           value="build_variant"
         >
@@ -69,27 +69,38 @@ exports[`Snapshot Tests TupleSelect.stories Default 1`] = `
         class="e5gn9hl0 css-47706i-TextInputWrapper-GroupedTextInput e13gwrw81"
       >
         <div
-          class="leafygreen-ui-xtefr5"
+          class="leafygreen-ui-1br9h7w"
         >
           <div
-            class="leafygreen-ui-lzja97"
+            class="leafygreen-ui-e3fvh5"
+          />
+          <div
+            aria-disabled="false"
+            class="leafygreen-ui-mrtshz"
           >
-            <input
-              aria-invalid="false"
-              aria-label="Build Variant"
-              autocomplete="on"
-              class="leafygreen-ui-6i61vl"
-              data-cy="tuple-select-input"
-              id="filter-input"
-              placeholder="Search Build Variant names"
-              required=""
-              type="search"
-              value=""
-            />
             <div
-              class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+              class="leafygreen-ui-1ago99h"
+            >
+              <input
+                aria-describedby=""
+                aria-invalid="false"
+                autocomplete="on"
+                class="lg-ui-form-field-input-0000 leafygreen-ui-vrj1me"
+                data-cy="tuple-select-input"
+                id="filter-input"
+                placeholder="Search Build Variant names"
+                required=""
+                type="search"
+                value=""
+              />
+            </div>
+            <div
+              class="leafygreen-ui-iwiovi"
             />
           </div>
+          <div
+            class="leafygreen-ui-jsxxy6"
+          />
         </div>
         <div
           class="css-4bamt4-IconWrapper e13gwrw80"

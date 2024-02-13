@@ -19,35 +19,47 @@ exports[`Snapshot Tests EditableTagField.stories Default 1`] = `
             class="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
           >
             <div
-              class="leafygreen-ui-xtefr5"
+              class="leafygreen-ui-1br9h7w"
             >
               <div
-                class="leafygreen-ui-a533bt"
+                class="leafygreen-ui-e3fvh5"
               >
                 <label
-                  class="leafygreen-ui-gr5280"
+                  class="leafygreen-ui-1qjbbjd"
                   for="tag_key_1"
+                  id="lg-form-field-label-3"
                 >
                   Key
                 </label>
               </div>
               <div
-                class="leafygreen-ui-lzja97"
+                aria-disabled="false"
+                class="leafygreen-ui-mrtshz"
               >
-                <input
-                  aria-invalid="false"
-                  autocomplete="on"
-                  class="leafygreen-ui-6i61vl"
-                  data-cy="user-tag-key-field"
-                  id="tag_key_1"
-                  required=""
-                  type="text"
-                  value="keyA"
-                />
                 <div
-                  class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                  class="leafygreen-ui-1ago99h"
+                >
+                  <input
+                    aria-describedby=""
+                    aria-invalid="false"
+                    aria-label=""
+                    aria-labelledby="lg-form-field-label-3"
+                    autocomplete="on"
+                    class="lg-ui-form-field-input-0000 leafygreen-ui-vrj1me"
+                    data-cy="user-tag-key-field"
+                    id="tag_key_1"
+                    required=""
+                    type="text"
+                    value="keyA"
+                  />
+                </div>
+                <div
+                  class="leafygreen-ui-iwiovi"
                 />
               </div>
+              <div
+                class="leafygreen-ui-jsxxy6"
+              />
             </div>
           </div>
         </div>
@@ -58,35 +70,47 @@ exports[`Snapshot Tests EditableTagField.stories Default 1`] = `
             class="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
           >
             <div
-              class="leafygreen-ui-xtefr5"
+              class="leafygreen-ui-1br9h7w"
             >
               <div
-                class="leafygreen-ui-a533bt"
+                class="leafygreen-ui-e3fvh5"
               >
                 <label
-                  class="leafygreen-ui-gr5280"
+                  class="leafygreen-ui-1qjbbjd"
                   for="tag_value_1"
+                  id="lg-form-field-label-7"
                 >
                   Value
                 </label>
               </div>
               <div
-                class="leafygreen-ui-lzja97"
+                aria-disabled="false"
+                class="leafygreen-ui-mrtshz"
               >
-                <input
-                  aria-invalid="false"
-                  autocomplete="on"
-                  class="leafygreen-ui-6i61vl"
-                  data-cy="user-tag-value-field"
-                  id="tag_value_1"
-                  required=""
-                  type="text"
-                  value="valueA"
-                />
                 <div
-                  class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                  class="leafygreen-ui-1ago99h"
+                >
+                  <input
+                    aria-describedby=""
+                    aria-invalid="false"
+                    aria-label=""
+                    aria-labelledby="lg-form-field-label-7"
+                    autocomplete="on"
+                    class="lg-ui-form-field-input-0000 leafygreen-ui-vrj1me"
+                    data-cy="user-tag-value-field"
+                    id="tag_value_1"
+                    required=""
+                    type="text"
+                    value="valueA"
+                  />
+                </div>
+                <div
+                  class="leafygreen-ui-iwiovi"
                 />
               </div>
+              <div
+                class="leafygreen-ui-jsxxy6"
+              />
             </div>
           </div>
         </div>
@@ -139,35 +163,47 @@ exports[`Snapshot Tests EditableTagField.stories Default 1`] = `
             class="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
           >
             <div
-              class="leafygreen-ui-xtefr5"
+              class="leafygreen-ui-1br9h7w"
             >
               <div
-                class="leafygreen-ui-a533bt"
+                class="leafygreen-ui-e3fvh5"
               >
                 <label
-                  class="leafygreen-ui-gr5280"
+                  class="leafygreen-ui-1qjbbjd"
                   for="tag_key_2"
+                  id="lg-form-field-label-11"
                 >
                   Key
                 </label>
               </div>
               <div
-                class="leafygreen-ui-lzja97"
+                aria-disabled="false"
+                class="leafygreen-ui-mrtshz"
               >
-                <input
-                  aria-invalid="false"
-                  autocomplete="on"
-                  class="leafygreen-ui-6i61vl"
-                  data-cy="user-tag-key-field"
-                  id="tag_key_2"
-                  required=""
-                  type="text"
-                  value="keyB"
-                />
                 <div
-                  class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                  class="leafygreen-ui-1ago99h"
+                >
+                  <input
+                    aria-describedby=""
+                    aria-invalid="false"
+                    aria-label=""
+                    aria-labelledby="lg-form-field-label-11"
+                    autocomplete="on"
+                    class="lg-ui-form-field-input-0000 leafygreen-ui-vrj1me"
+                    data-cy="user-tag-key-field"
+                    id="tag_key_2"
+                    required=""
+                    type="text"
+                    value="keyB"
+                  />
+                </div>
+                <div
+                  class="leafygreen-ui-iwiovi"
                 />
               </div>
+              <div
+                class="leafygreen-ui-jsxxy6"
+              />
             </div>
           </div>
         </div>
@@ -178,35 +214,47 @@ exports[`Snapshot Tests EditableTagField.stories Default 1`] = `
             class="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
           >
             <div
-              class="leafygreen-ui-xtefr5"
+              class="leafygreen-ui-1br9h7w"
             >
               <div
-                class="leafygreen-ui-a533bt"
+                class="leafygreen-ui-e3fvh5"
               >
                 <label
-                  class="leafygreen-ui-gr5280"
+                  class="leafygreen-ui-1qjbbjd"
                   for="tag_value_2"
+                  id="lg-form-field-label-15"
                 >
                   Value
                 </label>
               </div>
               <div
-                class="leafygreen-ui-lzja97"
+                aria-disabled="false"
+                class="leafygreen-ui-mrtshz"
               >
-                <input
-                  aria-invalid="false"
-                  autocomplete="on"
-                  class="leafygreen-ui-6i61vl"
-                  data-cy="user-tag-value-field"
-                  id="tag_value_2"
-                  required=""
-                  type="text"
-                  value="valueB"
-                />
                 <div
-                  class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                  class="leafygreen-ui-1ago99h"
+                >
+                  <input
+                    aria-describedby=""
+                    aria-invalid="false"
+                    aria-label=""
+                    aria-labelledby="lg-form-field-label-15"
+                    autocomplete="on"
+                    class="lg-ui-form-field-input-0000 leafygreen-ui-vrj1me"
+                    data-cy="user-tag-value-field"
+                    id="tag_value_2"
+                    required=""
+                    type="text"
+                    value="valueB"
+                  />
+                </div>
+                <div
+                  class="leafygreen-ui-iwiovi"
                 />
               </div>
+              <div
+                class="leafygreen-ui-jsxxy6"
+              />
             </div>
           </div>
         </div>
@@ -259,35 +307,47 @@ exports[`Snapshot Tests EditableTagField.stories Default 1`] = `
             class="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
           >
             <div
-              class="leafygreen-ui-xtefr5"
+              class="leafygreen-ui-1br9h7w"
             >
               <div
-                class="leafygreen-ui-a533bt"
+                class="leafygreen-ui-e3fvh5"
               >
                 <label
-                  class="leafygreen-ui-gr5280"
+                  class="leafygreen-ui-1qjbbjd"
                   for="tag_key_3"
+                  id="lg-form-field-label-19"
                 >
                   Key
                 </label>
               </div>
               <div
-                class="leafygreen-ui-lzja97"
+                aria-disabled="false"
+                class="leafygreen-ui-mrtshz"
               >
-                <input
-                  aria-invalid="false"
-                  autocomplete="on"
-                  class="leafygreen-ui-6i61vl"
-                  data-cy="user-tag-key-field"
-                  id="tag_key_3"
-                  required=""
-                  type="text"
-                  value="keyC"
-                />
                 <div
-                  class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                  class="leafygreen-ui-1ago99h"
+                >
+                  <input
+                    aria-describedby=""
+                    aria-invalid="false"
+                    aria-label=""
+                    aria-labelledby="lg-form-field-label-19"
+                    autocomplete="on"
+                    class="lg-ui-form-field-input-0000 leafygreen-ui-vrj1me"
+                    data-cy="user-tag-key-field"
+                    id="tag_key_3"
+                    required=""
+                    type="text"
+                    value="keyC"
+                  />
+                </div>
+                <div
+                  class="leafygreen-ui-iwiovi"
                 />
               </div>
+              <div
+                class="leafygreen-ui-jsxxy6"
+              />
             </div>
           </div>
         </div>
@@ -298,35 +358,47 @@ exports[`Snapshot Tests EditableTagField.stories Default 1`] = `
             class="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
           >
             <div
-              class="leafygreen-ui-xtefr5"
+              class="leafygreen-ui-1br9h7w"
             >
               <div
-                class="leafygreen-ui-a533bt"
+                class="leafygreen-ui-e3fvh5"
               >
                 <label
-                  class="leafygreen-ui-gr5280"
+                  class="leafygreen-ui-1qjbbjd"
                   for="tag_value_3"
+                  id="lg-form-field-label-23"
                 >
                   Value
                 </label>
               </div>
               <div
-                class="leafygreen-ui-lzja97"
+                aria-disabled="false"
+                class="leafygreen-ui-mrtshz"
               >
-                <input
-                  aria-invalid="false"
-                  autocomplete="on"
-                  class="leafygreen-ui-6i61vl"
-                  data-cy="user-tag-value-field"
-                  id="tag_value_3"
-                  required=""
-                  type="text"
-                  value="valueC"
-                />
                 <div
-                  class="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                  class="leafygreen-ui-1ago99h"
+                >
+                  <input
+                    aria-describedby=""
+                    aria-invalid="false"
+                    aria-label=""
+                    aria-labelledby="lg-form-field-label-23"
+                    autocomplete="on"
+                    class="lg-ui-form-field-input-0000 leafygreen-ui-vrj1me"
+                    data-cy="user-tag-value-field"
+                    id="tag_value_3"
+                    required=""
+                    type="text"
+                    value="valueC"
+                  />
+                </div>
+                <div
+                  class="leafygreen-ui-iwiovi"
                 />
               </div>
+              <div
+                class="leafygreen-ui-jsxxy6"
+              />
             </div>
           </div>
         </div>
