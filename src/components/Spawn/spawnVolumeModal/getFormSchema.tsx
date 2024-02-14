@@ -3,7 +3,7 @@ import { add } from "date-fns";
 import { GetFormSchema } from "components/SpruceForm/types";
 import { ExpirationRow } from "../ExpirationRow";
 import { getDefaultExpiration } from "../utils";
-import {MAX_VOLUME_SIZE} from "./constants";
+import { MAX_VOLUME_SIZE } from "./constants";
 
 interface Props {
   availabilityZones: string[];
@@ -33,7 +33,10 @@ export const getFormSchema = ({
           size: {
             title: "Size (GiB)",
             type: "number" as "number",
-            default: maxSpawnableLimit > MAX_VOLUME_SIZE ? MAX_VOLUME_SIZE : maxSpawnableLimit,
+            default:
+              maxSpawnableLimit > MAX_VOLUME_SIZE
+                ? MAX_VOLUME_SIZE
+                : maxSpawnableLimit,
             minimum: 1,
             maximum: maxSpawnableLimit,
           },

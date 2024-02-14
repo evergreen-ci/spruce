@@ -10,9 +10,9 @@ import {
 } from "gql/generated/types";
 import { shortenGithash } from "utils/string";
 import { getDefaultExpiration } from "../utils";
+import { DEFAULT_VOLUME_SIZE } from "./constants";
 import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
-import {DEFAULT_VOLUME_SIZE} from "./constants";
 
 interface Props {
   distros: {
