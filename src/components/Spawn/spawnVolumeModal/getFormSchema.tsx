@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
 import { add } from "date-fns";
+import { DEFAULT_VOLUME_SIZE } from "components/Spawn/spawnHostModal/constants";
 import { GetFormSchema } from "components/SpruceForm/types";
 import { ExpirationRow } from "../ExpirationRow";
 import { getDefaultExpiration } from "../utils";
-import { MAX_VOLUME_SIZE } from "./constants";
 
 interface Props {
   availabilityZones: string[];
@@ -34,8 +34,8 @@ export const getFormSchema = ({
             title: "Size (GiB)",
             type: "number" as "number",
             default:
-              maxSpawnableLimit > MAX_VOLUME_SIZE
-                ? MAX_VOLUME_SIZE
+              maxSpawnableLimit > DEFAULT_VOLUME_SIZE
+                ? DEFAULT_VOLUME_SIZE
                 : maxSpawnableLimit,
             minimum: 1,
             maximum: maxSpawnableLimit,
