@@ -10,7 +10,6 @@ const SPRUCE_URLS = {
 const LEGACY_URLS = {
   version: `${EVG_BASE_URL}/version/${PATCH_ID}`,
   userPatches: `${EVG_BASE_URL}/patches/user/${USER_ID}`,
-  distros: `${EVG_BASE_URL}/distros`,
   admin: `${EVG_BASE_URL}/admin`,
 };
 describe("Nav Bar", () => {

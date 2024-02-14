@@ -128,8 +128,8 @@ exports[`Snapshot Tests TableControl.stories Default 1`] = `
         class="leafygreen-ui-1iyoj2o css-5krlfz-StyledSelect ekttol50"
       >
         <button
-          aria-controls="select-193-menu"
-          aria-describedby="select-193-description"
+          aria-controls="select-239-menu"
+          aria-describedby="select-239-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -137,7 +137,7 @@ exports[`Snapshot Tests TableControl.stories Default 1`] = `
           class="lg-ui-button-0000 leafygreen-ui-3wvwqe"
           data-cy="tasks-table-page-size-selector"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-194"
+          id="select-240"
           type="button"
           value="10"
         >
