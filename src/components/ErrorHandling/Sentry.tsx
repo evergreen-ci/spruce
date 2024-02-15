@@ -4,6 +4,7 @@ import {
   getCurrentHub,
   init,
   Replay,
+  setTag,
   withScope,
 } from "@sentry/react";
 import type { Scope, SeverityLevel } from "@sentry/react";
@@ -45,6 +46,21 @@ const sendError = (
 ) => {
   withScope((scope) => {
     setScope(scope, { level: severity, context: metadata });
+
+    const { gqlErr, operationName } = metadata ?? {};
+
+    // Add additional sorting for GraphQL errors
+    if (operationName) {
+      // A custom fingerprint allows for more intelligent grouping
+      const fingerprint = [operationName];
+      if (gqlErr?.path && Array.isArray(gqlErr.path)) {
+        fingerprint.push(...gqlErr.path);
+      }
+      scope.setFingerprint(fingerprint);
+
+      // Apply tag, which is a searchable/filterable property
+      setTag("operationName", metadata.operationName);
+    }
 
     captureException(err);
   });
