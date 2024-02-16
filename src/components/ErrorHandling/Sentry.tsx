@@ -1,14 +1,14 @@
-import { ErrorResponse } from "@apollo/client/link/error";
 import {
   captureException,
   ErrorBoundary as SentryErrorBoundary,
   getCurrentHub,
   init,
   Replay,
-  setTag,
+  setTags,
   withScope,
 } from "@sentry/react";
 import type { Scope, SeverityLevel } from "@sentry/react";
+import type { Context, Primitive } from "@sentry/types";
 import { environmentVariables } from "utils";
 import ErrorFallback from "./ErrorFallback";
 
@@ -40,33 +40,32 @@ const initializeSentry = () => {
 
 const isInitialized = () => !!getCurrentHub().getClient();
 
-export type ErrorMetadata = {
-  gqlErr?: ErrorResponse["graphQLErrors"][0];
-  operationName?: ErrorResponse["operation"]["operationName"];
-  variables?: ErrorResponse["operation"]["variables"];
+export type ErrorInput = {
+  err: Error;
+  fingerprint?: string[];
+  context?: Context;
+  severity: SeverityLevel;
+  tags?: { [key: string]: Primitive };
 };
 
-const sendError = (
-  err: Error,
-  severity: SeverityLevel,
-  metadata?: ErrorMetadata,
-) => {
+const sendError = ({
+  context,
+  err,
+  fingerprint,
+  severity,
+  tags,
+}: ErrorInput) => {
   withScope((scope) => {
-    setScope(scope, { level: severity, context: metadata });
+    setScope(scope, { level: severity, context });
 
-    const { gqlErr, operationName } = metadata ?? {};
-
-    // Add additional sorting for GraphQL errors
-    if (operationName) {
+    if (fingerprint) {
       // A custom fingerprint allows for more intelligent grouping
-      const fingerprint = [operationName];
-      if (gqlErr?.path && Array.isArray(gqlErr.path)) {
-        fingerprint.push(...gqlErr.path);
-      }
       scope.setFingerprint(fingerprint);
+    }
 
-      // Apply tag, which is a searchable/filterable property
-      setTag("operationName", operationName);
+    if (tags) {
+      // Apply tags, which are a searchable/filterable property
+      setTags(tags);
     }
 
     captureException(err);
@@ -75,7 +74,7 @@ const sendError = (
 
 type ScopeOptions = {
   level?: SeverityLevel;
-  context?: { [key: string]: any };
+  context?: Context;
 };
 
 const setScope = (scope: Scope, { context, level }: ScopeOptions = {}) => {

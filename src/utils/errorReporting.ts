@@ -1,6 +1,6 @@
 import { addBreadcrumb, Breadcrumb } from "@sentry/react";
 import {
-  ErrorMetadata,
+  ErrorInput,
   sendError as sentrySendError,
 } from "components/ErrorHandling/Sentry";
 import { isProductionBuild } from "./environmentVariables";
@@ -10,27 +10,45 @@ interface reportErrorResult {
   warning: () => void;
 }
 
+type ErrorMetadata = {
+  fingerprint?: ErrorInput["fingerprint"];
+  tags?: ErrorInput["tags"];
+  context?: ErrorInput["context"];
+};
+
 const reportError = (
   err: Error,
-  metadata?: ErrorMetadata,
+  { context, fingerprint, tags }: ErrorMetadata = {},
 ): reportErrorResult => {
   if (!isProductionBuild()) {
     return {
       severe: () => {
-        console.error({ err, severity: "severe", metadata });
+        console.error({ err, severity: "severe", context, fingerprint, tags });
       },
       warning: () => {
-        console.error({ err, severity: "warning", metadata });
+        console.error({ err, severity: "warning", context, fingerprint, tags });
       },
     };
   }
 
   return {
     severe: () => {
-      sentrySendError(err, "error", metadata);
+      sentrySendError({
+        context,
+        err,
+        fingerprint,
+        severity: "error",
+        tags,
+      });
     },
     warning: () => {
-      sentrySendError(err, "warning", metadata);
+      sentrySendError({
+        context,
+        err,
+        fingerprint,
+        severity: "warning",
+        tags,
+      });
     },
   };
 };
