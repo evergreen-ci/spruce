@@ -1,3 +1,4 @@
+import { ErrorResponse } from "@apollo/client/link/error";
 import {
   captureException,
   ErrorBoundary as SentryErrorBoundary,
@@ -39,10 +40,16 @@ const initializeSentry = () => {
 
 const isInitialized = () => !!getCurrentHub().getClient();
 
+type ErrorMetadata = {
+  gqlErr?: ErrorResponse["graphQLErrors"][0];
+  operationName?: ErrorResponse["operation"]["operationName"];
+  variables?: ErrorResponse["operation"]["variables"];
+};
+
 const sendError = (
   err: Error,
   severity: SeverityLevel,
-  metadata?: { [key: string]: any },
+  metadata?: ErrorMetadata,
 ) => {
   withScope((scope) => {
     setScope(scope, { level: severity, context: metadata });
@@ -59,7 +66,7 @@ const sendError = (
       scope.setFingerprint(fingerprint);
 
       // Apply tag, which is a searchable/filterable property
-      setTag("operationName", metadata.operationName);
+      setTag("operationName", operationName);
     }
 
     captureException(err);
