@@ -40,7 +40,7 @@ const initializeSentry = () => {
 
 const isInitialized = () => !!getCurrentHub().getClient();
 
-type ErrorMetadata = {
+export type ErrorMetadata = {
   gqlErr?: ErrorResponse["graphQLErrors"][0];
   operationName?: ErrorResponse["operation"]["operationName"];
   variables?: ErrorResponse["operation"]["variables"];

@@ -1,5 +1,8 @@
 import { addBreadcrumb, Breadcrumb } from "@sentry/react";
-import { sendError as sentrySendError } from "components/ErrorHandling/Sentry";
+import {
+  ErrorMetadata,
+  sendError as sentrySendError,
+} from "components/ErrorHandling/Sentry";
 import { isProductionBuild } from "./environmentVariables";
 
 interface reportErrorResult {
@@ -9,7 +12,7 @@ interface reportErrorResult {
 
 const reportError = (
   err: Error,
-  metadata?: { [key: string]: any },
+  metadata?: ErrorMetadata,
 ): reportErrorResult => {
   if (!isProductionBuild()) {
     return {

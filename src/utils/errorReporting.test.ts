@@ -54,7 +54,7 @@ describe("error reporting", () => {
       name: "Error Name",
     };
 
-    const metadata = { customField: "foo" };
+    const metadata = { operationName: "foo" };
     const result = reportError(err, metadata);
     result.severe();
     expect(Sentry.captureException).toHaveBeenCalledWith(err);
