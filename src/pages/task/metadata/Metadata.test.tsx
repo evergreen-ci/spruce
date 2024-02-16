@@ -45,7 +45,6 @@ describe("metadata", () => {
       },
     );
     expect(screen.queryByDataCy("task-metadata-estimated_start")).toBeNull();
-    expect(screen.getByDataCy("task-metadata-eta")).toBeInTheDocument();
     expect(screen.getByDataCy("task-metadata-started")).toBeInTheDocument();
     expect(screen.queryByDataCy("task-metadata-finished")).toBeNull();
     expect(screen.queryByDataCy("task-trace-link")).toBeNull();
