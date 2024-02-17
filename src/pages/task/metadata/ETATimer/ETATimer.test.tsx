@@ -47,4 +47,8 @@ describe("etaTimer", () => {
     expect(global.clearInterval).toHaveBeenCalledWith(expect.any(Number));
     expect(jest.getTimerCount()).toBe(0);
   });
+  it("if the eta has been exceeded, it does not render", () => {
+    render(<ETATimer startTime={new Date()} expectedDuration={0} />);
+    expect(screen.queryByTestId("task-metadata-eta")).not.toBeInTheDocument();
+  });
 });

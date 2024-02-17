@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "3.0.205",
+  "version": "3.0.207",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -95,7 +95,7 @@
     "@leafygreen-ui/text-input": "12.1.24",
     "@leafygreen-ui/toast": "6.1.4",
     "@leafygreen-ui/toggle": "10.0.17",
-    "@leafygreen-ui/tokens": "2.1.0",
+    "@leafygreen-ui/tokens": "2.3.0",
     "@leafygreen-ui/tooltip": "10.0.10",
     "@leafygreen-ui/typography": "17.0.1",
     "@rjsf/core": "4.2.3",
