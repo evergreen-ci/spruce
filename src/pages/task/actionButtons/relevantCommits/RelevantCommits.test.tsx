@@ -366,13 +366,13 @@ const getLastPassingVersion: ApolloMock<
           {
             version: {
               id: "evergreen_44110b57c6977bf3557009193628c9389772163f",
-              order: 3676,
               buildVariants: [
                 {
                   tasks: [
                     {
                       id: "last_passing_task",
                       execution: 0,
+                      order: 3676,
                       status: "success",
                       __typename: "Task",
                     },
@@ -424,13 +424,13 @@ const getLastExecutedVersion: ApolloMock<
           {
             version: {
               id: "evergreen_44110b57c6977bf3557009193628c9389772163f",
-              order: 3676,
               buildVariants: [
                 {
                   tasks: [
                     {
                       id: "last_executed_task",
                       execution: 0,
+                      order: 3676,
                       status: "failed",
                       __typename: "Task",
                     },
