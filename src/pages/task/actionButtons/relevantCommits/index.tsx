@@ -93,6 +93,9 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ taskId }) => {
   const passingOrderNumber =
     getOrderFromMainlineCommitsQuery(lastPassingTaskData);
 
+  // The breaking commit is the first failing commit after the last passing commit.
+  // The skip order number should be the last passing commit's order number + 1.
+  // We use + 2 because internally the query does a less than comparison.
   const { data: breakingTaskData, loading: breakingLoading } = useQuery<
     LastMainlineCommitQuery,
     LastMainlineCommitQueryVariables
