@@ -46,7 +46,7 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ taskId }) => {
     buildVariant,
     displayName,
     projectIdentifier,
-    status: baseStatus,
+    status,
     versionMetadata,
   } = taskData?.task ?? {};
   const { order: skipOrderNumber } = versionMetadata?.baseVersion ?? {};
@@ -100,8 +100,8 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ taskId }) => {
     skip:
       !parentTask ||
       !lastPassingTask ||
-      baseStatus === undefined ||
-      baseStatus === TaskStatus.Succeeded,
+      status === undefined ||
+      status === TaskStatus.Succeeded,
     variables: {
       projectIdentifier,
       skipOrderNumber: passingOrderNumber + 2,
