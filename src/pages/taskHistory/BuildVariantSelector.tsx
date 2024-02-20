@@ -1,3 +1,4 @@
+import { useCallback, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
@@ -24,7 +25,7 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
     HistoryQueryParams.VisibleColumns,
     [],
   );
-
+  const [filteredOptions, setFilteredOptions] = useState<string[]>([]);
   const { data, loading } = useQuery<
     BuildVariantsForTaskNameQuery,
     BuildVariantsForTaskNameQueryVariables
@@ -42,8 +43,26 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
 
     setVisibleColumns(selectedBuildVariants);
   };
-
   const { buildVariantsForTaskName } = data || {};
+
+  const onFilter = useCallback(
+    (value: string) => {
+      setFilteredOptions(
+        buildVariantsForTaskName
+          .filter(
+            (option) =>
+              option.buildVariant
+                .toLowerCase()
+                .includes(value.toLowerCase().trim()) ||
+              option.displayName
+                .toLowerCase()
+                .includes(value.toLowerCase().trim()),
+          )
+          .map((option) => option.buildVariant) || [],
+      );
+    },
+    [buildVariantsForTaskName],
+  );
 
   return (
     <Container>
@@ -56,6 +75,8 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
         onChange={onChange}
         disabled={loading}
         overflow="scroll-x"
+        onFilter={onFilter}
+        filteredOptions={filteredOptions}
       >
         {buildVariantsForTaskName?.map((option) => (
           <ComboboxOption
