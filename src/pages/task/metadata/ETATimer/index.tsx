@@ -12,7 +12,6 @@ interface ETATimerProps {
 const ETATimer: React.FC<ETATimerProps> = ({ expectedDuration, startTime }) => {
   const parsedStartTime = new Date(startTime);
   const { endTimer, runningTime } = useRunningTime(parsedStartTime);
-
   useEffect(() => {
     if (runningTime >= expectedDuration) {
       endTimer();
@@ -20,6 +19,7 @@ const ETATimer: React.FC<ETATimerProps> = ({ expectedDuration, startTime }) => {
   }, [runningTime, expectedDuration, endTimer]);
 
   const eta = expectedDuration - runningTime;
+  if (eta < 0) return null;
   return (
     <MetadataItem data-cy="task-metadata-eta">
       ETA: {msToDuration(eta)}

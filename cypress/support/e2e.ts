@@ -86,10 +86,17 @@ declare global {
        */
       selectLGOption(label: string, option: string | RegExp): void;
       /**
-       * Custom command to navigate to login page and login.
-       * @example cy.login()
+       * Custom command to navigate to login page and log in.
+       * @example cy.login({ username: "me", password: "abc" })
+       * @example cy.login() // defaults to admin login
        */
-      login(): void;
+      login({
+        password,
+        username,
+      }?: {
+        username: string;
+        password: string;
+      }): void;
       /**
        * Custom command to log out of the application.
        * @example cy.logout()

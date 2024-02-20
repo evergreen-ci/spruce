@@ -10,6 +10,7 @@ import {
 } from "gql/generated/types";
 import { shortenGithash } from "utils/string";
 import { getDefaultExpiration } from "../utils";
+import { DEFAULT_VOLUME_SIZE } from "./constants";
 import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
 
@@ -408,7 +409,7 @@ export const getFormSchema = ({
                       volumeSize: {
                         title: "Volume size (GB)",
                         type: "number" as "number",
-                        default: 500,
+                        default: DEFAULT_VOLUME_SIZE,
                       },
                     },
                   },

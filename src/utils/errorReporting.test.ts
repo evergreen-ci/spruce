@@ -34,7 +34,7 @@ describe("error reporting", () => {
     expect(Sentry.captureException).not.toHaveBeenCalled();
   });
 
-  it("should report errors to Sentry when in production", () => {
+  it("reports errors to Sentry when in production", () => {
     mockEnv("NODE_ENV", "production");
     jest.spyOn(Sentry, "captureException").mockImplementation(jest.fn());
 
@@ -46,7 +46,7 @@ describe("error reporting", () => {
     expect(Sentry.captureException).toHaveBeenCalledWith(err);
   });
 
-  it("supports metadata field", () => {
+  it("supports context field", () => {
     mockEnv("NODE_ENV", "production");
     jest.spyOn(Sentry, "captureException").mockImplementation(jest.fn());
     const err = {
@@ -54,12 +54,31 @@ describe("error reporting", () => {
       name: "Error Name",
     };
 
-    const metadata = { customField: "foo" };
-    const result = reportError(err, metadata);
+    const context = { anything: "foo" };
+    const result = reportError(err, { context });
     result.severe();
     expect(Sentry.captureException).toHaveBeenCalledWith(err);
     result.warning();
     expect(Sentry.captureException).toHaveBeenCalledWith(err);
+  });
+
+  it("supports tags", () => {
+    mockEnv("NODE_ENV", "production");
+    jest.spyOn(Sentry, "captureException").mockImplementation(jest.fn());
+    jest.spyOn(Sentry, "setTags").mockImplementation(jest.fn());
+    const err = {
+      message: "GraphQL Error",
+      name: "Error Name",
+    };
+
+    const tags = { spruce: "true" };
+    const result = reportError(err, { tags });
+    result.severe();
+    expect(Sentry.captureException).toHaveBeenCalledWith(err);
+    expect(Sentry.setTags).toHaveBeenCalledWith(tags);
+    result.warning();
+    expect(Sentry.captureException).toHaveBeenCalledWith(err);
+    expect(Sentry.setTags).toHaveBeenCalledWith(tags);
   });
 });
 
