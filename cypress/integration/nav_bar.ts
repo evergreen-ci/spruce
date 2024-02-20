@@ -1,4 +1,4 @@
-import { EVG_BASE_URL } from "../constants";
+import { EVG_BASE_URL, users } from "../constants";
 
 const PATCH_ID = "5e4ff3abe3c3317e352062e4";
 const USER_ID = "admin";
@@ -118,7 +118,7 @@ describe("Nav Bar", () => {
 
     it("Should not show Admin button to non-admins", () => {
       cy.logout();
-      cy.login({ username: "regular" });
+      cy.login(users.regular);
       cy.visit(SPRUCE_URLS.version);
       cy.dataCy("user-dropdown-link").click();
       cy.dataCy("admin-link").should("not.exist");

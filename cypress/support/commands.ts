@@ -1,4 +1,4 @@
-import { EVG_BASE_URL, GQL_URL } from "../constants";
+import { EVG_BASE_URL, GQL_URL, users } from "../constants";
 import { hasOperationName } from "../utils/graphql-test-utils";
 
 type cyGetOptions = Parameters<typeof cy.get>[1];
@@ -33,8 +33,8 @@ Cypress.Commands.add(
  * `enterLoginCredentials` is a custom command to enter login credentials
  */
 Cypress.Commands.add("enterLoginCredentials", () => {
-  cy.get("input[name=username]").type("admin");
-  cy.get("input[name=password]").type("password");
+  cy.get("input[name=username]").type(users.admin.username);
+  cy.get("input[name=password]").type(users.admin.password);
   cy.get("button[id=login-submit]").click();
 });
 
@@ -52,13 +52,10 @@ Cypress.Commands.add("getInputByLabel", (label: string | RegExp) => {
 });
 
 /* login */
-Cypress.Commands.add("login", ({ username = "admin" }) => {
+Cypress.Commands.add("login", (user = users.admin) => {
   cy.getCookie("mci-token").then((c) => {
     if (!c) {
-      cy.request("POST", `${EVG_BASE_URL}/login`, {
-        username,
-        password: "password",
-      });
+      cy.request("POST", `${EVG_BASE_URL}/login`, user);
     }
   });
 });

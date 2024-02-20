@@ -86,11 +86,17 @@ declare global {
        */
       selectLGOption(label: string, option: string | RegExp): void;
       /**
-       * Custom command to navigate to login page and login.
-       * @param username The username of the account to log in to.
-       * @example cy.login()
+       * Custom command to navigate to login page and log in.
+       * @example cy.login({ username: "me", password: "abc" })
+       * @example cy.login() // defaults to admin login
        */
-      login({ username }: { username: string }): void;
+      login({
+        password,
+        username,
+      }?: {
+        username: string;
+        password: string;
+      }): void;
       /**
        * Custom command to log out of the application.
        * @example cy.logout()
@@ -148,7 +154,7 @@ before(() => {
 (() => {
   let mutationDispatched: boolean;
   beforeEach(() => {
-    cy.login({ username: "admin" });
+    cy.login();
     cy.setCookie(bannerCookie, "true");
     cy.setCookie(CY_DISABLE_COMMITS_WELCOME_MODAL, "true");
     cy.setCookie(CY_DISABLE_NEW_USER_WELCOME_MODAL, "true");
