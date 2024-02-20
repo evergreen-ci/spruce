@@ -18,11 +18,7 @@ import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
 import { TaskStatus } from "types/task";
 import { statuses, string } from "utils";
 import { CommitType } from "./types";
-import {
-  getLinks,
-  getOrderFromMainlineCommitsQuery,
-  getTaskFromMainlineCommitsQuery,
-} from "./utils";
+import { getLinks, getTaskFromMainlineCommitsQuery } from "./utils";
 
 const { applyStrictRegex } = string;
 const { isFinishedTaskStatus } = statuses;
@@ -90,8 +86,7 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ taskId }) => {
     },
   });
   const lastPassingTask = getTaskFromMainlineCommitsQuery(lastPassingTaskData);
-  const passingOrderNumber =
-    getOrderFromMainlineCommitsQuery(lastPassingTaskData);
+  const passingOrderNumber = lastPassingTask?.order;
 
   // The breaking commit is the first failing commit after the last passing commit.
   // The skip order number should be the last passing commit's order number + 1.

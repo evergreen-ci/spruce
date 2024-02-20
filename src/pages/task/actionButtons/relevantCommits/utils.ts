@@ -1,7 +1,7 @@
 import { getTaskRoute } from "constants/routes";
 import { LastMainlineCommitQuery } from "gql/generated/types";
 import { reportError } from "utils/errorReporting";
-import { CommitTask, CommitType } from "./types";
+import { BaseTask, CommitTask, CommitType } from "./types";
 
 // a link cannot be null, so it's common to use # as a substitute.
 const nullLink = "#";
@@ -12,10 +12,10 @@ export const getLinks = ({
   lastPassingTask,
   parentTask,
 }: {
-  breakingTask: CommitTask;
-  lastExecutedTask: CommitTask;
-  lastPassingTask: CommitTask;
-  parentTask: CommitTask;
+  breakingTask: BaseTask;
+  lastExecutedTask: BaseTask;
+  lastPassingTask: BaseTask;
+  parentTask: BaseTask;
 }) => {
   if (!parentTask) {
     return {
@@ -60,9 +60,3 @@ export const getTaskFromMainlineCommitsQuery = (
   }
   return buildVariants[0]?.tasks[0];
 };
-
-export const getOrderFromMainlineCommitsQuery = (
-  data: LastMainlineCommitQuery,
-): number =>
-  data?.mainlineCommits.versions.find(({ version }) => version)?.version
-    .order ?? -1;

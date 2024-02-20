@@ -6165,13 +6165,13 @@ export type LastMainlineCommitQuery = {
       version?: {
         __typename?: "Version";
         id: string;
-        order: number;
         buildVariants?: Array<{
           __typename?: "GroupedBuildVariant";
           tasks?: Array<{
             __typename?: "Task";
             execution: number;
             id: string;
+            order: number;
             status: string;
           } | null> | null;
         } | null> | null;
