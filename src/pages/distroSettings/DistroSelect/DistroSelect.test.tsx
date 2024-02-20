@@ -22,7 +22,9 @@ describe("distro select", () => {
     await waitFor(() => {
       expect(screen.getByDataCy("distro-select")).toBeInTheDocument();
     });
-    expect(screen.getByDisplayValue("localhost")).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByDisplayValue("localhost")).toBeVisible();
+    });
   });
 
   it("selecting a different distro will navigate to the correct URL", async () => {
