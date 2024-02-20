@@ -126,6 +126,7 @@ export const getFormSchema = (
                       createProject: {
                         type: "string" as "string",
                         title: "",
+                        format: "noStartingOrTrailingWhitespace",
                       },
                     },
                   },
@@ -204,6 +205,7 @@ export const getFormSchema = (
               default: "",
               minLength: 1,
               maxLength: 40,
+              format: "noStartingOrTrailingWhitespace",
             },
             urlTemplate: {
               type: "string" as "string",
