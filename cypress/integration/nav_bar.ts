@@ -1,4 +1,4 @@
-import { EVG_BASE_URL } from "../constants";
+import { EVG_BASE_URL, users } from "../constants";
 
 const PATCH_ID = "5e4ff3abe3c3317e352062e4";
 const USER_ID = "admin";
@@ -108,31 +108,20 @@ describe("Nav Bar", () => {
   });
 
   describe("Admin settings", () => {
-    it("Should not show Admin button to non-admins", () => {
-      const userData = {
-        data: {
-          user: {
-            userId: "admin",
-            displayName: "Evergreen Admin",
-            emailAddress: "admin@evergreen.com",
-            permissions: {
-              canEditAdminSettings: false,
-            },
-          },
-        },
-      };
-      cy.overwriteGQL("User", userData);
-      cy.visit(SPRUCE_URLS.version);
-      cy.dataCy("user-dropdown-link").click();
-      cy.dataCy("admin-link").should("not.exist");
-    });
-
     it("Should show Admin button to admins", () => {
       cy.visit(SPRUCE_URLS.version);
       cy.dataCy("user-dropdown-link").click();
       cy.dataCy("admin-link")
         .should("be.visible")
         .should("have.attr", "href", LEGACY_URLS.admin);
+    });
+
+    it("Should not show Admin button to non-admins", () => {
+      cy.logout();
+      cy.login(users.regular);
+      cy.visit(SPRUCE_URLS.version);
+      cy.dataCy("user-dropdown-link").click();
+      cy.dataCy("admin-link").should("not.exist");
     });
   });
 });
