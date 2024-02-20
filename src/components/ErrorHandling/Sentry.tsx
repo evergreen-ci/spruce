@@ -4,9 +4,11 @@ import {
   getCurrentHub,
   init,
   Replay,
+  setTags,
   withScope,
 } from "@sentry/react";
 import type { Scope, SeverityLevel } from "@sentry/react";
+import type { Context, Primitive } from "@sentry/types";
 import { environmentVariables } from "utils";
 import ErrorFallback from "./ErrorFallback";
 
@@ -38,13 +40,33 @@ const initializeSentry = () => {
 
 const isInitialized = () => !!getCurrentHub().getClient();
 
-const sendError = (
-  err: Error,
-  severity: SeverityLevel,
-  metadata?: { [key: string]: any },
-) => {
+export type ErrorInput = {
+  err: Error;
+  fingerprint?: string[];
+  context?: Context;
+  severity: SeverityLevel;
+  tags?: { [key: string]: Primitive };
+};
+
+const sendError = ({
+  context,
+  err,
+  fingerprint,
+  severity,
+  tags,
+}: ErrorInput) => {
   withScope((scope) => {
-    setScope(scope, { level: severity, context: metadata });
+    setScope(scope, { level: severity, context });
+
+    if (fingerprint) {
+      // A custom fingerprint allows for more intelligent grouping
+      scope.setFingerprint(fingerprint);
+    }
+
+    if (tags) {
+      // Apply tags, which are a searchable/filterable property
+      setTags(tags);
+    }
 
     captureException(err);
   });
@@ -52,7 +74,7 @@ const sendError = (
 
 type ScopeOptions = {
   level?: SeverityLevel;
-  context?: { [key: string]: any };
+  context?: Context;
 };
 
 const setScope = (scope: Scope, { context, level }: ScopeOptions = {}) => {
