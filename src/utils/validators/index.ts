@@ -144,6 +144,16 @@ const validateNoSpecialCharacters = (str: string): boolean => {
   return noSpecialCharacters.test(str);
 };
 
+/**
+ * `validateNoStartingOrTrailingWhitespace` tests if a provided string contains no starting or trailing whitespace
+ * @param str - The string to test.
+ * @returns - true if the string has no starting or trailing whitespace and false otherwise
+ */
+const validateNoStartingOrTrailingWhitespace = (str: string): boolean => {
+  const noStartingOrTrailingWhitespaceRegex = /^\S+.*\S+$/;
+  return noStartingOrTrailingWhitespaceRegex.test(str);
+};
+
 export {
   allowedSymbols,
   validateDuration,
@@ -151,6 +161,7 @@ export {
   validateJira,
   validateJiraURL,
   validateNoSpecialCharacters,
+  validateNoStartingOrTrailingWhitespace,
   validateObjectId,
   validatePercentage,
   validateRegexp,
