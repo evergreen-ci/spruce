@@ -453,6 +453,7 @@ functions:
         DEPLOYS_EMAIL: ${DEPLOYS_EMAIL}
         AUTHOR_EMAIL: ${author_email}
       script: |
+        ${PREPARE_SHELL}
         yarn deploy:prod
 
 #######################################
