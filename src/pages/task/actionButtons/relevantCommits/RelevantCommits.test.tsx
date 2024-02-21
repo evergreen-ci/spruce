@@ -82,7 +82,7 @@ describe("relevant commits", () => {
     });
   });
 
-  it("when base task is passing, all dropdown items generate the same link", async () => {
+  it("when base task is passing, last passing, base commit, and last executed dropdown items generate the same link and breaking commit is disabled", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider
@@ -115,9 +115,12 @@ describe("relevant commits", () => {
     expect(
       screen.getByRole("menuitem", { name: "Go to last executed version" }),
     ).toHaveAttribute("href", baseTaskHref);
+    expect(
+      screen.getByRole("menuitem", { name: "Go to breaking commit" }),
+    ).toHaveAttribute("aria-disabled", "true");
   });
 
-  it("when base task is failing, 'Go to base commit' and 'Go to last executed' dropdown items generate the same link and 'Go to last passing version' will be different.", async () => {
+  it("when base task is failing, 'Go to base commit' and 'Go to last executed' dropdown items generate the same link and 'Go to last passing version' will be different and 'Go to breaking commit' will be disabled", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider
@@ -146,9 +149,12 @@ describe("relevant commits", () => {
     expect(
       screen.getByRole("menuitem", { name: "Go to last executed version" }),
     ).toHaveAttribute("href", baseTaskHref);
+    expect(
+      screen.getByRole("menuitem", { name: "Go to breaking commit" }),
+    ).toHaveAttribute("aria-disabled", "true");
   });
 
-  it("when base task is not in a finished state, the last executed & passing task is not the same as the base commit", async () => {
+  it("when base task is not in a finished state, the last executed, passing task, and breaking task is not the same as the base commit", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider
@@ -156,6 +162,7 @@ describe("relevant commits", () => {
           getPatchTaskWithRunningBaseTask,
           getLastPassingVersion,
           getLastExecutedVersion,
+          getBreakingCommit,
         ]}
       >
         <RelevantCommits taskId="t3" />
@@ -181,6 +188,9 @@ describe("relevant commits", () => {
     expect(
       screen.getByRole("menuitem", { name: "Go to last executed version" }),
     ).toHaveAttribute("href", "/task/last_executed_task");
+    expect(
+      screen.getByRole("menuitem", { name: "Go to breaking commit" }),
+    ).toHaveAttribute("href", "/task/breaking_commit");
   });
 });
 
@@ -338,6 +348,54 @@ const getPatchTaskWithNoBaseVersion: ApolloMock<
         },
         baseTask: null,
         __typename: "Task",
+      },
+    },
+  },
+};
+
+const getBreakingCommit: ApolloMock<
+  LastMainlineCommitQuery,
+  LastMainlineCommitQueryVariables
+> = {
+  request: {
+    query: LAST_MAINLINE_COMMIT,
+    variables: {
+      projectIdentifier: "evergreen",
+      skipOrderNumber: 3678,
+      buildVariantOptions: {
+        tasks: ["^lint-agent$"],
+        variants: ["^lint$"],
+        statuses: ["failed"],
+      },
+    },
+  },
+  result: {
+    data: {
+      mainlineCommits: {
+        versions: [
+          {
+            version: {
+              id: "evergreen_44110b57c6977bf3557009193628c9389772163f2",
+              buildVariants: [
+                {
+                  tasks: [
+                    {
+                      id: "breaking_commit",
+                      execution: 0,
+                      order: 3677,
+                      status: "failed",
+                      __typename: "Task",
+                    },
+                  ],
+                  __typename: "GroupedBuildVariant",
+                },
+              ],
+              __typename: "Version",
+            },
+            __typename: "MainlineCommitVersion",
+          },
+        ],
+        __typename: "MainlineCommits",
       },
     },
   },
