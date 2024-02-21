@@ -131,12 +131,10 @@ functions:
       script: ./scripts/wait-for-evergreen.sh
 
   sym-link:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: spruce
-      shell: bash
-      script: |
-        ln -s evergreen/graphql/schema sdlschema
+      command: ln -s evergreen/graphql/schema sdlschema
 
   run-logkeeper:
     command: shell.exec
@@ -437,6 +435,7 @@ functions:
         node scripts/setup-credentials.js
 
         echo "populating evergreen.yml"
+        chmod +x ./scripts/create-evergreen-yml.sh
         ./scripts/create-evergreen-yml.sh
         echo "Done populating evergreen.yml"
 
