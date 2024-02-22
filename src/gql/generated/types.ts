@@ -2402,6 +2402,7 @@ export type SpruceConfig = {
   jira?: Maybe<JiraConfig>;
   keys: Array<SshKey>;
   providers?: Maybe<CloudProviderConfig>;
+  secretFields: Array<Scalars["String"]["output"]>;
   slack?: Maybe<SlackConfig>;
   spawnHost: SpawnHostConfig;
   ui?: Maybe<UiConfig>;
