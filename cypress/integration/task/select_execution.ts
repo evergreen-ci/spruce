@@ -8,12 +8,15 @@ describe("Selecting Task Execution", () => {
   });
 
   it("Should take user to the latest execution if no execution is specified", () => {
+    cy.location("search").should("include", "execution=1");
     cy.dataCy("execution-select").contains("Execution 2 (latest)");
     cy.dataCy("task-status-badge").contains("Will Run");
-    cy.location("search").should("include", "execution=1");
   });
 
   it("Toggling a different execution should change the displayed execution", () => {
+    cy.location("search").should("include", "execution=1");
+    cy.dataCy("execution-select").contains("Execution 2 (latest)");
+    cy.dataCy("execution-select").should("have.attr", "aria-disabled", "false");
     cy.dataCy("execution-select").click();
     cy.dataCy("execution-0").click();
     cy.dataCy("task-status-badge").contains("Succeeded");

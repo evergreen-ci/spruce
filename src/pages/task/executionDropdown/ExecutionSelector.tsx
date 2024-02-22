@@ -37,16 +37,17 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
   const getDateCopy = useDateFormat();
   return (
     <StyledSelect
-      placeholder="Choose an execution"
+      aria-disabled={executionsLoading}
+      data-cy="execution-select"
       disabled={executionsLoading}
       key={currentExecution}
-      data-cy="execution-select"
-      value={`Execution ${formatZeroIndexForDisplay(currentExecution)}${
-        currentExecution === latestExecution ? " (latest)" : ""
-      }`}
       onChange={(selected: number | null) => {
         updateExecution(selected);
       }}
+      placeholder="Choose an execution"
+      value={`Execution ${formatZeroIndexForDisplay(currentExecution)}${
+        currentExecution === latestExecution ? " (latest)" : ""
+      }`}
     >
       {allExecutions?.map((singleExecution) => {
         const optionText = `Execution ${formatZeroIndexForDisplay(
@@ -58,9 +59,9 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
 
         return (
           <Option
+            data-cy={`execution-${singleExecution.execution}`}
             key={singleExecution.execution}
             value={singleExecution.execution}
-            data-cy={`execution-${singleExecution.execution}`}
           >
             <ExecutionInfo>
               <StyledTaskStatusIcon status={singleExecution.status} />
