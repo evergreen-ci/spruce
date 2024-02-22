@@ -3447,7 +3447,7 @@
     focus-trap-react "9.0.2"
     polished "^4.2.2"
 
-"@leafygreen-ui/hooks@^7.3.3", "@leafygreen-ui/hooks@^7.4.0", "@leafygreen-ui/hooks@^7.5.0", "@leafygreen-ui/hooks@^7.7.3", "@leafygreen-ui/hooks@^7.7.5", "@leafygreen-ui/hooks@^7.7.8":
+"@leafygreen-ui/hooks@^7.3.3", "@leafygreen-ui/hooks@^7.4.0", "@leafygreen-ui/hooks@^7.7.3", "@leafygreen-ui/hooks@^7.7.5", "@leafygreen-ui/hooks@^7.7.8":
   version "7.7.8"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-7.7.8.tgz#63b884067711c42c152edc185b7a2e8be474c264"
   integrity sha512-8n0GjAxIxXN1e7XcZ2bobdI56XCqbtH3AZTbWTgQdILnTdxuA/9+yif1zIP4L8shoUbcosuMwU5HRu4UnX9n1g==
@@ -3603,22 +3603,22 @@
     "@leafygreen-ui/typography" "^17.0.1"
     react-lottie-player "^1.5.4"
 
-"@leafygreen-ui/menu@20.0.1":
-  version "20.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/menu/-/menu-20.0.1.tgz#73384d4a49c5268a31cf09ff4355a5022de3319e"
-  integrity sha512-mZNj/QTk0okbTe9l6nupbBpzEIiDomwuSfUcHQzqM4AM1ZzpIRQgaTFAFYsWQ1lTNHxNwp+95ThgMREz3Xw33A==
+"@leafygreen-ui/menu@23.0.0":
+  version "23.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/menu/-/menu-23.0.0.tgz#598d282cc66b59a2a7465b496f09e879f591bdde"
+  integrity sha512-/7i2EtRv9KMIaZZCbCAC+cNGmSMZp4L8b5uq45CPFDVGnm4GojVuYw2W/muy/0iZHH3vVvlDn6HwGOh7ExFnHg==
   dependencies:
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/hooks" "^7.5.0"
-    "@leafygreen-ui/icon" "^11.12.5"
-    "@leafygreen-ui/icon-button" "^15.0.7"
-    "@leafygreen-ui/lib" "^10.2.2"
-    "@leafygreen-ui/palette" "^4.0.0"
-    "@leafygreen-ui/polymorphic" "^1.2.0"
-    "@leafygreen-ui/popover" "^11.0.4"
-    "@leafygreen-ui/tokens" "^2.0.1"
+    "@leafygreen-ui/emotion" "^4.0.7"
+    "@leafygreen-ui/hooks" "^8.0.0"
+    "@leafygreen-ui/icon" "^11.23.0"
+    "@leafygreen-ui/icon-button" "^15.0.19"
+    "@leafygreen-ui/lib" "^13.0.0"
+    "@leafygreen-ui/palette" "^4.0.7"
+    "@leafygreen-ui/polymorphic" "^1.3.6"
+    "@leafygreen-ui/popover" "^11.1.1"
+    "@leafygreen-ui/tokens" "^2.2.0"
     lodash "^4.17.21"
-    react-transition-group "^4.4.1"
+    react-transition-group "^4.4.5"
 
 "@leafygreen-ui/modal@16.0.3", "@leafygreen-ui/modal@^16.0.0":
   version "16.0.3"
@@ -3683,17 +3683,7 @@
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-3.4.7.tgz#7c4a619ca0cb7a9785326dcb67e012369b3d92d6"
   integrity sha512-AsvPlbvF7CERiZbAQR8hy3lAJ2/rieXI3cO0jsOwV8ztDqYNotKAdLujyr/NviudrRUenYiXrLizIKVlSPUMuA==
 
-"@leafygreen-ui/polymorphic@^1.2.0", "@leafygreen-ui/polymorphic@^1.3.2":
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/polymorphic/-/polymorphic-1.3.2.tgz#7f1752b41679c7afb0818936fa429ce2742e01e7"
-  integrity sha512-av3FtFGf86c9ccIrgEArBhum0M+IklpBvnONsW70mMtEXKnJsGwGwY+HkuSAxbUpjGFIkIPbn5bIp1rHwAIOHA==
-
-"@leafygreen-ui/polymorphic@^1.3.5":
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/polymorphic/-/polymorphic-1.3.5.tgz#231fe35ac1c291d81bc642c5a9dbd9f23737522d"
-  integrity sha512-JoWk/d/siMAcABcz330dXXXKEhxntkmfNb4nbj4GEgmx15nVE9zsW1KvqMQwTdq1gfym9Wc/Ldrkop2JBUoERw==
-
-"@leafygreen-ui/polymorphic@^1.3.6":
+"@leafygreen-ui/polymorphic@^1.3.2", "@leafygreen-ui/polymorphic@^1.3.5", "@leafygreen-ui/polymorphic@^1.3.6":
   version "1.3.6"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/polymorphic/-/polymorphic-1.3.6.tgz#9df179df9176a5c1eaa1120bc22a4cc5356f3ed2"
   integrity sha512-ZJqrYNAAO/CLgl3vtl01jQl2xz6pvzPRMEDqOgCykEn2/vk6wZUOJJ4FVK0cbLZuzwvKixbrTgOSw4WrF19sKg==
@@ -3710,7 +3700,7 @@
     "@leafygreen-ui/tokens" "^2.2.0"
     react-transition-group "^4.4.5"
 
-"@leafygreen-ui/popover@^11.0.12", "@leafygreen-ui/popover@^11.0.15", "@leafygreen-ui/popover@^11.0.17", "@leafygreen-ui/popover@^11.0.4", "@leafygreen-ui/popover@^11.1.1":
+"@leafygreen-ui/popover@^11.0.12", "@leafygreen-ui/popover@^11.0.15", "@leafygreen-ui/popover@^11.0.17", "@leafygreen-ui/popover@^11.1.1":
   version "11.1.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/popover/-/popover-11.1.1.tgz#fe0ee8b6f83e28d87f000af6089f021a48f774b7"
   integrity sha512-isXdPQQM/sdygDt1Wp89ekyXKLW6AMENTC4C6DVuRAAmdRZLtcb724K1KMOkiooa0h/CXWxdLslqJsdzsicAuA==
