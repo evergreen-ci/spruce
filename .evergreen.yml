@@ -22,6 +22,7 @@ pre:
   - func: yarn-install
 
 post:
+  - func: assume-ec2-role
   - func: attach-codegen-diff
   - func: attach-cypress-results
   - func: attach-source-map
@@ -463,13 +464,11 @@ functions:
 tasks:
   - name: compile
     commands:
-      - func: assume-ec2-role
       - func: sym-link
       - func: yarn-build
 
   - name: storybook
     commands:
-      - func: assume-ec2-role
       - func: yarn-build-storybook
 
   - name: test
@@ -507,7 +506,6 @@ tasks:
 
   - name: check_codegen
     commands:
-      - func: assume-ec2-role
       - func: sym-link
       - func: check-codegen
 
