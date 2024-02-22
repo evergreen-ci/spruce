@@ -1,11 +1,12 @@
 import Badge, { Variant } from "@leafygreen-ui/badge";
-import { statusToBadgeColor, statusCopy } from "constants/test";
+import { TestStatus } from "types/test";
+import { statusToBadgeColor, statusCopy } from "./constants";
 
 interface TestStatusBadgeProps {
-  status: string;
+  status: TestStatus;
 }
 
-export const TestStatusBadge: React.FC<TestStatusBadgeProps> = ({ status }) => (
+const TestStatusBadge: React.FC<TestStatusBadgeProps> = ({ status }) => (
   <Badge
     variant={statusToBadgeColor[status?.toLowerCase()] || Variant.LightGray}
     key={status}
@@ -13,3 +14,5 @@ export const TestStatusBadge: React.FC<TestStatusBadgeProps> = ({ status }) => (
     {statusCopy[status?.toLowerCase()] || status}
   </Badge>
 );
+
+export default TestStatusBadge;
