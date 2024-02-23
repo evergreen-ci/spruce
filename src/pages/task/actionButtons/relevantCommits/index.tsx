@@ -21,7 +21,7 @@ import { CommitType } from "./types";
 import { getLinks, getTaskFromMainlineCommitsQuery } from "./utils";
 
 const { applyStrictRegex } = string;
-const { isFinishedTaskStatus } = statuses;
+const { isFailedTaskStatus, isFinishedTaskStatus } = statuses;
 
 interface RelevantCommitsProps {
   taskId: string;
@@ -95,11 +95,7 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ taskId }) => {
     LastMainlineCommitQuery,
     LastMainlineCommitQueryVariables
   >(LAST_MAINLINE_COMMIT, {
-    skip:
-      !parentTask ||
-      !lastPassingTask ||
-      status === undefined ||
-      status === TaskStatus.Succeeded,
+    skip: !parentTask || !lastPassingTask || !isFailedTaskStatus(status),
     variables: {
       projectIdentifier,
       skipOrderNumber: passingOrderNumber + 2,
