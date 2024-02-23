@@ -3,7 +3,7 @@ import { testStatusesFilterTreeData } from "constants/test";
 import { TestSortCategory, TaskQuery } from "gql/generated/types";
 import { string } from "utils";
 import { LogsColumn } from "./LogsColumn";
-import { TestStatusBadge } from "./TestStatusBadge";
+import TestStatusBadge from "./TestStatusBadge";
 
 const { msToDuration } = string;
 
