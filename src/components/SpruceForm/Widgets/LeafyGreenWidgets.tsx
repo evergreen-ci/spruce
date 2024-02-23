@@ -211,6 +211,7 @@ export const LeafyGreenSelect: React.FC<
 
 export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
   disabled,
+  id,
   label,
   onChange,
   options,
@@ -224,11 +225,13 @@ export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
   } = options;
   return (
     <ElementWrapper css={elementWrapperCSS}>
+      <Label htmlFor={id}>{label}</Label>
       <RadioGroup
-        name={label}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
         data-cy={dataCy}
+        id={id}
+        name={label}
+        onChange={(e) => onChange(e.target.value)}
+        value={value}
       >
         {enumOptions.map((o) => {
           const optionDisabled = enumDisabled?.includes(o.value) ?? false;

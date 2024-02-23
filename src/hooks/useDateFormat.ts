@@ -5,12 +5,13 @@ import { useUserTimeZone } from "./useUserTimeZone";
 export const useDateFormat = () => {
   const timezone = useUserTimeZone();
   const { userSettings } = useUserSettings();
-  const { dateFormat } = userSettings || {};
+  const { dateFormat, timeFormat } = userSettings || {};
 
   return (date: string | number | Date, options: DateCopyOptions = {}) =>
     getDateCopy(date, {
       tz: timezone,
       dateFormat,
+      timeFormat,
       ...options,
     });
 };

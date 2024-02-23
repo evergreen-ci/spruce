@@ -23,7 +23,13 @@ export const ProfileTab: React.FC = () => {
   const dispatchToast = useToastContext();
 
   const { loading, userSettings } = useUserSettings();
-  const { dateFormat, githubUser, region, timezone } = userSettings ?? {};
+  const {
+    dateFormat,
+    githubUser,
+    region,
+    timeFormat = "h:mm:ss aa",
+    timezone,
+  } = userSettings ?? {};
   const lastKnownAs = githubUser?.lastKnownAs || "";
 
   const { data: awsRegionData, loading: awsRegionLoading } =
@@ -49,11 +55,13 @@ export const ProfileTab: React.FC = () => {
     region: string;
     githubUser: { lastKnownAs?: string };
     dateFormat: string;
+    timeFormat: string;
   }>({
     timezone,
     region,
     githubUser: { lastKnownAs },
     dateFormat,
+    timeFormat,
   });
 
   useEffect(() => {
@@ -62,8 +70,9 @@ export const ProfileTab: React.FC = () => {
       timezone,
       region,
       dateFormat,
+      timeFormat,
     });
-  }, [dateFormat, githubUser, region, timezone]);
+  }, [dateFormat, githubUser, region, timeFormat, timezone]);
 
   const handleSubmit = () => {
     updateUserSettings({
@@ -111,6 +120,9 @@ export const ProfileTab: React.FC = () => {
             dateFormat: {
               "ui:placeholder": "Select a date format",
             },
+            timeFormat: {
+              "ui:widget": "radio",
+            },
           }}
           schema={{
             properties: {
@@ -148,6 +160,25 @@ export const ProfileTab: React.FC = () => {
                     title: str,
                     enum: [value],
                   })),
+                ],
+              },
+              timeFormat: {
+                type: "string",
+                title: "Time Format",
+                oneOf: [
+                  {
+                    type: "string" as "string",
+                    title: "12-hour clock",
+                    description: "Display time with AM/PM, e.g. 12:34 PM",
+                    enum: ["h:mm:ss aa"],
+                  },
+
+                  {
+                    type: "string" as "string",
+                    title: "24-hour clock",
+                    description: "Use 24-hour notation, e.g. 13:34",
+                    enum: ["H:mm:ss"],
+                  },
                 ],
               },
             },
