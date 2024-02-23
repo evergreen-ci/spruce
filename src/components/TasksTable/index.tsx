@@ -14,6 +14,7 @@ import TaskStatusBadge from "components/TaskStatusBadge";
 import { TreeSelectProps } from "components/TreeSelect";
 import { getVariantHistoryRoute } from "constants/routes";
 import { mergeTaskVariant } from "constants/task";
+import { zIndex } from "constants/tokens";
 import {
   Task,
   SortDirection,
@@ -180,13 +181,14 @@ const getColumnDefs = ({
         <Tooltip
           data-cy="depends-on-tooltip"
           justify="middle"
+          popoverZIndex={zIndex.tooltip}
           trigger={
             <span>
               <TaskStatusBadge status={status} id={id} execution={execution} />
             </span>
           }
         >
-          Depends on <>{pluralize("task", dependsOn.length)}</>:{" "}
+          Depends on {pluralize("task", dependsOn.length)}:{" "}
           {dependsOn.map(({ name }) => `“${name}”`).join(", ")}
         </Tooltip>
       ) : (
