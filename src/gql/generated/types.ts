@@ -8870,6 +8870,7 @@ export type VersionTasksQuery = {
           id: string;
           status: string;
         } | null;
+        dependsOn?: Array<{ __typename?: "Dependency"; name: string }> | null;
         executionTasksFull?: Array<{
           __typename?: "Task";
           buildVariant: string;

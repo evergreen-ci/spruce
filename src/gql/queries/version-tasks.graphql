@@ -17,6 +17,9 @@ query VersionTasks(
         blocked
         buildVariant
         buildVariantDisplayName
+        dependsOn {
+          name
+        }
         displayName
         execution
         executionTasksFull {
