@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
+import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import {
   Analytics,
   useSpawnAnalytics,
@@ -12,6 +13,7 @@ import { size } from "constants/tokens";
 import { useDateFormat } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
+import { workstationSupportedDistros } from "./constants";
 
 type SendEvent = Analytics["sendEvent"];
 
@@ -19,7 +21,7 @@ interface SpawnHostCardProps {
   host: MyHost;
 }
 
-export const SpawnHostCard: React.FC<SpawnHostCardProps> = ({ host }) => {
+const SpawnHostCard: React.FC<SpawnHostCardProps> = ({ host }) => {
   const { sendEvent } = useSpawnAnalytics();
 
   return (
@@ -88,18 +90,29 @@ const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
   ),
   IDE: (host: MyHost) =>
     host?.distro?.isVirtualWorkStation &&
-    host?.status === HostStatus.Running ? (
-      <span>
+    host?.status === HostStatus.Running &&
+    workstationSupportedDistros.includes(host?.distro?.id) ? (
+      <IDEContainer>
         <StyledLink
           href={getIdeUrl(host.id)}
           onClick={() => sendEvent({ name: "Opened IDE" })}
         >
-          Open IDE
+          Open IDE (Deprecated)
         </StyledLink>
-      </span>
+        <InfoSprinkle>
+          The Evergreen IDE is now deprecated and is no longer installed on
+          Workstations
+        </InfoSprinkle>
+      </IDEContainer>
     ) : undefined,
 });
 
+const IDEContainer = styled.div`
+  display: flex;
+  gap: ${size.xs};
+`;
 const PaddedBadge = styled(Badge)`
   margin-right: ${size.xs};
 `;
+
+export default SpawnHostCard;
