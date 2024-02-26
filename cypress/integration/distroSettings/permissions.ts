@@ -1,20 +1,12 @@
-describe("with various permission levels", () => {
+import { users } from "../../constants";
+
+describe("distro permissions", () => {
+  beforeEach(() => {
+    cy.logout();
+  });
+
   it("hides the new distro button when a user cannot create distros", () => {
-    const userData = {
-      data: {
-        user: {
-          userId: "admin",
-          permissions: {
-            canCreateDistro: false,
-            distroPermissions: {
-              admin: true,
-              edit: true,
-            },
-          },
-        },
-      },
-    };
-    cy.overwriteGQL("UserDistroSettingsPermissions", userData);
+    cy.login(users.privileged);
     cy.visit("/distro/rhel71-power8-large/settings/general");
     cy.dataCy("new-distro-button").should("not.exist");
     cy.dataCy("delete-distro-button").should(
@@ -26,58 +18,38 @@ describe("with various permission levels", () => {
   });
 
   it("disables the delete button when user lacks admin permissions", () => {
-    const userData = {
-      data: {
-        user: {
-          userId: "admin",
-          permissions: {
-            canCreateDistro: false,
-            distroPermissions: {
-              admin: false,
-              edit: true,
-            },
-          },
-        },
-      },
-    };
-    cy.overwriteGQL("UserDistroSettingsPermissions", userData);
+    cy.login(users.regular);
     cy.visit("/distro/rhel71-power8-large/settings/general");
-    cy.dataCy("new-distro-button").should("not.exist");
     cy.dataCy("delete-distro-button").should(
       "have.attr",
       "aria-disabled",
       "true",
     );
-    cy.get("textarea").should("not.be.disabled");
   });
 
   it("disables fields when user lacks edit permissions", () => {
-    const userData = {
-      data: {
-        user: {
-          userId: "admin",
-          permissions: {
-            canCreateDistro: false,
-            distroPermissions: {
-              admin: false,
-              edit: false,
-            },
-          },
-        },
-      },
-    };
-    cy.overwriteGQL("UserDistroSettingsPermissions", userData);
+    cy.login(users.regular);
     cy.visit("/distro/rhel71-power8-large/settings/general");
-    cy.dataCy("new-distro-button").should("not.exist");
-    cy.dataCy("delete-distro-button").should(
-      "have.attr",
-      "aria-disabled",
-      "true",
-    );
     cy.dataCy("distro-settings-page").within(() => {
-      cy.get("input").should("be.disabled");
+      cy.get('input[type="checkbox"]').should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
       cy.get("textarea").should("be.disabled");
-      cy.get("button").should("have.attr", "aria-disabled", "true");
+    });
+  });
+
+  it("enables fields if user has edit permissions for a particular distro", () => {
+    cy.login(users.regular);
+    cy.visit("/distro/localhost/settings/general");
+    cy.dataCy("distro-settings-page").within(() => {
+      cy.get('input[type="checkbox"]').should(
+        "have.attr",
+        "aria-disabled",
+        "false",
+      );
+      cy.get("textarea").should("not.be.disabled");
     });
   });
 });
