@@ -27,6 +27,7 @@ describe("validateNoSpecialCharacters", () => {
 
 describe("validateNoStartingOrTrailingWhitespace", () => {
   it("returns true if string has no starting or trailing whitespace", () => {
+    expect(validateNoStartingOrTrailingWhitespace("")).toBe(true);
     expect(validateNoStartingOrTrailingWhitespace("helloworld")).toBe(true);
     expect(validateNoStartingOrTrailingWhitespace(" helloWorld123")).toBe(
       false,
