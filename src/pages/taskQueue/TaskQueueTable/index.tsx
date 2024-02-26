@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { css } from "@leafygreen-ui/emotion";
@@ -38,11 +38,15 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
     [],
   );
 
+  const estimateSize = useCallback(() => 65, []);
   const table = useLeafyGreenTable<TaskQueueColumnData>({
     data: taskQueue,
     columns,
     containerRef: tableContainerRef,
     useVirtualScrolling: true,
+    virtualizerOptions: {
+      estimateSize,
+    },
   });
   const performedInitialScroll = useRef(false);
   useEffect(() => {
@@ -103,7 +107,7 @@ const taskQueueTableColumns = (
               to={getTaskRoute(id)}
               onClick={() => sendEvent({ name: "Click Task Link" })}
             >
-              <WordBreak>{displayName}</WordBreak>
+              {displayName}
             </StyledRouterLink>
             <Body>{buildVariant}</Body>
             <Disclaimer>{project}</Disclaimer>
