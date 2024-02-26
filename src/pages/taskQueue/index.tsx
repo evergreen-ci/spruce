@@ -24,13 +24,19 @@ import {
 } from "gql/generated/types";
 import { DISTRO_TASK_QUEUE, TASK_QUEUE_DISTROS } from "gql/queries";
 import { usePageTitle } from "hooks";
+import { useQueryParam } from "hooks/useQueryParam";
+import { QueryParams } from "types/task";
 import { DistroOption } from "./DistroOption";
 import TaskQueueTable from "./TaskQueueTable";
 
 const TaskQueue = () => {
   const taskQueueAnalytics = useTaskQueueAnalytics();
 
-  const { distro, taskId } = useParams<{ distro: string; taskId?: string }>();
+  const { distro } = useParams<{ distro: string }>();
+  const [taskId] = useQueryParam<string | undefined>(
+    QueryParams.TaskId,
+    undefined,
+  );
   const navigate = useNavigate();
   const [selectedDistro, setSelectedDistro] = useState<TaskQueueDistro | null>(
     null,

@@ -59,6 +59,7 @@ export enum LogTypes {
 
 export enum QueryParams {
   LogType = "logtype",
+  TaskId = "taskId",
 }
 
 export enum TaskStatus {
