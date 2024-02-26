@@ -22,7 +22,9 @@ describe("distro select", () => {
     await waitFor(() => {
       expect(screen.getByDataCy("distro-select")).toBeInTheDocument();
     });
-    expect(screen.getByDataCy("distro-select")).toHaveTextContent("localhost");
+    await waitFor(() => {
+      expect(screen.getByDisplayValue("localhost")).toBeVisible();
+    });
   });
 
   it("selecting a different distro will navigate to the correct URL", async () => {
@@ -36,8 +38,9 @@ describe("distro select", () => {
       expect(screen.getByDataCy("distro-select")).toBeInTheDocument();
     });
 
-    await user.click(screen.getByDataCy("distro-select"));
-    expect(screen.getByDataCy("distro-select-options")).toBeInTheDocument();
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    await user.click(screen.getByLabelText("Distro"));
+    expect(screen.getByRole("listbox")).toBeVisible();
     await user.click(screen.getByText("abc"));
     expect(screen.queryByDataCy("distro-select-options")).toBeNull();
     expect(router.state.location.pathname).toBe("/distro/abc/settings/general");
@@ -52,17 +55,14 @@ describe("distro select", () => {
       expect(screen.getByDataCy("distro-select")).toBeInTheDocument();
     });
 
-    await user.click(screen.getByDataCy("distro-select"));
-    expect(
-      screen.getByDataCy("distro-select-search-input"),
-    ).toBeInTheDocument();
-    expect(screen.getByDataCy("distro-select-options")).toBeInTheDocument();
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    await user.click(screen.getByLabelText("Distro"));
+    expect(screen.getByRole("listbox")).toBeVisible();
 
-    let options = await screen.findAllByDataCy("searchable-dropdown-option");
-    expect(options).toHaveLength(3);
-    await user.type(screen.queryByDataCy("distro-select-search-input"), "abc");
-    options = await screen.findAllByDataCy("searchable-dropdown-option");
-    expect(options).toHaveLength(1);
+    expect(screen.getAllByRole("option")).toHaveLength(3);
+    await user.clear(screen.getByPlaceholderText("Select distro"));
+    await user.type(screen.getByPlaceholderText("Select distro"), "abc");
+    expect(screen.getAllByRole("option")).toHaveLength(1);
   });
 });
 
@@ -76,16 +76,19 @@ const distrosMock: ApolloMock<DistrosQuery, DistrosQueryVariables> = {
       distros: [
         {
           __typename: "Distro",
+          adminOnly: false,
           isVirtualWorkStation: true,
           name: "localhost",
         },
         {
           __typename: "Distro",
+          adminOnly: true,
           isVirtualWorkStation: false,
           name: "localhost2",
         },
         {
           __typename: "Distro",
+          adminOnly: true,
           isVirtualWorkStation: true,
           name: "abc",
         },

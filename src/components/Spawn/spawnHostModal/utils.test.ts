@@ -62,7 +62,7 @@ describe("validateSpawnHostForm", () => {
     expect(
       validateSpawnHostForm({
         ...validForm,
-        distro: { value: "", isVirtualWorkstation: false },
+        distro: { value: "", isVirtualWorkstation: false, adminOnly: false },
       }),
     ).toBe(false);
   });
@@ -189,7 +189,11 @@ describe("validateSpawnHostForm", () => {
 });
 
 const validForm: FormState = {
-  distro: { value: "ubuntu-workstation", isVirtualWorkstation: true },
+  distro: {
+    value: "ubuntu-workstation",
+    isVirtualWorkstation: true,
+    adminOnly: false,
+  },
   region: "us-east-1a",
   publicKeySection: {
     useExisting: true,
@@ -204,7 +208,11 @@ const validForm: FormState = {
   },
 };
 const validVirtualWorkstationForm: FormState = {
-  distro: { value: "ubuntu-workstation", isVirtualWorkstation: true },
+  distro: {
+    value: "ubuntu-workstation",
+    isVirtualWorkstation: true,
+    adminOnly: false,
+  },
   region: "us-east-1a",
   publicKeySection: {
     useExisting: true,

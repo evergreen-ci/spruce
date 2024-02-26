@@ -3,29 +3,12 @@ import {
   CardFieldTemplate,
   FieldRow,
 } from "components/SpruceForm/FieldTemplates";
-import { CloneMethod } from "gql/generated/types";
 
 export const getFormSchema = (): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
     type: "object" as "object",
     properties: {
-      cloneMethod: {
-        type: "string" as "string",
-        title: "Project Cloning Method",
-        oneOf: [
-          {
-            type: "string" as "string",
-            title: "Legacy SSH",
-            enum: [CloneMethod.LegacySsh],
-          },
-          {
-            type: "string" as "string",
-            title: "OAuth",
-            enum: [CloneMethod.Oauth],
-          },
-        ],
-      },
       expansions: {
         type: "array" as "array",
         title: "Expansions",
@@ -61,10 +44,6 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
   },
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
-    cloneMethod: {
-      "ui:allowDeselect": false,
-      "ui:data-cy": "clone-method-select",
-    },
     expansions: {
       "ui:addButtonText": "Add expansion",
       "ui:orderable": false,

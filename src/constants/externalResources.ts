@@ -38,12 +38,6 @@ export const getJiraBugUrl = (jiraHost: string) =>
 export const getJiraImprovementUrl = (jiraHost: string) =>
   `https://${jiraHost}/secure/CreateIssueDetails!init.jspa?pid=22786&issuetype=4&priority=4&labels=user-feedback`;
 
-export const legacyRoutes = {
-  distros: "/distros",
-  hosts: "/spawn",
-  projects: "/projects",
-};
-
 export const getIdeUrl = (hostId: string) => `${getUiUrl()}/host/${hostId}/ide`;
 
 export const getJiraSearchUrl = (jiraHost: string, jqlEscaped: string) =>

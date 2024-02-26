@@ -10,11 +10,13 @@ import {
 } from "gql/generated/types";
 import { shortenGithash } from "utils/string";
 import { getDefaultExpiration } from "../utils";
+import { DEFAULT_VOLUME_SIZE } from "./constants";
 import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
 
 interface Props {
   distros: {
+    adminOnly: boolean;
     isVirtualWorkStation: boolean;
     name?: string;
   }[];
@@ -87,6 +89,7 @@ export const getFormSchema = ({
               title: d.name,
               enum: [d.name],
               isVirtualWorkstation: d.isVirtualWorkStation,
+              adminOnly: d.adminOnly,
             })) || []),
           ],
         },
@@ -406,7 +409,7 @@ export const getFormSchema = ({
                       volumeSize: {
                         title: "Volume size (GB)",
                         type: "number" as "number",
-                        default: 500,
+                        default: DEFAULT_VOLUME_SIZE,
                       },
                     },
                   },

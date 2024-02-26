@@ -6,8 +6,15 @@ type Tab = DistroSettingsTabRoutes.General;
 export const gqlToForm = ((data) => {
   if (!data) return null;
 
-  const { aliases, disableShallowClone, disabled, isCluster, name, note } =
-    data;
+  const {
+    adminOnly,
+    aliases,
+    disableShallowClone,
+    disabled,
+    isCluster,
+    name,
+    note,
+  } = data;
 
   return {
     distroName: {
@@ -17,6 +24,7 @@ export const gqlToForm = ((data) => {
       aliases,
     },
     distroOptions: {
+      adminOnly,
       isCluster,
       disableShallowClone,
       disabled,
@@ -31,6 +39,7 @@ export const formToGql = ((
 ) => ({
   ...distro,
   name: distroName.identifier,
+  adminOnly: distroOptions.adminOnly,
   aliases: distroAliases.aliases,
   note: distroOptions.note,
   isCluster: distroOptions.isCluster,

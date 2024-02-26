@@ -146,6 +146,22 @@ describe("Task table", () => {
       });
     });
   });
+
+  describe("blocked tasks", () => {
+    beforeEach(() => {
+      cy.visit(pathTasks);
+      waitForTaskTable();
+    });
+
+    it("shows the blocking tasks when hovering over status badge", () => {
+      cy.dataCy("depends-on-tooltip").should("not.exist");
+      cy.dataCy("task-status-badge").contains("Blocked").trigger("mouseover");
+      cy.dataCy("depends-on-tooltip").should("be.visible");
+      cy.dataCy("depends-on-tooltip").contains(
+        "Depends on tasks: “test-migrations”, “test-graphql”",
+      );
+    });
+  });
 });
 
 const dataCyTableDataRows = ".ant-table-cell > .cy-task-table-col-NAME";

@@ -206,11 +206,6 @@ export type ClientConfig = {
   latestRevision?: Maybe<Scalars["String"]["output"]>;
 };
 
-export enum CloneMethod {
-  LegacySsh = "LEGACY_SSH",
-  Oauth = "OAUTH",
-}
-
 export type CloudProviderConfig = {
   __typename?: "CloudProviderConfig";
   aws?: Maybe<AwsConfig>;
@@ -369,7 +364,6 @@ export type Distro = {
   arch: Arch;
   authorizedKeysFile: Scalars["String"]["output"];
   bootstrapSettings: BootstrapSettings;
-  cloneMethod: CloneMethod;
   containerPool: Scalars["String"]["output"];
   disableShallowClone: Scalars["Boolean"]["output"];
   disabled: Scalars["Boolean"]["output"];
@@ -430,13 +424,11 @@ export type DistroInfo = {
 };
 
 export type DistroInput = {
-  /** TODO: require adminOnly field upon completion of DEVPROD-3533 */
-  adminOnly?: InputMaybe<Scalars["Boolean"]["input"]>;
+  adminOnly: Scalars["Boolean"]["input"];
   aliases: Array<Scalars["String"]["input"]>;
   arch: Arch;
   authorizedKeysFile: Scalars["String"]["input"];
   bootstrapSettings: BootstrapSettingsInput;
-  cloneMethod?: InputMaybe<CloneMethod>;
   containerPool: Scalars["String"]["input"];
   disableShallowClone: Scalars["Boolean"]["input"];
   disabled: Scalars["Boolean"]["input"];
@@ -2410,6 +2402,7 @@ export type SpruceConfig = {
   jira?: Maybe<JiraConfig>;
   keys: Array<SshKey>;
   providers?: Maybe<CloudProviderConfig>;
+  secretFields: Array<Scalars["String"]["output"]>;
   slack?: Maybe<SlackConfig>;
   spawnHost: SpawnHostConfig;
   ui?: Maybe<UiConfig>;
@@ -2591,6 +2584,7 @@ export type TaskEndDetail = {
 
 export type TaskEventLogData = {
   __typename?: "TaskEventLogData";
+  blockedOn?: Maybe<Scalars["String"]["output"]>;
   hostId?: Maybe<Scalars["String"]["output"]>;
   jiraIssue?: Maybe<Scalars["String"]["output"]>;
   jiraLink?: Maybe<Scalars["String"]["output"]>;
@@ -2659,7 +2653,6 @@ export type TaskLogs = {
   __typename?: "TaskLogs";
   agentLogs: Array<LogMessage>;
   allLogs: Array<LogMessage>;
-  defaultLogger: Scalars["String"]["output"];
   eventLogs: Array<TaskEventLogEntry>;
   execution: Scalars["Int"]["output"];
   systemLogs: Array<LogMessage>;
@@ -2792,8 +2785,6 @@ export type TestLog = {
   lineNum?: Maybe<Scalars["Int"]["output"]>;
   renderingType?: Maybe<Scalars["String"]["output"]>;
   url?: Maybe<Scalars["String"]["output"]>;
-  /** @deprecated Use urlParsley instead */
-  urlLobster?: Maybe<Scalars["String"]["output"]>;
   urlParsley?: Maybe<Scalars["String"]["output"]>;
   urlRaw?: Maybe<Scalars["String"]["output"]>;
   version?: Maybe<Scalars["Int"]["output"]>;
@@ -5731,10 +5722,10 @@ export type DistroQuery = {
   __typename?: "Query";
   distro?: {
     __typename?: "Distro";
+    adminOnly: boolean;
     aliases: Array<string>;
     arch: Arch;
     authorizedKeysFile: string;
-    cloneMethod: CloneMethod;
     containerPool: string;
     disabled: boolean;
     disableShallowClone: boolean;
@@ -5827,6 +5818,7 @@ export type DistrosQuery = {
   __typename?: "Query";
   distros: Array<{
     __typename?: "Distro";
+    adminOnly: boolean;
     isVirtualWorkStation: boolean;
     name: string;
   } | null>;
@@ -8878,6 +8870,7 @@ export type VersionTasksQuery = {
           id: string;
           status: string;
         } | null;
+        dependsOn?: Array<{ __typename?: "Dependency"; name: string }> | null;
         executionTasksFull?: Array<{
           __typename?: "Task";
           buildVariant: string;
