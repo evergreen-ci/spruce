@@ -50,10 +50,7 @@ describe("Access page", () => {
   it("Submitting an invalid admin username produces an error toast", () => {
     cy.visit(getAccessRoute(project));
     cy.contains("Add Username").click();
-    cy.get("[aria-label='Username'")
-      .should("have.length", 4)
-      .first()
-      .type("mongodb_user");
+    cy.getInputByLabel("Username").type("mongodb_user");
     clickSave();
     cy.validateToast(
       "error",
