@@ -85,58 +85,54 @@ const TaskQueue = () => {
   return (
     <StyledPageWrapper>
       <StyledH2>Task Queue</StyledH2>
-      <>
-        <TableControlOuterRow>
-          <SearchableDropdownWrapper>
-            <SearchableDropdown
-              data-cy="distro-dropdown"
-              label="Distro"
-              disabled={loadingDistrosData}
-              options={distrosData?.taskQueueDistros}
-              searchFunc={handleSearch}
-              optionRenderer={(option, onClick) => (
-                <DistroOption
-                  option={option}
-                  key={`distro-select-search-option-${option.id}`}
-                  onClick={onClick}
-                />
-              )}
-              onChange={onChangeDistroSelection}
-              value={selectedDistro}
-              buttonRenderer={(option: TaskQueueDistro) => (
-                <DistroLabel>
-                  <StyledBadge>{`${option?.taskCount || 0} ${
-                    option?.taskCount === 1 ? "TASK" : "TASKS"
-                  }`}</StyledBadge>
-                  <StyledBadge>{`${option?.hostCount || 0} ${
-                    option?.hostCount === 1 ? "HOST" : "HOSTS"
-                  }`}</StyledBadge>
-                  <DistroName> {option?.id} </DistroName>
-                </DistroLabel>
-              )}
-            />
-          </SearchableDropdownWrapper>
-        </TableControlOuterRow>
-
-        {
-          /* Only show name & link if distro exists. */
-          distro && (
-            <TableHeader>
-              <StyledH3> {distro} </StyledH3>
-              <StyledRouterLink to={getAllHostsRoute({ distroId: distro })}>
-                View hosts
-              </StyledRouterLink>
-            </TableHeader>
-          )
-        }
-
-        {!loading && (
-          <TaskQueueTable
-            taskQueue={taskQueueItemsData?.distroTaskQueue}
-            taskId={taskId}
+      <TableControlOuterRow>
+        <SearchableDropdownWrapper>
+          <SearchableDropdown
+            data-cy="distro-dropdown"
+            label="Distro"
+            disabled={loadingDistrosData}
+            options={distrosData?.taskQueueDistros}
+            searchFunc={handleSearch}
+            optionRenderer={(option, onClick) => (
+              <DistroOption
+                option={option}
+                key={`distro-select-search-option-${option.id}`}
+                onClick={onClick}
+              />
+            )}
+            onChange={onChangeDistroSelection}
+            value={selectedDistro}
+            buttonRenderer={(option: TaskQueueDistro) => (
+              <DistroLabel>
+                <StyledBadge>{`${option?.taskCount || 0} ${
+                  option?.taskCount === 1 ? "TASK" : "TASKS"
+                }`}</StyledBadge>
+                <StyledBadge>{`${option?.hostCount || 0} ${
+                  option?.hostCount === 1 ? "HOST" : "HOSTS"
+                }`}</StyledBadge>
+                <DistroName> {option?.id} </DistroName>
+              </DistroLabel>
+            )}
           />
-        )}
-      </>
+        </SearchableDropdownWrapper>
+      </TableControlOuterRow>
+      {
+        /* Only show name & link if distro exists. */
+        distro && (
+          <TableHeader>
+            <StyledH3>{distro}</StyledH3>
+            <StyledRouterLink to={getAllHostsRoute({ distroId: distro })}>
+              View hosts
+            </StyledRouterLink>
+          </TableHeader>
+        )
+      }
+      {!loading && (
+        <TaskQueueTable
+          taskQueue={taskQueueItemsData?.distroTaskQueue}
+          taskId={taskId}
+        />
+      )}
     </StyledPageWrapper>
   );
 };
