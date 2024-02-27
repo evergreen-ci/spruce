@@ -6,11 +6,7 @@ import { H2, H2Props, H3, H3Props } from "@leafygreen-ui/typography";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
 import SearchableDropdown from "components/SearchableDropdown";
-import {
-  TableControlOuterRow,
-  PageWrapper,
-  StyledRouterLink,
-} from "components/styles";
+import { PageWrapper, StyledRouterLink } from "components/styles";
 import { getTaskQueueRoute, getAllHostsRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -85,37 +81,35 @@ const TaskQueue = () => {
   return (
     <StyledPageWrapper>
       <StyledH2>Task Queue</StyledH2>
-      <TableControlOuterRow>
-        <SearchableDropdownWrapper>
-          <SearchableDropdown
-            data-cy="distro-dropdown"
-            label="Distro"
-            disabled={loadingDistrosData}
-            options={distrosData?.taskQueueDistros}
-            searchFunc={handleSearch}
-            optionRenderer={(option, onClick) => (
-              <DistroOption
-                option={option}
-                key={`distro-select-search-option-${option.id}`}
-                onClick={onClick}
-              />
-            )}
-            onChange={onChangeDistroSelection}
-            value={selectedDistro}
-            buttonRenderer={(option: TaskQueueDistro) => (
-              <DistroLabel>
-                <StyledBadge>{`${option?.taskCount || 0} ${
-                  option?.taskCount === 1 ? "TASK" : "TASKS"
-                }`}</StyledBadge>
-                <StyledBadge>{`${option?.hostCount || 0} ${
-                  option?.hostCount === 1 ? "HOST" : "HOSTS"
-                }`}</StyledBadge>
-                <DistroName> {option?.id} </DistroName>
-              </DistroLabel>
-            )}
-          />
-        </SearchableDropdownWrapper>
-      </TableControlOuterRow>
+      <SearchableDropdownWrapper>
+        <SearchableDropdown
+          data-cy="distro-dropdown"
+          label="Distro"
+          disabled={loadingDistrosData}
+          options={distrosData?.taskQueueDistros}
+          searchFunc={handleSearch}
+          optionRenderer={(option, onClick) => (
+            <DistroOption
+              option={option}
+              key={`distro-select-search-option-${option.id}`}
+              onClick={onClick}
+            />
+          )}
+          onChange={onChangeDistroSelection}
+          value={selectedDistro}
+          buttonRenderer={(option: TaskQueueDistro) => (
+            <DistroLabel>
+              <StyledBadge>{`${option?.taskCount || 0} ${
+                option?.taskCount === 1 ? "TASK" : "TASKS"
+              }`}</StyledBadge>
+              <StyledBadge>{`${option?.hostCount || 0} ${
+                option?.hostCount === 1 ? "HOST" : "HOSTS"
+              }`}</StyledBadge>
+              <DistroName> {option?.id} </DistroName>
+            </DistroLabel>
+          )}
+        />
+      </SearchableDropdownWrapper>
       {
         /* Only show name & link if distro exists. */
         distro && (
