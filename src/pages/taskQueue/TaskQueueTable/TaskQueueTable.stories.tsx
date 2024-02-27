@@ -44,7 +44,6 @@ export const Default: CustomStoryObj<typeof TaskQueueTable> = {
   ),
   argTypes: {},
   args: {
-    loading: false,
     taskQueue: generateTaskQueue(5000),
   },
 };

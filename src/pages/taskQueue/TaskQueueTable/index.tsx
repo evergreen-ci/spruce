@@ -20,12 +20,10 @@ import { msToDuration } from "utils/string";
 type TaskQueueColumnData = Omit<TaskQueueItem, "revision">;
 interface TaskQueueTableProps {
   taskQueue: TaskQueueColumnData[];
-  loading: boolean;
   taskId?: string;
 }
 
 const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
-  loading,
   taskId,
   taskQueue = [],
 }) => {
@@ -66,7 +64,6 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
     <BaseTable
       data-cy="task-queue-table"
       table={table}
-      loading={loading}
       shouldAlternateRowColor
       emptyComponent={<TablePlaceholder message="No tasks found in queue." />}
       ref={tableContainerRef}
