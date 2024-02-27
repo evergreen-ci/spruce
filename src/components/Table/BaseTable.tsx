@@ -155,7 +155,7 @@ export const BaseTable = forwardRef(
                       row={row}
                       key={row.id}
                       virtualRow={vr}
-                      selectedRowIds={selectedRowIds}
+                      isSelected={selectedRowIds.includes(row.id)}
                     />
                   );
                 })
@@ -164,7 +164,7 @@ export const BaseTable = forwardRef(
                     row={row}
                     key={row.id}
                     virtualRow={null}
-                    selectedRowIds={selectedRowIds}
+                    isSelected={selectedRowIds.includes(row.id)}
                   />
                 ))}
           </TableBody>
@@ -180,13 +180,13 @@ export const BaseTable = forwardRef(
 const cellPaddingStyle = { paddingBottom: size.xxs, paddingTop: size.xxs };
 
 const RenderableRow = <T extends LGRowData>({
+  isSelected = false,
   row,
-  selectedRowIds,
   virtualRow,
 }: {
   row: LeafyGreenTableRow<T>;
   virtualRow: VirtualItem;
-  selectedRowIds?: string[];
+  isSelected?: boolean;
 }) => (
   <Row
     row={row}
@@ -195,7 +195,7 @@ const RenderableRow = <T extends LGRowData>({
       &[aria-hidden="false"] td > div {
         max-height: unset;
       }
-      ${selectedRowIds?.includes(row.id) &&
+      ${isSelected &&
       `
         background-color: ${blue.light3} !important;
         font-weight:bold;
