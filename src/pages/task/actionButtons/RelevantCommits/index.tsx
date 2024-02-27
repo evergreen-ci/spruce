@@ -91,7 +91,7 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ taskId }) => {
   // The breaking commit is the first failing commit after the last passing commit.
   // The skip order number should be the last passing commit's order number + 1.
   // We use + 2 because internally the query does a less than comparison.
-  // https://github.com/ZackarySantana/spruce/blob/7018fcbce0be9db310d17c40fe948aff597fcd15/src/pages/task/actionButtons/relevantCommits/index.tsx#L93
+  // https://github.com/evergreen-ci/evergreen/blob/f6751ac3194452d457c0a6fe1a9f9b30dd674c60/model/version.go#L518
   const { data: breakingTaskData, loading: breakingLoading } = useQuery<
     LastMainlineCommitQuery,
     LastMainlineCommitQueryVariables
