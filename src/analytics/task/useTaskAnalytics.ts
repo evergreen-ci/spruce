@@ -70,7 +70,7 @@ type Action =
   | { name: "Click Last Failing Stepback Task Link" }
   | { name: "Click Previous Stepback Task Link" }
   | { name: "Click Next Stepback Task Link" }
-  | { name: "Submit Previous Commit Selector"; type: CommitType };
+  | { name: "Submit Relevant Commit Selector"; type: CommitType };
 
 export const useTaskAnalytics = () => {
   const { id } = useParams<{ id: string }>();

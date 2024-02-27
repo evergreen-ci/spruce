@@ -174,7 +174,7 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ taskId }) => {
         disabled={parentLoading}
         onClick={() =>
           sendEvent({
-            name: "Submit Previous Commit Selector",
+            name: "Submit Relevant Commit Selector",
             type: CommitType.Base,
           })
         }
@@ -187,7 +187,7 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ taskId }) => {
         disabled={breakingLoading || breakingTask === undefined}
         onClick={() =>
           sendEvent({
-            name: "Submit Previous Commit Selector",
+            name: "Submit Relevant Commit Selector",
             type: CommitType.Breaking,
           })
         }
@@ -200,7 +200,7 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ taskId }) => {
         disabled={passingLoading}
         onClick={() =>
           sendEvent({
-            name: "Submit Previous Commit Selector",
+            name: "Submit Relevant Commit Selector",
             type: CommitType.LastPassing,
           })
         }
@@ -213,7 +213,7 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ taskId }) => {
         disabled={executedLoading}
         onClick={() =>
           sendEvent({
-            name: "Submit Previous Commit Selector",
+            name: "Submit Relevant Commit Selector",
             type: CommitType.LastExecuted,
           })
         }
