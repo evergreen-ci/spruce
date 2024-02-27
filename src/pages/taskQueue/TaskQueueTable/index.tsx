@@ -30,7 +30,7 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
 }) => {
   const taskQueueAnalytics = useTaskQueueAnalytics();
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
+  const [selectedRowIndexes, setSelectedRowIndexes] = useState<number[]>([]);
   const columns = useMemo(
     () => taskQueueTableColumns(taskQueueAnalytics.sendEvent),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -50,7 +50,7 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
   useEffect(() => {
     if (taskId !== undefined && !performedInitialScroll.current) {
       const i = taskQueue.findIndex((t) => t.id === taskId);
-      setSelectedRowIds([i.toString()]);
+      setSelectedRowIndexes([i]);
       table.scrollToIndex(i, { align: "center" });
 
       setTimeout(() => {
@@ -68,7 +68,7 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
       shouldAlternateRowColor
       emptyComponent={<TablePlaceholder message="No tasks found in queue." />}
       ref={tableContainerRef}
-      selectedRowIds={selectedRowIds}
+      selectedRowIndexes={selectedRowIndexes}
       className={css`
         flex-grow: 1;
       `}

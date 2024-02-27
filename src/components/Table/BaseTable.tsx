@@ -58,7 +58,7 @@ type SpruceTableProps = {
   /** estimated number of rows the table will have */
   loadingRows?: number;
   /** rows that will have a blue tint to represent that they are selected */
-  selectedRowIds?: string[];
+  selectedRowIndexes?: number[];
 };
 
 export const BaseTable = forwardRef(
@@ -69,7 +69,7 @@ export const BaseTable = forwardRef(
       emptyComponent,
       loading,
       loadingRows = 5,
-      selectedRowIds,
+      selectedRowIndexes,
       table,
       ...args
     }: SpruceTableProps & TableProps<any>,
@@ -78,7 +78,6 @@ export const BaseTable = forwardRef(
     const { virtualRows } = table;
     const { rows } = table.getRowModel();
     const hasVirtualRows = virtualRows && virtualRows.length > 0;
-
     return (
       <>
         <StyledTable data-cy={dataCyTable} table={table} ref={ref} {...args}>
@@ -155,7 +154,7 @@ export const BaseTable = forwardRef(
                       row={row}
                       key={row.id}
                       virtualRow={vr}
-                      isSelected={selectedRowIds.includes(row.id)}
+                      isSelected={selectedRowIndexes.includes(row.index)}
                     />
                   );
                 })
@@ -164,7 +163,7 @@ export const BaseTable = forwardRef(
                     row={row}
                     key={row.id}
                     virtualRow={null}
-                    isSelected={selectedRowIds.includes(row.id)}
+                    isSelected={selectedRowIndexes.includes(row.index)}
                   />
                 ))}
           </TableBody>
