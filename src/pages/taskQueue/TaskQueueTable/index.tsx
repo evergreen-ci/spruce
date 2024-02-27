@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { css } from "@leafygreen-ui/emotion";
@@ -22,6 +22,7 @@ interface TaskQueueTableProps {
   taskQueue: TaskQueueColumnData[];
   taskId?: string;
 }
+const estimateSize = () => 65;
 
 const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
   taskId,
@@ -36,7 +37,6 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
     [],
   );
 
-  const estimateSize = useCallback(() => 65, []);
   const table = useLeafyGreenTable<TaskQueueColumnData>({
     data: taskQueue,
     columns,
@@ -58,6 +58,7 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
         table.scrollToIndex(i, { align: "center" });
       }, 200);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [taskId, taskQueue]);
 
   return (
