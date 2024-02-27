@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 import Banner from "@leafygreen-ui/banner";
+import { StyledLink } from "components/styles";
+import { containersOnboardingDocumentationUrl } from "constants/externalResources";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { useSpruceConfig } from "hooks";
 import { BaseTab } from "../BaseTab";
@@ -26,10 +28,13 @@ export const ContainersTab: React.FC<TabProps> = ({
   return (
     <>
       <Banner variant="warning">
-        Running tasks on containers is currently in beta, and is only available
-        to a select group of initial candidates. If you have any questions about
-        container tasks or are interested in exploring how this feature could
-        benefit your project, please reach out to us in #evergreen-users
+        Further development will not be made on our current offering of
+        containers, however, we will be continuing to maintain it as an offering
+        in its current state. For more information on how to get started, please
+        refer to our{" "}
+        <StyledLink href={containersOnboardingDocumentationUrl}>
+          container onboarding guide.
+        </StyledLink>
       </Banner>
       <BaseTab
         formSchema={formSchema}
