@@ -22,6 +22,7 @@ pre:
   - func: yarn-install
 
 post:
+  - func: assume-ec2-role
   - func: attach-codegen-diff
   - func: attach-cypress-results
   - func: attach-source-map
@@ -33,6 +34,11 @@ post:
 #              Functions              #
 #######################################
 functions:
+  assume-ec2-role:
+    command: ec2.assume_role
+    params:
+      role_arn: ${ASSUME_ROLE_ARN}
+
   get-project:
     command: git.get_project
     type: setup
@@ -126,12 +132,10 @@ functions:
       script: ./scripts/wait-for-evergreen.sh
 
   sym-link:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: spruce
-      shell: bash
-      script: |
-        ln -s evergreen/graphql/schema sdlschema
+      command: ln -s evergreen/graphql/schema sdlschema
 
   run-logkeeper:
     command: shell.exec
@@ -149,8 +153,9 @@ functions:
     command: s3.get
     type: setup
     params:
-      aws_key: ${aws_key}
-      aws_secret: ${aws_secret}
+      aws_key: ${AWS_ACCESS_KEY_ID}
+      aws_secret: ${AWS_SECRET_ACCESS_KEY}
+      aws_session_token: ${AWS_SESSION_TOKEN}
       extract_to: spruce/logkeeper
       remote_file: _bucketdata.tar.gz
       bucket: parsley-test
@@ -260,8 +265,9 @@ functions:
     - command: s3.put
       type: system
       params:
-        aws_key: ${aws_key}
-        aws_secret: ${aws_secret}
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
         local_files_include_filter: ["spruce/cypress/screenshots/*"]
         remote_file: spruce/${task_id}/
         bucket: mciuploads
@@ -271,8 +277,9 @@ functions:
     - command: s3.put
       type: system
       params:
-        aws_key: ${aws_key}
-        aws_secret: ${aws_secret}
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
         local_files_include_filter: ["spruce/cypress/videos/*"]
         remote_file: spruce/${task_id}/
         bucket: mciuploads
@@ -288,8 +295,9 @@ functions:
     command: s3.put
     type: system
     params:
-      aws_key: ${aws_key}
-      aws_secret: ${aws_secret}
+      aws_key: ${AWS_ACCESS_KEY_ID}
+      aws_secret: ${AWS_SECRET_ACCESS_KEY}
+      aws_session_token: ${AWS_SESSION_TOKEN}
       local_file: "spruce/build/source_map.html"
       remote_file: spruce/${task_id}/source_map.html
       bucket: mciuploads
@@ -301,8 +309,9 @@ functions:
     - command: s3.put
       type: system
       params:
-        aws_key: ${aws_key}
-        aws_secret: ${aws_secret}
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
         local_files_include_filter: ["spruce/storybook-static/*.html"]
         remote_file: spruce/${task_id}/storybook/
         bucket: mciuploads
@@ -312,8 +321,9 @@ functions:
     - command: s3.put
       type: system
       params:
-        aws_key: ${aws_key}
-        aws_secret: ${aws_secret}
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
         local_files_include_filter:
           [
             "spruce/storybook-static/**/*.js$",
@@ -327,8 +337,9 @@ functions:
     - command: s3.put
       type: system
       params:
-        aws_key: ${aws_key}
-        aws_secret: ${aws_secret}
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
         local_files_include_filter: ["spruce/storybook-static/**/*.js.map"]
         remote_file: spruce/${task_id}/storybook/
         bucket: mciuploads
@@ -338,8 +349,9 @@ functions:
     - command: s3.put
       type: system
       params:
-        aws_key: ${aws_key}
-        aws_secret: ${aws_secret}
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
         local_files_include_filter: ["spruce/storybook-static/**/*.css"]
         remote_file: spruce/${task_id}/storybook/
         bucket: mciuploads
@@ -349,8 +361,9 @@ functions:
     - command: s3.put
       type: system
       params:
-        aws_key: ${aws_key}
-        aws_secret: ${aws_secret}
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
         local_files_include_filter: ["spruce/storybook-static/**/*.json"]
         remote_file: spruce/${task_id}/storybook/
         bucket: mciuploads
@@ -360,8 +373,9 @@ functions:
     - command: s3.put
       type: system
       params:
-        aws_key: ${aws_key}
-        aws_secret: ${aws_secret}
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
         local_files_include_filter:
           - "spruce/storybook-static/**/*.woff"
           - "spruce/storybook-static/**/*.woff2"
@@ -375,8 +389,9 @@ functions:
     command: s3.put
     type: system
     params:
-      aws_key: ${aws_key}
-      aws_secret: ${aws_secret}
+      aws_key: ${AWS_ACCESS_KEY_ID}
+      aws_secret: ${AWS_SECRET_ACCESS_KEY}
+      aws_session_token: ${AWS_SESSION_TOKEN}
       local_files_include_filter:
         - "spruce/bin/codegen.diff"
       remote_file: spruce/${task_id}/codegen/
@@ -388,8 +403,9 @@ functions:
     command: s3.put
     type: system
     params:
-      aws_key: ${aws_key}
-      aws_secret: ${aws_secret}
+      aws_key: ${AWS_ACCESS_KEY_ID}
+      aws_secret: ${AWS_SECRET_ACCESS_KEY}
+      aws_session_token: ${AWS_SESSION_TOKEN}
       local_files_include_filter:
         - "spruce/body.txt"
       remote_file: spruce/${task_id}/
@@ -401,42 +417,44 @@ functions:
     command: shell.exec
     params:
       working_dir: spruce
+      env:
+        REACT_APP_SENTRY_AUTH_TOKEN: ${REACT_APP_SENTRY_AUTH_TOKEN}
+        REACT_APP_SENTRY_DSN: ${REACT_APP_SENTRY_DSN}
+        REACT_APP_NEW_RELIC_ACCOUNT_ID: ${REACT_APP_NEW_RELIC_ACCOUNT_ID}
+        REACT_APP_NEW_RELIC_AGENT_ID: ${REACT_APP_NEW_RELIC_AGENT_ID}
+        REACT_APP_NEW_RELIC_APPLICATION_ID: ${REACT_APP_NEW_RELIC_APPLICATION_ID}
+        REACT_APP_NEW_RELIC_LICENSE_KEY: ${REACT_APP_NEW_RELIC_LICENSE_KEY}
+        REACT_APP_NEW_RELIC_TRUST_KEY: ${REACT_APP_NEW_RELIC_TRUST_KEY}
+        REACT_APP_DEPLOYS_EMAIL: ${REACT_APP_DEPLOYS_EMAIL}
+        REACT_APP_HONEYCOMB_BASE_URL: ${REACT_APP_HONEYCOMB_BASE_URL}
+        EVERGREEN_API_SERVER_HOST: ${evergreen_api_server_host}
+        EVERGREEN_UI_SERVER_HOST: ${evergreen_ui_server_host}
+        EVERGREEN_API_KEY: ${evergreen_api_key}
+        EVERGREEN_USER: ${evergreen_user}
       script: |
         echo "Generating .env-cmdrc.json"
-        REACT_APP_SENTRY_AUTH_TOKEN=${REACT_APP_SENTRY_AUTH_TOKEN} \
-        REACT_APP_SENTRY_DSN=${REACT_APP_SENTRY_DSN} \
-        REACT_APP_NEW_RELIC_ACCOUNT_ID=${REACT_APP_NEW_RELIC_ACCOUNT_ID} \
-        REACT_APP_NEW_RELIC_AGENT_ID=${REACT_APP_NEW_RELIC_AGENT_ID} \
-        REACT_APP_NEW_RELIC_APPLICATION_ID=${REACT_APP_NEW_RELIC_APPLICATION_ID} \
-        REACT_APP_NEW_RELIC_LICENSE_KEY=${REACT_APP_NEW_RELIC_LICENSE_KEY} \
-        REACT_APP_NEW_RELIC_TRUST_KEY=${REACT_APP_NEW_RELIC_TRUST_KEY} \
-        REACT_APP_DEPLOYS_EMAIL=${REACT_APP_DEPLOYS_EMAIL} \
-        REACT_APP_HONEYCOMB_BASE_URL=${REACT_APP_HONEYCOMB_BASE_URL} \
         node scripts/setup-credentials.js
 
         echo "populating evergreen.yml"
-        cat <<EOF > .evergreen.yml
-        api_server_host: ${evergreen_api_server_host}
-        ui_server_host: ${evergreen_ui_server_host}
-        api_key: ${evergreen_api_key}
-        user: ${evergreen_user}
-        EOF
-
-        echo "Done populating"
+        chmod +x ./scripts/create-evergreen-yml.sh
+        ./scripts/create-evergreen-yml.sh
+        echo "Done populating evergreen.yml"
 
   prod-deploy:
     command: shell.exec
     params:
       working_dir: spruce
       shell: bash
+      env:
+        BUCKET: ${bucket}
+        AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+        AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+        AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
+        EXECUTION: ${execution}
+        DEPLOYS_EMAIL: ${DEPLOYS_EMAIL}
+        AUTHOR_EMAIL: ${author_email}
       script: |
         ${PREPARE_SHELL}
-        BUCKET=${bucket} \
-        AWS_ACCESS_KEY_ID=${aws_key} \
-        AWS_SECRET_ACCESS_KEY=${aws_secret} \
-        EXECUTION=${execution} \
-        DEPLOYS_EMAIL=${DEPLOYS_EMAIL} \
-        AUTHOR_EMAIL=${author_email} \
         yarn deploy:prod
 
 #######################################
@@ -473,6 +491,7 @@ tasks:
 
   - name: e2e_test
     commands:
+      - func: assume-ec2-role
       - func: setup-mongodb
       - func: run-make-background
         vars:
@@ -492,6 +511,7 @@ tasks:
 
   - name: deploy_to_prod
     commands:
+      - func: assume-ec2-role
       - func: setup-credentials
       - func: sym-link
       - func: prod-deploy

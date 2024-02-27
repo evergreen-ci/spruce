@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot Tests TestStatusBadge.stories Default 1`] = `
+<div>
+  <div
+    class="css-8cvf0s-Container et5ujl80"
+  >
+    <div
+      class="leafygreen-ui-ud6teo"
+    >
+      Fail
+    </div>
+    <div
+      class="leafygreen-ui-ixbeze"
+    >
+      Skip
+    </div>
+    <div
+      class="leafygreen-ui-1qtf7xy"
+    >
+      Silent Fail
+    </div>
+    <div
+      class="leafygreen-ui-n4itms"
+    >
+      Pass
+    </div>
+    <div
+      class="leafygreen-ui-ohl2hc"
+    >
+      all
+    </div>
+    <div
+      class="leafygreen-ui-ud6teo"
+    >
+      Timeout
+    </div>
+  </div>
+</div>
+`;

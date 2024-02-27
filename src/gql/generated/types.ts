@@ -2402,6 +2402,7 @@ export type SpruceConfig = {
   jira?: Maybe<JiraConfig>;
   keys: Array<SshKey>;
   providers?: Maybe<CloudProviderConfig>;
+  secretFields: Array<Scalars["String"]["output"]>;
   slack?: Maybe<SlackConfig>;
   spawnHost: SpawnHostConfig;
   ui?: Maybe<UiConfig>;
@@ -8871,6 +8872,7 @@ export type VersionTasksQuery = {
           id: string;
           status: string;
         } | null;
+        dependsOn?: Array<{ __typename?: "Dependency"; name: string }> | null;
         executionTasksFull?: Array<{
           __typename?: "Task";
           buildVariant: string;

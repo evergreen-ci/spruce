@@ -29,7 +29,7 @@ const evergreenDeploy = async () => {
         console.log("Check Evergreen for deploy progress.");
       } else {
         console.log(
-          "Deploy canceled. If systems are experiencing an outage and you'd like to push the deploy directly to S3, run yarn deploy:prod --local."
+          "Deploy canceled. If systems are experiencing an outage and you'd like to push the deploy directly to S3, run yarn deploy:prod --local.",
         );
       }
       return;
