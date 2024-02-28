@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { css } from "@leafygreen-ui/emotion";
 import { LGColumnDef, useLeafyGreenTable } from "@leafygreen-ui/table";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { useTaskQueueAnalytics } from "analytics";
@@ -62,19 +61,20 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
   }, [taskId, taskQueue]);
 
   return (
-    <BaseTable
+    <StyledBaseTable
       data-cy="task-queue-table"
       table={table}
       shouldAlternateRowColor
       emptyComponent={<TablePlaceholder message="No tasks found in queue." />}
       ref={tableContainerRef}
       selectedRowIndexes={selectedRowIndexes}
-      className={css`
-        flex-grow: 1;
-      `}
     />
   );
 };
+
+const StyledBaseTable = styled(BaseTable)`
+  flex-grow: 1;
+`;
 
 const TaskCell = styled.div`
   display: flex;
