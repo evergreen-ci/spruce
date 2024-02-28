@@ -150,7 +150,7 @@ const validateNoSpecialCharacters = (str: string): boolean => {
  * @returns - true if the string has no starting or trailing whitespace and false otherwise
  */
 const validateNoStartingOrTrailingWhitespace = (str: string): boolean => {
-  const noStartingOrTrailingWhitespaceRegex = /^(?:\S.*\S|\s*)$/;
+  const noStartingOrTrailingWhitespaceRegex = /^(?! ).*(?<! )$/;
   return noStartingOrTrailingWhitespaceRegex.test(str);
 };
 
