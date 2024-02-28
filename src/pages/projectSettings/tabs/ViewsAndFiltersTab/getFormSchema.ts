@@ -73,6 +73,7 @@ export const getFormSchema = (
           properties: {
             projectHealthView: {
               type: "string" as "string",
+              title: "",
               oneOf: [
                 {
                   type: "string" as "string",
