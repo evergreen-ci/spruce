@@ -85,6 +85,7 @@ export const getFormSchema = (
               title: "Config File",
               minLength: 1,
               default: "",
+              format: "noStartingOrTrailingWhitespace",
             },
             alias: {
               type: "string" as "string",

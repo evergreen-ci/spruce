@@ -2,6 +2,7 @@ import {
   validateJira,
   validateJiraURL,
   validateNoSpecialCharacters,
+  validateNoStartingOrTrailingWhitespace,
   validateObjectId,
   validateRegexp,
   validateSlack,
@@ -21,6 +22,20 @@ describe("validateNoSpecialCharacters", () => {
     expect(validateNoSpecialCharacters(" ")).toBe(false);
     expect(validateNoSpecialCharacters("he/lloworld")).toBe(false);
     expect(validateNoSpecialCharacters("hello%world")).toBe(false);
+  });
+});
+
+describe("validateNoStartingOrTrailingWhitespace", () => {
+  it("returns true if string has no starting or trailing whitespace", () => {
+    expect(validateNoStartingOrTrailingWhitespace("")).toBe(true);
+    expect(validateNoStartingOrTrailingWhitespace("a")).toBe(true);
+    expect(validateNoStartingOrTrailingWhitespace("helloworld")).toBe(true);
+    expect(validateNoStartingOrTrailingWhitespace(" helloWorld123")).toBe(
+      false,
+    );
+    expect(validateNoStartingOrTrailingWhitespace("helloWorld123 ")).toBe(
+      false,
+    );
   });
 });
 
