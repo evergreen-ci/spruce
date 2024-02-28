@@ -361,7 +361,7 @@ const getBreakingCommit: ApolloMock<
     query: LAST_MAINLINE_COMMIT,
     variables: {
       projectIdentifier: "evergreen",
-      skipOrderNumber: 3678,
+      skipOrderNumber: 3679,
       buildVariantOptions: {
         tasks: ["^lint-agent$"],
         variants: ["^lint$"],
