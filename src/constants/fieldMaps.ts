@@ -185,6 +185,11 @@ export const dateFormats = listOfDateFormatStrings.map((format) => ({
   })}`,
 }));
 
+export enum TimeFormat {
+  TwelveHour = "h:mm:ss aa",
+  TwentyFourHour = "H:mm:ss",
+}
+
 export const notificationFields = {
   patchFinish: "Patch finish",
   patchFirstFailure: "Patch first task failure",

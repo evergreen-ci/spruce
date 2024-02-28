@@ -225,7 +225,9 @@ export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
   } = options;
   return (
     <ElementWrapper css={elementWrapperCSS}>
-      <Label htmlFor={id}>{label}</Label>
+      <LabelContainer>
+        <Label htmlFor={id}>{label}</Label>
+      </LabelContainer>
       <RadioGroup
         data-cy={dataCy}
         id={id}
@@ -278,12 +280,12 @@ export const LeafyGreenRadioBox: React.FC<
   return (
     <ElementWrapper css={elementWrapperCSS}>
       {showLabel !== false && (
-        <RadioBoxLabelContainer>
+        <LabelContainer>
           <Label htmlFor={id} disabled={disabled}>
             {label}
           </Label>
           {description && <Description>{description}</Description>}
-        </RadioBoxLabelContainer>
+        </LabelContainer>
       )}
       {!!errors && (
         <StyledBanner variant="danger" data-cy="error-banner">
@@ -323,7 +325,7 @@ const StyledBanner = styled(Banner)`
   margin-bottom: ${size.s};
 `;
 
-const RadioBoxLabelContainer = styled.div`
+const LabelContainer = styled.div`
   margin-bottom: ${size.xs};
 `;
 

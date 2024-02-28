@@ -6,7 +6,7 @@ import { Skeleton } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
 import { SpruceForm } from "components/SpruceForm";
-import { timeZones, dateFormats } from "constants/fieldMaps";
+import { timeZones, dateFormats, TimeFormat } from "constants/fieldMaps";
 import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,
@@ -27,10 +27,11 @@ export const ProfileTab: React.FC = () => {
     dateFormat,
     githubUser,
     region,
-    timeFormat = "h:mm:ss aa",
+    timeFormat: dbTimeFormat,
     timezone,
   } = userSettings ?? {};
   const lastKnownAs = githubUser?.lastKnownAs || "";
+  const timeFormat = dbTimeFormat || TimeFormat.TwelveHour;
 
   const { data: awsRegionData, loading: awsRegionLoading } =
     useQuery<AwsRegionsQuery>(AWS_REGIONS);
@@ -170,14 +171,14 @@ export const ProfileTab: React.FC = () => {
                     type: "string" as "string",
                     title: "12-hour clock",
                     description: "Display time with AM/PM, e.g. 12:34 PM",
-                    enum: ["h:mm:ss aa"],
+                    enum: [TimeFormat.TwelveHour],
                   },
 
                   {
                     type: "string" as "string",
                     title: "24-hour clock",
                     description: "Use 24-hour notation, e.g. 13:34",
-                    enum: ["H:mm:ss"],
+                    enum: [TimeFormat.TwentyFourHour],
                   },
                 ],
               },
