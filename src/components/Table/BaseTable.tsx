@@ -69,7 +69,7 @@ export const BaseTable = forwardRef(
       emptyComponent,
       loading,
       loadingRows = 5,
-      selectedRowIndexes,
+      selectedRowIndexes = [],
       table,
       ...args
     }: SpruceTableProps & TableProps<any>,
