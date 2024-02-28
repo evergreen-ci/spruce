@@ -28,7 +28,9 @@ export const ContainersTab: React.FC<TabProps> = ({
   return (
     <>
       <Banner variant="warning">
-We will not be implementing any new features or enhancements to our existing container offerings, but will continue to provide maintenance support for them. For more information on how to get started, please
+        We will not be implementing any new features or enhancements to our
+        existing container offerings, but will continue to provide maintenance
+        support for them. For more information on how to get started, please
         refer to our{" "}
         <StyledLink href={containersOnboardingDocumentationUrl}>
           container onboarding guide.
