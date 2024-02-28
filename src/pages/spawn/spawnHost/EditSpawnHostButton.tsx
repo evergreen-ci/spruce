@@ -52,6 +52,7 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
         </Tooltip>
       </span>
       <EditSpawnHostModal
+        key={host.id}
         onCancel={() => setOpenModal(false)}
         visible={openModal}
         host={host}
