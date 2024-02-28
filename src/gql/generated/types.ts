@@ -2949,6 +2949,7 @@ export type UserSettings = {
   region?: Maybe<Scalars["String"]["output"]>;
   slackMemberId?: Maybe<Scalars["String"]["output"]>;
   slackUsername?: Maybe<Scalars["String"]["output"]>;
+  timeFormat?: Maybe<Scalars["String"]["output"]>;
   timezone?: Maybe<Scalars["String"]["output"]>;
   useSpruceOptions?: Maybe<UseSpruceOptions>;
 };
@@ -2964,6 +2965,7 @@ export type UserSettingsInput = {
   region?: InputMaybe<Scalars["String"]["input"]>;
   slackMemberId?: InputMaybe<Scalars["String"]["input"]>;
   slackUsername?: InputMaybe<Scalars["String"]["input"]>;
+  timeFormat?: InputMaybe<Scalars["String"]["input"]>;
   timezone?: InputMaybe<Scalars["String"]["input"]>;
   useSpruceOptions?: InputMaybe<UseSpruceOptionsInput>;
 };
