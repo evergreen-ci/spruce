@@ -66,6 +66,7 @@ export const getFormSchema = (
             branch: {
               type: "string" as "string",
               title: "Branch Name",
+              format: "noStartingOrTrailingWhitespace",
             },
           }),
           other: {
@@ -75,6 +76,7 @@ export const getFormSchema = (
               displayName: {
                 type: "string" as "string",
                 title: "Display Name",
+                format: "noStartingOrTrailingWhitespace",
               },
               ...(projectType !== ProjectType.Repo && {
                 identifier: {
@@ -96,10 +98,12 @@ export const getFormSchema = (
               remotePath: {
                 type: "string" as "string",
                 title: "Config File",
+                format: "noStartingOrTrailingWhitespace",
               },
               spawnHostScriptPath: {
                 type: "string" as "string",
                 title: "Spawn Host Script Path",
+                format: "noStartingOrTrailingWhitespace",
               },
               versionControlEnabled: {
                 type: ["boolean", "null"],

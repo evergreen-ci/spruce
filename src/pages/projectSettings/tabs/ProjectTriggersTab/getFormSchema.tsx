@@ -28,12 +28,14 @@ export const getFormSchema = (
               title: "Project",
               default: "",
               minLength: 1,
+              format: "noStartingOrTrailingWhitespace",
             },
             configFile: {
               type: "string" as "string",
               title: "Config File",
               default: "",
               minLength: 1,
+              format: "noStartingOrTrailingWhitespace",
             },
             level: {
               type: "string" as "string",
