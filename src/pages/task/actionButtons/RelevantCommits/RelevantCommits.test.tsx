@@ -120,11 +120,15 @@ describe("relevant commits", () => {
     ).toHaveAttribute("aria-disabled", "true");
   });
 
-  it("when base task is failing, 'Go to base commit' and 'Go to last executed' dropdown items generate the same link and 'Go to last passing version' will be different and 'Go to breaking commit' will be disabled", async () => {
+  it("when base task is failing, 'Go to base commit' and 'Go to last executed' dropdown items generate the same link and 'Go to last passing version' will be different and 'Go to breaking commit' will be populated", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider
-        mocks={[getPatchTaskWithFailingBaseTask, getLastPassingVersion]}
+        mocks={[
+          getPatchTaskWithFailingBaseTask,
+          getLastPassingVersion,
+          getBreakingCommit,
+        ]}
       >
         <RelevantCommits taskId="t1" />
       </MockedProvider>,
@@ -151,10 +155,10 @@ describe("relevant commits", () => {
     ).toHaveAttribute("href", baseTaskHref);
     expect(
       screen.getByRole("menuitem", { name: "Go to breaking commit" }),
-    ).toHaveAttribute("aria-disabled", "true");
+    ).toHaveAttribute("href", "/task/breaking_commit");
   });
 
-  it("when base task is not in a finished state, the last executed, passing task, and breaking task is not the same as the base commit", async () => {
+  it("when base task is not in a finished state, the last executed, and passing task are not the same as the base commit and breaking commit is empty", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider
@@ -190,7 +194,7 @@ describe("relevant commits", () => {
     ).toHaveAttribute("href", "/task/last_executed_task");
     expect(
       screen.getByRole("menuitem", { name: "Go to breaking commit" }),
-    ).toHaveAttribute("href", "/task/breaking_commit");
+    ).toHaveAttribute("aria-disabled", "true");
   });
 });
 
@@ -361,7 +365,7 @@ const getBreakingCommit: ApolloMock<
     query: LAST_MAINLINE_COMMIT,
     variables: {
       projectIdentifier: "evergreen",
-      skipOrderNumber: 3679,
+      skipOrderNumber: 3678,
       buildVariantOptions: {
         tasks: ["^lint-agent$"],
         variants: ["^lint$"],
@@ -382,7 +386,7 @@ const getBreakingCommit: ApolloMock<
                     {
                       id: "breaking_commit",
                       execution: 0,
-                      order: 3677,
+                      order: 3676,
                       status: "failed",
                       __typename: "Task",
                     },
