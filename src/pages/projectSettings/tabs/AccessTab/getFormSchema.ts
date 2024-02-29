@@ -38,6 +38,7 @@ export const getFormSchema = (
               title: "Username",
               default: "",
               minLength: 1,
+              format: "noStartingOrTrailingWhitespace",
             },
           },
         },

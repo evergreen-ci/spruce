@@ -62,6 +62,11 @@ export const transformErrors = (errors: AjvError[]) =>
                 ...error,
                 message: "Value should not contain spaces.",
               };
+            case "noStartingOrTrailingWhitespace":
+              return {
+                ...error,
+                message: "Value should not start or end with whitespace.",
+              };
             case "validDuration":
               return {
                 ...error,
