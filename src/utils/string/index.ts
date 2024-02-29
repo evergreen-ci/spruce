@@ -1,5 +1,6 @@
 import { format, utcToZonedTime } from "date-fns-tz";
 import get from "lodash/get";
+import { TimeFormat } from "constants/fieldMaps";
 
 export { githubPRLinkify } from "./githubPRLinkify";
 
@@ -127,7 +128,7 @@ export const getDateCopy = (
     dateFormat = "MMM d, yyyy";
   }
   if (!timeFormat) {
-    timeFormat = "h:mm:ss aa";
+    timeFormat = TimeFormat.TwelveHour;
   }
   if (omitSeconds) {
     timeFormat = timeFormat.replace(":ss", "");
