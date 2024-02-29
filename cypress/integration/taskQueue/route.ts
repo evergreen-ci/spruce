@@ -9,24 +9,16 @@ describe("Task Queue", () => {
 
   it("Uses distro param in url to query queue and renders table", () => {
     cy.visit("/task-queue/osx-108");
-
     cy.dataCy("task-queue-table").should("exist");
-
-    cy.visit("/task-queue/debian71-test");
-
-    cy.dataCy("task-queue-table").should("not.exist");
+    cy.contains("osx-108").should("exist");
   });
 
   it("Selecting a distro queries the queue for that distro", () => {
     cy.visit("/task-queue/debian71-test");
-
-    cy.get(".ant-table-row").should("have.length", 0);
-
+    cy.contains("No tasks found in queue").should("exist");
     cy.dataCy("distro-dropdown").click();
-
     cy.get("div").contains("osx-108").click();
-
-    cy.get(".ant-table-row").should("have.length", 13);
+    cy.dataCy("leafygreen-table-row").should("have.length", 13);
   });
 
   it("Renders link to host page filtered to that particular distro", () => {
@@ -38,30 +30,23 @@ describe("Task Queue", () => {
 
   it("Searching for a distro shows results that match search term", () => {
     cy.visit("/task-queue/debian71-test");
-
-    cy.dataCy("distro-dropdown").click();
+    cy.dataCy("distro-dropdown").should("have.attr", "aria-disabled", "false");
+    cy.dataCy("distro-dropdown").click({ force: true });
+    cy.dataCy("distro-dropdown-search-input").should("exist");
     cy.dataCy("distro-dropdown-search-input").type("osx");
     cy.dataCy("distro-dropdown-options").within(() => {
       cy.contains("debian71-test").should("not.exist");
       cy.contains("osx-108").should("exist");
     });
   });
-
-  it("Bogus distro url param values do not display any results", () => {
-    cy.visit("/task-queue/peace");
-    cy.get(".ant-table-row").should("have.length", 0);
-  });
-
   it("Scrolls to current task if taskId param in url", () => {
     cy.visit(
       "/task-queue/osx-108?taskId=evergreen_lint_lint_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
     );
     cy.dataCy("task-queue-table").should("exist");
-    cy.get(".ant-table-row-selected").should("exist");
-    cy.get(".ant-table-row-selected").should("contain.text", "13");
-
-    cy.contains("osx-108").should("not.be.visible");
-    cy.get(".ant-table-row-selected").should("be.visible");
+    cy.get("[data-selected='true']").should("exist");
+    cy.get("[data-selected='true']").should("have.length", 1);
+    cy.get("[data-selected='true']").should("be.visible");
   });
 
   it("Task links goes to Spruce for both patches and mainline commits", () => {

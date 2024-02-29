@@ -200,6 +200,7 @@ const RenderableRow = <T extends LGRowData>({
         font-weight:bold;
         `}
     `}
+    data-selected={isSelected}
     virtualRow={virtualRow}
   >
     {row.getVisibleCells().map((cell) => (

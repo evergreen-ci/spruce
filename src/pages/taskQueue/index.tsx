@@ -33,9 +33,9 @@ const TaskQueue = () => {
     undefined,
   );
   const navigate = useNavigate();
-  const [selectedDistro, setSelectedDistro] = useState<TaskQueueDistro | null>(
-    null,
-  );
+  const [selectedDistro, setSelectedDistro] = useState<
+    TaskQueueDistro | undefined
+  >(undefined);
   const dispatchToast = useToastContext();
   usePageTitle(`Task Queue - ${distro}`);
   const { data: distrosData, loading: loadingDistrosData } = useQuery<
@@ -78,6 +78,7 @@ const TaskQueue = () => {
   const handleSearch = (options: TaskQueueDistro[], match: string) =>
     options.filter((d) => d.id.toLowerCase().includes(match.toLowerCase()));
 
+  console.log({ selectedDistro, loadingDistrosData });
   return (
     <StyledPageWrapper>
       <StyledH2>Task Queue</StyledH2>
@@ -85,9 +86,10 @@ const TaskQueue = () => {
         <SearchableDropdown
           data-cy="distro-dropdown"
           label="Distro"
-          disabled={loadingDistrosData}
+          disabled={selectedDistro === undefined}
           options={distrosData?.taskQueueDistros}
           searchFunc={handleSearch}
+          valuePlaceholder="Select a distro"
           optionRenderer={(option, onClick) => (
             <DistroOption
               option={option}
@@ -112,7 +114,7 @@ const TaskQueue = () => {
       </SearchableDropdownWrapper>
       {
         /* Only show name & link if distro exists. */
-        distro && (
+        !loadingDistrosData && (
           <TableHeader>
             <StyledH3>{distro}</StyledH3>
             <StyledRouterLink to={getAllHostsRoute({ distroId: distro })}>
