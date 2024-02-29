@@ -302,7 +302,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
-        status: "success",
+        status: "failed",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
@@ -365,7 +365,7 @@ const getBreakingCommit: ApolloMock<
     query: LAST_MAINLINE_COMMIT,
     variables: {
       projectIdentifier: "evergreen",
-      skipOrderNumber: 3678,
+      skipOrderNumber: 3676,
       buildVariantOptions: {
         tasks: ["^lint-agent$"],
         variants: ["^lint$"],
@@ -434,7 +434,7 @@ const getLastPassingVersion: ApolloMock<
                     {
                       id: "last_passing_task",
                       execution: 0,
-                      order: 3676,
+                      order: 3674,
                       status: "success",
                       __typename: "Task",
                     },
