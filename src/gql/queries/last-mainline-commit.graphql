@@ -18,6 +18,7 @@ query LastMainlineCommit(
           tasks {
             execution
             id
+            order
             status
           }
         }

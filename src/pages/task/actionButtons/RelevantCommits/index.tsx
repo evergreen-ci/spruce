@@ -21,12 +21,12 @@ import { CommitType } from "./types";
 import { getLinks, getTaskFromMainlineCommitsQuery } from "./utils";
 
 const { applyStrictRegex } = string;
-const { isFinishedTaskStatus } = statuses;
+const { isFailedTaskStatus, isFinishedTaskStatus } = statuses;
 
-interface PreviousCommitsProps {
+interface RelevantCommitsProps {
   taskId: string;
 }
-export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
+export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ taskId }) => {
   const { sendEvent } = useTaskAnalytics();
   const dispatchToast = useToastContext();
 
@@ -42,6 +42,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     buildVariant,
     displayName,
     projectIdentifier,
+    status,
     versionMetadata,
   } = taskData?.task ?? {};
   const { order: skipOrderNumber } = versionMetadata?.baseVersion ?? {};
@@ -85,6 +86,30 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     },
   });
   const lastPassingTask = getTaskFromMainlineCommitsQuery(lastPassingTaskData);
+  const passingOrderNumber = lastPassingTask?.order;
+
+  // The breaking commit is the first failing commit after the last passing commit.
+  // The skip order number should be the last passing commit's order number + 1.
+  // We use + 2 because internally the query does a less than comparison.
+  // https://github.com/evergreen-ci/evergreen/blob/f6751ac3194452d457c0a6fe1a9f9b30dd674c60/model/version.go#L518
+  const { data: breakingTaskData, loading: breakingLoading } = useQuery<
+    LastMainlineCommitQuery,
+    LastMainlineCommitQueryVariables
+  >(LAST_MAINLINE_COMMIT, {
+    skip: !parentTask || !lastPassingTask || !isFailedTaskStatus(status),
+    variables: {
+      projectIdentifier,
+      skipOrderNumber: passingOrderNumber + 2,
+      buildVariantOptions: {
+        ...bvOptionsBase,
+        statuses: [TaskStatus.Failed],
+      },
+    },
+    onError: (err) => {
+      dispatchToast.error(`Breaking commit unavailable: '${err.message}'`);
+    },
+  });
+  const breakingTask = getTaskFromMainlineCommitsQuery(breakingTaskData);
 
   const { data: lastExecutedTaskData, loading: executedLoading } = useQuery<
     LastMainlineCommitQuery,
@@ -112,10 +137,11 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     () =>
       getLinks({
         parentTask,
+        breakingTask,
         lastPassingTask,
         lastExecutedTask,
       }),
-    [parentTask, lastPassingTask, lastExecutedTask],
+    [parentTask, breakingTask, lastPassingTask, lastExecutedTask],
   );
 
   const menuDisabled = !baseTask || !parentTask;
@@ -129,17 +155,17 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
           rightGlyph={<Icon glyph="CaretDown" />}
           size={Size.Small}
         >
-          Previous commits
+          Relevant commits
         </Button>
       }
     >
-      No previous versions available.
+      No relevant versions available.
     </Tooltip>
   ) : (
     <Menu
       trigger={
         <Button rightGlyph={<Icon glyph="CaretDown" />} size={Size.Small}>
-          Previous commits
+          Relevant commits
         </Button>
       }
     >
@@ -148,7 +174,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
         disabled={parentLoading}
         onClick={() =>
           sendEvent({
-            name: "Submit Previous Commit Selector",
+            name: "Submit Relevant Commit Selector",
             type: CommitType.Base,
           })
         }
@@ -158,10 +184,23 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
       </MenuItem>
       <MenuItem
         as={Link}
+        disabled={breakingLoading || breakingTask === undefined}
+        onClick={() =>
+          sendEvent({
+            name: "Submit Relevant Commit Selector",
+            type: CommitType.Breaking,
+          })
+        }
+        to={linkObject[CommitType.Breaking]}
+      >
+        Go to breaking commit
+      </MenuItem>
+      <MenuItem
+        as={Link}
         disabled={passingLoading}
         onClick={() =>
           sendEvent({
-            name: "Submit Previous Commit Selector",
+            name: "Submit Relevant Commit Selector",
             type: CommitType.LastPassing,
           })
         }
@@ -174,7 +213,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
         disabled={executedLoading}
         onClick={() =>
           sendEvent({
-            name: "Submit Previous Commit Selector",
+            name: "Submit Relevant Commit Selector",
             type: CommitType.LastExecuted,
           })
         }
