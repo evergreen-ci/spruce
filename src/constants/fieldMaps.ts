@@ -1,5 +1,3 @@
-import { getDateCopy } from "utils/string";
-
 export const timeZones = [
   {
     str: "Coordinated Universal Time",
@@ -167,7 +165,7 @@ export const timeZones = [
   },
 ];
 
-const listOfDateFormatStrings = [
+export const listOfDateFormatStrings = [
   "MM-dd-yyyy",
   "dd-MM-yyyy",
   "yyyy-MM-dd",
@@ -176,14 +174,6 @@ const listOfDateFormatStrings = [
   "yyyy/MM/dd",
   "MMM d, yyyy",
 ];
-
-export const dateFormats = listOfDateFormatStrings.map((format) => ({
-  value: format,
-  str: `${format} - ${getDateCopy("08/31/2022", {
-    dateFormat: format,
-    dateOnly: true,
-  })}`,
-}));
 
 export enum TimeFormat {
   TwelveHour = "h:mm:ss aa",

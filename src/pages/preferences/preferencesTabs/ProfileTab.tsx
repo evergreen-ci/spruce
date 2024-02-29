@@ -6,7 +6,11 @@ import { Skeleton } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
 import { SpruceForm } from "components/SpruceForm";
-import { timeZones, dateFormats, TimeFormat } from "constants/fieldMaps";
+import {
+  listOfDateFormatStrings,
+  timeZones,
+  TimeFormat,
+} from "constants/fieldMaps";
 import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,
@@ -16,7 +20,15 @@ import {
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { AWS_REGIONS } from "gql/queries";
 import { useUserSettings } from "hooks";
-import { omitTypename } from "utils/string";
+import { getDateCopy, omitTypename } from "utils/string";
+
+const dateFormats = listOfDateFormatStrings.map((format) => ({
+  value: format,
+  str: `${format} - ${getDateCopy("08/31/2022", {
+    dateFormat: format,
+    dateOnly: true,
+  })}`,
+}));
 
 export const ProfileTab: React.FC = () => {
   const { sendEvent } = usePreferencesAnalytics();
