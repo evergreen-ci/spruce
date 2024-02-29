@@ -6,7 +6,11 @@ import { Skeleton } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
 import { SpruceForm } from "components/SpruceForm";
-import { timeZones, dateFormats } from "constants/fieldMaps";
+import {
+  listOfDateFormatStrings,
+  timeZones,
+  TimeFormat,
+} from "constants/fieldMaps";
 import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,
@@ -16,15 +20,30 @@ import {
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { AWS_REGIONS } from "gql/queries";
 import { useUserSettings } from "hooks";
-import { omitTypename } from "utils/string";
+import { getDateCopy, omitTypename } from "utils/string";
+
+const dateFormats = listOfDateFormatStrings.map((format) => ({
+  value: format,
+  str: `${format} - ${getDateCopy("08/31/2022", {
+    dateFormat: format,
+    dateOnly: true,
+  })}`,
+}));
 
 export const ProfileTab: React.FC = () => {
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
 
   const { loading, userSettings } = useUserSettings();
-  const { dateFormat, githubUser, region, timezone } = userSettings ?? {};
+  const {
+    dateFormat,
+    githubUser,
+    region,
+    timeFormat: dbTimeFormat,
+    timezone,
+  } = userSettings ?? {};
   const lastKnownAs = githubUser?.lastKnownAs || "";
+  const timeFormat = dbTimeFormat || TimeFormat.TwelveHour;
 
   const { data: awsRegionData, loading: awsRegionLoading } =
     useQuery<AwsRegionsQuery>(AWS_REGIONS);
@@ -49,11 +68,13 @@ export const ProfileTab: React.FC = () => {
     region: string;
     githubUser: { lastKnownAs?: string };
     dateFormat: string;
+    timeFormat: string;
   }>({
     timezone,
     region,
     githubUser: { lastKnownAs },
     dateFormat,
+    timeFormat,
   });
 
   useEffect(() => {
@@ -62,8 +83,9 @@ export const ProfileTab: React.FC = () => {
       timezone,
       region,
       dateFormat,
+      timeFormat,
     });
-  }, [dateFormat, githubUser, region, timezone]);
+  }, [dateFormat, githubUser, region, timeFormat, timezone]);
 
   const handleSubmit = () => {
     updateUserSettings({
@@ -111,6 +133,9 @@ export const ProfileTab: React.FC = () => {
             dateFormat: {
               "ui:placeholder": "Select a date format",
             },
+            timeFormat: {
+              "ui:widget": "radio",
+            },
           }}
           schema={{
             properties: {
@@ -148,6 +173,25 @@ export const ProfileTab: React.FC = () => {
                     title: str,
                     enum: [value],
                   })),
+                ],
+              },
+              timeFormat: {
+                type: "string",
+                title: "Time Format",
+                oneOf: [
+                  {
+                    type: "string" as "string",
+                    title: "12-hour clock",
+                    description: "Display time with AM/PM, e.g. 12:34 PM",
+                    enum: [TimeFormat.TwelveHour],
+                  },
+
+                  {
+                    type: "string" as "string",
+                    title: "24-hour clock",
+                    description: "Use 24-hour notation, e.g. 13:34",
+                    enum: [TimeFormat.TwentyFourHour],
+                  },
                 ],
               },
             },

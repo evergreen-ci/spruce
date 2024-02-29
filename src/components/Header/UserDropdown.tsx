@@ -33,7 +33,7 @@ export const UserDropdown = () => {
     },
   ];
   if (permissions?.canEditAdminSettings) {
-    menuItems.splice(1, 0, {
+    menuItems.splice(2, 0, {
       "data-cy": "admin-link",
       text: "Admin",
       href: adminSettingsURL,
