@@ -29,7 +29,6 @@ export const Layout: React.FC = () => {
   const { isAuthenticated } = useAuthStateContext();
   useAnalyticsAttributes();
   useAnnouncementToast();
-
   // this top-level query is required for authentication to work
   // afterware is used at apollo link level to authenticate or deauthenticate user based on response to query
   // therefore this could be any query as long as it is top-level
