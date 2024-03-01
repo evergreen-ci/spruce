@@ -1,7 +1,7 @@
 #!/bin/bash
 
 WAIT_TIME=9
-GIT_DESTINATION=$(git rev-parse --abbrev-ref main@{upstream})
+GIT_DESTINATION=$(git rev-parse --abbrev-ref @{upstream})
 
 if git push upstream
 then

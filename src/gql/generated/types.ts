@@ -2910,6 +2910,7 @@ export type User = {
   __typename?: "User";
   displayName: Scalars["String"]["output"];
   emailAddress: Scalars["String"]["output"];
+  parsleyFilters: Array<ParsleyFilter>;
   patches: Patches;
   permissions: Permissions;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
