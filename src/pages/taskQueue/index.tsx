@@ -80,7 +80,6 @@ const TaskQueue = () => {
   const handleSearch = (options: TaskQueueDistro[], match: string) =>
     options.filter((d) => d.id.toLowerCase().includes(match.toLowerCase()));
 
-  console.log({ selectedDistro, loadingDistrosData });
   return (
     <StyledPageWrapper>
       <StyledH2>Task Queue</StyledH2>
