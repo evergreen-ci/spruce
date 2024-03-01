@@ -41,6 +41,7 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
     columns,
     containerRef: tableContainerRef,
     useVirtualScrolling: true,
+    enableColumnFilters: false,
     virtualizerOptions: {
       estimateSize,
     },
