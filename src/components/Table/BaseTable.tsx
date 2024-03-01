@@ -81,12 +81,7 @@ export const BaseTable = forwardRef(
     return (
       <>
         <StyledTable data-cy={dataCyTable} table={table} ref={ref} {...args}>
-          <TableHead
-            isSticky={hasVirtualRows}
-            className={css`
-              z-index: 1;
-            `}
-          >
+          <TableHead isSticky={hasVirtualRows}>
             {table.getHeaderGroups().map((headerGroup) => (
               <HeaderRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
