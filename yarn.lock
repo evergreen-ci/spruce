@@ -3865,19 +3865,19 @@
     lodash "^4.17.21"
     polished "^4.2.2"
 
-"@leafygreen-ui/segmented-control@8.2.6":
-  version "8.2.6"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/segmented-control/-/segmented-control-8.2.6.tgz#9f64c2fcbfcd7c15c8192f3d0575b1dbcbe2f733"
-  integrity sha512-s1/K0pY2YW90Dh7sMst4xuUYQqIW1LWFQyoqpDyjVZV8RuqQbYq9BzTSNkrb3njq6JpHGOhmvT7wFrqoMljMvw==
+"@leafygreen-ui/segmented-control@8.2.8":
+  version "8.2.8"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/segmented-control/-/segmented-control-8.2.8.tgz#1b86bff983acdd3bf31a3fa9f8ba09770919ae73"
+  integrity sha512-81fJMvox7HBRMgErE3YZ0IBSRY5ge99LTjtBHBLz1GiAJKwX9Wa3QboVOuHQAdj0vj/RFW7D9qE7QY1klfZJEA==
   dependencies:
     "@leafygreen-ui/box" "^3.1.8"
     "@leafygreen-ui/emotion" "^4.0.7"
     "@leafygreen-ui/hooks" "^8.0.0"
     "@leafygreen-ui/icon" "^11.23.0"
-    "@leafygreen-ui/lib" "^11.0.0"
+    "@leafygreen-ui/lib" "^13.0.0"
     "@leafygreen-ui/palette" "^4.0.7"
     "@leafygreen-ui/tokens" "^2.2.0"
-    "@leafygreen-ui/typography" "^17.0.0"
+    "@leafygreen-ui/typography" "^18.0.0"
     lodash "^4.17.21"
     polished "^4.2.2"
 
