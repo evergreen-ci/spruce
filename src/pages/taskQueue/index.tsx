@@ -49,7 +49,7 @@ const TaskQueue = () => {
       const defaultDistro = distro ?? firstDistroInList;
       setSelectedDistro(taskQueueDistros.find((d) => d.id === defaultDistro));
       if (distro === undefined) {
-        navigate(getTaskQueueRoute(defaultDistro, taskId));
+        navigate(getTaskQueueRoute(defaultDistro));
       }
     },
     onError: (err) => {
@@ -57,7 +57,7 @@ const TaskQueue = () => {
     },
   });
 
-  const { data: taskQueueItemsData, loading } = useQuery<
+  const { data: taskQueueItemsData, loading: loadingTaskQueueItems } = useQuery<
     DistroTaskQueueQuery,
     DistroTaskQueueQueryVariables
   >(DISTRO_TASK_QUEUE, {
@@ -124,7 +124,7 @@ const TaskQueue = () => {
           </TableHeader>
         )
       }
-      {!loading && (
+      {!loadingTaskQueueItems && (
         <TaskQueueTable
           taskQueue={taskQueueItemsData?.distroTaskQueue}
           taskId={taskId}
