@@ -2910,6 +2910,7 @@ export type User = {
   __typename?: "User";
   displayName: Scalars["String"]["output"];
   emailAddress: Scalars["String"]["output"];
+  parsleyFilters: Array<ParsleyFilter>;
   patches: Patches;
   permissions: Permissions;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
@@ -5409,6 +5410,7 @@ export type BaseVersionAndTaskQuery = {
     execution: number;
     id: string;
     projectIdentifier?: string | null;
+    status: string;
     baseTask?: {
       __typename?: "Task";
       execution: number;
@@ -6173,6 +6175,7 @@ export type LastMainlineCommitQuery = {
             __typename?: "Task";
             execution: number;
             id: string;
+            order: number;
             status: string;
           } | null> | null;
         } | null> | null;
@@ -8722,6 +8725,7 @@ export type UserSettingsQuery = {
     region?: string | null;
     slackMemberId?: string | null;
     slackUsername?: string | null;
+    timeFormat?: string | null;
     timezone?: string | null;
     githubUser?: {
       __typename?: "GithubUser";

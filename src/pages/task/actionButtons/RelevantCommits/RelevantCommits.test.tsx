@@ -9,9 +9,9 @@ import {
 import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
 import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
-import { PreviousCommits } from ".";
+import { RelevantCommits } from ".";
 
-describe("previous commits", () => {
+describe("relevant commits", () => {
   // Patch and mainline commit behavior only have a significant difference when it comes to determining
   // the base or previous task. Patch gets the base task directly from BASE_VERSION_AND_TASK, while
   // mainline commits needs to run another query LAST_MAINLINE_COMMIT to get previous task.
@@ -19,13 +19,13 @@ describe("previous commits", () => {
     it("the button is disabled when there is no base task", async () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[getPatchTaskWithNoBaseTask]}>
-          <PreviousCommits taskId="t1" />
+          <RelevantCommits taskId="t1" />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
       await waitFor(() => {
         expect(
-          screen.getByRole("button", { name: "Previous commits" }),
+          screen.getByRole("button", { name: "Relevant commits" }),
         ).toHaveAttribute("aria-disabled", "true");
       });
     });
@@ -37,14 +37,14 @@ describe("previous commits", () => {
         <MockedProvider
           mocks={[getMainlineTaskWithBaseVersion, getNullParentTask]}
         >
-          <PreviousCommits taskId="t4" />
+          <RelevantCommits taskId="t4" />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
       await waitFor(() => {
         expect(
-          screen.getByRole("button", { name: "Previous commits" }),
+          screen.getByRole("button", { name: "Relevant commits" }),
         ).toHaveAttribute("aria-disabled", "true");
       });
     });
@@ -54,14 +54,14 @@ describe("previous commits", () => {
         <MockedProvider
           mocks={[getMainlineTaskWithBaseVersion, getParentTaskWithError]}
         >
-          <PreviousCommits taskId="t4" />
+          <RelevantCommits taskId="t4" />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
 
       await waitFor(() => {
         expect(
-          screen.getByRole("button", { name: "Previous commits" }),
+          screen.getByRole("button", { name: "Relevant commits" }),
         ).toHaveAttribute("aria-disabled", "true");
       });
     });
@@ -70,19 +70,19 @@ describe("previous commits", () => {
   it("the button is disabled when no base version exists", async () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getPatchTaskWithNoBaseVersion]}>
-        <PreviousCommits taskId="t3" />
+        <RelevantCommits taskId="t3" />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
 
     await waitFor(() => {
       expect(
-        screen.getByRole("button", { name: "Previous commits" }),
+        screen.getByRole("button", { name: "Relevant commits" }),
       ).toHaveAttribute("aria-disabled", "true");
     });
   });
 
-  it("when base task is passing, all dropdown items generate the same link", async () => {
+  it("when base task is passing, last passing, base commit, and last executed dropdown items generate the same link and breaking commit is disabled", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider
@@ -92,16 +92,16 @@ describe("previous commits", () => {
           getLastExecutedVersion,
         ]}
       >
-        <PreviousCommits taskId="t1" />
+        <RelevantCommits taskId="t1" />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
 
-    await screen.findByRole("button", { name: "Previous commits" });
+    await screen.findByRole("button", { name: "Relevant commits" });
     expect(
-      screen.getByRole("button", { name: "Previous commits" }),
+      screen.getByRole("button", { name: "Relevant commits" }),
     ).toHaveAttribute("aria-disabled", "false");
-    await user.click(screen.getByRole("button", { name: "Previous commits" }));
+    await user.click(screen.getByRole("button", { name: "Relevant commits" }));
     await waitFor(() => {
       expect(screen.getByRole("menu")).toBeVisible();
     });
@@ -115,24 +115,31 @@ describe("previous commits", () => {
     expect(
       screen.getByRole("menuitem", { name: "Go to last executed version" }),
     ).toHaveAttribute("href", baseTaskHref);
+    expect(
+      screen.getByRole("menuitem", { name: "Go to breaking commit" }),
+    ).toHaveAttribute("aria-disabled", "true");
   });
 
-  it("when base task is failing, 'Go to base commit' and 'Go to last executed' dropdown items generate the same link and 'Go to last passing version' will be different.", async () => {
+  it("when base task is failing, 'Go to base commit' and 'Go to last executed' dropdown items generate the same link and 'Go to last passing version' will be different and 'Go to breaking commit' will be populated", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider
-        mocks={[getPatchTaskWithFailingBaseTask, getLastPassingVersion]}
+        mocks={[
+          getPatchTaskWithFailingBaseTask,
+          getLastPassingVersion,
+          getBreakingCommit,
+        ]}
       >
-        <PreviousCommits taskId="t1" />
+        <RelevantCommits taskId="t1" />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
 
-    await screen.findByRole("button", { name: "Previous commits" });
+    await screen.findByRole("button", { name: "Relevant commits" });
     expect(
-      screen.getByRole("button", { name: "Previous commits" }),
+      screen.getByRole("button", { name: "Relevant commits" }),
     ).toHaveAttribute("aria-disabled", "false");
-    await user.click(screen.getByRole("button", { name: "Previous commits" }));
+    await user.click(screen.getByRole("button", { name: "Relevant commits" }));
     await waitFor(() => {
       expect(screen.getByRole("menu")).toBeVisible();
     });
@@ -146,9 +153,12 @@ describe("previous commits", () => {
     expect(
       screen.getByRole("menuitem", { name: "Go to last executed version" }),
     ).toHaveAttribute("href", baseTaskHref);
+    expect(
+      screen.getByRole("menuitem", { name: "Go to breaking commit" }),
+    ).toHaveAttribute("href", "/task/breaking_commit");
   });
 
-  it("when base task is not in a finished state, the last executed & passing task is not the same as the base commit", async () => {
+  it("when base task is not in a finished state, the last executed, and passing task are not the same as the base commit and breaking commit is empty", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <MockedProvider
@@ -156,18 +166,19 @@ describe("previous commits", () => {
           getPatchTaskWithRunningBaseTask,
           getLastPassingVersion,
           getLastExecutedVersion,
+          getBreakingCommit,
         ]}
       >
-        <PreviousCommits taskId="t3" />
+        <RelevantCommits taskId="t3" />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
 
-    await screen.findByRole("button", { name: "Previous commits" });
+    await screen.findByRole("button", { name: "Relevant commits" });
     expect(
-      screen.getByRole("button", { name: "Previous commits" }),
+      screen.getByRole("button", { name: "Relevant commits" }),
     ).toHaveAttribute("aria-disabled", "false");
-    await user.click(screen.getByRole("button", { name: "Previous commits" }));
+    await user.click(screen.getByRole("button", { name: "Relevant commits" }));
     await waitFor(() => {
       expect(screen.getByRole("menu")).toBeVisible();
     });
@@ -181,6 +192,9 @@ describe("previous commits", () => {
     expect(
       screen.getByRole("menuitem", { name: "Go to last executed version" }),
     ).toHaveAttribute("href", "/task/last_executed_task");
+    expect(
+      screen.getByRole("menuitem", { name: "Go to breaking commit" }),
+    ).toHaveAttribute("aria-disabled", "true");
   });
 });
 
@@ -206,6 +220,7 @@ const getPatchTaskWithSuccessfulBaseTask: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
+        status: "success",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
@@ -246,6 +261,7 @@ const getPatchTaskWithRunningBaseTask: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
+        status: "started",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
@@ -286,6 +302,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
+        status: "failed",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
@@ -326,6 +343,7 @@ const getPatchTaskWithNoBaseVersion: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
+        status: "success",
         versionMetadata: {
           baseVersion: null,
           id: "versionMetadataId",
@@ -334,6 +352,54 @@ const getPatchTaskWithNoBaseVersion: ApolloMock<
         },
         baseTask: null,
         __typename: "Task",
+      },
+    },
+  },
+};
+
+const getBreakingCommit: ApolloMock<
+  LastMainlineCommitQuery,
+  LastMainlineCommitQueryVariables
+> = {
+  request: {
+    query: LAST_MAINLINE_COMMIT,
+    variables: {
+      projectIdentifier: "evergreen",
+      skipOrderNumber: 3676,
+      buildVariantOptions: {
+        tasks: ["^lint-agent$"],
+        variants: ["^lint$"],
+        statuses: ["failed"],
+      },
+    },
+  },
+  result: {
+    data: {
+      mainlineCommits: {
+        versions: [
+          {
+            version: {
+              id: "evergreen_44110b57c6977bf3557009193628c9389772163f2",
+              buildVariants: [
+                {
+                  tasks: [
+                    {
+                      id: "breaking_commit",
+                      execution: 0,
+                      order: 3676,
+                      status: "failed",
+                      __typename: "Task",
+                    },
+                  ],
+                  __typename: "GroupedBuildVariant",
+                },
+              ],
+              __typename: "Version",
+            },
+            __typename: "MainlineCommitVersion",
+          },
+        ],
+        __typename: "MainlineCommits",
       },
     },
   },
@@ -368,6 +434,7 @@ const getLastPassingVersion: ApolloMock<
                     {
                       id: "last_passing_task",
                       execution: 0,
+                      order: 3674,
                       status: "success",
                       __typename: "Task",
                     },
@@ -425,6 +492,7 @@ const getLastExecutedVersion: ApolloMock<
                     {
                       id: "last_executed_task",
                       execution: 0,
+                      order: 3676,
                       status: "failed",
                       __typename: "Task",
                     },
@@ -462,6 +530,7 @@ const getPatchTaskWithNoBaseTask: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
+        status: "success",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
@@ -498,6 +567,7 @@ const getMainlineTaskWithBaseVersion: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
+        status: "success",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
