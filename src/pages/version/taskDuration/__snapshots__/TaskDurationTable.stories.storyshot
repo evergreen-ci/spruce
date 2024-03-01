@@ -11,7 +11,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
       data-cy="task-duration-table"
     >
       <thead
-        class="leafygreen-ui-aufxuu"
+        class="leafygreen-ui-bebmcm"
       >
         <tr>
           <th
@@ -1305,7 +1305,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
       data-cy="task-duration-table"
     >
       <thead
-        class="leafygreen-ui-aufxuu"
+        class="leafygreen-ui-bebmcm"
       >
         <tr>
           <th

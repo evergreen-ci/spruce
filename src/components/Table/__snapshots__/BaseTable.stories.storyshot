@@ -10,7 +10,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
       class="leafygreen-ui-1soynca"
     >
       <thead
-        class="leafygreen-ui-aufxuu"
+        class="leafygreen-ui-bebmcm"
       >
         <tr>
           <th
@@ -6745,7 +6745,7 @@ exports[`Snapshot Tests BaseTable.stories EmptyState 1`] = `
       class="leafygreen-ui-1soynca"
     >
       <thead
-        class="leafygreen-ui-aufxuu"
+        class="leafygreen-ui-bebmcm"
       >
         <tr>
           <th
@@ -6980,7 +6980,7 @@ exports[`Snapshot Tests BaseTable.stories Loading 1`] = `
       class="leafygreen-ui-1soynca"
     >
       <thead
-        class="leafygreen-ui-aufxuu"
+        class="leafygreen-ui-bebmcm"
       >
         <tr>
           <th
@@ -7415,7 +7415,7 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
       class="leafygreen-ui-1soynca"
     >
       <thead
-        class="leafygreen-ui-aufxuu"
+        class="leafygreen-ui-bebmcm"
       >
         <tr>
           <th
@@ -8140,7 +8140,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
       class="leafygreen-ui-1soynca"
     >
       <thead
-        class="leafygreen-ui-aufxuu"
+        class="leafygreen-ui-bebmcm"
       >
         <tr>
           <th
@@ -16573,7 +16573,7 @@ exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
       class="leafygreen-ui-1soynca"
     >
       <thead
-        class="leafygreen-ui-8pbpap"
+        class="leafygreen-ui-1fukoij"
       >
         <tr>
           <th
