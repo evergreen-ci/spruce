@@ -48,7 +48,9 @@ const TaskQueue = () => {
       const firstDistroInList = taskQueueDistros[0]?.id;
       const defaultDistro = distro ?? firstDistroInList;
       setSelectedDistro(taskQueueDistros.find((d) => d.id === defaultDistro));
-      navigate(getTaskQueueRoute(defaultDistro, taskId));
+      if (distro === undefined) {
+        navigate(getTaskQueueRoute(defaultDistro, taskId));
+      }
     },
     onError: (err) => {
       dispatchToast.error(`There was an error loading distros: ${err.message}`);
