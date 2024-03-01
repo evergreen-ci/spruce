@@ -25,3 +25,25 @@ const getErrorMessage = async (response: Response, method: string) => {
 const handleError = (error: string) => {
   reportError(new Error(error)).warning();
 };
+
+export const fetchWithRetry = <T = any>(
+  url: string,
+  options: RequestInit,
+  retries: number = 3,
+  backoff: number = 150,
+): Promise<T> =>
+  new Promise((resolve, reject) => {
+    const attemptFetch = (attempt: number): void => {
+      fetch(url, options)
+        .then((res) => res.json())
+        .then((data) => resolve(data))
+        .catch((err) => {
+          if (attempt <= retries) {
+            setTimeout(() => attemptFetch(attempt + 1), backoff * attempt);
+          } else {
+            reject(err);
+          }
+        });
+    };
+    attemptFetch(1);
+  });
