@@ -22,7 +22,6 @@ export function deleteNestedKey<T extends object>(
         typeof currentObject[key] === "object" &&
         currentObject[key] !== null
       ) {
-        // eslint-disable-next-line no-param-reassign
         deleteKey(currentObject[key]);
       }
     });
