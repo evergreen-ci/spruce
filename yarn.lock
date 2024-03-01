@@ -3491,7 +3491,7 @@
     "@leafygreen-ui/emotion" "^4.0.7"
     lodash "^4.17.21"
 
-"@leafygreen-ui/info-sprinkle@^1.0.2":
+"@leafygreen-ui/info-sprinkle@1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/info-sprinkle/-/info-sprinkle-1.0.2.tgz#bce738c71e2fdbf99950c22e70a938d270f8ebb1"
   integrity sha512-SWab7+ljlNQQML6f2t2VOnp2JtZjcJ+KcZcVHUikjt7gYnS6+YtK9MEwZOFsLue6IchaJgPNsVA+Fm+e/PjSuQ==
