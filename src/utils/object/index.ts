@@ -1,3 +1,4 @@
+import { deleteNestedKey } from "./deleteNestedKey";
 import { omit } from "./omit";
 
-export { omit };
+export { omit, deleteNestedKey };
