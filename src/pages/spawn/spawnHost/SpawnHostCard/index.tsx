@@ -101,7 +101,7 @@ const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
         </StyledLink>
         <InfoSprinkle>
           The Evergreen IDE is now deprecated and is no longer installed on new
-          workstations
+          workstations.
         </InfoSprinkle>
       </IDEContainer>
     ) : undefined,
