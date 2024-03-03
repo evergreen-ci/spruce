@@ -46,16 +46,19 @@ export const getFormSchema = (
                   title: "Alias",
                   default: "",
                   minLength: 1,
+                  format: "noStartingOrTrailingWhitespace",
                 },
                 childProjectIdentifier: {
                   type: "string" as "string",
                   title: "Project",
                   default: "",
                   minLength: 1,
+                  format: "noStartingOrTrailingWhitespace",
                 },
                 parentAsModule: {
                   type: "string" as "string",
                   title: "Module",
+                  format: "noStartingOrTrailingWhitespace",
                 },
                 status: {
                   type: "string" as "string",

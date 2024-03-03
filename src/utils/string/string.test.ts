@@ -1,3 +1,4 @@
+import { TimeFormat } from "constants/fieldMaps";
 import {
   msToDuration,
   sortFunctionDate,
@@ -292,7 +293,25 @@ describe("getDateCopy", () => {
       getDateCopy("08/31/1996", { dateFormat: "MM/dd/yyyy", dateOnly: true }),
     ).toBe("08/31/1996");
   });
+
+  it("returns dates with a custom time format when supplied with the option", () => {
+    expect(
+      getDateCopy(new Date("2020-11-16T22:17:29z"), {
+        omitTimezone: true,
+        timeFormat: TimeFormat.TwentyFourHour,
+      }),
+    ).toBe("Nov 16, 2020, 22:17:29");
+
+    expect(
+      getDateCopy(new Date("2020-11-16T22:17:29z"), {
+        omitSeconds: true,
+        omitTimezone: true,
+        timeFormat: TimeFormat.TwelveHour,
+      }),
+    ).toBe("Nov 16, 2020, 10:17 PM");
+  });
 });
+
 describe("applyStrictRegex", () => {
   it("converts string to strict regex", () => {
     expect(applyStrictRegex("dog")).toBe("^dog$");

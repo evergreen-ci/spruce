@@ -60,7 +60,7 @@ const ProjectSettings: React.FC = () => {
     projectData?.projectSettings?.projectRef?.repoRefId || identifier;
 
   // Assign project type in order to show/hide elements that should only appear for repos, attached projects, etc.
-  let projectType;
+  let projectType: ProjectType;
   if (isRepo) {
     projectType = ProjectType.Repo;
   } else if (projectData?.projectSettings?.projectRef?.repoRefId) {

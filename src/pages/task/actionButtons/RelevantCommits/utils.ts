@@ -1,23 +1,26 @@
 import { getTaskRoute } from "constants/routes";
 import { LastMainlineCommitQuery } from "gql/generated/types";
 import { reportError } from "utils/errorReporting";
-import { CommitTask, CommitType } from "./types";
+import { BaseTask, CommitTask, CommitType } from "./types";
 
 // a link cannot be null, so it's common to use # as a substitute.
 const nullLink = "#";
 
 export const getLinks = ({
+  breakingTask,
   lastExecutedTask,
   lastPassingTask,
   parentTask,
 }: {
-  lastExecutedTask: CommitTask;
-  lastPassingTask: CommitTask;
-  parentTask: CommitTask;
+  breakingTask: BaseTask;
+  lastExecutedTask: BaseTask;
+  lastPassingTask: BaseTask;
+  parentTask: BaseTask;
 }) => {
   if (!parentTask) {
     return {
       [CommitType.Base]: nullLink,
+      [CommitType.Breaking]: nullLink,
       [CommitType.LastPassing]: nullLink,
       [CommitType.LastExecuted]: nullLink,
     };
@@ -25,6 +28,9 @@ export const getLinks = ({
 
   return {
     [CommitType.Base]: getTaskRoute(parentTask.id),
+    [CommitType.Breaking]: breakingTask
+      ? getTaskRoute(breakingTask.id)
+      : nullLink,
     [CommitType.LastPassing]: getTaskRoute(
       lastPassingTask?.id || parentTask.id,
     ),

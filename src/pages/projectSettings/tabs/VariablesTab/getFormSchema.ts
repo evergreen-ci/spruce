@@ -24,6 +24,7 @@ export const getFormSchema = (
               title: "Variable Name",
               default: "",
               minLength: 1,
+              format: "noStartingOrTrailingWhitespace",
             },
             varValue: {
               type: "string" as "string",
