@@ -51,11 +51,11 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
     if (taskId !== undefined && !performedInitialScroll.current) {
       const i = taskQueue.findIndex((t) => t.id === taskId);
       setSelectedRowIndexes([i]);
-      table.scrollToIndex(i, { align: "start" });
+      table.scrollToIndex(i, { align: "center" });
 
       setTimeout(() => {
         performedInitialScroll.current = true;
-        table.scrollToIndex(i, { align: "start" });
+        table.scrollToIndex(i, { align: "center" });
       }, 200);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
