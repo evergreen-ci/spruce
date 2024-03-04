@@ -1,5 +1,4 @@
 import { execSync } from "child_process";
-import { githubRemote } from "./constants";
 import { green, underline } from "../../../../utils/colors";
 
 /**
@@ -49,7 +48,7 @@ const getLatestTag = () => {
  */
 const deleteTag = (tag: string) => {
   console.log(`Deleting tag (${tag}) from remote...`);
-  const deleteCommand = `git push --delete ${githubRemote} ${tag}`;
+  const deleteCommand = `git push --delete upstream ${tag}`;
   try {
     execSync(deleteCommand, { stdio: "inherit", encoding: "utf-8" });
   } catch (err) {
@@ -63,7 +62,7 @@ const deleteTag = (tag: string) => {
 const pushTags = () => {
   console.log("Pushing tags...");
   try {
-    execSync(`git push --tags ${githubRemote}`, {
+    execSync(`git push --tags upstream`, {
       stdio: "inherit",
       encoding: "utf-8",
     });
