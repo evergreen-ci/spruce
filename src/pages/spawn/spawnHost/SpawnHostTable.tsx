@@ -10,7 +10,7 @@ import { BaseTable } from "components/Table/BaseTable";
 import { size } from "constants/tokens";
 import { useQueryParam } from "hooks/useQueryParam";
 import { MyHost, QueryParams } from "types/spawn";
-import { SpawnHostCard } from "./SpawnHostCard";
+import SpawnHostCard from "./SpawnHostCard";
 import { SpawnHostTableActions } from "./SpawnHostTableActions";
 
 interface SpawnHostTableProps {
