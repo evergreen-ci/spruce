@@ -38,7 +38,7 @@ import {
 import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { useQueryParam } from "hooks/useQueryParam";
 import { TaskStatus } from "types/task";
-import { PreviousCommits } from "./actionButtons/previousCommits";
+import { RelevantCommits } from "./actionButtons/RelevantCommits";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
@@ -254,7 +254,7 @@ export const ActionButtons: React.FC<Props> = ({
       <PageButtonRow>
         {!isExecutionTask && (
           <>
-            <PreviousCommits taskId={taskId} />
+            <RelevantCommits taskId={taskId} />
             <Button
               size="small"
               data-cy="task-history"

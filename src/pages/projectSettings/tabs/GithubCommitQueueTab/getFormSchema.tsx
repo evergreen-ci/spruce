@@ -150,6 +150,7 @@ export const getFormSchema = (
                     title: "Username",
                     default: "",
                     minLength: 1,
+                    format: "noStartingOrTrailingWhitespace",
                   },
                 },
               ),
@@ -168,6 +169,7 @@ export const getFormSchema = (
                     title: "Team",
                     default: "",
                     minLength: 1,
+                    format: "noStartingOrTrailingWhitespace",
                   },
                 },
               ),
@@ -223,6 +225,7 @@ export const getFormSchema = (
                       properties: {
                         mergeQueue: {
                           type: "string" as "string",
+                          title: "",
                           oneOf: [
                             {
                               type: "string" as "string",

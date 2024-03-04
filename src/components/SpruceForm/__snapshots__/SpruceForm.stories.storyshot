@@ -589,6 +589,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                 <div
                   aria-label="radio-group-"
                   class="leafygreen-ui-14o8ny9"
+                  id="root_reprovisionMethod"
                   role="group"
                 >
                   <div

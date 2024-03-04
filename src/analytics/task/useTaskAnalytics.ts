@@ -10,7 +10,7 @@ import {
 } from "gql/generated/types";
 import { TASK } from "gql/queries";
 import { useQueryParam } from "hooks/useQueryParam";
-import { CommitType } from "pages/task/actionButtons/previousCommits/types";
+import { CommitType } from "pages/task/actionButtons/RelevantCommits/types";
 import { RequiredQueryParams, LogTypes } from "types/task";
 
 type LogViewer = "raw" | "html" | "parsley";
@@ -70,7 +70,7 @@ type Action =
   | { name: "Click Last Failing Stepback Task Link" }
   | { name: "Click Previous Stepback Task Link" }
   | { name: "Click Next Stepback Task Link" }
-  | { name: "Submit Previous Commit Selector"; type: CommitType };
+  | { name: "Submit Relevant Commit Selector"; type: CommitType };
 
 export const useTaskAnalytics = () => {
   const { id } = useParams<{ id: string }>();
