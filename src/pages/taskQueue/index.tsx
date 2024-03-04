@@ -1,120 +1,136 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { H2, H2Props, H3, H3Props } from "@leafygreen-ui/typography";
-import { Skeleton } from "antd";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
 import SearchableDropdown from "components/SearchableDropdown";
-import {
-  TableControlOuterRow,
-  PageWrapper,
-  StyledRouterLink,
-} from "components/styles";
+import { PageWrapper, StyledRouterLink } from "components/styles";
 import { getTaskQueueRoute, getAllHostsRoute } from "constants/routes";
 import { size } from "constants/tokens";
+import { useToastContext } from "context/toast";
 import {
+  DistroTaskQueueQuery,
+  DistroTaskQueueQueryVariables,
   TaskQueueDistro,
   TaskQueueDistrosQuery,
   TaskQueueDistrosQueryVariables,
 } from "gql/generated/types";
-import { TASK_QUEUE_DISTROS } from "gql/queries";
+import { DISTRO_TASK_QUEUE, TASK_QUEUE_DISTROS } from "gql/queries";
 import { usePageTitle } from "hooks";
-import { DistroOption } from "pages/taskQueue/DistroOption";
-import { TaskQueueTable } from "pages/taskQueue/TaskQueueTable";
+import { useQueryParam } from "hooks/useQueryParam";
+import { QueryParams } from "types/task";
+import { DistroOption } from "./DistroOption";
+import TaskQueueTable from "./TaskQueueTable";
 
 const TaskQueue = () => {
   const taskQueueAnalytics = useTaskQueueAnalytics();
 
-  const { distro, taskId } = useParams<{ distro: string; taskId?: string }>();
+  const { distro } = useParams<{ distro: string }>();
+  const [taskId] = useQueryParam<string | undefined>(
+    QueryParams.TaskId,
+    undefined,
+  );
   const navigate = useNavigate();
-
-  const [selectedDistro, setSelectedDistro] = useState(null);
+  const [selectedDistro, setSelectedDistro] = useState<
+    TaskQueueDistro | undefined
+  >(undefined);
+  const dispatchToast = useToastContext();
   usePageTitle(`Task Queue - ${distro}`);
-  const { data: distrosData } = useQuery<
+  const { data: distrosData, loading: loadingDistrosData } = useQuery<
     TaskQueueDistrosQuery,
     TaskQueueDistrosQueryVariables
-  >(TASK_QUEUE_DISTROS, { fetchPolicy: "cache-and-network" });
-
-  const distros = useMemo(
-    () => distrosData?.taskQueueDistros ?? [],
-    [distrosData],
-  );
-  const firstDistroInList = distros[0]?.id;
-
-  // SET DEFAULT DISTRO AFTER DISTROS HAVE BEEN OBTAINED
-  useEffect(() => {
-    if (distros.length) {
+  >(TASK_QUEUE_DISTROS, {
+    fetchPolicy: "cache-and-network",
+    onCompleted: (data) => {
+      const { taskQueueDistros } = data;
+      const firstDistroInList = taskQueueDistros[0]?.id;
       const defaultDistro = distro ?? firstDistroInList;
-      setSelectedDistro(distros.find((d) => d.id === defaultDistro));
-      navigate(getTaskQueueRoute(defaultDistro, taskId), { replace: true });
-    }
-  }, [firstDistroInList, distro, navigate, taskId, distros]);
+      setSelectedDistro(taskQueueDistros.find((d) => d.id === defaultDistro));
+      if (distro === undefined) {
+        navigate(getTaskQueueRoute(defaultDistro));
+      }
+    },
+    onError: (err) => {
+      dispatchToast.error(`There was an error loading distros: ${err.message}`);
+    },
+  });
 
-  const onChangeDistroSelection = (val: { id: string }) => {
+  const { data: taskQueueItemsData, loading: loadingTaskQueueItems } = useQuery<
+    DistroTaskQueueQuery,
+    DistroTaskQueueQueryVariables
+  >(DISTRO_TASK_QUEUE, {
+    fetchPolicy: "cache-and-network",
+    variables: { distroId: distro },
+    skip: !distro,
+    onError: (err) => {
+      dispatchToast.error(
+        `There was an error loading task queue: ${err.message}`,
+      );
+    },
+  });
+
+  const onChangeDistroSelection = (val: TaskQueueDistro) => {
     taskQueueAnalytics.sendEvent({ name: "Select Distro", distro: val.id });
+    navigate(getTaskQueueRoute(val.id));
+    setSelectedDistro(val);
   };
 
-  const handleSearch = (options: { id: string }[], match: string) =>
+  const handleSearch = (options: TaskQueueDistro[], match: string) =>
     options.filter((d) => d.id.toLowerCase().includes(match.toLowerCase()));
 
   return (
-    <PageWrapper>
+    <StyledPageWrapper>
       <StyledH2>Task Queue</StyledH2>
-      {selectedDistro === null ? (
-        <Skeleton active />
-      ) : (
-        <>
-          <TableControlOuterRow>
-            <SearchableDropdownWrapper>
-              <SearchableDropdown
-                data-cy="distro-dropdown"
-                label="Distro"
-                options={distros}
-                searchFunc={handleSearch}
-                optionRenderer={(option, onClick) => (
-                  <DistroOption
-                    option={option}
-                    key={`distro-select-search-option-${option.id}`}
-                    onClick={onClick}
-                  />
-                )}
-                onChange={onChangeDistroSelection}
-                value={selectedDistro}
-                buttonRenderer={(option: Partial<TaskQueueDistro>) => (
-                  <DistroLabel>
-                    <StyledBadge>{`${option?.taskCount || 0} ${
-                      option?.taskCount === 1 ? "TASK" : "TASKS"
-                    }`}</StyledBadge>
-                    <StyledBadge>{`${option?.hostCount || 0} ${
-                      option?.hostCount === 1 ? "HOST" : "HOSTS"
-                    }`}</StyledBadge>
-                    <DistroName> {option?.id} </DistroName>
-                  </DistroLabel>
-                )}
-              />
-            </SearchableDropdownWrapper>
-          </TableControlOuterRow>
-
-          {
-            /* Only show name & link if distro exists. */
-            selectedDistro && (
-              <TableHeader>
-                <StyledH3> {selectedDistro.id} </StyledH3>
-                <StyledRouterLink
-                  to={getAllHostsRoute({ distroId: selectedDistro.id })}
-                >
-                  View hosts
-                </StyledRouterLink>
-              </TableHeader>
-            )
-          }
-
-          <TaskQueueTable distro={distro} taskId={taskId} />
-        </>
+      <SearchableDropdownWrapper>
+        <SearchableDropdown
+          data-cy="distro-dropdown"
+          label="Distro"
+          disabled={selectedDistro === undefined}
+          options={distrosData?.taskQueueDistros}
+          searchFunc={handleSearch}
+          valuePlaceholder="Select a distro"
+          optionRenderer={(option, onClick) => (
+            <DistroOption
+              option={option}
+              key={`distro-select-search-option-${option.id}`}
+              onClick={onClick}
+            />
+          )}
+          onChange={onChangeDistroSelection}
+          value={selectedDistro}
+          buttonRenderer={(option: TaskQueueDistro) => (
+            <DistroLabel>
+              <StyledBadge>{`${option?.taskCount || 0} ${
+                option?.taskCount === 1 ? "TASK" : "TASKS"
+              }`}</StyledBadge>
+              <StyledBadge>{`${option?.hostCount || 0} ${
+                option?.hostCount === 1 ? "HOST" : "HOSTS"
+              }`}</StyledBadge>
+              <DistroName> {option?.id} </DistroName>
+            </DistroLabel>
+          )}
+        />
+      </SearchableDropdownWrapper>
+      {
+        /* Only show name & link if distro exists. */
+        !loadingDistrosData && (
+          <TableHeader>
+            <StyledH3>{distro}</StyledH3>
+            <StyledRouterLink to={getAllHostsRoute({ distroId: distro })}>
+              View hosts
+            </StyledRouterLink>
+          </TableHeader>
+        )
+      }
+      {!loadingTaskQueueItems && (
+        <TaskQueueTable
+          taskQueue={taskQueueItemsData?.distroTaskQueue}
+          taskId={taskId}
+        />
       )}
-    </PageWrapper>
+    </StyledPageWrapper>
   );
 };
 
@@ -144,5 +160,8 @@ const StyledH2 = styled(H2)<H2Props>`
 const StyledH3 = styled(H3)<H3Props>`
   margin-right: ${size.s};
 `;
-
+const StyledPageWrapper = styled(PageWrapper)`
+  display: flex;
+  flex-direction: column;
+`;
 export default TaskQueue;
