@@ -1,13 +1,13 @@
 #!/bin/bash
 
 WAIT_TIME=9
-GITHUB_REMOTE=https://github.com/evergreen-ci/spruce
+GIT_DESTINATION=$(git rev-parse --abbrev-ref @{upstream})
 
-if git push $GITHUB_REMOTE
+if git push upstream
 then
-  echo "Successfully pushed to ${GITHUB_REMOTE}"
+  echo "Successfully pushed to ${GIT_DESTINATION}"
 else
-  echo "Failed to push to ${GITHUB_REMOTE}"
+  echo "Failed to push to ${GIT_DESTINATION}"
   exit 1
 fi
 
@@ -17,11 +17,11 @@ while [ $i -gt 0 ]
 done
 echo ""
 
-if git push --tags $GITHUB_REMOTE
+if git push --tags upstream
 then
-  echo "Successfully pushed tags to ${GITHUB_REMOTE}"
+  echo "Successfully pushed tags to ${GIT_DESTINATION}"
 else 
-  echo "Failed to push tags to ${GITHUB_REMOTE}"
+  echo "Failed to push tags to ${GIT_DESTINATION}"
   exit 1
 fi
 
