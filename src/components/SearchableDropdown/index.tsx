@@ -156,6 +156,7 @@ const SearchableDropdown = <T extends {}>({
           }
           onClose={resetSearch}
           ref={DropdownRef}
+          aria-disabled={disabled}
         >
           <TextInput
             data-cy={`${dataCy}-search-input`}

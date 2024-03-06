@@ -80,7 +80,6 @@ export const Content: React.FC = () => (
       <Route path={routes.taskHistory} element={<TaskHistory />} />
       <Route path={routes.taskQueue} element={<TaskQueue />}>
         <Route path=":distro" element={null} />
-        <Route path=":distro/:taskId" element={null} />
       </Route>
       <Route path={routes.userPatches} element={<UserPatches />} />
       <Route

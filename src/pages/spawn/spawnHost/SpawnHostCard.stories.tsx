@@ -1,5 +1,5 @@
-import { SpawnHostCard } from "pages/spawn/spawnHost/SpawnHostCard";
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
+import SpawnHostCard from "./SpawnHostCard";
 
 export default {
   title: "Pages/Spawn/Spawn Host Card",

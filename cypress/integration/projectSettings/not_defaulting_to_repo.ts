@@ -119,6 +119,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-name-input").should("not.exist");
       // Verify persistence
       cy.reload();
+      saveButtonEnabled(false);
       cy.dataCy("var-name-input").should("not.exist");
     });
   });
