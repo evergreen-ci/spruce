@@ -7389,6 +7389,15 @@ export type ProjectSettingsQuery = {
   };
 };
 
+export type ProjectQueryVariables = Exact<{
+  idOrIdentifier: Scalars["String"]["input"];
+}>;
+
+export type ProjectQuery = {
+  __typename?: "Query";
+  project: { __typename?: "Project"; id: string; identifier: string };
+};
+
 export type ProjectsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ProjectsQuery = {

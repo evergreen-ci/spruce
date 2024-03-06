@@ -36,6 +36,7 @@ import {
   useUpsertQueryParams,
   useUserSettings,
 } from "hooks";
+import { useProjectRedirect } from "hooks/useProjectRedirect";
 import { useQueryParam } from "hooks/useQueryParam";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString, validators } from "utils";
@@ -69,8 +70,9 @@ const Commits = () => {
   const { projectIdentifier } = useParams<{
     projectIdentifier: string;
   }>();
-
   usePageTitle(`Project Health | ${projectIdentifier}`);
+  const { isRedirecting } = useProjectRedirect();
+
   const recentlySelectedProject = Cookies.get(CURRENT_PROJECT);
   // Push default project to URL if there isn't a project in
   // the URL already and an mci-project-cookie does not exist.
@@ -78,7 +80,7 @@ const Commits = () => {
     SpruceConfigQuery,
     SpruceConfigQueryVariables
   >(SPRUCE_CONFIG, {
-    skip: !!projectIdentifier || !!recentlySelectedProject,
+    skip: !!projectIdentifier || !!recentlySelectedProject || isRedirecting,
   });
 
   useEffect(() => {
@@ -139,7 +141,7 @@ const Commits = () => {
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
   >(MAINLINE_COMMITS, {
-    skip: !projectIdentifier || isResizing,
+    skip: !projectIdentifier || isRedirecting || isResizing,
     errorPolicy: "all",
     fetchPolicy: "cache-and-network",
     variables,
@@ -233,7 +235,10 @@ const Commits = () => {
             versions={versions}
             revision={revision}
             isLoading={
-              (loading && !versions) || !projectIdentifier || isResizing
+              (loading && !versions) ||
+              !projectIdentifier ||
+              isRedirecting ||
+              isResizing
             }
             hasTaskFilter={hasTasks}
             hasFilters={hasFilters}

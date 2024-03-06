@@ -16,8 +16,11 @@ import { useAuthStateContext } from "context/Auth";
 import { UserQuery, SpruceConfigQuery } from "gql/generated/types";
 import { USER, SPRUCE_CONFIG } from "gql/queries";
 import { useLegacyUIURL } from "hooks";
+import { validators } from "utils";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
 import { UserDropdown } from "./UserDropdown";
+
+const { validateObjectId } = validators;
 
 const { blue, gray, white } = palette;
 
@@ -33,16 +36,20 @@ export const Navbar: React.FC = () => {
   const { projectIdentifier: projectFromUrl } = useParams<{
     projectIdentifier: string;
   }>();
+  const currProject = Cookies.get(CURRENT_PROJECT);
 
-  // Update current project cookie if the project in the URL does not equal the cookie value.
+  // Update current project cookie if the project in the URL is not an objectId and is not equal
+  // to the current project.
   // This will inform future navigations to the /commits page.
   useEffect(() => {
-    if (projectFromUrl && projectFromUrl !== Cookies.get(CURRENT_PROJECT)) {
+    if (
+      projectFromUrl &&
+      !validateObjectId(projectFromUrl) &&
+      projectFromUrl !== currProject
+    ) {
       Cookies.set(CURRENT_PROJECT, projectFromUrl);
     }
-  }, [projectFromUrl]);
-
-  const currProject = projectFromUrl ?? Cookies.get(CURRENT_PROJECT);
+  }, [currProject, projectFromUrl]);
 
   const { data: configData } = useQuery<SpruceConfigQuery>(SPRUCE_CONFIG, {
     skip: currProject !== undefined,
