@@ -248,9 +248,9 @@ functions:
         # Only record to cypress cloud if this is a pr, mainline commit or an intentional patch.
         # And only allow spec filtering for an intentional patch.
         if [[ "${requester}" == "github_pr" || "${requester}" == "commit" ]]; then
-          yarn cy:run --record --key "${cypress_record_key}" --reporter junit
+          yarn cy:run --record --key "${spruce_cypress_record_key}" --reporter junit
         elif [[ "${requester}" == "patch" ]]; then
-          yarn cy:run --record --key "${cypress_record_key}" --reporter junit --spec "${cypress_spec}"
+          yarn cy:run --record --key "${spruce_cypress_record_key}" --reporter junit --spec "${cypress_spec}"
         else
           yarn cy:run --reporter junit
         fi
@@ -413,18 +413,18 @@ functions:
       content_type: text/plain
       permissions: public-read
 
-  setup-credentials:
+  spruce-setup-credentials:
     command: shell.exec
     params:
       working_dir: spruce
       env:
-        REACT_APP_SENTRY_AUTH_TOKEN: ${REACT_APP_SENTRY_AUTH_TOKEN}
+        SPRUCE_SENTRY_AUTH_TOKEN: ${SPRUCE_SENTRY_AUTH_TOKEN}
         REACT_APP_SENTRY_DSN: ${REACT_APP_SENTRY_DSN}
-        REACT_APP_NEW_RELIC_ACCOUNT_ID: ${REACT_APP_NEW_RELIC_ACCOUNT_ID}
-        REACT_APP_NEW_RELIC_AGENT_ID: ${REACT_APP_NEW_RELIC_AGENT_ID}
-        REACT_APP_NEW_RELIC_APPLICATION_ID: ${REACT_APP_NEW_RELIC_APPLICATION_ID}
-        REACT_APP_NEW_RELIC_LICENSE_KEY: ${REACT_APP_NEW_RELIC_LICENSE_KEY}
-        REACT_APP_NEW_RELIC_TRUST_KEY: ${REACT_APP_NEW_RELIC_TRUST_KEY}
+        NEW_RELIC_ACCOUNT_ID: ${NEW_RELIC_ACCOUNT_ID}
+        NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
+        NEW_RELIC_TRUST_KEY: ${NEW_RELIC_TRUST_KEY}
+        SPRUCE_NEW_RELIC_AGENT_ID: ${SPRUCE_NEW_RELIC_AGENT_ID}
+        SPRUCE_NEW_RELIC_APPLICATION_ID: ${SPRUCE_NEW_RELIC_APPLICATION_ID}
         REACT_APP_DEPLOYS_EMAIL: ${REACT_APP_DEPLOYS_EMAIL}
         REACT_APP_HONEYCOMB_BASE_URL: ${REACT_APP_HONEYCOMB_BASE_URL}
         EVERGREEN_API_SERVER_HOST: ${evergreen_api_server_host}
@@ -446,7 +446,7 @@ functions:
       working_dir: spruce
       shell: bash
       env:
-        BUCKET: ${bucket}
+        BUCKET: ${spruce_bucket}
         AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
         AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
         AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
@@ -512,7 +512,7 @@ tasks:
   - name: deploy_to_prod
     commands:
       - func: assume-ec2-role
-      - func: setup-credentials
+      - func: spruce-setup-credentials
       - func: sym-link
       - func: prod-deploy
 
