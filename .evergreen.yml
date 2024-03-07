@@ -37,7 +37,7 @@ functions:
   assume-ec2-role:
     command: ec2.assume_role
     params:
-      role_arn: ${ASSUME_ROLE_ARN}
+      role_arn: ${SPRUCE_ASSUME_ROLE_ARN}
 
   get-project:
     command: git.get_project
