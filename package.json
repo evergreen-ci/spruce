@@ -154,7 +154,7 @@
     "@types/jest-specific-snapshot": "0.5.9",
     "@types/js-cookie": "^3.0.4",
     "@types/lodash.debounce": "4.0.7",
-    "@types/lodash.throttle": "^4.1.7",
+    "@types/lodash.throttle": "^4.1.9",
     "@types/new-relic-browser": "0.1212.2",
     "@types/node": "^16.11.47",
     "@types/pluralize": "0.0.29",
