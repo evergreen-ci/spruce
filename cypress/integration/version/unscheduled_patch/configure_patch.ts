@@ -195,7 +195,7 @@ describe("Configure Patch Page", () => {
         cy.dataCy("selected-task-disclaimer").contains(
           `0 tasks across 0 build variants`,
         );
-        cy.dataCy("task-filter-input").type("dist");
+        cy.dataCy("task-filter-input").type("^dist");
         cy.dataCy("task-checkbox").should("have.length", 2);
         cy.contains("Select all tasks in view").click();
         cy.dataCy("selected-task-disclaimer").contains(
