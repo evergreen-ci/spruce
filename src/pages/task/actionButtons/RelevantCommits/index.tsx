@@ -6,29 +6,24 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import Icon from "components/Icon";
-import { finishedTaskStatuses } from "constants/task";
-import { useToastContext } from "context/toast";
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
-  LastMainlineCommitQuery,
-  LastMainlineCommitQueryVariables,
 } from "gql/generated/types";
-import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
-import { TaskStatus } from "types/task";
-import { statuses, string } from "utils";
+import { BASE_VERSION_AND_TASK } from "gql/queries";
+import { useBreakingCommit } from "hooks/useBreakingTask";
+import { useLastExecutedTask } from "hooks/useLastExecutedTask";
+import { useLastPassingTask } from "hooks/useLastPassingTask";
+import { useParentTask } from "hooks/useParentTask";
 import { CommitType } from "./types";
-import { getLinks, getTaskFromMainlineCommitsQuery } from "./utils";
-
-const { applyStrictRegex } = string;
-const { isFailedTaskStatus, isFinishedTaskStatus } = statuses;
+import { getLinks } from "./utils";
 
 interface RelevantCommitsProps {
   taskId: string;
 }
+
 export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ taskId }) => {
   const { sendEvent } = useTaskAnalytics();
-  const dispatchToast = useToastContext();
 
   const { data: taskData } = useQuery<
     BaseVersionAndTaskQuery,
@@ -37,101 +32,18 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ taskId }) => {
     variables: { taskId },
   });
 
-  const {
-    baseTask,
-    buildVariant,
-    displayName,
-    projectIdentifier,
-    status,
-    versionMetadata,
-  } = taskData?.task ?? {};
-  const { order: skipOrderNumber } = versionMetadata?.baseVersion ?? {};
+  const { baseTask, versionMetadata } = taskData?.task ?? {};
 
-  const bvOptionsBase = {
-    tasks: [applyStrictRegex(displayName)],
-    variants: [applyStrictRegex(buildVariant)],
-  };
+  const { loading: parentLoading, task: parentTask } = useParentTask(taskId);
 
-  const { data: parentTaskData, loading: parentLoading } = useQuery<
-    LastMainlineCommitQuery,
-    LastMainlineCommitQueryVariables
-  >(LAST_MAINLINE_COMMIT, {
-    skip: !versionMetadata || versionMetadata.isPatch,
-    variables: {
-      projectIdentifier,
-      skipOrderNumber,
-      buildVariantOptions: {
-        ...bvOptionsBase,
-      },
-    },
-  });
-  const parentTask =
-    getTaskFromMainlineCommitsQuery(parentTaskData) ?? baseTask;
+  const { loading: passingLoading, task: lastPassingTask } =
+    useLastPassingTask(taskId);
 
-  const { data: lastPassingTaskData, loading: passingLoading } = useQuery<
-    LastMainlineCommitQuery,
-    LastMainlineCommitQueryVariables
-  >(LAST_MAINLINE_COMMIT, {
-    skip: !parentTask || parentTask.status === TaskStatus.Succeeded,
-    variables: {
-      projectIdentifier,
-      skipOrderNumber,
-      buildVariantOptions: {
-        ...bvOptionsBase,
-        statuses: [TaskStatus.Succeeded],
-      },
-    },
-    onError: (err) => {
-      dispatchToast.error(`Last passing version unavailable: '${err.message}'`);
-    },
-  });
-  const lastPassingTask = getTaskFromMainlineCommitsQuery(lastPassingTaskData);
-  const passingOrderNumber = lastPassingTask?.order;
+  const { loading: breakingLoading, task: breakingTask } =
+    useBreakingCommit(taskId);
 
-  // The breaking commit is the first failing commit after the last passing commit.
-  // The skip order number should be the last passing commit's order number + 1.
-  // We use + 2 because internally the query does a less than comparison.
-  // https://github.com/evergreen-ci/evergreen/blob/f6751ac3194452d457c0a6fe1a9f9b30dd674c60/model/version.go#L518
-  const { data: breakingTaskData, loading: breakingLoading } = useQuery<
-    LastMainlineCommitQuery,
-    LastMainlineCommitQueryVariables
-  >(LAST_MAINLINE_COMMIT, {
-    skip: !parentTask || !lastPassingTask || !isFailedTaskStatus(status),
-    variables: {
-      projectIdentifier,
-      skipOrderNumber: passingOrderNumber + 2,
-      buildVariantOptions: {
-        ...bvOptionsBase,
-        statuses: [TaskStatus.Failed],
-      },
-    },
-    onError: (err) => {
-      dispatchToast.error(`Breaking commit unavailable: '${err.message}'`);
-    },
-  });
-  const breakingTask = getTaskFromMainlineCommitsQuery(breakingTaskData);
-
-  const { data: lastExecutedTaskData, loading: executedLoading } = useQuery<
-    LastMainlineCommitQuery,
-    LastMainlineCommitQueryVariables
-  >(LAST_MAINLINE_COMMIT, {
-    skip: !parentTask || isFinishedTaskStatus(parentTask.status),
-    variables: {
-      projectIdentifier,
-      skipOrderNumber,
-      buildVariantOptions: {
-        ...bvOptionsBase,
-        statuses: finishedTaskStatuses,
-      },
-    },
-    onError: (err) => {
-      dispatchToast.error(
-        `Could not fetch last task execution: '${err.message}'`,
-      );
-    },
-  });
-  const lastExecutedTask =
-    getTaskFromMainlineCommitsQuery(lastExecutedTaskData);
+  const { loading: executedLoading, task: lastExecutedTask } =
+    useLastExecutedTask(taskId);
 
   const linkObject = useMemo(
     () =>
