@@ -217,7 +217,7 @@ const RenderableRow = <T extends LGRowData>({
           virtualRow={virtualRow}
         >
           {subRow.getVisibleCells().map((cell) => (
-            <Cell key={cell.id} style={cellPaddingStyle}>
+            <Cell key={cell.id}>
               {flexRender(cell.column.columnDef.cell, cell.getContext())}
             </Cell>
           ))}
