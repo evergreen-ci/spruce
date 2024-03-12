@@ -347,6 +347,7 @@ export type DispatcherSettingsInput = {
 };
 
 export enum DispatcherVersion {
+  Revised = "REVISED",
   RevisedWithDependencies = "REVISED_WITH_DEPENDENCIES",
 }
 
