@@ -7740,7 +7740,6 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -7759,7 +7758,6 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -7778,7 +7776,6 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -7904,7 +7901,6 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -7923,7 +7919,6 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -7942,7 +7937,6 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -8068,7 +8062,6 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -8087,7 +8080,6 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -8106,7 +8098,6 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -8465,7 +8456,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -8484,7 +8474,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -8503,7 +8492,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -8629,7 +8617,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -8648,7 +8635,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -8667,7 +8653,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -8793,7 +8778,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -8812,7 +8796,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -8831,7 +8814,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -8957,7 +8939,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -8976,7 +8957,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -8995,7 +8975,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9121,7 +9100,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9140,7 +9118,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9159,7 +9136,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9285,7 +9261,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9304,7 +9279,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9323,7 +9297,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9449,7 +9422,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9468,7 +9440,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9487,7 +9458,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9613,7 +9583,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9632,7 +9601,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9651,7 +9619,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9777,7 +9744,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9796,7 +9762,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9815,7 +9780,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9941,7 +9905,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9960,7 +9923,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -9979,7 +9941,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10105,7 +10066,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10124,7 +10084,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10143,7 +10102,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10269,7 +10227,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10288,7 +10245,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10307,7 +10263,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10433,7 +10388,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10452,7 +10406,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10471,7 +10424,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10597,7 +10549,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10616,7 +10567,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10635,7 +10585,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10761,7 +10710,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10780,7 +10728,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10799,7 +10746,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10925,7 +10871,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10944,7 +10889,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -10963,7 +10907,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11089,7 +11032,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11108,7 +11050,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11127,7 +11068,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11253,7 +11193,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11272,7 +11211,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11291,7 +11229,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11417,7 +11354,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11436,7 +11372,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11455,7 +11390,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11581,7 +11515,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11600,7 +11533,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11619,7 +11551,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11745,7 +11676,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11764,7 +11694,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11783,7 +11712,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11909,7 +11837,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11928,7 +11855,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -11947,7 +11873,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12073,7 +11998,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12092,7 +12016,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12111,7 +12034,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12237,7 +12159,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12256,7 +12177,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12275,7 +12195,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12401,7 +12320,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12420,7 +12338,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12439,7 +12356,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12565,7 +12481,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12584,7 +12499,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12603,7 +12517,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12729,7 +12642,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12748,7 +12660,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12767,7 +12678,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12893,7 +12803,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12912,7 +12821,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -12931,7 +12839,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13057,7 +12964,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13076,7 +12982,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13095,7 +13000,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13221,7 +13125,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13240,7 +13143,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13259,7 +13161,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13385,7 +13286,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13404,7 +13304,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13423,7 +13322,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13549,7 +13447,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13568,7 +13465,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13587,7 +13483,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13713,7 +13608,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13732,7 +13626,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13751,7 +13644,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13877,7 +13769,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13896,7 +13787,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -13915,7 +13805,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14041,7 +13930,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14060,7 +13948,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14079,7 +13966,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14205,7 +14091,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14224,7 +14109,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14243,7 +14127,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14369,7 +14252,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14388,7 +14270,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14407,7 +14288,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14533,7 +14413,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14552,7 +14431,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14571,7 +14449,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14697,7 +14574,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14716,7 +14592,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14735,7 +14610,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14861,7 +14735,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14880,7 +14753,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -14899,7 +14771,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15025,7 +14896,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15044,7 +14914,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15063,7 +14932,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15189,7 +15057,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15208,7 +15075,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15227,7 +15093,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15353,7 +15218,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15372,7 +15236,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15391,7 +15254,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15517,7 +15379,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15536,7 +15397,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15555,7 +15415,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15681,7 +15540,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15700,7 +15558,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15719,7 +15576,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15845,7 +15701,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15864,7 +15719,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -15883,7 +15737,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -16009,7 +15862,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -16028,7 +15880,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -16047,7 +15898,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -16173,7 +16023,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -16192,7 +16041,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -16211,7 +16059,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -16337,7 +16184,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -16356,7 +16202,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -16375,7 +16220,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -16501,7 +16345,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
         >
           <td
             class="leafygreen-ui-dm20k9"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -16520,7 +16363,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -16539,7 +16381,6 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
               class="leafygreen-ui-21vumk"
