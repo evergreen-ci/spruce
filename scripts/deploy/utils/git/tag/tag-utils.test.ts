@@ -1,6 +1,6 @@
 import { getLatestTag } from "./tag-utils";
 
-const currentlyDeployedTagRegex = /^v\d+\.\d+\.\d+$/;
+const currentlyDeployedTagRegex = /.*\d+\.\d+\.\d+$/;
 
 describe("getLatestTag", () => {
   it("should return the latest tag", () => {

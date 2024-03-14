@@ -6,7 +6,7 @@ import {
 } from "./constants";
 import { clickSave } from "../../utils";
 
-xdescribe("Access page", () => {
+describe("Access page", () => {
   const origin = getAccessRoute(projectUseRepoEnabled);
   beforeEach(() => {
     cy.visit(origin);
@@ -29,6 +29,7 @@ xdescribe("Access page", () => {
     cy.validateToast("success", "Successfully updated project");
     // Assert persistence
     cy.reload();
+    cy.getInputByLabel("Username").as("usernameInput");
     cy.get("@usernameInput").should("have.value", "admin").should("be.visible");
     // Delete a username
     cy.dataCy("delete-item-button").should("be.visible").click();
@@ -50,10 +51,7 @@ xdescribe("Access page", () => {
   it("Submitting an invalid admin username produces an error toast", () => {
     cy.visit(getAccessRoute(project));
     cy.contains("Add Username").click();
-    cy.get("[aria-label='Username'")
-      .should("have.length", 4)
-      .first()
-      .type("mongodb_user");
+    cy.getInputByLabel("Username").type("mongodb_user");
     clickSave();
     cy.validateToast(
       "error",
