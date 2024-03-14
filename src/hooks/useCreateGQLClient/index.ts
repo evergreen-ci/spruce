@@ -6,7 +6,7 @@ import { cache } from "gql/client/cache";
 import {
   authenticateIfSuccessfulLink,
   authLink,
-  leaveBreadcrumbLink,
+  logGQLToSentryLink,
   logErrorsLink,
   retryLink,
 } from "gql/client/link";
@@ -44,7 +44,7 @@ export const useCreateGQLCLient = (): ApolloClient<NormalizedCacheObject> => {
         cache,
         link: authenticateIfSuccessfulLink(dispatchAuthenticated)
           .concat(authLink(logoutAndRedirect))
-          .concat(leaveBreadcrumbLink(secretFields))
+          .concat(logGQLToSentryLink(secretFields))
           .concat(logErrorsLink)
           .concat(retryLink)
           .concat(

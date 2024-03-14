@@ -7,7 +7,8 @@ import {
   SentryBreadcrumb,
   reportError,
 } from "utils/errorReporting";
-import { omit } from "utils/object";
+
+export { logGQLToSentryLink } from "./logGQLToSentryLink";
 
 export const authLink = (logout: () => void): ApolloLink =>
   onError(({ networkError }) => {
@@ -62,23 +63,6 @@ export const authenticateIfSuccessfulLink = (
         {
           operationName: operation.operationName,
           variables: operation.variables,
-          status: !response.errors ? "OK" : "ERROR",
-          errors: response.errors,
-        },
-        SentryBreadcrumb.HTTP,
-      );
-      return response;
-    }),
-  );
-
-export const leaveBreadcrumbLink = (secretFields: string[]): ApolloLink =>
-  new ApolloLink((operation, forward) =>
-    forward(operation).map((response) => {
-      leaveBreadcrumb(
-        "Graphql Request",
-        {
-          operationName: operation.operationName,
-          variables: omit(operation.variables, secretFields),
           status: !response.errors ? "OK" : "ERROR",
           errors: response.errors,
         },
