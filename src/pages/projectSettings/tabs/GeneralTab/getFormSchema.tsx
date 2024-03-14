@@ -238,7 +238,7 @@ export const getFormSchema = (
           },
         },
       },
-      ...(projectType === ProjectType.AttachedProject && {
+      ...(projectType !== ProjectType.Repo && {
         delete: {
           type: "object" as "object",
           title: "Delete Project",

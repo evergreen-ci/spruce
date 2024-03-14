@@ -221,10 +221,11 @@ describe("configureTasks", () => {
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).not.toBeChecked();
       expect(setSelectedBuildVariantTasks).not.toHaveBeenCalled();
-      await user.click(screen.getByText("Select all tasks in these variants"));
+      await user.type(screen.getByDataCy("task-filter-input"), "^c");
+      await user.click(screen.getByText("Select all tasks in view"));
       expect(setSelectedBuildVariantTasks).toHaveBeenCalledWith({
-        ubuntu2004: { compile: true, test: true },
-        ubuntu1804: { compile: true, lint: true },
+        ubuntu2004: { compile: true, test: false },
+        ubuntu1804: { compile: true, lint: false },
       });
     });
     it("applying a search should filter the tasks", async () => {
@@ -247,7 +248,6 @@ describe("configureTasks", () => {
           setSelectedAliases={() => {}}
         />,
       );
-
       await user.type(screen.getByDataCy("task-filter-input"), "compile");
       expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(1);
       const checkbox = screen.getByLabelText("compile");
