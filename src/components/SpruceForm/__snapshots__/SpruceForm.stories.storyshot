@@ -51,7 +51,7 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                     aria-expanded="false"
                     aria-invalid="false"
                     aria-labelledby="select-226-label"
-                    class="lg-ui-button-0000 leafygreen-ui-c8np5"
+                    class="lg-ui-button-0000 leafygreen-ui-1bkgt4w"
                     data-testid="leafygreen-ui-select-menubutton"
                     id="select-227"
                     type="button"
@@ -589,6 +589,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                 <div
                   aria-label="radio-group-"
                   class="leafygreen-ui-14o8ny9"
+                  id="root_reprovisionMethod"
                   role="group"
                 >
                   <div

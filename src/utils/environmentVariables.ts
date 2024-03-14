@@ -10,7 +10,7 @@ export const getApiUrl: () => string = () =>
  * @returns - The application's DSN
  */
 export const getSentryDSN: () => string = () =>
-  process.env.REACT_APP_SENTRY_DSN;
+  process.env.REACT_APP_SPRUCE_SENTRY_DSN;
 
 /**
  * `getUiUrl()` - Get the backing evergreen URL from the environment variables

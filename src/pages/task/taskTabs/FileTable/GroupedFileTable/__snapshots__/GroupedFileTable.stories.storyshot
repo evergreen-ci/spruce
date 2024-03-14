@@ -2,8 +2,168 @@
 
 exports[`Snapshot Tests GroupedFileTable.stories DefaultTable 1`] = `
 <div>
-  <div>
-    Failed to render component.
+  <div
+    class="css-t0zpzm-Container epe837f1"
+  >
+    <h6
+      class="leafygreen-ui-19p3n10"
+    >
+      Task 1
+    </h6>
+    <div
+      class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+      tabindex="0"
+    >
+      <table
+        class="leafygreen-ui-1soynca"
+      >
+        <thead
+          class="leafygreen-ui-bebmcm"
+        >
+          <tr>
+            <th
+              class="leafygreen-ui-jcfir4"
+              scope="col"
+            >
+              <div
+                class="leafygreen-ui-ui0te9"
+              >
+                Name
+                <button
+                  aria-disabled="false"
+                  aria-label="Sort by Name"
+                  class="leafygreen-ui-76dd2i"
+                  data-testid="lg-table-sort-icon-button"
+                  tabindex="0"
+                >
+                  <div
+                    class="leafygreen-ui-xhlipt"
+                  >
+                    <svg
+                      aria-label="Unsorted Icon"
+                      class="leafygreen-ui-jc2z8v"
+                      fill="none"
+                      height="16"
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            aria-hidden="false"
+            class="leafygreen-ui-vi96c4"
+            data-cy="leafygreen-table-row"
+            data-selected="false"
+            id="lg-table-row-0"
+          >
+            <td
+              class="leafygreen-ui-3nxf8o"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-15rig1x"
+                data-state="entered"
+              >
+                <div
+                  class="css-1iffxfz-CellContainer epe837f0"
+                >
+                  <a
+                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                    data-cy="file-link"
+                    href="some_link"
+                    target="_blank"
+                  >
+                    <span
+                      class="leafygreen-ui-1ewnca3"
+                    >
+                      some_file
+                    </span>
+                  </a>
+                  <button
+                    aria-disabled="true"
+                    class="lg-ui-button-0000 leafygreen-ui-1x3ok4"
+                    data-cy="parsley-link"
+                    target="_blank"
+                    type="button"
+                  >
+                    <div
+                      class="leafygreen-ui-v038xi"
+                    />
+                    <div
+                      class="leafygreen-ui-v95oty"
+                    >
+                      Parsley
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            aria-hidden="false"
+            class="leafygreen-ui-vi96c4"
+            data-cy="leafygreen-table-row"
+            data-selected="false"
+            id="lg-table-row-1"
+          >
+            <td
+              class="leafygreen-ui-3nxf8o"
+              style="padding-bottom: 4px; padding-top: 4px;"
+            >
+              <div
+                class="leafygreen-ui-15rig1x"
+                data-state="entered"
+              >
+                <div
+                  class="css-1iffxfz-CellContainer epe837f0"
+                >
+                  <a
+                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                    data-cy="file-link"
+                    href="another_link"
+                    target="_blank"
+                  >
+                    <span
+                      class="leafygreen-ui-1ewnca3"
+                    >
+                      another_file
+                    </span>
+                  </a>
+                  <a
+                    aria-disabled="false"
+                    class="lg-ui-button-0000 leafygreen-ui-q3ln33"
+                    data-cy="parsley-link"
+                    href="parsley_link"
+                    target="_blank"
+                  >
+                    <div
+                      class="leafygreen-ui-v038xi"
+                    />
+                    <div
+                      class="leafygreen-ui-v95oty"
+                    >
+                      Parsley
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 `;

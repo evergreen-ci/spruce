@@ -1,5 +1,6 @@
 import { format, utcToZonedTime } from "date-fns-tz";
 import get from "lodash/get";
+import { TimeFormat } from "constants/fieldMaps";
 
 export { githubPRLinkify } from "./githubPRLinkify";
 
@@ -100,6 +101,7 @@ export type DateCopyOptions = {
   omitSeconds?: boolean;
   omitTimezone?: boolean;
   dateFormat?: string;
+  timeFormat?: string;
 };
 
 /**
@@ -111,7 +113,7 @@ export type DateCopyOptions = {
  * @param options.omitSeconds - if true, will not return the seconds
  * @param options.omitTimezone - if true, will not return the timezone
  * @param options.dateFormat - a date format string, such as "MMM d, yyyy"
- * @returns - a string representing the date in the format of "MMM d, yyyy h:mm:ss a z"
+ * @returns - a string representing the date in either the user's specified format or the default, "MMM d, yyyy h:mm:ss aa z"
  */
 export const getDateCopy = (
   time: string | number | Date,
@@ -121,15 +123,19 @@ export const getDateCopy = (
     return "";
   }
   const { dateOnly, omitSeconds, omitTimezone, tz } = options || {};
-  let { dateFormat } = options || {};
+  let { dateFormat, timeFormat } = options || {};
   if (!dateFormat) {
     dateFormat = "MMM d, yyyy";
   }
+  if (!timeFormat) {
+    timeFormat = TimeFormat.TwelveHour;
+  }
+  if (omitSeconds) {
+    timeFormat = timeFormat.replace(":ss", "");
+  }
   const finalDateFormat = dateOnly
     ? dateFormat
-    : `${dateFormat}, h:mm${omitSeconds ? "" : ":ss"} aa${
-        omitTimezone ? "" : " z"
-      }`;
+    : `${dateFormat}, ${timeFormat}${omitTimezone ? "" : " z"}`;
   if (tz) {
     return format(utcToZonedTime(time, tz), finalDateFormat, {
       timeZone: tz,

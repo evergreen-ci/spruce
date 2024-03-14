@@ -1,6 +1,7 @@
 import { ForwardedRef, forwardRef } from "react";
 import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
+import { palette } from "@leafygreen-ui/palette";
 import {
   Cell,
   ExpandedContent,
@@ -47,6 +48,8 @@ declare module "@tanstack/table-core" {
   }
 }
 
+const { blue } = palette;
+
 type SpruceTableProps = {
   "data-cy-row"?: string;
   "data-cy-table"?: string;
@@ -54,6 +57,8 @@ type SpruceTableProps = {
   loading?: boolean;
   /** estimated number of rows the table will have */
   loadingRows?: number;
+  /** rows that will have a blue tint to represent that they are selected */
+  selectedRowIndexes?: number[];
 };
 
 export const BaseTable = forwardRef(
@@ -64,6 +69,7 @@ export const BaseTable = forwardRef(
       emptyComponent,
       loading,
       loadingRows = 5,
+      selectedRowIndexes = [],
       table,
       ...args
     }: SpruceTableProps & TableProps<any>,
@@ -72,11 +78,10 @@ export const BaseTable = forwardRef(
     const { virtualRows } = table;
     const { rows } = table.getRowModel();
     const hasVirtualRows = virtualRows && virtualRows.length > 0;
-
     return (
       <>
         <StyledTable data-cy={dataCyTable} table={table} ref={ref} {...args}>
-          <TableHead>
+          <TableHead isSticky={hasVirtualRows}>
             {table.getHeaderGroups().map((headerGroup) => (
               <HeaderRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -140,11 +145,21 @@ export const BaseTable = forwardRef(
               ? virtualRows.map((vr) => {
                   const row = rows[vr.index];
                   return (
-                    <RenderableRow row={row} key={row.id} virtualRow={vr} />
+                    <RenderableRow
+                      row={row}
+                      key={row.id}
+                      virtualRow={vr}
+                      isSelected={selectedRowIndexes.includes(row.index)}
+                    />
                   );
                 })
               : rows.map((row) => (
-                  <RenderableRow row={row} key={row.id} virtualRow={null} />
+                  <RenderableRow
+                    row={row}
+                    key={row.id}
+                    virtualRow={null}
+                    isSelected={selectedRowIndexes.includes(row.index)}
+                  />
                 ))}
           </TableBody>
         </StyledTable>
@@ -159,11 +174,13 @@ export const BaseTable = forwardRef(
 const cellPaddingStyle = { paddingBottom: size.xxs, paddingTop: size.xxs };
 
 const RenderableRow = <T extends LGRowData>({
+  isSelected = false,
   row,
   virtualRow,
 }: {
   row: LeafyGreenTableRow<T>;
   virtualRow: VirtualItem;
+  isSelected?: boolean;
 }) => (
   <Row
     row={row}
@@ -172,7 +189,13 @@ const RenderableRow = <T extends LGRowData>({
       &[aria-hidden="false"] td > div {
         max-height: unset;
       }
+      ${isSelected &&
+      `
+        background-color: ${blue.light3} !important;
+        font-weight:bold;
+        `}
     `}
+    data-selected={isSelected}
     virtualRow={virtualRow}
   >
     {row.getVisibleCells().map((cell) => (
@@ -194,7 +217,7 @@ const RenderableRow = <T extends LGRowData>({
           virtualRow={virtualRow}
         >
           {subRow.getVisibleCells().map((cell) => (
-            <Cell key={cell.id} style={cellPaddingStyle}>
+            <Cell key={cell.id}>
               {flexRender(cell.column.columnDef.cell, cell.getContext())}
             </Cell>
           ))}

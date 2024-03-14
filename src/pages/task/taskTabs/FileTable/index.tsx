@@ -31,7 +31,6 @@ const FileTable: React.FC<FileTableProps> = ({ execution, taskId }) => {
     },
   );
   const { files } = data?.task ?? {};
-
   const { groupedFiles = [] } = files ?? {};
   const filteredGroupedFiles = filterGroupedFiles(groupedFiles, search);
 
@@ -68,6 +67,7 @@ const FilesTableSkeleton = () => (
   </>
 );
 const StyledSearchInput = styled(SearchInput)`
+  margin-left: ${size.xxs};
   margin-bottom: ${size.m};
   width: 400px;
 `;

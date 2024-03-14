@@ -8735,6 +8735,7 @@ export type UserSettingsQuery = {
     region?: string | null;
     slackMemberId?: string | null;
     slackUsername?: string | null;
+    timeFormat?: string | null;
     timezone?: string | null;
     githubUser?: {
       __typename?: "GithubUser";
