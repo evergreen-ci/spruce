@@ -71,7 +71,15 @@ const Commits = () => {
     projectIdentifier: string;
   }>();
   usePageTitle(`Project Health | ${projectIdentifier}`);
-  const { isRedirecting } = useProjectRedirect();
+
+  const sendAnalyticsEvent = (id: string, identifier: string) => {
+    sendEvent({
+      name: "Redirect to Project Identifier",
+      projectId: id,
+      projectIdentifier: identifier,
+    });
+  };
+  const { isRedirecting } = useProjectRedirect({ sendAnalyticsEvent });
 
   const recentlySelectedProject = Cookies.get(CURRENT_PROJECT);
   // Push default project to URL if there isn't a project in

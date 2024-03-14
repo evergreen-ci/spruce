@@ -7,28 +7,33 @@ import { renderHook, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { useProjectRedirect } from ".";
 
-const useJointHook = () => {
-  const { isRedirecting } = useProjectRedirect();
+const useJointHook = ({
+  sendAnalyticsEvent,
+}: {
+  sendAnalyticsEvent: (projectId: string, projectIdentifier: string) => void;
+}) => {
+  const { isRedirecting } = useProjectRedirect({ sendAnalyticsEvent });
   const { pathname, search } = useLocation();
   return { isRedirecting, pathname, search };
 };
 
-describe("useProjectRedirect", () => {
-  const ProviderWrapper: React.FC<{
-    children: React.ReactNode;
-    location: string;
-  }> = ({ children, location }) => (
-    <MockedProvider mocks={[repoMock, projectMock]}>
-      <MemoryRouter initialEntries={[location]}>
-        <Routes>
-          <Route element={children} path="/commits/:projectIdentifier" />
-        </Routes>
-      </MemoryRouter>
-    </MockedProvider>
-  );
+const ProviderWrapper: React.FC<{
+  children: React.ReactNode;
+  location: string;
+}> = ({ children, location }) => (
+  <MockedProvider mocks={[repoMock, projectMock]}>
+    <MemoryRouter initialEntries={[location]}>
+      <Routes>
+        <Route element={children} path="/commits/:projectIdentifier" />
+      </Routes>
+    </MemoryRouter>
+  </MockedProvider>
+);
 
+describe("useProjectRedirect", () => {
   it("should not redirect if URL has project identifier", async () => {
-    const { result } = renderHook(() => useJointHook(), {
+    const sendAnalyticsEvent = jest.fn();
+    const { result } = renderHook(() => useJointHook({ sendAnalyticsEvent }), {
       wrapper: ({ children }) =>
         ProviderWrapper({ children, location: "/commits/my-project" }),
     });
@@ -37,10 +42,12 @@ describe("useProjectRedirect", () => {
       pathname: "/commits/my-project",
       search: "",
     });
+    expect(sendAnalyticsEvent).toHaveBeenCalledTimes(0);
   });
 
   it("should redirect if URL has project ID", async () => {
-    const { result } = renderHook(() => useJointHook(), {
+    const sendAnalyticsEvent = jest.fn();
+    const { result } = renderHook(() => useJointHook({ sendAnalyticsEvent }), {
       wrapper: ({ children }) =>
         ProviderWrapper({ children, location: `/commits/${projectId}` }),
     });
@@ -56,10 +63,16 @@ describe("useProjectRedirect", () => {
         search: "",
       });
     });
+    expect(sendAnalyticsEvent).toHaveBeenCalledTimes(1);
+    expect(sendAnalyticsEvent).toHaveBeenCalledWith(
+      "5f74d99ab2373627c047c5e5",
+      "my-project",
+    );
   });
 
   it("should preserve query params when redirecting", async () => {
-    const { result } = renderHook(() => useJointHook(), {
+    const sendAnalyticsEvent = jest.fn();
+    const { result } = renderHook(() => useJointHook({ sendAnalyticsEvent }), {
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
@@ -78,10 +91,16 @@ describe("useProjectRedirect", () => {
         search: "?taskName=thirdparty",
       });
     });
+    expect(sendAnalyticsEvent).toHaveBeenCalledTimes(1);
+    expect(sendAnalyticsEvent).toHaveBeenCalledWith(
+      "5f74d99ab2373627c047c5e5",
+      "my-project",
+    );
   });
 
   it("should attempt redirect if URL has repo ID but stop attempting after query", async () => {
-    const { result } = renderHook(() => useJointHook(), {
+    const sendAnalyticsEvent = jest.fn();
+    const { result } = renderHook(() => useJointHook({ sendAnalyticsEvent }), {
       wrapper: ({ children }) =>
         ProviderWrapper({ children, location: `/commits/${repoId}` }),
     });
@@ -97,6 +116,7 @@ describe("useProjectRedirect", () => {
         search: "",
       });
     });
+    expect(sendAnalyticsEvent).toHaveBeenCalledTimes(0);
   });
 });
 

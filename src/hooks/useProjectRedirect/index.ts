@@ -6,11 +6,19 @@ import { validators } from "utils";
 
 const { validateObjectId } = validators;
 
+interface UseProjectRedirectProps {
+  sendAnalyticsEvent: (projectId: string, projectIdentifier: string) => void;
+}
+
 /**
  * useProjectRedirect will replace the project id with the project identifier in the URL.
+ * @param props - Object containing the following:
+ * @param props.sendAnalyticsEvent - analytics event to send upon redirect
  * @returns isRedirecting - boolean to indicate if a redirect is in progress
  */
-export const useProjectRedirect = () => {
+export const useProjectRedirect = ({
+  sendAnalyticsEvent = () => {},
+}: UseProjectRedirectProps) => {
   const { projectIdentifier: project } = useParams<{
     projectIdentifier: string;
   }>();
@@ -28,6 +36,7 @@ export const useProjectRedirect = () => {
       const { identifier } = projectData.project;
       const currentUrl = location.pathname.concat(location.search);
       const redirectPathname = currentUrl.replace(project, identifier);
+      sendAnalyticsEvent(project, identifier);
       navigate(redirectPathname);
     },
   });
