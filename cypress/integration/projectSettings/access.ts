@@ -29,6 +29,7 @@ describe("Access page", () => {
     cy.validateToast("success", "Successfully updated project");
     // Assert persistence
     cy.reload();
+    cy.getInputByLabel("Username").as("usernameInput");
     cy.get("@usernameInput").should("have.value", "admin").should("be.visible");
     // Delete a username
     cy.dataCy("delete-item-button").should("be.visible").click();
