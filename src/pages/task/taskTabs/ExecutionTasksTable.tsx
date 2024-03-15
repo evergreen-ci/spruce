@@ -1,13 +1,22 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useMemo, useRef } from "react";
+import { LeafyGreenTable, useLeafyGreenTable } from "@leafygreen-ui/table";
+import { SortingState, Sorting } from "@tanstack/react-table";
 import { useTaskAnalytics } from "analytics";
-import TasksTable from "components/TasksTable";
-import { SortOrder, TaskQuery, Task } from "gql/generated/types";
+import { BaseTable } from "components/Table/BaseTable";
+import { TablePlaceholder } from "components/Table/TablePlaceholder";
+import { TableQueryParams, onChangeHandler } from "components/Table/utils";
+import { getColumnsTemplate } from "components/TasksTable/Columns";
+import { TaskTableInfo } from "components/TasksTable/types";
+import {
+  TaskQuery,
+  TaskSortCategory,
+  SortDirection,
+} from "gql/generated/types";
+import { useTableSort } from "hooks";
+import { useQueryParam } from "hooks/useQueryParam";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { RequiredQueryParams, TableOnChange } from "types/task";
-import { queryString } from "utils";
 
-const { parseQueryString, parseSortString, toSortString } = queryString;
+const { getDefaultOptions: getDefaultSorting } = Sorting;
 
 interface Props {
   execution: number;
@@ -15,55 +24,83 @@ interface Props {
   isPatch: boolean;
 }
 
-const useSorts = (): SortOrder[] => {
-  const location = useLocation();
-
-  const { sorts } = parseQueryString(location.search);
-  return parseSortString(sorts);
-};
-
 export const ExecutionTasksTable: React.FC<Props> = ({
   execution,
   executionTasksFull,
   isPatch,
 }) => {
-  const taskAnalytics = useTaskAnalytics();
+  const { sendEvent } = useTaskAnalytics();
   const updateQueryParams = useUpdateURLQueryParams();
-  const sorts = useSorts();
+
+  const [sortBy] = useQueryParam(TableQueryParams.SortBy, "");
+  const [sortDir] = useQueryParam(TableQueryParams.SortDir, "");
+
+  // Apply default sort if none is defined.
   useEffect(() => {
-    if (sorts.length === 0) {
+    if (!sortBy && !sortDir) {
       updateQueryParams({
-        sorts: "STATUS:ASC",
+        sortBy: TaskSortCategory.Status,
+        sortDir: SortDirection.Asc,
       });
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const tableChangeHandler: TableOnChange<Task> = (...[, , sorter]) => {
-    updateQueryParams({
-      sorts: toSortString(sorter),
-      [RequiredQueryParams.Execution]: `${execution}`,
-    });
-  };
   const uniqueExecutions = new Set([
     execution,
     ...executionTasksFull.map((t) => t.execution),
   ]);
+
+  const columns = useMemo(
+    () =>
+      getColumnsTemplate({
+        isPatch,
+        onClickTaskLink: () => sendEvent({ name: "Click Execution Task Link" }),
+        showTaskExecutionLabel: uniqueExecutions.size > 1,
+      }),
+    [isPatch, sendEvent, uniqueExecutions.size],
+  );
+
+  const tableSortHandler = useTableSort({
+    sendAnalyticsEvents: (sorter: SortingState) =>
+      sendEvent({
+        name: "Sort Execution Tasks Table",
+        sortBy: sorter.map(({ id }) => id as TaskSortCategory),
+      }),
+  });
+
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+  const table: LeafyGreenTable<TaskTableInfo> =
+    useLeafyGreenTable<TaskTableInfo>({
+      columns,
+      containerRef: tableContainerRef,
+      data: executionTasksFull ?? [],
+      defaultColumn: {
+        enableColumnFilter: false,
+      },
+      initialState: {
+        sorting:
+          sortBy && sortDir
+            ? [
+                {
+                  id: sortBy as TaskSortCategory,
+                  desc: sortDir === SortDirection.Desc,
+                },
+              ]
+            : [{ id: TaskSortCategory.Status, desc: false }],
+      },
+      onSortingChange: onChangeHandler<SortingState>(
+        (s) => getDefaultSorting(table).onSortingChange(s),
+        tableSortHandler,
+      ),
+    });
+
   return (
-    <TasksTable
-      isPatch={isPatch}
-      showTaskExecutionLabel={uniqueExecutions.size > 1}
-      sorts={sorts}
-      tableChangeHandler={tableChangeHandler}
-      tasks={executionTasksFull}
-      onClickTaskLink={() =>
-        taskAnalytics.sendEvent({ name: "Click Execution Task Link" })
-      }
-      onColumnHeaderClick={(sortField) =>
-        taskAnalytics.sendEvent({
-          name: "Sort Execution Tasks Table",
-          sortBy: sortField,
-        })
-      }
+    <BaseTable
+      data-cy="execution-tasks-table"
+      data-cy-row="execution-tasks-table-row"
+      emptyComponent={<TablePlaceholder message="No execution tasks found." />}
+      table={table}
+      shouldAlternateRowColor
     />
   );
 };
