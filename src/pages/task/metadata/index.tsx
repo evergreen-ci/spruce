@@ -1,9 +1,7 @@
 import { useState, useRef } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
 import { GuideCue } from "@leafygreen-ui/guide-cue";
-import Icon from "@leafygreen-ui/icon";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import Cookies from "js-cookie";
@@ -34,7 +32,6 @@ import {
 import { size, zIndex } from "constants/tokens";
 import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
-import { useBreakingCommit } from "hooks/useBreakingTask";
 import { TaskStatus } from "types/task";
 import { string } from "utils";
 import { AbortMessage } from "./AbortMessage";
@@ -83,7 +80,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
     spawnHostLink,
     startTime,
     status,
-    stepbackInfo,
     timeTaken,
     versionMetadata,
   } = task || {};
@@ -94,8 +90,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
     timeTaken: baseTaskDuration,
     versionMetadata: baseTaskVersionMetadata,
   } = baseTask ?? {};
-  const { loading: loadingBreakingCommit, task: breakingTask } =
-    useBreakingCommit(taskId);
   const baseCommit = shortenGithash(baseTaskVersionMetadata?.revision);
   const projectIdentifier = project?.identifier;
   const { author, id: versionID } = versionMetadata ?? {};
@@ -410,11 +404,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           </StyledLink>
         </MetadataItem>
       )}
-      <Stepback
-        loading={loadingBreakingCommit}
-        isStepbackTask={stepbackInfo?.lastFailingStepbackTaskId !== undefined}
-        finished={breakingTask !== undefined}
-      />
+      <Stepback task={task} taskId={taskId} />
     </MetadataCard>
   );
 };
