@@ -11,7 +11,7 @@ import {
   BaseVersionAndTaskQueryVariables,
 } from "gql/generated/types";
 import { BASE_VERSION_AND_TASK } from "gql/queries";
-import { useBreakingCommit } from "hooks/useBreakingTask";
+import { useBreakingTask } from "hooks/useBreakingTask";
 import { useLastExecutedTask } from "hooks/useLastExecutedTask";
 import { useLastPassingTask } from "hooks/useLastPassingTask";
 import { useParentTask } from "hooks/useParentTask";
@@ -40,7 +40,7 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ taskId }) => {
     useLastPassingTask(taskId);
 
   const { loading: breakingLoading, task: breakingTask } =
-    useBreakingCommit(taskId);
+    useBreakingTask(taskId);
 
   const { loading: executedLoading, task: lastExecutedTask } =
     useLastExecutedTask(taskId);

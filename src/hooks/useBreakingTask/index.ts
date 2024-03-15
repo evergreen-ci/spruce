@@ -14,9 +14,7 @@ import { string } from "utils";
 import { getTaskFromMainlineCommitsQuery } from "utils/getTaskFromMainlineCommitsQuery";
 import { isFailedTaskStatus } from "utils/statuses";
 
-const { applyStrictRegex } = string;
-
-export const useBreakingCommit = (taskId: string) => {
+export const useBreakingTask = (taskId: string) => {
   const dispatchToast = useToastContext();
 
   const { data: taskData } = useQuery<
@@ -30,8 +28,8 @@ export const useBreakingCommit = (taskId: string) => {
     taskData?.task ?? {};
 
   const bvOptionsBase = {
-    tasks: [applyStrictRegex(displayName)],
-    variants: [applyStrictRegex(buildVariant)],
+    tasks: [string.applyStrictRegex(displayName)],
+    variants: [string.applyStrictRegex(buildVariant)],
   };
 
   const { task: parentTask } = useParentTask(taskId);
