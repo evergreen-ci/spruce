@@ -9,8 +9,6 @@ import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
 import { string } from "utils";
 import { getTaskFromMainlineCommitsQuery } from "utils/getTaskFromMainlineCommitsQuery";
 
-const { applyStrictRegex } = string;
-
 export const useParentTask = (taskId: string) => {
   const { data: taskData } = useQuery<
     BaseVersionAndTaskQuery,
@@ -19,13 +17,18 @@ export const useParentTask = (taskId: string) => {
     variables: { taskId },
   });
 
-  const { buildVariant, displayName, projectIdentifier, versionMetadata } =
-    taskData?.task ?? {};
+  const {
+    baseTask,
+    buildVariant,
+    displayName,
+    projectIdentifier,
+    versionMetadata,
+  } = taskData?.task ?? {};
   const { order: skipOrderNumber } = versionMetadata?.baseVersion ?? {};
 
   const bvOptionsBase = {
-    tasks: [applyStrictRegex(displayName)],
-    variants: [applyStrictRegex(buildVariant)],
+    tasks: [string.applyStrictRegex(displayName)],
+    variants: [string.applyStrictRegex(buildVariant)],
   };
 
   const { data: parentTaskData, loading } = useQuery<
@@ -44,7 +47,7 @@ export const useParentTask = (taskId: string) => {
   const task = getTaskFromMainlineCommitsQuery(parentTaskData);
 
   return {
-    task,
+    task: task ?? baseTask,
     loading,
   };
 };

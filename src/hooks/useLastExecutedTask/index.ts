@@ -13,8 +13,6 @@ import { string } from "utils";
 import { getTaskFromMainlineCommitsQuery } from "utils/getTaskFromMainlineCommitsQuery";
 import { isFinishedTaskStatus } from "utils/statuses";
 
-const { applyStrictRegex } = string;
-
 export const useLastExecutedTask = (taskId: string) => {
   const dispatchToast = useToastContext();
   const { data: taskData } = useQuery<
@@ -29,8 +27,8 @@ export const useLastExecutedTask = (taskId: string) => {
   const { order: skipOrderNumber } = versionMetadata?.baseVersion ?? {};
 
   const bvOptionsBase = {
-    tasks: [applyStrictRegex(displayName)],
-    variants: [applyStrictRegex(buildVariant)],
+    tasks: [string.applyStrictRegex(displayName)],
+    variants: [string.applyStrictRegex(buildVariant)],
   };
 
   const { task: parentTask } = useParentTask(taskId);
