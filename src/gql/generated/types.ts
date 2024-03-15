@@ -2532,6 +2532,7 @@ export type Task = {
   startTime?: Maybe<Scalars["Time"]["output"]>;
   status: Scalars["String"]["output"];
   stepbackInfo?: Maybe<StepbackInfo>;
+  tags: Array<Scalars["String"]["output"]>;
   /** @deprecated Use files instead */
   taskFiles: TaskFiles;
   taskGroup?: Maybe<Scalars["String"]["output"]>;
