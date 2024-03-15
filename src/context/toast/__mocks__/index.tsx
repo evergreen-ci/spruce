@@ -33,4 +33,22 @@ const RenderFakeToastContext = (Component?: React.ReactElement) => {
   };
 };
 
-export { RenderFakeToastContext };
+/**
+ * MockToastContext only mocks the useToastContext hook by spying on its usage.
+ * It should only be used in favor of RenderFakeToastContext when the component
+ * requires children to be rendered.
+ */
+const MockToastContext = () => {
+  const dispatchToast: DispatchToast = {
+    success: jest.fn(),
+    error: jest.fn(),
+    info: jest.fn(),
+    warning: jest.fn(),
+    progress: jest.fn(),
+  };
+  jest.spyOn(toast, "useToastContext").mockImplementation(() => ({
+    ...dispatchToast,
+  }));
+};
+
+export { RenderFakeToastContext, MockToastContext };
