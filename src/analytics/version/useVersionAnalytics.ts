@@ -9,14 +9,10 @@ import {
 import { VERSION } from "gql/queries";
 
 type Action =
-  | { name: "Filter Tasks"; filterBy: string | string[] }
+  | { name: "Filter Tasks Table"; filterBy: string | string[] }
   | {
       name: "Sort Tasks Table";
-      sortBy:
-        | TaskSortCategory.Name
-        | TaskSortCategory.Status
-        | TaskSortCategory.BaseStatus
-        | TaskSortCategory.Variant;
+      sortBy: TaskSortCategory | TaskSortCategory[];
     }
   | {
       name: "Sort Downstream Tasks Table";
@@ -26,6 +22,7 @@ type Action =
         | TaskSortCategory.BaseStatus
         | TaskSortCategory.Variant;
     }
+  | { name: "Filter Tasks Duration Table"; filterBy: string | string[] }
   | { name: "Restart"; abort: boolean }
   | { name: "Schedule" }
   | { name: "Set Priority"; priority: number }

@@ -24,19 +24,7 @@ import {
 import { TableOnChange, TaskStatus } from "types/task";
 import { sortTasks } from "utils/statuses";
 import { TaskLink } from "./TaskLink";
-
-type TaskTableInfo = {
-  baseTask?: {
-    status: string;
-  };
-  buildVariantDisplayName?: string;
-  dependsOn?: Array<{ name: string }>;
-  displayName: string;
-  executionTasksFull?: TaskTableInfo[];
-  id: string;
-  projectIdentifier?: string;
-  status: string;
-};
+import { TaskTableInfo } from "./types";
 
 interface TasksTableProps {
   baseStatusSelectorProps?: TreeSelectProps;
@@ -54,6 +42,7 @@ interface TasksTableProps {
   variantInputProps?: InputFilterProps;
 }
 
+// TODO: DELETE.
 const TasksTable: React.FC<TasksTableProps> = ({
   baseStatusSelectorProps,
   isPatch,

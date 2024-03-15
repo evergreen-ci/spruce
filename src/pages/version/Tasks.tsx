@@ -2,8 +2,6 @@ import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { useParams, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
-import TableControl from "components/Table/TableControl";
-import TableWrapper from "components/Table/TableWrapper";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
 import {
@@ -33,7 +31,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const versionAnalytics = useVersionAnalytics(id);
   const queryVariables = useQueryVariables(search, id);
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
-  const { limit, page, sorts } = queryVariables.taskFilterOptions;
+  const { limit, page } = queryVariables.taskFilterOptions;
 
   useEffect(() => {
     updateQueryParams({
@@ -75,30 +73,15 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { count = 0, data: tasksData = [] } = tasks || {};
 
   return (
-    <TableWrapper
-      controls={
-        <TableControl
-          filteredCount={count}
-          totalCount={taskCount}
-          limit={limit}
-          page={page}
-          label="tasks"
-          onClear={clearQueryParams}
-          onPageSizeChange={() => {
-            versionAnalytics.sendEvent({
-              name: "Change Page Size",
-            });
-          }}
-        />
-      }
-      shouldShowBottomTableControl={tasksData.length > 10}
-    >
-      <PatchTasksTable
-        isPatch={isPatch}
-        sorts={sorts}
-        tasks={tasksData}
-        loading={tasksData.length === 0 && loading}
-      />
-    </TableWrapper>
+    <PatchTasksTable
+      clearQueryParams={clearQueryParams}
+      isPatch={isPatch}
+      filteredCount={count}
+      limit={limit}
+      loading={tasksData.length === 0 && loading}
+      page={page}
+      tasks={tasksData}
+      totalCount={taskCount}
+    />
   );
 };

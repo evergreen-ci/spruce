@@ -62,7 +62,10 @@ export const TaskDurationTable: React.FC<Props> = ({
     });
 
     setQueryParams(updatedParams);
-    sendEvent({ name: "Filter Tasks", filterBy: Object.keys(filterState) });
+    sendEvent({
+      name: "Filter Tasks Duration Table",
+      filterBy: Object.keys(filterState),
+    });
   };
 
   const setSorting = (s: SortingState) =>

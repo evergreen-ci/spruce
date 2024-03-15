@@ -11,25 +11,27 @@ describe("Tasks filters", () => {
   it("Should clear any filters with the Clear All Filters button and reset the table to its default state", () => {
     cy.visit(pathURLWithFilters);
     waitForTaskTable();
+    cy.dataCy("tasks-table-row").should("be.visible");
     cy.dataCy("clear-all-filters").click();
     cy.location().should((loc) => {
       expect(loc.href).to.equal(loc.origin + defaultPath);
     });
-    cy.toggleTableFilter(1);
-    cy.dataCy("taskname-input-wrapper")
+
+    cy.dataCy("task-name-filter").click();
+    cy.dataCy("task-name-filter-wrapper")
       .find("input")
       .invoke("val")
       .should("be.empty");
-    cy.toggleTableFilter(2);
-    cy.dataCy("status-treeselect")
+    cy.dataCy("status-filter").click();
+    cy.dataCy("status-filter-wrapper")
       .get('input[type="checkbox"]')
       .should("not.be.checked");
-    cy.toggleTableFilter(3);
-    cy.dataCy("base-status-treeselect")
+    cy.dataCy("base-status-filter").click();
+    cy.dataCy("base-status-filter-wrapper")
       .get('input[type="checkbox"]')
       .should("not.be.checked");
-    cy.toggleTableFilter(4);
-    cy.dataCy("variant-input-wrapper")
+    cy.dataCy("variant-filter").click();
+    cy.dataCy("variant-filter-wrapper")
       .find("input")
       .invoke("val")
       .should("be.empty");
@@ -41,13 +43,14 @@ describe("Tasks filters", () => {
     it("Updates url with input value and fetches tasks filtered by variant", () => {
       cy.visit(defaultPath);
       waitForTaskTable();
-      cy.toggleTableFilter(4);
-      cy.dataCy("variant-input-wrapper")
-        .find("input")
-        .focus()
-        .type(variantInputValue)
-        .type("{enter}", { scrollBehavior: false });
-      cy.dataCy("variant-input-wrapper").should("not.be.visible");
+
+      cy.dataCy("variant-filter").click();
+      cy.dataCy("variant-filter-wrapper").find("input").as("variantInput");
+      cy.get("@variantInput").focus();
+      cy.get("@variantInput").type(variantInputValue);
+      cy.get("@variantInput").type("{enter}", { scrollBehavior: false });
+      cy.dataCy("variant-filter-wrapper").should("not.exist");
+
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -56,13 +59,12 @@ describe("Tasks filters", () => {
       waitForTaskTable();
       cy.dataCy("filtered-count").should("contain.text", 2);
 
-      cy.toggleTableFilter(4);
-      cy.dataCy("variant-input-wrapper")
-        .find("input")
-        .focus()
-        .clear()
-        .type("{enter}", { scrollBehavior: false });
-      cy.dataCy("variant-input-wrapper").should("not.be.visible");
+      cy.dataCy("variant-filter").click();
+      cy.get("@variantInput").focus();
+      cy.get("@variantInput").clear();
+      cy.get("@variantInput").type("{enter}", { scrollBehavior: false });
+      cy.dataCy("variant-filter-wrapper").should("not.exist");
+
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -79,13 +81,14 @@ describe("Tasks filters", () => {
     it("Updates url with input value and fetches tasks filtered by task name", () => {
       cy.visit(defaultPath);
       waitForTaskTable();
-      cy.toggleTableFilter(1);
-      cy.dataCy("taskname-input-wrapper")
-        .find("input")
-        .focus()
-        .type(taskNameInputValue)
-        .type("{enter}", { scrollBehavior: false });
-      cy.dataCy("taskname-input-wrapper").should("not.be.visible");
+
+      cy.dataCy("task-name-filter").click();
+      cy.dataCy("task-name-filter-wrapper").find("input").as("taskNameInput");
+      cy.get("@taskNameInput").focus();
+      cy.get("@taskNameInput").type(taskNameInputValue);
+      cy.get("@taskNameInput").type("{enter}", { scrollBehavior: false });
+      cy.dataCy("task-name-filter-wrapper").should("not.exist");
+
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -94,13 +97,12 @@ describe("Tasks filters", () => {
       waitForTaskTable();
       cy.dataCy("filtered-count").should("contain.text", 1);
 
-      cy.toggleTableFilter(1);
-      cy.dataCy("taskname-input-wrapper")
-        .find("input")
-        .focus()
-        .clear()
-        .type("{enter}", { scrollBehavior: false });
-      cy.dataCy("taskname-input-wrapper").should("not.be.visible");
+      cy.dataCy("task-name-filter").click();
+      cy.get("@taskNameInput").focus();
+      cy.get("@taskNameInput").clear();
+      cy.get("@taskNameInput").type("{enter}", { scrollBehavior: false });
+      cy.dataCy("task-name-filter-wrapper").should("not.exist");
+
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -112,18 +114,21 @@ describe("Tasks filters", () => {
   });
 
   describe("Task Statuses select", () => {
+    const dataCyStatusDropdown = "status-filter-wrapper";
     const urlParam = "statuses";
+
     beforeEach(() => {
       cy.visit(defaultPath);
       waitForTaskTable();
-      cy.toggleTableFilter(2);
+      cy.dataCy("status-filter").click();
+      cy.dataCy("status-filter-wrapper").should("be.visible");
     });
 
     it("Clicking on a status filter filters the tasks to only those statuses", () => {
       cy.dataCy("filtered-count")
         .invoke("text")
         .then((preFilterCount) => {
-          selectCheckboxOption("Failed", true);
+          selectCheckboxOption(dataCyStatusDropdown, "Failed", true);
           urlSearchParamsAreUpdated({
             pathname: pathTasks,
             paramName: urlParam,
@@ -139,7 +144,7 @@ describe("Tasks filters", () => {
                 "not.have.text",
                 preFilterCount,
               );
-              selectCheckboxOption("Succeeded", true);
+              selectCheckboxOption(dataCyStatusDropdown, "Succeeded", true);
               urlSearchParamsAreUpdated({
                 pathname: pathTasks,
                 paramName: urlParam,
@@ -168,8 +173,8 @@ describe("Tasks filters", () => {
         "Aborted",
         "Blocked",
       ];
-      selectCheckboxOption("All", true);
-      assertChecked(taskStatuses, true);
+      selectCheckboxOption(dataCyStatusDropdown, "All", true);
+      assertChecked(dataCyStatusDropdown, taskStatuses, true);
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -177,8 +182,8 @@ describe("Tasks filters", () => {
       });
       waitForTaskTable();
 
-      selectCheckboxOption("All", false);
-      assertChecked(taskStatuses, false);
+      selectCheckboxOption(dataCyStatusDropdown, "All", false);
+      assertChecked(dataCyStatusDropdown, taskStatuses, false);
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -188,11 +193,14 @@ describe("Tasks filters", () => {
   });
 
   describe("Task Base Statuses select", () => {
+    const dataCyBaseStatusDropdown = "base-status-filter-wrapper";
     const urlParam = "baseStatuses";
+
     beforeEach(() => {
       cy.visit(defaultPath);
       waitForTaskTable();
-      cy.toggleTableFilter(3);
+      cy.dataCy("base-status-filter").click();
+      cy.dataCy("base-status-filter-wrapper").should("be.visible");
     });
 
     it("Clicking on a base status filter filters the tasks to only those base statuses", () => {
@@ -200,7 +208,7 @@ describe("Tasks filters", () => {
       cy.dataCy("filtered-count")
         .invoke("text")
         .then((preFilterCount) => {
-          selectCheckboxOption("Succeeded", true);
+          selectCheckboxOption(dataCyBaseStatusDropdown, "Succeeded", true);
           urlSearchParamsAreUpdated({
             pathname: pathTasks,
             paramName: urlParam,
@@ -209,7 +217,7 @@ describe("Tasks filters", () => {
           waitForTaskTable();
 
           cy.dataCy("filtered-count").should("have.text", 44);
-          selectCheckboxOption("Succeeded", false);
+          selectCheckboxOption(dataCyBaseStatusDropdown, "Succeeded", false);
           urlSearchParamsAreUpdated({
             pathname: pathTasks,
             paramName: urlParam,
@@ -222,8 +230,8 @@ describe("Tasks filters", () => {
 
     it("Clicking on 'All' checkbox adds all the base statuses and clicking again removes them", () => {
       const taskStatuses = ["All", "Succeeded", "Running"];
-      selectCheckboxOption("All", true);
-      assertChecked(taskStatuses, true);
+      selectCheckboxOption(dataCyBaseStatusDropdown, "All", true);
+      assertChecked(dataCyBaseStatusDropdown, taskStatuses, true);
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -231,8 +239,8 @@ describe("Tasks filters", () => {
       });
       waitForTaskTable();
 
-      selectCheckboxOption("All", false);
-      assertChecked(taskStatuses, false);
+      selectCheckboxOption(dataCyBaseStatusDropdown, "All", false);
+      assertChecked(dataCyBaseStatusDropdown, taskStatuses, false);
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -244,11 +252,16 @@ describe("Tasks filters", () => {
 
 /**
  * Function used to assert if checkboxes with certain labels are checked or unchecked.
+ * @param dataCy - dataCy of the container
  * @param statuses list of labels to assert on
  * @param checked true if should be checked, false if should be unchecked
  */
-const assertChecked = (statuses: string[], checked: boolean) => {
-  cy.get(":not(.ant-dropdown-hidden) > .ant-table-filter-dropdown")
+const assertChecked = (
+  dataCy: string,
+  statuses: string[],
+  checked: boolean,
+) => {
+  cy.get(`[data-cy=${dataCy}]`)
     .find(".cy-checkbox")
     .each((el) => {
       expect(statuses).to.include(el.text());
@@ -263,11 +276,16 @@ const assertChecked = (statuses: string[], checked: boolean) => {
 /**
  * Function used to select a checkbox option from the table filter dropdown.
  * Only the first checkbox whose label is a match (i.e. the umbrella group name) will be checked.
+ * @param dataCy - dataCy of the container
  * @param label label of the checkbox option to click on
  * @param checked true if should be checked, false if should be unchecked
  */
-const selectCheckboxOption = (label: string, checked: boolean) => {
-  cy.get(":not(.ant-dropdown-hidden) > .ant-table-filter-dropdown")
+const selectCheckboxOption = (
+  dataCy: string,
+  label: string,
+  checked: boolean,
+) => {
+  cy.get(`[data-cy=${dataCy}]`)
     .find(".cy-checkbox")
     .should("not.be.disabled")
     .each((el) => {

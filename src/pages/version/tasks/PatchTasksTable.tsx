@@ -1,120 +1,217 @@
+import { useMemo, useRef, useState } from "react";
+import { useLeafyGreenTable, LeafyGreenTable } from "@leafygreen-ui/table";
+import { ColumnFiltersState, SortingState } from "@tanstack/react-table";
 import { useParams } from "react-router-dom";
-import { useVersionAnalytics } from "analytics";
-import { InputFilterProps } from "components/Table/Filters";
-import TasksTable from "components/TasksTable";
-import { Task, VersionTasksQuery, SortOrder } from "gql/generated/types";
+import { useVersionAnalytics, usePatchAnalytics } from "analytics";
+import { BaseTable } from "components/Table/BaseTable";
+import TableControl from "components/Table/TableControl";
+import { TablePlaceholder } from "components/Table/TablePlaceholder";
+import TableWrapper from "components/Table/TableWrapper";
+import { onChangeHandler } from "components/Table/utils";
+import { getColumnsTemplate } from "components/TasksTable/Columns";
+import { TaskTableInfo } from "components/TasksTable/types";
 import {
-  useTaskStatuses,
-  useUpdateURLQueryParams,
-  useStatusesFilter,
-  useFilterInputChangeHandler,
-} from "hooks";
-import { PatchTasksQueryParams, TableOnChange } from "types/task";
-import { queryString } from "utils";
-
-const { toSortString } = queryString;
+  VersionTasksQuery,
+  SortDirection,
+  TaskSortCategory,
+} from "gql/generated/types";
+import { useTaskStatuses, useTableSort } from "hooks";
+import { useQueryParams } from "hooks/useQueryParam";
+import { PatchTasksQueryParams } from "types/task";
+import { parseSortString } from "utils/queryString";
 
 interface Props {
+  filteredCount: number;
   isPatch: boolean;
-  tasks: VersionTasksQuery["version"]["tasks"]["data"];
-  sorts: SortOrder[];
+  limit: number;
   loading: boolean;
+  clearQueryParams: () => void;
+  page: number;
+  tasks: VersionTasksQuery["version"]["tasks"]["data"];
+  totalCount: number;
 }
 
 export const PatchTasksTable: React.FC<Props> = ({
+  clearQueryParams,
+  filteredCount,
   isPatch,
+  limit,
   loading,
-  sorts,
+  page,
   tasks,
+  totalCount,
 }) => {
+  const [queryParams, setQueryParams] = useQueryParams();
   const { id: versionId } = useParams<{ id: string }>();
-  const updateQueryParams = useUpdateURLQueryParams();
-  const { sendEvent } = useVersionAnalytics(versionId);
-  const filterHookProps = {
-    resetPage: true,
-    sendAnalyticsEvent: (filterBy: string) =>
-      sendEvent({ name: "Filter Tasks", filterBy }),
-  };
-  const currentStatusesFilter = useStatusesFilter({
-    urlParam: PatchTasksQueryParams.Statuses,
-    ...filterHookProps,
-  });
-  const baseStatusesFilter = useStatusesFilter({
-    urlParam: PatchTasksQueryParams.BaseStatuses,
-    ...filterHookProps,
-  });
-  const { baseStatuses, currentStatuses } = useTaskStatuses({ versionId });
-  const statusSelectorProps = {
-    state: currentStatusesFilter.inputValue,
-    tData: currentStatuses,
-    onChange: currentStatusesFilter.setAndSubmitInputValue,
-  };
-  const baseStatusSelectorProps = {
-    state: baseStatusesFilter.inputValue,
-    tData: baseStatuses,
-    onChange: baseStatusesFilter.setAndSubmitInputValue,
-  };
-  const variantFilterInputChangeHandler = useFilterInputChangeHandler({
-    urlParam: PatchTasksQueryParams.Variant,
-    ...filterHookProps,
-  });
-  const taskNameFilterInputChangeHandler = useFilterInputChangeHandler({
-    urlParam: PatchTasksQueryParams.TaskName,
-    ...filterHookProps,
-  });
+  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)(
+    versionId,
+  );
 
-  const tableChangeHandler: TableOnChange<Task> = (...[, , sorter]) => {
-    updateQueryParams({
-      sorts: toSortString(sorter),
-      [PatchTasksQueryParams.Page]: "0",
+  const { initialFilters, initialSorting } = useMemo(
+    () => getInitialState(queryParams),
+    [], // eslint-disable-line react-hooks/exhaustive-deps
+  );
+
+  const [columnFilters, setColumnFilters] =
+    useState<ColumnFiltersState>(initialFilters);
+  const [sorting, setSorting] = useState<SortingState>(initialSorting);
+
+  const { baseStatuses: baseStatusOptions, currentStatuses: statusOptions } =
+    useTaskStatuses({ versionId });
+
+  const updateFilters = (filterState: ColumnFiltersState) => {
+    const updatedParams = {
+      ...queryParams,
+      page: "0",
+      ...emptyFilterQueryParams,
+    };
+    filterState.forEach(({ id, value }) => {
+      const key = mapIdToFilterParam[id];
+      updatedParams[key] = value;
+    });
+    setQueryParams(updatedParams);
+    sendEvent({
+      name: "Filter Tasks Table",
+      filterBy: Object.keys(filterState),
     });
   };
 
-  const variantInputProps: InputFilterProps = {
-    placeholder: "Variant name regex",
-    value: variantFilterInputChangeHandler.inputValue,
-    onChange: ({ target }) =>
-      variantFilterInputChangeHandler.setInputValue(target.value),
-    onFilter: variantFilterInputChangeHandler.submitInputValue,
-  };
+  const updateSorting = useTableSort({
+    sendAnalyticsEvents: (sorter: SortingState) =>
+      sendEvent({
+        name: "Sort Tasks Table",
+        sortBy: sorter.map(({ id }) => id as TaskSortCategory),
+      }),
+  });
 
-  const taskNameInputProps: InputFilterProps = {
-    placeholder: "Task name regex",
-    value: taskNameFilterInputChangeHandler.inputValue,
-    onChange: ({ target }) =>
-      taskNameFilterInputChangeHandler.setInputValue(target.value),
-    onFilter: taskNameFilterInputChangeHandler.submitInputValue,
-  };
+  const columns = useMemo(
+    () =>
+      getColumnsTemplate({
+        baseStatusOptions,
+        statusOptions,
+        isPatch,
+        onClickTaskLink: (taskId: string) =>
+          sendEvent({
+            name: "Click Task Table Link",
+            taskId,
+          }),
+      }),
+    [baseStatusOptions, statusOptions, isPatch, sendEvent],
+  );
+
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+  const table: LeafyGreenTable<TaskTableInfo> =
+    useLeafyGreenTable<TaskTableInfo>({
+      columns,
+      containerRef: tableContainerRef,
+      data: tasks ?? [],
+      defaultColumn: {
+        enableMultiSort: true,
+        sortDescFirst: false, // Handle bug in sorting order (https://github.com/TanStack/table/issues/4289)
+      },
+      state: {
+        columnFilters,
+        sorting,
+      },
+      isMultiSortEvent: () => true, // Override default requirement for shift-click to multisort.
+      maxMultiSortColCount: 2,
+      manualFiltering: true,
+      manualPagination: true,
+      manualSorting: true,
+      onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+        setColumnFilters,
+        updateFilters,
+      ),
+      onSortingChange: onChangeHandler<SortingState>(setSorting, updateSorting),
+      getSubRows: (row) => row.executionTasksFull || [],
+    });
 
   return (
-    <TasksTable
-      isPatch={isPatch}
-      sorts={sorts}
-      tableChangeHandler={tableChangeHandler}
-      tasks={tasks}
-      loading={loading}
-      onExpand={(expanded) => {
-        sendEvent({
-          name: "Toggle Display Task Dropdown",
-          expanded,
-        });
-      }}
-      onClickTaskLink={(taskId) =>
-        sendEvent({
-          name: "Click Task Table Link",
-          taskId,
-        })
+    <TableWrapper
+      controls={
+        <TableControl
+          filteredCount={filteredCount}
+          totalCount={totalCount}
+          limit={limit}
+          page={page}
+          label="tasks"
+          onClear={() => {
+            setColumnFilters([]);
+            setSorting(defaultSorting);
+            clearQueryParams();
+          }}
+          onPageSizeChange={() => {
+            sendEvent({
+              name: "Change Page Size",
+            });
+          }}
+        />
       }
-      onColumnHeaderClick={(sortField) =>
-        sendEvent({
-          name: "Sort Tasks Table",
-          sortBy: sortField,
-        })
-      }
-      taskNameInputProps={taskNameInputProps}
-      variantInputProps={variantInputProps}
-      baseStatusSelectorProps={baseStatusSelectorProps}
-      statusSelectorProps={statusSelectorProps}
-    />
+      shouldShowBottomTableControl={tasks.length > 10}
+    >
+      <BaseTable
+        data-cy="tasks-table"
+        data-cy-row="tasks-table-row"
+        disableAnimations
+        emptyComponent={<TablePlaceholder message="No tasks found." />}
+        loading={loading}
+        table={table}
+        shouldAlternateRowColor
+      />
+    </TableWrapper>
   );
+};
+
+const defaultSorting = [
+  { id: TaskSortCategory.Status, desc: false },
+  { id: TaskSortCategory.BaseStatus, desc: true },
+];
+
+const getInitialState = (queryParams: {
+  [key: string]: any;
+}): {
+  initialFilters: ColumnFiltersState;
+  initialSorting: SortingState;
+} => {
+  const { [PatchTasksQueryParams.Sorts]: sorts } = queryParams;
+  const parsedSorts = parseSortString(sorts);
+
+  return {
+    initialSorting: sorts
+      ? parsedSorts.map(({ Direction, Key }) => ({
+          id: Key,
+          desc: Direction === SortDirection.Desc,
+        }))
+      : defaultSorting,
+    initialFilters: Object.entries(mapFilterParamToId).reduce(
+      (accum, [param, id]) => {
+        if (queryParams[param]?.length) {
+          return [...accum, { id, value: queryParams[param] }];
+        }
+        return accum;
+      },
+      [],
+    ),
+  };
+};
+
+export const mapFilterParamToId = {
+  [PatchTasksQueryParams.TaskName]: TaskSortCategory.Name,
+  [PatchTasksQueryParams.Statuses]: TaskSortCategory.Status,
+  [PatchTasksQueryParams.BaseStatuses]: TaskSortCategory.BaseStatus,
+  [PatchTasksQueryParams.Variant]: TaskSortCategory.Variant,
+} as const;
+
+export const mapIdToFilterParam = {
+  [TaskSortCategory.Name]: PatchTasksQueryParams.TaskName,
+  [TaskSortCategory.Status]: PatchTasksQueryParams.Statuses,
+  [TaskSortCategory.BaseStatus]: PatchTasksQueryParams.BaseStatuses,
+  [TaskSortCategory.Variant]: PatchTasksQueryParams.Variant,
+};
+
+const emptyFilterQueryParams = {
+  [PatchTasksQueryParams.TaskName]: undefined,
+  [PatchTasksQueryParams.Statuses]: undefined,
+  [PatchTasksQueryParams.BaseStatuses]: undefined,
+  [PatchTasksQueryParams.Variant]: undefined,
 };

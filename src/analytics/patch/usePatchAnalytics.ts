@@ -9,14 +9,10 @@ import {
 import { PATCH } from "gql/queries";
 
 type Action =
-  | { name: "Filter Tasks"; filterBy: string }
+  | { name: "Filter Tasks Table"; filterBy: string | string[] }
   | {
       name: "Sort Tasks Table";
-      sortBy:
-        | TaskSortCategory.Name
-        | TaskSortCategory.Status
-        | TaskSortCategory.BaseStatus
-        | TaskSortCategory.Variant;
+      sortBy: TaskSortCategory | TaskSortCategory[];
     }
   | {
       name: "Sort Downstream Tasks Table";
