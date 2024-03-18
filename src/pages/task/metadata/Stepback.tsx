@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import Tooltip from "@leafygreen-ui/tooltip";
@@ -12,27 +11,32 @@ import { useLastPassingTask } from "hooks/useLastPassingTask";
 
 type Props = {
   taskId: string;
-  task: TaskQuery["task"];
 };
 
-export const Stepback: React.FC<Props> = ({ task, taskId }) => {
-  const { loading, task: breakingTask } = useBreakingTask(taskId);
-  const { task: lastPassingTask } = useLastPassingTask(taskId);
-
-  // lastFailingStepbackTaskId is set only in the middle of stepback (not the first task).
-  const inStepback =
+/**
+ * Returns whether the task is in stepback.
+ * @param task The task to check if it is in stepback.
+ * @returns Whether the task is in stepback.
+ */
+export function inStepback(task: TaskQuery["task"]) {
+  // lastFailingStepbackTaskId is set only in the middle/last of stepback (not the first task).
+  const stepback =
     task?.stepbackInfo?.lastFailingStepbackTaskId !== undefined &&
     task?.stepbackInfo?.lastFailingStepbackTaskId !== "";
+
   // nextStepbackTaskId is set when the next task in stepback in known, in the beginning
   // of stepback, it is known right away. In the rest of stepback, it is not.
   const beginningStepback =
     task?.stepbackInfo?.nextStepbackTaskId !== undefined &&
     task?.stepbackInfo?.nextStepbackTaskId !== "";
 
-  // If the task is not in stepback or beginning stepback, it should not show the stepback metadata.
-  if (!inStepback && !beginningStepback) {
-    return;
-  }
+  // If the task is in stepback or beginning stepback, it is counted as in stepback.
+  return stepback || beginningStepback;
+}
+
+export const Stepback: React.FC<Props> = ({ taskId }) => {
+  const { loading, task: breakingTask } = useBreakingTask(taskId);
+  const { task: lastPassingTask } = useLastPassingTask(taskId);
 
   // The last stepback task has an undefined last passing task (it is passing itself).
   const isLastStepbackTask = lastPassingTask === undefined;

@@ -38,7 +38,7 @@ import { AbortMessage } from "./AbortMessage";
 import { DependsOn } from "./DependsOn";
 import ETATimer from "./ETATimer";
 import RuntimeTimer from "./RuntimeTimer";
-import { Stepback } from "./Stepback";
+import { Stepback, inStepback } from "./Stepback";
 
 const { applyStrictRegex, msToDuration, shortenGithash } = string;
 const { red } = palette;
@@ -107,6 +107,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
     Cookies.set(SEEN_HONEYCOMB_GUIDE_CUE, "true", { expires: 365 });
     setOpenGuideCue(false);
   };
+  const stepback = inStepback(task);
 
   return (
     <MetadataCard error={error} loading={loading}>
@@ -404,7 +405,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           </StyledLink>
         </MetadataItem>
       )}
-      <Stepback task={task} taskId={taskId} />
+      {stepback && <Stepback taskId={taskId} />}
     </MetadataCard>
   );
 };
