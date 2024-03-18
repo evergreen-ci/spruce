@@ -699,6 +699,7 @@ export type Host = {
   instanceType?: Maybe<Scalars["String"]["output"]>;
   lastCommunicationTime?: Maybe<Scalars["Time"]["output"]>;
   noExpiration: Scalars["Boolean"]["output"];
+  persistentDnsName: Scalars["String"]["output"];
   provider: Scalars["String"]["output"];
   runningTask?: Maybe<TaskInfo>;
   startedBy: Scalars["String"]["output"];
@@ -1057,6 +1058,7 @@ export type Mutation = {
   unschedulePatchTasks?: Maybe<Scalars["String"]["output"]>;
   unscheduleTask: Task;
   updateHostStatus: Scalars["Int"]["output"];
+  updateParsleySettings?: Maybe<UpdateParsleySettingsPayload>;
   updatePublicKey: Array<PublicKey>;
   updateSpawnHostStatus: Host;
   updateUserSettings: Scalars["Boolean"]["output"];
@@ -1315,6 +1317,10 @@ export type MutationUpdateHostStatusArgs = {
   status: Scalars["String"]["input"];
 };
 
+export type MutationUpdateParsleySettingsArgs = {
+  opts: UpdateParsleySettingsInput;
+};
+
 export type MutationUpdatePublicKeyArgs = {
   targetKeyName: Scalars["String"]["input"];
   updateInfo: PublicKeyInput;
@@ -1404,6 +1410,16 @@ export type ParsleyFilterInput = {
   caseSensitive: Scalars["Boolean"]["input"];
   exactMatch: Scalars["Boolean"]["input"];
   expression: Scalars["String"]["input"];
+};
+
+/** ParsleySettings contains information about a user's settings for Parsley. */
+export type ParsleySettings = {
+  __typename?: "ParsleySettings";
+  sectionsEnabled: Scalars["Boolean"]["output"];
+};
+
+export type ParsleySettingsInput = {
+  sectionsEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /** Patch is a manually initiated version submitted to test local code changes. */
@@ -2866,6 +2882,15 @@ export type UiConfig = {
   userVoice?: Maybe<Scalars["String"]["output"]>;
 };
 
+export type UpdateParsleySettingsInput = {
+  parsleySettings: ParsleySettingsInput;
+};
+
+export type UpdateParsleySettingsPayload = {
+  __typename?: "UpdateParsleySettingsPayload";
+  parsleySettings?: Maybe<ParsleySettings>;
+};
+
 /**
  * UpdateVolumeInput is the input to the updateVolume mutation.
  * Its fields determine how a given volume will be modified.
@@ -2912,6 +2937,7 @@ export type User = {
   displayName: Scalars["String"]["output"];
   emailAddress: Scalars["String"]["output"];
   parsleyFilters: Array<ParsleyFilter>;
+  parsleySettings: ParsleySettings;
   patches: Patches;
   permissions: Permissions;
   subscriptions?: Maybe<Array<GeneralSubscription>>;

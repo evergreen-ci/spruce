@@ -14,7 +14,7 @@ describe("Viewing a patch", () => {
       );
     });
     it("Clicking the 'My Patches' breadcrumb goes to the logged in user's Patches Page when the current patch belongs to the logged in user", () => {
-      cy.contains("My Patches").click();
+      cy.dataCy("bc-my-patches").click();
       cy.url().should("include", "/user/admin/patches");
     });
   });
