@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuthDispatchContext, useAuthStateContext } from "context/Auth";
-import { UserQuery, UserQueryVariables } from "gql/generated/types";
-import { USER } from "gql/queries";
+import { secretFieldsReq } from "gql/fetch";
+import { getGQLUrl } from "utils/environmentVariables";
+import { fetchWithRetry } from "utils/request";
 
 type LocationState = {
   referrer?: string;
@@ -22,12 +22,14 @@ export const Login: React.FC = () => {
 
   const { devLogin } = useAuthDispatchContext();
   const { isAuthenticated } = useAuthStateContext();
+  const { dispatchAuthenticated } = useAuthDispatchContext();
 
-  // this top-level query is required for authentication to work
-  // afterware is used at apollo link level to authenticate or deauthenticate user based on response to query
-  // therefore this could be any query as long as it is top-level
-  useQuery<UserQuery, UserQueryVariables>(USER);
-
+  // Check if the user is already authenticated
+  useEffect(() => {
+    fetchWithRetry(getGQLUrl(), secretFieldsReq).then(() => {
+      dispatchAuthenticated();
+    });
+  }, []);
   const loginHandler = (): void => {
     devLogin({ username, password });
   };

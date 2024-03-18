@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { HttpLink, ApolloClient, NormalizedCacheObject } from "@apollo/client";
-import { OperationDefinitionNode } from "graphql";
 import { useAuthDispatchContext } from "context/Auth";
 import { cache } from "gql/client/cache";
 import {
@@ -10,10 +9,10 @@ import {
   logErrorsLink,
   retryLink,
 } from "gql/client/link";
-import { SECRET_FIELDS } from "gql/queries";
+import { secretFieldsReq } from "gql/fetch";
 import { environmentVariables } from "utils";
 import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
-import { fetchWithRetry } from "utils/request";
+import { fetchWithRetry, shouldLogoutAndRedirect } from "utils/request";
 
 const { getGQLUrl } = environmentVariables;
 
@@ -25,6 +24,7 @@ export const useCreateGQLCLient = (): ApolloClient<NormalizedCacheObject> => {
   useEffect(() => {
     fetchWithRetry(getGQLUrl(), secretFieldsReq)
       .then(({ data }) => {
+        dispatchAuthenticated();
         setSecretFields(data?.spruceConfig?.secretFields);
       })
       .catch((err) => {
@@ -35,6 +35,9 @@ export const useCreateGQLCLient = (): ApolloClient<NormalizedCacheObject> => {
           },
           SentryBreadcrumb.HTTP,
         );
+        if (shouldLogoutAndRedirect(err?.cause?.statusCode)) {
+          logoutAndRedirect();
+        }
       });
   }, []);
 
@@ -59,19 +62,4 @@ export const useCreateGQLCLient = (): ApolloClient<NormalizedCacheObject> => {
   }, [secretFields, gqlClient, dispatchAuthenticated, logoutAndRedirect]);
 
   return gqlClient;
-};
-
-const secretFieldsReq = {
-  credentials: "include" as RequestCredentials,
-  headers: {
-    "content-type": "application/json",
-  },
-  body: JSON.stringify({
-    operationName: (SECRET_FIELDS.definitions[0] as OperationDefinitionNode)
-      .name.value,
-    query: SECRET_FIELDS.loc?.source.body,
-    variables: {},
-  }),
-  method: "POST",
-  mode: "cors" as RequestMode,
 };

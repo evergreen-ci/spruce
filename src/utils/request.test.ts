@@ -1,49 +1,51 @@
 import { post, fetchWithRetry } from "./request";
 
-describe("post", () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it("should make a POST request and return the response for a successful request", async () => {
-    const url = "/api/resource";
-    const body = { key: "value" };
-    const fetchMock = jest.fn().mockResolvedValue({
-      ok: true,
+describe("request utils", () => {
+  describe("post", () => {
+    afterEach(() => {
+      jest.clearAllMocks();
     });
 
-    jest.spyOn(global, "fetch").mockImplementation(fetchMock);
+    it("should make a POST request and return the response for a successful request", async () => {
+      const url = "/api/resource";
+      const body = { key: "value" };
+      const fetchMock = jest.fn().mockResolvedValue({
+        ok: true,
+      });
 
-    const response = await post(url, body);
+      jest.spyOn(global, "fetch").mockImplementation(fetchMock);
 
-    expect(response).toStrictEqual({ ok: true });
-    expect(fetchMock).toHaveBeenCalledWith("/api/resource", {
-      method: "POST",
-      body: JSON.stringify(body),
-      credentials: "include",
+      const response = await post(url, body);
+
+      expect(response).toStrictEqual({ ok: true });
+      expect(fetchMock).toHaveBeenCalledWith("/api/resource", {
+        method: "POST",
+        body: JSON.stringify(body),
+        credentials: "include",
+      });
     });
-  });
 
-  it("should handle and report an error for a failed request", async () => {
-    const url = "/api/resource";
-    const body = { key: "value" };
-    const fetchMock = jest.fn().mockResolvedValue({
-      ok: false,
-      status: 500,
-      statusText: "Internal Server Error",
+    it("should handle and report an error for a failed request", async () => {
+      const url = "/api/resource";
+      const body = { key: "value" };
+      const fetchMock = jest.fn().mockResolvedValue({
+        ok: false,
+        status: 500,
+        statusText: "Internal Server Error",
+      });
+      const errorReportingMock = jest.fn();
+      jest.spyOn(console, "error").mockImplementation(errorReportingMock);
+      jest.spyOn(global, "fetch").mockImplementation(fetchMock);
+
+      await post(url, body);
+
+      expect(fetchMock).toHaveBeenCalledWith("/api/resource", {
+        method: "POST",
+        body: JSON.stringify(body),
+        credentials: "include",
+      });
+      expect(errorReportingMock).toHaveBeenCalledTimes(1);
     });
-    const errorReportingMock = jest.fn();
-    jest.spyOn(console, "error").mockImplementation(errorReportingMock);
-    jest.spyOn(global, "fetch").mockImplementation(fetchMock);
-
-    await post(url, body);
-
-    expect(fetchMock).toHaveBeenCalledWith("/api/resource", {
-      method: "POST",
-      body: JSON.stringify(body),
-      credentials: "include",
-    });
-    expect(errorReportingMock).toHaveBeenCalledTimes(1);
   });
 
   describe("fetchWithRetry", () => {
@@ -59,6 +61,7 @@ describe("post", () => {
       const mockData = { success: true };
       (global.fetch as jest.Mock).mockResolvedValueOnce({
         json: () => Promise.resolve(mockData),
+        ok: true,
       });
 
       const result = await fetchWithRetry<{ success: boolean }>(
@@ -75,6 +78,7 @@ describe("post", () => {
         .mockRejectedValueOnce(new Error("Network failure"))
         .mockRejectedValueOnce(new Error("Network failure"))
         .mockResolvedValueOnce({
+          ok: true,
           json: () => Promise.resolve(mockData),
         });
 
@@ -96,6 +100,28 @@ describe("post", () => {
         fetchWithRetry("https://example.com", {}, 2),
       ).rejects.toThrow("Network failure");
       expect(global.fetch).toHaveBeenCalledTimes(3);
+    });
+
+    it("rejects if the response is not ok and does not retry fetch", async () => {
+      (global.fetch as jest.Mock).mockResolvedValueOnce({
+        ok: false,
+        status: 500,
+        statusText: "Internal Server Error",
+      });
+      let error = null;
+      try {
+        await fetchWithRetry("https://example.com", {});
+      } catch (err) {
+        error = err;
+      }
+      expect(error).toBeInstanceOf(Error);
+      expect(error.message).toBe("GET Error: 500 - Internal Server Error");
+      expect(error).toHaveProperty("cause");
+      expect(error.cause).toStrictEqual({
+        statusCode: 500,
+        message: "Internal Server Error",
+      });
+      expect(global.fetch).toHaveBeenCalledTimes(1);
     });
   });
 });

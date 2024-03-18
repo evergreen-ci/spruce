@@ -17,7 +17,14 @@ const browserRouter = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path={routes.login} element={<Login />} />
-      <Route path="/*" element={<Content />} />
+      <Route
+        path="/*"
+        element={
+          <GQLWrapper>
+            <Content />
+          </GQLWrapper>
+        }
+      />
     </>,
   ),
 );
@@ -26,9 +33,7 @@ const App: React.FC = () => (
   <ErrorBoundary>
     <GlobalStyles />
     <ContextProviders>
-      <GQLWrapper>
-        <RouterProvider router={browserRouter} />
-      </GQLWrapper>
+      <RouterProvider router={browserRouter} />
     </ContextProviders>
   </ErrorBoundary>
 );

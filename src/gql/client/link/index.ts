@@ -1,30 +1,26 @@
-import { ApolloLink } from "@apollo/client";
+import { ApolloLink, ServerParseError } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { RetryLink } from "@apollo/client/link/retry";
-import { routes } from "constants/routes";
 import {
   leaveBreadcrumb,
   SentryBreadcrumb,
   reportError,
 } from "utils/errorReporting";
+import { shouldLogoutAndRedirect } from "utils/request";
 
 export { logGQLToSentryLink } from "./logGQLToSentryLink";
 
-export const authLink = (logout: () => void): ApolloLink =>
+export const authLink = (logoutAndRedirect: () => void): ApolloLink =>
   onError(({ networkError }) => {
     if (
-      // must perform these checks so that TS does not complain bc typings for network does not include 'statusCode'
-      networkError &&
-      "statusCode" in networkError &&
-      networkError.statusCode === 401 &&
-      window.location.pathname !== routes.login
+      shouldLogoutAndRedirect((networkError as ServerParseError)?.statusCode)
     ) {
       leaveBreadcrumb(
         "Not Authenticated",
         { status_code: 401 },
         SentryBreadcrumb.User,
       );
-      logout();
+      logoutAndRedirect();
     }
   });
 

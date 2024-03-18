@@ -1,5 +1,9 @@
+import { routes } from "constants/routes";
 import { getUiUrl } from "./environmentVariables";
 import { reportError } from "./errorReporting";
+
+export const shouldLogoutAndRedirect = (statusCode: number) =>
+  statusCode === 401 && window.location.pathname !== routes.login;
 
 export const post = async (url: string, body: unknown) => {
   try {
@@ -9,7 +13,7 @@ export const post = async (url: string, body: unknown) => {
       credentials: "include",
     });
     if (!response.ok) {
-      throw new Error(await getErrorMessage(response, "POST"));
+      throw new Error(getErrorMessage(response, "POST"));
     }
     return response;
   } catch (e: any) {
@@ -17,7 +21,7 @@ export const post = async (url: string, body: unknown) => {
   }
 };
 
-const getErrorMessage = async (response: Response, method: string) => {
+const getErrorMessage = (response: Response, method: string) => {
   const { status, statusText } = response;
   return `${method} Error: ${status} - ${statusText}`;
 };
@@ -35,7 +39,16 @@ export const fetchWithRetry = <T = any>(
   new Promise((resolve, reject) => {
     const attemptFetch = (attempt: number): void => {
       fetch(url, options)
-        .then((res) => res.json())
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+          reject(
+            new Error(getErrorMessage(res, "GET"), {
+              cause: { statusCode: res.status, message: res.statusText },
+            }),
+          );
+        })
         .then((data) => resolve(data))
         .catch((err) => {
           if (attempt <= retries) {
