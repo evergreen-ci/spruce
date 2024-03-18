@@ -163,11 +163,6 @@ export const getFormSchema = ({
               oneOf: [
                 {
                   type: "string" as "string",
-                  title: "Revised",
-                  enum: [DispatcherVersion.Revised],
-                },
-                {
-                  type: "string" as "string",
                   title: "Revised with dependencies",
                   enum: [DispatcherVersion.RevisedWithDependencies],
                 },
