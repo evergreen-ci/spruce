@@ -98,7 +98,7 @@ exports[`Snapshot Tests Pages/Spawn/Spawn Host Card Default 1`] = `
       </div>
       <div>
         <span>
-          ec2-54-242-162-135.compute-1.amazonaws.com
+          mohamed-khelif-abc.workstations.build.10gen.cc
         </span>
       </div>
     </div>
