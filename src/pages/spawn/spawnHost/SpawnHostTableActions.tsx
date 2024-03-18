@@ -19,7 +19,7 @@ export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
     <SpawnHostActionButton host={host} />
     <CopySSHCommandButton
       user={host.user}
-      hostUrl={host.hostUrl}
+      hostUrl={host.persistentDnsName || host.hostUrl}
       hostStatus={host.status}
     />
     <EditSpawnHostButton host={host} />
