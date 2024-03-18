@@ -251,12 +251,9 @@ functions:
       shell: bash
       script: |
         ${PREPARE_SHELL}
-        # Only record to cypress cloud if this is a pr, mainline commit or an intentional patch.
-        # And only allow spec filtering for an intentional patch.
-        if [[ "${requester}" == "github_pr" || "${requester}" == "commit" ]]; then
-          yarn cy:run --record --key "${spruce_cypress_record_key}" --reporter junit
-        elif [[ "${requester}" == "patch" ]]; then
-          yarn cy:run --record --key "${spruce_cypress_record_key}" --reporter junit --spec "${cypress_spec}"
+        # Allow spec filtering for an intentional patch.
+        if [[ "${requester}" == "patch" ]]; then
+          yarn cy:run --reporter junit --spec "${cypress_spec}"
         else
           yarn cy:run --reporter junit
         fi
