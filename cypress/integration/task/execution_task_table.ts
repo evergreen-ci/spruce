@@ -14,11 +14,9 @@ describe("Execution task table", () => {
   it("Updates the url when column headers are clicked", () => {
     const nameSortControl = "button[aria-label='Sort by Name']";
     cy.get(nameSortControl).click();
-    cy.location("search").should("contain", "sortBy=NAME");
-    cy.location("search").should("contain", "sortDir=ASC");
+    cy.location("search").should("contain", "STATUS%3AASC%3BNAME%3AASC");
 
     cy.get(nameSortControl).click();
-    cy.location("search").should("contain", "sortBy=NAME");
-    cy.location("search").should("contain", "sortDir=DESC");
+    cy.location("search").should("contain", "STATUS%3AASC%3BNAME%3ADESC");
   });
 });

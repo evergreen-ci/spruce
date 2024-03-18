@@ -13,8 +13,9 @@ import {
   SortDirection,
 } from "gql/generated/types";
 import { useTableSort } from "hooks";
-import { useQueryParam } from "hooks/useQueryParam";
+import { useQueryParams } from "hooks/useQueryParam";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { parseSortString } from "utils/queryString";
 
 const { getDefaultOptions: getDefaultSorting } = Sorting;
 
@@ -32,12 +33,14 @@ export const ExecutionTasksTable: React.FC<Props> = ({
   const { sendEvent } = useTaskAnalytics();
   const updateQueryParams = useUpdateURLQueryParams();
 
-  const [sortBy] = useQueryParam(TableQueryParams.SortBy, "");
-  const [sortDir] = useQueryParam(TableQueryParams.SortDir, "");
+  const [queryParams] = useQueryParams();
+  const sortBy = queryParams[TableQueryParams.SortBy] as string;
+  const sortDir = queryParams[TableQueryParams.SortDir] as string;
+  const sorts = queryParams[TableQueryParams.Sorts] as string;
 
-  // Apply default sort if none is defined.
+  // Apply default sort if no sorting method is defined.
   useEffect(() => {
-    if (!sortBy && !sortDir) {
+    if (!sorts && !sortBy && !sortDir) {
       updateQueryParams({
         sortBy: TaskSortCategory.Status,
         sortDir: SortDirection.Asc,
@@ -49,6 +52,11 @@ export const ExecutionTasksTable: React.FC<Props> = ({
     execution,
     ...executionTasksFull.map((t) => t.execution),
   ]);
+
+  const initialSorting = useMemo(
+    () => getInitialSorting(queryParams),
+    [], // eslint-disable-line react-hooks/exhaustive-deps
+  );
 
   const columns = useMemo(
     () =>
@@ -76,18 +84,13 @@ export const ExecutionTasksTable: React.FC<Props> = ({
       data: executionTasksFull ?? [],
       defaultColumn: {
         enableColumnFilter: false,
+        enableMultiSort: true,
       },
       initialState: {
-        sorting:
-          sortBy && sortDir
-            ? [
-                {
-                  id: sortBy as TaskSortCategory,
-                  desc: sortDir === SortDirection.Desc,
-                },
-              ]
-            : [{ id: TaskSortCategory.Status, desc: false }],
+        sorting: initialSorting,
       },
+      isMultiSortEvent: () => true, // Override default requirement for shift-click to multisort.
+      maxMultiSortColCount: 2,
       onSortingChange: onChangeHandler<SortingState>(
         (s) => getDefaultSorting(table).onSortingChange(s),
         tableSortHandler,
@@ -103,4 +106,32 @@ export const ExecutionTasksTable: React.FC<Props> = ({
       shouldAlternateRowColor
     />
   );
+};
+
+const getInitialSorting = (queryParams: {
+  [key: string]: any;
+}): SortingState => {
+  const {
+    [TableQueryParams.SortBy]: sortBy,
+    [TableQueryParams.SortDir]: sortDir,
+    [TableQueryParams.Sorts]: sorts,
+  } = queryParams;
+
+  let initialSorting = [{ id: TaskSortCategory.Status, desc: false }];
+  if (sortBy && sortDir) {
+    initialSorting = [
+      {
+        id: sortBy as TaskSortCategory,
+        desc: sortDir === SortDirection.Desc,
+      },
+    ];
+  } else if (sorts) {
+    const parsedSorts = parseSortString(sorts);
+    initialSorting = parsedSorts.map(({ Direction, Key }) => ({
+      id: Key as TaskSortCategory,
+      desc: Direction === SortDirection.Desc,
+    }));
+  }
+
+  return initialSorting;
 };

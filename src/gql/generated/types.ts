@@ -699,6 +699,7 @@ export type Host = {
   instanceType?: Maybe<Scalars["String"]["output"]>;
   lastCommunicationTime?: Maybe<Scalars["Time"]["output"]>;
   noExpiration: Scalars["Boolean"]["output"];
+  persistentDnsName: Scalars["String"]["output"];
   provider: Scalars["String"]["output"];
   runningTask?: Maybe<TaskInfo>;
   startedBy: Scalars["String"]["output"];
@@ -2532,6 +2533,7 @@ export type Task = {
   startTime?: Maybe<Scalars["Time"]["output"]>;
   status: Scalars["String"]["output"];
   stepbackInfo?: Maybe<StepbackInfo>;
+  tags: Array<Scalars["String"]["output"]>;
   /** @deprecated Use files instead */
   taskFiles: TaskFiles;
   taskGroup?: Maybe<Scalars["String"]["output"]>;
