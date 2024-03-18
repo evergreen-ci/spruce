@@ -46,7 +46,7 @@ type Action =
     }
   | { name: "Toggle view"; toggle: ProjectHealthView }
   | {
-      name: "Redirect to Project Identifier";
+      name: "Redirect to project identifier";
       projectId: string;
       projectIdentifier: string;
     };

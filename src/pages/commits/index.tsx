@@ -74,7 +74,7 @@ const Commits = () => {
 
   const sendAnalyticsEvent = (id: string, identifier: string) => {
     sendEvent({
-      name: "Redirect to Project Identifier",
+      name: "Redirect to project identifier",
       projectId: id,
       projectIdentifier: identifier,
     });
@@ -88,7 +88,7 @@ const Commits = () => {
     SpruceConfigQuery,
     SpruceConfigQueryVariables
   >(SPRUCE_CONFIG, {
-    skip: !!projectIdentifier || !!recentlySelectedProject || isRedirecting,
+    skip: !!projectIdentifier || !!recentlySelectedProject,
   });
 
   useEffect(() => {
