@@ -109,7 +109,7 @@
     "deep-object-diff": "1.1.9",
     "env-cmd": "10.1.0",
     "graphql": "16.8.1",
-    "html-react-parser": "4.2.9",
+    "html-react-parser": "5.1.8",
     "js-cookie": "3.0.5",
     "linkify-html": "4.1.1",
     "linkifyjs": "4.1.0",
