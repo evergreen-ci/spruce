@@ -1,4 +1,4 @@
-import { MockedProvider } from "@apollo/client/testing";
+import { ProviderWrapper } from "components/HistoryTable/hooks/test-utils";
 import { MockToastContext } from "context/toast/__mocks__";
 import {
   BaseVersionAndTaskQuery,
@@ -16,30 +16,26 @@ describe("useBreakingTask", () => {
     MockToastContext();
   });
   it("no breaking task is found when task is not found", async () => {
-    const { result } = renderHook(() => useBreakingTask("task1"), {
-      wrapper: ({ children }) => (
-        <MockedProvider mocks={[]}>{children}</MockedProvider>
-      ),
+    const { result } = renderHook(() => useBreakingTask("t1"), {
+      wrapper: ({ children }) => ProviderWrapper({ children }),
     });
 
     expect(result.current.task).toBeUndefined();
   });
   it("a breaking task is found when there is a previous failing task", async () => {
-    const { result } = renderHook(() => useBreakingTask("task1"), {
-      wrapper: ({ children }) => (
-        <MockedProvider
-          mocks={[
+    const { result } = renderHook(() => useBreakingTask("t1"), {
+      wrapper: ({ children }) =>
+        ProviderWrapper({
+          children,
+          mocks: [
             getPatchTaskWithFailingBaseTask,
             getLastPassingVersion,
             getBreakingCommit,
-          ]}
-        >
-          {children}
-        </MockedProvider>
-      ),
+          ],
+        }),
     });
 
-    expect(result.current.task).toBeUndefined();
+    expect(result.current.task).toBeDefined();
   });
 });
 
