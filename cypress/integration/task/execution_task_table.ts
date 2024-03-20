@@ -7,14 +7,16 @@ describe("Execution task table", () => {
   });
 
   it("Should have a default sort order applied", () => {
-    cy.location("search").should("contain", "sorts=STATUS%3AASC");
+    cy.location("search").should("contain", "sortBy=STATUS");
+    cy.location("search").should("contain", "sortDir=ASC");
   });
 
   it("Updates the url when column headers are clicked", () => {
-    cy.dataCy("tasks-table").find("th").contains("Name").click();
-    cy.location("search").should("contain", "NAME%3AASC");
+    const nameSortControl = "button[aria-label='Sort by Name']";
+    cy.get(nameSortControl).click();
+    cy.location("search").should("contain", "STATUS%3AASC%3BNAME%3AASC");
 
-    cy.dataCy("tasks-table").find("th").contains("Name").click();
-    cy.location("search").should("contain", "NAME%3ADESC");
+    cy.get(nameSortControl).click();
+    cy.location("search").should("contain", "STATUS%3AASC%3BNAME%3ADESC");
   });
 });

@@ -54,7 +54,10 @@ const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
   "Started at": HostUptime,
   "Expires at": HostExpiration,
   "SSH User": (host: MyHost) => <span>{host?.distro?.user}</span>,
-  "DNS Name": (host: MyHost) => <span>{host?.hostUrl}</span>,
+  "Host Name": (host: MyHost) => <span>{host?.hostUrl}</span>,
+  "Persistent DNS Name": (host: MyHost) => (
+    <span>{host?.persistentDnsName}</span>
+  ),
   "Working Directory": (host: MyHost) => <span>{host?.distro?.workDir}</span>,
   "Availability Zone": (host: MyHost) => <span>{host?.availabilityZone}</span>,
   "User Tags": (host: MyHost) => (
