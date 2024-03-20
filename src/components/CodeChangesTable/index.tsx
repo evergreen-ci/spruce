@@ -37,7 +37,7 @@ const columns = [
     id: "fileName",
     accessorKey: "fileName",
     header: "File Name",
-    enableColumnFilter: true,
+    meta: { width: "70%" },
     cell: ({
       getValue,
       row: {
