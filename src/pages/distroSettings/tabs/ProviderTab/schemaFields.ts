@@ -324,11 +324,11 @@ const mountPoints = {
         },
         throughput: {
           type: "number" as "number",
-          title: "Throughput",
+          title: "Throughput (MiB/s)",
         },
         size: {
           type: "number" as "number",
-          title: "Size",
+          title: "Size (GB)",
         },
       },
     },
