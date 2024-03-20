@@ -2,12 +2,12 @@ import { useRef, useMemo } from "react";
 import { LeafyGreenTable, useLeafyGreenTable } from "@leafygreen-ui/table";
 import {
   ColumnFiltersState,
-  SortingState,
   Filters,
   Sorting,
+  SortingState,
 } from "@tanstack/react-table";
 import { useParams } from "react-router-dom";
-import { useVersionAnalytics } from "analytics";
+import { usePatchAnalytics, useVersionAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import TableControl from "components/Table/TableControl";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
@@ -46,7 +46,9 @@ export const DownstreamProjectTable: React.FC<DownstreamProjectTableProps> = ({
   tasks,
 }) => {
   const { id: versionId } = useParams<{ id: string }>();
-  const { sendEvent } = useVersionAnalytics(versionId);
+  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)(
+    versionId,
+  );
 
   const { baseStatuses: baseStatusOptions, currentStatuses: statusOptions } =
     useTaskStatuses({
@@ -75,11 +77,11 @@ export const DownstreamProjectTable: React.FC<DownstreamProjectTableProps> = ({
   };
 
   const onSortingChange = (sortingState: SortingState) => {
-    const newSort = sortingState.map(({ desc, id }) => ({
+    const updatedSort = sortingState.map(({ desc, id }) => ({
       Key: id as TaskSortCategory,
       Direction: desc ? SortDirection.Desc : SortDirection.Asc,
     }));
-    dispatch({ type: "setSort", sorts: newSort });
+    dispatch({ type: "setSort", sorts: updatedSort });
     sendEvent({
       name: "Sort Downstream Tasks Table",
       sortBy: sortingState.map(({ id }) => id as TaskSortCategory),
