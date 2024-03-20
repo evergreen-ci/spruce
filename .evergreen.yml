@@ -25,6 +25,7 @@ post:
   - func: assume-ec2-role
   - func: attach-codegen-diff
   - func: attach-cypress-results
+  - func: attach-logkeeper-logs
   - func: attach-source-map
   - func: attach-storybook
   - func: attach-test-results
@@ -251,12 +252,9 @@ functions:
       shell: bash
       script: |
         ${PREPARE_SHELL}
-        # Only record to cypress cloud if this is a pr, mainline commit or an intentional patch.
-        # And only allow spec filtering for an intentional patch.
-        if [[ "${requester}" == "github_pr" || "${requester}" == "commit" ]]; then
-          yarn cy:run --record --key "${spruce_cypress_record_key}" --reporter junit
-        elif [[ "${requester}" == "patch" ]]; then
-          yarn cy:run --record --key "${spruce_cypress_record_key}" --reporter junit --spec "${cypress_spec}"
+        # Allow spec filtering for an intentional patch.
+        if [[ "${requester}" == "patch" ]]; then
+          yarn cy:run --reporter junit --spec "${cypress_spec}"
         else
           yarn cy:run --reporter junit
         fi
@@ -296,6 +294,19 @@ functions:
       params:
         files:
           - "./spruce/bin/cypress/*.xml"
+
+  attach-logkeeper-logs:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${AWS_ACCESS_KEY_ID}
+      aws_secret: ${AWS_SECRET_ACCESS_KEY}
+      aws_session_token: ${AWS_SESSION_TOKEN}
+      local_file: spruce/logkeeper/logkeeperapp.log
+      remote_file: spruce/${task_id}/${execution}/logkeeperapp.log
+      bucket: mciuploads
+      content_type: text/plain
+      permissions: public-read
 
   attach-source-map:
     command: s3.put

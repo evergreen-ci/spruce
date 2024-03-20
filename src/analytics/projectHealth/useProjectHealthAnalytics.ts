@@ -44,7 +44,12 @@ type Action =
       name: "Add Notification";
       subscription: SaveSubscriptionForUserMutationVariables["subscription"];
     }
-  | { name: "Toggle view"; toggle: ProjectHealthView };
+  | { name: "Toggle view"; toggle: ProjectHealthView }
+  | {
+      name: "Redirect to project identifier";
+      projectId: string;
+      projectIdentifier: string;
+    };
 
 export const useProjectHealthAnalytics = (p: { page: pageType }) =>
   useAnalyticsRoot<Action>("ProjectHealthPages", { page: p.page });
