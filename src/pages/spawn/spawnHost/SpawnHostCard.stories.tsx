@@ -51,6 +51,7 @@ const host = {
   ],
   volumes: [],
   noExpiration: true,
+  persistentDnsName: "mohamed-khelif-abc.workstations.build.10gen.cc",
   provider: "ec2-ondemand",
   status: "running",
   startedBy: "mohamed.khelif",

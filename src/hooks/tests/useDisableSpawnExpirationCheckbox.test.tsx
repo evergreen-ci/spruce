@@ -208,7 +208,10 @@ const volume = {
   migrating: false,
 };
 
-const myHostBase: Omit<MyHostsQuery["myHosts"][0], "noExpiration" | "id"> = {
+const myHostBase: Omit<
+  MyHostsQuery["myHosts"][0],
+  "noExpiration" | "persistentDnsName" | "id"
+> = {
   expiration: new Date("2021-10-28T22:37:40Z"),
   distro: {
     isVirtualWorkStation: true,
@@ -248,24 +251,30 @@ const myHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
         {
           ...myHostBase,
           noExpiration: false,
+          persistentDnsName: "",
           id: "i-05a2f286b802fd144",
           __typename: "Host",
         },
         {
           ...myHostBase,
           noExpiration: true,
+          persistentDnsName:
+            "ta-arst-workstation-123.workstations.build.10gen.cc",
           id: "i-09d810d09f9cd9a1d",
           __typename: "Host",
         },
         {
           ...myHostBase,
           noExpiration: true,
+          persistentDnsName:
+            "ta-arst-workstation-123.workstations.build.10gen.cc",
           id: "i-010cb384f2a0af1f4",
           __typename: "Host",
         },
         {
           ...myHostBase,
           noExpiration: false,
+          persistentDnsName: "",
           id: "i-08bc47799b6331c58",
           __typename: "Host",
         },
