@@ -1,12 +1,9 @@
 import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
-import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
-  LastMainlineCommitQuery,
-  LastMainlineCommitQueryVariables,
 } from "gql/generated/types";
-import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
+import { BASE_VERSION_AND_TASK } from "gql/queries";
 import { renderHook, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { useParentTask } from ".";
