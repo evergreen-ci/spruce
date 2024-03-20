@@ -64,8 +64,3 @@ const StepbackWrapper = styled.div`
   align-items: center;
   gap: ${size.xxs};
 `;
-
-const IconContainer = styled.span`
-  margin-left: ${size.xxs};
-  vertical-align: bottom;
-`;
