@@ -1,4 +1,4 @@
-import { ProviderWrapper } from "components/HistoryTable/hooks/test-utils";
+import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
 import { MockToastContext } from "context/toast/__mocks__";
 import {
   BaseVersionAndTaskQuery,
@@ -7,9 +7,17 @@ import {
   LastMainlineCommitQueryVariables,
 } from "gql/generated/types";
 import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
-import { renderHook } from "test_utils";
+import { renderHook, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { useBreakingTask } from ".";
+
+interface ProviderProps {
+  mocks?: MockedProviderProps["mocks"];
+  children: React.ReactNode;
+}
+const ProviderWrapper: React.FC<ProviderProps> = ({ children, mocks = [] }) => (
+  <MockedProvider mocks={mocks}>{children}</MockedProvider>
+);
 
 describe("useBreakingTask", () => {
   beforeEach(() => {
@@ -35,7 +43,11 @@ describe("useBreakingTask", () => {
         }),
     });
 
-    expect(result.current.task).toBeDefined();
+    await waitFor(() => {
+      expect(result.current.task).toBeDefined();
+    });
+
+    expect(result.current.task.id).toBe("breaking_commit");
   });
 });
 
