@@ -19,13 +19,14 @@ type Props = {
  * @returns Whether the task is in stepback.
  */
 export function inStepback(task: TaskQuery["task"]) {
-  // lastFailingStepbackTaskId is set only in the middle/last of stepback (not the first task).
+  // The 'lastFailingStepbackTaskId' is set for all stepback tasks except the first one.
   const stepback =
     task?.stepbackInfo?.lastFailingStepbackTaskId !== undefined &&
     task?.stepbackInfo?.lastFailingStepbackTaskId !== "";
 
-  // nextStepbackTaskId is set when the next task in stepback in known, in the beginning
-  // of stepback, it is known right away. In the rest of stepback, it is not.
+  // The 'nextStepbackTaskId' is only set when the next task in stepback is running/finished.
+  // This happens in the beginning of stepback or them middle of stepback. This condition is
+  // covering for the beginning of stepback.
   const beginningStepback =
     task?.stepbackInfo?.nextStepbackTaskId !== undefined &&
     task?.stepbackInfo?.nextStepbackTaskId !== "";
