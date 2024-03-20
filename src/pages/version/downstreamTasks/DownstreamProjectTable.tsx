@@ -22,7 +22,7 @@ import { Action } from "./reducer";
 const { getDefaultOptions: getDefaultFiltering } = Filters;
 const { getDefaultOptions: getDefaultSorting } = Sorting;
 
-interface DownstreamProjectTableProps {
+interface DownstreamTasksTableProps {
   childPatchId: string;
   count: number;
   dispatch: (action: Action) => void;
@@ -34,7 +34,7 @@ interface DownstreamProjectTableProps {
   tasks: TaskTableInfo[];
 }
 
-export const DownstreamProjectTable: React.FC<DownstreamProjectTableProps> = ({
+export const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
   childPatchId,
   count,
   dispatch,

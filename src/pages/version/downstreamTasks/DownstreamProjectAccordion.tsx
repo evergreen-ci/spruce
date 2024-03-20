@@ -21,7 +21,7 @@ import { usePolling } from "hooks";
 import { PatchStatus } from "types/patch";
 import { string } from "utils";
 import { ParametersModal } from "../ParametersModal";
-import { DownstreamProjectTable } from "./DownstreamProjectTable";
+import { DownstreamTasksTable } from "./DownstreamProjectTable";
 import { reducer } from "./reducer";
 
 const { shortenGithash } = string;
@@ -123,7 +123,7 @@ export const DownstreamProjectAccordion: React.FC<
         }
       >
         <AccordionContents>
-          <DownstreamProjectTable
+          <DownstreamTasksTable
             childPatchId={childPatchId}
             count={count}
             dispatch={dispatch}
