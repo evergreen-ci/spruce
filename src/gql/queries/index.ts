@@ -46,6 +46,7 @@ import PROJECT_EVENT_LOGS from "./project-event-logs.graphql";
 import PROJECT_HEALTH_VIEW from "./project-health-view.graphql";
 import PROJECT_PATCHES from "./project-patches.graphql";
 import PROJECT_SETTINGS from "./project-settings.graphql";
+import PROJECT from "./project.graphql";
 import PROJECTS from "./projects.graphql";
 import MY_PUBLIC_KEYS from "./public-keys.graphql";
 import REPO_EVENT_LOGS from "./repo-event-logs.graphql";
@@ -124,6 +125,7 @@ export {
   PATCH,
   POD_EVENTS,
   POD,
+  PROJECT,
   PROJECT_BANNER,
   PROJECT_EVENT_LOGS,
   PROJECT_HEALTH_VIEW,
