@@ -22,11 +22,7 @@ type Action =
     }
   | {
       name: "Sort Execution Tasks Table";
-      sortBy:
-        | TaskSortCategory.Name
-        | TaskSortCategory.Status
-        | TaskSortCategory.BaseStatus
-        | TaskSortCategory.Variant;
+      sortBy: TaskSortCategory | TaskSortCategory[];
     }
   | { name: "Restart" }
   | { name: "Schedule" }
