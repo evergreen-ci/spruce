@@ -1,65 +1,69 @@
-import { Table } from "antd";
-import { ColumnProps } from "antd/es/table";
+import { useRef } from "react";
+import { useLeafyGreenTable } from "@leafygreen-ui/table";
 import { FileDiffText } from "components/CodeChangesBadge";
 import { StyledLink, WordBreak } from "components/styles";
+import { BaseTable } from "components/Table/BaseTable";
+import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { FileDiffsFragment } from "gql/generated/types";
 
 interface CodeChangesTableProps {
   fileDiffs: FileDiffsFragment[];
-  showHeader?: boolean;
 }
 export const CodeChangesTable: React.FC<CodeChangesTableProps> = ({
   fileDiffs,
-  showHeader = true,
-}) => (
-  <Table
-    data-cy="code-changes-table"
-    rowKey={rowKey}
-    columns={columns(showHeader)}
-    dataSource={fileDiffs}
-    pagination={false}
-    showHeader={showHeader}
-  />
-);
+}) => {
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+  const table = useLeafyGreenTable({
+    columns,
+    data: fileDiffs ?? [],
+    containerRef: tableContainerRef,
+    enableColumnFilters: false,
+    enableSorting: false,
+  });
 
-const rowKey = (record: FileDiffsFragment): string =>
-  `${record.diffLink}_code_table`;
+  return (
+    <BaseTable
+      data-cy="code-changes-table"
+      data-cy-row="code-changes-table-row"
+      emptyComponent={<TablePlaceholder message="No diffs." />}
+      table={table}
+      shouldAlternateRowColor
+    />
+  );
+};
 
-const columns: (
-  showHeader: boolean,
-) => Array<ColumnProps<FileDiffsFragment>> = (showHeader: boolean) => [
+const columns = [
   {
-    title: <span data-cy="file-column">File</span>,
-    width: "60%",
-    dataIndex: "fileName",
-    key: "fileName",
-    render: (text: string, record: FileDiffsFragment): JSX.Element => (
+    id: "fileName",
+    accessorKey: "fileName",
+    header: "File Name",
+    enableColumnFilter: true,
+    cell: ({
+      getValue,
+      row: {
+        original: { diffLink },
+      },
+    }) => (
       <StyledLink
         data-cy="fileLink"
-        href={record.diffLink}
+        href={diffLink}
         rel="noopener noreferrer"
         target="_blank"
       >
-        <WordBreak>{text}</WordBreak>
+        <WordBreak>{getValue()}</WordBreak>
       </StyledLink>
     ),
   },
   {
-    title: <span data-cy="additions-column">Additions</span>,
-    dataIndex: "additions",
-    key: "additions",
-    width: !showHeader && 80,
-    render: (text: number): JSX.Element => (
-      <FileDiffText value={text} type="+" />
-    ),
+    id: "additions",
+    accessorKey: "additions",
+    header: "Additions",
+    cell: ({ getValue }) => <FileDiffText value={getValue()} type="+" />,
   },
   {
-    title: <span data-cy="deletions-column">Deletions</span>,
-    dataIndex: "deletions",
-    key: "deletions",
-    width: !showHeader && 80,
-    render: (text: number): JSX.Element => (
-      <FileDiffText value={text} type="-" />
-    ),
+    id: "deletions",
+    accessorKey: "deletions",
+    header: "Deletions",
+    cell: ({ getValue }) => <FileDiffText value={getValue()} type="-" />,
   },
 ];
