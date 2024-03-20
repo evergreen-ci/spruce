@@ -1,9 +1,8 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import Tooltip from "@leafygreen-ui/tooltip";
-import { Body } from "@leafygreen-ui/typography";
-import Icon from "components/Icon";
-import { MetadataItem } from "components/MetadataCard";
+import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
+import { Skeleton } from "@leafygreen-ui/skeleton-loader";
+import { BaseFontSize } from "@leafygreen-ui/tokens";
 import { size } from "constants/tokens";
 import { TaskQuery } from "gql/generated/types";
 import { useBreakingTask } from "hooks/useBreakingTask";
@@ -46,29 +45,25 @@ export const Stepback: React.FC<Props> = ({ taskId }) => {
   const finished = breakingTask !== undefined || isLastStepbackTask;
 
   return (
-    <MetadataItem>
+    <StepbackWrapper>
       Stepback:
-      <Tooltip
-        align="top"
-        justify="middle"
-        trigger={
-          <IconContainer>
-            <Icon glyph="InfoWithCircle" size="small" />
-          </IconContainer>
-        }
-        triggerEvent="hover"
-      >
-        <Body>
-          When Stepback is completed you can access the breaking commit via the
-          relevant commits dropdown.
-        </Body>
-      </Tooltip>{" "}
-      {loading && <Badge variant="lightgray">Loading</Badge>}
+      <InfoSprinkle baseFontSize={BaseFontSize.Body1}>
+        When Stepback is completed you can access the breaking commit via the
+        relevant commits dropdown.
+      </InfoSprinkle>
+      {loading && <Skeleton size="small" />}
       {!loading && !finished && <Badge variant="lightgray">In progress</Badge>}
       {!loading && finished && <Badge variant="green">Complete</Badge>}
-    </MetadataItem>
+    </StepbackWrapper>
   );
 };
+
+const StepbackWrapper = styled.div`
+  margin-top: ${size.xxs};
+  display: flex;
+  align-items: center;
+  gap: ${size.xxs};
+`;
 
 const IconContainer = styled.span`
   margin-left: ${size.xxs};
