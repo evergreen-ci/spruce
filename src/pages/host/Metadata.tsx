@@ -35,13 +35,15 @@ export const Metadata: React.FC<{
 
   const taskLink = getTaskRoute(runningTaskId);
   const distroLink = getDistroSettingsRoute(distroId);
-  const hostName = persistentDnsName || hostUrl;
 
   return (
     <MetadataCard error={error} loading={loading}>
       <MetadataTitle>Host Details</MetadataTitle>
       <MetadataItem>User: {user}</MetadataItem>
-      {hostName && <MetadataItem>Host Name: {hostName}</MetadataItem>}
+      {hostUrl && <MetadataItem>Host Name: {hostUrl}</MetadataItem>}
+      {persistentDnsName && (
+        <MetadataItem>Persistent DNS Name: {persistentDnsName}</MetadataItem>
+      )}
       {lastCommunicationTime && (
         <MetadataItem data-cy="host-last-communication">
           Last Communication:{" "}
