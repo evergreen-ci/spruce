@@ -6,6 +6,7 @@ import {
   LastMainlineCommitQuery,
   LastMainlineCommitQueryVariables,
 } from "gql/generated/types";
+import { taskQuery } from "gql/mocks/taskData";
 import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
 import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
@@ -19,7 +20,7 @@ describe("relevant commits", () => {
     it("the button is disabled when there is no base task", async () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[getPatchTaskWithNoBaseTask]}>
-          <RelevantCommits taskId="t1" />
+          <RelevantCommits taskId="t1" task={patchTaskWithNoBaseTask} />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
@@ -37,7 +38,7 @@ describe("relevant commits", () => {
         <MockedProvider
           mocks={[getMainlineTaskWithBaseVersion, getNullParentTask]}
         >
-          <RelevantCommits taskId="t4" />
+          <RelevantCommits taskId="t4" task={mainlineTaskWithBaseVersion} />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
@@ -54,7 +55,7 @@ describe("relevant commits", () => {
         <MockedProvider
           mocks={[getMainlineTaskWithBaseVersion, getParentTaskWithError]}
         >
-          <RelevantCommits taskId="t4" />
+          <RelevantCommits taskId="t4" task={mainlineTaskWithBaseVersion} />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
@@ -70,7 +71,7 @@ describe("relevant commits", () => {
   it("the button is disabled when no base version exists", async () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getPatchTaskWithNoBaseVersion]}>
-        <RelevantCommits taskId="t3" />
+        <RelevantCommits taskId="t3" task={patchTaskWithNoBaseVersion} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -92,7 +93,7 @@ describe("relevant commits", () => {
           getLastExecutedVersion,
         ]}
       >
-        <RelevantCommits taskId="t1" />
+        <RelevantCommits taskId="t1" task={patchTaskWithSuccessfulBaseTask} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -130,7 +131,7 @@ describe("relevant commits", () => {
           getBreakingCommit,
         ]}
       >
-        <RelevantCommits taskId="t1" />
+        <RelevantCommits taskId="t1" task={patchTaskWithFailingBaseTask} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -169,7 +170,7 @@ describe("relevant commits", () => {
           getBreakingCommit,
         ]}
       >
-        <RelevantCommits taskId="t3" />
+        <RelevantCommits taskId="t3" task={patchTaskWithRunningBaseTask} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -202,6 +203,40 @@ const baseTaskId =
   "evergreen_lint_lint_agent_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_21_11_29_17_55_27";
 const baseTaskHref = `/task/${baseTaskId}`;
 
+const patchTaskWithSuccessfulBaseTask = {
+  ...taskQuery.task,
+  id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
+  execution: 0,
+  displayName: "lint-agent",
+  buildVariant: "lint",
+  projectIdentifier: "evergreen",
+  status: "success",
+  versionMetadata: {
+    baseVersion: {
+      id: "baseVersion",
+      order: 3676,
+      __typename: "Version" as const,
+    },
+    isPatch: true,
+    author: "author",
+    message: "message",
+    project: "project",
+    projectIdentifier: "projectIdentifier",
+    revision: "revision",
+    order: 3676,
+    id: "versionMetadataId",
+    __typename: "Version" as const,
+  },
+  baseTask: {
+    ...taskQuery.task,
+    id: baseTaskId,
+    execution: 0,
+    status: "success",
+    __typename: "Task" as const,
+  },
+  __typename: "Task" as const,
+};
+
 const getPatchTaskWithSuccessfulBaseTask: ApolloMock<
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables
@@ -214,33 +249,43 @@ const getPatchTaskWithSuccessfulBaseTask: ApolloMock<
   },
   result: {
     data: {
-      task: {
-        id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
-        execution: 0,
-        displayName: "lint-agent",
-        buildVariant: "lint",
-        projectIdentifier: "evergreen",
-        status: "success",
-        versionMetadata: {
-          baseVersion: {
-            id: "baseVersion",
-            order: 3676,
-            __typename: "Version",
-          },
-          isPatch: true,
-          id: "versionMetadataId",
-          __typename: "Version",
-        },
-        baseTask: {
-          id: baseTaskId,
-          execution: 0,
-          status: "success",
-          __typename: "Task",
-        },
-        __typename: "Task",
-      },
+      task: patchTaskWithSuccessfulBaseTask,
     },
   },
+};
+
+const patchTaskWithRunningBaseTask = {
+  ...taskQuery.task,
+  id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
+  execution: 0,
+  displayName: "lint-agent",
+  buildVariant: "lint",
+  projectIdentifier: "evergreen",
+  status: "started",
+  versionMetadata: {
+    baseVersion: {
+      id: "baseVersion",
+      order: 3676,
+      __typename: "Version" as const,
+    },
+    isPatch: true,
+    author: "author",
+    message: "message",
+    project: "project",
+    projectIdentifier: "projectIdentifier",
+    revision: "revision",
+    order: 3676,
+    id: "versionMetadataId",
+    __typename: "Version" as const,
+  },
+  baseTask: {
+    ...taskQuery.task,
+    id: baseTaskId,
+    execution: 0,
+    status: "started",
+    __typename: "Task" as const,
+  },
+  __typename: "Task" as const,
 };
 
 const getPatchTaskWithRunningBaseTask: ApolloMock<
@@ -255,33 +300,43 @@ const getPatchTaskWithRunningBaseTask: ApolloMock<
   },
   result: {
     data: {
-      task: {
-        id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
-        execution: 0,
-        displayName: "lint-agent",
-        buildVariant: "lint",
-        projectIdentifier: "evergreen",
-        status: "started",
-        versionMetadata: {
-          baseVersion: {
-            id: "baseVersion",
-            order: 3676,
-            __typename: "Version",
-          },
-          isPatch: true,
-          id: "versionMetadataId",
-          __typename: "Version",
-        },
-        baseTask: {
-          id: baseTaskId,
-          execution: 0,
-          status: "started",
-          __typename: "Task",
-        },
-        __typename: "Task",
-      },
+      task: patchTaskWithRunningBaseTask,
     },
   },
+};
+
+const patchTaskWithFailingBaseTask = {
+  ...taskQuery.task,
+  id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
+  execution: 0,
+  displayName: "lint-agent",
+  buildVariant: "lint",
+  projectIdentifier: "evergreen",
+  status: "failed",
+  versionMetadata: {
+    baseVersion: {
+      id: "baseVersion",
+      order: 3676,
+      __typename: "Version" as const,
+    },
+    isPatch: true,
+    author: "author",
+    message: "message",
+    order: 3676,
+    project: "project",
+    projectIdentifier: "projectIdentifier",
+    revision: "revision",
+    id: "versionMetadataId",
+    __typename: "Version" as const,
+  },
+  baseTask: {
+    ...taskQuery.task,
+    id: baseTaskId,
+    execution: 0,
+    status: "failed",
+    __typename: "Task" as const,
+  },
+  __typename: "Task" as const,
 };
 
 const getPatchTaskWithFailingBaseTask: ApolloMock<
@@ -296,33 +351,33 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
   },
   result: {
     data: {
-      task: {
-        id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
-        execution: 0,
-        displayName: "lint-agent",
-        buildVariant: "lint",
-        projectIdentifier: "evergreen",
-        status: "failed",
-        versionMetadata: {
-          baseVersion: {
-            id: "baseVersion",
-            order: 3676,
-            __typename: "Version",
-          },
-          isPatch: true,
-          id: "versionMetadataId",
-          __typename: "Version",
-        },
-        baseTask: {
-          id: baseTaskId,
-          execution: 0,
-          status: "failed",
-          __typename: "Task",
-        },
-        __typename: "Task",
-      },
+      task: patchTaskWithFailingBaseTask,
     },
   },
+};
+
+const patchTaskWithNoBaseVersion = {
+  ...taskQuery.task,
+  id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
+  execution: 0,
+  displayName: "lint-agent",
+  buildVariant: "lint",
+  projectIdentifier: "evergreen",
+  status: "success",
+  versionMetadata: {
+    baseVersion: null,
+    id: "versionMetadataId",
+    isPatch: true,
+    author: "author",
+    message: "message",
+    order: 3676,
+    project: "project",
+    projectIdentifier: "projectIdentifier",
+    revision: "revision",
+    __typename: "Version" as const,
+  },
+  baseTask: null,
+  __typename: "Task" as const,
 };
 
 const getPatchTaskWithNoBaseVersion: ApolloMock<
@@ -337,22 +392,7 @@ const getPatchTaskWithNoBaseVersion: ApolloMock<
   },
   result: {
     data: {
-      task: {
-        id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
-        execution: 0,
-        displayName: "lint-agent",
-        buildVariant: "lint",
-        projectIdentifier: "evergreen",
-        status: "success",
-        versionMetadata: {
-          baseVersion: null,
-          id: "versionMetadataId",
-          isPatch: true,
-          __typename: "Version",
-        },
-        baseTask: null,
-        __typename: "Task",
-      },
+      task: patchTaskWithNoBaseVersion,
     },
   },
 };
@@ -511,6 +551,18 @@ const getLastExecutedVersion: ApolloMock<
   },
 };
 
+const patchTaskWithNoBaseTask = {
+  ...taskQuery.task,
+  id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
+  execution: 0,
+  displayName: "lint-agent",
+  buildVariant: "lint",
+  projectIdentifier: "evergreen",
+  status: "success",
+  baseTask: null,
+  __typename: "Task" as const,
+};
+
 // patch specific
 const getPatchTaskWithNoBaseTask: ApolloMock<
   BaseVersionAndTaskQuery,
@@ -524,28 +576,38 @@ const getPatchTaskWithNoBaseTask: ApolloMock<
   },
   result: {
     data: {
-      task: {
-        id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
-        execution: 0,
-        displayName: "lint-agent",
-        buildVariant: "lint",
-        projectIdentifier: "evergreen",
-        status: "success",
-        versionMetadata: {
-          baseVersion: {
-            id: "baseVersion",
-            order: 3676,
-            __typename: "Version",
-          },
-          isPatch: true,
-          id: "versionMetadataId",
-          __typename: "Version",
-        },
-        baseTask: null,
-        __typename: "Task",
-      },
+      task: patchTaskWithNoBaseTask,
     },
   },
+};
+
+const mainlineTaskWithBaseVersion = {
+  ...taskQuery.task,
+  id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
+  execution: 0,
+  displayName: "lint-agent",
+  buildVariant: "lint",
+  projectIdentifier: "evergreen",
+  status: "success",
+  versionMetadata: {
+    baseVersion: {
+      ...taskQuery.task.versionMetadata,
+      id: "baseVersion",
+      order: 3676,
+      __typename: "Version" as const,
+    },
+    author: "author",
+    message: "message",
+    order: 3676,
+    project: "project",
+    projectIdentifier: "projectIdentifier",
+    revision: "revision",
+    isPatch: false,
+    id: "versionMetadataId",
+    __typename: "Version" as const,
+  },
+  baseTask: null,
+  __typename: "Task" as const,
 };
 
 // Mainline commits specific
@@ -561,26 +623,7 @@ const getMainlineTaskWithBaseVersion: ApolloMock<
   },
   result: {
     data: {
-      task: {
-        id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
-        execution: 0,
-        displayName: "lint-agent",
-        buildVariant: "lint",
-        projectIdentifier: "evergreen",
-        status: "success",
-        versionMetadata: {
-          baseVersion: {
-            id: "baseVersion",
-            order: 3676,
-            __typename: "Version",
-          },
-          isPatch: false,
-          id: "versionMetadataId",
-          __typename: "Version",
-        },
-        baseTask: null,
-        __typename: "Task",
-      },
+      task: mainlineTaskWithBaseVersion,
     },
   },
 };

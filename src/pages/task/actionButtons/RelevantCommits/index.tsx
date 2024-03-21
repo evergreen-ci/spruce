@@ -1,16 +1,11 @@
 import { useMemo } from "react";
-import { useQuery } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import Icon from "components/Icon";
-import {
-  BaseVersionAndTaskQuery,
-  BaseVersionAndTaskQueryVariables,
-} from "gql/generated/types";
-import { BASE_VERSION_AND_TASK } from "gql/queries";
+import { TaskQuery } from "gql/generated/types";
 import { useBreakingTask } from "hooks/useBreakingTask";
 import { useLastExecutedTask } from "hooks/useLastExecutedTask";
 import { useLastPassingTask } from "hooks/useLastPassingTask";
@@ -19,20 +14,17 @@ import { CommitType } from "./types";
 import { getLinks } from "./utils";
 
 interface RelevantCommitsProps {
+  task: TaskQuery["task"];
   taskId: string;
 }
 
-export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ taskId }) => {
+export const RelevantCommits: React.FC<RelevantCommitsProps> = ({
+  task,
+  taskId,
+}) => {
   const { sendEvent } = useTaskAnalytics();
 
-  const { data: taskData } = useQuery<
-    BaseVersionAndTaskQuery,
-    BaseVersionAndTaskQueryVariables
-  >(BASE_VERSION_AND_TASK, {
-    variables: { taskId },
-  });
-
-  const { baseTask, versionMetadata } = taskData?.task ?? {};
+  const { baseTask, versionMetadata } = task ?? {};
 
   const { loading: parentLoading, task: parentTask } = useParentTask(taskId);
 
