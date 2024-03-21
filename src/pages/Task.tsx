@@ -12,6 +12,7 @@ import {
 } from "components/styles";
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import { slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
 import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
 import { TASK } from "gql/queries";
@@ -29,7 +30,7 @@ import { TaskTabs } from "./task/TaskTabs";
 const { parseQueryString } = queryString;
 
 export const Task = () => {
-  const { id } = useParams<{ id: string; tab: string | null }>();
+  const { [slugs.id]: id } = useParams();
   const dispatchToast = useToastContext();
   const taskAnalytics = useTaskAnalytics();
   const location = useLocation();
