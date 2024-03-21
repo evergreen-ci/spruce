@@ -3,7 +3,7 @@
 exports[`Snapshot Tests BaseTable.stories Default 1`] = `
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+    class="leafygreen-ui-1xn4uvd"
     tabindex="0"
   >
     <table
@@ -6738,7 +6738,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
 exports[`Snapshot Tests BaseTable.stories EmptyState 1`] = `
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+    class="leafygreen-ui-1xn4uvd"
     tabindex="0"
   >
     <table
@@ -6973,11 +6973,12 @@ exports[`Snapshot Tests BaseTable.stories EmptyState 1`] = `
 exports[`Snapshot Tests BaseTable.stories Loading 1`] = `
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+    class="leafygreen-ui-1xn4uvd"
     tabindex="0"
   >
     <table
       class="leafygreen-ui-1soynca"
+      data-loading="true"
     >
       <thead
         class="leafygreen-ui-bebmcm"
@@ -7408,7 +7409,7 @@ exports[`Snapshot Tests BaseTable.stories Loading 1`] = `
 exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+    class="leafygreen-ui-1xn4uvd"
     tabindex="0"
   >
     <table
@@ -8124,7 +8125,7 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
 exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+    class="leafygreen-ui-1xn4uvd"
     tabindex="0"
   >
     <table
@@ -16407,7 +16408,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
 exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
 <div>
   <div
-    class="css-1wf6e6y-StyledTable e1bwwd861 leafygreen-ui-2z6hr7"
+    class="leafygreen-ui-2z6hr7"
     tabindex="0"
   >
     <table

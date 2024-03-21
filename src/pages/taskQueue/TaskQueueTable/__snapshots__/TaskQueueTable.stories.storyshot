@@ -6,7 +6,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
     class="leafygreen-ui-1a574ai"
   >
     <div
-      class="leafygreen-ui-1xn4uvd e1hj893t1 css-kcblj1-StyledTable-StyledBaseTable e1bwwd861"
+      class="leafygreen-ui-1xn4uvd css-xj0e1u-StyledBaseTable e1hj893t1"
       tabindex="0"
     >
       <table

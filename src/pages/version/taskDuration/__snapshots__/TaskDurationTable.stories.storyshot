@@ -3,12 +3,13 @@
 exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+    class="leafygreen-ui-1xn4uvd"
     tabindex="0"
   >
     <table
       class="leafygreen-ui-1soynca"
       data-cy="task-duration-table"
+      data-loading="false"
     >
       <thead
         class="leafygreen-ui-bebmcm"
@@ -195,7 +196,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="task-duration-table-row"
+          data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-0"
         >
@@ -469,7 +470,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="task-duration-table-row"
+          data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-1"
         >
@@ -560,7 +561,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="task-duration-table-row"
+          data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-2"
         >
@@ -651,7 +652,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="task-duration-table-row"
+          data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-3"
         >
@@ -742,7 +743,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="task-duration-table-row"
+          data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-4"
         >
@@ -833,7 +834,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="task-duration-table-row"
+          data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-5"
         >
@@ -924,7 +925,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="task-duration-table-row"
+          data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-6"
         >
@@ -1015,7 +1016,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="task-duration-table-row"
+          data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-7"
         >
@@ -1106,7 +1107,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="task-duration-table-row"
+          data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-8"
         >
@@ -1197,7 +1198,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="task-duration-table-row"
+          data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-9"
         >
@@ -1289,12 +1290,13 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
 exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+    class="leafygreen-ui-1xn4uvd"
     tabindex="0"
   >
     <table
       class="leafygreen-ui-1soynca"
       data-cy="task-duration-table"
+      data-loading="false"
     >
       <thead
         class="leafygreen-ui-bebmcm"
@@ -1481,7 +1483,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="task-duration-table-row"
+          data-cy="leafygreen-table-row"
           data-selected="false"
           id="lg-table-row-0"
         >

@@ -3,7 +3,7 @@
 exports[`Snapshot Tests TasksTable.stories Default 1`] = `
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+    class="leafygreen-ui-1xn4uvd"
     tabindex="0"
   >
     <table

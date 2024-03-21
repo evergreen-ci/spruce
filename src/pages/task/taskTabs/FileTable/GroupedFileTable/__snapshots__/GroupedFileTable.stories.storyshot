@@ -11,7 +11,7 @@ exports[`Snapshot Tests GroupedFileTable.stories DefaultTable 1`] = `
       Task 1
     </h6>
     <div
-      class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+      class="leafygreen-ui-1xn4uvd"
       tabindex="0"
     >
       <table
