@@ -205,7 +205,7 @@ const baseTaskHref = `/task/${baseTaskId}`;
 
 const patchTaskWithSuccessfulBaseTask = {
   ...taskQuery.task,
-  id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
+  id: "t1",
   execution: 0,
   displayName: "lint-agent",
   buildVariant: "lint",
@@ -256,7 +256,7 @@ const getPatchTaskWithSuccessfulBaseTask: ApolloMock<
 
 const patchTaskWithRunningBaseTask = {
   ...taskQuery.task,
-  id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
+  id: "t3",
   execution: 0,
   displayName: "lint-agent",
   buildVariant: "lint",
@@ -307,7 +307,7 @@ const getPatchTaskWithRunningBaseTask: ApolloMock<
 
 const patchTaskWithFailingBaseTask = {
   ...taskQuery.task,
-  id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
+  id: "t1",
   execution: 0,
   displayName: "lint-agent",
   buildVariant: "lint",
@@ -358,7 +358,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
 
 const patchTaskWithNoBaseVersion = {
   ...taskQuery.task,
-  id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
+  id: "t3",
   execution: 0,
   displayName: "lint-agent",
   buildVariant: "lint",
@@ -583,7 +583,7 @@ const getPatchTaskWithNoBaseTask: ApolloMock<
 
 const mainlineTaskWithBaseVersion = {
   ...taskQuery.task,
-  id: "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
+  id: "t4",
   execution: 0,
   displayName: "lint-agent",
   buildVariant: "lint",
