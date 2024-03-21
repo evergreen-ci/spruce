@@ -17,13 +17,13 @@ import { validateObjectId } from "utils/validators";
 import ConfigurePatchCore from "./configurePatchCore";
 
 const ConfigurePatch: React.FC = () => {
-  const { [slugs.id]: id } = useParams();
+  const { [slugs.patchId]: patchId } = useParams();
   const dispatchToast = useToastContext();
   const { data, error, loading } = useQuery<
     ConfigurePatchQuery,
     ConfigurePatchQueryVariables
   >(PATCH_CONFIGURE, {
-    variables: { id },
+    variables: { id: patchId },
     onError(err) {
       dispatchToast.error(err.message);
     },
@@ -33,8 +33,8 @@ const ConfigurePatch: React.FC = () => {
   usePageTitle(`Configure Patch`);
 
   // Can't configure a mainline version so should redirect to the version page
-  if (!validateObjectId(id)) {
-    return <Navigate to={getVersionRoute(id)} />;
+  if (!validateObjectId(patchId)) {
+    return <Navigate to={getVersionRoute(patchId)} />;
   }
 
   if (loading) {
@@ -45,7 +45,7 @@ const ConfigurePatch: React.FC = () => {
   }
 
   if (patch.alias === commitQueueAlias) {
-    return <Navigate to={getVersionRoute(id)} />;
+    return <Navigate to={getVersionRoute(patchId)} />;
   }
 
   return (

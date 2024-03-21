@@ -33,7 +33,8 @@ export const useLegacyUIURL = (): string | null => {
       const matchedPath = matchPath(legacyUIKeys[i], pathname);
       if (matchedPath !== null) {
         setId(
-          get(matchedPath, "params.id", "") ||
+          get(matchPath, "params.patchId", "") ||
+            get(matchedPath, "params.id", "") ||
             get(matchedPath, "params.identifier", "") ||
             get(matchedPath, "params.distroId", ""),
         );
