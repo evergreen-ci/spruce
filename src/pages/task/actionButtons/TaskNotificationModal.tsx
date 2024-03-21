@@ -14,7 +14,7 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
   onCancel,
   visible,
 }) => {
-  const { [slugs.id]: taskId } = useParams();
+  const { [slugs.taskId]: taskId } = useParams();
   const taskAnalytics = useTaskAnalytics();
 
   return (

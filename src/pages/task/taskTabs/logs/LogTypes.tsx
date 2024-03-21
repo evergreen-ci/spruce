@@ -49,7 +49,7 @@ interface Props {
 }
 
 export const AllLog: React.FC<Props> = (props) => {
-  const { [slugs.id]: id } = useParams();
+  const { [slugs.taskId]: taskId } = useParams();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
@@ -58,7 +58,7 @@ export const AllLog: React.FC<Props> = (props) => {
     AllLogsQuery,
     AllLogsQueryVariables
   >(ALL_LOGS, {
-    variables: { id, execution: selectedExecution },
+    variables: { id: taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling({ startPolling, stopPolling, refetch });
@@ -77,7 +77,7 @@ export const AllLog: React.FC<Props> = (props) => {
 };
 
 export const EventLog: React.FC<Props> = (props) => {
-  const { [slugs.id]: id } = useParams();
+  const { [slugs.taskId]: taskId } = useParams();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
@@ -85,7 +85,7 @@ export const EventLog: React.FC<Props> = (props) => {
     TaskEventLogsQuery,
     TaskEventLogsQueryVariables
   >(TASK_EVENT_LOGS, {
-    variables: { id, execution: selectedExecution },
+    variables: { id: taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling({ startPolling, stopPolling, refetch });
@@ -107,7 +107,7 @@ export const EventLog: React.FC<Props> = (props) => {
 };
 
 export const SystemLog: React.FC<Props> = (props) => {
-  const { [slugs.id]: id } = useParams();
+  const { [slugs.taskId]: taskId } = useParams();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
@@ -115,7 +115,7 @@ export const SystemLog: React.FC<Props> = (props) => {
     SystemLogsQuery,
     SystemLogsQueryVariables
   >(SYSTEM_LOGS, {
-    variables: { id, execution: selectedExecution },
+    variables: { id: taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling({ startPolling, stopPolling, refetch });
@@ -133,7 +133,7 @@ export const SystemLog: React.FC<Props> = (props) => {
 };
 
 export const AgentLog: React.FC<Props> = (props) => {
-  const { [slugs.id]: id } = useParams();
+  const { [slugs.taskId]: taskId } = useParams();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
@@ -141,7 +141,7 @@ export const AgentLog: React.FC<Props> = (props) => {
     AgentLogsQuery,
     AgentLogsQueryVariables
   >(AGENT_LOGS, {
-    variables: { id, execution: selectedExecution },
+    variables: { id: taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling({ startPolling, stopPolling, refetch });
@@ -159,7 +159,7 @@ export const AgentLog: React.FC<Props> = (props) => {
 };
 
 export const TaskLog: React.FC<Props> = (props) => {
-  const { [slugs.id]: id } = useParams();
+  const { [slugs.taskId]: taskId } = useParams();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
@@ -167,7 +167,7 @@ export const TaskLog: React.FC<Props> = (props) => {
     TaskLogsQuery,
     TaskLogsQueryVariables
   >(TASK_LOGS, {
-    variables: { id, execution: selectedExecution },
+    variables: { id: taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling({ startPolling, stopPolling, refetch });

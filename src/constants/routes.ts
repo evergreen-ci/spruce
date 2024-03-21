@@ -117,7 +117,7 @@ export const routes = {
   spawn: paths.spawn,
   spawnHost: `${paths.spawn}/${SpawnTab.Host}`,
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
-  task: `${paths.task}/:${slugs.id}`,
+  task: `${paths.task}/:${slugs.taskId}`,
   taskHistory: `${paths.taskHistory}/:${slugs.projectIdentifier}/:${slugs.taskName}`,
   taskQueue: paths.taskQueue,
   user: `${paths.user}/*`,

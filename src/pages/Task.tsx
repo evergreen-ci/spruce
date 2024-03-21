@@ -30,7 +30,7 @@ import { TaskTabs } from "./task/TaskTabs";
 const { parseQueryString } = queryString;
 
 export const Task = () => {
-  const { [slugs.id]: id } = useParams();
+  const { [slugs.taskId]: taskId } = useParams();
   const dispatchToast = useToastContext();
   const taskAnalytics = useTaskAnalytics();
   const location = useLocation();
@@ -43,7 +43,7 @@ export const Task = () => {
     TaskQuery,
     TaskQueryVariables
   >(TASK, {
-    variables: { taskId: id, execution: selectedExecution },
+    variables: { taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
     fetchPolicy: "network-only",
     onError: (err) =>
@@ -106,7 +106,7 @@ export const Task = () => {
         <PageSider>
           {latestExecution > 0 && (
             <ExecutionSelect
-              id={id}
+              id={taskId}
               currentExecution={selectedExecution}
               latestExecution={latestExecution}
               updateExecution={(n: number) => {
@@ -117,7 +117,12 @@ export const Task = () => {
               }}
             />
           )}
-          <Metadata taskId={id} task={task} loading={loading} error={error} />
+          <Metadata
+            taskId={taskId}
+            task={task}
+            loading={loading}
+            error={error}
+          />
         </PageSider>
         <LogWrapper>
           <PageContent>

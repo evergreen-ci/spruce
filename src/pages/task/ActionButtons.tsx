@@ -80,7 +80,7 @@ export const ActionButtons: React.FC<Props> = ({
   const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
 
-  const { [slugs.id]: taskId } = useParams();
+  const { [slugs.taskId]: taskId } = useParams();
   const taskAnalytics = useTaskAnalytics();
   const [, setExecution] = useQueryParam("execution", 0);
 
