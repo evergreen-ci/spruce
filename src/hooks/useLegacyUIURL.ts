@@ -37,6 +37,7 @@ export const useLegacyUIURL = (): string | null => {
             get(matchPath, "params.patchId", "") ||
             get(matchPath, "params.versionId", "") ||
             get(matchPath, "params.taskId", "") ||
+            get(matchPath, "params.userId", "") ||
             get(matchedPath, "params.id", "") ||
             get(matchedPath, "params.identifier", "") ||
             get(matchedPath, "params.distroId", ""),

@@ -89,6 +89,7 @@ export enum slugs {
   taskName = "taskName",
   variantName = "variantName",
   versionId = "versionId",
+  userId = "userId",
 }
 
 export const redirectRoutes = {
@@ -121,7 +122,7 @@ export const routes = {
   taskHistory: `${paths.taskHistory}/:${slugs.projectIdentifier}/:${slugs.taskName}`,
   taskQueue: paths.taskQueue,
   user: `${paths.user}/*`,
-  userPatches: `${paths.user}/:${slugs.id}/${PageNames.Patches}`,
+  userPatches: `${paths.user}/:${slugs.userId}/${PageNames.Patches}`,
   variantHistory: `${paths.variantHistory}/:${slugs.projectIdentifier}/:${slugs.variantName}`,
   version: `${paths.version}/:${slugs.versionId}`,
 };

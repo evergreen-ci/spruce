@@ -19,7 +19,7 @@ import { PatchPageQueryParams } from "types/patch";
 
 export const UserPatches = () => {
   const dispatchToast = useToastContext();
-  const { [slugs.id]: userId } = useParams();
+  const { [slugs.userId]: userId } = useParams();
   const analyticsObject = useUserPatchesAnalytics();
 
   const [isCommitQueueCheckboxChecked] = useQueryParam(
