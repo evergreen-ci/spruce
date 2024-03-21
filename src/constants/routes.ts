@@ -74,38 +74,52 @@ const paths = {
   version: "/version",
   waterfall: "/waterfall",
 };
+
+export enum slugs {
+  id = "id",
+  distroId = "distroId",
+  distro = "distro",
+  buildId = "buildId",
+  taskId = "taskId",
+  projectIdentifier = "projectIdentifier",
+  taskName = "taskName",
+  variantName = "variantName",
+  tab = "tab",
+}
+
 export const redirectRoutes = {
   distroSettings: paths.distros,
   projectSettings: paths.projects,
-  userPatches: `${paths.user}/:id`,
-  waterfall: `${paths.waterfall}/:projectIdentifier`,
+  userPatches: `${paths.user}/:${slugs.id}`,
+  waterfall: `${paths.waterfall}/:${slugs.projectIdentifier}`,
 };
 
 export const routes = {
-  commitQueue: `${paths.commitQueue}/:projectIdentifier`,
+  commitQueue: `${paths.commitQueue}/:${slugs.projectIdentifier}`,
   commits: paths.commits,
-  configurePatch: `${paths.patch}/:id/configure`,
-  container: `${paths.container}/:id`,
-  distroSettings: `${paths.distro}/:distroId/${PageNames.Settings}`,
-  host: `${paths.host}/:id`,
+  configurePatch: `${paths.patch}/:${slugs.id}/configure`,
+  container: `${paths.container}/:${slugs.id}`,
+  distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
+  host: `${paths.host}/:${slugs.id}`,
   hosts: paths.hosts,
-  jobLogs: `${paths.jobLogs}/:buildId`,
+  jobLogs: `${paths.jobLogs}/:${slugs.buildId}`,
+  jobLogsGroup: `${paths.jobLogs}/:${slugs.taskId}`,
   login: paths.login,
   myPatches: `${paths.user}/${PageNames.Patches}`,
-  patch: `${paths.patch}/:id`,
+  patch: `${paths.patch}/:${slugs.id}`,
   preferences: paths.preferences,
-  projectPatches: `${paths.project}/:projectIdentifier/${PageNames.Patches}`,
-  projectSettings: `${paths.project}/:projectIdentifier/${PageNames.Settings}`,
+  projectPatches: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Patches}`,
+  projectSettings: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Settings}`,
   spawn: paths.spawn,
   spawnHost: `${paths.spawn}/${SpawnTab.Host}`,
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
-  task: `${paths.task}/:id`,
-  taskHistory: `${paths.taskHistory}/:projectIdentifier/:taskName`,
+  task: `${paths.task}/:${slugs.id}`,
+  taskHistory: `${paths.taskHistory}/:${slugs.projectIdentifier}/:${slugs.taskName}`,
   taskQueue: paths.taskQueue,
   user: `${paths.user}/*`,
-  userPatches: `${paths.user}/:id/${PageNames.Patches}`,
-  variantHistory: `${paths.variantHistory}/:projectIdentifier/:variantName`,
-  version: `${paths.version}/:id`,
+  userPatches: `${paths.user}/:${slugs.id}/${PageNames.Patches}`,
+  variantHistory: `${paths.variantHistory}/:${slugs.projectIdentifier}/:${slugs.variantName}`,
+  version: `${paths.version}/:${slugs.id}`,
 };
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;
