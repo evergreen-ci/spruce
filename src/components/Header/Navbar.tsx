@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
-import ChristmasTree from "components/Icon/icons/ChristmasTree.svg";
+import HybridTree from "components/Icon/icons/HybridTree.svg";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { wikiUrl } from "constants/externalResources";
 import {
@@ -71,7 +71,10 @@ export const Navbar: React.FC = () => {
           to={routes.myPatches}
           onClick={() => sendEvent({ name: "Click Logo Link" })}
         >
-          <ChristmasTreeIcon src={ChristmasTree} alt="Evergreen Logo" />
+          <HybridTreeIcon
+            src={HybridTree}
+            alt="Evergreen Logo with a cherry blossom twist"
+          />
         </LogoLink>
         <PrimaryLink
           data-cy="project-health-link"
@@ -184,9 +187,8 @@ const SecondaryLink = styled.a`
   ${secondaryStyle}
 `;
 
-const ChristmasTreeIcon = styled.img`
-  height: 46px;
-  width: 46px;
+const HybridTreeIcon = styled.img`
+  height: 70px;
+  width: 70px;
   position: relative;
-  bottom: 4px;
 `;

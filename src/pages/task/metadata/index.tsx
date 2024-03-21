@@ -38,6 +38,7 @@ import { AbortMessage } from "./AbortMessage";
 import { DependsOn } from "./DependsOn";
 import ETATimer from "./ETATimer";
 import RuntimeTimer from "./RuntimeTimer";
+import { Stepback, isInStepback } from "./Stepback";
 
 const { applyStrictRegex, msToDuration, shortenGithash } = string;
 const { red } = palette;
@@ -79,7 +80,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
     spawnHostLink,
     startTime,
     status,
-    stepbackInfo,
     timeTaken,
     versionMetadata,
   } = task || {};
@@ -107,6 +107,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
     Cookies.set(SEEN_HONEYCOMB_GUIDE_CUE, "true", { expires: 365 });
     setOpenGuideCue(false);
   };
+  const stepback = isInStepback(task);
 
   return (
     <MetadataCard error={error} loading={loading}>
@@ -404,66 +405,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           </StyledLink>
         </MetadataItem>
       )}
-      {stepbackInfo?.lastPassingStepbackTaskId && (
-        <>
-          <MetadataItem>
-            Last Passing Stepback Task:{" "}
-            <StyledRouterLink
-              to={getTaskRoute(stepbackInfo.lastPassingStepbackTaskId)}
-              onClick={() =>
-                taskAnalytics.sendEvent({
-                  name: "Click Last Passing Stepback Task Link",
-                })
-              }
-            >
-              {stepbackInfo.lastPassingStepbackTaskId}
-            </StyledRouterLink>
-          </MetadataItem>
-          <MetadataItem>
-            Last Failing Stepback Task:{" "}
-            <StyledRouterLink
-              to={getTaskRoute(stepbackInfo.lastFailingStepbackTaskId)}
-              onClick={() =>
-                taskAnalytics.sendEvent({
-                  name: "Click Last Failing Stepback Task Link",
-                })
-              }
-            >
-              {stepbackInfo.lastFailingStepbackTaskId}
-            </StyledRouterLink>
-          </MetadataItem>
-        </>
-      )}
-      {stepbackInfo?.previousStepbackTaskId && (
-        <MetadataItem>
-          Previous Stepback Task:{" "}
-          <StyledRouterLink
-            to={getTaskRoute(stepbackInfo.previousStepbackTaskId)}
-            onClick={() =>
-              taskAnalytics.sendEvent({
-                name: "Click Previous Stepback Task Link",
-              })
-            }
-          >
-            {stepbackInfo.previousStepbackTaskId}
-          </StyledRouterLink>
-        </MetadataItem>
-      )}
-      {stepbackInfo?.nextStepbackTaskId && (
-        <MetadataItem>
-          Next Stepback Task:{" "}
-          <StyledRouterLink
-            to={getTaskRoute(stepbackInfo.nextStepbackTaskId)}
-            onClick={() =>
-              taskAnalytics.sendEvent({
-                name: "Click Next Stepback Task Link",
-              })
-            }
-          >
-            {stepbackInfo.nextStepbackTaskId}
-          </StyledRouterLink>
-        </MetadataItem>
-      )}
+      {stepback && <Stepback taskId={taskId} />}
     </MetadataCard>
   );
 };
