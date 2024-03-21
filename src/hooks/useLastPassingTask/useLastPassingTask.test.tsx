@@ -20,7 +20,7 @@ const ProviderWrapper: React.FC<ProviderProps> = ({ children, mocks = [] }) => (
 );
 
 describe("useLastPassingTask", () => {
-  it("no last passing task is found when task is not found", async () => {
+  it("no last passing task is found when task is not found", () => {
     const { dispatchToast } = RenderFakeToastContext();
 
     const { result } = renderHook(() => useLastPassingTask("t1"), {

@@ -20,7 +20,7 @@ const ProviderWrapper: React.FC<ProviderProps> = ({ children, mocks = [] }) => (
 );
 
 describe("useBreakingTask", () => {
-  it("no breaking task is found when task is not found", async () => {
+  it("no breaking task is found when task is not found", () => {
     const { dispatchToast } = RenderFakeToastContext();
 
     const { result } = renderHook(() => useBreakingTask("t1"), {

@@ -17,7 +17,7 @@ const ProviderWrapper: React.FC<ProviderProps> = ({ children, mocks = [] }) => (
 );
 
 describe("useParentTask", () => {
-  it("no parent task is found when task is not found", async () => {
+  it("no parent task is found when task is not found", () => {
     const { result } = renderHook(() => useParentTask("t1"), {
       wrapper: ({ children }) => ProviderWrapper({ children }),
     });

@@ -20,7 +20,7 @@ const ProviderWrapper: React.FC<ProviderProps> = ({ children, mocks = [] }) => (
 );
 
 describe("useLastExecutedTask", () => {
-  it("no last executed task is found when task is not found", async () => {
+  it("no last executed task is found when task is not found", () => {
     const { dispatchToast } = RenderFakeToastContext();
 
     const { result } = renderHook(() => useLastExecutedTask("t1"), {
