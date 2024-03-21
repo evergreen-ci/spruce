@@ -76,15 +76,19 @@ const paths = {
 };
 
 export enum slugs {
-  id = "id",
-  distroId = "distroId",
-  distro = "distro",
   buildId = "buildId",
-  taskId = "taskId",
+  containerId = "containerId",
+  distro = "distro",
+  distroId = "distroId",
+  hostId = "hostId",
+  id = "id",
+  patchId = "patchId",
   projectIdentifier = "projectIdentifier",
+  tab = "tab",
+  taskId = "taskId",
   taskName = "taskName",
   variantName = "variantName",
-  tab = "tab",
+  versionId = "versionId",
 }
 
 export const redirectRoutes = {
