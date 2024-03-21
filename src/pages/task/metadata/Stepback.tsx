@@ -17,32 +17,31 @@ type Props = {
  * @param task The task to check if it is in stepback.
  * @returns Whether the task is in stepback.
  */
-export function inStepback(task: TaskQuery["task"]) {
+export function isInStepback(task: TaskQuery["task"]) {
   // The 'lastFailingStepbackTaskId' is set for all stepback tasks except the first one.
-  const stepback =
-    task?.stepbackInfo?.lastFailingStepbackTaskId !== undefined &&
-    task?.stepbackInfo?.lastFailingStepbackTaskId !== "";
+  const hasLastStepback =
+    task?.stepbackInfo?.lastFailingStepbackTaskId?.length > 0;
 
   // The 'nextStepbackTaskId' is only set when the next task in stepback is running/finished.
   // This happens in the beginning of stepback or them middle of stepback. This condition is
   // covering for the beginning of stepback.
-  const beginningStepback =
+  const isBeginningStepback =
     task?.stepbackInfo?.nextStepbackTaskId !== undefined &&
     task?.stepbackInfo?.nextStepbackTaskId !== "";
 
   // If the task is in stepback or beginning stepback, it is counted as in stepback.
-  return stepback || beginningStepback;
+  return hasLastStepback || isBeginningStepback;
 }
 
 export const Stepback: React.FC<Props> = ({ taskId }) => {
   const { loading, task: breakingTask } = useBreakingTask(taskId);
   const { task: lastPassingTask } = useLastPassingTask(taskId);
 
-  // The last stepback task has an undefined last passing task (it is passing itself).
-  const isLastStepbackTask = lastPassingTask === undefined;
+  // If the last passing task is undefined, it means the task is the breaking task.
+  const isBreakingTask = lastPassingTask === undefined;
 
   // The stepback is finished if there is a breaking task or we are on the last stepback task.
-  const finished = breakingTask !== undefined || isLastStepbackTask;
+  const finished = breakingTask !== undefined || isBreakingTask;
 
   return (
     <StepbackWrapper>
