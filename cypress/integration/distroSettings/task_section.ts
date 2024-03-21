@@ -68,7 +68,7 @@ describe("task section", () => {
       // Undo changes.
       cy.selectLGOption("Task Finder Version", "Legacy");
       cy.selectLGOption("Task Planner Version", "Legacy");
-      cy.selectLGOption("Task Dispatcher Version", /^Revised$/);
+      cy.selectLGOption("Task Dispatcher Version", "Revised with dependencies");
       save();
       cy.validateToast("success");
     });

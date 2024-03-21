@@ -94,11 +94,25 @@ exports[`Snapshot Tests Pages/Spawn/Spawn Host Card Default 1`] = `
       <div
         class="css-o728yg-FieldName e9wutqn1"
       >
-        DNS Name
+        Host Name
       </div>
       <div>
         <span>
           ec2-54-242-162-135.compute-1.amazonaws.com
+        </span>
+      </div>
+    </div>
+    <div
+      class="css-7hzhkt-FieldContainer e9wutqn2"
+    >
+      <div
+        class="css-o728yg-FieldName e9wutqn1"
+      >
+        Persistent DNS Name
+      </div>
+      <div>
+        <span>
+          mohamed-khelif-abc.workstations.build.10gen.cc
         </span>
       </div>
     </div>
