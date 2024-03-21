@@ -34,7 +34,7 @@ const { getLimitFromSearch, getPageFromSearch } = url;
 
 const Host: React.FC = () => {
   const dispatchToast = useToastContext();
-  const { [slugs.id]: id } = useParams();
+  const { [slugs.hostId]: id } = useParams();
   // Query host data
   const {
     data: hostData,

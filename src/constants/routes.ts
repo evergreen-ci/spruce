@@ -104,7 +104,7 @@ export const routes = {
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure`,
   container: `${paths.container}/:${slugs.podId}`,
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
-  host: `${paths.host}/:${slugs.id}`,
+  host: `${paths.host}/:${slugs.hostId}`,
   hosts: paths.hosts,
   jobLogs: `${paths.jobLogs}/:${slugs.buildId}`,
   jobLogsGroup: `${paths.jobLogs}/:${slugs.taskId}`,
