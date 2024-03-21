@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { slugs } from "constants/routes";
 
 type Action =
   | { name: "Save project"; section: string }
@@ -12,6 +13,6 @@ type Action =
   | { name: "Duplicate project"; projectIdToCopy: string };
 
 export const useProjectSettingsAnalytics = () => {
-  const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
+  const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   return useAnalyticsRoot<Action>("ProjectSettings", { projectIdentifier });
 };

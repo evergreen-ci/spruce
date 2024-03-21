@@ -7,6 +7,7 @@ import { useProjectSettingsAnalytics } from "analytics";
 import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
+  slugs,
 } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
@@ -47,9 +48,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
   const { getTab, saveTab } = useProjectSettingsContext();
   const { formData, hasChanges, hasError } = getTab(tab);
   const navigate = useNavigate();
-  const { projectIdentifier: identifier } = useParams<{
-    projectIdentifier: string;
-  }>();
+  const { [slugs.projectIdentifier]: identifier } = useParams();
 
   const [defaultModalOpen, setDefaultModalOpen] = useState(false);
 

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { NotificationModal } from "components/Notifications";
+import { slugs } from "constants/routes";
 import { waterfallTriggers } from "constants/triggers";
 import { subscriptionMethods } from "types/subscription";
 
@@ -13,7 +14,7 @@ interface AddNotificationProps {
 export const AddNotification: React.FC<AddNotificationProps> = ({
   setMenuOpen,
 }) => {
-  const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
+  const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   return (

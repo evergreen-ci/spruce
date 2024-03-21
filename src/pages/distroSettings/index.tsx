@@ -11,6 +11,7 @@ import {
 import {
   DistroSettingsTabRoutes,
   getDistroSettingsRoute,
+  slugs,
 } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -26,9 +27,9 @@ import { DistroSettingsTabs } from "./Tabs";
 const DistroSettings: React.FC = () => {
   usePageTitle("Distro Settings");
   const dispatchToast = useToastContext();
-  const { distroId, tab: currentTab } = useParams<{
-    distroId: string;
-    tab: DistroSettingsTabRoutes;
+  const { [slugs.distroId]: distroId, [slugs.tab]: currentTab } = useParams<{
+    [slugs.distroId]: string;
+    [slugs.tab]: DistroSettingsTabRoutes;
   }>();
 
   const { data, loading } = useQuery<DistroQuery, DistroQueryVariables>(

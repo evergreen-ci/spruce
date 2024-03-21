@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDistroSettingsAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm } from "components/SpruceForm";
-import { getDistroSettingsRoute } from "constants/routes";
+import { getDistroSettingsRoute, slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
   CopyDistroMutation,
@@ -21,7 +21,7 @@ interface Props {
 }
 
 export const CopyModal: React.FC<Props> = ({ handleClose, open }) => {
-  const { distroId } = useParams<{ distroId: string }>();
+  const { [slugs.distroId]: distroId } = useParams();
   const navigate = useNavigate();
   const dispatchToast = useToastContext();
   const { sendEvent } = useDistroSettingsAnalytics();

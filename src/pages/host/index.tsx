@@ -15,6 +15,7 @@ import {
   PageLayout,
   PageContent,
 } from "components/styles";
+import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -33,7 +34,7 @@ const { getLimitFromSearch, getPageFromSearch } = url;
 
 const Host: React.FC = () => {
   const dispatchToast = useToastContext();
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.id]: id } = useParams();
   // Query host data
   const {
     data: hostData,

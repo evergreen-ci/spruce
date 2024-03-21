@@ -5,6 +5,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import TableControl from "components/Table/TableControl";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -27,7 +28,7 @@ interface Props {
 
 const TaskDuration: React.FC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.id]: id } = useParams();
   const { search } = useLocation();
 
   const updateQueryParams = useUpdateURLQueryParams();

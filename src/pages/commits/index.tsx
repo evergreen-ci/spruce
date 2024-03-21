@@ -18,7 +18,7 @@ import {
   CY_DISABLE_COMMITS_WELCOME_MODAL,
 } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { getCommitsRoute } from "constants/routes";
+import { getCommitsRoute, slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { newMainlineCommitsUser } from "constants/welcomeModalProps";
 import { useToastContext } from "context/toast";
@@ -67,9 +67,7 @@ const Commits = () => {
   const { hasUsedMainlineCommitsBefore = true } = useSpruceOptions ?? {};
   const [ref, limit, isResizing] = useCommitLimit<HTMLDivElement>();
   const parsed = parseQueryString(search);
-  const { projectIdentifier } = useParams<{
-    projectIdentifier: string;
-  }>();
+  const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   usePageTitle(`Project Health | ${projectIdentifier}`);
 
   const sendAnalyticsEvent = (id: string, identifier: string) => {

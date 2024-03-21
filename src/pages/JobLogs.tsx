@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { PageWrapper, StyledRouterLink } from "components/styles";
 import { getParsleyBuildLogURL } from "constants/externalResources";
-import { getTaskRoute } from "constants/routes";
+import { getTaskRoute, slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -18,7 +18,7 @@ import { usePageTitle } from "hooks";
 import { JobLogsTable } from "./jobLogs/JobLogsTable";
 
 export const JobLogs = () => {
-  const { buildId } = useParams<{ buildId: string }>();
+  const { [slugs.buildId]: buildId } = useParams();
   const dispatchToast = useToastContext();
   const { sendEvent } = useJobLogsAnalytics();
 

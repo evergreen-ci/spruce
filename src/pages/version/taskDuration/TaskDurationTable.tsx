@@ -14,6 +14,7 @@ import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { onChangeHandler } from "components/Table/utils";
 import { TaskLink } from "components/TasksTable/TaskLink";
 import TaskStatusBadge from "components/TaskStatusBadge";
+import { slugs } from "constants/routes";
 import { VersionTaskDurationsQuery, SortDirection } from "gql/generated/types";
 import { useTaskStatuses } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
@@ -34,7 +35,7 @@ export const TaskDurationTable: React.FC<Props> = ({
   numLoadingRows,
   tasks,
 }) => {
-  const { id: versionId } = useParams<{ id: string }>();
+  const { [slugs.id]: versionId } = useParams();
   const { sendEvent } = useVersionAnalytics(versionId);
   const { currentStatuses: statusOptions } = useTaskStatuses({ versionId });
 

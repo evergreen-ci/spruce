@@ -6,12 +6,12 @@ import {
   SideNavGroup,
   SideNavItem,
 } from "components/styles";
-import { routes, SpawnTab } from "constants/routes";
+import { routes, SpawnTab, slugs } from "constants/routes";
 import { SpawnHost } from "./SpawnHost";
 import { SpawnVolume } from "./SpawnVolume";
 
 const Spawn: React.FC = () => {
-  const { tab } = useParams<{ tab: string }>();
+  const { [slugs.tab]: tab } = useParams();
   const spawnAnalytics = useSpawnAnalytics();
 
   return (

@@ -5,6 +5,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
 import { useParams, useLocation } from "react-router-dom";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import { slugs } from "constants/routes";
 import { size, fontSize } from "constants/tokens";
 import {
   TaskEventLogsQuery,
@@ -48,7 +49,7 @@ interface Props {
 }
 
 export const AllLog: React.FC<Props> = (props) => {
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.id]: id } = useParams();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
@@ -76,7 +77,7 @@ export const AllLog: React.FC<Props> = (props) => {
 };
 
 export const EventLog: React.FC<Props> = (props) => {
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.id]: id } = useParams();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
@@ -106,7 +107,7 @@ export const EventLog: React.FC<Props> = (props) => {
 };
 
 export const SystemLog: React.FC<Props> = (props) => {
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.id]: id } = useParams();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
@@ -132,7 +133,7 @@ export const SystemLog: React.FC<Props> = (props) => {
 };
 
 export const AgentLog: React.FC<Props> = (props) => {
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.id]: id } = useParams();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
@@ -158,7 +159,7 @@ export const AgentLog: React.FC<Props> = (props) => {
 };
 
 export const TaskLog: React.FC<Props> = (props) => {
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.id]: id } = useParams();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);

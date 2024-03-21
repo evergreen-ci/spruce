@@ -1,7 +1,7 @@
 import { useParams, Navigate } from "react-router-dom";
-import { getUserPatchesRoute } from "constants/routes";
+import { getUserPatchesRoute, slugs } from "constants/routes";
 
 export const UserPatchesRedirect: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.id]: id } = useParams();
   return <Navigate replace to={getUserPatchesRoute(id)} />;
 };

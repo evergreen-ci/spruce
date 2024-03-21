@@ -5,6 +5,7 @@ import { useVersionAnalytics } from "analytics";
 import TableControl from "components/Table/TableControl";
 import TableWrapper from "components/Table/TableWrapper";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import { slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
   VersionTasksQuery,
@@ -27,7 +28,7 @@ interface Props {
 
 export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.id]: id } = useParams();
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
   const versionAnalytics = useVersionAnalytics(id);

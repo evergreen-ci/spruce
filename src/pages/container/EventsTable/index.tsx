@@ -16,6 +16,7 @@ import PageSizeSelector, {
 } from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import { SiderCard, TableControlInnerRow } from "components/styles";
+import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import { PodEventsQuery, PodEventsQueryVariables } from "gql/generated/types";
@@ -32,7 +33,7 @@ const EventsTable: React.FC<{}> = () => {
   const setPageSize = usePageSizeSelector();
   const page = getPageFromSearch(search);
   const limit = getLimitFromSearch(search);
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.id]: id } = useParams();
   const dispatchToast = useToastContext();
   const { data: podEventsData } = useQuery<
     PodEventsQuery,

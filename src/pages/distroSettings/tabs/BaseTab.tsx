@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { Form } from "components/Settings/Form";
 import { GetFormSchema, ValidateProps } from "components/SpruceForm";
+import { slugs } from "constants/routes";
 import {
   UserDistroSettingsPermissionsQuery,
   UserDistroSettingsPermissionsQueryVariables,
@@ -21,7 +22,10 @@ export const BaseTab = <T extends WritableDistroSettingsType>({
   initialFormState,
   ...rest
 }: BaseTabProps<T>) => {
-  const { distroId, tab } = useParams<{ distroId: string; tab: T }>();
+  const { [slugs.distroId]: distroId, [slugs.tab]: tab } = useParams<{
+    [slugs.tab]: T;
+    [slugs.distroId]: string;
+  }>();
   const state = useDistroSettingsContext();
   usePopulateForm(initialFormState, tab);
 

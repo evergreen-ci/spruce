@@ -9,7 +9,7 @@ import { LoadingButton } from "components/Buttons";
 import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
 import { commitQueueRequester } from "constants/patch";
-import { getTaskHistoryRoute } from "constants/routes";
+import { getTaskHistoryRoute, slugs } from "constants/routes";
 import { mergeTaskName } from "constants/task";
 import { useToastContext } from "context/toast";
 import {
@@ -80,7 +80,7 @@ export const ActionButtons: React.FC<Props> = ({
   const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
 
-  const { id: taskId } = useParams<{ id: string }>();
+  const { [slugs.id]: taskId } = useParams();
   const taskAnalytics = useTaskAnalytics();
   const [, setExecution] = useQueryParam("execution", 0);
 

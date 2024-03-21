@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { NotificationModal } from "components/Notifications";
+import { slugs } from "constants/routes";
 import { taskTriggers } from "constants/triggers";
 import { subscriptionMethods as taskSubscriptionMethods } from "types/subscription";
 
@@ -13,7 +14,7 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
   onCancel,
   visible,
 }) => {
-  const { id: taskId } = useParams<{ id: string }>();
+  const { [slugs.id]: taskId } = useParams();
   const taskAnalytics = useTaskAnalytics();
 
   return (

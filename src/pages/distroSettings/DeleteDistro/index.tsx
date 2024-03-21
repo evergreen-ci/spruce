@@ -6,6 +6,7 @@ import { Description } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";
+import { slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
   DeleteDistroMutation,
@@ -66,7 +67,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal, distroId, open }) => {
 };
 
 export const DeleteDistro: React.FC = () => {
-  const { distroId } = useParams<{ distroId: string }>();
+  const { [slugs.distroId]: distroId } = useParams();
   const [open, setOpen] = useState(false);
   const id = "delete-distro-button";
 

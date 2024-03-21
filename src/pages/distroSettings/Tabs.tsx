@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { useParams, Routes, Route, Navigate } from "react-router-dom";
-import { DistroSettingsTabRoutes } from "constants/routes";
+import { DistroSettingsTabRoutes, slugs } from "constants/routes";
 import { DistroQuery } from "gql/generated/types";
 import { useDistroSettingsContext } from "./Context";
 import { Header } from "./Header";
@@ -22,7 +22,9 @@ interface Props {
 }
 
 export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
-  const { tab } = useParams<{ tab: DistroSettingsTabRoutes }>();
+  const { [slugs.tab]: tab } = useParams<{
+    [slugs.tab]: DistroSettingsTabRoutes;
+  }>();
   const { setInitialData } = useDistroSettingsContext();
 
   const tabData = useMemo(() => getTabData(distro), [distro]);

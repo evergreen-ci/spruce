@@ -17,6 +17,7 @@ import {
 import HistoryTable from "components/HistoryTable/HistoryTable";
 import { useHistoryTable } from "components/HistoryTable/HistoryTableContext";
 import { PageWrapper } from "components/styles";
+import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -37,10 +38,10 @@ const { useJumpToCommit, useTestFilters } = hooks;
 
 const TaskHistoryContents: React.FC = () => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
-  const { projectIdentifier, taskName } = useParams<{
-    projectIdentifier: string;
-    taskName: string;
-  }>();
+  const {
+    [slugs.projectIdentifier]: projectIdentifier,
+    [slugs.taskName]: taskName,
+  } = useParams();
   const { ingestNewCommits } = useHistoryTable();
   usePageTitle(`Task History | ${projectIdentifier} | ${taskName}`);
   useTestFilters();

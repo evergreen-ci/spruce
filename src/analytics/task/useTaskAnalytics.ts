@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { slugs } from "constants/routes";
 import {
   SaveSubscriptionForUserMutationVariables,
   TaskQuery,
@@ -69,7 +70,7 @@ type Action =
   | { name: "Submit Relevant Commit Selector"; type: CommitType };
 
 export const useTaskAnalytics = () => {
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.id]: id } = useParams();
 
   const [execution] = useQueryParam(RequiredQueryParams.Execution, 0);
   const { data: eventData } = useQuery<TaskQuery, TaskQueryVariables>(TASK, {

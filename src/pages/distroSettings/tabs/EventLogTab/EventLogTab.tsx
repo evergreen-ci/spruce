@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { EventDiffTable, EventLog } from "components/Settings/EventLog";
+import { slugs } from "constants/routes";
 import { LegacyEventEntry } from "./LegacyEventEntry";
 import { useDistroEvents } from "./useDistroEvents";
 
@@ -8,9 +9,7 @@ type TabProps = {
 };
 
 export const EventLogTab: React.FC<TabProps> = ({ limit }) => {
-  const { distroId } = useParams<{
-    distroId: string;
-  }>();
+  const { [slugs.distroId]: distroId } = useParams();
 
   const { allEventsFetched, events, fetchMore, loading } = useDistroEvents(
     distroId,

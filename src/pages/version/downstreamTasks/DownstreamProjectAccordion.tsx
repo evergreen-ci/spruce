@@ -11,7 +11,7 @@ import { PatchStatusBadge } from "components/PatchStatusBadge";
 import TableControl from "components/Table/TableControl";
 import TableWrapper from "components/Table/TableWrapper";
 import TasksTable from "components/TasksTable";
-import { getVersionRoute } from "constants/routes";
+import { getVersionRoute, slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -56,7 +56,7 @@ export const DownstreamProjectAccordion: React.FC<
 }) => {
   const dispatchToast = useToastContext();
 
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.id]: id } = useParams();
   const { sendEvent } = useVersionAnalytics(id);
 
   const defaultSort: SortOrder = {

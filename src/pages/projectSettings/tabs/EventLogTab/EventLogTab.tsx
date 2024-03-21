@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { EventLog } from "components/Settings/EventLog";
+import { slugs } from "constants/routes";
 import { ProjectType } from "../utils";
 import { useProjectSettingsEvents } from "./useProjectSettingsEvents";
 
@@ -9,9 +10,7 @@ type TabProps = {
 };
 
 export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
-  const { projectIdentifier: identifier } = useParams<{
-    projectIdentifier: string;
-  }>();
+  const { [slugs.projectIdentifier]: identifier } = useParams();
 
   const isRepo = projectType === ProjectType.Repo;
   const { allEventsFetched, events, fetchMore } = useProjectSettingsEvents(

@@ -5,6 +5,7 @@ import Button, { Size, Variant } from "@leafygreen-ui/button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { useParams } from "react-router-dom";
 import Icon from "components/Icon";
+import { slugs } from "constants/routes";
 import { zIndex } from "constants/tokens";
 import {
   UserDistroSettingsPermissionsQuery,
@@ -15,7 +16,7 @@ import { CopyModal } from "./CopyModal";
 import { CreateModal } from "./CreateModal";
 
 export const NewDistroButton: React.FC = () => {
-  const { distroId } = useParams<{ distroId: string }>();
+  const { [slugs.distroId]: distroId } = useParams();
   const [menuOpen, setMenuOpen] = useState(false);
   const [copyModalOpen, setCopyModalOpen] = useState(false);
   const [createModalOpen, setCreateModalOpen] = useState(false);

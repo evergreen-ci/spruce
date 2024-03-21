@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
-import { ProjectSettingsTabRoutes } from "constants/routes";
+import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { useProjectSettingsContext } from "./Context";
 import { Header } from "./Header";
@@ -43,7 +43,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
   projectType,
   repoData,
 }) => {
-  const { tab } = useParams<{ tab: ProjectSettingsTabRoutes }>();
+  const { [slugs.tab]: tab } = useParams<{ tab: ProjectSettingsTabRoutes }>();
   const { setInitialData } = useProjectSettingsContext();
 
   const projectId = projectData?.projectRef?.id;

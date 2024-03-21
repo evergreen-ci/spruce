@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { slugs } from "constants/routes";
 import { ProjectQuery, ProjectQueryVariables } from "gql/generated/types";
 import { PROJECT } from "gql/queries";
 import { validators } from "utils";
@@ -19,9 +20,7 @@ interface UseProjectRedirectProps {
 export const useProjectRedirect = ({
   sendAnalyticsEvent = () => {},
 }: UseProjectRedirectProps) => {
-  const { projectIdentifier: project } = useParams<{
-    projectIdentifier: string;
-  }>();
+  const { [slugs.projectIdentifier]: project } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
 

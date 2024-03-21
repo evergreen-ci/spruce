@@ -13,6 +13,7 @@ import {
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
+  slugs,
 } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -36,10 +37,11 @@ const { validateObjectId } = validators;
 const ProjectSettings: React.FC = () => {
   usePageTitle(`Project Settings`);
   const dispatchToast = useToastContext();
-  const { projectIdentifier: identifier, tab } = useParams<{
-    projectIdentifier: string;
-    tab: ProjectSettingsTabRoutes;
-  }>();
+  const { [slugs.projectIdentifier]: identifier, [slugs.tab]: tab } =
+    useParams<{
+      [slugs.projectIdentifier]: string | null;
+      [slugs.tab]: ProjectSettingsTabRoutes;
+    }>();
   // If the path includes an Object ID, this page represents a repo and we should not attempt to fetch a project.
   const isRepo = validateObjectId(identifier);
 

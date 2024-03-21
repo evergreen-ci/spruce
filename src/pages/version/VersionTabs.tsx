@@ -5,7 +5,7 @@ import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
-import { getVersionRoute } from "constants/routes";
+import { getVersionRoute, slugs } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
 import { useTabShortcut } from "hooks/useTabShortcut";
@@ -86,7 +86,7 @@ export const VersionTabs: React.FC<Props> = ({
   isPatch,
   taskCount,
 }) => {
-  const { id, tab } = useParams<{ id: string; tab: PatchTab }>();
+  const { [slugs.id]: id, [slugs.tab]: tab } = useParams();
   const { search } = useLocation();
   const { sendEvent } = useVersionAnalytics(id);
   const navigate = useNavigate();

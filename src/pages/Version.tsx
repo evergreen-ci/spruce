@@ -12,7 +12,7 @@ import {
   PageSider,
 } from "components/styles";
 import { commitQueueAlias } from "constants/patch";
-import { getCommitQueueRoute, getPatchRoute } from "constants/routes";
+import { getCommitQueueRoute, getPatchRoute, slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
   VersionQuery,
@@ -38,7 +38,7 @@ import { NameChangeModal } from "./version/NameChangeModal";
 // docs/decisions/2023-12-13_version_page_logic.md
 export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.id]: id } = useParams();
   const dispatchToast = useToastContext();
 
   const [redirectURL, setRedirectURL] = useState(undefined);

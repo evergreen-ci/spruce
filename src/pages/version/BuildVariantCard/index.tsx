@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { navBarHeight } from "components/Header/Navbar";
 import { MetadataCard, MetadataTitle } from "components/MetadataCard";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import {
   BuildVariantStatsQuery,
@@ -14,7 +15,7 @@ import { usePolling } from "hooks";
 import VariantTaskGroup from "./VariantTaskGroup";
 
 const BuildVariantCard: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.id]: id } = useParams();
 
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     BuildVariantStatsQuery,

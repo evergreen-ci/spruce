@@ -10,7 +10,12 @@ import Icon from "components/Icon";
 import ChristmasTree from "components/Icon/icons/ChristmasTree.svg";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { wikiUrl } from "constants/externalResources";
-import { getCommitsRoute, getUserPatchesRoute, routes } from "constants/routes";
+import {
+  getCommitsRoute,
+  getUserPatchesRoute,
+  routes,
+  slugs,
+} from "constants/routes";
 import { size } from "constants/tokens";
 import { useAuthStateContext } from "context/Auth";
 import { UserQuery, SpruceConfigQuery } from "gql/generated/types";
@@ -33,9 +38,7 @@ export const Navbar: React.FC = () => {
   const { user } = userData || {};
   const { userId } = user || {};
 
-  const { projectIdentifier: projectFromUrl } = useParams<{
-    projectIdentifier: string;
-  }>();
+  const { [slugs.projectIdentifier]: projectFromUrl } = useParams();
   const currProject = Cookies.get(CURRENT_PROJECT);
 
   // Update current project cookie if the project in the URL is not an objectId and is not equal

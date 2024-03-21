@@ -6,6 +6,7 @@ import { PatchesPage } from "components/PatchesPage";
 import { usePatchesQueryParams } from "components/PatchesPage/usePatchesQueryParams";
 import { INCLUDE_COMMIT_QUEUE_USER_PATCHES } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import { slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
   UserPatchesQuery,
@@ -18,7 +19,7 @@ import { PatchPageQueryParams } from "types/patch";
 
 export const UserPatches = () => {
   const dispatchToast = useToastContext();
-  const { id: userId } = useParams<{ id: string }>();
+  const { [slugs.id]: userId } = useParams();
   const analyticsObject = useUserPatchesAnalytics();
 
   const [isCommitQueueCheckboxChecked] = useQueryParam(

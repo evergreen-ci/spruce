@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { PageTitle } from "components/PageTitle";
 import { ProjectSelect } from "components/ProjectSelect";
 import { PageWrapper } from "components/styles";
-import { getCommitQueueRoute } from "constants/routes";
+import { getCommitQueueRoute, slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
   CommitQueueQuery,
@@ -21,7 +21,7 @@ import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
 const { gray } = palette;
 
 export const CommitQueue: React.FC = () => {
-  const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
+  const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   const dispatchToast = useToastContext();
   const { data, loading } = useQuery<
     CommitQueueQuery,

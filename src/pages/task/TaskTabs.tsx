@@ -5,7 +5,7 @@ import { useTaskAnalytics } from "analytics";
 import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
-import { getTaskRoute, GetTaskRouteOptions } from "constants/routes";
+import { getTaskRoute, GetTaskRouteOptions, slugs } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
 import { useTabShortcut } from "hooks/useTabShortcut";
@@ -24,7 +24,7 @@ interface TaskTabProps {
   task: TaskQuery["task"];
 }
 export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
-  const { tab: urlTab } = useParams<{ id: string; tab: TaskTab | null }>();
+  const { [slugs.tab]: urlTab } = useParams<{ [slugs.tab]: TaskTab }>();
 
   const navigate = useNavigate();
   const location = useLocation();

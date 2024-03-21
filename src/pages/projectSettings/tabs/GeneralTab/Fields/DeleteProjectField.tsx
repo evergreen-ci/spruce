@@ -6,6 +6,7 @@ import { Description } from "@leafygreen-ui/typography";
 import { Field } from "@rjsf/core";
 import { useParams } from "react-router-dom";
 import { ConfirmationModal } from "components/ConfirmationModal";
+import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -22,9 +23,7 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
   const dispatchToast = useToastContext();
-  const { projectIdentifier: identifier } = useParams<{
-    projectIdentifier: string;
-  }>();
+  const { [slugs.projectIdentifier]: identifier } = useParams();
 
   const [deleteProject, { loading }] = useMutation<
     DeleteProjectMutation,

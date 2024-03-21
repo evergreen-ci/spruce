@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { slugs } from "constants/routes";
 
 type Action =
   | { name: "Change Page Size" }
@@ -11,6 +12,6 @@ type Action =
   | { name: "Filter Patches"; filterBy: string };
 
 export const useProjectPatchesAnalytics = () => {
-  const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
+  const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   return useAnalyticsRoot<Action>("ProjectPatches", { projectIdentifier });
 };

@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { slugs } from "constants/routes";
 
 type Action =
   | { name: "Save distro"; section: string }
@@ -7,6 +8,6 @@ type Action =
   | { name: "Duplicate distro"; newDistroId: string };
 
 export const useDistroSettingsAnalytics = () => {
-  const { distroId } = useParams<{ distroId: string }>();
+  const { [slugs.distroId]: distroId } = useParams();
   return useAnalyticsRoot<Action>("DistroSettings", { distroId });
 };

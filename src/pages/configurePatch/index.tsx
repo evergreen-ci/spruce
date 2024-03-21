@@ -4,7 +4,7 @@ import { ProjectBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageWrapper } from "components/styles";
 import { commitQueueAlias } from "constants/patch";
-import { getVersionRoute } from "constants/routes";
+import { getVersionRoute, slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
   ConfigurePatchQuery,
@@ -17,7 +17,7 @@ import { validateObjectId } from "utils/validators";
 import ConfigurePatchCore from "./configurePatchCore";
 
 const ConfigurePatch: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.id]: id } = useParams();
   const dispatchToast = useToastContext();
   const { data, error, loading } = useQuery<
     ConfigurePatchQuery,

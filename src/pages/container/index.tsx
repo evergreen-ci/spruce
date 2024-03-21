@@ -8,6 +8,7 @@ import {
   PageWrapper,
   PageContent,
 } from "components/styles";
+import { slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
 import { PodQuery, PodQueryVariables } from "gql/generated/types";
 import { POD } from "gql/queries";
@@ -17,7 +18,7 @@ import Metadata from "./Metadata";
 
 const Container = () => {
   const dispatchToast = useToastContext();
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.id]: id } = useParams();
   const { data, error, loading } = useQuery<PodQuery, PodQueryVariables>(POD, {
     variables: { podId: id },
     onError: (err) => {

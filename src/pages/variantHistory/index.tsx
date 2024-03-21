@@ -17,6 +17,7 @@ import {
 import HistoryTable from "components/HistoryTable/HistoryTable";
 import { useHistoryTable } from "components/HistoryTable/HistoryTableContext";
 import { PageWrapper } from "components/styles";
+import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -36,10 +37,10 @@ const { useJumpToCommit, useTestFilters } = hooks;
 const { applyStrictRegex } = string;
 
 const VariantHistoryContents: React.FC = () => {
-  const { projectIdentifier, variantName } = useParams<{
-    projectIdentifier: string;
-    variantName: string;
-  }>();
+  const {
+    [slugs.projectIdentifier]: projectIdentifier,
+    [slugs.variantName]: variantName,
+  } = useParams();
   const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
   const { ingestNewCommits } = useHistoryTable();
   const dispatchToast = useToastContext();

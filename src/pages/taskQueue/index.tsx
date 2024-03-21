@@ -7,7 +7,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
 import SearchableDropdown from "components/SearchableDropdown";
 import { PageWrapper, StyledRouterLink } from "components/styles";
-import { getTaskQueueRoute, getAllHostsRoute } from "constants/routes";
+import { getTaskQueueRoute, getAllHostsRoute, slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -27,7 +27,7 @@ import TaskQueueTable from "./TaskQueueTable";
 const TaskQueue = () => {
   const taskQueueAnalytics = useTaskQueueAnalytics();
 
-  const { distro } = useParams<{ distro: string }>();
+  const { [slugs.distro]: distro } = useParams();
   const [taskId] = useQueryParam<string | undefined>(
     QueryParams.TaskId,
     undefined,

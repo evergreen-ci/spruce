@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
-import { getPatchRoute } from "constants/routes";
+import { getPatchRoute, slugs } from "constants/routes";
 import {
   ConfigurePatchQuery,
   ParameterInput,
@@ -152,7 +152,7 @@ export const useConfigurePatch = (
 ): HookResult => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { tab } = useParams<{ tab: PatchTab | null }>();
+  const { [slugs.tab]: tab } = useParams();
 
   const { id, project } = patch;
   const { variants } = project;

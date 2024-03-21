@@ -8,7 +8,7 @@ import { usePatchesQueryParams } from "components/PatchesPage/usePatchesQueryPar
 import { ProjectSelect } from "components/ProjectSelect";
 import { INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { getProjectPatchesRoute } from "constants/routes";
+import { getProjectPatchesRoute, slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
   ProjectPatchesQuery,
@@ -23,7 +23,7 @@ export const ProjectPatches = () => {
   const dispatchToast = useToastContext();
   const analyticsObject = useProjectPatchesAnalytics();
 
-  const { projectIdentifier } = useParams<{ projectIdentifier: string }>();
+  const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   const [isCommitQueueCheckboxChecked] = useQueryParam(
     PatchPageQueryParams.CommitQueue,
     Cookies.get(INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES) === "true",
