@@ -1,3 +1,5 @@
+import { waitForTaskTable } from "../../utils";
+
 const versions = {
   0: "5ecedafb562343215a7ff297", // normal patch
   1: "i-dont-exist", // non existent patch
@@ -55,6 +57,7 @@ describe("Version route", () => {
   describe("Build Variants", () => {
     beforeEach(() => {
       cy.visit(versionRoute(versions[0]));
+      waitForTaskTable();
     });
 
     it("Lists the patch's build variants", () => {
@@ -99,15 +102,15 @@ describe("Version route", () => {
         );
 
         // Check that filter values have updated.
-        cy.toggleTableFilter(2);
+        cy.dataCy("status-filter").click();
+        cy.dataCy("status-filter-wrapper").should("be.visible");
         cy.getInputByLabel("Succeeded")
           .should("have.attr", "aria-checked")
           .and("equal", "true");
 
-        cy.toggleTableFilter(4);
-        cy.dataCy("variant-input-wrapper")
-          .find("input")
-          .should("have.value", "^ubuntu1604$");
+        cy.dataCy("variant-filter").click();
+        cy.dataCy("variant-filter-wrapper").find("input").as("variantInput");
+        cy.get("@variantInput").should("have.value", "^ubuntu1604$");
       });
 
       it("Keeps sorts but not other filters when clicking on grouped task status badge", () => {
@@ -115,8 +118,8 @@ describe("Version route", () => {
         cy.dataCy("clear-all-filters").click();
 
         // Apply name filter
-        cy.toggleTableFilter(1);
-        cy.dataCy("taskname-input-wrapper").find("input").as("taskNameInput");
+        cy.dataCy("task-name-filter").click();
+        cy.dataCy("task-name-filter-wrapper").find("input").as("taskNameInput");
         cy.get("@taskNameInput").focus();
         cy.get("@taskNameInput").type("a-task-name{enter}");
 
@@ -153,10 +156,9 @@ describe("Version route", () => {
         );
 
         // Check that filter values have updated.
-        cy.toggleTableFilter(4);
-        cy.dataCy("variant-input-wrapper")
-          .find("input")
-          .should("have.value", "^ubuntu1604$");
+        cy.dataCy("variant-filter").click();
+        cy.dataCy("variant-filter-wrapper").find("input").as("variantInput");
+        cy.get("@variantInput").should("have.value", "^ubuntu1604$");
       });
 
       it("Keeps sorts but not other filters when clicking on build variant name", () => {
@@ -164,8 +166,8 @@ describe("Version route", () => {
         cy.dataCy("clear-all-filters").click();
 
         // Apply name filter
-        cy.toggleTableFilter(1);
-        cy.dataCy("taskname-input-wrapper").find("input").as("taskNameInput");
+        cy.dataCy("task-name-filter").click();
+        cy.dataCy("task-name-filter-wrapper").find("input").as("taskNameInput");
         cy.get("@taskNameInput").focus();
         cy.get("@taskNameInput").type("a-task-name{enter}");
 

@@ -222,11 +222,7 @@ export const UserSubscriptions: React.FC<{}> = () => {
                 />
               </PaginationWrapper>
             </InteractiveWrapper>
-            <BaseTable
-              data-cy-row="subscription-row"
-              table={table}
-              shouldAlternateRowColor
-            />
+            <BaseTable table={table} shouldAlternateRowColor />
             <TableFooter>
               <ClearSubscriptions />
             </TableFooter>

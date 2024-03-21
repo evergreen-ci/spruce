@@ -42,7 +42,7 @@ interface TasksTableProps {
   variantInputProps?: InputFilterProps;
 }
 
-// TODO: DELETE.
+// TODO: Delete this file and component.
 const TasksTable: React.FC<TasksTableProps> = ({
   baseStatusSelectorProps,
   isPatch,

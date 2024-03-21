@@ -68,6 +68,7 @@ Cypress.Commands.add("logout", () => {
 });
 
 /* toggleTableFilter */
+// TODO: Delete this command.
 Cypress.Commands.add("toggleTableFilter", (colNum: number) => {
   const selector = `.ant-table-thead > tr > :nth-child(${colNum})`;
   cy.get(selector).should("be.visible");

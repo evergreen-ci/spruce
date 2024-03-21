@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
@@ -37,6 +37,11 @@ export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
     onConfirm(newFilters);
   };
 
+  const valueAsArray = useMemo(
+    () => (Array.isArray(value) ? value : [value]),
+    [value],
+  );
+
   return (
     <FilterWrapper>
       <IconButton
@@ -53,7 +58,7 @@ export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
           <TreeSelect
             hasStyling={false}
             tData={options}
-            state={value}
+            state={valueAsArray}
             onChange={onChange}
           />
         </PopoverContainer>

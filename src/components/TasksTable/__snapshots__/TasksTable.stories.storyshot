@@ -1,1599 +1,900 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot Tests TasksTable.stories BaseTaskTable 1`] = `
+exports[`Snapshot Tests TasksTable.stories Default 1`] = `
 <div>
   <div
-    class="ant-table-wrapper"
+    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+    tabindex="0"
   >
-    <div
-      class="ant-spin-nested-loading"
+    <table
+      class="leafygreen-ui-1soynca"
     >
-      <div
-        class="ant-spin-container"
+      <thead
+        class="leafygreen-ui-bebmcm"
       >
-        <div
-          class="ant-table"
-          data-cy="tasks-table"
-          data-loading="false"
-        >
-          <div
-            class="ant-table-container"
+        <tr>
+          <th
+            class="leafygreen-ui-coj2qp"
+            scope="col"
           >
             <div
-              class="ant-table-content"
+              class="leafygreen-ui-ui0te9"
             >
-              <table
-                style="table-layout: auto;"
+              Name
+              <div
+                class="css-1ewdmxn-SearchWrapper e1umzslw0"
               >
-                <colgroup>
-                  <col
-                    style="width: 40%;"
-                  />
-                </colgroup>
-                <thead
-                  class="ant-table-thead"
+                <button
+                  aria-disabled="false"
+                  aria-label="Table Search Popover Icon"
+                  class="leafygreen-ui-76dd2i"
+                  data-cy="task-name-filter"
+                  tabindex="0"
                 >
-                  <tr>
-                    <th
-                      class="ant-table-cell cy-task-table-col-NAME ant-table-column-has-sorters"
+                  <div
+                    class="leafygreen-ui-xhlipt"
+                  >
+                    <svg
+                      aria-label="Magnifying Glass Icon"
+                      class=""
+                      color="#3D4F58"
+                      fill="none"
+                      height="16"
+                      role="img"
+                      small="xsmall"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <div
-                        class="ant-table-column-sorters"
-                      >
-                        <span
-                          class="ant-table-column-title"
-                        >
-                          Name
-                        </span>
-                        <span
-                          class="ant-table-column-sorter ant-table-column-sorter-full"
-                        >
-                          <span
-                            class="ant-table-column-sorter-inner"
-                          >
-                            <span
-                              aria-label="caret-up"
-                              class="anticon anticon-caret-up ant-table-column-sorter-up"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-up"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                            <span
-                              aria-label="caret-down"
-                              class="anticon anticon-caret-down ant-table-column-sorter-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </th>
-                    <th
-                      class="ant-table-cell cy-task-table-col-STATUS ant-table-column-has-sorters"
-                    >
-                      <div
-                        class="ant-table-column-sorters"
-                      >
-                        <span
-                          class="ant-table-column-title"
-                        >
-                          Task Status
-                        </span>
-                        <span
-                          class="ant-table-column-sorter ant-table-column-sorter-full"
-                        >
-                          <span
-                            class="ant-table-column-sorter-inner"
-                          >
-                            <span
-                              aria-label="caret-up"
-                              class="anticon anticon-caret-up ant-table-column-sorter-up"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-up"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                            <span
-                              aria-label="caret-down"
-                              class="anticon anticon-caret-down ant-table-column-sorter-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </th>
-                    <th
-                      class="ant-table-cell cy-task-table-col-BASE_STATUS ant-table-column-has-sorters"
-                    >
-                      <div
-                        class="ant-table-column-sorters"
-                      >
-                        <span
-                          class="ant-table-column-title"
-                        >
-                          Base Status
-                        </span>
-                        <span
-                          class="ant-table-column-sorter ant-table-column-sorter-full"
-                        >
-                          <span
-                            class="ant-table-column-sorter-inner"
-                          >
-                            <span
-                              aria-label="caret-up"
-                              class="anticon anticon-caret-up ant-table-column-sorter-up"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-up"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                            <span
-                              aria-label="caret-down"
-                              class="anticon anticon-caret-down ant-table-column-sorter-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </th>
-                    <th
-                      class="ant-table-cell cy-task-table-col-VARIANT ant-table-column-has-sorters"
-                    >
-                      <div
-                        class="ant-table-column-sorters"
-                      >
-                        <span
-                          class="ant-table-column-title"
-                        >
-                          Variant
-                        </span>
-                        <span
-                          class="ant-table-column-sorter ant-table-column-sorter-full"
-                        >
-                          <span
-                            class="ant-table-column-sorter-inner"
-                          >
-                            <span
-                              aria-label="caret-up"
-                              class="anticon anticon-caret-up ant-table-column-sorter-up"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-up"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                            <span
-                              aria-label="caret-down"
-                              class="anticon anticon-caret-down ant-table-column-sorter-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody
-                  class="ant-table-tbody"
+                      <path
+                        clip-rule="evenodd"
+                        d="M2.323 9.819a5.302 5.302 0 0 0 6.463.805l4.144 4.144a1.3 1.3 0 1 0 1.838-1.838l-4.144-4.144a5.302 5.302 0 0 0-8.3-6.463 5.3 5.3 0 0 0 0 7.496ZM7.98 4.162A2.7 2.7 0 1 1 4.162 7.98 2.7 2.7 0 0 1 7.98 4.162Z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Name"
+                class="leafygreen-ui-76dd2i"
+                data-testid="lg-table-sort-icon-button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
                 >
-                  <tr
-                    class="ant-table-row ant-table-row-level-0"
-                    data-row-key="some_id"
+                  <svg
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-jc2z8v"
+                    fill="none"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <td
-                      class="ant-table-cell cy-task-table-col-NAME ant-table-cell-with-append"
-                    >
-                      <span
-                        class="ant-table-row-indent indent-level-0"
-                        style="padding-left: 0px;"
-                      />
-                      <button
-                        aria-label="Expand row"
-                        class="ant-table-row-expand-icon ant-table-row-expand-icon-collapsed"
-                        type="button"
-                      />
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/task/some_id?execution=0"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
-                          >
-                            Some Fancy ID
-                          </span>
-                        </span>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-STATUS"
-                    >
-                      <a
-                        href="/task/some_id?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ixbeze"
-                          data-cy="task-status-badge"
-                        >
-                          Running
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-BASE_STATUS"
-                    >
-                      <a
-                        href="/task/some_base_task?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
-                          data-cy="task-status-badge"
-                        >
-                          Unscheduled
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-VARIANT"
-                    >
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/variant-history/evg/ubuntu1604"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          Ubuntu 16.04
-                        </span>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr
-                    class="ant-table-row ant-table-row-level-0"
-                    data-row-key="some_id_2"
-                  >
-                    <td
-                      class="ant-table-cell cy-task-table-col-NAME ant-table-cell-with-append"
-                    >
-                      <span
-                        class="ant-table-row-indent indent-level-0"
-                        style="padding-left: 0px;"
-                      />
-                      <button
-                        aria-label="Expand row"
-                        class="ant-table-row-expand-icon ant-table-row-expand-icon-collapsed"
-                        type="button"
-                      />
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/task/some_id_2?execution=0"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
-                          >
-                            Some other Fancy ID
-                          </span>
-                        </span>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-STATUS"
-                    >
-                      <a
-                        href="/task/some_id_2?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                          data-cy="task-status-badge"
-                        >
-                          Succeeded
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-BASE_STATUS"
-                    >
-                      <a
-                        href="/task/some_base_task_2?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
-                          data-cy="task-status-badge"
-                        >
-                          Failed
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-VARIANT"
-                    >
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/variant-history/evg/ubuntu1604"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          Ubuntu 16.04
-                        </span>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr
-                    class="ant-table-row ant-table-row-level-0"
-                    data-row-key="some_id_3"
-                  >
-                    <td
-                      class="ant-table-cell cy-task-table-col-NAME ant-table-cell-with-append"
-                    >
-                      <span
-                        class="ant-table-row-indent indent-level-0"
-                        style="padding-left: 0px;"
-                      />
-                      <button
-                        aria-label="Expand row"
-                        class="ant-table-row-expand-icon ant-table-row-expand-icon-collapsed"
-                        type="button"
-                      />
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/task/some_id_3?execution=0"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
-                          >
-                            Some different Fancy ID
-                          </span>
-                        </span>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-STATUS"
-                    >
-                      <a
-                        href="/task/some_id_3?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                          data-cy="task-status-badge"
-                        >
-                          Succeeded
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-BASE_STATUS"
-                    >
-                      <a
-                        href="/task/some_base_task_3?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
-                          data-cy="task-status-badge"
-                        >
-                          Failed
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-VARIANT"
-                    >
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/variant-history/evg/Windows"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          Windows 97
-                        </span>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                    <path
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Snapshot Tests TasksTable.stories ExecutionTasksTable 1`] = `
-<div>
-  <div
-    class="ant-table-wrapper"
-  >
-    <div
-      class="ant-spin-nested-loading"
-    >
-      <div
-        class="ant-spin-container"
-      >
-        <div
-          class="ant-table"
-          data-cy="tasks-table"
-          data-loading="false"
-        >
-          <div
-            class="ant-table-container"
+          </th>
+          <th
+            class="leafygreen-ui-1ldshj2"
+            scope="col"
           >
             <div
-              class="ant-table-content"
+              class="leafygreen-ui-ui0te9"
             >
-              <table
-                style="table-layout: auto;"
+              Task Status
+              <div
+                class="css-12wdkyj-FilterWrapper e4jpuf00"
               >
-                <colgroup>
-                  <col
-                    style="width: 40%;"
-                  />
-                </colgroup>
-                <thead
-                  class="ant-table-thead"
+                <button
+                  aria-disabled="false"
+                  aria-label="Table Filter Popover Icon"
+                  class="leafygreen-ui-76dd2i"
+                  data-cy="status-filter"
+                  tabindex="0"
                 >
-                  <tr>
-                    <th
-                      class="ant-table-cell cy-task-table-col-NAME ant-table-column-has-sorters"
+                  <div
+                    class="leafygreen-ui-xhlipt"
+                  >
+                    <svg
+                      aria-label="Filter Icon"
+                      class=""
+                      color="#3D4F58"
+                      fill="none"
+                      height="16"
+                      role="img"
+                      small="xsmall"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <div
-                        class="ant-table-column-sorters"
-                      >
-                        <span
-                          class="ant-table-column-title"
-                        >
-                          Name
-                        </span>
-                        <span
-                          class="ant-table-column-sorter ant-table-column-sorter-full"
-                        >
-                          <span
-                            class="ant-table-column-sorter-inner"
-                          >
-                            <span
-                              aria-label="caret-up"
-                              class="anticon anticon-caret-up ant-table-column-sorter-up"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-up"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                            <span
-                              aria-label="caret-down"
-                              class="anticon anticon-caret-down ant-table-column-sorter-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </th>
-                    <th
-                      class="ant-table-cell cy-task-table-col-STATUS ant-table-column-has-sorters"
-                    >
-                      <div
-                        class="ant-table-column-sorters"
-                      >
-                        <span
-                          class="ant-table-column-title"
-                        >
-                          Task Status
-                        </span>
-                        <span
-                          class="ant-table-column-sorter ant-table-column-sorter-full"
-                        >
-                          <span
-                            class="ant-table-column-sorter-inner"
-                          >
-                            <span
-                              aria-label="caret-up"
-                              class="anticon anticon-caret-up ant-table-column-sorter-up"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-up"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                            <span
-                              aria-label="caret-down"
-                              class="anticon anticon-caret-down ant-table-column-sorter-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </th>
-                    <th
-                      class="ant-table-cell cy-task-table-col-BASE_STATUS ant-table-column-has-sorters"
-                    >
-                      <div
-                        class="ant-table-column-sorters"
-                      >
-                        <span
-                          class="ant-table-column-title"
-                        >
-                          Base Status
-                        </span>
-                        <span
-                          class="ant-table-column-sorter ant-table-column-sorter-full"
-                        >
-                          <span
-                            class="ant-table-column-sorter-inner"
-                          >
-                            <span
-                              aria-label="caret-up"
-                              class="anticon anticon-caret-up ant-table-column-sorter-up"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-up"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                            <span
-                              aria-label="caret-down"
-                              class="anticon anticon-caret-down ant-table-column-sorter-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </th>
-                    <th
-                      class="ant-table-cell cy-task-table-col-VARIANT ant-table-column-has-sorters"
-                    >
-                      <div
-                        class="ant-table-column-sorters"
-                      >
-                        <span
-                          class="ant-table-column-title"
-                        >
-                          Variant
-                        </span>
-                        <span
-                          class="ant-table-column-sorter ant-table-column-sorter-full"
-                        >
-                          <span
-                            class="ant-table-column-sorter-inner"
-                          >
-                            <span
-                              aria-label="caret-up"
-                              class="anticon anticon-caret-up ant-table-column-sorter-up"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-up"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                            <span
-                              aria-label="caret-down"
-                              class="anticon anticon-caret-down ant-table-column-sorter-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody
-                  class="ant-table-tbody"
+                      <path
+                        clip-rule="evenodd"
+                        d="m6 6.148-3.8-3.94C1.797 1.79 2.044 1 2.576 1h10.848c.532 0 .779.79.377 1.208L10 6.148v5.625a.5.5 0 0 1-.17.376l-3 2.625a.5.5 0 0 1-.83-.376v-8.25Z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Task Status"
+                class="leafygreen-ui-76dd2i"
+                data-testid="lg-table-sort-icon-button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
                 >
-                  <tr
-                    class="ant-table-row ant-table-row-level-0"
-                    data-row-key="some_id"
+                  <svg
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-jc2z8v"
+                    fill="none"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <td
-                      class="ant-table-cell cy-task-table-col-NAME ant-table-cell-with-append"
-                    >
-                      <span
-                        class="ant-table-row-indent indent-level-0"
-                        style="padding-left: 0px;"
-                      />
-                      <button
-                        aria-label="Expand row"
-                        class="ant-table-row-expand-icon ant-table-row-expand-icon-collapsed"
-                        type="button"
-                      />
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/task/some_id?execution=0"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
-                          >
-                            Some Fancy ID
-                          </span>
-                        </span>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-STATUS"
-                    >
-                      <a
-                        href="/task/some_id?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ixbeze"
-                          data-cy="task-status-badge"
-                        >
-                          Running
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-BASE_STATUS"
-                    >
-                      <a
-                        href="/task/some_base_task?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
-                          data-cy="task-status-badge"
-                        >
-                          Unscheduled
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-VARIANT"
-                    >
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/variant-history/evg/ubuntu1604"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          Ubuntu 16.04
-                        </span>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr
-                    class="ant-table-row ant-table-row-level-0"
-                    data-row-key="some_id_2"
-                  >
-                    <td
-                      class="ant-table-cell cy-task-table-col-NAME ant-table-cell-with-append"
-                    >
-                      <span
-                        class="ant-table-row-indent indent-level-0"
-                        style="padding-left: 0px;"
-                      />
-                      <button
-                        aria-label="Expand row"
-                        class="ant-table-row-expand-icon ant-table-row-expand-icon-collapsed"
-                        type="button"
-                      />
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/task/some_id_2?execution=0"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
-                          >
-                            Some other Fancy ID
-                          </span>
-                        </span>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-STATUS"
-                    >
-                      <a
-                        href="/task/some_id_2?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                          data-cy="task-status-badge"
-                        >
-                          Succeeded
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-BASE_STATUS"
-                    >
-                      <a
-                        href="/task/some_base_task_2?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
-                          data-cy="task-status-badge"
-                        >
-                          Failed
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-VARIANT"
-                    >
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/variant-history/evg/ubuntu1604"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          Ubuntu 16.04
-                        </span>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr
-                    class="ant-table-row ant-table-row-level-0"
-                    data-row-key="some_id_3"
-                  >
-                    <td
-                      class="ant-table-cell cy-task-table-col-NAME ant-table-cell-with-append"
-                    >
-                      <span
-                        class="ant-table-row-indent indent-level-0"
-                        style="padding-left: 0px;"
-                      />
-                      <button
-                        aria-label="Expand row"
-                        class="ant-table-row-expand-icon ant-table-row-expand-icon-collapsed"
-                        type="button"
-                      />
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/task/some_id_3?execution=0"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
-                          >
-                            Some different Fancy ID
-                          </span>
-                        </span>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-STATUS"
-                    >
-                      <a
-                        href="/task/some_id_3?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                          data-cy="task-status-badge"
-                        >
-                          Succeeded
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-BASE_STATUS"
-                    >
-                      <a
-                        href="/task/some_base_task_3?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
-                          data-cy="task-status-badge"
-                        >
-                          Failed
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-VARIANT"
-                    >
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/variant-history/evg/Windows"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          Windows 97
-                        </span>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr
-                    class="ant-table-row ant-table-row-level-0"
-                    data-row-key="some_id_4"
-                  >
-                    <td
-                      class="ant-table-cell cy-task-table-col-NAME ant-table-cell-with-append"
-                    >
-                      <span
-                        class="ant-table-row-indent indent-level-0"
-                        style="padding-left: 0px;"
-                      />
-                      <button
-                        aria-label="Expand row"
-                        class="ant-table-row-expand-icon ant-table-row-expand-icon-collapsed"
-                        type="button"
-                      />
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/task/some_id_4?execution=0"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
-                          >
-                            Some Fancy Display Task
-                          </span>
-                        </span>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-STATUS"
-                    >
-                      <a
-                        href="/task/some_id_4?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                          data-cy="task-status-badge"
-                        >
-                          Succeeded
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-BASE_STATUS"
-                    >
-                      <a
-                        href="/task/some_base_task_4?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
-                          data-cy="task-status-badge"
-                        >
-                          Failed
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-VARIANT"
-                    >
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/variant-history/evg/Windows"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          Windows 97
-                        </span>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                    <path
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Snapshot Tests TasksTable.stories VersionTasksTable 1`] = `
-<div>
-  <div
-    class="ant-table-wrapper"
-  >
-    <div
-      class="ant-spin-nested-loading"
-    >
-      <div
-        class="ant-spin-container"
-      >
-        <div
-          class="ant-table"
-          data-cy="tasks-table"
-          data-loading="false"
-        >
-          <div
-            class="ant-table-container"
+          </th>
+          <th
+            class="leafygreen-ui-1ldshj2"
+            scope="col"
           >
             <div
-              class="ant-table-content"
+              class="leafygreen-ui-ui0te9"
             >
-              <table
-                style="table-layout: auto;"
+              Previous Status
+              <div
+                class="css-12wdkyj-FilterWrapper e4jpuf00"
               >
-                <colgroup>
-                  <col
-                    style="width: 40%;"
-                  />
-                </colgroup>
-                <thead
-                  class="ant-table-thead"
+                <button
+                  aria-disabled="false"
+                  aria-label="Table Filter Popover Icon"
+                  class="leafygreen-ui-76dd2i"
+                  data-cy="base-status-filter"
+                  tabindex="0"
                 >
-                  <tr>
-                    <th
-                      class="ant-table-cell cy-task-table-col-NAME ant-table-column-has-sorters"
+                  <div
+                    class="leafygreen-ui-xhlipt"
+                  >
+                    <svg
+                      aria-label="Filter Icon"
+                      class=""
+                      color="#3D4F58"
+                      fill="none"
+                      height="16"
+                      role="img"
+                      small="xsmall"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <div
-                        class="ant-table-column-sorters"
-                      >
-                        <span
-                          class="ant-table-column-title"
-                        >
-                          Name
-                        </span>
-                        <span
-                          class="ant-table-column-sorter ant-table-column-sorter-full"
-                        >
-                          <span
-                            class="ant-table-column-sorter-inner"
-                          >
-                            <span
-                              aria-label="caret-up"
-                              class="anticon anticon-caret-up ant-table-column-sorter-up"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-up"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                            <span
-                              aria-label="caret-down"
-                              class="anticon anticon-caret-down ant-table-column-sorter-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </th>
-                    <th
-                      class="ant-table-cell cy-task-table-col-STATUS ant-table-column-has-sorters"
-                    >
-                      <div
-                        class="ant-table-column-sorters"
-                      >
-                        <span
-                          class="ant-table-column-title"
-                        >
-                          Task Status
-                        </span>
-                        <span
-                          class="ant-table-column-sorter ant-table-column-sorter-full"
-                        >
-                          <span
-                            class="ant-table-column-sorter-inner"
-                          >
-                            <span
-                              aria-label="caret-up"
-                              class="anticon anticon-caret-up ant-table-column-sorter-up"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-up"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                            <span
-                              aria-label="caret-down"
-                              class="anticon anticon-caret-down ant-table-column-sorter-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </th>
-                    <th
-                      class="ant-table-cell cy-task-table-col-BASE_STATUS ant-table-column-has-sorters"
-                    >
-                      <div
-                        class="ant-table-column-sorters"
-                      >
-                        <span
-                          class="ant-table-column-title"
-                        >
-                          Previous Status
-                        </span>
-                        <span
-                          class="ant-table-column-sorter ant-table-column-sorter-full"
-                        >
-                          <span
-                            class="ant-table-column-sorter-inner"
-                          >
-                            <span
-                              aria-label="caret-up"
-                              class="anticon anticon-caret-up ant-table-column-sorter-up"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-up"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                            <span
-                              aria-label="caret-down"
-                              class="anticon anticon-caret-down ant-table-column-sorter-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </th>
-                    <th
-                      class="ant-table-cell cy-task-table-col-VARIANT ant-table-column-has-sorters"
-                    >
-                      <div
-                        class="ant-table-column-sorters"
-                      >
-                        <span
-                          class="ant-table-column-title"
-                        >
-                          Variant
-                        </span>
-                        <span
-                          class="ant-table-column-sorter ant-table-column-sorter-full"
-                        >
-                          <span
-                            class="ant-table-column-sorter-inner"
-                          >
-                            <span
-                              aria-label="caret-up"
-                              class="anticon anticon-caret-up ant-table-column-sorter-up"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-up"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                            <span
-                              aria-label="caret-down"
-                              class="anticon anticon-caret-down ant-table-column-sorter-down"
-                              role="img"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                data-icon="caret-down"
-                                fill="currentColor"
-                                focusable="false"
-                                height="1em"
-                                viewBox="0 0 1024 1024"
-                                width="1em"
-                              >
-                                <path
-                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
-                                />
-                              </svg>
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody
-                  class="ant-table-tbody"
+                      <path
+                        clip-rule="evenodd"
+                        d="m6 6.148-3.8-3.94C1.797 1.79 2.044 1 2.576 1h10.848c.532 0 .779.79.377 1.208L10 6.148v5.625a.5.5 0 0 1-.17.376l-3 2.625a.5.5 0 0 1-.83-.376v-8.25Z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Previous Status"
+                class="leafygreen-ui-76dd2i"
+                data-testid="lg-table-sort-icon-button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
                 >
-                  <tr
-                    class="ant-table-row ant-table-row-level-0"
-                    data-row-key="some_id"
+                  <svg
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-jc2z8v"
+                    fill="none"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <td
-                      class="ant-table-cell cy-task-table-col-NAME ant-table-cell-with-append"
-                    >
-                      <span
-                        class="ant-table-row-indent indent-level-0"
-                        style="padding-left: 0px;"
-                      />
-                      <button
-                        aria-label="Expand row"
-                        class="ant-table-row-expand-icon ant-table-row-expand-icon-collapsed"
-                        type="button"
-                      />
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/task/some_id?execution=0"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
-                          >
-                            Some Fancy ID
-                          </span>
-                        </span>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-STATUS"
-                    >
-                      <a
-                        href="/task/some_id?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ixbeze"
-                          data-cy="task-status-badge"
-                        >
-                          Running
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-BASE_STATUS"
-                    >
-                      <a
-                        href="/task/some_base_task?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
-                          data-cy="task-status-badge"
-                        >
-                          Unscheduled
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-VARIANT"
-                    >
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/variant-history/evg/ubuntu1604"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          Ubuntu 16.04
-                        </span>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr
-                    class="ant-table-row ant-table-row-level-0"
-                    data-row-key="some_id_2"
-                  >
-                    <td
-                      class="ant-table-cell cy-task-table-col-NAME ant-table-cell-with-append"
-                    >
-                      <span
-                        class="ant-table-row-indent indent-level-0"
-                        style="padding-left: 0px;"
-                      />
-                      <button
-                        aria-label="Expand row"
-                        class="ant-table-row-expand-icon ant-table-row-expand-icon-collapsed"
-                        type="button"
-                      />
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/task/some_id_2?execution=0"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
-                          >
-                            Some other Fancy ID
-                          </span>
-                        </span>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-STATUS"
-                    >
-                      <a
-                        href="/task/some_id_2?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                          data-cy="task-status-badge"
-                        >
-                          Succeeded
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-BASE_STATUS"
-                    >
-                      <a
-                        href="/task/some_base_task_2?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
-                          data-cy="task-status-badge"
-                        >
-                          Failed
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-VARIANT"
-                    >
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/variant-history/evg/ubuntu1604"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          Ubuntu 16.04
-                        </span>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr
-                    class="ant-table-row ant-table-row-level-0"
-                    data-row-key="some_id_3"
-                  >
-                    <td
-                      class="ant-table-cell cy-task-table-col-NAME ant-table-cell-with-append"
-                    >
-                      <span
-                        class="ant-table-row-indent indent-level-0"
-                        style="padding-left: 0px;"
-                      />
-                      <button
-                        aria-label="Expand row"
-                        class="ant-table-row-expand-icon ant-table-row-expand-icon-collapsed"
-                        type="button"
-                      />
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/task/some_id_3?execution=0"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
-                          >
-                            Some different Fancy ID
-                          </span>
-                        </span>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-STATUS"
-                    >
-                      <a
-                        href="/task/some_id_3?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
-                          data-cy="task-status-badge"
-                        >
-                          Succeeded
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-BASE_STATUS"
-                    >
-                      <a
-                        href="/task/some_base_task_3?execution=0"
-                      >
-                        <div
-                          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
-                          data-cy="task-status-badge"
-                        >
-                          Failed
-                        </div>
-                      </a>
-                    </td>
-                    <td
-                      class="ant-table-cell cy-task-table-col-VARIANT"
-                    >
-                      <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
-                        href="/variant-history/evg/Windows"
-                      >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
-                          Windows 97
-                        </span>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                    <path
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          </th>
+          <th
+            class="leafygreen-ui-1qsod8o"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-ui0te9"
+            >
+              Variant
+              <div
+                class="css-1ewdmxn-SearchWrapper e1umzslw0"
+              >
+                <button
+                  aria-disabled="false"
+                  aria-label="Table Search Popover Icon"
+                  class="leafygreen-ui-76dd2i"
+                  data-cy="variant-filter"
+                  tabindex="0"
+                >
+                  <div
+                    class="leafygreen-ui-xhlipt"
+                  >
+                    <svg
+                      aria-label="Magnifying Glass Icon"
+                      class=""
+                      color="#3D4F58"
+                      fill="none"
+                      height="16"
+                      role="img"
+                      small="xsmall"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M2.323 9.819a5.302 5.302 0 0 0 6.463.805l4.144 4.144a1.3 1.3 0 1 0 1.838-1.838l-4.144-4.144a5.302 5.302 0 0 0-8.3-6.463 5.3 5.3 0 0 0 0 7.496ZM7.98 4.162A2.7 2.7 0 1 1 4.162 7.98 2.7 2.7 0 0 1 7.98 4.162Z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Variant"
+                class="leafygreen-ui-76dd2i"
+                data-testid="lg-table-sort-icon-button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-jc2z8v"
+                    fill="none"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class=""
+        data-expanded="false"
+      >
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-vi96c4"
+          data-cy="leafygreen-table-row"
+          data-selected="false"
+          id="lg-table-row-0"
+        >
+          <td
+            class="leafygreen-ui-3nxf8o"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18zed9c"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/some_id?execution=0"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    Some Fancy ID
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18zed9c"
+              data-state="entered"
+            >
+              <a
+                href="/task/some_id?execution=0"
+              >
+                <div
+                  class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ixbeze"
+                  data-cy="task-status-badge"
+                >
+                  Running
+                </div>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18zed9c"
+              data-state="entered"
+            >
+              <a
+                href="/task/some_base_task?execution=0"
+              >
+                <div
+                  class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
+                  data-cy="task-status-badge"
+                >
+                  Unscheduled
+                </div>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18zed9c"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/variant-history/evg/ubuntu1604"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  Ubuntu 16.04
+                </span>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tbody
+        class=""
+        data-expanded="false"
+      >
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-vi96c4"
+          data-cy="leafygreen-table-row"
+          data-selected="false"
+          id="lg-table-row-1"
+        >
+          <td
+            class="leafygreen-ui-3nxf8o"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18zed9c"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/some_id_2?execution=0"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    Some other Fancy ID
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18zed9c"
+              data-state="entered"
+            >
+              <a
+                href="/task/some_id_2?execution=0"
+              >
+                <div
+                  class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                  data-cy="task-status-badge"
+                >
+                  Succeeded
+                </div>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18zed9c"
+              data-state="entered"
+            >
+              <a
+                href="/task/some_base_task_2?execution=0"
+              >
+                <div
+                  class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
+                  data-cy="task-status-badge"
+                >
+                  Failed
+                </div>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18zed9c"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/variant-history/evg/ubuntu1604"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  Ubuntu 16.04
+                </span>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tbody
+        class=""
+        data-expanded="false"
+      >
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-vi96c4"
+          data-cy="leafygreen-table-row"
+          data-selected="false"
+          id="lg-table-row-2"
+        >
+          <td
+            class="leafygreen-ui-3nxf8o"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18zed9c"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/some_id_3?execution=0"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    Some different Fancy ID
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18zed9c"
+              data-state="entered"
+            >
+              <a
+                href="/task/some_id_3?execution=0"
+              >
+                <div
+                  class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                  data-cy="task-status-badge"
+                >
+                  Succeeded
+                </div>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18zed9c"
+              data-state="entered"
+            >
+              <a
+                href="/task/some_base_task_3?execution=0"
+              >
+                <div
+                  class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
+                  data-cy="task-status-badge"
+                >
+                  Failed
+                </div>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18zed9c"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/variant-history/evg/Windows"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  Windows 97
+                </span>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tbody
+        class=""
+        data-expanded="false"
+      >
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-vi96c4"
+          data-cy="leafygreen-table-row"
+          data-selected="false"
+          id="lg-table-row-3"
+        >
+          <td
+            class="leafygreen-ui-1dmu2ot"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18zed9c"
+              data-state="entered"
+            >
+              <button
+                aria-disabled="false"
+                aria-hidden="false"
+                aria-label="Expand row"
+                class="leafygreen-ui-76dd2i"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    alt=""
+                    aria-hidden="true"
+                    class="leafygreen-ui-jc2z8v"
+                    fill="none"
+                    height="16"
+                    role="presentation"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </button>
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/some_id_4?execution=0"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    Some Fancy Display Task
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18zed9c"
+              data-state="entered"
+            >
+              <a
+                href="/task/some_id_4?execution=0"
+              >
+                <div
+                  class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                  data-cy="task-status-badge"
+                >
+                  Succeeded
+                </div>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18zed9c"
+              data-state="entered"
+            >
+              <a
+                href="/task/some_base_task_4?execution=0"
+              >
+                <div
+                  class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
+                  data-cy="task-status-badge"
+                >
+                  Failed
+                </div>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18zed9c"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/variant-history/evg/Windows"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  Windows 97
+                </span>
+              </a>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="true"
+          class="leafygreen-ui-1jfc6is"
+          data-selected="false"
+          id="lg-table-row-3.0"
+        >
+          <td
+            class="leafygreen-ui-dm20k9"
+          >
+            <div
+              class="leafygreen-ui-glx0i1"
+              data-state="exited"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/some_id_5?execution=0"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    Some fancy execution task
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+          >
+            <div
+              class="leafygreen-ui-glx0i1"
+              data-state="exited"
+            >
+              <a
+                href="/task/some_id_5?execution=0"
+              >
+                <div
+                  class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                  data-cy="task-status-badge"
+                >
+                  Succeeded
+                </div>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+          >
+            <div
+              class="leafygreen-ui-glx0i1"
+              data-state="exited"
+            >
+              <a
+                href="/task/some_base_task_5?execution=0"
+              >
+                <div
+                  class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
+                  data-cy="task-status-badge"
+                >
+                  Aborted
+                </div>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+          >
+            <div
+              class="leafygreen-ui-glx0i1"
+              data-state="exited"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/variant-history/undefined/Windows"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  Windows 97
+                </span>
+              </a>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="true"
+          class="leafygreen-ui-1jfc6is"
+          data-selected="false"
+          id="lg-table-row-3.1"
+        >
+          <td
+            class="leafygreen-ui-dm20k9"
+          >
+            <div
+              class="leafygreen-ui-glx0i1"
+              data-state="exited"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/task/some_id_6?execution=0"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  <span
+                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    Another execution task
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+          >
+            <div
+              class="leafygreen-ui-glx0i1"
+              data-state="exited"
+            >
+              <a
+                href="/task/some_id_6?execution=0"
+              >
+                <div
+                  class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                  data-cy="task-status-badge"
+                >
+                  Succeeded
+                </div>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+          >
+            <div
+              class="leafygreen-ui-glx0i1"
+              data-state="exited"
+            >
+              <div
+                border="#2D0B59"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ohl2hc"
+                data-cy="task-status-badge"
+                fill="#5E0C9E"
+                text="#F9EBFF"
+              >
+                System Failed
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+          >
+            <div
+              class="leafygreen-ui-glx0i1"
+              data-state="exited"
+            >
+              <a
+                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                href="/variant-history/evg/Windows"
+              >
+                <span
+                  class="leafygreen-ui-1ewnca3"
+                >
+                  Windows 97
+                </span>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 `;

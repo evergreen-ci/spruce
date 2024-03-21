@@ -1,34 +1,94 @@
+import { useMemo, useRef } from "react";
+import { useLeafyGreenTable } from "@leafygreen-ui/table";
+import { BaseTable } from "components/Table/BaseTable";
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
-import TasksTable from ".";
+import { TaskStatus } from "types/task";
+import { getColumnsTemplate } from "./Columns";
+import { TaskTableInfo } from "./types";
 
 export default {
-  component: TasksTable,
-} satisfies CustomMeta<typeof TasksTable>;
+  component: BaseTable,
+} satisfies CustomMeta<typeof BaseTable>;
 
-export const BaseTaskTable: CustomStoryObj<typeof TasksTable> = {
-  render: () => <TasksTable isPatch tasks={tasks} />,
+const TasksTableStory = (args: any) => {
+  const columns = useMemo(
+    () => getColumnsTemplate({ statusOptions, baseStatusOptions }),
+    [],
+  );
+
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+  const table = useLeafyGreenTable<TaskTableInfo>({
+    columns,
+    containerRef: tableContainerRef,
+    data: tasks ?? [],
+    defaultColumn: {
+      enableColumnFilter: true,
+      enableSorting: true,
+    },
+    getSubRows: (row) => row.executionTasksFull || [],
+  });
+
+  return (
+    <BaseTable
+      table={table}
+      disableAnimations={args.disableAnimations}
+      shouldAlternateRowColor
+    />
+  );
 };
 
-export const ExecutionTasksTable: CustomStoryObj<typeof TasksTable> = {
-  render: () => <TasksTable isPatch tasks={nestedTasks} />,
+export const Default: CustomStoryObj<any> = {
+  args: {
+    disableAnimations: true,
+  },
+  render: (args) => <TasksTableStory {...args} />,
 };
 
-export const VersionTasksTable: CustomStoryObj<typeof TasksTable> = {
-  render: () => <TasksTable isPatch={false} tasks={tasks} />,
-};
+const statusOptions = [
+  {
+    title: "All",
+    key: "all",
+    value: "all",
+  },
+  {
+    title: "Running",
+    key: TaskStatus.Started,
+    value: TaskStatus.Started,
+  },
+  {
+    title: "Succeeded",
+    key: TaskStatus.Succeeded,
+    value: TaskStatus.Succeeded,
+  },
+];
 
-const tasks = [
+const baseStatusOptions = [
+  {
+    title: "All",
+    key: "all",
+    value: "all",
+  },
+  {
+    title: "Unscheduled",
+    key: TaskStatus.Unscheduled,
+    value: TaskStatus.Unscheduled,
+  },
+  {
+    title: "Failed",
+    key: TaskStatus.Failed,
+    value: TaskStatus.Failed,
+  },
+];
+
+const tasks: TaskTableInfo[] = [
   {
     id: "some_id",
     projectIdentifier: "evg",
     execution: 0,
-    aborted: false,
     displayName: "Some Fancy ID",
-    version: "123",
     status: "started",
     buildVariant: "ubuntu1604",
     buildVariantDisplayName: "Ubuntu 16.04",
-    blocked: false,
     baseTask: {
       id: "some_base_task",
       execution: 0,
@@ -41,13 +101,10 @@ const tasks = [
     id: "some_id_2",
     projectIdentifier: "evg",
     execution: 0,
-    aborted: false,
     displayName: "Some other Fancy ID",
-    version: "123",
     status: "success",
     buildVariant: "ubuntu1604",
     buildVariantDisplayName: "Ubuntu 16.04",
-    blocked: false,
     baseTask: {
       id: "some_base_task_2",
       execution: 0,
@@ -60,13 +117,10 @@ const tasks = [
     id: "some_id_3",
     projectIdentifier: "evg",
     execution: 0,
-    aborted: false,
     displayName: "Some different Fancy ID",
-    version: "234",
     status: "success",
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
-    blocked: false,
     baseTask: {
       id: "some_base_task_3",
       execution: 0,
@@ -75,21 +129,14 @@ const tasks = [
     executionTasksFull: [],
     dependsOn: [],
   },
-];
-
-const nestedTasks = [
-  ...tasks,
   {
     id: "some_id_4",
     projectIdentifier: "evg",
     execution: 0,
-    aborted: false,
     displayName: "Some Fancy Display Task",
-    version: "234",
     status: "success",
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
-    blocked: false,
     baseTask: {
       id: "some_base_task_4",
       execution: 0,
@@ -98,13 +145,11 @@ const nestedTasks = [
     executionTasksFull: [
       {
         id: "some_id_5",
-        aborted: false,
+        execution: 0,
         displayName: "Some fancy execution task",
-        version: "234",
         status: "success",
         buildVariant: "Windows",
         buildVariantDisplayName: "Windows 97",
-        blocked: false,
         baseTask: {
           id: "some_base_task_5",
           execution: 0,
@@ -115,13 +160,10 @@ const nestedTasks = [
         id: "some_id_6",
         projectIdentifier: "evg",
         execution: 0,
-        aborted: false,
         displayName: "Another execution task",
-        version: "234",
         status: "success",
         buildVariant: "Windows",
         buildVariantDisplayName: "Windows 97",
-        blocked: false,
         baseTask: {
           id: "some_base_task_6",
           execution: 0,

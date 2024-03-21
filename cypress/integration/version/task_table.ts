@@ -62,22 +62,16 @@ describe("Task table", () => {
 
   it("Clicking task name goes to task page for that task", () => {
     cy.visit(pathTasks);
-    cy.get("td.cy-task-table-col-NAME:first").within(() => {
-      cy.get("a").should("have.attr", "href").and("include", "/task");
-    });
+    cy.dataCy("tasks-table-row")
+      .eq(0)
+      .within(() => {
+        cy.get("a").should("have.attr", "href").and("include", "/task");
+      });
   });
 
   it("Task count displays total tasks", () => {
     cy.visit(pathTasks);
     cy.dataCy("total-count").first().contains("46");
-  });
-
-  ["NAME", "STATUS", "BASE_STATUS", "VARIANT"].forEach((sortBy) => {
-    // TODO: This test doesn't work bc of issues with assertCorrectRequestVariables.
-    // Remove skip in DEVPROD-597.
-    it.skip(`Fetches tasks sorted by ${sortBy} when ${sortBy} header is clicked`, () => {
-      // clickSorterAndAssertTasksAreFetched(sortBy);
-    });
   });
 
   describe("Changing page number", () => {

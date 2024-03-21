@@ -64,7 +64,7 @@ type SpruceTableProps = {
 export const BaseTable = forwardRef(
   (
     {
-      "data-cy-row": dataCyRow,
+      "data-cy-row": dataCyRow = "leafygreen-table-row",
       "data-cy-table": dataCyTable,
       emptyComponent,
       loading,
@@ -80,13 +80,20 @@ export const BaseTable = forwardRef(
     const hasVirtualRows = virtualRows && virtualRows.length > 0;
     return (
       <>
-        <StyledTable data-cy={dataCyTable} table={table} ref={ref} {...args}>
+        <Table
+          data-cy={dataCyTable}
+          data-loading={loading}
+          table={table}
+          ref={ref}
+          {...args}
+        >
           <TableHead isSticky={hasVirtualRows}>
             {table.getHeaderGroups().map((headerGroup) => (
               <HeaderRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   const { columnDef } = header.column ?? {};
                   const { meta } = columnDef;
+
                   return (
                     <HeaderCell
                       key={header.id}
@@ -164,7 +171,7 @@ export const BaseTable = forwardRef(
                   />
                 ))}
           </TableBody>
-        </StyledTable>
+        </Table>
         {!loading &&
           rows.length === 0 &&
           (emptyComponent || "No data to display")}
@@ -229,10 +236,6 @@ const RenderableRow = <T extends LGRowData>({
       ))}
   </Row>
 );
-
-const StyledTable = styled(Table)`
-  transition: none !important;
-`;
 
 const StyledExpandedContent = styled(ExpandedContent)`
   // Allow expanded content containers to take up the full table width

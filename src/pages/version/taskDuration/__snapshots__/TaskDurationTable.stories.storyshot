@@ -195,7 +195,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-0"
         >
@@ -469,7 +469,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-1"
         >
@@ -560,7 +560,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-2"
         >
@@ -651,7 +651,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-3"
         >
@@ -742,7 +742,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-4"
         >
@@ -833,7 +833,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-5"
         >
@@ -924,7 +924,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-6"
         >
@@ -1015,7 +1015,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-7"
         >
@@ -1106,7 +1106,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-8"
         >
@@ -1197,7 +1197,7 @@ exports[`Snapshot Tests TaskDurationTable.stories Default 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-9"
         >
@@ -1481,7 +1481,7 @@ exports[`Snapshot Tests TaskDurationTable.stories LongContent 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-0"
         >

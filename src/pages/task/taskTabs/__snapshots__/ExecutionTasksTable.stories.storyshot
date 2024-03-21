@@ -168,7 +168,7 @@ exports[`Snapshot Tests ExecutionTasksTable.stories MultipleExecutions 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="leafygreen-table-row"
+          data-cy="execution-tasks-table-row"
           data-selected="false"
           id="lg-table-row-0"
         >
@@ -255,7 +255,7 @@ exports[`Snapshot Tests ExecutionTasksTable.stories MultipleExecutions 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="leafygreen-table-row"
+          data-cy="execution-tasks-table-row"
           data-selected="false"
           id="lg-table-row-1"
         >
@@ -513,7 +513,7 @@ exports[`Snapshot Tests ExecutionTasksTable.stories SingleExecution 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="leafygreen-table-row"
+          data-cy="execution-tasks-table-row"
           data-selected="false"
           id="lg-table-row-0"
         >
@@ -594,7 +594,7 @@ exports[`Snapshot Tests ExecutionTasksTable.stories SingleExecution 1`] = `
         <tr
           aria-hidden="false"
           class="leafygreen-ui-vi96c4"
-          data-cy="leafygreen-table-row"
+          data-cy="execution-tasks-table-row"
           data-selected="false"
           id="lg-table-row-1"
         >

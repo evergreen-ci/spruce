@@ -152,7 +152,7 @@ export const PatchTasksTable: React.FC<Props> = ({
       <BaseTable
         data-cy="tasks-table"
         data-cy-row="tasks-table-row"
-        disableAnimations
+        disableAnimations={limit === 100}
         emptyComponent={<TablePlaceholder message="No tasks found." />}
         loading={loading}
         table={table}

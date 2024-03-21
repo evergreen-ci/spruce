@@ -195,7 +195,6 @@ export const TaskDurationTable: React.FC<Props> = ({
   return (
     <BaseTable
       data-cy="task-duration-table"
-      data-cy-row="task-duration-table-row"
       emptyComponent={<TablePlaceholder message="No tasks found." />}
       loading={loading}
       table={table}
