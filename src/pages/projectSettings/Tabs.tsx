@@ -43,7 +43,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
   projectType,
   repoData,
 }) => {
-  const { [slugs.tab]: tab } = useParams<{ tab: ProjectSettingsTabRoutes }>();
+  const { [slugs.tab]: tab } = useParams<{
+    [slugs.tab]: ProjectSettingsTabRoutes;
+  }>();
   const { setInitialData } = useProjectSettingsContext();
 
   const projectId = projectData?.projectRef?.id;
