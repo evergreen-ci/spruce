@@ -27,8 +27,7 @@ export function isInStepback(task: TaskQuery["task"]) {
   // This happens in the beginning of stepback or them middle of stepback. This condition is
   // covering for the beginning of stepback.
   const isBeginningStepback =
-    task?.stepbackInfo?.nextStepbackTaskId !== undefined &&
-    task?.stepbackInfo?.nextStepbackTaskId !== "";
+    task?.stepbackInfo?.nextStepbackTaskId?.length > 0;
 
   // If the task is in stepback or beginning stepback, it is counted as in stepback.
   return hasLastStepback || isBeginningStepback;
@@ -63,7 +62,6 @@ export const Stepback: React.FC<Props> = ({ taskId }) => {
 };
 
 const StepbackWrapper = styled.div`
-  margin-top: ${size.xxs};
   display: flex;
   align-items: center;
   gap: ${size.xxs};

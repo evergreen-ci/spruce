@@ -20,7 +20,7 @@ describe("relevant commits", () => {
     it("the button is disabled when there is no base task", async () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[getPatchTaskWithNoBaseTask]}>
-          <RelevantCommits taskId="t1" task={patchTaskWithNoBaseTask} />
+          <RelevantCommits task={patchTaskWithNoBaseTask} />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
@@ -38,7 +38,7 @@ describe("relevant commits", () => {
         <MockedProvider
           mocks={[getMainlineTaskWithBaseVersion, getNullParentTask]}
         >
-          <RelevantCommits taskId="t4" task={mainlineTaskWithBaseVersion} />
+          <RelevantCommits task={mainlineTaskWithBaseVersion} />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
@@ -55,7 +55,7 @@ describe("relevant commits", () => {
         <MockedProvider
           mocks={[getMainlineTaskWithBaseVersion, getParentTaskWithError]}
         >
-          <RelevantCommits taskId="t4" task={mainlineTaskWithBaseVersion} />
+          <RelevantCommits task={mainlineTaskWithBaseVersion} />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
@@ -71,7 +71,7 @@ describe("relevant commits", () => {
   it("the button is disabled when no base version exists", async () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getPatchTaskWithNoBaseVersion]}>
-        <RelevantCommits taskId="t3" task={patchTaskWithNoBaseVersion} />
+        <RelevantCommits task={patchTaskWithNoBaseVersion} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -93,7 +93,7 @@ describe("relevant commits", () => {
           getLastExecutedVersion,
         ]}
       >
-        <RelevantCommits taskId="t1" task={patchTaskWithSuccessfulBaseTask} />
+        <RelevantCommits task={patchTaskWithSuccessfulBaseTask} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -131,7 +131,7 @@ describe("relevant commits", () => {
           getBreakingCommit,
         ]}
       >
-        <RelevantCommits taskId="t1" task={patchTaskWithFailingBaseTask} />
+        <RelevantCommits task={patchTaskWithFailingBaseTask} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);
@@ -170,7 +170,7 @@ describe("relevant commits", () => {
           getBreakingCommit,
         ]}
       >
-        <RelevantCommits taskId="t3" task={patchTaskWithRunningBaseTask} />
+        <RelevantCommits task={patchTaskWithRunningBaseTask} />
       </MockedProvider>,
     );
     renderWithRouterMatch(<Component />);

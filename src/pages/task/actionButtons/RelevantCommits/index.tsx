@@ -15,27 +15,25 @@ import { getLinks } from "./utils";
 
 interface RelevantCommitsProps {
   task: TaskQuery["task"];
-  taskId: string;
 }
 
-export const RelevantCommits: React.FC<RelevantCommitsProps> = ({
-  task,
-  taskId,
-}) => {
+export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
   const { sendEvent } = useTaskAnalytics();
 
   const { baseTask, versionMetadata } = task ?? {};
 
-  const { loading: parentLoading, task: parentTask } = useParentTask(taskId);
+  const { loading: parentLoading, task: parentTask } = useParentTask(task.id);
 
-  const { loading: passingLoading, task: lastPassingTask } =
-    useLastPassingTask(taskId);
+  const { loading: passingLoading, task: lastPassingTask } = useLastPassingTask(
+    task.id,
+  );
 
-  const { loading: breakingLoading, task: breakingTask } =
-    useBreakingTask(taskId);
+  const { loading: breakingLoading, task: breakingTask } = useBreakingTask(
+    task.id,
+  );
 
   const { loading: executedLoading, task: lastExecutedTask } =
-    useLastExecutedTask(taskId);
+    useLastExecutedTask(task.id);
 
   const linkObject = useMemo(
     () =>

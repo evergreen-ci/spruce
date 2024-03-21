@@ -254,7 +254,7 @@ export const ActionButtons: React.FC<Props> = ({
       <PageButtonRow>
         {!isExecutionTask && (
           <>
-            <RelevantCommits taskId={taskId} task={task} />
+            <RelevantCommits task={task} />
             <Button
               size="small"
               data-cy="task-history"

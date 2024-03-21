@@ -388,7 +388,9 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
             Honeycomb Trace
           </StyledLink>
           <StyledLink
-            data-cy="task-metrics-link"
+            data-cy="t
+      task: patchTaskWithSuccessfulBaseTask,
+    ask-metrics-link"
             href={getHoneycombSystemMetricsUrl(
               taskId,
               diskDevices,

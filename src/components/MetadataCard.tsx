@@ -70,7 +70,7 @@ const Item = styled(Body)<BodyProps>`
     line-height: 14px;
   }
 
-  :not(:last-of-type) {
+  :not(:last-child) {
     margin-bottom: 12px;
   }
 `;
