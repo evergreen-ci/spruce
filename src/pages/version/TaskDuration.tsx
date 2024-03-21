@@ -28,12 +28,12 @@ interface Props {
 
 const TaskDuration: React.FC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
-  const { [slugs.id]: id } = useParams();
+  const { [slugs.versionId]: versionId } = useParams();
   const { search } = useLocation();
 
   const updateQueryParams = useUpdateURLQueryParams();
-  const versionAnalytics = useVersionAnalytics(id);
-  const queryVariables = useQueryVariables(search, id);
+  const versionAnalytics = useVersionAnalytics(versionId);
+  const queryVariables = useQueryVariables(search, versionId);
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
   const { limit, page } = queryVariables.taskFilterOptions;
 

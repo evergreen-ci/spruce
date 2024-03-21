@@ -38,7 +38,7 @@ import { NameChangeModal } from "./version/NameChangeModal";
 // docs/decisions/2023-12-13_version_page_logic.md
 export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
-  const { [slugs.id]: id } = useParams();
+  const { [slugs.versionId]: id } = useParams();
   const dispatchToast = useToastContext();
 
   const [redirectURL, setRedirectURL] = useState(undefined);

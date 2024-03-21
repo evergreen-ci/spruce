@@ -56,8 +56,8 @@ export const DownstreamProjectAccordion: React.FC<
 }) => {
   const dispatchToast = useToastContext();
 
-  const { [slugs.id]: id } = useParams();
-  const { sendEvent } = useVersionAnalytics(id);
+  const { [slugs.versionId]: versionId } = useParams();
+  const { sendEvent } = useVersionAnalytics(versionId);
 
   const defaultSort: SortOrder = {
     Key: TaskSortCategory.Status,

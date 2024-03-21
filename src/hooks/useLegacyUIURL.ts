@@ -35,6 +35,7 @@ export const useLegacyUIURL = (): string | null => {
         setId(
           get(matchPath, "params.hostId", "") ||
             get(matchPath, "params.patchId", "") ||
+            get(matchPath, "params.versionId", "") ||
             get(matchedPath, "params.id", "") ||
             get(matchedPath, "params.identifier", "") ||
             get(matchedPath, "params.distroId", ""),

@@ -15,14 +15,14 @@ import { usePolling } from "hooks";
 import VariantTaskGroup from "./VariantTaskGroup";
 
 const BuildVariantCard: React.FC = () => {
-  const { [slugs.id]: id } = useParams();
+  const { [slugs.versionId]: versionId } = useParams();
 
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     BuildVariantStatsQuery,
     BuildVariantStatsQueryVariables
   >(BUILD_VARIANTS_STATS, {
     fetchPolicy: "cache-and-network",
-    variables: { id },
+    variables: { id: versionId },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling({ startPolling, stopPolling, refetch });
@@ -39,7 +39,7 @@ const BuildVariantCard: React.FC = () => {
               displayName={displayName}
               statusCounts={statusCounts}
               variant={variant}
-              versionId={id}
+              versionId={versionId}
             />
           ),
         )}

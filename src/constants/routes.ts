@@ -110,7 +110,7 @@ export const routes = {
   jobLogsGroup: `${paths.jobLogs}/:${slugs.taskId}`,
   login: paths.login,
   myPatches: `${paths.user}/${PageNames.Patches}`,
-  patch: `${paths.patch}/:${slugs.id}`,
+  patch: `${paths.patch}/:${slugs.versionId}`,
   preferences: paths.preferences,
   projectPatches: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Patches}`,
   projectSettings: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Settings}`,
@@ -123,7 +123,7 @@ export const routes = {
   user: `${paths.user}/*`,
   userPatches: `${paths.user}/:${slugs.id}/${PageNames.Patches}`,
   variantHistory: `${paths.variantHistory}/:${slugs.projectIdentifier}/:${slugs.variantName}`,
-  version: `${paths.version}/:${slugs.id}`,
+  version: `${paths.version}/:${slugs.versionId}`,
 };
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;

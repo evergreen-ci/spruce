@@ -35,7 +35,7 @@ export const TaskDurationTable: React.FC<Props> = ({
   numLoadingRows,
   tasks,
 }) => {
-  const { [slugs.id]: versionId } = useParams();
+  const { [slugs.versionId]: versionId } = useParams();
   const { sendEvent } = useVersionAnalytics(versionId);
   const { currentStatuses: statusOptions } = useTaskStatuses({ versionId });
 

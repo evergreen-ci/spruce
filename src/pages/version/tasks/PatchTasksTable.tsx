@@ -28,7 +28,7 @@ export const PatchTasksTable: React.FC<Props> = ({
   sorts,
   tasks,
 }) => {
-  const { [slugs.id]: versionId } = useParams();
+  const { [slugs.versionId]: versionId } = useParams();
   const updateQueryParams = useUpdateURLQueryParams();
   const { sendEvent } = useVersionAnalytics(versionId);
   const filterHookProps = {
