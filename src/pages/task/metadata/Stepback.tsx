@@ -65,4 +65,5 @@ const StepbackWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: ${size.xxs};
+  white-space: nowrap;
 `;
