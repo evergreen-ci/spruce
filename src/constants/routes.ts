@@ -77,7 +77,7 @@ const paths = {
 
 export enum slugs {
   buildId = "buildId",
-  containerId = "containerId",
+  podId = "podId",
   distro = "distro",
   distroId = "distroId",
   hostId = "hostId",
@@ -102,7 +102,7 @@ export const routes = {
   commitQueue: `${paths.commitQueue}/:${slugs.projectIdentifier}`,
   commits: paths.commits,
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure`,
-  container: `${paths.container}/:${slugs.id}`,
+  container: `${paths.container}/:${slugs.podId}`,
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
   host: `${paths.host}/:${slugs.id}`,
   hosts: paths.hosts,
