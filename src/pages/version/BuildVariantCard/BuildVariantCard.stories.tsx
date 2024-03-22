@@ -9,13 +9,12 @@ export default {
     apolloClient: {
       mocks,
     },
-    reactRouter: {
-      path: "/version/:id",
-      route: "/version/version",
-    },
   },
 } satisfies CustomMeta<typeof BuildVariantCard>;
 
 export const Default: CustomStoryObj<typeof BuildVariantCard> = {
   render: (args) => <BuildVariantCard {...args} />,
+  args: {
+    versionId: "version",
+  },
 };

@@ -202,7 +202,7 @@ export const VersionPage: React.FC = () => {
       <PageLayout hasSider>
         <PageSider>
           <Metadata loading={false} version={version} />
-          <BuildVariantCard />
+          <BuildVariantCard versionId={id} />
         </PageSider>
         <PageLayout>
           <PageContent>
