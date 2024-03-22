@@ -22,7 +22,7 @@ export const useCreateGQLCLient = (): ApolloClient<NormalizedCacheObject> => {
   const [gqlClient, setGQLClient] = useState<any>();
 
   useEffect(() => {
-    fetchWithRetry<SecretFieldsQuery>(getGQLUrl(), secretFieldsReq)
+    fetchWithRetry(getGQLUrl(), secretFieldsReq)
       .then(({ data }) => {
         dispatchAuthenticated();
         setSecretFields(data?.spruceConfig?.secretFields);
