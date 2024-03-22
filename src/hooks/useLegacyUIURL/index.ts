@@ -23,7 +23,7 @@ export const useLegacyUIURL = (): string | null => {
       [`${routes.task}/*`]: `${uiURL}/task/${id}`,
       [routes.spawnHost]: `${uiURL}/spawn#?resourcetype=hosts`,
       [routes.spawnVolume]: `${uiURL}/spawn#?resourcetype=volumes`,
-      [`${routes.commits}/:id`]: `${uiURL}/waterfall/${id}`,
+      [`${routes.commits}/:${slugs.projectIdentifier}`]: `${uiURL}/waterfall/${id}`,
       [routes.hosts]: `${uiURL}/hosts`,
       [routes.host]: `${uiURL}/host/${id}`,
     };
