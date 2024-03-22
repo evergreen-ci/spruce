@@ -88,6 +88,7 @@ const baseSpawnHost: Omit<MyHost, "id" | "status"> = {
     },
   ],
   noExpiration: false,
+  persistentDnsName: "",
   provider: "ec2-ondemand",
   startedBy: "stssss.arst",
   tag: "evg-ubuntu1804-workstation-20201014223740-6478743249380995507",

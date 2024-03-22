@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
-import ChristmasTree from "components/Icon/icons/ChristmasTree.svg";
+import HybridTree from "components/Icon/icons/HybridTree.svg";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { wikiUrl } from "constants/externalResources";
 import { getCommitsRoute, getUserPatchesRoute, routes } from "constants/routes";
@@ -16,8 +16,11 @@ import { useAuthStateContext } from "context/Auth";
 import { UserQuery, SpruceConfigQuery } from "gql/generated/types";
 import { USER, SPRUCE_CONFIG } from "gql/queries";
 import { useLegacyUIURL } from "hooks";
+import { validators } from "utils";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
 import { UserDropdown } from "./UserDropdown";
+
+const { validateObjectId } = validators;
 
 const { blue, gray, white } = palette;
 
@@ -33,16 +36,20 @@ export const Navbar: React.FC = () => {
   const { projectIdentifier: projectFromUrl } = useParams<{
     projectIdentifier: string;
   }>();
+  const currProject = Cookies.get(CURRENT_PROJECT);
 
-  // Update current project cookie if the project in the URL does not equal the cookie value.
+  // Update current project cookie if the project in the URL is not an objectId and is not equal
+  // to the current project.
   // This will inform future navigations to the /commits page.
   useEffect(() => {
-    if (projectFromUrl && projectFromUrl !== Cookies.get(CURRENT_PROJECT)) {
+    if (
+      projectFromUrl &&
+      !validateObjectId(projectFromUrl) &&
+      projectFromUrl !== currProject
+    ) {
       Cookies.set(CURRENT_PROJECT, projectFromUrl);
     }
-  }, [projectFromUrl]);
-
-  const currProject = projectFromUrl ?? Cookies.get(CURRENT_PROJECT);
+  }, [currProject, projectFromUrl]);
 
   const { data: configData } = useQuery<SpruceConfigQuery>(SPRUCE_CONFIG, {
     skip: currProject !== undefined,
@@ -61,7 +68,10 @@ export const Navbar: React.FC = () => {
           to={routes.myPatches}
           onClick={() => sendEvent({ name: "Click Logo Link" })}
         >
-          <ChristmasTreeIcon src={ChristmasTree} alt="Evergreen Logo" />
+          <HybridTreeIcon
+            src={HybridTree}
+            alt="Evergreen Logo with a cherry blossom twist"
+          />
         </LogoLink>
         <PrimaryLink
           data-cy="project-health-link"
@@ -174,9 +184,8 @@ const SecondaryLink = styled.a`
   ${secondaryStyle}
 `;
 
-const ChristmasTreeIcon = styled.img`
-  height: 46px;
-  width: 46px;
+const HybridTreeIcon = styled.img`
+  height: 70px;
+  width: 70px;
   position: relative;
-  bottom: 4px;
 `;

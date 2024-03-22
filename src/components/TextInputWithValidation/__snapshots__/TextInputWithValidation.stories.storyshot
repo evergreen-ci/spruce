@@ -6,46 +6,34 @@ exports[`Snapshot Tests Components/TextInput/TextInputWithValidation Default 1`]
     class="css-mk4qpy-TextInputWrapper e13gwrw81"
   >
     <div
-      class="leafygreen-ui-1br9h7w"
+      class="leafygreen-ui-90q1a7"
     >
       <div
         class="leafygreen-ui-e3fvh5"
       >
         <label
-          class="leafygreen-ui-1qjbbjd"
-          for="lg-form-field-input-248"
-          id="lg-form-field-label-245"
+          class="leafygreen-ui-t01kw4"
+          for="textinput-7"
         >
           Some search field
         </label>
       </div>
       <div
-        aria-disabled="false"
-        class="leafygreen-ui-mrtshz"
+        class="leafygreen-ui-lzja97"
       >
+        <input
+          aria-invalid="false"
+          autocomplete="on"
+          class="leafygreen-ui-1kmfbzh"
+          id="textinput-7"
+          required=""
+          type="text"
+          value=""
+        />
         <div
-          class="leafygreen-ui-1ago99h"
-        >
-          <input
-            aria-describedby=""
-            aria-invalid="false"
-            aria-label=""
-            aria-labelledby="lg-form-field-label-245"
-            autocomplete="on"
-            class="lg-ui-form-field-input-0000 leafygreen-ui-vrj1me"
-            id="lg-form-field-input-248"
-            required=""
-            type="text"
-            value=""
-          />
-        </div>
-        <div
-          class="leafygreen-ui-iwiovi"
+          class="lg-ui-icon-selector-0000 leafygreen-ui-11c7q5r"
         />
       </div>
-      <div
-        class="leafygreen-ui-jsxxy6"
-      />
     </div>
     <div
       class="css-4bamt4-IconWrapper e13gwrw80"

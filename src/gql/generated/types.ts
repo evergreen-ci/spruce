@@ -347,7 +347,6 @@ export type DispatcherSettingsInput = {
 };
 
 export enum DispatcherVersion {
-  Revised = "REVISED",
   RevisedWithDependencies = "REVISED_WITH_DEPENDENCIES",
 }
 
@@ -3286,6 +3285,7 @@ export type BaseHostFragment = {
   __typename?: "Host";
   hostUrl: string;
   id: string;
+  persistentDnsName: string;
   provider: string;
   startedBy: string;
   status: string;
@@ -3321,6 +3321,7 @@ export type BaseSpawnHostFragment = {
   noExpiration: boolean;
   hostUrl: string;
   id: string;
+  persistentDnsName: string;
   provider: string;
   startedBy: string;
   status: string;
@@ -4787,6 +4788,7 @@ export type EditSpawnHostMutation = {
     noExpiration: boolean;
     hostUrl: string;
     id: string;
+    persistentDnsName: string;
     provider: string;
     startedBy: string;
     status: string;
@@ -5963,6 +5965,7 @@ export type HostQuery = {
     lastCommunicationTime?: Date | null;
     hostUrl: string;
     id: string;
+    persistentDnsName: string;
     provider: string;
     startedBy: string;
     status: string;
@@ -6421,6 +6424,7 @@ export type MyHostsQuery = {
     noExpiration: boolean;
     hostUrl: string;
     id: string;
+    persistentDnsName: string;
     provider: string;
     startedBy: string;
     status: string;
@@ -7414,6 +7418,15 @@ export type ProjectSettingsQuery = {
       vars?: { [key: string]: any } | null;
     } | null;
   };
+};
+
+export type ProjectQueryVariables = Exact<{
+  idOrIdentifier: Scalars["String"]["input"];
+}>;
+
+export type ProjectQuery = {
+  __typename?: "Query";
+  project: { __typename?: "Project"; id: string; identifier: string };
 };
 
 export type ProjectsQueryVariables = Exact<{ [key: string]: never }>;

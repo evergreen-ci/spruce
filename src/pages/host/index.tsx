@@ -49,10 +49,12 @@ const Host: React.FC = () => {
   });
 
   const host = hostData?.host;
-  const { distro, hostUrl, id: hostId, user } = host || {};
+  const { distro, hostUrl, id: hostId, persistentDnsName, user } = host || {};
   const bootstrapMethod = distro?.bootstrapMethod;
   const status = host?.status as HostStatus;
-  const sshCommand = `ssh ${user}@${hostUrl}`;
+
+  const sshAddress = persistentDnsName || hostUrl;
+  const sshCommand = `ssh ${user}@${sshAddress}`;
   const tag = host?.tag ?? "";
 
   const { search } = useLocation();
@@ -127,7 +129,7 @@ const Host: React.FC = () => {
                 host={host}
                 error={error}
               />
-              {hostUrl && (
+              {sshAddress && (
                 <Code language="shell" data-cy="ssh-command">
                   {sshCommand}
                 </Code>
