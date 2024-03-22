@@ -1,7 +1,7 @@
 import { OperationDefinitionNode } from "graphql";
 import { SECRET_FIELDS } from "gql/queries";
 
-export const secretFieldsReq = {
+export const secretFieldsReq: RequestInit = {
   credentials: "include" as RequestCredentials,
   headers: {
     "content-type": "application/json",
