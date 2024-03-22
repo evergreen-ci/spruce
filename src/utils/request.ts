@@ -35,7 +35,7 @@ export const fetchWithRetry = <T = any>(
   options: RequestInit,
   retries: number = 3,
   backoff: number = 150,
-): Promise<{ data: T }> =>
+): Promise<T> =>
   new Promise((resolve, reject) => {
     const attemptFetch = (attempt: number): void => {
       fetch(url, options)
