@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { matchPath, useLocation, Params } from "react-router-dom";
-import { routes, slugs } from "constants/routes";
+import { idSlugs, routes, slugs } from "constants/routes";
 import { environmentVariables } from "utils";
 
 const { getUiUrl } = environmentVariables;
@@ -47,9 +47,8 @@ export const useLegacyUIURL = (): string | null => {
  * @returns string | undefined
  */
 const slugToId = (matchedPathParams: Params): string | undefined => {
-  const slugKeys = Object.keys(slugs);
-  for (let i = 0; i < slugKeys.length; i++) {
-    const key = slugKeys[i];
+  for (let i = 0; i < idSlugs.length; i++) {
+    const key = idSlugs[i];
     if (matchedPathParams[key]) {
       return matchedPathParams[key];
     }

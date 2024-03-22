@@ -90,6 +90,17 @@ export enum slugs {
   versionId = "versionId",
   userId = "userId",
 }
+export const idSlugs = [
+  slugs.buildId,
+  slugs.podId,
+  slugs.distroId,
+  slugs.hostId,
+  slugs.patchId,
+  slugs.projectIdentifier,
+  slugs.taskId,
+  slugs.versionId,
+  slugs.userId,
+];
 
 export const redirectRoutes = {
   distroSettings: paths.distros,
