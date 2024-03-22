@@ -33,13 +33,13 @@ const EventsTable: React.FC<{}> = () => {
   const setPageSize = usePageSizeSelector();
   const page = getPageFromSearch(search);
   const limit = getLimitFromSearch(search);
-  const { [slugs.id]: id } = useParams();
+  const { [slugs.podId]: podId } = useParams();
   const dispatchToast = useToastContext();
   const { data: podEventsData } = useQuery<
     PodEventsQuery,
     PodEventsQueryVariables
   >(POD_EVENTS, {
-    variables: { id, page, limit },
+    variables: { id: podId, page, limit },
     onError: (err) => {
       dispatchToast.error(
         `There was an error loading the pod events: ${err.message}`,
