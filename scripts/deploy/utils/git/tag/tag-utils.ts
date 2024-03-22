@@ -4,11 +4,12 @@ import { green, underline } from "../../../../utils/colors";
 /**
  * `createTagAndPush` is a helper function that creates a new tag.
  * Pushing occurs in the postversion hook triggered by "yarn version"
+ * @param version - version indicates the type of upgrade of the new tag.
  */
-const createTagAndPush = () => {
+const createTagAndPush = (version: "patch" | "minor" | "major") => {
   console.log("Creating new tag...");
   try {
-    execSync("yarn version --new-version patch", {
+    execSync(`yarn version --new-version ${version}`, {
       encoding: "utf-8",
       stdio: "inherit",
     });
@@ -19,9 +20,9 @@ const createTagAndPush = () => {
   console.log(
     green(
       `Track deploy progress at ${underline(
-        "https://spruce.mongodb.com/commits/spruce?requester=git_tag_request"
-      )}`
-    )
+        "https://spruce.mongodb.com/commits/spruce?requester=git_tag_request",
+      )}`,
+    ),
   );
 };
 
