@@ -103,13 +103,6 @@ declare global {
        */
       logout(): void;
       /**
-       * Custom command to open an antd table filter associated with the
-       * the supplied column number
-       * @param columnNumber - The order in which the target column exists in the table starting at 1
-       * @example cy.toggleTableFilter(1)
-       */
-      toggleTableFilter(columnNumber: number): void;
-      /**
        * Custom command to validate a toast was rendered
        * @example cy.validateToast("success", "This succeeded")
        * @example cy.validateToast("error", "This failed")

@@ -67,17 +67,6 @@ Cypress.Commands.add("logout", () => {
   });
 });
 
-/* toggleTableFilter */
-// TODO: Delete this command.
-Cypress.Commands.add("toggleTableFilter", (colNum: number) => {
-  const selector = `.ant-table-thead > tr > :nth-child(${colNum})`;
-  cy.get(selector).should("be.visible");
-  cy.get(selector).find("[role=button]").first().click();
-  cy.get(":not(.ant-dropdown-hidden) > .ant-table-filter-dropdown").should(
-    "be.visible",
-  );
-});
-
 /* validateTableSort */
 Cypress.Commands.add(
   "validateTableSort",

@@ -131,10 +131,9 @@ export const PatchTasksTable: React.FC<Props> = ({
       controls={
         <TableControl
           filteredCount={filteredCount}
-          totalCount={totalCount}
+          label="tasks"
           limit={limit}
           page={page}
-          label="tasks"
           onClear={() => {
             setColumnFilters([]);
             setSorting(defaultSorting);
@@ -145,6 +144,7 @@ export const PatchTasksTable: React.FC<Props> = ({
               name: "Change Page Size",
             });
           }}
+          totalCount={totalCount}
         />
       }
       shouldShowBottomTableControl={tasks.length > 10}
@@ -155,8 +155,8 @@ export const PatchTasksTable: React.FC<Props> = ({
         disableAnimations={limit === 100}
         emptyComponent={<TablePlaceholder message="No tasks found." />}
         loading={loading}
-        table={table}
         shouldAlternateRowColor
+        table={table}
       />
     </TableWrapper>
   );

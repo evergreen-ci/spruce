@@ -252,7 +252,7 @@ describe("Tasks filters", () => {
 
 /**
  * Function used to assert if checkboxes with certain labels are checked or unchecked.
- * @param dataCy - dataCy of the container
+ * @param dataCy - data-cy of the container
  * @param statuses list of labels to assert on
  * @param checked true if should be checked, false if should be unchecked
  */
@@ -276,7 +276,7 @@ const assertChecked = (
 /**
  * Function used to select a checkbox option from the table filter dropdown.
  * Only the first checkbox whose label is a match (i.e. the umbrella group name) will be checked.
- * @param dataCy - dataCy of the container
+ * @param dataCy - data-cy of the container
  * @param label label of the checkbox option to click on
  * @param checked true if should be checked, false if should be unchecked
  */
