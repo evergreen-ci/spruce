@@ -27,21 +27,21 @@ type Action =
   | { name: "Add Task Annotation Suspected Issue" };
 
 export const useAnnotationAnalytics = () => {
-  const { [slugs.id]: id } = useParams();
+  const { [slugs.taskId]: taskId } = useParams();
   const [execution] = useQueryParam(RequiredQueryParams.Execution, 0);
 
   const { data: eventData } = useQuery<
     AnnotationEventDataQuery,
     AnnotationEventDataQueryVariables
   >(ANNOTATION_EVENT_DATA, {
-    variables: { taskId: id, execution },
+    variables: { taskId, execution },
     fetchPolicy: "cache-first",
   });
 
   const { data: bbData } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(
     BUILD_BARON,
     {
-      variables: { taskId: id, execution },
+      variables: { taskId, execution },
       fetchPolicy: "cache-first",
     },
   );
@@ -50,7 +50,7 @@ export const useAnnotationAnalytics = () => {
   const { buildBaronConfigured } = bbData?.buildBaron || {};
 
   return useAnalyticsRoot<Action>("Annotations", {
-    taskId: id,
+    taskId,
     annotation,
     bbConfigured: buildBaronConfigured,
   });

@@ -70,11 +70,11 @@ type Action =
   | { name: "Submit Relevant Commit Selector"; type: CommitType };
 
 export const useTaskAnalytics = () => {
-  const { [slugs.id]: id } = useParams();
+  const { [slugs.taskId]: taskId } = useParams();
 
   const [execution] = useQueryParam(RequiredQueryParams.Execution, 0);
   const { data: eventData } = useQuery<TaskQuery, TaskQueryVariables>(TASK, {
-    variables: { taskId: id, execution },
+    variables: { taskId, execution },
     fetchPolicy: "cache-first",
   });
 
@@ -90,7 +90,7 @@ export const useTaskAnalytics = () => {
     taskStatus,
     execution,
     isLatestExecution: isLatestExecution.toString(),
-    taskId: id,
+    taskId,
     failedTestCount,
     projectIdentifier: identifier,
   });

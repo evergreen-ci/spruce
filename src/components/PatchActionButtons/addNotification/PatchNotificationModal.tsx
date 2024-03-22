@@ -14,14 +14,14 @@ export const PatchNotificationModal: React.FC<ModalProps> = ({
   onCancel,
   visible,
 }) => {
-  const { [slugs.id]: patchId } = useParams();
-  const { sendEvent } = useVersionAnalytics(patchId);
+  const { [slugs.versionId]: versionId } = useParams();
+  const { sendEvent } = useVersionAnalytics(versionId);
 
   return (
     <NotificationModal
       data-cy="patch-notification-modal"
       onCancel={onCancel}
-      resourceId={patchId}
+      resourceId={versionId}
       sendAnalyticsEvent={(subscription) =>
         sendEvent({ name: "Add Notification", subscription })
       }

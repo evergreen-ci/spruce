@@ -81,7 +81,6 @@ export enum slugs {
   distro = "distro",
   distroId = "distroId",
   hostId = "hostId",
-  id = "id",
   patchId = "patchId",
   projectIdentifier = "projectIdentifier",
   tab = "tab",
@@ -95,7 +94,7 @@ export enum slugs {
 export const redirectRoutes = {
   distroSettings: paths.distros,
   projectSettings: paths.projects,
-  userPatches: `${paths.user}/:${slugs.id}`,
+  userPatches: `${paths.user}/:${slugs.userId}`,
   waterfall: `${paths.waterfall}/:${slugs.projectIdentifier}`,
 };
 
