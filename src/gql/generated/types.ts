@@ -3285,6 +3285,7 @@ export type BaseHostFragment = {
   __typename?: "Host";
   hostUrl: string;
   id: string;
+  persistentDnsName: string;
   provider: string;
   startedBy: string;
   status: string;
@@ -3320,6 +3321,7 @@ export type BaseSpawnHostFragment = {
   noExpiration: boolean;
   hostUrl: string;
   id: string;
+  persistentDnsName: string;
   provider: string;
   startedBy: string;
   status: string;
@@ -4786,6 +4788,7 @@ export type EditSpawnHostMutation = {
     noExpiration: boolean;
     hostUrl: string;
     id: string;
+    persistentDnsName: string;
     provider: string;
     startedBy: string;
     status: string;
@@ -5962,6 +5965,7 @@ export type HostQuery = {
     lastCommunicationTime?: Date | null;
     hostUrl: string;
     id: string;
+    persistentDnsName: string;
     provider: string;
     startedBy: string;
     status: string;
@@ -6420,6 +6424,7 @@ export type MyHostsQuery = {
     noExpiration: boolean;
     hostUrl: string;
     id: string;
+    persistentDnsName: string;
     provider: string;
     startedBy: string;
     status: string;

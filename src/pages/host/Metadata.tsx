@@ -23,6 +23,7 @@ export const Metadata: React.FC<{
     distroId,
     hostUrl,
     lastCommunicationTime,
+    persistentDnsName,
     provider,
     runningTask,
     startedBy,
@@ -40,6 +41,9 @@ export const Metadata: React.FC<{
       <MetadataTitle>Host Details</MetadataTitle>
       <MetadataItem>User: {user}</MetadataItem>
       {hostUrl && <MetadataItem>Host Name: {hostUrl}</MetadataItem>}
+      {persistentDnsName && (
+        <MetadataItem>Persistent DNS Name: {persistentDnsName}</MetadataItem>
+      )}
       {lastCommunicationTime && (
         <MetadataItem data-cy="host-last-communication">
           Last Communication:{" "}
