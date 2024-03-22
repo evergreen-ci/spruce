@@ -1,6 +1,49 @@
 import { deleteNestedKey } from "./deleteNestedKey";
 
 describe("deleteNestedKey", () => {
+  it("replaces key with redacted string when it's defined", () => {
+    const obj = {
+      name: "John",
+      age: 30,
+      city: "New York",
+      sibling: {
+        city: "New York",
+        zipCode: 10001,
+        age: 5,
+      },
+    };
+    const expected = {
+      name: "John",
+      age: "REDACTED",
+      city: "New York",
+      sibling: {
+        city: "New York",
+        zipCode: 10001,
+        age: "REDACTED",
+      },
+    };
+    expect(deleteNestedKey(obj, "age", "REDACTED")).toStrictEqual(expected);
+  });
+
+  it("deletes many keys when provided as an array of keys to update", () => {
+    const obj = {
+      name: "John",
+      age: 30,
+      city: "New York",
+      sibling: {
+        city: "New York",
+        zipCode: 10001,
+        age: 5,
+      },
+    };
+    const expected = {
+      sibling: {},
+    };
+    expect(
+      deleteNestedKey(obj, ["age", "city", "name", "zipCode"]),
+    ).toStrictEqual(expected);
+  });
+
   it("deletes a top-level key", () => {
     const obj = {
       name: "John",

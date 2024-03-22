@@ -5,6 +5,6 @@ export const omit = <T extends object, K extends [...(keyof T)[]]>(
   params: K,
 ) => {
   const newObj = { ...obj };
-  params.forEach((param) => deleteNestedKey(newObj, param as string));
+  deleteNestedKey(newObj, params as string[]);
   return newObj as Omit<T, K[number]>;
 };

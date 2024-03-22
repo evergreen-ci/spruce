@@ -1,6 +1,6 @@
 import { Operation, FetchResult, ApolloLink } from "@apollo/client";
 import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
-import { omit } from "utils/object";
+import { deleteNestedKey } from "utils/object";
 
 export const leaveBreadcrumbMapFn =
   (operation: Operation, secretFields: string[]) => (response: FetchResult) => {
@@ -8,7 +8,11 @@ export const leaveBreadcrumbMapFn =
       "Graphql Request",
       {
         operationName: operation.operationName,
-        variables: omit(operation.variables, secretFields),
+        variables: deleteNestedKey(
+          operation.variables,
+          secretFields,
+          "REDACTED",
+        ),
         status: !response.errors ? "OK" : "ERROR",
         errors: response.errors,
       },
