@@ -41,7 +41,7 @@ const evergreenDeploy = async () => {
     const { value: version } = await prompts({
       type: "select",
       name: "value",
-      message: "Are you sure you want to deploy to production?",
+      message: "How should this deploy be versioned?",
       choices: [
         { title: "Patch", value: "patch" },
         { title: "Minor", value: "minor" },
