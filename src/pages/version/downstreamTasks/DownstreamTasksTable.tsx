@@ -59,14 +59,11 @@ export const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
     filterState.forEach(({ id, value }) => {
       if (id === TaskSortCategory.Name) {
         dispatch({ type: "setTaskName", task: value as string });
-      }
-      if (id === TaskSortCategory.Status) {
+      } else if (id === TaskSortCategory.Status) {
         dispatch({ type: "setStatuses", statuses: value as string[] });
-      }
-      if (id === TaskSortCategory.BaseStatus) {
+      } else if (id === TaskSortCategory.BaseStatus) {
         dispatch({ type: "setBaseStatuses", baseStatuses: value as string[] });
-      }
-      if (id === TaskSortCategory.Variant) {
+      } else if (id === TaskSortCategory.Variant) {
         dispatch({ type: "setVariant", variant: value as string });
       }
     });

@@ -21,7 +21,7 @@ import { usePolling } from "hooks";
 import { PatchStatus } from "types/patch";
 import { string } from "utils";
 import { ParametersModal } from "../ParametersModal";
-import { DownstreamTasksTable } from "./DownstreamProjectTable";
+import { DownstreamTasksTable } from "./DownstreamTasksTable";
 import { reducer } from "./reducer";
 
 const { shortenGithash } = string;
