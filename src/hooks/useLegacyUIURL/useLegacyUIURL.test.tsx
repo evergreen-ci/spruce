@@ -1,6 +1,6 @@
 import { MemoryRouter, useNavigate } from "react-router-dom";
 import { act, renderHook } from "test_utils";
-import { useLegacyUIURL } from "../useLegacyUIURL";
+import { useLegacyUIURL } from ".";
 
 describe("useLegacyUIURL", () => {
   it("returns a legacy URL on the commits page", () => {
