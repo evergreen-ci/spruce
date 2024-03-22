@@ -7,6 +7,7 @@ import Popover from "@leafygreen-ui/popover";
 import { PopoverContainer } from "components/styles/Popover";
 import { size } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
+import { toArray } from "utils/array";
 import { TreeDataEntry, TreeSelect } from "../TreeSelect";
 
 const { blue, gray } = palette;
@@ -37,10 +38,7 @@ export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
     onConfirm(newFilters);
   };
 
-  const valueAsArray = useMemo(
-    () => (Array.isArray(value) ? value : [value]),
-    [value],
-  );
+  const valueAsArray = useMemo(() => toArray(value), [value]);
 
   return (
     <FilterWrapper>

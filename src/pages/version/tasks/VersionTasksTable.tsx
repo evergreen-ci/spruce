@@ -19,6 +19,11 @@ import { useTaskStatuses, useTableSort } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
 import { parseSortString } from "utils/queryString";
+import {
+  mapFilterParamToId,
+  mapIdToFilterParam,
+  emptyFilterQueryParams,
+} from "./constants";
 
 interface Props {
   filteredCount: number;
@@ -31,7 +36,7 @@ interface Props {
   totalCount: number;
 }
 
-export const PatchTasksTable: React.FC<Props> = ({
+export const VersionTasksTable: React.FC<Props> = ({
   clearQueryParams,
   filteredCount,
   isPatch,
@@ -193,25 +198,4 @@ const getInitialState = (queryParams: {
       [],
     ),
   };
-};
-
-export const mapFilterParamToId = {
-  [PatchTasksQueryParams.TaskName]: TaskSortCategory.Name,
-  [PatchTasksQueryParams.Statuses]: TaskSortCategory.Status,
-  [PatchTasksQueryParams.BaseStatuses]: TaskSortCategory.BaseStatus,
-  [PatchTasksQueryParams.Variant]: TaskSortCategory.Variant,
-} as const;
-
-export const mapIdToFilterParam = {
-  [TaskSortCategory.Name]: PatchTasksQueryParams.TaskName,
-  [TaskSortCategory.Status]: PatchTasksQueryParams.Statuses,
-  [TaskSortCategory.BaseStatus]: PatchTasksQueryParams.BaseStatuses,
-  [TaskSortCategory.Variant]: PatchTasksQueryParams.Variant,
-};
-
-const emptyFilterQueryParams = {
-  [PatchTasksQueryParams.TaskName]: undefined,
-  [PatchTasksQueryParams.Statuses]: undefined,
-  [PatchTasksQueryParams.BaseStatuses]: undefined,
-  [PatchTasksQueryParams.Variant]: undefined,
 };

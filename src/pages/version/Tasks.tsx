@@ -13,7 +13,7 @@ import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
 import { queryString } from "utils";
-import { PatchTasksTable } from "./tasks/PatchTasksTable";
+import { VersionTasksTable } from "./tasks/VersionTasksTable";
 import { useQueryVariables } from "./useQueryVariables";
 
 const { parseQueryString } = queryString;
@@ -73,7 +73,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { count = 0, data: tasksData = [] } = tasks || {};
 
   return (
-    <PatchTasksTable
+    <VersionTasksTable
       clearQueryParams={clearQueryParams}
       isPatch={isPatch}
       filteredCount={count}
