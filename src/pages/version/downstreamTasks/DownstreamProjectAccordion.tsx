@@ -26,6 +26,17 @@ import { reducer } from "./reducer";
 
 const { shortenGithash } = string;
 
+const defaultSorts: SortOrder[] = [
+  {
+    Key: TaskSortCategory.Status,
+    Direction: SortDirection.Asc,
+  },
+  {
+    Key: TaskSortCategory.BaseStatus,
+    Direction: SortDirection.Desc,
+  },
+];
+
 interface DownstreamProjectAccordionProps {
   baseVersionID: string;
   githash: string;
@@ -49,17 +60,6 @@ export const DownstreamProjectAccordion: React.FC<
 }) => {
   const dispatchToast = useToastContext();
 
-  const defaultSorts: SortOrder[] = [
-    {
-      Key: TaskSortCategory.Status,
-      Direction: SortDirection.Asc,
-    },
-    {
-      Key: TaskSortCategory.BaseStatus,
-      Direction: SortDirection.Desc,
-    },
-  ];
-
   const [state, dispatch] = useReducer(reducer, {
     baseStatuses: [],
     limit: 10,
@@ -80,13 +80,13 @@ export const DownstreamProjectAccordion: React.FC<
     variables: {
       versionId: childPatchId,
       taskFilterOptions: {
+        baseStatuses,
         limit,
         page,
+        sorts,
         statuses,
         taskName,
         variant,
-        sorts,
-        baseStatuses,
       },
     },
     fetchPolicy: "cache-and-network",

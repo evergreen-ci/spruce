@@ -51,9 +51,7 @@ export const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
   );
 
   const { baseStatuses: baseStatusOptions, currentStatuses: statusOptions } =
-    useTaskStatuses({
-      versionId: childPatchId,
-    });
+    useTaskStatuses({ versionId: childPatchId });
 
   const onFilterChange = (filterState: ColumnFiltersState) => {
     filterState.forEach(({ id, value }) => {
@@ -74,11 +72,11 @@ export const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
   };
 
   const onSortingChange = (sortingState: SortingState) => {
-    const updatedSort = sortingState.map(({ desc, id }) => ({
+    const updatedSorts = sortingState.map(({ desc, id }) => ({
       Key: id as TaskSortCategory,
       Direction: desc ? SortDirection.Desc : SortDirection.Asc,
     }));
-    dispatch({ type: "setSort", sorts: updatedSort });
+    dispatch({ type: "setSorts", sorts: updatedSorts });
     sendEvent({
       name: "Sort Downstream Tasks Table",
       sortBy: sortingState.map(({ id }) => id as TaskSortCategory),
@@ -132,16 +130,16 @@ export const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
       controls={
         <TableControl
           filteredCount={count}
-          totalCount={taskCount}
           label="tasks"
+          limit={limit}
           onClear={() => {
             dispatch({ type: "clearAllFilters" });
             table.reset();
           }}
           onPageChange={(p) => dispatch({ type: "setPage", page: p })}
           onPageSizeChange={(l) => dispatch({ type: "setLimit", limit: l })}
-          limit={limit}
           page={page}
+          totalCount={taskCount}
         />
       }
     >
@@ -150,8 +148,8 @@ export const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
         data-cy-row="downstream-tasks-table-row"
         emptyComponent={<TablePlaceholder message="No tasks found." />}
         loading={loading}
-        table={table}
         shouldAlternateRowColor
+        table={table}
       />
     </TableWrapper>
   );

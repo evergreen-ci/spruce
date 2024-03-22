@@ -16,7 +16,7 @@ export type Action =
   | { type: "setBaseStatuses"; baseStatuses: string[] }
   | { type: "setStatuses"; statuses: string[] }
   | { type: "clearAllFilters" }
-  | { type: "setSort"; sorts: SortOrder[] }
+  | { type: "setSorts"; sorts: SortOrder[] }
   | { type: "setPage"; page: number }
   | { type: "setLimit"; limit: number };
 
@@ -57,7 +57,7 @@ export const reducer = (state: State, action: Action) => {
         baseStatuses: [],
         taskName: "",
       };
-    case "setSort":
+    case "setSorts":
       return {
         ...state,
         ...resetPage,
