@@ -15,12 +15,12 @@ type Action =
       sortBy: TaskSortCategory | TaskSortCategory[];
     }
   | {
+      name: "Filter Downstream Tasks Table";
+      filterBy: string | string[];
+    }
+  | {
       name: "Sort Downstream Tasks Table";
-      sortBy:
-        | TaskSortCategory.Name
-        | TaskSortCategory.Status
-        | TaskSortCategory.BaseStatus
-        | TaskSortCategory.Variant;
+      sortBy: TaskSortCategory | TaskSortCategory[];
     }
   | { name: "Restart"; abort: boolean }
   | { name: "Schedule" }

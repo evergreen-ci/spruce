@@ -1,5 +1,6 @@
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
+import { PolymorphicAs } from "@leafygreen-ui/polymorphic";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { ErrorWrapper } from "components/ErrorWrapper";
@@ -39,14 +40,20 @@ export const MetadataTitle: React.FC<{ children: React.ReactNode }> = ({
 );
 
 interface ItemProps {
+  as?: PolymorphicAs;
   children: React.ReactNode;
   "data-cy"?: string;
 }
 
 export const MetadataItem: React.FC<ItemProps> = ({
+  as = "p",
   children,
   "data-cy": dataCy,
-}) => <Item data-cy={dataCy}>{children}</Item>;
+}) => (
+  <Item data-cy={dataCy} as={as}>
+    {children}
+  </Item>
+);
 
 const Title = styled(Body)<BodyProps>`
   font-size: 15px;
@@ -63,7 +70,7 @@ const Item = styled(Body)<BodyProps>`
     line-height: 14px;
   }
 
-  :not(:last-of-type) {
+  :not(:last-child) {
     margin-bottom: 12px;
   }
 `;
