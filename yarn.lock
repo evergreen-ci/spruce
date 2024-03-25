@@ -3273,15 +3273,15 @@
     "@leafygreen-ui/hooks" "^8.1.0"
     "@leafygreen-ui/lib" "^13.2.0"
 
-"@leafygreen-ui/badge@8.0.2":
-  version "8.0.2"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/badge/-/badge-8.0.2.tgz#2928d5a3877644b83f7459a008c03361cb2c744b"
-  integrity sha512-rMAV+oXaR8pQDS2UqaakhhR4Zat4HJ7INBYzXr0L1JmUcIkLDM3qgVGYfZhwoadW1MVKIJ7J2z6TNt9+3kOtOQ==
+"@leafygreen-ui/badge@8.1.1":
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/badge/-/badge-8.1.1.tgz#b5896603e10d3258c7b13fe791471d9c960a2864"
+  integrity sha512-N2+Imc5Lgv8PBBJrERtbGHg+m+QlhSie4BLW0A7zyCvv6MmvGT+YP5YQ/EOBPP+PiEDdFM31auXzzhy7T/JVbw==
   dependencies:
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.7"
-    "@leafygreen-ui/tokens" "^2.0.0"
+    "@leafygreen-ui/emotion" "^4.0.7"
+    "@leafygreen-ui/lib" "^13.0.0"
+    "@leafygreen-ui/palette" "^4.0.7"
+    "@leafygreen-ui/tokens" "^2.5.1"
 
 "@leafygreen-ui/banner@7.0.4":
   version "7.0.4"
