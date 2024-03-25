@@ -10,6 +10,7 @@ import {
   retryLink,
 } from "gql/client/link";
 import { secretFieldsReq } from "gql/fetch";
+import { SecretFieldsQuery } from "gql/generated/types";
 import { environmentVariables } from "utils";
 import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
 import { fetchWithRetry, shouldLogoutAndRedirect } from "utils/request";
@@ -22,7 +23,7 @@ export const useCreateGQLCLient = (): ApolloClient<NormalizedCacheObject> => {
   const [gqlClient, setGQLClient] = useState<any>();
 
   useEffect(() => {
-    fetchWithRetry(getGQLUrl(), secretFieldsReq)
+    fetchWithRetry<SecretFieldsQuery>(getGQLUrl(), secretFieldsReq)
       .then(({ data }) => {
         dispatchAuthenticated();
         setSecretFields(data?.spruceConfig?.secretFields);
