@@ -34,14 +34,14 @@ const { getLimitFromSearch, getPageFromSearch } = url;
 
 const Host: React.FC = () => {
   const dispatchToast = useToastContext();
-  const { [slugs.hostId]: id } = useParams();
+  const { [slugs.hostId]: hostId } = useParams();
   // Query host data
   const {
     data: hostData,
     error,
     loading: hostMetaDataLoading,
   } = useQuery<HostQuery, HostQueryVariables>(HOST, {
-    variables: { id },
+    variables: { id: hostId },
     onError: (err) => {
       dispatchToast.error(
         `There was an error loading the host: ${err.message}`,
@@ -50,7 +50,7 @@ const Host: React.FC = () => {
   });
 
   const host = hostData?.host;
-  const { distro, hostUrl, id: hostId, persistentDnsName, user } = host || {};
+  const { distro, hostUrl, persistentDnsName, user } = host || {};
   const bootstrapMethod = distro?.bootstrapMethod;
   const status = host?.status as HostStatus;
 
@@ -67,7 +67,7 @@ const Host: React.FC = () => {
     HostEventsQuery,
     HostEventsQueryVariables
   >(HOST_EVENTS, {
-    variables: { id, tag, page, limit },
+    variables: { id: hostId, tag, page, limit },
   });
 
   const hostEvents = hostEventData?.hostEvents;
@@ -102,7 +102,7 @@ const Host: React.FC = () => {
                   </ButtonSpacer>
                   <ButtonSpacer>
                     <RestartJasper
-                      selectedHostIds={[id]}
+                      selectedHostIds={[hostId]}
                       hostUrl={hostUrl}
                       isSingleHost
                       canRestartJasper={canRestartJasperOrReprovision}
@@ -111,7 +111,7 @@ const Host: React.FC = () => {
                   </ButtonSpacer>
                   <ButtonSpacer>
                     <Reprovision
-                      selectedHostIds={[id]}
+                      selectedHostIds={[hostId]}
                       hostUrl={hostUrl}
                       isSingleHost
                       canReprovision={canRestartJasperOrReprovision}
@@ -153,7 +153,7 @@ const Host: React.FC = () => {
       )}
       <UpdateStatusModal
         data-cy="update-host-status-modal"
-        hostIds={[id]}
+        hostIds={[hostId]}
         visible={isUpdateStatusModalVisible}
         closeModal={() => setIsUpdateStatusModalVisible(false)}
         isSingleHost
