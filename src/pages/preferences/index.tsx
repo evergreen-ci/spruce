@@ -17,7 +17,9 @@ import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
 
 const Preferences: React.FC = () => {
   usePageTitle("Preferences");
-  const { [slugs.tab]: tab } = useParams();
+  const { [slugs.tab]: tab } = useParams<{
+    [slugs.tab]: PreferencesTabRoutes;
+  }>();
   const { sendEvent } = usePreferencesAnalytics();
 
   return (

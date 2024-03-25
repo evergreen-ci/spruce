@@ -14,9 +14,11 @@ import { ProfileTab } from "./preferencesTabs/ProfileTab";
 import { PublicKeysTab } from "./preferencesTabs/PublicKeysTab";
 
 export const PreferencesTabs: React.FC = () => {
-  const { [slugs.tab]: tab } = useParams();
+  const { [slugs.tab]: tab } = useParams<{
+    [slugs.tab]: PreferencesTabRoutes | null;
+  }>();
 
-  const { subtitle, title } = getTitle(tab as PreferencesTabRoutes);
+  const { subtitle, title } = getTitle(tab);
   return (
     <>
       <TitleContainer>

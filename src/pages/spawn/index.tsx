@@ -11,7 +11,7 @@ import { SpawnHost } from "./SpawnHost";
 import { SpawnVolume } from "./SpawnVolume";
 
 const Spawn: React.FC = () => {
-  const { [slugs.tab]: tab } = useParams();
+  const { [slugs.tab]: tab } = useParams<{ [slugs.tab]: SpawnTab }>();
   const spawnAnalytics = useSpawnAnalytics();
 
   return (

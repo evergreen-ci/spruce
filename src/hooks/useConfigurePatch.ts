@@ -152,7 +152,7 @@ export const useConfigurePatch = (
 ): HookResult => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { [slugs.tab]: tab } = useParams();
+  const { [slugs.tab]: tab } = useParams<{ [slugs.tab]: PatchTab | null }>();
 
   const { id, project } = patch;
   const { variants } = project;
