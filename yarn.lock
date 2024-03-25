@@ -3840,17 +3840,17 @@
     "@leafygreen-ui/palette" "^4.0.7"
     "@leafygreen-ui/tokens" "^2.2.0"
 
-"@leafygreen-ui/radio-group@10.2.4":
-  version "10.2.4"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-group/-/radio-group-10.2.4.tgz#42ea93512c7f555facb871c97ddbbf3d5c136d44"
-  integrity sha512-Jd54mKopU9rp7YDlnG/Aw+C3bSvE7CpVzJ9UFAgvWQP2FbqTIE5uDRibYipcf1R3AiOTVOm2H5i9xmHi+bi1xQ==
+"@leafygreen-ui/radio-group@10.2.5":
+  version "10.2.5"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-group/-/radio-group-10.2.5.tgz#45fb757f1f9589ed1323d7d48ba03d2b2f9be6b4"
+  integrity sha512-QwytVW6RtbxXsiMdDszpdXQeF6jVXElWhiotN4dpW82DCqBpAPNMYr2T24a4I2DTn/2mhfs+nBXBtcN7QYhxTA==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.7"
-    "@leafygreen-ui/hooks" "^8.0.0"
+    "@leafygreen-ui/hooks" "^8.1.2"
     "@leafygreen-ui/lib" "^13.0.0"
     "@leafygreen-ui/palette" "^4.0.7"
-    "@leafygreen-ui/tokens" "^2.2.0"
-    "@leafygreen-ui/typography" "^18.0.0"
+    "@leafygreen-ui/tokens" "^2.5.1"
+    "@leafygreen-ui/typography" "^18.2.2"
 
 "@leafygreen-ui/ripple@^1.1.12":
   version "1.1.12"
