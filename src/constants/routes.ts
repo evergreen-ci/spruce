@@ -117,7 +117,6 @@ export const routes = {
   host: `${paths.host}/:${slugs.hostId}`,
   hosts: paths.hosts,
   jobLogs: `${paths.jobLogs}/:${slugs.buildId}`,
-  jobLogsGroup: `${paths.jobLogs}/:${slugs.taskId}`,
   login: paths.login,
   myPatches: `${paths.user}/${PageNames.Patches}`,
   patch: `${paths.patch}/:${slugs.versionId}`,
