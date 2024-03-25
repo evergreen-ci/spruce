@@ -78,7 +78,6 @@ const paths = {
 export enum slugs {
   buildId = "buildId",
   podId = "podId",
-  distro = "distro",
   distroId = "distroId",
   hostId = "hostId",
   patchId = "patchId",
