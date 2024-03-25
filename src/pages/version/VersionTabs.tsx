@@ -26,13 +26,13 @@ interface Props {
 const tabMap = ({
   childPatches,
   numFailedChildPatches,
-  patchId,
   taskCount,
+  versionId,
 }: {
   taskCount: number;
   childPatches: VersionQuery["version"]["patch"]["childPatches"];
   numFailedChildPatches: number;
-  patchId: string;
+  versionId: string;
 }) => ({
   [PatchTab.Tasks]: (
     <Tab name="Tasks" id="task-tab" data-cy="task-tab" key="tasks-tab">
@@ -56,7 +56,7 @@ const tabMap = ({
       data-cy="changes-tab"
       key="changes-tab"
     >
-      <CodeChanges patchId={patchId} />
+      <CodeChanges patchId={versionId} />
     </Tab>
   ),
   [PatchTab.Downstream]: (
@@ -112,7 +112,7 @@ export const VersionTabs: React.FC<Props> = ({
       taskCount,
       childPatches,
       numFailedChildPatches,
-      patchId: versionId,
+      versionId,
     });
   }, [taskCount, childPatches, versionId]);
 
