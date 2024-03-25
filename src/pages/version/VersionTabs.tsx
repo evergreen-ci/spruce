@@ -35,14 +35,14 @@ const tabMap = ({
   patchId: string;
 }) => ({
   [PatchTab.Tasks]: (
-    <Tab name="Tasks" versionId="task-tab" data-cy="task-tab" key="tasks-tab">
+    <Tab name="Tasks" id="task-tab" data-cy="task-tab" key="tasks-tab">
       <Tasks taskCount={taskCount} />
     </Tab>
   ),
   [PatchTab.TaskDuration]: (
     <Tab
       name="Task Duration"
-      versionId="duration-tab"
+      id="duration-tab"
       data-cy="duration-tab"
       key="duration-tab"
     >
@@ -52,7 +52,7 @@ const tabMap = ({
   [PatchTab.Changes]: (
     <Tab
       name="Changes"
-      versionId="changes-tab"
+      id="changes-tab"
       data-cy="changes-tab"
       key="changes-tab"
     >
@@ -73,7 +73,7 @@ const tabMap = ({
           "Downstream Projects"
         )
       }
-      versionId="downstream-tab"
+      id="downstream-tab"
       data-cy="downstream-tab"
       key="downstream-tab"
     >
@@ -86,7 +86,10 @@ export const VersionTabs: React.FC<Props> = ({
   isPatch,
   taskCount,
 }) => {
-  const { [slugs.versionId]: versionId, [slugs.tab]: tab } = useParams();
+  const { [slugs.versionId]: versionId, [slugs.tab]: tab } = useParams<{
+    [slugs.versionId]: string;
+    [slugs.tab]: PatchTab;
+  }>();
   const { search } = useLocation();
   const { sendEvent } = useVersionAnalytics(versionId);
   const navigate = useNavigate();
