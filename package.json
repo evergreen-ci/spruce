@@ -210,7 +210,7 @@
     "simple-git": "3.19.1",
     "storybook": "7.4.0",
     "storybook-addon-apollo-client": "^4.1.4",
-    "ts-node": "10.9.1",
+    "ts-node": "10.9.2",
     "typescript": "5.0.3",
     "vite": "4.5.2",
     "vite-plugin-checker": "0.6.2",
