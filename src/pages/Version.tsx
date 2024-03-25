@@ -38,7 +38,7 @@ import { NameChangeModal } from "./version/NameChangeModal";
 // docs/decisions/2023-12-13_version_page_logic.md
 export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
-  const { [slugs.versionId]: id } = useParams();
+  const { [slugs.versionId]: versionId } = useParams();
   const dispatchToast = useToastContext();
 
   const [redirectURL, setRedirectURL] = useState(undefined);
@@ -49,7 +49,7 @@ export const VersionPage: React.FC = () => {
     VersionQuery,
     VersionQueryVariables
   >(VERSION, {
-    variables: { id },
+    variables: { id: versionId },
     fetchPolicy: "cache-and-network",
     onError: (error) => {
       dispatchToast.error(
@@ -64,7 +64,7 @@ export const VersionPage: React.FC = () => {
     IsPatchConfiguredQuery,
     IsPatchConfiguredQueryVariables
   >(IS_PATCH_CONFIGURED, {
-    variables: { id },
+    variables: { id: versionId },
     onError: (error) => {
       dispatchToast.error(
         `There was an error loading this patch: ${error.message}`,
@@ -78,13 +78,13 @@ export const VersionPage: React.FC = () => {
     HasVersionQuery,
     HasVersionQueryVariables
   >(HAS_VERSION, {
-    variables: { id },
+    variables: { id: versionId },
     onCompleted: ({ hasVersion }) => {
       setIsLoadingData(true);
       if (hasVersion) {
-        getVersion({ variables: { id } });
+        getVersion({ variables: { id: versionId } });
       } else {
-        getPatch({ variables: { id } });
+        getPatch({ variables: { id: versionId } });
       }
     },
     onError: (error) => {
@@ -100,16 +100,16 @@ export const VersionPage: React.FC = () => {
       const { patch } = patchData;
       const { activated, alias, projectID } = patch;
       if (isPatchUnconfigured({ alias, activated })) {
-        setRedirectURL(getPatchRoute(id, { configure: true }));
+        setRedirectURL(getPatchRoute(versionId, { configure: true }));
         setIsLoadingData(false);
       } else if (!activated && alias === commitQueueAlias) {
         setRedirectURL(getCommitQueueRoute(projectID));
         setIsLoadingData(false);
       } else {
-        getVersion({ variables: { id } });
+        getVersion({ variables: { id: versionId } });
       }
     }
-  }, [patchData, getVersion, id]);
+  }, [patchData, getVersion, versionId]);
 
   // If we have successfully loaded a version, we can show the page.
   useEffect(() => {
@@ -157,7 +157,7 @@ export const VersionPage: React.FC = () => {
   } = patch || {};
   const isPatchOnCommitQueue = commitQueuePosition !== null;
 
-  const versionText = shortenGithash(revision || id);
+  const versionText = shortenGithash(revision || versionId);
   const pageTitle = isPatch
     ? `Patch - ${patchNumber}`
     : `Version - ${versionText}`;
@@ -188,7 +188,7 @@ export const VersionPage: React.FC = () => {
             isPatch={isPatch}
             isPatchOnCommitQueue={isPatchOnCommitQueue}
             patchDescription={message}
-            versionId={id}
+            versionId={versionId}
           />
         }
         loading={false}
@@ -196,13 +196,13 @@ export const VersionPage: React.FC = () => {
         title={linkifiedMessage || `Version ${order}`}
       >
         {isPatch && (
-          <NameChangeModal patchId={id} originalPatchName={message} />
+          <NameChangeModal patchId={versionId} originalPatchName={message} />
         )}
       </PageTitle>
       <PageLayout hasSider>
         <PageSider>
           <Metadata loading={false} version={version} />
-          <BuildVariantCard versionId={id} />
+          <BuildVariantCard versionId={versionId} />
         </PageSider>
         <PageLayout>
           <PageContent>
