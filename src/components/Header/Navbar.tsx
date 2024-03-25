@@ -188,7 +188,6 @@ const SecondaryLink = styled.a`
 `;
 
 const HybridTreeIcon = styled.img`
-  height: 70px;
-  width: 70px;
+  height: 72px;
   position: relative;
 `;

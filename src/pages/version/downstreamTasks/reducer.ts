@@ -10,59 +10,41 @@ interface QueryParamState {
   variant: string;
 }
 
-interface InputValueState {
-  baseStatusesInputVal: string[];
-  currentStatusesInputVal: string[];
-  taskNameInputVal: string;
-  variantInputVal: string;
-}
-
 export type Action =
-  | { type: "onChangeTaskNameInput"; task: string }
-  | { type: "onChangeVariantInput"; variant: string }
-  | { type: "onFilterTaskNameInput" }
-  | { type: "onFilterVariantInput" }
-  | { type: "setAndSubmitBaseStatusesSelector"; baseStatuses: string[] }
-  | { type: "setAndSubmitStatusesSelector"; statuses: string[] }
+  | { type: "setTaskName"; task: string }
+  | { type: "setVariant"; variant: string }
+  | { type: "setBaseStatuses"; baseStatuses: string[] }
+  | { type: "setStatuses"; statuses: string[] }
   | { type: "clearAllFilters" }
-  | { type: "onSort"; sorts: SortOrder[] }
-  | { type: "onChangePagination"; page: number }
-  | { type: "onChangeLimit"; limit: number };
+  | { type: "setSorts"; sorts: SortOrder[] }
+  | { type: "setPage"; page: number }
+  | { type: "setLimit"; limit: number };
 
-export type State = QueryParamState & InputValueState;
+export type State = QueryParamState;
 const resetPage = { page: 0 };
 export const reducer = (state: State, action: Action) => {
   switch (action.type) {
-    case "onChangeTaskNameInput":
+    case "setTaskName":
       return {
         ...state,
-        taskNameInputVal: action.task,
-      };
-    case "onChangeVariantInput":
-      return { ...state, variantInputVal: action.variant };
-    case "onFilterTaskNameInput":
-      return {
-        ...state,
-        taskName: state.taskNameInputVal,
+        taskName: action.task,
         ...resetPage,
       };
-    case "onFilterVariantInput":
+    case "setVariant":
       return {
         ...state,
-        variant: state.variantInputVal,
+        variant: action.variant,
         ...resetPage,
       };
-    case "setAndSubmitBaseStatusesSelector":
+    case "setBaseStatuses":
       return {
         ...state,
-        baseStatusesInputVal: action.baseStatuses,
         baseStatuses: action.baseStatuses,
         ...resetPage,
       };
-    case "setAndSubmitStatusesSelector":
+    case "setStatuses":
       return {
         ...state,
-        currentStatusesInputVal: action.statuses,
         statuses: action.statuses,
         ...resetPage,
       };
@@ -70,27 +52,23 @@ export const reducer = (state: State, action: Action) => {
       return {
         ...state,
         ...resetPage,
-        currentStatusesInputVal: [],
         statuses: [],
-        variantInputVal: "",
         variant: "",
-        baseStatusesInputVal: [],
         baseStatuses: [],
-        taskNameInputVal: "",
         taskName: "",
       };
-    case "onSort":
+    case "setSorts":
       return {
         ...state,
         ...resetPage,
         sorts: action.sorts,
       };
-    case "onChangePagination":
+    case "setPage":
       return {
         ...state,
         page: action.page < 0 ? 0 : action.page,
       };
-    case "onChangeLimit":
+    case "setLimit":
       return {
         ...state,
         ...resetPage,

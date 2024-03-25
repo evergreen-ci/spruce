@@ -46,7 +46,7 @@ export const getColumnsTemplate = ({
     ),
     meta: {
       search: {
-        "data-cy": "task-name-filter-popover",
+        "data-cy": "task-name-filter",
         placeholder: "Task name regex",
       },
     },
@@ -87,7 +87,7 @@ export const getColumnsTemplate = ({
     },
     meta: {
       treeSelect: {
-        "data-cy": "status-filter-popover",
+        "data-cy": "status-filter",
         options: statusOptions,
       },
     },
@@ -113,7 +113,7 @@ export const getColumnsTemplate = ({
       ),
     meta: {
       treeSelect: {
-        "data-cy": "base-status-filter-popover",
+        "data-cy": "base-status-filter",
         options: baseStatusOptions,
       },
     },
@@ -145,7 +145,7 @@ export const getColumnsTemplate = ({
     ),
     meta: {
       search: {
-        "data-cy": "variant-filter-popover",
+        "data-cy": "variant-filter",
         placeholder: "Variant name regex",
       },
     },

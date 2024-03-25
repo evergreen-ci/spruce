@@ -47,7 +47,7 @@ export const CodeChangeModule: React.FC<{
               }
             >
               <TableWrapper>
-                <CodeChangesTable fileDiffs={commitDiffs} showHeader={false} />
+                <CodeChangesTable fileDiffs={commitDiffs} />
               </TableWrapper>
             </Accordion>
           </CodeChangeModuleContainer>

@@ -2,9 +2,12 @@ import { yellow } from "../../../../utils/colors";
 
 /**
  * `createTagAndPush` is a helper function that creates a new tag and pushes to remote.
+ * @param version - version indicates the type of upgrade of the new tag.
  */
-const createTagAndPush = () => {
-  console.log(yellow("Dry run mode enabled. Created new tag and pushed."));
+const createTagAndPush = (version: "patch" | "minor" | "major") => {
+  console.log(
+    yellow(`Dry run mode enabled. Created new ${version} tag and pushed.`),
+  );
 };
 
 /**

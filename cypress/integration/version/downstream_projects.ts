@@ -5,16 +5,15 @@ describe("Downstream Projects Tab", () => {
     cy.visit(DOWNSTREAM_ROUTE);
   });
 
-  it("shows the number of failed patches in the Downstream tab label", () => {
+  it("shows number of failed patches in the Downstream tab label", () => {
     cy.dataCy("downstream-tab-badge").should("exist");
     cy.dataCy("downstream-tab-badge").should("contain.text", "1");
   });
 
-  it("shows the child patches", () => {
+  it("renders child patches", () => {
     cy.dataCy("project-accordion").should("have.length", 3);
     cy.dataCy("project-title").should("have.length", 3);
-    // On CI, none of the child patches failed, so no tables should be visible.
-    cy.dataCy("tasks-table").should("not.be.visible");
+    cy.dataCy("downstream-tasks-table").should("have.length", 3);
   });
 
   it("links to base commit", () => {
@@ -28,15 +27,15 @@ describe("Downstream Projects Tab", () => {
   });
 
   it("filters by test name", () => {
-    cy.dataCy("accordion-toggle").first().click();
-    cy.get("tbody").first().children().should("have.length", 1);
-    cy.toggleTableFilter(1);
-    cy.dataCy("taskname-input-wrapper")
+    cy.dataCy("task-name-filter").eq(1).click();
+    cy.dataCy("task-name-filter-wrapper")
       .find("input")
-      .focus()
-      .type("filter")
-      .type("{enter}");
-    cy.get("tbody").first().contains("No Data");
+      .as("testnameInputWrapper");
+    cy.get("@testnameInputWrapper").focus();
+    cy.get("@testnameInputWrapper").type("generate-lint");
+    cy.get("@testnameInputWrapper").type("{enter}");
+    cy.location("search").should("not.contain", "generate-lint"); // Should not update the URL.
+    cy.contains("generate-lint").should("be.visible");
   });
 
   it("does not push query params to the URL", () => {
