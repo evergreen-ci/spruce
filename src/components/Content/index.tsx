@@ -56,9 +56,6 @@ export const Content: React.FC = () => (
         <Route path=":groupId" element={null} />
       </Route>
       <Route path={routes.myPatches} element={<MyPatches />} />
-      <Route path={routes.patch} element={<VersionPage />}>
-        <Route path={tab} element={null} />
-      </Route>
       <Route path={`${routes.preferences}/*`} element={<Preferences />}>
         <Route path={tab} element={null} />
       </Route>

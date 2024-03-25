@@ -119,7 +119,6 @@ export const routes = {
   jobLogs: `${paths.jobLogs}/:${slugs.buildId}`,
   login: paths.login,
   myPatches: `${paths.user}/${PageNames.Patches}`,
-  patch: `${paths.patch}/:${slugs.versionId}`,
   preferences: paths.preferences,
   projectPatches: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Patches}`,
   projectSettings: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Settings}`,
