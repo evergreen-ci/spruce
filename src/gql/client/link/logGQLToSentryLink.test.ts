@@ -45,9 +45,15 @@ describe("leaveBreadcrumbLinkMapFn", () => {
     };
 
     const variables = { id: 1, name: "test" };
-    assertLeaveBreadcrumbParams(["id"], variables, { name: "test" });
+    assertLeaveBreadcrumbParams(["id"], variables, {
+      id: "REDACTED",
+      name: "test",
+    });
     assertLeaveBreadcrumbParams([], variables, variables);
     assertLeaveBreadcrumbParams(["na"], variables, variables);
-    assertLeaveBreadcrumbParams(Object.keys(variables), variables, {});
+    assertLeaveBreadcrumbParams(Object.keys(variables), variables, {
+      id: "REDACTED",
+      name: "REDACTED",
+    });
   });
 });
