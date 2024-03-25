@@ -52,6 +52,12 @@ export type AbortInfo = {
   user: Scalars["String"]["output"];
 };
 
+export enum AccessLevel {
+  Admin = "ADMIN",
+  Edit = "EDIT",
+  View = "VIEW",
+}
+
 /**
  * Annotation models the metadata that a user can add to a task.
  * It is used as a field within the Task type.
@@ -1844,6 +1850,14 @@ export type ProjectInput = {
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
 };
+
+export enum ProjectPermission {
+  Annotations = "ANNOTATIONS",
+  Logs = "LOGS",
+  Patches = "PATCHES",
+  Settings = "SETTINGS",
+  Tasks = "TASKS",
+}
 
 export type ProjectPermissions = {
   __typename?: "ProjectPermissions";
