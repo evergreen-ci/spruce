@@ -1,14 +1,11 @@
 import { ApolloLink, ServerParseError } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { RetryLink } from "@apollo/client/link/retry";
-import {
-  leaveBreadcrumb,
-  SentryBreadcrumb,
-  reportError,
-} from "utils/errorReporting";
+import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
 import { shouldLogoutAndRedirect } from "utils/request";
 
 export { logGQLToSentryLink } from "./logGQLToSentryLink";
+export { logGQLErrorsLink } from "./logGQLErrorsLink";
 
 export const authLink = (logoutAndRedirect: () => void): ApolloLink =>
   onError(({ networkError }) => {
@@ -23,27 +20,6 @@ export const authLink = (logoutAndRedirect: () => void): ApolloLink =>
       logoutAndRedirect();
     }
   });
-
-export const logErrorsLink = onError(({ graphQLErrors, operation }) => {
-  if (Array.isArray(graphQLErrors)) {
-    graphQLErrors.forEach((gqlErr) => {
-      const fingerprint = [operation.operationName];
-      if (gqlErr?.path?.length) {
-        fingerprint.push(...gqlErr.path);
-      }
-      reportError(new Error(gqlErr.message), {
-        fingerprint,
-        tags: { operationName: operation.operationName },
-        context: {
-          gqlErr,
-          variables: operation.variables,
-        },
-      }).warning();
-    });
-  }
-  // dont track network errors here because they are
-  // very common when a user is not authenticated
-});
 
 export const authenticateIfSuccessfulLink = (
   dispatchAuthenticated: () => void,

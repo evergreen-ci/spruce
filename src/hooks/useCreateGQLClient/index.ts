@@ -6,7 +6,7 @@ import {
   authenticateIfSuccessfulLink,
   authLink,
   logGQLToSentryLink,
-  logErrorsLink,
+  logGQLErrorsLink,
   retryLink,
 } from "gql/client/link";
 import { secretFieldsReq } from "gql/fetch";
@@ -49,7 +49,7 @@ export const useCreateGQLCLient = (): ApolloClient<NormalizedCacheObject> => {
         link: authenticateIfSuccessfulLink(dispatchAuthenticated)
           .concat(authLink(logoutAndRedirect))
           .concat(logGQLToSentryLink(secretFields))
-          .concat(logErrorsLink)
+          .concat(logGQLErrorsLink(secretFields))
           .concat(retryLink)
           .concat(
             new HttpLink({
