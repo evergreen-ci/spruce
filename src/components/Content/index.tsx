@@ -57,7 +57,7 @@ export const Content: React.FC = () => (
       </Route>
       <Route path={routes.myPatches} element={<MyPatches />} />
       <Route path={routes.patch} element={<VersionPage />}>
-        <Route path={tab} element={null} />
+        <Route path={`:${slugs.tab}`} element={null} />
       </Route>
       <Route path={`${routes.preferences}/*`} element={<Preferences />}>
         <Route path={`:${slugs.tab}`} element={null} />
