@@ -17,7 +17,7 @@ export function deleteNestedKey<T extends object>(
   keyToUpdate: string | string[],
   redactedString?: string,
 ): Partial<T> {
-  const deleteKey = (currentObject: any) => {
+  const deleteKey = (currentObject: { [key: string]: any }) => {
     Object.keys(currentObject).forEach((key) => {
       if (key === keyToUpdate || keyToUpdate?.includes(key)) {
         if (redactedString) {
