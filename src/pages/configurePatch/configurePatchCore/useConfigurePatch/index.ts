@@ -125,7 +125,7 @@ interface HookResult extends ConfigurePatchState {
 const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { [slugs.tab]: tab } = useParams();
+  const { [slugs.tab]: tab } = useParams<{ [slugs.tab]: PatchTab }>();
 
   const { id, project } = patch;
   const { variants } = project;
