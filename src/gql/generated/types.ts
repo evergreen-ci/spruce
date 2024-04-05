@@ -52,6 +52,12 @@ export type AbortInfo = {
   user: Scalars["String"]["output"];
 };
 
+export enum AccessLevel {
+  Admin = "ADMIN",
+  Edit = "EDIT",
+  View = "VIEW",
+}
+
 /**
  * Annotation models the metadata that a user can add to a task.
  * It is used as a field within the Task type.
@@ -382,7 +388,6 @@ export type Distro = {
   providerSettingsList: Array<Scalars["Map"]["output"]>;
   setup: Scalars["String"]["output"];
   setupAsSudo: Scalars["Boolean"]["output"];
-  sshKey: Scalars["String"]["output"];
   sshOptions: Array<Scalars["String"]["output"]>;
   user: Scalars["String"]["output"];
   userSpawnAllowed: Scalars["Boolean"]["output"];
@@ -447,7 +452,6 @@ export type DistroInput = {
   providerSettingsList: Array<Scalars["Map"]["input"]>;
   setup: Scalars["String"]["input"];
   setupAsSudo: Scalars["Boolean"]["input"];
-  sshKey: Scalars["String"]["input"];
   sshOptions: Array<Scalars["String"]["input"]>;
   user: Scalars["String"]["input"];
   userSpawnAllowed: Scalars["Boolean"]["input"];
@@ -501,6 +505,7 @@ export type EditSpawnHostInput = {
   publicKey?: InputMaybe<PublicKeyInput>;
   savePublicKey?: InputMaybe<Scalars["Boolean"]["input"]>;
   servicePassword?: InputMaybe<Scalars["String"]["input"]>;
+  sleepSchedule?: InputMaybe<SleepScheduleInput>;
   volume?: InputMaybe<Scalars["String"]["input"]>;
 };
 
@@ -701,6 +706,7 @@ export type Host = {
   persistentDnsName: Scalars["String"]["output"];
   provider: Scalars["String"]["output"];
   runningTask?: Maybe<TaskInfo>;
+  sleepSchedule?: Maybe<SleepSchedule>;
   startedBy: Scalars["String"]["output"];
   status: Scalars["String"]["output"];
   tag: Scalars["String"]["output"];
@@ -1262,6 +1268,7 @@ export type MutationSchedulePatchTasksArgs = {
 
 export type MutationScheduleTasksArgs = {
   taskIds: Array<Scalars["String"]["input"]>;
+  versionId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type MutationScheduleUndispatchedBaseTasksArgs = {
@@ -1414,10 +1421,12 @@ export type ParsleyFilterInput = {
 /** ParsleySettings contains information about a user's settings for Parsley. */
 export type ParsleySettings = {
   __typename?: "ParsleySettings";
+  jumpToFailingLineEnabled: Scalars["Boolean"]["output"];
   sectionsEnabled: Scalars["Boolean"]["output"];
 };
 
 export type ParsleySettingsInput = {
+  jumpToFailingLineEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   sectionsEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
@@ -1685,6 +1694,7 @@ export type Project = {
   isFavorite: Scalars["Boolean"]["output"];
   manualPrTestingEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   notifyOnBuildFailure?: Maybe<Scalars["Boolean"]["output"]>;
+  oldestAllowedMergeBase: Scalars["String"]["output"];
   owner: Scalars["String"]["output"];
   parsleyFilters?: Maybe<Array<ParsleyFilter>>;
   patchTriggerAliases?: Maybe<Array<PatchTriggerAlias>>;
@@ -1821,6 +1831,7 @@ export type ProjectInput = {
   identifier?: InputMaybe<Scalars["String"]["input"]>;
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   notifyOnBuildFailure?: InputMaybe<Scalars["Boolean"]["input"]>;
+  oldestAllowedMergeBase?: InputMaybe<Scalars["String"]["input"]>;
   owner?: InputMaybe<Scalars["String"]["input"]>;
   parsleyFilters?: InputMaybe<Array<ParsleyFilterInput>>;
   patchTriggerAliases?: InputMaybe<Array<PatchTriggerAliasInput>>;
@@ -1844,6 +1855,14 @@ export type ProjectInput = {
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   workstationConfig?: InputMaybe<WorkstationConfigInput>;
 };
+
+export enum ProjectPermission {
+  Annotations = "ANNOTATIONS",
+  Logs = "LOGS",
+  Patches = "PATCHES",
+  Settings = "SETTINGS",
+  Tasks = "TASKS",
+}
 
 export type ProjectPermissions = {
   __typename?: "ProjectPermissions";
@@ -1878,6 +1897,7 @@ export enum ProjectSettingsAccess {
 export type ProjectSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  projectId?: InputMaybe<Scalars["String"]["input"]>;
   projectRef?: InputMaybe<ProjectInput>;
   subscriptions?: InputMaybe<Array<SubscriptionInput>>;
   vars?: InputMaybe<ProjectVarsInput>;
@@ -2015,7 +2035,8 @@ export type QueryGithubProjectConflictsArgs = {
 };
 
 export type QueryHasVersionArgs = {
-  id: Scalars["String"]["input"];
+  id?: InputMaybe<Scalars["String"]["input"]>;
+  patchId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryHostArgs = {
@@ -2051,7 +2072,8 @@ export type QueryMainlineCommitsArgs = {
 };
 
 export type QueryPatchArgs = {
-  id: Scalars["String"]["input"];
+  id?: InputMaybe<Scalars["String"]["input"]>;
+  patchId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryPodArgs = {
@@ -2074,12 +2096,14 @@ export type QueryProjectSettingsArgs = {
 
 export type QueryRepoEventsArgs = {
   before?: InputMaybe<Scalars["Time"]["input"]>;
-  id: Scalars["String"]["input"];
+  id?: InputMaybe<Scalars["String"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
+  repoId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryRepoSettingsArgs = {
-  id: Scalars["String"]["input"];
+  id?: InputMaybe<Scalars["String"]["input"]>;
+  repoId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryTaskArgs = {
@@ -2106,7 +2130,8 @@ export type QueryUserArgs = {
 };
 
 export type QueryVersionArgs = {
-  id: Scalars["String"]["input"];
+  id?: InputMaybe<Scalars["String"]["input"]>;
+  versionId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type RepoCommitQueueParams = {
@@ -2143,6 +2168,7 @@ export type RepoRef = {
   id: Scalars["String"]["output"];
   manualPrTestingEnabled: Scalars["Boolean"]["output"];
   notifyOnBuildFailure: Scalars["Boolean"]["output"];
+  oldestAllowedMergeBase: Scalars["String"]["output"];
   owner: Scalars["String"]["output"];
   parsleyFilters?: Maybe<Array<ParsleyFilter>>;
   patchTriggerAliases?: Maybe<Array<PatchTriggerAlias>>;
@@ -2186,6 +2212,7 @@ export type RepoRefInput = {
   id: Scalars["String"]["input"];
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   notifyOnBuildFailure?: InputMaybe<Scalars["Boolean"]["input"]>;
+  oldestAllowedMergeBase?: InputMaybe<Scalars["String"]["input"]>;
   owner?: InputMaybe<Scalars["String"]["input"]>;
   parsleyFilters?: InputMaybe<Array<ParsleyFilterInput>>;
   patchTriggerAliases?: InputMaybe<Array<PatchTriggerAliasInput>>;
@@ -2228,6 +2255,7 @@ export type RepoSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectRef?: InputMaybe<RepoRefInput>;
+  repoId?: InputMaybe<Scalars["String"]["input"]>;
   subscriptions?: InputMaybe<Array<SubscriptionInput>>;
   vars?: InputMaybe<ProjectVarsInput>;
 };
@@ -2280,12 +2308,6 @@ export enum RoundingRule {
   Up = "UP",
 }
 
-export type SshKey = {
-  __typename?: "SSHKey";
-  location: Scalars["String"]["output"];
-  name: Scalars["String"]["output"];
-};
-
 /** SaveDistroInput is the input to the saveDistro mutation. */
 export type SaveDistroInput = {
   distro: DistroInput;
@@ -2337,6 +2359,27 @@ export type SlackConfig = {
   name?: Maybe<Scalars["String"]["output"]>;
 };
 
+export type SleepSchedule = {
+  __typename?: "SleepSchedule";
+  dailyStartTime: Scalars["String"]["output"];
+  dailyStopTime: Scalars["String"]["output"];
+  permanentlyExempt: Scalars["Boolean"]["output"];
+  shouldKeepOff: Scalars["Boolean"]["output"];
+  temporarilyExemptUntil?: Maybe<Scalars["Time"]["output"]>;
+  timeZone: Scalars["String"]["output"];
+  wholeWeekdaysOff: Array<Scalars["Int"]["output"]>;
+};
+
+export type SleepScheduleInput = {
+  dailyStartTime: Scalars["String"]["input"];
+  dailyStopTime: Scalars["String"]["input"];
+  permanentlyExempt: Scalars["Boolean"]["input"];
+  shouldKeepOff: Scalars["Boolean"]["input"];
+  temporarilyExemptUntil?: InputMaybe<Scalars["Time"]["input"]>;
+  timeZone: Scalars["String"]["input"];
+  wholeWeekdaysOff: Array<Scalars["Int"]["input"]>;
+};
+
 export enum SortDirection {
   Asc = "ASC",
   Desc = "DESC",
@@ -2376,6 +2419,7 @@ export type SpawnHostInput = {
   region: Scalars["String"]["input"];
   savePublicKey: Scalars["Boolean"]["input"];
   setUpScript?: InputMaybe<Scalars["String"]["input"]>;
+  sleepSchedule?: InputMaybe<SleepScheduleInput>;
   spawnHostsStartedByTask?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskId?: InputMaybe<Scalars["String"]["input"]>;
   taskSync?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -2415,7 +2459,6 @@ export type SpruceConfig = {
   containerPools?: Maybe<ContainerPoolsConfig>;
   githubOrgs: Array<Scalars["String"]["output"]>;
   jira?: Maybe<JiraConfig>;
-  keys: Array<SshKey>;
   providers?: Maybe<CloudProviderConfig>;
   secretFields: Array<Scalars["String"]["output"]>;
   slack?: Maybe<SlackConfig>;
@@ -5771,7 +5814,6 @@ export type DistroQuery = {
     providerSettingsList: Array<any>;
     setup: string;
     setupAsSudo: boolean;
-    sshKey: string;
     sshOptions: Array<string>;
     user: string;
     userSpawnAllowed: boolean;
@@ -8189,7 +8231,6 @@ export type SpruceConfigQuery = {
       email?: string | null;
       host?: string | null;
     } | null;
-    keys: Array<{ __typename?: "SSHKey"; location: string; name: string }>;
     providers?: {
       __typename?: "CloudProviderConfig";
       aws?: {

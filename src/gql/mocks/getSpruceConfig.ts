@@ -34,12 +34,6 @@ export const getSpruceConfigMock: ApolloMock<
             },
           ],
         },
-        keys: [
-          {
-            name: "fake_key",
-            location: "/path/to/key",
-          },
-        ],
         jira: {
           host: "jira.mongodb.org",
           __typename: "JiraConfig",

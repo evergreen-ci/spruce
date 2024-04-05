@@ -1,5 +1,5 @@
 import { GetFormSchema } from "components/SpruceForm";
-import { Arch, BootstrapMethod, Provider, SshKey } from "gql/generated/types";
+import { Arch, BootstrapMethod, Provider } from "gql/generated/types";
 import { nonWindowsArchitectures, windowsArchitectures } from "./constants";
 import {
   allocation as allocationProperties,
@@ -15,13 +15,11 @@ import {
 type FormSchemaParams = {
   architecture: Arch;
   provider: Provider;
-  sshKeys: SshKey[];
 };
 
 export const getFormSchema = ({
   architecture,
   provider,
-  sshKeys,
 }: FormSchemaParams): ReturnType<GetFormSchema> => {
   const hasStaticProvider = provider === Provider.Static;
   const hasDockerProvider = provider === Provider.Docker;
@@ -102,7 +100,7 @@ export const getFormSchema = ({
                     bootstrapMethod: { enum: [BootstrapMethod.LegacySsh] },
                   },
                 },
-                sshConfig: sshConfig(sshKeys),
+                sshConfig,
                 allocation,
               },
             },
@@ -116,7 +114,7 @@ export const getFormSchema = ({
                   },
                 },
                 bootstrapSettings,
-                sshConfig: sshConfig(sshKeys),
+                sshConfig,
                 allocation,
               },
             },
@@ -142,11 +140,11 @@ const bootstrapSettings = {
   properties: bootstrapProperties.schema,
 };
 
-const sshConfig = (sshKeys: SshKey[]) => ({
+const sshConfig = {
   type: "object" as "object",
   title: "SSH Configuration",
-  properties: sshConfigProperties.schema(sshKeys),
-});
+  properties: sshConfigProperties.schema,
+};
 
 const allocation = {
   type: "object" as "object",

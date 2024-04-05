@@ -7,7 +7,7 @@ import {
   FieldRow,
 } from "components/SpruceForm/FieldTemplates";
 import { size } from "constants/tokens";
-import { Arch, SshKey } from "gql/generated/types";
+import { Arch } from "gql/generated/types";
 import {
   architectureToCopy,
   bootstrapMethodToCopy,
@@ -408,21 +408,6 @@ const user = {
   },
 };
 
-const sshKey = {
-  schema: (sshKeys: SshKey[]) => ({
-    type: "string" as "string",
-    title: "SSH Key",
-    oneOf: sshKeys.map(({ location, name }) => ({
-      type: "string" as "string",
-      title: `${name} – ${location}`,
-      enum: [name],
-    })),
-  }),
-  uiSchema: {
-    "ui:allowDeselect": false,
-  },
-};
-
 const authorizedKeysFile = {
   schema: {
     type: "string" as "string",
@@ -665,16 +650,14 @@ export const allocation = {
 };
 
 export const sshConfig = {
-  schema: (sshKeys: SshKey[]) => ({
+  schema: {
     user: user.schema,
-    sshKey: sshKey.schema(sshKeys),
     authorizedKeysFile: authorizedKeysFile.schema,
     sshOptions: sshOptions.schema,
-  }),
+  },
   uiSchema: (hasStaticProvider: boolean) => ({
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     user: user.uiSchema,
-    sshKey: sshKey.uiSchema,
     authorizedKeysFile: authorizedKeysFile.uiSchema(hasStaticProvider),
     sshOptions: sshOptions.uiSchema,
   }),

@@ -14,10 +14,6 @@ query SpruceConfig {
       email
       host
     }
-    keys {
-      location
-      name
-    }
     providers {
       aws {
         maxVolumeSizePerUser

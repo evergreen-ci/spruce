@@ -29,7 +29,6 @@ export const gqlToForm = ((data) => {
     mountpoints,
     setup,
     setupAsSudo,
-    sshKey,
     sshOptions,
     user,
     userSpawnAllowed,
@@ -64,7 +63,6 @@ export const gqlToForm = ((data) => {
     },
     sshConfig: {
       user,
-      sshKey,
       authorizedKeysFile,
       sshOptions,
     },
@@ -104,7 +102,6 @@ export const formToGql = ((
   setupAsSudo: setup.setupAsSudo,
   setup: setup.setupScript,
   mountpoints: setup.mountpoints,
-  sshKey: sshConfig.sshKey,
   sshOptions: sshConfig.sshOptions,
   user: sshConfig.user,
   userSpawnAllowed: setup.userSpawnAllowed,

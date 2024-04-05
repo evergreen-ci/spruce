@@ -2,16 +2,12 @@ import { useMemo } from "react";
 import { ValidateProps } from "components/SpruceForm";
 import { DistroSettingsTabRoutes } from "constants/routes";
 import { BootstrapMethod, CommunicationMethod } from "gql/generated/types";
-import { useSpruceConfig } from "hooks";
 import { useDistroSettingsContext } from "pages/distroSettings/Context";
 import { BaseTab } from "../BaseTab";
 import { getFormSchema } from "./getFormSchema";
 import { HostFormState, TabProps } from "./types";
 
 export const HostTab: React.FC<TabProps> = ({ distroData, provider }) => {
-  const spruceConfig = useSpruceConfig();
-  const sshKeys = spruceConfig?.keys;
-
   const { getTab } = useDistroSettingsContext();
   // @ts-expect-error - see TabState for details.
   const { formData }: { formData: HostFormState } = getTab(
@@ -20,8 +16,8 @@ export const HostTab: React.FC<TabProps> = ({ distroData, provider }) => {
   const architecture = formData?.setup?.arch;
 
   const formSchema = useMemo(
-    () => getFormSchema({ architecture, provider, sshKeys }),
-    [architecture, provider, sshKeys],
+    () => getFormSchema({ architecture, provider }),
+    [architecture, provider],
   );
 
   return (
